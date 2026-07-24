@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/config/dev_flags.dart';
 import '../../data/database/database.dart' as db;
 import '../../domain/entities/unit.dart';
 import '../../domain/entities/lesson.dart';
@@ -78,12 +79,26 @@ final curriculumAccessProvider = FutureProvider<CurriculumAccess>((ref) async {
       unitLessonsProvider(unit.id).future,
     );
   }
-  return const CurriculumAccessPolicy().evaluate(
+  final access = const CurriculumAccessPolicy().evaluate(
     orderedUnits: allUnits,
     lessonsByUnit: lessonsByUnit,
     completedLessonIds: completedLessonIds,
     provisionalThroughUnitId: placement?.provisionalUnit,
   );
+
+  // Developer review mode: open every unit and lesson regardless of progress.
+  // Off by default; enabled only with --dart-define=UNLOCK_ALL=true.
+  if (DevFlags.unlockAll) {
+    return CurriculumAccess(
+      unlockedUnitIds: {for (final unit in allUnits) unit.id},
+      unlockedLessonIds: {
+        for (final lessons in lessonsByUnit.values)
+          for (final lesson in lessons) lesson.id,
+      },
+      lessonPrerequisites: access.lessonPrerequisites,
+    );
+  }
+  return access;
 });
 
 final unlockedUnitIdsProvider = FutureProvider<Set<int>>(
