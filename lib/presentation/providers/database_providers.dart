@@ -60,10 +60,29 @@ final sharedPreferencesProvider = FutureProvider<SharedPreferences>((ref) {
   return SharedPreferences.getInstance();
 });
 
+/// Key under which the last-installed bundled content revision is stored.
+const _bundledRevisionKey = 'bundled_content_revision';
+
 /// App initialization is local-first: verify existing content or atomically
 /// install the bundled snapshot. Network availability never gates the router.
+///
+/// A stored content revision forces a re-seed when the app ships changed
+/// content, since [ContentSeeder.hasUsableLocalContent] only checks counts and
+/// would miss an edit that keeps the counts identical.
 final appInitializationProvider = FutureProvider<void>((ref) async {
-  await ref.read(contentSeederProvider).ensureBundledContent();
+  final seeder = ref.read(contentSeederProvider);
+  final prefs = await SharedPreferences.getInstance();
+  final installedRevision = prefs.getInt(_bundledRevisionKey) ?? 0;
+
+  if (installedRevision != ContentSeeder.bundledContentRevision) {
+    await seeder.reinstallBundledContent();
+    await prefs.setInt(
+      _bundledRevisionKey,
+      ContentSeeder.bundledContentRevision,
+    );
+  } else {
+    await seeder.ensureBundledContent();
+  }
 });
 
 /// Refresh backend state and curriculum after local startup has completed.

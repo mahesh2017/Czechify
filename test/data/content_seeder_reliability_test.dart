@@ -32,6 +32,24 @@ void main() {
     expect(await database.vocabularyDao.srsCardCount(), greaterThan(0));
   });
 
+  test('reinstall replaces content but keeps the same complete shape', () async {
+    await seeder.ensureBundledContent();
+    final firstLessons = await database.select(database.lessons).get();
+
+    // A revision-triggered reinstall re-seeds from bundled even though content
+    // already looks complete (this is what delivers content *edits* to
+    // existing installs).
+    await seeder.reinstallBundledContent();
+
+    expect(await seeder.hasUsableLocalContent(), isTrue);
+    final afterLessons =
+        await database.select(database.lessons).get()
+          ..removeWhere((l) => !l.isActive);
+    expect(afterLessons, hasLength(firstLessons.length));
+    // The Unit 1 alphabet lesson (id 100) is present after a reinstall.
+    expect(afterLessons.where((l) => l.id == 100), isNotEmpty);
+  });
+
   test('failed content install leaves no partial curriculum', () async {
     await database.customStatement('''
       CREATE TRIGGER reject_exercise_install
