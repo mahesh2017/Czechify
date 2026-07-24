@@ -16,11 +16,13 @@
       "data": {
         "type": "teaching",
         "heading": "The Czech Alphabet",
-        "body": "Czech is (almost) perfectly phonetic: each letter has one steady sound, and the stress is ALWAYS on the first syllable. Tap any letter to hear it in a word, or play the whole alphabet. Listen and repeat first — then you'll practise.",
-        "play_all_label": "Play the whole alphabet",
+        "body": "Czech is (almost) perfectly phonetic: each letter has one steady sound, and the stress is ALWAYS on the first syllable. Tap a letter to hear its NAME (how you say the letter), and tap the speaker on the example to hear the sound inside a word. Listen and repeat — then you'll practise.",
+        "play_all_label": "Hear the alphabet (letter names)",
         "items": [
           {
             "symbol": "a",
+            "name": "‘ah’",
+            "name_say": "a",
             "sound": "like 'u' in cup (short)",
             "example": "matka",
             "example_en": "mother",
@@ -28,6 +30,8 @@
           },
           {
             "symbol": "á",
+            "name": "‘long ah’",
+            "name_say": "á",
             "sound": "long 'a' — held ~2x",
             "example": "káva",
             "example_en": "coffee",
@@ -35,6 +39,8 @@
           },
           {
             "symbol": "b",
+            "name": "‘beh’",
+            "name_say": "bé",
             "sound": "like English 'b'",
             "example": "bota",
             "example_en": "shoe",
@@ -42,6 +48,8 @@
           },
           {
             "symbol": "c",
+            "name": "‘tseh’",
+            "name_say": "cé",
             "sound": "'ts' as in cats",
             "example": "cukr",
             "example_en": "sugar",
@@ -49,6 +57,8 @@
           },
           {
             "symbol": "č",
+            "name": "‘cheh’",
+            "name_say": "čé",
             "sound": "'ch' as in church",
             "example": "čaj",
             "example_en": "tea",
@@ -56,6 +66,8 @@
           },
           {
             "symbol": "d",
+            "name": "‘deh’",
+            "name_say": "dé",
             "sound": "like English 'd'",
             "example": "dům",
             "example_en": "house",
@@ -63,6 +75,8 @@
           },
           {
             "symbol": "ď",
+            "name": "‘dyeh’",
+            "name_say": "ďé",
             "sound": "soft 'd', like British 'duty'",
             "example": "loď",
             "example_en": "boat",
@@ -70,6 +84,8 @@
           },
           {
             "symbol": "e",
+            "name": "‘eh’",
+            "name_say": "e",
             "sound": "like 'e' in bed",
             "example": "pes",
             "example_en": "dog",
@@ -77,6 +93,8 @@
           },
           {
             "symbol": "é",
+            "name": "‘long eh’",
+            "name_say": "é",
             "sound": "long 'e'",
             "example": "mléko",
             "example_en": "milk",
@@ -84,6 +102,8 @@
           },
           {
             "symbol": "ě",
+            "name": "‘yeh’",
+            "name_say": "ije",
             "sound": "softens the consonant before it",
             "example": "děti",
             "example_en": "children",
@@ -91,6 +111,8 @@
           },
           {
             "symbol": "f",
+            "name": "‘ef’",
+            "name_say": "ef",
             "sound": "like English 'f'",
             "example": "fotka",
             "example_en": "photo",
@@ -98,6 +120,8 @@
           },
           {
             "symbol": "g",
+            "name": "‘geh’",
+            "name_say": "gé",
             "sound": "hard 'g' as in go",
             "example": "guma",
             "example_en": "eraser",
@@ -105,6 +129,8 @@
           },
           {
             "symbol": "h",
+            "name": "‘hah’",
+            "name_say": "há",
             "sound": "voiced, breathy 'h'",
             "example": "hora",
             "example_en": "mountain",
@@ -112,6 +138,8 @@
           },
           {
             "symbol": "ch",
+            "name": "‘khah’",
+            "name_say": "chá",
             "sound": "one letter — 'ch' as in Scottish loch",
             "example": "chléb",
             "example_en": "bread",
@@ -119,6 +147,8 @@
           },
           {
             "symbol": "i",
+            "name": "‘ee’ (soft i)",
+            "name_say": "í",
             "sound": "like 'i' in sit",
             "example": "pivo",
             "example_en": "beer",
@@ -126,6 +156,8 @@
           },
           {
             "symbol": "í",
+            "name": "‘long ee’",
+            "name_say": "dlouhé í",
             "sound": "long 'ee'",
             "example": "víno",
             "example_en": "wine",
@@ -133,6 +165,8 @@
           },
           {
             "symbol": "j",
+            "name": "‘yeh’",
+            "name_say": "jé",
             "sound": "'y' as in yes",
             "example": "jablko",
             "example_en": "apple",
@@ -140,6 +174,8 @@
           },
           {
             "symbol": "k",
+            "name": "‘kah’",
+            "name_say": "ká",
             "sound": "like English 'k'",
             "example": "kolo",
             "example_en": "bicycle",
@@ -147,6 +183,8 @@
           },
           {
             "symbol": "l",
+            "name": "‘el’",
+            "name_say": "el",
             "sound": "like English 'l'",
             "example": "les",
             "example_en": "forest",
@@ -154,6 +192,8 @@
           },
           {
             "symbol": "m",
+            "name": "‘em’",
+            "name_say": "em",
             "sound": "like English 'm'",
             "example": "maso",
             "example_en": "meat",
@@ -161,6 +201,8 @@
           },
           {
             "symbol": "n",
+            "name": "‘en’",
+            "name_say": "en",
             "sound": "like English 'n'",
             "example": "noc",
             "example_en": "night",
@@ -168,6 +210,8 @@
           },
           {
             "symbol": "ň",
+            "name": "‘eñ’",
+            "name_say": "eň",
             "sound": "soft 'n', as in canyon",
             "example": "kůň",
             "example_en": "horse",
@@ -175,6 +219,8 @@
           },
           {
             "symbol": "o",
+            "name": "‘oh’",
+            "name_say": "o",
             "sound": "like 'o' in for (short)",
             "example": "okno",
             "example_en": "window",
@@ -182,6 +228,8 @@
           },
           {
             "symbol": "ó",
+            "name": "‘long oh’",
+            "name_say": "dlouhé ó",
             "sound": "long 'o' (mostly loanwords)",
             "example": "móda",
             "example_en": "fashion",
@@ -189,6 +237,8 @@
           },
           {
             "symbol": "p",
+            "name": "‘peh’",
+            "name_say": "pé",
             "sound": "like English 'p'",
             "example": "pero",
             "example_en": "pen",
@@ -196,6 +246,8 @@
           },
           {
             "symbol": "q",
+            "name": "‘kveh’",
+            "name_say": "kvé",
             "sound": "rare — 'kv', foreign words only",
             "example": "quiz",
             "example_en": "quiz",
@@ -203,6 +255,8 @@
           },
           {
             "symbol": "r",
+            "name": "‘err’ (rolled)",
+            "name_say": "er",
             "sound": "rolled / trilled 'r'",
             "example": "ryba",
             "example_en": "fish",
@@ -210,6 +264,8 @@
           },
           {
             "symbol": "ř",
+            "name": "‘erzh’",
+            "name_say": "eř",
             "sound": "unique Czech sound (rolled r + ž)",
             "example": "řeka",
             "example_en": "river",
@@ -217,6 +273,8 @@
           },
           {
             "symbol": "s",
+            "name": "‘es’",
+            "name_say": "es",
             "sound": "always plain 's' (never 'z')",
             "example": "sýr",
             "example_en": "cheese",
@@ -224,6 +282,8 @@
           },
           {
             "symbol": "š",
+            "name": "‘esh’",
+            "name_say": "eš",
             "sound": "'sh' as in ship",
             "example": "škola",
             "example_en": "school",
@@ -231,6 +291,8 @@
           },
           {
             "symbol": "t",
+            "name": "‘teh’",
+            "name_say": "té",
             "sound": "like English 't'",
             "example": "taška",
             "example_en": "bag",
@@ -238,6 +300,8 @@
           },
           {
             "symbol": "ť",
+            "name": "‘tyeh’",
+            "name_say": "ťé",
             "sound": "soft 't', like British 'tune'",
             "example": "chuť",
             "example_en": "taste",
@@ -245,6 +309,8 @@
           },
           {
             "symbol": "u",
+            "name": "‘oo’",
+            "name_say": "u",
             "sound": "like 'oo' in book (short)",
             "example": "ruka",
             "example_en": "hand",
@@ -252,6 +318,8 @@
           },
           {
             "symbol": "ú",
+            "name": "‘long oo’",
+            "name_say": "ú",
             "sound": "long 'oo' (at word start)",
             "example": "úkol",
             "example_en": "task",
@@ -259,6 +327,8 @@
           },
           {
             "symbol": "ů",
+            "name": "‘long oo’",
+            "name_say": "ů",
             "sound": "long 'oo' (mid/end of word)",
             "example": "stůl",
             "example_en": "table",
@@ -266,6 +336,8 @@
           },
           {
             "symbol": "v",
+            "name": "‘veh’",
+            "name_say": "vé",
             "sound": "like English 'v'",
             "example": "voda",
             "example_en": "water",
@@ -273,6 +345,8 @@
           },
           {
             "symbol": "w",
+            "name": "‘dvojité veh’",
+            "name_say": "dvojité vé",
             "sound": "'v', foreign words only",
             "example": "watt",
             "example_en": "watt",
@@ -280,6 +354,8 @@
           },
           {
             "symbol": "x",
+            "name": "‘iks’",
+            "name_say": "iks",
             "sound": "'ks', foreign words only",
             "example": "taxi",
             "example_en": "taxi",
@@ -287,6 +363,8 @@
           },
           {
             "symbol": "y",
+            "name": "‘ypsilon’",
+            "name_say": "ypsilon",
             "sound": "same as 'i' (a 'hard' i)",
             "example": "byt",
             "example_en": "flat",
@@ -294,6 +372,8 @@
           },
           {
             "symbol": "ý",
+            "name": "‘long ypsilon’",
+            "name_say": "dlouhé ypsilon",
             "sound": "same as long 'í'",
             "example": "být",
             "example_en": "to be",
@@ -301,6 +381,8 @@
           },
           {
             "symbol": "z",
+            "name": "‘zet’",
+            "name_say": "zet",
             "sound": "like English 'z'",
             "example": "zebra",
             "example_en": "zebra",
@@ -308,6 +390,8 @@
           },
           {
             "symbol": "ž",
+            "name": "‘zhet’",
+            "name_say": "žet",
             "sound": "'s' as in measure",
             "example": "žena",
             "example_en": "woman",

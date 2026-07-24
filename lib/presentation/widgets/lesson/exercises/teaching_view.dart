@@ -8,13 +8,14 @@ import '../../../providers/tts_providers.dart';
 import 'exercise_shared.dart';
 
 /// A non-graded teaching card: presents a concept (heading + text + an
-/// interactive audio grid) BEFORE the practice exercises. The learner reads,
+/// interactive audio list) BEFORE the practice exercises. The learner reads,
 /// listens, then taps Continue — no answer, no heart, no XP.
 ///
-/// For Unit 1 the grid is the Czech alphabet: every letter with its sound and
-/// an example word, each tappable to hear, plus a "play the whole alphabet"
-/// button that speaks each item with a pause. The media block is deliberately
-/// generic so it can later be swapped for a video.
+/// For Unit 1 the list is the Czech alphabet: every letter with its NAME (how
+/// the letter is called — tap the row to hear it) and an example word showing
+/// the sound inside a word (tap the speaker). "Play the whole alphabet"
+/// recites the letter names with a pause between each. The media block is
+/// deliberately generic so it can later be swapped for a video.
 class TeachingView extends ConsumerStatefulWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
@@ -64,11 +65,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     for (var i = 0; i < items.length; i++) {
       if (!_playingAll || !mounted) break;
       setState(() => _playingIndex = i);
-      await _say(items[i].say);
-      // TTS returns before playback finishes; pace by word length with a
-      // floor so short letters still get a clear pause between them.
-      final ms = 700 + items[i].say.length * 90;
-      await Future<void>.delayed(Duration(milliseconds: ms.clamp(900, 2200)));
+      await _say(items[i].nameSay);
+      // TTS returns before playback finishes; a fixed pace gives a clear gap
+      // between letters.
+      await Future<void>.delayed(const Duration(milliseconds: 1100));
     }
     if (mounted) {
       setState(() {
@@ -95,11 +95,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
         data['play_all_label'] as String? ?? 'Play the whole set';
 
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // A quiet "Learn" marker so it's clearly teaching, not a question.
           Row(
             children: [
               Icon(Icons.school_outlined, size: 18, color: cs.primary),
@@ -128,38 +127,47 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             const SizedBox(height: 10),
             Text(
               body,
-              style: TextStyle(fontSize: 15, color: cs.onSurfaceVariant, height: 1.45),
+              style: TextStyle(
+                fontSize: 14.5,
+                color: cs.onSurfaceVariant,
+                height: 1.45,
+              ),
             ),
           ],
           if (items.isNotEmpty) ...[
             const SizedBox(height: 16),
-            OutlinedButton.icon(
-              onPressed: () => _playAll(items),
-              icon: Icon(_playingAll ? Icons.stop : Icons.play_arrow),
-              label: Text(_playingAll ? 'Stop' : playAllLabel),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () => _playAll(items),
+                icon: Icon(_playingAll ? Icons.stop : Icons.play_arrow),
+                label: Text(_playingAll ? 'Stop' : playAllLabel),
+              ),
             ),
-            const SizedBox(height: 14),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (var i = 0; i < items.length; i++)
-                  _LetterCard(
-                    item: items[i],
-                    active: _playingIndex == i,
-                    onTap: () => _say(items[i].say),
-                  ),
-              ],
-            ),
+            const SizedBox(height: 12),
+            for (var i = 0; i < items.length; i++)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: _LetterRow(
+                  item: items[i],
+                  active: _playingIndex == i,
+                  onTapName: () => _say(items[i].nameSay),
+                  onTapWord: () => _say(items[i].say),
+                ),
+              ),
           ],
-          const SizedBox(height: 24),
-          FilledButton.icon(
-            onPressed: () {
-              // A teaching card is never graded — advance straight to practice.
-              widget.onAnswered(const ExerciseResult.skipped());
-            },
-            icon: const Icon(Icons.check),
-            label: const Text('Got it — start practising'),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: () {
+                // A teaching card is never graded — advance straight to
+                // practice.
+                widget.onAnswered(const ExerciseResult.skipped());
+              },
+              icon: const Icon(Icons.check),
+              label: const Text('Got it — start practising'),
+            ),
           ),
         ],
       ),
@@ -167,15 +175,19 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   }
 }
 
-class _LetterCard extends StatelessWidget {
+/// One full-width alphabet row: tap the row to hear the letter's NAME, tap the
+/// speaker to hear the example WORD.
+class _LetterRow extends StatelessWidget {
   final _TeachingItem item;
   final bool active;
-  final VoidCallback onTap;
+  final VoidCallback onTapName;
+  final VoidCallback onTapWord;
 
-  const _LetterCard({
+  const _LetterRow({
     required this.item,
     required this.active,
-    required this.onTap,
+    required this.onTapName,
+    required this.onTapWord,
   });
 
   @override
@@ -183,35 +195,57 @@ class _LetterCard extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return Material(
       color: active ? cs.primaryContainer : cs.surface,
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(14),
       child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        onTap: onTapName,
+        borderRadius: BorderRadius.circular(14),
         child: Container(
-          width: 150,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: active ? cs.primary : cs.outlineVariant,
               width: active ? 1.5 : 1,
             ),
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: 34,
-                child: Text(
-                  item.symbol,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800,
-                    color: cs.primary,
-                  ),
+              // Letter + its name, in a tinted box.
+              Container(
+                width: 62,
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                decoration: BoxDecoration(
+                  color: cs.primary.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      item.symbol,
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                        color: cs.primary,
+                        height: 1.0,
+                      ),
+                    ),
+                    if (item.name.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          item.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 10.5,
+                            color: cs.primary,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
-              const SizedBox(width: 6),
+              const SizedBox(width: 12),
+              // Sound + example.
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,23 +253,36 @@ class _LetterCard extends StatelessWidget {
                     if (item.sound.isNotEmpty)
                       Text(
                         item.sound,
-                        style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: cs.onSurfaceVariant,
+                        ),
                       ),
-                    if (item.example.isNotEmpty)
+                    if (item.example.isNotEmpty) ...[
+                      const SizedBox(height: 2),
                       Text(
                         item.exampleEn.isEmpty
                             ? item.example
                             : '${item.example} — ${item.exampleEn}',
                         style: TextStyle(
-                          fontSize: 12.5,
+                          fontSize: 14,
                           color: cs.onSurface,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                    ],
                   ],
                 ),
               ),
-              Icon(Icons.volume_up, size: 15, color: cs.primary),
+              // Play the example word.
+              if (item.example.isNotEmpty)
+                IconButton(
+                  onPressed: onTapWord,
+                  icon: const Icon(Icons.volume_up),
+                  color: cs.primary,
+                  tooltip: 'Hear the word',
+                  visualDensity: VisualDensity.compact,
+                ),
             ],
           ),
         ),
@@ -246,6 +293,8 @@ class _LetterCard extends StatelessWidget {
 
 class _TeachingItem {
   final String symbol;
+  final String name;
+  final String nameSay;
   final String sound;
   final String example;
   final String exampleEn;
@@ -253,6 +302,8 @@ class _TeachingItem {
 
   const _TeachingItem({
     required this.symbol,
+    required this.name,
+    required this.nameSay,
     required this.sound,
     required this.example,
     required this.exampleEn,
@@ -260,14 +311,17 @@ class _TeachingItem {
   });
 
   factory _TeachingItem.fromJson(Map<String, dynamic> json) {
+    final symbol = (json['symbol'] as String? ?? '').trim();
     final example = (json['example'] as String? ?? '').trim();
+    final nameSay = (json['name_say'] as String? ?? '').trim();
     return _TeachingItem(
-      symbol: (json['symbol'] as String? ?? '').trim(),
+      symbol: symbol,
+      name: (json['name'] as String? ?? '').trim(),
+      // Fall back to the symbol when no explicit name audio is given.
+      nameSay: nameSay.isEmpty ? symbol : nameSay,
       sound: (json['sound'] as String? ?? '').trim(),
       example: example,
       exampleEn: (json['example_en'] as String? ?? '').trim(),
-      // Speak the example word (a clear, reliable sound) unless an explicit
-      // `say` is provided.
       say: (json['say'] as String? ?? '').trim().isEmpty
           ? example
           : (json['say'] as String).trim(),

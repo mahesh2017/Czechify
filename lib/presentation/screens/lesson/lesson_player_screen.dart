@@ -258,7 +258,9 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    session.inMistakeReview
+                    session.currentExercise?.type == ExerciseType.teaching
+                        ? 'Introduction'
+                        : session.inMistakeReview
                         ? 'Reviewing missed questions'
                         : 'Question ${session.currentIndex + 1} of ${session.totalExercises}',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
