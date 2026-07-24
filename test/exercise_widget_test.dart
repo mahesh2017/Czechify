@@ -12,6 +12,7 @@ import 'package:ceskina_pro/presentation/widgets/lesson/exercises/multiple_choic
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/pronunciation_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/reading_comprehension_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/speaking_task_view.dart';
+import 'package:ceskina_pro/presentation/widgets/lesson/exercises/teaching_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/translation_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/word_order_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/writing_task_view.dart';
@@ -38,6 +39,7 @@ void main() {
     ExerciseType.listeningComprehension: ListeningComprehensionView,
     ExerciseType.writingTask: WritingTaskView,
     ExerciseType.speakingTask: SpeakingTaskView,
+    ExerciseType.teaching: TeachingView,
   };
 
   for (final entry in cases.entries) {
@@ -138,5 +140,11 @@ Map<String, dynamic> _dataFor(ExerciseType type) => switch (type) {
   ExerciseType.speakingTask => {
     'prompt_en': 'Introduce yourself.',
     'expected_phrases': ['Ahoj'],
+  },
+  ExerciseType.teaching => {
+    'heading': 'The Czech Alphabet',
+    'items': [
+      {'symbol': 'a', 'sound': 'like u in cup', 'example': 'matka'},
+    ],
   },
 };

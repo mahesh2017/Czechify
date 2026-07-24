@@ -60,6 +60,7 @@ class CurriculumContractValidator {
     'listening_comprehension',
     'writing_task',
     'speaking_task',
+    'teaching',
   };
 
   static void validateSnapshot(Map<String, Object?> packs) {
@@ -286,6 +287,8 @@ class CurriculumContractValidator {
           _validateWritingTask(issues, packKey, basePath, typedId, data);
         case 'speaking_task':
           _validateSpeakingTask(issues, packKey, basePath, typedId, data);
+        case 'teaching':
+          _validateTeaching(issues, packKey, basePath, typedId, data);
       }
     }
 
@@ -718,6 +721,59 @@ class CurriculumContractValidator {
           'pairs[$index]',
           'must contain non-empty left/right or cz/en strings',
         );
+      }
+    }
+  }
+
+  static void _validateTeaching(
+    List<CurriculumContractIssue> issues,
+    String packKey,
+    String basePath,
+    int? exerciseId,
+    Map<String, Object?> data,
+  ) {
+    final heading = data['heading'];
+    final body = data['body'];
+    final hasHeading = heading is String && heading.trim().isNotEmpty;
+    final hasBody = body is String && body.trim().isNotEmpty;
+    if (!hasHeading && !hasBody) {
+      _addDataIssue(
+        issues,
+        packKey,
+        basePath,
+        exerciseId,
+        'heading',
+        'a teaching card must have a heading or body',
+      );
+    }
+    // items are optional (a card can be pure text/video), but when present
+    // each grid item needs a symbol and an example to speak.
+    final items = data['items'];
+    if (items != null) {
+      if (items is! List) {
+        _addDataIssue(
+          issues, packKey, basePath, exerciseId, 'items', 'must be an array',
+        );
+        return;
+      }
+      for (var index = 0; index < items.length; index++) {
+        final item = items[index];
+        final symbol = item is Map ? item['symbol'] : null;
+        final example = item is Map ? item['example'] : null;
+        final say = item is Map ? item['say'] : null;
+        final hasSpeakable =
+            (example is String && example.trim().isNotEmpty) ||
+            (say is String && say.trim().isNotEmpty);
+        if (symbol is! String || symbol.trim().isEmpty || !hasSpeakable) {
+          _addDataIssue(
+            issues,
+            packKey,
+            basePath,
+            exerciseId,
+            'items[$index]',
+            'must have a non-empty symbol and an example (or say) to speak',
+          );
+        }
       }
     }
   }

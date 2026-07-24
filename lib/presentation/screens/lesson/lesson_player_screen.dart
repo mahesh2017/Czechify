@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/flashcard.dart';
 import '../../../domain/engines/learning_loop_engine.dart';
 import '../../providers/lesson_providers.dart';
@@ -304,6 +305,13 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 key: ValueKey(session.currentIndex),
                 exercise: exercise,
                 onAnswered: (result) {
+                  // Teaching cards are presentations, not questions: advance
+                  // straight to the next exercise with no grading banner,
+                  // heart, or XP.
+                  if (exercise.type == ExerciseType.teaching) {
+                    ref.read(lessonSessionProvider.notifier).nextExercise();
+                    return;
+                  }
                   ref
                       .read(lessonSessionProvider.notifier)
                       .onExerciseAnswered(

@@ -78,7 +78,7 @@ void main() {
 
       final exercises = _loadShippedExercises();
 
-      expect(exercises, hasLength(741));
+      expect(exercises, hasLength(742));
 
       for (final exercise in exercises) {
         await tester.pumpWidget(
@@ -217,6 +217,7 @@ List<Exercise> _loadShippedExercises() {
     'speaking_task',
     'declension_table',
     'word_order',
+    'teaching',
   };
   final lessonFiles =
       Directory('assets/curriculum/lessons')
@@ -256,6 +257,7 @@ Exercise _exerciseFromAsset(Map<String, dynamic> json) {
       'speaking_task' => ExerciseType.speakingTask,
       'declension_table' => ExerciseType.declensionTable,
       'word_order' => ExerciseType.wordOrder,
+      'teaching' => ExerciseType.teaching,
       final unsupported => throw FormatException(
         'Unsupported exercise type: $unsupported',
       ),

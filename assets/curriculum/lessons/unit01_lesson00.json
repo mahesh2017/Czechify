@@ -9,6 +9,315 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 899,
+      "lesson_id": 100,
+      "type": "teaching",
+      "prompt": "The Czech alphabet — listen to every letter",
+      "data": {
+        "type": "teaching",
+        "heading": "The Czech Alphabet",
+        "body": "Czech is (almost) perfectly phonetic: each letter has one steady sound, and the stress is ALWAYS on the first syllable. Tap any letter to hear it in a word, or play the whole alphabet. Listen and repeat first — then you'll practise.",
+        "play_all_label": "Play the whole alphabet",
+        "items": [
+          {
+            "symbol": "a",
+            "sound": "like 'u' in cup (short)",
+            "example": "matka",
+            "example_en": "mother",
+            "say": "matka"
+          },
+          {
+            "symbol": "á",
+            "sound": "long 'a' — held ~2x",
+            "example": "káva",
+            "example_en": "coffee",
+            "say": "káva"
+          },
+          {
+            "symbol": "b",
+            "sound": "like English 'b'",
+            "example": "bota",
+            "example_en": "shoe",
+            "say": "bota"
+          },
+          {
+            "symbol": "c",
+            "sound": "'ts' as in cats",
+            "example": "cukr",
+            "example_en": "sugar",
+            "say": "cukr"
+          },
+          {
+            "symbol": "č",
+            "sound": "'ch' as in church",
+            "example": "čaj",
+            "example_en": "tea",
+            "say": "čaj"
+          },
+          {
+            "symbol": "d",
+            "sound": "like English 'd'",
+            "example": "dům",
+            "example_en": "house",
+            "say": "dům"
+          },
+          {
+            "symbol": "ď",
+            "sound": "soft 'd', like British 'duty'",
+            "example": "loď",
+            "example_en": "boat",
+            "say": "loď"
+          },
+          {
+            "symbol": "e",
+            "sound": "like 'e' in bed",
+            "example": "pes",
+            "example_en": "dog",
+            "say": "pes"
+          },
+          {
+            "symbol": "é",
+            "sound": "long 'e'",
+            "example": "mléko",
+            "example_en": "milk",
+            "say": "mléko"
+          },
+          {
+            "symbol": "ě",
+            "sound": "softens the consonant before it",
+            "example": "děti",
+            "example_en": "children",
+            "say": "děti"
+          },
+          {
+            "symbol": "f",
+            "sound": "like English 'f'",
+            "example": "fotka",
+            "example_en": "photo",
+            "say": "fotka"
+          },
+          {
+            "symbol": "g",
+            "sound": "hard 'g' as in go",
+            "example": "guma",
+            "example_en": "eraser",
+            "say": "guma"
+          },
+          {
+            "symbol": "h",
+            "sound": "voiced, breathy 'h'",
+            "example": "hora",
+            "example_en": "mountain",
+            "say": "hora"
+          },
+          {
+            "symbol": "ch",
+            "sound": "one letter — 'ch' as in Scottish loch",
+            "example": "chléb",
+            "example_en": "bread",
+            "say": "chléb"
+          },
+          {
+            "symbol": "i",
+            "sound": "like 'i' in sit",
+            "example": "pivo",
+            "example_en": "beer",
+            "say": "pivo"
+          },
+          {
+            "symbol": "í",
+            "sound": "long 'ee'",
+            "example": "víno",
+            "example_en": "wine",
+            "say": "víno"
+          },
+          {
+            "symbol": "j",
+            "sound": "'y' as in yes",
+            "example": "jablko",
+            "example_en": "apple",
+            "say": "jablko"
+          },
+          {
+            "symbol": "k",
+            "sound": "like English 'k'",
+            "example": "kolo",
+            "example_en": "bicycle",
+            "say": "kolo"
+          },
+          {
+            "symbol": "l",
+            "sound": "like English 'l'",
+            "example": "les",
+            "example_en": "forest",
+            "say": "les"
+          },
+          {
+            "symbol": "m",
+            "sound": "like English 'm'",
+            "example": "maso",
+            "example_en": "meat",
+            "say": "maso"
+          },
+          {
+            "symbol": "n",
+            "sound": "like English 'n'",
+            "example": "noc",
+            "example_en": "night",
+            "say": "noc"
+          },
+          {
+            "symbol": "ň",
+            "sound": "soft 'n', as in canyon",
+            "example": "kůň",
+            "example_en": "horse",
+            "say": "kůň"
+          },
+          {
+            "symbol": "o",
+            "sound": "like 'o' in for (short)",
+            "example": "okno",
+            "example_en": "window",
+            "say": "okno"
+          },
+          {
+            "symbol": "ó",
+            "sound": "long 'o' (mostly loanwords)",
+            "example": "móda",
+            "example_en": "fashion",
+            "say": "móda"
+          },
+          {
+            "symbol": "p",
+            "sound": "like English 'p'",
+            "example": "pero",
+            "example_en": "pen",
+            "say": "pero"
+          },
+          {
+            "symbol": "q",
+            "sound": "rare — 'kv', foreign words only",
+            "example": "quiz",
+            "example_en": "quiz",
+            "say": "quiz"
+          },
+          {
+            "symbol": "r",
+            "sound": "rolled / trilled 'r'",
+            "example": "ryba",
+            "example_en": "fish",
+            "say": "ryba"
+          },
+          {
+            "symbol": "ř",
+            "sound": "unique Czech sound (rolled r + ž)",
+            "example": "řeka",
+            "example_en": "river",
+            "say": "řeka"
+          },
+          {
+            "symbol": "s",
+            "sound": "always plain 's' (never 'z')",
+            "example": "sýr",
+            "example_en": "cheese",
+            "say": "sýr"
+          },
+          {
+            "symbol": "š",
+            "sound": "'sh' as in ship",
+            "example": "škola",
+            "example_en": "school",
+            "say": "škola"
+          },
+          {
+            "symbol": "t",
+            "sound": "like English 't'",
+            "example": "taška",
+            "example_en": "bag",
+            "say": "taška"
+          },
+          {
+            "symbol": "ť",
+            "sound": "soft 't', like British 'tune'",
+            "example": "chuť",
+            "example_en": "taste",
+            "say": "chuť"
+          },
+          {
+            "symbol": "u",
+            "sound": "like 'oo' in book (short)",
+            "example": "ruka",
+            "example_en": "hand",
+            "say": "ruka"
+          },
+          {
+            "symbol": "ú",
+            "sound": "long 'oo' (at word start)",
+            "example": "úkol",
+            "example_en": "task",
+            "say": "úkol"
+          },
+          {
+            "symbol": "ů",
+            "sound": "long 'oo' (mid/end of word)",
+            "example": "stůl",
+            "example_en": "table",
+            "say": "stůl"
+          },
+          {
+            "symbol": "v",
+            "sound": "like English 'v'",
+            "example": "voda",
+            "example_en": "water",
+            "say": "voda"
+          },
+          {
+            "symbol": "w",
+            "sound": "'v', foreign words only",
+            "example": "watt",
+            "example_en": "watt",
+            "say": "watt"
+          },
+          {
+            "symbol": "x",
+            "sound": "'ks', foreign words only",
+            "example": "taxi",
+            "example_en": "taxi",
+            "say": "taxi"
+          },
+          {
+            "symbol": "y",
+            "sound": "same as 'i' (a 'hard' i)",
+            "example": "byt",
+            "example_en": "flat",
+            "say": "byt"
+          },
+          {
+            "symbol": "ý",
+            "sound": "same as long 'í'",
+            "example": "být",
+            "example_en": "to be",
+            "say": "být"
+          },
+          {
+            "symbol": "z",
+            "sound": "like English 'z'",
+            "example": "zebra",
+            "example_en": "zebra",
+            "say": "zebra"
+          },
+          {
+            "symbol": "ž",
+            "sound": "'s' as in measure",
+            "example": "žena",
+            "example_en": "woman",
+            "say": "žena"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 900,
       "lesson_id": 100,
       "type": "multiple_choice",

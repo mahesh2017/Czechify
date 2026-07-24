@@ -30,6 +30,9 @@ enum ExerciseType {
   listeningComprehension,
   writingTask,
   speakingTask,
+  // A non-graded presentation card: teaches a concept (text + audio, later
+  // video) before the practice exercises. Costs no heart, earns no XP.
+  teaching,
 }
 
 /// Lesson types.
