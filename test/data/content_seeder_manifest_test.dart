@@ -7,7 +7,16 @@ void main() {
       (path) => path.startsWith('assets/curriculum/lessons/'),
     );
 
-    expect(lessonPacks, hasLength(60));
+    expect(lessonPacks, hasLength(61));
+
+    // Unit 1 opens with a dedicated alphabet-pronunciation lesson (lesson00)
+    // before the two standard lessons.
+    expect(
+      lessonPacks,
+      contains('assets/curriculum/lessons/unit01_lesson00.json'),
+      reason: 'Unit 1 must ship the alphabet-pronunciation lesson.',
+    );
+
     for (var unit = 1; unit <= 29; unit++) {
       final unitNumber = unit.toString().padLeft(2, '0');
       for (var lesson = 1; lesson <= 2; lesson++) {

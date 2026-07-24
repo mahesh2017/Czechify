@@ -28,7 +28,7 @@ void main() {
 
     expect(await seeder.hasUsableLocalContent(), isTrue);
     expect(await database.select(database.units).get(), hasLength(31));
-    expect(await database.select(database.lessons).get(), hasLength(60));
+    expect(await database.select(database.lessons).get(), hasLength(61));
     expect(await database.vocabularyDao.srsCardCount(), greaterThan(0));
   });
 

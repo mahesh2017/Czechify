@@ -356,6 +356,7 @@ class ContentSeeder {
   /// Shared list of all lesson asset file paths.
   static const _lessonFilePaths = <String>[
     // Unit 1: Sounds & Pronunciation
+    'assets/curriculum/lessons/unit01_lesson00.json',
     'assets/curriculum/lessons/unit01_lesson01.json',
     'assets/curriculum/lessons/unit01_lesson02.json',
     // Unit 2: Greetings & Introductions

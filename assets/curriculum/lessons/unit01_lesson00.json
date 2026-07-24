@@ -1,0 +1,320 @@
+{
+  "id": 100,
+  "unit_id": 1,
+  "order_in_unit": 0,
+  "title": "The Czech Alphabet: How Every Letter Sounds",
+  "description": "Say the whole Czech alphabet — every vowel and consonant, from a to ž — with its exact sound and an example word. This is the foundation everything else builds on.",
+  "duration_min": 14,
+  "lesson_type": "introduction",
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 900,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "How does Czech spelling work?",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Compared to English, how do Czech letters sound?",
+        "options": [
+          "Letters change sound depending on the word, like English",
+          "Each letter has one consistent sound, almost always",
+          "Vowels are silent at the end of words",
+          "The sound depends on where the stress falls"
+        ],
+        "correct_index": 1,
+        "explanation": "Czech is (almost) perfectly phonetic: each letter maps to one sound, so once you know the letters you can read any word aloud. Stress is always on the FIRST syllable and never changes a letter's sound."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-000"
+    },
+    {
+      "id": 901,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The five short vowels: a e i o u",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "The short vowels a, e, i, o, u sound roughly like which English words?",
+        "options": [
+          "cup, bed, sit, for, put — a-e-i-o-u",
+          "cake, see, sky, go, cute",
+          "car, bee, high, low, moon",
+          "cat, met, mine, note, cube"
+        ],
+        "correct_index": 0,
+        "explanation": "a=matka (mother), e=pes (dog), i=pivo (beer), o=okno (window), u=ruka (hand). Keep them short and crisp. The letter y is pronounced exactly like i — byt (flat) sounds like 'bit'."
+      },
+      "answer_key": "0",
+      "xp_reward": 10
+    },
+    {
+      "id": 902,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Long vowels: á é í ó ú ů ý",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "What does the čárka (á) or kroužek (ů) mark do?",
+        "options": [
+          "Marks the stressed syllable",
+          "Holds the vowel about twice as long",
+          "Softens the vowel",
+          "Makes the vowel silent"
+        ],
+        "correct_index": 1,
+        "explanation": "The čárka (´) and kroužek (˚) make a vowel LONG — held about twice as long: káva (á), mléko (é), víno (í), dům (ů), sýr (ý). ú and ů are both a long 'oo': ú starts a word (úkol), ů comes later (dům). Length can change meaning — byt (flat) vs být (to be)."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 903,
+      "lesson_id": 100,
+      "type": "pronunciation",
+      "prompt": "Say it aloud — short vs long a",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Máma má maso.",
+        "focus_sounds": [
+          "a",
+          "á"
+        ],
+        "min_score": 0.6,
+        "translation_en": "Mom has meat."
+      },
+      "answer_key": "Máma má maso.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 904,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The special vowel ě",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "What does ě do to the consonant before it?",
+        "options": [
+          "Nothing — it is just a short e",
+          "Softens it: dě, tě, ně sound like 'dye, tye, nye'; mě sounds like 'mnye'",
+          "Makes it long",
+          "Makes it silent"
+        ],
+        "correct_index": 1,
+        "explanation": "ě never stands alone — it softens the consonant in front of it. děti (children) = 'dye-ti', město (city) = 'mnye-sto', měsíc (month). You'll meet ě constantly."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-002"
+    },
+    {
+      "id": 905,
+      "lesson_id": 100,
+      "type": "matching",
+      "prompt": "Match each háček consonant to its English sound",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "č",
+            "right": "ch as in 'church'"
+          },
+          {
+            "left": "š",
+            "right": "sh as in 'ship'"
+          },
+          {
+            "left": "ž",
+            "right": "s as in 'measure'"
+          },
+          {
+            "left": "ř",
+            "right": "unique Czech sound (rolled r + ž)"
+          }
+        ]
+      },
+      "answer_key": "č=ch as in 'church', š=sh as in 'ship', ž=s as in 'measure', ř=unique Czech sound (rolled r + ž)",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 906,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The letter c",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "How is c pronounced in Czech (cukr, noc)?",
+        "options": [
+          "ts as in 'cats'",
+          "k as in 'cat'",
+          "s as in 'city'",
+          "ch as in 'church'"
+        ],
+        "correct_index": 0,
+        "explanation": "c is ALWAYS 'ts', never 'k' or 's'. cukr (sugar) = 'tsukr', noc (night) = 'nots', práce (work). This trips up English speakers the most."
+      },
+      "answer_key": "0",
+      "xp_reward": 10
+    },
+    {
+      "id": 907,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The letter ch",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "In the Czech alphabet, 'ch' is…",
+        "options": [
+          "two separate letters, c then h",
+          "one single letter, like 'ch' in Scottish 'loch' / German 'Bach'",
+          "pronounced like English 'church'",
+          "always silent"
+        ],
+        "correct_index": 1,
+        "explanation": "ch is ONE letter (a raspy sound made in the back of the throat): chléb (bread), chci (I want), ucho (ear). In the dictionary it comes after h, not under c."
+      },
+      "answer_key": "1",
+      "xp_reward": 10
+    },
+    {
+      "id": 908,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Three consonants that look familiar but aren't: h, j, r",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Which statement is correct?",
+        "options": [
+          "j sounds like English 'j' in 'jam'",
+          "j sounds like 'y' in 'yes'; h is a soft voiced 'h'; r is rolled/trilled",
+          "h is always silent; r is like English r",
+          "j and r are both silent before a vowel"
+        ],
+        "correct_index": 1,
+        "explanation": "j = 'y': jablko (apple), juice→džus. h is voiced and breathy: hora (mountain). r is rolled with the tip of the tongue: ryba (fish), ráno (morning). None of them sound like their English look-alikes."
+      },
+      "answer_key": "1",
+      "xp_reward": 10
+    },
+    {
+      "id": 909,
+      "lesson_id": 100,
+      "type": "pronunciation",
+      "prompt": "Say the most famous Czech sound: ř",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "řeka",
+        "focus_sounds": [
+          "ř"
+        ],
+        "min_score": 0.45,
+        "translation_en": "river"
+      },
+      "answer_key": "řeka",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-001"
+    },
+    {
+      "id": 910,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Soft consonants: ď ť ň",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "How are ď, ť, ň (and d, t, n before i or ě) pronounced?",
+        "options": [
+          "Exactly like d, t, n",
+          "Softened — like 'd' in British 'duty', 't' in 'tune', 'ñ' in 'canyon'",
+          "As ch, sh, zh",
+          "They are silent"
+        ],
+        "correct_index": 1,
+        "explanation": "The háček (or a following i/ě) softens them: kůň (horse) ends in a soft ň, chuť (taste) ends in soft ť, loď (boat) ends in soft ď. Also děti, tělo, není — the d/t/n there are soft."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 911,
+      "lesson_id": 100,
+      "type": "dictation",
+      "prompt": "Listen and type — the letter ž",
+      "data": {
+        "type": "dictation",
+        "expected_text": "žena",
+        "language": "cs-CZ",
+        "note": "ž sounds like the 's' in 'measure'. žena = woman. First-syllable stress: ŽE-na."
+      },
+      "answer_key": "žena",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 912,
+      "lesson_id": 100,
+      "type": "dictation",
+      "prompt": "Listen and type — long ý and the letter s",
+      "data": {
+        "type": "dictation",
+        "expected_text": "sýr",
+        "language": "cs-CZ",
+        "note": "s is always a plain 's' (never 'z'); ý is a long 'ee'. sýr = cheese, said 'seer'."
+      },
+      "answer_key": "sýr",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 913,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Letters from foreign words",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Which letters appear almost only in words borrowed from other languages?",
+        "options": [
+          "q, w, x",
+          "č, š, ž",
+          "a, e, o",
+          "r, l, m"
+        ],
+        "correct_index": 0,
+        "explanation": "Native Czech spells these sounds differently, so q, w, x are rare and mostly in loanwords (taxi, watt). ó is also mostly foreign (móda = fashion). Everything else you've met is fully native."
+      },
+      "answer_key": "0",
+      "xp_reward": 10
+    },
+    {
+      "id": 914,
+      "lesson_id": 100,
+      "type": "pronunciation",
+      "prompt": "Capstone — the Czech pangram (nearly every special letter!)",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Příliš žluťoučký kůň úpěl ďábelské ódy.",
+        "focus_sounds": [
+          "ř",
+          "ž",
+          "ť",
+          "ů",
+          "ú",
+          "ě",
+          "ď",
+          "ó",
+          "č",
+          "ý"
+        ],
+        "min_score": 0.4,
+        "translation_en": "A too-yellow horse moaned devilish odes."
+      },
+      "answer_key": "Příliš žluťoučký kůň úpěl ďábelské ódy.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-001"
+    }
+  ]
+}
