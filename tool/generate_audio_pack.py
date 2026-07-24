@@ -12,6 +12,7 @@ import hashlib
 import html
 import json
 import os
+import re
 from pathlib import Path
 import sys
 import time
@@ -26,8 +27,25 @@ MANIFEST = AUDIO / "manifest.json"
 PREVIEW_TEXT = "Ahoj, jak se máš?"
 
 
+# Kept identical to TextNormalizer.forSpeech in the app so a pre-generated clip
+# and a runtime speak() request resolve to the same hash. Removes fill-in-the-
+# blank markers ("___", read aloud as "podtržítko") and parenthetical hints.
+_PARENS = re.compile(r"\([^)]*\)")
+_BLANKS = re.compile(r"_+")
+_SPACES = re.compile(r"\s+")
+_PUNCT = re.compile(r"\s+([.,!?;:])")
+
+
+def speech_text(text: str) -> str:
+    text = _PARENS.sub(" ", text)
+    text = _BLANKS.sub(" ", text)
+    text = _SPACES.sub(" ", text)
+    text = _PUNCT.sub(r"\1", text)
+    return text.strip()
+
+
 def normalized(text: str) -> str:
-    return text.strip().lower()
+    return speech_text(text).strip().lower()
 
 
 def key_for(text: str) -> str:
@@ -54,8 +72,14 @@ def extract_utterances() -> list[str]:
                 if isinstance(value, str) and value.strip():
                     utterances.add(value.strip())
 
-    # Collapse case-only duplicates using exactly the app's lookup rule.
-    by_key = {key_for(text): text for text in sorted(utterances)}
+    # Collapse case-only duplicates using exactly the app's lookup rule, and
+    # store the *sanitized* text so what we synthesize matches the runtime
+    # request (and never contains "___" or "(hint)").
+    by_key: dict[str, str] = {}
+    for text in sorted(utterances):
+        spoken = speech_text(text)
+        if spoken:
+            by_key[key_for(text)] = spoken
     ordered = [by_key[key] for key in sorted(by_key)]
     # A limited trial must always contain the phrase used by Settings → Test
     # voice; otherwise the apparent voice comparison silently uses device TTS.

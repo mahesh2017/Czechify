@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../core/config/backend_config.dart';
+import '../../core/utils/text_normalizer.dart';
 import 'settings_providers.dart';
 
 /// TTS provider — manages a singleton FlutterTts instance configured for Czech.
@@ -243,7 +244,10 @@ class CzechTts {
   /// Stops any currently playing speech. [rate] overrides the user's
   /// configured speech rate for this utterance only (e.g. slow replay).
   Future<void> speak(String text, {double? rate}) async {
-    final trimmed = text.trim();
+    // Strip blank markers and editorial hints so TTS never reads "___" aloud
+    // as "podtržítko". Used for both the neural-pack lookup and device TTS, so
+    // the request matches the sanitized text the audio pack is generated from.
+    final trimmed = TextNormalizer.forSpeech(text);
     if (trimmed.isEmpty) return;
 
     await stop();
