@@ -49,10 +49,39 @@ One worker on purpose — each holds its own copy of the model, and inference is
 short and CPU-bound, so a queue in front of one worker beats several workers
 contending for the same cores.
 
-## Status
+## Model
 
-The bundled `model_int8.onnx` is a quantisation of
-`facebook/wav2vec2-xlsr-53-espeak-cv-ft`, which **cannot recognise Czech ř**:
-it transcribes English flawlessly but produced `r̝` on 0 of 24 ř-heavy clips.
-Verified against the original PyTorch checkpoint, so it is not a conversion
-artefact. This service is the plumbing, ready for a Czech-capable checkpoint.
+`arampacha/wav2vec2-large-xlsr-czech`, exported to ONNX and dynamically
+quantised to int8 (341 MB). int8 produced transcriptions **identical to fp32 on
+100% of test clips**, so the quantisation is free here.
+
+Chosen by measurement over two alternatives:
+
+| | multilingual espeak | MehdiHosseini… | **arampacha** |
+|---|---|---|---|
+| ř transcribed | 0/24 | 8/8 | **8/8** |
+| noise floor (two correct voices) | 38% | 26% | **12%** |
+| accent signal | 62% | 84% | 67% |
+| separation | 23 pts | 58 pts | **55 pts** |
+
+The noise floor is the number that matters: it is how often the model
+contradicts itself on two *correct* pronunciations, and therefore how often a
+learner gets told they are wrong when they are not.
+
+## Coverage — do not score every word
+
+`tool/scan_pronunciation_reliability.py` measures, per word, whether the model
+hears the reference correctly and whether it agrees with itself across two
+native voices. Over 1112 vocabulary items:
+
+* **73% are reliable** on both counts (`assets/curriculum/pronunciation_reliable_words.json`)
+* median match error and median voice-disagreement are both **0%**
+* **single letters are unusable** — 12 one-character items averaged 117% error,
+  worse than chance. `a` was heard as `e`, `č` as `tři`.
+
+So pronunciation scoring should be gated on that list. Notably this rules out
+the Unit 1 alphabet card, where items are single letters.
+
+Regenerate after a model or content change:
+
+    python3 tool/scan_pronunciation_reliability.py --models <dir-with-model_int8.onnx>

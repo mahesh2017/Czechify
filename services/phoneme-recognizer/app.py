@@ -1,10 +1,16 @@
-"""Phoneme recognition service: audio in, IPA out.
+"""Acoustic recognition service: audio in, what-was-actually-said out.
 
-Deliberately dumb. It recognises sounds and returns IPA — it does not score,
-weight, or generate feedback. That lives in the app's PhonemeScorer, alongside
-the Czech-specific weights and the wording learners see. Keeping the split here
-means the recogniser can be swapped (fine-tuned model, different architecture,
-on-device) without touching any pedagogy.
+Deliberately dumb. It reports what it heard and does not score, weight, or
+generate feedback. That lives in the app's PhonemeScorer, alongside the Czech
+weights and the wording learners see, so the recogniser can be swapped without
+touching any pedagogy.
+
+The model is a bare CTC acoustic model decoded greedily, with no language model
+on purpose. An ASR with a language model "repairs" a learner's `reka` into the
+plausible word `řeka`, which is exactly the error we are trying to surface.
+Czech orthography is close to phonemic, so a character-level transcript is a
+usable proxy for pronunciation: the app maps it to IPA via PhonemeMapper before
+scoring.
 
 The model and its vocab are mounted, not baked into the image, so a new
 checkpoint is a volume swap rather than a rebuild.
@@ -58,6 +64,8 @@ def _load_model() -> None:
     _state["input"] = session.get_inputs()[0].name
     _state["fp16"] = session.get_inputs()[0].type == "tensor(float16)"
     _state["inv_vocab"] = {index: symbol for symbol, index in vocab.items()}
+    # Vocabs disagree on the blank index, so read it rather than assuming 0.
+    _state["blank"] = vocab.get("<pad>", 0)
     _state["model"] = MODEL_FILE
     _state["load_seconds"] = round(time.time() - started, 2)
 
@@ -116,20 +124,26 @@ def decode_audio(raw: bytes) -> np.ndarray:
     return (audio - audio.mean()) / (audio.std() + 1e-7)
 
 
-def ctc_decode(logits: np.ndarray) -> list[str]:
-    """Greedy CTC: argmax, collapse repeats, drop blanks and specials."""
+def ctc_decode(logits: np.ndarray) -> str:
+    """Greedy CTC: argmax, collapse repeats, drop blanks and specials.
+
+    No beam search and no language model — both would pull the output toward
+    real words and undo the point of the exercise.
+    """
     inv = _state["inv_vocab"]
-    skip = {"<pad>", "<s>", "</s>", "<unk>", "|"}
+    blank = _state["blank"]
+    skip = {"<pad>", "<s>", "</s>", "<unk>"}
     out: list[str] = []
     previous = -1
     for index in logits.argmax(axis=-1):
         index = int(index)
-        if index != previous and index != 0:
+        if index != previous and index != blank:
             symbol = inv.get(index, "")
             if symbol and symbol not in skip:
-                out.append(symbol)
+                # "|" is the word delimiter in wav2vec2 character vocabs.
+                out.append(" " if symbol == "|" else symbol)
         previous = index
-    return out
+    return "".join(out).strip()
 
 
 def recognize(audio: np.ndarray) -> dict:
@@ -138,10 +152,9 @@ def recognize(audio: np.ndarray) -> dict:
     started = time.time()
     logits = session.run(None, {_state["input"]: audio[None, :].astype(dtype)})[0]
     elapsed_ms = round(1000 * (time.time() - started))
-    phones = ctc_decode(logits[0].astype(np.float32))
+    heard = ctc_decode(logits[0].astype(np.float32))
     return {
-        "ipa": " ".join(phones),
-        "phones": phones,
+        "heard": heard,
         "audio_seconds": round(audio.size / TARGET_SR, 2),
         "inference_ms": elapsed_ms,
         "model": _state["model"],
