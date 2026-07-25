@@ -155,7 +155,7 @@ def main() -> int:
                     time.sleep(2 ** attempt)
         if destination.exists() and destination.stat().st_size > 0:
             entries[digest] = f"assets/audio/{filename}"
-        print(f"[{index}/{len(texts)}] {text}")
+        print(f"[{index}/{len(plan)}] {text}")
 
     voices[args.gender] = {
         "name": voice,
