@@ -31,6 +31,27 @@ MANIFEST = AUDIO / "manifest.json"
 BUCKET = "course-audio"
 
 
+def load_env_file() -> None:
+    """Read credentials from a gitignored .env so they need supplying once.
+
+    Environment variables already set win, so CI and one-off overrides still
+    work. Only the storage-write key needs this; the app itself builds from
+    env/prod.json, which holds nothing secret.
+    """
+    path = ROOT / ".env"
+    if not path.exists():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
 def manifest_files(manifest: dict) -> list[str]:
     """Basenames of every MP3 the manifest references, de-duplicated."""
     names: set[str] = set()
@@ -91,6 +112,7 @@ def put_object(url: str, data: bytes, content_type: str, token: str) -> None:
 
 
 def main() -> int:
+    load_env_file()
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
