@@ -43,6 +43,7 @@ class PronunciationScorer {
       wordScores: alignment.wordScores,
       problemSounds: problemSounds,
       feedback: feedback,
+      insertionCount: alignment.insertionCount,
     );
   }
 

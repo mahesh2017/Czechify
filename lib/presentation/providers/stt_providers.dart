@@ -195,12 +195,14 @@ class PronunciationAssessor {
       );
     }
 
-    // Transcribe with Whisper, passing the expected text as a prompt to
-    // improve accuracy for known phrases.
+    // Deliberately NOT passing `prompt: expectedText`. Whisper's prompt
+    // conditions the decoder, so handing it the target sentence makes it
+    // reproduce that sentence almost regardless of what was actually said —
+    // gibberish came back transcribed as the expected phrase and scored ~95%.
+    // For assessment the recogniser must never be told the answer.
     final whisperResult = await _whisper!.transcribe(
       audioPath: audioPath,
       language: 'cs',
-      prompt: expectedText,
     );
 
     final result = _scorer.score(
@@ -257,15 +259,22 @@ class PronunciationAssessor {
       return base;
     }
 
-    // Build a map of normalized word → average probability from Whisper
-    final wordConfidence = <String, double>{};
+    // Build a map of normalized word → *average* probability from Whisper.
+    // This used to sum, so a word Whisper emitted twice contributed >1.0 and
+    // the blend below could push a score above 100%.
+    final probSums = <String, double>{};
+    final probCounts = <String, int>{};
     for (final w in whisperWords) {
       final normalized = w.word.toLowerCase().replaceAll(RegExp(r'[^\w]'), '');
       if (normalized.isNotEmpty) {
-        wordConfidence[normalized] =
-            (wordConfidence[normalized] ?? 0) + w.probability;
+        probSums[normalized] = (probSums[normalized] ?? 0) + w.probability;
+        probCounts[normalized] = (probCounts[normalized] ?? 0) + 1;
       }
     }
+    final wordConfidence = <String, double>{
+      for (final entry in probSums.entries)
+        entry.key: (entry.value / probCounts[entry.key]!).clamp(0.0, 1.0),
+    };
 
     // The existing scorer already computed word scores from text comparison.
     // Whisper's probability gives us an additional signal: even if the text
@@ -289,18 +298,21 @@ class PronunciationAssessor {
       );
     }).toList();
 
-    // Recalculate overall score
+    // Recalculate overall score. The denominator must keep counting the words
+    // the learner added on top of the target phrase, exactly as the scorer
+    // does — otherwise reciting the phrase plus a stream of filler scores the
+    // same as saying it cleanly.
     final totalScore =
         enrichedWordScores.fold<double>(0.0, (sum, w) => sum + w.score);
-    final accuracy = enrichedWordScores.isEmpty
-        ? 0.0
-        : totalScore / enrichedWordScores.length;
+    final denominator = enrichedWordScores.length + base.insertionCount;
+    final accuracy = denominator == 0 ? 0.0 : totalScore / denominator;
 
     return PronunciationResult(
-      overallScore: accuracy,
+      overallScore: accuracy.clamp(0.0, 1.0),
       wordScores: enrichedWordScores,
       problemSounds: base.problemSounds,
       feedback: base.feedback,
+      insertionCount: base.insertionCount,
     );
   }
 
