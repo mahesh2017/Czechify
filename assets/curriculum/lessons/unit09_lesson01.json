@@ -280,7 +280,8 @@
             "example_en": "",
             "say": "sto"
           }
-        ]
+        ],
+        "intro": "Prices, phone numbers, the time on the clock — none of it works without numbers. Let's count from zero, learn the tens, and crack the simple trick for everything in between."
       },
       "xp_reward": 0
     },

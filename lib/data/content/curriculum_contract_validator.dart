@@ -747,7 +747,10 @@ class CurriculumContractValidator {
       );
     }
     // items are optional (a card can be pure text/video), but when present
-    // each grid item needs a symbol and an example to speak.
+    // each row must be renderable and have something to speak. Two shapes are
+    // accepted:
+    //  - alphabet/number rows: a non-empty `symbol` + a speakable `example`/`say`
+    //  - list rows (grammar/vocab): a non-empty Czech `cz` (spoken as-is)
     final items = data['items'];
     if (items != null) {
       if (items is! List) {
@@ -756,22 +759,26 @@ class CurriculumContractValidator {
         );
         return;
       }
+      bool nonEmpty(Object? v) => v is String && v.trim().isNotEmpty;
       for (var index = 0; index < items.length; index++) {
         final item = items[index];
         final symbol = item is Map ? item['symbol'] : null;
         final example = item is Map ? item['example'] : null;
         final say = item is Map ? item['say'] : null;
-        final hasSpeakable =
-            (example is String && example.trim().isNotEmpty) ||
-            (say is String && say.trim().isNotEmpty);
-        if (symbol is! String || symbol.trim().isEmpty || !hasSpeakable) {
+        final cz = item is Map ? item['cz'] : null;
+
+        final alphabetRow =
+            nonEmpty(symbol) && (nonEmpty(example) || nonEmpty(say));
+        final listRow = nonEmpty(cz);
+        if (!alphabetRow && !listRow) {
           _addDataIssue(
             issues,
             packKey,
             basePath,
             exerciseId,
             'items[$index]',
-            'must have a non-empty symbol and an example (or say) to speak',
+            'must be either a symbol row (symbol + example/say) or a list row '
+                '(a non-empty "cz")',
           );
         }
       }

@@ -9,6 +9,59 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90023,
+      "lesson_id": 2301,
+      "type": "teaching",
+      "prompt": "Modal Verbs",
+      "data": {
+        "type": "teaching",
+        "heading": "Modal Verbs",
+        "body": "Must, can, may, want — snap them in front of any action and your sentences level up.",
+        "intro": "Must, can, may, want — four verbs that instantly make you sound more grown-up in Czech. Snap them in front of any action and watch your sentences level up.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "muset",
+            "en": "must / to have to"
+          },
+          {
+            "cz": "Musím jít.",
+            "en": "I have to go."
+          },
+          {
+            "cz": "moct",
+            "en": "can / to be able"
+          },
+          {
+            "cz": "můžu",
+            "en": "I can"
+          },
+          {
+            "cz": "smět",
+            "en": "to be allowed"
+          },
+          {
+            "cz": "smím",
+            "en": "I may"
+          },
+          {
+            "cz": "chtít",
+            "en": "to want"
+          },
+          {
+            "cz": "chci",
+            "en": "I want"
+          },
+          {
+            "cz": "Můžu vám pomoct?",
+            "en": "Can I help you?"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 23001,
       "lesson_id": 2301,
       "type": "multiple_choice",
@@ -17,7 +70,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaká je forma 'já' pro sloveso 'muset'?",
         "question_en": "What is the 'já' (1st person singular) form of 'muset' (must)?",
-        "options": ["musím", "museš", "musí", "musíme"],
+        "options": [
+          "musím",
+          "museš",
+          "musí",
+          "musíme"
+        ],
         "correct_index": 0,
         "explanation": "'Muset' is an -et class verb. The 1st person singular is 'musím'. Conjugation: musím, musíš, musí, musíme, musíte, musí."
       },
@@ -34,7 +92,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaká je forma 'ty' pro sloveso 'moct'?",
         "question_en": "What is the 'ty' (2nd person singular) form of 'moct' (can)?",
-        "options": ["mohu", "můžeš", "může", "můžeme"],
+        "options": [
+          "mohu",
+          "můžeš",
+          "může",
+          "můžeme"
+        ],
         "correct_index": 1,
         "explanation": "'Moct' is irregular. The 2nd person singular is 'můžeš'. Full conjugation: mohu/můžu, můžeš, může, můžeme, můžete, mohou/můžou."
       },
@@ -51,7 +114,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaká je forma 'oni' pro sloveso 'smět'?",
         "question_en": "What is the 'oni' (3rd person plural) form of 'smět' (may/be allowed)?",
-        "options": ["smí", "smíme", "smějí", "smíte"],
+        "options": [
+          "smí",
+          "smíme",
+          "smějí",
+          "smíte"
+        ],
         "correct_index": 2,
         "explanation": "'Smět' is an -et class verb. The 3rd person plural is 'smějí'. Conjugation: smím, smíš, smí, smíme, smíte, smějí."
       },
@@ -70,7 +138,9 @@
         "blank_count": 1,
         "explanation": "'My musíme jít do školy.' = We must go to school. The 1st person plural of 'muset' is 'musíme'. The modal verb is followed by the infinitive 'jít'.",
         "blank_answers": [
-          ["musíme"]
+          [
+            "musíme"
+          ]
         ]
       },
       "answer_key": "musíme",
@@ -88,7 +158,9 @@
         "blank_count": 1,
         "explanation": "'On může mluvit česky.' = He can speak Czech. The 3rd person singular of 'moct' is 'může'. Modal verbs take the infinitive 'mluvit' after them.",
         "blank_answers": [
-          ["může"]
+          [
+            "může"
+          ]
         ]
       },
       "answer_key": "může",
@@ -104,7 +176,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I must work tomorrow.",
-        "accepted_answers": ["Musím zítra pracovat.", "Zítra musím pracovat.", "Musím pracovat zítra."],
+        "accepted_answers": [
+          "Musím zítra pracovat.",
+          "Zítra musím pracovat.",
+          "Musím pracovat zítra."
+        ],
         "grammar_note": "'Musím' = I must (1st person singular of 'muset'). The infinitive 'pracovat' follows the modal. Word order is flexible: 'Musím zítra pracovat' or 'Zítra musím pracovat' are both correct."
       },
       "answer_key": "Musím zítra pracovat.",
@@ -120,7 +196,11 @@
         "type": "translation",
         "direction": "cz_to_en",
         "source": "Ona smí jít ven.",
-        "accepted_answers": ["She may go out.", "She is allowed to go out.", "She can go out."],
+        "accepted_answers": [
+          "She may go out.",
+          "She is allowed to go out.",
+          "She can go out."
+        ],
         "grammar_note": "'Smí' = may/is allowed to (3rd person singular of 'smět'). 'Jít ven' = to go out. 'Smět' specifically means permission, not ability."
       },
       "answer_key": "She may go out.",
@@ -134,8 +214,18 @@
       "prompt": "Arrange the words to form: 'You can help us.'",
       "data": {
         "type": "word_order",
-        "words": ["nám", "můžeš", "Ty", "pomoci"],
-        "correct_order": [2, 1, 0, 3],
+        "words": [
+          "nám",
+          "můžeš",
+          "Ty",
+          "pomoci"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0,
+          3
+        ],
         "explanation": "'Ty můžeš nám pomoci.' = You can help us. 'Můžeš' = you can (2nd person singular of 'moct'). 'Pomoci' = to help (infinitive). The modal verb 'můžeš' is followed by the infinitive 'pomoci'."
       },
       "answer_key": "Ty můžeš nám pomoci.",
@@ -151,9 +241,18 @@
         "type": "matching",
         "prompt_en": "Match each Czech modal verb to its English meaning.",
         "pairs": [
-          {"left": "muset", "right": "must"},
-          {"left": "moct", "right": "can"},
-          {"left": "smět", "right": "may"}
+          {
+            "left": "muset",
+            "right": "must"
+          },
+          {
+            "left": "moct",
+            "right": "can"
+          },
+          {
+            "left": "smět",
+            "right": "may"
+          }
         ],
         "explanation": "'Muset' = must (obligation), 'moct' = can (ability/possibility), 'smět' = may (permission). These are the three Czech modal verbs, each with a distinct meaning."
       },
@@ -170,10 +269,22 @@
         "type": "matching",
         "prompt_en": "Match each conjugated form of 'moct' to the correct pronoun.",
         "pairs": [
-          {"left": "mohu", "right": "já"},
-          {"left": "můžeš", "right": "ty"},
-          {"left": "může", "right": "on/ona"},
-          {"left": "můžeme", "right": "my"}
+          {
+            "left": "mohu",
+            "right": "já"
+          },
+          {
+            "left": "můžeš",
+            "right": "ty"
+          },
+          {
+            "left": "může",
+            "right": "on/ona"
+          },
+          {
+            "left": "můžeme",
+            "right": "my"
+          }
         ],
         "explanation": "'Moct' conjugation: já mohu/můžu, ty můžeš, on/ona může, my můžeme, vy můžete, oni mohou/můžou. Note the stem change from 'moh-' to 'můž-' in most forms."
       },

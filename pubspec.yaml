@@ -33,6 +33,9 @@ dependencies:
   speech_to_text: ^7.0.0
   flutter_tts: ^4.0.0
 
+  # Animations (teacher character on teaching cards)
+  lottie: ^3.1.2
+
   # Networking
   dio: ^5.4.0
   connectivity_plus: ^7.0.0
@@ -84,6 +87,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/animations/
     - assets/curriculum/
     - assets/curriculum/lessons/
     - assets/vocabulary/

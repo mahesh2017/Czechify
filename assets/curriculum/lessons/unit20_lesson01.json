@@ -8,6 +8,55 @@
   "lesson_type": "introduction",
   "exercises": [
     {
+      "id": 90020,
+      "lesson_id": 2001,
+      "type": "teaching",
+      "prompt": "Future & \"I would…\"",
+      "data": {
+        "type": "teaching",
+        "heading": "Future & \"I would…\"",
+        "body": "Build the future two ways, and learn the polite little word behind \"I would like.\"",
+        "intro": "Now let's turn to tomorrow — and to wishes. You'll build the future two different ways and learn the polite little word that makes 'I would like' possible. Very Czech, very useful.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "budu pracovat",
+            "en": "I will work (budu + infinitive)"
+          },
+          {
+            "cz": "budeš",
+            "en": "you will"
+          },
+          {
+            "cz": "bude",
+            "en": "he / she will"
+          },
+          {
+            "cz": "budeme",
+            "en": "we will"
+          },
+          {
+            "cz": "napíšu",
+            "en": "I'll write (one finished action)"
+          },
+          {
+            "cz": "udělám",
+            "en": "I'll do (one finished action)"
+          },
+          {
+            "cz": "Chtěl bych…",
+            "en": "I'd like…"
+          },
+          {
+            "cz": "Mohl bych…?",
+            "en": "Could I…?"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 20001,
       "lesson_id": 2001,
       "type": "multiple_choice",
@@ -16,7 +65,12 @@
         "type": "multiple_choice",
         "question_cz": "Co znamená 'napíšu'?",
         "question_en": "What does 'napíšu' mean?",
-        "options": ["I am writing (now)", "I will write", "I wrote", "I was writing"],
+        "options": [
+          "I am writing (now)",
+          "I will write",
+          "I wrote",
+          "I was writing"
+        ],
         "correct_index": 1,
         "explanation": "Perfective verbs like 'napíšu' have NO present meaning — their present-tense form expresses future: 'napíšu' = I will write. This is the core rule of Czech future: perfective present = future action. Compare: 'píšu' (imperfective) = I am writing now, 'napíšu' (perfective) = I will write."
       },
@@ -33,7 +87,12 @@
         "type": "multiple_choice",
         "question_cz": "Která z těchto možností vyjadřuje budoucnost pomocí 'budu + infinitiv'?",
         "question_en": "Which of these expresses future tense using the imperfective (budu + infinitive) pattern?",
-        "options": ["napíšu dopis", "přečtu knihu", "budu psát dopis", "udělám to"],
+        "options": [
+          "napíšu dopis",
+          "přečtu knihu",
+          "budu psát dopis",
+          "udělám to"
+        ],
         "correct_index": 2,
         "explanation": "'Budu psát dopis' = I will be writing a letter (imperfective future). The others are perfective present forms expressing future: 'napíšu' = I will write, 'přečtu' = I will read, 'udělám' = I will do. Imperfective verbs CANNOT use present tense for future — they need 'budu/budeš/bude/budeme/budete/budou' + infinitive."
       },
@@ -52,7 +111,9 @@
         "blank_count": 1,
         "explanation": "'Napsat' (perfective) → 'napíšu' = I will write. The perfective present form is used for future. 'Zítra' (tomorrow) makes it clear this is future. The complete sentence: 'Zítra napíšu ten dopis.' = Tomorrow I will write the letter.",
         "blank_answers": [
-          ["napíšu"]
+          [
+            "napíšu"
+          ]
         ]
       },
       "answer_key": "napíšu",
@@ -68,7 +129,12 @@
         "type": "multiple_choice",
         "question_cz": "Jak řeknete 'I will do it tomorrow' pomocí dokonavého slovesa?",
         "question_en": "How do you say 'I will do it tomorrow' using a perfective verb?",
-        "options": ["Zítra to dělám.", "Zítra to budu dělat.", "Zítra to udělám.", "Zítra to dělal jsem."],
+        "options": [
+          "Zítra to dělám.",
+          "Zítra to budu dělat.",
+          "Zítra to udělám.",
+          "Zítra to dělal jsem."
+        ],
         "correct_index": 2,
         "explanation": "'Udělat' (perfective) → 'udělám' = I will do. 'Zítra to udělám.' = I will do it tomorrow. 'Dělám' is present imperfective (I am doing now), 'budu dělat' is also future but imperfective (I will be doing), 'dělal jsem' is past (I did)."
       },
@@ -85,7 +151,12 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I will read the book tomorrow.",
-        "accepted_answers": ["Zítra přečtu tu knihu.", "Zítra přečtu knihu.", "Přečtu tu knihu zítra.", "Přečtu knihu zítra."],
+        "accepted_answers": [
+          "Zítra přečtu tu knihu.",
+          "Zítra přečtu knihu.",
+          "Přečtu tu knihu zítra.",
+          "Přečtu knihu zítra."
+        ],
         "grammar_note": "'Přečíst' (perfective) → 'přečtu' = I will read (to completion). The perfective aspect implies finishing the book. Compare with 'budu číst knihu' = I will be reading the book (imperfective, no completion implied). 'Zítra' = tomorrow."
       },
       "answer_key": "Zítra přečtu tu knihu.",
@@ -103,7 +174,9 @@
         "blank_count": 1,
         "explanation": "'Mluvit' is imperfective, so it cannot use present for future. We use 'budu' + infinitive: 'budu mluvit' = I will be speaking / I will speak. Future of být: budu, budeš, bude, budeme, budete, budou. 'Příští týden' = next week.",
         "blank_answers": [
-          ["budu mluvit"]
+          [
+            "budu mluvit"
+          ]
         ]
       },
       "answer_key": "budu mluvit",
@@ -119,7 +192,12 @@
         "type": "multiple_choice",
         "question_cz": "Která dvojice je správná (nedokonavé/dokonavé)?",
         "question_en": "Which is the correct imperfective/perfective pair?",
-        "options": ["psát / napsat", "dělat / dělat", "číst / číst", "psát / psát"],
+        "options": [
+          "psát / napsat",
+          "dělat / dělat",
+          "číst / číst",
+          "psát / psát"
+        ],
         "correct_index": 0,
         "explanation": "'Psát' (imperfective — to be writing) pairs with 'napsat' (perfective — to write/finish writing). Common pairs: dělat/udělat (do), číst/přečíst (read), psát/napsat (write), jíst/sníst (eat), pít/vypít (drink), kupovat/koupit (buy). The prefix (na-, u-, pře-, s-, vy-) often makes a verb perfective."
       },
@@ -138,7 +216,9 @@
         "blank_count": 1,
         "explanation": "Use imperfective future (budu číst) for ongoing/repeated actions. Use perfective (přečtu) for one-time, completed actions. 'Každý den' (every day) signals a habitual action → imperfective. 'Budu číst hodinu' = I will be reading for an hour / I will read for an hour (regularly).",
         "blank_answers": [
-          ["budu číst"]
+          [
+            "budu číst"
+          ]
         ]
       },
       "answer_key": "budu číst",
@@ -154,7 +234,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "In the evening I will watch TV.",
-        "accepted_answers": ["Večer budu sledovat televizi.", "Večer se budu dívat na televizi.", "Večer budu koukat na televizi."],
+        "accepted_answers": [
+          "Večer budu sledovat televizi.",
+          "Večer se budu dívat na televizi.",
+          "Večer budu koukat na televizi."
+        ],
         "grammar_note": "'Sledovat televizi' or 'dívat se na televizi' — both are imperfective, describing an ongoing activity. Use 'budu' + infinitive. 'Večer' = in the evening. If it were a specific one-time show you'd finish, you might use a perfective like 'podívám se'."
       },
       "answer_key": "Večer budu sledovat televizi.",
@@ -194,7 +278,9 @@
         "blank_count": 1,
         "explanation": "'Naobědvat se' (perfective) → 'naobědvám se' = I will have/eat lunch. For a specific, one-time meal: use perfective. For habitual eating: 'budu obědvat'. Compare: 'V poledne se naobědvám.' (I will eat lunch at noon — one time) vs 'Každý den budu obědvat ve dvanáct.' (Every day I will eat lunch at twelve — habitual).",
         "blank_answers": [
-          ["naobědvám"]
+          [
+            "naobědvám"
+          ]
         ]
       },
       "answer_key": "naobědvám",
@@ -210,7 +296,12 @@
         "type": "pronunciation",
         "target_text": "Zítra napíšu dopis a pak budu číst knihu.",
         "target_audio_hash": "placeholder_20012",
-        "focus_sounds": ["napíšu", "dopis", "budu číst", "knihu"],
+        "focus_sounds": [
+          "napíšu",
+          "dopis",
+          "budu číst",
+          "knihu"
+        ],
         "min_score": 0.6,
         "translation_en": "Tomorrow I will write a letter and then I will read a book."
       },

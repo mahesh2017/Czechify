@@ -9,6 +9,75 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90003,
+      "lesson_id": 301,
+      "type": "teaching",
+      "prompt": "The Three Genders",
+      "data": {
+        "type": "teaching",
+        "heading": "The Three Genders",
+        "body": "You can usually tell a noun's gender from its ending. Practise with \"To je…\" (This is…).",
+        "intro": "Here's the idea that unlocks Czech: every noun has a gender — masculine, feminine, or neuter. It's nothing to do with biology and everything to do with the ending. Learn to read those endings and the whole language starts to line up.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "muž",
+            "en": "man (masculine — ends in a consonant)"
+          },
+          {
+            "cz": "dům",
+            "en": "house (masculine)"
+          },
+          {
+            "cz": "hrad",
+            "en": "castle (masculine)"
+          },
+          {
+            "cz": "žena",
+            "en": "woman (feminine — ends in -a)"
+          },
+          {
+            "cz": "káva",
+            "en": "coffee (feminine)"
+          },
+          {
+            "cz": "kniha",
+            "en": "book (feminine)"
+          },
+          {
+            "cz": "auto",
+            "en": "car (neuter — ends in -o)"
+          },
+          {
+            "cz": "okno",
+            "en": "window (neuter)"
+          },
+          {
+            "cz": "město",
+            "en": "city (neuter)"
+          },
+          {
+            "cz": "moře",
+            "en": "sea (neuter — ends in -e)"
+          },
+          {
+            "cz": "To je muž.",
+            "en": "This is a man."
+          },
+          {
+            "cz": "To je žena.",
+            "en": "This is a woman."
+          },
+          {
+            "cz": "To je auto.",
+            "en": "This is a car."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 3001,
       "lesson_id": 301,
       "type": "multiple_choice",
@@ -183,7 +252,9 @@
         "blank_count": 1,
         "explanation": "žena = woman (feminine, ends in -a). To je žena.",
         "blank_answers": [
-          ["žena"]
+          [
+            "žena"
+          ]
         ]
       },
       "answer_key": "žena",
@@ -196,8 +267,18 @@
       "prompt": "Arrange: 'To je velký hrad.' (That is a big castle.)",
       "data": {
         "type": "word_order",
-        "words": ["To", "je", "velký", "hrad."],
-        "correct_order": [0, 1, 2, 3],
+        "words": [
+          "To",
+          "je",
+          "velký",
+          "hrad."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
         "explanation": "To je + adjective + noun. velký = big (masculine inanimate form). Adjective agrees with noun gender.",
         "translation_en": "That is a big castle."
       },

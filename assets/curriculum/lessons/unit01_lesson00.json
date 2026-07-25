@@ -397,7 +397,9 @@
             "example_en": "woman",
             "say": "žena"
           }
-        ]
+        ],
+        "intro": "Every language begins with its sounds — and Czech has a few that will surprise you, including one no other language on earth uses. Let's meet the alphabet letter by letter: how each one is named, and how it comes alive inside real words.",
+        "character": "v3"
       },
       "xp_reward": 0
     },

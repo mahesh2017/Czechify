@@ -9,6 +9,75 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90024,
+      "lesson_id": 2401,
+      "type": "teaching",
+      "prompt": "Body & Health",
+      "data": {
+        "type": "teaching",
+        "heading": "Body & Health",
+        "body": "The parts of the body and the phrase \"Bolí mě…\" — so a doctor's visit stops being scary.",
+        "intro": "Sooner or later, everyone needs to say what hurts. Learn the parts of the body and the phrase 'Bolí mě…', and a Czech doctor's visit stops being scary.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "hlava",
+            "en": "head"
+          },
+          {
+            "cz": "ruka",
+            "en": "hand / arm"
+          },
+          {
+            "cz": "noha",
+            "en": "leg / foot"
+          },
+          {
+            "cz": "oko",
+            "en": "eye"
+          },
+          {
+            "cz": "ucho",
+            "en": "ear"
+          },
+          {
+            "cz": "břicho",
+            "en": "belly"
+          },
+          {
+            "cz": "záda",
+            "en": "back"
+          },
+          {
+            "cz": "zub",
+            "en": "tooth"
+          },
+          {
+            "cz": "Bolí mě hlava.",
+            "en": "My head hurts."
+          },
+          {
+            "cz": "Jsem nemocný.",
+            "en": "I'm sick. (male)"
+          },
+          {
+            "cz": "lékař",
+            "en": "doctor"
+          },
+          {
+            "cz": "lékárna",
+            "en": "pharmacy"
+          },
+          {
+            "cz": "lék",
+            "en": "medicine"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 24001,
       "lesson_id": 2401,
       "type": "matching",
@@ -17,10 +86,22 @@
         "type": "matching",
         "prompt_en": "Match each Czech body part to its English meaning.",
         "pairs": [
-          {"left": "hlava", "right": "head"},
-          {"left": "ruka", "right": "hand/arm"},
-          {"left": "noha", "right": "leg/foot"},
-          {"left": "oko", "right": "eye"}
+          {
+            "left": "hlava",
+            "right": "head"
+          },
+          {
+            "left": "ruka",
+            "right": "hand/arm"
+          },
+          {
+            "left": "noha",
+            "right": "leg/foot"
+          },
+          {
+            "left": "oko",
+            "right": "eye"
+          }
         ],
         "explanation": "Basic body parts: 'hlava' = head, 'ruka' = hand or arm (Czech uses one word for both), 'noha' = leg or foot (also one word), 'oko' = eye. Note that Czech 'ruka' and 'noha' cover what English splits into two words each."
       },
@@ -37,10 +118,22 @@
         "type": "matching",
         "prompt_en": "Match each Czech health term to its English meaning.",
         "pairs": [
-          {"left": "bolí", "right": "hurts/aches"},
-          {"left": "nemoc", "right": "illness/disease"},
-          {"left": "lékař", "right": "doctor"},
-          {"left": "lék", "right": "medicine"}
+          {
+            "left": "bolí",
+            "right": "hurts/aches"
+          },
+          {
+            "left": "nemoc",
+            "right": "illness/disease"
+          },
+          {
+            "left": "lékař",
+            "right": "doctor"
+          },
+          {
+            "left": "lék",
+            "right": "medicine"
+          }
         ],
         "explanation": "Health vocabulary: 'bolí' = hurts (3rd person singular of 'bolet'), 'nemoc' = illness, 'lékař' = doctor (masculine), 'lek' = medicine/drug. 'Bolí mě hlava' = My head hurts."
       },
@@ -57,7 +150,12 @@
         "type": "multiple_choice",
         "question_cz": "Co znamená 'Bolí mě břicho'?",
         "question_en": "What does 'Bolí mě břicho' mean?",
-        "options": ["My head hurts", "My stomach hurts", "My back hurts", "My throat hurts"],
+        "options": [
+          "My head hurts",
+          "My stomach hurts",
+          "My back hurts",
+          "My throat hurts"
+        ],
         "correct_index": 1,
         "explanation": "'Bolí mě břicho' = My stomach hurts. 'Břicho' = stomach/belly. The structure is 'bolí mě + body part' — the verb 'bolet' (to hurt) is impersonal, always 3rd person singular."
       },
@@ -74,7 +172,12 @@
         "type": "multiple_choice",
         "question_cz": "Které slovo znamená 'tooth'?",
         "question_en": "Which word means 'tooth' in Czech?",
-        "options": ["zub", "nos", "ucho", "krk"],
+        "options": [
+          "zub",
+          "nos",
+          "ucho",
+          "krk"
+        ],
         "correct_index": 0,
         "explanation": "'Zub' = tooth. Other body parts: 'nos' = nose, 'ucho' = ear, 'krk' = neck/throat. A dentist is 'zubní lékař' (tooth doctor)."
       },
@@ -93,7 +196,9 @@
         "blank_count": 1,
         "explanation": "'Bolí mě hlava.' = My head hurts. 'Hlava' = head. The structure 'bolí mě + [body part in nominative]' is the standard way to express pain in Czech.",
         "blank_answers": [
-          ["hlava"]
+          [
+            "hlava"
+          ]
         ]
       },
       "answer_key": "hlava",
@@ -111,7 +216,10 @@
         "blank_count": 1,
         "explanation": "'Jsem nemocný.' = I am sick (masculine). 'Jsem nemocná.' = I am sick (feminine). The adjective 'nemocný/nemocná' agrees with the speaker's gender. 'Nemoc' is the noun (illness), 'nemocný' is the adjective (sick/ill).",
         "blank_answers": [
-          ["nemocný", "nemocná"]
+          [
+            "nemocný",
+            "nemocná"
+          ]
         ]
       },
       "answer_key": "nemocný",
@@ -127,7 +235,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "My throat hurts.",
-        "accepted_answers": ["Bolí mě krk.", "Krk mě bolí.", "Bolí mě v krku."],
+        "accepted_answers": [
+          "Bolí mě krk.",
+          "Krk mě bolí.",
+          "Bolí mě v krku."
+        ],
         "grammar_note": "'Bolí mě krk.' = My throat hurts. 'Krk' = neck/throat. The impersonal verb 'bolí' (hurts) + 'mě' (me) + body part. Alternatively: 'Bolí mě v krku' (It hurts in my throat) using the locative case."
       },
       "answer_key": "Bolí mě krk.",
@@ -143,7 +255,11 @@
         "type": "translation",
         "direction": "cz_to_en",
         "source": "Mám kašel.",
-        "accepted_answers": ["I have a cough.", "I have cough.", "I've got a cough."],
+        "accepted_answers": [
+          "I have a cough.",
+          "I have cough.",
+          "I've got a cough."
+        ],
         "grammar_note": "'Mám kašel' = I have a cough. 'Kašel' = cough (masculine noun). The verb 'mít' (to have) + noun is used to describe symptoms, similar to English."
       },
       "answer_key": "I have a cough.",
@@ -175,7 +291,12 @@
         "type": "pronunciation",
         "target_text": "Bolí mě hlava a krk.",
         "target_audio_hash": "placeholder_24010",
-        "focus_sounds": ["bolí", "hlava", "krk", "á"],
+        "focus_sounds": [
+          "bolí",
+          "hlava",
+          "krk",
+          "á"
+        ],
         "min_score": 0.6,
         "translation_en": "My head and throat hurt."
       },
@@ -190,8 +311,15 @@
       "prompt": "Arrange the words to form: 'I have a fever.'",
       "data": {
         "type": "word_order",
-        "words": ["horečku", "Mám", "teplotu"],
-        "correct_order": [1, 0],
+        "words": [
+          "horečku",
+          "Mám",
+          "teplotu"
+        ],
+        "correct_order": [
+          1,
+          0
+        ],
         "explanation": "'Mám horečku.' = I have a fever. The correct sentence uses 'Mám' (I have) + 'horečku' (fever - accusative). 'Teplotu' (temperature) is a distractor — the more specific word for fever is 'horečka'. Alternative: 'Mám teplotu' (I have a temperature) is also valid."
       },
       "answer_key": "Mám horečku.",

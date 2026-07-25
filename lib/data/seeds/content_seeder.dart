@@ -41,7 +41,7 @@ class ContentSeeder {
   /// they last installed differs from this — because [hasUsableLocalContent]
   /// only checks counts and would otherwise never notice an *edit* that keeps
   /// the counts the same (e.g. renaming a persona in an existing lesson).
-  static const int bundledContentRevision = 3;
+  static const int bundledContentRevision = 6;
 
   ContentSeeder(this._db, this._source);
 

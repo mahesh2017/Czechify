@@ -69,6 +69,63 @@ Future<void> _selectBestCzechVoice(FlutterTts tts) async {
   }
 }
 
+/// Speaks short English narration — the teaching-card intro scripts. Kept on a
+/// separate engine from the Czech [ttsProvider] so the two never fight over the
+/// native voice/language. The language is re-asserted before every utterance
+/// because on some platforms all FlutterTts instances share one native engine,
+/// so whichever spoke last would otherwise leave the wrong language selected.
+///
+/// This is the "English TTS now" step; a recorded character voice (an `.mp3`
+/// per unit) can replace it later without touching call sites.
+class EnglishTts {
+  final FlutterTts _tts;
+
+  /// True while narration is actually playing — the teaching card watches this
+  /// to switch the teacher between its idle and talking animation.
+  final ValueNotifier<bool> speaking = ValueNotifier<bool>(false);
+
+  EnglishTts(this._tts) {
+    _tts.setStartHandler(() => speaking.value = true);
+    _tts.setCompletionHandler(() => speaking.value = false);
+    _tts.setCancelHandler(() => speaking.value = false);
+    _tts.setErrorHandler((_) => speaking.value = false);
+  }
+
+  Future<void> speak(String text) async {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return;
+    try {
+      await _tts.stop();
+      await _tts.setLanguage('en-US');
+      // Optimistic: some platforms don't fire the start handler promptly.
+      speaking.value = true;
+      await _tts.speak(trimmed);
+    } catch (_) {
+      // Narration is best-effort — never let a missing voice break the card.
+      speaking.value = false;
+    }
+  }
+
+  Future<void> stop() async {
+    try {
+      await _tts.stop();
+    } catch (_) {}
+    speaking.value = false;
+  }
+}
+
+/// Provider for the English narration helper. Uses its own FlutterTts instance
+/// configured for a natural, slightly slower English delivery.
+final englishTtsProvider = Provider<EnglishTts>((ref) {
+  final tts = FlutterTts();
+  tts.setLanguage('en-US');
+  tts.setPitch(1.0);
+  tts.setVolume(1.0);
+  tts.setSpeechRate(0.5);
+  ref.onDispose(() => tts.stop());
+  return EnglishTts(tts);
+});
+
 /// Audio player for playing cached TTS files.
 final audioPlayerProvider = Provider<AudioPlayer>((ref) {
   final player = AudioPlayer();
@@ -251,6 +308,12 @@ class CzechTts {
     if (trimmed.isEmpty) return;
 
     await stop();
+
+    // Re-assert Czech: the English narration engine (see [EnglishTts]) may share
+    // the same native engine on some platforms and leave it set to en-US.
+    try {
+      await _tts.setLanguage('cs-CZ');
+    } catch (_) {}
 
     final effectiveRate = rate ?? _speechRate();
 

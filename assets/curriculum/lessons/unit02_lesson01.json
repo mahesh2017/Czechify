@@ -9,6 +9,75 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90002,
+      "lesson_id": 201,
+      "type": "teaching",
+      "prompt": "First Words: Greetings & Politeness",
+      "data": {
+        "type": "teaching",
+        "heading": "First Words: Greetings & Politeness",
+        "body": "Czech has a formal (vy) and an informal (ty) register — use vy with strangers, ty with friends. Tap any line to hear it.",
+        "intro": "The very first thing you'll say in a new country is hello — so let's make yours sound natural. You'll pick up the greetings, the pleases and thank-yous, and the one choice Czechs make every time they speak: formal, or friendly?",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "Dobrý den",
+            "en": "Good day / Hello (formal)"
+          },
+          {
+            "cz": "Ahoj",
+            "en": "Hi / Bye (informal)"
+          },
+          {
+            "cz": "Dobré ráno",
+            "en": "Good morning"
+          },
+          {
+            "cz": "Dobrý večer",
+            "en": "Good evening"
+          },
+          {
+            "cz": "Na shledanou",
+            "en": "Goodbye (formal)"
+          },
+          {
+            "cz": "Děkuji",
+            "en": "Thank you"
+          },
+          {
+            "cz": "Prosím",
+            "en": "Please / You're welcome"
+          },
+          {
+            "cz": "Promiňte",
+            "en": "Excuse me / Sorry"
+          },
+          {
+            "cz": "Ano",
+            "en": "Yes"
+          },
+          {
+            "cz": "Ne",
+            "en": "No"
+          },
+          {
+            "cz": "Jak se máte?",
+            "en": "How are you? (formal)"
+          },
+          {
+            "cz": "Jak se máš?",
+            "en": "How are you? (informal)"
+          },
+          {
+            "cz": "Těší mě",
+            "en": "Nice to meet you"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 2001,
       "lesson_id": 201,
       "type": "multiple_choice",
@@ -141,8 +210,12 @@
         "blank_count": 2,
         "explanation": "Dobrý den (formal greeting) + Jak se máte? (formal 'how are you'). With a stranger/Mr. Novák, always use formal.",
         "blank_answers": [
-          ["Dobrý"],
-          ["máte"]
+          [
+            "Dobrý"
+          ],
+          [
+            "máte"
+          ]
         ]
       },
       "answer_key": "Dobrý|máte",
@@ -156,8 +229,18 @@
       "prompt": "Arrange: 'Ahoj, jak se máš?' (informal 'Hi, how are you?')",
       "data": {
         "type": "word_order",
-        "words": ["Ahoj,", "jak", "se", "máš?"],
-        "correct_order": [0, 1, 2, 3],
+        "words": [
+          "Ahoj,",
+          "jak",
+          "se",
+          "máš?"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
         "explanation": "Informal version: Ahoj + ty form (máš). This is for friends and people your age.",
         "translation_en": "Hi how are you?"
       },

@@ -9,6 +9,75 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90008,
+      "lesson_id": 801,
+      "type": "teaching",
+      "prompt": "Family & Describing Things",
+      "data": {
+        "type": "teaching",
+        "heading": "Family & Describing Things",
+        "body": "The family words — and how Czech adjectives quietly shift to agree with their noun (m / f / n).",
+        "intro": "Let's talk about the people you love and the world around you. You'll gather the family words — and discover how Czech adjectives quietly shift to 'agree' with their noun.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "matka",
+            "en": "mother"
+          },
+          {
+            "cz": "otec",
+            "en": "father"
+          },
+          {
+            "cz": "bratr",
+            "en": "brother"
+          },
+          {
+            "cz": "sestra",
+            "en": "sister"
+          },
+          {
+            "cz": "syn",
+            "en": "son"
+          },
+          {
+            "cz": "dcera",
+            "en": "daughter"
+          },
+          {
+            "cz": "babička",
+            "en": "grandma"
+          },
+          {
+            "cz": "dědeček",
+            "en": "grandpa"
+          },
+          {
+            "cz": "rodina",
+            "en": "family"
+          },
+          {
+            "cz": "dobrý",
+            "en": "good (adjective, masculine)"
+          },
+          {
+            "cz": "velký dům",
+            "en": "a big house (masculine ending)"
+          },
+          {
+            "cz": "velká rodina",
+            "en": "a big family (feminine ending)"
+          },
+          {
+            "cz": "velké auto",
+            "en": "a big car (neuter ending)"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 8001,
       "lesson_id": 801,
       "type": "multiple_choice",
@@ -17,7 +86,12 @@
         "type": "multiple_choice",
         "question_cz": "Jak se česky řekne 'rodina'?",
         "question_en": "What is the Czech word for 'family'?",
-        "options": ["rodina", "rodinu", "rodiny", "rodině"],
+        "options": [
+          "rodina",
+          "rodinu",
+          "rodiny",
+          "rodině"
+        ],
         "correct_index": 0,
         "explanation": "'Rodina' is a feminine noun meaning 'family'. It is the nominative singular form."
       },
@@ -34,7 +108,12 @@
         "type": "multiple_choice",
         "question_cz": "Co znamená slovo 'dědeček'?",
         "question_en": "What does the word 'dědeček' mean?",
-        "options": ["grandfather", "grandmother", "uncle", "father"],
+        "options": [
+          "grandfather",
+          "grandmother",
+          "uncle",
+          "father"
+        ],
         "correct_index": 0,
         "explanation": "'Dědeček' means 'grandfather'. It is a masculine animate noun. 'Babička' is 'grandmother'."
       },
@@ -51,7 +130,12 @@
         "type": "multiple_choice",
         "question_cz": "Vyberte správnou formu: '___ otec'",
         "question_en": "Choose the correct form: '___ father' (using 'good')",
-        "options": ["dobrá otec", "dobré otec", "dobrý otec", "dobrého otce"],
+        "options": [
+          "dobrá otec",
+          "dobré otec",
+          "dobrý otec",
+          "dobrého otce"
+        ],
         "correct_index": 2,
         "explanation": "'Otec' is masculine animate, so the adjective takes the masculine ending '-ý': dobrý otec (good father)."
       },
@@ -68,7 +152,12 @@
         "type": "multiple_choice",
         "question_cz": "Vyberte správnou formu: '___ matka'",
         "question_en": "Choose the correct form: '___ mother' (using 'good')",
-        "options": ["dobrý matka", "dobrá matka", "dobré matka", "dobrou matku"],
+        "options": [
+          "dobrý matka",
+          "dobrá matka",
+          "dobré matka",
+          "dobrou matku"
+        ],
         "correct_index": 1,
         "explanation": "'Matka' is feminine, so the adjective takes the feminine ending '-á': dobrá matka (good mother)."
       },
@@ -85,7 +174,10 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I have a big family.",
-        "accepted_answers": ["Mám velkou rodinu.", "Mám velkou rodinu"],
+        "accepted_answers": [
+          "Mám velkou rodinu.",
+          "Mám velkou rodinu"
+        ],
         "grammar_note": "'Rodina' is feminine. In the accusative case (object of 'mít'), the adjective ending becomes '-ou': velkou rodinu. 'Velký' is the masculine form, 'velká' is feminine nominative, but here we need accusative."
       },
       "answer_key": "Mám velkou rodinu.",
@@ -101,7 +193,12 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "My sister is small.",
-        "accepted_answers": ["Moje sestra je malá.", "Moje sestra je malá", "Má sestra je malá.", "Má sestra je malá"],
+        "accepted_answers": [
+          "Moje sestra je malá.",
+          "Moje sestra je malá",
+          "Má sestra je malá.",
+          "Má sestra je malá"
+        ],
         "grammar_note": "'Sestra' is feminine, so 'malý' (masc) becomes 'malá' (fem). 'Moje' is the possessive 'my/mine' used for feminine and neuter nouns."
       },
       "answer_key": "Moje sestra je malá.",
@@ -117,7 +214,11 @@
         "type": "translation",
         "direction": "cz_to_en",
         "source": "Můj bratr je student.",
-        "accepted_answers": ["My brother is a student.", "My brother is a student", "My brother is student."],
+        "accepted_answers": [
+          "My brother is a student.",
+          "My brother is a student",
+          "My brother is student."
+        ],
         "grammar_note": "'Můj' is the masculine possessive 'my'. 'Bratr' is masculine animate. Czech does not use an indefinite article, so 'student' translates as 'a student'."
       },
       "answer_key": "My brother is a student.",
@@ -135,7 +236,9 @@
         "blank_count": 1,
         "explanation": "'Dům' (house) is masculine inanimate. The adjective 'starý' (old) takes the masculine ending '-ý': starý dům.",
         "blank_answers": [
-          ["starý"]
+          [
+            "starý"
+          ]
         ]
       },
       "answer_key": "starý",
@@ -153,7 +256,9 @@
         "blank_count": 1,
         "explanation": "'Kniha' (book) is feminine. The adjective 'nový' (new) takes the feminine ending '-á': nová kniha. 'Moje' is used with feminine and neuter nouns.",
         "blank_answers": [
-          ["nová"]
+          [
+            "nová"
+          ]
         ]
       },
       "answer_key": "nová",
@@ -167,8 +272,18 @@
       "prompt": "Arrange the words to form a correct sentence",
       "data": {
         "type": "word_order",
-        "words": ["Moje", "sestra", "je", "hezká"],
-        "correct_order": [0, 1, 2, 3],
+        "words": [
+          "Moje",
+          "sestra",
+          "je",
+          "hezká"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
         "explanation": "Word order: Subject (Moje sestra) + verb (je) + adjective predicate (hezká). 'Sestra' is feminine, so 'hezký' becomes 'hezká'."
       },
       "answer_key": "Moje sestra je hezká",
@@ -200,7 +315,11 @@
         "type": "pronunciation",
         "target_text": "Mám velkou rodinu.",
         "target_audio_hash": "placeholder_8012",
-        "focus_sounds": ["velkou", "rodinu", "ř"],
+        "focus_sounds": [
+          "velkou",
+          "rodinu",
+          "ř"
+        ],
         "min_score": 0.6,
         "translation_en": "I have a big family."
       },

@@ -9,6 +9,20 @@
   "is_review": true,
   "exercises": [
     {
+      "id": 90029,
+      "lesson_id": 2901,
+      "type": "teaching",
+      "prompt": "How the A2 Exam Works",
+      "data": {
+        "type": "teaching",
+        "heading": "How the A2 Exam Works",
+        "body": "The A2 exam — the one that opens the door to permanent residence — also covers reading, listening, writing, and speaking, at a higher level. Watch your time in each section, lean on context for unfamiliar words, and keep your written and spoken answers clear, complete, and on-topic.",
+        "intro": "This is the big one: the A2 exam that opens the door to permanent residence. Let's demystify every section and sharpen the strategies that matter most.",
+        "style": "list"
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 29001,
       "lesson_id": 2901,
       "type": "reading_comprehension",

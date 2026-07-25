@@ -1,6 +1,10 @@
 # Teaching Content Plan — Unit Intros & Teaching Cards
 
-**Status:** PLAN for review. Nothing here is built into the app yet — awaiting go-ahead.
+**Status:** BUILT. Every unit's first lesson now opens with a teaching card
+carrying a spoken intro (English TTS) + a teacher character; grammar/vocab units
+use tappable "Czech — meaning" rows, Units 1 & 9 keep their alphabet/number
+cards. Remaining: on-device visual check of the character animation, and later
+re-voicing the intros as recorded `.mp3` per unit. See "Build status" at the end.
 
 ## What this covers
 
@@ -265,3 +269,30 @@ These don't introduce a new grammar concept, so their "teaching card" is a **str
 5. Update golden-count tests; verify on device unit by unit.
 
 **Suggested order:** A1 first (Units 2–8, 10–15 — since 1 and 9 are done), then A2 (16–27), then exam/review (28–31).
+
+---
+
+## Build status (what actually shipped)
+
+Done in one pass across all 31 units:
+
+- **`intro` field** on the teaching card → spoken by a dedicated **English (en-US)
+  TTS** engine (`englishTtsProvider` / `EnglishTts` in `tts_providers.dart`), kept
+  separate from the Czech voice. Swappable for a recorded `.mp3` later without
+  touching call sites.
+- **Teacher character** — Lottie animations (`assets/animations/teacher_{female,male}_{idle,talk}.json`),
+  chosen by the `ttsVoiceGender` setting, idle by default and switching to the
+  talking loop while the intro narrates. `lottie` added to `pubspec.yaml`;
+  `assets/animations/` registered. Falls back to a person icon if the asset fails.
+- **New "list" row style** in `teaching_view.dart` (`_PhraseRow`): Czech form +
+  English meaning, tap to hear the Czech. Alphabet/number rows (Units 1 & 9) keep
+  the original `_LetterRow`.
+- **Content** authored into every unit's first lesson via the re-runnable
+  `tool/generate_teaching_cards.py` (teaching-card id = `90000 + unit_id`).
+- **Contract validator** updated to accept list rows (`cz`/`en`).
+- **`bundledContentRevision` 3 → 4** so installs re-seed. Golden count updated
+  (743 → 772 exercises). `flutter analyze` clean; full test suite green.
+
+**Not yet done:** on-device visual verification of the character animation
+quality (the Lottie files are auto-generated placeholders), and the recorded
+character voice-over.

@@ -9,6 +9,91 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90012,
+      "lesson_id": 1201,
+      "type": "teaching",
+      "prompt": "Shopping: Prices, Colors & Clothes",
+      "data": {
+        "type": "teaching",
+        "heading": "Shopping: Prices, Colors & Clothes",
+        "body": "Three words to rescue you in any shop — plus colors, sizes, and clothes.",
+        "intro": "'Kolik to stojí?' — three words that'll rescue you in any Czech shop. Add colors, sizes, and clothes, and you can find exactly what you want and know what it costs.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "Kolik to stojí?",
+            "en": "How much is it?"
+          },
+          {
+            "cz": "Chci…",
+            "en": "I want…"
+          },
+          {
+            "cz": "korun",
+            "en": "crowns (CZK)"
+          },
+          {
+            "cz": "velikost",
+            "en": "size"
+          },
+          {
+            "cz": "levný",
+            "en": "cheap"
+          },
+          {
+            "cz": "drahý",
+            "en": "expensive"
+          },
+          {
+            "cz": "červená",
+            "en": "red"
+          },
+          {
+            "cz": "modrá",
+            "en": "blue"
+          },
+          {
+            "cz": "zelená",
+            "en": "green"
+          },
+          {
+            "cz": "žlutá",
+            "en": "yellow"
+          },
+          {
+            "cz": "černá",
+            "en": "black"
+          },
+          {
+            "cz": "bílá",
+            "en": "white"
+          },
+          {
+            "cz": "tričko",
+            "en": "t-shirt"
+          },
+          {
+            "cz": "kalhoty",
+            "en": "trousers"
+          },
+          {
+            "cz": "boty",
+            "en": "shoes"
+          },
+          {
+            "cz": "bunda",
+            "en": "jacket"
+          },
+          {
+            "cz": "šaty",
+            "en": "dress"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 12001,
       "lesson_id": 1201,
       "type": "multiple_choice",
@@ -17,7 +102,12 @@
         "type": "multiple_choice",
         "question_cz": "Kolik to stojí?",
         "question_en": "What does 'Kolik to stojí?' mean?",
-        "options": ["How much does it cost?", "What is this?", "Where is the shop?", "Do you like it?"],
+        "options": [
+          "How much does it cost?",
+          "What is this?",
+          "Where is the shop?",
+          "Do you like it?"
+        ],
         "correct_index": 0,
         "explanation": "Kolik to stojí? = How much does it cost? This is the essential phrase for asking prices in Czech shops."
       },
@@ -34,7 +124,12 @@
         "type": "multiple_choice",
         "question_cz": "Které přídavné jméno správně souhlasí se slovem 'košile'?",
         "question_en": "Which adjective correctly agrees with 'košile' (shirt, feminine)?",
-        "options": ["červený košile", "červená košile", "červené košile", "červenou košile"],
+        "options": [
+          "červený košile",
+          "červená košile",
+          "červené košile",
+          "červenou košile"
+        ],
         "correct_index": 1,
         "explanation": "košile is feminine, so the adjective must end in -á: červená košile. -ý is masculine, -é is neuter."
       },
@@ -51,7 +146,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "How much does this cost?",
-        "accepted_answers": ["Kolik to stojí?", "Kolik to stojí", "Kolik stojí?"],
+        "accepted_answers": [
+          "Kolik to stojí?",
+          "Kolik to stojí",
+          "Kolik stojí?"
+        ],
         "grammar_note": "Kolik = how much, to = it/this, stojí = costs (3rd person sg of 'stát'). Use this phrase in any shop."
       },
       "answer_key": "Kolik to stojí?",
@@ -69,8 +168,12 @@
         "blank_count": 2,
         "explanation": "svetr is masculine → modrý. sukně is feminine → modrá. Colors change endings based on the gender of the noun they describe.",
         "blank_answers": [
-          ["modrý"],
-          ["modrá"]
+          [
+            "modrý"
+          ],
+          [
+            "modrá"
+          ]
         ]
       },
       "answer_key": "modrý modrá",
@@ -86,7 +189,12 @@
         "type": "multiple_choice",
         "question_cz": "Které ukazovací zájmeno je správné pro 'kniha'?",
         "question_en": "Which demonstrative is correct for 'kniha' (book, feminine)?",
-        "options": ["ten kniha", "ta kniha", "to kniha", "ty kniha"],
+        "options": [
+          "ten kniha",
+          "ta kniha",
+          "to kniha",
+          "ty kniha"
+        ],
         "correct_index": 1,
         "explanation": "kniha is feminine → ta kniha. ten = masculine, to = neuter, ty = plural. Demonstratives must match the gender of the noun."
       },
@@ -103,7 +211,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "That is a small shirt.",
-        "accepted_answers": ["To je malá košile.", "To je malá košile", "Tamta je malá košile."],
+        "accepted_answers": [
+          "To je malá košile.",
+          "To je malá košile",
+          "Tamta je malá košile."
+        ],
         "grammar_note": "To je = That is. malá = small (feminine ending, matching košile). košile = shirt. Demonstratives and adjectives share gender agreement."
       },
       "answer_key": "To je malá košile.",
@@ -121,8 +233,12 @@
         "blank_count": 2,
         "explanation": "svetr is masculine → velký. bunda is feminine → malá. Size adjectives follow the same gender agreement rules as colors.",
         "blank_answers": [
-          ["velký"],
-          ["malá"]
+          [
+            "velký"
+          ],
+          [
+            "malá"
+          ]
         ]
       },
       "answer_key": "velký malá",
@@ -153,7 +269,11 @@
         "type": "pronunciation",
         "target_text": "Ta modrá košile je malá.",
         "target_audio_hash": "placeholder_12009",
-        "focus_sounds": ["á", "á", "á"],
+        "focus_sounds": [
+          "á",
+          "á",
+          "á"
+        ],
         "min_score": 0.6,
         "translation_en": "The blue shirt is small."
       },
@@ -170,7 +290,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I want that red dress.",
-        "accepted_answers": ["Chci ty červené šaty.", "Chci ty červené šaty", "Chci tamty červené šaty."],
+        "accepted_answers": [
+          "Chci ty červené šaty.",
+          "Chci ty červené šaty",
+          "Chci tamty červené šaty."
+        ],
         "grammar_note": "chci = I want. ty = those (plural, šaty is plural-only). červené = red (plural adjective ending). šaty = dress."
       },
       "answer_key": "Chci ty červené šaty.",
@@ -205,8 +329,16 @@
         ],
         "explanation": "'Dobrý den, můžu vám pomoct?' = 'Hello, can I help you?' — 'Kolik stojí ten svetr?' = 'How much does the sweater cost?' — 'Stojí pět set korun' = 'It costs 500 crowns.' — 'Vezmu si ho' = 'I'll take it.'",
         "blank_answers": [
-          ["Ano, kolik stojí ten svetr?", "Ano, kolik stojí ten svetr"],
-          ["Dobře, vezmu si ho. Děkuju.", "Dobře, vezmu si ho. Děkuju.", "Dobře, vezmu si ho", "Děkuju, vezmu si ho"]
+          [
+            "Ano, kolik stojí ten svetr?",
+            "Ano, kolik stojí ten svetr"
+          ],
+          [
+            "Dobře, vezmu si ho. Děkuju.",
+            "Dobře, vezmu si ho. Děkuju.",
+            "Dobře, vezmu si ho",
+            "Děkuju, vezmu si ho"
+          ]
         ]
       },
       "answer_key": "Ano, kolik stojí ten svetr?|Dobře, vezmu si ho. Děkuju.",
@@ -222,7 +354,12 @@
         "type": "multiple_choice",
         "question_cz": "střední",
         "question_en": "What does 'střední' mean?",
-        "options": ["small", "medium", "big", "expensive"],
+        "options": [
+          "small",
+          "medium",
+          "big",
+          "expensive"
+        ],
         "correct_index": 1,
         "explanation": "střední = medium (size). malý = small, velký = big. Unlike malý/velký, 'střední' has the same form for all genders."
       },

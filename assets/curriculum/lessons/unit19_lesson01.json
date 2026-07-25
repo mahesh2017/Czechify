@@ -8,6 +8,63 @@
   "lesson_type": "introduction",
   "exercises": [
     {
+      "id": 90019,
+      "lesson_id": 1901,
+      "type": "teaching",
+      "prompt": "The Past Tense",
+      "data": {
+        "type": "teaching",
+        "heading": "The Past Tense",
+        "body": "Take a verb, add -l, match the gender — done. Let's talk about what already happened.",
+        "intro": "Yesterday is finally within reach. The Czech past tense is refreshingly kind — take a verb, add an -l, match the gender, done. Let's talk about what already happened.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "dělal jsem",
+            "en": "I did (male)"
+          },
+          {
+            "cz": "dělala jsem",
+            "en": "I did (female)"
+          },
+          {
+            "cz": "dělali jsme",
+            "en": "we did"
+          },
+          {
+            "cz": "byl jsem",
+            "en": "I was (male)"
+          },
+          {
+            "cz": "byla jsem",
+            "en": "I was (female)"
+          },
+          {
+            "cz": "šel",
+            "en": "went, on foot (male)"
+          },
+          {
+            "cz": "šla",
+            "en": "went, on foot (female)"
+          },
+          {
+            "cz": "jel",
+            "en": "went, by vehicle (male)"
+          },
+          {
+            "cz": "včera",
+            "en": "yesterday"
+          },
+          {
+            "cz": "minulý týden",
+            "en": "last week"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 19001,
       "lesson_id": 1901,
       "type": "multiple_choice",
@@ -16,7 +73,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaký je správný tvar minulého času pro 'já' (mužský rod) se slovesem 'dělat'?",
         "question_en": "What is the correct past tense form for 'I' (masculine) with the verb 'dělat'?",
-        "options": ["dělal", "dělala", "dělalo", "dělali"],
+        "options": [
+          "dělal",
+          "dělala",
+          "dělalo",
+          "dělali"
+        ],
         "correct_index": 0,
         "explanation": "Masculine singular (já/on) → -l ending: dělal jsem = I did/made. The past tense is formed with the -l participle + auxiliary 'být' (jsem, jsi, jsme, jste). 'Dělala' is feminine, 'dělalo' is neuter, 'dělali' is masculine animate plural."
       },
@@ -33,7 +95,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaký je správný tvar minulého času pro 'ona' se slovesem 'dělat'?",
         "question_en": "What is the correct past tense form for 'she' with the verb 'dělat'?",
-        "options": ["dělal", "dělala", "dělalo", "dělaly"],
+        "options": [
+          "dělal",
+          "dělala",
+          "dělalo",
+          "dělaly"
+        ],
         "correct_index": 1,
         "explanation": "Feminine singular (já/ona) → -la ending: dělala jsem/dělala = she did/made. The past participle agrees with the subject's gender. Masculine uses -l, feminine -la, neuter -lo."
       },
@@ -52,7 +119,9 @@
         "blank_count": 1,
         "explanation": "Neuter singular → -lo ending: dělalo. 'To auto dělalo dobře.' = The car worked/did well. Past participle gender agreement: masculine -l, feminine -la, neuter -lo.",
         "blank_answers": [
-          ["dělalo"]
+          [
+            "dělalo"
+          ]
         ]
       },
       "answer_key": "dělalo",
@@ -68,7 +137,12 @@
         "type": "multiple_choice",
         "question_cz": "Který tvar minulého času je správný pro 'oni' (mužský životný rod nebo smíšená skupina)?",
         "question_en": "Which past tense form is correct for 'oni' (masculine animate or mixed group)?",
-        "options": ["dělali", "dělaly", "dělala", "dělal"],
+        "options": [
+          "dělali",
+          "dělaly",
+          "dělala",
+          "dělal"
+        ],
         "correct_index": 0,
         "explanation": "Masculine animate plural (oni) → -li ending: dělali. This is used for groups with at least one male. 'Dělaly' is for feminine plural (ony), 'dělala' is for neuter plural (ona). The plural has three gender forms!"
       },
@@ -87,7 +161,9 @@
         "blank_count": 1,
         "explanation": "Feminine plural (ony) → -ly ending: dělaly. 'Ženy dělaly celý den.' = The women worked all day. Note: oni (masc. animate) = dělali, ony (fem.) = dělaly, ona (neuter) = dělala.",
         "blank_answers": [
-          ["dělaly"]
+          [
+            "dělaly"
+          ]
         ]
       },
       "answer_key": "dělaly",
@@ -103,7 +179,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I went to the store. (female speaker)",
-        "accepted_answers": ["Šla jsem do obchodu.", "Šla jsem do krámu.", "Já jsem šla do obchodu."],
+        "accepted_answers": [
+          "Šla jsem do obchodu.",
+          "Šla jsem do krámu.",
+          "Já jsem šla do obchodu."
+        ],
         "grammar_note": "Motion verb 'jít' (to go) → past tense 'šel/šla/šlo'. Feminine speaker → 'šla jsem'. The auxiliary 'jsem' is used for 1st person singular. 'Do obchodu' = to the store (genitive after 'do')."
       },
       "answer_key": "Šla jsem do obchodu.",
@@ -119,7 +199,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaký je správný tvar minulého času slovesa 'jít' pro 'ona'?",
         "question_en": "What is the correct past form of 'jít' for 'she'?",
-        "options": ["šel", "šla", "šlo", "šly"],
+        "options": [
+          "šel",
+          "šla",
+          "šlo",
+          "šly"
+        ],
         "correct_index": 1,
         "explanation": "'Jít' (to go) is an irregular motion verb: šel (masc.), šla (fem.), šlo (neut.), šli (masc. animate pl.), šly (fem. pl. & masc. inanimate pl.), šla (neuter pl.). 'Ona šla.' = She went."
       },
@@ -138,7 +223,9 @@
         "blank_count": 1,
         "explanation": "Masculine animate plural → šli. 'Oni šli domů.' = They went home. The irregular motion verb pattern: šel, šla, šlo, šli, šly, šla. Other similar verbs: jet → jel/jela/jelo/jeli/jely/jela (to go by vehicle).",
         "blank_answers": [
-          ["šli"]
+          [
+            "šli"
+          ]
         ]
       },
       "answer_key": "šli",
@@ -154,7 +241,12 @@
         "type": "multiple_choice",
         "question_cz": "Který výraz znamená 'yesterday'?",
         "question_en": "Which expression means 'yesterday'?",
-        "options": ["včera", "zítra", "dnes", "předevčírem"],
+        "options": [
+          "včera",
+          "zítra",
+          "dnes",
+          "předevčírem"
+        ],
         "correct_index": 0,
         "explanation": "'Včera' = yesterday. 'Zítra' = tomorrow, 'dnes' = today, 'předevčírem' = the day before yesterday. Past time markers like 'včera' signal the use of past tense in Czech."
       },
@@ -171,7 +263,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I saw him last week. (male speaker)",
-        "accepted_answers": ["Viděl jsem ho minulý týden.", "Viděl jsem ho minulý týden.", "Já jsem ho viděl minulý týden."],
+        "accepted_answers": [
+          "Viděl jsem ho minulý týden.",
+          "Viděl jsem ho minulý týden.",
+          "Já jsem ho viděl minulý týden."
+        ],
         "grammar_note": "'Minulý týden' = last week (common past time marker). 'Viděl jsem' = I saw (past tense of vidět). 'Ho' = him (short accusative of 'on'). Word order: past participle + auxiliary + object + time expression."
       },
       "answer_key": "Viděl jsem ho minulý týden.",
@@ -189,7 +285,9 @@
         "blank_count": 1,
         "explanation": "'Před rokem' = a year ago (literally 'before a year'). Other similar constructions: 'před týdnem' = a week ago, 'před měsícem' = a month ago, 'před dvěma lety' = two years ago. The preposition 'před' + instrumental signals past time.",
         "blank_answers": [
-          ["před rokem"]
+          [
+            "před rokem"
+          ]
         ]
       },
       "answer_key": "před rokem",
@@ -224,7 +322,12 @@
         ],
         "explanation": "'Co jsi dělala včera?' = What did you do yesterday? (addressing a female). 'Byla jsem' = I was (f.). 'Dívala jsem se' = I watched (f.). Note the feminine -a endings throughout: dělala, byla, dívala. The auxiliary 'jsem' is placed after the participle in questions.",
         "blank_answers": [
-          ["Včera jsem byla v kině. Dívala jsem se na nový film.", "Byla jsem v kině.", "Dívala jsem se na film.", "Byla jsem v kině a dívala se na film."]
+          [
+            "Včera jsem byla v kině. Dívala jsem se na nový film.",
+            "Byla jsem v kině.",
+            "Dívala jsem se na film.",
+            "Byla jsem v kině a dívala se na film."
+          ]
         ]
       },
       "answer_key": "Včera jsem byla v kině. Dívala jsem se na nový film.",

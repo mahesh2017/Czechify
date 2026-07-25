@@ -9,6 +9,39 @@
   "is_review": true,
   "exercises": [
     {
+      "id": 90030,
+      "lesson_id": 3001,
+      "type": "teaching",
+      "prompt": "A1 in a Nutshell",
+      "data": {
+        "type": "teaching",
+        "heading": "A1 in a Nutshell",
+        "body": "Everything from A1 as one system: gender endings, nominative vs. accusative, and the three present-tense verb classes working together. Tap the examples to hear them.",
+        "intro": "Before you move on, let's make everything click as one system — genders, cases, and the present tense working together instead of as separate rules.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "To je káva.",
+            "en": "This is a coffee. (nominative)"
+          },
+          {
+            "cz": "Dám si kávu.",
+            "en": "I'll have a coffee. (accusative)"
+          },
+          {
+            "cz": "Mám dobrého kamaráda.",
+            "en": "I have a good friend. (adjective agrees)"
+          },
+          {
+            "cz": "Dělám. Mluvím. Čtu.",
+            "en": "I do. I speak. I read. (three verb classes)"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 30001,
       "lesson_id": 3001,
       "type": "multiple_choice",
@@ -85,7 +118,9 @@
         "blank_count": 1,
         "explanation": "'Vidím ženu.' = I see a woman. Feminine nouns ending in -a change to -u in the accusative singular: žena → ženu.",
         "blank_answers": [
-          ["ženu"]
+          [
+            "ženu"
+          ]
         ]
       },
       "answer_key": "ženu",
@@ -103,7 +138,9 @@
         "blank_count": 1,
         "explanation": "'Mám nové auto.' = I have a new car. Neuter nouns like 'auto' have the same form in nominative and accusative singular: auto → auto. The adjective 'nové' also stays the same (neuter nom/acc).",
         "blank_answers": [
-          ["auto"]
+          [
+            "auto"
+          ]
         ]
       },
       "answer_key": "auto",
@@ -121,7 +158,9 @@
         "blank_count": 1,
         "explanation": "'Hledám kamaráda.' = I'm looking for a friend. Masculine animate nouns add -a in the accusative singular: kamarád → kamaráda. This applies to all masculine animate nouns (muž → muže, bratr → bratra, pes → psa).",
         "blank_answers": [
-          ["kamaráda"]
+          [
+            "kamaráda"
+          ]
         ]
       },
       "answer_key": "kamaráda",
@@ -327,7 +366,11 @@
         ],
         "explanation": "Shopping dialogue at A1 level. Key phrases: 'Dobrý den, přejete si?' (Hello, what would you like?), 'Prosím si...' (I'd like...), 'Ještě něco?' (Anything else?), 'Kolik to je?' (How much is it?), 'Dohromady to je...' (Altogether it's...), 'Tady jsou peníze' (Here's the money).",
         "blank_answers": [
-          ["Dobrý den, prosím si kilo jablek a dva rohlíky.", "Prosím si kilo jablek a dva rohlíky.", "Dobrý den, prosím si kilo jablek."]
+          [
+            "Dobrý den, prosím si kilo jablek a dva rohlíky.",
+            "Prosím si kilo jablek a dva rohlíky.",
+            "Dobrý den, prosím si kilo jablek."
+          ]
         ]
       },
       "answer_key": "Dobrý den, prosím si kilo jablek a dva rohlíky.",
