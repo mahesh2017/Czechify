@@ -8,6 +8,10 @@ import '../../data/services/stt/whisper_service.dart';
 import 'sync_providers.dart';
 import '../../domain/entities/pronunciation_result.dart';
 import '../../domain/engines/pronunciation_scorer.dart';
+import '../../core/utils/phoneme_mapper.dart';
+import '../../domain/engines/pronunciation_coverage.dart';
+import '../../domain/engines/phoneme_scorer.dart';
+import '../../data/services/stt/phoneme_recognizer.dart';
 import '../../domain/repositories/speech_ports.dart';
 import '../../domain/repositories/stt_service.dart';
 
@@ -37,10 +41,31 @@ final whisperServiceProvider = Provider<WhisperService?>((ref) {
 /// a [PronunciationAssessment] which includes the transcription, overall
 /// score, per-word scores, and word-level confidence (when available from
 /// Whisper).
+/// Endpoint of the Czech acoustic recogniser. Empty by default, which keeps
+/// phoneme scoring switched off and the app on transcript scoring:
+///   --dart-define=PHONEME_SERVICE_URL=http://10.0.1.11:8080
+const String kPhonemeServiceUrl =
+    String.fromEnvironment('PHONEME_SERVICE_URL');
+const String kPhonemeServiceToken =
+    String.fromEnvironment('PHONEME_SERVICE_TOKEN');
+
+/// Loaded once; absent or unreadable means "support nothing", so a missing
+/// asset can never cause untrustworthy verdicts.
+final pronunciationCoverageProvider =
+    FutureProvider<PronunciationCoverage>((ref) => PronunciationCoverage.load());
+
 final pronunciationAssessmentProvider =
     Provider<PronunciationAssessor>((ref) {
   final backend = ref.watch(backendServiceProvider);
   return PronunciationAssessor(
+    phonemeRecognizer: kPhonemeServiceUrl.isEmpty
+        ? null
+        : PhonemeRecognizer(
+            baseUrl: kPhonemeServiceUrl,
+            apiToken: kPhonemeServiceToken,
+            log: Logger('PhonemeRecognizer'),
+          ),
+    coverage: ref.watch(pronunciationCoverageProvider).value,
     recorder: ref.watch(audioRecorderProvider),
     whisper: ref.watch(whisperServiceProvider),
     fallbackStt: NativeSttService(),
@@ -92,11 +117,22 @@ class PronunciationAssessor {
     required LiveTranscriber fallbackStt,
     required Logger log,
     Future<void> Function()? ensureCloudSession,
+    PhonemeRecognizer? phonemeRecognizer,
+    PronunciationCoverage? coverage,
   })  : _recorder = recorder,
         _whisper = whisper,
         _fallbackStt = fallbackStt,
         _ensureCloudSession = ensureCloudSession,
+        _phonemeRecognizer = phonemeRecognizer,
+        _coverage = coverage,
         _log = log;
+
+  /// Optional acoustic recogniser. When present, reachable, and the phrase is
+  /// one the model was measured to handle, its verdict replaces the
+  /// transcript-based score — it can see a substituted sound, which comparing
+  /// Whisper's cleaned-up text never can.
+  final PhonemeRecognizer? _phonemeRecognizer;
+  final PronunciationCoverage? _coverage;
 
   final AudioRecorderPort _recorder;
   final CloudTranscriber? _whisper;
@@ -104,6 +140,8 @@ class PronunciationAssessor {
   final Future<void> Function()? _ensureCloudSession;
   final Logger _log;
   final _scorer = PronunciationScorer();
+  final _phonemeScorer = PhonemeScorer();
+  final _phonemeMapper = PhonemeMapper();
 
   /// Signals the in-flight Whisper recording to stop capturing and transcribe.
   Completer<void>? _manualStop;
@@ -209,7 +247,13 @@ class PronunciationAssessor {
       expectedText: expectedText,
       actualTranscription: whisperResult.text,
     );
-    final enriched = _enrichWithConfidence(result, whisperResult.words);
+    var enriched = _enrichWithConfidence(result, whisperResult.words);
+
+    // Prefer sound-level scoring where it has been measured to be trustworthy.
+    final phoneme = await _tryPhonemeScore(expectedText, audioPath);
+    if (phoneme != null) {
+      enriched = phoneme;
+    }
 
     _log.info(
       'Whisper assessment: ${result.overallScore.toStringAsFixed(2)} '
@@ -251,6 +295,51 @@ class PronunciationAssessor {
   }
 
   /// Enrich word scores with Whisper's per-word probability.
+  /// Score the recording by comparing sounds rather than words.
+  ///
+  /// Returns null — meaning "use the transcript score" — whenever anything is
+  /// missing or unproven: no recogniser configured, the service unreachable,
+  /// or a phrase outside the measured-reliable set. Silence beats a verdict the
+  /// learner cannot trust, and being wrongly told you mispronounced something
+  /// is far more damaging than not being told at all.
+  Future<PronunciationResult?> _tryPhonemeScore(
+    String expectedText,
+    String audioPath,
+  ) async {
+    final recognizer = _phonemeRecognizer;
+    final coverage = _coverage;
+    if (recognizer == null || !recognizer.isConfigured || coverage == null) {
+      return null;
+    }
+    if (!coverage.supports(expectedText)) {
+      _log.info('Phoneme scoring skipped — "$expectedText" is not in the '
+          'measured-reliable set.');
+      return null;
+    }
+
+    final heard = await recognizer.recognize(audioPath);
+    if (heard == null) return null;
+
+    // Czech orthography is close to phonemic, so the character transcript maps
+    // straight to IPA and the existing Czech weights apply unchanged.
+    final assessment = _phonemeScorer.score(
+      expectedIpa: _phonemeMapper.toIpa(expectedText),
+      actualIpa: _phonemeMapper.toIpa(heard),
+    );
+
+    _log.info('Phoneme score ${assessment.overallScore.toStringAsFixed(2)} '
+        '(${assessment.band.name}) heard "$heard"');
+
+    return PronunciationResult(
+      overallScore: assessment.overallScore,
+      // Per-word detail belongs to the transcript scorer; this path reports at
+      // sound level, and the feedback strings carry the specifics.
+      wordScores: const [],
+      problemSounds: const [],
+      feedback: assessment.displayFeedback.join('\n'),
+    );
+  }
+
   PronunciationResult _enrichWithConfidence(
     PronunciationResult base,
     List<WhisperWord> whisperWords,
