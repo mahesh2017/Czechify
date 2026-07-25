@@ -40,6 +40,44 @@ def manifest_files(manifest: dict) -> list[str]:
     return sorted(names)
 
 
+def list_bucket(base: str, token: str) -> list[str]:
+    """Every object name in the bucket, following pagination."""
+    names: list[str] = []
+    offset = 0
+    while True:
+        body = json.dumps(
+            {"prefix": "", "limit": 1000, "offset": offset},
+        ).encode("utf-8")
+        request = urllib.request.Request(
+            f"{base}/storage/v1/object/list/{BUCKET}", data=body, method="POST",
+        )
+        request.add_header("Authorization", f"Bearer {token}")
+        request.add_header("apikey", token)
+        request.add_header("Content-Type", "application/json")
+        with urllib.request.urlopen(request, timeout=60) as response:
+            page = json.loads(response.read().decode("utf-8"))
+        if not page:
+            return names
+        names.extend(item["name"] for item in page if item.get("name"))
+        offset += len(page)
+
+
+def delete_objects(base: str, token: str, names: list[str]) -> None:
+    """Storage delete takes a batch of names; chunk so the body stays sane."""
+    for start in range(0, len(names), 100):
+        chunk = names[start:start + 100]
+        body = json.dumps({"prefixes": chunk}).encode("utf-8")
+        request = urllib.request.Request(
+            f"{base}/storage/v1/object/{BUCKET}", data=body, method="DELETE",
+        )
+        request.add_header("Authorization", f"Bearer {token}")
+        request.add_header("apikey", token)
+        request.add_header("Content-Type", "application/json")
+        with urllib.request.urlopen(request, timeout=60) as response:
+            if response.status not in (200, 204):
+                raise RuntimeError(f"delete -> HTTP {response.status}")
+
+
 def put_object(url: str, data: bytes, content_type: str, token: str) -> None:
     request = urllib.request.Request(url, data=data, method="POST")
     request.add_header("Authorization", f"Bearer {token}")
@@ -55,6 +93,12 @@ def put_object(url: str, data: bytes, content_type: str, token: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--prune",
+        action="store_true",
+        help="after uploading, delete bucket objects the manifest no longer "
+             "references — e.g. clips of course text that has since been edited",
+    )
     args = parser.parse_args()
 
     if not MANIFEST.exists():
@@ -100,6 +144,21 @@ def main() -> int:
         token,
     )
     print("Uploaded manifest.json. Pack is live.")
+
+    if args.prune:
+        # Only after the manifest is live, so a failure here can never leave the
+        # bucket short of a file the manifest already points at. Anything not
+        # referenced is unreachable by the app anyway — this is about not
+        # leaving clips of since-edited course text sitting in a public bucket.
+        keep = set(files) | {"manifest.json"}
+        stale = [n for n in list_bucket(base, token) if n not in keep]
+        if not stale:
+            print("Prune: nothing stale in the bucket.")
+        else:
+            print(f"Prune: deleting {len(stale)} objects no longer referenced "
+                  f"(e.g. {stale[:2]}).")
+            delete_objects(base, token, stale)
+            print(f"Prune: removed {len(stale)}.")
     return 0
 
 
