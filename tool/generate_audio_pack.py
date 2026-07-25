@@ -71,6 +71,14 @@ def main() -> int:
     parser.add_argument("--voice", help="override the Azure voice name")
     parser.add_argument("--limit", type=int, help="synthesize only the first N missing files")
     parser.add_argument(
+        "--force",
+        action="store_true",
+        help="regenerate this gender's whole pack: delete its existing clips "
+             "up front, then synthesize from scratch. Deleting first (rather "
+             "than overwriting as we go) keeps the run resumable — if it is "
+             "interrupted, re-run WITHOUT --force to finish the remainder.",
+    )
+    parser.add_argument(
         "--refresh-blanks",
         action="store_true",
         help="re-synthesize fill-in-the-blank prompts so they get the pause "
@@ -114,6 +122,14 @@ def main() -> int:
     last_call = 0.0
 
     AUDIO.mkdir(parents=True, exist_ok=True)
+    if args.force:
+        # Scoped to this gender so regenerating one voice never touches the
+        # other. The clips are tracked in git, so a mistake here is recoverable
+        # with `git checkout -- assets/audio`.
+        stale = sorted(AUDIO.glob(f"{args.gender}_*.mp3"))
+        for path in stale:
+            path.unlink()
+        print(f"--force: removed {len(stale)} existing {args.gender} clips.")
     try:
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError):
