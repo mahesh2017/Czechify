@@ -1,0 +1,21 @@
+services:
+  phoneme:
+    build: .
+    image: ceskina/phoneme-recognizer:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount the directory holding model_int8.onnx and vocab.json.
+      - ${MODEL_DIR:-./models}:/models:ro
+    environment:
+      MODEL_FILE: model_int8.onnx
+      # Leave unset locally; set it on the VPS so the endpoint isn't open.
+      API_TOKEN: ${API_TOKEN:-}
+      MAX_SECONDS: "20"
+    deploy:
+      resources:
+        limits:
+          # Measured peak was ~906 MB on a 10s utterance; 1.5G leaves headroom
+          # without letting a leak take the host down.
+          memory: 1.5G
+    restart: unless-stopped
