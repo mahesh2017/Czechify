@@ -638,48 +638,15 @@
     "lesson_id": 801
   },
   {
-    "id": 59,
-    "word_cz": "maso",
-    "word_en": "meat",
-    "ipa": "ˈmaso",
-    "gender": "neuter",
-    "unit_id": 9,
-    "example_cz": "Mám rád maso.",
-    "example_en": "I like meat.",
-    "lesson_id": 901
-  },
-  {
-    "id": 60,
-    "word_cz": "pít",
-    "word_en": "to drink",
-    "ipa": "piːt",
-    "gender": null,
-    "unit_id": 9,
-    "example_cz": "Piju kávu.",
-    "example_en": "I drink coffee.",
-    "lesson_id": 901
-  },
-  {
-    "id": 61,
-    "word_cz": "jíst",
-    "word_en": "to eat",
-    "ipa": "jiːst",
-    "gender": null,
-    "unit_id": 9,
-    "example_cz": "Jím chleba.",
-    "example_en": "I eat bread.",
-    "lesson_id": 901
-  },
-  {
     "id": 62,
     "word_cz": "dám si",
     "word_en": "I'll have (ordering)",
     "ipa": "daːm sɪ",
     "gender": null,
-    "unit_id": 9,
+    "unit_id": 11,
     "example_cz": "Dám si kávu, prosím.",
     "example_en": "I'll have a coffee, please.",
-    "lesson_id": 902
+    "lesson_id": 1102
   },
   {
     "id": 63,
@@ -687,10 +654,10 @@
     "word_en": "to pay",
     "ipa": "ˈzaplatɪt",
     "gender": null,
-    "unit_id": 9,
+    "unit_id": 11,
     "example_cz": "Zaplatím, prosím.",
     "example_en": "I'll pay, please.",
-    "lesson_id": 902
+    "lesson_id": 1102
   },
   {
     "id": 64,
@@ -701,17 +668,6 @@
     "unit_id": 9,
     "example_cz": "Kolik to stojí?",
     "example_en": "How much does it cost?",
-    "lesson_id": 901
-  },
-  {
-    "id": 65,
-    "word_cz": "pivo",
-    "word_en": "beer",
-    "ipa": "ˈpɪvo",
-    "gender": "neuter",
-    "unit_id": 9,
-    "example_cz": "Dám si pivo.",
-    "example_en": "I'll have a beer.",
     "lesson_id": 901
   },
   {
@@ -4463,39 +4419,6 @@
     "unit_id": 9,
     "example_cz": "Pátý den v týdnu je pátek.",
     "example_en": "The fifth day of the week is Friday.",
-    "lesson_id": 901
-  },
-  {
-    "id": 407,
-    "word_cz": "červená",
-    "word_en": "red (feminine)",
-    "ipa": "ˈt͡ʃɛrvɛnaː",
-    "gender": "feminine",
-    "unit_id": 9,
-    "example_cz": "Má červenou sukni.",
-    "example_en": "She has a red skirt.",
-    "lesson_id": 901
-  },
-  {
-    "id": 408,
-    "word_cz": "modrá",
-    "word_en": "blue (feminine)",
-    "ipa": "ˈmodraː",
-    "gender": "feminine",
-    "unit_id": 9,
-    "example_cz": "Modrá barva je hezká.",
-    "example_en": "The blue color is nice.",
-    "lesson_id": 901
-  },
-  {
-    "id": 409,
-    "word_cz": "zelená",
-    "word_en": "green (feminine)",
-    "ipa": "ˈzɛlɛnaː",
-    "gender": "feminine",
-    "unit_id": 9,
-    "example_cz": "Zelená je barva trávy.",
-    "example_en": "Green is the color of grass.",
     "lesson_id": 901
   },
   {
