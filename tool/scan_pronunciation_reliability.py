@@ -55,11 +55,20 @@ def wav_from_mp3(mp3, tmp):
     if a.size==0: return None
     return (a-a.mean())/(a.std()+1e-7)
 
-words={}
+# Everything the learner is ever asked to say aloud. Measuring only
+# vocabulary words missed the point: pronunciation exercises and the practice
+# deck use whole sentences, so scanning words alone left 46 of 49 exercise
+# targets unmeasured and therefore unscoreable.
+words=set()
 for p in glob.glob(f'{ROOT}/assets/vocabulary/*.json'):
     for r in json.loads(open(p).read()):
-        w=(r.get('word_cz') or '').strip()
-        if w: words[w]=r.get('ipa','')
+        for f in ('word_cz','example_cz'):
+            v=(r.get(f) or '').strip()
+            if v: words.add(v)
+for p in glob.glob(f'{ROOT}/assets/curriculum/lessons/*.json'):
+    for e in json.loads(open(p).read()).get('exercises',[]):
+        v=(e.get('data',{}) or {}).get('target_text')
+        if isinstance(v,str) and v.strip(): words.add(v.strip())
 words=sorted(words)
 print(f"scanning {len(words)} vocabulary words...", flush=True)
 

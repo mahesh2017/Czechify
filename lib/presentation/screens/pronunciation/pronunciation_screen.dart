@@ -436,9 +436,12 @@ class _ScoreDisplay extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              p.phoneme == 'long_vowel'
-                                  ? 'á/é/í/ó/ú'
-                                  : p.phoneme,
+                              switch (p.phoneme) {
+                                'long_vowel' => 'á/é/í/ó/ú',
+                                // Internal bucket name — show the word instead.
+                                'other' => p.word,
+                                _ => p.phoneme,
+                              },
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,

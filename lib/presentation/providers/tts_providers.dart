@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
@@ -79,23 +80,126 @@ Future<void> _selectBestCzechVoice(FlutterTts tts) async {
 /// per unit) can replace it later without touching call sites.
 class EnglishTts {
   final FlutterTts _tts;
+  final AudioPlayer _player;
+  final Dio _http;
+  final TtsVoiceGender Function() _voiceGender;
 
   /// True while narration is actually playing — the teaching card watches this
   /// to switch the teacher between its idle and talking animation.
   final ValueNotifier<bool> speaking = ValueNotifier<bool>(false);
 
-  EnglishTts(this._tts) {
+  String? _cacheDir;
+  Future<Map<String, Map<String, String>>>? _remoteAudio;
+
+  static const _audioBucket = 'course-audio';
+
+  EnglishTts(this._tts, this._player, this._http, this._voiceGender) {
     _tts.setStartHandler(() => speaking.value = true);
     _tts.setCompletionHandler(() => speaking.value = false);
     _tts.setCancelHandler(() => speaking.value = false);
     _tts.setErrorHandler((_) => speaking.value = false);
   }
 
+  String get _publicAudioBase =>
+      '${BackendConfig.supabaseUrl}/storage/v1/object/public/$_audioBucket';
+
+  Future<String> _getCacheDir() async {
+    if (_cacheDir != null) return _cacheDir!;
+    final dir = await getApplicationSupportDirectory();
+    final path = '${dir.path}/neural_audio';
+    await Directory(path).create(recursive: true);
+    return _cacheDir = path;
+  }
+
+  /// Intro narration lives in its own manifest: the Czech pack is
+  /// single-locale by design, and mixing the two would make each side's
+  /// coverage impossible to reason about.
+  Future<Map<String, Map<String, String>>> _loadRemoteAudio() async {
+    if (!BackendConfig.isConfigured) return const {};
+    final cacheDir = await _getCacheDir();
+    final cached = File('$cacheDir/manifest_en.json');
+    Map<String, Map<String, String>> parse(String raw) {
+      final json = jsonDecode(raw) as Map<String, dynamic>;
+      final voices = json['voices'] as Map<String, dynamic>? ?? const {};
+      return voices.map((gender, value) {
+        final entries =
+            (value as Map<String, dynamic>)['entries'] as Map<String, dynamic>? ??
+                const {};
+        return MapEntry(
+          gender,
+          entries.map((key, path) => MapEntry(key, path as String)),
+        );
+      });
+    }
+
+    try {
+      final response = await _http.get<String>(
+        '$_publicAudioBase/manifest_en.json',
+        options: Options(responseType: ResponseType.plain),
+      );
+      final raw = response.data;
+      if (raw == null || raw.isEmpty) throw const FormatException('Empty');
+      await cached.writeAsString(raw, flush: true);
+      return parse(raw);
+    } catch (_) {
+      if (await cached.exists()) {
+        try {
+          return parse(await cached.readAsString());
+        } catch (_) {/* fall through to device TTS */}
+      }
+      return const {};
+    }
+  }
+
+  /// The narration voice follows the same setting as the Czech voice and the
+  /// teacher character, so one choice stays consistent across the whole card.
+  Future<bool> _playNeural(String text) async {
+    final voices = await (_remoteAudio ??= _loadRemoteAudio());
+    final entries = voices[_voiceGender().name] ?? const {};
+    final digest =
+        sha256.convert(utf8.encode(text.trim().toLowerCase())).toString();
+    final remotePath = entries[digest];
+    if (remotePath == null) return false;
+
+    final fileName = remotePath.split('/').last;
+    if (!RegExp(r'^[a-z]+_[0-9a-f]{64}\.mp3$').hasMatch(fileName)) return false;
+
+    try {
+      final cacheDir = await _getCacheDir();
+      final cachedAudio = File('$cacheDir/$fileName');
+      if (!await cachedAudio.exists()) {
+        final partial = File('${cachedAudio.path}.part');
+        await _http.download('$_publicAudioBase/$fileName', partial.path);
+        if (!await partial.exists() || await partial.length() == 0) {
+          throw const FileSystemException('Downloaded audio is empty');
+        }
+        await partial.rename(cachedAudio.path);
+      }
+      await _player.setFilePath(cachedAudio.path);
+      speaking.value = true;
+      // Clear the talking animation when playback actually ends. Unawaited on
+      // purpose — speak() must return as soon as playback starts.
+      unawaited(
+        _player.playerStateStream
+            .firstWhere((s) => s.processingState == ProcessingState.completed)
+            .then((_) => speaking.value = false)
+            .catchError((Object _) => speaking.value = false),
+      );
+      await _player.play();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   Future<void> speak(String text) async {
     final trimmed = text.trim();
     if (trimmed.isEmpty) return;
+    await stop();
+
+    if (await _playNeural(trimmed)) return;
+
     try {
-      await _tts.stop();
       await _tts.setLanguage('en-US');
       // Optimistic: some platforms don't fire the start handler promptly.
       speaking.value = true;
@@ -110,6 +214,9 @@ class EnglishTts {
     try {
       await _tts.stop();
     } catch (_) {}
+    try {
+      await _player.stop();
+    } catch (_) {}
     speaking.value = false;
   }
 }
@@ -122,8 +229,23 @@ final englishTtsProvider = Provider<EnglishTts>((ref) {
   tts.setPitch(1.0);
   tts.setVolume(1.0);
   tts.setSpeechRate(0.5);
-  ref.onDispose(() => tts.stop());
-  return EnglishTts(tts);
+  // Its own player, so stopping narration can never cut off a Czech clip.
+  final player = AudioPlayer();
+  ref.onDispose(() {
+    tts.stop();
+    player.dispose();
+  });
+  return EnglishTts(
+    tts,
+    player,
+    Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 30),
+      ),
+    ),
+    () => ref.read(settingsProvider).ttsVoiceGender,
+  );
 });
 
 /// Audio player for playing cached TTS files.

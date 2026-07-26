@@ -28,6 +28,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 AUDIO = ROOT / "assets" / "audio"
 MANIFEST = AUDIO / "manifest.json"
+# English unit-intro narration ships beside the Czech pack in the same
+# bucket, under its own manifest (the Czech one is single-locale).
+MANIFEST_EN = AUDIO / "manifest_en.json"
 BUCKET = "course-audio"
 
 
@@ -128,6 +131,10 @@ def main() -> int:
         return 2
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     files = manifest_files(manifest)
+    manifest_en = (json.loads(MANIFEST_EN.read_text(encoding="utf-8"))
+                   if MANIFEST_EN.exists() else None)
+    if manifest_en:
+        files += manifest_files(manifest_en)
 
     missing_local = [n for n in files if not (AUDIO / n).exists()]
     if missing_local:
@@ -165,6 +172,14 @@ def main() -> int:
         "application/json",
         token,
     )
+    if manifest_en:
+        put_object(
+            f"{base}/storage/v1/object/{BUCKET}/manifest_en.json",
+            MANIFEST_EN.read_bytes(),
+            "application/json",
+            token,
+        )
+        print("Uploaded manifest_en.json (intro narration).")
     print("Uploaded manifest.json. Pack is live.")
 
     if args.prune:
@@ -172,7 +187,7 @@ def main() -> int:
         # bucket short of a file the manifest already points at. Anything not
         # referenced is unreachable by the app anyway — this is about not
         # leaving clips of since-edited course text sitting in a public bucket.
-        keep = set(files) | {"manifest.json"}
+        keep = set(files) | {"manifest.json", "manifest_en.json"}
         stale = [n for n in list_bucket(base, token) if n not in keep]
         if not stale:
             print("Prune: nothing stale in the bucket.")

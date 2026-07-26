@@ -64,7 +64,24 @@ def synthesize(
     destination.write_bytes(audio)
 
 
+def load_env_file() -> None:
+    """Read AZURE_* from a gitignored .env so keys are supplied once."""
+    path = ROOT / ".env"
+    if not path.exists():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
 def main() -> int:
+    load_env_file()
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="extract only; do not call Azure")
     parser.add_argument("--gender", choices=("female", "male"), default="female")

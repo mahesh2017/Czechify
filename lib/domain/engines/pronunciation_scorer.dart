@@ -268,7 +268,11 @@ class PronunciationScorer {
             'ě' => 'The "ě" softens the consonant before it (dě → d+ye).',
             'long_vowel' =>
               'Czech distinguishes short and long vowels. Lengthen the vowel.',
-            _ => 'Check pronunciation of "${p.phoneme}" in "${p.word}".',
+            // "other" is the mapper's internal bucket for "no specific Czech
+            // problem sound", so naming it back to the learner is meaningless —
+            // "Check pronunciation of 'other' in 'vltava'" tells them nothing.
+            'other' => 'Listen again and repeat "${p.word}" carefully.',
+            _ => 'Check the "${p.phoneme}" sound in "${p.word}".',
           };
         })
         .join('\n');
