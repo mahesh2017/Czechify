@@ -45,6 +45,20 @@ AUDIO = ROOT / "assets" / "audio"
 
 VOICES = {"female": "cs-CZ-VlastaNeural", "male": "cs-CZ-AntoninNeural"}
 
+# Vowels must be voiced, not named. `say-as interpret-as="characters"` fixes
+# the silence but makes the voice *describe* the character: "á" came back as
+# "dlouhé á" (long a), which is a correct letter name and useless on a card
+# teaching the sound. Giving the IPA directly produces the vowel itself —
+# 1.37s, matching the female reference, instead of 1.90s of description.
+#
+# Consonants are left to say-as, where naming the letter ("eř") is what an
+# alphabet card actually wants.
+LETTER_IPA = {
+    "a": "a", "á": "aː", "e": "ɛ", "é": "ɛː", "ě": "jɛ",
+    "i": "ɪ", "í": "iː", "y": "ɪ", "ý": "iː",
+    "o": "o", "ó": "oː", "u": "u", "ú": "uː", "ů": "uː",
+}
+
 # Healthy clips peak near -7..-10 dB; anything this quiet is inaudible in a
 # noisy room even at full volume.
 QUIET_PEAK_DB = -25.0
@@ -73,9 +87,15 @@ def peak_db(path: str) -> float:
 
 
 def synthesize(text: str, voice: str, destination: Path, key: str, region: str) -> None:
-    # A single character makes the neural voice degenerate; naming it as a
-    # character is what restores real signal.
-    if len(text.strip()) == 1:
+    # A single character makes the neural voice degenerate. Vowels get their
+    # IPA so the sound is produced; other single characters get say-as, which
+    # names the letter; anything longer is spoken normally.
+    stripped = text.strip()
+    if len(stripped) == 1 and stripped.lower() in LETTER_IPA:
+        ipa = LETTER_IPA[stripped.lower()]
+        body = (f"<phoneme alphabet='ipa' ph='{ipa}'>"
+                f"{html.escape(stripped)}</phoneme>")
+    elif len(stripped) == 1:
         body = f"<say-as interpret-as='characters'>{html.escape(text)}</say-as>"
     else:
         body = html.escape(text)
@@ -111,6 +131,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--threshold", type=float, default=QUIET_PEAK_DB)
+    parser.add_argument(
+        "--texts", nargs="+",
+        help="re-synthesize these exact strings regardless of loudness — for "
+             "clips that are audible but saying the wrong thing",
+    )
     args = parser.parse_args()
 
     texts = {key: text for key, text, _ in synthesis_plan()}
@@ -120,7 +145,22 @@ def main() -> int:
     with ThreadPoolExecutor(max_workers=10) as pool:
         peaks = list(pool.map(lambda p: (p, peak_db(p)), files))
 
-    quiet = []
+    if args.texts:
+        quiet = []
+        for text in args.texts:
+            digest = next((k for k, t in texts.items() if t == text), None)
+            if digest is None:
+                print(f"   {text!r} is not in the pack", file=sys.stderr)
+                continue
+            for gender in VOICES:
+                path = AUDIO / f"{gender}_{digest}.mp3"
+                if path.exists():
+                    quiet.append((str(path), gender, text, peak_db(str(path))))
+        print(f"Re-synthesizing {len(quiet)} clips for "
+              f"{len(args.texts)} requested texts.")
+        peaks = []
+
+    quiet = quiet if args.texts else []
     for path, peak in peaks:
         if peak >= args.threshold:
             continue
