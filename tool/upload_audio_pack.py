@@ -162,22 +162,26 @@ def main() -> int:
         return 2
     base = base.rstrip("/")
 
+    # Two distinct lists, deliberately never merged: `files` is everything the
+    # manifests reference and is the ONLY basis for what prune keeps, while
+    # `to_upload` is just this run's transfer set. Conflating them once caused
+    # --skip-existing --prune to delete every clip it had skipped.
+    to_upload = files
     if args.skip_existing:
         present = set(list_bucket(base, token))
-        pending = [n for n in files if n not in present]
-        print(f"{len(files) - len(pending)} already in the bucket; "
-              f"uploading {len(pending)}.")
-        files = pending
+        to_upload = [n for n in files if n not in present]
+        print(f"{len(files) - len(to_upload)} already in the bucket; "
+              f"uploading {len(to_upload)}.")
 
-    for index, name in enumerate(files, 1):
+    for index, name in enumerate(to_upload, 1):
         url = f"{base}/storage/v1/object/{BUCKET}/{name}"
         try:
             put_object(url, (AUDIO / name).read_bytes(), "audio/mpeg", token)
         except (urllib.error.URLError, RuntimeError) as error:
             print(f"Failed {name}: {error}", file=sys.stderr)
             return 1
-        if index % 100 == 0 or index == len(files):
-            print(f"[{index}/{len(files)}] uploaded")
+        if index % 100 == 0 or index == len(to_upload):
+            print(f"[{index}/{len(to_upload)}] uploaded")
 
     # Manifests always go up, even when every clip was already present — they
     # are what tells the app the new entries exist.
@@ -206,6 +210,13 @@ def main() -> int:
         # leaving clips of since-edited course text sitting in a public bucket.
         keep = set(files) | {"manifest.json", "manifest_en.json"}
         stale = [n for n in list_bucket(base, token) if n not in keep]
+        # A prune that removes more than it keeps is a bug, not a cleanup.
+        # Refuse rather than act on an obviously wrong keep-set.
+        if len(stale) > len(keep):
+            print(f"Refusing to prune: {len(stale)} objects would be deleted "
+                  f"but only {len(keep)} kept. The keep-set looks wrong.",
+                  file=sys.stderr)
+            return 1
         if not stale:
             print("Prune: nothing stale in the bucket.")
         else:
