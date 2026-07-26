@@ -33,11 +33,45 @@ AUDIO = ROOT / "assets" / "audio"
 MANIFEST = AUDIO / "manifest_en.json"
 
 # Warm, conversational narration voices rather than the flat newsreader
-# defaults — these introduce a unit and set its tone.
+# defaults — these introduce a unit and set its tone. Newer voices have uneven
+# regional rollout, so each has an established fallback that exists everywhere;
+# without this a region lacking Ava would fail 31 times in a row.
 VOICES = {
-    "female": "en-US-AvaNeural",
-    "male": "en-US-AndrewNeural",
+    "female": ["en-US-AvaNeural", "en-US-JennyNeural", "en-US-AriaNeural"],
+    "male": ["en-US-AndrewNeural", "en-US-GuyNeural", "en-US-DavisNeural"],
 }
+
+
+def available_voices(key: str, region: str) -> set[str]:
+    """Voice names the account's region actually serves."""
+    url = f"https://{region}.tts.speech.microsoft.com/cognitiveservices/voices/list"
+    request = urllib.request.Request(url)
+    request.add_header("Ocp-Apim-Subscription-Key", key)
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return {v["ShortName"] for v in json.loads(response.read().decode("utf-8"))}
+
+
+def pick_voices(key: str, region: str) -> dict[str, str]:
+    """First preference per gender that this region can actually serve."""
+    try:
+        have = available_voices(key, region)
+    except Exception as error:  # noqa: BLE001 - fall back to first choice
+        print(f"  (could not list voices: {error}; using first preference)")
+        return {g: names[0] for g, names in VOICES.items()}
+
+    chosen: dict[str, str] = {}
+    for gender, names in VOICES.items():
+        pick = next((n for n in names if n in have), None)
+        if pick is None:
+            raise SystemExit(
+                f"None of {names} exist in region '{region}'. "
+                "Pick a voice from: "
+                + ", ".join(sorted(n for n in have if n.startswith("en-US"))[:8])
+            )
+        if pick != names[0]:
+            print(f"  {gender}: {names[0]} unavailable here -> using {pick}")
+        chosen[gender] = pick
+    return chosen
 
 
 def key_for(text: str) -> str:
@@ -117,12 +151,15 @@ def main() -> int:
         print("Set AZURE_SPEECH_KEY and AZURE_SPEECH_REGION.", file=sys.stderr)
         return 2
 
+    resolved = pick_voices(speech_key, region)
+    print(f"voices: {resolved}")
+
     AUDIO.mkdir(parents=True, exist_ok=True)
     min_interval = 60.0 / args.rate if args.rate > 0 else 0.0
     last_call = 0.0
     voices_out: dict[str, dict] = {}
 
-    for gender, voice in VOICES.items():
+    for gender, voice in resolved.items():
         entries: dict[str, str] = {}
         for index, text in enumerate(intros, 1):
             digest = key_for(text)
@@ -165,7 +202,7 @@ def main() -> int:
         encoding="utf-8",
     )
     total = sum(len(v["entries"]) for v in voices_out.values())
-    print(f"\nWrote {MANIFEST.name}: {total} clips across {len(VOICES)} voices.")
+    print(f"\nWrote {MANIFEST.name}: {total} clips across {len(voices_out)} voices.")
     return 0
 
 
