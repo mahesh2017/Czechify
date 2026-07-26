@@ -66,7 +66,12 @@ def manifest_files(manifest: dict) -> list[str]:
 
 def list_bucket(base: str, token: str) -> list[str]:
     """Every object name in the bucket, following pagination."""
-    names: list[str] = []
+    return sorted(list_bucket_sizes(base, token))
+
+
+def list_bucket_sizes(base: str, token: str) -> dict[str, int]:
+    """{object name: byte size}, so a re-upload can tell changed from present."""
+    sizes: dict[str, int] = {}
     offset = 0
     while True:
         body = json.dumps(
@@ -81,8 +86,10 @@ def list_bucket(base: str, token: str) -> list[str]:
         with urllib.request.urlopen(request, timeout=60) as response:
             page = json.loads(response.read().decode("utf-8"))
         if not page:
-            return names
-        names.extend(item["name"] for item in page if item.get("name"))
+            return sizes
+        for item in page:
+            if item.get("name"):
+                sizes[item["name"]] = (item.get("metadata") or {}).get("size", -1)
         offset += len(page)
 
 
@@ -168,10 +175,19 @@ def main() -> int:
     # --skip-existing --prune to delete every clip it had skipped.
     to_upload = files
     if args.skip_existing:
-        present = set(list_bucket(base, token))
-        to_upload = [n for n in files if n not in present]
-        print(f"{len(files) - len(to_upload)} already in the bucket; "
-              f"uploading {len(to_upload)}.")
+        # Compare size, not just presence. Regenerated clips keep their
+        # filename — the name is a hash of the *text*, not the audio — so a
+        # presence check silently skips repaired audio and leaves the old
+        # version live.
+        remote = list_bucket_sizes(base, token)
+        to_upload = [
+            n for n in files
+            if remote.get(n, -1) != (AUDIO / n).stat().st_size
+        ]
+        changed = [n for n in to_upload if n in remote]
+        print(f"{len(files) - len(to_upload)} unchanged; uploading "
+              f"{len(to_upload)} ({len(changed)} replaced, "
+              f"{len(to_upload) - len(changed)} new).")
 
     for index, name in enumerate(to_upload, 1):
         url = f"{base}/storage/v1/object/{BUCKET}/{name}"
