@@ -119,6 +119,13 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
+        "--skip-existing",
+        action="store_true",
+        help="only upload objects the bucket does not already have. Adding a "
+             "handful of clips otherwise re-pushes the whole pack, which is "
+             "minutes of transfer for no change.",
+    )
+    parser.add_argument(
         "--prune",
         action="store_true",
         help="after uploading, delete bucket objects the manifest no longer "
@@ -155,6 +162,13 @@ def main() -> int:
         return 2
     base = base.rstrip("/")
 
+    if args.skip_existing:
+        present = set(list_bucket(base, token))
+        pending = [n for n in files if n not in present]
+        print(f"{len(files) - len(pending)} already in the bucket; "
+              f"uploading {len(pending)}.")
+        files = pending
+
     for index, name in enumerate(files, 1):
         url = f"{base}/storage/v1/object/{BUCKET}/{name}"
         try:
@@ -164,6 +178,9 @@ def main() -> int:
             return 1
         if index % 100 == 0 or index == len(files):
             print(f"[{index}/{len(files)}] uploaded")
+
+    # Manifests always go up, even when every clip was already present — they
+    # are what tells the app the new entries exist.
 
     # Manifest last: the app must never load a manifest ahead of its files.
     put_object(
