@@ -53,13 +53,31 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     _english = ref.read(englishTtsProvider);
   }
 
-  List<_TeachingItem> get _items {
+  /// Parsed once per exercise rather than on every build.
+  ///
+  /// This is decoded JSON feeding a list that rebuilds on each TTS tick —
+  /// "play all" walks the items and calls setState per word, so the naive
+  /// getter re-parsed the whole lesson's teaching payload for every frame of
+  /// the playthrough.
+  List<_TeachingItem>? _cachedItems;
+
+  List<_TeachingItem> get _items => _cachedItems ??= _parseItems();
+
+  List<_TeachingItem> _parseItems() {
     final raw = widget.exercise.data['items'];
     if (raw is! List) return const [];
     return raw
         .whereType<Map>()
         .map((m) => _TeachingItem.fromJson(Map<String, dynamic>.from(m)))
         .toList();
+  }
+
+  @override
+  void didUpdateWidget(covariant TeachingView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // The State outlives a swap to a different exercise, so a stale cache
+    // would keep showing the previous lesson's words.
+    if (!identical(oldWidget.exercise, widget.exercise)) _cachedItems = null;
   }
 
   /// "alphabet" (big symbol box) or "list" (phrase + meaning). Falls back to
