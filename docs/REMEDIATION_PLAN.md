@@ -98,10 +98,19 @@ chipBg userBubble userBubbleTxt`.
 - Manual check: SRS review, lesson player, mock exam, and pronunciation screens
   screenshotted in dark mode and attached to the PR.
 
-### Status: code complete, visual check outstanding
+### Phase 1 status — COMPLETE
 
-217 → 20 references, all allowlisted below. Analyzer clean, 452 tests passing. The
-screenshot check is the one DoD item still open.
+**217 → 15** raw `Colors.*` references across `lib/presentation` + `lib/core`, every one
+on the allowlist below. Analyzer clean, 463 tests passing. Commits `b8bca7b`, `1bc254a`.
+
+Verified on the iOS simulator in dark mode — home, curriculum, teach-phase word cards,
+lesson runner, answer-feedback states (correct/wrong tints and the grammar tip card),
+pronunciation lab, review-complete, exam intro, exam reading section, and the router
+error page all render legibly.
+
+Exactly one gender-colour implementation now exists
+(`widgets/common/gender_pill.dart`); the review screen's raw-Material `_genderColor()`
+is gone and the lesson player calls the shared helper.
 
 Two fixes were needed beyond straight substitution:
 
@@ -123,21 +132,6 @@ Two fixes were needed beyond straight substitution:
 | `app_theme.dart:168` | `Colors.white` | Switch thumb; Material's own component default. |
 
 **Explicitly not in this phase:** splitting large files, adding Semantics, changing copy.
-
-### Phase 1 status — COMPLETE
-
-- **217 → 21** raw `Colors.` references in `lib/presentation`; the 21 are the allowlist
-  above. Commits `b8bca7b`, `1bc254a`.
-- One gender-colour implementation: `widgets/common/gender_pill.dart`. The review screen's
-  raw-Material `_genderColor()` is gone and the lesson player calls the shared helper.
-- `ScoreColors.of()` now takes a `BuildContext` and returns token colours. It lives in
-  `lib/core`, so the QA report's `lib/presentation` sweep never saw it.
-- Verified on the iOS simulator in dark mode: home, curriculum, teach-phase word cards,
-  lesson runner, answer-feedback states (correct/wrong tints + grammar tip card),
-  pronunciation lab, review-complete, exam intro, exam reading section, router error page.
-- `flutter analyze` clean; **455 tests pass** (452 + 3 new).
-- Two defects surfaced during the screenshot pass — one fixed (`ae301c2`, see Deferred),
-  one still open (review-complete button overlap).
 
 ---
 
