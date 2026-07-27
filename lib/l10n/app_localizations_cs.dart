@@ -306,4 +306,14 @@ class AppLocalizationsCs extends AppLocalizations {
   String a11yLessonProgress(int current, int total) {
     return 'Postup lekcí: otázka $current z $total';
   }
+
+  @override
+  String get writingKeyPhrasesFound => 'Klíčové fráze nalezeny';
+
+  @override
+  String get writingKeyPhrasesMissing => 'Klíčové fráze nenalezeny';
+
+  @override
+  String get writingKeywordCheckNote =>
+      'Pouze automatická kontrola klíčových slov — porovnává vaše slova s očekávanými frázemi a nehodnotí gramatiku, pravopis ani styl.';
 }

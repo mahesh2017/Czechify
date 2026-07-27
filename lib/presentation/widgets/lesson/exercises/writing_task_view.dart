@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
@@ -327,11 +328,18 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                       ),
                       const SizedBox(width: 8),
                       Text(
+                        // Not "Good!"/"Needs improvement": nothing here read
+                        // the writing. This path is a keyword comparison, and
+                        // the verdict should not imply more than that.
                         widget.exercise.answerKey == null
                             ? 'Writing cycle complete'
                             : _isCorrect
-                            ? 'Good!'
-                            : 'Needs improvement',
+                            ? AppLocalizations.of(
+                              context,
+                            ).writingKeyPhrasesFound
+                            : AppLocalizations.of(
+                              context,
+                            ).writingKeyPhrasesMissing,
                         style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: _isCorrect ? t.green : t.red,
@@ -341,6 +349,16 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                   ),
                   const SizedBox(height: 8),
                   Text(_feedbackText, style: theme.textTheme.bodyMedium),
+                  if (widget.exercise.answerKey != null) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      AppLocalizations.of(context).writingKeywordCheckNote,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: t.muted,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                   if (_minWords != null) ...[
                     const SizedBox(height: 4),
                     Text(

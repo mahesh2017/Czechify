@@ -301,11 +301,11 @@ reachable from home has either content or a designed empty state.
 _Anything found mid-phase that is out of that phase's scope goes here, with the phase it was
 found in._
 
-- **Review-complete screen: bottom button overlaps the reschedule banner** (found in
-  phase 1, dark-mode screenshot pass). On the "Review complete" screen the teal
-  "These cards are rescheduled with…" banner is clipped mid-sentence by the "Back to home"
-  button drawn on top of it. Layout, not colour — untouched by phase 1 and present before
-  it. Fix alongside phase 6 polish.
+- ~~**Review-complete screen: bottom button overlaps the reschedule banner**~~ —
+  **not a defect; my earlier reading was wrong.** The screen is
+  `Column > Expanded(ListView) + fixed footer` with no `Stack`, so nothing overlaps. The
+  teal banner appeared cut off because it is the list's last child sitting at the scroll
+  fold — the rest is reachable by scrolling, which is ordinary behaviour. No change made.
 - ~~**Mock exam renders an empty body when a section starts**~~ — **fixed in `ae301c2`.**
   Root cause was not exam-specific: the button themes use `Size.fromHeight(54)`, i.e.
   `Size(double.infinity, 54)`, and a Row gives its non-flex children unbounded width. The

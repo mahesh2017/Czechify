@@ -595,6 +595,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Lesson progress: question {current} of {total}'**
   String a11yLessonProgress(int current, int total);
+
+  /// No description provided for @writingKeyPhrasesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Key phrases found'**
+  String get writingKeyPhrasesFound;
+
+  /// No description provided for @writingKeyPhrasesMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Key phrases not found'**
+  String get writingKeyPhrasesMissing;
+
+  /// No description provided for @writingKeywordCheckNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic keyword check only — it compares your words against the expected phrases and does not judge grammar, spelling, or style.'**
+  String get writingKeywordCheckNote;
 }
 
 class _AppLocalizationsDelegate

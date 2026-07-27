@@ -163,5 +163,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "writingKeyPhrasesFound": "Key phrases found",
+  "writingKeyPhrasesMissing": "Key phrases not found",
+  "writingKeywordCheckNote": "Automatic keyword check only — it compares your words against the expected phrases and does not judge grammar, spelling, or style."
 }

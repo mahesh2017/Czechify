@@ -154,5 +154,8 @@
         "type": "int"
       }
     }
-  }
+  },
+  "writingKeyPhrasesFound": "Klíčové fráze nalezeny",
+  "writingKeyPhrasesMissing": "Klíčové fráze nenalezeny",
+  "writingKeywordCheckNote": "Pouze automatická kontrola klíčových slov — porovnává vaše slova s očekávanými frázemi a nehodnotí gramatiku, pravopis ani styl."
 }

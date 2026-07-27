@@ -301,4 +301,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String a11yLessonProgress(int current, int total) {
     return 'Lesson progress: question $current of $total';
   }
+
+  @override
+  String get writingKeyPhrasesFound => 'Key phrases found';
+
+  @override
+  String get writingKeyPhrasesMissing => 'Key phrases not found';
+
+  @override
+  String get writingKeywordCheckNote =>
+      'Automatic keyword check only — it compares your words against the expected phrases and does not judge grammar, spelling, or style.';
 }
