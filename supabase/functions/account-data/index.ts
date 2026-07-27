@@ -1,31 +1,39 @@
 import { createClient } from "npm:@supabase/supabase-js@2.110.7";
 import {
+  corsHeaders,
+  type CorsPolicy,
+  parseAllowedOrigins,
+  preflightResponse,
+} from "../_shared/cors.ts";
+import {
   confirmsDeletion,
   isSupportedMethod,
   syncedUserTables,
 } from "./account_policy.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
+const CORS: CorsPolicy = {
+  allowedOrigins: parseAllowedOrigins(Deno.env.get("ALLOWED_ORIGINS")),
+  allowedHeaders:
     "authorization, apikey, content-type, x-client-info, x-confirm-account-deletion",
-  "Access-Control-Allow-Methods": "GET, DELETE, OPTIONS",
+  allowedMethods: "GET, DELETE, OPTIONS",
 };
 
-const jsonResponse = (body: Record<string, unknown>, status = 200) =>
-  new Response(JSON.stringify(body), {
-    status,
-    headers: {
-      ...corsHeaders,
-      "Cache-Control": "no-store",
-      "Content-Type": "application/json",
-    },
-  });
-
 Deno.serve(async (request) => {
+  const origin = request.headers.get("Origin");
   if (request.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return preflightResponse(origin, CORS);
   }
+  const cors = corsHeaders(origin, CORS);
+  const jsonResponse = (body: Record<string, unknown>, status = 200) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: {
+        ...cors,
+        "Cache-Control": "no-store",
+        "Content-Type": "application/json",
+      },
+    });
+
   if (!isSupportedMethod(request.method)) {
     return jsonResponse({ error: "Method not allowed." }, 405);
   }

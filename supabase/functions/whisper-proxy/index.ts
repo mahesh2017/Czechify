@@ -6,9 +6,21 @@
 // per-user daily cap, all enforced server-side before OpenAI is called.
 
 import { createClient } from "npm:@supabase/supabase-js@2.110.7";
+import {
+  corsHeaders,
+  type CorsPolicy,
+  parseAllowedOrigins,
+  preflightResponse,
+} from "../_shared/cors.ts";
 import { isRecord, parseTranscriptionInput } from "./request_policy.ts";
 
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+
+const CORS: CorsPolicy = {
+  allowedOrigins: parseAllowedOrigins(Deno.env.get("ALLOWED_ORIGINS")),
+  allowedHeaders: "authorization, apikey, content-type, x-client-info",
+  allowedMethods: "POST, OPTIONS",
+};
 const MODEL = "whisper-1";
 const SERVICE = "whisper";
 
@@ -24,6 +36,18 @@ function boundedInteger(
 }
 
 Deno.serve(async (req: Request): Promise<Response> => {
+  const origin = req.headers.get("Origin");
+  if (req.method === "OPTIONS") {
+    return preflightResponse(origin, CORS);
+  }
+  // Shadows the module-level helper so no reply can forget the CORS headers.
+  const cors = corsHeaders(origin, CORS);
+  const json = (
+    data: unknown,
+    status: number,
+    headers: Record<string, string> = {},
+  ): Response => jsonWithHeaders(data, status, { ...cors, ...headers });
+
   if (req.method !== "POST") {
     return json({ error: "Method not allowed" }, 405);
   }
@@ -52,9 +76,16 @@ Deno.serve(async (req: Request): Promise<Response> => {
     return json({ error: "Invalid or expired session" }, 401);
   }
 
+  // 30/min, not 6. At 6 a learner working through a pronunciation lesson hit
+  // this constantly — six attempts a minute is slower than anyone practising
+  // actually speaks, so the limiter was firing on genuine use and the app
+  // silently dropped to on-device recognition. 30/min is still far below what
+  // a script could manage, so the burst window keeps doing its real job:
+  // stopping automated abuse of a public endpoint that has an OpenAI key
+  // behind it. The per-user daily cap remains the actual cost control.
   const userBurstLimit = boundedInteger(
     Deno.env.get("SPEECH_USER_REQUESTS_PER_MINUTE"),
-    6,
+    30,
     1,
     100,
   );
@@ -225,7 +256,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 });
 
-function json(
+function jsonWithHeaders(
   data: unknown,
   status: number,
   headers: Record<string, string> = {},
