@@ -248,7 +248,7 @@ completable end-to-end with TalkBack/VoiceOver.
 
 | # | Task | Files |
 |---|---|---|
-| 5.1 | STT model download UX: progress bar, size warning, "skip for now". Today `kSttModelUrl` defaults to empty and the first pronunciation attempt fails silently | `lib/data/services/stt/stt_model_manager.dart`, onboarding |
+| ~~5.1~~ | **Dropped — premise is false.** See the finding below. | — |
 | 5.2 | Decide and document the STT model hosting plan — a ~340MB asset on Supabase free tier (5GB egress) supports ~15 downloads/month | `docs/` |
 | 5.3 | Fix the lesson exit dialog copy — answers *are* persisted; only in-session position and hearts are lost | `lesson_player_screen.dart:444` |
 | 5.4 | Label the offline writing evaluator in the UI as a rough keyword check (it is 50% token overlap, `writing_task_view.dart:80`) | `writing_task_view.dart` |
@@ -256,6 +256,33 @@ completable end-to-end with TalkBack/VoiceOver.
 | 5.6 | Hoist the per-render `SrsScheduler()` | `srs_review_screen.dart:200` |
 | 5.7 | Update `ARCHITECTURE.md` Vosk → ONNX, and fix the "Vosk failed" error string | `docs/ARCHITECTURE.md`, `lib/core/errors/app_exceptions.dart:13` |
 | 5.8 | Replace `'Failed to load: $err'` with user-facing copy | `stats_screen.dart:33`, `curriculum_screen.dart:48` |
+
+### 5.1 finding — the on-device ONNX model is not in the shipping path
+
+The QA report says an unset `STT_MODEL_URL` makes pronunciation "silently fail". It does
+not, because **nothing in the app ever constructs `OnDeviceCzechStt`**. `grep -rn
+"OnDeviceCzechStt(" lib` returns only its own declaration; `SttModelManager.download()`
+has no caller. The ~340 MB download never happens in a shipped build.
+
+The real runtime chain in `PronunciationAssessor` is:
+
+1. `PhonemeRecognizer` — a **remote HTTP service** (`PHONEME_SERVICE_URL`), when configured
+2. Whisper via the Edge Function, when the backend is configured
+3. OS-native `speech_to_text` (`NativeSttService`) otherwise
+
+So an unconfigured build degrades to native STT and reports which path it used
+(`usedWhisper`, plus the diagnostic line on the pronunciation screen). That is a graceful
+fallback, not a silent failure.
+
+The ONNX files (`stt_model_manager.dart`, `on_device_czech_stt.dart`,
+`onnx_stt_benchmark.dart`) are reachable only from `SttBenchHook`, which is
+`kReleaseMode`-guarded and reads a side-loaded file — a developer benchmark, not a
+feature. Building download UI for it would wire a 340 MB prompt to code the app does not
+run.
+
+**Decision needed:** either delete that path, or state that it is staged for a future
+on-device release and leave it. The Supabase-egress concern in the QA report is moot
+either way while nothing downloads.
 
 **Definition of Done:** each row either landed or is listed under Deferred with a reason.
 5.5 must ship **before** the first public release or never — it is not safe post-launch.
