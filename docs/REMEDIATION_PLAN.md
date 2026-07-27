@@ -201,7 +201,7 @@ lesson flow. Partial coverage is acceptable; *invisible* coverage is not.
 - Launching with device locale `cs` shows Czech on all six wired screens.
 - A test asserts the two `.arb` files have identical key sets.
 
-### Phase 3 status — COMPLETE (`11a8596`)
+### Phase 3 status — COMPLETE (`11a8596`, extended in `aca6596`)
 
 - `app_en.arb` 21 → **74 messages**; `app_cs.arb` created with all 74 translated.
 - Wired: adaptive scaffold (nav), settings, home, SRS review, lesson player.
@@ -216,6 +216,17 @@ lesson flow. Partial coverage is acceptable; *invisible* coverage is not.
 
 Phase 5.3 (misleading lesson-exit copy) landed here too — the dialog now reads that
 completed answers are saved, which is what the code actually does.
+
+**Extended in `aca6596`:** 35 more literals wired to keys that already existed in both
+ARBs — every "Check", "Retry", "Try Again", "Continue", "Cancel", "Save", "Show Answer",
+and the exam's Start/Resume/Discard/Stay/Leave. Those are the most-tapped controls in the
+app, so the Czech UI had been showing English on nearly every exercise.
+
+**86 messages, 85 call sites. ~87 literals remain**, concentrated in screens not yet
+wired: chat, curriculum, placement, the account/settings sub-screens, and the exam body.
+A Czech UI is now correct through the core loop (nav, home, lesson, review, settings) and
+still shows English on those. Finishing them is mechanical but needs real translation, not
+key-wiring — that is the remaining Phase 3 tail.
 
 **Explicitly not in this phase:** translating lesson *content* (that is authored data, not
 UI strings), or the remaining ~13 screens.
