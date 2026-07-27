@@ -478,7 +478,7 @@ class NativeSttService implements SttService, LiveTranscriber {
     if (!_initialized) return '';
 
     // speech_to_text works via live listening, not file transcription.
-    // For file-based transcription, Vosk would be needed.
+    // For file-based transcription, the on-device ONNX model would be needed.
     // For now, this returns empty — the pronunciation provider
     // uses listenFor() which captures live speech.
     return '';

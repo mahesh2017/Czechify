@@ -24,6 +24,10 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
   bool _loaded = false;
   String _productionAttempt = '';
 
+  /// Stateless, so one instance serves the whole session — it was being
+  /// constructed once per card render.
+  final _scheduler = SrsScheduler();
+
   @override
   void initState() {
     super.initState();
@@ -202,11 +206,10 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
   /// current card. "Again" re-appears within this session, so it shows
   /// "Soon" rather than a day count.
   Map<Rating, String> _intervalLabels(SrsCard card) {
-    final scheduler = SrsScheduler();
     final now = DateTime.now();
     String fmt(Rating r) {
       if (r == Rating.again) return 'Soon';
-      final days = scheduler.previewIntervalDays(card, r, now);
+      final days = _scheduler.previewIntervalDays(card, r, now);
       if (days <= 0) return '<1d';
       if (days < 30) return '${days}d';
       if (days < 365) return '~${(days / 30).round()}mo';

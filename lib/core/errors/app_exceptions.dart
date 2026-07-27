@@ -11,7 +11,8 @@ class AppException implements Exception {
 class OfflineTranscriptionError extends AppException {
   OfflineTranscriptionError()
     : super(
-        'Cannot transcribe audio offline. Vosk failed and no internet for Whisper fallback.',
+        'Cannot transcribe audio offline. On-device recognition failed and '
+        'there is no connection for the cloud fallback.',
       );
 }
 

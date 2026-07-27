@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart' hide Badge;
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/gamification_providers.dart';
@@ -30,7 +31,10 @@ class StatsScreen extends ConsumerWidget {
         bottom: false,
         child: dataAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, _) => Center(child: Text('Failed to load: $err')),
+          error:
+              (_, __) => Center(
+                child: Text(AppLocalizations.of(context).errorFailedToLoad),
+              ),
           data: (data) {
             final snapshot = data.snapshot;
             final tracker = CurriculumProgressTracker();
