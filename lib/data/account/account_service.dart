@@ -24,6 +24,9 @@ class AccountService {
 
   Future<void> linkEmail(String email) => _backend.requestEmailLink(email);
 
+  /// Whether [deleteAccountAndLocalData] needs a password to re-authenticate.
+  bool get deletionNeedsPassword => _backend.requiresPasswordToDelete;
+
   Future<void> setPassword(String password) => _backend.setPassword(password);
 
   Future<void> sendPasswordRecovery(String email) =>
@@ -98,8 +101,13 @@ class AccountService {
     }
   }
 
-  Future<void> deleteAccountAndLocalData() async {
-    if (_backend.isSignedIn) await _backend.deleteCloudAccount();
+  /// [password] is forwarded to re-authenticate before the cloud account is
+  /// deleted; see [BackendService.deleteCloudAccount]. Null is correct for
+  /// anonymous accounts, which have no credential to re-enter.
+  Future<void> deleteAccountAndLocalData({String? password}) async {
+    if (_backend.isSignedIn) {
+      await _backend.deleteCloudAccount(password: password);
+    }
     await _db.clearLearnerData();
     await _clearAccountScopedArtifacts();
     await _backend.ensureAnonymousSession();

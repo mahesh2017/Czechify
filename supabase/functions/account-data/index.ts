@@ -7,7 +7,10 @@ import {
 } from "../_shared/cors.ts";
 import {
   confirmsDeletion,
+  decodeJwtIssuedAt,
+  hasRecentAuth,
   isSupportedMethod,
+  requiresRecentAuth,
   syncedUserTables,
 } from "./account_policy.ts";
 
@@ -104,6 +107,20 @@ Deno.serve(async (request) => {
     return jsonResponse({ error: "Deletion confirmation is required." }, 400);
   }
 
+  // Re-authentication gate. The confirmation header proves intent, not
+  // identity: anyone holding a valid access token could previously wipe the
+  // account. Requiring a token minted in the last few minutes means the
+  // caller has just proved who they are.
+  if (
+    requiresRecentAuth(user.is_anonymous === true) &&
+    !hasRecentAuth(decodeJwtIssuedAt(jwt), Math.floor(Date.now() / 1000))
+  ) {
+    return jsonResponse({
+      error: "Please sign in again to confirm account deletion.",
+      code: "reauthentication_required",
+    }, 401);
+  }
+
   const { error: signOutError } = await admin.auth.admin.signOut(jwt, "global");
   if (signOutError) {
     console.error("Account session revocation failed", signOutError.code);
@@ -116,6 +133,6 @@ Deno.serve(async (request) => {
   }
   return new Response(null, {
     status: 204,
-    headers: { ...corsHeaders, "Cache-Control": "no-store" },
+    headers: { ...cors, "Cache-Control": "no-store" },
   });
 });

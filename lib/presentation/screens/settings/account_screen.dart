@@ -193,8 +193,24 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       if (phrase != null) _showError('Confirmation phrase did not match.');
       return;
     }
+
+    // The phrase proves intent; the password proves identity. Without it a
+    // stolen session could delete the account, so the server refuses a
+    // deletion unless the session was minted moments ago.
+    String? password;
+    if (ref.read(accountServiceProvider).deletionNeedsPassword) {
+      password = await _askText(
+        title: 'Confirm it is you',
+        label: 'Account password',
+        obscure: true,
+      );
+      if (password == null || password.isEmpty) return;
+    }
+
     await _run(
-      () => ref.read(accountServiceProvider).deleteAccountAndLocalData(),
+      () => ref
+          .read(accountServiceProvider)
+          .deleteAccountAndLocalData(password: password),
       'Cloud account and learner data deleted.',
     );
   }

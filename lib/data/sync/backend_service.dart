@@ -124,17 +124,41 @@ class BackendService {
     return Map<String, dynamic>.from(response.data as Map);
   }
 
-  Future<void> deleteCloudAccount() async {
+  /// Deletes the cloud account.
+  ///
+  /// [password] re-authenticates first. The server only accepts a deletion
+  /// from a session minted in the last few minutes, so a signed-in account
+  /// with a password must supply it — otherwise a stolen access token would
+  /// be enough to wipe someone's account. Anonymous accounts hold no
+  /// credential and are exempt server-side, so they pass null.
+  Future<void> deleteCloudAccount({String? password}) async {
     final client = _requireClient();
+    final email = client.auth.currentUser?.email;
+    if (password != null && email != null) {
+      // Mints a fresh access token, which is what satisfies the server gate.
+      await client.auth.signInWithPassword(email: email, password: password);
+    }
     final response = await client.functions.invoke(
       'account-data',
       method: HttpMethod.delete,
       headers: const {'x-confirm-account-deletion': 'DELETE MY ACCOUNT'},
     );
+    if (response.status == 401) {
+      throw const AuthException(
+        'Please sign in again to confirm account deletion.',
+      );
+    }
     if (response.status != 204) {
       throw const AuthException('Cloud account deletion failed.');
     }
     await client.auth.signOut(scope: SignOutScope.local);
+  }
+
+  /// Whether the signed-in account has a password to re-enter before
+  /// deletion. Anonymous sessions do not.
+  bool get requiresPasswordToDelete {
+    final user = _clientOrNull?.auth.currentUser;
+    return user != null && user.isAnonymous != true && user.email != null;
   }
 
   Future<void> ensureAnonymousSession() async {
