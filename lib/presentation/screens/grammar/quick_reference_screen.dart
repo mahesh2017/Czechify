@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:convert';
 import '../../../core/theme/app_tokens.dart';
+import '../../providers/curriculum_providers.dart';
 
 /// Screen for quick-reference content: cheat sheets, declension tables,
 /// conjugation tables.
-class QuickReferenceScreen extends StatefulWidget {
+///
+/// Cheat sheets are per-unit, so they follow the same rule as the grammar
+/// reference: only units the learner has reached, most recent first. The
+/// declension and conjugation tables are not unit-scoped and are shown whole.
+class QuickReferenceScreen extends ConsumerStatefulWidget {
   /// Which reference type to show: 'cheat_sheets', 'declension_tables',
   /// or 'conjugation_tables'.
   final String type;
@@ -13,10 +19,11 @@ class QuickReferenceScreen extends StatefulWidget {
   const QuickReferenceScreen({super.key, required this.type});
 
   @override
-  State<QuickReferenceScreen> createState() => _QuickReferenceScreenState();
+  ConsumerState<QuickReferenceScreen> createState() =>
+      _QuickReferenceScreenState();
 }
 
-class _QuickReferenceScreenState extends State<QuickReferenceScreen> {
+class _QuickReferenceScreenState extends ConsumerState<QuickReferenceScreen> {
   Map<String, dynamic>? _data;
   String? _error;
 
@@ -90,7 +97,36 @@ class _QuickReferenceScreenState extends State<QuickReferenceScreen> {
   }
 
   Widget _buildCheatSheets(AppTokens t) {
-    final sheets = _data!['cheat_sheets'] as List<dynamic>? ?? [];
+    final all = _data!['cheat_sheets'] as List<dynamic>? ?? [];
+    final unlocked = ref.watch(unlockedUnitIdsProvider).asData?.value;
+
+    // Same rule as the grammar reference. Falling back to everything while
+    // access is loading is deliberate: showing extra reference material is a
+    // much smaller failure than hiding the sheet for the unit being studied.
+    final sheets = [
+      for (final sheet in all)
+        if (unlocked == null ||
+            unlocked.contains((sheet as Map<String, dynamic>)['unit_id']))
+          sheet,
+    ]..sort((a, b) {
+      final left = (a as Map<String, dynamic>)['unit_id'] as int? ?? 0;
+      final right = (b as Map<String, dynamic>)['unit_id'] as int? ?? 0;
+      return right.compareTo(left);
+    });
+
+    if (sheets.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Text(
+            'Cheat sheets appear here as you reach each unit.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 15, color: t.muted),
+          ),
+        ),
+      );
+    }
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: sheets.length,

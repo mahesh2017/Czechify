@@ -130,7 +130,7 @@ SessionPlan planReviewSession({
 
   return SessionPlan([
     for (final c in session) SessionCard(c, directionFor(c)),
-  ], newToShow.length,);
+  ], newToShow.length);
 }
 
 /// State of an SRS review session.

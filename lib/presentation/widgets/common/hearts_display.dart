@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/gamification_providers.dart';
 
@@ -18,24 +19,20 @@ class HeartsDisplay extends ConsumerWidget {
       children: [
         Icon(
           Icons.favorite,
-          color: hearts > 0 ? Colors.red : Colors.grey.shade400,
+          color: hearts > 0 ? context.tokens.red : context.tokens.line,
           size: 18,
         ),
         const SizedBox(width: 4),
         Text(
           '$hearts',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: hearts > 0 ? Colors.red : Colors.grey,
-              ),
+            fontWeight: FontWeight.bold,
+            color: hearts > 0 ? context.tokens.red : context.tokens.muted,
+          ),
         ),
         if (!isFull) ...[
           const SizedBox(width: 4),
-          Icon(
-            Icons.access_time,
-            size: 12,
-            color: Colors.grey.shade400,
-          ),
+          Icon(Icons.access_time, size: 12, color: context.tokens.line),
         ],
       ],
     );

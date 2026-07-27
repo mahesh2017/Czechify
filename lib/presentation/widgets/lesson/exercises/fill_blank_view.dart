@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
 
@@ -43,14 +44,16 @@ class _FillBlankViewState extends State<FillBlankView> {
 
   void _checkAnswer() {
     final data = widget.exercise.data;
-    final accepted = (data['blank_answers'] as List<dynamic>)
-        .map((answers) => (answers as List<dynamic>).cast<String>())
-        .toList();
+    final accepted =
+        (data['blank_answers'] as List<dynamic>)
+            .map((answers) => (answers as List<dynamic>).cast<String>())
+            .toList();
 
     final blankIndices = _controllers.keys.toList()..sort();
-    final userParts = blankIndices
-        .map((idx) => normalizeAnswer(_controllers[idx]!.text))
-        .toList();
+    final userParts =
+        blankIndices
+            .map((idx) => normalizeAnswer(_controllers[idx]!.text))
+            .toList();
 
     final correct =
         accepted.length == userParts.length &&
@@ -109,7 +112,9 @@ class _FillBlankViewState extends State<FillBlankView> {
     final wordStyle = Theme.of(context).textTheme.bodyLarge;
     for (var i = 0; i < parts.length; i++) {
       final isBlankPrefix =
-          i < parts.length - 1 && !parts[i].endsWith(' ') && parts[i].isNotEmpty;
+          i < parts.length - 1 &&
+          !parts[i].endsWith(' ') &&
+          parts[i].isNotEmpty;
       final isBlankSuffix = i > 0 && !parts[i].startsWith(' ');
       final words = parts[i].trim().split(RegExp(r'\s+'))
         ..removeWhere((w) => w.isEmpty);
@@ -118,36 +123,40 @@ class _FillBlankViewState extends State<FillBlankView> {
         // no trailing gap before, no leading gap after.
         final gluedToNextBlank = isBlankPrefix && w == words.length - 1;
         final gluedToPrevBlank = isBlankSuffix && w == 0;
-        children.add(Padding(
-          padding: EdgeInsets.only(
-            left: gluedToPrevBlank ? 0 : 3,
-            right: gluedToNextBlank ? 0 : 3,
+        children.add(
+          Padding(
+            padding: EdgeInsets.only(
+              left: gluedToPrevBlank ? 0 : 3,
+              right: gluedToNextBlank ? 0 : 3,
+            ),
+            child: Text(words[w], style: wordStyle),
           ),
-          child: Text(words[w], style: wordStyle),
-        ),);
+        );
       }
       if (i < parts.length - 1) {
-        children.add(SizedBox(
-          width: _blankWidth(data, i),
-          child: TextField(
-            controller: _controllerFor(i),
-            enabled: !answered,
-            textAlign: TextAlign.center,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              isDense: true,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 8,
+        children.add(
+          SizedBox(
+            width: _blankWidth(data, i),
+            child: TextField(
+              controller: _controllerFor(i),
+              enabled: !answered,
+              textAlign: TextAlign.center,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 8,
+                ),
               ),
+              style: TextStyle(
+                color: isCorrect == false ? context.tokens.red : null,
+                fontWeight: FontWeight.bold,
+              ),
+              onSubmitted: answered ? null : (_) => _checkAnswer(),
             ),
-            style: TextStyle(
-              color: isCorrect == false ? Colors.red : null,
-              fontWeight: FontWeight.bold,
-            ),
-            onSubmitted: answered ? null : (_) => _checkAnswer(),
           ),
-        ),);
+        );
       }
     }
 

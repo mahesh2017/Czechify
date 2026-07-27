@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
 
@@ -33,31 +34,38 @@ class _MatchingViewState extends State<MatchingView> {
     final rawPairs = data['pairs'] as List<dynamic>? ?? [];
 
     // Normalise: support both {left, right} and {cz, en} key shapes.
-    final pairs = rawPairs.map((p) {
-      final m = p as Map<String, dynamic>;
-      final left = (m['left'] ?? m['cz'] ?? '') as String;
-      final right = (m['right'] ?? m['en'] ?? '') as String;
-      return (left, right);
-    }).toList();
+    final pairs =
+        rawPairs.map((p) {
+          final m = p as Map<String, dynamic>;
+          final left = (m['left'] ?? m['cz'] ?? '') as String;
+          final right = (m['right'] ?? m['en'] ?? '') as String;
+          return (left, right);
+        }).toList();
 
     final leftShuffle = List.generate(pairs.length, (i) => i);
     leftShuffle.shuffle(_random);
     final rightShuffle = List.generate(pairs.length, (i) => i);
     rightShuffle.shuffle(_random);
 
-    _leftItems = pairs.asMap().entries.map((e) {
-      return _MatchItem(text: e.value.$1, pairIdx: e.key);
-    }).toList();
-    _leftItems.sort((a, b) => leftShuffle.indexOf(a.pairIdx).compareTo(
-      leftShuffle.indexOf(b.pairIdx),
-    ),);
+    _leftItems =
+        pairs.asMap().entries.map((e) {
+          return _MatchItem(text: e.value.$1, pairIdx: e.key);
+        }).toList();
+    _leftItems.sort(
+      (a, b) => leftShuffle
+          .indexOf(a.pairIdx)
+          .compareTo(leftShuffle.indexOf(b.pairIdx)),
+    );
 
-    _rightItems = pairs.asMap().entries.map((e) {
-      return _MatchItem(text: e.value.$2, pairIdx: e.key);
-    }).toList();
-    _rightItems.sort((a, b) => rightShuffle.indexOf(a.pairIdx).compareTo(
-      rightShuffle.indexOf(b.pairIdx),
-    ),);
+    _rightItems =
+        pairs.asMap().entries.map((e) {
+          return _MatchItem(text: e.value.$2, pairIdx: e.key);
+        }).toList();
+    _rightItems.sort(
+      (a, b) => rightShuffle
+          .indexOf(a.pairIdx)
+          .compareTo(rightShuffle.indexOf(b.pairIdx)),
+    );
   }
 
   bool get _allMatched =>
@@ -66,8 +74,7 @@ class _MatchingViewState extends State<MatchingView> {
   bool get _isCorrect =>
       _leftItems.every((i) => i.pairIdx == _rightItems[i.matchedTo].pairIdx);
 
-  int get _matchedCount =>
-      _leftItems.where((i) => i.matched).length;
+  int get _matchedCount => _leftItems.where((i) => i.matched).length;
 
   void _onLeftTap(int idx) {
     if (answered) return;
@@ -108,7 +115,9 @@ class _MatchingViewState extends State<MatchingView> {
 
   void _submit() {
     final data = widget.exercise.data;
-    final correct = _leftItems.every((i) => i.pairIdx == _rightItems[i.matchedTo].pairIdx);
+    final correct = _leftItems.every(
+      (i) => i.pairIdx == _rightItems[i.matchedTo].pairIdx,
+    );
     final explanation = data['explanation'] as String?;
     final answerKey = widget.exercise.answerKey;
 
@@ -217,10 +226,7 @@ class _MatchingViewState extends State<MatchingView> {
                   ),
                 ),
                 if (_allMatched && !answered)
-                  FilledButton(
-                    onPressed: _submit,
-                    child: const Text('Check'),
-                  ),
+                  FilledButton(onPressed: _submit, child: const Text('Check')),
                 if (answered)
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -230,9 +236,10 @@ class _MatchingViewState extends State<MatchingView> {
                             ? '✓ All correct!'
                             : '✗ Some pairs are wrong — try again',
                         style: theme.textTheme.titleSmall?.copyWith(
-                          color: _isCorrect
-                              ? Colors.green.shade700
-                              : Colors.red.shade700,
+                          color:
+                              _isCorrect
+                                  ? context.tokens.green
+                                  : context.tokens.red,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -283,10 +290,11 @@ class _MatchingViewState extends State<MatchingView> {
             duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             decoration: BoxDecoration(
-              color: bgColor ?? Theme.of(context).colorScheme.surfaceContainerLow,
+              color:
+                  bgColor ?? Theme.of(context).colorScheme.surfaceContainerLow,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: borderColor ?? Colors.grey.shade300,
+                color: borderColor ?? context.tokens.line,
                 width: isSelected ? 2 : (item.matched ? 2 : 1),
               ),
             ),
@@ -295,9 +303,7 @@ class _MatchingViewState extends State<MatchingView> {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: item.matched ? FontWeight.w600 : FontWeight.normal,
-                color: item.matched
-                    ? _pairColor(item.pairIdx)
-                    : null,
+                color: item.matched ? _pairColor(item.pairIdx) : null,
               ),
               textAlign: TextAlign.center,
             ),
@@ -316,9 +322,7 @@ class _MatchItem {
   bool matched;
   int matchedTo; // index in the other column
 
-  _MatchItem({
-    required this.text,
-    required this.pairIdx,
-  }) : matched = false,
-       matchedTo = -1;
+  _MatchItem({required this.text, required this.pairIdx})
+    : matched = false,
+      matchedTo = -1;
 }

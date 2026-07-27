@@ -44,27 +44,28 @@ final whisperServiceProvider = Provider<WhisperService?>((ref) {
 /// Endpoint of the Czech acoustic recogniser. Empty by default, which keeps
 /// phoneme scoring switched off and the app on transcript scoring:
 ///   --dart-define=PHONEME_SERVICE_URL=http://10.0.1.11:8080
-const String kPhonemeServiceUrl =
-    String.fromEnvironment('PHONEME_SERVICE_URL');
-const String kPhonemeServiceToken =
-    String.fromEnvironment('PHONEME_SERVICE_TOKEN');
+const String kPhonemeServiceUrl = String.fromEnvironment('PHONEME_SERVICE_URL');
+const String kPhonemeServiceToken = String.fromEnvironment(
+  'PHONEME_SERVICE_TOKEN',
+);
 
 /// Loaded once; absent or unreadable means "support nothing", so a missing
 /// asset can never cause untrustworthy verdicts.
-final pronunciationCoverageProvider =
-    FutureProvider<PronunciationCoverage>((ref) => PronunciationCoverage.load());
+final pronunciationCoverageProvider = FutureProvider<PronunciationCoverage>(
+  (ref) => PronunciationCoverage.load(),
+);
 
-final pronunciationAssessmentProvider =
-    Provider<PronunciationAssessor>((ref) {
+final pronunciationAssessmentProvider = Provider<PronunciationAssessor>((ref) {
   final backend = ref.watch(backendServiceProvider);
   return PronunciationAssessor(
-    phonemeRecognizer: kPhonemeServiceUrl.isEmpty
-        ? null
-        : PhonemeRecognizer(
-            baseUrl: kPhonemeServiceUrl,
-            apiToken: kPhonemeServiceToken,
-            log: Logger('PhonemeRecognizer'),
-          ),
+    phonemeRecognizer:
+        kPhonemeServiceUrl.isEmpty
+            ? null
+            : PhonemeRecognizer(
+              baseUrl: kPhonemeServiceUrl,
+              apiToken: kPhonemeServiceToken,
+              log: Logger('PhonemeRecognizer'),
+            ),
     coverage: ref.watch(pronunciationCoverageProvider).value,
     recorder: ref.watch(audioRecorderProvider),
     whisper: ref.watch(whisperServiceProvider),
@@ -119,13 +120,13 @@ class PronunciationAssessor {
     Future<void> Function()? ensureCloudSession,
     PhonemeRecognizer? phonemeRecognizer,
     PronunciationCoverage? coverage,
-  })  : _recorder = recorder,
-        _whisper = whisper,
-        _fallbackStt = fallbackStt,
-        _ensureCloudSession = ensureCloudSession,
-        _phonemeRecognizer = phonemeRecognizer,
-        _coverage = coverage,
-        _log = log;
+  }) : _recorder = recorder,
+       _whisper = whisper,
+       _fallbackStt = fallbackStt,
+       _ensureCloudSession = ensureCloudSession,
+       _phonemeRecognizer = phonemeRecognizer,
+       _coverage = coverage,
+       _log = log;
 
   /// Optional acoustic recogniser. When present, reachable, and the phrase is
   /// one the model was measured to handle, its verdict replaces the
@@ -202,9 +203,10 @@ class PronunciationAssessor {
     return _assessWithNativeStt(
       expectedText,
       maxDuration,
-      diagnostic: BackendConfig.isConfigured
-          ? 'on-device (cloud unavailable — sign-in failed)'
-          : 'on-device (backend not configured in this build)',
+      diagnostic:
+          BackendConfig.isConfigured
+              ? 'on-device (cloud unavailable — sign-in failed)'
+              : 'on-device (backend not configured in this build)',
     );
   }
 
@@ -227,7 +229,10 @@ class PronunciationAssessor {
       await _recorder.cleanup();
       return PronunciationAssessment(
         transcribedText: '',
-        result: _scorer.score(expectedText: expectedText, actualTranscription: ''),
+        result: _scorer.score(
+          expectedText: expectedText,
+          actualTranscription: '',
+        ),
         usedWhisper: true,
         diagnostic: 'cloud Whisper (no audio captured)',
       );
@@ -268,7 +273,8 @@ class PronunciationAssessor {
       result: enriched,
       whisperWords: whisperResult.words,
       usedWhisper: true,
-      diagnostic: 'cloud Whisper (${whisperResult.duration.toStringAsFixed(1)}s)',
+      diagnostic:
+          'cloud Whisper (${whisperResult.duration.toStringAsFixed(1)}s)',
     );
   }
 
@@ -312,8 +318,10 @@ class PronunciationAssessor {
       return null;
     }
     if (!coverage.supports(expectedText)) {
-      _log.info('Phoneme scoring skipped — "$expectedText" is not in the '
-          'measured-reliable set.');
+      _log.info(
+        'Phoneme scoring skipped — "$expectedText" is not in the '
+        'measured-reliable set.',
+      );
       return null;
     }
 
@@ -327,8 +335,10 @@ class PronunciationAssessor {
       actualIpa: _phonemeMapper.toIpa(heard),
     );
 
-    _log.info('Phoneme score ${assessment.overallScore.toStringAsFixed(2)} '
-        '(${assessment.band.name}) heard "$heard"');
+    _log.info(
+      'Phoneme score ${assessment.overallScore.toStringAsFixed(2)} '
+      '(${assessment.band.name}) heard "$heard"',
+    );
 
     return PronunciationResult(
       overallScore: assessment.overallScore,
@@ -373,26 +383,29 @@ class PronunciationAssessor {
     // We blend: finalScore = 0.6 * textSimilarity + 0.4 * whisperConfidence
     // When Whisper confidence is unavailable for a word, we use textSimilarity
     // alone (no penalty).
-    final enrichedWordScores = base.wordScores.map((ws) {
-      final normalized = ws.word.toLowerCase();
-      final whisperProb = wordConfidence[normalized];
-      if (whisperProb == null) {
-        return ws; // No Whisper data for this word — keep text-based score
-      }
-      final blended = (ws.score * 0.6) + (whisperProb * 0.4);
-      return WordScore(
-        word: ws.word,
-        isCorrect: blended >= 0.7,
-        score: blended,
-      );
-    }).toList();
+    final enrichedWordScores =
+        base.wordScores.map((ws) {
+          final normalized = ws.word.toLowerCase();
+          final whisperProb = wordConfidence[normalized];
+          if (whisperProb == null) {
+            return ws; // No Whisper data for this word — keep text-based score
+          }
+          final blended = (ws.score * 0.6) + (whisperProb * 0.4);
+          return WordScore(
+            word: ws.word,
+            isCorrect: blended >= 0.7,
+            score: blended,
+          );
+        }).toList();
 
     // Recalculate overall score. The denominator must keep counting the words
     // the learner added on top of the target phrase, exactly as the scorer
     // does — otherwise reciting the phrase plus a stream of filler scores the
     // same as saying it cleanly.
-    final totalScore =
-        enrichedWordScores.fold<double>(0.0, (sum, w) => sum + w.score);
+    final totalScore = enrichedWordScores.fold<double>(
+      0.0,
+      (sum, w) => sum + w.score,
+    );
     final denominator = enrichedWordScores.length + base.insertionCount;
     final accuracy = denominator == 0 ? 0.0 : totalScore / denominator;
 
@@ -448,9 +461,10 @@ class NativeSttService implements SttService, LiveTranscriber {
       // listen() doesn't silently no-op on an unknown locale.
       try {
         final locales = await _speech.locales();
-        final cs = locales
-            .where((l) => l.localeId.toLowerCase().startsWith('cs'))
-            .toList();
+        final cs =
+            locales
+                .where((l) => l.localeId.toLowerCase().startsWith('cs'))
+                .toList();
         _czechLocaleId = cs.isNotEmpty ? cs.first.localeId : null;
       } catch (_) {
         _czechLocaleId = null;
@@ -515,10 +529,13 @@ class NativeSttService implements SttService, LiveTranscriber {
       ),
     );
 
-    return completer.future.timeout(timeout, onTimeout: () {
-      _speech.stop();
-      return result;
-    },);
+    return completer.future.timeout(
+      timeout,
+      onTimeout: () {
+        _speech.stop();
+        return result;
+      },
+    );
   }
 
   /// Stop listening.

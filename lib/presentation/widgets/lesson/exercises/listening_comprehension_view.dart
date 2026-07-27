@@ -61,19 +61,13 @@ class _ListeningComprehensionViewState
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.info_outline,
-                  color: t.amber,
-                  size: 20,
-                ),
+                Icon(Icons.info_outline, color: t.amber, size: 20),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     'Listen for the gist first. Replay or reveal the transcript '
                     'only when you need support.',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: t.amber,
-                    ),
+                    style: theme.textTheme.bodySmall?.copyWith(color: t.amber),
                   ),
                 ),
                 if (transcriptCz.isNotEmpty)
@@ -256,9 +250,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                 Expanded(
                   child: Text(
                     'This exercise has no questions configured.',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: t.red,
-                    ),
+                    style: theme.textTheme.bodyMedium?.copyWith(color: t.red),
                   ),
                 ),
               ],
@@ -299,8 +291,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
               children: [
                 Icon(
                   _allCorrect ? Icons.check_circle : Icons.error_outline,
-                  color:
-                      _allCorrect ? t.green : t.red,
+                  color: _allCorrect ? t.green : t.red,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
@@ -311,8 +302,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                         : '$_correctCount/${_questions.length} correct',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color:
-                          _allCorrect ? t.green : t.red,
+                      color: _allCorrect ? t.green : t.red,
                     ),
                   ),
                 ),
@@ -412,17 +402,9 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                         ),
                       ),
                       if (submitted && i == correctIdx)
-                        Icon(
-                          Icons.check_circle,
-                          color: t.green,
-                          size: 18,
-                        ),
+                        Icon(Icons.check_circle, color: t.green, size: 18),
                       if (submitted && selected == i && i != correctIdx)
-                        Icon(
-                          Icons.cancel,
-                          color: t.red,
-                          size: 18,
-                        ),
+                        Icon(Icons.cancel, color: t.red, size: 18),
                     ],
                   ),
                 ),

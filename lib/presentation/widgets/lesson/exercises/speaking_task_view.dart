@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/stt_providers.dart';
@@ -75,9 +76,8 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
 
     try {
       final stt = ref.read(sttServiceProvider) as NativeSttService;
-      final recorded = (await stt.listenFor(
-        timeout: const Duration(seconds: 15),
-      )).trim();
+      final recorded =
+          (await stt.listenFor(timeout: const Duration(seconds: 15))).trim();
 
       // If the user cancelled (re-recorded or stopped without processing),
       // discard the result entirely.
@@ -96,9 +96,10 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
       // Partial match: check if transcription contains key words
       if (score < 1.0 && recorded.isNotEmpty) {
         final words = recorded.toLowerCase().split(RegExp(r'\s+'));
-        final expectedWords = _expectedPhrases
-            .expand((p) => p.toLowerCase().split(RegExp(r'\s+')))
-            .toSet();
+        final expectedWords =
+            _expectedPhrases
+                .expand((p) => p.toLowerCase().split(RegExp(r'\s+')))
+                .toSet();
         final matched = words.where((w) => expectedWords.contains(w)).length;
         if (expectedWords.isNotEmpty) {
           score = matched / expectedWords.length;
@@ -106,9 +107,10 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
         if (score > 1.0) score = 1.0;
       }
 
-      final currentFeedback = score >= 0.5
-          ? 'Good! You said the right things.'
-          : 'Try again. Expected phrases include: ${_expectedPhrases.join(", ")}';
+      final currentFeedback =
+          score >= 0.5
+              ? 'Good! You said the right things.'
+              : 'Try again. Expected phrases include: ${_expectedPhrases.join(", ")}';
 
       setState(() {
         hasRecorded = true;
@@ -142,6 +144,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final theme = Theme.of(context);
 
     return Padding(
@@ -211,13 +214,11 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
                     height: 80,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: isRecording
-                          ? Colors.red.shade400
-                          : theme.colorScheme.primary,
+                      color: isRecording ? t.red : theme.colorScheme.primary,
                       boxShadow: [
                         if (isRecording)
                           BoxShadow(
-                            color: Colors.red.shade200.withValues(alpha: 0.5),
+                            color: t.red.withValues(alpha: 0.5),
                             blurRadius: 20,
                             spreadRadius: 4,
                           ),
@@ -225,7 +226,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
                     ),
                     child: Icon(
                       isRecording ? Icons.stop : Icons.mic,
-                      color: Colors.white,
+                      color: t.onFill,
                       size: 36,
                     ),
                   ),
@@ -268,9 +269,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
             Text(
               feedback!,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: feedback!.contains('Good')
-                    ? Colors.green.shade700
-                    : Colors.orange.shade700,
+                color: feedback!.contains('Good') ? t.green : t.amber,
                 fontWeight: FontWeight.w500,
               ),
             ),

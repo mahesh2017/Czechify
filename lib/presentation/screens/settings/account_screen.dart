@@ -28,61 +28,64 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       ),
       body: account.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => const _Message(
-          icon: Icons.cloud_off,
-          title: 'Cloud account unavailable',
-          message: 'The app is offline or cloud configuration is unavailable.',
-        ),
-        data: (user) => ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            _AccountHeader(user: user),
-            const SizedBox(height: 20),
-            if (user?.isAnonymous ?? true) ...[
-              FilledButton.icon(
-                onPressed: _busy ? null : _linkEmail,
-                icon: const Icon(Icons.mark_email_read_outlined),
-                label: const Text('Protect progress with email'),
-              ),
-              const SizedBox(height: 10),
-              OutlinedButton.icon(
-                onPressed: _busy ? null : _signInExisting,
-                icon: const Icon(Icons.login),
-                label: const Text('Sign in to an existing account'),
-              ),
-            ] else ...[
-              FilledButton.icon(
-                onPressed: _busy ? null : _setPassword,
-                icon: const Icon(Icons.password),
-                label: const Text('Set or change password'),
-              ),
-            ],
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: _busy ? null : _sendRecovery,
-              child: const Text('Send password recovery email'),
+        error:
+            (_, _) => const _Message(
+              icon: Icons.cloud_off,
+              title: 'Cloud account unavailable',
+              message:
+                  'The app is offline or cloud configuration is unavailable.',
             ),
-            const SizedBox(height: 24),
-            const SectionLabel('Your data'),
-            const SizedBox(height: 10),
-            OutlinedButton.icon(
-              onPressed: _busy ? null : _exportData,
-              icon: const Icon(Icons.download_outlined),
-              label: const Text('Export my data as JSON'),
+        data:
+            (user) => ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                _AccountHeader(user: user),
+                const SizedBox(height: 20),
+                if (user?.isAnonymous ?? true) ...[
+                  FilledButton.icon(
+                    onPressed: _busy ? null : _linkEmail,
+                    icon: const Icon(Icons.mark_email_read_outlined),
+                    label: const Text('Protect progress with email'),
+                  ),
+                  const SizedBox(height: 10),
+                  OutlinedButton.icon(
+                    onPressed: _busy ? null : _signInExisting,
+                    icon: const Icon(Icons.login),
+                    label: const Text('Sign in to an existing account'),
+                  ),
+                ] else ...[
+                  FilledButton.icon(
+                    onPressed: _busy ? null : _setPassword,
+                    icon: const Icon(Icons.password),
+                    label: const Text('Set or change password'),
+                  ),
+                ],
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: _busy ? null : _sendRecovery,
+                  child: const Text('Send password recovery email'),
+                ),
+                const SizedBox(height: 24),
+                const SectionLabel('Your data'),
+                const SizedBox(height: 10),
+                OutlinedButton.icon(
+                  onPressed: _busy ? null : _exportData,
+                  icon: const Icon(Icons.download_outlined),
+                  label: const Text('Export my data as JSON'),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(foregroundColor: t.red),
+                  onPressed: _busy ? null : _deleteAccount,
+                  icon: const Icon(Icons.delete_forever_outlined),
+                  label: const Text('Delete cloud account and local data'),
+                ),
+                if (_busy) ...[
+                  const SizedBox(height: 20),
+                  const Center(child: CircularProgressIndicator()),
+                ],
+              ],
             ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              style: OutlinedButton.styleFrom(foregroundColor: t.red),
-              onPressed: _busy ? null : _deleteAccount,
-              icon: const Icon(Icons.delete_forever_outlined),
-              label: const Text('Delete cloud account and local data'),
-            ),
-            if (_busy) ...[
-              const SizedBox(height: 20),
-              const Center(child: CircularProgressIndicator()),
-            ],
-          ],
-        ),
       ),
     );
   }
@@ -160,7 +163,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
             email: credentials.email,
             password: credentials.password,
           );
-    }, 'Account recovered and synchronized.',);
+    }, 'Account recovered and synchronized.');
   }
 
   Future<void> _sendRecovery() async {
@@ -205,27 +208,28 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     final controller = TextEditingController();
     final value = await showDialog<String>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(title),
-        content: TextField(
-          controller: controller,
-          obscureText: obscure,
-          keyboardType: keyboardType,
-          autofocus: true,
-          decoration: InputDecoration(labelText: label),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(title),
+            content: TextField(
+              controller: controller,
+              obscureText: obscure,
+              keyboardType: keyboardType,
+              autofocus: true,
+              decoration: InputDecoration(labelText: label),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: const Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed:
+                    () => Navigator.pop(dialogContext, controller.text.trim()),
+                child: const Text('Continue'),
+              ),
+            ],
           ),
-          FilledButton(
-            onPressed: () =>
-                Navigator.pop(dialogContext, controller.text.trim()),
-            child: const Text('Continue'),
-          ),
-        ],
-      ),
     );
     controller.dispose();
     return value?.isEmpty == true ? null : value;
@@ -236,37 +240,39 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     final password = TextEditingController();
     final value = await showDialog<_Credentials>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Sign in'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: email,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(labelText: 'Email'),
+      builder:
+          (dialogContext) => AlertDialog(
+            title: const Text('Sign in'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(labelText: 'Email'),
+                ),
+                TextField(
+                  controller: password,
+                  obscureText: true,
+                  decoration: const InputDecoration(labelText: 'Password'),
+                ),
+              ],
             ),
-            TextField(
-              controller: password,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: 'Password'),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: const Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed:
+                    () => Navigator.pop(
+                      dialogContext,
+                      _Credentials(email.text.trim(), password.text),
+                    ),
+                child: const Text('Sign in'),
+              ),
+            ],
           ),
-          FilledButton(
-            onPressed: () => Navigator.pop(
-              dialogContext,
-              _Credentials(email.text.trim(), password.text),
-            ),
-            child: const Text('Sign in'),
-          ),
-        ],
-      ),
     );
     email.dispose();
     password.dispose();
@@ -280,20 +286,21 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
   }) async =>
       await showDialog<bool>(
         context: context,
-        builder: (dialogContext) => AlertDialog(
-          title: Text(title),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext, false),
-              child: const Text('Cancel'),
+        builder:
+            (dialogContext) => AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext, false),
+                  child: const Text('Cancel'),
+                ),
+                FilledButton(
+                  onPressed: () => Navigator.pop(dialogContext, true),
+                  child: Text(confirmLabel),
+                ),
+              ],
             ),
-            FilledButton(
-              onPressed: () => Navigator.pop(dialogContext, true),
-              child: Text(confirmLabel),
-            ),
-          ],
-        ),
       ) ??
       false;
 }
@@ -308,10 +315,11 @@ class _AccountHeader extends StatelessWidget {
     return _Message(
       icon: anonymous ? Icons.person_outline : Icons.verified_user_outlined,
       title: anonymous ? 'Anonymous account' : 'Protected account',
-      message: anonymous
-          ? 'Progress syncs on this installation, but cannot be recovered on '
-                'another device until you link an email.'
-          : user?.email ?? 'Email identity linked',
+      message:
+          anonymous
+              ? 'Progress syncs on this installation, but cannot be recovered on '
+                  'another device until you link an email.'
+              : user?.email ?? 'Email identity linked',
     );
   }
 }

@@ -82,9 +82,9 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   children: [
                     Text(
                       l10n.sayThis,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.labelMedium?.copyWith(color: context.tokens.muted),
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: context.tokens.muted,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -137,7 +137,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                   // text, URLs, timings) are debug-build only.
                   if (!pronState.usedWhisper)
                     Text(
-l10n.onDeviceRecognitionNote,
+                      l10n.onDeviceRecognitionNote,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 12,
@@ -152,8 +152,8 @@ l10n.onDeviceRecognitionNote,
                         fontSize: 12,
                         color:
                             pronState.usedWhisper
-                                ? Colors.green.shade700
-                                : Colors.orange.shade700,
+                                ? context.tokens.green
+                                : context.tokens.amber,
                       ),
                     ),
                 ],
@@ -261,15 +261,18 @@ class _RecordingIndicatorState extends State<_RecordingIndicator>
             height: 80,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.red.shade400,
+              color: context.tokens.red,
             ),
-            child: const Icon(Icons.mic, color: Colors.white, size: 36),
+            child: Icon(Icons.mic, color: context.tokens.onFill, size: 36),
           ),
         ),
         const SizedBox(height: 16),
-        const Text(
+        Text(
           'Listening...',
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: context.tokens.red,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );
@@ -285,7 +288,7 @@ class _ScoreDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scorePercent = (result.overallScore * 100).round();
-    final color = _scoreColor(result.overallScore);
+    final color = _scoreColor(context, result.overallScore);
     final label = _scoreLabel(result.overallScore);
 
     return Column(
@@ -349,7 +352,7 @@ class _ScoreDisplay extends StatelessWidget {
           alignment: WrapAlignment.center,
           children:
               result.wordScores.map((ws) {
-                final wordColor = _scoreColor(ws.score);
+                final wordColor = _scoreColor(context, ws.score);
                 // Icon + color so correctness never relies on color alone.
                 return Semantics(
                   label:
@@ -397,7 +400,7 @@ class _ScoreDisplay extends StatelessWidget {
         if (result.problemSounds.isNotEmpty) ...[
           const SizedBox(height: 16),
           Card(
-            color: Colors.orange.withValues(alpha: 0.12),
+            color: context.tokens.amberSoft,
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
@@ -407,7 +410,7 @@ class _ScoreDisplay extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.warning_amber,
-                        color: Colors.orange.shade700,
+                        color: context.tokens.amber,
                         size: 20,
                       ),
                       const SizedBox(width: 8),
@@ -415,7 +418,7 @@ class _ScoreDisplay extends StatelessWidget {
                         'Sounds to practice:',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.orange.shade700,
+                          color: context.tokens.amber,
                         ),
                       ),
                     ],
@@ -432,7 +435,7 @@ class _ScoreDisplay extends StatelessWidget {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.orange.shade100,
+                              color: context.tokens.amberSoft,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
@@ -454,7 +457,7 @@ class _ScoreDisplay extends StatelessWidget {
                               'in "${p.word}"',
                               style: TextStyle(
                                 fontSize: 15,
-                                color: Colors.grey.shade700,
+                                color: context.tokens.muted,
                               ),
                             ),
                           ),
@@ -475,7 +478,7 @@ class _ScoreDisplay extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 15,
-            color: Colors.grey.shade700,
+            color: context.tokens.muted,
             fontStyle: FontStyle.italic,
           ),
         ),
@@ -483,7 +486,8 @@ class _ScoreDisplay extends StatelessWidget {
     );
   }
 
-  Color _scoreColor(double score) => ScoreColors.of(score);
+  Color _scoreColor(BuildContext context, double score) =>
+      ScoreColors.of(context, score);
 
   String _scoreLabel(double score) {
     if (score >= 0.8) return 'Skvělé!';
@@ -501,17 +505,17 @@ class _ErrorDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(Icons.error_outline, size: 48, color: Colors.red.shade300),
+        Icon(Icons.error_outline, size: 48, color: context.tokens.red),
         const SizedBox(height: 16),
         Text(
           error,
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.red.shade700),
+          style: TextStyle(color: context.tokens.red),
         ),
         const SizedBox(height: 8),
-        const Text(
+        Text(
           'Make sure microphone permissions are granted.',
-          style: TextStyle(fontSize: 14, color: Colors.grey),
+          style: TextStyle(fontSize: 14, color: context.tokens.muted),
           textAlign: TextAlign.center,
         ),
       ],

@@ -23,7 +23,7 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
       'I am at home',
       'I have a house',
       'I go home',
-    ], 0,),
+    ], 0),
     _PlacementTask(
       'r2',
       LearningSkill.reading,

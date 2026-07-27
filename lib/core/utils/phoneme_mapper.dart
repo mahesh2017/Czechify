@@ -3,25 +3,57 @@
 /// Maps Czech orthography to approximate IPA and identifies
 /// problem sounds that are unique or difficult in Czech.
 class PhonemeMapper {
-
   /// Czech orthography → approximate IPA.
   static const Map<String, String> czechToIpa = {
-    'a': 'a', 'e': 'ɛ', 'i': 'i', 'o': 'o', 'u': 'u',
-    'á': 'aː', 'é': 'ɛː', 'í': 'iː', 'ó': 'oː', 'ú': 'uː', 'ů': 'uː',
-    'ř': 'r̝', 'ě': 'jɛ',
-    'č': 'tʃ', 'š': 'ʃ', 'ž': 'ʒ', 'ď': 'ɟ', 'ť': 'c', 'ň': 'ɲ',
-    'ch': 'x', 'h': 'ɦ', 'g': 'g', 'c': 'ts', 'j': 'j',
-    'n': 'n', 'm': 'm', 'p': 'p', 'b': 'b', 't': 't', 'd': 'd',
-    'k': 'k', 'f': 'f', 'v': 'v', 's': 's', 'z': 'z', 'l': 'l',
-    'r': 'r', 'w': 'v', 'q': 'kv', 'x': 'ks', 'y': 'i',
+    'a': 'a',
+    'e': 'ɛ',
+    'i': 'i',
+    'o': 'o',
+    'u': 'u',
+    'á': 'aː',
+    'é': 'ɛː',
+    'í': 'iː',
+    'ó': 'oː',
+    'ú': 'uː',
+    'ů': 'uː',
+    'ř': 'r̝',
+    'ě': 'jɛ',
+    'č': 'tʃ',
+    'š': 'ʃ',
+    'ž': 'ʒ',
+    'ď': 'ɟ',
+    'ť': 'c',
+    'ň': 'ɲ',
+    'ch': 'x',
+    'h': 'ɦ',
+    'g': 'g',
+    'c': 'ts',
+    'j': 'j',
+    'n': 'n',
+    'm': 'm',
+    'p': 'p',
+    'b': 'b',
+    't': 't',
+    'd': 'd',
+    'k': 'k',
+    'f': 'f',
+    'v': 'v',
+    's': 's',
+    'z': 'z',
+    'l': 'l',
+    'r': 'r',
+    'w': 'v',
+    'q': 'kv',
+    'x': 'ks',
+    'y': 'i',
   };
 
   /// Czech-specific problem sounds that need extra scoring weight.
   static const Map<String, double> problemSounds = {
-    'ř': 3.0,        // highest weight — signature Czech sound
-    'ě': 2.5,        // softening effect
-    'long_vowel': 2.5,  // meaning-changing (á/a, é/e, etc.)
-    'palatalized': 2.0,  // ď, ť, ň
+    'ř': 3.0, // highest weight — signature Czech sound
+    'ě': 2.5, // softening effect
+    'long_vowel': 2.5, // meaning-changing (á/a, é/e, etc.)
+    'palatalized': 2.0, // ď, ť, ň
     'other': 1.0,
   };
 

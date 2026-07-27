@@ -5,6 +5,7 @@ import '../../../core/config/backend_config.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/gamification_providers.dart';
+import '../../providers/tts_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/entities/enums.dart';
 
@@ -20,9 +21,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _step = 0;
   CEFRLevel _selectedLevel = CEFRLevel.preA1;
   int _selectedGoal = 50;
+  TtsVoiceGender _selectedVoice = TtsVoiceGender.female;
   bool _finishing = false;
   final _nameController = TextEditingController();
-  static const _totalSteps = 4; // name → welcome → level → goal
+  // name → welcome → level → voice → goal
+  static const _totalSteps = 5;
 
   void _next() {
     if (_step < _totalSteps - 1) {
@@ -47,6 +50,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       await settings.setLearnerName(_nameController.text);
       await settings.setDailyGoalXp(_selectedGoal);
       await settings.setStartingLevel(_selectedLevel);
+      // Already written when previewed, but re-asserted so a learner who never
+      // tapped a card still gets an explicitly stored choice.
+      await settings.setTtsVoiceGender(_selectedVoice);
       await ref.read(gamificationProvider.notifier).setDailyGoal(_selectedGoal);
       await settings.completeOnboarding();
     } catch (_) {
@@ -56,7 +62,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       } catch (_) {}
     }
 
-    if (mounted) context.go('/');
+    // Straight into the offline download rather than home: this is the first
+    // point the chosen voice is known, and only that voice is fetched.
+    if (mounted) context.go('/setup');
   }
 
   @override
@@ -125,7 +133,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       0 => _buildNameStep(),
       1 => _buildWelcomeStep(),
       2 => _buildLevelStep(),
-      3 => _buildGoalStep(),
+      3 => _buildVoiceStep(),
+      4 => _buildGoalStep(),
       _ => const SizedBox(),
     };
   }
@@ -334,6 +343,62 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           subtitle: 'I can have basic conversations',
           isSelected: _selectedLevel == CEFRLevel.a2,
           onTap: () => setState(() => _selectedLevel = CEFRLevel.a2),
+        ),
+      ],
+    );
+  }
+
+  /// Tapping a voice applies it immediately and speaks a sample.
+  ///
+  /// The setting has to be written before speaking, not at the end of
+  /// onboarding: the neural path picks its clip by the *current* voice, so a
+  /// preview that ignored the tap would play the other voice.
+  Future<void> _previewVoice(TtsVoiceGender voice) async {
+    setState(() => _selectedVoice = voice);
+    await ref.read(settingsProvider.notifier).setTtsVoiceGender(voice);
+    if (!mounted) return;
+    await ref.read(czechTtsProvider).speak(kVoicePreviewPhrase);
+  }
+
+  Widget _buildVoiceStep() {
+    final t = context.tokens;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _stepHeader(
+          Icons.record_voice_over_outlined,
+          t.priSoft,
+          t.pri,
+          'Choose your teacher\'s voice',
+          'Every Czech word in the course is spoken by this voice. Tap to hear each one — you can change it any time from Settings.',
+        ),
+        const SizedBox(height: 28),
+        _ChoiceCard(
+          title: 'Female voice',
+          subtitle: 'Tap to hear a sample',
+          isSelected: _selectedVoice == TtsVoiceGender.female,
+          onTap: () => _previewVoice(TtsVoiceGender.female),
+        ),
+        const SizedBox(height: 10),
+        _ChoiceCard(
+          title: 'Male voice',
+          subtitle: 'Tap to hear a sample',
+          isSelected: _selectedVoice == TtsVoiceGender.male,
+          onTap: () => _previewVoice(TtsVoiceGender.male),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.volume_up_outlined, size: 16, color: t.faint),
+            const SizedBox(width: 6),
+            Flexible(
+              child: Text(
+                'Both are studio-recorded native Czech.',
+                style: TextStyle(fontSize: 13, color: t.faint),
+              ),
+            ),
+          ],
         ),
       ],
     );

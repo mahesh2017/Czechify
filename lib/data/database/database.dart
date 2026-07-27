@@ -15,6 +15,7 @@ import 'tables/grammar_rules.dart';
 import 'tables/exam_results.dart';
 import 'tables/user_progress.dart';
 import 'tables/earned_badges.dart';
+import 'tables/consent_records.dart';
 import 'tables/lesson_progress.dart';
 import 'tables/sync_queue.dart';
 import 'tables/gamification_state.dart';
@@ -50,6 +51,7 @@ part 'database.g.dart';
     ExamResults,
     UserProgress,
     EarnedBadges,
+    ConsentRecords,
     LessonProgress,
     SyncQueue,
     SyncState,
@@ -80,7 +82,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 18;
+  int get schemaVersion => 19;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -319,6 +321,12 @@ class AppDatabase extends _$AppDatabase {
       // default to permanent-residence via the column default.
       if (from < 18) {
         await m.addColumn(examResults, examResults.product);
+      }
+      if (from < 19) {
+        // Consent log. Created rather than migrated-into: there is no earlier
+        // consent data to carry forward, and an empty audit trail is the
+        // honest starting state.
+        await m.createTable(consentRecords);
       }
     },
     beforeOpen: (details) async {

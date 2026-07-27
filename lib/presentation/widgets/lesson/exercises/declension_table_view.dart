@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
 
@@ -155,7 +156,9 @@ class _DeclensionTableViewState extends State<DeclensionTableView> {
                                   ? Icon(
                                     isCorrect ? Icons.check : Icons.close,
                                     color:
-                                        isCorrect ? Colors.green : Colors.red,
+                                        isCorrect
+                                            ? context.tokens.green
+                                            : context.tokens.red,
                                   )
                                   : null,
                         ),

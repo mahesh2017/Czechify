@@ -149,7 +149,11 @@ class AppTokens extends ThemeExtension<AppTokens> {
     userBubbleTxt: Color(0xFFF1EFE9),
     shadow: [
       BoxShadow(color: Color(0x4D000000), blurRadius: 2, offset: Offset(0, 1)),
-      BoxShadow(color: Color(0x59000000), blurRadius: 28, offset: Offset(0, 10)),
+      BoxShadow(
+        color: Color(0x59000000),
+        blurRadius: 28,
+        offset: Offset(0, 10),
+      ),
     ],
   );
 
@@ -254,5 +258,16 @@ class AppFonts {
 
 /// Convenience accessor: `context.tokens`.
 extension AppTokensX on BuildContext {
-  AppTokens get tokens => Theme.of(this).extension<AppTokens>()!;
+  /// Falls back to the light/dark constants when the ambient theme carries no
+  /// [AppTokens] extension. The app always installs one, but widgets are also
+  /// pumped bare in tests and can appear under a plain [Theme] — a matching
+  /// fallback beats a null-check crash, and picking by brightness keeps the
+  /// colours readable either way.
+  AppTokens get tokens {
+    final theme = Theme.of(this);
+    return theme.extension<AppTokens>() ??
+        (theme.brightness == Brightness.dark
+            ? AppTokens.dark
+            : AppTokens.light);
+  }
 }

@@ -10,7 +10,9 @@ class AppException implements Exception {
 
 class OfflineTranscriptionError extends AppException {
   OfflineTranscriptionError()
-      : super('Cannot transcribe audio offline. Vosk failed and no internet for Whisper fallback.');
+    : super(
+        'Cannot transcribe audio offline. Vosk failed and no internet for Whisper fallback.',
+      );
 }
 
 class AllProvidersFailedError extends AppException {
@@ -18,12 +20,13 @@ class AllProvidersFailedError extends AppException {
 }
 
 class ContentNotSeededError extends AppException {
-  ContentNotSeededError() : super('Curriculum content has not been seeded yet.');
+  ContentNotSeededError()
+    : super('Curriculum content has not been seeded yet.');
 }
 
 class InvalidApiKeyError extends AppException {
   InvalidApiKeyError(String provider)
-      : super('Invalid or missing API key for provider: $provider');
+    : super('Invalid or missing API key for provider: $provider');
 }
 
 class TtsSynthesisError extends AppException {

@@ -7,7 +7,10 @@ import '../../../core/theme/app_tokens.dart';
 /// review screen previously each had their own mapping, and they disagreed —
 /// the review screen used raw Material colours that were unreadable in dark
 /// mode. Anything that colours a gender goes through here.
-({String label, Color bg, Color fg}) genderPill(BuildContext context, String g) {
+({String label, Color bg, Color fg}) genderPill(
+  BuildContext context,
+  String g,
+) {
   final t = context.tokens;
   final v = g.toLowerCase();
   if (v.startsWith('fem')) return (label: 'fem', bg: t.redSoft, fg: t.red);

@@ -526,7 +526,6 @@ class _FlashcardView extends ConsumerWidget {
       ],
     );
   }
-
 }
 
 String? _contextualCloze(Flashcard card) {

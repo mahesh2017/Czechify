@@ -269,11 +269,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: context.tokens.amber,
-                          size: 16,
-                        ),
+                        Icon(Icons.star, color: context.tokens.amber, size: 16),
                         const SizedBox(width: 2),
                         Text(
                           '+${session.totalXp} XP',
@@ -538,8 +534,7 @@ class _TeachWordCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    final pill =
-        card.gender == null ? null : genderPill(context, card.gender!);
+    final pill = card.gender == null ? null : genderPill(context, card.gender!);
     return SoftCard(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       child: Row(
@@ -678,6 +673,7 @@ class _LessonCompleteScreen extends ConsumerStatefulWidget {
   ConsumerState<_LessonCompleteScreen> createState() =>
       _LessonCompleteScreenState();
 }
+
 class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     with TickerProviderStateMixin {
   late final AnimationController _reveal;
@@ -844,9 +840,10 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                                 )
                               else
                                 _PrimaryAction(
-                                  label: passed
-                                      ? 'Continue learning'
-                                      : 'Back to curriculum',
+                                  label:
+                                      passed
+                                          ? 'Continue learning'
+                                          : 'Back to curriculum',
                                   icon: Icons.school,
                                   color: accent,
                                   onPressed: widget.onExit,
@@ -889,14 +886,15 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
           if (!instant && grade != LessonGrade.practice)
             AnimatedBuilder(
               animation: _rays,
-              builder: (context, _) => CustomPaint(
-                size: const Size(240, 200),
-                painter: RaysPainter(
-                  rotation: _rays.value * 2 * math.pi,
-                  color: accent,
-                  scale: landed,
-                ),
-              ),
+              builder:
+                  (context, _) => CustomPaint(
+                    size: const Size(240, 200),
+                    painter: RaysPainter(
+                      rotation: _rays.value * 2 * math.pi,
+                      color: accent,
+                      scale: landed,
+                    ),
+                  ),
             ),
           if (!instant)
             CustomPaint(
@@ -994,12 +992,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     );
   }
 
-  Widget _bigStat(
-    AppTokens tokens,
-    Color accent,
-    Widget value,
-    String label,
-  ) {
+  Widget _bigStat(AppTokens tokens, Color accent, Widget value, String label) {
     return Expanded(
       child: Column(
         children: [
@@ -1224,13 +1217,19 @@ class _ExamCompleteScreen extends ConsumerWidget {
                           '$accuracy%',
                           style: theme.textTheme.displayLarge?.copyWith(
                             fontWeight: FontWeight.w800,
-                            color: passed ? context.tokens.green : context.tokens.red,
+                            color:
+                                passed
+                                    ? context.tokens.green
+                                    : context.tokens.red,
                           ),
                         ),
                         Text(
                           passed ? 'TARGET MET' : 'KEEP PRACTICING',
                           style: theme.textTheme.titleMedium?.copyWith(
-                            color: passed ? context.tokens.green : context.tokens.red,
+                            color:
+                                passed
+                                    ? context.tokens.green
+                                    : context.tokens.red,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 2,
                           ),

@@ -110,7 +110,10 @@ class PillChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: icon == null ? 10 : 11, vertical: 6),
+      padding: EdgeInsets.symmetric(
+        horizontal: icon == null ? 10 : 11,
+        vertical: 6,
+      ),
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(999),

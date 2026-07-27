@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
 
@@ -19,8 +20,7 @@ class ReadingComprehensionView extends StatefulWidget {
       _ReadingComprehensionViewState();
 }
 
-class _ReadingComprehensionViewState
-    extends State<ReadingComprehensionView> {
+class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
   final List<int?> _selectedAnswers = [];
   bool answered = false;
 
@@ -36,8 +36,7 @@ class _ReadingComprehensionViewState
     return raw.cast<Map<String, dynamic>>();
   }
 
-  bool get _allAnswered =>
-      _selectedAnswers.every((a) => a != null);
+  bool get _allAnswered => _selectedAnswers.every((a) => a != null);
 
   bool get _allCorrect {
     for (int i = 0; i < _questions.length; i++) {
@@ -63,13 +62,17 @@ class _ReadingComprehensionViewState
     widget.onAnswered(
       ExerciseResult(
         isCorrect: allCorrect,
-        explanation: allCorrect
-            ? 'All questions answered correctly!'
-            : '$correctCount/${_questions.length} correct.',
+        explanation:
+            allCorrect
+                ? 'All questions answered correctly!'
+                : '$correctCount/${_questions.length} correct.',
         correctAnswer: _questions
-            .map((q) => (q['options'] as List<dynamic>)[
-                  (q['correct_index'] as num).toInt()]
-                as String,)
+            .map(
+              (q) =>
+                  (q['options'] as List<dynamic>)[(q['correct_index'] as num)
+                          .toInt()]
+                      as String,
+            )
             .join(', '),
       ),
     );
@@ -77,6 +80,7 @@ class _ReadingComprehensionViewState
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final theme = Theme.of(context);
     final data = widget.exercise.data;
     final textCz = data['text_cz'] as String? ?? '';
@@ -107,16 +111,14 @@ class _ReadingComprehensionViewState
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surfaceContainerLow,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.shade200),
+                    border: Border.all(color: t.line),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         textCz,
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          height: 1.6,
-                        ),
+                        style: theme.textTheme.bodyLarge?.copyWith(height: 1.6),
                       ),
                       if (textEn != null && textEn.isNotEmpty) ...[
                         const SizedBox(height: 12),
@@ -161,7 +163,7 @@ class _ReadingComprehensionViewState
                 children: [
                   Icon(
                     _allCorrect ? Icons.check_circle : Icons.error_outline,
-                    color: _allCorrect ? Colors.green.shade600 : Colors.red.shade600,
+                    color: _allCorrect ? t.green : t.red,
                     size: 20,
                   ),
                   const SizedBox(width: 8),
@@ -172,9 +174,7 @@ class _ReadingComprehensionViewState
                           : 'Some answers are wrong — review below.',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
-                        color: _allCorrect
-                            ? Colors.green.shade700
-                            : Colors.red.shade700,
+                        color: _allCorrect ? t.green : t.red,
                       ),
                     ),
                   ),
@@ -187,6 +187,7 @@ class _ReadingComprehensionViewState
   }
 
   Widget _buildQuestion(int qIdx, ThemeData theme) {
+    final t = context.tokens;
     final q = _questions[qIdx];
     final questionEn = q['question_en'] as String? ?? '';
     final questionCz = q['question_cz'] as String? ?? '';
@@ -199,7 +200,7 @@ class _ReadingComprehensionViewState
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: t.line),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,13 +238,14 @@ class _ReadingComprehensionViewState
                 isSelected: selected == i,
                 isCorrect: answered && i == correctIdx,
                 isWrong: answered && selected == i && i != correctIdx,
-                onTap: answered
-                    ? null
-                    : () {
-                        setState(() {
-                          _selectedAnswers[qIdx] = i;
-                        });
-                      },
+                onTap:
+                    answered
+                        ? null
+                        : () {
+                          setState(() {
+                            _selectedAnswers[qIdx] = i;
+                          });
+                        },
               ),
             ),
           ],
@@ -261,6 +263,7 @@ class _ReadingComprehensionViewState
     required VoidCallback? onTap,
   }) {
     final theme = Theme.of(context);
+    final t = context.tokens;
 
     Color? bg;
     Color? border;
@@ -268,19 +271,19 @@ class _ReadingComprehensionViewState
 
     if (answered) {
       if (isCorrect) {
-        bg = Colors.green.shade50;
-        border = Colors.green.shade500;
-        trailing = Icon(Icons.check_circle, color: Colors.green.shade600, size: 20);
+        bg = t.greenSoft;
+        border = t.green;
+        trailing = Icon(Icons.check_circle, color: t.green, size: 20);
       } else if (isWrong) {
-        bg = Colors.red.shade50;
-        border = Colors.red.shade500;
-        trailing = Icon(Icons.cancel, color: Colors.red.shade600, size: 20);
+        bg = t.redSoft;
+        border = t.red;
+        trailing = Icon(Icons.cancel, color: t.red, size: 20);
       }
     } else if (isSelected) {
       bg = theme.colorScheme.primaryContainer;
       border = theme.colorScheme.primary;
     } else {
-      border = Colors.grey.shade300;
+      border = t.line;
     }
 
     return GestureDetector(
@@ -289,10 +292,10 @@ class _ReadingComprehensionViewState
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(
-          color: bg ?? Colors.grey.shade50,
+          color: bg ?? t.elev,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: border ?? Colors.grey.shade300,
+            color: border ?? t.line,
             width: (isSelected || answered) ? 2 : 1,
           ),
         ),
@@ -303,9 +306,10 @@ class _ReadingComprehensionViewState
                 option,
                 style: TextStyle(
                   fontSize: 15,
-                  fontWeight: isSelected || (answered && isCorrect)
-                      ? FontWeight.w600
-                      : FontWeight.normal,
+                  fontWeight:
+                      isSelected || (answered && isCorrect)
+                          ? FontWeight.w600
+                          : FontWeight.normal,
                 ),
               ),
             ),

@@ -86,11 +86,12 @@ class _DialogueViewState extends State<DialogueView> {
                 ),
                 textInputAction: TextInputAction.next,
                 onChanged: (_) => setState(() {}),
-                onSubmitted: answered
-                    ? null
-                    : (_) {
-                        if (_allFilled) _checkAnswer();
-                      },
+                onSubmitted:
+                    answered
+                        ? null
+                        : (_) {
+                          if (_allFilled) _checkAnswer();
+                        },
               ),
             ),
           );
@@ -104,9 +105,10 @@ class _DialogueViewState extends State<DialogueView> {
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: isUser
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Theme.of(context).colorScheme.surfaceContainerHighest,
+              color:
+                  isUser
+                      ? Theme.of(context).colorScheme.primaryContainer
+                      : Theme.of(context).colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(

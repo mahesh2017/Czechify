@@ -35,9 +35,21 @@ class TextNormalizer {
   /// Strip Czech diacritics for loose comparison.
   static String stripDiacritics(String text) {
     const diacriticsMap = {
-      'á': 'a', 'č': 'c', 'ď': 'd', 'é': 'e', 'ě': 'e',
-      'í': 'i', 'ň': 'n', 'ó': 'o', 'ř': 'r', 'š': 's',
-      'ť': 't', 'ú': 'u', 'ů': 'u', 'ý': 'y', 'ž': 'z',
+      'á': 'a',
+      'č': 'c',
+      'ď': 'd',
+      'é': 'e',
+      'ě': 'e',
+      'í': 'i',
+      'ň': 'n',
+      'ó': 'o',
+      'ř': 'r',
+      'š': 's',
+      'ť': 't',
+      'ú': 'u',
+      'ů': 'u',
+      'ý': 'y',
+      'ž': 'z',
     };
     var result = text.toLowerCase();
     diacriticsMap.forEach((cz, plain) {
@@ -48,7 +60,21 @@ class TextNormalizer {
 
   /// The Czech letters with diacritics, for the on-screen character bar.
   static const czechDiacriticChars = [
-    'á', 'č', 'ď', 'é', 'ě', 'í', 'ň', 'ó', 'ř', 'š', 'ť', 'ú', 'ů', 'ý', 'ž',
+    'á',
+    'č',
+    'ď',
+    'é',
+    'ě',
+    'í',
+    'ň',
+    'ó',
+    'ř',
+    'š',
+    'ť',
+    'ú',
+    'ů',
+    'ý',
+    'ž',
   ];
 
   /// True when [a] and [b] are equal once normalized AND stripped of

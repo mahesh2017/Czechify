@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'data/services/stt/stt_bench_hook.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,8 +10,10 @@ import 'l10n/app_localizations.dart';
 import 'core/diagnostics/safe_diagnostics.dart';
 import 'presentation/routes/app_router.dart';
 import 'presentation/providers/database_providers.dart';
+import 'presentation/providers/feedback_providers.dart';
 import 'presentation/providers/settings_providers.dart';
 import 'presentation/providers/sync_providers.dart';
+import 'presentation/widgets/celebration/celebration_host.dart';
 import 'presentation/screens/onboarding/loading_screen.dart';
 
 /// App entry point.
@@ -40,6 +44,10 @@ void main() {
     SafeDiagnostics.error('unhandled_async', error, stack);
     return true; // Suppress — the app stays alive.
   };
+
+  // Debug/profile only, and only when a model has been side-loaded — see
+  // SttBenchHook. Unawaited so it never delays first paint.
+  unawaited(SttBenchHook.maybeRun());
 
   runApp(const ProviderScope(child: CzechifyApp()));
 }
@@ -73,6 +81,10 @@ class CzechifyApp extends ConsumerWidget {
     ref.watch(backgroundInitializationProvider);
     ref.watch(syncTriggerCoordinatorProvider);
 
+    // Warm the answer sounds before the first lesson. Loading one on first use
+    // costs enough to be heard as lag on a clip meant to land with the tap.
+    ref.read(feedbackServiceProvider).preload();
+
     return MaterialApp.router(
       title: 'Czechify',
       debugShowCheckedModeBanner: false,
@@ -87,6 +99,11 @@ class CzechifyApp extends ConsumerWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: ref.watch(appRouterProvider),
+      // Above the router: finishing a lesson navigates away from the lesson
+      // player, so a celebration owned by that screen would be disposed at
+      // the moment it was supposed to play.
+      builder: (context, child) =>
+          CelebrationHost(child: child ?? const SizedBox.shrink()),
     );
   }
 }

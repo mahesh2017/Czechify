@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/grammar_tip_card.dart';
 import 'exercise_shared.dart';
@@ -145,6 +146,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final theme = Theme.of(context);
     final data = widget.exercise.data;
     final promptEn = data['prompt_en'] as String?;
@@ -199,7 +201,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                     Text(
                       'The error is in one of the highlighted words above.',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.orange.shade700,
+                        color: t.amber,
                       ),
                     ),
 
@@ -229,7 +231,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                                 color:
                                     _selectedOptionIdx == i
                                         ? theme.colorScheme.primary
-                                        : Colors.grey.shade300,
+                                        : t.line,
                               ),
                             ),
                             child: Text(_options![i]),
@@ -296,6 +298,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
   }
 
   Widget _buildWordChip(int idx, String word, ThemeData theme) {
+    final t = context.tokens;
     final isSelected = _selectedWordIdx == idx;
     final isDifferent = _wordIsDifferentAt(idx);
 
@@ -303,23 +306,23 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
     Color? border;
     if (answered) {
       if (isDifferent) {
-        bg = Colors.green.shade100;
-        border = Colors.green.shade600;
+        bg = t.greenSoft;
+        border = t.green;
       } else if (isSelected) {
-        bg = Colors.red.shade100;
-        border = Colors.red.shade600;
+        bg = t.redSoft;
+        border = t.red;
       } else {
-        bg = Colors.grey.shade100;
+        bg = t.elev;
         border = Colors.transparent;
       }
     } else if (_errorRevealed && isDifferent) {
-      bg = Colors.orange.shade100;
-      border = Colors.orange.shade600;
+      bg = t.amberSoft;
+      border = t.amber;
     } else if (isSelected) {
       bg = theme.colorScheme.primaryContainer;
       border = theme.colorScheme.primary;
     } else {
-      bg = Colors.grey.shade100;
+      bg = t.elev;
     }
 
     return GestureDetector(
@@ -344,8 +347,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                 _errorRevealed && isDifferent
                     ? TextDecoration.lineThrough
                     : null,
-            color:
-                _errorRevealed && isDifferent ? Colors.orange.shade800 : null,
+            color: _errorRevealed && isDifferent ? t.amber : null,
           ),
         ),
       ),

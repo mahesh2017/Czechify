@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../domain/repositories/conversation_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/chat_message.dart';
@@ -11,17 +12,41 @@ import '../../widgets/common/soft_ui.dart';
 
 /// Icon + soft-tint colors for each conversation scenario.
 ({IconData icon, Color tint, Color fg}) _scenarioStyle(
-    BuildContext context, String title,) {
+  BuildContext context,
+  String title,
+) {
   final t = context.tokens;
   return switch (title) {
-    'Casual Chat' => (icon: Icons.local_cafe_outlined, tint: t.amberSoft, fg: t.amber),
-    'At the Restaurant' =>
-      (icon: Icons.restaurant_outlined, tint: t.redSoft, fg: t.red),
-    'Asking Directions' => (icon: Icons.map_outlined, tint: t.priSoft, fg: t.pri),
-    'Shopping' => (icon: Icons.shopping_bag_outlined, tint: t.violetSoft, fg: t.violet),
-    'At the Doctor' =>
-      (icon: Icons.medical_services_outlined, tint: t.redSoft, fg: t.red),
-    'Job Interview' => (icon: Icons.work_outline, tint: t.greenSoft, fg: t.green),
+    'Casual Chat' => (
+      icon: Icons.local_cafe_outlined,
+      tint: t.amberSoft,
+      fg: t.amber,
+    ),
+    'At the Restaurant' => (
+      icon: Icons.restaurant_outlined,
+      tint: t.redSoft,
+      fg: t.red,
+    ),
+    'Asking Directions' => (
+      icon: Icons.map_outlined,
+      tint: t.priSoft,
+      fg: t.pri,
+    ),
+    'Shopping' => (
+      icon: Icons.shopping_bag_outlined,
+      tint: t.violetSoft,
+      fg: t.violet,
+    ),
+    'At the Doctor' => (
+      icon: Icons.medical_services_outlined,
+      tint: t.redSoft,
+      fg: t.red,
+    ),
+    'Job Interview' => (
+      icon: Icons.work_outline,
+      tint: t.greenSoft,
+      fg: t.green,
+    ),
     _ => (icon: Icons.chat_bubble_outline, tint: t.priSoft, fg: t.pri),
   };
 }
@@ -53,8 +78,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     setState(() => _isListening = true);
     try {
       final stt = ref.read(sttServiceProvider) as NativeSttService;
-      final transcription =
-          await stt.listenFor(timeout: const Duration(seconds: 10));
+      final transcription = await stt.listenFor(
+        timeout: const Duration(seconds: 10),
+      );
       if (!mounted) return;
       if (transcription.isNotEmpty) {
         _inputController.text = transcription;
@@ -64,7 +90,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
-                'Speech recognition failed. Check microphone permissions.',),
+              'Speech recognition failed. Check microphone permissions.',
+            ),
           ),
         );
       }
@@ -110,110 +137,158 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final t = context.tokens;
     return Scaffold(
       backgroundColor: t.bg,
-      appBar: chat.conversationId == null
-          ? null
-          : AppBar(
-              backgroundColor: t.card,
-              title: Text(chat.scenarioTitle),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    ref.read(chatProvider.notifier).resetConversation();
-                  },
-                  tooltip: 'End conversation',
-                ),
-              ],
-            ),
-      body: chat.conversationId == null
-          ? const SafeArea(bottom: false, child: _ScenarioPicker())
-          : Column(
-              children: [
-                // Messages list
-                Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    padding: const EdgeInsets.all(16),
-                    itemCount: chat.messages.length + (chat.isLoading ? 1 : 0),
-                    itemBuilder: (context, index) {
-                      if (index == chat.messages.length && chat.isLoading) {
-                        return const _TypingIndicator();
-                      }
-                      return _MessageBubble(
-                        message: chat.messages[index],
-                      );
+      appBar:
+          chat.conversationId == null
+              ? null
+              : AppBar(
+                backgroundColor: t.card,
+                title: Text(chat.scenarioTitle),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      ref.read(chatProvider.notifier).resetConversation();
                     },
+                    tooltip: 'End conversation',
                   ),
-                ),
-                // Error message with a one-tap retry — the message is already
-                // in the transcript, so retry only repeats the tutor call.
-                if (chat.error != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 4,),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            chat.error!,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.error,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                        TextButton.icon(
-                          onPressed: () => ref
-                              .read(chatProvider.notifier)
-                              .retryLastMessage(),
-                          icon: const Icon(Icons.refresh, size: 16),
-                          label: const Text('Retry'),
-                        ),
-                      ],
-                    ),
-                  ),
-                // Suggested replies — tap to prefill, learner reviews
-                // before sending.
-                if (chat.suggestedReplies.isNotEmpty && !chat.isLoading)
-                  SizedBox(
-                    height: 44,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      itemCount: chat.suggestedReplies.length,
-                      separatorBuilder: (_, __) => const SizedBox(width: 8),
-                      itemBuilder: (context, i) {
-                        final suggestion = chat.suggestedReplies[i];
-                        return ActionChip(
-                          avatar: const Icon(Icons.lightbulb_outline,
-                              size: 16,),
-                          label: Text(suggestion),
-                          onPressed: () {
-                            _inputController.text = suggestion;
-                          },
-                        );
+                ],
+              ),
+      body:
+          chat.conversationId == null
+              ? const SafeArea(bottom: false, child: _ScenarioPicker())
+              : Column(
+                children: [
+                  // Messages list
+                  Expanded(
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.all(16),
+                      itemCount:
+                          chat.messages.length + (chat.isLoading ? 1 : 0),
+                      itemBuilder: (context, index) {
+                        if (index == chat.messages.length && chat.isLoading) {
+                          return const _TypingIndicator();
+                        }
+                        return _MessageBubble(message: chat.messages[index]);
                       },
                     ),
                   ),
-                // Input bar
-                _InputBar(
-                  controller: _inputController,
-                  onSend: _sendMessage,
-                  isLoading: chat.isLoading,
-                  isListening: _isListening,
-                  onMic: _startVoiceInput,
-                ),
-              ],
-            ),
+                  // Error message with a one-tap retry — the message is already
+                  // in the transcript, so retry only repeats the tutor call.
+                  if (chat.error != null)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 4,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              chat.error!,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed:
+                                () =>
+                                    ref
+                                        .read(chatProvider.notifier)
+                                        .retryLastMessage(),
+                            icon: const Icon(Icons.refresh, size: 16),
+                            label: const Text('Retry'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  // Suggested replies — tap to prefill, learner reviews
+                  // before sending.
+                  if (chat.suggestedReplies.isNotEmpty && !chat.isLoading)
+                    SizedBox(
+                      height: 44,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        itemCount: chat.suggestedReplies.length,
+                        separatorBuilder: (_, __) => const SizedBox(width: 8),
+                        itemBuilder: (context, i) {
+                          final suggestion = chat.suggestedReplies[i];
+                          return ActionChip(
+                            avatar: const Icon(
+                              Icons.lightbulb_outline,
+                              size: 16,
+                            ),
+                            label: Text(suggestion),
+                            onPressed: () {
+                              _inputController.text = suggestion;
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  // Input bar
+                  _InputBar(
+                    controller: _inputController,
+                    onSend: _sendMessage,
+                    isLoading: chat.isLoading,
+                    isListening: _isListening,
+                    onMic: _startVoiceInput,
+                  ),
+                ],
+              ),
     );
+  }
+}
+
+/// Confirm before permanently removing a conversation.
+///
+/// Chat history is the learner's own writing and cannot be recovered once
+/// gone, so this asks first and names what is being deleted.
+Future<void> _confirmDelete(
+  BuildContext context,
+  WidgetRef ref,
+  ConversationSummary summary,
+) async {
+  final confirmed = await showDialog<bool>(
+    context: context,
+    builder:
+        (ctx) => AlertDialog(
+          title: const Text('Delete this conversation?'),
+          content: Text(
+            'Your chat about "${summary.scenario}" will be permanently removed. '
+            'This cannot be undone.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(ctx).colorScheme.error,
+              ),
+              child: const Text('Delete'),
+            ),
+          ],
+        ),
+  );
+  if (confirmed ?? false) {
+    await ref.read(chatProvider.notifier).deleteConversation(summary.id);
   }
 }
 
 String _describeDay(DateTime when) {
   final now = DateTime.now();
-  final days = DateTime(now.year, now.month, now.day)
-      .difference(DateTime(when.year, when.month, when.day))
-      .inDays;
+  final days =
+      DateTime(
+        now.year,
+        now.month,
+        now.day,
+      ).difference(DateTime(when.year, when.month, when.day)).inDays;
   if (days <= 0) return 'today';
   if (days == 1) return 'yesterday';
   return '$days days ago';
@@ -247,24 +322,26 @@ class _ScenarioPicker extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 8),
-          ...recent.take(3).map((summary) {
+          ...recent.map((summary) {
             final s = _scenarioStyle(context, summary.scenario);
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: SoftCard(
                 padding: const EdgeInsets.all(12),
-                onTap: () => ref
-                    .read(chatProvider.notifier)
-                    .resumeConversation(summary),
+                onTap:
+                    () => ref
+                        .read(chatProvider.notifier)
+                        .resumeConversation(summary),
                 child: Row(
                   children: [
                     IconTile(
-                        icon: s.icon,
-                        tint: s.tint,
-                        fg: s.fg,
-                        size: 34,
-                        radius: 11,
-                        iconSize: 15,),
+                      icon: s.icon,
+                      tint: s.tint,
+                      fg: s.fg,
+                      size: 34,
+                      radius: 11,
+                      iconSize: 15,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -280,8 +357,19 @@ class _ScenarioPicker extends ConsumerWidget {
                       _describeDay(summary.createdAt),
                       style: TextStyle(fontSize: 13, color: t.faint),
                     ),
-                    const SizedBox(width: 4),
-                    Icon(Icons.chevron_right, size: 16, color: t.faint),
+                    // Deleting chat history cannot be undone, so it is a
+                    // deliberate tap with a confirmation rather than a swipe
+                    // that can happen while scrolling.
+                    IconButton(
+                      onPressed: () => _confirmDelete(context, ref, summary),
+                      icon: Icon(
+                        Icons.delete_outline,
+                        size: 18,
+                        color: t.faint,
+                      ),
+                      tooltip: 'Delete conversation',
+                      visualDensity: VisualDensity.compact,
+                    ),
                   ],
                 ),
               ),
@@ -296,41 +384,52 @@ class _ScenarioPicker extends ConsumerWidget {
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
           childAspectRatio: 0.98,
-          children: ChatScenario.all.map((scenario) {
-            final s = _scenarioStyle(context, scenario.title);
-            return SoftCard(
-              padding: const EdgeInsets.all(16),
-              onTap: () => ref
-                  .read(chatProvider.notifier)
-                  .startConversation(scenario: scenario),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconTile(
-                      icon: s.icon,
-                      tint: s.tint,
-                      fg: s.fg,
-                      size: 38,
-                      radius: 13,
-                      iconSize: 16,),
-                  const SizedBox(height: 10),
-                  Text(scenario.title,
-                      style: TextStyle(
+          children:
+              ChatScenario.all.map((scenario) {
+                final s = _scenarioStyle(context, scenario.title);
+                return SoftCard(
+                  padding: const EdgeInsets.all(16),
+                  onTap:
+                      () => ref
+                          .read(chatProvider.notifier)
+                          .startConversation(scenario: scenario),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      IconTile(
+                        icon: s.icon,
+                        tint: s.tint,
+                        fg: s.fg,
+                        size: 38,
+                        radius: 13,
+                        iconSize: 16,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        scenario.title,
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
-                          color: t.ink,),),
-                  const SizedBox(height: 7),
-                  Expanded(
-                    child: Text(scenario.description,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 14, color: t.muted, height: 1.4,),),
+                          color: t.ink,
+                        ),
+                      ),
+                      const SizedBox(height: 7),
+                      Expanded(
+                        child: Text(
+                          scenario.description,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: t.muted,
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          }).toList(),
+                );
+              }).toList(),
         ),
       ],
     );
@@ -345,16 +444,21 @@ class _MessageBubble extends ConsumerWidget {
 
   /// Add a tutor-suggested word to the SRS deck and confirm via snackbar.
   Future<void> _addVocabToDeck(
-      BuildContext context, WidgetRef ref, NewVocabulary v,) async {
+    BuildContext context,
+    WidgetRef ref,
+    NewVocabulary v,
+  ) async {
     final repo = ref.read(vocabularyRepositoryProvider);
     final added = await repo.addManualCard(cz: v.cz, en: v.en, ipa: v.ipa);
     ref.invalidate(dueCardCountProvider);
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(added
-            ? 'Added "${v.cz}" to your review deck'
-            : '"${v.cz}" is already in your deck',),
+        content: Text(
+          added
+              ? 'Added "${v.cz}" to your review deck'
+              : '"${v.cz}" is already in your deck',
+        ),
         duration: const Duration(seconds: 2),
       ),
     );
@@ -378,8 +482,10 @@ class _MessageBubble extends ConsumerWidget {
             color: isUser ? t.userBubble : t.card,
             boxShadow: isUser ? null : t.shadow,
             borderRadius: BorderRadius.circular(20).copyWith(
-              bottomLeft: isUser ? const Radius.circular(20) : const Radius.circular(6),
-              bottomRight: isUser ? const Radius.circular(6) : const Radius.circular(20),
+              bottomLeft:
+                  isUser ? const Radius.circular(20) : const Radius.circular(6),
+              bottomRight:
+                  isUser ? const Radius.circular(6) : const Radius.circular(20),
             ),
           ),
           child: Column(
@@ -401,9 +507,7 @@ class _MessageBubble extends ConsumerWidget {
                   ),
                   if (!isUser) ...[
                     const SizedBox(width: 8),
-                    _TtsIconButton(
-                      text: message.content,
-                    ),
+                    _TtsIconButton(text: message.content),
                   ],
                 ],
               ),
@@ -418,9 +522,10 @@ class _MessageBubble extends ConsumerWidget {
                   child: Text(
                     message.translation!,
                     style: TextStyle(
-                        fontSize: 14,
-                        color: t.muted,
-                        fontStyle: FontStyle.italic,),
+                      fontSize: 14,
+                      color: t.muted,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ),
               ],
@@ -428,9 +533,9 @@ class _MessageBubble extends ConsumerWidget {
               if (message.corrections != null &&
                   message.corrections!.isNotEmpty) ...[
                 const SizedBox(height: 8),
-                ...message.corrections!.map((c) => _CorrectionCard(
-                      correction: c,
-                    ),),
+                ...message.corrections!.map(
+                  (c) => _CorrectionCard(correction: c),
+                ),
               ],
               // New vocabulary
               if (message.newVocabulary != null &&
@@ -439,15 +544,16 @@ class _MessageBubble extends ConsumerWidget {
                 Wrap(
                   spacing: 6,
                   runSpacing: 4,
-                  children: message.newVocabulary!.map((v) {
-                    return ActionChip(
-                      label: Text('${v.cz} = ${v.en}'),
-                      avatar: const Icon(Icons.add, size: 16),
-                      tooltip: 'Add to review deck',
-                      visualDensity: VisualDensity.compact,
-                      onPressed: () => _addVocabToDeck(context, ref, v),
-                    );
-                  }).toList(),
+                  children:
+                      message.newVocabulary!.map((v) {
+                        return ActionChip(
+                          label: Text('${v.cz} = ${v.en}'),
+                          avatar: const Icon(Icons.add, size: 16),
+                          tooltip: 'Add to review deck',
+                          visualDensity: VisualDensity.compact,
+                          onPressed: () => _addVocabToDeck(context, ref, v),
+                        );
+                      }).toList(),
                 ),
               ],
             ],
@@ -487,10 +593,11 @@ class _CorrectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final severityColor = switch (correction.severity) {
-      Severity.error => Colors.red,
-      Severity.minor => Colors.orange,
-      Severity.stylistic => Colors.blue,
+      Severity.error => t.red,
+      Severity.minor => t.amber,
+      Severity.stylistic => t.violet,
     };
 
     return Container(
@@ -597,7 +704,7 @@ class _Dot extends StatelessWidget {
           width: 8,
           height: 8,
           decoration: BoxDecoration(
-            color: Colors.grey.withValues(alpha: opacity * 0.6),
+            color: context.tokens.muted.withValues(alpha: opacity * 0.6),
             shape: BoxShape.circle,
           ),
         );
@@ -648,7 +755,10 @@ class _InputBar extends StatelessWidget {
                         style: TextStyle(fontSize: 16, color: t.ink),
                         decoration: InputDecoration(
                           isCollapsed: true,
-                          hintText: isListening ? 'Listening… speak Czech' : 'Napiš česky…',
+                          hintText:
+                              isListening
+                                  ? 'Listening… speak Czech'
+                                  : 'Napiš česky…',
                           hintStyle: TextStyle(color: t.faint, fontSize: 16),
                           border: InputBorder.none,
                         ),
@@ -676,14 +786,20 @@ class _InputBar extends StatelessWidget {
               child: Container(
                 width: 50,
                 height: 50,
-                decoration: BoxDecoration(color: t.priFill, shape: BoxShape.circle),
-                child: isLoading
-                    ? Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: CircularProgressIndicator(
-                            strokeWidth: 2, color: t.onFill,),
-                      )
-                    : Icon(Icons.send, size: 18, color: t.onFill),
+                decoration: BoxDecoration(
+                  color: t.priFill,
+                  shape: BoxShape.circle,
+                ),
+                child:
+                    isLoading
+                        ? Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: t.onFill,
+                          ),
+                        )
+                        : Icon(Icons.send, size: 18, color: t.onFill),
               ),
             ),
           ],

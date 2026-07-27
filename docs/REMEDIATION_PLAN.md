@@ -98,6 +98,30 @@ chipBg userBubble userBubbleTxt`.
 - Manual check: SRS review, lesson player, mock exam, and pronunciation screens
   screenshotted in dark mode and attached to the PR.
 
+### Status: code complete, visual check outstanding
+
+217 → 20 references, all allowlisted below. Analyzer clean, 452 tests passing. The
+screenshot check is the one DoD item still open.
+
+Two fixes were needed beyond straight substitution:
+
+- `ScoreColors.of()` (`lib/core/utils/score_colors.dart`) returned raw Material colours and
+  lives outside `lib/presentation`, so it was invisible to the QA report's grep. It now
+  takes a `BuildContext`.
+- `context.tokens` asserted the theme extension with `!`, which crashed 13 widget tests
+  once these widgets started reading tokens. It now falls back to `AppTokens.light`/`.dark`
+  by ambient brightness rather than throwing.
+
+### Allowlist — raw `Colors.*` that stays
+
+| Location | Value | Why |
+|---|---|---|
+| `settings_screen.dart:596`, `curriculum_screen.dart:250`, `error_correction_view.dart:316`, `app_theme.dart:172` | `Colors.transparent` | Absence of colour; nothing to theme. |
+| `home_screen.dart:284,398` | `Colors.white` | Sits on the always-teal `priFill` hero, which does not flip with the theme. |
+| `unit_complete_overlay.dart` (8 refs) | `Colors.black` scrim, `Colors.white`/`white70` text | Full-bleed celebration overlay that is deliberately dark in both themes; the scrim *is* the background. |
+| `xp_badge.dart:57-60` | `Color(0xFF9AA0A6)` etc. | League identity colours (silver/gold/platinum/diamond) — fixed brand values, now explicit hex rather than `Colors.grey`/`.cyan`/`.blue` so they read as deliberate. |
+| `app_theme.dart:168` | `Colors.white` | Switch thumb; Material's own component default. |
+
 **Explicitly not in this phase:** splitting large files, adding Semantics, changing copy.
 
 ---

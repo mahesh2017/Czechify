@@ -132,7 +132,9 @@ class _WordOrderViewState extends State<WordOrderView> {
                               },
                       color:
                           answered
-                              ? (isCorrect == true ? correctTint : wrongTint)
+                              ? (isCorrect == true
+                                  ? correctTint(context)
+                                  : wrongTint(context))
                               : null,
                     );
                   }).toList(),

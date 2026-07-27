@@ -203,18 +203,19 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             for (var i = 0; i < items.length; i++)
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: style == 'alphabet'
-                    ? _LetterRow(
-                        item: items[i],
-                        active: _playingIndex == i,
-                        onTapName: () => _say(items[i].nameSay),
-                        onTapWord: () => _say(items[i].say),
-                      )
-                    : _PhraseRow(
-                        item: items[i],
-                        active: _playingIndex == i,
-                        onTap: () => _say(items[i].playText),
-                      ),
+                child:
+                    style == 'alphabet'
+                        ? _LetterRow(
+                          item: items[i],
+                          active: _playingIndex == i,
+                          onTapName: () => _say(items[i].nameSay),
+                          onTapWord: () => _say(items[i].say),
+                        )
+                        : _PhraseRow(
+                          item: items[i],
+                          active: _playingIndex == i,
+                          onTap: () => _say(items[i].playText),
+                        ),
               ),
           ],
           const SizedBox(height: 20),
@@ -258,9 +259,7 @@ class _IntroBlock extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cs = Theme.of(context).colorScheme;
-    final gender = ref.watch(
-      settingsProvider.select((s) => s.ttsVoiceGender),
-    );
+    final gender = ref.watch(settingsProvider.select((s) => s.ttsVoiceGender));
     final genderKey = gender == TtsVoiceGender.male ? 'male' : 'female';
     final speaking = english?.speaking ?? ValueNotifier<bool>(false);
 
@@ -277,24 +276,29 @@ class _IntroBlock extends ConsumerWidget {
           SizedBox(
             width: useIllustratedCharacter ? 112 : 92,
             height: useIllustratedCharacter ? 140 : 108,
-            child: useIllustratedCharacter
-                ? _TeacherCharacter(genderKey: genderKey, speaking: speaking)
-                : ValueListenableBuilder<bool>(
-                    valueListenable: speaking,
-                    builder: (context, isSpeaking, _) {
-                      final anim = isSpeaking ? 'talk' : 'idle';
-                      return Lottie.asset(
-                        'assets/animations/teacher_${genderKey}_$anim.json',
-                        repeat: true,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stack) => Icon(
-                          Icons.person_outline,
-                          size: 64,
-                          color: cs.primary,
-                        ),
-                      );
-                    },
-                  ),
+            child:
+                useIllustratedCharacter
+                    ? _TeacherCharacter(
+                      genderKey: genderKey,
+                      speaking: speaking,
+                    )
+                    : ValueListenableBuilder<bool>(
+                      valueListenable: speaking,
+                      builder: (context, isSpeaking, _) {
+                        final anim = isSpeaking ? 'talk' : 'idle';
+                        return Lottie.asset(
+                          'assets/animations/teacher_${genderKey}_$anim.json',
+                          repeat: true,
+                          fit: BoxFit.contain,
+                          errorBuilder:
+                              (context, error, stack) => Icon(
+                                Icons.person_outline,
+                                size: 64,
+                                color: cs.primary,
+                              ),
+                        );
+                      },
+                    ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -409,8 +413,9 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
         // The art ships at ~3x the rendered size; cap the decode to match.
         cacheWidth: 400,
         filterQuality: FilterQuality.medium,
-        errorBuilder: (context, error, stack) =>
-            Icon(Icons.person_outline, size: 64, color: cs.primary),
+        errorBuilder:
+            (context, error, stack) =>
+                Icon(Icons.person_outline, size: 64, color: cs.primary),
       ),
     );
   }
@@ -546,10 +551,7 @@ class _LetterRow extends StatelessWidget {
                         child: Text(
                           item.name,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 10.5,
-                            color: cs.primary,
-                          ),
+                          style: TextStyle(fontSize: 10.5, color: cs.primary),
                         ),
                       ),
                   ],

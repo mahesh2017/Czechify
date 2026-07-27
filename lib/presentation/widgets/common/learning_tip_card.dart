@@ -51,10 +51,7 @@ class _LearningTipCardState extends State<LearningTipCard> {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Text(
-                  _tip.emoji,
-                  style: const TextStyle(fontSize: 22),
-                ),
+                child: Text(_tip.emoji, style: const TextStyle(fontSize: 22)),
               ),
             ),
             const SizedBox(width: 14),
@@ -89,11 +86,7 @@ class _LearningTipCardState extends State<LearningTipCard> {
                   const SizedBox(height: 6),
                   Text(
                     _tip.body,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: t.muted,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(fontSize: 15, color: t.muted, height: 1.4),
                   ),
                 ],
               ),

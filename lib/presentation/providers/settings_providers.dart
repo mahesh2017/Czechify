@@ -26,6 +26,14 @@ class AppSettings {
   /// the user hasn't provided it yet.
   final String learnerName;
 
+  /// Sound effects for answers and completions. Separate from the Czech
+  /// audio, which is course content and stays on regardless — someone who
+  /// wants a quiet app still needs to hear the language.
+  final bool soundEffectsEnabled;
+
+  /// Haptic feedback on answers and completions.
+  final bool hapticsEnabled;
+
   const AppSettings({
     this.themeMode = AppThemeMode.system,
     this.dailyGoalXp = 50,
@@ -34,6 +42,8 @@ class AppSettings {
     this.startingLevel = CEFRLevel.preA1,
     this.heartsEnabled = true,
     this.learnerName = '',
+    this.soundEffectsEnabled = true,
+    this.hapticsEnabled = true,
   });
 
   AppSettings copyWith({
@@ -44,6 +54,8 @@ class AppSettings {
     CEFRLevel? startingLevel,
     bool? heartsEnabled,
     String? learnerName,
+    bool? soundEffectsEnabled,
+    bool? hapticsEnabled,
   }) {
     return AppSettings(
       themeMode: themeMode ?? this.themeMode,
@@ -53,6 +65,8 @@ class AppSettings {
       startingLevel: startingLevel ?? this.startingLevel,
       heartsEnabled: heartsEnabled ?? this.heartsEnabled,
       learnerName: learnerName ?? this.learnerName,
+      soundEffectsEnabled: soundEffectsEnabled ?? this.soundEffectsEnabled,
+      hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
     );
   }
 }
@@ -67,6 +81,8 @@ class SettingsNotifier extends Notifier<AppSettings> {
   static const _kStartingLevel = 'settings_starting_level';
   static const _kHeartsEnabled = 'settings_hearts_enabled';
   static const _kLearnerName = 'settings_learner_name';
+  static const _kSoundEffects = 'settings_sound_effects_enabled';
+  static const _kHaptics = 'settings_haptics_enabled';
 
   @override
   AppSettings build() {
@@ -102,7 +118,23 @@ class SettingsNotifier extends Notifier<AppSettings> {
           CEFRLevel.values[levelIdx.clamp(0, CEFRLevel.values.length - 1)],
       heartsEnabled: prefs.getBool(_kHeartsEnabled) ?? true,
       learnerName: prefs.getString(_kLearnerName) ?? '',
+      soundEffectsEnabled: prefs.getBool(_kSoundEffects) ?? true,
+      hapticsEnabled: prefs.getBool(_kHaptics) ?? true,
     );
+  }
+
+  /// Toggle answer and completion sound effects.
+  Future<void> setSoundEffectsEnabled(bool enabled) async {
+    state = state.copyWith(soundEffectsEnabled: enabled);
+    final prefs = await _prefs();
+    await prefs.setBool(_kSoundEffects, enabled);
+  }
+
+  /// Toggle haptic feedback.
+  Future<void> setHapticsEnabled(bool enabled) async {
+    state = state.copyWith(hapticsEnabled: enabled);
+    final prefs = await _prefs();
+    await prefs.setBool(_kHaptics, enabled);
   }
 
   /// Toggle hearts in lessons (off = practice mode, no heart loss).

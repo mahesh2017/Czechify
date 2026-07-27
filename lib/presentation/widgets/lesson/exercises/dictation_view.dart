@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/tts_providers.dart';
@@ -110,9 +111,9 @@ class _DictationViewState extends ConsumerState<DictationView> {
               labelText: 'Type what you heard',
               suffixIcon:
                   isCorrect == true
-                      ? const Icon(Icons.check_circle, color: Colors.green)
+                      ? Icon(Icons.check_circle, color: context.tokens.green)
                       : isCorrect == false
-                      ? const Icon(Icons.cancel, color: Colors.red)
+                      ? Icon(Icons.cancel, color: context.tokens.red)
                       : null,
             ),
             onSubmitted: answered ? null : (_) => _checkAnswer(),

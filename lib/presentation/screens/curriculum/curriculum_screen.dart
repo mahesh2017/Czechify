@@ -9,11 +9,22 @@ import '../../../domain/entities/unit.dart';
 import '../../../domain/entities/lesson.dart';
 
 /// Curriculum — units for A1/A2 with progress and inline lessons.
-class CurriculumScreen extends ConsumerWidget {
+///
+/// The A1/A2 chips are real tabs. They used to be decorative — hardcoded
+/// selected/unselected with no state behind them — so every unit rendered
+/// under A1 and the A2 units were unreachable even though they exist.
+class CurriculumScreen extends ConsumerStatefulWidget {
   const CurriculumScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CurriculumScreen> createState() => _CurriculumScreenState();
+}
+
+class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
+  Phase _phase = Phase.a1;
+
+  @override
+  Widget build(BuildContext context) {
     final t = context.tokens;
     final unitsAsync = ref.watch(allUnitsProvider);
     final unlockedIdsAsync = ref.watch(unlockedUnitIdsProvider);
@@ -53,19 +64,28 @@ class CurriculumScreen extends ConsumerWidget {
               data: (ids) => ids,
               orElse: () => {a1Units.isNotEmpty ? a1Units.first.id : -1},
             );
-            final unlockedA1 =
-                a1Units.where((u) => unlockedIds.contains(u.id)).length;
+            final shown = _phase == Phase.a1 ? a1Units : a2Units;
+            final unlockedShown =
+                shown.where((u) => unlockedIds.contains(u.id)).length;
 
             return ListView(
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
               children: [
                 const DisplayText('Curriculum', size: 26),
                 const SizedBox(height: 14),
-                const Row(
+                Row(
                   children: [
-                    _LevelChip(label: 'A1 · Beginner', selected: true),
-                    SizedBox(width: 8),
-                    _LevelChip(label: 'A2 · Elementary', selected: false),
+                    _LevelChip(
+                      label: 'A1 · Beginner',
+                      selected: _phase == Phase.a1,
+                      onTap: () => setState(() => _phase = Phase.a1),
+                    ),
+                    const SizedBox(width: 8),
+                    _LevelChip(
+                      label: 'A2 · Elementary',
+                      selected: _phase == Phase.a2,
+                      onTap: () => setState(() => _phase = Phase.a2),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 14),
@@ -73,13 +93,12 @@ class CurriculumScreen extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: SoftProgressBar(
-                        value:
-                            a1Units.isEmpty ? 0 : unlockedA1 / a1Units.length,
+                        value: shown.isEmpty ? 0 : unlockedShown / shown.length,
                       ),
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      '$unlockedA1 of ${a1Units.length} units',
+                      '$unlockedShown of ${shown.length} units',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -112,42 +131,28 @@ class CurriculumScreen extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                ...a1Units.map(
-                  (u) => Padding(
+                if (shown.isEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    child: Text(
+                      'Lessons for this level are being added.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15, color: t.muted),
+                    ),
+                  ),
+                // Numbered by position within the level, not by unit id. The
+                // A1 capstones carry ids 28 and 30 (16-27 are A2 units), so
+                // using the id printed "Unit 28" directly under "Unit 15" and
+                // read as a numbering bug.
+                for (final (index, u) in shown.indexed)
+                  Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _UnitCard(
                       unit: u,
+                      number: index + 1,
                       isUnlocked: unlockedIds.contains(u.id),
                     ),
                   ),
-                ),
-                if (a2Units.isNotEmpty) ...[
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(Icons.construction, size: 14, color: t.amber),
-                      const SizedBox(width: 6),
-                      Text(
-                        'More A2 lessons are being added',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontStyle: FontStyle.italic,
-                          color: t.amber,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  ...a2Units.map(
-                    (u) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: _UnitCard(
-                        unit: u,
-                        isUnlocked: unlockedIds.contains(u.id),
-                      ),
-                    ),
-                  ),
-                ],
               ],
             );
           },
@@ -158,25 +163,33 @@ class CurriculumScreen extends ConsumerWidget {
 }
 
 class _LevelChip extends StatelessWidget {
-  const _LevelChip({required this.label, required this.selected});
+  const _LevelChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
   final String label;
   final bool selected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: selected ? t.priFill : t.chipBg,
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
-          color: selected ? t.onFill : t.muted,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? t.priFill : t.chipBg,
+          borderRadius: BorderRadius.circular(999),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+            color: selected ? t.onFill : t.muted,
+          ),
         ),
       ),
     );
@@ -184,8 +197,16 @@ class _LevelChip extends StatelessWidget {
 }
 
 class _UnitCard extends ConsumerWidget {
-  const _UnitCard({required this.unit, required this.isUnlocked});
+  const _UnitCard({
+    required this.unit,
+    required this.number,
+    required this.isUnlocked,
+  });
   final Unit unit;
+
+  /// Position within the level being shown — not [Unit.id]. See the comment
+  /// where this is built.
+  final int number;
   final bool isUnlocked;
 
   @override
@@ -245,7 +266,7 @@ class _UnitCard extends ConsumerWidget {
             child: Icon(statusIcon, size: 18, color: statusColor),
           ),
           title: Text(
-            'Unit ${unit.id} · ${unit.title}',
+            'Unit $number · ${unit.title}',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,

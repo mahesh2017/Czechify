@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../screens/home/home_screen.dart';
@@ -13,6 +14,9 @@ import '../screens/settings/settings_screen.dart';
 import '../screens/settings/account_screen.dart';
 import '../screens/grammar/grammar_reference_screen.dart';
 import '../screens/grammar/quick_reference_screen.dart';
+import '../screens/onboarding/offline_setup_screen.dart';
+import '../screens/settings/about_screen.dart';
+import '../screens/settings/privacy_policy_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/placement/placement_screen.dart';
 import '../screens/lesson/delayed_transfer_screen.dart';
@@ -34,24 +38,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: onboardingDone ? '/' : '/onboarding',
     // Unknown paths and malformed parameters land here instead of crashing.
-    errorBuilder: (context, state) => Scaffold(
-      appBar: AppBar(title: const Text('Not found')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.explore_off, size: 48, color: Colors.grey),
-            const SizedBox(height: 16),
-            const Text('That page could not be opened.'),
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: () => context.go('/'),
-              child: const Text('Go Home'),
+    errorBuilder:
+        (context, state) => Scaffold(
+          appBar: AppBar(title: const Text('Not found')),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.explore_off, size: 48, color: context.tokens.muted),
+                const SizedBox(height: 16),
+                const Text('That page could not be opened.'),
+                const SizedBox(height: 16),
+                FilledButton(
+                  onPressed: () => context.go('/'),
+                  child: const Text('Go Home'),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-    ),
     routes: [
       // Tab destinations live inside the adaptive shell.
       ShellRoute(
@@ -87,11 +92,25 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/account',
         builder: (context, state) => const AccountScreen(),
       ),
+      // Reached with go() from the end of onboarding, so it replaces the flow
+      // rather than sitting on top of it — there is nothing to go back to.
+      GoRoute(path: '/about', builder: (context, state) => const AboutScreen()),
+      GoRoute(
+        path: '/privacy',
+        builder: (context, state) => const PrivacyPolicyScreen(),
+      ),
+      GoRoute(
+        path: '/setup',
+        builder: (context, state) => const OfflineSetupScreen(),
+      ),
       GoRoute(
         path: '/lesson/:id',
         // tryParse: a malformed deep link must not crash the router.
-        redirect: (context, state) =>
-            int.tryParse(state.pathParameters['id'] ?? '') == null ? '/' : null,
+        redirect:
+            (context, state) =>
+                int.tryParse(state.pathParameters['id'] ?? '') == null
+                    ? '/'
+                    : null,
         builder:
             (context, state) => LessonPlayerScreen(
               lessonId: int.parse(state.pathParameters['id']!),

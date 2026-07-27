@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 import 'exercise_shared.dart';
@@ -161,6 +162,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final theme = Theme.of(context);
 
     return Padding(
@@ -309,12 +311,9 @@ class _WritingTaskViewState extends State<WritingTaskView> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: _isCorrect ? correctTint : wrongTint,
+                color: _isCorrect ? correctTint(context) : wrongTint(context),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color:
-                      _isCorrect ? Colors.green.shade300 : Colors.red.shade300,
-                ),
+                border: Border.all(color: _isCorrect ? t.green : t.red),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -323,10 +322,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                     children: [
                       Icon(
                         _isCorrect ? Icons.check_circle : Icons.cancel,
-                        color:
-                            _isCorrect
-                                ? Colors.green.shade700
-                                : Colors.red.shade700,
+                        color: _isCorrect ? t.green : t.red,
                         size: 22,
                       ),
                       const SizedBox(width: 8),
@@ -338,10 +334,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                             : 'Needs improvement',
                         style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
-                          color:
-                              _isCorrect
-                                  ? Colors.green.shade800
-                                  : Colors.red.shade800,
+                          color: _isCorrect ? t.green : t.red,
                         ),
                       ),
                     ],
@@ -369,7 +362,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: t.line),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

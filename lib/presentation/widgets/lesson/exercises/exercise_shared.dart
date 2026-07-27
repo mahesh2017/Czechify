@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/text_normalizer.dart';
 import '../../../../domain/entities/exercise_outcome.dart';
@@ -10,8 +11,14 @@ import '../../../providers/tts_providers.dart';
 String normalizeAnswer(String s) => TextNormalizer.normalize(s);
 
 /// Translucent feedback tints that work on light and dark surfaces.
-final Color correctTint = Colors.green.withValues(alpha: 0.12);
-final Color wrongTint = Colors.red.withValues(alpha: 0.12);
+///
+/// Context-bound because the base hues come from [AppTokens] — the dark
+/// theme's green and red are lighter than the light theme's, so a fixed
+/// tint reads as mud on one of the two.
+Color correctTint(BuildContext context) =>
+    context.tokens.green.withValues(alpha: 0.12);
+Color wrongTint(BuildContext context) =>
+    context.tokens.red.withValues(alpha: 0.12);
 
 /// How closely a typed answer matched: exact, accents-only difference,
 /// or wrong.

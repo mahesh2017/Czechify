@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 import 'package:go_router/go_router.dart';
 
 /// Grammar tip card shown after answering — displays explanation on wrong answers,
@@ -23,6 +24,7 @@ class GrammarTipCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     if (isSkipped) {
       return Container(
         width: double.infinity,
@@ -61,13 +63,13 @@ class GrammarTipCard extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.green.shade50,
+          color: t.greenSoft,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.green.shade200),
+          border: Border.all(color: t.green.withValues(alpha: 0.4)),
         ),
         child: Row(
           children: [
-            const Icon(Icons.check_circle, color: Colors.green, size: 28),
+            Icon(Icons.check_circle, color: t.green, size: 28),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -77,7 +79,7 @@ class GrammarTipCard extends StatelessWidget {
                     'Správně! Correct!',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.green.shade800,
+                      color: t.green,
                     ),
                   ),
                   if (explanation != null)
@@ -85,10 +87,7 @@ class GrammarTipCard extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
                         explanation!,
-                        style: TextStyle(
-                          color: Colors.green.shade700,
-                          fontSize: 15,
-                        ),
+                        style: TextStyle(color: t.green, fontSize: 15),
                       ),
                     ),
                 ],
@@ -104,10 +103,10 @@ class GrammarTipCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isCorrect ? Colors.green.shade50 : Colors.orange.shade50,
+        color: isCorrect ? t.greenSoft : t.amberSoft,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isCorrect ? Colors.green.shade200 : Colors.orange.shade300,
+          color: (isCorrect ? t.green : t.amber).withValues(alpha: 0.4),
         ),
       ),
       child: Column(
@@ -117,7 +116,7 @@ class GrammarTipCard extends StatelessWidget {
             children: [
               Icon(
                 isCorrect ? Icons.check_circle : Icons.lightbulb,
-                color: isCorrect ? Colors.green : Colors.orange.shade700,
+                color: isCorrect ? t.green : t.amber,
                 size: 28,
               ),
               const SizedBox(width: 12),
@@ -126,9 +125,7 @@ class GrammarTipCard extends StatelessWidget {
                   isCorrect ? 'Správně! Correct!' : 'Not quite right',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: isCorrect
-                        ? Colors.green.shade800
-                        : Colors.orange.shade800,
+                    color: isCorrect ? t.green : t.amber,
                   ),
                 ),
               ),
@@ -140,15 +137,12 @@ class GrammarTipCard extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.green.shade100,
+                color: t.greenSoft,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
                 'Correct answer: $correctAnswer',
-                style: TextStyle(
-                  color: Colors.green.shade900,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: TextStyle(color: t.green, fontWeight: FontWeight.w500),
               ),
             ),
           ],
@@ -158,9 +152,7 @@ class GrammarTipCard extends StatelessWidget {
               '💡 Grammar tip:',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: isCorrect
-                    ? Colors.green.shade800
-                    : Colors.orange.shade800,
+                color: isCorrect ? t.green : t.amber,
                 fontSize: 15,
               ),
             ),
@@ -168,9 +160,7 @@ class GrammarTipCard extends StatelessWidget {
             Text(
               explanation!,
               style: TextStyle(
-                color: isCorrect
-                    ? Colors.green.shade700
-                    : Colors.orange.shade700,
+                color: isCorrect ? t.green : t.amber,
                 fontSize: 15,
               ),
             ),

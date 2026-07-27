@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/score_colors.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -29,6 +30,13 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
   String? feedback;
   bool hasRecorded = false;
 
+  /// The attempt this view is waiting on. [pronunciationProvider] outlives the
+  /// widget, so without this the first build of a new exercise reads the
+  /// previous exercise's result and shows a score before the learner has
+  /// spoken. Clearing the provider is not enough on its own: that happens in a
+  /// microtask, one build too late.
+  int? _awaitingAttemptId;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +50,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
       score = null;
       feedback = null;
       hasRecorded = false;
+      _awaitingAttemptId = null;
       _scopeTargetToExercise();
     }
   }
@@ -76,6 +85,11 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
     await notifier.startRecording(
       expectedText: widget.exercise.data['target_text'] as String,
     );
+    if (mounted) {
+      setState(
+        () => _awaitingAttemptId = ref.read(pronunciationProvider).attemptId,
+      );
+    }
   }
 
   void _submitResult() {
@@ -98,6 +112,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final data = widget.exercise.data;
     final targetText = data['target_text'] as String;
     final translation = data['translation_en'] as String?;
@@ -108,8 +123,13 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
     final isProcessing = pronState.isProcessing;
     final result = pronState.result;
 
-    // Update local score/feedback when result arrives
-    if (result != null && score == null) {
+    // Adopt a result only when it belongs to the attempt this view started.
+    // A result from the previous exercise is still sitting in the provider on
+    // the first build after navigation.
+    if (result != null &&
+        score == null &&
+        _awaitingAttemptId != null &&
+        pronState.attemptId == _awaitingAttemptId) {
       score = result.overallScore;
       feedback = result.feedback;
       hasRecorded = true;
@@ -144,7 +164,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
                       translation,
                       style: Theme.of(
                         context,
-                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                      ).textTheme.bodyMedium?.copyWith(color: t.muted),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -186,23 +206,23 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
               height: 80,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isRecording
-                    ? Colors.red.shade400
-                    : Theme.of(context).colorScheme.primary,
+                color:
+                    isRecording ? t.red : Theme.of(context).colorScheme.primary,
               ),
-              child: isProcessing
-                  ? const Padding(
-                      padding: EdgeInsets.all(20),
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                        color: Colors.white,
+              child:
+                  isProcessing
+                      ? Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                          color: t.onFill,
+                        ),
+                      )
+                      : Icon(
+                        isRecording ? Icons.stop : Icons.mic,
+                        color: t.onFill,
+                        size: 32,
                       ),
-                    )
-                  : Icon(
-                      isRecording ? Icons.stop : Icons.mic,
-                      color: Colors.white,
-                      size: 32,
-                    ),
             ),
           ),
           const SizedBox(height: 8),
@@ -225,7 +245,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
               '✓ Whisper AI',
               style: TextStyle(
                 fontSize: 12,
-                color: Colors.green.shade600,
+                color: t.green,
                 fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,
@@ -235,14 +255,15 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
           // Escape hatch: pronunciation should never hard-block progress.
           if (!isProcessing)
             TextButton(
-              onPressed: () => widget.onAnswered(
-                ExerciseResult.skipped(
-                  explanation:
-                      'Skipped — keep practising this one aloud with '
-                      'the 🔊 button.',
-                  correctAnswer: targetText,
-                ),
-              ),
+              onPressed:
+                  () => widget.onAnswered(
+                    ExerciseResult.skipped(
+                      explanation:
+                          'Skipped — keep practising this one aloud with '
+                          'the 🔊 button.',
+                      correctAnswer: targetText,
+                    ),
+                  ),
               child: Text(
                 hasRecorded && (score ?? 0) == 0
                     ? 'Mic not working? Skip'
@@ -259,9 +280,9 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
               Text(
                 feedback!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.grey,
+                  color: t.muted,
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -286,7 +307,7 @@ class ScoreDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final percentage = (score * 100).round();
-    final color = ScoreColors.of(score);
+    final color = ScoreColors.of(context, score);
 
     return Column(
       children: [

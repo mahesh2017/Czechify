@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 
 /// Record button — hold to record audio.
 class RecordButton extends StatefulWidget {
@@ -30,12 +31,12 @@ class _RecordButtonState extends State<RecordButton> {
             shape: BoxShape.circle,
             color:
                 widget.isRecording
-                    ? Colors.red.shade400
+                    ? context.tokens.red
                     : Theme.of(context).colorScheme.primary,
           ),
           child: Icon(
             widget.isRecording ? Icons.stop : Icons.mic,
-            color: Colors.white,
+            color: context.tokens.onFill,
             size: 28,
           ),
         ),

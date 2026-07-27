@@ -123,8 +123,9 @@ class EnglishTts {
       final voices = json['voices'] as Map<String, dynamic>? ?? const {};
       return voices.map((gender, value) {
         final entries =
-            (value as Map<String, dynamic>)['entries'] as Map<String, dynamic>? ??
-                const {};
+            (value as Map<String, dynamic>)['entries']
+                as Map<String, dynamic>? ??
+            const {};
         return MapEntry(
           gender,
           entries.map((key, path) => MapEntry(key, path as String)),
@@ -145,7 +146,9 @@ class EnglishTts {
       if (await cached.exists()) {
         try {
           return parse(await cached.readAsString());
-        } catch (_) {/* fall through to device TTS */}
+        } catch (_) {
+          /* fall through to device TTS */
+        }
       }
       return const {};
     }
@@ -275,6 +278,15 @@ class CzechTts {
   String? _cacheDir;
   String? _neuralCacheDir;
   Future<Map<String, Map<String, String>>>? _remoteAudio;
+
+  /// True when the last utterance came from the device's own TTS instead of
+  /// the recorded pack.
+  ///
+  /// Substituting the system voice used to be completely silent, and it reads
+  /// as a bug: the app "ignores" the male/female setting, because the platform
+  /// voice has no such choice. Surfacing this lets the UI say "offline" rather
+  /// than leaving a working app looking broken.
+  final ValueNotifier<bool> usingFallbackVoice = ValueNotifier(false);
 
   CzechTts(
     this._tts,
@@ -442,7 +454,11 @@ class CzechTts {
     // Curriculum and vocabulary audio is generated once with a controlled
     // neural voice, downloaded from Supabase Storage, and retained for offline
     // reuse. It takes precedence over platform TTS whenever available.
-    if (await _playNeural(trimmed, effectiveRate)) return;
+    if (await _playNeural(trimmed, effectiveRate)) {
+      usingFallbackVoice.value = false;
+      return;
+    }
+    usingFallbackVoice.value = true;
 
     // macOS: flutter_tts's synthesizeToFile resolves paths relative to the
     // sandbox Documents dir and can't write mp3 (AVFoundation 'fmt?' error),
@@ -566,6 +582,14 @@ final czechTtsAvailableProvider = FutureProvider<bool>((ref) async {
 });
 
 /// Provider for the CzechTts helper.
+/// Phrase used to demo the chosen voice in onboarding and Settings.
+///
+/// It must be a real course utterance. Anything else has no clip in the pack,
+/// so [CzechTts] falls back to the device's robotic system voice — and a
+/// preview that plays the system voice tells the learner nothing about the
+/// studio voice they actually get.
+const String kVoicePreviewPhrase = 'Dobrý den, jak se máte?';
+
 final czechTtsProvider = Provider<CzechTts>((ref) {
   final tts = ref.read(ttsProvider);
   final player = ref.read(audioPlayerProvider);

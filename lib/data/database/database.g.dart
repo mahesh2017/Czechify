@@ -5950,6 +5950,590 @@ class EarnedBadgesCompanion extends UpdateCompanion<EarnedBadge> {
   }
 }
 
+class $ConsentRecordsTable extends ConsentRecords
+    with TableInfo<$ConsentRecordsTable, ConsentRecord> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ConsentRecordsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _purposeMeta = const VerificationMeta(
+    'purpose',
+  );
+  @override
+  late final GeneratedColumn<String> purpose = GeneratedColumn<String>(
+    'purpose',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _noticeVersionMeta = const VerificationMeta(
+    'noticeVersion',
+  );
+  @override
+  late final GeneratedColumn<String> noticeVersion = GeneratedColumn<String>(
+    'notice_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _policyVersionMeta = const VerificationMeta(
+    'policyVersion',
+  );
+  @override
+  late final GeneratedColumn<String> policyVersion = GeneratedColumn<String>(
+    'policy_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _grantedMeta = const VerificationMeta(
+    'granted',
+  );
+  @override
+  late final GeneratedColumn<bool> granted = GeneratedColumn<bool>(
+    'granted',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("granted" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _decidedAtMeta = const VerificationMeta(
+    'decidedAt',
+  );
+  @override
+  late final GeneratedColumn<String> decidedAt = GeneratedColumn<String>(
+    'decided_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _appVersionMeta = const VerificationMeta(
+    'appVersion',
+  );
+  @override
+  late final GeneratedColumn<String> appVersion = GeneratedColumn<String>(
+    'app_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _platformMeta = const VerificationMeta(
+    'platform',
+  );
+  @override
+  late final GeneratedColumn<String> platform = GeneratedColumn<String>(
+    'platform',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _syncedMeta = const VerificationMeta('synced');
+  @override
+  late final GeneratedColumn<bool> synced = GeneratedColumn<bool>(
+    'synced',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("synced" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    purpose,
+    noticeVersion,
+    policyVersion,
+    granted,
+    decidedAt,
+    appVersion,
+    platform,
+    synced,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'consent_records';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ConsentRecord> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('purpose')) {
+      context.handle(
+        _purposeMeta,
+        purpose.isAcceptableOrUnknown(data['purpose']!, _purposeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_purposeMeta);
+    }
+    if (data.containsKey('notice_version')) {
+      context.handle(
+        _noticeVersionMeta,
+        noticeVersion.isAcceptableOrUnknown(
+          data['notice_version']!,
+          _noticeVersionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_noticeVersionMeta);
+    }
+    if (data.containsKey('policy_version')) {
+      context.handle(
+        _policyVersionMeta,
+        policyVersion.isAcceptableOrUnknown(
+          data['policy_version']!,
+          _policyVersionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_policyVersionMeta);
+    }
+    if (data.containsKey('granted')) {
+      context.handle(
+        _grantedMeta,
+        granted.isAcceptableOrUnknown(data['granted']!, _grantedMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_grantedMeta);
+    }
+    if (data.containsKey('decided_at')) {
+      context.handle(
+        _decidedAtMeta,
+        decidedAt.isAcceptableOrUnknown(data['decided_at']!, _decidedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_decidedAtMeta);
+    }
+    if (data.containsKey('app_version')) {
+      context.handle(
+        _appVersionMeta,
+        appVersion.isAcceptableOrUnknown(data['app_version']!, _appVersionMeta),
+      );
+    }
+    if (data.containsKey('platform')) {
+      context.handle(
+        _platformMeta,
+        platform.isAcceptableOrUnknown(data['platform']!, _platformMeta),
+      );
+    }
+    if (data.containsKey('synced')) {
+      context.handle(
+        _syncedMeta,
+        synced.isAcceptableOrUnknown(data['synced']!, _syncedMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ConsentRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ConsentRecord(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      purpose: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purpose'],
+      )!,
+      noticeVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notice_version'],
+      )!,
+      policyVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}policy_version'],
+      )!,
+      granted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}granted'],
+      )!,
+      decidedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}decided_at'],
+      )!,
+      appVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}app_version'],
+      )!,
+      platform: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}platform'],
+      )!,
+      synced: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}synced'],
+      )!,
+    );
+  }
+
+  @override
+  $ConsentRecordsTable createAlias(String alias) {
+    return $ConsentRecordsTable(attachedDatabase, alias);
+  }
+}
+
+class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
+  final int id;
+
+  /// What was consented to, e.g. `voice_cloud_processing`.
+  final String purpose;
+
+  /// Version of the notice shown, e.g. `voice-cloud-v1`. Sourced from the same
+  /// constant the screen renders, so it cannot drift from what was displayed.
+  final String noticeVersion;
+
+  /// Privacy policy version current at the time of the decision.
+  final String policyVersion;
+
+  /// True for granted, false for withdrawn.
+  final bool granted;
+
+  /// ISO-8601 in UTC, e.g. `2026-07-26T09:12:33.000Z`.
+  ///
+  /// Text rather than a DateTime column on purpose. Drift reconstructs
+  /// DateTime values in local time, so the UTC marker does not survive a
+  /// round-trip — the instant is still correct, but the stored value is not
+  /// self-describing. Evidence that might one day be handed to a regulator
+  /// should say what it means without needing the code that wrote it.
+  final String decidedAt;
+
+  /// App version and platform, so a later question about what a specific build
+  /// showed can actually be answered.
+  final String appVersion;
+  final String platform;
+
+  /// Whether this row has reached the server yet. Records are written locally
+  /// first: if it only lived server-side, a failed sync would lose exactly the
+  /// evidence you would need.
+  final bool synced;
+  const ConsentRecord({
+    required this.id,
+    required this.purpose,
+    required this.noticeVersion,
+    required this.policyVersion,
+    required this.granted,
+    required this.decidedAt,
+    required this.appVersion,
+    required this.platform,
+    required this.synced,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['purpose'] = Variable<String>(purpose);
+    map['notice_version'] = Variable<String>(noticeVersion);
+    map['policy_version'] = Variable<String>(policyVersion);
+    map['granted'] = Variable<bool>(granted);
+    map['decided_at'] = Variable<String>(decidedAt);
+    map['app_version'] = Variable<String>(appVersion);
+    map['platform'] = Variable<String>(platform);
+    map['synced'] = Variable<bool>(synced);
+    return map;
+  }
+
+  ConsentRecordsCompanion toCompanion(bool nullToAbsent) {
+    return ConsentRecordsCompanion(
+      id: Value(id),
+      purpose: Value(purpose),
+      noticeVersion: Value(noticeVersion),
+      policyVersion: Value(policyVersion),
+      granted: Value(granted),
+      decidedAt: Value(decidedAt),
+      appVersion: Value(appVersion),
+      platform: Value(platform),
+      synced: Value(synced),
+    );
+  }
+
+  factory ConsentRecord.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ConsentRecord(
+      id: serializer.fromJson<int>(json['id']),
+      purpose: serializer.fromJson<String>(json['purpose']),
+      noticeVersion: serializer.fromJson<String>(json['noticeVersion']),
+      policyVersion: serializer.fromJson<String>(json['policyVersion']),
+      granted: serializer.fromJson<bool>(json['granted']),
+      decidedAt: serializer.fromJson<String>(json['decidedAt']),
+      appVersion: serializer.fromJson<String>(json['appVersion']),
+      platform: serializer.fromJson<String>(json['platform']),
+      synced: serializer.fromJson<bool>(json['synced']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'purpose': serializer.toJson<String>(purpose),
+      'noticeVersion': serializer.toJson<String>(noticeVersion),
+      'policyVersion': serializer.toJson<String>(policyVersion),
+      'granted': serializer.toJson<bool>(granted),
+      'decidedAt': serializer.toJson<String>(decidedAt),
+      'appVersion': serializer.toJson<String>(appVersion),
+      'platform': serializer.toJson<String>(platform),
+      'synced': serializer.toJson<bool>(synced),
+    };
+  }
+
+  ConsentRecord copyWith({
+    int? id,
+    String? purpose,
+    String? noticeVersion,
+    String? policyVersion,
+    bool? granted,
+    String? decidedAt,
+    String? appVersion,
+    String? platform,
+    bool? synced,
+  }) => ConsentRecord(
+    id: id ?? this.id,
+    purpose: purpose ?? this.purpose,
+    noticeVersion: noticeVersion ?? this.noticeVersion,
+    policyVersion: policyVersion ?? this.policyVersion,
+    granted: granted ?? this.granted,
+    decidedAt: decidedAt ?? this.decidedAt,
+    appVersion: appVersion ?? this.appVersion,
+    platform: platform ?? this.platform,
+    synced: synced ?? this.synced,
+  );
+  ConsentRecord copyWithCompanion(ConsentRecordsCompanion data) {
+    return ConsentRecord(
+      id: data.id.present ? data.id.value : this.id,
+      purpose: data.purpose.present ? data.purpose.value : this.purpose,
+      noticeVersion: data.noticeVersion.present
+          ? data.noticeVersion.value
+          : this.noticeVersion,
+      policyVersion: data.policyVersion.present
+          ? data.policyVersion.value
+          : this.policyVersion,
+      granted: data.granted.present ? data.granted.value : this.granted,
+      decidedAt: data.decidedAt.present ? data.decidedAt.value : this.decidedAt,
+      appVersion: data.appVersion.present
+          ? data.appVersion.value
+          : this.appVersion,
+      platform: data.platform.present ? data.platform.value : this.platform,
+      synced: data.synced.present ? data.synced.value : this.synced,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConsentRecord(')
+          ..write('id: $id, ')
+          ..write('purpose: $purpose, ')
+          ..write('noticeVersion: $noticeVersion, ')
+          ..write('policyVersion: $policyVersion, ')
+          ..write('granted: $granted, ')
+          ..write('decidedAt: $decidedAt, ')
+          ..write('appVersion: $appVersion, ')
+          ..write('platform: $platform, ')
+          ..write('synced: $synced')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    purpose,
+    noticeVersion,
+    policyVersion,
+    granted,
+    decidedAt,
+    appVersion,
+    platform,
+    synced,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ConsentRecord &&
+          other.id == this.id &&
+          other.purpose == this.purpose &&
+          other.noticeVersion == this.noticeVersion &&
+          other.policyVersion == this.policyVersion &&
+          other.granted == this.granted &&
+          other.decidedAt == this.decidedAt &&
+          other.appVersion == this.appVersion &&
+          other.platform == this.platform &&
+          other.synced == this.synced);
+}
+
+class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
+  final Value<int> id;
+  final Value<String> purpose;
+  final Value<String> noticeVersion;
+  final Value<String> policyVersion;
+  final Value<bool> granted;
+  final Value<String> decidedAt;
+  final Value<String> appVersion;
+  final Value<String> platform;
+  final Value<bool> synced;
+  const ConsentRecordsCompanion({
+    this.id = const Value.absent(),
+    this.purpose = const Value.absent(),
+    this.noticeVersion = const Value.absent(),
+    this.policyVersion = const Value.absent(),
+    this.granted = const Value.absent(),
+    this.decidedAt = const Value.absent(),
+    this.appVersion = const Value.absent(),
+    this.platform = const Value.absent(),
+    this.synced = const Value.absent(),
+  });
+  ConsentRecordsCompanion.insert({
+    this.id = const Value.absent(),
+    required String purpose,
+    required String noticeVersion,
+    required String policyVersion,
+    required bool granted,
+    required String decidedAt,
+    this.appVersion = const Value.absent(),
+    this.platform = const Value.absent(),
+    this.synced = const Value.absent(),
+  }) : purpose = Value(purpose),
+       noticeVersion = Value(noticeVersion),
+       policyVersion = Value(policyVersion),
+       granted = Value(granted),
+       decidedAt = Value(decidedAt);
+  static Insertable<ConsentRecord> custom({
+    Expression<int>? id,
+    Expression<String>? purpose,
+    Expression<String>? noticeVersion,
+    Expression<String>? policyVersion,
+    Expression<bool>? granted,
+    Expression<String>? decidedAt,
+    Expression<String>? appVersion,
+    Expression<String>? platform,
+    Expression<bool>? synced,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (purpose != null) 'purpose': purpose,
+      if (noticeVersion != null) 'notice_version': noticeVersion,
+      if (policyVersion != null) 'policy_version': policyVersion,
+      if (granted != null) 'granted': granted,
+      if (decidedAt != null) 'decided_at': decidedAt,
+      if (appVersion != null) 'app_version': appVersion,
+      if (platform != null) 'platform': platform,
+      if (synced != null) 'synced': synced,
+    });
+  }
+
+  ConsentRecordsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? purpose,
+    Value<String>? noticeVersion,
+    Value<String>? policyVersion,
+    Value<bool>? granted,
+    Value<String>? decidedAt,
+    Value<String>? appVersion,
+    Value<String>? platform,
+    Value<bool>? synced,
+  }) {
+    return ConsentRecordsCompanion(
+      id: id ?? this.id,
+      purpose: purpose ?? this.purpose,
+      noticeVersion: noticeVersion ?? this.noticeVersion,
+      policyVersion: policyVersion ?? this.policyVersion,
+      granted: granted ?? this.granted,
+      decidedAt: decidedAt ?? this.decidedAt,
+      appVersion: appVersion ?? this.appVersion,
+      platform: platform ?? this.platform,
+      synced: synced ?? this.synced,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (purpose.present) {
+      map['purpose'] = Variable<String>(purpose.value);
+    }
+    if (noticeVersion.present) {
+      map['notice_version'] = Variable<String>(noticeVersion.value);
+    }
+    if (policyVersion.present) {
+      map['policy_version'] = Variable<String>(policyVersion.value);
+    }
+    if (granted.present) {
+      map['granted'] = Variable<bool>(granted.value);
+    }
+    if (decidedAt.present) {
+      map['decided_at'] = Variable<String>(decidedAt.value);
+    }
+    if (appVersion.present) {
+      map['app_version'] = Variable<String>(appVersion.value);
+    }
+    if (platform.present) {
+      map['platform'] = Variable<String>(platform.value);
+    }
+    if (synced.present) {
+      map['synced'] = Variable<bool>(synced.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConsentRecordsCompanion(')
+          ..write('id: $id, ')
+          ..write('purpose: $purpose, ')
+          ..write('noticeVersion: $noticeVersion, ')
+          ..write('policyVersion: $policyVersion, ')
+          ..write('granted: $granted, ')
+          ..write('decidedAt: $decidedAt, ')
+          ..write('appVersion: $appVersion, ')
+          ..write('platform: $platform, ')
+          ..write('synced: $synced')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $LessonProgressTable extends LessonProgress
     with TableInfo<$LessonProgressTable, LessonProgressData> {
   @override
@@ -12556,6 +13140,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ExamResultsTable examResults = $ExamResultsTable(this);
   late final $UserProgressTable userProgress = $UserProgressTable(this);
   late final $EarnedBadgesTable earnedBadges = $EarnedBadgesTable(this);
+  late final $ConsentRecordsTable consentRecords = $ConsentRecordsTable(this);
   late final $LessonProgressTable lessonProgress = $LessonProgressTable(this);
   late final $SyncQueueTable syncQueue = $SyncQueueTable(this);
   late final $SyncStateTable syncState = $SyncStateTable(this);
@@ -12603,6 +13188,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     examResults,
     userProgress,
     earnedBadges,
+    consentRecords,
     lessonProgress,
     syncQueue,
     syncState,
@@ -17047,6 +17633,284 @@ typedef $$EarnedBadgesTableProcessedTableManager =
       EarnedBadge,
       PrefetchHooks Function()
     >;
+typedef $$ConsentRecordsTableCreateCompanionBuilder =
+    ConsentRecordsCompanion Function({
+      Value<int> id,
+      required String purpose,
+      required String noticeVersion,
+      required String policyVersion,
+      required bool granted,
+      required String decidedAt,
+      Value<String> appVersion,
+      Value<String> platform,
+      Value<bool> synced,
+    });
+typedef $$ConsentRecordsTableUpdateCompanionBuilder =
+    ConsentRecordsCompanion Function({
+      Value<int> id,
+      Value<String> purpose,
+      Value<String> noticeVersion,
+      Value<String> policyVersion,
+      Value<bool> granted,
+      Value<String> decidedAt,
+      Value<String> appVersion,
+      Value<String> platform,
+      Value<bool> synced,
+    });
+
+class $$ConsentRecordsTableFilterComposer
+    extends Composer<_$AppDatabase, $ConsentRecordsTable> {
+  $$ConsentRecordsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get purpose => $composableBuilder(
+    column: $table.purpose,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get noticeVersion => $composableBuilder(
+    column: $table.noticeVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get policyVersion => $composableBuilder(
+    column: $table.policyVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get granted => $composableBuilder(
+    column: $table.granted,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get decidedAt => $composableBuilder(
+    column: $table.decidedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get appVersion => $composableBuilder(
+    column: $table.appVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get platform => $composableBuilder(
+    column: $table.platform,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get synced => $composableBuilder(
+    column: $table.synced,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ConsentRecordsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ConsentRecordsTable> {
+  $$ConsentRecordsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get purpose => $composableBuilder(
+    column: $table.purpose,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get noticeVersion => $composableBuilder(
+    column: $table.noticeVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get policyVersion => $composableBuilder(
+    column: $table.policyVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get granted => $composableBuilder(
+    column: $table.granted,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get decidedAt => $composableBuilder(
+    column: $table.decidedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get appVersion => $composableBuilder(
+    column: $table.appVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get platform => $composableBuilder(
+    column: $table.platform,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get synced => $composableBuilder(
+    column: $table.synced,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ConsentRecordsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ConsentRecordsTable> {
+  $$ConsentRecordsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get purpose =>
+      $composableBuilder(column: $table.purpose, builder: (column) => column);
+
+  GeneratedColumn<String> get noticeVersion => $composableBuilder(
+    column: $table.noticeVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get policyVersion => $composableBuilder(
+    column: $table.policyVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get granted =>
+      $composableBuilder(column: $table.granted, builder: (column) => column);
+
+  GeneratedColumn<String> get decidedAt =>
+      $composableBuilder(column: $table.decidedAt, builder: (column) => column);
+
+  GeneratedColumn<String> get appVersion => $composableBuilder(
+    column: $table.appVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get platform =>
+      $composableBuilder(column: $table.platform, builder: (column) => column);
+
+  GeneratedColumn<bool> get synced =>
+      $composableBuilder(column: $table.synced, builder: (column) => column);
+}
+
+class $$ConsentRecordsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ConsentRecordsTable,
+          ConsentRecord,
+          $$ConsentRecordsTableFilterComposer,
+          $$ConsentRecordsTableOrderingComposer,
+          $$ConsentRecordsTableAnnotationComposer,
+          $$ConsentRecordsTableCreateCompanionBuilder,
+          $$ConsentRecordsTableUpdateCompanionBuilder,
+          (
+            ConsentRecord,
+            BaseReferences<_$AppDatabase, $ConsentRecordsTable, ConsentRecord>,
+          ),
+          ConsentRecord,
+          PrefetchHooks Function()
+        > {
+  $$ConsentRecordsTableTableManager(
+    _$AppDatabase db,
+    $ConsentRecordsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ConsentRecordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ConsentRecordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ConsentRecordsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> purpose = const Value.absent(),
+                Value<String> noticeVersion = const Value.absent(),
+                Value<String> policyVersion = const Value.absent(),
+                Value<bool> granted = const Value.absent(),
+                Value<String> decidedAt = const Value.absent(),
+                Value<String> appVersion = const Value.absent(),
+                Value<String> platform = const Value.absent(),
+                Value<bool> synced = const Value.absent(),
+              }) => ConsentRecordsCompanion(
+                id: id,
+                purpose: purpose,
+                noticeVersion: noticeVersion,
+                policyVersion: policyVersion,
+                granted: granted,
+                decidedAt: decidedAt,
+                appVersion: appVersion,
+                platform: platform,
+                synced: synced,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String purpose,
+                required String noticeVersion,
+                required String policyVersion,
+                required bool granted,
+                required String decidedAt,
+                Value<String> appVersion = const Value.absent(),
+                Value<String> platform = const Value.absent(),
+                Value<bool> synced = const Value.absent(),
+              }) => ConsentRecordsCompanion.insert(
+                id: id,
+                purpose: purpose,
+                noticeVersion: noticeVersion,
+                policyVersion: policyVersion,
+                granted: granted,
+                decidedAt: decidedAt,
+                appVersion: appVersion,
+                platform: platform,
+                synced: synced,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ConsentRecordsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ConsentRecordsTable,
+      ConsentRecord,
+      $$ConsentRecordsTableFilterComposer,
+      $$ConsentRecordsTableOrderingComposer,
+      $$ConsentRecordsTableAnnotationComposer,
+      $$ConsentRecordsTableCreateCompanionBuilder,
+      $$ConsentRecordsTableUpdateCompanionBuilder,
+      (
+        ConsentRecord,
+        BaseReferences<_$AppDatabase, $ConsentRecordsTable, ConsentRecord>,
+      ),
+      ConsentRecord,
+      PrefetchHooks Function()
+    >;
 typedef $$LessonProgressTableCreateCompanionBuilder =
     LessonProgressCompanion Function({
       Value<int> lessonId,
@@ -20742,6 +21606,8 @@ class $AppDatabaseManager {
       $$UserProgressTableTableManager(_db, _db.userProgress);
   $$EarnedBadgesTableTableManager get earnedBadges =>
       $$EarnedBadgesTableTableManager(_db, _db.earnedBadges);
+  $$ConsentRecordsTableTableManager get consentRecords =>
+      $$ConsentRecordsTableTableManager(_db, _db.consentRecords);
   $$LessonProgressTableTableManager get lessonProgress =>
       $$LessonProgressTableTableManager(_db, _db.lessonProgress);
   $$SyncQueueTableTableManager get syncQueue =>

@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
+import '../../../core/legal/legal_content.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/tts_providers.dart';
+import '../onboarding/offline_setup_screen.dart';
+import '../../../data/services/audio/offline_audio_prefetch.dart';
+import '../../providers/audio_prefetch_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// Settings screen — theme, daily goal, TTS rate, cache management.
@@ -24,31 +28,68 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
     final result = await showDialog<String>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Your name'),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          textCapitalization: TextCapitalization.words,
-          decoration: const InputDecoration(
-            hintText: 'Your first name',
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Your name'),
+            content: TextField(
+              controller: controller,
+              autofocus: true,
+              textCapitalization: TextCapitalization.words,
+              decoration: const InputDecoration(hintText: 'Your first name'),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(ctx, controller.text),
+                child: const Text('Save'),
+              ),
+            ],
           ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, controller.text),
-            child: const Text('Save'),
-          ),
-        ],
-      ),
     );
     controller.dispose();
     if (result != null && result.trim().isNotEmpty) {
       await ref.read(settingsProvider.notifier).setLearnerName(result);
+    }
+  }
+
+  /// Switch voice, and fetch that voice's audio if it is not on device yet.
+  ///
+  /// Only the voice chosen at onboarding is downloaded, so switching can leave
+  /// a learner with no clips for the new voice. Offline that means silence —
+  /// which reads as a broken app rather than a missing download, so it is
+  /// explained rather than left to be discovered.
+  Future<void> _switchVoice(TtsVoiceGender gender) async {
+    await ref.read(settingsProvider.notifier).setTtsVoiceGender(gender);
+
+    final prefetch = ref.read(offlineAudioPrefetchProvider);
+    final missing = await prefetch.missingFiles(
+      OfflineSetupScreen.unitsToPrefetch,
+      gender.name,
+    );
+    if (missing.isEmpty) {
+      if (mounted) await ref.read(czechTtsProvider).speak(kVoicePreviewPhrase);
+      return;
+    }
+
+    // Try to fetch it now. If the network is there this is a few megabytes and
+    // finishes while the dialog is open; if not, we say so plainly.
+    if (!mounted) return;
+    final downloaded = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (ctx) => _VoiceDownloadDialog(
+            gender: gender,
+            missingCount: missing.length,
+          ),
+    );
+
+    if (!mounted) return;
+    if (downloaded ?? false) {
+      await ref.read(czechTtsProvider).speak(kVoicePreviewPhrase);
     }
   }
 
@@ -84,9 +125,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: 'Your name',
-                  subtitle: settings.learnerName.isEmpty
-                      ? 'Not set'
-                      : settings.learnerName,
+                  subtitle:
+                      settings.learnerName.isEmpty
+                          ? 'Not set'
+                          : settings.learnerName,
                   onTap: () => _editName(context, ref),
                 ),
               ],
@@ -175,6 +217,38 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             .setHeartsEnabled(v),
                   ),
                 ),
+                _Divider(),
+                // Separate from the Czech audio below on purpose: someone who
+                // wants a quiet app still needs to hear the language.
+                _Row(
+                  icon: Icons.music_note_outlined,
+                  tint: t.amberSoft,
+                  fg: t.amber,
+                  title: 'Sound effects',
+                  subtitle: 'Answers and celebrations',
+                  trailing: Switch(
+                    value: settings.soundEffectsEnabled,
+                    onChanged:
+                        (v) => ref
+                            .read(settingsProvider.notifier)
+                            .setSoundEffectsEnabled(v),
+                  ),
+                ),
+                _Divider(),
+                _Row(
+                  icon: Icons.vibration,
+                  tint: t.violetSoft,
+                  fg: t.violet,
+                  title: 'Vibration',
+                  subtitle: 'A tap you can feel',
+                  trailing: Switch(
+                    value: settings.hapticsEnabled,
+                    onChanged:
+                        (v) => ref
+                            .read(settingsProvider.notifier)
+                            .setHapticsEnabled(v),
+                  ),
+                ),
               ],
             ),
 
@@ -184,35 +258,61 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconTile(
-                        icon: Icons.person_outline,
-                        tint: t.priSoft,
-                        fg: t.pri,
-                        size: 36,
-                        radius: 12,
-                        iconSize: 17,
+                      Row(
+                        children: [
+                          IconTile(
+                            icon: Icons.person_outline,
+                            tint: t.priSoft,
+                            fg: t.pri,
+                            size: 36,
+                            radius: 12,
+                            iconSize: 17,
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Teacher\'s voice',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: t.ink,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Speaks every Czech word in the course',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: t.muted,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: SegmentedButton<TtsVoiceGender>(
-                          segments: const [
-                            ButtonSegment(
-                              value: TtsVoiceGender.female,
-                              label: Text('Female'),
-                            ),
-                            ButtonSegment(
-                              value: TtsVoiceGender.male,
-                              label: Text('Male'),
-                            ),
-                          ],
-                          selected: {settings.ttsVoiceGender},
-                          onSelectionChanged:
-                              (selection) => ref
-                                  .read(settingsProvider.notifier)
-                                  .setTtsVoiceGender(selection.single),
-                        ),
+                      const SizedBox(height: 12),
+                      SegmentedButton<TtsVoiceGender>(
+                        segments: const [
+                          ButtonSegment(
+                            value: TtsVoiceGender.female,
+                            label: Text('Female'),
+                          ),
+                          ButtonSegment(
+                            value: TtsVoiceGender.male,
+                            label: Text('Male'),
+                          ),
+                        ],
+                        selected: {settings.ttsVoiceGender},
+                        onSelectionChanged: (selection) async {
+                          await _switchVoice(selection.single);
+                        },
                       ),
                     ],
                   ),
@@ -324,9 +424,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.school_outlined,
                   tint: t.priSoft,
                   fg: t.pri,
-                  title: 'Czechify',
-                  subtitle: 'AI-powered Czech learning · CEFR A1 → A2',
-                  trailing: const SizedBox.shrink(),
+                  title: 'About Czechify',
+                  subtitle: 'What the app does · by $kDeveloperName',
+                  onTap: () => context.push('/about'),
+                  trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
                 _Divider(),
                 _Row(
@@ -343,8 +444,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: 'Privacy Policy',
-                  subtitle: 'How your data is handled',
-                  onTap: () => _showPrivacyPolicy(context),
+                  subtitle: 'Read in full, in the app',
+                  onTap: () => context.push('/privacy'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
               ],
@@ -361,38 +462,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       AppThemeMode.light => 'Light',
       AppThemeMode.dark => 'Dark',
     };
-  }
-
-  void _showPrivacyPolicy(BuildContext context) {
-    showDialog(
-      context: context,
-      builder:
-          (ctx) => AlertDialog(
-            title: const Text('Privacy Policy'),
-            content: const SingleChildScrollView(
-              child: Text(
-                'When the backend is enabled, Czechify creates an anonymous '
-                'Supabase account, downloads curriculum, and synchronizes selected '
-                'lesson, badge, streak, exam, and review-scheduling data.\n\n'
-                'AI tutor and writing requests are sent through a Supabase Edge '
-                'Function to DeepSeek. Chat history remains stored locally. Do '
-                'not include sensitive personal information in AI prompts.\n\n'
-                'Pronunciation uses the operating system speech recognizer, which '
-                'may process speech on-device or through Apple/Google services. '
-                'No analytics, advertising, or crash-reporting SDK is included.\n\n'
-                'Account linking, portable data export, and cloud/local account '
-                'deletion are available under Account & data.\n\n'
-                'Full privacy policy: PRIVACY.md in the app repository.',
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(),
-                child: const Text('Close'),
-              ),
-            ],
-          ),
-    );
   }
 }
 
@@ -554,6 +623,106 @@ class _ThemeToggle extends StatelessWidget {
           seg('Dark', AppThemeMode.dark),
         ],
       ),
+    );
+  }
+}
+
+/// Downloads the newly chosen voice's audio, or explains why it cannot.
+///
+/// The distinction matters: silence from a missing download is not a broken
+/// app, and a learner who is told "connect to Wi-Fi to save this voice" will
+/// wait, whereas one who just hears nothing concludes the app is faulty and
+/// leaves. Pops `true` once the audio is on device.
+class _VoiceDownloadDialog extends ConsumerStatefulWidget {
+  const _VoiceDownloadDialog({
+    required this.gender,
+    required this.missingCount,
+  });
+
+  final TtsVoiceGender gender;
+  final int missingCount;
+
+  @override
+  ConsumerState<_VoiceDownloadDialog> createState() =>
+      _VoiceDownloadDialogState();
+}
+
+class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
+  PrefetchProgress? _progress;
+  bool _offline = false;
+  bool _done = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _run();
+  }
+
+  Future<void> _run() async {
+    setState(() {
+      _offline = false;
+      _done = false;
+      _progress = null;
+    });
+    try {
+      await for (final progress in ref
+          .read(offlineAudioPrefetchProvider)
+          .download(OfflineSetupScreen.unitsToPrefetch, widget.gender.name)) {
+        if (!mounted) return;
+        setState(() => _progress = progress);
+        if (progress.finished) {
+          // Everything failing is a connection problem, not bad luck.
+          _offline = progress.total > 0 && progress.failed == progress.total;
+          _done = true;
+        }
+      }
+    } catch (_) {
+      if (mounted) setState(() => _offline = _done = true);
+    }
+    if (mounted && _done && !_offline) Navigator.of(context).pop(true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final label = widget.gender == TtsVoiceGender.male ? 'male' : 'female';
+    final progress = _progress;
+
+    return AlertDialog(
+      icon: Icon(
+        _offline ? Icons.wifi_off_rounded : Icons.download_rounded,
+        color: _offline ? t.amber : t.pri,
+      ),
+      title: Text(
+        _offline ? 'Connect to save this voice' : 'Saving the $label voice',
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            _offline
+                ? 'The $label voice isn\'t saved on your device yet, and there\'s '
+                    'no connection right now. Connect to Wi-Fi or mobile data '
+                    'and try again — it\'s only a few megabytes.'
+                : 'Downloading ${widget.missingCount} clips so this voice works '
+                    'offline too.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14.5, color: t.muted, height: 1.45),
+          ),
+          if (!_offline) ...[
+            const SizedBox(height: 16),
+            LinearProgressIndicator(value: progress?.fraction ?? 0),
+          ],
+        ],
+      ),
+      actions: [
+        if (_offline)
+          TextButton(onPressed: _run, child: const Text('Try again')),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text(_offline ? 'Not now' : 'Hide'),
+        ),
+      ],
     );
   }
 }

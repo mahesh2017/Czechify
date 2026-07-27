@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
 
@@ -103,9 +104,9 @@ class _TranslationViewState extends State<TranslationView> {
                   direction == 'en_to_cz' ? 'Type in Czech' : 'Type in English',
               suffixIcon:
                   isCorrect == true
-                      ? const Icon(Icons.check_circle, color: Colors.green)
+                      ? Icon(Icons.check_circle, color: context.tokens.green)
                       : isCorrect == false
-                      ? const Icon(Icons.cancel, color: Colors.red)
+                      ? Icon(Icons.cancel, color: context.tokens.red)
                       : null,
             ),
             onSubmitted: answered ? null : (_) => _checkAnswer(),

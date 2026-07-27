@@ -143,24 +143,32 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _currentQuestion = checkpoint.questionIndex;
       _answers
         ..clear()
-        ..addAll(checkpoint.answers.map(
-          (section, questions) => MapEntry(section, {...questions}),
-        ),);
+        ..addAll(
+          checkpoint.answers.map(
+            (section, questions) => MapEntry(section, {...questions}),
+          ),
+        );
       _speakingTranscriptions
         ..clear()
-        ..addAll(checkpoint.speakingTranscriptions.map(
-          (key, value) => MapEntry(decodeKey(key), value),
-        ),);
+        ..addAll(
+          checkpoint.speakingTranscriptions.map(
+            (key, value) => MapEntry(decodeKey(key), value),
+          ),
+        );
       _speakingScores
         ..clear()
-        ..addAll(checkpoint.speakingScores.map(
-          (key, value) => MapEntry(decodeKey(key), value),
-        ),);
+        ..addAll(
+          checkpoint.speakingScores.map(
+            (key, value) => MapEntry(decodeKey(key), value),
+          ),
+        );
       _writingScores
         ..clear()
-        ..addAll(checkpoint.writingScores.map(
-          (key, value) => MapEntry(decodeKey(key), value),
-        ),);
+        ..addAll(
+          checkpoint.writingScores.map(
+            (key, value) => MapEntry(decodeKey(key), value),
+          ),
+        );
       _examComplete = false;
       _result = null;
       _resultFullyScored = false;
@@ -173,25 +181,29 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     if (!_examStarted || _examComplete || _finishing || _exam == null) return;
     String encodeKey(({int section, int question}) key) =>
         '${key.section}:${key.question}';
-    unawaited(_sessionStore.save(ExamCheckpoint(
-      level: widget.level.name,
-      sectionIndex: _currentSection,
-      questionIndex: _currentQuestion,
-      secondsLeft: _secondsLeft,
-      answers: _answers.map(
-        (section, questions) => MapEntry(section, {...questions}),
+    unawaited(
+      _sessionStore.save(
+        ExamCheckpoint(
+          level: widget.level.name,
+          sectionIndex: _currentSection,
+          questionIndex: _currentQuestion,
+          secondsLeft: _secondsLeft,
+          answers: _answers.map(
+            (section, questions) => MapEntry(section, {...questions}),
+          ),
+          speakingTranscriptions: _speakingTranscriptions.map(
+            (key, value) => MapEntry(encodeKey(key), value),
+          ),
+          speakingScores: _speakingScores.map(
+            (key, value) => MapEntry(encodeKey(key), value),
+          ),
+          writingScores: _writingScores.map(
+            (key, value) => MapEntry(encodeKey(key), value),
+          ),
+          savedAt: DateTime.now(),
+        ),
       ),
-      speakingTranscriptions: _speakingTranscriptions.map(
-        (key, value) => MapEntry(encodeKey(key), value),
-      ),
-      speakingScores: _speakingScores.map(
-        (key, value) => MapEntry(encodeKey(key), value),
-      ),
-      writingScores: _writingScores.map(
-        (key, value) => MapEntry(encodeKey(key), value),
-      ),
-      savedAt: DateTime.now(),
-    ),),);
+    );
   }
 
   void _startSectionTimer({int? resumeSeconds}) {
@@ -316,8 +328,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     });
   }
 
-  ({int section, int question}) get _currentResponseKey =>
-      (section: _currentSection, question: _currentQuestion);
+  ({int section, int question}) get _currentResponseKey => (
+    section: _currentSection,
+    question: _currentQuestion,
+  );
 
   String _describeCheckpointAge(DateTime savedAt) {
     final elapsed = DateTime.now().difference(savedAt);
@@ -437,7 +451,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.assignment, size: 64, color: Colors.blue),
+              Icon(Icons.assignment, size: 64, color: context.tokens.pri),
               const SizedBox(height: 24),
               Text(
                 '${(_exam?.product ?? ExamProduct.permanentResidence).displayName} '
@@ -563,9 +577,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 child: LinearProgressIndicator(
                   value: _secondsLeft / (section.timeLimitMinutes * 60),
                   minHeight: 4,
-                  backgroundColor: Colors.red.withValues(alpha: 0.15),
+                  backgroundColor: context.tokens.redSoft,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    _secondsLeft < 60 ? Colors.red : Colors.blue,
+                    _secondsLeft < 60 ? context.tokens.red : context.tokens.pri,
                   ),
                 ),
               ),
@@ -608,22 +622,23 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   Future<bool> _confirmExit() async {
     final result = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Leave exam?'),
-        content: const Text(
-          'Your exam is in progress and will not be scored if you leave now.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Stay'),
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Leave exam?'),
+            content: const Text(
+              'Your exam is in progress and will not be scored if you leave now.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: const Text('Stay'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, true),
+                child: const Text('Leave'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Leave'),
-          ),
-        ],
-      ),
     );
     return result ?? false;
   }
@@ -671,9 +686,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Card(
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primaryContainer
-                    : null,
+                color:
+                    isSelected
+                        ? Theme.of(context).colorScheme.primaryContainer
+                        : null,
                 child: ListTile(
                   leading: Text(
                     String.fromCharCode(65 + idx),
@@ -681,12 +697,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                   ),
                   title: Text(option),
                   onTap: () => _answer(idx),
-                  trailing: isSelected
-                      ? Icon(
-                          Icons.check_circle,
-                          color: Theme.of(context).colorScheme.primary,
-                        )
-                      : null,
+                  trailing:
+                      isSelected
+                          ? Icon(
+                            Icons.check_circle,
+                            color: Theme.of(context).colorScheme.primary,
+                          )
+                          : null,
                 ),
               ),
             );
@@ -741,9 +758,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           return Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: Card(
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : null,
+              color:
+                  isSelected
+                      ? Theme.of(context).colorScheme.primaryContainer
+                      : null,
               child: ListTile(
                 leading: Text(
                   String.fromCharCode(65 + idx),
@@ -751,12 +769,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 ),
                 title: Text(option),
                 onTap: () => _answer(idx),
-                trailing: isSelected
-                    ? Icon(
-                        Icons.check_circle,
-                        color: Theme.of(context).colorScheme.primary,
-                      )
-                    : null,
+                trailing:
+                    isSelected
+                        ? Icon(
+                          Icons.check_circle,
+                          color: Theme.of(context).colorScheme.primary,
+                        )
+                        : null,
               ),
             ),
           );
@@ -938,12 +957,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           Text(
             task is ExamReadAloudTask
                 ? 'Read the text aloud. This practice score compares the '
-                      'device transcript with the displayed text.'
+                    'device transcript with the displayed text.'
                 : task is ExamPromptedResponseTask
                 ? 'Respond freely in Czech. This practice score reports '
-                      'coverage of the suggested phrases in the device transcript.'
+                    'coverage of the suggested phrases in the device transcript.'
                 : 'Respond freely in Czech. The transcript is saved for '
-                      'review, but this task is not automatically scored.',
+                    'review, but this task is not automatically scored.',
             style: TextStyle(color: context.tokens.muted, fontSize: 15),
             textAlign: TextAlign.center,
           ),
@@ -956,13 +975,14 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 height: 72,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _isRecordingSpeaking
-                      ? Colors.red.shade400
-                      : Theme.of(context).colorScheme.primary,
+                  color:
+                      _isRecordingSpeaking
+                          ? context.tokens.red
+                          : Theme.of(context).colorScheme.primary,
                 ),
                 child: Icon(
                   _isRecordingSpeaking ? Icons.hearing : Icons.mic,
-                  color: Colors.white,
+                  color: context.tokens.onFill,
                   size: 30,
                 ),
               ),
@@ -986,7 +1006,8 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: score >= 60 ? Colors.green : Colors.orange,
+                color:
+                    score >= 60 ? context.tokens.green : context.tokens.amber,
               ),
             ),
             if (transcription != null && transcription.isNotEmpty)
@@ -1000,12 +1021,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               ),
           ] else if (transcription != null && transcription.isNotEmpty) ...[
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Recorded — unscored practice',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.orange,
+                color: context.tokens.amber,
               ),
             ),
             Padding(
@@ -1076,11 +1097,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
   Widget _buildResultScreen() {
     final passed = _result!.passed;
-    final color = !_resultFullyScored
-        ? Colors.orange
-        : passed
-        ? Colors.green
-        : Colors.red;
+    final t = context.tokens;
+    final color =
+        !_resultFullyScored
+            ? t.amber
+            : passed
+            ? t.green
+            : t.red;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Exam Results')),
@@ -1204,7 +1227,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     children: [
                       Icon(
                         isCorrect ? Icons.check_circle : Icons.cancel,
-                        color: isCorrect ? Colors.green : Colors.red,
+                        color:
+                            isCorrect
+                                ? context.tokens.green
+                                : context.tokens.red,
                         size: 20,
                       ),
                       const SizedBox(width: 8),
@@ -1232,11 +1258,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                       userIdx is int && userIdx < options.length
                           ? 'Your answer: ${options[userIdx]}'
                           : 'Not answered',
-                      style: const TextStyle(color: Colors.red, fontSize: 15),
+                      style: TextStyle(color: context.tokens.red, fontSize: 15),
                     ),
                   Text(
                     'Correct: ${options[correctIdx]}',
-                    style: const TextStyle(color: Colors.green, fontSize: 15),
+                    style: TextStyle(color: context.tokens.green, fontSize: 15),
                   ),
                 ],
               ),
@@ -1277,11 +1303,13 @@ class _ScoreRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = score >= 80
-        ? Colors.green
-        : score >= 60
-        ? Colors.orange
-        : Colors.red;
+    final t = context.tokens;
+    final color =
+        score >= 80
+            ? t.green
+            : score >= 60
+            ? t.amber
+            : t.red;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -1316,6 +1344,13 @@ class _MiniScoreRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
+    final color =
+        score >= 80
+            ? t.green
+            : score >= 60
+            ? t.amber
+            : t.red;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
@@ -1330,16 +1365,9 @@ class _MiniScoreRow extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: score / 100,
                 minHeight: 6,
-                backgroundColor: Theme.of(
-                  context,
-                ).colorScheme.surfaceContainerHighest,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  score >= 80
-                      ? Colors.green
-                      : score >= 60
-                      ? Colors.orange
-                      : Colors.red,
-                ),
+                backgroundColor:
+                    Theme.of(context).colorScheme.surfaceContainerHighest,
+                valueColor: AlwaysStoppedAnimation<Color>(color),
               ),
             ),
           ),

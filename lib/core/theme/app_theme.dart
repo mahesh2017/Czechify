@@ -50,20 +50,18 @@ ThemeData _build(Brightness brightness, AppTokens t) {
   );
 
   return base.copyWith(
-    textTheme: base.textTheme.apply(
-      bodyColor: t.ink,
-      displayColor: t.ink,
-      fontFamily: AppFonts.body,
-    ).copyWith(
-      // Headline/display styles use the display face.
-      displayLarge: _display(base, t),
-      displayMedium: _display(base, t),
-      displaySmall: _display(base, t),
-      headlineLarge: _display(base, t),
-      headlineMedium: _display(base, t),
-      headlineSmall: _display(base, t),
-      titleLarge: _display(base, t),
-    ),
+    textTheme: base.textTheme
+        .apply(bodyColor: t.ink, displayColor: t.ink, fontFamily: AppFonts.body)
+        .copyWith(
+          // Headline/display styles use the display face.
+          displayLarge: _display(base, t),
+          displayMedium: _display(base, t),
+          displaySmall: _display(base, t),
+          headlineLarge: _display(base, t),
+          headlineMedium: _display(base, t),
+          headlineSmall: _display(base, t),
+          titleLarge: _display(base, t),
+        ),
     appBarTheme: AppBarTheme(
       centerTitle: false,
       elevation: 0,
@@ -144,9 +142,10 @@ ThemeData _build(Brightness brightness, AppTokens t) {
         (states) => TextStyle(
           fontFamily: AppFonts.body,
           fontSize: 12.5,
-          fontWeight: states.contains(WidgetState.selected)
-              ? FontWeight.w700
-              : FontWeight.w600,
+          fontWeight:
+              states.contains(WidgetState.selected)
+                  ? FontWeight.w700
+                  : FontWeight.w600,
           color: states.contains(WidgetState.selected) ? t.pri : t.faint,
         ),
       ),
@@ -156,7 +155,10 @@ ThemeData _build(Brightness brightness, AppTokens t) {
       indicatorColor: t.priSoft,
       selectedIconTheme: IconThemeData(color: t.pri),
       unselectedIconTheme: IconThemeData(color: t.faint),
-      selectedLabelTextStyle: TextStyle(color: t.pri, fontWeight: FontWeight.w700),
+      selectedLabelTextStyle: TextStyle(
+        color: t.pri,
+        fontWeight: FontWeight.w700,
+      ),
       unselectedLabelTextStyle: TextStyle(color: t.faint),
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
@@ -193,7 +195,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
 }
 
 TextStyle _display(ThemeData base, AppTokens t) => TextStyle(
-      fontFamily: AppFonts.display,
-      fontWeight: FontWeight.w700,
-      color: t.ink,
-    );
+  fontFamily: AppFonts.display,
+  fontWeight: FontWeight.w700,
+  color: t.ink,
+);
