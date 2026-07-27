@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 import 'exercise_shared.dart';
@@ -34,6 +35,7 @@ class _ListeningComprehensionViewState
     final transcriptCz = data['transcript_cz'] as String? ?? '';
     final promptEn = data['prompt_en'] as String? ?? widget.exercise.prompt;
     final theme = Theme.of(context);
+    final t = context.tokens;
 
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -53,15 +55,15 @@ class _ListeningComprehensionViewState
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.amber.shade50,
+              color: t.amberSoft,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.amber.shade200),
+              border: Border.all(color: t.amber.withValues(alpha: 0.4)),
             ),
             child: Row(
               children: [
                 Icon(
                   Icons.info_outline,
-                  color: Colors.amber.shade700,
+                  color: t.amber,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
@@ -70,7 +72,7 @@ class _ListeningComprehensionViewState
                     'Listen for the gist first. Replay or reveal the transcript '
                     'only when you need support.',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.amber.shade900,
+                      color: t.amber,
                     ),
                   ),
                 ),
@@ -107,7 +109,7 @@ class _ListeningComprehensionViewState
                       decoration: BoxDecoration(
                         color: theme.colorScheme.surfaceContainerLow,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey.shade200),
+                        border: Border.all(color: t.line),
                       ),
                       child: Text(
                         transcriptCz,
@@ -233,6 +235,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final t = context.tokens;
 
     // Empty-questions error state
     if (_questions.isEmpty) {
@@ -242,19 +245,19 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.red.shade50,
+              color: t.redSoft,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.red.shade200),
+              border: Border.all(color: t.red.withValues(alpha: 0.4)),
             ),
             child: Row(
               children: [
-                Icon(Icons.error_outline, color: Colors.red.shade700, size: 24),
+                Icon(Icons.error_outline, color: t.red, size: 24),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     'This exercise has no questions configured.',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: Colors.red.shade900,
+                      color: t.red,
                     ),
                   ),
                 ),
@@ -278,7 +281,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (int qIdx = 0; qIdx < _questions.length; qIdx++) ...[
-          _buildQuestion(qIdx, theme),
+          _buildQuestion(context, qIdx, theme),
           const SizedBox(height: 12),
         ],
         if (_allAnswered && !submitted)
@@ -297,7 +300,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                 Icon(
                   _allCorrect ? Icons.check_circle : Icons.error_outline,
                   color:
-                      _allCorrect ? Colors.green.shade600 : Colors.red.shade600,
+                      _allCorrect ? t.green : t.red,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
@@ -309,9 +312,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color:
-                          _allCorrect
-                              ? Colors.green.shade700
-                              : Colors.red.shade700,
+                          _allCorrect ? t.green : t.red,
                     ),
                   ),
                 ),
@@ -329,7 +330,8 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
     );
   }
 
-  Widget _buildQuestion(int qIdx, ThemeData theme) {
+  Widget _buildQuestion(BuildContext context, int qIdx, ThemeData theme) {
+    final t = context.tokens;
     final q = _questions[qIdx];
     final questionEn = q['question_en'] as String? ?? '';
     final options = (q['options'] as List<dynamic>).cast<String>();
@@ -341,7 +343,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: t.line),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,25 +381,25 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                     color:
                         submitted
                             ? (i == correctIdx
-                                ? Colors.green.shade50
+                                ? t.greenSoft
                                 : selected == i
-                                ? Colors.red.shade50
-                                : Colors.grey.shade50)
+                                ? t.redSoft
+                                : t.elev)
                             : (selected == i
                                 ? theme.colorScheme.primaryContainer
-                                : Colors.grey.shade50),
+                                : t.elev),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       color:
                           submitted
                               ? (i == correctIdx
-                                  ? Colors.green.shade500
+                                  ? t.green
                                   : selected == i
-                                  ? Colors.red.shade500
-                                  : Colors.grey.shade300)
+                                  ? t.red
+                                  : t.line)
                               : (selected == i
                                   ? theme.colorScheme.primary
-                                  : Colors.grey.shade300),
+                                  : t.line),
                       width: (selected == i || submitted) ? 2 : 1,
                     ),
                   ),
@@ -412,13 +414,13 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                       if (submitted && i == correctIdx)
                         Icon(
                           Icons.check_circle,
-                          color: Colors.green.shade600,
+                          color: t.green,
                           size: 18,
                         ),
                       if (submitted && selected == i && i != correctIdx)
                         Icon(
                           Icons.cancel,
-                          color: Colors.red.shade600,
+                          color: t.red,
                           size: 18,
                         ),
                     ],

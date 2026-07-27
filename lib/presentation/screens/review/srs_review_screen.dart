@@ -7,6 +7,7 @@ import '../../../domain/entities/flashcard.dart';
 import '../../../domain/entities/srs_card.dart';
 import '../../../domain/engines/srs_scheduler.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../widgets/common/gender_pill.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// SRS review screen — flashcard interface with simplified SM-2 ratings.
@@ -108,7 +109,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                 'Card ${session.currentIndex + 1} of ${session.totalCards}',
                 style: Theme.of(
                   context,
-                ).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                ).textTheme.bodySmall?.copyWith(color: context.tokens.muted),
               ),
             ),
             const SizedBox(height: 16),
@@ -303,23 +304,39 @@ class _FlashcardView extends ConsumerWidget {
     );
   }
 
+  /// Small pill naming the recall direction of the current card.
+  Widget _directionBadge(String label, {required Color fg, required Color bg}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(label, style: TextStyle(color: fg, fontSize: 14)),
+    );
+  }
+
+  /// Shared "tap the card to see the answer" affordance, identical on all
+  /// three card fronts.
+  Widget _tapToReveal(BuildContext context) {
+    final t = context.tokens;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.touch_app, color: t.faint, size: 20),
+        const SizedBox(width: 8),
+        Text('Tap to reveal', style: TextStyle(color: t.faint, fontSize: 15)),
+      ],
+    );
+  }
+
   Widget _buildFront(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Gender badge
         if (card.gender != null)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            decoration: BoxDecoration(
-              color: _genderColor(card.gender!),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              card.gender!,
-              style: const TextStyle(color: Colors.white, fontSize: 14),
-            ),
-          ),
+          GenderPill(gender: card.gender!, abbreviated: false),
         const SizedBox(height: 24),
 
         // Czech word
@@ -337,7 +354,7 @@ class _FlashcardView extends ConsumerWidget {
           Text(
             '/${card.ipa}/',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.grey,
+              color: context.tokens.muted,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -346,17 +363,7 @@ class _FlashcardView extends ConsumerWidget {
         const SizedBox(height: 40),
 
         // Hint to flip
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.touch_app, color: Colors.grey.shade400, size: 20),
-            const SizedBox(width: 8),
-            Text(
-              'Tap to reveal',
-              style: TextStyle(color: Colors.grey.shade400, fontSize: 15),
-            ),
-          ],
-        ),
+        _tapToReveal(context),
 
         // Audio button — speaks the Czech word via TTS
         const SizedBox(height: 16),
@@ -377,16 +384,10 @@ class _FlashcardView extends ConsumerWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          decoration: BoxDecoration(
-            color: Colors.deepPurple.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Text(
-            'EN → CZ',
-            style: TextStyle(color: Colors.deepPurple, fontSize: 14),
-          ),
+        _directionBadge(
+          'EN → CZ',
+          fg: context.tokens.violet,
+          bg: context.tokens.violetSoft,
         ),
         const SizedBox(height: 24),
         Text(
@@ -401,20 +402,10 @@ class _FlashcardView extends ConsumerWidget {
           contextualPrompt == null
               ? 'How do you say it in Czech?'
               : card.exampleEn ?? 'Complete the Czech sentence.',
-          style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+          style: TextStyle(color: context.tokens.muted, fontSize: 14),
         ),
         const SizedBox(height: 40),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.touch_app, color: Colors.grey.shade400, size: 20),
-            const SizedBox(width: 8),
-            Text(
-              'Tap to reveal',
-              style: TextStyle(color: Colors.grey.shade400, fontSize: 15),
-            ),
-          ],
-        ),
+        _tapToReveal(context),
       ],
     );
   }
@@ -424,16 +415,10 @@ class _FlashcardView extends ConsumerWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          decoration: BoxDecoration(
-            color: Colors.teal.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Text(
-            'LISTENING',
-            style: TextStyle(color: Colors.teal, fontSize: 14),
-          ),
+        _directionBadge(
+          'LISTENING',
+          fg: context.tokens.priInk,
+          bg: context.tokens.priSoft,
         ),
         const SizedBox(height: 32),
         IconButton.filled(
@@ -454,20 +439,10 @@ class _FlashcardView extends ConsumerWidget {
         const SizedBox(height: 16),
         Text(
           'Listen — what does it mean?',
-          style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+          style: TextStyle(color: context.tokens.muted, fontSize: 14),
         ),
         const SizedBox(height: 32),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.touch_app, color: Colors.grey.shade400, size: 20),
-            const SizedBox(width: 8),
-            Text(
-              'Tap to reveal',
-              style: TextStyle(color: Colors.grey.shade400, fontSize: 15),
-            ),
-          ],
-        ),
+        _tapToReveal(context),
       ],
     );
   }
@@ -482,14 +457,14 @@ class _FlashcardView extends ConsumerWidget {
           card.wordCz,
           style: Theme.of(
             context,
-          ).textTheme.titleLarge?.copyWith(color: Colors.grey),
+          ).textTheme.titleLarge?.copyWith(color: context.tokens.muted),
         ),
         const SizedBox(height: 8),
         if (card.ipa != null)
           Text(
             '/${card.ipa}/',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.grey,
+              color: context.tokens.muted,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -527,7 +502,7 @@ class _FlashcardView extends ConsumerWidget {
                   Text(
                     card.exampleEn!,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey,
+                      color: context.tokens.muted,
                       fontStyle: FontStyle.italic,
                     ),
                     textAlign: TextAlign.center,
@@ -552,15 +527,6 @@ class _FlashcardView extends ConsumerWidget {
     );
   }
 
-  Color _genderColor(String gender) {
-    return switch (gender) {
-      'masculine animate' => Colors.blue.shade700,
-      'masculine inanimate' => Colors.blue.shade400,
-      'feminine' => Colors.pink.shade600,
-      'neuter' => Colors.teal.shade600,
-      _ => Colors.grey,
-    };
-  }
 }
 
 String? _contextualCloze(Flashcard card) {
@@ -585,6 +551,7 @@ class _RatingButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -593,7 +560,7 @@ class _RatingButtons extends StatelessWidget {
             child: _RatingButton(
               label: 'Again',
               subtitle: intervals[Rating.again] ?? '',
-              color: Colors.red,
+              color: t.red,
               icon: Icons.refresh,
               onTap: enabled ? () => onRate(Rating.again) : null,
             ),
@@ -603,7 +570,7 @@ class _RatingButtons extends StatelessWidget {
             child: _RatingButton(
               label: 'Hard',
               subtitle: intervals[Rating.hard] ?? '',
-              color: Colors.orange,
+              color: t.amber,
               icon: Icons.flag,
               onTap: enabled ? () => onRate(Rating.hard) : null,
             ),
@@ -613,7 +580,7 @@ class _RatingButtons extends StatelessWidget {
             child: _RatingButton(
               label: 'Good',
               subtitle: intervals[Rating.good] ?? '',
-              color: Colors.green,
+              color: t.green,
               icon: Icons.check,
               onTap: enabled ? () => onRate(Rating.good) : null,
             ),
@@ -623,7 +590,7 @@ class _RatingButtons extends StatelessWidget {
             child: _RatingButton(
               label: 'Easy',
               subtitle: intervals[Rating.easy] ?? '',
-              color: Colors.blue,
+              color: t.pri,
               icon: Icons.star,
               onTap: enabled ? () => onRate(Rating.easy) : null,
             ),
@@ -691,17 +658,17 @@ class _NoDueCardsScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.check_circle, size: 80, color: Colors.green.shade300),
+              Icon(Icons.check_circle, size: 80, color: context.tokens.green),
               const SizedBox(height: 24),
               Text(
                 'All caught up!',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 8),
-              const Text(
+              Text(
                 'No cards due for review right now.\nCome back later for more practice.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: context.tokens.muted),
               ),
               const SizedBox(height: 32),
               FilledButton.icon(
