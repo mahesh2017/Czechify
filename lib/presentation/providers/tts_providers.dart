@@ -1,3 +1,4 @@
+import 'package:logging/logging.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -214,6 +215,8 @@ class EnglishTts {
   }
 
   Future<void> stop() async {
+    // Stopping something already stopped is not an error worth surfacing,
+    // and stop() must never throw into a widget disposing.
     try {
       await _tts.stop();
     } catch (_) {}
@@ -266,6 +269,8 @@ final audioPlayerProvider = Provider<AudioPlayer>((ref) {
 /// 3. If not cached → synthesize to file via flutter_tts, cache, play
 /// 4. Fallback: direct speak() if file synthesis unavailable
 class CzechTts {
+  static final Logger _log = Logger('CzechTts');
+
   final FlutterTts _tts;
   final AudioPlayer _player;
   final Dio _http;
@@ -447,7 +452,12 @@ class CzechTts {
     // the same native engine on some platforms and leave it set to en-US.
     try {
       await _tts.setLanguage('cs-CZ');
-    } catch (_) {}
+    } catch (error) {
+      // Not fatal: the engine keeps its previous locale, so speech may come
+      // out anglicised rather than silent. Logged because that is confusing
+      // to diagnose from a bug report alone.
+      _log.warning('Could not re-assert cs-CZ on the TTS engine: $error');
+    }
 
     final effectiveRate = rate ?? _speechRate();
 

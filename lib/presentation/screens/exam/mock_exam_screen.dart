@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../core/diagnostics/safe_diagnostics.dart';
 import '../../../core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/engines/exam_grader.dart';
@@ -318,7 +319,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         await ref
             .read(progressRepositoryProvider)
             .recordExamPassed(widget.level.name);
-      } catch (_) {}
+      } catch (error, stack) {
+        // The learner passed but the pass was not recorded, which silently
+        // holds back level estimation. The result snackbar above already
+        // covers history failures, so this only needs to reach diagnostics.
+        SafeDiagnostics.error('exam_pass_not_recorded', error, stack);
+      }
     }
     if (!mounted) return;
     setState(() {

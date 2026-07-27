@@ -115,7 +115,11 @@ class AudioRecorderService implements AudioRecorderPort {
       try {
         final file = File(_currentPath!);
         if (await file.exists()) await file.delete();
-      } catch (_) {}
+      } catch (error) {
+        // Best effort. The platform audio layer can still hold the file open
+        // briefly after cancel(); it lands in the OS temp dir either way.
+        _log.fine('Could not delete cancelled recording: $error');
+      }
       _currentPath = null;
     }
   }
@@ -127,7 +131,10 @@ class AudioRecorderService implements AudioRecorderPort {
       try {
         final file = File(_currentPath!);
         if (await file.exists()) await file.delete();
-      } catch (_) {}
+      } catch (error) {
+        // Same best-effort cleanup as cancel().
+        _log.fine('Could not delete finished recording: $error');
+      }
       _currentPath = null;
     }
   }

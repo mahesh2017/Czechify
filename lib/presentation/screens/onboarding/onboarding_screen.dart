@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/diagnostics/safe_diagnostics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
@@ -55,11 +56,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       await settings.setTtsVoiceGender(_selectedVoice);
       await ref.read(gamificationProvider.notifier).setDailyGoal(_selectedGoal);
       await settings.completeOnboarding();
-    } catch (_) {
-      // Best-effort: still try to flip the onboarding flag.
+    } catch (error, stack) {
+      SafeDiagnostics.error('onboarding_settings_not_saved', error, stack);
+      // Best-effort: still try to flip the onboarding flag. If this fails too
+      // the learner is stuck being asked to onboard on every launch, so it is
+      // worth its own diagnostic rather than silence.
       try {
         await ref.read(settingsProvider.notifier).completeOnboarding();
-      } catch (_) {}
+      } catch (error, stack) {
+        SafeDiagnostics.error('onboarding_flag_not_set', error, stack);
+      }
     }
 
     // Straight into the offline download rather than home: this is the first
