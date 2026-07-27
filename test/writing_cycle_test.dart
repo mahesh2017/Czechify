@@ -6,6 +6,8 @@ import 'package:ceskina_pro/presentation/widgets/lesson/exercises/writing_task_v
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 void main() {
   testWidgets('open writing requires draft and revision and stays unscored', (
     tester,
@@ -13,6 +15,8 @@ void main() {
     ExerciseResult? result;
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: testLocalizationsDelegates,
+        supportedLocales: testSupportedLocales,
         home: Scaffold(
           body: WritingTaskView(
             exercise: const Exercise(

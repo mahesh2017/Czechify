@@ -661,7 +661,7 @@ class _GameOverScreen extends StatelessWidget {
               OutlinedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: const Text('Try Again'),
+                label: Text(AppLocalizations.of(context).tryAgain),
               ),
               const SizedBox(height: 12),
               TextButton(

@@ -19,15 +19,14 @@ List<Map<String, dynamic>> visibleSheets({
       if (unlockedUnitIds == null ||
           unlockedUnitIds.contains((sheet as Map<String, dynamic>)['unit_id']))
         sheet as Map<String, dynamic>,
-  ]..sort(
-    (a, b) => (b['unit_id'] as int).compareTo(a['unit_id'] as int),
-  );
+  ]..sort((a, b) => (b['unit_id'] as int).compareTo(a['unit_id'] as int));
 }
 
 void main() {
   final raw = File('assets/curriculum/cheat_sheets.json').readAsStringSync();
-  final all = (jsonDecode(raw) as Map<String, dynamic>)['cheat_sheets']
-      as List<dynamic>;
+  final all =
+      (jsonDecode(raw) as Map<String, dynamic>)['cheat_sheets']
+          as List<dynamic>;
 
   test('the asset still has a sheet per unit', () {
     expect(all.length, 31);

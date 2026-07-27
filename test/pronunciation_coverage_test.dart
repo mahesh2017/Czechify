@@ -33,8 +33,11 @@ void main() {
   test('single letters are rejected even if listed', () {
     final withLetters = PronunciationCoverage.forTest(['a', 'č', 'ř', 'z']);
     for (final letter in ['a', 'č', 'ř', 'z']) {
-      expect(withLetters.supports(letter), isFalse,
-          reason: '"$letter" must never be phoneme-scored');
+      expect(
+        withLetters.supports(letter),
+        isFalse,
+        reason: '"$letter" must never be phoneme-scored',
+      );
     }
   });
 

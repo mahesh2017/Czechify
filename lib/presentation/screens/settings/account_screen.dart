@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -237,12 +238,12 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(dialogContext),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(context).cancel),
               ),
               FilledButton(
                 onPressed:
                     () => Navigator.pop(dialogContext, controller.text.trim()),
-                child: const Text('Continue'),
+                child: Text(AppLocalizations.of(context).continueLabel),
               ),
             ],
           ),
@@ -277,7 +278,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(dialogContext),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(context).cancel),
               ),
               FilledButton(
                 onPressed:
@@ -309,7 +310,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(dialogContext, false),
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context).cancel),
                 ),
                 FilledButton(
                   onPressed: () => Navigator.pop(dialogContext, true),

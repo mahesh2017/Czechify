@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -51,7 +52,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 const SizedBox(height: 16),
                 FilledButton(
                   onPressed: () => context.go('/'),
-                  child: const Text('Go Home'),
+                  child: Text(AppLocalizations.of(context).goHome),
                 ),
               ],
             ),

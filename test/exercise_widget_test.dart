@@ -20,6 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 void main() {
   final cases = <ExerciseType, Type>{
     ExerciseType.multipleChoice: MultipleChoiceView,
@@ -54,6 +56,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           child: MaterialApp(
+            localizationsDelegates: testLocalizationsDelegates,
+            supportedLocales: testSupportedLocales,
             home: Scaffold(
               body: ExerciseWidget(
                 exercise: Exercise(
@@ -122,8 +126,7 @@ Map<String, dynamic> _dataFor(ExerciseType type) => switch (type) {
     'sentence_cz': 'Ty musí jít domů.',
     'correct_sentence_cz': 'Ty musíš jít domů.',
   },
-  ExerciseType.readingComprehension ||
-  ExerciseType.listeningComprehension => {
+  ExerciseType.readingComprehension || ExerciseType.listeningComprehension => {
     'text_cz': 'Dnes je hezky.',
     'questions': [
       {

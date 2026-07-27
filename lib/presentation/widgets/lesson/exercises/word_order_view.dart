@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
 
@@ -165,7 +166,10 @@ class _WordOrderViewState extends State<WordOrderView> {
           // flex children have unbounded height and would throw.
           const SizedBox(height: 24),
           if (!answered && selected.isNotEmpty)
-            FilledButton(onPressed: _checkAnswer, child: const Text('Check')),
+            FilledButton(
+              onPressed: _checkAnswer,
+              child: Text(AppLocalizations.of(context).check),
+            ),
         ],
       ),
     );

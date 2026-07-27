@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -263,7 +264,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
               child: OutlinedButton.icon(
                 onPressed: _retry,
                 icon: const Icon(Icons.refresh, size: 18),
-                label: const Text('Retry'),
+                label: Text(AppLocalizations.of(context).retry),
               ),
             ),
         ],
@@ -314,7 +315,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                     ),
                     onPressed: _retry,
                     icon: const Icon(Icons.refresh, size: 18),
-                    label: const Text('Retry'),
+                    label: Text(AppLocalizations.of(context).retry),
                   ),
               ],
             ),

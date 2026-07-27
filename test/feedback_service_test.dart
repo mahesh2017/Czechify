@@ -63,8 +63,12 @@ void main() {
 
     test('a toggle takes effect immediately, not at next launch', () {
       var enabled = true;
-      final service = FeedbackService(player, () => enabled, () => true,
-          haptics);
+      final service = FeedbackService(
+        player,
+        () => enabled,
+        () => true,
+        haptics,
+      );
       service.play(Sfx.correct1);
       enabled = false;
       service.play(Sfx.correct2);

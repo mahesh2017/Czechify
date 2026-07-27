@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -125,7 +126,10 @@ class _DictationViewState extends ConsumerState<DictationView> {
           const SizedBox(height: 16),
 
           if (!answered)
-            FilledButton(onPressed: _checkAnswer, child: const Text('Check')),
+            FilledButton(
+              onPressed: _checkAnswer,
+              child: Text(AppLocalizations.of(context).check),
+            ),
         ],
       ),
     );

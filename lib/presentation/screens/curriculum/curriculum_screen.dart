@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -51,7 +52,7 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                       const SizedBox(height: 16),
                       FilledButton(
                         onPressed: () => ref.invalidate(allUnitsProvider),
-                        child: const Text('Retry'),
+                        child: Text(AppLocalizations.of(context).retry),
                       ),
                     ],
                   ),

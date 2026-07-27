@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/grammar_tip_card.dart';
@@ -240,7 +241,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                       if (_selectedOptionIdx != null)
                         FilledButton(
                           onPressed: _submitWithOption,
-                          child: const Text('Check'),
+                          child: Text(AppLocalizations.of(context).check),
                         ),
                     ] else if (useTextInput) ...[
                       _TextInputCorrection(
@@ -250,7 +251,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                     ] else ...[
                       FilledButton(
                         onPressed: _submitWithOption,
-                        child: const Text('Check'),
+                        child: Text(AppLocalizations.of(context).check),
                       ),
                     ],
                   ],
@@ -289,7 +290,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                     ),
                   );
                 },
-                child: const Text('Show Answer'),
+                child: Text(AppLocalizations.of(context).reviewShowAnswer),
               ),
             ),
         ],
@@ -404,7 +405,7 @@ class _TextInputCorrectionState extends State<_TextInputCorrection> {
         FilledButton(
           onPressed:
               widget.enabled ? () => widget.onSubmit(_controller.text) : null,
-          child: const Text('Check'),
+          child: Text(AppLocalizations.of(context).check),
         ),
       ],
     );

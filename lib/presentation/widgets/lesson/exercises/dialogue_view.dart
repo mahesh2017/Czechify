@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
 
@@ -183,7 +184,7 @@ class _DialogueViewState extends State<DialogueView> {
           if (!answered)
             FilledButton(
               onPressed: _allFilled ? _checkAnswer : null,
-              child: const Text('Check'),
+              child: Text(AppLocalizations.of(context).check),
             ),
         ],
       ),

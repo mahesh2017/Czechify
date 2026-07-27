@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
@@ -121,7 +122,10 @@ class _TranslationViewState extends State<TranslationView> {
 
           // Submit button
           if (!answered)
-            FilledButton(onPressed: _checkAnswer, child: const Text('Check')),
+            FilledButton(
+              onPressed: _checkAnswer,
+              child: Text(AppLocalizations.of(context).check),
+            ),
 
           // The lesson player's feedback banner shows the correct answer.
         ],

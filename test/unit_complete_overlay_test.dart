@@ -4,6 +4,8 @@ import 'package:ceskina_pro/presentation/widgets/celebration/unit_complete_overl
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 void main() {
   Future<int> show(
     WidgetTester tester,
@@ -13,6 +15,8 @@ void main() {
     var dismissed = 0;
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: testLocalizationsDelegates,
+        supportedLocales: testSupportedLocales,
         theme: lightTheme(),
         home: MediaQuery(
           data: MediaQueryData(disableAnimations: reduceMotion),
@@ -75,6 +79,8 @@ void main() {
     var dismissed = 0;
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: testLocalizationsDelegates,
+        supportedLocales: testSupportedLocales,
         theme: lightTheme(),
         home: UnitCompleteOverlay(
           celebration: unit,

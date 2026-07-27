@@ -7,11 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('all shipped lessons satisfy normalized executable contracts', () {
     final packs = <String, Object?>{
-      for (final file
-          in Directory('assets/curriculum/lessons')
-              .listSync()
-              .whereType<File>()
-              .where((file) => file.path.endsWith('.json')))
+      for (final file in Directory('assets/curriculum/lessons')
+          .listSync()
+          .whereType<File>()
+          .where((file) => file.path.endsWith('.json')))
         file.path: jsonDecode(file.readAsStringSync()),
     };
 

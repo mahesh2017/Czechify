@@ -68,7 +68,10 @@ void main() {
     final scorer = PhonemeScorer();
 
     test('a perfect repetition scores full marks', () {
-      final r = scorer.score(expectedIpa: 'ˈdobriː dɛn', actualIpa: 'dobriː dɛn');
+      final r = scorer.score(
+        expectedIpa: 'ˈdobriː dɛn',
+        actualIpa: 'dobriː dɛn',
+      );
       expect(r.overallScore, 1.0);
       expect(r.band, PronunciationBand.excellent);
       expect(r.feedback, isEmpty);
@@ -114,13 +117,15 @@ void main() {
 
     test('added sounds cannot inflate the score', () {
       final clean = scorer.score(expectedIpa: 'dɛn', actualIpa: 'dɛn');
-      final padded =
-          scorer.score(expectedIpa: 'dɛn', actualIpa: 'dɛn aaaaa');
+      final padded = scorer.score(expectedIpa: 'dɛn', actualIpa: 'dɛn aaaaa');
       expect(padded.overallScore, lessThan(clean.overallScore));
     });
 
     test('feedback stays short enough to act on', () {
-      final r = scorer.score(expectedIpa: 'ˈr̝ɛkaː ɟɛlaː biːt', actualIpa: 'rɛka dela bit');
+      final r = scorer.score(
+        expectedIpa: 'ˈr̝ɛkaː ɟɛlaː biːt',
+        actualIpa: 'rɛka dela bit',
+      );
       expect(r.feedback.length, lessThanOrEqualTo(3));
     });
 
@@ -128,11 +133,17 @@ void main() {
     /// cannot yet produce.
     test('missing ř holds the band back even with most sounds right', () {
       final r = scorer.score(expectedIpa: 'ˈr̝ɛka', actualIpa: 'rɛka');
-      expect(r.overallScore, greaterThan(0.65),
-          reason: 'most phonemes were right, so the mean stays high');
+      expect(
+        r.overallScore,
+        greaterThan(0.65),
+        reason: 'most phonemes were right, so the mean stays high',
+      );
       expect(r.missedCriticalSound, isTrue);
-      expect(r.band, PronunciationBand.needsWork,
-          reason: 'band must not say "good" when ř failed');
+      expect(
+        r.band,
+        PronunciationBand.needsWork,
+        reason: 'band must not say "good" when ř failed',
+      );
     });
 
     test('shortening a long vowel also holds the band back', () {
@@ -166,7 +177,8 @@ void main() {
         ['aːaːaː', 'aaa'],
         ['dɛn', 'xxxxxxxx'],
       ]) {
-        final s = scorer.score(expectedIpa: pair[0], actualIpa: pair[1]).overallScore;
+        final s =
+            scorer.score(expectedIpa: pair[0], actualIpa: pair[1]).overallScore;
         expect(s, inInclusiveRange(0.0, 1.0));
       }
     });

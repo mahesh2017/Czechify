@@ -78,8 +78,10 @@ void main() {
   test('milestones are sparse enough to stay meaningful', () {
     // A lesson is around thirteen exercises. Marking every fourth answer
     // would turn the reward into wallpaper.
-    final inOneLesson =
-        List.generate(13, (i) => i + 1).where(AnswerStreak.isMilestone);
+    final inOneLesson = List.generate(
+      13,
+      (i) => i + 1,
+    ).where(AnswerStreak.isMilestone);
     expect(inOneLesson, [3, 5, 10]);
   });
 

@@ -420,7 +420,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
             OutlinedButton.icon(
               onPressed: _retry,
               icon: const Icon(Icons.refresh, size: 18),
-              label: const Text('Try Again'),
+              label: Text(AppLocalizations.of(context).tryAgain),
             ),
           ],
         ],

@@ -7,11 +7,8 @@ void main() {
     final scheduler = SrsScheduler();
     final now = DateTime(2026, 7, 16, 12, 0);
 
-    SrsCard newCard() => SrsCard(
-          id: '1',
-          cardType: CardType.vocabulary,
-          due: now,
-        );
+    SrsCard newCard() =>
+        SrsCard(id: '1', cardType: CardType.vocabulary, due: now);
 
     test('Rating "again" resets reps to 0 and sets relearning state', () {
       final card = newCard().copyWith(reps: 3, stability: 10, difficulty: 2.5);
@@ -50,11 +47,7 @@ void main() {
     test('Ease factor accumulates across reviews (not reset to 2.5)', () {
       // After 2 reviews, the card has some ease. A "hard" should decrease it
       // but not reset to 2.5.
-      final card = newCard().copyWith(
-        reps: 2,
-        stability: 6,
-        difficulty: 2.5,
-      );
+      final card = newCard().copyWith(reps: 2, stability: 6, difficulty: 2.5);
 
       // Rate "hard" — ease should decrease from 2.5 by 0.15
       final result = scheduler.schedule(card, Rating.hard, now);
@@ -85,14 +78,25 @@ void main() {
       );
 
       final result = scheduler.schedule(card, Rating.easy, now);
-      expect(result.nextReviewDate.difference(now).inDays, lessThanOrEqualTo(365));
+      expect(
+        result.nextReviewDate.difference(now).inDays,
+        lessThanOrEqualTo(365),
+      );
     });
 
     test('getDueCards returns cards due on or before the reference date', () {
       final cards = [
-        SrsCard(id: '1', cardType: CardType.vocabulary, due: now.subtract(const Duration(days: 1))),
+        SrsCard(
+          id: '1',
+          cardType: CardType.vocabulary,
+          due: now.subtract(const Duration(days: 1)),
+        ),
         SrsCard(id: '2', cardType: CardType.vocabulary, due: now),
-        SrsCard(id: '3', cardType: CardType.vocabulary, due: now.add(const Duration(days: 1))),
+        SrsCard(
+          id: '3',
+          cardType: CardType.vocabulary,
+          due: now.add(const Duration(days: 1)),
+        ),
       ];
 
       final due = scheduler.getDueCards(cards, now);
@@ -100,13 +104,11 @@ void main() {
       expect(due.map((c) => c.id).toList(), containsAll(['1', '2']));
     });
 
-    test('previewIntervalDays matches the interval schedule() would apply',
-        () {
+    test('previewIntervalDays matches the interval schedule() would apply', () {
       final card = newCard().copyWith(reps: 2, stability: 8, difficulty: 2.5);
       for (final rating in Rating.values) {
         final preview = scheduler.previewIntervalDays(card, rating, now);
-        final scheduled =
-            scheduler.schedule(card, rating, now).nextReviewDate;
+        final scheduled = scheduler.schedule(card, rating, now).nextReviewDate;
         expect(preview, scheduled.difference(now).inDays);
       }
     });

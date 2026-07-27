@@ -44,10 +44,11 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  int filled(WidgetTester tester) => tester
-      .widgetList<Icon>(find.byType(Icon))
-      .where((icon) => icon.icon == Icons.star_rounded)
-      .length;
+  int filled(WidgetTester tester) =>
+      tester
+          .widgetList<Icon>(find.byType(Icon))
+          .where((icon) => icon.icon == Icons.star_rounded)
+          .length;
 
   testWidgets('the scale is always three, however many were earned', (
     tester,

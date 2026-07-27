@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:convert';
@@ -76,7 +77,10 @@ class _QuickReferenceScreenState extends ConsumerState<QuickReferenceScreen> {
               const SizedBox(height: 16),
               Text('Could not load $_title.', style: TextStyle(color: t.muted)),
               const SizedBox(height: 16),
-              FilledButton(onPressed: _load, child: const Text('Retry')),
+              FilledButton(
+                onPressed: _load,
+                child: Text(AppLocalizations.of(context).retry),
+              ),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/text_normalizer.dart';
@@ -142,7 +143,17 @@ class TtsButton extends ConsumerWidget {
       },
       icon: Icon(Icons.volume_up, size: size),
       color: color ?? Theme.of(context).colorScheme.primary,
-      tooltip: 'Listen',
+      // Nullable lookup, not AppLocalizations.of(context), which asserts a
+      // Localizations ancestor. This is a leaf primitive dropped into bare
+      // widget tests and previews; requiring the full app scope to render an
+      // audio button is coupling it does not need. The app always supplies
+      // the delegates, so the fallback is only ever seen out of app context.
+      tooltip:
+          Localizations.of<AppLocalizations>(
+            context,
+            AppLocalizations,
+          )?.listen ??
+          'Listen',
     );
   }
 }

@@ -7,6 +7,8 @@ import 'package:ceskina_pro/presentation/widgets/celebration/count_up_text.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'support/localized_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'feedback_service_test.dart' show RecordingHaptics, RecordingSfxPlayer;
@@ -38,6 +40,8 @@ void main() {
       UncontrolledProviderScope(
         container: container,
         child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           theme: brightness == Brightness.light ? lightTheme() : darkTheme(),
           home: MediaQuery(
             data: MediaQueryData(disableAnimations: reduceMotion),
@@ -150,7 +154,8 @@ void main() {
       expect(
         idle(),
         isFalse,
-        reason: 'the unit ceremony names what was unlocked — it must not '
+        reason:
+            'the unit ceremony names what was unlocked — it must not '
             'slide away on a timer',
       );
     });
@@ -189,7 +194,9 @@ void main() {
   group('count-up', () {
     testWidgets('it starts below the total and lands on it', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           home: Scaffold(body: Center(child: CountUpText(value: 40))),
         ),
       );
@@ -202,7 +209,9 @@ void main() {
 
     testWidgets('reduce motion shows the total straight away', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
+        MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           home: MediaQuery(
             data: MediaQueryData(disableAnimations: true),
             child: Scaffold(

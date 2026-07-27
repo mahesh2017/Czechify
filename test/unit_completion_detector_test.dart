@@ -49,21 +49,14 @@ void main() {
   );
 
   test('the last lesson of a unit finishes it', () {
-    final milestone = evaluate(
-      justFinished: 42,
-      before: {41},
-      now: {41, 42},
-    );
+    final milestone = evaluate(justFinished: 42, before: {41}, now: {41, 42});
     expect(milestone, isNotNull);
     expect(milestone!.unitId, 4);
     expect(milestone.title, 'Greetings');
   });
 
   test('an earlier lesson does not', () {
-    expect(
-      evaluate(justFinished: 41, before: const {}, now: {41}),
-      isNull,
-    );
+    expect(evaluate(justFinished: 41, before: const {}, now: {41}), isNull);
   });
 
   group('replaying must not celebrate again', () {
@@ -88,11 +81,7 @@ void main() {
     test('it is the position in the phase, not the row id', () {
       // Unit id 4 sits second in this phase. Showing "Unit 4" here would
       // disagree with the curriculum screen, which numbers by position.
-      final milestone = evaluate(
-        justFinished: 42,
-        before: {41},
-        now: {41, 42},
-      );
+      final milestone = evaluate(justFinished: 42, before: {41}, now: {41, 42});
       expect(milestone!.number, 2);
     });
 
@@ -111,18 +100,12 @@ void main() {
 
   group('what it unlocked', () {
     test('it names the next unit', () {
-      final milestone = evaluate(
-        justFinished: 42,
-        before: {41},
-        now: {41, 42},
-      );
+      final milestone = evaluate(justFinished: 42, before: {41}, now: {41, 42});
       expect(milestone!.nextTitle, 'At the Café');
     });
 
     test('the last unit of a phase names nothing', () {
-      final last = [
-        unit(4, 40, 'Greetings'),
-      ];
+      final last = [unit(4, 40, 'Greetings')];
       final milestone = evaluate(
         justFinished: 42,
         before: {41},
@@ -152,12 +135,7 @@ void main() {
   test('a unit is not finished while any lesson is outstanding', () {
     final three = [...unitLessons, lesson(43, 4, 2)];
     expect(
-      evaluate(
-        justFinished: 42,
-        before: {41},
-        now: {41, 42},
-        lessons: three,
-      ),
+      evaluate(justFinished: 42, before: {41}, now: {41, 42}, lessons: three),
       isNull,
     );
   });

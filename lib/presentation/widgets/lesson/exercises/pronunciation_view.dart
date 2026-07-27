@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/score_colors.dart';
@@ -290,7 +291,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
             const SizedBox(height: 16),
             FilledButton(
               onPressed: _submitResult,
-              child: const Text('Continue'),
+              child: Text(AppLocalizations.of(context).continueLabel),
             ),
           ],
         ],

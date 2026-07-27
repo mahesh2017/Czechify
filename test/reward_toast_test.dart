@@ -64,10 +64,7 @@ void main() {
       // Almost everyone who quits does so in the first fortnight, long before
       // a 30-day badge is reachable.
       final streaks =
-          Badge.all
-              .map((b) => b.criteria.minStreak)
-              .whereType<int>()
-              .toList()
+          Badge.all.map((b) => b.criteria.minStreak).whereType<int>().toList()
             ..sort();
       expect(streaks.first, lessThanOrEqualTo(3));
     });

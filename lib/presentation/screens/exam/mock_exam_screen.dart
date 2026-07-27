@@ -499,18 +499,20 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                   FilledButton.icon(
                     onPressed: _resumeExam,
                     icon: const Icon(Icons.restore),
-                    label: const Text('Resume Exam'),
+                    label: Text(AppLocalizations.of(context).resumeExam),
                   ),
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: _startExam,
-                    child: const Text('Discard and start over'),
+                    child: Text(
+                      AppLocalizations.of(context).discardAndStartOver,
+                    ),
                   ),
                 ] else
                   FilledButton.icon(
                     onPressed: _startExam,
                     icon: const Icon(Icons.play_arrow),
-                    label: const Text('Start Exam'),
+                    label: Text(AppLocalizations.of(context).startExam),
                   ),
               ] else ...[
                 const CircularProgressIndicator(),
@@ -652,11 +654,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx, false),
-                child: const Text('Stay'),
+                child: Text(AppLocalizations.of(context).reviewStay),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(ctx, true),
-                child: const Text('Leave'),
+                child: Text(AppLocalizations.of(context).lessonLeave),
               ),
             ],
           ),

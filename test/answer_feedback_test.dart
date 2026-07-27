@@ -179,10 +179,7 @@ void main() {
         child: MaterialApp(
           theme: lightTheme(),
           home: Scaffold(
-            body: LessonExerciseViewport(
-              exercise: card,
-              onAnswered: (_) {},
-            ),
+            body: LessonExerciseViewport(exercise: card, onAnswered: (_) {}),
           ),
         ),
       ),

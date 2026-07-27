@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/feedback/celebration.dart';
@@ -184,7 +185,9 @@ class _UnitCompleteOverlayState extends State<UnitCompleteOverlay>
                                     foregroundColor: Colors.white,
                                     minimumSize: const Size(220, 48),
                                   ),
-                                  child: const Text('Continue'),
+                                  child: Text(
+                                    AppLocalizations.of(context).continueLabel,
+                                  ),
                                 ),
                                 const SizedBox(height: 6),
                                 TextButton.icon(

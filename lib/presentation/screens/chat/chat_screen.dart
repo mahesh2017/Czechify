@@ -200,7 +200,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                                         .read(chatProvider.notifier)
                                         .retryLastMessage(),
                             icon: const Icon(Icons.refresh, size: 16),
-                            label: const Text('Retry'),
+                            label: Text(AppLocalizations.of(context).retry),
                           ),
                         ],
                       ),
@@ -265,7 +265,7 @@ Future<void> _confirmDelete(
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context).cancel),
             ),
             TextButton(
               onPressed: () => Navigator.pop(ctx, true),

@@ -191,7 +191,10 @@ void main() {
 
       final rows = await database.select(database.lessonProgress).get();
       expect(rows.map((r) => r.lessonId), containsAll(<int>[1, 2]));
-      expect((await database.syncDao.pullCursor('lesson_progress'))?.revision, 11);
+      expect(
+        (await database.syncDao.pullCursor('lesson_progress'))?.revision,
+        11,
+      );
     },
   );
 

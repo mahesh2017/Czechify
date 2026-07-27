@@ -41,11 +41,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
-                child: const Text('Cancel'),
+                child: Text(AppLocalizations.of(context).cancel),
               ),
               FilledButton(
                 onPressed: () => Navigator.pop(ctx, controller.text),
-                child: const Text('Save'),
+                child: Text(AppLocalizations.of(context).save),
               ),
             ],
           ),

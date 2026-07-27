@@ -18,9 +18,12 @@ import 'package:ceskina_pro/core/utils/text_normalizer.dart';
 ///   from audio_utterances import key_for;print(key_for('...'))"
 void main() {
   /// Mirrors CzechTts._audioPackKey.
-  String audioPackKey(String text) => sha256
-      .convert(utf8.encode(TextNormalizer.forSpeech(text).trim().toLowerCase()))
-      .toString();
+  String audioPackKey(String text) =>
+      sha256
+          .convert(
+            utf8.encode(TextNormalizer.forSpeech(text).trim().toLowerCase()),
+          )
+          .toString();
 
   group('audio pack key matches the Python generator', () {
     const expected = <String, String>{

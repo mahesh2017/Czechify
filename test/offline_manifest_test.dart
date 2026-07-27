@@ -12,9 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// the units a learner starts with actually have clips on the server.
 void main() {
   final manifest =
-      jsonDecode(
-            File('assets/audio/offline_units.json').readAsStringSync(),
-          )
+      jsonDecode(File('assets/audio/offline_units.json').readAsStringSync())
           as Map<String, dynamic>;
   final units = manifest['units'] as Map<String, dynamic>;
 
@@ -73,7 +71,8 @@ void main() {
         (voices['female'] as Map<String, dynamic>)['entries']
             as Map<String, dynamic>;
     final all = <String>{
-      for (final list in units.values) ...(list as List<dynamic>).cast<String>(),
+      for (final list in units.values)
+        ...(list as List<dynamic>).cast<String>(),
     };
     final orphans = all.where((k) => !female.containsKey(k)).toList();
     expect(orphans, isEmpty, reason: 'keys with no audio: ${orphans.take(5)}');

@@ -140,12 +140,13 @@ void main() {
 
     // v19 adds the consent audit log. A migration that silently skipped it
     // would leave an app that believes it is recording consent and is not.
-    final consentTable = await db
-        .customSelect(
-          "SELECT name FROM sqlite_master WHERE type = 'table' "
-          "AND name = 'consent_records'",
-        )
-        .get();
+    final consentTable =
+        await db
+            .customSelect(
+              "SELECT name FROM sqlite_master WHERE type = 'table' "
+              "AND name = 'consent_records'",
+            )
+            .get();
     expect(consentTable, hasLength(1));
 
     final queueColumns =

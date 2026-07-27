@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 void main() {
   const boundedTypes = {
     ExerciseType.matching,
@@ -37,9 +39,10 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
 
-      final exercises = _loadShippedExercises()
-          .where((exercise) => boundedTypes.contains(exercise.type))
-          .toList();
+      final exercises =
+          _loadShippedExercises()
+              .where((exercise) => boundedTypes.contains(exercise.type))
+              .toList();
 
       expect(exercises, hasLength(68));
 
@@ -47,6 +50,8 @@ void main() {
         await tester.pumpWidget(
           ProviderScope(
             child: MaterialApp(
+              localizationsDelegates: testLocalizationsDelegates,
+              supportedLocales: testSupportedLocales,
               theme: lightTheme(),
               home: Scaffold(
                 body: LessonExerciseViewport(
@@ -86,6 +91,8 @@ void main() {
         await tester.pumpWidget(
           ProviderScope(
             child: MaterialApp(
+              localizationsDelegates: testLocalizationsDelegates,
+              supportedLocales: testSupportedLocales,
               theme: lightTheme(),
               home: Scaffold(
                 body: LessonExerciseViewport(
@@ -135,7 +142,9 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
-              theme: lightTheme(),
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          theme: lightTheme(),
           home: Scaffold(
             body: LessonExerciseViewport(
               exercise: exercise,
@@ -186,7 +195,9 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
-              theme: lightTheme(),
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          theme: lightTheme(),
           home: Scaffold(
             body: LessonExerciseViewport(
               exercise: exercise,
@@ -263,9 +274,8 @@ Exercise _exerciseFromAsset(Map<String, dynamic> json) {
       'declension_table' => ExerciseType.declensionTable,
       'word_order' => ExerciseType.wordOrder,
       'teaching' => ExerciseType.teaching,
-      final unsupported => throw FormatException(
-        'Unsupported exercise type: $unsupported',
-      ),
+      final unsupported =>
+        throw FormatException('Unsupported exercise type: $unsupported'),
     },
     prompt: json['prompt'] as String,
     data: Map<String, dynamic>.from(json['data'] as Map),

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -232,7 +233,7 @@ class _MatchingViewState extends State<MatchingView> {
                     style: FilledButton.styleFrom(
                       minimumSize: kRowButtonMinSize,
                     ),
-                    child: const Text('Check'),
+                    child: Text(AppLocalizations.of(context).check),
                   ),
                 if (answered)
                   Row(
@@ -254,7 +255,7 @@ class _MatchingViewState extends State<MatchingView> {
                         const SizedBox(width: 12),
                         FilledButton.tonal(
                           onPressed: _tryAgain,
-                          child: const Text('Try Again'),
+                          child: Text(AppLocalizations.of(context).tryAgain),
                         ),
                       ],
                     ],

@@ -56,7 +56,8 @@ void main() {
     expect(
       history.length,
       2,
-      reason: 'the original grant must survive withdrawal — an audit trail '
+      reason:
+          'the original grant must survive withdrawal — an audit trail '
           'that can be erased is not an audit trail',
     );
     expect(history.any((r) => r.granted), isTrue);

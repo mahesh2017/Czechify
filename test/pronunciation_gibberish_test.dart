@@ -10,7 +10,8 @@ void main() {
   final scorer = PronunciationScorer();
 
   double pct(String expected, String actual) =>
-      scorer.score(expectedText: expected, actualTranscription: actual)
+      scorer
+          .score(expectedText: expected, actualTranscription: actual)
           .overallScore *
       100;
 
@@ -58,8 +59,11 @@ void main() {
         'Dobrý den',
         'dobrý den a taky nevím co říkám tady je hodně slov',
       );
-      expect(padded, lessThan(clean),
-          reason: 'padding scored $padded vs clean $clean');
+      expect(
+        padded,
+        lessThan(clean),
+        reason: 'padding scored $padded vs clean $clean',
+      );
     });
 
     /// The Whisper path re-derives the overall score after blending in

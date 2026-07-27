@@ -59,10 +59,11 @@ void main() {
     // Brand names and single-token labels legitimately match across locales.
     const sharedByDesign = {'appTitle'};
 
-    final untranslated = messageKeys(english)
-        .where((key) => !sharedByDesign.contains(key))
-        .where((key) => czech[key] == english[key])
-        .toSet();
+    final untranslated =
+        messageKeys(english)
+            .where((key) => !sharedByDesign.contains(key))
+            .where((key) => czech[key] == english[key])
+            .toSet();
 
     expect(
       untranslated,

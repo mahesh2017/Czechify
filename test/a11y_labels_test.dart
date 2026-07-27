@@ -52,8 +52,9 @@ void main() {
     );
     final offenders = <String>[];
 
-    for (final entity
-        in Directory('lib/presentation').listSync(recursive: true)) {
+    for (final entity in Directory(
+      'lib/presentation',
+    ).listSync(recursive: true)) {
       if (entity is! File || !entity.path.endsWith('.dart')) continue;
       final lines = entity.readAsLinesSync();
       for (var i = 0; i < lines.length; i++) {

@@ -20,9 +20,7 @@ void main() {
   Future<String> conversationWithMessages(String scenario, int count) async {
     final id = await repo.createConversation(scenario, 'A1');
     for (var i = 0; i < count; i++) {
-      await repo.saveMessage(
-        ChatMessage.user('zpráva $i', conversationId: id),
-      );
+      await repo.saveMessage(ChatMessage.user('zpráva $i', conversationId: id));
     }
     return id;
   }
@@ -46,7 +44,8 @@ void main() {
     expect(
       await repo.getHistory(id),
       isEmpty,
-      reason: 'orphaned messages would keep occupying the database and could '
+      reason:
+          'orphaned messages would keep occupying the database and could '
           'resurface if an id were ever reused',
     );
   });

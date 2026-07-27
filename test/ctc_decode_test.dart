@@ -44,11 +44,12 @@ import 'package:flutter_test/flutter_test.dart';
     previous = bestId;
   }
 
-  final text = buffer
-      .toString()
-      .replaceAll('|', ' ')
-      .replaceAll(RegExp(r'\s+'), ' ')
-      .trim();
+  final text =
+      buffer
+          .toString()
+          .replaceAll('|', ' ')
+          .replaceAll(RegExp(r'\s+'), ' ')
+          .trim();
   return (text: text, confidence: counted == 0 ? 0 : probabilitySum / counted);
 }
 
@@ -134,13 +135,14 @@ void main() {
     // moves it, this is the failure that should surface.
     final ids = [0, 2, 0, 3];
     final correct = run(ids).text;
-    final wrong = decode(
-      logits: framesOf(ids, classes),
-      frames: ids.length,
-      classes: classes,
-      vocab: vocab,
-      blankId: 2,
-    ).text;
+    final wrong =
+        decode(
+          logits: framesOf(ids, classes),
+          frames: ids.length,
+          classes: classes,
+          vocab: vocab,
+          blankId: 2,
+        ).text;
     expect(correct, 'ah');
     expect(wrong, isNot(correct));
   });
