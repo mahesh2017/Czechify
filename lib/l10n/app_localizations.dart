@@ -547,6 +547,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check your connection and try again.'**
   String get errorCheckConnection;
+
+  /// No description provided for @a11yBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get a11yBack;
+
+  /// No description provided for @a11yClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get a11yClose;
+
+  /// No description provided for @a11yPlayAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Play audio'**
+  String get a11yPlayAudio;
+
+  /// No description provided for @a11ySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get a11ySettings;
+
+  /// No description provided for @a11yHearts.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural,=1{{count} heart left}other{{count} hearts left}}'**
+  String a11yHearts(int count);
+
+  /// No description provided for @a11yStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural,=1{{count} day streak}other{{count} day streak}}'**
+  String a11yStreak(int count);
+
+  /// No description provided for @a11yRateCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate this card: {rating}'**
+  String a11yRateCard(String rating);
+
+  /// No description provided for @a11yLessonProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson progress: question {current} of {total}'**
+  String a11yLessonProgress(int current, int total);
 }
 
 class _AppLocalizationsDelegate

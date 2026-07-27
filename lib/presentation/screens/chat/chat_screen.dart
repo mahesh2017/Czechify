@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../domain/repositories/conversation_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -580,7 +581,7 @@ class _TtsIconButton extends ConsumerWidget {
       color: Theme.of(context).colorScheme.primary,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
-      tooltip: 'Listen',
+      tooltip: AppLocalizations.of(context).listen,
     );
   }
 }

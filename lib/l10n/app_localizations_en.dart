@@ -257,4 +257,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorCheckConnection => 'Check your connection and try again.';
+
+  @override
+  String get a11yBack => 'Back';
+
+  @override
+  String get a11yClose => 'Close';
+
+  @override
+  String get a11yPlayAudio => 'Play audio';
+
+  @override
+  String get a11ySettings => 'Settings';
+
+  @override
+  String a11yHearts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hearts left',
+      one: '$count heart left',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String a11yStreak(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count day streak',
+      one: '$count day streak',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String a11yRateCard(String rating) {
+    return 'Rate this card: $rating';
+  }
+
+  @override
+  String a11yLessonProgress(int current, int total) {
+    return 'Lesson progress: question $current of $total';
+  }
 }

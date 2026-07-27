@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 import '../../../core/legal/legal_content.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -21,6 +22,7 @@ class AboutScreen extends StatelessWidget {
             Row(
               children: [
                 IconButton(
+                  tooltip: AppLocalizations.of(context).a11yBack,
                   onPressed: () => Navigator.of(context).maybePop(),
                   icon: Icon(Icons.arrow_back_ios_new, size: 18, color: t.ink),
                 ),

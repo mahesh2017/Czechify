@@ -71,6 +71,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
+            tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
             onPressed: () => context.pop(),
           ),
@@ -83,6 +84,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
+            tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
             onPressed: () => context.pop(),
           ),
@@ -161,6 +163,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          tooltip: AppLocalizations.of(context).a11yClose,
           icon: const Icon(Icons.close),
           onPressed: () => _showExitConfirm(context),
         ),
@@ -204,13 +207,22 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 ),
               ),
             Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
-                child: LinearProgressIndicator(
-                  value: session.progress,
-                  minHeight: 8,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.surfaceContainerHighest,
+              // A bare progress bar announces nothing useful; state the
+              // position in the lesson instead.
+              child: Semantics(
+                label: AppLocalizations.of(context).a11yLessonProgress(
+                  session.currentIndex + 1,
+                  session.totalExercises,
+                ),
+                excludeSemantics: true,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: session.progress,
+                    minHeight: 8,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
+                  ),
                 ),
               ),
             ),
@@ -219,23 +231,28 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             if (session.isExamMode)
               _ExamTimer(initialSeconds: session.remainingSeconds)
             else
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.favorite,
-                    color:
-                        session.hearts > 0
-                            ? context.tokens.red
-                            : context.tokens.faint,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 2),
-                  Text(
-                    '${session.hearts}',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                ],
+              Semantics(
+                container: true,
+                label: AppLocalizations.of(context).a11yHearts(session.hearts),
+                excludeSemantics: true,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.favorite,
+                      color:
+                          session.hearts > 0
+                              ? context.tokens.red
+                              : context.tokens.faint,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 2),
+                    Text(
+                      '${session.hearts}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
+                ),
               ),
           ],
         ),

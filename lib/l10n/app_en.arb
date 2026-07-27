@@ -24,7 +24,6 @@
   "tapMicrophoneHint": "Tap the microphone and say the phrase",
   "analyzingPronunciation": "Analyzing your pronunciation...",
   "onDeviceRecognitionNote": "Using on-device recognition — results may be less accurate.",
-
   "navHome": "Home",
   "@navHome": {
     "description": "Bottom navigation label. Keep short — it sits under an icon in a five-item bar."
@@ -33,14 +32,15 @@
   "navReview": "Review",
   "navChat": "Chat",
   "navStats": "Stats",
-
   "settings": "Settings",
   "settingsYourName": "Your name",
   "settingsDailyGoal": "Daily goal",
   "settingsXpPerDay": "{count} XP per day",
   "@settingsXpPerDay": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "settingsTheme": "Theme",
@@ -63,7 +63,6 @@
   "settingsAbout": "About Czechify",
   "settingsVersion": "Version",
   "settingsClearAudioCache": "Clear audio cache",
-
   "homeYourProgress": "Your progress",
   "homeBrowseCurriculum": "Browse curriculum",
   "homeGrammarReference": "Grammar reference",
@@ -75,16 +74,19 @@
   "homeDayStreak": "{count,plural,=1{{count} day streak}other{{count} day streak}}",
   "@homeDayStreak": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "homeHeartsRemaining": "{count,plural,=1{{count} heart remaining}other{{count} hearts remaining}}",
   "@homeHeartsRemaining": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "reviewShowAnswer": "Show Answer",
   "reviewTapToReveal": "Tap to reveal",
   "reviewRatingAgain": "Again",
@@ -99,22 +101,67 @@
   "reviewCardOf": "Card {current} of {total}",
   "@reviewCardOf": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "lessonLeaveTitle": "Leave lesson?",
   "lessonLeaveBody": "You'll go back to the curriculum. The answers you've already given are saved.",
   "lessonLeave": "Leave",
   "lessonQuestionOf": "Question {current} of {total}",
   "@lessonQuestionOf": {
     "placeholders": {
-      "current": { "type": "int" },
-      "total": { "type": "int" }
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "errorFailedToLoad": "Could not load this content.",
-  "errorCheckConnection": "Check your connection and try again."
+  "errorCheckConnection": "Check your connection and try again.",
+  "a11yBack": "Back",
+  "a11yClose": "Close",
+  "a11yPlayAudio": "Play audio",
+  "a11ySettings": "Settings",
+  "a11yHearts": "{count,plural,=1{{count} heart left}other{{count} hearts left}}",
+  "@a11yHearts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "a11yStreak": "{count,plural,=1{{count} day streak}other{{count} day streak}}",
+  "@a11yStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "a11yRateCard": "Rate this card: {rating}",
+  "@a11yRateCard": {
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "a11yLessonProgress": "Lesson progress: question {current} of {total}",
+  "@a11yLessonProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

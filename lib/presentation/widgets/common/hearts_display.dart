@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/gamification_providers.dart';
@@ -14,27 +15,34 @@ class HeartsDisplay extends ConsumerWidget {
     final maxHearts = gamification.maxHearts;
     final isFull = hearts >= maxHearts;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          Icons.favorite,
-          color: hearts > 0 ? context.tokens.red : context.tokens.line,
-          size: 18,
-        ),
-        const SizedBox(width: 4),
-        Text(
-          '$hearts',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: hearts > 0 ? context.tokens.red : context.tokens.muted,
+    // One label for the pair. Without this a screen reader reads a bare
+    // number with no idea it means hearts.
+    return Semantics(
+      container: true,
+      label: AppLocalizations.of(context).a11yHearts(hearts),
+      excludeSemantics: true,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.favorite,
+            color: hearts > 0 ? context.tokens.red : context.tokens.line,
+            size: 18,
           ),
-        ),
-        if (!isFull) ...[
           const SizedBox(width: 4),
-          Icon(Icons.access_time, size: 12, color: context.tokens.line),
+          Text(
+            '$hearts',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: hearts > 0 ? context.tokens.red : context.tokens.muted,
+            ),
+          ),
+          if (!isFull) ...[
+            const SizedBox(width: 4),
+            Icon(Icons.access_time, size: 12, color: context.tokens.line),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

@@ -260,4 +260,50 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get errorCheckConnection =>
       'Zkontrolujte připojení a zkuste to znovu.';
+
+  @override
+  String get a11yBack => 'Zpět';
+
+  @override
+  String get a11yClose => 'Zavřít';
+
+  @override
+  String get a11yPlayAudio => 'Přehrát zvuk';
+
+  @override
+  String get a11ySettings => 'Nastavení';
+
+  @override
+  String a11yHearts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Zbývá $count srdíček',
+      few: 'Zbývají $count srdíčka',
+      one: 'Zbývá $count srdíčko',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String a11yStreak(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dní v řadě',
+      few: '$count dny v řadě',
+      one: '$count den v řadě',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String a11yRateCard(String rating) {
+    return 'Ohodnotit kartu: $rating';
+  }
+
+  @override
+  String a11yLessonProgress(int current, int total) {
+    return 'Postup lekcí: otázka $current z $total';
+  }
 }

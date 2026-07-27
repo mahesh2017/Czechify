@@ -110,6 +110,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             Row(
               children: [
                 IconButton(
+                  tooltip: AppLocalizations.of(context).a11yBack,
                   onPressed: () => Navigator.of(context).maybePop(),
                   icon: Icon(Icons.arrow_back_ios_new, size: 18, color: t.ink),
                 ),

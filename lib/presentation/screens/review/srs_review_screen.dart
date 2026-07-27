@@ -96,6 +96,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
           ],
         ),
         leading: IconButton(
+          tooltip: AppLocalizations.of(context).a11yClose,
           icon: const Icon(Icons.close),
           onPressed: () => _showExitConfirm(context),
         ),
@@ -372,6 +373,7 @@ class _FlashcardView extends ConsumerWidget {
         // Audio button — speaks the Czech word via TTS
         const SizedBox(height: 16),
         IconButton(
+          tooltip: AppLocalizations.of(context).a11yPlayAudio,
           onPressed: () {
             ref.read(czechTtsProvider).speak(card.wordCz);
           },
@@ -426,6 +428,7 @@ class _FlashcardView extends ConsumerWidget {
         ),
         const SizedBox(height: 32),
         IconButton.filled(
+          tooltip: AppLocalizations.of(context).a11yPlayAudio,
           onPressed: () {
             ref.read(czechTtsProvider).speak(card.wordCz);
           },
@@ -519,6 +522,7 @@ class _FlashcardView extends ConsumerWidget {
           if (card.exampleCz != null) ...[
             const SizedBox(height: 8),
             IconButton(
+              tooltip: AppLocalizations.of(context).a11yPlayAudio,
               onPressed: () {
                 ref.read(czechTtsProvider).speak(card.exampleCz!);
               },
@@ -621,25 +625,36 @@ class _RatingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton.tonal(
-      onPressed: onTap,
-      style: FilledButton.styleFrom(
-        backgroundColor: color.withValues(alpha: 0.1),
-        foregroundColor: color,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 20),
-          const SizedBox(height: 6),
-          Text(
-            label,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+    // The visible face is an icon, a one-word label and an interval like
+    // "3d" — read out raw that is meaningless. The label says what the
+    // button does; the interval stays as the hint.
+    return Semantics(
+      button: true,
+      label: AppLocalizations.of(context).a11yRateCard(label),
+      hint: subtitle,
+      excludeSemantics: true,
+      child: FilledButton.tonal(
+        onPressed: onTap,
+        style: FilledButton.styleFrom(
+          backgroundColor: color.withValues(alpha: 0.1),
+          foregroundColor: color,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-          Text(subtitle, style: const TextStyle(fontSize: 12.5)),
-        ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 20),
+            const SizedBox(height: 6),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            Text(subtitle, style: const TextStyle(fontSize: 12.5)),
+          ],
+        ),
       ),
     );
   }

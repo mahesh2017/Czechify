@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/diagnostics/safe_diagnostics.dart';
 import '../../../core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -554,6 +555,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
+            tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
             onPressed: () async {
               final leave = await _confirmExit();
