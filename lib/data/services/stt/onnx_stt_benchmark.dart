@@ -26,9 +26,10 @@ class SttBenchmarkResult {
   /// Median rather than mean, because a single scheduling hiccup on a loaded
   /// phone would drag an average somewhere misleading.
   double get medianSteadyState {
-    final steady = runSeconds.length > 1
-        ? (runSeconds.sublist(1)..sort())
-        : (List<double>.from(runSeconds)..sort());
+    final steady =
+        runSeconds.length > 1
+            ? (runSeconds.sublist(1)..sort())
+            : (List<double>.from(runSeconds)..sort());
     if (steady.isEmpty) return 0;
     final middle = steady.length ~/ 2;
     return steady.length.isOdd

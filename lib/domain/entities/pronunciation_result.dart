@@ -27,7 +27,11 @@ class WordScore {
   final bool isCorrect;
   final double score; // 0.0 - 1.0
 
-  const WordScore({required this.word, required this.isCorrect, required this.score});
+  const WordScore({
+    required this.word,
+    required this.isCorrect,
+    required this.score,
+  });
 }
 
 /// A sound the learner struggled with.
@@ -36,5 +40,9 @@ class ProblemSound {
   final String word;
   final double score; // 0.0 - 1.0
 
-  const ProblemSound({required this.phoneme, required this.word, required this.score});
+  const ProblemSound({
+    required this.phoneme,
+    required this.word,
+    required this.score,
+  });
 }

@@ -23,9 +23,10 @@ class SttBenchHook {
   static Future<void> maybeRun() async {
     if (kReleaseMode) return;
     try {
-      final dir = Platform.isAndroid
-          ? await getExternalStorageDirectory()
-          : await getApplicationSupportDirectory();
+      final dir =
+          Platform.isAndroid
+              ? await getExternalStorageDirectory()
+              : await getApplicationSupportDirectory();
       if (dir == null) return;
       final model = File('${dir.path}/$_fileName');
       if (!await model.exists()) return;

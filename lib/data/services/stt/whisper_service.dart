@@ -44,10 +44,11 @@ class WhisperResult {
   });
 
   factory WhisperResult.fromJson(Map<String, dynamic> json) {
-    final wordsList = (json['words'] as List<dynamic>? ?? [])
-        .whereType<Map<String, dynamic>>()
-        .map(WhisperWord.fromJson)
-        .toList();
+    final wordsList =
+        (json['words'] as List<dynamic>? ?? [])
+            .whereType<Map<String, dynamic>>()
+            .map(WhisperWord.fromJson)
+            .toList();
     return WhisperResult(
       text: json['text'] as String? ?? '',
       language: json['language'] as String? ?? 'cs',
@@ -71,8 +72,8 @@ class WhisperService implements CloudTranscriber {
   /// sign-in completed (a cached snapshot would otherwise stay null forever and
   /// silently force the on-device fallback).
   WhisperService({SupabaseClient? Function()? clientResolver, Logger? log})
-      : _clientResolver = clientResolver ?? (() => null),
-        _log = log ?? Logger('WhisperService');
+    : _clientResolver = clientResolver ?? (() => null),
+      _log = log ?? Logger('WhisperService');
 
   final SupabaseClient? Function() _clientResolver;
   final Logger _log;
@@ -100,7 +101,9 @@ class WhisperService implements CloudTranscriber {
   }) async {
     final client = _client;
     if (client == null) {
-      throw StateError('Supabase client not available — Whisper backend disabled.');
+      throw StateError(
+        'Supabase client not available — Whisper backend disabled.',
+      );
     }
 
     // Read audio file and encode as base64

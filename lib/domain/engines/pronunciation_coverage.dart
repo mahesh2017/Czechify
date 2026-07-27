@@ -36,10 +36,11 @@ class PronunciationCoverage {
     try {
       final raw = await rootBundle.loadString(_assetPath);
       final decoded = jsonDecode(raw) as Map<String, dynamic>;
-      final words = (decoded['words'] as List<dynamic>? ?? const [])
-          .whereType<String>()
-          .map(_key)
-          .toSet();
+      final words =
+          (decoded['words'] as List<dynamic>? ?? const [])
+              .whereType<String>()
+              .map(_key)
+              .toSet();
       return _instance = PronunciationCoverage._(words);
     } catch (_) {
       // Missing or malformed asset means "support nothing", never "support

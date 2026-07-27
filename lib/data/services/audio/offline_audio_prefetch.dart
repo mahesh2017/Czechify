@@ -73,15 +73,10 @@ class OfflineAudioPrefetch {
   }
 
   /// Clips for [unitIds] that are not already on disk, for [gender].
-  Future<List<String>> missingFiles(
-    List<int> unitIds,
-    String gender,
-  ) async {
+  Future<List<String>> missingFiles(List<int> unitIds, String gender) async {
     final byUnit = await _load();
     final dir = await _dir();
-    final keys = <String>{
-      for (final id in unitIds) ...?byUnit['$id'],
-    };
+    final keys = <String>{for (final id in unitIds) ...?byUnit['$id']};
     final missing = <String>[];
     for (final key in keys) {
       final name = '${gender}_$key.mp3';

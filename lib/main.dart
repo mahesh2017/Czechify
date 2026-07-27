@@ -102,8 +102,9 @@ class CzechifyApp extends ConsumerWidget {
       // Above the router: finishing a lesson navigates away from the lesson
       // player, so a celebration owned by that screen would be disposed at
       // the moment it was supposed to play.
-      builder: (context, child) =>
-          CelebrationHost(child: child ?? const SizedBox.shrink()),
+      builder:
+          (context, child) =>
+              CelebrationHost(child: child ?? const SizedBox.shrink()),
     );
   }
 }

@@ -319,8 +319,9 @@ class VocabularyDao extends DatabaseAccessor<AppDatabase>
       flashcardId = int.tryParse(contentKey);
       if (flashcardId == null) {
         final card =
-            await (select(flashcards)
-              ..where((f) => f.contentUid.equals(contentKey))).getSingleOrNull();
+            await (select(
+              flashcards,
+            )..where((f) => f.contentUid.equals(contentKey))).getSingleOrNull();
         if (card == null) return;
         flashcardId = card.id;
       }

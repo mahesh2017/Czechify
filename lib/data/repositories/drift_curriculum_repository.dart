@@ -53,7 +53,8 @@ class DriftCurriculumRepository implements CurriculumRepository {
       description: row.description,
       phase: Phase.values.byName(row.phase),
       orderIndex: row.orderIndex,
-      grammarTags: row.grammarTags.split(',').where((t) => t.isNotEmpty).toList(),
+      grammarTags:
+          row.grammarTags.split(',').where((t) => t.isNotEmpty).toList(),
       isExamPrep: row.isExamPrep,
       lessonCount: row.lessonCount,
     );

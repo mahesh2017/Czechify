@@ -11,7 +11,16 @@
 /// a small acoustic slip that is still worth telling the learner about.
 library;
 
-enum Manner { stop, affricate, fricative, nasal, trill, lateral, approximant, vowel }
+enum Manner {
+  stop,
+  affricate,
+  fricative,
+  nasal,
+  trill,
+  lateral,
+  approximant,
+  vowel,
+}
 
 enum Place {
   bilabial,
@@ -66,20 +75,52 @@ class CzechPhonemes {
     'k': PhonemeFeatures(manner: _c, place: Place.velar, voiced: false),
     'g': PhonemeFeatures(manner: _c, place: Place.velar),
     // Fricatives
-    'f': PhonemeFeatures(manner: Manner.fricative, place: Place.labiodental, voiced: false),
+    'f': PhonemeFeatures(
+      manner: Manner.fricative,
+      place: Place.labiodental,
+      voiced: false,
+    ),
     'v': PhonemeFeatures(manner: Manner.fricative, place: Place.labiodental),
-    's': PhonemeFeatures(manner: Manner.fricative, place: Place.alveolar, voiced: false),
+    's': PhonemeFeatures(
+      manner: Manner.fricative,
+      place: Place.alveolar,
+      voiced: false,
+    ),
     'z': PhonemeFeatures(manner: Manner.fricative, place: Place.alveolar),
-    'ʃ': PhonemeFeatures(manner: Manner.fricative, place: Place.postalveolar, voiced: false),
+    'ʃ': PhonemeFeatures(
+      manner: Manner.fricative,
+      place: Place.postalveolar,
+      voiced: false,
+    ),
     'ʒ': PhonemeFeatures(manner: Manner.fricative, place: Place.postalveolar),
-    'x': PhonemeFeatures(manner: Manner.fricative, place: Place.velar, voiced: false),
+    'x': PhonemeFeatures(
+      manner: Manner.fricative,
+      place: Place.velar,
+      voiced: false,
+    ),
     'ɦ': PhonemeFeatures(manner: Manner.fricative, place: Place.glottal),
     'h': PhonemeFeatures(manner: Manner.fricative, place: Place.glottal),
     // Affricates
-    'ts': PhonemeFeatures(manner: Manner.affricate, place: Place.alveolar, voiced: false),
-    't͡s': PhonemeFeatures(manner: Manner.affricate, place: Place.alveolar, voiced: false),
-    'tʃ': PhonemeFeatures(manner: Manner.affricate, place: Place.postalveolar, voiced: false),
-    't͡ʃ': PhonemeFeatures(manner: Manner.affricate, place: Place.postalveolar, voiced: false),
+    'ts': PhonemeFeatures(
+      manner: Manner.affricate,
+      place: Place.alveolar,
+      voiced: false,
+    ),
+    't͡s': PhonemeFeatures(
+      manner: Manner.affricate,
+      place: Place.alveolar,
+      voiced: false,
+    ),
+    'tʃ': PhonemeFeatures(
+      manner: Manner.affricate,
+      place: Place.postalveolar,
+      voiced: false,
+    ),
+    't͡ʃ': PhonemeFeatures(
+      manner: Manner.affricate,
+      place: Place.postalveolar,
+      voiced: false,
+    ),
     'd͡z': PhonemeFeatures(manner: Manner.affricate, place: Place.alveolar),
     'd͡ʒ': PhonemeFeatures(manner: Manner.affricate, place: Place.postalveolar),
     // Nasals
@@ -95,13 +136,41 @@ class CzechPhonemes {
     'l': PhonemeFeatures(manner: Manner.lateral, place: Place.alveolar),
     'j': PhonemeFeatures(manner: Manner.approximant, place: Place.palatal),
     // Vowels
-    'a': PhonemeFeatures(manner: Manner.vowel, height: Height.low, backness: Backness.central),
-    'ɛ': PhonemeFeatures(manner: Manner.vowel, height: Height.mid, backness: Backness.front),
-    'e': PhonemeFeatures(manner: Manner.vowel, height: Height.mid, backness: Backness.front),
-    'i': PhonemeFeatures(manner: Manner.vowel, height: Height.high, backness: Backness.front),
-    'ɪ': PhonemeFeatures(manner: Manner.vowel, height: Height.high, backness: Backness.front),
-    'o': PhonemeFeatures(manner: Manner.vowel, height: Height.mid, backness: Backness.back),
-    'u': PhonemeFeatures(manner: Manner.vowel, height: Height.high, backness: Backness.back),
+    'a': PhonemeFeatures(
+      manner: Manner.vowel,
+      height: Height.low,
+      backness: Backness.central,
+    ),
+    'ɛ': PhonemeFeatures(
+      manner: Manner.vowel,
+      height: Height.mid,
+      backness: Backness.front,
+    ),
+    'e': PhonemeFeatures(
+      manner: Manner.vowel,
+      height: Height.mid,
+      backness: Backness.front,
+    ),
+    'i': PhonemeFeatures(
+      manner: Manner.vowel,
+      height: Height.high,
+      backness: Backness.front,
+    ),
+    'ɪ': PhonemeFeatures(
+      manner: Manner.vowel,
+      height: Height.high,
+      backness: Backness.front,
+    ),
+    'o': PhonemeFeatures(
+      manner: Manner.vowel,
+      height: Height.mid,
+      backness: Backness.back,
+    ),
+    'u': PhonemeFeatures(
+      manner: Manner.vowel,
+      height: Height.high,
+      backness: Backness.back,
+    ),
   };
 
   /// Features for a full symbol, honouring the length mark.

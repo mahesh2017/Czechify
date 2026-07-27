@@ -41,14 +41,18 @@ class ConsentRepository {
   /// Defaulting to false matters: consent must be an active choice, never the
   /// result of a missing row or a failed read.
   Future<bool> isGranted(String purpose) async {
-    final latest = await (_db.select(_db.consentRecords)
-          ..where((r) => r.purpose.equals(purpose))
-          ..orderBy([
-            (r) => OrderingTerm(expression: r.decidedAt, mode: OrderingMode.desc),
-            (r) => OrderingTerm(expression: r.id, mode: OrderingMode.desc),
-          ])
-          ..limit(1))
-        .getSingleOrNull();
+    final latest =
+        await (_db.select(_db.consentRecords)
+              ..where((r) => r.purpose.equals(purpose))
+              ..orderBy([
+                (r) => OrderingTerm(
+                  expression: r.decidedAt,
+                  mode: OrderingMode.desc,
+                ),
+                (r) => OrderingTerm(expression: r.id, mode: OrderingMode.desc),
+              ])
+              ..limit(1))
+            .getSingleOrNull();
     return latest?.granted ?? false;
   }
 
@@ -73,17 +77,16 @@ class ConsentRepository {
             platform: Value(_platform),
           ),
         );
-    return (_db.select(_db.consentRecords)..where((r) => r.id.equals(id)))
-        .getSingle();
+    return (_db.select(_db.consentRecords)
+      ..where((r) => r.id.equals(id))).getSingle();
   }
 
   /// The full history, newest first — what a subject-access request or a
   /// complaint would need to be answered.
   Future<List<ConsentRecord>> history([String? purpose]) {
-    final query = _db.select(_db.consentRecords)
-      ..orderBy([
-        (r) => OrderingTerm(expression: r.decidedAt, mode: OrderingMode.desc),
-      ]);
+    final query = _db.select(_db.consentRecords)..orderBy([
+      (r) => OrderingTerm(expression: r.decidedAt, mode: OrderingMode.desc),
+    ]);
     if (purpose != null) query.where((r) => r.purpose.equals(purpose));
     return query.get();
   }
@@ -100,7 +103,8 @@ class ConsentRepository {
   /// exactly as written.
   Future<void> markSynced(Iterable<int> ids) async {
     if (ids.isEmpty) return;
-    await (_db.update(_db.consentRecords)..where((r) => r.id.isIn(ids)))
-        .write(const ConsentRecordsCompanion(synced: Value(true)));
+    await (_db.update(_db.consentRecords)..where(
+      (r) => r.id.isIn(ids),
+    )).write(const ConsentRecordsCompanion(synced: Value(true)));
   }
 }

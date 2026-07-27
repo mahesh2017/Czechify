@@ -62,8 +62,5 @@ abstract class ExamRepository {
     ExamProduct product = ExamProduct.permanentResidence,
   });
   Future<ExamResult> saveResult(ExamResult result);
-  Future<List<ExamResult>> getResults(
-    ExamLevel level, {
-    ExamProduct? product,
-  });
+  Future<List<ExamResult>> getResults(ExamLevel level, {ExamProduct? product});
 }

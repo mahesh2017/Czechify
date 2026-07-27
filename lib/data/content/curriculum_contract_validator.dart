@@ -28,9 +28,10 @@ class CurriculumContractException implements Exception {
   @override
   String toString() {
     final preview = issues.take(10).map((issue) => '  - $issue').join('\n');
-    final remaining = issues.length > 10
-        ? '\n  ... and ${issues.length - 10} more issue(s)'
-        : '';
+    final remaining =
+        issues.length > 10
+            ? '\n  ... and ${issues.length - 10} more issue(s)'
+            : '';
     return 'Curriculum contract validation failed with ${issues.length} '
         'issue(s):\n$preview$remaining';
   }
@@ -305,9 +306,8 @@ class CurriculumContractValidator {
     final word = data['word'];
     final cases = _stringList(data['cases']);
     final rawAnswers = data['answer_key'];
-    final answers = rawAnswers is Map
-        ? Map<String, Object?>.from(rawAnswers)
-        : null;
+    final answers =
+        rawAnswers is Map ? Map<String, Object?>.from(rawAnswers) : null;
 
     void add(String field, String message) {
       issues.add(
@@ -755,7 +755,12 @@ class CurriculumContractValidator {
     if (items != null) {
       if (items is! List) {
         _addDataIssue(
-          issues, packKey, basePath, exerciseId, 'items', 'must be an array',
+          issues,
+          packKey,
+          basePath,
+          exerciseId,
+          'items',
+          'must be an array',
         );
         return;
       }

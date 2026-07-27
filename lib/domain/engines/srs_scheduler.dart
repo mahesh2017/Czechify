@@ -92,6 +92,8 @@ class SrsScheduler {
 
   /// Get all cards due for review on or before [asOf].
   List<SrsCard> getDueCards(List<SrsCard> allCards, DateTime asOf) {
-    return allCards.where((c) => c.due.isBefore(asOf) || c.due.isAtSameMomentAs(asOf)).toList();
+    return allCards
+        .where((c) => c.due.isBefore(asOf) || c.due.isAtSameMomentAs(asOf))
+        .toList();
   }
 }

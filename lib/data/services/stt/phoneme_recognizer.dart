@@ -20,16 +20,19 @@ class PhonemeRecognizer {
     String? apiToken,
     Dio? http,
     Logger? log,
-  })  : _baseUrl = baseUrl.trim().replaceAll(RegExp(r'/+$'), ''),
-        // ignore: prefer_initializing_formals
-        _apiToken = apiToken,
-        _log = log ?? Logger('PhonemeRecognizer'),
-        _http = http ??
-            Dio(BaseOptions(
-              connectTimeout: const Duration(seconds: 5),
-              sendTimeout: const Duration(seconds: 20),
-              receiveTimeout: const Duration(seconds: 20),
-            ));
+  }) : _baseUrl = baseUrl.trim().replaceAll(RegExp(r'/+$'), ''),
+       // ignore: prefer_initializing_formals
+       _apiToken = apiToken,
+       _log = log ?? Logger('PhonemeRecognizer'),
+       _http =
+           http ??
+           Dio(
+             BaseOptions(
+               connectTimeout: const Duration(seconds: 5),
+               sendTimeout: const Duration(seconds: 20),
+               receiveTimeout: const Duration(seconds: 20),
+             ),
+           );
 
   final String _baseUrl;
   final String? _apiToken;

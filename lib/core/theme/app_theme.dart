@@ -27,6 +27,19 @@ class AppColors {
 ThemeData lightTheme() => _build(Brightness.light, AppTokens.light);
 ThemeData darkTheme() => _build(Brightness.dark, AppTokens.dark);
 
+/// Minimum size for a button placed inside a [Row].
+///
+/// The button themes below use `Size.fromHeight(54)` for the full-width look
+/// the design calls for — but that is `Size(double.infinity, 54)`, and a Row
+/// gives its non-flex children *unbounded* width. An infinite minimum width
+/// under an unbounded constraint is invalid: layout throws, and the whole
+/// surrounding subtree renders blank (this is what blanked the mock exam).
+///
+/// So: any button that sits directly in a Row must pass this as its
+/// `minimumSize`, or be wrapped in something that bounds its width
+/// ([Expanded], [Flexible], a sized [SizedBox]).
+const Size kRowButtonMinSize = Size(64, 54);
+
 ThemeData _build(Brightness brightness, AppTokens t) {
   final isLight = brightness == Brightness.light;
   final scheme = ColorScheme.fromSeed(

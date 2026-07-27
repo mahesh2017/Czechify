@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
@@ -226,7 +227,13 @@ class _MatchingViewState extends State<MatchingView> {
                   ),
                 ),
                 if (_allMatched && !answered)
-                  FilledButton(onPressed: _submit, child: const Text('Check')),
+                  FilledButton(
+                    onPressed: _submit,
+                    style: FilledButton.styleFrom(
+                      minimumSize: kRowButtonMinSize,
+                    ),
+                    child: const Text('Check'),
+                  ),
                 if (answered)
                   Row(
                     mainAxisSize: MainAxisSize.min,

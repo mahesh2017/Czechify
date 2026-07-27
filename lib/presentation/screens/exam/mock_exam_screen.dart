@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/engines/exam_grader.dart';
 import '../../../domain/engines/pronunciation_scorer.dart';
@@ -588,7 +589,16 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               // Question
               Expanded(child: _buildQuestion(section.type, question)),
 
-              // Navigation
+              // Navigation.
+              //
+              // Both buttons override minimumSize. The app theme sets
+              // `Size.fromHeight(54)` on every button style, and that is
+              // `Size(double.infinity, 54)` — a deliberate full-width look that
+              // works anywhere the button gets a bounded width. A Row passes
+              // its children *unbounded* width, so the infinite minimum
+              // propagates and layout fails: the exam body rendered completely
+              // blank and threw on every timer tick. Any themed button placed
+              // in a Row needs a finite minimum like this.
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -601,6 +611,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     const SizedBox(width: 80),
                   FilledButton(
                     onPressed: _nextQuestion,
+                    style: FilledButton.styleFrom(
+                      minimumSize: kRowButtonMinSize,
+                    ),
                     child: Text(
                       _currentQuestion < totalQuestions - 1
                           ? 'Next'

@@ -5,7 +5,8 @@ import 'flashcards.dart';
 class SrsCards extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get cardType => text()(); // 'vocabulary' or 'grammar'
-  IntColumn get flashcardId => integer().nullable().references(Flashcards, #id)();
+  IntColumn get flashcardId =>
+      integer().nullable().references(Flashcards, #id)();
   TextColumn get grammarPatternKey => text().nullable()();
   RealColumn get stability => real().withDefault(const Constant(0.0))();
   RealColumn get difficulty => real().withDefault(const Constant(0.0))();

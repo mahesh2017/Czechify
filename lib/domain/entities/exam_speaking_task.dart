@@ -85,10 +85,11 @@ class ExamPromptedResponseTask extends ExamSpeakingTask {
   double transcriptCoverage(String transcription) {
     final heard = _canonical(transcription);
     if (heard.isEmpty) return 0;
-    final covered = expectedPhrases.where((phrase) {
-      final expected = _canonical(phrase);
-      return expected.isNotEmpty && heard.contains(expected);
-    }).length;
+    final covered =
+        expectedPhrases.where((phrase) {
+          final expected = _canonical(phrase);
+          return expected.isNotEmpty && heard.contains(expected);
+        }).length;
     return covered / expectedPhrases.length;
   }
 }

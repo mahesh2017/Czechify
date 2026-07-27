@@ -115,11 +115,12 @@ class OnDeviceCzechStt {
         previous = bestId;
       }
 
-      final text = buffer
-          .toString()
-          .replaceAll('|', ' ')
-          .replaceAll(RegExp(r'\s+'), ' ')
-          .trim();
+      final text =
+          buffer
+              .toString()
+              .replaceAll('|', ' ')
+              .replaceAll(RegExp(r'\s+'), ' ')
+              .trim();
 
       return OnDeviceTranscript(
         text: text,
@@ -133,5 +134,4 @@ class OnDeviceCzechStt {
       await input.dispose();
     }
   }
-
 }

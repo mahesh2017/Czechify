@@ -6,7 +6,11 @@ class HeartResult {
   final bool isGameOver;
   final bool canRefill;
 
-  const HeartResult({required this.hearts, required this.isGameOver, required this.canRefill});
+  const HeartResult({
+    required this.hearts,
+    required this.isGameOver,
+    required this.canRefill,
+  });
 }
 
 /// Gamification engine — manages XP, hearts, streaks, and badges.
@@ -47,7 +51,8 @@ class GamificationEngine {
   List<Badge> checkBadges(ProgressSnapshot progress) {
     final unlocked = <Badge>[];
     for (final badge in Badge.all) {
-      if (!progress.earnedBadges.contains(badge.id) && badge.criteria.isMet(progress)) {
+      if (!progress.earnedBadges.contains(badge.id) &&
+          badge.criteria.isMet(progress)) {
         unlocked.add(badge);
       }
     }

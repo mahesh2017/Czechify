@@ -32,5 +32,6 @@ class ExamResult {
   });
 
   int get sectionAverage =>
-      ((readingScore + listeningScore + writingScore + speakingScore) / 4).round();
+      ((readingScore + listeningScore + writingScore + speakingScore) / 4)
+          .round();
 }

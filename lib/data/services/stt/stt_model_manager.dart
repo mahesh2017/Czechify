@@ -60,8 +60,9 @@ class SttModelManager {
   OrtSession? get session => _session;
   bool get isReady => _session != null;
 
-  final ValueNotifier<SttModelState> stateListenable =
-      ValueNotifier(SttModelState.absent);
+  final ValueNotifier<SttModelState> stateListenable = ValueNotifier(
+    SttModelState.absent,
+  );
 
   void _setState(SttModelState next) {
     _state = next;
@@ -106,9 +107,10 @@ class SttModelManager {
             // Resume from where an interrupted attempt stopped. On a 340 MB
             // file over mobile data, restarting from zero is the difference
             // between finishing and giving up.
-            options: already > 0
-                ? Options(headers: {'Range': 'bytes=$already-'})
-                : null,
+            options:
+                already > 0
+                    ? Options(headers: {'Range': 'bytes=$already-'})
+                    : null,
             onReceiveProgress: (received, total) {
               if (!controller.isClosed) {
                 controller.add(

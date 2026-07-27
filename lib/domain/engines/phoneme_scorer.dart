@@ -75,10 +75,12 @@ class PhonemeScorer {
     // the 80s, which would tell the learner "good" about the one thing they
     // cannot yet do. If a heavily-weighted sound failed, the band is held back
     // regardless of the average.
-    final missedCritical = comparisons.any((c) =>
-        c.expected != null &&
-        weightFor(c.expected!) >= _weightLongVowel &&
-        c.similarity < _acceptThreshold);
+    final missedCritical = comparisons.any(
+      (c) =>
+          c.expected != null &&
+          weightFor(c.expected!) >= _weightLongVowel &&
+          c.similarity < _acceptThreshold,
+    );
 
     return PhonemeAssessment(
       overallScore: overall.clamp(0.0, 1.0),
@@ -109,8 +111,12 @@ class PhonemeScorer {
 
     for (var i = 1; i <= m; i++) {
       for (var j = 1; j <= n; j++) {
-        final diag = score[i - 1][j - 1] +
-            CzechPhonemes.similarity(expected[i - 1].symbol, actual[j - 1].symbol);
+        final diag =
+            score[i - 1][j - 1] +
+            CzechPhonemes.similarity(
+              expected[i - 1].symbol,
+              actual[j - 1].symbol,
+            );
         final up = score[i - 1][j] + gap;
         final left = score[i][j - 1] + gap;
 
@@ -134,26 +140,32 @@ class PhonemeScorer {
       if (i > 0 && j > 0 && trace[i][j] == 0) {
         final e = expected[i - 1];
         final a = actual[j - 1];
-        out.add(PhonemeComparison(
-          expected: e,
-          actual: a,
-          similarity: CzechPhonemes.similarity(e.symbol, a.symbol),
-        ));
+        out.add(
+          PhonemeComparison(
+            expected: e,
+            actual: a,
+            similarity: CzechPhonemes.similarity(e.symbol, a.symbol),
+          ),
+        );
         i--;
         j--;
       } else if (i > 0 && (j == 0 || trace[i][j] == 1)) {
-        out.add(PhonemeComparison(
-          expected: expected[i - 1],
-          actual: null,
-          similarity: 0,
-        ));
+        out.add(
+          PhonemeComparison(
+            expected: expected[i - 1],
+            actual: null,
+            similarity: 0,
+          ),
+        );
         i--;
       } else {
-        out.add(PhonemeComparison(
-          expected: null,
-          actual: actual[j - 1],
-          similarity: 0,
-        ));
+        out.add(
+          PhonemeComparison(
+            expected: null,
+            actual: actual[j - 1],
+            similarity: 0,
+          ),
+        );
         j--;
       }
     }
@@ -163,13 +175,18 @@ class PhonemeScorer {
 
   /// Targeted, teachable feedback — at most a few points, worst first.
   List<String> _feedback(List<PhonemeComparison> comparisons) {
-    final problems = comparisons
-        .where((c) => c.expected != null && c.similarity < _acceptThreshold)
-        .toList()
-      ..sort((a, b) {
-        final byWeight = weightFor(b.expected!).compareTo(weightFor(a.expected!));
-        return byWeight != 0 ? byWeight : a.similarity.compareTo(b.similarity);
-      });
+    final problems =
+        comparisons
+            .where((c) => c.expected != null && c.similarity < _acceptThreshold)
+            .toList()
+          ..sort((a, b) {
+            final byWeight = weightFor(
+              b.expected!,
+            ).compareTo(weightFor(a.expected!));
+            return byWeight != 0
+                ? byWeight
+                : a.similarity.compareTo(b.similarity);
+          });
 
     final tips = <String>[];
     final seen = <String>{};
@@ -179,18 +196,24 @@ class PhonemeScorer {
       if (!seen.add(e.symbol)) continue;
 
       if (e.base == 'r̝') {
-        tips.add(p.actual?.base == 'r'
-            ? 'Your "ř" came out as a plain "r". Keep the tongue trilling but '
-                'press it closer to the ridge so it buzzes.'
-            : 'Work on "ř" — trill the tongue and add a buzz at the same time.');
+        tips.add(
+          p.actual?.base == 'r'
+              ? 'Your "ř" came out as a plain "r". Keep the tongue trilling but '
+                  'press it closer to the ridge so it buzzes.'
+              : 'Work on "ř" — trill the tongue and add a buzz at the same time.',
+        );
       } else if (e.isLong && p.actual != null && !p.actual!.isLong) {
-        tips.add('"${e.symbol}" is a long vowel — hold it about twice as long. '
-            'Czech uses length to change meaning (byt vs být).');
+        tips.add(
+          '"${e.symbol}" is a long vowel — hold it about twice as long. '
+          'Czech uses length to change meaning (byt vs být).',
+        );
       } else if (!e.isLong && p.actual != null && p.actual!.isLong) {
         tips.add('"${e.symbol}" is short here — you lengthened it.');
       } else if (_palatals.contains(e.base)) {
-        tips.add('"${e.symbol}" is palatal — press the middle of the tongue '
-            'against the hard palate.');
+        tips.add(
+          '"${e.symbol}" is palatal — press the middle of the tongue '
+          'against the hard palate.',
+        );
       } else if (p.actual == null) {
         tips.add('You dropped the "${e.symbol}" sound.');
       } else {
@@ -255,7 +278,8 @@ class PhonemeAssessment {
     if (feedback.isNotEmpty && result == PronunciationBand.excellent) {
       result = PronunciationBand.good;
     }
-    if (missedCriticalSound && result.index < PronunciationBand.needsWork.index) {
+    if (missedCriticalSound &&
+        result.index < PronunciationBand.needsWork.index) {
       result = PronunciationBand.needsWork;
     }
     return result;
@@ -263,9 +287,12 @@ class PhonemeAssessment {
 
   /// What to actually show. When nothing matched, per-sound tips are noise —
   /// the useful message is that the attempt wasn't recognisable at all.
-  List<String> get displayFeedback => band == PronunciationBand.tryAgain
-      ? const ["That didn't match the phrase — listen again and try once more."]
-      : feedback;
+  List<String> get displayFeedback =>
+      band == PronunciationBand.tryAgain
+          ? const [
+            "That didn't match the phrase — listen again and try once more.",
+          ]
+          : feedback;
 }
 
 /// Ordered best to worst, so `index` comparisons above read naturally.

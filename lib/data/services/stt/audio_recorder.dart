@@ -14,7 +14,8 @@ import '../../../domain/repositories/speech_ports.dart';
 /// `speech_to_text` which only gives text, this gives us the actual audio
 /// bytes needed to send to Whisper.
 class AudioRecorderService implements AudioRecorderPort {
-  AudioRecorderService({Logger? log}) : _log = log ?? Logger('AudioRecorderService');
+  AudioRecorderService({Logger? log})
+    : _log = log ?? Logger('AudioRecorderService');
 
   final Logger _log;
   final AudioRecorder _recorder = AudioRecorder();

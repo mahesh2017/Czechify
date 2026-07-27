@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
@@ -308,6 +309,9 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                 ),
                 if (!_allCorrect)
                   OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: kRowButtonMinSize,
+                    ),
                     onPressed: _retry,
                     icon: const Icon(Icons.refresh, size: 18),
                     label: const Text('Retry'),

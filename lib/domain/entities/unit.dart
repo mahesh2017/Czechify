@@ -29,7 +29,8 @@ class Unit {
       description: json['description'] as String,
       phase: Phase.values.byName(json['phase'] as String),
       orderIndex: json['order_index'] as int,
-      grammarTags: (json['grammar_tags'] as List<dynamic>?)?.cast<String>() ?? [],
+      grammarTags:
+          (json['grammar_tags'] as List<dynamic>?)?.cast<String>() ?? [],
       isExamPrep: json['is_exam_prep'] as bool? ?? false,
       lessonCount: json['lesson_count'] as int?,
     );
