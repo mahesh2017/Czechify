@@ -124,6 +124,21 @@ Two fixes were needed beyond straight substitution:
 
 **Explicitly not in this phase:** splitting large files, adding Semantics, changing copy.
 
+### Phase 1 status — COMPLETE
+
+- **217 → 21** raw `Colors.` references in `lib/presentation`; the 21 are the allowlist
+  above. Commits `b8bca7b`, `1bc254a`.
+- One gender-colour implementation: `widgets/common/gender_pill.dart`. The review screen's
+  raw-Material `_genderColor()` is gone and the lesson player calls the shared helper.
+- `ScoreColors.of()` now takes a `BuildContext` and returns token colours. It lives in
+  `lib/core`, so the QA report's `lib/presentation` sweep never saw it.
+- Verified on the iOS simulator in dark mode: home, curriculum, teach-phase word cards,
+  lesson runner, answer-feedback states (correct/wrong tints + grammar tip card),
+  pronunciation lab, review-complete, exam intro, exam reading section, router error page.
+- `flutter analyze` clean; **455 tests pass** (452 + 3 new).
+- Two defects surfaced during the screenshot pass — one fixed (`ae301c2`, see Deferred),
+  one still open (review-complete button overlap).
+
 ---
 
 ## Phase 2 — Security hardening
@@ -251,3 +266,17 @@ reachable from home has either content or a designed empty state.
 
 _Anything found mid-phase that is out of that phase's scope goes here, with the phase it was
 found in._
+
+- **Review-complete screen: bottom button overlaps the reschedule banner** (found in
+  phase 1, dark-mode screenshot pass). On the "Review complete" screen the teal
+  "These cards are rescheduled with…" banner is clipped mid-sentence by the "Back to home"
+  button drawn on top of it. Layout, not colour — untouched by phase 1 and present before
+  it. Fix alongside phase 6 polish.
+- ~~**Mock exam renders an empty body when a section starts**~~ — **fixed in `ae301c2`.**
+  Root cause was not exam-specific: the button themes use `Size.fromHeight(54)`, i.e.
+  `Size(double.infinity, 54)`, and a Row gives its non-flex children unbounded width. The
+  infinite minimum makes the constraint invalid, layout throws, and the entire subtree
+  renders blank. Pre-existing (predates this branch; the theme is untouched by phase 1).
+  Fixed with `kRowButtonMinSize` at the three affected sites, plus tests pinning the
+  premise and the fix. `textButtonTheme` sets no minimum size, so TextButtons were never
+  affected.
