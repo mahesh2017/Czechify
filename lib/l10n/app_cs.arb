@@ -1,0 +1,111 @@
+{
+  "@@locale": "cs",
+  "appTitle": "Czechify",
+  "check": "Zkontrolovat",
+  "continueLabel": "Pokračovat",
+  "tryAgain": "Zkusit znovu",
+  "nextPhrase": "Další fráze",
+  "skip": "Přeskočit",
+  "retry": "Znovu",
+  "cancel": "Zrušit",
+  "save": "Uložit",
+  "goHome": "Zpět domů",
+  "startExam": "Spustit test",
+  "resumeExam": "Pokračovat v testu",
+  "discardAndStartOver": "Zahodit a začít znovu",
+  "startRecording": "Spustit nahrávání",
+  "stopRecording": "Zastavit nahrávání",
+  "listen": "Poslechnout",
+  "pronunciationLab": "Trénink výslovnosti",
+  "sayThis": "Řekněte:",
+  "tapMicrophoneHint": "Klepněte na mikrofon a vyslovte frázi",
+  "analyzingPronunciation": "Analyzuji výslovnost…",
+  "onDeviceRecognitionNote": "Používá se rozpoznávání přímo v zařízení — výsledky mohou být méně přesné.",
+
+  "navHome": "Domů",
+  "navLearn": "Učit se",
+  "navReview": "Opakování",
+  "navChat": "Konverzace",
+  "navStats": "Statistiky",
+
+  "settings": "Nastavení",
+  "settingsYourName": "Vaše jméno",
+  "settingsDailyGoal": "Denní cíl",
+  "settingsXpPerDay": "{count} XP denně",
+  "@settingsXpPerDay": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "settingsTheme": "Vzhled",
+  "settingsThemeSystem": "Podle systému",
+  "settingsThemeLight": "Světlý",
+  "settingsThemeDark": "Tmavý",
+  "settingsLanguage": "Jazyk aplikace",
+  "settingsLanguageSystem": "Podle systému",
+  "settingsSoundEffects": "Zvukové efekty",
+  "settingsVibration": "Vibrace",
+  "settingsHearts": "Srdíčka v lekcích",
+  "settingsTestVoice": "Vyzkoušet hlas",
+  "settingsVoiceMale": "Mužský",
+  "settingsVoiceFemale": "Ženský",
+  "settingsAccount": "Účet",
+  "settingsPrivacyPolicy": "Zásady ochrany osobních údajů",
+  "settingsAbout": "O aplikaci Czechify",
+  "settingsVersion": "Verze",
+  "settingsClearAudioCache": "Vymazat mezipaměť zvuku",
+
+  "homeYourProgress": "Váš pokrok",
+  "homeBrowseCurriculum": "Procházet kurz",
+  "homeGrammarReference": "Přehled gramatiky",
+  "homeMockExam": "Zkušební test",
+  "homeAiChat": "Konverzace s AI",
+  "homeSpeak": "Mluvit",
+  "homeStartFirstLesson": "Začněte první lekci",
+  "homeAllCaughtUp": "Vše hotovo!",
+  "homeDayStreak": "{count,plural,one{{count} den v řadě}few{{count} dny v řadě}other{{count} dní v řadě}}",
+  "@homeDayStreak": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "homeHeartsRemaining": "{count,plural,one{Zbývá {count} srdíčko}few{Zbývají {count} srdíčka}other{Zbývá {count} srdíček}}",
+  "@homeHeartsRemaining": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "reviewShowAnswer": "Zobrazit odpověď",
+  "reviewTapToReveal": "Klepnutím zobrazíte",
+  "reviewRatingAgain": "Znovu",
+  "reviewRatingHard": "Těžké",
+  "reviewRatingGood": "Dobré",
+  "reviewRatingEasy": "Snadné",
+  "reviewEndTitle": "Ukončit opakování?",
+  "reviewEndBody": "Váš pokrok bude uložen. Můžete pokračovat později.",
+  "reviewStay": "Zůstat",
+  "reviewEnd": "Ukončit",
+  "reviewNoCardsDue": "Teď nejsou žádné karty k opakování.",
+  "reviewCardOf": "Karta {current} z {total}",
+  "@reviewCardOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "lessonLeaveTitle": "Opustit lekci?",
+  "lessonLeaveBody": "Vrátíte se do kurzu. Odpovědi, které jste už zadali, zůstanou uložené.",
+  "lessonLeave": "Odejít",
+  "lessonQuestionOf": "Otázka {current} z {total}",
+  "@lessonQuestionOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "errorFailedToLoad": "Tento obsah se nepodařilo načíst.",
+  "errorCheckConnection": "Zkontrolujte připojení a zkuste to znovu."
+}

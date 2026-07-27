@@ -23,5 +23,98 @@
   "sayThis": "Say this:",
   "tapMicrophoneHint": "Tap the microphone and say the phrase",
   "analyzingPronunciation": "Analyzing your pronunciation...",
-  "onDeviceRecognitionNote": "Using on-device recognition — results may be less accurate."
+  "onDeviceRecognitionNote": "Using on-device recognition — results may be less accurate.",
+
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom navigation label. Keep short — it sits under an icon in a five-item bar."
+  },
+  "navLearn": "Learn",
+  "navReview": "Review",
+  "navChat": "Chat",
+  "navStats": "Stats",
+
+  "settings": "Settings",
+  "settingsYourName": "Your name",
+  "settingsDailyGoal": "Daily goal",
+  "settingsXpPerDay": "{count} XP per day",
+  "@settingsXpPerDay": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "settingsTheme": "Theme",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Language of the app's own interface, not the language being learned."
+  },
+  "settingsLanguageSystem": "System default",
+  "settingsSoundEffects": "Sound effects",
+  "settingsVibration": "Vibration",
+  "settingsHearts": "Hearts in lessons",
+  "settingsTestVoice": "Test voice",
+  "settingsVoiceMale": "Male",
+  "settingsVoiceFemale": "Female",
+  "settingsAccount": "Account",
+  "settingsPrivacyPolicy": "Privacy Policy",
+  "settingsAbout": "About Czechify",
+  "settingsVersion": "Version",
+  "settingsClearAudioCache": "Clear audio cache",
+
+  "homeYourProgress": "Your progress",
+  "homeBrowseCurriculum": "Browse curriculum",
+  "homeGrammarReference": "Grammar reference",
+  "homeMockExam": "Mock exam",
+  "homeAiChat": "AI Chat",
+  "homeSpeak": "Speak",
+  "homeStartFirstLesson": "Start your first lesson",
+  "homeAllCaughtUp": "All caught up!",
+  "homeDayStreak": "{count,plural,=1{{count} day streak}other{{count} day streak}}",
+  "@homeDayStreak": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "homeHeartsRemaining": "{count,plural,=1{{count} heart remaining}other{{count} hearts remaining}}",
+  "@homeHeartsRemaining": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "reviewShowAnswer": "Show Answer",
+  "reviewTapToReveal": "Tap to reveal",
+  "reviewRatingAgain": "Again",
+  "reviewRatingHard": "Hard",
+  "reviewRatingGood": "Good",
+  "reviewRatingEasy": "Easy",
+  "reviewEndTitle": "End review?",
+  "reviewEndBody": "Your progress will be saved. You can continue later.",
+  "reviewStay": "Stay",
+  "reviewEnd": "End",
+  "reviewNoCardsDue": "No cards due for review right now.",
+  "reviewCardOf": "Card {current} of {total}",
+  "@reviewCardOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "lessonLeaveTitle": "Leave lesson?",
+  "lessonLeaveBody": "You'll go back to the curriculum. The answers you've already given are saved.",
+  "lessonLeave": "Leave",
+  "lessonQuestionOf": "Question {current} of {total}",
+  "@lessonQuestionOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "errorFailedToLoad": "Could not load this content.",
+  "errorCheckConnection": "Check your connection and try again."
 }

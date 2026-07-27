@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../providers/review_providers.dart';
@@ -106,7 +107,9 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
             Padding(
               padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
               child: Text(
-                'Card ${session.currentIndex + 1} of ${session.totalCards}',
+                AppLocalizations.of(
+                  context,
+                ).reviewCardOf(session.currentIndex + 1, session.totalCards),
                 style: Theme.of(
                   context,
                 ).textTheme.bodySmall?.copyWith(color: context.tokens.muted),
@@ -185,7 +188,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                           }
                           : null,
                   icon: const Icon(Icons.flip),
-                  label: const Text('Show Answer'),
+                  label: Text(AppLocalizations.of(context).reviewShowAnswer),
                 ),
               ),
           ],
@@ -222,21 +225,19 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
       context: context,
       builder:
           (ctx) => AlertDialog(
-            title: const Text('End review?'),
-            content: const Text(
-              'Your progress will be saved. You can continue later.',
-            ),
+            title: Text(AppLocalizations.of(context).reviewEndTitle),
+            content: Text(AppLocalizations.of(context).reviewEndBody),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
-                child: const Text('Stay'),
+                child: Text(AppLocalizations.of(context).reviewStay),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(ctx);
                   context.go('/');
                 },
-                child: const Text('End'),
+                child: Text(AppLocalizations.of(context).reviewEnd),
               ),
             ],
           ),
@@ -325,7 +326,10 @@ class _FlashcardView extends ConsumerWidget {
       children: [
         Icon(Icons.touch_app, color: t.faint, size: 20),
         const SizedBox(width: 8),
-        Text('Tap to reveal', style: TextStyle(color: t.faint, fontSize: 15)),
+        Text(
+          AppLocalizations.of(context).reviewTapToReveal,
+          style: TextStyle(color: t.faint, fontSize: 15),
+        ),
       ],
     );
   }
@@ -557,7 +561,7 @@ class _RatingButtons extends StatelessWidget {
         children: [
           Expanded(
             child: _RatingButton(
-              label: 'Again',
+              label: AppLocalizations.of(context).reviewRatingAgain,
               subtitle: intervals[Rating.again] ?? '',
               color: t.red,
               icon: Icons.refresh,
@@ -567,7 +571,7 @@ class _RatingButtons extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: _RatingButton(
-              label: 'Hard',
+              label: AppLocalizations.of(context).reviewRatingHard,
               subtitle: intervals[Rating.hard] ?? '',
               color: t.amber,
               icon: Icons.flag,
@@ -577,7 +581,7 @@ class _RatingButtons extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: _RatingButton(
-              label: 'Good',
+              label: AppLocalizations.of(context).reviewRatingGood,
               subtitle: intervals[Rating.good] ?? '',
               color: t.green,
               icon: Icons.check,
@@ -587,7 +591,7 @@ class _RatingButtons extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: _RatingButton(
-              label: 'Easy',
+              label: AppLocalizations.of(context).reviewRatingEasy,
               subtitle: intervals[Rating.easy] ?? '',
               color: t.pri,
               icon: Icons.star,
@@ -665,7 +669,7 @@ class _NoDueCardsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'No cards due for review right now.\nCome back later for more practice.',
+                AppLocalizations.of(context).reviewNoCardsDue,
                 textAlign: TextAlign.center,
                 style: TextStyle(color: context.tokens.muted),
               ),
@@ -789,28 +793,28 @@ class _ReviewCompleteScreen extends StatelessWidget {
                         const SizedBox(height: 14),
                         _RatingRow(
                           color: t.red,
-                          label: 'Again',
+                          label: AppLocalizations.of(context).reviewRatingAgain,
                           count: session.againCount,
                           total: total,
                         ),
                         const SizedBox(height: 12),
                         _RatingRow(
                           color: t.amber,
-                          label: 'Hard',
+                          label: AppLocalizations.of(context).reviewRatingHard,
                           count: session.hardCount,
                           total: total,
                         ),
                         const SizedBox(height: 12),
                         _RatingRow(
                           color: t.green,
-                          label: 'Good',
+                          label: AppLocalizations.of(context).reviewRatingGood,
                           count: session.goodCount,
                           total: total,
                         ),
                         const SizedBox(height: 12),
                         _RatingRow(
                           color: t.pri,
-                          label: 'Easy',
+                          label: AppLocalizations.of(context).reviewRatingEasy,
                           count: session.easyCount,
                           total: total,
                         ),

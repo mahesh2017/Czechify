@@ -61,6 +61,9 @@ class CzechifyApp extends ConsumerWidget {
     final initFuture = ref.watch(appInitializationProvider);
     final onboardingDone = ref.watch(onboardingDoneProvider);
     final themeMode = ref.watch(themeModeProvider);
+    final locale = ref.watch(
+      settingsProvider.select((settings) => settings.locale),
+    );
 
     // Wait for both DB seeding and the onboarding flag before building the
     // router, so the initial location is decided from real data.
@@ -91,6 +94,8 @@ class CzechifyApp extends ConsumerWidget {
       theme: lightTheme(),
       darkTheme: darkTheme(),
       themeMode: themeMode,
+      // Null lets Flutter resolve the device locale against supportedLocales.
+      locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

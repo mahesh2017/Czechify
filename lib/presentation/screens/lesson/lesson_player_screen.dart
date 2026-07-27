@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../widgets/common/degraded_mode_banner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -255,7 +256,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                         ? 'Introduction'
                         : session.inMistakeReview
                         ? 'Reviewing missed questions'
-                        : 'Question ${session.currentIndex + 1} of ${session.totalExercises}',
+                        : AppLocalizations.of(context).lessonQuestionOf(
+                          session.currentIndex + 1,
+                          session.totalExercises,
+                        ),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color:
                           session.inMistakeReview
@@ -418,21 +422,19 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       context: context,
       builder:
           (ctx) => AlertDialog(
-            title: const Text('Leave lesson?'),
-            content: const Text(
-              'Your progress in this lesson will be lost. Are you sure?',
-            ),
+            title: Text(AppLocalizations.of(context).lessonLeaveTitle),
+            content: Text(AppLocalizations.of(context).lessonLeaveBody),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
-                child: const Text('Stay'),
+                child: Text(AppLocalizations.of(context).reviewStay),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(ctx);
                   context.pop();
                 },
-                child: const Text('Leave'),
+                child: Text(AppLocalizations.of(context).lessonLeave),
               ),
             ],
           ),

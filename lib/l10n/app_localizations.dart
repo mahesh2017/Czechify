@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_cs.dart';
 import 'app_localizations_en.dart';
 
 // ignore_for_file: type=lint
@@ -92,7 +93,10 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('cs'),
+    Locale('en'),
+  ];
 
   /// Application name shown in the task switcher
   ///
@@ -219,6 +223,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Using on-device recognition — results may be less accurate.'**
   String get onDeviceRecognitionNote;
+
+  /// Bottom navigation label. Keep short — it sits under an icon in a five-item bar.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
+  /// No description provided for @navLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn'**
+  String get navLearn;
+
+  /// No description provided for @navReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get navReview;
+
+  /// No description provided for @navChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get navChat;
+
+  /// No description provided for @navStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get navStats;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @settingsYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get settingsYourName;
+
+  /// No description provided for @settingsDailyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goal'**
+  String get settingsDailyGoal;
+
+  /// No description provided for @settingsXpPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} XP per day'**
+  String settingsXpPerDay(int count);
+
+  /// No description provided for @settingsTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingsTheme;
+
+  /// No description provided for @settingsThemeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settingsThemeSystem;
+
+  /// No description provided for @settingsThemeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get settingsThemeLight;
+
+  /// No description provided for @settingsThemeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get settingsThemeDark;
+
+  /// Language of the app's own interface, not the language being learned.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsLanguageSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System default'**
+  String get settingsLanguageSystem;
+
+  /// No description provided for @settingsSoundEffects.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound effects'**
+  String get settingsSoundEffects;
+
+  /// No description provided for @settingsVibration.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration'**
+  String get settingsVibration;
+
+  /// No description provided for @settingsHearts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hearts in lessons'**
+  String get settingsHearts;
+
+  /// No description provided for @settingsTestVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Test voice'**
+  String get settingsTestVoice;
+
+  /// No description provided for @settingsVoiceMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get settingsVoiceMale;
+
+  /// No description provided for @settingsVoiceFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get settingsVoiceFemale;
+
+  /// No description provided for @settingsAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsAccount;
+
+  /// No description provided for @settingsPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get settingsPrivacyPolicy;
+
+  /// No description provided for @settingsAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'About Czechify'**
+  String get settingsAbout;
+
+  /// No description provided for @settingsVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get settingsVersion;
+
+  /// No description provided for @settingsClearAudioCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear audio cache'**
+  String get settingsClearAudioCache;
+
+  /// No description provided for @homeYourProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get homeYourProgress;
+
+  /// No description provided for @homeBrowseCurriculum.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse curriculum'**
+  String get homeBrowseCurriculum;
+
+  /// No description provided for @homeGrammarReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar reference'**
+  String get homeGrammarReference;
+
+  /// No description provided for @homeMockExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Mock exam'**
+  String get homeMockExam;
+
+  /// No description provided for @homeAiChat.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Chat'**
+  String get homeAiChat;
+
+  /// No description provided for @homeSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak'**
+  String get homeSpeak;
+
+  /// No description provided for @homeStartFirstLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your first lesson'**
+  String get homeStartFirstLesson;
+
+  /// No description provided for @homeAllCaughtUp.
+  ///
+  /// In en, this message translates to:
+  /// **'All caught up!'**
+  String get homeAllCaughtUp;
+
+  /// No description provided for @homeDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural,=1{{count} day streak}other{{count} day streak}}'**
+  String homeDayStreak(int count);
+
+  /// No description provided for @homeHeartsRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural,=1{{count} heart remaining}other{{count} hearts remaining}}'**
+  String homeHeartsRemaining(int count);
+
+  /// No description provided for @reviewShowAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Answer'**
+  String get reviewShowAnswer;
+
+  /// No description provided for @reviewTapToReveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to reveal'**
+  String get reviewTapToReveal;
+
+  /// No description provided for @reviewRatingAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Again'**
+  String get reviewRatingAgain;
+
+  /// No description provided for @reviewRatingHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get reviewRatingHard;
+
+  /// No description provided for @reviewRatingGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get reviewRatingGood;
+
+  /// No description provided for @reviewRatingEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get reviewRatingEasy;
+
+  /// No description provided for @reviewEndTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'End review?'**
+  String get reviewEndTitle;
+
+  /// No description provided for @reviewEndBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress will be saved. You can continue later.'**
+  String get reviewEndBody;
+
+  /// No description provided for @reviewStay.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay'**
+  String get reviewStay;
+
+  /// No description provided for @reviewEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get reviewEnd;
+
+  /// No description provided for @reviewNoCardsDue.
+  ///
+  /// In en, this message translates to:
+  /// **'No cards due for review right now.'**
+  String get reviewNoCardsDue;
+
+  /// No description provided for @reviewCardOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Card {current} of {total}'**
+  String reviewCardOf(int current, int total);
+
+  /// No description provided for @lessonLeaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave lesson?'**
+  String get lessonLeaveTitle;
+
+  /// No description provided for @lessonLeaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll go back to the curriculum. The answers you\'ve already given are saved.'**
+  String get lessonLeaveBody;
+
+  /// No description provided for @lessonLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get lessonLeave;
+
+  /// No description provided for @lessonQuestionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String lessonQuestionOf(int current, int total);
+
+  /// No description provided for @errorFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this content.'**
+  String get errorFailedToLoad;
+
+  /// No description provided for @errorCheckConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your connection and try again.'**
+  String get errorCheckConnection;
 }
 
 class _AppLocalizationsDelegate
@@ -232,7 +560,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['cs', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -241,6 +569,8 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'cs':
+      return AppLocalizationsCs();
     case 'en':
       return AppLocalizationsEn();
   }

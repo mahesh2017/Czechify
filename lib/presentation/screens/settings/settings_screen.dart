@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
@@ -96,6 +97,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final settings = ref.watch(settingsProvider);
 
     return Scaffold(
@@ -124,7 +126,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.person_outline,
                   tint: t.priSoft,
                   fg: t.pri,
-                  title: 'Your name',
+                  title: l10n.settingsYourName,
                   subtitle:
                       settings.learnerName.isEmpty
                           ? 'Not set'
@@ -159,13 +161,54 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.dark_mode_outlined,
                   tint: t.violetSoft,
                   fg: t.violet,
-                  title: 'Theme',
+                  title: l10n.settingsTheme,
                   subtitle: _themeLabel(settings.themeMode),
                   trailing: _ThemeToggle(
                     mode: settings.themeMode,
                     onChanged:
                         (m) =>
                             ref.read(settingsProvider.notifier).setThemeMode(m),
+                  ),
+                ),
+                _Row(
+                  icon: Icons.translate_outlined,
+                  tint: t.priSoft,
+                  fg: t.pri,
+                  title: l10n.settingsLanguage,
+                  subtitle: switch (settings.locale?.languageCode) {
+                    'cs' => 'Čeština',
+                    'en' => 'English',
+                    _ => l10n.settingsLanguageSystem,
+                  },
+                  trailing: DropdownButton<String>(
+                    value: settings.locale?.languageCode ?? '',
+                    underline: const SizedBox.shrink(),
+                    style: TextStyle(
+                      color: t.pri,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                    ),
+                    items: [
+                      DropdownMenuItem(
+                        value: '',
+                        child: Text(l10n.settingsLanguageSystem),
+                      ),
+                      const DropdownMenuItem(
+                        value: 'en',
+                        child: Text('English'),
+                      ),
+                      const DropdownMenuItem(
+                        value: 'cs',
+                        child: Text('Čeština'),
+                      ),
+                    ],
+                    onChanged: (code) {
+                      ref
+                          .read(settingsProvider.notifier)
+                          .setLocale(
+                            code == null || code.isEmpty ? null : Locale(code),
+                          );
+                    },
                   ),
                 ),
               ],
@@ -179,8 +222,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.flag_outlined,
                   tint: t.priSoft,
                   fg: t.pri,
-                  title: 'Daily goal',
-                  subtitle: '${settings.dailyGoalXp} XP per day',
+                  title: l10n.settingsDailyGoal,
+                  subtitle: l10n.settingsXpPerDay(settings.dailyGoalXp),
                   trailing: DropdownButton<int>(
                     value: settings.dailyGoalXp,
                     underline: const SizedBox.shrink(),
@@ -207,7 +250,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.favorite_border,
                   tint: t.redSoft,
                   fg: t.red,
-                  title: 'Hearts in lessons',
+                  title: l10n.settingsHearts,
                   subtitle: 'Off = practice freely',
                   trailing: Switch(
                     value: settings.heartsEnabled,
@@ -224,7 +267,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.music_note_outlined,
                   tint: t.amberSoft,
                   fg: t.amber,
-                  title: 'Sound effects',
+                  title: l10n.settingsSoundEffects,
                   subtitle: 'Answers and celebrations',
                   trailing: Switch(
                     value: settings.soundEffectsEnabled,
@@ -239,7 +282,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.vibration,
                   tint: t.violetSoft,
                   fg: t.violet,
-                  title: 'Vibration',
+                  title: l10n.settingsVibration,
                   subtitle: 'A tap you can feel',
                   trailing: Switch(
                     value: settings.hapticsEnabled,
@@ -376,7 +419,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.play_arrow_rounded,
                   tint: t.greenSoft,
                   fg: t.green,
-                  title: 'Test voice',
+                  title: l10n.settingsTestVoice,
                   subtitle: 'Play a sample Czech phrase',
                   onTap:
                       () =>
@@ -387,7 +430,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.delete_outline,
                   tint: t.chipBg,
                   fg: t.muted,
-                  title: 'Clear audio cache',
+                  title: l10n.settingsClearAudioCache,
                   subtitle: 'Remove cached audio files',
                   onTap: () async {
                     await ref.read(czechTtsProvider).clearCache();
@@ -424,7 +467,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.school_outlined,
                   tint: t.priSoft,
                   fg: t.pri,
-                  title: 'About Czechify',
+                  title: l10n.settingsAbout,
                   subtitle: 'What the app does · by $kDeveloperName',
                   onTap: () => context.push('/about'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
@@ -434,7 +477,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.code,
                   tint: t.chipBg,
                   fg: t.muted,
-                  title: 'Version',
+                  title: l10n.settingsVersion,
                   subtitle: '1.0.0',
                   trailing: const SizedBox.shrink(),
                 ),
@@ -443,7 +486,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.privacy_tip_outlined,
                   tint: t.priSoft,
                   fg: t.pri,
-                  title: 'Privacy Policy',
+                  title: l10n.settingsPrivacyPolicy,
                   subtitle: 'Read in full, in the app',
                   onTap: () => context.push('/privacy'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),

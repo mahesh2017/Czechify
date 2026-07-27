@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -60,7 +61,9 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 Semantics(
-                  label: '${g.hearts} hearts remaining',
+                  label: AppLocalizations.of(
+                    context,
+                  ).homeHeartsRemaining(g.hearts),
                   child: PillChip(
                     label: '${g.hearts}',
                     bg: t.redSoft,
@@ -70,7 +73,9 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 const SizedBox(width: 8),
                 Semantics(
-                  label: '${g.currentStreak} day streak',
+                  label: AppLocalizations.of(
+                    context,
+                  ).homeDayStreak(g.currentStreak),
                   child: PillChip(
                     label: '${g.currentStreak}',
                     bg: t.amberSoft,
@@ -157,7 +162,7 @@ class HomeScreen extends ConsumerWidget {
                     icon: Icons.chat_bubble_outline,
                     tint: t.priSoft,
                     fg: t.pri,
-                    label: 'AI Chat',
+                    label: AppLocalizations.of(context).homeAiChat,
                     sub: '6 scenarios',
                     onTap: () => context.go('/chat'),
                   ),
@@ -168,7 +173,7 @@ class HomeScreen extends ConsumerWidget {
                     icon: Icons.mic_none,
                     tint: t.amberSoft,
                     fg: t.amber,
-                    label: 'Speak',
+                    label: AppLocalizations.of(context).homeSpeak,
                     sub: 'Pronounce ř',
                     onTap: () => context.push('/pronunciation/practice'),
                   ),
@@ -190,7 +195,7 @@ class HomeScreen extends ConsumerWidget {
               icon: Icons.assignment_outlined,
               tint: t.redSoft,
               fg: t.red,
-              title: 'Mock exam',
+              title: AppLocalizations.of(context).homeMockExam,
               subtitle: 'Timed informal practice · A1 track',
               onTap: () => _showExamLevelPicker(context),
             ),
@@ -199,7 +204,7 @@ class HomeScreen extends ConsumerWidget {
               icon: Icons.menu_book_outlined,
               tint: t.greenSoft,
               fg: t.green,
-              title: 'Grammar reference',
+              title: AppLocalizations.of(context).homeGrammarReference,
               subtitle: 'All rules & examples',
               onTap: () => context.push('/grammar'),
             ),
@@ -208,7 +213,7 @@ class HomeScreen extends ConsumerWidget {
               icon: Icons.bar_chart,
               tint: t.priSoft,
               fg: t.pri,
-              title: 'Your progress',
+              title: AppLocalizations.of(context).homeYourProgress,
               subtitle: 'Course evidence, badges, streak stats',
               onTap: () => context.go('/stats'),
             ),
@@ -436,8 +441,8 @@ class _ContinueLearningCard extends ConsumerWidget {
             icon: Icons.school_outlined,
             tint: t.priSoft,
             fg: t.pri,
-            title: 'Browse curriculum',
-            subtitle: 'Start your first lesson',
+            title: AppLocalizations.of(context).homeBrowseCurriculum,
+            subtitle: AppLocalizations.of(context).homeStartFirstLesson,
             onTap: () => context.go('/curriculum'),
           ),
       data: (next) {
@@ -446,7 +451,7 @@ class _ContinueLearningCard extends ConsumerWidget {
             icon: Icons.check_circle_outline,
             tint: t.greenSoft,
             fg: t.green,
-            title: 'All caught up!',
+            title: AppLocalizations.of(context).homeAllCaughtUp,
             subtitle: 'Every unlocked lesson is complete.',
             onTap: () => context.go('/curriculum'),
           );

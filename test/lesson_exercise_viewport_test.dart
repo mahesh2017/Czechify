@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ceskina_pro/core/theme/app_theme.dart';
 import 'package:ceskina_pro/domain/entities/enums.dart';
 import 'package:ceskina_pro/domain/entities/exercise.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/exercise_shared.dart';
@@ -46,6 +47,7 @@ void main() {
         await tester.pumpWidget(
           ProviderScope(
             child: MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 body: LessonExerciseViewport(
                   exercise: exercise,
@@ -84,6 +86,7 @@ void main() {
         await tester.pumpWidget(
           ProviderScope(
             child: MaterialApp(
+              theme: lightTheme(),
               home: Scaffold(
                 body: LessonExerciseViewport(
                   exercise: exercise,
@@ -132,6 +135,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
+              theme: lightTheme(),
           home: Scaffold(
             body: LessonExerciseViewport(
               exercise: exercise,
@@ -182,6 +186,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
+              theme: lightTheme(),
           home: Scaffold(
             body: LessonExerciseViewport(
               exercise: exercise,

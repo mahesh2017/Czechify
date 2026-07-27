@@ -136,7 +136,17 @@ void main() {
     );
 
     final version = await db.customSelect('PRAGMA user_version').getSingle();
-    expect(version.read<int>('user_version'), 18);
+    expect(version.read<int>('user_version'), 19);
+
+    // v19 adds the consent audit log. A migration that silently skipped it
+    // would leave an app that believes it is recording consent and is not.
+    final consentTable = await db
+        .customSelect(
+          "SELECT name FROM sqlite_master WHERE type = 'table' "
+          "AND name = 'consent_records'",
+        )
+        .get();
+    expect(consentTable, hasLength(1));
 
     final queueColumns =
         await db
@@ -206,7 +216,7 @@ void main() {
       containsAll(['next_attempt_at', 'dead_lettered_at', 'last_error']),
     );
     final version = await db.customSelect('PRAGMA user_version').getSingle();
-    expect(version.read<int>('user_version'), 18);
+    expect(version.read<int>('user_version'), 19);
 
     // v6 should have created the gamification_state table.
     final gTables =

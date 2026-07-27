@@ -34,6 +34,11 @@ class AppSettings {
   /// Haptic feedback on answers and completions.
   final bool hapticsEnabled;
 
+  /// Language of the app's own interface. Null follows the device locale —
+  /// the default, so a Czech-speaking device gets a Czech UI unprompted.
+  /// Distinct from the language being learned, which is always Czech.
+  final Locale? locale;
+
   const AppSettings({
     this.themeMode = AppThemeMode.system,
     this.dailyGoalXp = 50,
@@ -44,6 +49,7 @@ class AppSettings {
     this.learnerName = '',
     this.soundEffectsEnabled = true,
     this.hapticsEnabled = true,
+    this.locale,
   });
 
   AppSettings copyWith({
@@ -56,6 +62,8 @@ class AppSettings {
     String? learnerName,
     bool? soundEffectsEnabled,
     bool? hapticsEnabled,
+    Locale? locale,
+    bool clearLocale = false,
   }) {
     return AppSettings(
       themeMode: themeMode ?? this.themeMode,
@@ -67,6 +75,9 @@ class AppSettings {
       learnerName: learnerName ?? this.learnerName,
       soundEffectsEnabled: soundEffectsEnabled ?? this.soundEffectsEnabled,
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
+      // copyWith cannot express "back to null" through a nullable argument,
+      // and "follow the device" is a real choice the user can pick.
+      locale: clearLocale ? null : (locale ?? this.locale),
     );
   }
 }
@@ -83,6 +94,7 @@ class SettingsNotifier extends Notifier<AppSettings> {
   static const _kLearnerName = 'settings_learner_name';
   static const _kSoundEffects = 'settings_sound_effects_enabled';
   static const _kHaptics = 'settings_haptics_enabled';
+  static const _kLocale = 'settings_locale';
 
   @override
   AppSettings build() {
@@ -120,7 +132,22 @@ class SettingsNotifier extends Notifier<AppSettings> {
       learnerName: prefs.getString(_kLearnerName) ?? '',
       soundEffectsEnabled: prefs.getBool(_kSoundEffects) ?? true,
       hapticsEnabled: prefs.getBool(_kHaptics) ?? true,
+      locale: switch (prefs.getString(_kLocale)) {
+        final String tag when tag.isNotEmpty => Locale(tag),
+        _ => null,
+      },
     );
+  }
+
+  /// Set the interface language. Null restores "follow the device".
+  Future<void> setLocale(Locale? locale) async {
+    state = state.copyWith(locale: locale, clearLocale: locale == null);
+    final prefs = await _prefs();
+    if (locale == null) {
+      await prefs.remove(_kLocale);
+    } else {
+      await prefs.setString(_kLocale, locale.languageCode);
+    }
   }
 
   /// Toggle answer and completion sound effects.
