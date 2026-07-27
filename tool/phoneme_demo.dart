@@ -1,5 +1,9 @@
 // Tuning harness for the phoneme scorer.
 //
+// Printing to the console is the entire point of this harness; it is a
+// developer tool under tool/ and never ships in the app.
+// ignore_for_file: avoid_print
+//
 // `dart run` can't load this package (other dependencies need the native-assets
 // experiment), so run it through the test harness:
 //

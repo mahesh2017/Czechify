@@ -1,0 +1,229 @@
+# Czechify — Pre-Release Remediation Plan
+
+Derived from the QA report, **re-verified against the codebase on 2026-07-27**. Numbers in
+the QA report that did not survive verification have been corrected here; this file is the
+source of truth, not the original report.
+
+## Corrections applied to the QA report
+
+| QA claim | Verified reality |
+|---|---|
+| ~109 lib files | **196** Dart files under `lib/` (75 test files was correct) |
+| 61 `catch (_) {}` | **7** exact `catch (_) {}`, 48 `catch (_)` total |
+| ~40 hardcoded colours in 6 screens | **~190** `Colors.` refs; the exercise-widget layer was omitted entirely |
+| Flat file paths (`srs_review_screen.dart`) | All paths are nested; see the task tables below |
+| `app_en.arb` has 20 strings | **21** keys |
+| 6 analyzer issues | Confirmed: 1 unused import + 5 `avoid_print` |
+
+## Ground rules (how we avoid scope drift)
+
+1. **A phase is done when its Definition of Done passes — not when it feels done.** No
+   starting phase N+1 with phase N's DoD unmet.
+2. **No opportunistic refactors.** If a phase touches a file that also has an unrelated
+   problem, note it in "Deferred" at the bottom of this file; do not fix it in that PR.
+3. **One PR per phase**, titled `phase N: <name>`. Each PR description restates that
+   phase's Deliverable verbatim.
+4. **Every phase ends green:** `flutter analyze` clean and `flutter test` passing.
+5. Phases 1–4 are release blockers. Phases 5–6 are not; ship without them if time forces it.
+
+---
+
+## Phase 0 — Baseline & guardrails
+
+**Deliverable:** a repo that can prove whether later phases actually changed anything.
+
+| # | Task | Files |
+|---|---|---|
+| 0.1 | Fix the 6 analyzer issues (unused drift import; 5 `print` in `tool/phoneme_demo.dart`) | `test/consent_repository_test.dart`, `tool/phoneme_demo.dart` |
+| 0.2 | Diagnose the `flutter test` 300s timeout — time each suite, identify the slow ones | — |
+| 0.3 | Record baseline counts in this file: `Colors.` refs, `Semantics(` count, hardcoded `Text('` count | this file |
+
+**Definition of Done:** `flutter analyze` reports 0 issues. `flutter test` completes within
+a known, documented wall-clock time. Baseline table below is filled in.
+
+**Baseline — measured 2026-07-27, commit `787fbf4`:**
+
+| Metric | Command | Value |
+|---|---|---|
+| Dart files in `lib/` | `find lib -name '*.dart' \| wc -l` | 196 |
+| Hardcoded colours | `grep -rn "Colors\." lib/presentation \| wc -l` | **217** |
+| Accessibility labels | `grep -rn "Semantics(" lib/presentation \| wc -l` | 6 |
+| Tooltips / IconButtons | `grep -rn "tooltip:\|IconButton(" lib/presentation` | 8 / 19 |
+| Hardcoded UI strings | `grep -rn "Text('" lib/presentation \| wc -l` | 128 |
+| Silent catches | `grep -rn "catch (_) {}" lib \| wc -l` | 7 |
+| l10n keys (en / cs) | `app_en.arb` / `app_cs.arb` | 21 / 0 |
+| Analyzer issues | `flutter analyze` | 0 (was 6, fixed in 0.1) |
+| Test suite | `flutter test` | **452 tests, all passing, 92.9s wall clock** |
+
+**0.2 finding — the "300s test timeout" does not reproduce.** A clean run is 92.9s
+(`real 92.86`, 452 tests, exit 0). During investigation three stale
+`flutter run --dart-define-from-file=env/prod.json --release -d 00008140-…` processes were
+found still resident (PIDs 9252, 53583, 65338), each holding a Dart VM and a device
+connection. Compile-heavy `flutter test` runs contend with those for CPU. **Conclusion: the
+QA officer's timeout was environmental, not a property of the test suite.** No test-suite
+work is needed; leaving the stale processes running is the actual hazard. Kill orphaned
+`flutter run` processes before timing anything.
+
+---
+
+## Phase 1 — Dark mode repair
+
+**Deliverable:** every screen and exercise widget renders legibly in dark mode, using
+`AppTokens` exclusively. No raw `Colors.*` in `lib/presentation` except a documented
+allowlist.
+
+Available tokens (`lib/core/theme/app_tokens.dart`): `bg card elev ink muted faint line pri
+priFill onFill priSoft priInk amber amberSoft red redSoft green greenSoft violet violetSoft
+chipBg userBubble userBubbleTxt`.
+
+| # | Target | `Colors.` refs |
+|---|---|---|
+| 1.1 | `screens/review/srs_review_screen.dart` | 29 |
+| 1.2 | `widgets/lesson/exercises/listening_comprehension_view.dart` | 23 |
+| 1.3 | `screens/lesson/lesson_player_screen.dart` | 22 |
+| 1.4 | `screens/exam/mock_exam_screen.dart` | 19 |
+| 1.5 | `widgets/common/grammar_tip_card.dart` | 16 |
+| 1.6 | `screens/pronunciation/pronunciation_screen.dart` | 15 |
+| 1.7 | `widgets/lesson/exercises/reading_comprehension_view.dart` | 14 |
+| 1.8 | `widgets/lesson/exercises/error_correction_view.dart` | 12 |
+| 1.9 | `widgets/lesson/exercises/pronunciation_view.dart`, `widgets/celebration/unit_complete_overlay.dart` | 8 + 8 |
+| 1.10 | Remaining tail: `writing_task_view`, `xp_badge`, `speaking_task_view`, `chat_screen`, `multiple_choice_view`, `grammar_reference_screen`, `home_screen`, `app_router` | ~30 |
+| 1.11 | Delete `_genderColor()` in the SRS screen; use the same source as `lesson_rating.dart`'s `_genderPill()` | 1 refactor |
+
+**Definition of Done:**
+- `grep -rn "Colors\." lib/presentation` returns only entries on the allowlist, and the
+  allowlist is written into this file with a one-line justification each (e.g. `Colors.white`
+  on the teal hero).
+- Exactly one gender-colour implementation exists in the codebase.
+- Manual check: SRS review, lesson player, mock exam, and pronunciation screens
+  screenshotted in dark mode and attached to the PR.
+
+**Explicitly not in this phase:** splitting large files, adding Semantics, changing copy.
+
+---
+
+## Phase 2 — Security hardening
+
+**Deliverable:** no unauthenticated cross-origin surface on the Edge Functions, and account
+deletion that a stolen access token alone cannot trigger.
+
+| # | Task | Files |
+|---|---|---|
+| 2.1 | Add CORS + `OPTIONS` handler to whisper-proxy (currently has none at all) | `supabase/functions/whisper-proxy/index.ts` |
+| 2.2 | Replace `Access-Control-Allow-Origin: *` with an explicit origin allowlist in all three functions | `deepseek-proxy`, `account-data`, `whisper-proxy` |
+| 2.3 | Require fresh re-authentication before `deleteCloudAccount()` — password re-entry or fresh OTP, not just the `x-confirm-account-deletion` header | `lib/data/sync/backend_service.dart:127`, + the calling UI |
+| 2.4 | Replace `ceskinapro://auth-callback` with Universal Link (iOS) + App Link (Android) over an HTTPS domain | `backend_service.dart:62,112`, `Info.plist`, `AndroidManifest.xml`, `.well-known/` hosting |
+| 2.5 | Triage the 7 `catch (_) {}` sites: each either logs, surfaces to the user, or gains a comment saying why silence is correct | 7 sites |
+
+**Definition of Done:**
+- A `curl` with an `Origin:` header from a non-allowlisted origin is rejected by all three
+  functions; the transcript is pasted in the PR.
+- Deleting an account from a session whose password has not been re-entered fails.
+- `grep -rn "catch (_) {}" lib` — every remaining hit has an adjacent justifying comment.
+
+**Note on 2.4:** this needs a real HTTPS domain and hosting for the association files. If
+that domain is not available, 2.4 is deferred and the rest of Phase 2 still ships — say so
+explicitly rather than half-implementing it.
+
+---
+
+## Phase 3 — Localization foundation
+
+**Deliverable:** a Czech UI is selectable and covers the app's primary navigation and
+lesson flow. Partial coverage is acceptable; *invisible* coverage is not.
+
+| # | Task |
+|---|---|
+| 3.1 | Expand `lib/l10n/app_en.arb` from 21 → ~60 keys covering nav labels, settings groups, primary buttons, and user-facing error messages |
+| 3.2 | Create `lib/l10n/app_cs.arb` (ISO code is `cs`, **not** `cz` as the QA report wrote) with translations for every key |
+| 3.3 | Wire `AppLocalizations.of(context)` into: home, settings, curriculum, SRS review, chat, lesson player |
+| 3.4 | Add a language selector in settings; verify locale persists across restart |
+
+**Definition of Done:**
+- `flutter gen-l10n` runs clean; `app_cs.arb` has zero missing keys relative to `app_en.arb`.
+- Launching with device locale `cs` shows Czech on all six wired screens.
+- A test asserts the two `.arb` files have identical key sets.
+
+**Explicitly not in this phase:** translating lesson *content* (that is authored data, not
+UI strings), or the remaining ~13 screens.
+
+---
+
+## Phase 4 — Accessibility baseline
+
+**Deliverable:** the core learning loop — start a lesson, answer, rate an SRS card — is
+completable end-to-end with TalkBack/VoiceOver.
+
+| # | Task |
+|---|---|
+| 4.1 | `Semantics` on SRS review: rating buttons, flip affordance, audio playback |
+| 4.2 | `Semantics` on lesson player: hearts count, progress, feedback banner, continue |
+| 4.3 | `Semantics` on chat: send, mic, scenario cards, vocab chips |
+| 4.4 | `Semantics` on home: quick actions, shortcut rows, settings |
+| 4.5 | `tooltip:` on every `IconButton` (currently 8 in the whole presentation layer) |
+
+**Definition of Done:**
+- Every `IconButton` in `lib/presentation` has a `tooltip`, verified by grep.
+- One recorded screen-reader pass completing: home → lesson → answer → complete, and
+  home → review → rate a card.
+
+---
+
+## Phase 5 — Functional fixes (non-blocking)
+
+**Deliverable:** the known-misleading behaviours are corrected or honestly labelled.
+
+| # | Task | Files |
+|---|---|---|
+| 5.1 | STT model download UX: progress bar, size warning, "skip for now". Today `kSttModelUrl` defaults to empty and the first pronunciation attempt fails silently | `lib/data/services/stt/stt_model_manager.dart`, onboarding |
+| 5.2 | Decide and document the STT model hosting plan — a ~340MB asset on Supabase free tier (5GB egress) supports ~15 downloads/month | `docs/` |
+| 5.3 | Fix the lesson exit dialog copy — answers *are* persisted; only in-session position and hearts are lost | `lesson_player_screen.dart:444` |
+| 5.4 | Label the offline writing evaluator in the UI as a rough keyword check (it is 50% token overlap, `writing_task_view.dart:80`) | `writing_task_view.dart` |
+| 5.5 | Squash the 19 Drift migrations into a single `onCreate` for v1.0 | `lib/data/database/database.dart:85` |
+| 5.6 | Hoist the per-render `SrsScheduler()` | `srs_review_screen.dart:200` |
+| 5.7 | Update `ARCHITECTURE.md` Vosk → ONNX, and fix the "Vosk failed" error string | `docs/ARCHITECTURE.md`, `lib/core/errors/app_exceptions.dart:13` |
+| 5.8 | Replace `'Failed to load: $err'` with user-facing copy | `stats_screen.dart:33`, `curriculum_screen.dart:48` |
+
+**Definition of Done:** each row either landed or is listed under Deferred with a reason.
+5.5 must ship **before** the first public release or never — it is not safe post-launch.
+
+**On 5.5 specifically:** squashing is only safe while no installed build exists in the wild.
+Confirm that is still true before doing it.
+
+---
+
+## Phase 6 — Polish
+
+**Deliverable:** the app does not look unfinished on first run.
+
+| # | Task |
+|---|---|
+| 6.1 | Android keystore + `key.properties` |
+| 6.2 | Empty states for stats (no activity) and exam (no history) |
+| 6.3 | Generate images from the 56 prompts in `docs/image_prompts.json` (content task — parallelisable, not code) |
+| 6.4 | Split `lesson_player_screen.dart` (1287 lines) into runner / teach phase / complete / game-over / exam-complete |
+| 6.5 | Split `mock_exam_screen.dart` (1355 lines) by section renderer |
+| 6.6 | Extract the shared question view from listening + reading comprehension |
+| 6.7 | Memoize the `_items` getter in `teaching_view.dart` (parses JSON per build) |
+| 6.8 | Host `PRIVACY.md` at a public URL and link it from settings |
+
+**Definition of Done:** a signed release build installs on a clean device and every screen
+reachable from home has either content or a designed empty state.
+
+---
+
+## Deliberately excluded
+
+| Item | Why |
+|---|---|
+| Offline banner | `connectivity_plus` already wired in `sync_trigger_coordinator.dart` |
+| Audio temp cleanup | `AudioRecorderService.cleanup()` exists and is called |
+| Privacy policy authoring | `PRIVACY.md` + `legal_content.dart` exist; only hosting is missing (6.8) |
+| `flutter_secure_storage` unused | It is used — `device_id.dart`, `sync_providers.dart` |
+| Full CCE exam bank | Content authoring, not engineering |
+| Sync revision-collision hardening (`sync_service.dart:55`) | Real but theoretical at current scale; revisit if multi-device conflicts are observed |
+
+## Deferred (append as phases run)
+
+_Anything found mid-phase that is out of that phase's scope goes here, with the phase it was
+found in._
