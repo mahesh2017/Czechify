@@ -164,6 +164,30 @@ deletion that a stolen access token alone cannot trigger.
 that domain is not available, 2.4 is deferred and the rest of Phase 2 still ships — say so
 explicitly rather than half-implementing it.
 
+### Phase 2 status — COMPLETE except 2.4 (blocked)
+
+| Task | Outcome |
+|---|---|
+| 2.1 whisper-proxy CORS + OPTIONS | Done (`0861971`) — it had none at all |
+| 2.2 drop `Access-Control-Allow-Origin: *` | Done (`0861971`) — allowlist defaults to empty across all three functions |
+| 2.3 re-auth before deletion | Done (`d3e4f9f`) — server rejects a token older than 5 minutes |
+| 2.4 Universal Links / App Links | **BLOCKED — needs a domain** |
+| 2.5 triage silent catches | Done (`32eaa89`) |
+
+`deno fmt`/`lint`/`check` clean and 23 Edge Function tests pass, run locally via
+`npx deno@2` (no system install needed — the repo has no local Deno).
+
+**2.4 is blocked on a decision only the owner can make.** Replacing `ceskinapro://` with
+Universal Links needs an HTTPS domain you control, serving
+`/.well-known/apple-app-site-association` and `/.well-known/assetlinks.json`. The repo has
+no project-owned domain — every URL in `docs/` points at third parties. Nothing was
+half-implemented. To unblock: name the domain and confirm you can host two static files
+on it.
+
+Also fixed while here: the 204 on successful deletion was spreading the old module-level
+`corsHeaders` name, which had become an imported *function* — spreading a function yields
+no properties, so that one reply silently went out with no CORS headers.
+
 ---
 
 ## Phase 3 — Localization foundation
@@ -182,6 +206,22 @@ lesson flow. Partial coverage is acceptable; *invisible* coverage is not.
 - `flutter gen-l10n` runs clean; `app_cs.arb` has zero missing keys relative to `app_en.arb`.
 - Launching with device locale `cs` shows Czech on all six wired screens.
 - A test asserts the two `.arb` files have identical key sets.
+
+### Phase 3 status — COMPLETE (`11a8596`)
+
+- `app_en.arb` 21 → **74 messages**; `app_cs.arb` created with all 74 translated.
+- Wired: adaptive scaffold (nav), settings, home, SRS review, lesson player.
+- Language setting persists; defaults to null = follow the device, so a Czech-locale
+  phone gets a Czech UI unprompted.
+- Czech plurals use `one`/`few`/`other` — English's two-way split would render
+  "3 den v řadě".
+- **The file is `app_cs.arb`.** `cs` is the ISO 639-1 code for Czech; the QA report's
+  `app_cz.arb` would never have been loaded by `gen-l10n`.
+- Tests: ARB key parity, placeholder agreement, untranslated-copy detection, and the
+  real per-locale lookup including all three plural bands. 463 tests pass.
+
+Phase 5.3 (misleading lesson-exit copy) landed here too — the dialog now reads that
+completed answers are saved, which is what the code actually does.
 
 **Explicitly not in this phase:** translating lesson *content* (that is authored data, not
 UI strings), or the remaining ~13 screens.
