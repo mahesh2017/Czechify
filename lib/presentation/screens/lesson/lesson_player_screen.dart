@@ -84,6 +84,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
 
     if (_locked) {
       final t = context.tokens;
+      final l10n = AppLocalizations.of(context);
       return Scaffold(
         backgroundColor: t.bg,
         appBar: AppBar(
@@ -109,20 +110,20 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   iconSize: 28,
                 ),
                 const SizedBox(height: 18),
-                const DisplayText(
-                  'Not open yet',
+                DisplayText(
+                  l10n.lessonLockedTitle,
                   size: 26,
                   weight: FontWeight.w800,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Finish the lessons before this one and it unlocks.',
+                  l10n.lessonLockedBody,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
                 ),
                 const SizedBox(height: 22),
                 KeyCta(
-                  label: 'Back to curriculum',
+                  label: l10n.lessonBackToCurriculum,
                   onPressed: () => context.go('/curriculum'),
                 ),
               ],
@@ -175,11 +176,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     if (exercise == null) {
       return Scaffold(
         appBar: AppBar(),
-        body: const Center(child: Text('No exercises found for this lesson.')),
+        body: Center(
+          child: Text(AppLocalizations.of(context).lessonNoExercises),
+        ),
       );
     }
 
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
       body: SafeArea(
@@ -202,7 +206,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: PillChip(
-                        label: session.isExamMode ? 'Exam' : 'Review',
+                        label:
+                            session.isExamMode
+                                ? l10n.lessonBadgeExam
+                                : l10n.navReview,
                         bg: session.isExamMode ? t.redSoft : t.priSoft,
                         fg: session.isExamMode ? t.redInk : t.priInk,
                       ),
@@ -248,10 +255,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   Flexible(
                     child: LessonKicker(
                       session.currentExercise?.type == ExerciseType.teaching
-                          ? 'Introduction'
+                          ? l10n.lessonIntroduction
                           : session.inMistakeReview
-                          ? 'Missed questions'
-                          : AppLocalizations.of(context).lessonQuestionOf(
+                          ? l10n.lessonMissedQuestions
+                          : l10n.lessonQuestionOf(
                             session.currentIndex + 1,
                             session.totalExercises,
                           ),
@@ -260,7 +267,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   ),
                   if (session.answerStreak >= 3) ...[
                     const SizedBox(width: 9),
-                    ComboChip(label: '${session.answerStreak} in a row'),
+                    ComboChip(label: l10n.lessonInARow(session.answerStreak)),
                   ],
                   const Spacer(),
                   // The running total flies up out of the header on each
@@ -324,10 +331,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             ? FeedbackTone.correct
             : FeedbackTone.incorrect;
 
+    final l10n = AppLocalizations.of(context);
     final title = switch (tone) {
-      FeedbackTone.correct => 'Správně!',
-      FeedbackTone.incorrect => 'Not quite',
-      FeedbackTone.neutral => 'Answer shown',
+      FeedbackTone.correct => l10n.feedbackCorrect,
+      FeedbackTone.incorrect => l10n.feedbackNotQuite,
+      FeedbackTone.neutral => l10n.feedbackAnswerShown,
     };
 
     // The prompt for the current feedback step leads, then the explanation —
@@ -335,7 +343,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final prompt =
         session.feedbackStep == null
             ? null
-            : _feedbackPrompt(session.feedbackStep!);
+            : _feedbackPrompt(l10n, session.feedbackStep!);
     final explanation = session.lastExplanation?.trim();
     final body = [
       if (prompt != null) prompt,
@@ -351,14 +359,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       busy: session.isCompleting,
       continueLabel:
           session.isCompleting
-              ? 'Saving…'
+              ? l10n.lessonSaving
               : session.isExamMode
-              ? 'Next question'
+              ? l10n.lessonNextQuestion
               : session.currentIndex + 1 < session.totalExercises
-              ? 'Continue'
+              ? l10n.continueLabel
               : (session.mistakeQueue.isNotEmpty && !session.mistakesAppended)
-              ? 'Review mistakes'
-              : 'Finish lesson',
+              ? l10n.lessonReviewMistakes
+              : l10n.lessonFinish,
       onContinue:
           () async => ref.read(lessonSessionProvider.notifier).nextExercise(),
       extra: _feedbackExtra(context, session, t),
@@ -384,7 +392,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             child: TextButton.icon(
               onPressed: () => context.push('/grammar?rule=$ruleId'),
               icon: const Icon(Icons.menu_book_outlined, size: 18),
-              label: const Text('View grammar rule'),
+              label: Text(AppLocalizations.of(context).feedbackViewGrammarRule),
               style: TextButton.styleFrom(
                 foregroundColor: t.ink,
                 minimumSize: const Size(0, 44),
@@ -467,10 +475,13 @@ class _TeachPhaseScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const LessonKicker('New words'),
+                        LessonKicker(
+                          AppLocalizations.of(context).lessonNewWords,
+                        ),
                         const SizedBox(height: 2),
                         Text(
-                          session.lesson?.title ?? 'New words',
+                          session.lesson?.title ??
+                              AppLocalizations.of(context).lessonNewWords,
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
@@ -501,7 +512,10 @@ class _TeachPhaseScreen extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-              child: KeyCta(label: 'Start practice', onPressed: onStart),
+              child: KeyCta(
+                label: AppLocalizations.of(context).lessonStartPractice,
+                onPressed: onStart,
+              ),
             ),
           ],
         ),
@@ -613,21 +627,20 @@ class _GameOverScreen extends StatelessWidget {
                 iconSize: 34,
               ),
               const SizedBox(height: 20),
-              const DisplayText(
-                'Out of hearts',
+              DisplayText(
+                AppLocalizations.of(context).lessonOutOfHeartsTitle,
                 size: 30,
                 weight: FontWeight.w800,
               ),
               const SizedBox(height: 8),
               Text(
-                'Hearts refill on their own — one every 30 minutes. '
-                'A review session of five or more cards earns one back now.',
+                AppLocalizations.of(context).lessonOutOfHeartsBody,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
               ),
               const SizedBox(height: 26),
               KeyCta(
-                label: 'Review to earn a heart',
+                label: AppLocalizations.of(context).lessonReviewToEarnHeart,
                 onPressed: () => context.go('/review'),
               ),
               const SizedBox(height: 10),
@@ -642,7 +655,9 @@ class _GameOverScreen extends StatelessWidget {
               const SizedBox(height: 4),
               TextButton(
                 onPressed: onExit,
-                child: const Text('Back to curriculum'),
+                child: Text(
+                  AppLocalizations.of(context).lessonBackToCurriculum,
+                ),
               ),
             ],
           ),
@@ -732,6 +747,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     final grade = LessonRating.grade(accuracy);
     final passed = LessonRating.passed(grade);
     final gamification = ref.watch(gamificationProvider);
+    final l10n = AppLocalizations.of(context);
     final instant = MediaQuery.disableAnimationsOf(context);
 
     final accent = switch (grade) {
@@ -820,7 +836,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                                 // Queueing the unit behind the lesson would
                                 // take the screen away mid-sentence.
                                 _PrimaryAction(
-                                  label: 'Finish Unit ${unit.unitNumber}',
+                                  label: l10n.lessonFinishUnit(unit.unitNumber),
                                   icon: Icons.workspace_premium,
                                   color: accent,
                                   onPressed: () {
@@ -837,8 +853,8 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                                 _PrimaryAction(
                                   label:
                                       passed
-                                          ? 'Continue learning'
-                                          : 'Back to curriculum',
+                                          ? l10n.lessonContinueLearning
+                                          : l10n.lessonBackToCurriculum,
                                   icon: Icons.school,
                                   color: accent,
                                   onPressed: widget.onExit,
@@ -847,7 +863,9 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                               TextButton(
                                 onPressed: widget.onRetry,
                                 child: Text(
-                                  passed ? 'Practice again' : 'Try again',
+                                  passed
+                                      ? l10n.lessonPracticeAgain
+                                      : l10n.tryAgain,
                                 ),
                               ),
                             ],
@@ -948,6 +966,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     bool instant,
   ) {
     final session = widget.session;
+    final l10n = AppLocalizations.of(context);
     return Opacity(
       opacity: instant ? 1 : _slice(0.42, 0.7),
       child: Container(
@@ -971,7 +990,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                   duration: const Duration(milliseconds: 1100),
                   style: _statStyle(accent),
                 ),
-                'Accuracy',
+                l10n.statAccuracy,
               ),
               const SizedBox(width: 1),
               _bigStat(
@@ -983,7 +1002,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                   // Ink, not the raw hue: this is a glyph, not a fill.
                   style: _statStyle(tokens.amberInk),
                 ),
-                'XP earned',
+                l10n.statXpEarned,
               ),
               const SizedBox(width: 1),
               _bigStat(
@@ -992,7 +1011,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                   '${session.correctCount}/${session.totalExercises}',
                   style: _statStyle(tokens.greenInk),
                 ),
-                'Correct',
+                l10n.statCorrect,
               ),
             ],
           ),
@@ -1124,6 +1143,7 @@ class _XpCounterState extends State<_XpCounter> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -1134,7 +1154,7 @@ class _XpCounterState extends State<_XpCounter> {
             Icon(Icons.star_rounded, color: t.amberInk, size: 16),
             const SizedBox(width: 3),
             Text(
-              '${widget.totalXp} XP',
+              l10n.lessonXpTotal(widget.totalXp),
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
@@ -1148,7 +1168,10 @@ class _XpCounterState extends State<_XpCounter> {
           Positioned(
             top: -6,
             child: IgnorePointer(
-              child: XpFlyUp(key: ValueKey(_awardSeq), label: '+$award XP'),
+              child: XpFlyUp(
+                key: ValueKey(_awardSeq),
+                label: l10n.lessonXpAward(award),
+              ),
             ),
           ),
       ],
@@ -1156,15 +1179,16 @@ class _XpCounterState extends State<_XpCounter> {
   }
 }
 
-String _feedbackPrompt(FeedbackStep step) => switch (step) {
-  FeedbackStep.signal => 'Something needs attention. Try to notice what.',
-  FeedbackStep.selfRepair => 'Try again before asking for more help.',
-  FeedbackStep.cue => 'Use the explanation as a cue, then repair your answer.',
-  FeedbackStep.explanation => 'Study the answer, then retrieve it once more.',
-  FeedbackStep.immediateVariant => 'Now apply the same idea to a variation.',
-  FeedbackStep.spacedAnalogue => 'A related task will return later.',
-  FeedbackStep.novelTask => 'Use what you remember in this new situation.',
-};
+String _feedbackPrompt(AppLocalizations l10n, FeedbackStep step) =>
+    switch (step) {
+      FeedbackStep.signal => l10n.feedbackStepSignal,
+      FeedbackStep.selfRepair => l10n.feedbackStepSelfRepair,
+      FeedbackStep.cue => l10n.feedbackStepCue,
+      FeedbackStep.explanation => l10n.feedbackStepExplanation,
+      FeedbackStep.immediateVariant => l10n.feedbackStepImmediateVariant,
+      FeedbackStep.spacedAnalogue => l10n.feedbackStepSpacedAnalogue,
+      FeedbackStep.novelTask => l10n.feedbackStepNovelTask,
+    };
 
 /// A suggested pace target for exam practice.
 ///
@@ -1213,11 +1237,13 @@ class _ExamTimerState extends State<_ExamTimer> {
   @override
   Widget build(BuildContext context) {
     final isLow = _remaining < 60;
-    final status = _expired ? 'Over pace target' : 'Pace target $_formatted';
+    final l10n = AppLocalizations.of(context);
+    final status =
+        _expired ? l10n.examOverPaceTarget : l10n.examPaceTarget(_formatted);
     return Semantics(
-      label: '$status. Practice continues after the target time.',
+      label: l10n.examPaceSemantics(status),
       child: Tooltip(
-        message: 'Suggested pace only — practice continues when time runs out',
+        message: l10n.examPaceHint,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -1255,6 +1281,7 @@ class _ExamCompleteScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final accuracy = (session.accuracy * 100).round();
     final passed = accuracy >= 60;
     final hue = passed ? t.greenInk : t.violetInk;
@@ -1274,20 +1301,20 @@ class _ExamCompleteScreen extends ConsumerWidget {
               ScoreRing(
                 fraction: accuracy / 100,
                 label: '$accuracy%',
-                caption: 'accuracy',
+                caption: l10n.captionAccuracy,
                 color: hue,
                 showBadge: passed,
               ),
               const SizedBox(height: 20),
               DisplayText(
-                passed ? 'Practice target met' : 'Practice complete',
+                passed ? l10n.examPracticeTargetMet : l10n.examPracticeComplete,
                 size: 30,
                 weight: FontWeight.w800,
                 height: 1.1,
               ),
               const SizedBox(height: 6),
               Text(
-                'Course track $cefrLevel',
+                l10n.examCourseTrack(cefrLevel),
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
@@ -1299,17 +1326,17 @@ class _ExamCompleteScreen extends ConsumerWidget {
                 cells: [
                   StatCell(
                     value: '${session.correctCount}',
-                    label: 'Correct',
+                    label: l10n.statCorrect,
                     color: t.greenInk,
                   ),
                   StatCell(
                     value: '${session.totalExercises - session.correctCount}',
-                    label: 'Missed',
+                    label: l10n.statMissed,
                     color: t.redInk,
                   ),
                   StatCell(
                     value: '${session.totalXp}',
-                    label: 'XP earned',
+                    label: l10n.statXpEarned,
                     color: t.amberInk,
                   ),
                 ],
@@ -1318,14 +1345,14 @@ class _ExamCompleteScreen extends ConsumerWidget {
               // The caveat sits below the learner's own figures, not above
               // them — accurate, but it does not outrank their result.
               Text(
-                'Lesson exercise accuracy only. This is not an official exam '
-                'result or CEFR certification.',
+                l10n.examAccuracyCaveat,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
               ),
               const SizedBox(height: 26),
               KeyCta(
-                label: passed ? 'Continue' : 'Back to curriculum',
+                label:
+                    passed ? l10n.continueLabel : l10n.lessonBackToCurriculum,
                 onPressed: onExit,
               ),
             ],

@@ -5,6 +5,7 @@ import '../../../../domain/entities/exercise.dart';
 import '../../../providers/stt_providers.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/record_button.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'exercise_shared.dart';
 
 /// Speaking task exercise — record yourself speaking Czech in response to
@@ -109,10 +110,15 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
         if (score > 1.0) score = 1.0;
       }
 
+      // The widget can be gone by the time the recogniser returns, and reading
+      // localisations off a dead context is what the async-gap lint is warning
+      // about.
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context);
       final currentFeedback =
           score >= 0.5
-              ? 'Good! You said the right things.'
-              : 'Try again. Expected phrases include: ${_expectedPhrases.join(", ")}';
+              ? l10n.speakingFeedbackGood
+              : l10n.speakingFeedbackRetry(_expectedPhrases.join(', '));
 
       setState(() {
         hasRecorded = true;
@@ -139,7 +145,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
       if (_sessionCancelled) return;
       setState(() {
         isRecording = false;
-        feedback = 'Recording failed. Please try again.';
+        feedback = AppLocalizations.of(context).recordingFailed;
       });
     }
   }
@@ -147,6 +153,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
@@ -169,7 +176,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const LessonKicker('Try to say'),
+                  LessonKicker(l10n.speakingTryToSay),
                   const SizedBox(height: 10),
                   for (final (i, p) in _expectedPhrases.indexed) ...[
                     if (i > 0) const SizedBox(height: 8),
@@ -214,10 +221,10 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
                 ),
                 Text(
                   isRecording
-                      ? 'Recording — tap to stop'
+                      ? l10n.speakingRecordingTapToStop
                       : hasRecorded
-                      ? 'Tap to re-record'
-                      : 'Tap to speak',
+                      ? l10n.speakingTapToRerecord
+                      : l10n.speakingTapToSpeak,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -241,7 +248,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const LessonKicker('You said'),
+                  LessonKicker(l10n.speakingYouSaid),
                   const SizedBox(height: 6),
                   Text(
                     transcription!,

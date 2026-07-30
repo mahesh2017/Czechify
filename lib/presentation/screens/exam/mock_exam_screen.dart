@@ -346,11 +346,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     question: _currentQuestion,
   );
 
-  String _describeCheckpointAge(DateTime savedAt) {
+  String _describeCheckpointAge(AppLocalizations l10n, DateTime savedAt) {
     final elapsed = DateTime.now().difference(savedAt);
-    if (elapsed.inMinutes < 1) return 'a moment ago';
-    if (elapsed.inMinutes < 60) return '${elapsed.inMinutes} min ago';
-    return '${elapsed.inHours} h ago';
+    if (elapsed.inMinutes < 1) return l10n.ageAMomentAgo;
+    if (elapsed.inMinutes < 60) return l10n.ageMinutesAgo(elapsed.inMinutes);
+    return l10n.ageHoursAgo(elapsed.inHours);
   }
 
   int? _externalSectionScore(
@@ -455,11 +455,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
   Widget _buildIntroScreen() {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
       appBar: AppBar(
         backgroundColor: t.bg,
-        title: Text('Mock exam — ${widget.level.name.toUpperCase()}'),
+        title: Text(l10n.examMockTitle(widget.level.name.toUpperCase())),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -480,16 +481,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               ),
               const SizedBox(height: 20),
               DisplayText(
-                '${(_exam?.product ?? ExamProduct.permanentResidence).displayName} '
-                '${widget.level.name.toUpperCase()} practice exam',
+                l10n.examPracticeExamTitle(
+                  (_exam?.product ?? ExamProduct.permanentResidence)
+                      .displayName,
+                  widget.level.name.toUpperCase(),
+                ),
                 size: 27,
                 weight: FontWeight.w800,
                 height: 1.15,
               ),
               const SizedBox(height: 8),
               Text(
-                'Four timed sections. The timer runs per section, and you can '
-                'answer in order.',
+                l10n.examFourSections,
                 style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
               ),
               const SizedBox(height: 18),
@@ -504,27 +507,28 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 ),
                 child: Column(
                   children: [
+                    // Not const: the titles come from the localisations.
                     for (final (i, row)
-                        in const <({IconData icon, String title, String sub})>[
+                        in <({IconData icon, String title, String sub})>[
                           (
                             icon: Icons.menu_book_outlined,
-                            title: 'Reading',
-                            sub: 'Comprehension questions',
+                            title: l10n.examSectionReading,
+                            sub: l10n.examSectionReadingSub,
                           ),
                           (
                             icon: Icons.headphones_outlined,
-                            title: 'Listening',
-                            sub: 'Audio, then questions',
+                            title: l10n.examSectionListening,
+                            sub: l10n.examSectionListeningSub,
                           ),
                           (
                             icon: Icons.edit_outlined,
-                            title: 'Writing',
-                            sub: 'Practice feedback when available',
+                            title: l10n.examSectionWriting,
+                            sub: l10n.examSectionWritingSub,
                           ),
                           (
                             icon: Icons.mic_none_outlined,
-                            title: 'Speaking',
-                            sub: 'Transcript-based practice evidence',
+                            title: l10n.examSectionSpeaking,
+                            sub: l10n.examSectionSpeakingSub,
                           ),
                         ].indexed) ...[
                       if (i > 0) Divider(height: 1, color: t.line),
@@ -571,21 +575,22 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               ),
               const SizedBox(height: 12),
               Text(
-                'This is informal practice, not an official exam result.',
+                l10n.examInformalNote,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
               ),
               const SizedBox(height: 22),
               if (_exam != null) ...[
                 Text(
-                  'Total time: ${_exam!.totalTimeMinutes} minutes',
+                  l10n.examTotalTime(_exam!.totalTimeMinutes),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 24),
                 if (_pendingCheckpoint != null) ...[
                   Text(
-                    'You have an unfinished attempt from '
-                    '${_describeCheckpointAge(_pendingCheckpoint!.savedAt)}.',
+                    l10n.examUnfinishedAttempt(
+                      _describeCheckpointAge(l10n, _pendingCheckpoint!.savedAt),
+                    ),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
@@ -837,7 +842,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         children: [
           // Audio player — the spoken text is deliberately never displayed.
           ListenPanel(
-            label: 'Play the audio',
+            label: AppLocalizations.of(context).examPlayAudio,
             onPlay: () => ref.read(czechTtsProvider).speak(audioText),
             onSlow: () => ref.read(czechTtsProvider).speakSlow(audioText),
           ),
@@ -1204,6 +1209,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   Widget _buildResultScreen() {
     final passed = _result!.passed;
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     // A partly-unscored paper is a neutral outcome, not a warning — amber is
     // reserved for streak and XP.
     final color =
@@ -1243,10 +1249,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               const SizedBox(height: 20),
               DisplayText(
                 !_resultFullyScored
-                    ? 'Practice completed — some tasks unscored'
+                    ? l10n.examPartlyUnscored
                     : passed
-                    ? 'Practice threshold met'
-                    : 'Practice threshold not met',
+                    ? l10n.examThresholdMet
+                    : l10n.examThresholdNotMet,
                 size: 27,
                 weight: FontWeight.w800,
                 height: 1.15,
@@ -1281,7 +1287,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               const SizedBox(height: 22),
 
               KeyCta(
-                label: 'Done',
+                label: l10n.examDone,
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ],

@@ -91,37 +91,30 @@ class _WritingTaskViewState extends State<WritingTaskView> {
     final isScored = acceptedAnswers.isNotEmpty;
     final isCorrect = isScored && hasContent && meetsMinWords && keywordMatched;
 
-    final feedback = StringBuffer();
-    feedback.write('You wrote $wordCount words. ');
-    if (_minWords != null) {
-      feedback.write(
+    // Assembled from localised sentences rather than concatenated fragments,
+    // so a translator gets whole sentences to work with.
+    final l10n = AppLocalizations.of(context);
+    final parts = <String>[
+      l10n.writingWroteWords(wordCount),
+      if (_minWords != null)
         meetsMinWords
-            ? '✓ Meets the $_minWords-word minimum. '
-            : '✗ Needs at least $_minWords words. ',
-      );
-    }
-    if (acceptedAnswers.isNotEmpty) {
-      feedback.write(
+            ? l10n.writingMeetsMinimum(_minWords!)
+            : l10n.writingNeedsMinimum(_minWords!),
+      if (acceptedAnswers.isNotEmpty)
         keywordMatched
-            ? 'Good keyword coverage. '
-            : 'Key phrases not detected. ',
-      );
-    } else {
-      feedback.write(
-        'Completed as unscored writing practice; no automatic proficiency '
-        'claim is made. ',
-      );
-    }
-    if (_revisionStage && text != _firstDraft) {
-      feedback.write('✓ You revised the first draft. ');
-    }
+            ? l10n.writingGoodKeywordCoverage
+            : l10n.writingKeyPhrasesNotDetected
+      else
+        l10n.writingUnscoredNote,
+      if (_revisionStage && text != _firstDraft) l10n.writingRevisedDraft,
+    ];
 
     setState(() {
       answered = true;
       _isCorrect = isCorrect;
       _wordCount = wordCount;
       _meetsMinWords = meetsMinWords;
-      _feedbackText = feedback.toString().trim();
+      _feedbackText = parts.join(' ');
     });
 
     final supports =
@@ -166,6 +159,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
@@ -184,7 +178,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                   if (_minWords != null) ...[
                     const SizedBox(height: 10),
                     Text(
-                      'Write at least $_minWords words.',
+                      l10n.writingWriteAtLeast(_minWords!),
                       style: TextStyle(fontSize: 14, color: t.muted),
                     ),
                   ],
@@ -201,7 +195,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                       child: TextButton.icon(
                         onPressed: () => setState(() => _showKeyVocab = true),
                         icon: const Icon(Icons.lightbulb_outline, size: 18),
-                        label: const Text('Show vocabulary support'),
+                        label: Text(l10n.writingShowVocabSupport),
                         style: TextButton.styleFrom(
                           foregroundColor: t.amberInk,
                           minimumSize: const Size(0, 44),
@@ -223,7 +217,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Try using',
+                            l10n.writingTryUsing,
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
@@ -253,9 +247,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Text(
-                        'Revise: check the communicative goal, verb forms, case '
-                        'endings, word order, and register. Improve the message, not '
-                        'only its length.',
+                        l10n.writingReviseNote,
                         style: TextStyle(
                           fontSize: 14.5,
                           height: 1.5,
@@ -281,7 +273,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                       enabled: !answered,
                       cursorColor: t.pri,
                       decoration: InputDecoration(
-                        hintText: 'Write your answer in Czech…',
+                        hintText: l10n.writingHint,
                         hintStyle: TextStyle(fontSize: 16, color: t.faint),
                         border: InputBorder.none,
                         enabledBorder: InputBorder.none,
@@ -338,7 +330,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                                   // the writing. This path is a keyword comparison, and
                                   // the verdict should not imply more than that.
                                   widget.exercise.answerKey == null
-                                      ? 'Writing cycle complete'
+                                      ? l10n.writingCycleComplete
                                       : _isCorrect
                                       ? AppLocalizations.of(
                                         context,
@@ -389,7 +381,10 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                                 ),
                                 const SizedBox(width: 5),
                                 Text(
-                                  '$_wordCount words · minimum $_minWords',
+                                  l10n.writingWordCountMin(
+                                    _wordCount,
+                                    _minWords!,
+                                  ),
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: t.muted,
@@ -415,7 +410,10 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            LessonKicker('Reference answer', color: t.pri),
+                            LessonKicker(
+                              l10n.writingReferenceAnswer,
+                              color: t.pri,
+                            ),
                             const SizedBox(height: 8),
                             Text(
                               _sampleAnswer ?? _answerKey!,
@@ -449,7 +447,10 @@ class _WritingTaskViewState extends State<WritingTaskView> {
             CzechCharBar(controller: _controller, showLabel: false),
             const SizedBox(height: 12),
             KeyCta(
-              label: _revisionStage ? 'Submit revision' : 'Review draft',
+              label:
+                  _revisionStage
+                      ? l10n.writingSubmitRevision
+                      : l10n.writingReviewDraft,
               onPressed: _revisionStage ? _submit : _reviewDraft,
             ),
           ],

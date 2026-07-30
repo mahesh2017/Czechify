@@ -138,6 +138,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     });
 
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
       appBar:
@@ -151,7 +152,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 leading: IconButton(
                   icon: const Icon(Icons.chevron_left),
                   color: t.muted,
-                  tooltip: 'Back to scenarios',
+                  tooltip: l10n.chatBackToScenarios,
                   onPressed:
                       () => ref.read(chatProvider.notifier).resetConversation(),
                 ),
@@ -167,8 +168,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                       ),
                     ),
                     Text(
-                      '${chat.messages.length} '
-                      '${chat.messages.length == 1 ? 'turn' : 'turns'} in',
+                      l10n.chatTurnsIn(chat.messages.length),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -341,20 +341,20 @@ class _ScenarioPicker extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final recent = ref.watch(recentConversationsProvider).value ?? const [];
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
       children: [
-        const DisplayText('AI Tutor', size: 29, weight: FontWeight.w800),
+        DisplayText(l10n.chatTitle, size: 29, weight: FontWeight.w800),
         const SizedBox(height: 6),
         Text(
-          'Real situations you will hit this week in Czechia. The tutor adapts '
-          'to your level.',
+          l10n.chatSubtitle,
           style: TextStyle(fontSize: 15, color: t.muted, height: 1.5),
         ),
         if (recent.isNotEmpty) ...[
           const SizedBox(height: 20),
-          const LessonKicker('Unfinished'),
+          LessonKicker(l10n.chatUnfinished),
           const SizedBox(height: 8),
           ...recent.map((summary) {
             final s = _scenarioStyle(context, summary.scenario);
@@ -407,7 +407,7 @@ class _ScenarioPicker extends ConsumerWidget {
                         size: 18,
                         color: t.faint,
                       ),
-                      tooltip: 'Delete conversation',
+                      tooltip: l10n.chatDeleteConversation,
                       visualDensity: VisualDensity.compact,
                     ),
                   ],
@@ -420,9 +420,9 @@ class _ScenarioPicker extends ConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SectionLabel('Pick a situation'),
+            SectionLabel(l10n.chatPickASituation),
             Text(
-              '${ChatScenario.all.length} rooms',
+              l10n.chatRoomCount(ChatScenario.all.length),
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
@@ -737,7 +737,7 @@ class _TypingIndicator extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Semantics(
           liveRegion: true,
-          label: 'The tutor is typing',
+          label: AppLocalizations.of(context).chatTutorIsTyping,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
             decoration: BoxDecoration(
@@ -869,8 +869,12 @@ class _InputBar extends StatelessWidget {
                           isCollapsed: true,
                           hintText:
                               isListening
-                                  ? 'Listening… speak Czech'
-                                  : 'Napiš česky…',
+                                  ? AppLocalizations.of(
+                                    context,
+                                  ).chatListeningHint
+                                  : AppLocalizations.of(
+                                    context,
+                                  ).chatComposerHint,
                           hintStyle: TextStyle(color: t.faint, fontSize: 16),
                           border: InputBorder.none,
                         ),
@@ -884,7 +888,7 @@ class _InputBar extends StatelessWidget {
                         size: 20,
                         color: isListening ? t.red : t.muted,
                       ),
-                      tooltip: 'Speak your reply',
+                      tooltip: AppLocalizations.of(context).chatSpeakYourReply,
                     ),
                   ],
                 ),

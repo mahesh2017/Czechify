@@ -12,6 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'feedback_service_test.dart' show RecordingHaptics, RecordingSfxPlayer;
+import 'support/localized_app.dart';
 
 /// The reward the learner meets ~790 times a course. These pin the two things
 /// that would ruin it: adding a wait before they can continue, and paying out
@@ -55,6 +56,8 @@ void main() {
           hapticDriverProvider.overrideWithValue(haptics),
         ],
         child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           theme: lightTheme(),
           home: MediaQuery(
             data: MediaQueryData(disableAnimations: reduceMotion),
@@ -177,6 +180,8 @@ void main() {
           hapticDriverProvider.overrideWithValue(haptics),
         ],
         child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           theme: lightTheme(),
           home: Scaffold(
             body: LessonExerciseViewport(exercise: card, onAnswered: (_) {}),

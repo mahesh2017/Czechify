@@ -47,7 +47,7 @@ class _TranslationViewState extends State<TranslationView> {
     final grammarNote = data['grammar_note'] as String?;
     final explanation =
         match == AnswerMatch.nearMiss
-            ? 'Almost! Watch your accent marks — the correct spelling is "${accepted.first}".'
+            ? AppLocalizations.of(context).translationAccentHint(accepted.first)
             : grammarNote;
 
     widget.onAnswered(
@@ -62,6 +62,7 @@ class _TranslationViewState extends State<TranslationView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final direction = data['direction'] as String? ?? 'en_to_cz';
     final source = data['source'] as String;
@@ -73,7 +74,8 @@ class _TranslationViewState extends State<TranslationView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           QuestionPrompt(
-            question: toCzech ? 'Say this in Czech' : 'Say this in English',
+            question:
+                toCzech ? l10n.exerciseSayInCzech : l10n.exerciseSayInEnglish,
           ),
           const SizedBox(height: 14),
           // The sentence to translate, on the neutral panel — it is the given,
@@ -89,7 +91,7 @@ class _TranslationViewState extends State<TranslationView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  toCzech ? 'ENGLISH' : 'CZECH',
+                  (toCzech ? l10n.labelEnglish : l10n.labelCzech).toUpperCase(),
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -127,7 +129,8 @@ class _TranslationViewState extends State<TranslationView> {
             enabled: !answered,
             verdict: isCorrect,
             multiline: true,
-            semanticLabel: toCzech ? 'Type in Czech' : 'Type in English',
+            semanticLabel:
+                toCzech ? l10n.exerciseTypeInCzech : l10n.exerciseTypeInEnglish,
             onSubmitted: answered ? null : (_) => _checkAnswer(),
           ),
 
@@ -138,11 +141,7 @@ class _TranslationViewState extends State<TranslationView> {
           ],
           const SizedBox(height: 18),
 
-          if (!answered)
-            KeyCta(
-              label: AppLocalizations.of(context).check,
-              onPressed: _checkAnswer,
-            ),
+          if (!answered) KeyCta(label: l10n.check, onPressed: _checkAnswer),
 
           // The lesson player's feedback sheet shows the correct answer.
         ],

@@ -3,6 +3,7 @@ import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/soft_ui.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'exercise_shared.dart';
 
 /// Declension-table exercise view (Czech-specific).
@@ -68,7 +69,9 @@ class _DeclensionTableViewState extends State<DeclensionTableView> {
     widget.onAnswered(
       ExerciseResult(
         isCorrect: correctCount == totalBlanks,
-        explanation: 'You got $correctCount/$totalBlanks correct.',
+        explanation: AppLocalizations.of(
+          context,
+        ).exerciseYouGotCorrect(correctCount, totalBlanks),
         correctAnswer: answerKey.entries
             .map((e) => '${e.key}: ${e.value}')
             .join(', '),
@@ -90,12 +93,13 @@ class _DeclensionTableViewState extends State<DeclensionTableView> {
             : null;
 
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QuestionPrompt(question: 'Decline $word'),
+          QuestionPrompt(question: l10n.exerciseDeclineWord(word)),
           if (gender != null) ...[
             const SizedBox(height: 10),
             Align(
@@ -157,7 +161,8 @@ class _DeclensionTableViewState extends State<DeclensionTableView> {
           ),
           const SizedBox(height: 18),
 
-          if (!answered) KeyCta(label: 'Check all', onPressed: _checkAnswers),
+          if (!answered)
+            KeyCta(label: l10n.exerciseCheckAll, onPressed: _checkAnswers),
         ],
       ),
     );

@@ -85,6 +85,7 @@ class _WordOrderViewState extends State<WordOrderView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final translationEn = widget.exercise.data['translation_en'] as String?;
     final verdictBorder = switch (isCorrect) {
       true => t.green,
@@ -137,7 +138,7 @@ class _WordOrderViewState extends State<WordOrderView> {
                   selected.isEmpty
                       ? Center(
                         child: Text(
-                          'Tap the words below in order',
+                          l10n.exerciseTapWordsInOrder,
                           style: TextStyle(fontSize: 15, color: t.faint),
                         ),
                       )
@@ -186,10 +187,7 @@ class _WordOrderViewState extends State<WordOrderView> {
           // flex children have unbounded height and would throw.
           const SizedBox(height: 24),
           if (!answered && selected.isNotEmpty)
-            KeyCta(
-              label: AppLocalizations.of(context).check,
-              onPressed: _checkAnswer,
-            ),
+            KeyCta(label: l10n.check, onPressed: _checkAnswer),
         ],
       ),
     );

@@ -57,7 +57,20 @@ void main() {
     final english = arb('en');
     final czech = arb('cs');
     // Brand names and single-token labels legitimately match across locales.
-    const sharedByDesign = {'appTitle'};
+    const sharedByDesign = {
+      'appTitle',
+      // Already Czech in the English UI — the app says "Správně!" to an
+      // English-speaking learner on purpose, so there is nothing to translate.
+      'feedbackCorrect',
+      // "Napiš česky…" is the composer's prompt to write *in Czech*; showing
+      // it in English would defeat the point.
+      'chatComposerHint',
+      // "XP" is a token, not a word.
+      'lessonXpTotal',
+      'lessonXpAward',
+      // A language-pair code, not prose.
+      'reviewDirectionEnToCz',
+    };
 
     final untranslated =
         messageKeys(english)

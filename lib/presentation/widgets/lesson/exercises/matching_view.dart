@@ -166,6 +166,7 @@ class _MatchingViewState extends State<MatchingView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final promptEn = widget.exercise.data['prompt_en'] as String?;
 
     return Padding(
@@ -176,7 +177,7 @@ class _MatchingViewState extends State<MatchingView> {
           QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
           const SizedBox(height: 8),
           Text(
-            'Tap a Czech word, then tap its English match.',
+            l10n.exerciseTapCzechThenEnglish,
             style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
           ),
           const SizedBox(height: 18),
@@ -214,7 +215,7 @@ class _MatchingViewState extends State<MatchingView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '$_matchedCount/${_leftItems.length} matched',
+                  l10n.exerciseMatchedOfTotal(_matchedCount, _leftItems.length),
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -242,7 +243,9 @@ class _MatchingViewState extends State<MatchingView> {
                         const SizedBox(width: 6),
                         Flexible(
                           child: Text(
-                            _isCorrect ? 'All correct' : 'Some pairs are wrong',
+                            _isCorrect
+                                ? l10n.exerciseAllCorrect
+                                : l10n.exerciseSomePairsWrong,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,

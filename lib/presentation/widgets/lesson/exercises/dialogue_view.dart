@@ -82,10 +82,10 @@ class _DialogueViewState extends State<DialogueView> {
               child: TextField(
                 controller: controller,
                 enabled: !answered,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
                   isDense: true,
-                  hintText: 'Your answer',
+                  hintText: AppLocalizations.of(context).exerciseYourAnswer,
                 ),
                 textInputAction: TextInputAction.next,
                 onChanged: (_) => setState(() {}),

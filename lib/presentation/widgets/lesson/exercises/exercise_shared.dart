@@ -88,7 +88,12 @@ class CzechCharBar extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 6, bottom: 7),
               child: Text(
-                'CZECH LETTERS',
+                (Localizations.of<AppLocalizations>(
+                          context,
+                          AppLocalizations,
+                        )?.czechLetters ??
+                        'Czech letters')
+                    .toUpperCase(),
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,

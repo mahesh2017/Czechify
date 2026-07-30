@@ -108,8 +108,8 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
         explanation:
             data['note'] as String? ??
             (passed
-                ? 'Good pronunciation!'
-                : 'Try again — focus on the highlighted sounds.'),
+                ? AppLocalizations.of(context).pronFeedbackGood
+                : AppLocalizations.of(context).pronFeedbackRetry),
         correctAnswer: data['target_text'] as String?,
       ),
     );
@@ -118,6 +118,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final targetText = data['target_text'] as String;
     final translation = data['translation_en'] as String?;
@@ -193,7 +194,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
                   onPlay: () => ref.read(czechTtsProvider).speak(targetText),
                   onSlow:
                       () => ref.read(czechTtsProvider).speakSlow(targetText),
-                  slowLabel: 'Slower',
+                  slowLabel: l10n.audioSlower,
                 ),
               ],
             ),
@@ -222,12 +223,12 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
                   ),
                 Text(
                   isRecording
-                      ? 'Listening — tap to stop'
+                      ? l10n.pronListeningTapToStop
                       : isProcessing
-                      ? 'Analysing…'
+                      ? l10n.pronAnalysing
                       : hasRecorded
-                      ? 'Recorded — tap to try again'
-                      : 'Tap to record',
+                      ? l10n.pronRecordedTapAgain
+                      : l10n.pronTapToRecord,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
@@ -254,9 +255,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
               onPressed:
                   () => widget.onAnswered(
                     ExerciseResult.skipped(
-                      explanation:
-                          'Skipped — keep practising this one aloud with '
-                          'the listen button.',
+                      explanation: l10n.pronSkippedNote,
                       correctAnswer: targetText,
                     ),
                   ),
@@ -266,8 +265,8 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
               ),
               child: Text(
                 hasRecorded && (score ?? 0) == 0
-                    ? 'Mic not working? Skip'
-                    : "Can't record right now? Skip",
+                    ? l10n.pronMicNotWorkingSkip
+                    : l10n.pronCantRecordSkip,
               ),
             ),
 
@@ -283,10 +282,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
               ),
             ],
             const SizedBox(height: 18),
-            KeyCta(
-              label: AppLocalizations.of(context).continueLabel,
-              onPressed: _submitResult,
-            ),
+            KeyCta(label: l10n.continueLabel, onPressed: _submitResult),
           ],
         ],
       ),
@@ -311,7 +307,7 @@ class ScoreDisplay extends StatelessWidget {
         ScoreRing(
           fraction: score,
           label: '$percentage%',
-          caption: 'match',
+          caption: AppLocalizations.of(context).captionMatch,
           color: color,
           showBadge: score >= 0.8,
           size: 104,

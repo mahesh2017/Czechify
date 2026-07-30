@@ -40,6 +40,7 @@ class _ListeningComprehensionViewState
     final transcriptCz = data['transcript_cz'] as String? ?? '';
     final promptEn = data['prompt_en'] as String? ?? widget.exercise.prompt;
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
@@ -52,7 +53,7 @@ class _ListeningComprehensionViewState
           // Listen first: the audio is the exercise, so it gets the hero.
           if (transcriptCz.isNotEmpty)
             ListenPanel(
-              label: _playCount == 0 ? 'Listen' : 'Play it again',
+              label: _playCount == 0 ? l10n.listen : l10n.audioPlayAgain,
               onPlay: () {
                 setState(() => _playCount++);
                 ref.read(czechTtsProvider).speak(transcriptCz);
@@ -64,8 +65,7 @@ class _ListeningComprehensionViewState
             ),
           const SizedBox(height: 10),
           Text(
-            'Listen for the gist first. Replay or reveal the transcript only '
-            'when you need support.',
+            l10n.exerciseGistFirstNote,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
           ),
@@ -80,7 +80,7 @@ class _ListeningComprehensionViewState
                         ? null
                         : () => setState(() => _transcriptRevealed = true),
                 icon: const Icon(Icons.subtitles_outlined, size: 18),
-                label: const Text('Reveal transcript'),
+                label: Text(l10n.exerciseRevealTranscript),
               ),
             )
           else
@@ -177,7 +177,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
       setState(() => submitted = true);
       widget.onComplete(
         false,
-        'No questions available for this exercise.',
+        AppLocalizations.of(context).exerciseNoQuestionsAvailable,
         null,
       );
       return;
@@ -186,8 +186,10 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
     widget.onComplete(
       _allCorrect,
       _allCorrect
-          ? 'All questions answered correctly!'
-          : '$_correctCount/${_questions.length} correct.',
+          ? AppLocalizations.of(context).exerciseAllAnsweredCorrectly
+          : AppLocalizations.of(
+            context,
+          ).exerciseYouGotCorrect(_correctCount, _questions.length),
       _questions
           .map(
             (q) =>
@@ -230,7 +232,7 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'This exercise has no questions configured.',
+                    AppLocalizations.of(context).exerciseNoQuestions,
                     style: TextStyle(
                       fontSize: 15,
                       height: 1.45,
@@ -269,7 +271,10 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
         if (_allAnswered && !submitted)
           Padding(
             padding: const EdgeInsets.only(top: 12),
-            child: KeyCta(label: 'Check answers', onPressed: _submit),
+            child: KeyCta(
+              label: AppLocalizations.of(context).exerciseCheckAnswers,
+              onPressed: _submit,
+            ),
           ),
         if (submitted) ...[
           Padding(
@@ -285,8 +290,11 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                 Expanded(
                   child: Text(
                     _allCorrect
-                        ? 'All correct'
-                        : '$_correctCount/${_questions.length} correct',
+                        ? AppLocalizations.of(context).exerciseAllCorrect
+                        : AppLocalizations.of(context).exerciseCorrectOfTotal(
+                          _correctCount,
+                          _questions.length,
+                        ),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -330,7 +338,10 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LessonKicker('Question ${qIdx + 1}', color: t.pri),
+          LessonKicker(
+            AppLocalizations.of(context).exerciseQuestionNumber(qIdx + 1),
+            color: t.pri,
+          ),
           const SizedBox(height: 6),
           Text(
             questionEn,

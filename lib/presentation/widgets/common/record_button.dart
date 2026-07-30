@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// The mic control. Tap to start, tap again to stop.
 ///
@@ -66,9 +67,13 @@ class _RecordButtonState extends State<RecordButton>
     // The ring grows outside the button, so the box has to leave room for it.
     final extent = widget.size * 1.9;
 
+    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
     return Semantics(
       button: true,
-      label: widget.isRecording ? 'Stop recording' : 'Start recording',
+      label:
+          widget.isRecording
+              ? (l10n?.stopRecording ?? 'Stop recording')
+              : (l10n?.startRecording ?? 'Start recording'),
       excludeSemantics: true,
       child: GestureDetector(
         onTap: widget.onPressed,

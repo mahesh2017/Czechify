@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_tokens.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// Shared primitives for the learning loop — the surfaces the Czechify 2.0
 /// handoff specifies most precisely: the lesson chrome, the teaching card, the
@@ -18,6 +19,16 @@ import '../../../core/theme/app_tokens.dart';
 ///    exactly what [LessonKicker] is for — do not reach for it elsewhere.
 ///  - Every animation here has a reduced-motion variant, checked through
 ///    [MediaQuery.disableAnimationsOf].
+
+/// The kit's own strings.
+///
+/// A nullable lookup rather than [AppLocalizations.of], which asserts a
+/// Localizations ancestor: these are leaf primitives that get dropped into bare
+/// widget tests and previews, and requiring the full app scope to render a play
+/// button is coupling they do not need. The app always installs the delegates,
+/// so the English fallback is only ever seen out of app context.
+AppLocalizations? _l10n(BuildContext context) =>
+    Localizations.of<AppLocalizations>(context, AppLocalizations);
 
 /// Tracked uppercase step kicker — "STEP 1 · MEET THE SOUND".
 ///
@@ -390,15 +401,18 @@ class AudioPairButtons extends StatelessWidget {
     super.key,
     required this.onPlay,
     required this.onSlow,
-    this.playLabel = 'Hear it',
-    this.slowLabel = 'Slow',
+    this.playLabel,
+    this.slowLabel,
     this.playing = false,
   });
 
   final VoidCallback? onPlay;
   final VoidCallback? onSlow;
-  final String playLabel;
-  final String slowLabel;
+
+  /// Overrides the default "Hear it" — lesson content sometimes names the set
+  /// it plays ("Play the whole set").
+  final String? playLabel;
+  final String? slowLabel;
 
   /// Swaps the primary button to a stop affordance mid-playback.
   final bool playing;
@@ -406,6 +420,7 @@ class AudioPairButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = _l10n(context);
     // IntrinsicHeight + stretch, because the play label comes from lesson
     // content and can be a whole phrase ("Hear the alphabet (letter names)").
     // With fixed heights the wrapped button grew and the two no longer lined
@@ -418,7 +433,11 @@ class AudioPairButtons extends StatelessWidget {
             child: FilledButton.icon(
               onPressed: onPlay,
               icon: Icon(playing ? Icons.stop : Icons.play_arrow, size: 20),
-              label: Text(playing ? 'Stop' : playLabel),
+              label: Text(
+                playing
+                    ? (l10n?.audioStop ?? 'Stop')
+                    : (playLabel ?? l10n?.audioHearIt ?? 'Hear it'),
+              ),
               style: FilledButton.styleFrom(
                 backgroundColor: t.priFill,
                 foregroundColor: t.onFill,
@@ -437,7 +456,7 @@ class AudioPairButtons extends StatelessWidget {
           OutlinedButton.icon(
             onPressed: onSlow,
             icon: Icon(Icons.schedule, size: 16, color: t.muted),
-            label: Text(slowLabel),
+            label: Text(slowLabel ?? l10n?.audioSlow ?? 'Slow'),
             style: OutlinedButton.styleFrom(
               foregroundColor: t.muted,
               backgroundColor: t.card,
@@ -668,12 +687,14 @@ class ListenPanel extends StatefulWidget {
     super.key,
     required this.onPlay,
     required this.onSlow,
-    this.label = 'Play it again',
+    this.label,
   });
 
   final VoidCallback onPlay;
   final VoidCallback onSlow;
-  final String label;
+
+  /// Overrides the default "Play it again".
+  final String? label;
 
   @override
   State<ListenPanel> createState() => _ListenPanelState();
@@ -705,11 +726,13 @@ class _ListenPanelState extends State<ListenPanel>
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = _l10n(context);
+    final label = widget.label ?? l10n?.audioPlayAgain ?? 'Play it again';
     return Column(
       children: [
         Semantics(
           button: true,
-          label: widget.label,
+          label: label,
           excludeSemantics: true,
           child: Material(
             color: t.violetSoft,
@@ -740,7 +763,7 @@ class _ListenPanelState extends State<ListenPanel>
                     ),
                     const SizedBox(width: 11),
                     Text(
-                      widget.label,
+                      label,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -757,7 +780,7 @@ class _ListenPanelState extends State<ListenPanel>
         TextButton.icon(
           onPressed: widget.onSlow,
           icon: const Icon(Icons.schedule, size: 16),
-          label: const Text('Slower'),
+          label: Text(l10n?.audioSlower ?? 'Slower'),
           style: TextButton.styleFrom(
             foregroundColor: t.muted,
             minimumSize: const Size(0, 44),
@@ -948,6 +971,7 @@ class FeedbackSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = _l10n(context);
     final (Color bg, Color hue, Color ink) = switch (tone) {
       FeedbackTone.correct => (t.greenSoft, t.green, t.greenInk),
       FeedbackTone.incorrect => (t.redSoft, t.red, t.redInk),
@@ -1005,7 +1029,7 @@ class FeedbackSheet extends StatelessWidget {
                     TextButton.icon(
                       onPressed: onPlay,
                       icon: const Icon(Icons.play_arrow, size: 18),
-                      label: const Text('Hear it'),
+                      label: Text(l10n?.audioHearIt ?? 'Hear it'),
                       style: TextButton.styleFrom(
                         foregroundColor: ink,
                         backgroundColor: hue.withValues(alpha: 0.12),
@@ -1077,7 +1101,7 @@ class FeedbackSheet extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const LessonKicker('Correct'),
+                      LessonKicker(l10n?.answerCorrectLabel ?? 'Correct'),
                       const SizedBox(width: 11),
                       Expanded(
                         child: Text(

@@ -13,9 +13,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   Widget host(Widget child) => MaterialApp(
     theme: lightTheme(),
-    home: Scaffold(
-      body: ListView(padding: EdgeInsets.zero, children: [child]),
-    ),
+    home: Scaffold(body: ListView(padding: EdgeInsets.zero, children: [child])),
   );
 
   group('survives an unbounded height', () {
@@ -128,7 +126,9 @@ void main() {
   });
 
   testWidgets('KeyCta is disabled when it has no callback', (tester) async {
-    await tester.pumpWidget(host(const KeyCta(label: 'Check', onPressed: null)));
+    await tester.pumpWidget(
+      host(const KeyCta(label: 'Check', onPressed: null)),
+    );
     await tester.tap(find.text('Check'));
     await tester.pump();
     expect(tester.takeException(), isNull);

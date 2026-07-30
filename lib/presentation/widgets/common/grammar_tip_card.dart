@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'lesson_ui.dart';
 
@@ -31,6 +32,7 @@ class GrammarTipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
 
     final (
       Color bg,
@@ -44,10 +46,22 @@ class GrammarTipCard extends StatelessWidget {
         t.muted,
         t.ink,
         Icons.visibility_outlined,
-        'Skipped — no score or heart change',
+        l10n?.feedbackSkipped ?? 'Skipped — no score or heart change',
       ),
-      (_, true) => (t.greenSoft, t.green, t.greenInk, Icons.check, 'Správně!'),
-      _ => (t.redSoft, t.red, t.redInk, Icons.close, 'Not quite'),
+      (_, true) => (
+        t.greenSoft,
+        t.green,
+        t.greenInk,
+        Icons.check,
+        l10n?.feedbackCorrect ?? 'Správně!',
+      ),
+      _ => (
+        t.redSoft,
+        t.red,
+        t.redInk,
+        Icons.close,
+        l10n?.feedbackNotQuite ?? 'Not quite',
+      ),
     };
 
     return Container(
@@ -98,7 +112,7 @@ class GrammarTipCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const LessonKicker('Correct'),
+                  LessonKicker(l10n?.answerCorrectLabel ?? 'Correct'),
                   const SizedBox(height: 4),
                   Text(
                     correctAnswer!,
@@ -128,7 +142,9 @@ class GrammarTipCard extends StatelessWidget {
               child: TextButton.icon(
                 onPressed: () => context.push('/grammar?rule=$grammarRuleId'),
                 icon: const Icon(Icons.menu_book_outlined, size: 18),
-                label: const Text('View grammar rule'),
+                label: Text(
+                  l10n?.feedbackViewGrammarRule ?? 'View grammar rule',
+                ),
                 style: TextButton.styleFrom(
                   foregroundColor: t.ink,
                   minimumSize: const Size(0, 44),

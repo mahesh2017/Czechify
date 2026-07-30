@@ -46,7 +46,7 @@ class _DictationViewState extends ConsumerState<DictationView> {
 
     final explanation =
         match == AnswerMatch.nearMiss
-            ? 'Almost! Watch your accent marks — you wrote it correctly apart from the diacritics.'
+            ? AppLocalizations.of(context).dictationAccentHint
             : data['note'] as String?;
 
     widget.onAnswered(
@@ -61,7 +61,7 @@ class _DictationViewState extends ConsumerState<DictationView> {
   @override
   Widget build(BuildContext context) {
     final data = widget.exercise.data;
-
+    final l10n = AppLocalizations.of(context);
     final expected = data['expected_text'] as String;
 
     return Padding(
@@ -82,17 +82,14 @@ class _DictationViewState extends ConsumerState<DictationView> {
             controller: _controller,
             enabled: !answered,
             verdict: isCorrect,
-            semanticLabel: 'Type what you heard',
+            semanticLabel: l10n.exerciseTypeWhatYouHeard,
             onSubmitted: answered ? null : (_) => _checkAnswer(),
           ),
           if (!answered) ...[
             const SizedBox(height: 12),
             CzechCharBar(controller: _controller, enabled: !answered),
             const SizedBox(height: 18),
-            KeyCta(
-              label: AppLocalizations.of(context).check,
-              onPressed: _checkAnswer,
-            ),
+            KeyCta(label: l10n.check, onPressed: _checkAnswer),
           ],
         ],
       ),

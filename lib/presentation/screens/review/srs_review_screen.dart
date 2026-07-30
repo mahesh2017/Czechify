@@ -47,7 +47,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
         backgroundColor: context.tokens.bg,
         appBar: AppBar(
           backgroundColor: context.tokens.bg,
-          title: const Text('Review'),
+          title: Text(AppLocalizations.of(context).navReview),
         ),
         body: const Center(child: CircularProgressIndicator()),
       );
@@ -80,13 +80,16 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
         backgroundColor: context.tokens.bg,
         appBar: AppBar(
           backgroundColor: context.tokens.bg,
-          title: const Text('Review'),
+          title: Text(AppLocalizations.of(context).navReview),
         ),
-        body: const Center(child: Text('No cards available.')),
+        body: Center(
+          child: Text(AppLocalizations.of(context).reviewNoCardsAvailable),
+        ),
       );
     }
 
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
       body: SafeArea(
@@ -104,7 +107,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Spaced repetition',
+                          l10n.reviewSpacedRepetition,
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
@@ -112,8 +115,8 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                           ),
                         ),
                         const SizedBox(height: 3),
-                        const DisplayText(
-                          'Review',
+                        DisplayText(
+                          l10n.navReview,
                           size: 27,
                           weight: FontWeight.w800,
                           height: 1.1,
@@ -122,7 +125,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                     ),
                   ),
                   PillChip(
-                    label: '${session.remainingCards} left',
+                    label: l10n.reviewCardsLeft(session.remainingCards),
                     bg: t.chipBg,
                     fg: t.muted,
                   ),
@@ -172,7 +175,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const LessonKicker('Retrieve the Czech'),
+                    LessonKicker(l10n.reviewRetrieveTheCzech),
                     const SizedBox(height: 8),
                     TextField(
                       key: ValueKey(card.flashcard.id),
@@ -186,9 +189,9 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: t.card,
-                        hintText: 'Say it, then type it',
+                        hintText: l10n.reviewSayItThenTypeIt,
                         hintStyle: TextStyle(fontSize: 16, color: t.faint),
-                        helperText: 'Make an overt attempt before revealing.',
+                        helperText: l10n.reviewOvertAttemptNote,
                         helperStyle: TextStyle(fontSize: 12, color: t.faint),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -240,7 +243,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
                 child: KeyCta(
-                  label: AppLocalizations.of(context).reviewShowAnswer,
+                  label: l10n.reviewShowAnswer,
                   onPressed:
                       card.direction != CardDirection.enToCz ||
                               _productionAttempt.trim().isNotEmpty
@@ -261,8 +264,9 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
   /// "Soon" rather than a day count.
   Map<Rating, String> _intervalLabels(SrsCard card) {
     final now = DateTime.now();
+    final soon = AppLocalizations.of(context).reviewIntervalSoon;
     String fmt(Rating r) {
-      if (r == Rating.again) return 'Soon';
+      if (r == Rating.again) return soon;
       final days = _scheduler.previewIntervalDays(card, r, now);
       if (days <= 0) return '<1d';
       if (days < 30) return '${days}d';
@@ -445,7 +449,7 @@ class _FlashcardView extends ConsumerWidget {
             if (card.gender != null)
               GenderPill(gender: card.gender!, abbreviated: false)
             else
-              const LessonKicker('What does it mean?'),
+              LessonKicker(AppLocalizations.of(context).reviewWhatDoesItMean),
             _AudioPill(text: card.wordCz),
           ],
         ),
@@ -501,7 +505,7 @@ class _FlashcardView extends ConsumerWidget {
       children: [
         _directionBadge(
           context,
-          'EN → CZ',
+          AppLocalizations.of(context).reviewDirectionEnToCz,
           fg: context.tokens.violetInk,
           bg: context.tokens.violetSoft,
         ),
@@ -521,8 +525,9 @@ class _FlashcardView extends ConsumerWidget {
         const SizedBox(height: 14),
         Text(
           contextualPrompt == null
-              ? 'How do you say it in Czech?'
-              : card.exampleEn ?? 'Complete the Czech sentence.',
+              ? AppLocalizations.of(context).reviewHowDoYouSayIt
+              : card.exampleEn ??
+                  AppLocalizations.of(context).reviewCompleteCzechSentence,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: context.tokens.muted,
@@ -543,19 +548,19 @@ class _FlashcardView extends ConsumerWidget {
       children: [
         _directionBadge(
           context,
-          'Listening',
+          AppLocalizations.of(context).reviewDirectionListening,
           fg: context.tokens.violetInk,
           bg: context.tokens.violetSoft,
         ),
         const SizedBox(height: 26),
         ListenPanel(
-          label: 'Play it',
+          label: AppLocalizations.of(context).audioPlayIt,
           onPlay: () => ref.read(czechTtsProvider).speak(card.wordCz),
           onSlow: () => ref.read(czechTtsProvider).speakSlow(card.wordCz),
         ),
         const SizedBox(height: 8),
         Text(
-          'What does it mean?',
+          AppLocalizations.of(context).reviewWhatDoesItMean,
           style: TextStyle(color: context.tokens.muted, fontSize: 15),
         ),
         const SizedBox(height: 26),
@@ -570,7 +575,7 @@ class _FlashcardView extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const LessonKicker('Means'),
+        LessonKicker(AppLocalizations.of(context).reviewMeans),
         const SizedBox(height: 10),
 
         // The meaning leads; the Czech and its notation sit under it as the
@@ -742,7 +747,7 @@ class _AudioPill extends ConsumerWidget {
                 ),
                 const SizedBox(width: 7),
                 Text(
-                  'Hear it',
+                  AppLocalizations.of(context).audioHearIt,
                   style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w700,
@@ -789,9 +794,7 @@ class _RatingButtons extends StatelessWidget {
         children: [
           // Say what the four buttons actually do — they schedule the card,
           // they are not a score.
-          const LessonKicker(
-            'How well did you recall it? · sets when it returns',
-          ),
+          LessonKicker(l10n.reviewHowWellRecalled),
           const SizedBox(height: 9),
           IntrinsicHeight(
             child: Row(
@@ -977,8 +980,8 @@ class _NoDueCardsScreen extends StatelessWidget {
                   iconSize: 34,
                 ),
                 const SizedBox(height: 20),
-                const DisplayText(
-                  'All caught up',
+                DisplayText(
+                  AppLocalizations.of(context).reviewAllCaughtUp,
                   size: 30,
                   weight: FontWeight.w800,
                 ),
@@ -989,7 +992,10 @@ class _NoDueCardsScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
                 ),
                 const SizedBox(height: 26),
-                KeyCta(label: 'Check again', onPressed: onRefresh),
+                KeyCta(
+                  label: AppLocalizations.of(context).reviewCheckAgain,
+                  onPressed: onRefresh,
+                ),
               ],
             ),
           ),
@@ -1014,6 +1020,7 @@ class _ReviewCompleteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final accuracy = (session.accuracy * 100).round();
     final total = session.reviewedCount == 0 ? 1 : session.reviewedCount;
     // Amber means streak and XP in this palette, so a middling recall is
@@ -1043,16 +1050,16 @@ class _ReviewCompleteScreen extends StatelessWidget {
                     child: ScoreRing(
                       fraction: session.accuracy,
                       label: '$accuracy%',
-                      caption: 'recall',
+                      caption: l10n.captionRecall,
                       color: accuracyColor,
                       showBadge: accuracy >= 80,
                       size: 104,
                     ),
                   ),
                   const SizedBox(height: 18),
-                  const Center(
+                  Center(
                     child: DisplayText(
-                      'Deck cleared',
+                      l10n.reviewDeckCleared,
                       size: 27,
                       weight: FontWeight.w800,
                     ),
@@ -1060,8 +1067,7 @@ class _ReviewCompleteScreen extends StatelessWidget {
                   const SizedBox(height: 6),
                   Center(
                     child: Text(
-                      'Nice work — ${session.reviewedCount} '
-                      '${session.reviewedCount == 1 ? 'card' : 'cards'} reviewed',
+                      l10n.reviewCardsReviewed(session.reviewedCount),
                       style: TextStyle(fontSize: 14, color: t.muted),
                     ),
                   ),
@@ -1069,7 +1075,7 @@ class _ReviewCompleteScreen extends StatelessWidget {
                     const SizedBox(height: 12),
                     Center(
                       child: PillChip(
-                        label: '+1 heart earned',
+                        label: l10n.reviewHeartEarned,
                         bg: t.redSoft,
                         fg: t.redInk,
                         icon: Icons.favorite,
@@ -1081,16 +1087,16 @@ class _ReviewCompleteScreen extends StatelessWidget {
                     cells: [
                       StatCell(
                         value: '${session.reviewedCount}',
-                        label: 'Cards',
+                        label: l10n.statCards,
                       ),
                       StatCell(
                         value: '${session.goodCount + session.easyCount}',
-                        label: 'Recalled',
+                        label: l10n.statRecalled,
                         color: t.greenInk,
                       ),
                       StatCell(
                         value: '+${session.totalXp}',
-                        label: 'XP',
+                        label: l10n.statXpEarned,
                         color: t.amberInk,
                       ),
                     ],
@@ -1101,7 +1107,7 @@ class _ReviewCompleteScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SectionLabel('How it went'),
+                        SectionLabel(l10n.reviewHowItWent),
                         const SizedBox(height: 14),
                         _RatingRow(
                           color: t.red,
@@ -1149,9 +1155,7 @@ class _ReviewCompleteScreen extends StatelessWidget {
                         const SizedBox(width: 11),
                         Expanded(
                           child: Text(
-                            'These cards are rescheduled with spaced repetition '
-                            '— each one comes back right when it is about to '
-                            'slip.',
+                            l10n.reviewReschedulingNote,
                             style: TextStyle(
                               fontSize: 14.5,
                               height: 1.45,
@@ -1182,12 +1186,14 @@ class _ReviewCompleteScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                           ),
                         ),
-                        child: const Text('Go again'),
+                        child: Text(l10n.reviewGoAgain),
                       ),
                     ),
                   ),
                   const SizedBox(width: 9),
-                  Expanded(child: KeyCta(label: 'Done', onPressed: onExit)),
+                  Expanded(
+                    child: KeyCta(label: l10n.reviewDone, onPressed: onExit),
+                  ),
                 ],
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/theme/app_tokens.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../providers/tts_providers.dart';
@@ -163,14 +164,16 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final heading = data['heading'] as String? ?? widget.exercise.prompt;
     final body = data['body'] as String?;
     final intro = (data['intro'] as String?)?.trim();
     final items = _items;
     final style = _styleFor(items);
+    // Content may name the set it plays; otherwise the generic label.
     final playAllLabel =
-        data['play_all_label'] as String? ?? 'Play the whole set';
+        data['play_all_label'] as String? ?? l10n.teachingPlayWholeSet;
     final grid = style == 'alphabet' && _isBareSymbolSet(items);
 
     return Padding(
@@ -198,7 +201,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LessonKicker('Learn', color: t.pri),
+                LessonKicker(l10n.teachingKicker, color: t.pri),
                 const SizedBox(height: 12),
                 DisplayText(
                   heading,
@@ -222,7 +225,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                     // Half speed, one item at a time — the "Slow" pass exists
                     // for the sounds English does not have.
                     onSlow: () => _playAll(items, slow: true),
-                    slowLabel: 'Slower',
+                    slowLabel: l10n.audioSlower,
                   ),
                 ],
               ],
@@ -233,10 +236,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             const SizedBox(height: 22),
             LessonKicker(
               grid
-                  ? 'Tap any letter to hear it'
+                  ? l10n.teachingTapAnyLetter
                   : style == 'alphabet'
-                  ? 'Letter by letter'
-                  : 'Tap a line to hear it',
+                  ? l10n.teachingLetterByLetter
+                  : l10n.teachingTapLineToHear,
             ),
             const SizedBox(height: 10),
             if (grid)
@@ -266,7 +269,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
           ],
           const SizedBox(height: 22),
           KeyCta(
-            label: 'Got it — start practising',
+            label: l10n.lessonGotItStartPractising,
             // A teaching card is never graded — advance straight to practice.
             onPressed: () => widget.onAnswered(const ExerciseResult.skipped()),
           ),
@@ -454,7 +457,11 @@ class _IntroBlock extends ConsumerWidget {
                         isSpeaking ? Icons.stop : Icons.play_arrow,
                         size: 18,
                       ),
-                      label: Text(isSpeaking ? 'Stop' : 'Intro'),
+                      label: Text(
+                        isSpeaking
+                            ? AppLocalizations.of(context).audioStop
+                            : AppLocalizations.of(context).teachingIntro,
+                      ),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: t.pri,
                         side: BorderSide(color: t.line),
@@ -742,7 +749,7 @@ class _LetterRow extends StatelessWidget {
                   onPressed: onTapWord,
                   icon: const Icon(Icons.volume_up_outlined),
                   color: t.pri,
-                  tooltip: 'Hear the word',
+                  tooltip: AppLocalizations.of(context).audioHearTheWord,
                 ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/lesson_ui.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'exercise_shared.dart';
 
 /// Reading comprehension exercise — read a Czech passage, then answer
@@ -65,8 +66,10 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
         isCorrect: allCorrect,
         explanation:
             allCorrect
-                ? 'All questions answered correctly!'
-                : '$correctCount/${_questions.length} correct.',
+                ? AppLocalizations.of(context).exerciseAllAnsweredCorrectly
+                : AppLocalizations.of(
+                  context,
+                ).exerciseYouGotCorrect(correctCount, _questions.length),
         correctAnswer: _questions
             .map(
               (q) =>
@@ -82,6 +85,7 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final textCz = data['text_cz'] as String? ?? '';
     final textEn = data['text_en'] as String?;
@@ -148,7 +152,10 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
           if (_allAnswered && !answered)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
-              child: KeyCta(label: 'Check answers', onPressed: _submit),
+              child: KeyCta(
+                label: l10n.exerciseCheckAnswers,
+                onPressed: _submit,
+              ),
             ),
 
           if (answered)
@@ -165,8 +172,8 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
                   Expanded(
                     child: Text(
                       _allCorrect
-                          ? 'All correct'
-                          : 'Some answers are wrong — review below.',
+                          ? l10n.exerciseAllCorrect
+                          : l10n.exerciseSomeAnswersWrong,
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
@@ -184,6 +191,7 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
 
   Widget _buildQuestion(int qIdx) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final q = _questions[qIdx];
     final questionEn = q['question_en'] as String? ?? '';
     final questionCz = q['question_cz'] as String? ?? '';
@@ -202,7 +210,7 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LessonKicker('Question ${qIdx + 1}', color: t.pri),
+          LessonKicker(l10n.exerciseQuestionNumber(qIdx + 1), color: t.pri),
           const SizedBox(height: 6),
           Text(
             questionEn,

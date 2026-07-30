@@ -149,6 +149,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final promptEn = data['prompt_en'] as String?;
     final words = _words;
@@ -197,7 +198,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                       child: TextButton.icon(
                         onPressed: _revealError,
                         icon: const Icon(Icons.lightbulb_outline, size: 18),
-                        label: const Text('Show hint'),
+                        label: Text(l10n.exerciseShowHint),
                         style: TextButton.styleFrom(
                           foregroundColor: t.amberInk,
                           minimumSize: const Size(0, 44),
@@ -207,7 +208,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
 
                   if (_errorRevealed && !answered)
                     Text(
-                      'The error is in one of the highlighted words above.',
+                      l10n.exerciseErrorInHighlighted,
                       style: TextStyle(
                         fontSize: 14,
                         height: 1.45,
@@ -219,7 +220,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                   if (_selectedWordIdx != null && !answered) ...[
                     const SizedBox(height: 16),
                     if (_options != null) ...[
-                      const LessonKicker('Choose the correct form'),
+                      LessonKicker(l10n.exerciseChooseCorrectForm),
                       const SizedBox(height: 10),
                       for (int i = 0; i < _options!.length; i++)
                         Padding(
@@ -374,13 +375,13 @@ class _TextInputCorrectionState extends State<_TextInputCorrection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const LessonKicker('Type the correct sentence'),
+        LessonKicker(AppLocalizations.of(context).exerciseTypeCorrectSentence),
         const SizedBox(height: 10),
         AnswerField(
           controller: _controller,
           enabled: widget.enabled,
           multiline: true,
-          semanticLabel: 'Corrected sentence',
+          semanticLabel: AppLocalizations.of(context).exerciseCorrectedSentence,
           onSubmitted: widget.enabled ? widget.onSubmit : null,
         ),
         const SizedBox(height: 12),
