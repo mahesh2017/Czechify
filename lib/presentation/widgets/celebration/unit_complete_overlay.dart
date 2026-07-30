@@ -72,6 +72,8 @@ class _UnitCompleteOverlayState extends State<UnitCompleteOverlay>
     final tokens = context.tokens;
     final unit = widget.celebration;
     final instant = MediaQuery.disableAnimationsOf(context);
+    // A milestone unit is amber (streak/XP territory), the rest are the
+    // navigation blue. Both are fills here, so the raw hues are right.
     final accent = unit.isMilestone ? tokens.amber : tokens.pri;
 
     return AnimatedBuilder(
@@ -148,7 +150,7 @@ class _UnitCompleteOverlayState extends State<UnitCompleteOverlay>
                                 ),
                                 decoration: BoxDecoration(
                                   color: Colors.white.withValues(alpha: 0.10),
-                                  borderRadius: BorderRadius.circular(14),
+                                  borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,

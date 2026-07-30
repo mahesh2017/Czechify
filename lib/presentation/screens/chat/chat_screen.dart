@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../domain/repositories/conversation_repository.dart';
@@ -9,6 +10,7 @@ import '../../providers/stt_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../providers/database_providers.dart';
 import '../../providers/review_providers.dart';
+import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// Icon + soft-tint colors for each conversation scenario.
@@ -142,17 +144,39 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           chat.conversationId == null
               ? null
               : AppBar(
-                backgroundColor: t.card,
-                title: Text(chat.scenarioTitle),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      ref.read(chatProvider.notifier).resetConversation();
-                    },
-                    tooltip: 'End conversation',
-                  ),
-                ],
+                backgroundColor: t.bg,
+                surfaceTintColor: Colors.transparent,
+                titleSpacing: 0,
+                shape: Border(bottom: BorderSide(color: t.line)),
+                leading: IconButton(
+                  icon: const Icon(Icons.chevron_left),
+                  color: t.muted,
+                  tooltip: 'Back to scenarios',
+                  onPressed:
+                      () => ref.read(chatProvider.notifier).resetConversation(),
+                ),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      chat.scenarioTitle,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: t.ink,
+                      ),
+                    ),
+                    Text(
+                      '${chat.messages.length} '
+                      '${chat.messages.length == 1 ? 'turn' : 'turns'} in',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: t.muted,
+                      ),
+                    ),
+                  ],
+                ),
               ),
       body:
           chat.conversationId == null
@@ -188,8 +212,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             child: Text(
                               chat.error!,
                               style: TextStyle(
-                                color: Theme.of(context).colorScheme.error,
-                                fontSize: 14,
+                                color: t.redInk,
+                                fontSize: 13.5,
+                                height: 1.4,
                               ),
                             ),
                           ),
@@ -209,23 +234,37 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   // before sending.
                   if (chat.suggestedReplies.isNotEmpty && !chat.isLoading)
                     SizedBox(
-                      height: 44,
+                      height: 52,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
                         itemCount: chat.suggestedReplies.length,
                         separatorBuilder: (_, __) => const SizedBox(width: 8),
                         itemBuilder: (context, i) {
                           final suggestion = chat.suggestedReplies[i];
-                          return ActionChip(
-                            avatar: const Icon(
-                              Icons.lightbulb_outline,
-                              size: 16,
+                          return Material(
+                            color: t.priSoft,
+                            borderRadius: BorderRadius.circular(999),
+                            child: InkWell(
+                              // Prefills rather than sends — the learner still
+                              // reads it before it goes.
+                              onTap: () => _inputController.text = suggestion,
+                              borderRadius: BorderRadius.circular(999),
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                ),
+                                child: Text(
+                                  suggestion,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: t.priInk,
+                                  ),
+                                ),
+                              ),
                             ),
-                            label: Text(suggestion),
-                            onPressed: () {
-                              _inputController.text = suggestion;
-                            },
                           );
                         },
                       ),
@@ -306,29 +345,23 @@ class _ScenarioPicker extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
       children: [
-        const DisplayText('AI Tutor', size: 26),
+        const DisplayText('AI Tutor', size: 29, weight: FontWeight.w800),
         const SizedBox(height: 6),
         Text(
-          'Practice real-life Czech conversations. The tutor adapts to your level.',
-          style: TextStyle(fontSize: 15.5, color: t.muted, height: 1.5),
+          'Real situations you will hit this week in Czechia. The tutor adapts '
+          'to your level.',
+          style: TextStyle(fontSize: 15, color: t.muted, height: 1.5),
         ),
         if (recent.isNotEmpty) ...[
-          const SizedBox(height: 18),
-          Text(
-            'Continue where you left off',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: t.muted,
-            ),
-          ),
+          const SizedBox(height: 20),
+          const LessonKicker('Unfinished'),
           const SizedBox(height: 8),
           ...recent.map((summary) {
             final s = _scenarioStyle(context, summary.scenario);
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: SoftCard(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(14),
                 onTap:
                     () => ref
                         .read(chatProvider.notifier)
@@ -339,24 +372,30 @@ class _ScenarioPicker extends ConsumerWidget {
                       icon: s.icon,
                       tint: s.tint,
                       fg: s.fg,
-                      size: 34,
-                      radius: 11,
-                      iconSize: 15,
+                      size: 44,
+                      radius: 16,
+                      iconSize: 20,
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 12),
                     Expanded(
-                      child: Text(
-                        summary.scenario,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: t.ink,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            summary.scenario,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: t.ink,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            _describeDay(summary.createdAt),
+                            style: TextStyle(fontSize: 13, color: t.faint),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      _describeDay(summary.createdAt),
-                      style: TextStyle(fontSize: 13, color: t.faint),
                     ),
                     // Deleting chat history cannot be undone, so it is a
                     // deliberate tap with a confirmation rather than a swipe
@@ -377,60 +416,82 @@ class _ScenarioPicker extends ConsumerWidget {
             );
           }),
         ],
-        const SizedBox(height: 18),
-        GridView.count(
-          crossAxisCount: 2,
+        const SizedBox(height: 22),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SectionLabel('Pick a situation'),
+            Text(
+              '${ChatScenario.all.length} rooms',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: t.faint,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 0.98,
-          children:
-              ChatScenario.all.map((scenario) {
-                final s = _scenarioStyle(context, scenario.title);
-                return SoftCard(
-                  padding: const EdgeInsets.all(16),
-                  onTap:
-                      () => ref
-                          .read(chatProvider.notifier)
-                          .startConversation(scenario: scenario),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      IconTile(
-                        icon: s.icon,
-                        tint: s.tint,
-                        fg: s.fg,
-                        size: 38,
-                        radius: 13,
-                        iconSize: 16,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        scenario.title,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: t.ink,
-                        ),
-                      ),
-                      const SizedBox(height: 7),
-                      Expanded(
-                        child: Text(
-                          scenario.description,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: t.muted,
-                            height: 1.4,
-                          ),
-                        ),
-                      ),
-                    ],
+          // A fixed extent rather than an aspect ratio: with an aspect ratio
+          // the two cards in a row were sized from the column width and ended
+          // up visibly unequal once the descriptions differed in length.
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            mainAxisExtent: 176,
+          ),
+          itemCount: ChatScenario.all.length,
+          itemBuilder: (context, i) {
+            final scenario = ChatScenario.all[i];
+            final s = _scenarioStyle(context, scenario.title);
+            return SoftCard(
+              padding: const EdgeInsets.all(16),
+              onTap:
+                  () => ref
+                      .read(chatProvider.notifier)
+                      .startConversation(scenario: scenario),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IconTile(
+                    icon: s.icon,
+                    tint: s.tint,
+                    fg: s.fg,
+                    size: 44,
+                    radius: 16,
+                    iconSize: 20,
                   ),
-                );
-              }).toList(),
+                  const SizedBox(height: 12),
+                  Text(
+                    scenario.title,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      height: 1.2,
+                      color: t.ink,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Expanded(
+                    child: Text(
+                      scenario.description,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: t.muted,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ],
     );
@@ -478,15 +539,18 @@ class _MessageBubble extends ConsumerWidget {
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.82,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
           decoration: BoxDecoration(
             color: isUser ? t.userBubble : t.card,
-            boxShadow: isUser ? null : t.shadow,
-            borderRadius: BorderRadius.circular(20).copyWith(
+            border: Border.all(color: isUser ? Colors.transparent : t.line),
+            boxShadow: t.shadow,
+            // Notched toward its own speaker: who said what is legible from
+            // the shape, not only from the alignment and colour.
+            borderRadius: BorderRadius.circular(24).copyWith(
               bottomLeft:
-                  isUser ? const Radius.circular(20) : const Radius.circular(6),
+                  isUser ? const Radius.circular(24) : const Radius.circular(6),
               bottomRight:
-                  isUser ? const Radius.circular(6) : const Radius.circular(20),
+                  isUser ? const Radius.circular(6) : const Radius.circular(24),
             ),
           ),
           child: Column(
@@ -500,8 +564,8 @@ class _MessageBubble extends ConsumerWidget {
                     child: Text(
                       message.content,
                       style: TextStyle(
-                        fontSize: 15,
-                        height: 1.5,
+                        fontSize: 16,
+                        height: 1.45,
                         color: isUser ? t.userBubbleTxt : t.ink,
                       ),
                     ),
@@ -523,9 +587,9 @@ class _MessageBubble extends ConsumerWidget {
                   child: Text(
                     message.translation!,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 13.5,
+                      height: 1.4,
                       color: t.muted,
-                      fontStyle: FontStyle.italic,
                     ),
                   ),
                 ),
@@ -595,62 +659,64 @@ class _CorrectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final severityColor = switch (correction.severity) {
-      Severity.error => t.red,
-      Severity.minor => t.amber,
-      Severity.stylistic => t.violet,
+    // Amber is streak and XP in this palette, so a minor slip is violet — the
+    // memory colour — rather than a warning. Only a real error is coral.
+    final (ink, tint) = switch (correction.severity) {
+      Severity.error => (t.redInk, t.redSoft),
+      Severity.minor => (t.violetInk, t.violetSoft),
+      Severity.stylistic => (t.muted, t.elev),
     };
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 4),
-      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: severityColor.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: severityColor.withValues(alpha: 0.2)),
+        color: tint,
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.error_outline, size: 14, color: severityColor),
-              const SizedBox(width: 4),
+              Icon(Icons.edit_outlined, size: 14, color: ink),
+              const SizedBox(width: 6),
               Text(
-                correction.type.name,
+                correction.type.name.toUpperCase(),
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: severityColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: ink,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Text.rich(
             TextSpan(
               children: [
                 TextSpan(
                   text: correction.userSaid,
                   style: TextStyle(
-                    color: severityColor,
+                    color: ink,
                     decoration: TextDecoration.lineThrough,
+                    decorationColor: ink,
                   ),
                 ),
-                const TextSpan(text: ' → '),
+                TextSpan(text: '  →  ', style: TextStyle(color: t.faint)),
                 TextSpan(
                   text: correction.correct,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.w700, color: t.ink),
                 ),
               ],
             ),
+            style: TextStyle(fontSize: 15, height: 1.4, color: t.ink),
           ),
+          const SizedBox(height: 4),
           Text(
             correction.rule,
-            style: TextStyle(
-              fontSize: 15,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
+            style: TextStyle(fontSize: 13.5, height: 1.4, color: t.muted),
           ),
         ],
       ),
@@ -664,25 +730,34 @@ class _TypingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _Dot(0),
-              SizedBox(width: 4),
-              _Dot(200),
-              SizedBox(width: 4),
-              _Dot(400),
-            ],
+        child: Semantics(
+          liveRegion: true,
+          label: 'The tutor is typing',
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+            decoration: BoxDecoration(
+              color: t.card,
+              border: Border.all(color: t.line),
+              boxShadow: t.shadow,
+              borderRadius: BorderRadius.circular(
+                24,
+              ).copyWith(bottomLeft: const Radius.circular(6)),
+            ),
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _Dot(0),
+                SizedBox(width: 5),
+                _Dot(150),
+                SizedBox(width: 5),
+                _Dot(300),
+              ],
+            ),
           ),
         ),
       ),
@@ -690,23 +765,59 @@ class _TypingIndicator extends StatelessWidget {
   }
 }
 
-class _Dot extends StatelessWidget {
+/// One bouncing dot of the typing indicator.
+///
+/// The old version handed a one-shot [TweenAnimationBuilder] a fixed tween and
+/// ignored its delay, so the dots faded in once and then sat still — the
+/// indicator never actually indicated anything.
+class _Dot extends StatefulWidget {
   final int delay;
   const _Dot(this.delay);
 
   @override
+  State<_Dot> createState() => _DotState();
+}
+
+class _DotState extends State<_Dot> with SingleTickerProviderStateMixin {
+  late final AnimationController _c = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1200),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted || MediaQuery.disableAnimationsOf(context)) return;
+      await Future<void>.delayed(Duration(milliseconds: widget.delay));
+      if (mounted) _c.repeat();
+    });
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0.3, end: 1.0),
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeInOut,
-      builder: (context, opacity, child) {
-        return Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(
-            color: context.tokens.muted.withValues(alpha: opacity * 0.6),
-            shape: BoxShape.circle,
+    final t = context.tokens;
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, _) {
+        // A short hop in the first 40% of the cycle, then rest.
+        final v = _c.value;
+        final hop = v < 0.4 ? math.sin(v / 0.4 * math.pi) : 0.0;
+        return Transform.translate(
+          offset: Offset(0, -4 * hop),
+          child: Container(
+            width: 7,
+            height: 7,
+            decoration: BoxDecoration(
+              color: t.faint.withValues(alpha: 0.25 + 0.75 * hop),
+              shape: BoxShape.circle,
+            ),
           ),
         );
       },
@@ -740,11 +851,11 @@ class _InputBar extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                height: 50,
-                padding: const EdgeInsets.only(left: 18, right: 6),
+                height: 52,
+                padding: const EdgeInsets.only(left: 18, right: 4),
                 decoration: BoxDecoration(
                   color: t.card,
-                  boxShadow: t.shadow,
+                  border: Border.all(color: t.line, width: 1.5),
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: Row(
@@ -768,7 +879,6 @@ class _InputBar extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: isLoading || isListening ? null : onMic,
-                      visualDensity: VisualDensity.compact,
                       icon: Icon(
                         isListening ? Icons.mic : Icons.mic_none,
                         size: 20,
@@ -785,16 +895,24 @@ class _InputBar extends StatelessWidget {
               onTap: isLoading ? null : onSend,
               borderRadius: BorderRadius.circular(999),
               child: Container(
-                width: 50,
-                height: 50,
+                width: 52,
+                height: 52,
                 decoration: BoxDecoration(
                   color: t.priFill,
                   shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: t.priFill.withValues(alpha: 0.4),
+                      blurRadius: 18,
+                      offset: const Offset(0, 8),
+                      spreadRadius: -8,
+                    ),
+                  ],
                 ),
                 child:
                     isLoading
                         ? Padding(
-                          padding: const EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(16),
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             color: t.onFill,

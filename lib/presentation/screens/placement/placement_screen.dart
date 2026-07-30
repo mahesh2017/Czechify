@@ -187,7 +187,13 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
               Text(
                 'Suggested starting unit: ${result.provisionalUnit}',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: TextStyle(
+                  fontFamily: AppFonts.display,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  height: 1.15,
+                  color: context.tokens.ink,
+                ),
               ),
               const SizedBox(height: 12),
               const Text(
@@ -242,7 +248,16 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(task.prompt, style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                task.prompt,
+                style: TextStyle(
+                  fontFamily: AppFonts.display,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  height: 1.2,
+                  color: context.tokens.ink,
+                ),
+              ),
               if (task.spoken != null) ...[
                 const SizedBox(height: 20),
                 OutlinedButton.icon(

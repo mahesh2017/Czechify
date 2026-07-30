@@ -16,6 +16,11 @@ import '../../../domain/repositories/exam_repository.dart';
 import '../../providers/database_providers.dart';
 import '../../providers/stt_providers.dart';
 import '../../providers/writing_providers.dart';
+import '../../providers/tts_providers.dart';
+import '../../widgets/common/lesson_ui.dart';
+import '../../widgets/common/soft_ui.dart';
+import '../../widgets/lesson/exercises/exercise_shared.dart'
+    show QuestionPrompt;
 import '../../widgets/lesson/exercise_widget.dart' show TtsButton;
 
 /// Mock exam screen — timed sections matching the selected exam product's
@@ -449,36 +454,128 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   Widget _buildIntroScreen() {
+    final t = context.tokens;
     return Scaffold(
+      backgroundColor: t.bg,
       appBar: AppBar(
-        title: Text('Mock Exam — ${widget.level.name.toUpperCase()}'),
+        backgroundColor: t.bg,
+        title: Text('Mock exam — ${widget.level.name.toUpperCase()}'),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Icon(Icons.assignment, size: 64, color: context.tokens.pri),
-              const SizedBox(height: 24),
-              Text(
+              Center(
+                child: IconTile(
+                  icon: Icons.assignment_outlined,
+                  tint: t.priSoft,
+                  fg: t.priInk,
+                  size: 72,
+                  radius: 24,
+                  iconSize: 32,
+                ),
+              ),
+              const SizedBox(height: 20),
+              DisplayText(
                 '${(_exam?.product ?? ExamProduct.permanentResidence).displayName} '
-                '${widget.level.name.toUpperCase()} Practice Exam',
-                style: Theme.of(context).textTheme.headlineSmall,
+                '${widget.level.name.toUpperCase()} practice exam',
+                size: 27,
+                weight: FontWeight.w800,
+                height: 1.15,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               Text(
-                'This exam has 4 timed sections:\n\n'
-                '📖 Reading — comprehension questions\n'
-                '🎧 Listening — audio + questions\n'
-                '✍️ Writing — practice feedback when available\n'
-                '🎤 Speaking — transcript-based practice evidence\n\n'
-                'This is informal practice, not an official exam result.\n\n'
-                'You can answer questions in order. The timer runs per section.',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: context.tokens.muted),
+                'Four timed sections. The timer runs per section, and you can '
+                'answer in order.',
+                style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 18),
+              // Line icons, not emoji: the app reserves emoji for badges.
+              Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: t.card,
+                  border: Border.all(color: t.line),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: t.shadow,
+                ),
+                child: Column(
+                  children: [
+                    for (final (i, row)
+                        in const <({IconData icon, String title, String sub})>[
+                          (
+                            icon: Icons.menu_book_outlined,
+                            title: 'Reading',
+                            sub: 'Comprehension questions',
+                          ),
+                          (
+                            icon: Icons.headphones_outlined,
+                            title: 'Listening',
+                            sub: 'Audio, then questions',
+                          ),
+                          (
+                            icon: Icons.edit_outlined,
+                            title: 'Writing',
+                            sub: 'Practice feedback when available',
+                          ),
+                          (
+                            icon: Icons.mic_none_outlined,
+                            title: 'Speaking',
+                            sub: 'Transcript-based practice evidence',
+                          ),
+                        ].indexed) ...[
+                      if (i > 0) Divider(height: 1, color: t.line),
+                      Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Row(
+                          children: [
+                            IconTile(
+                              icon: row.icon,
+                              tint: t.elev,
+                              fg: t.muted,
+                              size: 36,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    row.title,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: t.ink,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 1),
+                                  Text(
+                                    row.sub,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: t.muted,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'This is informal practice, not an official exam result.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
+              ),
+              const SizedBox(height: 22),
               if (_exam != null) ...[
                 Text(
                   'Total time: ${_exam!.totalTimeMinutes} minutes',
@@ -491,7 +588,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     '${_describeCheckpointAge(_pendingCheckpoint!.savedAt)}.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 14,
+                      height: 1.45,
+                      color: t.priInk,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -584,11 +683,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             children: [
               // Timer bar
               ClipRRect(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(999),
                 child: LinearProgressIndicator(
                   value: _secondsLeft / (section.timeLimitMinutes * 60),
-                  minHeight: 4,
-                  backgroundColor: context.tokens.redSoft,
+                  minHeight: 5,
+                  backgroundColor: context.tokens.line,
                   valueColor: AlwaysStoppedAnimation<Color>(
                     _secondsLeft < 60 ? context.tokens.red : context.tokens.pri,
                   ),
@@ -689,48 +788,41 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (question['passage'] != null) ...[
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  question['passage'] as String,
-                  style: Theme.of(context).textTheme.bodyMedium,
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: context.tokens.card,
+                border: Border.all(color: context.tokens.line),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: context.tokens.shadow,
+              ),
+              child: Text(
+                question['passage'] as String,
+                style: TextStyle(
+                  fontSize: 16,
+                  height: 1.6,
+                  color: context.tokens.ink,
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 18),
           ],
-          Text(prompt, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 16),
-          ...options.asMap().entries.map((entry) {
-            final idx = entry.key;
-            final option = entry.value;
-            final isSelected = selected == idx;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Card(
-                color:
-                    isSelected
-                        ? Theme.of(context).colorScheme.primaryContainer
-                        : null,
-                child: ListTile(
-                  leading: Text(
-                    String.fromCharCode(65 + idx),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  title: Text(option),
-                  onTap: () => _answer(idx),
-                  trailing:
-                      isSelected
-                          ? Icon(
-                            Icons.check_circle,
-                            color: Theme.of(context).colorScheme.primary,
-                          )
-                          : null,
-                ),
+          QuestionPrompt(question: prompt),
+          const SizedBox(height: 18),
+          for (final (idx, option) in options.indexed)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: QuizOptionTile(
+                keyLabel: String.fromCharCode(65 + idx),
+                text: option,
+                // An exam never reveals the answer mid-paper, so the only
+                // states in play are idle and selected.
+                state:
+                    selected == idx ? OptionState.selected : OptionState.idle,
+                onTap: () => _answer(idx),
               ),
-            );
-          }),
+            ),
         ],
       ),
     );
@@ -744,20 +836,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Audio player — the spoken text is deliberately never displayed.
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TtsButton(text: audioText, size: 40),
-                  const SizedBox(width: 8),
-                  const Text('Tap to play the audio'),
-                ],
-              ),
-            ),
+          ListenPanel(
+            label: 'Play the audio',
+            onPlay: () => ref.read(czechTtsProvider).speak(audioText),
+            onSlow: () => ref.read(czechTtsProvider).speakSlow(audioText),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
           _buildChoiceBody(question),
         ],
       ),
@@ -772,37 +856,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(prompt, style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: 16),
-        ...options.asMap().entries.map((entry) {
-          final idx = entry.key;
-          final option = entry.value;
-          final isSelected = selected == idx;
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Card(
-              color:
-                  isSelected
-                      ? Theme.of(context).colorScheme.primaryContainer
-                      : null,
-              child: ListTile(
-                leading: Text(
-                  String.fromCharCode(65 + idx),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                title: Text(option),
-                onTap: () => _answer(idx),
-                trailing:
-                    isSelected
-                        ? Icon(
-                          Icons.check_circle,
-                          color: Theme.of(context).colorScheme.primary,
-                        )
-                        : null,
-              ),
+        QuestionPrompt(question: prompt),
+        const SizedBox(height: 18),
+        for (final (idx, option) in options.indexed)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: QuizOptionTile(
+              keyLabel: String.fromCharCode(65 + idx),
+              text: option,
+              state: selected == idx ? OptionState.selected : OptionState.idle,
+              onTap: () => _answer(idx),
             ),
-          );
-        }),
+          ),
       ],
     );
   }
@@ -823,7 +888,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       children: [
         Text(
           question['prompt'] as String,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: context.tokens.ink,
+          ),
         ),
         const SizedBox(height: 8),
         Text(
@@ -863,7 +932,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         if (evaluation != null) ...[
           const SizedBox(height: 12),
           Card(
-            color: Theme.of(context).colorScheme.secondaryContainer,
+            color: context.tokens.elev,
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
@@ -895,10 +964,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         ],
         if (error != null) ...[
           const SizedBox(height: 12),
-          Text(
-            error,
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
-          ),
+          Text(error, style: TextStyle(color: context.tokens.redInk)),
         ],
         if (!isEvaluating && evaluation == null && learnerText.isNotEmpty) ...[
           const SizedBox(height: 12),
@@ -925,7 +991,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         children: [
           Text(
             question['prompt'] as String,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: context.tokens.ink,
+            ),
           ),
           const SizedBox(height: 16),
           Card(
@@ -938,7 +1008,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                       children: [
                         Text(
                           targetText,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: TextStyle(
+                            fontFamily: AppFonts.display,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                            color: context.tokens.ink,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
@@ -1001,7 +1076,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                   color:
                       _isRecordingSpeaking
                           ? context.tokens.red
-                          : Theme.of(context).colorScheme.primary,
+                          : context.tokens.pri,
                 ),
                 child: Icon(
                   _isRecordingSpeaking ? Icons.hearing : Icons.mic,
@@ -1018,7 +1093,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 : score != null
                 ? 'Scored! Tap the mic to try again.'
                 : 'Tap to record',
-            style: Theme.of(context).textTheme.bodySmall,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: context.tokens.muted,
+            ),
             textAlign: TextAlign.center,
           ),
           if (score != null) ...[
@@ -1027,10 +1106,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               '$score / 100',
               textAlign: TextAlign.center,
               style: TextStyle(
+                fontFamily: AppFonts.display,
                 fontSize: 32,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w800,
                 color:
-                    score >= 60 ? context.tokens.green : context.tokens.amber,
+                    score >= 60
+                        ? context.tokens.greenInk
+                        : context.tokens.violetInk,
               ),
             ),
             if (transcription != null && transcription.isNotEmpty)
@@ -1048,8 +1130,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               'Recorded — unscored practice',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: context.tokens.amber,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: context.tokens.muted,
               ),
             ),
             Padding(
@@ -1121,78 +1204,85 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   Widget _buildResultScreen() {
     final passed = _result!.passed;
     final t = context.tokens;
+    // A partly-unscored paper is a neutral outcome, not a warning — amber is
+    // reserved for streak and XP.
     final color =
         !_resultFullyScored
-            ? t.amber
+            ? t.violetInk
             : passed
-            ? t.green
-            : t.red;
+            ? t.greenInk
+            : t.redInk;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Exam Results')),
+      backgroundColor: t.bg,
+      appBar: AppBar(backgroundColor: t.bg, title: const Text('Exam results')),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                !_resultFullyScored
-                    ? Icons.pending_actions
-                    : passed
-                    ? Icons.emoji_events
-                    : Icons.cancel,
-                size: 80,
-                color: color,
+              IconTile(
+                icon:
+                    !_resultFullyScored
+                        ? Icons.pending_actions_outlined
+                        : passed
+                        ? Icons.emoji_events_outlined
+                        : Icons.replay_outlined,
+                tint:
+                    !_resultFullyScored
+                        ? t.violetSoft
+                        : passed
+                        ? t.greenSoft
+                        : t.redSoft,
+                fg: color,
+                size: 72,
+                radius: 24,
+                iconSize: 32,
               ),
-              const SizedBox(height: 24),
-              Text(
+              const SizedBox(height: 20),
+              DisplayText(
                 !_resultFullyScored
-                    ? 'Practice completed — some tasks are unscored'
+                    ? 'Practice completed — some tasks unscored'
                     : passed
                     ? 'Practice threshold met'
                     : 'Practice threshold not met',
-                style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
+                size: 27,
+                weight: FontWeight.w800,
+                height: 1.15,
               ),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      _ScoreRow(label: 'Reading', score: _result!.readingScore),
-                      const Divider(),
-                      _ScoreRow(
-                        label: 'Listening',
-                        score: _result!.listeningScore,
-                      ),
-                      const Divider(),
-                      _ScoreRow(label: 'Writing', score: _result!.writingScore),
-                      const Divider(),
-                      _ScoreRow(
-                        label: 'Speaking',
-                        score: _result!.speakingScore,
-                      ),
-                      const Divider(),
-                      _ScoreRow(
-                        label: 'Overall',
-                        score: _result!.totalScore,
-                        isBold: true,
-                      ),
-                    ],
-                  ),
+              const SizedBox(height: 20),
+              SoftCard(
+                child: Column(
+                  children: [
+                    _ScoreRow(label: 'Reading', score: _result!.readingScore),
+                    const Divider(),
+                    _ScoreRow(
+                      label: 'Listening',
+                      score: _result!.listeningScore,
+                    ),
+                    const Divider(),
+                    _ScoreRow(label: 'Writing', score: _result!.writingScore),
+                    const Divider(),
+                    _ScoreRow(label: 'Speaking', score: _result!.speakingScore),
+                    const Divider(),
+                    _ScoreRow(
+                      label: 'Overall',
+                      score: _result!.totalScore,
+                      isBold: true,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
 
               // Answer review — what was right and wrong, per question.
               _buildAnswerReview(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
 
-              FilledButton(
+              KeyCta(
+                label: 'Done',
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Done'),
               ),
             ],
           ),
@@ -1253,7 +1343,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                         color:
                             isCorrect
                                 ? context.tokens.green
-                                : context.tokens.red,
+                                : context.tokens.redInk,
                         size: 20,
                       ),
                       const SizedBox(width: 8),
@@ -1281,11 +1371,17 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                       userIdx is int && userIdx < options.length
                           ? 'Your answer: ${options[userIdx]}'
                           : 'Not answered',
-                      style: TextStyle(color: context.tokens.red, fontSize: 15),
+                      style: TextStyle(
+                        color: context.tokens.redInk,
+                        fontSize: 15,
+                      ),
                     ),
                   Text(
                     'Correct: ${options[correctIdx]}',
-                    style: TextStyle(color: context.tokens.green, fontSize: 15),
+                    style: TextStyle(
+                      color: context.tokens.greenInk,
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),
@@ -1304,7 +1400,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           alignment: Alignment.centerLeft,
           child: Text(
             'Answer Review',
-            style: Theme.of(context).textTheme.titleMedium,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: context.tokens.ink,
+            ),
           ),
         ),
         ...entries,
@@ -1388,8 +1488,7 @@ class _MiniScoreRow extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: score / 100,
                 minHeight: 6,
-                backgroundColor:
-                    Theme.of(context).colorScheme.surfaceContainerHighest,
+                backgroundColor: context.tokens.elev,
                 valueColor: AlwaysStoppedAnimation<Color>(color),
               ),
             ),

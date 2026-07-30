@@ -192,7 +192,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
               child: Row(
                 children: [
-                  _RoundIconButton(
+                  RoundIconButton(
                     icon: Icons.close,
                     tooltip: AppLocalizations.of(context).a11yClose,
                     onTap: () => _showExitConfirm(context),
@@ -457,7 +457,7 @@ class _TeachPhaseScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 6),
               child: Row(
                 children: [
-                  _RoundIconButton(
+                  RoundIconButton(
                     icon: Icons.close,
                     tooltip: AppLocalizations.of(context).a11yClose,
                     onTap: onExit,
@@ -1083,45 +1083,6 @@ class _PrimaryAction extends StatelessWidget {
         foregroundColor: context.tokens.onFill,
         minimumSize: const Size(240, 52),
         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-      ),
-    );
-  }
-}
-
-/// A 44pt circular control with a hairline border — the lesson's leave button,
-/// and the same shape used for back arrows on the full-screen flows.
-class _RoundIconButton extends StatelessWidget {
-  const _RoundIconButton({
-    required this.icon,
-    required this.onTap,
-    this.tooltip,
-  });
-
-  final IconData icon;
-  final VoidCallback onTap;
-  final String? tooltip;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    return Tooltip(
-      message: tooltip ?? '',
-      child: Semantics(
-        button: true,
-        label: tooltip,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(999),
-          child: Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: t.line),
-            ),
-            child: Icon(icon, size: 18, color: t.muted),
-          ),
-        ),
       ),
     );
   }

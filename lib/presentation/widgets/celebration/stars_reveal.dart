@@ -81,6 +81,8 @@ class _StarsRevealState extends State<StarsReveal>
               size: widget.size,
               // The middle star sits higher, the way a podium does.
               lift: i == 1 ? 10 : 0,
+              // A filled star is a graphic, not a glyph on a tint, so the
+              // raw hue is correct here.
               color: tokens.amber,
               empty: tokens.line,
             ),

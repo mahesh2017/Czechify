@@ -40,6 +40,8 @@ class _RewardToastState extends State<RewardToast>
     super.dispose();
   }
 
+  // Ink variants, not raw hues: the accent is used for the title text and the
+  // card border, both of which need to clear 4.5:1.
   ({String glyph, String title, String subtitle, Color accent}) _content(
     AppTokens tokens,
   ) => switch (widget.celebration) {
@@ -47,20 +49,20 @@ class _RewardToastState extends State<RewardToast>
       glyph: icon,
       title: name,
       subtitle: 'Badge earned · +$xpReward XP',
-      accent: tokens.amber,
+      accent: tokens.amberInk,
     ),
     StreakExtended(:final days) => (
       glyph: '🔥',
       title: '$days-day streak',
       subtitle: 'Přijď zítra zas · come back tomorrow',
-      accent: tokens.red,
+      accent: tokens.redInk,
     ),
     // The larger ceremonies own the whole screen and never appear here.
     LessonCompleted() || UnitCompleted() => (
       glyph: '⭐',
       title: 'Well done',
       subtitle: '',
-      accent: tokens.pri,
+      accent: tokens.priInk,
     ),
   };
 
@@ -92,14 +94,14 @@ class _RewardToastState extends State<RewardToast>
             child: Material(
               color: tokens.card,
               elevation: 8,
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(24),
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 14,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(24),
                   border: Border.all(
                     color: content.accent.withValues(alpha: 0.45),
                     width: 1.5,

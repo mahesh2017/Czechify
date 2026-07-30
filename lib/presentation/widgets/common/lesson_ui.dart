@@ -43,6 +43,46 @@ class LessonKicker extends StatelessWidget {
   }
 }
 
+/// A 44pt circular control with a hairline border — the leave button on the
+/// lesson and review flows, and the back arrow on the full-screen ones.
+class RoundIconButton extends StatelessWidget {
+  const RoundIconButton({
+    super.key,
+    required this.icon,
+    required this.onTap,
+    this.tooltip,
+  });
+
+  final IconData icon;
+  final VoidCallback onTap;
+  final String? tooltip;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Tooltip(
+      message: tooltip ?? '',
+      child: Semantics(
+        button: true,
+        label: tooltip,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(999),
+          child: Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: t.line),
+            ),
+            child: Icon(icon, size: 18, color: t.muted),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// The lesson progress row: one pip per step, the current one widened.
 ///
 /// Replaces a bare [LinearProgressIndicator] because position within a short

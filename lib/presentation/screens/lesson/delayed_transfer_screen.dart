@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -160,7 +161,13 @@ class _DelayedTransferScreenState extends ConsumerState<DelayedTransferScreen> {
                         _correct!
                             ? 'Retained independently'
                             : 'This still needs practice',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: TextStyle(
+                          fontFamily: AppFonts.display,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          height: 1.15,
+                          color: context.tokens.ink,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       const Text(
