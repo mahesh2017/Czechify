@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../providers/tts_providers.dart';
+import '../../common/lesson_ui.dart';
+import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
 
 /// A non-graded teaching card: presents a concept (an optional spoken intro,
@@ -89,10 +92,11 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     return hasSymbol ? 'alphabet' : 'list';
   }
 
-  Future<void> _say(String text) async {
+  Future<void> _say(String text, {bool slow = false}) async {
     if (text.trim().isEmpty) return;
     try {
-      await ref.read(czechTtsProvider).speak(text);
+      final tts = ref.read(czechTtsProvider);
+      await (slow ? tts.speakSlow(text) : tts.speak(text));
     } catch (_) {
       // Speech is best-effort — a missing voice must not break the lesson.
     }
@@ -108,7 +112,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     }
   }
 
-  Future<void> _playAll(List<_TeachingItem> items) async {
+  Future<void> _playAll(List<_TeachingItem> items, {bool slow = false}) async {
     if (_playingAll) {
       setState(() {
         _playingAll = false;
@@ -124,10 +128,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     for (var i = 0; i < items.length; i++) {
       if (!_playingAll || !mounted) break;
       setState(() => _playingIndex = i);
-      await _say(alphabet ? items[i].nameSay : items[i].playText);
+      await _say(alphabet ? items[i].nameSay : items[i].playText, slow: slow);
       // TTS returns before playback finishes; a fixed pace gives a clear gap
-      // between items.
-      await Future<void>.delayed(const Duration(milliseconds: 1100));
+      // between items — longer when the utterance itself is stretched out.
+      await Future<void>.delayed(Duration(milliseconds: slow ? 1700 : 1100));
     }
     if (mounted) {
       setState(() {
@@ -144,9 +148,21 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     super.dispose();
   }
 
+  /// Whether the set is a plain roster of characters — symbols with no
+  /// respelling and no example word.
+  ///
+  /// Those are the sets the handoff lays out as a four-up "tap to hear" grid.
+  /// Anything carrying a sound or an example needs the full-width row to have
+  /// somewhere to put it.
+  bool _isBareSymbolSet(List<_TeachingItem> items) =>
+      items.isNotEmpty &&
+      items.every(
+        (i) => i.symbol.isNotEmpty && i.sound.isEmpty && i.example.isEmpty,
+      );
+
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
+    final t = context.tokens;
     final data = widget.exercise.data;
     final heading = data['heading'] as String? ?? widget.exercise.prompt;
     final body = data['body'] as String?;
@@ -155,9 +171,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     final style = _styleFor(items);
     final playAllLabel =
         data['play_all_label'] as String? ?? 'Play the whole set';
+    final grid = style == 'alphabet' && _isBareSymbolSet(items);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -170,87 +187,177 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
               // use the original Lottie until they're migrated.
               useIllustratedCharacter: (data['character'] as String?) == 'v3',
             ),
-            const SizedBox(height: 18),
-          ],
-          Row(
-            children: [
-              Icon(Icons.school_outlined, size: 18, color: cs.primary),
-              const SizedBox(width: 6),
-              Text(
-                'Learn',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: cs.primary,
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            heading,
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: cs.onSurface,
-            ),
-          ),
-          if (body != null && body.isNotEmpty) ...[
-            const SizedBox(height: 10),
-            Text(
-              body,
-              style: TextStyle(
-                fontSize: 14.5,
-                color: cs.onSurfaceVariant,
-                height: 1.45,
-              ),
-            ),
-          ],
-          if (items.isNotEmpty) ...[
             const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () => _playAll(items),
-                icon: Icon(_playingAll ? Icons.stop : Icons.play_arrow),
-                label: Text(_playingAll ? 'Stop' : playAllLabel),
-              ),
-            ),
-            const SizedBox(height: 12),
-            for (var i = 0; i < items.length; i++)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child:
-                    style == 'alphabet'
-                        ? _LetterRow(
-                          item: items[i],
-                          active: _playingIndex == i,
-                          onTapName: () => _say(items[i].nameSay),
-                          onTapWord: () => _say(items[i].say),
-                        )
-                        : _PhraseRow(
-                          item: items[i],
-                          active: _playingIndex == i,
-                          onTap: () => _say(items[i].playText),
-                        ),
-              ),
           ],
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: () {
-                // A teaching card is never graded — advance straight to
-                // practice.
-                widget.onAnswered(const ExerciseResult.skipped());
-              },
-              icon: const Icon(Icons.check),
-              label: const Text('Got it — start practising'),
+
+          // The concept itself, on the hero surface. The watermark is the
+          // letter being taught, bled off the corner — only meaningful when
+          // the whole card is about one character.
+          TeachingHeroCard(
+            watermark: grid && items.length == 1 ? items.first.symbol : null,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LessonKicker('Learn', color: t.pri),
+                const SizedBox(height: 12),
+                DisplayText(
+                  heading,
+                  size: 26,
+                  weight: FontWeight.w800,
+                  height: 1.1,
+                ),
+                if (body != null && body.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    body,
+                    style: TextStyle(fontSize: 15, color: t.muted, height: 1.5),
+                  ),
+                ],
+                if (items.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  AudioPairButtons(
+                    playing: _playingAll,
+                    playLabel: playAllLabel,
+                    onPlay: () => _playAll(items),
+                    // Half speed, one item at a time — the "Slow" pass exists
+                    // for the sounds English does not have.
+                    onSlow: () => _playAll(items, slow: true),
+                    slowLabel: 'Slower',
+                  ),
+                ],
+              ],
             ),
+          ),
+
+          if (items.isNotEmpty) ...[
+            const SizedBox(height: 22),
+            LessonKicker(
+              grid
+                  ? 'Tap any letter to hear it'
+                  : style == 'alphabet'
+                  ? 'Letter by letter'
+                  : 'Tap a line to hear it',
+            ),
+            const SizedBox(height: 10),
+            if (grid)
+              _LetterGrid(
+                items: items,
+                playingIndex: _playingIndex,
+                onTap: (i) => _say(items[i].nameSay),
+              )
+            else
+              for (var i = 0; i < items.length; i++)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child:
+                      style == 'alphabet'
+                          ? _LetterRow(
+                            item: items[i],
+                            active: _playingIndex == i,
+                            onTapName: () => _say(items[i].nameSay),
+                            onTapWord: () => _say(items[i].say),
+                          )
+                          : _PhraseRow(
+                            item: items[i],
+                            active: _playingIndex == i,
+                            onTap: () => _say(items[i].playText),
+                          ),
+                ),
+          ],
+          const SizedBox(height: 22),
+          KeyCta(
+            label: 'Got it — start practising',
+            // A teaching card is never graded — advance straight to practice.
+            onPressed: () => widget.onAnswered(const ExerciseResult.skipped()),
           ),
         ],
       ),
+    );
+  }
+}
+
+/// The four-up character grid: one tile per letter, tap to hear its name.
+///
+/// Used instead of full-width rows when the set is nothing but characters —
+/// forty-two rows of a single glyph each is a scroll with no shape to it.
+class _LetterGrid extends StatelessWidget {
+  const _LetterGrid({
+    required this.items,
+    required this.playingIndex,
+    required this.onTap,
+  });
+
+  final List<_TeachingItem> items;
+  final int playingIndex;
+  final void Function(int index) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        // 44pt minimum with room for the letter name underneath.
+        mainAxisExtent: 62,
+      ),
+      itemCount: items.length,
+      itemBuilder: (context, i) {
+        final item = items[i];
+        final active = playingIndex == i;
+        return Semantics(
+          button: true,
+          label:
+              item.name.isEmpty ? item.symbol : '${item.symbol}, ${item.name}',
+          excludeSemantics: true,
+          child: Material(
+            color: active ? t.priSoft : t.card,
+            borderRadius: BorderRadius.circular(16),
+            child: InkWell(
+              onTap: () => onTap(i),
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: active ? t.pri : t.line),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      item.symbol,
+                      style: TextStyle(
+                        fontFamily: AppFonts.display,
+                        fontSize: 24,
+                        height: 1,
+                        fontWeight: FontWeight.w800,
+                        color: t.pri,
+                      ),
+                    ),
+                    if (item.name.isNotEmpty) ...[
+                      const SizedBox(height: 3),
+                      Text(
+                        item.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: t.faint,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -277,6 +384,7 @@ class _IntroBlock extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cs = Theme.of(context).colorScheme;
+    final t = context.tokens;
     final gender = ref.watch(settingsProvider.select((s) => s.ttsVoiceGender));
     final genderKey = gender == TtsVoiceGender.male ? 'male' : 'female';
     final speaking = english?.speaking ?? ValueNotifier<bool>(false);
@@ -284,9 +392,18 @@ class _IntroBlock extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: cs.primaryContainer.withValues(alpha: 0.35),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: cs.primary.withValues(alpha: 0.25)),
+        color: t.card,
+        // Notched toward the tutor, the same shape TutorBubble uses — this is
+        // the same character speaking, just with their portrait instead of an
+        // initial tile.
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+          bottomRight: Radius.circular(24),
+          bottomLeft: Radius.circular(6),
+        ),
+        border: Border.all(color: t.line),
+        boxShadow: t.shadow,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,11 +442,7 @@ class _IntroBlock extends ConsumerWidget {
               children: [
                 Text(
                   text,
-                  style: TextStyle(
-                    fontSize: 14,
-                    height: 1.4,
-                    color: cs.onSurface,
-                  ),
+                  style: TextStyle(fontSize: 15, height: 1.5, color: t.ink),
                 ),
                 const SizedBox(height: 10),
                 ValueListenableBuilder<bool>(
@@ -343,11 +456,12 @@ class _IntroBlock extends ConsumerWidget {
                       ),
                       label: Text(isSpeaking ? 'Stop' : 'Intro'),
                       style: OutlinedButton.styleFrom(
-                        visualDensity: VisualDensity.compact,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 6,
-                        ),
+                        foregroundColor: t.pri,
+                        side: BorderSide(color: t.line),
+                        // 44pt even though the pill is drawn smaller.
+                        minimumSize: const Size(0, 44),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        shape: const StadiumBorder(),
                       ),
                     );
                   },
@@ -454,21 +568,20 @@ class _PhraseRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
+    final t = context.tokens;
     return Material(
-      color: active ? cs.primaryContainer : cs.surface,
-      borderRadius: BorderRadius.circular(14),
+      color: active ? t.violetSoft : t.card,
+      borderRadius: BorderRadius.circular(24),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(24),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          constraints: const BoxConstraints(minHeight: 64),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: active ? cs.primary : cs.outlineVariant,
-              width: active ? 1.5 : 1,
-            ),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: active ? t.violet : t.line),
+            boxShadow: active ? null : t.shadow,
           ),
           child: Row(
             children: [
@@ -479,28 +592,39 @@ class _PhraseRow extends StatelessWidget {
                     Text(
                       item.cz,
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: cs.onSurface,
+                        fontFamily: AppFonts.display,
+                        fontSize: 21,
+                        fontWeight: FontWeight.w800,
+                        color: t.ink,
                         height: 1.25,
                       ),
                     ),
                     if (item.en.isNotEmpty) ...[
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 4),
                       Text(
                         item.en,
                         style: TextStyle(
-                          fontSize: 13.5,
-                          color: cs.onSurfaceVariant,
-                          height: 1.3,
+                          fontSize: 14,
+                          color: t.muted,
+                          height: 1.35,
                         ),
                       ),
                     ],
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              Icon(Icons.volume_up, color: cs.primary, size: 22),
+              const SizedBox(width: 12),
+              // Violet: the phrase surfaces are the review/memory colour, and
+              // the whole row is already the tap target.
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: active ? t.card : t.violetSoft,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.play_arrow, size: 20, color: t.violet),
+              ),
             ],
           ),
         ),
@@ -526,40 +650,40 @@ class _LetterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
+    final t = context.tokens;
     return Material(
-      color: active ? cs.primaryContainer : cs.surface,
-      borderRadius: BorderRadius.circular(14),
+      color: active ? t.priSoft : t.card,
+      borderRadius: BorderRadius.circular(16),
       child: InkWell(
         onTap: onTapName,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          // 44pt floor even on the shortest row.
+          constraints: const BoxConstraints(minHeight: 60),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: active ? cs.primary : cs.outlineVariant,
-              width: active ? 1.5 : 1,
-            ),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: active ? t.pri : t.line),
           ),
           child: Row(
             children: [
-              // Letter + its name, in a tinted box.
+              // The letter and how it is named, in a tinted tile.
               Container(
-                width: 62,
+                width: 58,
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
-                  color: cs.primary.withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(10),
+                  color: active ? t.card : t.priSoft,
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
                   children: [
                     Text(
                       item.symbol,
                       style: TextStyle(
-                        fontSize: 26,
+                        fontFamily: AppFonts.display,
+                        fontSize: 24,
                         fontWeight: FontWeight.w800,
-                        color: cs.primary,
+                        color: t.pri,
                         height: 1.0,
                       ),
                     ),
@@ -569,35 +693,42 @@ class _LetterRow extends StatelessWidget {
                         child: Text(
                           item.name,
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 10.5, color: cs.primary),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          // 12px is the type floor — nothing smaller anywhere.
+                          style: TextStyle(fontSize: 12, color: t.priInk),
                         ),
                       ),
                   ],
                 ),
               ),
               const SizedBox(width: 12),
-              // Sound + example.
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Respelling, set in mono so it reads as notation rather
+                    // than as another Czech word.
                     if (item.sound.isNotEmpty)
                       Text(
                         item.sound,
                         style: TextStyle(
-                          fontSize: 13,
-                          color: cs.onSurfaceVariant,
+                          fontFamily: 'monospace',
+                          fontSize: 12.5,
+                          letterSpacing: 0.6,
+                          fontWeight: FontWeight.w700,
+                          color: t.muted,
                         ),
                       ),
                     if (item.example.isNotEmpty) ...[
-                      const SizedBox(height: 2),
+                      const SizedBox(height: 3),
                       Text(
                         item.exampleEn.isEmpty
                             ? item.example
                             : '${item.example} — ${item.exampleEn}',
                         style: TextStyle(
-                          fontSize: 14,
-                          color: cs.onSurface,
+                          fontSize: 15,
+                          color: t.ink,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -609,10 +740,9 @@ class _LetterRow extends StatelessWidget {
               if (item.example.isNotEmpty)
                 IconButton(
                   onPressed: onTapWord,
-                  icon: const Icon(Icons.volume_up),
-                  color: cs.primary,
+                  icon: const Icon(Icons.volume_up_outlined),
+                  color: t.pri,
                   tooltip: 'Hear the word',
-                  visualDensity: VisualDensity.compact,
                 ),
             ],
           ),

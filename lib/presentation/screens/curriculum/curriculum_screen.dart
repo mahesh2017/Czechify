@@ -23,6 +23,7 @@ class CurriculumScreen extends ConsumerStatefulWidget {
 
 class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
   Phase _phase = Phase.a1;
+  bool _mapView = true;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,22 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
             return ListView(
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
               children: [
-                const DisplayText('Curriculum', size: 26),
+                Row(
+                  children: [
+                    const Expanded(
+                      child: DisplayText('Your Czech path', size: 28),
+                    ),
+                    _ViewToggle(
+                      mapView: _mapView,
+                      onChanged: (value) => setState(() => _mapView = value),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'One useful step at a time.',
+                  style: TextStyle(fontSize: 15, color: t.muted),
+                ),
                 const SizedBox(height: 14),
                 Row(
                   children: [
@@ -145,20 +161,145 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                 // A1 capstones carry ids 28 and 30 (16-27 are A2 units), so
                 // using the id printed "Unit 28" directly under "Unit 15" and
                 // read as a numbering bug.
-                for (final (index, u) in shown.indexed)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: _UnitCard(
+                if (_mapView)
+                  for (final (index, u) in shown.indexed)
+                    _PathUnit(
                       unit: u,
                       number: index + 1,
                       isUnlocked: unlockedIds.contains(u.id),
+                      isLast: index == shown.length - 1,
+                    )
+                else
+                  for (final (index, u) in shown.indexed)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: _UnitCard(
+                        unit: u,
+                        number: index + 1,
+                        isUnlocked: unlockedIds.contains(u.id),
+                      ),
                     ),
-                  ),
               ],
             );
           },
         ),
       ),
+    );
+  }
+}
+
+class _ViewToggle extends StatelessWidget {
+  const _ViewToggle({required this.mapView, required this.onChanged});
+
+  final bool mapView;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Semantics(
+      label: 'Curriculum layout',
+      child: Container(
+        padding: const EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          color: t.elev,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _ViewToggleButton(
+              icon: Icons.route_outlined,
+              label: 'Map',
+              selected: mapView,
+              onTap: () => onChanged(true),
+            ),
+            _ViewToggleButton(
+              icon: Icons.view_list_outlined,
+              label: 'List',
+              selected: !mapView,
+              onTap: () => onChanged(false),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ViewToggleButton extends StatelessWidget {
+  const _ViewToggleButton({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: label,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: AnimatedContainer(
+          duration:
+              MediaQuery.disableAnimationsOf(context)
+                  ? Duration.zero
+                  : const Duration(milliseconds: 180),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          decoration: BoxDecoration(
+            color: selected ? t.card : Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: selected ? t.shadow : null,
+          ),
+          child: Icon(icon, size: 18, color: selected ? t.ink : t.muted),
+        ),
+      ),
+    );
+  }
+}
+
+class _PathUnit extends StatelessWidget {
+  const _PathUnit({
+    required this.unit,
+    required this.number,
+    required this.isUnlocked,
+    required this.isLast,
+  });
+
+  final Unit unit;
+  final int number;
+  final bool isUnlocked;
+  final bool isLast;
+
+  @override
+  Widget build(BuildContext context) {
+    final left = number.isOdd ? 0.0 : 24.0;
+    final right = number.isOdd ? 24.0 : 0.0;
+    final t = context.tokens;
+    return Stack(
+      children: [
+        if (!isLast)
+          Positioned(
+            left: number.isOdd ? 31 : 55,
+            top: 54,
+            bottom: -8,
+            child: Container(width: 2, color: t.line),
+          ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(left, 0, right, 18),
+          child: _UnitCard(unit: unit, number: number, isUnlocked: isUnlocked),
+        ),
+      ],
     );
   }
 }

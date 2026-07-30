@@ -1,43 +1,125 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_tokens.dart';
 
-/// Record button — hold to record audio.
+/// The mic control. Tap to start, tap again to stop.
+///
+/// While recording it turns coral and throws a slow expanding ring, which is
+/// the app's only "live" state and needs to be unmistakable at a glance.
+/// Under reduced motion the ring is dropped and the coral fill carries it, so
+/// the recording state is never signalled by movement alone.
 class RecordButton extends StatefulWidget {
-  final VoidCallback onPressed;
-  final bool isRecording;
-
   const RecordButton({
     super.key,
     required this.onPressed,
     this.isRecording = false,
+    this.size = 76,
   });
+
+  final VoidCallback onPressed;
+  final bool isRecording;
+  final double size;
 
   @override
   State<RecordButton> createState() => _RecordButtonState();
 }
 
-class _RecordButtonState extends State<RecordButton> {
+class _RecordButtonState extends State<RecordButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ring = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  @override
+  void didUpdateWidget(covariant RecordButton old) {
+    super.didUpdateWidget(old);
+    _syncRing();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _syncRing();
+  }
+
+  void _syncRing() {
+    final shouldRun =
+        widget.isRecording && !MediaQuery.disableAnimationsOf(context);
+    if (shouldRun && !_ring.isAnimating) {
+      _ring.repeat();
+    } else if (!shouldRun && _ring.isAnimating) {
+      _ring.stop();
+      _ring.value = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _ring.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
+    final hue = widget.isRecording ? t.red : t.priFill;
+    // The ring grows outside the button, so the box has to leave room for it.
+    final extent = widget.size * 1.9;
+
     return Semantics(
       button: true,
       label: widget.isRecording ? 'Stop recording' : 'Start recording',
+      excludeSemantics: true,
       child: GestureDetector(
-        onTapDown: (_) => widget.onPressed(),
-        child: Container(
-          width: 64,
-          height: 64,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color:
-                widget.isRecording
-                    ? context.tokens.red
-                    : Theme.of(context).colorScheme.primary,
-          ),
-          child: Icon(
-            widget.isRecording ? Icons.stop : Icons.mic,
-            color: context.tokens.onFill,
-            size: 28,
+        onTap: widget.onPressed,
+        child: SizedBox(
+          width: extent,
+          height: extent,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if (widget.isRecording)
+                AnimatedBuilder(
+                  animation: _ring,
+                  builder: (context, _) {
+                    final v = _ring.value;
+                    return IgnorePointer(
+                      child: Opacity(
+                        opacity: (0.55 * (1 - v)).clamp(0.0, 1.0),
+                        child: Container(
+                          width: widget.size * (0.9 + v),
+                          height: widget.size * (0.9 + v),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: t.red, width: 2),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              Container(
+                width: widget.size,
+                height: widget.size,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: hue,
+                  boxShadow: [
+                    BoxShadow(
+                      color: hue.withValues(alpha: 0.45),
+                      blurRadius: 24,
+                      offset: const Offset(0, 10),
+                      spreadRadius: -8,
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  widget.isRecording ? Icons.stop_rounded : Icons.mic_rounded,
+                  color: t.onFill,
+                  size: widget.size * 0.44,
+                ),
+              ),
+            ],
           ),
         ),
       ),

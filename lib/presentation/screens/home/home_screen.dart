@@ -33,9 +33,6 @@ class HomeScreen extends ConsumerWidget {
             : hour < 18
             ? 'Dobré odpoledne'
             : 'Dobrý večer';
-    final name =
-        settings.learnerName.isNotEmpty ? ', ${settings.learnerName}' : '';
-
     return Scaffold(
       backgroundColor: t.bg,
       body: SafeArea(
@@ -52,26 +49,20 @@ class HomeScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '$greeting$name 👋',
-                        style: TextStyle(fontSize: 15, color: t.muted),
+                        '$greeting · today',
+                        style: TextStyle(fontSize: 12.5, color: t.faint),
                       ),
-                      const SizedBox(height: 6),
-                      const DisplayText('Czechify', size: 26),
+                      const SizedBox(height: 3),
+                      DisplayText(
+                        settings.learnerName.isNotEmpty
+                            ? settings.learnerName
+                            : 'Czechify',
+                        size: 26,
+                        weight: FontWeight.w800,
+                      ),
                     ],
                   ),
                 ),
-                Semantics(
-                  label: AppLocalizations.of(
-                    context,
-                  ).homeHeartsRemaining(g.hearts),
-                  child: PillChip(
-                    label: '${g.hearts}',
-                    bg: t.redSoft,
-                    fg: t.red,
-                    icon: Icons.favorite,
-                  ),
-                ),
-                const SizedBox(width: 8),
                 Semantics(
                   label: AppLocalizations.of(
                     context,
@@ -143,42 +134,16 @@ class HomeScreen extends ConsumerWidget {
             const LearningTipCard(),
             const SizedBox(height: 14),
 
-            // Quick actions row.
-            Row(
-              children: [
-                Expanded(
-                  child: _QuickAction(
-                    icon: Icons.style_outlined,
-                    tint: t.violetSoft,
-                    fg: t.violet,
-                    label: 'Review',
-                    sub: '$dueCount due',
-                    onTap: () => context.go('/review'),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _QuickAction(
-                    icon: Icons.chat_bubble_outline,
-                    tint: t.priSoft,
-                    fg: t.pri,
-                    label: AppLocalizations.of(context).homeAiChat,
-                    sub: '6 scenarios',
-                    onTap: () => context.go('/chat'),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _QuickAction(
-                    icon: Icons.mic_none,
-                    tint: t.amberSoft,
-                    fg: t.amber,
-                    label: AppLocalizations.of(context).homeSpeak,
-                    sub: 'Pronounce ř',
-                    onTap: () => context.push('/pronunciation/practice'),
-                  ),
-                ),
-              ],
+            _ShortcutRow(
+              icon: Icons.mic_none,
+              tint: t.redSoft,
+              fg: t.redInk,
+              title: 'Say it out loud',
+              subtitle:
+                  dueCount > 0
+                      ? 'Warm up, then review $dueCount due cards'
+                      : 'Two minutes of focused Czech pronunciation',
+              onTap: () => context.push('/pronunciation/practice'),
             ),
             const SizedBox(height: 14),
 
@@ -209,14 +174,6 @@ class HomeScreen extends ConsumerWidget {
               onTap: () => context.push('/grammar'),
             ),
             const SizedBox(height: 10),
-            _ShortcutRow(
-              icon: Icons.bar_chart,
-              tint: t.priSoft,
-              fg: t.pri,
-              title: AppLocalizations.of(context).homeYourProgress,
-              subtitle: 'Course evidence, badges, streak stats',
-              onTap: () => context.go('/stats'),
-            ),
           ],
         ),
       ),
@@ -267,7 +224,8 @@ void _showExamLevelPicker(BuildContext context) {
   );
 }
 
-/// Teal hero card showing daily XP goal, streak and total XP.
+/// Quiet daily-goal card. Progress supports the next lesson instead of
+/// competing with it as the page's primary action.
 class _DailyGoalHero extends StatelessWidget {
   const _DailyGoalHero({
     required this.dailyXp,
@@ -286,95 +244,98 @@ class _DailyGoalHero extends StatelessWidget {
     final t = context.tokens;
     final progress =
         dailyGoalXp > 0 ? (dailyXp / dailyGoalXp).clamp(0.0, 1.0) : 0.0;
-    const white = Colors.white;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: t.priFill,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Stack(
+    return SoftCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Positioned(
-            right: -40,
-            top: -30,
-            child: Opacity(opacity: 0.14, child: _ConcentricRings()),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(22, 20, 22, 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'DAILY GOAL',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0.9,
-                    color: white.withValues(alpha: 0.7),
+          Row(
+            children: [
+              SizedBox.square(
+                dimension: 76,
+                child: CustomPaint(
+                  painter: _GoalRingPainter(
+                    progress: progress,
+                    track: t.elev,
+                    fill: t.pri,
                   ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Text(
-                      '$dailyXp',
-                      style: const TextStyle(
-                        fontFamily: AppFonts.display,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w700,
-                        height: 1,
-                        color: white,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Text(
-                        '/ $dailyGoalXp XP today',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: white.withValues(alpha: 0.75),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '$dailyXp',
+                          style: TextStyle(
+                            fontFamily: AppFonts.display,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
+                            color: t.ink,
+                          ),
                         ),
-                      ),
+                        Text(
+                          '/ $dailyGoalXp XP',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: t.faint,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 14),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(999),
-                  child: LinearProgressIndicator(
-                    value: progress == 0 ? 0.06 : progress,
-                    minHeight: 8,
-                    backgroundColor: white.withValues(alpha: 0.22),
-                    valueColor: const AlwaysStoppedAnimation(white),
                   ),
                 ),
-                const SizedBox(height: 14),
-                Row(
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '🔥 $streak day streak',
+                      'Daily goal',
                       style: TextStyle(
                         fontSize: 15,
-                        color: white.withValues(alpha: 0.85),
+                        fontWeight: FontWeight.w700,
+                        color: t.ink,
                       ),
                     ),
-                    const SizedBox(width: 14),
+                    const SizedBox(height: 4),
                     Text(
-                      '⭐ $totalXp total XP',
+                      progress >= 1
+                          ? 'Done for today. Anything else is a bonus.'
+                          : dailyXp == 0
+                          ? 'One short lesson gets today moving.'
+                          : '${dailyGoalXp - dailyXp} XP to your daily rhythm.',
                       style: TextStyle(
-                        fontSize: 15,
-                        color: white.withValues(alpha: 0.85),
+                        fontSize: 14,
+                        height: 1.45,
+                        color: t.muted,
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Divider(color: t.line),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Icon(Icons.local_fire_department, size: 17, color: t.amberInk),
+              const SizedBox(width: 6),
+              Text(
+                '$streak day streak',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: t.ink,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                '$totalXp total XP',
+                style: TextStyle(fontSize: 13, color: t.muted),
+              ),
+            ],
           ),
         ],
       ),
@@ -382,34 +343,43 @@ class _DailyGoalHero extends StatelessWidget {
   }
 }
 
-class _ConcentricRings extends StatelessWidget {
-  const _ConcentricRings();
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 180,
-      height: 180,
-      child: CustomPaint(painter: _RingsPainter()),
-    );
-  }
-}
+class _GoalRingPainter extends CustomPainter {
+  const _GoalRingPainter({
+    required this.progress,
+    required this.track,
+    required this.fill,
+  });
 
-class _RingsPainter extends CustomPainter {
+  final double progress;
+  final Color track;
+  final Color fill;
+
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.shortestSide / 2 - 4;
     final paint =
         Paint()
-          ..color = Colors.white
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 1.8;
-    for (final r in [86.0, 61.0, 36.0]) {
-      canvas.drawCircle(center, r, paint);
+          ..strokeWidth = 7
+          ..strokeCap = StrokeCap.round;
+    canvas.drawCircle(center, radius, paint..color = track);
+    if (progress > 0) {
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        -1.5708,
+        6.2832 * progress,
+        false,
+        paint..color = fill,
+      );
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _GoalRingPainter oldDelegate) =>
+      oldDelegate.progress != progress ||
+      oldDelegate.track != track ||
+      oldDelegate.fill != fill;
 }
 
 /// Continue-learning card — next uncompleted lesson.
@@ -483,15 +453,22 @@ class _ContinueLearningCard extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(height: 6),
+                    // The lesson title identifies where you left off, so it
+                    // leads; the unit and the reason share the faint line,
+                    // where a truncated tail costs nothing.
                     Text(
-                      '${next.unitTitle} · ${next.lesson.title}',
-                      maxLines: 1,
+                      next.lesson.title,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 15, color: t.muted),
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: t.muted,
+                        height: 1.3,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      next.reason,
+                      '${next.unitTitle} · ${next.reason}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 13, color: t.faint),
@@ -505,58 +482,6 @@ class _ContinueLearningCard extends ConsumerWidget {
           ),
         );
       },
-    );
-  }
-}
-
-/// Compact vertical quick-action tile (icon + label + sub).
-class _QuickAction extends StatelessWidget {
-  const _QuickAction({
-    required this.icon,
-    required this.tint,
-    required this.fg,
-    required this.label,
-    required this.sub,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final Color tint;
-  final Color fg;
-  final String label;
-  final String sub;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    return SoftCard(
-      radius: 18,
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      onTap: onTap,
-      child: Column(
-        children: [
-          IconTile(
-            icon: icon,
-            tint: tint,
-            fg: fg,
-            size: 38,
-            radius: 13,
-            iconSize: 17,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: t.ink,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(sub, style: TextStyle(fontSize: 14, color: t.muted)),
-        ],
-      ),
     );
   }
 }

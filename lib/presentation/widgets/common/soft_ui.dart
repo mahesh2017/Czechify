@@ -16,7 +16,7 @@ class SoftCard extends StatelessWidget {
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(18),
-    this.radius = 20,
+    this.radius = 24,
     this.color,
     this.border,
     this.onTap,
@@ -63,7 +63,7 @@ class IconTile extends StatelessWidget {
     required this.tint,
     required this.fg,
     this.size = 40,
-    this.radius = 14,
+    this.radius = 12,
     this.iconSize = 18,
   });
 
@@ -139,7 +139,7 @@ class PillChip extends StatelessWidget {
   }
 }
 
-/// Uppercase tracked section label.
+/// Quiet section heading. Tracked uppercase is reserved for lesson kickers.
 class SectionLabel extends StatelessWidget {
   const SectionLabel(this.text, {super.key, this.color});
 
@@ -150,11 +150,10 @@ class SectionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.tokens;
     return Text(
-      text.toUpperCase(),
+      text,
       style: TextStyle(
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: FontWeight.w700,
-        letterSpacing: 0.9,
         color: color ?? t.muted,
       ),
     );

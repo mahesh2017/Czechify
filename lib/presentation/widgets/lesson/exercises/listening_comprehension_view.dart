@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
+import '../../../providers/tts_providers.dart';
+import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
 /// Listening comprehension exercise — listen to a Czech dialogue/recording,
@@ -11,7 +14,7 @@ import 'exercise_shared.dart';
 ///
 /// Until audio files are generated, the transcript is shown as a fallback
 /// with a TTS button to read it aloud.
-class ListeningComprehensionView extends StatefulWidget {
+class ListeningComprehensionView extends ConsumerStatefulWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
 
@@ -22,12 +25,12 @@ class ListeningComprehensionView extends StatefulWidget {
   });
 
   @override
-  State<ListeningComprehensionView> createState() =>
+  ConsumerState<ListeningComprehensionView> createState() =>
       _ListeningComprehensionViewState();
 }
 
 class _ListeningComprehensionViewState
-    extends State<ListeningComprehensionView> {
+    extends ConsumerState<ListeningComprehensionView> {
   int _playCount = 0;
   bool _transcriptRevealed = false;
 
@@ -36,107 +39,84 @@ class _ListeningComprehensionViewState
     final data = widget.exercise.data;
     final transcriptCz = data['transcript_cz'] as String? ?? '';
     final promptEn = data['prompt_en'] as String? ?? widget.exercise.prompt;
-    final theme = Theme.of(context);
     final t = context.tokens;
 
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Prompt
+          QuestionPrompt(question: promptEn),
+          const SizedBox(height: 16),
+
+          // Listen first: the audio is the exercise, so it gets the hero.
+          if (transcriptCz.isNotEmpty)
+            ListenPanel(
+              label: _playCount == 0 ? 'Listen' : 'Play it again',
+              onPlay: () {
+                setState(() => _playCount++);
+                ref.read(czechTtsProvider).speak(transcriptCz);
+              },
+              onSlow: () {
+                setState(() => _playCount++);
+                ref.read(czechTtsProvider).speakSlow(transcriptCz);
+              },
+            ),
+          const SizedBox(height: 10),
           Text(
-            promptEn,
-            style: theme.textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            'Listen for the gist first. Replay or reveal the transcript only '
+            'when you need support.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
 
-          // Audio note
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: t.amberSoft,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: t.amber.withValues(alpha: 0.4)),
+          if (!_transcriptRevealed)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: OutlinedButton.icon(
+                onPressed:
+                    transcriptCz.isEmpty
+                        ? null
+                        : () => setState(() => _transcriptRevealed = true),
+                icon: const Icon(Icons.subtitles_outlined, size: 18),
+                label: const Text('Reveal transcript'),
+              ),
+            )
+          else
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: t.elev,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Text(
+                transcriptCz,
+                style: TextStyle(fontSize: 15, height: 1.6, color: t.ink),
+              ),
             ),
-            child: Row(
-              children: [
-                Icon(Icons.info_outline, color: t.amber, size: 20),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Listen for the gist first. Replay or reveal the transcript '
-                    'only when you need support.',
-                    style: theme.textTheme.bodySmall?.copyWith(color: t.amber),
-                  ),
-                ),
-                if (transcriptCz.isNotEmpty)
-                  TtsButton(
-                    text: transcriptCz,
-                    size: 28,
-                    onPlayed: () => setState(() => _playCount++),
-                  ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 16),
 
-          // Transcript (collapsible?)
+          // The questions own the rest of the screen: they scroll on their own
+          // and their Check action stays pinned, rather than being pushed below
+          // the fold by a long question list.
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (!_transcriptRevealed)
-                    OutlinedButton.icon(
-                      onPressed:
-                          transcriptCz.isEmpty
-                              ? null
-                              : () =>
-                                  setState(() => _transcriptRevealed = true),
-                      icon: const Icon(Icons.subtitles),
-                      label: const Text('Reveal transcript'),
-                    )
-                  else
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.surfaceContainerLow,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: t.line),
-                      ),
-                      child: Text(
-                        transcriptCz,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          height: 1.6,
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 16),
-
-                  // Questions — reuse the same layout as reading comprehension
-                  // by extracting the question rendering into a shared widget.
-                  // For now, build inline.
-                  _ListeningQuestions(
-                    data: data,
-                    onComplete: (isCorrect, explanation, correctAnswer) {
-                      widget.onAnswered(
-                        ExerciseResult(
-                          isCorrect: isCorrect,
-                          explanation: explanation,
-                          correctAnswer: correctAnswer,
-                          supports: {
-                            if (_playCount > 1) SupportKind.replay,
-                            if (_transcriptRevealed) SupportKind.transcript,
-                          },
-                        ),
-                      );
+            child: _ListeningQuestions(
+              data: data,
+              onComplete: (isCorrect, explanation, correctAnswer) {
+                widget.onAnswered(
+                  ExerciseResult(
+                    isCorrect: isCorrect,
+                    explanation: explanation,
+                    correctAnswer: correctAnswer,
+                    supports: {
+                      if (_playCount > 1) SupportKind.replay,
+                      if (_transcriptRevealed) SupportKind.transcript,
                     },
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ],
@@ -242,17 +222,20 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: t.redSoft,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: t.red.withValues(alpha: 0.4)),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
               children: [
-                Icon(Icons.error_outline, color: t.red, size: 24),
+                Icon(Icons.error_outline, color: t.redInk, size: 22),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     'This exercise has no questions configured.',
-                    style: theme.textTheme.bodyMedium?.copyWith(color: t.red),
+                    style: TextStyle(
+                      fontSize: 15,
+                      height: 1.45,
+                      color: t.redInk,
+                    ),
                   ),
                 ),
               ],
@@ -274,17 +257,19 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (int qIdx = 0; qIdx < _questions.length; qIdx++) ...[
-          _buildQuestion(context, qIdx, theme),
-          const SizedBox(height: 12),
-        ],
+        Expanded(
+          child: ListView.separated(
+            padding: EdgeInsets.zero,
+            itemCount: _questions.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            itemBuilder:
+                (context, qIdx) => _buildQuestion(context, qIdx, theme),
+          ),
+        ),
         if (_allAnswered && !submitted)
           Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: FilledButton(
-              onPressed: _submit,
-              child: const Text('Check Answers'),
-            ),
+            padding: const EdgeInsets.only(top: 12),
+            child: KeyCta(label: 'Check answers', onPressed: _submit),
           ),
         if (submitted) ...[
           Padding(
@@ -293,18 +278,19 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
               children: [
                 Icon(
                   _allCorrect ? Icons.check_circle : Icons.error_outline,
-                  color: _allCorrect ? t.green : t.red,
+                  color: _allCorrect ? t.greenInk : t.redInk,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     _allCorrect
-                        ? 'All correct!'
+                        ? 'All correct'
                         : '$_correctCount/${_questions.length} correct',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: _allCorrect ? t.green : t.red,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: _allCorrect ? t.greenInk : t.redInk,
                     ),
                   ),
                 ),
@@ -334,85 +320,44 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
     final selected = _selectedAnswers[qIdx];
 
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12),
+        color: t.card,
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(color: t.line),
+        boxShadow: t.shadow,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Question ${qIdx + 1}',
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: theme.colorScheme.primary,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 4),
+          LessonKicker('Question ${qIdx + 1}', color: t.pri),
+          const SizedBox(height: 6),
           Text(
             questionEn,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w500,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              height: 1.35,
+              color: t.ink,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           for (int i = 0; i < options.length; i++)
             Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: GestureDetector(
+              padding: EdgeInsets.only(bottom: i == options.length - 1 ? 0 : 8),
+              child: QuizOptionTile(
+                keyLabel: String.fromCharCode(65 + i),
+                text: options[i],
+                state: optionState(
+                  index: i,
+                  correctIndex: correctIdx,
+                  selectedIndex: selected,
+                  answered: submitted,
+                ),
                 onTap:
                     submitted
                         ? null
                         : () => setState(() => _selectedAnswers[qIdx] = i),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    color:
-                        submitted
-                            ? (i == correctIdx
-                                ? t.greenSoft
-                                : selected == i
-                                ? t.redSoft
-                                : t.elev)
-                            : (selected == i
-                                ? theme.colorScheme.primaryContainer
-                                : t.elev),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color:
-                          submitted
-                              ? (i == correctIdx
-                                  ? t.green
-                                  : selected == i
-                                  ? t.red
-                                  : t.line)
-                              : (selected == i
-                                  ? theme.colorScheme.primary
-                                  : t.line),
-                      width: (selected == i || submitted) ? 2 : 1,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          options[i],
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      if (submitted && i == correctIdx)
-                        Icon(Icons.check_circle, color: t.green, size: 18),
-                      if (submitted && selected == i && i != correctIdx)
-                        Icon(Icons.cancel, color: t.red, size: 18),
-                    ],
-                  ),
-                ),
               ),
             ),
         ],

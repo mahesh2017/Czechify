@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_tokens.dart';
 
-/// App-wide color palette and themes — "Calm & premium" redesign.
+/// App-wide color palette and themes — Czechify 2.0.
 ///
 /// The full design palette lives in [AppTokens] (a [ThemeExtension]); the
 /// values below are the seed/primary colors used to derive the Material
@@ -9,19 +9,19 @@ import 'app_tokens.dart';
 class AppColors {
   AppColors._();
 
-  // Vltava teal — primary.
-  static const Color primary = Color(0xFF1F6F6B);
-  static const Color primaryDark = Color(0xFF63BFB8);
+  // Indigo — navigation and primary action.
+  static const Color primary = Color(0xFF3355E8);
+  static const Color primaryDark = Color(0xFF8098FF);
 
   // Warm amber — accent.
-  static const Color accent = Color(0xFFC98A2D);
+  static const Color accent = Color(0xFFE9992A);
 
   // Gamification colors (kept for existing widgets; align with tokens).
-  static const Color xpGold = Color(0xFFC98A2D);
-  static const Color streakOrange = Color(0xFFC98A2D);
-  static const Color heartsRed = Color(0xFFBE4B42);
-  static const Color successGreen = Color(0xFF48875F);
-  static const Color leaguePurple = Color(0xFF6B5CA5);
+  static const Color xpGold = Color(0xFFE9992A);
+  static const Color streakOrange = Color(0xFFE9992A);
+  static const Color heartsRed = Color(0xFFF0503F);
+  static const Color successGreen = Color(0xFF12A272);
+  static const Color leaguePurple = Color(0xFF7355DC);
 }
 
 ThemeData lightTheme() => _build(Brightness.light, AppTokens.light);
@@ -93,7 +93,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
       elevation: 0,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
     ),
     dividerTheme: DividerThemeData(color: t.line, thickness: 1, space: 1),
     filledButtonTheme: FilledButtonThemeData(
@@ -106,7 +106,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
           fontWeight: FontWeight.w700,
           fontSize: 16,
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -120,7 +120,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
           fontWeight: FontWeight.w700,
           fontSize: 16,
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -131,7 +131,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
         foregroundColor: t.pri,
         minimumSize: const Size.fromHeight(54),
         side: BorderSide(color: t.pri),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     chipTheme: base.chipTheme.copyWith(
@@ -144,7 +144,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
       backgroundColor: t.card,
       indicatorColor: t.priSoft,
       elevation: 0,
-      height: 68,
+      height: 72,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) => IconThemeData(

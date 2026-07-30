@@ -96,9 +96,34 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(28, 24, 28, 24),
-                child: _buildStep(),
+              // The footer is pinned, so a step taller than the viewport gets
+              // clipped mid-widget right where the Continue button starts. The
+              // fade below the scroll area keeps that reading as "there is more
+              // to scroll" rather than as two overlapping buttons.
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(28, 24, 28, 24),
+                    child: _buildStep(),
+                  ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: 28,
+                    child: IgnorePointer(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [t.bg.withValues(alpha: 0), t.bg],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -240,51 +265,91 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Widget _buildWelcomeStep() {
     final t = context.tokens;
     const features = [
-      ('📚', 'Interactive lessons with spaced repetition'),
-      ('🎤', 'Pronunciation practice with speech recognition'),
-      ('💬', 'AI conversation tutor with role-play scenarios'),
-      ('📝', 'Informal exam-style practice with guided feedback'),
-      ('🔊', 'Czech text-to-speech on every word'),
+      (
+        Icons.route_outlined,
+        'A clear path',
+        'Short lessons that build from your first sound to real conversations',
+      ),
+      (
+        Icons.mic_none_rounded,
+        'Speak from day one',
+        'Pronunciation practice and patient, practical feedback',
+      ),
+      (
+        Icons.forum_outlined,
+        'Czech for your life',
+        'Role-play cafés, doctors, work and everyday situations',
+      ),
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 12),
-        Center(
-          child: Image.asset(
-            'assets/images/czechify_logo.png',
-            width: 104,
-            height: 104,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: AspectRatio(
+            aspectRatio: 3,
+            child: Image.asset(
+              'assets/images/onboarding_hero_v2.png',
+              fit: BoxFit.cover,
+              semanticLabel:
+                  'A learner practising Czech with a tutor at a Prague café',
+            ),
           ),
         ),
-        const SizedBox(height: 24),
-        const Center(child: DisplayText('Vítejte!', size: 34)),
-        const SizedBox(height: 6),
-        Center(
-          child: Text(
-            'Welcome to Czechify',
-            style: TextStyle(fontSize: 16, color: t.muted),
-          ),
+        const SizedBox(height: 22),
+        const DisplayText(
+          'Czech that actually sticks.',
+          size: 32,
+          height: 1.06,
         ),
-        const SizedBox(height: 28),
+        const SizedBox(height: 9),
+        Text(
+          'Built for people living in Czechia — from your first word to everyday independence.',
+          style: TextStyle(fontSize: 16, color: t.muted, height: 1.5),
+        ),
+        const SizedBox(height: 22),
         ...features.map(
           (f) => Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: SoftCard(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: const EdgeInsets.only(bottom: 1),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+              decoration: BoxDecoration(
+                color: t.card,
+                border: Border(bottom: BorderSide(color: t.line)),
+              ),
               child: Row(
                 children: [
-                  Text(f.$1, style: const TextStyle(fontSize: 20)),
-                  const SizedBox(width: 14),
+                  IconTile(
+                    icon: f.$1,
+                    tint: t.priSoft,
+                    fg: t.pri,
+                    size: 36,
+                    iconSize: 18,
+                  ),
+                  const SizedBox(width: 13),
                   Expanded(
-                    child: Text(
-                      f.$2,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: t.ink,
-                        height: 1.35,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          f.$2,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: t.ink,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          f.$3,
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            color: t.muted,
+                            height: 1.35,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

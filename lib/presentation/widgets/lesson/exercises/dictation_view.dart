@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/tts_providers.dart';
+import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
 /// Dictation exercise view: listen and type. Also used for the listening
@@ -62,74 +62,38 @@ class _DictationViewState extends ConsumerState<DictationView> {
   Widget build(BuildContext context) {
     final data = widget.exercise.data;
 
+    final expected = data['expected_text'] as String;
+
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            widget.exercise.prompt,
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
+          QuestionPrompt(question: widget.exercise.prompt),
+          const SizedBox(height: 18),
 
-          // Audio play button — speaks the Czech text via TTS
-          TtsButton(text: data['expected_text'] as String, size: 48),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  ref
-                      .read(czechTtsProvider)
-                      .speak(data['expected_text'] as String);
-                },
-                icon: const Icon(Icons.replay),
-                label: const Text('Play again'),
-              ),
-              const SizedBox(width: 8),
-              TextButton.icon(
-                onPressed: () {
-                  ref
-                      .read(czechTtsProvider)
-                      .speakSlow(data['expected_text'] as String);
-                },
-                icon: const Icon(Icons.slow_motion_video),
-                label: const Text('Slower'),
-              ),
-            ],
+          ListenPanel(
+            onPlay: () => ref.read(czechTtsProvider).speak(expected),
+            onSlow: () => ref.read(czechTtsProvider).speakSlow(expected),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 14),
 
-          // Input field
-          TextField(
+          AnswerField(
             controller: _controller,
             enabled: !answered,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: 'Type what you heard',
-              suffixIcon:
-                  isCorrect == true
-                      ? Icon(Icons.check_circle, color: context.tokens.green)
-                      : isCorrect == false
-                      ? Icon(Icons.cancel, color: context.tokens.red)
-                      : null,
-            ),
+            verdict: isCorrect,
+            semanticLabel: 'Type what you heard',
             onSubmitted: answered ? null : (_) => _checkAnswer(),
           ),
           if (!answered) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             CzechCharBar(controller: _controller, enabled: !answered),
-          ],
-          const SizedBox(height: 16),
-
-          if (!answered)
-            FilledButton(
+            const SizedBox(height: 18),
+            KeyCta(
+              label: AppLocalizations.of(context).check,
               onPressed: _checkAnswer,
-              child: Text(AppLocalizations.of(context).check),
             ),
+          ],
         ],
       ),
     );

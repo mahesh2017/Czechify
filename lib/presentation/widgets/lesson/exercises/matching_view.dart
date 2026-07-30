@@ -149,45 +149,37 @@ class _MatchingViewState extends State<MatchingView> {
     });
   }
 
-  Color _pairColor(int pairIdx) {
-    const colors = [
-      Color(0xFF6366F1), // indigo
-      Color(0xFFEC4899), // pink
-      Color(0xFF10B981), // emerald
-      Color(0xFFF59E0B), // amber
-      Color(0xFF8B5CF6), // violet
-      Color(0xFF06B6D4), // cyan
-      Color(0xFFF97316), // orange
-      Color(0xFF84CC16), // lime
-    ];
-    return colors[pairIdx % colors.length];
+  /// Which pair number a matched item belongs to, in the order the learner
+  /// made the matches.
+  ///
+  /// Pair identity used to be carried by eight arbitrary hues, which says
+  /// nothing in this palette and fails for anyone who cannot separate them.
+  /// A number is legible, countable and colour-independent.
+  int _pairBadge(_MatchItem item, List<_MatchItem> left) {
+    final order = <int>[];
+    for (final l in left) {
+      if (l.matched && !order.contains(l.pairIdx)) order.add(l.pairIdx);
+    }
+    return order.indexOf(item.pairIdx) + 1;
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final t = context.tokens;
     final promptEn = widget.exercise.data['prompt_en'] as String?;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Prompt
-          Text(
-            promptEn ?? widget.exercise.prompt,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
           const SizedBox(height: 8),
           Text(
             'Tap a Czech word, then tap its English match.',
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+            style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
 
           // Two-column matching area
           Expanded(
@@ -223,8 +215,10 @@ class _MatchingViewState extends State<MatchingView> {
               children: [
                 Text(
                   '$_matchedCount/${_leftItems.length} matched',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: t.muted,
                   ),
                 ),
                 if (_allMatched && !answered)
@@ -236,29 +230,38 @@ class _MatchingViewState extends State<MatchingView> {
                     child: Text(AppLocalizations.of(context).check),
                   ),
                 if (answered)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        _isCorrect
-                            ? '✓ All correct!'
-                            : '✗ Some pairs are wrong — try again',
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          color:
-                              _isCorrect
-                                  ? context.tokens.green
-                                  : context.tokens.red,
-                          fontWeight: FontWeight.w600,
+                  Flexible(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _isCorrect ? Icons.check_circle : Icons.cancel,
+                          size: 18,
+                          color: _isCorrect ? t.greenInk : t.redInk,
                         ),
-                      ),
-                      if (!_isCorrect) ...[
-                        const SizedBox(width: 12),
-                        FilledButton.tonal(
-                          onPressed: _tryAgain,
-                          child: Text(AppLocalizations.of(context).tryAgain),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Text(
+                            _isCorrect ? 'All correct' : 'Some pairs are wrong',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: _isCorrect ? t.greenInk : t.redInk,
+                            ),
+                          ),
                         ),
+                        if (!_isCorrect) ...[
+                          const SizedBox(width: 10),
+                          FilledButton.tonal(
+                            onPressed: _tryAgain,
+                            style: FilledButton.styleFrom(
+                              minimumSize: kRowButtonMinSize,
+                            ),
+                            child: Text(AppLocalizations.of(context).tryAgain),
+                          ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
               ],
             ),
@@ -278,42 +281,82 @@ class _MatchingViewState extends State<MatchingView> {
       itemCount: items.length,
       separatorBuilder: (_, __) => const SizedBox(height: 8),
       itemBuilder: (context, i) {
+        final t = context.tokens;
         final item = items[i];
         final isSelected = side == _Side.left && _selectedLeftIdx == i;
+        final instant = MediaQuery.disableAnimationsOf(context);
 
-        Color? borderColor;
-        Color? bgColor;
-        if (item.matched) {
-          final c = _pairColor(item.pairIdx);
-          borderColor = c;
-          bgColor = c.withValues(alpha: 0.12);
-        } else if (isSelected) {
-          borderColor = Theme.of(context).colorScheme.primary;
-          bgColor = Theme.of(context).colorScheme.primaryContainer;
-        }
+        final (bg, border, fg) = switch ((item.matched, isSelected)) {
+          (true, _) => (t.priSoft, t.pri, t.priInk),
+          (_, true) => (t.priSoft, t.pri, t.priInk),
+          _ => (t.card, t.line, t.ink),
+        };
 
-        return GestureDetector(
-          onTap: () => onTap(i),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-            decoration: BoxDecoration(
-              color:
-                  bgColor ?? Theme.of(context).colorScheme.surfaceContainerLow,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: borderColor ?? context.tokens.line,
-                width: isSelected ? 2 : (item.matched ? 2 : 1),
+        return Semantics(
+          button: true,
+          selected: isSelected || item.matched,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => onTap(i),
+              borderRadius: BorderRadius.circular(16),
+              child: AnimatedContainer(
+                duration:
+                    instant ? Duration.zero : const Duration(milliseconds: 180),
+                constraints: const BoxConstraints(minHeight: 56),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 12,
+                ),
+                decoration: BoxDecoration(
+                  color: bg,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: border,
+                    width: isSelected || item.matched ? 1.5 : 1,
+                  ),
+                  boxShadow: item.matched || isSelected ? null : t.shadow,
+                ),
+                child: Row(
+                  children: [
+                    // The pair number is the match, so both halves of a pair
+                    // carry the same badge.
+                    if (item.matched)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 9),
+                        child: Container(
+                          width: 22,
+                          height: 22,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: t.pri,
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                          child: Text(
+                            '${_pairBadge(item, _leftItems)}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w800,
+                              color: t.onFill,
+                            ),
+                          ),
+                        ),
+                      ),
+                    Expanded(
+                      child: Text(
+                        item.text,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight:
+                              item.matched ? FontWeight.w700 : FontWeight.w600,
+                          height: 1.3,
+                          color: fg,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            child: Text(
-              item.text,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: item.matched ? FontWeight.w600 : FontWeight.normal,
-                color: item.matched ? _pairColor(item.pairIdx) : null,
-              ),
-              textAlign: TextAlign.center,
             ),
           ),
         );

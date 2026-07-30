@@ -3,6 +3,8 @@ import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/stt_providers.dart';
+import '../../common/lesson_ui.dart';
+import '../../common/record_button.dart';
 import 'exercise_shared.dart';
 
 /// Speaking task exercise — record yourself speaking Czech in response to
@@ -145,101 +147,81 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Prompt
-          Text(
-            _prompt,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          if (_promptCz != null) ...[
-            const SizedBox(height: 4),
-            Text(
-              _promptCz!,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ],
+          QuestionPrompt(question: _prompt, czech: _promptCz),
           const SizedBox(height: 16),
 
-          // Expected phrases hint
+          // What to aim for, stated before they speak.
           if (_expectedPhrases.isNotEmpty) ...[
-            Text(
-              'Try to say:',
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: t.card,
+                border: Border.all(color: t.line),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: t.shadow,
               ),
-            ),
-            const SizedBox(height: 4),
-            ..._expectedPhrases.map(
-              (p) => Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.record_voice_over,
-                      size: 16,
-                      color: theme.colorScheme.primary,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(p, style: const TextStyle(fontSize: 15)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const LessonKicker('Try to say'),
+                  const SizedBox(height: 10),
+                  for (final (i, p) in _expectedPhrases.indexed) ...[
+                    if (i > 0) const SizedBox(height: 8),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 3),
+                          child: Icon(
+                            Icons.record_voice_over_outlined,
+                            size: 16,
+                            color: t.pri,
+                          ),
+                        ),
+                        const SizedBox(width: 9),
+                        Expanded(
+                          child: Text(
+                            p,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              height: 1.4,
+                              color: t.ink,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
+                ],
               ),
             ),
             const SizedBox(height: 20),
           ],
 
-          // Record button
           Center(
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: _toggleRecording,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isRecording ? t.red : theme.colorScheme.primary,
-                      boxShadow: [
-                        if (isRecording)
-                          BoxShadow(
-                            color: t.red.withValues(alpha: 0.5),
-                            blurRadius: 20,
-                            spreadRadius: 4,
-                          ),
-                      ],
-                    ),
-                    child: Icon(
-                      isRecording ? Icons.stop : Icons.mic,
-                      color: t.onFill,
-                      size: 36,
-                    ),
-                  ),
+                RecordButton(
+                  isRecording: isRecording,
+                  onPressed: _toggleRecording,
                 ),
-                const SizedBox(height: 8),
                 Text(
                   isRecording
-                      ? 'Recording... tap to stop'
+                      ? 'Recording — tap to stop'
                       : hasRecorded
                       ? 'Tap to re-record'
                       : 'Tap to speak',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: isRecording ? t.redInk : t.muted,
                   ),
                 ),
               ],
@@ -247,30 +229,40 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
           ),
           const SizedBox(height: 20),
 
-          // Transcription & feedback
+          // What was heard, then what to make of it.
           if (transcription != null && transcription!.isNotEmpty) ...[
             Container(
-              padding: const EdgeInsets.all(12),
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainerLow,
-                borderRadius: BorderRadius.circular(8),
+                color: t.elev,
+                borderRadius: BorderRadius.circular(16),
               ),
-              child: Text(
-                'You said: "$transcription"',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontStyle: FontStyle.italic,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const LessonKicker('You said'),
+                  const SizedBox(height: 6),
+                  Text(
+                    transcription!,
+                    style: TextStyle(fontSize: 16, height: 1.45, color: t.ink),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
           ],
 
           if (feedback != null)
             Text(
               feedback!,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: feedback!.contains('Good') ? t.green : t.amber,
-                fontWeight: FontWeight.w500,
+              style: TextStyle(
+                fontSize: 15,
+                height: 1.5,
+                fontWeight: FontWeight.w600,
+                // Amber means streak and XP, never a verdict — a speaking
+                // result that is not clearly good is neutral, not a warning.
+                color: feedback!.contains('Good') ? t.greenInk : t.ink,
               ),
             ),
         ],

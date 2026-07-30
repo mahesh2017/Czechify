@@ -391,7 +391,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '${(settings.ttsSpeechRate * 100).round()}% — slower is easier',
+                                  _speechRateLabel(settings.ttsSpeechRate),
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: t.muted,
@@ -407,6 +407,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         min: 0.2,
                         max: 1.0,
                         divisions: 8,
+                        label: _speechRateLabel(settings.ttsSpeechRate),
+                        semanticFormatterCallback: _speechRateLabel,
                         onChanged:
                             (value) => ref
                                 .read(settingsProvider.notifier)
@@ -445,20 +447,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ],
             ),
 
-            // ── AI configuration ──
-            const _GroupLabel('Account & data'),
-            _Group(
-              children: [
-                _Row(
-                  icon: Icons.manage_accounts_outlined,
-                  tint: t.priSoft,
-                  fg: t.pri,
-                  title: 'Account, export & deletion',
-                  subtitle: 'Protect, recover, export, or delete your data',
-                  onTap: () => context.push('/account'),
-                ),
-              ],
-            ),
+            // Account lives in its own group near the top when the backend is
+            // configured; it used to be repeated here with a different title
+            // but the same subtitle and the same /account route.
+            if (!BackendConfig.isConfigured) ...[
+              const _GroupLabel('Account & data'),
+              _Group(
+                children: [
+                  _Row(
+                    icon: Icons.manage_accounts_outlined,
+                    tint: t.priSoft,
+                    fg: t.pri,
+                    title: 'Export & deletion',
+                    subtitle: 'Export or delete your data',
+                    onTap: () => context.push('/account'),
+                  ),
+                ],
+              ),
+            ],
 
             // ── About ──
             const _GroupLabel('About'),
@@ -618,6 +624,12 @@ class _Row extends StatelessWidget {
       ),
     );
   }
+}
+
+String _speechRateLabel(double rate) {
+  if (rate <= 0.4) return 'Slow';
+  if (rate <= 0.7) return 'Normal';
+  return 'Fast';
 }
 
 /// Light / Auto / Dark segmented control.

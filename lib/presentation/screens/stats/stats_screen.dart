@@ -449,7 +449,9 @@ class _StatsGrid extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
-      childAspectRatio: 2.5,
+      // 2.5 left the tile ~7pt shorter than its own content, so every tile
+      // overflowed and clipped its label.
+      childAspectRatio: 2.2,
       children: [
         _StatTile(
           emoji: '🔥',
@@ -496,23 +498,30 @@ class _StatTile extends StatelessWidget {
         children: [
           Text(emoji, style: const TextStyle(fontSize: 20)),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontFamily: AppFonts.display,
-                  fontSize: 21,
-                  height: 1,
-                  fontWeight: FontWeight.w700,
-                  color: t.ink,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontFamily: AppFonts.display,
+                    fontSize: 21,
+                    height: 1,
+                    fontWeight: FontWeight.w700,
+                    color: t.ink,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 7),
-              Text(label, style: TextStyle(fontSize: 15, color: t.muted)),
-            ],
+                const SizedBox(height: 5),
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 15, color: t.muted),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -723,16 +732,33 @@ class _BadgesCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Wrap(
-            spacing: 14,
-            runSpacing: 14,
-            children:
-                Badge.all.map((badge) {
-                  return _BadgeTile(
-                    badge: badge,
-                    isEarned: earnedBadges.contains(badge.id),
-                  );
-                }).toList(),
+          // Tiles fill the row rather than sitting at a fixed 64pt, so longer
+          // names ("A1 Practice Milestone") wrap instead of ellipsing. The
+          // column count falls to three on narrow phones, where four tiles
+          // would each be thinner than the badge circle they contain.
+          LayoutBuilder(
+            builder: (context, constraints) {
+              const spacing = 14.0;
+              const minTile = 62.0;
+              final columns = ((constraints.maxWidth + spacing) /
+                      (minTile + spacing))
+                  .floor()
+                  .clamp(3, 5);
+              final tileWidth =
+                  (constraints.maxWidth - spacing * (columns - 1)) / columns;
+              return Wrap(
+                spacing: spacing,
+                runSpacing: 14,
+                children:
+                    Badge.all.map((badge) {
+                      return _BadgeTile(
+                        badge: badge,
+                        isEarned: earnedBadges.contains(badge.id),
+                        width: tileWidth,
+                      );
+                    }).toList(),
+              );
+            },
           ),
         ],
       ),
@@ -743,8 +769,13 @@ class _BadgesCard extends StatelessWidget {
 class _BadgeTile extends StatelessWidget {
   final Badge badge;
   final bool isEarned;
+  final double width;
 
-  const _BadgeTile({required this.badge, required this.isEarned});
+  const _BadgeTile({
+    required this.badge,
+    required this.isEarned,
+    required this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -754,7 +785,7 @@ class _BadgeTile extends StatelessWidget {
       child: Opacity(
         opacity: isEarned ? 1.0 : 0.35,
         child: SizedBox(
-          width: 64,
+          width: width,
           child: Column(
             children: [
               Container(
@@ -772,12 +803,13 @@ class _BadgeTile extends StatelessWidget {
               Text(
                 badge.name,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
+                  height: 1.25,
                   fontWeight: FontWeight.w600,
                   color: isEarned ? t.ink : t.muted,
                 ),
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
             ],

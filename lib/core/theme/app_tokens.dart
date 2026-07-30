@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Design tokens for the "Calm & premium" redesign — Vltava teal + warm amber.
+/// Design tokens for the Czechify 2.0 redesign.
 ///
 /// Mirrors the CSS custom properties from the design handoff so every screen
 /// reads the same palette and it flips automatically between light and dark.
@@ -24,16 +24,21 @@ class AppTokens extends ThemeExtension<AppTokens> {
     required this.priInk,
     required this.amber,
     required this.amberSoft,
+    required this.amberInk,
     required this.red,
     required this.redSoft,
+    required this.redInk,
     required this.green,
     required this.greenSoft,
+    required this.greenInk,
     required this.violet,
     required this.violetSoft,
+    required this.violetInk,
     required this.chipBg,
     required this.userBubble,
     required this.userBubbleTxt,
     required this.shadow,
+    required this.shadowLg,
   });
 
   /// Screen background.
@@ -74,12 +79,16 @@ class AppTokens extends ThemeExtension<AppTokens> {
 
   final Color amber;
   final Color amberSoft;
+  final Color amberInk;
   final Color red;
   final Color redSoft;
+  final Color redInk;
   final Color green;
   final Color greenSoft;
+  final Color greenInk;
   final Color violet;
   final Color violetSoft;
+  final Color violetInk;
 
   /// Neutral chip background.
   final Color chipBg;
@@ -93,66 +102,93 @@ class AppTokens extends ThemeExtension<AppTokens> {
   /// Card shadow list.
   final List<BoxShadow> shadow;
 
+  /// Elevated sheets and hero surfaces.
+  final List<BoxShadow> shadowLg;
+
   static const light = AppTokens(
-    bg: Color(0xFFF6F4EF),
+    bg: Color(0xFFFAF7F2),
     card: Color(0xFFFFFFFF),
-    elev: Color(0xFFEFECE4),
-    ink: Color(0xFF1E1C26),
-    muted: Color(0xFF5A5664),
-    faint: Color(0xFF85818E),
-    line: Color(0x141E1C26), // rgba(30,28,38,.08)
-    pri: Color(0xFF1F6F6B),
-    priFill: Color(0xFF1F6F6B),
+    elev: Color(0xFFF2EDE4),
+    ink: Color(0xFF17161C),
+    muted: Color(0xFF5B5765),
+    faint: Color(0xFF6E6979),
+    line: Color(0xFFE8E2D7),
+    pri: Color(0xFF3355E8),
+    priFill: Color(0xFF3355E8),
     onFill: Color(0xFFFFFFFF),
-    priSoft: Color(0xFFE2EEEC),
-    priInk: Color(0xFF14504C),
-    amber: Color(0xFFC98A2D),
-    amberSoft: Color(0xFFF6EBD8),
-    red: Color(0xFFBE4B42),
-    redSoft: Color(0xFFF7E4E1),
-    green: Color(0xFF48875F),
-    greenSoft: Color(0xFFE3EFE6),
-    violet: Color(0xFF6B5CA5),
-    violetSoft: Color(0xFFEBE7F5),
-    chipBg: Color(0xFFF0EEE8),
-    userBubble: Color(0xFF1F6F6B),
+    priSoft: Color(0xFFE7EBFF),
+    priInk: Color(0xFF22308C),
+    amber: Color(0xFFE9992A),
+    amberSoft: Color(0xFFFFF0D9),
+    amberInk: Color(0xFF985F00),
+    red: Color(0xFFF0503F),
+    redSoft: Color(0xFFFFE9E5),
+    redInk: Color(0xFFC8321F),
+    green: Color(0xFF12A272),
+    greenSoft: Color(0xFFE0F6EE),
+    greenInk: Color(0xFF0A7A56),
+    violet: Color(0xFF7355DC),
+    violetSoft: Color(0xFFEEE9FF),
+    violetInk: Color(0xFF5B3FBF),
+    chipBg: Color(0xFFF2EDE4),
+    userBubble: Color(0xFF3355E8),
     userBubbleTxt: Color(0xFFFFFFFF),
     shadow: [
       BoxShadow(color: Color(0x0D1E1C26), blurRadius: 2, offset: Offset(0, 1)),
       BoxShadow(color: Color(0x0F1E1C26), blurRadius: 24, offset: Offset(0, 8)),
     ],
+    shadowLg: [
+      BoxShadow(color: Color(0x0D17161C), blurRadius: 4, offset: Offset(0, 2)),
+      BoxShadow(
+        color: Color(0x2417161C),
+        blurRadius: 52,
+        offset: Offset(0, 28),
+      ),
+    ],
   );
 
   static const dark = AppTokens(
-    bg: Color(0xFF141319),
-    card: Color(0xFF1E1C25),
-    elev: Color(0xFF282631),
-    ink: Color(0xFFF1EFE9),
-    muted: Color(0xFFB0ACBB),
-    faint: Color(0xFF868294),
-    line: Color(0x17F1EFE9), // rgba(241,239,233,.09)
-    pri: Color(0xFF63BFB8),
-    priFill: Color(0xFF2A6A66),
-    onFill: Color(0xFFF1EFE9),
-    priSoft: Color(0xFF1E3532),
-    priInk: Color(0xFF9ADDD6),
-    amber: Color(0xFFE4AF5E),
-    amberSoft: Color(0xFF332A1B),
-    red: Color(0xFFE1786E),
-    redSoft: Color(0xFF37211F),
-    green: Color(0xFF7DBC93),
-    greenSoft: Color(0xFF20301F),
-    violet: Color(0xFFA79ADB),
-    violetSoft: Color(0xFF292440),
-    chipBg: Color(0xFF26242E),
-    userBubble: Color(0xFF2A6A66),
-    userBubbleTxt: Color(0xFFF1EFE9),
+    bg: Color(0xFF0C0B11),
+    card: Color(0xFF1B1A26),
+    elev: Color(0xFF2B2937),
+    ink: Color(0xFFF2F0EA),
+    muted: Color(0xFFAFAABC),
+    faint: Color(0xFF8A8598),
+    line: Color(0xFF3E3B4E),
+    pri: Color(0xFF8098FF),
+    priFill: Color(0xFF425CCE),
+    onFill: Color(0xFFFFFFFF),
+    priSoft: Color(0xFF1F2549),
+    priInk: Color(0xFFAFBEFF),
+    amber: Color(0xFFF3BE6B),
+    amberSoft: Color(0xFF382A12),
+    amberInk: Color(0xFFF2BC66),
+    red: Color(0xFFFF7D6D),
+    redSoft: Color(0xFF3B201C),
+    redInk: Color(0xFFFF9E8E),
+    green: Color(0xFF4ECB9B),
+    greenSoft: Color(0xFF123027),
+    greenInk: Color(0xFF54DCA9),
+    violet: Color(0xFFA897F5),
+    violetSoft: Color(0xFF251F44),
+    violetInk: Color(0xFFC2B2FF),
+    chipBg: Color(0xFF2B2937),
+    userBubble: Color(0xFF425CCE),
+    userBubbleTxt: Color(0xFFFFFFFF),
     shadow: [
       BoxShadow(color: Color(0x4D000000), blurRadius: 2, offset: Offset(0, 1)),
       BoxShadow(
         color: Color(0x59000000),
         blurRadius: 28,
         offset: Offset(0, 10),
+      ),
+    ],
+    shadowLg: [
+      BoxShadow(color: Color(0x8C000000), blurRadius: 6, offset: Offset(0, 2)),
+      BoxShadow(
+        color: Color(0xB3000000),
+        blurRadius: 56,
+        offset: Offset(0, 30),
       ),
     ],
   );
@@ -173,16 +209,21 @@ class AppTokens extends ThemeExtension<AppTokens> {
     Color? priInk,
     Color? amber,
     Color? amberSoft,
+    Color? amberInk,
     Color? red,
     Color? redSoft,
+    Color? redInk,
     Color? green,
     Color? greenSoft,
+    Color? greenInk,
     Color? violet,
     Color? violetSoft,
+    Color? violetInk,
     Color? chipBg,
     Color? userBubble,
     Color? userBubbleTxt,
     List<BoxShadow>? shadow,
+    List<BoxShadow>? shadowLg,
   }) {
     return AppTokens(
       bg: bg ?? this.bg,
@@ -199,16 +240,21 @@ class AppTokens extends ThemeExtension<AppTokens> {
       priInk: priInk ?? this.priInk,
       amber: amber ?? this.amber,
       amberSoft: amberSoft ?? this.amberSoft,
+      amberInk: amberInk ?? this.amberInk,
       red: red ?? this.red,
       redSoft: redSoft ?? this.redSoft,
+      redInk: redInk ?? this.redInk,
       green: green ?? this.green,
       greenSoft: greenSoft ?? this.greenSoft,
+      greenInk: greenInk ?? this.greenInk,
       violet: violet ?? this.violet,
       violetSoft: violetSoft ?? this.violetSoft,
+      violetInk: violetInk ?? this.violetInk,
       chipBg: chipBg ?? this.chipBg,
       userBubble: userBubble ?? this.userBubble,
       userBubbleTxt: userBubbleTxt ?? this.userBubbleTxt,
       shadow: shadow ?? this.shadow,
+      shadowLg: shadowLg ?? this.shadowLg,
     );
   }
 
@@ -231,16 +277,21 @@ class AppTokens extends ThemeExtension<AppTokens> {
       priInk: c(priInk, other.priInk),
       amber: c(amber, other.amber),
       amberSoft: c(amberSoft, other.amberSoft),
+      amberInk: c(amberInk, other.amberInk),
       red: c(red, other.red),
       redSoft: c(redSoft, other.redSoft),
+      redInk: c(redInk, other.redInk),
       green: c(green, other.green),
       greenSoft: c(greenSoft, other.greenSoft),
+      greenInk: c(greenInk, other.greenInk),
       violet: c(violet, other.violet),
       violetSoft: c(violetSoft, other.violetSoft),
+      violetInk: c(violetInk, other.violetInk),
       chipBg: c(chipBg, other.chipBg),
       userBubble: c(userBubble, other.userBubble),
       userBubbleTxt: c(userBubbleTxt, other.userBubbleTxt),
       shadow: t < 0.5 ? shadow : other.shadow,
+      shadowLg: t < 0.5 ? shadowLg : other.shadowLg,
     );
   }
 }

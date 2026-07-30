@@ -46,10 +46,15 @@ class CzechCharBar extends StatelessWidget {
   final TextEditingController controller;
   final bool enabled;
 
+  /// Labelled by default, because an unlabelled strip of accented letters
+  /// under a text field does not explain itself.
+  final bool showLabel;
+
   const CzechCharBar({
     super.key,
     required this.controller,
     this.enabled = true,
+    this.showLabel = true,
   });
 
   void _insert(String ch) {
@@ -68,25 +73,126 @@ class CzechCharBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: TextNormalizer.czechDiacriticChars.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 4),
-        itemBuilder: (context, i) {
-          final ch = TextNormalizer.czechDiacriticChars[i];
-          return OutlinedButton(
-            onPressed: enabled ? () => _insert(ch) : null,
-            style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.zero,
-              minimumSize: const Size(36, 36),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: Text(ch, style: const TextStyle(fontSize: 16)),
-          );
-        },
+    final t = context.tokens;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8, 10, 8, 12),
+      decoration: BoxDecoration(
+        color: t.elev,
+        border: Border.all(color: t.line),
+        borderRadius: BorderRadius.circular(24),
       ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (showLabel) ...[
+            Padding(
+              padding: const EdgeInsets.only(left: 6, bottom: 7),
+              child: Text(
+                'CZECH LETTERS',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.8,
+                  color: t.faint,
+                ),
+              ),
+            ),
+          ],
+          SizedBox(
+            // 46pt keys: the target is the drawn size here, so it has to
+            // clear the minimum on its own.
+            height: 46,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              itemCount: TextNormalizer.czechDiacriticChars.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 5),
+              itemBuilder: (context, i) {
+                final ch = TextNormalizer.czechDiacriticChars[i];
+                return Material(
+                  color: enabled ? t.priSoft : t.card,
+                  borderRadius: BorderRadius.circular(12),
+                  child: InkWell(
+                    onTap: enabled ? () => _insert(ch) : null,
+                    borderRadius: BorderRadius.circular(12),
+                    child: SizedBox(
+                      width: 40,
+                      height: 46,
+                      child: Center(
+                        child: Text(
+                          ch,
+                          style: TextStyle(
+                            fontFamily: AppFonts.display,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w700,
+                            color: enabled ? t.pri : t.faint,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The question at the top of an exercise: the task in display face, with the
+/// Czech being asked about underneath and a speaker for it.
+///
+/// Left-aligned rather than centred — a centred sentence that wraps to three
+/// lines is harder to re-read, and every exercise type shares this shape.
+class QuestionPrompt extends StatelessWidget {
+  const QuestionPrompt({super.key, required this.question, this.czech});
+
+  final String question;
+
+  /// The Czech under test, if the question is about a specific string.
+  final String? czech;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          question,
+          style: TextStyle(
+            fontFamily: AppFonts.display,
+            fontSize: 27,
+            fontWeight: FontWeight.w700,
+            height: 1.2,
+            letterSpacing: -0.6,
+            color: t.ink,
+          ),
+        ),
+        if (czech != null && czech!.trim().isNotEmpty) ...[
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  czech!,
+                  style: TextStyle(
+                    fontFamily: AppFonts.display,
+                    fontSize: 21,
+                    fontWeight: FontWeight.w800,
+                    height: 1.25,
+                    color: t.pri,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 4),
+              TtsButton(text: czech!, size: 22),
+            ],
+          ),
+        ],
+      ],
     );
   }
 }

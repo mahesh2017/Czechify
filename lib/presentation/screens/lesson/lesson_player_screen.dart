@@ -21,7 +21,7 @@ import '../../widgets/celebration/stars_reveal.dart';
 import '../../widgets/lesson/exercise_widget.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
 import '../../widgets/common/gender_pill.dart';
-import '../../widgets/common/grammar_tip_card.dart';
+import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// Lesson player — loads exercises from DB, cycles through them one by one.
@@ -69,7 +69,9 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
 
     if (!_loaded) {
       return Scaffold(
+        backgroundColor: context.tokens.bg,
         appBar: AppBar(
+          backgroundColor: context.tokens.bg,
           leading: IconButton(
             tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
@@ -81,8 +83,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     }
 
     if (_locked) {
+      final t = context.tokens;
       return Scaffold(
+        backgroundColor: t.bg,
         appBar: AppBar(
+          backgroundColor: t.bg,
           leading: IconButton(
             tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
@@ -95,16 +100,30 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.lock_outline, size: 40),
-                const SizedBox(height: 12),
-                const Text(
-                  'Complete the prerequisite lessons first.',
-                  textAlign: TextAlign.center,
+                IconTile(
+                  icon: Icons.lock_outline,
+                  tint: t.elev,
+                  fg: t.muted,
+                  size: 64,
+                  radius: 24,
+                  iconSize: 28,
                 ),
-                const SizedBox(height: 16),
-                FilledButton(
+                const SizedBox(height: 18),
+                const DisplayText(
+                  'Not open yet',
+                  size: 26,
+                  weight: FontWeight.w800,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Finish the lessons before this one and it unlocks.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
+                ),
+                const SizedBox(height: 22),
+                KeyCta(
+                  label: 'Back to curriculum',
                   onPressed: () => context.go('/curriculum'),
-                  child: const Text('Back to curriculum'),
                 ),
               ],
             ),
@@ -160,148 +179,93 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       );
     }
 
+    final t = context.tokens;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          tooltip: AppLocalizations.of(context).a11yClose,
-          icon: const Icon(Icons.close),
-          onPressed: () => _showExitConfirm(context),
-        ),
-        title: Row(
-          children: [
-            // Mode badge (exam / review)
-            if (session.isExamMode)
-              Container(
-                margin: const EdgeInsets.only(right: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: context.tokens.red,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  'EXAM',
-                  style: TextStyle(
-                    color: context.tokens.onFill,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1,
-                  ),
-                ),
-              )
-            else if (session.lesson?.isReview == true)
-              Container(
-                margin: const EdgeInsets.only(right: 8),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: context.tokens.pri,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  'REVIEW',
-                  style: TextStyle(
-                    color: context.tokens.onFill,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ),
-            Expanded(
-              // A bare progress bar announces nothing useful; state the
-              // position in the lesson instead.
-              child: Semantics(
-                label: AppLocalizations.of(context).a11yLessonProgress(
-                  session.currentIndex + 1,
-                  session.totalExercises,
-                ),
-                excludeSemantics: true,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  child: LinearProgressIndicator(
-                    value: session.progress,
-                    minHeight: 8,
-                    backgroundColor:
-                        Theme.of(context).colorScheme.surfaceContainerHighest,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Exam timer or hearts
-            if (session.isExamMode)
-              _ExamTimer(initialSeconds: session.remainingSeconds)
-            else
-              Semantics(
-                container: true,
-                label: AppLocalizations.of(context).a11yHearts(session.hearts),
-                excludeSemantics: true,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.favorite,
-                      color:
-                          session.hearts > 0
-                              ? context.tokens.red
-                              : context.tokens.faint,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 2),
-                    Text(
-                      '${session.hearts}',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
-      ),
+      backgroundColor: t.bg,
       body: SafeArea(
         child: Column(
           children: [
-            // Shown only while a substitute is in use — silent otherwise.
-            const DegradedModeBanner(),
-            // Exercise counter
+            // Lesson chrome: leave, position in the lesson, hearts. Replaces an
+            // AppBar because none of the three is a title, and the pips need
+            // the full width.
             Padding(
-              padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    session.currentExercise?.type == ExerciseType.teaching
-                        ? 'Introduction'
-                        : session.inMistakeReview
-                        ? 'Reviewing missed questions'
-                        : AppLocalizations.of(context).lessonQuestionOf(
-                          session.currentIndex + 1,
-                          session.totalExercises,
-                        ),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color:
-                          session.inMistakeReview
-                              ? context.tokens.amber
-                              : context.tokens.muted,
-                      fontWeight:
-                          session.inMistakeReview ? FontWeight.bold : null,
+                  _RoundIconButton(
+                    icon: Icons.close,
+                    tooltip: AppLocalizations.of(context).a11yClose,
+                    onTap: () => _showExitConfirm(context),
+                  ),
+                  const SizedBox(width: 12),
+                  if (session.isExamMode || session.lesson?.isReview == true)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: PillChip(
+                        label: session.isExamMode ? 'Exam' : 'Review',
+                        bg: session.isExamMode ? t.redSoft : t.priSoft,
+                        fg: session.isExamMode ? t.redInk : t.priInk,
+                      ),
+                    ),
+                  Expanded(
+                    // A bare progress bar announces nothing useful; state the
+                    // position in the lesson instead.
+                    child: Semantics(
+                      label: AppLocalizations.of(context).a11yLessonProgress(
+                        session.currentIndex + 1,
+                        session.totalExercises,
+                      ),
+                      excludeSemantics: true,
+                      child: SegmentPips(
+                        count: session.totalExercises,
+                        currentIndex: session.currentIndex,
+                      ),
                     ),
                   ),
-                  if (session.totalXp > 0)
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.star, color: context.tokens.amber, size: 16),
-                        const SizedBox(width: 2),
-                        Text(
-                          '+${session.totalXp} XP',
-                          style: TextStyle(
-                            color: context.tokens.amber,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
+                  const SizedBox(width: 12),
+                  // Exam timer or hearts
+                  if (session.isExamMode)
+                    _ExamTimer(initialSeconds: session.remainingSeconds)
+                  else
+                    Semantics(
+                      container: true,
+                      label: AppLocalizations.of(
+                        context,
+                      ).a11yHearts(session.hearts),
+                      excludeSemantics: true,
+                      child: HeartsChip(hearts: session.hearts),
                     ),
+                ],
+              ),
+            ),
+            // Shown only while a substitute is in use — silent otherwise.
+            const DegradedModeBanner(),
+            // What kind of task this is, and the streak riding on it.
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: LessonKicker(
+                      session.currentExercise?.type == ExerciseType.teaching
+                          ? 'Introduction'
+                          : session.inMistakeReview
+                          ? 'Missed questions'
+                          : AppLocalizations.of(context).lessonQuestionOf(
+                            session.currentIndex + 1,
+                            session.totalExercises,
+                          ),
+                      color: session.inMistakeReview ? t.amberInk : t.faint,
+                    ),
+                  ),
+                  if (session.answerStreak >= 3) ...[
+                    const SizedBox(width: 9),
+                    ComboChip(label: '${session.answerStreak} in a row'),
+                  ],
+                  const Spacer(),
+                  // The running total flies up out of the header on each
+                  // award, then settles back into the quiet count.
+                  if (session.totalXp > 0) _XpCounter(totalXp: session.totalXp),
                 ],
               ),
             ),
@@ -350,87 +314,94 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     BuildContext context,
     LessonSessionState session,
   ) {
-    return Material(
-      elevation: 8,
-      color: Theme.of(context).colorScheme.surface,
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Cap the banner height so long explanations scroll instead
-              // of pushing the exercise off screen.
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: MediaQuery.sizeOf(context).height * 0.35,
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (session.feedbackStep case final step?) ...[
-                        Text(
-                          _feedbackPrompt(step),
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(height: 8),
-                      ],
-                      GrammarTipCard(
-                        isCorrect: session.lastWasCorrect,
-                        isSkipped: session.lastWasSkipped,
-                        explanation: session.lastExplanation,
-                        correctAnswer: session.lastCorrectAnswer,
-                        grammarRuleId: session.lastGrammarRuleId,
-                      ),
-                    ],
-                  ),
-                ),
+    final t = context.tokens;
+    // Skipped is its own voice: the learner asked to see the answer rather
+    // than getting it wrong, so it is neither green nor coral.
+    final tone =
+        session.lastWasSkipped
+            ? FeedbackTone.neutral
+            : session.lastWasCorrect
+            ? FeedbackTone.correct
+            : FeedbackTone.incorrect;
+
+    final title = switch (tone) {
+      FeedbackTone.correct => 'Správně!',
+      FeedbackTone.incorrect => 'Not quite',
+      FeedbackTone.neutral => 'Answer shown',
+    };
+
+    // The prompt for the current feedback step leads, then the explanation —
+    // the step is an instruction, the explanation is the content.
+    final prompt =
+        session.feedbackStep == null
+            ? null
+            : _feedbackPrompt(session.feedbackStep!);
+    final explanation = session.lastExplanation?.trim();
+    final body = [
+      if (prompt != null) prompt,
+      if (explanation != null && explanation.isNotEmpty) explanation,
+    ].join('\n\n');
+
+    return FeedbackSheet(
+      tone: tone,
+      title: title,
+      body: body.isEmpty ? null : body,
+      // Only worth stating when they did not produce it themselves.
+      correctAnswer: session.lastWasCorrect ? null : session.lastCorrectAnswer,
+      busy: session.isCompleting,
+      continueLabel:
+          session.isCompleting
+              ? 'Saving…'
+              : session.isExamMode
+              ? 'Next question'
+              : session.currentIndex + 1 < session.totalExercises
+              ? 'Continue'
+              : (session.mistakeQueue.isNotEmpty && !session.mistakesAppended)
+              ? 'Review mistakes'
+              : 'Finish lesson',
+      onContinue:
+          () async => ref.read(lessonSessionProvider.notifier).nextExercise(),
+      extra: _feedbackExtra(context, session, t),
+    );
+  }
+
+  /// The grammar-rule link and any save error — nothing, on the common path.
+  Widget? _feedbackExtra(
+    BuildContext context,
+    LessonSessionState session,
+    AppTokens t,
+  ) {
+    final ruleId = session.lastGrammarRuleId;
+    final error = session.completionError;
+    if (ruleId == null && error == null) return null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (ruleId != null)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              onPressed: () => context.push('/grammar?rule=$ruleId'),
+              icon: const Icon(Icons.menu_book_outlined, size: 18),
+              label: const Text('View grammar rule'),
+              style: TextButton.styleFrom(
+                foregroundColor: t.ink,
+                minimumSize: const Size(0, 44),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
               ),
-              const SizedBox(height: 12),
-              if (session.completionError != null) ...[
-                Text(
-                  session.completionError!,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-              ],
-              FilledButton.icon(
-                onPressed:
-                    session.isCompleting
-                        ? null
-                        : () async {
-                          await ref
-                              .read(lessonSessionProvider.notifier)
-                              .nextExercise();
-                        },
-                icon:
-                    session.isCompleting
-                        ? const SizedBox.square(
-                          dimension: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                        : const Icon(Icons.arrow_forward),
-                label: Text(
-                  session.isCompleting
-                      ? 'Saving…'
-                      : session.isExamMode
-                      ? 'Next Question'
-                      : session.currentIndex + 1 < session.totalExercises
-                      ? 'Continue'
-                      : (session.mistakeQueue.isNotEmpty &&
-                          !session.mistakesAppended)
-                      ? 'Review Mistakes'
-                      : 'Finish Lesson',
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        if (error != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              error,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13, color: t.redInk),
+            ),
+          ),
+      ],
     );
   }
 
@@ -486,37 +457,35 @@ class _TeachPhaseScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 6),
               child: Row(
                 children: [
-                  InkWell(
+                  _RoundIconButton(
+                    icon: Icons.close,
+                    tooltip: AppLocalizations.of(context).a11yClose,
                     onTap: onExit,
-                    borderRadius: BorderRadius.circular(999),
-                    child: Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: t.chipBg,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.close, size: 18, color: t.ink),
-                    ),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const LessonKicker('New words'),
+                        const SizedBox(height: 2),
                         Text(
                           session.lesson?.title ?? 'New words',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: t.ink,
                           ),
                         ),
-                        Text(
-                          '${cards.length} new words · tap to hear',
-                          style: TextStyle(fontSize: 14, color: t.muted),
-                        ),
                       ],
+                    ),
+                  ),
+                  Text(
+                    '${cards.length}',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: t.faint,
                     ),
                   ),
                 ],
@@ -532,11 +501,7 @@ class _TeachPhaseScreen extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-              child: PrimaryButton(
-                label: 'Start practice',
-                icon: Icons.play_arrow_rounded,
-                onPressed: onStart,
-              ),
+              child: KeyCta(label: 'Start practice', onPressed: onStart),
             ),
           ],
         ),
@@ -630,43 +595,54 @@ class _GameOverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     return Scaffold(
+      backgroundColor: t.bg,
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(28),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.heart_broken, size: 80, color: context.tokens.red),
-              const SizedBox(height: 24),
-              Text(
-                'Out of hearts!',
-                style: Theme.of(context).textTheme.headlineMedium,
+              IconTile(
+                icon: Icons.heart_broken_outlined,
+                tint: t.redSoft,
+                fg: t.redInk,
+                size: 72,
+                radius: 24,
+                iconSize: 34,
+              ),
+              const SizedBox(height: 20),
+              const DisplayText(
+                'Out of hearts',
+                size: 30,
+                weight: FontWeight.w800,
               ),
               const SizedBox(height: 8),
               Text(
-                'Hearts refill over time — one every 30 minutes.\n'
-                'Or review vocabulary now: finishing a review session\n'
-                'of 5+ cards earns a heart back.',
+                'Hearts refill on their own — one every 30 minutes. '
+                'A review session of five or more cards earns one back now.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: context.tokens.muted),
+                style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
               ),
-              const SizedBox(height: 32),
-              FilledButton.icon(
+              const SizedBox(height: 26),
+              KeyCta(
+                label: 'Review to earn a heart',
                 onPressed: () => context.go('/review'),
-                icon: const Icon(Icons.style),
-                label: const Text('Review to Earn a Heart'),
               ),
-              const SizedBox(height: 12),
-              OutlinedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh),
-                label: Text(AppLocalizations.of(context).tryAgain),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: onRetry,
+                  icon: const Icon(Icons.refresh, size: 18),
+                  label: Text(AppLocalizations.of(context).tryAgain),
+                ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 4),
               TextButton(
                 onPressed: onExit,
-                child: const Text('Back to Curriculum'),
+                child: const Text('Back to curriculum'),
               ),
             ],
           ),
@@ -961,63 +937,95 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     );
   }
 
-  /// The score, large enough to be the second thing you see.
+  /// The score, on the divided three-up strip the handoff uses for results.
+  ///
+  /// The figures still count up — the strip is the container, not a
+  /// replacement for the reveal.
   Widget _scoreboard(
     AppTokens tokens,
     Color accent,
     double accuracy,
     bool instant,
   ) {
+    final session = widget.session;
     return Opacity(
       opacity: instant ? 1 : _slice(0.42, 0.7),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _bigStat(
-            tokens,
-            accent,
-            CountUpText(
-              value: (accuracy * 100).round(),
-              suffix: '%',
-              duration: const Duration(milliseconds: 1100),
-              style: TextStyle(
-                fontFamily: AppFonts.display,
-                fontSize: 38,
-                fontWeight: FontWeight.w800,
-                color: accent,
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: tokens.line,
+          border: Border.all(color: tokens.line),
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _bigStat(
+              tokens,
+              CountUpText(
+                value: (accuracy * 100).round(),
+                suffix: '%',
+                duration: const Duration(milliseconds: 1100),
+                style: _statStyle(accent),
               ),
+              'Accuracy',
             ),
-            'Accuracy',
-          ),
-          Container(width: 1, height: 46, color: tokens.line),
-          _bigStat(
-            tokens,
-            accent,
-            CountUpText(
-              value: widget.session.totalXp,
-              prefix: '+',
-              duration: const Duration(milliseconds: 1100),
-              style: TextStyle(
-                fontFamily: AppFonts.display,
-                fontSize: 38,
-                fontWeight: FontWeight.w800,
-                color: tokens.amber,
+            const SizedBox(width: 1),
+            _bigStat(
+              tokens,
+              CountUpText(
+                value: session.totalXp,
+                prefix: '+',
+                duration: const Duration(milliseconds: 1100),
+                // Ink, not the raw hue: this is a glyph, not a fill.
+                style: _statStyle(tokens.amberInk),
               ),
+              'XP earned',
             ),
-            'XP earned',
-          ),
-        ],
+            const SizedBox(width: 1),
+            _bigStat(
+              tokens,
+              Text(
+                '${session.correctCount}/${session.totalExercises}',
+                style: _statStyle(tokens.greenInk),
+              ),
+              'Correct',
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _bigStat(AppTokens tokens, Color accent, Widget value, String label) {
+  TextStyle _statStyle(Color color) => TextStyle(
+    fontFamily: AppFonts.display,
+    fontSize: 26,
+    fontWeight: FontWeight.w800,
+    color: color,
+  );
+
+  Widget _bigStat(AppTokens tokens, Widget value, String label) {
     return Expanded(
-      child: Column(
-        children: [
-          value,
-          Text(label, style: TextStyle(fontSize: 13, color: tokens.muted)),
-        ],
+      // 1px of the wrapper's own colour showing between cells is the divider.
+      child: Container(
+        color: tokens.card,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            value,
+            const SizedBox(height: 4),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: tokens.muted,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1031,23 +1039,17 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
         spacing: 8,
         runSpacing: 8,
         children: [
-          PillChip(
-            label: '${session.correctCount}/${session.totalExercises} correct',
-            bg: tokens.greenSoft,
-            fg: tokens.green,
-            icon: Icons.check_rounded,
-          ),
           if (session.bestAnswerStreak >= 3)
             PillChip(
               label: '${session.bestAnswerStreak} in a row',
               bg: tokens.amberSoft,
-              fg: tokens.amber,
+              fg: tokens.amberInk,
               icon: Icons.local_fire_department_rounded,
             ),
           PillChip(
             label: '${session.hearts}/$maxHearts hearts',
             bg: tokens.redSoft,
-            fg: tokens.red,
+            fg: tokens.redInk,
             icon: Icons.favorite_rounded,
           ),
         ],
@@ -1082,6 +1084,109 @@ class _PrimaryAction extends StatelessWidget {
         minimumSize: const Size(240, 52),
         textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
       ),
+    );
+  }
+}
+
+/// A 44pt circular control with a hairline border — the lesson's leave button,
+/// and the same shape used for back arrows on the full-screen flows.
+class _RoundIconButton extends StatelessWidget {
+  const _RoundIconButton({
+    required this.icon,
+    required this.onTap,
+    this.tooltip,
+  });
+
+  final IconData icon;
+  final VoidCallback onTap;
+  final String? tooltip;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Tooltip(
+      message: tooltip ?? '',
+      child: Semantics(
+        button: true,
+        label: tooltip,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(999),
+          child: Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: t.line),
+            ),
+            child: Icon(icon, size: 18, color: t.muted),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The lesson's running XP. Each award flies up out of the header once, showing
+/// what was just earned, then the quiet total stays put.
+class _XpCounter extends StatefulWidget {
+  const _XpCounter({required this.totalXp});
+
+  final int totalXp;
+
+  @override
+  State<_XpCounter> createState() => _XpCounterState();
+}
+
+class _XpCounterState extends State<_XpCounter> {
+  /// The most recent increase, and a counter that makes each one a fresh key
+  /// even when two awards happen to be the same size.
+  int? _award;
+  int _awardSeq = 0;
+
+  @override
+  void didUpdateWidget(covariant _XpCounter old) {
+    super.didUpdateWidget(old);
+    final delta = widget.totalXp - old.totalXp;
+    if (delta > 0) {
+      setState(() {
+        _award = delta;
+        _awardSeq++;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.star_rounded, color: t.amberInk, size: 16),
+            const SizedBox(width: 3),
+            Text(
+              '${widget.totalXp} XP',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: t.amberInk,
+              ),
+            ),
+          ],
+        ),
+        // The flown label sits above the counter without taking layout space.
+        if (_award case final award?)
+          Positioned(
+            top: -6,
+            child: IgnorePointer(
+              child: XpFlyUp(key: ValueKey(_awardSeq), label: '+$award XP'),
+            ),
+          ),
+      ],
     );
   }
 }
@@ -1156,7 +1261,7 @@ class _ExamTimerState extends State<_ExamTimer> {
               size: 18,
               color:
                   _expired || isLow
-                      ? context.tokens.amber
+                      ? context.tokens.amberInk
                       : context.tokens.muted,
             ),
             const SizedBox(width: 4),
@@ -1165,7 +1270,7 @@ class _ExamTimerState extends State<_ExamTimer> {
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
-                color: _expired || isLow ? context.tokens.amber : null,
+                color: _expired || isLow ? context.tokens.amberInk : null,
               ),
             ),
           ],
@@ -1184,95 +1289,81 @@ class _ExamCompleteScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
     final accuracy = (session.accuracy * 100).round();
     final passed = accuracy >= 60;
-    final theme = Theme.of(context);
+    final hue = passed ? t.greenInk : t.violetInk;
 
     // Unit context labels the course track, not an attained CEFR level.
     final unitId = session.lesson?.unitId ?? 0;
     final cefrLevel = unitId == 29 ? 'A2' : 'A1';
 
     return Scaffold(
+      backgroundColor: t.bg,
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Result icon
-                Icon(
-                  passed ? Icons.check_circle : Icons.error_outline,
-                  size: 80,
-                  color: passed ? context.tokens.green : context.tokens.red,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(28),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ScoreRing(
+                fraction: accuracy / 100,
+                label: '$accuracy%',
+                caption: 'accuracy',
+                color: hue,
+                showBadge: passed,
+              ),
+              const SizedBox(height: 20),
+              DisplayText(
+                passed ? 'Practice target met' : 'Practice complete',
+                size: 30,
+                weight: FontWeight.w800,
+                height: 1.1,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'Course track $cefrLevel',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: t.muted,
                 ),
-                const SizedBox(height: 16),
-
-                // Exam result title
-                Text(
-                  passed ? 'Practice Target Met' : 'Practice Complete',
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
+              ),
+              const SizedBox(height: 22),
+              StatStrip(
+                cells: [
+                  StatCell(
+                    value: '${session.correctCount}',
+                    label: 'Correct',
+                    color: t.greenInk,
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Course track: $cefrLevel',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.w600,
+                  StatCell(
+                    value: '${session.totalExercises - session.correctCount}',
+                    label: 'Missed',
+                    color: t.redInk,
                   ),
-                ),
-                const SizedBox(height: 24),
-
-                // Score card
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        // Overall score
-                        Text(
-                          '$accuracy%',
-                          style: theme.textTheme.displayLarge?.copyWith(
-                            fontWeight: FontWeight.w800,
-                            color:
-                                passed
-                                    ? context.tokens.green
-                                    : context.tokens.red,
-                          ),
-                        ),
-                        Text(
-                          passed ? 'TARGET MET' : 'KEEP PRACTICING',
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            color:
-                                passed
-                                    ? context.tokens.green
-                                    : context.tokens.red,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 2,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Lesson exercise accuracy only. This is not an '
-                          'official exam result or CEFR certification.',
-                          textAlign: TextAlign.center,
-                          style: theme.textTheme.bodySmall,
-                        ),
-                      ],
-                    ),
+                  StatCell(
+                    value: '${session.totalXp}',
+                    label: 'XP earned',
+                    color: t.amberInk,
                   ),
-                ),
-                const SizedBox(height: 24),
-
-                FilledButton.icon(
-                  onPressed: onExit,
-                  icon: const Icon(Icons.school),
-                  label: Text(passed ? 'Continue' : 'Back to Curriculum'),
-                ),
-              ],
-            ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              // The caveat sits below the learner's own figures, not above
+              // them — accurate, but it does not outrank their result.
+              Text(
+                'Lesson exercise accuracy only. This is not an official exam '
+                'result or CEFR certification.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
+              ),
+              const SizedBox(height: 26),
+              KeyCta(
+                label: passed ? 'Continue' : 'Back to curriculum',
+                onPressed: onExit,
+              ),
+            ],
           ),
         ),
       ),

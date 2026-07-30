@@ -54,7 +54,7 @@ void main() {
 
     await tester.tap(find.text('Coffee'));
     await tester.pump();
-    await tester.tap(find.text('Check Answers'));
+    await tester.tap(find.text('Check answers'));
     await tester.pump();
 
     expect(result?.isCorrect, isTrue);

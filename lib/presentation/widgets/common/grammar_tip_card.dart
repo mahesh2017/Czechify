@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_tokens.dart';
 import 'package:go_router/go_router.dart';
+import 'lesson_ui.dart';
 
-/// Grammar tip card shown after answering — displays explanation on wrong answers,
-/// positive feedback on correct ones.
+/// The inline answer verdict, for the exercises that resolve in place rather
+/// than handing the result up to the lesson player's [FeedbackSheet].
+///
+/// Green means correct, coral means wrong and neutral means the answer was
+/// shown rather than missed. Amber is not used here at all — in this palette
+/// amber means streak and XP, so tinting a mistake amber said "reward" while
+/// the copy said "wrong".
 class GrammarTipCard extends StatelessWidget {
   final bool isCorrect;
   final bool isSkipped;
@@ -25,157 +31,108 @@ class GrammarTipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    if (isSkipped) {
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Icon(Icons.skip_next),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Skipped — no score or heart change',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  if (explanation != null) ...[
-                    const SizedBox(height: 4),
-                    Text(explanation!),
-                  ],
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    if (isCorrect && explanation == null) {
-      // Just positive feedback
-      return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: t.greenSoft,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: t.green.withValues(alpha: 0.4)),
-        ),
-        child: Row(
-          children: [
-            Icon(Icons.check_circle, color: t.green, size: 28),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Správně! Correct!',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: t.green,
-                    ),
-                  ),
-                  if (explanation != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        explanation!,
-                        style: TextStyle(color: t.green, fontSize: 15),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
 
-    // Wrong answer — show explanation
+    final (
+      Color bg,
+      Color hue,
+      Color ink,
+      IconData icon,
+      String title,
+    ) = switch ((isSkipped, isCorrect)) {
+      (true, _) => (
+        t.elev,
+        t.muted,
+        t.ink,
+        Icons.visibility_outlined,
+        'Skipped — no score or heart change',
+      ),
+      (_, true) => (t.greenSoft, t.green, t.greenInk, Icons.check, 'Správně!'),
+      _ => (t.redSoft, t.red, t.redInk, Icons.close, 'Not quite'),
+    };
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isCorrect ? t.greenSoft : t.amberSoft,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (isCorrect ? t.green : t.amber).withValues(alpha: 0.4),
-        ),
+        color: bg,
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                isCorrect ? Icons.check_circle : Icons.lightbulb,
-                color: isCorrect ? t.green : t.amber,
-                size: 28,
+              Container(
+                width: 26,
+                height: 26,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(color: hue, shape: BoxShape.circle),
+                child: Icon(icon, size: 16, color: t.onFill),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  isCorrect ? 'Správně! Correct!' : 'Not quite right',
+                  title,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: isCorrect ? t.green : t.amber,
+                    fontFamily: AppFonts.display,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: ink,
                   ),
                 ),
               ),
             ],
           ),
-          if (correctAnswer != null && !isCorrect) ...[
+          // Only worth stating when they did not produce it themselves.
+          if (!isCorrect &&
+              correctAnswer != null &&
+              correctAnswer!.trim().isNotEmpty) ...[
             const SizedBox(height: 12),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
-                color: t.greenSoft,
-                borderRadius: BorderRadius.circular(8),
+                color: t.card,
+                borderRadius: BorderRadius.circular(16),
               ),
-              child: Text(
-                'Correct answer: $correctAnswer',
-                style: TextStyle(color: t.green, fontWeight: FontWeight.w500),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const LessonKicker('Correct'),
+                  const SizedBox(height: 4),
+                  Text(
+                    correctAnswer!,
+                    style: TextStyle(
+                      fontFamily: AppFonts.display,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      height: 1.25,
+                      color: ink,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
-          if (explanation != null) ...[
+          if (explanation != null && explanation!.trim().isNotEmpty) ...[
             const SizedBox(height: 12),
             Text(
-              '💡 Grammar tip:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: isCorrect ? t.green : t.amber,
-                fontSize: 15,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
               explanation!,
-              style: TextStyle(
-                color: isCorrect ? t.green : t.amber,
-                fontSize: 15,
-              ),
+              style: TextStyle(fontSize: 15, height: 1.5, color: t.ink),
             ),
           ],
           if (grammarRuleId != null) ...[
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             Align(
               alignment: Alignment.centerLeft,
               child: TextButton.icon(
                 onPressed: () => context.push('/grammar?rule=$grammarRuleId'),
-                icon: const Icon(Icons.menu_book, size: 18),
+                icon: const Icon(Icons.menu_book_outlined, size: 18),
                 label: const Text('View grammar rule'),
                 style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.compact,
+                  foregroundColor: t.ink,
+                  minimumSize: const Size(0, 44),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
               ),
             ),

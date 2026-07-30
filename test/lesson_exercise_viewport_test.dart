@@ -5,6 +5,7 @@ import 'package:ceskina_pro/core/theme/app_theme.dart';
 import 'package:ceskina_pro/domain/entities/enums.dart';
 import 'package:ceskina_pro/domain/entities/exercise.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/exercise_shared.dart';
+import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/lesson_exercise_viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -156,10 +157,8 @@ void main() {
     );
 
     expect(find.byType(TextField), findsNWidgets(2));
-    expect(
-      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
-      isNull,
-    );
+    // Check stays disabled until every blank has something in it.
+    expect(tester.widget<KeyCta>(find.byType(KeyCta)).onPressed, isNull);
 
     await tester.enterText(find.byType(TextField).at(0), 'Dobré ráno');
     await tester.enterText(find.byType(TextField).at(1), 'jednu kávu');
