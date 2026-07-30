@@ -70,7 +70,8 @@ class HomeScreen extends ConsumerWidget {
                   child: PillChip(
                     label: '${g.currentStreak}',
                     bg: t.amberSoft,
-                    fg: t.amber,
+                    // Ink, not the raw hue: the pill holds a numeral.
+                    fg: t.amberInk,
                     icon: Icons.local_fire_department,
                   ),
                 ),

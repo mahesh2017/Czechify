@@ -406,11 +406,15 @@ class AudioPairButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return Row(
-      children: [
-        Expanded(
-          child: SizedBox(
-            height: 48,
+    // IntrinsicHeight + stretch, because the play label comes from lesson
+    // content and can be a whole phrase ("Hear the alphabet (letter names)").
+    // With fixed heights the wrapped button grew and the two no longer lined
+    // up; this way the taller one sets the height and both match it.
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
             child: FilledButton.icon(
               onPressed: onPlay,
               icon: Icon(playing ? Icons.stop : Icons.play_arrow, size: 20),
@@ -418,17 +422,19 @@ class AudioPairButtons extends StatelessWidget {
               style: FilledButton.styleFrom(
                 backgroundColor: t.priFill,
                 foregroundColor: t.onFill,
+                minimumSize: const Size(0, 48),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
               ),
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        SizedBox(
-          height: 48,
-          child: OutlinedButton.icon(
+          const SizedBox(width: 8),
+          OutlinedButton.icon(
             onPressed: onSlow,
             icon: Icon(Icons.schedule, size: 16, color: t.muted),
             label: Text(slowLabel),
@@ -443,8 +449,8 @@ class AudioPairButtons extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -1280,22 +1286,33 @@ class ScoreRing extends StatelessWidget {
                 shape: BoxShape.circle,
                 border: Border.all(color: t.line),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontFamily: AppFonts.display,
-                      fontSize: 32,
-                      height: 1,
-                      fontWeight: FontWeight.w800,
-                      color: hue,
-                    ),
+              // Pad in from the stroke, then let FittedBox shrink the pair
+              // rather than overflow the circle. The ring is a fixed size but
+              // the text inside it is not: it grows with the device's font
+              // scale, and the design system asks for 200% text scaling to
+              // work.
+              child: Padding(
+                padding: EdgeInsets.all(inner * 0.16),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        label,
+                        style: TextStyle(
+                          fontFamily: AppFonts.display,
+                          fontSize: 32,
+                          height: 1,
+                          fontWeight: FontWeight.w800,
+                          color: hue,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      LessonKicker(caption, color: t.muted),
+                    ],
                   ),
-                  const SizedBox(height: 3),
-                  LessonKicker(caption, color: t.muted),
-                ],
+                ),
               ),
             ),
           ),
@@ -1338,48 +1355,54 @@ class StatStrip extends StatelessWidget {
         border: Border.all(color: t.line),
         borderRadius: BorderRadius.circular(24),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          for (final (i, cell) in cells.indexed) ...[
-            // 1px of the container's own colour showing through is the divider.
-            if (i > 0) const SizedBox(width: 1),
-            Expanded(
-              child: Container(
-                color: t.card,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 15,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      cell.value,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: AppFonts.display,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        color: cell.color ?? t.ink,
+      // IntrinsicHeight because the strip is normally a child of a scroll
+      // view: a stretching Row needs a bounded height, and without one this
+      // asserted on every frame and painted nothing at all.
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (final (i, cell) in cells.indexed) ...[
+              // 1px of the container's own colour showing through is the
+              // divider.
+              if (i > 0) const SizedBox(width: 1),
+              Expanded(
+                child: Container(
+                  color: t.card,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 15,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        cell.value,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: AppFonts.display,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          color: cell.color ?? t.ink,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      cell.label,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: t.muted,
+                      const SizedBox(height: 4),
+                      Text(
+                        cell.label,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: t.muted,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

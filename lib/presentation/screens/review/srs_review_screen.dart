@@ -793,46 +793,48 @@ class _RatingButtons extends StatelessWidget {
             'How well did you recall it? · sets when it returns',
           ),
           const SizedBox(height: 9),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              for (final (i, grade) in Rating.values.indexed) ...[
-                if (i > 0) const SizedBox(width: 7),
-                Expanded(
-                  child: _RatingButton(
-                    label: switch (grade) {
-                      Rating.again => l10n.reviewRatingAgain,
-                      Rating.hard => l10n.reviewRatingHard,
-                      Rating.good => l10n.reviewRatingGood,
-                      Rating.easy => l10n.reviewRatingEasy,
-                    },
-                    subtitle: intervals[grade] ?? '',
-                    // Coral for "again" is the only error-ish colour here;
-                    // hard, good and easy are all successful recalls at
-                    // different strengths, so they get violet, green and blue.
-                    color: switch (grade) {
-                      Rating.again => t.red,
-                      Rating.hard => t.violet,
-                      Rating.good => t.green,
-                      Rating.easy => t.pri,
-                    },
-                    ink: switch (grade) {
-                      Rating.again => t.redInk,
-                      Rating.hard => t.violetInk,
-                      Rating.good => t.greenInk,
-                      Rating.easy => t.priInk,
-                    },
-                    tint: switch (grade) {
-                      Rating.again => t.redSoft,
-                      Rating.hard => t.violetSoft,
-                      Rating.good => t.greenSoft,
-                      Rating.easy => t.priSoft,
-                    },
-                    onTap: enabled ? () => onRate(grade) : null,
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (final (i, grade) in Rating.values.indexed) ...[
+                  if (i > 0) const SizedBox(width: 7),
+                  Expanded(
+                    child: _RatingButton(
+                      label: switch (grade) {
+                        Rating.again => l10n.reviewRatingAgain,
+                        Rating.hard => l10n.reviewRatingHard,
+                        Rating.good => l10n.reviewRatingGood,
+                        Rating.easy => l10n.reviewRatingEasy,
+                      },
+                      subtitle: intervals[grade] ?? '',
+                      // Coral for "again" is the only error-ish colour here;
+                      // hard, good and easy are all successful recalls at
+                      // different strengths, so they get violet, green and blue.
+                      color: switch (grade) {
+                        Rating.again => t.red,
+                        Rating.hard => t.violet,
+                        Rating.good => t.green,
+                        Rating.easy => t.pri,
+                      },
+                      ink: switch (grade) {
+                        Rating.again => t.redInk,
+                        Rating.hard => t.violetInk,
+                        Rating.good => t.greenInk,
+                        Rating.easy => t.priInk,
+                      },
+                      tint: switch (grade) {
+                        Rating.again => t.redSoft,
+                        Rating.hard => t.violetSoft,
+                        Rating.good => t.greenSoft,
+                        Rating.easy => t.priSoft,
+                      },
+                      onTap: enabled ? () => onRate(grade) : null,
+                    ),
                   ),
-                ),
+                ],
               ],
-            ],
+            ),
           ),
         ],
       ),
@@ -1030,7 +1032,10 @@ class _ReviewCompleteScreen extends StatelessWidget {
           children: [
             Expanded(
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(24, 36, 24, 12),
+                // Bottom padding clears the pinned footer: with only 12 the
+                // last card was cut mid-sentence and read as a rendering bug
+                // rather than as something still to scroll.
+                padding: const EdgeInsets.fromLTRB(20, 28, 20, 24),
                 children: [
                   // Recall, as a ring — the same shape every accuracy figure
                   // in the app uses.

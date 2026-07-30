@@ -957,41 +957,45 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
           border: Border.all(color: tokens.line),
           borderRadius: BorderRadius.circular(24),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _bigStat(
-              tokens,
-              CountUpText(
-                value: (accuracy * 100).round(),
-                suffix: '%',
-                duration: const Duration(milliseconds: 1100),
-                style: _statStyle(accent),
+        // IntrinsicHeight: a stretching Row needs a bounded height, and this
+        // sits inside the completion screen's scroll view.
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _bigStat(
+                tokens,
+                CountUpText(
+                  value: (accuracy * 100).round(),
+                  suffix: '%',
+                  duration: const Duration(milliseconds: 1100),
+                  style: _statStyle(accent),
+                ),
+                'Accuracy',
               ),
-              'Accuracy',
-            ),
-            const SizedBox(width: 1),
-            _bigStat(
-              tokens,
-              CountUpText(
-                value: session.totalXp,
-                prefix: '+',
-                duration: const Duration(milliseconds: 1100),
-                // Ink, not the raw hue: this is a glyph, not a fill.
-                style: _statStyle(tokens.amberInk),
+              const SizedBox(width: 1),
+              _bigStat(
+                tokens,
+                CountUpText(
+                  value: session.totalXp,
+                  prefix: '+',
+                  duration: const Duration(milliseconds: 1100),
+                  // Ink, not the raw hue: this is a glyph, not a fill.
+                  style: _statStyle(tokens.amberInk),
+                ),
+                'XP earned',
               ),
-              'XP earned',
-            ),
-            const SizedBox(width: 1),
-            _bigStat(
-              tokens,
-              Text(
-                '${session.correctCount}/${session.totalExercises}',
-                style: _statStyle(tokens.greenInk),
+              const SizedBox(width: 1),
+              _bigStat(
+                tokens,
+                Text(
+                  '${session.correctCount}/${session.totalExercises}',
+                  style: _statStyle(tokens.greenInk),
+                ),
+                'Correct',
               ),
-              'Correct',
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
