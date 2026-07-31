@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # diff-cover needs the PR/base merge base, which is absent from the
+          # default one-commit checkout.
+          fetch-depth: 0
 
       - uses: subosito/flutter-action@v2
         with:
