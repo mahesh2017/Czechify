@@ -61,17 +61,18 @@ jobs:
 
   dependency-review:
     if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
+    # GitHub Dependency Review requires a repository-level dependency graph,
+    # which is unavailable for this repository. OSV scans Dart's pubspec.lock
+    # directly and keeps the vulnerability gate independent of that setting.
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.3.8
     permissions:
       contents: read
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/dependency-review-action@v4
-        with:
-          fail-on-severity: moderate
-          license-check: true
-          deny-licenses: GPL-3.0, AGPL-3.0
+      security-events: write
+      actions: read
+    with:
+      scan-args: |-
+        --lockfile=pubspec.lock
+      fail-on-vuln: true
 
   edge-functions:
     runs-on: ubuntu-latest
