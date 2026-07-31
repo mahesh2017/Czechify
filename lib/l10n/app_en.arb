@@ -23,5 +23,762 @@
   "sayThis": "Say this:",
   "tapMicrophoneHint": "Tap the microphone and say the phrase",
   "analyzingPronunciation": "Analyzing your pronunciation...",
-  "onDeviceRecognitionNote": "Using on-device recognition — results may be less accurate."
+  "onDeviceRecognitionNote": "Using on-device recognition — results may be less accurate.",
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom navigation label. Keep short — it sits under an icon in a five-item bar."
+  },
+  "navLearn": "Learn",
+  "navReview": "Review",
+  "navChat": "Chat",
+  "navStats": "Stats",
+  "settings": "Settings",
+  "settingsYourName": "Your name",
+  "settingsDailyGoal": "Daily goal",
+  "settingsXpPerDay": "{count} XP per day",
+  "@settingsXpPerDay": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTheme": "Theme",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Language of the app's own interface, not the language being learned."
+  },
+  "settingsLanguageSystem": "System default",
+  "settingsSoundEffects": "Sound effects",
+  "settingsVibration": "Vibration",
+  "settingsHearts": "Hearts in lessons",
+  "settingsTestVoice": "Test voice",
+  "settingsVoiceMale": "Male",
+  "settingsVoiceFemale": "Female",
+  "settingsAccount": "Account",
+  "settingsPrivacyPolicy": "Privacy Policy",
+  "settingsAbout": "About Czechify",
+  "settingsVersion": "Version",
+  "settingsClearAudioCache": "Clear audio cache",
+  "homeYourProgress": "Your progress",
+  "homeBrowseCurriculum": "Browse curriculum",
+  "homeGrammarReference": "Grammar reference",
+  "homeMockExam": "Mock exam",
+  "homeAiChat": "AI Chat",
+  "homeSpeak": "Speak",
+  "homeStartFirstLesson": "Start your first lesson",
+  "homeAllCaughtUp": "All caught up!",
+  "homeDayStreak": "{count,plural,=1{{count} day streak}other{{count} day streak}}",
+  "@homeDayStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeHeartsRemaining": "{count,plural,=1{{count} heart remaining}other{{count} hearts remaining}}",
+  "@homeHeartsRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewShowAnswer": "Show Answer",
+  "reviewTapToReveal": "Tap to reveal",
+  "reviewRatingAgain": "Again",
+  "reviewRatingHard": "Hard",
+  "reviewRatingGood": "Good",
+  "reviewRatingEasy": "Easy",
+  "reviewEndTitle": "End review?",
+  "reviewEndBody": "Your progress will be saved. You can continue later.",
+  "reviewStay": "Stay",
+  "reviewEnd": "End",
+  "reviewNoCardsDue": "No cards due for review right now.",
+  "reviewCardOf": "Card {current} of {total}",
+  "@reviewCardOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonLeaveTitle": "Leave lesson?",
+  "lessonLeaveBody": "You'll go back to the curriculum. The answers you've already given are saved.",
+  "lessonLeave": "Leave",
+  "lessonQuestionOf": "Question {current} of {total}",
+  "@lessonQuestionOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "errorFailedToLoad": "Could not load this content.",
+  "errorCheckConnection": "Check your connection and try again.",
+  "a11yBack": "Back",
+  "a11yClose": "Close",
+  "a11yPlayAudio": "Play audio",
+  "a11ySettings": "Settings",
+  "a11yHearts": "{count,plural,=1{{count} heart left}other{{count} hearts left}}",
+  "@a11yHearts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "a11yStreak": "{count,plural,=1{{count} day streak}other{{count} day streak}}",
+  "@a11yStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "a11yRateCard": "Rate this card: {rating}",
+  "@a11yRateCard": {
+    "placeholders": {
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "a11yLessonProgress": "Lesson progress: question {current} of {total}",
+  "@a11yLessonProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "writingKeyPhrasesFound": "Key phrases found",
+  "writingKeyPhrasesMissing": "Key phrases not found",
+  "writingKeywordCheckNote": "Automatic keyword check only — it compares your words against the expected phrases and does not judge grammar, spelling, or style.",
+  "audioHearIt": "Hear it",
+  "audioSlow": "Slow",
+  "audioSlower": "Slower",
+  "audioStop": "Stop",
+  "audioPlayAgain": "Play it again",
+  "audioPlayIt": "Play it",
+  "audioHearTheWord": "Hear the word",
+  "czechLetters": "Czech letters",
+  "feedbackCorrect": "Správně!",
+  "feedbackNotQuite": "Not quite",
+  "feedbackAnswerShown": "Answer shown",
+  "feedbackSkipped": "Skipped — no score or heart change",
+  "feedbackViewGrammarRule": "View grammar rule",
+  "answerCorrectLabel": "Correct",
+  "lessonIntroduction": "Introduction",
+  "lessonMissedQuestions": "Missed questions",
+  "lessonInARow": "{count} in a row",
+  "@lessonInARow": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonXpTotal": "{count} XP",
+  "@lessonXpTotal": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonXpAward": "+{count} XP",
+  "@lessonXpAward": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonNewWords": "New words",
+  "lessonStartPractice": "Start practice",
+  "lessonGotItStartPractising": "Got it — start practising",
+  "lessonSaving": "Saving…",
+  "lessonNextQuestion": "Next question",
+  "lessonReviewMistakes": "Review mistakes",
+  "lessonFinish": "Finish lesson",
+  "lessonFinishUnit": "Finish unit {number}",
+  "@lessonFinishUnit": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonContinueLearning": "Continue learning",
+  "lessonPracticeAgain": "Practice again",
+  "lessonLockedTitle": "Not open yet",
+  "lessonLockedBody": "Finish the lessons before this one and it unlocks.",
+  "lessonBackToCurriculum": "Back to curriculum",
+  "lessonNoExercises": "No exercises found for this lesson.",
+  "lessonOutOfHeartsTitle": "Out of hearts",
+  "lessonOutOfHeartsBody": "Hearts refill on their own — one every 30 minutes. A review session of five or more cards earns one back now.",
+  "lessonReviewToEarnHeart": "Review to earn a heart",
+  "lessonBadgeExam": "Exam",
+  "statAccuracy": "Accuracy",
+  "statXpEarned": "XP earned",
+  "statCorrect": "Correct",
+  "statMissed": "Missed",
+  "statCards": "Cards",
+  "statRecalled": "Recalled",
+  "captionAccuracy": "accuracy",
+  "captionRecall": "recall",
+  "captionMatch": "match",
+  "exerciseCheckAnswers": "Check answers",
+  "exerciseCheckAll": "Check all",
+  "exerciseQuestionNumber": "Question {number}",
+  "@exerciseQuestionNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseAllCorrect": "All correct",
+  "exerciseSomeAnswersWrong": "Some answers are wrong — review them below.",
+  "exerciseSomePairsWrong": "Some pairs are wrong",
+  "exerciseCorrectOfTotal": "{correct}/{total} correct",
+  "@exerciseCorrectOfTotal": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseMatchedOfTotal": "{matched}/{total} matched",
+  "@exerciseMatchedOfTotal": {
+    "placeholders": {
+      "matched": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseTapCzechThenEnglish": "Tap a Czech word, then tap its English match.",
+  "exerciseTapWordsInOrder": "Tap the words below in order",
+  "exerciseTypeWhatYouHeard": "Type what you heard",
+  "exerciseRevealTranscript": "Reveal transcript",
+  "exerciseGistFirstNote": "Listen for the gist first. Replay or reveal the transcript only when you need support.",
+  "exerciseNoQuestions": "This exercise has no questions configured.",
+  "exerciseSayInCzech": "Say this in Czech",
+  "exerciseSayInEnglish": "Say this in English",
+  "exerciseTypeInCzech": "Type in Czech",
+  "exerciseTypeInEnglish": "Type in English",
+  "labelEnglish": "English",
+  "labelCzech": "Czech",
+  "exerciseChooseCorrectForm": "Choose the correct form",
+  "exerciseTypeCorrectSentence": "Type the correct sentence",
+  "exerciseCorrectedSentence": "Corrected sentence",
+  "exerciseShowHint": "Show hint",
+  "exerciseErrorInHighlighted": "The error is in one of the highlighted words above.",
+  "exerciseDeclineWord": "Decline {word}",
+  "@exerciseDeclineWord": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "exerciseYourAnswer": "Your answer",
+  "teachingKicker": "Learn",
+  "teachingIntro": "Intro",
+  "teachingLetterByLetter": "Letter by letter",
+  "teachingTapAnyLetter": "Tap any letter to hear it",
+  "teachingTapLineToHear": "Tap a line to hear it",
+  "teachingPlayWholeSet": "Play the whole set",
+  "writingWriteAtLeast": "Write at least {count} words.",
+  "@writingWriteAtLeast": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "writingHint": "Write your answer in Czech…",
+  "writingShowVocabSupport": "Show vocabulary support",
+  "writingTryUsing": "Try using",
+  "writingReviseNote": "Revise: check the communicative goal, verb forms, case endings, word order, and register. Improve the message, not only its length.",
+  "writingReviewDraft": "Review draft",
+  "writingSubmitRevision": "Submit revision",
+  "writingCycleComplete": "Writing cycle complete",
+  "writingReferenceAnswer": "Reference answer",
+  "writingWordCountMin": "{count} words · minimum {min}",
+  "@writingWordCountMin": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "writingWordCount": "{count} words",
+  "@writingWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "speakingTryToSay": "Try to say",
+  "speakingYouSaid": "You said",
+  "speakingTapToSpeak": "Tap to speak",
+  "speakingTapToRerecord": "Tap to re-record",
+  "speakingRecordingTapToStop": "Recording — tap to stop",
+  "pronTapToRecord": "Tap to record",
+  "pronRecordedTapAgain": "Recorded — tap to try again",
+  "pronListeningTapToStop": "Listening — tap to stop",
+  "pronAnalysing": "Analysing…",
+  "pronMicNotWorkingSkip": "Mic not working? Skip",
+  "pronCantRecordSkip": "Can't record right now? Skip",
+  "pronSkippedNote": "Skipped — keep practising this one aloud with the listen button.",
+  "reviewSpacedRepetition": "Spaced repetition",
+  "reviewCardsLeft": "{count} left",
+  "@reviewCardsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewRetrieveTheCzech": "Retrieve the Czech",
+  "reviewSayItThenTypeIt": "Say it, then type it",
+  "reviewOvertAttemptNote": "Make an overt attempt before revealing.",
+  "reviewWhatDoesItMean": "What does it mean?",
+  "reviewInASentence": "In a sentence",
+  "reviewNeedAHint": "Say it out loud · need a hint?",
+  "reviewHintStartsWith": "Starts with “{start}”",
+  "@reviewHintStartsWith": {"placeholders": {"start": {"type": "String"}}},
+  "reviewMeans": "Means",
+  "reviewHowDoYouSayIt": "How do you say it in Czech?",
+  "reviewCompleteCzechSentence": "Complete the Czech sentence.",
+  "reviewDirectionEnToCz": "EN → CZ",
+  "reviewDirectionListening": "Listening",
+  "reviewHowWellRecalled": "How well did you recall it? · sets when it returns",
+  "reviewAllCaughtUp": "All caught up",
+  "reviewCheckAgain": "Check again",
+  "reviewNoCardsAvailable": "No cards available.",
+  "reviewDeckCleared": "Deck cleared",
+  "reviewCardsReviewed": "{count,plural,=1{Nice work — {count} card reviewed}other{Nice work — {count} cards reviewed}}",
+  "@reviewCardsReviewed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewHeartEarned": "+1 heart earned",
+  "reviewHowItWent": "How it went",
+  "reviewReschedulingNote": "These cards are rescheduled with spaced repetition — each one comes back right when it is about to slip.",
+  "reviewGoAgain": "Go again",
+  "reviewDone": "Done",
+  "reviewIntervalSoon": "Soon",
+  "chatTitle": "AI Tutor",
+  "chatSubtitle": "Real situations you will hit this week in Czechia. The tutor adapts to your level.",
+  "chatUnfinished": "Unfinished",
+  "chatPickASituation": "Pick a situation",
+  "chatRoomCount": "{count} rooms",
+  "@chatRoomCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "chatTurnsIn": "{count,plural,=1{{count} turn in}other{{count} turns in}}",
+  "@chatTurnsIn": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "chatBackToScenarios": "Back to scenarios",
+  "chatTutorIsTyping": "The tutor is typing",
+  "chatSpeakYourReply": "Speak your reply",
+  "chatComposerHint": "Napiš česky…",
+  "chatListeningHint": "Listening… speak Czech",
+  "chatDeleteConversation": "Delete conversation",
+  "exerciseAllAnsweredCorrectly": "All questions answered correctly.",
+  "exerciseNoQuestionsAvailable": "No questions available for this exercise.",
+  "exerciseYouGotCorrect": "You got {correct}/{total} correct.",
+  "@exerciseYouGotCorrect": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pronFeedbackGood": "Good pronunciation.",
+  "pronFeedbackRetry": "Try again — focus on the highlighted sounds.",
+  "speakingFeedbackGood": "Good — you said the right things.",
+  "speakingFeedbackRetry": "Try again. Expected phrases include: {phrases}",
+  "@speakingFeedbackRetry": {
+    "placeholders": {
+      "phrases": {
+        "type": "String"
+      }
+    }
+  },
+  "recordingFailed": "Recording failed. Please try again.",
+  "writingWroteWords": "You wrote {count} words.",
+  "@writingWroteWords": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "writingMeetsMinimum": "Meets the {min}-word minimum.",
+  "@writingMeetsMinimum": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "writingNeedsMinimum": "Needs at least {min} words.",
+  "@writingNeedsMinimum": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "writingGoodKeywordCoverage": "Good keyword coverage.",
+  "writingKeyPhrasesNotDetected": "Key phrases not detected.",
+  "writingUnscoredNote": "Completed as unscored writing practice; no automatic proficiency claim is made.",
+  "writingRevisedDraft": "You revised the first draft.",
+  "translationAccentHint": "Almost — watch your accent marks. The correct spelling is \"{answer}\".",
+  "@translationAccentHint": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "dictationAccentHint": "Almost — watch your accent marks. You had it right apart from the diacritics.",
+  "examResultsTitle": "Exam results",
+  "examPracticeComplete": "Practice complete",
+  "examPracticeTargetMet": "Practice target met",
+  "examThresholdMet": "Practice threshold met",
+  "examThresholdNotMet": "Practice threshold not met",
+  "examPartlyUnscored": "Practice completed — some tasks unscored",
+  "examCourseTrack": "Course track {level}",
+  "@examCourseTrack": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "examAccuracyCaveat": "Lesson exercise accuracy only. This is not an official exam result or CEFR certification.",
+  "examMockTitle": "Mock exam — {level}",
+  "@examMockTitle": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "examPracticeExamTitle": "{product} {level} practice exam",
+  "@examPracticeExamTitle": {
+    "placeholders": {
+      "product": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "examFourSections": "Four timed sections. The timer runs per section, and you can answer in order.",
+  "examInformalNote": "This is informal practice, not an official exam result.",
+  "examSectionReading": "Reading",
+  "examSectionReadingSub": "Comprehension questions",
+  "examSectionListening": "Listening",
+  "examSectionListeningSub": "Audio, then questions",
+  "examSectionWriting": "Writing",
+  "examSectionWritingSub": "Practice feedback when available",
+  "examSectionSpeaking": "Speaking",
+  "examSectionSpeakingSub": "Transcript-based practice evidence",
+  "examTotalTime": "Total time: {minutes} minutes",
+  "@examTotalTime": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "examDone": "Done",
+  "examPlayAudio": "Play the audio",
+  "feedbackStepSignal": "Something needs attention. Try to notice what.",
+  "feedbackStepSelfRepair": "Try again before asking for more help.",
+  "feedbackStepCue": "Use the explanation as a cue, then repair your answer.",
+  "feedbackStepExplanation": "Study the answer, then retrieve it once more.",
+  "feedbackStepImmediateVariant": "Now apply the same idea to a variation.",
+  "feedbackStepSpacedAnalogue": "A related task will return later.",
+  "feedbackStepNovelTask": "Use what you remember in this new situation.",
+  "examPaceTarget": "Pace target {time}",
+  "@examPaceTarget": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "examOverPaceTarget": "Over pace target",
+  "examPaceHint": "Suggested pace only — practice continues when time runs out",
+  "examPaceSemantics": "{status}. Practice continues after the target time.",
+  "@examPaceSemantics": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "examUnfinishedAttempt": "You have an unfinished attempt from {age}.",
+  "@examUnfinishedAttempt": {
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
+  "ageAMomentAgo": "a moment ago",
+  "ageMinutesAgo": "{count} min ago",
+  "@ageMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ageHoursAgo": "{count} h ago",
+  "@ageHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "copybookTitle": "Daily copybook",
+  "copybookHeading": "Write Czech by hand",
+  "copybookBody": "Copy each useful word and its sentence on paper. Mark it when you can form every diacritic clearly.",
+  "copybookImageLabel": "An open handwriting notebook overlooking Prague",
+  "copybookLoadError": "Today’s words could not be loaded.",
+  "copybookTryAgain": "Try again",
+  "copybookOfflineEmpty": "Complete offline setup to make curriculum words available.",
+  "copybookComplete": "Today’s page is complete. A new curriculum-based selection arrives tomorrow.",
+  "streakProtected": "Streak protected",
+  "streakDays": "{count}-day streak",
+  "@streakDays": {"placeholders": {"count": {"type": "int"}}},
+  "streakStartNew": "Start a new streak",
+  "streakProtectedBody": "Your freeze covered one missed day and kept your {count}-day streak intact. Complete practice today to earn the next freeze.",
+  "@streakProtectedBody": {"placeholders": {"count": {"type": "int"}}},
+  "streakActiveBody": "Your streak is active today. Complete meaningful practice each day to keep it going.",
+  "streakEndedBody": "Your previous streak has ended. One completed learning activity starts a fresh one—no penalty, just a new day.",
+  "streakKeepLearning": "Keep learning",
+  "streakBeginAgain": "Begin again",
+  "pathA1Foundations": "A1 Foundations",
+  "pathA1Everyday": "A1 Everyday Czech",
+  "pathA2Grammar": "A2 Grammar expansion",
+  "pathA2RealLife": "A2 Real-life Czech",
+  "pathExamConsolidation": "{level} Exam and consolidation",
+  "@pathExamConsolidation": {"placeholders": {"level": {"type": "String"}}},
+  "pathFallbackPayoff": "Build confidence for the next Czech task.",
+  "homeSmallWin": "A small Czech win is waiting for you.",
+  "homeProgressToday": "You have already made Czech progress today.",
+  "homeDailyGoal": "Daily goal",
+  "homeGoalDone": "Done for today. Anything else is a bonus.",
+  "homeGoalStart": "One short lesson gets today moving.",
+  "homeContinueLearning": "CONTINUE LEARNING",
+  "homeCompleteLesson": "Complete one lesson",
+  "homeReviewFive": "Review five cards",
+  "homeSpeakTwoMinutes": "Speak for two minutes",
+  "homeSmallSteps": "Today, in small steps",
+  "homeDone": "Done",
+  "homeMethodOfDay": "METHOD OF THE DAY",
+  "homeWriteBeforeType": "Write it before you type it",
+  "homeCopybookCta": "Open today’s copybook"
+  ,"homeXpRemaining": "{xp} XP to your daily rhythm.",
+  "@homeXpRemaining": {"placeholders": {"xp": {"type": "int"}}},
+  "homeFreezeLeft": "1 freeze left",
+  "homeTotalXp": "{xp} total XP",
+  "@homeTotalXp": {"placeholders": {"xp": {"type": "int"}}},
+  "homeMethodBody": "Handwriting slows Czech down just enough to make endings and diacritics visible.",
+  "homeUnlockedComplete": "Every unlocked lesson is complete.",
+  "homeLoading": "Loading…",
+  "onboardingBack": "Back",
+  "onboardingEditableLater": "All of this is editable later in Settings.",
+  "onboardingContinue": "Continue",
+  "onboardingStartLearning": "Start learning",
+  "onboardingSkip": "Skip — set this up later",
+  "onboardingNameTitle": "What should Lenka call you?",
+  "onboardingNameBody": "Optional. Used to greet you in Czech, and it never leaves your device.",
+  "onboardingFirstName": "FIRST NAME",
+  "onboardingLevelTitle": "What’s your Czech level?",
+  "onboardingLevelBody": "This sets your AI tutor’s difficulty. Lessons always start from Unit 1 so nothing is skipped.",
+  "onboardingBeginner": "Complete beginner",
+  "onboardingBeginnerBody": "I don’t know any Czech yet",
+  "onboardingA1": "Some Czech (A1)",
+  "onboardingA1Body": "I know basic greetings and simple phrases",
+  "onboardingA2": "Intermediate (A2)",
+  "onboardingA2Body": "I can have basic conversations",
+  "onboardingTakePlacement": "Not sure? Take a placement test",
+  "onboardingVoiceTitle": "Choose your teacher’s voice",
+  "onboardingVoiceBody": "Every Czech word in the course is spoken by this voice. Tap to hear each one — you can change it any time from Settings.",
+  "onboardingFemaleVoice": "Female voice",
+  "onboardingMaleVoice": "Male voice",
+  "onboardingVoiceSample": "Tap to hear a sample",
+  "onboardingNativeVoices": "Both are studio-recorded native Czech.",
+  "onboardingGoalTitle": "Set your daily goal",
+  "onboardingGoalBody": "How much do you want to practice each day?",
+  "onboardingPlanReady": "Your plan is ready",
+  "onboardingPlanBody": "Unit 1 starts with the sounds of Czech — including the one only Czech has.",
+  "onboardingName": "Name",
+  "onboardingLearner": "Learner",
+  "onboardingStartingPoint": "Starting point",
+  "onboardingTeacher": "Teacher",
+  "onboardingFirstUnit": "First unit",
+  "onboardingSoundsOfCzech": "The sounds of Czech",
+  "scenarioCasual": "Casual Chat",
+  "scenarioCasualBody": "Everyday small talk — greetings, weather, how are you",
+  "scenarioRestaurant": "At the Restaurant",
+  "scenarioRestaurantBody": "Order food, ask about menu, pay the bill",
+  "scenarioDirections": "Asking Directions",
+  "scenarioDirectionsBody": "Ask for and give directions in the city",
+  "scenarioShopping": "Shopping",
+  "scenarioShoppingBody": "Buy items, ask prices, negotiate",
+  "scenarioDoctor": "At the Doctor",
+  "scenarioDoctorBody": "Describe symptoms, make an appointment",
+  "scenarioInterview": "Job Interview",
+  "scenarioInterviewBody": "Practice a basic job interview in Czech",
+  "scenarioCafeImage": "A learner ordering at a Prague café",
+  "scenarioDirectionsImage": "A learner asking for directions beside a Prague tram",
+  "scenarioShoppingImage": "A learner shopping at a Czech neighborhood market",
+  "scenarioRestaurantImage": "A learner ordering at a Czech restaurant",
+  "scenarioDoctorImage": "A learner speaking with a doctor",
+  "scenarioInterviewImage": "A learner taking part in a job interview",
+  "onboardingTagline": "Czech that\nactually\nsticks.",
+  "onboardingWelcomeBody": "Built for people living in Czechia — from your first word to the A1 exam.",
+  "onboardingHeroImage": "A learner practising Czech with a tutor at a Prague café",
+  "onboardingOffline": "Works offline — lessons and audio live on your phone",
+  "onboardingStartFree": "Start learning free",
+  "onboardingHaveAccount": "I already have an account",
+  "homeSpeakTitle": "Say it out loud",
+  "homeSpeakReviews": "Two minutes of Czech, then {count} reviews.",
+  "@homeSpeakReviews": {"placeholders": {"count": {"type": "int"}}},
+  "homeSpeakSound": "Two minutes of ř — the sound worth practising.",
+  "chatVoiceRetry": "I didn’t catch that. Try again somewhere quieter, or type your reply.",
+  "chatVoiceUnavailable": "Voice input is unavailable. You can still type every reply.",
+  "chatDismiss": "Dismiss",
+  "curriculumPathTitle": "Your Czech path",
+  "curriculumAddingLessons": "Lessons for this level are being added.",
+  "curriculumA1Complete": "That’s the complete A1 track. Finish it and A2 opens.",
+  "curriculumA2Complete": "That’s the complete A2 track.",
+  "curriculumUnit": "UNIT {number}",
+  "@curriculumUnit": {"placeholders": {"number": {"type": "int"}}},
+  "curriculumInProgress": "IN PROGRESS",
+  "curriculumUnitOf": "Unit {number} of {total} · {level}",
+  "@curriculumUnitOf": {"placeholders": {"number": {"type": "int"}, "total": {"type": "int"}, "level": {"type": "String"}}},
+  "curriculumUnlocksAfter": "Unlocks after unit {number}",
+  "@curriculumUnlocksAfter": {"placeholders": {"number": {"type": "int"}}},
+  "curriculumLessonCount": "{done} / {total} lessons",
+  "@curriculumLessonCount": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
+  "curriculumStateDone": "Done",
+  "curriculumStateReady": "Ready now",
+  "curriculumStateLocked": "Locked",
+  "curriculumNextUp": "NEXT UP",
+  "curriculumMap": "Map",
+  "curriculumList": "List",
+  "lessonTypeLesson": "Lesson",
+  "lessonTypePractice": "Practice",
+  "lessonTypeApply": "Apply",
+  "lessonTypeReview": "Review",
+  "settingsDone": "Done",
+  "statsTitle": "Your Czech",
+  "statsSubtitle": "Where you are, and what to work on next.",
+  "statsCourseActivityInfo": "Course activity shows what you have practised. It is not a CEFR certification.",
+  "statsAboutNumber": "About this number",
+  "statsAchievements": "Achievements",
+  "statsAchievementsEmpty": "Your first achievements are already within reach.",
+  "placementTitle": "Find my starting point",
+  "placementSuggestedUnit": "Suggested starting unit: {unit}",
+  "@placementSuggestedUnit": {"placeholders": {"unit": {"type": "int"}}},
+  "placementProvisional": "Provisional, not a CEFR result — it adjusts from your own performance.",
+  "placementChooseUnit": "Choose a different starting unit",
+  "placementUseStart": "Use this starting point",
+  "placementAnswerLabel": "Your Czech answer",
+  "placementNext": "Next",
+  "placementFinishLater": "Finish later",
+  "reviewNew": "New",
+  "reviewLearning": "Learning",
+  "reviewReview": "Review",
+  "reviewDue": "Due",
+  "lessonMeetWords": "Meet these words first. Tap each one to hear it, then practise using it.",
+  "teachingLookAndGuess": "Look at the picture. What do you think this Czech word means?",
+  "teachingTapWordMeaning": "Tap the Czech word to reveal its meaning",
+  "teachingMeaning": "Meaning",
+  "teachingInSentence": "Now hear it in a useful sentence",
+  "teachingTapSentenceTranslation": "Tap the sentence to reveal the translation",
+  "teachingNextWord": "Next word",
+  "teachingSeeExample": "See it in a sentence",
+  "teachingStartExercises": "Start practice exercises",
+  "teachingWordProgress": "Word {current} of {total}",
+  "@teachingWordProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "a11yTapToFlipCard": "Tap to flip card",
+  "a11yPlayPronunciation": "Play pronunciation",
+  "a11yTapToHear": "Tap to hear: {text}",
+  "@a11yTapToHear": {
+    "placeholders": {
+      "text": {"type": "String"}
+    }
+  },
+  "a11yTapToHearSentence": "Tap to hear the sentence",
+  "a11yInsertCharacter": "Insert character: {char}",
+  "@a11yInsertCharacter": {
+    "placeholders": {
+      "char": {"type": "String"}
+    }
+  },
+  "a11yAddVocabToDeck": "Add to review deck",
+  "a11yScenarioCard": "Scenario: {title}. {description}",
+  "@a11yScenarioCard": {"placeholders": {"title": {"type": "String"}, "description": {"type": "String"}}},
+  "a11yFeedback": "Feedback: {title}",
+  "@a11yFeedback": {"placeholders": {"title": {"type": "String"}}},
+  "a11yContinueButton": "{label} button",
+  "@a11yContinueButton": {"placeholders": {"label": {"type": "String"}}},
+  "a11ySendMessage": "Send message"
 }

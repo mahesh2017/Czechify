@@ -15,40 +15,14 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import urllib.request
 from pathlib import Path
 
+from audio_utterances import extract_utterances  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
-LESSONS = ROOT / "assets" / "curriculum" / "lessons"
-VOCABULARY = ROOT / "assets" / "vocabulary"
 MANIFEST = ROOT / "assets" / "audio" / "manifest.json"
-PREVIEW_TEXT = "Ahoj, jak se máš?"
-
-
-def key_for(text: str) -> str:
-    return hashlib.sha256(text.strip().lower().encode("utf-8")).hexdigest()
-
-
-def extract_utterances() -> dict[str, str]:
-    """Return {sha256: text}, matching generate_audio_pack.extract_utterances."""
-    utterances: set[str] = {PREVIEW_TEXT}
-    for path in sorted(VOCABULARY.glob("*.json")):
-        for row in json.loads(path.read_text(encoding="utf-8")):
-            for field in ("word_cz", "example_cz"):
-                value = row.get(field)
-                if isinstance(value, str) and value.strip():
-                    utterances.add(value.strip())
-    for path in sorted(LESSONS.glob("*.json")):
-        lesson = json.loads(path.read_text(encoding="utf-8"))
-        for exercise in lesson.get("exercises", []):
-            data = exercise.get("data", {})
-            for field in ("expected_text", "target_text", "question_cz"):
-                value = data.get(field)
-                if isinstance(value, str) and value.strip():
-                    utterances.add(value.strip())
-    return {key_for(text): text for text in sorted(utterances)}
 
 
 def both_voice_keys(manifest: dict) -> set[str]:

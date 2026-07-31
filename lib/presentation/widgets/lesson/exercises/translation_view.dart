@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
 /// Translation exercise view: type the translation of a source sentence.
@@ -44,7 +47,7 @@ class _TranslationViewState extends State<TranslationView> {
     final grammarNote = data['grammar_note'] as String?;
     final explanation =
         match == AnswerMatch.nearMiss
-            ? 'Almost! Watch your accent marks — the correct spelling is "${accepted.first}".'
+            ? AppLocalizations.of(context).translationAccentHint(accepted.first)
             : grammarNote;
 
     widget.onAnswered(
@@ -58,71 +61,89 @@ class _TranslationViewState extends State<TranslationView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final direction = data['direction'] as String? ?? 'en_to_cz';
     final source = data['source'] as String;
+    final toCzech = direction == 'en_to_cz';
 
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Direction label
+          QuestionPrompt(
+            question:
+                toCzech ? l10n.exerciseSayInCzech : l10n.exerciseSayInEnglish,
+          ),
+          const SizedBox(height: 14),
+          // The sentence to translate, on the neutral panel — it is the given,
+          // not the answer.
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(8),
+              color: t.elev,
+              borderRadius: BorderRadius.circular(16),
             ),
-            child: Text(
-              direction == 'en_to_cz' ? 'EN → CZ' : 'CZ → EN',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  (toCzech ? l10n.labelEnglish : l10n.labelCzech).toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.7,
+                    color: t.faint,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        source,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.w700,
+                          height: 1.3,
+                          color: t.ink,
+                        ),
+                      ),
+                    ),
+                    if (!toCzech) ...[
+                      const SizedBox(width: 4),
+                      TtsButton(text: source, size: 22),
+                    ],
+                  ],
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
 
-          // Source text
-          Text(
-            source,
-            style: Theme.of(context).textTheme.headlineMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-
-          // Input field
-          TextField(
+          AnswerField(
             controller: _controller,
             enabled: !answered,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText:
-                  direction == 'en_to_cz' ? 'Type in Czech' : 'Type in English',
-              suffixIcon:
-                  isCorrect == true
-                      ? const Icon(Icons.check_circle, color: Colors.green)
-                      : isCorrect == false
-                      ? const Icon(Icons.cancel, color: Colors.red)
-                      : null,
-            ),
+            verdict: isCorrect,
+            multiline: true,
+            semanticLabel:
+                toCzech ? l10n.exerciseTypeInCzech : l10n.exerciseTypeInEnglish,
             onSubmitted: answered ? null : (_) => _checkAnswer(),
           ),
 
           // Czech character helper — only when typing Czech.
-          if (direction == 'en_to_cz' && !answered) ...[
-            const SizedBox(height: 8),
+          if (toCzech && !answered) ...[
+            const SizedBox(height: 12),
             CzechCharBar(controller: _controller, enabled: !answered),
           ],
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
 
-          // Submit button
-          if (!answered)
-            FilledButton(onPressed: _checkAnswer, child: const Text('Check')),
+          if (!answered) KeyCta(label: l10n.check, onPressed: _checkAnswer),
 
-          // The lesson player's feedback banner shows the correct answer.
+          // The lesson player's feedback sheet shows the correct answer.
         ],
       ),
     );

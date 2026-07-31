@@ -30,8 +30,26 @@ class DriftExamRepository implements ExamRepository {
   }) async {
     final exams = await _loadExams(level, product);
     if (exams.isEmpty) {
+      // Distinguish between a genuinely unshipped product (expected to
+      // have no bank yet — fall back to a labeled sample) and a shipped
+      // product whose bank failed to load (corrupt asset — must fail
+      // visibly, never silently substitute minimal content).
+      if (product == ExamProduct.permanentResidence) {
+        // The permanent-residence bank ships with the app. If it can't
+        // load, the asset is corrupt — surface the error rather than
+        // giving the learner a 4-question toy exam disguised as the real
+        // thing.
+        throw ExamAssetException(
+          'The $level exam content could not be loaded. The app may need '
+          'to be reinstalled. If the problem persists, please report it.',
+          level: level,
+          product: product,
+        );
+      }
+      // Unshipped product (e.g. CCE): fall back to a labeled sample so
+      // the learner can still practice, but the sample is clearly marked.
       _log.warning(
-        'No ${product.id} exams for ${level.name}; falling back to sample.',
+        'No ${product.id} exams for ${level.name}; using labeled sample.',
       );
       return buildSampleExam(level, product: product);
     }
@@ -47,7 +65,10 @@ class DriftExamRepository implements ExamRepository {
     return _loadExams(level, product);
   }
 
-  Future<List<MockExam>> _loadExams(ExamLevel level, ExamProduct product) async {
+  Future<List<MockExam>> _loadExams(
+    ExamLevel level,
+    ExamProduct product,
+  ) async {
     final key = '${product.slug}_${level.name}';
     if (_cache.containsKey(key)) return _cache[key]!;
 
@@ -58,13 +79,16 @@ class DriftExamRepository implements ExamRepository {
       final blueprint = _parseBlueprint(json, product);
       final examsJson = json['exams'] as List<dynamic>? ?? [];
 
-      final exams = examsJson
-          .whereType<Map<String, dynamic>>()
-          .map((e) => _parseExam(e, level, blueprint))
-          .toList();
+      final exams =
+          examsJson
+              .whereType<Map<String, dynamic>>()
+              .map((e) => _parseExam(e, level, blueprint))
+              .toList();
 
       _cache[key] = exams;
-      _log.info('Loaded ${exams.length} ${product.id} exams for ${level.name}.');
+      _log.info(
+        'Loaded ${exams.length} ${product.id} exams for ${level.name}.',
+      );
       return exams;
     } catch (e, st) {
       _log.warning('Failed to load exam bank from $assetPath', e, st);
@@ -73,7 +97,10 @@ class DriftExamRepository implements ExamRepository {
     }
   }
 
-  ExamBlueprint _parseBlueprint(Map<String, dynamic> json, ExamProduct product) {
+  ExamBlueprint _parseBlueprint(
+    Map<String, dynamic> json,
+    ExamProduct product,
+  ) {
     final bp = json['blueprint'] as Map<String, dynamic>? ?? const {};
     return ExamBlueprint(
       product: ExamProductAsset.fromId(bp['product'] as String? ?? product.id),
@@ -89,10 +116,11 @@ class DriftExamRepository implements ExamRepository {
     ExamBlueprint blueprint,
   ) {
     final sectionsJson = json['sections'] as List<dynamic>? ?? [];
-    final sections = sectionsJson
-        .whereType<Map<String, dynamic>>()
-        .map(_parseSection)
-        .toList();
+    final sections =
+        sectionsJson
+            .whereType<Map<String, dynamic>>()
+            .map(_parseSection)
+            .toList();
 
     return MockExam(
       level: level,
@@ -107,9 +135,7 @@ class DriftExamRepository implements ExamRepository {
     final type = ExamSectionType.values.byName(typeStr);
 
     final questionsJson = json['questions'] as List<dynamic>? ?? [];
-    final questions = questionsJson
-        .whereType<Map<String, dynamic>>()
-        .toList();
+    final questions = questionsJson.whereType<Map<String, dynamic>>().toList();
 
     return MockExamSection(
       type: type,
@@ -121,7 +147,9 @@ class DriftExamRepository implements ExamRepository {
 
   @override
   Future<entity.ExamResult> saveResult(entity.ExamResult result) async {
-    final id = await _db.into(_db.examResults).insert(
+    final id = await _db
+        .into(_db.examResults)
+        .insert(
           db.ExamResultsCompanion.insert(
             level: result.level.name,
             product: Value(result.product.id),
@@ -133,7 +161,8 @@ class DriftExamRepository implements ExamRepository {
             totalScore: Value(result.totalScore),
             passed: Value(result.passed),
             details: Value(
-                result.details != null ? jsonEncode(result.details) : null,),
+              result.details != null ? jsonEncode(result.details) : null,
+            ),
           ),
         );
 
@@ -157,32 +186,37 @@ class DriftExamRepository implements ExamRepository {
     ExamLevel level, {
     ExamProduct? product,
   }) async {
-    final rows = await (_db.select(_db.examResults)
-          ..where((r) => r.level.equals(level.name))
-          ..where(
-            (r) => product == null
-                ? const Constant(true)
-                : r.product.equals(product.id),
-          )
-          ..orderBy([(r) => OrderingTerm.desc(r.takenAt)]))
-        .get();
+    final rows =
+        await (_db.select(_db.examResults)
+              ..where((r) => r.level.equals(level.name))
+              ..where(
+                (r) =>
+                    product == null
+                        ? const Constant(true)
+                        : r.product.equals(product.id),
+              )
+              ..orderBy([(r) => OrderingTerm.desc(r.takenAt)]))
+            .get();
 
     return rows
-        .map((r) => entity.ExamResult(
-              id: r.id,
-              level: r.level == 'a2' ? ExamLevel.a2 : ExamLevel.a1,
-              product: ExamProductAsset.fromId(r.product),
-              takenAt: r.takenAt,
-              readingScore: r.readingScore,
-              listeningScore: r.listeningScore,
-              writingScore: r.writingScore,
-              speakingScore: r.speakingScore,
-              totalScore: r.totalScore,
-              passed: r.passed,
-              details: r.details != null
-                  ? jsonDecode(r.details!) as Map<String, dynamic>
-                  : null,
-            ),)
+        .map(
+          (r) => entity.ExamResult(
+            id: r.id,
+            level: r.level == 'a2' ? ExamLevel.a2 : ExamLevel.a1,
+            product: ExamProductAsset.fromId(r.product),
+            takenAt: r.takenAt,
+            readingScore: r.readingScore,
+            listeningScore: r.listeningScore,
+            writingScore: r.writingScore,
+            speakingScore: r.speakingScore,
+            totalScore: r.totalScore,
+            passed: r.passed,
+            details:
+                r.details != null
+                    ? jsonDecode(r.details!) as Map<String, dynamic>
+                    : null,
+          ),
+        )
         .toList();
   }
 }
@@ -199,25 +233,23 @@ MockExam buildSampleExam(
 
   final readingQuestions = [
     {
-      'passage': isA1
-          ? 'Ahoj, jmenuji se Petra. Bydlím v Praze. Ráda čtu knihy a poslouchám hudbu. Každé ráno piju kávu a jím rohlík.'
-          : 'Dobrý den, jmenuji se Tomáš a pracuji v bance v centru Prahy. Každý den vstávám v šest hodin a jedu metrem do práce. V práci jsem od osmi do čtyř hodin odpoledne.',
-      'prompt': isA1
-          ? 'What does Petra do every morning?'
-          : 'How does Tomáš get to work?',
-      'options': isA1
-          ? [
-              'Drinks coffee and eats bread',
-              'Goes to work by car',
-              'Reads books in the park',
-              'Listens to music',
-            ]
-          : [
-              'By metro',
-              'By car',
-              'By bus',
-              'On foot',
-            ],
+      'passage':
+          isA1
+              ? 'Ahoj, jmenuji se Petra. Bydlím v Praze. Ráda čtu knihy a poslouchám hudbu. Každé ráno piju kávu a jím rohlík.'
+              : 'Dobrý den, jmenuji se Tomáš a pracuji v bance v centru Prahy. Každý den vstávám v šest hodin a jedu metrem do práce. V práci jsem od osmi do čtyř hodin odpoledne.',
+      'prompt':
+          isA1
+              ? 'What does Petra do every morning?'
+              : 'How does Tomáš get to work?',
+      'options':
+          isA1
+              ? [
+                'Drinks coffee and eats bread',
+                'Goes to work by car',
+                'Reads books in the park',
+                'Listens to music',
+              ]
+              : ['By metro', 'By car', 'By bus', 'On foot'],
       'correct_answer': 0,
       'points': 12,
     },
@@ -252,18 +284,20 @@ MockExam buildSampleExam(
   ];
 
   final writingQuestion = {
-    'prompt': isA1
-        ? 'Write about yourself: your name, where you live, and what you like to do. (30+ words)'
-        : 'Write about your typical day: when you wake up, what you do at work/school, and your evening routine. (50+ words)',
+    'prompt':
+        isA1
+            ? 'Write about yourself: your name, where you live, and what you like to do. (30+ words)'
+            : 'Write about your typical day: when you wake up, what you do at work/school, and your evening routine. (50+ words)',
     'min_words': isA1 ? 30 : 50,
     'points': 20,
   };
 
   final speakingQuestion = {
     'prompt': 'Read the following Czech text aloud:',
-    'target_text': isA1
-        ? 'Ahoj, jmenuji se Student. Bydlím v Praze a učím se česky.'
-        : 'Dobrý den, pracuji v kanceláři a každý den dojíždím metrem. Ve volném čase rád čtu a cestuji.',
+    'target_text':
+        isA1
+            ? 'Ahoj, jmenuji se Student. Bydlím v Praze a učím se česky.'
+            : 'Dobrý den, pracuji v kanceláři a každý den dojíždím metrem. Ve volném čase rád čtu a cestuji.',
     'points': 40,
   };
 

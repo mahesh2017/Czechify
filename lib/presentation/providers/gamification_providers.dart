@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/feedback/celebration.dart';
 import '../../data/database/daos/gamification_dao.dart';
 import '../../domain/entities/gamification_state.dart';
 import '../../domain/engines/gamification_engine.dart';
@@ -269,12 +270,40 @@ class GamificationNotifier extends Notifier<GamificationState> {
     );
   }
 
-  /// Reconciles in-memory state after progress and XP commit together.
-  Future<void> refreshAfterCommittedLesson() async {
+  /// Reconciles in-memory state after progress and XP commit together, and
+  /// reports back anything the learner just earned.
+  ///
+  /// Returning these rather than announcing them here is deliberate: the
+  /// caller knows the narrative order. Badges were being written to the
+  /// database and never mentioned, so a learner earning "Week Warrior" found
+  /// out only if they happened to open the Stats screen.
+  Future<List<Celebration>> refreshAfterCommittedLesson() async {
     await _ensureReady();
     await _loadState();
-    await _maybeIncrementStreak();
-    await checkProgressBadges();
+    final streakAdvanced = await _maybeIncrementStreak();
+    final badges = await checkProgressBadges();
+
+    final rewards = <Celebration>[
+      for (final badge in badges)
+        BadgeEarned(
+          badgeId: badge.id,
+          name: badge.name,
+          icon: badge.icon,
+          xpReward: badge.xpReward,
+        ),
+    ];
+
+    // A streak badge already says "seven days" in its own words; announcing
+    // the streak alongside it would congratulate the same thing twice.
+    final streakAlreadyCredited = badges.any(
+      (badge) => badge.criteria.minStreak != null,
+    );
+    if (streakAdvanced &&
+        !streakAlreadyCredited &&
+        StreakExtended.isMilestone(state.currentStreak)) {
+      rewards.add(StreakExtended(days: state.currentStreak));
+    }
+    return rewards;
   }
 
   /// Called when a lesson is completed.
@@ -372,7 +401,9 @@ class GamificationNotifier extends Notifier<GamificationState> {
 
   /// Evaluate all badge criteria against current progress and award
   /// anything newly earned. Called after lessons, reviews, and exams.
-  Future<void> checkProgressBadges() async {
+  ///
+  /// Returns the badges awarded by this call, so the caller can show them.
+  Future<List<Badge>> checkProgressBadges() async {
     await _ensureReady();
     try {
       final progressRepo = ref.read(progressRepositoryProvider);
@@ -386,11 +417,18 @@ class GamificationNotifier extends Notifier<GamificationState> {
         customValues: dbSnapshot.customValues,
       );
 
+      final awarded = <Badge>[];
       for (final badge in _engine.checkBadges(snapshot)) {
+        // awardBadge is a no-op for one already held, so this stays accurate
+        // even if two paths evaluate badges at the same moment.
+        if (state.earnedBadges.contains(badge.id)) continue;
         await awardBadge(badge.id, badge.xpReward);
+        awarded.add(badge);
       }
+      return awarded;
     } catch (_) {
       // Badge evaluation must never break the learning flow.
+      return const [];
     }
   }
 

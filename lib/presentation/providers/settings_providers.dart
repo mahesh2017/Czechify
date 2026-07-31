@@ -6,8 +6,43 @@ import '../../domain/entities/enums.dart';
 /// Theme mode enum.
 enum AppThemeMode { system, light, dark }
 
+/// Languages the interface itself is offered in.
+///
+/// Deliberately not every locale we have strings for. Czech is the subject
+/// of the course, not a language the audience can be assumed to read — a
+/// Czech interface would leave a beginner unable to find their way back out
+/// of Settings. `app_cs.arb` and its generated delegate stay in the tree for
+/// whenever that changes; adding a locale here is all it takes to offer it.
+const List<Locale> kInterfaceLocales = <Locale>[Locale('en')];
+
 /// The bundled Azure neural voice used for curriculum audio.
 enum TtsVoiceGender { female, male }
+
+/// The two teachers, as the design names them.
+///
+/// A learner picks *Lenka* or *Pavel*, not "female" or "male" — the voice's
+/// gender is a detail about the teacher, not their identity. Kept here rather
+/// than inline at each picker because the name had already drifted: settings
+/// and onboarding said "Female"/"Male", the lesson player said "Lenka", and
+/// the onboarding summary said "Matěj".
+extension CzechTutor on TtsVoiceGender {
+  /// What we call this teacher everywhere in the interface.
+  String get tutorName => switch (this) {
+    TtsVoiceGender.female => 'Lenka',
+    TtsVoiceGender.male => 'Pavel',
+  };
+
+  /// How they sound — the secondary line under the name on the picker cards.
+  ///
+  /// No city: the comp said "Prague" and "Brno", but both are Azure standard
+  /// Czech neural voices (cs-CZ-VlastaNeural and cs-CZ-AntoninNeural), so
+  /// neither carries a regional accent and "Brno" was a claim the audio does
+  /// not back up.
+  String get tutorTagline => switch (this) {
+    TtsVoiceGender.female => 'Warm and clear',
+    TtsVoiceGender.male => 'Slower and lower',
+  };
+}
 
 /// App-wide settings state.
 class AppSettings {
@@ -26,6 +61,20 @@ class AppSettings {
   /// the user hasn't provided it yet.
   final String learnerName;
 
+  /// Sound effects for answers and completions. Separate from the Czech
+  /// audio, which is course content and stays on regardless — someone who
+  /// wants a quiet app still needs to hear the language.
+  final bool soundEffectsEnabled;
+
+  /// Haptic feedback on answers and completions.
+  final bool hapticsEnabled;
+
+  /// Language of the app's own interface, constrained to
+  /// [kInterfaceLocales]. Null follows the device locale. Distinct from the
+  /// language being learned, which is always Czech.
+  final Locale? locale;
+  final bool curriculumMapView;
+
   const AppSettings({
     this.themeMode = AppThemeMode.system,
     this.dailyGoalXp = 50,
@@ -34,6 +83,10 @@ class AppSettings {
     this.startingLevel = CEFRLevel.preA1,
     this.heartsEnabled = true,
     this.learnerName = '',
+    this.soundEffectsEnabled = true,
+    this.hapticsEnabled = true,
+    this.locale,
+    this.curriculumMapView = true,
   });
 
   AppSettings copyWith({
@@ -44,6 +97,11 @@ class AppSettings {
     CEFRLevel? startingLevel,
     bool? heartsEnabled,
     String? learnerName,
+    bool? soundEffectsEnabled,
+    bool? hapticsEnabled,
+    Locale? locale,
+    bool clearLocale = false,
+    bool? curriculumMapView,
   }) {
     return AppSettings(
       themeMode: themeMode ?? this.themeMode,
@@ -53,6 +111,12 @@ class AppSettings {
       startingLevel: startingLevel ?? this.startingLevel,
       heartsEnabled: heartsEnabled ?? this.heartsEnabled,
       learnerName: learnerName ?? this.learnerName,
+      soundEffectsEnabled: soundEffectsEnabled ?? this.soundEffectsEnabled,
+      hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
+      // copyWith cannot express "back to null" through a nullable argument,
+      // and "follow the device" is a real choice the user can pick.
+      locale: clearLocale ? null : (locale ?? this.locale),
+      curriculumMapView: curriculumMapView ?? this.curriculumMapView,
     );
   }
 }
@@ -67,6 +131,10 @@ class SettingsNotifier extends Notifier<AppSettings> {
   static const _kStartingLevel = 'settings_starting_level';
   static const _kHeartsEnabled = 'settings_hearts_enabled';
   static const _kLearnerName = 'settings_learner_name';
+  static const _kSoundEffects = 'settings_sound_effects_enabled';
+  static const _kHaptics = 'settings_haptics_enabled';
+  static const _kLocale = 'settings_locale';
+  static const _kCurriculumMapView = 'settings_curriculum_map_view';
 
   @override
   AppSettings build() {
@@ -102,7 +170,50 @@ class SettingsNotifier extends Notifier<AppSettings> {
           CEFRLevel.values[levelIdx.clamp(0, CEFRLevel.values.length - 1)],
       heartsEnabled: prefs.getBool(_kHeartsEnabled) ?? true,
       learnerName: prefs.getString(_kLearnerName) ?? '',
+      soundEffectsEnabled: prefs.getBool(_kSoundEffects) ?? true,
+      hapticsEnabled: prefs.getBool(_kHaptics) ?? true,
+      // A preference for a language we no longer offer falls back to
+      // "follow the device" rather than stranding the learner in it.
+      locale: switch (prefs.getString(_kLocale)) {
+        final String tag
+            when tag.isNotEmpty &&
+                kInterfaceLocales.any((l) => l.languageCode == tag) =>
+          Locale(tag),
+        _ => null,
+      },
+      curriculumMapView: prefs.getBool(_kCurriculumMapView) ?? true,
     );
+  }
+
+  Future<void> setCurriculumMapView(bool mapView) async {
+    state = state.copyWith(curriculumMapView: mapView);
+    final prefs = await _prefs();
+    await prefs.setBool(_kCurriculumMapView, mapView);
+  }
+
+  /// Set the interface language. Null restores "follow the device".
+  Future<void> setLocale(Locale? locale) async {
+    state = state.copyWith(locale: locale, clearLocale: locale == null);
+    final prefs = await _prefs();
+    if (locale == null) {
+      await prefs.remove(_kLocale);
+    } else {
+      await prefs.setString(_kLocale, locale.languageCode);
+    }
+  }
+
+  /// Toggle answer and completion sound effects.
+  Future<void> setSoundEffectsEnabled(bool enabled) async {
+    state = state.copyWith(soundEffectsEnabled: enabled);
+    final prefs = await _prefs();
+    await prefs.setBool(_kSoundEffects, enabled);
+  }
+
+  /// Toggle haptic feedback.
+  Future<void> setHapticsEnabled(bool enabled) async {
+    state = state.copyWith(hapticsEnabled: enabled);
+    final prefs = await _prefs();
+    await prefs.setBool(_kHaptics, enabled);
   }
 
   /// Toggle hearts in lessons (off = practice mode, no heart loss).

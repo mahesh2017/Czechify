@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
 /// Fill-in-the-blank exercise view.
@@ -25,6 +28,13 @@ class _FillBlankViewState extends State<FillBlankView> {
   static final _blankPattern = RegExp(r'_+');
 
   final Map<int, TextEditingController> _controllers = {};
+  final Map<int, FocusNode> _focusNodes = {};
+
+  /// Which blank the Czech letter bar should type into. The bar sits outside
+  /// the fields, so tapping it would otherwise steal focus and leave the
+  /// character with nowhere to go.
+  int _activeBlank = 0;
+
   bool answered = false;
   bool? isCorrect;
 
@@ -32,6 +42,9 @@ class _FillBlankViewState extends State<FillBlankView> {
   void dispose() {
     for (final c in _controllers.values) {
       c.dispose();
+    }
+    for (final n in _focusNodes.values) {
+      n.dispose();
     }
     super.dispose();
   }
@@ -41,16 +54,30 @@ class _FillBlankViewState extends State<FillBlankView> {
     return _controllers.putIfAbsent(blankIdx, () => TextEditingController());
   }
 
+  FocusNode _focusFor(int blankIdx) {
+    return _focusNodes.putIfAbsent(blankIdx, () {
+      final node = FocusNode();
+      node.addListener(() {
+        if (node.hasFocus && _activeBlank != blankIdx) {
+          setState(() => _activeBlank = blankIdx);
+        }
+      });
+      return node;
+    });
+  }
+
   void _checkAnswer() {
     final data = widget.exercise.data;
-    final accepted = (data['blank_answers'] as List<dynamic>)
-        .map((answers) => (answers as List<dynamic>).cast<String>())
-        .toList();
+    final accepted =
+        (data['blank_answers'] as List<dynamic>)
+            .map((answers) => (answers as List<dynamic>).cast<String>())
+            .toList();
 
     final blankIndices = _controllers.keys.toList()..sort();
-    final userParts = blankIndices
-        .map((idx) => normalizeAnswer(_controllers[idx]!.text))
-        .toList();
+    final userParts =
+        blankIndices
+            .map((idx) => normalizeAnswer(_controllers[idx]!.text))
+            .toList();
 
     final correct =
         accepted.length == userParts.length &&
@@ -105,11 +132,19 @@ class _FillBlankViewState extends State<FillBlankView> {
     // its own block, which pushed everything after a blank onto a separate
     // "paragraph" line. One Text per word keeps the sentence flowing inline
     // around the input boxes.
+    final t = context.tokens;
     final children = <Widget>[];
-    final wordStyle = Theme.of(context).textTheme.bodyLarge;
+    final wordStyle = TextStyle(
+      fontSize: 19,
+      fontWeight: FontWeight.w600,
+      height: 1.4,
+      color: t.ink,
+    );
     for (var i = 0; i < parts.length; i++) {
       final isBlankPrefix =
-          i < parts.length - 1 && !parts[i].endsWith(' ') && parts[i].isNotEmpty;
+          i < parts.length - 1 &&
+          !parts[i].endsWith(' ') &&
+          parts[i].isNotEmpty;
       final isBlankSuffix = i > 0 && !parts[i].startsWith(' ');
       final words = parts[i].trim().split(RegExp(r'\s+'))
         ..removeWhere((w) => w.isEmpty);
@@ -118,61 +153,113 @@ class _FillBlankViewState extends State<FillBlankView> {
         // no trailing gap before, no leading gap after.
         final gluedToNextBlank = isBlankPrefix && w == words.length - 1;
         final gluedToPrevBlank = isBlankSuffix && w == 0;
-        children.add(Padding(
-          padding: EdgeInsets.only(
-            left: gluedToPrevBlank ? 0 : 3,
-            right: gluedToNextBlank ? 0 : 3,
+        children.add(
+          Padding(
+            padding: EdgeInsets.only(
+              left: gluedToPrevBlank ? 0 : 3,
+              right: gluedToNextBlank ? 0 : 3,
+            ),
+            child: Text(words[w], style: wordStyle),
           ),
-          child: Text(words[w], style: wordStyle),
-        ),);
+        );
       }
       if (i < parts.length - 1) {
-        children.add(SizedBox(
-          width: _blankWidth(data, i),
-          child: TextField(
-            controller: _controllerFor(i),
-            enabled: !answered,
-            textAlign: TextAlign.center,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              isDense: true,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 8,
+        // The blank is a filled slot with a ruled underline, so it reads as a
+        // gap in the sentence rather than as a form field dropped into prose.
+        children.add(
+          SizedBox(
+            width: _blankWidth(data, i),
+            child: TextField(
+              controller: _controllerFor(i),
+              focusNode: _focusFor(i),
+              enabled: !answered,
+              textAlign: TextAlign.center,
+              cursorColor: t.pri,
+              decoration: InputDecoration(
+                isDense: true,
+                filled: true,
+                fillColor: t.elev,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 10,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: t.line),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: t.line),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: t.pri, width: 1.5),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: switch (isCorrect) {
+                      true => t.green,
+                      false => t.red,
+                      null => t.line,
+                    },
+                    width: 1.5,
+                  ),
+                ),
               ),
+              style: TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.w700,
+                color: switch (isCorrect) {
+                  true => t.greenInk,
+                  false => t.redInk,
+                  null => t.ink,
+                },
+              ),
+              onSubmitted: answered ? null : (_) => _checkAnswer(),
             ),
-            style: TextStyle(
-              color: isCorrect == false ? Colors.red : null,
-              fontWeight: FontWeight.bold,
-            ),
-            onSubmitted: answered ? null : (_) => _checkAnswer(),
           ),
-        ),);
+        );
       }
     }
 
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            widget.exercise.prompt,
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
+          QuestionPrompt(question: widget.exercise.prompt),
+          const SizedBox(height: 20),
 
-          // Sentence with one inline input per blank
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            runSpacing: 8,
-            children: children,
+          // The sentence, with one inline input per blank.
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: t.card,
+              border: Border.all(color: t.line),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: t.shadow,
+            ),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              runSpacing: 10,
+              children: children,
+            ),
           ),
-          const SizedBox(height: 24),
-
-          if (!answered)
-            FilledButton(onPressed: _checkAnswer, child: const Text('Check')),
+          const SizedBox(height: 14),
+          if (!answered) ...[
+            // Types into whichever blank was last focused.
+            CzechCharBar(
+              controller: _controllerFor(_activeBlank),
+              enabled: !answered,
+            ),
+            const SizedBox(height: 18),
+            KeyCta(
+              label: AppLocalizations.of(context).check,
+              onPressed: _checkAnswer,
+            ),
+          ],
         ],
       ),
     );

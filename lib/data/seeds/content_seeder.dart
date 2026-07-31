@@ -36,6 +36,13 @@ class ContentSeeder {
     return null;
   }
 
+  /// Bumped whenever the bundled curriculum content changes (a new lesson,
+  /// edited text, a fixed example). Existing installs re-seed when the revision
+  /// they last installed differs from this — because [hasUsableLocalContent]
+  /// only checks counts and would otherwise never notice an *edit* that keeps
+  /// the counts the same (e.g. renaming a persona in an existing lesson).
+  static const int bundledContentRevision = 9;
+
   ContentSeeder(this._db, this._source);
 
   /// Whether the local database contains the complete minimum course shape.
@@ -62,6 +69,15 @@ class ContentSeeder {
     if (await hasUsableLocalContent()) return;
     await _source.loadBundled(requiredPackPaths);
     await _installCurrentSnapshot('bundled');
+  }
+
+  /// Force-replace the local snapshot with the bundled content, even when
+  /// [hasUsableLocalContent] already looks complete. Used when the shipped
+  /// content revision advances so edits (not just additions) reach existing
+  /// installs. Learner progress lives in separate tables and is preserved.
+  Future<void> reinstallBundledContent() async {
+    await _source.loadBundled(requiredPackPaths);
+    await _installCurrentSnapshot('bundled (revision update)');
   }
 
   /// Apply a complete remote snapshot. Call this after backend initialization;
@@ -356,6 +372,7 @@ class ContentSeeder {
   /// Shared list of all lesson asset file paths.
   static const _lessonFilePaths = <String>[
     // Unit 1: Sounds & Pronunciation
+    'assets/curriculum/lessons/unit01_lesson00.json',
     'assets/curriculum/lessons/unit01_lesson01.json',
     'assets/curriculum/lessons/unit01_lesson02.json',
     // Unit 2: Greetings & Introductions

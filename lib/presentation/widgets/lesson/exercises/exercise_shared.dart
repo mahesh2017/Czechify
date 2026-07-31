@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/text_normalizer.dart';
 import '../../../../domain/entities/exercise_outcome.dart';
@@ -10,8 +12,14 @@ import '../../../providers/tts_providers.dart';
 String normalizeAnswer(String s) => TextNormalizer.normalize(s);
 
 /// Translucent feedback tints that work on light and dark surfaces.
-final Color correctTint = Colors.green.withValues(alpha: 0.12);
-final Color wrongTint = Colors.red.withValues(alpha: 0.12);
+///
+/// Context-bound because the base hues come from [AppTokens] — the dark
+/// theme's green and red are lighter than the light theme's, so a fixed
+/// tint reads as mud on one of the two.
+Color correctTint(BuildContext context) =>
+    context.tokens.green.withValues(alpha: 0.12);
+Color wrongTint(BuildContext context) =>
+    context.tokens.red.withValues(alpha: 0.12);
 
 /// How closely a typed answer matched: exact, accents-only difference,
 /// or wrong.
@@ -38,10 +46,15 @@ class CzechCharBar extends StatelessWidget {
   final TextEditingController controller;
   final bool enabled;
 
+  /// Labelled by default, because an unlabelled strip of accented letters
+  /// under a text field does not explain itself.
+  final bool showLabel;
+
   const CzechCharBar({
     super.key,
     required this.controller,
     this.enabled = true,
+    this.showLabel = true,
   });
 
   void _insert(String ch) {
@@ -60,25 +73,136 @@ class CzechCharBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: TextNormalizer.czechDiacriticChars.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 4),
-        itemBuilder: (context, i) {
-          final ch = TextNormalizer.czechDiacriticChars[i];
-          return OutlinedButton(
-            onPressed: enabled ? () => _insert(ch) : null,
-            style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.zero,
-              minimumSize: const Size(36, 36),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: Text(ch, style: const TextStyle(fontSize: 16)),
-          );
-        },
+    final t = context.tokens;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8, 10, 8, 12),
+      decoration: BoxDecoration(
+        color: t.elev,
+        border: Border.all(color: t.line),
+        borderRadius: BorderRadius.circular(24),
       ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (showLabel) ...[
+            Padding(
+              padding: const EdgeInsets.only(left: 6, bottom: 7),
+              child: Text(
+                (Localizations.of<AppLocalizations>(
+                          context,
+                          AppLocalizations,
+                        )?.czechLetters ??
+                        'Czech letters')
+                    .toUpperCase(),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.8,
+                  color: t.faint,
+                ),
+              ),
+            ),
+          ],
+          SizedBox(
+            // 46pt keys: the target is the drawn size here, so it has to
+            // clear the minimum on its own.
+            height: 46,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              itemCount: TextNormalizer.czechDiacriticChars.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 5),
+              itemBuilder: (context, i) {
+                final ch = TextNormalizer.czechDiacriticChars[i];
+                return Semantics(
+                  button: enabled,
+                  label: AppLocalizations.of(context).a11yInsertCharacter(ch),
+                  excludeSemantics: true,
+                  child: Material(
+                    color: enabled ? t.priSoft : t.card,
+                    borderRadius: BorderRadius.circular(12),
+                    child: InkWell(
+                      onTap: enabled ? () => _insert(ch) : null,
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        width: 40,
+                        height: 46,
+                        child: Center(
+                          child: Text(
+                            ch,
+                            style: TextStyle(
+                              fontFamily: AppFonts.display,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w700,
+                              color: enabled ? t.pri : t.faint,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The question at the top of an exercise: the task in display face, with the
+/// Czech being asked about underneath and a speaker for it.
+///
+/// Left-aligned rather than centred — a centred sentence that wraps to three
+/// lines is harder to re-read, and every exercise type shares this shape.
+class QuestionPrompt extends StatelessWidget {
+  const QuestionPrompt({super.key, required this.question, this.czech});
+
+  final String question;
+
+  /// The Czech under test, if the question is about a specific string.
+  final String? czech;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          question,
+          style: TextStyle(
+            fontFamily: AppFonts.display,
+            fontSize: 27,
+            fontWeight: FontWeight.w700,
+            height: 1.2,
+            letterSpacing: -0.6,
+            color: t.ink,
+          ),
+        ),
+        if (czech != null && czech!.trim().isNotEmpty) ...[
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  czech!,
+                  style: TextStyle(
+                    fontFamily: AppFonts.display,
+                    fontSize: 21,
+                    fontWeight: FontWeight.w800,
+                    height: 1.25,
+                    color: t.pri,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 4),
+              TtsButton(text: czech!, size: 22),
+            ],
+          ),
+        ],
+      ],
     );
   }
 }
@@ -135,7 +259,17 @@ class TtsButton extends ConsumerWidget {
       },
       icon: Icon(Icons.volume_up, size: size),
       color: color ?? Theme.of(context).colorScheme.primary,
-      tooltip: 'Listen',
+      // Nullable lookup, not AppLocalizations.of(context), which asserts a
+      // Localizations ancestor. This is a leaf primitive dropped into bare
+      // widget tests and previews; requiring the full app scope to render an
+      // audio button is coupling it does not need. The app always supplies
+      // the delegates, so the fallback is only ever seen out of app context.
+      tooltip:
+          Localizations.of<AppLocalizations>(
+            context,
+            AppLocalizations,
+          )?.listen ??
+          'Listen',
     );
   }
 }

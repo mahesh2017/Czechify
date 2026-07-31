@@ -8,27 +8,31 @@ void main() {
   final now = DateTime(2026, 7, 18);
 
   ReviewCard newCard(int id, {int? unitId, int? lessonId}) => ReviewCard(
-        flashcard: Flashcard(
-          id: id,
-          wordCz: 'cz$id',
-          wordEn: 'en$id',
-          unitId: unitId,
-          lessonId: lessonId,
-        ),
-        srs: SrsCard(id: '$id', cardType: CardType.vocabulary, due: now),
-      );
+    flashcard: Flashcard(
+      id: id,
+      wordCz: 'cz$id',
+      wordEn: 'en$id',
+      unitId: unitId,
+      lessonId: lessonId,
+    ),
+    srs: SrsCard(id: '$id', cardType: CardType.vocabulary, due: now),
+  );
 
   ReviewCard reviewCard(int id, {int? unitId}) => ReviewCard(
-        flashcard: Flashcard(
-            id: id, wordCz: 'cz$id', wordEn: 'en$id', unitId: unitId,),
-        srs: SrsCard(
-          id: '$id',
-          cardType: CardType.vocabulary,
-          due: now,
-          reps: 3,
-          state: CardState.review,
-        ),
-      );
+    flashcard: Flashcard(
+      id: id,
+      wordCz: 'cz$id',
+      wordEn: 'en$id',
+      unitId: unitId,
+    ),
+    srs: SrsCard(
+      id: '$id',
+      cardType: CardType.vocabulary,
+      due: now,
+      reps: 3,
+      state: CardState.review,
+    ),
+  );
 
   group('planReviewSession', () {
     test('new cards for locked units are excluded', () {

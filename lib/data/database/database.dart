@@ -15,6 +15,7 @@ import 'tables/grammar_rules.dart';
 import 'tables/exam_results.dart';
 import 'tables/user_progress.dart';
 import 'tables/earned_badges.dart';
+import 'tables/consent_records.dart';
 import 'tables/lesson_progress.dart';
 import 'tables/sync_queue.dart';
 import 'tables/gamification_state.dart';
@@ -50,6 +51,7 @@ part 'database.g.dart';
     ExamResults,
     UserProgress,
     EarnedBadges,
+    ConsentRecords,
     LessonProgress,
     SyncQueue,
     SyncState,
@@ -80,7 +82,10 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 18;
+  /// Version 1 — squashed from 19 incremental migrations into a single
+  /// `onCreate` that creates the full schema.  Safe because no public build
+  /// exists in the wild; every install is a fresh `onCreate`.
+  int get schemaVersion => 1;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -125,6 +130,10 @@ class AppDatabase extends _$AppDatabase {
         (await select(srsCards).get()).map((row) => row.toJson()).toList(),
     'exam_results':
         (await select(examResults).get()).map((row) => row.toJson()).toList(),
+    'consent_records':
+        (await select(consentRecords).get())
+            .map((row) => row.toJson())
+            .toList(),
     'conversations':
         (await select(conversations).get()).map((row) => row.toJson()).toList(),
     'chat_messages':
@@ -152,6 +161,7 @@ class AppDatabase extends _$AppDatabase {
     await delete(chatMessages).go();
     await delete(conversations).go();
     await delete(examResults).go();
+    await delete(consentRecords).go();
     await delete(lessonAttempts).go();
     await delete(rewardLedger).go();
     await delete(exerciseAttempts).go();
@@ -204,122 +214,9 @@ class AppDatabase extends _$AppDatabase {
       await _createContentReleaseStateIndexes();
     },
     onUpgrade: (m, from, to) async {
-      // v2: per-lesson gating — flashcards learn which lesson taught
-      // them. The seeder backfills values from the content pack on the
-      // next launch, so the column just needs to exist.
-      if (from < 2) {
-        await m.addColumn(flashcards, flashcards.lessonId);
-      }
-      // v3: sync outbox for offline-first backend sync.
-      if (from < 3) {
-        await m.createTable(syncQueue);
-      }
-      // v4: local-only sync bookkeeping (pull cursors).
-      if (from < 4) {
-        await m.createTable(syncState);
-      }
-      // v5: bounded outbox retry and dead-letter diagnostics.
-      if (from >= 3 && from < 5) {
-        await m.addColumn(syncQueue, syncQueue.nextAttemptAt);
-        await m.addColumn(syncQueue, syncQueue.deadLetteredAt);
-        await m.addColumn(syncQueue, syncQueue.lastError);
-      }
-      // v6: gamification state moved from SharedPreferences to Drift for
-      // transactional integrity and future cross-device sync.
-      if (from < 6) {
-        await m.createTable(gamificationStateTable);
-      }
-      // v7: immutable, caller-keyed lesson attempt evidence.
-      if (from < 7) {
-        await m.createTable(lessonAttempts);
-      }
-      // v8: append-only, deterministic activity rewards.
-      if (from < 8) {
-        await m.createTable(rewardLedger);
-      }
-      // v9: immutable per-presentation exercise evidence.
-      if (from < 9) {
-        await m.createTable(exerciseAttempts);
-      }
-      // v10: one scheduling row per vocabulary card or grammar pattern.
-      if (from < 10) {
-        await customStatement('''
-          DELETE FROM srs_cards
-          WHERE card_type = 'vocabulary'
-            AND flashcard_id IS NOT NULL
-            AND id NOT IN (
-              SELECT MAX(id) FROM srs_cards
-              WHERE card_type = 'vocabulary' AND flashcard_id IS NOT NULL
-              GROUP BY flashcard_id
-            )
-        ''');
-        await customStatement('''
-          DELETE FROM srs_cards
-          WHERE card_type = 'grammar'
-            AND grammar_pattern_key IS NOT NULL
-            AND id NOT IN (
-              SELECT MAX(id) FROM srs_cards
-              WHERE card_type = 'grammar'
-                AND grammar_pattern_key IS NOT NULL
-              GROUP BY grammar_pattern_key
-            )
-        ''');
-        await _createSrsNaturalKeyIndexes();
-      }
-      // v11: immutable, idempotent committed review evidence.
-      if (from < 11) {
-        await m.createTable(reviewAttempts);
-      }
-      // v12: verified active/previous content releases for offline rollback.
-      if (from < 12) {
-        await m.createTable(contentReleaseInstallations);
-        await m.createTable(contentReleasePacks);
-        await _createContentReleaseStateIndexes();
-      }
-      // v13: reversible retirement for release-managed curriculum rows.
-      if (from < 13) {
-        await m.addColumn(units, units.isActive);
-        await m.addColumn(lessons, lessons.isActive);
-        await m.addColumn(exercises, exercises.isActive);
-        await m.addColumn(flashcards, flashcards.isActive);
-        await m.addColumn(grammarRules, grammarRules.isActive);
-      }
-      // v14: durable, support-aware learning evidence and provisional
-      // placement. These are local-first learner records, not curriculum.
-      if (from < 14) {
-        await m.createTable(learningEvidenceEvents);
-        await m.createTable(placementProfiles);
-      }
-      // v15: restart-safe seven-day transfer work generated from independent
-      // first-pass errors.
-      if (from < 15) {
-        await m.createTable(delayedTransferAssignments);
-      }
-      // v16: canonical lexical identity and provenance. Existing bundled
-      // rows are backfilled by the content seeder on the same launch.
-      if (from < 16) {
-        await m.addColumn(flashcards, flashcards.lemma);
-        await m.addColumn(flashcards, flashcards.senseKey);
-        await m.addColumn(flashcards, flashcards.partOfSpeech);
-        await m.addColumn(flashcards, flashcards.morphologyJson);
-        await m.addColumn(flashcards, flashcards.registerLabel);
-        await m.addColumn(flashcards, flashcards.pronunciationSource);
-      }
-      // v17: stable UUID identity for user-created cards, so two devices'
-      // manual cards cannot collide on the same sync content_key. Existing
-      // manual cards (local id >= 900000, no unit) are backfilled with a UUID.
-      if (from < 17) {
-        await m.addColumn(flashcards, flashcards.contentUid);
-        await customStatement('''
-          UPDATE flashcards SET content_uid = lower(hex(randomblob(16)))
-          WHERE content_uid IS NULL AND id >= 900000
-        ''');
-      }
-      // v18: exam results are labeled by official product. Existing rows
-      // default to permanent-residence via the column default.
-      if (from < 18) {
-        await m.addColumn(examResults, examResults.product);
-      }
+      // No-op: schema is squashed to v1. All table definitions are current
+      // in the Drift classes, so onCreate's m.createAll() produces the full
+      // schema. No incremental migration steps are needed.
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');

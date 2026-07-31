@@ -6,9 +6,21 @@
 // per-user daily cap, all enforced server-side before OpenAI is called.
 
 import { createClient } from "npm:@supabase/supabase-js@2.110.7";
+import {
+  corsHeaders,
+  type CorsPolicy,
+  parseAllowedOrigins,
+  preflightResponse,
+} from "../_shared/cors.ts";
 import { isRecord, parseTranscriptionInput } from "./request_policy.ts";
 
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+
+const CORS: CorsPolicy = {
+  allowedOrigins: parseAllowedOrigins(Deno.env.get("ALLOWED_ORIGINS")),
+  allowedHeaders: "authorization, apikey, content-type, x-client-info",
+  allowedMethods: "POST, OPTIONS",
+};
 const MODEL = "whisper-1";
 const SERVICE = "whisper";
 
@@ -24,6 +36,18 @@ function boundedInteger(
 }
 
 Deno.serve(async (req: Request): Promise<Response> => {
+  const origin = req.headers.get("Origin");
+  if (req.method === "OPTIONS") {
+    return preflightResponse(origin, CORS);
+  }
+  // Shadows the module-level helper so no reply can forget the CORS headers.
+  const cors = corsHeaders(origin, CORS);
+  const json = (
+    data: unknown,
+    status: number,
+    headers: Record<string, string> = {},
+  ): Response => jsonWithHeaders(data, status, { ...cors, ...headers });
+
   if (req.method !== "POST") {
     return json({ error: "Method not allowed" }, 405);
   }
@@ -52,9 +76,37 @@ Deno.serve(async (req: Request): Promise<Response> => {
     return json({ error: "Invalid or expired session" }, 401);
   }
 
+  // Parse and validate the request body BEFORE consuming quota — malformed
+  // JSON, empty audio, or an invalid language code must never waste the
+  // learner's daily allowance.
+  let input;
+  try {
+    input = parseTranscriptionInput(await req.json());
+  } catch (_) {
+    return json({ error: "Invalid JSON request body" }, 400);
+  }
+  if (!input) {
+    return json({ error: "Invalid transcription request" }, 400);
+  }
+
+  // Decode base64 audio and validate it is non-empty before touching quota.
+  let audioBytes: Uint8Array;
+  try {
+    audioBytes = Uint8Array.from(
+      atob(input.audioBase64),
+      (c) => c.charCodeAt(0),
+    );
+  } catch (_) {
+    return json({ error: "Invalid audio encoding" }, 400);
+  }
+  if (audioBytes.length === 0) {
+    return json({ error: "Audio recording is empty" }, 400);
+  }
+
+  // --- Quota checks (only after the request is proven valid) ---
   const userBurstLimit = boundedInteger(
     Deno.env.get("SPEECH_USER_REQUESTS_PER_MINUTE"),
-    6,
+    30,
     1,
     100,
   );
@@ -111,20 +163,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 
   try {
-    const input = parseTranscriptionInput(await req.json());
-    if (!input) {
-      return json({ error: "Invalid transcription request" }, 400);
-    }
-
-    // Decode base64 audio to bytes
-    const audioBytes = Uint8Array.from(
-      atob(input.audioBase64),
-      (c) => c.charCodeAt(0),
-    );
-
     // Build multipart form data for OpenAI
     const formData = new FormData();
-    const blob = new Blob([audioBytes], { type: "audio/wav" });
+    const blob = new Blob([audioBytes as BlobPart], { type: "audio/wav" });
     formData.append("file", blob, "audio.wav");
     formData.append("model", MODEL);
     formData.append("language", input.language);
@@ -150,6 +191,16 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
 
     if (!response.ok) {
+      // Refund the daily quota — Whisper returned an error, so the learner's
+      // allowance should not be consumed for a failed call.
+      const { error: refundError } = await admin.rpc(
+        "refund_service_daily_quota",
+        {
+          p_service: SERVICE,
+          p_user_id: userData.user.id,
+        },
+      );
+      if (refundError) console.error("Quota refund failed", refundError.code);
       return json({
         error: `Whisper API error: ${response.status}`,
       }, 502);
@@ -225,7 +276,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 });
 
-function json(
+function jsonWithHeaders(
   data: unknown,
   status: number,
   headers: Record<string, string> = {},

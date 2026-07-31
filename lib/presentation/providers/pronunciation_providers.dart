@@ -108,11 +108,12 @@ class PronunciationNotifier extends Notifier<PronunciationState> {
 
   /// Set the expected text to practice.
   void setExpectedText(String text) {
-    if (text == state.expectedText &&
-        !state.isRecording &&
-        !state.isProcessing) {
-      return;
-    }
+    // Unconditional by design. This used to short-circuit when the text was
+    // unchanged, which left the previous attempt's score on screen for an
+    // exercise the learner had not yet spoken into — two consecutive exercises
+    // can share a target. Bumping the attempt id also orphans any capture
+    // still in flight, so its result is discarded rather than landing on the
+    // exercise that replaced it.
     _attemptSequence++;
     state = PronunciationState(expectedText: text, attemptId: _attemptSequence);
   }

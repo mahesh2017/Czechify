@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart' hide Badge;
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/gamification_providers.dart';
@@ -13,6 +14,7 @@ import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/unit.dart';
 import '../../../domain/entities/practice_evidence.dart';
 import '../../../domain/entities/concept_error_evidence.dart';
+import '../../widgets/common/wash_background.dart';
 
 /// Stats screen — dated course-practice evidence, badges, and engagement.
 class StatsScreen extends ConsumerWidget {
@@ -26,85 +28,101 @@ class StatsScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: t.bg,
-      body: SafeArea(
-        bottom: false,
-        child: dataAsync.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, _) => Center(child: Text('Failed to load: $err')),
-          data: (data) {
-            final snapshot = data.snapshot;
-            final tracker = CurriculumProgressTracker();
-
-            final a1UnitIds =
-                data.units
-                    .where((u) => u.phase == Phase.a1)
-                    .map((u) => u.id)
-                    .toSet();
-            final a2UnitIds =
-                data.units
-                    .where((u) => u.phase == Phase.a2)
-                    .map((u) => u.id)
-                    .toSet();
-
-            final a1Completion = tracker.phaseLessonCoverage(
-              completedLessonsByUnit: snapshot.completedLessonsByUnit,
-              totalLessonsByUnit: snapshot.totalLessonsByUnit,
-              phaseUnitIds: a1UnitIds,
-            );
-            final a2Completion = tracker.phaseLessonCoverage(
-              completedLessonsByUnit: snapshot.completedLessonsByUnit,
-              totalLessonsByUnit: snapshot.totalLessonsByUnit,
-              phaseUnitIds: a2UnitIds,
-            );
-
-            final startedA1 =
-                a1UnitIds
-                    .where(
-                      (id) => (snapshot.completedLessonsByUnit[id] ?? 0) > 0,
-                    )
-                    .toList()
-                  ..sort();
-            final startedA2 =
-                a2UnitIds
-                    .where(
-                      (id) => (snapshot.completedLessonsByUnit[id] ?? 0) > 0,
-                    )
-                    .toList()
-                  ..sort();
-
-            return ListView(
-              padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
-              children: [
-                const DisplayText('Your progress', size: 26),
-                const SizedBox(height: 16),
-                _PracticeEvidenceCard(
-                  a1Completion: a1Completion,
-                  updatedAt: snapshot.evidenceUpdatedAt,
+      body: WashBackground(
+        child: SafeArea(
+          bottom: false,
+          child: dataAsync.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error:
+                (_, __) => Center(
+                  child: Text(AppLocalizations.of(context).errorFailedToLoad),
                 ),
-                const SizedBox(height: 14),
-                _CompletionCard(
-                  a1Completion: a1Completion,
-                  a2Completion: a2Completion,
-                ),
-                const SizedBox(height: 14),
-                _StatsGrid(gamification: gamification),
-                const SizedBox(height: 14),
-                _UnitMasteryCard(
-                  unitScores: snapshot.unitScores,
-                  a1Units: startedA1,
-                  a2Units: startedA2,
-                ),
-                const SizedBox(height: 14),
-                _SkillEvidenceCard(evidence: snapshot.componentEvidence),
-                const SizedBox(height: 14),
-                _ConceptErrorsCard(evidence: snapshot.conceptErrors),
-                const SizedBox(height: 14),
-                const _ExamHistoryCard(),
-                const SizedBox(height: 14),
-                _BadgesCard(earnedBadges: gamification.earnedBadges),
-              ],
-            );
-          },
+            data: (data) {
+              final snapshot = data.snapshot;
+              final tracker = CurriculumProgressTracker();
+
+              final a1UnitIds =
+                  data.units
+                      .where((u) => u.phase == Phase.a1)
+                      .map((u) => u.id)
+                      .toSet();
+              final a2UnitIds =
+                  data.units
+                      .where((u) => u.phase == Phase.a2)
+                      .map((u) => u.id)
+                      .toSet();
+
+              final a1Completion = tracker.phaseLessonCoverage(
+                completedLessonsByUnit: snapshot.completedLessonsByUnit,
+                totalLessonsByUnit: snapshot.totalLessonsByUnit,
+                phaseUnitIds: a1UnitIds,
+              );
+              final a2Completion = tracker.phaseLessonCoverage(
+                completedLessonsByUnit: snapshot.completedLessonsByUnit,
+                totalLessonsByUnit: snapshot.totalLessonsByUnit,
+                phaseUnitIds: a2UnitIds,
+              );
+
+              final startedA1 =
+                  a1UnitIds
+                      .where(
+                        (id) => (snapshot.completedLessonsByUnit[id] ?? 0) > 0,
+                      )
+                      .toList()
+                    ..sort();
+              final startedA2 =
+                  a2UnitIds
+                      .where(
+                        (id) => (snapshot.completedLessonsByUnit[id] ?? 0) > 0,
+                      )
+                      .toList()
+                    ..sort();
+
+              return ListView(
+                // The shell deliberately extends content behind its 92pt
+                // translucent tab bar. Keep the final badge controls fully
+                // scrollable above it, including the iPhone home indicator.
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 132),
+                children: [
+                  DisplayText(
+                    AppLocalizations.of(context).statsTitle,
+                    size: 29,
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    AppLocalizations.of(context).statsSubtitle,
+                    style: TextStyle(fontSize: 14, color: t.muted, height: 1.5),
+                  ),
+                  const SizedBox(height: 16),
+                  _PracticeEvidenceCard(
+                    a1Completion: a1Completion,
+                    updatedAt: snapshot.evidenceUpdatedAt,
+                  ),
+                  const SizedBox(height: 14),
+                  _CompletionCard(
+                    a1Completion: a1Completion,
+                    a2Completion: a2Completion,
+                  ),
+                  const SizedBox(height: 14),
+                  _StatsGrid(gamification: gamification),
+                  const SizedBox(height: 14),
+                  _UnitMasteryCard(
+                    unitScores: snapshot.unitScores,
+                    a1Units: startedA1,
+                    a2Units: startedA2,
+                  ),
+                  const SizedBox(height: 14),
+                  _SkillEvidenceCard(evidence: snapshot.componentEvidence),
+                  const SizedBox(height: 14),
+                  _ConceptErrorsCard(evidence: snapshot.conceptErrors),
+                  const SizedBox(height: 14),
+                  const _ExamHistoryCard(),
+                  const SizedBox(height: 14),
+                  _BadgesCard(earnedBadges: gamification.earnedBadges),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -343,9 +361,36 @@ class _PracticeEvidenceCard extends StatelessWidget {
                 const SizedBox(height: 7),
                 Text(
                   '$pct% of required A1 lessons completed'
-                  '${updatedAt == null ? '' : ' · updated ${_date(updatedAt!)}'}.\n'
-                  'This is course activity, not a CEFR certification.',
+                  '${updatedAt == null ? '' : ' · updated ${_date(updatedAt!)}'}.',
                   style: TextStyle(fontSize: 15, color: t.muted, height: 1.45),
+                ),
+                const SizedBox(height: 7),
+                Tooltip(
+                  message: AppLocalizations.of(context).statsCourseActivityInfo,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(8, 5, 10, 5),
+                    decoration: BoxDecoration(
+                      color: t.elev,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.info_outline, size: 13, color: t.faint),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Text(
+                            AppLocalizations.of(context).statsAboutNumber,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: t.muted,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -445,25 +490,35 @@ class _StatsGrid extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
-      childAspectRatio: 2.5,
+      // 2.5 left the tile ~7pt shorter than its own content, so every tile
+      // overflowed and clipped its label.
+      childAspectRatio: 2.2,
       children: [
         _StatTile(
-          emoji: '🔥',
+          icon: Icons.local_fire_department_outlined,
+          tint: context.tokens.amberSoft,
+          foreground: context.tokens.amberInk,
           value: '${gamification.currentStreak}',
           label: 'Day streak',
         ),
         _StatTile(
-          emoji: '⭐',
+          icon: Icons.bolt_outlined,
+          tint: context.tokens.amberSoft,
+          foreground: context.tokens.amberInk,
           value: '${gamification.totalXp}',
           label: 'Total XP',
         ),
         _StatTile(
-          emoji: '🏆',
+          icon: Icons.calendar_month_outlined,
+          tint: context.tokens.priSoft,
+          foreground: context.tokens.priInk,
           value: '${gamification.longestStreak}',
           label: 'Longest streak',
         ),
         _StatTile(
-          emoji: '❤️',
+          icon: Icons.favorite_border,
+          tint: context.tokens.redSoft,
+          foreground: context.tokens.redInk,
           value: '${gamification.hearts}/${gamification.maxHearts}',
           label: 'Hearts',
         ),
@@ -473,12 +528,16 @@ class _StatsGrid extends StatelessWidget {
 }
 
 class _StatTile extends StatelessWidget {
-  final String emoji;
+  final IconData icon;
+  final Color tint;
+  final Color foreground;
   final String value;
   final String label;
 
   const _StatTile({
-    required this.emoji,
+    required this.icon,
+    required this.tint,
+    required this.foreground,
     required this.value,
     required this.label,
   });
@@ -490,25 +549,38 @@ class _StatTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
       child: Row(
         children: [
-          Text(emoji, style: const TextStyle(fontSize: 20)),
+          IconTile(
+            icon: icon,
+            tint: tint,
+            fg: foreground,
+            size: 36,
+            iconSize: 18,
+          ),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontFamily: AppFonts.display,
-                  fontSize: 21,
-                  height: 1,
-                  fontWeight: FontWeight.w700,
-                  color: t.ink,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontFamily: AppFonts.display,
+                    fontSize: 21,
+                    height: 1,
+                    fontWeight: FontWeight.w700,
+                    color: t.ink,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 7),
-              Text(label, style: TextStyle(fontSize: 15, color: t.muted)),
-            ],
+                const SizedBox(height: 5),
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 15, color: t.muted),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -524,7 +596,31 @@ class _ExamHistoryCard extends ConsumerWidget {
     final t = context.tokens;
     final results =
         ref.watch(_examHistoryProvider).value ?? const <ExamResult>[];
-    if (results.isEmpty) return const SizedBox.shrink();
+    if (results.isEmpty) {
+      return SoftCard(
+        padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SectionLabel('Exam history'),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Icon(Icons.assignment_outlined, size: 20, color: t.faint),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    'No mock exams yet. Try a practice exam from the '
+                    'curriculum to see your results here.',
+                    style: TextStyle(fontSize: 14, color: t.muted, height: 1.4),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
 
     return SoftCard(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 14),
@@ -698,6 +794,14 @@ class _BadgesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final earned =
+        Badge.all.where((badge) => earnedBadges.contains(badge.id)).toList();
+    final next =
+        Badge.all
+            .where((badge) => !earnedBadges.contains(badge.id))
+            .take(3)
+            .toList();
+    final visible = [...earned, ...next];
     return SoftCard(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
       child: Column(
@@ -707,7 +811,7 @@ class _BadgesCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const SectionLabel('Badges'),
+              SectionLabel(AppLocalizations.of(context).statsAchievements),
               Text(
                 '${earnedBadges.length} of ${Badge.all.length}',
                 style: TextStyle(
@@ -719,16 +823,40 @@ class _BadgesCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Wrap(
-            spacing: 14,
-            runSpacing: 14,
-            children:
-                Badge.all.map((badge) {
-                  return _BadgeTile(
-                    badge: badge,
-                    isEarned: earnedBadges.contains(badge.id),
-                  );
-                }).toList(),
+          if (earned.isEmpty) ...[
+            Text(
+              AppLocalizations.of(context).statsAchievementsEmpty,
+              style: TextStyle(fontSize: 14, color: t.muted, height: 1.4),
+            ),
+            const SizedBox(height: 14),
+          ],
+          // Tiles fill the row rather than sitting at a fixed 64pt, so longer
+          // names ("A1 Practice Milestone") wrap instead of ellipsing. The
+          // column count falls to three on narrow phones, where four tiles
+          // would each be thinner than the badge circle they contain.
+          LayoutBuilder(
+            builder: (context, constraints) {
+              const spacing = 14.0;
+              const minTile = 62.0;
+              final columns = ((constraints.maxWidth + spacing) /
+                      (minTile + spacing))
+                  .floor()
+                  .clamp(3, 5);
+              final tileWidth =
+                  (constraints.maxWidth - spacing * (columns - 1)) / columns;
+              return Wrap(
+                spacing: spacing,
+                runSpacing: 14,
+                children:
+                    visible.map((badge) {
+                      return _BadgeTile(
+                        badge: badge,
+                        isEarned: earnedBadges.contains(badge.id),
+                        width: tileWidth,
+                      );
+                    }).toList(),
+              );
+            },
           ),
         ],
       ),
@@ -739,8 +867,13 @@ class _BadgesCard extends StatelessWidget {
 class _BadgeTile extends StatelessWidget {
   final Badge badge;
   final bool isEarned;
+  final double width;
 
-  const _BadgeTile({required this.badge, required this.isEarned});
+  const _BadgeTile({
+    required this.badge,
+    required this.isEarned,
+    required this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -750,7 +883,7 @@ class _BadgeTile extends StatelessWidget {
       child: Opacity(
         opacity: isEarned ? 1.0 : 0.35,
         child: SizedBox(
-          width: 64,
+          width: width,
           child: Column(
             children: [
               Container(
@@ -760,20 +893,23 @@ class _BadgeTile extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: isEarned ? t.amberSoft : t.chipBg,
                 ),
-                child: Center(
-                  child: Text(badge.icon, style: const TextStyle(fontSize: 22)),
+                child: Icon(
+                  _badgeIcon(badge),
+                  size: 23,
+                  color: isEarned ? t.amberInk : t.faint,
                 ),
               ),
               const SizedBox(height: 6),
               Text(
                 badge.name,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
+                  height: 1.25,
                   fontWeight: FontWeight.w600,
                   color: isEarned ? t.ink : t.muted,
                 ),
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -781,6 +917,15 @@ class _BadgeTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  IconData _badgeIcon(Badge badge) {
+    final criteria = badge.criteria;
+    if (criteria.minStreak != null) return Icons.local_fire_department_outlined;
+    if (criteria.examPassed != null) return Icons.workspace_premium_outlined;
+    if (criteria.customKey != null) return Icons.auto_awesome_outlined;
+    if (criteria.unitId != null) return Icons.flag_outlined;
+    return Icons.military_tech_outlined;
   }
 }
 
@@ -799,18 +944,21 @@ class _RingPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final radius = (size.width - 7) / 2;
+    // The comp draws these as conic donuts — a thick band with flat ends, not
+    // a thin capped arc. Twelve points on a 104pt ring, scaled here.
+    final stroke = size.width * 0.115;
+    final radius = (size.width - stroke) / 2;
     final trackPaint =
         Paint()
           ..color = track
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 7;
+          ..strokeWidth = stroke;
     final arcPaint =
         Paint()
           ..color = color
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 7
-          ..strokeCap = StrokeCap.round;
+          ..strokeWidth = stroke
+          ..strokeCap = StrokeCap.butt;
     canvas.drawCircle(center, radius, trackPaint);
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),

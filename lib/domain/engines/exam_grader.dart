@@ -118,12 +118,10 @@ class ExamGrader {
     final speakingPts = ((speakingPct / 100) * speakingMax).round();
 
     // Percentage scores per section (0-100).
-    final reading = readingMax > 0
-        ? ((readingPoints / readingMax) * 100).round()
-        : 0;
-    final listening = listeningMax > 0
-        ? ((listeningPoints / listeningMax) * 100).round()
-        : 0;
+    final reading =
+        readingMax > 0 ? ((readingPoints / readingMax) * 100).round() : 0;
+    final listening =
+        listeningMax > 0 ? ((listeningPoints / listeningMax) * 100).round() : 0;
     final writing = writingPct;
     final speaking = speakingPct;
 
@@ -134,21 +132,20 @@ class ExamGrader {
     // Dual pass threshold: ≥60% in written parts AND ≥60% in speaking.
     final writtenPoints = readingPoints + writingPts + listeningPoints;
     final writtenMax = readingMax + writingMax + listeningMax;
-    final writtenPct = writtenMax > 0
-        ? (writtenPoints / writtenMax * 100).round()
-        : 0;
-    final speakingPctCalculated = speakingMax > 0
-        ? (speakingPts / speakingMax * 100).round()
-        : 0;
+    final writtenPct =
+        writtenMax > 0 ? (writtenPoints / writtenMax * 100).round() : 0;
+    final speakingPctCalculated =
+        speakingMax > 0 ? (speakingPts / speakingMax * 100).round() : 0;
     final passed =
         fullyScored &&
         writtenPct >= passThreshold &&
         speakingPctCalculated >= passThreshold;
 
     // Total as overall percentage.
-    final total = totalMax > 0
-        ? ((totalPoints / totalMax) * 100).round()
-        : ((reading + listening + writing + speaking) / 4).round();
+    final total =
+        totalMax > 0
+            ? ((totalPoints / totalMax) * 100).round()
+            : ((reading + listening + writing + speaking) / 4).round();
 
     return ExamScores(
       reading: reading,

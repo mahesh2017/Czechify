@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/tts_providers.dart';
+import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
 /// Dictation exercise view: listen and type. Also used for the listening
@@ -44,7 +46,7 @@ class _DictationViewState extends ConsumerState<DictationView> {
 
     final explanation =
         match == AnswerMatch.nearMiss
-            ? 'Almost! Watch your accent marks — you wrote it correctly apart from the diacritics.'
+            ? AppLocalizations.of(context).dictationAccentHint
             : data['note'] as String?;
 
     widget.onAnswered(
@@ -59,72 +61,36 @@ class _DictationViewState extends ConsumerState<DictationView> {
   @override
   Widget build(BuildContext context) {
     final data = widget.exercise.data;
+    final l10n = AppLocalizations.of(context);
+    final expected = data['expected_text'] as String;
 
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            widget.exercise.prompt,
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
+          QuestionPrompt(question: widget.exercise.prompt),
+          const SizedBox(height: 18),
 
-          // Audio play button — speaks the Czech text via TTS
-          TtsButton(text: data['expected_text'] as String, size: 48),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  ref
-                      .read(czechTtsProvider)
-                      .speak(data['expected_text'] as String);
-                },
-                icon: const Icon(Icons.replay),
-                label: const Text('Play again'),
-              ),
-              const SizedBox(width: 8),
-              TextButton.icon(
-                onPressed: () {
-                  ref
-                      .read(czechTtsProvider)
-                      .speakSlow(data['expected_text'] as String);
-                },
-                icon: const Icon(Icons.slow_motion_video),
-                label: const Text('Slower'),
-              ),
-            ],
+          ListenPanel(
+            onPlay: () => ref.read(czechTtsProvider).speak(expected),
+            onSlow: () => ref.read(czechTtsProvider).speakSlow(expected),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 14),
 
-          // Input field
-          TextField(
+          AnswerField(
             controller: _controller,
             enabled: !answered,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: 'Type what you heard',
-              suffixIcon:
-                  isCorrect == true
-                      ? const Icon(Icons.check_circle, color: Colors.green)
-                      : isCorrect == false
-                      ? const Icon(Icons.cancel, color: Colors.red)
-                      : null,
-            ),
+            verdict: isCorrect,
+            semanticLabel: l10n.exerciseTypeWhatYouHeard,
             onSubmitted: answered ? null : (_) => _checkAnswer(),
           ),
           if (!answered) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             CzechCharBar(controller: _controller, enabled: !answered),
+            const SizedBox(height: 18),
+            KeyCta(label: l10n.check, onPressed: _checkAnswer),
           ],
-          const SizedBox(height: 16),
-
-          if (!answered)
-            FilledButton(onPressed: _checkAnswer, child: const Text('Check')),
         ],
       ),
     );

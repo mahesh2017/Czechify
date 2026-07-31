@@ -9,6 +9,63 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90027,
+      "lesson_id": 2701,
+      "type": "teaching",
+      "prompt": "Verbs of Motion",
+      "data": {
+        "type": "teaching",
+        "heading": "Verbs of Motion",
+        "body": "On foot or by car, once or every day — and a single prefix shifts the meaning again.",
+        "intro": "Czech is famously fussy about movement: on foot or by car, once or every day — and a single prefix can shift the meaning again. It's the trickiest corner of A2, and the most satisfying to crack.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "jít",
+            "en": "to go on foot (now)"
+          },
+          {
+            "cz": "chodit",
+            "en": "to go on foot (regularly)"
+          },
+          {
+            "cz": "jet",
+            "en": "to go by vehicle (now)"
+          },
+          {
+            "cz": "jezdit",
+            "en": "to go by vehicle (regularly)"
+          },
+          {
+            "cz": "přijít",
+            "en": "to arrive (on foot)"
+          },
+          {
+            "cz": "odejít",
+            "en": "to leave (on foot)"
+          },
+          {
+            "cz": "přijet",
+            "en": "to arrive (by vehicle)"
+          },
+          {
+            "cz": "odjet",
+            "en": "to leave (by vehicle)"
+          },
+          {
+            "cz": "Chodím do práce pěšky.",
+            "en": "I walk to work."
+          },
+          {
+            "cz": "Dnes jedu autobusem.",
+            "en": "Today I'm going by bus."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 27001,
       "lesson_id": 2701,
       "type": "multiple_choice",
@@ -17,7 +74,12 @@
         "type": "multiple_choice",
         "question_cz": "Které sloveso znamená 'jít pěšky' jako JEDNORÁZOVÝ děj (dnes, právě teď)?",
         "question_en": "Which verb means 'to go on foot' as a ONE-TIME action (today, right now)?",
-        "options": ["chodit", "jít", "jezdit", "jet"],
+        "options": [
+          "chodit",
+          "jít",
+          "jezdit",
+          "jet"
+        ],
         "correct_index": 1,
         "explanation": "'Jít' = to go (on foot, one-time, specific direction). Example: 'Dnes jdu do školy.' = Today I am going to school. Use 'jít' for a single trip happening now or at a specific time. 'Chodit' is the habitual version (going repeatedly)."
       },
@@ -34,7 +96,12 @@
         "type": "multiple_choice",
         "question_cz": "Které sloveso znamená 'jezdit' jako OPAKOVANÝ děj?",
         "question_en": "Which verb means 'to go by vehicle' as a HABITUAL or repeated action?",
-        "options": ["jít", "jet", "chodit", "jezdit"],
+        "options": [
+          "jít",
+          "jet",
+          "chodit",
+          "jezdit"
+        ],
         "correct_index": 3,
         "explanation": "'Jezdit' = to go/ride (by vehicle, habitual, repeated, or no specific direction). Example: 'Každý den jezdím do práce autobusem.' = Every day I ride to work by bus. Use 'jezdit' for regular trips by vehicle. 'Jet' is the one-time version."
       },
@@ -51,7 +118,12 @@
         "type": "multiple_choice",
         "question_cz": "Doplňte: 'Zítra ___ do Prahy vlakem.'",
         "question_en": "Complete: 'Zítra ___ do Prahy vlakem.' (Tomorrow I ___ to Prague by train.)",
-        "options": ["jdu", "jezdit", "jedou", "jedu"],
+        "options": [
+          "jdu",
+          "jezdit",
+          "jedou",
+          "jedu"
+        ],
         "correct_index": 3,
         "explanation": "'Zítra jedu do Prahy vlakem.' = Tomorrow I am going to Prague by train. 'Jedu' is the 1st person singular of 'jet' — a one-time trip by vehicle. 'Vlakem' (by train) confirms vehicle travel. We use 'jet' (one-time) not 'jezdit' (habitual) because tomorrow is a single specific trip."
       },
@@ -70,7 +142,9 @@
         "blank_count": 1,
         "explanation": "'Každé ráno chodím do školy pěšky.' = Every morning I go to school on foot. 'Každé ráno' (every morning) signals a habitual/repeated action, so we use 'chodit' → 'chodím' (1st person singular). 'Pěšky' (on foot) confirms walking. Use 'chodit' for regular, repeated trips on foot.",
         "blank_answers": [
-          ["chodím"]
+          [
+            "chodím"
+          ]
         ]
       },
       "answer_key": "chodím",
@@ -88,7 +162,9 @@
         "blank_count": 1,
         "explanation": "'Právě teď jedeme do Brna autem.' = Right now we are going to Brno by car. 'Právě teď' (right now) signals a one-time action, so we use 'jet' → 'jedeme' (1st person plural). 'Autem' (by car) confirms vehicle travel. Use 'jet' for a single, specific trip by vehicle happening now.",
         "blank_answers": [
-          ["jedeme"]
+          [
+            "jedeme"
+          ]
         ]
       },
       "answer_key": "jedeme",
@@ -144,10 +220,22 @@
         "type": "matching",
         "prompt_en": "Match each Czech motion verb to its English meaning (mode and frequency).",
         "pairs": [
-          {"left": "jít", "right": "to go (one-time, on foot)"},
-          {"left": "chodit", "right": "to go (habitual, on foot)"},
-          {"left": "jet", "right": "to go/ride (one-time, by vehicle)"},
-          {"left": "jezdit", "right": "to go/ride (habitual, by vehicle)"}
+          {
+            "left": "jít",
+            "right": "to go (one-time, on foot)"
+          },
+          {
+            "left": "chodit",
+            "right": "to go (habitual, on foot)"
+          },
+          {
+            "left": "jet",
+            "right": "to go/ride (one-time, by vehicle)"
+          },
+          {
+            "left": "jezdit",
+            "right": "to go/ride (habitual, by vehicle)"
+          }
         ],
         "explanation": "Czech motion verbs encode two distinctions: (1) on foot (jít/chodit) vs by vehicle (jet/jezdit), and (2) one-time/specific (jít/jet) vs habitual/repeated (chodit/jezdit). This four-way system is fundamental to Czech. Example: 'jdu' (I'm going now, on foot) vs 'chodím' (I go regularly, on foot) vs 'jedu' (I'm riding now, by vehicle) vs 'jezdím' (I ride regularly, by vehicle)."
       },
@@ -164,10 +252,22 @@
         "type": "matching",
         "prompt_en": "Match each conjugated form of 'jít' to the correct pronoun.",
         "pairs": [
-          {"left": "jdu", "right": "já (I)"},
-          {"left": "jdeš", "right": "ty (you sg.)"},
-          {"left": "jde", "right": "on/ona (he/she)"},
-          {"left": "jdeme", "right": "my (we)"}
+          {
+            "left": "jdu",
+            "right": "já (I)"
+          },
+          {
+            "left": "jdeš",
+            "right": "ty (you sg.)"
+          },
+          {
+            "left": "jde",
+            "right": "on/ona (he/she)"
+          },
+          {
+            "left": "jdeme",
+            "right": "my (we)"
+          }
         ],
         "explanation": "'Jít' conjugation (present, one-time on foot): já jdu, ty jdeš, on/ona jde, my jdeme, vy jdete, oni jdou. Note the stem 'jd-'. Compare with 'chodit' (habitual): chodím, chodíš, chodí, chodíme, chodíte, chodí — note different endings (-í type)."
       },
@@ -199,8 +299,18 @@
       "prompt": "Arrange the words to form: 'I am going there on foot now.'",
       "data": {
         "type": "word_order",
-        "words": ["tam", "jdu", "Teď", "pěšky"],
-        "correct_order": [2, 1, 0, 3],
+        "words": [
+          "tam",
+          "jdu",
+          "Teď",
+          "pěšky"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0,
+          3
+        ],
         "explanation": "'Teď jdu tam pěšky.' = I am going there on foot now. 'Teď' = now, 'jdu' = I am going (jít, 1st sg.), 'tam' = there (direction adverb), 'pěšky' = on foot. Direction adverbs like 'tam' (there), 'sem' (here), 'domů' (home) follow the verb. 'Pěšky' (on foot) typically comes at the end."
       },
       "answer_key": "Teď jdu tam pěšky.",
@@ -216,7 +326,14 @@
         "type": "pronunciation",
         "target_text": "Dnes jdu do školy pěšky, ale obvykle jezdím autobusem.",
         "target_audio_hash": "placeholder_27012",
-        "focus_sounds": ["Dnes", "jdu", "pěšky", "obvykle", "jezdím", "autobusem"],
+        "focus_sounds": [
+          "Dnes",
+          "jdu",
+          "pěšky",
+          "obvykle",
+          "jezdím",
+          "autobusem"
+        ],
         "min_score": 0.6,
         "translation_en": "Today I am going to school on foot, but usually I ride by bus."
       },

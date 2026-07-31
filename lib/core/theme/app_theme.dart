@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_tokens.dart';
 
-/// App-wide color palette and themes — "Calm & premium" redesign.
+/// App-wide color palette and themes — Czechify 2.0.
 ///
 /// The full design palette lives in [AppTokens] (a [ThemeExtension]); the
 /// values below are the seed/primary colors used to derive the Material
@@ -9,23 +9,36 @@ import 'app_tokens.dart';
 class AppColors {
   AppColors._();
 
-  // Vltava teal — primary.
-  static const Color primary = Color(0xFF1F6F6B);
-  static const Color primaryDark = Color(0xFF63BFB8);
+  // Indigo — navigation and primary action.
+  static const Color primary = Color(0xFF3355E8);
+  static const Color primaryDark = Color(0xFF8098FF);
 
   // Warm amber — accent.
-  static const Color accent = Color(0xFFC98A2D);
+  static const Color accent = Color(0xFFE9992A);
 
   // Gamification colors (kept for existing widgets; align with tokens).
-  static const Color xpGold = Color(0xFFC98A2D);
-  static const Color streakOrange = Color(0xFFC98A2D);
-  static const Color heartsRed = Color(0xFFBE4B42);
-  static const Color successGreen = Color(0xFF48875F);
-  static const Color leaguePurple = Color(0xFF6B5CA5);
+  static const Color xpGold = Color(0xFFE9992A);
+  static const Color streakOrange = Color(0xFFE9992A);
+  static const Color heartsRed = Color(0xFFF0503F);
+  static const Color successGreen = Color(0xFF12A272);
+  static const Color leaguePurple = Color(0xFF7355DC);
 }
 
 ThemeData lightTheme() => _build(Brightness.light, AppTokens.light);
 ThemeData darkTheme() => _build(Brightness.dark, AppTokens.dark);
+
+/// Minimum size for a button placed inside a [Row].
+///
+/// The button themes below use `Size.fromHeight(54)` for the full-width look
+/// the design calls for — but that is `Size(double.infinity, 54)`, and a Row
+/// gives its non-flex children *unbounded* width. An infinite minimum width
+/// under an unbounded constraint is invalid: layout throws, and the whole
+/// surrounding subtree renders blank (this is what blanked the mock exam).
+///
+/// So: any button that sits directly in a Row must pass this as its
+/// `minimumSize`, or be wrapped in something that bounds its width
+/// ([Expanded], [Flexible], a sized [SizedBox]).
+const Size kRowButtonMinSize = Size(64, 54);
 
 ThemeData _build(Brightness brightness, AppTokens t) {
   final isLight = brightness == Brightness.light;
@@ -50,20 +63,18 @@ ThemeData _build(Brightness brightness, AppTokens t) {
   );
 
   return base.copyWith(
-    textTheme: base.textTheme.apply(
-      bodyColor: t.ink,
-      displayColor: t.ink,
-      fontFamily: AppFonts.body,
-    ).copyWith(
-      // Headline/display styles use the display face.
-      displayLarge: _display(base, t),
-      displayMedium: _display(base, t),
-      displaySmall: _display(base, t),
-      headlineLarge: _display(base, t),
-      headlineMedium: _display(base, t),
-      headlineSmall: _display(base, t),
-      titleLarge: _display(base, t),
-    ),
+    textTheme: base.textTheme
+        .apply(bodyColor: t.ink, displayColor: t.ink, fontFamily: AppFonts.body)
+        .copyWith(
+          // Headline/display styles use the display face.
+          displayLarge: _display(base, t),
+          displayMedium: _display(base, t),
+          displaySmall: _display(base, t),
+          headlineLarge: _display(base, t),
+          headlineMedium: _display(base, t),
+          headlineSmall: _display(base, t),
+          titleLarge: _display(base, t),
+        ),
     appBarTheme: AppBarTheme(
       centerTitle: false,
       elevation: 0,
@@ -82,7 +93,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
       elevation: 0,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
     ),
     dividerTheme: DividerThemeData(color: t.line, thickness: 1, space: 1),
     filledButtonTheme: FilledButtonThemeData(
@@ -95,7 +106,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
           fontWeight: FontWeight.w700,
           fontSize: 16,
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -109,7 +120,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
           fontWeight: FontWeight.w700,
           fontSize: 16,
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -120,7 +131,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
         foregroundColor: t.pri,
         minimumSize: const Size.fromHeight(54),
         side: BorderSide(color: t.pri),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
     chipTheme: base.chipTheme.copyWith(
@@ -133,7 +144,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
       backgroundColor: t.card,
       indicatorColor: t.priSoft,
       elevation: 0,
-      height: 68,
+      height: 72,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       iconTheme: WidgetStateProperty.resolveWith(
         (states) => IconThemeData(
@@ -144,9 +155,10 @@ ThemeData _build(Brightness brightness, AppTokens t) {
         (states) => TextStyle(
           fontFamily: AppFonts.body,
           fontSize: 12.5,
-          fontWeight: states.contains(WidgetState.selected)
-              ? FontWeight.w700
-              : FontWeight.w600,
+          fontWeight:
+              states.contains(WidgetState.selected)
+                  ? FontWeight.w700
+                  : FontWeight.w600,
           color: states.contains(WidgetState.selected) ? t.pri : t.faint,
         ),
       ),
@@ -156,7 +168,10 @@ ThemeData _build(Brightness brightness, AppTokens t) {
       indicatorColor: t.priSoft,
       selectedIconTheme: IconThemeData(color: t.pri),
       unselectedIconTheme: IconThemeData(color: t.faint),
-      selectedLabelTextStyle: TextStyle(color: t.pri, fontWeight: FontWeight.w700),
+      selectedLabelTextStyle: TextStyle(
+        color: t.pri,
+        fontWeight: FontWeight.w700,
+      ),
       unselectedLabelTextStyle: TextStyle(color: t.faint),
     ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
@@ -193,7 +208,7 @@ ThemeData _build(Brightness brightness, AppTokens t) {
 }
 
 TextStyle _display(ThemeData base, AppTokens t) => TextStyle(
-      fontFamily: AppFonts.display,
-      fontWeight: FontWeight.w700,
-      color: t.ink,
-    );
+  fontFamily: AppFonts.display,
+  fontWeight: FontWeight.w700,
+  color: t.ink,
+);

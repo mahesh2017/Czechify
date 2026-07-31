@@ -8,6 +8,63 @@
   "lesson_type": "introduction",
   "exercises": [
     {
+      "id": 90016,
+      "lesson_id": 1601,
+      "type": "teaching",
+      "prompt": "The \"of\" Case (Genitive)",
+      "data": {
+        "type": "teaching",
+        "heading": "The \"of\" Case (Genitive)",
+        "body": "The case that shows possession, counts quantities, and trails half the prepositions in Czech.",
+        "intro": "Meet the 'of' case — the one that shows possession, counts quantities, and trails behind half the prepositions in Czech. It's the workhorse that carries you into A2.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "kniha bratra",
+            "en": "the brother's book"
+          },
+          {
+            "cz": "auto matky",
+            "en": "the mother's car"
+          },
+          {
+            "cz": "bez",
+            "en": "without"
+          },
+          {
+            "cz": "do",
+            "en": "into / to"
+          },
+          {
+            "cz": "od",
+            "en": "from"
+          },
+          {
+            "cz": "z",
+            "en": "from / out of"
+          },
+          {
+            "cz": "u",
+            "en": "at"
+          },
+          {
+            "cz": "hodně",
+            "en": "a lot of"
+          },
+          {
+            "cz": "málo",
+            "en": "few"
+          },
+          {
+            "cz": "sklenice vody",
+            "en": "a glass of water"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 16001,
       "lesson_id": 1601,
       "type": "multiple_choice",
@@ -40,7 +97,9 @@
         "blank_count": 1,
         "explanation": "'Auto otce' = father's car. Otec (father, masculine animate) → otce (genitive singular). The possessor follows the thing possessed and takes the genitive ending.",
         "blank_answers": [
-          ["otce"]
+          [
+            "otce"
+          ]
         ]
       },
       "answer_key": "otce",
@@ -56,7 +115,10 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "the sister's book",
-        "accepted_answers": ["kniha sestry", "kniha sestry."],
+        "accepted_answers": [
+          "kniha sestry",
+          "kniha sestry."
+        ],
         "grammar_note": "Sestra (sister, feminine) → sestry (genitive singular). Possession in Czech: [thing owned] + [owner in genitive]. No word for 'of' or apostrophe-s needed."
       },
       "answer_key": "kniha sestry",
@@ -96,7 +158,9 @@
         "blank_count": 1,
         "explanation": "'Jsem z Prahy' = I am from Prague. 'Z' (from) requires the genitive: Praha → Prahy (genitive singular feminine). Use 'ze' instead of 'z' before words starting with z-, s-, ž-, š-, or certain consonant clusters.",
         "blank_answers": [
-          ["z"]
+          [
+            "z"
+          ]
         ]
       },
       "answer_key": "z",
@@ -112,7 +176,10 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "coffee without sugar",
-        "accepted_answers": ["káva bez cukru", "káva bez cukru."],
+        "accepted_answers": [
+          "káva bez cukru",
+          "káva bez cukru."
+        ],
         "grammar_note": "'Bez' (without) + genitive: cukr → cukru (genitive singular masculine inanimate). 'Bez cukru' = without sugar. This is a common phrase in cafés and restaurants."
       },
       "answer_key": "káva bez cukru",
@@ -152,7 +219,9 @@
         "blank_count": 1,
         "explanation": "'Dárek od matky' = a gift from mother. 'Od' (from — indicating origin/source from a person) requires the genitive: matka → matky (genitive singular feminine). Use 'od' when something comes from a person; use 'z' when from a place.",
         "blank_answers": [
-          ["od"]
+          [
+            "od"
+          ]
         ]
       },
       "answer_key": "od",
@@ -166,8 +235,20 @@
       "prompt": "Arrange the words to form a correct sentence: 'I go to school every day.'",
       "data": {
         "type": "word_order",
-        "words": ["Jdu", "do", "školy", "každý", "den"],
-        "correct_order": [0, 1, 2, 3, 4],
+        "words": [
+          "Jdu",
+          "do",
+          "školy",
+          "každý",
+          "den"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
         "explanation": "'Jdu do školy každý den.' = I go to school every day. Czech word order: verb (Jdu) + prepositional phrase (do školy) + time expression (každý den). 'Do' + genitive: škola → školy."
       },
       "answer_key": "Jdu do školy každý den.",
@@ -199,7 +280,12 @@
         "type": "pronunciation",
         "target_text": "Jsem z Prahy, ale teď bydlím v Brně.",
         "target_audio_hash": "placeholder_16011",
-        "focus_sounds": ["Pra", "hy", "Br", "ně"],
+        "focus_sounds": [
+          "Pra",
+          "hy",
+          "Br",
+          "ně"
+        ],
         "min_score": 0.6,
         "translation_en": "I am from Prague, but now I live in Brno."
       },
@@ -235,8 +321,13 @@
         ],
         "explanation": "'Odkud jsi?' = Where are you from? (literally 'from where are you?'). 'Z Brna' = from Brno (genitive: Brno → Brna). 'A ty?' = And you? 'Kam jdeš?' = Where are you going? 'Jdu do školy.' = I'm going to school (genitive: škola → školy).",
         "blank_answers": [
-          ["Jsem z Brna. A ty?", "Jsem z Brna, a ty?"],
-          ["Jdu do školy."]
+          [
+            "Jsem z Brna. A ty?",
+            "Jsem z Brna, a ty?"
+          ],
+          [
+            "Jdu do školy."
+          ]
         ]
       },
       "answer_key": "Jsem z Brna. A ty?|Jdu do školy.",

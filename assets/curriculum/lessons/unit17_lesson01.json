@@ -8,6 +8,47 @@
   "lesson_type": "introduction",
   "exercises": [
     {
+      "id": 90017,
+      "lesson_id": 1701,
+      "type": "teaching",
+      "prompt": "The \"to / for\" Case (Dative)",
+      "data": {
+        "type": "teaching",
+        "heading": "The \"to / for\" Case (Dative)",
+        "body": "Who gets the book, the call, the helping hand? It even powers the Czech way of saying you like something.",
+        "intro": "Who gets the book, the phone call, the helping hand? That's the dative — the 'to and for' case. It even powers the Czech way of saying you like something.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "Dávám kamarádovi knihu.",
+            "en": "I give my friend a book."
+          },
+          {
+            "cz": "pomáhat",
+            "en": "to help"
+          },
+          {
+            "cz": "rozumět",
+            "en": "to understand"
+          },
+          {
+            "cz": "telefonovat",
+            "en": "to call"
+          },
+          {
+            "cz": "líbí se mi",
+            "en": "I like it"
+          },
+          {
+            "cz": "chutná mi",
+            "en": "it tastes good to me"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 17001,
       "lesson_id": 1701,
       "type": "multiple_choice",
@@ -16,7 +57,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaký je správný tvar slova 'bratr' v dativu?",
         "question_en": "What is the correct dative form of 'bratr' (brother)?",
-        "options": ["bratru", "bratrovi", "bratra", "bratrem"],
+        "options": [
+          "bratru",
+          "bratrovi",
+          "bratra",
+          "bratrem"
+        ],
         "correct_index": 1,
         "explanation": "Animate masculine nouns take -ovi in dative: bratr → bratrovi. Some common exceptions use -u (muž → muži, člověk → člověku). Inanimate masculines take -u: hrad → hradu."
       },
@@ -33,7 +79,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaký je správný tvar slova 'žena' v dativu?",
         "question_en": "What is the correct dative form of 'žena' (woman)?",
-        "options": ["ženy", "ženě", "ženu", "ženou"],
+        "options": [
+          "ženy",
+          "ženě",
+          "ženu",
+          "ženou"
+        ],
         "correct_index": 1,
         "explanation": "Feminine nouns ending in -a take -e (ě) in dative: žena → ženě. Other feminines ending in a consonant or -e/-ě take -i: kost → kosti, růže → růži."
       },
@@ -52,7 +103,9 @@
         "blank_count": 1,
         "explanation": "Neuter nouns take -u in dative: město → městu. Nouns ending in -e/-ě or -í take -i: moře → moři, náměstí → náměstí.",
         "blank_answers": [
-          ["městu"]
+          [
+            "městu"
+          ]
         ]
       },
       "answer_key": "městu",
@@ -70,7 +123,9 @@
         "blank_count": 1,
         "explanation": "Animate masculine names take -ovi in dative: Pavel → Pavlovi. Likewise: Petr → Petrovi, Tomáš → Tomášovi. 'Dávat' = to give, requires dative for the recipient.",
         "blank_answers": [
-          ["Pavlovi"]
+          [
+            "Pavlovi"
+          ]
         ]
       },
       "answer_key": "Pavlovi",
@@ -86,7 +141,12 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I give a book to my sister.",
-        "accepted_answers": ["Dávám knihu sestře.", "Dávám sestře knihu.", "Dávám knížku sestře.", "Dávám sestře knížku."],
+        "accepted_answers": [
+          "Dávám knihu sestře.",
+          "Dávám sestře knihu.",
+          "Dávám knížku sestře.",
+          "Dávám sestře knížku."
+        ],
         "grammar_note": "'Dávat' (to give) takes two objects: dative for the recipient (sestře — to my sister) and accusative for the thing given (knihu — a book). 'Sestra' → dative 'sestře'."
       },
       "answer_key": "Dávám knihu sestře.",
@@ -126,7 +186,9 @@
         "blank_count": 1,
         "explanation": "'Maminka' → dative 'mamince'. Feminine nouns in -ka change k → c before -e (the ě softens): maminka → mamince. 'Kupuju mamince květiny.' = I'm buying flowers for mom.",
         "blank_answers": [
-          ["mamince"]
+          [
+            "mamince"
+          ]
         ]
       },
       "answer_key": "mamince",
@@ -142,7 +204,12 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "She buys a gift for her friend (female).",
-        "accepted_answers": ["Kupuje dárek kamarádce.", "Ona kupuje dárek kamarádce.", "Kupuje kamarádce dárek.", "Ona kupuje kamarádce dárek."],
+        "accepted_answers": [
+          "Kupuje dárek kamarádce.",
+          "Ona kupuje dárek kamarádce.",
+          "Kupuje kamarádce dárek.",
+          "Ona kupuje kamarádce dárek."
+        ],
         "grammar_note": "'Kamarádka' → dative 'kamarádce'. The k → c change before the e ending. 'Kupovat' + dative (recipient) + accusative (thing bought). 'Dárek' = gift (accusative)."
       },
       "answer_key": "Kupuje dárek kamarádce.",
@@ -158,7 +225,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaký je správný tvar slova 'učitel' v dativu?",
         "question_en": "What is the correct dative form of 'učitel' (teacher)?",
-        "options": ["učitele", "učiteli", "učiteli/učitelovi", "učitelem"],
+        "options": [
+          "učitele",
+          "učiteli",
+          "učiteli/učitelovi",
+          "učitelem"
+        ],
         "correct_index": 2,
         "explanation": "Masculine animate nouns take -ovi or -i in dative: učitel → učiteli / učitelovi. Both are correct. The -ovi form is more common in speech, -i in writing."
       },
@@ -175,7 +247,10 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I am sending a letter to my grandmother.",
-        "accepted_answers": ["Posílám dopis babičce.", "Posílám babičce dopis."],
+        "accepted_answers": [
+          "Posílám dopis babičce.",
+          "Posílám babičce dopis."
+        ],
         "grammar_note": "'Posílat' (to send) follows the same pattern as dávat: dative for recipient (babičce), accusative for the thing sent (dopis). 'Babička' → dative 'babičce'."
       },
       "answer_key": "Posílám dopis babičce.",
@@ -193,7 +268,9 @@
         "blank_count": 1,
         "explanation": "'Dítě' is an irregular neuter noun. Its dative form is 'dítěti' (not 'dítu'). Many irregular nouns have special dative forms: člověk → člověku, přítel → příteli.",
         "blank_answers": [
-          ["dítěti"]
+          [
+            "dítěti"
+          ]
         ]
       },
       "answer_key": "dítěti",
@@ -209,7 +286,11 @@
         "type": "pronunciation",
         "target_text": "Dávám bratrovi knihu k narozeninám.",
         "target_audio_hash": "placeholder_17012",
-        "focus_sounds": ["bratrovi", "knihu", "narozeninám"],
+        "focus_sounds": [
+          "bratrovi",
+          "knihu",
+          "narozeninám"
+        ],
         "min_score": 0.6,
         "translation_en": "I'm giving my brother a book for his birthday."
       },

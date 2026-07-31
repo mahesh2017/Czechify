@@ -22,9 +22,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(
-          body: RecordButton(isRecording: true, onPressed: () {}),
-        ),
+        home: Scaffold(body: RecordButton(isRecording: true, onPressed: () {})),
       ),
     );
     expect(find.bySemanticsLabel('Stop recording'), findsOneWidget);

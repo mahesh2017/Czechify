@@ -1,3 +1,5 @@
+import 'package:logging/logging.dart';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
@@ -8,6 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../core/config/backend_config.dart';
+import '../../core/utils/text_normalizer.dart';
+import '../../data/services/audio/audio_manifest.dart';
 import 'settings_providers.dart';
 
 /// TTS provider — manages a singleton FlutterTts instance configured for Czech.
@@ -68,6 +72,207 @@ Future<void> _selectBestCzechVoice(FlutterTts tts) async {
   }
 }
 
+/// Speaks short English narration — the teaching-card intro scripts. Kept on a
+/// separate engine from the Czech [ttsProvider] so the two never fight over the
+/// native voice/language. The language is re-asserted before every utterance
+/// because on some platforms all FlutterTts instances share one native engine,
+/// so whichever spoke last would otherwise leave the wrong language selected.
+///
+/// This is the "English TTS now" step; a recorded character voice (an `.mp3`
+/// per unit) can replace it later without touching call sites.
+class EnglishTts {
+  final FlutterTts _tts;
+  final AudioPlayer _player;
+  final Dio _http;
+  final TtsVoiceGender Function() _voiceGender;
+
+  /// True while narration is actually playing — the teaching card watches this
+  /// to switch the teacher between its idle and talking animation.
+  final ValueNotifier<bool> speaking = ValueNotifier<bool>(false);
+
+  String? _cacheDir;
+  Future<AudioManifest?>? _remoteManifest;
+  AudioCacheMeta? _cacheMeta;
+
+  static const _audioBucket = 'course-audio';
+
+  EnglishTts(this._tts, this._player, this._http, this._voiceGender) {
+    _tts.setStartHandler(() => speaking.value = true);
+    _tts.setCompletionHandler(() => speaking.value = false);
+    _tts.setCancelHandler(() => speaking.value = false);
+    _tts.setErrorHandler((_) => speaking.value = false);
+  }
+
+  String get _publicAudioBase =>
+      '${BackendConfig.supabaseUrl}/storage/v1/object/public/$_audioBucket';
+
+  Future<String> _getCacheDir() async {
+    if (_cacheDir != null) return _cacheDir!;
+    final dir = await getApplicationSupportDirectory();
+    final path = '${dir.path}/neural_audio';
+    await Directory(path).create(recursive: true);
+    return _cacheDir = path;
+  }
+
+  /// Intro narration lives in its own manifest: the Czech pack is
+  /// single-locale by design, and mixing the two would make each side's
+  /// coverage impossible to reason about.
+  Future<AudioManifest?> _loadRemoteManifest() async {
+    if (!BackendConfig.isConfigured) return null;
+    final cacheDir = await _getCacheDir();
+    final cachedManifest = File('$cacheDir/manifest_en.json');
+    try {
+      final response = await _http.get<String>(
+        '$_publicAudioBase/manifest_en.json',
+        options: Options(responseType: ResponseType.plain),
+      );
+      final raw = response.data;
+      if (raw == null || raw.isEmpty) throw const FormatException('Empty');
+      await cachedManifest.writeAsString(raw, flush: true);
+      return AudioManifest.parse(raw);
+    } catch (_) {
+      if (await cachedManifest.exists()) {
+        try {
+          return AudioManifest.parse(await cachedManifest.readAsString());
+        } catch (_) {
+          return null;
+        }
+      }
+      return null;
+    }
+  }
+
+  /// Shared cache meta for checksum-based invalidation.
+  Future<AudioCacheMeta> _getCacheMeta() async {
+    if (_cacheMeta != null) return _cacheMeta!;
+    final cacheDir = await _getCacheDir();
+    _cacheMeta = await AudioCacheMeta.load(cacheDir);
+    return _cacheMeta!;
+  }
+
+  /// The narration voice follows the same setting as the Czech voice and the
+  /// teacher character, so one choice stays consistent across the whole card.
+  Future<bool> _playNeural(String text) async {
+    final manifest = await (_remoteManifest ??= _loadRemoteManifest());
+    if (manifest == null) return false;
+    final entries = manifest.forGender(_voiceGender().name);
+    final digest =
+        sha256.convert(utf8.encode(text.trim().toLowerCase())).toString();
+    final entry = entries[digest];
+    if (entry == null) return false;
+
+    final fileName = entry.path.split('/').last;
+    if (!RegExp(r'^[a-z]+_[0-9a-f]{64}\\.mp3$').hasMatch(fileName)) {
+      return false;
+    }
+
+    try {
+      final cacheDir = await _getCacheDir();
+      final meta = await _getCacheMeta();
+      final cachedAudio = File('$cacheDir/$fileName');
+
+      // Check freshness: re-download if the manifest says the audio bytes
+      // changed (re-recorded clip for the same text).
+      final status = await checkCacheFreshness(
+        file: cachedAudio,
+        entry: entry,
+        meta: meta,
+      );
+
+      if (status != CacheStatus.fresh) {
+        final partial = File('${cachedAudio.path}.part');
+        await _http.download('$_publicAudioBase/$fileName', partial.path);
+        if (!await partial.exists() || await partial.length() == 0) {
+          throw const FileSystemException('Downloaded audio is empty');
+        }
+        // Verify checksum if the manifest carries one.
+        if (!await verifyDownloadedFile(
+          file: partial,
+          entry: entry,
+          meta: meta,
+        )) {
+          await partial.delete();
+          throw FileSystemException('Checksum mismatch for $fileName');
+        }
+        await partial.rename(cachedAudio.path);
+        await meta.save(cacheDir);
+      }
+
+      await _player.setFilePath(cachedAudio.path);
+      speaking.value = true;
+      // Clear the talking animation when playback actually ends. Unawaited on
+      // purpose — speak() must return as soon as playback starts.
+      unawaited(
+        _player.playerStateStream
+            .firstWhere((s) => s.processingState == ProcessingState.completed)
+            .then((_) => speaking.value = false)
+            .catchError((Object _) => speaking.value = false),
+      );
+      await _player.play();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<void> speak(String text) async {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return;
+    await stop();
+
+    if (await _playNeural(trimmed)) return;
+
+    try {
+      await _tts.setLanguage('en-US');
+      // Optimistic: some platforms don't fire the start handler promptly.
+      speaking.value = true;
+      await _tts.speak(trimmed);
+    } catch (_) {
+      // Narration is best-effort — never let a missing voice break the card.
+      speaking.value = false;
+    }
+  }
+
+  Future<void> stop() async {
+    // Stopping something already stopped is not an error worth surfacing,
+    // and stop() must never throw into a widget disposing.
+    try {
+      await _tts.stop();
+    } catch (_) {}
+    try {
+      await _player.stop();
+    } catch (_) {}
+    speaking.value = false;
+  }
+}
+
+/// Provider for the English narration helper. Uses its own FlutterTts instance
+/// configured for a natural, slightly slower English delivery.
+final englishTtsProvider = Provider<EnglishTts>((ref) {
+  final tts = FlutterTts();
+  tts.setLanguage('en-US');
+  tts.setPitch(1.0);
+  tts.setVolume(1.0);
+  tts.setSpeechRate(0.5);
+  // Its own player, so stopping narration can never cut off a Czech clip.
+  final player = AudioPlayer();
+  ref.onDispose(() {
+    tts.stop();
+    player.dispose();
+  });
+  return EnglishTts(
+    tts,
+    player,
+    Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 30),
+      ),
+    ),
+    () => ref.read(settingsProvider).ttsVoiceGender,
+  );
+});
+
 /// Audio player for playing cached TTS files.
 final audioPlayerProvider = Provider<AudioPlayer>((ref) {
   final player = AudioPlayer();
@@ -83,6 +288,8 @@ final audioPlayerProvider = Provider<AudioPlayer>((ref) {
 /// 3. If not cached → synthesize to file via flutter_tts, cache, play
 /// 4. Fallback: direct speak() if file synthesis unavailable
 class CzechTts {
+  static final Logger _log = Logger('CzechTts');
+
   final FlutterTts _tts;
   final AudioPlayer _player;
   final Dio _http;
@@ -94,7 +301,17 @@ class CzechTts {
 
   String? _cacheDir;
   String? _neuralCacheDir;
-  Future<Map<String, Map<String, String>>>? _remoteAudio;
+  Future<AudioManifest?>? _remoteManifest;
+  AudioCacheMeta? _cacheMeta;
+
+  /// True when the last utterance came from the device's own TTS instead of
+  /// the recorded pack.
+  ///
+  /// Substituting the system voice used to be completely silent, and it reads
+  /// as a bug: the app "ignores" the male/female setting, because the platform
+  /// voice has no such choice. Surfacing this lets the UI say "offline" rather
+  /// than leaving a working app looking broken.
+  final ValueNotifier<bool> usingFallbackVoice = ValueNotifier(false);
 
   CzechTts(
     this._tts,
@@ -129,6 +346,14 @@ class CzechTts {
     return audioDir;
   }
 
+  /// Shared cache meta for checksum-based invalidation.
+  Future<AudioCacheMeta> _getCacheMeta() async {
+    if (_cacheMeta != null) return _cacheMeta!;
+    final cacheDir = await _getNeuralCacheDir();
+    _cacheMeta = await AudioCacheMeta.load(cacheDir);
+    return _cacheMeta!;
+  }
+
   /// Generate a cache key from the text and effective speech rate.
   String _cacheKey(String text, double rate) {
     final bytes = utf8.encode(
@@ -144,20 +369,7 @@ class CzechTts {
     return sha256.convert(utf8.encode(text.trim().toLowerCase())).toString();
   }
 
-  Map<String, Map<String, String>> _parseManifest(String raw) {
-    final json = jsonDecode(raw) as Map<String, dynamic>;
-    final voices = json['voices'] as Map<String, dynamic>? ?? const {};
-    return voices.map((gender, value) {
-      final voice = value as Map<String, dynamic>;
-      final entries = voice['entries'] as Map<String, dynamic>? ?? const {};
-      return MapEntry(
-        gender,
-        entries.map((key, path) => MapEntry(key, path as String)),
-      );
-    });
-  }
-
-  Future<Map<String, Map<String, String>>> _loadRemoteAudio() async {
+  Future<AudioManifest?> _loadRemoteAudio() async {
     if (!BackendConfig.isConfigured) {
       // The binary was built without the Supabase --dart-defines, so
       // BackendConfig.supabaseUrl is empty and the manifest request below
@@ -168,7 +380,7 @@ class CzechTts {
         'not supplied at build time. Using on-device TTS fallback. '
         'Rebuild with both --dart-define values to enable neural audio.',
       );
-      return const {};
+      return null;
     }
 
     final cacheDir = await _getNeuralCacheDir();
@@ -183,42 +395,63 @@ class CzechTts {
       if (raw == null || raw.isEmpty) {
         throw const FormatException('Empty manifest');
       }
-      final parsed = _parseManifest(raw);
+      final parsed = AudioManifest.parse(raw);
       await cachedManifest.writeAsString(raw, flush: true);
       return parsed;
     } catch (_) {
       if (await cachedManifest.exists()) {
         try {
-          return _parseManifest(await cachedManifest.readAsString());
+          return AudioManifest.parse(await cachedManifest.readAsString());
         } catch (_) {
           // Continue to the native TTS fallback below.
         }
       }
-      return const {};
+      return null;
     }
   }
 
   Future<bool> _playNeural(String text, double effectiveRate) async {
-    final voices = await (_remoteAudio ??= _loadRemoteAudio());
-    final entries = voices[_voiceGender().name] ?? const {};
-    final remotePath = entries[_audioPackKey(text)];
-    if (remotePath == null) return false;
+    final manifest = await (_remoteManifest ??= _loadRemoteAudio());
+    if (manifest == null) return false;
+    final entries = manifest.forGender(_voiceGender().name);
+    final entry = entries[_audioPackKey(text)];
+    if (entry == null) return false;
 
-    final fileName = remotePath.split('/').last;
+    final fileName = entry.path.split('/').last;
     if (!RegExp(r'^[a-z]+_[0-9a-f]{64}\.mp3$').hasMatch(fileName)) {
       return false;
     }
 
     try {
       final cacheDir = await _getNeuralCacheDir();
+      final meta = await _getCacheMeta();
       final cachedAudio = File('$cacheDir/$fileName');
-      if (!await cachedAudio.exists()) {
+
+      // Check freshness: re-download if the manifest says the audio bytes
+      // changed (re-recorded clip for the same text).
+      final status = await checkCacheFreshness(
+        file: cachedAudio,
+        entry: entry,
+        meta: meta,
+      );
+
+      if (status != CacheStatus.fresh) {
         final partial = File('${cachedAudio.path}.part');
         await _http.download('$_publicAudioBase/$fileName', partial.path);
         if (!await partial.exists() || await partial.length() == 0) {
           throw const FileSystemException('Downloaded audio is empty');
         }
+        // Verify checksum if the manifest carries one.
+        if (!await verifyDownloadedFile(
+          file: partial,
+          entry: entry,
+          meta: meta,
+        )) {
+          await partial.delete();
+          throw FileSystemException('Checksum mismatch for $fileName');
+        }
         await partial.rename(cachedAudio.path);
+        await meta.save(cacheDir);
       }
 
       await _player.setFilePath(cachedAudio.path);
@@ -243,17 +476,35 @@ class CzechTts {
   /// Stops any currently playing speech. [rate] overrides the user's
   /// configured speech rate for this utterance only (e.g. slow replay).
   Future<void> speak(String text, {double? rate}) async {
-    final trimmed = text.trim();
+    // Strip blank markers and editorial hints so TTS never reads "___" aloud
+    // as "podtržítko". Used for both the neural-pack lookup and device TTS, so
+    // the request matches the sanitized text the audio pack is generated from.
+    final trimmed = TextNormalizer.forSpeech(text);
     if (trimmed.isEmpty) return;
 
     await stop();
+
+    // Re-assert Czech: the English narration engine (see [EnglishTts]) may share
+    // the same native engine on some platforms and leave it set to en-US.
+    try {
+      await _tts.setLanguage('cs-CZ');
+    } catch (error) {
+      // Not fatal: the engine keeps its previous locale, so speech may come
+      // out anglicised rather than silent. Logged because that is confusing
+      // to diagnose from a bug report alone.
+      _log.warning('Could not re-assert cs-CZ on the TTS engine: $error');
+    }
 
     final effectiveRate = rate ?? _speechRate();
 
     // Curriculum and vocabulary audio is generated once with a controlled
     // neural voice, downloaded from Supabase Storage, and retained for offline
     // reuse. It takes precedence over platform TTS whenever available.
-    if (await _playNeural(trimmed, effectiveRate)) return;
+    if (await _playNeural(trimmed, effectiveRate)) {
+      usingFallbackVoice.value = false;
+      return;
+    }
+    usingFallbackVoice.value = true;
 
     // macOS: flutter_tts's synthesizeToFile resolves paths relative to the
     // sandbox Documents dir and can't write mp3 (AVFoundation 'fmt?' error),
@@ -308,6 +559,29 @@ class CzechTts {
 
   /// Speak at ~60% of the configured rate — the "turtle button" for
   /// dictation and listening practice.
+  /// Play the bundled sample for [gender] — the genuine recorded teacher.
+  ///
+  /// The voice picker must not go through [speak]: the audio pack is not
+  /// bundled (138MB lives in Supabase Storage), so before the first download
+  /// [speak] falls through to the device's own TTS. That plays the *phone's*
+  /// voice for both options, which makes the choice meaningless — the whole
+  /// point of the screen is hearing the difference. These two clips ship in
+  /// the app so the preview is always the real thing, online or not.
+  Future<void> playVoiceSample(TtsVoiceGender gender) async {
+    await stop();
+    try {
+      await _player.setAsset(voiceSampleAsset(gender));
+      await _player.setSpeed(1.0);
+      await _player.play();
+      usingFallbackVoice.value = false;
+    } catch (error) {
+      // Never leave the picker silent: if the asset is somehow unreadable,
+      // the device voice is worse than nothing but better than no feedback.
+      _log.warning('Bundled voice sample failed for ${gender.name}: $error');
+      await speak(kVoicePreviewPhrase);
+    }
+  }
+
   Future<void> speakSlow(String text) {
     final slow = (_speechRate() * 0.6).clamp(0.1, 1.0);
     return speak(text, rate: slow);
@@ -341,7 +615,58 @@ class CzechTts {
       await neuralDir.delete(recursive: true);
       await neuralDir.create(recursive: true);
     }
-    _remoteAudio = null;
+    _remoteManifest = null;
+  }
+
+  /// Garbage-collect neural audio files that are no longer in the manifest.
+  ///
+  /// Called after a manifest refresh removes or replaces entries.  Files
+  /// whose names don't appear in any voice's entries are deleted, along
+  /// with their cache-meta records.  Returns the number of files removed.
+  Future<int> gcStaleAudio() async {
+    final manifest = await (_remoteManifest ??= _loadRemoteAudio());
+    if (manifest == null) return 0;
+
+    final cacheDir = await _getNeuralCacheDir();
+    final meta = await _getCacheMeta();
+
+    // Collect all valid filenames from the manifest.
+    final validFiles = <String>{};
+    for (final genderEntries in manifest.voices.values) {
+      for (final entry in genderEntries.values) {
+        validFiles.add(entry.path.split('/').last);
+      }
+    }
+
+    // Also keep the manifest files themselves and the cache meta.
+    validFiles.add('manifest.json');
+    validFiles.add('manifest_en.json');
+    validFiles.add('_cache_meta.json');
+
+    final dir = Directory(cacheDir);
+    if (!await dir.exists()) return 0;
+
+    var removed = 0;
+    await for (final entity in dir.list()) {
+      if (entity is! File) continue;
+      final name = entity.uri.pathSegments.last;
+      // Keep .part files — a download may be in progress.
+      if (name.endsWith('.part')) continue;
+      if (!validFiles.contains(name)) {
+        try {
+          await entity.delete();
+          meta.forget(name);
+          removed++;
+        } catch (_) {
+          // Best effort — file may be held open.
+        }
+      }
+    }
+
+    if (removed > 0) {
+      await meta.save(cacheDir);
+    }
+    return removed;
   }
 
   /// Get the current cache size in bytes.
@@ -377,6 +702,24 @@ final czechTtsAvailableProvider = FutureProvider<bool>((ref) async {
 });
 
 /// Provider for the CzechTts helper.
+/// Phrase used to demo the chosen voice in onboarding and Settings.
+///
+/// It must be a real course utterance. Anything else has no clip in the pack,
+/// so [CzechTts] falls back to the device's robotic system voice — and a
+/// preview that plays the system voice tells the learner nothing about the
+/// studio voice they actually get.
+const String kVoicePreviewPhrase = 'Dobrý den, jak se máte?';
+
+/// The sha256 of [kVoicePreviewPhrase] under the audio pack's naming scheme.
+/// These two clips ship inside the app (see pubspec.yaml) precisely so the
+/// teacher picker can play the genuine voice before any download has run.
+const String _voiceSampleDigest =
+    '2f44c5669abb492049b767f78d72f275298c2dd68e8ff0d575c2544eddf9c762';
+
+/// Bundled sample asset for [gender].
+String voiceSampleAsset(TtsVoiceGender gender) =>
+    'assets/audio/${gender.name}_$_voiceSampleDigest.mp3';
+
 final czechTtsProvider = Provider<CzechTts>((ref) {
   final tts = ref.read(ttsProvider);
   final player = ref.read(audioPlayerProvider);

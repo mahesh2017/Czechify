@@ -1,0 +1,801 @@
+{
+  "id": 100,
+  "unit_id": 1,
+  "order_in_unit": 0,
+  "title": "The Czech Alphabet: How Every Letter Sounds",
+  "description": "Say the whole Czech alphabet — every vowel and consonant, from a to ž — with its exact sound and an example word. This is the foundation everything else builds on.",
+  "duration_min": 14,
+  "lesson_type": "introduction",
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 898,
+      "lesson_id": 100,
+      "type": "teaching",
+      "prompt": "Meet eight useful Czech words through pictures",
+      "data": {
+        "type": "teaching",
+        "style": "image_cards",
+        "heading": "See it, hear it, use it",
+        "body": "First connect the Czech sound to the picture. Reveal English only after you have made a guess.",
+        "items": [
+          {
+            "cz": "káva",
+            "en": "coffee",
+            "say": "káva",
+            "image": "assets/images/unit01/kava_v1.png",
+            "image_label": "A warm cup of coffee",
+            "sentence": "To je káva.",
+            "sentence_en": "This is coffee."
+          },
+          {
+            "cz": "čaj",
+            "en": "tea",
+            "say": "čaj",
+            "image": "assets/images/unit01/caj_v1.png",
+            "image_label": "A cup of tea",
+            "sentence": "Čaj je horký.",
+            "sentence_en": "The tea is hot."
+          },
+          {
+            "cz": "dům",
+            "en": "house",
+            "say": "dům",
+            "image": "assets/images/unit01/dum_v1.png",
+            "image_label": "A family house",
+            "sentence": "To je můj dům.",
+            "sentence_en": "This is my house."
+          },
+          {
+            "cz": "pes",
+            "en": "dog",
+            "say": "pes",
+            "image": "assets/images/unit01/pes_v1.png",
+            "image_label": "A friendly dog",
+            "sentence": "Pes je doma.",
+            "sentence_en": "The dog is at home."
+          },
+          {
+            "cz": "chléb",
+            "en": "bread",
+            "say": "chléb",
+            "image": "assets/images/unit01/chleb_v1.png",
+            "image_label": "A loaf of bread",
+            "sentence": "Chléb je čerstvý.",
+            "sentence_en": "The bread is fresh."
+          },
+          {
+            "cz": "jablko",
+            "en": "apple",
+            "say": "jablko",
+            "image": "assets/images/unit01/jablko_v1.png",
+            "image_label": "A red apple",
+            "sentence": "Jablko je červené.",
+            "sentence_en": "The apple is red."
+          },
+          {
+            "cz": "kolo",
+            "en": "bicycle",
+            "say": "kolo",
+            "image": "assets/images/unit01/kolo_v1.png",
+            "image_label": "A city bicycle",
+            "sentence": "Mám nové kolo.",
+            "sentence_en": "I have a new bicycle."
+          },
+          {
+            "cz": "děti",
+            "en": "children",
+            "say": "děti",
+            "image": "assets/images/unit01/deti_v1.png",
+            "image_label": "Two school-age children",
+            "sentence": "Děti jsou ve škole.",
+            "sentence_en": "The children are at school."
+          }
+        ]
+      }
+    },
+    {
+      "id": 899,
+      "lesson_id": 100,
+      "type": "teaching",
+      "prompt": "The Czech alphabet — listen to every letter",
+      "data": {
+        "type": "teaching",
+        "heading": "The Czech Alphabet",
+        "body": "Czech is (almost) perfectly phonetic: each letter has one steady sound, and the stress is ALWAYS on the first syllable. Tap a letter to hear its NAME (how you say the letter), and tap the speaker on the example to hear the sound inside a word. Listen and repeat — then you'll practise.",
+        "play_all_label": "Hear the alphabet (letter names)",
+        "items": [
+          {
+            "symbol": "a",
+            "name": "‘ah’",
+            "name_say": "a",
+            "sound": "like 'u' in cup (short)",
+            "example": "matka",
+            "example_en": "mother",
+            "say": "matka"
+          },
+          {
+            "symbol": "á",
+            "name": "‘long ah’",
+            "name_say": "dlouhé á",
+            "sound": "long 'a' — held ~2x",
+            "example": "káva",
+            "example_en": "coffee",
+            "say": "káva"
+          },
+          {
+            "symbol": "b",
+            "name": "‘beh’",
+            "name_say": "bé",
+            "sound": "like English 'b'",
+            "example": "bota",
+            "example_en": "shoe",
+            "say": "bota"
+          },
+          {
+            "symbol": "c",
+            "name": "‘tseh’",
+            "name_say": "cé",
+            "sound": "'ts' as in cats",
+            "example": "cukr",
+            "example_en": "sugar",
+            "say": "cukr"
+          },
+          {
+            "symbol": "č",
+            "name": "‘cheh’",
+            "name_say": "čé",
+            "sound": "'ch' as in church",
+            "example": "čaj",
+            "example_en": "tea",
+            "say": "čaj"
+          },
+          {
+            "symbol": "d",
+            "name": "‘deh’",
+            "name_say": "dé",
+            "sound": "like English 'd'",
+            "example": "dům",
+            "example_en": "house",
+            "say": "dům"
+          },
+          {
+            "symbol": "ď",
+            "name": "‘dyeh’",
+            "name_say": "ďé",
+            "sound": "soft 'd', like British 'duty'",
+            "example": "loď",
+            "example_en": "boat",
+            "say": "loď"
+          },
+          {
+            "symbol": "e",
+            "name": "‘eh’",
+            "name_say": "e",
+            "sound": "like 'e' in bed",
+            "example": "pes",
+            "example_en": "dog",
+            "say": "pes"
+          },
+          {
+            "symbol": "é",
+            "name": "‘long eh’",
+            "name_say": "dlouhé é",
+            "sound": "long 'e'",
+            "example": "mléko",
+            "example_en": "milk",
+            "say": "mléko"
+          },
+          {
+            "symbol": "ě",
+            "name": "‘yeh’",
+            "name_say": "ije",
+            "sound": "softens the consonant before it",
+            "example": "děti",
+            "example_en": "children",
+            "say": "děti"
+          },
+          {
+            "symbol": "f",
+            "name": "‘ef’",
+            "name_say": "ef",
+            "sound": "like English 'f'",
+            "example": "fotka",
+            "example_en": "photo",
+            "say": "fotka"
+          },
+          {
+            "symbol": "g",
+            "name": "‘geh’",
+            "name_say": "gé",
+            "sound": "hard 'g' as in go",
+            "example": "guma",
+            "example_en": "eraser",
+            "say": "guma"
+          },
+          {
+            "symbol": "h",
+            "name": "‘hah’",
+            "name_say": "há",
+            "sound": "voiced, breathy 'h'",
+            "example": "hora",
+            "example_en": "mountain",
+            "say": "hora"
+          },
+          {
+            "symbol": "ch",
+            "name": "‘khah’",
+            "name_say": "chá",
+            "sound": "one letter — 'ch' as in Scottish loch",
+            "example": "chléb",
+            "example_en": "bread",
+            "say": "chléb"
+          },
+          {
+            "symbol": "i",
+            "name": "‘ih’ (soft i)",
+            "name_say": "měkké i",
+            "sound": "like 'i' in sit",
+            "example": "pivo",
+            "example_en": "beer",
+            "say": "pivo"
+          },
+          {
+            "symbol": "í",
+            "name": "‘long ee’",
+            "name_say": "dlouhé í",
+            "sound": "long 'ee'",
+            "example": "víno",
+            "example_en": "wine",
+            "say": "víno"
+          },
+          {
+            "symbol": "j",
+            "name": "‘yeh’",
+            "name_say": "jé",
+            "sound": "'y' as in yes",
+            "example": "jablko",
+            "example_en": "apple",
+            "say": "jablko"
+          },
+          {
+            "symbol": "k",
+            "name": "‘kah’",
+            "name_say": "ká",
+            "sound": "like English 'k'",
+            "example": "kolo",
+            "example_en": "bicycle",
+            "say": "kolo"
+          },
+          {
+            "symbol": "l",
+            "name": "‘el’",
+            "name_say": "el",
+            "sound": "like English 'l'",
+            "example": "les",
+            "example_en": "forest",
+            "say": "les"
+          },
+          {
+            "symbol": "m",
+            "name": "‘em’",
+            "name_say": "em",
+            "sound": "like English 'm'",
+            "example": "maso",
+            "example_en": "meat",
+            "say": "maso"
+          },
+          {
+            "symbol": "n",
+            "name": "‘en’",
+            "name_say": "en",
+            "sound": "like English 'n'",
+            "example": "noc",
+            "example_en": "night",
+            "say": "noc"
+          },
+          {
+            "symbol": "ň",
+            "name": "‘eñ’",
+            "name_say": "eň",
+            "sound": "soft 'n', as in canyon",
+            "example": "kůň",
+            "example_en": "horse",
+            "say": "kůň"
+          },
+          {
+            "symbol": "o",
+            "name": "‘oh’",
+            "name_say": "o",
+            "sound": "like 'o' in for (short)",
+            "example": "okno",
+            "example_en": "window",
+            "say": "okno"
+          },
+          {
+            "symbol": "ó",
+            "name": "‘long oh’",
+            "name_say": "dlouhé ó",
+            "sound": "long 'o' (mostly loanwords)",
+            "example": "móda",
+            "example_en": "fashion",
+            "say": "móda"
+          },
+          {
+            "symbol": "p",
+            "name": "‘peh’",
+            "name_say": "pé",
+            "sound": "like English 'p'",
+            "example": "pero",
+            "example_en": "pen",
+            "say": "pero"
+          },
+          {
+            "symbol": "q",
+            "name": "‘kveh’",
+            "name_say": "kvé",
+            "sound": "rare — 'kv', foreign words only",
+            "example": "quiz",
+            "example_en": "quiz",
+            "say": "quiz"
+          },
+          {
+            "symbol": "r",
+            "name": "‘err’ (rolled)",
+            "name_say": "er",
+            "sound": "rolled / trilled 'r'",
+            "example": "ryba",
+            "example_en": "fish",
+            "say": "ryba"
+          },
+          {
+            "symbol": "ř",
+            "name": "‘erzh’",
+            "name_say": "eř",
+            "sound": "unique Czech sound (rolled r + ž)",
+            "example": "řeka",
+            "example_en": "river",
+            "say": "řeka"
+          },
+          {
+            "symbol": "s",
+            "name": "‘es’",
+            "name_say": "es",
+            "sound": "always plain 's' (never 'z')",
+            "example": "sýr",
+            "example_en": "cheese",
+            "say": "sýr"
+          },
+          {
+            "symbol": "š",
+            "name": "‘esh’",
+            "name_say": "eš",
+            "sound": "'sh' as in ship",
+            "example": "škola",
+            "example_en": "school",
+            "say": "škola"
+          },
+          {
+            "symbol": "t",
+            "name": "‘teh’",
+            "name_say": "té",
+            "sound": "like English 't'",
+            "example": "taška",
+            "example_en": "bag",
+            "say": "taška"
+          },
+          {
+            "symbol": "ť",
+            "name": "‘tyeh’",
+            "name_say": "ťé",
+            "sound": "soft 't', like British 'tune'",
+            "example": "chuť",
+            "example_en": "taste",
+            "say": "chuť"
+          },
+          {
+            "symbol": "u",
+            "name": "‘oo’",
+            "name_say": "u",
+            "sound": "like 'oo' in book (short)",
+            "example": "ruka",
+            "example_en": "hand",
+            "say": "ruka"
+          },
+          {
+            "symbol": "ú",
+            "name": "‘long oo’ (ú)",
+            "name_say": "ú s čárkou",
+            "sound": "long 'oo' (at word start)",
+            "example": "úkol",
+            "example_en": "task",
+            "say": "úkol"
+          },
+          {
+            "symbol": "ů",
+            "name": "‘long oo’ (ů)",
+            "name_say": "ů s kroužkem",
+            "sound": "long 'oo' (mid/end of word)",
+            "example": "stůl",
+            "example_en": "table",
+            "say": "stůl"
+          },
+          {
+            "symbol": "v",
+            "name": "‘veh’",
+            "name_say": "vé",
+            "sound": "like English 'v'",
+            "example": "voda",
+            "example_en": "water",
+            "say": "voda"
+          },
+          {
+            "symbol": "w",
+            "name": "‘dvojité veh’",
+            "name_say": "dvojité vé",
+            "sound": "'v', foreign words only",
+            "example": "watt",
+            "example_en": "watt",
+            "say": "watt"
+          },
+          {
+            "symbol": "x",
+            "name": "‘iks’",
+            "name_say": "iks",
+            "sound": "'ks', foreign words only",
+            "example": "taxi",
+            "example_en": "taxi",
+            "say": "taxi"
+          },
+          {
+            "symbol": "y",
+            "name": "‘ypsilon’",
+            "name_say": "ypsilon",
+            "sound": "same as 'i' (a 'hard' i)",
+            "example": "byt",
+            "example_en": "flat",
+            "say": "byt"
+          },
+          {
+            "symbol": "ý",
+            "name": "‘long ypsilon’",
+            "name_say": "dlouhé ypsilon",
+            "sound": "same as long 'í'",
+            "example": "být",
+            "example_en": "to be",
+            "say": "být"
+          },
+          {
+            "symbol": "z",
+            "name": "‘zet’",
+            "name_say": "zet",
+            "sound": "like English 'z'",
+            "example": "zebra",
+            "example_en": "zebra",
+            "say": "zebra"
+          },
+          {
+            "symbol": "ž",
+            "name": "‘zhet’",
+            "name_say": "žet",
+            "sound": "'s' as in measure",
+            "example": "žena",
+            "example_en": "woman",
+            "say": "žena"
+          }
+        ],
+        "intro": "Every language begins with its sounds — and Czech has a few that will surprise you, including one no other language on earth uses. Let's meet the alphabet letter by letter: how each one is named, and how it comes alive inside real words.",
+        "character": "v3"
+      },
+      "xp_reward": 0
+    },
+    {
+      "id": 900,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "How does Czech spelling work?",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Compared to English, how do Czech letters sound?",
+        "options": [
+          "Letters change sound depending on the word, like English",
+          "Each letter has one consistent sound, almost always",
+          "Vowels are silent at the end of words",
+          "The sound depends on where the stress falls"
+        ],
+        "correct_index": 1,
+        "explanation": "Czech is (almost) perfectly phonetic: each letter maps to one sound, so once you know the letters you can read any word aloud. Stress is always on the FIRST syllable and never changes a letter's sound."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-000"
+    },
+    {
+      "id": 901,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The five short vowels: a e i o u",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "The short vowels a, e, i, o, u sound roughly like which English words?",
+        "options": [
+          "cup, bed, sit, for, put — a-e-i-o-u",
+          "cake, see, sky, go, cute",
+          "car, bee, high, low, moon",
+          "cat, met, mine, note, cube"
+        ],
+        "correct_index": 0,
+        "explanation": "a=matka (mother), e=pes (dog), i=pivo (beer), o=okno (window), u=ruka (hand). Keep them short and crisp. The letter y is pronounced exactly like i — byt (flat) sounds like 'bit'."
+      },
+      "answer_key": "0",
+      "xp_reward": 10
+    },
+    {
+      "id": 902,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Long vowels: á é í ó ú ů ý",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "What does the čárka (á) or kroužek (ů) mark do?",
+        "options": [
+          "Marks the stressed syllable",
+          "Holds the vowel about twice as long",
+          "Softens the vowel",
+          "Makes the vowel silent"
+        ],
+        "correct_index": 1,
+        "explanation": "The čárka (´) and kroužek (˚) make a vowel LONG — held about twice as long: káva (á), mléko (é), víno (í), dům (ů), sýr (ý). ú and ů are both a long 'oo': ú starts a word (úkol), ů comes later (dům). Length can change meaning — byt (flat) vs být (to be)."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 903,
+      "lesson_id": 100,
+      "type": "pronunciation",
+      "prompt": "Say it aloud — short vs long a",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Máma má maso.",
+        "focus_sounds": [
+          "a",
+          "á"
+        ],
+        "min_score": 0.6,
+        "translation_en": "Mom has meat."
+      },
+      "answer_key": "Máma má maso.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 904,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The special vowel ě",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "What does ě do to the consonant before it?",
+        "options": [
+          "Nothing — it is just a short e",
+          "Softens it: dě, tě, ně sound like 'dye, tye, nye'; mě sounds like 'mnye'",
+          "Makes it long",
+          "Makes it silent"
+        ],
+        "correct_index": 1,
+        "explanation": "ě never stands alone — it softens the consonant in front of it. děti (children) = 'dye-ti', město (city) = 'mnye-sto', měsíc (month). You'll meet ě constantly."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-002"
+    },
+    {
+      "id": 905,
+      "lesson_id": 100,
+      "type": "matching",
+      "prompt": "Match each háček consonant to its English sound",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "č",
+            "right": "ch as in 'church'"
+          },
+          {
+            "left": "š",
+            "right": "sh as in 'ship'"
+          },
+          {
+            "left": "ž",
+            "right": "s as in 'measure'"
+          },
+          {
+            "left": "ř",
+            "right": "unique Czech sound (rolled r + ž)"
+          }
+        ]
+      },
+      "answer_key": "č=ch as in 'church', š=sh as in 'ship', ž=s as in 'measure', ř=unique Czech sound (rolled r + ž)",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 906,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The letter c",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "How is c pronounced in Czech (cukr, noc)?",
+        "options": [
+          "ts as in 'cats'",
+          "k as in 'cat'",
+          "s as in 'city'",
+          "ch as in 'church'"
+        ],
+        "correct_index": 0,
+        "explanation": "c is ALWAYS 'ts', never 'k' or 's'. cukr (sugar) = 'tsukr', noc (night) = 'nots', práce (work). This trips up English speakers the most."
+      },
+      "answer_key": "0",
+      "xp_reward": 10
+    },
+    {
+      "id": 907,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "The letter ch",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "In the Czech alphabet, 'ch' is…",
+        "options": [
+          "two separate letters, c then h",
+          "one single letter, like 'ch' in Scottish 'loch' / German 'Bach'",
+          "pronounced like English 'church'",
+          "always silent"
+        ],
+        "correct_index": 1,
+        "explanation": "ch is ONE letter (a raspy sound made in the back of the throat): chléb (bread), chci (I want), ucho (ear). In the dictionary it comes after h, not under c."
+      },
+      "answer_key": "1",
+      "xp_reward": 10
+    },
+    {
+      "id": 908,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Three consonants that look familiar but aren't: h, j, r",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Which statement is correct?",
+        "options": [
+          "j sounds like English 'j' in 'jam'",
+          "j sounds like 'y' in 'yes'; h is a soft voiced 'h'; r is rolled/trilled",
+          "h is always silent; r is like English r",
+          "j and r are both silent before a vowel"
+        ],
+        "correct_index": 1,
+        "explanation": "j = 'y': jablko (apple), juice→džus. h is voiced and breathy: hora (mountain). r is rolled with the tip of the tongue: ryba (fish), ráno (morning). None of them sound like their English look-alikes."
+      },
+      "answer_key": "1",
+      "xp_reward": 10
+    },
+    {
+      "id": 909,
+      "lesson_id": 100,
+      "type": "pronunciation",
+      "prompt": "Say the most famous Czech sound: ř",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "řeka",
+        "focus_sounds": [
+          "ř"
+        ],
+        "min_score": 0.45,
+        "translation_en": "river"
+      },
+      "answer_key": "řeka",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-001"
+    },
+    {
+      "id": 910,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Soft consonants: ď ť ň",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "How are ď, ť, ň (and d, t, n before i or ě) pronounced?",
+        "options": [
+          "Exactly like d, t, n",
+          "Softened — like 'd' in British 'duty', 't' in 'tune', 'ñ' in 'canyon'",
+          "As ch, sh, zh",
+          "They are silent"
+        ],
+        "correct_index": 1,
+        "explanation": "The háček (or a following i/ě) softens them: kůň (horse) ends in a soft ň, chuť (taste) ends in soft ť, loď (boat) ends in soft ď. Also děti, tělo, není — the d/t/n there are soft."
+      },
+      "answer_key": "1",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 911,
+      "lesson_id": 100,
+      "type": "dictation",
+      "prompt": "Listen and type — the letter ž",
+      "data": {
+        "type": "dictation",
+        "expected_text": "žena",
+        "language": "cs-CZ",
+        "note": "ž sounds like the 's' in 'measure'. žena = woman. First-syllable stress: ŽE-na."
+      },
+      "answer_key": "žena",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 912,
+      "lesson_id": 100,
+      "type": "dictation",
+      "prompt": "Listen and type — long ý and the letter s",
+      "data": {
+        "type": "dictation",
+        "expected_text": "sýr",
+        "language": "cs-CZ",
+        "note": "s is always a plain 's' (never 'z'); ý is a long 'ee'. sýr = cheese, said 'seer'."
+      },
+      "answer_key": "sýr",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 913,
+      "lesson_id": 100,
+      "type": "multiple_choice",
+      "prompt": "Letters from foreign words",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Which letters appear almost only in words borrowed from other languages?",
+        "options": [
+          "q, w, x",
+          "č, š, ž",
+          "a, e, o",
+          "r, l, m"
+        ],
+        "correct_index": 0,
+        "explanation": "Native Czech spells these sounds differently, so q, w, x are rare and mostly in loanwords (taxi, watt). ó is also mostly foreign (móda = fashion). Everything else you've met is fully native."
+      },
+      "answer_key": "0",
+      "xp_reward": 10
+    },
+    {
+      "id": 914,
+      "lesson_id": 100,
+      "type": "pronunciation",
+      "prompt": "Capstone — the Czech pangram (nearly every special letter!)",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Příliš žluťoučký kůň úpěl ďábelské ódy.",
+        "focus_sounds": [
+          "ř",
+          "ž",
+          "ť",
+          "ů",
+          "ú",
+          "ě",
+          "ď",
+          "ó",
+          "č",
+          "ý"
+        ],
+        "min_score": 0.4,
+        "translation_en": "A too-yellow horse moaned devilish odes."
+      },
+      "answer_key": "Příliš žluťoučký kůň úpěl ďábelské ódy.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-001"
+    }
+  ]
+}

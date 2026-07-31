@@ -1,13 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ceskina_pro/core/theme/app_theme.dart';
 import 'package:ceskina_pro/domain/entities/enums.dart';
 import 'package:ceskina_pro/domain/entities/exercise.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/exercise_shared.dart';
+import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/lesson_exercise_viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'support/localized_app.dart';
 
 void main() {
   const boundedTypes = {
@@ -36,16 +40,20 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
 
-      final exercises = _loadShippedExercises()
-          .where((exercise) => boundedTypes.contains(exercise.type))
-          .toList();
+      final exercises =
+          _loadShippedExercises()
+              .where((exercise) => boundedTypes.contains(exercise.type))
+              .toList();
 
-      expect(exercises, hasLength(67));
+      expect(exercises, hasLength(68));
 
       for (final exercise in exercises) {
         await tester.pumpWidget(
           ProviderScope(
             child: MaterialApp(
+              localizationsDelegates: testLocalizationsDelegates,
+              supportedLocales: testSupportedLocales,
+              theme: lightTheme(),
               home: Scaffold(
                 body: LessonExerciseViewport(
                   exercise: exercise,
@@ -78,12 +86,15 @@ void main() {
 
       final exercises = _loadShippedExercises();
 
-      expect(exercises, hasLength(726));
+      expect(exercises, hasLength(773));
 
       for (final exercise in exercises) {
         await tester.pumpWidget(
           ProviderScope(
             child: MaterialApp(
+              localizationsDelegates: testLocalizationsDelegates,
+              supportedLocales: testSupportedLocales,
+              theme: lightTheme(),
               home: Scaffold(
                 body: LessonExerciseViewport(
                   exercise: exercise,
@@ -132,6 +143,9 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          theme: lightTheme(),
           home: Scaffold(
             body: LessonExerciseViewport(
               exercise: exercise,
@@ -143,10 +157,8 @@ void main() {
     );
 
     expect(find.byType(TextField), findsNWidgets(2));
-    expect(
-      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
-      isNull,
-    );
+    // Check stays disabled until every blank has something in it.
+    expect(tester.widget<KeyCta>(find.byType(KeyCta)).onPressed, isNull);
 
     await tester.enterText(find.byType(TextField).at(0), 'Dobré ráno');
     await tester.enterText(find.byType(TextField).at(1), 'jednu kávu');
@@ -182,6 +194,9 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          theme: lightTheme(),
           home: Scaffold(
             body: LessonExerciseViewport(
               exercise: exercise,
@@ -217,6 +232,7 @@ List<Exercise> _loadShippedExercises() {
     'speaking_task',
     'declension_table',
     'word_order',
+    'teaching',
   };
   final lessonFiles =
       Directory('assets/curriculum/lessons')
@@ -256,9 +272,9 @@ Exercise _exerciseFromAsset(Map<String, dynamic> json) {
       'speaking_task' => ExerciseType.speakingTask,
       'declension_table' => ExerciseType.declensionTable,
       'word_order' => ExerciseType.wordOrder,
-      final unsupported => throw FormatException(
-        'Unsupported exercise type: $unsupported',
-      ),
+      'teaching' => ExerciseType.teaching,
+      final unsupported =>
+        throw FormatException('Unsupported exercise type: $unsupported'),
     },
     prompt: json['prompt'] as String,
     data: Map<String, dynamic>.from(json['data'] as Map),

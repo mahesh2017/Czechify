@@ -1,7 +1,7 @@
 {
   "id": 102,
   "unit_id": 1,
-  "order_in_unit": 1,
+  "order_in_unit": 2,
   "title": "Problem Sounds: ř, ě, Long Vowels",
   "description": "Practice the three hardest Czech sounds with pronunciation drills and listening exercises",
   "duration_min": 12,
@@ -148,8 +148,18 @@
       "prompt": "Arrange these words into a sentence",
       "data": {
         "type": "word_order",
-        "words": ["Řeka", "teče", "pod", "mostem."],
-        "correct_order": [0, 1, 2, 3],
+        "words": [
+          "Řeka",
+          "teče",
+          "pod",
+          "mostem."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
         "explanation": "'Řeka teče pod mostem.' = The river flows under the bridge. The location preposition 'pod' takes the instrumental here: most → mostem.",
         "translation_en": "The river flows under the bridge."
       },

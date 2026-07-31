@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/score_colors.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/pronunciation_providers.dart';
+import '../../../providers/tts_providers.dart';
+import '../../common/lesson_ui.dart';
+import '../../common/record_button.dart';
+import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
 
 /// Pronunciation exercise view: record and get feedback.
@@ -29,6 +35,13 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
   String? feedback;
   bool hasRecorded = false;
 
+  /// The attempt this view is waiting on. [pronunciationProvider] outlives the
+  /// widget, so without this the first build of a new exercise reads the
+  /// previous exercise's result and shows a score before the learner has
+  /// spoken. Clearing the provider is not enough on its own: that happens in a
+  /// microtask, one build too late.
+  int? _awaitingAttemptId;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +55,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
       score = null;
       feedback = null;
       hasRecorded = false;
+      _awaitingAttemptId = null;
       _scopeTargetToExercise();
     }
   }
@@ -76,6 +90,11 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
     await notifier.startRecording(
       expectedText: widget.exercise.data['target_text'] as String,
     );
+    if (mounted) {
+      setState(
+        () => _awaitingAttemptId = ref.read(pronunciationProvider).attemptId,
+      );
+    }
   }
 
   void _submitResult() {
@@ -89,8 +108,8 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
         explanation:
             data['note'] as String? ??
             (passed
-                ? 'Good pronunciation!'
-                : 'Try again — focus on the highlighted sounds.'),
+                ? AppLocalizations.of(context).pronFeedbackGood
+                : AppLocalizations.of(context).pronFeedbackRetry),
         correctAnswer: data['target_text'] as String?,
       ),
     );
@@ -98,6 +117,8 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final targetText = data['target_text'] as String;
     final translation = data['translation_en'] as String?;
@@ -108,169 +129,160 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
     final isProcessing = pronState.isProcessing;
     final result = pronState.result;
 
-    // Update local score/feedback when result arrives
-    if (result != null && score == null) {
+    // Adopt a result only when it belongs to the attempt this view started.
+    // A result from the previous exercise is still sitting in the provider on
+    // the first build after navigation.
+    if (result != null &&
+        score == null &&
+        _awaitingAttemptId != null &&
+        pronState.attemptId == _awaitingAttemptId) {
       score = result.overallScore;
       feedback = result.feedback;
       hasRecorded = true;
     }
 
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            widget.exercise.prompt,
-            style: Theme.of(context).textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
+          QuestionPrompt(question: widget.exercise.prompt),
+          const SizedBox(height: 18),
 
-          // Target text
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Text(
-                    targetText,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                    textAlign: TextAlign.center,
-                  ),
-                  if (translation != null) ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      translation,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                  const SizedBox(height: 8),
-                  // TTS button to hear correct pronunciation
-                  TtsButton(text: targetText, size: 20),
-                ],
-              ),
-            ),
-          ),
-
-          // Focus sounds chips
-          if (focusSounds.isNotEmpty) ...[
-            const SizedBox(height: 12),
-            Wrap(
-              alignment: WrapAlignment.center,
+          // What to say, on the hero surface — it is the whole exercise.
+          TeachingHeroCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Focus: ', style: Theme.of(context).textTheme.bodySmall),
-                ...focusSounds.map(
-                  (s) => Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Chip(
-                      label: Text(s as String),
-                      padding: EdgeInsets.zero,
-                      labelStyle: const TextStyle(fontSize: 14),
-                    ),
+                Text(
+                  targetText,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: AppFonts.display,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                    height: 1.15,
+                    color: t.ink,
                   ),
+                ),
+                if (translation != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    translation,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15, height: 1.4, color: t.muted),
+                  ),
+                ],
+                if (focusSounds.isNotEmpty) ...[
+                  const SizedBox(height: 14),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: [
+                      for (final sound in focusSounds)
+                        PillChip(
+                          label: sound as String,
+                          bg: t.card,
+                          fg: t.priInk,
+                        ),
+                    ],
+                  ),
+                ],
+                const SizedBox(height: 16),
+                AudioPairButtons(
+                  onPlay: () => ref.read(czechTtsProvider).speak(targetText),
+                  onSlow:
+                      () => ref.read(czechTtsProvider).speakSlow(targetText),
+                  slowLabel: l10n.audioSlower,
                 ),
               ],
             ),
-          ],
-          const SizedBox(height: 24),
+          ),
+          const SizedBox(height: 22),
 
-          // Record button
-          GestureDetector(
-            onTap: isProcessing ? null : _toggleRecording,
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isRecording
-                    ? Colors.red.shade400
-                    : Theme.of(context).colorScheme.primary,
-              ),
-              child: isProcessing
-                  ? const Padding(
-                      padding: EdgeInsets.all(20),
+          Center(
+            child: Column(
+              children: [
+                if (isProcessing)
+                  SizedBox(
+                    width: 76,
+                    height: 76,
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
                       child: CircularProgressIndicator(
                         strokeWidth: 3,
-                        color: Colors.white,
+                        valueColor: AlwaysStoppedAnimation(t.pri),
                       ),
-                    )
-                  : Icon(
-                      isRecording ? Icons.stop : Icons.mic,
-                      color: Colors.white,
-                      size: 32,
                     ),
+                  )
+                else
+                  RecordButton(
+                    isRecording: isRecording,
+                    onPressed: _toggleRecording,
+                  ),
+                Text(
+                  isRecording
+                      ? l10n.pronListeningTapToStop
+                      : isProcessing
+                      ? l10n.pronAnalysing
+                      : hasRecorded
+                      ? l10n.pronRecordedTapAgain
+                      : l10n.pronTapToRecord,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: isRecording ? t.redInk : t.muted,
+                  ),
+                ),
+                if (pronState.usedWhisper && hasRecorded) ...[
+                  const SizedBox(height: 6),
+                  PillChip(
+                    label: 'Whisper AI',
+                    bg: t.greenSoft,
+                    fg: t.greenInk,
+                    icon: Icons.check,
+                  ),
+                ],
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            isRecording
-                ? 'Listening... tap to stop'
-                : isProcessing
-                ? 'Analyzing...'
-                : hasRecorded
-                ? 'Recorded! Tap to try again'
-                : 'Tap to record',
-            style: Theme.of(context).textTheme.bodySmall,
-            textAlign: TextAlign.center,
-          ),
-
-          // Engine indicator
-          if (pronState.usedWhisper && hasRecorded) ...[
-            const SizedBox(height: 4),
-            Text(
-              '✓ Whisper AI',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.green.shade600,
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
 
           // Escape hatch: pronunciation should never hard-block progress.
           if (!isProcessing)
             TextButton(
-              onPressed: () => widget.onAnswered(
-                ExerciseResult.skipped(
-                  explanation:
-                      'Skipped — keep practising this one aloud with '
-                      'the 🔊 button.',
-                  correctAnswer: targetText,
-                ),
+              onPressed:
+                  () => widget.onAnswered(
+                    ExerciseResult.skipped(
+                      explanation: l10n.pronSkippedNote,
+                      correctAnswer: targetText,
+                    ),
+                  ),
+              style: TextButton.styleFrom(
+                foregroundColor: t.muted,
+                minimumSize: const Size(0, 44),
               ),
               child: Text(
                 hasRecorded && (score ?? 0) == 0
-                    ? 'Mic not working? Skip'
-                    : "Can't record right now? Skip",
+                    ? l10n.pronMicNotWorkingSkip
+                    : l10n.pronCantRecordSkip,
               ),
             ),
 
-          // Score display
           if (hasRecorded && score != null) ...[
-            const SizedBox(height: 24),
+            const SizedBox(height: 18),
             ScoreDisplay(score: score!),
             if (feedback != null) ...[
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Text(
                 feedback!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                  fontStyle: FontStyle.italic,
-                ),
+                style: TextStyle(fontSize: 15, height: 1.5, color: t.ink),
               ),
             ],
-            const SizedBox(height: 16),
-            FilledButton(
-              onPressed: _submitResult,
-              child: const Text('Continue'),
-            ),
+            const SizedBox(height: 18),
+            KeyCta(label: l10n.continueLabel, onPressed: _submitResult),
           ],
         ],
       ),
@@ -278,6 +290,8 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
   }
 }
 
+/// The pronunciation score: a ring rather than a bar, matching how every other
+/// accuracy figure in the app is drawn.
 class ScoreDisplay extends StatelessWidget {
   final double score;
 
@@ -286,28 +300,26 @@ class ScoreDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final percentage = (score * 100).round();
-    final color = ScoreColors.of(score);
+    final color = ScoreColors.of(context, score);
 
     return Column(
       children: [
-        Text(
-          '$percentage%',
-          style: TextStyle(
-            fontSize: 48,
-            fontWeight: FontWeight.bold,
-            color: color,
-          ),
-        ),
-        LinearProgressIndicator(
-          value: score,
+        ScoreRing(
+          fraction: score,
+          label: '$percentage%',
+          caption: AppLocalizations.of(context).captionMatch,
           color: color,
-          minHeight: 8,
-          borderRadius: BorderRadius.circular(4),
+          showBadge: score >= 0.8,
+          size: 104,
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 10),
         Text(
           ScoreColors.label(score),
-          style: TextStyle(color: color, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: color,
+          ),
         ),
       ],
     );

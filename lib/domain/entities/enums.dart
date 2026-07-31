@@ -30,6 +30,9 @@ enum ExerciseType {
   listeningComprehension,
   writingTask,
   speakingTask,
+  // A non-graded presentation card: teaches a concept (text + audio, later
+  // video) before the practice exercises. Costs no heart, earns no XP.
+  teaching,
 }
 
 /// Lesson types.
@@ -55,26 +58,26 @@ enum ExamProduct {
 extension ExamProductAsset on ExamProduct {
   /// Filename slug for `exam_bank_<slug>_<level>.json`.
   String get slug => switch (this) {
-        ExamProduct.permanentResidence => 'permres',
-        ExamProduct.cce => 'cce',
-      };
+    ExamProduct.permanentResidence => 'permres',
+    ExamProduct.cce => 'cce',
+  };
 
   /// Learner-facing product name.
   String get displayName => switch (this) {
-        ExamProduct.permanentResidence => 'Permanent-residence',
-        ExamProduct.cce => 'CCE',
-      };
+    ExamProduct.permanentResidence => 'Permanent-residence',
+    ExamProduct.cce => 'CCE',
+  };
 
   /// Persisted/serialized identifier.
   String get id => switch (this) {
-        ExamProduct.permanentResidence => 'permanent_residence',
-        ExamProduct.cce => 'cce',
-      };
+    ExamProduct.permanentResidence => 'permanent_residence',
+    ExamProduct.cce => 'cce',
+  };
 
   static ExamProduct fromId(String? value) => switch (value) {
-        'cce' => ExamProduct.cce,
-        _ => ExamProduct.permanentResidence, // default + legacy rows
-      };
+    'cce' => ExamProduct.cce,
+    _ => ExamProduct.permanentResidence, // default + legacy rows
+  };
 }
 
 /// How a product converts section points into a pass/fail decision.
@@ -90,12 +93,13 @@ enum ExamScoringRule {
 
 extension ExamScoringRuleId on ExamScoringRule {
   String get id => switch (this) {
-        ExamScoringRule.rawPointsWrittenSpeakingGate => 'raw_points_written_speaking_gate',
-        ExamScoringRule.percentagePerPartGate => 'percentage_per_part_gate',
-      };
+    ExamScoringRule.rawPointsWrittenSpeakingGate =>
+      'raw_points_written_speaking_gate',
+    ExamScoringRule.percentagePerPartGate => 'percentage_per_part_gate',
+  };
 
   static ExamScoringRule fromId(String? value) => switch (value) {
-        'percentage_per_part_gate' => ExamScoringRule.percentagePerPartGate,
-        _ => ExamScoringRule.rawPointsWrittenSpeakingGate,
-      };
+    'percentage_per_part_gate' => ExamScoringRule.percentagePerPartGate,
+    _ => ExamScoringRule.rawPointsWrittenSpeakingGate,
+  };
 }

@@ -82,6 +82,12 @@ class SupabaseSyncBackend implements SyncBackend {
   }
 }
 
+class AccountSyncSnapshot {
+  const AccountSyncSnapshot(this.rows, this.cursors);
+  final Map<String, List<Map<String, dynamic>>> rows;
+  final Map<String, PullCursor> cursors;
+}
+
 /// Drains the local sync outbox to Supabase.
 ///
 /// Queued mutations are pushed before paginated remote changes are pulled and
@@ -172,12 +178,54 @@ class SyncService {
     _accountTransition = false;
   }
 
-  /// Strict pull reserved for a paused account transition.
-  Future<void> pullForAccountInstall() {
+  /// Downloads a target account without mutating local state. Network work is
+  /// intentionally completed before the atomic database replacement begins.
+  Future<AccountSyncSnapshot> downloadAccountSnapshot() async {
     if (!_accountTransition) {
       throw StateError('Account install pull requires an account transition.');
     }
-    return _pull(strict: true);
+    if (!_backend.isReady) {
+      throw StateError('Target account backend is unavailable.');
+    }
+    final rowsByEntity = <String, List<Map<String, dynamic>>>{};
+    final cursors = <String, PullCursor>{};
+    for (final entity in _conflictKeys.keys) {
+      final collected = <Map<String, dynamic>>[];
+      PullCursor? cursor;
+      while (true) {
+        final rows = await _backend.pullPage(
+          entity,
+          cursor: cursor,
+          limit: 100,
+        );
+        collected.addAll(rows);
+        if (rows.isEmpty) break;
+        final revision = (rows.last['revision'] as num?)?.toInt();
+        if (revision == null) {
+          throw StateError('$entity returned an invalid sync cursor.');
+        }
+        cursor = PullCursor(revision: revision);
+        if (rows.length < 100) break;
+      }
+      rowsByEntity[entity] = collected;
+      if (cursor != null) cursors[entity] = cursor;
+    }
+    return AccountSyncSnapshot(rowsByEntity, cursors);
+  }
+
+  /// Applies an already downloaded snapshot inside the caller's transaction.
+  Future<void> installAccountSnapshot(AccountSyncSnapshot snapshot) async {
+    if (!_accountTransition) {
+      throw StateError('Account install requires an account transition.');
+    }
+    final deviceId = await _backend.deviceId();
+    for (final entity in _conflictKeys.keys) {
+      for (final row in snapshot.rows[entity] ?? const []) {
+        if (row['device_id'] != deviceId) await _applyRemote(entity, row);
+      }
+      final cursor = snapshot.cursors[entity];
+      if (cursor != null) await _db.syncDao.setPullCursor(entity, cursor);
+    }
   }
 
   Future<void> _pull({required bool strict}) async {

@@ -8,6 +8,91 @@
   "lesson_type": "introduction",
   "exercises": [
     {
+      "id": 90014,
+      "lesson_id": 1401,
+      "type": "teaching",
+      "prompt": "Around Town: Places, Directions & Transport",
+      "data": {
+        "type": "teaching",
+        "heading": "Around Town: Places, Directions & Transport",
+        "body": "The places you need, how to ask \"Where is…?\", and how to get there.",
+        "intro": "Being lost in a new city is no fun — so let's make sure you never are. You'll learn the places you need, how to ask 'Where is…?', and how to get there on foot, tram, or train.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "nádraží",
+            "en": "station"
+          },
+          {
+            "cz": "obchod",
+            "en": "shop"
+          },
+          {
+            "cz": "restaurace",
+            "en": "restaurant"
+          },
+          {
+            "cz": "banka",
+            "en": "bank"
+          },
+          {
+            "cz": "pošta",
+            "en": "post office"
+          },
+          {
+            "cz": "náměstí",
+            "en": "square"
+          },
+          {
+            "cz": "Kde je…?",
+            "en": "Where is…?"
+          },
+          {
+            "cz": "vlevo",
+            "en": "left"
+          },
+          {
+            "cz": "vpravo",
+            "en": "right"
+          },
+          {
+            "cz": "rovně",
+            "en": "straight ahead"
+          },
+          {
+            "cz": "blízko",
+            "en": "near"
+          },
+          {
+            "cz": "daleko",
+            "en": "far"
+          },
+          {
+            "cz": "autobus",
+            "en": "bus"
+          },
+          {
+            "cz": "tramvaj",
+            "en": "tram"
+          },
+          {
+            "cz": "vlak",
+            "en": "train"
+          },
+          {
+            "cz": "metro",
+            "en": "metro"
+          },
+          {
+            "cz": "jít pěšky",
+            "en": "to go on foot"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 14001,
       "lesson_id": 1401,
       "type": "multiple_choice",
@@ -16,7 +101,12 @@
         "type": "multiple_choice",
         "question_cz": "náměstí",
         "question_en": "What does 'náměstí' mean?",
-        "options": ["square", "street", "bridge", "church"],
+        "options": [
+          "square",
+          "street",
+          "bridge",
+          "church"
+        ],
         "correct_index": 0,
         "explanation": "náměstí = square (neuter noun). A central feature of Czech towns."
       },
@@ -33,7 +123,12 @@
         "type": "multiple_choice",
         "question_cz": "Které slovo NENÍ místo ve městě?",
         "question_en": "Which word is NOT a place in town?",
-        "options": ["nádraží", "kostel", "nůž", "pošta"],
+        "options": [
+          "nádraží",
+          "kostel",
+          "nůž",
+          "pošta"
+        ],
         "correct_index": 2,
         "explanation": "nůž = knife, not a place. nádraží = station, kostel = church, pošta = post office."
       },
@@ -50,7 +145,10 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "Where is the station?",
-        "accepted_answers": ["Kde je nádraží?", "Kde je to nádraží?"],
+        "accepted_answers": [
+          "Kde je nádraží?",
+          "Kde je to nádraží?"
+        ],
         "grammar_note": "Kde = where, je = is, nádraží = station (neuter). 'Kde je...?' is the basic pattern for asking where something is."
       },
       "answer_key": "Kde je nádraží?",
@@ -68,7 +166,9 @@
         "blank_count": 1,
         "explanation": "vedle + genitive = next to. 'Vedle kostela' = next to the church. naproti = opposite.",
         "blank_answers": [
-          ["vedle"]
+          [
+            "vedle"
+          ]
         ]
       },
       "answer_key": "vedle",
@@ -86,7 +186,9 @@
         "blank_count": 1,
         "explanation": "naproti + dative = opposite. 'Naproti nádraží' = opposite the station. blízko = near.",
         "blank_answers": [
-          ["naproti"]
+          [
+            "naproti"
+          ]
         ]
       },
       "answer_key": "naproti",
@@ -102,7 +204,12 @@
         "type": "multiple_choice",
         "question_cz": "Jak řeknete 'The restaurant is far' česky?",
         "question_en": "How do you say 'The restaurant is far' in Czech?",
-        "options": ["Restaurace je daleko.", "Restaurace je blízko.", "Restaurace je vedle.", "Restaurace je tady."],
+        "options": [
+          "Restaurace je daleko.",
+          "Restaurace je blízko.",
+          "Restaurace je vedle.",
+          "Restaurace je tady."
+        ],
         "correct_index": 0,
         "explanation": "daleko = far. blízko = near, vedle = next to, tady = here."
       },
@@ -119,7 +226,11 @@
         "type": "translation",
         "direction": "cz_to_en",
         "source": "Jděte rovně a pak doleva.",
-        "accepted_answers": ["Go straight and then left.", "Go straight ahead and then left.", "Go straight and then turn left."],
+        "accepted_answers": [
+          "Go straight and then left.",
+          "Go straight ahead and then left.",
+          "Go straight and then turn left."
+        ],
         "grammar_note": "rovně = straight, doleva = (to the) left. 'Jděte' is the formal command for 'go' (vy form). doprava = right."
       },
       "answer_key": "Go straight and then left.",
@@ -133,8 +244,18 @@
       "prompt": "Arrange the words to form: 'Turn right at the square.'",
       "data": {
         "type": "word_order",
-        "words": ["náměstí.", "na", "doprava", "Zahněte"],
-        "correct_order": [3, 2, 1, 0],
+        "words": [
+          "náměstí.",
+          "na",
+          "doprava",
+          "Zahněte"
+        ],
+        "correct_order": [
+          3,
+          2,
+          1,
+          0
+        ],
         "explanation": "'Zahněte doprava na náměstí.' = 'Turn right at the square.' zahněte = turn (formal command), doprava = right."
       },
       "answer_key": "Zahněte doprava na náměstí.",
@@ -150,7 +271,12 @@
         "type": "multiple_choice",
         "question_cz": "Které slovo znamená 'straight ahead'?",
         "question_en": "Which word means 'straight ahead'?",
-        "options": ["doleva", "doprava", "rovně", "zpátky"],
+        "options": [
+          "doleva",
+          "doprava",
+          "rovně",
+          "zpátky"
+        ],
         "correct_index": 2,
         "explanation": "rovně = straight (ahead). doleva = left, doprava = right, zpátky = back."
       },
@@ -167,7 +293,9 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "Where is the pharmacy?",
-        "accepted_answers": ["Kde je lékárna?"],
+        "accepted_answers": [
+          "Kde je lékárna?"
+        ],
         "grammar_note": "Kde je = where is. lékárna = pharmacy (feminine). Pattern: Kde je + [place]?"
       },
       "answer_key": "Kde je lékárna?",
@@ -185,10 +313,18 @@
         "blank_count": 4,
         "explanation": "v + locative for cities: v Praze (locative of Praha → Praze). na + locative for open spaces: na náměstí (náměstí is neuter, locative = náměstí).",
         "blank_answers": [
-          ["v"],
-          ["Praze"],
-          ["na"],
-          ["náměstí"]
+          [
+            "v"
+          ],
+          [
+            "Praze"
+          ],
+          [
+            "na"
+          ],
+          [
+            "náměstí"
+          ]
         ]
       },
       "answer_key": "v Praze na náměstí",
@@ -204,7 +340,11 @@
         "type": "pronunciation",
         "target_text": "Jděte rovně a pak doleva.",
         "target_audio_hash": "placeholder_14012",
-        "focus_sounds": ["dě", "rov", "lev"],
+        "focus_sounds": [
+          "dě",
+          "rov",
+          "lev"
+        ],
         "min_score": 0.6,
         "translation_en": "Go straight and then left."
       },

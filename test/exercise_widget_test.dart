@@ -12,12 +12,15 @@ import 'package:ceskina_pro/presentation/widgets/lesson/exercises/multiple_choic
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/pronunciation_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/reading_comprehension_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/speaking_task_view.dart';
+import 'package:ceskina_pro/presentation/widgets/lesson/exercises/teaching_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/translation_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/word_order_view.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/writing_task_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'support/localized_app.dart';
 
 void main() {
   final cases = <ExerciseType, Type>{
@@ -38,6 +41,7 @@ void main() {
     ExerciseType.listeningComprehension: ListeningComprehensionView,
     ExerciseType.writingTask: WritingTaskView,
     ExerciseType.speakingTask: SpeakingTaskView,
+    ExerciseType.teaching: TeachingView,
   };
 
   for (final entry in cases.entries) {
@@ -52,6 +56,8 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           child: MaterialApp(
+            localizationsDelegates: testLocalizationsDelegates,
+            supportedLocales: testSupportedLocales,
             home: Scaffold(
               body: ExerciseWidget(
                 exercise: Exercise(
@@ -120,8 +126,7 @@ Map<String, dynamic> _dataFor(ExerciseType type) => switch (type) {
     'sentence_cz': 'Ty musí jít domů.',
     'correct_sentence_cz': 'Ty musíš jít domů.',
   },
-  ExerciseType.readingComprehension ||
-  ExerciseType.listeningComprehension => {
+  ExerciseType.readingComprehension || ExerciseType.listeningComprehension => {
     'text_cz': 'Dnes je hezky.',
     'questions': [
       {
@@ -138,5 +143,11 @@ Map<String, dynamic> _dataFor(ExerciseType type) => switch (type) {
   ExerciseType.speakingTask => {
     'prompt_en': 'Introduce yourself.',
     'expected_phrases': ['Ahoj'],
+  },
+  ExerciseType.teaching => {
+    'heading': 'The Czech Alphabet',
+    'items': [
+      {'symbol': 'a', 'sound': 'like u in cup', 'example': 'matka'},
+    ],
   },
 };

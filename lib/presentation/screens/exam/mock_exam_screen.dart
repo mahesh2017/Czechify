@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/engines/exam_grader.dart';
 import '../../../domain/engines/pronunciation_scorer.dart';
@@ -13,6 +15,11 @@ import '../../../domain/repositories/exam_repository.dart';
 import '../../providers/database_providers.dart';
 import '../../providers/stt_providers.dart';
 import '../../providers/writing_providers.dart';
+import '../../providers/tts_providers.dart';
+import '../../widgets/common/lesson_ui.dart';
+import '../../widgets/common/soft_ui.dart';
+import '../../widgets/lesson/exercises/exercise_shared.dart'
+    show QuestionPrompt;
 import '../../widgets/lesson/exercise_widget.dart' show TtsButton;
 
 /// Mock exam screen — timed sections matching the selected exam product's
@@ -41,7 +48,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   bool _examComplete = false;
   bool _finishing = false;
   ExamResult? _result;
-  bool _resultFullyScored = false;
+
+  /// Wall-clock deadline for the current section.  Stored as a
+  /// [DateTime] instead of counting UI ticks so backgrounding the app
+  /// or process death cannot grant extra time — the clock keeps
+  /// running in real time regardless of whether the timer fires.
+  DateTime? _sectionDeadline;
 
   /// Externally produced section scores (0-100).
   final Map<({int section, int question}), int> _writingScores = {};
@@ -78,15 +90,29 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   Future<void> _loadExam() async {
-    final exam = await ref
-        .read(examRepositoryProvider)
-        .getMockExam(widget.level);
-    final checkpoint = await _sessionStore.load(widget.level.name);
-    if (mounted) {
-      setState(() {
-        _exam = exam;
-        _pendingCheckpoint = checkpoint;
-      });
+    try {
+      final exam = await ref
+          .read(examRepositoryProvider)
+          .getMockExam(widget.level);
+      final checkpoint = await _sessionStore.load(widget.level.name);
+      if (mounted) {
+        setState(() {
+          _exam = exam;
+          _pendingCheckpoint = checkpoint;
+        });
+      }
+    } on ExamAssetException catch (e) {
+      if (mounted) {
+        setState(() {
+          _exam = null;
+          _pendingCheckpoint = null;
+        });
+        // Surface the error — never silently substitute sample content
+        // for a shipped exam bank that should be present.
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.message)));
+      }
     }
   }
 
@@ -113,7 +139,6 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _speakingTranscriptions.clear();
       _examComplete = false;
       _result = null;
-      _resultFullyScored = false;
     });
     _startSectionTimer();
   }
@@ -143,27 +168,34 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _currentQuestion = checkpoint.questionIndex;
       _answers
         ..clear()
-        ..addAll(checkpoint.answers.map(
-          (section, questions) => MapEntry(section, {...questions}),
-        ),);
+        ..addAll(
+          checkpoint.answers.map(
+            (section, questions) => MapEntry(section, {...questions}),
+          ),
+        );
       _speakingTranscriptions
         ..clear()
-        ..addAll(checkpoint.speakingTranscriptions.map(
-          (key, value) => MapEntry(decodeKey(key), value),
-        ),);
+        ..addAll(
+          checkpoint.speakingTranscriptions.map(
+            (key, value) => MapEntry(decodeKey(key), value),
+          ),
+        );
       _speakingScores
         ..clear()
-        ..addAll(checkpoint.speakingScores.map(
-          (key, value) => MapEntry(decodeKey(key), value),
-        ),);
+        ..addAll(
+          checkpoint.speakingScores.map(
+            (key, value) => MapEntry(decodeKey(key), value),
+          ),
+        );
       _writingScores
         ..clear()
-        ..addAll(checkpoint.writingScores.map(
-          (key, value) => MapEntry(decodeKey(key), value),
-        ),);
+        ..addAll(
+          checkpoint.writingScores.map(
+            (key, value) => MapEntry(decodeKey(key), value),
+          ),
+        );
       _examComplete = false;
       _result = null;
-      _resultFullyScored = false;
       _pendingCheckpoint = null;
     });
     _startSectionTimer(resumeSeconds: checkpoint.secondsLeft);
@@ -173,38 +205,46 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     if (!_examStarted || _examComplete || _finishing || _exam == null) return;
     String encodeKey(({int section, int question}) key) =>
         '${key.section}:${key.question}';
-    unawaited(_sessionStore.save(ExamCheckpoint(
-      level: widget.level.name,
-      sectionIndex: _currentSection,
-      questionIndex: _currentQuestion,
-      secondsLeft: _secondsLeft,
-      answers: _answers.map(
-        (section, questions) => MapEntry(section, {...questions}),
+    unawaited(
+      _sessionStore.save(
+        ExamCheckpoint(
+          level: widget.level.name,
+          sectionIndex: _currentSection,
+          questionIndex: _currentQuestion,
+          secondsLeft: _secondsLeft,
+          answers: _answers.map(
+            (section, questions) => MapEntry(section, {...questions}),
+          ),
+          speakingTranscriptions: _speakingTranscriptions.map(
+            (key, value) => MapEntry(encodeKey(key), value),
+          ),
+          speakingScores: _speakingScores.map(
+            (key, value) => MapEntry(encodeKey(key), value),
+          ),
+          writingScores: _writingScores.map(
+            (key, value) => MapEntry(encodeKey(key), value),
+          ),
+          savedAt: DateTime.now(),
+        ),
       ),
-      speakingTranscriptions: _speakingTranscriptions.map(
-        (key, value) => MapEntry(encodeKey(key), value),
-      ),
-      speakingScores: _speakingScores.map(
-        (key, value) => MapEntry(encodeKey(key), value),
-      ),
-      writingScores: _writingScores.map(
-        (key, value) => MapEntry(encodeKey(key), value),
-      ),
-      savedAt: DateTime.now(),
-    ),),);
+    );
   }
 
   void _startSectionTimer({int? resumeSeconds}) {
     _timer?.cancel();
     final section = _exam!.sections[_currentSection];
-    setState(
-      () => _secondsLeft = resumeSeconds ?? section.timeLimitMinutes * 60,
-    );
+    final totalSeconds = resumeSeconds ?? section.timeLimitMinutes * 60;
+    // Use a wall-clock deadline so backgrounding or process death never
+    // pauses the countdown — the learner doesn't get extra time by
+    // switching apps.
+    _sectionDeadline = DateTime.now().add(Duration(seconds: totalSeconds));
+    setState(() => _secondsLeft = totalSeconds);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!mounted) return;
+      final remaining = _sectionDeadline!.difference(DateTime.now()).inSeconds;
       setState(() {
-        _secondsLeft--;
-        if (_secondsLeft <= 0) {
+        _secondsLeft = remaining > 0 ? remaining : 0;
+        if (remaining <= 0) {
           timer.cancel();
           _nextSection();
         }
@@ -253,7 +293,6 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     if (_finishing) return;
     _finishing = true;
     _timer?.cancel();
-    unawaited(_sessionStore.clear(widget.level.name));
 
     await _evaluatePendingWritingTasks();
 
@@ -280,16 +319,20 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       writingScore: scores.writing,
       speakingScore: scores.speaking,
       totalScore: scores.total,
-      passed: scores.passed,
+      // The shipped question banks have not yet completed independent Czech
+      // examination-specialist validation. Keep scores formative and never
+      // turn a practice threshold into an attainment/pass claim.
+      passed: false,
     );
 
     // Persist the attempt and record a pass only when every productive task
     // was actually scored. Neither completion nor an unavailable evaluator
     // grants an automatic passing result or XP.
-    // should block showing the result screen.
     ExamResult persisted = result;
+    var savedSuccessfully = false;
     try {
       persisted = await ref.read(examRepositoryProvider).saveResult(result);
+      savedSuccessfully = true;
     } catch (_) {
       // Result still shown; only history is lost — but say so.
       if (mounted) {
@@ -300,30 +343,32 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         );
       }
     }
-    if (result.passed) {
-      try {
-        await ref
-            .read(progressRepositoryProvider)
-            .recordExamPassed(widget.level.name);
-      } catch (_) {}
+
+    // Clear the checkpoint only after the result is finalized and saved.
+    // If saving failed, keep the checkpoint so the learner can retry without
+    // losing their answers.
+    if (savedSuccessfully) {
+      unawaited(_sessionStore.clear(widget.level.name));
     }
+
     if (!mounted) return;
     setState(() {
       _examComplete = true;
       _result = persisted;
-      _resultFullyScored = scores.fullyScored;
       _finishing = false;
     });
   }
 
-  ({int section, int question}) get _currentResponseKey =>
-      (section: _currentSection, question: _currentQuestion);
+  ({int section, int question}) get _currentResponseKey => (
+    section: _currentSection,
+    question: _currentQuestion,
+  );
 
-  String _describeCheckpointAge(DateTime savedAt) {
+  String _describeCheckpointAge(AppLocalizations l10n, DateTime savedAt) {
     final elapsed = DateTime.now().difference(savedAt);
-    if (elapsed.inMinutes < 1) return 'a moment ago';
-    if (elapsed.inMinutes < 60) return '${elapsed.inMinutes} min ago';
-    return '${elapsed.inHours} h ago';
+    if (elapsed.inMinutes < 1) return l10n.ageAMomentAgo;
+    if (elapsed.inMinutes < 60) return l10n.ageMinutesAgo(elapsed.inMinutes);
+    return l10n.ageHoursAgo(elapsed.inHours);
   }
 
   int? _externalSectionScore(
@@ -427,49 +472,159 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   Widget _buildIntroScreen() {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
+      backgroundColor: t.bg,
       appBar: AppBar(
-        title: Text('Mock Exam — ${widget.level.name.toUpperCase()}'),
+        backgroundColor: t.bg,
+        title: Text(l10n.examMockTitle(widget.level.name.toUpperCase())),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Icon(Icons.assignment, size: 64, color: Colors.blue),
-              const SizedBox(height: 24),
-              Text(
-                '${(_exam?.product ?? ExamProduct.permanentResidence).displayName} '
-                '${widget.level.name.toUpperCase()} Practice Exam',
-                style: Theme.of(context).textTheme.headlineSmall,
+              Center(
+                child: IconTile(
+                  icon: Icons.assignment_outlined,
+                  tint: t.priSoft,
+                  fg: t.priInk,
+                  size: 72,
+                  radius: 24,
+                  iconSize: 32,
+                ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
+              DisplayText(
+                l10n.examPracticeExamTitle(
+                  (_exam?.product ?? ExamProduct.permanentResidence)
+                      .displayName,
+                  widget.level.name.toUpperCase(),
+                ),
+                size: 27,
+                weight: FontWeight.w800,
+                height: 1.15,
+              ),
+              const SizedBox(height: 8),
               Text(
-                'This exam has 4 timed sections:\n\n'
-                '📖 Reading — comprehension questions\n'
-                '🎧 Listening — audio + questions\n'
-                '✍️ Writing — practice feedback when available\n'
-                '🎤 Speaking — transcript-based practice evidence\n\n'
-                'This is informal practice, not an official exam result.\n\n'
-                'You can answer questions in order. The timer runs per section.',
+                l10n.examFourSections,
+                style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
+              ),
+              const SizedBox(height: 18),
+              // Line icons, not emoji: the app reserves emoji for badges.
+              Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: t.card,
+                  border: Border.all(color: t.line),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: t.shadow,
+                ),
+                child: Column(
+                  children: [
+                    // Not const: the titles come from the localisations.
+                    for (final (i, row)
+                        in <({IconData icon, String title, String sub})>[
+                          (
+                            icon: Icons.menu_book_outlined,
+                            title: l10n.examSectionReading,
+                            sub: l10n.examSectionReadingSub,
+                          ),
+                          (
+                            icon: Icons.headphones_outlined,
+                            title: l10n.examSectionListening,
+                            sub: l10n.examSectionListeningSub,
+                          ),
+                          (
+                            icon: Icons.edit_outlined,
+                            title: l10n.examSectionWriting,
+                            sub: l10n.examSectionWritingSub,
+                          ),
+                          (
+                            icon: Icons.mic_none_outlined,
+                            title: l10n.examSectionSpeaking,
+                            sub: l10n.examSectionSpeakingSub,
+                          ),
+                        ].indexed) ...[
+                      if (i > 0) Divider(height: 1, color: t.line),
+                      Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Row(
+                          children: [
+                            IconTile(
+                              icon: row.icon,
+                              tint: t.elev,
+                              fg: t.muted,
+                              size: 36,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    row.title,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: t.ink,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 1),
+                                  Text(
+                                    row.sub,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: t.muted,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                l10n.examInformalNote,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: context.tokens.muted),
+                style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 8),
+              Text(
+                'Unverified practice only — this is not an official exam result or proof of CEFR attainment.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13,
+                  height: 1.45,
+                  color: t.muted,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 22),
               if (_exam != null) ...[
                 Text(
-                  'Total time: ${_exam!.totalTimeMinutes} minutes',
+                  l10n.examTotalTime(_exam!.totalTimeMinutes),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 24),
                 if (_pendingCheckpoint != null) ...[
                   Text(
-                    'You have an unfinished attempt from '
-                    '${_describeCheckpointAge(_pendingCheckpoint!.savedAt)}.',
+                    l10n.examUnfinishedAttempt(
+                      _describeCheckpointAge(l10n, _pendingCheckpoint!.savedAt),
+                    ),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 14,
+                      height: 1.45,
+                      color: t.priInk,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -477,18 +632,20 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                   FilledButton.icon(
                     onPressed: _resumeExam,
                     icon: const Icon(Icons.restore),
-                    label: const Text('Resume Exam'),
+                    label: Text(AppLocalizations.of(context).resumeExam),
                   ),
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: _startExam,
-                    child: const Text('Discard and start over'),
+                    child: Text(
+                      AppLocalizations.of(context).discardAndStartOver,
+                    ),
                   ),
                 ] else
                   FilledButton.icon(
                     onPressed: _startExam,
                     icon: const Icon(Icons.play_arrow),
-                    label: const Text('Start Exam'),
+                    label: Text(AppLocalizations.of(context).startExam),
                   ),
               ] else ...[
                 const CircularProgressIndicator(),
@@ -533,6 +690,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
+            tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
             onPressed: () async {
               final leave = await _confirmExit();
@@ -559,13 +717,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             children: [
               // Timer bar
               ClipRRect(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(999),
                 child: LinearProgressIndicator(
                   value: _secondsLeft / (section.timeLimitMinutes * 60),
-                  minHeight: 4,
-                  backgroundColor: Colors.red.withValues(alpha: 0.15),
+                  minHeight: 5,
+                  backgroundColor: context.tokens.line,
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    _secondsLeft < 60 ? Colors.red : Colors.blue,
+                    _secondsLeft < 60 ? context.tokens.red : context.tokens.pri,
                   ),
                 ),
               ),
@@ -574,7 +732,16 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               // Question
               Expanded(child: _buildQuestion(section.type, question)),
 
-              // Navigation
+              // Navigation.
+              //
+              // Both buttons override minimumSize. The app theme sets
+              // `Size.fromHeight(54)` on every button style, and that is
+              // `Size(double.infinity, 54)` — a deliberate full-width look that
+              // works anywhere the button gets a bounded width. A Row passes
+              // its children *unbounded* width, so the infinite minimum
+              // propagates and layout fails: the exam body rendered completely
+              // blank and threw on every timer tick. Any themed button placed
+              // in a Row needs a finite minimum like this.
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -587,6 +754,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     const SizedBox(width: 80),
                   FilledButton(
                     onPressed: _nextQuestion,
+                    style: FilledButton.styleFrom(
+                      minimumSize: kRowButtonMinSize,
+                    ),
                     child: Text(
                       _currentQuestion < totalQuestions - 1
                           ? 'Next'
@@ -608,22 +778,23 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   Future<bool> _confirmExit() async {
     final result = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Leave exam?'),
-        content: const Text(
-          'Your exam is in progress and will not be scored if you leave now.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Stay'),
+      builder:
+          (ctx) => AlertDialog(
+            title: const Text('Leave exam?'),
+            content: const Text(
+              'Your exam is in progress and will not be scored if you leave now.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: Text(AppLocalizations.of(context).reviewStay),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, true),
+                child: Text(AppLocalizations.of(context).lessonLeave),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Leave'),
-          ),
-        ],
-      ),
     );
     return result ?? false;
   }
@@ -651,46 +822,41 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (question['passage'] != null) ...[
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  question['passage'] as String,
-                  style: Theme.of(context).textTheme.bodyMedium,
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: context.tokens.card,
+                border: Border.all(color: context.tokens.line),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: context.tokens.shadow,
+              ),
+              child: Text(
+                question['passage'] as String,
+                style: TextStyle(
+                  fontSize: 16,
+                  height: 1.6,
+                  color: context.tokens.ink,
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 18),
           ],
-          Text(prompt, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 16),
-          ...options.asMap().entries.map((entry) {
-            final idx = entry.key;
-            final option = entry.value;
-            final isSelected = selected == idx;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Card(
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primaryContainer
-                    : null,
-                child: ListTile(
-                  leading: Text(
-                    String.fromCharCode(65 + idx),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  title: Text(option),
-                  onTap: () => _answer(idx),
-                  trailing: isSelected
-                      ? Icon(
-                          Icons.check_circle,
-                          color: Theme.of(context).colorScheme.primary,
-                        )
-                      : null,
-                ),
+          QuestionPrompt(question: prompt),
+          const SizedBox(height: 18),
+          for (final (idx, option) in options.indexed)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: QuizOptionTile(
+                keyLabel: String.fromCharCode(65 + idx),
+                text: option,
+                // An exam never reveals the answer mid-paper, so the only
+                // states in play are idle and selected.
+                state:
+                    selected == idx ? OptionState.selected : OptionState.idle,
+                onTap: () => _answer(idx),
               ),
-            );
-          }),
+            ),
         ],
       ),
     );
@@ -704,20 +870,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Audio player — the spoken text is deliberately never displayed.
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TtsButton(text: audioText, size: 40),
-                  const SizedBox(width: 8),
-                  const Text('Tap to play the audio'),
-                ],
-              ),
-            ),
+          ListenPanel(
+            label: AppLocalizations.of(context).examPlayAudio,
+            onPlay: () => ref.read(czechTtsProvider).speak(audioText),
+            onSlow: () => ref.read(czechTtsProvider).speakSlow(audioText),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
           _buildChoiceBody(question),
         ],
       ),
@@ -732,35 +890,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(prompt, style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: 16),
-        ...options.asMap().entries.map((entry) {
-          final idx = entry.key;
-          final option = entry.value;
-          final isSelected = selected == idx;
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Card(
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : null,
-              child: ListTile(
-                leading: Text(
-                  String.fromCharCode(65 + idx),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                title: Text(option),
-                onTap: () => _answer(idx),
-                trailing: isSelected
-                    ? Icon(
-                        Icons.check_circle,
-                        color: Theme.of(context).colorScheme.primary,
-                      )
-                    : null,
-              ),
+        QuestionPrompt(question: prompt),
+        const SizedBox(height: 18),
+        for (final (idx, option) in options.indexed)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: QuizOptionTile(
+              keyLabel: String.fromCharCode(65 + idx),
+              text: option,
+              state: selected == idx ? OptionState.selected : OptionState.idle,
+              onTap: () => _answer(idx),
             ),
-          );
-        }),
+          ),
       ],
     );
   }
@@ -781,7 +922,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       children: [
         Text(
           question['prompt'] as String,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: context.tokens.ink,
+          ),
         ),
         const SizedBox(height: 8),
         Text(
@@ -821,7 +966,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         if (evaluation != null) ...[
           const SizedBox(height: 12),
           Card(
-            color: Theme.of(context).colorScheme.secondaryContainer,
+            color: context.tokens.elev,
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
@@ -853,10 +998,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         ],
         if (error != null) ...[
           const SizedBox(height: 12),
-          Text(
-            error,
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
-          ),
+          Text(error, style: TextStyle(color: context.tokens.redInk)),
         ],
         if (!isEvaluating && evaluation == null && learnerText.isNotEmpty) ...[
           const SizedBox(height: 12),
@@ -883,7 +1025,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         children: [
           Text(
             question['prompt'] as String,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: context.tokens.ink,
+            ),
           ),
           const SizedBox(height: 16),
           Card(
@@ -896,7 +1042,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                       children: [
                         Text(
                           targetText,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: TextStyle(
+                            fontFamily: AppFonts.display,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                            color: context.tokens.ink,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
@@ -938,12 +1089,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           Text(
             task is ExamReadAloudTask
                 ? 'Read the text aloud. This practice score compares the '
-                      'device transcript with the displayed text.'
+                    'device transcript with the displayed text.'
                 : task is ExamPromptedResponseTask
                 ? 'Respond freely in Czech. This practice score reports '
-                      'coverage of the suggested phrases in the device transcript.'
+                    'coverage of the suggested phrases in the device transcript.'
                 : 'Respond freely in Czech. The transcript is saved for '
-                      'review, but this task is not automatically scored.',
+                    'review, but this task is not automatically scored.',
             style: TextStyle(color: context.tokens.muted, fontSize: 15),
             textAlign: TextAlign.center,
           ),
@@ -956,13 +1107,14 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 height: 72,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _isRecordingSpeaking
-                      ? Colors.red.shade400
-                      : Theme.of(context).colorScheme.primary,
+                  color:
+                      _isRecordingSpeaking
+                          ? context.tokens.red
+                          : context.tokens.pri,
                 ),
                 child: Icon(
                   _isRecordingSpeaking ? Icons.hearing : Icons.mic,
-                  color: Colors.white,
+                  color: context.tokens.onFill,
                   size: 30,
                 ),
               ),
@@ -975,7 +1127,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 : score != null
                 ? 'Scored! Tap the mic to try again.'
                 : 'Tap to record',
-            style: Theme.of(context).textTheme.bodySmall,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: context.tokens.muted,
+            ),
             textAlign: TextAlign.center,
           ),
           if (score != null) ...[
@@ -984,9 +1140,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               '$score / 100',
               textAlign: TextAlign.center,
               style: TextStyle(
+                fontFamily: AppFonts.display,
                 fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: score >= 60 ? Colors.green : Colors.orange,
+                fontWeight: FontWeight.w800,
+                color:
+                    score >= 60
+                        ? context.tokens.greenInk
+                        : context.tokens.violetInk,
               ),
             ),
             if (transcription != null && transcription.isNotEmpty)
@@ -1000,12 +1160,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               ),
           ] else if (transcription != null && transcription.isNotEmpty) ...[
             const SizedBox(height: 16),
-            const Text(
+            Text(
               'Recorded — unscored practice',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.orange,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: context.tokens.muted,
               ),
             ),
             Padding(
@@ -1075,78 +1236,74 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   Widget _buildResultScreen() {
-    final passed = _result!.passed;
-    final color = !_resultFullyScored
-        ? Colors.orange
-        : passed
-        ? Colors.green
-        : Colors.red;
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    // A partly-unscored paper is a neutral outcome, not a warning — amber is
+    // reserved for streak and XP.
+    final color = t.violetInk;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Exam Results')),
+      backgroundColor: t.bg,
+      appBar: AppBar(backgroundColor: t.bg, title: const Text('Exam results')),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                !_resultFullyScored
-                    ? Icons.pending_actions
-                    : passed
-                    ? Icons.emoji_events
-                    : Icons.cancel,
-                size: 80,
-                color: color,
+              IconTile(
+                icon: Icons.analytics_outlined,
+                tint: t.violetSoft,
+                fg: color,
+                size: 72,
+                radius: 24,
+                iconSize: 32,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
+              const DisplayText(
+                'Practice complete',
+                size: 27,
+                weight: FontWeight.w800,
+                height: 1.15,
+              ),
+              const SizedBox(height: 8),
               Text(
-                !_resultFullyScored
-                    ? 'Practice completed — some tasks are unscored'
-                    : passed
-                    ? 'Practice threshold met'
-                    : 'Practice threshold not met',
-                style: Theme.of(context).textTheme.headlineMedium,
+                'These formative scores are not an official pass or proof of CEFR attainment.',
                 textAlign: TextAlign.center,
+                style: TextStyle(color: t.muted, height: 1.4),
               ),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      _ScoreRow(label: 'Reading', score: _result!.readingScore),
-                      const Divider(),
-                      _ScoreRow(
-                        label: 'Listening',
-                        score: _result!.listeningScore,
-                      ),
-                      const Divider(),
-                      _ScoreRow(label: 'Writing', score: _result!.writingScore),
-                      const Divider(),
-                      _ScoreRow(
-                        label: 'Speaking',
-                        score: _result!.speakingScore,
-                      ),
-                      const Divider(),
-                      _ScoreRow(
-                        label: 'Overall',
-                        score: _result!.totalScore,
-                        isBold: true,
-                      ),
-                    ],
-                  ),
+              const SizedBox(height: 20),
+              SoftCard(
+                child: Column(
+                  children: [
+                    _ScoreRow(label: 'Reading', score: _result!.readingScore),
+                    const Divider(),
+                    _ScoreRow(
+                      label: 'Listening',
+                      score: _result!.listeningScore,
+                    ),
+                    const Divider(),
+                    _ScoreRow(label: 'Writing', score: _result!.writingScore),
+                    const Divider(),
+                    _ScoreRow(label: 'Speaking', score: _result!.speakingScore),
+                    const Divider(),
+                    _ScoreRow(
+                      label: 'Overall',
+                      score: _result!.totalScore,
+                      isBold: true,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
 
               // Answer review — what was right and wrong, per question.
               _buildAnswerReview(),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
 
-              FilledButton(
+              KeyCta(
+                label: l10n.examDone,
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Done'),
               ),
             ],
           ),
@@ -1204,7 +1361,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     children: [
                       Icon(
                         isCorrect ? Icons.check_circle : Icons.cancel,
-                        color: isCorrect ? Colors.green : Colors.red,
+                        color:
+                            isCorrect
+                                ? context.tokens.green
+                                : context.tokens.redInk,
                         size: 20,
                       ),
                       const SizedBox(width: 8),
@@ -1232,11 +1392,17 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                       userIdx is int && userIdx < options.length
                           ? 'Your answer: ${options[userIdx]}'
                           : 'Not answered',
-                      style: const TextStyle(color: Colors.red, fontSize: 15),
+                      style: TextStyle(
+                        color: context.tokens.redInk,
+                        fontSize: 15,
+                      ),
                     ),
                   Text(
                     'Correct: ${options[correctIdx]}',
-                    style: const TextStyle(color: Colors.green, fontSize: 15),
+                    style: TextStyle(
+                      color: context.tokens.greenInk,
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),
@@ -1255,7 +1421,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           alignment: Alignment.centerLeft,
           child: Text(
             'Answer Review',
-            style: Theme.of(context).textTheme.titleMedium,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: context.tokens.ink,
+            ),
           ),
         ),
         ...entries,
@@ -1277,11 +1447,13 @@ class _ScoreRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = score >= 80
-        ? Colors.green
-        : score >= 60
-        ? Colors.orange
-        : Colors.red;
+    final t = context.tokens;
+    final color =
+        score >= 80
+            ? t.green
+            : score >= 60
+            ? t.amber
+            : t.red;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -1316,6 +1488,13 @@ class _MiniScoreRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
+    final color =
+        score >= 80
+            ? t.green
+            : score >= 60
+            ? t.amber
+            : t.red;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
@@ -1326,20 +1505,12 @@ class _MiniScoreRow extends StatelessWidget {
           ),
           Expanded(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(3),
+              borderRadius: BorderRadius.circular(999),
               child: LinearProgressIndicator(
                 value: score / 100,
                 minHeight: 6,
-                backgroundColor: Theme.of(
-                  context,
-                ).colorScheme.surfaceContainerHighest,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  score >= 80
-                      ? Colors.green
-                      : score >= 60
-                      ? Colors.orange
-                      : Colors.red,
-                ),
+                backgroundColor: context.tokens.elev,
+                valueColor: AlwaysStoppedAnimation<Color>(color),
               ),
             ),
           ),

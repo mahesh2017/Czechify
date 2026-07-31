@@ -16,7 +16,7 @@ class SoftCard extends StatelessWidget {
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(18),
-    this.radius = 20,
+    this.radius = 24,
     this.color,
     this.border,
     this.onTap,
@@ -63,7 +63,7 @@ class IconTile extends StatelessWidget {
     required this.tint,
     required this.fg,
     this.size = 40,
-    this.radius = 14,
+    this.radius = 12,
     this.iconSize = 18,
   });
 
@@ -96,6 +96,9 @@ class PillChip extends StatelessWidget {
     required this.bg,
     required this.fg,
     this.icon,
+    this.iconColor,
+    this.border,
+    this.shadow,
     this.bold = true,
     this.fontSize = 12,
   });
@@ -104,22 +107,31 @@ class PillChip extends StatelessWidget {
   final Color bg;
   final Color fg;
   final IconData? icon;
+
+  /// Defaults to [fg]. On a tinted chip the glyph and the label share the
+  /// hue's ink; on a neutral chip the glyph keeps its own meaning — the
+  /// streak flame stays amber next to an ink-coloured number.
+  final Color? iconColor;
+  final Color? border;
+  final List<BoxShadow>? shadow;
   final bool bold;
   final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: icon == null ? 10 : 11, vertical: 6),
+      padding: EdgeInsets.fromLTRB(icon == null ? 10 : 9, 6, 11, 6),
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(999),
+        border: border == null ? null : Border.all(color: border!),
+        boxShadow: shadow,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 13, color: fg),
+            Icon(icon, size: 13, color: iconColor ?? fg),
             const SizedBox(width: 5),
           ],
           Text(
@@ -136,7 +148,7 @@ class PillChip extends StatelessWidget {
   }
 }
 
-/// Uppercase tracked section label.
+/// Quiet section heading. Tracked uppercase is reserved for lesson kickers.
 class SectionLabel extends StatelessWidget {
   const SectionLabel(this.text, {super.key, this.color});
 
@@ -147,11 +159,10 @@ class SectionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.tokens;
     return Text(
-      text.toUpperCase(),
+      text,
       style: TextStyle(
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: FontWeight.w700,
-        letterSpacing: 0.9,
         color: color ?? t.muted,
       ),
     );
@@ -188,37 +199,126 @@ class SoftProgressBar extends StatelessWidget {
   }
 }
 
-/// The primary full-width filled action button used on lesson/quiz/review
-/// footers, with an optional leading icon.
+/// The primary full-width action button on the lesson, onboarding, teaching
+/// and copybook footers.
+///
+/// The comp's CTA is a physical object rather than a flat rectangle: a
+/// top-to-bottom gradient, a 2pt highlight along the top inside edge, a 3pt
+/// shade along the bottom, and a tight drop shadow in the accent's own
+/// colour. Flutter has no inset box-shadow, so the two edges are drawn as
+/// clipped bands inside the rounded rect — visually identical, and it keeps
+/// the corners correct.
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     super.key,
     required this.label,
     required this.onPressed,
     this.icon,
+    this.radius = 24,
+    this.height = 60,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final IconData? icon;
+  final double radius;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return SizedBox(
-      height: 54,
-      width: double.infinity,
-      child: FilledButton(
-        onPressed: onPressed,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) ...[
-              Icon(icon, size: 18, color: t.onFill),
-              const SizedBox(width: 10),
+    final enabled = onPressed != null;
+    final fg = enabled ? t.onFill : t.faint;
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: label,
+      child: Container(
+        height: height,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
+          boxShadow:
+              enabled
+                  ? [
+                    BoxShadow(
+                      color: t.priFill.withValues(alpha: .55),
+                      blurRadius: 26,
+                      spreadRadius: -12,
+                      offset: const Offset(0, 12),
+                    ),
+                  ]
+                  : null,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(radius),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient:
+                      enabled
+                          ? LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color.lerp(t.priFill, Colors.white, .12)!,
+                              t.priFill,
+                            ],
+                          )
+                          : null,
+                  color: enabled ? null : t.elev,
+                ),
+              ),
+              if (enabled) ...[
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 2,
+                  child: ColoredBox(color: Colors.white.withValues(alpha: .28)),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: 3,
+                  child: ColoredBox(color: Colors.black.withValues(alpha: .18)),
+                ),
+              ],
+              Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  onTap: onPressed,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (icon != null) ...[
+                          Icon(icon, size: 18, color: fg),
+                          const SizedBox(width: 10),
+                        ],
+                        Flexible(
+                          child: Text(
+                            label,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: AppFonts.body,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: fg,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
-            Text(label),
-          ],
+          ),
         ),
       ),
     );

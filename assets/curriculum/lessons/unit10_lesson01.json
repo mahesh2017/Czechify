@@ -8,6 +8,67 @@
   "description": "Learn the two types of Czech reflexive verbs: those using 'se' and those using 'si'. Master conjugation patterns and when to use each.",
   "exercises": [
     {
+      "id": 90010,
+      "lesson_id": 1001,
+      "type": "teaching",
+      "prompt": "Reflexive Verbs (se / si) & Daily Routine",
+      "data": {
+        "type": "teaching",
+        "heading": "Reflexive Verbs (se / si) & Daily Routine",
+        "body": "Some verbs fold back on the speaker with a little se or si. They narrate your whole day.",
+        "intro": "Some Czech verbs fold back on the speaker — I wash myself, I'm called… That little word, se or si, is the key to narrating your whole day, from waking up to lights out.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "jmenovat se",
+            "en": "to be called"
+          },
+          {
+            "cz": "Jmenuju se Adam.",
+            "en": "My name is Adam."
+          },
+          {
+            "cz": "mýt se",
+            "en": "to wash (oneself)"
+          },
+          {
+            "cz": "sprchovat se",
+            "en": "to shower"
+          },
+          {
+            "cz": "dívat se",
+            "en": "to watch"
+          },
+          {
+            "cz": "oblékat se",
+            "en": "to get dressed"
+          },
+          {
+            "cz": "cítit se",
+            "en": "to feel"
+          },
+          {
+            "cz": "vstávat",
+            "en": "to get up"
+          },
+          {
+            "cz": "snídat",
+            "en": "to have breakfast"
+          },
+          {
+            "cz": "spát",
+            "en": "to sleep"
+          },
+          {
+            "cz": "Ráno se sprchuju.",
+            "en": "In the morning I take a shower."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 10001,
       "lesson_id": 1001,
       "type": "multiple_choice",
@@ -16,7 +77,12 @@
         "type": "multiple_choice",
         "question_cz": "Které zvratné zájmeno se používá se slovesem 'mýt'?",
         "question_en": "Which reflexive pronoun is used with the verb 'mýt'?",
-        "options": ["se", "si", "sobě", "sebe"],
+        "options": [
+          "se",
+          "si",
+          "sobě",
+          "sebe"
+        ],
         "correct_index": 0,
         "explanation": "'Mýt se' means to wash oneself. 'Se' is the accusative reflexive pronoun used when the action is performed on oneself directly."
       },
@@ -33,7 +99,12 @@
         "type": "multiple_choice",
         "question_cz": "Které zvratné zájmeno se používá se slovesem 'kupovat'?",
         "question_en": "Which reflexive pronoun is used with the verb 'kupovat'?",
-        "options": ["se", "si", "sebou", "sobě"],
+        "options": [
+          "se",
+          "si",
+          "sebou",
+          "sobě"
+        ],
         "correct_index": 1,
         "explanation": "'Kupovat si' means to buy for oneself. 'Si' is the dative reflexive pronoun used when the action benefits oneself."
       },
@@ -52,7 +123,11 @@
         "blank_count": 1,
         "explanation": "For 'já' (I), 'mýt se' conjugates to 'myju se' or 'myji se'. The reflexive 'se' comes after the verb in the 1st person singular.",
         "blank_answers": [
-          ["se myju", "se myji", "se umývám"]
+          [
+            "se myju",
+            "se myji",
+            "se umývám"
+          ]
         ]
       },
       "answer_key": "se myju",
@@ -70,7 +145,9 @@
         "blank_count": 1,
         "explanation": "For 'ty' (you singular informal), 'učit se' conjugates to 'učíš se'. The reflexive particle is placed before the verb in this sentence structure.",
         "blank_answers": [
-          ["se učíš"]
+          [
+            "se učíš"
+          ]
         ]
       },
       "answer_key": "se učíš",
@@ -88,7 +165,9 @@
         "blank_count": 1,
         "explanation": "For 'on' (he), 'dívat se' conjugates to 'dívá se'. 'Se' is the reflexive pronoun meaning the action reflects back on the subject.",
         "blank_answers": [
-          ["se dívá"]
+          [
+            "se dívá"
+          ]
         ]
       },
       "answer_key": "se dívá",
@@ -104,7 +183,12 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I am learning Czech.",
-        "accepted_answers": ["učím se česky", "učím se česky.", "já se učím česky", "já se učím česky."],
+        "accepted_answers": [
+          "učím se česky",
+          "učím se česky.",
+          "já se učím česky",
+          "já se učím česky."
+        ],
         "grammar_note": "Use 'učit se' + language in adverb form. 'Česky' is the adverb meaning 'in Czech'."
       },
       "answer_key": "učím se česky",
@@ -120,7 +204,12 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I am buying myself a book.",
-        "accepted_answers": ["kupuju si knihu", "kupuji si knihu", "kupuju si knihu.", "kupuji si knihu."],
+        "accepted_answers": [
+          "kupuju si knihu",
+          "kupuji si knihu",
+          "kupuju si knihu.",
+          "kupuji si knihu."
+        ],
         "grammar_note": "Use 'kupovat si' — 'si' is dative reflexive meaning 'for myself'. 'Knihu' is accusative of 'kniha' (book)."
       },
       "answer_key": "kupuju si knihu",
@@ -138,7 +227,10 @@
         "blank_count": 1,
         "explanation": "For 'my' (we), 'kupovat si' conjugates to 'kupujeme si'. 'Si' can go either before or after the verb.",
         "blank_answers": [
-          ["si kupujeme", "kupujeme si"]
+          [
+            "si kupujeme",
+            "kupujeme si"
+          ]
         ]
       },
       "answer_key": "si kupujeme",
@@ -152,8 +244,20 @@
       "prompt": "Arrange words to form the sentence: 'I wash myself every morning.'",
       "data": {
         "type": "word_order",
-        "words": ["myju", "se", "Já", "každé", "ráno"],
-        "correct_order": [2, 1, 0, 3, 4],
+        "words": [
+          "myju",
+          "se",
+          "Já",
+          "každé",
+          "ráno"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0,
+          3,
+          4
+        ],
         "explanation": "Czech word order: Já (I) se myju (wash myself) každé ráno (every morning). The reflexive 'se' typically occupies the second position."
       },
       "answer_key": "Já se myju každé ráno",
@@ -169,7 +273,10 @@
         "type": "pronunciation",
         "target_text": "Učím se česky každý den",
         "target_audio_hash": "placeholder_1010",
-        "focus_sounds": ["č", "ý"],
+        "focus_sounds": [
+          "č",
+          "ý"
+        ],
         "min_score": 0.6,
         "translation_en": "I learn Czech every day"
       },
@@ -202,7 +309,12 @@
         "type": "multiple_choice",
         "question_cz": "Vyberte správný tvar: '___ si kávu.' (On si vaří kávu.)",
         "question_en": "Choose the correct form: '___ si kávu.' (He is making himself coffee.)",
-        "options": ["Vaří", "Vařit", "Vařím", "Vaříš"],
+        "options": [
+          "Vaří",
+          "Vařit",
+          "Vařím",
+          "Vaříš"
+        ],
         "correct_index": 0,
         "explanation": "'On vaří si kávu' — 'vaří' is the 3rd person singular of 'vařit'. The reflexive 'si' means 'for himself'."
       },

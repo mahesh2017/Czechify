@@ -39,21 +39,21 @@ class ExamCheckpoint {
   });
 
   Map<String, dynamic> toJson() => {
-        'level': level,
-        'section_index': sectionIndex,
-        'question_index': questionIndex,
-        'seconds_left': secondsLeft,
-        'answers': answers.map(
-          (section, questions) => MapEntry(
-            '$section',
-            questions.map((question, value) => MapEntry('$question', value)),
-          ),
-        ),
-        'speaking_transcriptions': speakingTranscriptions,
-        'speaking_scores': speakingScores,
-        'writing_scores': writingScores,
-        'saved_at': savedAt.toIso8601String(),
-      };
+    'level': level,
+    'section_index': sectionIndex,
+    'question_index': questionIndex,
+    'seconds_left': secondsLeft,
+    'answers': answers.map(
+      (section, questions) => MapEntry(
+        '$section',
+        questions.map((question, value) => MapEntry('$question', value)),
+      ),
+    ),
+    'speaking_transcriptions': speakingTranscriptions,
+    'speaking_scores': speakingScores,
+    'writing_scores': writingScores,
+    'saved_at': savedAt.toIso8601String(),
+  };
 
   static ExamCheckpoint? fromJson(Map<String, dynamic> json) {
     try {
@@ -91,7 +91,7 @@ class ExamCheckpoint {
 /// Persists at most one [ExamCheckpoint] per exam level.
 class ExamSessionStore {
   ExamSessionStore({Future<SharedPreferences>? preferences})
-      : _preferences = preferences ?? SharedPreferences.getInstance();
+    : _preferences = preferences ?? SharedPreferences.getInstance();
 
   final Future<SharedPreferences> _preferences;
 
@@ -107,8 +107,9 @@ class ExamSessionStore {
     if (raw == null) return null;
     ExamCheckpoint? checkpoint;
     try {
-      checkpoint =
-          ExamCheckpoint.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+      checkpoint = ExamCheckpoint.fromJson(
+        jsonDecode(raw) as Map<String, dynamic>,
+      );
     } catch (_) {
       checkpoint = null;
     }

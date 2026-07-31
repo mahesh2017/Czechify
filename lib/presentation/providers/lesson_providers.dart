@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
+import '../../core/feedback/celebration.dart';
 import '../../domain/entities/exercise.dart';
 import '../../domain/entities/enums.dart';
 import '../../domain/entities/exercise_outcome.dart';
@@ -9,6 +10,7 @@ import '../../domain/entities/flashcard.dart';
 import '../../domain/entities/lesson.dart';
 import '../../domain/entities/learning_evidence.dart';
 import '../../domain/engines/learning_loop_engine.dart';
+import '../../domain/engines/unit_completion_detector.dart';
 import 'curriculum_providers.dart';
 import 'database_providers.dart';
 import 'gamification_providers.dart';
@@ -61,6 +63,31 @@ class LessonSessionState {
   /// Remaining seconds on the exam countdown timer.
   final int remainingSeconds;
 
+  /// Consecutive correct answers right now.
+  ///
+  /// Drives the rising answer tone and the combo chip. A run is what stops
+  /// answer #40 feeling identical to answer #4 — the same event has to pay
+  /// out differently or it stops registering as a reward at all.
+  final int answerStreak;
+
+  /// The longest run in this session, kept for the completion screen.
+  final int bestAnswerStreak;
+
+  /// Badges and streak milestones earned by finishing this lesson.
+  ///
+  /// Held here rather than announced the moment they are awarded, because
+  /// they are awarded *during* the commit — before the completion screen
+  /// exists. Fired from there, they would arrive ahead of the lesson's own
+  /// celebration and steal it.
+  final List<Celebration> pendingRewards;
+
+  /// Set when this lesson was the one that finished its unit.
+  ///
+  /// Nothing in the app detected this before: units were only ever read
+  /// backwards, as "which are unlocked", so the moment a learner finished one
+  /// passed without any acknowledgement at all.
+  final UnitCompleted? unitJustCompleted;
+
   const LessonSessionState({
     this.lesson,
     this.exercises = const [],
@@ -87,6 +114,10 @@ class LessonSessionState {
     this.isTeaching = false,
     this.isExamMode = false,
     this.remainingSeconds = 0,
+    this.answerStreak = 0,
+    this.bestAnswerStreak = 0,
+    this.pendingRewards = const [],
+    this.unitJustCompleted,
   });
 
   LessonSessionState copyWith({
@@ -117,6 +148,10 @@ class LessonSessionState {
     bool? isTeaching,
     bool? isExamMode,
     int? remainingSeconds,
+    int? answerStreak,
+    int? bestAnswerStreak,
+    List<Celebration>? pendingRewards,
+    UnitCompleted? unitJustCompleted,
   }) {
     return LessonSessionState(
       lesson: lesson ?? this.lesson,
@@ -148,6 +183,10 @@ class LessonSessionState {
       isTeaching: isTeaching ?? this.isTeaching,
       isExamMode: isExamMode ?? this.isExamMode,
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      answerStreak: answerStreak ?? this.answerStreak,
+      bestAnswerStreak: bestAnswerStreak ?? this.bestAnswerStreak,
+      pendingRewards: pendingRewards ?? this.pendingRewards,
+      unitJustCompleted: unitJustCompleted ?? this.unitJustCompleted,
     );
   }
 
@@ -353,8 +392,18 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       );
     }
 
+    // A run survives only on correct answers. Skipping breaks it too —
+    // otherwise skipping every hard question would keep a streak alive, which
+    // would reward avoiding exactly the work that teaches.
+    final answerStreak = isCorrect ? state.answerStreak + 1 : 0;
+
     // Show feedback card
     state = state.copyWith(
+      answerStreak: answerStreak,
+      bestAnswerStreak:
+          answerStreak > state.bestAnswerStreak
+              ? answerStreak
+              : state.bestAnswerStreak,
       correctCount: state.correctCount + (isCorrect ? 1 : 0),
       wrongCount: state.wrongCount + (isIncorrect ? 1 : 0),
       skippedCount: state.skippedCount + (isSkipped ? 1 : 0),
@@ -462,6 +511,10 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     try {
       final gamification = ref.read(gamificationProvider.notifier);
       final activityXp = gamification.lessonCompletionXp(accuracy: accuracy);
+      // Read before committing: this is what distinguishes finishing a unit
+      // from replaying a lesson inside one that was already finished.
+      final completedBefore =
+          await ref.read(progressRepositoryProvider).getCompletedLessonIds();
       final committed = await ref
           .read(progressRepositoryProvider)
           .recordCompletion(
@@ -477,18 +530,61 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
             exerciseEvidence: List.unmodifiable(_exerciseEvidence),
           );
 
-      if (committed) {
-        await gamification.refreshAfterCommittedLesson();
-      }
+      final rewards =
+          committed
+              ? await gamification.refreshAfterCommittedLesson()
+              : const <Celebration>[];
       ref.invalidate(completedLessonIdsProvider);
       ref.invalidate(dueCardCountProvider);
-      state = state.copyWith(isCompleting: false, isComplete: true);
+      state = state.copyWith(
+        isCompleting: false,
+        isComplete: true,
+        pendingRewards: rewards,
+        unitJustCompleted: await _unitFinishedBy(lesson, completedBefore),
+      );
     } catch (error, stackTrace) {
       _log.warning('Failed to commit lesson completion', error, stackTrace);
       state = state.copyWith(
         isCompleting: false,
         completionError: 'Couldn’t save this attempt. Please try again.',
       );
+    }
+  }
+
+  /// The unit this lesson just finished, or null if it did not finish one.
+  ///
+  /// Only gathers the inputs; the decision itself lives in
+  /// [UnitCompletionDetector], where it can be tested without a database.
+  Future<UnitCompleted?> _unitFinishedBy(
+    Lesson lesson,
+    Set<int> completedBefore,
+  ) async {
+    if (completedBefore.contains(lesson.id)) return null;
+    try {
+      final curriculum = ref.read(curriculumRepositoryProvider);
+      final unit = await curriculum.getUnit(lesson.unitId);
+      final milestone = const UnitCompletionDetector().evaluate(
+        lesson: lesson,
+        unit: unit,
+        unitLessons: await curriculum.getLessons(lesson.unitId),
+        phaseUnits: await curriculum.getUnits(unit.phase),
+        completedBefore: completedBefore,
+        completedNow:
+            await ref.read(progressRepositoryProvider).getCompletedLessonIds(),
+      );
+      if (milestone == null) return null;
+
+      return UnitCompleted(
+        unitId: milestone.unitId,
+        unitNumber: milestone.number,
+        unitTitle: milestone.title,
+        nextUnitTitle: milestone.nextTitle,
+      );
+    } catch (error, stackTrace) {
+      // A missed celebration must never cost the learner their progress,
+      // which is already committed by this point.
+      _log.fine('Could not evaluate unit completion', error, stackTrace);
+      return null;
     }
   }
 }

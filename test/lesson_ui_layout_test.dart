@@ -1,0 +1,136 @@
+import 'package:ceskina_pro/core/theme/app_theme.dart';
+import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+/// The shared learning-loop primitives are dropped into scroll views all over
+/// the app, where the incoming height constraint is unbounded. A widget that
+/// quietly requires a bounded height asserts on every frame and paints nothing
+/// at all — which is exactly how the review summary shipped blank once, with
+/// only the pinned footer visible.
+///
+/// These pump each primitive inside a [ListView] and fail on any exception.
+void main() {
+  Widget host(Widget child) => MaterialApp(
+    theme: lightTheme(),
+    home: Scaffold(body: ListView(padding: EdgeInsets.zero, children: [child])),
+  );
+
+  group('survives an unbounded height', () {
+    testWidgets('StatStrip', (tester) async {
+      await tester.pumpWidget(
+        host(
+          const StatStrip(
+            cells: [
+              StatCell(value: '94%', label: 'Accuracy'),
+              StatCell(value: '+40', label: 'XP earned'),
+              // Deliberately long, so one cell is taller than the others and
+              // the strip actually has to resolve a height.
+              StatCell(value: '15/16', label: 'Correct answers this lesson'),
+            ],
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      expect(find.text('94%'), findsOneWidget);
+    });
+
+    testWidgets('ScoreRing', (tester) async {
+      await tester.pumpWidget(
+        host(
+          const Center(
+            child: ScoreRing(fraction: 0.94, label: '94%', caption: 'accuracy'),
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      expect(find.text('94%'), findsOneWidget);
+    });
+
+    testWidgets('AudioPairButtons with a label long enough to wrap', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        host(
+          AudioPairButtons(
+            onPlay: () {},
+            onSlow: () {},
+            playLabel: 'Hear the alphabet (letter names)',
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+
+      // Both buttons end up the same height: the pair looked broken when the
+      // wrapped one grew past its fixed-height sibling.
+      final play = tester.getSize(
+        find.ancestor(
+          of: find.text('Hear the alphabet (letter names)'),
+          matching: find.byType(FilledButton),
+        ),
+      );
+      final slow = tester.getSize(
+        find.ancestor(
+          of: find.text('Slow'),
+          matching: find.byType(OutlinedButton),
+        ),
+      );
+      expect(play.height, slow.height);
+    });
+
+    testWidgets('QuizOptionTile', (tester) async {
+      await tester.pumpWidget(
+        host(
+          const QuizOptionTile(
+            keyLabel: 'A',
+            text: 'Dobrý den',
+            state: OptionState.idle,
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      // 44pt minimum target.
+      expect(
+        tester.getSize(find.byType(QuizOptionTile)).height,
+        greaterThanOrEqualTo(44),
+      );
+    });
+
+    testWidgets('AnswerField', (tester) async {
+      await tester.pumpWidget(
+        host(AnswerField(controller: TextEditingController())),
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('KeyCta', (tester) async {
+      await tester.pumpWidget(host(KeyCta(label: 'Check', onPressed: () {})));
+      expect(tester.takeException(), isNull);
+      expect(find.text('Check'), findsOneWidget);
+    });
+
+    testWidgets('SegmentPips, both the pip and the fallback track form', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        host(const SegmentPips(count: 4, currentIndex: 1)),
+      );
+      expect(tester.takeException(), isNull);
+
+      // Above a dozen steps it falls back to a plain track.
+      await tester.pumpWidget(
+        host(const SegmentPips(count: 30, currentIndex: 12)),
+      );
+      expect(tester.takeException(), isNull);
+    });
+  });
+
+  testWidgets('KeyCta is disabled when it has no callback', (tester) async {
+    await tester.pumpWidget(
+      host(const KeyCta(label: 'Check', onPressed: null)),
+    );
+    await tester.tap(find.text('Check'));
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+  });
+}

@@ -9,6 +9,20 @@
   "is_review": true,
   "exercises": [
     {
+      "id": 90028,
+      "lesson_id": 2801,
+      "type": "teaching",
+      "prompt": "How the A1 Exam Works",
+      "data": {
+        "type": "teaching",
+        "heading": "How the A1 Exam Works",
+        "body": "The A1 exam has four parts — reading, listening, writing, and speaking. Three tips carry you through: read the questions first so you know what to look for; don't freeze on an unknown word — the context usually gives it away; and answer everything, because a guess always beats a blank.",
+        "intro": "You've built the foundations — now let's aim them at the exam. We'll walk through exactly what the A1 test asks of you and the tactics that turn nerves into confidence.",
+        "style": "list"
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 28001,
       "lesson_id": 2801,
       "type": "reading_comprehension",

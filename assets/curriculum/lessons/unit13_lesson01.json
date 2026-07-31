@@ -8,6 +8,83 @@
   "duration_min": 15,
   "exercises": [
     {
+      "id": 90013,
+      "lesson_id": 1301,
+      "type": "teaching",
+      "prompt": "Likes & Hobbies",
+      "data": {
+        "type": "teaching",
+        "heading": "Likes & Hobbies",
+        "body": "The charming Czech way to say you like something — \"mám rád\" — plus hobbies and how often you do them.",
+        "intro": "What do you love doing on a free afternoon? Czech has a charming way to say it — 'mám rád', I like — and soon you'll chat about sports, music, and how often you indulge.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "mám rád",
+            "en": "I like (male speaker)"
+          },
+          {
+            "cz": "mám ráda",
+            "en": "I like (female speaker)"
+          },
+          {
+            "cz": "Co rád děláš?",
+            "en": "What do you like to do?"
+          },
+          {
+            "cz": "sport",
+            "en": "sport"
+          },
+          {
+            "cz": "hudba",
+            "en": "music"
+          },
+          {
+            "cz": "čtení",
+            "en": "reading"
+          },
+          {
+            "cz": "film",
+            "en": "film"
+          },
+          {
+            "cz": "vaření",
+            "en": "cooking"
+          },
+          {
+            "cz": "cestování",
+            "en": "travel"
+          },
+          {
+            "cz": "často",
+            "en": "often"
+          },
+          {
+            "cz": "někdy",
+            "en": "sometimes"
+          },
+          {
+            "cz": "vždy",
+            "en": "always"
+          },
+          {
+            "cz": "nikdy",
+            "en": "never"
+          },
+          {
+            "cz": "Rád čtu.",
+            "en": "I like reading. (male)"
+          },
+          {
+            "cz": "Ráda sportuju.",
+            "en": "I like doing sport. (female)"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 13001,
       "lesson_id": 1301,
       "type": "multiple_choice",
@@ -16,7 +93,12 @@
         "type": "multiple_choice",
         "question_cz": "Mám rád",
         "question_en": "What does 'Mám rád' mean?",
-        "options": ["I like", "I have", "I want", "I love"],
+        "options": [
+          "I like",
+          "I have",
+          "I want",
+          "I love"
+        ],
         "correct_index": 0,
         "explanation": "Mám rád = I like (said by a male speaker). For female speakers: Mám ráda. Literally: 'I have glad' — an idiomatic expression for liking things or people."
       },
@@ -33,7 +115,12 @@
         "type": "multiple_choice",
         "question_cz": "Kterou větu použije žena, když má ráda kávu?",
         "question_en": "How does a female speaker say 'I like coffee'?",
-        "options": ["Mám rád kávu", "Mám ráda kávu", "Mám rádo kávu", "Mám rád káva"],
+        "options": [
+          "Mám rád kávu",
+          "Mám ráda kávu",
+          "Mám rádo kávu",
+          "Mám rád káva"
+        ],
         "correct_index": 1,
         "explanation": "Female speakers use 'ráda': Mám ráda kávu. Male: Mám rád kávu. Neuter (rare): Mám rádo kávu. Note: káva becomes accusative kávu after mít rád."
       },
@@ -52,8 +139,12 @@
         "blank_count": 2,
         "explanation": "mít rád → mám rád (I like). čokoláda (feminine) → accusative čokoládu. After mít rád, the object takes the accusative case.",
         "blank_answers": [
-          ["mám rád"],
-          ["čokoládu"]
+          [
+            "mám rád"
+          ],
+          [
+            "čokoládu"
+          ]
         ]
       },
       "answer_key": "mám rád čokoládu",
@@ -69,7 +160,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I like sports",
-        "accepted_answers": ["Mám rád sport", "Mám rád sporty", "Rád sportuji"],
+        "accepted_answers": [
+          "Mám rád sport",
+          "Mám rád sporty",
+          "Rád sportuji"
+        ],
         "grammar_note": "mít rád + accusative: sport (masc. inanimate, accusative = sport). You can also use rád + verb: Rád sportuji = I like doing sports."
       },
       "answer_key": "Mám rád sport",
@@ -85,7 +180,12 @@
         "type": "multiple_choice",
         "question_cz": "How do you say 'I like reading'?",
         "question_en": "How do you say 'I like reading' using the rád + verb construction?",
-        "options": ["Rád čtu", "Mám rád číst", "Rád čtení", "Čtu rád"],
+        "options": [
+          "Rád čtu",
+          "Mám rád číst",
+          "Rád čtení",
+          "Čtu rád"
+        ],
         "correct_index": 0,
         "explanation": "Rád čtu = I like reading (male speaker). The construction is: rád/ráda + conjugated verb. The verb agrees with the subject; rád/ráda agrees with the speaker's gender."
       },
@@ -104,8 +204,12 @@
         "blank_count": 2,
         "explanation": "Female speaker → ráda. vařit (to cook) → ona vaří (she cooks). So: Ona ráda vaří = She likes cooking.",
         "blank_answers": [
-          ["ráda"],
-          ["vaří"]
+          [
+            "ráda"
+          ],
+          [
+            "vaří"
+          ]
         ]
       },
       "answer_key": "ráda vaří",
@@ -121,7 +225,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I don't like mushrooms",
-        "accepted_answers": ["Nemám rád houby", "Nemám ráda houby", "Nerad houby"],
+        "accepted_answers": [
+          "Nemám rád houby",
+          "Nemám ráda houby",
+          "Nerad houby"
+        ],
         "grammar_note": "Negation of mít rád: nemám rád (male) / nemám ráda (female). houby (mushrooms) is feminine plural, accusative = houby. Also possible: Nerad houby (colloquial, omitting verb)."
       },
       "answer_key": "Nemám rád houby",
@@ -139,8 +247,12 @@
         "blank_count": 2,
         "explanation": "Negation of rád + verb: nerad (male) / nerada (female). běhat → já běhám. So: Já nerad běhám = I don't like running.",
         "blank_answers": [
-          ["nerad"],
-          ["běhám"]
+          [
+            "nerad"
+          ],
+          [
+            "běhám"
+          ]
         ]
       },
       "answer_key": "nerad běhám",
@@ -156,7 +268,12 @@
         "type": "multiple_choice",
         "question_cz": "How do you ask 'Do you like music?'",
         "question_en": "Which is the correct question: 'Do you like music?'",
-        "options": ["Ty rád hudbu?", "Máš rád hudbu?", "Rád máš hudbu?", "Hudbu máš rád?"],
+        "options": [
+          "Ty rád hudbu?",
+          "Máš rád hudbu?",
+          "Rád máš hudbu?",
+          "Hudbu máš rád?"
+        ],
         "correct_index": 1,
         "explanation": "Máš rád hudbu? = Do you like music? (informal, to male). For female: Máš ráda hudbu? The question form inverts the subject: Máš (ty) rád...?"
       },
@@ -184,8 +301,12 @@
         ],
         "explanation": "Petr (male): Máš rád kávu? = Do you like coffee? (asking a male). Jana (female): Nemám ráda kávu = I don't like coffee. Gender agreement matters for both speakers.",
         "blank_answers": [
-          ["Máš rád kávu"],
-          ["nemám ráda kávu"]
+          [
+            "Máš rád kávu"
+          ],
+          [
+            "nemám ráda kávu"
+          ]
         ]
       },
       "answer_key": "Máš rád kávu nemám ráda kávu",
@@ -201,7 +322,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "What do you like to do in your free time?",
-        "accepted_answers": ["Co rád děláš ve volném čase?", "Co ráda děláš ve volném čase?", "Co rád děláš?"],
+        "accepted_answers": [
+          "Co rád děláš ve volném čase?",
+          "Co ráda děláš ve volném čase?",
+          "Co rád děláš?"
+        ],
         "grammar_note": "Co rád děláš? = What do you like to do? (asking a male). Co ráda děláš? (asking a female). ve volném čase = in your free time — optional but natural."
       },
       "answer_key": "Co rád děláš ve volném čase?",
@@ -215,9 +340,21 @@
       "prompt": "Arrange the words to form: 'Do you like watching films?'",
       "data": {
         "type": "word_order",
-        "correct_order": [1, 4, 0, 3, 2],
+        "correct_order": [
+          1,
+          4,
+          0,
+          3,
+          2
+        ],
         "explanation": "'Díváš se rád na filmy?' = Do you like watching films? The reflexive pronoun 'se' follows the finite verb here; 'dívat se na' takes the accusative.",
-        "words": ["rád", "Díváš", "filmy?", "na", "se"]
+        "words": [
+          "rád",
+          "Díváš",
+          "filmy?",
+          "na",
+          "se"
+        ]
       },
       "answer_key": "Díváš se rád na filmy?",
       "grammar_rule_id": "GR-120",

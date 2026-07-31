@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../common/lesson_ui.dart';
+import '../../common/soft_ui.dart';
+import '../../../../l10n/app_localizations.dart';
 import 'exercise_shared.dart';
 
 /// Declension-table exercise view (Czech-specific).
@@ -65,7 +69,9 @@ class _DeclensionTableViewState extends State<DeclensionTableView> {
     widget.onAnswered(
       ExerciseResult(
         isCorrect: correctCount == totalBlanks,
-        explanation: 'You got $correctCount/$totalBlanks correct.',
+        explanation: AppLocalizations.of(
+          context,
+        ).exerciseYouGotCorrect(correctCount, totalBlanks),
         correctAnswer: answerKey.entries
             .map((e) => '${e.key}: ${e.value}')
             .join(', '),
@@ -86,94 +92,153 @@ class _DeclensionTableViewState extends State<DeclensionTableView> {
             )
             : null;
 
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            'Decline: $word',
-            style: Theme.of(context).textTheme.headlineSmall,
-            textAlign: TextAlign.center,
-          ),
-          if (gender != null)
-            Text(
-              'Gender: $gender',
-              style: Theme.of(context).textTheme.bodySmall,
-              textAlign: TextAlign.center,
+          QuestionPrompt(question: l10n.exerciseDeclineWord(word)),
+          if (gender != null) ...[
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: PillChip(label: gender, bg: t.violetSoft, fg: t.violetInk),
             ),
-          const SizedBox(height: 24),
+          ],
+          const SizedBox(height: 20),
 
-          // Table
-          Table(
-            border: TableBorder.all(
-              color: Theme.of(context).colorScheme.outline,
-              borderRadius: BorderRadius.circular(8),
+          // One row per case. A Table would keep the two columns aligned but
+          // cannot give a 44pt row on a narrow screen without clipping the
+          // field, so the rows are laid out directly.
+          Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: t.card,
+              border: Border.all(color: t.line),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: t.shadow,
             ),
-            children: [
-              TableRow(
-                children: [
+            child: Column(
+              children: [
+                for (final (i, caseName) in cases.indexed) ...[
+                  if (i > 0) Divider(height: 1, color: t.line),
                   Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Case',
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      'Form',
-                      style: Theme.of(context).textTheme.labelLarge,
+                    padding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 92,
+                          child: Text(
+                            caseName,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: t.muted,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: _CaseField(
+                            controller: _controllers[caseName]!,
+                            enabled: !answered,
+                            verdict:
+                                !answered || answerKey?[caseName] == null
+                                    ? null
+                                    : normalizeAnswer(
+                                          _controllers[caseName]!.text,
+                                        ) ==
+                                        normalizeAnswer(answerKey![caseName]!),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
-              ),
-              ...cases.map((caseName) {
-                final controller = _controllers[caseName]!;
-                final correct = answerKey?[caseName];
-                final userAnswer = normalizeAnswer(controller.text);
-                final isCorrect =
-                    correct != null && userAnswer == normalizeAnswer(correct);
-
-                return TableRow(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(caseName),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: TextField(
-                        controller: controller,
-                        enabled: !answered,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          border: const OutlineInputBorder(),
-                          suffixIcon:
-                              answered
-                                  ? Icon(
-                                    isCorrect ? Icons.check : Icons.close,
-                                    color:
-                                        isCorrect ? Colors.green : Colors.red,
-                                  )
-                                  : null,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              }),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
 
           if (!answered)
-            FilledButton(
-              onPressed: _checkAnswers,
-              child: const Text('Check All'),
-            ),
+            KeyCta(label: l10n.exerciseCheckAll, onPressed: _checkAnswers),
         ],
+      ),
+    );
+  }
+}
+
+/// One declension cell: a compact field that carries its own verdict border
+/// and mark once the table has been checked.
+class _CaseField extends StatelessWidget {
+  const _CaseField({
+    required this.controller,
+    required this.enabled,
+    required this.verdict,
+  });
+
+  final TextEditingController controller;
+  final bool enabled;
+
+  /// `true` right, `false` wrong, `null` not checked (or no answer key).
+  final bool? verdict;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final border = switch (verdict) {
+      true => t.green,
+      false => t.red,
+      null => t.line,
+    };
+
+    return TextField(
+      controller: controller,
+      enabled: enabled,
+      cursorColor: t.pri,
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+        color: switch (verdict) {
+          true => t.greenInk,
+          false => t.redInk,
+          null => t.ink,
+        },
+      ),
+      decoration: InputDecoration(
+        isDense: true,
+        filled: true,
+        fillColor: t.elev,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 12,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: border),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: border),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: t.pri, width: 1.5),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: border, width: 1.5),
+        ),
+        suffixIcon:
+            verdict == null
+                ? null
+                : Icon(
+                  verdict! ? Icons.check : Icons.close,
+                  size: 18,
+                  color: verdict! ? t.greenInk : t.redInk,
+                ),
+        suffixIconConstraints: const BoxConstraints(minWidth: 34),
       ),
     );
   }

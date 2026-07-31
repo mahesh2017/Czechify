@@ -9,6 +9,43 @@
   "is_review": true,
   "exercises": [
     {
+      "id": 90031,
+      "lesson_id": 3101,
+      "type": "teaching",
+      "prompt": "A2 in a Nutshell",
+      "data": {
+        "type": "teaching",
+        "heading": "A2 in a Nutshell",
+        "body": "The whole case system and every tense together: the seven cases at a glance, plus past, future, and conditional. Tap the examples to hear them.",
+        "intro": "The finish line. Let's bring the whole case system and every tense together one last time — because once this clicks, you're ready for Czech out in the wild.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "kniha bratra",
+            "en": "the brother's book (genitive)"
+          },
+          {
+            "cz": "Dávám kamarádovi dárek.",
+            "en": "I give my friend a gift. (dative)"
+          },
+          {
+            "cz": "Byl jsem v Praze.",
+            "en": "I was in Prague. (past)"
+          },
+          {
+            "cz": "Budu pracovat.",
+            "en": "I will work. (future)"
+          },
+          {
+            "cz": "Chtěl bych kávu.",
+            "en": "I'd like a coffee. (conditional)"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 31001,
       "lesson_id": 3101,
       "type": "multiple_choice",
@@ -85,7 +122,9 @@
         "blank_count": 1,
         "explanation": "'Včera jsem šel do obchodu.' = Yesterday I went to the shop (male speaker). 'Šel' is the masculine singular past participle of 'jít'. Female speaker would use 'šla'. The auxiliary 'jsem' is the 1st person singular.",
         "blank_answers": [
-          ["šel"]
+          [
+            "šel"
+          ]
         ]
       },
       "answer_key": "šel",
@@ -103,7 +142,10 @@
         "blank_count": 1,
         "explanation": "'Zítra půj do kina.' = Tomorrow I'll go to the cinema. The future of 'jít' (to go) is irregular: půj (I), půjdeš (you sg.), půjde (he/she/it), půjdeme (we), půjdete (you pl.), půjdou (they). Don't confuse with 'budu jít' which is also possible but less natural for 'jít' itself.",
         "blank_answers": [
-          ["půj", "půj já"]
+          [
+            "půj",
+            "půj já"
+          ]
         ]
       },
       "answer_key": "půj",
@@ -121,7 +163,9 @@
         "blank_count": 1,
         "explanation": "'Kdybych měl čas, šel bych s tebou.' = If I had time, I would go with you (male speaker). After 'kdybych' (if I — conditional), we use the past participle 'měl' (masc. of 'mít'). The result clause uses 'šel bych' (past participle + conditional auxiliary 'bych'). Female speaker: 'měla' and 'šla bych'.",
         "blank_answers": [
-          ["měl"]
+          [
+            "měl"
+          ]
         ]
       },
       "answer_key": "měl",
@@ -334,7 +378,11 @@
         ],
         "explanation": "Formal dialogue at an úřad (government office) at A2 level. Key formal phrases: 'Dobrý den, co byste potřebovali?' (Hello, what do you need?), 'Potřeboval bych...' (I would need... — formal conditional, male speaker), 'Máte u sebe...?' (Do you have with you...?), 'bude hotový za...' (will be ready in...), 'Děkuji vám' (thank you — formal), 'Na shledanou!' (goodbye — formal).",
         "blank_answers": [
-          ["Dobrý den, potřeboval bych vyřídit nový občanský průkaz.", "Potřeboval bych vyřídit nový občanský průkaz.", "Dobrý den, potřeboval bych nový občanský průkaz."]
+          [
+            "Dobrý den, potřeboval bych vyřídit nový občanský průkaz.",
+            "Potřeboval bych vyřídit nový občanský průkaz.",
+            "Dobrý den, potřeboval bych nový občanský průkaz."
+          ]
         ]
       },
       "answer_key": "Dobrý den, potřeboval bych vyřídit nový občanský průkaz.",
@@ -348,9 +396,33 @@
       "prompt": "Arrange the words to form a correct complex sentence.",
       "data": {
         "type": "word_order",
-        "correct_order": [2, 1, 0, 3, 4, 8, 5, 9, 10, 6, 7],
+        "correct_order": [
+          2,
+          1,
+          0,
+          3,
+          4,
+          8,
+          5,
+          9,
+          10,
+          6,
+          7
+        ],
         "explanation": "'Včera jsem ho viděl, protože jsem byl v kavárně v parku.' = Yesterday I saw him because I was in the café in the park. The clitics 'jsem' and 'ho' occupy the second position of the main clause; the 'protože' clause starts its own clitic group.",
-        "words": ["ho", "jsem", "Včera", "viděl", "protože", "byl", "v", "parku.", "jsem", "v", "kavárně"]
+        "words": [
+          "ho",
+          "jsem",
+          "Včera",
+          "viděl",
+          "protože",
+          "byl",
+          "v",
+          "parku.",
+          "jsem",
+          "v",
+          "kavárně"
+        ]
       },
       "answer_key": "Včera jsem ho viděl, protože jsem byl v kavárně v parku.",
       "xp_reward": 20,

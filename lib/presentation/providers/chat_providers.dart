@@ -174,8 +174,9 @@ class ChatNotifier extends Notifier<ChatState> {
   Future<void> retryLastMessage() async {
     if (state.conversationId == null || state.isLoading) return;
     final messages = state.messages;
-    final lastUserIndex =
-        messages.lastIndexWhere((m) => m.role == MessageRole.user);
+    final lastUserIndex = messages.lastIndexWhere(
+      (m) => m.role == MessageRole.user,
+    );
     if (lastUserIndex < 0) return;
 
     state = state.copyWith(isLoading: true, error: null);
@@ -258,9 +259,10 @@ class ChatNotifier extends Notifier<ChatState> {
       conversationId: summary.id,
       scenarioId: scenario.id,
       scenarioTitle: summary.scenario,
-      level: summary.cefrLevel.toLowerCase().contains('a2')
-          ? CEFRLevel.a2
-          : CEFRLevel.a1,
+      level:
+          summary.cefrLevel.toLowerCase().contains('a2')
+              ? CEFRLevel.a2
+              : CEFRLevel.a1,
       messages: messages,
     );
   }
@@ -268,6 +270,25 @@ class ChatNotifier extends Notifier<ChatState> {
   /// Clear the current conversation.
   void resetConversation() {
     state = const ChatState();
+  }
+
+  /// Permanently delete a saved conversation and its messages.
+  ///
+  /// Conversations accumulated with no way to remove them: starting a new one
+  /// left the old one behind forever. Deleting the conversation currently on
+  /// screen also clears it, otherwise the tutor would keep replying into a
+  /// thread whose history no longer exists.
+  Future<void> deleteConversation(String conversationId) async {
+    await ref
+        .read(conversationRepositoryProvider)
+        .clearConversation(conversationId);
+    if (state.conversationId == conversationId) {
+      state = const ChatState();
+    }
+    // The list is keyed off the active conversation id, which does not change
+    // when an *inactive* one is deleted — so refresh it explicitly rather than
+    // leaving a deleted conversation on screen.
+    ref.invalidate(recentConversationsProvider);
   }
 
   /// Send an initial greeting from the tutor.
@@ -324,9 +345,15 @@ final chatProvider = NotifierProvider<ChatNotifier, ChatState>(
 );
 
 /// Recent conversations for the scenario picker's "continue" section.
-final recentConversationsProvider =
-    FutureProvider<List<ConversationSummary>>((ref) {
+final recentConversationsProvider = FutureProvider<List<ConversationSummary>>((
+  ref,
+) {
   // Recompute when the active conversation changes (a new one was created).
   ref.watch(chatProvider.select((s) => s.conversationId));
-  return ref.read(conversationRepositoryProvider).getRecentConversations();
+  // Enough to clear a backlog. The list previously fetched five and showed
+  // three, so conversations accumulated out of sight with no way to remove
+  // them.
+  return ref
+      .read(conversationRepositoryProvider)
+      .getRecentConversations(limit: 25);
 });

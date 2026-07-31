@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
 /// Dialogue completion exercise view.
@@ -79,42 +82,58 @@ class _DialogueViewState extends State<DialogueView> {
               child: TextField(
                 controller: controller,
                 enabled: !answered,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
                   isDense: true,
-                  hintText: 'Your answer',
+                  hintText: AppLocalizations.of(context).exerciseYourAnswer,
                 ),
                 textInputAction: TextInputAction.next,
                 onChanged: (_) => setState(() {}),
-                onSubmitted: answered
-                    ? null
-                    : (_) {
-                        if (_allFilled) _checkAnswer();
-                      },
+                onSubmitted:
+                    answered
+                        ? null
+                        : (_) {
+                          if (_allFilled) _checkAnswer();
+                        },
               ),
             ),
           );
         }
       }
 
+      final t = context.tokens;
       return Padding(
-        padding: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.only(bottom: 10),
         child: Align(
           alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
-            padding: const EdgeInsets.all(12),
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.sizeOf(context).width * 0.82,
+            ),
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: isUser
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Theme.of(context).colorScheme.surfaceContainerHighest,
-              borderRadius: BorderRadius.circular(12),
+              color: isUser ? t.priSoft : t.card,
+              border: Border.all(color: isUser ? Colors.transparent : t.line),
+              // Notched toward its own speaker, so who is talking is legible
+              // from the shape alone.
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(24),
+                topRight: const Radius.circular(24),
+                bottomLeft: Radius.circular(isUser ? 24 : 6),
+                bottomRight: Radius.circular(isUser ? 6 : 24),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  line['speaker'] as String,
-                  style: Theme.of(context).textTheme.labelSmall,
+                  (line['speaker'] as String).toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.4,
+                    color: isUser ? t.priInk : t.faint,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Wrap(
@@ -160,28 +179,45 @@ class _DialogueViewState extends State<DialogueView> {
     final data = widget.exercise.data;
     final scenario = data['scenario'] as String?;
 
+    final t = context.tokens;
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (scenario != null)
-            Text(
-              'Scenario: $scenario',
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+          QuestionPrompt(question: widget.exercise.prompt),
+          if (scenario != null) ...[
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              decoration: BoxDecoration(
+                color: t.elev,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.place_outlined, size: 16, color: t.muted),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      scenario,
+                      style: TextStyle(fontSize: 14, height: 1.4, color: t.ink),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          const SizedBox(height: 16),
+          ],
+          const SizedBox(height: 18),
 
           // Dialogue lines
           ..._buildDialogueLines(_lines, context),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
           if (!answered)
-            FilledButton(
+            KeyCta(
+              label: AppLocalizations.of(context).check,
               onPressed: _allFilled ? _checkAnswer : null,
-              child: const Text('Check'),
             ),
         ],
       ),

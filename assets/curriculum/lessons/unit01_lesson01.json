@@ -1,7 +1,7 @@
 {
   "id": 101,
   "unit_id": 1,
-  "order_in_unit": 0,
+  "order_in_unit": 1,
   "title": "Czech Alphabet & Sounds",
   "description": "Learn the Czech alphabet, diacritics, and first-syllable stress rule",
   "duration_min": 10,
@@ -17,7 +17,12 @@
         "type": "multiple_choice",
         "question_cz": "Které české písmeno nemá ekvivalent v jiných jazycích?",
         "question_en": "Which Czech letter has no equivalent in other languages?",
-        "options": ["š", "ř", "ě", "č"],
+        "options": [
+          "š",
+          "ř",
+          "ě",
+          "č"
+        ],
         "correct_index": 1,
         "explanation": "ř is a unique Czech sound — a raised alveolar non-sonorant trill. It appears in řeka (river), tři (three), Dvořák."
       },
@@ -34,7 +39,12 @@
         "type": "multiple_choice",
         "question_cz": "Kde je v češtině přízvuk?",
         "question_en": "Where does the stress fall in Czech?",
-        "options": ["Last syllable", "Second syllable", "First syllable", "Penultimate syllable"],
+        "options": [
+          "Last syllable",
+          "Second syllable",
+          "First syllable",
+          "Penultimate syllable"
+        ],
         "correct_index": 2,
         "explanation": "Czech stress ALWAYS falls on the first syllable. PRA-ha, KA-va, DĚ-kuji. No exceptions."
       },
@@ -73,7 +83,12 @@
         "type": "multiple_choice",
         "question_cz": "Které slovo má dlouhou samohlásku?",
         "question_en": "Which word has a long vowel?",
-        "options": ["kava", "káva", "pivo", "maso"],
+        "options": [
+          "kava",
+          "káva",
+          "pivo",
+          "maso"
+        ],
         "correct_index": 1,
         "explanation": "káva has á (long a). The čárka (acute accent) marks vowel length. Long vowels are pronounced ~2x longer than short ones."
       },
@@ -121,7 +136,9 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "river",
-        "accepted_answers": ["řeka"],
+        "accepted_answers": [
+          "řeka"
+        ],
         "grammar_note": "Note the ř sound — unique to Czech. IPA: [ˈr̝ɛka]"
       },
       "answer_key": "řeka",
@@ -137,7 +154,9 @@
         "type": "pronunciation",
         "target_text": "Řeka teče přes most.",
         "target_audio_hash": "placeholder_1008",
-        "focus_sounds": ["ř"],
+        "focus_sounds": [
+          "ř"
+        ],
         "min_score": 0.65,
         "translation_en": "The river flows over the bridge."
       },
@@ -156,7 +175,9 @@
         "blank_count": 1,
         "explanation": "město — the ě after m softens it. mě sounds like 'mňe'. First-syllable stress: MĚ-sto.",
         "blank_answers": [
-          ["ě"]
+          [
+            "ě"
+          ]
         ]
       },
       "answer_key": "ě",

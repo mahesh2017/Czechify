@@ -30,7 +30,9 @@ class Lesson {
       title: json['title'] as String,
       description: json['description'] as String,
       durationMinutes: json['duration_min'] as int? ?? 10,
-      lessonType: LessonType.values.byName(json['lesson_type'] as String? ?? 'introduction'),
+      lessonType: LessonType.values.byName(
+        json['lesson_type'] as String? ?? 'introduction',
+      ),
       isReview: json['is_review'] as bool? ?? false,
     );
   }

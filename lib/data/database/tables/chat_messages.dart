@@ -11,5 +11,6 @@ class ChatMessages extends Table {
   TextColumn get corrections => text().nullable()(); // JSON array
   TextColumn get newVocabulary => text().nullable()(); // JSON array
   TextColumn get audioPath => text().nullable()();
-  DateTimeColumn get createdAt => dateTime().withDefault(Constant(DateTime.now()))();
+  DateTimeColumn get createdAt =>
+      dateTime().withDefault(Constant(DateTime.now()))();
 }

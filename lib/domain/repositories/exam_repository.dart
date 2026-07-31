@@ -62,8 +62,23 @@ abstract class ExamRepository {
     ExamProduct product = ExamProduct.permanentResidence,
   });
   Future<ExamResult> saveResult(ExamResult result);
-  Future<List<ExamResult>> getResults(
-    ExamLevel level, {
-    ExamProduct? product,
+  Future<List<ExamResult>> getResults(ExamLevel level, {ExamProduct? product});
+}
+
+/// Thrown when a shipped exam bank is corrupt or unreadable.  The caller
+/// must surface this to the learner — never silently substitute minimal
+/// sample content for a real exam bank that should be present.
+class ExamAssetException implements Exception {
+  final String message;
+  final ExamLevel level;
+  final ExamProduct product;
+
+  const ExamAssetException(
+    this.message, {
+    required this.level,
+    required this.product,
   });
+
+  @override
+  String toString() => 'ExamAssetException($product $level): $message';
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/account_providers.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/text_prompt_dialog.dart';
 
 class AccountScreen extends ConsumerStatefulWidget {
   const AccountScreen({super.key});
@@ -28,61 +30,64 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       ),
       body: account.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => const _Message(
-          icon: Icons.cloud_off,
-          title: 'Cloud account unavailable',
-          message: 'The app is offline or cloud configuration is unavailable.',
-        ),
-        data: (user) => ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            _AccountHeader(user: user),
-            const SizedBox(height: 20),
-            if (user?.isAnonymous ?? true) ...[
-              FilledButton.icon(
-                onPressed: _busy ? null : _linkEmail,
-                icon: const Icon(Icons.mark_email_read_outlined),
-                label: const Text('Protect progress with email'),
-              ),
-              const SizedBox(height: 10),
-              OutlinedButton.icon(
-                onPressed: _busy ? null : _signInExisting,
-                icon: const Icon(Icons.login),
-                label: const Text('Sign in to an existing account'),
-              ),
-            ] else ...[
-              FilledButton.icon(
-                onPressed: _busy ? null : _setPassword,
-                icon: const Icon(Icons.password),
-                label: const Text('Set or change password'),
-              ),
-            ],
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: _busy ? null : _sendRecovery,
-              child: const Text('Send password recovery email'),
+        error:
+            (_, _) => const _Message(
+              icon: Icons.cloud_off,
+              title: 'Cloud account unavailable',
+              message:
+                  'The app is offline or cloud configuration is unavailable.',
             ),
-            const SizedBox(height: 24),
-            const SectionLabel('Your data'),
-            const SizedBox(height: 10),
-            OutlinedButton.icon(
-              onPressed: _busy ? null : _exportData,
-              icon: const Icon(Icons.download_outlined),
-              label: const Text('Export my data as JSON'),
+        data:
+            (user) => ListView(
+              padding: const EdgeInsets.all(20),
+              children: [
+                _AccountHeader(user: user),
+                const SizedBox(height: 20),
+                if (user?.isAnonymous ?? true) ...[
+                  FilledButton.icon(
+                    onPressed: _busy ? null : _linkEmail,
+                    icon: const Icon(Icons.mark_email_read_outlined),
+                    label: const Text('Protect progress with email'),
+                  ),
+                  const SizedBox(height: 10),
+                  OutlinedButton.icon(
+                    onPressed: _busy ? null : _signInExisting,
+                    icon: const Icon(Icons.login),
+                    label: const Text('Sign in to an existing account'),
+                  ),
+                ] else ...[
+                  FilledButton.icon(
+                    onPressed: _busy ? null : _setPassword,
+                    icon: const Icon(Icons.password),
+                    label: const Text('Set or change password'),
+                  ),
+                ],
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: _busy ? null : _sendRecovery,
+                  child: const Text('Send password recovery email'),
+                ),
+                const SizedBox(height: 24),
+                const SectionLabel('Your data'),
+                const SizedBox(height: 10),
+                OutlinedButton.icon(
+                  onPressed: _busy ? null : _exportData,
+                  icon: const Icon(Icons.download_outlined),
+                  label: const Text('Export my data as JSON'),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(foregroundColor: t.red),
+                  onPressed: _busy ? null : _deleteAccount,
+                  icon: const Icon(Icons.delete_forever_outlined),
+                  label: const Text('Delete cloud account and local data'),
+                ),
+                if (_busy) ...[
+                  const SizedBox(height: 20),
+                  const Center(child: CircularProgressIndicator()),
+                ],
+              ],
             ),
-            const SizedBox(height: 12),
-            OutlinedButton.icon(
-              style: OutlinedButton.styleFrom(foregroundColor: t.red),
-              onPressed: _busy ? null : _deleteAccount,
-              icon: const Icon(Icons.delete_forever_outlined),
-              label: const Text('Delete cloud account and local data'),
-            ),
-            if (_busy) ...[
-              const SizedBox(height: 20),
-              const Center(child: CircularProgressIndicator()),
-            ],
-          ],
-        ),
       ),
     );
   }
@@ -160,7 +165,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
             email: credentials.email,
             password: credentials.password,
           );
-    }, 'Account recovered and synchronized.',);
+    }, 'Account recovered and synchronized.');
   }
 
   Future<void> _sendRecovery() async {
@@ -190,8 +195,24 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       if (phrase != null) _showError('Confirmation phrase did not match.');
       return;
     }
+
+    // The phrase proves intent; the password proves identity. Without it a
+    // stolen session could delete the account, so the server refuses a
+    // deletion unless the session was minted moments ago.
+    String? password;
+    if (ref.read(accountServiceProvider).deletionNeedsPassword) {
+      password = await _askText(
+        title: 'Confirm it is you',
+        label: 'Account password',
+        obscure: true,
+      );
+      if (password == null || password.isEmpty) return;
+    }
+
     await _run(
-      () => ref.read(accountServiceProvider).deleteAccountAndLocalData(),
+      () => ref
+          .read(accountServiceProvider)
+          .deleteAccountAndLocalData(password: password),
       'Cloud account and learner data deleted.',
     );
   }
@@ -202,75 +223,37 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     bool obscure = false,
     TextInputType? keyboardType,
   }) async {
-    final controller = TextEditingController();
-    final value = await showDialog<String>(
+    final result = await showTextPromptDialog(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(title),
-        content: TextField(
-          controller: controller,
+      title: title,
+      confirmLabel: AppLocalizations.of(context).continueLabel,
+      fields: [
+        TextPromptField(
+          label: label,
           obscureText: obscure,
           keyboardType: keyboardType,
-          autofocus: true,
-          decoration: InputDecoration(labelText: label),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () =>
-                Navigator.pop(dialogContext, controller.text.trim()),
-            child: const Text('Continue'),
-          ),
-        ],
-      ),
+      ],
     );
-    controller.dispose();
-    return value?.isEmpty == true ? null : value;
+    final value = result?.single.trim();
+    return value == null || value.isEmpty ? null : value;
   }
 
   Future<_Credentials?> _askCredentials() async {
-    final email = TextEditingController();
-    final password = TextEditingController();
-    final value = await showDialog<_Credentials>(
+    final result = await showTextPromptDialog(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Sign in'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: email,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: password,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: 'Password'),
-            ),
-          ],
+      title: 'Sign in',
+      confirmLabel: 'Sign in',
+      fields: const [
+        TextPromptField(
+          label: 'Email',
+          keyboardType: TextInputType.emailAddress,
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(
-              dialogContext,
-              _Credentials(email.text.trim(), password.text),
-            ),
-            child: const Text('Sign in'),
-          ),
-        ],
-      ),
+        TextPromptField(label: 'Password', obscureText: true),
+      ],
     );
-    email.dispose();
-    password.dispose();
-    return value;
+    if (result == null) return null;
+    return _Credentials(result[0].trim(), result[1]);
   }
 
   Future<bool> _confirm({
@@ -280,20 +263,21 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
   }) async =>
       await showDialog<bool>(
         context: context,
-        builder: (dialogContext) => AlertDialog(
-          title: Text(title),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(dialogContext, false),
-              child: const Text('Cancel'),
+        builder:
+            (dialogContext) => AlertDialog(
+              title: Text(title),
+              content: Text(message),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext, false),
+                  child: Text(AppLocalizations.of(context).cancel),
+                ),
+                FilledButton(
+                  onPressed: () => Navigator.pop(dialogContext, true),
+                  child: Text(confirmLabel),
+                ),
+              ],
             ),
-            FilledButton(
-              onPressed: () => Navigator.pop(dialogContext, true),
-              child: Text(confirmLabel),
-            ),
-          ],
-        ),
       ) ??
       false;
 }
@@ -308,10 +292,11 @@ class _AccountHeader extends StatelessWidget {
     return _Message(
       icon: anonymous ? Icons.person_outline : Icons.verified_user_outlined,
       title: anonymous ? 'Anonymous account' : 'Protected account',
-      message: anonymous
-          ? 'Progress syncs on this installation, but cannot be recovered on '
-                'another device until you link an email.'
-          : user?.email ?? 'Email identity linked',
+      message:
+          anonymous
+              ? 'Progress syncs on this installation, but cannot be recovered on '
+                  'another device until you link an email.'
+              : user?.email ?? 'Email identity linked',
     );
   }
 }
@@ -327,29 +312,35 @@ class _Message extends StatelessWidget {
   final String message;
 
   @override
-  Widget build(BuildContext context) => Card(
-    child: Padding(
-      padding: const EdgeInsets.all(18),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: context.tokens.pri),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
+  Widget build(BuildContext context) => SoftCard(
+    padding: const EdgeInsets.all(18),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconTile(
+          icon: icon,
+          tint: context.tokens.priSoft,
+          fg: context.tokens.priInk,
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 6),
+              Text(
+                message,
+                style: TextStyle(
+                  fontSize: 15,
+                  height: 1.45,
+                  color: context.tokens.muted,
                 ),
-                const SizedBox(height: 6),
-                Text(message),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }

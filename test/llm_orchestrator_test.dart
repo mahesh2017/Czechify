@@ -144,8 +144,9 @@ void main() {
     });
 
     test('returns error for empty content', () {
-      final result =
-          orchestrator.parseTutorResponseSafe(const LlmResponse(content: ''));
+      final result = orchestrator.parseTutorResponseSafe(
+        const LlmResponse(content: ''),
+      );
       expect(result, isA<TutorParseError>());
       expect((result as TutorParseError).reason, contains('empty'));
     });

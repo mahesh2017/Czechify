@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Czechify Teacher Characters Preview</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #1a1a2e;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  h1 { margin-bottom: 0.5rem; font-weight: 600; }
+  p.subtitle { color: #999; margin-bottom: 2rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 700px;
+    width: 100%;
+  }
+  .card {
+    background: #16213e;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #7ecfff;
+  }
+  .card p { font-size: 0.85rem; color: #888; margin-bottom: 0.5rem; }
+  .lottie-container { width: 100%; height: 260px; }
+  .controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .controls button {
+    background: #0f3460;
+    color: #eee;
+    border: 1px solid #1a4a7a;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.15s;
+  }
+  .controls button:hover { background: #1a4a7a; }
+  .controls button.active { background: #e94560; border-color: #e94560; }
+  .info {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    background: #16213e;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.6;
+    max-width: 700px;
+  }
+  code { color: #7ecfff; }
+</style>
+</head>
+<body>
+  <h1>🧑‍🏫 Czechify Teacher Characters</h1>
+  <p class="subtitle">Lottie animations — idle (2s loop) &amp; talking (3s loop)</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>👩‍🏫 Female Teacher</h2>
+      <p>Vlasta — glasses, blue blouse</p>
+      <div class="lottie-container" id="female-idle"></div>
+    </div>
+    <div class="card">
+      <h2>🧑‍🏫 Male Teacher</h2>
+      <p>Antonín — shirt &amp; tie</p>
+      <div class="lottie-container" id="male-idle"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="btn-idle" class="active" onclick="switchMode('idle')">😌 Idle</button>
+    <button id="btn-talk" onclick="switchMode('talk')">🗣️ Talking</button>
+  </div>
+
+  <div class="info">
+    <strong>Animations:</strong><br>
+    • <strong>Idle</strong> — gentle 1.5px breathing oscillation, eyes blink every ~3s<br>
+    • <strong>Talking</strong> — mouth opens/closes in speech rhythm, arms gesture, head bobs, eyes blink<br><br>
+    <strong>Layer structure:</strong> arms → hair (back) → body → collar → head → eyes → cheeks → mouth → bangs/hair → glasses<br>
+    Gender swap via <code>TtsVoiceGender</code> setting — already wired in the app.
+  </div>
+
+<script>
+const animations = {};
+let currentMode = 'idle';
+
+function loadAnimations(mode) {
+  const prefix = mode === 'talk' ? 'talk' : 'idle';
+  const paths = {
+    'female-idle': `../assets/animations/teacher_female_${prefix}.json`,
+    'male-idle': `../assets/animations/teacher_male_${prefix}.json`,
+  };
+
+  // Destroy existing
+  Object.entries(animations).forEach(([id, anim]) => { if (anim) anim.destroy(); });
+
+  for (const [id, path] of Object.entries(paths)) {
+    animations[id] = lottie.loadAnimation({
+      container: document.getElementById(id),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: path,
+    });
+  }
+}
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('btn-idle').className = mode === 'idle' ? 'active' : '';
+  document.getElementById('btn-talk').className = mode === 'talk' ? 'active' : '';
+  loadAnimations(mode);
+}
+
+// Load idle on page load
+loadAnimations('idle');
+</script>
+</body>
+</html>

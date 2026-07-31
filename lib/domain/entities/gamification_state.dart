@@ -105,6 +105,67 @@ class Badge {
       xpReward: 10,
       criteria: BadgeCriteria(customKey: 'byt_conjugation', minValue: 1.0),
     ),
+    // Units 7 to 28 awarded nothing at all — the longest stretch of the
+    // course, and the one where people give up. These sit roughly every
+    // fourth unit so there is always a next thing within reach.
+    Badge(
+      id: 'unit_09',
+      name: 'Past Tense',
+      description: 'Complete Unit 9 with 80%+',
+      icon: '⏳',
+      xpReward: 20,
+      criteria: BadgeCriteria(unitId: 9, minAccuracy: 0.8),
+    ),
+    Badge(
+      id: 'unit_12',
+      name: 'Halfway There',
+      description: 'Complete Unit 12 with 80%+',
+      icon: '🧭',
+      xpReward: 25,
+      criteria: BadgeCriteria(unitId: 12, minAccuracy: 0.8),
+    ),
+    Badge(
+      id: 'unit_16',
+      name: 'Getting Fluent',
+      description: 'Complete Unit 16 with 80%+',
+      icon: '💬',
+      xpReward: 30,
+      criteria: BadgeCriteria(unitId: 16, minAccuracy: 0.8),
+    ),
+    Badge(
+      id: 'unit_20',
+      name: 'Twenty Down',
+      description: 'Complete Unit 20 with 80%+',
+      icon: '🗿',
+      xpReward: 35,
+      criteria: BadgeCriteria(unitId: 20, minAccuracy: 0.8),
+    ),
+    Badge(
+      id: 'unit_24',
+      name: 'Home Straight',
+      description: 'Complete Unit 24 with 80%+',
+      icon: '🚩',
+      xpReward: 40,
+      criteria: BadgeCriteria(unitId: 24, minAccuracy: 0.8),
+    ),
+    Badge(
+      id: 'unit_28',
+      name: 'A1 Finisher',
+      description: 'Complete Unit 28 with 80%+',
+      icon: '🏅',
+      xpReward: 60,
+      criteria: BadgeCriteria(unitId: 28, minAccuracy: 0.8),
+    ),
+    // Short streaks matter most: almost everyone who quits does so in the
+    // first fortnight, long before a 30-day badge is reachable.
+    Badge(
+      id: 'streak_3',
+      name: 'Getting Started',
+      description: '3-day streak',
+      icon: '🌱',
+      xpReward: 10,
+      criteria: BadgeCriteria(minStreak: 3),
+    ),
     Badge(
       id: 'streak_7',
       name: 'Week Warrior',
@@ -114,12 +175,28 @@ class Badge {
       criteria: BadgeCriteria(minStreak: 7),
     ),
     Badge(
+      id: 'streak_14',
+      name: 'Fortnight',
+      description: '14-day streak',
+      icon: '🔥',
+      xpReward: 30,
+      criteria: BadgeCriteria(minStreak: 14),
+    ),
+    Badge(
       id: 'streak_30',
       name: 'Monthly Master',
       description: '30-day streak',
       icon: '🔥',
       xpReward: 50,
       criteria: BadgeCriteria(minStreak: 30),
+    ),
+    Badge(
+      id: 'streak_100',
+      name: 'Hundred Days',
+      description: '100-day streak',
+      icon: '💎',
+      xpReward: 150,
+      criteria: BadgeCriteria(minStreak: 100),
     ),
     Badge(
       id: 'mock_a1_pass',

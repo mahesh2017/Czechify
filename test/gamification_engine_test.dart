@@ -111,17 +111,13 @@ void main() {
       });
 
       test('unlocks unit badge when unit score meets threshold', () {
-        const snapshot = ProgressSnapshot(
-          unitScores: {3: 0.85},
-        );
+        const snapshot = ProgressSnapshot(unitScores: {3: 0.85});
         final unlocked = engine.checkBadges(snapshot);
         expect(unlocked.any((b) => b.id == 'case_nominative'), isTrue);
       });
 
       test('does not unlock unit badge when score below threshold', () {
-        const snapshot = ProgressSnapshot(
-          unitScores: {3: 0.5},
-        );
+        const snapshot = ProgressSnapshot(unitScores: {3: 0.5});
         final unlocked = engine.checkBadges(snapshot);
         expect(unlocked.any((b) => b.id == 'case_nominative'), isFalse);
       });
@@ -143,9 +139,7 @@ void main() {
       });
 
       test('exam badge unlocks when exam passed', () {
-        const snapshot = ProgressSnapshot(
-          examsPassed: {'a1'},
-        );
+        const snapshot = ProgressSnapshot(examsPassed: {'a1'});
         final unlocked = engine.checkBadges(snapshot);
         expect(unlocked.any((b) => b.id == 'mock_a1_pass'), isTrue);
       });

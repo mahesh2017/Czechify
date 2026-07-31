@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/engines/gamification_engine.dart';
 import '../../../domain/entities/gamification_state.dart';
@@ -19,22 +20,25 @@ class XpBadge extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.star, color: Colors.amber.shade600, size: 18),
+        Icon(Icons.star, color: context.tokens.amber, size: 18),
         const SizedBox(width: 4),
         Text(
           '$totalXp',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.amber.shade700,
-              ),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: context.tokens.amber,
+          ),
         ),
         const SizedBox(width: 6),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
           decoration: BoxDecoration(
             color: _leagueColor(league).withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: _leagueColor(league).withValues(alpha: 0.3)),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(
+              color: _leagueColor(league).withValues(alpha: 0.3),
+            ),
           ),
           child: Text(
             league.label,
@@ -52,10 +56,10 @@ class XpBadge extends ConsumerWidget {
   Color _leagueColor(League league) {
     return switch (league) {
       League.bronze => const Color(0xFFCD7F32),
-      League.silver => Colors.grey,
-      League.gold => Colors.amber.shade700,
-      League.platinum => Colors.cyan,
-      League.diamond => Colors.blue,
+      League.silver => const Color(0xFF9AA0A6),
+      League.gold => const Color(0xFFD4A017),
+      League.platinum => const Color(0xFF4FB3BF),
+      League.diamond => const Color(0xFF5B8DEF),
     };
   }
 }

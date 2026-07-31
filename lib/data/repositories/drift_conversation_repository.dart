@@ -17,39 +17,50 @@ class DriftConversationRepository implements ConversationRepository {
 
   @override
   Future<void> saveMessage(entity.ChatMessage message) async {
-    final correctionsJson = message.corrections != null
-        ? jsonEncode(message.corrections!.map((c) => {
-              'type': c.type.name,
-              'user_said': c.userSaid,
-              'correct': c.correct,
-              'rule': c.rule,
-              'severity': c.severity.name,
-            },).toList(),)
-        : null;
+    final correctionsJson =
+        message.corrections != null
+            ? jsonEncode(
+              message.corrections!
+                  .map(
+                    (c) => {
+                      'type': c.type.name,
+                      'user_said': c.userSaid,
+                      'correct': c.correct,
+                      'rule': c.rule,
+                      'severity': c.severity.name,
+                    },
+                  )
+                  .toList(),
+            )
+            : null;
 
-    final vocabJson = message.newVocabulary != null
-        ? jsonEncode(message.newVocabulary!.map((v) => {
-              'cz': v.cz,
-              'en': v.en,
-              'ipa': v.ipa,
-            },).toList(),)
-        : null;
+    final vocabJson =
+        message.newVocabulary != null
+            ? jsonEncode(
+              message.newVocabulary!
+                  .map((v) => {'cz': v.cz, 'en': v.en, 'ipa': v.ipa})
+                  .toList(),
+            )
+            : null;
 
-    await _db.conversationDao.insertMessage(db.ChatMessagesCompanion.insert(
-      conversationId: message.conversationId,
-      role: message.role.name,
-      content: message.content,
-      translation: Value(message.translation),
-      corrections: Value(correctionsJson),
-      newVocabulary: Value(vocabJson),
-      audioPath: Value(message.audioPath),
-    ),);
+    await _db.conversationDao.insertMessage(
+      db.ChatMessagesCompanion.insert(
+        conversationId: message.conversationId,
+        role: message.role.name,
+        content: message.content,
+        translation: Value(message.translation),
+        corrections: Value(correctionsJson),
+        newVocabulary: Value(vocabJson),
+        audioPath: Value(message.audioPath),
+      ),
+    );
   }
 
   @override
   Future<List<entity.ChatMessage>> getHistory(String conversationId) async {
-    final rows =
-        await _db.conversationDao.getMessagesByConversation(conversationId);
+    final rows = await _db.conversationDao.getMessagesByConversation(
+      conversationId,
+    );
     return rows.map(_toEntityChatMessage).toList();
   }
 
@@ -86,19 +97,31 @@ class DriftConversationRepository implements ConversationRepository {
     return entity.ChatMessage(
       id: row.id.toString(),
       conversationId: row.conversationId,
-      role: row.role == 'user' ? entity.MessageRole.user : entity.MessageRole.tutor,
+      role:
+          row.role == 'user'
+              ? entity.MessageRole.user
+              : entity.MessageRole.tutor,
       content: row.content,
       translation: row.translation,
-      corrections: row.corrections != null
-          ? (jsonDecode(row.corrections!) as List<dynamic>)
-              .map((e) => entity.Correction.fromJson(e as Map<String, dynamic>))
-              .toList()
-          : null,
-      newVocabulary: row.newVocabulary != null
-          ? (jsonDecode(row.newVocabulary!) as List<dynamic>)
-              .map((e) => entity.NewVocabulary.fromJson(e as Map<String, dynamic>))
-              .toList()
-          : null,
+      corrections:
+          row.corrections != null
+              ? (jsonDecode(row.corrections!) as List<dynamic>)
+                  .map(
+                    (e) =>
+                        entity.Correction.fromJson(e as Map<String, dynamic>),
+                  )
+                  .toList()
+              : null,
+      newVocabulary:
+          row.newVocabulary != null
+              ? (jsonDecode(row.newVocabulary!) as List<dynamic>)
+                  .map(
+                    (e) => entity.NewVocabulary.fromJson(
+                      e as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
+              : null,
       audioPath: row.audioPath,
       createdAt: row.createdAt,
     );

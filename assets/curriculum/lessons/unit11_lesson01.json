@@ -8,6 +8,91 @@
   "duration_min": 15,
   "exercises": [
     {
+      "id": 90011,
+      "lesson_id": 1101,
+      "type": "teaching",
+      "prompt": "Food, Drink & Ordering",
+      "data": {
+        "type": "teaching",
+        "heading": "Food, Drink & Ordering",
+        "body": "Stock up on food and drink words, then the magic phrase — \"Dám si…\" — that turns a menu into dinner.",
+        "intro": "Few things feel as good as ordering a meal in the local language. Stock up on food and drink words, then learn the magic phrase — 'Dám si…' — that turns a menu into dinner.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "chléb",
+            "en": "bread"
+          },
+          {
+            "cz": "maso",
+            "en": "meat"
+          },
+          {
+            "cz": "sýr",
+            "en": "cheese"
+          },
+          {
+            "cz": "polévka",
+            "en": "soup"
+          },
+          {
+            "cz": "zelenina",
+            "en": "vegetables"
+          },
+          {
+            "cz": "ovoce",
+            "en": "fruit"
+          },
+          {
+            "cz": "voda",
+            "en": "water"
+          },
+          {
+            "cz": "káva",
+            "en": "coffee"
+          },
+          {
+            "cz": "čaj",
+            "en": "tea"
+          },
+          {
+            "cz": "pivo",
+            "en": "beer"
+          },
+          {
+            "cz": "víno",
+            "en": "wine"
+          },
+          {
+            "cz": "mléko",
+            "en": "milk"
+          },
+          {
+            "cz": "Dám si…",
+            "en": "I'll have… (ordering)"
+          },
+          {
+            "cz": "Chtěl bych…",
+            "en": "I'd like…"
+          },
+          {
+            "cz": "Zaplatím.",
+            "en": "I'll pay."
+          },
+          {
+            "cz": "jídelní lístek",
+            "en": "menu"
+          },
+          {
+            "cz": "Dám si kávu a chléb.",
+            "en": "I'll have a coffee and bread."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 11001,
       "lesson_id": 1101,
       "type": "multiple_choice",
@@ -16,7 +101,12 @@
         "type": "multiple_choice",
         "question_cz": "chléb",
         "question_en": "What does 'chléb' mean?",
-        "options": ["bread", "butter", "cheese", "ham"],
+        "options": [
+          "bread",
+          "butter",
+          "cheese",
+          "ham"
+        ],
         "correct_index": 0,
         "explanation": "chléb = bread, a staple food in Czech cuisine."
       },
@@ -33,7 +123,12 @@
         "type": "multiple_choice",
         "question_cz": "Které z těchto slov označuje vodu?",
         "question_en": "Which word means 'water'?",
-        "options": ["víno", "pivo", "voda", "mléko"],
+        "options": [
+          "víno",
+          "pivo",
+          "voda",
+          "mléko"
+        ],
         "correct_index": 2,
         "explanation": "voda = water, a feminine noun. víno = wine, pivo = beer, mléko = milk."
       },
@@ -50,7 +145,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "bread and butter",
-        "accepted_answers": ["chléb a máslo", "chléb s máslem", "chleba a máslo"],
+        "accepted_answers": [
+          "chléb a máslo",
+          "chléb s máslem",
+          "chleba a máslo"
+        ],
         "grammar_note": "chléb = bread (masculine inanimate), máslo = butter (neuter)."
       },
       "answer_key": "chléb a máslo",
@@ -66,7 +165,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I drink coffee and tea",
-        "accepted_answers": ["Piju kávu a čaj", "Piji kávu a čaj", "Piju kafe a čaj"],
+        "accepted_answers": [
+          "Piju kávu a čaj",
+          "Piji kávu a čaj",
+          "Piju kafe a čaj"
+        ],
         "grammar_note": "pít (to drink) → piju/piji. káva (coffee) in accusative → kávu. čaj (tea) is masculine inanimate, accusative = čaj."
       },
       "answer_key": "Piju kávu a čaj",
@@ -84,9 +187,15 @@
         "blank_count": 3,
         "explanation": "jíst (to eat) → jím (I eat). chléb (bread) and sýr (cheese) are masculine inanimate, accusative = nominative.",
         "blank_answers": [
-          ["jím"],
-          ["chléb"],
-          ["sýr"]
+          [
+            "jím"
+          ],
+          [
+            "chléb"
+          ],
+          [
+            "sýr"
+          ]
         ]
       },
       "answer_key": "jím chléb sýr",
@@ -104,9 +213,15 @@
         "blank_count": 3,
         "explanation": "pít (to drink) → pije (she drinks). voda (water) feminine accusative → vodu. džus (juice) masculine inanimate, accusative = džus.",
         "blank_answers": [
-          ["pije"],
-          ["vodu"],
-          ["džus"]
+          [
+            "pije"
+          ],
+          [
+            "vodu"
+          ],
+          [
+            "džus"
+          ]
         ]
       },
       "answer_key": "pije vodu džus",
@@ -122,7 +237,12 @@
         "type": "multiple_choice",
         "question_cz": "Která možnost znamená, že máte hlad?",
         "question_en": "How do you say 'I am hungry'?",
-        "options": ["Mám žízeň", "Mám hlad", "Jsem hladový", "Chci jíst"],
+        "options": [
+          "Mám žízeň",
+          "Mám hlad",
+          "Jsem hladový",
+          "Chci jíst"
+        ],
         "correct_index": 1,
         "explanation": "Mám hlad = I am hungry (literally: I have hunger). Mám žízeň = I am thirsty."
       },
@@ -154,7 +274,10 @@
         "type": "pronunciation",
         "target_text": "smažený sýr",
         "target_audio_hash": "placeholder_11009",
-        "focus_sounds": ["ř", "ý"],
+        "focus_sounds": [
+          "ř",
+          "ý"
+        ],
         "min_score": 0.6,
         "translation_en": "fried cheese"
       },
@@ -171,7 +294,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I am thirsty, I want water",
-        "accepted_answers": ["Mám žízeň, chci vodu", "Mám žízeň, chci vodu.", "Mám žízeň a chci vodu"],
+        "accepted_answers": [
+          "Mám žízeň, chci vodu",
+          "Mám žízeň, chci vodu.",
+          "Mám žízeň a chci vodu"
+        ],
         "grammar_note": "Mám žízeň = I am thirsty. chci + accusative: voda → vodu."
       },
       "answer_key": "Mám žízeň, chci vodu",
@@ -189,9 +316,15 @@
         "blank_count": 3,
         "explanation": "chléb (masc. inan.) and máslo (neuter) same in accusative. vejce (neuter) same in accusative.",
         "blank_answers": [
-          ["chléb"],
-          ["máslo"],
-          ["vejce"]
+          [
+            "chléb"
+          ],
+          [
+            "máslo"
+          ],
+          [
+            "vejce"
+          ]
         ]
       },
       "answer_key": "chléb máslo vejce",
@@ -207,7 +340,12 @@
         "type": "multiple_choice",
         "question_cz": "Co NENÍ nápoj?",
         "question_en": "Which is NOT a drink?",
-        "options": ["pivo", "mléko", "ryba", "káva"],
+        "options": [
+          "pivo",
+          "mléko",
+          "ryba",
+          "káva"
+        ],
         "correct_index": 2,
         "explanation": "ryba = fish (food, not a drink). pivo = beer, mléko = milk, káva = coffee."
       },

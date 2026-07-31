@@ -13,12 +13,13 @@ void main() {
     final native = _FakeLiveTranscriber(result: 'dobrý den');
     final assessor = PronunciationAssessor(
       recorder: recorder,
-      whisper: _FakeCloud(available: false),
+      // Even an available cloud must not run without an affirmative decision.
+      whisper: _FakeCloud(available: true),
       fallbackStt: native,
       log: Logger('test'),
     );
 
-    expect(assessor.hasWhisper, isFalse);
+    expect(assessor.hasWhisper, isTrue);
     final assessment = await assessor.assess(expectedText: 'Dobrý den');
 
     expect(assessment.usedWhisper, isFalse);
@@ -28,32 +29,35 @@ void main() {
     expect(native.listenCount, 1);
   });
 
-  test('runtime cloud failure degrades to native STT without hard-failing',
-      () async {
-    final recorder = _FakeRecorder();
-    final native = _FakeLiveTranscriber(result: 'na shledanou');
-    final assessor = PronunciationAssessor(
-      recorder: recorder,
-      // Available capability, but the proxy throws at transcribe time —
-      // exactly the "function not deployed" case.
-      whisper: _FakeCloud(available: true, throwOnTranscribe: true),
-      fallbackStt: native,
-      log: Logger('test'),
-    );
+  test(
+    'runtime cloud failure degrades to native STT without hard-failing',
+    () async {
+      final recorder = _FakeRecorder();
+      final native = _FakeLiveTranscriber(result: 'na shledanou');
+      final assessor = PronunciationAssessor(
+        recorder: recorder,
+        // Available capability, but the proxy throws at transcribe time —
+        // exactly the "function not deployed" case.
+        whisper: _FakeCloud(available: true, throwOnTranscribe: true),
+        fallbackStt: native,
+        log: Logger('test'),
+        cloudConsentGranted: () async => true,
+      );
 
-    expect(assessor.hasWhisper, isTrue);
-    final assessment = await assessor.assess(
-      expectedText: 'Na shledanou',
-      maxDuration: Duration.zero,
-    );
+      expect(assessor.hasWhisper, isTrue);
+      final assessment = await assessor.assess(
+        expectedText: 'Na shledanou',
+        maxDuration: Duration.zero,
+      );
 
-    expect(assessment.usedWhisper, isFalse);
-    expect(assessment.transcribedText, 'na shledanou');
-    // Cloud path recorded, then cleaned up before degrading.
-    expect(recorder.startCount, 1);
-    expect(recorder.cleanupCount, greaterThanOrEqualTo(1));
-    expect(native.listenCount, 1);
-  });
+      expect(assessment.usedWhisper, isFalse);
+      expect(assessment.transcribedText, 'na shledanou');
+      // Cloud path recorded, then cleaned up before degrading.
+      expect(recorder.startCount, 1);
+      expect(recorder.cleanupCount, greaterThanOrEqualTo(1));
+      expect(native.listenCount, 1);
+    },
+  );
 }
 
 class _FakeCloud implements CloudTranscriber {
@@ -129,7 +133,9 @@ class _FakeLiveTranscriber implements LiveTranscriber {
   int listenCount = 0;
 
   @override
-  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) async {
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 10),
+  }) async {
     listenCount++;
     return result;
   }

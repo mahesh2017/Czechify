@@ -40,10 +40,10 @@ void main() {
     final item = bank.first;
     final independent = engine.estimateSkill([
       DiagnosticObservation(item: item, correct: true, independent: true),
-    ], item.skill,);
+    ], item.skill);
     final scaffolded = engine.estimateSkill([
       DiagnosticObservation(item: item, correct: true, independent: false),
-    ], item.skill,);
+    ], item.skill);
     expect(scaffolded, lessThan(independent));
   });
 

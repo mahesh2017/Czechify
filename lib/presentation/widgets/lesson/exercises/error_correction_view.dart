@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/grammar_tip_card.dart';
+import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 
@@ -145,7 +148,8 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final data = widget.exercise.data;
     final promptEn = data['prompt_en'] as String?;
     final words = _words;
@@ -155,34 +159,37 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
     final useTextInput = _acceptedAnswers != null && !hasOptions;
 
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Prompt
-          Text(
-            promptEn ?? widget.exercise.prompt,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
           const SizedBox(height: 20),
 
-          // Sentence with tappable words
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 6,
-                    children: [
-                      for (int i = 0; i < words.length; i++)
-                        _buildWordChip(i, words[i], theme),
-                    ],
+                  // The sentence, word by word — tap the one that is wrong.
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: t.card,
+                      border: Border.all(color: t.line),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: t.shadow,
+                    ),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (int i = 0; i < words.length; i++)
+                          _buildWordChip(i, words[i]),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
 
                   // Hint reveal
                   if (_hint != null && !_errorRevealed && !answered)
@@ -191,15 +198,21 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                       child: TextButton.icon(
                         onPressed: _revealError,
                         icon: const Icon(Icons.lightbulb_outline, size: 18),
-                        label: const Text('Show hint'),
+                        label: Text(l10n.exerciseShowHint),
+                        style: TextButton.styleFrom(
+                          foregroundColor: t.amberInk,
+                          minimumSize: const Size(0, 44),
+                        ),
                       ),
                     ),
 
                   if (_errorRevealed && !answered)
                     Text(
-                      'The error is in one of the highlighted words above.',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.orange.shade700,
+                      l10n.exerciseErrorInHighlighted,
+                      style: TextStyle(
+                        fontSize: 14,
+                        height: 1.45,
+                        color: t.amberInk,
                       ),
                     ),
 
@@ -207,38 +220,25 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                   if (_selectedWordIdx != null && !answered) ...[
                     const SizedBox(height: 16),
                     if (_options != null) ...[
-                      Text(
-                        'Choose the correct form:',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
+                      LessonKicker(l10n.exerciseChooseCorrectForm),
+                      const SizedBox(height: 10),
                       for (int i = 0; i < _options!.length; i++)
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: OutlinedButton(
-                            onPressed:
-                                () => setState(() => _selectedOptionIdx = i),
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor:
-                                  _selectedOptionIdx == i
-                                      ? theme.colorScheme.primaryContainer
-                                      : null,
-                              side: BorderSide(
-                                color:
-                                    _selectedOptionIdx == i
-                                        ? theme.colorScheme.primary
-                                        : Colors.grey.shade300,
-                              ),
-                            ),
-                            child: Text(_options![i]),
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: QuizOptionTile(
+                            keyLabel: String.fromCharCode(65 + i),
+                            text: _options![i],
+                            state:
+                                _selectedOptionIdx == i
+                                    ? OptionState.selected
+                                    : OptionState.idle,
+                            onTap: () => setState(() => _selectedOptionIdx = i),
                           ),
                         ),
                       if (_selectedOptionIdx != null)
-                        FilledButton(
+                        KeyCta(
+                          label: AppLocalizations.of(context).check,
                           onPressed: _submitWithOption,
-                          child: const Text('Check'),
                         ),
                     ] else if (useTextInput) ...[
                       _TextInputCorrection(
@@ -246,9 +246,9 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                         enabled: !answered,
                       ),
                     ] else ...[
-                      FilledButton(
+                      KeyCta(
+                        label: AppLocalizations.of(context).check,
                         onPressed: _submitWithOption,
-                        child: const Text('Check'),
                       ),
                     ],
                   ],
@@ -287,7 +287,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                     ),
                   );
                 },
-                child: const Text('Show Answer'),
+                child: Text(AppLocalizations.of(context).reviewShowAnswer),
               ),
             ),
         ],
@@ -295,57 +295,54 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
     );
   }
 
-  Widget _buildWordChip(int idx, String word, ThemeData theme) {
+  Widget _buildWordChip(int idx, String word) {
+    final t = context.tokens;
     final isSelected = _selectedWordIdx == idx;
     final isDifferent = _wordIsDifferentAt(idx);
+    final instant = MediaQuery.disableAnimationsOf(context);
+    // The revealed error is struck through as well as tinted, so the hint
+    // does not depend on telling amber from neutral.
+    final struck = _errorRevealed && !answered && isDifferent;
 
-    Color? bg;
-    Color? border;
-    if (answered) {
-      if (isDifferent) {
-        bg = Colors.green.shade100;
-        border = Colors.green.shade600;
-      } else if (isSelected) {
-        bg = Colors.red.shade100;
-        border = Colors.red.shade600;
-      } else {
-        bg = Colors.grey.shade100;
-        border = Colors.transparent;
-      }
-    } else if (_errorRevealed && isDifferent) {
-      bg = Colors.orange.shade100;
-      border = Colors.orange.shade600;
-    } else if (isSelected) {
-      bg = theme.colorScheme.primaryContainer;
-      border = theme.colorScheme.primary;
-    } else {
-      bg = Colors.grey.shade100;
-    }
+    final (bg, border, fg) = switch (true) {
+      _ when answered && isDifferent => (t.greenSoft, t.green, t.greenInk),
+      _ when answered && isSelected => (t.redSoft, t.red, t.redInk),
+      _ when answered => (t.elev, Colors.transparent, t.muted),
+      _ when struck => (t.amberSoft, t.amberInk, t.amberInk),
+      _ when isSelected => (t.priSoft, t.pri, t.priInk),
+      _ => (t.elev, Colors.transparent, t.ink),
+    };
 
-    return GestureDetector(
-      onTap: () => _onWordTap(idx),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        decoration: BoxDecoration(
-          color: bg,
-          borderRadius: BorderRadius.circular(8),
-          border: border != null ? Border.all(color: border, width: 2) : null,
-        ),
-        child: Text(
-          word,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight:
-                isSelected || _errorRevealed && isDifferent
-                    ? FontWeight.w600
-                    : FontWeight.normal,
-            decoration:
-                _errorRevealed && isDifferent
-                    ? TextDecoration.lineThrough
-                    : null,
-            color:
-                _errorRevealed && isDifferent ? Colors.orange.shade800 : null,
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _onWordTap(idx),
+          borderRadius: BorderRadius.circular(12),
+          child: AnimatedContainer(
+            duration:
+                instant ? Duration.zero : const Duration(milliseconds: 180),
+            constraints: const BoxConstraints(minHeight: 44),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: bg,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: border, width: 1.5),
+            ),
+            child: Text(
+              word,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight:
+                    isSelected || struck ? FontWeight.w700 : FontWeight.w500,
+                decoration: struck ? TextDecoration.lineThrough : null,
+                decorationColor: fg,
+                color: fg,
+              ),
+            ),
           ),
         ),
       ),
@@ -378,31 +375,22 @@ class _TextInputCorrectionState extends State<_TextInputCorrection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          'Type the correct sentence:',
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 8),
-        TextField(
+        LessonKicker(AppLocalizations.of(context).exerciseTypeCorrectSentence),
+        const SizedBox(height: 10),
+        AnswerField(
           controller: _controller,
           enabled: widget.enabled,
-          decoration: const InputDecoration(
-            hintText: 'Write the corrected sentence...',
-            border: OutlineInputBorder(),
-          ),
-          maxLines: 2,
-          textInputAction: TextInputAction.done,
-          onSubmitted: widget.enabled ? (v) => widget.onSubmit(v) : null,
+          multiline: true,
+          semanticLabel: AppLocalizations.of(context).exerciseCorrectedSentence,
+          onSubmitted: widget.enabled ? widget.onSubmit : null,
         ),
-        const SizedBox(height: 8),
-        CzechCharBar(controller: _controller, enabled: widget.enabled),
         const SizedBox(height: 12),
-        FilledButton(
+        CzechCharBar(controller: _controller, enabled: widget.enabled),
+        const SizedBox(height: 14),
+        KeyCta(
+          label: AppLocalizations.of(context).check,
           onPressed:
               widget.enabled ? () => widget.onSubmit(_controller.text) : null,
-          child: const Text('Check'),
         ),
       ],
     );

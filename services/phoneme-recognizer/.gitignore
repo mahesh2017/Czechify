@@ -1,0 +1,3 @@
+# The model is ~339 MB and gets replaced by a Czech-capable checkpoint.
+# Mount it at runtime; don't put it in git history.
+models/

@@ -9,6 +9,87 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90005,
+      "lesson_id": 501,
+      "type": "teaching",
+      "prompt": "Three Verb Classes",
+      "data": {
+        "type": "teaching",
+        "heading": "Three Verb Classes",
+        "body": "Present-tense verbs fall into three patterns. Learn one model from each (já / ty / on… forms).",
+        "intro": "Actions are the heartbeat of every sentence. The good news: Czech verbs sort themselves into just three neat patterns — learn one model from each and you can conjugate hundreds more.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "dělám",
+            "en": "I do (-á class: dělat)"
+          },
+          {
+            "cz": "děláš",
+            "en": "you do"
+          },
+          {
+            "cz": "dělá",
+            "en": "he / she does"
+          },
+          {
+            "cz": "děláme",
+            "en": "we do"
+          },
+          {
+            "cz": "děláte",
+            "en": "you do (plural)"
+          },
+          {
+            "cz": "dělají",
+            "en": "they do"
+          },
+          {
+            "cz": "mluvím",
+            "en": "I speak (-í class: mluvit)"
+          },
+          {
+            "cz": "mluvíš",
+            "en": "you speak"
+          },
+          {
+            "cz": "mluví",
+            "en": "he / she speaks"
+          },
+          {
+            "cz": "čtu",
+            "en": "I read (-e class: číst)"
+          },
+          {
+            "cz": "čteš",
+            "en": "you read"
+          },
+          {
+            "cz": "čte",
+            "en": "he / she reads"
+          },
+          {
+            "cz": "čtou",
+            "en": "they read"
+          },
+          {
+            "cz": "pracovat",
+            "en": "to work"
+          },
+          {
+            "cz": "rozumět",
+            "en": "to understand"
+          },
+          {
+            "cz": "bydlet",
+            "en": "to live / reside"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 5001,
       "lesson_id": 501,
       "type": "multiple_choice",
@@ -17,7 +98,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaká je forma 'já' pro sloveso 'dělat'?",
         "question_en": "What is the 'já' (1st person singular) form of 'dělat'?",
-        "options": ["dělá", "dělám", "děláš", "dělají"],
+        "options": [
+          "dělá",
+          "dělám",
+          "děláš",
+          "dělají"
+        ],
         "correct_index": 1,
         "explanation": "The -át class adds -ám for 1st person singular: dělat → dělám."
       },
@@ -34,7 +120,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaká je forma 'ty' pro sloveso 'mluvit'?",
         "question_en": "What is the 'ty' (2nd person singular) form of 'mluvit'?",
-        "options": ["mluvím", "mluví", "mluvíš", "mluvíme"],
+        "options": [
+          "mluvím",
+          "mluví",
+          "mluvíš",
+          "mluvíme"
+        ],
         "correct_index": 2,
         "explanation": "The -ít class adds -íš for 2nd person singular: mluvit → mluvíš."
       },
@@ -53,7 +144,9 @@
         "blank_count": 1,
         "explanation": "'Bydlet' conjugates with -í endings like the -ít class. 1st person singular: bydlím. 'Já bydlím v Praze.' = 'I live in Prague.'",
         "blank_answers": [
-          ["bydlím"]
+          [
+            "bydlím"
+          ]
         ]
       },
       "answer_key": "bydlím",
@@ -71,7 +164,9 @@
         "blank_count": 1,
         "explanation": "The -ít class has the same ending for 3rd person singular and plural: mluví. 'Ona mluví česky.' = 'She speaks Czech.'",
         "blank_answers": [
-          ["mluví"]
+          [
+            "mluví"
+          ]
         ]
       },
       "answer_key": "mluví",
@@ -87,7 +182,9 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I know him.",
-        "accepted_answers": ["Znám ho."],
+        "accepted_answers": [
+          "Znám ho."
+        ],
         "grammar_note": "'Znát' is an -át class verb. 1st person singular: znám. The pronoun 'ho' (him) comes after the verb."
       },
       "answer_key": "Znám ho.",
@@ -103,7 +200,11 @@
         "type": "translation",
         "direction": "cz_to_en",
         "source": "Čekám na autobus.",
-        "accepted_answers": ["I am waiting for the bus.", "I'm waiting for the bus.", "I wait for the bus."],
+        "accepted_answers": [
+          "I am waiting for the bus.",
+          "I'm waiting for the bus.",
+          "I wait for the bus."
+        ],
         "grammar_note": "'Čekat' is an -át class verb. 1st person singular: čekám. 'Na' + accusative = 'for'."
       },
       "answer_key": "I am waiting for the bus.",
@@ -117,8 +218,16 @@
       "prompt": "Arrange the words to form: 'We speak Czech.'",
       "data": {
         "type": "word_order",
-        "words": ["česky", "mluvíme", "My"],
-        "correct_order": [2, 1, 0],
+        "words": [
+          "česky",
+          "mluvíme",
+          "My"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
         "explanation": "'My mluvíme česky.' = 'We speak Czech.' The -ít class 1st person plural ends in -íme."
       },
       "answer_key": "My mluvíme česky",
@@ -134,7 +243,12 @@
         "type": "multiple_choice",
         "question_cz": "Které sloveso patří do třídy -ít?",
         "question_en": "Which verb belongs to the -ít conjugation class?",
-        "options": ["dělat", "znát", "mluvit", "čekat"],
+        "options": [
+          "dělat",
+          "znát",
+          "mluvit",
+          "čekat"
+        ],
         "correct_index": 2,
         "explanation": "'Mluvit' ends in -ít and follows the -ím, -íš, -í pattern. 'Dělat', 'znát', and 'čekat' all end in -át."
       },
@@ -153,7 +267,9 @@
         "blank_count": 1,
         "explanation": "'Rozumět' belongs to the -et/-ět class. 2nd person singular: rozumíš. 'Ty rozumíš česky?' = 'Do you understand Czech?'",
         "blank_answers": [
-          ["rozumíš"]
+          [
+            "rozumíš"
+          ]
         ]
       },
       "answer_key": "rozumíš",
@@ -185,7 +301,11 @@
         "type": "pronunciation",
         "target_text": "Děláme",
         "target_audio_hash": "placeholder_5011",
-        "focus_sounds": ["ě", "é", "á"],
+        "focus_sounds": [
+          "ě",
+          "é",
+          "á"
+        ],
         "min_score": 0.6,
         "translation_en": "We do / We make"
       },
@@ -202,7 +322,12 @@
         "type": "multiple_choice",
         "question_cz": "Jaká je forma 'já' pro sloveso 'číst'?",
         "question_en": "What is the 1st person singular ('já') form of 'číst'?",
-        "options": ["čte", "čtu", "čteš", "čtou"],
+        "options": [
+          "čte",
+          "čtu",
+          "čteš",
+          "čtou"
+        ],
         "correct_index": 1,
         "explanation": "'Číst' is a special verb in the -et/-ět group. The 1st person singular is 'čtu'. Other forms: čteš, čte, čteme, čtete, čtou."
       },

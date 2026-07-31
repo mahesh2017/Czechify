@@ -9,6 +9,47 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90006,
+      "lesson_id": 601,
+      "type": "teaching",
+      "prompt": "The Object Case (Accusative)",
+      "data": {
+        "type": "teaching",
+        "heading": "The Object Case (Accusative)",
+        "body": "When something receives the action, its ending can change. Masculine inanimate and neuter nouns stay the same.",
+        "intro": "'I see a man.' 'I'll have a coffee.' The moment something receives an action, Czech reshapes its ending — and this is the case you'll reach for a dozen times a day.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "Dám si kávu.",
+            "en": "I'll have a coffee (feminine -a → -u)"
+          },
+          {
+            "cz": "Vidím muže.",
+            "en": "I see a man (masculine animate, + -a)"
+          },
+          {
+            "cz": "Vidím dům.",
+            "en": "I see a house (masculine inanimate — no change)"
+          },
+          {
+            "cz": "Mám auto.",
+            "en": "I have a car (neuter — no change)"
+          },
+          {
+            "cz": "chtít",
+            "en": "to want (takes the accusative)"
+          },
+          {
+            "cz": "kupovat",
+            "en": "to buy (takes the accusative)"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 6001,
       "lesson_id": 601,
       "type": "multiple_choice",
@@ -17,7 +58,12 @@
         "type": "multiple_choice",
         "question_cz": "Vidím ___ (káva).",
         "question_en": "I see ___ (coffee).",
-        "options": ["káva", "kávu", "kávy", "kávo"],
+        "options": [
+          "káva",
+          "kávu",
+          "kávy",
+          "kávo"
+        ],
         "correct_index": 1,
         "explanation": "Feminine nouns ending in -a change to -u in the accusative case: káva → kávu."
       },
@@ -34,7 +80,10 @@
         "type": "declension_table",
         "word": "žena",
         "gender": "feminine",
-        "cases": ["nominative", "accusative"],
+        "cases": [
+          "nominative",
+          "accusative"
+        ],
         "answer_key": {
           "nominative": "žena",
           "accusative": "ženu"
@@ -54,10 +103,16 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I have a book.",
-        "accepted_answers": ["Mám knihu.", "Mám knihu"],
+        "accepted_answers": [
+          "Mám knihu.",
+          "Mám knihu"
+        ],
         "grammar_note": "Kniha (feminine, -a) becomes knihu in the accusative. Mám knihu = I have a book."
       },
-      "answer_key": ["Mám knihu.", "Mám knihu"],
+      "answer_key": [
+        "Mám knihu.",
+        "Mám knihu"
+      ],
       "grammar_rule_id": "GR-050",
       "xp_reward": 15
     },
@@ -72,10 +127,14 @@
         "blank_count": 1,
         "explanation": "Voda (feminine, -a) → vodu in accusative. Piju vodu = I drink water.",
         "blank_answers": [
-          ["vodu"]
+          [
+            "vodu"
+          ]
         ]
       },
-      "answer_key": ["vodu"],
+      "answer_key": [
+        "vodu"
+      ],
       "grammar_rule_id": "GR-050",
       "xp_reward": 15
     },
@@ -88,7 +147,10 @@
         "type": "declension_table",
         "word": "pes",
         "gender": "masculine_animate",
-        "cases": ["nominative", "accusative"],
+        "cases": [
+          "nominative",
+          "accusative"
+        ],
         "answer_key": {
           "nominative": "pes",
           "accusative": "psa"
@@ -108,7 +170,12 @@
         "type": "multiple_choice",
         "question_cz": "Znám toho ___ (muž).",
         "question_en": "I know that ___ (man).",
-        "options": ["muž", "muže", "muža", "mužem"],
+        "options": [
+          "muž",
+          "muže",
+          "muža",
+          "mužem"
+        ],
         "correct_index": 1,
         "explanation": "Muž is a masculine animate noun ending in a soft consonant (ž). It takes -e in the accusative: muž → muže."
       },
@@ -125,7 +192,10 @@
         "type": "declension_table",
         "word": "hrad",
         "gender": "masculine_inanimate",
-        "cases": ["nominative", "accusative"],
+        "cases": [
+          "nominative",
+          "accusative"
+        ],
         "answer_key": {
           "nominative": "hrad",
           "accusative": "hrad"
@@ -147,10 +217,14 @@
         "blank_count": 1,
         "explanation": "Dům is masculine inanimate. Masculine inanimate nouns do not change in the accusative: dům → dům. Vidím dům = I see a house.",
         "blank_answers": [
-          ["dům"]
+          [
+            "dům"
+          ]
         ]
       },
-      "answer_key": ["dům"],
+      "answer_key": [
+        "dům"
+      ],
       "grammar_rule_id": "GR-052",
       "xp_reward": 15
     },
@@ -163,7 +237,10 @@
         "type": "declension_table",
         "word": "město",
         "gender": "neuter",
-        "cases": ["nominative", "accusative"],
+        "cases": [
+          "nominative",
+          "accusative"
+        ],
         "answer_key": {
           "nominative": "město",
           "accusative": "město"
@@ -183,10 +260,16 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I see a beer.",
-        "accepted_answers": ["Vidím pivo.", "Vidím pivo"],
+        "accepted_answers": [
+          "Vidím pivo.",
+          "Vidím pivo"
+        ],
         "grammar_note": "Pivo is neuter. Neuter nouns are unchanged in the accusative: pivo → pivo. Vidím pivo = I see a beer."
       },
-      "answer_key": ["Vidím pivo.", "Vidím pivo"],
+      "answer_key": [
+        "Vidím pivo.",
+        "Vidím pivo"
+      ],
       "grammar_rule_id": "GR-053",
       "xp_reward": 15
     },
@@ -215,7 +298,12 @@
         "type": "pronunciation",
         "target_text": "Vidím ženu. Mám knihu. Piju vodu.",
         "target_audio_hash": "placeholder_6012",
-        "focus_sounds": ["uː", "ʒ", "v", "ɦ"],
+        "focus_sounds": [
+          "uː",
+          "ʒ",
+          "v",
+          "ɦ"
+        ],
         "min_score": 0.6,
         "translation_en": "I see a woman. I have a book. I drink water."
       },

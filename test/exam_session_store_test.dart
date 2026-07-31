@@ -11,19 +11,19 @@ void main() {
   });
 
   ExamCheckpoint checkpoint({DateTime? savedAt}) => ExamCheckpoint(
-        level: 'a1',
-        sectionIndex: 1,
-        questionIndex: 3,
-        secondsLeft: 421,
-        answers: {
-          0: {0: 2, 1: 'napsaná odpověď', 2: 0},
-          1: {0: 1},
-        },
-        speakingTranscriptions: {'3:0': 'ahoj jak se máš'},
-        speakingScores: {'3:0': 85},
-        writingScores: {'2:0': 70},
-        savedAt: savedAt ?? DateTime.now(),
-      );
+    level: 'a1',
+    sectionIndex: 1,
+    questionIndex: 3,
+    secondsLeft: 421,
+    answers: {
+      0: {0: 2, 1: 'napsaná odpověď', 2: 0},
+      1: {0: 1},
+    },
+    speakingTranscriptions: {'3:0': 'ahoj jak se máš'},
+    speakingScores: {'3:0': 85},
+    writingScores: {'2:0': 70},
+    savedAt: savedAt ?? DateTime.now(),
+  );
 
   test('checkpoint round-trips through save/load intact', () async {
     final store = ExamSessionStore();
@@ -52,9 +52,9 @@ void main() {
 
   test('stale checkpoints are discarded', () async {
     final store = ExamSessionStore();
-    await store.save(checkpoint(
-      savedAt: DateTime.now().subtract(const Duration(hours: 25)),
-    ),);
+    await store.save(
+      checkpoint(savedAt: DateTime.now().subtract(const Duration(hours: 25))),
+    );
 
     expect(await store.load('a1'), isNull);
   });

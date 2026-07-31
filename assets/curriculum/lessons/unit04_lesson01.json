@@ -9,6 +9,71 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 90004,
+      "lesson_id": 401,
+      "type": "teaching",
+      "prompt": "být (to be) & mít (to have)",
+      "data": {
+        "type": "teaching",
+        "heading": "být (to be) & mít (to have)",
+        "body": "Two tiny verbs, all six forms each. Czech usually drops the pronoun — \"Jsem student,\" not \"Já jsem student.\"",
+        "intro": "Two tiny verbs do an enormous amount of work in Czech: 'to be' and 'to have'. Master their six little forms and you can already introduce yourself, describe people, and say what's yours.",
+        "style": "list",
+        "play_all_label": "Play all",
+        "items": [
+          {
+            "cz": "jsem",
+            "en": "I am"
+          },
+          {
+            "cz": "jsi",
+            "en": "you are (informal)"
+          },
+          {
+            "cz": "je",
+            "en": "he / she / it is"
+          },
+          {
+            "cz": "jsme",
+            "en": "we are"
+          },
+          {
+            "cz": "jste",
+            "en": "you are (plural / formal)"
+          },
+          {
+            "cz": "jsou",
+            "en": "they are"
+          },
+          {
+            "cz": "mám",
+            "en": "I have"
+          },
+          {
+            "cz": "máš",
+            "en": "you have (informal)"
+          },
+          {
+            "cz": "má",
+            "en": "he / she / it has"
+          },
+          {
+            "cz": "máme",
+            "en": "we have"
+          },
+          {
+            "cz": "máte",
+            "en": "you have (plural / formal)"
+          },
+          {
+            "cz": "mají",
+            "en": "they have"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 4001,
       "lesson_id": 401,
       "type": "multiple_choice",
@@ -17,7 +82,12 @@
         "type": "multiple_choice",
         "question_cz": "Která forma je správná pro 'já'?",
         "question_en": "Which form of být is correct for 'I'?",
-        "options": ["jsi", "jsem", "je", "jsme"],
+        "options": [
+          "jsi",
+          "jsem",
+          "je",
+          "jsme"
+        ],
         "correct_index": 1,
         "explanation": "já → jsem. The 1st person singular of být is 'jsem'."
       },
@@ -34,7 +104,12 @@
         "type": "multiple_choice",
         "question_cz": "Která forma je správná pro 'oni'?",
         "question_en": "Which form of být is correct for 'they'?",
-        "options": ["jsou", "jste", "jsme", "je"],
+        "options": [
+          "jsou",
+          "jste",
+          "jsme",
+          "je"
+        ],
         "correct_index": 0,
         "explanation": "oni/ony → jsou. The 3rd person plural of být is 'jsou'."
       },
@@ -51,7 +126,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "We are from Prague.",
-        "accepted_answers": ["Jsme z Prahy.", "Jsme z Prahy", "jsme z Prahy"],
+        "accepted_answers": [
+          "Jsme z Prahy.",
+          "Jsme z Prahy",
+          "jsme z Prahy"
+        ],
         "grammar_note": "Jsme = we are (1st person plural of být). 'z' + Praha → z Prahy (genitive after 'z', Praha → Prahy)."
       },
       "answer_key": "Jsme z Prahy.",
@@ -69,7 +148,9 @@
         "blank_count": 1,
         "explanation": "on → je. The 3rd person singular of být is 'je'.",
         "blank_answers": [
-          ["je"]
+          [
+            "je"
+          ]
         ]
       },
       "answer_key": "je",
@@ -85,7 +166,12 @@
         "type": "multiple_choice",
         "question_cz": "Která forma je správná pro 'ty'?",
         "question_en": "Which form of mít is correct for 'you' (singular)?",
-        "options": ["mám", "máš", "má", "máte"],
+        "options": [
+          "mám",
+          "máš",
+          "má",
+          "máte"
+        ],
         "correct_index": 1,
         "explanation": "ty → máš. The 2nd person singular of mít is 'máš'."
       },
@@ -102,7 +188,11 @@
         "type": "translation",
         "direction": "cz_to_en",
         "source": "Mám nové auto.",
-        "accepted_answers": ["I have a new car.", "I have a new car", "I have got a new car."],
+        "accepted_answers": [
+          "I have a new car.",
+          "I have a new car",
+          "I have got a new car."
+        ],
         "grammar_note": "Mám = I have (1st person singular of mít). auto = car, nové = new."
       },
       "answer_key": "I have a new car.",
@@ -120,7 +210,9 @@
         "blank_count": 1,
         "explanation": "my → máme. The 1st person plural of mít is 'máme'.",
         "blank_answers": [
-          ["máme"]
+          [
+            "máme"
+          ]
         ]
       },
       "answer_key": "máme",
@@ -134,8 +226,16 @@
       "prompt": "Arrange the words to form a correct sentence",
       "data": {
         "type": "word_order",
-        "words": ["Jsem", "z", "Brna"],
-        "correct_order": [0, 1, 2],
+        "words": [
+          "Jsem",
+          "z",
+          "Brna"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
         "explanation": "'Jsem z Brna.' = I am from Brno. 'Jsem' = I am, 'z' = from (requires genitive), Brno → Brna in genitive."
       },
       "answer_key": "Jsem z Brna.",
@@ -151,7 +251,11 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "I am not a student.",
-        "accepted_answers": ["Nejsem student.", "Nejsem student", "nejsem student."],
+        "accepted_answers": [
+          "Nejsem student.",
+          "Nejsem student",
+          "nejsem student."
+        ],
         "grammar_note": "Negation of jsem → nejsem. Add prefix 'ne-' to the verb form: jsem → nejsem."
       },
       "answer_key": "Nejsem student.",
@@ -169,7 +273,9 @@
         "blank_count": 1,
         "explanation": "Negation of mám → nemám. Add prefix 'ne-': mám → nemám.",
         "blank_answers": [
-          ["Nemám"]
+          [
+            "Nemám"
+          ]
         ]
       },
       "answer_key": "Nemám",
@@ -201,7 +307,10 @@
         "type": "pronunciation",
         "target_text": "Máš auto?",
         "target_audio_hash": "placeholder_4012",
-        "focus_sounds": ["á", "š"],
+        "focus_sounds": [
+          "á",
+          "š"
+        ],
         "min_score": 0.6,
         "translation_en": "Do you have a car?"
       },

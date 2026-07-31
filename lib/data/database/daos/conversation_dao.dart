@@ -16,26 +16,25 @@ class ConversationDao extends DatabaseAccessor<AppDatabase>
 
   Future<String> createConversation(String scenario, String cefrLevel) async {
     final id = 'conv_${const Uuid().v4()}';
-    await into(conversations).insert(ConversationsCompanion.insert(
-      id: id,
-      scenario: scenario,
-      cefrLevel: cefrLevel,
-    ),);
+    await into(conversations).insert(
+      ConversationsCompanion.insert(
+        id: id,
+        scenario: scenario,
+        cefrLevel: cefrLevel,
+      ),
+    );
     return id;
   }
 
   Future<List<Conversation>> getAllConversations() =>
       (select(conversations)
-            ..orderBy([(c) => OrderingTerm.desc(c.createdAt)]))
-          .get();
+        ..orderBy([(c) => OrderingTerm.desc(c.createdAt)])).get();
 
   Future<void> deleteConversation(String conversationId) async {
     await (delete(chatMessages)
-          ..where((m) => m.conversationId.equals(conversationId)))
-        .go();
+      ..where((m) => m.conversationId.equals(conversationId))).go();
     await (delete(conversations)
-          ..where((c) => c.id.equals(conversationId)))
-        .go();
+      ..where((c) => c.id.equals(conversationId))).go();
   }
 
   // ── Chat Messages ──
