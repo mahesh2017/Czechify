@@ -1,3 +1,4 @@
+-- Timestamp matches the migration version already applied to production.
 -- In a `security definer` function `current_user` is the function owner, not
 -- the caller, so the role guard always rejected — the same defect fixed for
 -- consume_ai_quota in 20260719182220. Authorization is enforced by EXECUTE

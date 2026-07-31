@@ -158,7 +158,7 @@ deletion that a stolen access token alone cannot trigger.
 that domain is not available, 2.4 is deferred and the rest of Phase 2 still ships — say so
 explicitly rather than half-implementing it.
 
-### Phase 2 status — COMPLETE except 2.4 (blocked)
+### Phase 2 status — ENGINEERING COMPLETE; 2.4 requires owner-provided domain
 
 | Task | Outcome |
 |---|---|
@@ -222,11 +222,10 @@ ARBs — every "Check", "Retry", "Try Again", "Continue", "Cancel", "Save", "Sho
 and the exam's Start/Resume/Discard/Stay/Leave. Those are the most-tapped controls in the
 app, so the Czech UI had been showing English on nearly every exercise.
 
-**86 messages, 85 call sites. ~87 literals remain**, concentrated in screens not yet
-wired: chat, curriculum, placement, the account/settings sub-screens, and the exam body.
-A Czech UI is now correct through the core loop (nav, home, lesson, review, settings) and
-still shows English on those. Finishing them is mechanical but needs real translation, not
-key-wiring — that is the remaining Phase 3 tail.
+The later learning-loop localization pass expanded both locale catalogs to 444 matching
+messages and wired chat, the exam, lesson flow, review flow, and every exercise view.
+Native-speaker review of the Czech catalog remains a human publication gate; it is not
+represented as completed by engineering tests.
 
 **Explicitly not in this phase:** translating lesson *content* (that is authored data, not
 UI strings), or the remaining ~13 screens.

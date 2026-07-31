@@ -193,12 +193,14 @@ Deno.serve(async (req: Request): Promise<Response> => {
     if (!response.ok) {
       // Refund the daily quota — Whisper returned an error, so the learner's
       // allowance should not be consumed for a failed call.
-      await admin.rpc("refund_service_daily_quota", {
-        p_service: SERVICE,
-        p_user_id: userData.user.id,
-      }).catch((e: unknown) =>
-        console.error("Quota refund failed", e)
+      const { error: refundError } = await admin.rpc(
+        "refund_service_daily_quota",
+        {
+          p_service: SERVICE,
+          p_user_id: userData.user.id,
+        },
       );
+      if (refundError) console.error("Quota refund failed", refundError.code);
       return json({
         error: `Whisper API error: ${response.status}`,
       }, 502);

@@ -1,3 +1,4 @@
+-- Timestamp matches the migration version already applied to production.
 -- Anonymous-user hygiene: purge never-linked anonymous accounts that have
 -- been idle for 90+ days, so orphaned sync rows don't accumulate forever.
 --

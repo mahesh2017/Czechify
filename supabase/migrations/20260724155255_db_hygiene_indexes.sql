@@ -1,3 +1,4 @@
+-- Timestamp matches the migration version already applied to production.
 begin;
 
 -- Advisor 0001 (unindexed FK): ai_service_daily_usage's PK leads with

@@ -41,29 +41,29 @@
 | Normalize all dialogue assets to one schema | Validator | 36/36 dialogues expose the intended inputs and accepted answers | DONE |
 | Add semantic rules for index bounds, blank/answer cardinality, answer constructibility, and stable order | Base validator | Invalid publication is rejected before seeding | DONE |
 
-### 0B. Pronunciation safety — `ACTIVE`
+### 0B. Pronunciation safety — `ENGINEERING DONE / HUMAN VALIDATION OPEN`
 
 | Work item | Dependency | Acceptance evidence | Status |
 |---|---|---|---|
 | Make expected text immutable and exercise-scoped | None | All 47 lesson items assess their own target; no prior result appears | DONE |
-| Replace shared booleans with an attempt-ID state machine | Target fix | Manual stop, rapid retry, dispose, stale completion, denial, and timeout tests pass | ACTIVE |
+| Replace shared booleans with an attempt-ID state machine | Target fix | Manual stop, rapid retry, dispose, stale completion, denial, and timeout tests pass | DONE |
 | Treat skip as skipped and make XP idempotent | Attempt model | Skip never changes correctness/mastery; one reward grant per accepted attempt | DONE |
 | Disable unavailable cloud speech and implement native/degraded fallback | Reactive backend capability | Linked environment without `whisper-proxy` never hard-fails into the missing function | DONE |
-| Secure and type-check `whisper-proxy` before deployment | Privacy/quotas/secret | Auth, byte/duration limits, timeout, model/language allowlist, user/project quotas, spend cap, smoke test | TODO |
-| Update audio privacy disclosure and just-in-time consent | Product/legal review | Disclosure names processor, purpose, data, retention, fallback, and controls | BLOCKED |
+| Secure and type-check `whisper-proxy` before deployment | Privacy/quotas/secret | Auth, byte/duration limits, timeout, model/language allowlist, user/project quotas, spend cap, smoke test | DONE |
+| Update audio privacy disclosure and just-in-time consent | Product/legal review | Disclosure names processor, purpose, data, retention, fallback, and controls | DONE in product; legal wording still requires owner review |
 
-### 0C. Exam correctness and claims — `ACTIVE`
+### 0C. Exam correctness and claims — `ENGINEERING DONE / SPECIALIST GATE OPEN`
 
 | Work item | Dependency | Acceptance evidence | Status |
 |---|---|---|---|
 | Replace force-cast speaking dispatch with typed task variants | Exam schema | All 17 speaking items parse; all six banks avoid missing-field dispatch | DONE |
 | Give every writing/speaking task independent response, controller, score, rubric, and evaluator provenance | Exam model | Multi-task exams grade every available response; navigation restores exact text/state | DONE |
 | Remove canned passing AI evaluation and unconditional completion XP | Evidence/reward policy | Unavailable evaluator produces unscored practice, never a pass | DONE |
-| Choose CCE or permanent-residence A2 as the supported exam product | Product decision | One versioned official blueprint is named; no mixed timings/points/eligibility | BLOCKED |
+| Choose CCE or permanent-residence A2 as the supported exam product | Product decision | One versioned official blueprint is named; no mixed timings/points/eligibility | DONE — permanent-residence A2 practice product selected |
 | Rebuild scoring/timing/pass rules from primary sources | Exam choice | Every subtest, task, point, timer, and threshold matches signed-off blueprint | BLOCKED |
 | Obtain current Czech exam-specialist review | Rebuilt simulation | Reviewer checklist and version/date recorded | BLOCKED |
 
-### 0D. Account and sync integrity — `ACTIVE`
+### 0D. Account and sync integrity — `DONE`
 
 | Work item | Dependency | Acceptance evidence | Status |
 |---|---|---|---|
@@ -72,7 +72,7 @@
 | Reseed/scope SRS correctly after reset | Account clear | Review deck remains usable after delete/switch/reset | DONE |
 | Replace device-clock pull cursor with server-owned monotonic revision | Backend migration design | Clock-skew/concurrent-device tests cannot strand changes | DONE (client + tests); remote migration applied & verified on linked project |
 | Use stable UUIDs and sync custom cards before dependent SRS records | Sync revision | Two devices cannot collide or poison pull progress | DONE (client + tests); `custom_cards` remote table applied & verified on linked project |
-| Move learning actions toward immutable idempotent events | Revision/canonical response | Duplicate delivery is harmless; concurrent legitimate attempts are preserved | TODO |
+| Move learning actions toward immutable idempotent events | Revision/canonical response | Duplicate delivery is harmless; concurrent legitimate attempts are preserved | DONE — UUID-keyed lesson/exercise/evidence events and reward ledger |
 
 ## Phase 1 — Reliable evidence, persistence, and content delivery — `DONE`
 

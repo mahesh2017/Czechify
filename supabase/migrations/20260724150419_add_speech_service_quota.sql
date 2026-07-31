@@ -1,3 +1,4 @@
+-- Timestamp matches the migration version already applied to production.
 begin;
 
 -- Per-service daily usage counters (speech/Whisper first). Mirrors
