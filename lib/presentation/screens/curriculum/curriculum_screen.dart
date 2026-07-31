@@ -150,8 +150,9 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                       children: [
                         Icon(Icons.error_outline, size: 48, color: t.red),
                         const SizedBox(height: 16),
-                        Text(
-                          'Couldn\\'t load the curriculum. The app may need '\n                          'an internet connection for the first download.',
+                        const Text(
+                          "Couldn't load the curriculum. The app may need "
+                          'an internet connection for the first download.',
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 16),

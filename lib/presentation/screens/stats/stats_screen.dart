@@ -606,11 +606,7 @@ class _ExamHistoryCard extends ConsumerWidget {
             const SizedBox(height: 10),
             Row(
               children: [
-                Icon(
-                  Icons.assignment_outlined,
-                  size: 20,
-                  color: t.faint,
-                ),
+                Icon(Icons.assignment_outlined, size: 20, color: t.faint),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(

@@ -382,7 +382,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         title: title,
         body: body.isEmpty ? null : body,
         // Only worth stating when they did not produce it themselves.
-        correctAnswer: session.lastWasCorrect ? null : session.lastCorrectAnswer,
+        correctAnswer:
+            session.lastWasCorrect ? null : session.lastCorrectAnswer,
         busy: session.isCompleting,
         continueLabel:
             session.isCompleting

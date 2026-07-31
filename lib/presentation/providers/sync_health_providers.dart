@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/database/database.dart';
-import '../../data/sync/sync_service.dart';
 import 'database_providers.dart';
-import 'sync_providers.dart';
 
 /// User-visible sync health state.  Surfaces enough information for the UI to
 /// show whether the learner's progress is safely backed up, without exposing
@@ -73,18 +71,12 @@ class SyncHealthNotifier extends Notifier<SyncHealth> {
   Future<void> _refresh() async {
     final pending = await _db.syncDao.pendingCount();
     final failed = await _db.syncDao.deadLetterCount();
-    state = state.copyWith(
-      pendingCount: pending,
-      failedCount: failed,
-    );
+    state = state.copyWith(pendingCount: pending, failedCount: failed);
   }
 
   /// Called when a sync cycle completes successfully.
   void markSynced() {
-    state = state.copyWith(
-      lastSyncedAt: DateTime.now(),
-      isRunning: false,
-    );
+    state = state.copyWith(lastSyncedAt: DateTime.now(), isRunning: false);
     _refresh();
   }
 
@@ -101,5 +93,6 @@ class SyncHealthNotifier extends Notifier<SyncHealth> {
 }
 
 /// Provider for sync health.  The UI watches this to display sync status.
-final syncHealthProvider =
-    NotifierProvider<SyncHealthNotifier, SyncHealth>(SyncHealthNotifier.new);
+final syncHealthProvider = NotifierProvider<SyncHealthNotifier, SyncHealth>(
+  SyncHealthNotifier.new,
+);

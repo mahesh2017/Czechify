@@ -217,7 +217,7 @@ def mouth_talk_kfs(frames):
     kfs = []
     # Speech pattern: varied syllable timing
     syllable_frames = [0, 6, 10, 16, 22, 28, 32, 38, 44, 48, 54, 60, 66, 70, 76, 82, 88]
-    
+
     for t in range(frames):
         # Find which syllable phase we're in
         scale_y = 100.0
@@ -410,7 +410,7 @@ def build_character(gender, frames, is_talk):
         ]
         eye_tr = atrs(pos_kf=[ex, -40], scl_kf=blinks if blinks else None, anc=[0, 0])
         pupil_tr = atrs(pos_kf=pupil, anc=[ex, -40])
-        
+
         # Eye group with blink animation
         eye_full = grp(eye_grp_shapes, f"Eye{side}", tr=eye_tr)
         ly.append(layer([eye_full], idx, f"eye_{side}", ks_scl=breath))
@@ -446,7 +446,7 @@ def build_character(gender, frames, is_talk):
         # Two-part lips: upper + lower
         mouth_upper = grp([el([16, 4], [0, 0], "LipUp"), fill(C['lip_top'])], "UpperLip")
         mouth_lower = grp([el([16, 5], [0, 5], "LipDn"), fill(C['lip_bot'])], "LowerLip")
-        
+
         # Animate the whole mouth group's scale
         mouth_tr = atrs(scl_kf=mouth, anc=[0, -18]) if mouth else None
         mouth_grp = grp([mouth_upper, mouth_lower], "Mouth", tr=mouth_tr)

@@ -16,11 +16,7 @@ import 'package:crypto/crypto.dart';
 
 /// One entry in the audio manifest — the audio file for a given text hash.
 class ManifestEntry {
-  ManifestEntry({
-    required this.path,
-    this.sha256,
-    this.size,
-  });
+  ManifestEntry({required this.path, this.sha256, this.size});
 
   /// Storage path relative to the public audio bucket root.
   final String path;
@@ -46,7 +42,9 @@ class ManifestEntry {
         size: value['size'] as int?,
       );
     }
-    throw const FormatException('Invalid manifest entry: expected string or object');
+    throw const FormatException(
+      'Invalid manifest entry: expected string or object',
+    );
   }
 
   /// True when the entry carries checksum metadata that enables staleness
@@ -85,7 +83,9 @@ class AudioManifest {
       final entriesJson = voice['entries'] as Map<String, dynamic>? ?? const {};
       return MapEntry(
         gender,
-        entriesJson.map((key, value) => MapEntry(key, ManifestEntry.fromJson(value))),
+        entriesJson.map(
+          (key, value) => MapEntry(key, ManifestEntry.fromJson(value)),
+        ),
       );
     });
     return AudioManifest(
@@ -109,7 +109,7 @@ class AudioManifest {
 /// re-downloads — instead of playing the old bytes forever.
 class AudioCacheMeta {
   AudioCacheMeta({Map<String, String>? fileSha256})
-      : _fileSha256 = fileSha256 ?? {};
+    : _fileSha256 = fileSha256 ?? {};
 
   final Map<String, String> _fileSha256;
 
@@ -122,7 +122,8 @@ class AudioCacheMeta {
     final file = File('$cacheDir/$_metaFileName');
     if (!await file.exists()) return AudioCacheMeta();
     try {
-      final json = jsonDecode(await file.readAsString()) as Map<String, dynamic>;
+      final json =
+          jsonDecode(await file.readAsString()) as Map<String, dynamic>;
       final sha = json['file_sha256'] as Map<String, dynamic>? ?? {};
       return AudioCacheMeta(
         fileSha256: sha.map((k, v) => MapEntry(k, v as String)),
@@ -154,14 +155,6 @@ class AudioCacheMeta {
   void forget(String fileName) {
     _fileSha256.remove(fileName);
   }
-}
-
-/// Verify that [file] has the expected [size] bytes.  A fast existence +
-/// size check used on cache hits before playing.
-Future<bool> _matchesSize(File file, int? expectedSize) async {
-  if (!await file.exists()) return false;
-  if (expectedSize == null) return true; // legacy entry, no size to check
-  return await file.length() == expectedSize;
 }
 
 /// Compute SHA-256 of [file]'s bytes.  Used to verify a freshly downloaded

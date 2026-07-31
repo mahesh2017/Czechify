@@ -584,105 +584,105 @@ class _ScenarioPicker extends ConsumerWidget {
               button: true,
               excludeSemantics: true,
               child: SoftCard(
-              padding: EdgeInsets.zero,
-              onTap:
-                  () => ref
-                      .read(chatProvider.notifier)
-                      .startConversation(scenario: scenario),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (art != null)
-                    ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(24),
+                padding: EdgeInsets.zero,
+                onTap:
+                    () => ref
+                        .read(chatProvider.notifier)
+                        .startConversation(scenario: scenario),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (art != null)
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(24),
+                        ),
+                        child: Image.asset(
+                          art.path,
+                          height: 96,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          semanticLabel: art.label,
+                        ),
+                      )
+                    else
+                      IconTile(
+                        icon: s.icon,
+                        tint: s.tint,
+                        fg: s.fg,
+                        size: 44,
+                        radius: 16,
+                        iconSize: 20,
                       ),
-                      child: Image.asset(
-                        art.path,
-                        height: 96,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        semanticLabel: art.label,
-                      ),
-                    )
-                  else
-                    IconTile(
-                      icon: s.icon,
-                      tint: s.tint,
-                      fg: s.fg,
-                      size: 44,
-                      radius: 16,
-                      iconSize: 20,
-                    ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            copy.title,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w700,
-                              height: 1.2,
-                              color: t.ink,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Expanded(
-                            child: Text(
-                              copy.description,
-                              // Two lines is what the 218pt card actually
-                              // has room for; a third was drawn clipped
-                              // mid-word instead of ellipsised.
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              copy.title,
                               style: TextStyle(
-                                fontSize: 13,
-                                color: t.muted,
-                                height: 1.4,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w700,
+                                height: 1.2,
+                                color: t.ink,
                               ),
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 9,
-                                  vertical: 3,
+                            const SizedBox(height: 6),
+                            Expanded(
+                              child: Text(
+                                copy.description,
+                                // Two lines is what the 218pt card actually
+                                // has room for; a third was drawn clipped
+                                // mid-word instead of ellipsised.
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: t.muted,
+                                  height: 1.4,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: t.elev,
-                                  borderRadius: BorderRadius.circular(999),
-                                ),
-                                child: Text(
-                                  'A1',
-                                  style: TextStyle(
-                                    color: t.muted,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 9,
+                                    vertical: 3,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: t.elev,
+                                    borderRadius: BorderRadius.circular(999),
+                                  ),
+                                  child: Text(
+                                    'A1',
+                                    style: TextStyle(
+                                      color: t.muted,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 7),
-                              Text(
-                                '5–8 min',
-                                style: TextStyle(
-                                  color: t.faint,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
+                                const SizedBox(width: 7),
+                                Text(
+                                  '5–8 min',
+                                  style: TextStyle(
+                                    color: t.faint,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
             );
           },
         ),
@@ -805,12 +805,14 @@ class _MessageBubble extends ConsumerWidget {
                   children:
                       message.newVocabulary!.map((v) {
                         return Semantics(
-                          label: AppLocalizations.of(context).a11yAddVocabToDeck,
+                          label:
+                              AppLocalizations.of(context).a11yAddVocabToDeck,
                           button: true,
                           child: ActionChip(
                             label: Text('${v.cz} = ${v.en}'),
                             avatar: const Icon(Icons.add, size: 16),
-                            tooltip: AppLocalizations.of(context).a11yAddVocabToDeck,
+                            tooltip:
+                                AppLocalizations.of(context).a11yAddVocabToDeck,
                             visualDensity: VisualDensity.compact,
                             onPressed: () => _addVocabToDeck(context, ref, v),
                           ),

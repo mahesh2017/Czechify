@@ -42,9 +42,7 @@ void main() {
         'voices': {
           'female': {
             'name': 'cs-CZ-VlastaNeural',
-            'entries': {
-              'abc123': 'assets/audio/female_abc123.mp3',
-            },
+            'entries': {'abc123': 'assets/audio/female_abc123.mp3'},
           },
         },
       });

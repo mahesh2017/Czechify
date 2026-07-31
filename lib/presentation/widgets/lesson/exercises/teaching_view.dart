@@ -448,7 +448,9 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                           alignment: Alignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                              ),
                               child: Text(
                                 item.sentence,
                                 textAlign: TextAlign.center,
@@ -463,7 +465,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                             ),
                             Align(
                               alignment: Alignment.centerRight,
-                              child: Icon(Icons.volume_up_outlined, color: t.pri),
+                              child: Icon(
+                                Icons.volume_up_outlined,
+                                color: t.pri,
+                              ),
                             ),
                           ],
                         ),

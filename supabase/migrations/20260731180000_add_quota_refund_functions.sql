@@ -10,10 +10,11 @@ CREATE OR REPLACE FUNCTION refund_ai_daily_quota(p_user_id uuid)
 RETURNS void
 LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = ''
 AS $$
 BEGIN
   -- Only refund if a quota row exists for today; never create one.
-  UPDATE ai_daily_quota
+  UPDATE public.ai_daily_quota
   SET requests_used = GREATEST(requests_used - 1, 0)
   WHERE user_id = p_user_id
     AND quota_date = CURRENT_DATE;
@@ -28,9 +29,10 @@ CREATE OR REPLACE FUNCTION refund_service_daily_quota(
 RETURNS void
 LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = ''
 AS $$
 BEGIN
-  UPDATE service_daily_quota
+  UPDATE public.service_daily_quota
   SET requests_used = GREATEST(requests_used - 1, 0)
   WHERE user_id = p_user_id
     AND service = p_service
@@ -38,7 +40,15 @@ BEGIN
 END;
 $$;
 
-COMMENT ON FUNCTION refund_ai_daily_quota IS
+COMMENT ON FUNCTION public.refund_ai_daily_quota(uuid) IS
   'Decrements the AI daily quota counter by 1, used when an upstream call fails so the learner does not lose their allowance.';
-COMMENT ON FUNCTION refund_service_daily_quota IS
+COMMENT ON FUNCTION public.refund_service_daily_quota(text, uuid) IS
   'Decrements the speech service daily quota counter by 1, used when Whisper returns an error so the learner does not lose their allowance.';
+
+-- These functions are internal RPCs called only by Edge Functions using the
+-- service-role client. PostgreSQL grants EXECUTE to PUBLIC by default, so
+-- revoke it explicitly to prevent learners refunding arbitrary quota rows.
+REVOKE ALL ON FUNCTION public.refund_ai_daily_quota(uuid) FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.refund_service_daily_quota(text, uuid) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.refund_ai_daily_quota(uuid) TO service_role;
+GRANT EXECUTE ON FUNCTION public.refund_service_daily_quota(text, uuid) TO service_role;

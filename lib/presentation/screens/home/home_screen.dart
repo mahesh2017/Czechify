@@ -9,8 +9,8 @@ import '../../providers/gamification_providers.dart';
 import '../../providers/review_providers.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/tts_providers.dart';
-import '../../providers/database_providers.dart';
-import '../../screens/lesson/delayed_transfer_screen.dart' show dueTransferProvider;
+import '../../screens/lesson/delayed_transfer_screen.dart'
+    show dueTransferProvider;
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../widgets/home/streak_state_sheet.dart';
@@ -177,9 +177,7 @@ class HomeScreen extends ConsumerWidget {
                             const SizedBox(width: 8),
                             Semantics(
                               button: true,
-                              label: AppLocalizations.of(
-                                context,
-                              ).a11ySettings,
+                              label: AppLocalizations.of(context).a11ySettings,
                               child: InkWell(
                                 onTap: () => context.push('/settings'),
                                 borderRadius: BorderRadius.circular(999),
@@ -647,120 +645,125 @@ class _ContinueLearningCard extends ConsumerWidget {
               label: AppLocalizations.of(context).homeContinueLearning,
               child: InkWell(
                 onTap: () => context.push('/lesson/${next.lesson.id}'),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 19, 20, 19),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Positioned(
-                      right: -12,
-                      bottom: -72,
-                      child: Text(
-                        'ř',
-                        style: TextStyle(
-                          fontFamily: AppFonts.display,
-                          fontSize: 152,
-                          fontWeight: FontWeight.w800,
-                          height: 1,
-                          color: t.pri.withValues(alpha: .07),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 19, 20, 19),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        right: -12,
+                        bottom: -72,
+                        child: Text(
+                          'ř',
+                          style: TextStyle(
+                            fontFamily: AppFonts.display,
+                            fontSize: 152,
+                            fontWeight: FontWeight.w800,
+                            height: 1,
+                            color: t.pri.withValues(alpha: .07),
+                          ),
                         ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.of(
-                                  context,
-                                ).homeContinueLearning,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1.8,
-                                  color: t.faint,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  ).homeContinueLearning,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 1.8,
+                                    color: t.faint,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                next.lesson.title,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontFamily: AppFonts.display,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700,
-                                  color: t.ink,
-                                  height: 1.14,
+                                const SizedBox(height: 8),
+                                Text(
+                                  next.lesson.title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontFamily: AppFonts.display,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w700,
+                                    color: t.ink,
+                                    height: 1.14,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                '${next.unitTitle} · ${next.reason}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 13, color: t.faint),
-                              ),
-                              const SizedBox(height: 14),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(999),
-                                      child: LinearProgressIndicator(
-                                        value: .35,
-                                        minHeight: 5,
-                                        backgroundColor: t.pri.withValues(
-                                          alpha: .12,
+                                const SizedBox(height: 5),
+                                Text(
+                                  '${next.unitTitle} · ${next.reason}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: t.faint,
+                                  ),
+                                ),
+                                const SizedBox(height: 14),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          999,
                                         ),
-                                        valueColor: AlwaysStoppedAnimation(
-                                          t.pri,
+                                        child: LinearProgressIndicator(
+                                          value: .35,
+                                          minHeight: 5,
+                                          backgroundColor: t.pri.withValues(
+                                            alpha: .12,
+                                          ),
+                                          valueColor: AlwaysStoppedAnimation(
+                                            t.pri,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    '35%',
-                                    style: TextStyle(
-                                      color: t.pri,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      '35%',
+                                      style: TextStyle(
+                                        color: t.pri,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 16),
-                        Container(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration(
-                            color: t.pri,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: t.pri.withValues(alpha: .35),
-                                blurRadius: 20,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
+                          const SizedBox(width: 16),
+                          Container(
+                            width: 56,
+                            height: 56,
+                            decoration: BoxDecoration(
+                              color: t.pri,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: t.pri.withValues(alpha: .35),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
+                            ),
+                            child: const Icon(
+                              Icons.play_arrow_rounded,
+                              color: Colors.white,
+                              size: 31,
+                            ),
                           ),
-                          child: const Icon(
-                            Icons.play_arrow_rounded,
-                            color: Colors.white,
-                            size: 31,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
               ),
             ),
           ),
@@ -1005,36 +1008,39 @@ class _ShortcutRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
         onTap: onTap,
         child: Row(
-        children: [
-          IconTile(
-            icon: icon,
-            tint: tint,
-            fg: fg,
-            size: 40,
-            radius: 14,
-            iconSize: 17,
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: t.ink,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(subtitle, style: TextStyle(fontSize: 14, color: t.muted)),
-              ],
+          children: [
+            IconTile(
+              icon: icon,
+              tint: tint,
+              fg: fg,
+              size: 40,
+              radius: 14,
+              iconSize: 17,
             ),
-          ),
-          Icon(Icons.chevron_right, size: 16, color: t.faint),
-        ],
-      ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: t.ink,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    subtitle,
+                    style: TextStyle(fontSize: 14, color: t.muted),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, size: 16, color: t.faint),
+          ],
+        ),
       ),
     );
   }
@@ -1150,40 +1156,42 @@ class _DueTransfers extends ConsumerWidget {
                       label: 'Lesson ${item.lessonId} · try it again',
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
-                        onTap: () => context.push('/transfer/${item.assignmentId}'),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 12,
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.link_rounded,
-                              size: 18,
-                              color: t.violet,
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                'Lesson ${item.lessonId} · '
-                                'try it again',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: t.ink,
+                        onTap:
+                            () =>
+                                context.push('/transfer/${item.assignmentId}'),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 12,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.link_rounded,
+                                size: 18,
+                                color: t.violet,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Lesson ${item.lessonId} · '
+                                  'try it again',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: t.ink,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Icon(
-                              Icons.chevron_right_rounded,
-                              size: 20,
-                              color: t.muted,
-                            ),
-                          ],
+                              Icon(
+                                Icons.chevron_right_rounded,
+                                size: 20,
+                                color: t.muted,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     ),
                   ),
                 ),

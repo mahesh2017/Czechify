@@ -109,9 +109,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         });
         // Surface the error — never silently substitute sample content
         // for a shipped exam bank that should be present.
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.message)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.message)));
       }
     }
   }

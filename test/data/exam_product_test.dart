@@ -2,7 +2,6 @@ import 'package:ceskina_pro/data/database/database.dart' hide ExamResult;
 import 'package:ceskina_pro/data/repositories/drift_exam_repository.dart';
 import 'package:ceskina_pro/domain/entities/enums.dart';
 import 'package:ceskina_pro/domain/entities/exam_result.dart';
-import 'package:ceskina_pro/domain/repositories/exam_repository.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 

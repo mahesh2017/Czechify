@@ -68,21 +68,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       // and the learner starts at unit 1 regardless.
       final provisionalUnit = switch (_selectedLevel) {
         CEFRLevel.a2 => 16, // First A2 unit
-        CEFRLevel.a1 => 1,  // First A1 unit
+        CEFRLevel.a1 => 1, // First A1 unit
         CEFRLevel.preA1 => 1,
       };
       if (_selectedLevel != CEFRLevel.preA1) {
-        await ref.read(databaseProvider).progressDao.savePlacement(
-          PlacementResult(
-            estimates: const {
-              LearningSkill.reading: 0.5,
-              LearningSkill.listening: 0.5,
-              LearningSkill.writing: 0.5,
-            },
-            provisionalUnit: provisionalUnit,
-            sampleSize: 0,
-          ),
-        );
+        await ref
+            .read(databaseProvider)
+            .progressDao
+            .savePlacement(
+              PlacementResult(
+                estimates: const {
+                  LearningSkill.reading: 0.5,
+                  LearningSkill.listening: 0.5,
+                  LearningSkill.writing: 0.5,
+                },
+                provisionalUnit: provisionalUnit,
+                sampleSize: 0,
+              ),
+            );
         ref.invalidate(placementProfileProvider);
         ref.invalidate(curriculumAccessProvider);
         ref.invalidate(nextLessonProvider);

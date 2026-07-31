@@ -31,15 +31,16 @@ class GrammarReferenceScreen extends ConsumerWidget {
       ),
       body: unitsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const Center(
-          child: Padding(
-            padding: EdgeInsets.all(24),
-            child: Text(
-              'Grammar reference will be available after the first lesson.',
-              textAlign: TextAlign.center,
+        error:
+            (_, __) => const Center(
+              child: Padding(
+                padding: EdgeInsets.all(24),
+                child: Text(
+                  'Grammar reference will be available after the first lesson.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-          ),
-        ),
         data: (allUnits) {
           // Falling back to every unit while access is loading or errored is
           // deliberate: showing too much reference material is a far smaller

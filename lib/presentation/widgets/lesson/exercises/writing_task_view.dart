@@ -66,8 +66,6 @@ class _WritingTaskViewState extends State<WritingTaskView> {
     final text = _controller.text.trim();
     final wordCount = text.isEmpty ? 0 : text.split(RegExp(r'\\s+')).length;
     final meetsMinWords = _minWords == null || wordCount >= _minWords!;
-    final hasContent = text.isNotEmpty;
-
     // Writing tasks are always formative — automated keyword matching can
     // reject valid paraphrases and accept keyword lists, so it must never
     // determine correctness or affect XP, mastery, or exam passes.  The

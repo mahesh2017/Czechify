@@ -794,7 +794,8 @@ class _FlashcardView extends ConsumerWidget {
                       ),
                     ),
                     IconButton(
-                      tooltip: AppLocalizations.of(context).a11yPlayPronunciation,
+                      tooltip:
+                          AppLocalizations.of(context).a11yPlayPronunciation,
                       onPressed:
                           () =>
                               ref.read(czechTtsProvider).speak(card.exampleCz!),
