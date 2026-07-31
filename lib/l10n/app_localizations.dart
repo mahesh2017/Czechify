@@ -1262,6 +1262,24 @@ abstract class AppLocalizations {
   /// **'What does it mean?'**
   String get reviewWhatDoesItMean;
 
+  /// No description provided for @reviewInASentence.
+  ///
+  /// In en, this message translates to:
+  /// **'In a sentence'**
+  String get reviewInASentence;
+
+  /// No description provided for @reviewNeedAHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud · need a hint?'**
+  String get reviewNeedAHint;
+
+  /// No description provided for @reviewHintStartsWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Starts with “{start}”'**
+  String reviewHintStartsWith(String start);
+
   /// No description provided for @reviewMeans.
   ///
   /// In en, this message translates to:
@@ -1765,6 +1783,984 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} h ago'**
   String ageHoursAgo(int count);
+
+  /// No description provided for @copybookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily copybook'**
+  String get copybookTitle;
+
+  /// No description provided for @copybookHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Write Czech by hand'**
+  String get copybookHeading;
+
+  /// No description provided for @copybookBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy each useful word and its sentence on paper. Mark it when you can form every diacritic clearly.'**
+  String get copybookBody;
+
+  /// No description provided for @copybookImageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'An open handwriting notebook overlooking Prague'**
+  String get copybookImageLabel;
+
+  /// No description provided for @copybookLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s words could not be loaded.'**
+  String get copybookLoadError;
+
+  /// No description provided for @copybookTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get copybookTryAgain;
+
+  /// No description provided for @copybookOfflineEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete offline setup to make curriculum words available.'**
+  String get copybookOfflineEmpty;
+
+  /// No description provided for @copybookComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Today’s page is complete. A new curriculum-based selection arrives tomorrow.'**
+  String get copybookComplete;
+
+  /// No description provided for @streakProtected.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak protected'**
+  String get streakProtected;
+
+  /// No description provided for @streakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-day streak'**
+  String streakDays(int count);
+
+  /// No description provided for @streakStartNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new streak'**
+  String get streakStartNew;
+
+  /// No description provided for @streakProtectedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your freeze covered one missed day and kept your {count}-day streak intact. Complete practice today to earn the next freeze.'**
+  String streakProtectedBody(int count);
+
+  /// No description provided for @streakActiveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak is active today. Complete meaningful practice each day to keep it going.'**
+  String get streakActiveBody;
+
+  /// No description provided for @streakEndedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your previous streak has ended. One completed learning activity starts a fresh one—no penalty, just a new day.'**
+  String get streakEndedBody;
+
+  /// No description provided for @streakKeepLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep learning'**
+  String get streakKeepLearning;
+
+  /// No description provided for @streakBeginAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin again'**
+  String get streakBeginAgain;
+
+  /// No description provided for @pathA1Foundations.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 Foundations'**
+  String get pathA1Foundations;
+
+  /// No description provided for @pathA1Everyday.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 Everyday Czech'**
+  String get pathA1Everyday;
+
+  /// No description provided for @pathA2Grammar.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 Grammar expansion'**
+  String get pathA2Grammar;
+
+  /// No description provided for @pathA2RealLife.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 Real-life Czech'**
+  String get pathA2RealLife;
+
+  /// No description provided for @pathExamConsolidation.
+  ///
+  /// In en, this message translates to:
+  /// **'{level} Exam and consolidation'**
+  String pathExamConsolidation(String level);
+
+  /// No description provided for @pathFallbackPayoff.
+  ///
+  /// In en, this message translates to:
+  /// **'Build confidence for the next Czech task.'**
+  String get pathFallbackPayoff;
+
+  /// No description provided for @homeSmallWin.
+  ///
+  /// In en, this message translates to:
+  /// **'A small Czech win is waiting for you.'**
+  String get homeSmallWin;
+
+  /// No description provided for @homeProgressToday.
+  ///
+  /// In en, this message translates to:
+  /// **'You have already made Czech progress today.'**
+  String get homeProgressToday;
+
+  /// No description provided for @homeDailyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goal'**
+  String get homeDailyGoal;
+
+  /// No description provided for @homeGoalDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done for today. Anything else is a bonus.'**
+  String get homeGoalDone;
+
+  /// No description provided for @homeGoalStart.
+  ///
+  /// In en, this message translates to:
+  /// **'One short lesson gets today moving.'**
+  String get homeGoalStart;
+
+  /// No description provided for @homeContinueLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'CONTINUE LEARNING'**
+  String get homeContinueLearning;
+
+  /// No description provided for @homeCompleteLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete one lesson'**
+  String get homeCompleteLesson;
+
+  /// No description provided for @homeReviewFive.
+  ///
+  /// In en, this message translates to:
+  /// **'Review five cards'**
+  String get homeReviewFive;
+
+  /// No description provided for @homeSpeakTwoMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak for two minutes'**
+  String get homeSpeakTwoMinutes;
+
+  /// No description provided for @homeSmallSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'Today, in small steps'**
+  String get homeSmallSteps;
+
+  /// No description provided for @homeDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get homeDone;
+
+  /// No description provided for @homeMethodOfDay.
+  ///
+  /// In en, this message translates to:
+  /// **'METHOD OF THE DAY'**
+  String get homeMethodOfDay;
+
+  /// No description provided for @homeWriteBeforeType.
+  ///
+  /// In en, this message translates to:
+  /// **'Write it before you type it'**
+  String get homeWriteBeforeType;
+
+  /// No description provided for @homeCopybookCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Open today’s copybook'**
+  String get homeCopybookCta;
+
+  /// No description provided for @homeXpRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP to your daily rhythm.'**
+  String homeXpRemaining(int xp);
+
+  /// No description provided for @homeFreezeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'1 freeze left'**
+  String get homeFreezeLeft;
+
+  /// No description provided for @homeTotalXp.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} total XP'**
+  String homeTotalXp(int xp);
+
+  /// No description provided for @homeMethodBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Handwriting slows Czech down just enough to make endings and diacritics visible.'**
+  String get homeMethodBody;
+
+  /// No description provided for @homeUnlockedComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Every unlocked lesson is complete.'**
+  String get homeUnlockedComplete;
+
+  /// No description provided for @homeLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading…'**
+  String get homeLoading;
+
+  /// No description provided for @onboardingBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get onboardingBack;
+
+  /// No description provided for @onboardingEditableLater.
+  ///
+  /// In en, this message translates to:
+  /// **'All of this is editable later in Settings.'**
+  String get onboardingEditableLater;
+
+  /// No description provided for @onboardingContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get onboardingContinue;
+
+  /// No description provided for @onboardingStartLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning'**
+  String get onboardingStartLearning;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip — set this up later'**
+  String get onboardingSkip;
+
+  /// No description provided for @onboardingNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should Lenka call you?'**
+  String get onboardingNameTitle;
+
+  /// No description provided for @onboardingNameBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Used to greet you in Czech, and it never leaves your device.'**
+  String get onboardingNameBody;
+
+  /// No description provided for @onboardingFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'FIRST NAME'**
+  String get onboardingFirstName;
+
+  /// No description provided for @onboardingLevelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What’s your Czech level?'**
+  String get onboardingLevelTitle;
+
+  /// No description provided for @onboardingLevelBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This sets your AI tutor’s difficulty. Lessons always start from Unit 1 so nothing is skipped.'**
+  String get onboardingLevelBody;
+
+  /// No description provided for @onboardingBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete beginner'**
+  String get onboardingBeginner;
+
+  /// No description provided for @onboardingBeginnerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'I don’t know any Czech yet'**
+  String get onboardingBeginnerBody;
+
+  /// No description provided for @onboardingA1.
+  ///
+  /// In en, this message translates to:
+  /// **'Some Czech (A1)'**
+  String get onboardingA1;
+
+  /// No description provided for @onboardingA1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'I know basic greetings and simple phrases'**
+  String get onboardingA1Body;
+
+  /// No description provided for @onboardingA2.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate (A2)'**
+  String get onboardingA2;
+
+  /// No description provided for @onboardingA2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'I can have basic conversations'**
+  String get onboardingA2Body;
+
+  /// No description provided for @onboardingTakePlacement.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sure? Take a placement test'**
+  String get onboardingTakePlacement;
+
+  /// No description provided for @onboardingVoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your teacher’s voice'**
+  String get onboardingVoiceTitle;
+
+  /// No description provided for @onboardingVoiceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every Czech word in the course is spoken by this voice. Tap to hear each one — you can change it any time from Settings.'**
+  String get onboardingVoiceBody;
+
+  /// No description provided for @onboardingFemaleVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Female voice'**
+  String get onboardingFemaleVoice;
+
+  /// No description provided for @onboardingMaleVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Male voice'**
+  String get onboardingMaleVoice;
+
+  /// No description provided for @onboardingVoiceSample.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to hear a sample'**
+  String get onboardingVoiceSample;
+
+  /// No description provided for @onboardingNativeVoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Both are studio-recorded native Czech.'**
+  String get onboardingNativeVoices;
+
+  /// No description provided for @onboardingGoalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your daily goal'**
+  String get onboardingGoalTitle;
+
+  /// No description provided for @onboardingGoalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'How much do you want to practice each day?'**
+  String get onboardingGoalBody;
+
+  /// No description provided for @onboardingPlanReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan is ready'**
+  String get onboardingPlanReady;
+
+  /// No description provided for @onboardingPlanBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit 1 starts with the sounds of Czech — including the one only Czech has.'**
+  String get onboardingPlanBody;
+
+  /// No description provided for @onboardingName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get onboardingName;
+
+  /// No description provided for @onboardingLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner'**
+  String get onboardingLearner;
+
+  /// No description provided for @onboardingStartingPoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting point'**
+  String get onboardingStartingPoint;
+
+  /// No description provided for @onboardingTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher'**
+  String get onboardingTeacher;
+
+  /// No description provided for @onboardingFirstUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'First unit'**
+  String get onboardingFirstUnit;
+
+  /// No description provided for @onboardingSoundsOfCzech.
+  ///
+  /// In en, this message translates to:
+  /// **'The sounds of Czech'**
+  String get onboardingSoundsOfCzech;
+
+  /// No description provided for @scenarioCasual.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual Chat'**
+  String get scenarioCasual;
+
+  /// No description provided for @scenarioCasualBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyday small talk — greetings, weather, how are you'**
+  String get scenarioCasualBody;
+
+  /// No description provided for @scenarioRestaurant.
+  ///
+  /// In en, this message translates to:
+  /// **'At the Restaurant'**
+  String get scenarioRestaurant;
+
+  /// No description provided for @scenarioRestaurantBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Order food, ask about menu, pay the bill'**
+  String get scenarioRestaurantBody;
+
+  /// No description provided for @scenarioDirections.
+  ///
+  /// In en, this message translates to:
+  /// **'Asking Directions'**
+  String get scenarioDirections;
+
+  /// No description provided for @scenarioDirectionsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask for and give directions in the city'**
+  String get scenarioDirectionsBody;
+
+  /// No description provided for @scenarioShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get scenarioShopping;
+
+  /// No description provided for @scenarioShoppingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy items, ask prices, negotiate'**
+  String get scenarioShoppingBody;
+
+  /// No description provided for @scenarioDoctor.
+  ///
+  /// In en, this message translates to:
+  /// **'At the Doctor'**
+  String get scenarioDoctor;
+
+  /// No description provided for @scenarioDoctorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe symptoms, make an appointment'**
+  String get scenarioDoctorBody;
+
+  /// No description provided for @scenarioInterview.
+  ///
+  /// In en, this message translates to:
+  /// **'Job Interview'**
+  String get scenarioInterview;
+
+  /// No description provided for @scenarioInterviewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice a basic job interview in Czech'**
+  String get scenarioInterviewBody;
+
+  /// No description provided for @scenarioCafeImage.
+  ///
+  /// In en, this message translates to:
+  /// **'A learner ordering at a Prague café'**
+  String get scenarioCafeImage;
+
+  /// No description provided for @scenarioDirectionsImage.
+  ///
+  /// In en, this message translates to:
+  /// **'A learner asking for directions beside a Prague tram'**
+  String get scenarioDirectionsImage;
+
+  /// No description provided for @scenarioShoppingImage.
+  ///
+  /// In en, this message translates to:
+  /// **'A learner shopping at a Czech neighborhood market'**
+  String get scenarioShoppingImage;
+
+  /// No description provided for @scenarioRestaurantImage.
+  ///
+  /// In en, this message translates to:
+  /// **'A learner ordering at a Czech restaurant'**
+  String get scenarioRestaurantImage;
+
+  /// No description provided for @scenarioDoctorImage.
+  ///
+  /// In en, this message translates to:
+  /// **'A learner speaking with a doctor'**
+  String get scenarioDoctorImage;
+
+  /// No description provided for @scenarioInterviewImage.
+  ///
+  /// In en, this message translates to:
+  /// **'A learner taking part in a job interview'**
+  String get scenarioInterviewImage;
+
+  /// No description provided for @onboardingTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech that\nactually\nsticks.'**
+  String get onboardingTagline;
+
+  /// No description provided for @onboardingWelcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Built for people living in Czechia — from your first word to the A1 exam.'**
+  String get onboardingWelcomeBody;
+
+  /// No description provided for @onboardingHeroImage.
+  ///
+  /// In en, this message translates to:
+  /// **'A learner practising Czech with a tutor at a Prague café'**
+  String get onboardingHeroImage;
+
+  /// No description provided for @onboardingOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Works offline — lessons and audio live on your phone'**
+  String get onboardingOffline;
+
+  /// No description provided for @onboardingStartFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning free'**
+  String get onboardingStartFree;
+
+  /// No description provided for @onboardingHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'I already have an account'**
+  String get onboardingHaveAccount;
+
+  /// No description provided for @homeSpeakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud'**
+  String get homeSpeakTitle;
+
+  /// No description provided for @homeSpeakReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Two minutes of Czech, then {count} reviews.'**
+  String homeSpeakReviews(int count);
+
+  /// No description provided for @homeSpeakSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Two minutes of ř — the sound worth practising.'**
+  String get homeSpeakSound;
+
+  /// No description provided for @chatVoiceRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn’t catch that. Try again somewhere quieter, or type your reply.'**
+  String get chatVoiceRetry;
+
+  /// No description provided for @chatVoiceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice input is unavailable. You can still type every reply.'**
+  String get chatVoiceUnavailable;
+
+  /// No description provided for @chatDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get chatDismiss;
+
+  /// No description provided for @curriculumPathTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech path'**
+  String get curriculumPathTitle;
+
+  /// No description provided for @curriculumAddingLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons for this level are being added.'**
+  String get curriculumAddingLessons;
+
+  /// No description provided for @curriculumA1Complete.
+  ///
+  /// In en, this message translates to:
+  /// **'That’s the complete A1 track. Finish it and A2 opens.'**
+  String get curriculumA1Complete;
+
+  /// No description provided for @curriculumA2Complete.
+  ///
+  /// In en, this message translates to:
+  /// **'That’s the complete A2 track.'**
+  String get curriculumA2Complete;
+
+  /// No description provided for @curriculumUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'UNIT {number}'**
+  String curriculumUnit(int number);
+
+  /// No description provided for @curriculumInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'IN PROGRESS'**
+  String get curriculumInProgress;
+
+  /// No description provided for @curriculumUnitOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {number} of {total} · {level}'**
+  String curriculumUnitOf(int number, int total, String level);
+
+  /// No description provided for @curriculumUnlocksAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocks after unit {number}'**
+  String curriculumUnlocksAfter(int number);
+
+  /// No description provided for @curriculumLessonCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} / {total} lessons'**
+  String curriculumLessonCount(int done, int total);
+
+  /// No description provided for @curriculumStateDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get curriculumStateDone;
+
+  /// No description provided for @curriculumStateReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready now'**
+  String get curriculumStateReady;
+
+  /// No description provided for @curriculumStateLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get curriculumStateLocked;
+
+  /// No description provided for @curriculumNextUp.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT UP'**
+  String get curriculumNextUp;
+
+  /// No description provided for @curriculumMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get curriculumMap;
+
+  /// No description provided for @curriculumList.
+  ///
+  /// In en, this message translates to:
+  /// **'List'**
+  String get curriculumList;
+
+  /// No description provided for @lessonTypeLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson'**
+  String get lessonTypeLesson;
+
+  /// No description provided for @lessonTypePractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get lessonTypePractice;
+
+  /// No description provided for @lessonTypeApply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get lessonTypeApply;
+
+  /// No description provided for @lessonTypeReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get lessonTypeReview;
+
+  /// No description provided for @settingsDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get settingsDone;
+
+  /// No description provided for @statsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech'**
+  String get statsTitle;
+
+  /// No description provided for @statsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where you are, and what to work on next.'**
+  String get statsSubtitle;
+
+  /// No description provided for @statsCourseActivityInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Course activity shows what you have practised. It is not a CEFR certification.'**
+  String get statsCourseActivityInfo;
+
+  /// No description provided for @statsAboutNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'About this number'**
+  String get statsAboutNumber;
+
+  /// No description provided for @statsAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get statsAchievements;
+
+  /// No description provided for @statsAchievementsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first achievements are already within reach.'**
+  String get statsAchievementsEmpty;
+
+  /// No description provided for @placementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find my starting point'**
+  String get placementTitle;
+
+  /// No description provided for @placementSuggestedUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested starting unit: {unit}'**
+  String placementSuggestedUnit(int unit);
+
+  /// No description provided for @placementProvisional.
+  ///
+  /// In en, this message translates to:
+  /// **'Provisional, not a CEFR result — it adjusts from your own performance.'**
+  String get placementProvisional;
+
+  /// No description provided for @placementChooseUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a different starting unit'**
+  String get placementChooseUnit;
+
+  /// No description provided for @placementUseStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this starting point'**
+  String get placementUseStart;
+
+  /// No description provided for @placementAnswerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech answer'**
+  String get placementAnswerLabel;
+
+  /// No description provided for @placementNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get placementNext;
+
+  /// No description provided for @placementFinishLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish later'**
+  String get placementFinishLater;
+
+  /// No description provided for @reviewNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get reviewNew;
+
+  /// No description provided for @reviewLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get reviewLearning;
+
+  /// No description provided for @reviewReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get reviewReview;
+
+  /// No description provided for @reviewDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due'**
+  String get reviewDue;
+
+  /// No description provided for @lessonMeetWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Meet these words first. Tap each one to hear it, then practise using it.'**
+  String get lessonMeetWords;
+
+  /// No description provided for @teachingLookAndGuess.
+  ///
+  /// In en, this message translates to:
+  /// **'Look at the picture. What do you think this Czech word means?'**
+  String get teachingLookAndGuess;
+
+  /// No description provided for @teachingTapWordMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the Czech word to reveal its meaning'**
+  String get teachingTapWordMeaning;
+
+  /// No description provided for @teachingMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning'**
+  String get teachingMeaning;
+
+  /// No description provided for @teachingInSentence.
+  ///
+  /// In en, this message translates to:
+  /// **'Now hear it in a useful sentence'**
+  String get teachingInSentence;
+
+  /// No description provided for @teachingTapSentenceTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the sentence to reveal the translation'**
+  String get teachingTapSentenceTranslation;
+
+  /// No description provided for @teachingNextWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Next word'**
+  String get teachingNextWord;
+
+  /// No description provided for @teachingSeeExample.
+  ///
+  /// In en, this message translates to:
+  /// **'See it in a sentence'**
+  String get teachingSeeExample;
+
+  /// No description provided for @teachingStartExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Start practice exercises'**
+  String get teachingStartExercises;
+
+  /// No description provided for @teachingWordProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Word {current} of {total}'**
+  String teachingWordProgress(int current, int total);
+
+  /// No description provided for @a11yTapToFlipCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to flip card'**
+  String get a11yTapToFlipCard;
+
+  /// No description provided for @a11yPlayPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Play pronunciation'**
+  String get a11yPlayPronunciation;
+
+  /// No description provided for @a11yTapToHear.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to hear: {text}'**
+  String a11yTapToHear(String text);
+
+  /// No description provided for @a11yTapToHearSentence.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to hear the sentence'**
+  String get a11yTapToHearSentence;
+
+  /// No description provided for @a11yInsertCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'Insert character: {char}'**
+  String a11yInsertCharacter(String char);
+
+  /// No description provided for @a11yAddVocabToDeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to review deck'**
+  String get a11yAddVocabToDeck;
+
+  /// No description provided for @a11yScenarioCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenario: {title}. {description}'**
+  String a11yScenarioCard(String title, String description);
+
+  /// No description provided for @a11yFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback: {title}'**
+  String a11yFeedback(String title);
+
+  /// No description provided for @a11yContinueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} button'**
+  String a11yContinueButton(String label);
+
+  /// No description provided for @a11ySendMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send message'**
+  String get a11ySendMessage;
 }
 
 class _AppLocalizationsDelegate

@@ -24,7 +24,8 @@ class XpBadge extends ConsumerWidget {
         const SizedBox(width: 4),
         Text(
           '$totalXp',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          style: TextStyle(
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             color: context.tokens.amber,
           ),
@@ -34,7 +35,7 @@ class XpBadge extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
           decoration: BoxDecoration(
             color: _leagueColor(league).withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(999),
             border: Border.all(
               color: _leagueColor(league).withValues(alpha: 0.3),
             ),

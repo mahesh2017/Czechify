@@ -6,6 +6,7 @@ import '../../core/config/backend_config.dart';
 import '../../data/services/stt/audio_recorder.dart';
 import '../../data/services/stt/whisper_service.dart';
 import 'sync_providers.dart';
+import 'consent_providers.dart';
 import '../../domain/entities/pronunciation_result.dart';
 import '../../domain/engines/pronunciation_scorer.dart';
 import '../../core/utils/phoneme_mapper.dart';
@@ -71,6 +72,8 @@ final pronunciationAssessmentProvider = Provider<PronunciationAssessor>((ref) {
     whisper: ref.watch(whisperServiceProvider),
     fallbackStt: NativeSttService(),
     log: Logger('PronunciationAssessor'),
+    cloudConsentGranted:
+        () async => await ref.read(cloudSpeechConsentProvider.future),
     // Last-chance session repair: if the user reached the mic before startup
     // sign-in finished (or it failed transiently), retry it now instead of
     // silently degrading to on-device STT for the rest of the session.
@@ -118,12 +121,14 @@ class PronunciationAssessor {
     required LiveTranscriber fallbackStt,
     required Logger log,
     Future<void> Function()? ensureCloudSession,
+    Future<bool> Function()? cloudConsentGranted,
     PhonemeRecognizer? phonemeRecognizer,
     PronunciationCoverage? coverage,
   }) : _recorder = recorder,
        _whisper = whisper,
        _fallbackStt = fallbackStt,
        _ensureCloudSession = ensureCloudSession,
+       _cloudConsentGranted = cloudConsentGranted,
        _phonemeRecognizer = phonemeRecognizer,
        _coverage = coverage,
        _log = log;
@@ -139,6 +144,7 @@ class PronunciationAssessor {
   final CloudTranscriber? _whisper;
   final LiveTranscriber _fallbackStt;
   final Future<void> Function()? _ensureCloudSession;
+  final Future<bool> Function()? _cloudConsentGranted;
   final Logger _log;
   final _scorer = PronunciationScorer();
   final _phonemeScorer = PhonemeScorer();
@@ -167,6 +173,15 @@ class PronunciationAssessor {
     Duration maxDuration = const Duration(seconds: 10),
     void Function()? onCaptureComplete,
   }) async {
+    final cloudAllowed =
+        await (_cloudConsentGranted?.call() ?? Future.value(false));
+    if (!cloudAllowed) {
+      return _assessWithNativeStt(
+        expectedText,
+        maxDuration,
+        diagnostic: 'on-device (cloud speech not enabled)',
+      );
+    }
     // If no session exists yet (startup sign-in still in flight, or it failed
     // transiently), make one last attempt to establish it before degrading.
     if (!hasWhisper && _ensureCloudSession != null) {

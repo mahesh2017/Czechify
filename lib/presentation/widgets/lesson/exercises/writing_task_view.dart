@@ -64,35 +64,14 @@ class _WritingTaskViewState extends State<WritingTaskView> {
 
   void _submit() {
     final text = _controller.text.trim();
-    final acceptedAnswers =
-        widget.exercise.answerKey != null
-            ? [widget.exercise.answerKey!]
-            : <String>[];
-
-    // Simple keyword-based checking
-    final wordCount = text.isEmpty ? 0 : text.split(RegExp(r'\s+')).length;
+    final wordCount = text.isEmpty ? 0 : text.split(RegExp(r'\\s+')).length;
     final meetsMinWords = _minWords == null || wordCount >= _minWords!;
     final hasContent = text.isNotEmpty;
 
-    // Check keyword overlap if accepted answers exist
-    bool keywordMatched = false;
-    if (acceptedAnswers.isNotEmpty && hasContent) {
-      final userWords = text.toLowerCase().split(RegExp(r'\s+')).toSet();
-      for (final answer in acceptedAnswers) {
-        final answerWords = answer.toLowerCase().split(RegExp(r'\s+')).toSet();
-        final overlap = userWords.intersection(answerWords);
-        if (overlap.length / answerWords.length >= 0.5) {
-          keywordMatched = true;
-          break;
-        }
-      }
-    }
-
-    final isScored = acceptedAnswers.isNotEmpty;
-    final isCorrect = isScored && hasContent && meetsMinWords && keywordMatched;
-
-    // Assembled from localised sentences rather than concatenated fragments,
-    // so a translator gets whole sentences to work with.
+    // Writing tasks are always formative — automated keyword matching can
+    // reject valid paraphrases and accept keyword lists, so it must never
+    // determine correctness or affect XP, mastery, or exam passes.  The
+    // rubric criteria and sample answer are shown for self-assessment.
     final l10n = AppLocalizations.of(context);
     final parts = <String>[
       l10n.writingWroteWords(wordCount),
@@ -100,18 +79,13 @@ class _WritingTaskViewState extends State<WritingTaskView> {
         meetsMinWords
             ? l10n.writingMeetsMinimum(_minWords!)
             : l10n.writingNeedsMinimum(_minWords!),
-      if (acceptedAnswers.isNotEmpty)
-        keywordMatched
-            ? l10n.writingGoodKeywordCoverage
-            : l10n.writingKeyPhrasesNotDetected
-      else
-        l10n.writingUnscoredNote,
+      l10n.writingUnscoredNote,
       if (_revisionStage && text != _firstDraft) l10n.writingRevisedDraft,
     ];
 
     setState(() {
       answered = true;
-      _isCorrect = isCorrect;
+      _isCorrect = false; // Never "correct" — writing is formative
       _wordCount = wordCount;
       _meetsMinWords = meetsMinWords;
       _feedbackText = parts.join(' ');
@@ -120,18 +94,11 @@ class _WritingTaskViewState extends State<WritingTaskView> {
     final supports =
         _showKeyVocab ? const {SupportKind.hint} : const <SupportKind>{};
     widget.onAnswered(
-      isScored
-          ? ExerciseResult(
-            isCorrect: isCorrect,
-            explanation: _feedbackText,
-            correctAnswer: _sampleAnswer ?? acceptedAnswers.firstOrNull,
-            supports: supports,
-          )
-          : ExerciseResult.skipped(
-            explanation: _feedbackText,
-            correctAnswer: _sampleAnswer,
-            supports: supports,
-          ),
+      ExerciseResult.skipped(
+        explanation: _feedbackText,
+        correctAnswer: _sampleAnswer,
+        supports: supports,
+      ),
     );
   }
 

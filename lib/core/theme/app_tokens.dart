@@ -120,6 +120,9 @@ class AppTokens extends ThemeExtension<AppTokens> {
     priInk: Color(0xFF22308C),
     amber: Color(0xFFE9992A),
     amberSoft: Color(0xFFFFF0D9),
+    // The comp says #9C6206, which lands at 4.496:1 on amberSoft — under the
+    // 4.5:1 the design's own ink rule exists to guarantee. Kept a shade
+    // darker so the rule actually holds; see app_tokens_test.dart.
     amberInk: Color(0xFF985F00),
     red: Color(0xFFF0503F),
     redSoft: Color(0xFFFFE9E5),
@@ -133,15 +136,26 @@ class AppTokens extends ThemeExtension<AppTokens> {
     chipBg: Color(0xFFF2EDE4),
     userBubble: Color(0xFF3355E8),
     userBubbleTxt: Color(0xFFFFFFFF),
+    // `0 1px 2px rgba(23,22,28,.05), 0 10px 28px -14px rgba(23,22,28,.28)`.
+    // The negative spread is what keeps the ambient layer tight under the
+    // card instead of haloing out from it — without it the same alpha reads
+    // as a much weaker shadow, which is why cards looked flat.
     shadow: [
-      BoxShadow(color: Color(0x0D1E1C26), blurRadius: 2, offset: Offset(0, 1)),
-      BoxShadow(color: Color(0x0F1E1C26), blurRadius: 24, offset: Offset(0, 8)),
+      BoxShadow(color: Color(0x0D17161C), blurRadius: 2, offset: Offset(0, 1)),
+      BoxShadow(
+        color: Color(0x4717161C),
+        blurRadius: 28,
+        spreadRadius: -14,
+        offset: Offset(0, 10),
+      ),
     ],
+    // `0 2px 4px rgba(23,22,28,.05), 0 28px 52px -28px rgba(23,22,28,.45)`.
     shadowLg: [
       BoxShadow(color: Color(0x0D17161C), blurRadius: 4, offset: Offset(0, 2)),
       BoxShadow(
-        color: Color(0x2417161C),
+        color: Color(0x7317161C),
         blurRadius: 52,
+        spreadRadius: -28,
         offset: Offset(0, 28),
       ),
     ],
@@ -175,19 +189,23 @@ class AppTokens extends ThemeExtension<AppTokens> {
     chipBg: Color(0xFF2B2937),
     userBubble: Color(0xFF425CCE),
     userBubbleTxt: Color(0xFFFFFFFF),
+    // `0 1px 2px rgba(0,0,0,.5), 0 12px 30px -16px rgba(0,0,0,.8)`.
     shadow: [
-      BoxShadow(color: Color(0x4D000000), blurRadius: 2, offset: Offset(0, 1)),
+      BoxShadow(color: Color(0x80000000), blurRadius: 2, offset: Offset(0, 1)),
       BoxShadow(
-        color: Color(0x59000000),
-        blurRadius: 28,
-        offset: Offset(0, 10),
+        color: Color(0xCC000000),
+        blurRadius: 30,
+        spreadRadius: -16,
+        offset: Offset(0, 12),
       ),
     ],
+    // `0 2px 6px rgba(0,0,0,.55), 0 30px 56px -28px rgba(0,0,0,.9)`.
     shadowLg: [
       BoxShadow(color: Color(0x8C000000), blurRadius: 6, offset: Offset(0, 2)),
       BoxShadow(
-        color: Color(0xB3000000),
+        color: Color(0xE6000000),
         blurRadius: 56,
+        spreadRadius: -28,
         offset: Offset(0, 30),
       ),
     ],

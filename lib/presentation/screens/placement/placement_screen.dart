@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_tokens.dart';
+import '../../widgets/lesson/exercises/exercise_shared.dart';
+import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/lesson_ui.dart';
 import '../../../domain/engines/placement_engine.dart';
 import '../../../domain/entities/learning_evidence.dart';
 import '../../providers/curriculum_providers.dart';
@@ -175,17 +179,29 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
   Widget build(BuildContext context) {
     final task = _task;
     final result = _result;
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Find my starting point')),
+      backgroundColor: t.bg,
+      appBar: AppBar(backgroundColor: t.bg, title: Text(l10n.placementTitle)),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
           children: [
             if (result != null) ...[
-              const Icon(Icons.route, size: 56),
-              const SizedBox(height: 16),
+              Center(
+                child: IconTile(
+                  icon: Icons.route_outlined,
+                  tint: t.violetSoft,
+                  fg: t.violetInk,
+                  size: 72,
+                  radius: 24,
+                  iconSize: 32,
+                ),
+              ),
+              const SizedBox(height: 18),
               Text(
-                'Suggested starting unit: ${result.provisionalUnit}',
+                l10n.placementSuggestedUnit(result.provisionalUnit),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: AppFonts.display,
@@ -195,17 +211,17 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                   color: context.tokens.ink,
                 ),
               ),
-              const SizedBox(height: 12),
-              const Text(
-                'This is provisional—not a CEFR result. We will adjust it from '
-                'your independent delayed practice.',
+              const SizedBox(height: 10),
+              Text(
+                l10n.placementProvisional,
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, height: 1.45, color: t.muted),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               DropdownButtonFormField<int>(
                 initialValue: result.provisionalUnit,
-                decoration: const InputDecoration(
-                  labelText: 'Choose a different starting unit',
+                decoration: InputDecoration(
+                  labelText: l10n.placementChooseUnit,
                 ),
                 items:
                     const [1, 6, 12, 18, 24]
@@ -230,68 +246,62 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                           );
                         },
               ),
-              const SizedBox(height: 24),
-              FilledButton(
+              const SizedBox(height: 22),
+              KeyCta(
+                label: l10n.placementUseStart,
                 onPressed: _saving ? null : () => context.go('/'),
-                child: const Text('Use this starting point'),
               ),
             ] else if (task != null) ...[
-              LinearProgressIndicator(
-                value: _observations.length / PlacementEngine.minItems,
-              ),
-              const SizedBox(height: 24),
-              Text(
-                task.skill.name.toUpperCase(),
-                style: TextStyle(
-                  color: context.tokens.pri,
-                  fontWeight: FontWeight.bold,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(999),
+                child: LinearProgressIndicator(
+                  value: _observations.length / PlacementEngine.minItems,
+                  minHeight: 5,
+                  backgroundColor: t.line,
+                  valueColor: AlwaysStoppedAnimation(t.pri),
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                task.prompt,
-                style: TextStyle(
-                  fontFamily: AppFonts.display,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                  height: 1.2,
-                  color: context.tokens.ink,
-                ),
-              ),
+              const SizedBox(height: 22),
+              LessonKicker(task.skill.name, color: t.pri),
+              const SizedBox(height: 8),
+              QuestionPrompt(question: task.prompt),
               if (task.spoken != null) ...[
-                const SizedBox(height: 20),
-                OutlinedButton.icon(
-                  onPressed: () => _play(task),
-                  icon: const Icon(Icons.volume_up),
-                  label: Text(_replays == 0 ? 'Play audio' : 'Play again'),
+                const SizedBox(height: 18),
+                ListenPanel(
+                  onPlay: () => _play(task),
+                  onSlow: () => _play(task),
                 ),
               ],
               const SizedBox(height: 20),
               if (task.accepted.isNotEmpty)
-                TextField(
+                AnswerField(
                   controller: _answerController,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    labelText: 'Your Czech answer',
-                  ),
-                  onChanged: (_) => setState(() {}),
+                  multiline: true,
+                  semanticLabel: l10n.placementAnswerLabel,
+                  onSubmitted: (_) => setState(() {}),
                 )
               else
-                RadioGroup<int>(
-                  groupValue: _selected,
-                  onChanged: (value) => setState(() => _selected = value),
-                  child: Column(
-                    children: [
-                      for (var index = 0; index < task.options.length; index++)
-                        RadioListTile<int>(
-                          value: index,
-                          title: Text(task.options[index]),
-                        ),
-                    ],
+                // The same option tile every other pick-one question uses —
+                // this was a bare radio list, which made the identical
+                // interaction look like a different product.
+                for (var index = 0; index < task.options.length; index++)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: QuizOptionTile(
+                      keyLabel: String.fromCharCode(65 + index),
+                      text: task.options[index],
+                      // A diagnostic never reveals the answer, so only idle
+                      // and selected are in play.
+                      state:
+                          _selected == index
+                              ? OptionState.selected
+                              : OptionState.idle,
+                      onTap: () => setState(() => _selected = index),
+                    ),
                   ),
-                ),
-              const SizedBox(height: 24),
-              FilledButton(
+              const SizedBox(height: 14),
+              KeyCta(
+                label: l10n.placementNext,
                 onPressed:
                     (task.accepted.isNotEmpty
                                 ? _answerController.text.trim().isNotEmpty
@@ -299,11 +309,10 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                             (task.spoken == null || _replays > 0)
                         ? _submit
                         : null,
-                child: const Text('Next'),
               ),
               TextButton(
                 onPressed: () => context.pop(),
-                child: const Text('Finish later'),
+                child: Text(l10n.placementFinishLater),
               ),
             ],
           ],

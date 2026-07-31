@@ -10,13 +10,19 @@ import '../../providers/tts_providers.dart';
 import '../onboarding/offline_setup_screen.dart';
 import '../../../data/services/audio/offline_audio_prefetch.dart';
 import '../../providers/audio_prefetch_providers.dart';
+import '../../providers/consent_providers.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/text_prompt_dialog.dart';
 
 /// Settings screen — theme, daily goal, TTS rate, cache management.
 /// The AI tutor credential lives in the `deepseek-proxy` Edge Function, never
 /// in the client, so there is no API-key entry here.
 class SettingsScreen extends ConsumerStatefulWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, this.scrollController});
+
+  /// The sheet's scroll controller. Driving the list with it is what lets a
+  /// downward drag at the top dismiss the sheet.
+  final ScrollController? scrollController;
 
   @override
   ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
@@ -24,35 +30,21 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _editName(BuildContext context, WidgetRef ref) async {
-    final controller = TextEditingController(
-      text: ref.read(settingsProvider).learnerName,
-    );
-    final result = await showDialog<String>(
+    final result = await showTextPromptDialog(
       context: context,
-      builder:
-          (ctx) => AlertDialog(
-            title: const Text('Your name'),
-            content: TextField(
-              controller: controller,
-              autofocus: true,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(hintText: 'Your first name'),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: Text(AppLocalizations.of(context).cancel),
-              ),
-              FilledButton(
-                onPressed: () => Navigator.pop(ctx, controller.text),
-                child: Text(AppLocalizations.of(context).save),
-              ),
-            ],
-          ),
+      title: 'Your name',
+      confirmLabel: AppLocalizations.of(context).save,
+      fields: [
+        TextPromptField(
+          label: 'Your first name',
+          initialValue: ref.read(settingsProvider).learnerName,
+          textCapitalization: TextCapitalization.words,
+        ),
+      ],
     );
-    controller.dispose();
-    if (result != null && result.trim().isNotEmpty) {
-      await ref.read(settingsProvider.notifier).setLearnerName(result);
+    final name = result?.single.trim();
+    if (name != null && name.isNotEmpty) {
+      await ref.read(settingsProvider.notifier).setLearnerName(name);
     }
   }
 
@@ -71,7 +63,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       gender.name,
     );
     if (missing.isEmpty) {
-      if (mounted) await ref.read(czechTtsProvider).speak(kVoicePreviewPhrase);
+      if (mounted) {
+        await ref.read(czechTtsProvider).playVoiceSample(gender);
+      }
       return;
     }
 
@@ -90,7 +84,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
     if (!mounted) return;
     if (downloaded ?? false) {
-      await ref.read(czechTtsProvider).speak(kVoicePreviewPhrase);
+      await ref.read(czechTtsProvider).playVoiceSample(gender);
     }
   }
 
@@ -99,22 +93,40 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final settings = ref.watch(settingsProvider);
+    final cloudSpeech = ref.watch(cloudSpeechConsentProvider);
 
     return Scaffold(
       backgroundColor: t.bg,
       body: SafeArea(
         bottom: false,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(20, 8, 20, 28),
+          controller: widget.scrollController,
+          // Settings is presented without the global tab bar; leave enough
+          // room for its last destructive/legal controls and the home
+          // indicator instead of letting them finish flush to the screen.
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 44),
           children: [
+            // The grab handle is drawn by the sheet route itself, so it is a
+            // real control rather than a picture of one.
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  tooltip: AppLocalizations.of(context).a11yBack,
+                const Expanded(child: DisplayText('Settings', size: 29)),
+                FilledButton.tonal(
                   onPressed: () => Navigator.of(context).maybePop(),
-                  icon: Icon(Icons.arrow_back_ios_new, size: 18, color: t.ink),
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size(0, 44),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    backgroundColor: t.elev,
+                    foregroundColor: t.ink,
+                    elevation: 0,
+                    textStyle: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  child: Text(l10n.settingsDone),
                 ),
-                const DisplayText('Settings', size: 24),
               ],
             ),
             const SizedBox(height: 8),
@@ -171,47 +183,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             ref.read(settingsProvider.notifier).setThemeMode(m),
                   ),
                 ),
-                _Row(
-                  icon: Icons.translate_outlined,
-                  tint: t.priSoft,
-                  fg: t.pri,
-                  title: l10n.settingsLanguage,
-                  subtitle: switch (settings.locale?.languageCode) {
-                    'cs' => 'Čeština',
-                    'en' => 'English',
-                    _ => l10n.settingsLanguageSystem,
-                  },
-                  trailing: DropdownButton<String>(
-                    value: settings.locale?.languageCode ?? '',
-                    underline: const SizedBox.shrink(),
-                    style: TextStyle(
-                      color: t.pri,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15,
-                    ),
-                    items: [
-                      DropdownMenuItem(
-                        value: '',
-                        child: Text(l10n.settingsLanguageSystem),
-                      ),
-                      const DropdownMenuItem(
-                        value: 'en',
-                        child: Text('English'),
-                      ),
-                      const DropdownMenuItem(
-                        value: 'cs',
-                        child: Text('Čeština'),
-                      ),
-                    ],
-                    onChanged: (code) {
-                      ref
-                          .read(settingsProvider.notifier)
-                          .setLocale(
-                            code == null || code.isEmpty ? null : Locale(code),
-                          );
-                    },
-                  ),
-                ),
+                // No interface-language row: the course teaches Czech to
+                // people who do not read it yet, so a Czech interface would
+                // lock them out of their own settings. The Czech ARB and its
+                // generated delegate are still in the tree — when a second
+                // interface language that the audience actually reads lands,
+                // add it to kInterfaceLocales and this row comes back.
               ],
             ),
 
@@ -330,7 +307,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'Speaks every Czech word in the course',
+                                  '${settings.ttsVoiceGender.tutorName} · '
+                                  '${settings.ttsVoiceGender.tutorTagline}',
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: t.muted,
@@ -343,15 +321,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       ),
                       const SizedBox(height: 12),
                       SegmentedButton<TtsVoiceGender>(
-                        segments: const [
-                          ButtonSegment(
-                            value: TtsVoiceGender.female,
-                            label: Text('Female'),
-                          ),
-                          ButtonSegment(
-                            value: TtsVoiceGender.male,
-                            label: Text('Male'),
-                          ),
+                        // Named, as the design has them — the gender lives in
+                        // the subtitle above, not on the buttons.
+                        segments: [
+                          for (final voice in TtsVoiceGender.values)
+                            ButtonSegment(
+                              value: voice,
+                              label: Text(voice.tutorName),
+                            ),
                         ],
                         selected: {settings.ttsVoiceGender},
                         onSelectionChanged: (selection) async {
@@ -427,6 +404,59 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   onTap:
                       () =>
                           ref.read(czechTtsProvider).speak('Ahoj, jak se máš?'),
+                ),
+                _Divider(),
+                _Row(
+                  icon: Icons.cloud_outlined,
+                  tint: t.violetSoft,
+                  fg: t.violet,
+                  title: 'Optional cloud pronunciation',
+                  subtitle: 'Send recordings for more detailed transcription',
+                  trailing: Switch(
+                    value: cloudSpeech.value ?? false,
+                    onChanged:
+                        cloudSpeech.isLoading
+                            ? null
+                            : (enabled) async {
+                              if (!enabled) {
+                                await ref
+                                    .read(cloudSpeechConsentProvider.notifier)
+                                    .setGranted(false);
+                                return;
+                              }
+                              final accepted = await showDialog<bool>(
+                                context: context,
+                                builder:
+                                    (ctx) => AlertDialog(
+                                      title: const Text('Allow cloud speech?'),
+                                      content: const Text(
+                                        'Your pronunciation recording will be sent through Czechify to OpenAI in the United States for transcription. Czechify does not keep the recording. This is optional, can be switched off any time, and requires you to be at least 16 or have guardian permission.',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed:
+                                              () => Navigator.pop(ctx, false),
+                                          child: const Text(
+                                            'Keep device recognition',
+                                          ),
+                                        ),
+                                        FilledButton(
+                                          onPressed:
+                                              () => Navigator.pop(ctx, true),
+                                          child: const Text(
+                                            'Allow cloud speech',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                              );
+                              if (accepted ?? false) {
+                                await ref
+                                    .read(cloudSpeechConsentProvider.notifier)
+                                    .setGranted(true);
+                              }
+                            },
+                  ),
                 ),
                 _Divider(),
                 _Row(
@@ -539,7 +569,7 @@ class _Group extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: t.card,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: t.shadow,
       ),
       clipBehavior: Clip.antiAlias,
@@ -554,7 +584,8 @@ class _Divider extends StatelessWidget {
       Divider(height: 1, thickness: 1, color: context.tokens.line);
 }
 
-/// A settings row: tinted icon tile, title, subtitle, optional trailing.
+/// A settings row. Chrome stays neutral; colour is reserved for state and
+/// meaning rather than making the settings list a rainbow.
 class _Row extends StatelessWidget {
   final IconData icon;
   final Color tint;
@@ -585,8 +616,8 @@ class _Row extends StatelessWidget {
           children: [
             IconTile(
               icon: icon,
-              tint: tint,
-              fg: fg,
+              tint: t.elev,
+              fg: t.muted,
               size: 36,
               radius: 12,
               iconSize: 15,

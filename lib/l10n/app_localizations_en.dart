@@ -671,6 +671,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reviewWhatDoesItMean => 'What does it mean?';
 
   @override
+  String get reviewInASentence => 'In a sentence';
+
+  @override
+  String get reviewNeedAHint => 'Say it out loud · need a hint?';
+
+  @override
+  String reviewHintStartsWith(String start) {
+    return 'Starts with “$start”';
+  }
+
+  @override
   String get reviewMeans => 'Means';
 
   @override
@@ -986,4 +997,560 @@ class AppLocalizationsEn extends AppLocalizations {
   String ageHoursAgo(int count) {
     return '$count h ago';
   }
+
+  @override
+  String get copybookTitle => 'Daily copybook';
+
+  @override
+  String get copybookHeading => 'Write Czech by hand';
+
+  @override
+  String get copybookBody =>
+      'Copy each useful word and its sentence on paper. Mark it when you can form every diacritic clearly.';
+
+  @override
+  String get copybookImageLabel =>
+      'An open handwriting notebook overlooking Prague';
+
+  @override
+  String get copybookLoadError => 'Today’s words could not be loaded.';
+
+  @override
+  String get copybookTryAgain => 'Try again';
+
+  @override
+  String get copybookOfflineEmpty =>
+      'Complete offline setup to make curriculum words available.';
+
+  @override
+  String get copybookComplete =>
+      'Today’s page is complete. A new curriculum-based selection arrives tomorrow.';
+
+  @override
+  String get streakProtected => 'Streak protected';
+
+  @override
+  String streakDays(int count) {
+    return '$count-day streak';
+  }
+
+  @override
+  String get streakStartNew => 'Start a new streak';
+
+  @override
+  String streakProtectedBody(int count) {
+    return 'Your freeze covered one missed day and kept your $count-day streak intact. Complete practice today to earn the next freeze.';
+  }
+
+  @override
+  String get streakActiveBody =>
+      'Your streak is active today. Complete meaningful practice each day to keep it going.';
+
+  @override
+  String get streakEndedBody =>
+      'Your previous streak has ended. One completed learning activity starts a fresh one—no penalty, just a new day.';
+
+  @override
+  String get streakKeepLearning => 'Keep learning';
+
+  @override
+  String get streakBeginAgain => 'Begin again';
+
+  @override
+  String get pathA1Foundations => 'A1 Foundations';
+
+  @override
+  String get pathA1Everyday => 'A1 Everyday Czech';
+
+  @override
+  String get pathA2Grammar => 'A2 Grammar expansion';
+
+  @override
+  String get pathA2RealLife => 'A2 Real-life Czech';
+
+  @override
+  String pathExamConsolidation(String level) {
+    return '$level Exam and consolidation';
+  }
+
+  @override
+  String get pathFallbackPayoff => 'Build confidence for the next Czech task.';
+
+  @override
+  String get homeSmallWin => 'A small Czech win is waiting for you.';
+
+  @override
+  String get homeProgressToday => 'You have already made Czech progress today.';
+
+  @override
+  String get homeDailyGoal => 'Daily goal';
+
+  @override
+  String get homeGoalDone => 'Done for today. Anything else is a bonus.';
+
+  @override
+  String get homeGoalStart => 'One short lesson gets today moving.';
+
+  @override
+  String get homeContinueLearning => 'CONTINUE LEARNING';
+
+  @override
+  String get homeCompleteLesson => 'Complete one lesson';
+
+  @override
+  String get homeReviewFive => 'Review five cards';
+
+  @override
+  String get homeSpeakTwoMinutes => 'Speak for two minutes';
+
+  @override
+  String get homeSmallSteps => 'Today, in small steps';
+
+  @override
+  String get homeDone => 'Done';
+
+  @override
+  String get homeMethodOfDay => 'METHOD OF THE DAY';
+
+  @override
+  String get homeWriteBeforeType => 'Write it before you type it';
+
+  @override
+  String get homeCopybookCta => 'Open today’s copybook';
+
+  @override
+  String homeXpRemaining(int xp) {
+    return '$xp XP to your daily rhythm.';
+  }
+
+  @override
+  String get homeFreezeLeft => '1 freeze left';
+
+  @override
+  String homeTotalXp(int xp) {
+    return '$xp total XP';
+  }
+
+  @override
+  String get homeMethodBody =>
+      'Handwriting slows Czech down just enough to make endings and diacritics visible.';
+
+  @override
+  String get homeUnlockedComplete => 'Every unlocked lesson is complete.';
+
+  @override
+  String get homeLoading => 'Loading…';
+
+  @override
+  String get onboardingBack => 'Back';
+
+  @override
+  String get onboardingEditableLater =>
+      'All of this is editable later in Settings.';
+
+  @override
+  String get onboardingContinue => 'Continue';
+
+  @override
+  String get onboardingStartLearning => 'Start learning';
+
+  @override
+  String get onboardingSkip => 'Skip — set this up later';
+
+  @override
+  String get onboardingNameTitle => 'What should Lenka call you?';
+
+  @override
+  String get onboardingNameBody =>
+      'Optional. Used to greet you in Czech, and it never leaves your device.';
+
+  @override
+  String get onboardingFirstName => 'FIRST NAME';
+
+  @override
+  String get onboardingLevelTitle => 'What’s your Czech level?';
+
+  @override
+  String get onboardingLevelBody =>
+      'This sets your AI tutor’s difficulty. Lessons always start from Unit 1 so nothing is skipped.';
+
+  @override
+  String get onboardingBeginner => 'Complete beginner';
+
+  @override
+  String get onboardingBeginnerBody => 'I don’t know any Czech yet';
+
+  @override
+  String get onboardingA1 => 'Some Czech (A1)';
+
+  @override
+  String get onboardingA1Body => 'I know basic greetings and simple phrases';
+
+  @override
+  String get onboardingA2 => 'Intermediate (A2)';
+
+  @override
+  String get onboardingA2Body => 'I can have basic conversations';
+
+  @override
+  String get onboardingTakePlacement => 'Not sure? Take a placement test';
+
+  @override
+  String get onboardingVoiceTitle => 'Choose your teacher’s voice';
+
+  @override
+  String get onboardingVoiceBody =>
+      'Every Czech word in the course is spoken by this voice. Tap to hear each one — you can change it any time from Settings.';
+
+  @override
+  String get onboardingFemaleVoice => 'Female voice';
+
+  @override
+  String get onboardingMaleVoice => 'Male voice';
+
+  @override
+  String get onboardingVoiceSample => 'Tap to hear a sample';
+
+  @override
+  String get onboardingNativeVoices => 'Both are studio-recorded native Czech.';
+
+  @override
+  String get onboardingGoalTitle => 'Set your daily goal';
+
+  @override
+  String get onboardingGoalBody => 'How much do you want to practice each day?';
+
+  @override
+  String get onboardingPlanReady => 'Your plan is ready';
+
+  @override
+  String get onboardingPlanBody =>
+      'Unit 1 starts with the sounds of Czech — including the one only Czech has.';
+
+  @override
+  String get onboardingName => 'Name';
+
+  @override
+  String get onboardingLearner => 'Learner';
+
+  @override
+  String get onboardingStartingPoint => 'Starting point';
+
+  @override
+  String get onboardingTeacher => 'Teacher';
+
+  @override
+  String get onboardingFirstUnit => 'First unit';
+
+  @override
+  String get onboardingSoundsOfCzech => 'The sounds of Czech';
+
+  @override
+  String get scenarioCasual => 'Casual Chat';
+
+  @override
+  String get scenarioCasualBody =>
+      'Everyday small talk — greetings, weather, how are you';
+
+  @override
+  String get scenarioRestaurant => 'At the Restaurant';
+
+  @override
+  String get scenarioRestaurantBody =>
+      'Order food, ask about menu, pay the bill';
+
+  @override
+  String get scenarioDirections => 'Asking Directions';
+
+  @override
+  String get scenarioDirectionsBody =>
+      'Ask for and give directions in the city';
+
+  @override
+  String get scenarioShopping => 'Shopping';
+
+  @override
+  String get scenarioShoppingBody => 'Buy items, ask prices, negotiate';
+
+  @override
+  String get scenarioDoctor => 'At the Doctor';
+
+  @override
+  String get scenarioDoctorBody => 'Describe symptoms, make an appointment';
+
+  @override
+  String get scenarioInterview => 'Job Interview';
+
+  @override
+  String get scenarioInterviewBody => 'Practice a basic job interview in Czech';
+
+  @override
+  String get scenarioCafeImage => 'A learner ordering at a Prague café';
+
+  @override
+  String get scenarioDirectionsImage =>
+      'A learner asking for directions beside a Prague tram';
+
+  @override
+  String get scenarioShoppingImage =>
+      'A learner shopping at a Czech neighborhood market';
+
+  @override
+  String get scenarioRestaurantImage =>
+      'A learner ordering at a Czech restaurant';
+
+  @override
+  String get scenarioDoctorImage => 'A learner speaking with a doctor';
+
+  @override
+  String get scenarioInterviewImage =>
+      'A learner taking part in a job interview';
+
+  @override
+  String get onboardingTagline => 'Czech that\nactually\nsticks.';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Built for people living in Czechia — from your first word to the A1 exam.';
+
+  @override
+  String get onboardingHeroImage =>
+      'A learner practising Czech with a tutor at a Prague café';
+
+  @override
+  String get onboardingOffline =>
+      'Works offline — lessons and audio live on your phone';
+
+  @override
+  String get onboardingStartFree => 'Start learning free';
+
+  @override
+  String get onboardingHaveAccount => 'I already have an account';
+
+  @override
+  String get homeSpeakTitle => 'Say it out loud';
+
+  @override
+  String homeSpeakReviews(int count) {
+    return 'Two minutes of Czech, then $count reviews.';
+  }
+
+  @override
+  String get homeSpeakSound => 'Two minutes of ř — the sound worth practising.';
+
+  @override
+  String get chatVoiceRetry =>
+      'I didn’t catch that. Try again somewhere quieter, or type your reply.';
+
+  @override
+  String get chatVoiceUnavailable =>
+      'Voice input is unavailable. You can still type every reply.';
+
+  @override
+  String get chatDismiss => 'Dismiss';
+
+  @override
+  String get curriculumPathTitle => 'Your Czech path';
+
+  @override
+  String get curriculumAddingLessons =>
+      'Lessons for this level are being added.';
+
+  @override
+  String get curriculumA1Complete =>
+      'That’s the complete A1 track. Finish it and A2 opens.';
+
+  @override
+  String get curriculumA2Complete => 'That’s the complete A2 track.';
+
+  @override
+  String curriculumUnit(int number) {
+    return 'UNIT $number';
+  }
+
+  @override
+  String get curriculumInProgress => 'IN PROGRESS';
+
+  @override
+  String curriculumUnitOf(int number, int total, String level) {
+    return 'Unit $number of $total · $level';
+  }
+
+  @override
+  String curriculumUnlocksAfter(int number) {
+    return 'Unlocks after unit $number';
+  }
+
+  @override
+  String curriculumLessonCount(int done, int total) {
+    return '$done / $total lessons';
+  }
+
+  @override
+  String get curriculumStateDone => 'Done';
+
+  @override
+  String get curriculumStateReady => 'Ready now';
+
+  @override
+  String get curriculumStateLocked => 'Locked';
+
+  @override
+  String get curriculumNextUp => 'NEXT UP';
+
+  @override
+  String get curriculumMap => 'Map';
+
+  @override
+  String get curriculumList => 'List';
+
+  @override
+  String get lessonTypeLesson => 'Lesson';
+
+  @override
+  String get lessonTypePractice => 'Practice';
+
+  @override
+  String get lessonTypeApply => 'Apply';
+
+  @override
+  String get lessonTypeReview => 'Review';
+
+  @override
+  String get settingsDone => 'Done';
+
+  @override
+  String get statsTitle => 'Your Czech';
+
+  @override
+  String get statsSubtitle => 'Where you are, and what to work on next.';
+
+  @override
+  String get statsCourseActivityInfo =>
+      'Course activity shows what you have practised. It is not a CEFR certification.';
+
+  @override
+  String get statsAboutNumber => 'About this number';
+
+  @override
+  String get statsAchievements => 'Achievements';
+
+  @override
+  String get statsAchievementsEmpty =>
+      'Your first achievements are already within reach.';
+
+  @override
+  String get placementTitle => 'Find my starting point';
+
+  @override
+  String placementSuggestedUnit(int unit) {
+    return 'Suggested starting unit: $unit';
+  }
+
+  @override
+  String get placementProvisional =>
+      'Provisional, not a CEFR result — it adjusts from your own performance.';
+
+  @override
+  String get placementChooseUnit => 'Choose a different starting unit';
+
+  @override
+  String get placementUseStart => 'Use this starting point';
+
+  @override
+  String get placementAnswerLabel => 'Your Czech answer';
+
+  @override
+  String get placementNext => 'Next';
+
+  @override
+  String get placementFinishLater => 'Finish later';
+
+  @override
+  String get reviewNew => 'New';
+
+  @override
+  String get reviewLearning => 'Learning';
+
+  @override
+  String get reviewReview => 'Review';
+
+  @override
+  String get reviewDue => 'Due';
+
+  @override
+  String get lessonMeetWords =>
+      'Meet these words first. Tap each one to hear it, then practise using it.';
+
+  @override
+  String get teachingLookAndGuess =>
+      'Look at the picture. What do you think this Czech word means?';
+
+  @override
+  String get teachingTapWordMeaning =>
+      'Tap the Czech word to reveal its meaning';
+
+  @override
+  String get teachingMeaning => 'Meaning';
+
+  @override
+  String get teachingInSentence => 'Now hear it in a useful sentence';
+
+  @override
+  String get teachingTapSentenceTranslation =>
+      'Tap the sentence to reveal the translation';
+
+  @override
+  String get teachingNextWord => 'Next word';
+
+  @override
+  String get teachingSeeExample => 'See it in a sentence';
+
+  @override
+  String get teachingStartExercises => 'Start practice exercises';
+
+  @override
+  String teachingWordProgress(int current, int total) {
+    return 'Word $current of $total';
+  }
+
+  @override
+  String get a11yTapToFlipCard => 'Tap to flip card';
+
+  @override
+  String get a11yPlayPronunciation => 'Play pronunciation';
+
+  @override
+  String a11yTapToHear(String text) {
+    return 'Tap to hear: $text';
+  }
+
+  @override
+  String get a11yTapToHearSentence => 'Tap to hear the sentence';
+
+  @override
+  String a11yInsertCharacter(String char) {
+    return 'Insert character: $char';
+  }
+
+  @override
+  String get a11yAddVocabToDeck => 'Add to review deck';
+
+  @override
+  String a11yScenarioCard(String title, String description) {
+    return 'Scenario: $title. $description';
+  }
+
+  @override
+  String a11yFeedback(String title) {
+    return 'Feedback: $title';
+  }
+
+  @override
+  String a11yContinueButton(String label) {
+    return '$label button';
+  }
+
+  @override
+  String get a11ySendMessage => 'Send message';
 }

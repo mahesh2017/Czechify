@@ -13,12 +13,13 @@ void main() {
     final native = _FakeLiveTranscriber(result: 'dobrý den');
     final assessor = PronunciationAssessor(
       recorder: recorder,
-      whisper: _FakeCloud(available: false),
+      // Even an available cloud must not run without an affirmative decision.
+      whisper: _FakeCloud(available: true),
       fallbackStt: native,
       log: Logger('test'),
     );
 
-    expect(assessor.hasWhisper, isFalse);
+    expect(assessor.hasWhisper, isTrue);
     final assessment = await assessor.assess(expectedText: 'Dobrý den');
 
     expect(assessment.usedWhisper, isFalse);
@@ -40,6 +41,7 @@ void main() {
         whisper: _FakeCloud(available: true, throwOnTranscribe: true),
         fallbackStt: native,
         log: Logger('test'),
+        cloudConsentGranted: () async => true,
       );
 
       expect(assessor.hasWhisper, isTrue);

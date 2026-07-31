@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/account_providers.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/text_prompt_dialog.dart';
 
 class AccountScreen extends ConsumerStatefulWidget {
   const AccountScreen({super.key});
@@ -222,78 +223,37 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     bool obscure = false,
     TextInputType? keyboardType,
   }) async {
-    final controller = TextEditingController();
-    final value = await showDialog<String>(
+    final result = await showTextPromptDialog(
       context: context,
-      builder:
-          (dialogContext) => AlertDialog(
-            title: Text(title),
-            content: TextField(
-              controller: controller,
-              obscureText: obscure,
-              keyboardType: keyboardType,
-              autofocus: true,
-              decoration: InputDecoration(labelText: label),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext),
-                child: Text(AppLocalizations.of(context).cancel),
-              ),
-              FilledButton(
-                onPressed:
-                    () => Navigator.pop(dialogContext, controller.text.trim()),
-                child: Text(AppLocalizations.of(context).continueLabel),
-              ),
-            ],
-          ),
+      title: title,
+      confirmLabel: AppLocalizations.of(context).continueLabel,
+      fields: [
+        TextPromptField(
+          label: label,
+          obscureText: obscure,
+          keyboardType: keyboardType,
+        ),
+      ],
     );
-    controller.dispose();
-    return value?.isEmpty == true ? null : value;
+    final value = result?.single.trim();
+    return value == null || value.isEmpty ? null : value;
   }
 
   Future<_Credentials?> _askCredentials() async {
-    final email = TextEditingController();
-    final password = TextEditingController();
-    final value = await showDialog<_Credentials>(
+    final result = await showTextPromptDialog(
       context: context,
-      builder:
-          (dialogContext) => AlertDialog(
-            title: const Text('Sign in'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: email,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                ),
-                TextField(
-                  controller: password,
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext),
-                child: Text(AppLocalizations.of(context).cancel),
-              ),
-              FilledButton(
-                onPressed:
-                    () => Navigator.pop(
-                      dialogContext,
-                      _Credentials(email.text.trim(), password.text),
-                    ),
-                child: const Text('Sign in'),
-              ),
-            ],
-          ),
+      title: 'Sign in',
+      confirmLabel: 'Sign in',
+      fields: const [
+        TextPromptField(
+          label: 'Email',
+          keyboardType: TextInputType.emailAddress,
+        ),
+        TextPromptField(label: 'Password', obscureText: true),
+      ],
     );
-    email.dispose();
-    password.dispose();
-    return value;
+    if (result == null) return null;
+    return _Credentials(result[0].trim(), result[1]);
   }
 
   Future<bool> _confirm({
@@ -352,29 +312,35 @@ class _Message extends StatelessWidget {
   final String message;
 
   @override
-  Widget build(BuildContext context) => Card(
-    child: Padding(
-      padding: const EdgeInsets.all(18),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: context.tokens.pri),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
+  Widget build(BuildContext context) => SoftCard(
+    padding: const EdgeInsets.all(18),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconTile(
+          icon: icon,
+          tint: context.tokens.priSoft,
+          fg: context.tokens.priInk,
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
+              const SizedBox(height: 6),
+              Text(
+                message,
+                style: TextStyle(
+                  fontSize: 15,
+                  height: 1.45,
+                  color: context.tokens.muted,
                 ),
-                const SizedBox(height: 6),
-                Text(message),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }

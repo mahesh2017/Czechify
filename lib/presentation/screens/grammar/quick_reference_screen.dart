@@ -148,7 +148,7 @@ class _QuickReferenceScreenState extends ConsumerState<QuickReferenceScreen> {
             color: t.card,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(24),
               side: BorderSide(color: t.line),
             ),
             child: ExpansionTile(
@@ -486,7 +486,7 @@ class _QuickReferenceScreenState extends ConsumerState<QuickReferenceScreen> {
         color: t.card,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(24),
           side: BorderSide(color: t.line),
         ),
         child: ExpansionTile(

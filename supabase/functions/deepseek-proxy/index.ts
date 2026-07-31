@@ -163,12 +163,26 @@ Deno.serve(async (request) => {
       "DeepSeek request failed",
       error instanceof Error ? error.name : "unknown",
     );
+    // Refund the daily quota consumed for this request — the upstream call
+    // never reached DeepSeek, so the learner should not lose their allowance.
+    await admin.rpc("refund_ai_daily_quota", {
+      p_user_id: userData.user.id,
+    }).catch((e: unknown) =>
+      console.error("Quota refund failed", e)
+    );
     return jsonResponse({ error: "AI tutor request timed out." }, 504);
   }
 
   const upstreamBody = await upstream.json().catch(() => null);
   if (!upstream.ok) {
     console.error("DeepSeek error", upstream.status);
+    // Refund the daily quota — DeepSeek returned an error, so the learner's
+    // allowance should not be consumed for a failed call.
+    await admin.rpc("refund_ai_daily_quota", {
+      p_user_id: userData.user.id,
+    }).catch((e: unknown) =>
+      console.error("Quota refund failed", e)
+    );
     const status = upstream.status === 429 ? 429 : 502;
     return jsonResponse(
       { error: "AI tutor is temporarily unavailable." },

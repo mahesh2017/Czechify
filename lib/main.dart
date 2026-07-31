@@ -102,7 +102,7 @@ class CzechifyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: AppLocalizations.supportedLocales,
+      supportedLocales: kInterfaceLocales,
       routerConfig: ref.watch(appRouterProvider),
       // Above the router: finishing a lesson navigates away from the lesson
       // player, so a celebration owned by that screen would be disposed at

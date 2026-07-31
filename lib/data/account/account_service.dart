@@ -41,21 +41,28 @@ class AccountService {
       password: password,
     );
     final previousSession = _backend.currentSession;
+    var targetCommitted = false;
     await _sync.beginAccountTransition();
     try {
       await _backend.installSession(session);
+      final snapshot = await _sync.downloadAccountSnapshot();
       await _db.transaction(() async {
         await _db.clearLearnerDataRows();
-        await _sync.pullForAccountInstall();
+        await _sync.installAccountSnapshot(snapshot);
         if (_backend.userId != session.user.id) {
           throw StateError('Target account session changed during install.');
         }
       });
+      targetCommitted = true;
       await _clearAccountScopedArtifacts();
       onLocalDataChanged?.call();
     } catch (_) {
-      if (previousSession != null) {
+      // Once the target database commit succeeds, restoring the old session
+      // would expose target data under the wrong identity.
+      if (!targetCommitted && previousSession != null) {
         await _backend.installSession(previousSession);
+      } else if (!targetCommitted) {
+        await _backend.clearLocalSession();
       }
       rethrow;
     } finally {
@@ -116,8 +123,25 @@ class AccountService {
 
   Future<Map<String, Object?>> _exportLocalPreferences() async {
     final preferences = await SharedPreferences.getInstance();
-    return {for (final key in preferences.getKeys()) key: preferences.get(key)};
+    return {
+      for (final key in _exportablePreferenceKeys)
+        if (preferences.containsKey(key)) key: preferences.get(key),
+    };
   }
+
+  /// Auth/session, PKCE, device-id, and internal keys must never be exported.
+  static const _exportablePreferenceKeys = <String>{
+    'settings_learner_name',
+    'settings_starting_level',
+    'settings_onboarding_done',
+    'settings_theme_mode',
+    'settings_tts_rate',
+    'settings_tts_voice_gender',
+    'settings_daily_goal_xp',
+    'settings_hearts_enabled',
+    'settings_sound_enabled',
+    'settings_haptic_enabled',
+  };
 
   Future<void> _clearAccountScopedArtifacts() async {
     final preferences = await SharedPreferences.getInstance();
@@ -127,6 +151,8 @@ class AccountService {
       'settings_onboarding_done',
       'srs_new_cards_today',
       'srs_new_cards_date',
+      'exam_checkpoint_a1',
+      'exam_checkpoint_a2',
     }) {
       await preferences.remove(key);
     }

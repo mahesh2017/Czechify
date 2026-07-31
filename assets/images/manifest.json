@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "style": "calm_editorial_flat",
+  "assets": {
+    "onboarding.hero": {
+      "path": "assets/images/onboarding_hero_v2.png",
+      "semantic_label": "A welcoming Czech learning scene"
+    },
+    "review.empty": {
+      "path": "assets/images/review_empty_v2.png",
+      "semantic_label": "Study cards resting until the next review"
+    },
+    "copybook.hero": {
+      "path": "assets/images/copybook_hero_v1.png",
+      "semantic_label": "An open handwriting notebook overlooking Prague"
+    },
+    "chat.scenario.cafe": {
+      "path": "assets/images/chat_scenario_cafe_v1.png",
+      "semantic_label": "A learner ordering at a Prague café"
+    },
+    "chat.scenario.directions": {
+      "path": "assets/images/chat_scenario_directions_v1.png",
+      "semantic_label": "A learner asking for directions beside a Prague tram"
+    },
+    "chat.scenario.shopping": {
+      "path": "assets/images/chat_scenario_shopping_v1.png",
+      "semantic_label": "A learner shopping at a Czech neighborhood market"
+    },
+    "chat.scenario.restaurant": {
+      "path": "assets/images/chat_scenario_restaurant_v1.png",
+      "semantic_label": "A learner ordering at a Czech restaurant"
+    },
+    "chat.scenario.doctor": {
+      "path": "assets/images/chat_scenario_doctor_v1.png",
+      "semantic_label": "A learner speaking with a doctor"
+    },
+    "chat.scenario.interview": {
+      "path": "assets/images/chat_scenario_interview_v1.png",
+      "semantic_label": "A learner taking part in a job interview"
+    }
+  },
+  "fallbacks": {
+    "unit": "typographic_tile",
+    "vocabulary": "typographic_tile",
+    "scenario": "material_icon_tile",
+    "badge": "material_icon_badge"
+  }
+}

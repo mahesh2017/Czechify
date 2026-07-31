@@ -675,6 +675,17 @@ class AppLocalizationsCs extends AppLocalizations {
   String get reviewWhatDoesItMean => 'Co to znamená?';
 
   @override
+  String get reviewInASentence => 'Ve větě';
+
+  @override
+  String get reviewNeedAHint => 'Řekni to nahlas · potřebuješ nápovědu?';
+
+  @override
+  String reviewHintStartsWith(String start) {
+    return 'Začíná na „$start“';
+  }
+
+  @override
   String get reviewMeans => 'Znamená';
 
   @override
@@ -993,4 +1004,562 @@ class AppLocalizationsCs extends AppLocalizations {
   String ageHoursAgo(int count) {
     return 'před $count h';
   }
+
+  @override
+  String get copybookTitle => 'Denní písanka';
+
+  @override
+  String get copybookHeading => 'Pište česky rukou';
+
+  @override
+  String get copybookBody =>
+      'Opište si každé užitečné slovo i větu na papír. Označte je, až zvládnete zřetelně napsat všechnu diakritiku.';
+
+  @override
+  String get copybookImageLabel =>
+      'Otevřený sešit na psaní s výhledem na Prahu';
+
+  @override
+  String get copybookLoadError => 'Dnešní slova se nepodařilo načíst.';
+
+  @override
+  String get copybookTryAgain => 'Zkusit znovu';
+
+  @override
+  String get copybookOfflineEmpty =>
+      'Dokončete offline nastavení, aby byla slova z kurzu dostupná.';
+
+  @override
+  String get copybookComplete =>
+      'Dnešní stránka je hotová. Zítra dostanete nový výběr z kurzu.';
+
+  @override
+  String get streakProtected => 'Série je chráněná';
+
+  @override
+  String streakDays(int count) {
+    return 'Série: $count dní';
+  }
+
+  @override
+  String get streakStartNew => 'Začněte novou sérii';
+
+  @override
+  String streakProtectedBody(int count) {
+    return 'Zmrazení pokrylo jeden vynechaný den a zachovalo vaši sérii $count dní. Dnešním procvičováním získáte další zmrazení.';
+  }
+
+  @override
+  String get streakActiveBody =>
+      'Dnešní série je aktivní. Udržujte ji každý den smysluplným procvičováním.';
+
+  @override
+  String get streakEndedBody =>
+      'Předchozí série skončila. Jedna dokončená výuková aktivita zahájí novou — bez trestu, jen nový den.';
+
+  @override
+  String get streakKeepLearning => 'Pokračovat v učení';
+
+  @override
+  String get streakBeginAgain => 'Začít znovu';
+
+  @override
+  String get pathA1Foundations => 'Základy A1';
+
+  @override
+  String get pathA1Everyday => 'Každodenní čeština A1';
+
+  @override
+  String get pathA2Grammar => 'Rozšíření gramatiky A2';
+
+  @override
+  String get pathA2RealLife => 'Čeština pro skutečný život A2';
+
+  @override
+  String pathExamConsolidation(String level) {
+    return 'Zkouška $level a upevnění znalostí';
+  }
+
+  @override
+  String get pathFallbackPayoff => 'Získejte jistotu pro další úkol v češtině.';
+
+  @override
+  String get homeSmallWin => 'Čeká na vás malé české vítězství.';
+
+  @override
+  String get homeProgressToday => 'Dnes už jste v češtině udělali pokrok.';
+
+  @override
+  String get homeDailyGoal => 'Denní cíl';
+
+  @override
+  String get homeGoalDone => 'Pro dnešek hotovo. Všechno další je bonus.';
+
+  @override
+  String get homeGoalStart => 'Jedna krátká lekce rozjede dnešní učení.';
+
+  @override
+  String get homeContinueLearning => 'POKRAČOVAT V UČENÍ';
+
+  @override
+  String get homeCompleteLesson => 'Dokončit jednu lekci';
+
+  @override
+  String get homeReviewFive => 'Zopakovat pět kartiček';
+
+  @override
+  String get homeSpeakTwoMinutes => 'Dvě minuty mluvení';
+
+  @override
+  String get homeSmallSteps => 'Dnes po malých krocích';
+
+  @override
+  String get homeDone => 'Hotovo';
+
+  @override
+  String get homeMethodOfDay => 'DNEŠNÍ METODA';
+
+  @override
+  String get homeWriteBeforeType => 'Nejdřív napište rukou, pak na klávesnici';
+
+  @override
+  String get homeCopybookCta => 'Otevřít dnešní písanku';
+
+  @override
+  String homeXpRemaining(int xp) {
+    return 'Do denního rytmu zbývá $xp XP.';
+  }
+
+  @override
+  String get homeFreezeLeft => 'Zbývá 1 zmrazení';
+
+  @override
+  String homeTotalXp(int xp) {
+    return 'Celkem $xp XP';
+  }
+
+  @override
+  String get homeMethodBody =>
+      'Psaní rukou zpomalí češtinu právě natolik, aby byly koncovky a diakritika dobře vidět.';
+
+  @override
+  String get homeUnlockedComplete => 'Všechny odemčené lekce jsou dokončené.';
+
+  @override
+  String get homeLoading => 'Načítání…';
+
+  @override
+  String get onboardingBack => 'Zpět';
+
+  @override
+  String get onboardingEditableLater =>
+      'Všechno můžete později upravit v Nastavení.';
+
+  @override
+  String get onboardingContinue => 'Pokračovat';
+
+  @override
+  String get onboardingStartLearning => 'Začít se učit';
+
+  @override
+  String get onboardingSkip => 'Přeskočit — nastavit později';
+
+  @override
+  String get onboardingNameTitle => 'Jak vám má Lenka říkat?';
+
+  @override
+  String get onboardingNameBody =>
+      'Nepovinné. Použije se pro český pozdrav a nikdy neopustí vaše zařízení.';
+
+  @override
+  String get onboardingFirstName => 'KŘESTNÍ JMÉNO';
+
+  @override
+  String get onboardingLevelTitle => 'Jaká je vaše úroveň češtiny?';
+
+  @override
+  String get onboardingLevelBody =>
+      'Podle toho se nastaví obtížnost AI lektora. Lekce vždy začínají 1. jednotkou, aby vám nic neuteklo.';
+
+  @override
+  String get onboardingBeginner => 'Úplný začátečník';
+
+  @override
+  String get onboardingBeginnerBody => 'Česky zatím vůbec neumím';
+
+  @override
+  String get onboardingA1 => 'Trochu češtiny (A1)';
+
+  @override
+  String get onboardingA1Body => 'Znám základní pozdravy a jednoduché fráze';
+
+  @override
+  String get onboardingA2 => 'Mírně pokročilý (A2)';
+
+  @override
+  String get onboardingA2Body => 'Zvládnu jednoduchou konverzaci';
+
+  @override
+  String get onboardingTakePlacement =>
+      'Nevíte si jistí? absolvujte test úrovně';
+
+  @override
+  String get onboardingVoiceTitle => 'Vyberte si hlas lektora';
+
+  @override
+  String get onboardingVoiceBody =>
+      'Tímto hlasem zní každé české slovo v kurzu. Klepnutím si ho poslechnete a kdykoli ho můžete změnit v Nastavení.';
+
+  @override
+  String get onboardingFemaleVoice => 'Ženský hlas';
+
+  @override
+  String get onboardingMaleVoice => 'Mužský hlas';
+
+  @override
+  String get onboardingVoiceSample => 'Klepnutím přehrajete ukázku';
+
+  @override
+  String get onboardingNativeVoices =>
+      'Oba hlasy jsou studiové nahrávky rodilých mluvčích.';
+
+  @override
+  String get onboardingGoalTitle => 'Nastavte si denní cíl';
+
+  @override
+  String get onboardingGoalBody => 'Kolik chcete každý den procvičovat?';
+
+  @override
+  String get onboardingPlanReady => 'Váš plán je připravený';
+
+  @override
+  String get onboardingPlanBody =>
+      '1. jednotka začíná zvuky češtiny — včetně toho, který má jen čeština.';
+
+  @override
+  String get onboardingName => 'Jméno';
+
+  @override
+  String get onboardingLearner => 'Student';
+
+  @override
+  String get onboardingStartingPoint => 'Výchozí úroveň';
+
+  @override
+  String get onboardingTeacher => 'Lektor';
+
+  @override
+  String get onboardingFirstUnit => 'První jednotka';
+
+  @override
+  String get onboardingSoundsOfCzech => 'Zvuky češtiny';
+
+  @override
+  String get scenarioCasual => 'Neformální rozhovor';
+
+  @override
+  String get scenarioCasualBody =>
+      'Běžná konverzace — pozdravy, počasí a jak se máte';
+
+  @override
+  String get scenarioRestaurant => 'V restauraci';
+
+  @override
+  String get scenarioRestaurantBody =>
+      'Objednejte si jídlo, zeptejte se na menu a zaplaťte';
+
+  @override
+  String get scenarioDirections => 'Ptáme se na cestu';
+
+  @override
+  String get scenarioDirectionsBody =>
+      'Ptejte se na cestu po městě a popisujte ji';
+
+  @override
+  String get scenarioShopping => 'Nakupování';
+
+  @override
+  String get scenarioShoppingBody =>
+      'Nakupujte, ptejte se na ceny a domlouvejte se';
+
+  @override
+  String get scenarioDoctor => 'U lékaře';
+
+  @override
+  String get scenarioDoctorBody => 'Popište příznaky a objednejte se';
+
+  @override
+  String get scenarioInterview => 'Pracovní pohovor';
+
+  @override
+  String get scenarioInterviewBody =>
+      'Procvičte si jednoduchý pracovní pohovor v češtině';
+
+  @override
+  String get scenarioCafeImage => 'Student si objednává v pražské kavárně';
+
+  @override
+  String get scenarioDirectionsImage =>
+      'Student se ptá na cestu u pražské tramvaje';
+
+  @override
+  String get scenarioShoppingImage => 'Student nakupuje na českém trhu';
+
+  @override
+  String get scenarioRestaurantImage =>
+      'Student si objednává v české restauraci';
+
+  @override
+  String get scenarioDoctorImage => 'Student mluví s lékařem';
+
+  @override
+  String get scenarioInterviewImage => 'Student se účastní pracovního pohovoru';
+
+  @override
+  String get onboardingTagline => 'Čeština,\nkterá se\nudrží.';
+
+  @override
+  String get onboardingWelcomeBody =>
+      'Pro lidi žijící v Česku — od prvního slova až ke zkoušce A1.';
+
+  @override
+  String get onboardingHeroImage =>
+      'Student procvičuje češtinu s lektorkou v pražské kavárně';
+
+  @override
+  String get onboardingOffline =>
+      'Funguje offline — lekce i nahrávky máte v telefonu';
+
+  @override
+  String get onboardingStartFree => 'Začít se učit zdarma';
+
+  @override
+  String get onboardingHaveAccount => 'Už mám účet';
+
+  @override
+  String get homeSpeakTitle => 'Řekněte to nahlas';
+
+  @override
+  String homeSpeakReviews(int count) {
+    return 'Dvě minuty češtiny a potom $count opakování.';
+  }
+
+  @override
+  String get homeSpeakSound =>
+      'Dvě minuty s ř — hláskou, kterou stojí za to procvičit.';
+
+  @override
+  String get chatVoiceRetry =>
+      'Nerozuměl jsem. Zkuste to znovu v tišším prostředí nebo odpověď napište.';
+
+  @override
+  String get chatVoiceUnavailable =>
+      'Hlasový vstup není dostupný. Každou odpověď můžete napsat.';
+
+  @override
+  String get chatDismiss => 'Zavřít';
+
+  @override
+  String get curriculumPathTitle => 'Vaše cesta češtinou';
+
+  @override
+  String get curriculumAddingLessons =>
+      'Lekce pro tuto úroveň právě doplňujeme.';
+
+  @override
+  String get curriculumA1Complete =>
+      'To je celá cesta A1. Dokončete ji a otevře se A2.';
+
+  @override
+  String get curriculumA2Complete => 'To je celá cesta A2.';
+
+  @override
+  String curriculumUnit(int number) {
+    return 'JEDNOTKA $number';
+  }
+
+  @override
+  String get curriculumInProgress => 'PROBÍHÁ';
+
+  @override
+  String curriculumUnitOf(int number, int total, String level) {
+    return 'Jednotka $number z $total · $level';
+  }
+
+  @override
+  String curriculumUnlocksAfter(int number) {
+    return 'Odemkne se po jednotce $number';
+  }
+
+  @override
+  String curriculumLessonCount(int done, int total) {
+    return '$done / $total lekcí';
+  }
+
+  @override
+  String get curriculumStateDone => 'Hotovo';
+
+  @override
+  String get curriculumStateReady => 'Připraveno';
+
+  @override
+  String get curriculumStateLocked => 'Zamčeno';
+
+  @override
+  String get curriculumNextUp => 'NA ŘADĚ';
+
+  @override
+  String get curriculumMap => 'Mapa';
+
+  @override
+  String get curriculumList => 'Seznam';
+
+  @override
+  String get lessonTypeLesson => 'Lekce';
+
+  @override
+  String get lessonTypePractice => 'Procvičení';
+
+  @override
+  String get lessonTypeApply => 'Použití';
+
+  @override
+  String get lessonTypeReview => 'Opakování';
+
+  @override
+  String get settingsDone => 'Hotovo';
+
+  @override
+  String get statsTitle => 'Vaše čeština';
+
+  @override
+  String get statsSubtitle => 'Kde právě jste a na čem pracovat dál.';
+
+  @override
+  String get statsCourseActivityInfo =>
+      'Aktivita v kurzu ukazuje, co jste procvičovali. Nejde o certifikaci CEFR.';
+
+  @override
+  String get statsAboutNumber => 'O tomto údaji';
+
+  @override
+  String get statsAchievements => 'Úspěchy';
+
+  @override
+  String get statsAchievementsEmpty => 'První úspěchy už máte na dosah.';
+
+  @override
+  String get placementTitle => 'Najít výchozí úroveň';
+
+  @override
+  String placementSuggestedUnit(int unit) {
+    return 'Doporučená výchozí jednotka: $unit';
+  }
+
+  @override
+  String get placementProvisional =>
+      'Jde o předběžné doporučení, ne výsledek CEFR — upravuje se podle vašeho výkonu.';
+
+  @override
+  String get placementChooseUnit => 'Vybrat jinou výchozí jednotku';
+
+  @override
+  String get placementUseStart => 'Použít tuto výchozí úroveň';
+
+  @override
+  String get placementAnswerLabel => 'Vaše odpověď v češtině';
+
+  @override
+  String get placementNext => 'Další';
+
+  @override
+  String get placementFinishLater => 'Dokončit později';
+
+  @override
+  String get reviewNew => 'Nové';
+
+  @override
+  String get reviewLearning => 'Učím se';
+
+  @override
+  String get reviewReview => 'Opakování';
+
+  @override
+  String get reviewDue => 'K opakování';
+
+  @override
+  String get lessonMeetWords =>
+      'Nejdřív se seznamte s těmito slovy. Klepnutím si je poslechněte a pak je procvičte.';
+
+  @override
+  String get teachingLookAndGuess =>
+      'Podívejte se na obrázek. Co podle vás toto české slovo znamená?';
+
+  @override
+  String get teachingTapWordMeaning =>
+      'Klepnutím na české slovo zobrazíte význam';
+
+  @override
+  String get teachingMeaning => 'Význam';
+
+  @override
+  String get teachingInSentence => 'Teď si slovo poslechněte v užitečné větě';
+
+  @override
+  String get teachingTapSentenceTranslation =>
+      'Klepnutím na větu zobrazíte překlad';
+
+  @override
+  String get teachingNextWord => 'Další slovo';
+
+  @override
+  String get teachingSeeExample => 'Ukázat ve větě';
+
+  @override
+  String get teachingStartExercises => 'Začít procvičování';
+
+  @override
+  String teachingWordProgress(int current, int total) {
+    return 'Slovo $current z $total';
+  }
+
+  @override
+  String get a11yTapToFlipCard => 'Klepnutím otočíte kartu';
+
+  @override
+  String get a11yPlayPronunciation => 'Přehrát výslovnost';
+
+  @override
+  String a11yTapToHear(String text) {
+    return 'Klepnutím poslechnete: $text';
+  }
+
+  @override
+  String get a11yTapToHearSentence => 'Klepnutím poslechnete větu';
+
+  @override
+  String a11yInsertCharacter(String char) {
+    return 'Vložit znak: $char';
+  }
+
+  @override
+  String get a11yAddVocabToDeck => 'Přidat do balíčku na opakování';
+
+  @override
+  String a11yScenarioCard(String title, String description) {
+    return 'Scénář: $title. $description';
+  }
+
+  @override
+  String a11yFeedback(String title) {
+    return 'Zpětná vazba: $title';
+  }
+
+  @override
+  String a11yContinueButton(String label) {
+    return 'Tlačítko $label';
+  }
+
+  @override
+  String get a11ySendMessage => 'Odeslat zprávu';
 }

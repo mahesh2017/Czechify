@@ -11,6 +11,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/gender_pill.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/wash_background.dart';
 
 /// SRS review screen — flashcard interface with simplified SM-2 ratings.
 class SrsReviewScreen extends ConsumerStatefulWidget {
@@ -59,6 +60,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
         onRefresh: () {
           ref.read(reviewSessionProvider.notifier).loadDueCards();
         },
+        onExit: () => context.go('/'),
       );
     }
 
@@ -92,159 +94,118 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Header: what this screen is, how far in, and the way out.
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          l10n.reviewSpacedRepetition,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: t.faint,
-                          ),
-                        ),
-                        const SizedBox(height: 3),
-                        DisplayText(
-                          l10n.navReview,
-                          size: 27,
-                          weight: FontWeight.w800,
-                          height: 1.1,
-                        ),
-                      ],
-                    ),
-                  ),
-                  PillChip(
-                    label: l10n.reviewCardsLeft(session.remainingCards),
-                    bg: t.chipBg,
-                    fg: t.muted,
-                  ),
-                  const SizedBox(width: 9),
-                  RoundIconButton(
-                    icon: Icons.close,
-                    tooltip: AppLocalizations.of(context).a11yClose,
-                    onTap: () => _showExitConfirm(context),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-              child: Semantics(
-                label: AppLocalizations.of(
-                  context,
-                ).reviewCardOf(session.currentIndex + 1, session.totalCards),
-                excludeSemantics: true,
-                child: SegmentPips(
-                  count: session.totalCards,
-                  currentIndex: session.currentIndex,
-                ),
-              ),
-            ),
-            const SizedBox(height: 14),
-
-            // Flashcard
-            Expanded(
-              child: _FlashcardView(
-                card: card.flashcard,
-                direction: card.direction,
-                isFlipped: session.isFlipped,
-                onFlip:
-                    card.direction != CardDirection.enToCz ||
-                            _productionAttempt.trim().isNotEmpty
-                        ? () {
-                          ref.read(reviewSessionProvider.notifier).flipCard();
-                        }
-                        : null,
-              ),
-            ),
-
-            if (!session.isFlipped && card.direction == CardDirection.enToCz)
+      body: WashBackground(
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Header: what this screen is, how far in, and the way out.
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LessonKicker(l10n.reviewRetrieveTheCzech),
-                    const SizedBox(height: 8),
-                    TextField(
-                      key: ValueKey(card.flashcard.id),
-                      autocorrect: false,
-                      cursorColor: t.pri,
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: t.ink,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.reviewSpacedRepetition,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: t.faint,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          DisplayText(
+                            l10n.navReview,
+                            size: 27,
+                            weight: FontWeight.w800,
+                            height: 1.1,
+                          ),
+                        ],
                       ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: t.card,
-                        hintText: l10n.reviewSayItThenTypeIt,
-                        hintStyle: TextStyle(fontSize: 16, color: t.faint),
-                        helperText: l10n.reviewOvertAttemptNote,
-                        helperStyle: TextStyle(fontSize: 12, color: t.faint),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(color: t.line),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(color: t.line),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: BorderSide(color: t.pri, width: 1.5),
-                        ),
-                      ),
-                      onChanged:
-                          (value) => setState(() => _productionAttempt = value),
+                    ),
+                    PillChip(
+                      label: l10n.reviewCardsLeft(session.remainingCards),
+                      bg: t.chipBg,
+                      fg: t.muted,
+                    ),
+                    const SizedBox(width: 9),
+                    RoundIconButton(
+                      icon: Icons.close,
+                      tooltip: AppLocalizations.of(context).a11yClose,
+                      onTap: () => _showExitConfirm(context),
                     ),
                   ],
                 ),
               ),
-
-            // Rating buttons (only after flip)
-            if (session.isFlipped)
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (session.commitError != null)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Text(
-                        session.commitError!,
-                        style: TextStyle(fontSize: 13, color: t.redInk),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  _RatingButtons(
-                    intervals: _intervalLabels(card.srs),
-                    enabled: !session.isCommitting,
-                    onRate: (rating) async {
-                      await ref
-                          .read(reviewSessionProvider.notifier)
-                          .rateCard(rating);
-                      if (mounted) setState(() => _productionAttempt = '');
-                    },
-                  ),
-                ],
-              )
-            else
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
-                child: KeyCta(
-                  label: l10n.reviewShowAnswer,
-                  onPressed:
+                padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+                child: Semantics(
+                  label: AppLocalizations.of(
+                    context,
+                  ).reviewCardOf(session.currentIndex + 1, session.totalCards),
+                  excludeSemantics: true,
+                  child: SegmentPips(
+                    count: session.totalCards,
+                    currentIndex: session.currentIndex,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+                child: Row(
+                  children: [
+                    _DeckCountChip(
+                      label: AppLocalizations.of(context).reviewNew,
+                      count:
+                          session.dueCards
+                              .where((c) => c.srs.state == CardState.newCard)
+                              .length,
+                      color: t.violet,
+                      bg: t.violetSoft,
+                      ink: t.violetInk,
+                    ),
+                    const SizedBox(width: 7),
+                    _DeckCountChip(
+                      label: AppLocalizations.of(context).reviewLearning,
+                      count:
+                          session.dueCards
+                              .where(
+                                (c) =>
+                                    c.srs.state == CardState.learning ||
+                                    c.srs.state == CardState.relearning,
+                              )
+                              .length,
+                      color: t.amber,
+                      bg: t.amberSoft,
+                      ink: t.amberInk,
+                    ),
+                    const SizedBox(width: 7),
+                    _DeckCountChip(
+                      label: AppLocalizations.of(context).reviewDue,
+                      count:
+                          session.dueCards
+                              .where((c) => c.srs.state == CardState.review)
+                              .length,
+                      color: t.pri,
+                      bg: t.priSoft,
+                      ink: t.priInk,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 6),
+
+              // Flashcard
+              Expanded(
+                child: _FlashcardView(
+                  card: card.flashcard,
+                  direction: card.direction,
+                  isFlipped: session.isFlipped,
+                  onFlip:
                       card.direction != CardDirection.enToCz ||
                               _productionAttempt.trim().isNotEmpty
                           ? () {
@@ -253,7 +214,96 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                           : null,
                 ),
               ),
-          ],
+
+              if (!session.isFlipped && card.direction == CardDirection.enToCz)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      LessonKicker(l10n.reviewRetrieveTheCzech),
+                      const SizedBox(height: 8),
+                      TextField(
+                        key: ValueKey(card.flashcard.id),
+                        autocorrect: false,
+                        cursorColor: t.pri,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                          color: t.ink,
+                        ),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: t.card,
+                          hintText: l10n.reviewSayItThenTypeIt,
+                          hintStyle: TextStyle(fontSize: 16, color: t.faint),
+                          helperText: l10n.reviewOvertAttemptNote,
+                          helperStyle: TextStyle(fontSize: 12, color: t.faint),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(color: t.line),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(color: t.line),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(color: t.pri, width: 1.5),
+                          ),
+                        ),
+                        onChanged:
+                            (value) =>
+                                setState(() => _productionAttempt = value),
+                      ),
+                    ],
+                  ),
+                ),
+
+              // Rating buttons (only after flip)
+              if (session.isFlipped)
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (session.commitError != null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          session.commitError!,
+                          style: TextStyle(fontSize: 13, color: t.redInk),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    _RatingButtons(
+                      intervals: _intervalLabels(card.srs),
+                      enabled: !session.isCommitting,
+                      onRate: (rating) async {
+                        await ref
+                            .read(reviewSessionProvider.notifier)
+                            .rateCard(rating);
+                        if (mounted) setState(() => _productionAttempt = '');
+                      },
+                    ),
+                  ],
+                )
+              else
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
+                  child: KeyCta(
+                    label: l10n.reviewShowAnswer,
+                    onPressed:
+                        card.direction != CardDirection.enToCz ||
+                                _productionAttempt.trim().isNotEmpty
+                            ? () {
+                              ref
+                                  .read(reviewSessionProvider.notifier)
+                                  .flipCard();
+                            }
+                            : null,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -307,6 +357,50 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
   }
 }
 
+class _DeckCountChip extends StatelessWidget {
+  const _DeckCountChip({
+    required this.label,
+    required this.count,
+    required this.color,
+    required this.bg,
+    required this.ink,
+  });
+
+  final String label;
+  final int count;
+  final Color color;
+  final Color bg;
+  final Color ink;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.fromLTRB(9, 6, 11, 6),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(999),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 7,
+          height: 7,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 6),
+        Text(
+          '$label  $count',
+          style: TextStyle(
+            color: ink,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 /// The flashcard view. The front depends on the card's direction —
 /// recognition (CZ), production (EN), or audio-only — and the back always
 /// shows the full word with translation, IPA, and example.
@@ -326,67 +420,74 @@ class _FlashcardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    return GestureDetector(
-      onTap: isFlipped ? null : onFlip,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
-        child: Stack(
-          children: [
-            // Two hints of the cards still to come, so the deck has depth and
-            // "how many left" is felt as well as counted.
-            const Positioned(
-              left: 16,
-              right: 16,
-              bottom: -11,
-              child: _DeckShadowCard(opacity: 0.5),
-            ),
-            const Positioned(
-              left: 8,
-              right: 8,
-              bottom: -6,
-              child: _DeckShadowCard(opacity: 0.8),
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(22),
-              decoration: BoxDecoration(
-                color: t.card,
-                border: Border.all(color: t.line),
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: t.shadowLg,
+    final l10n = AppLocalizations.of(context);
+    return Semantics(
+      button: onFlip != null,
+      label: l10n.a11yTapToFlipCard,
+      hint: l10n.reviewTapToReveal,
+      excludeSemantics: true,
+      child: GestureDetector(
+        onTap: isFlipped ? null : onFlip,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+          child: Stack(
+            children: [
+              // Two hints of the cards still to come, so the deck has depth and
+              // "how many left" is felt as well as counted.
+              const Positioned(
+                left: 16,
+                right: 16,
+                bottom: -11,
+                child: _DeckShadowCard(opacity: 0.5),
               ),
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 250),
-                transitionBuilder:
-                    (child, anim) => FadeTransition(
-                      opacity: anim,
-                      child: ScaleTransition(
-                        scale: Tween<double>(
-                          begin: 0.96,
-                          end: 1.0,
-                        ).animate(anim),
-                        child: child,
+              const Positioned(
+                left: 8,
+                right: 8,
+                bottom: -6,
+                child: _DeckShadowCard(opacity: 0.8),
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(22),
+                decoration: BoxDecoration(
+                  color: t.card,
+                  border: Border.all(color: t.line),
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: t.shadowLg,
+                ),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  transitionBuilder:
+                      (child, anim) => FadeTransition(
+                        opacity: anim,
+                        child: ScaleTransition(
+                          scale: Tween<double>(
+                            begin: 0.96,
+                            end: 1.0,
+                          ).animate(anim),
+                          child: child,
+                        ),
                       ),
-                    ),
-                child: KeyedSubtree(
-                  key: ValueKey(isFlipped),
-                  child:
-                      isFlipped
-                          ? _buildBack(context, ref)
-                          : switch (direction) {
-                            CardDirection.czToEn => _buildFront(context, ref),
-                            CardDirection.enToCz => _buildFrontProduction(
-                              context,
-                            ),
-                            CardDirection.audio => _buildFrontAudio(
-                              context,
-                              ref,
-                            ),
-                          },
+                  child: KeyedSubtree(
+                    key: ValueKey(isFlipped),
+                    child:
+                        isFlipped
+                            ? _buildBack(context, ref)
+                            : switch (direction) {
+                              CardDirection.czToEn => _buildFront(context, ref),
+                              CardDirection.enToCz => _buildFrontProduction(
+                                context,
+                              ),
+                              CardDirection.audio => _buildFrontAudio(
+                                context,
+                                ref,
+                              ),
+                            },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -440,6 +541,8 @@ class _FlashcardView extends ConsumerWidget {
 
   Widget _buildFront(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final cloze = _contextualCloze(card);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -449,7 +552,7 @@ class _FlashcardView extends ConsumerWidget {
             if (card.gender != null)
               GenderPill(gender: card.gender!, abbreviated: false)
             else
-              LessonKicker(AppLocalizations.of(context).reviewWhatDoesItMean),
+              LessonKicker(l10n.reviewWhatDoesItMean),
             _AudioPill(text: card.wordCz),
           ],
         ),
@@ -491,7 +594,41 @@ class _FlashcardView extends ConsumerWidget {
           ),
         ],
 
-        const SizedBox(height: 32),
+        // The word alone left the card two-thirds empty. The comp answers
+        // that with the sentence the word lives in, blanked out — which is
+        // also a better prompt: it gives the grammar a context to sit in
+        // without giving the meaning away.
+        if (cloze != null) ...[
+          const SizedBox(height: 22),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+            decoration: BoxDecoration(
+              color: t.elev,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LessonKicker(l10n.reviewInASentence),
+                const SizedBox(height: 7),
+                Text(
+                  cloze,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    height: 1.45,
+                    color: t.ink,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+
+        const SizedBox(height: 22),
+        _HintRow(card: card),
+        const SizedBox(height: 16),
         _tapToReveal(context),
       ],
     );
@@ -657,7 +794,7 @@ class _FlashcardView extends ConsumerWidget {
                       ),
                     ),
                     IconButton(
-                      tooltip: AppLocalizations.of(context).a11yPlayAudio,
+                      tooltip: AppLocalizations.of(context).a11yPlayPronunciation,
                       onPressed:
                           () =>
                               ref.read(czechTtsProvider).speak(card.exampleCz!),
@@ -685,6 +822,93 @@ class _FlashcardView extends ConsumerWidget {
 }
 
 /// One of the faint cards peeking out from under the current one.
+/// The comp's escape hatch on a card you cannot retrieve: ask for a nudge
+/// rather than flipping straight to the answer, so the attempt still counts
+/// as recall. Collapses back to the button on the next card.
+class _HintRow extends StatefulWidget {
+  const _HintRow({required this.card});
+
+  final Flashcard card;
+
+  @override
+  State<_HintRow> createState() => _HintRowState();
+}
+
+class _HintRowState extends State<_HintRow> {
+  bool _shown = false;
+
+  @override
+  void didUpdateWidget(_HintRow oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.card.id != widget.card.id) _shown = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    if (!_shown) {
+      return Semantics(
+        button: true,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => setState(() => _shown = true),
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 44),
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: t.line),
+              borderRadius: BorderRadius.circular(999),
+            ),
+            child: Text(
+              l10n.reviewNeedAHint,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: t.muted,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    // Two letters is enough to unlock recall without handing over the word.
+    final start = widget.card.wordCz.characters.take(2).toString();
+    final gender = widget.card.gender;
+    return Container(
+      constraints: const BoxConstraints(minHeight: 44),
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+      decoration: BoxDecoration(
+        color: t.amberSoft,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.lightbulb_outline, size: 14, color: t.amberInk),
+          const SizedBox(width: 7),
+          Flexible(
+            child: Text(
+              gender == null
+                  ? l10n.reviewHintStartsWith(start)
+                  : '${l10n.reviewHintStartsWith(start)} · $gender',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: t.ink,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _DeckShadowCard extends StatelessWidget {
   const _DeckShadowCard({required this.opacity});
 
@@ -718,7 +942,7 @@ class _AudioPill extends ConsumerWidget {
     final t = context.tokens;
     return Semantics(
       button: true,
-      label: AppLocalizations.of(context).a11yPlayAudio,
+      label: AppLocalizations.of(context).a11yPlayPronunciation,
       excludeSemantics: true,
       child: InkWell(
         onTap: () => ref.read(czechTtsProvider).speak(text),
@@ -788,7 +1012,7 @@ class _RatingButtons extends StatelessWidget {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
+      padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -811,24 +1035,27 @@ class _RatingButtons extends StatelessWidget {
                         Rating.easy => l10n.reviewRatingEasy,
                       },
                       subtitle: intervals[grade] ?? '',
-                      // Coral for "again" is the only error-ish colour here;
-                      // hard, good and easy are all successful recalls at
-                      // different strengths, so they get violet, green and blue.
+                      // Coral for "again" is the only error-ish colour here.
+                      // "Hard" takes amber, matching both the comp and the
+                      // Learning chip at the top of this same screen — amber
+                      // is what "still shaky" looks like everywhere else in
+                      // the review surface, so violet here read as a fourth
+                      // unrelated meaning.
                       color: switch (grade) {
                         Rating.again => t.red,
-                        Rating.hard => t.violet,
+                        Rating.hard => t.amber,
                         Rating.good => t.green,
                         Rating.easy => t.pri,
                       },
                       ink: switch (grade) {
                         Rating.again => t.redInk,
-                        Rating.hard => t.violetInk,
+                        Rating.hard => t.amberInk,
                         Rating.good => t.greenInk,
                         Rating.easy => t.priInk,
                       },
                       tint: switch (grade) {
                         Rating.again => t.redSoft,
-                        Rating.hard => t.violetSoft,
+                        Rating.hard => t.amberSoft,
                         Rating.good => t.greenSoft,
                         Rating.easy => t.priSoft,
                       },
@@ -956,48 +1183,98 @@ class _RatingButton extends StatelessWidget {
 
 class _NoDueCardsScreen extends StatelessWidget {
   final VoidCallback onRefresh;
+  final VoidCallback onExit;
 
-  const _NoDueCardsScreen({required this.onRefresh});
+  const _NoDueCardsScreen({required this.onRefresh, required this.onExit});
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     return Scaffold(
       backgroundColor: t.bg,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(28),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconTile(
-                  icon: Icons.check_rounded,
-                  tint: t.greenSoft,
-                  fg: t.greenInk,
-                  size: 72,
-                  radius: 24,
-                  iconSize: 34,
+      body: WashBackground(
+        child: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).reviewSpacedRepetition,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: t.faint,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          DisplayText(
+                            AppLocalizations.of(context).navReview,
+                            size: 27,
+                            weight: FontWeight.w800,
+                          ),
+                        ],
+                      ),
+                    ),
+                    RoundIconButton(
+                      icon: Icons.close,
+                      tooltip: AppLocalizations.of(context).a11yClose,
+                      onTap: onExit,
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                DisplayText(
-                  AppLocalizations.of(context).reviewAllCaughtUp,
-                  size: 30,
-                  weight: FontWeight.w800,
+              ),
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(28, 20, 28, 112),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(24),
+                          child: AspectRatio(
+                            aspectRatio: 3 / 2,
+                            child: Image.asset(
+                              'assets/images/review_empty_v2.png',
+                              fit: BoxFit.cover,
+                              semanticLabel:
+                                  'Flashcards, a notebook and a growing plant by a Prague window',
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        DisplayText(
+                          AppLocalizations.of(context).reviewAllCaughtUp,
+                          size: 30,
+                          weight: FontWeight.w800,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          AppLocalizations.of(context).reviewNoCardsDue,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15,
+                            height: 1.5,
+                            color: t.muted,
+                          ),
+                        ),
+                        const SizedBox(height: 26),
+                        KeyCta(
+                          label: AppLocalizations.of(context).reviewCheckAgain,
+                          onPressed: onRefresh,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  AppLocalizations.of(context).reviewNoCardsDue,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
-                ),
-                const SizedBox(height: 26),
-                KeyCta(
-                  label: AppLocalizations.of(context).reviewCheckAgain,
-                  onPressed: onRefresh,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -1034,170 +1311,180 @@ class _ReviewCompleteScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: t.bg,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                // Bottom padding clears the pinned footer: with only 12 the
-                // last card was cut mid-sentence and read as a rendering bug
-                // rather than as something still to scroll.
-                padding: const EdgeInsets.fromLTRB(20, 28, 20, 24),
-                children: [
-                  // Recall, as a ring — the same shape every accuracy figure
-                  // in the app uses.
-                  Center(
-                    child: ScoreRing(
-                      fraction: session.accuracy,
-                      label: '$accuracy%',
-                      caption: l10n.captionRecall,
-                      color: accuracyColor,
-                      showBadge: accuracy >= 80,
-                      size: 104,
-                    ),
-                  ),
-                  const SizedBox(height: 18),
-                  Center(
-                    child: DisplayText(
-                      l10n.reviewDeckCleared,
-                      size: 27,
-                      weight: FontWeight.w800,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Center(
-                    child: Text(
-                      l10n.reviewCardsReviewed(session.reviewedCount),
-                      style: TextStyle(fontSize: 14, color: t.muted),
-                    ),
-                  ),
-                  if (session.heartEarned) ...[
-                    const SizedBox(height: 12),
+      body: WashBackground(
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  // Bottom padding clears the pinned footer: with only 12 the
+                  // last card was cut mid-sentence and read as a rendering bug
+                  // rather than as something still to scroll.
+                  padding: const EdgeInsets.fromLTRB(20, 28, 20, 24),
+                  children: [
+                    // Recall, as a ring — the same shape every accuracy figure
+                    // in the app uses.
                     Center(
-                      child: PillChip(
-                        label: l10n.reviewHeartEarned,
-                        bg: t.redSoft,
-                        fg: t.redInk,
-                        icon: Icons.favorite,
+                      child: ScoreRing(
+                        fraction: session.accuracy,
+                        label: '$accuracy%',
+                        caption: l10n.captionRecall,
+                        color: accuracyColor,
+                        showBadge: accuracy >= 80,
+                        size: 104,
+                      ),
+                    ),
+                    const SizedBox(height: 18),
+                    Center(
+                      child: DisplayText(
+                        l10n.reviewDeckCleared,
+                        size: 27,
+                        weight: FontWeight.w800,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Center(
+                      child: Text(
+                        l10n.reviewCardsReviewed(session.reviewedCount),
+                        style: TextStyle(fontSize: 14, color: t.muted),
+                      ),
+                    ),
+                    if (session.heartEarned) ...[
+                      const SizedBox(height: 12),
+                      Center(
+                        child: PillChip(
+                          label: l10n.reviewHeartEarned,
+                          bg: t.redSoft,
+                          fg: t.redInk,
+                          icon: Icons.favorite,
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 24),
+                    StatStrip(
+                      cells: [
+                        StatCell(
+                          value: '${session.reviewedCount}',
+                          label: l10n.statCards,
+                        ),
+                        StatCell(
+                          value: '${session.goodCount + session.easyCount}',
+                          label: l10n.statRecalled,
+                          color: t.greenInk,
+                        ),
+                        StatCell(
+                          value: '+${session.totalXp}',
+                          label: l10n.statXpEarned,
+                          color: t.amberInk,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    SoftCard(
+                      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SectionLabel(l10n.reviewHowItWent),
+                          const SizedBox(height: 14),
+                          _RatingRow(
+                            color: t.red,
+                            label:
+                                AppLocalizations.of(context).reviewRatingAgain,
+                            count: session.againCount,
+                            total: total,
+                          ),
+                          const SizedBox(height: 12),
+                          _RatingRow(
+                            color: t.violet,
+                            label:
+                                AppLocalizations.of(context).reviewRatingHard,
+                            count: session.hardCount,
+                            total: total,
+                          ),
+                          const SizedBox(height: 12),
+                          _RatingRow(
+                            color: t.green,
+                            label:
+                                AppLocalizations.of(context).reviewRatingGood,
+                            count: session.goodCount,
+                            total: total,
+                          ),
+                          const SizedBox(height: 12),
+                          _RatingRow(
+                            color: t.pri,
+                            label:
+                                AppLocalizations.of(context).reviewRatingEasy,
+                            count: session.easyCount,
+                            total: total,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
+                      ),
+                      decoration: BoxDecoration(
+                        color: t.priSoft,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.schedule, size: 16, color: t.priInk),
+                          const SizedBox(width: 11),
+                          Expanded(
+                            child: Text(
+                              l10n.reviewReschedulingNote,
+                              style: TextStyle(
+                                fontSize: 14.5,
+                                height: 1.45,
+                                fontWeight: FontWeight.w600,
+                                color: t.priInk,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
-                  const SizedBox(height: 24),
-                  StatStrip(
-                    cells: [
-                      StatCell(
-                        value: '${session.reviewedCount}',
-                        label: l10n.statCards,
-                      ),
-                      StatCell(
-                        value: '${session.goodCount + session.easyCount}',
-                        label: l10n.statRecalled,
-                        color: t.greenInk,
-                      ),
-                      StatCell(
-                        value: '+${session.totalXp}',
-                        label: l10n.statXpEarned,
-                        color: t.amberInk,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  SoftCard(
-                    padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SectionLabel(l10n.reviewHowItWent),
-                        const SizedBox(height: 14),
-                        _RatingRow(
-                          color: t.red,
-                          label: AppLocalizations.of(context).reviewRatingAgain,
-                          count: session.againCount,
-                          total: total,
-                        ),
-                        const SizedBox(height: 12),
-                        _RatingRow(
-                          color: t.violet,
-                          label: AppLocalizations.of(context).reviewRatingHard,
-                          count: session.hardCount,
-                          total: total,
-                        ),
-                        const SizedBox(height: 12),
-                        _RatingRow(
-                          color: t.green,
-                          label: AppLocalizations.of(context).reviewRatingGood,
-                          count: session.goodCount,
-                          total: total,
-                        ),
-                        const SizedBox(height: 12),
-                        _RatingRow(
-                          color: t.pri,
-                          label: AppLocalizations.of(context).reviewRatingEasy,
-                          count: session.easyCount,
-                          total: total,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
-                    decoration: BoxDecoration(
-                      color: t.priSoft,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.schedule, size: 16, color: t.priInk),
-                        const SizedBox(width: 11),
-                        Expanded(
-                          child: Text(
-                            l10n.reviewReschedulingNote,
-                            style: TextStyle(
-                              fontSize: 14.5,
-                              height: 1.45,
-                              fontWeight: FontWeight.w600,
-                              color: t.priInk,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 112),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 58,
+                        child: OutlinedButton(
+                          onPressed: onRestart,
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: t.line, width: 1.5),
+                            foregroundColor: t.ink,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
                           ),
+                          child: Text(l10n.reviewGoAgain),
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 58,
-                      child: OutlinedButton(
-                        onPressed: onRestart,
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: t.line, width: 1.5),
-                          foregroundColor: t.ink,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        child: Text(l10n.reviewGoAgain),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 9),
-                  Expanded(
-                    child: KeyCta(label: l10n.reviewDone, onPressed: onExit),
-                  ),
-                ],
+                    const SizedBox(width: 9),
+                    Expanded(
+                      child: KeyCta(
+                        label: l10n.reviewDone,
+                        onPressed: onExit,
+                        radius: 16,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -1228,7 +1515,7 @@ class _RatingRow extends StatelessWidget {
           height: 9,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(999),
           ),
         ),
         const SizedBox(width: 12),

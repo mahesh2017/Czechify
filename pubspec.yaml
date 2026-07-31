@@ -51,6 +51,7 @@ dependencies:
   crypto: ^3.0.0
   logging: ^1.2.0
   share_plus: ^13.0.0
+  flutter_onnxruntime: ^1.8.3
 
 dev_dependencies:
   flutter_test:
@@ -87,10 +88,26 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/unit01/
     - assets/animations/
+    # Synthesized by tool/generate_sfx.py — see that script before editing,
+    # these are generated output rather than hand-authored files.
+    - assets/sfx/
     - assets/curriculum/
     - assets/curriculum/lessons/
     - assets/vocabulary/
+    # Which audio clips belong to which unit. Bundled, not downloaded: the app
+    # needs it to know what to pre-fetch, which has to work before it has any
+    # network. The clips themselves stay remote.
+    - assets/audio/offline_units.json
+    # Just the teacher-preview clips, so the voice picker can play the
+    # real Lenka/Pavel before the 138MB pack has downloaded. Everything
+    # else in assets/audio/ is uploaded to Supabase, not bundled.
+    - assets/audio/female_2f44c5669abb492049b767f78d72f275298c2dd68e8ff0d575c2544eddf9c762.mp3
+    - assets/audio/male_2f44c5669abb492049b767f78d72f275298c2dd68e8ff0d575c2544eddf9c762.mp3
+    # CTC token table. Tiny, and useless if it ever disagrees with the
+    # model — so it ships with the app rather than being downloaded.
+    - assets/stt/vocab.json
 
   fonts:
     - family: Bricolage Grotesque

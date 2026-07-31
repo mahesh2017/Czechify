@@ -235,7 +235,7 @@ void main() {
   );
 
   test(
-    'strict account install rolls local data back when pull fails',
+    'account snapshot download failure leaves local data untouched',
     () async {
       await database.customStatement(
         "INSERT INTO user_progress (key,value) VALUES ('streak','9')",
@@ -244,13 +244,7 @@ void main() {
       await service.beginAccountTransition();
 
       try {
-        await expectLater(
-          database.transaction(() async {
-            await database.clearLearnerDataRows();
-            await service.pullForAccountInstall();
-          }),
-          throwsStateError,
-        );
+        await expectLater(service.downloadAccountSnapshot(), throwsStateError);
       } finally {
         service.endAccountTransition();
       }

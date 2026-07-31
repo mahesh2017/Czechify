@@ -47,6 +47,8 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   /// Index currently being spoken during "play all", or -1 when idle.
   int _playingIndex = -1;
   bool _playingAll = false;
+  int _imageTeachingPage = 0;
+  bool _translationRevealed = false;
 
   /// Captured in initState so it can be stopped safely from dispose().
   EnglishTts? _english;
@@ -82,13 +84,21 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     // The State outlives a swap to a different exercise, so a stale cache
     // would keep showing the previous lesson's words.
     if (!identical(oldWidget.exercise, widget.exercise)) _cachedItems = null;
+    if (!identical(oldWidget.exercise, widget.exercise)) {
+      _imageTeachingPage = 0;
+      _translationRevealed = false;
+    }
   }
 
   /// "alphabet" (big symbol box) or "list" (phrase + meaning). Falls back to
   /// alphabet when items carry a symbol, otherwise list.
   String _styleFor(List<_TeachingItem> items) {
     final explicit = widget.exercise.data['style'] as String?;
-    if (explicit == 'alphabet' || explicit == 'list') return explicit!;
+    if (explicit == 'alphabet' ||
+        explicit == 'list' ||
+        explicit == 'image_cards') {
+      return explicit!;
+    }
     final hasSymbol = items.any((i) => i.symbol.isNotEmpty);
     return hasSymbol ? 'alphabet' : 'list';
   }
@@ -171,6 +181,9 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     final intro = (data['intro'] as String?)?.trim();
     final items = _items;
     final style = _styleFor(items);
+    if (style == 'image_cards' && items.isNotEmpty) {
+      return _buildImageTeachingSequence(context, items);
+    }
     // Content may name the set it plays; otherwise the generic label.
     final playAllLabel =
         data['play_all_label'] as String? ?? l10n.teachingPlayWholeSet;
@@ -272,6 +285,226 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             label: l10n.lessonGotItStartPractising,
             // A teaching card is never graded — advance straight to practice.
             onPressed: () => widget.onAnswered(const ExerciseResult.skipped()),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageTeachingSequence(
+    BuildContext context,
+    List<_TeachingItem> items,
+  ) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final wordIndex = _imageTeachingPage ~/ 2;
+    final sentencePage = _imageTeachingPage.isOdd;
+    final item = items[wordIndex];
+    final lastPage = _imageTeachingPage == items.length * 2 - 1;
+
+    void advance() {
+      if (lastPage) {
+        widget.onAnswered(const ExerciseResult.skipped());
+        return;
+      }
+      setState(() {
+        _imageTeachingPage++;
+        _translationRevealed = false;
+      });
+      if (!sentencePage) {
+        unawaited(_say(item.sentence));
+      }
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: LessonKicker(
+                  sentencePage
+                      ? l10n.teachingInSentence
+                      : l10n.teachingLookAndGuess,
+                  color: t.pri,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                l10n.teachingWordProgress(wordIndex + 1, items.length),
+                style: TextStyle(
+                  color: t.faint,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: AspectRatio(
+              aspectRatio: 1.25,
+              child: Image.asset(
+                item.image,
+                fit: BoxFit.cover,
+                cacheWidth: 880,
+                semanticLabel: item.imageLabel,
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          if (!sentencePage) ...[
+            Semantics(
+              button: true,
+              child: InkWell(
+                onTap: () {
+                  _say(item.cz);
+                  setState(() => _translationRevealed = true);
+                },
+                borderRadius: BorderRadius.circular(24),
+                child: SoftCard(
+                  shadow: false,
+                  border: Border.all(color: t.line),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: DisplayText(
+                              item.cz,
+                              size: 30,
+                              weight: FontWeight.w800,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Icon(Icons.volume_up_outlined, color: t.pri),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 220),
+                        child:
+                            _translationRevealed
+                                ? Column(
+                                  key: const ValueKey('meaning'),
+                                  children: [
+                                    Text(
+                                      l10n.teachingMeaning.toUpperCase(),
+                                      style: TextStyle(
+                                        color: t.faint,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w800,
+                                        letterSpacing: 1.4,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      item.en,
+                                      style: TextStyle(
+                                        color: t.muted,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                                : Text(
+                                  l10n.teachingTapWordMeaning,
+                                  key: const ValueKey('hint'),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: t.faint,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ] else ...[
+            SoftCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Semantics(
+                    button: true,
+                    label: AppLocalizations.of(context).a11yTapToHearSentence,
+                    excludeSemantics: true,
+                    child: InkWell(
+                      onTap: () {
+                        _say(item.sentence);
+                        setState(() => _translationRevealed = true);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40),
+                              child: Text(
+                                item.sentence,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: t.ink,
+                                  fontFamily: AppFonts.display,
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w700,
+                                  height: 1.3,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(Icons.volume_up_outlined, color: t.pri),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 220),
+                    child:
+                        _translationRevealed
+                            ? Text(
+                              item.sentenceEn,
+                              key: const ValueKey('sentence-meaning'),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: t.muted,
+                                fontSize: 15,
+                                height: 1.45,
+                              ),
+                            )
+                            : Text(
+                              l10n.teachingTapSentenceTranslation,
+                              key: const ValueKey('sentence-hint'),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: t.faint, fontSize: 13),
+                            ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: 20),
+          KeyCta(
+            label:
+                lastPage
+                    ? l10n.teachingStartExercises
+                    : sentencePage
+                    ? l10n.teachingNextWord
+                    : l10n.teachingSeeExample,
+            onPressed: advance,
           ),
         ],
       ),
@@ -576,63 +809,69 @@ class _PhraseRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return Material(
-      color: active ? t.violetSoft : t.card,
-      borderRadius: BorderRadius.circular(24),
-      child: InkWell(
-        onTap: onTap,
+    final l10n = AppLocalizations.of(context);
+    return Semantics(
+      button: true,
+      label: l10n.a11yTapToHear(item.cz),
+      excludeSemantics: true,
+      child: Material(
+        color: active ? t.violetSoft : t.card,
         borderRadius: BorderRadius.circular(24),
-        child: Container(
-          constraints: const BoxConstraints(minHeight: 64),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: active ? t.violet : t.line),
-            boxShadow: active ? null : t.shadow,
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.cz,
-                      style: TextStyle(
-                        fontFamily: AppFonts.display,
-                        fontSize: 21,
-                        fontWeight: FontWeight.w800,
-                        color: t.ink,
-                        height: 1.25,
-                      ),
-                    ),
-                    if (item.en.isNotEmpty) ...[
-                      const SizedBox(height: 4),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(24),
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 64),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: active ? t.violet : t.line),
+              boxShadow: active ? null : t.shadow,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        item.en,
+                        item.cz,
                         style: TextStyle(
-                          fontSize: 14,
-                          color: t.muted,
-                          height: 1.35,
+                          fontFamily: AppFonts.display,
+                          fontSize: 21,
+                          fontWeight: FontWeight.w800,
+                          color: t.ink,
+                          height: 1.25,
                         ),
                       ),
+                      if (item.en.isNotEmpty) ...[
+                        const SizedBox(height: 4),
+                        Text(
+                          item.en,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: t.muted,
+                            height: 1.35,
+                          ),
+                        ),
+                      ],
                     ],
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              // Violet: the phrase surfaces are the review/memory colour, and
-              // the whole row is already the tap target.
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: active ? t.card : t.violetSoft,
-                  shape: BoxShape.circle,
+                const SizedBox(width: 12),
+                // Violet: the phrase surfaces are the review/memory colour, and
+                // the whole row is already the tap target.
+                Container(
+                  width: 38,
+                  height: 38,
+                  decoration: BoxDecoration(
+                    color: active ? t.card : t.violetSoft,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.play_arrow, size: 20, color: t.violet),
                 ),
-                child: Icon(Icons.play_arrow, size: 20, color: t.violet),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -658,100 +897,106 @@ class _LetterRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return Material(
-      color: active ? t.priSoft : t.card,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTapName,
+    final l10n = AppLocalizations.of(context);
+    return Semantics(
+      button: true,
+      label: l10n.a11yTapToHear(item.name.isEmpty ? item.symbol : item.name),
+      excludeSemantics: true,
+      child: Material(
+        color: active ? t.priSoft : t.card,
         borderRadius: BorderRadius.circular(16),
-        child: Container(
-          // 44pt floor even on the shortest row.
-          constraints: const BoxConstraints(minHeight: 60),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: active ? t.pri : t.line),
-          ),
-          child: Row(
-            children: [
-              // The letter and how it is named, in a tinted tile.
-              Container(
-                width: 58,
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                decoration: BoxDecoration(
-                  color: active ? t.card : t.priSoft,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      item.symbol,
-                      style: TextStyle(
-                        fontFamily: AppFonts.display,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        color: t.pri,
-                        height: 1.0,
-                      ),
-                    ),
-                    if (item.name.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2),
-                        child: Text(
-                          item.name,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          // 12px is the type floor — nothing smaller anywhere.
-                          style: TextStyle(fontSize: 12, color: t.priInk),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Respelling, set in mono so it reads as notation rather
-                    // than as another Czech word.
-                    if (item.sound.isNotEmpty)
+        child: InkWell(
+          onTap: onTapName,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            // 44pt floor even on the shortest row.
+            constraints: const BoxConstraints(minHeight: 60),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: active ? t.pri : t.line),
+            ),
+            child: Row(
+              children: [
+                // The letter and how it is named, in a tinted tile.
+                Container(
+                  width: 58,
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    color: active ? t.card : t.priSoft,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
                       Text(
-                        item.sound,
+                        item.symbol,
                         style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 12.5,
-                          letterSpacing: 0.6,
-                          fontWeight: FontWeight.w700,
-                          color: t.muted,
+                          fontFamily: AppFonts.display,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          color: t.pri,
+                          height: 1.0,
                         ),
                       ),
-                    if (item.example.isNotEmpty) ...[
-                      const SizedBox(height: 3),
-                      Text(
-                        item.exampleEn.isEmpty
-                            ? item.example
-                            : '${item.example} — ${item.exampleEn}',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: t.ink,
-                          fontWeight: FontWeight.w600,
+                      if (item.name.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2),
+                          child: Text(
+                            item.name,
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            // 12px is the type floor — nothing smaller anywhere.
+                            style: TextStyle(fontSize: 12, color: t.priInk),
+                          ),
                         ),
-                      ),
                     ],
-                  ],
+                  ),
                 ),
-              ),
-              // Play the example word.
-              if (item.example.isNotEmpty)
-                IconButton(
-                  onPressed: onTapWord,
-                  icon: const Icon(Icons.volume_up_outlined),
-                  color: t.pri,
-                  tooltip: AppLocalizations.of(context).audioHearTheWord,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Respelling, set in mono so it reads as notation rather
+                      // than as another Czech word.
+                      if (item.sound.isNotEmpty)
+                        Text(
+                          item.sound,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                            letterSpacing: 0.6,
+                            fontWeight: FontWeight.w700,
+                            color: t.muted,
+                          ),
+                        ),
+                      if (item.example.isNotEmpty) ...[
+                        const SizedBox(height: 3),
+                        Text(
+                          item.exampleEn.isEmpty
+                              ? item.example
+                              : '${item.example} — ${item.exampleEn}',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: t.ink,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
-            ],
+                // Play the example word.
+                if (item.example.isNotEmpty)
+                  IconButton(
+                    onPressed: onTapWord,
+                    icon: const Icon(Icons.volume_up_outlined),
+                    color: t.pri,
+                    tooltip: AppLocalizations.of(context).audioHearTheWord,
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -771,6 +1016,10 @@ class _TeachingItem {
   // List-style fields.
   final String cz;
   final String en;
+  final String image;
+  final String imageLabel;
+  final String sentence;
+  final String sentenceEn;
 
   const _TeachingItem({
     required this.symbol,
@@ -782,6 +1031,10 @@ class _TeachingItem {
     required this.say,
     required this.cz,
     required this.en,
+    required this.image,
+    required this.imageLabel,
+    required this.sentence,
+    required this.sentenceEn,
   });
 
   /// What "play all" and a row tap should speak (Czech).
@@ -805,6 +1058,10 @@ class _TeachingItem {
       say: rawSay.isNotEmpty ? rawSay : (cz.isNotEmpty ? cz : example),
       cz: cz,
       en: (json['en'] as String? ?? '').trim(),
+      image: (json['image'] as String? ?? '').trim(),
+      imageLabel: (json['image_label'] as String? ?? '').trim(),
+      sentence: (json['sentence'] as String? ?? '').trim(),
+      sentenceEn: (json['sentence_en'] as String? ?? '').trim(),
     );
   }
 }

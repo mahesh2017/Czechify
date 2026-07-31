@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/widgets.dart';
 import '../../core/config/dev_flags.dart';
 import '../../data/database/database.dart' as db;
 import '../../domain/entities/unit.dart';
@@ -7,7 +8,10 @@ import '../../domain/entities/enums.dart';
 import '../../domain/engines/curriculum_access_policy.dart';
 import '../../domain/engines/learning_router.dart';
 import '../../domain/entities/learning_evidence.dart';
+import '../../l10n/app_localizations.dart';
 import 'database_providers.dart';
+import 'settings_providers.dart';
+import '../models/curriculum_path_item.dart';
 
 /// Provider for all units in a phase (A1 or A2).
 final unitsProvider = FutureProvider.family<List<Unit>, Phase>((ref, phase) {
@@ -110,6 +114,60 @@ final unlockedLessonIdsProvider = FutureProvider<Set<int>>(
   (ref) async =>
       (await ref.watch(curriculumAccessProvider.future)).unlockedLessonIds,
 );
+
+/// Joins authoritative curriculum data with UI-only path metadata.
+final curriculumPathItemsProvider = FutureProvider<List<CurriculumPathItem>>((
+  ref,
+) async {
+  final locale = ref.watch(settingsProvider.select((value) => value.locale));
+  final l10n = lookupAppLocalizations(locale ?? const Locale('en'));
+  final units = await ref.watch(allUnitsProvider.future);
+  final access = await ref.watch(curriculumAccessProvider.future);
+  final completed = await ref.watch(completedLessonIdsProvider.future);
+  final result = <CurriculumPathItem>[];
+
+  for (final phase in Phase.values) {
+    final levelUnits = units.where((unit) => unit.phase == phase).toList();
+    for (final (index, unit) in levelUnits.indexed) {
+      final lessons = await ref.watch(unitLessonsProvider(unit.id).future);
+      final completedCount =
+          lessons.where((lesson) => completed.contains(lesson.id)).length;
+      final unlocked = access.unlockedUnitIds.contains(unit.id);
+      final state =
+          lessons.isNotEmpty && completedCount == lessons.length
+              ? CurriculumPathState.completed
+              : !unlocked
+              ? CurriculumPathState.locked
+              : completedCount > 0 ||
+                  lessons.any(
+                    (lesson) => access.unlockedLessonIds.contains(lesson.id),
+                  )
+              ? CurriculumPathState.current
+              : CurriculumPathState.available;
+      result.add(
+        CurriculumPathItem(
+          unit: unit,
+          lessons: lessons,
+          state: state,
+          section: CurriculumPathItem.sectionFor(
+            unit,
+            index,
+            levelUnits.length,
+            l10n,
+          ),
+          payoff: CurriculumPathItem.payoffFor(unit, l10n),
+          durationMinutes: lessons.fold(
+            0,
+            (total, lesson) => total + lesson.durationMinutes,
+          ),
+          recommendation:
+              state == CurriculumPathState.current ? 'Recommended next' : null,
+        ),
+      );
+    }
+  }
+  return result;
+});
 
 final lessonUnlockedProvider = FutureProvider.family<bool, int>(
   (ref, lessonId) async => (await ref.watch(

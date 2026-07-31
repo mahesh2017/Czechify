@@ -31,7 +31,15 @@ class GrammarReferenceScreen extends ConsumerWidget {
       ),
       body: unitsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => const Center(child: Text('Failed to load units')),
+        error: (_, __) => const Center(
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: Text(
+              'Grammar reference will be available after the first lesson.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
         data: (allUnits) {
           // Falling back to every unit while access is loading or errored is
           // deliberate: showing too much reference material is a far smaller
@@ -160,12 +168,12 @@ class _UnitGrammarSection extends ConsumerWidget {
                                     ),
                                     decoration: BoxDecoration(
                                       color: t.priFill,
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Text(
                                       rule.id,
                                       style: TextStyle(
-                                        fontSize: 11,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w700,
                                         color: t.onFill,
                                       ),

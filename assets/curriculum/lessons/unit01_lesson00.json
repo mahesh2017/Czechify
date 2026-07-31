@@ -9,6 +9,92 @@
   "is_review": false,
   "exercises": [
     {
+      "id": 898,
+      "lesson_id": 100,
+      "type": "teaching",
+      "prompt": "Meet eight useful Czech words through pictures",
+      "data": {
+        "type": "teaching",
+        "style": "image_cards",
+        "heading": "See it, hear it, use it",
+        "body": "First connect the Czech sound to the picture. Reveal English only after you have made a guess.",
+        "items": [
+          {
+            "cz": "káva",
+            "en": "coffee",
+            "say": "káva",
+            "image": "assets/images/unit01/kava_v1.png",
+            "image_label": "A warm cup of coffee",
+            "sentence": "To je káva.",
+            "sentence_en": "This is coffee."
+          },
+          {
+            "cz": "čaj",
+            "en": "tea",
+            "say": "čaj",
+            "image": "assets/images/unit01/caj_v1.png",
+            "image_label": "A cup of tea",
+            "sentence": "Čaj je horký.",
+            "sentence_en": "The tea is hot."
+          },
+          {
+            "cz": "dům",
+            "en": "house",
+            "say": "dům",
+            "image": "assets/images/unit01/dum_v1.png",
+            "image_label": "A family house",
+            "sentence": "To je můj dům.",
+            "sentence_en": "This is my house."
+          },
+          {
+            "cz": "pes",
+            "en": "dog",
+            "say": "pes",
+            "image": "assets/images/unit01/pes_v1.png",
+            "image_label": "A friendly dog",
+            "sentence": "Pes je doma.",
+            "sentence_en": "The dog is at home."
+          },
+          {
+            "cz": "chléb",
+            "en": "bread",
+            "say": "chléb",
+            "image": "assets/images/unit01/chleb_v1.png",
+            "image_label": "A loaf of bread",
+            "sentence": "Chléb je čerstvý.",
+            "sentence_en": "The bread is fresh."
+          },
+          {
+            "cz": "jablko",
+            "en": "apple",
+            "say": "jablko",
+            "image": "assets/images/unit01/jablko_v1.png",
+            "image_label": "A red apple",
+            "sentence": "Jablko je červené.",
+            "sentence_en": "The apple is red."
+          },
+          {
+            "cz": "kolo",
+            "en": "bicycle",
+            "say": "kolo",
+            "image": "assets/images/unit01/kolo_v1.png",
+            "image_label": "A city bicycle",
+            "sentence": "Mám nové kolo.",
+            "sentence_en": "I have a new bicycle."
+          },
+          {
+            "cz": "děti",
+            "en": "children",
+            "say": "děti",
+            "image": "assets/images/unit01/deti_v1.png",
+            "image_label": "Two school-age children",
+            "sentence": "Děti jsou ve škole.",
+            "sentence_en": "The children are at school."
+          }
+        ]
+      }
+    },
+    {
       "id": 899,
       "lesson_id": 100,
       "type": "teaching",
@@ -31,7 +117,7 @@
           {
             "symbol": "á",
             "name": "‘long ah’",
-            "name_say": "á",
+            "name_say": "dlouhé á",
             "sound": "long 'a' — held ~2x",
             "example": "káva",
             "example_en": "coffee",
@@ -94,7 +180,7 @@
           {
             "symbol": "é",
             "name": "‘long eh’",
-            "name_say": "é",
+            "name_say": "dlouhé é",
             "sound": "long 'e'",
             "example": "mléko",
             "example_en": "milk",
@@ -147,8 +233,8 @@
           },
           {
             "symbol": "i",
-            "name": "‘ee’ (soft i)",
-            "name_say": "í",
+            "name": "‘ih’ (soft i)",
+            "name_say": "měkké i",
             "sound": "like 'i' in sit",
             "example": "pivo",
             "example_en": "beer",
@@ -318,8 +404,8 @@
           },
           {
             "symbol": "ú",
-            "name": "‘long oo’",
-            "name_say": "ú",
+            "name": "‘long oo’ (ú)",
+            "name_say": "ú s čárkou",
             "sound": "long 'oo' (at word start)",
             "example": "úkol",
             "example_en": "task",
@@ -327,8 +413,8 @@
           },
           {
             "symbol": "ů",
-            "name": "‘long oo’",
-            "name_say": "ů",
+            "name": "‘long oo’ (ů)",
+            "name_say": "ů s kroužkem",
             "sound": "long 'oo' (mid/end of word)",
             "example": "stůl",
             "example_en": "table",

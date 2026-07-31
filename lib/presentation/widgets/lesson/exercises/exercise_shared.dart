@@ -114,23 +114,28 @@ class CzechCharBar extends StatelessWidget {
               separatorBuilder: (_, __) => const SizedBox(width: 5),
               itemBuilder: (context, i) {
                 final ch = TextNormalizer.czechDiacriticChars[i];
-                return Material(
-                  color: enabled ? t.priSoft : t.card,
-                  borderRadius: BorderRadius.circular(12),
-                  child: InkWell(
-                    onTap: enabled ? () => _insert(ch) : null,
+                return Semantics(
+                  button: enabled,
+                  label: AppLocalizations.of(context).a11yInsertCharacter(ch),
+                  excludeSemantics: true,
+                  child: Material(
+                    color: enabled ? t.priSoft : t.card,
                     borderRadius: BorderRadius.circular(12),
-                    child: SizedBox(
-                      width: 40,
-                      height: 46,
-                      child: Center(
-                        child: Text(
-                          ch,
-                          style: TextStyle(
-                            fontFamily: AppFonts.display,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w700,
-                            color: enabled ? t.pri : t.faint,
+                    child: InkWell(
+                      onTap: enabled ? () => _insert(ch) : null,
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        width: 40,
+                        height: 46,
+                        child: Center(
+                          child: Text(
+                            ch,
+                            style: TextStyle(
+                              fontFamily: AppFonts.display,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w700,
+                              color: enabled ? t.pri : t.faint,
+                            ),
                           ),
                         ),
                       ),

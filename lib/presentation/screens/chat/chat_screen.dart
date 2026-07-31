@@ -12,40 +12,37 @@ import '../../providers/database_providers.dart';
 import '../../providers/review_providers.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/wash_background.dart';
 
 /// Icon + soft-tint colors for each conversation scenario.
 ({IconData icon, Color tint, Color fg}) _scenarioStyle(
   BuildContext context,
-  String title,
+  String id,
 ) {
   final t = context.tokens;
-  return switch (title) {
-    'Casual Chat' => (
+  return switch (id) {
+    'casual_chat' => (
       icon: Icons.local_cafe_outlined,
       tint: t.amberSoft,
       fg: t.amber,
     ),
-    'At the Restaurant' => (
+    'restaurant' => (
       icon: Icons.restaurant_outlined,
       tint: t.redSoft,
       fg: t.red,
     ),
-    'Asking Directions' => (
-      icon: Icons.map_outlined,
-      tint: t.priSoft,
-      fg: t.pri,
-    ),
-    'Shopping' => (
+    'directions' => (icon: Icons.map_outlined, tint: t.priSoft, fg: t.pri),
+    'shopping' => (
       icon: Icons.shopping_bag_outlined,
       tint: t.violetSoft,
       fg: t.violet,
     ),
-    'At the Doctor' => (
+    'doctor' => (
       icon: Icons.medical_services_outlined,
       tint: t.redSoft,
       fg: t.red,
     ),
-    'Job Interview' => (
+    'job_interview' => (
       icon: Icons.work_outline,
       tint: t.greenSoft,
       fg: t.green,
@@ -53,6 +50,66 @@ import '../../widgets/common/soft_ui.dart';
     _ => (icon: Icons.chat_bubble_outline, tint: t.priSoft, fg: t.pri),
   };
 }
+
+({String path, String label})? _scenarioArt(String id, AppLocalizations l10n) =>
+    switch (id) {
+      'casual_chat' => (
+        path: 'assets/images/chat_scenario_cafe_v1.png',
+        label: l10n.scenarioCafeImage,
+      ),
+      'directions' => (
+        path: 'assets/images/chat_scenario_directions_v1.png',
+        label: l10n.scenarioDirectionsImage,
+      ),
+      'shopping' => (
+        path: 'assets/images/chat_scenario_shopping_v1.png',
+        label: l10n.scenarioShoppingImage,
+      ),
+      'restaurant' => (
+        path: 'assets/images/chat_scenario_restaurant_v1.png',
+        label: l10n.scenarioRestaurantImage,
+      ),
+      'doctor' => (
+        path: 'assets/images/chat_scenario_doctor_v1.png',
+        label: l10n.scenarioDoctorImage,
+      ),
+      'job_interview' => (
+        path: 'assets/images/chat_scenario_interview_v1.png',
+        label: l10n.scenarioInterviewImage,
+      ),
+      _ => null,
+    };
+
+({String title, String description}) _scenarioCopy(
+  AppLocalizations l10n,
+  String id,
+) => switch (id) {
+  'casual_chat' => (
+    title: l10n.scenarioCasual,
+    description: l10n.scenarioCasualBody,
+  ),
+  'restaurant' => (
+    title: l10n.scenarioRestaurant,
+    description: l10n.scenarioRestaurantBody,
+  ),
+  'directions' => (
+    title: l10n.scenarioDirections,
+    description: l10n.scenarioDirectionsBody,
+  ),
+  'shopping' => (
+    title: l10n.scenarioShopping,
+    description: l10n.scenarioShoppingBody,
+  ),
+  'doctor' => (
+    title: l10n.scenarioDoctor,
+    description: l10n.scenarioDoctorBody,
+  ),
+  'job_interview' => (
+    title: l10n.scenarioInterview,
+    description: l10n.scenarioInterviewBody,
+  ),
+  _ => (title: l10n.chatTitle, description: l10n.chatSubtitle),
+};
 
 /// AI conversation screen — role-play scenarios with AI Czech tutor.
 class ChatScreen extends ConsumerStatefulWidget {
@@ -66,6 +123,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   final _inputController = TextEditingController();
   final _scrollController = ScrollController();
   bool _isListening = false;
+  String? _voiceNotice;
 
   @override
   void dispose() {
@@ -78,7 +136,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   /// for the learner to review (and fix) before sending.
   Future<void> _startVoiceInput() async {
     if (_isListening) return;
-    setState(() => _isListening = true);
+    setState(() {
+      _isListening = true;
+      _voiceNotice = null;
+    });
     try {
       final stt = ref.read(sttServiceProvider) as NativeSttService;
       final transcription = await stt.listenFor(
@@ -87,16 +148,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       if (!mounted) return;
       if (transcription.isNotEmpty) {
         _inputController.text = transcription;
+      } else {
+        setState(() {
+          _voiceNotice = AppLocalizations.of(context).chatVoiceRetry;
+        });
       }
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Speech recognition failed. Check microphone permissions.',
-            ),
-          ),
-        );
+        setState(() {
+          _voiceNotice = AppLocalizations.of(context).chatVoiceUnavailable;
+        });
       }
     } finally {
       if (mounted) setState(() => _isListening = false);
@@ -139,146 +200,213 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
-    return Scaffold(
-      backgroundColor: t.bg,
-      appBar:
-          chat.conversationId == null
-              ? null
-              : AppBar(
-                backgroundColor: t.bg,
-                surfaceTintColor: Colors.transparent,
-                titleSpacing: 0,
-                shape: Border(bottom: BorderSide(color: t.line)),
-                leading: IconButton(
-                  icon: const Icon(Icons.chevron_left),
-                  color: t.muted,
-                  tooltip: l10n.chatBackToScenarios,
-                  onPressed:
-                      () => ref.read(chatProvider.notifier).resetConversation(),
-                ),
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      chat.scenarioTitle,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: t.ink,
-                      ),
-                    ),
-                    Text(
-                      l10n.chatTurnsIn(chat.messages.length),
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: t.muted,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-      body:
-          chat.conversationId == null
-              ? const SafeArea(bottom: false, child: _ScenarioPicker())
-              : Column(
-                children: [
-                  // Messages list
-                  Expanded(
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      padding: const EdgeInsets.all(16),
-                      itemCount:
-                          chat.messages.length + (chat.isLoading ? 1 : 0),
-                      itemBuilder: (context, index) {
-                        if (index == chat.messages.length && chat.isLoading) {
-                          return const _TypingIndicator();
-                        }
-                        return _MessageBubble(message: chat.messages[index]);
-                      },
-                    ),
+    // The scenario grid is a canvas screen and sits on the wash; a live
+    // conversation is a focused surface and stays on flat --bg.
+    return _MaybeWash(
+      enabled: chat.conversationId == null,
+      child: Scaffold(
+        backgroundColor:
+            chat.conversationId == null ? Colors.transparent : t.bg,
+        appBar:
+            chat.conversationId == null
+                ? null
+                : AppBar(
+                  backgroundColor: t.bg,
+                  surfaceTintColor: Colors.transparent,
+                  titleSpacing: 0,
+                  shape: Border(bottom: BorderSide(color: t.line)),
+                  leading: IconButton(
+                    icon: const Icon(Icons.chevron_left),
+                    color: t.muted,
+                    tooltip: l10n.chatBackToScenarios,
+                    onPressed:
+                        () =>
+                            ref.read(chatProvider.notifier).resetConversation(),
                   ),
-                  // Error message with a one-tap retry — the message is already
-                  // in the transcript, so retry only repeats the tutor call.
-                  if (chat.error != null)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 4,
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _scenarioCopy(l10n, chat.scenarioId).title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: t.ink,
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              chat.error!,
-                              style: TextStyle(
-                                color: t.redInk,
-                                fontSize: 13.5,
-                                height: 1.4,
-                              ),
-                            ),
-                          ),
-                          TextButton.icon(
-                            onPressed:
-                                () =>
-                                    ref
-                                        .read(chatProvider.notifier)
-                                        .retryLastMessage(),
-                            icon: const Icon(Icons.refresh, size: 16),
-                            label: Text(AppLocalizations.of(context).retry),
-                          ),
-                        ],
+                      Text(
+                        l10n.chatTurnsIn(chat.messages.length),
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: t.muted,
+                        ),
                       ),
-                    ),
-                  // Suggested replies — tap to prefill, learner reviews
-                  // before sending.
-                  if (chat.suggestedReplies.isNotEmpty && !chat.isLoading)
-                    SizedBox(
-                      height: 52,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-                        itemCount: chat.suggestedReplies.length,
-                        separatorBuilder: (_, __) => const SizedBox(width: 8),
-                        itemBuilder: (context, i) {
-                          final suggestion = chat.suggestedReplies[i];
-                          return Material(
-                            color: t.priSoft,
-                            borderRadius: BorderRadius.circular(999),
-                            child: InkWell(
-                              // Prefills rather than sends — the learner still
-                              // reads it before it goes.
-                              onTap: () => _inputController.text = suggestion,
-                              borderRadius: BorderRadius.circular(999),
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 15,
-                                ),
-                                child: Text(
-                                  suggestion,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: t.priInk,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
+                    ],
+                  ),
+                ),
+        body:
+            chat.conversationId == null
+                ? const SafeArea(bottom: false, child: _ScenarioPicker())
+                : Column(
+                  children: [
+                    // Messages list
+                    Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        padding: const EdgeInsets.all(16),
+                        itemCount:
+                            chat.messages.length + (chat.isLoading ? 1 : 0),
+                        itemBuilder: (context, index) {
+                          if (index == chat.messages.length && chat.isLoading) {
+                            return const _TypingIndicator();
+                          }
+                          return _MessageBubble(message: chat.messages[index]);
                         },
                       ),
                     ),
-                  // Input bar
-                  _InputBar(
-                    controller: _inputController,
-                    onSend: _sendMessage,
-                    isLoading: chat.isLoading,
-                    isListening: _isListening,
-                    onMic: _startVoiceInput,
-                  ),
-                ],
+                    // Error message with a one-tap retry — the message is already
+                    // in the transcript, so retry only repeats the tutor call.
+                    if (chat.error != null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 4,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                chat.error!,
+                                style: TextStyle(
+                                  color: t.redInk,
+                                  fontSize: 13.5,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                            TextButton.icon(
+                              onPressed:
+                                  () =>
+                                      ref
+                                          .read(chatProvider.notifier)
+                                          .retryLastMessage(),
+                              icon: const Icon(Icons.refresh, size: 16),
+                              label: Text(AppLocalizations.of(context).retry),
+                            ),
+                          ],
+                        ),
+                      ),
+                    // Suggested replies — tap to prefill, learner reviews
+                    // before sending.
+                    if (chat.suggestedReplies.isNotEmpty && !chat.isLoading)
+                      SizedBox(
+                        height: 52,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+                          itemCount: chat.suggestedReplies.length,
+                          separatorBuilder: (_, __) => const SizedBox(width: 8),
+                          itemBuilder: (context, i) {
+                            final suggestion = chat.suggestedReplies[i];
+                            return Material(
+                              color: t.priSoft,
+                              borderRadius: BorderRadius.circular(999),
+                              child: InkWell(
+                                // Prefills rather than sends — the learner still
+                                // reads it before it goes.
+                                onTap: () => _inputController.text = suggestion,
+                                borderRadius: BorderRadius.circular(999),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                  ),
+                                  child: Text(
+                                    suggestion,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: t.priInk,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    if (_voiceNotice != null)
+                      _VoiceNotice(
+                        message: _voiceNotice!,
+                        onDismiss: () => setState(() => _voiceNotice = null),
+                      ),
+                    // Input bar
+                    _InputBar(
+                      controller: _inputController,
+                      onSend: _sendMessage,
+                      isLoading: chat.isLoading,
+                      isListening: _isListening,
+                      onMic: _startVoiceInput,
+                    ),
+                  ],
+                ),
+      ),
+    );
+  }
+}
+
+/// Applies [WashBackground] only when [enabled], so one build can serve both
+/// the wash-backed scenario grid and the flat conversation view.
+class _MaybeWash extends StatelessWidget {
+  const _MaybeWash({required this.enabled, required this.child});
+
+  final bool enabled;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) =>
+      enabled ? WashBackground(child: child) : child;
+}
+
+class _VoiceNotice extends StatelessWidget {
+  final String message;
+  final VoidCallback onDismiss;
+
+  const _VoiceNotice({required this.message, required this.onDismiss});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Semantics(
+      liveRegion: true,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(16, 6, 16, 0),
+        padding: const EdgeInsets.fromLTRB(14, 10, 6, 10),
+        decoration: BoxDecoration(
+          color: t.amberSoft,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.hearing_disabled_outlined, size: 20, color: t.amber),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                message,
+                style: TextStyle(fontSize: 13.5, height: 1.35, color: t.ink),
               ),
+            ),
+            IconButton(
+              onPressed: onDismiss,
+              icon: const Icon(Icons.close, size: 18),
+              color: t.muted,
+              tooltip: AppLocalizations.of(context).chatDismiss,
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -344,7 +472,7 @@ class _ScenarioPicker extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final recent = ref.watch(recentConversationsProvider).value ?? const [];
     return ListView(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 132),
       children: [
         DisplayText(l10n.chatTitle, size: 29, weight: FontWeight.w800),
         const SizedBox(height: 6),
@@ -442,14 +570,21 @@ class _ScenarioPicker extends ConsumerWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            mainAxisExtent: 176,
+            mainAxisExtent: 218,
           ),
           itemCount: ChatScenario.all.length,
           itemBuilder: (context, i) {
             final scenario = ChatScenario.all[i];
-            final s = _scenarioStyle(context, scenario.title);
-            return SoftCard(
-              padding: const EdgeInsets.all(16),
+            final l10n = AppLocalizations.of(context);
+            final copy = _scenarioCopy(l10n, scenario.id);
+            final s = _scenarioStyle(context, scenario.id);
+            final art = _scenarioArt(scenario.id, l10n);
+            return Semantics(
+              label: l10n.a11yScenarioCard(copy.title, copy.description),
+              button: true,
+              excludeSemantics: true,
+              child: SoftCard(
+              padding: EdgeInsets.zero,
               onTap:
                   () => ref
                       .read(chatProvider.notifier)
@@ -457,39 +592,97 @@ class _ScenarioPicker extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconTile(
-                    icon: s.icon,
-                    tint: s.tint,
-                    fg: s.fg,
-                    size: 44,
-                    radius: 16,
-                    iconSize: 20,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    scenario.title,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      height: 1.2,
-                      color: t.ink,
+                  if (art != null)
+                    ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(24),
+                      ),
+                      child: Image.asset(
+                        art.path,
+                        height: 96,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        semanticLabel: art.label,
+                      ),
+                    )
+                  else
+                    IconTile(
+                      icon: s.icon,
+                      tint: s.tint,
+                      fg: s.fg,
+                      size: 44,
+                      radius: 16,
+                      iconSize: 20,
                     ),
-                  ),
-                  const SizedBox(height: 6),
                   Expanded(
-                    child: Text(
-                      scenario.description,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: t.muted,
-                        height: 1.4,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            copy.title,
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              height: 1.2,
+                              color: t.ink,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Expanded(
+                            child: Text(
+                              copy.description,
+                              // Two lines is what the 218pt card actually
+                              // has room for; a third was drawn clipped
+                              // mid-word instead of ellipsised.
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: t.muted,
+                                height: 1.4,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 9,
+                                  vertical: 3,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: t.elev,
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
+                                child: Text(
+                                  'A1',
+                                  style: TextStyle(
+                                    color: t.muted,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 7),
+                              Text(
+                                '5–8 min',
+                                style: TextStyle(
+                                  color: t.faint,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
+            ),
             );
           },
         ),
@@ -611,12 +804,16 @@ class _MessageBubble extends ConsumerWidget {
                   runSpacing: 4,
                   children:
                       message.newVocabulary!.map((v) {
-                        return ActionChip(
-                          label: Text('${v.cz} = ${v.en}'),
-                          avatar: const Icon(Icons.add, size: 16),
-                          tooltip: 'Add to review deck',
-                          visualDensity: VisualDensity.compact,
-                          onPressed: () => _addVocabToDeck(context, ref, v),
+                        return Semantics(
+                          label: AppLocalizations.of(context).a11yAddVocabToDeck,
+                          button: true,
+                          child: ActionChip(
+                            label: Text('${v.cz} = ${v.en}'),
+                            avatar: const Icon(Icons.add, size: 16),
+                            tooltip: AppLocalizations.of(context).a11yAddVocabToDeck,
+                            visualDensity: VisualDensity.compact,
+                            onPressed: () => _addVocabToDeck(context, ref, v),
+                          ),
                         );
                       }).toList(),
                 ),
@@ -895,34 +1092,39 @@ class _InputBar extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            InkWell(
-              onTap: isLoading ? null : onSend,
-              borderRadius: BorderRadius.circular(999),
-              child: Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: t.priFill,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: t.priFill.withValues(alpha: 0.4),
-                      blurRadius: 18,
-                      offset: const Offset(0, 8),
-                      spreadRadius: -8,
-                    ),
-                  ],
+            Semantics(
+              label: AppLocalizations.of(context).a11ySendMessage,
+              button: true,
+              excludeSemantics: true,
+              child: InkWell(
+                onTap: isLoading ? null : onSend,
+                borderRadius: BorderRadius.circular(999),
+                child: Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: t.priFill,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: t.priFill.withValues(alpha: 0.4),
+                        blurRadius: 18,
+                        offset: const Offset(0, 8),
+                        spreadRadius: -8,
+                      ),
+                    ],
+                  ),
+                  child:
+                      isLoading
+                          ? Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: t.onFill,
+                            ),
+                          )
+                          : Icon(Icons.send, size: 18, color: t.onFill),
                 ),
-                child:
-                    isLoading
-                        ? Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: t.onFill,
-                          ),
-                        )
-                        : Icon(Icons.send, size: 18, color: t.onFill),
               ),
             ),
           ],

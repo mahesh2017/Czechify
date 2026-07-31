@@ -951,11 +951,13 @@ class FeedbackSheet extends StatelessWidget {
     this.onPlay,
     this.extra,
     this.busy = false,
+    this.continueSemanticsLabel,
   });
 
   final String title;
   final VoidCallback? onContinue;
   final String continueLabel;
+  final String? continueSemanticsLabel;
   final FeedbackTone tone;
   final String? body;
   final String? correctAnswer;
@@ -1122,25 +1124,30 @@ class FeedbackSheet extends StatelessWidget {
               const SizedBox(height: 16),
               SizedBox(
                 height: 54,
-                child: FilledButton(
-                  onPressed: busy ? null : onContinue,
-                  style: FilledButton.styleFrom(
-                    backgroundColor: ink,
-                    foregroundColor: t.card,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                child: Semantics(
+                  label: continueSemanticsLabel ?? continueLabel,
+                  button: true,
+                  excludeSemantics: true,
+                  child: FilledButton(
+                    onPressed: busy ? null : onContinue,
+                    style: FilledButton.styleFrom(
+                      backgroundColor: ink,
+                      foregroundColor: t.card,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
+                    child:
+                        busy
+                            ? SizedBox.square(
+                              dimension: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation(t.card),
+                              ),
+                            )
+                            : Text(continueLabel),
                   ),
-                  child:
-                      busy
-                          ? SizedBox.square(
-                            dimension: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation(t.card),
-                            ),
-                          )
-                          : Text(continueLabel),
                 ),
               ),
             ],
@@ -1163,12 +1170,17 @@ class KeyCta extends StatefulWidget {
     required this.onPressed,
     this.color,
     this.foreground,
+    this.radius = 24,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final Color? color;
   final Color? foreground;
+
+  /// 24 on the big step-forward keys, 16 where the comp pairs the button with
+  /// a sibling of the same size (review's Go again / Done, for one).
+  final double radius;
 
   @override
   State<KeyCta> createState() => _KeyCtaState();
@@ -1202,7 +1214,7 @@ class _KeyCtaState extends State<KeyCta> {
           height: 58,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(widget.radius),
             color: enabled ? null : t.elev,
             // The key's depth lives in the gradient: a bright sliver along the
             // top edge and a dark one along the bottom. Drawing those as an
@@ -1296,7 +1308,9 @@ class ScoreRing extends StatelessWidget {
             child: CircularProgressIndicator(
               value: fraction.clamp(0.0, 1.0),
               strokeWidth: 10,
-              strokeCap: StrokeCap.round,
+              // Flat ends: the comp draws these as conic sweeps, and a round
+              // cap makes a 0% ring show a stub of colour it has not earned.
+              strokeCap: StrokeCap.butt,
               backgroundColor: t.elev,
               valueColor: AlwaysStoppedAnimation(hue),
             ),

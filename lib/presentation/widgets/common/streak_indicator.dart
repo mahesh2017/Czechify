@@ -28,7 +28,8 @@ class StreakIndicator extends ConsumerWidget {
           const SizedBox(width: 4),
           Text(
             '$streak',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: TextStyle(
+              fontSize: 14,
               fontWeight: FontWeight.bold,
               color: streak > 0 ? context.tokens.amber : context.tokens.muted,
             ),

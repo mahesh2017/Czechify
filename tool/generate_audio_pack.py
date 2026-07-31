@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import sys
 import time
+from datetime import datetime, timezone
 import urllib.error
 import urllib.request
 
@@ -190,12 +191,45 @@ def main() -> int:
             entries[digest] = f"assets/audio/{filename}"
         print(f"[{index}/{len(plan)}] {text}")
 
+    # Part of the male pack is ElevenLabs Oliver, not Azure — recording only
+    # the Azure voice here would tell the next person regenerating this pack
+    # that every clip came from one engine, and they would overwrite the other.
+    name = voice
+    try:
+        oliver = set(json.loads(
+            (AUDIO / "eleven_done.json").read_text(encoding="utf-8")))
+        shared = len(oliver & set(entries))
+        if shared:
+            name = f"{voice} (+{shared} ElevenLabs Oliver)"
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    # Build v3 entries: {path, sha256, size} per clip so clients can detect
+    # re-recorded audio for unchanged text and re-download instead of playing
+    # stale bytes forever.
+    entry_objects: dict[str, dict] = {}
+    for digest, rel_path in sorted(entries.items()):
+        clip_path = AUDIO / Path(rel_path).name
+        if clip_path.exists() and clip_path.stat().st_size > 0:
+            import hashlib
+            sha = hashlib.sha256(clip_path.read_bytes()).hexdigest()
+            entry_objects[digest] = {
+                "path": rel_path,
+                "sha256": sha,
+                "size": clip_path.stat().st_size,
+            }
+        else:
+            # Missing file — keep the path so coverage reports still work,
+            # but without checksum metadata.
+            entry_objects[digest] = {"path": rel_path}
+
     voices[args.gender] = {
-        "name": voice,
-        "entries": dict(sorted(entries.items())),
+        "name": name,
+        "entries": dict(sorted(entry_objects.items())),
     }
     MANIFEST.write_text(json.dumps({
-        "version": 2, "locale": "cs-CZ", "voices": voices,
+        "version": 3, "locale": "cs-CZ", "voices": voices,
+        "revision": datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S"),
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(
         f"{args.gender.title()} manifest contains {len(entries)} files; "

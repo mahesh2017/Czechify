@@ -32,7 +32,8 @@ class HeartsDisplay extends ConsumerWidget {
           const SizedBox(width: 4),
           Text(
             '$hearts',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: TextStyle(
+              fontSize: 14,
               fontWeight: FontWeight.bold,
               color: hearts > 0 ? context.tokens.red : context.tokens.muted,
             ),

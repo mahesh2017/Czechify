@@ -410,7 +410,7 @@ class _ScoreDisplay extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                               color: context.tokens.amberSoft,
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
                               switch (p.phoneme) {

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../../core/diagnostics/safe_diagnostics.dart';
 import '../../../core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/engines/exam_grader.dart';
@@ -49,7 +48,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   bool _examComplete = false;
   bool _finishing = false;
   ExamResult? _result;
-  bool _resultFullyScored = false;
+
+  /// Wall-clock deadline for the current section.  Stored as a
+  /// [DateTime] instead of counting UI ticks so backgrounding the app
+  /// or process death cannot grant extra time — the clock keeps
+  /// running in real time regardless of whether the timer fires.
+  DateTime? _sectionDeadline;
 
   /// Externally produced section scores (0-100).
   final Map<({int section, int question}), int> _writingScores = {};
@@ -86,15 +90,29 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   Future<void> _loadExam() async {
-    final exam = await ref
-        .read(examRepositoryProvider)
-        .getMockExam(widget.level);
-    final checkpoint = await _sessionStore.load(widget.level.name);
-    if (mounted) {
-      setState(() {
-        _exam = exam;
-        _pendingCheckpoint = checkpoint;
-      });
+    try {
+      final exam = await ref
+          .read(examRepositoryProvider)
+          .getMockExam(widget.level);
+      final checkpoint = await _sessionStore.load(widget.level.name);
+      if (mounted) {
+        setState(() {
+          _exam = exam;
+          _pendingCheckpoint = checkpoint;
+        });
+      }
+    } on ExamAssetException catch (e) {
+      if (mounted) {
+        setState(() {
+          _exam = null;
+          _pendingCheckpoint = null;
+        });
+        // Surface the error — never silently substitute sample content
+        // for a shipped exam bank that should be present.
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message)),
+        );
+      }
     }
   }
 
@@ -121,7 +139,6 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _speakingTranscriptions.clear();
       _examComplete = false;
       _result = null;
-      _resultFullyScored = false;
     });
     _startSectionTimer();
   }
@@ -179,7 +196,6 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         );
       _examComplete = false;
       _result = null;
-      _resultFullyScored = false;
       _pendingCheckpoint = null;
     });
     _startSectionTimer(resumeSeconds: checkpoint.secondsLeft);
@@ -217,14 +233,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   void _startSectionTimer({int? resumeSeconds}) {
     _timer?.cancel();
     final section = _exam!.sections[_currentSection];
-    setState(
-      () => _secondsLeft = resumeSeconds ?? section.timeLimitMinutes * 60,
-    );
+    final totalSeconds = resumeSeconds ?? section.timeLimitMinutes * 60;
+    // Use a wall-clock deadline so backgrounding or process death never
+    // pauses the countdown — the learner doesn't get extra time by
+    // switching apps.
+    _sectionDeadline = DateTime.now().add(Duration(seconds: totalSeconds));
+    setState(() => _secondsLeft = totalSeconds);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!mounted) return;
+      final remaining = _sectionDeadline!.difference(DateTime.now()).inSeconds;
       setState(() {
-        _secondsLeft--;
-        if (_secondsLeft <= 0) {
+        _secondsLeft = remaining > 0 ? remaining : 0;
+        if (remaining <= 0) {
           timer.cancel();
           _nextSection();
         }
@@ -273,7 +293,6 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     if (_finishing) return;
     _finishing = true;
     _timer?.cancel();
-    unawaited(_sessionStore.clear(widget.level.name));
 
     await _evaluatePendingWritingTasks();
 
@@ -300,16 +319,20 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       writingScore: scores.writing,
       speakingScore: scores.speaking,
       totalScore: scores.total,
-      passed: scores.passed,
+      // The shipped question banks have not yet completed independent Czech
+      // examination-specialist validation. Keep scores formative and never
+      // turn a practice threshold into an attainment/pass claim.
+      passed: false,
     );
 
     // Persist the attempt and record a pass only when every productive task
     // was actually scored. Neither completion nor an unavailable evaluator
     // grants an automatic passing result or XP.
-    // should block showing the result screen.
     ExamResult persisted = result;
+    var savedSuccessfully = false;
     try {
       persisted = await ref.read(examRepositoryProvider).saveResult(result);
+      savedSuccessfully = true;
     } catch (_) {
       // Result still shown; only history is lost — but say so.
       if (mounted) {
@@ -320,23 +343,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         );
       }
     }
-    if (result.passed) {
-      try {
-        await ref
-            .read(progressRepositoryProvider)
-            .recordExamPassed(widget.level.name);
-      } catch (error, stack) {
-        // The learner passed but the pass was not recorded, which silently
-        // holds back level estimation. The result snackbar above already
-        // covers history failures, so this only needs to reach diagnostics.
-        SafeDiagnostics.error('exam_pass_not_recorded', error, stack);
-      }
+
+    // Clear the checkpoint only after the result is finalized and saved.
+    // If saving failed, keep the checkpoint so the learner can retry without
+    // losing their answers.
+    if (savedSuccessfully) {
+      unawaited(_sessionStore.clear(widget.level.name));
     }
+
     if (!mounted) return;
     setState(() {
       _examComplete = true;
       _result = persisted;
-      _resultFullyScored = scores.fullyScored;
       _finishing = false;
     });
   }
@@ -578,6 +596,17 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 l10n.examInformalNote,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Unverified practice only — this is not an official exam result or proof of CEFR attainment.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13,
+                  height: 1.45,
+                  color: t.muted,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(height: 22),
               if (_exam != null) ...[
@@ -1207,17 +1236,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   Widget _buildResultScreen() {
-    final passed = _result!.passed;
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     // A partly-unscored paper is a neutral outcome, not a warning — amber is
     // reserved for streak and XP.
-    final color =
-        !_resultFullyScored
-            ? t.violetInk
-            : passed
-            ? t.greenInk
-            : t.redInk;
+    final color = t.violetInk;
 
     return Scaffold(
       backgroundColor: t.bg,
@@ -1229,33 +1252,25 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconTile(
-                icon:
-                    !_resultFullyScored
-                        ? Icons.pending_actions_outlined
-                        : passed
-                        ? Icons.emoji_events_outlined
-                        : Icons.replay_outlined,
-                tint:
-                    !_resultFullyScored
-                        ? t.violetSoft
-                        : passed
-                        ? t.greenSoft
-                        : t.redSoft,
+                icon: Icons.analytics_outlined,
+                tint: t.violetSoft,
                 fg: color,
                 size: 72,
                 radius: 24,
                 iconSize: 32,
               ),
               const SizedBox(height: 20),
-              DisplayText(
-                !_resultFullyScored
-                    ? l10n.examPartlyUnscored
-                    : passed
-                    ? l10n.examThresholdMet
-                    : l10n.examThresholdNotMet,
+              const DisplayText(
+                'Practice complete',
                 size: 27,
                 weight: FontWeight.w800,
                 height: 1.15,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'These formative scores are not an official pass or proof of CEFR attainment.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: t.muted, height: 1.4),
               ),
               const SizedBox(height: 20),
               SoftCard(
@@ -1490,7 +1505,7 @@ class _MiniScoreRow extends StatelessWidget {
           ),
           Expanded(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(3),
+              borderRadius: BorderRadius.circular(999),
               child: LinearProgressIndicator(
                 value: score / 100,
                 minHeight: 6,

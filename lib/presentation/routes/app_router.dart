@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoSheetRoute;
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../../core/theme/app_tokens.dart';
@@ -21,6 +22,7 @@ import '../screens/settings/privacy_policy_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/placement/placement_screen.dart';
 import '../screens/lesson/delayed_transfer_screen.dart';
+import '../screens/practice/copybook_screen.dart';
 import '../providers/settings_providers.dart';
 import 'app_scaffold.dart';
 import '../../domain/entities/enums.dart';
@@ -80,11 +82,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: '/stats',
             builder: (context, state) => const StatsScreen(),
           ),
-          GoRoute(
-            path: '/settings',
-            builder: (context, state) => const SettingsScreen(),
-          ),
         ],
+      ),
+
+      // Settings is a sheet, as the design has it: it sits over the app on a
+      // dimmed backdrop and is dragged away. Presented outside the shell so
+      // the tab bar is covered rather than left live underneath, and as a
+      // real sheet route so the grab handle actually does something — it was
+      // drawn but inert, which left the small "Done" button as the only exit.
+      GoRoute(
+        path: '/settings',
+        pageBuilder:
+            (context, state) => _SheetPage(
+              key: state.pageKey,
+              name: state.name,
+              builder:
+                  (context, controller) =>
+                      SettingsScreen(scrollController: controller),
+            ),
       ),
 
       // Full-screen flows — no bottom nav / side rail. These are pushed
@@ -155,6 +170,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const PlacementScreen(),
       ),
       GoRoute(
+        path: '/copybook',
+        builder: (context, state) => const CopybookScreen(),
+      ),
+      GoRoute(
         path: '/transfer/:id',
         builder:
             (context, state) => DelayedTransferScreen(
@@ -164,3 +183,21 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
+
+/// A [Page] that presents its content as an iOS sheet.
+///
+/// The builder is handed the sheet's own [ScrollController]; a scrollable
+/// that uses it lets a downward drag at the top of the content dismiss the
+/// sheet, which is what makes the grab handle honest.
+class _SheetPage<T> extends Page<T> {
+  const _SheetPage({required this.builder, super.key, super.name});
+
+  final ScrollableWidgetBuilder builder;
+
+  @override
+  Route<T> createRoute(BuildContext context) => CupertinoSheetRoute<T>(
+    settings: this,
+    showDragHandle: true,
+    scrollableBuilder: builder,
+  );
+}

@@ -189,59 +189,83 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Lesson chrome: leave, position in the lesson, hearts. Replaces an
-            // AppBar because none of the three is a title, and the pips need
-            // the full width.
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
-              child: Row(
+              child: Column(
                 children: [
-                  RoundIconButton(
-                    icon: Icons.close,
-                    tooltip: AppLocalizations.of(context).a11yClose,
-                    onTap: () => _showExitConfirm(context),
+                  Row(
+                    children: [
+                      RoundIconButton(
+                        icon: Icons.chevron_left_rounded,
+                        tooltip: AppLocalizations.of(context).a11yClose,
+                        onTap: () => _showExitConfirm(context),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            LessonKicker(
+                              session.isExamMode
+                                  ? l10n.lessonBadgeExam
+                                  : session.lesson?.isReview == true
+                                  ? l10n.navReview
+                                  : l10n.lessonIntroduction,
+                            ),
+                            const SizedBox(height: 1),
+                            Text(
+                              session.lesson?.title ??
+                                  l10n.lessonQuestionOf(
+                                    session.currentIndex + 1,
+                                    session.totalExercises,
+                                  ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: t.ink,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        '${session.currentIndex + 1} / ${session.totalExercises}',
+                        style: TextStyle(
+                          color: t.faint,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: .8,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      if (session.isExamMode)
+                        _ExamTimer(initialSeconds: session.remainingSeconds)
+                      else
+                        Semantics(
+                          container: true,
+                          label: AppLocalizations.of(
+                            context,
+                          ).a11yHearts(session.hearts),
+                          excludeSemantics: true,
+                          child: HeartsChip(hearts: session.hearts),
+                        ),
+                    ],
                   ),
-                  const SizedBox(width: 12),
-                  if (session.isExamMode || session.lesson?.isReview == true)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: PillChip(
-                        label:
-                            session.isExamMode
-                                ? l10n.lessonBadgeExam
-                                : l10n.navReview,
-                        bg: session.isExamMode ? t.redSoft : t.priSoft,
-                        fg: session.isExamMode ? t.redInk : t.priInk,
-                      ),
+                  const SizedBox(height: 13),
+                  Semantics(
+                    label: AppLocalizations.of(context).a11yLessonProgress(
+                      session.currentIndex + 1,
+                      session.totalExercises,
                     ),
-                  Expanded(
-                    // A bare progress bar announces nothing useful; state the
-                    // position in the lesson instead.
-                    child: Semantics(
-                      label: AppLocalizations.of(context).a11yLessonProgress(
-                        session.currentIndex + 1,
-                        session.totalExercises,
-                      ),
-                      excludeSemantics: true,
-                      child: SegmentPips(
-                        count: session.totalExercises,
-                        currentIndex: session.currentIndex,
-                      ),
+                    excludeSemantics: true,
+                    child: SegmentPips(
+                      count: session.totalExercises,
+                      currentIndex: session.currentIndex,
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  // Exam timer or hearts
-                  if (session.isExamMode)
-                    _ExamTimer(initialSeconds: session.remainingSeconds)
-                  else
-                    Semantics(
-                      container: true,
-                      label: AppLocalizations.of(
-                        context,
-                      ).a11yHearts(session.hearts),
-                      excludeSemantics: true,
-                      child: HeartsChip(hearts: session.hearts),
-                    ),
                 ],
               ),
             ),
@@ -350,14 +374,27 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       if (explanation != null && explanation.isNotEmpty) explanation,
     ].join('\n\n');
 
-    return FeedbackSheet(
-      tone: tone,
-      title: title,
-      body: body.isEmpty ? null : body,
-      // Only worth stating when they did not produce it themselves.
-      correctAnswer: session.lastWasCorrect ? null : session.lastCorrectAnswer,
-      busy: session.isCompleting,
-      continueLabel:
+    return Semantics(
+      container: true,
+      label: l10n.a11yFeedback(title),
+      child: FeedbackSheet(
+        tone: tone,
+        title: title,
+        body: body.isEmpty ? null : body,
+        // Only worth stating when they did not produce it themselves.
+        correctAnswer: session.lastWasCorrect ? null : session.lastCorrectAnswer,
+        busy: session.isCompleting,
+        continueLabel:
+            session.isCompleting
+                ? l10n.lessonSaving
+                : session.isExamMode
+                ? l10n.lessonNextQuestion
+                : session.currentIndex + 1 < session.totalExercises
+                ? l10n.continueLabel
+                : (session.mistakeQueue.isNotEmpty && !session.mistakesAppended)
+                ? l10n.lessonReviewMistakes
+                : l10n.lessonFinish,
+        continueSemanticsLabel: l10n.a11yContinueButton(
           session.isCompleting
               ? l10n.lessonSaving
               : session.isExamMode
@@ -367,9 +404,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               : (session.mistakeQueue.isNotEmpty && !session.mistakesAppended)
               ? l10n.lessonReviewMistakes
               : l10n.lessonFinish,
-      onContinue:
-          () async => ref.read(lessonSessionProvider.notifier).nextExercise(),
-      extra: _feedbackExtra(context, session, t),
+        ),
+        onContinue:
+            () async => ref.read(lessonSessionProvider.notifier).nextExercise(),
+        extra: _feedbackExtra(context, session, t),
+      ),
     );
   }
 
@@ -463,55 +502,83 @@ class _TeachPhaseScreen extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 6),
-              child: Row(
+              child: Column(
                 children: [
-                  RoundIconButton(
-                    icon: Icons.close,
-                    tooltip: AppLocalizations.of(context).a11yClose,
-                    onTap: onExit,
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        LessonKicker(
-                          AppLocalizations.of(context).lessonNewWords,
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          session.lesson?.title ??
+                  Row(
+                    children: [
+                      RoundIconButton(
+                        icon: Icons.chevron_left_rounded,
+                        tooltip: AppLocalizations.of(context).a11yClose,
+                        onTap: onExit,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            LessonKicker(
                               AppLocalizations.of(context).lessonNewWords,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: t.ink,
-                          ),
+                            ),
+                            const SizedBox(height: 1),
+                            Text(
+                              session.lesson?.title ??
+                                  AppLocalizations.of(context).lessonNewWords,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: t.ink,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        '1 / 3',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: .8,
+                          color: t.faint,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    '${cards.length}',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: t.faint,
-                    ),
-                  ),
+                  const SizedBox(height: 13),
+                  const SegmentPips(count: 3, currentIndex: 0, height: 4),
                 ],
               ),
             ),
             Expanded(
               child: ListView.separated(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
-                itemCount: cards.length,
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 18),
+                itemCount: cards.length + 1,
                 separatorBuilder: (_, __) => const SizedBox(height: 10),
-                itemBuilder: (context, i) => _TeachWordCard(card: cards[i]),
+                itemBuilder: (context, i) {
+                  if (i == 0) {
+                    return TutorBubble(
+                      initial: 'L',
+                      name: 'Lenka',
+                      text: AppLocalizations.of(context).lessonMeetWords,
+                      accent: t.pri,
+                      accentSoft: t.priSoft,
+                    );
+                  }
+                  return _TeachWordCard(card: cards[i - 1]);
+                },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [t.bg.withValues(alpha: 0), t.bg],
+                  stops: const [0, .28],
+                ),
+              ),
               child: KeyCta(
                 label: AppLocalizations.of(context).lessonStartPractice,
                 onPressed: onStart,

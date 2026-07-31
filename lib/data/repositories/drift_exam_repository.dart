@@ -30,8 +30,26 @@ class DriftExamRepository implements ExamRepository {
   }) async {
     final exams = await _loadExams(level, product);
     if (exams.isEmpty) {
+      // Distinguish between a genuinely unshipped product (expected to
+      // have no bank yet — fall back to a labeled sample) and a shipped
+      // product whose bank failed to load (corrupt asset — must fail
+      // visibly, never silently substitute minimal content).
+      if (product == ExamProduct.permanentResidence) {
+        // The permanent-residence bank ships with the app. If it can't
+        // load, the asset is corrupt — surface the error rather than
+        // giving the learner a 4-question toy exam disguised as the real
+        // thing.
+        throw ExamAssetException(
+          'The $level exam content could not be loaded. The app may need '
+          'to be reinstalled. If the problem persists, please report it.',
+          level: level,
+          product: product,
+        );
+      }
+      // Unshipped product (e.g. CCE): fall back to a labeled sample so
+      // the learner can still practice, but the sample is clearly marked.
       _log.warning(
-        'No ${product.id} exams for ${level.name}; falling back to sample.',
+        'No ${product.id} exams for ${level.name}; using labeled sample.',
       );
       return buildSampleExam(level, product: product);
     }

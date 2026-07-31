@@ -76,13 +76,34 @@ Deno.serve(async (req: Request): Promise<Response> => {
     return json({ error: "Invalid or expired session" }, 401);
   }
 
-  // 30/min, not 6. At 6 a learner working through a pronunciation lesson hit
-  // this constantly — six attempts a minute is slower than anyone practising
-  // actually speaks, so the limiter was firing on genuine use and the app
-  // silently dropped to on-device recognition. 30/min is still far below what
-  // a script could manage, so the burst window keeps doing its real job:
-  // stopping automated abuse of a public endpoint that has an OpenAI key
-  // behind it. The per-user daily cap remains the actual cost control.
+  // Parse and validate the request body BEFORE consuming quota — malformed
+  // JSON, empty audio, or an invalid language code must never waste the
+  // learner's daily allowance.
+  let input;
+  try {
+    input = parseTranscriptionInput(await req.json());
+  } catch (_) {
+    return json({ error: "Invalid JSON request body" }, 400);
+  }
+  if (!input) {
+    return json({ error: "Invalid transcription request" }, 400);
+  }
+
+  // Decode base64 audio and validate it is non-empty before touching quota.
+  let audioBytes: Uint8Array;
+  try {
+    audioBytes = Uint8Array.from(
+      atob(input.audioBase64),
+      (c) => c.charCodeAt(0),
+    );
+  } catch (_) {
+    return json({ error: "Invalid audio encoding" }, 400);
+  }
+  if (audioBytes.length === 0) {
+    return json({ error: "Audio recording is empty" }, 400);
+  }
+
+  // --- Quota checks (only after the request is proven valid) ---
   const userBurstLimit = boundedInteger(
     Deno.env.get("SPEECH_USER_REQUESTS_PER_MINUTE"),
     30,
@@ -142,20 +163,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
   }
 
   try {
-    const input = parseTranscriptionInput(await req.json());
-    if (!input) {
-      return json({ error: "Invalid transcription request" }, 400);
-    }
-
-    // Decode base64 audio to bytes
-    const audioBytes = Uint8Array.from(
-      atob(input.audioBase64),
-      (c) => c.charCodeAt(0),
-    );
-
     // Build multipart form data for OpenAI
     const formData = new FormData();
-    const blob = new Blob([audioBytes], { type: "audio/wav" });
+    const blob = new Blob([audioBytes as BlobPart], { type: "audio/wav" });
     formData.append("file", blob, "audio.wav");
     formData.append("model", MODEL);
     formData.append("language", input.language);
@@ -181,6 +191,14 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
 
     if (!response.ok) {
+      // Refund the daily quota — Whisper returned an error, so the learner's
+      // allowance should not be consumed for a failed call.
+      await admin.rpc("refund_service_daily_quota", {
+        p_service: SERVICE,
+        p_user_id: userData.user.id,
+      }).catch((e: unknown) =>
+        console.error("Quota refund failed", e)
+      );
       return json({
         error: `Whisper API error: ${response.status}`,
       }, 502);

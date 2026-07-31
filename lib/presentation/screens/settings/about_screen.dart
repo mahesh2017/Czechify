@@ -38,7 +38,7 @@ class AboutScreen extends StatelessWidget {
                     height: 76,
                     decoration: BoxDecoration(
                       color: t.priSoft,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(24),
                     ),
                     child: Icon(Icons.school_outlined, size: 38, color: t.pri),
                   ),

@@ -2,6 +2,7 @@ import 'package:logging/logging.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../core/config/backend_config.dart';
+import 'secure_auth_storage.dart';
 
 /// Owns the Supabase client lifecycle and authentication.
 ///
@@ -106,6 +107,9 @@ class BackendService {
     );
   }
 
+  Future<void> clearLocalSession() =>
+      _requireClient().auth.signOut(scope: SignOutScope.local);
+
   Future<void> sendPasswordRecovery(String email) async {
     await _requireClient().auth.resetPasswordForEmail(
       email.trim(),
@@ -185,6 +189,13 @@ class BackendService {
           url: BackendConfig.supabaseUrl,
           // A legacy anon JWT or a new sb_publishable_... key both work here.
           publishableKey: BackendConfig.supabaseAnonKey,
+          authOptions: FlutterAuthClientOptions(
+            localStorage: SecureSupabaseLocalStorage(
+              storageKey:
+                  'sb-${Uri.parse(BackendConfig.supabaseUrl).host.split('.').first}-auth-token',
+            ),
+            pkceAsyncStorage: SecurePkceStorage(),
+          ),
         );
         _supabaseReady = true;
       }

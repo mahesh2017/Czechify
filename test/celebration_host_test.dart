@@ -194,7 +194,7 @@ void main() {
   group('count-up', () {
     testWidgets('it starts below the total and lands on it', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           localizationsDelegates: testLocalizationsDelegates,
           supportedLocales: testSupportedLocales,
           home: Scaffold(body: Center(child: CountUpText(value: 40))),
@@ -209,7 +209,7 @@ void main() {
 
     testWidgets('reduce motion shows the total straight away', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           localizationsDelegates: testLocalizationsDelegates,
           supportedLocales: testSupportedLocales,
           home: MediaQuery(

@@ -12,10 +12,10 @@ import 'package:flutter/widgets.dart' show IconData;
 
 /// Bump whenever the privacy policy text changes in a way that affects what a
 /// learner is agreeing to. Consent records store this value.
-const String kPrivacyPolicyVersion = '2026-07-26.1';
+const String kPrivacyPolicyVersion = '2026-07-31.1';
 
 /// Bump when the cloud-speech consent wording changes.
-const String kVoiceCloudConsentVersion = 'voice-cloud-v1';
+const String kVoiceCloudConsentVersion = 'voice-cloud-v2';
 
 const String kDeveloperName = 'Mahesh Pathak';
 
@@ -42,7 +42,7 @@ const List<LegalSection> kPrivacyPolicy = [
         'personal detail in order to work. Your lessons, progress and chat '
         'history live on your device, and your progress is backed up to an '
         'anonymous account so you do not lose it.\n\n'
-        'Your voice is analysed on your own device. Some features do send data '
+        'Pronunciation uses your device speech service by default. Optional cloud speech sends data '
         'to services outside the app, and every one of them is listed below. '
         'There is no advertising in this app and no tracking of you across '
         'other apps or websites.',
@@ -61,7 +61,7 @@ const List<LegalSection> kPrivacyPolicy = [
         'and it asks for no email address, no password, no name and no other '
         'personal detail. Its only purpose is to hold your progress so it is '
         'not lost.\n\n'
-        'Your lesson progress, badges, streaks, exam results and review '
+        'Your lesson progress, badges, streaks and review '
         'schedule are synchronised to that account regularly, so a broken or '
         'reset phone does not cost you your learning.\n\n'
         'If you want to move to a new device, or learn on more than one, you '
@@ -74,18 +74,13 @@ const List<LegalSection> kPrivacyPolicy = [
   LegalSection(
     'Pronunciation and your voice',
     'Pronunciation practice records short clips of your speech.\n\n'
-        'On any device with a reasonably modern processor and enough memory — '
-        'which is most phones sold in recent years — this is analysed entirely '
-        'on your own device. The recording never leaves your phone, is never '
-        'sent to us, and never reaches OpenAI or any other company. This is '
-        'the normal case and it needs no permission from you, because no data '
-        'is transferred.\n\n'
-        'On older or slower devices the analysis can take long enough to be '
-        'frustrating. Only in that situation will Czechify offer to check your '
-        'pronunciation on a server instead, which means sending the recording '
+        'By default Czechify uses the speech-recognition service available on '
+        'your device. Your operating-system provider controls how that service '
+        'processes speech. Czechify does not send the recording to its own cloud '
+        'speech service unless you explicitly enable the option in Settings.\n\n'
+        'If you enable optional cloud pronunciation, Czechify sends the recording '
         'through our server to OpenAI in the United States and receiving a '
-        'transcript back. That offer is a genuine choice: declining keeps '
-        'pronunciation working on your device, just more slowly.\n\n'
+        'transcript back. Declining keeps device speech recognition available.\n\n'
         'Nothing is sent anywhere unless you accept that offer, and you can '
         'withdraw your agreement at any time from Settings — withdrawing is as '
         'easy as giving it, and takes effect immediately. When you do agree, '
@@ -121,10 +116,9 @@ const List<LegalSection> kPrivacyPolicy = [
   ),
   LegalSection(
     'Children',
-    'Czechify is not directed at children under 16. The cloud pronunciation '
-        'option is not offered to accounts identified as belonging to '
-        'under-16s, because consent for that processing would need to come '
-        'from a parent or guardian.',
+    'Czechify is not directed at children under 16. Czechify does not know your '
+        'age, so the cloud pronunciation control asks you to confirm eligibility. '
+        'Anyone under 16 must use it only with permission from a parent or guardian.',
   ),
   LegalSection(
     'Changes',
@@ -162,7 +156,7 @@ const List<AppFeature> kAppFeatures = [
     'Pronunciation practice',
     'Record yourself and get feedback on the sounds Czech learners find '
         'hardest — ř, č, š, ž, ě and the long vowels — with the analysis '
-        'running on your own device.',
+        'using device speech recognition by default, with optional cloud transcription.',
   ),
   AppFeature(
     IconData(0xe0b7, fontFamily: 'MaterialIcons'), // chat
@@ -188,7 +182,7 @@ const List<AppFeature> kAppFeatures = [
     IconData(0xe1a3, fontFamily: 'MaterialIcons'), // fact_check
     'Exam preparation',
     'Dedicated A1 and A2 exam units with graded practice covering reading, '
-        'listening, writing and speaking, marked the way the real exam is.',
+        'listening, writing and speaking. These are unverified practice activities, not official exam results.',
   ),
   AppFeature(
     IconData(0xe409, fontFamily: 'MaterialIcons'), // insights
