@@ -4,7 +4,7 @@ The app uses anonymous Supabase Auth for progress sync and an authenticated
 Edge Function for AI. The DeepSeek key exists only as a server secret.
 
 1. Create an EU Supabase project, enable anonymous and email sign-ins, enable
-   manual identity linking, and add `ceskinapro://auth-callback` to the Auth
+   manual identity linking, and add `czechify://auth-callback` to the Auth
    redirect allowlist.
 2. Install/login to the Supabase CLI, link the project, apply the committed
    migrations, and deploy:

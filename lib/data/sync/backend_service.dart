@@ -60,7 +60,7 @@ class BackendService {
     }
     await client.auth.updateUser(
       UserAttributes(email: email.trim()),
-      emailRedirectTo: 'ceskinapro://auth-callback',
+      emailRedirectTo: 'czechify://auth-callback',
     );
   }
 
@@ -113,7 +113,7 @@ class BackendService {
   Future<void> sendPasswordRecovery(String email) async {
     await _requireClient().auth.resetPasswordForEmail(
       email.trim(),
-      redirectTo: 'ceskinapro://auth-callback',
+      redirectTo: 'czechify://auth-callback',
     );
   }
 

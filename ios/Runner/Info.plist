@@ -21,7 +21,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ceskinapro</string>
+				<string>czechify</string>
 			</array>
 		</dict>
 	</array>
