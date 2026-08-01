@@ -98,19 +98,21 @@ lib/
 
 | Metric | Value |
 |---|---|
-| Dart files | **96 files** |
+| Dart files | **209 files** |
 | `flutter analyze --fatal-infos` | **clean (0 issues)** |
-| `flutter test` | **72/72 passing** |
+| `flutter test` | **489 tests passing** |
 | CI | GitHub Actions (analyze + test) |
 | Phases 1-4 | **All complete** |
 
 ### Remaining before store release
 
-- Generate a real Android upload keystore and fill in `android/key.properties`
-  (see `android/app/build.gradle.kts` for the expected keys).
-- Publish a privacy policy — AI requests pass through the Czechify Supabase
-  Edge Function and are processed by DeepSeek.
-- Replace the sample mock-exam content with a full CCE-format question bank.
+- Configure Android release signing and build the production App Bundle.
+- Host the privacy policy and public account-deletion page from `docs/site`.
+- Complete the Play Console Data Safety, content rating, store listing, and
+  closed-testing requirements that apply to the developer account.
+- Keep mock exams labelled as practice/sample content unless the question bank
+  and scoring have been independently validated against the relevant official
+  exam blueprint.
 
 ## Development
 

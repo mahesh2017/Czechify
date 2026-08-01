@@ -56,14 +56,21 @@ Done:
 - Real launcher icons + consistent name (Czechify) across all platforms.
 
 Before submission:
-- [ ] Privacy policy URL (note: audio leaves the device for cloud Whisper STT).
+- [ ] Configure Android upload signing (`android/key.properties` locally or the
+      release workflow secrets) and build a production `.aab` successfully.
+- [ ] Host the privacy policy and account-deletion page from
+      [docs/site](site/README.md), then enter both public URLs in Play Console.
+      The policy must disclose that audio leaves the device for cloud Whisper
+      STT.
 - [ ] App Privacy (iOS) + Data safety (Play) questionnaires — declare audio
       upload for transcription; no tracking; data used for app functionality.
 - [ ] Enable Supabase Auth "leaked password protection" (Dashboard →
       Authentication) — the one remaining P1 advisor, dashboard-only.
 - [ ] Age rating, screenshots, store descriptions.
-- [ ] Anonymous-user cleanup policy in Supabase (scheduled purge of
-      anonymous accounts idle 30+ days) so orphaned rows don't accumulate.
+- [ ] Apply and verify the anonymous-user cleanup migration in the production
+      Supabase project so orphaned accounts do not accumulate.
+- [ ] Run the closed-test track if this is a newly created personal Play
+      developer account: 12 testers opted in continuously for 14 days.
 
 ## Dependency currency
 

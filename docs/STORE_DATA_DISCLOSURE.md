@@ -34,8 +34,8 @@ No advertising, no third-party analytics, no tracking across apps/sites.
 
 **Data not linked to you:** None additional.
 
-**Account deletion:** Yes — in-app via Settings → Account & data (satisfies
-Guideline 5.1.1(v)).
+**Account deletion:** Yes — in-app via Settings → Account & data, and via the
+public deletion page listed below (satisfies Guideline 5.1.1(v)).
 
 ## Google Play — Data safety answers
 
@@ -53,8 +53,8 @@ advertising/analytics).
 **Data handling:**
 - Encrypted in transit: **Yes** (HTTPS to Supabase; Supabase → DeepSeek/OpenAI
   over HTTPS).
-- Users can request data deletion: **Yes** (in-app account deletion + a
-  documented email-based request path).
+- Users can request data deletion: **Yes** (in-app account deletion + the
+  public account-deletion page). The page must be hosted before submission.
 - Data collection required or optional: cloud sync/AI/pronunciation are
   optional in the sense that core learning works offline; using those features
   sends the data described above.
@@ -67,5 +67,6 @@ advertising/analytics).
 
 ## Privacy policy URL
 
-Host [PRIVACY.md](../PRIVACY.md) at a stable public URL and enter it in both
-stores. GitHub Pages or the repo's raw file both work for an open project.
+Host the pages in [docs/site](site/README.md) at stable public URLs and enter
+the privacy-policy URL and account-deletion URL in Play Console. GitHub Pages
+is supported by the included workflow.

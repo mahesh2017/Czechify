@@ -18,6 +18,12 @@ migrate_working_dir/
 *.iws
 .idea/
 
+# Local agent and MCP session configuration
+.claude/
+.codex/
+.hermes/
+.mcp.json
+
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
@@ -37,6 +43,7 @@ migrate_working_dir/
 .env
 .env.*
 !.env.example
+/supabase/.branches/
 /supabase/.temp/
 /supabase/functions/.env
 
@@ -54,3 +61,4 @@ app.*.map.json
 
 # Local knowledge-graph cache (embeds absolute paths; not for the repo)
 graphify-out/
+lib/graphify-out/
