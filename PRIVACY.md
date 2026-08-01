@@ -85,4 +85,4 @@ We may update this policy. Changes will be reflected in the App.
 
 ## Contact
 
-This app is maintained as an open educational project. For questions, open an issue on GitHub: [github.com/mahesh2017/ceskina-pro](https://github.com/mahesh2017/ceskina-pro)
+This app is maintained as an open educational project. For questions, open an issue on GitHub: [github.com/mahesh2017/Czechify](https://github.com/mahesh2017/Czechify)
