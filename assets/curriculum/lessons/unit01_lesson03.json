@@ -1,0 +1,355 @@
+{
+  "id": 103,
+  "unit_id": 1,
+  "order_in_unit": 3,
+  "title": "Mission: Keep the Conversation Going",
+  "description": "Use Czech repair phrases to ask for repetition, slower speech, meaning, or spelling, then complete a short listening and speaking mission.",
+  "duration_min": 13,
+  "lesson_type": "practice",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 1121,
+      "lesson_id": 103,
+      "type": "teaching",
+      "prompt": "Learn the phrases that keep you communicating",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Your mission: do not freeze when Czech is fast",
+        "body": "By the end of this lesson, you can signal that you do not understand, ask someone to repeat or slow down, and ask how a word is written. Learn these as complete chunks; grammar explanations can wait.",
+        "play_all_label": "Hear all repair phrases",
+        "items": [
+          {
+            "cz": "Nerozumím.",
+            "en": "I don't understand."
+          },
+          {
+            "cz": "Ještě jednou, prosím.",
+            "en": "Once more, please."
+          },
+          {
+            "cz": "Prosím pomalu.",
+            "en": "Slowly, please."
+          },
+          {
+            "cz": "Jak se to píše?",
+            "en": "How is that spelled?"
+          },
+          {
+            "cz": "Co to znamená?",
+            "en": "What does that mean?"
+          },
+          {
+            "cz": "Děkuju.",
+            "en": "Thank you."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
+      "id": 1122,
+      "lesson_id": 103,
+      "type": "listening_comprehension",
+      "prompt": "Understand the purpose before every word",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen to the short exchange. What does the learner need?",
+        "transcript_cz": "Káva? Nerozumím. Ještě jednou, prosím. Káva.",
+        "questions": [
+          {
+            "question_en": "What does the learner ask for?",
+            "options": [
+              "A repetition",
+              "The bill",
+              "A new cup"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which word is repeated?",
+            "options": [
+              "káva",
+              "čaj",
+              "chléb"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "A repetition; káva",
+      "xp_reward": 15
+    },
+    {
+      "id": 1123,
+      "lesson_id": 103,
+      "type": "listening_comprehension",
+      "prompt": "Choose the right repair strategy",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen. What kind of help is requested?",
+        "transcript_cz": "Dobrý den. Jak se to píše? Káva: ká, dlouhé á, vé, a.",
+        "questions": [
+          {
+            "question_en": "What did the learner ask for?",
+            "options": [
+              "The spelling",
+              "Slower speech",
+              "A translation"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "The spelling",
+      "xp_reward": 10
+    },
+    {
+      "id": 1124,
+      "lesson_id": 103,
+      "type": "matching",
+      "prompt": "Match each need to the Czech phrase",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Nerozumím.",
+            "right": "I don't understand."
+          },
+          {
+            "left": "Ještě jednou, prosím.",
+            "right": "Once more, please."
+          },
+          {
+            "left": "Prosím pomalu.",
+            "right": "Slowly, please."
+          },
+          {
+            "left": "Jak se to píše?",
+            "right": "How is that spelled?"
+          },
+          {
+            "left": "Co to znamená?",
+            "right": "What does that mean?"
+          }
+        ]
+      },
+      "answer_key": "repair phrase meanings",
+      "xp_reward": 10
+    },
+    {
+      "id": 1125,
+      "lesson_id": 103,
+      "type": "reading_comprehension",
+      "prompt": "Read a pocket repair card",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Imagine you saved this Czech help card on your phone. Find the phrase you need.",
+        "text_cz": "POMOC V ČEŠTINĚ\n\nNerozumím.\nJeště jednou, prosím.\nProsím pomalu.\nJak se to píše?\nCo to znamená?",
+        "text_en": "HELP IN CZECH\n\nI don't understand.\nOnce more, please.\nSlowly, please.\nHow is that spelled?\nWhat does that mean?",
+        "questions": [
+          {
+            "question_en": "Which line asks about spelling?",
+            "options": [
+              "Jak se to píše?",
+              "Prosím pomalu.",
+              "Nerozumím."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which line says you do not understand?",
+            "options": [
+              "Co to znamená?",
+              "Nerozumím.",
+              "Ještě jednou, prosím."
+            ],
+            "correct_index": 1
+          }
+        ]
+      },
+      "answer_key": "Jak se to píše?; Nerozumím.",
+      "xp_reward": 10
+    },
+    {
+      "id": 1126,
+      "lesson_id": 103,
+      "type": "word_order",
+      "prompt": "Build the phrase for asking someone to repeat",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Ještě",
+          "jednou,",
+          "prosím."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Once more, please.",
+        "explanation": "Keep this polite phrase together as one chunk."
+      },
+      "answer_key": "Ještě jednou, prosím.",
+      "xp_reward": 10
+    },
+    {
+      "id": 1127,
+      "lesson_id": 103,
+      "type": "dictation",
+      "prompt": "Listen and type the repair phrase",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Nerozumím.",
+        "language": "cs-CZ",
+        "note": "The long í is written with an acute mark."
+      },
+      "answer_key": "Nerozumím.",
+      "xp_reward": 10
+    },
+    {
+      "id": 1128,
+      "lesson_id": 103,
+      "type": "dictation",
+      "prompt": "Listen and type the repair question",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Jak se to píše?",
+        "language": "cs-CZ",
+        "note": "Remember the long í and š."
+      },
+      "answer_key": "Jak se to píše?",
+      "xp_reward": 10
+    },
+    {
+      "id": 1129,
+      "lesson_id": 103,
+      "type": "pronunciation",
+      "prompt": "Ask someone to slow down",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Prosím pomalu.",
+        "focus_sounds": [
+          "í"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Slowly, please.",
+        "note": "Aim for a calm, polite request."
+      },
+      "answer_key": "Prosím pomalu.",
+      "xp_reward": 15
+    },
+    {
+      "id": 1130,
+      "lesson_id": 103,
+      "type": "pronunciation",
+      "prompt": "Ask someone to repeat",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Ještě jednou, prosím.",
+        "focus_sounds": [
+          "ště",
+          "í"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Once more, please.",
+        "note": "Say it as one useful phrase, not three isolated words."
+      },
+      "answer_key": "Ještě jednou, prosím.",
+      "xp_reward": 15
+    },
+    {
+      "id": 1131,
+      "lesson_id": 103,
+      "type": "listening_comprehension",
+      "prompt": "Complete the Unit 1 listening mission",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen without opening the transcript first. How does the learner keep the exchange going?",
+        "transcript_cz": "Dobrý den. Čaj? Nerozumím. Prosím pomalu. Čaj. Ano, děkuju.",
+        "questions": [
+          {
+            "question_en": "Which strategy does the learner use?",
+            "options": [
+              "Asks for slower speech",
+              "Asks for spelling",
+              "Ends the conversation"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What is the key word?",
+            "options": [
+              "čaj",
+              "káva",
+              "dům"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Asks for slower speech; čaj",
+      "xp_reward": 20
+    },
+    {
+      "id": 1132,
+      "lesson_id": 103,
+      "type": "speaking_task",
+      "prompt": "Complete the Unit 1 speaking mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Imagine Czech is too fast. Choose one useful phrase and say it clearly.",
+        "prompt_cz": "Řekněte jednu frázi.",
+        "min_duration_seconds": 2,
+        "expected_phrases": [
+          "Nerozumím.",
+          "Ještě jednou, prosím.",
+          "Prosím pomalu.",
+          "Jak se to píše?"
+        ]
+      },
+      "answer_key": "Nerozumím.; Ještě jednou, prosím.; Prosím pomalu.; Jak se to píše?",
+      "xp_reward": 20
+    },
+    {
+      "id": 1133,
+      "lesson_id": 103,
+      "type": "writing_task",
+      "prompt": "Create your personal repair card",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write one Czech phrase you want ready when communication breaks down. On a second line, type your first name so you can practise spelling it aloud.",
+        "prompt_cz": "Napište jednu frázi a svoje jméno.",
+        "min_words": 2,
+        "max_words": 12,
+        "key_vocab": [
+          "Nerozumím.",
+          "Ještě jednou, prosím.",
+          "Prosím pomalu.",
+          "Jak se to píše?"
+        ],
+        "sample_answer": "Prosím pomalu.\nMahesh"
+      },
+      "answer_key": "Prosím pomalu. Mahesh",
+      "xp_reward": 0
+    }
+  ],
+  "can_do": "ask for repetition, slower speech, meaning, or spelling.",
+  "new_language": [
+    "Nerozumím.",
+    "Ještě jednou, prosím.",
+    "Prosím pomalu.",
+    "Jak se to píše?",
+    "Co to znamená?",
+    "Děkuju."
+  ],
+  "recycles": [
+    "useful Unit 1 words",
+    "first-syllable rhythm",
+    "long vowels",
+    "Czech spelling clues"
+  ],
+  "exit_task": "ask for repetition, slower speech, meaning, or spelling."
+}

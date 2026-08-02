@@ -2,305 +2,398 @@
   "id": 302,
   "unit_id": 3,
   "order_in_unit": 1,
-  "title": "Nominative Case & Identification",
-  "description": "Practice using nominative for subjects, 'To je/j sou' patterns, and professions",
-  "duration_min": 15,
+  "title": "Gender Travels with the Noun",
+  "description": "Learn concrete nouns as ten, ta, or to chunks and use endings as helpful—not perfect—clues.",
+  "duration_min": 12,
   "lesson_type": "practice",
   "is_review": false,
   "exercises": [
     {
+      "id": 3100,
+      "lesson_id": 302,
+      "type": "teaching",
+      "prompt": "Meet six more everyday nouns",
+      "data": {
+        "type": "teaching",
+        "style": "image_cards",
+        "heading": "Learn the noun with a gender cue",
+        "body": "Czech groups every noun into a grammatical gender. Learn a small noun together with ten, ta, or to; the cue becomes part of its memory trace.",
+        "items": [
+          {
+            "cz": "ten stůl",
+            "en": "the/that table · masculine",
+            "say": "ten stůl",
+            "image": "assets/images/unit03/stul_v1.png",
+            "image_label": "A table",
+            "sentence": "To je ten stůl.",
+            "sentence_en": "That is the table."
+          },
+          {
+            "cz": "ta kniha",
+            "en": "the/that book · feminine",
+            "say": "ta kniha",
+            "image": "assets/images/unit03/kniha_v1.png",
+            "image_label": "A book",
+            "sentence": "To je ta kniha.",
+            "sentence_en": "That is the book."
+          },
+          {
+            "cz": "ta káva",
+            "en": "the/that coffee · feminine",
+            "say": "ta káva",
+            "image": "assets/images/unit01/kava_v1.png",
+            "image_label": "A cup of coffee",
+            "sentence": "To je ta káva.",
+            "sentence_en": "That is the coffee."
+          },
+          {
+            "cz": "ta židle",
+            "en": "the/that chair · feminine",
+            "say": "ta židle",
+            "image": "assets/images/unit03/zidle_v1.png",
+            "image_label": "A chair",
+            "sentence": "To je ta židle.",
+            "sentence_en": "That is the chair."
+          },
+          {
+            "cz": "to okno",
+            "en": "the/that window · neuter",
+            "say": "to okno",
+            "image": "assets/images/unit03/okno_v1.png",
+            "image_label": "A window",
+            "sentence": "To je to okno.",
+            "sentence_en": "That is the window."
+          },
+          {
+            "cz": "to město",
+            "en": "the/that city · neuter",
+            "say": "to město",
+            "image": "assets/images/unit03/mesto_v1.png",
+            "image_label": "A Prague city neighborhood",
+            "sentence": "To je to město.",
+            "sentence_en": "That is the city."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
       "id": 3101,
       "lesson_id": 302,
-      "type": "multiple_choice",
-      "prompt": "Which case is used for the subject of a sentence?",
+      "type": "teaching",
+      "prompt": "Build three retrieval shelves",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Který pád se používá pro podmět?",
-        "question_en": "Which case is used for the subject?",
-        "options": [
-          "Accusative",
-          "Nominative",
-          "Genitive",
-          "Dative"
-        ],
-        "correct_index": 1,
-        "explanation": "Nominative (1. pád) is the subject case. Questions: kdo? (who?) co? (what?). Dictionary form of nouns."
+        "type": "teaching",
+        "style": "list",
+        "heading": "ten · ta · to",
+        "body": "These are grammatical noun groups, not a statement about biology. Endings can help you guess, but they are not guarantees: dítě is neuter although it means a child, and židle is feminine although it does not end in -a. Store the whole chunk.",
+        "play_all_label": "Hear the three shelves",
+        "items": [
+          {
+            "cz": "ten muž · ten pes · ten dům · ten stůl",
+            "say": "ten muž, ten pes, ten dům, ten stůl",
+            "en": "MASCULINE — a consonant ending is a useful first cue"
+          },
+          {
+            "cz": "ta žena · ta káva · ta kniha · ta židle",
+            "say": "ta žena, ta káva, ta kniha, ta židle",
+            "en": "FEMININE — -a is a common cue; židle must be learned"
+          },
+          {
+            "cz": "to dítě · to auto · to okno · to město",
+            "say": "to dítě, to auto, to okno, to město",
+            "en": "NEUTER — -o is a common cue; dítě must be learned"
+          }
+        ]
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-022",
-      "xp_reward": 10
+      "xp_reward": 0
     },
     {
       "id": 3102,
       "lesson_id": 302,
-      "type": "multiple_choice",
-      "prompt": "In 'Žena pije kávu', which word is in nominative case?",
+      "type": "listening_comprehension",
+      "prompt": "Hear the three gender cues",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Ve větě 'Žena pije kávu', které slovo je v 1. pádě?",
-        "question_en": "In 'Žena pije kávu', which word is nominative?",
-        "options": [
-          "Žena",
-          "pije",
-          "kávu",
-          "none"
-        ],
-        "correct_index": 0,
-        "explanation": "Žena is the subject (the one doing the drinking) → nominative. kávu is accusative (the object being drunk)."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen for ten, ta, and to before the nouns.",
+        "transcript_cz": "ten stůl. ta židle. to okno.",
+        "questions": [
+          {
+            "question_en": "Which noun follows ten?",
+            "options": [
+              "stůl",
+              "židle",
+              "okno"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which phrase is neuter?",
+            "options": [
+              "to okno",
+              "ta židle",
+              "ten stůl"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-022",
+      "answer_key": "stůl; to okno",
       "xp_reward": 10
     },
     {
       "id": 3103,
       "lesson_id": 302,
-      "type": "multiple_choice",
-      "prompt": "What is the question word for the nominative case?",
+      "type": "listening_comprehension",
+      "prompt": "Notice cues and exceptions",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaké jsou otázky pro 1. pád?",
-        "question_en": "What are the question words for nominative?",
-        "options": [
-          "kdo? co?",
-          "koho? čeho?",
-          "komu? čemu?",
-          "kým? čím?"
-        ],
-        "correct_index": 0,
-        "explanation": "Nominative answers kdo? (who?) and co? (what?). These are the questions for the subject."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen. Which item is a person but uses the neuter cue?",
+        "transcript_cz": "To je to dítě. To je ta káva. To je ten dům.",
+        "questions": [
+          {
+            "question_en": "Which noun uses the cue to?",
+            "options": [
+              "dítě",
+              "káva",
+              "dům"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which noun uses the cue ta?",
+            "options": [
+              "káva",
+              "dítě",
+              "dům"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-022",
+      "answer_key": "dítě; káva",
       "xp_reward": 10
     },
     {
       "id": 3104,
       "lesson_id": 302,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "matching",
+      "prompt": "Reconnect six nouns with their complete chunks",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "He is a teacher.",
-        "accepted_answers": [
-          "On je učitel."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "stůl",
+            "right": "ten stůl"
+          },
+          {
+            "left": "židle",
+            "right": "ta židle"
+          },
+          {
+            "left": "okno",
+            "right": "to okno"
+          },
+          {
+            "left": "kniha",
+            "right": "ta kniha"
+          },
+          {
+            "left": "město",
+            "right": "to město"
+          },
+          {
+            "left": "dům",
+            "right": "ten dům"
+          }
         ],
-        "grammar_note": "On (he) + je (is) + učitel (teacher, masc. animate nominative)."
+        "explanation": "Remember the cue and noun as one chunk."
       },
-      "answer_key": "On je učitel.",
-      "grammar_rule_id": "GR-024",
+      "answer_key": "stůl–ten stůl; židle–ta židle; okno–to okno; kniha–ta kniha; město–to město; dům–ten dům",
       "xp_reward": 10
     },
     {
       "id": 3105,
       "lesson_id": 302,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "multiple_choice",
+      "prompt": "You see a child. Which learned noun chunk is correct?",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "She is a teacher.",
-        "accepted_answers": [
-          "Ona je učitelka."
+        "type": "multiple_choice",
+        "question_cz": "Vidíte dítě. Které spojení je správně?",
+        "question_en": "You see a child. Which learned chunk is correct?",
+        "options": [
+          "to dítě",
+          "ten dítě",
+          "ta dítě",
+          "ten děti"
         ],
-        "grammar_note": "Ona (she) + je (is) + učitelka (female teacher). Czech has gendered profession nouns!"
+        "correct_index": 0,
+        "explanation": "Dítě is grammatically neuter. Meaning alone cannot predict a noun's gender, so learn to dítě together."
       },
-      "answer_key": "Ona je učitelka.",
-      "grammar_rule_id": "GR-024",
+      "answer_key": "to dítě",
+      "grammar_rule_id": "GR-020",
       "xp_reward": 10
     },
     {
       "id": 3106,
       "lesson_id": 302,
-      "type": "multiple_choice",
-      "prompt": "What is the female form of 'student'?",
+      "type": "fill_blank",
+      "prompt": "Complete one item from each shelf",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký je ženský tvar slova 'student'?",
-        "question_en": "What is the female form of 'student'?",
-        "options": [
-          "studenta",
-          "studentky",
-          "studentka",
-          "studenti"
+        "type": "fill_blank",
+        "sentence": "___ stůl · ___ židle · ___ okno",
+        "blank_count": 3,
+        "blank_answers": [
+          [
+            "ten"
+          ],
+          [
+            "ta"
+          ],
+          [
+            "to"
+          ]
         ],
-        "correct_index": 2,
-        "explanation": "studentka = female student. Pattern: add -ka to the male form. učitel→učitelka, lékař→lékařka, student→studentka."
+        "explanation": "Ten stůl, ta židle, to okno represent the three retrieval shelves."
       },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-024",
+      "answer_key": "ten | ta | to",
       "xp_reward": 10
     },
     {
       "id": 3107,
       "lesson_id": 302,
-      "type": "multiple_choice",
-      "prompt": "Is 'pes' (dog) masculine animate or inanimate?",
+      "type": "fill_blank",
+      "prompt": "Recall the feminine exception",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Je 'pes' životné nebo neživotné?",
-        "question_en": "Is 'pes' (dog) animate or inanimate?",
-        "options": [
-          "Animate (living)",
-          "Inanimate (non-living)",
-          "Neither",
-          "Both"
+        "type": "fill_blank",
+        "sentence": "To je ___ židle.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ta"
+          ]
         ],
-        "correct_index": 0,
-        "explanation": "pes (dog) is masculine ANIMATE — dogs are living creatures. This matters for accusative: pes → psa (animate changes)."
+        "explanation": "Židle is feminine even though it does not end in -a."
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-021",
+      "answer_key": "ta",
       "xp_reward": 10
     },
     {
       "id": 3108,
       "lesson_id": 302,
-      "type": "multiple_choice",
-      "prompt": "Is 'hrad' (castle) masculine animate or inanimate?",
+      "type": "word_order",
+      "prompt": "Build a complete identification",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Je 'hrad' životné nebo neživotné?",
-        "question_en": "Is 'hrad' (castle) animate or inanimate?",
-        "options": [
-          "Animate (living)",
-          "Inanimate (non-living)",
-          "Neither",
-          "Both"
+        "type": "word_order",
+        "words": [
+          "Co",
+          "je",
+          "to?",
+          "To",
+          "je",
+          "ta",
+          "kniha."
         ],
-        "correct_index": 1,
-        "explanation": "hrad (castle) is masculine INANIMATE — it's an object. In accusative, it stays the same: hrad → hrad."
+        "correct_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "translation_en": "What is that? That is the book.",
+        "explanation": "Use neutral To je… to identify it, then keep ta with kniha."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-021",
+      "answer_key": "Co je to? To je ta kniha.",
       "xp_reward": 10
     },
     {
       "id": 3109,
       "lesson_id": 302,
-      "type": "word_order",
-      "prompt": "Arrange: 'On je lékař. Ona je lékařka.'",
+      "type": "dictation",
+      "prompt": "Listen and type the book phrase",
       "data": {
-        "type": "word_order",
-        "words": ["On", "je", "lékař.", "Ona", "je", "lékařka."],
-        "correct_order": [0, 1, 2, 3, 4, 5],
-        "explanation": "Gendered profession forms: lékař (male doctor) vs lékařka (female doctor). Both mean 'doctor'.",
-        "translation_en": "He is a doctor. She is a doctor."
+        "type": "dictation",
+        "expected_text": "To je ta kniha.",
+        "language": "cs-CZ",
+        "note": "Hear ta as part of the noun chunk ta kniha."
       },
-      "answer_key": "On je lékař. Ona je lékařka.",
-      "grammar_rule_id": "GR-024",
-      "xp_reward": 15
+      "answer_key": "To je ta kniha.",
+      "xp_reward": 10
     },
     {
       "id": 3110,
       "lesson_id": 302,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct profession form",
+      "type": "pronunciation",
+      "prompt": "Say one item from each shelf",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Můj otec je ___. (teacher, male form)",
-        "blank_count": 1,
-        "explanation": "učitel = male teacher. 'Můj otec' (my father) is masculine, so use the masculine form.",
-        "blank_answers": [
-          ["učitel"]
-        ]
+        "type": "pronunciation",
+        "target_text": "ten stůl, ta židle, to okno",
+        "focus_sounds": [
+          "ů",
+          "ž",
+          "first_syllable_stress"
+        ],
+        "min_score": 0.5,
+        "translation_en": "the table, the chair, the window"
       },
-      "answer_key": "učitel",
-      "grammar_rule_id": "GR-024",
-      "xp_reward": 10
+      "answer_key": "ten stůl, ta židle, to okno",
+      "xp_reward": 15
     },
     {
       "id": 3111,
       "lesson_id": 302,
-      "type": "fill_blank",
-      "prompt": "Complete: 'Moje matka je ___.' (doctor, female form)",
+      "type": "reading_comprehension",
+      "prompt": "Read three labeled shelves",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Moje matka je ___. (doctor, female form)",
-        "blank_count": 1,
-        "explanation": "lékařka = female doctor. 'Moje matka' (my mother) is feminine, so use the feminine form with -ka.",
-        "blank_answers": [
-          ["lékařka"]
-        ]
-      },
-      "answer_key": "lékařka",
-      "grammar_rule_id": "GR-024",
-      "xp_reward": 10
-    },
-    {
-      "id": 3112,
-      "lesson_id": 302,
-      "type": "translation",
-      "prompt": "Translate to English",
-      "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "To jsou studenti.",
-        "accepted_answers": [
-          "Those are students.",
-          "These are students."
-        ],
-        "grammar_note": "To jsou = Those are (plural). studenti = students (masculine animate plural nominative)."
-      },
-      "answer_key": "Those are students.",
-      "grammar_rule_id": "GR-023",
-      "xp_reward": 10
-    },
-    {
-      "id": 3113,
-      "lesson_id": 302,
-      "type": "pronunciation",
-      "prompt": "Say this sentence aloud — focus on identifying gender",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "To je muž. To je žena. To je město.",
-        "target_audio_hash": "placeholder_3113",
-        "focus_sounds": [
-          "ě"
-        ],
-        "min_score": 0.6,
-        "translation_en": "That is a man. That is a woman. That is a city."
-      },
-      "answer_key": "To je muž. To je žena. To je město.",
-      "grammar_rule_id": "GR-023",
-      "xp_reward": 15
-    },
-    {
-      "id": 3114,
-      "lesson_id": 302,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue",
-      "data": {
-        "type": "dialogue",
-        "scenario": "Asking what something is",
-        "lines": [
+        "type": "reading_comprehension",
+        "prompt_en": "Use the cue—not the English meaning—to retrieve each noun.",
+        "text_cz": "TEN: muž, pes, dům, stůl\nTA: žena, káva, kniha, židle\nTO: dítě, auto, okno, město",
+        "text_en": "TEN: man, dog, house, table\nTA: woman, coffee, book, chair\nTO: child, car, window, city",
+        "questions": [
           {
-            "speaker": "person_a",
-            "text": "Co to je?"
+            "question_en": "Which pair belongs on the TA shelf?",
+            "options": [
+              "káva and židle",
+              "pes and dům",
+              "auto and město"
+            ],
+            "correct_index": 0
           },
           {
-            "speaker": "person_b",
-            "text": "___ (That is a book.)"
-          },
-          {
-            "speaker": "person_a",
-            "text": "A co to je?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "___ (That is a car.)"
+            "question_en": "Which pair shows why endings are only clues?",
+            "options": [
+              "židle and dítě",
+              "žena and auto",
+              "dům and město"
+            ],
+            "correct_index": 0
           }
-        ],
-        "explanation": "Co to je? = What is that? Response: To je + noun (nominative). kniha (feminine), auto (neuter).",
-        "blank_answers": [
-          ["To je kniha."],
-          ["To je auto."]
         ]
       },
-      "answer_key": "To je kniha.|To je auto.",
-      "grammar_rule_id": "GR-023",
-      "xp_reward": 20
+      "answer_key": "káva and židle; židle and dítě",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "learn familiar nouns with ten, ta, or to.",
+  "new_language": [
+    "ten stůl",
+    "ta kniha",
+    "ta káva",
+    "ta židle",
+    "to okno",
+    "to město",
+    "ten muž · ten pes · ten dům · ten stůl",
+    "ta žena · ta káva · ta kniha · ta židle",
+    "to dítě · to auto · to okno · to město"
+  ],
+  "recycles": [
+    "greetings",
+    "names",
+    "To je…",
+    "Czech sound clues"
+  ],
+  "exit_task": "learn familiar nouns with ten, ta, or to."
 }

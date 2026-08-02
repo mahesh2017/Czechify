@@ -2,8 +2,8 @@
   "id": 102,
   "unit_id": 1,
   "order_in_unit": 2,
-  "title": "Problem Sounds: ř, ě, Long Vowels",
-  "description": "Practice the three hardest Czech sounds with pronunciation drills and listening exercises",
+  "title": "Czech Spelling Clues",
+  "description": "Use Czech spelling to predict common sounds, including č, š, ž, ch, j, ě and ř, without demanding perfect pronunciation.",
   "duration_min": 12,
   "lesson_type": "practice",
   "is_review": false,
@@ -11,197 +11,533 @@
     {
       "id": 1101,
       "lesson_id": 102,
-      "type": "pronunciation",
-      "prompt": "Practice the ř sound — say this word",
+      "type": "teaching",
+      "prompt": "Build a practical Czech sound map",
       "data": {
-        "type": "pronunciation",
-        "target_text": "řeka",
-        "target_audio_hash": "placeholder_1101",
-        "focus_sounds": [
-          "ř"
-        ],
-        "min_score": 0.5,
-        "translation_en": "river",
-        "note": "Start by trying to say 'r' and 'zh' at the same time. It takes practice!"
+        "type": "teaching",
+        "style": "list",
+        "heading": "Read the clues, then trust your ears",
+        "body": "Czech spelling is more regular than English, but real speech still includes changes such as voicing and sound linking. These high-value clues will help you read beginner words; listen to each full word rather than forcing an English sound onto one letter.",
+        "play_all_label": "Hear the sound map",
+        "items": [
+          {
+            "cz": "čaj",
+            "en": "č ≈ ch in church"
+          },
+          {
+            "cz": "škola",
+            "en": "š ≈ sh in ship"
+          },
+          {
+            "cz": "žena",
+            "en": "ž ≈ s in measure"
+          },
+          {
+            "cz": "cukr",
+            "en": "c ≈ ts in cats"
+          },
+          {
+            "cz": "chléb",
+            "en": "ch is one throaty Czech sound"
+          },
+          {
+            "cz": "jablko",
+            "en": "j ≈ y in yes"
+          },
+          {
+            "cz": "děti",
+            "en": "dě has a softened d"
+          },
+          {
+            "cz": "město",
+            "en": "mě is commonly pronounced mně"
+          },
+          {
+            "cz": "řeka",
+            "en": "ř is a special Czech sound; approximation is fine for now"
+          }
+        ]
       },
-      "answer_key": "řeka",
-      "grammar_rule_id": "GR-001",
-      "xp_reward": 15
+      "xp_reward": 0
     },
     {
       "id": 1102,
       "lesson_id": 102,
-      "type": "pronunciation",
-      "prompt": "Practice the ř sound — say this word",
+      "type": "listening_comprehension",
+      "prompt": "Distinguish three háček sounds",
       "data": {
-        "type": "pronunciation",
-        "target_text": "tři",
-        "target_audio_hash": "placeholder_1102",
-        "focus_sounds": [
-          "ř"
-        ],
-        "min_score": 0.5,
-        "translation_en": "three"
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first. Which three words did you hear?",
+        "transcript_cz": "Čaj. Škola. Žena.",
+        "questions": [
+          {
+            "question_en": "Choose the correct sequence.",
+            "options": [
+              "tea — school — woman",
+              "school — tea — woman",
+              "woman — school — tea"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "tři",
-      "grammar_rule_id": "GR-001",
-      "xp_reward": 15
+      "answer_key": "tea — school — woman",
+      "xp_reward": 10
     },
     {
       "id": 1103,
       "lesson_id": 102,
-      "type": "pronunciation",
-      "prompt": "Practice ě softening — say this word",
+      "type": "matching",
+      "prompt": "Match each spelling clue to an approximate English cue",
       "data": {
-        "type": "pronunciation",
-        "target_text": "děti",
-        "target_audio_hash": "placeholder_1103",
-        "focus_sounds": [
-          "ě"
-        ],
-        "min_score": 0.5,
-        "translation_en": "children",
-        "note": "dě sounds like 'dye'. The ě softens the d."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "c",
+            "right": "ts in cats"
+          },
+          {
+            "left": "č",
+            "right": "ch in church"
+          },
+          {
+            "left": "š",
+            "right": "sh in ship"
+          },
+          {
+            "left": "ž",
+            "right": "s in measure"
+          },
+          {
+            "left": "j",
+            "right": "y in yes"
+          }
+        ]
       },
-      "answer_key": "děti",
-      "grammar_rule_id": "GR-002",
-      "xp_reward": 15
+      "answer_key": "c=ts, č=ch, š=sh, ž=measure sound, j=y",
+      "xp_reward": 10
     },
     {
       "id": 1104,
       "lesson_id": 102,
-      "type": "pronunciation",
-      "prompt": "Practice ě softening — say this word",
+      "type": "multiple_choice",
+      "prompt": "Recognize Czech ch",
       "data": {
-        "type": "pronunciation",
-        "target_text": "město",
-        "target_audio_hash": "placeholder_1104",
-        "focus_sounds": [
-          "ě"
+        "type": "multiple_choice",
+        "question_en": "How should you treat ch in the familiar word chléb?",
+        "options": [
+          "As one Czech sound",
+          "As separate c and h sounds",
+          "As English ch in chair",
+          "As a silent spelling"
         ],
-        "min_score": 0.5,
-        "translation_en": "city",
-        "note": "mě sounds like 'mňe'. Special softening for m + ě."
+        "correct_index": 0,
+        "explanation": "Czech ch functions as a single sound (and traditionally as one alphabet letter). It is similar to the sound in Scottish loch."
       },
-      "answer_key": "město",
-      "grammar_rule_id": "GR-002",
-      "xp_reward": 15
+      "answer_key": "As one Czech sound",
+      "xp_reward": 10
     },
     {
       "id": 1105,
       "lesson_id": 102,
-      "type": "dictation",
-      "prompt": "Listen and type — pay attention to long vowels",
+      "type": "multiple_choice",
+      "prompt": "Recognize Czech j",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_1105",
-        "expected_text": "dům",
-        "language": "cs-CZ",
-        "note": "ů is a long u with kroužek (ring). Pronounced longer than short u."
+        "type": "multiple_choice",
+        "question_en": "Which English sound is the best starting cue for j in jablko?",
+        "options": [
+          "y in yes",
+          "j in jam",
+          "g in go",
+          "h in house"
+        ],
+        "correct_index": 0,
+        "explanation": "Czech j is close to English y in yes."
       },
-      "answer_key": "dům",
-      "grammar_rule_id": "GR-003",
+      "answer_key": "y in yes",
       "xp_reward": 10
     },
     {
       "id": 1106,
       "lesson_id": 102,
-      "type": "dictation",
-      "prompt": "Listen and type — long vs short vowel",
+      "type": "multiple_choice",
+      "prompt": "Use ě as a spelling clue",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_1106",
-        "expected_text": "káva",
-        "language": "cs-CZ",
-        "note": "á is a long a. First syllable stress: KÁ-va."
+        "type": "multiple_choice",
+        "question_en": "What is the most useful beginner clue for ě in děti and město?",
+        "options": [
+          "It changes how the preceding consonant group is pronounced",
+          "It is always a long vowel",
+          "It marks word stress",
+          "It is silent"
+        ],
+        "correct_index": 0,
+        "explanation": "In dě, tě and ně, ě signals a softened consonant; mě is commonly pronounced like mně. Copy the complete syllable you hear."
       },
-      "answer_key": "káva",
-      "grammar_rule_id": "GR-003",
-      "xp_reward": 10
+      "answer_key": "It changes how the preceding consonant group is pronounced",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-002"
     },
     {
       "id": 1107,
       "lesson_id": 102,
-      "type": "multiple_choice",
-      "prompt": "Which pair shows a long vowel that changes meaning?",
+      "type": "fill_blank",
+      "prompt": "Complete the familiar word for city",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která dvojice ukazuje, že délka samohlásky mění význam?",
-        "question_en": "Which pair shows vowel length changing meaning?",
-        "options": [
-          "dům / dum (house vs explosion)",
-          "škola / školka (school vs preschool)",
-          "žena / ženy (woman vs women)",
-          "All of the above"
+        "type": "fill_blank",
+        "sentence": "m_sto",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ě"
+          ]
         ],
-        "correct_index": 3,
-        "explanation": "All three show how vowel length changes meaning. Always pay attention to čárka (á, é, í, ó, ú) and kroužek (ů)."
+        "explanation": "město begins with mě-."
       },
-      "answer_key": "3",
-      "grammar_rule_id": "GR-003",
-      "xp_reward": 10
+      "answer_key": "ě",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-002"
     },
     {
       "id": 1108,
       "lesson_id": 102,
-      "type": "word_order",
-      "prompt": "Arrange these words into a sentence",
+      "type": "dictation",
+      "prompt": "Listen and type the word",
       "data": {
-        "type": "word_order",
-        "words": [
-          "Řeka",
-          "teče",
-          "pod",
-          "mostem."
-        ],
-        "correct_order": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "explanation": "'Řeka teče pod mostem.' = The river flows under the bridge. The location preposition 'pod' takes the instrumental here: most → mostem.",
-        "translation_en": "The river flows under the bridge."
+        "type": "dictation",
+        "expected_text": "chléb",
+        "language": "cs-CZ",
+        "note": "Keep ch together and include the long é."
       },
-      "answer_key": "Řeka teče pod mostem.",
+      "answer_key": "chléb",
       "xp_reward": 10
     },
     {
       "id": 1109,
       "lesson_id": 102,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "pronunciation",
+      "prompt": "Copy the complete mě- sound",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "children",
-        "accepted_answers": [
-          "děti"
+        "type": "pronunciation",
+        "target_text": "město",
+        "focus_sounds": [
+          "mě"
         ],
-        "grammar_note": "Contains ě after d → softened pronunciation (dye-ti)."
+        "min_score": 0.5,
+        "translation_en": "city",
+        "note": "Listen and imitate the whole first syllable rather than pronouncing m + e separately."
       },
-      "answer_key": "děti",
-      "grammar_rule_id": "GR-002",
-      "xp_reward": 10
+      "answer_key": "město",
+      "xp_reward": 15
     },
     {
       "id": 1110,
       "lesson_id": 102,
       "type": "pronunciation",
-      "prompt": "Say this full sentence — focus on ř and ě",
+      "prompt": "Try ř without chasing perfection",
       "data": {
         "type": "pronunciation",
-        "target_text": "Tři děti jdou do školy.",
-        "target_audio_hash": "placeholder_1110",
+        "target_text": "řeka",
         "focus_sounds": [
-          "ř",
-          "ě"
+          "ř"
         ],
-        "min_score": 0.55,
-        "translation_en": "Three children go to school."
+        "min_score": 0.45,
+        "translation_en": "river",
+        "note": "A clear approximation is enough at this stage. Keep listening; control of ř develops over time."
       },
-      "answer_key": "Tři děti jdou do školy.",
-      "xp_reward": 20
+      "answer_key": "řeka",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-001"
+    },
+    {
+      "id": 1111,
+      "lesson_id": 102,
+      "type": "teaching",
+      "prompt": "Keep the complete alphabet as a reference",
+      "data": {
+        "type": "teaching",
+        "style": "alphabet",
+        "heading": "Alphabet reference — explore, do not memorize",
+        "body": "This compact grid is here whenever you want it. Tap a letter to hear its Czech name. You do not need to memorize every name before continuing.",
+        "play_all_label": "Hear all letter names",
+        "items": [
+          {
+            "symbol": "a",
+            "name_say": "a",
+            "say": "a"
+          },
+          {
+            "symbol": "á",
+            "name_say": "dlouhé á",
+            "say": "dlouhé á"
+          },
+          {
+            "symbol": "b",
+            "name_say": "bé",
+            "say": "bé"
+          },
+          {
+            "symbol": "c",
+            "name_say": "cé",
+            "say": "cé"
+          },
+          {
+            "symbol": "č",
+            "name_say": "čé",
+            "say": "čé"
+          },
+          {
+            "symbol": "d",
+            "name_say": "dé",
+            "say": "dé"
+          },
+          {
+            "symbol": "ď",
+            "name_say": "ďé",
+            "say": "ďé"
+          },
+          {
+            "symbol": "e",
+            "name_say": "e",
+            "say": "e"
+          },
+          {
+            "symbol": "é",
+            "name_say": "dlouhé é",
+            "say": "dlouhé é"
+          },
+          {
+            "symbol": "ě",
+            "name_say": "ije",
+            "say": "ije"
+          },
+          {
+            "symbol": "f",
+            "name_say": "ef",
+            "say": "ef"
+          },
+          {
+            "symbol": "g",
+            "name_say": "gé",
+            "say": "gé"
+          },
+          {
+            "symbol": "h",
+            "name_say": "há",
+            "say": "há"
+          },
+          {
+            "symbol": "ch",
+            "name_say": "chá",
+            "say": "chá"
+          },
+          {
+            "symbol": "i",
+            "name_say": "měkké i",
+            "say": "měkké i"
+          },
+          {
+            "symbol": "í",
+            "name_say": "dlouhé í",
+            "say": "dlouhé í"
+          },
+          {
+            "symbol": "j",
+            "name_say": "jé",
+            "say": "jé"
+          },
+          {
+            "symbol": "k",
+            "name_say": "ká",
+            "say": "ká"
+          },
+          {
+            "symbol": "l",
+            "name_say": "el",
+            "say": "el"
+          },
+          {
+            "symbol": "m",
+            "name_say": "em",
+            "say": "em"
+          },
+          {
+            "symbol": "n",
+            "name_say": "en",
+            "say": "en"
+          },
+          {
+            "symbol": "ň",
+            "name_say": "eň",
+            "say": "eň"
+          },
+          {
+            "symbol": "o",
+            "name_say": "o",
+            "say": "o"
+          },
+          {
+            "symbol": "ó",
+            "name_say": "dlouhé ó",
+            "say": "dlouhé ó"
+          },
+          {
+            "symbol": "p",
+            "name_say": "pé",
+            "say": "pé"
+          },
+          {
+            "symbol": "q",
+            "name_say": "kvé",
+            "say": "kvé"
+          },
+          {
+            "symbol": "r",
+            "name_say": "er",
+            "say": "er"
+          },
+          {
+            "symbol": "ř",
+            "name_say": "eř",
+            "say": "eř"
+          },
+          {
+            "symbol": "s",
+            "name_say": "es",
+            "say": "es"
+          },
+          {
+            "symbol": "š",
+            "name_say": "eš",
+            "say": "eš"
+          },
+          {
+            "symbol": "t",
+            "name_say": "té",
+            "say": "té"
+          },
+          {
+            "symbol": "ť",
+            "name_say": "ťé",
+            "say": "ťé"
+          },
+          {
+            "symbol": "u",
+            "name_say": "u",
+            "say": "u"
+          },
+          {
+            "symbol": "ú",
+            "name_say": "ú s čárkou",
+            "say": "ú s čárkou"
+          },
+          {
+            "symbol": "ů",
+            "name_say": "ů s kroužkem",
+            "say": "ů s kroužkem"
+          },
+          {
+            "symbol": "v",
+            "name_say": "vé",
+            "say": "vé"
+          },
+          {
+            "symbol": "w",
+            "name_say": "dvojité vé",
+            "say": "dvojité vé"
+          },
+          {
+            "symbol": "x",
+            "name_say": "iks",
+            "say": "iks"
+          },
+          {
+            "symbol": "y",
+            "name_say": "tvrdé y",
+            "say": "tvrdé y"
+          },
+          {
+            "symbol": "ý",
+            "name_say": "dlouhé tvrdé ý",
+            "say": "dlouhé tvrdé ý"
+          },
+          {
+            "symbol": "z",
+            "name_say": "zet",
+            "say": "zet"
+          },
+          {
+            "symbol": "ž",
+            "name_say": "žet",
+            "say": "žet"
+          }
+        ]
+      },
+      "xp_reward": 0
     }
-  ]
+  ],
+  "can_do": "use Czech spelling clues to predict familiar sounds.",
+  "new_language": [
+    "čaj",
+    "škola",
+    "žena",
+    "cukr",
+    "chléb",
+    "jablko",
+    "děti",
+    "město",
+    "řeka",
+    "a",
+    "dlouhé á",
+    "bé",
+    "cé",
+    "čé",
+    "dé",
+    "ďé",
+    "e",
+    "dlouhé é",
+    "ije",
+    "ef",
+    "gé",
+    "há",
+    "chá",
+    "měkké i",
+    "dlouhé í",
+    "jé",
+    "ká",
+    "el",
+    "em",
+    "en",
+    "eň",
+    "o",
+    "dlouhé ó",
+    "pé",
+    "kvé",
+    "er",
+    "eř",
+    "es",
+    "eš",
+    "té",
+    "ťé",
+    "u",
+    "ú s čárkou",
+    "ů s kroužkem",
+    "vé",
+    "dvojité vé",
+    "iks",
+    "tvrdé y",
+    "dlouhé tvrdé ý",
+    "zet",
+    "žet"
+  ],
+  "recycles": [
+    "káva",
+    "čaj",
+    "chléb",
+    "jablko",
+    "děti",
+    "first-syllable rhythm",
+    "long vowels"
+  ],
+  "exit_task": "use Czech spelling clues to predict familiar sounds."
 }

@@ -2,344 +2,343 @@
   "id": 701,
   "unit_id": 7,
   "order_in_unit": 0,
-  "title": "Personal Pronouns & Possessive Adjectives",
-  "description": "Learn Czech personal pronouns (já, ty, on, ona, my, vy, oni) and possessive adjectives (můj, tvůj, jeho, její, náš, váš)",
-  "duration_min": 15,
+  "title": "At Lost Property",
+  "description": "Recognise common belongings and ask whether an item belongs to someone.",
+  "can_do": "ask whether a common item is mine or yours.",
+  "new_language": [
+    "To je můj telefon.",
+    "To je moje taška.",
+    "Je to váš klíč?",
+    "Ano, je můj."
+  ],
+  "recycles": [
+    "To je…",
+    "ten/ta/to",
+    "Mám/Nemám",
+    "Ano/Ne"
+  ],
+  "exit_task": "ask whether a common item is mine or yours.",
+  "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
-      "id": 90007,
+      "id": 7000,
       "lesson_id": 701,
       "type": "teaching",
-      "prompt": "Pronouns & \"my / your\"",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "Pronouns & \"my / your\"",
-        "body": "The little words we lean on constantly — and \"my,\" which changes shape to match its noun.",
-        "intro": "I, you, mine, yours — the small words we lean on constantly. Czech adds a twist: 'my' changes shape to match whatever you're talking about. Let's untangle it together.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "At Lost Property",
+        "body": "Recognise common belongings and ask whether an item belongs to someone.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "já",
-            "en": "I"
+            "cz": "To je můj telefon.",
+            "en": "That is my phone."
           },
           {
-            "cz": "ty",
-            "en": "you (informal)"
+            "cz": "To je moje taška.",
+            "en": "That is my bag."
           },
           {
-            "cz": "on",
-            "en": "he"
+            "cz": "Je to váš klíč?",
+            "en": "Is it your key?"
           },
           {
-            "cz": "ona",
-            "en": "she"
-          },
-          {
-            "cz": "ono",
-            "en": "it"
-          },
-          {
-            "cz": "my",
-            "en": "we"
-          },
-          {
-            "cz": "vy",
-            "en": "you (plural / formal)"
-          },
-          {
-            "cz": "oni",
-            "en": "they"
-          },
-          {
-            "cz": "můj",
-            "en": "my (with a masculine noun)"
-          },
-          {
-            "cz": "moje",
-            "en": "my (with a feminine or neuter noun)"
-          },
-          {
-            "cz": "tvůj",
-            "en": "your (masculine)"
-          },
-          {
-            "cz": "náš",
-            "en": "our (masculine)"
-          },
-          {
-            "cz": "váš",
-            "en": "your (plural, masculine)"
-          },
-          {
-            "cz": "jeho",
-            "en": "his (never changes)"
-          },
-          {
-            "cz": "její",
-            "en": "her (never changes)"
-          },
-          {
-            "cz": "jejich",
-            "en": "their (never changes)"
+            "cz": "Ano, je můj.",
+            "en": "Yes, it is mine."
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 7001,
       "lesson_id": 701,
-      "type": "multiple_choice",
-      "prompt": "Match the English pronoun to its Czech equivalent: 'we'",
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které české zájmeno znamená 'my'?",
-        "question_en": "Which Czech pronoun means 'we'?",
-        "options": [
-          "já",
-          "ty",
-          "my",
-          "vy"
-        ],
-        "correct_index": 2,
-        "explanation": "my = we. The Czech personal pronouns are: já (I), ty (you sg.), on (he), ona (she), ono (it), my (we), vy (you pl.), oni/ony (they)."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Dobrý den. Je to váš klíč? Ano, je můj. A ta taška? Ta není moje.",
+        "image": "assets/images/unit07/lost_property_v1.png",
+        "image_label": "Ownership words matched to common belongings",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "At Lost Property",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which item belongs to the speaker?",
+            "options": [
+              "The key",
+              "The bag",
+              "The phone"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "my",
-      "grammar_rule_id": "GR-060",
-      "xp_reward": 10
+      "answer_key": "The key",
+      "xp_reward": 15
     },
     {
       "id": 7002,
       "lesson_id": 701,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct possessive adjective: '___ pes' (my dog, masculine)",
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správné přivlastňovací zájmeno: '___ pes' (můj pes, mužský rod)",
-        "question_en": "Choose the correct possessive adjective: '___ pes' (my dog, masculine)",
-        "options": [
-          "můj",
-          "moje",
-          "má",
-          "mé"
-        ],
-        "correct_index": 0,
-        "explanation": "můj is used before masculine singular nouns (můj pes = my dog, můj dům = my house). For feminine and neuter singular, use moje (moje kniha, moje auto)."
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit07/lost_property_v1.png",
+        "image_label": "Ownership words matched to common belongings",
+        "text_cz": "Nalezené věci: černý telefon, modrá taška, dva klíče a kniha.",
+        "text_en": "Found items: a black phone, a blue bag, two keys, and a book.",
+        "questions": [
+          {
+            "question_en": "Which item is blue?",
+            "options": [
+              "The bag",
+              "The phone",
+              "The book"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Found items: a black phone, a blue bag, two keys, and a book.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "můj",
-      "grammar_rule_id": "GR-061",
-      "xp_reward": 10
+      "answer_key": "The bag",
+      "xp_reward": 15
     },
     {
       "id": 7003,
       "lesson_id": 701,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'Her book'",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Her book",
-        "accepted_answers": [
-          "její kniha",
-          "Její kniha"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "To je můj telefon.",
+            "right": "That is my phone."
+          },
+          {
+            "left": "To je moje taška.",
+            "right": "That is my bag."
+          },
+          {
+            "left": "Je to váš klíč?",
+            "right": "Is it your key?"
+          },
+          {
+            "left": "Ano, je můj.",
+            "right": "Yes, it is mine."
+          }
         ],
-        "grammar_note": "její (her) is invariable — it does not change for gender or number. It is the same for masculine, feminine, and neuter nouns."
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
-      "answer_key": "její kniha",
-      "grammar_rule_id": "GR-061",
+      "answer_key": "To je můj telefon.–That is my phone.; To je moje taška.–That is my bag.; Je to váš klíč?–Is it your key?; Ano, je můj.–Yes, it is mine.",
       "xp_reward": 10
     },
     {
       "id": 7004,
       "lesson_id": 701,
-      "type": "fill_blank",
-      "prompt": "Fill in the blank with the correct possessive adjective: 'To je ___ auto.' (our car, neuter)",
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
       "data": {
-        "type": "fill_blank",
-        "sentence": "To je ___ auto.",
-        "blank_count": 1,
-        "explanation": "For neuter singular nouns like auto, use naše (our). náš is for masculine singular (náš pes), while naše is for feminine and neuter singular (naše kniha, naše auto).",
-        "blank_answers": [
-          [
-            "naše"
-          ]
-        ]
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "To je můj telefon.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
       },
-      "answer_key": "naše",
-      "grammar_rule_id": "GR-062",
+      "answer_key": "To je můj telefon.",
       "xp_reward": 10
     },
     {
       "id": 7005,
       "lesson_id": 701,
-      "type": "multiple_choice",
-      "prompt": "Which possessive adjective means 'your' (singular, for a masculine noun)?",
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které přivlastňovací zájmeno znamená 'tvůj' (jednotné číslo, mužský rod)?",
-        "question_en": "Which possessive adjective means 'your' (singular, for a masculine noun)?",
-        "options": [
-          "tvůj",
-          "vaše",
-          "tvoje",
-          "váš"
+        "type": "fill_blank",
+        "sentence": "To ___ můj telefon.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "je"
+          ]
         ],
-        "correct_index": 0,
-        "explanation": "tvůj = your (singular, masculine). tvoje = your (singular, feminine/neuter). váš = your (plural, masculine). vaše = your (plural, feminine/neuter)."
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": "tvůj",
-      "grammar_rule_id": "GR-061",
+      "answer_key": "je",
       "xp_reward": 10
     },
     {
       "id": 7006,
       "lesson_id": 701,
-      "type": "translation",
-      "prompt": "Translate to English: 'On je z Prahy.'",
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "On je z Prahy.",
-        "accepted_answers": [
-          "He is from Prague.",
-          "He's from Prague."
+        "type": "word_order",
+        "words": [
+          "taška.",
+          "moje",
+          "je",
+          "To"
         ],
-        "grammar_note": "on = he. Czech subject pronouns can be omitted when the verb ending makes the subject clear: 'Je z Prahy.' also means 'He is from Prague.'"
+        "correct_order": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "translation_en": "That is my bag.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": "He is from Prague.",
-      "grammar_rule_id": "GR-060",
+      "answer_key": "To je moje taška.",
       "xp_reward": 10
     },
     {
       "id": 7007,
       "lesson_id": 701,
-      "type": "word_order",
-      "prompt": "Arrange the words to form: 'This is my book.'",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "word_order",
-        "words": [
-          "To",
-          "je",
-          "moje",
-          "kniha"
-        ],
-        "correct_order": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "explanation": "To je moje kniha. = This is my book. kniha is feminine, so we use moje (not můj, which is for masculine nouns)."
+        "type": "dictation",
+        "expected_text": "Je to váš klíč?",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": "To je moje kniha",
-      "grammar_rule_id": "GR-062",
+      "answer_key": "Je to váš klíč?",
       "xp_reward": 10
     },
     {
       "id": 7008,
       "lesson_id": 701,
-      "type": "fill_blank",
-      "prompt": "Fill in the blank with the correct subject pronoun: '___ jsme studenti.' (We are students.)",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
       "data": {
-        "type": "fill_blank",
-        "sentence": "___ jsme studenti.",
-        "blank_count": 1,
-        "explanation": "my = we. However, in everyday Czech the pronoun is usually dropped: 'Jsme studenti.' is more natural and equally correct.",
-        "blank_answers": [
-          [
-            "My",
-            "my"
-          ]
-        ]
+        "type": "pronunciation",
+        "target_text": "Ano, je můj.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Yes, it is mine."
       },
-      "answer_key": "my",
-      "grammar_rule_id": "GR-063",
-      "xp_reward": 10
+      "answer_key": "Ano, je můj.",
+      "xp_reward": 15
     },
     {
       "id": 7009,
       "lesson_id": 701,
-      "type": "multiple_choice",
-      "prompt": "Which sentence is more natural in everyday Czech?",
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta je přirozenější v běžné češtině?",
-        "question_en": "Which sentence is more natural in everyday Czech?",
-        "options": [
-          "Já jsem student.",
-          "Jsem student.",
-          "Já student.",
-          "Jsem já student."
+        "type": "dialogue",
+        "scenario": "At Lost Property",
+        "image": "assets/images/unit07/lost_property_v1.png",
+        "image_label": "Ownership words matched to common belongings",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Je to váš telefon?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "A je to vaše taška?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "correct_index": 1,
-        "explanation": "In Czech, subject pronouns are usually dropped because the verb conjugation already shows the person. 'Jsem student.' (I am a student) is the natural form. 'Já jsem student.' is grammatically correct but used only for emphasis."
+        "blank_answers": [
+          [
+            "To je můj telefon."
+          ],
+          [
+            "To je moje taška."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Jsem student.",
-      "grammar_rule_id": "GR-063",
-      "xp_reward": 10
+      "answer_key": "To je můj telefon. | To je moje taška.",
+      "xp_reward": 15
     },
     {
       "id": 7010,
       "lesson_id": 701,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear.",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_7010",
-        "expected_text": "To je moje auto.",
-        "language": "cs-CZ",
-        "note": "auto is a neuter noun, so we use moje (my). Compare: můj pes (masc), moje kniha (fem), moje auto (neut)."
+        "type": "writing_task",
+        "prompt_en": "Write labels for three belongings using můj or moje.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "To je můj telefon.",
+          "To je moje taška.",
+          "Je to váš klíč?",
+          "Ano, je můj."
+        ],
+        "sample_answer": "To je můj telefon. To je moje taška. Je to váš klíč? Ano, je můj."
       },
-      "answer_key": "To je moje auto.",
-      "grammar_rule_id": "GR-062",
-      "xp_reward": 15
+      "answer_key": "To je můj telefon. To je moje taška. Je to váš klíč? Ano, je můj.",
+      "xp_reward": 0
     },
     {
       "id": 7011,
       "lesson_id": 701,
-      "type": "pronunciation",
-      "prompt": "Practice pronouncing the Czech personal pronouns.",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
       "data": {
-        "type": "pronunciation",
-        "target_text": "já, ty, on, ona, ono, my, vy, oni",
-        "target_audio_hash": "placeholder_7011",
-        "focus_sounds": [
-          "á",
-          "o",
-          "y",
-          "i"
-        ],
-        "min_score": 0.6,
-        "translation_en": "I, you, he, she, it, we, you (pl.), they"
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Tahle kniha je moje, ale ten telefon není můj.",
+        "questions": [
+          {
+            "question_en": "Which item belongs to the speaker?",
+            "options": [
+              "The book",
+              "The phone",
+              "Both items"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "já, ty, on, ona, ono, my, vy, oni",
-      "grammar_rule_id": "GR-060",
+      "answer_key": "The book",
       "xp_reward": 15
-    },
-    {
-      "id": 7012,
-      "lesson_id": 701,
-      "type": "multiple_choice",
-      "prompt": "Review: What are the Czech numbers 1-4?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která řada je správná pro čísla 1-4?",
-        "question_en": "Which sequence is correct for the numbers 1-4?",
-        "options": [
-          "jeden, dva, tři, čtyři",
-          "jeden, dvě, tři, pět",
-          "jedna, dva, tři, čtyři",
-          "jeden, dva, tři, šest"
-        ],
-        "correct_index": 0,
-        "explanation": "jeden (1), dva (2), tři (3), čtyři (4). These are the cardinal numbers 1-4. Note: dva has a feminine form dvě (dvě knihy = two books), but dva is the default masculine form."
-      },
-      "answer_key": "jeden, dva, tři, čtyři",
-      "grammar_rule_id": null,
-      "xp_reward": 10
     }
   ]
 }

@@ -1,0 +1,406 @@
+{
+  "id": 303,
+  "unit_id": 3,
+  "order_in_unit": 2,
+  "title": "Find and Identify",
+  "description": "Combine kdo/co questions, To je… answers, and ten/ta/to noun chunks in short encounters.",
+  "duration_min": 12,
+  "lesson_type": "practice",
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 3200,
+      "lesson_id": 303,
+      "type": "teaching",
+      "prompt": "Turn the pieces into a useful exchange",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Look → choose kdo/co → identify",
+        "body": "First decide whether the unknown item is a person or a thing. Ask one short question, answer with To je…, and retrieve the noun with its ten, ta, or to cue when the context points to a particular item.",
+        "play_all_label": "Hear the conversation chunks",
+        "items": [
+          {
+            "cz": "Kdo je to?",
+            "en": "Who is that? — a person"
+          },
+          {
+            "cz": "Co je to?",
+            "en": "What is that? — an animal or thing"
+          },
+          {
+            "cz": "To je Anna.",
+            "en": "That is Anna."
+          },
+          {
+            "cz": "To je pes.",
+            "en": "That is a dog."
+          },
+          {
+            "cz": "To je ten stůl. / ta kniha. / to okno.",
+            "say": "To je ten stůl. To je ta kniha. To je to okno.",
+            "en": "Keep the learned cue with a particular noun."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
+      "id": 3201,
+      "lesson_id": 303,
+      "type": "listening_comprehension",
+      "prompt": "Identify a visitor and an animal",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen for a who question and a what question.",
+        "transcript_cz": "Dobrý den. Kdo je to? To je pan Novák. A co je to? To je pes.",
+        "questions": [
+          {
+            "question_en": "Who is identified?",
+            "options": [
+              "Mr Novák",
+              "Daniel",
+              "A child"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What is identified?",
+            "options": [
+              "A dog",
+              "A car",
+              "A house"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Mr Novák; A dog",
+      "xp_reward": 10
+    },
+    {
+      "id": 3202,
+      "lesson_id": 303,
+      "type": "listening_comprehension",
+      "prompt": "Follow three object identifications",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen for the noun cues. Which item comes second?",
+        "transcript_cz": "Co je to? To je ten stůl. A co je to? To je ta kniha. A co je to? To je to okno.",
+        "questions": [
+          {
+            "question_en": "Which item comes second?",
+            "options": [
+              "The book",
+              "The table",
+              "The window"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which cue accompanies okno?",
+            "options": [
+              "to",
+              "ta",
+              "ten"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "The book; to",
+      "xp_reward": 10
+    },
+    {
+      "id": 3203,
+      "lesson_id": 303,
+      "type": "matching",
+      "prompt": "Match each identification to its meaning",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "ten muž",
+            "right": "that man"
+          },
+          {
+            "left": "ta žena",
+            "right": "that woman"
+          },
+          {
+            "left": "to dítě",
+            "right": "that child"
+          },
+          {
+            "left": "ten pes",
+            "right": "that dog"
+          },
+          {
+            "left": "ta kniha",
+            "right": "that book"
+          },
+          {
+            "left": "to auto",
+            "right": "that car"
+          }
+        ],
+        "explanation": "The cue belongs to the Czech noun chunk; it does not follow English gender."
+      },
+      "answer_key": "ten muž–that man; ta žena–that woman; to dítě–that child; ten pes–that dog; ta kniha–that book; to auto–that car",
+      "xp_reward": 10
+    },
+    {
+      "id": 3204,
+      "lesson_id": 303,
+      "type": "multiple_choice",
+      "prompt": "A classmate points to a book and asks Co je to? What fits?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Spolužák ukazuje na knihu. Jak odpovíte?",
+        "question_en": "A classmate points to a book. How do you answer?",
+        "options": [
+          "To je ta kniha.",
+          "Kdo je to?",
+          "To je ten kniha.",
+          "Jmenuju se kniha."
+        ],
+        "correct_index": 0,
+        "explanation": "Answer with To je… and retrieve kniha with its feminine cue ta."
+      },
+      "answer_key": "To je ta kniha.",
+      "xp_reward": 10
+    },
+    {
+      "id": 3205,
+      "lesson_id": 303,
+      "type": "fill_blank",
+      "prompt": "Complete a person question, a thing question, and an answer",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ je to? To je Eva. · ___ je to? ___ je auto.",
+        "blank_count": 3,
+        "blank_answers": [
+          [
+            "Kdo",
+            "kdo"
+          ],
+          [
+            "Co",
+            "co"
+          ],
+          [
+            "To",
+            "to"
+          ]
+        ],
+        "explanation": "Kdo asks about Eva, co asks about the car, and To je… starts the answer."
+      },
+      "answer_key": "Kdo | Co | To",
+      "xp_reward": 10
+    },
+    {
+      "id": 3206,
+      "lesson_id": 303,
+      "type": "word_order",
+      "prompt": "Build a complete object exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Co",
+          "je",
+          "to?",
+          "To",
+          "je",
+          "to",
+          "auto."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "translation_en": "What is that? That is the car.",
+        "explanation": "The first to closes the question. The second to is the neuter cue for auto."
+      },
+      "answer_key": "Co je to? To je to auto.",
+      "xp_reward": 10
+    },
+    {
+      "id": 3207,
+      "lesson_id": 303,
+      "type": "dictation",
+      "prompt": "Listen and type the person exchange",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Kdo je to? To je Anna.",
+        "language": "cs-CZ",
+        "note": "Notice the reversed order je to in the question and To je in the answer."
+      },
+      "answer_key": "Kdo je to? To je Anna.",
+      "xp_reward": 10
+    },
+    {
+      "id": 3208,
+      "lesson_id": 303,
+      "type": "pronunciation",
+      "prompt": "Identify three nearby things",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "To je ten dům, ta káva a to auto.",
+        "focus_sounds": [
+          "ů",
+          "long_vowel",
+          "first_syllable_stress"
+        ],
+        "min_score": 0.5,
+        "translation_en": "That is the house, the coffee, and the car."
+      },
+      "answer_key": "To je ten dům, ta káva a to auto.",
+      "xp_reward": 15
+    },
+    {
+      "id": 3209,
+      "lesson_id": 303,
+      "type": "reading_comprehension",
+      "prompt": "Read labels from a classroom table",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Which labels are people, and which noun cue is used for each thing?",
+        "text_cz": "Kdo je to? To je učitel Daniel. To je studentka Sofia.\n\nCo je to? To je ten stůl. To je ta kniha. To je to okno.",
+        "text_en": "Who is that? That is the teacher Daniel. That is the student Sofia.\n\nWhat is that? That is the table. That is the book. That is the window.",
+        "questions": [
+          {
+            "question_en": "Who are the two people?",
+            "options": [
+              "Daniel and Sofia",
+              "Anna and Eva",
+              "A man and a child"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which three cues appear with the objects?",
+            "options": [
+              "ten, ta, to",
+              "kdo, co, je",
+              "já, ty, vy"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Daniel and Sofia; ten, ta, to",
+      "xp_reward": 15
+    },
+    {
+      "id": 3210,
+      "lesson_id": 303,
+      "type": "dialogue",
+      "prompt": "Complete a mini identification tour",
+      "data": {
+        "type": "dialogue",
+        "scenario": "A classmate shows you a photo and three objects",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "classmate",
+            "text": "To je Klára."
+          },
+          {
+            "speaker": "you",
+            "text": "A co je to?"
+          },
+          {
+            "speaker": "classmate",
+            "text": "___"
+          },
+          {
+            "speaker": "you",
+            "text": "A co je to?"
+          },
+          {
+            "speaker": "classmate",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Kdo je to?",
+            "Kdo je to"
+          ],
+          [
+            "To je ta kniha.",
+            "To je kniha.",
+            "To je ta kniha",
+            "To je kniha"
+          ],
+          [
+            "To je to okno.",
+            "To je okno.",
+            "To je to okno",
+            "To je okno"
+          ]
+        ],
+        "explanation": "Start with kdo for Klára, then use To je… to identify the book and window."
+      },
+      "answer_key": "Kdo je to? | To je ta kniha. | To je to okno.",
+      "xp_reward": 15
+    },
+    {
+      "id": 3211,
+      "lesson_id": 303,
+      "type": "writing_task",
+      "prompt": "Write three labels for your own surroundings",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Choose three visible people or things. Write three short To je… sentences. For familiar nouns, include the learned ten, ta, or to cue.",
+        "prompt_cz": "Napište tři krátké věty s To je…",
+        "min_words": 9,
+        "max_words": 24,
+        "key_vocab": [
+          "To je…",
+          "ten",
+          "ta",
+          "to",
+          "muž",
+          "žena",
+          "dítě",
+          "pes",
+          "dům",
+          "stůl",
+          "kniha",
+          "káva",
+          "židle",
+          "auto",
+          "okno",
+          "město"
+        ],
+        "sample_answer": "To je ten stůl. To je ta kniha. To je to okno."
+      },
+      "answer_key": "To je ten stůl. To je ta kniha. To je to okno.",
+      "xp_reward": 0
+    }
+  ],
+  "can_do": "identify people and things in a short exchange.",
+  "new_language": [
+    "Kdo je to?",
+    "Co je to?",
+    "To je Anna.",
+    "To je pes.",
+    "To je ten stůl. / ta kniha. / to okno."
+  ],
+  "recycles": [
+    "greetings",
+    "names",
+    "To je…",
+    "Czech sound clues"
+  ],
+  "exit_task": "identify people and things in a short exchange."
+}

@@ -2,209 +2,258 @@
   "id": 101,
   "unit_id": 1,
   "order_in_unit": 1,
-  "title": "Czech Alphabet & Sounds",
-  "description": "Learn the Czech alphabet, diacritics, and first-syllable stress rule",
-  "duration_min": 10,
+  "title": "The First Beat and Long Vowels",
+  "description": "Hear the usual first beat in Czech words and distinguish short vowels from long vowels that can change meaning.",
+  "duration_min": 11,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
       "id": 1001,
       "lesson_id": 101,
-      "type": "multiple_choice",
-      "prompt": "Which Czech letter has no equivalent in other languages and is a rolled 'r' with a ž quality?",
+      "type": "teaching",
+      "prompt": "Hear rhythm and vowel length",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které české písmeno nemá ekvivalent v jiných jazycích?",
-        "question_en": "Which Czech letter has no equivalent in other languages?",
-        "options": [
-          "š",
-          "ř",
-          "ě",
-          "č"
-        ],
-        "correct_index": 1,
-        "explanation": "ř is a unique Czech sound — a raised alveolar non-sonorant trill. It appears in řeka (river), tři (three), Dvořák."
+        "type": "teaching",
+        "style": "list",
+        "heading": "Start with the first beat; keep long vowels long",
+        "body": "In an ordinary Czech word, the main beat is normally at the beginning: KÁ-va, JA-blko. The marks á, é, í, ó, ú, ů and ý show vowel length, not stress. A one-syllable preposition often carries the beat of the phrase, as in DO školy; for now, copy the complete phrase you hear.",
+        "play_all_label": "Hear the rhythm",
+        "items": [
+          {
+            "cz": "káva",
+            "en": "KÁ-va — first beat, long á"
+          },
+          {
+            "cz": "jablko",
+            "en": "JA-blko — first beat"
+          },
+          {
+            "cz": "do školy",
+            "en": "DO školy — phrase beat on the preposition"
+          },
+          {
+            "cz": "byt",
+            "en": "flat — short vowel"
+          },
+          {
+            "cz": "být",
+            "en": "to be — long vowel"
+          },
+          {
+            "cz": "pas",
+            "en": "passport — short vowel"
+          },
+          {
+            "cz": "pás",
+            "en": "belt — long vowel"
+          }
+        ]
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-001",
-      "xp_reward": 10
+      "xp_reward": 0
     },
     {
       "id": 1002,
       "lesson_id": 101,
-      "type": "multiple_choice",
-      "prompt": "In Czech, where does the word stress always fall?",
+      "type": "listening_comprehension",
+      "prompt": "Hear short and long vowels",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Kde je v češtině přízvuk?",
-        "question_en": "Where does the stress fall in Czech?",
-        "options": [
-          "Last syllable",
-          "Second syllable",
-          "First syllable",
-          "Penultimate syllable"
-        ],
-        "correct_index": 2,
-        "explanation": "Czech stress ALWAYS falls on the first syllable. PRA-ha, KA-va, DĚ-kuji. No exceptions."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen to the pair. Which word came first?",
+        "transcript_cz": "byt. být.",
+        "questions": [
+          {
+            "question_en": "What was the order?",
+            "options": [
+              "flat, then to be",
+              "to be, then flat",
+              "The same word twice"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-000",
-      "xp_reward": 10
+      "answer_key": "flat, then to be",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
     },
     {
       "id": 1003,
       "lesson_id": 101,
-      "type": "multiple_choice",
-      "prompt": "What does the háček (ˇ) mark do to a consonant?",
+      "type": "listening_comprehension",
+      "prompt": "Check a second short-long pair",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co dělá háček?",
-        "question_en": "What does the háček (ˇ) do?",
-        "options": [
-          "Makes the vowel long",
-          "Changes the consonant sound (softens it)",
-          "Indicates a pause",
-          "Marks word stress"
-        ],
-        "correct_index": 1,
-        "explanation": "Háček (ˇ) modifies consonants: č=ch, š=sh, ž=zh, ř=unique sound, ď=softened d, ť=softened t, ň=softened n."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen to the pair. Which meaning came second?",
+        "transcript_cz": "pas. pás.",
+        "questions": [
+          {
+            "question_en": "What did the second word mean?",
+            "options": [
+              "passport",
+              "belt",
+              "house"
+            ],
+            "correct_index": 1
+          }
+        ]
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-004",
-      "xp_reward": 10
+      "answer_key": "belt",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
     },
     {
       "id": 1004,
       "lesson_id": 101,
       "type": "multiple_choice",
-      "prompt": "Which word has a long vowel?",
+      "prompt": "Use the safe beginner rhythm rule",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Které slovo má dlouhou samohlásku?",
-        "question_en": "Which word has a long vowel?",
+        "question_en": "What is the best beginner rule for Czech word stress?",
         "options": [
-          "kava",
-          "káva",
-          "pivo",
-          "maso"
+          "Start the beat near the beginning and copy short phrases as a whole",
+          "Stress every written long vowel",
+          "Always stress the last syllable",
+          "Czech words have no stress"
         ],
-        "correct_index": 1,
-        "explanation": "káva has á (long a). The čárka (acute accent) marks vowel length. Long vowels are pronounced ~2x longer than short ones."
+        "correct_index": 0,
+        "explanation": "Czech lexical stress is normally initial. Common one-syllable prepositions can carry the stress of the following word, so listening to the whole phrase is safer than an absolute 'no exceptions' rule."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-003",
-      "xp_reward": 10
+      "answer_key": "Start the beat near the beginning and copy short phrases as a whole",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-000"
     },
     {
       "id": 1005,
       "lesson_id": 101,
-      "type": "dictation",
-      "prompt": "Listen and type what you hear",
+      "type": "multiple_choice",
+      "prompt": "Separate stress from vowel length",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_1005",
-        "expected_text": "Dobrý den",
-        "language": "cs-CZ",
-        "note": "First-syllable stress: DOB-rý den. The ý is a long vowel."
+        "type": "multiple_choice",
+        "question_en": "What does the mark in á tell you?",
+        "options": [
+          "Hold the vowel longer",
+          "Stress that syllable",
+          "Whisper the vowel",
+          "Skip the vowel"
+        ],
+        "correct_index": 0,
+        "explanation": "The acute mark indicates length. A long vowel can occur outside the stressed syllable."
       },
-      "answer_key": "Dobrý den",
-      "xp_reward": 10
+      "answer_key": "Hold the vowel longer",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
     },
     {
       "id": 1006,
       "lesson_id": 101,
-      "type": "dictation",
-      "prompt": "Listen and type what you hear",
+      "type": "matching",
+      "prompt": "Match each spelling to its meaning",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_1006",
-        "expected_text": "řeka",
-        "language": "cs-CZ",
-        "note": "Contains the ř sound. Practice the rolled r with ž quality."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "byt",
+            "right": "flat / apartment"
+          },
+          {
+            "left": "být",
+            "right": "to be"
+          },
+          {
+            "left": "pas",
+            "right": "passport"
+          },
+          {
+            "left": "pás",
+            "right": "belt"
+          }
+        ]
       },
-      "answer_key": "řeka",
-      "grammar_rule_id": "GR-001",
+      "answer_key": "byt=flat, být=to be, pas=passport, pás=belt",
       "xp_reward": 10
     },
     {
       "id": 1007,
       "lesson_id": 101,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "dictation",
+      "prompt": "Listen and type the long-vowel word",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "river",
-        "accepted_answers": [
-          "řeka"
-        ],
-        "grammar_note": "Note the ř sound — unique to Czech. IPA: [ˈr̝ɛka]"
+        "type": "dictation",
+        "expected_text": "být",
+        "language": "cs-CZ",
+        "note": "The long ý distinguishes být (to be) from byt (flat)."
       },
-      "answer_key": "řeka",
-      "grammar_rule_id": "GR-001",
+      "answer_key": "být",
       "xp_reward": 10
     },
     {
       "id": 1008,
       "lesson_id": 101,
-      "type": "pronunciation",
-      "prompt": "Say this sentence aloud",
+      "type": "dictation",
+      "prompt": "Listen and type the long-vowel word",
       "data": {
-        "type": "pronunciation",
-        "target_text": "Řeka teče přes most.",
-        "target_audio_hash": "placeholder_1008",
-        "focus_sounds": [
-          "ř"
-        ],
-        "min_score": 0.65,
-        "translation_en": "The river flows over the bridge."
+        "type": "dictation",
+        "expected_text": "pás",
+        "language": "cs-CZ",
+        "note": "The long á distinguishes pás (belt) from pas (passport)."
       },
-      "answer_key": "Řeka teče přes most.",
-      "grammar_rule_id": "GR-001",
-      "xp_reward": 15
+      "answer_key": "pás",
+      "xp_reward": 10
     },
     {
       "id": 1009,
       "lesson_id": 101,
-      "type": "fill_blank",
-      "prompt": "Fill in the missing letter",
+      "type": "pronunciation",
+      "prompt": "Copy the word rhythm",
       "data": {
-        "type": "fill_blank",
-        "sentence": "M_sto means 'city' in Czech. The missing letter has a háček.",
-        "blank_count": 1,
-        "explanation": "město — the ě after m softens it. mě sounds like 'mňe'. First-syllable stress: MĚ-sto.",
-        "blank_answers": [
-          [
-            "ě"
-          ]
-        ]
+        "type": "pronunciation",
+        "target_text": "jablko",
+        "focus_sounds": [
+          "JA-"
+        ],
+        "min_score": 0.5,
+        "translation_en": "apple",
+        "note": "Begin the beat on the first syllable: JA-blko."
       },
-      "answer_key": "ě",
-      "grammar_rule_id": "GR-002",
-      "xp_reward": 10
+      "answer_key": "jablko",
+      "xp_reward": 15
     },
     {
       "id": 1010,
       "lesson_id": 101,
-      "type": "multiple_choice",
-      "prompt": "How is 'děti' (children) pronounced?",
+      "type": "pronunciation",
+      "prompt": "Copy the complete phrase rhythm",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak se vyslovuje 'děti'?",
-        "question_en": "How is 'děti' pronounced?",
-        "options": [
-          "de-ti (hard d)",
-          "dye-ti (softened d)",
-          "de-tee (long e)",
-          "dge-ti (like English 'judge')"
+        "type": "pronunciation",
+        "target_text": "Prosím pomalu.",
+        "focus_sounds": [
+          "PRO-",
+          "PO-"
         ],
-        "correct_index": 1,
-        "explanation": "ě softens the preceding consonant. dě → 'dye'. So děti sounds like 'dye-ti'."
+        "min_score": 0.5,
+        "translation_en": "Slowly, please.",
+        "note": "Treat this as one useful chunk. You will use it in the Unit 1 mission."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-002",
-      "xp_reward": 10
+      "answer_key": "Prosím pomalu.",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "hear first-syllable stress and meaningful vowel length.",
+  "new_language": [
+    "káva",
+    "jablko",
+    "do školy",
+    "byt",
+    "být",
+    "pas",
+    "pás"
+  ],
+  "recycles": [
+    "káva",
+    "jablko",
+    "dům",
+    "picture-to-sound recall"
+  ],
+  "exit_task": "hear first-syllable stress and meaningful vowel length."
 }

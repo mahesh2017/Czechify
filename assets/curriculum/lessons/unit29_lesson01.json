@@ -2,8 +2,8 @@
   "id": 2901,
   "unit_id": 29,
   "order_in_unit": 1,
-  "title": "A2 Exam Practice: Reading & Listening",
-  "description": "A2-level exam practice for reading and listening comprehension. Read informal emails, job listings, public notices, news articles, and diary entries. Listen to doctor conversations, phone calls, apartment viewings, work schedule discussions, and public transport announcements. Includes A2 grammar multiple-choice on cases, past tense, verb aspect, and conditional.",
+  "title": "A2 Skills Practice: Read and Listen",
+  "description": "Independent A2 reading and listening practice for everyday Czech. It is not official examination material, an examination result, or a pass prediction.",
   "duration_min": 40,
   "lesson_type": "practice",
   "is_review": true,
@@ -12,12 +12,12 @@
       "id": 90029,
       "lesson_id": 2901,
       "type": "teaching",
-      "prompt": "How the A2 Exam Works",
+      "prompt": "Practice format and strategy",
       "data": {
         "type": "teaching",
-        "heading": "How the A2 Exam Works",
-        "body": "The A2 exam — the one that opens the door to permanent residence — also covers reading, listening, writing, and speaking, at a higher level. Watch your time in each section, lean on context for unfamiliar words, and keep your written and spoken answers clear, complete, and on-topic.",
-        "intro": "This is the big one: the A2 exam that opens the door to permanent residence. Let's demystify every section and sharpen the strategies that matter most.",
+        "heading": "Practice format and strategy",
+        "body": "This unit builds practical A2 reading, listening, writing and speaking skills. It is independent learning material, not official examination material; it does not provide an examination result or predict one. First read or listen for the situation; then look for the exact detail.",
+        "intro": "Use this as calm, practical skills practice. Work accurately and focus on clear, useful Czech.",
         "style": "list"
       },
       "xp_reward": 0

@@ -1,243 +1,349 @@
 {
   "id": 1202,
   "unit_id": 12,
-  "order_in_unit": 1,
-  "title": "Clothes & Shopping",
-  "description": "Build clothes vocabulary, practice chtít/kupovat with accusative case, learn to try things on (Můžu si to vyzkoušet?), complete shop dialogues, and make comparisons (levnější, dražší, větší, menší).",
+  "title": "Ask About Price and Size",
+  "description": "Listen and ask for the price and size of a specific item.",
   "lesson_type": "practice",
-  "duration_min": 15,
+  "order_in_unit": 1,
+  "duration_min": 12,
   "is_review": false,
   "exercises": [
     {
-      "id": 12013,
+      "id": 12100,
       "lesson_id": 1202,
-      "type": "multiple_choice",
-      "prompt": "What does 'bunda' mean in English?",
+      "type": "teaching",
+      "prompt": "Learn the mission language",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "bunda",
-        "question_en": "What does 'bunda' mean?",
-        "options": ["shirt", "jacket", "pants", "shoes"],
-        "correct_index": 1,
-        "explanation": "bunda = jacket (feminine noun). košile = shirt, kalhoty = pants, boty = shoes."
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-110",
-      "xp_reward": 10
-    },
-    {
-      "id": 12014,
-      "lesson_id": 1202,
-      "type": "translation",
-      "prompt": "Translate 'I want to buy a jacket' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I want to buy a jacket.",
-        "accepted_answers": ["Chci koupit bundu.", "Chci koupit bundu", "Chci si koupit bundu.", "Chci si koupit bundu"],
-        "grammar_note": "chci = I want. koupit = to buy (perfective). bunda → bundu (feminine accusative). Adding 'si' (for myself) makes it more natural in Czech."
-      },
-      "answer_key": "Chci si koupit bundu.",
-      "grammar_rule_id": "GR-111",
-      "xp_reward": 10
-    },
-    {
-      "id": 12015,
-      "lesson_id": 1202,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct accusative forms of the nouns.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Kupuju ___ (ta modrá košile) a ___ (ty černé boty).",
-        "blank_count": 2,
-        "explanation": "kupovat + accusative. ta modrá košile (fem.) → tu modrou košili. ty černé boty (fem. pl., inanimate) stay the same in accusative.",
-        "blank_answers": [
-          ["tu modrou košili"],
-          ["ty černé boty"]
+        "type": "teaching",
+        "style": "list",
+        "heading": "Ask About Price and Size",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Kolik to stojí?",
+            "en": "How much does it cost?"
+          },
+          {
+            "cz": "Stojí to pět set korun.",
+            "en": "It costs five hundred crowns."
+          },
+          {
+            "cz": "Jakou velikost?",
+            "en": "What size?"
+          },
+          {
+            "cz": "Velikost M, prosím.",
+            "en": "Size M, please."
+          }
         ]
       },
-      "answer_key": "tu modrou košili ty černé boty",
-      "grammar_rule_id": "GR-111",
-      "xp_reward": 15
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 12016,
+      "id": 12101,
       "lesson_id": 1202,
-      "type": "multiple_choice",
-      "prompt": "What does 'Můžu si to vyzkoušet?' mean in English?",
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Můžu si to vyzkoušet?",
-        "question_en": "What does 'Můžu si to vyzkoušet?' mean?",
-        "options": ["Can I try it on?", "How much is it?", "Can I pay?", "Do you have this?"],
-        "correct_index": 0,
-        "explanation": "Můžu si to vyzkoušet? = Can I try it on? This is essential when shopping for clothes in Czech shops."
-      },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-112",
-      "xp_reward": 10
-    },
-    {
-      "id": 12017,
-      "lesson_id": 1202,
-      "type": "translation",
-      "prompt": "Translate 'Can I try this on?' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Can I try this on?",
-        "accepted_answers": ["Můžu si to vyzkoušet?", "Můžu si to vyzkoušet", "Mohu si to vyzkoušet?"],
-        "grammar_note": "můžu/mohu = I can. si = to myself (dative reflexive). to = it. vyzkoušet = try on (perfective)."
-      },
-      "answer_key": "Můžu si to vyzkoušet?",
-      "grammar_rule_id": "GR-112",
-      "xp_reward": 10
-    },
-    {
-      "id": 12018,
-      "lesson_id": 1202,
-      "type": "fill_blank",
-      "prompt": "Complete the sentence with the correct comparative form.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Tato bunda je ___ (levný) než tamta, ale ta je ___ (hezký).",
-        "blank_count": 2,
-        "explanation": "Comparative forms: levný → levnější (cheaper), hezký → hezčí (nicer/prettier). The pattern for many adjectives: drop -ý and add -ější or -čí.",
-        "blank_answers": [
-          ["levnější"],
-          ["hezčí"]
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+              "Kde je lékárna?",
+              "Co piješ?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "levnější hezčí",
-      "grammar_rule_id": "GR-113",
+      "answer_key": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
       "xp_reward": 15
     },
     {
-      "id": 12019,
+      "id": 12102,
       "lesson_id": 1202,
-      "type": "multiple_choice",
-      "prompt": "Which word means 'more expensive' in Czech?",
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které slovo znamená 'more expensive'?",
-        "question_en": "Which word means 'more expensive'?",
-        "options": ["levnější", "dražší", "menší", "větší"],
-        "correct_index": 1,
-        "explanation": "dražší = more expensive (from drahý). levnější = cheaper, menší = smaller, větší = bigger."
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit12/shop_choice_v1.png",
+        "image_label": "Ask About Price and Size",
+        "text_cz": "Pavel chce modrý svetr. Zeptá se na cenu a velikost. Svetr stojí pět set korun.",
+        "text_en": "Pavel wants a blue sweater. He asks about the price and size. The sweater costs five hundred crowns.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Kolik to stojí?",
+              "Kde je lékárna?",
+              "Co piješ?",
+              "Bude pršet?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-113",
-      "xp_reward": 10
-    },
-    {
-      "id": 12020,
-      "lesson_id": 1202,
-      "type": "dictation",
-      "prompt": "Listen and write the phrase for trying on clothes.",
-      "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_12020",
-        "expected_text": "Můžu si to vyzkoušet?",
-        "language": "cs-CZ",
-        "note": "Essential phrase for any clothes shop — 'Can I try it on?'"
-      },
-      "answer_key": "Můžu si to vyzkoušet?",
-      "xp_reward": 20
-    },
-    {
-      "id": 12021,
-      "lesson_id": 1202,
-      "type": "pronunciation",
-      "prompt": "Say this shopping request aloud.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Chtěl bych si koupit tu modrou košili.",
-        "target_audio_hash": "placeholder_12021",
-        "focus_sounds": ["ch", "těl", "ou"],
-        "min_score": 0.6,
-        "translation_en": "I would like to buy that blue shirt."
-      },
-      "answer_key": "Chtěl bych si koupit tu modrou košili.",
-      "grammar_rule_id": "GR-110",
+      "answer_key": "Kolik to stojí?",
       "xp_reward": 15
     },
     {
-      "id": 12022,
+      "id": 12103,
       "lesson_id": 1202,
-      "type": "dialogue",
-      "prompt": "Complete the shop dialogue where you try on a jacket.",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "dialogue",
-        "scenario": "You are in a Czech clothing store and want to try on a jacket and then buy it.",
-        "lines": [
+        "type": "matching",
+        "pairs": [
           {
-            "speaker": "person_a",
-            "text": "Dobrý den, přejete si?"
+            "left": "Kolik to stojí?",
+            "right": "How much does it cost?"
           },
           {
-            "speaker": "person_b",
-            "text": "___"
+            "left": "Stojí to pět set korun.",
+            "right": "It costs five hundred crowns."
           },
           {
-            "speaker": "person_a",
-            "text": "Samozřejmě, kabinky jsou támhle."
+            "left": "Jakou velikost?",
+            "right": "What size?"
           },
           {
-            "speaker": "person_b",
-            "text": "___"
-          },
-          {
-            "speaker": "person_a",
-            "text": "Stojí osm set korun."
-          },
-          {
-            "speaker": "person_b",
-            "text": "___"
+            "left": "Velikost M, prosím.",
+            "right": "Size M, please."
           }
         ],
-        "explanation": "'Přejete si?' = 'What would you like?' — 'Líbí se mi ta černá bunda' = 'I like that black jacket' — 'Můžu si ji vyzkoušet?' = 'Can I try it on?' — 'Kabinky jsou támhle' = 'The fitting rooms are over there' — 'Vezmu si ji' = 'I'll take it' — 'Platím kartou' = 'I'm paying by card.'",
-        "blank_answers": [
-          ["Ano, líbí se mi ta černá bunda. Můžu si ji vyzkoušet?", "Líbí se mi ta černá bunda. Můžu si ji vyzkoušet?"],
-          ["Je perfektní. Vezmu si ji. Kolik stojí?", "Je perfektní, vezmu si ji. Kolik stojí?", "Perfektní, vezmu si ji. Kolik stojí?"],
-          ["Dobře, platím kartou.", "Dobře, platím kartou", "Platím kartou"]
-        ]
+        "explanation": "Keep the complete Czech chunk together."
       },
-      "answer_key": "Ano, líbí se mi ta černá bunda. Můžu si ji vyzkoušet?|Je perfektní. Vezmu si ji. Kolik stojí?|Dobře, platím kartou.",
-      "grammar_rule_id": "GR-112",
-      "xp_reward": 25
-    },
-    {
-      "id": 12023,
-      "lesson_id": 1202,
-      "type": "translation",
-      "prompt": "Translate 'This jacket is cheaper than that one' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "This jacket is cheaper than that one.",
-        "accepted_answers": ["Tato bunda je levnější než tamta.", "Tato bunda je levnější než tamta", "Ta bunda je levnější než tamta.", "Tahle bunda je levnější než tamta."],
-        "grammar_note": "levnější = cheaper (comparative of levný). než = than. tamta = that one (feminine). ta/tato/tahle = this (feminine)."
-      },
-      "answer_key": "Tato bunda je levnější než tamta.",
-      "grammar_rule_id": "GR-113",
+      "answer_key": "Kolik to stojí?–How much does it cost?; Stojí to pět set korun.–It costs five hundred crowns.; Jakou velikost?–What size?; Velikost M, prosím.–Size M, please.",
       "xp_reward": 10
     },
     {
-      "id": 12024,
+      "id": 12104,
       "lesson_id": 1202,
       "type": "multiple_choice",
-      "prompt": "Which pair correctly translates 'bigger' and 'smaller' to Czech?",
+      "prompt": "Choose the useful phrase for the scene",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Jak se řekne 'bigger' a 'smaller' česky?",
-        "question_en": "How do you say 'bigger' and 'smaller' in Czech?",
-        "options": ["větší a menší", "velký a malý", "větší a malý", "velký a menší"],
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Kolik to stojí?",
+          "Kde je lékárna?",
+          "Co piješ?",
+          "Bude pršet?"
+        ],
         "correct_index": 0,
-        "explanation": "Comparative forms: velký → větší (bigger), malý → menší (smaller). These are irregular comparatives and must be memorized."
+        "explanation": "Choose the phrase that performs the unit mission."
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-113",
+      "answer_key": "Kolik to stojí?",
       "xp_reward": 10
+    },
+    {
+      "id": 12105,
+      "lesson_id": 1202,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Kolik ___ ten svetr? ___ pět set korun.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "stojí"
+          ],
+          [
+            "Stojí"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "stojí | Stojí",
+      "xp_reward": 10
+    },
+    {
+      "id": 12106,
+      "lesson_id": 1202,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Kolik",
+          "to",
+          "stojí?"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Kolik to stojí?",
+      "xp_reward": 10
+    },
+    {
+      "id": 12107,
+      "lesson_id": 1202,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Kolik to stojí? Stojí pět set korun.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Kolik to stojí? Stojí pět set korun.",
+      "xp_reward": 10
+    },
+    {
+      "id": 12108,
+      "lesson_id": 1202,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Kolik to stojí? Stojí pět set korun.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Kolik to stojí? Stojí pět set korun.",
+      "xp_reward": 15
+    },
+    {
+      "id": 12109,
+      "lesson_id": 1202,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Ask About Price and Size",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "Kolik to stojí?"
+          },
+          {
+            "speaker": "clerk",
+            "text": "Pět set korun."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "clerk",
+            "text": "Máme M i L."
+          }
+        ],
+        "blank_answers": [
+          [
+            "Jakou máte velikost?",
+            "Jakou velikost?"
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Jakou máte velikost?",
+      "xp_reward": 15
+    },
+    {
+      "id": 12110,
+      "lesson_id": 1202,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write one price question and the size you need.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Kolik to stojí?",
+          "Stojí to pět set korun.",
+          "Jakou velikost?",
+          "Velikost M, prosím."
+        ],
+        "sample_answer": "Kolik to stojí?"
+      },
+      "answer_key": "Kolik to stojí?",
+      "xp_reward": 0
+    },
+    {
+      "id": 12111,
+      "lesson_id": 1202,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+              "Kde je lékárna?",
+              "Co piješ?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "ask about price and size.",
+  "new_language": [
+    "Kolik to stojí?",
+    "Stojí to pět set korun.",
+    "Jakou velikost?",
+    "Velikost M, prosím."
+  ],
+  "recycles": [
+    "colours",
+    "numbers and prices",
+    "chci/kupuju",
+    "polite questions"
+  ],
+  "exit_task": "ask about price and size."
 }

@@ -82,10 +82,8 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  /// Version 1 — squashed from 19 incremental migrations into a single
-  /// `onCreate` that creates the full schema.  Safe because no public build
-  /// exists in the wild; every install is a fresh `onCreate`.
-  int get schemaVersion => 1;
+  /// Version 2 adds explicit lesson outcomes and recycling metadata.
+  int get schemaVersion => 2;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -214,9 +212,12 @@ class AppDatabase extends _$AppDatabase {
       await _createContentReleaseStateIndexes();
     },
     onUpgrade: (m, from, to) async {
-      // No-op: schema is squashed to v1. All table definitions are current
-      // in the Drift classes, so onCreate's m.createAll() produces the full
-      // schema. No incremental migration steps are needed.
+      if (from < 2) {
+        await m.addColumn(lessons, lessons.canDo);
+        await m.addColumn(lessons, lessons.newLanguageJson);
+        await m.addColumn(lessons, lessons.recyclesJson);
+        await m.addColumn(lessons, lessons.exitTask);
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');

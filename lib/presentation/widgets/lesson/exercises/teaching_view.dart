@@ -819,63 +819,66 @@ class _PhraseRow extends StatelessWidget {
       button: true,
       label: l10n.a11yTapToHear(item.cz),
       excludeSemantics: true,
-      child: Material(
-        color: active ? t.violetSoft : t.card,
-        borderRadius: BorderRadius.circular(24),
-        child: InkWell(
-          onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: active ? t.violetSoft : t.card,
           borderRadius: BorderRadius.circular(24),
-          child: Container(
-            constraints: const BoxConstraints(minHeight: 64),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: active ? t.violet : t.line),
-              boxShadow: active ? null : t.shadow,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item.cz,
-                        style: TextStyle(
-                          fontFamily: AppFonts.display,
-                          fontSize: 21,
-                          fontWeight: FontWeight.w800,
-                          color: t.ink,
-                          height: 1.25,
-                        ),
-                      ),
-                      if (item.en.isNotEmpty) ...[
-                        const SizedBox(height: 4),
+          border: Border.all(color: active ? t.violet : t.line),
+          boxShadow: active ? null : t.shadow,
+        ),
+        child: Material(
+          type: MaterialType.transparency,
+          borderRadius: BorderRadius.circular(24),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: onTap,
+            child: Container(
+              constraints: const BoxConstraints(minHeight: 64),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          item.en,
+                          item.cz,
                           style: TextStyle(
-                            fontSize: 14,
-                            color: t.muted,
-                            height: 1.35,
+                            fontFamily: AppFonts.display,
+                            fontSize: 21,
+                            fontWeight: FontWeight.w800,
+                            color: t.ink,
+                            height: 1.25,
                           ),
                         ),
+                        if (item.en.isNotEmpty) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            item.en,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: t.muted,
+                              height: 1.35,
+                            ),
+                          ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                // Violet: the phrase surfaces are the review/memory colour, and
-                // the whole row is already the tap target.
-                Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: active ? t.card : t.violetSoft,
-                    shape: BoxShape.circle,
+                  const SizedBox(width: 12),
+                  // Violet: the phrase surfaces are the review/memory colour,
+                  // and the whole row is already the tap target.
+                  Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: active ? t.card : t.violetSoft,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.play_arrow, size: 20, color: t.violet),
                   ),
-                  child: Icon(Icons.play_arrow, size: 20, color: t.violet),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

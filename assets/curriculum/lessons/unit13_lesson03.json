@@ -1,0 +1,355 @@
+{
+  "id": 1303,
+  "unit_id": 13,
+  "title": "Use Always, Often, Sometimes",
+  "description": "Use always, often, sometimes, and never in meaningful personal statements.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 12,
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 13200,
+      "lesson_id": 1303,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Use Always, Often, Sometimes",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Vždycky poslouchám hudbu.",
+            "en": "I always listen to music."
+          },
+          {
+            "cz": "Často chodím do kina.",
+            "en": "I often go to the cinema."
+          },
+          {
+            "cz": "Někdy tančím.",
+            "en": "I sometimes dance."
+          },
+          {
+            "cz": "Nikdy nepiju pivo.",
+            "en": "I never drink beer."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13201,
+      "lesson_id": 1303,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Často chodím na koncert. Někdy jdu do kina.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Často chodím na koncert. Někdy jdu do kina.",
+              "Mám modrou bundu.",
+              "Účet, prosím."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Často chodím na koncert. Někdy jdu do kina.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13202,
+      "lesson_id": 1303,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit13/hobby_concert_v1.png",
+        "image_label": "Use Always, Often, Sometimes",
+        "text_cz": "Petra často chodí na koncerty. Někdy jde do kina. Vždycky poslouchá hudbu doma.",
+        "text_en": "Petra often goes to concerts. Sometimes she goes to the cinema. She always listens to music at home.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Často chodím do kina.",
+              "Mám modrou bundu.",
+              "Účet, prosím.",
+              "Jedu metrem."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Často chodím do kina.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13203,
+      "lesson_id": 1303,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Vždycky poslouchám hudbu.",
+            "right": "I always listen to music."
+          },
+          {
+            "left": "Často chodím do kina.",
+            "right": "I often go to the cinema."
+          },
+          {
+            "left": "Někdy tančím.",
+            "right": "I sometimes dance."
+          },
+          {
+            "left": "Nikdy nepiju pivo.",
+            "right": "I never drink beer."
+          }
+        ],
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Vždycky poslouchám hudbu.–I always listen to music.; Často chodím do kina.–I often go to the cinema.; Někdy tančím.–I sometimes dance.; Nikdy nepiju pivo.–I never drink beer.",
+      "xp_reward": 10
+    },
+    {
+      "id": 13204,
+      "lesson_id": 1303,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Často chodím do kina.",
+          "Mám modrou bundu.",
+          "Účet, prosím.",
+          "Jedu metrem."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Často chodím do kina.",
+      "xp_reward": 10
+    },
+    {
+      "id": 13205,
+      "lesson_id": 1303,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Já ___ poslouchám hudbu a ___ chodím do kina.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "vždycky"
+          ],
+          [
+            "někdy"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "vždycky | někdy",
+      "xp_reward": 10
+    },
+    {
+      "id": 13206,
+      "lesson_id": 1303,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Někdy",
+          "jdu",
+          "do",
+          "kina."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Někdy jdu do kina.",
+      "xp_reward": 10
+    },
+    {
+      "id": 13207,
+      "lesson_id": 1303,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Často chodím do kina.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Často chodím do kina.",
+      "xp_reward": 10
+    },
+    {
+      "id": 13208,
+      "lesson_id": 1303,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Často chodím do kina.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Často chodím do kina.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13209,
+      "lesson_id": 1303,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Use Always, Often, Sometimes",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Chodíš často do kina?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "A koncerty?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Někdy chodím do kina.",
+            "Někdy"
+          ],
+          [
+            "Často chodím na koncert.",
+            "Často"
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Někdy chodím do kina. | Často chodím na koncert.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13210,
+      "lesson_id": 1303,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write three short routine sentences using always, often, or sometimes.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Vždycky poslouchám hudbu.",
+          "Často chodím do kina.",
+          "Někdy tančím.",
+          "Nikdy nepiju pivo."
+        ],
+        "sample_answer": "Vždycky poslouchám hudbu."
+      },
+      "answer_key": "Vždycky poslouchám hudbu.",
+      "xp_reward": 0
+    },
+    {
+      "id": 13211,
+      "lesson_id": 1303,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Často chodím na koncert. Někdy jdu do kina.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Často chodím na koncert. Někdy jdu do kina.",
+              "Mám modrou bundu.",
+              "Účet, prosím."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Často chodím na koncert. Někdy jdu do kina.",
+      "xp_reward": 15
+    }
+  ],
+  "can_do": "say how often I do familiar activities.",
+  "new_language": [
+    "Vždycky poslouchám hudbu.",
+    "Často chodím do kina.",
+    "Někdy tančím.",
+    "Nikdy nepiju pivo."
+  ],
+  "recycles": [
+    "present-tense activities",
+    "time and days",
+    "Ano/Ne",
+    "simple plans"
+  ],
+  "exit_task": "say how often I do familiar activities."
+}

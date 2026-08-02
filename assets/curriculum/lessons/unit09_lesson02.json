@@ -2,227 +2,341 @@
   "id": 902,
   "unit_id": 9,
   "order_in_unit": 1,
-  "title": "Time, Days & Months",
-  "description": "Learn to tell time in Czech (Kolik je hodin?), name the days of the week and months, and use phrases like Dnes je... and v kolik hodin?",
-  "duration_min": 15,
+  "title": "What Time Shall We Meet?",
+  "description": "Ask for the time and propose a clear meeting hour.",
+  "can_do": "ask and say when to meet.",
+  "new_language": [
+    "Kolik je hodin?",
+    "Je deset hodin.",
+    "V kolik se sejdeme?",
+    "V pět hodin."
+  ],
+  "recycles": [
+    "Mám…",
+    "Kde…?",
+    "dnes/zítra",
+    "Ano, dobře"
+  ],
+  "exit_task": "ask and say when to meet.",
+  "duration_min": 12,
   "lesson_type": "practice",
   "is_review": false,
   "exercises": [
     {
-      "id": 9013,
+      "id": 9100,
       "lesson_id": 902,
-      "type": "multiple_choice",
-      "prompt": "What is the Czech word for Wednesday?",
+      "type": "teaching",
+      "prompt": "Learn the mission language",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak se řekne česky středa?",
-        "question_en": "Which day of the week is 'středa'?",
-        "options": ["pondělí", "úterý", "středa", "čtvrtek"],
-        "correct_index": 2,
-        "explanation": "Středa = Wednesday. Pondělí=Monday, úterý=Tuesday, čtvrtek=Thursday."
-      },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-083",
-      "xp_reward": 10
-    },
-    {
-      "id": 9014,
-      "lesson_id": 902,
-      "type": "multiple_choice",
-      "prompt": "Which month is 'červenec'?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Který měsíc je červenec?",
-        "question_en": "Which month is 'červenec'?",
-        "options": ["June", "July", "August", "September"],
-        "correct_index": 1,
-        "explanation": "Červenec = July. Červen=June, srpen=August, září=September."
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-083",
-      "xp_reward": 10
-    },
-    {
-      "id": 9015,
-      "lesson_id": 902,
-      "type": "multiple_choice",
-      "prompt": "What does 'Je půl třetí' mean?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'Je půl třetí'?",
-        "question_en": "What does 'Je půl třetí' mean?",
-        "options": ["It's 2:30", "It's 3:30", "It's 3:00", "It's half past one"],
-        "correct_index": 0,
-        "explanation": "'Půl třetí' literally means 'half of the third' = 2:30. Czech uses the next hour: půl třetí = half an hour before 3."
-      },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-082",
-      "xp_reward": 10
-    },
-    {
-      "id": 9016,
-      "lesson_id": 902,
-      "type": "multiple_choice",
-      "prompt": "What does 'V kolik hodin?' mean?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'V kolik hodin?'?",
-        "question_en": "What does 'V kolik hodin?' mean?",
-        "options": ["What time is it?", "At what time?", "How many hours?", "What day is it?"],
-        "correct_index": 1,
-        "explanation": "'V kolik hodin?' means 'At what time?'. Kolik je hodin? = What time is it?"
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-082",
-      "xp_reward": 10
-    },
-    {
-      "id": 9017,
-      "lesson_id": 902,
-      "type": "multiple_choice",
-      "prompt": "What does 'Dnes je sobota' mean?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'Dnes je sobota'?",
-        "question_en": "What does 'Dnes je sobota' mean?",
-        "options": ["Tomorrow is Saturday", "Today is Sunday", "Today is Saturday", "Yesterday was Saturday"],
-        "correct_index": 2,
-        "explanation": "Dnes je sobota = Today is Saturday. Dnes = today, sobota = Saturday. Neděle = Sunday."
-      },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-083",
-      "xp_reward": 10
-    },
-    {
-      "id": 9018,
-      "lesson_id": 902,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'It is three o'clock.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "It is three o'clock.",
-        "accepted_answers": ["Jsou tři hodiny.", "Jsou tři.", "Je tři hodiny."],
-        "grammar_note": "For 1 o'clock use 'Je jedna hodina'. For 2-4 use 'Jsou dvě/tři/čtyři hodiny'. For 5+ use 'Je pět/šest... hodin'."
-      },
-      "answer_key": "Jsou tři hodiny.",
-      "grammar_rule_id": "GR-082",
-      "xp_reward": 10
-    },
-    {
-      "id": 9019,
-      "lesson_id": 902,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I have a meeting on Friday at ten.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I have a meeting on Friday at ten.",
-        "accepted_answers": ["Mám schůzku v pátek v deset.", "Mám schůzku v pátek v deset hodin.", "V pátek v deset mám schůzku."],
-        "grammar_note": "Days use 'v' + accusative: v pátek = on Friday. Time uses 'v' + accusative: v deset (hodin) = at ten (o'clock)."
-      },
-      "answer_key": "Mám schůzku v pátek v deset.",
-      "grammar_rule_id": "GR-082",
-      "xp_reward": 10
-    },
-    {
-      "id": 9020,
-      "lesson_id": 902,
-      "type": "dictation",
-      "prompt": "Listen and write the time you hear in Czech.",
-      "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_9020",
-        "expected_text": "Je čtvrt na sedm.",
-        "language": "cs-CZ",
-        "note": "Listen for the time phrase 'čtvrt na sedm' = quarter past six (6:15), literally 'quarter to seven'."
-      },
-      "answer_key": "Je čtvrt na sedm.",
-      "xp_reward": 20
-    },
-    {
-      "id": 9021,
-      "lesson_id": 902,
-      "type": "pronunciation",
-      "prompt": "Say this time phrase aloud.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Kolik je hodin? Je půl osmé.",
-        "target_audio_hash": "placeholder_9021",
-        "focus_sounds": ["hodin", "půl", "osmé"],
-        "min_score": 0.6,
-        "translation_en": "What time is it? It's half past seven."
-      },
-      "answer_key": "Kolik je hodin? Je půl osmé.",
-      "grammar_rule_id": "GR-082",
-      "xp_reward": 15
-    },
-    {
-      "id": 9022,
-      "lesson_id": 902,
-      "type": "fill_blank",
-      "prompt": "Complete the sentence with the correct time expression.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Sejdeme se ___ pět hodin. (at five o'clock)",
-        "blank_count": 1,
-        "explanation": "V pět hodin — use 'v' before the time to mean 'at'. V kolik hodin? = At what time?",
-        "blank_answers": [
-          ["v"]
-        ]
-      },
-      "answer_key": "v",
-      "grammar_rule_id": "GR-082",
-      "xp_reward": 15
-    },
-    {
-      "id": 9023,
-      "lesson_id": 902,
-      "type": "fill_blank",
-      "prompt": "Complete the sentence with the correct day.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Dnes je pondělí, zítra bude ___. (Today is Monday; name tomorrow.)",
-        "blank_count": 1,
-        "explanation": "Úterý = Tuesday. The week: pondělí, úterý, středa, čtvrtek, pátek, sobota, neděle.",
-        "blank_answers": [
-          ["úterý"]
-        ]
-      },
-      "answer_key": "úterý",
-      "grammar_rule_id": "GR-083",
-      "xp_reward": 15
-    },
-    {
-      "id": 9024,
-      "lesson_id": 902,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue about scheduling a meeting.",
-      "data": {
-        "type": "dialogue",
-        "scenario": "You are making plans with a Czech friend.",
-        "lines": [
+        "type": "teaching",
+        "style": "list",
+        "heading": "What Time Shall We Meet?",
+        "body": "Ask for the time and propose a clear meeting hour.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
           {
-            "speaker": "person_a",
-            "text": "Ahoj! Máš čas zítra?"
+            "cz": "Kolik je hodin?",
+            "en": "What time is it?"
           },
           {
-            "speaker": "person_b",
-            "text": "Ano, mám. V kolik hodin?"
+            "cz": "Je deset hodin.",
+            "en": "It is ten o’clock."
           },
           {
-            "speaker": "person_a",
-            "text": "___ (At four o'clock?)"
+            "cz": "V kolik se sejdeme?",
+            "en": "What time shall we meet?"
+          },
+          {
+            "cz": "V pět hodin.",
+            "en": "At five o’clock."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 9101,
+      "lesson_id": 902,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "V kolik se sejdeme? V pět hodin. Dobře, v sedmnáct hodin u metra.",
+        "image": "assets/images/unit09/time_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "What Time Shall We Meet?",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which 24-hour time is confirmed?",
+            "options": [
+              "17:00",
+              "15:00",
+              "19:00"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "17:00",
+      "xp_reward": 15
+    },
+    {
+      "id": 9102,
+      "lesson_id": 902,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit09/time_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "text_cz": "Kavárna je otevřená od 8:00 do 18:00. Schůzka je v 16:30.",
+        "text_en": "The café is open from 8:00 to 18:00. The meeting is at 16:30.",
+        "questions": [
+          {
+            "question_en": "When is the meeting?",
+            "options": [
+              "16:30",
+              "18:00",
+              "8:00"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "The café is open from 8:00 to 18:00. The meeting is at 16:30.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "16:30",
+      "xp_reward": 15
+    },
+    {
+      "id": 9103,
+      "lesson_id": 902,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Kolik je hodin?",
+            "right": "What time is it?"
+          },
+          {
+            "left": "Je deset hodin.",
+            "right": "It is ten o’clock."
+          },
+          {
+            "left": "V kolik se sejdeme?",
+            "right": "What time shall we meet?"
+          },
+          {
+            "left": "V pět hodin.",
+            "right": "At five o’clock."
           }
         ],
-        "explanation": "Ve čtyři (hodiny) = at four (o'clock). After 'v', the number 'čtyři' becomes 'čtyři'; 've' is used with certain numbers for easier pronunciation. V pět, v šest, ve dvě, ve tři, ve čtyři.",
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Kolik je hodin?–What time is it?; Je deset hodin.–It is ten o’clock.; V kolik se sejdeme?–What time shall we meet?; V pět hodin.–At five o’clock.",
+      "xp_reward": 10
+    },
+    {
+      "id": 9104,
+      "lesson_id": 902,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Kolik je hodin?",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Kolik je hodin?",
+      "xp_reward": 10
+    },
+    {
+      "id": 9105,
+      "lesson_id": 902,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Kolik ___ hodin?",
+        "blank_count": 1,
         "blank_answers": [
-          ["Ve čtyři hodiny?", "Ve čtyři?", "V čtyři hodiny?"]
+          [
+            "je"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "je",
+      "xp_reward": 10
+    },
+    {
+      "id": 9106,
+      "lesson_id": 902,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "hodin.",
+          "deset",
+          "Je"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "It is ten o’clock.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "Je deset hodin.",
+      "xp_reward": 10
+    },
+    {
+      "id": 9107,
+      "lesson_id": 902,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "V kolik se sejdeme?",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "V kolik se sejdeme?",
+      "xp_reward": 10
+    },
+    {
+      "id": 9108,
+      "lesson_id": 902,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "V pět hodin.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "At five o’clock."
+      },
+      "answer_key": "V pět hodin.",
+      "xp_reward": 15
+    },
+    {
+      "id": 9109,
+      "lesson_id": 902,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "What Time Shall We Meet?",
+        "image": "assets/images/unit09/time_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "V kolik se sejdeme?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Můžeme v pět?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Kolik je hodin?"
+          ],
+          [
+            "Je deset hodin."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Kolik je hodin? | Je deset hodin.",
+      "xp_reward": 15
+    },
+    {
+      "id": 9110,
+      "lesson_id": 902,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write one question and two possible meeting times in Czech.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Kolik je hodin?",
+          "Je deset hodin.",
+          "V kolik se sejdeme?",
+          "V pět hodin."
+        ],
+        "sample_answer": "Kolik je hodin? Je deset hodin. V kolik se sejdeme? V pět hodin."
+      },
+      "answer_key": "Kolik je hodin? Je deset hodin. V kolik se sejdeme? V pět hodin.",
+      "xp_reward": 0
+    },
+    {
+      "id": 9111,
+      "lesson_id": 902,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Kurz začíná v šest večer a končí v půl osmé.",
+        "questions": [
+          {
+            "question_en": "When does the course start?",
+            "options": [
+              "At 18:00",
+              "At 19:30",
+              "At 16:00"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "Ve čtyři hodiny?",
-      "grammar_rule_id": "GR-082",
-      "xp_reward": 25
+      "answer_key": "At 18:00",
+      "xp_reward": 15
     }
   ]
 }

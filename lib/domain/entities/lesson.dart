@@ -7,6 +7,10 @@ class Lesson {
   final int orderInUnit;
   final String title;
   final String description;
+  final String canDo;
+  final List<String> newLanguage;
+  final List<String> recycles;
+  final String exitTask;
   final int durationMinutes;
   final LessonType lessonType;
   final bool isReview;
@@ -17,6 +21,10 @@ class Lesson {
     required this.orderInUnit,
     required this.title,
     required this.description,
+    this.canDo = '',
+    this.newLanguage = const [],
+    this.recycles = const [],
+    this.exitTask = '',
     this.durationMinutes = 10,
     this.lessonType = LessonType.introduction,
     this.isReview = false,
@@ -29,6 +37,11 @@ class Lesson {
       orderInUnit: json['order_in_unit'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
+      canDo: json['can_do'] as String? ?? '',
+      newLanguage:
+          (json['new_language'] as List<dynamic>? ?? const []).cast<String>(),
+      recycles: (json['recycles'] as List<dynamic>? ?? const []).cast<String>(),
+      exitTask: json['exit_task'] as String? ?? '',
       durationMinutes: json['duration_min'] as int? ?? 10,
       lessonType: LessonType.values.byName(
         json['lesson_type'] as String? ?? 'introduction',

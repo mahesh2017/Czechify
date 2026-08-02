@@ -1,521 +1,339 @@
 {
   "id": 2801,
   "unit_id": 28,
-  "order_in_unit": 1,
-  "title": "A1 Exam Practice: Reading & Listening",
-  "description": "A1-level exam practice for reading and listening comprehension. Read personal emails, announcements, menus, signs, and schedules. Listen to dialogues in stores, at the doctor, in restaurants, on the phone, and asking for directions. Includes A1 grammar multiple-choice on present tense, accusative case, and gender agreement.",
-  "duration_min": 30,
+  "title": "Read a Simple Form",
+  "description": "Practise reading and completing a simple everyday form. Independent course practice, not official examination material.",
   "lesson_type": "practice",
-  "is_review": true,
+  "order_in_unit": 0,
+  "duration_min": 12,
+  "is_review": false,
   "exercises": [
     {
-      "id": 90028,
-      "lesson_id": 2801,
+      "id": 28100,
       "type": "teaching",
-      "prompt": "How the A1 Exam Works",
+      "prompt": "Learn the useful chunks",
       "data": {
         "type": "teaching",
-        "heading": "How the A1 Exam Works",
-        "body": "The A1 exam has four parts — reading, listening, writing, and speaking. Three tips carry you through: read the questions first so you know what to look for; don't freeze on an unknown word — the context usually gives it away; and answer everything, because a guess always beats a blank.",
-        "intro": "You've built the foundations — now let's aim them at the exam. We'll walk through exactly what the A1 test asks of you and the tactics that turn nerves into confidence.",
-        "style": "list"
+        "style": "list",
+        "heading": "Read a Simple Form",
+        "body": "In the reading part, scan a form for one fact at a time: name, place, date, or number.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Jmenuji se Anna Nováková.",
+            "en": "My name is Anna Nováková."
+          },
+          {
+            "cz": "Bydlím v Praze.",
+            "en": "I live in Prague."
+          },
+          {
+            "cz": "Narodila jsem se v Polsku.",
+            "en": "I was born in Poland."
+          },
+          {
+            "cz": "Telefonní číslo je 777 123 456.",
+            "en": "The telephone number is 777 123 456."
+          }
+        ]
       },
-      "xp_reward": 0
+      "answer_key": "",
+      "xp_reward": 0,
+      "lesson_id": 2801
     },
     {
-      "id": 28001,
-      "lesson_id": 2801,
-      "type": "reading_comprehension",
-      "prompt": "Read the personal email and answer the questions.",
+      "id": 28101,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the important detail",
       "data": {
-        "type": "reading_comprehension",
-        "prompt_en": "Read the email from Tomáš and answer the questions.",
-        "text_cz": "Ahoj Lucie,\njak se máš? Já se mám dobře. Jsem v Praze u babičky. Babička bydlí v centru. Dnes je hezké počasí a my jdeme do parku. Zítra jedeme autobusem do Brna. Mám se tady moc rád. Napiš mi, jak se máš!\nTvůj Tomáš",
-        "text_en": "Hi Lucie, how are you? I'm fine. I'm in Prague at my grandma's. Grandma lives in the center. Today the weather is nice and we're going to the park. Tomorrow we're going by bus to Brno. I really like it here. Write me how you are! Yours, Tomáš",
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for the situation, then again for the key detail.",
+        "transcript_cz": "Jmenuji se Anna Nováková. Bydlím v Praze. Telefonní číslo je 777 123 456.",
+        "transcript_en": "My name is Anna Nováková. I live in Prague. My telephone number is 777 123 456.",
         "questions": [
           {
-            "question_cz": "Kde bydlí babička?",
-            "question_en": "Where does grandma live?",
+            "question_en": "Which useful phrase do you hear?",
             "options": [
-              "V centru Prahy",
-              "V Brně",
-              "V parku",
-              "Na venkově"
+              "Bydlím v Praze.",
+              "Dám si kávu.",
+              "Jděte rovně."
             ],
             "correct_index": 0
           },
           {
-            "question_cz": "Jak jedou zítra do Brna?",
-            "question_en": "How are they going to Brno tomorrow?",
+            "question_en": "Does the audio fit this everyday situation?",
             "options": [
-              "Autem",
-              "Autobusem",
-              "Vlákem",
-              "Pěšky"
-            ],
-            "correct_index": 1
-          }
-        ]
-      },
-      "answer_key": "V centru Prahy; Autobusem",
-      "xp_reward": 15
-    },
-    {
-      "id": 28002,
-      "lesson_id": 2801,
-      "type": "reading_comprehension",
-      "prompt": "Read the train station announcement and answer.",
-      "data": {
-        "type": "reading_comprehension",
-        "prompt_en": "Read the train announcement and answer.",
-        "text_cz": "Vážení cestující, vlak číslo 125 do Plzně odjíždí z nástupiště 3 v 10:15. Nástup do vlaku je z nástupiště 3. Vlak jede přes Beroun. Děkujeme.",
-        "text_en": "Dear passengers, train number 125 to Plzeň departs from platform 3 at 10:15. Boarding is from platform 3. The train goes via Beroun. Thank you.",
-        "questions": [
-          {
-            "question_cz": "Kam jede vlak?",
-            "question_en": "Where is the train going?",
-            "options": [
-              "Do Prahy",
-              "Do Plzně",
-              "Do Brna",
-              "Do Berouna"
-            ],
-            "correct_index": 1
-          },
-          {
-            "question_cz": "V kolik hodin vlak odjíždí?",
-            "question_en": "What time does the train depart?",
-            "options": [
-              "V 10:05",
-              "V 10:15",
-              "V 10:50",
-              "V 15:10"
-            ],
-            "correct_index": 1
-          }
-        ]
-      },
-      "answer_key": "Do Plzně; V 10:15",
-      "xp_reward": 15
-    },
-    {
-      "id": 28003,
-      "lesson_id": 2801,
-      "type": "reading_comprehension",
-      "prompt": "Read the restaurant menu and answer.",
-      "data": {
-        "type": "reading_comprehension",
-        "prompt_en": "Read the restaurant menu and answer.",
-        "text_cz": "RESTAURACE U LIPA — JÍDELNÍ LÍSTEK\nPolévka: gulášová polévka — 45 Kč\nHlavní jídla: Svíčová na smetaně — 185 Kč | Vepřový řízek s bramborem — 150 Kč | Smažený sýr s hranolkami — 130 Kč\nNápoje: pivo 0,5 l — 35 Kč | domácí limonáda — 40 Kč",
-        "text_en": "RESTAURANT U LIPA — MENU\nSoup: goulash soup — 45 CZK\nMain dishes: Beef sirloin in cream — 185 CZK | Pork schnitzel with potato — 150 CZK | Fried cheese with fries — 130 CZK\nDrinks: beer 0.5 l — 35 CZK | homemade lemonade — 40 CZK",
-        "questions": [
-          {
-            "question_cz": "Kolik stojí smažený sýr?",
-            "question_en": "How much does fried cheese cost?",
-            "options": [
-              "45 Kč",
-              "130 Kč",
-              "150 Kč",
-              "185 Kč"
-            ],
-            "correct_index": 1
-          },
-          {
-            "question_cz": "Které jídlo je nejlevnější?",
-            "question_en": "Which dish is the cheapest?",
-            "options": [
-              "Gulášová polévka",
-              "Svíčová na smetaně",
-              "Vepřový řízek",
-              "Pivo"
+              "Yes",
+              "No",
+              "It is impossible to tell"
             ],
             "correct_index": 0
           }
         ]
       },
-      "answer_key": "130 Kč; Gulášová polévka",
-      "xp_reward": 15
+      "answer_key": "Bydlím v Praze.",
+      "xp_reward": 15,
+      "lesson_id": 2801
     },
     {
-      "id": 28004,
-      "lesson_id": 2801,
+      "id": 28102,
       "type": "reading_comprehension",
-      "prompt": "Read the street sign and answer.",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
         "type": "reading_comprehension",
-        "prompt_en": "Read the street sign and answer.",
-        "text_cz": "ZÁKAZ VSTUPU!\nTento park je uzavřen od 22:00 do 6:00. Psi musí být na vodítku. Děkujeme za pochopení.",
-        "text_en": "NO ENTRY!\nThis park is closed from 10 PM to 6 AM. Dogs must be on a leash. Thank you for your understanding.",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit28/exam_form_v1.png",
+        "image_label": "Read a Simple Form",
+        "text_cz": "Anna vyplňuje formulář. Jmenuje se Anna Nováková a bydlí v Praze. Její telefonní číslo je 777 123 456.",
+        "text_en": "Anna is filling in a form. Her name is Anna Nováková and she lives in Prague. Her telephone number is 777 123 456.",
         "questions": [
           {
-            "question_cz": "Kdy je park uzavřen?",
-            "question_en": "When is the park closed?",
+            "question_en": "Which phrase belongs to this scene?",
             "options": [
-              "Od 6:00 do 22:00",
-              "Od 22:00 do 6:00",
-              "Celý den",
-              "Víkendy"
+              "Bydlím v Praze.",
+              "Dám si kávu.",
+              "Jděte rovně.",
+              "Sejdeme se v pátek."
             ],
-            "correct_index": 1
+            "correct_index": 0
           },
           {
-            "question_cz": "Co musí mít psi?",
-            "question_en": "What must dogs have?",
+            "question_en": "Is this a familiar everyday situation?",
             "options": [
-              "Obojek",
-              "Vodítko",
-              "Klobouk",
-              "Jídlo"
-            ],
-            "correct_index": 1
-          }
-        ]
-      },
-      "answer_key": "Od 22:00 do 6:00; Vodítko",
-      "xp_reward": 15
-    },
-    {
-      "id": 28005,
-      "lesson_id": 2801,
-      "type": "reading_comprehension",
-      "prompt": "Read the daily schedule and answer.",
-      "data": {
-        "type": "reading_comprehension",
-        "prompt_en": "Read the daily schedule and answer.",
-        "text_cz": "Můj den: Vstávám v 7:00. Snídám v 7:30 — piju čaj a jím chleba s máslem. V 8:00 jdu do školy. Obědvám ve 12:00 ve školní jídelně. Od 14:00 do 16:00 mám hodiny. V 17:00 se vracím domů a dělám úkoly. Večer čtu knihu nebo se dívám na televizi.",
-        "text_en": "My day: I get up at 7:00. I have breakfast at 7:30 — I drink tea and eat bread with butter. At 8:00 I go to school. I have lunch at 12:00 in the school canteen. From 2 PM to 4 PM I have classes. At 5 PM I return home and do my homework. In the evening I read a book or watch TV.",
-        "questions": [
-          {
-            "question_cz": "V kolik hodin jde do školy?",
-            "question_en": "What time does he go to school?",
-            "options": [
-              "V 7:00",
-              "V 7:30",
-              "V 8:00",
-              "V 12:00"
-            ],
-            "correct_index": 2
-          },
-          {
-            "question_cz": "Co dělá večer?",
-            "question_en": "What does he do in the evening?",
-            "options": [
-              "Dělá úkoly",
-              "Čte knihu nebo se dívá na televizi",
-              "Jde do školy",
-              "Obědvá"
-            ],
-            "correct_index": 1
-          }
-        ]
-      },
-      "answer_key": "V 8:00; Čte knihu nebo se dívá na televizi",
-      "xp_reward": 15
-    },
-    {
-      "id": 28006,
-      "lesson_id": 2801,
-      "type": "listening_comprehension",
-      "prompt": "Listen to the store dialogue and answer.",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen to the dialogue in a store and answer.",
-        "audio_hash": "list_28_06",
-        "transcript_cz": "Prodavačka: Dobrý den, můžete mi pomoci? Hledám dárek pro maminku.\nZákazník: Dobrý den. Jaký dárek byste chtěl?\nProdavačka: Chtěl bych šálu. Jakou máte barvu?\nZákazník: Máme červenou, modrou a zelenou. Červená stojí 350 Kč, modrá 280 Kč.\nProdavačka: Beru modrou. Tady jsou peníze. Děkuji.\nZákazník: Děkuji vám, na shledanou!",
-        "transcript_en": "Shop assistant: Hello, can you help me? I'm looking for a gift for my mom.\nCustomer: Hello. What kind of gift would you like?\nShop assistant: I'd like a scarf. What colors do you have?\nCustomer: We have red, blue and green. Red costs 350 CZK, blue 280 CZK.\nShop assistant: I'll take the blue one. Here's the money. Thank you.\nCustomer: Thank you, goodbye!",
-        "questions": [
-          {
-            "question_cz": "Jakou barvu šály si kupuje?",
-            "question_en": "What color scarf is he buying?",
-            "options": [
-              "Červenou",
-              "Modrou",
-              "Zelenou",
-              "Žlutou"
-            ],
-            "correct_index": 1
-          },
-          {
-            "question_cz": "Kolik stojí modrá šála?",
-            "question_en": "How much does the blue scarf cost?",
-            "options": [
-              "280 Kč",
-              "350 Kč",
-              "400 Kč",
-              "250 Kč"
+              "Yes",
+              "No",
+              "It is impossible to tell"
             ],
             "correct_index": 0
           }
         ]
       },
-      "answer_key": "Modrou; 280 Kč",
-      "xp_reward": 15
+      "answer_key": "Bydlím v Praze.",
+      "xp_reward": 15,
+      "lesson_id": 2801
     },
     {
-      "id": 28007,
-      "lesson_id": 2801,
-      "type": "listening_comprehension",
-      "prompt": "Listen to the doctor appointment and answer.",
+      "id": 28103,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen to the doctor's appointment and answer.",
-        "audio_hash": "list_28_07",
-        "transcript_cz": "Lékař: Dobrý den, co vás trápí?\nPacient: Dobrý den, mám bolest v krku a teplotu.\nLékař: Jak dlouho to trvá?\nPacient: Od včerejška. Dneska jsem se cítil hůř.\nLékař: Vezměte si tento lék třikrát denně. Odpočívejte a pijte hodně čaje.\nPacient: Děkuji, pane doktore.",
-        "transcript_en": "Doctor: Hello, what's bothering you?\nPatient: Hello, I have a sore throat and a temperature.\nDoctor: How long has it been going on?\nPatient: Since yesterday. Today I felt worse.\nDoctor: Take this medicine three times a day. Rest and drink lots of tea.\nPatient: Thank you, doctor.",
-        "questions": [
+        "type": "matching",
+        "pairs": [
           {
-            "question_cz": "Co pacient má?",
-            "question_en": "What does the patient have?",
-            "options": [
-              "Bolest hlavy",
-              "Bolest v krku a teplotu",
-              "Kašel",
-              "Bolest břicha"
-            ],
-            "correct_index": 1
+            "left": "Jmenuji se Anna Nováková.",
+            "right": "My name is Anna Nováková."
           },
           {
-            "question_cz": "Kolikrát denně má brát lék?",
-            "question_en": "How many times a day should he take the medicine?",
-            "options": [
-              "Jednou",
-              "Dvakrát",
-              "Třikrát",
-              "Čtyřikrát"
-            ],
-            "correct_index": 2
-          }
-        ]
-      },
-      "answer_key": "Bolest v krku a teplotu; Třikrát",
-      "xp_reward": 15
-    },
-    {
-      "id": 28008,
-      "lesson_id": 2801,
-      "type": "listening_comprehension",
-      "prompt": "Listen to the restaurant order and answer.",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen to the restaurant order and answer.",
-        "audio_hash": "list_28_08",
-        "transcript_cz": "Číšník: Dobrý večer, přejete si?\nHost: Dobrý večer. Chtěl bych gulášovou polévku a vepřový řízek.\nČíšník: A k pití?\nHost: Jedno pivo, prosím.\nČíšník: Velké nebo malé?\nHost: Velké, prosím. A ještě minerální vodu.\nČíšník: Dobře, hned to bude.",
-        "transcript_en": "Waiter: Good evening, what would you like?\nGuest: Good evening. I'd like goulash soup and pork schnitzel.\nWaiter: And to drink?\nGuest: One beer, please.\nWaiter: Large or small?\nGuest: Large, please. And also mineral water.\nWaiter: Alright, it'll be ready soon.",
-        "questions": [
-          {
-            "question_cz": "Jaké hlavní jídlo si objednal?",
-            "question_en": "What main dish did he order?",
-            "options": [
-              "Svíčovou",
-              "Vepřový řízek",
-              "Smažený sýr",
-              "Guláš"
-            ],
-            "correct_index": 1
+            "left": "Bydlím v Praze.",
+            "right": "I live in Prague."
           },
           {
-            "question_cz": "Jaké pivo si objednal?",
-            "question_en": "What beer did he order?",
-            "options": [
-              "Malé",
-              "Velké",
-              "Žádné",
-              "Dvě piva"
-            ],
-            "correct_index": 1
-          }
-        ]
-      },
-      "answer_key": "Vepřový řízek; Velké",
-      "xp_reward": 15
-    },
-    {
-      "id": 28009,
-      "lesson_id": 2801,
-      "type": "listening_comprehension",
-      "prompt": "Listen to the phone call and answer.",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen to the phone call and answer.",
-        "audio_hash": "list_28_09",
-        "transcript_cz": "Eva: Haló?\nMartin: Ahoj Evo, tady Martin. Co děláš v sobotu?\nEva: Ahoj Martine, zatím nic. A co ty?\nMartin: Jdu do kina. Mám lístky na film v 18:00. Chceš jít taky?\nEva: Ráda. Kde se sejdeme?\nMartin: Před kinem v 17:30. Tak zatím, ahoj!\nEva: Ahoj!",
-        "transcript_en": "Eva: Hello?\nMartin: Hi Eva, it's Martin. What are you doing on Saturday?\nEva: Hi Martin, nothing yet. And you?\nMartin: I'm going to the cinema. I have tickets for a movie at 6 PM. Do you want to go too?\nEva: I'd love to. Where shall we meet?\nMartin: In front of the cinema at 5:30 PM. See you, bye!\nEva: Bye!",
-        "questions": [
-          {
-            "question_cz": "Kdy jdou do kina?",
-            "question_en": "When are they going to the cinema?",
-            "options": [
-              "V pátek",
-              "V sobotu",
-              "V neděli",
-              "V pondělí"
-            ],
-            "correct_index": 1
+            "left": "Narodila jsem se v Polsku.",
+            "right": "I was born in Poland."
           },
           {
-            "question_cz": "V kolik hodin se sejdou?",
-            "question_en": "What time will they meet?",
-            "options": [
-              "V 17:00",
-              "V 17:30",
-              "V 18:00",
-              "V 18:30"
-            ],
-            "correct_index": 1
+            "left": "Telefonní číslo je 777 123 456.",
+            "right": "The telephone number is 777 123 456."
           }
-        ]
+        ],
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
       },
-      "answer_key": "V sobotu; V 17:30",
-      "xp_reward": 15
+      "answer_key": "Jmenuji se Anna Nováková.–My name is Anna Nováková.; Bydlím v Praze.–I live in Prague.; Narodila jsem se v Polsku.–I was born in Poland.; Telefonní číslo je 777 123 456.–The telephone number is 777 123 456.",
+      "xp_reward": 10,
+      "lesson_id": 2801
     },
     {
-      "id": 28010,
-      "lesson_id": 2801,
-      "type": "listening_comprehension",
-      "prompt": "Listen to the directions dialogue and answer.",
+      "id": 28104,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that fits",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen to the directions dialogue and answer.",
-        "audio_hash": "list_28_10",
-        "transcript_cz": "Cizinec: Promiňte, kde je nejbližší pošta?\nČech: Dobrý den. jděte rovně touto ulicí, pak zahněte doprava na rohu. Pošta je vedle supermarketu.\nCizinec: Je to daleko?\nČech: Ne, je to asi pět minut pěšky.\nCizinec: Děkuji vám!\nČech: Není zač.",
-        "transcript_en": "Foreigner: Excuse me, where is the nearest post office?\nCzech: Hello. Go straight along this street, then turn right at the corner. The post office is next to the supermarket.\nForeigner: Is it far?\nCzech: No, it's about five minutes on foot.\nForeigner: Thank you!\nCzech: You're welcome.",
-        "questions": [
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Bydlím v Praze.",
+          "Dám si kávu.",
+          "Jděte rovně.",
+          "Sejdeme se v pátek."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the chunk that communicates the important information in this scene."
+      },
+      "answer_key": "Bydlím v Praze.",
+      "xp_reward": 10,
+      "lesson_id": 2801
+    },
+    {
+      "id": 28105,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Jmenuji se Anna. ___ v Praze.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Bydlím"
+          ]
+        ],
+        "explanation": "Use the same short pattern you have just heard and read."
+      },
+      "answer_key": "Bydlím",
+      "xp_reward": 10,
+      "lesson_id": 2801
+    },
+    {
+      "id": 28106,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Bydlím",
+          "v",
+          "Praze."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech sentence.",
+        "explanation": "Read the complete chunk aloud after you build it."
+      },
+      "answer_key": "Bydlím v Praze.",
+      "xp_reward": 10,
+      "lesson_id": 2801
+    },
+    {
+      "id": 28107,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Jmenuji se Anna Nováková. Bydlím v Praze.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Jmenuji se Anna Nováková. Bydlím v Praze.",
+      "xp_reward": 10,
+      "lesson_id": 2801
+    },
+    {
+      "id": 28108,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Jmenuji se Anna Nováková. Bydlím v Praze.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Jmenuji se Anna Nováková. Bydlím v Praze.",
+      "xp_reward": 15,
+      "lesson_id": 2801
+    },
+    {
+      "id": 28109,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Read a Simple Form",
+        "lines": [
           {
-            "question_cz": "Kde je pošta?",
-            "question_en": "Where is the post office?",
-            "options": [
-              "Vedle supermarketu",
-              "Na rohu",
-              "V parku",
-              "Na nádraží"
-            ],
-            "correct_index": 0
+            "speaker": "receptionist",
+            "text": "Jak se jmenujete?"
           },
           {
-            "question_cz": "Kam má zahynout?",
-            "question_en": "Where should he turn?",
-            "options": [
-              "Doleva",
-              "Doprava",
-              "Rovně",
-              "Zpět"
-            ],
-            "correct_index": 1
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "receptionist",
+            "text": "Kde bydlíte?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
           }
+        ],
+        "blank_answers": [
+          [
+            "Jmenuji se Anna Nováková.",
+            "Anna Nováková."
+          ],
+          [
+            "Bydlím v Praze.",
+            "V Praze."
+          ]
+        ],
+        "explanation": "Use a short, complete answer that moves the interaction forward."
+      },
+      "answer_key": "Jmenuji se Anna Nováková. | Bydlím v Praze.",
+      "xp_reward": 15,
+      "lesson_id": 2801
+    },
+    {
+      "id": 28110,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Fill a mini form in two short Czech sentences: give a name and say where you live.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 36,
+        "key_vocab": [
+          "Jmenuji se Anna Nováková.",
+          "Bydlím v Praze.",
+          "Narodila jsem se v Polsku.",
+          "Telefonní číslo je 777 123 456."
+        ],
+        "sample_answer": "Bydlím v Praze."
+      },
+      "answer_key": "Bydlím v Praze.",
+      "xp_reward": 0,
+      "lesson_id": 2801
+    },
+    {
+      "id": 28111,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second form-style introduction: say your name, where you live, where you were born, and a telephone number.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Jmenuji se Anna Nováková.",
+          "Bydlím v Praze.",
+          "Narodila jsem se v Polsku."
         ]
       },
-      "answer_key": "Vedle supermarketu; Doprava",
-      "xp_reward": 15
-    },
-    {
-      "id": 28011,
-      "lesson_id": 2801,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct present tense form of 'být' (to be).",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správný tvar slovesa 'být' v přítomném čase.",
-        "question_en": "Choose the correct present tense form of 'být' (to be).",
-        "options": [
-          "jsme",
-          "jsou",
-          "jste",
-          "jsem"
-        ],
-        "correct_index": 0,
-        "explanation": "The correct form is 'jsme': My jsme studenti. = We are students. Conjugation of být: jsem (I), jsi (you sg.), je (he/she/it), jsme (we), jste (you pl.), jsou (they)."
-      },
-      "answer_key": "jsme",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-001"
-    },
-    {
-      "id": 28012,
-      "lesson_id": 2801,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct accusative form.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správný tvar akuzativu.",
-        "question_en": "Choose the correct accusative form: 'Vidím ___.' (a woman — žena)",
-        "options": [
-          "ženu",
-          "žena",
-          "ženou",
-          "ženy"
-        ],
-        "correct_index": 0,
-        "explanation": "The accusative of feminine noun 'žena' (woman) is 'ženu'. 'Vidím ženu.' = I see a woman. Feminine nouns ending in -a change to -u in accusative singular."
-      },
-      "answer_key": "ženu",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-050"
-    },
-    {
-      "id": 28013,
-      "lesson_id": 2801,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct accusative form of a masculine animate noun.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správný tvar akuzativu (mužský rod, životný).",
-        "question_en": "Choose the correct accusative form: 'Vidím ___.' (a brother — bratr)",
-        "options": [
-          "bratra",
-          "bratr",
-          "bratrem",
-          "bratry"
-        ],
-        "correct_index": 0,
-        "explanation": "The accusative of masculine animate 'bratr' (brother) is 'bratra'. 'Vidím bratra.' = I see a brother. Masculine animate nouns add -a in the accusative singular."
-      },
-      "answer_key": "bratra",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-051"
-    },
-    {
-      "id": 28014,
-      "lesson_id": 2801,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct gender agreement for the adjective.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správné přídavné jméno (shoda rodu).",
-        "question_en": "Choose the correct adjective: 'To je nová ___.' (kniha — book, feminine)",
-        "options": [
-          "nová",
-          "nový",
-          "nové",
-          "novou"
-        ],
-        "correct_index": 0,
-        "explanation": "'Kniha' is feminine, so the adjective must take the feminine ending '-á': 'nová kniha' (new book). Masculine: nový (dům), feminine: nová (kniha), neuter: nové (auto)."
-      },
-      "answer_key": "nová",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-070"
-    },
-    {
-      "id": 28015,
-      "lesson_id": 2801,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct present tense verb form.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správný tvar slovesa v přítomném čase.",
-        "question_en": "Choose the correct present tense form: 'Ona ___ česky.' (mluvit — to speak)",
-        "options": [
-          "mluví",
-          "mluvím",
-          "mluvíme",
-          "mluvíš"
-        ],
-        "correct_index": 0,
-        "explanation": "'Ona mluví česky.' = She speaks Czech. 3rd person singular of 'mluvit': (on/ona/ono) mluví. Conjugation: mluvím, mluvíš, mluví, mluvíme, mluvíte, mluví."
-      },
-      "answer_key": "mluví",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-040"
+      "answer_key": "Jmenuji se Anna Nováková.; Bydlím v Praze.; Narodila jsem se v Polsku.",
+      "xp_reward": 20,
+      "lesson_id": 2801
     }
-  ]
+  ],
+  "can_do": "read and complete a simple everyday form.",
+  "new_language": [
+    "Jmenuji se Anna Nováková.",
+    "Bydlím v Praze.",
+    "Narodila jsem se v Polsku.",
+    "Telefonní číslo je 777 123 456."
+  ],
+  "recycles": [
+    "personal details",
+    "time and numbers",
+    "travel",
+    "messages",
+    "descriptions"
+  ],
+  "exit_task": "read and complete a simple everyday form."
 }

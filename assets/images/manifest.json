@@ -37,6 +37,306 @@
     "chat.scenario.interview": {
       "path": "assets/images/chat_scenario_interview_v1.png",
       "semantic_label": "A learner taking part in a job interview"
+    },
+    "unit02.formal_reception": {
+      "path": "assets/images/unit02/formal_reception_v1.png",
+      "semantic_label": "A visitor politely greeting a receptionist in a Prague office"
+    },
+    "unit02.informal_cafe": {
+      "path": "assets/images/unit02/informal_cafe_v1.png",
+      "semantic_label": "Two friends greeting each other at a Prague café"
+    },
+    "unit03.man": {
+      "path": "assets/images/unit03/muz_v1.png",
+      "semantic_label": "A man"
+    },
+    "unit03.table": {
+      "path": "assets/images/unit03/stul_v1.png",
+      "semantic_label": "A table"
+    },
+    "unit03.woman": {
+      "path": "assets/images/unit03/zena_v1.png",
+      "semantic_label": "A woman"
+    },
+    "unit03.book": {
+      "path": "assets/images/unit03/kniha_v1.png",
+      "semantic_label": "A book"
+    },
+    "unit03.chair": {
+      "path": "assets/images/unit03/zidle_v1.png",
+      "semantic_label": "A chair"
+    },
+    "unit03.child": {
+      "path": "assets/images/unit03/dite_v1.png",
+      "semantic_label": "A child"
+    },
+    "unit03.car": {
+      "path": "assets/images/unit03/auto_v1.png",
+      "semantic_label": "A compact car"
+    },
+    "unit03.window": {
+      "path": "assets/images/unit03/okno_v1.png",
+      "semantic_label": "A window"
+    },
+    "unit03.city": {
+      "path": "assets/images/unit03/mesto_v1.png",
+      "semantic_label": "A Prague city neighborhood"
+    },
+    "unit03.identification_scene": {
+      "path": "assets/images/unit03/identification_scene_v1.png",
+      "semantic_label": "A Prague street café scene for identifying people and things"
+    },
+    "unit04.profile_inventory": {
+      "path": "assets/images/unit04/profile_inventory_v1.png",
+      "semantic_label": "A learner with everyday possessions at a Prague desk"
+    },
+    "unit04.identity_pattern": {
+      "path": "assets/images/unit04/identity_pattern_v1.png",
+      "semantic_label": "A learner identifies which everyday possessions he has and does not have"
+    },
+    "unit05.activity_profiles": {
+      "path": "assets/images/unit05/activity_profiles_v1.png",
+      "semantic_label": "People working, studying, speaking, and reading in Prague"
+    },
+    "unit05.activity_questions": {
+      "path": "assets/images/unit05/activity_questions_v1.png",
+      "semantic_label": "Four people answer questions about everyday activities"
+    },
+    "unit06.cafe_counter": {
+      "path": "assets/images/unit06/cafe_counter_v1.png",
+      "semantic_label": "A customer ordering food and drinks at a Czech café"
+    },
+    "unit06.request_pattern": {
+      "path": "assets/images/unit06/request_pattern_v1.png",
+      "semantic_label": "A customer politely asks for coffee and water at a café counter"
+    },
+    "unit07.lost_property": {
+      "path": "assets/images/unit07/lost_property_v1.png",
+      "semantic_label": "People returning belongings at a Prague lost-property desk"
+    },
+    "unit07.ownership_pattern": {
+      "path": "assets/images/unit07/ownership_pattern_v1.png",
+      "semantic_label": "Everyday objects are connected to their owners"
+    },
+    "unit08.family_people": {
+      "path": "assets/images/unit08/family_people_v1.png",
+      "semantic_label": "A multigenerational family and visiting neighbor in a Prague home"
+    },
+    "unit08.people_description": {
+      "path": "assets/images/unit08/people_description_v1.png",
+      "semantic_label": "A multigenerational group of people for describing family and appearance"
+    },
+    "unit09.making_a_plan": {
+      "path": "assets/images/unit09/making_a_plan_v1.png",
+      "semantic_label": "Two people arranging a meeting with clocks, a calendar, and a phone"
+    },
+    "unit09.time_plan": {
+      "path": "assets/images/unit09/time_plan_v1.png",
+      "semantic_label": "A phone, clock, calendar, meeting place, and two people agreeing on a plan"
+    },
+    "unit10.daily_routine": {
+      "path": "assets/images/unit10/daily_routine_storyboard_v1.png",
+      "semantic_label": "A six-panel day from waking up to sleeping"
+    },
+    "unit10.routine_sequence": {
+      "path": "assets/images/unit10/routine_sequence_v1.png",
+      "semantic_label": "A seven-step daily routine from waking up to going to sleep"
+    },
+    "unit11.restaurant_table": {
+      "path": "assets/images/unit11/restaurant_table_v1.png",
+      "semantic_label": "A café table with a simple food and drink order"
+    },
+    "unit11.restaurant_order": {
+      "path": "assets/images/unit11/restaurant_order_v1.png",
+      "semantic_label": "A waiter taking a restaurant order"
+    },
+    "unit11.restaurant_menu": {
+      "path": "assets/images/unit11/restaurant_menu_v1.png",
+      "semantic_label": "A restaurant menu and an arriving meal"
+    },
+    "unit11.restaurant_payment": {
+      "path": "assets/images/unit11/restaurant_payment_v1.png",
+      "semantic_label": "A customer politely paying at a café counter"
+    },
+    "unit12.shop_display": {
+      "path": "assets/images/unit12/shop_display_v1.png",
+      "semantic_label": "A clothes display with clear colour choices"
+    },
+    "unit12.shop_choice": {
+      "path": "assets/images/unit12/shop_choice_v1.png",
+      "semantic_label": "A shopper comparing a blue sweater and red shirt"
+    },
+    "unit12.shop_fitting": {
+      "path": "assets/images/unit12/shop_fitting_v1.png",
+      "semantic_label": "A shopper trying on a jacket in front of a mirror"
+    },
+    "unit12.shop_payment": {
+      "path": "assets/images/unit12/shop_payment_v1.png",
+      "semantic_label": "A shopper paying by card for clothes"
+    },
+    "unit13.hobby_reading": {
+      "path": "assets/images/unit13/hobby_reading_v1.png",
+      "semantic_label": "A person reading with tea at home"
+    },
+    "unit13.hobby_cycling": {
+      "path": "assets/images/unit13/hobby_cycling_v1.png",
+      "semantic_label": "Friends cycling in a Prague park"
+    },
+    "unit13.hobby_concert": {
+      "path": "assets/images/unit13/hobby_concert_v1.png",
+      "semantic_label": "A small live music concert"
+    },
+    "unit13.hobby_plan": {
+      "path": "assets/images/unit13/hobby_plan_v1.png",
+      "semantic_label": "Friends planning a leisure activity over coffee"
+    },
+    "unit14.town_corner": {
+      "path": "assets/images/unit14/town_corner_v1.png",
+      "semantic_label": "A city corner with everyday destination cues"
+    },
+    "unit14.town_directions": {
+      "path": "assets/images/unit14/town_directions_v1.png",
+      "semantic_label": "A visitor asking for directions with a map"
+    },
+    "unit14.town_route": {
+      "path": "assets/images/unit14/town_route_v1.png",
+      "semantic_label": "A walker following straight and left-turn directions"
+    },
+    "unit14.town_arrival": {
+      "path": "assets/images/unit14/town_arrival_v1.png",
+      "semantic_label": "A traveler arriving by tram at a station"
+    },
+    "unit15.weather_seasons": {
+      "path": "assets/images/unit15/weather_seasons_v1.png",
+      "semantic_label": "A Prague park across four seasons"
+    },
+    "unit15.weather_forecast": {
+      "path": "assets/images/unit15/weather_forecast_v1.png",
+      "semantic_label": "A traveler checking visual weather icons"
+    },
+    "unit15.travel_packing": {
+      "path": "assets/images/unit15/travel_packing_v1.png",
+      "semantic_label": "A traveler packing a suitcase and passport"
+    },
+    "unit15.travel_arrival": {
+      "path": "assets/images/unit15/travel_arrival_v1.png",
+      "semantic_label": "A traveler arriving at a station in changing weather"
+    },
+    "unit16.market_quantities": {
+      "path": "assets/images/unit16/market_quantities_v1.png",
+      "semantic_label": "A customer buying measured ingredients at a Prague market"
+    },
+    "unit16.coffee_without_sugar": {
+      "path": "assets/images/unit16/coffee_without_sugar_v1.png",
+      "semantic_label": "A customer ordering coffee without sugar"
+    },
+    "unit17.gift_bookshop": {
+      "path": "assets/images/unit17/gift_bookshop_v1.png",
+      "semantic_label": "Friends choosing a book gift in a Prague bookshop"
+    },
+    "unit18.tram_meeting": {
+      "path": "assets/images/unit18/tram_meeting_v1.png",
+      "semantic_label": "Friends arranging a meeting beside a Prague tram"
+    },
+    "unit19.weekend_story": {
+      "path": "assets/images/unit19/weekend_story_v1.png",
+      "semantic_label": "Friends looking back at a weekend together"
+    },
+    "unit20.future_plans": {
+      "path": "assets/images/unit20/future_plans_v1.png",
+      "semantic_label": "Friends arranging a future plan over coffee"
+    },
+    "unit21.compare_choose": {
+      "path": "assets/images/unit21/compare_choose_v1.png",
+      "semantic_label": "Friends comparing homes and transport options"
+    },
+    "unit22.connected_ideas": {
+      "path": "assets/images/unit22/connected_ideas_v1.png",
+      "semantic_label": "Friends explaining a changed plan on a rainy day"
+    },
+    "unit23.everyday_choices": {
+      "path": "assets/images/unit23/everyday_choices_v1.png",
+      "semantic_label": "An adult asking about everyday rules and choices"
+    },
+    "unit24.doctor_visit": {
+      "path": "assets/images/unit24/doctor_visit_v1.png",
+      "semantic_label": "A calm routine conversation with a doctor"
+    },
+    "unit25.work_study": {
+      "path": "assets/images/unit25/work_study_v1.png",
+      "semantic_label": "Adults discussing work and study plans"
+    },
+    "unit26.home_viewing": {
+      "path": "assets/images/unit26/home_viewing_v1.png",
+      "semantic_label": "People viewing a bright Prague apartment"
+    },
+    "unit27.changed_journey_map": {
+      "path": "assets/images/unit27/changed_journey_map_v1.png",
+      "semantic_label": "A traveler changing from a tram to a bus on a Prague map"
+    },
+    "unit29.a2_exam_reading": {
+      "path": "assets/images/unit29/a2_exam_reading_v1.png",
+      "semantic_label": "Learner reading an everyday public notice"
+    },
+    "unit29.a2_exam_listening": {
+      "path": "assets/images/unit29/a2_exam_listening_v1.png",
+      "semantic_label": "Learner listening to a transport announcement"
+    },
+    "unit29.a2_exam_writing": {
+      "path": "assets/images/unit29/a2_exam_writing_v1.png",
+      "semantic_label": "Learner completing a functional form"
+    },
+    "unit29.a2_exam_speaking": {
+      "path": "assets/images/unit29/a2_exam_speaking_v1.png",
+      "semantic_label": "Learners practising a picture-supported conversation"
+    },
+    "unit31.moving_day": {
+      "path": "assets/images/unit31/moving_day_v1.png",
+      "semantic_label": "Friends carrying boxes into a new apartment"
+    },
+    "unit31.workday_problem": {
+      "path": "assets/images/unit31/workday_problem_v1.png",
+      "semantic_label": "Adult leaving a polite workplace voice message"
+    },
+    "unit31.weekend_journey": {
+      "path": "assets/images/unit31/weekend_journey_v1.png",
+      "semantic_label": "Friends comparing public-transport routes on a map"
+    },
+    "unit31.personal_challenge": {
+      "path": "assets/images/unit31/personal_challenge_v1.png",
+      "semantic_label": "Adult confidently explaining a plan with a checklist"
+    },
+    "unit28.exam_form": {
+      "path": "assets/images/unit28/exam_form_v1.png",
+      "semantic_label": "A learner filling a simple personal-information form"
+    },
+    "unit28.exam_listening": {
+      "path": "assets/images/unit28/exam_listening_v1.png",
+      "semantic_label": "A learner listening at a station information counter"
+    },
+    "unit28.exam_message": {
+      "path": "assets/images/unit28/exam_message_v1.png",
+      "semantic_label": "A learner writing a short friendly message on a phone"
+    },
+    "unit28.exam_speaking": {
+      "path": "assets/images/unit28/exam_speaking_v1.png",
+      "semantic_label": "A learner practising an oral picture-description task"
+    },
+    "unit30.review_cafe": {
+      "path": "assets/images/unit30/review_cafe_v1.png",
+      "semantic_label": "Friends ordering coffee and a snack at a Prague café"
+    },
+    "unit30.review_shopping": {
+      "path": "assets/images/unit30/review_shopping_v1.png",
+      "semantic_label": "A learner choosing between blue and red clothes"
+    },
+    "unit30.review_directions": {
+      "path": "assets/images/unit30/review_directions_v1.png",
+      "semantic_label": "A learner asking for directions beside a Prague tram"
+    },
+    "unit30.review_plan": {
+      "path": "assets/images/unit30/review_plan_v1.png",
+      "semantic_label": "Two friends making a meeting plan with a calendar and clock"
     }
   },
   "fallbacks": {

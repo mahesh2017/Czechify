@@ -1,0 +1,340 @@
+{
+  "id": 1304,
+  "unit_id": 13,
+  "title": "Mission: Make a Free-Time Plan",
+  "description": "Suggest an activity, respond, and agree on a simple free-time plan.",
+  "lesson_type": "mission",
+  "order_in_unit": 3,
+  "duration_min": 12,
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 13300,
+      "lesson_id": 1304,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Mission: Make a Free-Time Plan",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Půjdeme do kina?",
+            "en": "Shall we go to the cinema?"
+          },
+          {
+            "cz": "Rád bych šel na koncert.",
+            "en": "I would like to go to a concert."
+          },
+          {
+            "cz": "To se mi líbí.",
+            "en": "I like that."
+          },
+          {
+            "cz": "V sobotu mám čas.",
+            "en": "I have time on Saturday."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13301,
+      "lesson_id": 1304,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Máš v sobotu čas? Půjdeme do kina? Ano, to se mi líbí.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Máš v sobotu čas? Půjdeme do kina? Ano, to se mi líbí.",
+              "Dám si čaj.",
+              "Kde je banka?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Máš v sobotu čas? Půjdeme do kina? Ano, to se mi líbí.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13302,
+      "lesson_id": 1304,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit13/hobby_plan_v1.png",
+        "image_label": "Mission: Make a Free-Time Plan",
+        "text_cz": "Dva kamarádi plánují sobotu. Jeden chce do kina, druhý chce na koncert. Nakonec se domluví na kině.",
+        "text_en": "Two friends are planning Saturday. One wants to go to the cinema, the other wants to go to a concert. In the end they agree on the cinema.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Půjdeme do kina?",
+              "Dám si čaj.",
+              "Kde je banka?",
+              "Je mi zima."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Půjdeme do kina?",
+      "xp_reward": 15
+    },
+    {
+      "id": 13303,
+      "lesson_id": 1304,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Půjdeme do kina?",
+            "right": "Shall we go to the cinema?"
+          },
+          {
+            "left": "Rád bych šel na koncert.",
+            "right": "I would like to go to a concert."
+          },
+          {
+            "left": "To se mi líbí.",
+            "right": "I like that."
+          },
+          {
+            "left": "V sobotu mám čas.",
+            "right": "I have time on Saturday."
+          }
+        ],
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Půjdeme do kina?–Shall we go to the cinema?; Rád bych šel na koncert.–I would like to go to a concert.; To se mi líbí.–I like that.; V sobotu mám čas.–I have time on Saturday.",
+      "xp_reward": 10
+    },
+    {
+      "id": 13304,
+      "lesson_id": 1304,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Půjdeme do kina?",
+          "Dám si čaj.",
+          "Kde je banka?",
+          "Je mi zima."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Půjdeme do kina?",
+      "xp_reward": 10
+    },
+    {
+      "id": 13305,
+      "lesson_id": 1304,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "V sobotu mám ___. Půjdeme do ___.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "čas"
+          ],
+          [
+            "kina"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "čas | kina",
+      "xp_reward": 10
+    },
+    {
+      "id": 13306,
+      "lesson_id": 1304,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Půjdeme",
+          "do",
+          "kina?"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Půjdeme do kina?",
+      "xp_reward": 10
+    },
+    {
+      "id": 13307,
+      "lesson_id": 1304,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Máš v sobotu čas? Půjdeme do kina?",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Máš v sobotu čas? Půjdeme do kina?",
+      "xp_reward": 10
+    },
+    {
+      "id": 13308,
+      "lesson_id": 1304,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Máš v sobotu čas? Půjdeme do kina?",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Máš v sobotu čas? Půjdeme do kina?",
+      "xp_reward": 15
+    },
+    {
+      "id": 13309,
+      "lesson_id": 1304,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Mission: Make a Free-Time Plan",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Máš v sobotu čas?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Půjdeme do kina?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Ano, mám čas.",
+            "Ano"
+          ],
+          [
+            "Ano, to se mi líbí.",
+            "Ano"
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Ano, mám čas. | Ano, to se mi líbí.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13310,
+      "lesson_id": 1304,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a two-line plan for an activity with a friend.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Půjdeme do kina?",
+          "Rád bych šel na koncert.",
+          "To se mi líbí.",
+          "V sobotu mám čas."
+        ],
+        "sample_answer": "Půjdeme do kina?"
+      },
+      "answer_key": "Půjdeme do kina?",
+      "xp_reward": 0
+    },
+    {
+      "id": 13311,
+      "lesson_id": 1304,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second free-time plan: say what you like, suggest one activity, and respond to a friend's idea.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Půjdeme do kina?",
+          "Rád bych šel na koncert.",
+          "To se mi líbí."
+        ]
+      },
+      "answer_key": "Půjdeme do kina?; Rád bych šel na koncert.; To se mi líbí.",
+      "xp_reward": 20
+    }
+  ],
+  "can_do": "suggest and agree on a simple free-time plan.",
+  "new_language": [
+    "Půjdeme do kina?",
+    "Rád bych šel na koncert.",
+    "To se mi líbí.",
+    "V sobotu mám čas."
+  ],
+  "recycles": [
+    "present-tense activities",
+    "time and days",
+    "Ano/Ne",
+    "simple plans"
+  ],
+  "exit_task": "suggest and agree on a simple free-time plan."
+}

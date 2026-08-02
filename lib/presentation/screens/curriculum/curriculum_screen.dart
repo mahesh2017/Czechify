@@ -798,8 +798,10 @@ class _PathLessonRow extends StatelessWidget {
     final isCurrent = isUnlocked && !isCompleted;
     final typeLabel = switch (lesson.lessonType) {
       LessonType.introduction => l10n.lessonTypeLesson,
-      LessonType.practice => l10n.lessonTypePractice,
-      LessonType.application => l10n.lessonTypeApply,
+      LessonType.practice || LessonType.listening => l10n.lessonTypePractice,
+      LessonType.application ||
+      LessonType.production ||
+      LessonType.mission => l10n.lessonTypeApply,
       LessonType.review => l10n.lessonTypeReview,
     };
     final state =
@@ -1210,14 +1212,20 @@ class _LessonTile extends StatelessWidget {
     final t = context.tokens;
     final (icon, tint, fg) = switch (lesson.lessonType) {
       LessonType.introduction => (Icons.info_outline, t.priSoft, t.pri),
-      LessonType.practice => (Icons.graphic_eq, t.amberSoft, t.amber),
-      LessonType.application => (Icons.spa_outlined, t.greenSoft, t.green),
+      LessonType.practice ||
+      LessonType.listening => (Icons.graphic_eq, t.amberSoft, t.amber),
+      LessonType.application ||
+      LessonType.production => (Icons.spa_outlined, t.greenSoft, t.green),
+      LessonType.mission => (Icons.flag_outlined, t.violetSoft, t.violet),
       LessonType.review => (Icons.replay, t.violetSoft, t.violet),
     };
     final typeLabel = switch (lesson.lessonType) {
       LessonType.introduction => 'Lesson',
       LessonType.practice => 'Practice',
+      LessonType.listening => 'Listening',
       LessonType.application => 'Apply',
+      LessonType.production => 'Produce',
+      LessonType.mission => 'Mission',
       LessonType.review => 'Review',
     };
 

@@ -8,6 +8,10 @@ class Lessons extends Table {
   IntColumn get orderInUnit => integer()();
   TextColumn get title => text()();
   TextColumn get description => text()();
+  TextColumn get canDo => text().withDefault(const Constant(''))();
+  TextColumn get newLanguageJson => text().withDefault(const Constant('[]'))();
+  TextColumn get recyclesJson => text().withDefault(const Constant('[]'))();
+  TextColumn get exitTask => text().withDefault(const Constant(''))();
   IntColumn get durationMinutes => integer().withDefault(const Constant(10))();
   TextColumn get lessonType =>
       text().withDefault(const Constant('introduction'))();

@@ -1,0 +1,347 @@
+{
+  "id": 1203,
+  "unit_id": 12,
+  "title": "Try It On and Decide",
+  "description": "Use fitting-room language to try, compare, accept, or reject an item.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 12,
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 12200,
+      "lesson_id": 1203,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Try It On and Decide",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Můžu si to vyzkoušet?",
+            "en": "May I try it on?"
+          },
+          {
+            "cz": "Je to malé.",
+            "en": "It is small."
+          },
+          {
+            "cz": "Je to velké.",
+            "en": "It is big."
+          },
+          {
+            "cz": "Chci jinou velikost.",
+            "en": "I want another size."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 12201,
+      "lesson_id": 1203,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
+              "Účet, prosím.",
+              "Jdu pěšky."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
+      "xp_reward": 15
+    },
+    {
+      "id": 12202,
+      "lesson_id": 1203,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit12/shop_fitting_v1.png",
+        "image_label": "Try It On and Decide",
+        "text_cz": "Anna si zkouší bundu. Bunda je malá, proto chce jinou velikost.",
+        "text_en": "Anna is trying on a jacket. The jacket is small, so she wants another size.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Můžu si to vyzkoušet?",
+              "Účet, prosím.",
+              "Jdu pěšky.",
+              "Mám žízeň."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Můžu si to vyzkoušet?",
+      "xp_reward": 15
+    },
+    {
+      "id": 12203,
+      "lesson_id": 1203,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Můžu si to vyzkoušet?",
+            "right": "May I try it on?"
+          },
+          {
+            "left": "Je to malé.",
+            "right": "It is small."
+          },
+          {
+            "left": "Je to velké.",
+            "right": "It is big."
+          },
+          {
+            "left": "Chci jinou velikost.",
+            "right": "I want another size."
+          }
+        ],
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Můžu si to vyzkoušet?–May I try it on?; Je to malé.–It is small.; Je to velké.–It is big.; Chci jinou velikost.–I want another size.",
+      "xp_reward": 10
+    },
+    {
+      "id": 12204,
+      "lesson_id": 1203,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Můžu si to vyzkoušet?",
+          "Účet, prosím.",
+          "Jdu pěšky.",
+          "Mám žízeň."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Můžu si to vyzkoušet?",
+      "xp_reward": 10
+    },
+    {
+      "id": 12205,
+      "lesson_id": 1203,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Bunda je ___. Chci jinou ___.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "malá"
+          ],
+          [
+            "velikost"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "malá | velikost",
+      "xp_reward": 10
+    },
+    {
+      "id": 12206,
+      "lesson_id": 1203,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Můžu",
+          "si",
+          "to",
+          "vyzkoušet?"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Můžu si to vyzkoušet?",
+      "xp_reward": 10
+    },
+    {
+      "id": 12207,
+      "lesson_id": 1203,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Můžu si to vyzkoušet?",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Můžu si to vyzkoušet?",
+      "xp_reward": 10
+    },
+    {
+      "id": 12208,
+      "lesson_id": 1203,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Můžu si to vyzkoušet?",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Můžu si to vyzkoušet?",
+      "xp_reward": 15
+    },
+    {
+      "id": 12209,
+      "lesson_id": 1203,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Try It On and Decide",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "Můžu si to vyzkoušet?"
+          },
+          {
+            "speaker": "clerk",
+            "text": "Ano, samozřejmě."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Je to malé.",
+            "Je malé."
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Je to malé.",
+      "xp_reward": 15
+    },
+    {
+      "id": 12210,
+      "lesson_id": 1203,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write one sentence about a size that fits you.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Můžu si to vyzkoušet?",
+          "Je to malé.",
+          "Je to velké.",
+          "Chci jinou velikost."
+        ],
+        "sample_answer": "Můžu si to vyzkoušet?"
+      },
+      "answer_key": "Můžu si to vyzkoušet?",
+      "xp_reward": 0
+    },
+    {
+      "id": 12211,
+      "lesson_id": 1203,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
+              "Účet, prosím.",
+              "Jdu pěšky."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
+      "xp_reward": 15
+    }
+  ],
+  "can_do": "try something on and decide whether to take it.",
+  "new_language": [
+    "Můžu si to vyzkoušet?",
+    "Je to malé.",
+    "Je to velké.",
+    "Chci jinou velikost."
+  ],
+  "recycles": [
+    "colours",
+    "numbers and prices",
+    "chci/kupuju",
+    "polite questions"
+  ],
+  "exit_task": "try something on and decide whether to take it."
+}

@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 import urllib.error
 import urllib.request
 
-from audio_utterances import synthesis_plan  # noqa: E402 - local tool module
+import audio_utterances as au  # noqa: E402 - local tool module
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIO = ROOT / "assets" / "audio"
@@ -85,8 +85,28 @@ def main() -> int:
     load_env_file()
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="extract only; do not call Azure")
+    parser.add_argument("--scope", choices=("a1", "a2", "all"), default="all")
+    parser.add_argument(
+        "--unit", action="append", type=int, dest="units",
+        help="synthesize only this curriculum unit; repeat for multiple units",
+    )
     parser.add_argument("--gender", choices=("female", "male"), default="female")
     parser.add_argument("--voice", help="override the Azure voice name")
+    parser.add_argument(
+        "--texts", nargs="+",
+        help="re-synthesize only these exact utterances while rebuilding the "
+             "complete manifest",
+    )
+    parser.add_argument(
+        "--replace-existing", action="store_true",
+        help="replace existing files for --texts; use for a small quality "
+             "repair without regenerating a whole voice pack",
+    )
+    parser.add_argument(
+        "--record-azure-fallback", action="store_true",
+        help="for male --texts, record that the repaired clips now use Azure "
+             "rather than ElevenLabs without regenerating them",
+    )
     parser.add_argument("--limit", type=int, help="synthesize only the first N missing files")
     parser.add_argument(
         "--force",
@@ -111,7 +131,23 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    plan = synthesis_plan()
+    plan = au.synthesis_plan()
+    allowed_keys = set(
+        au.scoped_utterances(
+            args.scope,
+            set(args.units) if args.units else None,
+        )
+    )
+    selected_texts = set(args.texts or [])
+    if args.record_azure_fallback and (
+        args.gender != "male" or not selected_texts
+    ):
+        parser.error("--record-azure-fallback requires --gender male and --texts")
+    if selected_texts:
+        known_texts = {text for _, text, _ in plan}
+        unknown = selected_texts - known_texts
+        if unknown:
+            parser.error(f"--texts not found in the synthesis plan: {sorted(unknown)}")
     if args.dry_run:
         paused = [row for row in plan if "<break" in row[2]]
         print(f"Found {len(plan)} unique Czech utterances "
@@ -162,7 +198,12 @@ def main() -> int:
         # they sound complete but are missing a word.
         if args.refresh_blanks and "<break" in ssml_body and destination.exists():
             destination.unlink()
-        if not destination.exists() or destination.stat().st_size == 0:
+        if args.replace_existing and text in selected_texts and destination.exists():
+            destination.unlink()
+        if (
+            digest in allowed_keys
+            and (not destination.exists() or destination.stat().st_size == 0)
+        ):
             if args.limit is not None and generated >= args.limit:
                 continue
             for attempt in range(5):
@@ -191,6 +232,21 @@ def main() -> int:
             entries[digest] = f"assets/audio/{filename}"
         print(f"[{index}/{len(plan)}] {text}")
 
+    if args.record_azure_fallback:
+        ledger_path = AUDIO / "eleven_done.json"
+        try:
+            oliver = set(json.loads(ledger_path.read_text(encoding="utf-8")))
+        except (FileNotFoundError, json.JSONDecodeError):
+            oliver = set()
+        fallback_keys = {
+            digest for digest, text, _ in plan if text in selected_texts
+        }
+        removed = oliver & fallback_keys
+        if removed:
+            ledger_path.write_text(json.dumps(sorted(oliver - removed), indent=0),
+                                   encoding="utf-8")
+            print(f"Recorded {len(removed)} Azure fallback clip(s) in the voice ledger.")
+
     # Part of the male pack is ElevenLabs Oliver, not Azure — recording only
     # the Azure voice here would tell the next person regenerating this pack
     # that every clip came from one engine, and they would overwrite the other.
@@ -199,7 +255,7 @@ def main() -> int:
         oliver = set(json.loads(
             (AUDIO / "eleven_done.json").read_text(encoding="utf-8")))
         shared = len(oliver & set(entries))
-        if shared:
+        if args.gender == "male" and shared:
             name = f"{voice} (+{shared} ElevenLabs Oliver)"
     except (FileNotFoundError, json.JSONDecodeError):
         pass

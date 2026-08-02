@@ -1,371 +1,353 @@
 {
   "id": 1201,
   "unit_id": 12,
+  "title": "See Colours and Clothes",
+  "description": "Connect colours, clothes, and visual details before entering a shop exchange.",
+  "lesson_type": "practice",
   "order_in_unit": 0,
-  "title": "Prices, Colors & Sizes",
-  "description": "Learn to ask about prices, use color adjectives with correct gender endings, describe sizes, and use demonstratives (ten/tato/to) in shopping contexts.",
-  "lesson_type": "introduction",
-  "duration_min": 15,
+  "duration_min": 12,
   "is_review": false,
   "exercises": [
     {
-      "id": 90012,
+      "id": 12000,
       "lesson_id": 1201,
       "type": "teaching",
-      "prompt": "Shopping: Prices, Colors & Clothes",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "Shopping: Prices, Colors & Clothes",
-        "body": "Three words to rescue you in any shop — plus colors, sizes, and clothes.",
-        "intro": "'Kolik to stojí?' — three words that'll rescue you in any Czech shop. Add colors, sizes, and clothes, and you can find exactly what you want and know what it costs.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "See Colours and Clothes",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "Kolik to stojí?",
-            "en": "How much is it?"
+            "cz": "červená košile",
+            "en": "a red shirt"
           },
           {
-            "cz": "Chci…",
-            "en": "I want…"
+            "cz": "modrý svetr",
+            "en": "a blue sweater"
           },
           {
-            "cz": "korun",
-            "en": "crowns (CZK)"
+            "cz": "černé kalhoty",
+            "en": "black trousers"
           },
           {
-            "cz": "velikost",
-            "en": "size"
-          },
-          {
-            "cz": "levný",
-            "en": "cheap"
-          },
-          {
-            "cz": "drahý",
-            "en": "expensive"
-          },
-          {
-            "cz": "červená",
-            "en": "red"
-          },
-          {
-            "cz": "modrá",
-            "en": "blue"
-          },
-          {
-            "cz": "zelená",
-            "en": "green"
-          },
-          {
-            "cz": "žlutá",
-            "en": "yellow"
-          },
-          {
-            "cz": "černá",
-            "en": "black"
-          },
-          {
-            "cz": "bílá",
-            "en": "white"
-          },
-          {
-            "cz": "tričko",
-            "en": "t-shirt"
-          },
-          {
-            "cz": "kalhoty",
-            "en": "trousers"
-          },
-          {
-            "cz": "boty",
-            "en": "shoes"
-          },
-          {
-            "cz": "bunda",
-            "en": "jacket"
-          },
-          {
-            "cz": "šaty",
-            "en": "dress"
+            "cz": "nové boty",
+            "en": "new shoes"
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 12001,
       "lesson_id": 1201,
-      "type": "multiple_choice",
-      "prompt": "What does 'Kolik to stojí?' mean in English?",
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Kolik to stojí?",
-        "question_en": "What does 'Kolik to stojí?' mean?",
-        "options": [
-          "How much does it cost?",
-          "What is this?",
-          "Where is the shop?",
-          "Do you like it?"
-        ],
-        "correct_index": 0,
-        "explanation": "Kolik to stojí? = How much does it cost? This is the essential phrase for asking prices in Czech shops."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Vidím červenou košili a modrý svetr.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Vidím červenou košili a modrý svetr.",
+              "polévka",
+              "tramvaj"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-112",
-      "xp_reward": 10
+      "answer_key": "Vidím červenou košili a modrý svetr.",
+      "xp_reward": 15
     },
     {
       "id": 12002,
       "lesson_id": 1201,
-      "type": "multiple_choice",
-      "prompt": "Which color adjective correctly agrees with the feminine noun 'košile' (shirt)?",
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které přídavné jméno správně souhlasí se slovem 'košile'?",
-        "question_en": "Which adjective correctly agrees with 'košile' (shirt, feminine)?",
-        "options": [
-          "červený košile",
-          "červená košile",
-          "červené košile",
-          "červenou košile"
-        ],
-        "correct_index": 1,
-        "explanation": "košile is feminine, so the adjective must end in -á: červená košile. -ý is masculine, -é is neuter."
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit12/shop_display_v1.png",
+        "image_label": "See Colours and Clothes",
+        "text_cz": "V obchodě je červená košile, modrý svetr a černé kalhoty. Petra hledá nové boty.",
+        "text_en": "In the shop there is a red shirt, a blue sweater, and black trousers. Petra is looking for new shoes.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "modrý svetr",
+              "polévka",
+              "tramvaj",
+              "déšť"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-110",
-      "xp_reward": 10
+      "answer_key": "modrý svetr",
+      "xp_reward": 15
     },
     {
       "id": 12003,
       "lesson_id": 1201,
-      "type": "translation",
-      "prompt": "Translate 'How much does this cost?' to Czech.",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "How much does this cost?",
-        "accepted_answers": [
-          "Kolik to stojí?",
-          "Kolik to stojí",
-          "Kolik stojí?"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "červená košile",
+            "right": "a red shirt"
+          },
+          {
+            "left": "modrý svetr",
+            "right": "a blue sweater"
+          },
+          {
+            "left": "černé kalhoty",
+            "right": "black trousers"
+          },
+          {
+            "left": "nové boty",
+            "right": "new shoes"
+          }
         ],
-        "grammar_note": "Kolik = how much, to = it/this, stojí = costs (3rd person sg of 'stát'). Use this phrase in any shop."
+        "explanation": "Keep the complete Czech chunk together."
       },
-      "answer_key": "Kolik to stojí?",
-      "grammar_rule_id": "GR-112",
+      "answer_key": "červená košile–a red shirt; modrý svetr–a blue sweater; černé kalhoty–black trousers; nové boty–new shoes",
       "xp_reward": 10
     },
     {
       "id": 12004,
       "lesson_id": 1201,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "modrý svetr",
+          "polévka",
+          "tramvaj",
+          "déšť"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "modrý svetr",
+      "xp_reward": 10
+    },
+    {
+      "id": 12005,
+      "lesson_id": 1201,
       "type": "fill_blank",
-      "prompt": "Complete with the correct color adjective (modrý) agreeing with the noun.",
+      "prompt": "Complete the useful pattern",
       "data": {
         "type": "fill_blank",
-        "sentence": "Ten ___ (modrý) svetr je hezký, ale ta ___ (modrý) sukně je lepší.",
+        "sentence": "Chci ___ svetr a ___ boty.",
         "blank_count": 2,
-        "explanation": "svetr is masculine → modrý. sukně is feminine → modrá. Colors change endings based on the gender of the noun they describe.",
         "blank_answers": [
           [
             "modrý"
           ],
           [
-            "modrá"
+            "nové"
           ]
-        ]
-      },
-      "answer_key": "modrý modrá",
-      "grammar_rule_id": "GR-110",
-      "xp_reward": 15
-    },
-    {
-      "id": 12005,
-      "lesson_id": 1201,
-      "type": "multiple_choice",
-      "prompt": "Which demonstrative pronoun is correct for 'kniha' (book, feminine)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které ukazovací zájmeno je správné pro 'kniha'?",
-        "question_en": "Which demonstrative is correct for 'kniha' (book, feminine)?",
-        "options": [
-          "ten kniha",
-          "ta kniha",
-          "to kniha",
-          "ty kniha"
         ],
-        "correct_index": 1,
-        "explanation": "kniha is feminine → ta kniha. ten = masculine, to = neuter, ty = plural. Demonstratives must match the gender of the noun."
+        "explanation": "Use the chunk you have just heard and read."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-111",
+      "answer_key": "modrý | nové",
       "xp_reward": 10
     },
     {
       "id": 12006,
       "lesson_id": 1201,
-      "type": "translation",
-      "prompt": "Translate 'That is a small shirt' to Czech.",
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "That is a small shirt.",
-        "accepted_answers": [
-          "To je malá košile.",
-          "To je malá košile",
-          "Tamta je malá košile."
+        "type": "word_order",
+        "words": [
+          "Chci",
+          "modrý",
+          "svetr."
         ],
-        "grammar_note": "To je = That is. malá = small (feminine ending, matching košile). košile = shirt. Demonstratives and adjectives share gender agreement."
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
       },
-      "answer_key": "To je malá košile.",
-      "grammar_rule_id": "GR-111",
+      "answer_key": "Chci modrý svetr.",
       "xp_reward": 10
     },
     {
       "id": 12007,
       "lesson_id": 1201,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct size adjectives.",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Ten svetr je ___ (big), ale ta bunda je ___ (small).",
-        "blank_count": 2,
-        "explanation": "svetr is masculine → velký. bunda is feminine → malá. Size adjectives follow the same gender agreement rules as colors.",
-        "blank_answers": [
-          [
-            "velký"
-          ],
-          [
-            "malá"
-          ]
-        ]
+        "type": "dictation",
+        "expected_text": "Chci modrý svetr a nové boty.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
       },
-      "answer_key": "velký malá",
-      "grammar_rule_id": "GR-113",
-      "xp_reward": 15
+      "answer_key": "Chci modrý svetr a nové boty.",
+      "xp_reward": 10
     },
     {
       "id": 12008,
       "lesson_id": 1201,
-      "type": "dictation",
-      "prompt": "Listen and write the Czech price question.",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_12008",
-        "expected_text": "Kolik to stojí?",
-        "language": "cs-CZ",
-        "note": "This is the essential shopping phrase — 'How much does it cost?'"
+        "type": "pronunciation",
+        "target_text": "Chci modrý svetr a nové boty.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
       },
-      "answer_key": "Kolik to stojí?",
-      "xp_reward": 20
+      "answer_key": "Chci modrý svetr a nové boty.",
+      "xp_reward": 15
     },
     {
       "id": 12009,
       "lesson_id": 1201,
-      "type": "pronunciation",
-      "prompt": "Say this phrase aloud describing a shirt.",
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
       "data": {
-        "type": "pronunciation",
-        "target_text": "Ta modrá košile je malá.",
-        "target_audio_hash": "placeholder_12009",
-        "focus_sounds": [
-          "á",
-          "á",
-          "á"
+        "type": "dialogue",
+        "scenario": "See Colours and Clothes",
+        "lines": [
+          {
+            "speaker": "clerk",
+            "text": "Dobrý den. Co hledáte?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "clerk",
+            "text": "Jakou barvu?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "min_score": 0.6,
-        "translation_en": "The blue shirt is small."
+        "blank_answers": [
+          [
+            "Hledám svetr.",
+            "Hledám svetr"
+          ],
+          [
+            "Modrý, prosím.",
+            "Modrý"
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
       },
-      "answer_key": "Ta modrá košile je malá.",
-      "grammar_rule_id": "GR-110",
+      "answer_key": "Hledám svetr. | Modrý, prosím.",
       "xp_reward": 15
     },
     {
       "id": 12010,
       "lesson_id": 1201,
-      "type": "translation",
-      "prompt": "Translate 'I want that red dress' to Czech.",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I want that red dress.",
-        "accepted_answers": [
-          "Chci ty červené šaty.",
-          "Chci ty červené šaty",
-          "Chci tamty červené šaty."
+        "type": "writing_task",
+        "prompt_en": "Write what clothes and colours you want.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "červená košile",
+          "modrý svetr",
+          "černé kalhoty",
+          "nové boty"
         ],
-        "grammar_note": "chci = I want. ty = those (plural, šaty is plural-only). červené = red (plural adjective ending). šaty = dress."
+        "sample_answer": "červená košile"
       },
-      "answer_key": "Chci ty červené šaty.",
-      "grammar_rule_id": "GR-111",
-      "xp_reward": 10
+      "answer_key": "červená košile",
+      "xp_reward": 0
     },
     {
       "id": 12011,
       "lesson_id": 1201,
-      "type": "dialogue",
-      "prompt": "Complete the shopping dialogue about prices.",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
       "data": {
-        "type": "dialogue",
-        "scenario": "You are in a Czech shop and want to know the price of a sweater.",
-        "lines": [
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Vidím červenou košili a modrý svetr.",
+        "questions": [
           {
-            "speaker": "person_a",
-            "text": "Dobrý den, můžu vám pomoct?"
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Vidím červenou košili a modrý svetr.",
+              "polévka",
+              "tramvaj"
+            ],
+            "correct_index": 0
           },
           {
-            "speaker": "person_b",
-            "text": "___"
-          },
-          {
-            "speaker": "person_a",
-            "text": "Ten svetr stojí pět set korun."
-          },
-          {
-            "speaker": "person_b",
-            "text": "___"
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
           }
-        ],
-        "explanation": "'Dobrý den, můžu vám pomoct?' = 'Hello, can I help you?' — 'Kolik stojí ten svetr?' = 'How much does the sweater cost?' — 'Stojí pět set korun' = 'It costs 500 crowns.' — 'Vezmu si ho' = 'I'll take it.'",
-        "blank_answers": [
-          [
-            "Ano, kolik stojí ten svetr?",
-            "Ano, kolik stojí ten svetr"
-          ],
-          [
-            "Dobře, vezmu si ho. Děkuju.",
-            "Dobře, vezmu si ho. Děkuju.",
-            "Dobře, vezmu si ho",
-            "Děkuju, vezmu si ho"
-          ]
         ]
       },
-      "answer_key": "Ano, kolik stojí ten svetr?|Dobře, vezmu si ho. Děkuju.",
-      "grammar_rule_id": "GR-112",
-      "xp_reward": 25
-    },
-    {
-      "id": 12012,
-      "lesson_id": 1201,
-      "type": "multiple_choice",
-      "prompt": "What does 'střední' mean in English?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "střední",
-        "question_en": "What does 'střední' mean?",
-        "options": [
-          "small",
-          "medium",
-          "big",
-          "expensive"
-        ],
-        "correct_index": 1,
-        "explanation": "střední = medium (size). malý = small, velký = big. Unlike malý/velký, 'střední' has the same form for all genders."
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-113",
-      "xp_reward": 10
+      "answer_key": "Vidím červenou košili a modrý svetr.",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "identify useful colours and clothes.",
+  "new_language": [
+    "červená košile",
+    "modrý svetr",
+    "černé kalhoty",
+    "nové boty"
+  ],
+  "recycles": [
+    "colours",
+    "numbers and prices",
+    "chci/kupuju",
+    "polite questions"
+  ],
+  "exit_task": "identify useful colours and clothes."
 }

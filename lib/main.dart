@@ -10,6 +10,7 @@ import 'l10n/app_localizations.dart';
 import 'core/diagnostics/safe_diagnostics.dart';
 import 'presentation/routes/app_router.dart';
 import 'presentation/providers/database_providers.dart';
+import 'presentation/providers/daily_arrival_providers.dart';
 import 'presentation/providers/feedback_providers.dart';
 import 'presentation/providers/settings_providers.dart';
 import 'presentation/providers/sync_providers.dart';
@@ -60,6 +61,7 @@ class CzechifyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final initFuture = ref.watch(appInitializationProvider);
     final onboardingDone = ref.watch(onboardingDoneProvider);
+    final arrivalDue = ref.watch(dailyArrivalDueProvider);
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(
       settingsProvider.select((settings) => settings.locale),
@@ -67,7 +69,9 @@ class CzechifyApp extends ConsumerWidget {
 
     // Wait for both DB seeding and the onboarding flag before building the
     // router, so the initial location is decided from real data.
-    if (initFuture.isLoading || onboardingDone.isLoading) {
+    if (initFuture.isLoading ||
+        onboardingDone.isLoading ||
+        arrivalDue.isLoading) {
       return const LoadingScreen();
     }
     if (initFuture.hasError) {

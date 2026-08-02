@@ -36,7 +36,15 @@ enum ExerciseType {
 }
 
 /// Lesson types.
-enum LessonType { introduction, practice, application, review }
+enum LessonType {
+  introduction,
+  practice,
+  application,
+  review,
+  listening,
+  production,
+  mission,
+}
 
 /// Exam level.
 enum ExamLevel { a1, a2 }
@@ -44,12 +52,15 @@ enum ExamLevel { a1, a2 }
 /// Exam section types.
 enum ExamSectionType { reading, listening, writing, speaking }
 
-/// Official exam product simulated by a bank. Each product is a distinct
-/// exam with its own blueprint (timings, task inventory, point map) and its
-/// own scoring rule — they are never blended into one test.
+/// Assessment or independent-practice product represented by a content bank.
+/// Each product has its own blueprint and scoring rule; products are never
+/// blended into one activity.
 enum ExamProduct {
   /// State exam required as the language proof for permanent residence.
   permanentResidence,
+
+  /// Independent four-skills course practice with no external-exam claim.
+  coursePractice,
 
   /// Certifikovaná zkouška z češtiny pro cizince (ÚJOP, Charles University).
   cce,
@@ -59,23 +70,27 @@ extension ExamProductAsset on ExamProduct {
   /// Filename slug for `exam_bank_<slug>_<level>.json`.
   String get slug => switch (this) {
     ExamProduct.permanentResidence => 'permres',
+    ExamProduct.coursePractice => 'permres',
     ExamProduct.cce => 'cce',
   };
 
   /// Learner-facing product name.
   String get displayName => switch (this) {
     ExamProduct.permanentResidence => 'Permanent-residence',
+    ExamProduct.coursePractice => 'Independent course',
     ExamProduct.cce => 'CCE',
   };
 
   /// Persisted/serialized identifier.
   String get id => switch (this) {
     ExamProduct.permanentResidence => 'permanent_residence',
+    ExamProduct.coursePractice => 'course_practice',
     ExamProduct.cce => 'cce',
   };
 
   static ExamProduct fromId(String? value) => switch (value) {
     'cce' => ExamProduct.cce,
+    'course_practice' => ExamProduct.coursePractice,
     _ => ExamProduct.permanentResidence, // default + legacy rows
   };
 }

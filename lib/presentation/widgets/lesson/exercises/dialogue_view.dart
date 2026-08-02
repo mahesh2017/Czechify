@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../../providers/tts_providers.dart';
 import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
 /// Dialogue completion exercise view.
-class DialogueView extends StatefulWidget {
+class DialogueView extends ConsumerStatefulWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
 
@@ -17,10 +19,10 @@ class DialogueView extends StatefulWidget {
   });
 
   @override
-  State<DialogueView> createState() => _DialogueViewState();
+  ConsumerState<DialogueView> createState() => _DialogueViewState();
 }
 
-class _DialogueViewState extends State<DialogueView> {
+class _DialogueViewState extends ConsumerState<DialogueView> {
   final List<TextEditingController> _controllers = [];
   bool answered = false;
   bool? isCorrect;
@@ -33,6 +35,20 @@ class _DialogueViewState extends State<DialogueView> {
       (widget.exercise.data['blank_answers'] as List<dynamic>)
           .map((answers) => (answers as List<dynamic>).cast<String>())
           .toList();
+
+  List<String> get _spokenLines {
+    var blankIndex = 0;
+    return [
+      for (final line in _lines)
+        (line['text'] as String).replaceAllMapped(RegExp(r'___'), (_) {
+          final answer = _blankAnswers[blankIndex].first;
+          blankIndex++;
+          return answer;
+        }),
+    ];
+  }
+
+  String get _fullDialogueText => _spokenLines.join(' ');
 
   @override
   void initState() {
@@ -64,7 +80,10 @@ class _DialogueViewState extends State<DialogueView> {
     BuildContext context,
   ) {
     int blankCounter = 0;
-    return lines.map((line) {
+    final spokenLines = _spokenLines;
+    return lines.indexed.map((entry) {
+      final lineIndex = entry.$1;
+      final line = entry.$2;
       final text = line['text'] as String;
       final segments = text.split('___');
       final containsBlank = segments.length > 1;
@@ -126,14 +145,21 @@ class _DialogueViewState extends State<DialogueView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  (line['speaker'] as String).toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.4,
-                    color: isUser ? t.priInk : t.faint,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        (line['speaker'] as String).toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.4,
+                          color: isUser ? t.priInk : t.faint,
+                        ),
+                      ),
+                    ),
+                    TtsButton(text: spokenLines[lineIndex], size: 19),
+                  ],
                 ),
                 const SizedBox(height: 4),
                 Wrap(
@@ -178,6 +204,8 @@ class _DialogueViewState extends State<DialogueView> {
   Widget build(BuildContext context) {
     final data = widget.exercise.data;
     final scenario = data['scenario'] as String?;
+    final image = (data['image'] as String?)?.trim();
+    final imageLabel = (data['image_label'] as String?)?.trim();
 
     final t = context.tokens;
     return Padding(
@@ -208,6 +236,33 @@ class _DialogueViewState extends State<DialogueView> {
               ),
             ),
           ],
+          const SizedBox(height: 18),
+
+          if (image != null && image.isNotEmpty) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: AspectRatio(
+                aspectRatio: 5 / 4,
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  cacheWidth: 1024,
+                  semanticLabel:
+                      imageLabel == null || imageLabel.isEmpty
+                          ? null
+                          : imageLabel,
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+          ],
+
+          ListenPanel(
+            label: AppLocalizations.of(context).listen,
+            onPlay: () => ref.read(czechTtsProvider).speak(_fullDialogueText),
+            onSlow:
+                () => ref.read(czechTtsProvider).speakSlow(_fullDialogueText),
+          ),
           const SizedBox(height: 18),
 
           // Dialogue lines

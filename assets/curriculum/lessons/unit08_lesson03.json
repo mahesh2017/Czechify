@@ -1,0 +1,343 @@
+{
+  "id": 803,
+  "unit_id": 8,
+  "order_in_unit": 2,
+  "title": "Tell a Short Family Story",
+  "description": "Combine relationships, names, places, and descriptions in a short story.",
+  "can_do": "tell several connected facts about people I know.",
+  "new_language": [
+    "Moje sestra se jmenuje Eva.",
+    "Bydlí v Brně.",
+    "Je studentka.",
+    "Má ráda hudbu."
+  ],
+  "recycles": [
+    "Kdo je to?",
+    "To je…",
+    "můj/moje",
+    "je",
+    "má"
+  ],
+  "exit_task": "tell several connected facts about people I know.",
+  "duration_min": 12,
+  "lesson_type": "application",
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 8200,
+      "lesson_id": 803,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Tell a Short Family Story",
+        "body": "Combine relationships, names, places, and descriptions in a short story.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Moje sestra se jmenuje Eva.",
+            "en": "My sister’s name is Eva."
+          },
+          {
+            "cz": "Bydlí v Brně.",
+            "en": "She lives in Brno."
+          },
+          {
+            "cz": "Je studentka.",
+            "en": "She is a student."
+          },
+          {
+            "cz": "Má ráda hudbu.",
+            "en": "She likes music."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 8201,
+      "lesson_id": 803,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Moje sestra se jmenuje Eva. Bydlí v Brně, je studentka a má ráda hudbu.",
+        "image": "assets/images/unit08/family_people_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Tell a Short Family Story",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does Eva like?",
+            "options": [
+              "Music",
+              "Sport",
+              "Books"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Music",
+      "xp_reward": 15
+    },
+    {
+      "id": 8202,
+      "lesson_id": 803,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit08/family_people_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "text_cz": "Můj kamarád Amir bydlí v Praze. Pracuje v hotelu a je velmi milý.",
+        "text_en": "My friend Amir lives in Prague. He works in a hotel and is very kind.",
+        "questions": [
+          {
+            "question_en": "Where does Amir work?",
+            "options": [
+              "In a hotel",
+              "In a restaurant",
+              "At school"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "My friend Amir lives in Prague. He works in a hotel and is very kind.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "In a hotel",
+      "xp_reward": 15
+    },
+    {
+      "id": 8203,
+      "lesson_id": 803,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Moje sestra se jmenuje Eva.",
+            "right": "My sister’s name is Eva."
+          },
+          {
+            "left": "Bydlí v Brně.",
+            "right": "She lives in Brno."
+          },
+          {
+            "left": "Je studentka.",
+            "right": "She is a student."
+          },
+          {
+            "left": "Má ráda hudbu.",
+            "right": "She likes music."
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Moje sestra se jmenuje Eva.–My sister’s name is Eva.; Bydlí v Brně.–She lives in Brno.; Je studentka.–She is a student.; Má ráda hudbu.–She likes music.",
+      "xp_reward": 10
+    },
+    {
+      "id": 8204,
+      "lesson_id": 803,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Moje sestra se jmenuje Eva.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Moje sestra se jmenuje Eva.",
+      "xp_reward": 10
+    },
+    {
+      "id": 8205,
+      "lesson_id": 803,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Moje ___ se jmenuje Eva.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "sestra"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "sestra",
+      "xp_reward": 10
+    },
+    {
+      "id": 8206,
+      "lesson_id": 803,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Brně.",
+          "v",
+          "Bydlí"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "She lives in Brno.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "Bydlí v Brně.",
+      "xp_reward": 10
+    },
+    {
+      "id": 8207,
+      "lesson_id": 803,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Je studentka.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "Je studentka.",
+      "xp_reward": 10
+    },
+    {
+      "id": 8208,
+      "lesson_id": 803,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Má ráda hudbu.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "She likes music."
+      },
+      "answer_key": "Má ráda hudbu.",
+      "xp_reward": 15
+    },
+    {
+      "id": 8209,
+      "lesson_id": 803,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Tell a Short Family Story",
+        "image": "assets/images/unit08/family_people_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Jak se jmenuje vaše sestra?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Co dělá?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Moje sestra se jmenuje Eva."
+          ],
+          [
+            "Bydlí v Brně."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Moje sestra se jmenuje Eva. | Bydlí v Brně.",
+      "xp_reward": 15
+    },
+    {
+      "id": 8210,
+      "lesson_id": 803,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write four connected sentences about one family member or friend.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Moje sestra se jmenuje Eva.",
+          "Bydlí v Brně.",
+          "Je studentka.",
+          "Má ráda hudbu."
+        ],
+        "sample_answer": "Moje sestra se jmenuje Eva. Bydlí v Brně. Je studentka. Má ráda hudbu."
+      },
+      "answer_key": "Moje sestra se jmenuje Eva. Bydlí v Brně. Je studentka. Má ráda hudbu.",
+      "xp_reward": 0
+    },
+    {
+      "id": 8211,
+      "lesson_id": 803,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Můj bratr David pracuje doma. Mluví anglicky a rád čte.",
+        "questions": [
+          {
+            "question_en": "Where does David work?",
+            "options": [
+              "At home",
+              "In a hotel",
+              "In a shop"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "At home",
+      "xp_reward": 15
+    }
+  ]
+}

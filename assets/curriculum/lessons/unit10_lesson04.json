@@ -1,0 +1,338 @@
+{
+  "id": 1004,
+  "unit_id": 10,
+  "order_in_unit": 3,
+  "title": "Mission: My Daily Routine",
+  "description": "Combine sequence, time, activities, and reflexive chunks in a personal routine.",
+  "can_do": "tell a connected five-sentence story about my day.",
+  "new_language": [
+    "Ráno…",
+    "Potom…",
+    "Odpoledne…",
+    "Večer…"
+  ],
+  "recycles": [
+    "time and days",
+    "pracuju/studuju",
+    "doma",
+    "mám",
+    "potom"
+  ],
+  "exit_task": "tell a connected five-sentence story about my day.",
+  "duration_min": 12,
+  "lesson_type": "mission",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 10300,
+      "lesson_id": 1004,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Mission: My Daily Routine",
+        "body": "Combine sequence, time, activities, and reflexive chunks in a personal routine.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Ráno…",
+            "en": "In the morning…"
+          },
+          {
+            "cz": "Potom…",
+            "en": "Then…"
+          },
+          {
+            "cz": "Odpoledne…",
+            "en": "In the afternoon…"
+          },
+          {
+            "cz": "Večer…",
+            "en": "In the evening…"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10301,
+      "lesson_id": 1004,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Ráno vstávám v sedm a sprchuju se. Potom pracuju. Odpoledne sportuju a večer čtu.",
+        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Mission: My Daily Routine",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "When does the speaker exercise?",
+            "options": [
+              "In the afternoon",
+              "In the morning",
+              "In the evening"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "In the afternoon",
+      "xp_reward": 15
+    },
+    {
+      "id": 10302,
+      "lesson_id": 1004,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "text_cz": "Plán dne: 7:00 vstávám; 8:00 práce; 12:00 oběd; 18:00 sport; 22:30 spím.",
+        "text_en": "Daily plan: 7:00 get up; 8:00 work; 12:00 lunch; 18:00 exercise; 22:30 sleep.",
+        "questions": [
+          {
+            "question_en": "What happens at 18:00?",
+            "options": [
+              "Exercise",
+              "Lunch",
+              "Sleep"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Daily plan: 7:00 get up; 8:00 work; 12:00 lunch; 18:00 exercise; 22:30 sleep.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Exercise",
+      "xp_reward": 15
+    },
+    {
+      "id": 10303,
+      "lesson_id": 1004,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Ráno…",
+            "right": "In the morning…"
+          },
+          {
+            "left": "Potom…",
+            "right": "Then…"
+          },
+          {
+            "left": "Odpoledne…",
+            "right": "In the afternoon…"
+          },
+          {
+            "left": "Večer…",
+            "right": "In the evening…"
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Ráno…–In the morning…; Potom…–Then…; Odpoledne…–In the afternoon…; Večer…–In the evening…",
+      "xp_reward": 10
+    },
+    {
+      "id": 10304,
+      "lesson_id": 1004,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Ráno…",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Ráno…",
+      "xp_reward": 10
+    },
+    {
+      "id": 10305,
+      "lesson_id": 1004,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Ráno…"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "Ráno…",
+      "xp_reward": 10
+    },
+    {
+      "id": 10306,
+      "lesson_id": 1004,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Potom…"
+        ],
+        "correct_order": [
+          0
+        ],
+        "translation_en": "Then…",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "Potom…",
+      "xp_reward": 10
+    },
+    {
+      "id": 10307,
+      "lesson_id": 1004,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Odpoledne…",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "Odpoledne…",
+      "xp_reward": 10
+    },
+    {
+      "id": 10308,
+      "lesson_id": 1004,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Večer…",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "In the evening…"
+      },
+      "answer_key": "Večer…",
+      "xp_reward": 15
+    },
+    {
+      "id": 10309,
+      "lesson_id": 1004,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Mission: My Daily Routine",
+        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Co děláš ráno?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Co děláš večer?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Ráno…"
+          ],
+          [
+            "Potom…"
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Ráno… | Potom…",
+      "xp_reward": 15
+    },
+    {
+      "id": 10310,
+      "lesson_id": 1004,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Prepare five connected sentences about your real day before recording them.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Ráno…",
+          "Potom…",
+          "Odpoledne…",
+          "Večer…"
+        ],
+        "sample_answer": "Ráno… Potom… Odpoledne… Večer…"
+      },
+      "answer_key": "Ráno… Potom… Odpoledne… Večer…",
+      "xp_reward": 0
+    },
+    {
+      "id": 10311,
+      "lesson_id": 1004,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a five-sentence daily routine from morning to night. Include times, potom, and one se or si expression.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 40,
+        "expected_phrases": [
+          "Ráno…",
+          "Potom…",
+          "Odpoledne…",
+          "Večer…"
+        ]
+      },
+      "answer_key": "Ráno… Potom… Odpoledne… Večer…",
+      "xp_reward": 20
+    }
+  ]
+}

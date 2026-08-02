@@ -57,6 +57,9 @@ class GamificationNotifier extends Notifier<GamificationState> {
   /// We use a sentinel Future that completes when _initAsync finishes.
   late final Future<void> _readyFuture;
 
+  /// Completes after persisted values and calendar rollovers are applied.
+  Future<void> get ready => _readyFuture;
+
   Future<void> _ensureReady() => _readyFuture;
 
   /// One-time migration: if the Drift gamification table is empty AND

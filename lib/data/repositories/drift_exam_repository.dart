@@ -12,7 +12,7 @@ import '../database/database.dart' as db;
 ///
 /// Exam content is loaded from bundled JSON assets named
 /// `exam_bank_<product>_<level>.json` (e.g. `exam_bank_permres_a2.json`).
-/// Each file carries a versioned `blueprint` and multiple practice exams.
+/// Each file carries a versioned `blueprint` and multiple practice sets.
 /// Results are persisted to the `exam_results` table.
 class DriftExamRepository implements ExamRepository {
   final db.AppDatabase _db;
@@ -34,11 +34,10 @@ class DriftExamRepository implements ExamRepository {
       // have no bank yet — fall back to a labeled sample) and a shipped
       // product whose bank failed to load (corrupt asset — must fail
       // visibly, never silently substitute minimal content).
-      if (product == ExamProduct.permanentResidence) {
-        // The permanent-residence bank ships with the app. If it can't
-        // load, the asset is corrupt — surface the error rather than
-        // giving the learner a 4-question toy exam disguised as the real
-        // thing.
+      if (product == ExamProduct.permanentResidence ||
+          product == ExamProduct.coursePractice) {
+        // These banks ship with the app. If one cannot load, surface the
+        // corruption rather than silently substituting a tiny sample.
         throw ExamAssetException(
           'The $level exam content could not be loaded. The app may need '
           'to be reinstalled. If the problem persists, please report it.',
@@ -79,11 +78,10 @@ class DriftExamRepository implements ExamRepository {
       final blueprint = _parseBlueprint(json, product);
       final examsJson = json['exams'] as List<dynamic>? ?? [];
 
-      final exams =
-          examsJson
-              .whereType<Map<String, dynamic>>()
-              .map((e) => _parseExam(e, level, blueprint))
-              .toList();
+      final exams = examsJson
+          .whereType<Map<String, dynamic>>()
+          .map((e) => _parseExam(e, level, blueprint))
+          .toList();
 
       _cache[key] = exams;
       _log.info(
@@ -116,11 +114,10 @@ class DriftExamRepository implements ExamRepository {
     ExamBlueprint blueprint,
   ) {
     final sectionsJson = json['sections'] as List<dynamic>? ?? [];
-    final sections =
-        sectionsJson
-            .whereType<Map<String, dynamic>>()
-            .map(_parseSection)
-            .toList();
+    final sections = sectionsJson
+        .whereType<Map<String, dynamic>>()
+        .map(_parseSection)
+        .toList();
 
     return MockExam(
       level: level,
@@ -190,10 +187,9 @@ class DriftExamRepository implements ExamRepository {
         await (_db.select(_db.examResults)
               ..where((r) => r.level.equals(level.name))
               ..where(
-                (r) =>
-                    product == null
-                        ? const Constant(true)
-                        : r.product.equals(product.id),
+                (r) => product == null
+                    ? const Constant(true)
+                    : r.product.equals(product.id),
               )
               ..orderBy([(r) => OrderingTerm.desc(r.takenAt)]))
             .get();
@@ -211,10 +207,9 @@ class DriftExamRepository implements ExamRepository {
             speakingScore: r.speakingScore,
             totalScore: r.totalScore,
             passed: r.passed,
-            details:
-                r.details != null
-                    ? jsonDecode(r.details!) as Map<String, dynamic>
-                    : null,
+            details: r.details != null
+                ? jsonDecode(r.details!) as Map<String, dynamic>
+                : null,
           ),
         )
         .toList();
@@ -233,23 +228,20 @@ MockExam buildSampleExam(
 
   final readingQuestions = [
     {
-      'passage':
-          isA1
-              ? 'Ahoj, jmenuji se Petra. Bydlím v Praze. Ráda čtu knihy a poslouchám hudbu. Každé ráno piju kávu a jím rohlík.'
-              : 'Dobrý den, jmenuji se Tomáš a pracuji v bance v centru Prahy. Každý den vstávám v šest hodin a jedu metrem do práce. V práci jsem od osmi do čtyř hodin odpoledne.',
-      'prompt':
-          isA1
-              ? 'What does Petra do every morning?'
-              : 'How does Tomáš get to work?',
-      'options':
-          isA1
-              ? [
-                'Drinks coffee and eats bread',
-                'Goes to work by car',
-                'Reads books in the park',
-                'Listens to music',
-              ]
-              : ['By metro', 'By car', 'By bus', 'On foot'],
+      'passage': isA1
+          ? 'Ahoj, jmenuji se Petra. Bydlím v Praze. Ráda čtu knihy a poslouchám hudbu. Každé ráno piju kávu a jím rohlík.'
+          : 'Dobrý den, jmenuji se Tomáš a pracuji v bance v centru Prahy. Každý den vstávám v šest hodin a jedu metrem do práce. V práci jsem od osmi do čtyř hodin odpoledne.',
+      'prompt': isA1
+          ? 'What does Petra do every morning?'
+          : 'How does Tomáš get to work?',
+      'options': isA1
+          ? [
+              'Drinks coffee and eats bread',
+              'Goes to work by car',
+              'Reads books in the park',
+              'Listens to music',
+            ]
+          : ['By metro', 'By car', 'By bus', 'On foot'],
       'correct_answer': 0,
       'points': 12,
     },
@@ -284,20 +276,18 @@ MockExam buildSampleExam(
   ];
 
   final writingQuestion = {
-    'prompt':
-        isA1
-            ? 'Write about yourself: your name, where you live, and what you like to do. (30+ words)'
-            : 'Write about your typical day: when you wake up, what you do at work/school, and your evening routine. (50+ words)',
+    'prompt': isA1
+        ? 'Write about yourself: your name, where you live, and what you like to do. (30+ words)'
+        : 'Write about your typical day: when you wake up, what you do at work/school, and your evening routine. (50+ words)',
     'min_words': isA1 ? 30 : 50,
     'points': 20,
   };
 
   final speakingQuestion = {
     'prompt': 'Read the following Czech text aloud:',
-    'target_text':
-        isA1
-            ? 'Ahoj, jmenuji se Student. Bydlím v Praze a učím se česky.'
-            : 'Dobrý den, pracuji v kanceláři a každý den dojíždím metrem. Ve volném čase rád čtu a cestuji.',
+    'target_text': isA1
+        ? 'Ahoj, jmenuji se Student. Bydlím v Praze a učím se česky.'
+        : 'Dobrý den, pracuji v kanceláři a každý den dojíždím metrem. Ve volném čase rád čtu a cestuji.',
     'points': 40,
   };
 

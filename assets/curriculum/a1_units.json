@@ -2,8 +2,8 @@
   "units": [
     {
       "id": 1,
-      "title": "Sounds & Pronunciation",
-      "description": "Czech alphabet, háček, čárka, first-syllable stress, problem sounds: ř, ě",
+      "title": "Hear, Read & Repair Czech",
+      "description": "Useful words, Czech sound and spelling clues, vowel length, phrase rhythm, and repair phrases for real communication",
       "phase": "a1",
       "order_index": 1,
       "grammar_tags": [
@@ -12,10 +12,10 @@
       ],
       "is_exam_prep": false
     },
-    {
-      "id": 2,
-      "title": "Greetings & Introductions",
-      "description": "Dobrý den, na shledanou, děkuji, prosím. Jmenuju se..., Jsem z...",
+  {
+    "id": 2,
+    "title": "Meet Someone",
+    "description": "Choose a formal or friendly greeting, exchange names and origins, repair fast speech, and close naturally.",
       "phase": "a1",
       "order_index": 2,
       "grammar_tags": [
@@ -26,21 +26,21 @@
     },
     {
       "id": 3,
-      "title": "Gender & Nominative Case",
-      "description": "Masculine, feminine, neuter nouns. To je... identification pattern. Profession pairs.",
+      "title": "People and Things Around Me",
+      "description": "Ask who or what something is, identify familiar people and objects, and retrieve nouns with useful ten, ta, or to gender cues.",
       "phase": "a1",
       "order_index": 3,
       "grammar_tags": [
         "gender",
-        "nominative",
-        "nouns"
+        "nouns",
+        "identification"
       ],
       "is_exam_prep": false
     },
     {
       "id": 4,
-      "title": "Present Tense — být & mít",
-      "description": "Conjugation of být (to be) and mít (to have). Negation and question forms.",
+      "title": "Who I Am and What I Have",
+      "description": "Exchange simple facts about identity, status, and everyday possessions with být and mít.",
       "phase": "a1",
       "order_index": 4,
       "grammar_tags": [
@@ -54,8 +54,8 @@
     },
     {
       "id": 5,
-      "title": "Present Tense — Regular Verbs",
-      "description": "Three conjugation classes: -át, -ít, -et/-ět. Daily activities, speaking, understanding.",
+      "title": "What I Do",
+      "description": "Talk about working, studying, living, speaking, reading, and understanding in simple exchanges.",
       "phase": "a1",
       "order_index": 5,
       "grammar_tags": [
@@ -67,8 +67,8 @@
     },
     {
       "id": 6,
-      "title": "Accusative Case",
-      "description": "Direct objects: feminine -a→-u, masculine animate -a/-e, inanimate/neuter unchanged.",
+      "title": "Get What You Need",
+      "description": "Request food, drinks, and everyday items politely in a Czech café or shop.",
       "phase": "a1",
       "order_index": 6,
       "grammar_tags": [
@@ -80,8 +80,8 @@
     },
     {
       "id": 7,
-      "title": "Pronouns & Possessives",
-      "description": "Personal pronouns (já, ty, on...) and possessive adjectives (můj, tvůj, náš...). Gender agreement.",
+      "title": "My Things and Your Things",
+      "description": "Ask about belongings and identify owners using common possessive chunks.",
       "phase": "a1",
       "order_index": 7,
       "grammar_tags": [
@@ -93,8 +93,8 @@
     },
     {
       "id": 8,
-      "title": "Family & Basic Descriptions",
-      "description": "Family vocabulary, adjective-noun gender agreement, describing people and things.",
+      "title": "My Family and People I Know",
+      "description": "Introduce family and important people, then give simple descriptions.",
       "phase": "a1",
       "order_index": 8,
       "grammar_tags": [
@@ -107,8 +107,8 @@
     },
     {
       "id": 9,
-      "title": "Numbers, Time & Dates",
-      "description": "Čísla 0-100, Kolik je hodin?, days of the week, months, telling time. Dnes je...",
+      "title": "Numbers and Making a Plan",
+      "description": "Exchange simple contact, time, and meeting details using numbers and everyday scheduling language.",
       "phase": "a1",
       "order_index": 9,
       "grammar_tags": [
@@ -121,8 +121,8 @@
     },
     {
       "id": 10,
-      "title": "Daily Routine & Reflexive Verbs",
-      "description": "Reflexive se/si, morning/evening routines, vstávám, sprchuju se. Telling the daily schedule.",
+      "title": "My Day",
+      "description": "Understand and describe a simple daily routine in chronological order.",
       "phase": "a1",
       "order_index": 10,
       "grammar_tags": [
@@ -134,8 +134,8 @@
     },
     {
       "id": 11,
-      "title": "Food, Drink & Restaurants",
-      "description": "Ordering jídlo a pití, Czech cuisine vocab, accusative with jíst/pít. V restauraci.",
+      "title": "Order Food and Pay",
+      "description": "Choose food and drink, place a polite restaurant order, ask for the bill, and say how you will pay.",
       "phase": "a1",
       "order_index": 11,
       "grammar_tags": [
@@ -148,8 +148,8 @@
     },
     {
       "id": 12,
-      "title": "Shopping, Prices & Clothes",
-      "description": "Kolik to stojí? Prices, sizes, colors. Clothes shopping, accusative with chtít/kupovat.",
+      "title": "Choose and Buy Clothes",
+      "description": "Ask about colour, size, and price, try something on, compare simple choices, and complete a purchase.",
       "phase": "a1",
       "order_index": 12,
       "grammar_tags": [
@@ -162,8 +162,8 @@
     },
     {
       "id": 13,
-      "title": "Hobbies & Free Time",
-      "description": "Mít rád, rád + verb. Co rád děláš? Sports, music, reading. Adverbs of frequency.",
+      "title": "Talk About Free Time",
+      "description": "Say what you like doing, ask about another person’s interests, use frequency words, and make a simple plan.",
       "phase": "a1",
       "order_index": 13,
       "grammar_tags": [
@@ -176,8 +176,8 @@
     },
     {
       "id": 14,
-      "title": "Directions, Places & Transport",
-      "description": "Kde je...? Directions, places in town, transport. Locative intro: v Praze, na náměstí.",
+      "title": "Find Places and Get Around",
+      "description": "Ask where a place is, follow and give a short route, and choose suitable transport around town.",
       "phase": "a1",
       "order_index": 14,
       "grammar_tags": [
@@ -190,8 +190,8 @@
     },
     {
       "id": 15,
-      "title": "Weather, Seasons & Travel",
-      "description": "Počasí, roční období, travel basics. Bude pršet. Past tense intro: byl jsem v...",
+      "title": "Talk About Weather and Travel",
+      "description": "Understand a simple forecast, connect seasons to plans, prepare a trip, and give a short travel update.",
       "phase": "a1",
       "order_index": 15,
       "grammar_tags": [
@@ -205,24 +205,24 @@
     },
     {
       "id": 28,
-      "title": "A1 Exam Preparation",
-      "description": "Practice with A1-level exam-format exercises: reading comprehension, listening comprehension, writing tasks (form filling, short messages), and speaking practice (Q&A, picture description). Modeled on the official Czech permanent residence A1 exam.",
+      "title": "A1 Skills Practice",
+      "description": "Independent A1 reading, listening, writing, and speaking practice for everyday Czech. This is not official examination material, is not affiliated with an examination provider, and gives no examination result or prediction.",
       "phase": "a1",
       "order_index": 28,
       "grammar_tags": [
-        "exam_prep",
+        "skills_practice",
         "reading",
         "listening",
         "writing",
         "speaking",
         "A1"
       ],
-      "is_exam_prep": true
+      "is_exam_prep": false
     },
     {
       "id": 30,
-      "title": "A1 Review & Consolidation",
-      "description": "Review and consolidate all A1 grammar and vocabulary: nominative and accusative cases, present tense, gender agreement, pronouns, basic sentence structure, and everyday survival expressions.",
+      "title": "A1 Real-Life Consolidation",
+      "description": "Bring the A1 course together through café, shopping, directions, and planning missions that recycle useful everyday language.",
       "phase": "a1",
       "order_index": 30,
       "grammar_tags": [

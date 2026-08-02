@@ -1,257 +1,355 @@
 {
   "id": 1102,
   "unit_id": 11,
-  "order_in_unit": 1,
-  "title": "At the Restaurant",
-  "description": "Practice ordering food and drink at a Czech restaurant: asking for the menu, ordering dishes, and paying the bill in real conversations.",
+  "title": "Say What You Eat and Drink",
+  "description": "Use familiar food and drink phrases to describe simple preferences.",
   "lesson_type": "practice",
-  "duration_min": 15,
+  "order_in_unit": 1,
+  "duration_min": 12,
+  "is_review": false,
   "exercises": [
     {
-      "id": 11013,
+      "id": 11100,
       "lesson_id": 1102,
-      "type": "multiple_choice",
-      "prompt": "What does 'Dám si...' mean when ordering?",
+      "type": "teaching",
+      "prompt": "Learn the mission language",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "What does 'Dám si...' mean?",
-        "question_en": "What does 'Dám si...' mean when ordering food?",
-        "options": ["I will have...", "I want to pay", "The bill please", "I am hungry"],
-        "correct_index": 0,
-        "explanation": "Dám si... = I'll have... / I would like to order... Common phrase when ordering at a restaurant."
-      },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-103",
-      "xp_reward": 10
-    },
-    {
-      "id": 11014,
-      "lesson_id": 1102,
-      "type": "translation",
-      "prompt": "Translate 'I would like a beer, please' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I would like a beer, please",
-        "accepted_answers": ["Chtěl bych pivo, prosím", "Dám si pivo, prosím", "Dal bych si pivo, prosím"],
-        "grammar_note": "Chtěl bych... = I would like... (masculine speaker). Chtěla bych... (feminine speaker)."
-      },
-      "answer_key": "Chtěl bych pivo, prosím",
-      "grammar_rule_id": "GR-103",
-      "xp_reward": 10
-    },
-    {
-      "id": 11015,
-      "lesson_id": 1102,
-      "type": "dialogue",
-      "prompt": "Complete the restaurant dialogue.",
-      "data": {
-        "type": "dialogue",
-        "scenario": "Ordering at a Czech restaurant",
-        "lines": [
+        "type": "teaching",
+        "style": "list",
+        "heading": "Say What You Eat and Drink",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
           {
-            "speaker": "Číšník",
-            "text": "Dobrý den, co si dáte?"
+            "cz": "Jím rybu.",
+            "en": "I eat fish."
           },
           {
-            "speaker": "Host",
-            "text": "___ (I'll have the goulash)"
+            "cz": "Piju čaj.",
+            "en": "I drink tea."
+          },
+          {
+            "cz": "Nejím maso.",
+            "en": "I do not eat meat."
+          },
+          {
+            "cz": "Mám rád sýr.",
+            "en": "I like cheese."
           }
-        ],
-        "explanation": "Dám si guláš = I'll have the goulash. Co si dáte? = What will you have? (formal/plural)",
-        "blank_answers": [
-          ["Dám si guláš", "Dám si guláš.", "Dal bych si guláš", "Chtěl bych guláš"]
         ]
       },
-      "answer_key": "Dám si guláš",
-      "grammar_rule_id": "GR-103",
-      "xp_reward": 25
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 11016,
+      "id": 11101,
       "lesson_id": 1102,
-      "type": "fill_blank",
-      "prompt": "Complete the polite ordering phrase.",
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
       "data": {
-        "type": "fill_blank",
-        "sentence": "___ (I would like) ___ (svíčková) s ___ (knedlíky).",
-        "blank_count": 3,
-        "explanation": "Chtěl bych = I would like (male speaker). svíčková → accusative svíčkovou. knedlíky stay the same (plural accusative = nominative).",
-        "blank_answers": [
-          ["Chtěl bych"],
-          ["svíčkovou"],
-          ["knedlíky"]
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+              "Jsem na nádraží.",
+              "Mám nové boty."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "Chtěl bych svíčkovou knedlíky",
-      "grammar_rule_id": "GR-103",
+      "answer_key": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
       "xp_reward": 15
     },
     {
-      "id": 11017,
+      "id": 11102,
       "lesson_id": 1102,
-      "type": "multiple_choice",
-      "prompt": "Which is a traditional Czech dish?",
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které z těchto jídel je tradiční český pokrm?",
-        "question_en": "Which is a traditional Czech dish?",
-        "options": ["Pizza", "Sushi", "Svíčková", "Paella"],
-        "correct_index": 2,
-        "explanation": "Svíčková (na smetaně) = marinated beef in cream sauce, a classic Czech dish served with knedlíky (dumplings)."
-      },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-100",
-      "xp_reward": 10
-    },
-    {
-      "id": 11018,
-      "lesson_id": 1102,
-      "type": "translation",
-      "prompt": "Translate 'Can I have the bill, please?' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Can I have the bill, please?",
-        "accepted_answers": ["Můžu platit, prosím?", "Zaplatím, prosím", "Platit, prosím!", "Účet, prosím", "Můžu zaplatit, prosím?"],
-        "grammar_note": "Platit = to pay. Účet = the bill/check. Common ways to ask: 'Platit, prosím!' or 'Zaplatím, prosím.'"
-      },
-      "answer_key": "Platit, prosím!",
-      "grammar_rule_id": "GR-103",
-      "xp_reward": 10
-    },
-    {
-      "id": 11019,
-      "lesson_id": 1102,
-      "type": "dialogue",
-      "prompt": "Complete: the waiter asks if you want anything else.",
-      "data": {
-        "type": "dialogue",
-        "scenario": "After finishing the main course",
-        "lines": [
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit11/restaurant_order_v1.png",
+        "image_label": "Say What You Eat and Drink",
+        "text_cz": "Daniel jí rybu s bramborami. Nepije kávu; pije čaj. Má rád zeleninu.",
+        "text_en": "Daniel eats fish with potatoes. He does not drink coffee; he drinks tea. He likes vegetables.",
+        "questions": [
           {
-            "speaker": "Číšník",
-            "text": "Ještě něco?"
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Piju čaj.",
+              "Jsem na nádraží.",
+              "Mám nové boty.",
+              "Dnes prší."
+            ],
+            "correct_index": 0
           },
           {
-            "speaker": "Host",
-            "text": "___ (No thanks, the bill please)"
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
           }
-        ],
-        "explanation": "Ještě něco? = Anything else? Common response: Ne, děkuji, platit prosím = No thanks, the bill please.",
-        "blank_answers": [
-          ["Ne, děkuji, platit, prosím", "Ne, díky, zaplatím", "Ne děkuji, účet prosím", "Ne, děkuji, zaplatím, prosím"]
         ]
       },
-      "answer_key": "Ne, děkuji, platit, prosím",
-      "grammar_rule_id": "GR-103",
-      "xp_reward": 25
+      "answer_key": "Piju čaj.",
+      "xp_reward": 15
     },
     {
-      "id": 11020,
+      "id": 11103,
+      "lesson_id": 1102,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Jím rybu.",
+            "right": "I eat fish."
+          },
+          {
+            "left": "Piju čaj.",
+            "right": "I drink tea."
+          },
+          {
+            "left": "Nejím maso.",
+            "right": "I do not eat meat."
+          },
+          {
+            "left": "Mám rád sýr.",
+            "right": "I like cheese."
+          }
+        ],
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Jím rybu.–I eat fish.; Piju čaj.–I drink tea.; Nejím maso.–I do not eat meat.; Mám rád sýr.–I like cheese.",
+      "xp_reward": 10
+    },
+    {
+      "id": 11104,
+      "lesson_id": 1102,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Piju čaj.",
+          "Jsem na nádraží.",
+          "Mám nové boty.",
+          "Dnes prší."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Piju čaj.",
+      "xp_reward": 10
+    },
+    {
+      "id": 11105,
+      "lesson_id": 1102,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Já ___ rybu, ale ___ kávu.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "jím"
+          ],
+          [
+            "nepiju"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "jím | nepiju",
+      "xp_reward": 10
+    },
+    {
+      "id": 11106,
+      "lesson_id": 1102,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Co",
+          "piješ?",
+          "Piju",
+          "čaj."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Co piješ? Piju čaj.",
+      "xp_reward": 10
+    },
+    {
+      "id": 11107,
       "lesson_id": 1102,
       "type": "dictation",
-      "prompt": "Listen and write the Czech dish name.",
+      "prompt": "Listen and type the key sentence",
       "data": {
         "type": "dictation",
-        "audio_hash": "placeholder_11020",
-        "expected_text": "smažený sýr s hranolkami",
+        "expected_text": "Jím rybu a piju čaj.",
         "language": "cs-CZ",
-        "note": "Fried cheese with fries — a popular Czech pub dish."
+        "note": "Listen for the complete phrase before typing."
       },
-      "answer_key": "smažený sýr s hranolkami",
-      "xp_reward": 20
-    },
-    {
-      "id": 11021,
-      "lesson_id": 1102,
-      "type": "pronunciation",
-      "prompt": "Say this restaurant phrase aloud.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Dám si guláš s knedlíkem",
-        "target_audio_hash": "placeholder_11021",
-        "focus_sounds": ["á", "š", "ň"],
-        "min_score": 0.6,
-        "translation_en": "I'll have goulash with dumpling"
-      },
-      "answer_key": "Dám si guláš s knedlíkem",
-      "grammar_rule_id": "GR-103",
-      "xp_reward": 15
-    },
-    {
-      "id": 11022,
-      "lesson_id": 1102,
-      "type": "multiple_choice",
-      "prompt": "What does 'účet' mean?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "účet",
-        "question_en": "What does 'účet' mean in a restaurant?",
-        "options": ["menu", "the bill/check", "tip", "table"],
-        "correct_index": 1,
-        "explanation": "účet = the bill/check. 'Účet, prosím' = The bill, please."
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-100",
+      "answer_key": "Jím rybu a piju čaj.",
       "xp_reward": 10
     },
     {
-      "id": 11023,
+      "id": 11108,
       "lesson_id": 1102,
-      "type": "fill_blank",
-      "prompt": "Complete the restaurant ordering dialogue.",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Číšník: Co ___ (you will have)? Host: ___ (I'll have) ___ (fried cheese) a ___ (beer).",
-        "blank_count": 4,
-        "explanation": "Co si dáte? = What will you have? (formal). Dám si smažený sýr = I'll have fried cheese.",
-        "blank_answers": [
-          ["si dáte"],
-          ["Dám si"],
-          ["smažený sýr"],
-          ["pivo"]
-        ]
+        "type": "pronunciation",
+        "target_text": "Jím rybu a piju čaj.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
       },
-      "answer_key": "si dáte Dám si smažený sýr pivo",
-      "grammar_rule_id": "GR-103",
+      "answer_key": "Jím rybu a piju čaj.",
       "xp_reward": 15
     },
     {
-      "id": 11024,
+      "id": 11109,
       "lesson_id": 1102,
       "type": "dialogue",
-      "prompt": "Complete the full restaurant ordering exchange.",
+      "prompt": "Complete the short exchange",
       "data": {
         "type": "dialogue",
-        "scenario": "Ordering a full meal at a Czech restaurant",
+        "scenario": "Say What You Eat and Drink",
         "lines": [
           {
-            "speaker": "Číšník",
-            "text": "Dobrý večer, co si dáte?"
+            "speaker": "friend",
+            "text": "Jíš maso?"
           },
           {
-            "speaker": "Host",
-            "text": "Dám si ___ (svíčková with dumplings) a jedno pivo, prosím."
+            "speaker": "you",
+            "text": "___"
           },
           {
-            "speaker": "Číšník",
-            "text": "Ještě něco?"
+            "speaker": "friend",
+            "text": "Co piješ?"
           },
           {
-            "speaker": "Host",
-            "text": "Ne, ___ (that's all), děkuji."
+            "speaker": "you",
+            "text": "___"
           }
         ],
-        "explanation": "svíčková → accusative svíčkovou. 'To je všechno' = that's all/everything.",
         "blank_answers": [
-          ["svíčkovou s knedlíkem"],
-          ["to je všechno"]
+          [
+            "Ne, nejím maso.",
+            "Ne, nejím maso"
+          ],
+          [
+            "Piju čaj.",
+            "Piju čaj"
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Ne, nejím maso. | Piju čaj.",
+      "xp_reward": 15
+    },
+    {
+      "id": 11110,
+      "lesson_id": 1102,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write two sentences about food or drink you like or do not eat.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Jím rybu.",
+          "Piju čaj.",
+          "Nejím maso.",
+          "Mám rád sýr."
+        ],
+        "sample_answer": "Jím rybu."
+      },
+      "answer_key": "Jím rybu.",
+      "xp_reward": 0
+    },
+    {
+      "id": 11111,
+      "lesson_id": 1102,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+              "Jsem na nádraží.",
+              "Mám nové boty."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "svíčkovou s knedlíkem to je všechno",
-      "grammar_rule_id": "GR-103",
-      "xp_reward": 25
+      "answer_key": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "say what I eat, drink, like, or avoid.",
+  "new_language": [
+    "Jím rybu.",
+    "Piju čaj.",
+    "Nejím maso.",
+    "Mám rád sýr."
+  ],
+  "recycles": [
+    "food and drink",
+    "Dám si…",
+    "Máte…?",
+    "numbers and prices"
+  ],
+  "exit_task": "say what I eat, drink, like, or avoid."
 }

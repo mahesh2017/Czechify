@@ -39,6 +39,8 @@ class _ListeningComprehensionViewState
     final data = widget.exercise.data;
     final transcriptCz = data['transcript_cz'] as String? ?? '';
     final promptEn = data['prompt_en'] as String? ?? widget.exercise.prompt;
+    final image = (data['image'] as String?)?.trim();
+    final imageLabel = (data['image_label'] as String?)?.trim();
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
 
@@ -49,6 +51,25 @@ class _ListeningComprehensionViewState
         children: [
           QuestionPrompt(question: promptEn),
           const SizedBox(height: 16),
+
+          if (image != null && image.isNotEmpty) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: SizedBox(
+                height: 140,
+                width: double.infinity,
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  cacheWidth: 1024,
+                  semanticLabel: imageLabel == null || imageLabel.isEmpty
+                      ? null
+                      : imageLabel,
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+          ],
 
           // Listen first: the audio is the exercise, so it gets the hero.
           if (transcriptCz.isNotEmpty)
@@ -75,10 +96,9 @@ class _ListeningComprehensionViewState
             Align(
               alignment: Alignment.centerLeft,
               child: OutlinedButton.icon(
-                onPressed:
-                    transcriptCz.isEmpty
-                        ? null
-                        : () => setState(() => _transcriptRevealed = true),
+                onPressed: transcriptCz.isEmpty
+                    ? null
+                    : () => setState(() => _transcriptRevealed = true),
                 icon: const Icon(Icons.subtitles_outlined, size: 18),
                 label: Text(l10n.exerciseRevealTranscript),
               ),
@@ -103,6 +123,7 @@ class _ListeningComprehensionViewState
           // the fold by a long question list.
           Expanded(
             child: _ListeningQuestions(
+              exerciseId: widget.exercise.id,
               data: data,
               onComplete: (isCorrect, explanation, correctAnswer) {
                 widget.onAnswered(
@@ -127,6 +148,7 @@ class _ListeningComprehensionViewState
 
 /// Questions section extracted from reading comprehension logic.
 class _ListeningQuestions extends StatefulWidget {
+  final int exerciseId;
   final Map<String, dynamic> data;
   final void Function(
     bool isCorrect,
@@ -135,7 +157,11 @@ class _ListeningQuestions extends StatefulWidget {
   )
   onComplete;
 
-  const _ListeningQuestions({required this.data, required this.onComplete});
+  const _ListeningQuestions({
+    required this.exerciseId,
+    required this.data,
+    required this.onComplete,
+  });
 
   @override
   State<_ListeningQuestions> createState() => _ListeningQuestionsState();
@@ -143,18 +169,35 @@ class _ListeningQuestions extends StatefulWidget {
 
 class _ListeningQuestionsState extends State<_ListeningQuestions> {
   final List<int?> _selectedAnswers = [];
+  late List<Map<String, dynamic>> _presentedQuestions;
   bool submitted = false;
 
   @override
   void initState() {
     super.initState();
-    final questions = widget.data['questions'] as List<dynamic>? ?? [];
-    _selectedAnswers.addAll(List.filled(questions.length, null));
+    _prepareQuestions();
   }
 
-  List<Map<String, dynamic>> get _questions {
+  void _prepareQuestions() {
     final raw = widget.data['questions'] as List<dynamic>? ?? [];
-    return raw.cast<Map<String, dynamic>>();
+    _presentedQuestions = [
+      for (final (index, question) in raw.cast<Map<String, dynamic>>().indexed)
+        shuffledQuestion(question, seed: widget.exerciseId * 31 + index),
+    ];
+    _selectedAnswers
+      ..clear()
+      ..addAll(List.filled(_presentedQuestions.length, null));
+  }
+
+  List<Map<String, dynamic>> get _questions => _presentedQuestions;
+
+  @override
+  void didUpdateWidget(covariant _ListeningQuestions oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.exerciseId != widget.exerciseId) {
+      submitted = false;
+      _prepareQuestions();
+    }
   }
 
   bool get _allAnswered =>
@@ -188,8 +231,8 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
       _allCorrect
           ? AppLocalizations.of(context).exerciseAllAnsweredCorrectly
           : AppLocalizations.of(
-            context,
-          ).exerciseYouGotCorrect(_correctCount, _questions.length),
+              context,
+            ).exerciseYouGotCorrect(_correctCount, _questions.length),
       _questions
           .map(
             (q) =>
@@ -264,8 +307,8 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
             padding: EdgeInsets.zero,
             itemCount: _questions.length,
             separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder:
-                (context, qIdx) => _buildQuestion(context, qIdx, theme),
+            itemBuilder: (context, qIdx) =>
+                _buildQuestion(context, qIdx, theme),
           ),
         ),
         if (_allAnswered && !submitted)
@@ -292,9 +335,9 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                     _allCorrect
                         ? AppLocalizations.of(context).exerciseAllCorrect
                         : AppLocalizations.of(context).exerciseCorrectOfTotal(
-                          _correctCount,
-                          _questions.length,
-                        ),
+                            _correctCount,
+                            _questions.length,
+                          ),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -365,10 +408,9 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                   selectedIndex: selected,
                   answered: submitted,
                 ),
-                onTap:
-                    submitted
-                        ? null
-                        : () => setState(() => _selectedAnswers[qIdx] = i),
+                onTap: submitted
+                    ? null
+                    : () => setState(() => _selectedAnswers[qIdx] = i),
               ),
             ),
         ],

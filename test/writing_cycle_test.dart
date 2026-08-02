@@ -49,6 +49,7 @@ void main() {
 
     expect(result?.outcome, ExerciseOutcome.skipped);
     expect(result?.isCorrect, isFalse);
+    expect(result?.explanation, contains('You wrote 4 words.'));
     expect(find.text('Writing cycle complete'), findsOneWidget);
   });
 }

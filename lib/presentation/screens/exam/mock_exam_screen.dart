@@ -93,7 +93,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     try {
       final exam = await ref
           .read(examRepositoryProvider)
-          .getMockExam(widget.level);
+          .getMockExam(
+            widget.level,
+            product:
+                widget.level == ExamLevel.a1
+                    ? ExamProduct.coursePractice
+                    : ExamProduct.permanentResidence,
+          );
       final checkpoint = await _sessionStore.load(widget.level.name);
       if (mounted) {
         setState(() {

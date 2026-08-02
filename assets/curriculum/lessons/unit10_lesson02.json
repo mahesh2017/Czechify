@@ -2,236 +2,342 @@
   "id": 1002,
   "unit_id": 10,
   "order_in_unit": 1,
-  "title": "My Daily Routine",
+  "title": "Put the Routine in Order",
+  "description": "Place se and si naturally while ordering morning activities.",
+  "can_do": "describe a short morning sequence with se and si.",
+  "new_language": [
+    "Ráno se sprchuju.",
+    "Potom se oblékám.",
+    "Čistím si zuby.",
+    "Dělám si kávu."
+  ],
+  "recycles": [
+    "time and days",
+    "pracuju/studuju",
+    "doma",
+    "mám",
+    "potom"
+  ],
+  "exit_task": "describe a short morning sequence with se and si.",
+  "duration_min": 12,
   "lesson_type": "practice",
-  "duration_min": 15,
-  "description": "Describe your daily routine in Czech using reflexive verbs, morning and evening vocabulary, and time adverbs. Practice dialogues about daily schedules.",
+  "is_review": false,
   "exercises": [
     {
-      "id": 10013,
+      "id": 10100,
       "lesson_id": 1002,
-      "type": "multiple_choice",
-      "prompt": "What does 'vstávám' mean?",
+      "type": "teaching",
+      "prompt": "Learn the mission language",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'vstávám'?",
-        "question_en": "What does 'vstávám' mean?",
-        "options": ["I get up", "I go to bed", "I eat breakfast", "I go to work"],
-        "correct_index": 0,
-        "explanation": "'Vstávám' means 'I get up' or 'I am getting up'. It comes from the verb 'vstávat'."
+        "type": "teaching",
+        "style": "list",
+        "heading": "Put the Routine in Order",
+        "body": "Place se and si naturally while ordering morning activities.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Ráno se sprchuju.",
+            "en": "I shower in the morning."
+          },
+          {
+            "cz": "Potom se oblékám.",
+            "en": "Then I get dressed."
+          },
+          {
+            "cz": "Čistím si zuby.",
+            "en": "I brush my teeth."
+          },
+          {
+            "cz": "Dělám si kávu.",
+            "en": "I make myself coffee."
+          }
+        ]
       },
-      "answer_key": "I get up",
-      "grammar_rule_id": "GR-092",
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10101,
+      "lesson_id": 1002,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Ráno se sprchuju, potom se oblékám, čistím si zuby a dělám si kávu.",
+        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Put the Routine in Order",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What happens immediately after showering?",
+            "options": [
+              "Getting dressed",
+              "Making coffee",
+              "Brushing teeth"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Getting dressed",
+      "xp_reward": 15
+    },
+    {
+      "id": 10102,
+      "lesson_id": 1002,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "text_cz": "Nejdřív si čistím zuby. Potom se oblékám a dělám si snídani.",
+        "text_en": "First I brush my teeth. Then I get dressed and make breakfast.",
+        "questions": [
+          {
+            "question_en": "What happens first?",
+            "options": [
+              "Brushing teeth",
+              "Getting dressed",
+              "Making breakfast"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "First I brush my teeth. Then I get dressed and make breakfast.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Brushing teeth",
+      "xp_reward": 15
+    },
+    {
+      "id": 10103,
+      "lesson_id": 1002,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Ráno se sprchuju.",
+            "right": "I shower in the morning."
+          },
+          {
+            "left": "Potom se oblékám.",
+            "right": "Then I get dressed."
+          },
+          {
+            "left": "Čistím si zuby.",
+            "right": "I brush my teeth."
+          },
+          {
+            "left": "Dělám si kávu.",
+            "right": "I make myself coffee."
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Ráno se sprchuju.–I shower in the morning.; Potom se oblékám.–Then I get dressed.; Čistím si zuby.–I brush my teeth.; Dělám si kávu.–I make myself coffee.",
       "xp_reward": 10
     },
     {
-      "id": 10014,
+      "id": 10104,
+      "lesson_id": 1002,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Ráno se sprchuju.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Ráno se sprchuju.",
+      "xp_reward": 10
+    },
+    {
+      "id": 10105,
       "lesson_id": 1002,
       "type": "fill_blank",
-      "prompt": "Complete the morning routine sentence",
+      "prompt": "Complete the useful chunk",
       "data": {
         "type": "fill_blank",
-        "sentence": "Ráno ___ v sedm hodin, pak se sprchuju a ___.",
-        "blank_count": 2,
-        "explanation": "'Ráno vstávám v sedm hodin' (I get up at seven), 'pak se sprchuju' (then I shower), 'a snídám' (and I eat breakfast).",
+        "sentence": "Ráno ___ sprchuju.",
+        "blank_count": 1,
         "blank_answers": [
-          ["vstávám"],
-          ["snídám", "posnídám"]
-        ]
+          [
+            "se"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": "vstávám, snídám",
-      "grammar_rule_id": "GR-092",
-      "xp_reward": 15
+      "answer_key": "se",
+      "xp_reward": 10
     },
     {
-      "id": 10015,
-      "lesson_id": 1002,
-      "type": "translation",
-      "prompt": "Translate into Czech: 'In the morning I get up at six o'clock.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "In the morning I get up at six o'clock.",
-        "accepted_answers": ["ráno vstávám v šest hodin", "ráno vstávám v šest hodin.", "ráno vstávám v 6 hodin"],
-        "grammar_note": "Time in Czech uses 'v' + number + 'hodin'. 'Ráno' means 'in the morning'."
-      },
-      "answer_key": "ráno vstávám v šest hodin",
-      "grammar_rule_id": "GR-093",
-      "xp_reward": 15
-    },
-    {
-      "id": 10016,
-      "lesson_id": 1002,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct time adverb",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ pracuju v kanceláři. ___ večeřím doma s rodinou. ___ jdu spát.",
-        "blank_count": 3,
-        "explanation": "'Dopoledne' or 'odpoledne' (during the day) I work, 'večer' (in the evening) I eat dinner, 'v noci' (at night) I go to sleep.",
-        "blank_answers": [
-          ["dopoledne", "odpoledne"],
-          ["večer"],
-          ["v noci"]
-        ]
-      },
-      "answer_key": "odpoledne, večer, v noci",
-      "grammar_rule_id": "GR-093",
-      "xp_reward": 20
-    },
-    {
-      "id": 10017,
+      "id": 10106,
       "lesson_id": 1002,
       "type": "word_order",
-      "prompt": "Arrange words to form: 'In the evening I return home and have dinner.'",
+      "prompt": "Build a natural Czech sentence",
       "data": {
         "type": "word_order",
-        "words": ["domů", "a", "večer", "Večer", "vracím", "večeřím", "se"],
-        "correct_order": [3, 6, 4, 0, 1, 5],
-        "explanation": "Czech: 'Večer se vracím domů a večeřím.' — 'Večer' (in the evening), 'se vracím' (I return), 'domů' (home), 'a večeřím' (and I have dinner)."
+        "words": [
+          "oblékám.",
+          "se",
+          "Potom"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "Then I get dressed.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": "Večer se vracím domů a večeřím",
-      "grammar_rule_id": "GR-092",
-      "xp_reward": 15
-    },
-    {
-      "id": 10018,
-      "lesson_id": 1002,
-      "type": "multiple_choice",
-      "prompt": "Which time adverb means 'late at night'?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které příslovce času znamená 'late at night'?",
-        "question_en": "Which time adverb means 'late at night'?",
-        "options": ["ráno", "odpoledne", "večer", "v noci"],
-        "correct_index": 3,
-        "explanation": "'V noci' means 'at night' or 'during the night'. 'Ráno' = morning, 'odpoledne' = afternoon, 'večer' = evening."
-      },
-      "answer_key": "v noci",
-      "grammar_rule_id": "GR-093",
+      "answer_key": "Potom se oblékám.",
       "xp_reward": 10
     },
     {
-      "id": 10019,
-      "lesson_id": 1002,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue about daily schedule",
-      "data": {
-        "type": "dialogue",
-        "scenario": "Two friends talking about their morning routines",
-        "lines": [
-          {
-            "speaker": "A",
-            "text": "Kdy vstáváš?"
-          },
-          {
-            "speaker": "B",
-            "text": "___ (I get up at seven)."
-          }
-        ],
-        "explanation": "'Kdy vstáváš?' means 'When do you get up?'. Answer with 'Vstávám v sedm (hodin)' — 'I get up at seven (o'clock)'.",
-        "blank_answers": [
-          ["vstávám v sedm", "vstávám v sedm hodin", "v sedm hodin", "v sedm"]
-        ]
-      },
-      "answer_key": "Vstávám v sedm hodin",
-      "grammar_rule_id": "GR-092",
-      "xp_reward": 25
-    },
-    {
-      "id": 10020,
-      "lesson_id": 1002,
-      "type": "translation",
-      "prompt": "Translate into Czech: 'In the evening I go to bed at ten o'clock.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "In the evening I go to bed at ten o'clock.",
-        "accepted_answers": ["večer jdu spát v deset hodin", "večer jdu spát v deset hodin.", "večer chodím spát v deset hodin"],
-        "grammar_note": "'Jdu spát' means 'I go to sleep'. 'Večer' means 'in the evening'. Use 'v' + number for time."
-      },
-      "answer_key": "večer jdu spát v deset hodin",
-      "grammar_rule_id": "GR-092",
-      "xp_reward": 15
-    },
-    {
-      "id": 10021,
-      "lesson_id": 1002,
-      "type": "fill_blank",
-      "prompt": "Complete the evening routine",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Večer se ___ a pak se ___.",
-        "blank_count": 2,
-        "explanation": "Evening routine: 'Večer se sprchuju' (I shower in the evening) 'a pak se oblékám' (and then I get dressed). Both use reflexive 'se'.",
-        "blank_answers": [
-          ["sprchuju", "myju"],
-          ["oblékám", "převlékám"]
-        ]
-      },
-      "answer_key": "sprchuju, oblékám",
-      "grammar_rule_id": "GR-092",
-      "xp_reward": 15
-    },
-    {
-      "id": 10022,
+      "id": 10107,
       "lesson_id": 1002,
       "type": "dictation",
-      "prompt": "Listen and write what you hear",
+      "prompt": "Listen and type the key sentence",
       "data": {
         "type": "dictation",
-        "audio_hash": "placeholder_1022",
-        "expected_text": "Ráno vstávám, sprchuju se a snídám",
+        "expected_text": "Čistím si zuby.",
         "language": "cs-CZ",
-        "note": "A typical morning routine sequence with reflexive verbs"
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": "Ráno vstávám, sprchuju se a snídám",
-      "grammar_rule_id": "GR-092",
-      "xp_reward": 20
+      "answer_key": "Čistím si zuby.",
+      "xp_reward": 10
     },
     {
-      "id": 10023,
+      "id": 10108,
       "lesson_id": 1002,
       "type": "pronunciation",
-      "prompt": "Say this daily routine phrase aloud",
+      "prompt": "Rehearse a useful phrase",
       "data": {
         "type": "pronunciation",
-        "target_text": "Každý den jdu do práce v osm hodin",
-        "target_audio_hash": "placeholder_1023",
-        "focus_sounds": ["ž", "ř", "ů"],
-        "min_score": 0.6,
-        "translation_en": "Every day I go to work at eight o'clock"
+        "target_text": "Dělám si kávu.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "I make myself coffee."
       },
-      "answer_key": "Každý den jdu do práce v osm hodin",
-      "grammar_rule_id": "GR-092",
+      "answer_key": "Dělám si kávu.",
       "xp_reward": 15
     },
     {
-      "id": 10024,
+      "id": 10109,
       "lesson_id": 1002,
       "type": "dialogue",
-      "prompt": "Complete the dialogue about daily schedule",
+      "prompt": "Complete and hear the short exchange",
       "data": {
         "type": "dialogue",
-        "scenario": "Coworkers discussing their day",
+        "scenario": "Put the Routine in Order",
+        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
         "lines": [
           {
-            "speaker": "A",
-            "text": "Co děláš odpoledne?"
+            "speaker": "partner",
+            "text": "Co děláš ráno?"
           },
           {
-            "speaker": "B",
-            "text": "___ (I return home and relax)."
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "A co děláš potom?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
           }
         ],
-        "explanation": "'Co děláš odpoledne?' means 'What do you do in the afternoon?'. Answer: 'Vracím se domů a odpočívám' — 'I return home and relax'.",
         "blank_answers": [
-          ["vracím se domů a odpočívám", "vracím se domů a relaxuju", "jdu domů a odpočívám", "vracím se domů a odpočívám."]
+          [
+            "Ráno se sprchuju."
+          ],
+          [
+            "Potom se oblékám."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Ráno se sprchuju. | Potom se oblékám.",
+      "xp_reward": 15
+    },
+    {
+      "id": 10110,
+      "lesson_id": 1002,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a four-step morning routine with two se or si expressions.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Ráno se sprchuju.",
+          "Potom se oblékám.",
+          "Čistím si zuby.",
+          "Dělám si kávu."
+        ],
+        "sample_answer": "Ráno se sprchuju. Potom se oblékám. Čistím si zuby. Dělám si kávu."
+      },
+      "answer_key": "Ráno se sprchuju. Potom se oblékám. Čistím si zuby. Dělám si kávu.",
+      "xp_reward": 0
+    },
+    {
+      "id": 10111,
+      "lesson_id": 1002,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Eva se nejdřív obléká a potom si dělá čaj.",
+        "questions": [
+          {
+            "question_en": "What does Eva make?",
+            "options": [
+              "Tea",
+              "Coffee",
+              "Breakfast"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "Vracím se domů a odpočívám",
-      "grammar_rule_id": "GR-092",
-      "xp_reward": 25
+      "answer_key": "Tea",
+      "xp_reward": 15
     }
   ]
 }

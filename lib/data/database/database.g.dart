@@ -214,50 +214,42 @@ class $UnitsTable extends Units with TableInfo<$UnitsTable, Unit> {
   Unit map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Unit(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      title:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}title'],
-          )!,
-      description:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}description'],
-          )!,
-      phase:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}phase'],
-          )!,
-      orderIndex:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}order_index'],
-          )!,
-      grammarTags:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}grammar_tags'],
-          )!,
-      isExamPrep:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_exam_prep'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      phase: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phase'],
+      )!,
+      orderIndex: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}order_index'],
+      )!,
+      grammarTags: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}grammar_tags'],
+      )!,
+      isExamPrep: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_exam_prep'],
+      )!,
       lessonCount: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}lesson_count'],
       ),
-      isActive:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_active'],
-          )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
     );
   }
 
@@ -314,10 +306,9 @@ class Unit extends DataClass implements Insertable<Unit> {
       orderIndex: Value(orderIndex),
       grammarTags: Value(grammarTags),
       isExamPrep: Value(isExamPrep),
-      lessonCount:
-          lessonCount == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lessonCount),
+      lessonCount: lessonCount == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lessonCount),
       isActive: Value(isActive),
     );
   }
@@ -380,17 +371,22 @@ class Unit extends DataClass implements Insertable<Unit> {
     return Unit(
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
-      description:
-          data.description.present ? data.description.value : this.description,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
       phase: data.phase.present ? data.phase.value : this.phase,
-      orderIndex:
-          data.orderIndex.present ? data.orderIndex.value : this.orderIndex,
-      grammarTags:
-          data.grammarTags.present ? data.grammarTags.value : this.grammarTags,
-      isExamPrep:
-          data.isExamPrep.present ? data.isExamPrep.value : this.isExamPrep,
-      lessonCount:
-          data.lessonCount.present ? data.lessonCount.value : this.lessonCount,
+      orderIndex: data.orderIndex.present
+          ? data.orderIndex.value
+          : this.orderIndex,
+      grammarTags: data.grammarTags.present
+          ? data.grammarTags.value
+          : this.grammarTags,
+      isExamPrep: data.isExamPrep.present
+          ? data.isExamPrep.value
+          : this.isExamPrep,
+      lessonCount: data.lessonCount.present
+          ? data.lessonCount.value
+          : this.lessonCount,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
   }
@@ -628,6 +624,52 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _canDoMeta = const VerificationMeta('canDo');
+  @override
+  late final GeneratedColumn<String> canDo = GeneratedColumn<String>(
+    'can_do',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _newLanguageJsonMeta = const VerificationMeta(
+    'newLanguageJson',
+  );
+  @override
+  late final GeneratedColumn<String> newLanguageJson = GeneratedColumn<String>(
+    'new_language_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('[]'),
+  );
+  static const VerificationMeta _recyclesJsonMeta = const VerificationMeta(
+    'recyclesJson',
+  );
+  @override
+  late final GeneratedColumn<String> recyclesJson = GeneratedColumn<String>(
+    'recycles_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('[]'),
+  );
+  static const VerificationMeta _exitTaskMeta = const VerificationMeta(
+    'exitTask',
+  );
+  @override
+  late final GeneratedColumn<String> exitTask = GeneratedColumn<String>(
+    'exit_task',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
   static const VerificationMeta _durationMinutesMeta = const VerificationMeta(
     'durationMinutes',
   );
@@ -689,6 +731,10 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
     orderInUnit,
     title,
     description,
+    canDo,
+    newLanguageJson,
+    recyclesJson,
+    exitTask,
     durationMinutes,
     lessonType,
     isReview,
@@ -747,6 +793,36 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
     } else if (isInserting) {
       context.missing(_descriptionMeta);
     }
+    if (data.containsKey('can_do')) {
+      context.handle(
+        _canDoMeta,
+        canDo.isAcceptableOrUnknown(data['can_do']!, _canDoMeta),
+      );
+    }
+    if (data.containsKey('new_language_json')) {
+      context.handle(
+        _newLanguageJsonMeta,
+        newLanguageJson.isAcceptableOrUnknown(
+          data['new_language_json']!,
+          _newLanguageJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('recycles_json')) {
+      context.handle(
+        _recyclesJsonMeta,
+        recyclesJson.isAcceptableOrUnknown(
+          data['recycles_json']!,
+          _recyclesJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('exit_task')) {
+      context.handle(
+        _exitTaskMeta,
+        exitTask.isAcceptableOrUnknown(data['exit_task']!, _exitTaskMeta),
+      );
+    }
     if (data.containsKey('duration_minutes')) {
       context.handle(
         _durationMinutesMeta,
@@ -783,51 +859,58 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
   Lesson map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Lesson(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      unitId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}unit_id'],
-          )!,
-      orderInUnit:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}order_in_unit'],
-          )!,
-      title:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}title'],
-          )!,
-      description:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}description'],
-          )!,
-      durationMinutes:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}duration_minutes'],
-          )!,
-      lessonType:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}lesson_type'],
-          )!,
-      isReview:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_review'],
-          )!,
-      isActive:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_active'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      unitId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_id'],
+      )!,
+      orderInUnit: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}order_in_unit'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      )!,
+      canDo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}can_do'],
+      )!,
+      newLanguageJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}new_language_json'],
+      )!,
+      recyclesJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}recycles_json'],
+      )!,
+      exitTask: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}exit_task'],
+      )!,
+      durationMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}duration_minutes'],
+      )!,
+      lessonType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lesson_type'],
+      )!,
+      isReview: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_review'],
+      )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
     );
   }
 
@@ -843,6 +926,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
   final int orderInUnit;
   final String title;
   final String description;
+  final String canDo;
+  final String newLanguageJson;
+  final String recyclesJson;
+  final String exitTask;
   final int durationMinutes;
   final String lessonType;
   final bool isReview;
@@ -853,6 +940,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     required this.orderInUnit,
     required this.title,
     required this.description,
+    required this.canDo,
+    required this.newLanguageJson,
+    required this.recyclesJson,
+    required this.exitTask,
     required this.durationMinutes,
     required this.lessonType,
     required this.isReview,
@@ -866,6 +957,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     map['order_in_unit'] = Variable<int>(orderInUnit);
     map['title'] = Variable<String>(title);
     map['description'] = Variable<String>(description);
+    map['can_do'] = Variable<String>(canDo);
+    map['new_language_json'] = Variable<String>(newLanguageJson);
+    map['recycles_json'] = Variable<String>(recyclesJson);
+    map['exit_task'] = Variable<String>(exitTask);
     map['duration_minutes'] = Variable<int>(durationMinutes);
     map['lesson_type'] = Variable<String>(lessonType);
     map['is_review'] = Variable<bool>(isReview);
@@ -880,6 +975,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
       orderInUnit: Value(orderInUnit),
       title: Value(title),
       description: Value(description),
+      canDo: Value(canDo),
+      newLanguageJson: Value(newLanguageJson),
+      recyclesJson: Value(recyclesJson),
+      exitTask: Value(exitTask),
       durationMinutes: Value(durationMinutes),
       lessonType: Value(lessonType),
       isReview: Value(isReview),
@@ -898,6 +997,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
       orderInUnit: serializer.fromJson<int>(json['orderInUnit']),
       title: serializer.fromJson<String>(json['title']),
       description: serializer.fromJson<String>(json['description']),
+      canDo: serializer.fromJson<String>(json['canDo']),
+      newLanguageJson: serializer.fromJson<String>(json['newLanguageJson']),
+      recyclesJson: serializer.fromJson<String>(json['recyclesJson']),
+      exitTask: serializer.fromJson<String>(json['exitTask']),
       durationMinutes: serializer.fromJson<int>(json['durationMinutes']),
       lessonType: serializer.fromJson<String>(json['lessonType']),
       isReview: serializer.fromJson<bool>(json['isReview']),
@@ -913,6 +1016,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
       'orderInUnit': serializer.toJson<int>(orderInUnit),
       'title': serializer.toJson<String>(title),
       'description': serializer.toJson<String>(description),
+      'canDo': serializer.toJson<String>(canDo),
+      'newLanguageJson': serializer.toJson<String>(newLanguageJson),
+      'recyclesJson': serializer.toJson<String>(recyclesJson),
+      'exitTask': serializer.toJson<String>(exitTask),
       'durationMinutes': serializer.toJson<int>(durationMinutes),
       'lessonType': serializer.toJson<String>(lessonType),
       'isReview': serializer.toJson<bool>(isReview),
@@ -926,6 +1033,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     int? orderInUnit,
     String? title,
     String? description,
+    String? canDo,
+    String? newLanguageJson,
+    String? recyclesJson,
+    String? exitTask,
     int? durationMinutes,
     String? lessonType,
     bool? isReview,
@@ -936,6 +1047,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     orderInUnit: orderInUnit ?? this.orderInUnit,
     title: title ?? this.title,
     description: description ?? this.description,
+    canDo: canDo ?? this.canDo,
+    newLanguageJson: newLanguageJson ?? this.newLanguageJson,
+    recyclesJson: recyclesJson ?? this.recyclesJson,
+    exitTask: exitTask ?? this.exitTask,
     durationMinutes: durationMinutes ?? this.durationMinutes,
     lessonType: lessonType ?? this.lessonType,
     isReview: isReview ?? this.isReview,
@@ -945,17 +1060,27 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     return Lesson(
       id: data.id.present ? data.id.value : this.id,
       unitId: data.unitId.present ? data.unitId.value : this.unitId,
-      orderInUnit:
-          data.orderInUnit.present ? data.orderInUnit.value : this.orderInUnit,
+      orderInUnit: data.orderInUnit.present
+          ? data.orderInUnit.value
+          : this.orderInUnit,
       title: data.title.present ? data.title.value : this.title,
-      description:
-          data.description.present ? data.description.value : this.description,
-      durationMinutes:
-          data.durationMinutes.present
-              ? data.durationMinutes.value
-              : this.durationMinutes,
-      lessonType:
-          data.lessonType.present ? data.lessonType.value : this.lessonType,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      canDo: data.canDo.present ? data.canDo.value : this.canDo,
+      newLanguageJson: data.newLanguageJson.present
+          ? data.newLanguageJson.value
+          : this.newLanguageJson,
+      recyclesJson: data.recyclesJson.present
+          ? data.recyclesJson.value
+          : this.recyclesJson,
+      exitTask: data.exitTask.present ? data.exitTask.value : this.exitTask,
+      durationMinutes: data.durationMinutes.present
+          ? data.durationMinutes.value
+          : this.durationMinutes,
+      lessonType: data.lessonType.present
+          ? data.lessonType.value
+          : this.lessonType,
       isReview: data.isReview.present ? data.isReview.value : this.isReview,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
@@ -969,6 +1094,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
           ..write('orderInUnit: $orderInUnit, ')
           ..write('title: $title, ')
           ..write('description: $description, ')
+          ..write('canDo: $canDo, ')
+          ..write('newLanguageJson: $newLanguageJson, ')
+          ..write('recyclesJson: $recyclesJson, ')
+          ..write('exitTask: $exitTask, ')
           ..write('durationMinutes: $durationMinutes, ')
           ..write('lessonType: $lessonType, ')
           ..write('isReview: $isReview, ')
@@ -984,6 +1113,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
     orderInUnit,
     title,
     description,
+    canDo,
+    newLanguageJson,
+    recyclesJson,
+    exitTask,
     durationMinutes,
     lessonType,
     isReview,
@@ -998,6 +1131,10 @@ class Lesson extends DataClass implements Insertable<Lesson> {
           other.orderInUnit == this.orderInUnit &&
           other.title == this.title &&
           other.description == this.description &&
+          other.canDo == this.canDo &&
+          other.newLanguageJson == this.newLanguageJson &&
+          other.recyclesJson == this.recyclesJson &&
+          other.exitTask == this.exitTask &&
           other.durationMinutes == this.durationMinutes &&
           other.lessonType == this.lessonType &&
           other.isReview == this.isReview &&
@@ -1010,6 +1147,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
   final Value<int> orderInUnit;
   final Value<String> title;
   final Value<String> description;
+  final Value<String> canDo;
+  final Value<String> newLanguageJson;
+  final Value<String> recyclesJson;
+  final Value<String> exitTask;
   final Value<int> durationMinutes;
   final Value<String> lessonType;
   final Value<bool> isReview;
@@ -1020,6 +1161,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     this.orderInUnit = const Value.absent(),
     this.title = const Value.absent(),
     this.description = const Value.absent(),
+    this.canDo = const Value.absent(),
+    this.newLanguageJson = const Value.absent(),
+    this.recyclesJson = const Value.absent(),
+    this.exitTask = const Value.absent(),
     this.durationMinutes = const Value.absent(),
     this.lessonType = const Value.absent(),
     this.isReview = const Value.absent(),
@@ -1031,6 +1176,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     required int orderInUnit,
     required String title,
     required String description,
+    this.canDo = const Value.absent(),
+    this.newLanguageJson = const Value.absent(),
+    this.recyclesJson = const Value.absent(),
+    this.exitTask = const Value.absent(),
     this.durationMinutes = const Value.absent(),
     this.lessonType = const Value.absent(),
     this.isReview = const Value.absent(),
@@ -1045,6 +1194,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     Expression<int>? orderInUnit,
     Expression<String>? title,
     Expression<String>? description,
+    Expression<String>? canDo,
+    Expression<String>? newLanguageJson,
+    Expression<String>? recyclesJson,
+    Expression<String>? exitTask,
     Expression<int>? durationMinutes,
     Expression<String>? lessonType,
     Expression<bool>? isReview,
@@ -1056,6 +1209,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
       if (orderInUnit != null) 'order_in_unit': orderInUnit,
       if (title != null) 'title': title,
       if (description != null) 'description': description,
+      if (canDo != null) 'can_do': canDo,
+      if (newLanguageJson != null) 'new_language_json': newLanguageJson,
+      if (recyclesJson != null) 'recycles_json': recyclesJson,
+      if (exitTask != null) 'exit_task': exitTask,
       if (durationMinutes != null) 'duration_minutes': durationMinutes,
       if (lessonType != null) 'lesson_type': lessonType,
       if (isReview != null) 'is_review': isReview,
@@ -1069,6 +1226,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     Value<int>? orderInUnit,
     Value<String>? title,
     Value<String>? description,
+    Value<String>? canDo,
+    Value<String>? newLanguageJson,
+    Value<String>? recyclesJson,
+    Value<String>? exitTask,
     Value<int>? durationMinutes,
     Value<String>? lessonType,
     Value<bool>? isReview,
@@ -1080,6 +1241,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
       orderInUnit: orderInUnit ?? this.orderInUnit,
       title: title ?? this.title,
       description: description ?? this.description,
+      canDo: canDo ?? this.canDo,
+      newLanguageJson: newLanguageJson ?? this.newLanguageJson,
+      recyclesJson: recyclesJson ?? this.recyclesJson,
+      exitTask: exitTask ?? this.exitTask,
       durationMinutes: durationMinutes ?? this.durationMinutes,
       lessonType: lessonType ?? this.lessonType,
       isReview: isReview ?? this.isReview,
@@ -1105,6 +1270,18 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
     if (description.present) {
       map['description'] = Variable<String>(description.value);
     }
+    if (canDo.present) {
+      map['can_do'] = Variable<String>(canDo.value);
+    }
+    if (newLanguageJson.present) {
+      map['new_language_json'] = Variable<String>(newLanguageJson.value);
+    }
+    if (recyclesJson.present) {
+      map['recycles_json'] = Variable<String>(recyclesJson.value);
+    }
+    if (exitTask.present) {
+      map['exit_task'] = Variable<String>(exitTask.value);
+    }
     if (durationMinutes.present) {
       map['duration_minutes'] = Variable<int>(durationMinutes.value);
     }
@@ -1128,6 +1305,10 @@ class LessonsCompanion extends UpdateCompanion<Lesson> {
           ..write('orderInUnit: $orderInUnit, ')
           ..write('title: $title, ')
           ..write('description: $description, ')
+          ..write('canDo: $canDo, ')
+          ..write('newLanguageJson: $newLanguageJson, ')
+          ..write('recyclesJson: $recyclesJson, ')
+          ..write('exitTask: $exitTask, ')
           ..write('durationMinutes: $durationMinutes, ')
           ..write('lessonType: $lessonType, ')
           ..write('isReview: $isReview, ')
@@ -1337,31 +1518,26 @@ class $ExercisesTable extends Exercises
   Exercise map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Exercise(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      lessonId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}lesson_id'],
-          )!,
-      type:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}type'],
-          )!,
-      prompt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}prompt'],
-          )!,
-      data:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}data'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      lessonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lesson_id'],
+      )!,
+      type: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}type'],
+      )!,
+      prompt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}prompt'],
+      )!,
+      data: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}data'],
+      )!,
       answerKey: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}answer_key'],
@@ -1370,16 +1546,14 @@ class $ExercisesTable extends Exercises
         DriftSqlType.string,
         data['${effectivePrefix}grammar_rule_id'],
       ),
-      xpReward:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}xp_reward'],
-          )!,
-      isActive:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_active'],
-          )!,
+      xpReward: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}xp_reward'],
+      )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
     );
   }
 
@@ -1436,14 +1610,12 @@ class Exercise extends DataClass implements Insertable<Exercise> {
       type: Value(type),
       prompt: Value(prompt),
       data: Value(data),
-      answerKey:
-          answerKey == null && nullToAbsent
-              ? const Value.absent()
-              : Value(answerKey),
-      grammarRuleId:
-          grammarRuleId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(grammarRuleId),
+      answerKey: answerKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(answerKey),
+      grammarRuleId: grammarRuleId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(grammarRuleId),
       xpReward: Value(xpReward),
       isActive: Value(isActive),
     );
@@ -1499,8 +1671,9 @@ class Exercise extends DataClass implements Insertable<Exercise> {
     prompt: prompt ?? this.prompt,
     data: data ?? this.data,
     answerKey: answerKey.present ? answerKey.value : this.answerKey,
-    grammarRuleId:
-        grammarRuleId.present ? grammarRuleId.value : this.grammarRuleId,
+    grammarRuleId: grammarRuleId.present
+        ? grammarRuleId.value
+        : this.grammarRuleId,
     xpReward: xpReward ?? this.xpReward,
     isActive: isActive ?? this.isActive,
   );
@@ -1512,10 +1685,9 @@ class Exercise extends DataClass implements Insertable<Exercise> {
       prompt: data.prompt.present ? data.prompt.value : this.prompt,
       data: data.data.present ? data.data.value : this.data,
       answerKey: data.answerKey.present ? data.answerKey.value : this.answerKey,
-      grammarRuleId:
-          data.grammarRuleId.present
-              ? data.grammarRuleId.value
-              : this.grammarRuleId,
+      grammarRuleId: data.grammarRuleId.present
+          ? data.grammarRuleId.value
+          : this.grammarRuleId,
       xpReward: data.xpReward.present ? data.xpReward.value : this.xpReward,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
@@ -2096,21 +2268,18 @@ class $FlashcardsTable extends Flashcards
   Flashcard map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Flashcard(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      wordCz:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}word_cz'],
-          )!,
-      wordEn:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}word_en'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      wordCz: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}word_cz'],
+      )!,
+      wordEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}word_en'],
+      )!,
       ipa: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}ipa'],
@@ -2175,11 +2344,10 @@ class $FlashcardsTable extends Flashcards
         DriftSqlType.int,
         data['${effectivePrefix}lesson_id'],
       ),
-      isActive:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_active'],
-          )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
     );
   }
 
@@ -2306,60 +2474,51 @@ class Flashcard extends DataClass implements Insertable<Flashcard> {
       wordCz: Value(wordCz),
       wordEn: Value(wordEn),
       ipa: ipa == null && nullToAbsent ? const Value.absent() : Value(ipa),
-      gender:
-          gender == null && nullToAbsent ? const Value.absent() : Value(gender),
-      caseInfo:
-          caseInfo == null && nullToAbsent
-              ? const Value.absent()
-              : Value(caseInfo),
-      audioHash:
-          audioHash == null && nullToAbsent
-              ? const Value.absent()
-              : Value(audioHash),
-      imagePath:
-          imagePath == null && nullToAbsent
-              ? const Value.absent()
-              : Value(imagePath),
-      exampleCz:
-          exampleCz == null && nullToAbsent
-              ? const Value.absent()
-              : Value(exampleCz),
-      exampleEn:
-          exampleEn == null && nullToAbsent
-              ? const Value.absent()
-              : Value(exampleEn),
-      lemma:
-          lemma == null && nullToAbsent ? const Value.absent() : Value(lemma),
-      senseKey:
-          senseKey == null && nullToAbsent
-              ? const Value.absent()
-              : Value(senseKey),
-      partOfSpeech:
-          partOfSpeech == null && nullToAbsent
-              ? const Value.absent()
-              : Value(partOfSpeech),
-      morphologyJson:
-          morphologyJson == null && nullToAbsent
-              ? const Value.absent()
-              : Value(morphologyJson),
-      registerLabel:
-          registerLabel == null && nullToAbsent
-              ? const Value.absent()
-              : Value(registerLabel),
-      pronunciationSource:
-          pronunciationSource == null && nullToAbsent
-              ? const Value.absent()
-              : Value(pronunciationSource),
-      contentUid:
-          contentUid == null && nullToAbsent
-              ? const Value.absent()
-              : Value(contentUid),
-      unitId:
-          unitId == null && nullToAbsent ? const Value.absent() : Value(unitId),
-      lessonId:
-          lessonId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lessonId),
+      gender: gender == null && nullToAbsent
+          ? const Value.absent()
+          : Value(gender),
+      caseInfo: caseInfo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(caseInfo),
+      audioHash: audioHash == null && nullToAbsent
+          ? const Value.absent()
+          : Value(audioHash),
+      imagePath: imagePath == null && nullToAbsent
+          ? const Value.absent()
+          : Value(imagePath),
+      exampleCz: exampleCz == null && nullToAbsent
+          ? const Value.absent()
+          : Value(exampleCz),
+      exampleEn: exampleEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(exampleEn),
+      lemma: lemma == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lemma),
+      senseKey: senseKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(senseKey),
+      partOfSpeech: partOfSpeech == null && nullToAbsent
+          ? const Value.absent()
+          : Value(partOfSpeech),
+      morphologyJson: morphologyJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(morphologyJson),
+      registerLabel: registerLabel == null && nullToAbsent
+          ? const Value.absent()
+          : Value(registerLabel),
+      pronunciationSource: pronunciationSource == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pronunciationSource),
+      contentUid: contentUid == null && nullToAbsent
+          ? const Value.absent()
+          : Value(contentUid),
+      unitId: unitId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unitId),
+      lessonId: lessonId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lessonId),
       isActive: Value(isActive),
     );
   }
@@ -2456,14 +2615,15 @@ class Flashcard extends DataClass implements Insertable<Flashcard> {
     lemma: lemma.present ? lemma.value : this.lemma,
     senseKey: senseKey.present ? senseKey.value : this.senseKey,
     partOfSpeech: partOfSpeech.present ? partOfSpeech.value : this.partOfSpeech,
-    morphologyJson:
-        morphologyJson.present ? morphologyJson.value : this.morphologyJson,
-    registerLabel:
-        registerLabel.present ? registerLabel.value : this.registerLabel,
-    pronunciationSource:
-        pronunciationSource.present
-            ? pronunciationSource.value
-            : this.pronunciationSource,
+    morphologyJson: morphologyJson.present
+        ? morphologyJson.value
+        : this.morphologyJson,
+    registerLabel: registerLabel.present
+        ? registerLabel.value
+        : this.registerLabel,
+    pronunciationSource: pronunciationSource.present
+        ? pronunciationSource.value
+        : this.pronunciationSource,
     contentUid: contentUid.present ? contentUid.value : this.contentUid,
     unitId: unitId.present ? unitId.value : this.unitId,
     lessonId: lessonId.present ? lessonId.value : this.lessonId,
@@ -2483,24 +2643,21 @@ class Flashcard extends DataClass implements Insertable<Flashcard> {
       exampleEn: data.exampleEn.present ? data.exampleEn.value : this.exampleEn,
       lemma: data.lemma.present ? data.lemma.value : this.lemma,
       senseKey: data.senseKey.present ? data.senseKey.value : this.senseKey,
-      partOfSpeech:
-          data.partOfSpeech.present
-              ? data.partOfSpeech.value
-              : this.partOfSpeech,
-      morphologyJson:
-          data.morphologyJson.present
-              ? data.morphologyJson.value
-              : this.morphologyJson,
-      registerLabel:
-          data.registerLabel.present
-              ? data.registerLabel.value
-              : this.registerLabel,
-      pronunciationSource:
-          data.pronunciationSource.present
-              ? data.pronunciationSource.value
-              : this.pronunciationSource,
-      contentUid:
-          data.contentUid.present ? data.contentUid.value : this.contentUid,
+      partOfSpeech: data.partOfSpeech.present
+          ? data.partOfSpeech.value
+          : this.partOfSpeech,
+      morphologyJson: data.morphologyJson.present
+          ? data.morphologyJson.value
+          : this.morphologyJson,
+      registerLabel: data.registerLabel.present
+          ? data.registerLabel.value
+          : this.registerLabel,
+      pronunciationSource: data.pronunciationSource.present
+          ? data.pronunciationSource.value
+          : this.pronunciationSource,
+      contentUid: data.contentUid.present
+          ? data.contentUid.value
+          : this.contentUid,
       unitId: data.unitId.present ? data.unitId.value : this.unitId,
       lessonId: data.lessonId.present ? data.lessonId.value : this.lessonId,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
@@ -3058,16 +3215,14 @@ class $SrsCardsTable extends SrsCards with TableInfo<$SrsCardsTable, SrsCard> {
   SrsCard map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SrsCard(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      cardType:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}card_type'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      cardType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}card_type'],
+      )!,
       flashcardId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}flashcard_id'],
@@ -3076,31 +3231,26 @@ class $SrsCardsTable extends SrsCards with TableInfo<$SrsCardsTable, SrsCard> {
         DriftSqlType.string,
         data['${effectivePrefix}grammar_pattern_key'],
       ),
-      stability:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.double,
-            data['${effectivePrefix}stability'],
-          )!,
-      difficulty:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.double,
-            data['${effectivePrefix}difficulty'],
-          )!,
-      due:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}due'],
-          )!,
-      reps:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}reps'],
-          )!,
-      state:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}state'],
-          )!,
+      stability: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}stability'],
+      )!,
+      difficulty: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}difficulty'],
+      )!,
+      due: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}due'],
+      )!,
+      reps: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}reps'],
+      )!,
+      state: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}state'],
+      )!,
       lastReviewed: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}last_reviewed'],
@@ -3163,23 +3313,20 @@ class SrsCard extends DataClass implements Insertable<SrsCard> {
     return SrsCardsCompanion(
       id: Value(id),
       cardType: Value(cardType),
-      flashcardId:
-          flashcardId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(flashcardId),
-      grammarPatternKey:
-          grammarPatternKey == null && nullToAbsent
-              ? const Value.absent()
-              : Value(grammarPatternKey),
+      flashcardId: flashcardId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(flashcardId),
+      grammarPatternKey: grammarPatternKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(grammarPatternKey),
       stability: Value(stability),
       difficulty: Value(difficulty),
       due: Value(due),
       reps: Value(reps),
       state: Value(state),
-      lastReviewed:
-          lastReviewed == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lastReviewed),
+      lastReviewed: lastReviewed == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastReviewed),
     );
   }
 
@@ -3235,10 +3382,9 @@ class SrsCard extends DataClass implements Insertable<SrsCard> {
     id: id ?? this.id,
     cardType: cardType ?? this.cardType,
     flashcardId: flashcardId.present ? flashcardId.value : this.flashcardId,
-    grammarPatternKey:
-        grammarPatternKey.present
-            ? grammarPatternKey.value
-            : this.grammarPatternKey,
+    grammarPatternKey: grammarPatternKey.present
+        ? grammarPatternKey.value
+        : this.grammarPatternKey,
     stability: stability ?? this.stability,
     difficulty: difficulty ?? this.difficulty,
     due: due ?? this.due,
@@ -3250,22 +3396,22 @@ class SrsCard extends DataClass implements Insertable<SrsCard> {
     return SrsCard(
       id: data.id.present ? data.id.value : this.id,
       cardType: data.cardType.present ? data.cardType.value : this.cardType,
-      flashcardId:
-          data.flashcardId.present ? data.flashcardId.value : this.flashcardId,
-      grammarPatternKey:
-          data.grammarPatternKey.present
-              ? data.grammarPatternKey.value
-              : this.grammarPatternKey,
+      flashcardId: data.flashcardId.present
+          ? data.flashcardId.value
+          : this.flashcardId,
+      grammarPatternKey: data.grammarPatternKey.present
+          ? data.grammarPatternKey.value
+          : this.grammarPatternKey,
       stability: data.stability.present ? data.stability.value : this.stability,
-      difficulty:
-          data.difficulty.present ? data.difficulty.value : this.difficulty,
+      difficulty: data.difficulty.present
+          ? data.difficulty.value
+          : this.difficulty,
       due: data.due.present ? data.due.value : this.due,
       reps: data.reps.present ? data.reps.value : this.reps,
       state: data.state.present ? data.state.value : this.state,
-      lastReviewed:
-          data.lastReviewed.present
-              ? data.lastReviewed.value
-              : this.lastReviewed,
+      lastReviewed: data.lastReviewed.present
+          ? data.lastReviewed.value
+          : this.lastReviewed,
     );
   }
 
@@ -3555,26 +3701,22 @@ class $ConversationsTable extends Conversations
   Conversation map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Conversation(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}id'],
-          )!,
-      scenario:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}scenario'],
-          )!,
-      cefrLevel:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}cefr_level'],
-          )!,
-      createdAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}created_at'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      scenario: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}scenario'],
+      )!,
+      cefrLevel: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cefr_level'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
     );
   }
 
@@ -3979,26 +4121,22 @@ class $ChatMessagesTable extends ChatMessages
   ChatMessage map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ChatMessage(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      conversationId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}conversation_id'],
-          )!,
-      role:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}role'],
-          )!,
-      content:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}content'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      conversationId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}conversation_id'],
+      )!,
+      role: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}role'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
       translation: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}translation'],
@@ -4015,11 +4153,10 @@ class $ChatMessagesTable extends ChatMessages
         DriftSqlType.string,
         data['${effectivePrefix}audio_path'],
       ),
-      createdAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}created_at'],
-          )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
     );
   }
 
@@ -4079,22 +4216,18 @@ class ChatMessage extends DataClass implements Insertable<ChatMessage> {
       conversationId: Value(conversationId),
       role: Value(role),
       content: Value(content),
-      translation:
-          translation == null && nullToAbsent
-              ? const Value.absent()
-              : Value(translation),
-      corrections:
-          corrections == null && nullToAbsent
-              ? const Value.absent()
-              : Value(corrections),
-      newVocabulary:
-          newVocabulary == null && nullToAbsent
-              ? const Value.absent()
-              : Value(newVocabulary),
-      audioPath:
-          audioPath == null && nullToAbsent
-              ? const Value.absent()
-              : Value(audioPath),
+      translation: translation == null && nullToAbsent
+          ? const Value.absent()
+          : Value(translation),
+      corrections: corrections == null && nullToAbsent
+          ? const Value.absent()
+          : Value(corrections),
+      newVocabulary: newVocabulary == null && nullToAbsent
+          ? const Value.absent()
+          : Value(newVocabulary),
+      audioPath: audioPath == null && nullToAbsent
+          ? const Value.absent()
+          : Value(audioPath),
       createdAt: Value(createdAt),
     );
   }
@@ -4149,28 +4282,29 @@ class ChatMessage extends DataClass implements Insertable<ChatMessage> {
     content: content ?? this.content,
     translation: translation.present ? translation.value : this.translation,
     corrections: corrections.present ? corrections.value : this.corrections,
-    newVocabulary:
-        newVocabulary.present ? newVocabulary.value : this.newVocabulary,
+    newVocabulary: newVocabulary.present
+        ? newVocabulary.value
+        : this.newVocabulary,
     audioPath: audioPath.present ? audioPath.value : this.audioPath,
     createdAt: createdAt ?? this.createdAt,
   );
   ChatMessage copyWithCompanion(ChatMessagesCompanion data) {
     return ChatMessage(
       id: data.id.present ? data.id.value : this.id,
-      conversationId:
-          data.conversationId.present
-              ? data.conversationId.value
-              : this.conversationId,
+      conversationId: data.conversationId.present
+          ? data.conversationId.value
+          : this.conversationId,
       role: data.role.present ? data.role.value : this.role,
       content: data.content.present ? data.content.value : this.content,
-      translation:
-          data.translation.present ? data.translation.value : this.translation,
-      corrections:
-          data.corrections.present ? data.corrections.value : this.corrections,
-      newVocabulary:
-          data.newVocabulary.present
-              ? data.newVocabulary.value
-              : this.newVocabulary,
+      translation: data.translation.present
+          ? data.translation.value
+          : this.translation,
+      corrections: data.corrections.present
+          ? data.corrections.value
+          : this.corrections,
+      newVocabulary: data.newVocabulary.present
+          ? data.newVocabulary.value
+          : this.newVocabulary,
       audioPath: data.audioPath.present ? data.audioPath.value : this.audioPath,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
@@ -4540,44 +4674,38 @@ class $GrammarRulesTable extends GrammarRules
   GrammarRule map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return GrammarRule(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}id'],
-          )!,
-      ruleName:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}rule_name'],
-          )!,
-      pattern:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}pattern'],
-          )!,
-      explanation:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}explanation'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      ruleName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}rule_name'],
+      )!,
+      pattern: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}pattern'],
+      )!,
+      explanation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}explanation'],
+      )!,
       caseAffected: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}case_affected'],
       ),
-      examples:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}examples'],
-          )!,
+      examples: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}examples'],
+      )!,
       unitId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}unit_id'],
       ),
-      isActive:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_active'],
-          )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
     );
   }
 
@@ -4630,13 +4758,13 @@ class GrammarRule extends DataClass implements Insertable<GrammarRule> {
       ruleName: Value(ruleName),
       pattern: Value(pattern),
       explanation: Value(explanation),
-      caseAffected:
-          caseAffected == null && nullToAbsent
-              ? const Value.absent()
-              : Value(caseAffected),
+      caseAffected: caseAffected == null && nullToAbsent
+          ? const Value.absent()
+          : Value(caseAffected),
       examples: Value(examples),
-      unitId:
-          unitId == null && nullToAbsent ? const Value.absent() : Value(unitId),
+      unitId: unitId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unitId),
       isActive: Value(isActive),
     );
   }
@@ -4696,12 +4824,12 @@ class GrammarRule extends DataClass implements Insertable<GrammarRule> {
       id: data.id.present ? data.id.value : this.id,
       ruleName: data.ruleName.present ? data.ruleName.value : this.ruleName,
       pattern: data.pattern.present ? data.pattern.value : this.pattern,
-      explanation:
-          data.explanation.present ? data.explanation.value : this.explanation,
-      caseAffected:
-          data.caseAffected.present
-              ? data.caseAffected.value
-              : this.caseAffected,
+      explanation: data.explanation.present
+          ? data.explanation.value
+          : this.explanation,
+      caseAffected: data.caseAffected.present
+          ? data.caseAffected.value
+          : this.caseAffected,
       examples: data.examples.present ? data.examples.value : this.examples,
       unitId: data.unitId.present ? data.unitId.value : this.unitId,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
@@ -5129,56 +5257,46 @@ class $ExamResultsTable extends ExamResults
   ExamResult map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ExamResult(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      level:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}level'],
-          )!,
-      product:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}product'],
-          )!,
-      takenAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}taken_at'],
-          )!,
-      readingScore:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}reading_score'],
-          )!,
-      listeningScore:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}listening_score'],
-          )!,
-      writingScore:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}writing_score'],
-          )!,
-      speakingScore:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}speaking_score'],
-          )!,
-      totalScore:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}total_score'],
-          )!,
-      passed:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}passed'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      level: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}level'],
+      )!,
+      product: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product'],
+      )!,
+      takenAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}taken_at'],
+      )!,
+      readingScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}reading_score'],
+      )!,
+      listeningScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}listening_score'],
+      )!,
+      writingScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}writing_score'],
+      )!,
+      speakingScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}speaking_score'],
+      )!,
+      totalScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_score'],
+      )!,
+      passed: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}passed'],
+      )!,
       details: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}details'],
@@ -5250,10 +5368,9 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
       speakingScore: Value(speakingScore),
       totalScore: Value(totalScore),
       passed: Value(passed),
-      details:
-          details == null && nullToAbsent
-              ? const Value.absent()
-              : Value(details),
+      details: details == null && nullToAbsent
+          ? const Value.absent()
+          : Value(details),
     );
   }
 
@@ -5325,24 +5442,21 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
       level: data.level.present ? data.level.value : this.level,
       product: data.product.present ? data.product.value : this.product,
       takenAt: data.takenAt.present ? data.takenAt.value : this.takenAt,
-      readingScore:
-          data.readingScore.present
-              ? data.readingScore.value
-              : this.readingScore,
-      listeningScore:
-          data.listeningScore.present
-              ? data.listeningScore.value
-              : this.listeningScore,
-      writingScore:
-          data.writingScore.present
-              ? data.writingScore.value
-              : this.writingScore,
-      speakingScore:
-          data.speakingScore.present
-              ? data.speakingScore.value
-              : this.speakingScore,
-      totalScore:
-          data.totalScore.present ? data.totalScore.value : this.totalScore,
+      readingScore: data.readingScore.present
+          ? data.readingScore.value
+          : this.readingScore,
+      listeningScore: data.listeningScore.present
+          ? data.listeningScore.value
+          : this.listeningScore,
+      writingScore: data.writingScore.present
+          ? data.writingScore.value
+          : this.writingScore,
+      speakingScore: data.speakingScore.present
+          ? data.speakingScore.value
+          : this.speakingScore,
+      totalScore: data.totalScore.present
+          ? data.totalScore.value
+          : this.totalScore,
       passed: data.passed.present ? data.passed.value : this.passed,
       details: data.details.present ? data.details.value : this.details,
     );
@@ -5630,21 +5744,18 @@ class $UserProgressTable extends UserProgress
   UserProgressData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return UserProgressData(
-      key:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}key'],
-          )!,
-      value:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}value'],
-          )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}value'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
     );
   }
 
@@ -5882,16 +5993,14 @@ class $EarnedBadgesTable extends EarnedBadges
   EarnedBadge map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return EarnedBadge(
-      badgeId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}badge_id'],
-          )!,
-      earnedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}earned_at'],
-          )!,
+      badgeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}badge_id'],
+      )!,
+      earnedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}earned_at'],
+      )!,
     );
   }
 
@@ -6247,51 +6356,42 @@ class $ConsentRecordsTable extends ConsentRecords
   ConsentRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ConsentRecord(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      purpose:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}purpose'],
-          )!,
-      noticeVersion:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}notice_version'],
-          )!,
-      policyVersion:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}policy_version'],
-          )!,
-      granted:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}granted'],
-          )!,
-      decidedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}decided_at'],
-          )!,
-      appVersion:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}app_version'],
-          )!,
-      platform:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}platform'],
-          )!,
-      synced:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}synced'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      purpose: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purpose'],
+      )!,
+      noticeVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notice_version'],
+      )!,
+      policyVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}policy_version'],
+      )!,
+      granted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}granted'],
+      )!,
+      decidedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}decided_at'],
+      )!,
+      appVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}app_version'],
+      )!,
+      platform: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}platform'],
+      )!,
+      synced: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}synced'],
+      )!,
     );
   }
 
@@ -6433,18 +6533,17 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
     return ConsentRecord(
       id: data.id.present ? data.id.value : this.id,
       purpose: data.purpose.present ? data.purpose.value : this.purpose,
-      noticeVersion:
-          data.noticeVersion.present
-              ? data.noticeVersion.value
-              : this.noticeVersion,
-      policyVersion:
-          data.policyVersion.present
-              ? data.policyVersion.value
-              : this.policyVersion,
+      noticeVersion: data.noticeVersion.present
+          ? data.noticeVersion.value
+          : this.noticeVersion,
+      policyVersion: data.policyVersion.present
+          ? data.policyVersion.value
+          : this.policyVersion,
       granted: data.granted.present ? data.granted.value : this.granted,
       decidedAt: data.decidedAt.present ? data.decidedAt.value : this.decidedAt,
-      appVersion:
-          data.appVersion.present ? data.appVersion.value : this.appVersion,
+      appVersion: data.appVersion.present
+          ? data.appVersion.value
+          : this.appVersion,
       platform: data.platform.present ? data.platform.value : this.platform,
       synced: data.synced.present ? data.synced.value : this.synced,
     );
@@ -6778,31 +6877,26 @@ class $LessonProgressTable extends LessonProgress
   LessonProgressData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return LessonProgressData(
-      lessonId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}lesson_id'],
-          )!,
-      unitId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}unit_id'],
-          )!,
-      isCompleted:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_completed'],
-          )!,
-      bestScore:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.double,
-            data['${effectivePrefix}best_score'],
-          )!,
-      attempts:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}attempts'],
-          )!,
+      lessonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lesson_id'],
+      )!,
+      unitId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_id'],
+      )!,
+      isCompleted: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_completed'],
+      )!,
+      bestScore: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}best_score'],
+      )!,
+      attempts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}attempts'],
+      )!,
       lastAttempted: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}last_attempted'],
@@ -6853,10 +6947,9 @@ class LessonProgressData extends DataClass
       isCompleted: Value(isCompleted),
       bestScore: Value(bestScore),
       attempts: Value(attempts),
-      lastAttempted:
-          lastAttempted == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lastAttempted),
+      lastAttempted: lastAttempted == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastAttempted),
     );
   }
 
@@ -6900,21 +6993,22 @@ class LessonProgressData extends DataClass
     isCompleted: isCompleted ?? this.isCompleted,
     bestScore: bestScore ?? this.bestScore,
     attempts: attempts ?? this.attempts,
-    lastAttempted:
-        lastAttempted.present ? lastAttempted.value : this.lastAttempted,
+    lastAttempted: lastAttempted.present
+        ? lastAttempted.value
+        : this.lastAttempted,
   );
   LessonProgressData copyWithCompanion(LessonProgressCompanion data) {
     return LessonProgressData(
       lessonId: data.lessonId.present ? data.lessonId.value : this.lessonId,
       unitId: data.unitId.present ? data.unitId.value : this.unitId,
-      isCompleted:
-          data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
+      isCompleted: data.isCompleted.present
+          ? data.isCompleted.value
+          : this.isCompleted,
       bestScore: data.bestScore.present ? data.bestScore.value : this.bestScore,
       attempts: data.attempts.present ? data.attempts.value : this.attempts,
-      lastAttempted:
-          data.lastAttempted.present
-              ? data.lastAttempted.value
-              : this.lastAttempted,
+      lastAttempted: data.lastAttempted.present
+          ? data.lastAttempted.value
+          : this.lastAttempted,
     );
   }
 
@@ -7288,46 +7382,38 @@ class $SyncQueueTable extends SyncQueue
   SyncQueueData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SyncQueueData(
-      id:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      entity:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}entity'],
-          )!,
-      entityKey:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}entity_key'],
-          )!,
-      op:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}op'],
-          )!,
-      payload:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}payload'],
-          )!,
-      deviceId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}device_id'],
-          )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
-      attempts:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}attempts'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      entity: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}entity'],
+      )!,
+      entityKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}entity_key'],
+      )!,
+      op: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}op'],
+      )!,
+      payload: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payload'],
+      )!,
+      deviceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}device_id'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      attempts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}attempts'],
+      )!,
       nextAttemptAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}next_attempt_at'],
@@ -7433,18 +7519,15 @@ class SyncQueueData extends DataClass implements Insertable<SyncQueueData> {
       deviceId: Value(deviceId),
       updatedAt: Value(updatedAt),
       attempts: Value(attempts),
-      nextAttemptAt:
-          nextAttemptAt == null && nullToAbsent
-              ? const Value.absent()
-              : Value(nextAttemptAt),
-      deadLetteredAt:
-          deadLetteredAt == null && nullToAbsent
-              ? const Value.absent()
-              : Value(deadLetteredAt),
-      lastError:
-          lastError == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lastError),
+      nextAttemptAt: nextAttemptAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nextAttemptAt),
+      deadLetteredAt: deadLetteredAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deadLetteredAt),
+      lastError: lastError == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastError),
     );
   }
 
@@ -7506,10 +7589,12 @@ class SyncQueueData extends DataClass implements Insertable<SyncQueueData> {
     deviceId: deviceId ?? this.deviceId,
     updatedAt: updatedAt ?? this.updatedAt,
     attempts: attempts ?? this.attempts,
-    nextAttemptAt:
-        nextAttemptAt.present ? nextAttemptAt.value : this.nextAttemptAt,
-    deadLetteredAt:
-        deadLetteredAt.present ? deadLetteredAt.value : this.deadLetteredAt,
+    nextAttemptAt: nextAttemptAt.present
+        ? nextAttemptAt.value
+        : this.nextAttemptAt,
+    deadLetteredAt: deadLetteredAt.present
+        ? deadLetteredAt.value
+        : this.deadLetteredAt,
     lastError: lastError.present ? lastError.value : this.lastError,
   );
   SyncQueueData copyWithCompanion(SyncQueueCompanion data) {
@@ -7522,14 +7607,12 @@ class SyncQueueData extends DataClass implements Insertable<SyncQueueData> {
       deviceId: data.deviceId.present ? data.deviceId.value : this.deviceId,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       attempts: data.attempts.present ? data.attempts.value : this.attempts,
-      nextAttemptAt:
-          data.nextAttemptAt.present
-              ? data.nextAttemptAt.value
-              : this.nextAttemptAt,
-      deadLetteredAt:
-          data.deadLetteredAt.present
-              ? data.deadLetteredAt.value
-              : this.deadLetteredAt,
+      nextAttemptAt: data.nextAttemptAt.present
+          ? data.nextAttemptAt.value
+          : this.nextAttemptAt,
+      deadLetteredAt: data.deadLetteredAt.present
+          ? data.deadLetteredAt.value
+          : this.deadLetteredAt,
       lastError: data.lastError.present ? data.lastError.value : this.lastError,
     );
   }
@@ -7801,16 +7884,14 @@ class $SyncStateTable extends SyncState
   SyncStateData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return SyncStateData(
-      key:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}key'],
-          )!,
-      value:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}value'],
-          )!,
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}value'],
+      )!,
     );
   }
 
@@ -8286,65 +8367,54 @@ class $GamificationStateTableTable extends GamificationStateTable
   }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return GamificationStateTableData(
-      key:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}key'],
-          )!,
-      hearts:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}hearts'],
-          )!,
-      maxHearts:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}max_hearts'],
-          )!,
-      currentStreak:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}current_streak'],
-          )!,
-      longestStreak:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}longest_streak'],
-          )!,
-      totalXp:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}total_xp'],
-          )!,
-      dailyXp:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}daily_xp'],
-          )!,
-      dailyGoalXp:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}daily_goal_xp'],
-          )!,
-      gems:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}gems'],
-          )!,
-      earnedBadges:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}earned_badges'],
-          )!,
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      hearts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}hearts'],
+      )!,
+      maxHearts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}max_hearts'],
+      )!,
+      currentStreak: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}current_streak'],
+      )!,
+      longestStreak: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}longest_streak'],
+      )!,
+      totalXp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_xp'],
+      )!,
+      dailyXp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_xp'],
+      )!,
+      dailyGoalXp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_goal_xp'],
+      )!,
+      gems: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}gems'],
+      )!,
+      earnedBadges: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}earned_badges'],
+      )!,
       lastHeartRefill: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}last_heart_refill'],
       ),
-      streakFreezeAvailable:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}streak_freeze_available'],
-          )!,
+      streakFreezeAvailable: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}streak_freeze_available'],
+      )!,
       lastOpenDate: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}last_open_date'],
@@ -8353,11 +8423,10 @@ class $GamificationStateTableTable extends GamificationStateTable
         DriftSqlType.string,
         data['${effectivePrefix}daily_xp_reset_date'],
       ),
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
     );
   }
 
@@ -8440,19 +8509,16 @@ class GamificationStateTableData extends DataClass
       dailyGoalXp: Value(dailyGoalXp),
       gems: Value(gems),
       earnedBadges: Value(earnedBadges),
-      lastHeartRefill:
-          lastHeartRefill == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lastHeartRefill),
+      lastHeartRefill: lastHeartRefill == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastHeartRefill),
       streakFreezeAvailable: Value(streakFreezeAvailable),
-      lastOpenDate:
-          lastOpenDate == null && nullToAbsent
-              ? const Value.absent()
-              : Value(lastOpenDate),
-      dailyXpResetDate:
-          dailyXpResetDate == null && nullToAbsent
-              ? const Value.absent()
-              : Value(dailyXpResetDate),
+      lastOpenDate: lastOpenDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastOpenDate),
+      dailyXpResetDate: dailyXpResetDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dailyXpResetDate),
       updatedAt: Value(updatedAt),
     );
   }
@@ -8531,14 +8597,14 @@ class GamificationStateTableData extends DataClass
     dailyGoalXp: dailyGoalXp ?? this.dailyGoalXp,
     gems: gems ?? this.gems,
     earnedBadges: earnedBadges ?? this.earnedBadges,
-    lastHeartRefill:
-        lastHeartRefill.present ? lastHeartRefill.value : this.lastHeartRefill,
+    lastHeartRefill: lastHeartRefill.present
+        ? lastHeartRefill.value
+        : this.lastHeartRefill,
     streakFreezeAvailable: streakFreezeAvailable ?? this.streakFreezeAvailable,
     lastOpenDate: lastOpenDate.present ? lastOpenDate.value : this.lastOpenDate,
-    dailyXpResetDate:
-        dailyXpResetDate.present
-            ? dailyXpResetDate.value
-            : this.dailyXpResetDate,
+    dailyXpResetDate: dailyXpResetDate.present
+        ? dailyXpResetDate.value
+        : this.dailyXpResetDate,
     updatedAt: updatedAt ?? this.updatedAt,
   );
   GamificationStateTableData copyWithCompanion(
@@ -8548,39 +8614,33 @@ class GamificationStateTableData extends DataClass
       key: data.key.present ? data.key.value : this.key,
       hearts: data.hearts.present ? data.hearts.value : this.hearts,
       maxHearts: data.maxHearts.present ? data.maxHearts.value : this.maxHearts,
-      currentStreak:
-          data.currentStreak.present
-              ? data.currentStreak.value
-              : this.currentStreak,
-      longestStreak:
-          data.longestStreak.present
-              ? data.longestStreak.value
-              : this.longestStreak,
+      currentStreak: data.currentStreak.present
+          ? data.currentStreak.value
+          : this.currentStreak,
+      longestStreak: data.longestStreak.present
+          ? data.longestStreak.value
+          : this.longestStreak,
       totalXp: data.totalXp.present ? data.totalXp.value : this.totalXp,
       dailyXp: data.dailyXp.present ? data.dailyXp.value : this.dailyXp,
-      dailyGoalXp:
-          data.dailyGoalXp.present ? data.dailyGoalXp.value : this.dailyGoalXp,
+      dailyGoalXp: data.dailyGoalXp.present
+          ? data.dailyGoalXp.value
+          : this.dailyGoalXp,
       gems: data.gems.present ? data.gems.value : this.gems,
-      earnedBadges:
-          data.earnedBadges.present
-              ? data.earnedBadges.value
-              : this.earnedBadges,
-      lastHeartRefill:
-          data.lastHeartRefill.present
-              ? data.lastHeartRefill.value
-              : this.lastHeartRefill,
-      streakFreezeAvailable:
-          data.streakFreezeAvailable.present
-              ? data.streakFreezeAvailable.value
-              : this.streakFreezeAvailable,
-      lastOpenDate:
-          data.lastOpenDate.present
-              ? data.lastOpenDate.value
-              : this.lastOpenDate,
-      dailyXpResetDate:
-          data.dailyXpResetDate.present
-              ? data.dailyXpResetDate.value
-              : this.dailyXpResetDate,
+      earnedBadges: data.earnedBadges.present
+          ? data.earnedBadges.value
+          : this.earnedBadges,
+      lastHeartRefill: data.lastHeartRefill.present
+          ? data.lastHeartRefill.value
+          : this.lastHeartRefill,
+      streakFreezeAvailable: data.streakFreezeAvailable.present
+          ? data.streakFreezeAvailable.value
+          : this.streakFreezeAvailable,
+      lastOpenDate: data.lastOpenDate.present
+          ? data.lastOpenDate.value
+          : this.lastOpenDate,
+      dailyXpResetDate: data.dailyXpResetDate.present
+          ? data.dailyXpResetDate.value
+          : this.dailyXpResetDate,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
@@ -9094,56 +9154,46 @@ class $LessonAttemptsTable extends LessonAttempts
   LessonAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return LessonAttempt(
-      attemptId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}attempt_id'],
-          )!,
-      lessonId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}lesson_id'],
-          )!,
-      unitId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}unit_id'],
-          )!,
-      phase:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}phase'],
-          )!,
-      score:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.double,
-            data['${effectivePrefix}score'],
-          )!,
-      correctCount:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}correct_count'],
-          )!,
-      incorrectCount:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}incorrect_count'],
-          )!,
-      skippedCount:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}skipped_count'],
-          )!,
-      startedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}started_at'],
-          )!,
-      committedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}committed_at'],
-          )!,
+      attemptId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}attempt_id'],
+      )!,
+      lessonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lesson_id'],
+      )!,
+      unitId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_id'],
+      )!,
+      phase: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phase'],
+      )!,
+      score: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}score'],
+      )!,
+      correctCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}correct_count'],
+      )!,
+      incorrectCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}incorrect_count'],
+      )!,
+      skippedCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}skipped_count'],
+      )!,
+      startedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}started_at'],
+      )!,
+      committedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}committed_at'],
+      )!,
     );
   }
 
@@ -9272,21 +9322,19 @@ class LessonAttempt extends DataClass implements Insertable<LessonAttempt> {
       unitId: data.unitId.present ? data.unitId.value : this.unitId,
       phase: data.phase.present ? data.phase.value : this.phase,
       score: data.score.present ? data.score.value : this.score,
-      correctCount:
-          data.correctCount.present
-              ? data.correctCount.value
-              : this.correctCount,
-      incorrectCount:
-          data.incorrectCount.present
-              ? data.incorrectCount.value
-              : this.incorrectCount,
-      skippedCount:
-          data.skippedCount.present
-              ? data.skippedCount.value
-              : this.skippedCount,
+      correctCount: data.correctCount.present
+          ? data.correctCount.value
+          : this.correctCount,
+      incorrectCount: data.incorrectCount.present
+          ? data.incorrectCount.value
+          : this.incorrectCount,
+      skippedCount: data.skippedCount.present
+          ? data.skippedCount.value
+          : this.skippedCount,
       startedAt: data.startedAt.present ? data.startedAt.value : this.startedAt,
-      committedAt:
-          data.committedAt.present ? data.committedAt.value : this.committedAt,
+      committedAt: data.committedAt.present
+          ? data.committedAt.value
+          : this.committedAt,
     );
   }
 
@@ -9626,31 +9674,26 @@ class $RewardLedgerTable extends RewardLedger
   RewardLedgerData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return RewardLedgerData(
-      rewardId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}reward_id'],
-          )!,
-      sourceId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}source_id'],
-          )!,
-      rewardType:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}reward_type'],
-          )!,
-      xp:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}xp'],
-          )!,
-      awardedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}awarded_at'],
-          )!,
+      rewardId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reward_id'],
+      )!,
+      sourceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source_id'],
+      )!,
+      rewardType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reward_type'],
+      )!,
+      xp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}xp'],
+      )!,
+      awardedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}awarded_at'],
+      )!,
     );
   }
 
@@ -9737,8 +9780,9 @@ class RewardLedgerData extends DataClass
     return RewardLedgerData(
       rewardId: data.rewardId.present ? data.rewardId.value : this.rewardId,
       sourceId: data.sourceId.present ? data.sourceId.value : this.sourceId,
-      rewardType:
-          data.rewardType.present ? data.rewardType.value : this.rewardType,
+      rewardType: data.rewardType.present
+          ? data.rewardType.value
+          : this.rewardType,
       xp: data.xp.present ? data.xp.value : this.xp,
       awardedAt: data.awardedAt.present ? data.awardedAt.value : this.awardedAt,
     );
@@ -10025,36 +10069,30 @@ class $ExerciseAttemptsTable extends ExerciseAttempts
   ExerciseAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ExerciseAttempt(
-      presentationId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}presentation_id'],
-          )!,
-      lessonAttemptId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}lesson_attempt_id'],
-          )!,
-      exerciseId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}exercise_id'],
-          )!,
-      phase:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}phase'],
-          )!,
-      outcome:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}outcome'],
-          )!,
-      answeredAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}answered_at'],
-          )!,
+      presentationId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}presentation_id'],
+      )!,
+      lessonAttemptId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lesson_attempt_id'],
+      )!,
+      exerciseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}exercise_id'],
+      )!,
+      phase: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phase'],
+      )!,
+      outcome: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}outcome'],
+      )!,
+      answeredAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}answered_at'],
+      )!,
     );
   }
 
@@ -10146,20 +10184,20 @@ class ExerciseAttempt extends DataClass implements Insertable<ExerciseAttempt> {
   );
   ExerciseAttempt copyWithCompanion(ExerciseAttemptsCompanion data) {
     return ExerciseAttempt(
-      presentationId:
-          data.presentationId.present
-              ? data.presentationId.value
-              : this.presentationId,
-      lessonAttemptId:
-          data.lessonAttemptId.present
-              ? data.lessonAttemptId.value
-              : this.lessonAttemptId,
-      exerciseId:
-          data.exerciseId.present ? data.exerciseId.value : this.exerciseId,
+      presentationId: data.presentationId.present
+          ? data.presentationId.value
+          : this.presentationId,
+      lessonAttemptId: data.lessonAttemptId.present
+          ? data.lessonAttemptId.value
+          : this.lessonAttemptId,
+      exerciseId: data.exerciseId.present
+          ? data.exerciseId.value
+          : this.exerciseId,
       phase: data.phase.present ? data.phase.value : this.phase,
       outcome: data.outcome.present ? data.outcome.value : this.outcome,
-      answeredAt:
-          data.answeredAt.present ? data.answeredAt.value : this.answeredAt,
+      answeredAt: data.answeredAt.present
+          ? data.answeredAt.value
+          : this.answeredAt,
     );
   }
 
@@ -10443,31 +10481,26 @@ class $ReviewAttemptsTable extends ReviewAttempts
   ReviewAttempt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ReviewAttempt(
-      reviewId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}review_id'],
-          )!,
-      srsCardId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}srs_card_id'],
-          )!,
-      rating:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}rating'],
-          )!,
-      reviewedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}reviewed_at'],
-          )!,
-      introducedNewCard:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}introduced_new_card'],
-          )!,
+      reviewId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}review_id'],
+      )!,
+      srsCardId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}srs_card_id'],
+      )!,
+      rating: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}rating'],
+      )!,
+      reviewedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}reviewed_at'],
+      )!,
+      introducedNewCard: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}introduced_new_card'],
+      )!,
     );
   }
 
@@ -10554,12 +10587,12 @@ class ReviewAttempt extends DataClass implements Insertable<ReviewAttempt> {
       reviewId: data.reviewId.present ? data.reviewId.value : this.reviewId,
       srsCardId: data.srsCardId.present ? data.srsCardId.value : this.srsCardId,
       rating: data.rating.present ? data.rating.value : this.rating,
-      reviewedAt:
-          data.reviewedAt.present ? data.reviewedAt.value : this.reviewedAt,
-      introducedNewCard:
-          data.introducedNewCard.present
-              ? data.introducedNewCard.value
-              : this.introducedNewCard,
+      reviewedAt: data.reviewedAt.present
+          ? data.reviewedAt.value
+          : this.reviewedAt,
+      introducedNewCard: data.introducedNewCard.present
+          ? data.introducedNewCard.value
+          : this.introducedNewCard,
     );
   }
 
@@ -10872,40 +10905,34 @@ class $ContentReleaseInstallationsTable extends ContentReleaseInstallations
   }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ContentReleaseInstallation(
-      releaseId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}release_id'],
-          )!,
-      version:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}version'],
-          )!,
-      contentChecksum:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}content_checksum'],
-          )!,
+      releaseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}release_id'],
+      )!,
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      contentChecksum: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content_checksum'],
+      )!,
       notes: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}notes'],
       ),
-      isActive:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_active'],
-          )!,
-      isPrevious:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}is_previous'],
-          )!,
-      installedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}installed_at'],
-          )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
+      isPrevious: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_previous'],
+      )!,
+      installedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}installed_at'],
+      )!,
     );
   }
 
@@ -10953,8 +10980,9 @@ class ContentReleaseInstallation extends DataClass
       releaseId: Value(releaseId),
       version: Value(version),
       contentChecksum: Value(contentChecksum),
-      notes:
-          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
       isActive: Value(isActive),
       isPrevious: Value(isPrevious),
       installedAt: Value(installedAt),
@@ -11013,16 +11041,17 @@ class ContentReleaseInstallation extends DataClass
     return ContentReleaseInstallation(
       releaseId: data.releaseId.present ? data.releaseId.value : this.releaseId,
       version: data.version.present ? data.version.value : this.version,
-      contentChecksum:
-          data.contentChecksum.present
-              ? data.contentChecksum.value
-              : this.contentChecksum,
+      contentChecksum: data.contentChecksum.present
+          ? data.contentChecksum.value
+          : this.contentChecksum,
       notes: data.notes.present ? data.notes.value : this.notes,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
-      isPrevious:
-          data.isPrevious.present ? data.isPrevious.value : this.isPrevious,
-      installedAt:
-          data.installedAt.present ? data.installedAt.value : this.installedAt,
+      isPrevious: data.isPrevious.present
+          ? data.isPrevious.value
+          : this.isPrevious,
+      installedAt: data.installedAt.present
+          ? data.installedAt.value
+          : this.installedAt,
     );
   }
 
@@ -11322,31 +11351,26 @@ class $ContentReleasePacksTable extends ContentReleasePacks
   ContentReleasePack map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ContentReleasePack(
-      releaseId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}release_id'],
-          )!,
-      packKey:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}pack_key'],
-          )!,
-      packVersion:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}pack_version'],
-          )!,
-      checksum:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}checksum'],
-          )!,
-      content:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}content'],
-          )!,
+      releaseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}release_id'],
+      )!,
+      packKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}pack_key'],
+      )!,
+      packVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}pack_version'],
+      )!,
+      checksum: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}checksum'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
     );
   }
 
@@ -11433,8 +11457,9 @@ class ContentReleasePack extends DataClass
     return ContentReleasePack(
       releaseId: data.releaseId.present ? data.releaseId.value : this.releaseId,
       packKey: data.packKey.present ? data.packKey.value : this.packKey,
-      packVersion:
-          data.packVersion.present ? data.packVersion.value : this.packVersion,
+      packVersion: data.packVersion.present
+          ? data.packVersion.value
+          : this.packVersion,
       checksum: data.checksum.present ? data.checksum.value : this.checksum,
       content: data.content.present ? data.content.value : this.content,
     );
@@ -11824,60 +11849,50 @@ class $LearningEvidenceEventsTable extends LearningEvidenceEvents
   LearningEvidenceEvent map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return LearningEvidenceEvent(
-      evidenceId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}evidence_id'],
-          )!,
-      lessonId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}lesson_id'],
-          )!,
+      evidenceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}evidence_id'],
+      )!,
+      lessonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lesson_id'],
+      )!,
       exerciseId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}exercise_id'],
       ),
-      skill:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}skill'],
-          )!,
-      phase:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}phase'],
-          )!,
-      correct:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}correct'],
-          )!,
-      novelTask:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.bool,
-            data['${effectivePrefix}novel_task'],
-          )!,
-      supportsJson:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}supports_json'],
-          )!,
-      conceptKeysJson:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}concept_keys_json'],
-          )!,
-      responseLatencyMs:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}response_latency_ms'],
-          )!,
-      observedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}observed_at'],
-          )!,
+      skill: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}skill'],
+      )!,
+      phase: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phase'],
+      )!,
+      correct: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}correct'],
+      )!,
+      novelTask: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}novel_task'],
+      )!,
+      supportsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supports_json'],
+      )!,
+      conceptKeysJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}concept_keys_json'],
+      )!,
+      responseLatencyMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}response_latency_ms'],
+      )!,
+      observedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}observed_at'],
+      )!,
     );
   }
 
@@ -11936,10 +11951,9 @@ class LearningEvidenceEvent extends DataClass
     return LearningEvidenceEventsCompanion(
       evidenceId: Value(evidenceId),
       lessonId: Value(lessonId),
-      exerciseId:
-          exerciseId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(exerciseId),
+      exerciseId: exerciseId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(exerciseId),
       skill: Value(skill),
       phase: Value(phase),
       correct: Value(correct),
@@ -12017,29 +12031,29 @@ class LearningEvidenceEvent extends DataClass
     LearningEvidenceEventsCompanion data,
   ) {
     return LearningEvidenceEvent(
-      evidenceId:
-          data.evidenceId.present ? data.evidenceId.value : this.evidenceId,
+      evidenceId: data.evidenceId.present
+          ? data.evidenceId.value
+          : this.evidenceId,
       lessonId: data.lessonId.present ? data.lessonId.value : this.lessonId,
-      exerciseId:
-          data.exerciseId.present ? data.exerciseId.value : this.exerciseId,
+      exerciseId: data.exerciseId.present
+          ? data.exerciseId.value
+          : this.exerciseId,
       skill: data.skill.present ? data.skill.value : this.skill,
       phase: data.phase.present ? data.phase.value : this.phase,
       correct: data.correct.present ? data.correct.value : this.correct,
       novelTask: data.novelTask.present ? data.novelTask.value : this.novelTask,
-      supportsJson:
-          data.supportsJson.present
-              ? data.supportsJson.value
-              : this.supportsJson,
-      conceptKeysJson:
-          data.conceptKeysJson.present
-              ? data.conceptKeysJson.value
-              : this.conceptKeysJson,
-      responseLatencyMs:
-          data.responseLatencyMs.present
-              ? data.responseLatencyMs.value
-              : this.responseLatencyMs,
-      observedAt:
-          data.observedAt.present ? data.observedAt.value : this.observedAt,
+      supportsJson: data.supportsJson.present
+          ? data.supportsJson.value
+          : this.supportsJson,
+      conceptKeysJson: data.conceptKeysJson.present
+          ? data.conceptKeysJson.value
+          : this.conceptKeysJson,
+      responseLatencyMs: data.responseLatencyMs.present
+          ? data.responseLatencyMs.value
+          : this.responseLatencyMs,
+      observedAt: data.observedAt.present
+          ? data.observedAt.value
+          : this.observedAt,
     );
   }
 
@@ -12416,35 +12430,30 @@ class $PlacementProfilesTable extends PlacementProfiles
   PlacementProfile map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return PlacementProfile(
-      key:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}key'],
-          )!,
-      provisionalUnit:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}provisional_unit'],
-          )!,
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      provisionalUnit: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}provisional_unit'],
+      )!,
       learnerOverrideUnit: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}learner_override_unit'],
       ),
-      estimatesJson:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}estimates_json'],
-          )!,
-      sampleSize:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}sample_size'],
-          )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
+      estimatesJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}estimates_json'],
+      )!,
+      sampleSize: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}sample_size'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
     );
   }
 
@@ -12488,10 +12497,9 @@ class PlacementProfile extends DataClass
     return PlacementProfilesCompanion(
       key: Value(key),
       provisionalUnit: Value(provisionalUnit),
-      learnerOverrideUnit:
-          learnerOverrideUnit == null && nullToAbsent
-              ? const Value.absent()
-              : Value(learnerOverrideUnit),
+      learnerOverrideUnit: learnerOverrideUnit == null && nullToAbsent
+          ? const Value.absent()
+          : Value(learnerOverrideUnit),
       estimatesJson: Value(estimatesJson),
       sampleSize: Value(sampleSize),
       updatedAt: Value(updatedAt),
@@ -12537,10 +12545,9 @@ class PlacementProfile extends DataClass
   }) => PlacementProfile(
     key: key ?? this.key,
     provisionalUnit: provisionalUnit ?? this.provisionalUnit,
-    learnerOverrideUnit:
-        learnerOverrideUnit.present
-            ? learnerOverrideUnit.value
-            : this.learnerOverrideUnit,
+    learnerOverrideUnit: learnerOverrideUnit.present
+        ? learnerOverrideUnit.value
+        : this.learnerOverrideUnit,
     estimatesJson: estimatesJson ?? this.estimatesJson,
     sampleSize: sampleSize ?? this.sampleSize,
     updatedAt: updatedAt ?? this.updatedAt,
@@ -12548,20 +12555,18 @@ class PlacementProfile extends DataClass
   PlacementProfile copyWithCompanion(PlacementProfilesCompanion data) {
     return PlacementProfile(
       key: data.key.present ? data.key.value : this.key,
-      provisionalUnit:
-          data.provisionalUnit.present
-              ? data.provisionalUnit.value
-              : this.provisionalUnit,
-      learnerOverrideUnit:
-          data.learnerOverrideUnit.present
-              ? data.learnerOverrideUnit.value
-              : this.learnerOverrideUnit,
-      estimatesJson:
-          data.estimatesJson.present
-              ? data.estimatesJson.value
-              : this.estimatesJson,
-      sampleSize:
-          data.sampleSize.present ? data.sampleSize.value : this.sampleSize,
+      provisionalUnit: data.provisionalUnit.present
+          ? data.provisionalUnit.value
+          : this.provisionalUnit,
+      learnerOverrideUnit: data.learnerOverrideUnit.present
+          ? data.learnerOverrideUnit.value
+          : this.learnerOverrideUnit,
+      estimatesJson: data.estimatesJson.present
+          ? data.estimatesJson.value
+          : this.estimatesJson,
+      sampleSize: data.sampleSize.present
+          ? data.sampleSize.value
+          : this.sampleSize,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
@@ -12932,45 +12937,38 @@ class $DelayedTransferAssignmentsTable extends DelayedTransferAssignments
   }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DelayedTransferAssignment(
-      assignmentId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}assignment_id'],
-          )!,
-      sourceAttemptId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}source_attempt_id'],
-          )!,
-      lessonId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}lesson_id'],
-          )!,
-      sourceExerciseId:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.int,
-            data['${effectivePrefix}source_exercise_id'],
-          )!,
-      dueAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}due_at'],
-          )!,
-      status:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.string,
-            data['${effectivePrefix}status'],
-          )!,
+      assignmentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}assignment_id'],
+      )!,
+      sourceAttemptId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source_attempt_id'],
+      )!,
+      lessonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lesson_id'],
+      )!,
+      sourceExerciseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}source_exercise_id'],
+      )!,
+      dueAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}due_at'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
       completedEvidenceId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}completed_evidence_id'],
       ),
-      createdAt:
-          attachedDatabase.typeMapping.read(
-            DriftSqlType.dateTime,
-            data['${effectivePrefix}created_at'],
-          )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
       completedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
         data['${effectivePrefix}completed_at'],
@@ -13033,15 +13031,13 @@ class DelayedTransferAssignment extends DataClass
       sourceExerciseId: Value(sourceExerciseId),
       dueAt: Value(dueAt),
       status: Value(status),
-      completedEvidenceId:
-          completedEvidenceId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(completedEvidenceId),
+      completedEvidenceId: completedEvidenceId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedEvidenceId),
       createdAt: Value(createdAt),
-      completedAt:
-          completedAt == null && nullToAbsent
-              ? const Value.absent()
-              : Value(completedAt),
+      completedAt: completedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedAt),
     );
   }
 
@@ -13097,10 +13093,9 @@ class DelayedTransferAssignment extends DataClass
     sourceExerciseId: sourceExerciseId ?? this.sourceExerciseId,
     dueAt: dueAt ?? this.dueAt,
     status: status ?? this.status,
-    completedEvidenceId:
-        completedEvidenceId.present
-            ? completedEvidenceId.value
-            : this.completedEvidenceId,
+    completedEvidenceId: completedEvidenceId.present
+        ? completedEvidenceId.value
+        : this.completedEvidenceId,
     createdAt: createdAt ?? this.createdAt,
     completedAt: completedAt.present ? completedAt.value : this.completedAt,
   );
@@ -13108,28 +13103,25 @@ class DelayedTransferAssignment extends DataClass
     DelayedTransferAssignmentsCompanion data,
   ) {
     return DelayedTransferAssignment(
-      assignmentId:
-          data.assignmentId.present
-              ? data.assignmentId.value
-              : this.assignmentId,
-      sourceAttemptId:
-          data.sourceAttemptId.present
-              ? data.sourceAttemptId.value
-              : this.sourceAttemptId,
+      assignmentId: data.assignmentId.present
+          ? data.assignmentId.value
+          : this.assignmentId,
+      sourceAttemptId: data.sourceAttemptId.present
+          ? data.sourceAttemptId.value
+          : this.sourceAttemptId,
       lessonId: data.lessonId.present ? data.lessonId.value : this.lessonId,
-      sourceExerciseId:
-          data.sourceExerciseId.present
-              ? data.sourceExerciseId.value
-              : this.sourceExerciseId,
+      sourceExerciseId: data.sourceExerciseId.present
+          ? data.sourceExerciseId.value
+          : this.sourceExerciseId,
       dueAt: data.dueAt.present ? data.dueAt.value : this.dueAt,
       status: data.status.present ? data.status.value : this.status,
-      completedEvidenceId:
-          data.completedEvidenceId.present
-              ? data.completedEvidenceId.value
-              : this.completedEvidenceId,
+      completedEvidenceId: data.completedEvidenceId.present
+          ? data.completedEvidenceId.value
+          : this.completedEvidenceId,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
-      completedAt:
-          data.completedAt.present ? data.completedAt.value : this.completedAt,
+      completedAt: data.completedAt.present
+          ? data.completedAt.value
+          : this.completedAt,
     );
   }
 
@@ -13820,12 +13812,12 @@ class $$UnitsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$UnitsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$UnitsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$UnitsTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$UnitsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$UnitsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$UnitsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -13870,83 +13862,83 @@ class $$UnitsTableTableManager
                 lessonCount: lessonCount,
                 isActive: isActive,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$UnitsTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
-          prefetchHooksCallback: ({
-            lessonsRefs = false,
-            flashcardsRefs = false,
-            grammarRulesRefs = false,
-          }) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (lessonsRefs) db.lessons,
-                if (flashcardsRefs) db.flashcards,
-                if (grammarRulesRefs) db.grammarRules,
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (lessonsRefs)
-                    await $_getPrefetchedData<Unit, $UnitsTable, Lesson>(
-                      currentTable: table,
-                      referencedTable: $$UnitsTableReferences._lessonsRefsTable(
-                        db,
-                      ),
-                      managerFromTypedResult:
-                          (p0) =>
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) =>
+                    (e.readTable(table), $$UnitsTableReferences(db, table, e)),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                lessonsRefs = false,
+                flashcardsRefs = false,
+                grammarRulesRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (lessonsRefs) db.lessons,
+                    if (flashcardsRefs) db.flashcards,
+                    if (grammarRulesRefs) db.grammarRules,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (lessonsRefs)
+                        await $_getPrefetchedData<Unit, $UnitsTable, Lesson>(
+                          currentTable: table,
+                          referencedTable: $$UnitsTableReferences
+                              ._lessonsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
                               $$UnitsTableReferences(db, table, p0).lessonsRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) =>
-                              referencedItems.where((e) => e.unitId == item.id),
-                      typedResults: items,
-                    ),
-                  if (flashcardsRefs)
-                    await $_getPrefetchedData<Unit, $UnitsTable, Flashcard>(
-                      currentTable: table,
-                      referencedTable: $$UnitsTableReferences
-                          ._flashcardsRefsTable(db),
-                      managerFromTypedResult:
-                          (p0) =>
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.unitId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (flashcardsRefs)
+                        await $_getPrefetchedData<Unit, $UnitsTable, Flashcard>(
+                          currentTable: table,
+                          referencedTable: $$UnitsTableReferences
+                              ._flashcardsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
                               $$UnitsTableReferences(
                                 db,
                                 table,
                                 p0,
                               ).flashcardsRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) =>
-                              referencedItems.where((e) => e.unitId == item.id),
-                      typedResults: items,
-                    ),
-                  if (grammarRulesRefs)
-                    await $_getPrefetchedData<Unit, $UnitsTable, GrammarRule>(
-                      currentTable: table,
-                      referencedTable: $$UnitsTableReferences
-                          ._grammarRulesRefsTable(db),
-                      managerFromTypedResult:
-                          (p0) =>
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.unitId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (grammarRulesRefs)
+                        await $_getPrefetchedData<
+                          Unit,
+                          $UnitsTable,
+                          GrammarRule
+                        >(
+                          currentTable: table,
+                          referencedTable: $$UnitsTableReferences
+                              ._grammarRulesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
                               $$UnitsTableReferences(
                                 db,
                                 table,
                                 p0,
                               ).grammarRulesRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) =>
-                              referencedItems.where((e) => e.unitId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.unitId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -13976,6 +13968,10 @@ typedef $$LessonsTableCreateCompanionBuilder =
       required int orderInUnit,
       required String title,
       required String description,
+      Value<String> canDo,
+      Value<String> newLanguageJson,
+      Value<String> recyclesJson,
+      Value<String> exitTask,
       Value<int> durationMinutes,
       Value<String> lessonType,
       Value<bool> isReview,
@@ -13988,6 +13984,10 @@ typedef $$LessonsTableUpdateCompanionBuilder =
       Value<int> orderInUnit,
       Value<String> title,
       Value<String> description,
+      Value<String> canDo,
+      Value<String> newLanguageJson,
+      Value<String> recyclesJson,
+      Value<String> exitTask,
       Value<int> durationMinutes,
       Value<String> lessonType,
       Value<bool> isReview,
@@ -14078,6 +14078,26 @@ class $$LessonsTableFilterComposer
 
   ColumnFilters<String> get description => $composableBuilder(
     column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get canDo => $composableBuilder(
+    column: $table.canDo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get newLanguageJson => $composableBuilder(
+    column: $table.newLanguageJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get recyclesJson => $composableBuilder(
+    column: $table.recyclesJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get exitTask => $composableBuilder(
+    column: $table.exitTask,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -14204,6 +14224,26 @@ class $$LessonsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get canDo => $composableBuilder(
+    column: $table.canDo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get newLanguageJson => $composableBuilder(
+    column: $table.newLanguageJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get recyclesJson => $composableBuilder(
+    column: $table.recyclesJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get exitTask => $composableBuilder(
+    column: $table.exitTask,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get durationMinutes => $composableBuilder(
     column: $table.durationMinutes,
     builder: (column) => ColumnOrderings(column),
@@ -14272,6 +14312,22 @@ class $$LessonsTableAnnotationComposer
     column: $table.description,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get canDo =>
+      $composableBuilder(column: $table.canDo, builder: (column) => column);
+
+  GeneratedColumn<String> get newLanguageJson => $composableBuilder(
+    column: $table.newLanguageJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get recyclesJson => $composableBuilder(
+    column: $table.recyclesJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get exitTask =>
+      $composableBuilder(column: $table.exitTask, builder: (column) => column);
 
   GeneratedColumn<int> get durationMinutes => $composableBuilder(
     column: $table.durationMinutes,
@@ -14387,12 +14443,12 @@ class $$LessonsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$LessonsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$LessonsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$LessonsTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$LessonsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LessonsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LessonsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -14400,6 +14456,10 @@ class $$LessonsTableTableManager
                 Value<int> orderInUnit = const Value.absent(),
                 Value<String> title = const Value.absent(),
                 Value<String> description = const Value.absent(),
+                Value<String> canDo = const Value.absent(),
+                Value<String> newLanguageJson = const Value.absent(),
+                Value<String> recyclesJson = const Value.absent(),
+                Value<String> exitTask = const Value.absent(),
                 Value<int> durationMinutes = const Value.absent(),
                 Value<String> lessonType = const Value.absent(),
                 Value<bool> isReview = const Value.absent(),
@@ -14410,6 +14470,10 @@ class $$LessonsTableTableManager
                 orderInUnit: orderInUnit,
                 title: title,
                 description: description,
+                canDo: canDo,
+                newLanguageJson: newLanguageJson,
+                recyclesJson: recyclesJson,
+                exitTask: exitTask,
                 durationMinutes: durationMinutes,
                 lessonType: lessonType,
                 isReview: isReview,
@@ -14422,6 +14486,10 @@ class $$LessonsTableTableManager
                 required int orderInUnit,
                 required String title,
                 required String description,
+                Value<String> canDo = const Value.absent(),
+                Value<String> newLanguageJson = const Value.absent(),
+                Value<String> recyclesJson = const Value.absent(),
+                Value<String> exitTask = const Value.absent(),
                 Value<int> durationMinutes = const Value.absent(),
                 Value<String> lessonType = const Value.absent(),
                 Value<bool> isReview = const Value.absent(),
@@ -14432,104 +14500,115 @@ class $$LessonsTableTableManager
                 orderInUnit: orderInUnit,
                 title: title,
                 description: description,
+                canDo: canDo,
+                newLanguageJson: newLanguageJson,
+                recyclesJson: recyclesJson,
+                exitTask: exitTask,
                 durationMinutes: durationMinutes,
                 lessonType: lessonType,
                 isReview: isReview,
                 isActive: isActive,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$LessonsTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
-          prefetchHooksCallback: ({
-            unitId = false,
-            exercisesRefs = false,
-            flashcardsRefs = false,
-          }) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (exercisesRefs) db.exercises,
-                if (flashcardsRefs) db.flashcards,
-              ],
-              addJoins: <
-                T extends TableManagerState<
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic
-                >
-              >(state) {
-                if (unitId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.unitId,
-                            referencedTable: $$LessonsTableReferences
-                                ._unitIdTable(db),
-                            referencedColumn:
-                                $$LessonsTableReferences._unitIdTable(db).id,
-                          )
-                          as T;
-                }
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$LessonsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                unitId = false,
+                exercisesRefs = false,
+                flashcardsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (exercisesRefs) db.exercises,
+                    if (flashcardsRefs) db.flashcards,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (unitId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.unitId,
+                                    referencedTable: $$LessonsTableReferences
+                                        ._unitIdTable(db),
+                                    referencedColumn: $$LessonsTableReferences
+                                        ._unitIdTable(db)
+                                        .id,
+                                  )
+                                  as T;
+                        }
 
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (exercisesRefs)
-                    await $_getPrefetchedData<Lesson, $LessonsTable, Exercise>(
-                      currentTable: table,
-                      referencedTable: $$LessonsTableReferences
-                          ._exercisesRefsTable(db),
-                      managerFromTypedResult:
-                          (p0) =>
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (exercisesRefs)
+                        await $_getPrefetchedData<
+                          Lesson,
+                          $LessonsTable,
+                          Exercise
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LessonsTableReferences
+                              ._exercisesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
                               $$LessonsTableReferences(
                                 db,
                                 table,
                                 p0,
                               ).exercisesRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) => referencedItems.where(
-                            (e) => e.lessonId == item.id,
-                          ),
-                      typedResults: items,
-                    ),
-                  if (flashcardsRefs)
-                    await $_getPrefetchedData<Lesson, $LessonsTable, Flashcard>(
-                      currentTable: table,
-                      referencedTable: $$LessonsTableReferences
-                          ._flashcardsRefsTable(db),
-                      managerFromTypedResult:
-                          (p0) =>
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.lessonId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (flashcardsRefs)
+                        await $_getPrefetchedData<
+                          Lesson,
+                          $LessonsTable,
+                          Flashcard
+                        >(
+                          currentTable: table,
+                          referencedTable: $$LessonsTableReferences
+                              ._flashcardsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
                               $$LessonsTableReferences(
                                 db,
                                 table,
                                 p0,
                               ).flashcardsRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) => referencedItems.where(
-                            (e) => e.lessonId == item.id,
-                          ),
-                      typedResults: items,
-                    ),
-                ];
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.lessonId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -14824,12 +14903,12 @@ class $$ExercisesTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ExercisesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$ExercisesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$ExercisesTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$ExercisesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExercisesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExercisesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -14874,52 +14953,50 @@ class $$ExercisesTableTableManager
                 xpReward: xpReward,
                 isActive: isActive,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$ExercisesTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ExercisesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({lessonId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                T extends TableManagerState<
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic
-                >
-              >(state) {
-                if (lessonId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.lessonId,
-                            referencedTable: $$ExercisesTableReferences
-                                ._lessonIdTable(db),
-                            referencedColumn:
-                                $$ExercisesTableReferences
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (lessonId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.lessonId,
+                                referencedTable: $$ExercisesTableReferences
+                                    ._lessonIdTable(db),
+                                referencedColumn: $$ExercisesTableReferences
                                     ._lessonIdTable(db)
                                     .id,
-                          )
-                          as T;
-                }
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
@@ -15534,12 +15611,12 @@ class $$FlashcardsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$FlashcardsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$FlashcardsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$FlashcardsTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$FlashcardsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$FlashcardsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$FlashcardsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -15628,96 +15705,93 @@ class $$FlashcardsTableTableManager
                 lessonId: lessonId,
                 isActive: isActive,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$FlashcardsTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
-          prefetchHooksCallback: ({
-            unitId = false,
-            lessonId = false,
-            srsCardsRefs = false,
-          }) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (srsCardsRefs) db.srsCards],
-              addJoins: <
-                T extends TableManagerState<
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic
-                >
-              >(state) {
-                if (unitId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.unitId,
-                            referencedTable: $$FlashcardsTableReferences
-                                ._unitIdTable(db),
-                            referencedColumn:
-                                $$FlashcardsTableReferences._unitIdTable(db).id,
-                          )
-                          as T;
-                }
-                if (lessonId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.lessonId,
-                            referencedTable: $$FlashcardsTableReferences
-                                ._lessonIdTable(db),
-                            referencedColumn:
-                                $$FlashcardsTableReferences
-                                    ._lessonIdTable(db)
-                                    .id,
-                          )
-                          as T;
-                }
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$FlashcardsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({unitId = false, lessonId = false, srsCardsRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [if (srsCardsRefs) db.srsCards],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (unitId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.unitId,
+                                    referencedTable: $$FlashcardsTableReferences
+                                        ._unitIdTable(db),
+                                    referencedColumn:
+                                        $$FlashcardsTableReferences
+                                            ._unitIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
+                        if (lessonId) {
+                          state =
+                              state.withJoin(
+                                    currentTable: table,
+                                    currentColumn: table.lessonId,
+                                    referencedTable: $$FlashcardsTableReferences
+                                        ._lessonIdTable(db),
+                                    referencedColumn:
+                                        $$FlashcardsTableReferences
+                                            ._lessonIdTable(db)
+                                            .id,
+                                  )
+                                  as T;
+                        }
 
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (srsCardsRefs)
-                    await $_getPrefetchedData<
-                      Flashcard,
-                      $FlashcardsTable,
-                      SrsCard
-                    >(
-                      currentTable: table,
-                      referencedTable: $$FlashcardsTableReferences
-                          ._srsCardsRefsTable(db),
-                      managerFromTypedResult:
-                          (p0) =>
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (srsCardsRefs)
+                        await $_getPrefetchedData<
+                          Flashcard,
+                          $FlashcardsTable,
+                          SrsCard
+                        >(
+                          currentTable: table,
+                          referencedTable: $$FlashcardsTableReferences
+                              ._srsCardsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
                               $$FlashcardsTableReferences(
                                 db,
                                 table,
                                 p0,
                               ).srsCardsRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) => referencedItems.where(
-                            (e) => e.flashcardId == item.id,
-                          ),
-                      typedResults: items,
-                    ),
-                ];
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.flashcardId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -16027,12 +16101,12 @@ class $$SrsCardsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$SrsCardsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$SrsCardsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$SrsCardsTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$SrsCardsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SrsCardsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SrsCardsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -16081,52 +16155,50 @@ class $$SrsCardsTableTableManager
                 state: state,
                 lastReviewed: lastReviewed,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$SrsCardsTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$SrsCardsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({flashcardId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                T extends TableManagerState<
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic
-                >
-              >(state) {
-                if (flashcardId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.flashcardId,
-                            referencedTable: $$SrsCardsTableReferences
-                                ._flashcardIdTable(db),
-                            referencedColumn:
-                                $$SrsCardsTableReferences
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (flashcardId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.flashcardId,
+                                referencedTable: $$SrsCardsTableReferences
+                                    ._flashcardIdTable(db),
+                                referencedColumn: $$SrsCardsTableReferences
                                     ._flashcardIdTable(db)
                                     .id,
-                          )
-                          as T;
-                }
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
@@ -16346,16 +16418,12 @@ class $$ConversationsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ConversationsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () =>
-                  $$ConversationsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$ConversationsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              $$ConversationsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ConversationsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ConversationsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
@@ -16384,16 +16452,14 @@ class $$ConversationsTableTableManager
                 createdAt: createdAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$ConversationsTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ConversationsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({chatMessagesRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -16410,15 +16476,14 @@ class $$ConversationsTableTableManager
                       currentTable: table,
                       referencedTable: $$ConversationsTableReferences
                           ._chatMessagesRefsTable(db),
-                      managerFromTypedResult:
-                          (p0) =>
-                              $$ConversationsTableReferences(
-                                db,
-                                table,
-                                p0,
-                              ).chatMessagesRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) => referencedItems.where(
+                      managerFromTypedResult: (p0) =>
+                          $$ConversationsTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).chatMessagesRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where(
                             (e) => e.conversationId == item.id,
                           ),
                       typedResults: items,
@@ -16722,13 +16787,12 @@ class $$ChatMessagesTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ChatMessagesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$ChatMessagesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () =>
-                  $$ChatMessagesTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$ChatMessagesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ChatMessagesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ChatMessagesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -16773,52 +16837,50 @@ class $$ChatMessagesTableTableManager
                 audioPath: audioPath,
                 createdAt: createdAt,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$ChatMessagesTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ChatMessagesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({conversationId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                T extends TableManagerState<
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic
-                >
-              >(state) {
-                if (conversationId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.conversationId,
-                            referencedTable: $$ChatMessagesTableReferences
-                                ._conversationIdTable(db),
-                            referencedColumn:
-                                $$ChatMessagesTableReferences
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (conversationId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.conversationId,
+                                referencedTable: $$ChatMessagesTableReferences
+                                    ._conversationIdTable(db),
+                                referencedColumn: $$ChatMessagesTableReferences
                                     ._conversationIdTable(db)
                                     .id,
-                          )
-                          as T;
-                }
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
@@ -17103,13 +17165,12 @@ class $$GrammarRulesTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$GrammarRulesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$GrammarRulesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () =>
-                  $$GrammarRulesTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$GrammarRulesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$GrammarRulesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$GrammarRulesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
@@ -17154,52 +17215,50 @@ class $$GrammarRulesTableTableManager
                 isActive: isActive,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$GrammarRulesTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$GrammarRulesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({unitId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                T extends TableManagerState<
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic
-                >
-              >(state) {
-                if (unitId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.unitId,
-                            referencedTable: $$GrammarRulesTableReferences
-                                ._unitIdTable(db),
-                            referencedColumn:
-                                $$GrammarRulesTableReferences
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (unitId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.unitId,
+                                referencedTable: $$GrammarRulesTableReferences
+                                    ._unitIdTable(db),
+                                referencedColumn: $$GrammarRulesTableReferences
                                     ._unitIdTable(db)
                                     .id,
-                          )
-                          as T;
-                }
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
@@ -17458,13 +17517,12 @@ class $$ExamResultsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ExamResultsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$ExamResultsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () =>
-                  $$ExamResultsTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$ExamResultsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExamResultsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExamResultsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -17517,16 +17575,9 @@ class $$ExamResultsTableTableManager
                 passed: passed,
                 details: details,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -17656,13 +17707,12 @@ class $$UserProgressTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$UserProgressTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$UserProgressTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () =>
-                  $$UserProgressTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$UserProgressTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$UserProgressTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$UserProgressTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> key = const Value.absent(),
@@ -17687,16 +17737,9 @@ class $$UserProgressTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -17811,13 +17854,12 @@ class $$EarnedBadgesTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$EarnedBadgesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$EarnedBadgesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () =>
-                  $$EarnedBadgesTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$EarnedBadgesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EarnedBadgesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EarnedBadgesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> badgeId = const Value.absent(),
@@ -17838,16 +17880,9 @@ class $$EarnedBadgesTableTableManager
                 earnedAt: earnedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -18073,16 +18108,12 @@ class $$ConsentRecordsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ConsentRecordsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () =>
-                  $$ConsentRecordsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$ConsentRecordsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              $$ConsentRecordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ConsentRecordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ConsentRecordsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -18127,16 +18158,9 @@ class $$ConsentRecordsTableTableManager
                 platform: platform,
                 synced: synced,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -18319,16 +18343,12 @@ class $$LessonProgressTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$LessonProgressTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () =>
-                  $$LessonProgressTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$LessonProgressTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              $$LessonProgressTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LessonProgressTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LessonProgressTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> lessonId = const Value.absent(),
@@ -18361,16 +18381,9 @@ class $$LessonProgressTableTableManager
                 attempts: attempts,
                 lastAttempted: lastAttempted,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -18622,12 +18635,12 @@ class $$SyncQueueTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$SyncQueueTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$SyncQueueTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$SyncQueueTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$SyncQueueTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SyncQueueTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SyncQueueTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -18680,16 +18693,9 @@ class $$SyncQueueTableTableManager
                 deadLetteredAt: deadLetteredAt,
                 lastError: lastError,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -18804,12 +18810,12 @@ class $$SyncStateTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$SyncStateTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$SyncStateTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$SyncStateTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$SyncStateTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SyncStateTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SyncStateTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> key = const Value.absent(),
@@ -18826,16 +18832,9 @@ class $$SyncStateTableTableManager
                 value: value,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -19167,18 +19166,18 @@ class $$GamificationStateTableTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$GamificationStateTableTableFilterComposer(
+          createFilteringComposer: () =>
+              $$GamificationStateTableTableFilterComposer(
                 $db: db,
                 $table: table,
               ),
-          createOrderingComposer:
-              () => $$GamificationStateTableTableOrderingComposer(
+          createOrderingComposer: () =>
+              $$GamificationStateTableTableOrderingComposer(
                 $db: db,
                 $table: table,
               ),
-          createComputedFieldComposer:
-              () => $$GamificationStateTableTableAnnotationComposer(
+          createComputedFieldComposer: () =>
+              $$GamificationStateTableTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -19254,16 +19253,9 @@ class $$GamificationStateTableTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -19512,16 +19504,12 @@ class $$LessonAttemptsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$LessonAttemptsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () =>
-                  $$LessonAttemptsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$LessonAttemptsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              $$LessonAttemptsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LessonAttemptsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LessonAttemptsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> attemptId = const Value.absent(),
@@ -19574,16 +19562,9 @@ class $$LessonAttemptsTableTableManager
                 committedAt: committedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -19745,13 +19726,12 @@ class $$RewardLedgerTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$RewardLedgerTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$RewardLedgerTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () =>
-                  $$RewardLedgerTableAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $$RewardLedgerTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RewardLedgerTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RewardLedgerTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> rewardId = const Value.absent(),
@@ -19784,16 +19764,9 @@ class $$RewardLedgerTableTableManager
                 awardedAt: awardedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -19982,19 +19955,12 @@ class $$ExerciseAttemptsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () =>
-                  $$ExerciseAttemptsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => $$ExerciseAttemptsTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => $$ExerciseAttemptsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              $$ExerciseAttemptsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExerciseAttemptsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExerciseAttemptsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> presentationId = const Value.absent(),
@@ -20031,16 +19997,9 @@ class $$ExerciseAttemptsTableTableManager
                 answeredAt: answeredAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -20206,16 +20165,12 @@ class $$ReviewAttemptsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ReviewAttemptsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () =>
-                  $$ReviewAttemptsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => $$ReviewAttemptsTableAnnotationComposer(
-                $db: db,
-                $table: table,
-              ),
+          createFilteringComposer: () =>
+              $$ReviewAttemptsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReviewAttemptsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReviewAttemptsTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> reviewId = const Value.absent(),
@@ -20248,16 +20203,9 @@ class $$ReviewAttemptsTableTableManager
                 introducedNewCard: introducedNewCard,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -20329,13 +20277,15 @@ final class $$ContentReleaseInstallationsTableReferences
   );
 
   $$ContentReleasePacksTableProcessedTableManager get contentReleasePacksRefs {
-    final manager = $$ContentReleasePacksTableTableManager(
-      $_db,
-      $_db.contentReleasePacks,
-    ).filter(
-      (f) =>
-          f.releaseId.releaseId.sqlEquals($_itemColumn<String>('release_id')!),
-    );
+    final manager =
+        $$ContentReleasePacksTableTableManager(
+          $_db,
+          $_db.contentReleasePacks,
+        ).filter(
+          (f) => f.releaseId.releaseId.sqlEquals(
+            $_itemColumn<String>('release_id')!,
+          ),
+        );
 
     final cache = $_typedResult.readTableOrNull(
       _contentReleasePacksRefsTable($_db),
@@ -20549,18 +20499,18 @@ class $$ContentReleaseInstallationsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ContentReleaseInstallationsTableFilterComposer(
+          createFilteringComposer: () =>
+              $$ContentReleaseInstallationsTableFilterComposer(
                 $db: db,
                 $table: table,
               ),
-          createOrderingComposer:
-              () => $$ContentReleaseInstallationsTableOrderingComposer(
+          createOrderingComposer: () =>
+              $$ContentReleaseInstallationsTableOrderingComposer(
                 $db: db,
                 $table: table,
               ),
-          createComputedFieldComposer:
-              () => $$ContentReleaseInstallationsTableAnnotationComposer(
+          createComputedFieldComposer: () =>
+              $$ContentReleaseInstallationsTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -20604,20 +20554,14 @@ class $$ContentReleaseInstallationsTableTableManager
                 installedAt: installedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$ContentReleaseInstallationsTableReferences(
-                            db,
-                            table,
-                            e,
-                          ),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ContentReleaseInstallationsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({contentReleasePacksRefs = false}) {
             return PrefetchHooks(
               db: db,
@@ -20637,15 +20581,14 @@ class $$ContentReleaseInstallationsTableTableManager
                       referencedTable:
                           $$ContentReleaseInstallationsTableReferences
                               ._contentReleasePacksRefsTable(db),
-                      managerFromTypedResult:
-                          (p0) =>
-                              $$ContentReleaseInstallationsTableReferences(
-                                db,
-                                table,
-                                p0,
-                              ).contentReleasePacksRefs,
-                      referencedItemsForCurrentItem:
-                          (item, referencedItems) => referencedItems.where(
+                      managerFromTypedResult: (p0) =>
+                          $$ContentReleaseInstallationsTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).contentReleasePacksRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where(
                             (e) => e.releaseId == item.releaseId,
                           ),
                       typedResults: items,
@@ -20906,18 +20849,15 @@ class $$ContentReleasePacksTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$ContentReleasePacksTableFilterComposer(
+          createFilteringComposer: () =>
+              $$ContentReleasePacksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ContentReleasePacksTableOrderingComposer(
                 $db: db,
                 $table: table,
               ),
-          createOrderingComposer:
-              () => $$ContentReleasePacksTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => $$ContentReleasePacksTableAnnotationComposer(
+          createComputedFieldComposer: () =>
+              $$ContentReleasePacksTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -20953,53 +20893,52 @@ class $$ContentReleasePacksTableTableManager
                 content: content,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          $$ContentReleasePacksTableReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable(table),
+                  $$ContentReleasePacksTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
           prefetchHooksCallback: ({releaseId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
-              addJoins: <
-                T extends TableManagerState<
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic,
-                  dynamic
-                >
-              >(state) {
-                if (releaseId) {
-                  state =
-                      state.withJoin(
-                            currentTable: table,
-                            currentColumn: table.releaseId,
-                            referencedTable:
-                                $$ContentReleasePacksTableReferences
-                                    ._releaseIdTable(db),
-                            referencedColumn:
-                                $$ContentReleasePacksTableReferences
-                                    ._releaseIdTable(db)
-                                    .releaseId,
-                          )
-                          as T;
-                }
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (releaseId) {
+                      state =
+                          state.withJoin(
+                                currentTable: table,
+                                currentColumn: table.releaseId,
+                                referencedTable:
+                                    $$ContentReleasePacksTableReferences
+                                        ._releaseIdTable(db),
+                                referencedColumn:
+                                    $$ContentReleasePacksTableReferences
+                                        ._releaseIdTable(db)
+                                        .releaseId,
+                              )
+                              as T;
+                    }
 
-                return state;
-              },
+                    return state;
+                  },
               getPrefetchedDataCallback: (items) async {
                 return [];
               },
@@ -21268,18 +21207,18 @@ class $$LearningEvidenceEventsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$LearningEvidenceEventsTableFilterComposer(
+          createFilteringComposer: () =>
+              $$LearningEvidenceEventsTableFilterComposer(
                 $db: db,
                 $table: table,
               ),
-          createOrderingComposer:
-              () => $$LearningEvidenceEventsTableOrderingComposer(
+          createOrderingComposer: () =>
+              $$LearningEvidenceEventsTableOrderingComposer(
                 $db: db,
                 $table: table,
               ),
-          createComputedFieldComposer:
-              () => $$LearningEvidenceEventsTableAnnotationComposer(
+          createComputedFieldComposer: () =>
+              $$LearningEvidenceEventsTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -21339,16 +21278,9 @@ class $$LearningEvidenceEventsTableTableManager
                 observedAt: observedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -21541,18 +21473,12 @@ class $$PlacementProfilesTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$PlacementProfilesTableFilterComposer(
-                $db: db,
-                $table: table,
-              ),
-          createOrderingComposer:
-              () => $$PlacementProfilesTableOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => $$PlacementProfilesTableAnnotationComposer(
+          createFilteringComposer: () =>
+              $$PlacementProfilesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PlacementProfilesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PlacementProfilesTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -21592,16 +21518,9 @@ class $$PlacementProfilesTableTableManager
                 updatedAt: updatedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -21841,18 +21760,18 @@ class $$DelayedTransferAssignmentsTableTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => $$DelayedTransferAssignmentsTableFilterComposer(
+          createFilteringComposer: () =>
+              $$DelayedTransferAssignmentsTableFilterComposer(
                 $db: db,
                 $table: table,
               ),
-          createOrderingComposer:
-              () => $$DelayedTransferAssignmentsTableOrderingComposer(
+          createOrderingComposer: () =>
+              $$DelayedTransferAssignmentsTableOrderingComposer(
                 $db: db,
                 $table: table,
               ),
-          createComputedFieldComposer:
-              () => $$DelayedTransferAssignmentsTableAnnotationComposer(
+          createComputedFieldComposer: () =>
+              $$DelayedTransferAssignmentsTableAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -21904,16 +21823,9 @@ class $$DelayedTransferAssignmentsTableTableManager
                 completedAt: completedAt,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );

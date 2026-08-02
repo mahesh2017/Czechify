@@ -1,0 +1,211 @@
+{
+  "id": 3104,
+  "unit_id": 31,
+  "order_in_unit": 4,
+  "title": "A2 Personal Challenge",
+  "description": "A mixed-skill final challenge across familiar life domains.",
+  "duration_min": 22,
+  "lesson_type": "mission",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 31032,
+      "lesson_id": 3104,
+      "type": "teaching",
+      "prompt": "Your A2 challenge",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Use what you know",
+        "body": "This challenge combines reading, listening, writing and speaking. It records practice, not an official CEFR certificate.",
+        "items": [
+          {
+            "cz": "Nejdřív si přečtu otázku.",
+            "en": "First I read the question."
+          },
+          {
+            "cz": "Potom najdu důležitou informaci.",
+            "en": "Then I find the important information."
+          },
+          {
+            "cz": "Nakonec odpovím jasně.",
+            "en": "Finally I answer clearly."
+          }
+        ]
+      },
+      "answer_key": "challenge strategy",
+      "xp_reward": 0
+    },
+    {
+      "id": 31033,
+      "lesson_id": 3104,
+      "type": "reading_comprehension",
+      "prompt": "Read the weekend choice",
+      "data": {
+        "type": "reading_comprehension",
+        "image": "assets/images/unit31/weekend_journey_v1.png",
+        "image_label": "Friends comparing transport routes on a map",
+        "prompt_en": "Which option is cheaper and which is faster?",
+        "text_cz": "Do Olomouce můžete jet vlakem za 180 korun. Cesta trvá dvě hodiny. Autobus stojí 140 korun, ale jede dvě a půl hodiny. Oba spoje odjíždějí v sobotu ráno.",
+        "text_en": "You can go to Olomouc by train for 180 crowns. The journey takes two hours. The bus costs 140 crowns but takes two and a half hours. Both leave on Saturday morning.",
+        "questions": [
+          {
+            "question_en": "Which option is cheaper?",
+            "options": [
+              "Bus",
+              "Train",
+              "They cost the same"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which option is faster?",
+            "options": [
+              "Train",
+              "Bus",
+              "Neither"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "bus; train",
+      "xp_reward": 15
+    },
+    {
+      "id": 31034,
+      "lesson_id": 3104,
+      "type": "listening_comprehension",
+      "prompt": "Listen to the weekend change",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Why did the friends change their plan?",
+        "transcript_cz": "Chtěli jsme jet v sobotu na výlet, ale bude pršet. Proto zůstaneme v Praze a půjdeme do muzea. V neděli, když bude lepší počasí, pojedeme na kole.",
+        "questions": [
+          {
+            "question_en": "Why did the plan change?",
+            "options": [
+              "Rain is expected",
+              "The museum is closed",
+              "The train is late"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What will they do on Sunday?",
+            "options": [
+              "Cycle",
+              "Go to the museum",
+              "Move house"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "rain; cycle",
+      "xp_reward": 15
+    },
+    {
+      "id": 31035,
+      "lesson_id": 3104,
+      "type": "writing_task",
+      "prompt": "Write the practical response",
+      "data": {
+        "type": "writing_task",
+        "prompt_cz": "Napište kamarádovi krátkou zprávu: vyberte vlak nebo autobus, uveďte dvě důvody a potvrďte čas setkání.",
+        "prompt_en": "Write a short message to a friend: choose train or bus, give two reasons and confirm a meeting time.",
+        "min_words": 28,
+        "max_words": 80,
+        "required_elements": [
+          "choice",
+          "two reasons",
+          "time"
+        ],
+        "sample_answer": "Pojedeme vlakem, protože je rychlejší a cesta trvá jen dvě hodiny. Je sice dražší, ale je pohodlnější. Sejdeme se v sobotu v osm na nádraží."
+      },
+      "answer_key": "practical travel message",
+      "xp_reward": 25
+    },
+    {
+      "id": 31036,
+      "lesson_id": 3104,
+      "type": "speaking_task",
+      "prompt": "Record your A2 response",
+      "data": {
+        "type": "speaking_task",
+        "image": "assets/images/unit31/personal_challenge_v1.png",
+        "image_label": "Adult confidently describing a personal plan",
+        "prompt_cz": "Nahrajte 35–55 sekund: představte se, popište jednu nedávnou událost a vysvětlete jeden plán na příští víkend.",
+        "prompt_en": "Record 35–55 seconds: introduce yourself, describe one recent event and explain one plan for next weekend.",
+        "min_duration_seconds": 35,
+        "max_duration_seconds": 60,
+        "expected_phrases": [
+          "jmenuji se",
+          "včera/minulý",
+          "budu/chci"
+        ]
+      },
+      "answer_key": "personal A2 response",
+      "xp_reward": 30
+    },
+    {
+      "id": 31037,
+      "lesson_id": 3104,
+      "type": "dialogue",
+      "prompt": "Choose and explain",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Choosing transport",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Pojedeme vlakem nebo autobusem?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Pojedeme vlakem, protože je rychlejší.",
+            "Myslím, že vlak je lepší, protože je rychlejší."
+          ]
+        ]
+      },
+      "answer_key": "choice with reason",
+      "xp_reward": 15
+    },
+    {
+      "id": 31038,
+      "lesson_id": 3104,
+      "type": "error_correction",
+      "prompt": "Correct the comparison",
+      "data": {
+        "type": "error_correction",
+        "sentence_cz": "Vlak je rychlý než autobus.",
+        "correct_sentence_cz": "Vlak je rychlejší než autobus.",
+        "error_type": "comparison",
+        "explanation": "Use the comparative rychlejší with než: faster than."
+      },
+      "answer_key": "Vlak je rychlejší než autobus.",
+      "xp_reward": 10
+    },
+    {
+      "id": 31039,
+      "lesson_id": 3104,
+      "type": "writing_task",
+      "prompt": "Create your learner portfolio note",
+      "data": {
+        "type": "writing_task",
+        "prompt_cz": "Napište 2 věty: kterou dovednost (čtení, poslech, psaní, mluvení) chcete nejvíc trénovat a jak to uděláte příští týden.",
+        "prompt_en": "Write 2 sentences: which skill (reading, listening, writing, speaking) you most want to practise and how you will do it next week.",
+        "min_words": 16,
+        "max_words": 55,
+        "sample_answer": "Chci více trénovat poslech. Příští týden budu každý den poslouchat krátký český dialog."
+      },
+      "answer_key": "portfolio reflection",
+      "xp_reward": 15
+    }
+  ]
+}

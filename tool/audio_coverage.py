@@ -19,7 +19,7 @@ import json
 import urllib.request
 from pathlib import Path
 
-from audio_utterances import extract_utterances  # noqa: E402
+from audio_utterances import scoped_utterances  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "assets" / "audio" / "manifest.json"
@@ -41,11 +41,12 @@ def load_manifest(path_or_url: str, is_url: bool) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--scope", choices=("a1", "a2", "all"), default="all")
     parser.add_argument("--bucket-url", help="public manifest.json URL to also check")
     parser.add_argument("--write-missing", help="write missing utterances to this file")
     args = parser.parse_args()
 
-    needed = extract_utterances()
+    needed = scoped_utterances(args.scope)
     print(f"Curriculum needs {len(needed)} unique utterances (x2 voices).")
 
     local = both_voice_keys(load_manifest(str(MANIFEST), False)) if MANIFEST.exists() else set()
