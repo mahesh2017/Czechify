@@ -39,6 +39,7 @@ class ReminderCoordinator extends Notifier<void> {
   late final NotificationService _service;
   late final ReminderScheduler _scheduler;
   AppLifecycleListener? _lifecycleListener;
+  Future<void>? _replenishInFlight;
 
   @override
   void build() {
@@ -59,9 +60,14 @@ class ReminderCoordinator extends Notifier<void> {
 
     // 3. App lifecycle — replenish on resume/restart.
     _lifecycleListener = AppLifecycleListener(
-      onResume: _replenish,
-      onRestart: _replenish,
+      onResume: replenish,
+      onRestart: replenish,
     );
+
+    // A cold launch does not necessarily produce a resume callback after this
+    // listener is installed. Replenish once immediately so a consumed horizon,
+    // a timezone change, or an OS permission change is handled at startup.
+    unawaited(replenish());
 
     // Clean up when the provider is disposed.
     ref.onDispose(() {
@@ -80,13 +86,13 @@ class ReminderCoordinator extends Notifier<void> {
         if (granted) {
           await _scheduleAll(next);
         } else {
-          // Permission denied — revert the setting so the UI reflects reality.
+          // Keep the learner's preference enabled. Settings can then explain
+          // that the OS has blocked delivery and offer a real settings link;
+          // replenishment schedules automatically after permission is granted.
           _log.warning(
-            'Notification permission denied; reverting remindersEnabled.',
+            'Notification permission denied; reminders remain pending.',
           );
-          await ref
-              .read(settingsProvider.notifier)
-              .setRemindersEnabled(false);
+          await _cancelAllOwned();
         }
       } else {
         await _cancelAllOwned();
@@ -112,14 +118,8 @@ class ReminderCoordinator extends Notifier<void> {
       return;
     }
 
-    // Timezone changed — reinit and reschedule everything.
-    if (prev?.lastKnownTimezone != next.lastKnownTimezone) {
-      await _cancelAllOwned();
-      await _service.initialize();
-      if (next.remindersEnabled) {
-        await _scheduleAll(next);
-      }
-    }
+    // Timezone persistence is bookkeeping performed by replenish(); it has
+    // already rescheduled using the new tz.local before updating the setting.
   }
 
   // ── Scheduling helpers ──
@@ -127,6 +127,12 @@ class ReminderCoordinator extends Notifier<void> {
   /// Schedule the daily repeating reminder plus the 30-day evening horizon.
   Future<void> _scheduleAll(AppSettings settings) async {
     if (settings.preferredTime == null) return;
+
+    final timezone = await _service.refreshTimezone();
+    if (timezone != null && timezone != settings.lastKnownTimezone) {
+      await ref.read(settingsProvider.notifier).setLastKnownTimezone(timezone);
+      settings = ref.read(settingsProvider);
+    }
 
     final gamification = ref.read(gamificationProvider);
     final learnerName = settings.learnerName;
@@ -200,11 +206,36 @@ class ReminderCoordinator extends Notifier<void> {
   /// Called on app resume/restart. Ensures the daily reminder is scheduled,
   /// refreshes the 30-day evening horizon, and cancels today's evening
   /// notification if the user has already earned XP.
-  Future<void> replenish() => _replenish();
+  Future<void> replenish() {
+    final active = _replenishInFlight;
+    if (active != null) return active;
+    final future = _replenish();
+    _replenishInFlight = future;
+    return future.whenComplete(() {
+      if (identical(_replenishInFlight, future)) {
+        _replenishInFlight = null;
+      }
+    });
+  }
 
   Future<void> _replenish() async {
-    final settings = ref.read(settingsProvider);
+    await ref.read(settingsProvider.notifier).ready;
+    await ref.read(gamificationProvider.notifier).ready;
+
+    var settings = ref.read(settingsProvider);
     if (!settings.remindersEnabled || settings.preferredTime == null) return;
+
+    final permission = await _service.areNotificationsEnabled();
+    if (permission == false) return;
+
+    final timezone = await _service.refreshTimezone();
+    final timezoneChanged =
+        timezone != null && timezone != settings.lastKnownTimezone;
+    if (timezoneChanged) {
+      await _cancelAllOwned();
+      await ref.read(settingsProvider.notifier).setLastKnownTimezone(timezone);
+      settings = ref.read(settingsProvider);
+    }
 
     final gamification = ref.read(gamificationProvider);
     final learnerName = settings.learnerName;

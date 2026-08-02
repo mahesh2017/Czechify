@@ -227,9 +227,15 @@ class SettingsNotifier extends Notifier<AppSettings> {
         _ => null,
       },
       curriculumMapView: prefs.getBool(_kCurriculumMapView) ?? true,
-      preferredTime: reminderHour != null && reminderMinute != null
-          ? TimeOfDay(hour: reminderHour, minute: reminderMinute)
-          : null,
+      preferredTime:
+          reminderHour != null &&
+                  reminderHour >= 0 &&
+                  reminderHour <= 23 &&
+                  reminderMinute != null &&
+                  reminderMinute >= 0 &&
+                  reminderMinute <= 59
+              ? TimeOfDay(hour: reminderHour, minute: reminderMinute)
+              : null,
       remindersEnabled: remindersEnabled,
       catchUpEnabled: catchUpEnabled,
       lastKnownTimezone: lastKnownTz,

@@ -43,7 +43,7 @@ class NotificationService {
   /// [SafeDiagnostics.error].
   Future<void> initialize() async {
     try {
-      const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+      const androidInit = AndroidInitializationSettings('notification_icon');
       const iosInit = DarwinInitializationSettings(
         requestAlertPermission: false,
         requestBadgePermission: false,
@@ -59,10 +59,19 @@ class NotificationService {
         onDidReceiveNotificationResponse: _onNotificationTapped,
       );
 
+      final launchDetails = await _plugin.getNotificationAppLaunchDetails();
+      if (launchDetails?.didNotificationLaunchApp ?? false) {
+        final response = launchDetails?.notificationResponse;
+        if (response != null) _onNotificationTapped(response);
+      }
+
       // Create the Android channel (no-op on other platforms, guarded inside).
       if (Platform.isAndroid) {
-        final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+        final androidPlugin =
+            _plugin
+                .resolvePlatformSpecificImplementation<
+                  AndroidFlutterLocalNotificationsPlugin
+                >();
         await androidPlugin?.createNotificationChannel(
           const AndroidNotificationChannel(
             _channelId,
@@ -82,22 +91,43 @@ class NotificationService {
   /// Notification-tap callback — enqueues the curriculum navigation target.
   void _onNotificationTapped(NotificationResponse response) {
     try {
-      NavigationIntent.queue(NavigationTarget.curriculum);
+      final target = _targetFromPayload(response.payload);
+      NavigationIntent.queue(target);
     } catch (e, st) {
       SafeDiagnostics.error('notification_tap_callback_failed', e, st);
     }
   }
 
+  NavigationTarget _targetFromPayload(String? payload) {
+    if (payload == null || payload.isEmpty) {
+      return NavigationTarget.curriculum;
+    }
+    try {
+      final decoded = json.decode(payload);
+      if (decoded is Map && decoded['target'] == 'review') {
+        return NavigationTarget.review;
+      }
+    } catch (_) {
+      // Older or malformed payloads safely fall back to curriculum.
+    }
+    return NavigationTarget.curriculum;
+  }
+
   /// Loads the tz database and sets the local location from the device tz.
-  Future<void> _initTimezone() async {
+  Future<String?> _initTimezone() async {
     try {
       tz_data.initializeTimeZones();
       final info = await FlutterTimezone.getLocalTimezone();
       tz.setLocalLocation(tz.getLocation(info.identifier));
+      return info.identifier;
     } catch (e, st) {
       SafeDiagnostics.error('notification_timezone_init_failed', e, st);
+      return null;
     }
   }
+
+  /// Refreshes [tz.local] from the device and returns its IANA identifier.
+  Future<String?> refreshTimezone() => _initTimezone();
 
   /// Returns the device's IANA timezone identifier, or `null` on failure.
   Future<String?> getCurrentTimezone() async {
@@ -120,16 +150,23 @@ class NotificationService {
   Future<bool> requestPermission() async {
     try {
       if (Platform.isAndroid) {
-        final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+        final androidPlugin =
+            _plugin
+                .resolvePlatformSpecificImplementation<
+                  AndroidFlutterLocalNotificationsPlugin
+                >();
         final granted =
             await androidPlugin?.requestNotificationsPermission() ?? false;
         return granted;
       }
       if (Platform.isIOS) {
-        final iosPlugin = _plugin.resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>();
-        final granted = await iosPlugin?.requestPermissions(
+        final iosPlugin =
+            _plugin
+                .resolvePlatformSpecificImplementation<
+                  IOSFlutterLocalNotificationsPlugin
+                >();
+        final granted =
+            await iosPlugin?.requestPermissions(
               alert: true,
               badge: true,
               sound: true,
@@ -258,17 +295,20 @@ class NotificationService {
   /// Returns the current permission state if known, or `null` if unknown.
   Future<bool?> areNotificationsEnabled() async {
     try {
-      // Touch launch details to ensure the plugin is wired up.
-      await _plugin.getNotificationAppLaunchDetails();
-
       if (Platform.isAndroid) {
-        final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+        final androidPlugin =
+            _plugin
+                .resolvePlatformSpecificImplementation<
+                  AndroidFlutterLocalNotificationsPlugin
+                >();
         return await androidPlugin?.areNotificationsEnabled();
       }
       if (Platform.isIOS) {
-        final iosPlugin = _plugin.resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>();
+        final iosPlugin =
+            _plugin
+                .resolvePlatformSpecificImplementation<
+                  IOSFlutterLocalNotificationsPlugin
+                >();
         final permissions = await iosPlugin?.checkPermissions();
         return permissions?.isEnabled;
       }

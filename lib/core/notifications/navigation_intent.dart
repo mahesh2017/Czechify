@@ -5,27 +5,36 @@ enum NavigationTarget { curriculum, review }
 
 /// In-process bridge between a notification tap and the UI's navigator.
 ///
-/// Notification callbacks fire from isolate/native side and cannot touch the
-/// navigator directly, so they push a target onto the broadcast [pending]
-/// controller; the widget tree listens on [stream] and performs the actual
-/// navigation.
+/// A cold-launch tap can arrive before the widget tree subscribes. The latest
+/// target is therefore retained until the first listener consumes it; later
+/// taps are delivered by the broadcast controller.
 class NavigationIntent {
   NavigationIntent._();
 
-  /// Broadcast controller holding the most recent navigation request.
-  static final StreamController<NavigationTarget> pending =
+  static final StreamController<NavigationTarget> _controller =
       StreamController<NavigationTarget>.broadcast();
+  static NavigationTarget? _pendingTarget;
 
   /// Enqueues [target] for the UI to react to.
   static void queue(NavigationTarget target) {
-    if (!pending.isClosed) pending.add(target);
+    if (_controller.isClosed) return;
+    if (_controller.hasListener) {
+      _controller.add(target);
+    } else {
+      _pendingTarget = target;
+    }
   }
 
-  /// Stream the widget tree listens on to receive navigation requests.
-  static Stream<NavigationTarget> get stream => pending.stream;
+  /// Delivers a retained cold-start target first, then all subsequent taps.
+  static Stream<NavigationTarget> get stream async* {
+    final pending = _pendingTarget;
+    _pendingTarget = null;
+    if (pending != null) yield pending;
+    yield* _controller.stream;
+  }
 
   /// Releases the controller. Call only on app teardown.
   static void dispose() {
-    if (!pending.isClosed) pending.close();
+    if (!_controller.isClosed) _controller.close();
   }
 }

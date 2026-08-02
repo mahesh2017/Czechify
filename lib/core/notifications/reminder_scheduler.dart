@@ -22,8 +22,7 @@ class ScheduledReminder {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ScheduledReminder && id == other.id;
+      identical(this, other) || other is ScheduledReminder && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
@@ -67,7 +66,7 @@ class ReminderScheduler {
     const eveningTotal = eveningHour * 60 + eveningMinute;
     final preferredTotal = preferredTime.hour * 60 + preferredTime.minute;
     final diff = (eveningTotal - preferredTotal).abs();
-    return diff <= 120;
+    return diff < 120;
   }
 
   /// Builds up to [_horizonDays] [ScheduledReminder]s, each at 21:30 local.
@@ -119,9 +118,9 @@ class ReminderScheduler {
   /// Always `[1001, 2000, 2001, … 2029]` — the daily reminder plus 30 evening
   /// slots — regardless of how many are currently scheduled.
   List<int> get ownedIds => [
-        _dailyReminderId,
-        for (var i = 0; i < _horizonDays; i++) _eveningBaseId + i,
-      ];
+    _dailyReminderId,
+    for (var i = 0; i < _horizonDays; i++) _eveningBaseId + i,
+  ];
 
   /// The stable daily-reminder ID, exposed for cancellation by callers that
   /// don't hold a [ReminderScheduler] instance.

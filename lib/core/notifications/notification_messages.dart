@@ -42,8 +42,7 @@ class NotificationMessages {
     ),
     (
       title: 'Keep the magic going ✨',
-      body:
-          'Every word you learn today is a word you didn\'t know yesterday.',
+      body: 'Every word you learn today is a word you didn\'t know yesterday.',
     ),
     (
       title: 'One lesson away 🎯',
@@ -55,8 +54,7 @@ class NotificationMessages {
   static const List<({String title, String body})> eveningVariants = [
     (
       title: 'Your Czech missed you today 😊',
-      body:
-          "It's not too late! One lesson before bed keeps your streak alive.",
+      body: "It's not too late! One lesson before bed keeps your streak alive.",
     ),
     (
       title: 'Last chance to practice today! 🌙',

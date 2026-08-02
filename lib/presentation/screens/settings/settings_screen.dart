@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app_settings/app_settings.dart' as system_settings;
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -289,13 +290,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     trailing: Switch(
                       value: settings.remindersEnabled,
                       onChanged: (v) async {
-                        if (v) {
-                          // Request permission before enabling.
-                          final granted =
-                              await NotificationService.instance
-                                  .requestPermission();
-                          if (!granted) return;
-                        }
                         await ref
                             .read(settingsProvider.notifier)
                             .setRemindersEnabled(v);
@@ -306,7 +300,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     _Divider(),
                     // Reminder time picker row.
                     _ReminderTimeRow(
-                      time: settings.preferredTime ??
+                      time:
+                          settings.preferredTime ??
                           const TimeOfDay(hour: 19, minute: 0),
                       onChanged: (time) async {
                         await ref
@@ -316,8 +311,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
                     // Catch-up toggle — only when gap > 2h (otherwise
                     // suppressed by the scheduler's own gap check).
-                    if (_catchUpGapIsWide(settings.preferredTime ??
-                        const TimeOfDay(hour: 19, minute: 0))) ...[
+                    if (_catchUpGapIsWide(
+                      settings.preferredTime ??
+                          const TimeOfDay(hour: 19, minute: 0),
+                    )) ...[
                       _Divider(),
                       _Row(
                         icon: Icons.nights_stay_outlined,
@@ -327,9 +324,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         subtitle: l10n.reminderStepCatchUp,
                         trailing: Switch(
                           value: settings.catchUpEnabled,
-                          onChanged: (v) => ref
-                              .read(settingsProvider.notifier)
-                              .setCatchUpEnabled(v),
+                          onChanged:
+                              (v) => ref
+                                  .read(settingsProvider.notifier)
+                                  .setCatchUpEnabled(v),
                         ),
                       ),
                     ] else if (settings.catchUpEnabled) ...[
@@ -717,14 +715,23 @@ class _ReminderPermissionWarning extends StatefulWidget {
       _ReminderPermissionWarningState();
 }
 
-class _ReminderPermissionWarningState extends State<_ReminderPermissionWarning> {
+class _ReminderPermissionWarningState
+    extends State<_ReminderPermissionWarning> {
   bool? _permitted;
   bool _checking = true;
+  AppLifecycleListener? _lifecycleListener;
 
   @override
   void initState() {
     super.initState();
     _checkPermission();
+    _lifecycleListener = AppLifecycleListener(onResume: _checkPermission);
+  }
+
+  @override
+  void dispose() {
+    _lifecycleListener?.dispose();
+    super.dispose();
   }
 
   Future<void> _checkPermission() async {
@@ -741,7 +748,9 @@ class _ReminderPermissionWarningState extends State<_ReminderPermissionWarning> 
   Widget build(BuildContext context) {
     if (_checking) return const SizedBox.shrink();
     // null = unknown (e.g. macOS) — don't show a false alarm.
-    if (_permitted == null || _permitted == true) return const SizedBox.shrink();
+    if (_permitted == null || _permitted == true) {
+      return const SizedBox.shrink();
+    }
 
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
@@ -770,7 +779,11 @@ class _ReminderPermissionWarningState extends State<_ReminderPermissionWarning> 
                     const SizedBox(height: 8),
                     TextButton.icon(
                       onPressed: () => _openSystemSettings(),
-                      icon: Icon(Icons.settings_outlined, size: 18, color: t.pri),
+                      icon: Icon(
+                        Icons.settings_outlined,
+                        size: 18,
+                        color: t.pri,
+                      ),
                       label: Text(
                         l10n.reminderOpenSettings,
                         style: TextStyle(
@@ -789,14 +802,9 @@ class _ReminderPermissionWarningState extends State<_ReminderPermissionWarning> 
     );
   }
 
-  /// Opens the OS notification settings. Since `app_settings` is not in
-  /// pubspec, we show a text instruction instead of deep-linking.
-  void _openSystemSettings() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context).reminderPermissionBlocked),
-        duration: const Duration(seconds: 4),
-      ),
+  Future<void> _openSystemSettings() async {
+    await system_settings.AppSettings.openAppSettings(
+      type: system_settings.AppSettingsType.notification,
     );
   }
 }
