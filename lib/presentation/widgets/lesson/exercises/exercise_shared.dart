@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
@@ -10,6 +12,44 @@ import '../../../providers/tts_providers.dart';
 /// Normalize a typed answer for comparison: lowercase, strip punctuation,
 /// collapse whitespace. Diacritics are kept — they're meaningful in Czech.
 String normalizeAnswer(String s) => TextNormalizer.normalize(s);
+
+/// A stable, shuffled presentation of multiple-choice options.
+///
+/// Curriculum authors should not have to hand-balance answer positions, and a
+/// learner must never be able to pass by repeatedly tapping the first option.
+/// The seed keeps the order stable while an exercise is rebuilt or retried.
+({List<String> options, int correctIndex}) shuffledOptions({
+  required List<String> options,
+  required int correctIndex,
+  required int seed,
+}) {
+  assert(correctIndex >= 0 && correctIndex < options.length);
+  final indexed = options.indexed.toList()..shuffle(math.Random(seed));
+  return (
+    options: indexed.map((entry) => entry.$2).toList(growable: false),
+    correctIndex: indexed.indexWhere((entry) => entry.$1 == correctIndex),
+  );
+}
+
+/// Copy a comprehension question and shuffle its options without changing the
+/// answer. Returning a copy keeps bundled curriculum data immutable.
+Map<String, dynamic> shuffledQuestion(
+  Map<String, dynamic> question, {
+  required int seed,
+}) {
+  final options = (question['options'] as List<dynamic>).cast<String>();
+  final correctIndex = (question['correct_index'] as num).toInt();
+  final shuffled = shuffledOptions(
+    options: options,
+    correctIndex: correctIndex,
+    seed: seed,
+  );
+  return <String, dynamic>{
+    ...question,
+    'options': shuffled.options,
+    'correct_index': shuffled.correctIndex,
+  };
+}
 
 /// Translucent feedback tints that work on light and dark surfaces.
 ///

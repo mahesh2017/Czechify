@@ -1,0 +1,347 @@
+{
+  "id": 1103,
+  "unit_id": 11,
+  "title": "Ask, Pay, and Say Thank You",
+  "description": "Complete the final steps of a restaurant visit: bill, payment, and thanks.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 12,
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 11200,
+      "lesson_id": 1103,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Ask, Pay, and Say Thank You",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Máte polévku?",
+            "en": "Do you have soup?"
+          },
+          {
+            "cz": "Účet, prosím.",
+            "en": "The bill, please."
+          },
+          {
+            "cz": "Zaplatím kartou.",
+            "en": "I will pay by card."
+          },
+          {
+            "cz": "Děkuji.",
+            "en": "Thank you."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 11201,
+      "lesson_id": 1103,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
+              "Kde je park?",
+              "Rád plavu."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
+      "xp_reward": 15
+    },
+    {
+      "id": 11202,
+      "lesson_id": 1103,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit11/restaurant_menu_v1.png",
+        "image_label": "Ask, Pay, and Say Thank You",
+        "text_cz": "V restauraci chce Anna polévku. Zeptá se: Máte polévku? Po jídle říká: Účet, prosím. Platí kartou.",
+        "text_en": "At the restaurant Anna wants soup. She asks: Do you have soup? After eating she says: The bill, please. She pays by card.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Účet, prosím.",
+              "Kde je park?",
+              "Rád plavu.",
+              "Je mi zima."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Účet, prosím.",
+      "xp_reward": 15
+    },
+    {
+      "id": 11203,
+      "lesson_id": 1103,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Máte polévku?",
+            "right": "Do you have soup?"
+          },
+          {
+            "left": "Účet, prosím.",
+            "right": "The bill, please."
+          },
+          {
+            "left": "Zaplatím kartou.",
+            "right": "I will pay by card."
+          },
+          {
+            "left": "Děkuji.",
+            "right": "Thank you."
+          }
+        ],
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Máte polévku?–Do you have soup?; Účet, prosím.–The bill, please.; Zaplatím kartou.–I will pay by card.; Děkuji.–Thank you.",
+      "xp_reward": 10
+    },
+    {
+      "id": 11204,
+      "lesson_id": 1103,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Účet, prosím.",
+          "Kde je park?",
+          "Rád plavu.",
+          "Je mi zima."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Účet, prosím.",
+      "xp_reward": 10
+    },
+    {
+      "id": 11205,
+      "lesson_id": 1103,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Máte polévku? Ano, ___. Zaplatím ___.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "máme"
+          ],
+          [
+            "kartou"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "máme | kartou",
+      "xp_reward": 10
+    },
+    {
+      "id": 11206,
+      "lesson_id": 1103,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Účet,",
+          "prosím."
+        ],
+        "correct_order": [
+          0,
+          1
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Účet, prosím.",
+      "xp_reward": 10
+    },
+    {
+      "id": 11207,
+      "lesson_id": 1103,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Účet, prosím. Zaplatím kartou.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Účet, prosím. Zaplatím kartou.",
+      "xp_reward": 10
+    },
+    {
+      "id": 11208,
+      "lesson_id": 1103,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Účet, prosím. Zaplatím kartou.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Účet, prosím. Zaplatím kartou.",
+      "xp_reward": 15
+    },
+    {
+      "id": 11209,
+      "lesson_id": 1103,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Ask, Pay, and Say Thank You",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "Máte polévku?"
+          },
+          {
+            "speaker": "waiter",
+            "text": "Ano, máme."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "waiter",
+            "text": "Samozřejmě."
+          }
+        ],
+        "blank_answers": [
+          [
+            "Účet, prosím.",
+            "Účet, prosím"
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Účet, prosím.",
+      "xp_reward": 15
+    },
+    {
+      "id": 11210,
+      "lesson_id": 1103,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a polite question and one payment sentence.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Máte polévku?",
+          "Účet, prosím.",
+          "Zaplatím kartou.",
+          "Děkuji."
+        ],
+        "sample_answer": "Máte polévku?"
+      },
+      "answer_key": "Máte polévku?",
+      "xp_reward": 0
+    },
+    {
+      "id": 11211,
+      "lesson_id": 1103,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
+              "Kde je park?",
+              "Rád plavu."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
+      "xp_reward": 15
+    }
+  ],
+  "can_do": "ask for the bill and say how I will pay.",
+  "new_language": [
+    "Máte polévku?",
+    "Účet, prosím.",
+    "Zaplatím kartou.",
+    "Děkuji."
+  ],
+  "recycles": [
+    "food and drink",
+    "Dám si…",
+    "Máte…?",
+    "numbers and prices"
+  ],
+  "exit_task": "ask for the bill and say how I will pay."
+}

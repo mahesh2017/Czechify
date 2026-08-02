@@ -52,6 +52,12 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
     return [];
   }
 
+  Duration get _listenTimeout {
+    final configured = widget.exercise.data['max_duration_seconds'];
+    final seconds = configured is num ? configured.toInt() : 15;
+    return Duration(seconds: seconds.clamp(5, 60));
+  }
+
   Future<void> _toggleRecording() async {
     // If recording, stop and process the result.
     if (isRecording) {
@@ -79,8 +85,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
 
     try {
       final stt = ref.read(sttServiceProvider) as NativeSttService;
-      final recorded =
-          (await stt.listenFor(timeout: const Duration(seconds: 15))).trim();
+      final recorded = (await stt.listenFor(timeout: _listenTimeout)).trim();
 
       // If the user cancelled (re-recorded or stopped without processing),
       // discard the result entirely.
@@ -154,6 +159,8 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    final image = (widget.exercise.data['image'] as String?)?.trim();
+    final imageLabel = (widget.exercise.data['image_label'] as String?)?.trim();
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
@@ -162,6 +169,25 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
         children: [
           QuestionPrompt(question: _prompt, czech: _promptCz),
           const SizedBox(height: 16),
+
+          if (image != null && image.isNotEmpty) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: AspectRatio(
+                aspectRatio: 5 / 4,
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  cacheWidth: 1024,
+                  semanticLabel:
+                      imageLabel == null || imageLabel.isEmpty
+                          ? null
+                          : imageLabel,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
 
           // What to aim for, stated before they speak.
           if (_expectedPhrases.isNotEmpty) ...[

@@ -1,256 +1,353 @@
 {
   "id": 1302,
   "unit_id": 13,
-  "order_in_unit": 1,
-  "title": "Hobbies & Free Time",
-  "description": "Practice talking about hobbies and free-time activities in Czech, describing what you do after work and on weekends.",
+  "title": "Talk About Activities",
+  "description": "Ask and answer about sports, music, reading, and other interests.",
   "lesson_type": "practice",
-  "duration_min": 15,
+  "order_in_unit": 1,
+  "duration_min": 12,
+  "is_review": false,
   "exercises": [
     {
-      "id": 13013,
+      "id": 13100,
       "lesson_id": 1302,
-      "type": "multiple_choice",
-      "prompt": "What does 'koníček' mean?",
+      "type": "teaching",
+      "prompt": "Learn the mission language",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "koníček",
-        "question_en": "What does 'koníček' mean?",
-        "options": ["little horse", "hobby", "weekend", "game"],
-        "correct_index": 1,
-        "explanation": "koníček = hobby. It's a diminutive of kůň (horse) — literally 'little horse' — but in everyday Czech it means 'hobby' or 'pastime'. Jaké máš koníčky? = What hobbies do you have?"
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-120",
-      "xp_reward": 10
-    },
-    {
-      "id": 13014,
-      "lesson_id": 1302,
-      "type": "multiple_choice",
-      "prompt": "Which hobby word is a musical instrument?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Which is a musical instrument?",
-        "question_en": "Which of these hobby words is a musical instrument?",
-        "options": ["plavání", "kytara", "zahrada", "fotbal"],
-        "correct_index": 1,
-        "explanation": "kytara = guitar. plavání = swimming, zahrada = garden/gardening, fotbal = football/soccer."
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-120",
-      "xp_reward": 10
-    },
-    {
-      "id": 13015,
-      "lesson_id": 1302,
-      "type": "fill_blank",
-      "prompt": "Complete using hrát na + instrument in accusative.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Já ___ (play) ___ (na + guitar).",
-        "blank_count": 2,
-        "explanation": "hrát na + accusative = to play (an instrument). já hraju/hraji = I play. kytara (guitar) → accusative kytaru. So: Hraju na kytaru = I play guitar.",
-        "blank_answers": [
-          ["hraju"],
-          ["na kytaru"]
-        ]
-      },
-      "answer_key": "hraju na kytaru",
-      "grammar_rule_id": "GR-121",
-      "xp_reward": 15
-    },
-    {
-      "id": 13016,
-      "lesson_id": 1302,
-      "type": "translation",
-      "prompt": "Translate 'She plays the piano every day' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "She plays the piano every day",
-        "accepted_answers": ["Ona hraje na klavír každý den", "Hraje na klavír každý den", "Každý den hraje na klavír"],
-        "grammar_note": "hrát na + accusative: klavír (piano, masc. inanimate) → accusative klavír (same as nominative). každý den = every day. Time expression can go at the end or beginning."
-      },
-      "answer_key": "Ona hraje na klavír každý den",
-      "grammar_rule_id": "GR-121",
-      "xp_reward": 10
-    },
-    {
-      "id": 13017,
-      "lesson_id": 1302,
-      "type": "fill_blank",
-      "prompt": "Complete using dívat se na + accusative.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Rád se ___ (watch) ___ (na + television).",
-        "blank_count": 2,
-        "explanation": "dívat se na + accusative = to watch. já → dívám se. televize (TV, feminine) → accusative televizi. Rád se dívám na televizi = I like watching TV (male speaker).",
-        "blank_answers": [
-          ["dívám"],
-          ["na televizi"]
-        ]
-      },
-      "answer_key": "dívám na televizi",
-      "grammar_rule_id": "GR-121",
-      "xp_reward": 15
-    },
-    {
-      "id": 13018,
-      "lesson_id": 1302,
-      "type": "multiple_choice",
-      "prompt": "What does 'Někdy' mean? (frequency adverb)",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Někdy",
-        "question_en": "What does 'Někdy' mean as a frequency adverb?",
-        "options": ["never", "sometimes", "often", "always"],
-        "correct_index": 1,
-        "explanation": "někdy = sometimes. Other frequency adverbs: vždycky = always, často = often, občas = occasionally, málokdy = rarely, nikdy = never."
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-122",
-      "xp_reward": 10
-    },
-    {
-      "id": 13019,
-      "lesson_id": 1302,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct frequency adverb.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ (often) chodím do kina, ale ___ (never) do divadla.",
-        "blank_count": 2,
-        "explanation": "Často = often. nikdy = never. Notice the word order: frequency adverb first, then the verb. 'Chodím do kina' = I go to the cinema. 'do divadla' = to the theatre.",
-        "blank_answers": [
-          ["Často"],
-          ["nikdy"]
-        ]
-      },
-      "answer_key": "Často nikdy",
-      "grammar_rule_id": "GR-122",
-      "xp_reward": 15
-    },
-    {
-      "id": 13020,
-      "lesson_id": 1302,
-      "type": "translation",
-      "prompt": "Translate 'I sometimes play football with friends' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I sometimes play football with friends",
-        "accepted_answers": ["Někdy hraju fotbal s kamarády", "Občas hraji fotbal s přáteli", "Někdy hraji fotbal s kamarády"],
-        "grammar_note": "Někdy/Občas = sometimes. hrát fotbal = to play football (no 'na' — it's for instruments only). s kamarády = with friends (instrumental case)."
-      },
-      "answer_key": "Někdy hraju fotbal s kamarády",
-      "grammar_rule_id": "GR-122",
-      "xp_reward": 10
-    },
-    {
-      "id": 13021,
-      "lesson_id": 1302,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue about weekend plans.",
-      "data": {
-        "type": "dialogue",
-        "scenario": "Two friends discussing weekend plans",
-        "lines": [
+        "type": "teaching",
+        "style": "list",
+        "heading": "Talk About Activities",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
           {
-            "speaker": "Tomáš",
-            "text": "Co děláš ___ (this weekend)?"
+            "cz": "Jezdím na kole.",
+            "en": "I ride a bike."
           },
           {
-            "speaker": "Eva",
-            "text": "V sobotu ___ (I'm going to the cinema) a v neděli ___ (I'm playing tennis)."
+            "cz": "Plavu v bazénu.",
+            "en": "I swim in a pool."
           },
           {
-            "speaker": "Tomáš",
-            "text": "Super! ___ (I like tennis too). Můžu jít s tebou?"
+            "cz": "Běhám v parku.",
+            "en": "I run in a park."
+          },
+          {
+            "cz": "Sportuju každý den.",
+            "en": "I do sport every day."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13101,
+      "lesson_id": 1302,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "O víkendu jezdím na kole a běhám v parku.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "O víkendu jezdím na kole a běhám v parku.",
+              "Zaplatím kartou.",
+              "Je to malé."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "O víkendu jezdím na kole a běhám v parku.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13102,
+      "lesson_id": 1302,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit13/hobby_cycling_v1.png",
+        "image_label": "Talk About Activities",
+        "text_cz": "Tom sportuje. O víkendu jezdí na kole a někdy plave v bazénu.",
+        "text_en": "Tom does sport. At the weekend he rides a bike and sometimes swims in a pool.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Jezdím na kole.",
+              "Zaplatím kartou.",
+              "Je to malé.",
+              "Bude zima."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Jezdím na kole.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13103,
+      "lesson_id": 1302,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Jezdím na kole.",
+            "right": "I ride a bike."
+          },
+          {
+            "left": "Plavu v bazénu.",
+            "right": "I swim in a pool."
+          },
+          {
+            "left": "Běhám v parku.",
+            "right": "I run in a park."
+          },
+          {
+            "left": "Sportuju každý den.",
+            "right": "I do sport every day."
           }
         ],
-        "explanation": "o víkendu = this weekend / on the weekend. jdu do kina = I'm going to the cinema. Hraju tenis = I'm playing tennis (present for near future). Taky rád hraju tenis = I like playing tennis too.",
-        "blank_answers": [
-          ["o víkendu"],
-          ["jdu do kina"],
-          ["hraju tenis"],
-          ["Taky rád hraju tenis"]
-        ]
+        "explanation": "Keep the complete Czech chunk together."
       },
-      "answer_key": "o víkendu jdu do kina hraju tenis Taky rád hraju tenis",
-      "grammar_rule_id": "GR-123",
-      "xp_reward": 25
+      "answer_key": "Jezdím na kole.–I ride a bike.; Plavu v bazénu.–I swim in a pool.; Běhám v parku.–I run in a park.; Sportuju každý den.–I do sport every day.",
+      "xp_reward": 10
     },
     {
-      "id": 13022,
+      "id": 13104,
+      "lesson_id": 1302,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Jezdím na kole.",
+          "Zaplatím kartou.",
+          "Je to malé.",
+          "Bude zima."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Jezdím na kole.",
+      "xp_reward": 10
+    },
+    {
+      "id": 13105,
+      "lesson_id": 1302,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "O víkendu ___ na kole a ___ v parku.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "jezdím"
+          ],
+          [
+            "běhám"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "jezdím | běhám",
+      "xp_reward": 10
+    },
+    {
+      "id": 13106,
       "lesson_id": 1302,
       "type": "word_order",
-      "prompt": "Arrange to form: 'On Sundays I always go for a walk.'",
+      "prompt": "Build a natural short exchange",
       "data": {
         "type": "word_order",
-        "correct_order": [3, 4, 0, 1, 5, 2],
-        "explanation": "V neděli = On Sunday(s). vždycky = always. chodím na procházku = I go for a walk. Czech word order: time expression first, then frequency, then verb.",
-        "words": ["vždycky", "chodím", "procházku.", "V", "neděli", "na"]
+        "words": [
+          "Jezdím",
+          "na",
+          "kole."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
       },
-      "answer_key": "V neděli vždycky chodím na procházku.",
-      "grammar_rule_id": "GR-122",
-      "xp_reward": 20
-    },
-    {
-      "id": 13023,
-      "lesson_id": 1302,
-      "type": "translation",
-      "prompt": "Translate 'My hobbies are reading, photography, and playing guitar' to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "My hobbies are reading, photography, and playing guitar",
-        "accepted_answers": ["Moje koníčky jsou čtení, focení a hra na kytaru", "Mé koníčky jsou čtení, fotografování a hraní na kytaru", "Moje koníčky jsou čtení, fotografování a hra na kytaru"],
-        "grammar_note": "Moje/Mé koníčky = my hobbies. čtení = reading, focení/fotografování = photography, hra na kytaru / hraní na kytaru = playing guitar. Note how verb-based nouns end in -ní/-tí."
-      },
-      "answer_key": "Moje koníčky jsou čtení, focení a hra na kytaru",
-      "grammar_rule_id": "GR-120",
+      "answer_key": "Jezdím na kole.",
       "xp_reward": 10
     },
     {
-      "id": 13024,
+      "id": 13107,
+      "lesson_id": 1302,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "O víkendu jezdím na kole.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "O víkendu jezdím na kole.",
+      "xp_reward": 10
+    },
+    {
+      "id": 13108,
+      "lesson_id": 1302,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "O víkendu jezdím na kole.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "O víkendu jezdím na kole.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13109,
       "lesson_id": 1302,
       "type": "dialogue",
-      "prompt": "Complete the free time conversation.",
+      "prompt": "Complete the short exchange",
       "data": {
         "type": "dialogue",
-        "scenario": "Getting to know someone's hobbies",
+        "scenario": "Talk About Activities",
         "lines": [
           {
-            "speaker": "Anna",
-            "text": "Jaké máš ___ (hobbies)?"
+            "speaker": "friend",
+            "text": "Sportuješ?"
           },
           {
-            "speaker": "Martin",
-            "text": "___ (I like sports). Hraju ___ (football) a ___ (sometimes) plavu."
+            "speaker": "you",
+            "text": "___"
           },
           {
-            "speaker": "Anna",
-            "text": "A ___ (do you play) na nějaký nástroj?"
+            "speaker": "friend",
+            "text": "Co děláš o víkendu?"
           },
           {
-            "speaker": "Martin",
-            "text": "Ano, ___ (I play guitar). A ty?"
+            "speaker": "you",
+            "text": "___"
           }
         ],
-        "explanation": "Jaké máš koníčky? = What hobbies do you have? Mám rád sport = I like sports. hraješ = do you play (2nd person). hraju na kytaru = I play guitar. nástroj = instrument.",
         "blank_answers": [
-          ["koníčky"],
-          ["Mám rád sport"],
-          ["fotbal"],
-          ["někdy"],
-          ["hraješ"],
-          ["hraju na kytaru"]
+          [
+            "Ano, sportuju.",
+            "Ano"
+          ],
+          [
+            "Jezdím na kole.",
+            "Jezdím na kole"
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Ano, sportuju. | Jezdím na kole.",
+      "xp_reward": 15
+    },
+    {
+      "id": 13110,
+      "lesson_id": 1302,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write two activities you do or want to try.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Jezdím na kole.",
+          "Plavu v bazénu.",
+          "Běhám v parku.",
+          "Sportuju každý den."
+        ],
+        "sample_answer": "Jezdím na kole."
+      },
+      "answer_key": "Jezdím na kole.",
+      "xp_reward": 0
+    },
+    {
+      "id": 13111,
+      "lesson_id": 1302,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "O víkendu jezdím na kole a běhám v parku.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "O víkendu jezdím na kole a běhám v parku.",
+              "Zaplatím kartou.",
+              "Je to malé."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "koníčky Mám rád sport fotbal někdy hraješ hraju na kytaru",
-      "grammar_rule_id": "GR-123",
-      "xp_reward": 25
+      "answer_key": "O víkendu jezdím na kole a běhám v parku.",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "ask and answer what someone does in free time.",
+  "new_language": [
+    "Jezdím na kole.",
+    "Plavu v bazénu.",
+    "Běhám v parku.",
+    "Sportuju každý den."
+  ],
+  "recycles": [
+    "present-tense activities",
+    "time and days",
+    "Ano/Ne",
+    "simple plans"
+  ],
+  "exit_task": "ask and answer what someone does in free time."
 }

@@ -2,314 +2,342 @@
   "id": 601,
   "unit_id": 6,
   "order_in_unit": 0,
-  "title": "Accusative Case — The Object of the Sentence",
-  "description": "Learn how nouns change when they become the direct object — the accusative case",
-  "duration_min": 15,
+  "title": "At the Café Counter",
+  "description": "Understand a simple café exchange and request food and drink politely.",
+  "can_do": "order one food and one drink politely.",
+  "new_language": [
+    "Dám si kávu.",
+    "Dám si čaj.",
+    "Vodu, prosím.",
+    "Máte polévku?"
+  ],
+  "recycles": [
+    "Dobrý den",
+    "Máte…?",
+    "Ano/Ne",
+    "Prosím",
+    "Nerozumím"
+  ],
+  "exit_task": "order one food and one drink politely.",
+  "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
-      "id": 90006,
+      "id": 6000,
       "lesson_id": 601,
       "type": "teaching",
-      "prompt": "The Object Case (Accusative)",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "The Object Case (Accusative)",
-        "body": "When something receives the action, its ending can change. Masculine inanimate and neuter nouns stay the same.",
-        "intro": "'I see a man.' 'I'll have a coffee.' The moment something receives an action, Czech reshapes its ending — and this is the case you'll reach for a dozen times a day.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "At the Café Counter",
+        "body": "Understand a simple café exchange and request food and drink politely.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
             "cz": "Dám si kávu.",
-            "en": "I'll have a coffee (feminine -a → -u)"
+            "en": "I will have coffee."
           },
           {
-            "cz": "Vidím muže.",
-            "en": "I see a man (masculine animate, + -a)"
+            "cz": "Dám si čaj.",
+            "en": "I will have tea."
           },
           {
-            "cz": "Vidím dům.",
-            "en": "I see a house (masculine inanimate — no change)"
+            "cz": "Vodu, prosím.",
+            "en": "Water, please."
           },
           {
-            "cz": "Mám auto.",
-            "en": "I have a car (neuter — no change)"
-          },
-          {
-            "cz": "chtít",
-            "en": "to want (takes the accusative)"
-          },
-          {
-            "cz": "kupovat",
-            "en": "to buy (takes the accusative)"
+            "cz": "Máte polévku?",
+            "en": "Do you have soup?"
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 6001,
       "lesson_id": 601,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct accusative form",
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vidím ___ (káva).",
-        "question_en": "I see ___ (coffee).",
-        "options": [
-          "káva",
-          "kávu",
-          "kávy",
-          "kávo"
-        ],
-        "correct_index": 1,
-        "explanation": "Feminine nouns ending in -a change to -u in the accusative case: káva → kávu."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Dobrý den. Máte polévku? Ano. Dám si polévku a vodu, prosím.",
+        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "At the Café Counter",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does the customer order to drink?",
+            "options": [
+              "Water",
+              "Coffee",
+              "Tea"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": 1,
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 10
+      "answer_key": "Water",
+      "xp_reward": 15
     },
     {
       "id": 6002,
       "lesson_id": 601,
-      "type": "declension_table",
-      "prompt": "Review the declension pattern for a feminine noun",
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
       "data": {
-        "type": "declension_table",
-        "word": "žena",
-        "gender": "feminine",
-        "cases": [
-          "nominative",
-          "accusative"
-        ],
-        "answer_key": {
-          "nominative": "žena",
-          "accusative": "ženu"
-        },
-        "explanation": "Feminine nouns ending in -a change the ending to -u in the accusative singular. Žena (nominative) becomes ženu (accusative) when it is the direct object: Vidím ženu. (I see a woman.)"
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "text_cz": "Dnes máme rajčatovou polévku, kuře s rýží, kávu, čaj a vodu.",
+        "text_en": "Today we have tomato soup, chicken with rice, coffee, tea, and water.",
+        "questions": [
+          {
+            "question_en": "Which main dish is available?",
+            "options": [
+              "Chicken with rice",
+              "Fish with potatoes",
+              "Pizza"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Today we have tomato soup, chicken with rice, coffee, tea, and water.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "ženu",
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 10
+      "answer_key": "Chicken with rice",
+      "xp_reward": 15
     },
     {
       "id": 6003,
       "lesson_id": 601,
-      "type": "translation",
-      "prompt": "Translate the sentence using the accusative case",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I have a book.",
-        "accepted_answers": [
-          "Mám knihu.",
-          "Mám knihu"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Dám si kávu.",
+            "right": "I will have coffee."
+          },
+          {
+            "left": "Dám si čaj.",
+            "right": "I will have tea."
+          },
+          {
+            "left": "Vodu, prosím.",
+            "right": "Water, please."
+          },
+          {
+            "left": "Máte polévku?",
+            "right": "Do you have soup?"
+          }
         ],
-        "grammar_note": "Kniha (feminine, -a) becomes knihu in the accusative. Mám knihu = I have a book."
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
-      "answer_key": [
-        "Mám knihu.",
-        "Mám knihu"
-      ],
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 15
+      "answer_key": "Dám si kávu.–I will have coffee.; Dám si čaj.–I will have tea.; Vodu, prosím.–Water, please.; Máte polévku?–Do you have soup?",
+      "xp_reward": 10
     },
     {
       "id": 6004,
       "lesson_id": 601,
-      "type": "fill_blank",
-      "prompt": "Fill in the accusative form of the noun in parentheses",
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Piju ___ (voda).",
-        "blank_count": 1,
-        "explanation": "Voda (feminine, -a) → vodu in accusative. Piju vodu = I drink water.",
-        "blank_answers": [
-          [
-            "vodu"
-          ]
-        ]
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Dám si kávu.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
       },
-      "answer_key": [
-        "vodu"
-      ],
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 15
+      "answer_key": "Dám si kávu.",
+      "xp_reward": 10
     },
     {
       "id": 6005,
       "lesson_id": 601,
-      "type": "declension_table",
-      "prompt": "Review the declension pattern for a masculine animate noun",
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
       "data": {
-        "type": "declension_table",
-        "word": "pes",
-        "gender": "masculine_animate",
-        "cases": [
-          "nominative",
-          "accusative"
+        "type": "fill_blank",
+        "sentence": "Dám ___ kávu.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "si"
+          ]
         ],
-        "answer_key": {
-          "nominative": "pes",
-          "accusative": "psa"
-        },
-        "explanation": "Masculine animate nouns ending in a hard consonant take -a in the accusative singular. Pes (nominative) becomes psa (accusative): Vidím psa. (I see a dog.) Note: the stem vowel -e- drops: pes → ps-a."
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": "psa",
-      "grammar_rule_id": "GR-051",
+      "answer_key": "si",
       "xp_reward": 10
     },
     {
       "id": 6006,
       "lesson_id": 601,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct accusative form of the masculine animate noun",
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Znám toho ___ (muž).",
-        "question_en": "I know that ___ (man).",
-        "options": [
-          "muž",
-          "muže",
-          "muža",
-          "mužem"
+        "type": "word_order",
+        "words": [
+          "čaj.",
+          "si",
+          "Dám"
         ],
-        "correct_index": 1,
-        "explanation": "Muž is a masculine animate noun ending in a soft consonant (ž). It takes -e in the accusative: muž → muže."
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "I will have tea.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": 1,
-      "grammar_rule_id": "GR-051",
+      "answer_key": "Dám si čaj.",
       "xp_reward": 10
     },
     {
       "id": 6007,
       "lesson_id": 601,
-      "type": "declension_table",
-      "prompt": "Review the declension pattern for a masculine inanimate noun",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "declension_table",
-        "word": "hrad",
-        "gender": "masculine_inanimate",
-        "cases": [
-          "nominative",
-          "accusative"
-        ],
-        "answer_key": {
-          "nominative": "hrad",
-          "accusative": "hrad"
-        },
-        "explanation": "Masculine inanimate nouns do NOT change in the accusative singular. Hrad is the same in both nominative and accusative: Vidím hrad. (I see a castle.)"
+        "type": "dictation",
+        "expected_text": "Vodu, prosím.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": "hrad",
-      "grammar_rule_id": "GR-052",
+      "answer_key": "Vodu, prosím.",
       "xp_reward": 10
     },
     {
       "id": 6008,
       "lesson_id": 601,
-      "type": "fill_blank",
-      "prompt": "Fill in the accusative form — does the masculine inanimate noun change?",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Vidím ___ (dům).",
-        "blank_count": 1,
-        "explanation": "Dům is masculine inanimate. Masculine inanimate nouns do not change in the accusative: dům → dům. Vidím dům = I see a house.",
-        "blank_answers": [
-          [
-            "dům"
-          ]
-        ]
+        "type": "pronunciation",
+        "target_text": "Máte polévku?",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Do you have soup?"
       },
-      "answer_key": [
-        "dům"
-      ],
-      "grammar_rule_id": "GR-052",
+      "answer_key": "Máte polévku?",
       "xp_reward": 15
     },
     {
       "id": 6009,
       "lesson_id": 601,
-      "type": "declension_table",
-      "prompt": "Review the declension pattern for a neuter noun",
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
       "data": {
-        "type": "declension_table",
-        "word": "město",
-        "gender": "neuter",
-        "cases": [
-          "nominative",
-          "accusative"
+        "type": "dialogue",
+        "scenario": "At the Café Counter",
+        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Dobrý den. Co si dáte?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "A co k pití?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "answer_key": {
-          "nominative": "město",
-          "accusative": "město"
-        },
-        "explanation": "Neuter nouns do NOT change in the accusative singular. Město is the same in both nominative and accusative: Vidím město. (I see a city.)"
+        "blank_answers": [
+          [
+            "Dám si kávu."
+          ],
+          [
+            "Dám si čaj."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "město",
-      "grammar_rule_id": "GR-053",
-      "xp_reward": 10
+      "answer_key": "Dám si kávu. | Dám si čaj.",
+      "xp_reward": 15
     },
     {
       "id": 6010,
       "lesson_id": 601,
-      "type": "translation",
-      "prompt": "Translate — remember neuter nouns don't change in accusative",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I see a beer.",
-        "accepted_answers": [
-          "Vidím pivo.",
-          "Vidím pivo"
+        "type": "writing_task",
+        "prompt_en": "Write a polite café order with one food and one drink.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Dám si kávu.",
+          "Dám si čaj.",
+          "Vodu, prosím.",
+          "Máte polévku?"
         ],
-        "grammar_note": "Pivo is neuter. Neuter nouns are unchanged in the accusative: pivo → pivo. Vidím pivo = I see a beer."
+        "sample_answer": "Dám si kávu. Dám si čaj. Vodu, prosím. Máte polévku?"
       },
-      "answer_key": [
-        "Vidím pivo.",
-        "Vidím pivo"
-      ],
-      "grammar_rule_id": "GR-053",
-      "xp_reward": 15
+      "answer_key": "Dám si kávu. Dám si čaj. Vodu, prosím. Máte polévku?",
+      "xp_reward": 0
     },
     {
       "id": 6011,
       "lesson_id": 601,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_6011",
-        "expected_text": "Vidím kávu. Mám knihu. Piju vodu.",
-        "language": "cs-CZ",
-        "note": "Three short sentences using the feminine accusative -u ending: kávu, knihu, vodu."
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Prosím jednu kávu a jeden čaj. Polévku nechci.",
+        "questions": [
+          {
+            "question_en": "How many drinks are ordered?",
+            "options": [
+              "Two",
+              "One",
+              "Three"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Vidím kávu. Mám knihu. Piju vodu.",
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 20
-    },
-    {
-      "id": 6012,
-      "lesson_id": 601,
-      "type": "pronunciation",
-      "prompt": "Practice pronouncing the accusative forms",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Vidím ženu. Mám knihu. Piju vodu.",
-        "target_audio_hash": "placeholder_6012",
-        "focus_sounds": [
-          "uː",
-          "ʒ",
-          "v",
-          "ɦ"
-        ],
-        "min_score": 0.6,
-        "translation_en": "I see a woman. I have a book. I drink water."
-      },
-      "answer_key": "Vidím ženu. Mám knihu. Piju vodu.",
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 20
+      "answer_key": "Two",
+      "xp_reward": 15
     }
   ]
 }

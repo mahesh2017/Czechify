@@ -1,229 +1,353 @@
 {
   "id": 1502,
   "unit_id": 15,
-  "order_in_unit": 1,
-  "title": "Travel & Past Tense Intro",
-  "description": "Learn travel vocabulary, intro to past and future tenses, and basic travel conversation",
-  "duration_min": 15,
+  "title": "Connect Seasons and Plans",
+  "description": "Connect seasons and weather conditions to everyday plans.",
   "lesson_type": "practice",
+  "order_in_unit": 1,
+  "duration_min": 12,
   "is_review": false,
   "exercises": [
     {
-      "id": 15013,
+      "id": 15100,
       "lesson_id": 1502,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct translation for 'airport'",
+      "type": "teaching",
+      "prompt": "Learn the mission language",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'airport'?",
-        "question_en": "What does 'airport' mean?",
-        "options": ["nádraží", "letiště", "náměstí", "přístav"],
-        "correct_index": 1,
-        "explanation": "'Letiště' means airport. 'Nádraží' is train station, 'náměstí' is square, 'přístav' is harbor."
-      },
-      "answer_key": "1",
-      "xp_reward": 10
-    },
-    {
-      "id": 15014,
-      "lesson_id": 1502,
-      "type": "multiple_choice",
-      "prompt": "What does 'dovolená' mean?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'dovolená'?",
-        "question_en": "What does 'dovolená' mean?",
-        "options": ["weekend", "vacation", "business trip", "holiday (date)"],
-        "correct_index": 1,
-        "explanation": "'Dovolená' means vacation or holiday (time off). A public holiday is 'svátek'. 'Víkend' is weekend."
-      },
-      "answer_key": "1",
-      "xp_reward": 10
-    },
-    {
-      "id": 15015,
-      "lesson_id": 1502,
-      "type": "multiple_choice",
-      "prompt": "Which is the correct future form of 'já + být'?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaká je správná budoucí forma slovesa 'být' pro 'já'?",
-        "question_en": "What is the correct future form of 'to be' for 'I'?",
-        "options": ["jsem", "byl jsem", "budu", "bude"],
-        "correct_index": 2,
-        "explanation": "'Budu' is the future form of 'být' for 'já'. Future of být: budu, budeš, bude, budeme, budete, budou."
-      },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-142",
-      "xp_reward": 10
-    },
-    {
-      "id": 15016,
-      "lesson_id": 1502,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'I was in Prague' (male speaker)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řeknete 'I was in Prague' (muž)?",
-        "question_en": "How do you say 'I was in Prague' (male)?",
-        "options": ["Byl v Praze.", "Byl jsem v Praze.", "Byla jsem v Praze.", "Jsem v Praze."],
-        "correct_index": 1,
-        "explanation": "'Byl jsem v Praze.' = I was in Prague (male). 'Byla jsem v Praze.' is for female speakers. The auxiliary 'jsem' is required for 1st person."
-      },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-143",
-      "xp_reward": 15
-    },
-    {
-      "id": 15017,
-      "lesson_id": 1502,
-      "type": "fill_blank",
-      "prompt": "Fill in the blank with the correct past tense form",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Včera jsem ___ v kině. (být — I was, female speaker)",
-        "blank_count": 1,
-        "explanation": "Female speaker: 'byla jsem'. Past tense uses -l for masculine, -la for feminine, -lo for neuter: byl/byla/bylo.",
-        "blank_answers": [
-          ["byla"]
+        "type": "teaching",
+        "style": "list",
+        "heading": "Connect Seasons and Plans",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Na jaře je hezky.",
+            "en": "Spring is nice."
+          },
+          {
+            "cz": "V létě je horko.",
+            "en": "In summer it is hot."
+          },
+          {
+            "cz": "Na podzim prší.",
+            "en": "In autumn it rains."
+          },
+          {
+            "cz": "V zimě sněží.",
+            "en": "In winter it snows."
+          }
         ]
       },
-      "answer_key": "byla",
-      "grammar_rule_id": "GR-143",
-      "xp_reward": 15
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 15018,
+      "id": 15101,
       "lesson_id": 1502,
-      "type": "fill_blank",
-      "prompt": "Fill in the blank with the future tense form",
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Příští týden ___ cestovat do Brna. (I will)",
-        "blank_count": 1,
-        "explanation": "'Budu cestovat' = I will travel. Future tense = budu/budeš/bude/budeme/budete/budou + infinitive.",
-        "blank_answers": [
-          ["budu"]
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
+              "Dám si čaj.",
+              "Jdu do kina."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "budu",
-      "grammar_rule_id": "GR-142",
+      "answer_key": "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
       "xp_reward": 15
     },
     {
-      "id": 15019,
+      "id": 15102,
       "lesson_id": 1502,
-      "type": "translation",
-      "prompt": "Translate from English to Czech",
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I need a ticket to Prague.",
-        "accepted_answers": ["Potřebuju lístek do Prahy", "Potřebuji lístek do Prahy", "Potřebuju lístek do Prahy.", "Potřebuji lístek do Prahy."],
-        "grammar_note": "'Lístek do Prahy' uses 'do' + genitive for destinations (Praha → Prahy). 'Potřebovat' = to need."
-      },
-      "answer_key": "Potřebuju lístek do Prahy",
-      "xp_reward": 15
-    },
-    {
-      "id": 15020,
-      "lesson_id": 1502,
-      "type": "translation",
-      "prompt": "Translate from English to Czech",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I had a good time on vacation.",
-        "accepted_answers": ["Měl jsem se dobře na dovolené", "Měla jsem se dobře na dovolené", "Měl jsem se dobře na dovolené.", "Měla jsem se dobře na dovolené."],
-        "grammar_note": "'Měl jsem se dobře' = I had a good time (masc). 'Měla jsem se dobře' (fem). 'Na dovolené' = on vacation (locative)."
-      },
-      "answer_key": "Měl jsem se dobře na dovolené",
-      "grammar_rule_id": "GR-143",
-      "xp_reward": 15
-    },
-    {
-      "id": 15021,
-      "lesson_id": 1502,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear",
-      "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_15021",
-        "expected_text": "Byl jsem v Praze minulý týden. Měl jsem se dobře.",
-        "language": "cs-CZ",
-        "note": "Past tense: 'Byl jsem' (I was — male). 'Měl jsem se dobře' = I had a good time."
-      },
-      "answer_key": "Byl jsem v Praze minulý týden. Měl jsem se dobře.",
-      "grammar_rule_id": "GR-143",
-      "xp_reward": 20
-    },
-    {
-      "id": 15022,
-      "lesson_id": 1502,
-      "type": "pronunciation",
-      "prompt": "Pronounce the following sentence",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Příští léto pojedu na dovolenou do Itálie.",
-        "target_audio_hash": "placeholder_15022",
-        "focus_sounds": ["příští", "léto", "pojedu", "Itálie"],
-        "min_score": 0.6,
-        "translation_en": "Next summer I will go on vacation to Italy."
-      },
-      "answer_key": "Příští léto pojedu na dovolenou do Itálie.",
-      "grammar_rule_id": "GR-142",
-      "xp_reward": 15
-    },
-    {
-      "id": 15023,
-      "lesson_id": 1502,
-      "type": "word_order",
-      "prompt": "Arrange the words to form the sentence",
-      "data": {
-        "type": "word_order",
-        "words": ["Příští", "týden", "budu", "v", "hotelu"],
-        "correct_order": [0, 1, 2, 3, 4],
-        "explanation": "'Příští týden budu v hotelu.' = Next week I will be in a hotel. Subject 'já' is dropped (pro-drop). 'V hotelu' is locative."
-      },
-      "answer_key": "Příští týden budu v hotelu.",
-      "grammar_rule_id": "GR-142",
-      "xp_reward": 15
-    },
-    {
-      "id": 15024,
-      "lesson_id": 1502,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue about a past trip",
-      "data": {
-        "type": "dialogue",
-        "scenario": "A friend asks about your recent trip to Prague.",
-        "lines": [
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit15/weather_forecast_v1.png",
+        "image_label": "Connect Seasons and Plans",
+        "text_cz": "Petra má ráda léto, protože je teplo. V zimě ráda vidí sníh. Na podzim často prší.",
+        "text_en": "Petra likes summer because it is warm. In winter she likes seeing snow. In autumn it often rains.",
+        "questions": [
           {
-            "speaker": "person_a",
-            "text": "Kde jsi byl minulý týden?"
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "V zimě sněží.",
+              "Dám si čaj.",
+              "Jdu do kina.",
+              "Je vedle banky."
+            ],
+            "correct_index": 0
           },
           {
-            "speaker": "person_b",
-            "text": "___ (I was in Prague.)"
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "V zimě sněží.",
+      "xp_reward": 15
+    },
+    {
+      "id": 15103,
+      "lesson_id": 1502,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Na jaře je hezky.",
+            "right": "Spring is nice."
           },
           {
-            "speaker": "person_a",
-            "text": "Jaké to bylo?"
+            "left": "V létě je horko.",
+            "right": "In summer it is hot."
           },
           {
-            "speaker": "person_b",
-            "text": "___ (It was great! I had a good time.)"
+            "left": "Na podzim prší.",
+            "right": "In autumn it rains."
+          },
+          {
+            "left": "V zimě sněží.",
+            "right": "In winter it snows."
           }
         ],
-        "explanation": "'Kde jsi byl?' = Where were you? (masc). Answer: 'Byl jsem v Praze.' (masc) or 'Byla jsem v Praze.' (fem). 'Jaké to bylo?' = How was it? 'Bylo to skvělé!' = It was great!",
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Na jaře je hezky.–Spring is nice.; V létě je horko.–In summer it is hot.; Na podzim prší.–In autumn it rains.; V zimě sněží.–In winter it snows.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15104,
+      "lesson_id": 1502,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "V zimě sněží.",
+          "Dám si čaj.",
+          "Jdu do kina.",
+          "Je vedle banky."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "V zimě sněží.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15105,
+      "lesson_id": 1502,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "V létě je ___. V zimě ___.",
+        "blank_count": 2,
         "blank_answers": [
-          ["Byl jsem v Praze", "Byla jsem v Praze"],
-          ["Bylo to skvělé! Měl jsem se dobře", "Bylo to skvělé! Měla jsem se dobře"]
+          [
+            "horko"
+          ],
+          [
+            "sněží"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "horko | sněží",
+      "xp_reward": 10
+    },
+    {
+      "id": 15106,
+      "lesson_id": 1502,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "V",
+          "zimě",
+          "sněží."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "V zimě sněží.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15107,
+      "lesson_id": 1502,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "V zimě sněží a v létě je horko.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "V zimě sněží a v létě je horko.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15108,
+      "lesson_id": 1502,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "V zimě sněží a v létě je horko.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "V zimě sněží a v létě je horko.",
+      "xp_reward": 15
+    },
+    {
+      "id": 15109,
+      "lesson_id": 1502,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Connect Seasons and Plans",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Jaké je počasí v zimě?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "A v létě?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "V zimě sněží.",
+            "Sněží."
+          ],
+          [
+            "V létě je horko.",
+            "Je horko."
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "V zimě sněží. | V létě je horko.",
+      "xp_reward": 15
+    },
+    {
+      "id": 15110,
+      "lesson_id": 1502,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write your favourite season and one weather reason.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Na jaře je hezky.",
+          "V létě je horko.",
+          "Na podzim prší.",
+          "V zimě sněží."
+        ],
+        "sample_answer": "Na jaře je hezky."
+      },
+      "answer_key": "Na jaře je hezky.",
+      "xp_reward": 0
+    },
+    {
+      "id": 15111,
+      "lesson_id": 1502,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
+              "Dám si čaj.",
+              "Jdu do kina."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "Byl jsem v Praze|Bylo to skvělé! Měl jsem se dobře",
-      "grammar_rule_id": "GR-143",
-      "xp_reward": 25
+      "answer_key": "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "connect seasons and weather to simple plans.",
+  "new_language": [
+    "Na jaře je hezky.",
+    "V létě je horko.",
+    "Na podzim prší.",
+    "V zimě sněží."
+  ],
+  "recycles": [
+    "days and time",
+    "places",
+    "transport",
+    "present-tense activities"
+  ],
+  "exit_task": "connect seasons and weather to simple plans."
 }

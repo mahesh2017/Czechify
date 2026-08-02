@@ -1,0 +1,341 @@
+{
+  "id": 603,
+  "unit_id": 6,
+  "order_in_unit": 2,
+  "title": "Handle a Simple Order",
+  "description": "Confirm availability, accept an alternative, and repair a misunderstanding.",
+  "can_do": "confirm or change a simple order.",
+  "new_language": [
+    "Ano, máme.",
+    "Bohužel nemáme.",
+    "Tak si dám čaj.",
+    "Ještě jednou, prosím."
+  ],
+  "recycles": [
+    "Dobrý den",
+    "Máte…?",
+    "Ano/Ne",
+    "Prosím",
+    "Nerozumím"
+  ],
+  "exit_task": "confirm or change a simple order.",
+  "duration_min": 12,
+  "lesson_type": "application",
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 6200,
+      "lesson_id": 603,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Handle a Simple Order",
+        "body": "Confirm availability, accept an alternative, and repair a misunderstanding.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Ano, máme.",
+            "en": "Yes, we have it."
+          },
+          {
+            "cz": "Bohužel nemáme.",
+            "en": "Unfortunately, we do not have it."
+          },
+          {
+            "cz": "Tak si dám čaj.",
+            "en": "Then I will have tea."
+          },
+          {
+            "cz": "Ještě jednou, prosím.",
+            "en": "Once again, please."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 6201,
+      "lesson_id": 603,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Máte kávu? Bohužel nemáme. Tak si dám čaj. Ještě jednou, prosím? Čaj.",
+        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Handle a Simple Order",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Why does the customer choose tea?",
+            "options": [
+              "Coffee is unavailable",
+              "Tea is free",
+              "Water is unavailable"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Coffee is unavailable",
+      "xp_reward": 15
+    },
+    {
+      "id": 6202,
+      "lesson_id": 603,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "text_cz": "Kavárna: Káva dnes není. Máme čaj, vodu a pomerančovou limonádu.",
+        "text_en": "Café: Coffee is unavailable today. We have tea, water, and orange lemonade.",
+        "questions": [
+          {
+            "question_en": "Which drink is unavailable?",
+            "options": [
+              "Coffee",
+              "Tea",
+              "Lemonade"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Café: Coffee is unavailable today. We have tea, water, and orange lemonade.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Coffee",
+      "xp_reward": 15
+    },
+    {
+      "id": 6203,
+      "lesson_id": 603,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Ano, máme.",
+            "right": "Yes, we have it."
+          },
+          {
+            "left": "Bohužel nemáme.",
+            "right": "Unfortunately, we do not have it."
+          },
+          {
+            "left": "Tak si dám čaj.",
+            "right": "Then I will have tea."
+          },
+          {
+            "left": "Ještě jednou, prosím.",
+            "right": "Once again, please."
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Ano, máme.–Yes, we have it.; Bohužel nemáme.–Unfortunately, we do not have it.; Tak si dám čaj.–Then I will have tea.; Ještě jednou, prosím.–Once again, please.",
+      "xp_reward": 10
+    },
+    {
+      "id": 6204,
+      "lesson_id": 603,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Ano, máme.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Ano, máme.",
+      "xp_reward": 10
+    },
+    {
+      "id": 6205,
+      "lesson_id": 603,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___, máme.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Ano"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "Ano",
+      "xp_reward": 10
+    },
+    {
+      "id": 6206,
+      "lesson_id": 603,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "nemáme.",
+          "Bohužel"
+        ],
+        "correct_order": [
+          1,
+          0
+        ],
+        "translation_en": "Unfortunately, we do not have it.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "Bohužel nemáme.",
+      "xp_reward": 10
+    },
+    {
+      "id": 6207,
+      "lesson_id": 603,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Tak si dám čaj.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "Tak si dám čaj.",
+      "xp_reward": 10
+    },
+    {
+      "id": 6208,
+      "lesson_id": 603,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Ještě jednou, prosím.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Once again, please."
+      },
+      "answer_key": "Ještě jednou, prosím.",
+      "xp_reward": 15
+    },
+    {
+      "id": 6209,
+      "lesson_id": 603,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Handle a Simple Order",
+        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Bohužel kávu nemáme."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Dáte si čaj?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Ano, máme."
+          ],
+          [
+            "Bohužel nemáme."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Ano, máme. | Bohužel nemáme.",
+      "xp_reward": 15
+    },
+    {
+      "id": 6210,
+      "lesson_id": 603,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a two-line response accepting an alternative when your first choice is unavailable.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Ano, máme.",
+          "Bohužel nemáme.",
+          "Tak si dám čaj.",
+          "Ještě jednou, prosím."
+        ],
+        "sample_answer": "Ano, máme. Bohužel nemáme. Tak si dám čaj. Ještě jednou, prosím."
+      },
+      "answer_key": "Ano, máme. Bohužel nemáme. Tak si dám čaj. Ještě jednou, prosím.",
+      "xp_reward": 0
+    },
+    {
+      "id": 6211,
+      "lesson_id": 603,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Promiňte, nerozumím. Máte vodu? Ano, máme.",
+        "questions": [
+          {
+            "question_en": "Which repair phrase is used?",
+            "options": [
+              "Promiňte, nerozumím",
+              "Na shledanou",
+              "Těší mě"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Promiňte, nerozumím",
+      "xp_reward": 15
+    }
+  ]
+}

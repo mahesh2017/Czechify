@@ -2,537 +2,340 @@
   "id": 901,
   "unit_id": 9,
   "order_in_unit": 0,
-  "title": "Numbers 0-100 & Counting",
-  "description": "Learn Czech numbers from 0 to 100, how to ask 'how many' (Kolik?), and how to count objects using correct gender endings (jeden/jedna/jedno, dva/dvě).",
-  "duration_min": 15,
+  "title": "Hear the Important Numbers",
+  "description": "Recognise grouped phone numbers and distinguish similar number details.",
+  "can_do": "understand and say a simple telephone number.",
+  "new_language": [
+    "nula, jedna, dva, tři",
+    "deset, jedenáct, dvanáct",
+    "dvacet, třicet, čtyřicet",
+    "Moje číslo je…"
+  ],
+  "recycles": [
+    "Mám…",
+    "Kde…?",
+    "dnes/zítra",
+    "Ano, dobře"
+  ],
+  "exit_task": "understand and say a simple telephone number.",
+  "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
-      "id": 950,
+      "id": 9000,
       "lesson_id": 901,
       "type": "teaching",
-      "prompt": "Czech numbers — listen to how each one is said",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "Czech Numbers",
-        "body": "Numbers 0–20 each have their own word, then you count by tens. Tap a number to hear it. For 21–99, just combine the tens and the ones: dvacet jedna = 21, třicet pět = 35. Listen and repeat first — then you'll practise.",
-        "play_all_label": "Hear all the numbers",
+        "style": "list",
+        "heading": "Hear the Important Numbers",
+        "body": "Recognise grouped phone numbers and distinguish similar number details.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "symbol": "0",
-            "name": "",
-            "name_say": "nula",
-            "sound": "‘NOO-la’",
-            "example": "nula",
-            "example_en": "",
-            "say": "nula"
+            "cz": "nula, jedna, dva, tři",
+            "en": "zero, one, two, three"
           },
           {
-            "symbol": "1",
-            "name": "",
-            "name_say": "jedna",
-            "sound": "‘YED-na’",
-            "example": "jedna",
-            "example_en": "",
-            "say": "jedna"
+            "cz": "deset, jedenáct, dvanáct",
+            "en": "ten, eleven, twelve"
           },
           {
-            "symbol": "2",
-            "name": "",
-            "name_say": "dva",
-            "sound": "‘dvah’",
-            "example": "dva",
-            "example_en": "",
-            "say": "dva"
+            "cz": "dvacet, třicet, čtyřicet",
+            "en": "twenty, thirty, forty"
           },
           {
-            "symbol": "3",
-            "name": "",
-            "name_say": "tři",
-            "sound": "‘trzhee’",
-            "example": "tři",
-            "example_en": "",
-            "say": "tři"
-          },
-          {
-            "symbol": "4",
-            "name": "",
-            "name_say": "čtyři",
-            "sound": "‘CHTIH-rzhih’",
-            "example": "čtyři",
-            "example_en": "",
-            "say": "čtyři"
-          },
-          {
-            "symbol": "5",
-            "name": "",
-            "name_say": "pět",
-            "sound": "‘pyet’",
-            "example": "pět",
-            "example_en": "",
-            "say": "pět"
-          },
-          {
-            "symbol": "6",
-            "name": "",
-            "name_say": "šest",
-            "sound": "‘shest’",
-            "example": "šest",
-            "example_en": "",
-            "say": "šest"
-          },
-          {
-            "symbol": "7",
-            "name": "",
-            "name_say": "sedm",
-            "sound": "‘SE-doom’",
-            "example": "sedm",
-            "example_en": "",
-            "say": "sedm"
-          },
-          {
-            "symbol": "8",
-            "name": "",
-            "name_say": "osm",
-            "sound": "‘O-soom’",
-            "example": "osm",
-            "example_en": "",
-            "say": "osm"
-          },
-          {
-            "symbol": "9",
-            "name": "",
-            "name_say": "devět",
-            "sound": "‘DE-vyet’",
-            "example": "devět",
-            "example_en": "",
-            "say": "devět"
-          },
-          {
-            "symbol": "10",
-            "name": "",
-            "name_say": "deset",
-            "sound": "‘DE-set’",
-            "example": "deset",
-            "example_en": "",
-            "say": "deset"
-          },
-          {
-            "symbol": "11",
-            "name": "",
-            "name_say": "jedenáct",
-            "sound": "‘YE-de-nahtst’",
-            "example": "jedenáct",
-            "example_en": "",
-            "say": "jedenáct"
-          },
-          {
-            "symbol": "12",
-            "name": "",
-            "name_say": "dvanáct",
-            "sound": "‘DVA-nahtst’",
-            "example": "dvanáct",
-            "example_en": "",
-            "say": "dvanáct"
-          },
-          {
-            "symbol": "13",
-            "name": "",
-            "name_say": "třináct",
-            "sound": "‘TRZHEE-nahtst’",
-            "example": "třináct",
-            "example_en": "",
-            "say": "třináct"
-          },
-          {
-            "symbol": "14",
-            "name": "",
-            "name_say": "čtrnáct",
-            "sound": "‘CHTR-nahtst’",
-            "example": "čtrnáct",
-            "example_en": "",
-            "say": "čtrnáct"
-          },
-          {
-            "symbol": "15",
-            "name": "",
-            "name_say": "patnáct",
-            "sound": "‘PAT-nahtst’",
-            "example": "patnáct",
-            "example_en": "",
-            "say": "patnáct"
-          },
-          {
-            "symbol": "16",
-            "name": "",
-            "name_say": "šestnáct",
-            "sound": "‘SHEST-nahtst’",
-            "example": "šestnáct",
-            "example_en": "",
-            "say": "šestnáct"
-          },
-          {
-            "symbol": "17",
-            "name": "",
-            "name_say": "sedmnáct",
-            "sound": "‘SE-doom-nahtst’",
-            "example": "sedmnáct",
-            "example_en": "",
-            "say": "sedmnáct"
-          },
-          {
-            "symbol": "18",
-            "name": "",
-            "name_say": "osmnáct",
-            "sound": "‘O-soom-nahtst’",
-            "example": "osmnáct",
-            "example_en": "",
-            "say": "osmnáct"
-          },
-          {
-            "symbol": "19",
-            "name": "",
-            "name_say": "devatenáct",
-            "sound": "‘DE-va-te-nahtst’",
-            "example": "devatenáct",
-            "example_en": "",
-            "say": "devatenáct"
-          },
-          {
-            "symbol": "20",
-            "name": "",
-            "name_say": "dvacet",
-            "sound": "‘DVA-tset’",
-            "example": "dvacet",
-            "example_en": "",
-            "say": "dvacet"
-          },
-          {
-            "symbol": "30",
-            "name": "",
-            "name_say": "třicet",
-            "sound": "‘TRZHI-tset’",
-            "example": "třicet",
-            "example_en": "",
-            "say": "třicet"
-          },
-          {
-            "symbol": "40",
-            "name": "",
-            "name_say": "čtyřicet",
-            "sound": "‘CHTIH-rzhi-tset’",
-            "example": "čtyřicet",
-            "example_en": "",
-            "say": "čtyřicet"
-          },
-          {
-            "symbol": "50",
-            "name": "",
-            "name_say": "padesát",
-            "sound": "‘PA-de-saht’",
-            "example": "padesát",
-            "example_en": "",
-            "say": "padesát"
-          },
-          {
-            "symbol": "60",
-            "name": "",
-            "name_say": "šedesát",
-            "sound": "‘SHE-de-saht’",
-            "example": "šedesát",
-            "example_en": "",
-            "say": "šedesát"
-          },
-          {
-            "symbol": "70",
-            "name": "",
-            "name_say": "sedmdesát",
-            "sound": "‘SE-doom-de-saht’",
-            "example": "sedmdesát",
-            "example_en": "",
-            "say": "sedmdesát"
-          },
-          {
-            "symbol": "80",
-            "name": "",
-            "name_say": "osmdesát",
-            "sound": "‘O-soom-de-saht’",
-            "example": "osmdesát",
-            "example_en": "",
-            "say": "osmdesát"
-          },
-          {
-            "symbol": "90",
-            "name": "",
-            "name_say": "devadesát",
-            "sound": "‘DE-va-de-saht’",
-            "example": "devadesát",
-            "example_en": "",
-            "say": "devadesát"
-          },
-          {
-            "symbol": "100",
-            "name": "",
-            "name_say": "sto",
-            "sound": "‘stoh’",
-            "example": "sto",
-            "example_en": "",
-            "say": "sto"
+            "cz": "Moje číslo je…",
+            "en": "My number is…"
           }
-        ],
-        "intro": "Prices, phone numbers, the time on the clock — none of it works without numbers. Let's count from zero, learn the tens, and crack the simple trick for everything in between."
+        ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 9001,
       "lesson_id": 901,
-      "type": "multiple_choice",
-      "prompt": "What is the Czech word for the number 5?",
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaké je české slovo pro číslo 5?",
-        "question_en": "What is the Czech word for the number 5?",
-        "options": [
-          "tři",
-          "čtyři",
-          "pět",
-          "šest"
-        ],
-        "correct_index": 2,
-        "explanation": "Pět means five. Tři=3, čtyři=4, šest=6."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Moje telefonní číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
+        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Hear the Important Numbers",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which is the final number group?",
+            "options": [
+              "815",
+              "850",
+              "518"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-080",
-      "xp_reward": 10
+      "answer_key": "815",
+      "xp_reward": 15
     },
     {
       "id": 9002,
       "lesson_id": 901,
-      "type": "multiple_choice",
-      "prompt": "What is the Czech word for the number 15?",
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak se řekne česky číslo 15?",
-        "question_en": "How do you say the number 15 in Czech?",
-        "options": [
-          "patnáct",
-          "padesát",
-          "třináct",
-          "čtrnáct"
-        ],
-        "correct_index": 0,
-        "explanation": "Patnáct means fifteen. Padesát=50, třináct=13, čtrnáct=14."
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "text_cz": "Kontakt: Eva Malá, telefon 702 430 815, kancelář 12.",
+        "text_en": "Contact: Eva Malá, telephone 702 430 815, office 12.",
+        "questions": [
+          {
+            "question_en": "What is Eva’s office number?",
+            "options": [
+              "12",
+              "15",
+              "30"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Contact: Eva Malá, telephone 702 430 815, office 12.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-080",
-      "xp_reward": 10
+      "answer_key": "12",
+      "xp_reward": 15
     },
     {
       "id": 9003,
       "lesson_id": 901,
-      "type": "multiple_choice",
-      "prompt": "What is the Czech word for the number 70?",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak se řekne česky číslo 70?",
-        "question_en": "How do you say the number 70 in Czech?",
-        "options": [
-          "sedmdesát",
-          "šedesát",
-          "osmdesát",
-          "devadesát"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "nula, jedna, dva, tři",
+            "right": "zero, one, two, three"
+          },
+          {
+            "left": "deset, jedenáct, dvanáct",
+            "right": "ten, eleven, twelve"
+          },
+          {
+            "left": "dvacet, třicet, čtyřicet",
+            "right": "twenty, thirty, forty"
+          },
+          {
+            "left": "Moje číslo je…",
+            "right": "My number is…"
+          }
         ],
-        "correct_index": 0,
-        "explanation": "Sedmdesát means seventy. Šedesát=60, osmdesát=80, devadesát=90."
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-080",
+      "answer_key": "nula, jedna, dva, tři–zero, one, two, three; deset, jedenáct, dvanáct–ten, eleven, twelve; dvacet, třicet, čtyřicet–twenty, thirty, forty; Moje číslo je…–My number is…",
       "xp_reward": 10
     },
     {
       "id": 9004,
       "lesson_id": 901,
       "type": "multiple_choice",
-      "prompt": "Which form of 'one' goes with the feminine noun 'kniha' (book)?",
+      "prompt": "Choose the phrase that completes the lesson goal",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Který tvar slova 'jeden' použijete s 'kniha'?",
-        "question_en": "Which form of 'one' goes with 'kniha' (book)?",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
         "options": [
-          "jeden",
-          "jedna",
-          "jedno",
-          "jedny"
+          "nula, jedna, dva, tři",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
         ],
-        "correct_index": 1,
-        "explanation": "Jedna kniha — 'kniha' is feminine, so we use 'jedna'. Jeden=masculine, jedno=neuter."
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-081",
+      "answer_key": "nula, jedna, dva, tři",
       "xp_reward": 10
     },
     {
       "id": 9005,
       "lesson_id": 901,
-      "type": "multiple_choice",
-      "prompt": "Which form of 'two' goes with the feminine noun 'ženy' (women)?",
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Který tvar slova 'dva' použijete s 'ženy'?",
-        "question_en": "Which form of 'two' goes with 'ženy' (women)?",
-        "options": [
-          "dva",
-          "dvě",
-          "dvoje",
-          "oba"
+        "type": "fill_blank",
+        "sentence": "nula, ___, dva, tři",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jedna"
+          ]
         ],
-        "correct_index": 1,
-        "explanation": "Dvě ženy — 'ženy' is feminine, so we use 'dvě'. Dva=masculine, dvoje/oba are different words."
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-081",
+      "answer_key": "jedna",
       "xp_reward": 10
     },
     {
       "id": 9006,
       "lesson_id": 901,
-      "type": "multiple_choice",
-      "prompt": "What does 'Kolik to stojí?' mean?",
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'Kolik to stojí?'?",
-        "question_en": "What does 'Kolik to stojí?' mean?",
-        "options": [
-          "Where is it?",
-          "How much does it cost?",
-          "What time is it?",
-          "How are you?"
+        "type": "word_order",
+        "words": [
+          "dvanáct",
+          "jedenáct,",
+          "deset,"
         ],
-        "correct_index": 1,
-        "explanation": "'Kolik to stojí?' means 'How much does it cost?'. Kolik = how much/how many."
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "ten, eleven, twelve",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-080",
+      "answer_key": "deset, jedenáct, dvanáct",
       "xp_reward": 10
     },
     {
       "id": 9007,
       "lesson_id": 901,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I have twenty-three crowns.'",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I have twenty-three crowns.",
-        "accepted_answers": [
-          "Mám dvacet tři korun.",
-          "Mám 23 korun.",
-          "Mám dvacet tři koruny."
-        ],
-        "grammar_note": "Numbers 21+ use the genitive plural (korun). In colloquial speech, 'koruny' is also heard."
+        "type": "dictation",
+        "expected_text": "dvacet, třicet, čtyřicet",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": "Mám dvacet tři korun.",
-      "grammar_rule_id": "GR-081",
+      "answer_key": "dvacet, třicet, čtyřicet",
       "xp_reward": 10
     },
     {
       "id": 9008,
       "lesson_id": 901,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'How many apples do you have?'",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "How many apples do you have?",
-        "accepted_answers": [
-          "Kolik máš jablek?",
-          "Kolik máte jablek?",
-          "Kolik jablek máš?",
-          "Kolik jablek máte?"
+        "type": "pronunciation",
+        "target_text": "Moje číslo je…",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
         ],
-        "grammar_note": "Kolik = how many. 'Jablek' is genitive plural of 'jablko' (apple). After 'kolik', use genitive."
+        "min_score": 0.5,
+        "translation_en": "My number is…"
       },
-      "answer_key": "Kolik máš jablek?",
-      "grammar_rule_id": "GR-081",
-      "xp_reward": 10
+      "answer_key": "Moje číslo je…",
+      "xp_reward": 15
     },
     {
       "id": 9009,
       "lesson_id": 901,
-      "type": "dictation",
-      "prompt": "Listen and write the numbers you hear in Czech.",
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_9009",
-        "expected_text": "čtyřicet sedm",
-        "language": "cs-CZ",
-        "note": "Listen for the numbers forty-seven (47). Čtyřicet = 40, sedm = 7."
+        "type": "dialogue",
+        "scenario": "Hear the Important Numbers",
+        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Jaké máte telefonní číslo?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Můžete to zopakovat?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "nula, jedna, dva, tři"
+          ],
+          [
+            "deset, jedenáct, dvanáct"
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "čtyřicet sedm",
-      "xp_reward": 20
+      "answer_key": "nula, jedna, dva, tři | deset, jedenáct, dvanáct",
+      "xp_reward": 15
     },
     {
       "id": 9010,
       "lesson_id": 901,
-      "type": "pronunciation",
-      "prompt": "Say this Czech phrase aloud.",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "pronunciation",
-        "target_text": "Mám jednu sestru a dva bratry.",
-        "target_audio_hash": "placeholder_9010",
-        "focus_sounds": [
-          "jednu",
-          "dva"
+        "type": "writing_task",
+        "prompt_en": "Write your phone number in three spoken groups and add one repetition request.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "nula, jedna, dva, tři",
+          "deset, jedenáct, dvanáct",
+          "dvacet, třicet, čtyřicet",
+          "Moje číslo je…"
         ],
-        "min_score": 0.6,
-        "translation_en": "I have one sister and two brothers."
+        "sample_answer": "nula, jedna, dva, tři deset, jedenáct, dvanáct dvacet, třicet, čtyřicet Moje číslo je…"
       },
-      "answer_key": "Mám jednu sestru a dva bratry.",
-      "grammar_rule_id": "GR-081",
-      "xp_reward": 15
+      "answer_key": "nula, jedna, dva, tři deset, jedenáct, dvanáct dvacet, třicet, čtyřicet Moje číslo je…",
+      "xp_reward": 0
     },
     {
       "id": 9011,
       "lesson_id": 901,
-      "type": "word_order",
-      "prompt": "Arrange the words to form the correct Czech sentence.",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
       "data": {
-        "type": "word_order",
-        "words": [
-          "Mám",
-          "tři",
-          "knihy."
-        ],
-        "correct_order": [
-          0,
-          1,
-          2
-        ],
-        "explanation": "Mám tři knihy. = I have three books. Czech word order: subject-verb-object, with the number before the noun."
-      },
-      "answer_key": "Mám tři knihy.",
-      "xp_reward": 15
-    },
-    {
-      "id": 9012,
-      "lesson_id": 901,
-      "type": "fill_blank",
-      "prompt": "Complete the sentence with the correct form of 'one'.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "To je ___ auto. (one car — neuter)",
-        "blank_count": 1,
-        "explanation": "Jedno auto — 'auto' is neuter, so we use 'jedno'. Jeden=masc., jedna=fem.",
-        "blank_answers": [
-          [
-            "jedno"
-          ]
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Prosím číslo šest set osm, dvě stě čtyřicet, devět set jedenáct.",
+        "questions": [
+          {
+            "question_en": "What is the middle group?",
+            "options": [
+              "240",
+              "608",
+              "911"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "jedno",
-      "grammar_rule_id": "GR-081",
+      "answer_key": "240",
       "xp_reward": 15
     }
   ]

@@ -1,0 +1,340 @@
+{
+  "id": 1504,
+  "unit_id": 15,
+  "title": "Mission: Give a Travel Update",
+  "description": "Combine past location, current weather, and a future plan in a travel update.",
+  "lesson_type": "mission",
+  "order_in_unit": 3,
+  "duration_min": 12,
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 15300,
+      "lesson_id": 1504,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Mission: Give a Travel Update",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Byl jsem v Praze.",
+            "en": "I was in Prague."
+          },
+          {
+            "cz": "Byla jsem doma.",
+            "en": "I was at home."
+          },
+          {
+            "cz": "Bylo hezky.",
+            "en": "The weather was nice."
+          },
+          {
+            "cz": "Zítra pojedu vlakem.",
+            "en": "Tomorrow I will go by train."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15301,
+      "lesson_id": 1504,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Včera jsem byl v Praze. Pršelo, ale dnes je hezky. Zítra pojedu vlakem.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Včera jsem byl v Praze. Pršelo, ale dnes je hezky. Zítra pojedu vlakem.",
+              "Dám si polévku.",
+              "Mám modrý svetr."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Včera jsem byl v Praze. Pršelo, ale dnes je hezky. Zítra pojedu vlakem.",
+      "xp_reward": 15
+    },
+    {
+      "id": 15302,
+      "lesson_id": 1504,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit15/travel_arrival_v1.png",
+        "image_label": "Mission: Give a Travel Update",
+        "text_cz": "Včera byl Daniel v Praze. Pršelo, ale dnes svítí slunce. Zítra pojede vlakem domů.",
+        "text_en": "Yesterday Daniel was in Prague. It rained, but today the sun shines. Tomorrow he will go home by train.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Zítra pojedu vlakem.",
+              "Dám si polévku.",
+              "Mám modrý svetr.",
+              "Kde je pošta?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Zítra pojedu vlakem.",
+      "xp_reward": 15
+    },
+    {
+      "id": 15303,
+      "lesson_id": 1504,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Byl jsem v Praze.",
+            "right": "I was in Prague."
+          },
+          {
+            "left": "Byla jsem doma.",
+            "right": "I was at home."
+          },
+          {
+            "left": "Bylo hezky.",
+            "right": "The weather was nice."
+          },
+          {
+            "left": "Zítra pojedu vlakem.",
+            "right": "Tomorrow I will go by train."
+          }
+        ],
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Byl jsem v Praze.–I was in Prague.; Byla jsem doma.–I was at home.; Bylo hezky.–The weather was nice.; Zítra pojedu vlakem.–Tomorrow I will go by train.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15304,
+      "lesson_id": 1504,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Zítra pojedu vlakem.",
+          "Dám si polévku.",
+          "Mám modrý svetr.",
+          "Kde je pošta?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Zítra pojedu vlakem.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15305,
+      "lesson_id": 1504,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Včera jsem ___ v Praze. Zítra ___ vlakem.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "byl"
+          ],
+          [
+            "pojedu"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "byl | pojedu",
+      "xp_reward": 10
+    },
+    {
+      "id": 15306,
+      "lesson_id": 1504,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Zítra",
+          "pojedu",
+          "vlakem."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Zítra pojedu vlakem.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15307,
+      "lesson_id": 1504,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Včera jsem byl v Praze. Zítra pojedu vlakem.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Včera jsem byl v Praze. Zítra pojedu vlakem.",
+      "xp_reward": 10
+    },
+    {
+      "id": 15308,
+      "lesson_id": 1504,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Včera jsem byl v Praze. Zítra pojedu vlakem.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Včera jsem byl v Praze. Zítra pojedu vlakem.",
+      "xp_reward": 15
+    },
+    {
+      "id": 15309,
+      "lesson_id": 1504,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Mission: Give a Travel Update",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Kde jsi byl včera?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Kam pojedeš zítra?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Byl jsem v Praze.",
+            "V Praze."
+          ],
+          [
+            "Pojedu vlakem.",
+            "Vlakem."
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Byl jsem v Praze. | Pojedu vlakem.",
+      "xp_reward": 15
+    },
+    {
+      "id": 15310,
+      "lesson_id": 1504,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a three-sentence weather and travel update.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Byl jsem v Praze.",
+          "Byla jsem doma.",
+          "Bylo hezky.",
+          "Zítra pojedu vlakem."
+        ],
+        "sample_answer": "Byl jsem v Praze."
+      },
+      "answer_key": "Byl jsem v Praze.",
+      "xp_reward": 0
+    },
+    {
+      "id": 15311,
+      "lesson_id": 1504,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second travel update: say where you were, describe the weather, and say where or how you will travel tomorrow.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Byl jsem v Praze.",
+          "Byla jsem doma.",
+          "Bylo hezky."
+        ]
+      },
+      "answer_key": "Byl jsem v Praze.; Byla jsem doma.; Bylo hezky.",
+      "xp_reward": 20
+    }
+  ],
+  "can_do": "give a short update about weather and travel.",
+  "new_language": [
+    "Byl jsem v Praze.",
+    "Byla jsem doma.",
+    "Bylo hezky.",
+    "Zítra pojedu vlakem."
+  ],
+  "recycles": [
+    "days and time",
+    "places",
+    "transport",
+    "present-tense activities"
+  ],
+  "exit_task": "give a short update about weather and travel."
+}

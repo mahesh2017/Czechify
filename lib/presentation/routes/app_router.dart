@@ -20,10 +20,12 @@ import '../screens/onboarding/offline_setup_screen.dart';
 import '../screens/settings/about_screen.dart';
 import '../screens/settings/privacy_policy_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
+import '../screens/arrival/daily_arrival_screen.dart';
 import '../screens/placement/placement_screen.dart';
 import '../screens/lesson/delayed_transfer_screen.dart';
 import '../screens/practice/copybook_screen.dart';
 import '../providers/settings_providers.dart';
+import '../providers/daily_arrival_providers.dart';
 import 'app_scaffold.dart';
 import '../../domain/entities/enums.dart';
 
@@ -37,9 +39,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final onboardingDone = ref
       .watch(onboardingDoneProvider)
       .maybeWhen(data: (done) => done, orElse: () => true);
+  final arrivalDue = ref
+      .watch(dailyArrivalDueProvider)
+      .maybeWhen(data: (due) => due, orElse: () => false);
 
   return GoRouter(
-    initialLocation: onboardingDone ? '/' : '/onboarding',
+    initialLocation:
+        !onboardingDone ? '/onboarding' : (arrivalDue ? '/arrival' : '/'),
     // Unknown paths and malformed parameters land here instead of crashing.
     errorBuilder:
         (context, state) => Scaffold(
@@ -61,6 +67,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
         ),
     routes: [
+      // A once-daily motivational hand-off before Home. It sits outside the
+      // tab shell so the learner sees one focused next action.
+      GoRoute(
+        path: '/arrival',
+        builder: (context, state) => const DailyArrivalScreen(),
+      ),
       // Tab destinations live inside the adaptive shell.
       ShellRoute(
         builder: (context, state, child) => AdaptiveScaffold(child: child),

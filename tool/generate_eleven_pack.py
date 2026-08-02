@@ -16,6 +16,7 @@ Clips keep the same content-addressed names, so this drops straight into the
 existing pack and the app needs no change.
 
   python3 tool/generate_eleven_pack.py --scope a2 --dry-run
+  python3 tool/generate_eleven_pack.py --unit 4 --unit 5 --dry-run
   python3 tool/generate_eleven_pack.py --scope a2 --limit 20
   python3 tool/generate_eleven_pack.py --scope a2
 """
@@ -50,9 +51,6 @@ LEDGER = AUDIO / "eleven_done.json"
 
 # The unit ids the curriculum files mark as phase a1. A2 is the complement
 # among the course units, so it stays correct when new A2 units are added.
-A1_UNITS = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 28, 30}
-
-
 def load_env_file() -> None:
     path = ROOT / ".env"
     if not path.exists():
@@ -66,47 +64,11 @@ def load_env_file() -> None:
             os.environ[key.strip()] = value.strip().strip('"').strip("'")
 
 
-def scoped_utterances(scope: str) -> dict[str, str]:
-    """{key: spoken text} for the requested slice of the course."""
-    if scope == "all":
-        return {key: text for key, text, _ in au.synthesis_plan()}
-
-    if scope not in {"a1", "a2"}:
-        raise ValueError(f"unsupported scope: {scope}")
-
-    unit_matches = (lambda unit_id: unit_id in A1_UNITS) if scope == "a1" \
-        else (lambda unit_id: unit_id not in A1_UNITS)
-    exam_level = scope
-
-    found: set[str] = set()
-    for path in sorted(au.VOCABULARY.glob("*.json")):
-        for row in json.loads(path.read_text(encoding="utf-8")):
-            if unit_matches(row.get("unit_id")):
-                for field in au.VOCAB_FIELDS:
-                    au._add(found, row.get(field))
-
-    for path in sorted(au.LESSONS.glob("*.json")):
-        lesson = json.loads(path.read_text(encoding="utf-8"))
-        if not unit_matches(lesson.get("unit_id")):
-            continue
-        for exercise in lesson.get("exercises", []):
-            data = exercise.get("data", {}) or {}
-            for field in au.LESSON_DATA_FIELDS:
-                au._add(found, data.get(field))
-            for item in data.get("items") or []:
-                if isinstance(item, dict):
-                    for field in au.TEACHING_ITEM_FIELDS:
-                        au._add(found, item.get(field))
-
-    for path in sorted(au.CURRICULUM.glob(f"exam_bank_*{exam_level}*.json")):
-        au._collect_audio_text(json.loads(path.read_text(encoding="utf-8")), found)
-
-    out: dict[str, str] = {}
-    for text in sorted(found):
-        spoken = au.speech_text(text)
-        if spoken:
-            out[au.key_for(text)] = spoken
-    return out
+def scoped_utterances(
+    scope: str, unit_ids: set[int] | None = None,
+) -> dict[str, str]:
+    """Compatibility wrapper around the shared curriculum scope rule."""
+    return au.scoped_utterances(scope, unit_ids)
 
 
 def spoken_for_eleven(text: str) -> str:
@@ -189,6 +151,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--scope", choices=("a1", "a2", "all"), default="a1")
     parser.add_argument(
+        "--unit", action="append", type=int, dest="units",
+        help="synthesize only this curriculum unit; repeat for multiple units",
+    )
+    parser.add_argument(
         "--min-chars", type=int, default=0,
         help="skip utterances shorter than this. v3 clips very short input — "
              "'Ano' came back at 0.17s against Azure's 0.37s — so short items "
@@ -207,13 +173,18 @@ def main() -> int:
                         help="max requests per minute")
     args = parser.parse_args()
 
-    items = scoped_utterances(args.scope)
+    items = scoped_utterances(
+        args.scope, set(args.units) if args.units else None,
+    )
     if args.texts:
         requested = set(args.texts)
         items = {k: t for k, t in items.items() if t in requested}
         missing = requested - set(items.values())
         if missing:
-            print(f"Requested text not in {args.scope} scope: {sorted(missing)}",
+            scope_label = (
+                f"units {sorted(set(args.units))}" if args.units else args.scope
+            )
+            print(f"Requested text not in {scope_label}: {sorted(missing)}",
                   file=sys.stderr)
     if args.min_chars:
         held = {k: t for k, t in items.items() if len(t.strip()) < args.min_chars}
@@ -234,7 +205,10 @@ def main() -> int:
     if args.force:
         pending = dict(items)
 
-    print(f"scope {args.scope}: {len(items)} clips, {chars:,} characters")
+    scope_label = (
+        f"units {sorted(set(args.units))}" if args.units else f"scope {args.scope}"
+    )
+    print(f"{scope_label}: {len(items)} clips, {chars:,} characters")
     print(f"already Oliver: {len(already & set(items))}")
     print(f"to synthesize: {len(pending)}, "
           f"{sum(len(t) for t in pending.values()):,} characters")

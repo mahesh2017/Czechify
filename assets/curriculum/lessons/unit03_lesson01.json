@@ -2,76 +2,76 @@
   "id": 301,
   "unit_id": 3,
   "order_in_unit": 0,
-  "title": "Three Genders: Masculine, Feminine, Neuter",
-  "description": "Learn to identify noun genders from their endings and use 'To je...' pattern",
-  "duration_min": 15,
+  "title": "Who or What?",
+  "description": "Ask Kdo je to? for people and Co je to? for things, then answer with To je…",
+  "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
-      "id": 90003,
+      "id": 3000,
       "lesson_id": 301,
       "type": "teaching",
-      "prompt": "The Three Genders",
+      "prompt": "Meet six people and things",
       "data": {
         "type": "teaching",
-        "heading": "The Three Genders",
-        "body": "You can usually tell a noun's gender from its ending. Practise with \"To je…\" (This is…).",
-        "intro": "Here's the idea that unlocks Czech: every noun has a gender — masculine, feminine, or neuter. It's nothing to do with biology and everything to do with the ending. Learn to read those endings and the whole language starts to line up.",
-        "style": "list",
-        "play_all_label": "Play all",
+        "style": "image_cards",
+        "heading": "Kdo for people, co for things",
+        "body": "Ask Kdo je to? when the answer is a person. Ask Co je to? for an animal or thing. The answer begins the same way: To je… Tap each card and learn the noun with its picture.",
         "items": [
           {
             "cz": "muž",
-            "en": "man (masculine — ends in a consonant)"
-          },
-          {
-            "cz": "dům",
-            "en": "house (masculine)"
-          },
-          {
-            "cz": "hrad",
-            "en": "castle (masculine)"
+            "en": "man",
+            "say": "muž",
+            "image": "assets/images/unit03/muz_v1.png",
+            "image_label": "A man",
+            "sentence": "To je muž.",
+            "sentence_en": "That is a man."
           },
           {
             "cz": "žena",
-            "en": "woman (feminine — ends in -a)"
+            "en": "woman",
+            "say": "žena",
+            "image": "assets/images/unit03/zena_v1.png",
+            "image_label": "A woman",
+            "sentence": "To je žena.",
+            "sentence_en": "That is a woman."
           },
           {
-            "cz": "káva",
-            "en": "coffee (feminine)"
+            "cz": "dítě",
+            "en": "child",
+            "say": "dítě",
+            "image": "assets/images/unit03/dite_v1.png",
+            "image_label": "A child",
+            "sentence": "To je dítě.",
+            "sentence_en": "That is a child."
           },
           {
-            "cz": "kniha",
-            "en": "book (feminine)"
+            "cz": "pes",
+            "en": "dog",
+            "say": "pes",
+            "image": "assets/images/unit01/pes_v1.png",
+            "image_label": "A dog",
+            "sentence": "To je pes.",
+            "sentence_en": "That is a dog."
+          },
+          {
+            "cz": "dům",
+            "en": "house",
+            "say": "dům",
+            "image": "assets/images/unit01/dum_v1.png",
+            "image_label": "A house",
+            "sentence": "To je dům.",
+            "sentence_en": "That is a house."
           },
           {
             "cz": "auto",
-            "en": "car (neuter — ends in -o)"
-          },
-          {
-            "cz": "okno",
-            "en": "window (neuter)"
-          },
-          {
-            "cz": "město",
-            "en": "city (neuter)"
-          },
-          {
-            "cz": "moře",
-            "en": "sea (neuter — ends in -e)"
-          },
-          {
-            "cz": "To je muž.",
-            "en": "This is a man."
-          },
-          {
-            "cz": "To je žena.",
-            "en": "This is a woman."
-          },
-          {
-            "cz": "To je auto.",
-            "en": "This is a car."
+            "en": "car",
+            "say": "auto",
+            "image": "assets/images/unit03/auto_v1.png",
+            "image_label": "A car",
+            "sentence": "To je auto.",
+            "sentence_en": "That is a car."
           }
         ]
       },
@@ -80,250 +80,319 @@
     {
       "id": 3001,
       "lesson_id": 301,
-      "type": "multiple_choice",
-      "prompt": "What gender is the noun 'žena' (woman)?",
+      "type": "listening_comprehension",
+      "prompt": "Listen for two people",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký rod má slovo 'žena'?",
-        "question_en": "What gender is 'žena'?",
-        "options": [
-          "Masculine",
-          "Feminine",
-          "Neuter",
-          "No gender"
-        ],
-        "correct_index": 1,
-        "explanation": "žena is feminine. Nouns ending in -a are usually feminine. Other examples: kniha, káva, škola, voda."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen. Which question asks about a person?",
+        "transcript_cz": "Kdo je to? To je Anna. A kdo je to? To je Daniel.",
+        "questions": [
+          {
+            "question_en": "Which question do you hear?",
+            "options": [
+              "Kdo je to?",
+              "Co je to?",
+              "Jak se máte?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who is named first?",
+            "options": [
+              "Anna",
+              "Daniel",
+              "Sofia"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-020",
+      "answer_key": "Kdo je to?; Anna",
       "xp_reward": 10
     },
     {
       "id": 3002,
       "lesson_id": 301,
-      "type": "multiple_choice",
-      "prompt": "What gender is the noun 'město' (city)?",
+      "type": "listening_comprehension",
+      "prompt": "Listen for two things",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký rod má slovo 'město'?",
-        "question_en": "What gender is 'město'?",
-        "options": [
-          "Masculine",
-          "Feminine",
-          "Neuter",
-          "No gender"
-        ],
-        "correct_index": 2,
-        "explanation": "město is neuter. Nouns ending in -o are usually neuter. Other examples: pivo, auto, okno."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen. Which two things are identified?",
+        "transcript_cz": "Co je to? To je auto. A co je to? To je dům.",
+        "questions": [
+          {
+            "question_en": "What is identified first?",
+            "options": [
+              "A car",
+              "A house",
+              "A dog"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which question do you hear?",
+            "options": [
+              "Co je to?",
+              "Kdo je to?",
+              "Odkud jste?"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-020",
+      "answer_key": "A car; Co je to?",
       "xp_reward": 10
     },
     {
       "id": 3003,
       "lesson_id": 301,
-      "type": "multiple_choice",
-      "prompt": "What gender is the noun 'hrad' (castle)?",
+      "type": "matching",
+      "prompt": "Sort people from things",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký rod má slovo 'hrad'?",
-        "question_en": "What gender is 'hrad'?",
-        "options": [
-          "Masculine",
-          "Feminine",
-          "Neuter",
-          "No gender"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "muž",
+            "right": "kdo · man"
+          },
+          {
+            "left": "žena",
+            "right": "kdo · woman"
+          },
+          {
+            "left": "dítě",
+            "right": "kdo · child"
+          },
+          {
+            "left": "pes",
+            "right": "co · dog"
+          },
+          {
+            "left": "auto",
+            "right": "co · car"
+          },
+          {
+            "left": "dům",
+            "right": "co · house"
+          }
         ],
-        "correct_index": 0,
-        "explanation": "hrad is masculine inanimate. Nouns ending in a consonant are usually masculine. Other examples: dům, stůl, most."
+        "explanation": "Use kdo for people. In this course, use co for animals and things."
       },
-      "answer_key": "0",
-      "grammar_rule_id": "GR-020",
+      "answer_key": "muž–kdo · man; žena–kdo · woman; dítě–kdo · child; pes–co · dog; auto–co · car; dům–co · house",
       "xp_reward": 10
     },
     {
       "id": 3004,
       "lesson_id": 301,
       "type": "multiple_choice",
-      "prompt": "Which ending usually indicates a FEMININE noun?",
+      "prompt": "You point to a person in a photo. What do you ask?",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Která koncovka znamená ženský rod?",
-        "question_en": "Which ending indicates feminine gender?",
+        "question_cz": "Ukazujete na člověka na fotografii. Na co se zeptáte?",
+        "question_en": "You point to a person in a photo. What do you ask?",
         "options": [
-          "consonant",
-          "-a",
-          "-o",
-          "-í"
+          "Kdo je to?",
+          "Co je to?",
+          "Odkud jste?",
+          "Jak se máte?"
         ],
-        "correct_index": 1,
-        "explanation": "-a ending = feminine (žena, kniha, káva). Consonant = masculine. -o = neuter. This rule covers ~90% of Czech nouns."
+        "correct_index": 0,
+        "explanation": "Kdo means who, so it asks for a person's identity."
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-020",
+      "answer_key": "Kdo je to?",
       "xp_reward": 10
     },
     {
       "id": 3005,
       "lesson_id": 301,
-      "type": "multiple_choice",
-      "prompt": "Which ending usually indicates a NEUTER noun?",
+      "type": "fill_blank",
+      "prompt": "Ask about the woman",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která koncovka znamená střední rod?",
-        "question_en": "Which ending indicates neuter gender?",
-        "options": [
-          "consonant",
-          "-a",
-          "-o",
-          "-ý"
+        "type": "fill_blank",
+        "sentence": "___ je to? To je žena.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Kdo",
+            "kdo"
+          ]
         ],
-        "correct_index": 2,
-        "explanation": "-o ending = neuter (město, pivo, auto, okno). These take neuter adjectives: velké město, dobré pivo."
+        "explanation": "Žena is a person, so ask Kdo je to?"
       },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-020",
+      "answer_key": "Kdo",
       "xp_reward": 10
     },
     {
       "id": 3006,
       "lesson_id": 301,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "fill_blank",
+      "prompt": "Ask about the car",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "That is a book.",
-        "accepted_answers": [
-          "To je kniha."
+        "type": "fill_blank",
+        "sentence": "___ je to? To je auto.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Co",
+            "co"
+          ]
         ],
-        "grammar_note": "To je = That is. kniha = book (feminine). 'To' doesn't change for gender."
+        "explanation": "Auto is a thing, so ask Co je to?"
       },
-      "answer_key": "To je kniha.",
-      "grammar_rule_id": "GR-023",
+      "answer_key": "Co",
       "xp_reward": 10
     },
     {
       "id": 3007,
       "lesson_id": 301,
-      "type": "translation",
-      "prompt": "Translate to Czech",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "That is a city.",
-        "accepted_answers": [
-          "To je město."
-        ],
-        "grammar_note": "město = city (neuter). To je město. 'To' stays the same for all genders."
-      },
-      "answer_key": "To je město.",
-      "grammar_rule_id": "GR-023",
-      "xp_reward": 10
-    },
-    {
-      "id": 3008,
-      "lesson_id": 301,
-      "type": "translation",
-      "prompt": "Translate to Czech",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "That is a man.",
-        "accepted_answers": [
-          "To je muž."
-        ],
-        "grammar_note": "muž = man (masculine animate). To je muž."
-      },
-      "answer_key": "To je muž.",
-      "grammar_rule_id": "GR-023",
-      "xp_reward": 10
-    },
-    {
-      "id": 3009,
-      "lesson_id": 301,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct gender: To je ___ (woman)",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "To je ___. (woman)",
-        "blank_count": 1,
-        "explanation": "žena = woman (feminine, ends in -a). To je žena.",
-        "blank_answers": [
-          [
-            "žena"
-          ]
-        ]
-      },
-      "answer_key": "žena",
-      "xp_reward": 10
-    },
-    {
-      "id": 3010,
-      "lesson_id": 301,
       "type": "word_order",
-      "prompt": "Arrange: 'To je velký hrad.' (That is a big castle.)",
+      "prompt": "Build a who question and answer",
       "data": {
         "type": "word_order",
         "words": [
+          "Kdo",
+          "je",
+          "to?",
           "To",
           "je",
-          "velký",
-          "hrad."
+          "Sofia."
         ],
         "correct_order": [
           0,
           1,
           2,
-          3
+          3,
+          4,
+          5
         ],
-        "explanation": "To je + adjective + noun. velký = big (masculine inanimate form). Adjective agrees with noun gender.",
-        "translation_en": "That is a big castle."
+        "translation_en": "Who is that? That is Sofia.",
+        "explanation": "The question and answer share je to / To je, but the order changes."
       },
-      "answer_key": "To je velký hrad.",
-      "grammar_rule_id": "GR-023",
+      "answer_key": "Kdo je to? To je Sofia.",
       "xp_reward": 10
+    },
+    {
+      "id": 3008,
+      "lesson_id": 301,
+      "type": "dictation",
+      "prompt": "Listen and type the question about a thing",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Co je to?",
+        "language": "cs-CZ",
+        "note": "Keep the short words separate: Co | je | to?"
+      },
+      "answer_key": "Co je to?",
+      "xp_reward": 10
+    },
+    {
+      "id": 3009,
+      "lesson_id": 301,
+      "type": "pronunciation",
+      "prompt": "Ask and identify a person",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Kdo je to? To je Daniel.",
+        "focus_sounds": [
+          "kd",
+          "first_syllable_stress"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Who is that? That is Daniel."
+      },
+      "answer_key": "Kdo je to? To je Daniel.",
+      "xp_reward": 15
+    },
+    {
+      "id": 3010,
+      "lesson_id": 301,
+      "type": "reading_comprehension",
+      "prompt": "Read a tiny photo exchange",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Which question is about a person, and which is about a thing?",
+        "text_cz": "A — Kdo je to? — To je Klára.\n\nB — Co je to? — To je auto.",
+        "text_en": "A — Who is that? — That is Klára.\n\nB — What is that? — That is a car.",
+        "questions": [
+          {
+            "question_en": "Which exchange identifies a person?",
+            "options": [
+              "A",
+              "B",
+              "Both"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does exchange B identify?",
+            "options": [
+              "A car",
+              "Klára",
+              "A child"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "A; A car",
+      "xp_reward": 15
     },
     {
       "id": 3011,
       "lesson_id": 301,
-      "type": "multiple_choice",
-      "prompt": "Which is 'That is a dog'?",
+      "type": "dialogue",
+      "prompt": "Ask one who question and one what question",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co je 'To je pes'?",
-        "question_en": "Which means 'That is a dog'?",
-        "options": [
-          "To je pes.",
-          "To je pivo.",
-          "To je pes?",
-          "To jsou pes."
+        "type": "dialogue",
+        "scenario": "Looking at photos and objects with a classmate",
+        "lines": [
+          {
+            "speaker": "classmate",
+            "text": "To je Petra."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "classmate",
+            "text": "To je auto."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "correct_index": 0,
-        "explanation": "To je pes = That is a dog. pes is masculine animate (ends in consonant)."
-      },
-      "answer_key": "0",
-      "xp_reward": 10
-    },
-    {
-      "id": 3012,
-      "lesson_id": 301,
-      "type": "translation",
-      "prompt": "Translate to English",
-      "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "To je káva.",
-        "accepted_answers": [
-          "That is coffee.",
-          "That is a coffee."
+        "blank_answers": [
+          [
+            "Kdo je to?",
+            "Kdo je to"
+          ],
+          [
+            "Co je to?",
+            "Co je to"
+          ]
         ],
-        "grammar_note": "káva = coffee (feminine, -a ending)."
+        "explanation": "Ask kdo for Petra and co for the car."
       },
-      "answer_key": "That is coffee.",
-      "xp_reward": 10
+      "answer_key": "Kdo je to? | Co je to?",
+      "xp_reward": 15
     }
-  ]
+  ],
+  "can_do": "ask who a person is or what a thing is.",
+  "new_language": [
+    "muž",
+    "žena",
+    "dítě",
+    "pes",
+    "dům",
+    "auto"
+  ],
+  "recycles": [
+    "greetings",
+    "names",
+    "To je…",
+    "Czech sound clues"
+  ],
+  "exit_task": "ask who a person is or what a thing is."
 }

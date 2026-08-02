@@ -1,16 +1,16 @@
 {
   "level": "a1",
   "blueprint": {
-    "product": "permanent_residence",
-    "version": "2026-04-11",
-    "effective_date": "2026-04-11",
+    "product": "course_practice",
+    "version": "independent-a1-v1",
+    "effective_date": "not_applicable",
     "scoring_rule": "raw_points_written_speaking_gate"
   },
-  "description": "Permanent-residence A1 exam bank — practice only; not an official result. Verify timings/points against the official model test.",
+  "description": "Independent four-skills A1 course practice. It is not official examination material, is not affiliated with an examination provider, and gives no examination result or prediction.",
   "exams": [
     {
       "id": "a1-practice-1",
-      "title": "Practice Exam 1",
+      "title": "Four-Skills Practice 1",
       "total_time_minutes": 120,
       "sections": [
         {
@@ -130,7 +130,7 @@
     },
     {
       "id": "a1-practice-2",
-      "title": "Practice Exam 2",
+      "title": "Four-Skills Practice 2",
       "total_time_minutes": 120,
       "sections": [
         {
@@ -260,7 +260,7 @@
     },
     {
       "id": "a1-practice-3",
-      "title": "Practice Exam 3",
+      "title": "Four-Skills Practice 3",
       "total_time_minutes": 120,
       "sections": [
         {
@@ -269,21 +269,21 @@
           "max_score": 25,
           "questions": [
             {
-              "passage": "Když prší, vodík dopis. Zima, horko, vítr – nic mu nevadí. On zná každou ulici, každý dům. Má padesát osm let a celý život pracoval jako listonoš. Dnes nosí dopisy v centru Prahy. Za den odejde třicet až čtyřicet dopisů. V létě je horko a v zimě mráz, ale on říká: „Mám rád svou práci. Každý den jsem venku, potkávám lidi, procházím se. To je život!\"",
+              "passage": "Když prší, nosí dopisy. Zima, horko, vítr – nic mu nevadí. Zná každou ulici a každý dům. Je mu padesát osm let a celý život pracuje jako listonoš. Dnes roznáší dopisy v centru Prahy. Za den doručí třicet až čtyřicet dopisů. V létě je horko a v zimě mráz, ale říká: „Mám rád svou práci. Každý den jsem venku, potkávám lidi a procházím se. To je život!\"",
               "prompt": "How old is the postman?",
               "options": ["48 years", "58 years", "68 years", "50 years"],
               "correct_answer": 1,
               "points": 5
             },
             {
-              "passage": "Když prší, vodík dopis. Zima, horko, vítr – nic mu nevadí. On zná každou ulici, každý dům. Má padesát osm let a celý život pracoval jako listonoš. Dnes nosí dopisy v centru Prahy. Za den odejde třicet až čtyřicet dopisů. V létě je horko a v zimě mráz, ale on říká: „Mám rád svou práci. Každý den jsem venku, potkávám lidi, procházím se. To je život!\"",
+              "passage": "Když prší, nosí dopisy. Zima, horko, vítr – nic mu nevadí. Zná každou ulici a každý dům. Je mu padesát osm let a celý život pracuje jako listonoš. Dnes roznáší dopisy v centru Prahy. Za den doručí třicet až čtyřicet dopisů. V létě je horko a v zimě mráz, ale říká: „Mám rád svou práci. Každý den jsem venku, potkávám lidi a procházím se. To je život!\"",
               "prompt": "How many letters does he deliver per day?",
               "options": ["10–20", "20–30", "30–40", "40–50"],
               "correct_answer": 2,
               "points": 5
             },
             {
-              "passage": "Když prší, vodík dopis. Zima, horko, vítr – nic mu nevadí. On zná každou ulici, každý dům. Má padesát osm let a celý život pracoval jako listonoš. Dnes nosí dopisy v centru Prahy. Za den odejde třicet až čtyřicet dopisů. V líté horko a v zimě mráz, ale on říká: „Mám rád svou práci. Každý den jsem venku, potkávám lidi, procházím se. To je život!\"",
+              "passage": "Když prší, nosí dopisy. Zima, horko, vítr – nic mu nevadí. Zná každou ulici a každý dům. Je mu padesát osm let a celý život pracuje jako listonoš. Dnes roznáší dopisy v centru Prahy. Za den doručí třicet až čtyřicet dopisů. V létě je horko a v zimě mráz, ale říká: „Mám rád svou práci. Každý den jsem venku, potkávám lidi a procházím se. To je život!\"",
               "prompt": "Why does the postman like his job?",
               "options": ["Because it pays well", "Because he is outside and meets people", "Because it is easy", "Because he works in an office"],
               "correct_answer": 1,

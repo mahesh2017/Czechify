@@ -1,0 +1,200 @@
+{
+  "id": 2703,
+  "unit_id": 27,
+  "title": "Explain a Journey on a Map",
+  "description": "Distinguish a usual trip from one journey happening today.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 12,
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 27025,
+      "lesson_id": 2703,
+      "type": "teaching",
+      "prompt": "One trip or a routine?",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Use the journey clue",
+        "body": "Today and now usually signal one directed trip; every day signals a routine.",
+        "items": [
+          {
+            "cz": "Dnes jedu do Brna vlakem.",
+            "en": "Today I am going to Brno by train."
+          },
+          {
+            "cz": "Každý den jezdím do práce tramvají.",
+            "en": "Every day I go to work by tram."
+          },
+          {
+            "cz": "Teď jdu na zastávku.",
+            "en": "I am walking to the stop now."
+          },
+          {
+            "cz": "V neděli chodím do parku.",
+            "en": "On Sundays I go to the park."
+          }
+        ]
+      },
+      "answer_key": "journey chunks",
+      "xp_reward": 0
+    },
+    {
+      "id": 27026,
+      "lesson_id": 2703,
+      "type": "listening_comprehension",
+      "prompt": "Listen to today’s journey",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "How does the speaker usually travel and what is different today?",
+        "transcript_cz": "Obvykle jezdím do práce tramvají, ale dnes jedu autobusem. Tramvaj nejede, proto jdu teď na autobusovou zastávku.",
+        "questions": [
+          {
+            "question_en": "How does the speaker usually travel?",
+            "options": [
+              "By tram",
+              "By train",
+              "On foot"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Why is today different?",
+            "options": [
+              "The tram is not running",
+              "It is Sunday",
+              "The speaker is at home"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "tram; not running",
+      "xp_reward": 15
+    },
+    {
+      "id": 27027,
+      "lesson_id": 2703,
+      "type": "reading_comprehension",
+      "prompt": "Read the commute update",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Find the usual route and today’s route.",
+        "image": "assets/images/unit27/changed_journey_map_v1.png",
+        "image_label": "Traveler changing route on a Prague map",
+        "text_cz": "Každé ráno chodím pěšky na nádraží a potom jedu vlakem do Prahy. Dnes ale vlak nejede. Jdu na autobusovou zastávku a pojedu autobusem.",
+        "text_en": "Every morning I walk to the station and then take the train to Prague. Today the train is not running. I am walking to the bus stop and will go by bus.",
+        "questions": [
+          {
+            "question_en": "How does the speaker usually get to Prague?",
+            "options": [
+              "By train",
+              "By bus",
+              "By bicycle"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What will they use today?",
+            "options": [
+              "Bus",
+              "Train",
+              "Metro"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "train; bus",
+      "xp_reward": 15
+    },
+    {
+      "id": 27028,
+      "lesson_id": 2703,
+      "type": "dialogue",
+      "prompt": "Explain your route",
+      "data": {
+        "type": "dialogue",
+        "scenario": "A friend asks",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Jak jedeš dnes do práce?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Dnes jedu autobusem.",
+            "Obvykle jezdím tramvají, ale dnes jedu autobusem."
+          ]
+        ]
+      },
+      "answer_key": "journey update",
+      "xp_reward": 15
+    },
+    {
+      "id": 27029,
+      "lesson_id": 2703,
+      "type": "writing_task",
+      "prompt": "Write a commute comparison",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 sentences about your usual trip and a different trip today.",
+        "prompt_cz": "Napište běžnou a dnešní cestu.",
+        "min_words": 10,
+        "max_words": 45,
+        "key_vocab": [
+          "obvykle",
+          "dnes",
+          "jdu/jedu"
+        ],
+        "sample_answer": "Obvykle jezdím tramvají. Dnes ale jedu autobusem."
+      },
+      "answer_key": "commute comparison",
+      "xp_reward": 0
+    },
+    {
+      "id": 27030,
+      "lesson_id": 2703,
+      "type": "speaking_task",
+      "prompt": "Describe your route",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds comparing a usual route with today’s journey.",
+        "prompt_cz": "Nahrajte popis cesty.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "obvykle",
+          "dnes",
+          "jdu/jedu"
+        ]
+      },
+      "answer_key": "journey description",
+      "xp_reward": 20
+    },
+    {
+      "id": 27036,
+      "lesson_id": 2703,
+      "type": "matching",
+      "prompt": "Match each journey clue",
+      "data": {"type": "matching", "pairs": [{"left": "dnes", "right": "one trip now"}, {"left": "každý den", "right": "usual route"}, {"left": "pěšky", "right": "on foot"}, {"left": "vlakem", "right": "by train"}]},
+      "answer_key": "journey clues",
+      "xp_reward": 10
+    },
+    {
+      "id": 27037,
+      "lesson_id": 2703,
+      "type": "fill_blank",
+      "prompt": "Choose the routine verb",
+      "data": {"type": "fill_blank", "sentence": "Každý den ___ do práce tramvají.", "blank_count": 1, "blank_answers": [["jezdím"]], "explanation": "For a repeated route, use jezdit: Každý den jezdím."},
+      "answer_key": "jezdím",
+      "xp_reward": 10
+    }
+  ]
+}

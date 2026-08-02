@@ -1,0 +1,366 @@
+{
+  "id": 203,
+  "unit_id": 2,
+  "order_in_unit": 2,
+  "title": "Where Are You From?",
+  "description": "Ask about origin, answer with a useful country chunk, and repair speech that is too fast.",
+  "duration_min": 12,
+  "lesson_type": "practice",
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 2200,
+      "lesson_id": 203,
+      "type": "teaching",
+      "prompt": "Add origin to your introduction",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Ask where, answer with a chunk",
+        "body": "After z, country names often change form. At A1, learn the complete phrase you personally need instead of memorizing a case table. Keep formal and informal questions matched to the relationship.",
+        "play_all_label": "Hear the origin exchange",
+        "items": [
+          {
+            "cz": "Odkud jste?",
+            "en": "Where are you from? (formal)"
+          },
+          {
+            "cz": "Odkud jsi?",
+            "en": "Where are you from? (informal)"
+          },
+          {
+            "cz": "Jsem z Indie.",
+            "en": "I am from India."
+          },
+          {
+            "cz": "Jsem z Česka.",
+            "en": "I am from Czechia."
+          },
+          {
+            "cz": "Jsem z Ukrajiny.",
+            "en": "I am from Ukraine."
+          },
+          {
+            "cz": "Jsem z Německa.",
+            "en": "I am from Germany."
+          },
+          {
+            "cz": "Prosím pomalu.",
+            "en": "Slowly, please."
+          },
+          {
+            "cz": "Ještě jednou, prosím.",
+            "en": "Once more, please."
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
+      "id": 2201,
+      "lesson_id": 203,
+      "type": "listening_comprehension",
+      "prompt": "Listen for a name and country",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen to the introduction. Who is speaking, and where are they from?",
+        "transcript_cz": "Dobrý den. Jmenuji se Olena. Jsem z Ukrajiny. Těší mě.",
+        "questions": [
+          {
+            "question_en": "What is the person’s name?",
+            "options": [
+              "Olena",
+              "Omar",
+              "Anna"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where is Olena from?",
+            "options": [
+              "Ukraine",
+              "India",
+              "Germany"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Olena; Ukraine",
+      "xp_reward": 10
+    },
+    {
+      "id": 2202,
+      "lesson_id": 203,
+      "type": "listening_comprehension",
+      "prompt": "Use a repair phrase when the question is too fast",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen. How does the learner keep the conversation going?",
+        "transcript_cz": "Odkud jste? Prosím pomalu. Odkud jste? Jsem z Indie.",
+        "questions": [
+          {
+            "question_en": "What help does the learner request?",
+            "options": [
+              "Slower speech",
+              "A translation",
+              "The spelling"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where is the learner from?",
+            "options": [
+              "India",
+              "Czechia",
+              "Ukraine"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Slower speech; India",
+      "xp_reward": 15
+    },
+    {
+      "id": 2203,
+      "lesson_id": 203,
+      "type": "multiple_choice",
+      "prompt": "A new colleague asks 'Odkud jste?' What information do they want?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Odkud jste?",
+        "question_en": "What information is the speaker asking for?",
+        "options": [
+          "Your country or place of origin",
+          "Your name",
+          "How you feel",
+          "Your phone number"
+        ],
+        "correct_index": 0,
+        "explanation": "Odkud means 'from where'; jste marks the formal relationship."
+      },
+      "answer_key": "Your country or place of origin",
+      "xp_reward": 10
+    },
+    {
+      "id": 2204,
+      "lesson_id": 203,
+      "type": "fill_blank",
+      "prompt": "Complete the formal origin question",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Odkud ___?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jste"
+          ]
+        ],
+        "explanation": "Odkud jste? is the formal chunk."
+      },
+      "answer_key": "jste",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 10
+    },
+    {
+      "id": 2205,
+      "lesson_id": 203,
+      "type": "fill_blank",
+      "prompt": "Complete the answer about India",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Jsem z ___.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Indie"
+          ]
+        ],
+        "explanation": "Learn Jsem z Indie as one personal introduction chunk."
+      },
+      "answer_key": "Indie",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 10
+    },
+    {
+      "id": 2206,
+      "lesson_id": 203,
+      "type": "word_order",
+      "prompt": "Build an informal question and answer",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Odkud",
+          "jsi?",
+          "Jsem",
+          "z",
+          "Německa."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "translation_en": "Where are you from? I am from Germany. (informal question)",
+        "explanation": "Odkud jsi? uses informal ty; the answer begins Jsem z."
+      },
+      "answer_key": "Odkud jsi? Jsem z Německa.",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 10
+    },
+    {
+      "id": 2207,
+      "lesson_id": 203,
+      "type": "dictation",
+      "prompt": "Listen and type the origin answer",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Jsem z Česka.",
+        "language": "cs-CZ",
+        "note": "Česko changes to Česka after z; learn the whole phrase for now."
+      },
+      "answer_key": "Jsem z Česka.",
+      "xp_reward": 10
+    },
+    {
+      "id": 2208,
+      "lesson_id": 203,
+      "type": "pronunciation",
+      "prompt": "Say a formal question and personal answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Odkud jste? Jsem z Indie.",
+        "focus_sounds": [
+          "question_intonation",
+          "jsem"
+        ],
+        "min_score": 0.55,
+        "translation_en": "Where are you from? I am from India."
+      },
+      "answer_key": "Odkud jste? Jsem z Indie.",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 15
+    },
+    {
+      "id": 2209,
+      "lesson_id": 203,
+      "type": "reading_comprehension",
+      "prompt": "Read three course-registration cards",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Find each learner’s name and country.",
+        "text_cz": "1 — Jmenuju se Mahesh. Jsem z Indie.\n2 — Jmenuju se Olena. Jsem z Ukrajiny.\n3 — Jmenuju se Lukas. Jsem z Německa.",
+        "text_en": "1 — My name is Mahesh. I am from India.\n2 — My name is Olena. I am from Ukraine.\n3 — My name is Lukas. I am from Germany.",
+        "questions": [
+          {
+            "question_en": "Who is from India?",
+            "options": [
+              "Mahesh",
+              "Olena",
+              "Lukas"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where is Lukas from?",
+            "options": [
+              "Germany",
+              "Ukraine",
+              "Czechia"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Mahesh; Germany",
+      "xp_reward": 10
+    },
+    {
+      "id": 2210,
+      "lesson_id": 203,
+      "type": "dialogue",
+      "prompt": "Complete a formal introduction at reception",
+      "data": {
+        "type": "dialogue",
+        "scenario": "First day at a Czech language school",
+        "lines": [
+          {
+            "speaker": "administrator",
+            "text": "Dobrý den. Jak se jmenujete?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "administrator",
+            "text": "Odkud jste?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Jmenuji se Mahesh.",
+            "Jmenuju se Mahesh.",
+            "Jmenuji se Mahesh",
+            "Jmenuju se Mahesh"
+          ],
+          [
+            "Jsem z Indie.",
+            "Jsem z Indie"
+          ]
+        ],
+        "explanation": "Give your name, then answer Odkud jste? with Jsem z + your country chunk."
+      },
+      "answer_key": "Jmenuji se Mahesh. | Jsem z Indie.",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 15
+    },
+    {
+      "id": 2211,
+      "lesson_id": 203,
+      "type": "writing_task",
+      "prompt": "Draft your own three-line introduction",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a greeting, your real name, and where you are from. Choose either formal or informal style and keep it consistent.",
+        "prompt_cz": "Napište pozdrav, svoje jméno a odkud jste.",
+        "min_words": 5,
+        "max_words": 18,
+        "key_vocab": [
+          "Dobrý den.",
+          "Ahoj.",
+          "Jmenuju se…",
+          "Jsem z…",
+          "Těší mě."
+        ],
+        "sample_answer": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě."
+      },
+      "answer_key": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě.",
+      "xp_reward": 0
+    }
+  ],
+  "can_do": "ask and say where someone is from.",
+  "new_language": [
+    "Odkud jste?",
+    "Odkud jsi?",
+    "Jsem z Indie.",
+    "Jsem z Česka.",
+    "Jsem z Ukrajiny.",
+    "Jsem z Německa.",
+    "Prosím pomalu.",
+    "Ještě jednou, prosím."
+  ],
+  "recycles": [
+    "Czech sound clues",
+    "Prosím pomalu",
+    "Ještě jednou, prosím"
+  ],
+  "exit_task": "ask and say where someone is from."
+}

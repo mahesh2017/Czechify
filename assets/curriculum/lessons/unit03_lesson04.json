@@ -1,0 +1,431 @@
+{
+  "id": 304,
+  "unit_id": 3,
+  "order_in_unit": 3,
+  "title": "Mission: Identify the Scene",
+  "description": "Find six people and things in a new Prague scene, then ask and answer three kdo/co questions.",
+  "duration_min": 12,
+  "lesson_type": "practice",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 3300,
+      "lesson_id": 304,
+      "type": "teaching",
+      "prompt": "Use a four-step mission map",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Find → choose → ask → identify",
+        "body": "In the new scene, find a target, decide whether it is a person or a thing, ask Kdo je to? or Co je to?, and answer To je… Use ten, ta, or to when you can retrieve the noun chunk.",
+        "play_all_label": "Hear the mission language",
+        "items": [
+          {
+            "cz": "Kdo je to?",
+            "en": "Ask about the man, woman, or child"
+          },
+          {
+            "cz": "Co je to?",
+            "en": "Ask about the dog, car, building, or object"
+          },
+          {
+            "cz": "To je muž. / žena. / dítě.",
+            "say": "To je muž. To je žena. To je dítě.",
+            "en": "Identify a person"
+          },
+          {
+            "cz": "To je ten pes. / ta kniha. / to auto.",
+            "say": "To je ten pes. To je ta kniha. To je to auto.",
+            "en": "Identify a thing with its noun cue"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
+      "id": 3301,
+      "lesson_id": 304,
+      "type": "reading_comprehension",
+      "prompt": "Find six targets in the Prague scene",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Look closely. Identify six people or things without relying on English labels.",
+        "image": "assets/images/unit03/identification_scene_v1.png",
+        "image_label": "A Prague street café with a man, woman, child, dog, car, building, window, table, chair, book, and coffee",
+        "text_cz": "Kdo je to? Co je to? Najděte šest věcí nebo lidí: muž, žena, dítě, pes, auto a kniha.",
+        "text_en": "Who is that? What is that? Find six people or things: a man, woman, child, dog, car, and book.",
+        "questions": [
+          {
+            "question_en": "Who is standing near the center?",
+            "options": [
+              "muž",
+              "žena",
+              "dítě"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who is sitting beside the table?",
+            "options": [
+              "žena",
+              "muž",
+              "dítě"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who is crouching near the dog?",
+            "options": [
+              "dítě",
+              "žena",
+              "muž"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What is beside the child?",
+            "options": [
+              "pes",
+              "auto",
+              "kniha"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What is parked on the left?",
+            "options": [
+              "auto",
+              "dům",
+              "židle"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What is lying on the table?",
+            "options": [
+              "kniha",
+              "káva",
+              "okno"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "muž; žena; dítě; pes; auto; kniha",
+      "xp_reward": 20
+    },
+    {
+      "id": 3302,
+      "lesson_id": 304,
+      "type": "listening_comprehension",
+      "prompt": "Mission listening: find the people",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen, then point to the two people in the scene.",
+        "transcript_cz": "Kdo je to? To je muž. A kdo je to u stolu? To je žena.",
+        "questions": [
+          {
+            "question_en": "Who is mentioned first?",
+            "options": [
+              "The man",
+              "The woman",
+              "The child"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who is by the table?",
+            "options": [
+              "The woman",
+              "The man",
+              "The child"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "The man; The woman",
+      "xp_reward": 10
+    },
+    {
+      "id": 3303,
+      "lesson_id": 304,
+      "type": "listening_comprehension",
+      "prompt": "Mission listening: find the things",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen for three objects and their gender cues.",
+        "transcript_cz": "Co je to? To je ten pes. To je to auto. A to je ta kniha.",
+        "questions": [
+          {
+            "question_en": "Which item is named last?",
+            "options": [
+              "The book",
+              "The dog",
+              "The car"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which item uses the cue to?",
+            "options": [
+              "auto",
+              "pes",
+              "kniha"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "The book; auto",
+      "xp_reward": 10
+    },
+    {
+      "id": 3304,
+      "lesson_id": 304,
+      "type": "multiple_choice",
+      "prompt": "You want your partner to identify the child. What do you ask?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Chcete, aby partner našel dítě. Na co se zeptáte?",
+        "question_en": "You want your partner to identify the child. What do you ask?",
+        "options": [
+          "Kdo je to?",
+          "Co je to?",
+          "Jak se jmenujete?",
+          "Odkud jste?"
+        ],
+        "correct_index": 0,
+        "explanation": "Dítě is a person, so ask Kdo je to? Its noun gender is neuter, but that does not change kdo."
+      },
+      "answer_key": "Kdo je to?",
+      "xp_reward": 10
+    },
+    {
+      "id": 3305,
+      "lesson_id": 304,
+      "type": "fill_blank",
+      "prompt": "Complete three scene identifications",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "To je ___ muž. · To je ___ kniha. · To je ___ auto.",
+        "blank_count": 3,
+        "blank_answers": [
+          [
+            "ten"
+          ],
+          [
+            "ta"
+          ],
+          [
+            "to"
+          ]
+        ],
+        "explanation": "The three scene nouns retrieve one masculine, one feminine, and one neuter cue."
+      },
+      "answer_key": "ten | ta | to",
+      "xp_reward": 10
+    },
+    {
+      "id": 3306,
+      "lesson_id": 304,
+      "type": "word_order",
+      "prompt": "Build a scene question and answer",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Co",
+          "je",
+          "to?",
+          "To",
+          "je",
+          "ten",
+          "pes."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "translation_en": "What is that? That is the dog.",
+        "explanation": "Ask co for the dog in this course, then retrieve ten pes as a chunk."
+      },
+      "answer_key": "Co je to? To je ten pes.",
+      "xp_reward": 10
+    },
+    {
+      "id": 3307,
+      "lesson_id": 304,
+      "type": "dictation",
+      "prompt": "Listen and type the scene question and answer",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Co je to? To je ta kniha.",
+        "language": "cs-CZ",
+        "note": "Type both sentences and keep ta with kniha."
+      },
+      "answer_key": "Co je to? To je ta kniha.",
+      "xp_reward": 10
+    },
+    {
+      "id": 3308,
+      "lesson_id": 304,
+      "type": "pronunciation",
+      "prompt": "Rehearse the two mission questions",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Kdo je to? Co je to?",
+        "focus_sounds": [
+          "kd",
+          "first_syllable_stress"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Who is that? What is that?"
+      },
+      "answer_key": "Kdo je to? Co je to?",
+      "xp_reward": 15
+    },
+    {
+      "id": 3309,
+      "lesson_id": 304,
+      "type": "dialogue",
+      "prompt": "Complete three kdo/co mission exchanges",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Taking turns to identify people and things in the new scene",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "___"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "___"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Kdo je to?",
+            "Kdo je to"
+          ],
+          [
+            "To je žena.",
+            "To je ta žena.",
+            "To je žena",
+            "To je ta žena"
+          ],
+          [
+            "Kdo je to?",
+            "Kdo je to"
+          ],
+          [
+            "To je dítě.",
+            "To je to dítě.",
+            "To je dítě",
+            "To je to dítě"
+          ],
+          [
+            "Co je to?",
+            "Co je to"
+          ],
+          [
+            "To je auto.",
+            "To je to auto.",
+            "To je auto",
+            "To je to auto"
+          ]
+        ],
+        "explanation": "The mission requires three complete question-and-answer turns: two people and one thing."
+      },
+      "answer_key": "Kdo je to? | To je žena. | Kdo je to? | To je dítě. | Co je to? | To je auto.",
+      "xp_reward": 20
+    },
+    {
+      "id": 3310,
+      "lesson_id": 304,
+      "type": "speaking_task",
+      "prompt": "Record your 20–35 second scene mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Use the scene. Identify at least six targets and include three complete question-and-answer pairs. Use both Kdo je to? and Co je to?, then answer with To je…",
+        "prompt_cz": "Najděte šest lidí nebo věcí. Položte tři otázky a odpovězte.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Kdo je to?",
+          "Co je to?",
+          "To je",
+          "muž",
+          "žena",
+          "dítě",
+          "pes",
+          "auto",
+          "kniha"
+        ]
+      },
+      "answer_key": "Kdo je to?; Co je to?; To je; muž; žena; dítě; pes; auto; kniha",
+      "xp_reward": 20
+    },
+    {
+      "id": 3311,
+      "lesson_id": 304,
+      "type": "writing_task",
+      "prompt": "Write three scene question-and-answer pairs",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write three short pairs about the scene. Include at least one Kdo je to? question and one Co je to? question, then answer each with To je…",
+        "prompt_cz": "Napište tři otázky a tři odpovědi o obrázku.",
+        "min_words": 18,
+        "max_words": 36,
+        "key_vocab": [
+          "Kdo je to?",
+          "Co je to?",
+          "To je…",
+          "muž",
+          "žena",
+          "dítě",
+          "pes",
+          "auto",
+          "kniha"
+        ],
+        "sample_answer": "Kdo je to? To je žena. Kdo je to? To je dítě. Co je to? To je auto."
+      },
+      "answer_key": "Kdo je to? To je žena. Kdo je to? To je dítě. Co je to? To je auto.",
+      "xp_reward": 0
+    }
+  ],
+  "can_do": "identify a new scene with kdo/co questions and answers.",
+  "new_language": [
+    "Kdo je to?",
+    "Co je to?",
+    "To je muž. / žena. / dítě.",
+    "To je ten pes. / ta kniha. / to auto."
+  ],
+  "recycles": [
+    "greetings",
+    "names",
+    "To je…",
+    "Czech sound clues"
+  ],
+  "exit_task": "identify a new scene with kdo/co questions and answers."
+}

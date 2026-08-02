@@ -1,253 +1,347 @@
 {
   "id": 2802,
   "unit_id": 28,
-  "order_in_unit": 2,
-  "title": "A1 Exam Practice: Writing & Speaking",
-  "description": "A1-level exam practice for writing and speaking production. Write personal info forms, messages to friends, and party invitations. Speak about yourself, describe a family photo, and role-play ordering food. Includes A1 vocabulary review and exam-style translations.",
-  "duration_min": 25,
-  "lesson_type": "practice",
-  "is_review": true,
+  "title": "Hear Essential Details",
+  "description": "Practise listening for time, platform, destination, and other essential details. No external result is predicted.",
+  "lesson_type": "listening",
+  "order_in_unit": 1,
+  "duration_min": 12,
+  "is_review": false,
   "exercises": [
     {
-      "id": 28016,
-      "lesson_id": 2802,
-      "type": "writing_task",
-      "prompt": "Fill out the personal information form in Czech.",
+      "id": 28200,
+      "type": "teaching",
+      "prompt": "Learn the useful chunks",
       "data": {
-        "type": "writing_task",
-        "prompt_cz": "Vyplňte formulář s osobními údaji v češtině: jméno, příjmení, datum narození, adresa, telefon, e-mail.",
-        "prompt_en": "Fill out a personal information form in Czech: first name, last name, date of birth, address, phone, email.",
-        "min_words": 30,
-        "max_words": 80,
-        "required_elements": [
-          "first_name",
-          "last_name",
-          "date_of_birth",
-          "address",
-          "phone",
-          "email"
-        ],
-        "sample_answer_cz": "Jmenuji se Jan Novák. Narodil jsem se 15. dubna 1990. Bydlím v Praze, v ulici Na Příkopě 20. Můj telefon je +420 777 123 456 a můj e-mail je jan.novak@email.cz.",
-        "evaluation_criteria": "Must include all six required fields with correct Czech forms. Name should use 'Jmenuji se' (I am called). Address should use 'Bydlím v/na' (I live at). Birthdate should use the Czech format (day month year)."
+        "type": "teaching",
+        "style": "list",
+        "heading": "Hear Essential Details",
+        "body": "For a listening task, listen for destination, time, platform, and price—not every single word.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Vlak do Brna odjíždí v devět hodin.",
+            "en": "The train to Brno leaves at nine o'clock."
+          },
+          {
+            "cz": "Nástupiště je číslo tři.",
+            "en": "The platform is number three."
+          },
+          {
+            "cz": "Jízdenka stojí sto korun.",
+            "en": "The ticket costs one hundred crowns."
+          },
+          {
+            "cz": "Děkuji za informaci.",
+            "en": "Thank you for the information."
+          }
+        ]
       },
-      "answer_key": "Jmenuji se Jan Novák. Narodil jsem se 15. dubna 1990...",
-      "xp_reward": 20
+      "answer_key": "",
+      "xp_reward": 0,
+      "lesson_id": 2802
     },
     {
-      "id": 28017,
-      "lesson_id": 2802,
-      "type": "writing_task",
-      "prompt": "Write a short message to a friend.",
+      "id": 28201,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the important detail",
       "data": {
-        "type": "writing_task",
-        "prompt_cz": "Napište krátkou zprávu kamarádovi/kamarádce. Řekněte, jak se máte, co děláte dnes a co budete dělat o víkendu.",
-        "prompt_en": "Write a short message to a friend. Say how you are, what you're doing today, and what you'll do this weekend.",
-        "min_words": 30,
-        "max_words": 80,
-        "required_elements": [
-          "greeting",
-          "how_are_you",
-          "today_activity",
-          "weekend_plan",
-          "closing"
-        ],
-        "sample_answer_cz": "Ahoj Tomáši! Jak se máš? Já se mám dobře. Dnes pracuju doma a večer vařím večeři. O víkendu půjdu do kina a pak navštívím babičku. Co děláš ty? Napiš mi! Tvůj Pavel",
-        "evaluation_criteria": "Must include greeting (Ahoj), how are you question/statement, today's activity, weekend plan, and a closing. Use informal 'ty' form. Keep sentences at A1 level (present tense, simple vocabulary)."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for the situation, then again for the key detail.",
+        "transcript_cz": "Dobrý den. Vlak do Brna odjíždí v devět hodin z nástupiště číslo tři. Jízdenka stojí sto korun.",
+        "transcript_en": "Hello. The train to Brno leaves at nine o'clock from platform number three. The ticket costs one hundred crowns.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Vlak do Brna odjíždí v devět hodin.",
+              "Bydlím v Praze.",
+              "Dám si čaj."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Ahoj Tomáši! Jak se máš? Já se mám dobře...",
-      "xp_reward": 20
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
+      "xp_reward": 15,
+      "lesson_id": 2802
     },
     {
-      "id": 28018,
-      "lesson_id": 2802,
-      "type": "writing_task",
-      "prompt": "Write a party invitation.",
+      "id": 28202,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
-        "type": "writing_task",
-        "prompt_cz": "Napište pozvánku na oslavu. Uveďte: co oslavujete, kdy a kde to bude, v kolik hodin, a žádost o odpověď.",
-        "prompt_en": "Write a party invitation. Include: what you're celebrating, when and where, what time, and an RSVP request.",
-        "min_words": 40,
-        "max_words": 100,
-        "required_elements": [
-          "occasion",
-          "date",
-          "location",
-          "time",
-          "rsvp"
-        ],
-        "sample_answer_cz": "Ahoj všichni! Pozvánka na oslavu! Oslavuju své narozeniny v sobotu 15. června. Oslava bude v restauraci U Lipky v centru Prahy. Začínáme v 18:00. Prosím, napište mi, jestli přijdete, do pátku 14. června. Těším se na vás! Eva",
-        "evaluation_criteria": "Must include the occasion (narozeniny, oslava), date (v sobotu + date), location (v restauraci/v bytě), time (v + hour), and RSVP (prosím, napište mi). Use inviting, friendly tone with informal address."
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit28/exam_listening_v1.png",
+        "image_label": "Hear Essential Details",
+        "text_cz": "Na informacích se ptá David na vlak. Vlak do Brna odjíždí v devět hodin z nástupiště číslo tři.",
+        "text_en": "At the information desk David asks about a train. The train to Brno leaves at nine o'clock from platform number three.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Vlak do Brna odjíždí v devět hodin.",
+              "Bydlím v Praze.",
+              "Dám si čaj.",
+              "Mám modrý svetr."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Ahoj všichni! Pozvánka na oslavu!...",
-      "xp_reward": 20
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
+      "xp_reward": 15,
+      "lesson_id": 2802
     },
     {
-      "id": 28019,
-      "lesson_id": 2802,
-      "type": "speaking_task",
-      "prompt": "Answer 5 questions about yourself in Czech.",
+      "id": 28203,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "speaking_task",
-        "prompt_cz": "Odpovězte na 5 otázek o sobě v češtině.",
-        "prompt_en": "Answer 5 questions about yourself in Czech.",
-        "task_type": "interview",
-        "guiding_questions_cz": [
-          "Jak se jmenujete?",
-          "Odkud jste?",
-          "Kde bydlíte?",
-          "Co děláte (práce/škola)?",
-          "Co máte rád/a (koníček)?"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Vlak do Brna odjíždí v devět hodin.",
+            "right": "The train to Brno leaves at nine o'clock."
+          },
+          {
+            "left": "Nástupiště je číslo tři.",
+            "right": "The platform is number three."
+          },
+          {
+            "left": "Jízdenka stojí sto korun.",
+            "right": "The ticket costs one hundred crowns."
+          },
+          {
+            "left": "Děkuji za informaci.",
+            "right": "Thank you for the information."
+          }
         ],
-        "guiding_questions_en": [
-          "What is your name?",
-          "Where are you from?",
-          "Where do you live?",
-          "What do you do (work/school)?",
-          "What do you like (hobby)?"
-        ],
-        "min_duration_seconds": 60,
-        "evaluation_criteria": "Should answer all 5 questions with complete sentences at A1 level. Use formal forms (jmenuji se, jsem z, bydlím v, jsem student/pracuji, mám rád). Speak clearly with appropriate Czech pronunciation."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
       },
-      "answer_key": "Full spoken response to 5 personal questions.",
-      "xp_reward": 25
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.–The train to Brno leaves at nine o'clock.; Nástupiště je číslo tři.–The platform is number three.; Jízdenka stojí sto korun.–The ticket costs one hundred crowns.; Děkuji za informaci.–Thank you for the information.",
+      "xp_reward": 10,
+      "lesson_id": 2802
     },
     {
-      "id": 28020,
-      "lesson_id": 2802,
-      "type": "speaking_task",
-      "prompt": "Describe a family photo in Czech.",
-      "data": {
-        "type": "speaking_task",
-        "prompt_cz": "Popište rodinnou fotografii v češtině.",
-        "prompt_en": "Describe a family photo in Czech.",
-        "task_type": "picture_description",
-        "guiding_questions_cz": [
-          "Kdo je na obrázku?",
-          "Kde jsou?",
-          "Co dělají?",
-          "Jak vypadají?",
-          "Jaké je počasí?"
-        ],
-        "guiding_questions_en": [
-          "Who is in the picture?",
-          "Where are they?",
-          "What are they doing?",
-          "What do they look like?",
-          "What's the weather like?"
-        ],
-        "min_duration_seconds": 45,
-        "evaluation_criteria": "Should describe at least 3 family members using family vocabulary (matka, otec, bratr, sestra, babička). Use present tense (je, jsou, mají) and basic adjectives (vysoký, mladý, hezký). Mention location and activity. Speak for at least 45 seconds."
-      },
-      "answer_key": "Full spoken description of a family photo.",
-      "xp_reward": 25
-    },
-    {
-      "id": 28021,
-      "lesson_id": 2802,
-      "type": "speaking_task",
-      "prompt": "Role-play ordering food at a restaurant.",
-      "data": {
-        "type": "speaking_task",
-        "prompt_cz": "Představte si, že jste v restauraci. Objednejte si jídlo a pití. Hrajte roli hosta.",
-        "prompt_en": "Role-play ordering food at a restaurant. You are the guest.",
-        "task_type": "role_play",
-        "guiding_questions_cz": [
-          "Co si přejete?",
-          "Chtěl/a byste polévku?",
-          "Jaké hlavní jídlo?",
-          "Co k pití?",
-          "Zaplatíte hotově nebo kartou?"
-        ],
-        "guiding_questions_en": [
-          "What would you like?",
-          "Would you like a soup?",
-          "What main dish?",
-          "What to drink?",
-          "Will you pay cash or card?"
-        ],
-        "min_duration_seconds": 60,
-        "evaluation_criteria": "Should use restaurant phrases: 'Dobrý den', 'Chtěl/a bych...', 'Prosím', 'Zaplatím kartou/hotově'. Order at least one main dish and one drink. Use formal address to the waiter. Complete the interaction from greeting to payment."
-      },
-      "answer_key": "Full spoken role-play of ordering food.",
-      "xp_reward": 25
-    },
-    {
-      "id": 28022,
-      "lesson_id": 2802,
+      "id": 28204,
       "type": "multiple_choice",
-      "prompt": "Choose the correct Czech word for the English meaning.",
+      "prompt": "Choose the phrase that fits",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Vyberte správné české slovo.",
-        "question_en": "Choose the correct Czech word for 'breakfast'.",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
         "options": [
-          "večeře",
-          "snídaně",
-          "oběd",
-          "svačina"
+          "Vlak do Brna odjíždí v devět hodin.",
+          "Bydlím v Praze.",
+          "Dám si čaj.",
+          "Mám modrý svetr."
         ],
-        "correct_index": 1,
-        "explanation": "'Snídaně' = breakfast. 'Oběd' = lunch. 'Večeře' = dinner. 'Svačina' = snack. These are the four main meal words in Czech."
+        "correct_index": 0,
+        "explanation": "Choose the chunk that communicates the important information in this scene."
       },
-      "answer_key": "snídaně",
-      "xp_reward": 10
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
+      "xp_reward": 10,
+      "lesson_id": 2802
     },
     {
-      "id": 28023,
-      "lesson_id": 2802,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct Czech word for the English meaning.",
+      "id": 28205,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správné české slovo.",
-        "question_en": "Choose the correct Czech word for 'Monday'.",
-        "options": [
-          "úterý",
-          "pondělí",
-          "středa",
-          "čtvrtek"
+        "type": "fill_blank",
+        "sentence": "Vlak do Brna ___ v devět hodin.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "odjíždí"
+          ]
         ],
-        "correct_index": 1,
-        "explanation": "'Pondělí' = Monday. Days of the week: pondělí (Mon), úterý (Tue), středa (Wed), čtvrtek (Thu), pátek (Fri), sobota (Sat), neděle (Sun)."
+        "explanation": "Use the same short pattern you have just heard and read."
       },
-      "answer_key": "pondělí",
-      "xp_reward": 10
+      "answer_key": "odjíždí",
+      "xp_reward": 10,
+      "lesson_id": 2802
     },
     {
-      "id": 28024,
-      "lesson_id": 2802,
-      "type": "translation",
-      "prompt": "Translate from English to Czech.",
+      "id": 28206,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "My name is Anna and I am from Prague. I live in a big apartment.",
-        "accepted_answers": [
-          "Jmenuji se Anna a jsem z Prahy. Bydlím ve velkém bytě.",
-          "Já se jmenuji Anna a jsem z Prahy. Bydlím ve velkém bytě."
+        "type": "word_order",
+        "words": [
+          "Vlak",
+          "do",
+          "Brna",
+          "odjíždí",
+          "v",
+          "devět",
+          "hodin."
         ],
-        "grammar_note": "'Jmenuji se Anna a jsem z Prahy. Bydlím ve velkém bytě.' = My name is Anna and I'm from Prague. I live in a big apartment. Note 'z Prahy' (genitive after 'z' = from), 've velkém bytě' (locative after 'v' = in). Adjective 'velký' → locative 'velkém' (neuter/masculine inanimate locative)."
+        "correct_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "translation_en": "Build the useful Czech sentence.",
+        "explanation": "Read the complete chunk aloud after you build it."
       },
-      "answer_key": "Jmenuji se Anna a jsem z Prahy. Bydlím ve velkém bytě.",
-      "xp_reward": 15
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
+      "xp_reward": 10,
+      "lesson_id": 2802
     },
     {
-      "id": 28025,
-      "lesson_id": 2802,
-      "type": "translation",
-      "prompt": "Translate from Czech to English.",
+      "id": 28207,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Mám rád čaj a piju ho každé ráno.",
-        "accepted_answers": [
-          "I like tea and I drink it every morning.",
-          "I like tea and drink it every morning."
-        ],
-        "grammar_note": "'Mám rád čaj a piju ho každé ráno.' = I like tea and I drink it every morning. 'Mám rád' = I like (masculine speaker; feminine would be 'mám ráda'). 'čaj' = tea (masc. inanimate), 'ho' = it ( accusative pronoun for masculine). 'každé ráno' = every morning (neuter accusative of time)."
+        "type": "dictation",
+        "expected_text": "Vlak do Brna odjíždí v devět hodin.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
       },
-      "answer_key": "I like tea and I drink it every morning.",
-      "xp_reward": 15
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
+      "xp_reward": 10,
+      "lesson_id": 2802
+    },
+    {
+      "id": 28208,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Vlak do Brna odjíždí v devět hodin.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
+      "xp_reward": 15,
+      "lesson_id": 2802
+    },
+    {
+      "id": 28209,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Hear Essential Details",
+        "lines": [
+          {
+            "speaker": "clerk",
+            "text": "Kam jedete?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "clerk",
+            "text": "V kolik hodin?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Do Brna.",
+            "Jedeme do Brna."
+          ],
+          [
+            "V devět hodin.",
+            "Vlak odjíždí v devět hodin."
+          ]
+        ],
+        "explanation": "Use a short, complete answer that moves the interaction forward."
+      },
+      "answer_key": "Do Brna. | V devět hodin.",
+      "xp_reward": 15,
+      "lesson_id": 2802
+    },
+    {
+      "id": 28210,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write two Czech notes for a journey: the destination and the departure time.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 36,
+        "key_vocab": [
+          "Vlak do Brna odjíždí v devět hodin.",
+          "Nástupiště je číslo tři.",
+          "Jízdenka stojí sto korun.",
+          "Děkuji za informaci."
+        ],
+        "sample_answer": "Vlak do Brna odjíždí v devět hodin."
+      },
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
+      "xp_reward": 0,
+      "lesson_id": 2802
+    },
+    {
+      "id": 28211,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a short station question and answer: ask about a train to Brno, then say the platform and time.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Vlak do Brna odjíždí v devět hodin.",
+          "Nástupiště je číslo tři.",
+          "Jízdenka stojí sto korun."
+        ]
+      },
+      "answer_key": "Vlak do Brna odjíždí v devět hodin.; Nástupiště je číslo tři.; Jízdenka stojí sto korun.",
+      "xp_reward": 20,
+      "lesson_id": 2802
     }
-  ]
+  ],
+  "can_do": "listen for essential travel details.",
+  "new_language": [
+    "Vlak do Brna odjíždí v devět hodin.",
+    "Nástupiště je číslo tři.",
+    "Jízdenka stojí sto korun.",
+    "Děkuji za informaci."
+  ],
+  "recycles": [
+    "personal details",
+    "time and numbers",
+    "travel",
+    "messages",
+    "descriptions"
+  ],
+  "exit_task": "listen for essential travel details."
 }

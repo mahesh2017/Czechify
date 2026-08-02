@@ -22,12 +22,38 @@ class MultipleChoiceView extends StatefulWidget {
 class _MultipleChoiceViewState extends State<MultipleChoiceView> {
   int? selectedIdx;
   bool answered = false;
+  late ({List<String> options, int correctIndex}) _presentation;
+
+  @override
+  void initState() {
+    super.initState();
+    _prepareOptions();
+  }
+
+  @override
+  void didUpdateWidget(covariant MultipleChoiceView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.exercise.id != widget.exercise.id) {
+      selectedIdx = null;
+      answered = false;
+      _prepareOptions();
+    }
+  }
+
+  void _prepareOptions() {
+    final data = widget.exercise.data;
+    _presentation = shuffledOptions(
+      options: (data['options'] as List<dynamic>).cast<String>(),
+      correctIndex: (data['correct_index'] as num).toInt(),
+      seed: widget.exercise.id,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final data = widget.exercise.data;
-    final options = (data['options'] as List<dynamic>).cast<String>();
-    final correctIdx = (data['correct_index'] as num).toInt();
+    final options = _presentation.options;
+    final correctIdx = _presentation.correctIndex;
     final questionEn = data['question_en'] as String? ?? widget.exercise.prompt;
     final wrong = answered && selectedIdx != correctIdx;
 

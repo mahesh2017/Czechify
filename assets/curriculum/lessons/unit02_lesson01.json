@@ -2,76 +2,40 @@
   "id": 201,
   "unit_id": 2,
   "order_in_unit": 0,
-  "title": "Greetings & Politeness",
-  "description": "Learn formal and informal greetings, polite words, and farewell expressions",
+  "title": "Hello: Formal or Friendly?",
+  "description": "Use the right greeting and farewell when meeting a stranger or a friend.",
   "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
-      "id": 90002,
+      "id": 2000,
       "lesson_id": 201,
       "type": "teaching",
-      "prompt": "First Words: Greetings & Politeness",
+      "prompt": "See the relationship before choosing the words",
       "data": {
         "type": "teaching",
-        "heading": "First Words: Greetings & Politeness",
-        "body": "Czech has a formal (vy) and an informal (ty) register — use vy with strangers, ty with friends. Tap any line to hear it.",
-        "intro": "The very first thing you'll say in a new country is hello — so let's make yours sound natural. You'll pick up the greetings, the pleases and thank-yous, and the one choice Czechs make every time they speak: formal, or friendly?",
-        "style": "list",
-        "play_all_label": "Play all",
+        "style": "image_cards",
+        "heading": "Formal or friendly?",
+        "body": "Look at the people and setting first. With an unfamiliar adult or in a professional setting, start formal. With a friend or an agreed informal relationship, use the friendly form.",
         "items": [
           {
             "cz": "Dobrý den",
-            "en": "Good day / Hello (formal)"
+            "en": "Hello / Good day (formal)",
+            "say": "Dobrý den.",
+            "image": "assets/images/unit02/formal_reception_v1.png",
+            "image_label": "A visitor politely greeting a receptionist in a Prague office",
+            "sentence": "Dobrý den, jak se máte?",
+            "sentence_en": "Hello, how are you? (formal)"
           },
           {
             "cz": "Ahoj",
-            "en": "Hi / Bye (informal)"
-          },
-          {
-            "cz": "Dobré ráno",
-            "en": "Good morning"
-          },
-          {
-            "cz": "Dobrý večer",
-            "en": "Good evening"
-          },
-          {
-            "cz": "Na shledanou",
-            "en": "Goodbye (formal)"
-          },
-          {
-            "cz": "Děkuji",
-            "en": "Thank you"
-          },
-          {
-            "cz": "Prosím",
-            "en": "Please / You're welcome"
-          },
-          {
-            "cz": "Promiňte",
-            "en": "Excuse me / Sorry"
-          },
-          {
-            "cz": "Ano",
-            "en": "Yes"
-          },
-          {
-            "cz": "Ne",
-            "en": "No"
-          },
-          {
-            "cz": "Jak se máte?",
-            "en": "How are you? (formal)"
-          },
-          {
-            "cz": "Jak se máš?",
-            "en": "How are you? (informal)"
-          },
-          {
-            "cz": "Těší mě",
-            "en": "Nice to meet you"
+            "en": "Hi / Bye (informal)",
+            "say": "Ahoj.",
+            "image": "assets/images/unit02/informal_cafe_v1.png",
+            "image_label": "Two friends greeting each other at a Prague café",
+            "sentence": "Ahoj, jak se máš?",
+            "sentence_en": "Hi, how are you? (informal)"
           }
         ]
       },
@@ -80,246 +44,295 @@
     {
       "id": 2001,
       "lesson_id": 201,
-      "type": "multiple_choice",
-      "prompt": "Which greeting would you use with a stranger in a shop?",
+      "type": "listening_comprehension",
+      "prompt": "Recognize a formal exchange",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Který pozdrav použijete s cizím člověkem v obchodě?",
-        "question_en": "Which greeting would you use with a stranger in a shop?",
-        "options": [
-          "Ahoj!",
-          "Dobrý den!",
-          "Čau!",
-          "Nazdar!"
-        ],
-        "correct_index": 1,
-        "explanation": "Dobrý den is the formal greeting. Use it with strangers, in shops, with elderly people, and in professional settings. Ahoj/Čau/Nazdar are informal."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first. Where would this exchange fit?",
+        "transcript_cz": "Dobrý den. Jak se máte? Dobře, děkuji. A vy?",
+        "questions": [
+          {
+            "question_en": "Which relationship is most likely?",
+            "options": [
+              "A visitor and a receptionist",
+              "Two close friends",
+              "Two children at play"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which phrase marks the formal register?",
+            "options": [
+              "Jak se máte?",
+              "Jak se máš?",
+              "Ahoj!"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "1",
-      "grammar_rule_id": "GR-010",
+      "answer_key": "A visitor and a receptionist; Jak se máte?",
       "xp_reward": 10
     },
     {
       "id": 2002,
       "lesson_id": 201,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'good morning' in Czech?",
+      "type": "listening_comprehension",
+      "prompt": "Recognize a friendly exchange",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak se řekne 'dobré ráno'?",
-        "question_en": "How do you say 'good morning'?",
-        "options": [
-          "Dobrý večer",
-          "Dobré ráno",
-          "Dobrou noc",
-          "Dobrý den"
-        ],
-        "correct_index": 1,
-        "explanation": "Dobré ráno = good morning. Note: dobré has long é. Used until about 9-10 AM."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen. Is the relationship formal or informal?",
+        "transcript_cz": "Ahoj! Jak se máš? Dobře, díky. A ty?",
+        "questions": [
+          {
+            "question_en": "What is the relationship?",
+            "options": [
+              "Informal",
+              "Formal",
+              "Impossible to tell"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does the second speaker say after 'Dobře'?",
+            "options": [
+              "díky",
+              "prosím",
+              "na shledanou"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "1",
+      "answer_key": "Informal; díky",
       "xp_reward": 10
     },
     {
       "id": 2003,
       "lesson_id": 201,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "multiple_choice",
+      "prompt": "You enter a clinic and meet the receptionist. What do you say first?",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Thank you",
-        "accepted_answers": [
-          "děkuji",
-          "děkuju"
+        "type": "multiple_choice",
+        "question_cz": "Jste na recepci u lékaře. Co řeknete?",
+        "question_en": "You are at a clinic reception. What do you say?",
+        "options": [
+          "Dobrý den.",
+          "Ahoj.",
+          "Čau.",
+          "Dobrou noc."
         ],
-        "grammar_note": "Děkuji is formal, děkuju is colloquial. Both are acceptable. Note ě softening in dě-."
+        "correct_index": 0,
+        "explanation": "A receptionist is an unfamiliar adult in a professional setting, so Dobrý den is the safe opening."
       },
-      "answer_key": "děkuji",
-      "grammar_rule_id": "GR-012",
+      "answer_key": "Dobrý den.",
+      "grammar_rule_id": "GR-010",
       "xp_reward": 10
     },
     {
       "id": 2004,
       "lesson_id": 201,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "multiple_choice",
+      "prompt": "A Czech friend waves to you at a café. What fits?",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Please / You're welcome",
-        "accepted_answers": [
-          "prosím"
+        "type": "multiple_choice",
+        "question_cz": "Kamarád vás zdraví v kavárně. Co řeknete?",
+        "question_en": "A friend greets you at a café. What do you say?",
+        "options": [
+          "Ahoj!",
+          "Dobrý den.",
+          "Na shledanou.",
+          "Promiňte."
         ],
-        "grammar_note": "Prosím has multiple meanings: 'please', 'you're welcome', 'go ahead'. Very versatile word."
+        "correct_index": 0,
+        "explanation": "Ahoj is the usual friendly greeting and can also mean bye."
       },
-      "answer_key": "prosím",
-      "grammar_rule_id": "GR-012",
+      "answer_key": "Ahoj!",
+      "grammar_rule_id": "GR-010",
       "xp_reward": 10
     },
     {
       "id": 2005,
       "lesson_id": 201,
-      "type": "translation",
-      "prompt": "Translate to Czech",
+      "type": "fill_blank",
+      "prompt": "Complete the formal greeting",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Goodbye",
-        "accepted_answers": [
-          "na shledanou",
-          "shledanou",
-          "čau",
-          "ahoj"
+        "type": "fill_blank",
+        "sentence": "Dobrý den. Jak se ___?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "máte"
+          ]
         ],
-        "grammar_note": "Na shledanou is formal. Čau/Ahoj are informal (both hi and bye)."
+        "explanation": "Máte is the formal vy form in this useful greeting chunk."
       },
-      "answer_key": "na shledanou",
+      "answer_key": "máte",
+      "grammar_rule_id": "GR-010",
       "xp_reward": 10
     },
     {
       "id": 2006,
       "lesson_id": 201,
-      "type": "multiple_choice",
-      "prompt": "Which pronoun do you use with 'Dobrý den'?",
+      "type": "fill_blank",
+      "prompt": "Complete the friendly greeting",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaké zájmeno použijete s 'Dobrý den'?",
-        "question_en": "Which pronoun do you use with 'Dobrý den'?",
-        "options": [
-          "ty (informal)",
-          "vy (formal)",
-          "on (he)",
-          "my (we)"
+        "type": "fill_blank",
+        "sentence": "Ahoj. Jak se ___?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "máš"
+          ]
         ],
-        "correct_index": 1,
-        "explanation": "Dobrý den is formal, so you must use 'vy' (formal you). Using 'ty' with someone you greeted formally would be contradictory."
+        "explanation": "Máš is the informal ty form used with friends."
       },
-      "answer_key": "1",
+      "answer_key": "máš",
       "grammar_rule_id": "GR-010",
       "xp_reward": 10
     },
     {
       "id": 2007,
       "lesson_id": 201,
-      "type": "fill_blank",
-      "prompt": "Complete the dialogue",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "_____ den, pane Novák. Jak se _____? — Dobrý den. Mám se dobře, děkuji.",
-        "blank_count": 2,
-        "explanation": "Dobrý den (formal greeting) + Jak se máte? (formal 'how are you'). With a stranger/Mr. Novák, always use formal.",
-        "blank_answers": [
-          [
-            "Dobrý"
-          ],
-          [
-            "máte"
-          ]
-        ]
-      },
-      "answer_key": "Dobrý|máte",
-      "grammar_rule_id": "GR-010",
-      "xp_reward": 15
-    },
-    {
-      "id": 2008,
-      "lesson_id": 201,
       "type": "word_order",
-      "prompt": "Arrange: 'Ahoj, jak se máš?' (informal 'Hi, how are you?')",
+      "prompt": "Build the formal closing",
       "data": {
         "type": "word_order",
         "words": [
-          "Ahoj,",
-          "jak",
-          "se",
-          "máš?"
+          "Děkuji.",
+          "Na",
+          "shledanou."
         ],
         "correct_order": [
           0,
           1,
-          2,
-          3
+          2
         ],
-        "explanation": "Informal version: Ahoj + ty form (máš). This is for friends and people your age.",
-        "translation_en": "Hi how are you?"
+        "translation_en": "Thank you. Goodbye.",
+        "explanation": "Na shledanou is the standard formal farewell."
       },
-      "answer_key": "Ahoj, jak se máš?",
-      "grammar_rule_id": "GR-010",
+      "answer_key": "Děkuji. Na shledanou.",
+      "xp_reward": 10
+    },
+    {
+      "id": 2008,
+      "lesson_id": 201,
+      "type": "dictation",
+      "prompt": "Listen and type the formal farewell",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Na shledanou.",
+        "language": "cs-CZ",
+        "note": "This is the safe farewell for a stranger or professional contact."
+      },
+      "answer_key": "Na shledanou.",
       "xp_reward": 10
     },
     {
       "id": 2009,
       "lesson_id": 201,
-      "type": "dictation",
-      "prompt": "Listen and type what you hear",
+      "type": "pronunciation",
+      "prompt": "Open and close a formal encounter",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_2009",
-        "expected_text": "Promiňte, kde je nádraží?",
-        "language": "cs-CZ",
-        "note": "Excuse me, where is the station? Formal 'promiňte' + question."
+        "type": "pronunciation",
+        "target_text": "Dobrý den. Na shledanou.",
+        "focus_sounds": [
+          "long_vowel",
+          "ř"
+        ],
+        "min_score": 0.55,
+        "translation_en": "Hello. Goodbye. (formal)"
       },
-      "answer_key": "Promiňte, kde je nádraží?",
-      "xp_reward": 10
+      "answer_key": "Dobrý den. Na shledanou.",
+      "xp_reward": 15
     },
     {
       "id": 2010,
       "lesson_id": 201,
-      "type": "multiple_choice",
-      "prompt": "Which is the correct formal farewell to a teacher?",
+      "type": "reading_comprehension",
+      "prompt": "Read two short message threads",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak se správně rozloučíte s učitelem?",
-        "question_en": "How do you correctly say goodbye to a teacher?",
-        "options": [
-          "Čau!",
-          "Nazdar!",
-          "Na shledanou.",
-          "Tak zatím!"
-        ],
-        "correct_index": 2,
-        "explanation": "Na shledanou is the formal goodbye. Use it with teachers, doctors, strangers. The others are all informal."
+        "type": "reading_comprehension",
+        "prompt_en": "Which thread is with a friend, and which is with an office?",
+        "text_cz": "A — Ahoj, Evo! Jak se máš? — Dobře, díky. A ty?\n\nB — Dobrý den. Jak se máte? — Dobře, děkuji. Na shledanou.",
+        "text_en": "A — Hi, Eva! How are you? — Fine, thanks. And you?\n\nB — Hello. How are you? — Fine, thank you. Goodbye.",
+        "questions": [
+          {
+            "question_en": "Which thread is friendly and informal?",
+            "options": [
+              "A",
+              "B",
+              "Both"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which thread has a formal farewell?",
+            "options": [
+              "A",
+              "B",
+              "Neither"
+            ],
+            "correct_index": 1
+          }
+        ]
       },
-      "answer_key": "2",
-      "grammar_rule_id": "GR-010",
+      "answer_key": "A; B",
       "xp_reward": 10
     },
     {
       "id": 2011,
       "lesson_id": 201,
-      "type": "pronunciation",
-      "prompt": "Say this greeting aloud",
+      "type": "dialogue",
+      "prompt": "Choose the greeting that matches each relationship",
       "data": {
-        "type": "pronunciation",
-        "target_text": "Dobrý den, jak se máte?",
-        "target_audio_hash": "placeholder_2011",
-        "focus_sounds": [
-          "long_vowel"
+        "type": "dialogue",
+        "scenario": "First a hotel receptionist, then a Czech friend",
+        "lines": [
+          {
+            "speaker": "receptionist",
+            "text": "Dobrý den."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Ahoj!"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "min_score": 0.6,
-        "translation_en": "Good day, how are you? (formal)"
+        "blank_answers": [
+          [
+            "Dobrý den.",
+            "Dobrý den"
+          ],
+          [
+            "Ahoj!",
+            "Ahoj.",
+            "Ahoj"
+          ]
+        ],
+        "explanation": "Mirror the formal Dobrý den with the receptionist and the informal Ahoj with your friend."
       },
-      "answer_key": "Dobrý den, jak se máte?",
+      "answer_key": "Dobrý den. | Ahoj!",
       "grammar_rule_id": "GR-010",
       "xp_reward": 15
-    },
-    {
-      "id": 2012,
-      "lesson_id": 201,
-      "type": "translation",
-      "prompt": "Translate to English",
-      "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Dobrou noc.",
-        "accepted_answers": [
-          "Good night."
-        ],
-        "grammar_note": "Dobrou noc is said when parting for the night. Note: accusative form 'dobrou' (feminine adjective in accusative)."
-      },
-      "answer_key": "Good night.",
-      "xp_reward": 10
     }
-  ]
+  ],
+  "can_do": "choose a formal or friendly greeting.",
+  "new_language": [
+    "Dobrý den",
+    "Ahoj"
+  ],
+  "recycles": [
+    "Czech sound clues",
+    "Prosím pomalu",
+    "Ještě jednou, prosím"
+  ],
+  "exit_task": "choose a formal or friendly greeting."
 }

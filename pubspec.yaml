@@ -89,6 +89,36 @@ flutter:
   assets:
     - assets/images/
     - assets/images/unit01/
+    - assets/images/unit02/
+    - assets/images/unit03/
+    - assets/images/unit04/
+    - assets/images/unit05/
+    - assets/images/unit06/
+    - assets/images/unit07/
+    - assets/images/unit08/
+    - assets/images/unit09/
+    - assets/images/unit10/
+    - assets/images/unit11/
+    - assets/images/unit12/
+    - assets/images/unit13/
+    - assets/images/unit14/
+    - assets/images/unit15/
+    - assets/images/unit16/
+    - assets/images/unit17/
+    - assets/images/unit18/
+    - assets/images/unit19/
+    - assets/images/unit20/
+    - assets/images/unit21/
+    - assets/images/unit22/
+    - assets/images/unit23/
+    - assets/images/unit24/
+    - assets/images/unit25/
+    - assets/images/unit26/
+    - assets/images/unit27/
+    - assets/images/unit29/
+    - assets/images/unit28/
+    - assets/images/unit30/
+    - assets/images/unit31/
     - assets/animations/
     # Synthesized by tool/generate_sfx.py — see that script before editing,
     # these are generated output rather than hand-authored files.

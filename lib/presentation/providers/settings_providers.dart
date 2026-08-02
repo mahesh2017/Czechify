@@ -138,9 +138,14 @@ class SettingsNotifier extends Notifier<AppSettings> {
 
   @override
   AppSettings build() {
-    _loadSettings();
+    _readyFuture = _loadSettings();
     return const AppSettings();
   }
+
+  late final Future<void> _readyFuture;
+
+  /// Completes after the persisted learner profile and preferences are loaded.
+  Future<void> get ready => _readyFuture;
 
   /// Prefs accessor — always awaited so setters can't race the initial load.
   Future<SharedPreferences> _prefs() => SharedPreferences.getInstance();

@@ -2,231 +2,342 @@
   "id": 602,
   "unit_id": 6,
   "order_in_unit": 1,
-  "title": "Accusative in Action — Transitive Verbs",
-  "description": "Practice accusative with common transitive verbs: vidět, mít, pít, jíst, číst",
-  "duration_min": 15,
+  "title": "Choose the Useful Object Form",
+  "description": "Notice common object-form changes inside requests without memorising a full case table.",
+  "can_do": "use common food and drink words after chci and dám si.",
+  "new_language": [
+    "káva → kávu",
+    "voda → vodu",
+    "polévka → polévku",
+    "pivo → pivo"
+  ],
+  "recycles": [
+    "Dobrý den",
+    "Máte…?",
+    "Ano/Ne",
+    "Prosím",
+    "Nerozumím"
+  ],
+  "exit_task": "use common food and drink words after chci and dám si.",
+  "duration_min": 12,
   "lesson_type": "practice",
   "is_review": false,
   "exercises": [
     {
+      "id": 6100,
+      "lesson_id": 602,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Choose the Useful Object Form",
+        "body": "Notice common object-form changes inside requests without memorising a full case table.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "káva → kávu",
+            "en": "coffee: object form"
+          },
+          {
+            "cz": "voda → vodu",
+            "en": "water: object form"
+          },
+          {
+            "cz": "polévka → polévku",
+            "en": "soup: object form"
+          },
+          {
+            "cz": "pivo → pivo",
+            "en": "beer: unchanged object form"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
       "id": 6101,
       "lesson_id": 602,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct accusative form — animate vs inanimate masculine",
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vidím ___ (muž).",
-        "question_en": "I see a ___ (man).",
-        "options": ["muž", "muže", "muža", "mužem"],
-        "correct_index": 1,
-        "explanation": "Muž is masculine animate (a person), so it changes in the accusative: muž → muže. Contrast with masculine inanimate nouns which don't change."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Chci kávu a vodu. Petr chce pivo a polévku.",
+        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Choose the Useful Object Form",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does Petr want with beer?",
+            "options": [
+              "Soup",
+              "Coffee",
+              "Water"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": 1,
-      "grammar_rule_id": "GR-051",
-      "xp_reward": 10
+      "answer_key": "Soup",
+      "xp_reward": 15
     },
     {
       "id": 6102,
       "lesson_id": 602,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct accusative form — masculine inanimate does NOT change",
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vidím ___ (hrad).",
-        "question_en": "I see a ___ (castle).",
-        "options": ["hrad", "hradu", "hrada", "hradem"],
-        "correct_index": 0,
-        "explanation": "Hrad is masculine inanimate (a thing, not alive), so it does NOT change in the accusative: hrad → hrad. Compare with muž → muže (animate) which does change."
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "text_cz": "Anna chce kávu. David chce čaj. Eva si dá vodu a pivo.",
+        "text_en": "Anna wants coffee. David wants tea. Eva will have water and beer.",
+        "questions": [
+          {
+            "question_en": "Who wants tea?",
+            "options": [
+              "David",
+              "Anna",
+              "Eva"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Anna wants coffee. David wants tea. Eva will have water and beer.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": 0,
-      "grammar_rule_id": "GR-052",
-      "xp_reward": 10
+      "answer_key": "David",
+      "xp_reward": 15
     },
     {
       "id": 6103,
       "lesson_id": 602,
-      "type": "translation",
-      "prompt": "Translate using the correct accusative form",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I drink coffee.",
-        "accepted_answers": ["Piju kávu.", "Piju kávu", "Pijte kávu."],
-        "grammar_note": "Káva (feminine, -a) → kávu in accusative. Piju kávu = I drink coffee."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "káva → kávu",
+            "right": "coffee: object form"
+          },
+          {
+            "left": "voda → vodu",
+            "right": "water: object form"
+          },
+          {
+            "left": "polévka → polévku",
+            "right": "soup: object form"
+          },
+          {
+            "left": "pivo → pivo",
+            "right": "beer: unchanged object form"
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
-      "answer_key": ["Piju kávu.", "Piju kávu"],
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 15
+      "answer_key": "káva → kávu–coffee: object form; voda → vodu–water: object form; polévka → polévku–soup: object form; pivo → pivo–beer: unchanged object form",
+      "xp_reward": 10
     },
     {
       "id": 6104,
       "lesson_id": 602,
-      "type": "fill_blank",
-      "prompt": "Fill in the accusative form of the noun",
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Jím ___ (chleba).",
-        "blank_count": 1,
-        "explanation": "Chleba is masculine inanimate, so it does NOT change in the accusative: chleba → chleba. Jím chleba = I eat bread.",
-        "blank_answers": [
-          ["chleba"]
-        ]
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "káva → kávu",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
       },
-      "answer_key": ["chleba"],
-      "grammar_rule_id": "GR-052",
-      "xp_reward": 15
+      "answer_key": "káva → kávu",
+      "xp_reward": 10
     },
     {
       "id": 6105,
       "lesson_id": 602,
       "type": "fill_blank",
-      "prompt": "Fill in the accusative form — remember feminine -a → -u",
+      "prompt": "Complete the useful chunk",
       "data": {
         "type": "fill_blank",
-        "sentence": "Čtu ___ (kniha).",
+        "sentence": "káva ___ kávu",
         "blank_count": 1,
-        "explanation": "Kniha (feminine, -a) → knihu in accusative. Čtu knihu = I read a book.",
         "blank_answers": [
-          ["knihu"]
-        ]
+          [
+            "→"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": ["knihu"],
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 15
+      "answer_key": "→",
+      "xp_reward": 10
     },
     {
       "id": 6106,
       "lesson_id": 602,
       "type": "word_order",
-      "prompt": "Arrange the words to form a correct sentence",
+      "prompt": "Build a natural Czech sentence",
       "data": {
         "type": "word_order",
-        "words": ["já", "mám", "psa", "nového"],
-        "correct_order": [0, 1, 3, 2],
-        "explanation": "Já mám nového psa. = I have a new dog. Pes (masculine animate) → psa in the accusative. This sentence expresses possession using the accusative case."
+        "words": [
+          "vodu",
+          "→",
+          "voda"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "water: object form",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": [0, 1, 3, 2],
-      "grammar_rule_id": "GR-051",
-      "xp_reward": 15
+      "answer_key": "voda → vodu",
+      "xp_reward": 10
     },
     {
       "id": 6107,
       "lesson_id": 602,
-      "type": "multiple_choice",
-      "prompt": "Answer the question correctly",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co piješ?",
-        "question_en": "What are you drinking?",
-        "options": ["Piju kávu.", "Piju káva.", "Piju kávy.", "Piju kávo."],
-        "correct_index": 0,
-        "explanation": "Co piješ? = What are you drinking? The answer needs the accusative: káva → kávu. Piju kávu = I drink coffee."
+        "type": "dictation",
+        "expected_text": "polévka → polévku",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": 0,
-      "grammar_rule_id": "GR-050",
+      "answer_key": "polévka → polévku",
       "xp_reward": 10
     },
     {
       "id": 6108,
       "lesson_id": 602,
-      "type": "fill_blank",
-      "prompt": "Answer the question — Koho vidíš? (Whom do you see?)",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Vidím ___ (student).",
-        "blank_count": 1,
-        "explanation": "Koho vidíš? = Whom do you see? Use the accusative of a masculine animate noun. Student (masculine animate, hard consonant) → studenta. Vidím studenta = I see a student.",
-        "blank_answers": [
-          ["studenta"]
-        ]
+        "type": "pronunciation",
+        "target_text": "pivo → pivo",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "beer: unchanged object form"
       },
-      "answer_key": ["studenta"],
-      "grammar_rule_id": "GR-051",
+      "answer_key": "pivo → pivo",
       "xp_reward": 15
     },
     {
       "id": 6109,
       "lesson_id": 602,
-      "type": "translation",
-      "prompt": "Translate the negative sentence — accusative stays the same",
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I don't have coffee.",
-        "accepted_answers": ["Nemám kávu.", "Nemám kávu"],
-        "grammar_note": "The negative prefix ne- attaches to the verb. The accusative noun does not change in negative sentences: Nemám kávu = I don't have coffee. Káva → kávu (accusative, feminine -a → -u)."
+        "type": "dialogue",
+        "scenario": "Choose the Useful Object Form",
+        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image_label": "Polite request pattern and common object-form changes",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Co chcete?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "A co si dáte k pití?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "káva → kávu"
+          ],
+          [
+            "voda → vodu"
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": ["Nemám kávu.", "Nemám kávu"],
-      "grammar_rule_id": "GR-050",
+      "answer_key": "káva → kávu | voda → vodu",
       "xp_reward": 15
     },
     {
       "id": 6110,
       "lesson_id": 602,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_6110",
-        "expected_text": "Nevidím muže. Nemám kávu.",
-        "language": "cs-CZ",
-        "note": "Two negative sentences with accusative objects. Nevidím muže (muž → muže, animate) and Nemám kávu (káva → kávu, feminine)."
+        "type": "writing_task",
+        "prompt_en": "Write four short requests using kávu, vodu, polévku, and one unchanged noun.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "káva → kávu",
+          "voda → vodu",
+          "polévka → polévku",
+          "pivo → pivo"
+        ],
+        "sample_answer": "káva → kávu voda → vodu polévka → polévku pivo → pivo"
       },
-      "answer_key": "Nevidím muže. Nemám kávu.",
-      "grammar_rule_id": "GR-051",
-      "xp_reward": 20
+      "answer_key": "káva → kávu voda → vodu polévka → polévku pivo → pivo",
+      "xp_reward": 0
     },
     {
       "id": 6111,
       "lesson_id": 602,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue — ordering in a café",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
       "data": {
-        "type": "dialogue",
-        "scenario": "In a café — ordering a drink",
-        "lines": [
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Máte limonádu? Ano. Tak si dám limonádu, prosím.",
+        "questions": [
           {
-            "speaker": "person_a",
-            "text": "Dobrý den! Co si dáte?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "___"
-          },
-          {
-            "speaker": "person_a",
-            "text": "A chcete také pivo?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "Ano, prosím. Mám žízeň."
+            "question_en": "What does the customer choose?",
+            "options": [
+              "Lemonade",
+              "Water",
+              "Soup"
+            ],
+            "correct_index": 0
           }
-        ],
-        "explanation": "When ordering, use accusative forms: prosím si kávu (káva → kávu). The waiter asks 'Co si dáte?' (What will you have?) and the customer responds with the accusative object.",
-        "blank_answers": [
-          ["Prosím si kávu.", "Dám si kávu.", "Chci kávu."]
         ]
       },
-      "answer_key": ["Prosím si kávu.", "Dám si kávu.", "Chci kávu."],
-      "grammar_rule_id": "GR-050",
-      "xp_reward": 25
-    },
-    {
-      "id": 6112,
-      "lesson_id": 602,
-      "type": "pronunciation",
-      "prompt": "Practice pronouncing sentences with transitive verbs and accusative objects",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Vidím muže. Vidím hrad. Piju kávu. Mám psa.",
-        "target_audio_hash": "placeholder_6112",
-        "focus_sounds": ["mʊʒɛ", "ɦradow", "kaːvʊ", "psa"],
-        "min_score": 0.6,
-        "translation_en": "I see a man. I see a castle. I drink coffee. I have a dog."
-      },
-      "answer_key": "Vidím muže. Vidím hrad. Piju kávu. Mám psa.",
-      "grammar_rule_id": "GR-051",
-      "xp_reward": 20
+      "answer_key": "Lemonade",
+      "xp_reward": 15
     }
   ]
 }

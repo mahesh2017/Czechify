@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:logging/logging.dart';
+import '../../core/config/release_config.dart';
 import '../database/database.dart' as db;
 import '../content/curriculum_pack_source.dart';
 
@@ -41,7 +42,8 @@ class ContentSeeder {
   /// they last installed differs from this — because [hasUsableLocalContent]
   /// only checks counts and would otherwise never notice an *edit* that keeps
   /// the counts the same (e.g. renaming a persona in an existing lesson).
-  static const int bundledContentRevision = 9;
+  static const int bundledContentRevision =
+      ReleaseConfig.bundledContentRevision;
 
   ContentSeeder(this._db, this._source);
 
@@ -49,8 +51,7 @@ class ContentSeeder {
   /// This validates more than a marker flag, so interrupted/partial installs
   /// are repaired on the next launch.
   Future<bool> hasUsableLocalContent() async {
-    final row =
-        await _db.customSelect('''
+    final row = await _db.customSelect('''
       SELECT
         (SELECT COUNT(*) FROM units
           WHERE id BETWEEN 1 AND 31 AND is_active = 1) AS unit_count,
@@ -101,9 +102,9 @@ class ContentSeeder {
   /// Reinstall the immediately previous verified release without a network
   /// request. Returns false when no rollback target is retained.
   Future<bool> rollbackToPreviousRelease() async {
-    final previous =
-        await (_db.select(_db.contentReleaseInstallations)
-          ..where((row) => row.isPrevious.equals(true))).getSingleOrNull();
+    final previous = await (_db.select(
+      _db.contentReleaseInstallations,
+    )..where((row) => row.isPrevious.equals(true))).getSingleOrNull();
     if (previous == null) return false;
     await _loadStoredRelease(previous);
     await _installCurrentSnapshot('rollback');
@@ -111,16 +112,16 @@ class ContentSeeder {
   }
 
   Future<void> _restoreActiveSource() async {
-    final active =
-        await (_db.select(_db.contentReleaseInstallations)
-          ..where((row) => row.isActive.equals(true))).getSingleOrNull();
+    final active = await (_db.select(
+      _db.contentReleaseInstallations,
+    )..where((row) => row.isActive.equals(true))).getSingleOrNull();
     if (active != null) await _loadStoredRelease(active);
   }
 
   Future<void> _loadStoredRelease(db.ContentReleaseInstallation stored) async {
-    final rows =
-        await (_db.select(_db.contentReleasePacks)
-          ..where((row) => row.releaseId.equals(stored.releaseId))).get();
+    final rows = await (_db.select(
+      _db.contentReleasePacks,
+    )..where((row) => row.releaseId.equals(stored.releaseId))).get();
     final packs = <String, VerifiedContentPack>{
       for (final row in rows)
         row.packKey: (
@@ -134,16 +135,15 @@ class ContentSeeder {
         releaseId: stored.releaseId,
         version: stored.version,
         contentChecksum: stored.contentChecksum,
-        packRefs:
-            rows
-                .map(
-                  (row) => PackRef(
-                    packKey: row.packKey,
-                    version: row.packVersion,
-                    checksum: row.checksum,
-                  ),
-                )
-                .toList(),
+        packRefs: rows
+            .map(
+              (row) => PackRef(
+                packKey: row.packKey,
+                version: row.packVersion,
+                checksum: row.checksum,
+              ),
+            )
+            .toList(),
         notes: stored.notes,
       ),
       requiredPackKeys: requiredPackPaths,
@@ -180,9 +180,9 @@ class ContentSeeder {
     await _db
         .update(_db.grammarRules)
         .write(const db.GrammarRulesCompanion(isActive: Value(false)));
-    await (_db.update(_db.flashcards)..where(
-      (row) => row.id.isSmallerOrEqualValue(900000),
-    )).write(const db.FlashcardsCompanion(isActive: Value(false)));
+    await (_db.update(_db.flashcards)
+          ..where((row) => row.id.isSmallerOrEqualValue(900000)))
+        .write(const db.FlashcardsCompanion(isActive: Value(false)));
     await _db
         .update(_db.units)
         .write(const db.UnitsCompanion(isActive: Value(false)));
@@ -196,9 +196,9 @@ class ContentSeeder {
       throw StateError('Cannot activate an incomplete release cache.');
     }
 
-    final current =
-        await (_db.select(_db.contentReleaseInstallations)
-          ..where((row) => row.isActive.equals(true))).getSingleOrNull();
+    final current = await (_db.select(
+      _db.contentReleaseInstallations,
+    )..where((row) => row.isActive.equals(true))).getSingleOrNull();
     await _db
         .update(_db.contentReleaseInstallations)
         .write(
@@ -208,8 +208,9 @@ class ContentSeeder {
           ),
         );
     if (current != null && current.releaseId != release.releaseId) {
-      await (_db.update(_db.contentReleaseInstallations)
-        ..where((row) => row.releaseId.equals(current.releaseId))).write(
+      await (_db.update(
+        _db.contentReleaseInstallations,
+      )..where((row) => row.releaseId.equals(current.releaseId))).write(
         const db.ContentReleaseInstallationsCompanion(isPrevious: Value(true)),
       );
     }
@@ -226,8 +227,9 @@ class ContentSeeder {
             installedAt: DateTime.now().toUtc(),
           ),
         );
-    await (_db.delete(_db.contentReleasePacks)
-      ..where((row) => row.releaseId.equals(release.releaseId))).go();
+    await (_db.delete(
+      _db.contentReleasePacks,
+    )..where((row) => row.releaseId.equals(release.releaseId))).go();
     await _db.batch((batch) {
       batch.insertAll(
         _db.contentReleasePacks,
@@ -253,10 +255,12 @@ class ContentSeeder {
               ))
             .map((row) => row.read(_db.contentReleaseInstallations.releaseId)!)
             .get();
-    await (_db.delete(_db.contentReleasePacks)
-      ..where((row) => row.releaseId.isNotIn(retainedIds))).go();
-    await (_db.delete(_db.contentReleaseInstallations)
-      ..where((row) => row.releaseId.isNotIn(retainedIds))).go();
+    await (_db.delete(
+      _db.contentReleasePacks,
+    )..where((row) => row.releaseId.isNotIn(retainedIds))).go();
+    await (_db.delete(
+      _db.contentReleaseInstallations,
+    )..where((row) => row.releaseId.isNotIn(retainedIds))).go();
   }
 
   /// Coerce a JSON value into a nullable String for a text column.
@@ -275,9 +279,8 @@ class ContentSeeder {
   Future<void> _seedUnits() async {
     // A1 units
     final a1Json = await _loadAsset('assets/curriculum/a1_units.json');
-    final a1Units =
-        (jsonDecode(a1Json)['units'] as List<dynamic>)
-            .cast<Map<String, dynamic>>();
+    final a1Units = (jsonDecode(a1Json)['units'] as List<dynamic>)
+        .cast<Map<String, dynamic>>();
 
     final a1Companions = a1Units.map(
       (u) => db.UnitsCompanion.insert(
@@ -297,9 +300,8 @@ class ContentSeeder {
 
     // A2 units
     final a2Json = await _loadAsset('assets/curriculum/a2_units.json');
-    final a2Units =
-        (jsonDecode(a2Json)['units'] as List<dynamic>)
-            .cast<Map<String, dynamic>>();
+    final a2Units = (jsonDecode(a2Json)['units'] as List<dynamic>)
+        .cast<Map<String, dynamic>>();
 
     final a2Companions = a2Units.map(
       (u) => db.UnitsCompanion.insert(
@@ -334,6 +336,14 @@ class ContentSeeder {
             orderInUnit: lessonData['order_in_unit'] as int,
             title: lessonData['title'] as String,
             description: lessonData['description'] as String,
+            canDo: Value(lessonData['can_do'] as String? ?? ''),
+            newLanguageJson: Value(
+              jsonEncode(lessonData['new_language'] as List<dynamic>? ?? []),
+            ),
+            recyclesJson: Value(
+              jsonEncode(lessonData['recycles'] as List<dynamic>? ?? []),
+            ),
+            exitTask: Value(lessonData['exit_task'] as String? ?? ''),
             durationMinutes: Value(lessonData['duration_min'] as int? ?? 10),
             lessonType: Value(
               lessonData['lesson_type'] as String? ?? 'introduction',
@@ -375,94 +385,157 @@ class ContentSeeder {
     'assets/curriculum/lessons/unit01_lesson00.json',
     'assets/curriculum/lessons/unit01_lesson01.json',
     'assets/curriculum/lessons/unit01_lesson02.json',
+    'assets/curriculum/lessons/unit01_lesson03.json',
     // Unit 2: Greetings & Introductions
     'assets/curriculum/lessons/unit02_lesson01.json',
     'assets/curriculum/lessons/unit02_lesson02.json',
-    // Unit 3: Gender & Nominative Case
+    'assets/curriculum/lessons/unit02_lesson03.json',
+    'assets/curriculum/lessons/unit02_lesson04.json',
+    // Unit 3: People and Things Around Me
     'assets/curriculum/lessons/unit03_lesson01.json',
     'assets/curriculum/lessons/unit03_lesson02.json',
+    'assets/curriculum/lessons/unit03_lesson03.json',
+    'assets/curriculum/lessons/unit03_lesson04.json',
     // Unit 4: Present Tense — být & mít
     'assets/curriculum/lessons/unit04_lesson01.json',
     'assets/curriculum/lessons/unit04_lesson02.json',
+    'assets/curriculum/lessons/unit04_lesson03.json',
+    'assets/curriculum/lessons/unit04_lesson04.json',
     // Unit 5: Present Tense — Regular Verbs
     'assets/curriculum/lessons/unit05_lesson01.json',
     'assets/curriculum/lessons/unit05_lesson02.json',
+    'assets/curriculum/lessons/unit05_lesson03.json',
+    'assets/curriculum/lessons/unit05_lesson04.json',
     // Unit 6: Accusative Case
     'assets/curriculum/lessons/unit06_lesson01.json',
     'assets/curriculum/lessons/unit06_lesson02.json',
+    'assets/curriculum/lessons/unit06_lesson03.json',
+    'assets/curriculum/lessons/unit06_lesson04.json',
     // Unit 7: Pronouns & Possessives
     'assets/curriculum/lessons/unit07_lesson01.json',
     'assets/curriculum/lessons/unit07_lesson02.json',
+    'assets/curriculum/lessons/unit07_lesson03.json',
+    'assets/curriculum/lessons/unit07_lesson04.json',
     // Unit 8: Family & Basic Descriptions
     'assets/curriculum/lessons/unit08_lesson01.json',
     'assets/curriculum/lessons/unit08_lesson02.json',
+    'assets/curriculum/lessons/unit08_lesson03.json',
+    'assets/curriculum/lessons/unit08_lesson04.json',
     // Unit 9: Numbers, Time & Dates
     'assets/curriculum/lessons/unit09_lesson01.json',
     'assets/curriculum/lessons/unit09_lesson02.json',
+    'assets/curriculum/lessons/unit09_lesson03.json',
+    'assets/curriculum/lessons/unit09_lesson04.json',
     // Unit 10: Daily Routine & Reflexive Verbs
     'assets/curriculum/lessons/unit10_lesson01.json',
     'assets/curriculum/lessons/unit10_lesson02.json',
+    'assets/curriculum/lessons/unit10_lesson03.json',
+    'assets/curriculum/lessons/unit10_lesson04.json',
     // Unit 11: Food, Drink & Restaurants
     'assets/curriculum/lessons/unit11_lesson01.json',
     'assets/curriculum/lessons/unit11_lesson02.json',
+    'assets/curriculum/lessons/unit11_lesson03.json',
+    'assets/curriculum/lessons/unit11_lesson04.json',
     // Unit 12: Shopping, Prices & Clothes
     'assets/curriculum/lessons/unit12_lesson01.json',
     'assets/curriculum/lessons/unit12_lesson02.json',
+    'assets/curriculum/lessons/unit12_lesson03.json',
+    'assets/curriculum/lessons/unit12_lesson04.json',
     // Unit 13: Hobbies & Free Time
     'assets/curriculum/lessons/unit13_lesson01.json',
     'assets/curriculum/lessons/unit13_lesson02.json',
+    'assets/curriculum/lessons/unit13_lesson03.json',
+    'assets/curriculum/lessons/unit13_lesson04.json',
     // Unit 14: Directions, Places & Transport
     'assets/curriculum/lessons/unit14_lesson01.json',
     'assets/curriculum/lessons/unit14_lesson02.json',
+    'assets/curriculum/lessons/unit14_lesson03.json',
+    'assets/curriculum/lessons/unit14_lesson04.json',
     // Unit 15: Weather, Seasons & Travel
     'assets/curriculum/lessons/unit15_lesson01.json',
     'assets/curriculum/lessons/unit15_lesson02.json',
+    'assets/curriculum/lessons/unit15_lesson03.json',
+    'assets/curriculum/lessons/unit15_lesson04.json',
     // A2 — Unit 16: Genitive Case
     'assets/curriculum/lessons/unit16_lesson01.json',
     'assets/curriculum/lessons/unit16_lesson02.json',
+    'assets/curriculum/lessons/unit16_lesson03.json',
+    'assets/curriculum/lessons/unit16_lesson04.json',
     // A2 — Unit 17: Dative Case
     'assets/curriculum/lessons/unit17_lesson01.json',
     'assets/curriculum/lessons/unit17_lesson02.json',
+    'assets/curriculum/lessons/unit17_lesson03.json',
+    'assets/curriculum/lessons/unit17_lesson04.json',
     // A2 — Unit 18: Locative & Instrumental Cases
     'assets/curriculum/lessons/unit18_lesson01.json',
     'assets/curriculum/lessons/unit18_lesson02.json',
+    'assets/curriculum/lessons/unit18_lesson03.json',
+    'assets/curriculum/lessons/unit18_lesson04.json',
     // A2 — Unit 19: Past Tense Full
     'assets/curriculum/lessons/unit19_lesson01.json',
     'assets/curriculum/lessons/unit19_lesson02.json',
+    'assets/curriculum/lessons/unit19_lesson03.json',
+    'assets/curriculum/lessons/unit19_lesson04.json',
     // A2 — Unit 20: Future & Conditional
     'assets/curriculum/lessons/unit20_lesson01.json',
     'assets/curriculum/lessons/unit20_lesson02.json',
+    'assets/curriculum/lessons/unit20_lesson03.json',
+    'assets/curriculum/lessons/unit20_lesson04.json',
     // A2 — Unit 21: Comparisons & Adverbs
     'assets/curriculum/lessons/unit21_lesson01.json',
     'assets/curriculum/lessons/unit21_lesson02.json',
+    'assets/curriculum/lessons/unit21_lesson03.json',
+    'assets/curriculum/lessons/unit21_lesson04.json',
     // A2 — Unit 22: Complex Sentences
     'assets/curriculum/lessons/unit22_lesson01.json',
     'assets/curriculum/lessons/unit22_lesson02.json',
+    'assets/curriculum/lessons/unit22_lesson03.json',
+    'assets/curriculum/lessons/unit22_lesson04.json',
     // A2 — Unit 23: Modal Verbs
     'assets/curriculum/lessons/unit23_lesson01.json',
     'assets/curriculum/lessons/unit23_lesson02.json',
+    'assets/curriculum/lessons/unit23_lesson03.json',
+    'assets/curriculum/lessons/unit23_lesson04.json',
     // A2 — Unit 24: Health & Body
     'assets/curriculum/lessons/unit24_lesson01.json',
     'assets/curriculum/lessons/unit24_lesson02.json',
+    'assets/curriculum/lessons/unit24_lesson03.json',
+    'assets/curriculum/lessons/unit24_lesson04.json',
     // A2 — Unit 25: Professions & Education
     'assets/curriculum/lessons/unit25_lesson01.json',
     'assets/curriculum/lessons/unit25_lesson02.json',
+    'assets/curriculum/lessons/unit25_lesson03.json',
+    'assets/curriculum/lessons/unit25_lesson04.json',
     // A2 — Unit 26: Housing & Home
     'assets/curriculum/lessons/unit26_lesson01.json',
     'assets/curriculum/lessons/unit26_lesson02.json',
+    'assets/curriculum/lessons/unit26_lesson03.json',
+    'assets/curriculum/lessons/unit26_lesson04.json',
     // A2 — Unit 27: Motion Verbs
     'assets/curriculum/lessons/unit27_lesson01.json',
     'assets/curriculum/lessons/unit27_lesson02.json',
-    // A2 — Unit 28: A1 Exam Prep
+    'assets/curriculum/lessons/unit27_lesson03.json',
+    'assets/curriculum/lessons/unit27_lesson04.json',
+    // A1 — Unit 28: Independent Four-Skills Practice
     'assets/curriculum/lessons/unit28_lesson01.json',
     'assets/curriculum/lessons/unit28_lesson02.json',
-    // A2 — Unit 29: A2 Exam Prep
+    'assets/curriculum/lessons/unit28_lesson03.json',
+    'assets/curriculum/lessons/unit28_lesson04.json',
+    // A2 — Unit 29: A2 Skills Practice
     'assets/curriculum/lessons/unit29_lesson01.json',
     'assets/curriculum/lessons/unit29_lesson02.json',
-    // A2 — Unit 30: A1 Review
+    'assets/curriculum/lessons/unit29_lesson03.json',
+    'assets/curriculum/lessons/unit29_lesson04.json',
+    // A1 — Unit 30: Real-Life Consolidation
     'assets/curriculum/lessons/unit30_lesson01.json',
+    'assets/curriculum/lessons/unit30_lesson02.json',
+    'assets/curriculum/lessons/unit30_lesson03.json',
+    'assets/curriculum/lessons/unit30_lesson04.json',
     // A2 — Unit 31: A2 Review
     'assets/curriculum/lessons/unit31_lesson01.json',
+    'assets/curriculum/lessons/unit31_lesson02.json',
+    'assets/curriculum/lessons/unit31_lesson03.json',
+    'assets/curriculum/lessons/unit31_lesson04.json',
   ];
 
   static final Set<String> requiredPackPaths = {
@@ -520,52 +593,51 @@ class ContentSeeder {
 
         if (words.isEmpty) continue;
 
-        final flashcardCompanions =
-            words
-                .map(
-                  (w) => db.FlashcardsCompanion.insert(
-                    id: Value((w as Map<String, dynamic>)['id'] as int),
-                    wordCz: w['word_cz'] as String,
-                    wordEn: w['word_en'] as String,
-                    ipa: Value(w['ipa'] as String?),
-                    gender: Value(w['gender'] as String?),
-                    caseInfo: Value(w['case_info'] as String?),
-                    audioHash: Value(w['audio_hash'] as String?),
-                    imagePath: Value(w['image_path'] as String?),
-                    exampleCz: Value(w['example_cz'] as String?),
-                    exampleEn: Value(w['example_en'] as String?),
-                    lemma: Value(w['word_cz'] as String),
-                    senseKey: Value(
-                      '${(w['word_cz'] as String).trim().toLowerCase()}|'
-                      '${(w['word_en'] as String).trim().toLowerCase()}',
-                    ),
-                    partOfSpeech: const Value('unspecified'),
-                    morphologyJson: Value(
-                      jsonEncode({
-                        if (w['gender'] != null) 'gender': w['gender'],
-                        if (w['case_info'] != null) 'case': w['case_info'],
-                      }),
-                    ),
-                    registerLabel: const Value('unspecified'),
-                    pronunciationSource: Value(
-                      w['ipa'] == null ? 'missing' : 'bundled_unreviewed',
-                    ),
-                    unitId: Value(
-                      _validatedUnitId(
-                        w['unit_id'],
-                        "Flashcard ${w['id']} '${w['word_cz']}'",
-                      ),
-                    ),
-                    lessonId: Value(
-                      _validatedLessonId(
-                        w['lesson_id'],
-                        "Flashcard ${w['id']} '${w['word_cz']}'",
-                      ),
-                    ),
-                    isActive: const Value(true),
+        final flashcardCompanions = words
+            .map(
+              (w) => db.FlashcardsCompanion.insert(
+                id: Value((w as Map<String, dynamic>)['id'] as int),
+                wordCz: w['word_cz'] as String,
+                wordEn: w['word_en'] as String,
+                ipa: Value(w['ipa'] as String?),
+                gender: Value(w['gender'] as String?),
+                caseInfo: Value(w['case_info'] as String?),
+                audioHash: Value(w['audio_hash'] as String?),
+                imagePath: Value(w['image_path'] as String?),
+                exampleCz: Value(w['example_cz'] as String?),
+                exampleEn: Value(w['example_en'] as String?),
+                lemma: Value(w['word_cz'] as String),
+                senseKey: Value(
+                  '${(w['word_cz'] as String).trim().toLowerCase()}|'
+                  '${(w['word_en'] as String).trim().toLowerCase()}',
+                ),
+                partOfSpeech: const Value('unspecified'),
+                morphologyJson: Value(
+                  jsonEncode({
+                    if (w['gender'] != null) 'gender': w['gender'],
+                    if (w['case_info'] != null) 'case': w['case_info'],
+                  }),
+                ),
+                registerLabel: const Value('unspecified'),
+                pronunciationSource: Value(
+                  w['ipa'] == null ? 'missing' : 'bundled_unreviewed',
+                ),
+                unitId: Value(
+                  _validatedUnitId(
+                    w['unit_id'],
+                    "Flashcard ${w['id']} '${w['word_cz']}'",
                   ),
-                )
-                .toList();
+                ),
+                lessonId: Value(
+                  _validatedLessonId(
+                    w['lesson_id'],
+                    "Flashcard ${w['id']} '${w['word_cz']}'",
+                  ),
+                ),
+                isActive: const Value(true),
+              ),
+            )
+            .toList();
 
         await _db.vocabularyDao.insertFlashcards(flashcardCompanions);
 

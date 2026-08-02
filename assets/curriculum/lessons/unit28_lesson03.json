@@ -1,0 +1,337 @@
+{
+  "id": 2803,
+  "unit_id": 28,
+  "title": "Write a Short Message",
+  "description": "Practise writing a short functional message with a greeting, reason, and closing.",
+  "lesson_type": "production",
+  "order_in_unit": 2,
+  "duration_min": 12,
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 28300,
+      "type": "teaching",
+      "prompt": "Learn the useful chunks",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Write a Short Message",
+        "body": "A useful A1 message has a greeting, one clear reason, and a simple closing.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Ahoj Petro, dnes nepřijdu.",
+            "en": "Hi Petra, I am not coming today."
+          },
+          {
+            "cz": "Jsem nemocný.",
+            "en": "I am ill."
+          },
+          {
+            "cz": "Promiň, prosím.",
+            "en": "Sorry, please."
+          },
+          {
+            "cz": "Uvidíme se zítra.",
+            "en": "We will see each other tomorrow."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28301,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the important detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for the situation, then again for the key detail.",
+        "transcript_cz": "Ahoj Petro, dnes nepřijdu. Jsem nemocný. Promiň, prosím. Uvidíme se zítra.",
+        "transcript_en": "Hi Petra, I am not coming today. I am ill. Sorry. We will see each other tomorrow.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Ahoj Petro, dnes nepřijdu.",
+              "Vlak odjíždí v devět hodin.",
+              "Jděte rovně."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu.",
+      "xp_reward": 15,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28302,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit28/exam_message_v1.png",
+        "image_label": "Write a Short Message",
+        "text_cz": "Martin píše Petře krátkou zprávu. Dnes nepřijde, protože je nemocný. Chce se vidět zítra.",
+        "text_en": "Martin writes Petra a short message. He is not coming today because he is ill. He wants to see her tomorrow.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Ahoj Petro, dnes nepřijdu.",
+              "Vlak odjíždí v devět hodin.",
+              "Jděte rovně.",
+              "Dám si polévku."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu.",
+      "xp_reward": 15,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28303,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Ahoj Petro, dnes nepřijdu.",
+            "right": "Hi Petra, I am not coming today."
+          },
+          {
+            "left": "Jsem nemocný.",
+            "right": "I am ill."
+          },
+          {
+            "left": "Promiň, prosím.",
+            "right": "Sorry, please."
+          },
+          {
+            "left": "Uvidíme se zítra.",
+            "right": "We will see each other tomorrow."
+          }
+        ],
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu.–Hi Petra, I am not coming today.; Jsem nemocný.–I am ill.; Promiň, prosím.–Sorry, please.; Uvidíme se zítra.–We will see each other tomorrow.",
+      "xp_reward": 10,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28304,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that fits",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Ahoj Petro, dnes nepřijdu.",
+          "Vlak odjíždí v devět hodin.",
+          "Jděte rovně.",
+          "Dám si polévku."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the chunk that communicates the important information in this scene."
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu.",
+      "xp_reward": 10,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28305,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Dnes ___. Jsem nemocný.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "nepřijdu"
+          ]
+        ],
+        "explanation": "Use the same short pattern you have just heard and read."
+      },
+      "answer_key": "nepřijdu",
+      "xp_reward": 10,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28306,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Dnes",
+          "nepřijdu."
+        ],
+        "correct_order": [
+          0,
+          1
+        ],
+        "translation_en": "Build the useful Czech sentence.",
+        "explanation": "Read the complete chunk aloud after you build it."
+      },
+      "answer_key": "Dnes nepřijdu.",
+      "xp_reward": 10,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28307,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Ahoj Petro, dnes nepřijdu. Jsem nemocný.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu. Jsem nemocný.",
+      "xp_reward": 10,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28308,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Ahoj Petro, dnes nepřijdu. Jsem nemocný.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu. Jsem nemocný.",
+      "xp_reward": 15,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28309,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Write a Short Message",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Přijdeš dnes?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Proč ne?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Dnes nepřijdu.",
+            "Ne, dnes nepřijdu."
+          ],
+          [
+            "Jsem nemocný.",
+            "Protože jsem nemocný."
+          ]
+        ],
+        "explanation": "Use a short, complete answer that moves the interaction forward."
+      },
+      "answer_key": "Dnes nepřijdu. | Jsem nemocný.",
+      "xp_reward": 15,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28310,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a three-sentence Czech message to a friend: greet them, say you cannot come today, and suggest tomorrow.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 36,
+        "key_vocab": [
+          "Ahoj Petro, dnes nepřijdu.",
+          "Jsem nemocný.",
+          "Promiň, prosím.",
+          "Uvidíme se zítra."
+        ],
+        "sample_answer": "Ahoj Petro, dnes nepřijdu."
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu.",
+      "xp_reward": 0,
+      "lesson_id": 2803
+    },
+    {
+      "id": 28311,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record the message as a natural 20–30 second voice note to a friend.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Ahoj Petro, dnes nepřijdu.",
+          "Jsem nemocný.",
+          "Promiň, prosím."
+        ]
+      },
+      "answer_key": "Ahoj Petro, dnes nepřijdu.; Jsem nemocný.; Promiň, prosím.",
+      "xp_reward": 20,
+      "lesson_id": 2803
+    }
+  ],
+  "can_do": "write a clear short practical message.",
+  "new_language": [
+    "Ahoj Petro, dnes nepřijdu.",
+    "Jsem nemocný.",
+    "Promiň, prosím.",
+    "Uvidíme se zítra."
+  ],
+  "recycles": [
+    "personal details",
+    "time and numbers",
+    "travel",
+    "messages",
+    "descriptions"
+  ],
+  "exit_task": "write a clear short practical message."
+}

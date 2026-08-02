@@ -1,0 +1,340 @@
+{
+  "id": 503,
+  "unit_id": 5,
+  "order_in_unit": 2,
+  "title": "Match Voices to Profiles",
+  "description": "Listen for activity, place, and language details in several short profiles.",
+  "can_do": "identify a person from activity and language clues.",
+  "new_language": [
+    "Čtu česky.",
+    "Rozumím trochu.",
+    "Nemluvím dobře česky.",
+    "Pracuju doma."
+  ],
+  "recycles": [
+    "Jmenuju se…",
+    "Jsem…",
+    "Jste…?",
+    "Ano/Ne"
+  ],
+  "exit_task": "identify a person from activity and language clues.",
+  "duration_min": 12,
+  "lesson_type": "application",
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 5200,
+      "lesson_id": 503,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Match Voices to Profiles",
+        "body": "Listen for activity, place, and language details in several short profiles.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Čtu česky.",
+            "en": "I read in Czech."
+          },
+          {
+            "cz": "Rozumím trochu.",
+            "en": "I understand a little."
+          },
+          {
+            "cz": "Nemluvím dobře česky.",
+            "en": "I do not speak Czech well."
+          },
+          {
+            "cz": "Pracuju doma.",
+            "en": "I work at home."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 5201,
+      "lesson_id": 503,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Pracuju doma. Čtu česky a rozumím trochu, ale nemluvím dobře česky.",
+        "image": "assets/images/unit05/activity_profiles_v1.png",
+        "image_label": "Everyday activity profiles and matching questions",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Match Voices to Profiles",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "How well does the speaker understand?",
+            "options": [
+              "A little",
+              "Not at all",
+              "Perfectly"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "A little",
+      "xp_reward": 15
+    },
+    {
+      "id": 5202,
+      "lesson_id": 503,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit05/activity_profiles_v1.png",
+        "image_label": "Everyday activity profiles and matching questions",
+        "text_cz": "Profil B: Amir pracuje v restauraci. Mluví anglicky a trochu česky.",
+        "text_en": "Profile B: Amir works in a restaurant. He speaks English and a little Czech.",
+        "questions": [
+          {
+            "question_en": "Which language does Amir speak only a little?",
+            "options": [
+              "Czech",
+              "English",
+              "German"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Profile B: Amir works in a restaurant. He speaks English and a little Czech.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Czech",
+      "xp_reward": 15
+    },
+    {
+      "id": 5203,
+      "lesson_id": 503,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Čtu česky.",
+            "right": "I read in Czech."
+          },
+          {
+            "left": "Rozumím trochu.",
+            "right": "I understand a little."
+          },
+          {
+            "left": "Nemluvím dobře česky.",
+            "right": "I do not speak Czech well."
+          },
+          {
+            "left": "Pracuju doma.",
+            "right": "I work at home."
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Čtu česky.–I read in Czech.; Rozumím trochu.–I understand a little.; Nemluvím dobře česky.–I do not speak Czech well.; Pracuju doma.–I work at home.",
+      "xp_reward": 10
+    },
+    {
+      "id": 5204,
+      "lesson_id": 503,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Čtu česky.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Čtu česky.",
+      "xp_reward": 10
+    },
+    {
+      "id": 5205,
+      "lesson_id": 503,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ česky.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Čtu"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "Čtu",
+      "xp_reward": 10
+    },
+    {
+      "id": 5206,
+      "lesson_id": 503,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "trochu.",
+          "Rozumím"
+        ],
+        "correct_order": [
+          1,
+          0
+        ],
+        "translation_en": "I understand a little.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "Rozumím trochu.",
+      "xp_reward": 10
+    },
+    {
+      "id": 5207,
+      "lesson_id": 503,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Nemluvím dobře česky.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "Nemluvím dobře česky.",
+      "xp_reward": 10
+    },
+    {
+      "id": 5208,
+      "lesson_id": 503,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Pracuju doma.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "I work at home."
+      },
+      "answer_key": "Pracuju doma.",
+      "xp_reward": 15
+    },
+    {
+      "id": 5209,
+      "lesson_id": 503,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Match Voices to Profiles",
+        "image": "assets/images/unit05/activity_profiles_v1.png",
+        "image_label": "Everyday activity profiles and matching questions",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Rozumíš česky?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Pracuješ doma?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Čtu česky."
+          ],
+          [
+            "Rozumím trochu."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Čtu česky. | Rozumím trochu.",
+      "xp_reward": 15
+    },
+    {
+      "id": 5210,
+      "lesson_id": 503,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Create a short profile with one activity, one language, and an understanding level.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Čtu česky.",
+          "Rozumím trochu.",
+          "Nemluvím dobře česky.",
+          "Pracuju doma."
+        ],
+        "sample_answer": "Čtu česky. Rozumím trochu. Nemluvím dobře česky. Pracuju doma."
+      },
+      "answer_key": "Čtu česky. Rozumím trochu. Nemluvím dobře česky. Pracuju doma.",
+      "xp_reward": 0
+    },
+    {
+      "id": 5211,
+      "lesson_id": 503,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Lena studuje v Brně. Mluví polsky a česky rozumí dobře.",
+        "questions": [
+          {
+            "question_en": "Which language does Lena understand well?",
+            "options": [
+              "Czech",
+              "Polish",
+              "English"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Czech",
+      "xp_reward": 15
+    }
+  ]
+}

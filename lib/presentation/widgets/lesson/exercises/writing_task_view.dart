@@ -3,6 +3,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
+import '../../../../domain/engines/writing_word_gate.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
@@ -64,7 +65,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
 
   void _submit() {
     final text = _controller.text.trim();
-    final wordCount = text.isEmpty ? 0 : text.split(RegExp(r'\\s+')).length;
+    final wordCount = WritingWordGate.countWords(text);
     final meetsMinWords = _minWords == null || wordCount >= _minWords!;
     // Writing tasks are always formative — automated keyword matching can
     // reject valid paraphrases and accept keyword lists, so it must never

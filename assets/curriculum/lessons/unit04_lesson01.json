@@ -2,321 +2,339 @@
   "id": 401,
   "unit_id": 4,
   "order_in_unit": 0,
-  "title": "být & mít — Present Tense Essentials",
-  "description": "Learn conjugation of být (to be) and mít (to have) — the two most important Czech verbs",
-  "duration_min": 15,
+  "title": "Meet a New Colleague",
+  "description": "Understand a short workplace introduction and exchange identity and possession facts.",
+  "can_do": "introduce myself and say what I have at work.",
+  "new_language": [
+    "Jsem nová kolegyně.",
+    "Jsem student.",
+    "Mám notebook.",
+    "Nemám klíč."
+  ],
+  "recycles": [
+    "Dobrý den",
+    "Jmenuju se…",
+    "To je…",
+    "ten/ta/to"
+  ],
+  "exit_task": "introduce myself and say what I have at work.",
+  "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
-      "id": 90004,
+      "id": 4000,
       "lesson_id": 401,
       "type": "teaching",
-      "prompt": "být (to be) & mít (to have)",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "být (to be) & mít (to have)",
-        "body": "Two tiny verbs, all six forms each. Czech usually drops the pronoun — \"Jsem student,\" not \"Já jsem student.\"",
-        "intro": "Two tiny verbs do an enormous amount of work in Czech: 'to be' and 'to have'. Master their six little forms and you can already introduce yourself, describe people, and say what's yours.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "Meet a New Colleague",
+        "body": "Understand a short workplace introduction and exchange identity and possession facts.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "jsem",
-            "en": "I am"
+            "cz": "Jsem nová kolegyně.",
+            "en": "I am a new colleague."
           },
           {
-            "cz": "jsi",
-            "en": "you are (informal)"
+            "cz": "Jsem student.",
+            "en": "I am a student."
           },
           {
-            "cz": "je",
-            "en": "he / she / it is"
+            "cz": "Mám notebook.",
+            "en": "I have a laptop."
           },
           {
-            "cz": "jsme",
-            "en": "we are"
-          },
-          {
-            "cz": "jste",
-            "en": "you are (plural / formal)"
-          },
-          {
-            "cz": "jsou",
-            "en": "they are"
-          },
-          {
-            "cz": "mám",
-            "en": "I have"
-          },
-          {
-            "cz": "máš",
-            "en": "you have (informal)"
-          },
-          {
-            "cz": "má",
-            "en": "he / she / it has"
-          },
-          {
-            "cz": "máme",
-            "en": "we have"
-          },
-          {
-            "cz": "máte",
-            "en": "you have (plural / formal)"
-          },
-          {
-            "cz": "mají",
-            "en": "they have"
+            "cz": "Nemám klíč.",
+            "en": "I do not have a key."
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 4001,
       "lesson_id": 401,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct form of být (to be) for 'I'",
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která forma je správná pro 'já'?",
-        "question_en": "Which form of být is correct for 'I'?",
-        "options": [
-          "jsi",
-          "jsem",
-          "je",
-          "jsme"
-        ],
-        "correct_index": 1,
-        "explanation": "já → jsem. The 1st person singular of být is 'jsem'."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Dobrý den, jsem Eva. Jsem nová kolegyně. Mám notebook, ale nemám klíč.",
+        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image_label": "Identity and possessions: statement, question, and negative",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Meet a New Colleague",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does Eva not have?",
+            "options": [
+              "A key",
+              "A laptop",
+              "A telephone"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "jsem",
-      "grammar_rule_id": "GR-030",
-      "xp_reward": 5
+      "answer_key": "A key",
+      "xp_reward": 15
     },
     {
       "id": 4002,
       "lesson_id": 401,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct form of být for 'they' (oni)",
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která forma je správná pro 'oni'?",
-        "question_en": "Which form of být is correct for 'they'?",
-        "options": [
-          "jsou",
-          "jste",
-          "jsme",
-          "je"
-        ],
-        "correct_index": 0,
-        "explanation": "oni/ony → jsou. The 3rd person plural of být is 'jsou'."
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image_label": "Identity and possessions: statement, question, and negative",
+        "text_cz": "To je Marek. Je nový kolega. Má telefon a kartu. Dnes není doma.",
+        "text_en": "This is Marek. He is a new colleague. He has a phone and a card. Today he is not at home.",
+        "questions": [
+          {
+            "question_en": "Which two things does Marek have?",
+            "options": [
+              "A phone and a card",
+              "A key and a car",
+              "Coffee and a book"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "This is Marek. He is a new colleague. He has a phone and a card. Today he is not at home.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "jsou",
-      "grammar_rule_id": "GR-030",
-      "xp_reward": 5
+      "answer_key": "A phone and a card",
+      "xp_reward": 15
     },
     {
       "id": 4003,
       "lesson_id": 401,
-      "type": "translation",
-      "prompt": "Translate from English to Czech",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "We are from Prague.",
-        "accepted_answers": [
-          "Jsme z Prahy.",
-          "Jsme z Prahy",
-          "jsme z Prahy"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Jsem nová kolegyně.",
+            "right": "I am a new colleague."
+          },
+          {
+            "left": "Jsem student.",
+            "right": "I am a student."
+          },
+          {
+            "left": "Mám notebook.",
+            "right": "I have a laptop."
+          },
+          {
+            "left": "Nemám klíč.",
+            "right": "I do not have a key."
+          }
         ],
-        "grammar_note": "Jsme = we are (1st person plural of být). 'z' + Praha → z Prahy (genitive after 'z', Praha → Prahy)."
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
-      "answer_key": "Jsme z Prahy.",
-      "grammar_rule_id": "GR-030",
-      "xp_reward": 8
+      "answer_key": "Jsem nová kolegyně.–I am a new colleague.; Jsem student.–I am a student.; Mám notebook.–I have a laptop.; Nemám klíč.–I do not have a key.",
+      "xp_reward": 10
     },
     {
       "id": 4004,
       "lesson_id": 401,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct form of být",
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
       "data": {
-        "type": "fill_blank",
-        "sentence": "On ___ učitel. (he is a teacher)",
-        "blank_count": 1,
-        "explanation": "on → je. The 3rd person singular of být is 'je'.",
-        "blank_answers": [
-          [
-            "je"
-          ]
-        ]
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Jsem nová kolegyně.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
       },
-      "answer_key": "je",
-      "grammar_rule_id": "GR-030",
-      "xp_reward": 5
+      "answer_key": "Jsem nová kolegyně.",
+      "xp_reward": 10
     },
     {
       "id": 4005,
       "lesson_id": 401,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct form of mít (to have) for 'you' (singular, ty)",
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která forma je správná pro 'ty'?",
-        "question_en": "Which form of mít is correct for 'you' (singular)?",
-        "options": [
-          "mám",
-          "máš",
-          "má",
-          "máte"
+        "type": "fill_blank",
+        "sentence": "Jsem ___ kolegyně.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "nová"
+          ]
         ],
-        "correct_index": 1,
-        "explanation": "ty → máš. The 2nd person singular of mít is 'máš'."
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": "máš",
-      "grammar_rule_id": "GR-031",
-      "xp_reward": 5
+      "answer_key": "nová",
+      "xp_reward": 10
     },
     {
       "id": 4006,
       "lesson_id": 401,
-      "type": "translation",
-      "prompt": "Translate from Czech to English",
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Mám nové auto.",
-        "accepted_answers": [
-          "I have a new car.",
-          "I have a new car",
-          "I have got a new car."
+        "type": "word_order",
+        "words": [
+          "student.",
+          "Jsem"
         ],
-        "grammar_note": "Mám = I have (1st person singular of mít). auto = car, nové = new."
+        "correct_order": [
+          1,
+          0
+        ],
+        "translation_en": "I am a student.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": "I have a new car.",
-      "grammar_rule_id": "GR-031",
-      "xp_reward": 8
+      "answer_key": "Jsem student.",
+      "xp_reward": 10
     },
     {
       "id": 4007,
       "lesson_id": 401,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct form of mít",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "fill_blank",
-        "sentence": "My ___ dva psy. (we have two dogs)",
-        "blank_count": 1,
-        "explanation": "my → máme. The 1st person plural of mít is 'máme'.",
-        "blank_answers": [
-          [
-            "máme"
-          ]
-        ]
+        "type": "dictation",
+        "expected_text": "Mám notebook.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": "máme",
-      "grammar_rule_id": "GR-031",
-      "xp_reward": 5
+      "answer_key": "Mám notebook.",
+      "xp_reward": 10
     },
     {
       "id": 4008,
       "lesson_id": 401,
-      "type": "word_order",
-      "prompt": "Arrange the words to form a correct sentence",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
       "data": {
-        "type": "word_order",
-        "words": [
-          "Jsem",
-          "z",
-          "Brna"
+        "type": "pronunciation",
+        "target_text": "Nemám klíč.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
         ],
-        "correct_order": [
-          0,
-          1,
-          2
-        ],
-        "explanation": "'Jsem z Brna.' = I am from Brno. 'Jsem' = I am, 'z' = from (requires genitive), Brno → Brna in genitive."
+        "min_score": 0.5,
+        "translation_en": "I do not have a key."
       },
-      "answer_key": "Jsem z Brna.",
-      "grammar_rule_id": "GR-030",
-      "xp_reward": 8
+      "answer_key": "Nemám klíč.",
+      "xp_reward": 15
     },
     {
       "id": 4009,
       "lesson_id": 401,
-      "type": "translation",
-      "prompt": "Translate from English to Czech (negation)",
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I am not a student.",
-        "accepted_answers": [
-          "Nejsem student.",
-          "Nejsem student",
-          "nejsem student."
+        "type": "dialogue",
+        "scenario": "Meet a New Colleague",
+        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image_label": "Identity and possessions: statement, question, and negative",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Dobrý den. Jste tady nová?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Máte klíč?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "grammar_note": "Negation of jsem → nejsem. Add prefix 'ne-' to the verb form: jsem → nejsem."
+        "blank_answers": [
+          [
+            "Jsem nová kolegyně."
+          ],
+          [
+            "Jsem student."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Nejsem student.",
-      "grammar_rule_id": "GR-032",
-      "xp_reward": 8
+      "answer_key": "Jsem nová kolegyně. | Jsem student.",
+      "xp_reward": 15
     },
     {
       "id": 4010,
       "lesson_id": 401,
-      "type": "fill_blank",
-      "prompt": "Fill in the negative form of mít",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "fill_blank",
-        "sentence": "___ čas. (I don't have time.)",
-        "blank_count": 1,
-        "explanation": "Negation of mám → nemám. Add prefix 'ne-': mám → nemám.",
-        "blank_answers": [
-          [
-            "Nemám"
-          ]
-        ]
+        "type": "writing_task",
+        "prompt_en": "Write three short facts: who you are, one thing you have, and one thing you do not have.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Jsem nová kolegyně.",
+          "Jsem student.",
+          "Mám notebook.",
+          "Nemám klíč."
+        ],
+        "sample_answer": "Jsem nová kolegyně. Jsem student. Mám notebook. Nemám klíč."
       },
-      "answer_key": "Nemám",
-      "grammar_rule_id": "GR-032",
-      "xp_reward": 5
+      "answer_key": "Jsem nová kolegyně. Jsem student. Mám notebook. Nemám klíč.",
+      "xp_reward": 0
     },
     {
       "id": 4011,
       "lesson_id": 401,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_4011",
-        "expected_text": "Jsi z Česka?",
-        "language": "cs-CZ",
-        "note": "'Jsi z Česka?' = Are you from the Czech Republic? Question form of být uses rising intonation. Česko → Česka (genitive after 'z')."
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Tomáš je učitel. Dnes je doma a nemá telefon.",
+        "questions": [
+          {
+            "question_en": "Where is Tomáš today?",
+            "options": [
+              "At home",
+              "At school",
+              "At a café"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Jsi z Česka?",
-      "grammar_rule_id": "GR-033",
-      "xp_reward": 10
-    },
-    {
-      "id": 4012,
-      "lesson_id": 401,
-      "type": "pronunciation",
-      "prompt": "Pronounce the Czech question",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Máš auto?",
-        "target_audio_hash": "placeholder_4012",
-        "focus_sounds": [
-          "á",
-          "š"
-        ],
-        "min_score": 0.6,
-        "translation_en": "Do you have a car?"
-      },
-      "answer_key": "Máš auto?",
-      "grammar_rule_id": "GR-033",
-      "xp_reward": 10
+      "answer_key": "At home",
+      "xp_reward": 15
     }
   ]
 }

@@ -18,6 +18,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -59,7 +60,12 @@ def manifest_files(manifest: dict) -> list[str]:
     """Basenames of every MP3 the manifest references, de-duplicated."""
     names: set[str] = set()
     for voice in manifest.get("voices", {}).values():
-        for path in voice.get("entries", {}).values():
+        for entry in voice.get("entries", {}).values():
+            # v2 manifests stored a path string. v3 stores path + checksum +
+            # size so clients can invalidate repaired recordings safely.
+            path = entry.get("path") if isinstance(entry, dict) else entry
+            if not isinstance(path, str) or not path:
+                raise ValueError(f"Invalid audio manifest entry: {entry!r}")
             names.add(Path(path).name)
     return sorted(names)
 
@@ -67,6 +73,15 @@ def manifest_files(manifest: dict) -> list[str]:
 def list_bucket(base: str, token: str) -> list[str]:
     """Every object name in the bucket, following pagination."""
     return sorted(list_bucket_sizes(base, token))
+
+
+def get_bucket(base: str, token: str) -> dict:
+    """Read bucket constraints before transferring any objects."""
+    request = urllib.request.Request(f"{base}/storage/v1/bucket/{BUCKET}")
+    request.add_header("Authorization", f"Bearer {token}")
+    request.add_header("apikey", token)
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read().decode("utf-8"))
 
 
 def list_bucket_sizes(base: str, token: str) -> dict[str, int]:
@@ -157,7 +172,7 @@ def main() -> int:
         return 2
 
     print(f"Manifest references {len(files)} MP3 files.")
-    if args.dry_run:
+    if args.dry_run and not args.skip_existing:
         print("Dry run: would upload those files + manifest.json to "
               f"bucket '{BUCKET}'.")
         return 0
@@ -168,6 +183,28 @@ def main() -> int:
         print("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.", file=sys.stderr)
         return 2
     base = base.rstrip("/")
+
+    bucket = get_bucket(base, token)
+    file_size_limit = bucket.get("file_size_limit")
+    upload_sizes = {"manifest.json": MANIFEST.stat().st_size}
+    if manifest_en:
+        upload_sizes["manifest_en.json"] = MANIFEST_EN.stat().st_size
+    too_large = {
+        name: size
+        for name, size in upload_sizes.items()
+        if isinstance(file_size_limit, int) and size > file_size_limit
+    }
+    if too_large:
+        details = ", ".join(
+            f"{name}={size} bytes" for name, size in too_large.items()
+        )
+        print(
+            f"Bucket '{BUCKET}' has a {file_size_limit}-byte object limit, but "
+            f"{details}. Raise the bucket file-size limit before uploading; "
+            "no files were transferred.",
+            file=sys.stderr,
+        )
+        return 2
 
     # Two distinct lists, deliberately never merged: `files` is everything the
     # manifests reference and is the ONLY basis for what prune keeps, while
@@ -188,6 +225,11 @@ def main() -> int:
         print(f"{len(files) - len(to_upload)} unchanged; uploading "
               f"{len(to_upload)} ({len(changed)} replaced, "
               f"{len(to_upload) - len(changed)} new).")
+
+    if args.dry_run:
+        print(f"Dry run: would upload {len(to_upload)} MP3 files, then the "
+              f"manifest(s), to bucket '{BUCKET}'.")
+        return 0
 
     for index, name in enumerate(to_upload, 1):
         url = f"{base}/storage/v1/object/{BUCKET}/{name}"
@@ -218,6 +260,26 @@ def main() -> int:
         )
         print("Uploaded manifest_en.json (intro narration).")
     print("Uploaded manifest.json. Pack is live.")
+
+    # Supabase's CDN can temporarily serve an overwritten path from cache.
+    # Verify through the same revision-busted URL the app uses, and compare
+    # exact bytes so a successful upload cannot hide a stale public response.
+    revision = manifest.get("revision") or "current"
+    public_manifest_url = (
+        f"{base}/storage/v1/object/public/{BUCKET}/manifest.json?v={revision}"
+    )
+    with urllib.request.urlopen(public_manifest_url, timeout=60) as response:
+        deployed_manifest = response.read()
+    local_digest = hashlib.sha256(MANIFEST.read_bytes()).hexdigest()
+    deployed_digest = hashlib.sha256(deployed_manifest).hexdigest()
+    if deployed_digest != local_digest:
+        print(
+            "Public manifest verification failed: deployed bytes do not match "
+            "the local manifest.",
+            file=sys.stderr,
+        )
+        return 1
+    print(f"Verified public manifest revision {revision}.")
 
     if args.prune:
         # Only after the manifest is live, so a failure here can never leave the

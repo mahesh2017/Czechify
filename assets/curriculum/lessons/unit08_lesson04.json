@@ -1,0 +1,344 @@
+{
+  "id": 804,
+  "unit_id": 8,
+  "order_in_unit": 3,
+  "title": "Mission: Introduce Three People",
+  "description": "Bring relationships, ownership, identity, activities, and descriptions together.",
+  "can_do": "introduce and describe three important people.",
+  "new_language": [
+    "To je moje rodina.",
+    "To je můj kamarád.",
+    "Jmenuje se…",
+    "Je milý/milá."
+  ],
+  "recycles": [
+    "Kdo je to?",
+    "To je…",
+    "můj/moje",
+    "je",
+    "má"
+  ],
+  "exit_task": "introduce and describe three important people.",
+  "duration_min": 12,
+  "lesson_type": "mission",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 8300,
+      "lesson_id": 804,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Mission: Introduce Three People",
+        "body": "Bring relationships, ownership, identity, activities, and descriptions together.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "To je moje rodina.",
+            "en": "This is my family."
+          },
+          {
+            "cz": "To je můj kamarád.",
+            "en": "This is my friend."
+          },
+          {
+            "cz": "Jmenuje se…",
+            "en": "His/her name is…"
+          },
+          {
+            "cz": "Je milý/milá.",
+            "en": "He/she is kind."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 8301,
+      "lesson_id": 804,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "To je moje rodina. Moje maminka se jmenuje Jana. Je milá. Můj bratr Adam je student.",
+        "image": "assets/images/unit08/people_description_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Mission: Introduce Three People",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who is a student?",
+            "options": [
+              "Adam",
+              "Jana",
+              "The narrator"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Adam",
+      "xp_reward": 15
+    },
+    {
+      "id": 8302,
+      "lesson_id": 804,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit08/people_description_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "text_cz": "Lidé pro misi: maminka Jana – milá; bratr Adam – student; kamarád Leo – veselý.",
+        "text_en": "People for the mission: mother Jana – kind; brother Adam – student; friend Leo – cheerful.",
+        "questions": [
+          {
+            "question_en": "Who is cheerful?",
+            "options": [
+              "Leo",
+              "Adam",
+              "Jana"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "People for the mission: mother Jana – kind; brother Adam – student; friend Leo – cheerful.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Leo",
+      "xp_reward": 15
+    },
+    {
+      "id": 8303,
+      "lesson_id": 804,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "To je moje rodina.",
+            "right": "This is my family."
+          },
+          {
+            "left": "To je můj kamarád.",
+            "right": "This is my friend."
+          },
+          {
+            "left": "Jmenuje se…",
+            "right": "His/her name is…"
+          },
+          {
+            "left": "Je milý/milá.",
+            "right": "He/she is kind."
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "To je moje rodina.–This is my family.; To je můj kamarád.–This is my friend.; Jmenuje se…–His/her name is…; Je milý/milá.–He/she is kind.",
+      "xp_reward": 10
+    },
+    {
+      "id": 8304,
+      "lesson_id": 804,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "To je moje rodina.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "To je moje rodina.",
+      "xp_reward": 10
+    },
+    {
+      "id": 8305,
+      "lesson_id": 804,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "To ___ moje rodina.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "je"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "je",
+      "xp_reward": 10
+    },
+    {
+      "id": 8306,
+      "lesson_id": 804,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "kamarád.",
+          "můj",
+          "je",
+          "To"
+        ],
+        "correct_order": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "translation_en": "This is my friend.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "To je můj kamarád.",
+      "xp_reward": 10
+    },
+    {
+      "id": 8307,
+      "lesson_id": 804,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Jmenuje se…",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "Jmenuje se…",
+      "xp_reward": 10
+    },
+    {
+      "id": 8308,
+      "lesson_id": 804,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Je milý/milá.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "He/she is kind."
+      },
+      "answer_key": "Je milý/milá.",
+      "xp_reward": 15
+    },
+    {
+      "id": 8309,
+      "lesson_id": 804,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Mission: Introduce Three People",
+        "image": "assets/images/unit08/people_description_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Kdo je to?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Jaký nebo jaká je?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "To je moje rodina."
+          ],
+          [
+            "To je můj kamarád."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "To je moje rodina. | To je můj kamarád.",
+      "xp_reward": 15
+    },
+    {
+      "id": 8310,
+      "lesson_id": 804,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Prepare three people cards with relationship, name, and one description.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "To je moje rodina.",
+          "To je můj kamarád.",
+          "Jmenuje se…",
+          "Je milý/milá."
+        ],
+        "sample_answer": "To je moje rodina. To je můj kamarád. Jmenuje se… Je milý/milá."
+      },
+      "answer_key": "To je moje rodina. To je můj kamarád. Jmenuje se… Je milý/milá.",
+      "xp_reward": 0
+    },
+    {
+      "id": 8311,
+      "lesson_id": 804,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a short introduction to three important people. Say who they are and give at least two simple descriptions.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "image": "assets/images/unit08/people_description_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 40,
+        "expected_phrases": [
+          "To je moje rodina.",
+          "To je můj kamarád.",
+          "Jmenuje se…",
+          "Je milý/milá."
+        ]
+      },
+      "answer_key": "To je moje rodina. To je můj kamarád. Jmenuje se… Je milý/milá.",
+      "xp_reward": 20
+    }
+  ]
+}

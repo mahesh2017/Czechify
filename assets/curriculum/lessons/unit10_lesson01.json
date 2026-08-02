@@ -2,325 +2,342 @@
   "id": 1001,
   "unit_id": 10,
   "order_in_unit": 0,
-  "title": "Reflexive Verbs — se & si",
+  "title": "See a Day in Six Steps",
+  "description": "Follow a simple routine from waking up to going to sleep.",
+  "can_do": "understand the main steps in a daily routine.",
+  "new_language": [
+    "Ráno vstávám.",
+    "Snídám v sedm.",
+    "Potom pracuju.",
+    "Večer spím."
+  ],
+  "recycles": [
+    "time and days",
+    "pracuju/studuju",
+    "doma",
+    "mám",
+    "potom"
+  ],
+  "exit_task": "understand the main steps in a daily routine.",
+  "duration_min": 12,
   "lesson_type": "introduction",
-  "duration_min": 15,
-  "description": "Learn the two types of Czech reflexive verbs: those using 'se' and those using 'si'. Master conjugation patterns and when to use each.",
+  "is_review": false,
   "exercises": [
     {
-      "id": 90010,
+      "id": 10000,
       "lesson_id": 1001,
       "type": "teaching",
-      "prompt": "Reflexive Verbs (se / si) & Daily Routine",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "Reflexive Verbs (se / si) & Daily Routine",
-        "body": "Some verbs fold back on the speaker with a little se or si. They narrate your whole day.",
-        "intro": "Some Czech verbs fold back on the speaker — I wash myself, I'm called… That little word, se or si, is the key to narrating your whole day, from waking up to lights out.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "See a Day in Six Steps",
+        "body": "Follow a simple routine from waking up to going to sleep.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "jmenovat se",
-            "en": "to be called"
+            "cz": "Ráno vstávám.",
+            "en": "I get up in the morning."
           },
           {
-            "cz": "Jmenuju se Adam.",
-            "en": "My name is Adam."
+            "cz": "Snídám v sedm.",
+            "en": "I eat breakfast at seven."
           },
           {
-            "cz": "mýt se",
-            "en": "to wash (oneself)"
+            "cz": "Potom pracuju.",
+            "en": "Then I work."
           },
           {
-            "cz": "sprchovat se",
-            "en": "to shower"
-          },
-          {
-            "cz": "dívat se",
-            "en": "to watch"
-          },
-          {
-            "cz": "oblékat se",
-            "en": "to get dressed"
-          },
-          {
-            "cz": "cítit se",
-            "en": "to feel"
-          },
-          {
-            "cz": "vstávat",
-            "en": "to get up"
-          },
-          {
-            "cz": "snídat",
-            "en": "to have breakfast"
-          },
-          {
-            "cz": "spát",
-            "en": "to sleep"
-          },
-          {
-            "cz": "Ráno se sprchuju.",
-            "en": "In the morning I take a shower."
+            "cz": "Večer spím.",
+            "en": "I sleep at night."
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 10001,
       "lesson_id": 1001,
-      "type": "multiple_choice",
-      "prompt": "Which reflexive pronoun do you use with 'mýt' (to wash oneself)?",
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které zvratné zájmeno se používá se slovesem 'mýt'?",
-        "question_en": "Which reflexive pronoun is used with the verb 'mýt'?",
-        "options": [
-          "se",
-          "si",
-          "sobě",
-          "sebe"
-        ],
-        "correct_index": 0,
-        "explanation": "'Mýt se' means to wash oneself. 'Se' is the accusative reflexive pronoun used when the action is performed on oneself directly."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Ráno vstávám v šest. Snídám v sedm, potom pracuju a večer jdu spát v deset.",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "See a Day in Six Steps",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "When does the speaker get up?",
+            "options": [
+              "At six",
+              "At seven",
+              "At ten"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "se",
-      "grammar_rule_id": "GR-090",
-      "xp_reward": 10
+      "answer_key": "At six",
+      "xp_reward": 15
     },
     {
       "id": 10002,
       "lesson_id": 1001,
-      "type": "multiple_choice",
-      "prompt": "Which reflexive pronoun do you use with 'kupovat' (to buy for oneself)?",
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které zvratné zájmeno se používá se slovesem 'kupovat'?",
-        "question_en": "Which reflexive pronoun is used with the verb 'kupovat'?",
-        "options": [
-          "se",
-          "si",
-          "sebou",
-          "sobě"
-        ],
-        "correct_index": 1,
-        "explanation": "'Kupovat si' means to buy for oneself. 'Si' is the dative reflexive pronoun used when the action benefits oneself."
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "text_cz": "Marta ráno vstává, pije čaj a jede do práce. Večer čte a spí.",
+        "text_en": "Marta gets up in the morning, drinks tea, and goes to work. In the evening she reads and sleeps.",
+        "questions": [
+          {
+            "question_en": "What does Marta drink?",
+            "options": [
+              "Tea",
+              "Coffee",
+              "Water"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Marta gets up in the morning, drinks tea, and goes to work. In the evening she reads and sleeps.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "si",
-      "grammar_rule_id": "GR-091",
-      "xp_reward": 10
+      "answer_key": "Tea",
+      "xp_reward": 15
     },
     {
       "id": 10003,
       "lesson_id": 1001,
-      "type": "fill_blank",
-      "prompt": "Conjugate 'mýt se' for 'já' (I)",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Já ___ každé ráno.",
-        "blank_count": 1,
-        "explanation": "For 'já' (I), 'mýt se' conjugates to 'myju se' or 'myji se'. The reflexive 'se' comes after the verb in the 1st person singular.",
-        "blank_answers": [
-          [
-            "se myju",
-            "se myji",
-            "se umývám"
-          ]
-        ]
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Ráno vstávám.",
+            "right": "I get up in the morning."
+          },
+          {
+            "left": "Snídám v sedm.",
+            "right": "I eat breakfast at seven."
+          },
+          {
+            "left": "Potom pracuju.",
+            "right": "Then I work."
+          },
+          {
+            "left": "Večer spím.",
+            "right": "I sleep at night."
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
-      "answer_key": "se myju",
-      "grammar_rule_id": "GR-090",
-      "xp_reward": 15
+      "answer_key": "Ráno vstávám.–I get up in the morning.; Snídám v sedm.–I eat breakfast at seven.; Potom pracuju.–Then I work.; Večer spím.–I sleep at night.",
+      "xp_reward": 10
     },
     {
       "id": 10004,
       "lesson_id": 1001,
-      "type": "fill_blank",
-      "prompt": "Conjugate 'učit se' for 'ty' (you)",
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Ty ___ česky každý den.",
-        "blank_count": 1,
-        "explanation": "For 'ty' (you singular informal), 'učit se' conjugates to 'učíš se'. The reflexive particle is placed before the verb in this sentence structure.",
-        "blank_answers": [
-          [
-            "se učíš"
-          ]
-        ]
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Ráno vstávám.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
       },
-      "answer_key": "se učíš",
-      "grammar_rule_id": "GR-090",
-      "xp_reward": 15
+      "answer_key": "Ráno vstávám.",
+      "xp_reward": 10
     },
     {
       "id": 10005,
       "lesson_id": 1001,
       "type": "fill_blank",
-      "prompt": "Conjugate 'dívat se' for 'on' (he)",
+      "prompt": "Complete the useful chunk",
       "data": {
         "type": "fill_blank",
-        "sentence": "On ___ na televizi.",
+        "sentence": "___ vstávám.",
         "blank_count": 1,
-        "explanation": "For 'on' (he), 'dívat se' conjugates to 'dívá se'. 'Se' is the reflexive pronoun meaning the action reflects back on the subject.",
         "blank_answers": [
           [
-            "se dívá"
+            "Ráno"
           ]
-        ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": "se dívá",
-      "grammar_rule_id": "GR-090",
-      "xp_reward": 15
+      "answer_key": "Ráno",
+      "xp_reward": 10
     },
     {
       "id": 10006,
       "lesson_id": 1001,
-      "type": "translation",
-      "prompt": "Translate into Czech: 'I am learning Czech.' (use učit se)",
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I am learning Czech.",
-        "accepted_answers": [
-          "učím se česky",
-          "učím se česky.",
-          "já se učím česky",
-          "já se učím česky."
+        "type": "word_order",
+        "words": [
+          "sedm.",
+          "v",
+          "Snídám"
         ],
-        "grammar_note": "Use 'učit se' + language in adverb form. 'Česky' is the adverb meaning 'in Czech'."
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "I eat breakfast at seven.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": "učím se česky",
-      "grammar_rule_id": "GR-090",
-      "xp_reward": 15
+      "answer_key": "Snídám v sedm.",
+      "xp_reward": 10
     },
     {
       "id": 10007,
       "lesson_id": 1001,
-      "type": "translation",
-      "prompt": "Translate into Czech: 'I am buying myself a book.' (use kupovat si)",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I am buying myself a book.",
-        "accepted_answers": [
-          "kupuju si knihu",
-          "kupuji si knihu",
-          "kupuju si knihu.",
-          "kupuji si knihu."
-        ],
-        "grammar_note": "Use 'kupovat si' — 'si' is dative reflexive meaning 'for myself'. 'Knihu' is accusative of 'kniha' (book)."
+        "type": "dictation",
+        "expected_text": "Potom pracuju.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": "kupuju si knihu",
-      "grammar_rule_id": "GR-091",
-      "xp_reward": 15
+      "answer_key": "Potom pracuju.",
+      "xp_reward": 10
     },
     {
       "id": 10008,
       "lesson_id": 1001,
-      "type": "fill_blank",
-      "prompt": "Conjugate 'kupovat si' for 'my' (we)",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
       "data": {
-        "type": "fill_blank",
-        "sentence": "My ___ nové auto.",
-        "blank_count": 1,
-        "explanation": "For 'my' (we), 'kupovat si' conjugates to 'kupujeme si'. 'Si' can go either before or after the verb.",
-        "blank_answers": [
-          [
-            "si kupujeme",
-            "kupujeme si"
-          ]
-        ]
+        "type": "pronunciation",
+        "target_text": "Večer spím.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "I sleep at night."
       },
-      "answer_key": "si kupujeme",
-      "grammar_rule_id": "GR-091",
+      "answer_key": "Večer spím.",
       "xp_reward": 15
     },
     {
       "id": 10009,
       "lesson_id": 1001,
-      "type": "word_order",
-      "prompt": "Arrange words to form the sentence: 'I wash myself every morning.'",
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
       "data": {
-        "type": "word_order",
-        "words": [
-          "myju",
-          "se",
-          "Já",
-          "každé",
-          "ráno"
+        "type": "dialogue",
+        "scenario": "See a Day in Six Steps",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "V kolik vstáváš?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Co děláš potom?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "correct_order": [
-          2,
-          1,
-          0,
-          3,
-          4
+        "blank_answers": [
+          [
+            "Ráno vstávám."
+          ],
+          [
+            "Snídám v sedm."
+          ]
         ],
-        "explanation": "Czech word order: Já (I) se myju (wash myself) každé ráno (every morning). The reflexive 'se' typically occupies the second position."
+        "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Já se myju každé ráno",
-      "grammar_rule_id": "GR-090",
+      "answer_key": "Ráno vstávám. | Snídám v sedm.",
       "xp_reward": 15
     },
     {
       "id": 10010,
       "lesson_id": 1001,
-      "type": "pronunciation",
-      "prompt": "Say this phrase aloud",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "pronunciation",
-        "target_text": "Učím se česky každý den",
-        "target_audio_hash": "placeholder_1010",
-        "focus_sounds": [
-          "č",
-          "ý"
+        "type": "writing_task",
+        "prompt_en": "Write four routine steps using ráno, potom, and večer.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Ráno vstávám.",
+          "Snídám v sedm.",
+          "Potom pracuju.",
+          "Večer spím."
         ],
-        "min_score": 0.6,
-        "translation_en": "I learn Czech every day"
+        "sample_answer": "Ráno vstávám. Snídám v sedm. Potom pracuju. Večer spím."
       },
-      "answer_key": "Učím se česky každý den",
-      "grammar_rule_id": "GR-090",
-      "xp_reward": 15
+      "answer_key": "Ráno vstávám. Snídám v sedm. Potom pracuju. Večer spím.",
+      "xp_reward": 0
     },
     {
       "id": 10011,
       "lesson_id": 1001,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_1011",
-        "expected_text": "Díváme se na televizi",
-        "language": "cs-CZ",
-        "note": "The reflexive pronoun 'se' is pronounced together with the verb"
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Petr vstává v sedm, pracuje od devíti a spí v jedenáct.",
+        "questions": [
+          {
+            "question_en": "When does Petr go to sleep?",
+            "options": [
+              "At eleven",
+              "At nine",
+              "At seven"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Díváme se na televizi",
-      "grammar_rule_id": "GR-090",
-      "xp_reward": 20
-    },
-    {
-      "id": 10012,
-      "lesson_id": 1001,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct form: '___ si kávu.' (He is making himself coffee.)",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správný tvar: '___ si kávu.' (On si vaří kávu.)",
-        "question_en": "Choose the correct form: '___ si kávu.' (He is making himself coffee.)",
-        "options": [
-          "Vaří",
-          "Vařit",
-          "Vařím",
-          "Vaříš"
-        ],
-        "correct_index": 0,
-        "explanation": "'On vaří si kávu' — 'vaří' is the 3rd person singular of 'vařit'. The reflexive 'si' means 'for himself'."
-      },
-      "answer_key": "Vaří",
-      "grammar_rule_id": "GR-091",
-      "xp_reward": 10
+      "answer_key": "At eleven",
+      "xp_reward": 15
     }
   ]
 }

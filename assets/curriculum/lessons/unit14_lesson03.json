@@ -1,0 +1,356 @@
+{
+  "id": 1403,
+  "unit_id": 14,
+  "title": "Choose How to Travel",
+  "description": "Choose suitable transport and say how to reach a destination.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 12,
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 14200,
+      "lesson_id": 1403,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Choose How to Travel",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Jdu pěšky.",
+            "en": "I go on foot."
+          },
+          {
+            "cz": "Jedu tramvají.",
+            "en": "I go by tram."
+          },
+          {
+            "cz": "Jedeme metrem.",
+            "en": "We go by metro."
+          },
+          {
+            "cz": "Vlak jede do Prahy.",
+            "en": "The train goes to Prague."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14201,
+      "lesson_id": 1403,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Do centra jedu tramvají. Na nádraží jedu metrem.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Do centra jedu tramvají. Na nádraží jedu metrem.",
+              "Dám si vodu.",
+              "Mám modrý svetr."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Do centra jedu tramvají. Na nádraží jedu metrem.",
+      "xp_reward": 15
+    },
+    {
+      "id": 14202,
+      "lesson_id": 1403,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit14/town_route_v1.png",
+        "image_label": "Choose How to Travel",
+        "text_cz": "Marek jde pěšky do parku. Do centra jede tramvají. Na nádraží jede metrem.",
+        "text_en": "Marek walks to the park. He takes the tram to the centre. He takes the metro to the station.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Jedu tramvají.",
+              "Dám si vodu.",
+              "Mám modrý svetr.",
+              "Prší doma."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Jedu tramvají.",
+      "xp_reward": 15
+    },
+    {
+      "id": 14203,
+      "lesson_id": 1403,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Jdu pěšky.",
+            "right": "I go on foot."
+          },
+          {
+            "left": "Jedu tramvají.",
+            "right": "I go by tram."
+          },
+          {
+            "left": "Jedeme metrem.",
+            "right": "We go by metro."
+          },
+          {
+            "left": "Vlak jede do Prahy.",
+            "right": "The train goes to Prague."
+          }
+        ],
+        "explanation": "Keep the complete Czech chunk together."
+      },
+      "answer_key": "Jdu pěšky.–I go on foot.; Jedu tramvají.–I go by tram.; Jedeme metrem.–We go by metro.; Vlak jede do Prahy.–The train goes to Prague.",
+      "xp_reward": 10
+    },
+    {
+      "id": 14204,
+      "lesson_id": 1403,
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Jedu tramvají.",
+          "Dám si vodu.",
+          "Mám modrý svetr.",
+          "Prší doma."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
+      },
+      "answer_key": "Jedu tramvají.",
+      "xp_reward": 10
+    },
+    {
+      "id": 14205,
+      "lesson_id": 1403,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Do centra ___ tramvají. Do parku ___ pěšky.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "jedu"
+          ],
+          [
+            "jdu"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "jedu | jdu",
+      "xp_reward": 10
+    },
+    {
+      "id": 14206,
+      "lesson_id": 1403,
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Jedu",
+          "tramvají",
+          "do",
+          "centra."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
+      },
+      "answer_key": "Jedu tramvají do centra.",
+      "xp_reward": 10
+    },
+    {
+      "id": 14207,
+      "lesson_id": 1403,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Do centra jedu tramvají.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Do centra jedu tramvají.",
+      "xp_reward": 10
+    },
+    {
+      "id": 14208,
+      "lesson_id": 1403,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Do centra jedu tramvají.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Do centra jedu tramvají.",
+      "xp_reward": 15
+    },
+    {
+      "id": 14209,
+      "lesson_id": 1403,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Choose How to Travel",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Jak jedeš do centra?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "A do parku?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Jedu tramvají.",
+            "Tramvají."
+          ],
+          [
+            "Jdu pěšky.",
+            "Pěšky."
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
+      },
+      "answer_key": "Jedu tramvají. | Jdu pěšky.",
+      "xp_reward": 15
+    },
+    {
+      "id": 14210,
+      "lesson_id": 1403,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write how you travel to two places.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Jdu pěšky.",
+          "Jedu tramvají.",
+          "Jedeme metrem.",
+          "Vlak jede do Prahy."
+        ],
+        "sample_answer": "Jdu pěšky."
+      },
+      "answer_key": "Jdu pěšky.",
+      "xp_reward": 0
+    },
+    {
+      "id": 14211,
+      "lesson_id": 1403,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Do centra jedu tramvají. Na nádraží jedu metrem.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Do centra jedu tramvají. Na nádraží jedu metrem.",
+              "Dám si vodu.",
+              "Mám modrý svetr."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Do centra jedu tramvají. Na nádraží jedu metrem.",
+      "xp_reward": 15
+    }
+  ],
+  "can_do": "choose and describe simple transport.",
+  "new_language": [
+    "Jdu pěšky.",
+    "Jedu tramvají.",
+    "Jedeme metrem.",
+    "Vlak jede do Prahy."
+  ],
+  "recycles": [
+    "places",
+    "Kde…?",
+    "time",
+    "simple questions",
+    "transport words"
+  ],
+  "exit_task": "choose and describe simple transport."
+}

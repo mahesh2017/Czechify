@@ -2,329 +2,343 @@
   "id": 801,
   "unit_id": 8,
   "order_in_unit": 0,
-  "title": "Family Vocabulary & Adjective Agreement",
-  "description": "Learn family member nouns and how adjectives agree with noun gender",
-  "duration_min": 15,
+  "title": "Meet the People in the Photo",
+  "description": "Identify close family and other important people in a photo.",
+  "can_do": "introduce common family members.",
+  "new_language": [
+    "To je moje maminka.",
+    "To je můj tatínek.",
+    "To je moje sestra.",
+    "To je můj bratr."
+  ],
+  "recycles": [
+    "Kdo je to?",
+    "To je…",
+    "můj/moje",
+    "je",
+    "má"
+  ],
+  "exit_task": "introduce common family members.",
+  "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
   "exercises": [
     {
-      "id": 90008,
+      "id": 8000,
       "lesson_id": 801,
       "type": "teaching",
-      "prompt": "Family & Describing Things",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "Family & Describing Things",
-        "body": "The family words — and how Czech adjectives quietly shift to agree with their noun (m / f / n).",
-        "intro": "Let's talk about the people you love and the world around you. You'll gather the family words — and discover how Czech adjectives quietly shift to 'agree' with their noun.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "Meet the People in the Photo",
+        "body": "Identify close family and other important people in a photo.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "matka",
-            "en": "mother"
+            "cz": "To je moje maminka.",
+            "en": "This is my mother."
           },
           {
-            "cz": "otec",
-            "en": "father"
+            "cz": "To je můj tatínek.",
+            "en": "This is my father."
           },
           {
-            "cz": "bratr",
-            "en": "brother"
+            "cz": "To je moje sestra.",
+            "en": "This is my sister."
           },
           {
-            "cz": "sestra",
-            "en": "sister"
-          },
-          {
-            "cz": "syn",
-            "en": "son"
-          },
-          {
-            "cz": "dcera",
-            "en": "daughter"
-          },
-          {
-            "cz": "babička",
-            "en": "grandma"
-          },
-          {
-            "cz": "dědeček",
-            "en": "grandpa"
-          },
-          {
-            "cz": "rodina",
-            "en": "family"
-          },
-          {
-            "cz": "dobrý",
-            "en": "good (adjective, masculine)"
-          },
-          {
-            "cz": "velký dům",
-            "en": "a big house (masculine ending)"
-          },
-          {
-            "cz": "velká rodina",
-            "en": "a big family (feminine ending)"
-          },
-          {
-            "cz": "velké auto",
-            "en": "a big car (neuter ending)"
+            "cz": "To je můj bratr.",
+            "en": "This is my brother."
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 8001,
       "lesson_id": 801,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct Czech word for 'family'",
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak se česky řekne 'rodina'?",
-        "question_en": "What is the Czech word for 'family'?",
-        "options": [
-          "rodina",
-          "rodinu",
-          "rodiny",
-          "rodině"
-        ],
-        "correct_index": 0,
-        "explanation": "'Rodina' is a feminine noun meaning 'family'. It is the nominative singular form."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "To je moje rodina. Tohle je moje maminka, můj tatínek a moje sestra Klára.",
+        "image": "assets/images/unit08/family_people_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Meet the People in the Photo",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What is the sister’s name?",
+            "options": [
+              "Klára",
+              "Anna",
+              "Petra"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "rodina",
-      "grammar_rule_id": "GR-070",
-      "xp_reward": 10
+      "answer_key": "Klára",
+      "xp_reward": 15
     },
     {
       "id": 8002,
       "lesson_id": 801,
-      "type": "multiple_choice",
-      "prompt": "Match the family members to their English meanings",
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená slovo 'dědeček'?",
-        "question_en": "What does the word 'dědeček' mean?",
-        "options": [
-          "grandfather",
-          "grandmother",
-          "uncle",
-          "father"
-        ],
-        "correct_index": 0,
-        "explanation": "'Dědeček' means 'grandfather'. It is a masculine animate noun. 'Babička' is 'grandmother'."
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit08/family_people_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "text_cz": "Na fotografii je Pavel, jeho žena Jana a jejich syn Matěj.",
+        "text_en": "In the photograph are Pavel, his wife Jana, and their son Matěj.",
+        "questions": [
+          {
+            "question_en": "Who is Matěj?",
+            "options": [
+              "Their son",
+              "Their brother",
+              "Their father"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "In the photograph are Pavel, his wife Jana, and their son Matěj.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "grandfather",
-      "grammar_rule_id": "GR-070",
-      "xp_reward": 10
+      "answer_key": "Their son",
+      "xp_reward": 15
     },
     {
       "id": 8003,
       "lesson_id": 801,
-      "type": "multiple_choice",
-      "prompt": "Identify the correct adjective form for a masculine noun",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správnou formu: '___ otec'",
-        "question_en": "Choose the correct form: '___ father' (using 'good')",
-        "options": [
-          "dobrá otec",
-          "dobré otec",
-          "dobrý otec",
-          "dobrého otce"
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "To je moje maminka.",
+            "right": "This is my mother."
+          },
+          {
+            "left": "To je můj tatínek.",
+            "right": "This is my father."
+          },
+          {
+            "left": "To je moje sestra.",
+            "right": "This is my sister."
+          },
+          {
+            "left": "To je můj bratr.",
+            "right": "This is my brother."
+          }
         ],
-        "correct_index": 2,
-        "explanation": "'Otec' is masculine animate, so the adjective takes the masculine ending '-ý': dobrý otec (good father)."
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
-      "answer_key": "dobrý otec",
-      "grammar_rule_id": "GR-072",
-      "xp_reward": 15
+      "answer_key": "To je moje maminka.–This is my mother.; To je můj tatínek.–This is my father.; To je moje sestra.–This is my sister.; To je můj bratr.–This is my brother.",
+      "xp_reward": 10
     },
     {
       "id": 8004,
       "lesson_id": 801,
       "type": "multiple_choice",
-      "prompt": "Identify the correct adjective form for a feminine noun",
+      "prompt": "Choose the phrase that completes the lesson goal",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Vyberte správnou formu: '___ matka'",
-        "question_en": "Choose the correct form: '___ mother' (using 'good')",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
         "options": [
-          "dobrý matka",
-          "dobrá matka",
-          "dobré matka",
-          "dobrou matku"
+          "To je moje maminka.",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
         ],
-        "correct_index": 1,
-        "explanation": "'Matka' is feminine, so the adjective takes the feminine ending '-á': dobrá matka (good mother)."
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
       },
-      "answer_key": "dobrá matka",
-      "grammar_rule_id": "GR-072",
-      "xp_reward": 15
+      "answer_key": "To je moje maminka.",
+      "xp_reward": 10
     },
     {
       "id": 8005,
       "lesson_id": 801,
-      "type": "translation",
-      "prompt": "Translate from English to Czech",
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I have a big family.",
-        "accepted_answers": [
-          "Mám velkou rodinu.",
-          "Mám velkou rodinu"
+        "type": "fill_blank",
+        "sentence": "To ___ moje maminka.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "je"
+          ]
         ],
-        "grammar_note": "'Rodina' is feminine. In the accusative case (object of 'mít'), the adjective ending becomes '-ou': velkou rodinu. 'Velký' is the masculine form, 'velká' is feminine nominative, but here we need accusative."
+        "explanation": "Retrieve the missing word from the complete chunk."
       },
-      "answer_key": "Mám velkou rodinu.",
-      "grammar_rule_id": "GR-071",
-      "xp_reward": 20
+      "answer_key": "je",
+      "xp_reward": 10
     },
     {
       "id": 8006,
       "lesson_id": 801,
-      "type": "translation",
-      "prompt": "Translate from English to Czech",
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "My sister is small.",
-        "accepted_answers": [
-          "Moje sestra je malá.",
-          "Moje sestra je malá",
-          "Má sestra je malá.",
-          "Má sestra je malá"
+        "type": "word_order",
+        "words": [
+          "tatínek.",
+          "můj",
+          "je",
+          "To"
         ],
-        "grammar_note": "'Sestra' is feminine, so 'malý' (masc) becomes 'malá' (fem). 'Moje' is the possessive 'my/mine' used for feminine and neuter nouns."
+        "correct_order": [
+          3,
+          2,
+          1,
+          0
+        ],
+        "translation_en": "This is my father.",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
       },
-      "answer_key": "Moje sestra je malá.",
-      "grammar_rule_id": "GR-071",
-      "xp_reward": 20
+      "answer_key": "To je můj tatínek.",
+      "xp_reward": 10
     },
     {
       "id": 8007,
       "lesson_id": 801,
-      "type": "translation",
-      "prompt": "Translate from Czech to English",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Můj bratr je student.",
-        "accepted_answers": [
-          "My brother is a student.",
-          "My brother is a student",
-          "My brother is student."
-        ],
-        "grammar_note": "'Můj' is the masculine possessive 'my'. 'Bratr' is masculine animate. Czech does not use an indefinite article, so 'student' translates as 'a student'."
+        "type": "dictation",
+        "expected_text": "To je moje sestra.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
       },
-      "answer_key": "My brother is a student.",
-      "grammar_rule_id": "GR-073",
-      "xp_reward": 15
+      "answer_key": "To je moje sestra.",
+      "xp_reward": 10
     },
     {
       "id": 8008,
       "lesson_id": 801,
-      "type": "fill_blank",
-      "prompt": "Fill in the blank with the correct adjective form",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Můj ___ dům je hezký. (old)",
-        "blank_count": 1,
-        "explanation": "'Dům' (house) is masculine inanimate. The adjective 'starý' (old) takes the masculine ending '-ý': starý dům.",
-        "blank_answers": [
-          [
-            "starý"
-          ]
-        ]
+        "type": "pronunciation",
+        "target_text": "To je můj bratr.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "This is my brother."
       },
-      "answer_key": "starý",
-      "grammar_rule_id": "GR-073",
+      "answer_key": "To je můj bratr.",
       "xp_reward": 15
     },
     {
       "id": 8009,
       "lesson_id": 801,
-      "type": "fill_blank",
-      "prompt": "Fill in the blank with the correct adjective form",
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Moje ___ kniha je zajímavá. (new)",
-        "blank_count": 1,
-        "explanation": "'Kniha' (book) is feminine. The adjective 'nový' (new) takes the feminine ending '-á': nová kniha. 'Moje' is used with feminine and neuter nouns.",
+        "type": "dialogue",
+        "scenario": "Meet the People in the Photo",
+        "image": "assets/images/unit08/family_people_v1.png",
+        "image_label": "Family relationships and simple description agreement",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Kdo je to?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "A kdo je tahle žena?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
         "blank_answers": [
           [
-            "nová"
+            "To je moje maminka."
+          ],
+          [
+            "To je můj tatínek."
           ]
-        ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "nová",
-      "grammar_rule_id": "GR-073",
+      "answer_key": "To je moje maminka. | To je můj tatínek.",
       "xp_reward": 15
     },
     {
       "id": 8010,
       "lesson_id": 801,
-      "type": "word_order",
-      "prompt": "Arrange the words to form a correct sentence",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "word_order",
-        "words": [
-          "Moje",
-          "sestra",
-          "je",
-          "hezká"
+        "type": "writing_task",
+        "prompt_en": "Label four people in a photo with To je můj/moje…",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "To je moje maminka.",
+          "To je můj tatínek.",
+          "To je moje sestra.",
+          "To je můj bratr."
         ],
-        "correct_order": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "explanation": "Word order: Subject (Moje sestra) + verb (je) + adjective predicate (hezká). 'Sestra' is feminine, so 'hezký' becomes 'hezká'."
+        "sample_answer": "To je moje maminka. To je můj tatínek. To je moje sestra. To je můj bratr."
       },
-      "answer_key": "Moje sestra je hezká",
-      "grammar_rule_id": "GR-071",
-      "xp_reward": 15
+      "answer_key": "To je moje maminka. To je můj tatínek. To je moje sestra. To je můj bratr.",
+      "xp_reward": 0
     },
     {
       "id": 8011,
       "lesson_id": 801,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_8011",
-        "expected_text": "Babička je stará a dědeček je také starý.",
-        "language": "cs-CZ",
-        "note": "Listen for the feminine adjective ending '-á' on 'stará' (referring to babička) and the masculine ending '-ý' on 'starý' (referring to dědeček)."
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Mám jednoho bratra a dvě sestry. Bratr se jmenuje Adam.",
+        "questions": [
+          {
+            "question_en": "How many sisters does the speaker have?",
+            "options": [
+              "Two",
+              "One",
+              "Three"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Babička je stará a dědeček je také starý.",
-      "grammar_rule_id": "GR-072",
-      "xp_reward": 20
-    },
-    {
-      "id": 8012,
-      "lesson_id": 801,
-      "type": "pronunciation",
-      "prompt": "Pronounce the following sentence",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Mám velkou rodinu.",
-        "target_audio_hash": "placeholder_8012",
-        "focus_sounds": [
-          "velkou",
-          "rodinu",
-          "ř"
-        ],
-        "min_score": 0.6,
-        "translation_en": "I have a big family."
-      },
-      "answer_key": "Mám velkou rodinu.",
-      "grammar_rule_id": "GR-071",
+      "answer_key": "Two",
       "xp_reward": 15
     }
   ]

@@ -2301,9 +2301,9 @@
     },
     {
       "unit_id": 28,
-      "title": "A1 Exam Preparation",
+      "title": "A1 Skills Practice",
       "phase": "A1",
-      "description": "Reading, listening, writing, speaking — A1 level practice",
+      "description": "Independent reading, listening, writing, and speaking practice at A1 level",
       "grammar_rules": [],
       "core_vocabulary": [
         {
@@ -2354,11 +2354,11 @@
         "Napište krátký vzkaz."
       ],
       "common_mistakes": [
-        "Podcenění obtížnosti zkoušky A1",
+        "Procvičování pouze jedné dovednosti",
         "Nepřipravení vlastního představení",
         "Zanedbání psaní (formuláře, vzkazy)"
       ],
-      "study_tip": "Stáhněte si vzorové testy A1. Dělejte je na čas. Trénujte psaní krátkých vzkazů."
+      "study_tip": "Střídejte čtení, poslech, psaní a mluvení. Trénujte krátké praktické vzkazy a odpovědi."
     },
     {
       "unit_id": 29,

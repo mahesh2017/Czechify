@@ -24,18 +24,35 @@ class ReadingComprehensionView extends StatefulWidget {
 
 class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
   final List<int?> _selectedAnswers = [];
+  late List<Map<String, dynamic>> _presentedQuestions;
   bool answered = false;
 
   @override
   void initState() {
     super.initState();
-    final questions = widget.exercise.data['questions'] as List<dynamic>? ?? [];
-    _selectedAnswers.addAll(List.filled(questions.length, null));
+    _prepareQuestions();
   }
 
-  List<Map<String, dynamic>> get _questions {
+  void _prepareQuestions() {
     final raw = widget.exercise.data['questions'] as List<dynamic>? ?? [];
-    return raw.cast<Map<String, dynamic>>();
+    _presentedQuestions = [
+      for (final (index, question) in raw.cast<Map<String, dynamic>>().indexed)
+        shuffledQuestion(question, seed: widget.exercise.id * 31 + index),
+    ];
+    _selectedAnswers
+      ..clear()
+      ..addAll(List.filled(_presentedQuestions.length, null));
+  }
+
+  List<Map<String, dynamic>> get _questions => _presentedQuestions;
+
+  @override
+  void didUpdateWidget(covariant ReadingComprehensionView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.exercise.id != widget.exercise.id) {
+      answered = false;
+      _prepareQuestions();
+    }
   }
 
   bool get _allAnswered => _selectedAnswers.every((a) => a != null);
@@ -90,6 +107,8 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
     final textCz = data['text_cz'] as String? ?? '';
     final textEn = data['text_en'] as String?;
     final promptEn = data['prompt_en'] as String?;
+    final image = (data['image'] as String?)?.trim();
+    final imageLabel = (data['image_label'] as String?)?.trim();
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
@@ -102,6 +121,24 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
           Expanded(
             child: ListView(
               children: [
+                if (image != null && image.isNotEmpty) ...[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: AspectRatio(
+                      aspectRatio: 5 / 4,
+                      child: Image.asset(
+                        image,
+                        fit: BoxFit.cover,
+                        cacheWidth: 1024,
+                        semanticLabel:
+                            imageLabel == null || imageLabel.isEmpty
+                                ? null
+                                : imageLabel,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
                 // The passage. Reading length, so it gets the generous line
                 // height and the calmest surface on the screen.
                 Container(

@@ -15,6 +15,7 @@ import '../../providers/lesson_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/feedback_providers.dart';
+import '../../routes/lesson_navigation.dart';
 import '../../widgets/celebration/burst_painter.dart';
 import '../../widgets/celebration/count_up_text.dart';
 import '../../widgets/celebration/stars_reveal.dart';
@@ -75,7 +76,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           leading: IconButton(
             tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
-            onPressed: () => context.pop(),
+            onPressed: () => leaveLesson(context),
           ),
         ),
         body: const Center(child: CircularProgressIndicator()),
@@ -92,7 +93,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           leading: IconButton(
             tooltip: AppLocalizations.of(context).a11yClose,
             icon: const Icon(Icons.close),
-            onPressed: () => context.pop(),
+            onPressed: () => leaveLesson(context),
           ),
         ),
         body: Center(
@@ -139,7 +140,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         onRetry: () {
           ref.read(lessonSessionProvider.notifier).retry();
         },
-        onExit: () => context.pop(),
+        onExit: () => leaveLesson(context),
       );
     }
 
@@ -167,7 +168,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         onStart: () {
           ref.read(lessonSessionProvider.notifier).startExercises();
         },
-        onExit: () => context.pop(),
+        onExit: () => leaveLesson(context),
       );
     }
 
@@ -271,6 +272,31 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             ),
             // Shown only while a substitute is in use — silent otherwise.
             const DegradedModeBanner(),
+            if (session.currentIndex == 0 &&
+                (session.lesson?.canDo.trim().isNotEmpty ?? false))
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 2, 20, 12),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: t.priSoft,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    'I can ${session.lesson!.canDo}',
+                    style: TextStyle(
+                      color: t.priInk,
+                      fontSize: 14,
+                      height: 1.35,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
             // What kind of task this is, and the streak riding on it.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -468,7 +494,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(ctx);
-                  context.pop();
+                  leaveLesson(context);
                 },
                 child: Text(AppLocalizations.of(context).lessonLeave),
               ),
@@ -890,6 +916,34 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                           ),
                         ),
                         const SizedBox(height: 22),
+                        if (session.lesson?.exitTask.trim().isNotEmpty ??
+                            false) ...[
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: tokens.priSoft,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                LessonKicker('Now I can', color: tokens.priInk),
+                                const SizedBox(height: 6),
+                                Text(
+                                  session.lesson!.exitTask,
+                                  style: TextStyle(
+                                    color: tokens.ink,
+                                    fontSize: 15,
+                                    height: 1.45,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                        ],
                         _scoreboard(tokens, accent, accuracy, instant),
                         const SizedBox(height: 14),
                         _chips(tokens, gamification.maxHearts, instant),

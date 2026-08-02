@@ -1,0 +1,339 @@
+{
+  "id": 404,
+  "unit_id": 4,
+  "order_in_unit": 3,
+  "title": "Mission: My Profile",
+  "description": "Bring introductions, být, mít, questions, and negatives into one personal profile.",
+  "can_do": "give and answer a useful personal profile.",
+  "new_language": [
+    "Jmenuju se…",
+    "Jsem z…",
+    "Mám…",
+    "Nemám…"
+  ],
+  "recycles": [
+    "Dobrý den",
+    "Jmenuju se…",
+    "To je…",
+    "ten/ta/to"
+  ],
+  "exit_task": "give and answer a useful personal profile.",
+  "duration_min": 12,
+  "lesson_type": "mission",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 4300,
+      "lesson_id": 404,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Mission: My Profile",
+        "body": "Bring introductions, být, mít, questions, and negatives into one personal profile.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Jmenuju se…",
+            "en": "My name is…"
+          },
+          {
+            "cz": "Jsem z…",
+            "en": "I am from…"
+          },
+          {
+            "cz": "Mám…",
+            "en": "I have…"
+          },
+          {
+            "cz": "Nemám…",
+            "en": "I do not have…"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 4301,
+      "lesson_id": 404,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Jmenuju se Nina. Jsem z Polska. Jsem doma. Mám telefon, ale nemám auto.",
+        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image_label": "Identity and possessions: statement, question, and negative",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Mission: My Profile",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which possession is missing?",
+            "options": [
+              "A car",
+              "A phone",
+              "A key"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "A car",
+      "xp_reward": 15
+    },
+    {
+      "id": 4302,
+      "lesson_id": 404,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image_label": "Identity and possessions: statement, question, and negative",
+        "text_cz": "Profil: Adam, student, Praha. Má kolo a klíče. Nemá auto.",
+        "text_en": "Profile: Adam, student, Prague. He has a bicycle and keys. He does not have a car.",
+        "questions": [
+          {
+            "question_en": "Which statement about Adam is true?",
+            "options": [
+              "He has a bicycle",
+              "He has a car",
+              "He is a teacher"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Profile: Adam, student, Prague. He has a bicycle and keys. He does not have a car.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "He has a bicycle",
+      "xp_reward": 15
+    },
+    {
+      "id": 4303,
+      "lesson_id": 404,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Jmenuju se…",
+            "right": "My name is…"
+          },
+          {
+            "left": "Jsem z…",
+            "right": "I am from…"
+          },
+          {
+            "left": "Mám…",
+            "right": "I have…"
+          },
+          {
+            "left": "Nemám…",
+            "right": "I do not have…"
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Jmenuju se…–My name is…; Jsem z…–I am from…; Mám…–I have…; Nemám…–I do not have…",
+      "xp_reward": 10
+    },
+    {
+      "id": 4304,
+      "lesson_id": 404,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Jmenuju se…",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Jmenuju se…",
+      "xp_reward": 10
+    },
+    {
+      "id": 4305,
+      "lesson_id": 404,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ se…",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Jmenuju"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "Jmenuju",
+      "xp_reward": 10
+    },
+    {
+      "id": 4306,
+      "lesson_id": 404,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "z…",
+          "Jsem"
+        ],
+        "correct_order": [
+          1,
+          0
+        ],
+        "translation_en": "I am from…",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "Jsem z…",
+      "xp_reward": 10
+    },
+    {
+      "id": 4307,
+      "lesson_id": 404,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Mám…",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "Mám…",
+      "xp_reward": 10
+    },
+    {
+      "id": 4308,
+      "lesson_id": 404,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Nemám…",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "I do not have…"
+      },
+      "answer_key": "Nemám…",
+      "xp_reward": 15
+    },
+    {
+      "id": 4309,
+      "lesson_id": 404,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Mission: My Profile",
+        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image_label": "Identity and possessions: statement, question, and negative",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Jak se jmenujete?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Co máte?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Jmenuju se…"
+          ],
+          [
+            "Jsem z…"
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Jmenuju se… | Jsem z…",
+      "xp_reward": 15
+    },
+    {
+      "id": 4310,
+      "lesson_id": 404,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a four-line personal profile that you can use as your speaking plan.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Jmenuju se…",
+          "Jsem z…",
+          "Mám…",
+          "Nemám…"
+        ],
+        "sample_answer": "Jmenuju se… Jsem z… Mám… Nemám…"
+      },
+      "answer_key": "Jmenuju se… Jsem z… Mám… Nemám…",
+      "xp_reward": 0
+    },
+    {
+      "id": 4311,
+      "lesson_id": 404,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second profile: introduce yourself, say where you are, and name something you have and something you do not have.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image_label": "Identity and possessions: statement, question, and negative",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 40,
+        "expected_phrases": [
+          "Jmenuju se…",
+          "Jsem z…",
+          "Mám…",
+          "Nemám…"
+        ]
+      },
+      "answer_key": "Jmenuju se… Jsem z… Mám… Nemám…",
+      "xp_reward": 20
+    }
+  ]
+}

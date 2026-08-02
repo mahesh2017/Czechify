@@ -16,11 +16,10 @@ they contain Czech — audio nobody plays still costs money to generate:
     lesson      target_text                -> pronunciation
     lesson      question_cz                -> multiple choice
     lesson      transcript_cz              -> listening comprehension
-    lesson      data.items[] name_say/say/cz/example -> teaching cards
+    lesson      data.items[] name_say/say/cz/example/sentence -> teaching cards
     exam bank   audio_text                 -> mock exam listening
 
-  NOT spoken, excluded
-    lesson      data.lines[]               -> dialogue_view has no TTS at all
+    lesson      data.lines[]               -> dialogue line + full dialogue playback
     srs_starter_deck.json                  -> not referenced anywhere in lib/
 """
 
@@ -55,7 +54,8 @@ LESSON_DATA_FIELDS = (
     "question_cz",
     "transcript_cz",
 )
-TEACHING_ITEM_FIELDS = ("name_say", "say", "cz", "example")
+TEACHING_ITEM_FIELDS = ("name_say", "say", "cz", "example", "sentence")
+A1_UNITS = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 28, 30}
 
 
 def speech_text(text: str) -> str:
@@ -89,6 +89,25 @@ def _collect_audio_text(node, bucket: set[str]) -> None:
             _collect_audio_text(value, bucket)
 
 
+def _dialogue_lines(data: dict) -> list[str]:
+    """Return complete model lines, replacing every learner blank."""
+    answers = data.get("blank_answers") or []
+    answer_index = 0
+    completed: list[str] = []
+    for line in data.get("lines") or []:
+        text = line.get("text") if isinstance(line, dict) else None
+        if not isinstance(text, str):
+            continue
+        while "___" in text and answer_index < len(answers):
+            accepted = answers[answer_index]
+            replacement = accepted[0] if isinstance(accepted, list) and accepted else ""
+            text = text.replace("___", replacement, 1)
+            answer_index += 1
+        if text.strip():
+            completed.append(text.strip())
+    return completed
+
+
 def raw_utterances() -> set[str]:
     """Every distinct Czech string the app can ask the TTS to speak."""
     found: set[str] = {PREVIEW_TEXT}
@@ -109,6 +128,11 @@ def raw_utterances() -> set[str]:
                 if isinstance(item, dict):
                     for field in TEACHING_ITEM_FIELDS:
                         _add(found, item.get(field))
+            if exercise.get("type") == "dialogue":
+                lines = _dialogue_lines(data)
+                for line in lines:
+                    _add(found, line)
+                _add(found, " ".join(lines))
 
     for path in sorted(CURRICULUM.glob("exam_bank_*.json")):
         _collect_audio_text(json.loads(path.read_text(encoding="utf-8")), found)
@@ -124,6 +148,63 @@ def extract_utterances() -> dict[str, str]:
         if spoken:
             by_key[key_for(text)] = spoken
     return by_key
+
+
+def scoped_utterances(
+    scope: str = "all",
+    unit_ids: set[int] | None = None,
+) -> dict[str, str]:
+    """Return the runtime utterances belonging to one course slice."""
+    if unit_ids is not None:
+        unit_matches = lambda unit_id: unit_id in unit_ids
+        exam_level = None
+    elif scope == "all":
+        return extract_utterances()
+    elif scope in {"a1", "a2"}:
+        unit_matches = (
+            (lambda unit_id: unit_id in A1_UNITS)
+            if scope == "a1"
+            else (lambda unit_id: unit_id not in A1_UNITS)
+        )
+        exam_level = scope
+    else:
+        raise ValueError(f"unsupported scope: {scope}")
+
+    found: set[str] = {PREVIEW_TEXT}
+    for path in sorted(VOCABULARY.glob("*.json")):
+        for row in json.loads(path.read_text(encoding="utf-8")):
+            if unit_matches(row.get("unit_id")):
+                for field in VOCAB_FIELDS:
+                    _add(found, row.get(field))
+
+    for path in sorted(LESSONS.glob("*.json")):
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        if not unit_matches(lesson.get("unit_id")):
+            continue
+        for exercise in lesson.get("exercises", []):
+            data = exercise.get("data", {}) or {}
+            for field in LESSON_DATA_FIELDS:
+                _add(found, data.get(field))
+            for item in data.get("items") or []:
+                if isinstance(item, dict):
+                    for field in TEACHING_ITEM_FIELDS:
+                        _add(found, item.get(field))
+            if exercise.get("type") == "dialogue":
+                lines = _dialogue_lines(data)
+                for line in lines:
+                    _add(found, line)
+                _add(found, " ".join(lines))
+
+    if exam_level:
+        for path in sorted(CURRICULUM.glob(f"exam_bank_*{exam_level}*.json")):
+            _collect_audio_text(json.loads(path.read_text(encoding="utf-8")), found)
+
+    result: dict[str, str] = {}
+    for text in sorted(found):
+        spoken = speech_text(text)
+        if spoken:
+            result[key_for(text)] = spoken
+    return result
 
 
 # ── Fill-in-the-blank prompts ────────────────────────────────────────────────

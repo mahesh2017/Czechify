@@ -1,0 +1,209 @@
+{
+  "id": 2904,
+  "unit_id": 29,
+  "order_in_unit": 4,
+  "title": "A2 Practice Mission",
+  "description": "A short independent four-skill practice sequence. It is not official examination material, a result, or a prediction.",
+  "duration_min": 22,
+  "lesson_type": "mission",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 29034,
+      "lesson_id": 2904,
+      "type": "teaching",
+      "prompt": "Mission: solve an everyday situation",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Keep it simple and complete",
+        "body": "For each task, give the requested information. Clear short Czech is better than difficult Czech with missing details.",
+        "items": [
+          {
+            "cz": "Dobrý den, potřeboval/a bych informaci.",
+            "en": "Hello, I would need some information."
+          },
+          {
+            "cz": "Nemůžu přijít, protože…",
+            "en": "I cannot come because…"
+          },
+          {
+            "cz": "Můžu přijít místo toho v…",
+            "en": "I can come instead on/at…"
+          }
+        ]
+      },
+      "answer_key": "mission language",
+      "xp_reward": 0
+    },
+    {
+      "id": 29035,
+      "lesson_id": 2904,
+      "type": "reading_comprehension",
+      "prompt": "Read the appointment message",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Why should the client contact the office?",
+        "text_cz": "Vážená paní Horáková, vaše schůzka 8. června v 10 hodin se ruší. Prosíme, zavolejte nám do pátku a domluvte nový termín. Děkujeme.",
+        "text_en": "Dear Ms Horáková, your appointment on 8 June at 10 is cancelled. Please call us by Friday and arrange a new time.",
+        "questions": [
+          {
+            "question_en": "What happened to the appointment?",
+            "options": [
+              "It was cancelled",
+              "It became longer",
+              "It moved to today"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What must she do?",
+            "options": [
+              "Call by Friday",
+              "Bring a form",
+              "Pay online"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "cancelled; call by Friday",
+      "xp_reward": 15
+    },
+    {
+      "id": 29036,
+      "lesson_id": 2904,
+      "type": "listening_comprehension",
+      "prompt": "Listen to the office reply",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "What new appointment does the office offer?",
+        "transcript_cz": "Dobrý den, tady informační kancelář. Máme volný termín v pondělí v půl třetí nebo ve středu v devět hodin. Prosím, napište nám, který termín vám vyhovuje.",
+        "questions": [
+          {
+            "question_en": "Which two options are offered?",
+            "options": [
+              "Monday 2:30 or Wednesday 9:00",
+              "Monday 9:00 or Friday 2:30",
+              "Tuesday 2:30 or Wednesday 10:00"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Monday 2:30; Wednesday 9",
+      "xp_reward": 15
+    },
+    {
+      "id": 29037,
+      "lesson_id": 2904,
+      "type": "writing_task",
+      "prompt": "Write the functional reply",
+      "data": {
+        "type": "writing_task",
+        "prompt_cz": "Napište krátký formální e-mail. Vyberte jeden termín, potvrďte své jméno a poděkujte.",
+        "prompt_en": "Write a short formal email. Choose one time, confirm your name and say thank you.",
+        "min_words": 22,
+        "max_words": 65,
+        "required_elements": [
+          "greeting",
+          "chosen time",
+          "name",
+          "thanks"
+        ],
+        "sample_answer": "Dobrý den, vyhovuje mi pondělí v půl třetí. Jmenuji se Ana Horáková. Děkuji za nový termín. S pozdravem Ana Horáková."
+      },
+      "answer_key": "formal appointment email",
+      "xp_reward": 25
+    },
+    {
+      "id": 29038,
+      "lesson_id": 2904,
+      "type": "speaking_task",
+      "prompt": "Tell the short story",
+      "data": {
+        "type": "speaking_task",
+        "image": "assets/images/unit29/a2_exam_speaking_v1.png",
+        "image_label": "Two learners discussing a four-picture story",
+        "prompt_cz": "Nahrajte 30–45 sekund: vysvětlete, proč se vaše cesta změnila, co jste udělal/a a kdy jste nakonec přijel/a.",
+        "prompt_en": "Record 30–45 seconds: explain why your journey changed, what you did and when you finally arrived.",
+        "min_duration_seconds": 30,
+        "max_duration_seconds": 50,
+        "expected_phrases": [
+          "protože",
+          "potom",
+          "nakonec"
+        ]
+      },
+      "answer_key": "short connected story",
+      "xp_reward": 25
+    },
+    {
+      "id": 29039,
+      "lesson_id": 2904,
+      "type": "dialogue",
+      "prompt": "Complete the formal call",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Changing an appointment",
+        "lines": [
+          {
+            "speaker": "office",
+            "text": "Dobrý den, informační kancelář."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "office",
+            "text": "Ano, v pondělí v půl třetí máme volno."
+          }
+        ],
+        "blank_answers": [
+          [
+            "Dobrý den, chtěl/a bych změnit svůj termín.",
+            "Dobrý den, mohl/a bych změnit svůj termín?"
+          ]
+        ]
+      },
+      "answer_key": "formal call opening",
+      "xp_reward": 15
+    },
+    {
+      "id": 29040,
+      "lesson_id": 2904,
+      "type": "multiple_choice",
+      "prompt": "Choose the complete response",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Which response answers all three points: reason, new time, thanks?",
+        "options": [
+          "Děkuji.",
+          "Nemůžu přijít, protože pracuji. Můžu v pondělí v půl třetí. Děkuji.",
+          "V pondělí."
+        ],
+        "correct_index": 1,
+        "explanation": "A functional response covers every requested point."
+      },
+      "answer_key": "complete response",
+      "xp_reward": 10
+    },
+    {
+      "id": 29041,
+      "lesson_id": 2904,
+      "type": "writing_task",
+      "prompt": "Self-check your mission",
+      "data": {
+        "type": "writing_task",
+        "prompt_cz": "Napište jednu větu: Co jste v této misi zvládl/a dobře a co chcete příště zlepšit?",
+        "prompt_en": "Write one sentence: what did you do well in this mission and what do you want to improve next time?",
+        "min_words": 8,
+        "max_words": 35,
+        "sample_answer": "Dobře jsem napsala formální pozdrav, ale příště chci mluvit pomaleji."
+      },
+      "answer_key": "reflection",
+      "xp_reward": 10
+    }
+  ]
+}

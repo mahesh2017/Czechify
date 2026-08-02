@@ -1,397 +1,341 @@
 {
   "id": 3001,
   "unit_id": 30,
-  "order_in_unit": 1,
-  "title": "A1 Review: Grammar Consolidation",
-  "description": "A1-level grammar consolidation review. Practice nominative and accusative cases, present tense translations, vocabulary matching (food, family), common error correction (gender agreement, wrong case), a shopping dialogue, and a listening dictation. Linked to grammar rule GR-290.",
-  "duration_min": 20,
-  "lesson_type": "review",
-  "is_review": true,
+  "title": "Use Czech at the Café",
+  "description": "Retrieve food, drink, price, and politeness language in a new café situation.",
+  "lesson_type": "practice",
+  "order_in_unit": 0,
+  "duration_min": 12,
+  "is_review": false,
   "exercises": [
     {
-      "id": 90030,
-      "lesson_id": 3001,
+      "id": 30100,
       "type": "teaching",
-      "prompt": "A1 in a Nutshell",
+      "prompt": "Learn the useful chunks",
       "data": {
         "type": "teaching",
-        "heading": "A1 in a Nutshell",
-        "body": "Everything from A1 as one system: gender endings, nominative vs. accusative, and the three present-tense verb classes working together. Tap the examples to hear them.",
-        "intro": "Before you move on, let's make everything click as one system — genders, cases, and the present tense working together instead of as separate rules.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "Use Czech at the Café",
+        "body": "Review the whole café exchange as four useful chunks, not isolated words.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "To je káva.",
-            "en": "This is a coffee. (nominative)"
+            "cz": "Dám si kávu, prosím.",
+            "en": "I will have a coffee, please."
           },
           {
-            "cz": "Dám si kávu.",
-            "en": "I'll have a coffee. (accusative)"
+            "cz": "A ještě koláč.",
+            "en": "And a cake too."
           },
           {
-            "cz": "Mám dobrého kamaráda.",
-            "en": "I have a good friend. (adjective agrees)"
+            "cz": "Kolik to stojí?",
+            "en": "How much does it cost?"
           },
           {
-            "cz": "Dělám. Mluvím. Čtu.",
-            "en": "I do. I speak. I read. (three verb classes)"
+            "cz": "Děkuji, na shledanou.",
+            "en": "Thank you, goodbye."
           }
         ]
       },
-      "xp_reward": 0
+      "answer_key": "",
+      "xp_reward": 0,
+      "lesson_id": 3001
     },
     {
-      "id": 30001,
-      "lesson_id": 3001,
-      "type": "multiple_choice",
-      "prompt": "Identify the nominative subject in the sentence.",
+      "id": 30101,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the important detail",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které slovo je podmět v nominativu?",
-        "question_en": "Which word is the nominative subject in: 'Babička vaří oběd.'?",
-        "options": [
-          "Babička",
-          "vaří",
-          "oběd",
-          "žádné"
-        ],
-        "correct_index": 0,
-        "explanation": "'Babička' is the subject in the nominative case. 'Babička vaří oběd.' = Grandma is cooking lunch. The subject performs the action and is in the nominative. 'Oběd' is the accusative object."
-      },
-      "answer_key": "Babička",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-290"
-    },
-    {
-      "id": 30002,
-      "lesson_id": 3001,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct nominative form of the noun.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správný tvar nominativu.",
-        "question_en": "Choose the correct nominative form: '___ je hezký.' (a dog — pes, masculine animate)",
-        "options": [
-          "Pes",
-          "Psa",
-          "Psovi",
-          "Psem"
-        ],
-        "correct_index": 0,
-        "explanation": "'Pes je hezký.' = The dog is nice. 'Pes' is the nominative singular of masculine animate 'pes'. The nominative is the base form used for subjects and after 'to je' (this is)."
-      },
-      "answer_key": "Pes",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-290"
-    },
-    {
-      "id": 30003,
-      "lesson_id": 3001,
-      "type": "multiple_choice",
-      "prompt": "Identify the nominative form used after 'to je'.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Který tvar se používá po 'to je'?",
-        "question_en": "Choose the correct form: 'To je moje ___.' (a book — kniha, feminine)",
-        "options": [
-          "kniha",
-          "knihu",
-          "knihou",
-          "knihy"
-        ],
-        "correct_index": 0,
-        "explanation": "'To je moje kniha.' = This is my book. After 'to je' (this is), the noun is in the nominative case. 'Kniha' (feminine) stays in nominative 'kniha'. The adjective 'moje' also agrees in nominative feminine."
-      },
-      "answer_key": "kniha",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-290"
-    },
-    {
-      "id": 30004,
-      "lesson_id": 3001,
-      "type": "fill_blank",
-      "prompt": "Complete with the accusative form.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Vidím ___. (žena — woman, feminine)",
-        "blank_count": 1,
-        "explanation": "'Vidím ženu.' = I see a woman. Feminine nouns ending in -a change to -u in the accusative singular: žena → ženu.",
-        "blank_answers": [
-          [
-            "ženu"
-          ]
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for the situation, then again for the key detail.",
+        "transcript_cz": "Dobrý den. Dám si kávu, prosím. A ještě koláč. Kolik to stojí?",
+        "transcript_en": "Hello. I will have a coffee, please. And a cake too. How much does it cost?",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Dám si kávu, prosím.",
+              "Bydlím v Praze.",
+              "Jděte rovně."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "ženu",
+      "answer_key": "Dám si kávu, prosím.",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-290"
+      "lesson_id": 3001
     },
     {
-      "id": 30005,
-      "lesson_id": 3001,
-      "type": "fill_blank",
-      "prompt": "Complete with the accusative form.",
+      "id": 30102,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Mám nové ___. (auto — car, neuter)",
-        "blank_count": 1,
-        "explanation": "'Mám nové auto.' = I have a new car. Neuter nouns like 'auto' have the same form in nominative and accusative singular: auto → auto. The adjective 'nové' also stays the same (neuter nom/acc).",
-        "blank_answers": [
-          [
-            "auto"
-          ]
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit30/review_cafe_v1.png",
+        "image_label": "Use Czech at the Café",
+        "text_cz": "Dvě kamarádky jsou v kavárně. Jedna si dává kávu a koláč. Potom se ptá na cenu.",
+        "text_en": "Two friends are in a café. One has a coffee and cake. Then she asks the price.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Dám si kávu, prosím.",
+              "Bydlím v Praze.",
+              "Jděte rovně.",
+              "Dnes nepřijdu."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
         ]
       },
-      "answer_key": "auto",
+      "answer_key": "Dám si kávu, prosím.",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-290"
+      "lesson_id": 3001
     },
     {
-      "id": 30006,
-      "lesson_id": 3001,
-      "type": "fill_blank",
-      "prompt": "Complete with the accusative form.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Hledám ___. (kamarád — friend, masculine animate)",
-        "blank_count": 1,
-        "explanation": "'Hledám kamaráda.' = I'm looking for a friend. Masculine animate nouns add -a in the accusative singular: kamarád → kamaráda. This applies to all masculine animate nouns (muž → muže, bratr → bratra, pes → psa).",
-        "blank_answers": [
-          [
-            "kamaráda"
-          ]
-        ]
-      },
-      "answer_key": "kamaráda",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-290"
-    },
-    {
-      "id": 30007,
-      "lesson_id": 3001,
-      "type": "translation",
-      "prompt": "Translate to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I drink coffee every morning.",
-        "accepted_answers": [
-          "Piju kávu každé ráno.",
-          "Piji kávu každé ráno."
-        ],
-        "grammar_note": "'Piju kávu každé ráno.' = I drink coffee every morning. 'Piju' (or formal 'piji') = 1st person singular of 'pít' (to drink). 'Kávu' = coffee (accusative, feminine -a → -u). 'Každé ráno' = every morning (neuter accusative)."
-      },
-      "answer_key": "Piju kávu každé ráno.",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-290"
-    },
-    {
-      "id": 30008,
-      "lesson_id": 3001,
-      "type": "translation",
-      "prompt": "Translate to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "She works in a bank.",
-        "accepted_answers": [
-          "Ona pracuje v bance.",
-          "Pracuje v bance."
-        ],
-        "grammar_note": "'Ona pracuje v bance.' = She works in a bank. 'Pracuje' = 3rd person singular of 'pracovat'. 'V bance' = in a bank (locative case after 'v'). 'Banka' (feminine) → locative 'bance' (-a → -e)."
-      },
-      "answer_key": "Ona pracuje v bance.",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-290"
-    },
-    {
-      "id": 30009,
-      "lesson_id": 3001,
-      "type": "translation",
-      "prompt": "Translate to Czech.",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "We are students and we study Czech.",
-        "accepted_answers": [
-          "My jsme studenti a učíme se česky.",
-          "Jsme studenti a učíme se česky."
-        ],
-        "grammar_note": "'My jsme studenti a učíme se česky.' = We are students and we study Czech. 'Jsme' = are (1st pl. of být). 'Studenti' = students (nominative plural, masculine animate). 'Učíme se' = we study/learn (1st pl. + reflexive 'se'). 'Česky' = Czech (adverb)."
-      },
-      "answer_key": "My jsme studenti a učíme se česky.",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-290"
-    },
-    {
-      "id": 30010,
-      "lesson_id": 3001,
+      "id": 30103,
       "type": "matching",
-      "prompt": "Match the Czech food words to their English meanings.",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
         "type": "matching",
-        "prompt_en": "Match each Czech food word to its English meaning.",
         "pairs": [
           {
-            "left": "chléb",
-            "right": "bread"
+            "left": "Dám si kávu, prosím.",
+            "right": "I will have a coffee, please."
           },
           {
-            "left": "mléko",
-            "right": "milk"
+            "left": "A ještě koláč.",
+            "right": "And a cake too."
           },
           {
-            "left": "maso",
-            "right": "meat"
+            "left": "Kolik to stojí?",
+            "right": "How much does it cost?"
           },
           {
-            "left": "ovoce",
-            "right": "fruit"
-          },
-          {
-            "left": "zelenina",
-            "right": "vegetable"
+            "left": "Děkuji, na shledanou.",
+            "right": "Thank you, goodbye."
           }
         ],
-        "explanation": "A1 food vocabulary: chléb (bread, masc.), mléko (milk, neut.), maso (meat, neut.), ovoce (fruit, neut.), zelenina (vegetable, fem.)."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
       },
-      "answer_key": "chléb→bread, mléko→milk, maso→meat, ovoce→fruit, zelenina→vegetable",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-290"
+      "answer_key": "Dám si kávu, prosím.–I will have a coffee, please.; A ještě koláč.–And a cake too.; Kolik to stojí?–How much does it cost?; Děkuji, na shledanou.–Thank you, goodbye.",
+      "xp_reward": 10,
+      "lesson_id": 3001
     },
     {
-      "id": 30011,
-      "lesson_id": 3001,
-      "type": "matching",
-      "prompt": "Match the Czech family words to their English meanings.",
+      "id": 30104,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that fits",
       "data": {
-        "type": "matching",
-        "prompt_en": "Match each Czech family word to its English meaning.",
-        "pairs": [
-          {
-            "left": "matka",
-            "right": "mother"
-          },
-          {
-            "left": "otec",
-            "right": "father"
-          },
-          {
-            "left": "bratr",
-            "right": "brother"
-          },
-          {
-            "left": "sestra",
-            "right": "sister"
-          },
-          {
-            "left": "babička",
-            "right": "grandmother"
-          }
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Dám si kávu, prosím.",
+          "Bydlím v Praze.",
+          "Jděte rovně.",
+          "Dnes nepřijdu."
         ],
-        "explanation": "A1 family vocabulary: matka (mother, fem.), otec (father, masc. animate), bratr (brother, masc. animate), sestra (sister, fem.), babička (grandmother, fem.)."
+        "correct_index": 0,
+        "explanation": "Choose the chunk that communicates the important information in this scene."
       },
-      "answer_key": "matka→mother, otec→father, bratr→brother, sestra→sister, babička→grandmother",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-290"
+      "answer_key": "Dám si kávu, prosím.",
+      "xp_reward": 10,
+      "lesson_id": 3001
     },
     {
-      "id": 30012,
-      "lesson_id": 3001,
-      "type": "error_correction",
-      "prompt": "Find and correct the gender agreement error.",
+      "id": 30105,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
       "data": {
-        "type": "error_correction",
-        "prompt_en": "Find and correct the gender agreement error.",
-        "sentence_cz": "To je hezký kniha.",
-        "correct_sentence_cz": "To je hezká kniha.",
-        "error_type": "gender_agreement",
-        "explanation": "'Kniha' is feminine, so the adjective must take the feminine ending '-á': 'hezká kniha' (nice book). 'To je hezká kniha.' = This is a nice book. Masculine: hezký (dům), feminine: hezká (kniha), neuter: hezké (auto)."
+        "type": "fill_blank",
+        "sentence": "Dám si kávu, ___.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "prosím"
+          ]
+        ],
+        "explanation": "Use the same short pattern you have just heard and read."
       },
-      "answer_key": "To je hezká kniha.",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-290"
+      "answer_key": "prosím",
+      "xp_reward": 10,
+      "lesson_id": 3001
     },
     {
-      "id": 30013,
-      "lesson_id": 3001,
-      "type": "error_correction",
-      "prompt": "Find and correct the case error.",
+      "id": 30106,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
       "data": {
-        "type": "error_correction",
-        "prompt_en": "Find and correct the case error.",
-        "sentence_cz": "Vidím žena.",
-        "correct_sentence_cz": "Vidím ženu.",
-        "error_type": "wrong_case",
-        "explanation": "The verb 'vidět' (to see) takes a direct object in the accusative case. 'Žena' (feminine) → accusative 'ženu'. 'Vidím ženu.' = I see a woman. Feminine nouns ending in -a change to -u in the accusative singular."
+        "type": "word_order",
+        "words": [
+          "Dám",
+          "si",
+          "kávu,",
+          "prosím."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "translation_en": "Build the useful Czech sentence.",
+        "explanation": "Read the complete chunk aloud after you build it."
       },
-      "answer_key": "Vidím ženu.",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-290"
+      "answer_key": "Dám si kávu, prosím.",
+      "xp_reward": 10,
+      "lesson_id": 3001
     },
     {
-      "id": 30014,
-      "lesson_id": 3001,
+      "id": 30107,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Dám si kávu, prosím. A ještě koláč.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Dám si kávu, prosím. A ještě koláč.",
+      "xp_reward": 10,
+      "lesson_id": 3001
+    },
+    {
+      "id": 30108,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Dám si kávu, prosím. A ještě koláč.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Dám si kávu, prosím. A ještě koláč.",
+      "xp_reward": 15,
+      "lesson_id": 3001
+    },
+    {
+      "id": 30109,
       "type": "dialogue",
-      "prompt": "Complete the shopping dialogue. What does the customer answer to the shopkeeper?",
+      "prompt": "Complete the short exchange",
       "data": {
         "type": "dialogue",
-        "scenario": "V obchodě — In a shop",
+        "scenario": "Use Czech at the Café",
         "lines": [
           {
-            "speaker": "person_a",
-            "text": "Dobrý den, přejete si?"
+            "speaker": "waiter",
+            "text": "Co si dáte?"
           },
           {
-            "speaker": "person_b",
+            "speaker": "you",
             "text": "___"
           },
           {
-            "speaker": "person_a",
+            "speaker": "waiter",
             "text": "Ještě něco?"
           },
           {
-            "speaker": "person_b",
-            "text": "Ano, ještě mléko. Kolik to je?"
-          },
-          {
-            "speaker": "person_a",
-            "text": "Dohromady to je 85 korun."
-          },
-          {
-            "speaker": "person_b",
-            "text": "Tady jsou peníze. Děkuji, na shledanou!"
+            "speaker": "you",
+            "text": "___"
           }
         ],
-        "explanation": "Shopping dialogue at A1 level. Key phrases: 'Dobrý den, přejete si?' (Hello, what would you like?), 'Prosím si...' (I'd like...), 'Ještě něco?' (Anything else?), 'Kolik to je?' (How much is it?), 'Dohromady to je...' (Altogether it's...), 'Tady jsou peníze' (Here's the money).",
         "blank_answers": [
           [
-            "Dobrý den, prosím si kilo jablek a dva rohlíky.",
-            "Prosím si kilo jablek a dva rohlíky.",
-            "Dobrý den, prosím si kilo jablek."
+            "Dám si kávu, prosím.",
+            "Kávu, prosím."
+          ],
+          [
+            "A ještě koláč.",
+            "Ještě koláč."
           ]
-        ]
+        ],
+        "explanation": "Use a short, complete answer that moves the interaction forward."
       },
-      "answer_key": "Dobrý den, prosím si kilo jablek a dva rohlíky.",
-      "xp_reward": 20,
-      "grammar_rule_id": "GR-290"
+      "answer_key": "Dám si kávu, prosím. | A ještě koláč.",
+      "xp_reward": 15,
+      "lesson_id": 3001
     },
     {
-      "id": 30015,
-      "lesson_id": 3001,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear.",
+      "id": 30110,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "dictation",
-        "audio_hash": "list_30_15",
-        "expected_text": "Bydlím v Praze a pracuji v bance.",
-        "language": "cs-CZ",
-        "note": "A1 review sentence: 'Bydlím v Praze a pracuji v bance.' = I live in Prague and I work in a bank. Note 'v Praze' (locative after 'v') and 'v bance' (locative after 'v'). Both feminine nouns: Praha → Praze, banka → bance."
+        "type": "writing_task",
+        "prompt_en": "Write a two-item Czech café order and ask for the price.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 36,
+        "key_vocab": [
+          "Dám si kávu, prosím.",
+          "A ještě koláč.",
+          "Kolik to stojí?",
+          "Děkuji, na shledanou."
+        ],
+        "sample_answer": "Dám si kávu, prosím."
       },
-      "answer_key": "Bydlím v Praze a pracuji v bance.",
+      "answer_key": "Dám si kávu, prosím.",
+      "xp_reward": 0,
+      "lesson_id": 3001
+    },
+    {
+      "id": 30111,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second café exchange: greet, order a drink and food, ask the price, and close politely.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Dám si kávu, prosím.",
+          "A ještě koláč.",
+          "Kolik to stojí?"
+        ]
+      },
+      "answer_key": "Dám si kávu, prosím.; A ještě koláč.; Kolik to stojí?",
       "xp_reward": 20,
-      "grammar_rule_id": "GR-290"
+      "lesson_id": 3001
     }
-  ]
+  ],
+  "can_do": "reuse A1 Czech in a café situation.",
+  "new_language": [
+    "Dám si kávu, prosím.",
+    "A ještě koláč.",
+    "Kolik to stojí?",
+    "Děkuji, na shledanou."
+  ],
+  "recycles": [
+    "food",
+    "shopping",
+    "directions",
+    "transport",
+    "meeting plans"
+  ],
+  "exit_task": "reuse A1 Czech in a café situation."
 }

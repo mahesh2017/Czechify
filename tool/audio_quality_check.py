@@ -2,7 +2,7 @@
 """Automated audio quality checks for the Czech audio pack.
 
 Checks every MP3 for:
-  - Leading/trailing silence (flags clips with > 500ms of silence at either end)
+  - Leading/trailing silence (flags clips with > 1.2s of silence at either end)
   - Loudness (flags clips below -30 dBFS or above -6 dBFS RMS)
   - Clipping (flags clips with samples at or near 0 dBFS)
   - Duration (flags clips shorter than 200ms or longer than 30s)
@@ -23,9 +23,11 @@ import json
 import sys
 from pathlib import Path
 
+import audio_utterances as au
+
 try:
     from pydub import AudioSegment
-    from pydub.silence import detect_leading_silence, detect_trailing_silence
+    from pydub.silence import detect_leading_silence
 except ImportError:
     print(
         "pydub is required: pip install pydub\n"
@@ -39,13 +41,24 @@ AUDIO = ROOT / "assets" / "audio"
 MANIFEST = AUDIO / "manifest.json"
 
 # Thresholds
-SILENCE_THRESHOLD_MS = 500       # flag clips with > 500ms leading/trailing silence
+# Azure Neural clips consistently include about one second of encoded tail.
+# Treat that service baseline as normal and flag a materially longer edge.
+SILENCE_THRESHOLD_MS = 1_200
 SILENCE_DBFS = -40.0              # silence detection level
 LOUDNESS_LOW_DBFS = -30.0         # flag too-quiet clips
 LOUDNESS_HIGH_DBFS = -6.0         # flag too-loud clips
 CLIPPING_THRESHOLD = -0.1         # samples at or above this are near-clip
 DURATION_MIN_MS = 200
 DURATION_MAX_MS = 30_000
+
+
+def _edge_silence(audio: AudioSegment, *, trailing: bool = False) -> int:
+    """Measure silence at one edge using pydub's supported public helper."""
+    edge = audio.reverse() if trailing else audio
+    return detect_leading_silence(
+        edge,
+        silence_threshold=SILENCE_DBFS,
+    )
 
 
 def check_clip(path: Path) -> dict:
@@ -57,8 +70,8 @@ def check_clip(path: Path) -> dict:
         return {"file": path.name, "decodable": False, "issues": [f"undecodable: {e}"]}
 
     duration_ms = len(audio)
-    leading_silence = detect_leading_silence(audio, silence_thresh=SILENCE_DBFS)
-    trailing_silence = detect_trailing_silence(audio, silence_thresh=SILENCE_DBFS)
+    leading_silence = _edge_silence(audio)
+    trailing_silence = _edge_silence(audio, trailing=True)
 
     # RMS loudness
     rms_dbfs = audio.rms  # raw RMS amplitude
@@ -71,7 +84,8 @@ def check_clip(path: Path) -> dict:
 
     # Clipping detection: count samples at or near max amplitude
     max_amplitude = audio.max
-    has_clipping = max_amplitude >= 32767 * (1 - abs(CLIPPING_THRESHOLD))
+    clipping_amplitude = 32767 * (10 ** (CLIPPING_THRESHOLD / 20))
+    has_clipping = max_amplitude >= clipping_amplitude
 
     if duration_ms < DURATION_MIN_MS:
         issues.append(f"too short: {duration_ms}ms")
@@ -104,6 +118,12 @@ def check_clip(path: Path) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--gender", choices=("female", "male"), help="check one voice only")
+    parser.add_argument(
+        "--scope",
+        choices=("a1", "a2", "all"),
+        default="all",
+        help="check only utterances used by this course scope",
+    )
     parser.add_argument("--fix-verbose", action="store_true",
                         help="print every clip, not just ones with issues")
     parser.add_argument("--json", help="write full results as JSON to this path")
@@ -115,6 +135,7 @@ def main() -> int:
 
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     voices = manifest.get("voices", {})
+    allowed_keys = set(au.scoped_utterances(args.scope))
 
     all_results = []
     issue_count = 0
@@ -129,6 +150,8 @@ def main() -> int:
         print(f"{'='*60}")
 
         for digest, entry_data in sorted(entries.items()):
+            if digest not in allowed_keys:
+                continue
             if isinstance(entry_data, str):
                 path_str = entry_data
             else:

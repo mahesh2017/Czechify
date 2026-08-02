@@ -41,18 +41,6 @@ class DriftCurriculumRepository implements CurriculumRepository {
   @override
   Future<List<entity.Exercise>> getExercises(int lessonId) async {
     final rows = await _db.curriculumDao.getExercisesByLesson(lessonId);
-    // Unit 1 begins with the complete Czech alphabet (899), then applies
-    // those sounds in the illustrated word-and-sentence sequence (898).
-    // Preserve the stable exercise IDs so existing attempts and progress stay
-    // attached to the same content.
-    if (lessonId == 100) {
-      const openingSequence = <int, int>{899: 0, 898: 1};
-      rows.sort((a, b) {
-        final aOrder = openingSequence[a.id] ?? a.id;
-        final bOrder = openingSequence[b.id] ?? b.id;
-        return aOrder.compareTo(bOrder);
-      });
-    }
     return rows.map(_toEntityExercise).toList();
   }
 
@@ -65,8 +53,10 @@ class DriftCurriculumRepository implements CurriculumRepository {
       description: row.description,
       phase: Phase.values.byName(row.phase),
       orderIndex: row.orderIndex,
-      grammarTags:
-          row.grammarTags.split(',').where((t) => t.isNotEmpty).toList(),
+      grammarTags: row.grammarTags
+          .split(',')
+          .where((t) => t.isNotEmpty)
+          .toList(),
       isExamPrep: row.isExamPrep,
       lessonCount: row.lessonCount,
     );
@@ -79,6 +69,11 @@ class DriftCurriculumRepository implements CurriculumRepository {
       orderInUnit: row.orderInUnit,
       title: row.title,
       description: row.description,
+      canDo: row.canDo,
+      newLanguage: (jsonDecode(row.newLanguageJson) as List<dynamic>)
+          .cast<String>(),
+      recycles: (jsonDecode(row.recyclesJson) as List<dynamic>).cast<String>(),
+      exitTask: row.exitTask,
       durationMinutes: row.durationMinutes,
       lessonType: LessonType.values.byName(row.lessonType),
       isReview: row.isReview,

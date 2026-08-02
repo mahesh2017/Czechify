@@ -34,6 +34,15 @@ void main() {
     },
   );
 
+  test('A1 bank is labeled as independent course practice', () async {
+    final practice = await repo.getMockExam(
+      ExamLevel.a1,
+      product: ExamProduct.coursePractice,
+    );
+    expect(practice.product, ExamProduct.coursePractice);
+    expect(practice.blueprint.effectiveDate, 'not_applicable');
+  });
+
   test(
     'a bank for an unshipped product falls back to a labeled sample',
     () async {

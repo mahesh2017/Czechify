@@ -1,0 +1,339 @@
+{
+  "id": 3003,
+  "unit_id": 30,
+  "title": "Find Your Way",
+  "description": "Retrieve place, direction, and transport language in a new route situation.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 12,
+  "is_review": false,
+  "exercises": [
+    {
+      "id": 30300,
+      "type": "teaching",
+      "prompt": "Learn the useful chunks",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Find Your Way",
+        "body": "For directions, ask one short question, then listen for direction words and distance.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Kde je zastávka?",
+            "en": "Where is the stop?"
+          },
+          {
+            "cz": "Jděte rovně.",
+            "en": "Go straight ahead."
+          },
+          {
+            "cz": "Potom doleva.",
+            "en": "Then left."
+          },
+          {
+            "cz": "Je to blízko.",
+            "en": "It is close."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30301,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the important detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for the situation, then again for the key detail.",
+        "transcript_cz": "Promiňte, kde je zastávka? Jděte rovně a potom doleva. Je to blízko.",
+        "transcript_en": "Excuse me, where is the stop? Go straight ahead and then left. It is close.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Kde je zastávka?",
+              "Hledám modrý svetr.",
+              "Dnes nepřijdu."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Kde je zastávka?",
+      "xp_reward": 15,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30302,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit30/review_directions_v1.png",
+        "image_label": "Find Your Way",
+        "text_cz": "U tramvaje se Jana ptá na zastávku. Muž ukazuje rovně a potom doleva. Zastávka je blízko.",
+        "text_en": "Near the tram Jana asks for the stop. A man points straight ahead and then left. The stop is close.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Kde je zastávka?",
+              "Hledám modrý svetr.",
+              "Dnes nepřijdu.",
+              "Dám si koláč."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Kde je zastávka?",
+      "xp_reward": 15,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30303,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Kde je zastávka?",
+            "right": "Where is the stop?"
+          },
+          {
+            "left": "Jděte rovně.",
+            "right": "Go straight ahead."
+          },
+          {
+            "left": "Potom doleva.",
+            "right": "Then left."
+          },
+          {
+            "left": "Je to blízko.",
+            "right": "It is close."
+          }
+        ],
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+      },
+      "answer_key": "Kde je zastávka?–Where is the stop?; Jděte rovně.–Go straight ahead.; Potom doleva.–Then left.; Je to blízko.–It is close.",
+      "xp_reward": 10,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30304,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that fits",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Kde je zastávka?",
+          "Hledám modrý svetr.",
+          "Dnes nepřijdu.",
+          "Dám si koláč."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the chunk that communicates the important information in this scene."
+      },
+      "answer_key": "Kde je zastávka?",
+      "xp_reward": 10,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30305,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Jděte rovně a potom ___.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "doleva"
+          ]
+        ],
+        "explanation": "Use the same short pattern you have just heard and read."
+      },
+      "answer_key": "doleva",
+      "xp_reward": 10,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30306,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Kde",
+          "je",
+          "zastávka?"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2
+        ],
+        "translation_en": "Build the useful Czech sentence.",
+        "explanation": "Read the complete chunk aloud after you build it."
+      },
+      "answer_key": "Kde je zastávka?",
+      "xp_reward": 10,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30307,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Kde je zastávka? Jděte rovně a potom doleva.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Kde je zastávka? Jděte rovně a potom doleva.",
+      "xp_reward": 10,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30308,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Kde je zastávka? Jděte rovně a potom doleva.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Kde je zastávka? Jděte rovně a potom doleva.",
+      "xp_reward": 15,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30309,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Find Your Way",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "passer-by",
+            "text": "Jděte rovně."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "passer-by",
+            "text": "Je to blízko."
+          }
+        ],
+        "blank_answers": [
+          [
+            "Kde je zastávka?",
+            "Promiňte, kde je zastávka?"
+          ],
+          [
+            "Děkuji.",
+            "Děkuji moc."
+          ]
+        ],
+        "explanation": "Use a short, complete answer that moves the interaction forward."
+      },
+      "answer_key": "Kde je zastávka? | Děkuji.",
+      "xp_reward": 15,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30310,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a two-step Czech direction to a tram stop using rovně and doleva.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 36,
+        "key_vocab": [
+          "Kde je zastávka?",
+          "Jděte rovně.",
+          "Potom doleva.",
+          "Je to blízko."
+        ],
+        "sample_answer": "Kde je zastávka?"
+      },
+      "answer_key": "Kde je zastávka?",
+      "xp_reward": 0,
+      "lesson_id": 3003
+    },
+    {
+      "id": 30311,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second directions exchange: ask where the stop is, give two direction steps, and say whether it is close.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Kde je zastávka?",
+          "Jděte rovně.",
+          "Potom doleva."
+        ]
+      },
+      "answer_key": "Kde je zastávka?; Jděte rovně.; Potom doleva.",
+      "xp_reward": 20,
+      "lesson_id": 3003
+    }
+  ],
+  "can_do": "reuse A1 Czech to ask for and give directions.",
+  "new_language": [
+    "Kde je zastávka?",
+    "Jděte rovně.",
+    "Potom doleva.",
+    "Je to blízko."
+  ],
+  "recycles": [
+    "food",
+    "shopping",
+    "directions",
+    "transport",
+    "meeting plans"
+  ],
+  "exit_task": "reuse A1 Czech to ask for and give directions."
+}

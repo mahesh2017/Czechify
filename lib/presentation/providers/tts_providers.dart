@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../core/config/backend_config.dart';
+import '../../core/config/release_config.dart';
 import '../../core/utils/text_normalizer.dart';
 import '../../data/services/audio/audio_manifest.dart';
 import 'settings_providers.dart';
@@ -123,7 +124,7 @@ class EnglishTts {
     final cachedManifest = File('$cacheDir/manifest_en.json');
     try {
       final response = await _http.get<String>(
-        '$_publicAudioBase/manifest_en.json',
+        ReleaseConfig.audioManifestUrl('$_publicAudioBase/manifest_en.json'),
         options: Options(responseType: ResponseType.plain),
       );
       final raw = response.data;
@@ -181,7 +182,13 @@ class EnglishTts {
 
       if (status != CacheStatus.fresh) {
         final partial = File('${cachedAudio.path}.part');
-        await _http.download('$_publicAudioBase/$fileName', partial.path);
+        await _http.download(
+          ReleaseConfig.audioClipUrl(
+            '$_publicAudioBase/$fileName',
+            entry.sha256,
+          ),
+          partial.path,
+        );
         if (!await partial.exists() || await partial.length() == 0) {
           throw const FileSystemException('Downloaded audio is empty');
         }
@@ -388,7 +395,7 @@ class CzechTts {
 
     try {
       final response = await _http.get<String>(
-        '$_publicAudioBase/manifest.json',
+        ReleaseConfig.audioManifestUrl('$_publicAudioBase/manifest.json'),
         options: Options(responseType: ResponseType.plain),
       );
       final raw = response.data;
@@ -437,7 +444,13 @@ class CzechTts {
 
       if (status != CacheStatus.fresh) {
         final partial = File('${cachedAudio.path}.part');
-        await _http.download('$_publicAudioBase/$fileName', partial.path);
+        await _http.download(
+          ReleaseConfig.audioClipUrl(
+            '$_publicAudioBase/$fileName',
+            entry.sha256,
+          ),
+          partial.path,
+        );
         if (!await partial.exists() || await partial.length() == 0) {
           throw const FileSystemException('Downloaded audio is empty');
         }

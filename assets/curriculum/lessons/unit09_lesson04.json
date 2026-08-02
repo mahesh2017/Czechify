@@ -1,0 +1,339 @@
+{
+  "id": 904,
+  "unit_id": 9,
+  "order_in_unit": 3,
+  "title": "Mission: Arrange a Meeting",
+  "description": "Use numbers, contact details, time, and confirmation in one practical plan.",
+  "can_do": "arrange and confirm a simple meeting.",
+  "new_language": [
+    "Máš čas zítra?",
+    "V kolik?",
+    "Kde se sejdeme?",
+    "Dobře, platí."
+  ],
+  "recycles": [
+    "Mám…",
+    "Kde…?",
+    "dnes/zítra",
+    "Ano, dobře"
+  ],
+  "exit_task": "arrange and confirm a simple meeting.",
+  "duration_min": 12,
+  "lesson_type": "mission",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 9300,
+      "lesson_id": 904,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Mission: Arrange a Meeting",
+        "body": "Use numbers, contact details, time, and confirmation in one practical plan.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Máš čas zítra?",
+            "en": "Do you have time tomorrow?"
+          },
+          {
+            "cz": "V kolik?",
+            "en": "At what time?"
+          },
+          {
+            "cz": "Kde se sejdeme?",
+            "en": "Where shall we meet?"
+          },
+          {
+            "cz": "Dobře, platí.",
+            "en": "Good, agreed."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 9301,
+      "lesson_id": 904,
+      "type": "listening_comprehension",
+      "prompt": "Listen for meaning and one detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "transcript_cz": "Máš čas zítra? Ano. V kolik? V sedmnáct třicet. Sejdeme se v kavárně.",
+        "image": "assets/images/unit09/time_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Mission: Arrange a Meeting",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What time is the meeting?",
+            "options": [
+              "17:30",
+              "16:30",
+              "18:30"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "17:30",
+      "xp_reward": 15
+    },
+    {
+      "id": 9302,
+      "lesson_id": 904,
+      "type": "reading_comprehension",
+      "prompt": "Read for a useful detail",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read the short functional text and find the requested detail.",
+        "image": "assets/images/unit09/time_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "text_cz": "Plán: sobota 10:00, kavárna Luna, telefon 603 218 440.",
+        "text_en": "Plan: Saturday 10:00, Café Luna, telephone 603 218 440.",
+        "questions": [
+          {
+            "question_en": "Where is the meeting?",
+            "options": [
+              "Café Luna",
+              "The station",
+              "The library"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which text best summarizes the situation?",
+            "options": [
+              "Plan: Saturday 10:00, Café Luna, telephone 603 218 440.",
+              "The people are asking for directions.",
+              "The speaker is describing the weather."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Café Luna",
+      "xp_reward": 15
+    },
+    {
+      "id": 9303,
+      "lesson_id": 904,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Máš čas zítra?",
+            "right": "Do you have time tomorrow?"
+          },
+          {
+            "left": "V kolik?",
+            "right": "At what time?"
+          },
+          {
+            "left": "Kde se sejdeme?",
+            "right": "Where shall we meet?"
+          },
+          {
+            "left": "Dobře, platí.",
+            "right": "Good, agreed."
+          }
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning."
+      },
+      "answer_key": "Máš čas zítra?–Do you have time tomorrow?; V kolik?–At what time?; Kde se sejdeme?–Where shall we meet?; Dobře, platí.–Good, agreed.",
+      "xp_reward": 10
+    },
+    {
+      "id": 9304,
+      "lesson_id": 904,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that completes the lesson goal",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta se hodí do této situace?",
+        "question_en": "Which phrase belongs in this lesson situation?",
+        "options": [
+          "Máš čas zítra?",
+          "Je tam nádraží.",
+          "Dnes prší.",
+          "Kolik to stojí?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
+      },
+      "answer_key": "Máš čas zítra?",
+      "xp_reward": 10
+    },
+    {
+      "id": 9305,
+      "lesson_id": 904,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Máš ___ zítra?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "čas"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk."
+      },
+      "answer_key": "čas",
+      "xp_reward": 10
+    },
+    {
+      "id": 9306,
+      "lesson_id": 904,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "kolik?",
+          "V"
+        ],
+        "correct_order": [
+          1,
+          0
+        ],
+        "translation_en": "At what time?",
+        "explanation": "Rebuild the complete phrase in natural Czech order."
+      },
+      "answer_key": "V kolik?",
+      "xp_reward": 10
+    },
+    {
+      "id": 9307,
+      "lesson_id": 904,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Kde se sejdeme?",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing."
+      },
+      "answer_key": "Kde se sejdeme?",
+      "xp_reward": 10
+    },
+    {
+      "id": 9308,
+      "lesson_id": 904,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Dobře, platí.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Good, agreed."
+      },
+      "answer_key": "Dobře, platí.",
+      "xp_reward": 15
+    },
+    {
+      "id": 9309,
+      "lesson_id": 904,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Mission: Arrange a Meeting",
+        "image": "assets/images/unit09/time_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Máš čas zítra?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Kde se sejdeme?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Máš čas zítra?"
+          ],
+          [
+            "V kolik?"
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Máš čas zítra? | V kolik?",
+      "xp_reward": 15
+    },
+    {
+      "id": 9310,
+      "lesson_id": 904,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Prepare a complete meeting message with day, time, place, and confirmation.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Máš čas zítra?",
+          "V kolik?",
+          "Kde se sejdeme?",
+          "Dobře, platí."
+        ],
+        "sample_answer": "Máš čas zítra? V kolik? Kde se sejdeme? Dobře, platí."
+      },
+      "answer_key": "Máš čas zítra? V kolik? Kde se sejdeme? Dobře, platí.",
+      "xp_reward": 0
+    },
+    {
+      "id": 9311,
+      "lesson_id": 904,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a simple plan: exchange a contact detail, propose a day and time, name the meeting place, and confirm it.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "image": "assets/images/unit09/time_plan_v1.png",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 40,
+        "expected_phrases": [
+          "Máš čas zítra?",
+          "V kolik?",
+          "Kde se sejdeme?",
+          "Dobře, platí."
+        ]
+      },
+      "answer_key": "Máš čas zítra? V kolik? Kde se sejdeme? Dobře, platí.",
+      "xp_reward": 20
+    }
+  ]
+}

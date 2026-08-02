@@ -2,7 +2,7 @@
   "units": [
     {
       "id": 16,
-      "title": "Genitive Case",
+      "title": "Shop, Measure and Say Where From",
       "description": "Possession (kniha bratra), quantities (hodně), prepositions (bez, z/ze, do, od), negation objects",
       "phase": "a2",
       "order_index": 16,
@@ -16,7 +16,7 @@
     },
     {
       "id": 17,
-      "title": "Dative Case",
+      "title": "Give, Help and Express Preferences",
       "description": "Indirect objects (dávám kamarádovi), verbs with dative (pomáhat, rozumět, telefonovat), líbit se, chutnat",
       "phase": "a2",
       "order_index": 17,
@@ -28,7 +28,7 @@
     },
     {
       "id": 18,
-      "title": "Locative & Instrumental Cases",
+      "title": "Say Where, With Whom and How",
       "description": "Locative: o kom/čem?, v/na + loc. Instrumental: s kým/čím?, means of transport, professions (pracuju jako…), time expressions",
       "phase": "a2",
       "order_index": 18,
@@ -41,7 +41,7 @@
     },
     {
       "id": 19,
-      "title": "Past Tense — Full Conjugation",
+      "title": "Tell What Happened",
       "description": "All persons, gender agreement, motion verbs (šel/šla/šli), perfective aspect intro (napsat vs psát), time markers (včera, minulý týden)",
       "phase": "a2",
       "order_index": 19,
@@ -54,7 +54,7 @@
     },
     {
       "id": 20,
-      "title": "Future Tense & Conditional",
+      "title": "Make Plans and Ask Politely",
       "description": "Perfective future (napíšu), imperfective future (budu psát), conditional (chtěl bych, mohl bych), kdybych…",
       "phase": "a2",
       "order_index": 20,
@@ -67,7 +67,7 @@
     },
     {
       "id": 21,
-      "title": "Comparisons & Advanced Adjectives",
+      "title": "Compare and Choose",
       "description": "Comparative (-ější/-ší), superlative (nej-), comparisons with než, adverbs, dobrý→lepší, špatný→horší, velký→větší",
       "phase": "a2",
       "order_index": 21,
@@ -80,7 +80,7 @@
     },
     {
       "id": 22,
-      "title": "Complex Sentences & Conjunctions",
+      "title": "Explain Reasons and Connect Ideas",
       "description": "že (that), protože (because), když (when), až (when in future), jestli (if/whether), aby (so that), word order in subordinate clauses",
       "phase": "a2",
       "order_index": 22,
@@ -93,7 +93,7 @@
     },
     {
       "id": 23,
-      "title": "Modal Verbs & Permission",
+      "title": "Understand Rules and Ask Permission",
       "description": "Learn modal verbs muset (must), moct (can), and smět (be allowed to) for expressing obligation, ability, permission, and prohibition in everyday situations.",
       "phase": "a2",
       "order_index": 23,
@@ -110,7 +110,7 @@
     },
     {
       "id": 24,
-      "title": "Health & Body",
+      "title": "Handle a Doctor and Pharmacy Visit",
       "description": "Learn body parts, health vocabulary, and how to communicate at the doctor and pharmacy. Practice expressing pain, symptoms, and medical needs.",
       "phase": "a2",
       "order_index": 24,
@@ -126,7 +126,7 @@
     },
     {
       "id": 25,
-      "title": "Work, Professions & Education",
+      "title": "Describe Work and Education",
       "description": "Learn professions, workplace vocabulary, and education terminology. Practice describing jobs, studying, and workplace communication using instrumental and accusative cases.",
       "phase": "a2",
       "order_index": 25,
@@ -141,7 +141,7 @@
     },
     {
       "id": 26,
-      "title": "Housing & Home",
+      "title": "Find a Home and Report a Problem",
       "description": "Learn housing vocabulary, rooms, furniture, and household activities. Practice describing where things are using locative and prepositions of location.",
       "phase": "a2",
       "order_index": 26,
@@ -157,7 +157,7 @@
     },
     {
       "id": 27,
-      "title": "Verbs of Motion & Prefixed Verbs",
+      "title": "Navigate and Describe a Journey",
       "description": "Learn Czech motion verbs (jít, jet, chodit, jezdit) and their prefixed forms. Practice the imperfective/perfective aspect distinction through directional movement.",
       "phase": "a2",
       "order_index": 27,
@@ -173,8 +173,8 @@
     },
     {
       "id": 29,
-      "title": "A2 Exam Preparation",
-      "description": "Practice with A2-level exam-format exercises: reading comprehension (5 tasks), listening comprehension (5 recordings), writing tasks (emails, diary, excuses, invitations), and speaking practice (monologue, role-play, picture discussion). Modeled on the official Czech permanent residence A2 exam (new format April 2026).",
+      "title": "A2 Skills Practice",
+      "description": "Practical A2 reading, listening, writing and speaking activities for everyday Czech. This independent learning material is not official examination material, is not affiliated with an examination provider, and gives no examination result or prediction.",
       "phase": "a2",
       "order_index": 29,
       "grammar_tags": [
@@ -189,7 +189,7 @@
     },
     {
       "id": 31,
-      "title": "A2 Review & Consolidation",
+      "title": "A2 Real-Life Consolidation",
       "description": "Review and consolidate all A2 grammar and vocabulary: complete case system, past/future/conditional tenses, verbal aspect, adjective comparison, modal verbs, complex sentences, and formal communication vocabulary.",
       "phase": "a2",
       "order_index": 31,

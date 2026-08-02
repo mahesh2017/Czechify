@@ -1,340 +1,351 @@
 {
   "id": 1501,
   "unit_id": 15,
+  "title": "Describe Today's Weather",
+  "description": "Listen to a short forecast and describe today’s weather.",
+  "lesson_type": "practice",
   "order_in_unit": 0,
-  "title": "Weather & Seasons",
-  "description": "Learn Czech weather expressions (Je hezky/ošklivo/zima/teplo/horko), weather verbs (Prší/Sněží/Svítí slunce), the four seasons with their prepositions, and how to ask about the weather.",
-  "duration_min": 15,
-  "lesson_type": "introduction",
+  "duration_min": 12,
+  "is_review": false,
   "exercises": [
     {
-      "id": 90015,
+      "id": 15000,
       "lesson_id": 1501,
       "type": "teaching",
-      "prompt": "Weather, Seasons & \"I was…\"",
+      "prompt": "Learn the mission language",
       "data": {
         "type": "teaching",
-        "heading": "Weather, Seasons & \"I was…\"",
-        "body": "Chat about the sky and the seasons — and take your first step into the past tense, ready for the A1 exam.",
-        "intro": "Small talk everywhere starts with the sky. You'll learn to chat about the weather and the seasons — and take your first step back in time with the past tense, ready for the A1 exam.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "Describe Today's Weather",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "Je hezky.",
-            "en": "It's nice (weather)."
-          },
-          {
-            "cz": "Je ošklivo.",
-            "en": "It's bad (weather)."
+            "cz": "Dnes je teplo.",
+            "en": "Today it is warm."
           },
           {
             "cz": "Prší.",
-            "en": "It's raining."
+            "en": "It is raining."
           },
           {
-            "cz": "Sněží.",
-            "en": "It's snowing."
+            "cz": "Fouká vítr.",
+            "en": "The wind is blowing."
           },
           {
-            "cz": "Je zima.",
-            "en": "It's cold."
-          },
-          {
-            "cz": "Je horko.",
-            "en": "It's hot."
-          },
-          {
-            "cz": "jaro",
-            "en": "spring"
-          },
-          {
-            "cz": "léto",
-            "en": "summer"
-          },
-          {
-            "cz": "podzim",
-            "en": "autumn"
-          },
-          {
-            "cz": "zima",
-            "en": "winter"
-          },
-          {
-            "cz": "Byl jsem v Praze.",
-            "en": "I was in Prague. (male)"
-          },
-          {
-            "cz": "Byla jsem v Praze.",
-            "en": "I was in Prague. (female)"
+            "cz": "Svítí slunce.",
+            "en": "The sun is shining."
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
       "id": 15001,
       "lesson_id": 1501,
-      "type": "multiple_choice",
-      "prompt": "What does 'Je hezky' mean in English?",
+      "type": "listening_comprehension",
+      "prompt": "Listen for the useful chunks",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Je hezky",
-        "question_en": "What does 'Je hezky' mean?",
-        "options": [
-          "It's nice (weather)",
-          "It's hot",
-          "It's cold",
-          "It's raining"
-        ],
-        "correct_index": 0,
-        "explanation": "'Je hezky' = It's nice / the weather is nice. 'Je' = it is, 'hezky' = nicely/beautifully. This is the most common positive weather expression."
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "transcript_cz": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
+              "Jedu metrem.",
+              "Mám rád sýr."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "It's nice (weather)",
-      "grammar_rule_id": "GR-140",
-      "xp_reward": 10
+      "answer_key": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
+      "xp_reward": 15
     },
     {
       "id": 15002,
       "lesson_id": 1501,
-      "type": "multiple_choice",
-      "prompt": "Which Czech expression means 'It's raining'?",
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Který výraz znamená 'It's raining'?",
-        "question_en": "Which expression means 'It's raining'?",
-        "options": [
-          "Sněží",
-          "Prší",
-          "Svítí slunce",
-          "Fouká vítr"
-        ],
-        "correct_index": 1,
-        "explanation": "'Prší' = it's raining. 'Sněží' = it's snowing, 'Svítí slunce' = the sun is shining, 'Fouká vítr' = the wind is blowing."
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit15/weather_seasons_v1.png",
+        "image_label": "Describe Today's Weather",
+        "text_cz": "Dnes je v Praze chladno a prší. Odpoledne fouká vítr. Zítra bude slunečno.",
+        "text_en": "Today it is cool and raining in Prague. In the afternoon the wind blows. Tomorrow it will be sunny.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Prší.",
+              "Jedu metrem.",
+              "Mám rád sýr.",
+              "Kolik stojí bunda?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Prší",
-      "grammar_rule_id": "GR-140",
-      "xp_reward": 10
+      "answer_key": "Prší.",
+      "xp_reward": 15
     },
     {
       "id": 15003,
       "lesson_id": 1501,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'It's cold today.'",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "It's cold today.",
-        "accepted_answers": [
-          "Dnes je zima.",
-          "Je dnes zima.",
-          "Dneska je zima."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Dnes je teplo.",
+            "right": "Today it is warm."
+          },
+          {
+            "left": "Prší.",
+            "right": "It is raining."
+          },
+          {
+            "left": "Fouká vítr.",
+            "right": "The wind is blowing."
+          },
+          {
+            "left": "Svítí slunce.",
+            "right": "The sun is shining."
+          }
         ],
-        "grammar_note": "'Je zima' = it's cold (literally 'it is cold/winter'). 'Dnes' = today. Weather uses 'Je' (it is) + the weather word. 'zima' can also mean 'winter' — context tells you which meaning is intended."
+        "explanation": "Keep the complete Czech chunk together."
       },
-      "answer_key": "Dnes je zima.",
-      "grammar_rule_id": "GR-140",
+      "answer_key": "Dnes je teplo.–Today it is warm.; Prší.–It is raining.; Fouká vítr.–The wind is blowing.; Svítí slunce.–The sun is shining.",
       "xp_reward": 10
     },
     {
       "id": 15004,
       "lesson_id": 1501,
-      "type": "fill_blank",
-      "prompt": "Complete the weather expression: 'The sun is shining.'",
+      "type": "multiple_choice",
+      "prompt": "Choose the useful phrase for the scene",
       "data": {
-        "type": "fill_blank",
-        "sentence": "___ slunce.",
-        "blank_count": 1,
-        "explanation": "'Svítí slunce' = the sun is shining. 'Svítí' = it shines (3rd person singular of 'svítit'). This is a verb-first weather expression — unlike 'Je...' patterns.",
-        "blank_answers": [
-          [
-            "Svítí"
-          ]
-        ]
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Prší.",
+          "Jedu metrem.",
+          "Mám rád sýr.",
+          "Kolik stojí bunda?"
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the phrase that performs the unit mission."
       },
-      "answer_key": "Svítí",
-      "grammar_rule_id": "GR-140",
-      "xp_reward": 15
+      "answer_key": "Prší.",
+      "xp_reward": 10
     },
     {
       "id": 15005,
       "lesson_id": 1501,
-      "type": "translation",
-      "prompt": "Translate to English: 'Prší. Vezmi si deštník!'",
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
       "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Prší. Vezmi si deštník!",
-        "accepted_answers": [
-          "It's raining. Take an umbrella!",
-          "It is raining. Take an umbrella!",
-          "It's raining. Grab an umbrella!"
+        "type": "fill_blank",
+        "sentence": "Dnes ___ a ___ vítr.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "prší"
+          ],
+          [
+            "fouká"
+          ]
         ],
-        "grammar_note": "'Prší' = it's raining (3rd person singular). 'Vezmi si' = take (imperative of vzít si). 'deštník' = umbrella (from 'déšť' = rain)."
+        "explanation": "Use the chunk you have just heard and read."
       },
-      "answer_key": "It's raining. Take an umbrella!",
-      "grammar_rule_id": "GR-140",
+      "answer_key": "prší | fouká",
       "xp_reward": 10
     },
     {
       "id": 15006,
       "lesson_id": 1501,
-      "type": "multiple_choice",
-      "prompt": "Which of these is the Czech word for 'summer'?",
+      "type": "word_order",
+      "prompt": "Build a natural short exchange",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Které slovo znamená 'summer'?",
-        "question_en": "Which word means 'summer'?",
-        "options": [
-          "jaro",
-          "léto",
-          "podzim",
-          "zima"
+        "type": "word_order",
+        "words": [
+          "Dnes",
+          "prší."
         ],
-        "correct_index": 1,
-        "explanation": "'léto' = summer (neuter). 'jaro' = spring, 'podzim' = autumn, 'zima' = winter. The four seasons are: jaro, léto, podzim, zima."
+        "correct_order": [
+          0,
+          1
+        ],
+        "translation_en": "Build the useful Czech exchange.",
+        "explanation": "Keep the useful phrase together as a chunk."
       },
-      "answer_key": "léto",
-      "grammar_rule_id": "GR-141",
+      "answer_key": "Dnes prší.",
       "xp_reward": 10
     },
     {
       "id": 15007,
       "lesson_id": 1501,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct preposition: 'in spring'",
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
       "data": {
-        "type": "fill_blank",
-        "sentence": "___ jaře kvetou květiny.",
-        "blank_count": 1,
-        "explanation": "'Na jaře' = in spring. Jaro uses 'na' + locative (na jaře), NOT 'v'. Compare: 'v létě' (in summer) uses 'v', but 'na podzim' (in autumn) and 'na jaře' both use 'na'.",
-        "blank_answers": [
-          [
-            "Na"
-          ]
-        ]
+        "type": "dictation",
+        "expected_text": "Dnes prší a fouká vítr.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
       },
-      "answer_key": "Na",
-      "grammar_rule_id": "GR-141",
-      "xp_reward": 15
+      "answer_key": "Dnes prší a fouká vítr.",
+      "xp_reward": 10
     },
     {
       "id": 15008,
       "lesson_id": 1501,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct preposition: 'in winter'",
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
       "data": {
-        "type": "fill_blank",
-        "sentence": "___ zimě je zima a sněží.",
-        "blank_count": 1,
-        "explanation": "'V zimě' = in winter. Zima uses 'v' + locative (v zimě). This is the same pattern as 'v létě' (in summer). The four patterns are: na jaře, v létě, na podzim, v zimě.",
-        "blank_answers": [
-          [
-            "V"
-          ]
-        ]
+        "type": "pronunciation",
+        "target_text": "Dnes prší a fouká vítr.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
       },
-      "answer_key": "V",
-      "grammar_rule_id": "GR-141",
+      "answer_key": "Dnes prší a fouká vítr.",
       "xp_reward": 15
     },
     {
       "id": 15009,
       "lesson_id": 1501,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'In autumn the leaves fall' in Czech?",
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řeknete 'In autumn the leaves fall' česky?",
-        "question_en": "How do you say 'In autumn the leaves fall' in Czech?",
-        "options": [
-          "Na podzim padá listí.",
-          "V podzim padá listí.",
-          "Na podzimu padá listí.",
-          "V podzimu padá listí."
+        "type": "dialogue",
+        "scenario": "Describe Today's Weather",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Jaké je dnes počasí?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "A zítra?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
         ],
-        "correct_index": 0,
-        "explanation": "'Na podzim padá listí.' = In autumn the leaves fall. Podzim uses 'na' + locative (na podzim), not 'v'. 'padá listí' = leaves fall (listí = foliage/leaves, neuter collective noun)."
+        "blank_answers": [
+          [
+            "Dnes prší.",
+            "Prší."
+          ],
+          [
+            "Zítra bude teplo.",
+            "Bude teplo."
+          ]
+        ],
+        "explanation": "Use short, complete answers that fit the situation."
       },
-      "answer_key": "Na podzim padá listí.",
-      "grammar_rule_id": "GR-141",
-      "xp_reward": 10
+      "answer_key": "Dnes prší. | Zítra bude teplo.",
+      "xp_reward": 15
     },
     {
       "id": 15010,
       "lesson_id": 1501,
-      "type": "dialogue",
-      "prompt": "Complete the weather conversation. What does person B answer?",
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
       "data": {
-        "type": "dialogue",
-        "scenario": "Na ulici — On the street",
-        "lines": [
-          {
-            "speaker": "person_a",
-            "text": "Ahoj! Jaké je dnes počasí?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "___"
-          },
-          {
-            "speaker": "person_a",
-            "text": "To je dobře! A co zítra?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "Zítra bude pršet. Bude ošklivo."
-          }
+        "type": "writing_task",
+        "prompt_en": "Write two short weather sentences for today and tomorrow.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Dnes je teplo.",
+          "Prší.",
+          "Fouká vítr.",
+          "Svítí slunce."
         ],
-        "explanation": "'Jaké je dnes počasí?' = 'What's the weather like today?' Standard response uses 'Je' + weather word. 'Je hezky' = it's nice. 'Svítí slunce' = the sun is shining. 'Bude pršet' = it will rain (future). 'Bude ošklivo' = it will be bad weather.",
-        "blank_answers": [
-          [
-            "Je hezky. Svítí slunce a je teplo.",
-            "Hezky, svítí slunce.",
-            "Je hezky a teplo.",
-            "Svítí slunce."
-          ]
-        ]
+        "sample_answer": "Dnes je teplo."
       },
-      "answer_key": "Je hezky. Svítí slunce a je teplo.",
-      "grammar_rule_id": "GR-140",
-      "xp_reward": 25
+      "answer_key": "Dnes je teplo.",
+      "xp_reward": 0
     },
     {
       "id": 15011,
       "lesson_id": 1501,
-      "type": "pronunciation",
-      "prompt": "Pronounce the weather question.",
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
       "data": {
-        "type": "pronunciation",
-        "target_text": "Jaké je dnes počasí?",
-        "target_audio_hash": "placeholder_15011",
-        "focus_sounds": [
-          "po",
-          "ča",
-          "sí"
-        ],
-        "min_score": 0.6,
-        "translation_en": "What's the weather like today?"
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
+              "Jedu metrem.",
+              "Mám rád sýr."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
       },
-      "answer_key": "Jaké je dnes počasí?",
-      "grammar_rule_id": "GR-140",
+      "answer_key": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
       "xp_reward": 15
-    },
-    {
-      "id": 15012,
-      "lesson_id": 1501,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear (weather description).",
-      "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_15012",
-        "expected_text": "Je hezky a svítí slunce.",
-        "language": "cs-CZ",
-        "note": "'Je hezky a svítí slunce.' = 'It's nice and the sun is shining.' 'hezky' = nicely/beautifully (weather context), 'svítí' = shines, 'slunce' = sun (neuter)."
-      },
-      "answer_key": "Je hezky a svítí slunce.",
-      "xp_reward": 20
     }
-  ]
+  ],
+  "can_do": "understand and describe today’s weather.",
+  "new_language": [
+    "Dnes je teplo.",
+    "Prší.",
+    "Fouká vítr.",
+    "Svítí slunce."
+  ],
+  "recycles": [
+    "days and time",
+    "places",
+    "transport",
+    "present-tense activities"
+  ],
+  "exit_task": "understand and describe today’s weather."
 }

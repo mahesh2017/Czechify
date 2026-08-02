@@ -1,0 +1,341 @@
+{
+  "id": 2804,
+  "unit_id": 28,
+  "title": "Speak with Confidence",
+  "description": "Complete independent four-skills A1 practice with no official-exam affiliation or result claim.",
+  "lesson_type": "mission",
+  "order_in_unit": 3,
+  "duration_min": 12,
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 28400,
+      "type": "teaching",
+      "prompt": "Learn the useful chunks",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Speak with Confidence",
+        "body": "In the speaking part, give a short answer first. Then add one detail from the picture or your own life.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Na obrázku je Praha.",
+            "en": "In the picture is Prague."
+          },
+          {
+            "cz": "Vidím řeku a most.",
+            "en": "I can see a river and a bridge."
+          },
+          {
+            "cz": "Jsem v Praze rád.",
+            "en": "I like being in Prague."
+          },
+          {
+            "cz": "Zítra pojedu vlakem.",
+            "en": "Tomorrow I will go by train."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28401,
+      "type": "listening_comprehension",
+      "prompt": "Listen for the important detail",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for the situation, then again for the key detail.",
+        "transcript_cz": "Na obrázku je Praha. Vidím řeku a most. Zítra pojedu vlakem.",
+        "transcript_en": "In the picture is Prague. I can see a river and a bridge. Tomorrow I will go by train.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Na obrázku je Praha.",
+              "Jmenuji se Anna Nováková.",
+              "Dnes nepřijdu."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Na obrázku je Praha.",
+      "xp_reward": 15,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28402,
+      "type": "reading_comprehension",
+      "prompt": "Look at the scene and read for the important details",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Use the image and short text together.",
+        "image": "assets/images/unit28/exam_speaking_v1.png",
+        "image_label": "Speak with Confidence",
+        "text_cz": "Anna a zkoušející se dívají na obrázek Prahy. Anna popisuje řeku, most a svůj plán na zítřek.",
+        "text_en": "Anna and her language partner look at a picture of Prague. Anna describes the river, bridge, and her plan for tomorrow.",
+        "questions": [
+          {
+            "question_en": "Which phrase belongs to this scene?",
+            "options": [
+              "Na obrázku je Praha.",
+              "Jmenuji se Anna Nováková.",
+              "Dnes nepřijdu.",
+              "Jízdenka stojí sto korun."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is this a familiar everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Na obrázku je Praha.",
+      "xp_reward": 15,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28403,
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "Na obrázku je Praha.",
+            "right": "In the picture is Prague."
+          },
+          {
+            "left": "Vidím řeku a most.",
+            "right": "I can see a river and a bridge."
+          },
+          {
+            "left": "Jsem v Praze rád.",
+            "right": "I like being in Prague."
+          },
+          {
+            "left": "Zítra pojedu vlakem.",
+            "right": "Tomorrow I will go by train."
+          }
+        ],
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+      },
+      "answer_key": "Na obrázku je Praha.–In the picture is Prague.; Vidím řeku a most.–I can see a river and a bridge.; Jsem v Praze rád.–I like being in Prague.; Zítra pojedu vlakem.–Tomorrow I will go by train.",
+      "xp_reward": 10,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28404,
+      "type": "multiple_choice",
+      "prompt": "Choose the phrase that fits",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta patří do této situace?",
+        "question_en": "Which phrase fits this situation?",
+        "options": [
+          "Na obrázku je Praha.",
+          "Jmenuji se Anna Nováková.",
+          "Dnes nepřijdu.",
+          "Jízdenka stojí sto korun."
+        ],
+        "correct_index": 0,
+        "explanation": "Choose the chunk that communicates the important information in this scene."
+      },
+      "answer_key": "Na obrázku je Praha.",
+      "xp_reward": 10,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28405,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Na obrázku ___ Praha.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "je"
+          ]
+        ],
+        "explanation": "Use the same short pattern you have just heard and read."
+      },
+      "answer_key": "je",
+      "xp_reward": 10,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28406,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Na",
+          "obrázku",
+          "je",
+          "Praha."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "translation_en": "Build the useful Czech sentence.",
+        "explanation": "Read the complete chunk aloud after you build it."
+      },
+      "answer_key": "Na obrázku je Praha.",
+      "xp_reward": 10,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28407,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Na obrázku je Praha. Vidím řeku a most.",
+        "language": "cs-CZ",
+        "note": "Listen for the complete phrase before typing."
+      },
+      "answer_key": "Na obrázku je Praha. Vidím řeku a most.",
+      "xp_reward": 10,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28408,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful answer",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Na obrázku je Praha. Vidím řeku a most.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Say the useful phrase clearly and naturally."
+      },
+      "answer_key": "Na obrázku je Praha. Vidím řeku a most.",
+      "xp_reward": 15,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28409,
+      "type": "dialogue",
+      "prompt": "Complete the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Speak with Confidence",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Co je na obrázku?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "Co vidíte?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Na obrázku je Praha.",
+            "Je tam Praha."
+          ],
+          [
+            "Vidím řeku a most.",
+            "Řeku a most."
+          ]
+        ],
+        "explanation": "Use a short, complete answer that moves the interaction forward."
+      },
+      "answer_key": "Na obrázku je Praha. | Vidím řeku a most.",
+      "xp_reward": 15,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28410,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write three simple Czech sentences that describe the travel picture and one plan for tomorrow.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 36,
+        "key_vocab": [
+          "Na obrázku je Praha.",
+          "Vidím řeku a most.",
+          "Jsem v Praze rád.",
+          "Zítra pojedu vlakem."
+        ],
+        "sample_answer": "Na obrázku je Praha."
+      },
+      "answer_key": "Na obrázku je Praha.",
+      "xp_reward": 0,
+      "lesson_id": 2804
+    },
+    {
+      "id": 28411,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–35 second A1 speaking answer: introduce the picture, name two things you see, then say one personal travel plan.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Na obrázku je Praha.",
+          "Vidím řeku a most.",
+          "Jsem v Praze rád."
+        ]
+      },
+      "answer_key": "Na obrázku je Praha.; Vidím řeku a most.; Jsem v Praze rád.",
+      "xp_reward": 20,
+      "lesson_id": 2804
+    }
+  ],
+  "can_do": "combine A1 reading, listening, writing, and speaking skills.",
+  "new_language": [
+    "Na obrázku je Praha.",
+    "Vidím řeku a most.",
+    "Jsem v Praze rád.",
+    "Zítra pojedu vlakem."
+  ],
+  "recycles": [
+    "personal details",
+    "time and numbers",
+    "travel",
+    "messages",
+    "descriptions"
+  ],
+  "exit_task": "combine A1 reading, listening, writing, and speaking skills."
+}

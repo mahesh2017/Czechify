@@ -1,0 +1,458 @@
+{
+  "id": 204,
+  "unit_id": 2,
+  "order_in_unit": 3,
+  "title": "Mission: Meet Someone",
+  "description": "Complete a formal and an informal first meeting, then create your own short introduction.",
+  "duration_min": 12,
+  "lesson_type": "practice",
+  "is_review": true,
+  "exercises": [
+    {
+      "id": 2300,
+      "lesson_id": 204,
+      "type": "teaching",
+      "prompt": "Use a simple conversation map",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Greet → ask → answer → close",
+        "body": "A successful first meeting does not need perfect grammar. Choose one register, exchange a name and origin, then close politely. If speech is too fast, use your Unit 1 repair phrase and continue.",
+        "play_all_label": "Hear the mission chunks",
+        "items": [
+          {
+            "cz": "Dobrý den. / Ahoj.",
+            "say": "Dobrý den. Ahoj.",
+            "en": "Choose one greeting"
+          },
+          {
+            "cz": "Jak se jmenujete? / Jak se jmenuješ?",
+            "say": "Jak se jmenujete? Jak se jmenuješ?",
+            "en": "Ask a name"
+          },
+          {
+            "cz": "Jmenuju se…",
+            "en": "Give your name"
+          },
+          {
+            "cz": "Odkud jste? / Odkud jsi?",
+            "say": "Odkud jste? Odkud jsi?",
+            "en": "Ask about origin"
+          },
+          {
+            "cz": "Jsem z…",
+            "en": "Give your origin"
+          },
+          {
+            "cz": "Těší mě.",
+            "en": "Respond warmly"
+          },
+          {
+            "cz": "Na shledanou. / Ahoj.",
+            "say": "Na shledanou. Ahoj.",
+            "en": "Close in the same register"
+          },
+          {
+            "cz": "Prosím pomalu.",
+            "en": "Repair if speech is too fast"
+          }
+        ]
+      },
+      "xp_reward": 0
+    },
+    {
+      "id": 2301,
+      "lesson_id": 204,
+      "type": "listening_comprehension",
+      "prompt": "Mission check: understand a formal first meeting",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen once for the situation, then again for details.",
+        "transcript_cz": "Dobrý den. Jak se jmenujete? Jmenuji se Hana Lee. Odkud jste? Jsem z Koreje. Těší mě. Mě také. Na shledanou.",
+        "questions": [
+          {
+            "question_en": "What is the speaker’s name?",
+            "options": [
+              "Hana Lee",
+              "Klára Lee",
+              "Daniel Kim"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where is Hana from?",
+            "options": [
+              "Korea",
+              "Germany",
+              "India"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which register is used?",
+            "options": [
+              "Formal",
+              "Informal",
+              "Mixed"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Hana Lee; Korea; Formal",
+      "xp_reward": 20
+    },
+    {
+      "id": 2302,
+      "lesson_id": 204,
+      "type": "listening_comprehension",
+      "prompt": "Mission check: understand a friendly first meeting",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen. Identify the new person and the repair strategy.",
+        "transcript_cz": "Ahoj, já jsem Tomáš. Jak se jmenuješ? Prosím pomalu. Jak se jmenuješ? Jmenuju se Sofia. Jsem z Polska. Těší mě. Mě taky.",
+        "questions": [
+          {
+            "question_en": "What is the new learner’s name?",
+            "options": [
+              "Sofia",
+              "Tomáš",
+              "Hana"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What help does Sofia request?",
+            "options": [
+              "Slower speech",
+              "Spelling",
+              "English"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where is Sofia from?",
+            "options": [
+              "Poland",
+              "Czechia",
+              "Ukraine"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Sofia; Slower speech; Poland",
+      "xp_reward": 20
+    },
+    {
+      "id": 2303,
+      "lesson_id": 204,
+      "type": "reading_comprehension",
+      "prompt": "Read two complete encounters",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Find the register mistake in one exchange.",
+        "text_cz": "A — Dobrý den. Jak se jmenujete? — Jmenuji se Pavel. Těší mě. — Mě také. Na shledanou.\n\nB — Ahoj. Jak se jmenujete? — Jmenuju se Eva. Těší mě. — Mě taky. Ahoj.",
+        "text_en": "A — Hello. What is your name? — My name is Pavel. Nice to meet you. — Likewise. Goodbye.\n\nB — Hi. What is your name? — My name is Eva. Nice to meet you. — Likewise. Bye.",
+        "questions": [
+          {
+            "question_en": "Which exchange keeps one register throughout?",
+            "options": [
+              "A",
+              "B",
+              "Both"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What should replace 'Jak se jmenujete?' in B?",
+            "options": [
+              "Jak se jmenuješ?",
+              "Odkud jste?",
+              "Na shledanou."
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "A; Jak se jmenuješ?",
+      "xp_reward": 15
+    },
+    {
+      "id": 2304,
+      "lesson_id": 204,
+      "type": "multiple_choice",
+      "prompt": "A formal speaker is too fast. What keeps the exchange going?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Mluví příliš rychle. Co řeknete?",
+        "question_en": "The person is speaking too quickly. What do you say?",
+        "options": [
+          "Prosím pomalu.",
+          "Ahoj.",
+          "Jsem z Indie.",
+          "Na shledanou."
+        ],
+        "correct_index": 0,
+        "explanation": "Prosím pomalu is polite, useful in either register, and lets the conversation continue."
+      },
+      "answer_key": "Prosím pomalu.",
+      "xp_reward": 10
+    },
+    {
+      "id": 2305,
+      "lesson_id": 204,
+      "type": "dialogue",
+      "prompt": "Complete the formal meeting mission",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Checking in for your first Czech class",
+        "lines": [
+          {
+            "speaker": "administrator",
+            "text": "Dobrý den. Jak se jmenujete?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "administrator",
+            "text": "Odkud jste?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "administrator",
+            "text": "Těší mě. Na shledanou."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Jmenuji se Mahesh.",
+            "Jmenuju se Mahesh.",
+            "Jmenuji se Mahesh",
+            "Jmenuju se Mahesh"
+          ],
+          [
+            "Jsem z Indie.",
+            "Jsem z Indie"
+          ],
+          [
+            "Na shledanou.",
+            "Na shledanou",
+            "Těší mě. Na shledanou.",
+            "Těší mě, na shledanou."
+          ]
+        ],
+        "explanation": "Keep Dobrý den, jmenujete/jste, and Na shledanou together in the formal register."
+      },
+      "answer_key": "Jmenuji se Mahesh. | Jsem z Indie. | Na shledanou.",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 20
+    },
+    {
+      "id": 2306,
+      "lesson_id": 204,
+      "type": "dialogue",
+      "prompt": "Complete the friendly meeting mission",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Meeting a new friend at a café",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Ahoj! Jak se jmenuješ?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Odkud jsi?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Těší mě."
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Jmenuju se Sofia.",
+            "Jmenuji se Sofia.",
+            "Jmenuju se Sofia",
+            "Jmenuji se Sofia"
+          ],
+          [
+            "Jsem z Polska.",
+            "Jsem z Polska"
+          ],
+          [
+            "Mě taky.",
+            "Mě také.",
+            "Těší mě.",
+            "Mě taky",
+            "Mě také",
+            "Těší mě"
+          ]
+        ],
+        "explanation": "Keep Ahoj, jmenuješ/jsi, and the friendly response together."
+      },
+      "answer_key": "Jmenuju se Sofia. | Jsem z Polska. | Mě taky.",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 20
+    },
+    {
+      "id": 2307,
+      "lesson_id": 204,
+      "type": "word_order",
+      "prompt": "Build the core introduction in a natural order",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Dobrý",
+          "den.",
+          "Jmenuji",
+          "se",
+          "Mahesh.",
+          "Jsem",
+          "z",
+          "Indie.",
+          "Těší",
+          "mě."
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "translation_en": "Hello. My name is Mahesh. I am from India. Nice to meet you.",
+        "explanation": "A clear sequence is greeting, name, origin, friendly closing."
+      },
+      "answer_key": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě.",
+      "xp_reward": 15
+    },
+    {
+      "id": 2308,
+      "lesson_id": 204,
+      "type": "dictation",
+      "prompt": "Listen and type the polite close",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Těší mě. Na shledanou.",
+        "language": "cs-CZ",
+        "note": "The first phrase acknowledges the meeting; the second closes it formally."
+      },
+      "answer_key": "Těší mě. Na shledanou.",
+      "xp_reward": 10
+    },
+    {
+      "id": 2309,
+      "lesson_id": 204,
+      "type": "pronunciation",
+      "prompt": "Rehearse a complete model before your own mission",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Dobrý den. Jmenuji se Alex. Jsem z Indie. Těší mě.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "ě",
+          "long_vowel"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Hello. My name is Alex. I am from India. Nice to meet you."
+      },
+      "answer_key": "Dobrý den. Jmenuji se Alex. Jsem z Indie. Těší mě.",
+      "grammar_rule_id": "GR-011",
+      "xp_reward": 15
+    },
+    {
+      "id": 2310,
+      "lesson_id": 204,
+      "type": "speaking_task",
+      "prompt": "Record your 20–30 second first-meeting mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Choose formal or informal. Greet the person, say your real name and origin, say 'nice to meet you', and close. Add 'Prosím pomalu' if you need repair language.",
+        "prompt_cz": "Pozdravte se, představte se a řekněte, odkud jste.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "Dobrý den.",
+          "Ahoj.",
+          "Jmenuju se",
+          "Jmenuji se",
+          "Jsem z",
+          "Těší mě.",
+          "Na shledanou.",
+          "Prosím pomalu."
+        ]
+      },
+      "answer_key": "Dobrý den.; Ahoj.; Jmenuju se; Jmenuji se; Jsem z; Těší mě.; Na shledanou.; Prosím pomalu.",
+      "xp_reward": 20
+    },
+    {
+      "id": 2311,
+      "lesson_id": 204,
+      "type": "writing_task",
+      "prompt": "Create your personal introduction card",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write the introduction you want ready in real life. Use your own name and origin, then check that your greeting, question forms, and farewell use one consistent register.",
+        "prompt_cz": "Napište svoje krátké představení.",
+        "min_words": 7,
+        "max_words": 25,
+        "key_vocab": [
+          "Dobrý den.",
+          "Ahoj.",
+          "Jmenuju se…",
+          "Jsem z…",
+          "Těší mě.",
+          "Na shledanou."
+        ],
+        "sample_answer": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě. Na shledanou."
+      },
+      "answer_key": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě. Na shledanou.",
+      "xp_reward": 0
+    }
+  ],
+  "can_do": "complete a short formal or friendly first meeting.",
+  "new_language": [
+    "Dobrý den. / Ahoj.",
+    "Jak se jmenujete? / Jak se jmenuješ?",
+    "Jmenuju se…",
+    "Odkud jste? / Odkud jsi?",
+    "Jsem z…",
+    "Těší mě.",
+    "Na shledanou. / Ahoj.",
+    "Prosím pomalu."
+  ],
+  "recycles": [
+    "Czech sound clues",
+    "Prosím pomalu",
+    "Ještě jednou, prosím"
+  ],
+  "exit_task": "complete a short formal or friendly first meeting."
+}

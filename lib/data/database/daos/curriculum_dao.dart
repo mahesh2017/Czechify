@@ -55,9 +55,13 @@ class CurriculumDao extends DatabaseAccessor<AppDatabase>
   // ── Exercises ──
 
   Future<List<Exercise>> getExercisesByLesson(int lessonId) {
-    return (select(exercises)..where(
-      (e) => e.lessonId.equals(lessonId) & e.isActive.equals(true),
-    )).get();
+    return (select(exercises)
+          ..where((e) => e.lessonId.equals(lessonId) & e.isActive.equals(true))
+          // Exercise IDs are the stable sequence within every bundled lesson.
+          // An explicit order keeps SQLite query planning from changing the
+          // pedagogical flow (exposure -> perception -> guided production).
+          ..orderBy([(e) => OrderingTerm.asc(e.id)]))
+        .get();
   }
 
   Future<void> insertExercises(List<ExercisesCompanion> exerciseList) =>

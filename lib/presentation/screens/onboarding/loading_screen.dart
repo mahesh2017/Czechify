@@ -67,10 +67,29 @@ class LoadingScreen extends StatelessWidget {
                   : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/czechify_logo.png',
-                        width: 92,
-                        height: 92,
+                      TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 0, end: 1),
+                        duration:
+                            MediaQuery.disableAnimationsOf(context)
+                                ? Duration.zero
+                                : const Duration(milliseconds: 850),
+                        curve: Curves.elasticOut,
+                        builder:
+                            (context, value, child) => Transform.rotate(
+                              angle: -.05 * (1 - value),
+                              child: Transform.scale(
+                                scale: .72 + (.28 * value),
+                                child: Opacity(
+                                  opacity: value.clamp(0, 1),
+                                  child: child,
+                                ),
+                              ),
+                            ),
+                        child: Image.asset(
+                          'assets/images/czechify_logo.png',
+                          width: 92,
+                          height: 92,
+                        ),
                       ),
                       const SizedBox(height: 24),
                       const Text(
