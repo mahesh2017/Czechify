@@ -525,5 +525,20 @@
   "a11yAddVocabToDeck": "Přidat do balíčku na opakování",
   "a11yScenarioCard": "Scénář: {title}. {description}",
   "a11yFeedback": "Zpětná vazba: {title}",
-  "a11yContinueButton": "Tlačítko {label}"
+  "a11yContinueButton": "Tlačítko {label}",
+  "reminderStepTitle": "Kdy bychom ti měli připomínat?",
+  "reminderStepBody": "Vyber si čas a pošleme ti jemnou připomínku zhruba v tomto čase, abys procvičil/a češtinu.",
+  "reminderStepToggle": "Ano, připomínej mi denně",
+  "reminderStepCatchUp": "Plus jemná večerní připomínka v 21:30, pokud jsi ještě nestudoval/a.",
+  "reminderStepChangeAnytime": "Toto můžeš kdykoli změnit v Nastavení.",
+  "reminderSettingsTitle": "Připomínky ke studiu",
+  "reminderSettingsBody": "Budeme ti připomínat zhruba ve zvoleném čase. Plus jemná večerní připomínka, pokud jsi ještě nestudoval/a.",
+  "reminderTimeLabel": "Čas připomínky",
+  "reminderEnabled": "Připomínky zapnuty",
+  "reminderDisabled": "Připomínky vypnuty",
+  "reminderCatchUpLabel": "Večerní připomínka",
+  "reminderCatchUpSuppressed": "Večerní připomínka je vypnutá, protože tvůj čas připomínky je blízko 21:30.",
+  "reminderPermissionBlocked": "Oznámení jsou blokována. Otevři Nastavení → Oznámení → Czechify pro povolení.",
+  "reminderOpenSettings": "Otevřít nastavení",
+  "reminderSettingsEntryBanner": "Dostávej denní připomínky a udržuj svou sérii."
 }

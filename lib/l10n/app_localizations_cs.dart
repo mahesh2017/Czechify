@@ -1562,4 +1562,56 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get a11ySendMessage => 'Odeslat zprávu';
+
+  @override
+  String get reminderStepTitle => 'Kdy bychom ti měli připomínat?';
+
+  @override
+  String get reminderStepBody =>
+      'Vyber si čas a pošleme ti jemnou připomínku zhruba v tomto čase, abys procvičil/a češtinu.';
+
+  @override
+  String get reminderStepToggle => 'Ano, připomínej mi denně';
+
+  @override
+  String get reminderStepCatchUp =>
+      'Plus jemná večerní připomínka v 21:30, pokud jsi ještě nestudoval/a.';
+
+  @override
+  String get reminderStepChangeAnytime =>
+      'Toto můžeš kdykoli změnit v Nastavení.';
+
+  @override
+  String get reminderSettingsTitle => 'Připomínky ke studiu';
+
+  @override
+  String get reminderSettingsBody =>
+      'Budeme ti připomínat zhruba ve zvoleném čase. Plus jemná večerní připomínka, pokud jsi ještě nestudoval/a.';
+
+  @override
+  String get reminderTimeLabel => 'Čas připomínky';
+
+  @override
+  String get reminderEnabled => 'Připomínky zapnuty';
+
+  @override
+  String get reminderDisabled => 'Připomínky vypnuty';
+
+  @override
+  String get reminderCatchUpLabel => 'Večerní připomínka';
+
+  @override
+  String get reminderCatchUpSuppressed =>
+      'Večerní připomínka je vypnutá, protože tvůj čas připomínky je blízko 21:30.';
+
+  @override
+  String get reminderPermissionBlocked =>
+      'Oznámení jsou blokována. Otevři Nastavení → Oznámení → Czechify pro povolení.';
+
+  @override
+  String get reminderOpenSettings => 'Otevřít nastavení';
+
+  @override
+  String get reminderSettingsEntryBanner =>
+      'Dostávej denní připomínky a udržuj svou sérii.';
 }

@@ -8,17 +8,27 @@ import 'package:logging/logging.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 import 'core/diagnostics/safe_diagnostics.dart';
+import 'core/notifications/notification_service.dart';
+import 'core/notifications/navigation_intent.dart';
 import 'presentation/routes/app_router.dart';
 import 'presentation/providers/database_providers.dart';
 import 'presentation/providers/daily_arrival_providers.dart';
 import 'presentation/providers/feedback_providers.dart';
 import 'presentation/providers/settings_providers.dart';
 import 'presentation/providers/sync_providers.dart';
+import 'presentation/providers/reminder_coordinator.dart';
 import 'presentation/widgets/celebration/celebration_host.dart';
 import 'presentation/screens/onboarding/loading_screen.dart';
 
 /// App entry point.
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await NotificationService.instance.initialize();
+  } catch (e, stack) {
+    SafeDiagnostics.error('notification_init_failed', e, stack);
+  }
+
   // Surface package:logging output during development; keep release quiet.
   Logger.root.level = kDebugMode ? Level.INFO : Level.WARNING;
   Logger.root.onRecord.listen((record) {
@@ -54,11 +64,35 @@ void main() {
 }
 
 /// Root app widget.
-class CzechifyApp extends ConsumerWidget {
+class CzechifyApp extends ConsumerStatefulWidget {
   const CzechifyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CzechifyApp> createState() => _CzechifyAppState();
+}
+
+class _CzechifyAppState extends ConsumerState<CzechifyApp> {
+  StreamSubscription<NavigationTarget>? _navigationSubscription;
+  NavigationTarget? _pendingNavigation;
+  bool _navigationFlushScheduled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _navigationSubscription = NavigationIntent.stream.listen((target) {
+      if (!mounted) return;
+      setState(() => _pendingNavigation = target);
+    });
+  }
+
+  @override
+  void dispose() {
+    _navigationSubscription?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final initFuture = ref.watch(appInitializationProvider);
     final onboardingDone = ref.watch(onboardingDoneProvider);
     final arrivalDue = ref.watch(dailyArrivalDueProvider);
@@ -87,6 +121,11 @@ class CzechifyApp extends ConsumerWidget {
     // local course is ready. Its failure must not replace the usable app UI.
     ref.watch(backgroundInitializationProvider);
     ref.watch(syncTriggerCoordinatorProvider);
+    // Keep the reminder coordinator alive so it can react to settings
+    // changes, XP transitions, and app lifecycle events.
+    ref.watch(reminderCoordinatorProvider);
+
+    _flushNotificationNavigation();
 
     // Warm the answer sounds before the first lesson. Loading one on first use
     // costs enough to be heard as lag on a clip meant to land with the tap.
@@ -115,6 +154,23 @@ class CzechifyApp extends ConsumerWidget {
           (context, child) =>
               CelebrationHost(child: child ?? const SizedBox.shrink()),
     );
+  }
+
+  void _flushNotificationNavigation() {
+    if (_pendingNavigation == null || _navigationFlushScheduled) return;
+    _navigationFlushScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigationFlushScheduled = false;
+      if (!mounted) return;
+      final target = _pendingNavigation;
+      _pendingNavigation = null;
+      final location = switch (target) {
+        NavigationTarget.curriculum => '/curriculum',
+        NavigationTarget.review => '/review',
+        null => null,
+      };
+      if (location != null) ref.read(appRouterProvider).go(location);
+    });
   }
 }
 

@@ -2761,6 +2761,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Send message'**
   String get a11ySendMessage;
+
+  /// No description provided for @reminderStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When should we nudge you?'**
+  String get reminderStepTitle;
+
+  /// No description provided for @reminderStepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a time and we\'ll send a gentle reminder around that time to practice Czech.'**
+  String get reminderStepBody;
+
+  /// No description provided for @reminderStepToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, remind me daily'**
+  String get reminderStepToggle;
+
+  /// No description provided for @reminderStepCatchUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Plus a gentle evening nudge at 21:30 if you haven\'t studied yet.'**
+  String get reminderStepCatchUp;
+
+  /// No description provided for @reminderStepChangeAnytime.
+  ///
+  /// In en, this message translates to:
+  /// **'You can change this any time in Settings.'**
+  String get reminderStepChangeAnytime;
+
+  /// No description provided for @reminderSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Study Reminders'**
+  String get reminderSettingsTitle;
+
+  /// No description provided for @reminderSettingsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll remind you around your chosen time. Plus a gentle evening nudge if you haven\'t studied yet.'**
+  String get reminderSettingsBody;
+
+  /// No description provided for @reminderTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder time'**
+  String get reminderTimeLabel;
+
+  /// No description provided for @reminderEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders on'**
+  String get reminderEnabled;
+
+  /// No description provided for @reminderDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders off'**
+  String get reminderDisabled;
+
+  /// No description provided for @reminderCatchUpLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening catch-up'**
+  String get reminderCatchUpLabel;
+
+  /// No description provided for @reminderCatchUpSuppressed.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening catch-up is off because your reminder time is close to 21:30.'**
+  String get reminderCatchUpSuppressed;
+
+  /// No description provided for @reminderPermissionBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are blocked. Open Settings → Notifications → Czechify to enable.'**
+  String get reminderPermissionBlocked;
+
+  /// No description provided for @reminderOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get reminderOpenSettings;
+
+  /// No description provided for @reminderSettingsEntryBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Get daily reminders to keep your streak going.'**
+  String get reminderSettingsEntryBanner;
 }
 
 class _AppLocalizationsDelegate

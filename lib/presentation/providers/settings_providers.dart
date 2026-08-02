@@ -75,6 +75,24 @@ class AppSettings {
   final Locale? locale;
   final bool curriculumMapView;
 
+  /// Preferred study reminder time. Null = no reminder set.
+  /// Stored as two ints in SharedPreferences: hour and minute.
+  final TimeOfDay? preferredTime;
+
+  /// Whether daily reminder is enabled. Default false.
+  /// Only true if user explicitly opted in during onboarding or Settings.
+  final bool remindersEnabled;
+
+  /// Whether the 21:30 evening catch-up is enabled. Default true
+  /// (but only active if remindersEnabled is also true).
+  /// Auto-suppressed when preferredTime is within 2h of 21:30.
+  final bool catchUpEnabled;
+
+  /// IANA timezone name last detected from the device. Null = not yet
+  /// detected. Used to detect timezone changes on app resume and trigger
+  /// rescheduling of all owned notifications.
+  final String? lastKnownTimezone;
+
   const AppSettings({
     this.themeMode = AppThemeMode.system,
     this.dailyGoalXp = 50,
@@ -87,6 +105,10 @@ class AppSettings {
     this.hapticsEnabled = true,
     this.locale,
     this.curriculumMapView = true,
+    this.preferredTime,
+    this.remindersEnabled = false,
+    this.catchUpEnabled = true,
+    this.lastKnownTimezone,
   });
 
   AppSettings copyWith({
@@ -102,6 +124,10 @@ class AppSettings {
     Locale? locale,
     bool clearLocale = false,
     bool? curriculumMapView,
+    TimeOfDay? preferredTime,
+    bool? remindersEnabled,
+    bool? catchUpEnabled,
+    String? lastKnownTimezone,
   }) {
     return AppSettings(
       themeMode: themeMode ?? this.themeMode,
@@ -117,6 +143,10 @@ class AppSettings {
       // and "follow the device" is a real choice the user can pick.
       locale: clearLocale ? null : (locale ?? this.locale),
       curriculumMapView: curriculumMapView ?? this.curriculumMapView,
+      preferredTime: preferredTime ?? this.preferredTime,
+      remindersEnabled: remindersEnabled ?? this.remindersEnabled,
+      catchUpEnabled: catchUpEnabled ?? this.catchUpEnabled,
+      lastKnownTimezone: lastKnownTimezone ?? this.lastKnownTimezone,
     );
   }
 }
@@ -135,6 +165,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
   static const _kHaptics = 'settings_haptics_enabled';
   static const _kLocale = 'settings_locale';
   static const _kCurriculumMapView = 'settings_curriculum_map_view';
+  static const _kReminderHour = 'settings_reminder_hour';
+  static const _kReminderMinute = 'settings_reminder_minute';
+  static const _kRemindersEnabled = 'settings_reminders_enabled';
+  static const _kCatchUpEnabled = 'settings_catch_up_enabled';
+  static const _kLastKnownTimezone = 'settings_last_known_timezone';
 
   @override
   AppSettings build() {
@@ -157,6 +192,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
     final ttsRate = prefs.getDouble(_kTtsRate) ?? 0.45;
     final voiceIndex = prefs.getInt(_kTtsVoiceGender) ?? 0;
     final levelIdx = prefs.getInt(_kStartingLevel) ?? 0;
+    final reminderHour = prefs.getInt(_kReminderHour);
+    final reminderMinute = prefs.getInt(_kReminderMinute);
+    final remindersEnabled = prefs.getBool(_kRemindersEnabled) ?? false;
+    final catchUpEnabled = prefs.getBool(_kCatchUpEnabled) ?? true;
+    final lastKnownTz = prefs.getString(_kLastKnownTimezone);
 
     state = AppSettings(
       themeMode:
@@ -187,6 +227,18 @@ class SettingsNotifier extends Notifier<AppSettings> {
         _ => null,
       },
       curriculumMapView: prefs.getBool(_kCurriculumMapView) ?? true,
+      preferredTime:
+          reminderHour != null &&
+                  reminderHour >= 0 &&
+                  reminderHour <= 23 &&
+                  reminderMinute != null &&
+                  reminderMinute >= 0 &&
+                  reminderMinute <= 59
+              ? TimeOfDay(hour: reminderHour, minute: reminderMinute)
+              : null,
+      remindersEnabled: remindersEnabled,
+      catchUpEnabled: catchUpEnabled,
+      lastKnownTimezone: lastKnownTz,
     );
   }
 
@@ -281,6 +333,39 @@ class SettingsNotifier extends Notifier<AppSettings> {
   Future<void> completeOnboarding() async {
     final prefs = await _prefs();
     await prefs.setBool(_kOnboardingDone, true);
+  }
+
+  /// Set the preferred study reminder time. Null (via clearing the stored
+  /// ints) means "no reminder set"; callers pass a concrete [TimeOfDay].
+  Future<void> setPreferredTime(TimeOfDay time) async {
+    final prefs = await _prefs();
+    await prefs.setInt(_kReminderHour, time.hour);
+    await prefs.setInt(_kReminderMinute, time.minute);
+    state = state.copyWith(preferredTime: time);
+  }
+
+  /// Toggle daily study reminders on or off. The ReminderCoordinator reacts
+  /// to the settings change: when turning on it requests notification
+  /// permission and schedules; when turning off it cancels all owned IDs.
+  Future<void> setRemindersEnabled(bool enabled) async {
+    final prefs = await _prefs();
+    await prefs.setBool(_kRemindersEnabled, enabled);
+    state = state.copyWith(remindersEnabled: enabled);
+  }
+
+  /// Toggle the 21:30 evening catch-up reminder.
+  Future<void> setCatchUpEnabled(bool enabled) async {
+    final prefs = await _prefs();
+    await prefs.setBool(_kCatchUpEnabled, enabled);
+    state = state.copyWith(catchUpEnabled: enabled);
+  }
+
+  /// Record the last detected IANA timezone name. Used by the
+  /// ReminderCoordinator to detect timezone changes on app resume.
+  Future<void> setLastKnownTimezone(String tz) async {
+    final prefs = await _prefs();
+    await prefs.setString(_kLastKnownTimezone, tz);
+    state = state.copyWith(lastKnownTimezone: tz);
   }
 }
 

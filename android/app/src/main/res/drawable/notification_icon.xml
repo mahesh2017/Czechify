@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Monochrome Czechify bell icon for notification status bar -->
+    <!-- White-on-transparent, system tints it for status bar display -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,4 C22.9,4 22,4.9 22,6 L22,7.5 C16.9,8.4 13,12.9 13,18.3 L13,24 C13,27 11.5,29.5 9,31 L9,33 L39,33 L39,31 C36.5,29.5 35,27 35,24 L35,18.3 C35,12.9 31.1,8.4 26,7.5 L26,6 C26,4.9 25.1,4 24,4 Z M20,37 C20,39.2 21.8,41 24,41 C26.2,41 28,39.2 28,37 L20,37 Z" />
+</vector>

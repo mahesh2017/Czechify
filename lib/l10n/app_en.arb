@@ -780,5 +780,20 @@
   "@a11yFeedback": {"placeholders": {"title": {"type": "String"}}},
   "a11yContinueButton": "{label} button",
   "@a11yContinueButton": {"placeholders": {"label": {"type": "String"}}},
-  "a11ySendMessage": "Send message"
+  "a11ySendMessage": "Send message",
+  "reminderStepTitle": "When should we nudge you?",
+  "reminderStepBody": "Pick a time and we'll send a gentle reminder around that time to practice Czech.",
+  "reminderStepToggle": "Yes, remind me daily",
+  "reminderStepCatchUp": "Plus a gentle evening nudge at 21:30 if you haven't studied yet.",
+  "reminderStepChangeAnytime": "You can change this any time in Settings.",
+  "reminderSettingsTitle": "Study Reminders",
+  "reminderSettingsBody": "We'll remind you around your chosen time. Plus a gentle evening nudge if you haven't studied yet.",
+  "reminderTimeLabel": "Reminder time",
+  "reminderEnabled": "Reminders on",
+  "reminderDisabled": "Reminders off",
+  "reminderCatchUpLabel": "Evening catch-up",
+  "reminderCatchUpSuppressed": "Evening catch-up is off because your reminder time is close to 21:30.",
+  "reminderPermissionBlocked": "Notifications are blocked. Open Settings → Notifications → Czechify to enable.",
+  "reminderOpenSettings": "Open Settings",
+  "reminderSettingsEntryBanner": "Get daily reminders to keep your streak going."
 }

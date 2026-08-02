@@ -1,9 +1,12 @@
+import 'dart:io';
+import 'package:app_settings/app_settings.dart' as system_settings;
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
 import '../../../core/legal/legal_content.dart';
+import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/tts_providers.dart';
@@ -272,6 +275,90 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
               ],
             ),
+
+            // ── Study Reminders (mobile only — hidden on macOS) ──
+            if (Platform.isIOS || Platform.isAndroid) ...[
+              const _GroupLabel('Reminders'),
+              _Group(
+                children: [
+                  _Row(
+                    icon: Icons.notifications_active_outlined,
+                    tint: t.amberSoft,
+                    fg: t.amber,
+                    title: l10n.reminderSettingsTitle,
+                    subtitle: l10n.reminderSettingsBody,
+                    trailing: Switch(
+                      value: settings.remindersEnabled,
+                      onChanged: (v) async {
+                        await ref
+                            .read(settingsProvider.notifier)
+                            .setRemindersEnabled(v);
+                      },
+                    ),
+                  ),
+                  if (settings.remindersEnabled) ...[
+                    _Divider(),
+                    // Reminder time picker row.
+                    _ReminderTimeRow(
+                      time:
+                          settings.preferredTime ??
+                          const TimeOfDay(hour: 19, minute: 0),
+                      onChanged: (time) async {
+                        await ref
+                            .read(settingsProvider.notifier)
+                            .setPreferredTime(time);
+                      },
+                    ),
+                    // Catch-up toggle — only when gap > 2h (otherwise
+                    // suppressed by the scheduler's own gap check).
+                    if (_catchUpGapIsWide(
+                      settings.preferredTime ??
+                          const TimeOfDay(hour: 19, minute: 0),
+                    )) ...[
+                      _Divider(),
+                      _Row(
+                        icon: Icons.nights_stay_outlined,
+                        tint: t.violetSoft,
+                        fg: t.violet,
+                        title: l10n.reminderCatchUpLabel,
+                        subtitle: l10n.reminderStepCatchUp,
+                        trailing: Switch(
+                          value: settings.catchUpEnabled,
+                          onChanged:
+                              (v) => ref
+                                  .read(settingsProvider.notifier)
+                                  .setCatchUpEnabled(v),
+                        ),
+                      ),
+                    ] else if (settings.catchUpEnabled) ...[
+                      _Divider(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.info_outline, size: 18, color: t.faint),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                l10n.reminderCatchUpSuppressed,
+                                style: TextStyle(
+                                  fontSize: 13.5,
+                                  color: t.muted,
+                                  height: 1.5,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    // Permission blocked warning.
+                    _ReminderPermissionWarning(),
+                  ],
+                ],
+              ),
+            ],
 
             // ── Audio ──
             const _GroupLabel('Audio'),
@@ -542,6 +629,183 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       AppThemeMode.light => 'Light',
       AppThemeMode.dark => 'Dark',
     };
+  }
+
+  /// Whether the preferred reminder time is far enough from 21:30 (≥ 2h)
+  /// that the evening catch-up makes sense.
+  static bool _catchUpGapIsWide(TimeOfDay preferred) {
+    const eveningMinutes = 21 * 60 + 30; // 21:30
+    final prefMinutes = preferred.hour * 60 + preferred.minute;
+    final gap = (eveningMinutes - prefMinutes).abs();
+    return gap >= 120;
+  }
+}
+
+/// Tappable row that opens a [showTimePicker] and calls [onChanged].
+class _ReminderTimeRow extends StatelessWidget {
+  const _ReminderTimeRow({required this.time, required this.onChanged});
+
+  final TimeOfDay time;
+  final ValueChanged<TimeOfDay> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final label =
+        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+    return InkWell(
+      onTap: () async {
+        final picked = await showTimePicker(
+          context: context,
+          initialTime: time,
+          helpText: l10n.reminderTimeLabel,
+        );
+        if (picked != null) onChanged(picked);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            IconTile(
+              icon: Icons.schedule_outlined,
+              tint: t.elev,
+              fg: t.muted,
+              size: 36,
+              radius: 12,
+              iconSize: 18,
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.reminderTimeLabel,
+                    style: TextStyle(
+                      fontSize: 14.5,
+                      fontWeight: FontWeight.w600,
+                      color: t.ink,
+                    ),
+                  ),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: t.muted,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, size: 15, color: t.faint),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Checks notification permission and shows a warning + "Open Settings"
+/// instruction when reminders are enabled but the OS has blocked notifications.
+class _ReminderPermissionWarning extends StatefulWidget {
+  @override
+  State<_ReminderPermissionWarning> createState() =>
+      _ReminderPermissionWarningState();
+}
+
+class _ReminderPermissionWarningState
+    extends State<_ReminderPermissionWarning> {
+  bool? _permitted;
+  bool _checking = true;
+  AppLifecycleListener? _lifecycleListener;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPermission();
+    _lifecycleListener = AppLifecycleListener(onResume: _checkPermission);
+  }
+
+  @override
+  void dispose() {
+    _lifecycleListener?.dispose();
+    super.dispose();
+  }
+
+  Future<void> _checkPermission() async {
+    final result = await NotificationService.instance.areNotificationsEnabled();
+    if (mounted) {
+      setState(() {
+        _permitted = result;
+        _checking = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_checking) return const SizedBox.shrink();
+    // null = unknown (e.g. macOS) — don't show a false alarm.
+    if (_permitted == null || _permitted == true) {
+      return const SizedBox.shrink();
+    }
+
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return Column(
+      children: [
+        _Divider(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 14, 16, 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.warning_amber_rounded, size: 20, color: t.amber),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.reminderPermissionBlocked,
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        color: t.muted,
+                        height: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton.icon(
+                      onPressed: () => _openSystemSettings(),
+                      icon: Icon(
+                        Icons.settings_outlined,
+                        size: 18,
+                        color: t.pri,
+                      ),
+                      label: Text(
+                        l10n.reminderOpenSettings,
+                        style: TextStyle(
+                          color: t.pri,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _openSystemSettings() async {
+    await system_settings.AppSettings.openAppSettings(
+      type: system_settings.AppSettingsType.notification,
+    );
   }
 }
 
