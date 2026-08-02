@@ -8,17 +8,26 @@ import 'package:logging/logging.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 import 'core/diagnostics/safe_diagnostics.dart';
+import 'core/notifications/notification_service.dart';
 import 'presentation/routes/app_router.dart';
 import 'presentation/providers/database_providers.dart';
 import 'presentation/providers/daily_arrival_providers.dart';
 import 'presentation/providers/feedback_providers.dart';
 import 'presentation/providers/settings_providers.dart';
 import 'presentation/providers/sync_providers.dart';
+import 'presentation/providers/reminder_coordinator.dart';
 import 'presentation/widgets/celebration/celebration_host.dart';
 import 'presentation/screens/onboarding/loading_screen.dart';
 
 /// App entry point.
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await NotificationService.instance.initialize();
+  } catch (e, stack) {
+    SafeDiagnostics.error('notification_init_failed', e, stack);
+  }
+
   // Surface package:logging output during development; keep release quiet.
   Logger.root.level = kDebugMode ? Level.INFO : Level.WARNING;
   Logger.root.onRecord.listen((record) {
@@ -87,6 +96,9 @@ class CzechifyApp extends ConsumerWidget {
     // local course is ready. Its failure must not replace the usable app UI.
     ref.watch(backgroundInitializationProvider);
     ref.watch(syncTriggerCoordinatorProvider);
+    // Keep the reminder coordinator alive so it can react to settings
+    // changes, XP transitions, and app lifecycle events.
+    ref.watch(reminderCoordinatorProvider);
 
     // Warm the answer sounds before the first lesson. Loading one on first use
     // costs enough to be heard as lag on a clip meant to land with the tap.

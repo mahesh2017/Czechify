@@ -29,9 +29,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _selectedGoal = 50;
   TtsVoiceGender _selectedVoice = TtsVoiceGender.female;
   bool _finishing = false;
+  TimeOfDay? _selectedReminderTime;
+  bool _remindersChecked = false;
   final _nameController = TextEditingController();
-  // welcome → name → motivation/level → voice → goal → summary
-  static const _totalSteps = 6;
+  // welcome → name → motivation/level → voice → goal → reminder → summary
+  static const _totalSteps = 7;
 
   void _next() {
     if (_step < _totalSteps - 1) {
@@ -89,6 +91,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         ref.invalidate(placementProfileProvider);
         ref.invalidate(curriculumAccessProvider);
         ref.invalidate(nextLessonProvider);
+      }
+
+      // Schedule notifications only if explicitly opted in
+      if (_remindersChecked && _selectedReminderTime != null) {
+        try {
+          final settings = ref.read(settingsProvider.notifier);
+          await settings.setPreferredTime(_selectedReminderTime!);
+          await settings.setRemindersEnabled(true);
+        } catch (e, stack) {
+          SafeDiagnostics.error('reminder_schedule_failed', e, stack);
+        }
       }
     } catch (error, stack) {
       SafeDiagnostics.error('onboarding_settings_not_saved', error, stack);
@@ -169,7 +182,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 const SizedBox(width: 14),
                 Text(
-                  '$_step / 5',
+                  '$_step / ${_totalSteps - 1}',
                   style: TextStyle(
                     color: t.faint,
                     fontSize: 12,
@@ -248,7 +261,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       2 => _buildLevelStep(),
       3 => _buildVoiceStep(),
       4 => _buildGoalStep(),
-      5 => _buildSummaryStep(),
+      5 => _buildReminderStep(),
+      6 => _buildSummaryStep(),
       _ => const SizedBox(),
     };
   }
@@ -773,6 +787,133 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
+  Widget _buildReminderStep() {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final display = _selectedReminderTime ?? const TimeOfDay(hour: 19, minute: 0);
+    final timeLabel =
+        '${display.hour.toString().padLeft(2, '0')}:${display.minute.toString().padLeft(2, '0')}';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _stepHeader(
+          Icons.notifications_active_outlined,
+          t.amberSoft,
+          t.amber,
+          l10n.reminderStepTitle,
+          l10n.reminderStepBody,
+        ),
+        const SizedBox(height: 28),
+        // Time picker card — tapping opens the system time picker.
+        SoftCard(
+          radius: 18,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          onTap: () async {
+            final picked = await showTimePicker(
+              context: context,
+              initialTime: display,
+              helpText: l10n.reminderStepTitle,
+            );
+            if (picked != null) {
+              setState(() => _selectedReminderTime = picked);
+            }
+          },
+          child: Row(
+            children: [
+              Icon(Icons.schedule_outlined, color: t.amber, size: 28),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.reminderTimeLabel,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: t.ink,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      timeLabel,
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w800,
+                        color: t.pri,
+                        fontFamily: AppFonts.display,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.chevron_right_rounded, color: t.faint, size: 24),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        // Opt-in checkbox — default OFF, the user must actively enable.
+        InkWell(
+          onTap: () => setState(() => _remindersChecked = !_remindersChecked),
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Row(
+              children: [
+                Icon(
+                  _remindersChecked
+                      ? Icons.check_box_rounded
+                      : Icons.check_box_outline_blank_rounded,
+                  color: _remindersChecked ? t.pri : t.faint,
+                  size: 26,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    l10n.reminderStepToggle,
+                    style: TextStyle(
+                      fontSize: 15.5,
+                      fontWeight: FontWeight.w600,
+                      color: t.ink,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 18),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.nights_stay_outlined, size: 18, color: t.faint),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                l10n.reminderStepCatchUp,
+                style: TextStyle(fontSize: 13.5, color: t.muted, height: 1.5),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.tune_outlined, size: 18, color: t.faint),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                l10n.reminderStepChangeAnytime,
+                style: TextStyle(fontSize: 13.5, color: t.muted, height: 1.5),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget _buildSummaryStep() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
@@ -798,6 +939,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       (l10n.onboardingStartingPoint, levelLabel),
       (l10n.onboardingTeacher, teacher),
       (l10n.homeDailyGoal, '$minutes min · $_selectedGoal XP'),
+      if (_remindersChecked && _selectedReminderTime != null)
+        (
+          l10n.reminderTimeLabel,
+          '${_selectedReminderTime!.hour.toString().padLeft(2, '0')}:${_selectedReminderTime!.minute.toString().padLeft(2, '0')}',
+        ),
       (l10n.onboardingFirstUnit, l10n.onboardingSoundsOfCzech),
     ];
     return Column(

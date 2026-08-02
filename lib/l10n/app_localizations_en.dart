@@ -1553,4 +1553,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get a11ySendMessage => 'Send message';
+
+  @override
+  String get reminderStepTitle => 'When should we nudge you?';
+
+  @override
+  String get reminderStepBody =>
+      'Pick a time and we\'ll send a gentle reminder around that time to practice Czech.';
+
+  @override
+  String get reminderStepToggle => 'Yes, remind me daily';
+
+  @override
+  String get reminderStepCatchUp =>
+      'Plus a gentle evening nudge at 21:30 if you haven\'t studied yet.';
+
+  @override
+  String get reminderStepChangeAnytime =>
+      'You can change this any time in Settings.';
+
+  @override
+  String get reminderSettingsTitle => 'Study Reminders';
+
+  @override
+  String get reminderSettingsBody =>
+      'We\'ll remind you around your chosen time. Plus a gentle evening nudge if you haven\'t studied yet.';
+
+  @override
+  String get reminderTimeLabel => 'Reminder time';
+
+  @override
+  String get reminderEnabled => 'Reminders on';
+
+  @override
+  String get reminderDisabled => 'Reminders off';
+
+  @override
+  String get reminderCatchUpLabel => 'Evening catch-up';
+
+  @override
+  String get reminderCatchUpSuppressed =>
+      'Evening catch-up is off because your reminder time is close to 21:30.';
+
+  @override
+  String get reminderPermissionBlocked =>
+      'Notifications are blocked. Open Settings → Notifications → Czechify to enable.';
+
+  @override
+  String get reminderOpenSettings => 'Open Settings';
+
+  @override
+  String get reminderSettingsEntryBanner =>
+      'Get daily reminders to keep your streak going.';
 }
