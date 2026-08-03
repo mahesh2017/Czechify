@@ -1,11 +1,13 @@
-# Manual verification — audit remediation Phases 1–3
+# Manual verification — audit remediation Phases 1–4
 
 Things the automated suite cannot prove. Branch: `fix/audit-phases-1-2`
-(commits `6137247`, `832b8e1`, `8c2dcd5`).
+(commits `6137247`, `832b8e1`, `8c2dcd5`, `2a28ced`).
 
 Everything here needs a real device, a real backend, or a human judgement
-call. The 568 passing tests cover the logic; these cover the parts that only
-exist once the app is actually running.
+call. The 573 Dart + 23 Deno tests cover the logic; these cover the parts that
+only exist once the app is actually running.
+
+**Phase 4 adds the first items requiring a backend deploy — see section F.**
 
 ---
 
@@ -127,6 +129,89 @@ whether or not the bug is present.
 
 ---
 
+## F. Phase 4 — needs a backend deploy
+
+Phase 4 changed three Edge Functions. **None of it takes effect until they are
+deployed.** The Dart tests pass regardless, so a green CI run does not mean
+these are live.
+
+### F1. Deploy the functions
+
+```bash
+supabase functions deploy account-data deepseek-proxy whisper-proxy
+```
+
+- [ ] Deployed. `tool/smoke_edge_functions.sh` still passes afterwards.
+
+### F2. The export now contains custom vocabulary
+
+1. Create a custom vocabulary card in the app and let it sync.
+2. Settings → export your data.
+
+- [ ] The export JSON has a `cloud_data.custom_cards` array containing it.
+- [ ] Spot-check that nothing else you'd expect is missing. The new contract
+      test only proves synced entities are listed — it cannot know about a
+      table that is server-written and never synced.
+
+### F3. Quota refunds on server-side failure
+
+Hard to force deliberately; mostly worth watching for.
+
+- [ ] Over a few days of real use, the daily AI and speech counters do not
+      drift down faster than actual successful requests.
+- [ ] I left the **per-minute burst window unrefunded** on purpose — it resets
+      within 60 seconds and refunding it would need a new SQL function and
+      migration. Confirm you agree that trade is right.
+
+### F4. macOS deep link
+
+Needs a macOS build and a real email round trip.
+
+1. Build and run on macOS. Link an email address to an anonymous account.
+2. Click the verification link in the email.
+
+- [ ] The app comes to the foreground and completes verification.
+- [ ] Password recovery does the same.
+- [ ] The Supabase Auth redirect allowlist includes `czechify://auth-callback`
+      — the plist is only half of it; the server has to permit the redirect.
+
+### F5. Consent log survives an account switch
+
+Pairs with A1, same session.
+
+- [ ] After switching A → B → A, Settings still shows the cloud-speech
+      consent decision history rather than an empty log.
+
+---
+
+## G. Decision still open — consent record durability
+
+**I did not build this and want your call before anyone does.**
+
+The consent audit log is device-local. It survives an account switch now, but
+not a lost, reset, or replaced phone. That is a weaker position than it looks:
+GDPR Art. 7(1) asks the *controller* to be able to demonstrate consent, and
+right now the only copy lives on the data subject's own phone.
+
+`ConsentRepository.pendingSync()` and `markSynced()` are the client half of
+fixing that. They have no callers — I left them in place with an honest note
+rather than deleting them, since deleting forecloses and they are already
+tested.
+
+Pick one:
+
+- [ ] **Build it.** A `consent_records` table with owner RLS, an entry in the
+      sync entity map, and inclusion in `syncedUserTables`. Roughly the size of
+      the `custom_cards` migration. Consent evidence then survives device loss.
+- [ ] **Leave it device-local.** I delete the two dead methods and the `synced`
+      column note, and document in PRIVACY.md that the consent log is
+      device-local so nobody later assumes otherwise.
+
+Worth asking whoever advises you on data protection, rather than deciding it
+on engineering grounds. Tell me which and I'll do it in Phase 5.
+
+---
+
 ## D. Known gaps I could not close
 
 Not failures — work deliberately left, so it doesn't get lost.
@@ -139,9 +224,11 @@ Not failures — work deliberately left, so it doesn't get lost.
 - [ ] **Per-message length is unguarded (Phase 2).** A single chat message over
       4,000 characters is still refused server-side. Worth adding a
       `maxLength` to the chat input if it has none.
-- [ ] **macOS deep links are still broken** — `czechify://auth-callback` is not
-      registered in `macos/Runner/Info.plist`, so email verification and
-      password recovery dead-end there. Scheduled for Phase 4.
+- [ ] ~~macOS deep links are still broken~~ — fixed in Phase 4; verify via F4.
+- [ ] **The export contract test is one-directional.** It proves every *synced*
+      entity is exported. A server-written table that the client never syncs
+      could still be missed, because nothing on the client would know it
+      exists. Only a review of the schema catches that class.
 
 ---
 
