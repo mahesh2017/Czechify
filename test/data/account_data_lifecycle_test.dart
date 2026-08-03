@@ -94,4 +94,38 @@ void main() {
     expect(resetReviews.single.reps, 0);
     expect(await db.select(db.units).get(), hasLength(1));
   });
+
+  group('consent audit log', () {
+    Future<void> recordConsent() => db.customStatement(
+      'INSERT INTO consent_records '
+      '(purpose, notice_version, policy_version, granted, decided_at) '
+      "VALUES ('voice_cloud_processing', '1', '1', 1, '2026-08-01T10:00:00Z')",
+    );
+
+    test('survives an account switch', () async {
+      // Switching accounts is not an erasure request. The decision recorded
+      // here really was made, and it is the evidence a controller has to be
+      // able to produce — wiping it left nothing to produce.
+      await recordConsent();
+
+      await db.transaction(
+        () => db.clearLearnerDataRows(preserveConsentLog: true),
+      );
+
+      final records = await db.select(db.consentRecords).get();
+      expect(records, hasLength(1));
+      expect(records.single.purpose, 'voice_cloud_processing');
+      expect(records.single.granted, isTrue);
+    });
+
+    test('is erased with the account', () async {
+      // Deletion is the opposite case: the record is the learner's, and
+      // erasing their account erases it too.
+      await recordConsent();
+
+      await db.clearLearnerData();
+
+      expect(await db.select(db.consentRecords).get(), isEmpty);
+    });
+  });
 }

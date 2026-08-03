@@ -155,11 +155,20 @@ class AppDatabase extends _$AppDatabase {
   ///
   /// Account switching uses this inside a larger transaction so a failed
   /// remote install restores the previous account's complete local state.
-  Future<void> clearLearnerDataRows() async {
+  ///
+  /// [preserveConsentLog] keeps the consent audit trail. Switching accounts is
+  /// not an erasure request — the decisions recorded on this device were still
+  /// really made, and [ConsentRepository] exists specifically so that history
+  /// survives ("nothing is ever updated or deleted"). Wiping it on a switch
+  /// destroyed the only evidence that consent was ever given, which is the one
+  /// thing GDPR Art. 7(1) asks a controller to be able to produce. Account
+  /// *deletion* is different and still clears it: that is erasure, and the
+  /// record is the learner's to remove.
+  Future<void> clearLearnerDataRows({bool preserveConsentLog = false}) async {
     await delete(chatMessages).go();
     await delete(conversations).go();
     await delete(examResults).go();
-    await delete(consentRecords).go();
+    if (!preserveConsentLog) await delete(consentRecords).go();
     await delete(lessonAttempts).go();
     await delete(rewardLedger).go();
     await delete(exerciseAttempts).go();

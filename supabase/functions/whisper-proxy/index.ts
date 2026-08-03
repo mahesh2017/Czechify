@@ -162,6 +162,18 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
   }
 
+  // Returns the daily allowance after any failure past the point it was
+  // consumed. Every exit below this line must call it: the burst window is
+  // per-minute and heals itself, but a daily unit lost to a server-side fault
+  // is gone until tomorrow, and the learner did nothing wrong.
+  const refundDaily = async () => {
+    const { error } = await admin.rpc("refund_service_daily_quota", {
+      p_service: SERVICE,
+      p_user_id: userData.user.id,
+    });
+    if (error) console.error("Quota refund failed", error.code);
+  };
+
   try {
     // Build multipart form data for OpenAI
     const formData = new FormData();
@@ -191,23 +203,17 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
 
     if (!response.ok) {
-      // Refund the daily quota — Whisper returned an error, so the learner's
-      // allowance should not be consumed for a failed call.
-      const { error: refundError } = await admin.rpc(
-        "refund_service_daily_quota",
-        {
-          p_service: SERVICE,
-          p_user_id: userData.user.id,
-        },
-      );
-      if (refundError) console.error("Quota refund failed", refundError.code);
-      return json({
-        error: `Whisper API error: ${response.status}`,
-      }, 502);
+      await refundDaily();
+      // The upstream status is deliberately not echoed. It tells a caller
+      // about our provider relationship — whether a key is valid, whether we
+      // are being rate-limited — and none of it helps a learner.
+      console.error("Whisper API error", response.status);
+      return json({ error: "Pronunciation checking failed. Try again." }, 502);
     }
 
     const decoded: unknown = await response.json();
     if (!isRecord(decoded)) {
+      await refundDaily();
       return json({ error: "Invalid transcription response" }, 502);
     }
     const result = decoded;
@@ -272,6 +278,9 @@ Deno.serve(async (req: Request): Promise<Response> => {
       })),
     }, 200);
   } catch (_) {
+    // Timeout, socket failure, malformed payload — the learner's recording was
+    // never transcribed either way, so the allowance goes back.
+    await refundDaily();
     return json({ error: "Internal error" }, 500);
   }
 });

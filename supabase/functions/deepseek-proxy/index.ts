@@ -141,6 +141,16 @@ Deno.serve(async (request) => {
     );
   }
 
+  // Returns the daily allowance after any failure past the point it was
+  // consumed. The burst window is per-minute and heals itself; a daily unit
+  // lost to a server-side fault is gone until tomorrow.
+  const refundDaily = async () => {
+    const { error } = await admin.rpc("refund_ai_daily_quota", {
+      p_user_id: userData.user.id,
+    });
+    if (error) console.error("Quota refund failed", error.code);
+  };
+
   let upstream: Response;
   try {
     upstream = await fetch("https://api.deepseek.com/v1/chat/completions", {
@@ -163,24 +173,14 @@ Deno.serve(async (request) => {
       "DeepSeek request failed",
       error instanceof Error ? error.name : "unknown",
     );
-    // Refund the daily quota consumed for this request — the upstream call
-    // never reached DeepSeek, so the learner should not lose their allowance.
-    const { error: refundError } = await admin.rpc("refund_ai_daily_quota", {
-      p_user_id: userData.user.id,
-    });
-    if (refundError) console.error("Quota refund failed", refundError.code);
+    await refundDaily();
     return jsonResponse({ error: "AI tutor request timed out." }, 504);
   }
 
   const upstreamBody = await upstream.json().catch(() => null);
   if (!upstream.ok) {
     console.error("DeepSeek error", upstream.status);
-    // Refund the daily quota — DeepSeek returned an error, so the learner's
-    // allowance should not be consumed for a failed call.
-    const { error: refundError } = await admin.rpc("refund_ai_daily_quota", {
-      p_user_id: userData.user.id,
-    });
-    if (refundError) console.error("Quota refund failed", refundError.code);
+    await refundDaily();
     const status = upstream.status === 429 ? 429 : 502;
     return jsonResponse(
       { error: "AI tutor is temporarily unavailable." },
@@ -192,6 +192,9 @@ Deno.serve(async (request) => {
   if (
     typeof content !== "string" || content.length < 1 || content.length > 20_000
   ) {
+    // A 200 carrying nothing usable is still a failed turn from the learner's
+    // side, so it is refunded like any other.
+    await refundDaily();
     return jsonResponse(
       { error: "AI tutor returned an invalid response." },
       502,

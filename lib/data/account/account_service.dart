@@ -47,7 +47,7 @@ class AccountService {
       await _backend.installSession(session);
       final snapshot = await _sync.downloadAccountSnapshot();
       await _db.transaction(() async {
-        await _db.clearLearnerDataRows();
+        await _db.clearLearnerDataRows(preserveConsentLog: true);
         await _sync.installAccountSnapshot(snapshot);
         if (_backend.userId != session.user.id) {
           throw StateError('Target account session changed during install.');

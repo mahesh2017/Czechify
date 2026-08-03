@@ -118,7 +118,12 @@ class SyncService {
   /// matters for pull: `custom_cards` precedes `srs_cards` so a manual card's
   /// definition is materialized locally before its SRS scheduling row (which
   /// references it by content_uid) is merged.
-  static const _conflictKeys = <String, String>{
+  ///
+  /// Public so the account-export contract can be checked against it: every
+  /// entity synced here holds learner data and must appear in the export the
+  /// `account-data` function produces. `custom_cards` was synced for months
+  /// without being exported, and nothing could have caught it.
+  static const conflictKeys = <String, String>{
     'lesson_progress': 'user_id,lesson_id',
     'earned_badges': 'user_id,badge_id',
     'user_progress': 'user_id,key',
@@ -137,7 +142,7 @@ class SyncService {
       final acked = <int>[];
       for (final row in batch) {
         try {
-          final conflict = _conflictKeys[row.entity];
+          final conflict = conflictKeys[row.entity];
           if (conflict == null) {
             throw StateError('Unknown sync entity: ${row.entity}');
           }
@@ -189,7 +194,7 @@ class SyncService {
     }
     final rowsByEntity = <String, List<Map<String, dynamic>>>{};
     final cursors = <String, PullCursor>{};
-    for (final entity in _conflictKeys.keys) {
+    for (final entity in conflictKeys.keys) {
       final collected = <Map<String, dynamic>>[];
       PullCursor? cursor;
       while (true) {
@@ -225,7 +230,7 @@ class SyncService {
     if (!_accountTransition) {
       throw StateError('Account install requires an account transition.');
     }
-    for (final entity in _conflictKeys.keys) {
+    for (final entity in conflictKeys.keys) {
       for (final row in snapshot.rows[entity] ?? const []) {
         await _applyRemote(entity, row);
       }
@@ -237,7 +242,7 @@ class SyncService {
   Future<void> _pull({required bool strict}) async {
     if (!_backend.isReady) return;
     final deviceId = await _backend.deviceId();
-    for (final entity in _conflictKeys.keys) {
+    for (final entity in conflictKeys.keys) {
       try {
         var cursor = await _db.syncDao.pullCursor(entity);
         while (true) {
