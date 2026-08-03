@@ -100,9 +100,19 @@ class BackendService {
     }
   }
 
+  /// Installs [session] as the active session.
+  ///
+  /// A session with no refresh token cannot be installed. This is reached on
+  /// the rollback path of an account switch, where a null assertion would
+  /// throw past the handler trying to restore the previous account and leave
+  /// the learner signed into neither.
   Future<void> installSession(Session session) async {
+    final refreshToken = session.refreshToken;
+    if (refreshToken == null) {
+      throw const AuthException('Session cannot be restored: no refresh token.');
+    }
     await _requireClient().auth.setSession(
-      session.refreshToken!,
+      refreshToken,
       accessToken: session.accessToken,
     );
   }

@@ -257,6 +257,57 @@ void main() {
   );
 
   test(
+    'account install restores rows this device authored',
+    () async {
+      // The returning account's most recent work was done on THIS install, so
+      // every row carries the local device id. Pull skips such rows because
+      // local state already has them; an install must not, because the local
+      // database was just cleared. Skipping them silently lost the learner's
+      // own progress on their own phone.
+      backend.rows['lesson_progress'] = [
+        {
+          'revision': 1,
+          'device_id': 'local-device',
+          'lesson_id': 1,
+          'unit_id': 1,
+          'is_completed': true,
+          'best_score': 0.9,
+          'attempts': 2,
+          'last_attempted': DateTime.utc(2026, 7, 19).toIso8601String(),
+        },
+        {
+          'revision': 2,
+          'device_id': 'other-device',
+          'lesson_id': 2,
+          'unit_id': 1,
+          'is_completed': true,
+          'best_score': 0.8,
+          'attempts': 1,
+          'last_attempted': DateTime.utc(2026, 7, 19).toIso8601String(),
+        },
+      ];
+
+      await service.beginAccountTransition();
+      try {
+        final snapshot = await service.downloadAccountSnapshot();
+        await database.transaction(() async {
+          await database.clearLearnerDataRows();
+          await service.installAccountSnapshot(snapshot);
+        });
+      } finally {
+        service.endAccountTransition();
+      }
+
+      final rows = await database.select(database.lessonProgress).get();
+      expect(
+        rows.map((r) => r.lessonId),
+        containsAll(<int>[1, 2]),
+        reason: 'both the local-device and remote-device rows must install',
+      );
+    },
+  );
+
+  test(
     'ordinary sync cannot push while an account transition is paused',
     () async {
       await enqueue('old-account-row');

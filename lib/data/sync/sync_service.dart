@@ -214,14 +214,20 @@ class SyncService {
   }
 
   /// Applies an already downloaded snapshot inside the caller's transaction.
+  ///
+  /// Every row is applied, including rows this device authored. That is the
+  /// opposite of [_pull], and deliberately so: an install runs immediately
+  /// after the local database was cleared, so "we already have this locally"
+  /// is false for every row. Skipping our own `device_id` here silently lost
+  /// everything the account last wrote from this install — the exact data a
+  /// learner returning to a previous account expects to find waiting.
   Future<void> installAccountSnapshot(AccountSyncSnapshot snapshot) async {
     if (!_accountTransition) {
       throw StateError('Account install requires an account transition.');
     }
-    final deviceId = await _backend.deviceId();
     for (final entity in _conflictKeys.keys) {
       for (final row in snapshot.rows[entity] ?? const []) {
-        if (row['device_id'] != deviceId) await _applyRemote(entity, row);
+        await _applyRemote(entity, row);
       }
       final cursor = snapshot.cursors[entity];
       if (cursor != null) await _db.syncDao.setPullCursor(entity, cursor);
@@ -241,6 +247,9 @@ class SyncService {
             limit: 100,
           );
           for (final row in rows.cast<Map<String, dynamic>>()) {
+            // Skipping our own rows is only correct here, where local state is
+            // already current. See [installAccountSnapshot] for why an install
+            // must apply them.
             if (row['device_id'] != deviceId) await _applyRemote(entity, row);
           }
           if (rows.isEmpty) break;
