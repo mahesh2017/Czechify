@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/pronunciation_result.dart';
+import '../../domain/repositories/speech_ports.dart';
 import 'curriculum_providers.dart';
 import 'database_providers.dart';
 import 'stt_providers.dart';
@@ -54,6 +55,12 @@ class PronunciationState {
   final bool isRecording;
   final bool isProcessing;
   final String? error;
+
+  /// True when [error] came from the speech service rather than the device —
+  /// a spent allowance or an unreachable proxy. The UI uses it to avoid
+  /// telling a learner to check microphone permissions that are fine.
+  final bool errorIsServiceSide;
+
   final bool usedWhisper;
   final String? diagnostic;
   final int attemptId;
@@ -65,6 +72,7 @@ class PronunciationState {
     this.isRecording = false,
     this.isProcessing = false,
     this.error,
+    this.errorIsServiceSide = false,
     this.usedWhisper = false,
     this.diagnostic,
     this.attemptId = 0,
@@ -77,6 +85,7 @@ class PronunciationState {
     bool? isRecording,
     bool? isProcessing,
     String? error,
+    bool? errorIsServiceSide,
     bool? usedWhisper,
     String? diagnostic,
     int? attemptId,
@@ -88,6 +97,9 @@ class PronunciationState {
       isRecording: isRecording ?? this.isRecording,
       isProcessing: isProcessing ?? this.isProcessing,
       error: error,
+      // Cleared alongside [error], which is deliberately not `??`-defaulted:
+      // a state with no error must not keep the previous one's provenance.
+      errorIsServiceSide: errorIsServiceSide ?? false,
       usedWhisper: usedWhisper ?? this.usedWhisper,
       diagnostic: diagnostic ?? this.diagnostic,
       attemptId: attemptId ?? this.attemptId,
@@ -150,6 +162,17 @@ class PronunciationNotifier extends Notifier<PronunciationState> {
         result: assessment.result,
         usedWhisper: assessment.usedWhisper,
         diagnostic: assessment.diagnostic,
+      );
+    } on SpeechServiceException catch (e) {
+      // Already written for a learner to read, and it explains a real outcome
+      // (allowance spent, service down) rather than a recognition failure.
+      // Prefixing it would only make it sound like the microphone misheard.
+      if (!ref.mounted || state.attemptId != attemptId) return;
+      state = state.copyWith(
+        isRecording: false,
+        isProcessing: false,
+        error: e.message,
+        errorIsServiceSide: true,
       );
     } catch (e) {
       if (!ref.mounted || state.attemptId != attemptId) return;

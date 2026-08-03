@@ -45,7 +45,10 @@ final whisperServiceProvider = Provider<WhisperService?>((ref) {
 /// Whisper).
 /// Endpoint of the Czech acoustic recogniser. Empty by default, which keeps
 /// phoneme scoring switched off and the app on transcript scoring:
-///   --dart-define=PHONEME_SERVICE_URL=http://10.0.1.11:8080
+///   --dart-define=PHONEME_SERVICE_URL=https://recogniser.example.com
+///
+/// Must be `https`. The endpoint receives raw voice recordings, so a cleartext
+/// host is ignored rather than trusted — see [PhonemeRecognizer.isConfigured].
 const String kPhonemeServiceUrl = String.fromEnvironment('PHONEME_SERVICE_URL');
 const String kPhonemeServiceToken = String.fromEnvironment(
   'PHONEME_SERVICE_TOKEN',
@@ -154,9 +157,15 @@ class PronunciationAssessor {
   /// Signals the in-flight Whisper recording to stop capturing and transcribe.
   Completer<void>? _manualStop;
 
+  /// Set once cloud transcription has failed on captured audio this session.
+  /// Its usual causes do not clear on their own, so later attempts skip the
+  /// cloud rather than making the learner record into it again to fail again.
+  bool _cloudSpeechUnavailable = false;
+
   /// Whether Whisper is available for high-quality transcription. Reactive to
   /// authenticated backend capability, not merely a configured client object.
-  bool get hasWhisper => _whisper?.isAvailable ?? false;
+  bool get hasWhisper =>
+      !_cloudSpeechUnavailable && (_whisper?.isAvailable ?? false);
 
   /// Record audio and assess pronunciation against [expectedText].
   ///
@@ -199,21 +208,32 @@ class PronunciationAssessor {
           maxDuration,
           onCaptureComplete,
         );
-      } catch (e, st) {
-        // A linked backend without the `whisper-proxy` function deployed (or a
-        // transient network/function error) must never hard-fail the exercise.
-        // Degrade to on-device recognition and mark the result accordingly.
-        _log.warning(
-          'Cloud speech unavailable at runtime; degrading to native STT.',
-          e,
-          st,
-        );
+      } on _CaptureUnavailable catch (failure) {
+        // Nothing was recorded, so a live on-device listen is honest: the
+        // learner has not spoken yet and will be prompted to.
+        _log.warning('Recorder unavailable; using native STT.', failure.cause);
         await _recorder.cleanup();
         return _assessWithNativeStt(
           expectedText,
           maxDuration,
-          diagnostic: 'on-device (cloud error: $e)',
+          diagnostic: 'on-device (recorder unavailable)',
         );
+      } on SpeechServiceException {
+        // Audio WAS captured and could not be scored. The previous behaviour
+        // fell through to a live listen here, which starts a fresh recording
+        // while the UI says "analyzing" and the learner is no longer speaking
+        // — it transcribed silence and reported the resulting 0% as a
+        // pronunciation score. Being told you mispronounced something you said
+        // correctly is worse than being told it could not be checked, so this
+        // surfaces instead.
+        //
+        // Cloud speech is then switched off for the rest of the session: the
+        // usual cause (proxy undeployed, quota spent) persists, and every later
+        // attempt should take the native path from the start, where listening
+        // live is the honest thing to do.
+        _cloudSpeechUnavailable = true;
+        await _recorder.cleanup();
+        rethrow;
       }
     }
     return _assessWithNativeStt(
@@ -235,10 +255,20 @@ class PronunciationAssessor {
 
     // Record until silence, the max cap, or a manual stop — then always
     // transcribe whatever was captured.
-    final audioPath = await _recorder.recordUntilSilence(
-      maxDuration: maxDuration,
-      stopSignal: manualStop.future,
-    );
+    //
+    // Capture is separated from transcription because the two failures deserve
+    // opposite treatment: a recorder that never started leaves the caller free
+    // to listen live instead, while a transcription failure means the learner
+    // has already spoken and must not be silently asked to do it again.
+    final String audioPath;
+    try {
+      audioPath = await _recorder.recordUntilSilence(
+        maxDuration: maxDuration,
+        stopSignal: manualStop.future,
+      );
+    } catch (error) {
+      throw _CaptureUnavailable(error);
+    }
     onCaptureComplete?.call();
 
     if (audioPath.isEmpty) {
@@ -259,10 +289,23 @@ class PronunciationAssessor {
     // reproduce that sentence almost regardless of what was actually said —
     // gibberish came back transcribed as the expected phrase and scored ~95%.
     // For assessment the recogniser must never be told the answer.
-    final whisperResult = await _whisper!.transcribe(
-      audioPath: audioPath,
-      language: 'cs',
-    );
+    final WhisperResult whisperResult;
+    try {
+      whisperResult = await _whisper!.transcribe(
+        audioPath: audioPath,
+        language: 'cs',
+      );
+    } on SpeechServiceException {
+      rethrow;
+    } catch (error) {
+      // Anything the transcriber did not already describe — a socket dropping,
+      // a malformed payload — still means captured audio that cannot be
+      // scored, so it takes the same path rather than becoming a fake score.
+      _log.warning('Cloud transcription failed', error);
+      throw const SpeechServiceException(
+        'That recording could not be checked. Try again in a moment.',
+      );
+    }
 
     final result = _scorer.score(
       expectedText: expectedText,
@@ -451,6 +494,16 @@ class PronunciationAssessor {
     }
     await _fallbackStt.stop();
   }
+}
+
+/// Internal marker: the recorder never produced audio, so no speech was
+/// captured and the caller may still fall back to listening live.
+class _CaptureUnavailable implements Exception {
+  const _CaptureUnavailable(this.cause);
+  final Object cause;
+
+  @override
+  String toString() => 'Recording could not start: $cause';
 }
 
 /// STT provider using the speech_to_text package (on-device, OS-native).

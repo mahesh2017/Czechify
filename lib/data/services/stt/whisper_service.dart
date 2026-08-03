@@ -117,19 +117,23 @@ class WhisperService implements CloudTranscriber {
 
     _log.info('Sending ${bytes.length} bytes of audio to Whisper proxy...');
 
-    final response = await client.functions.invoke(
-      'whisper-proxy',
-      body: {
-        'audio_base64': audioBase64,
-        'language': language,
-        if (prompt != null) 'prompt': prompt,
-      },
-    );
-
-    if (response.status != 200) {
-      final data = response.data;
-      final error = data is Map ? data['error']?.toString() : 'Unknown error';
-      throw Exception('Whisper transcription failed: $error');
+    // `invoke` THROWS FunctionException on any non-2xx status — it does not
+    // return one. A status check after this call was therefore unreachable for
+    // every error it was written to handle, and the proxy's own messages
+    // ("Daily pronunciation check limit reached", "Too many pronunciation
+    // checks") never reached the learner.
+    final FunctionResponse response;
+    try {
+      response = await client.functions.invoke(
+        'whisper-proxy',
+        body: {
+          'audio_base64': audioBase64,
+          'language': language,
+          if (prompt != null) 'prompt': prompt,
+        },
+      );
+    } on FunctionException catch (error) {
+      throw _describe(error);
     }
 
     final data = Map<String, dynamic>.from(response.data as Map);
@@ -142,4 +146,27 @@ class WhisperService implements CloudTranscriber {
 
     return result;
   }
+
+  /// Turns a proxy failure into something worth showing a learner.
+  ///
+  /// The proxy already writes messages in plain language, so its own `error`
+  /// is preferred; the status only supplies a fallback for a response that
+  /// carries none. 429 is singled out because it is the one case where trying
+  /// again immediately cannot possibly help.
+  SpeechServiceException _describe(FunctionException error) {
+    final details = error.details;
+    final serverMessage = details is Map ? details['error']?.toString() : null;
+    _log.warning('Whisper proxy returned ${error.status}');
+    return SpeechServiceException(
+      serverMessage ?? _messageForStatus(error.status),
+      isQuotaExhausted: error.status == 429,
+    );
+  }
+
+  String _messageForStatus(int status) => switch (status) {
+    401 => 'Your session expired. Restart the app and try again.',
+    429 => 'Daily pronunciation check limit reached. Try again tomorrow.',
+    >= 500 => 'Pronunciation checking is temporarily unavailable.',
+    _ => 'That recording could not be checked.',
+  };
 }
