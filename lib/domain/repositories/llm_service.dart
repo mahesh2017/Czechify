@@ -28,6 +28,13 @@ class LlmRequest {
 /// client supplies only bounded learner content and operation context.
 enum LlmOperation {
   conversation('conversation'),
+
+  /// Condenses turns the client is about to drop from its window so the tutor
+  /// keeps continuity. Internal: the learner never sees the output, and the
+  /// server exempts it from the daily allowance because they did not ask for
+  /// it — a long conversation should not quietly cost double.
+  conversationSummary('conversation_summary'),
+
   grammarCheck('grammar_check'),
   writingEvaluation('writing_evaluation');
 
@@ -52,11 +59,24 @@ class LlmResponse {
   final int outputTokens;
   final String? model;
 
+  /// Turns left in today's allowance, or null when the server did not say.
+  ///
+  /// The quota was always enforced server-side but never reported, so a
+  /// learner discovered it only by being refused mid-conversation. Nullable
+  /// because an older deployed function omits the field entirely — the UI
+  /// shows nothing rather than guessing.
+  final int? remainingToday;
+
+  /// The full daily allowance, for phrasing "3 of 20 left".
+  final int? dailyLimit;
+
   const LlmResponse({
     required this.content,
     this.inputTokens = 0,
     this.outputTokens = 0,
     this.model,
+    this.remainingToday,
+    this.dailyLimit,
   });
 }
 

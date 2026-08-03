@@ -58,6 +58,58 @@ void main() {
       expect(result2.card.difficulty, closeTo(2.5, 0.01));
     });
 
+    test('early reviews record ease instead of discarding it', () {
+      // Ease used to move only from the third review onwards, so how a word
+      // felt when the learner first met it — their clearest signal about it —
+      // was thrown away.
+      final easy = scheduler.schedule(newCard(), Rating.easy, now).card;
+      final hard = scheduler.schedule(newCard(), Rating.hard, now).card;
+
+      expect(easy.difficulty, greaterThan(hard.difficulty));
+      expect(easy.difficulty, closeTo(2.65, 0.01));
+      expect(hard.difficulty, closeTo(2.35, 0.01));
+    });
+
+    test('early ease separates the schedules once multiplying begins', () {
+      // Both cards are put on an identical interval history, so the ONLY thing
+      // that can differ is the ease recorded at the first review. Under the old
+      // behaviour both arrived here at 2.5 and were scheduled identically from
+      // then on, however differently the learner had answered.
+      final easy = scheduler
+          .schedule(newCard(), Rating.easy, now)
+          .card
+          .copyWith(reps: 2, stability: 6);
+      final hard = scheduler
+          .schedule(newCard(), Rating.hard, now)
+          .card
+          .copyWith(reps: 2, stability: 6);
+
+      final easyNext = scheduler.schedule(easy, Rating.good, now);
+      final hardNext = scheduler.schedule(hard, Rating.good, now);
+
+      expect(
+        easyNext.nextReviewDate.isAfter(hardNext.nextReviewDate),
+        isTrue,
+        reason: 'the confidently-known word should come back later',
+      );
+    });
+
+    test('fixed learning steps survive the ease change', () {
+      // Ease must not start multiplying before the card has been seen twice,
+      // or one confident first answer schedules a brand-new word weeks out.
+      expect(
+        scheduler.schedule(newCard(), Rating.easy, now).card.stability,
+        4,
+      );
+      expect(
+        scheduler
+            .schedule(newCard().copyWith(reps: 1), Rating.good, now)
+            .card
+            .stability,
+        6,
+      );
+    });
+
     test('Ease factor is clamped to minimum 1.3', () {
       final card = newCard().copyWith(
         reps: 5,

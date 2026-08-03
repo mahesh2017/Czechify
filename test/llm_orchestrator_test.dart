@@ -120,6 +120,97 @@ void main() {
       expect(request.messages.last.role, LlmRole.user);
     });
 
+    test('an earlier summary travels as bounded context', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'restaurant',
+        userMessage: 'A ještě jednu kávu',
+        history: [],
+        earlierSummary: 'The learner ordered soup and asked for the bill.',
+      );
+
+      expect(
+        request.context['summary'],
+        'The learner ordered soup and asked for the bill.',
+      );
+      // Never smuggled in as a message — the server owns every prompt.
+      expect(
+        request.messages.any((m) => m.content.contains('ordered soup')),
+        isFalse,
+      );
+    });
+
+    test('an over-long summary is truncated, not dropped', () {
+      // The server rejects the whole request over its context limit, and
+      // losing the turn is worse than losing the tail of a summary.
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'restaurant',
+        userMessage: 'Ahoj',
+        history: [],
+        earlierSummary: 'x' * 5000,
+      );
+
+      expect(
+        request.context['summary']!.length,
+        LLMOrchestrator.maxSummaryCharacters,
+      );
+    });
+
+    test('an empty summary is omitted rather than sent blank', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'restaurant',
+        userMessage: 'Ahoj',
+        history: [],
+        earlierSummary: '   ',
+      );
+
+      expect(request.context.containsKey('summary'), isFalse);
+    });
+
+    test('exactly the dropped turns are offered for summarization', () {
+      final history = [
+        for (var turn = 0; turn < 30; turn++)
+          ChatMessage.user('zpráva $turn', conversationId: 'c1'),
+      ];
+
+      final dropped = orchestrator.messagesFallingOutOfWindow(
+        history: history,
+        userMessage: 'nová',
+      );
+      final kept =
+          orchestrator
+              .buildConversationRequest(
+                level: CEFRLevel.a1,
+                scenarioId: 'casual_chat',
+                userMessage: 'nová',
+                history: history,
+              )
+              .messages
+              .length -
+          1; // less the new user message
+
+      expect(dropped.length + kept, history.length);
+      expect(dropped.first.content, 'zpráva 0');
+      expect(dropped.last.content, 'zpráva ${30 - kept - 1}');
+    });
+
+    test('nothing is dropped while the history still fits', () {
+      final history = [
+        ChatMessage.user('jedna', conversationId: 'c1'),
+        ChatMessage.tutor(text: 'dvě', conversationId: 'c1'),
+      ];
+
+      expect(
+        orchestrator.messagesFallingOutOfWindow(
+          history: history,
+          userMessage: 'tři',
+        ),
+        isEmpty,
+      );
+    });
+
     test('maps history roles correctly', () {
       final history = [
         ChatMessage.user('u1', conversationId: 'c1'),
@@ -248,6 +339,43 @@ void main() {
       expect(
         (result as TutorParseError).reason,
         contains('missing required information'),
+      );
+    });
+  });
+
+  group('parseConversationSummary', () {
+    // Summarization is an optimization the learner never asked for. Every
+    // unusable reply degrades to "no summary" — a shorter memory — rather than
+    // surfacing an error they can neither understand nor act on.
+    LlmResponse reply(String content) => LlmResponse(content: content);
+
+    test('reads a well-formed summary', () {
+      expect(
+        orchestrator.parseConversationSummary(
+          reply(jsonEncode({'summary': ' The learner ordered soup. '})),
+        ),
+        'The learner ordered soup.',
+      );
+    });
+
+    test('returns null for a blank summary', () {
+      expect(
+        orchestrator.parseConversationSummary(
+          reply(jsonEncode({'summary': '   '})),
+        ),
+        isNull,
+      );
+    });
+
+    test('returns null rather than throwing on junk', () {
+      expect(orchestrator.parseConversationSummary(reply('not json')), isNull);
+      expect(orchestrator.parseConversationSummary(reply('[]')), isNull);
+      expect(orchestrator.parseConversationSummary(reply('{}')), isNull);
+      expect(
+        orchestrator.parseConversationSummary(
+          reply(jsonEncode({'summary': 42})),
+        ),
+        isNull,
       );
     });
   });

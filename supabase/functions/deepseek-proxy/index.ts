@@ -73,11 +73,18 @@ Deno.serve(async (request) => {
 
   const operation = body.operation;
   if (
-    operation !== "conversation" && operation !== "grammar_check" &&
-    operation !== "writing_evaluation"
+    operation !== "conversation" && operation !== "conversation_summary" &&
+    operation !== "grammar_check" && operation !== "writing_evaluation"
   ) {
     return jsonResponse({ error: "Unsupported AI operation." }, 400);
   }
+
+  // conversation_summary is machinery, not a turn: the client issues it to
+  // compress history the learner never asked to lose. Charging their daily
+  // allowance for it would mean a long conversation quietly costs double, so
+  // it is exempt from the daily cap. It still passes the burst limits below,
+  // which is what protects the project from a client looping on it.
+  const consumesDailyAllowance = operation !== "conversation_summary";
   const context = parseContext(body.context);
   const messages = parseMessages(body.messages);
   if (!context || !messages) {
@@ -126,25 +133,48 @@ Deno.serve(async (request) => {
     1,
     500,
   );
-  const { data: allowed, error: quotaError } = await admin.rpc(
-    "consume_ai_quota",
-    { p_user_id: userData.user.id, p_daily_limit: dailyLimit },
-  );
-  if (quotaError) {
-    console.error("Quota check failed", quotaError.code);
-    return jsonResponse({ error: "AI tutor is temporarily unavailable." }, 503);
-  }
-  if (!allowed) {
-    return jsonResponse(
-      { error: "Daily AI tutor limit reached. Try again tomorrow." },
-      429,
+  if (consumesDailyAllowance) {
+    const { data: allowed, error: quotaError } = await admin.rpc(
+      "consume_ai_quota",
+      { p_user_id: userData.user.id, p_daily_limit: dailyLimit },
     );
+    if (quotaError) {
+      console.error("Quota check failed", quotaError.code);
+      return jsonResponse(
+        { error: "AI tutor is temporarily unavailable." },
+        503,
+      );
+    }
+    if (!allowed) {
+      return jsonResponse(
+        { error: "Daily AI tutor limit reached. Try again tomorrow." },
+        429,
+      );
+    }
   }
+
+  // How many turns are left today, for the client to show before the learner
+  // runs out rather than at the moment they do. A snapshot taken after
+  // consumption; a later refund simply makes the next reply's number higher.
+  // Read rather than derived because consume_ai_quota returns only a boolean.
+  const remainingToday = async (): Promise<number | null> => {
+    const { data, error } = await admin
+      .from("ai_daily_usage")
+      .select("request_count")
+      .eq("user_id", userData.user.id)
+      .eq("usage_date", new Date().toISOString().slice(0, 10))
+      .maybeSingle();
+    if (error || !data) return null;
+    return Math.max(0, dailyLimit - Number(data.request_count ?? 0));
+  };
 
   // Returns the daily allowance after any failure past the point it was
   // consumed. The burst window is per-minute and heals itself; a daily unit
   // lost to a server-side fault is gone until tomorrow.
   const refundDaily = async () => {
+    // Refunding what was never consumed would hand the learner free allowance
+    // every time a summary request failed.
+    if (!consumesDailyAllowance) return;
     const { error } = await admin.rpc("refund_ai_daily_quota", {
       p_user_id: userData.user.id,
     });
@@ -206,5 +236,7 @@ Deno.serve(async (request) => {
     input_tokens: Number(usage.prompt_tokens ?? 0),
     output_tokens: Number(usage.completion_tokens ?? 0),
     model: String(upstreamBody.model ?? "deepseek-chat"),
+    remaining_today: await remainingToday(),
+    daily_limit: dailyLimit,
   });
 });

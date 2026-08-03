@@ -265,6 +265,42 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                         },
                       ),
                     ),
+                    // The daily allowance was always enforced but never shown,
+                    // so a conversation simply stopped being answered. Only
+                    // surfaced near the end — a running count every turn would
+                    // be noise, and this is meant to give the learner a chance
+                    // to finish the exchange rather than be cut off in it.
+                    if (chat.shouldWarnAboutQuota && chat.error == null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 4,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.hourglass_bottom,
+                              size: 15,
+                              color: t.amberInk,
+                            ),
+                            const SizedBox(width: 6),
+                            Expanded(
+                              child: Text(
+                                chat.remainingToday == 0
+                                    ? 'No tutor replies left today.'
+                                    : '${chat.remainingToday} tutor '
+                                        '${chat.remainingToday == 1 ? "reply" : "replies"} '
+                                        'left today.',
+                                style: TextStyle(
+                                  color: t.amberInk,
+                                  fontSize: 12.5,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     // Error message with a one-tap retry — the message is already
                     // in the transcript, so retry only repeats the tutor call.
                     if (chat.error != null)

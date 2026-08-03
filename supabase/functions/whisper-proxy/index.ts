@@ -162,6 +162,21 @@ Deno.serve(async (req: Request): Promise<Response> => {
     );
   }
 
+  // How many checks are left today, so the client can warn before the learner
+  // runs out rather than at the moment they do. Read rather than derived —
+  // consume_service_daily_quota returns only a boolean.
+  const remainingToday = async (): Promise<number | null> => {
+    const { data, error } = await admin
+      .from("ai_service_daily_usage")
+      .select("request_count")
+      .eq("service", SERVICE)
+      .eq("user_id", userData.user.id)
+      .eq("usage_date", new Date().toISOString().slice(0, 10))
+      .maybeSingle();
+    if (error || !data) return null;
+    return Math.max(0, dailyLimit - Number(data.request_count ?? 0));
+  };
+
   // Returns the daily allowance after any failure past the point it was
   // consumed. Every exit below this line must call it: the burst window is
   // per-minute and heals itself, but a daily unit lost to a server-side fault
@@ -261,6 +276,8 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
 
     return json({
+      remaining_today: await remainingToday(),
+      daily_limit: dailyLimit,
       text: typeof result.text === "string" ? result.text : "",
       language: typeof result.language === "string"
         ? result.language

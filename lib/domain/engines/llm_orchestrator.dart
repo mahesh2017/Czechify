@@ -28,23 +28,78 @@ class LLMOrchestrator {
   /// the count window alone would have allowed it through.
   static const maxTotalCharacters = 11000;
 
+  /// Longest summary the server will accept in a context value.
+  static const maxSummaryCharacters = 2000;
+
   /// Build a conversation turn request with system prompt and history.
+  ///
+  /// [earlierSummary] carries turns that have fallen out of the window, so a
+  /// long conversation keeps its thread instead of the tutor losing the
+  /// beginning of it. Null or empty simply omits it.
   LlmRequest buildConversationRequest({
     required CEFRLevel level,
     required String scenarioId,
     required String userMessage,
     required List<ChatMessage> history,
+    String? earlierSummary,
   }) {
     final messages = <LlmMessage>[
       ..._windowedHistory(history, userMessage),
       LlmMessage(LlmRole.user, userMessage),
     ];
 
+    final summary = earlierSummary?.trim();
     return LlmRequest(
       operation: LlmOperation.conversation,
       model: _selectModel(level),
       messages: messages,
-      context: {'level': level.name, 'scenario_id': scenarioId},
+      context: {
+        'level': level.name,
+        'scenario_id': scenarioId,
+        if (summary != null && summary.isNotEmpty)
+          // Truncated rather than dropped: a summary slightly over the limit
+          // still carries most of the thread, and the whole request being
+          // rejected for it would be a worse outcome than losing a sentence.
+          'summary':
+              summary.length <= maxSummaryCharacters
+                  ? summary
+                  : summary.substring(0, maxSummaryCharacters),
+      },
+    );
+  }
+
+  /// The messages that [buildConversationRequest] would drop for this turn.
+  ///
+  /// Callers summarize these before they are lost. Returns empty when the
+  /// whole history still fits, which is the common case.
+  List<ChatMessage> messagesFallingOutOfWindow({
+    required List<ChatMessage> history,
+    required String userMessage,
+  }) {
+    final kept = _windowedHistory(history, userMessage).length;
+    return kept >= history.length
+        ? const []
+        : history.sublist(0, history.length - kept);
+  }
+
+  /// Build a request that condenses [messages] into a note for the tutor.
+  LlmRequest buildConversationSummaryRequest({
+    required CEFRLevel level,
+    required List<ChatMessage> messages,
+    String? previousSummary,
+  }) {
+    // The previous summary leads, so successive compressions accumulate rather
+    // than each one forgetting what the one before it knew.
+    final previous = previousSummary?.trim();
+    return LlmRequest(
+      operation: LlmOperation.conversationSummary,
+      model: _selectModel(level),
+      messages: [
+        if (previous != null && previous.isNotEmpty)
+          LlmMessage(LlmRole.user, 'Earlier summary: $previous'),
+        ..._windowedHistory(messages, ''),
+      ],
+      context: {'level': level.name},
     );
   }
 
@@ -138,6 +193,26 @@ class LLMOrchestrator {
         reason: 'The tutor response had unexpected data.',
         rawLength: content.length,
       );
+    }
+  }
+
+  /// Reads the summary out of a [LlmOperation.conversationSummary] reply.
+  ///
+  /// Returns null on anything unusable. Summarization is an optimization: if
+  /// it fails the conversation continues with a shorter memory, which is
+  /// strictly better than surfacing an error for something the learner never
+  /// asked for and cannot act on.
+  String? parseConversationSummary(LlmResponse response) {
+    try {
+      final decoded = jsonDecode(response.content);
+      if (decoded is! Map<String, dynamic>) return null;
+      final summary = decoded['summary'];
+      if (summary is! String) return null;
+      final trimmed = summary.trim();
+      return trimmed.isEmpty ? null : trimmed;
+    } catch (e) {
+      _log.warning('Unusable conversation summary', e);
+      return null;
     }
   }
 
