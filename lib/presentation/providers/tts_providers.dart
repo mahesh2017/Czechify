@@ -163,9 +163,7 @@ class EnglishTts {
     if (entry == null) return false;
 
     final fileName = entry.path.split('/').last;
-    if (!RegExp(r'^[a-z]+_[0-9a-f]{64}\\.mp3$').hasMatch(fileName)) {
-      return false;
-    }
+    if (!isValidAudioPackFileName(fileName)) return false;
 
     try {
       final cacheDir = await _getCacheDir();
@@ -425,9 +423,7 @@ class CzechTts {
     if (entry == null) return false;
 
     final fileName = entry.path.split('/').last;
-    if (!RegExp(r'^[a-z]+_[0-9a-f]{64}\.mp3$').hasMatch(fileName)) {
-      return false;
-    }
+    if (!isValidAudioPackFileName(fileName)) return false;
 
     try {
       final cacheDir = await _getNeuralCacheDir();

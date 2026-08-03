@@ -27,6 +27,12 @@ jobs:
         run: flutter analyze --fatal-infos
 
       - name: Run tests
+        # Runners default to UTC, which never changes offset — so any test of
+        # local-time scheduling passes there whether or not the code handles a
+        # DST transition. Pinning the audience's zone makes those assertions
+        # mean something. See test/notifications/reminder_scheduler_test.dart.
+        env:
+          TZ: Europe/Prague
         run: flutter test --coverage
 
       - name: Enforce changed-line coverage

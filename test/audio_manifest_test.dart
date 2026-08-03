@@ -4,6 +4,29 @@ import 'package:ceskina_pro/data/services/audio/audio_manifest.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  group('isValidAudioPackFileName', () {
+    final hash = 'a' * 64;
+
+    test('accepts the shape the pack generator produces', () {
+      // Both playback paths used to carry their own copy of this pattern, and
+      // the English one escaped the dot as `\\.` inside a raw string — a
+      // literal backslash no filename can contain. It matched nothing, so
+      // every English narration fell through to the device's synthetic voice.
+      expect(isValidAudioPackFileName('male_$hash.mp3'), isTrue);
+      expect(isValidAudioPackFileName('female_$hash.mp3'), isTrue);
+    });
+
+    test('rejects anything that is not a pack clip', () {
+      expect(isValidAudioPackFileName('male_$hash.wav'), isFalse);
+      expect(isValidAudioPackFileName('male_${'a' * 63}.mp3'), isFalse);
+      expect(isValidAudioPackFileName('MALE_$hash.mp3'), isFalse);
+      expect(isValidAudioPackFileName('male_${'z' * 64}.mp3'), isFalse);
+      expect(isValidAudioPackFileName('$hash.mp3'), isFalse);
+      // Traversal: the name becomes a local path under the cache directory.
+      expect(isValidAudioPackFileName('../male_$hash.mp3'), isFalse);
+    });
+  });
+
   group('ManifestEntry', () {
     test('parses legacy v2 string entries', () {
       final entry = ManifestEntry.fromJson('assets/audio/female_abc.mp3');

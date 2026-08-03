@@ -48,6 +48,78 @@ void main() {
       expect(request.context['scenario_id'], 'casual_chat');
     });
 
+    test('a long conversation stays within the server message cap', () {
+      // The server refuses more than 24 messages. Two are added per exchange,
+      // so an unwindowed history broke the thread permanently after ~12 turns.
+      final history = [
+        for (var turn = 0; turn < 40; turn++) ...[
+          ChatMessage.user('otázka $turn', conversationId: 'c1'),
+          ChatMessage.tutor(text: 'odpověď $turn', conversationId: 'c1'),
+        ],
+      ];
+
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'a ještě jedna',
+        history: history,
+      );
+
+      expect(request.messages.length, lessThanOrEqualTo(24));
+      // The newest turns are what the tutor is answering, so those are kept.
+      expect(request.messages.last.content, 'a ještě jedna');
+      expect(
+        request.messages.any((m) => m.content == 'odpověď 39'),
+        isTrue,
+        reason: 'the most recent history must survive windowing',
+      );
+      expect(
+        request.messages.any((m) => m.content == 'otázka 0'),
+        isFalse,
+        reason: 'the oldest history is what gets dropped',
+      );
+    });
+
+    test('a verbose conversation stays within the server character cap', () {
+      // Few messages, each near the per-message ceiling: the count window
+      // alone would let this through and the server would still refuse it.
+      final history = [
+        for (var turn = 0; turn < 10; turn++)
+          ChatMessage.tutor(text: 'x' * 3000, conversationId: 'c1'),
+      ];
+
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'krátká otázka',
+        history: history,
+      );
+
+      final total = request.messages.fold<int>(
+        0,
+        (sum, m) => sum + m.content.length,
+      );
+      expect(total, lessThanOrEqualTo(12000));
+      expect(request.messages.last.content, 'krátká otázka');
+    });
+
+    test('the user message survives a history that exhausts the budget', () {
+      final history = [
+        for (var turn = 0; turn < 30; turn++)
+          ChatMessage.tutor(text: 'y' * 3900, conversationId: 'c1'),
+      ];
+
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'nezmizím',
+        history: history,
+      );
+
+      expect(request.messages.last.content, 'nezmizím');
+      expect(request.messages.last.role, LlmRole.user);
+    });
+
     test('maps history roles correctly', () {
       final history = [
         ChatMessage.user('u1', conversationId: 'c1'),

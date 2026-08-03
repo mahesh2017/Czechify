@@ -10,6 +10,7 @@ import 'consent_providers.dart';
 import '../../domain/entities/pronunciation_result.dart';
 import '../../domain/engines/pronunciation_scorer.dart';
 import '../../core/utils/phoneme_mapper.dart';
+import '../../core/utils/text_normalizer.dart';
 import '../../domain/engines/pronunciation_coverage.dart';
 import '../../domain/engines/phoneme_scorer.dart';
 import '../../data/services/stt/phoneme_recognizer.dart';
@@ -376,10 +377,17 @@ class PronunciationAssessor {
     // Build a map of normalized word → *average* probability from Whisper.
     // This used to sum, so a word Whisper emitted twice contributed >1.0 and
     // the blend below could push a score above 100%.
+    //
+    // Both sides of this map go through [TextNormalizer] so the keys actually
+    // meet. They used to be built differently: Whisper's words were stripped
+    // with `[^\w]`, and Dart's `\w` is ASCII-only, so every diacritic was
+    // deleted ("říká" became "k") while the lookup key kept them. For Czech —
+    // where most words carry one — the blend below therefore never applied,
+    // and confidence was silently discarded on exactly the words that need it.
     final probSums = <String, double>{};
     final probCounts = <String, int>{};
     for (final w in whisperWords) {
-      final normalized = w.word.toLowerCase().replaceAll(RegExp(r'[^\w]'), '');
+      final normalized = TextNormalizer.normalize(w.word);
       if (normalized.isNotEmpty) {
         probSums[normalized] = (probSums[normalized] ?? 0) + w.probability;
         probCounts[normalized] = (probCounts[normalized] ?? 0) + 1;
@@ -400,7 +408,7 @@ class PronunciationAssessor {
     // alone (no penalty).
     final enrichedWordScores =
         base.wordScores.map((ws) {
-          final normalized = ws.word.toLowerCase();
+          final normalized = TextNormalizer.normalize(ws.word);
           final whisperProb = wordConfidence[normalized];
           if (whisperProb == null) {
             return ws; // No Whisper data for this word — keep text-based score

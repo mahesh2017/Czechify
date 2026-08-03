@@ -12,6 +12,22 @@ class LLMOrchestrator {
 
   static final _log = Logger('LLMOrchestrator');
 
+  /// Most history messages sent with a turn.
+  ///
+  /// The server rejects a conversation of more than 24 messages outright
+  /// (`parseMessages` in `supabase/functions/deepseek-proxy/request_policy.ts`
+  /// is the source of truth). History was previously sent whole and grows by
+  /// two messages per exchange, so a conversation passed that ceiling after
+  /// about twelve turns and every request from then on — including retries and
+  /// any later attempt to resume the thread — failed identically. The window
+  /// leaves room for the new user message plus headroom.
+  static const maxHistoryMessages = 20;
+
+  /// Character budget for everything sent with a turn. The server's own limit
+  /// is 12,000; staying under it keeps a long exchange from failing the moment
+  /// the count window alone would have allowed it through.
+  static const maxTotalCharacters = 11000;
+
   /// Build a conversation turn request with system prompt and history.
   LlmRequest buildConversationRequest({
     required CEFRLevel level,
@@ -20,12 +36,7 @@ class LLMOrchestrator {
     required List<ChatMessage> history,
   }) {
     final messages = <LlmMessage>[
-      ...history.map(
-        (m) => LlmMessage(
-          m.role == MessageRole.user ? LlmRole.user : LlmRole.assistant,
-          m.content,
-        ),
-      ),
+      ..._windowedHistory(history, userMessage),
       LlmMessage(LlmRole.user, userMessage),
     ];
 
@@ -35,6 +46,35 @@ class LLMOrchestrator {
       messages: messages,
       context: {'level': level.name, 'scenario_id': scenarioId},
     );
+  }
+
+  /// The most recent slice of [history] that fits both server limits.
+  ///
+  /// Oldest-first is the right thing to drop: recent turns carry the thread the
+  /// tutor is answering. [userMessage] is never dropped — it is what the turn
+  /// is for — so it claims its share of the budget before history gets any.
+  /// A single message longer than the server's 4,000-character per-message cap
+  /// is still refused server-side; that is an input-length concern, not a
+  /// windowing one.
+  List<LlmMessage> _windowedHistory(
+    List<ChatMessage> history,
+    String userMessage,
+  ) {
+    final budget = maxTotalCharacters - userMessage.length;
+    final kept = <LlmMessage>[];
+    var used = 0;
+    for (final message in history.reversed) {
+      if (kept.length >= maxHistoryMessages) break;
+      if (used + message.content.length > budget) break;
+      used += message.content.length;
+      kept.add(
+        LlmMessage(
+          message.role == MessageRole.user ? LlmRole.user : LlmRole.assistant,
+          message.content,
+        ),
+      );
+    }
+    return kept.reversed.toList();
   }
 
   /// Parse the LLM response into structured data.
