@@ -1,13 +1,15 @@
-# Manual verification — audit remediation Phases 1–5
+# Manual verification — audit remediation Phases 1–6
 
 Things the automated suite cannot prove. Branch: `fix/audit-phases-1-2`
-(commits `6137247`, `832b8e1`, `8c2dcd5`, `2a28ced`, `ca760b0`).
+(commits `6137247`, `832b8e1`, `8c2dcd5`, `2a28ced`, `ca760b0`, `c635b48`,
+`3f148ee`). All six phases are complete.
 
 Everything here needs a real device, a real backend, or a human judgement
-call. The 577 Dart + 23 Deno tests cover the logic; these cover the parts that
+call. The 588 Dart + 27 Deno tests cover the logic; these cover the parts that
 only exist once the app is actually running.
 
-**Phase 4 adds the first items requiring a backend deploy — see section F.**
+**Phases 4 and 6 need a backend deploy; Phase 6 also needs a database
+migration. Sections F and I.**
 
 ---
 
@@ -238,6 +240,74 @@ it still has no callers.
 - [ ] Decide: wire it up (it needs a trigger — after a manifest revision
       change is the natural one), or delete it. Leaving correct-but-dead code
       is the worst of the three.
+
+---
+
+## I. Phase 6 — quota, memory, scheduling
+
+Needs a **database migration** as well as a function deploy. Run the migration
+first: the new `remaining_today` field is harmless without it, but the refund
+fix is not applied until it lands.
+
+```bash
+supabase db push
+supabase functions deploy deepseek-proxy whisper-proxy
+```
+
+- [ ] `supabase test db` passes, including the new `quota_refunds.test.sql`.
+      **I could not run this locally — Docker was unavailable — so CI is the
+      first thing that has ever executed it.** If it fails, the migration is
+      the suspect, not the test.
+
+### I1. Quota refunds finally work
+
+The refund functions referenced tables that were never created, so they raised
+on every call and the error was swallowed. Nobody has ever been refunded.
+
+- [ ] Force a failure (point `DEEPSEEK_API_KEY` at an invalid key on a staging
+      project) and confirm the daily counter goes back down rather than staying
+      consumed.
+
+### I2. The allowance is visible before it runs out
+
+- [ ] Set `AI_DAILY_REQUEST_LIMIT` low (say 5) on staging. Chat until 3 remain.
+- [ ] The warning appears at 3 and counts down; it does **not** appear at full
+      allowance. A running count every turn would be noise.
+- [ ] At 0 the existing "Daily AI tutor limit reached" error still shows.
+
+### I3. Conversation memory past the window
+
+- [ ] Hold a conversation past ~12 exchanges, establishing a fact early
+      ("jmenuji se Petr", or an order placed).
+- [ ] After the window has rolled, ask the tutor about it. It should still know.
+- [ ] Judge the summary quality — this is the part I cannot assess. If the
+      tutor's memory feels wrong or generic, the prompt in
+      `request_policy.ts` (`conversation_summary`) is where to tune it.
+
+### I4. Summarization cost — a decision I made for you
+
+I made summarization **exempt from the daily learner allowance**, on the
+grounds that it is machinery they never asked for and charging them would make
+a long conversation quietly cost double. It still passes the burst limits.
+
+The consequence is on your DeepSeek bill: a conversation past the window costs
+**two upstream calls per turn** instead of one, and that second call is not
+capped by the learner's daily limit.
+
+- [ ] Confirm you want that trade. The alternatives are charging it to the
+      learner's allowance (one line in `index.ts`), or dropping summarization
+      and accepting that the tutor forgets.
+- [ ] Watch spend for a few days after deploying.
+
+### I5. SRS scheduling changed
+
+Ease now moves on the first two reviews instead of only from the third.
+
+- [ ] Existing cards keep their stored ease — nothing is re-derived, and no
+      migration touches them. Confirm you want it that way rather than
+      recomputing from `review_attempts`.
+- [ ] Rate a new card Easy twice and another Hard twice; by the third review
+      their intervals should differ. They used to be identical.
 
 ---
 
