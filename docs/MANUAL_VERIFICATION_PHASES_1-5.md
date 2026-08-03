@@ -1,10 +1,10 @@
-# Manual verification — audit remediation Phases 1–4
+# Manual verification — audit remediation Phases 1–5
 
 Things the automated suite cannot prove. Branch: `fix/audit-phases-1-2`
-(commits `6137247`, `832b8e1`, `8c2dcd5`, `2a28ced`).
+(commits `6137247`, `832b8e1`, `8c2dcd5`, `2a28ced`, `ca760b0`).
 
 Everything here needs a real device, a real backend, or a human judgement
-call. The 573 Dart + 23 Deno tests cover the logic; these cover the parts that
+call. The 577 Dart + 23 Deno tests cover the logic; these cover the parts that
 only exist once the app is actually running.
 
 **Phase 4 adds the first items requiring a backend deploy — see section F.**
@@ -181,6 +181,63 @@ Pairs with A1, same session.
 
 - [ ] After switching A → B → A, Settings still shows the cloud-speech
       consent decision history rather than an empty log.
+
+---
+
+## H. Phase 5 — the refactor, and what it changed underneath
+
+Phase 5 was meant to be a tidy-up. It surfaced two real bugs, so it needs more
+of your attention than a refactor normally would.
+
+### H1. Audio still plays, both languages
+
+The Czech and English packs now share one cache implementation. The suite
+cannot cover this: the download path needs a real filesystem and network.
+
+- [ ] Czech clips play in lessons, at both normal and slow speed.
+- [ ] English narration plays on teaching cards.
+- [ ] Both follow the male/female voice setting.
+- [ ] Kill the network mid-lesson: previously cached audio still plays and the
+      manifest falls back to its cached copy.
+- [ ] Settings → clear audio cache, then play something. It re-downloads.
+
+### H2. Clips stop being re-downloaded on every launch
+
+Both packs wrote the same `_cache_meta.json` from separate in-memory copies, so
+whichever saved last erased the other's checksums and those clips were fetched
+again next launch. Only observable over more than one session.
+
+- [ ] Play some Czech and some English audio. Force-quit. Relaunch and play the
+      same items — they should be instant, with no network traffic.
+
+### H3. Prefetch cancellation
+
+- [ ] Start an offline audio download, then navigate away mid-download.
+- [ ] Traffic stops (check with a network monitor, or watch that no further
+      files appear in the cache).
+- [ ] Returning to the screen can start a fresh download without issues.
+
+### H4. Sync retry appears when it should
+
+The retry row only renders when something has actually dead-lettered, which is
+hard to force. To try: sign in, go offline, make progress changes, and let the
+outbox exhaust its five attempts.
+
+- [ ] Settings shows "Retry failed sync" with a count.
+- [ ] Tapping it, back online, clears the count and the changes reach the
+      backend.
+- [ ] The row is absent when nothing has failed. **This is the more important
+      case** — a permanently visible sync-error row would be worse than the
+      silence it replaced.
+
+### H5. `gcStaleAudio` remains unreferenced
+
+I fixed it to consider both packs rather than deleting every English clip, but
+it still has no callers.
+
+- [ ] Decide: wire it up (it needs a trigger — after a manifest revision
+      change is the natural one), or delete it. Leaving correct-but-dead code
+      is the worst of the three.
 
 ---
 
