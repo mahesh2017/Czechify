@@ -30,7 +30,7 @@ here — that lives only in Edge Function secrets.
 Android release signing reads `android/key.properties` (untracked) — see the
 header comment in [android/app/build.gradle.kts](../android/app/build.gradle.kts).
 iOS signing + App Store upload is done from Xcode (or a Mac runner with certs);
-the bundle id `com.ceskinapro.ceskina_pro` is fixed after first upload.
+the bundle id `com.eminentsite.czechify` is fixed after first upload.
 
 ## Crash reporting — deliberate decision
 

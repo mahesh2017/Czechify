@@ -1,4 +1,4 @@
-package com.ceskinapro.ceskina_pro
+package com.eminentsite.czechify
 
 import io.flutter.embedding.android.FlutterActivity
 

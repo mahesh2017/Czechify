@@ -361,12 +361,62 @@ Not failures — work deliberately left, so it doesn't get lost.
 
 ## E. Not mine
 
-Untouched in your working tree, excluded from all three commits:
+Untouched in your working tree, excluded from every commit:
 
-- The `com.ceskinapro.*` → `com.eminentsite.czechify` package rename
-  (`android/`, `ios/`, `macos/`).
 - `lib/data/services/stt/stt_bench_hook.dart`.
 
-- [ ] Decide whether the rename lands before or after this branch. If Android
-      release signing is already configured against the old application id,
-      changing it needs a new upload key entry in Play Console.
+The `com.ceskinapro.*` → `com.eminentsite.czechify` rename **was** yours and is
+now finished and committed — see section J.
+
+---
+
+## J. The application identifier — `com.eminentsite.czechify`
+
+You had started this in your working tree; I finished it and committed it. What
+the identifier is now, per platform:
+
+| Platform | Setting | Value |
+|---|---|---|
+| Android | `namespace`, `applicationId` | `com.eminentsite.czechify` |
+| Android | Kotlin package | `com.eminentsite.czechify.MainActivity` |
+| iOS | `PRODUCT_BUNDLE_IDENTIFIER` | `com.eminentsite.czechify` (tests: `.RunnerTests`) |
+| macOS | `PRODUCT_BUNDLE_IDENTIFIER` | `com.eminentsite.czechify` (tests: `.RunnerTests`) |
+| Windows | `CompanyName`, `LegalCopyright` | `com.eminentsite` |
+
+Deliberately **not** renamed: the Dart package (`pubspec.yaml: name:
+ceskina_pro`, and every `package:ceskina_pro/…` import) and the Windows binary
+name (`ceskina_pro.exe`). Those are internal names no user or store ever sees,
+and renaming the Dart package alone would rewrite the import line of every file
+in `lib/` and `test/`. Say the word if you want them aligned too — but it is a
+separate change with a separate diff.
+
+Also fixed while in here: the macOS project still pointed its test host at
+`ceskina_pro.app` even though `PRODUCT_NAME` has been `Czechify` for a while.
+That staleness predates the rename; the built product is `Czechify.app`.
+
+- [ ] **Confirm nothing is published under the old id.** An `applicationId`
+      (Play) or bundle id (App Store) is permanent after the first upload. If
+      `com.ceskinapro.ceskina_pro` was ever uploaded to Play Console — even to
+      an internal test track — that listing can never become
+      `com.eminentsite.czechify`; you would be creating a new app, with a new
+      upload key, new reviews, and no upgrade path for existing installs.
+      Everything I've done assumes it was never uploaded.
+- [ ] **Expect existing installs to be orphaned.** Android identifies an app by
+      `applicationId` and iOS by bundle id, so the next install lands beside
+      the old one rather than upgrading it — new sandbox, new data directory,
+      **empty Drift database**. Any progress on a device that predates this
+      change stays with the old app and is not migrated. If you have a device
+      with real learning history on it, sync it to the account first (or accept
+      losing it) before installing the renamed build.
+- [ ] **Re-check iOS/macOS signing.** Provisioning profiles are bound to the
+      bundle id. Xcode will need to register `com.eminentsite.czechify` (and
+      `.RunnerTests`) against your team — automatic signing does this on the
+      first build, manual signing needs new profiles.
+- [ ] **Build each platform once.** I verified Android assembles and the Xcode
+      projects parse, but I did not build iOS (needs signing) or run the macOS
+      test target.
+- [ ] **Nothing server-side keys off the identifier.** I checked: no Supabase
+      redirect, RLS policy, or Edge Function references the bundle id, and the
+      deep-link scheme is `czechify://`, which is unchanged and independent of
+      this rename. Worth a second pair of eyes on the Supabase Auth dashboard,
+      since its allowed-redirect list lives outside the repo.
