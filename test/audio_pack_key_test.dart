@@ -1,9 +1,8 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:ceskina_pro/core/utils/text_normalizer.dart';
+import 'package:ceskina_pro/data/services/audio/audio_manifest.dart';
+import 'package:ceskina_pro/data/services/audio/audio_pack_cache.dart';
 
 /// The audio pack is looked up by hash: the generator names each MP3
 /// `{gender}_{sha256}.mp3`, and at runtime CzechTts hashes the text it is about
@@ -17,13 +16,11 @@ import 'package:ceskina_pro/core/utils/text_normalizer.dart';
 ///   python3 -c "import sys;sys.path.insert(0,'tool');\
 ///   from audio_utterances import key_for;print(key_for('...'))"
 void main() {
-  /// Mirrors CzechTts._audioPackKey.
+  /// The Czech lookup, using the production hash rather than a copy of it.
+  /// CzechTts.speak normalizes with [TextNormalizer.forSpeech] before the
+  /// clip is requested; the English pack deliberately does not (see below).
   String audioPackKey(String text) =>
-      sha256
-          .convert(
-            utf8.encode(TextNormalizer.forSpeech(text).trim().toLowerCase()),
-          )
-          .toString();
+      AudioPackCache.keyFor(TextNormalizer.forSpeech(text));
 
   group('audio pack key matches the Python generator', () {
     const expected = <String, String>{
@@ -59,6 +56,30 @@ void main() {
 
   test('the generated filename matches the app\'s download pattern', () {
     final name = 'female_${audioPackKey('Ahoj, jak se máš?')}.mp3';
-    expect(RegExp(r'^[a-z]+_[0-9a-f]{64}\.mp3$').hasMatch(name), isTrue);
+    expect(isValidAudioPackFileName(name), isTrue);
+  });
+
+  group('English narration pack', () {
+    // The English generator (tool/generate_intro_audio.py) hashes the raw
+    // trimmed text, WITHOUT forSpeech. That asymmetry is deliberate — the
+    // Czech pack strips editorial marks that narration scripts do not carry —
+    // but it is invisible in the source, so it is pinned here. If someone
+    // "tidies" the two lookups into one, this fails.
+    test('hashes the raw text, unlike the Czech pack', () {
+      const script = 'Mám ___ bratra.';
+      expect(
+        AudioPackCache.keyFor(script),
+        isNot(equals(audioPackKey(script))),
+        reason: 'forSpeech must not be applied to narration scripts',
+      );
+    });
+
+    test('its "en{gender}_" filenames pass the download guard', () {
+      // These clips were unreachable until the filename check was repaired,
+      // so this pattern has never actually been exercised in a shipped build.
+      final digest = AudioPackCache.keyFor('Welcome to unit one.');
+      expect(isValidAudioPackFileName('enmale_$digest.mp3'), isTrue);
+      expect(isValidAudioPackFileName('enfemale_$digest.mp3'), isTrue);
+    });
   });
 }

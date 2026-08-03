@@ -110,11 +110,18 @@ class OfflineAudioPrefetch {
     final dir = await _dir();
     var completed = 0;
     var failed = 0;
-    final controller = StreamController<PrefetchProgress>();
+    var cancelled = false;
+    // Cancelling the subscription stops the workers. Without this, navigating
+    // away from the download screen left four concurrent downloads running
+    // against a stream nobody was listening to, still writing files and still
+    // holding the network — on a connection the learner may be paying for.
+    final controller = StreamController<PrefetchProgress>(
+      onCancel: () => cancelled = true,
+    );
     final queue = List<String>.from(files);
 
     Future<void> worker() async {
-      while (queue.isNotEmpty) {
+      while (queue.isNotEmpty && !cancelled) {
         final name = queue.removeLast();
         final target = File('$dir/$name');
         // .part then rename: an interrupted download must never leave a
@@ -131,7 +138,7 @@ class OfflineAudioPrefetch {
           await partial.delete().catchError((_) => partial);
         } finally {
           completed++;
-          if (!controller.isClosed) {
+          if (!controller.isClosed && !cancelled) {
             controller.add(
               PrefetchProgress(
                 completed: completed,
@@ -148,17 +155,18 @@ class OfflineAudioPrefetch {
       Future.wait([
         for (var i = 0; i < concurrency; i++) worker(),
       ]).whenComplete(() {
-        if (!controller.isClosed) {
-          controller.add(
-            PrefetchProgress(
-              completed: completed,
-              total: total,
-              failed: failed,
-              finished: true,
-            ),
-          );
-          controller.close();
-        }
+        // A cancelled controller must not be added to or closed again — the
+        // subscription is gone and the run has no result left to report.
+        if (controller.isClosed || cancelled) return;
+        controller.add(
+          PrefetchProgress(
+            completed: completed,
+            total: total,
+            failed: failed,
+            finished: true,
+          ),
+        );
+        controller.close();
       }),
     );
 

@@ -74,6 +74,20 @@ class SyncHealthNotifier extends Notifier<SyncHealth> {
     state = state.copyWith(pendingCount: pending, failedCount: failed);
   }
 
+  /// Refresh on demand, for a UI that has just been opened.
+  Future<void> refresh() => _refresh();
+
+  /// Return dead-lettered rows to the queue and push them.
+  ///
+  /// Returns the number revived. Nothing did this before: rows that exhausted
+  /// their attempts were counted and then left alone forever, so a learner
+  /// whose session expired mid-sync lost those changes with no way back.
+  Future<int> retryFailed() async {
+    final revived = await _db.syncDao.retryDeadLettered();
+    await _refresh();
+    return revived;
+  }
+
   /// Called when a sync cycle completes successfully.
   void markSynced() {
     state = state.copyWith(lastSyncedAt: DateTime.now(), isRunning: false);

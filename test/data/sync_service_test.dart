@@ -125,6 +125,50 @@ void main() {
     },
   );
 
+  test('a dead-lettered row can be revived once its cause clears', () async {
+    // Dead-lettering was terminal: the row was counted and then stranded, so a
+    // change made while a session was expired never reached the backend and
+    // nothing offered a way back. Most causes are transient.
+    await enqueue('poison');
+    backend.failingKeys.add('poison');
+    for (final seconds in [0, 2, 4, 8, 16]) {
+      now = now.add(Duration(seconds: seconds));
+      await service.push();
+    }
+    expect(await database.syncDao.deadLetterCount(), 1);
+
+    backend.failingKeys.clear();
+    backend.sentKeys.clear();
+    expect(await database.syncDao.retryDeadLettered(), 1);
+
+    // Eligible immediately — a deliberate retry should not wait out a backoff
+    // accrued by the failure the learner has just resolved.
+    expect(await database.syncDao.pending(now: now), hasLength(1));
+    await service.push();
+
+    expect(backend.sentKeys, ['poison']);
+    expect(await database.syncDao.deadLetterCount(), 0);
+    expect(await database.syncDao.pendingCount(), 0);
+  });
+
+  test('reviving restores the full backoff ladder', () async {
+    // A revived row that fails again must not dead-letter on its first
+    // stumble, or one retry would burn the second chance it was given.
+    await enqueue('poison');
+    backend.failingKeys.add('poison');
+    for (final seconds in [0, 2, 4, 8, 16]) {
+      now = now.add(Duration(seconds: seconds));
+      await service.push();
+    }
+    await database.syncDao.retryDeadLettered();
+
+    await service.push();
+
+    final row = await database.select(database.syncQueue).getSingle();
+    expect(row.attempts, 1);
+    expect(row.deadLetteredAt, isNull);
+  });
+
   test('revision cursor paginates every row across pages', () async {
     final timestamp = DateTime.utc(2026, 7, 20, 12).toIso8601String();
     backend.rows['lesson_progress'] = List.generate(205, (index) {
