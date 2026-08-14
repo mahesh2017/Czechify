@@ -230,6 +230,34 @@ Rebuilt and re-measured afterwards, obfuscated:
 - Assets are now 44 MB of the 55 MB, so the WebP conversion below is what is
   left if the download size ever needs to come down further.
 
+### Two production bugs CI found on the way
+
+Neither was visible from reading the code — the functions exist, are granted,
+and are called. Only exercising them as the real role shows it, which is what
+`quota_refunds.test.sql` does. It failed the first time it ever ran in CI.
+
+**The quota refunds have never refunded anything.** `20260803120000` fixed the
+table names they were written against but kept a `current_user <> 'service_role'`
+guard. In a `security definer` function `current_user` is the function owner,
+not the caller, so it rejects every call — including the only caller there is.
+This was the third appearance of that defect: fixed for `consume_ai_quota` in
+`20260719182220`, for `consume_service_daily_quota` in `20260724150803`, then
+reintroduced when the refund functions were written from the older template.
+The Edge Functions only `console.error` a failed refund, so every learner who
+hit a DeepSeek timeout or a Whisper error kept losing a unit of allowance,
+silently. Authorization now rests on the EXECUTE grants, as it does for both
+`consume_*` functions.
+
+**The AI allowance would never have displayed.** `service_role` was never
+granted anything on `ai_daily_usage`. The proxy reads that counter directly to
+report remaining turns and PostgREST runs the read as `service_role`, so it
+returned permission denied, `remaining_today()` swallowed it, and the client
+showed nothing. The sibling table added later got this right — which is why the
+pronunciation allowance works and the tutor one does not.
+
+Both fixed in `20260814120000` and `20260814120100`. 56 pgTAP tests and
+`db lint` pass on a clean reset.
+
 The in-app policy gained a paragraph on reporting AI replies, and
 `kPrivacyPolicyVersion` was deliberately **not** bumped: publishing a contact
 address and describing an existing safety route does not change what a learner
