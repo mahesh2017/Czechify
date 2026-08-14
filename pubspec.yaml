@@ -51,7 +51,9 @@ dependencies:
   crypto: ^3.0.0
   logging: ^1.2.0
   share_plus: ^13.0.0
-  flutter_onnxruntime: ^1.8.3
+  # Hands an AI-reply report off to the learner's mail app. Direct dependency
+  # because we call it directly, even though share_plus already pulls it in.
+  url_launcher: ^6.3.0
   flutter_local_notifications: ^22.2.0
   timezone: ^0.11.1
   flutter_timezone: ^5.1.0
@@ -139,9 +141,6 @@ flutter:
     # else in assets/audio/ is uploaded to Supabase, not bundled.
     - assets/audio/female_2f44c5669abb492049b767f78d72f275298c2dd68e8ff0d575c2544eddf9c762.mp3
     - assets/audio/male_2f44c5669abb492049b767f78d72f275298c2dd68e8ff0d575c2544eddf9c762.mp3
-    # CTC token table. Tiny, and useless if it ever disagrees with the
-    # model — so it ships with the app rather than being downloaded.
-    - assets/stt/vocab.json
 
   fonts:
     - family: Bricolage Grotesque

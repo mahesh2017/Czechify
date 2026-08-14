@@ -10,6 +10,7 @@ import '../../providers/stt_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../providers/database_providers.dart';
 import '../../providers/review_providers.dart';
+import '../../widgets/chat/report_tutor_reply_sheet.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
@@ -802,6 +803,7 @@ class _MessageBubble extends ConsumerWidget {
                   if (!isUser) ...[
                     const SizedBox(width: 8),
                     _TtsIconButton(text: message.content),
+                    _ReportIconButton(message: message),
                   ],
                 ],
               ),
@@ -881,6 +883,42 @@ class _TtsIconButton extends ConsumerWidget {
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
       tooltip: AppLocalizations.of(context).listen,
+    );
+  }
+}
+
+/// Reports a tutor reply that should not have been written.
+///
+/// Sits on the bubble itself rather than behind a long-press: Google Play
+/// requires the route to exist, and a learner who has just read something
+/// upsetting should not have to discover a hidden gesture to act on it.
+class _ReportIconButton extends ConsumerWidget {
+  final ChatMessage message;
+
+  const _ReportIconButton({required this.message});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return IconButton(
+      onPressed: () async {
+        final sent = await showReportTutorReplySheet(
+          context: context,
+          replyText: message.content,
+          scenarioTitle: ref.read(chatProvider).scenarioTitle,
+        );
+        if (!sent || !context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Thanks — your report is on its way.'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      },
+      icon: const Icon(Icons.flag_outlined, size: 16),
+      color: context.tokens.muted,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+      tooltip: 'Report this reply',
     );
   }
 }
