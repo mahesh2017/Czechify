@@ -1,6 +1,25 @@
 import 'package:ceskina_pro/presentation/widgets/chat/report_tutor_reply_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+/// url_launcher's default method-channel implementation.
+const _launcherChannel = MethodChannel('plugins.flutter.io/url_launcher');
+
+/// Makes `launchUrl` report [opened] instead of reaching a real platform.
+void launcherReturns(WidgetTester tester, bool opened) {
+  tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+    _launcherChannel,
+    (call) async => opened,
+  );
+}
+
+void clearLauncher(WidgetTester tester) {
+  tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+    _launcherChannel,
+    null,
+  );
+}
 
 /// Reporting an AI reply is a Play requirement, but the interesting part is the
 /// promise attached to it: the report carries the tutor's words, not the
@@ -125,6 +144,41 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Report this reply'), findsNothing);
+    });
+
+    testWidgets('a device with no mail app gets the address, not a dead end', (
+      tester,
+    ) async {
+      // Modelled as the platform declining the launch, which is what a device
+      // with nothing registered for mailto: actually reports. Mocked rather
+      // than left unregistered so the result does not depend on when a
+      // MissingPluginException happens to settle.
+      launcherReturns(tester, false);
+      addTearDown(() => clearLauncher(tester));
+
+      await open(tester);
+      await tester.tap(find.text(ReportReason.offensive.label));
+      await tester.pump();
+      await tester.tap(find.text('Send report'));
+      await tester.pumpAndSettle();
+
+      // The sheet stays open, and the address is on screen to copy.
+      expect(find.textContaining('email.czechify@gmail.com'), findsOneWidget);
+      expect(find.text('Send report'), findsOneWidget);
+    });
+
+    testWidgets('a successful handoff closes the sheet', (tester) async {
+      launcherReturns(tester, true);
+      addTearDown(() => clearLauncher(tester));
+
+      await open(tester);
+      await tester.tap(find.text(ReportReason.wrongCzech.label));
+      await tester.pump();
+      await tester.tap(find.text('Send report'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Report this reply'), findsNothing);
+      expect(find.textContaining('No mail app opened'), findsNothing);
     });
   });
 }
