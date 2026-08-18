@@ -85,10 +85,17 @@ class LoadingScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                        child: Image.asset(
-                          'assets/images/czechify_logo.png',
-                          width: 92,
-                          height: 92,
+                        // The launcher icon itself, rounded the way Android
+                        // and iOS mask it. The first thing a learner sees on
+                        // opening should be the mark they just tapped, not a
+                        // second, unrelated one.
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(22),
+                          child: Image.asset(
+                            'assets/images/app_icon.png',
+                            width: 92,
+                            height: 92,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 24),

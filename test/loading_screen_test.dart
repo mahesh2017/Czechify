@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ceskina_pro/presentation/screens/onboarding/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
@@ -5,6 +7,47 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  /// The app shipped two unrelated marks: a flat teal speech-bubble Č as the
+  /// launcher icon, and an ornate lion badge on the loading screen. A learner
+  /// tapped one and was greeted by the other.
+  ///
+  /// Uniformity is not something a screenshot review reliably catches, because
+  /// the two live in different files and neither looks wrong on its own. This
+  /// reads the launcher icon straight out of pubspec.yaml and fails if the
+  /// first screen stops showing that same asset.
+  testWidgets('the loading screen shows the launcher icon, not a second mark', (
+    tester,
+  ) async {
+    final pubspec = File('pubspec.yaml').readAsStringSync();
+    final iconPath =
+        RegExp(
+          r'flutter_launcher_icons:.*?image_path:\s*(\S+)',
+          dotAll: true,
+        ).firstMatch(pubspec)?.group(1);
+    expect(
+      iconPath,
+      isNotNull,
+      reason: 'pubspec must declare the launcher icon',
+    );
+
+    await tester.pumpWidget(const LoadingScreen());
+    await tester.pump(const Duration(seconds: 1));
+
+    final images =
+        tester
+            .widgetList<Image>(find.byType(Image))
+            .map((image) => image.image)
+            .whereType<AssetImage>()
+            .map((asset) => asset.assetName)
+            .toList();
+
+    expect(
+      images,
+      contains(iconPath),
+      reason: 'the first screen must show the same mark as the launcher icon',
+    );
+  });
+
   testWidgets('startup error explains the problem and retries', (tester) async {
     var retries = 0;
     await tester.pumpWidget(

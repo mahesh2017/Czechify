@@ -4,34 +4,56 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Delete your Czechify account</title>
-  <style>body{font:16px/1.6 system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#18302f}h1,h2{line-height:1.2}a{color:#176b67}.notice{background:#eef7f5;padding:16px;border-radius:8px}</style>
+  <style>
+    body{font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#18302f;background:#fff}
+    h1{line-height:1.2}
+    h2{line-height:1.25;margin-top:2em;border-bottom:1px solid #e4ebea;padding-bottom:.25em}
+    a{color:#176b67}
+    .box{background:#f4f8f8;border:1px solid #dfe7e6;border-radius:8px;padding:16px 18px;margin:1.2em 0}
+    ul{padding-left:1.2em}
+  </style>
 </head>
 <body>
   <h1>Delete your Czechify account</h1>
-  <p>Deleting your account removes your Supabase account and synchronized
-  learning data. The app also clears local learner data as part of the same
-  flow.</p>
+  <p>Deleting your account permanently removes your Czechify account and everything synced to it.
+  The app clears the copy on your device as part of the same step.</p>
 
-  <div class="notice">
-    <strong>Fastest option:</strong> open Czechify and choose
-    <strong>Settings → Account &amp; data → Delete account</strong>. Confirm the
-    deletion in the app to permanently remove the account.
+  <div class="box">
+    <strong>Fastest way:</strong> open Czechify and go to
+    <strong>Settings → Account &amp; data → Delete account</strong>, then confirm.
+    It takes effect immediately.
   </div>
 
   <h2>If you cannot open the app</h2>
-  <p>Email <a href="mailto:email.czechify@gmail.com">email.czechify@gmail.com</a>
-  and ask for your account to be deleted. If you have linked an email address to
-  the account, write from that address so the request can be verified. Never
-  include your password, an access token, or a recording in the message — none
-  of them are needed to delete an account.</p>
+  <p>Email <a href="mailto:email.czechify@gmail.com">email.czechify@gmail.com</a> and ask for your
+  account to be deleted.</p>
+  <p>If you linked an email address to the account, write from that address so we can verify the
+  request. If you never linked one, your account is anonymous and we have no way to identify which
+  account is yours — in that case, uninstalling the app removes the copy on your device, and the
+  anonymous account is deleted automatically after 90 days without use.</p>
+  <p><strong>Never include your password, an access token, or a recording in the message.</strong>
+  None of them are needed to delete an account.</p>
 
-  <h2>What is deleted</h2>
-  <p>The deletion flow removes the Supabase Auth account and associated synced
-  progress, badges, review state, and custom cards. Local app data and cached
-  audio are removed by the app. Operational backups and security logs may
-  remain for the retention periods of the service providers.</p>
+  <h2>What gets deleted</h2>
+  <ul>
+    <li>Your Czechify account itself, and any linked email address</li>
+    <li>Synced lesson progress, scores, XP, streaks and badges</li>
+    <li>Your review schedule and any custom cards you created</li>
+    <li>Your record of consent choices</li>
+    <li>The local database on your device, and cached audio</li>
+  </ul>
+  <p>Your chat history with the AI tutor lives only on your device and goes with the local data.</p>
 
-  <p>See the <a href="privacy.html">Czechify Privacy Policy</a> for more
-  information.</p>
+  <h2>What may remain briefly</h2>
+  <p>Our hosting providers keep operational backups and security logs for their own retention
+  periods. Those are not accessible to us as ordinary records and roll off on their own schedule.</p>
+
+  <h2>Want a copy first?</h2>
+  <p>Deletion cannot be undone. If you want your data before you delete it, use
+  <strong>Settings → Account &amp; data → Export</strong> first — it gives you a file containing
+  everything held in your cloud account.</p>
+
+  <p style="margin-top:2.5em">See the <a href="privacy.html">Czechify Privacy Policy</a> for what we
+  process and why.</p>
 </body>
 </html>
