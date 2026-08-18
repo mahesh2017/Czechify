@@ -50,6 +50,7 @@ class OfflineAudioPrefetch {
   static const _manifestAsset = 'assets/audio/offline_units.json';
 
   Map<String, List<String>>? _unitKeys;
+  Map<String, List<String>>? _introKeys;
   String? _cacheDir;
 
   String get _publicBase =>
@@ -68,6 +69,13 @@ class OfflineAudioPrefetch {
     final raw = await rootBundle.loadString(_manifestAsset);
     final json = jsonDecode(raw) as Map<String, dynamic>;
     final units = json['units'] as Map<String, dynamic>? ?? const {};
+    // English narration lives in the other pack, under `en{gender}_` names.
+    // Absent in v1 manifests, so an older asset simply yields no intros.
+    final intros = json['intros'] as Map<String, dynamic>? ?? const {};
+    _introKeys = {
+      for (final entry in intros.entries)
+        entry.key: (entry.value as List<dynamic>).cast<String>(),
+    };
     return _unitKeys = {
       for (final entry in units.entries)
         entry.key: (entry.value as List<dynamic>).cast<String>(),
@@ -103,11 +111,21 @@ class OfflineAudioPrefetch {
   /// Clips for [unitIds] that are not already on disk, for [gender].
   Future<List<String>> missingFiles(List<int> unitIds, String gender) async {
     final byUnit = await _load();
+    final byUnitIntro = _introKeys ?? const {};
     final dir = await _dir();
-    final keys = <String>{for (final id in unitIds) ...?byUnit['$id']};
+
+    // Czech clips and the English narration are two packs with two filename
+    // shapes in one bucket. Both are needed before a unit works offline: the
+    // intro is the first thing played on a teaching card, so leaving it out
+    // meant the very first sound of a unit always went to the network.
+    final names = <String>{
+      for (final id in unitIds) ...?byUnit['$id']?.map((k) => '${gender}_$k.mp3'),
+      for (final id in unitIds)
+        ...?byUnitIntro['$id']?.map((k) => 'en${gender}_$k.mp3'),
+    };
+
     final missing = <String>[];
-    for (final key in keys) {
-      final name = '${gender}_$key.mp3';
+    for (final name in names) {
       if (!await File('$dir/$name').exists()) missing.add(name);
     }
     return missing;

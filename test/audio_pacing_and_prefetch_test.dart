@@ -1,6 +1,9 @@
 import 'package:ceskina_pro/data/services/audio/offline_audio_prefetch.dart';
 import 'package:ceskina_pro/domain/entities/enums.dart';
 import 'package:ceskina_pro/presentation/providers/settings_providers.dart';
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Two defaults that were quietly wrong for anyone who was not a native
@@ -49,6 +52,20 @@ void main() {
       final units = await OfflineAudioPrefetch.unitsForLevel(CEFRLevel.a2);
       expect(units, [16, 17, 18]);
       expect(units, isNot(contains(1)));
+    });
+
+    test('the offline manifest carries English intro keys', () async {
+      // The intros are a second pack named en{gender}_{key}.mp3. A prefetch
+      // that only built {gender}_{key}.mp3 never fetched them, so the first
+      // sound of a unit always needed the network.
+      final raw = await rootBundle.loadString('assets/audio/offline_units.json');
+      final json = jsonDecode(raw) as Map<String, dynamic>;
+      expect(json['version'], greaterThanOrEqualTo(2));
+      final intros = json['intros'] as Map<String, dynamic>;
+      expect(intros, isNotEmpty);
+      // Unit 17 is the first A2 unit that carries one, and A2 learners
+      // prefetch 16-18, so it must be in the set they download.
+      expect(intros['17'], isNotEmpty);
     });
 
     test('count is honoured', () async {
