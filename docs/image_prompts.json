@@ -287,21 +287,21 @@
           "badge_id": "level_a1",
           "title": "A1 Achieved",
           "filename": "badge_level_a1.png",
-          "prompt": "A circular badge with a bronze metallic finish, the text 'A1' in the center with elegant typography, a small Czech lion (český lev) emblem above the text, bronze metallic border, the style suggesting a beginner achievement but with dignity, square aspect ratio, transparent background",
+          "prompt": "A circular badge with a bronze metallic finish, the text 'A1' in the center with elegant typography, the Czechify speech-bubble Č mark above the text, bronze metallic border, the style suggesting a beginner achievement but with dignity, square aspect ratio, transparent background",
           "note": "Bronze color scheme for beginner level"
         },
         {
           "badge_id": "level_a2",
           "title": "A2 Achieved",
           "filename": "badge_level_a2.png",
-          "prompt": "A circular badge with a silver metallic finish, slightly more ornate than the bronze A1 badge, the text 'A2' in the center, the Czech lion emblem above, silver gradient border with subtle reflection, square aspect ratio, transparent background",
+          "prompt": "A circular badge with a silver metallic finish, slightly more ornate than the bronze A1 badge, the text 'A2' in the center, the Czechify speech-bubble Č mark above, silver gradient border with subtle reflection, square aspect ratio, transparent background",
           "note": "Silver color scheme for intermediate level"
         },
         {
           "badge_id": "level_b1",
           "title": "B1 Achieved",
           "filename": "badge_level_b1.png",
-          "prompt": "A circular badge with a rich gold metallic finish, the most ornate of the level badges, the text 'B1' in elegant typography, the Czech lion prominently featured, golden rays emanating subtly from behind, premium achievement look, square aspect ratio, transparent background",
+          "prompt": "A circular badge with a rich gold metallic finish, the most ornate of the level badges, the text 'B1' in elegant typography, the Czechify speech-bubble Č mark prominently featured, golden rays emanating subtly from behind, premium achievement look, square aspect ratio, transparent background",
           "note": "Gold color scheme for advanced level"
         },
         {
