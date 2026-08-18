@@ -45,6 +45,26 @@ extension CzechTutor on TtsVoiceGender {
 }
 
 /// App-wide settings state.
+/// Playback speed for recorded Czech audio, and the baseline it is measured
+/// against.
+///
+/// [kNativeTtsSpeechRate] is not a preference — it is the rate at which a clip
+/// plays back unaltered, so `rate / native` is the speed multiplier. Changing
+/// it would silently re-time the whole pack.
+///
+/// The default used to sit exactly on the native rate, so every new learner
+/// heard the raw generated pace. Measured against the shipped pack that is
+/// 8–11 characters per second: "To je dům." arrives in 0.69s, about 0.23s a
+/// word, and the unstressed "To je" is gone before a beginner registers it.
+/// Native pace is right for a native; it is not what someone repeating a
+/// phrase for the first time can use.
+///
+/// 0.35 plays at ~0.78x, putting that phrase near 0.89s. The slider still
+/// spans 0.2–1.0, so native speed is one drag away — this moves where a
+/// learner *starts*, not what they are allowed.
+const double kNativeTtsSpeechRate = 0.45;
+const double kDefaultTtsSpeechRate = 0.35;
+
 class AppSettings {
   final AppThemeMode themeMode;
   final int dailyGoalXp;
@@ -96,7 +116,7 @@ class AppSettings {
   const AppSettings({
     this.themeMode = AppThemeMode.system,
     this.dailyGoalXp = 50,
-    this.ttsSpeechRate = 0.45,
+    this.ttsSpeechRate = kDefaultTtsSpeechRate,
     this.ttsVoiceGender = TtsVoiceGender.female,
     this.startingLevel = CEFRLevel.preA1,
     this.heartsEnabled = true,
@@ -189,7 +209,7 @@ class SettingsNotifier extends Notifier<AppSettings> {
     final prefs = await _prefs();
     final themeIdx = prefs.getInt(_kThemeMode) ?? 0;
     final dailyGoal = prefs.getInt(_kDailyGoalXp) ?? 50;
-    final ttsRate = prefs.getDouble(_kTtsRate) ?? 0.45;
+    final ttsRate = prefs.getDouble(_kTtsRate) ?? kDefaultTtsSpeechRate;
     final voiceIndex = prefs.getInt(_kTtsVoiceGender) ?? 0;
     final levelIdx = prefs.getInt(_kStartingLevel) ?? 0;
     final reminderHour = prefs.getInt(_kReminderHour);

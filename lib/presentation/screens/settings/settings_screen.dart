@@ -63,10 +63,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await ref.read(settingsProvider.notifier).setTtsVoiceGender(gender);
 
     final prefetch = ref.read(offlineAudioPrefetchProvider);
-    final missing = await prefetch.missingFiles(
-      OfflineSetupScreen.unitsToPrefetch,
-      gender.name,
+    final units = await OfflineAudioPrefetch.unitsForLevel(
+      ref.read(settingsProvider).startingLevel,
+      count: OfflineSetupScreen.prefetchUnitCount,
     );
+    final missing = await prefetch.missingFiles(units, gender.name);
     if (missing.isEmpty) {
       if (mounted) {
         await ref.read(czechTtsProvider).playVoiceSample(gender);
@@ -84,6 +85,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           (ctx) => _VoiceDownloadDialog(
             gender: gender,
             missingCount: missing.length,
+            units: units,
           ),
     );
 
@@ -1020,10 +1022,15 @@ class _VoiceDownloadDialog extends ConsumerStatefulWidget {
   const _VoiceDownloadDialog({
     required this.gender,
     required this.missingCount,
+    required this.units,
   });
 
   final TtsVoiceGender gender;
   final int missingCount;
+
+  /// The units resolved for the learner's level, so the dialog downloads the
+  /// same set the caller measured as missing.
+  final List<int> units;
 
   @override
   ConsumerState<_VoiceDownloadDialog> createState() =>
@@ -1050,7 +1057,7 @@ class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
     try {
       await for (final progress in ref
           .read(offlineAudioPrefetchProvider)
-          .download(OfflineSetupScreen.unitsToPrefetch, widget.gender.name)) {
+          .download(widget.units, widget.gender.name)) {
         if (!mounted) return;
         setState(() => _progress = progress);
         if (progress.finished) {
