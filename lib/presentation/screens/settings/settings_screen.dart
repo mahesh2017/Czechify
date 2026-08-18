@@ -14,6 +14,8 @@ import '../onboarding/offline_setup_screen.dart';
 import '../../../data/services/audio/offline_audio_prefetch.dart';
 import '../../providers/audio_prefetch_providers.dart';
 import '../../providers/consent_providers.dart';
+import '../../providers/sync_health_providers.dart';
+import '../../providers/sync_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
@@ -97,6 +99,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final l10n = AppLocalizations.of(context);
     final settings = ref.watch(settingsProvider);
     final cloudSpeech = ref.watch(cloudSpeechConsentProvider);
+    final syncHealth = ref.watch(syncHealthProvider);
 
     return Scaffold(
       backgroundColor: t.bg,
@@ -546,6 +549,35 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 _Divider(),
+                // Sync health was tracked but never shown, so items that
+                // exhausted their retries were counted and then stranded: the
+                // learner's change was never reaching the backend and nothing
+                // said so. Only rendered when there is something to act on.
+                if (BackendConfig.isConfigured && syncHealth.failedCount > 0)
+                  _Row(
+                    icon: Icons.sync_problem_outlined,
+                    tint: t.redSoft,
+                    fg: t.redInk,
+                    title: 'Retry failed sync',
+                    subtitle: syncHealth.description,
+                    onTap: () async {
+                      final messenger = ScaffoldMessenger.of(context);
+                      final revived =
+                          await ref
+                              .read(syncHealthProvider.notifier)
+                              .retryFailed();
+                      await ref.read(syncServiceProvider).sync();
+                      await ref.read(syncHealthProvider.notifier).refresh();
+                      if (!context.mounted) return;
+                      messenger.showSnackBar(
+                        SnackBar(
+                          content: Text('Retrying $revived item(s)'),
+                        ),
+                      );
+                    },
+                  ),
+                if (BackendConfig.isConfigured && syncHealth.failedCount > 0)
+                  _Divider(),
                 _Row(
                   icon: Icons.delete_outline,
                   tint: t.chipBg,

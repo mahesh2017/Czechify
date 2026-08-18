@@ -130,6 +130,27 @@ class SyncDao extends DatabaseAccessor<AppDatabase> with _$SyncDaoMixin {
     return row.read<int>('c');
   }
 
+  /// Returns dead-lettered rows to the queue for one more run of attempts.
+  ///
+  /// Rows dead-letter after [markFailed]'s attempt limit and were then simply
+  /// stranded: nothing retried them, nothing reported them, and the learner's
+  /// change was silently never going to reach the backend. Most of these are
+  /// failures that have since resolved — an expired session, a dead network —
+  /// so a deliberate retry is usually all they need.
+  ///
+  /// Attempts reset to zero, so a row that fails again gets the full backoff
+  /// ladder rather than dead-lettering on its first stumble. Returns the
+  /// number of rows revived.
+  Future<int> retryDeadLettered() {
+    return (update(syncQueue)..where((t) => t.deadLetteredAt.isNotNull())).write(
+      const SyncQueueCompanion(
+        attempts: Value(0),
+        nextAttemptAt: Value(null),
+        deadLetteredAt: Value(null),
+      ),
+    );
+  }
+
   Future<int> deadLetterCount() async {
     final count = syncQueue.id.count();
     final row =

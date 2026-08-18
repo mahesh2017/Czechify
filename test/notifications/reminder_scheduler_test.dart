@@ -20,6 +20,31 @@ void main() {
     expect(reminders.map((item) => item.id).toSet(), hasLength(30));
   });
 
+  test('every reminder keeps 21:30 local across a DST transition', () {
+    // A 30-day horizon starting in late October spans the end of summer time.
+    // Adding `Duration(days:)` adds exact elapsed hours, so every reminder
+    // after the change landed an hour early — 20:30 for the rest of the month.
+    final reminders = scheduler.buildEveningSchedule(
+      today: DateTime(2026, 10, 20, 8),
+      catchUpEnabled: true,
+      preferredTime: const TimeOfDay(hour: 8, minute: 0),
+    );
+
+    expect(reminders, hasLength(30));
+    for (final reminder in reminders) {
+      expect(
+        reminder.scheduledDate.hour,
+        21,
+        reason: 'wall-clock hour drifted on ${reminder.scheduledDate}',
+      );
+      expect(reminder.scheduledDate.minute, 30);
+    }
+    // Consecutive calendar days, so the horizon neither skips nor repeats a
+    // date while crossing the transition.
+    expect(reminders.first.scheduledDate, DateTime(2026, 10, 20, 21, 30));
+    expect(reminders.last.scheduledDate, DateTime(2026, 11, 18, 21, 30));
+  });
+
   test('skips only the elapsed slot when today is past catch-up time', () {
     final reminders = scheduler.buildEveningSchedule(
       today: DateTime(2026, 8, 2, 22),

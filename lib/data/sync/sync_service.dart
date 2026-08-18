@@ -118,7 +118,12 @@ class SyncService {
   /// matters for pull: `custom_cards` precedes `srs_cards` so a manual card's
   /// definition is materialized locally before its SRS scheduling row (which
   /// references it by content_uid) is merged.
-  static const _conflictKeys = <String, String>{
+  ///
+  /// Public so the account-export contract can be checked against it: every
+  /// entity synced here holds learner data and must appear in the export the
+  /// `account-data` function produces. `custom_cards` was synced for months
+  /// without being exported, and nothing could have caught it.
+  static const conflictKeys = <String, String>{
     'lesson_progress': 'user_id,lesson_id',
     'earned_badges': 'user_id,badge_id',
     'user_progress': 'user_id,key',
@@ -137,7 +142,7 @@ class SyncService {
       final acked = <int>[];
       for (final row in batch) {
         try {
-          final conflict = _conflictKeys[row.entity];
+          final conflict = conflictKeys[row.entity];
           if (conflict == null) {
             throw StateError('Unknown sync entity: ${row.entity}');
           }
@@ -189,7 +194,7 @@ class SyncService {
     }
     final rowsByEntity = <String, List<Map<String, dynamic>>>{};
     final cursors = <String, PullCursor>{};
-    for (final entity in _conflictKeys.keys) {
+    for (final entity in conflictKeys.keys) {
       final collected = <Map<String, dynamic>>[];
       PullCursor? cursor;
       while (true) {
@@ -214,14 +219,20 @@ class SyncService {
   }
 
   /// Applies an already downloaded snapshot inside the caller's transaction.
+  ///
+  /// Every row is applied, including rows this device authored. That is the
+  /// opposite of [_pull], and deliberately so: an install runs immediately
+  /// after the local database was cleared, so "we already have this locally"
+  /// is false for every row. Skipping our own `device_id` here silently lost
+  /// everything the account last wrote from this install — the exact data a
+  /// learner returning to a previous account expects to find waiting.
   Future<void> installAccountSnapshot(AccountSyncSnapshot snapshot) async {
     if (!_accountTransition) {
       throw StateError('Account install requires an account transition.');
     }
-    final deviceId = await _backend.deviceId();
-    for (final entity in _conflictKeys.keys) {
+    for (final entity in conflictKeys.keys) {
       for (final row in snapshot.rows[entity] ?? const []) {
-        if (row['device_id'] != deviceId) await _applyRemote(entity, row);
+        await _applyRemote(entity, row);
       }
       final cursor = snapshot.cursors[entity];
       if (cursor != null) await _db.syncDao.setPullCursor(entity, cursor);
@@ -231,7 +242,7 @@ class SyncService {
   Future<void> _pull({required bool strict}) async {
     if (!_backend.isReady) return;
     final deviceId = await _backend.deviceId();
-    for (final entity in _conflictKeys.keys) {
+    for (final entity in conflictKeys.keys) {
       try {
         var cursor = await _db.syncDao.pullCursor(entity);
         while (true) {
@@ -241,6 +252,9 @@ class SyncService {
             limit: 100,
           );
           for (final row in rows.cast<Map<String, dynamic>>()) {
+            // Skipping our own rows is only correct here, where local state is
+            // already current. See [installAccountSnapshot] for why an install
+            // must apply them.
             if (row['device_id'] != deviceId) await _applyRemote(entity, row);
           }
           if (rows.isEmpty) break;

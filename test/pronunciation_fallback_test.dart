@@ -30,8 +30,13 @@ void main() {
   });
 
   test(
-    'runtime cloud failure degrades to native STT without hard-failing',
+    'a cloud failure on captured audio is reported, not silently re-recorded',
     () async {
+      // This case used to degrade to a live on-device listen. The learner had
+      // already spoken and the UI had already switched to "analyzing", so that
+      // second listen captured silence, scored it against the target, and
+      // presented ~0% as a pronunciation result — telling someone they
+      // mispronounced a phrase they may have said perfectly.
       final recorder = _FakeRecorder();
       final native = _FakeLiveTranscriber(result: 'na shledanou');
       final assessor = PronunciationAssessor(
@@ -45,19 +50,92 @@ void main() {
       );
 
       expect(assessor.hasWhisper, isTrue);
-      final assessment = await assessor.assess(
-        expectedText: 'Na shledanou',
-        maxDuration: Duration.zero,
+      await expectLater(
+        assessor.assess(
+          expectedText: 'Na shledanou',
+          maxDuration: Duration.zero,
+        ),
+        throwsA(isA<SpeechServiceException>()),
       );
 
-      expect(assessment.usedWhisper, isFalse);
-      expect(assessment.transcribedText, 'na shledanou');
-      // Cloud path recorded, then cleaned up before degrading.
       expect(recorder.startCount, 1);
       expect(recorder.cleanupCount, greaterThanOrEqualTo(1));
-      expect(native.listenCount, 1);
+      expect(
+        native.listenCount,
+        0,
+        reason: 'the learner already spoke; re-recording invents an answer',
+      );
     },
   );
+
+  test('the exercise stays completable after a cloud failure', () async {
+    // "Never hard-fail the exercise" still holds — it is honoured across
+    // attempts rather than within one by fabricating a score. The failed
+    // attempt is reported, cloud speech is dropped for the session, and the
+    // next attempt takes the native path from the start, where listening live
+    // is what the learner is actually being asked to do.
+    final recorder = _FakeRecorder();
+    final native = _FakeLiveTranscriber(result: 'na shledanou');
+    final assessor = PronunciationAssessor(
+      recorder: recorder,
+      whisper: _FakeCloud(available: true, throwOnTranscribe: true),
+      fallbackStt: native,
+      log: Logger('test'),
+      cloudConsentGranted: () async => true,
+    );
+
+    await expectLater(
+      assessor.assess(expectedText: 'Na shledanou', maxDuration: Duration.zero),
+      throwsA(isA<SpeechServiceException>()),
+    );
+    expect(assessor.hasWhisper, isFalse, reason: 'cloud dropped for session');
+
+    final second = await assessor.assess(
+      expectedText: 'Na shledanou',
+      maxDuration: Duration.zero,
+    );
+
+    expect(second.usedWhisper, isFalse);
+    expect(second.transcribedText, 'na shledanou');
+    expect(native.listenCount, 1);
+    expect(
+      recorder.startCount,
+      1,
+      reason: 'the second attempt never enters the cloud capture path',
+    );
+  });
+
+  test('a recorder that cannot start still degrades to a live listen', () async {
+    // No audio was captured, so nothing has been asked of the learner yet and
+    // prompting them to speak is honest — the opposite of the case above.
+    final native = _FakeLiveTranscriber(result: 'dobrý den');
+    final assessor = PronunciationAssessor(
+      recorder: _BrokenRecorder(),
+      whisper: _FakeCloud(available: true),
+      fallbackStt: native,
+      log: Logger('test'),
+      cloudConsentGranted: () async => true,
+    );
+
+    final assessment = await assessor.assess(
+      expectedText: 'Dobrý den',
+      maxDuration: Duration.zero,
+    );
+
+    expect(assessment.usedWhisper, isFalse);
+    expect(assessment.transcribedText, 'dobrý den');
+    expect(native.listenCount, 1);
+  });
+}
+
+/// A recorder whose capture never starts (no permission, no device).
+class _BrokenRecorder extends _FakeRecorder {
+  @override
+  Future<String> recordUntilSilence({
+    Duration silenceTimeout = const Duration(seconds: 3),
+    Duration maxDuration = const Duration(seconds: 15),
+    Future<void>? stopSignal,
+  }) async => throw Exception('microphone unavailable');
 }
 
 class _FakeCloud implements CloudTranscriber {

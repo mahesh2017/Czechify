@@ -1,8 +1,20 @@
+/// Every table holding data belonging to the account, for export and audit.
+///
+/// This must cover every entity the client syncs, plus anything the server
+/// records about the account on its own. `custom_cards` — the learner's
+/// hand-written vocabulary — was missing, so a subject-access export silently
+/// omitted the one thing on this list they authored themselves. Deletion was
+/// unaffected (the foreign key cascades), which is exactly why the gap was
+/// invisible.
+///
+/// A Dart test cross-checks this list against the client's sync entity map, so
+/// adding a synced table without adding it here fails the build.
 export const syncedUserTables = [
   "lesson_progress",
   "earned_badges",
   "user_progress",
   "srs_cards",
+  "custom_cards",
   "gamification_state",
   "ai_daily_usage",
 ] as const;

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'data/services/stt/stt_bench_hook.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,10 +54,6 @@ Future<void> main() async {
     SafeDiagnostics.error('unhandled_async', error, stack);
     return true; // Suppress — the app stays alive.
   };
-
-  // Debug/profile only, and only when a model has been side-loaded — see
-  // SttBenchHook. Unawaited so it never delays first paint.
-  unawaited(SttBenchHook.maybeRun());
 
   runApp(const ProviderScope(child: CzechifyApp()));
 }

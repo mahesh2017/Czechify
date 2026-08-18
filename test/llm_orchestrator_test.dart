@@ -48,6 +48,169 @@ void main() {
       expect(request.context['scenario_id'], 'casual_chat');
     });
 
+    test('a long conversation stays within the server message cap', () {
+      // The server refuses more than 24 messages. Two are added per exchange,
+      // so an unwindowed history broke the thread permanently after ~12 turns.
+      final history = [
+        for (var turn = 0; turn < 40; turn++) ...[
+          ChatMessage.user('otázka $turn', conversationId: 'c1'),
+          ChatMessage.tutor(text: 'odpověď $turn', conversationId: 'c1'),
+        ],
+      ];
+
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'a ještě jedna',
+        history: history,
+      );
+
+      expect(request.messages.length, lessThanOrEqualTo(24));
+      // The newest turns are what the tutor is answering, so those are kept.
+      expect(request.messages.last.content, 'a ještě jedna');
+      expect(
+        request.messages.any((m) => m.content == 'odpověď 39'),
+        isTrue,
+        reason: 'the most recent history must survive windowing',
+      );
+      expect(
+        request.messages.any((m) => m.content == 'otázka 0'),
+        isFalse,
+        reason: 'the oldest history is what gets dropped',
+      );
+    });
+
+    test('a verbose conversation stays within the server character cap', () {
+      // Few messages, each near the per-message ceiling: the count window
+      // alone would let this through and the server would still refuse it.
+      final history = [
+        for (var turn = 0; turn < 10; turn++)
+          ChatMessage.tutor(text: 'x' * 3000, conversationId: 'c1'),
+      ];
+
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'krátká otázka',
+        history: history,
+      );
+
+      final total = request.messages.fold<int>(
+        0,
+        (sum, m) => sum + m.content.length,
+      );
+      expect(total, lessThanOrEqualTo(12000));
+      expect(request.messages.last.content, 'krátká otázka');
+    });
+
+    test('the user message survives a history that exhausts the budget', () {
+      final history = [
+        for (var turn = 0; turn < 30; turn++)
+          ChatMessage.tutor(text: 'y' * 3900, conversationId: 'c1'),
+      ];
+
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'nezmizím',
+        history: history,
+      );
+
+      expect(request.messages.last.content, 'nezmizím');
+      expect(request.messages.last.role, LlmRole.user);
+    });
+
+    test('an earlier summary travels as bounded context', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'restaurant',
+        userMessage: 'A ještě jednu kávu',
+        history: [],
+        earlierSummary: 'The learner ordered soup and asked for the bill.',
+      );
+
+      expect(
+        request.context['summary'],
+        'The learner ordered soup and asked for the bill.',
+      );
+      // Never smuggled in as a message — the server owns every prompt.
+      expect(
+        request.messages.any((m) => m.content.contains('ordered soup')),
+        isFalse,
+      );
+    });
+
+    test('an over-long summary is truncated, not dropped', () {
+      // The server rejects the whole request over its context limit, and
+      // losing the turn is worse than losing the tail of a summary.
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'restaurant',
+        userMessage: 'Ahoj',
+        history: [],
+        earlierSummary: 'x' * 5000,
+      );
+
+      expect(
+        request.context['summary']!.length,
+        LLMOrchestrator.maxSummaryCharacters,
+      );
+    });
+
+    test('an empty summary is omitted rather than sent blank', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'restaurant',
+        userMessage: 'Ahoj',
+        history: [],
+        earlierSummary: '   ',
+      );
+
+      expect(request.context.containsKey('summary'), isFalse);
+    });
+
+    test('exactly the dropped turns are offered for summarization', () {
+      final history = [
+        for (var turn = 0; turn < 30; turn++)
+          ChatMessage.user('zpráva $turn', conversationId: 'c1'),
+      ];
+
+      final dropped = orchestrator.messagesFallingOutOfWindow(
+        history: history,
+        userMessage: 'nová',
+      );
+      final kept =
+          orchestrator
+              .buildConversationRequest(
+                level: CEFRLevel.a1,
+                scenarioId: 'casual_chat',
+                userMessage: 'nová',
+                history: history,
+              )
+              .messages
+              .length -
+          1; // less the new user message
+
+      expect(dropped.length + kept, history.length);
+      expect(dropped.first.content, 'zpráva 0');
+      expect(dropped.last.content, 'zpráva ${30 - kept - 1}');
+    });
+
+    test('nothing is dropped while the history still fits', () {
+      final history = [
+        ChatMessage.user('jedna', conversationId: 'c1'),
+        ChatMessage.tutor(text: 'dvě', conversationId: 'c1'),
+      ];
+
+      expect(
+        orchestrator.messagesFallingOutOfWindow(
+          history: history,
+          userMessage: 'tři',
+        ),
+        isEmpty,
+      );
+    });
+
     test('maps history roles correctly', () {
       final history = [
         ChatMessage.user('u1', conversationId: 'c1'),
@@ -176,6 +339,43 @@ void main() {
       expect(
         (result as TutorParseError).reason,
         contains('missing required information'),
+      );
+    });
+  });
+
+  group('parseConversationSummary', () {
+    // Summarization is an optimization the learner never asked for. Every
+    // unusable reply degrades to "no summary" — a shorter memory — rather than
+    // surfacing an error they can neither understand nor act on.
+    LlmResponse reply(String content) => LlmResponse(content: content);
+
+    test('reads a well-formed summary', () {
+      expect(
+        orchestrator.parseConversationSummary(
+          reply(jsonEncode({'summary': ' The learner ordered soup. '})),
+        ),
+        'The learner ordered soup.',
+      );
+    });
+
+    test('returns null for a blank summary', () {
+      expect(
+        orchestrator.parseConversationSummary(
+          reply(jsonEncode({'summary': '   '})),
+        ),
+        isNull,
+      );
+    });
+
+    test('returns null rather than throwing on junk', () {
+      expect(orchestrator.parseConversationSummary(reply('not json')), isNull);
+      expect(orchestrator.parseConversationSummary(reply('[]')), isNull);
+      expect(orchestrator.parseConversationSummary(reply('{}')), isNull);
+      expect(
+        orchestrator.parseConversationSummary(
+          reply(jsonEncode({'summary': 42})),
+        ),
+        isNull,
       );
     });
   });

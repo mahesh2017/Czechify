@@ -11,7 +11,7 @@
         android:label="Czechify"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:fullBackupContent="@xml/backup_rules"
         android:dataExtractionRules="@xml/data_extraction_rules">
         <activity
@@ -77,6 +77,13 @@
              the on-device speech recognition service. -->
         <intent>
             <action android:name="android.speech.RecognitionService"/>
+        </intent>
+        <!-- Lets url_launcher find a mail app for an AI-content report. Without
+             this, package visibility hides every mail client on API 30+ and the
+             report falls back to "copy this address" for no good reason. -->
+        <intent>
+            <action android:name="android.intent.action.SENDTO"/>
+            <data android:scheme="mailto"/>
         </intent>
     </queries>
 </manifest>

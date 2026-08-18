@@ -87,13 +87,20 @@ class ReminderScheduler {
 
     final reminders = <ScheduledReminder>[];
     for (var dayOffset = 0; dayOffset < _horizonDays; dayOffset++) {
+      // Day arithmetic in the date fields, not `.add(Duration(days:))`.
+      // A Duration is an exact elapsed span, so adding one across a DST
+      // boundary shifts the wall clock by an hour: with a 30-day horizon,
+      // every reminder past the October change fired at 20:30 instead of
+      // 21:30. Overflowing the day field normalizes through the transition
+      // and keeps the local time fixed, which is what "21:30" means to a
+      // learner. DateTime handles month/year rollover for us.
       final date = DateTime(
         today.year,
         today.month,
-        today.day,
+        today.day + dayOffset,
         eveningHour,
         eveningMinute,
-      ).add(Duration(days: dayOffset));
+      );
 
       // Skip today if 21:30 has already passed.
       if (dayOffset == 0 && date.isBefore(today)) {

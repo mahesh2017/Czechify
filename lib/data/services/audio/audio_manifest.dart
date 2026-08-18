@@ -53,6 +53,21 @@ class ManifestEntry {
   bool get hasChecksum => sha256 != null && size != null;
 }
 
+/// A manifest-supplied filename is a remote input that becomes a local path,
+/// so it is checked against the only shape the generator produces:
+/// `<voice>_<64 hex>.mp3`.
+///
+/// This lives here, once, because it previously did not: the Czech and English
+/// playback paths each carried their own copy of this pattern, and the English
+/// one had `\\.` inside a raw string — a literal backslash, which no real
+/// filename can contain. It matched nothing, so every English narration
+/// silently fell through to the device's synthetic voice while the recorded
+/// pack sat unused on the CDN.
+bool isValidAudioPackFileName(String fileName) =>
+    _audioPackFileName.hasMatch(fileName);
+
+final RegExp _audioPackFileName = RegExp(r'^[a-z]+_[0-9a-f]{64}\.mp3$');
+
 /// Parsed audio manifest: voices → {textHash → ManifestEntry}.
 class AudioManifest {
   AudioManifest({

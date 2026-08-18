@@ -26,6 +26,17 @@ class ChatState {
   /// when the learner sends a message.
   final List<String> suggestedReplies;
 
+  /// Tutor turns left in today's allowance, as of the last reply. Null until
+  /// a reply arrives, or when the deployed function does not report it.
+  final int? remainingToday;
+
+  /// Condensed memory of turns that have fallen out of the request window.
+  ///
+  /// Rebuilt in-session rather than stored: the full transcript is already in
+  /// the database, so a resumed conversation can reconstruct this on demand
+  /// and no schema change is needed to keep it.
+  final String? earlierSummary;
+
   const ChatState({
     this.conversationId,
     this.scenarioId = 'casual_chat',
@@ -35,7 +46,15 @@ class ChatState {
     this.isLoading = false,
     this.error,
     this.suggestedReplies = const [],
+    this.remainingToday,
+    this.earlierSummary,
   });
+
+  /// Whether the allowance is close enough to spend that saying so helps.
+  /// Announcing "17 left" every turn is noise; the last few are worth knowing
+  /// before a conversation stops mid-sentence.
+  bool get shouldWarnAboutQuota =>
+      remainingToday != null && remainingToday! <= 3;
 
   ChatState copyWith({
     String? conversationId,
@@ -46,6 +65,8 @@ class ChatState {
     bool? isLoading,
     String? error,
     List<String>? suggestedReplies,
+    int? remainingToday,
+    String? earlierSummary,
   }) {
     return ChatState(
       conversationId: conversationId ?? this.conversationId,
@@ -56,6 +77,8 @@ class ChatState {
       isLoading: isLoading ?? this.isLoading,
       error: error,
       suggestedReplies: suggestedReplies ?? this.suggestedReplies,
+      remainingToday: remainingToday ?? this.remainingToday,
+      earlierSummary: earlierSummary ?? this.earlierSummary,
     );
   }
 }
@@ -186,6 +209,41 @@ class ChatNotifier extends Notifier<ChatState> {
     );
   }
 
+  /// Condenses the turns this request will drop, folding in whatever was
+  /// already summarized. Returns the summary to send with this turn.
+  ///
+  /// Best-effort by design: on any failure the conversation proceeds with the
+  /// previous (or no) summary. This is machinery the learner did not ask for,
+  /// so it must never be the reason their message goes unanswered.
+  Future<String?> _summarizeIfNeeded(
+    LLMOrchestrator orchestrator,
+    String text,
+    List<ChatMessage> history,
+  ) async {
+    final dropped = orchestrator.messagesFallingOutOfWindow(
+      history: history,
+      userMessage: text,
+    );
+    if (dropped.isEmpty) return state.earlierSummary;
+
+    try {
+      final llm = ref.read(llmServiceProvider);
+      final response = await llm.complete(
+        orchestrator.buildConversationSummaryRequest(
+          level: state.level,
+          messages: dropped,
+          previousSummary: state.earlierSummary,
+        ),
+      );
+      final summary = orchestrator.parseConversationSummary(response);
+      if (summary == null) return state.earlierSummary;
+      state = state.copyWith(earlierSummary: summary);
+      return summary;
+    } catch (_) {
+      return state.earlierSummary;
+    }
+  }
+
   Future<void> _completeTutorTurn(
     String text,
     List<ChatMessage> history,
@@ -194,11 +252,18 @@ class ChatNotifier extends Notifier<ChatState> {
     try {
       // Build LLM request via orchestrator
       final orchestrator = ref.read(llmOrchestratorProvider);
+
+      // Compress whatever this turn is about to push out of the window, so a
+      // long conversation loses its oldest turns from the request but not from
+      // the tutor's memory of it.
+      final summary = await _summarizeIfNeeded(orchestrator, text, history);
+
       final request = orchestrator.buildConversationRequest(
         level: state.level,
         scenarioId: state.scenarioId,
         userMessage: text,
         history: history,
+        earlierSummary: summary,
       );
 
       // Call LLM
@@ -224,6 +289,7 @@ class ChatNotifier extends Notifier<ChatState> {
         messages: [...state.messages, tutorMsg],
         isLoading: false,
         suggestedReplies: tutorResponse.suggestedReplies,
+        remainingToday: response.remainingToday,
       );
 
       // Persist tutor message

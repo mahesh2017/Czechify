@@ -30,11 +30,28 @@ class SrsScheduler {
     var newEase = card.difficulty > 0 ? card.difficulty : _initialEaseFactor;
     var interval = 1;
 
+    // Ease moves on every graded review, including the first two.
+    //
+    // It used to be adjusted only from the third review onwards, so a card
+    // rated Easy twice and a card rated Hard twice arrived at the multiplying
+    // branch with identical ease and were scheduled identically from then on.
+    // The learner's clearest signal about a word — how it felt the first time
+    // they met it — was the one the scheduler discarded.
+    final easeAdjustment = switch (rating) {
+      Rating.again => -0.2,
+      Rating.hard => -0.15,
+      Rating.good => 0.0,
+      Rating.easy => 0.15,
+    };
+    newEase = (newEase + easeAdjustment).clamp(_minEaseFactor, 3.0);
+
     if (rating == Rating.again) {
       newReps = 0;
       interval = 1;
-      newEase = (newEase - 0.2).clamp(_minEaseFactor, 3.0);
     } else if (card.reps == 0) {
+      // Fixed learning steps: the first two intervals stay predictable so a
+      // new card is not scheduled a month out on one confident answer. Ease is
+      // still recorded, and takes effect once multiplication begins below.
       interval = switch (rating) {
         Rating.hard => 1,
         Rating.good => 1,
@@ -49,16 +66,7 @@ class SrsScheduler {
         Rating.again => 1,
       };
     } else {
-      final easeAdjustment = switch (rating) {
-        Rating.again => -0.2,
-        Rating.hard => -0.15,
-        Rating.good => 0.0,
-        Rating.easy => 0.15,
-      };
-      // Accumulate ease from the card's stored value, not from the constant
-      newEase = (newEase + easeAdjustment).clamp(_minEaseFactor, 3.0);
-      interval = (card.stability * newEase).round();
-      interval = interval.clamp(1, 365);
+      interval = (card.stability * newEase).round().clamp(1, 365);
     }
 
     final newDifficulty = newEase;

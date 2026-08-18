@@ -92,6 +92,15 @@ class ConsentRepository {
   }
 
   /// Records not yet pushed to the server.
+  ///
+  /// NOTE: nothing calls this yet. There is no server-side consent table, so
+  /// the audit log is device-local and does not survive a lost or wiped
+  /// device — a weaker position than it looks, because evidence a controller
+  /// must be able to produce currently sits only on the data subject's phone.
+  /// The `synced` column and these two methods are the client half of closing
+  /// that; the missing half is a `consent_records` table with owner RLS and an
+  /// entry in the sync entity map. Deliberately not built yet — see the
+  /// decision noted in docs/MANUAL_VERIFICATION_PHASES_1-3.md.
   Future<List<ConsentRecord>> pendingSync() {
     return (_db.select(_db.consentRecords)
           ..where((r) => r.synced.equals(false))

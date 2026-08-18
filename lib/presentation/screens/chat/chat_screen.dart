@@ -10,6 +10,7 @@ import '../../providers/stt_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../providers/database_providers.dart';
 import '../../providers/review_providers.dart';
+import '../../widgets/chat/report_tutor_reply_sheet.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
@@ -265,6 +266,42 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                         },
                       ),
                     ),
+                    // The daily allowance was always enforced but never shown,
+                    // so a conversation simply stopped being answered. Only
+                    // surfaced near the end — a running count every turn would
+                    // be noise, and this is meant to give the learner a chance
+                    // to finish the exchange rather than be cut off in it.
+                    if (chat.shouldWarnAboutQuota && chat.error == null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 4,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.hourglass_bottom,
+                              size: 15,
+                              color: t.amberInk,
+                            ),
+                            const SizedBox(width: 6),
+                            Expanded(
+                              child: Text(
+                                chat.remainingToday == 0
+                                    ? 'No tutor replies left today.'
+                                    : '${chat.remainingToday} tutor '
+                                        '${chat.remainingToday == 1 ? "reply" : "replies"} '
+                                        'left today.',
+                                style: TextStyle(
+                                  color: t.amberInk,
+                                  fontSize: 12.5,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     // Error message with a one-tap retry — the message is already
                     // in the transcript, so retry only repeats the tutor call.
                     if (chat.error != null)
@@ -766,6 +803,7 @@ class _MessageBubble extends ConsumerWidget {
                   if (!isUser) ...[
                     const SizedBox(width: 8),
                     _TtsIconButton(text: message.content),
+                    _ReportIconButton(message: message),
                   ],
                 ],
               ),
@@ -845,6 +883,42 @@ class _TtsIconButton extends ConsumerWidget {
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
       tooltip: AppLocalizations.of(context).listen,
+    );
+  }
+}
+
+/// Reports a tutor reply that should not have been written.
+///
+/// Sits on the bubble itself rather than behind a long-press: Google Play
+/// requires the route to exist, and a learner who has just read something
+/// upsetting should not have to discover a hidden gesture to act on it.
+class _ReportIconButton extends ConsumerWidget {
+  final ChatMessage message;
+
+  const _ReportIconButton({required this.message});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return IconButton(
+      onPressed: () async {
+        final sent = await showReportTutorReplySheet(
+          context: context,
+          replyText: message.content,
+          scenarioTitle: ref.read(chatProvider).scenarioTitle,
+        );
+        if (!sent || !context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Thanks — your report is on its way.'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      },
+      icon: const Icon(Icons.flag_outlined, size: 16),
+      color: context.tokens.muted,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+      tooltip: 'Report this reply',
     );
   }
 }

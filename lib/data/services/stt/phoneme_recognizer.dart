@@ -39,7 +39,16 @@ class PhonemeRecognizer {
   final Dio _http;
   final Logger _log;
 
-  bool get isConfigured => _baseUrl.isNotEmpty;
+  /// Configured only over TLS.
+  ///
+  /// This endpoint receives raw recordings of the learner's voice, and it is
+  /// a self-hosted address supplied at build time — the documented example was
+  /// a plain `http://` host on a LAN. A build that shipped with one would have
+  /// sent biometric audio in the clear to a destination the privacy notice
+  /// does not describe. Refusing to treat it as configured degrades the app to
+  /// transcript scoring, which is the existing behaviour when no recogniser is
+  /// set at all, rather than failing anything visible.
+  bool get isConfigured => Uri.tryParse(_baseUrl)?.isScheme('https') ?? false;
 
   /// The Czech text the model heard, or null if it could not be obtained.
   Future<String?> recognize(String audioPath) async {

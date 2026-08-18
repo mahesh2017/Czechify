@@ -9,10 +9,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
-import '../../core/config/backend_config.dart';
-import '../../core/config/release_config.dart';
 import '../../core/utils/text_normalizer.dart';
-import '../../data/services/audio/audio_manifest.dart';
+import '../../data/services/audio/audio_pack_cache.dart';
 import 'settings_providers.dart';
 
 /// TTS provider — manages a singleton FlutterTts instance configured for Czech.
@@ -82,130 +80,42 @@ Future<void> _selectBestCzechVoice(FlutterTts tts) async {
 /// This is the "English TTS now" step; a recorded character voice (an `.mp3`
 /// per unit) can replace it later without touching call sites.
 class EnglishTts {
-  final FlutterTts _tts;
-  final AudioPlayer _player;
-  final Dio _http;
-  final TtsVoiceGender Function() _voiceGender;
-
-  /// True while narration is actually playing — the teaching card watches this
-  /// to switch the teacher between its idle and talking animation.
-  final ValueNotifier<bool> speaking = ValueNotifier<bool>(false);
-
-  String? _cacheDir;
-  Future<AudioManifest?>? _remoteManifest;
-  AudioCacheMeta? _cacheMeta;
-
-  static const _audioBucket = 'course-audio';
-
-  EnglishTts(this._tts, this._player, this._http, this._voiceGender) {
+  EnglishTts(this._tts, this._player, Dio http, this._voiceGender)
+    : _pack = AudioPackCache(
+        http: http,
+        manifestFileName: 'manifest_en.json',
+        log: Logger('EnglishTts.pack'),
+      ) {
     _tts.setStartHandler(() => speaking.value = true);
     _tts.setCompletionHandler(() => speaking.value = false);
     _tts.setCancelHandler(() => speaking.value = false);
     _tts.setErrorHandler((_) => speaking.value = false);
   }
 
-  String get _publicAudioBase =>
-      '${BackendConfig.supabaseUrl}/storage/v1/object/public/$_audioBucket';
+  final FlutterTts _tts;
+  final AudioPlayer _player;
+  final TtsVoiceGender Function() _voiceGender;
 
-  Future<String> _getCacheDir() async {
-    if (_cacheDir != null) return _cacheDir!;
-    final dir = await getApplicationSupportDirectory();
-    final path = '${dir.path}/neural_audio';
-    await Directory(path).create(recursive: true);
-    return _cacheDir = path;
-  }
+  /// Narration lives in its own manifest: the Czech pack is single-locale by
+  /// design, and mixing the two would make each side's coverage impossible to
+  /// reason about.
+  final AudioPackCache _pack;
 
-  /// Intro narration lives in its own manifest: the Czech pack is
-  /// single-locale by design, and mixing the two would make each side's
-  /// coverage impossible to reason about.
-  Future<AudioManifest?> _loadRemoteManifest() async {
-    if (!BackendConfig.isConfigured) return null;
-    final cacheDir = await _getCacheDir();
-    final cachedManifest = File('$cacheDir/manifest_en.json');
-    try {
-      final response = await _http.get<String>(
-        ReleaseConfig.audioManifestUrl('$_publicAudioBase/manifest_en.json'),
-        options: Options(responseType: ResponseType.plain),
-      );
-      final raw = response.data;
-      if (raw == null || raw.isEmpty) throw const FormatException('Empty');
-      await cachedManifest.writeAsString(raw, flush: true);
-      return AudioManifest.parse(raw);
-    } catch (_) {
-      if (await cachedManifest.exists()) {
-        try {
-          return AudioManifest.parse(await cachedManifest.readAsString());
-        } catch (_) {
-          return null;
-        }
-      }
-      return null;
-    }
-  }
-
-  /// Shared cache meta for checksum-based invalidation.
-  Future<AudioCacheMeta> _getCacheMeta() async {
-    if (_cacheMeta != null) return _cacheMeta!;
-    final cacheDir = await _getCacheDir();
-    _cacheMeta = await AudioCacheMeta.load(cacheDir);
-    return _cacheMeta!;
-  }
+  /// True while narration is actually playing — the teaching card watches this
+  /// to switch the teacher between its idle and talking animation.
+  final ValueNotifier<bool> speaking = ValueNotifier<bool>(false);
 
   /// The narration voice follows the same setting as the Czech voice and the
   /// teacher character, so one choice stays consistent across the whole card.
   Future<bool> _playNeural(String text) async {
-    final manifest = await (_remoteManifest ??= _loadRemoteManifest());
-    if (manifest == null) return false;
-    final entries = manifest.forGender(_voiceGender().name);
-    final digest =
-        sha256.convert(utf8.encode(text.trim().toLowerCase())).toString();
-    final entry = entries[digest];
-    if (entry == null) return false;
-
-    final fileName = entry.path.split('/').last;
-    if (!RegExp(r'^[a-z]+_[0-9a-f]{64}\\.mp3$').hasMatch(fileName)) {
-      return false;
-    }
+    final path = await _pack.clipPath(
+      text: text,
+      gender: _voiceGender().name,
+    );
+    if (path == null) return false;
 
     try {
-      final cacheDir = await _getCacheDir();
-      final meta = await _getCacheMeta();
-      final cachedAudio = File('$cacheDir/$fileName');
-
-      // Check freshness: re-download if the manifest says the audio bytes
-      // changed (re-recorded clip for the same text).
-      final status = await checkCacheFreshness(
-        file: cachedAudio,
-        entry: entry,
-        meta: meta,
-      );
-
-      if (status != CacheStatus.fresh) {
-        final partial = File('${cachedAudio.path}.part');
-        await _http.download(
-          ReleaseConfig.audioClipUrl(
-            '$_publicAudioBase/$fileName',
-            entry.sha256,
-          ),
-          partial.path,
-        );
-        if (!await partial.exists() || await partial.length() == 0) {
-          throw const FileSystemException('Downloaded audio is empty');
-        }
-        // Verify checksum if the manifest carries one.
-        if (!await verifyDownloadedFile(
-          file: partial,
-          entry: entry,
-          meta: meta,
-        )) {
-          await partial.delete();
-          throw FileSystemException('Checksum mismatch for $fileName');
-        }
-        await partial.rename(cachedAudio.path);
-        await meta.save(cacheDir);
-      }
-
-      await _player.setFilePath(cachedAudio.path);
+      await _player.setFilePath(path);
       speaking.value = true;
       // Clear the talking animation when playback actually ends. Unawaited on
       // purpose — speak() must return as soon as playback starts.
@@ -218,6 +128,7 @@ class EnglishTts {
       await _player.play();
       return true;
     } catch (_) {
+      speaking.value = false;
       return false;
     }
   }
@@ -299,7 +210,6 @@ class CzechTts {
 
   final FlutterTts _tts;
   final AudioPlayer _player;
-  final Dio _http;
 
   /// Current speech rate — part of the cache key, so audio synthesized at
   /// one rate is never replayed when the user changes the setting.
@@ -307,9 +217,10 @@ class CzechTts {
   final TtsVoiceGender Function() _voiceGender;
 
   String? _cacheDir;
-  String? _neuralCacheDir;
-  Future<AudioManifest?>? _remoteManifest;
-  AudioCacheMeta? _cacheMeta;
+
+  /// Recorded Czech pack. Manifest, freshness, download and verification all
+  /// live in [AudioPackCache], shared with the English narration pack.
+  final AudioPackCache _pack;
 
   /// True when the last utterance came from the device's own TTS instead of
   /// the recorded pack.
@@ -323,15 +234,14 @@ class CzechTts {
   CzechTts(
     this._tts,
     this._player,
-    this._http,
+    Dio http,
     this._speechRate,
     this._voiceGender,
-  );
-
-  static const _audioBucket = 'course-audio';
-
-  String get _publicAudioBase =>
-      '${BackendConfig.supabaseUrl}/storage/v1/object/public/$_audioBucket';
+  ) : _pack = AudioPackCache(
+        http: http,
+        manifestFileName: 'manifest.json',
+        log: Logger('CzechTts.pack'),
+      );
 
   /// Get the cache directory for TTS audio files.
   Future<String> _getCacheDir() async {
@@ -343,24 +253,6 @@ class CzechTts {
     return ttsDir;
   }
 
-  /// Persistent cache for downloaded neural audio and its manifest.
-  Future<String> _getNeuralCacheDir() async {
-    if (_neuralCacheDir != null) return _neuralCacheDir!;
-    final dir = await getApplicationSupportDirectory();
-    final audioDir = '${dir.path}/neural_audio';
-    await Directory(audioDir).create(recursive: true);
-    _neuralCacheDir = audioDir;
-    return audioDir;
-  }
-
-  /// Shared cache meta for checksum-based invalidation.
-  Future<AudioCacheMeta> _getCacheMeta() async {
-    if (_cacheMeta != null) return _cacheMeta!;
-    final cacheDir = await _getNeuralCacheDir();
-    _cacheMeta = await AudioCacheMeta.load(cacheDir);
-    return _cacheMeta!;
-  }
-
   /// Generate a cache key from the text and effective speech rate.
   String _cacheKey(String text, double rate) {
     final bytes = utf8.encode(
@@ -370,104 +262,11 @@ class CzechTts {
     return hash.toString();
   }
 
-  /// The audio-pack key deliberately excludes playback speed: one neural MP3
-  /// can be replayed at normal or slow speed without duplicating the catalog.
-  String _audioPackKey(String text) {
-    return sha256.convert(utf8.encode(text.trim().toLowerCase())).toString();
-  }
-
-  Future<AudioManifest?> _loadRemoteAudio() async {
-    if (!BackendConfig.isConfigured) {
-      // The binary was built without the Supabase --dart-defines, so
-      // BackendConfig.supabaseUrl is empty and the manifest request below
-      // would hit '<empty>/storage/...' and silently fall back to platform
-      // TTS. Short-circuit and log loudly so the cause is obvious on-device.
-      debugPrint(
-        '[czech_tts] Neural audio disabled: SUPABASE_URL/SUPABASE_ANON_KEY '
-        'not supplied at build time. Using on-device TTS fallback. '
-        'Rebuild with both --dart-define values to enable neural audio.',
-      );
-      return null;
-    }
-
-    final cacheDir = await _getNeuralCacheDir();
-    final cachedManifest = File('$cacheDir/manifest.json');
-
-    try {
-      final response = await _http.get<String>(
-        ReleaseConfig.audioManifestUrl('$_publicAudioBase/manifest.json'),
-        options: Options(responseType: ResponseType.plain),
-      );
-      final raw = response.data;
-      if (raw == null || raw.isEmpty) {
-        throw const FormatException('Empty manifest');
-      }
-      final parsed = AudioManifest.parse(raw);
-      await cachedManifest.writeAsString(raw, flush: true);
-      return parsed;
-    } catch (_) {
-      if (await cachedManifest.exists()) {
-        try {
-          return AudioManifest.parse(await cachedManifest.readAsString());
-        } catch (_) {
-          // Continue to the native TTS fallback below.
-        }
-      }
-      return null;
-    }
-  }
-
   Future<bool> _playNeural(String text, double effectiveRate) async {
-    final manifest = await (_remoteManifest ??= _loadRemoteAudio());
-    if (manifest == null) return false;
-    final entries = manifest.forGender(_voiceGender().name);
-    final entry = entries[_audioPackKey(text)];
-    if (entry == null) return false;
-
-    final fileName = entry.path.split('/').last;
-    if (!RegExp(r'^[a-z]+_[0-9a-f]{64}\.mp3$').hasMatch(fileName)) {
-      return false;
-    }
-
+    final path = await _pack.clipPath(text: text, gender: _voiceGender().name);
+    if (path == null) return false;
     try {
-      final cacheDir = await _getNeuralCacheDir();
-      final meta = await _getCacheMeta();
-      final cachedAudio = File('$cacheDir/$fileName');
-
-      // Check freshness: re-download if the manifest says the audio bytes
-      // changed (re-recorded clip for the same text).
-      final status = await checkCacheFreshness(
-        file: cachedAudio,
-        entry: entry,
-        meta: meta,
-      );
-
-      if (status != CacheStatus.fresh) {
-        final partial = File('${cachedAudio.path}.part');
-        await _http.download(
-          ReleaseConfig.audioClipUrl(
-            '$_publicAudioBase/$fileName',
-            entry.sha256,
-          ),
-          partial.path,
-        );
-        if (!await partial.exists() || await partial.length() == 0) {
-          throw const FileSystemException('Downloaded audio is empty');
-        }
-        // Verify checksum if the manifest carries one.
-        if (!await verifyDownloadedFile(
-          file: partial,
-          entry: entry,
-          meta: meta,
-        )) {
-          await partial.delete();
-          throw FileSystemException('Checksum mismatch for $fileName');
-        }
-        await partial.rename(cachedAudio.path);
-        await meta.save(cacheDir);
-      }
-
-      await _player.setFilePath(cachedAudio.path);
+      await _player.setFilePath(path);
       // flutter_tts's default setting is 0.45. Preserve the existing control
       // semantics while keeping a single pre-generated file per utterance.
       await _player.setSpeed((effectiveRate / 0.45).clamp(0.5, 1.5));
@@ -623,38 +422,37 @@ class CzechTts {
       await dirObj.delete(recursive: true);
       await dirObj.create(recursive: true);
     }
-    final neuralDir = Directory(await _getNeuralCacheDir());
+    final neuralDir = Directory(await AudioPackCache.cacheDirectory());
     if (await neuralDir.exists()) {
       await neuralDir.delete(recursive: true);
       await neuralDir.create(recursive: true);
     }
-    _remoteManifest = null;
+    _pack.invalidate();
+    AudioPackCache.resetSharedState();
   }
 
-  /// Garbage-collect neural audio files that are no longer in the manifest.
+  /// Garbage-collect neural audio files no longer referenced by a pack.
   ///
-  /// Called after a manifest refresh removes or replaces entries.  Files
-  /// whose names don't appear in any voice's entries are deleted, along
-  /// with their cache-meta records.  Returns the number of files removed.
-  Future<int> gcStaleAudio() async {
-    final manifest = await (_remoteManifest ??= _loadRemoteAudio());
-    if (manifest == null) return 0;
+  /// [alsoKeep] must list every other pack's live filenames. Both packs share
+  /// one directory, so collecting against the Czech manifest alone deleted
+  /// every English narration clip on sight — harmless only for as long as the
+  /// English pack was unreachable, which it no longer is. Returns the number
+  /// of files removed.
+  Future<int> gcStaleAudio({Set<String> alsoKeep = const {}}) async {
+    final live = await _pack.liveFileNames();
+    if (live.isEmpty) return 0;
 
-    final cacheDir = await _getNeuralCacheDir();
-    final meta = await _getCacheMeta();
+    final cacheDir = await AudioPackCache.cacheDirectory();
+    final meta = await AudioPackCache.sharedMeta();
 
-    // Collect all valid filenames from the manifest.
-    final validFiles = <String>{};
-    for (final genderEntries in manifest.voices.values) {
-      for (final entry in genderEntries.values) {
-        validFiles.add(entry.path.split('/').last);
-      }
-    }
-
-    // Also keep the manifest files themselves and the cache meta.
-    validFiles.add('manifest.json');
-    validFiles.add('manifest_en.json');
-    validFiles.add('_cache_meta.json');
+    final validFiles = {
+      ...live,
+      ...alsoKeep,
+      // The manifests themselves and the shared cache meta.
+      'manifest.json',
+      'manifest_en.json',
+      '_cache_meta.json',
+    };
 
     final dir = Directory(cacheDir);
     if (!await dir.exists()) return 0;
@@ -676,9 +474,7 @@ class CzechTts {
       }
     }
 
-    if (removed > 0) {
-      await meta.save(cacheDir);
-    }
+    if (removed > 0) await AudioPackCache.saveMeta();
     return removed;
   }
 
@@ -694,7 +490,7 @@ class CzechTts {
         total += await entity.length();
       }
     }
-    final neuralDir = Directory(await _getNeuralCacheDir());
+    final neuralDir = Directory(await AudioPackCache.cacheDirectory());
     await for (final entity in neuralDir.list()) {
       if (entity is File) total += await entity.length();
     }

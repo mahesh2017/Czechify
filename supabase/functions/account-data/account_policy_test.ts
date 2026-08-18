@@ -29,11 +29,19 @@ Deno.test("account deletion requires an exact confirmation phrase", () => {
 });
 
 Deno.test("export includes every user-owned cloud table", () => {
+  // custom_cards holds the learner's own hand-written vocabulary. It synced
+  // for months while this list omitted it, so an export handed back everything
+  // EXCEPT the part they authored. Deletion was unaffected — the foreign key
+  // cascades — which is why nothing surfaced it.
+  //
+  // test/data/account_export_contract_test.dart cross-checks this list against
+  // the Dart sync map, which is the half that catches the next omission.
   assertEquals(syncedUserTables, [
     "lesson_progress",
     "earned_badges",
     "user_progress",
     "srs_cards",
+    "custom_cards",
     "gamification_state",
     "ai_daily_usage",
   ]);

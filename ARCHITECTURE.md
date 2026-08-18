@@ -1472,7 +1472,7 @@ Text to speak (from lesson or LLM response)
 **Dart interface:**
 ```dart
 class VoskSttEngine implements SttService {
-  static const _channel = MethodChannel('com.ceskinapro/vosk');
+  static const _channel = MethodChannel('com.eminentsite.czechify/vosk');
 
   Future<void> init() async {
     await _channel.invokeMethod('init', {

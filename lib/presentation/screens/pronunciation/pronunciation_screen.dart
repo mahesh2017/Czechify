@@ -161,7 +161,10 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                 ],
               )
             else if (pronState.error != null)
-              _ErrorDisplay(error: pronState.error!)
+              _ErrorDisplay(
+                error: pronState.error!,
+                suggestsMicrophoneCheck: !pronState.errorIsServiceSide,
+              )
             else
               Text(
                 l10n.tapMicrophoneHint,
@@ -473,7 +476,10 @@ class _ScoreDisplay extends StatelessWidget {
 /// Error display.
 class _ErrorDisplay extends StatelessWidget {
   final String error;
-  const _ErrorDisplay({required this.error});
+  const _ErrorDisplay({required this.error, this.suggestsMicrophoneCheck = true});
+
+  /// Whether the failure could plausibly be a microphone or permission problem.
+  final bool suggestsMicrophoneCheck;
 
   @override
   Widget build(BuildContext context) {
@@ -486,12 +492,18 @@ class _ErrorDisplay extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(color: context.tokens.redInk),
         ),
-        const SizedBox(height: 8),
-        Text(
-          'Make sure microphone permissions are granted.',
-          style: TextStyle(fontSize: 14, color: context.tokens.muted),
-          textAlign: TextAlign.center,
-        ),
+        // The microphone hint is only shown when the microphone is plausibly
+        // the problem. A spent daily allowance or an unreachable service has
+        // nothing to do with permissions, and saying so sends the learner to
+        // settings to fix something that is not broken.
+        if (suggestsMicrophoneCheck) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Make sure microphone permissions are granted.',
+            style: TextStyle(fontSize: 14, color: context.tokens.muted),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ],
     );
   }

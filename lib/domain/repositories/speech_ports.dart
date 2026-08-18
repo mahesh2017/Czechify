@@ -1,5 +1,25 @@
 import '../../data/services/stt/whisper_service.dart' show WhisperResult;
 
+/// A cloud speech failure with a message fit to show a learner.
+///
+/// Exists so the reason a recording could not be scored survives the trip from
+/// the transcription client to the UI. It previously did not: the server's
+/// carefully worded "Daily pronunciation check limit reached" was swallowed and
+/// replaced with a fabricated 0% score, which reads as "you pronounced this
+/// badly" rather than "we could not check it".
+class SpeechServiceException implements Exception {
+  const SpeechServiceException(this.message, {this.isQuotaExhausted = false});
+
+  /// Shown to the learner as-is, so it must be plain language.
+  final String message;
+
+  /// True when retrying now cannot help — the allowance is spent.
+  final bool isQuotaExhausted;
+
+  @override
+  String toString() => message;
+}
+
 /// Cloud (server-side) transcription capability.
 ///
 /// [isAvailable] reflects authenticated backend capability — an actual

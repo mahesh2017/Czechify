@@ -141,6 +141,14 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
       hasRecorded = true;
     }
 
+    // Scoped to this view's attempt for the same reason the result is: the
+    // provider outlives the widget and still holds the previous exercise's
+    // outcome on the first build after navigation.
+    final attemptFailed =
+        pronState.error != null &&
+        _awaitingAttemptId != null &&
+        pronState.attemptId == _awaitingAttemptId;
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
@@ -243,6 +251,22 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
                     bg: t.greenSoft,
                     fg: t.greenInk,
                     icon: Icons.check,
+                  ),
+                ],
+                // A recording that could not be checked says so. Without this
+                // the exercise showed nothing at all on failure — the spinner
+                // simply stopped — and the learner had no way to tell a
+                // service outage from having said the phrase wrong.
+                if (attemptFailed) ...[
+                  const SizedBox(height: 10),
+                  Text(
+                    pronState.error!,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13,
+                      height: 1.35,
+                      color: t.redInk,
+                    ),
                   ),
                 ],
               ],

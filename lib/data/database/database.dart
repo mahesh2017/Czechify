@@ -155,11 +155,20 @@ class AppDatabase extends _$AppDatabase {
   ///
   /// Account switching uses this inside a larger transaction so a failed
   /// remote install restores the previous account's complete local state.
-  Future<void> clearLearnerDataRows() async {
+  ///
+  /// [preserveConsentLog] keeps the consent audit trail. Switching accounts is
+  /// not an erasure request — the decisions recorded on this device were still
+  /// really made, and [ConsentRepository] exists specifically so that history
+  /// survives ("nothing is ever updated or deleted"). Wiping it on a switch
+  /// destroyed the only evidence that consent was ever given, which is the one
+  /// thing GDPR Art. 7(1) asks a controller to be able to produce. Account
+  /// *deletion* is different and still clears it: that is erasure, and the
+  /// record is the learner's to remove.
+  Future<void> clearLearnerDataRows({bool preserveConsentLog = false}) async {
     await delete(chatMessages).go();
     await delete(conversations).go();
     await delete(examResults).go();
-    await delete(consentRecords).go();
+    if (!preserveConsentLog) await delete(consentRecords).go();
     await delete(lessonAttempts).go();
     await delete(rewardLedger).go();
     await delete(exerciseAttempts).go();
@@ -212,17 +221,113 @@ class AppDatabase extends _$AppDatabase {
       await _createContentReleaseStateIndexes();
     },
     onUpgrade: (m, from, to) async {
+      // Drift treats any version change as an "upgrade" — a database stamped
+      // with a HIGHER version than [schemaVersion] lands here too, skips every
+      // `from <` guard below, and is then silently restamped with the lower
+      // number while keeping its old shape. Queries would fail later against
+      // columns this build does not know about, with nothing pointing back to
+      // the cause. Fail loudly at the point of damage instead.
+      if (from > to) {
+        throw StateError(
+          'Database was created by a newer build (schema v$from) than this '
+          'one (v$to). Downgrading is not supported; reinstall the app.',
+        );
+      }
       if (from < 2) {
         await m.addColumn(lessons, lessons.canDo);
         await m.addColumn(lessons, lessons.newLanguageJson);
         await m.addColumn(lessons, lessons.recyclesJson);
         await m.addColumn(lessons, lessons.exitTask);
       }
+      // Not guarded by a version check. These indexes were only ever created
+      // in [onCreate], so every upgraded install has been running without the
+      // uniqueness they enforce — duplicate SRS cards and more than one active
+      // content release were both representable.
+      await _backfillUniquenessConstraints();
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
     },
   );
+
+  /// Adds the natural-key uniqueness that [onCreate] has always installed but
+  /// [onUpgrade] never did, to a database that may already violate it.
+  ///
+  /// Order matters: `CREATE UNIQUE INDEX` fails outright against existing
+  /// duplicates, and a failure here runs at startup — it would brick the app
+  /// far more thoroughly than the missing constraint ever did. So each set of
+  /// duplicates is resolved first, keeping the row a learner would miss most.
+  Future<void> _backfillUniquenessConstraints() async {
+    // Each table is checked rather than assumed. Drift does not create tables
+    // introduced after the stored version during an upgrade, so a sufficiently
+    // old database can reach here without them — and a missing table must not
+    // turn a hardening step into a failure to launch.
+    if (await _hasTable('srs_cards')) {
+      await _deduplicateSrsCards();
+      await _createSrsNaturalKeyIndexes();
+    }
+    if (await _hasTable('content_release_installations')) {
+      await _demoteDuplicateContentReleases();
+      await _createContentReleaseStateIndexes();
+    }
+  }
+
+  Future<bool> _hasTable(String name) async {
+    final rows =
+        await customSelect(
+          "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?",
+          variables: [Variable<String>(name)],
+        ).get();
+    return rows.isNotEmpty;
+  }
+
+  Future<void> _deduplicateSrsCards() async {
+    // Keep the most-reviewed duplicate; a tie means equal progress, so either
+    // row is an honest choice. `SELECT id, MAX(reps) … GROUP BY` is SQLite's
+    // documented bare-column rule: `id` comes from the row holding the max.
+    await customStatement('''
+      DELETE FROM srs_cards
+      WHERE card_type = 'vocabulary'
+        AND flashcard_id IS NOT NULL
+        AND id NOT IN (
+          SELECT id FROM (
+            SELECT id, MAX(reps) FROM srs_cards
+            WHERE card_type = 'vocabulary' AND flashcard_id IS NOT NULL
+            GROUP BY flashcard_id
+          )
+        )
+    ''');
+    await customStatement('''
+      DELETE FROM srs_cards
+      WHERE card_type = 'grammar'
+        AND grammar_pattern_key IS NOT NULL
+        AND id NOT IN (
+          SELECT id FROM (
+            SELECT id, MAX(reps) FROM srs_cards
+            WHERE card_type = 'grammar' AND grammar_pattern_key IS NOT NULL
+            GROUP BY grammar_pattern_key
+          )
+        )
+    ''');
+  }
+
+  /// Keeps the most recently installed release in each role and demotes the
+  /// rest — the newest install is what the app would have been serving.
+  Future<void> _demoteDuplicateContentReleases() async {
+    for (final flag in const ['is_active', 'is_previous']) {
+      await customStatement('''
+        UPDATE content_release_installations SET $flag = 0
+        WHERE $flag = 1
+          AND release_id NOT IN (
+            SELECT release_id FROM (
+              SELECT release_id, MAX(installed_at)
+              FROM content_release_installations
+              WHERE $flag = 1
+            )
+          )
+      ''');
+    }
+  }
 
   Future<void> _createSrsNaturalKeyIndexes() async {
     await customStatement('''

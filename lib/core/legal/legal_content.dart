@@ -19,6 +19,14 @@ const String kVoiceCloudConsentVersion = 'voice-cloud-v2';
 
 const String kDeveloperName = 'Mahesh Pathak';
 
+/// Where a learner reaches a human: data requests, and reports of AI output.
+///
+/// One constant because three places have to agree — the in-app policy, the
+/// public pages under `docs/site/`, and the AI-reply report action. A contact
+/// route that differs between them is the kind of thing a store reviewer
+/// notices and a user gives up on.
+const String kSupportEmail = 'email.czechify@gmail.com';
+
 class LegalSection {
   const LegalSection(this.heading, this.body);
   final String heading;
@@ -33,8 +41,7 @@ const List<LegalSection> kPrivacyPolicy = [
     'Who is responsible',
     'Czechify is developed and operated by $kDeveloperName. Any question '
         'about your data, or any request to exercise the rights described '
-        'below, can be sent to the contact address listed in the app store '
-        'entry for Czechify.',
+        'below, can be sent to $kSupportEmail.',
   ),
   LegalSection(
     'The short version',
@@ -97,7 +104,12 @@ const List<LegalSection> kPrivacyPolicy = [
         'are forwarded through our server to DeepSeek, which processes them '
         'outside the European Economic Area. Your conversation history itself '
         'stays on your device. Please do not include sensitive personal '
-        'information in messages to the tutor.',
+        'information in messages to the tutor.\n\n'
+        'The tutor is a language model, so it can occasionally produce '
+        'something wrong, inappropriate, or offensive. If it does, tap the '
+        'flag on that reply to report it. A report sends us the tutor\'s own '
+        'words and the scenario you were in — not your side of the '
+        'conversation, unless you choose to describe it yourself.',
   ),
   LegalSection(
     'Audio lessons',

@@ -37,6 +37,9 @@ class SupabaseLlmService implements LlmService {
         inputTokens: (data['input_tokens'] as num?)?.toInt() ?? 0,
         outputTokens: (data['output_tokens'] as num?)?.toInt() ?? 0,
         model: data['model'] as String?,
+        // Absent from an older deployed function; null means "don't show".
+        remainingToday: (data['remaining_today'] as num?)?.toInt(),
+        dailyLimit: (data['daily_limit'] as num?)?.toInt(),
       );
     } on FunctionException catch (error) {
       final details = error.details;
