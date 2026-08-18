@@ -62,3 +62,7 @@ app.*.map.json
 # Local knowledge-graph cache (embeds absolute paths; not for the repo)
 graphify-out/
 lib/graphify-out/
+
+# Cached ElevenLabs batch responses - see tool/regenerate_short_male_clips.py.
+# Kept out of git: large, and re-fetchable at the cost of the character quota.
+/.audio_batches/

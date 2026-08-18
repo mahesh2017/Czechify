@@ -128,6 +128,21 @@ Audio is transient, but Play still counts sending it to Whisper as **collected**
 `docs/STORE_DATA_DISCLOSURE.md` already says this correctly; copy it verbatim
 rather than re-deriving the answers in the Console UI.
 
+### S6. 154 utterances have no recorded clip, and the app blames the network
+
+4.3% of the curriculum's 3,542 utterances are absent from `manifest.json` for
+both voices, and 143 male / 154 female have no file on disk either. Whenever a
+neural clip cannot be played for **any** reason, `CzechTts` sets
+`usingFallbackVoice` and `DegradedModeBanner` says "Offline — using your
+device's voice. Connect to hear the recorded Czech voice." So these utterances
+show an offline notice on a perfect connection, then speak in the device voice
+— which is what a tester reported as the banner appearing too often.
+
+`tool/regenerate_short_male_clips.py` repairs 39 of the male ones as a side
+effect of the pacing work. The remaining 104 male need an ElevenLabs run and
+all 154 female an Azure one. Separately, the banner's wording should not
+attribute a missing recording to connectivity.
+
 ---
 
 ## Nice to have
