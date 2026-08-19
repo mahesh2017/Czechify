@@ -200,9 +200,6 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
                 const SizedBox(height: 16),
                 AudioPairButtons(
                   onPlay: () => ref.read(czechTtsProvider).speak(targetText),
-                  onSlow:
-                      () => ref.read(czechTtsProvider).speakSlow(targetText),
-                  slowLabel: l10n.audioSlower,
                 ),
               ],
             ),

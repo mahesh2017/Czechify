@@ -396,25 +396,29 @@ class TutorBubble extends StatelessWidget {
   }
 }
 
-/// "Hear it" as the primary action with "Slow" beside it — the audio pair that
-/// appears on every teaching surface.
+/// "Hear it" with the playback speed underneath — the audio block that appears
+/// on every teaching surface.
+///
+/// There used to be a "Slower" button beside the play button, replaying the
+/// phrase once at 0.6x. It is gone for two reasons. On teaching cards it did
+/// nothing at all: play-all is a toggle, so while audio was playing any tap —
+/// including that one — stopped it and returned. And even working, a one-off
+/// slow replay answers the wrong question. A learner who finds the pace too
+/// quick wants it slower until they say otherwise, not for one phrase, and a
+/// button gives no clue what speed you are on now.
 class AudioPairButtons extends StatelessWidget {
   const AudioPairButtons({
     super.key,
     required this.onPlay,
-    required this.onSlow,
     this.playLabel,
-    this.slowLabel,
     this.playing = false,
   });
 
   final VoidCallback? onPlay;
-  final VoidCallback? onSlow;
 
   /// Overrides the default "Hear it" — lesson content sometimes names the set
   /// it plays ("Play the whole set").
   final String? playLabel;
-  final String? slowLabel;
 
   /// Swaps the primary button to a stop affordance mid-playback.
   final bool playing;
@@ -427,53 +431,42 @@ class AudioPairButtons extends StatelessWidget {
     // content and can be a whole phrase ("Hear the alphabet (letter names)").
     // With fixed heights the wrapped button grew and the two no longer lined
     // up; this way the taller one sets the height and both match it.
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: FilledButton.icon(
-              onPressed: onPlay,
-              icon: Icon(playing ? Icons.stop : Icons.play_arrow, size: 20),
-              label: Text(
-                playing
-                    ? (l10n?.audioStop ?? 'Stop')
-                    : (playLabel ?? l10n?.audioHearIt ?? 'Hear it'),
-              ),
-              style: FilledButton.styleFrom(
-                backgroundColor: t.priFill,
-                foregroundColor: t.onFill,
-                minimumSize: const Size(0, 48),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 10,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: FilledButton.icon(
+                  onPressed: onPlay,
+                  icon: Icon(playing ? Icons.stop : Icons.play_arrow, size: 20),
+                  label: Text(
+                    playing
+                        ? (l10n?.audioStop ?? 'Stop')
+                        : (playLabel ?? l10n?.audioHearIt ?? 'Hear it'),
+                  ),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: t.priFill,
+                    foregroundColor: t.onFill,
+                    minimumSize: const Size(0, 48),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
               ),
-            ),
+            ],
           ),
-          const SizedBox(width: 8),
-          const TtsSpeedChip(),
-          const SizedBox(width: 8),
-          OutlinedButton.icon(
-            onPressed: onSlow,
-            icon: Icon(Icons.schedule, size: 16, color: t.muted),
-            label: Text(slowLabel ?? l10n?.audioSlow ?? 'Slow'),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: t.muted,
-              backgroundColor: t.card,
-              side: BorderSide(color: t.line),
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              minimumSize: const Size(0, 48),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 10),
+        const TtsSpeedSelector(),
+      ],
     );
   }
 }
@@ -1539,17 +1532,20 @@ class _ShakeOnceState extends State<ShakeOnce>
   }
 }
 
-/// Cycles playback speed from wherever the audio is, and remembers it.
+/// Playback speed, shown as three visible choices rather than hidden behind a
+/// button you have to press to discover.
 ///
-/// The Settings slider was the only way to change pace, which is the wrong
-/// place for it: you discover the audio is too quick in the middle of a
-/// sentence, not while browsing preferences. This writes the same stored
-/// setting, so the two never disagree and the choice survives the lesson.
+/// The pace problem is not "make this one phrase slower" — it is "this is too
+/// quick for me". So the control is a setting you can see the state of, it
+/// applies to everything spoken afterwards, and it writes the same stored
+/// value the Settings slider edits so the two can never disagree.
 ///
-/// Distinct from the "Slow" button beside it, which is a one-off half-speed
-/// pass for a single phrase and changes nothing afterwards.
-class TtsSpeedChip extends ConsumerWidget {
-  const TtsSpeedChip({super.key});
+/// Three stops, not a slider: mid-lesson a learner wants one tap and a result,
+/// and the Settings slider is still there for anyone who wants finer control.
+class TtsSpeedSelector extends ConsumerWidget {
+  const TtsSpeedSelector({super.key});
+
+  static const _labels = ['Slow', 'Normal', 'Fast'];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1557,11 +1553,54 @@ class TtsSpeedChip extends ConsumerWidget {
     final rate = ref.watch(
       settingsProvider.select((settings) => settings.ttsSpeechRate),
     );
-    final multiplier = rate / kNativeTtsSpeechRate;
+    final selected = nearestStopIndex(rate);
 
-    // Nearest stop rather than an exact match: the Settings slider moves in
-    // 0.1 steps of the raw rate, so a learner can leave it between two stops
-    // and the chip still has to show something honest.
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Icon(Icons.speed_rounded, size: 18, color: t.faint),
+        ),
+        Expanded(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: t.card,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: t.line),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(3),
+              child: Row(
+                children: [
+                  for (var i = 0; i < kTtsSpeedStops.length; i++)
+                    Expanded(
+                      child: _SpeedSegment(
+                        label: _labels[i],
+                        selected: i == selected,
+                        onTap:
+                            () => ref
+                                .read(settingsProvider.notifier)
+                                .setTtsSpeechRate(
+                                  kNativeTtsSpeechRate * kTtsSpeedStops[i],
+                                ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Which stop a stored rate belongs to.
+  ///
+  /// Nearest rather than exact: the Settings slider moves in steps that do not
+  /// land on these stops, so a learner can leave the rate between two and the
+  /// control still has to show something true.
+  static int nearestStopIndex(double rate) {
+    final multiplier = rate / kNativeTtsSpeechRate;
     var index = 0;
     for (var i = 1; i < kTtsSpeedStops.length; i++) {
       if ((kTtsSpeedStops[i] - multiplier).abs() <
@@ -1569,39 +1608,49 @@ class TtsSpeedChip extends ConsumerWidget {
         index = i;
       }
     }
-    final current = kTtsSpeedStops[index];
-    final next = kTtsSpeedStops[(index + 1) % kTtsSpeedStops.length];
+    return index;
+  }
+}
 
+class _SpeedSegment extends StatelessWidget {
+  const _SpeedSegment({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
     return Semantics(
       button: true,
-      label: 'Playback speed ${_format(current)}, tap for ${_format(next)}',
-      child: OutlinedButton(
-        onPressed:
-            () => ref
-                .read(settingsProvider.notifier)
-                .setTtsSpeechRate(kNativeTtsSpeechRate * next),
-        style: OutlinedButton.styleFrom(
-          foregroundColor: current == 1.0 ? t.muted : t.pri,
-          backgroundColor: current == 1.0 ? t.card : t.priSoft,
-          side: BorderSide(color: current == 1.0 ? t.line : t.pri),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          minimumSize: const Size(0, 48),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+      selected: selected,
+      label: '$label playback speed',
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(11),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          height: 38,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: selected ? t.priFill : Colors.transparent,
+            borderRadius: BorderRadius.circular(11),
           ),
-        ),
-        child: Text(
-          _format(current),
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: selected ? t.onFill : t.muted,
+              fontSize: 14,
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+            ),
+          ),
         ),
       ),
     );
-  }
-
-  /// "1x", "0.75x" — no trailing zeros, because the chip is narrow and the
-  /// difference between 1.0x and 1x is noise at this size.
-  static String _format(double speed) {
-    final text = speed.toStringAsFixed(2);
-    return '${text.replaceAll(RegExp(r"0+$"), "").replaceAll(RegExp(r"\.$"), "")}x';
   }
 }

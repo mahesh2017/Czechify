@@ -65,28 +65,27 @@ void main() {
         host(
           AudioPairButtons(
             onPlay: () {},
-            onSlow: () {},
             playLabel: 'Hear the alphabet (letter names)',
           ),
         ),
       );
       expect(tester.takeException(), isNull);
 
-      // Both buttons end up the same height: the pair looked broken when the
-      // wrapped one grew past its fixed-height sibling.
+      // The play button owns its row now, so a wrapping label just makes it
+      // taller instead of breaking alignment with a fixed-height sibling.
       final play = tester.getSize(
         find.ancestor(
           of: find.text('Hear the alphabet (letter names)'),
           matching: find.byType(FilledButton),
         ),
       );
-      final slow = tester.getSize(
-        find.ancestor(
-          of: find.text('Slow'),
-          matching: find.byType(OutlinedButton),
-        ),
-      );
-      expect(play.height, slow.height);
+      expect(play.height, greaterThanOrEqualTo(48));
+
+      // And the speed control sits under it rather than competing for width.
+      expect(find.byType(TtsSpeedSelector), findsOneWidget);
+      for (final label in ['Slow', 'Normal', 'Fast']) {
+        expect(find.text(label), findsOneWidget);
+      }
     });
 
     testWidgets('QuizOptionTile', (tester) async {

@@ -102,11 +102,6 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                         () => ref
                             .read(czechTtsProvider)
                             .speak(pronState.expectedText),
-                    onSlow:
-                        () => ref
-                            .read(czechTtsProvider)
-                            .speakSlow(pronState.expectedText),
-                    slowLabel: 'Slower',
                   ),
                 ],
               ),
