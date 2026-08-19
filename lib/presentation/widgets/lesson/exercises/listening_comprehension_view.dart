@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,8 +33,40 @@ class ListeningComprehensionView extends ConsumerStatefulWidget {
 
 class _ListeningComprehensionViewState
     extends ConsumerState<ListeningComprehensionView> {
+  /// Plays the learner asked for. Deliberately excludes the automatic first
+  /// play: `_playCount > 1` is recorded as [SupportKind.replay], evidence that
+  /// they needed to hear it again, and that must mean they chose to.
   int _playCount = 0;
+
+  /// Whether the automatic play has happened, so the button can say "Play it
+  /// again" truthfully without counting as a replay.
+  bool _autoPlayed = false;
+
   bool _transcriptRevealed = false;
+
+  /// Cancelled on dispose — see [DictationView] for why.
+  Timer? _autoPlay;
+
+  @override
+  void initState() {
+    super.initState();
+    // Same reasoning as dictation: the task is to answer what you heard, and
+    // until now nothing had been heard unless the learner pressed a button
+    // labelled "Play it again".
+    _autoPlay = Timer(kListenAutoPlayDelay, () {
+      if (!mounted) return;
+      final transcript = widget.exercise.data['transcript_cz'] as String? ?? '';
+      if (transcript.isEmpty) return;
+      setState(() => _autoPlayed = true);
+      ref.read(czechTtsProvider).speak(transcript);
+    });
+  }
+
+  @override
+  void dispose() {
+    _autoPlay?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +108,10 @@ class _ListeningComprehensionViewState
           // Listen first: the audio is the exercise, so it gets the hero.
           if (transcriptCz.isNotEmpty)
             ListenPanel(
-              label: _playCount == 0 ? l10n.listen : l10n.audioPlayAgain,
+              label:
+                  _playCount == 0 && !_autoPlayed
+                      ? l10n.listen
+                      : l10n.audioPlayAgain,
               onPlay: () {
                 setState(() => _playCount++);
                 ref.read(czechTtsProvider).speak(transcriptCz);
