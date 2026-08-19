@@ -1,7 +1,9 @@
 import 'package:ceskina_pro/core/theme/app_theme.dart';
 import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The shared learning-loop primitives are dropped into scroll views all over
 /// the app, where the incoming height constraint is unbounded. A widget that
@@ -11,9 +13,18 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// These pump each primitive inside a [ListView] and fail on any exception.
 void main() {
-  Widget host(Widget child) => MaterialApp(
-    theme: lightTheme(),
-    home: Scaffold(body: ListView(padding: EdgeInsets.zero, children: [child])),
+  // AudioPairButtons carries the playback-speed chip, which reads the stored
+  // rate, so these primitives now need a scope and a prefs stub the way they
+  // have one in the running app.
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  Widget host(Widget child) => ProviderScope(
+    child: MaterialApp(
+      theme: lightTheme(),
+      home: Scaffold(
+        body: ListView(padding: EdgeInsets.zero, children: [child]),
+      ),
+    ),
   );
 
   group('survives an unbounded height', () {

@@ -116,6 +116,38 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     ),
   );
 
+  /// Move the unlock ceiling without touching anything else in the profile.
+  ///
+  /// A learner changing level in Settings is not retaking the placement test,
+  /// so their skill estimates and sample size have to survive. Going through
+  /// [savePlacement] would overwrite both with whatever the caller invented,
+  /// quietly discarding a real placement result.
+  ///
+  /// Inserts a profile when none exists yet, which is the case for anyone who
+  /// onboarded as a beginner.
+  Future<void> setProvisionalUnit(int unitId) async {
+    final existing = await select(placementProfiles).getSingleOrNull();
+    if (existing == null) {
+      await into(placementProfiles).insert(
+        PlacementProfilesCompanion.insert(
+          key: const Value('primary'),
+          provisionalUnit: unitId,
+          estimatesJson: jsonEncode(const <String, double>{}),
+          sampleSize: 0,
+          updatedAt: DateTime.now(),
+        ),
+      );
+      return;
+    }
+    await (update(placementProfiles)
+      ..where((row) => row.key.equals(existing.key))).write(
+      PlacementProfilesCompanion(
+        provisionalUnit: Value(unitId),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
   Future<List<DelayedTransferAssignment>> getDueTransfers(DateTime asOf) {
     return (select(delayedTransferAssignments)
           ..where(

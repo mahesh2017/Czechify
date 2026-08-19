@@ -69,6 +69,15 @@ extension CzechTutor on TtsVoiceGender {
 ///
 /// The slider still spans 0.2–1.0, so a learner who wants it slower is one
 /// drag away.
+/// The speeds the in-lesson chip cycles through, as multiples of the recorded
+/// pace.
+///
+/// Deliberately short and centred on 1.0: this is a control a learner reaches
+/// for mid-sentence, so it has to be one tap away from normal in either
+/// direction. Anything finer belongs on the Settings slider, which still spans
+/// the full range.
+const List<double> kTtsSpeedStops = [0.75, 1.0, 1.25];
+
 const double kNativeTtsSpeechRate = 0.45;
 const double kDefaultTtsSpeechRate = kNativeTtsSpeechRate;
 

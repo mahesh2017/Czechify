@@ -8,7 +8,9 @@ import '../../../core/config/backend_config.dart';
 import '../../../core/legal/legal_content.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../providers/curriculum_providers.dart';
 import '../../providers/settings_providers.dart';
+import '../../../domain/entities/enums.dart';
 import '../../providers/tts_providers.dart';
 import '../onboarding/offline_setup_screen.dart';
 import '../../../data/services/audio/offline_audio_prefetch.dart';
@@ -53,6 +55,65 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
   }
 
+  /// Change course level, and fetch the new level's audio if it is missing.
+  ///
+  /// A learner who picked A1 to try the app and then wanted A2 previously had
+  /// no way through: the level chosen at onboarding was never written again,
+  /// and the A1/A2 control on the course screen only changed what was listed,
+  /// not what was unlocked.
+  ///
+  /// Moving up unlocks the new level and leaves everything below it open.
+  /// Moving back down is not a demotion — units already unlocked stay that
+  /// way, and only the tutor's pitch and the offline downloads follow the
+  /// setting. That asymmetry is the point: exploring this control must never
+  /// cost a learner access they have earned.
+  Future<void> _switchLevel(CEFRLevel level) async {
+    final unlockedMore = await ref.read(levelSwitchProvider)(level);
+    if (!mounted) return;
+
+    final label = _levelLabel(level);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          unlockedMore
+              ? '$label is now open.'
+              : 'Switched to $label. Units you had already unlocked stay open.',
+        ),
+      ),
+    );
+
+    // The prefetch set is level-dependent, so the clips for the new level are
+    // almost certainly absent. Left alone, the first lesson falls back to the
+    // device voice under an offline notice on a working connection.
+    final gender = ref.read(settingsProvider).ttsVoiceGender;
+    final units = await OfflineAudioPrefetch.unitsForLevel(
+      level,
+      count: OfflineSetupScreen.prefetchUnitCount,
+    );
+    final missing = await ref
+        .read(offlineAudioPrefetchProvider)
+        .missingFiles(units, gender.name);
+    if (missing.isEmpty || !mounted) return;
+
+    await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (ctx) => _AudioDownloadDialog(
+            subject: '$label audio',
+            gender: gender,
+            missingCount: missing.length,
+            units: units,
+          ),
+    );
+  }
+
+  static String _levelLabel(CEFRLevel level) => switch (level) {
+    CEFRLevel.preA1 => 'A1',
+    CEFRLevel.a1 => 'A1',
+    CEFRLevel.a2 => 'A2',
+  };
+
   /// Switch voice, and fetch that voice's audio if it is not on device yet.
   ///
   /// Only the voice chosen at onboarding is downloaded, so switching can leave
@@ -82,7 +143,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       context: context,
       barrierDismissible: false,
       builder:
-          (ctx) => _VoiceDownloadDialog(
+          (ctx) => _AudioDownloadDialog(
+            subject:
+                'the ${gender == TtsVoiceGender.male ? 'male' : 'female'} voice',
             gender: gender,
             missingCount: missing.length,
             units: units,
@@ -204,6 +267,36 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const _GroupLabel('Learning'),
             _Group(
               children: [
+                _Row(
+                  icon: Icons.school_outlined,
+                  tint: t.priSoft,
+                  fg: t.pri,
+                  title: 'Course level',
+                  subtitle:
+                      settings.startingLevel == CEFRLevel.a2
+                          ? 'A2 · upper beginner'
+                          : 'A1 · beginner',
+                  trailing: DropdownButton<CEFRLevel>(
+                    value:
+                        settings.startingLevel == CEFRLevel.a2
+                            ? CEFRLevel.a2
+                            : CEFRLevel.a1,
+                    underline: const SizedBox.shrink(),
+                    style: TextStyle(
+                      color: t.pri,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                    ),
+                    onChanged: (level) {
+                      if (level != null) _switchLevel(level);
+                    },
+                    items: const [
+                      DropdownMenuItem(value: CEFRLevel.a1, child: Text('A1')),
+                      DropdownMenuItem(value: CEFRLevel.a2, child: Text('A2')),
+                    ],
+                  ),
+                ),
+                _Divider(),
                 _Row(
                   icon: Icons.flag_outlined,
                   tint: t.priSoft,
@@ -1018,12 +1111,24 @@ class _ThemeToggle extends StatelessWidget {
 /// app, and a learner who is told "connect to Wi-Fi to save this voice" will
 /// wait, whereas one who just hears nothing concludes the app is faulty and
 /// leaves. Pops `true` once the audio is on device.
-class _VoiceDownloadDialog extends ConsumerStatefulWidget {
-  const _VoiceDownloadDialog({
+/// Fetches a set of units' clips while showing progress.
+///
+/// Used for two different reasons — switching voice and switching level — that
+/// leave a learner in the same place: settings say one thing, the clips on
+/// disk say another, and offline that difference is silence. Silence reads as
+/// a broken app rather than a missing download, so it is explained rather than
+/// left to be discovered.
+class _AudioDownloadDialog extends ConsumerStatefulWidget {
+  const _AudioDownloadDialog({
+    required this.subject,
     required this.gender,
     required this.missingCount,
     required this.units,
   });
+
+  /// What is being saved, as a noun phrase that reads inside a sentence:
+  /// 'the male voice', 'A2 audio'.
+  final String subject;
 
   final TtsVoiceGender gender;
   final int missingCount;
@@ -1033,11 +1138,11 @@ class _VoiceDownloadDialog extends ConsumerStatefulWidget {
   final List<int> units;
 
   @override
-  ConsumerState<_VoiceDownloadDialog> createState() =>
-      _VoiceDownloadDialogState();
+  ConsumerState<_AudioDownloadDialog> createState() =>
+      _AudioDownloadDialogState();
 }
 
-class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
+class _AudioDownloadDialogState extends ConsumerState<_AudioDownloadDialog> {
   PrefetchProgress? _progress;
   bool _offline = false;
   bool _done = false;
@@ -1075,7 +1180,11 @@ class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final label = widget.gender == TtsVoiceGender.male ? 'male' : 'female';
+    final subject = widget.subject;
+    final subjectCapitalised =
+        subject.isEmpty
+            ? subject
+            : subject[0].toUpperCase() + subject.substring(1);
     final progress = _progress;
 
     return AlertDialog(
@@ -1083,18 +1192,16 @@ class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
         _offline ? Icons.wifi_off_rounded : Icons.download_rounded,
         color: _offline ? t.amber : t.pri,
       ),
-      title: Text(
-        _offline ? 'Connect to save this voice' : 'Saving the $label voice',
-      ),
+      title: Text(_offline ? 'Connect to save $subject' : 'Saving $subject'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             _offline
-                ? 'The $label voice isn\'t saved on your device yet, and there\'s '
-                    'no connection right now. Connect to Wi-Fi or mobile data '
-                    'and try again — it\'s only a few megabytes.'
-                : 'Downloading ${widget.missingCount} clips so this voice works '
+                ? '$subjectCapitalised is not saved on your device yet, and '
+                    'there is no connection right now. Connect to Wi-Fi or '
+                    'mobile data and try again — it is only a few megabytes.'
+                : 'Downloading ${widget.missingCount} clips so this works '
                     'offline too.',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 14.5, color: t.muted, height: 1.45),

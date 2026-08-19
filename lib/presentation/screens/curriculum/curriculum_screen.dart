@@ -10,6 +10,7 @@ import '../../../domain/entities/unit.dart';
 import '../../../domain/entities/lesson.dart';
 import '../../providers/settings_providers.dart';
 import '../../widgets/common/wash_background.dart';
+import '../../models/curriculum_path_item.dart';
 
 /// Curriculum — units for A1/A2 with progress and inline lessons.
 ///
@@ -24,7 +25,6 @@ class CurriculumScreen extends ConsumerStatefulWidget {
 }
 
 class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
-  Phase _phase = Phase.a1;
 
   final _pathController = ScrollController();
   final _railController = ScrollController();
@@ -45,16 +45,6 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
   void _syncUnitKeys(int count) {
     if (_unitKeys.length == count) return;
     _unitKeys = List.generate(count, (_) => GlobalKey());
-  }
-
-  void _selectPhase(Phase phase) {
-    if (_phase == phase) return;
-    setState(() {
-      _phase = phase;
-      _activeUnit = 0;
-      _unitKeys = const [];
-    });
-    if (_pathController.hasClients) _pathController.jumpTo(0);
   }
 
   /// Whichever unit has crossed the top of the list is the active one.
@@ -130,6 +120,9 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
     final l10n = AppLocalizations.of(context);
     final pathAsync = ref.watch(curriculumPathItemsProvider);
     final unlockedIdsAsync = ref.watch(unlockedUnitIdsProvider);
+    final level = ref.watch(
+      settingsProvider.select((settings) => settings.startingLevel),
+    );
     final mapView = ref.watch(
       settingsProvider.select((settings) => settings.curriculumMapView),
     );
@@ -173,7 +166,15 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                 data: (ids) => ids,
                 orElse: () => {a1Items.isNotEmpty ? a1Items.first.unit.id : -1},
               );
-              final shown = _phase == Phase.a1 ? a1Items : a2Items;
+              // The rail is unit navigation, nothing else. It used to carry
+              // A1/A2 chips in the same scrolling row as the unit numbers,
+              // where two unrelated controls shared one shape and reading
+              // "A1 A2 1 2 3" invited you to treat the levels as units. Level
+              // now lives in Settings, which is also the only place it can be
+              // changed for real — these chips only ever re-filtered the list
+              // while the units underneath stayed locked.
+              final phase = level == CEFRLevel.a2 ? Phase.a2 : Phase.a1;
+              final shown = phase == Phase.a1 ? a1Items : a2Items;
               final currentIndex = shown.indexWhere(
                 (item) => item.state.name == 'current',
               );
@@ -211,7 +212,7 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                                   l10n.curriculumUnitOf(
                                     activeIndex + 1,
                                     shown.length,
-                                    _phase.name.toUpperCase(),
+                                    phase.name.toUpperCase(),
                                   ),
                                   style: TextStyle(
                                     color: palette.ink,
@@ -252,32 +253,17 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                           child: ListView.separated(
                             controller: _railController,
                             scrollDirection: Axis.horizontal,
-                            itemCount: shown.length + 2,
+                            itemCount: shown.length,
                             separatorBuilder:
                                 (_, __) => const SizedBox(width: 6),
                             itemBuilder: (context, index) {
-                              if (index == 0) {
-                                return _LevelChip(
-                                  label: 'A1',
-                                  selected: _phase == Phase.a1,
-                                  onTap: () => _selectPhase(Phase.a1),
-                                );
-                              }
-                              if (index == 1) {
-                                return _LevelChip(
-                                  label: 'A2',
-                                  selected: _phase == Phase.a2,
-                                  onTap: () => _selectPhase(Phase.a2),
-                                );
-                              }
-                              final unitIndex = index - 2;
                               return _UnitChip(
-                                number: unitIndex + 1,
-                                active: unitIndex == activeIndex,
+                                number: index + 1,
+                                active: index == activeIndex,
                                 unlocked: unlockedIds.contains(
-                                  shown[unitIndex].unit.id,
+                                  shown[index].unit.id,
                                 ),
-                                onTap: () => _jumpToUnit(unitIndex),
+                                onTap: () => _jumpToUnit(index),
                               );
                             },
                           ),
@@ -349,17 +335,33 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                               ),
                             ],
                           const SizedBox(height: 8),
-                          Text(
-                            _phase == Phase.a1
-                                ? l10n.curriculumA1Complete
-                                : l10n.curriculumA2Complete,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: t.muted,
-                              fontSize: 14,
-                              height: 1.5,
+                          // Finishing A1 used to end in a sentence saying A2
+                          // opens, with nothing to open it. The level lives in
+                          // Settings, and a learner who has just finished a
+                          // level is not going to go looking there — so the
+                          // moment they finish is the moment we offer it.
+                          if (phase == Phase.a1 &&
+                              shown.isNotEmpty &&
+                              shown.every(
+                                (item) =>
+                                    item.state ==
+                                    CurriculumPathState.completed,
+                              ))
+                            _NextLevelPrompt(
+                              onTap: () => context.push('/settings'),
+                            )
+                          else
+                            Text(
+                              phase == Phase.a1
+                                  ? l10n.curriculumA1Complete
+                                  : l10n.curriculumA2Complete,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: t.muted,
+                                fontSize: 14,
+                                height: 1.5,
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),
@@ -907,45 +909,6 @@ class _PathLessonRow extends StatelessWidget {
   }
 }
 
-class _LevelChip extends StatelessWidget {
-  const _LevelChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: Container(
-        // The rail is a fixed 30pt tall, so the level chips have to sit
-        // inside it rather than set their own height.
-        height: 30,
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(horizontal: 14),
-        decoration: BoxDecoration(
-          color: selected ? t.priFill : t.chipBg,
-          borderRadius: BorderRadius.circular(999),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-            color: selected ? t.onFill : t.muted,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class _UnitCard extends ConsumerWidget {
   const _UnitCard({
     required this.unit,
@@ -1269,6 +1232,66 @@ class _LessonTile extends StatelessWidget {
               size: 15,
               color: t.faint,
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Offered at the end of A1 once every unit is complete.
+///
+/// Points at Settings rather than switching level itself, so there is one
+/// place that changes level and one place to look for it afterwards. A second
+/// control here would be the more obvious design and the worse one: a learner
+/// who used it would have no idea where to undo it.
+class _NextLevelPrompt extends StatelessWidget {
+  const _NextLevelPrompt({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(18, 16, 14, 16),
+        decoration: BoxDecoration(
+          color: t.priSoft,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: t.pri.withValues(alpha: .35)),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'That is all of A1. Ready for A2?',
+                    style: TextStyle(
+                      fontFamily: AppFonts.display,
+                      color: t.ink,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Change your level in Settings. Everything you have '
+                    'finished stays open.',
+                    style: TextStyle(
+                      color: t.muted,
+                      fontSize: 13.5,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right_rounded, color: t.pri),
           ],
         ),
       ),

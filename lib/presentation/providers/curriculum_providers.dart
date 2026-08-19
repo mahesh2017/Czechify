@@ -6,12 +6,49 @@ import '../../domain/entities/unit.dart';
 import '../../domain/entities/lesson.dart';
 import '../../domain/entities/enums.dart';
 import '../../domain/engines/curriculum_access_policy.dart';
+import '../../domain/engines/level_switch.dart';
 import '../../domain/engines/learning_router.dart';
 import '../../domain/entities/learning_evidence.dart';
 import '../../l10n/app_localizations.dart';
 import 'database_providers.dart';
 import 'settings_providers.dart';
 import '../models/curriculum_path_item.dart';
+
+/// Changes the learner's level after onboarding.
+///
+/// Deliberately one call rather than two settings writes, because the two
+/// pieces of state that decide what a learner can open are easy to change
+/// independently and useless apart. [AppSettings.startingLevel] drives chat
+/// difficulty and which units prefetch for offline use; the placement
+/// profile's provisional unit is what actually unlocks curriculum. Onboarding
+/// wrote both and nothing wrote either again.
+///
+/// Returns true when the unlocked span moved, so the caller can offer to
+/// download the new level's audio.
+final levelSwitchProvider = Provider(
+  (ref) => (CEFRLevel level) async {
+    await ref.read(settingsProvider.notifier).setStartingLevel(level);
+
+    final units = await ref.read(allUnitsProvider.future);
+    final placement = await ref.read(placementProfileProvider.future);
+    final target = const LevelSwitch().provisionalUnitFor(
+      units: units,
+      level: level,
+      currentProvisionalUnit: placement?.provisionalUnit,
+    );
+
+    // Null means the switch would move the ceiling down, so placement is left
+    // exactly as it is — see [LevelSwitch.provisionalUnitFor]. The level still
+    // changed, which is what the learner asked for.
+    if (target != null) {
+      await ref.read(databaseProvider).progressDao.setProvisionalUnit(target);
+      ref.invalidate(placementProfileProvider);
+      ref.invalidate(curriculumAccessProvider);
+      ref.invalidate(nextLessonProvider);
+    }
+    return target != null;
+  },
+);
 
 /// Provider for all units in a phase (A1 or A2).
 final unitsProvider = FutureProvider.family<List<Unit>, Phase>((ref, phase) {

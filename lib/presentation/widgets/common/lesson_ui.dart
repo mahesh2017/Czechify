@@ -1,9 +1,11 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../providers/settings_providers.dart';
 
 /// Shared primitives for the learning loop — the surfaces the Czechify 2.0
 /// handoff specifies most precisely: the lesson chrome, the teaching card, the
@@ -452,6 +454,8 @@ class AudioPairButtons extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(width: 8),
+          const TtsSpeedChip(),
           const SizedBox(width: 8),
           OutlinedButton.icon(
             onPressed: onSlow,
@@ -1532,5 +1536,72 @@ class _ShakeOnceState extends State<ShakeOnce>
       },
       child: widget.child,
     );
+  }
+}
+
+/// Cycles playback speed from wherever the audio is, and remembers it.
+///
+/// The Settings slider was the only way to change pace, which is the wrong
+/// place for it: you discover the audio is too quick in the middle of a
+/// sentence, not while browsing preferences. This writes the same stored
+/// setting, so the two never disagree and the choice survives the lesson.
+///
+/// Distinct from the "Slow" button beside it, which is a one-off half-speed
+/// pass for a single phrase and changes nothing afterwards.
+class TtsSpeedChip extends ConsumerWidget {
+  const TtsSpeedChip({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
+    final rate = ref.watch(
+      settingsProvider.select((settings) => settings.ttsSpeechRate),
+    );
+    final multiplier = rate / kNativeTtsSpeechRate;
+
+    // Nearest stop rather than an exact match: the Settings slider moves in
+    // 0.1 steps of the raw rate, so a learner can leave it between two stops
+    // and the chip still has to show something honest.
+    var index = 0;
+    for (var i = 1; i < kTtsSpeedStops.length; i++) {
+      if ((kTtsSpeedStops[i] - multiplier).abs() <
+          (kTtsSpeedStops[index] - multiplier).abs()) {
+        index = i;
+      }
+    }
+    final current = kTtsSpeedStops[index];
+    final next = kTtsSpeedStops[(index + 1) % kTtsSpeedStops.length];
+
+    return Semantics(
+      button: true,
+      label: 'Playback speed ${_format(current)}, tap for ${_format(next)}',
+      child: OutlinedButton(
+        onPressed:
+            () => ref
+                .read(settingsProvider.notifier)
+                .setTtsSpeechRate(kNativeTtsSpeechRate * next),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: current == 1.0 ? t.muted : t.pri,
+          backgroundColor: current == 1.0 ? t.card : t.priSoft,
+          side: BorderSide(color: current == 1.0 ? t.line : t.pri),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          minimumSize: const Size(0, 48),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+        child: Text(
+          _format(current),
+          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+        ),
+      ),
+    );
+  }
+
+  /// "1x", "0.75x" — no trailing zeros, because the chip is narrow and the
+  /// difference between 1.0x and 1x is noise at this size.
+  static String _format(double speed) {
+    final text = speed.toStringAsFixed(2);
+    return '${text.replaceAll(RegExp(r"0+$"), "").replaceAll(RegExp(r"\.$"), "")}x';
   }
 }
