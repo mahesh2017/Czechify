@@ -8,13 +8,24 @@ import '../../data/services/stt/whisper_service.dart' show WhisperResult;
 /// replaced with a fabricated 0% score, which reads as "you pronounced this
 /// badly" rather than "we could not check it".
 class SpeechServiceException implements Exception {
-  const SpeechServiceException(this.message, {this.isQuotaExhausted = false});
+  const SpeechServiceException(
+    this.message, {
+    this.isQuotaExhausted = false,
+    this.cloudSpeechWouldFix = false,
+  });
 
   /// Shown to the learner as-is, so it must be plain language.
   final String message;
 
   /// True when retrying now cannot help — the allowance is spent.
   final bool isQuotaExhausted;
+
+  /// True when turning on cloud speech would resolve this outright.
+  ///
+  /// Set when the phone has no Czech recogniser. The learner is not being told
+  /// about a fault to wait out — there is a switch that fixes it — so the UI
+  /// can offer that switch instead of leaving them to work it out from prose.
+  final bool cloudSpeechWouldFix;
 
   @override
   String toString() => message;

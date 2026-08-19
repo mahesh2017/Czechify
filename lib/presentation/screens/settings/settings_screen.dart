@@ -18,6 +18,7 @@ import '../../providers/audio_prefetch_providers.dart';
 import '../../providers/consent_providers.dart';
 import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
+import '../../widgets/common/cloud_speech_consent.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
@@ -655,37 +656,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                     .setGranted(false);
                                 return;
                               }
-                              final accepted = await showDialog<bool>(
-                                context: context,
-                                builder:
-                                    (ctx) => AlertDialog(
-                                      title: const Text('Allow cloud speech?'),
-                                      content: const Text(
-                                        'Your pronunciation recording will be sent through Czechify to OpenAI in the United States for transcription. Czechify does not keep the recording. This is optional, can be switched off any time, and requires you to be at least 16 or have guardian permission.',
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed:
-                                              () => Navigator.pop(ctx, false),
-                                          child: const Text(
-                                            'Keep device recognition',
-                                          ),
-                                        ),
-                                        FilledButton(
-                                          onPressed:
-                                              () => Navigator.pop(ctx, true),
-                                          child: const Text(
-                                            'Allow cloud speech',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                              );
-                              if (accepted ?? false) {
-                                await ref
-                                    .read(cloudSpeechConsentProvider.notifier)
-                                    .setGranted(true);
-                              }
+                              // Same words, same record, wherever it is
+                              // asked — see requestCloudSpeechConsent.
+                              await requestCloudSpeechConsent(context, ref);
                             },
                   ),
                 ),

@@ -6,6 +6,7 @@ import '../../../../core/utils/score_colors.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/pronunciation_providers.dart';
 import '../../../providers/tts_providers.dart';
+import '../../common/cloud_speech_consent.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/record_button.dart';
 import '../../common/soft_ui.dart';
@@ -265,6 +266,35 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
                       color: t.redInk,
                     ),
                   ),
+                  // When there is a switch that fixes it, offer the switch.
+                  // Telling a learner mid-exercise to go and add a language
+                  // pack in their phone's system settings is a dead end: they
+                  // came here to practise, not to administer their device.
+                  if (pronState.errorCloudSpeechWouldFix) ...[
+                    const SizedBox(height: 12),
+                    FilledButton.icon(
+                      onPressed: () async {
+                        final granted = await requestCloudSpeechConsent(
+                          context,
+                          ref,
+                        );
+                        if (granted && mounted) await _toggleRecording();
+                      },
+                      icon: const Icon(Icons.cloud_outlined, size: 18),
+                      label: const Text('Check it in the cloud instead'),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Sends this recording for transcription. You can turn '
+                      'it off again in Settings.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 1.35,
+                        color: t.muted,
+                      ),
+                    ),
+                  ],
                 ],
               ],
             ),

@@ -187,181 +187,194 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      RoundIconButton(
-                        icon: Icons.chevron_left_rounded,
-                        tooltip: AppLocalizations.of(context).a11yClose,
-                        onTap: () => _showExitConfirm(context),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            LessonKicker(
-                              session.isExamMode
-                                  ? l10n.lessonBadgeExam
-                                  : session.lesson?.isReview == true
-                                  ? l10n.navReview
-                                  : l10n.lessonIntroduction,
-                            ),
-                            const SizedBox(height: 1),
-                            Text(
-                              session.lesson?.title ??
-                                  l10n.lessonQuestionOf(
-                                    session.currentIndex + 1,
-                                    session.totalExercises,
-                                  ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: t.ink,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        '${session.currentIndex + 1} / ${session.totalExercises}',
-                        style: TextStyle(
-                          color: t.faint,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: .8,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      if (session.isExamMode)
-                        _ExamTimer(initialSeconds: session.remainingSeconds)
-                      else
-                        Semantics(
-                          container: true,
-                          label: AppLocalizations.of(
-                            context,
-                          ).a11yHearts(session.hearts),
-                          excludeSemantics: true,
-                          child: HeartsChip(hearts: session.hearts),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 13),
-                  Semantics(
-                    label: AppLocalizations.of(context).a11yLessonProgress(
-                      session.currentIndex + 1,
-                      session.totalExercises,
-                    ),
-                    excludeSemantics: true,
-                    child: SegmentPips(
-                      count: session.totalExercises,
-                      currentIndex: session.currentIndex,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Shown only while a substitute is in use — silent otherwise.
-            const DegradedModeBanner(),
-            if (session.currentIndex == 0 &&
-                (session.lesson?.canDo.trim().isNotEmpty ?? false))
+      body: GestureDetector(
+        // Tapping away from the answer box puts the keyboard away, which
+        // is what every other app on the phone does. Without it the only
+        // way out was the system back gesture, and on a typing exercise
+        // the keyboard covers half the screen it is asking you to read.
+        //
+        // Translucent rather than opaque: the answer field and the buttons
+        // win the gesture arena on their own hits, so this only sees taps
+        // that land on nothing.
+        behavior: HitTestBehavior.translucent,
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SafeArea(
+          child: Column(
+            children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 2, 20, 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    color: t.priSoft,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    'I can ${session.lesson!.canDo}',
-                    style: TextStyle(
-                      color: t.priInk,
-                      fontSize: 14,
-                      height: 1.35,
-                      fontWeight: FontWeight.w700,
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        RoundIconButton(
+                          icon: Icons.chevron_left_rounded,
+                          tooltip: AppLocalizations.of(context).a11yClose,
+                          onTap: () => _showExitConfirm(context),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              LessonKicker(
+                                session.isExamMode
+                                    ? l10n.lessonBadgeExam
+                                    : session.lesson?.isReview == true
+                                    ? l10n.navReview
+                                    : l10n.lessonIntroduction,
+                              ),
+                              const SizedBox(height: 1),
+                              Text(
+                                session.lesson?.title ??
+                                    l10n.lessonQuestionOf(
+                                      session.currentIndex + 1,
+                                      session.totalExercises,
+                                    ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: t.ink,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          '${session.currentIndex + 1} / ${session.totalExercises}',
+                          style: TextStyle(
+                            color: t.faint,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: .8,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        if (session.isExamMode)
+                          _ExamTimer(initialSeconds: session.remainingSeconds)
+                        else
+                          Semantics(
+                            container: true,
+                            label: AppLocalizations.of(
+                              context,
+                            ).a11yHearts(session.hearts),
+                            excludeSemantics: true,
+                            child: HeartsChip(hearts: session.hearts),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 13),
+                    Semantics(
+                      label: AppLocalizations.of(context).a11yLessonProgress(
+                        session.currentIndex + 1,
+                        session.totalExercises,
+                      ),
+                      excludeSemantics: true,
+                      child: SegmentPips(
+                        count: session.totalExercises,
+                        currentIndex: session.currentIndex,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Shown only while a substitute is in use — silent otherwise.
+              const DegradedModeBanner(),
+              if (session.currentIndex == 0 &&
+                  (session.lesson?.canDo.trim().isNotEmpty ?? false))
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 2, 20, 12),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: t.priSoft,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      'I can ${session.lesson!.canDo}',
+                      style: TextStyle(
+                        color: t.priInk,
+                        fontSize: 14,
+                        height: 1.35,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            // What kind of task this is, and the streak riding on it.
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: LessonKicker(
-                      session.currentExercise?.type == ExerciseType.teaching
-                          ? l10n.lessonIntroduction
-                          : session.inMistakeReview
-                          ? l10n.lessonMissedQuestions
-                          : l10n.lessonQuestionOf(
-                            session.currentIndex + 1,
-                            session.totalExercises,
-                          ),
-                      color: session.inMistakeReview ? t.amberInk : t.faint,
+              // What kind of task this is, and the streak riding on it.
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: LessonKicker(
+                        session.currentExercise?.type == ExerciseType.teaching
+                            ? l10n.lessonIntroduction
+                            : session.inMistakeReview
+                            ? l10n.lessonMissedQuestions
+                            : l10n.lessonQuestionOf(
+                              session.currentIndex + 1,
+                              session.totalExercises,
+                            ),
+                        color: session.inMistakeReview ? t.amberInk : t.faint,
+                      ),
                     ),
-                  ),
-                  if (session.answerStreak >= 3) ...[
-                    const SizedBox(width: 9),
-                    ComboChip(label: l10n.lessonInARow(session.answerStreak)),
+                    if (session.answerStreak >= 3) ...[
+                      const SizedBox(width: 9),
+                      ComboChip(label: l10n.lessonInARow(session.answerStreak)),
+                    ],
+                    const Spacer(),
+                    // The running total flies up out of the header on each
+                    // award, then settles back into the quiet count.
+                    if (session.totalXp > 0)
+                      _XpCounter(totalXp: session.totalXp),
                   ],
-                  const Spacer(),
-                  // The running total flies up out of the header on each
-                  // award, then settles back into the quiet count.
-                  if (session.totalXp > 0) _XpCounter(totalXp: session.totalXp),
-                ],
+                ),
               ),
-            ),
 
-            // The exercise stays visible while the feedback banner is shown,
-            // so the learner can study their answer at their own pace —
-            // no timed auto-advance.
-            Expanded(
-              child: LessonExerciseViewport(
-                // Key by position so widget state (selected answers) resets
-                // for each exercise, including mistake re-asks of the same
-                // exercise id.
-                key: ValueKey(session.currentIndex),
-                exercise: exercise,
-                answerStreak: session.answerStreak,
-                onAnswered: (result) {
-                  // Teaching cards are presentations, not questions: advance
-                  // straight to the next exercise with no grading banner,
-                  // heart, or XP.
-                  if (exercise.type == ExerciseType.teaching) {
-                    ref.read(lessonSessionProvider.notifier).nextExercise();
-                    return;
-                  }
-                  ref
-                      .read(lessonSessionProvider.notifier)
-                      .onExerciseAnswered(
-                        outcome: result.outcome,
-                        explanation: result.explanation,
-                        correctAnswer: result.correctAnswer,
-                        supports: result.supports,
-                        xpEarned: exercise.xpReward,
-                      );
-                },
+              // The exercise stays visible while the feedback banner is shown,
+              // so the learner can study their answer at their own pace —
+              // no timed auto-advance.
+              Expanded(
+                child: LessonExerciseViewport(
+                  // Key by position so widget state (selected answers) resets
+                  // for each exercise, including mistake re-asks of the same
+                  // exercise id.
+                  key: ValueKey(session.currentIndex),
+                  exercise: exercise,
+                  answerStreak: session.answerStreak,
+                  onAnswered: (result) {
+                    // Teaching cards are presentations, not questions: advance
+                    // straight to the next exercise with no grading banner,
+                    // heart, or XP.
+                    if (exercise.type == ExerciseType.teaching) {
+                      ref.read(lessonSessionProvider.notifier).nextExercise();
+                      return;
+                    }
+                    ref
+                        .read(lessonSessionProvider.notifier)
+                        .onExerciseAnswered(
+                          outcome: result.outcome,
+                          explanation: result.explanation,
+                          correctAnswer: result.correctAnswer,
+                          supports: result.supports,
+                          xpEarned: exercise.xpReward,
+                        );
+                  },
+                ),
               ),
-            ),
 
-            // Feedback banner — appears under the answered exercise.
-            if (session.showFeedback) _buildFeedbackBanner(context, session),
-          ],
+              // Feedback banner — appears under the answered exercise.
+              if (session.showFeedback) _buildFeedbackBanner(context, session),
+            ],
+          ),
         ),
       ),
     );

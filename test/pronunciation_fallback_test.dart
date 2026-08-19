@@ -54,7 +54,7 @@ void main() {
     expect(native.listenCount, 0);
   });
 
-  test('the refusal tells the learner what to do about it', () async {
+  test('the refusal is one the app can offer a way out of', () async {
     final assessor = PronunciationAssessor(
       recorder: _FakeRecorder(),
       whisper: _FakeCloud(available: false),
@@ -66,10 +66,11 @@ void main() {
       await assessor.assess(expectedText: 'To je káva');
       fail('expected a SpeechServiceException');
     } on SpeechServiceException catch (e) {
-      // Shown to the learner verbatim, so it has to name both ways out.
       expect(e.message, contains('Czech'));
-      expect(e.message.toLowerCase(), contains('cloud pronunciation'));
       expect(e.isQuotaExhausted, isFalse);
+      // The UI offers the switch rather than describing where to find it, so
+      // the failure has to say that turning cloud speech on would fix it.
+      expect(e.cloudSpeechWouldFix, isTrue);
     }
   });
 

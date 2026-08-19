@@ -353,9 +353,9 @@ class PronunciationAssessor {
     if (!await _fallbackStt.supportsCzech()) {
       _log.warning('No Czech recogniser on this device; refusing to score.');
       throw const SpeechServiceException(
-        'Your phone does not have Czech speech recognition installed, so this '
-        'cannot be checked here. Add Czech in your phone\'s speech or keyboard '
-        'language settings, or turn on cloud pronunciation in Settings.',
+        'Your phone cannot recognise Czech speech, so this cannot be checked '
+        'on the device.',
+        cloudSpeechWouldFix: true,
       );
     }
 

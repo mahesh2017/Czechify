@@ -870,6 +870,15 @@ class AnswerField extends StatelessWidget {
               cursorColor: t.pri,
               cursorWidth: 3,
               cursorRadius: const Radius.circular(2),
+              // Room for the Check button below the field.
+              //
+              // A focused TextField scrolls itself into view with 20px of
+              // slack, which put the field just above the keyboard and left
+              // the button that submits it underneath — the learner typed an
+              // answer and then had to scroll to do anything with it. Reserving
+              // the button's height plus the letter row means focusing brings
+              // the whole answering apparatus up, not just the box.
+              scrollPadding: const EdgeInsets.only(bottom: 180),
               onSubmitted: onSubmitted,
               textInputAction:
                   multiline ? TextInputAction.newline : TextInputAction.done,
