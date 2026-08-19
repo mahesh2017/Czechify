@@ -60,4 +60,17 @@ abstract class AudioRecorderPort {
 abstract class LiveTranscriber {
   Future<String> listenFor({Duration timeout});
   Future<void> stop();
+
+  /// Whether this transcriber can recognise Czech at all.
+  ///
+  /// The OS recogniser only has the languages the phone has installed, and
+  /// Czech is not among the defaults on most devices sold outside Czechia.
+  /// Asked before listening because the failure is silent otherwise: with no
+  /// Czech locale the platform listens in the phone's default language, hands
+  /// back an English-shaped transcription of Czech speech, and the scorer
+  /// dutifully reports that a correctly said phrase was mispronounced.
+  ///
+  /// Defaults to true so existing implementations keep working; only the
+  /// platform recogniser has a language inventory to be missing from.
+  Future<bool> supportsCzech() async => true;
 }

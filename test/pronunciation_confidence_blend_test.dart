@@ -132,6 +132,9 @@ class _StubTranscriber implements CloudTranscriber {
 
 class _UnusedTranscriber implements LiveTranscriber {
   @override
+  Future<bool> supportsCzech() async => true;
+
+  @override
   Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) {
     throw StateError('the cloud path must not fall back in these tests');
   }

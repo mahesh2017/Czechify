@@ -344,6 +344,21 @@ class PronunciationAssessor {
   }) async {
     _log.info('Whisper unavailable; falling back to OS-native STT.');
 
+    // Refuse rather than guess. With no Czech language pack the platform
+    // listens in the phone's default language and returns an English-shaped
+    // transcription of Czech speech, which the scorer reads as a bad
+    // pronunciation. Being told you got it wrong when you got it right is
+    // worse than being told it could not be checked — the same reasoning the
+    // Whisper path already applies to audio it captured but could not score.
+    if (!await _fallbackStt.supportsCzech()) {
+      _log.warning('No Czech recogniser on this device; refusing to score.');
+      throw const SpeechServiceException(
+        'Your phone does not have Czech speech recognition installed, so this '
+        'cannot be checked here. Add Czech in your phone\'s speech or keyboard '
+        'language settings, or turn on cloud pronunciation in Settings.',
+      );
+    }
+
     final transcription = await _fallbackStt.listenFor(timeout: maxDuration);
 
     final result = _scorer.score(
@@ -570,6 +585,12 @@ class NativeSttService implements SttService, LiveTranscriber {
   Future<bool> isAvailable() async {
     await _ensureInitialized();
     return _initialized;
+  }
+
+  @override
+  Future<bool> supportsCzech() async {
+    await _ensureInitialized();
+    return _initialized && _czechLocaleId != null;
   }
 
   /// Start live listening and return the recognized text.

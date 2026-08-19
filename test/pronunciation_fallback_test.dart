@@ -29,6 +29,50 @@ void main() {
     expect(native.listenCount, 1);
   });
 
+  test('a phone with no Czech recogniser is told so, not scored anyway', () async {
+    // Czech ships on almost no phone sold outside Czechia. Without it the
+    // platform listens in the device's default language and hands back an
+    // English-shaped transcription of Czech speech, which the scorer reads as
+    // a bad pronunciation — telling a learner they got it wrong when they got
+    // it right. Refusing is the honest outcome.
+    final native = _FakeLiveTranscriber(
+      result: 'toy a kava',
+      czechAvailable: false,
+    );
+    final assessor = PronunciationAssessor(
+      recorder: _FakeRecorder(),
+      whisper: _FakeCloud(available: false),
+      fallbackStt: native,
+      log: Logger('test'),
+    );
+
+    await expectLater(
+      assessor.assess(expectedText: 'To je káva'),
+      throwsA(isA<SpeechServiceException>()),
+    );
+    // It never listened, so nothing was scored against the wrong language.
+    expect(native.listenCount, 0);
+  });
+
+  test('the refusal tells the learner what to do about it', () async {
+    final assessor = PronunciationAssessor(
+      recorder: _FakeRecorder(),
+      whisper: _FakeCloud(available: false),
+      fallbackStt: _FakeLiveTranscriber(result: '', czechAvailable: false),
+      log: Logger('test'),
+    );
+
+    try {
+      await assessor.assess(expectedText: 'To je káva');
+      fail('expected a SpeechServiceException');
+    } on SpeechServiceException catch (e) {
+      // Shown to the learner verbatim, so it has to name both ways out.
+      expect(e.message, contains('Czech'));
+      expect(e.message.toLowerCase(), contains('cloud pronunciation'));
+      expect(e.isQuotaExhausted, isFalse);
+    }
+  });
+
   test(
     'a cloud failure on captured audio is reported, not silently re-recorded',
     () async {
@@ -205,10 +249,18 @@ class _FakeRecorder implements AudioRecorderPort {
 }
 
 class _FakeLiveTranscriber implements LiveTranscriber {
-  _FakeLiveTranscriber({required this.result});
+  _FakeLiveTranscriber({required this.result, this.czechAvailable = true});
 
   final String result;
+
+  /// Whether the phone has a Czech language pack. False on most devices sold
+  /// outside Czechia, which is the case worth testing.
+  final bool czechAvailable;
+
   int listenCount = 0;
+
+  @override
+  Future<bool> supportsCzech() async => czechAvailable;
 
   @override
   Future<String> listenFor({
