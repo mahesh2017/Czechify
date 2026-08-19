@@ -1,8 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:ceskina_pro/data/services/audio/offline_audio_prefetch.dart';
 import 'package:ceskina_pro/domain/entities/enums.dart';
 import 'package:ceskina_pro/presentation/providers/settings_providers.dart';
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -40,10 +42,11 @@ void main() {
     });
 
     test('pre-A1 is treated as A1 rather than falling through', () async {
-      expect(
-        await OfflineAudioPrefetch.unitsForLevel(CEFRLevel.preA1),
-        [1, 2, 3],
-      );
+      expect(await OfflineAudioPrefetch.unitsForLevel(CEFRLevel.preA1), [
+        1,
+        2,
+        3,
+      ]);
     });
 
     test('A2 gets A2 units, not A1 audio it will never open', () async {
@@ -58,7 +61,9 @@ void main() {
       // The intros are a second pack named en{gender}_{key}.mp3. A prefetch
       // that only built {gender}_{key}.mp3 never fetched them, so the first
       // sound of a unit always needed the network.
-      final raw = await rootBundle.loadString('assets/audio/offline_units.json');
+      final raw = await rootBundle.loadString(
+        'assets/audio/offline_units.json',
+      );
       final json = jsonDecode(raw) as Map<String, dynamic>;
       expect(json['version'], greaterThanOrEqualTo(2));
       final intros = json['intros'] as Map<String, dynamic>;
@@ -69,10 +74,106 @@ void main() {
     });
 
     test('count is honoured', () async {
+      expect(await OfflineAudioPrefetch.unitsForLevel(CEFRLevel.a2, count: 2), [
+        16,
+        17,
+      ]);
+    });
+  });
+
+  group('the prefetch set covers both packs', () {
+    const channel = MethodChannel('plugins.flutter.io/path_provider');
+    late Directory temp;
+    late List<String> czechKeys;
+    late List<String> introKeys;
+
+    Directory clipDir() => Directory('${temp.path}/neural_audio');
+
+    setUpAll(() async {
+      final json =
+          jsonDecode(
+                await rootBundle.loadString('assets/audio/offline_units.json'),
+              )
+              as Map<String, dynamic>;
+      czechKeys =
+          ((json['units'] as Map<String, dynamic>)['17'] as List<dynamic>)
+              .cast<String>();
+      introKeys =
+          ((json['intros'] as Map<String, dynamic>)['17'] as List<dynamic>)
+              .cast<String>();
+    });
+
+    setUp(() async {
+      temp = await Directory.systemTemp.createTemp('offline_prefetch');
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async => temp.path);
+    });
+
+    tearDown(() async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
+      if (temp.existsSync()) await temp.delete(recursive: true);
+    });
+
+    test('a unit asks for its English narration, not only its Czech', () async {
+      // The regression this guards: missingFiles built only `{gender}_{key}`,
+      // so the English intro — the first thing a teaching card plays — was
+      // never prefetched and unit 17 opened with a network request.
+      final missing = await OfflineAudioPrefetch(
+        Dio(),
+      ).missingFiles([17], 'male');
+
+      expect(introKeys, isNotEmpty, reason: 'unit 17 should carry an intro');
+      for (final key in introKeys) {
+        expect(missing, contains('enmale_$key.mp3'));
+      }
+      expect(missing, contains('male_${czechKeys.first}.mp3'));
+      expect(missing.length, czechKeys.length + introKeys.length);
+    });
+
+    test('the gender picks the filename on both packs', () async {
+      final missing = await OfflineAudioPrefetch(
+        Dio(),
+      ).missingFiles([17], 'female');
+
+      expect(missing, contains('enfemale_${introKeys.first}.mp3'));
+      expect(missing, contains('female_${czechKeys.first}.mp3'));
       expect(
-        await OfflineAudioPrefetch.unitsForLevel(CEFRLevel.a2, count: 2),
-        [16, 17],
+        missing.every(
+          (n) => n.startsWith('female_') || n.startsWith('enfemale_'),
+        ),
+        isTrue,
+        reason: 'a female prefetch must not ask for a male clip',
       );
+    });
+
+    test('a clip already on disk is not asked for again', () async {
+      await clipDir().create(recursive: true);
+      await File(
+        '${clipDir().path}/male_${czechKeys.first}.mp3',
+      ).writeAsBytes(const [0]);
+      await File(
+        '${clipDir().path}/enmale_${introKeys.first}.mp3',
+      ).writeAsBytes(const [0]);
+
+      final missing = await OfflineAudioPrefetch(
+        Dio(),
+      ).missingFiles([17], 'male');
+
+      expect(missing, isNot(contains('male_${czechKeys.first}.mp3')));
+      expect(missing, isNot(contains('enmale_${introKeys.first}.mp3')));
+      expect(missing.length, czechKeys.length + introKeys.length - 2);
+    });
+
+    test('a unit with no intro yields Czech clips alone', () async {
+      // Unit 16 has no English narration recorded. The prefetch must simply
+      // omit it rather than build a name for a clip that does not exist.
+      final missing = await OfflineAudioPrefetch(
+        Dio(),
+      ).missingFiles([16], 'male');
+
+      expect(missing, isNotEmpty);
+      expect(missing.any((n) => n.startsWith('enmale_')), isFalse);
     });
   });
 }
