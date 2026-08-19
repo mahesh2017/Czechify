@@ -14,10 +14,12 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('speech rate', () {
-    test('a new learner does not start at native pace', () {
-      // The bug: the default sat exactly on the native rate, so rate/native
-      // was 1.0 and every beginner heard the raw generated speed.
-      expect(kDefaultTtsSpeechRate, lessThan(kNativeTtsSpeechRate));
+    test('the default plays a clip at the pace it was recorded at', () {
+      // Teaching pace lives in the recordings. A default off the native rate
+      // stacks a second slowdown on clips already stretched to teach with —
+      // together they ran to ~1.6x the original length, which is laboured
+      // rather than clear.
+      expect(kDefaultTtsSpeechRate, kNativeTtsSpeechRate);
     });
 
     test('the default lands inside the range playback can honour', () {
@@ -25,7 +27,7 @@ void main() {
       // would be silently ignored rather than applied.
       const multiplier = kDefaultTtsSpeechRate / kNativeTtsSpeechRate;
       expect(multiplier, greaterThanOrEqualTo(0.5));
-      expect(multiplier, lessThan(1.0));
+      expect(multiplier, lessThanOrEqualTo(1.5));
     });
 
     test('the default is reachable on the settings slider', () {

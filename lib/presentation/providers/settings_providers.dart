@@ -52,18 +52,25 @@ extension CzechTutor on TtsVoiceGender {
 /// plays back unaltered, so `rate / native` is the speed multiplier. Changing
 /// it would silently re-time the whole pack.
 ///
-/// The default used to sit exactly on the native rate, so every new learner
-/// heard the raw generated pace. Measured against the shipped pack that is
-/// 8–11 characters per second: "To je dům." arrives in 0.69s, about 0.23s a
-/// word, and the unstressed "To je" is gone before a beginner registers it.
-/// Native pace is right for a native; it is not what someone repeating a
-/// phrase for the first time can use.
+/// The default sits on the native rate deliberately: the teaching pace lives
+/// in the recordings now, not in the player.
 ///
-/// 0.35 plays at ~0.78x, putting that phrase near 0.89s. The slider still
-/// spans 0.2–1.0, so native speed is one drag away — this moves where a
-/// learner *starts*, not what they are allowed.
+/// It was briefly 0.35 (~0.78x) to slow down short clips the voice was
+/// rushing. Re-recording those clips fixed the cause — "To je" went from
+/// 0.177s to 0.261s, matching the female voice — and the two slowdowns then
+/// compounded to roughly 1.6x the original length, which reads as laboured
+/// rather than clear.
+///
+/// Slowing playback was the wrong lever anyway. It stretches every clip
+/// equally, including the ones that were already well paced, whereas the
+/// defect was confined to how one voice distributed time *within* a short
+/// sentence. Fixing the audio fixes it once, for every learner, at no cost to
+/// the clips that were fine.
+///
+/// The slider still spans 0.2–1.0, so a learner who wants it slower is one
+/// drag away.
 const double kNativeTtsSpeechRate = 0.45;
-const double kDefaultTtsSpeechRate = 0.35;
+const double kDefaultTtsSpeechRate = kNativeTtsSpeechRate;
 
 class AppSettings {
   final AppThemeMode themeMode;
