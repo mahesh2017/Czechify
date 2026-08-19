@@ -41,9 +41,49 @@ void main() {
 
     // The point of replacing the cycling chip: you can see what you can pick
     // and which one you are on, rather than tapping to find out.
-    expect(find.text('Slow'), findsOneWidget);
-    expect(find.text('Normal'), findsOneWidget);
-    expect(find.text('Fast'), findsOneWidget);
+    expect(find.text('0.75x'), findsOneWidget);
+    expect(find.text('1x'), findsOneWidget);
+    expect(find.text('1.25x'), findsOneWidget);
+  });
+
+  testWidgets('Settings offers every speed playback can distinguish', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: Scaffold(
+            body: Center(child: TtsSpeedSelector(stops: kTtsSpeedStops)),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // The old slider had nine stops of which the top four all played at 1.5x.
+    // Every stop here is a speed you can actually hear the difference of.
+    for (final label in ['0.5x', '0.75x', '1x', '1.25x', '1.5x']) {
+      expect(find.text(label), findsOneWidget, reason: label);
+    }
+  });
+
+  test('the stops stay inside what playback can honour', () {
+    // _playNeural clamps rate/native to 0.5..1.5. A stop outside that would be
+    // a label that lies — which is what the old slider did at both ends.
+    for (final stop in kTtsSpeedStops) {
+      expect(stop, greaterThanOrEqualTo(0.5));
+      expect(stop, lessThanOrEqualTo(1.5));
+    }
+    expect(kTtsQuickSpeedStops.every(kTtsSpeedStops.contains), isTrue);
+  });
+
+  test('multipliers read the way people write them', () {
+    expect(formatSpeedMultiplier(1.0), '1x');
+    expect(formatSpeedMultiplier(0.75), '0.75x');
+    expect(formatSpeedMultiplier(1.5), '1.5x');
+    expect(formatSpeedMultiplier(0.5), '0.5x');
   });
 
   testWidgets('starts on the pace the clips were recorded at', (tester) async {
@@ -52,14 +92,14 @@ void main() {
       TtsSpeedSelector.nearestStopIndex(
         container.read(settingsProvider).ttsSpeechRate,
       ),
-      kTtsSpeedStops.indexOf(1.0),
+      kTtsQuickSpeedStops.indexOf(1.0),
     );
   });
 
   testWidgets('picking a speed writes the shared setting', (tester) async {
     final container = await pumpSelector(tester);
 
-    await tester.tap(find.text('Fast'));
+    await tester.tap(find.text('1.25x'));
     await tester.pumpAndSettle();
 
     // The same value the Settings slider edits, so the two can never disagree
@@ -69,7 +109,7 @@ void main() {
       closeTo(kNativeTtsSpeechRate * 1.25, 1e-9),
     );
 
-    await tester.tap(find.text('Slow'));
+    await tester.tap(find.text('0.75x'));
     await tester.pumpAndSettle();
     expect(
       container.read(settingsProvider).ttsSpeechRate,
@@ -83,7 +123,7 @@ void main() {
     final container = await pumpSelector(tester);
     final before = container.read(settingsProvider).ttsSpeechRate;
 
-    await tester.tap(find.text('Normal'));
+    await tester.tap(find.text('1x'));
     await tester.pumpAndSettle();
 
     expect(container.read(settingsProvider).ttsSpeechRate, before);
@@ -96,11 +136,11 @@ void main() {
       // show something true.
       expect(
         TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 1.2),
-        kTtsSpeedStops.indexOf(1.25),
+        kTtsQuickSpeedStops.indexOf(1.25),
       );
       expect(
         TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 0.8),
-        kTtsSpeedStops.indexOf(0.75),
+        kTtsQuickSpeedStops.indexOf(0.75),
       );
     });
 
@@ -108,7 +148,7 @@ void main() {
       expect(TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 0.2), 0);
       expect(
         TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 5),
-        kTtsSpeedStops.length - 1,
+        kTtsQuickSpeedStops.length - 1,
       );
     });
   });

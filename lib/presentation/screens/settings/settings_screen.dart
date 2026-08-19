@@ -18,6 +18,7 @@ import '../../providers/audio_prefetch_providers.dart';
 import '../../providers/consent_providers.dart';
 import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
+import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
@@ -595,10 +596,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   ),
                                 ),
                                 Text(
-                                  _speechRateLabel(settings.ttsSpeechRate),
+                                  '1x is the pace the lessons were recorded at',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 13.5,
                                     color: t.muted,
+                                    height: 1.35,
                                   ),
                                 ),
                               ],
@@ -606,18 +608,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           ),
                         ],
                       ),
-                      Slider(
-                        value: settings.ttsSpeechRate,
-                        min: 0.2,
-                        max: 1.0,
-                        divisions: 8,
-                        label: _speechRateLabel(settings.ttsSpeechRate),
-                        semanticFormatterCallback: _speechRateLabel,
-                        onChanged:
-                            (value) => ref
-                                .read(settingsProvider.notifier)
-                                .setTtsSpeechRate(value),
-                      ),
+                      const SizedBox(height: 10),
+                      // Was a raw-rate slider labelled Slow/Normal/Fast. It
+                      // stored 0.2-1.0 in nine steps while playback divides by
+                      // the native rate and clamps to 0.5x-1.5x, so its top
+                      // four stops all produced 1.5x and the words hid that
+                      // three separate positions did the same thing. These are
+                      // the speeds playback can actually distinguish.
+                      const TtsSpeedSelector(stops: kTtsSpeedStops),
                     ],
                   ),
                 ),
@@ -638,7 +636,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.violetSoft,
                   fg: t.violet,
                   title: 'Optional cloud pronunciation',
-                  subtitle: 'Send recordings for more detailed transcription',
+                  // Naming the alternative, because "optional" invites the
+                  // question "optional instead of what?" — and the answer is
+                  // not "no pronunciation checking", it is your phone's own
+                  // recogniser, which is what runs by default.
+                  subtitle:
+                      'Off = your phone checks it. On = clearer scoring, '
+                      'recording sent for transcription',
                   trailing: Switch(
                     value: cloudSpeech.value ?? false,
                     onChanged:
@@ -1086,12 +1090,6 @@ class _Row extends StatelessWidget {
       ),
     );
   }
-}
-
-String _speechRateLabel(double rate) {
-  if (rate <= 0.4) return 'Slow';
-  if (rate <= 0.7) return 'Normal';
-  return 'Fast';
 }
 
 /// Light / Auto / Dark segmented control.

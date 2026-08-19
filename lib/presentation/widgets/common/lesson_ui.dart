@@ -1543,9 +1543,10 @@ class _ShakeOnceState extends State<ShakeOnce>
 /// Three stops, not a slider: mid-lesson a learner wants one tap and a result,
 /// and the Settings slider is still there for anyone who wants finer control.
 class TtsSpeedSelector extends ConsumerWidget {
-  const TtsSpeedSelector({super.key});
+  const TtsSpeedSelector({super.key, this.stops = kTtsQuickSpeedStops});
 
-  static const _labels = ['Slow', 'Normal', 'Fast'];
+  /// Which speeds to offer. Lessons show three; Settings shows all of them.
+  final List<double> stops;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1553,7 +1554,7 @@ class TtsSpeedSelector extends ConsumerWidget {
     final rate = ref.watch(
       settingsProvider.select((settings) => settings.ttsSpeechRate),
     );
-    final selected = nearestStopIndex(rate);
+    final selected = nearestStopIndex(rate, stops: stops);
 
     return Row(
       children: [
@@ -1572,16 +1573,16 @@ class TtsSpeedSelector extends ConsumerWidget {
               padding: const EdgeInsets.all(3),
               child: Row(
                 children: [
-                  for (var i = 0; i < kTtsSpeedStops.length; i++)
+                  for (var i = 0; i < stops.length; i++)
                     Expanded(
                       child: _SpeedSegment(
-                        label: _labels[i],
+                        label: formatSpeedMultiplier(stops[i]),
                         selected: i == selected,
                         onTap:
                             () => ref
                                 .read(settingsProvider.notifier)
                                 .setTtsSpeechRate(
-                                  kNativeTtsSpeechRate * kTtsSpeedStops[i],
+                                  kNativeTtsSpeechRate * stops[i],
                                 ),
                       ),
                     ),
@@ -1599,12 +1600,14 @@ class TtsSpeedSelector extends ConsumerWidget {
   /// Nearest rather than exact: the Settings slider moves in steps that do not
   /// land on these stops, so a learner can leave the rate between two and the
   /// control still has to show something true.
-  static int nearestStopIndex(double rate) {
+  static int nearestStopIndex(
+    double rate, {
+    List<double> stops = kTtsQuickSpeedStops,
+  }) {
     final multiplier = rate / kNativeTtsSpeechRate;
     var index = 0;
-    for (var i = 1; i < kTtsSpeedStops.length; i++) {
-      if ((kTtsSpeedStops[i] - multiplier).abs() <
-          (kTtsSpeedStops[index] - multiplier).abs()) {
+    for (var i = 1; i < stops.length; i++) {
+      if ((stops[i] - multiplier).abs() < (stops[index] - multiplier).abs()) {
         index = i;
       }
     }
@@ -1629,7 +1632,7 @@ class _SpeedSegment extends StatelessWidget {
     return Semantics(
       button: true,
       selected: selected,
-      label: '$label playback speed',
+      label: 'Playback speed $label',
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(11),

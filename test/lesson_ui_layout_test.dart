@@ -83,7 +83,7 @@ void main() {
 
       // And the speed control sits under it rather than competing for width.
       expect(find.byType(TtsSpeedSelector), findsOneWidget);
-      for (final label in ['Slow', 'Normal', 'Fast']) {
+      for (final label in ['0.75x', '1x', '1.25x']) {
         expect(find.text(label), findsOneWidget);
       }
     });

@@ -69,14 +69,30 @@ extension CzechTutor on TtsVoiceGender {
 ///
 /// The slider still spans 0.2–1.0, so a learner who wants it slower is one
 /// drag away.
-/// The speeds the in-lesson chip cycles through, as multiples of the recorded
-/// pace.
+/// Every playback speed the app offers, as multiples of the recorded pace.
 ///
-/// Deliberately short and centred on 1.0: this is a control a learner reaches
-/// for mid-sentence, so it has to be one tap away from normal in either
-/// direction. Anything finer belongs on the Settings slider, which still spans
-/// the full range.
-const List<double> kTtsSpeedStops = [0.75, 1.0, 1.25];
+/// The ends are the clamp in [CzechTts] rather than a taste decision: playback
+/// is pinned to 0.5x-1.5x, so a control offering anything outside that would
+/// be labelling stops that all sound identical. The Settings slider used to do
+/// exactly that — it stored a raw rate from 0.2 to 1.0 in nine steps, and the
+/// top four all came out at 1.5x while three shared the word "Slow".
+const List<double> kTtsSpeedStops = [0.5, 0.75, 1.0, 1.25, 1.5];
+
+/// The subset offered beside the play button in a lesson.
+///
+/// Centred on 1.0 and one tap either way, because this is the control a
+/// learner reaches for mid-sentence. The full range lives in Settings.
+const List<double> kTtsQuickSpeedStops = [0.75, 1.0, 1.25];
+
+/// "1x", "0.75x" — trailing zeros trimmed, because "1.00x" reads as precision
+/// that is not there.
+String formatSpeedMultiplier(double multiplier) {
+  final text = multiplier
+      .toStringAsFixed(2)
+      .replaceAll(RegExp(r'0+$'), '')
+      .replaceAll(RegExp(r'\.$'), '');
+  return '${text}x';
+}
 
 const double kNativeTtsSpeechRate = 0.45;
 const double kDefaultTtsSpeechRate = kNativeTtsSpeechRate;
