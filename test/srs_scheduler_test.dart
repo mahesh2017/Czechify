@@ -2,6 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ceskina_pro/domain/entities/srs_card.dart';
 import 'package:ceskina_pro/domain/engines/srs_scheduler.dart';
 
+/// The scheduler's own ease floor; the ordering sweep starts here.
+const _minEase = 1.3;
+
 void main() {
   group('SrsScheduler', () {
     final scheduler = SrsScheduler();
@@ -107,6 +110,59 @@ void main() {
             .card
             .stability,
         6,
+      );
+    });
+
+    test('the four buttons schedule four different things', () {
+      // Hard used to be Good with 0.15 less ease: a 30-day card came back in
+      // 70 days instead of 75. Four buttons, two outcomes.
+      final card = newCard().copyWith(reps: 3, stability: 30, difficulty: 2.5);
+
+      final days = {
+        for (final rating in Rating.values)
+          rating: scheduler.previewIntervalDays(card, rating, now),
+      };
+
+      expect(days[Rating.again], 1);
+      expect(days[Rating.hard], 36, reason: 'a cautious step, not a leap');
+      expect(days[Rating.good], 75);
+      expect(days[Rating.easy], 103);
+      expect(days.values.toSet(), hasLength(4));
+    });
+
+    test('hard stays short of good, and easy beyond it, at any ease', () {
+      // The ordering has to survive the whole legal ease range, including the
+      // 1.3 floor where hard's fixed 1.2 multiplier comes closest to good's.
+      for (var ease = _minEase; ease <= 3.0; ease += 0.1) {
+        for (final stability in const [1.0, 6.0, 30.0, 200.0]) {
+          final card = newCard().copyWith(
+            reps: 3,
+            stability: stability,
+            difficulty: ease,
+          );
+          final hard = scheduler.previewIntervalDays(card, Rating.hard, now);
+          final good = scheduler.previewIntervalDays(card, Rating.good, now);
+          final easy = scheduler.previewIntervalDays(card, Rating.easy, now);
+
+          final at = 'ease $ease, stability $stability';
+          expect(hard, lessThanOrEqualTo(good), reason: 'hard <= good at $at');
+          expect(good, lessThanOrEqualTo(easy), reason: 'good <= easy at $at');
+        }
+      }
+    });
+
+    test('a struggled card grows slowly instead of doubling', () {
+      // Repeated Hard should keep a shaky word close, not walk it out to a
+      // month because the multiplier barely moved.
+      var card = newCard().copyWith(reps: 3, stability: 10, difficulty: 2.5);
+      for (var i = 0; i < 3; i++) {
+        card = scheduler.schedule(card, Rating.hard, now).card;
+      }
+
+      expect(
+        card.stability,
+        lessThan(20),
+        reason: 'three struggles should not have doubled the interval',
       );
     });
 

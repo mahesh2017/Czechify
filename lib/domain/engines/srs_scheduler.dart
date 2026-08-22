@@ -22,6 +22,19 @@ class SrsScheduler {
   static const double _initialEaseFactor = 2.5;
   static const double _minEaseFactor = 1.3;
 
+  /// Hard is a cautious step, not another full multiplication.
+  ///
+  /// It used to schedule `stability * ease` exactly as Good did, and since the
+  /// only difference was 0.15 less ease, a 30-day card rated Hard came back in
+  /// 70 days against Good's 75. Pressing the button that means "that was a
+  /// struggle" bought the learner five days, so of four rating buttons only
+  /// Again and "roughly everything else" actually did anything.
+  static const double _hardIntervalMultiplier = 1.2;
+
+  /// Easy has to earn more than an unremarkable success, or it is Good with a
+  /// slightly better ease attached.
+  static const double _easyBonus = 1.3;
+
   /// Calculate the next review date and update card state.
   SchedulingResult schedule(SrsCard card, Rating rating, DateTime now) {
     // SM-2 implementation.
@@ -66,7 +79,17 @@ class SrsScheduler {
         Rating.again => 1,
       };
     } else {
-      interval = (card.stability * newEase).round().clamp(1, 365);
+      // Each rating now moves the interval by its own factor. Ordering holds
+      // for any legal ease: Hard's 1.2 is below _minEaseFactor, so Hard always
+      // lands short of Good, and the Easy bonus always puts Easy beyond it.
+      final grown = switch (rating) {
+        Rating.hard => card.stability * _hardIntervalMultiplier,
+        Rating.good => card.stability * newEase,
+        Rating.easy => card.stability * newEase * _easyBonus,
+        // Handled by the branch above; listed only for exhaustiveness.
+        Rating.again => card.stability,
+      };
+      interval = grown.round().clamp(1, 365);
     }
 
     final newDifficulty = newEase;
