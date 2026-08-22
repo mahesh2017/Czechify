@@ -3,6 +3,12 @@ import '../entities/enums.dart';
 /// Tracks curriculum progress and determines CEFR level.
 class CurriculumProgressTracker {
   /// A unit counts as "mastered" at this average lesson score.
+  ///
+  /// The average is over *every* lesson in the unit, not just the attempted
+  /// ones — DriftProgressRepository divides the score sum by the unit's total
+  /// lesson count. So acing one lesson of four scores 0.24, not 0.95, and a
+  /// unit cannot be mastered by cherry-picking the easy lesson in it. Reaching
+  /// 0.6 means finishing essentially the whole unit at a passing standard.
   static const masteryThreshold = 0.6;
 
   /// Determine if a lesson is unlocked (previous lesson completed).
