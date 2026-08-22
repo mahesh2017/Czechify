@@ -1,19 +1,15 @@
-import 'package:ceskina_pro/core/feedback/celebration.dart';
 import 'package:ceskina_pro/domain/entities/enums.dart';
 import 'package:ceskina_pro/domain/entities/exercise.dart';
-import 'package:ceskina_pro/domain/entities/exercise_attempt_evidence.dart';
 import 'package:ceskina_pro/domain/entities/exercise_outcome.dart';
-import 'package:ceskina_pro/domain/entities/gamification_state.dart';
 import 'package:ceskina_pro/domain/entities/lesson.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
-import 'package:ceskina_pro/domain/repositories/curriculum_repository.dart';
-import 'package:ceskina_pro/domain/repositories/progress_repository.dart';
 import 'package:ceskina_pro/presentation/providers/database_providers.dart';
 import 'package:ceskina_pro/presentation/providers/gamification_providers.dart';
 import 'package:ceskina_pro/presentation/providers/lesson_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'support/lesson_session_harness.dart';
 
 /// The HUD used to sum each exercise's authored xp_reward while the database
 /// received a flat 10/15/20 by accuracy. A lesson could display 125 XP and
@@ -24,14 +20,14 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   test('the lesson records exactly the XP it showed the learner', () async {
-    final repo = _FakeProgressRepository();
+    final repo = FakeProgressRepository();
     final container = ProviderContainer(
       overrides: [
         progressRepositoryProvider.overrideWithValue(repo),
         curriculumRepositoryProvider.overrideWithValue(
-          _FakeCurriculumRepository(),
+          FakeCurriculumRepository(),
         ),
-        gamificationProvider.overrideWith(_TestGamificationNotifier.new),
+        gamificationProvider.overrideWith(TestGamificationNotifier.new),
         lessonSessionProvider.overrideWith(_TestLessonSessionNotifier.new),
       ],
     );
@@ -56,14 +52,14 @@ void main() {
   });
 
   test('a re-asked mistake pays into both numbers or neither', () async {
-    final repo = _FakeProgressRepository();
+    final repo = FakeProgressRepository();
     final container = ProviderContainer(
       overrides: [
         progressRepositoryProvider.overrideWithValue(repo),
         curriculumRepositoryProvider.overrideWithValue(
-          _FakeCurriculumRepository(),
+          FakeCurriculumRepository(),
         ),
-        gamificationProvider.overrideWith(_TestGamificationNotifier.new),
+        gamificationProvider.overrideWith(TestGamificationNotifier.new),
         lessonSessionProvider.overrideWith(_TestLessonSessionNotifier.new),
       ],
     );
@@ -136,77 +132,4 @@ class _TestLessonSessionNotifier extends LessonSessionNotifier {
     // the test was passing for the wrong reason until that was fixed.
     isExamMode: false,
   );
-}
-
-/// Keeps the hearts and celebration calls on the completion path from
-/// reaching a database this test does not need.
-class _TestGamificationNotifier extends GamificationNotifier {
-  @override
-  GamificationState build() => const GamificationState();
-
-  @override
-  Future<void> refreshHearts() async {}
-
-  @override
-  Future<List<Celebration>> refreshAfterCommittedLesson() async => const [];
-
-  @override
-  Future<int> onWrongAnswer() async => state.hearts - 1;
-}
-
-/// The unit-completion celebration is best-effort and already swallows its
-/// own failures; this just keeps it from reaching for a real database.
-class _FakeCurriculumRepository implements CurriculumRepository {
-  @override
-  Future<List<Unit>> getUnits(Phase phase) async => const [];
-
-  @override
-  Future<Unit> getUnit(int unitId) async => throw UnimplementedError();
-
-  @override
-  Future<List<Lesson>> getLessons(int unitId) async => const [];
-
-  @override
-  Future<Lesson> getLesson(int lessonId) async => throw UnimplementedError();
-
-  @override
-  Future<List<Exercise>> getExercises(int lessonId) async => const [];
-}
-
-class _FakeProgressRepository implements ProgressRepository {
-  int? recordedXp;
-
-  @override
-  Future<bool> recordCompletion({
-    required String attemptId,
-    required int unitId,
-    required int lessonId,
-    required double score,
-    required int correctCount,
-    required int incorrectCount,
-    required int skippedCount,
-    required DateTime startedAt,
-    required int activityXp,
-    required List<ExerciseAttemptEvidence> exerciseEvidence,
-    String phase = 'initial',
-  }) async {
-    recordedXp = activityXp;
-    return true;
-  }
-
-  @override
-  Stream<ProgressSnapshot> watchProgress() =>
-      const Stream<ProgressSnapshot>.empty();
-
-  @override
-  Future<Set<int>> getCompletedLessonIds() async => <int>{};
-
-  @override
-  Future<ProgressSnapshot> getSnapshot() async => const ProgressSnapshot();
-
-  @override
-  Future<void> recordExamPassed(String level) async {}
-
-  @override
-  Future<void> updateStreak(int currentStreak, int longestStreak) async {}
 }

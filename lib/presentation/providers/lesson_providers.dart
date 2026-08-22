@@ -196,8 +196,22 @@ class LessonSessionState {
   Exercise? get currentExercise =>
       currentIndex < exercises.length ? exercises[currentIndex] : null;
 
-  double get progress =>
-      exercises.isEmpty ? 0.0 : (currentIndex) / exercises.length;
+  /// How far through the lesson proper the learner is, 0..1.
+  ///
+  /// Measured against [originalCount], not `exercises.length`: the list grows
+  /// when missed questions are appended, so dividing by it sent this
+  /// backwards — 10/10 became 10/13 the moment the re-ask pass began. The
+  /// mistake pass is extra work after a finished lesson, so this saturates at
+  /// 1.0 rather than pretending there is more of the lesson left.
+  ///
+  /// Nothing renders this today; the header shows [inMistakeReview] and
+  /// "Question x of y" instead. Kept correct so wiring it up cannot
+  /// reintroduce the reversal.
+  double get progress {
+    final total = originalCount > 0 ? originalCount : exercises.length;
+    if (total == 0) return 0.0;
+    return (currentIndex / total).clamp(0.0, 1.0);
+  }
 
   double get accuracy {
     final total = correctCount + wrongCount;
