@@ -130,8 +130,11 @@ class _TestLessonSessionNotifier extends LessonSessionNotifier {
       ),
     ],
     originalCount: 2,
-    // Skips the mistake re-ask pass so the lesson ends after both answers.
-    isExamMode: true,
+    // An ordinary lesson, so the mistake re-ask pass is in play — that is the
+    // path the second test needs. This used to say isExamMode: true and still
+    // reach the re-asks, because retry() dropped exam mode on the way through;
+    // the test was passing for the wrong reason until that was fixed.
+    isExamMode: false,
   );
 }
 

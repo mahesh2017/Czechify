@@ -490,12 +490,21 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
             ? state.exercises.sublist(0, state.originalCount)
             : state.exercises;
 
+    // An exam stays an exam across a retry: the countdown restarts, hearts
+    // stay out of it, and nextExercise() keeps skipping the mistake re-asks.
+    final isExamMode = state.isExamMode;
+    final lesson = state.lesson;
     state = LessonSessionState(
-      lesson: state.lesson,
+      lesson: lesson,
       exercises: baseExercises,
-      hearts: hearts,
-      isGameOver: ref.read(settingsProvider).heartsEnabled && hearts <= 0,
+      hearts: isExamMode ? 999 : hearts,
+      isGameOver:
+          !isExamMode &&
+          ref.read(settingsProvider).heartsEnabled &&
+          hearts <= 0,
       originalCount: baseExercises.length,
+      isExamMode: isExamMode,
+      remainingSeconds: isExamMode ? (lesson?.durationMinutes ?? 0) * 60 : 0,
     );
   }
 
