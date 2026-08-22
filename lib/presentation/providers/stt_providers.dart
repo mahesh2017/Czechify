@@ -526,9 +526,27 @@ class _CaptureUnavailable implements Exception {
 /// Used as a fallback when Whisper is unavailable (offline, backend not
 /// configured). For Czech, this uses the OS's built-in speech recognition
 /// (Google on Android, Apple on iOS/macOS).
-final sttServiceProvider = Provider<SttService>((ref) {
-  return NativeSttService();
-});
+final sttServiceProvider = Provider<SttService>(
+  (ref) => ref.watch(_nativeSttProvider),
+);
+
+/// The same recogniser, typed as the port the recording UI actually needs.
+///
+/// [SttService] describes transcribing a file; holding the microphone open and
+/// letting go of it is [LiveTranscriber]. Every screen that records was
+/// reaching the second through `ref.read(sttServiceProvider) as
+/// NativeSttService`, which is also where the lifecycle bugs collected — a
+/// cast to the implementation invites reaching past the port for whatever else
+/// it happens to expose.
+final liveTranscriberProvider = Provider<LiveTranscriber>(
+  (ref) => ref.watch(_nativeSttProvider),
+);
+
+/// One recogniser behind both ports. Two instances would mean two
+/// [SpeechToText] objects contending for one microphone.
+final _nativeSttProvider = Provider<NativeSttService>(
+  (ref) => NativeSttService(),
+);
 
 /// Native on-device STT implementation using speech_to_text package.
 class NativeSttService implements SttService, LiveTranscriber {

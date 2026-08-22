@@ -1,4 +1,6 @@
 import 'dart:math' as math;
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../domain/repositories/conversation_repository.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/chat_message.dart';
 import '../../providers/chat_providers.dart';
+import '../../../domain/repositories/speech_ports.dart';
 import '../../providers/stt_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../providers/database_providers.dart';
@@ -125,9 +128,18 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   final _scrollController = ScrollController();
   bool _isListening = false;
   String? _voiceNotice;
+  late final LiveTranscriber _transcriber;
+
+  @override
+  void initState() {
+    super.initState();
+    _transcriber = ref.read(liveTranscriberProvider);
+  }
 
   @override
   void dispose() {
+    // Closing the chat while dictating should release the microphone.
+    if (_isListening) unawaited(_transcriber.stop());
     _inputController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -142,8 +154,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       _voiceNotice = null;
     });
     try {
-      final stt = ref.read(sttServiceProvider) as NativeSttService;
-      final transcription = await stt.listenFor(
+      final transcription = await _transcriber.listenFor(
         timeout: const Duration(seconds: 10),
       );
       if (!mounted) return;

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../core/utils/text_normalizer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../../../domain/repositories/speech_ports.dart';
 import '../../../providers/stt_providers.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/record_button.dart';
@@ -26,6 +29,22 @@ class SpeakingTaskView extends ConsumerStatefulWidget {
 }
 
 class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
+  late final LiveTranscriber _transcriber;
+
+  @override
+  void initState() {
+    super.initState();
+    _transcriber = ref.read(liveTranscriberProvider);
+  }
+
+  @override
+  void dispose() {
+    // The exercise can be left mid-recording; the microphone should not
+    // outlive it.
+    if (isRecording) unawaited(_transcriber.stop());
+    super.dispose();
+  }
+
   bool isRecording = false;
   bool hasRecorded = false;
   String? transcription;
@@ -68,8 +87,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
   Future<void> _toggleRecording() async {
     // If recording, stop and process the result.
     if (isRecording) {
-      final stt = ref.read(sttServiceProvider) as NativeSttService;
-      await stt.stop();
+      await _transcriber.stop();
       // listenFor()'s completer will resolve on stop — the awaiting code
       // below continues normally.
       return;
@@ -91,8 +109,8 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
     });
 
     try {
-      final stt = ref.read(sttServiceProvider) as NativeSttService;
-      final recorded = (await stt.listenFor(timeout: _listenTimeout)).trim();
+      final recorded =
+          (await _transcriber.listenFor(timeout: _listenTimeout)).trim();
 
       // If the user cancelled (re-recorded or stopped without processing),
       // discard the result entirely.
