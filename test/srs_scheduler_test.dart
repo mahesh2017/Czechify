@@ -19,7 +19,60 @@ void main() {
 
       expect(result.card.reps, 0);
       expect(result.card.state, CardState.relearning);
-      expect(result.nextReviewDate, now.add(const Duration(days: 1)));
+      expect(result.nextReviewDate, now.add(SrsScheduler.relearningStep));
+    });
+
+    test('a failed card comes back today, not tomorrow', () {
+      // Whole-day intervals gave Again a floor of the next calendar day. The
+      // review screen requeues it in-session, but that queue dies with the
+      // session: closing the app on a word you just blanked on used to put it
+      // out of reach until tomorrow.
+      final card = newCard().copyWith(reps: 3, stability: 10, difficulty: 2.5);
+      final result = scheduler.schedule(card, Rating.again, now);
+
+      expect(result.nextReviewDate.difference(now), lessThan(const Duration(hours: 1)));
+      expect(result.nextReviewDate.isAfter(now), isTrue);
+    });
+
+    test('a lapse does not collapse the interval it rebuilds from', () {
+      // The trap in scheduling minutes: stability doubles as "the interval to
+      // multiply next time". Recording ten minutes there would leave the next
+      // success scheduling the card 0.02 days out.
+      final lapsed =
+          scheduler
+              .schedule(
+                newCard().copyWith(reps: 3, stability: 30, difficulty: 2.5),
+                Rating.again,
+                now,
+              )
+              .card;
+
+      expect(lapsed.stability, 1.0, reason: 'a day, not ten minutes');
+
+      // Answering it correctly puts it back on the normal ladder.
+      final recovered = scheduler.schedule(lapsed, Rating.good, now);
+      expect(recovered.nextReviewDate, now.add(const Duration(days: 1)));
+    });
+
+    test('a relearning card is not due until its step has elapsed', () {
+      final lapsed =
+          scheduler
+              .schedule(
+                newCard().copyWith(reps: 3, stability: 10, difficulty: 2.5),
+                Rating.again,
+                now,
+              )
+              .card;
+
+      expect(
+        scheduler.getDueCards([lapsed], now),
+        isEmpty,
+        reason: 'it would otherwise be handed straight back',
+      );
+      expect(
+        scheduler.getDueCards([lapsed], now.add(SrsScheduler.relearningStep)),
+        hasLength(1),
+      );
     });
 
     test('First review with "good" sets interval to 1 day', () {
@@ -123,7 +176,13 @@ void main() {
           rating: scheduler.previewIntervalDays(card, rating, now),
       };
 
-      expect(days[Rating.again], 1);
+      // Again is measured in minutes now, so it rounds to zero days rather
+      // than the one day it used to floor at.
+      expect(
+        scheduler.previewInterval(card, Rating.again, now),
+        SrsScheduler.relearningStep,
+      );
+      expect(days[Rating.again], 0);
       expect(days[Rating.hard], 36, reason: 'a cautious step, not a leap');
       expect(days[Rating.good], 75);
       expect(days[Rating.easy], 103);

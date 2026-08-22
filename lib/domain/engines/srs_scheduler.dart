@@ -35,6 +35,20 @@ class SrsScheduler {
   /// slightly better ease attached.
   static const double _easyBonus = 1.3;
 
+  /// How soon a card the learner just failed comes back.
+  ///
+  /// Intervals are whole days, which gave Again a floor of *tomorrow* — not
+  /// what forgetting a word means. The review screen already puts a failed
+  /// card back into the current session, but that queue dies with the session:
+  /// close the app on a card you just blanked on and the soonest it returns is
+  /// the next calendar day. It is now due in minutes, so the next session
+  /// started today picks it up.
+  ///
+  /// Only the due time is short. The interval the card *graduates* to is
+  /// unchanged, and [SrsCard.stability] still records that day figure, so a
+  /// lapse does not leave the next success multiplying up from ten minutes.
+  static const Duration relearningStep = Duration(minutes: 10);
+
   /// Calculate the next review date and update card state.
   SchedulingResult schedule(SrsCard card, Rating rating, DateTime now) {
     // SM-2 implementation.
@@ -93,7 +107,10 @@ class SrsScheduler {
     }
 
     final newDifficulty = newEase;
-    final newDue = now.add(Duration(days: interval));
+    final newDue =
+        rating == Rating.again
+            ? now.add(relearningStep)
+            : now.add(Duration(days: interval));
     final newState = switch (rating) {
       Rating.again => CardState.relearning,
       Rating.hard => CardState.review,
@@ -113,13 +130,17 @@ class SrsScheduler {
     return SchedulingResult(card: updatedCard, nextReviewDate: newDue);
   }
 
-  /// Preview the interval (in whole days) a given rating would schedule,
-  /// without mutating the card. Used to show honest interval hints on the
-  /// rating buttons instead of hardcoded values.
-  int previewIntervalDays(SrsCard card, Rating rating, DateTime now) {
-    final result = schedule(card, rating, now);
-    return result.nextReviewDate.difference(now).inDays;
-  }
+  /// Preview what a rating would schedule, without mutating the card. Used to
+  /// show honest interval hints on the rating buttons instead of hardcoded
+  /// values.
+  Duration previewInterval(SrsCard card, Rating rating, DateTime now) =>
+      schedule(card, rating, now).nextReviewDate.difference(now);
+
+  /// The same preview in whole days. Rounds a sub-day step down to 0, so
+  /// callers showing day counts must handle Again separately — the review
+  /// screen labels it "Soon".
+  int previewIntervalDays(SrsCard card, Rating rating, DateTime now) =>
+      previewInterval(card, rating, now).inDays;
 
   /// Get all cards due for review on or before [asOf].
   List<SrsCard> getDueCards(List<SrsCard> allCards, DateTime asOf) {
