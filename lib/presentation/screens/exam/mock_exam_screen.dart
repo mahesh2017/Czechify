@@ -13,7 +13,9 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../data/services/exam_session_store.dart';
 import '../../../domain/repositories/exam_repository.dart';
 import '../../providers/database_providers.dart';
+import '../../../domain/repositories/speech_ports.dart';
 import '../../providers/stt_providers.dart';
+import '../../widgets/common/record_button.dart';
 import '../../providers/writing_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../widgets/common/lesson_ui.dart';
@@ -74,14 +76,20 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   final ExamSessionStore _sessionStore = ExamSessionStore();
   ExamCheckpoint? _pendingCheckpoint;
 
+  late final LiveTranscriber _transcriber;
+
   @override
   void initState() {
     super.initState();
+    _transcriber = ref.read(liveTranscriberProvider);
     _loadExam();
   }
 
   @override
   void dispose() {
+    // Leaving mid-recording used to leave the recogniser holding the
+    // microphone for a screen that no longer exists.
+    if (_isRecordingSpeaking) unawaited(_transcriber.stop());
     _timer?.cancel();
     for (final controller in _writingControllers.values) {
       controller.dispose();
@@ -1106,24 +1114,22 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           ),
           const SizedBox(height: 24),
           Center(
-            child: GestureDetector(
-              onTap: _isRecordingSpeaking ? null : () => _recordSpeaking(task),
-              child: Container(
-                width: 72,
-                height: 72,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      _isRecordingSpeaking
-                          ? context.tokens.red
-                          : context.tokens.pri,
-                ),
-                child: Icon(
-                  _isRecordingSpeaking ? Icons.hearing : Icons.mic,
-                  color: context.tokens.onFill,
-                  size: 30,
-                ),
-              ),
+            // The shared control rather than a bare GestureDetector: this was
+            // the one recording surface in the app with no screen-reader
+            // label, announcing itself as an unnamed button, and it signalled
+            // recording by colour alone. RecordButton carries both, and its
+            // "tap again to stop" is wired here rather than left inert so the
+            // label it announces is true.
+            child: RecordButton(
+              isRecording: _isRecordingSpeaking,
+              size: 72,
+              onPressed: () {
+                if (_isRecordingSpeaking) {
+                  unawaited(_transcriber.stop());
+                  return;
+                }
+                _recordSpeaking(task);
+              },
             ),
           ),
           const SizedBox(height: 8),
@@ -1193,7 +1199,6 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     final responseKey = _currentResponseKey;
     setState(() => _isRecordingSpeaking = true);
     try {
-      final stt = ref.read(sttServiceProvider) as NativeSttService;
       // Read-aloud is a short fixed text; prompted/open responses need room
       // for a real utterance — a 12 s cap cut CCE-style answers off mid-turn.
       final timeout = switch (task) {
@@ -1201,7 +1206,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         ExamPromptedResponseTask() => const Duration(seconds: 30),
         ExamOpenResponseTask() => const Duration(seconds: 45),
       };
-      final transcription = await stt.listenFor(timeout: timeout);
+      final transcription = await _transcriber.listenFor(timeout: timeout);
 
       final int? score = switch (task) {
         ExamReadAloudTask(:final targetText) =>
@@ -1218,7 +1223,15 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         ExamOpenResponseTask() => null,
       };
 
-      if (!mounted || responseKey != _currentResponseKey) return;
+      if (!mounted) return;
+      if (responseKey != _currentResponseKey) {
+        // The learner moved on while this was recording, so the result belongs
+        // to a question they have left and is dropped. The flag still has to be
+        // cleared: returning without it left the button reading "Listening…"
+        // and disabled for the rest of the exam.
+        setState(() => _isRecordingSpeaking = false);
+        return;
+      }
       setState(() {
         _isRecordingSpeaking = false;
         _speakingTranscriptions[responseKey] = transcription;

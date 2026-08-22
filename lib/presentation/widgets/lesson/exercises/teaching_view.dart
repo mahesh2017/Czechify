@@ -103,11 +103,13 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     return hasSymbol ? 'alphabet' : 'list';
   }
 
-  Future<void> _say(String text, {bool slow = false}) async {
+  Future<void> _say(String text) async {
     if (text.trim().isEmpty) return;
     try {
-      final tts = ref.read(czechTtsProvider);
-      await (slow ? tts.speakSlow(text) : tts.speak(text));
+      // No rate argument: speak() reads the learner's stored speed, which the
+      // selector under the play button writes. Passing one here would pin the
+      // pace and ignore what they chose.
+      await ref.read(czechTtsProvider).speak(text);
     } catch (_) {
       // Speech is best-effort — a missing voice must not break the lesson.
     }
@@ -123,7 +125,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     }
   }
 
-  Future<void> _playAll(List<_TeachingItem> items, {bool slow = false}) async {
+  Future<void> _playAll(List<_TeachingItem> items) async {
     if (_playingAll) {
       setState(() {
         _playingAll = false;
@@ -139,10 +141,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     for (var i = 0; i < items.length; i++) {
       if (!_playingAll || !mounted) break;
       setState(() => _playingIndex = i);
-      await _say(alphabet ? items[i].nameSay : items[i].playText, slow: slow);
+      await _say(alphabet ? items[i].nameSay : items[i].playText);
       // TTS returns before playback finishes; a fixed pace gives a clear gap
-      // between items — longer when the utterance itself is stretched out.
-      await Future<void>.delayed(Duration(milliseconds: slow ? 1700 : 1100));
+      // between items.
+      await Future<void>.delayed(const Duration(milliseconds: 1100));
     }
     if (mounted) {
       setState(() {
@@ -235,10 +237,6 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                     playing: _playingAll,
                     playLabel: playAllLabel,
                     onPlay: () => _playAll(items),
-                    // Half speed, one item at a time — the "Slow" pass exists
-                    // for the sounds English does not have.
-                    onSlow: () => _playAll(items, slow: true),
-                    slowLabel: l10n.audioSlower,
                   ),
                 ],
               ],

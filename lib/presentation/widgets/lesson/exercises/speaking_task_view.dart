@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_tokens.dart';
+import '../../../../core/utils/text_normalizer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../../../domain/repositories/speech_ports.dart';
 import '../../../providers/stt_providers.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/record_button.dart';
@@ -25,6 +29,22 @@ class SpeakingTaskView extends ConsumerStatefulWidget {
 }
 
 class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
+  late final LiveTranscriber _transcriber;
+
+  @override
+  void initState() {
+    super.initState();
+    _transcriber = ref.read(liveTranscriberProvider);
+  }
+
+  @override
+  void dispose() {
+    // The exercise can be left mid-recording; the microphone should not
+    // outlive it.
+    if (isRecording) unawaited(_transcriber.stop());
+    super.dispose();
+  }
+
   bool isRecording = false;
   bool hasRecorded = false;
   String? transcription;
@@ -45,11 +65,17 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
 
   String? get _promptCz => widget.exercise.data['prompt_cz'] as String?;
 
+  /// Never falls back to [Exercise.answerKey]. For a speaking task that field
+  /// is English authoring metadata ("Full spoken role-play at a government
+  /// office."), so the fallback scored Czech speech against an English
+  /// sentence and made the exercise unpassable. `expected_phrases` is now a
+  /// validated part of the content contract — see
+  /// CurriculumContractValidator._validateSpeakingTask — so there is nothing
+  /// left to fall back to.
   List<String> get _expectedPhrases {
     final raw = widget.exercise.data['expected_phrases'];
     if (raw is List) return raw.cast<String>();
-    if (widget.exercise.answerKey != null) return [widget.exercise.answerKey!];
-    return [];
+    return const [];
   }
 
   Duration get _listenTimeout {
@@ -61,8 +87,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
   Future<void> _toggleRecording() async {
     // If recording, stop and process the result.
     if (isRecording) {
-      final stt = ref.read(sttServiceProvider) as NativeSttService;
-      await stt.stop();
+      await _transcriber.stop();
       // listenFor()'s completer will resolve on stop — the awaiting code
       // below continues normally.
       return;
@@ -84,8 +109,8 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
     });
 
     try {
-      final stt = ref.read(sttServiceProvider) as NativeSttService;
-      final recorded = (await stt.listenFor(timeout: _listenTimeout)).trim();
+      final recorded =
+          (await _transcriber.listenFor(timeout: _listenTimeout)).trim();
 
       // If the user cancelled (re-recorded or stopped without processing),
       // discard the result entirely.
@@ -101,12 +126,22 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
         }
       }
 
-      // Partial match: check if transcription contains key words
+      // Partial match: how much of the expected Czech actually turned up.
+      //
+      // Both sides are normalised first. Splitting raw text on whitespace
+      // leaves punctuation welded to the token, so a recogniser returning
+      // "Dobrý den." compared "den." against the expected "den" and missed;
+      // a correct formal role-play graded 0.39. This is the same
+      // normalisation matchAnswer already applies on the exact-match path.
       if (score < 1.0 && recorded.isNotEmpty) {
-        final words = recorded.toLowerCase().split(RegExp(r'\s+'));
+        final words =
+            TextNormalizer.normalize(
+              recorded,
+            ).split(' ').where((w) => w.isNotEmpty).toList();
         final expectedWords =
             _expectedPhrases
-                .expand((p) => p.toLowerCase().split(RegExp(r'\s+')))
+                .expand((p) => TextNormalizer.normalize(p).split(' '))
+                .where((w) => w.isNotEmpty)
                 .toSet();
         final matched = words.where((w) => expectedWords.contains(w)).length;
         if (expectedWords.isNotEmpty) {

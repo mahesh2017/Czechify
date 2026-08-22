@@ -36,13 +36,13 @@ class PronunciationScorer {
       insertionCount: alignment.insertionCount,
     );
 
-    final feedback = _generateFeedback(problemSounds);
+    final tips = _tips(problemSounds);
 
     return PronunciationResult(
       overallScore: accuracy,
       wordScores: alignment.wordScores,
       problemSounds: problemSounds,
-      feedback: feedback,
+      tips: tips,
       insertionCount: alignment.insertionCount,
     );
   }
@@ -256,26 +256,36 @@ class PronunciationScorer {
     return totalScore / denominator;
   }
 
-  /// Generate feedback based on problem sounds.
-  String _generateFeedback(List<ProblemSound> problems) {
-    if (problems.isEmpty) return 'Skvělé! Výborná výslovnost.';
+  /// Turn problem sounds into coaching codes.
+  ///
+  /// Codes, not sentences: this is a pure engine and the learner may not be
+  /// reading English. The presentation layer says these out loud.
+  List<PronunciationTip> _tips(List<ProblemSound> problems) {
+    if (problems.isEmpty) {
+      return const [PronunciationTip(PronunciationTipCode.excellent)];
+    }
 
-    return problems
-        .map((p) {
-          return switch (p.phoneme) {
-            'ř' =>
-              'Practice the "ř" sound — roll the tongue slightly further back.',
-            'ě' => 'The "ě" softens the consonant before it (dě → d+ye).',
-            'long_vowel' =>
-              'Czech distinguishes short and long vowels. Lengthen the vowel.',
-            // "other" is the mapper's internal bucket for "no specific Czech
-            // problem sound", so naming it back to the learner is meaningless —
-            // "Check pronunciation of 'other' in 'vltava'" tells them nothing.
-            'other' => 'Listen again and repeat "${p.word}" carefully.',
-            _ => 'Check the "${p.phoneme}" sound in "${p.word}".',
-          };
-        })
-        .join('\n');
+    return problems.map((p) {
+      return switch (p.phoneme) {
+        'ř' => const PronunciationTip(PronunciationTipCode.rolledR),
+        'ě' => const PronunciationTip(PronunciationTipCode.softeningE),
+        'long_vowel' => const PronunciationTip(
+          PronunciationTipCode.vowelLength,
+        ),
+        // "other" is the mapper's internal bucket for "no specific Czech
+        // problem sound", so naming it back to the learner is meaningless —
+        // "Check pronunciation of 'other' in 'vltava'" tells them nothing.
+        'other' => PronunciationTip(
+          PronunciationTipCode.repeatWord,
+          word: p.word,
+        ),
+        _ => PronunciationTip(
+          PronunciationTipCode.checkSound,
+          sound: p.phoneme,
+          word: p.word,
+        ),
+      };
+    }).toList();
   }
 }
 

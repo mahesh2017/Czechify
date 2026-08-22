@@ -25,9 +25,6 @@ class GamificationEngine {
     int baseXp = 0,
   }) {
     return switch (actionType) {
-      XpActionType.lessonCompleted when accuracy >= 1.0 => 20,
-      XpActionType.lessonCompleted when accuracy >= 0.8 => 15,
-      XpActionType.lessonCompleted => 10,
       XpActionType.reviewSessionCompleted => reviewCount * 2,
       XpActionType.streakMilestone => streakDays * 5,
       XpActionType.badgeEarned => baseXp,
@@ -59,21 +56,29 @@ class GamificationEngine {
     return unlocked;
   }
 
-  /// Determine league from weekly XP.
-  League getLeague(int weeklyXp) {
-    League? result;
-    for (final league in League.values) {
-      if (weeklyXp >= league.xpThreshold) {
-        result = league;
+  /// The rank a lifetime XP total has reached.
+  ///
+  /// Lifetime, not weekly: nothing in the app tracks or resets a weekly total,
+  /// and [Rank] explains why that is the intended design rather than an
+  /// omission. This signature used to say `weeklyXp` while its only caller
+  /// passed the lifetime figure.
+  Rank rankFor(int lifetimeXp) {
+    Rank? result;
+    for (final rank in Rank.values) {
+      if (lifetimeXp >= rank.xpThreshold) {
+        result = rank;
       }
     }
-    return result ?? League.bronze;
+    return result ?? Rank.bronze;
   }
 }
 
 /// Types of actions that earn XP.
 enum XpActionType {
-  lessonCompleted,
+  // Lessons deliberately have no entry here. Their award is the sum of the
+  // per-exercise `xp_reward` values the learner saw credited during the
+  // lesson; a second rule here is what let the displayed and recorded totals
+  // drift apart.
   reviewSessionCompleted,
   streakMilestone,
   badgeEarned,

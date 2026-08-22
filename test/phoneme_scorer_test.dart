@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ceskina_pro/core/utils/ipa.dart';
 import 'package:ceskina_pro/domain/engines/phoneme_features.dart';
 import 'package:ceskina_pro/domain/engines/phoneme_scorer.dart';
+import 'package:ceskina_pro/domain/entities/pronunciation_result.dart';
 
 void main() {
   group('IPA tokenizer', () {
@@ -74,7 +75,7 @@ void main() {
       );
       expect(r.overallScore, 1.0);
       expect(r.band, PronunciationBand.excellent);
-      expect(r.feedback, isEmpty);
+      expect(r.tips, isEmpty);
     });
 
     test('gibberish scores near zero', () {
@@ -93,8 +94,12 @@ void main() {
     test('substituting r for ř is caught and named', () {
       final r = scorer.score(expectedIpa: 'ˈr̝ɛka', actualIpa: 'rɛka');
       expect(r.overallScore, lessThan(1.0));
-      expect(r.feedback.first, contains('ř'));
-      expect(r.feedback.first.toLowerCase(), contains('plain "r"'));
+      // The engine names the problem with a code now; the sentence about it
+      // lives in the l10n files, where a Czech learner can be told in Czech.
+      expect(
+        r.tips.first.code,
+        PronunciationTipCode.rolledRAsPlainR,
+      );
     });
 
     test('ř errors weigh more than an equally-close error elsewhere', () {
@@ -106,13 +111,16 @@ void main() {
     test('shortening a long vowel is flagged as meaning-bearing', () {
       final r = scorer.score(expectedIpa: 'biːt', actualIpa: 'bit');
       expect(r.overallScore, lessThan(1.0));
-      expect(r.feedback.join(' '), contains('long vowel'));
+      expect(r.tips.first.code, PronunciationTipCode.vowelTooShort);
     });
 
     test('a dropped sound is reported', () {
       final r = scorer.score(expectedIpa: 'dɛn', actualIpa: 'dɛ');
       expect(r.overallScore, lessThan(1.0));
-      expect(r.feedback.join(' '), contains('dropped'));
+      expect(
+        r.tips.map((t) => t.code),
+        contains(PronunciationTipCode.soundDropped),
+      );
     });
 
     test('added sounds cannot inflate the score', () {
@@ -126,7 +134,7 @@ void main() {
         expectedIpa: 'ˈr̝ɛkaː ɟɛlaː biːt',
         actualIpa: 'rɛka dela bit',
       );
-      expect(r.feedback.length, lessThanOrEqualTo(3));
+      expect(r.tips.length, lessThanOrEqualTo(3));
     });
 
     /// A high average must not tell a learner "good" about the one sound they

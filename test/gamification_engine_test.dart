@@ -7,29 +7,9 @@ void main() {
     final engine = GamificationEngine();
 
     group('calculateXp', () {
-      test('lessonCompleted with perfect accuracy gives 20 XP', () {
-        final xp = engine.calculateXp(
-          actionType: XpActionType.lessonCompleted,
-          accuracy: 1.0,
-        );
-        expect(xp, 20);
-      });
-
-      test('lessonCompleted with 80%+ accuracy gives 15 XP', () {
-        final xp = engine.calculateXp(
-          actionType: XpActionType.lessonCompleted,
-          accuracy: 0.85,
-        );
-        expect(xp, 15);
-      });
-
-      test('lessonCompleted with <80% accuracy gives 10 XP', () {
-        final xp = engine.calculateXp(
-          actionType: XpActionType.lessonCompleted,
-          accuracy: 0.5,
-        );
-        expect(xp, 10);
-      });
+      // A lesson's award is deliberately not an engine rule: it is the sum of
+      // the per-exercise XP the learner was shown. See
+      // test/lesson_xp_contract_test.dart.
 
       test('reviewSessionCompleted gives 2 XP per review', () {
         final xp = engine.calculateXp(
@@ -145,25 +125,34 @@ void main() {
       });
     });
 
-    group('getLeague', () {
+    group('rankFor', () {
       test('0 XP = Bronze', () {
-        expect(engine.getLeague(0), League.bronze);
+        expect(engine.rankFor(0), Rank.bronze);
       });
 
-      test('100 XP = Silver', () {
-        expect(engine.getLeague(100), League.silver);
+      // Asserted against the thresholds rather than literals: they are tuned
+      // to the size of a lesson's award and were rescaled once already, when
+      // lessons stopped paying a flat 10/15/20.
+      for (final rank in Rank.values) {
+        test('${rank.name} begins at its own threshold', () {
+          expect(engine.rankFor(rank.xpThreshold), rank);
+        });
+      }
+
+      test('a tier holds until the next one is reached', () {
+        expect(engine.rankFor(Rank.gold.xpThreshold - 1), Rank.silver);
+        expect(
+          engine.rankFor(Rank.diamond.xpThreshold * 2),
+          Rank.diamond,
+        );
       });
 
-      test('300 XP = Gold', () {
-        expect(engine.getLeague(300), League.gold);
-      });
-
-      test('600 XP = Platinum', () {
-        expect(engine.getLeague(600), League.platinum);
-      });
-
-      test('1000+ XP = Diamond', () {
-        expect(engine.getLeague(1500), League.diamond);
+      test('the ladder stays sized to what a lesson pays', () {
+        // Ranks read lifetime XP, so these only ever climb. A median lesson
+        // pays 125: Silver should be several lessons in and Diamond a long
+        // haul, not the ten lessons Diamond became when awards grew sixfold.
+        expect(Rank.silver.xpThreshold ~/ 125, greaterThanOrEqualTo(4));
+        expect(Rank.diamond.xpThreshold ~/ 125, greaterThanOrEqualTo(40));
       });
     });
   });

@@ -116,6 +116,35 @@ void main() {
     expect(state.lastCorrectAnswer, isNull);
     expect(state.mistakeQueue, hasLength(1));
   });
+
+  test('progress does not run backwards when mistakes are appended', () {
+    const exercise = Exercise(
+      id: 1,
+      lessonId: 1,
+      type: ExerciseType.pronunciation,
+      prompt: 'Say this',
+      data: {},
+    );
+
+    // Ten questions answered, ten questions long: the lesson proper is done.
+    const finished = LessonSessionState(
+      exercises: [exercise, exercise, exercise],
+      originalCount: 3,
+      currentIndex: 3,
+    );
+    expect(finished.progress, 1.0);
+
+    // Three of them were missed and get appended. Dividing by the grown list
+    // sent this to 0.5.
+    const reviewing = LessonSessionState(
+      exercises: [exercise, exercise, exercise, exercise, exercise, exercise],
+      originalCount: 3,
+      currentIndex: 3,
+      mistakesAppended: true,
+    );
+    expect(reviewing.progress, 1.0);
+    expect(reviewing.inMistakeReview, isTrue);
+  });
 }
 
 class _TestLessonSessionNotifier extends LessonSessionNotifier {

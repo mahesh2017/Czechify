@@ -47,8 +47,15 @@ void main() {
     print('${c[0]}  (${c[3]})');
     print('   expected ${c[1]}   heard ${c[2]}');
     print('   ${bandLabel[r.band]}  [$pct%]');
-    for (final f in r.displayFeedback) {
-      print('   → $f');
+    // The engine deals in codes; this tool has no l10n to render them with,
+    // so it shows the code and what it carries.
+    for (final tip in r.displayTips) {
+      final detail = [
+        if (tip.sound != null) 'sound: ${tip.sound}',
+        if (tip.word != null) 'word: ${tip.word}',
+        if (tip.heard != null) 'heard: ${tip.heard}',
+      ].join(', ');
+      print('   → ${tip.code.name}${detail.isEmpty ? '' : '  ($detail)'}');
     }
     print('');
   }

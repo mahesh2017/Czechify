@@ -1614,4 +1614,77 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get reminderSettingsEntryBanner =>
       'Dostávej denní připomínky a udržuj svou sérii.';
+
+  @override
+  String get pronTipExcellent => 'Skvělé! Výborná výslovnost.';
+
+  @override
+  String get pronTipUnrecognisable =>
+      'To se frázi nepodobalo — poslechni si ji znovu a zkus to ještě jednou.';
+
+  @override
+  String get pronTipRolledRAsPlainR =>
+      'Tvoje „ř\" znělo jako obyčejné „r\". Nech jazyk kmitat, ale přitiskni ho blíž k dásni, aby to zabzučelo.';
+
+  @override
+  String get pronTipRolledR =>
+      'Zapracuj na „ř\" — kmitej jazykem a zároveň přidej bzučení.';
+
+  @override
+  String get pronTipSofteningE =>
+      '„ě\" změkčuje souhlásku před sebou (dě → d+je).';
+
+  @override
+  String get pronTipVowelLength =>
+      'Čeština rozlišuje krátké a dlouhé samohlásky. Prodluž samohlásku.';
+
+  @override
+  String pronTipVowelTooShort(String sound) {
+    return '„$sound\" je dlouhá samohláska — drž ji asi dvakrát déle. Délka v češtině mění význam (byt vs. být).';
+  }
+
+  @override
+  String pronTipVowelTooLong(String sound) {
+    return '„$sound\" je tady krátké — prodloužil/a jsi ho.';
+  }
+
+  @override
+  String pronTipPalatal(String sound) {
+    return '„$sound\" je palatální — přitiskni střed jazyka na tvrdé patro.';
+  }
+
+  @override
+  String pronTipSoundDropped(String sound) {
+    return 'Vynechal/a jsi hlásku „$sound\".';
+  }
+
+  @override
+  String pronTipSoundSubstituted(String sound, String heard) {
+    return '„$sound\" znělo spíš jako „$heard\".';
+  }
+
+  @override
+  String pronTipRepeatWord(String word) {
+    return 'Poslechni si znovu a pečlivě zopakuj „$word\".';
+  }
+
+  @override
+  String pronTipCheckSound(String sound, String word) {
+    return 'Zkontroluj hlásku „$sound\" ve slově „$word\".';
+  }
+
+  @override
+  String get rankBronze => 'Bronz';
+
+  @override
+  String get rankSilver => 'Stříbro';
+
+  @override
+  String get rankGold => 'Zlato';
+
+  @override
+  String get rankPlatinum => 'Platina';
+
+  @override
+  String get rankDiamond => 'Diamant';
 }

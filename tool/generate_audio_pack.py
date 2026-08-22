@@ -109,6 +109,14 @@ def main() -> int:
     )
     parser.add_argument("--limit", type=int, help="synthesize only the first N missing files")
     parser.add_argument(
+        "--manifest-only", action="store_true",
+        help="rebuild the manifest from the clips already on disk, "
+             "synthesizing nothing. Use after another tool has written clips "
+             "— the male pack is largely ElevenLabs, and a plain run would "
+             "fill its gaps with Azure's Antonin, which is the voice this "
+             "project rejected",
+    )
+    parser.add_argument(
         "--force",
         action="store_true",
         help="regenerate this gender's whole pack: delete its existing clips "
@@ -143,6 +151,21 @@ def main() -> int:
         args.gender != "male" or not selected_texts
     ):
         parser.error("--record-azure-fallback requires --gender male and --texts")
+    # Every one of these deletes clips before regenerating them, and
+    # --manifest-only never regenerates anything. Combining them would empty
+    # the pack and then write a manifest faithfully recording that it is empty.
+    if args.manifest_only:
+        conflicting = [
+            name for name, on in (
+                ("--force", args.force),
+                ("--replace-existing", args.replace_existing),
+                ("--refresh-blanks", args.refresh_blanks),
+            ) if on
+        ]
+        if conflicting:
+            parser.error(
+                f"--manifest-only cannot be combined with {', '.join(conflicting)}"
+            )
     if selected_texts:
         known_texts = {text for _, text, _ in plan}
         unknown = selected_texts - known_texts
@@ -168,7 +191,7 @@ def main() -> int:
     }[args.gender]
     speech_key = os.environ.get("AZURE_SPEECH_KEY")
     region = os.environ.get("AZURE_SPEECH_REGION")
-    if not speech_key or not region:
+    if not args.manifest_only and (not speech_key or not region):
         print("Set AZURE_SPEECH_KEY and AZURE_SPEECH_REGION.", file=sys.stderr)
         return 2
 
@@ -201,7 +224,8 @@ def main() -> int:
         if args.replace_existing and text in selected_texts and destination.exists():
             destination.unlink()
         if (
-            digest in allowed_keys
+            not args.manifest_only
+            and digest in allowed_keys
             and (not destination.exists() or destination.stat().st_size == 0)
         ):
             if args.limit is not None and generated >= args.limit:
@@ -230,7 +254,8 @@ def main() -> int:
                     time.sleep(2 ** attempt)
         if destination.exists() and destination.stat().st_size > 0:
             entries[digest] = f"assets/audio/{filename}"
-        print(f"[{index}/{len(plan)}] {text}")
+        if not args.manifest_only:
+            print(f"[{index}/{len(plan)}] {text}")
 
     if args.record_azure_fallback:
         ledger_path = AUDIO / "eleven_done.json"

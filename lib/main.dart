@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
@@ -22,6 +23,21 @@ import 'presentation/screens/onboarding/loading_screen.dart';
 /// App entry point.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Portrait only. Every screen in this app is drawn against a tall viewport —
+  // notch-sized top paddings, fixed-height exercise images, decorations placed
+  // in portrait coordinates — and none of that was ever adapted. Rotated to
+  // landscape the app stayed usable but showed its seams: the name step
+  // overflowed by 99px once the keyboard was up, and 115 listening-
+  // comprehension cards overflowed outright, every single one carrying an
+  // image among them.
+  //
+  // Nothing had ever asked for portrait; the platform manifests simply carried
+  // Flutter's default template, which permits both landscape modes. This is
+  // the request, and the iOS and Android manifests are narrowed to match so
+  // the OS enforces it rather than merely being asked.
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   try {
     await NotificationService.instance.initialize();
   } catch (e, stack) {

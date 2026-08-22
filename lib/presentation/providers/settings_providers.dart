@@ -45,6 +45,84 @@ extension CzechTutor on TtsVoiceGender {
 }
 
 /// App-wide settings state.
+/// Playback speed for recorded Czech audio, and the baseline it is measured
+/// against.
+///
+/// [kNativeTtsSpeechRate] is not a preference — it is the rate at which a clip
+/// plays back unaltered, so `rate / native` is the speed multiplier. Changing
+/// it would silently re-time the whole pack.
+///
+/// The default sits on the native rate deliberately: the teaching pace lives
+/// in the recordings now, not in the player.
+///
+/// It was briefly 0.35 (~0.78x) to slow down short clips the voice was
+/// rushing. Re-recording those clips fixed the cause — "To je" went from
+/// 0.177s to 0.261s, matching the female voice — and the two slowdowns then
+/// compounded to roughly 1.6x the original length, which reads as laboured
+/// rather than clear.
+///
+/// Slowing playback was the wrong lever anyway. It stretches every clip
+/// equally, including the ones that were already well paced, whereas the
+/// defect was confined to how one voice distributed time *within* a short
+/// sentence. Fixing the audio fixes it once, for every learner, at no cost to
+/// the clips that were fine.
+///
+/// The slider still spans 0.2–1.0, so a learner who wants it slower is one
+/// drag away.
+/// Every playback speed the app offers, as multiples of the recorded pace.
+///
+/// The ends are the clamp in [CzechTts] rather than a taste decision: playback
+/// is pinned to 0.5x-1.5x, so a control offering anything outside that would
+/// be labelling stops that all sound identical. The Settings slider used to do
+/// exactly that — it stored a raw rate from 0.2 to 1.0 in nine steps, and the
+/// top four all came out at 1.5x while three shared the word "Slow".
+const List<double> kTtsSpeedStops = [0.5, 0.75, 1.0, 1.25, 1.5];
+
+/// The subset offered beside the play button in a lesson.
+///
+/// Centred on 1.0 and one tap either way, because this is the control a
+/// learner reaches for mid-sentence. The full range lives in Settings.
+const List<double> kTtsQuickSpeedStops = [0.75, 1.0, 1.25];
+
+/// "1x", "0.75x" — trailing zeros trimmed, because "1.00x" reads as precision
+/// that is not there.
+String formatSpeedMultiplier(double multiplier) {
+  final text = multiplier
+      .toStringAsFixed(2)
+      .replaceAll(RegExp(r'0+$'), '')
+      .replaceAll(RegExp(r'\.$'), '');
+  return '${text}x';
+}
+
+const double kNativeTtsSpeechRate = 0.45;
+const double kDefaultTtsSpeechRate = kNativeTtsSpeechRate;
+
+/// Roughly two lessons a day. Sized against the sum of the per-exercise
+/// `xp_reward` values a lesson actually pays (a median lesson is 125), which
+/// replaced a flat 10/15/20 award.
+const int kDefaultDailyGoalXp = 300;
+
+/// The daily-goal choices, as (xp, label, minutes). Offered in two places —
+/// the onboarding goal step and the Settings dropdown — which is why they
+/// share one list: when the two drifted apart, onboarding wrote a goal the
+/// Settings dropdown had no item for, and DropdownButton asserts on a value
+/// missing from its items, so Settings could not be opened at all.
+///
+/// Scaled with the lesson award when it became the sum of the exercises' XP
+/// rather than a flat 10/15/20 — the same factor SettingsNotifier._dailyGoalXp
+/// migrates stored goals by, so an existing choice still lands on one of these.
+const kDailyGoalPresets = <(int, String, int)>[
+  (120, 'Casual', 5),
+  (kDefaultDailyGoalXp, 'Regular', 15),
+  (600, 'Serious', 30),
+  (900, 'Intense', 45),
+];
+
+/// Bumped when the meaning of a stored XP number changes, so goals chosen
+/// under an older economy can be rescaled once rather than silently becoming
+/// trivial. 2: lesson awards became the sum of per-exercise XP.
+const int kXpEconomyVersion = 2;
+
 class AppSettings {
   final AppThemeMode themeMode;
   final int dailyGoalXp;
@@ -95,8 +173,8 @@ class AppSettings {
 
   const AppSettings({
     this.themeMode = AppThemeMode.system,
-    this.dailyGoalXp = 50,
-    this.ttsSpeechRate = 0.45,
+    this.dailyGoalXp = kDefaultDailyGoalXp,
+    this.ttsSpeechRate = kDefaultTtsSpeechRate,
     this.ttsVoiceGender = TtsVoiceGender.female,
     this.startingLevel = CEFRLevel.preA1,
     this.heartsEnabled = true,
@@ -155,6 +233,7 @@ class AppSettings {
 class SettingsNotifier extends Notifier<AppSettings> {
   static const _kThemeMode = 'settings_theme_mode';
   static const _kDailyGoalXp = 'settings_daily_goal_xp';
+  static const _kXpEconomyVersion = 'settings_xp_economy_version';
   static const _kTtsRate = 'settings_tts_rate';
   static const _kTtsVoiceGender = 'settings_tts_voice_gender';
   static const _kOnboardingDone = 'settings_onboarding_done';
@@ -185,11 +264,28 @@ class SettingsNotifier extends Notifier<AppSettings> {
   /// Prefs accessor — always awaited so setters can't race the initial load.
   Future<SharedPreferences> _prefs() => SharedPreferences.getInstance();
 
+  /// The learner's daily goal, rescaled once if it was chosen when a lesson
+  /// paid a flat 10/15/20 instead of the sum of its exercises' XP. Left alone
+  /// otherwise: a goal of 50 under the new economy is met by half a lesson.
+  Future<int> _dailyGoalXp(SharedPreferences prefs) async {
+    final stored = prefs.getInt(_kDailyGoalXp);
+    final version = prefs.getInt(_kXpEconomyVersion) ?? 1;
+    if (version >= kXpEconomyVersion) return stored ?? kDefaultDailyGoalXp;
+
+    await prefs.setInt(_kXpEconomyVersion, kXpEconomyVersion);
+    if (stored == null) return kDefaultDailyGoalXp;
+    // The same factor the awards grew by, so the goal keeps asking for the
+    // number of lessons the learner originally chose.
+    final rescaled = stored * 6;
+    await prefs.setInt(_kDailyGoalXp, rescaled);
+    return rescaled;
+  }
+
   Future<void> _loadSettings() async {
     final prefs = await _prefs();
     final themeIdx = prefs.getInt(_kThemeMode) ?? 0;
-    final dailyGoal = prefs.getInt(_kDailyGoalXp) ?? 50;
-    final ttsRate = prefs.getDouble(_kTtsRate) ?? 0.45;
+    final dailyGoal = await _dailyGoalXp(prefs);
+    final ttsRate = prefs.getDouble(_kTtsRate) ?? kDefaultTtsSpeechRate;
     final voiceIndex = prefs.getInt(_kTtsVoiceGender) ?? 0;
     final levelIdx = prefs.getInt(_kStartingLevel) ?? 0;
     final reminderHour = prefs.getInt(_kReminderHour);
@@ -197,6 +293,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
     final remindersEnabled = prefs.getBool(_kRemindersEnabled) ?? false;
     final catchUpEnabled = prefs.getBool(_kCatchUpEnabled) ?? true;
     final lastKnownTz = prefs.getString(_kLastKnownTimezone);
+
+    // Settings load across several awaits, and a screen can be gone before
+    // they finish. Assigning state to a disposed provider throws out of an
+    // unawaited future, which surfaces as an unrelated test or screen failing.
+    if (!ref.mounted) return;
 
     state = AppSettings(
       themeMode:

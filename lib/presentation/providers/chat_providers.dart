@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
 import '../../data/repositories/llm_service_exception.dart';
 import '../../domain/engines/llm_orchestrator.dart';
 import '../../domain/entities/chat_message.dart';
@@ -7,6 +8,8 @@ import '../../domain/repositories/conversation_repository.dart';
 import 'database_providers.dart';
 import 'llm_providers.dart';
 import 'settings_providers.dart';
+
+final _log = Logger('Chat');
 
 /// State of the AI conversation.
 class ChatState {
@@ -134,6 +137,17 @@ class ChatNotifier extends Notifier<ChatState> {
   @override
   ChatState build() => const ChatState();
 
+  /// Bumped every time the active conversation changes.
+  ///
+  /// A tutor turn takes seconds, and the learner can switch conversations
+  /// while one is in flight. Each turn captures this value and abandons its
+  /// writes if it no longer matches, so a slow reply lands in the
+  /// conversation that asked for it or nowhere at all — not in whichever one
+  /// happens to be open when it finally arrives.
+  int _generation = 0;
+
+  bool _isStale(int generation) => generation != _generation;
+
   /// Start a new conversation with the given scenario.
   /// Defaults to the learner's level from onboarding/settings.
   Future<void> startConversation({
@@ -147,10 +161,12 @@ class ChatNotifier extends Notifier<ChatState> {
 
     final convRepo = ref.read(conversationRepositoryProvider);
 
+    final generation = ++_generation;
     final convId = await convRepo.createConversation(
       scenario.title,
       effectiveLevel.label,
     );
+    if (_isStale(generation)) return;
 
     state = ChatState(
       conversationId: convId,
@@ -161,7 +177,7 @@ class ChatNotifier extends Notifier<ChatState> {
     );
 
     // Send initial greeting from tutor
-    await _sendTutorGreeting();
+    await _sendTutorGreeting(generation);
   }
 
   /// Send a user message and get the AI tutor's response.
@@ -174,10 +190,30 @@ class ChatNotifier extends Notifier<ChatState> {
     // history would send it to the model twice.
     final history = state.messages;
 
+    final generation = _generation;
     final userMsg = ChatMessage.user(
       text,
       conversationId: state.conversationId,
     );
+
+    // Persist before showing it. The append used to come first and the save
+    // after, outside any try — so a failed write left isLoading stuck true
+    // and the composer locked until restart, with a transcript that no longer
+    // agreed with the database. Saving first means a failure costs the
+    // learner an error message instead of the rest of the session.
+    final convRepo = ref.read(conversationRepositoryProvider);
+    try {
+      await convRepo.saveMessage(userMsg);
+    } catch (error, stackTrace) {
+      _log.warning('Failed to save user message', error, stackTrace);
+      if (_isStale(generation)) return;
+      state = state.copyWith(
+        error: 'Couldn’t save your message. Please try again.',
+      );
+      return;
+    }
+    if (_isStale(generation)) return;
+
     state = state.copyWith(
       messages: [...state.messages, userMsg],
       isLoading: true,
@@ -185,11 +221,7 @@ class ChatNotifier extends Notifier<ChatState> {
       suggestedReplies: const [],
     );
 
-    // Persist user message
-    final convRepo = ref.read(conversationRepositoryProvider);
-    await convRepo.saveMessage(userMsg);
-
-    await _completeTutorTurn(text, history);
+    await _completeTutorTurn(text, history, generation);
   }
 
   /// Re-run the tutor completion for the last user message after a failure —
@@ -206,6 +238,7 @@ class ChatNotifier extends Notifier<ChatState> {
     await _completeTutorTurn(
       messages[lastUserIndex].content,
       messages.sublist(0, lastUserIndex),
+      _generation,
     );
   }
 
@@ -219,6 +252,7 @@ class ChatNotifier extends Notifier<ChatState> {
     LLMOrchestrator orchestrator,
     String text,
     List<ChatMessage> history,
+    int generation,
   ) async {
     final dropped = orchestrator.messagesFallingOutOfWindow(
       history: history,
@@ -237,6 +271,8 @@ class ChatNotifier extends Notifier<ChatState> {
       );
       final summary = orchestrator.parseConversationSummary(response);
       if (summary == null) return state.earlierSummary;
+      // The summary belongs to the conversation that produced it.
+      if (_isStale(generation)) return summary;
       state = state.copyWith(earlierSummary: summary);
       return summary;
     } catch (_) {
@@ -247,8 +283,12 @@ class ChatNotifier extends Notifier<ChatState> {
   Future<void> _completeTutorTurn(
     String text,
     List<ChatMessage> history,
+    int generation,
   ) async {
     final convRepo = ref.read(conversationRepositoryProvider);
+    // Captured now, not read back after the await: the reply belongs to the
+    // conversation that asked for it.
+    final conversationId = state.conversationId;
     try {
       // Build LLM request via orchestrator
       final orchestrator = ref.read(llmOrchestratorProvider);
@@ -256,7 +296,13 @@ class ChatNotifier extends Notifier<ChatState> {
       // Compress whatever this turn is about to push out of the window, so a
       // long conversation loses its oldest turns from the request but not from
       // the tutor's memory of it.
-      final summary = await _summarizeIfNeeded(orchestrator, text, history);
+      final summary = await _summarizeIfNeeded(
+        orchestrator,
+        text,
+        history,
+        generation,
+      );
+      if (_isStale(generation)) return;
 
       final request = orchestrator.buildConversationRequest(
         level: state.level,
@@ -270,6 +316,8 @@ class ChatNotifier extends Notifier<ChatState> {
       final llm = ref.read(llmServiceProvider);
       final response = await llm.complete(request);
 
+      if (_isStale(generation)) return;
+
       final parsed = orchestrator.parseTutorResponseSafe(response);
       if (parsed case TutorParseError(:final reason)) {
         state = state.copyWith(isLoading: false, error: reason);
@@ -282,7 +330,7 @@ class ChatNotifier extends Notifier<ChatState> {
         translation: tutorResponse.tutorReplyEn,
         corrections: tutorResponse.corrections,
         newVocabulary: tutorResponse.newVocabulary,
-        conversationId: state.conversationId,
+        conversationId: conversationId,
       );
 
       state = state.copyWith(
@@ -295,8 +343,10 @@ class ChatNotifier extends Notifier<ChatState> {
       // Persist tutor message
       await convRepo.saveMessage(tutorMsg);
     } on LlmServiceException catch (e) {
+      if (_isStale(generation)) return;
       state = state.copyWith(isLoading: false, error: e.message);
     } catch (e) {
+      if (_isStale(generation)) return;
       state = state.copyWith(
         isLoading: false,
         error: 'Something went wrong getting the tutor\'s reply.',
@@ -306,16 +356,34 @@ class ChatNotifier extends Notifier<ChatState> {
 
   /// Load an existing conversation by ID.
   Future<void> loadConversation(String conversationId) async {
+    final generation = ++_generation;
     final convRepo = ref.read(conversationRepositoryProvider);
     final messages = await convRepo.getHistory(conversationId);
-    state = state.copyWith(conversationId: conversationId, messages: messages);
+    // Two loads in quick succession: the later one wins.
+    if (_isStale(generation)) return;
+    // Built fresh rather than copyWith: isLoading, error, suggestedReplies and
+    // earlierSummary all belong to the conversation being left. copyWith kept
+    // them, so switching away mid-turn carried the old turn's loading flag
+    // into the new conversation and locked its composer, and sent the previous
+    // conversation's summary along with the next request. Only the scenario,
+    // the level, and the account-wide daily allowance survive the switch.
+    state = ChatState(
+      conversationId: conversationId,
+      scenarioId: state.scenarioId,
+      scenarioTitle: state.scenarioTitle,
+      level: state.level,
+      messages: messages,
+      remainingToday: state.remainingToday,
+    );
   }
 
   /// Resume a past conversation with its scenario and level restored, so the
   /// tutor continues in the same role instead of defaulting to casual chat.
   Future<void> resumeConversation(ConversationSummary summary) async {
+    final generation = ++_generation;
     final convRepo = ref.read(conversationRepositoryProvider);
     final messages = await convRepo.getHistory(summary.id);
+    if (_isStale(generation)) return;
     // The table stores the scenario title; map back to its server-side id.
     final scenario = ChatScenario.all.firstWhere(
       (s) => s.title == summary.scenario,
@@ -335,6 +403,7 @@ class ChatNotifier extends Notifier<ChatState> {
 
   /// Clear the current conversation.
   void resetConversation() {
+    _generation++;
     state = const ChatState();
   }
 
@@ -358,7 +427,8 @@ class ChatNotifier extends Notifier<ChatState> {
   }
 
   /// Send an initial greeting from the tutor.
-  Future<void> _sendTutorGreeting() async {
+  Future<void> _sendTutorGreeting(int generation) async {
+    final conversationId = state.conversationId;
     try {
       final orchestrator = ref.read(llmOrchestratorProvider);
       final request = orchestrator.buildConversationRequest(
@@ -379,9 +449,13 @@ class ChatNotifier extends Notifier<ChatState> {
       final greeting = ChatMessage.tutor(
         text: tutorResponse.tutorReplyCz,
         translation: tutorResponse.tutorReplyEn,
-        conversationId: state.conversationId,
+        conversationId: conversationId,
       );
 
+      // This write replaces the message list outright, so landing it in a
+      // conversation the learner has since switched to would erase that
+      // conversation's history on screen.
+      if (_isStale(generation)) return;
       state = state.copyWith(
         messages: [greeting],
         suggestedReplies: tutorResponse.suggestedReplies,
@@ -394,9 +468,10 @@ class ChatNotifier extends Notifier<ChatState> {
       final greeting = ChatMessage.tutor(
         text: 'Ahoj! Jsem tvůj učitel češtiny. Jak se jmenuješ?',
         translation: 'Hi! I\'m your Czech teacher. What\'s your name?',
-        conversationId: state.conversationId,
+        conversationId: conversationId,
       );
 
+      if (_isStale(generation)) return;
       state = state.copyWith(messages: [greeting]);
 
       final convRepo = ref.read(conversationRepositoryProvider);

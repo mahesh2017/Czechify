@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,8 +29,27 @@ class _DictationViewState extends ConsumerState<DictationView> {
   bool answered = false;
   bool? isCorrect;
 
+  /// Cancelled on dispose. A bare delayed future would outlive the widget —
+  /// harmless behind the mounted check, but it leaves a timer running after
+  /// the learner has moved on.
+  Timer? _autoPlay;
+
+  @override
+  void initState() {
+    super.initState();
+    // The viewport keys these views by exercise id, so a new exercise builds a
+    // new state and this runs once per question.
+    _autoPlay = Timer(kListenAutoPlayDelay, () {
+      if (!mounted || answered) return;
+      final expected = widget.exercise.data['expected_text'] as String?;
+      if (expected == null || expected.isEmpty) return;
+      ref.read(czechTtsProvider).speak(expected);
+    });
+  }
+
   @override
   void dispose() {
+    _autoPlay?.cancel();
     _controller.dispose();
     super.dispose();
   }

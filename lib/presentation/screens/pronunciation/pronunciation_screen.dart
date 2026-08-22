@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../widgets/common/pronunciation_tip_text.dart';
 import '../../providers/pronunciation_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../widgets/common/lesson_ui.dart';
@@ -102,11 +103,6 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                         () => ref
                             .read(czechTtsProvider)
                             .speak(pronState.expectedText),
-                    onSlow:
-                        () => ref
-                            .read(czechTtsProvider)
-                            .speakSlow(pronState.expectedText),
-                    slowLabel: 'Slower',
                   ),
                 ],
               ),
@@ -451,7 +447,7 @@ class _ScoreDisplay extends StatelessWidget {
         // Overall feedback
         const SizedBox(height: 12),
         Text(
-          result.feedback,
+          localizedTips(result.tips, AppLocalizations.of(context)),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 15,

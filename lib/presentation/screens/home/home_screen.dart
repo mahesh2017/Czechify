@@ -37,6 +37,11 @@ class HomeScreen extends ConsumerWidget {
     final settings = ref.watch(settingsProvider);
     final dueCount = ref.watch(dueCardCountProvider).value ?? 0;
     final hour = DateTime.now().hour;
+    // Deliberately not localised. This is the language being taught, not app
+    // chrome — the learner meets "Dobré ráno" here before any lesson teaches
+    // it, in whichever locale they run the app. Flagged in review as an
+    // inconsistency next to the localised weekday below; recorded here as a
+    // choice so it is not "fixed" into English by the next reader.
     final greeting =
         hour < 12
             ? 'Dobré ráno'
@@ -227,7 +232,12 @@ class HomeScreen extends ConsumerWidget {
                   ],
                   _DailyGoalHero(
                     dailyXp: g.dailyXp,
-                    dailyGoalXp: g.dailyGoalXp,
+                    // The goal is a setting, and settings own it: that is the
+                    // copy the learner picks, the copy the Settings screen
+                    // writes, and the copy the XP-economy rescale migrates.
+                    // Reading gamification's duplicate here meant a goal
+                    // changed in Settings never reached this ring.
+                    dailyGoalXp: ref.watch(settingsProvider).dailyGoalXp,
                     totalXp: g.totalXp,
                     streak: g.currentStreak,
                     freezeAvailable: g.streakFreezeAvailable,

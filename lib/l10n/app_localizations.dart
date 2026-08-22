@@ -2851,6 +2851,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get daily reminders to keep your streak going.'**
   String get reminderSettingsEntryBanner;
+
+  /// No description provided for @pronTipExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Great! Excellent pronunciation.'**
+  String get pronTipExcellent;
+
+  /// No description provided for @pronTipUnrecognisable.
+  ///
+  /// In en, this message translates to:
+  /// **'That didn\'t match the phrase — listen again and try once more.'**
+  String get pronTipUnrecognisable;
+
+  /// No description provided for @pronTipRolledRAsPlainR.
+  ///
+  /// In en, this message translates to:
+  /// **'Your “ř” came out as a plain “r”. Keep the tongue trilling but press it closer to the ridge so it buzzes.'**
+  String get pronTipRolledRAsPlainR;
+
+  /// No description provided for @pronTipRolledR.
+  ///
+  /// In en, this message translates to:
+  /// **'Work on “ř” — trill the tongue and add a buzz at the same time.'**
+  String get pronTipRolledR;
+
+  /// No description provided for @pronTipSofteningE.
+  ///
+  /// In en, this message translates to:
+  /// **'The “ě” softens the consonant before it (dě → d+ye).'**
+  String get pronTipSofteningE;
+
+  /// No description provided for @pronTipVowelLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech distinguishes short and long vowels. Lengthen the vowel.'**
+  String get pronTipVowelLength;
+
+  /// No description provided for @pronTipVowelTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'“{sound}” is a long vowel — hold it about twice as long. Czech uses length to change meaning (byt vs být).'**
+  String pronTipVowelTooShort(String sound);
+
+  /// No description provided for @pronTipVowelTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'“{sound}” is short here — you lengthened it.'**
+  String pronTipVowelTooLong(String sound);
+
+  /// No description provided for @pronTipPalatal.
+  ///
+  /// In en, this message translates to:
+  /// **'“{sound}” is palatal — press the middle of the tongue against the hard palate.'**
+  String pronTipPalatal(String sound);
+
+  /// No description provided for @pronTipSoundDropped.
+  ///
+  /// In en, this message translates to:
+  /// **'You dropped the “{sound}” sound.'**
+  String pronTipSoundDropped(String sound);
+
+  /// No description provided for @pronTipSoundSubstituted.
+  ///
+  /// In en, this message translates to:
+  /// **'“{sound}” came out closer to “{heard}”.'**
+  String pronTipSoundSubstituted(String sound, String heard);
+
+  /// No description provided for @pronTipRepeatWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen again and repeat “{word}” carefully.'**
+  String pronTipRepeatWord(String word);
+
+  /// No description provided for @pronTipCheckSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the “{sound}” sound in “{word}”.'**
+  String pronTipCheckSound(String sound, String word);
+
+  /// No description provided for @rankBronze.
+  ///
+  /// In en, this message translates to:
+  /// **'Bronze'**
+  String get rankBronze;
+
+  /// No description provided for @rankSilver.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver'**
+  String get rankSilver;
+
+  /// No description provided for @rankGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get rankGold;
+
+  /// No description provided for @rankPlatinum.
+  ///
+  /// In en, this message translates to:
+  /// **'Platinum'**
+  String get rankPlatinum;
+
+  /// No description provided for @rankDiamond.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond'**
+  String get rankDiamond;
 }
 
 class _AppLocalizationsDelegate

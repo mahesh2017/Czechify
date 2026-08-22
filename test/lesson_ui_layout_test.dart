@@ -1,7 +1,9 @@
 import 'package:ceskina_pro/core/theme/app_theme.dart';
 import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The shared learning-loop primitives are dropped into scroll views all over
 /// the app, where the incoming height constraint is unbounded. A widget that
@@ -11,9 +13,18 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// These pump each primitive inside a [ListView] and fail on any exception.
 void main() {
-  Widget host(Widget child) => MaterialApp(
-    theme: lightTheme(),
-    home: Scaffold(body: ListView(padding: EdgeInsets.zero, children: [child])),
+  // AudioPairButtons carries the playback-speed chip, which reads the stored
+  // rate, so these primitives now need a scope and a prefs stub the way they
+  // have one in the running app.
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  Widget host(Widget child) => ProviderScope(
+    child: MaterialApp(
+      theme: lightTheme(),
+      home: Scaffold(
+        body: ListView(padding: EdgeInsets.zero, children: [child]),
+      ),
+    ),
   );
 
   group('survives an unbounded height', () {
@@ -54,28 +65,27 @@ void main() {
         host(
           AudioPairButtons(
             onPlay: () {},
-            onSlow: () {},
             playLabel: 'Hear the alphabet (letter names)',
           ),
         ),
       );
       expect(tester.takeException(), isNull);
 
-      // Both buttons end up the same height: the pair looked broken when the
-      // wrapped one grew past its fixed-height sibling.
+      // The play button owns its row now, so a wrapping label just makes it
+      // taller instead of breaking alignment with a fixed-height sibling.
       final play = tester.getSize(
         find.ancestor(
           of: find.text('Hear the alphabet (letter names)'),
           matching: find.byType(FilledButton),
         ),
       );
-      final slow = tester.getSize(
-        find.ancestor(
-          of: find.text('Slow'),
-          matching: find.byType(OutlinedButton),
-        ),
-      );
-      expect(play.height, slow.height);
+      expect(play.height, greaterThanOrEqualTo(48));
+
+      // And the speed control sits under it rather than competing for width.
+      expect(find.byType(TtsSpeedSelector), findsOneWidget);
+      for (final label in ['0.75x', '1x', '1.25x']) {
+        expect(find.text(label), findsOneWidget);
+      }
     });
 
     testWidgets('QuizOptionTile', (tester) async {
