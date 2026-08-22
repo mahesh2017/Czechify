@@ -25,9 +25,6 @@ class GamificationEngine {
     int baseXp = 0,
   }) {
     return switch (actionType) {
-      XpActionType.lessonCompleted when accuracy >= 1.0 => 20,
-      XpActionType.lessonCompleted when accuracy >= 0.8 => 15,
-      XpActionType.lessonCompleted => 10,
       XpActionType.reviewSessionCompleted => reviewCount * 2,
       XpActionType.streakMilestone => streakDays * 5,
       XpActionType.badgeEarned => baseXp,
@@ -73,7 +70,10 @@ class GamificationEngine {
 
 /// Types of actions that earn XP.
 enum XpActionType {
-  lessonCompleted,
+  // Lessons deliberately have no entry here. Their award is the sum of the
+  // per-exercise `xp_reward` values the learner saw credited during the
+  // lesson; a second rule here is what let the displayed and recorded totals
+  // drift apart.
   reviewSessionCompleted,
   streakMilestone,
   badgeEarned,

@@ -266,13 +266,6 @@ class GamificationNotifier extends Notifier<GamificationState> {
 
   // ── Public API ──
 
-  int lessonCompletionXp({required double accuracy}) {
-    return _engine.calculateXp(
-      actionType: XpActionType.lessonCompleted,
-      accuracy: accuracy,
-    );
-  }
-
   /// Reconciles in-memory state after progress and XP commit together, and
   /// reports back anything the learner just earned.
   ///
@@ -307,27 +300,6 @@ class GamificationNotifier extends Notifier<GamificationState> {
       rewards.add(StreakExtended(days: state.currentStreak));
     }
     return rewards;
-  }
-
-  /// Called when a lesson is completed.
-  Future<void> onLessonCompleted({required double accuracy}) async {
-    await _ensureReady();
-    await _rolloverDailyXpIfNeeded();
-
-    final xp = _engine.calculateXp(
-      actionType: XpActionType.lessonCompleted,
-      accuracy: accuracy,
-    );
-
-    await _maybeIncrementStreak();
-
-    state = state.copyWith(
-      totalXp: state.totalXp + xp,
-      dailyXp: state.dailyXp + xp,
-    );
-
-    await _persist();
-    await checkProgressBadges();
   }
 
   /// Called when the user gets a wrong answer in a lesson.

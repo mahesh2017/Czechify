@@ -97,6 +97,16 @@ String formatSpeedMultiplier(double multiplier) {
 const double kNativeTtsSpeechRate = 0.45;
 const double kDefaultTtsSpeechRate = kNativeTtsSpeechRate;
 
+/// Roughly two lessons a day. Sized against the sum of the per-exercise
+/// `xp_reward` values a lesson actually pays (a median lesson is 125), which
+/// replaced a flat 10/15/20 award.
+const int kDefaultDailyGoalXp = 300;
+
+/// Bumped when the meaning of a stored XP number changes, so goals chosen
+/// under an older economy can be rescaled once rather than silently becoming
+/// trivial. 2: lesson awards became the sum of per-exercise XP.
+const int kXpEconomyVersion = 2;
+
 class AppSettings {
   final AppThemeMode themeMode;
   final int dailyGoalXp;
@@ -147,7 +157,7 @@ class AppSettings {
 
   const AppSettings({
     this.themeMode = AppThemeMode.system,
-    this.dailyGoalXp = 50,
+    this.dailyGoalXp = kDefaultDailyGoalXp,
     this.ttsSpeechRate = kDefaultTtsSpeechRate,
     this.ttsVoiceGender = TtsVoiceGender.female,
     this.startingLevel = CEFRLevel.preA1,
@@ -207,6 +217,7 @@ class AppSettings {
 class SettingsNotifier extends Notifier<AppSettings> {
   static const _kThemeMode = 'settings_theme_mode';
   static const _kDailyGoalXp = 'settings_daily_goal_xp';
+  static const _kXpEconomyVersion = 'settings_xp_economy_version';
   static const _kTtsRate = 'settings_tts_rate';
   static const _kTtsVoiceGender = 'settings_tts_voice_gender';
   static const _kOnboardingDone = 'settings_onboarding_done';
@@ -237,10 +248,27 @@ class SettingsNotifier extends Notifier<AppSettings> {
   /// Prefs accessor — always awaited so setters can't race the initial load.
   Future<SharedPreferences> _prefs() => SharedPreferences.getInstance();
 
+  /// The learner's daily goal, rescaled once if it was chosen when a lesson
+  /// paid a flat 10/15/20 instead of the sum of its exercises' XP. Left alone
+  /// otherwise: a goal of 50 under the new economy is met by half a lesson.
+  Future<int> _dailyGoalXp(SharedPreferences prefs) async {
+    final stored = prefs.getInt(_kDailyGoalXp);
+    final version = prefs.getInt(_kXpEconomyVersion) ?? 1;
+    if (version >= kXpEconomyVersion) return stored ?? kDefaultDailyGoalXp;
+
+    await prefs.setInt(_kXpEconomyVersion, kXpEconomyVersion);
+    if (stored == null) return kDefaultDailyGoalXp;
+    // The same factor the awards grew by, so the goal keeps asking for the
+    // number of lessons the learner originally chose.
+    final rescaled = stored * 6;
+    await prefs.setInt(_kDailyGoalXp, rescaled);
+    return rescaled;
+  }
+
   Future<void> _loadSettings() async {
     final prefs = await _prefs();
     final themeIdx = prefs.getInt(_kThemeMode) ?? 0;
-    final dailyGoal = prefs.getInt(_kDailyGoalXp) ?? 50;
+    final dailyGoal = await _dailyGoalXp(prefs);
     final ttsRate = prefs.getDouble(_kTtsRate) ?? kDefaultTtsSpeechRate;
     final voiceIndex = prefs.getInt(_kTtsVoiceGender) ?? 0;
     final levelIdx = prefs.getInt(_kStartingLevel) ?? 0;
@@ -249,6 +277,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
     final remindersEnabled = prefs.getBool(_kRemindersEnabled) ?? false;
     final catchUpEnabled = prefs.getBool(_kCatchUpEnabled) ?? true;
     final lastKnownTz = prefs.getString(_kLastKnownTimezone);
+
+    // Settings load across several awaits, and a screen can be gone before
+    // they finish. Assigning state to a disposed provider throws out of an
+    // unawaited future, which surfaces as an unrelated test or screen failing.
+    if (!ref.mounted) return;
 
     state = AppSettings(
       themeMode:

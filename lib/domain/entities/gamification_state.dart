@@ -296,12 +296,17 @@ class ProgressSnapshot {
 }
 
 /// League tiers.
+/// Thresholds are read against lifetime [GamificationState.totalXp], so they
+/// are a ladder that only climbs — see XpBadge. They were scaled with the
+/// lesson award when it changed from a flat 10/15/20 to the sum of the
+/// per-exercise values actually shown to the learner (a median lesson pays
+/// 125), so the climb takes the same number of lessons it always did.
 enum League {
   bronze('Bronze', 0),
-  silver('Silver', 100),
-  gold('Gold', 300),
-  platinum('Platinum', 600),
-  diamond('Diamond', 1000);
+  silver('Silver', 600),
+  gold('Gold', 1800),
+  platinum('Platinum', 3600),
+  diamond('Diamond', 6000);
 
   const League(this.label, this.xpThreshold);
   final String label;

@@ -510,7 +510,13 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     final accuracy = state.accuracy;
     try {
       final gamification = ref.read(gamificationProvider.notifier);
-      final activityXp = gamification.lessonCompletionXp(accuracy: accuracy);
+      // The XP the learner watched climb is the XP that gets recorded. These
+      // used to be two unrelated numbers: the HUD summed each exercise's
+      // authored `xp_reward` while the database received a flat 10/15/20 by
+      // accuracy, so a lesson that displayed 125 XP committed 20. Accuracy
+      // still shapes the award, but through the answers it is computed from
+      // rather than as a second, competing rule.
+      final activityXp = state.totalXp;
       // Read before committing: this is what distinguishes finishing a unit
       // from replaying a lesson inside one that was already finished.
       final completedBefore =

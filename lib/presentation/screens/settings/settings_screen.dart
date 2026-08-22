@@ -360,11 +360,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         ref.read(settingsProvider.notifier).setDailyGoalXp(xp);
                       }
                     },
+                    // Scaled with the lesson award when it became the sum of
+                    // the exercises' XP rather than a flat 10/15/20 — the same
+                    // factor _dailyGoalXp migrates stored goals by, so an
+                    // existing choice still lands on one of these. Regular is
+                    // kDefaultDailyGoalXp.
                     items: const [
-                      DropdownMenuItem(value: 20, child: Text('Casual')),
-                      DropdownMenuItem(value: 50, child: Text('Regular')),
-                      DropdownMenuItem(value: 100, child: Text('Serious')),
-                      DropdownMenuItem(value: 150, child: Text('Intense')),
+                      DropdownMenuItem(value: 120, child: Text('Casual')),
+                      DropdownMenuItem(
+                        value: kDefaultDailyGoalXp,
+                        child: Text('Regular'),
+                      ),
+                      DropdownMenuItem(value: 600, child: Text('Serious')),
+                      DropdownMenuItem(value: 900, child: Text('Intense')),
                     ],
                   ),
                 ),
