@@ -815,5 +815,10 @@
   "pronTipRepeatWord": "Listen again and repeat “{word}” carefully.",
   "@pronTipRepeatWord": {"placeholders": {"word": {"type": "String"}}},
   "pronTipCheckSound": "Check the “{sound}” sound in “{word}”.",
-  "@pronTipCheckSound": {"placeholders": {"sound": {"type": "String"}, "word": {"type": "String"}}}
+  "@pronTipCheckSound": {"placeholders": {"sound": {"type": "String"}, "word": {"type": "String"}}},
+  "rankBronze": "Bronze",
+  "rankSilver": "Silver",
+  "rankGold": "Gold",
+  "rankPlatinum": "Platinum",
+  "rankDiamond": "Diamond"
 }

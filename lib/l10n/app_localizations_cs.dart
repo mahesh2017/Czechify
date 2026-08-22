@@ -1672,4 +1672,19 @@ class AppLocalizationsCs extends AppLocalizations {
   String pronTipCheckSound(String sound, String word) {
     return 'Zkontroluj hlásku „$sound\" ve slově „$word\".';
   }
+
+  @override
+  String get rankBronze => 'Bronz';
+
+  @override
+  String get rankSilver => 'Stříbro';
+
+  @override
+  String get rankGold => 'Zlato';
+
+  @override
+  String get rankPlatinum => 'Platina';
+
+  @override
+  String get rankDiamond => 'Diamant';
 }

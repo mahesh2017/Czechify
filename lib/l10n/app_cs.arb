@@ -553,5 +553,10 @@
   "pronTipSoundDropped": "Vynechal/a jsi hlásku „{sound}\".",
   "pronTipSoundSubstituted": "„{sound}\" znělo spíš jako „{heard}\".",
   "pronTipRepeatWord": "Poslechni si znovu a pečlivě zopakuj „{word}\".",
-  "pronTipCheckSound": "Zkontroluj hlásku „{sound}\" ve slově „{word}\"."
+  "pronTipCheckSound": "Zkontroluj hlásku „{sound}\" ve slově „{word}\".",
+  "rankBronze": "Bronz",
+  "rankSilver": "Stříbro",
+  "rankGold": "Zlato",
+  "rankPlatinum": "Platina",
+  "rankDiamond": "Diamant"
 }

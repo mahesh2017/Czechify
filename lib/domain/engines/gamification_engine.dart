@@ -56,15 +56,20 @@ class GamificationEngine {
     return unlocked;
   }
 
-  /// Determine league from weekly XP.
-  League getLeague(int weeklyXp) {
-    League? result;
-    for (final league in League.values) {
-      if (weeklyXp >= league.xpThreshold) {
-        result = league;
+  /// The rank a lifetime XP total has reached.
+  ///
+  /// Lifetime, not weekly: nothing in the app tracks or resets a weekly total,
+  /// and [Rank] explains why that is the intended design rather than an
+  /// omission. This signature used to say `weeklyXp` while its only caller
+  /// passed the lifetime figure.
+  Rank rankFor(int lifetimeXp) {
+    Rank? result;
+    for (final rank in Rank.values) {
+      if (lifetimeXp >= rank.xpThreshold) {
+        result = rank;
       }
     }
-    return result ?? League.bronze;
+    return result ?? Rank.bronze;
   }
 }
 

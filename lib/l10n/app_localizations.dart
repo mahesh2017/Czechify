@@ -2929,6 +2929,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check the “{sound}” sound in “{word}”.'**
   String pronTipCheckSound(String sound, String word);
+
+  /// No description provided for @rankBronze.
+  ///
+  /// In en, this message translates to:
+  /// **'Bronze'**
+  String get rankBronze;
+
+  /// No description provided for @rankSilver.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver'**
+  String get rankSilver;
+
+  /// No description provided for @rankGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get rankGold;
+
+  /// No description provided for @rankPlatinum.
+  ///
+  /// In en, this message translates to:
+  /// **'Platinum'**
+  String get rankPlatinum;
+
+  /// No description provided for @rankDiamond.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond'**
+  String get rankDiamond;
 }
 
 class _AppLocalizationsDelegate

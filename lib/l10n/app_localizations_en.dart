@@ -1663,4 +1663,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String pronTipCheckSound(String sound, String word) {
     return 'Check the “$sound” sound in “$word”.';
   }
+
+  @override
+  String get rankBronze => 'Bronze';
+
+  @override
+  String get rankSilver => 'Silver';
+
+  @override
+  String get rankGold => 'Gold';
+
+  @override
+  String get rankPlatinum => 'Platinum';
+
+  @override
+  String get rankDiamond => 'Diamond';
 }

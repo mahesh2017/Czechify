@@ -296,19 +296,28 @@ class ProgressSnapshot {
 }
 
 /// League tiers.
-/// Thresholds are read against lifetime [GamificationState.totalXp], so they
-/// are a ladder that only climbs — see XpBadge. They were scaled with the
-/// lesson award when it changed from a flat 10/15/20 to the sum of the
-/// per-exercise values actually shown to the learner (a median lesson pays
-/// 125), so the climb takes the same number of lessons it always did.
-enum League {
-  bronze('Bronze', 0),
-  silver('Silver', 600),
-  gold('Gold', 1800),
-  platinum('Platinum', 3600),
-  diamond('Diamond', 6000);
+/// Progression tiers, read against lifetime [GamificationState.totalXp].
+///
+/// A rank, not a league, and deliberately so. A league is a cohort you are
+/// ranked within and promoted or relegated from each week; this app has no
+/// leaderboard and shows the learner no one else, so the weekly reset the old
+/// name implied would have dropped everyone to bronze each Monday for no
+/// competitive payoff. What this is — and the app's only progression ladder,
+/// there being no level system anywhere — is a rank that climbs with lifetime
+/// XP and never falls.
+///
+/// Thresholds were scaled with the lesson award when it became the sum of the
+/// per-exercise XP shown to the learner (a median lesson pays 125), so the
+/// climb takes the number of lessons it always did.
+enum Rank {
+  bronze(0),
+  silver(600),
+  gold(1800),
+  platinum(3600),
+  diamond(6000);
 
-  const League(this.label, this.xpThreshold);
-  final String label;
+  const Rank(this.xpThreshold);
+
+  /// Lifetime XP at which this rank is reached.
   final int xpThreshold;
 }

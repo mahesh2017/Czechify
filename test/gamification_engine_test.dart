@@ -125,34 +125,34 @@ void main() {
       });
     });
 
-    group('getLeague', () {
+    group('rankFor', () {
       test('0 XP = Bronze', () {
-        expect(engine.getLeague(0), League.bronze);
+        expect(engine.rankFor(0), Rank.bronze);
       });
 
       // Asserted against the thresholds rather than literals: they are tuned
       // to the size of a lesson's award and were rescaled once already, when
       // lessons stopped paying a flat 10/15/20.
-      for (final league in League.values) {
-        test('${league.label} begins at its own threshold', () {
-          expect(engine.getLeague(league.xpThreshold), league);
+      for (final rank in Rank.values) {
+        test('${rank.name} begins at its own threshold', () {
+          expect(engine.rankFor(rank.xpThreshold), rank);
         });
       }
 
       test('a tier holds until the next one is reached', () {
-        expect(engine.getLeague(League.gold.xpThreshold - 1), League.silver);
+        expect(engine.rankFor(Rank.gold.xpThreshold - 1), Rank.silver);
         expect(
-          engine.getLeague(League.diamond.xpThreshold * 2),
-          League.diamond,
+          engine.rankFor(Rank.diamond.xpThreshold * 2),
+          Rank.diamond,
         );
       });
 
       test('the ladder stays sized to what a lesson pays', () {
-        // Leagues read lifetime XP, so these only ever climb. A median lesson
+        // Ranks read lifetime XP, so these only ever climb. A median lesson
         // pays 125: Silver should be several lessons in and Diamond a long
         // haul, not the ten lessons Diamond became when awards grew sixfold.
-        expect(League.silver.xpThreshold ~/ 125, greaterThanOrEqualTo(4));
-        expect(League.diamond.xpThreshold ~/ 125, greaterThanOrEqualTo(40));
+        expect(Rank.silver.xpThreshold ~/ 125, greaterThanOrEqualTo(4));
+        expect(Rank.diamond.xpThreshold ~/ 125, greaterThanOrEqualTo(40));
       });
     });
   });
