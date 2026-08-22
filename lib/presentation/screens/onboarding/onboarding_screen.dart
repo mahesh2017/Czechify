@@ -590,27 +590,37 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             padding: const EdgeInsets.fromLTRB(26, 14, 26, 30),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: t.green,
-                        shape: BoxShape.circle,
+                // The dot rides inline with the text rather than sitting in a
+                // Row beside it: as a Row child the line could not wrap and
+                // overran a 402pt screen by 6px in English, with no room at
+                // all for a longer translation, and constraining it there
+                // stranded the dot against the left edge.
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 7),
+                          child: Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              color: t.green,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 7),
-                    Text(
-                      l10n.onboardingOffline,
-                      style: TextStyle(
-                        color: t.muted,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+                      TextSpan(text: l10n.onboardingOffline),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: t.muted,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 PrimaryButton(
