@@ -53,7 +53,8 @@ final dailyArrivalStateProvider = FutureProvider<DailyArrivalState>((
     streak: gamification.currentStreak,
     totalXp: gamification.totalXp,
     dailyXp: gamification.dailyXp,
-    dailyGoalXp: gamification.dailyGoalXp,
+    // Settings own the goal — see the note in home_screen's _DailyGoalHero.
+    dailyGoalXp: ref.read(settingsProvider).dailyGoalXp,
     dueReviews: dueReviews,
     daysSinceActivity: daysSinceActivity,
     lessonId: nextLesson?.lesson.id,

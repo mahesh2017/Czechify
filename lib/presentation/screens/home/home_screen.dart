@@ -232,7 +232,12 @@ class HomeScreen extends ConsumerWidget {
                   ],
                   _DailyGoalHero(
                     dailyXp: g.dailyXp,
-                    dailyGoalXp: g.dailyGoalXp,
+                    // The goal is a setting, and settings own it: that is the
+                    // copy the learner picks, the copy the Settings screen
+                    // writes, and the copy the XP-economy rescale migrates.
+                    // Reading gamification's duplicate here meant a goal
+                    // changed in Settings never reached this ring.
+                    dailyGoalXp: ref.watch(settingsProvider).dailyGoalXp,
                     totalXp: g.totalXp,
                     streak: g.currentStreak,
                     freezeAvailable: g.streakFreezeAvailable,

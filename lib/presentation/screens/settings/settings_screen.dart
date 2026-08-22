@@ -360,19 +360,23 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         ref.read(settingsProvider.notifier).setDailyGoalXp(xp);
                       }
                     },
-                    // Scaled with the lesson award when it became the sum of
-                    // the exercises' XP rather than a flat 10/15/20 — the same
-                    // factor _dailyGoalXp migrates stored goals by, so an
-                    // existing choice still lands on one of these. Regular is
-                    // kDefaultDailyGoalXp.
-                    items: const [
-                      DropdownMenuItem(value: 120, child: Text('Casual')),
-                      DropdownMenuItem(
-                        value: kDefaultDailyGoalXp,
-                        child: Text('Regular'),
-                      ),
-                      DropdownMenuItem(value: 600, child: Text('Serious')),
-                      DropdownMenuItem(value: 900, child: Text('Intense')),
+                    items: [
+                      // A stored goal that is not one of the presets — written
+                      // by an older build, or by an onboarding whose numbers
+                      // had drifted from these — makes DropdownButton assert,
+                      // which took the whole Settings screen down. Offering it
+                      // as its own item keeps the screen openable and shows the
+                      // learner the goal they are actually on; choosing any
+                      // preset replaces it.
+                      if (!kDailyGoalPresets.any(
+                        (p) => p.$1 == settings.dailyGoalXp,
+                      ))
+                        DropdownMenuItem(
+                          value: settings.dailyGoalXp,
+                          child: Text('${settings.dailyGoalXp} XP'),
+                        ),
+                      for (final (xp, label, _) in kDailyGoalPresets)
+                        DropdownMenuItem(value: xp, child: Text(label)),
                     ],
                   ),
                 ),

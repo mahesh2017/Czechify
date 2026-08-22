@@ -26,7 +26,7 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _step = 0;
   CEFRLevel _selectedLevel = CEFRLevel.preA1;
-  int _selectedGoal = 50;
+  int _selectedGoal = kDefaultDailyGoalXp;
   TtsVoiceGender _selectedVoice = TtsVoiceGender.female;
   bool _finishing = false;
   TimeOfDay? _selectedReminderTime;
@@ -769,17 +769,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           l10n.onboardingGoalBody,
         ),
         const SizedBox(height: 28),
-        for (final g in const [
-          (20, 'Casual', '5 minutes/day'),
-          (50, 'Regular', '15 minutes/day'),
-          (100, 'Serious', '30 minutes/day'),
-          (150, 'Intense', '45+ minutes/day'),
-        ]) ...[
+        // The same list the Settings dropdown builds its items from, shared so
+        // the two cannot drift: a goal chosen here that Settings has no item
+        // for makes DropdownButton assert and takes that screen down.
+        for (final (xp, label, minutes) in kDailyGoalPresets) ...[
           _ChoiceCard(
-            title: '${g.$2} — ${g.$1} XP',
-            subtitle: g.$3,
-            isSelected: _selectedGoal == g.$1,
-            onTap: () => setState(() => _selectedGoal = g.$1),
+            title: '$label — $xp XP',
+            subtitle:
+                xp == kDailyGoalPresets.last.$1
+                    ? '$minutes+ minutes/day'
+                    : '$minutes minutes/day',
+            isSelected: _selectedGoal == xp,
+            onTap: () => setState(() => _selectedGoal = xp),
           ),
           const SizedBox(height: 10),
         ],
@@ -923,12 +924,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       CEFRLevel.a2 => 'A2',
     };
     final teacher = _selectedVoice.tutorName;
-    final minutes = switch (_selectedGoal) {
-      20 => 5,
-      50 => 15,
-      100 => 30,
-      _ => 45,
-    };
+    final minutes =
+        kDailyGoalPresets
+            .firstWhere(
+              (p) => p.$1 == _selectedGoal,
+              orElse: () => kDailyGoalPresets.last,
+            )
+            .$3;
     final rows = [
       (
         l10n.onboardingName,

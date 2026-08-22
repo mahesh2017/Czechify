@@ -102,6 +102,22 @@ const double kDefaultTtsSpeechRate = kNativeTtsSpeechRate;
 /// replaced a flat 10/15/20 award.
 const int kDefaultDailyGoalXp = 300;
 
+/// The daily-goal choices, as (xp, label, minutes). Offered in two places —
+/// the onboarding goal step and the Settings dropdown — which is why they
+/// share one list: when the two drifted apart, onboarding wrote a goal the
+/// Settings dropdown had no item for, and DropdownButton asserts on a value
+/// missing from its items, so Settings could not be opened at all.
+///
+/// Scaled with the lesson award when it became the sum of the exercises' XP
+/// rather than a flat 10/15/20 — the same factor SettingsNotifier._dailyGoalXp
+/// migrates stored goals by, so an existing choice still lands on one of these.
+const kDailyGoalPresets = <(int, String, int)>[
+  (120, 'Casual', 5),
+  (kDefaultDailyGoalXp, 'Regular', 15),
+  (600, 'Serious', 30),
+  (900, 'Intense', 45),
+];
+
 /// Bumped when the meaning of a stored XP number changes, so goals chosen
 /// under an older economy can be rescaled once rather than silently becoming
 /// trivial. 2: lesson awards became the sum of per-exercise XP.
