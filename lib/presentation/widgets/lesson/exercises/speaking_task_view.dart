@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_tokens.dart';
+import '../../../../core/utils/text_normalizer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/stt_providers.dart';
@@ -45,11 +46,17 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
 
   String? get _promptCz => widget.exercise.data['prompt_cz'] as String?;
 
+  /// Never falls back to [Exercise.answerKey]. For a speaking task that field
+  /// is English authoring metadata ("Full spoken role-play at a government
+  /// office."), so the fallback scored Czech speech against an English
+  /// sentence and made the exercise unpassable. `expected_phrases` is now a
+  /// validated part of the content contract — see
+  /// CurriculumContractValidator._validateSpeakingTask — so there is nothing
+  /// left to fall back to.
   List<String> get _expectedPhrases {
     final raw = widget.exercise.data['expected_phrases'];
     if (raw is List) return raw.cast<String>();
-    if (widget.exercise.answerKey != null) return [widget.exercise.answerKey!];
-    return [];
+    return const [];
   }
 
   Duration get _listenTimeout {
@@ -101,12 +108,22 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
         }
       }
 
-      // Partial match: check if transcription contains key words
+      // Partial match: how much of the expected Czech actually turned up.
+      //
+      // Both sides are normalised first. Splitting raw text on whitespace
+      // leaves punctuation welded to the token, so a recogniser returning
+      // "Dobrý den." compared "den." against the expected "den" and missed;
+      // a correct formal role-play graded 0.39. This is the same
+      // normalisation matchAnswer already applies on the exact-match path.
       if (score < 1.0 && recorded.isNotEmpty) {
-        final words = recorded.toLowerCase().split(RegExp(r'\s+'));
+        final words =
+            TextNormalizer.normalize(
+              recorded,
+            ).split(' ').where((w) => w.isNotEmpty).toList();
         final expectedWords =
             _expectedPhrases
-                .expand((p) => p.toLowerCase().split(RegExp(r'\s+')))
+                .expand((p) => TextNormalizer.normalize(p).split(' '))
+                .where((w) => w.isNotEmpty)
                 .toSet();
         final matched = words.where((w) => expectedWords.contains(w)).length;
         if (expectedWords.isNotEmpty) {

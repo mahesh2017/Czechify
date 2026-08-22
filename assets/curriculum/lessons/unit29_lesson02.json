@@ -94,6 +94,22 @@
         "prompt_cz": "Povězte něco o své poslední dovolené (1 minuta). Kde jste byl/a, s kým, co jste dělal/a, jaké bylo počasí, co se vám líbilo/nelíbilo. Použijte minulý čas.",
         "prompt_en": "Give a 1-minute monologue about your last vacation. Where you went, who with, what you did, what the weather was like, what you liked/disliked. Use the past tense.",
         "task_type": "monologue",
+        "expected_phrases": [
+          "byl jsem",
+          "byla jsem",
+          "jel jsem",
+          "jela jsem",
+          "šel jsem",
+          "šla jsem",
+          "viděl jsem",
+          "viděla jsem",
+          "líbilo se mi",
+          "na dovolené",
+          "počasí bylo",
+          "protože",
+          "ale",
+          "takže"
+        ],
         "guiding_questions_cz": [
           "Kde jste byl/a na dovolené?",
           "S kým jste tam byl/a?",
@@ -124,6 +140,19 @@
         "prompt_cz": "Představte si, že jste na úřadě. Potřebujete vyřídit doklady (např. občanský průkaz, pas). Hrajte roli občana. Pozdravte, vysvětlete, co potřebujete, odpovězte na otázky úředníka a poděkujte.",
         "prompt_en": "Role-play a formal situation at a government office. You need to arrange documents (e.g., ID card, passport). You play the citizen. Greet, explain what you need, answer the official's questions, and thank them.",
         "task_type": "role_play",
+        "expected_phrases": [
+          "dobrý den",
+          "chtěl bych",
+          "chtěla bych",
+          "potřebuji",
+          "občanský průkaz",
+          "pas",
+          "rodný list",
+          "trvalé bydliště",
+          "prosím",
+          "děkuji vám",
+          "na shledanou"
+        ],
         "guiding_questions_cz": [
           "Dobrý den, co byste potřeboval/a?",
           "Máte u sebe fotografie a starý průkaz?",
@@ -152,6 +181,18 @@
         "prompt_cz": "Podívejte se na obrázky dvou bytů a porovnejte je. Popište velikost, umístění, cenu, výhody a nevýhody. Řekněte, který byt byste si vybral/a a proč.",
         "prompt_en": "Look at pictures of two apartments and compare them. Describe size, location, price, advantages and disadvantages. Say which apartment you would choose and why.",
         "task_type": "picture_description",
+        "expected_phrases": [
+          "první byt",
+          "druhý byt",
+          "větší",
+          "menší",
+          "dražší",
+          "levnější",
+          "lepší",
+          "vybral bych si",
+          "vybrala bych si",
+          "protože"
+        ],
         "guiding_questions_cz": [
           "Jak velký je první byt?",
           "Jak velký je druhý byt?",

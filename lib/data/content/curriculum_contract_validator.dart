@@ -954,6 +954,20 @@ class CurriculumContractValidator {
     Map<String, Object?> data,
   ) {
     _requireAtLeastOnePrompt(issues, packKey, basePath, exerciseId, data);
+    // Without this the view falls back to `answer_key`, which for a speaking
+    // task is English authoring metadata ("Full 1-minute spoken monologue
+    // about a vacation."). A learner speaking Czech was then scored against an
+    // English sentence and could not pass. The fallback is gone, but the
+    // content contract is what keeps it from coming back: every speaking task
+    // must carry the Czech it expects to hear.
+    _requiredStringList(
+      issues,
+      packKey,
+      basePath,
+      exerciseId,
+      data,
+      'expected_phrases',
+    );
     final duration = data['min_duration_seconds'];
     if (duration is! int || duration < 1) {
       _addDataIssue(

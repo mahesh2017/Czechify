@@ -183,6 +183,31 @@ void main() {
       }),
     );
   });
+
+  test('rejects a speaking task with no Czech to score against', () {
+    final issues = CurriculumContractValidator.collectSnapshotIssues({
+      'assets/curriculum/lessons/test.json': _lessonWithExercise({
+        'id': 106,
+        'lesson_id': 1,
+        'type': 'speaking_task',
+        'prompt': 'Speak',
+        // The exact shape that shipped in unit29_lesson02: real prompts, a
+        // real duration, and an English answer_key that the view fell back to
+        // and scored Czech speech against.
+        'answer_key': 'Full spoken role-play at a government office.',
+        'data': {
+          'type': 'speaking_task',
+          'prompt_cz': 'Mluvte o svem vikendu',
+          'prompt_en': 'Talk about your weekend',
+          'min_duration_seconds': 90,
+        },
+      }),
+    });
+
+    expect(issues, hasLength(1));
+    expect(issues.single.exerciseId, 106);
+    expect(issues.single.path, r'$.exercises[0].data.expected_phrases');
+  });
 }
 
 Map<String, Object?> _lessonWithExercise(Map<String, Object?> exercise) => {
