@@ -18,7 +18,7 @@ void main() {
       overallScore: 0.92,
       wordScores: [],
       problemSounds: [],
-      feedback: 'Skvělé! Výborná výslovnost.',
+      tips: [PronunciationTip(PronunciationTipCode.excellent)],
     ),
   );
 

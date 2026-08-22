@@ -175,7 +175,7 @@ class _ControlledAssessor implements PronunciationAssessor {
               overallScore: score,
               wordScores: const [],
               problemSounds: const [],
-              feedback: 'feedback',
+              tips: const [],
             ),
           ),
         );

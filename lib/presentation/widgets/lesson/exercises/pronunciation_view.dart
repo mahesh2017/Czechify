@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../common/pronunciation_tip_text.dart';
 import '../../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/score_colors.dart';
@@ -157,7 +158,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
         _awaitingAttemptId != null &&
         pronState.attemptId == _awaitingAttemptId) {
       score = result.overallScore;
-      feedback = result.feedback;
+      feedback = localizedTips(result.tips, AppLocalizations.of(context));
       hasRecorded = true;
 
       // Counted here because this is the one place an attempt is adopted, and

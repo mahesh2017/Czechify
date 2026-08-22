@@ -1605,4 +1605,62 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get reminderSettingsEntryBanner =>
       'Get daily reminders to keep your streak going.';
+
+  @override
+  String get pronTipExcellent => 'Great! Excellent pronunciation.';
+
+  @override
+  String get pronTipUnrecognisable =>
+      'That didn\'t match the phrase — listen again and try once more.';
+
+  @override
+  String get pronTipRolledRAsPlainR =>
+      'Your “ř” came out as a plain “r”. Keep the tongue trilling but press it closer to the ridge so it buzzes.';
+
+  @override
+  String get pronTipRolledR =>
+      'Work on “ř” — trill the tongue and add a buzz at the same time.';
+
+  @override
+  String get pronTipSofteningE =>
+      'The “ě” softens the consonant before it (dě → d+ye).';
+
+  @override
+  String get pronTipVowelLength =>
+      'Czech distinguishes short and long vowels. Lengthen the vowel.';
+
+  @override
+  String pronTipVowelTooShort(String sound) {
+    return '“$sound” is a long vowel — hold it about twice as long. Czech uses length to change meaning (byt vs být).';
+  }
+
+  @override
+  String pronTipVowelTooLong(String sound) {
+    return '“$sound” is short here — you lengthened it.';
+  }
+
+  @override
+  String pronTipPalatal(String sound) {
+    return '“$sound” is palatal — press the middle of the tongue against the hard palate.';
+  }
+
+  @override
+  String pronTipSoundDropped(String sound) {
+    return 'You dropped the “$sound” sound.';
+  }
+
+  @override
+  String pronTipSoundSubstituted(String sound, String heard) {
+    return '“$sound” came out closer to “$heard”.';
+  }
+
+  @override
+  String pronTipRepeatWord(String word) {
+    return 'Listen again and repeat “$word” carefully.';
+  }
+
+  @override
+  String pronTipCheckSound(String sound, String word) {
+    return 'Check the “$sound” sound in “$word”.';
+  }
 }

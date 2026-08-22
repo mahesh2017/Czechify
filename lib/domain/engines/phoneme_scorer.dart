@@ -1,5 +1,6 @@
 import '../../core/utils/ipa.dart';
 import 'phoneme_features.dart';
+import '../entities/pronunciation_result.dart';
 
 /// Phoneme-level pronunciation scoring (a GOP-style comparison).
 ///
@@ -47,7 +48,7 @@ class PhonemeScorer {
       return const PhonemeAssessment(
         overallScore: 0,
         comparisons: [],
-        feedback: [],
+        tips: [],
       );
     }
 
@@ -85,7 +86,7 @@ class PhonemeScorer {
     return PhonemeAssessment(
       overallScore: overall.clamp(0.0, 1.0),
       comparisons: comparisons,
-      feedback: _feedback(comparisons),
+      tips: _tips(comparisons),
       missedCriticalSound: missedCritical,
     );
   }
@@ -174,7 +175,7 @@ class PhonemeScorer {
   }
 
   /// Targeted, teachable feedback — at most a few points, worst first.
-  List<String> _feedback(List<PhonemeComparison> comparisons) {
+  List<PronunciationTip> _tips(List<PhonemeComparison> comparisons) {
     final problems =
         comparisons
             .where((c) => c.expected != null && c.similarity < _acceptThreshold)
@@ -188,7 +189,9 @@ class PhonemeScorer {
                 : a.similarity.compareTo(b.similarity);
           });
 
-    final tips = <String>[];
+    // Codes rather than sentences — see [PronunciationTipCode]. The wording
+    // lives in the presentation layer so it can be said in Czech.
+    final tips = <PronunciationTip>[];
     final seen = <String>{};
 
     for (final p in problems) {
@@ -197,27 +200,39 @@ class PhonemeScorer {
 
       if (e.base == 'r̝') {
         tips.add(
-          p.actual?.base == 'r'
-              ? 'Your "ř" came out as a plain "r". Keep the tongue trilling but '
-                  'press it closer to the ridge so it buzzes.'
-              : 'Work on "ř" — trill the tongue and add a buzz at the same time.',
+          PronunciationTip(
+            p.actual?.base == 'r'
+                ? PronunciationTipCode.rolledRAsPlainR
+                : PronunciationTipCode.rolledR,
+          ),
         );
       } else if (e.isLong && p.actual != null && !p.actual!.isLong) {
         tips.add(
-          '"${e.symbol}" is a long vowel — hold it about twice as long. '
-          'Czech uses length to change meaning (byt vs být).',
+          PronunciationTip(
+            PronunciationTipCode.vowelTooShort,
+            sound: e.symbol,
+          ),
         );
       } else if (!e.isLong && p.actual != null && p.actual!.isLong) {
-        tips.add('"${e.symbol}" is short here — you lengthened it.');
+        tips.add(
+          PronunciationTip(PronunciationTipCode.vowelTooLong, sound: e.symbol),
+        );
       } else if (_palatals.contains(e.base)) {
         tips.add(
-          '"${e.symbol}" is palatal — press the middle of the tongue '
-          'against the hard palate.',
+          PronunciationTip(PronunciationTipCode.palatal, sound: e.symbol),
         );
       } else if (p.actual == null) {
-        tips.add('You dropped the "${e.symbol}" sound.');
+        tips.add(
+          PronunciationTip(PronunciationTipCode.soundDropped, sound: e.symbol),
+        );
       } else {
-        tips.add('"${e.symbol}" came out closer to "${p.actual!.symbol}".');
+        tips.add(
+          PronunciationTip(
+            PronunciationTipCode.soundSubstituted,
+            sound: e.symbol,
+            heard: p.actual!.symbol,
+          ),
+        );
       }
 
       if (tips.length == 3) break;
@@ -249,7 +264,7 @@ class PhonemeComparison {
 class PhonemeAssessment {
   final double overallScore;
   final List<PhonemeComparison> comparisons;
-  final List<String> feedback;
+  final List<PronunciationTip> tips;
 
   /// True when a sound this scorer treats as critical (ř, vowel length, the
   /// palatals) was missed. Holds the band back so a high average can't paper
@@ -259,7 +274,7 @@ class PhonemeAssessment {
   const PhonemeAssessment({
     required this.overallScore,
     required this.comparisons,
-    required this.feedback,
+    required this.tips,
     this.missedCriticalSound = false,
   });
 
@@ -275,7 +290,7 @@ class PhonemeAssessment {
     };
     // "Excellent" alongside a correction is self-contradictory: excellent has
     // to mean there is nothing to fix.
-    if (feedback.isNotEmpty && result == PronunciationBand.excellent) {
+    if (tips.isNotEmpty && result == PronunciationBand.excellent) {
       result = PronunciationBand.good;
     }
     if (missedCriticalSound &&
@@ -287,12 +302,10 @@ class PhonemeAssessment {
 
   /// What to actually show. When nothing matched, per-sound tips are noise —
   /// the useful message is that the attempt wasn't recognisable at all.
-  List<String> get displayFeedback =>
+  List<PronunciationTip> get displayTips =>
       band == PronunciationBand.tryAgain
-          ? const [
-            "That didn't match the phrase — listen again and try once more.",
-          ]
-          : feedback;
+          ? const [PronunciationTip(PronunciationTipCode.unrecognisable)]
+          : tips;
 }
 
 /// Ordered best to worst, so `index` comparisons above read naturally.

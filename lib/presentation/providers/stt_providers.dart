@@ -417,10 +417,10 @@ class PronunciationAssessor {
     return PronunciationResult(
       overallScore: assessment.overallScore,
       // Per-word detail belongs to the transcript scorer; this path reports at
-      // sound level, and the feedback strings carry the specifics.
+      // sound level, and the tips carry the specifics.
       wordScores: const [],
       problemSounds: const [],
-      feedback: assessment.displayFeedback.join('\n'),
+      tips: assessment.displayTips,
     );
   }
 
@@ -494,7 +494,7 @@ class PronunciationAssessor {
       overallScore: accuracy.clamp(0.0, 1.0),
       wordScores: enrichedWordScores,
       problemSounds: base.problemSounds,
-      feedback: base.feedback,
+      tips: base.tips,
       insertionCount: base.insertionCount,
     );
   }
