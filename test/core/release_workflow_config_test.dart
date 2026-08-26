@@ -27,4 +27,14 @@ void main() {
 
     expect(gitignore.split('\n'), contains('/env/prod.json'));
   });
+
+  test('iOS release job is opt-in until its OAuth client is configured', () {
+    final workflow = File('.github/workflows/release.yml').readAsStringSync();
+
+    expect(
+      workflow,
+      contains(r"if: ${{ vars.ENABLE_IOS_RELEASE == 'true' }}"),
+    );
+    expect(workflow, contains('GOOGLE_IOS_CLIENT_ID'));
+  });
 }

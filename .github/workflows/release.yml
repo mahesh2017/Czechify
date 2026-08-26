@@ -9,6 +9,9 @@ name: Release
 #   GOOGLE_IOS_CLIENT_ID              — additionally required by the iOS job
 #   ANDROID_KEYSTORE_BASE64           — base64 of the release .jks
 #   ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+# Optional repository variable:
+#   ENABLE_IOS_RELEASE=true            — enables the unsigned iOS release job
+#                                        once GOOGLE_IOS_CLIENT_ID is present
 
 on:
   push:
@@ -108,6 +111,10 @@ jobs:
           retention-days: 90
 
   ios:
+    # The app is currently released through Google Play. CI still compiles iOS
+    # on every change, while this release-specific job stays off until the iOS
+    # OAuth client is deliberately configured.
+    if: ${{ vars.ENABLE_IOS_RELEASE == 'true' }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
