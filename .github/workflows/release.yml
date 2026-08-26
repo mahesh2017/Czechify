@@ -19,6 +19,12 @@ on:
 permissions:
   contents: read
 
+# Release builds must never be pointed at staging/test by changing a secret.
+# Keep the production project identity in version control and validate the
+# secret against it before any distributable artifact is compiled.
+env:
+  PRODUCTION_SUPABASE_URL: https://twhvcxtieolvnbnczypj.supabase.co
+
 jobs:
   android:
     runs-on: ubuntu-latest
@@ -46,6 +52,10 @@ jobs:
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           test -n "$SUPABASE_URL" || { echo "Missing SUPABASE_URL" >&2; exit 1; }
+          test "$SUPABASE_URL" = "$PRODUCTION_SUPABASE_URL" || {
+            echo "Refusing release: SUPABASE_URL is not Czechify-prod" >&2
+            exit 1
+          }
           test -n "$SUPABASE_ANON_KEY" || { echo "Missing SUPABASE_ANON_KEY" >&2; exit 1; }
           test -n "$GOOGLE_WEB_CLIENT_ID" || { echo "Missing GOOGLE_WEB_CLIENT_ID" >&2; exit 1; }
           test -n "$ANDROID_KEYSTORE_BASE64" || { echo "Missing ANDROID_KEYSTORE_BASE64" >&2; exit 1; }
@@ -115,6 +125,10 @@ jobs:
           GOOGLE_IOS_CLIENT_ID: ${{ secrets.GOOGLE_IOS_CLIENT_ID }}
         run: |
           test -n "$SUPABASE_URL" || { echo "Missing SUPABASE_URL" >&2; exit 1; }
+          test "$SUPABASE_URL" = "$PRODUCTION_SUPABASE_URL" || {
+            echo "Refusing release: SUPABASE_URL is not Czechify-prod" >&2
+            exit 1
+          }
           test -n "$SUPABASE_ANON_KEY" || { echo "Missing SUPABASE_ANON_KEY" >&2; exit 1; }
           test -n "$GOOGLE_WEB_CLIENT_ID" || { echo "Missing GOOGLE_WEB_CLIENT_ID" >&2; exit 1; }
           test -n "$GOOGLE_IOS_CLIENT_ID" || { echo "Missing GOOGLE_IOS_CLIENT_ID" >&2; exit 1; }

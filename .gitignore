@@ -43,6 +43,7 @@ migrate_working_dir/
 .env
 .env.*
 !.env.example
+/env/prod.json
 /supabase/.branches/
 /supabase/.temp/
 /supabase/functions/.env
