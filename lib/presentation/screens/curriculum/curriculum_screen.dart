@@ -25,7 +25,6 @@ class CurriculumScreen extends ConsumerStatefulWidget {
 }
 
 class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
-
   final _pathController = ScrollController();
   final _railController = ScrollController();
 
@@ -237,7 +236,7 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                           shown.isEmpty
                               ? (active?.title ?? l10n.curriculumPathTitle)
                               : shown[activeIndex].unit.title,
-                          maxLines: 1,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontFamily: AppFonts.display,
@@ -249,7 +248,7 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                         ),
                         const SizedBox(height: 11),
                         SizedBox(
-                          height: 30,
+                          height: 44,
                           child: ListView.separated(
                             controller: _railController,
                             scrollDirection: Axis.horizontal,
@@ -344,8 +343,7 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                               shown.isNotEmpty &&
                               shown.every(
                                 (item) =>
-                                    item.state ==
-                                    CurriculumPathState.completed,
+                                    item.state == CurriculumPathState.completed,
                               ))
                             _NextLevelPrompt(
                               onTap: () => context.push('/settings'),
@@ -416,36 +414,43 @@ class _UnitChip extends StatelessWidget {
       button: true,
       selected: active,
       label: AppLocalizations.of(context).curriculumUnit(number),
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration:
-              MediaQuery.disableAnimationsOf(context)
-                  ? Duration.zero
-                  : const Duration(milliseconds: 250),
-          width: 30,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color:
-                active
-                    ? t.pri
-                    : unlocked
-                    ? t.priSoft
-                    : t.elev,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            '$number',
-            style: TextStyle(
-              color:
-                  active
-                      ? t.onFill
-                      : unlocked
-                      ? t.pri
-                      : t.faint,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
+      child: SizedBox(
+        width: 44,
+        height: 44,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap,
+          child: Center(
+            child: AnimatedContainer(
+              duration:
+                  MediaQuery.disableAnimationsOf(context)
+                      ? Duration.zero
+                      : const Duration(milliseconds: 250),
+              width: 30,
+              height: 30,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color:
+                    active
+                        ? t.pri
+                        : unlocked
+                        ? t.priSoft
+                        : t.elev,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                '$number',
+                style: TextStyle(
+                  color:
+                      active
+                          ? t.onFill
+                          : unlocked
+                          ? t.pri
+                          : t.faint,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ),
         ),
@@ -858,7 +863,7 @@ class _PathLessonRow extends StatelessWidget {
                         Flexible(
                           child: Text(
                             lesson.title,
-                            maxLines: 1,
+                            maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 16,
@@ -900,7 +905,11 @@ class _PathLessonRow extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right, size: 18, color: t.faint),
+              Icon(
+                isUnlocked ? Icons.chevron_right : Icons.lock_outline_rounded,
+                size: 18,
+                color: t.faint,
+              ),
             ],
           ),
         ),

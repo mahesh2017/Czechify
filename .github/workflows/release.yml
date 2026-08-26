@@ -5,7 +5,8 @@ name: Release
 # (final signing/upload is done from Xcode or a Mac runner with credentials).
 #
 # Required repository secrets/vars for a signed Android build + backend config:
-#   SUPABASE_URL, SUPABASE_ANON_KEY   — dart-defines baked into the build
+#   SUPABASE_URL, SUPABASE_ANON_KEY, GOOGLE_WEB_CLIENT_ID — dart-defines
+#   GOOGLE_IOS_CLIENT_ID              — additionally required by the iOS job
 #   ANDROID_KEYSTORE_BASE64           — base64 of the release .jks
 #   ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
 
@@ -38,6 +39,7 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          GOOGLE_WEB_CLIENT_ID: ${{ secrets.GOOGLE_WEB_CLIENT_ID }}
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
@@ -45,6 +47,7 @@ jobs:
         run: |
           test -n "$SUPABASE_URL" || { echo "Missing SUPABASE_URL" >&2; exit 1; }
           test -n "$SUPABASE_ANON_KEY" || { echo "Missing SUPABASE_ANON_KEY" >&2; exit 1; }
+          test -n "$GOOGLE_WEB_CLIENT_ID" || { echo "Missing GOOGLE_WEB_CLIENT_ID" >&2; exit 1; }
           test -n "$ANDROID_KEYSTORE_BASE64" || { echo "Missing ANDROID_KEYSTORE_BASE64" >&2; exit 1; }
           test -n "$ANDROID_KEYSTORE_PASSWORD" || { echo "Missing ANDROID_KEYSTORE_PASSWORD" >&2; exit 1; }
           test -n "$ANDROID_KEY_ALIAS" || { echo "Missing ANDROID_KEY_ALIAS" >&2; exit 1; }
@@ -56,7 +59,8 @@ jobs:
           cat > env/prod.json <<EOF
           {
             "SUPABASE_URL": "${{ secrets.SUPABASE_URL }}",
-            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}"
+            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}",
+            "GOOGLE_WEB_CLIENT_ID": "${{ secrets.GOOGLE_WEB_CLIENT_ID }}"
           }
           EOF
 
@@ -107,9 +111,13 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          GOOGLE_WEB_CLIENT_ID: ${{ secrets.GOOGLE_WEB_CLIENT_ID }}
+          GOOGLE_IOS_CLIENT_ID: ${{ secrets.GOOGLE_IOS_CLIENT_ID }}
         run: |
           test -n "$SUPABASE_URL" || { echo "Missing SUPABASE_URL" >&2; exit 1; }
           test -n "$SUPABASE_ANON_KEY" || { echo "Missing SUPABASE_ANON_KEY" >&2; exit 1; }
+          test -n "$GOOGLE_WEB_CLIENT_ID" || { echo "Missing GOOGLE_WEB_CLIENT_ID" >&2; exit 1; }
+          test -n "$GOOGLE_IOS_CLIENT_ID" || { echo "Missing GOOGLE_IOS_CLIENT_ID" >&2; exit 1; }
 
       - name: Write backend config
         run: |
@@ -117,7 +125,9 @@ jobs:
           cat > env/prod.json <<EOF
           {
             "SUPABASE_URL": "${{ secrets.SUPABASE_URL }}",
-            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}"
+            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}",
+            "GOOGLE_WEB_CLIENT_ID": "${{ secrets.GOOGLE_WEB_CLIENT_ID }}",
+            "GOOGLE_IOS_CLIENT_ID": "${{ secrets.GOOGLE_IOS_CLIENT_ID }}"
           }
           EOF
 

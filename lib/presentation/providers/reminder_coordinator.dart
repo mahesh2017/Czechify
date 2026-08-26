@@ -40,6 +40,7 @@ class ReminderCoordinator extends Notifier<void> {
   late final ReminderScheduler _scheduler;
   AppLifecycleListener? _lifecycleListener;
   Future<void>? _replenishInFlight;
+  bool _explicitSettingsMutation = false;
 
   @override
   void build() {
@@ -79,6 +80,10 @@ class ReminderCoordinator extends Notifier<void> {
   // ── Settings change handler ──
 
   Future<void> _onSettingsChanged(AppSettings? prev, AppSettings next) async {
+    // Public actions below await persistence, permission, and scheduling as a
+    // single operation. Their settings writes still notify this listener, so
+    // suppress the duplicate fire-and-forget scheduling pass.
+    if (_explicitSettingsMutation) return;
     // Reminders toggled on/off — the primary switch.
     if (prev?.remindersEnabled != next.remindersEnabled) {
       if (next.remindersEnabled) {
@@ -202,6 +207,52 @@ class ReminderCoordinator extends Notifier<void> {
   }
 
   // ── Public API ──
+
+  /// Enables or disables reminders as one awaited operation.
+  ///
+  /// Used by both onboarding and Settings so navigation cannot dispose the
+  /// initiating screen between persistence and the platform scheduling call.
+  Future<void> setRemindersEnabled(
+    bool enabled, {
+    TimeOfDay? preferredTime,
+  }) async {
+    _explicitSettingsMutation = true;
+    try {
+      final settings = ref.read(settingsProvider.notifier);
+      if (preferredTime != null) await settings.setPreferredTime(preferredTime);
+      await settings.setRemindersEnabled(enabled);
+
+      if (!enabled) {
+        await _cancelAllOwned();
+        return;
+      }
+
+      final granted = await _service.requestPermission();
+      if (granted) {
+        await _scheduleAll(ref.read(settingsProvider));
+      } else {
+        _log.warning(
+          'Notification permission denied; reminders remain pending.',
+        );
+        await _cancelAllOwned();
+      }
+    } finally {
+      _explicitSettingsMutation = false;
+    }
+  }
+
+  /// Persists a new time and completes the reschedule before returning.
+  Future<void> setPreferredTime(TimeOfDay time) async {
+    _explicitSettingsMutation = true;
+    try {
+      await ref.read(settingsProvider.notifier).setPreferredTime(time);
+      await _cancelAllOwned();
+      final settings = ref.read(settingsProvider);
+      if (settings.remindersEnabled) await _scheduleAll(settings);
+    } finally {
+      _explicitSettingsMutation = false;
+    }
+  }
 
   /// Called on app resume/restart. Ensures the daily reminder is scheduled,
   /// refreshes the 30-day evening horizon, and cancels today's evening

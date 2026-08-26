@@ -6,6 +6,7 @@ import '../../../core/config/backend_config.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/settings_providers.dart';
+import '../../providers/reminder_coordinator.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../providers/database_providers.dart';
@@ -29,7 +30,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _selectedGoal = kDefaultDailyGoalXp;
   TtsVoiceGender _selectedVoice = TtsVoiceGender.female;
   bool _finishing = false;
-  TimeOfDay? _selectedReminderTime;
+  TimeOfDay _selectedReminderTime = const TimeOfDay(hour: 19, minute: 0);
   bool _remindersChecked = false;
   final _nameController = TextEditingController();
   // welcome → name → motivation/level → voice → goal → reminder → summary
@@ -62,6 +63,20 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       // tapped a card still gets an explicitly stored choice.
       await settings.setTtsVoiceGender(_selectedVoice);
       await ref.read(gamificationProvider.notifier).setDailyGoal(_selectedGoal);
+
+      // Finish the complete permission + scheduling workflow while this route
+      // is still mounted. Completing onboarding first rebuilds the router and
+      // can dispose this widget before subsequent ref reads run.
+      if (_remindersChecked) {
+        try {
+          await ref
+              .read(reminderCoordinatorProvider.notifier)
+              .setRemindersEnabled(true, preferredTime: _selectedReminderTime);
+        } catch (e, stack) {
+          SafeDiagnostics.error('reminder_schedule_failed', e, stack);
+        }
+      }
+
       await settings.completeOnboarding();
 
       // Create a placement profile from the onboarding level choice so the
@@ -91,17 +106,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         ref.invalidate(placementProfileProvider);
         ref.invalidate(curriculumAccessProvider);
         ref.invalidate(nextLessonProvider);
-      }
-
-      // Schedule notifications only if explicitly opted in
-      if (_remindersChecked && _selectedReminderTime != null) {
-        try {
-          final settings = ref.read(settingsProvider.notifier);
-          await settings.setPreferredTime(_selectedReminderTime!);
-          await settings.setRemindersEnabled(true);
-        } catch (e, stack) {
-          SafeDiagnostics.error('reminder_schedule_failed', e, stack);
-        }
       }
     } catch (error, stack) {
       SafeDiagnostics.error('onboarding_settings_not_saved', error, stack);
@@ -164,13 +168,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 const SizedBox(width: 14),
                 Expanded(
                   child: Row(
-                    children: List.generate(5, (index) {
+                    children: List.generate(_totalSteps - 1, (index) {
                       final active = index <= _step - 1;
                       return Expanded(
                         flex: index == _step - 1 ? 2 : 1,
                         child: Container(
                           height: 4,
-                          margin: EdgeInsets.only(right: index == 4 ? 0 : 5),
+                          margin: EdgeInsets.only(
+                            right: index == _totalSteps - 2 ? 0 : 5,
+                          ),
                           decoration: BoxDecoration(
                             color: active ? t.pri : t.elev,
                             borderRadius: BorderRadius.circular(999),
@@ -398,7 +404,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       (
         Icons.mic_none_rounded,
         'Speak from day one',
-        'Pronunciation practice and patient, practical feedback',
+        'Read aloud and compare what speech recognition understood',
       ),
       (
         Icons.forum_outlined,
@@ -801,7 +807,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Widget _buildReminderStep() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
-    final display = _selectedReminderTime ?? const TimeOfDay(hour: 19, minute: 0);
+    final display = _selectedReminderTime;
     final timeLabel =
         '${display.hour.toString().padLeft(2, '0')}:${display.minute.toString().padLeft(2, '0')}';
     return Column(
@@ -951,10 +957,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       (l10n.onboardingStartingPoint, levelLabel),
       (l10n.onboardingTeacher, teacher),
       (l10n.homeDailyGoal, '$minutes min · $_selectedGoal XP'),
-      if (_remindersChecked && _selectedReminderTime != null)
+      if (_remindersChecked)
         (
           l10n.reminderTimeLabel,
-          '${_selectedReminderTime!.hour.toString().padLeft(2, '0')}:${_selectedReminderTime!.minute.toString().padLeft(2, '0')}',
+          '${_selectedReminderTime.hour.toString().padLeft(2, '0')}:${_selectedReminderTime.minute.toString().padLeft(2, '0')}',
         ),
       (l10n.onboardingFirstUnit, l10n.onboardingSoundsOfCzech),
     ];

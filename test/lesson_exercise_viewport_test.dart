@@ -214,6 +214,61 @@ void main() {
     expect(result?.isCorrect, isTrue);
     expect(result?.correctAnswer, 'vstávám, snídám');
   });
+
+  testWidgets('fill blank keyboard advances before submitting all blanks', (
+    tester,
+  ) async {
+    ExerciseResult? result;
+    const exercise = Exercise(
+      id: 999003,
+      lessonId: 999,
+      type: ExerciseType.fillBlank,
+      prompt: 'Complete',
+      data: {
+        'type': 'fill_blank',
+        'sentence': 'Ráno ___ a potom ___.',
+        'blank_count': 2,
+        'blank_answers': [
+          ['vstávám'],
+          ['snídám'],
+        ],
+      },
+      xpReward: 10,
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          theme: lightTheme(),
+          home: Scaffold(
+            body: LessonExerciseViewport(
+              exercise: exercise,
+              onAnswered: (value) => result = value,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.enterText(find.byType(TextField).first, 'vstávám');
+    await tester.testTextInput.receiveAction(TextInputAction.next);
+    await tester.pump();
+
+    expect(result, isNull);
+    expect(find.byType(TextField), findsNWidgets(2));
+    expect(
+      tester.widget<TextField>(find.byType(TextField).last).focusNode?.hasFocus,
+      isTrue,
+    );
+
+    await tester.enterText(find.byType(TextField).last, 'snídám');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pump();
+
+    expect(result?.isCorrect, isTrue);
+  });
 }
 
 List<Exercise> _loadShippedExercises() {

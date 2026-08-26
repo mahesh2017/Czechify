@@ -62,9 +62,10 @@ void main() {
     // being agreed to, so neither may be dropped from this wording.
     expect(find.textContaining('OpenAI'), findsOneWidget);
     expect(find.textContaining('United States'), findsOneWidget);
-    expect(find.textContaining('does not keep the recording'), findsOneWidget);
+    expect(find.textContaining('does not store the recording'), findsOneWidget);
+    expect(find.textContaining('up to 30 days'), findsOneWidget);
     // Consent has to be as easy to withdraw as to give, and this states so.
-    expect(find.textContaining('switched off any time'), findsOneWidget);
+    expect(find.textContaining('switched off at any time'), findsOneWidget);
     expect(find.textContaining('at least 16'), findsOneWidget);
   });
 

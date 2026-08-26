@@ -803,6 +803,7 @@ class AnswerField extends StatelessWidget {
     this.enabled = true,
     this.verdict,
     this.hint,
+    this.onChanged,
     this.onSubmitted,
     this.multiline = false,
     this.autofocus = false,
@@ -815,6 +816,7 @@ class AnswerField extends StatelessWidget {
   /// `true` correct, `false` wrong, `null` not yet checked.
   final bool? verdict;
   final String? hint;
+  final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
 
   /// Sentences get a smaller face and room to wrap; single words get the big
@@ -879,6 +881,7 @@ class AnswerField extends StatelessWidget {
               // the button's height plus the letter row means focusing brings
               // the whole answering apparatus up, not just the box.
               scrollPadding: const EdgeInsets.only(bottom: 180),
+              onChanged: onChanged,
               onSubmitted: onSubmitted,
               textInputAction:
                   multiline ? TextInputAction.newline : TextInputAction.done,

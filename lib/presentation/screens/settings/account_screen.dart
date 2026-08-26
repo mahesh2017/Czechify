@@ -1,10 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../core/legal/legal_content.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../data/account/account_service.dart';
+import '../../../data/account/account_identity.dart';
 import '../../providers/account_providers.dart';
+import '../../providers/curriculum_providers.dart';
+import '../../utils/external_links.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
@@ -21,66 +27,94 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final account = ref.watch(accountUserProvider);
+    final entitlement = ref.watch(curriculumEntitlementProvider);
+    final hasReviewerAccess =
+        entitlement.asData?.value.isActiveAt(DateTime.now().toUtc()) ?? false;
     return Scaffold(
       backgroundColor: t.bg,
-      appBar: AppBar(
-        backgroundColor: t.bg,
-        title: const Text('Account & data'),
-      ),
+      appBar: AppBar(backgroundColor: t.bg, title: Text(l10n.accountTitle)),
       body: account.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error:
-            (_, _) => const _Message(
+            (_, _) => _Message(
               icon: Icons.cloud_off,
-              title: 'Cloud account unavailable',
-              message:
-                  'The app is offline or cloud configuration is unavailable.',
+              title: l10n.accountCloudUnavailableTitle,
+              message: l10n.accountCloudUnavailableBody,
             ),
         data:
             (user) => ListView(
               padding: const EdgeInsets.all(20),
               children: [
                 _AccountHeader(user: user),
+                if (hasReviewerAccess) ...[
+                  const SizedBox(height: 12),
+                  _Message(
+                    icon: Icons.lock_open_outlined,
+                    title: l10n.accountReviewerAccessTitle,
+                    message: l10n.accountReviewerAccessBody,
+                  ),
+                ],
                 const SizedBox(height: 20),
+                if (userHasIdentityProvider(user, 'google')) ...[
+                  _Message(
+                    icon: Icons.check_circle_outline,
+                    title: l10n.accountGoogleConnectedTitle,
+                    message: l10n.accountGoogleConnectedBody,
+                  ),
+                  const SizedBox(height: 10),
+                ] else ...[
+                  _GoogleSignInButton(
+                    onPressed: _busy ? null : _continueWithGoogle,
+                  ),
+                  const SizedBox(height: 10),
+                ],
                 if (user?.isAnonymous ?? true) ...[
-                  FilledButton.icon(
+                  OutlinedButton.icon(
                     onPressed: _busy ? null : _linkEmail,
                     icon: const Icon(Icons.mark_email_read_outlined),
-                    label: const Text('Protect progress with email'),
+                    label: Text(l10n.accountProtectWithEmail),
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton.icon(
                     onPressed: _busy ? null : _signInExisting,
                     icon: const Icon(Icons.login),
-                    label: const Text('Sign in to an existing account'),
+                    label: Text(l10n.accountSignInExisting),
                   ),
                 ] else ...[
                   FilledButton.icon(
                     onPressed: _busy ? null : _setPassword,
                     icon: const Icon(Icons.password),
-                    label: const Text('Set or change password'),
+                    label: Text(l10n.accountSetOrChangePassword),
                   ),
                 ],
                 const SizedBox(height: 10),
                 TextButton(
                   onPressed: _busy ? null : _sendRecovery,
-                  child: const Text('Send password recovery email'),
+                  child: Text(l10n.accountSendRecovery),
                 ),
                 const SizedBox(height: 24),
-                const SectionLabel('Your data'),
+                SectionLabel(l10n.accountYourData),
                 const SizedBox(height: 10),
                 OutlinedButton.icon(
                   onPressed: _busy ? null : _exportData,
                   icon: const Icon(Icons.download_outlined),
-                  label: const Text('Export my data as JSON'),
+                  label: Text(l10n.accountExportJson),
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   style: OutlinedButton.styleFrom(foregroundColor: t.red),
                   onPressed: _busy ? null : _deleteAccount,
                   icon: const Icon(Icons.delete_forever_outlined),
-                  label: const Text('Delete cloud account and local data'),
+                  label: Text(l10n.accountDeleteCloudLocal),
+                ),
+                const SizedBox(height: 8),
+                TextButton.icon(
+                  onPressed:
+                      () => openExternalPage(context, kAccountDeletionUrl),
+                  icon: const Icon(Icons.open_in_new),
+                  label: Text(l10n.accountDeletionInstructions),
                 ),
                 if (_busy) ...[
                   const SizedBox(height: 20),
@@ -93,6 +127,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
   }
 
   Future<void> _run(Future<void> Function() action, String success) async {
+    final l10n = AppLocalizations.of(context);
     setState(() => _busy = true);
     try {
       await action();
@@ -104,7 +139,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     } on AuthException catch (error) {
       _showError(error.message);
     } catch (_) {
-      _showError('The request could not be completed. Try again.');
+      _showError(l10n.accountRequestFailed);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -117,45 +152,83 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     ).showSnackBar(SnackBar(content: Text(message)));
   }
 
+  Future<void> _continueWithGoogle() async {
+    final l10n = AppLocalizations.of(context);
+    setState(() => _busy = true);
+    try {
+      final service = ref.read(accountServiceProvider);
+      final result = await service.startGoogleSignIn();
+      String? success;
+      switch (result) {
+        case GoogleAccountLinked():
+          success = l10n.accountGoogleLinkedSuccess;
+        case GoogleAccountAlreadyLinked():
+          success = l10n.accountGoogleAlreadyLinked;
+        case GoogleAccountNeedsSwitch():
+          final accountLabel = result.email ?? l10n.accountGoogleDefaultLabel;
+          final confirmed = await _confirm(
+            title: l10n.accountUseExistingTitle,
+            message: l10n.accountUseExistingBody(accountLabel),
+            confirmLabel: l10n.accountSignInReplace,
+          );
+          if (!confirmed) return;
+          await service.completeGoogleSwitch(result);
+          success = l10n.accountGoogleRecovered;
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(success)));
+      }
+    } on AuthException catch (error) {
+      _showError(error.message);
+    } catch (_) {
+      _showError(l10n.accountGoogleFailed);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
   Future<void> _linkEmail() async {
+    final l10n = AppLocalizations.of(context);
     final email = await _askText(
-      title: 'Protect progress',
-      label: 'Email',
+      title: l10n.accountProtectProgress,
+      label: l10n.accountEmail,
       keyboardType: TextInputType.emailAddress,
     );
     if (email == null) return;
     await _run(
       () => ref.read(accountServiceProvider).linkEmail(email),
-      'Verification email sent. Open its link, then set a password here.',
+      l10n.accountVerificationSent,
     );
   }
 
   Future<void> _setPassword() async {
+    final l10n = AppLocalizations.of(context);
     final password = await _askText(
-      title: 'Set password',
-      label: 'Password (at least 8 characters)',
+      title: l10n.accountSetPassword,
+      label: l10n.accountPasswordMinimum,
       obscure: true,
     );
     if (password == null) return;
     if (password.length < 8) {
-      _showError('Use at least 8 characters.');
+      _showError(l10n.accountPasswordTooShort);
       return;
     }
     await _run(
       () => ref.read(accountServiceProvider).setPassword(password),
-      'Password updated.',
+      l10n.accountPasswordUpdated,
     );
   }
 
   Future<void> _signInExisting() async {
+    final l10n = AppLocalizations.of(context);
     final credentials = await _askCredentials();
     if (credentials == null) return;
     final confirmed = await _confirm(
-      title: 'Replace local learner data?',
-      message:
-          'This device will remove its current learner progress, sign in, and '
-          'download the selected account. Export first if you need a copy.',
-      confirmLabel: 'Sign in and replace',
+      title: l10n.accountReplaceLocalTitle,
+      message: l10n.accountReplaceLocalBody,
+      confirmLabel: l10n.accountSignInReplace,
     );
     if (!confirmed) return;
     await _run(() async {
@@ -165,45 +238,47 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
             email: credentials.email,
             password: credentials.password,
           );
-    }, 'Account recovered and synchronized.');
+    }, l10n.accountRecovered);
   }
 
   Future<void> _sendRecovery() async {
+    final l10n = AppLocalizations.of(context);
     final email = await _askText(
-      title: 'Password recovery',
-      label: 'Account email',
+      title: l10n.accountPasswordRecovery,
+      label: l10n.accountAccountEmail,
       keyboardType: TextInputType.emailAddress,
     );
     if (email == null) return;
     await _run(
       () => ref.read(accountServiceProvider).sendPasswordRecovery(email),
-      'If that account exists, a recovery email has been sent.',
+      l10n.accountRecoverySent,
     );
   }
 
   Future<void> _exportData() => _run(
     () => ref.read(accountServiceProvider).shareExport(),
-    'Export prepared.',
+    AppLocalizations.of(context).accountExportPrepared,
   );
 
   Future<void> _deleteAccount() async {
+    final l10n = AppLocalizations.of(context);
     final phrase = await _askText(
-      title: 'Permanently delete account',
-      label: 'Type DELETE MY ACCOUNT',
+      title: l10n.accountPermanentDelete,
+      label: l10n.accountDeletePhrase,
     );
     if (phrase != 'DELETE MY ACCOUNT') {
-      if (phrase != null) _showError('Confirmation phrase did not match.');
+      if (phrase != null) _showError(l10n.accountPhraseMismatch);
       return;
     }
 
-    // The phrase proves intent; the password proves identity. Without it a
-    // stolen session could delete the account, so the server refuses a
-    // deletion unless the session was minted moments ago.
+    // The phrase proves intent; a password or Google account chooser proves
+    // identity. The server refuses deletion unless the session was minted
+    // moments ago.
     String? password;
     if (ref.read(accountServiceProvider).deletionNeedsPassword) {
       password = await _askText(
-        title: 'Confirm it is you',
-        label: 'Account password',
+        title: l10n.accountConfirmIdentity,
+        label: l10n.accountPassword,
         obscure: true,
       );
       if (password == null || password.isEmpty) return;
@@ -213,7 +288,7 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       () => ref
           .read(accountServiceProvider)
           .deleteAccountAndLocalData(password: password),
-      'Cloud account and learner data deleted.',
+      l10n.accountDeleted,
     );
   }
 
@@ -240,16 +315,17 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
   }
 
   Future<_Credentials?> _askCredentials() async {
+    final l10n = AppLocalizations.of(context);
     final result = await showTextPromptDialog(
       context: context,
-      title: 'Sign in',
-      confirmLabel: 'Sign in',
-      fields: const [
+      title: l10n.accountSignIn,
+      confirmLabel: l10n.accountSignIn,
+      fields: [
         TextPromptField(
-          label: 'Email',
+          label: l10n.accountEmail,
           keyboardType: TextInputType.emailAddress,
         ),
-        TextPromptField(label: 'Password', obscureText: true),
+        TextPromptField(label: l10n.accountPassword, obscureText: true),
       ],
     );
     if (result == null) return null;
@@ -289,14 +365,15 @@ class _AccountHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final anonymous = user?.isAnonymous ?? true;
+    final l10n = AppLocalizations.of(context);
     return _Message(
       icon: anonymous ? Icons.person_outline : Icons.verified_user_outlined,
-      title: anonymous ? 'Anonymous account' : 'Protected account',
+      title:
+          anonymous ? l10n.accountAnonymousTitle : l10n.accountProtectedTitle,
       message:
           anonymous
-              ? 'Progress syncs on this installation, but cannot be recovered on '
-                  'another device until you link an email.'
-              : user?.email ?? 'Email identity linked',
+              ? l10n.accountAnonymousBody
+              : user?.email ?? l10n.accountEmailLinked,
     );
   }
 }
@@ -343,6 +420,47 @@ class _Message extends StatelessWidget {
       ],
     ),
   );
+}
+
+/// Uses Google's pre-approved 2026 button artwork unchanged. The graphic has
+/// platform-specific padding, so Android and iOS intentionally use different
+/// assets instead of approximating the brand treatment with a Material icon.
+class _GoogleSignInButton extends StatelessWidget {
+  const _GoogleSignInButton({required this.onPressed});
+
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final isIos = defaultTargetPlatform == TargetPlatform.iOS;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final platform = isIos ? 'ios' : 'android';
+    final theme = isDark ? 'dark' : 'light';
+    return Center(
+      child: Semantics(
+        button: true,
+        enabled: onPressed != null,
+        label: AppLocalizations.of(context).accountSignInGoogle,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onPressed,
+          child: Opacity(
+            opacity: onPressed == null ? 0.5 : 1,
+            child: SizedBox(
+              height: 48,
+              child: ExcludeSemantics(
+                child: Image.asset(
+                  'assets/images/google_sign_in_${platform}_$theme.png',
+                  height: isIos ? 44 : 40,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _Credentials {

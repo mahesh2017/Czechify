@@ -90,9 +90,12 @@ Deno.serve(async (request) => {
         email: user.email ?? null,
         is_anonymous: user.is_anonymous ?? false,
         created_at: user.created_at,
+        user_metadata: user.user_metadata ?? {},
         identities: (user.identities ?? []).map((identity) => ({
           provider: identity.provider,
+          identity_id: identity.identity_id,
           created_at: identity.created_at,
+          identity_data: identity.identity_data ?? {},
         })),
       },
       cloud_data: Object.fromEntries(results),

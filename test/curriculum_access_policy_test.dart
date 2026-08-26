@@ -79,4 +79,22 @@ void main() {
     expect(access.lessonPrerequisites[201], isEmpty);
     expect(access.unlockedLessonIds, isNot(contains(102)));
   });
+
+  test(
+    'server entitlement unlocks every unit and lesson without completion',
+    () {
+      final access = policy.evaluate(
+        orderedUnits: units,
+        lessonsByUnit: lessons,
+        completedLessonIds: const {},
+        unlockAll: true,
+      );
+
+      expect(access.unlockedUnitIds, {1, 2});
+      expect(access.unlockedLessonIds, {101, 102, 201});
+      // Keep the real graph for auditing and for immediate restoration after
+      // the entitlement expires or is revoked.
+      expect(access.lessonPrerequisites[201], {101, 102});
+    },
+  );
 }

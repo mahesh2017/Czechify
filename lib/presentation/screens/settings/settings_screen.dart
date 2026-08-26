@@ -10,11 +10,13 @@ import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/settings_providers.dart';
+import '../../providers/reminder_coordinator.dart';
 import '../../../domain/entities/enums.dart';
 import '../../providers/tts_providers.dart';
 import '../onboarding/offline_setup_screen.dart';
 import '../../../data/services/audio/offline_audio_prefetch.dart';
 import '../../providers/audio_prefetch_providers.dart';
+import '../../providers/app_info_providers.dart';
 import '../../providers/consent_providers.dart';
 import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
@@ -24,7 +26,7 @@ import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
 /// Settings screen — theme, daily goal, TTS rate, cache management.
-/// The AI tutor credential lives in the `deepseek-proxy` Edge Function, never
+/// The AI-provider credential lives in the `deepseek-proxy` Edge Function, never
 /// in the client, so there is no API-key entry here.
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key, this.scrollController});
@@ -39,13 +41,14 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _editName(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context);
     final result = await showTextPromptDialog(
       context: context,
-      title: 'Your name',
-      confirmLabel: AppLocalizations.of(context).save,
+      title: l10n.settingsYourName,
+      confirmLabel: l10n.save,
       fields: [
         TextPromptField(
-          label: 'Your first name',
+          label: l10n.settingsFirstName,
           initialValue: ref.read(settingsProvider).learnerName,
           textCapitalization: TextCapitalization.words,
         ),
@@ -63,6 +66,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   /// thumb away, and told a learner nothing about what they were choosing
   /// between. "A1" and "A2" mean little to the people this course is for.
   Future<void> _openLevelPicker() async {
+    final l10n = AppLocalizations.of(context);
     final current = ref.read(settingsProvider).startingLevel;
     final chosen = await showModalBottomSheet<CEFRLevel>(
       context: context,
@@ -83,25 +87,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       builder:
           (ctx) => AlertDialog(
             icon: Icon(Icons.school_outlined, color: context.tokens.pri),
-            title: Text('Switch to ${_levelLabel(chosen)}?'),
+            title: Text(l10n.settingsSwitchLevelTitle(_levelLabel(chosen))),
             content: Text(
               movingUp
-                  ? 'A2 opens from its first unit, and everything you have '
-                      'already finished in A1 stays open. The tutor will pitch '
-                      'its Czech higher.\n\nA2 audio will download now, which '
-                      'needs a connection and a few megabytes.'
-                  : 'The tutor will pitch its Czech lower and A1 audio will be '
-                      'kept on your device.\n\nUnits you have already unlocked '
-                      'stay unlocked — going back to revise costs you nothing.',
+                  ? l10n.settingsSwitchUpBody
+                  : l10n.settingsSwitchDownBody,
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('Cancel'),
+                child: Text(l10n.cancel),
               ),
               FilledButton(
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text('Switch to ${_levelLabel(chosen)}'),
+                child: Text(l10n.settingsSwitchLevel(_levelLabel(chosen))),
               ),
             ],
           ),
@@ -124,6 +123,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   /// setting. That asymmetry is the point: exploring this control must never
   /// cost a learner access they have earned.
   Future<void> _switchLevel(CEFRLevel level) async {
+    final l10n = AppLocalizations.of(context);
     final unlockedMore = await ref.read(levelSwitchProvider)(level);
     if (!mounted) return;
 
@@ -132,8 +132,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       SnackBar(
         content: Text(
           unlockedMore
-              ? '$label is now open.'
-              : 'Switched to $label. Units you had already unlocked stay open.',
+              ? l10n.settingsLevelOpened(label)
+              : l10n.settingsLevelSwitched(label),
         ),
       ),
     );
@@ -156,7 +156,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       barrierDismissible: false,
       builder:
           (ctx) => _AudioDownloadDialog(
-            subject: '$label audio',
+            subject: l10n.settingsAudioSubject(label),
             gender: gender,
             missingCount: missing.length,
             units: units,
@@ -201,7 +201,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       builder:
           (ctx) => _AudioDownloadDialog(
             subject:
-                'the ${gender == TtsVoiceGender.male ? 'male' : 'female'} voice',
+                gender == TtsVoiceGender.male
+                    ? AppLocalizations.of(context).settingsVoiceSubjectMale
+                    : AppLocalizations.of(context).settingsVoiceSubjectFemale,
             gender: gender,
             missingCount: missing.length,
             units: units,
@@ -238,7 +240,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Expanded(child: DisplayText('Settings', size: 29)),
+                Expanded(child: DisplayText(l10n.settings, size: 29)),
                 FilledButton.tonal(
                   onPressed: () => Navigator.of(context).maybePop(),
                   style: FilledButton.styleFrom(
@@ -259,7 +261,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: 8),
 
             // ── Profile ──
-            const _GroupLabel('Profile'),
+            _GroupLabel(l10n.settingsProfileGroup),
             _Group(
               children: [
                 _Row(
@@ -269,7 +271,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   title: l10n.settingsYourName,
                   subtitle:
                       settings.learnerName.isEmpty
-                          ? 'Not set'
+                          ? l10n.settingsNotSet
                           : settings.learnerName,
                   onTap: () => _editName(context, ref),
                 ),
@@ -278,15 +280,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             // ── Account (only when backend is configured) ──
             if (BackendConfig.isConfigured) ...[
-              const _GroupLabel('Account'),
+              _GroupLabel(l10n.settingsAccountGroup),
               _Group(
                 children: [
                   _Row(
                     icon: Icons.manage_accounts_outlined,
                     tint: t.priSoft,
                     fg: t.pri,
-                    title: 'Account, sign in & data',
-                    subtitle: 'Protect, recover, export, or delete your data',
+                    title: l10n.settingsAccountDataTitle,
+                    subtitle: l10n.settingsAccountDataBody,
                     onTap: () => context.push('/account'),
                   ),
                 ],
@@ -294,7 +296,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
 
             // ── Appearance ──
-            const _GroupLabel('Appearance'),
+            _GroupLabel(l10n.settingsAppearanceGroup),
             _Group(
               children: [
                 _Row(
@@ -302,7 +304,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.violetSoft,
                   fg: t.violet,
                   title: l10n.settingsTheme,
-                  subtitle: _themeLabel(settings.themeMode),
+                  subtitle: _themeLabel(l10n, settings.themeMode),
                   trailing: _ThemeToggle(
                     mode: settings.themeMode,
                     onChanged:
@@ -320,18 +322,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
 
             // ── Learning ──
-            const _GroupLabel('Learning'),
+            _GroupLabel(l10n.settingsLearningGroup),
             _Group(
               children: [
                 _Row(
                   icon: Icons.school_outlined,
                   tint: t.priSoft,
                   fg: t.pri,
-                  title: 'Course level',
+                  title: l10n.settingsCourseLevel,
                   subtitle:
                       settings.startingLevel == CEFRLevel.a2
-                          ? 'A2 · upper beginner'
-                          : 'A1 · beginner',
+                          ? l10n.settingsA2UpperBeginner
+                          : l10n.settingsA1Beginner,
                   // Not a dropdown. Changing level unlocks curriculum, repitches
                   // the tutor and pulls down a new level's audio, so it is worth
                   // a screen that says what each level is and a confirmation
@@ -386,7 +388,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.redSoft,
                   fg: t.red,
                   title: l10n.settingsHearts,
-                  subtitle: 'Off = practice freely',
+                  subtitle: l10n.settingsHeartsBody,
                   trailing: Switch(
                     value: settings.heartsEnabled,
                     onChanged:
@@ -403,7 +405,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.amberSoft,
                   fg: t.amber,
                   title: l10n.settingsSoundEffects,
-                  subtitle: 'Answers and celebrations',
+                  subtitle: l10n.settingsSoundBody,
                   trailing: Switch(
                     value: settings.soundEffectsEnabled,
                     onChanged:
@@ -418,7 +420,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.violetSoft,
                   fg: t.violet,
                   title: l10n.settingsVibration,
-                  subtitle: 'A tap you can feel',
+                  subtitle: l10n.settingsHapticsBody,
                   trailing: Switch(
                     value: settings.hapticsEnabled,
                     onChanged:
@@ -432,7 +434,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             // ── Study Reminders (mobile only — hidden on macOS) ──
             if (Platform.isIOS || Platform.isAndroid) ...[
-              const _GroupLabel('Reminders'),
+              _GroupLabel(l10n.settingsRemindersGroup),
               _Group(
                 children: [
                   _Row(
@@ -445,7 +447,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       value: settings.remindersEnabled,
                       onChanged: (v) async {
                         await ref
-                            .read(settingsProvider.notifier)
+                            .read(reminderCoordinatorProvider.notifier)
                             .setRemindersEnabled(v);
                       },
                     ),
@@ -459,7 +461,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           const TimeOfDay(hour: 19, minute: 0),
                       onChanged: (time) async {
                         await ref
-                            .read(settingsProvider.notifier)
+                            .read(reminderCoordinatorProvider.notifier)
                             .setPreferredTime(time);
                       },
                     ),
@@ -515,7 +517,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
 
             // ── Audio ──
-            const _GroupLabel('Audio'),
+            _GroupLabel(l10n.settingsAudioGroup),
             _Group(
               children: [
                 Padding(
@@ -539,7 +541,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Teacher\'s voice',
+                                  l10n.settingsTeacherVoice,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -601,7 +603,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Speech rate',
+                                  l10n.settingsSpeechRate,
                                   style: TextStyle(
                                     fontSize: 14.5,
                                     fontWeight: FontWeight.w600,
@@ -609,7 +611,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   ),
                                 ),
                                 Text(
-                                  '1x is the pace the lessons were recorded at',
+                                  l10n.settingsSpeechRateBody,
                                   style: TextStyle(
                                     fontSize: 13.5,
                                     color: t.muted,
@@ -638,7 +640,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.greenSoft,
                   fg: t.green,
                   title: l10n.settingsTestVoice,
-                  subtitle: 'Play a sample Czech phrase',
+                  subtitle: l10n.settingsTestVoiceBody,
                   onTap:
                       () =>
                           ref.read(czechTtsProvider).speak('Ahoj, jak se máš?'),
@@ -648,14 +650,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.cloud_outlined,
                   tint: t.violetSoft,
                   fg: t.violet,
-                  title: 'Optional cloud pronunciation',
+                  title: l10n.settingsCloudPronunciation,
                   // Naming the alternative, because "optional" invites the
                   // question "optional instead of what?" — and the answer is
                   // not "no pronunciation checking", it is your phone's own
                   // recogniser, which is what runs by default.
-                  subtitle:
-                      'Off = your phone checks it. On = clearer scoring, '
-                      'recording sent for transcription',
+                  subtitle: l10n.settingsCloudPronunciationBody,
                   trailing: Switch(
                     value: cloudSpeech.value ?? false,
                     onChanged:
@@ -684,7 +684,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     icon: Icons.sync_problem_outlined,
                     tint: t.redSoft,
                     fg: t.redInk,
-                    title: 'Retry failed sync',
+                    title: l10n.settingsRetrySync,
                     subtitle: syncHealth.description,
                     onTap: () async {
                       final messenger = ScaffoldMessenger.of(context);
@@ -696,7 +696,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       await ref.read(syncHealthProvider.notifier).refresh();
                       if (!context.mounted) return;
                       messenger.showSnackBar(
-                        SnackBar(content: Text('Retrying $revived item(s)')),
+                        SnackBar(
+                          content: Text(l10n.settingsRetryingItems(revived)),
+                        ),
                       );
                     },
                   ),
@@ -707,12 +709,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.chipBg,
                   fg: t.muted,
                   title: l10n.settingsClearAudioCache,
-                  subtitle: 'Remove cached audio files',
+                  subtitle: l10n.settingsClearAudioBody,
                   onTap: () async {
                     await ref.read(czechTtsProvider).clearCache();
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('TTS cache cleared')),
+                        SnackBar(content: Text(l10n.settingsAudioCleared)),
                       );
                     }
                   },
@@ -724,15 +726,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             // configured; it used to be repeated here with a different title
             // but the same subtitle and the same /account route.
             if (!BackendConfig.isConfigured) ...[
-              const _GroupLabel('Account & data'),
+              _GroupLabel(l10n.settingsAccountDataGroup),
               _Group(
                 children: [
                   _Row(
                     icon: Icons.manage_accounts_outlined,
                     tint: t.priSoft,
                     fg: t.pri,
-                    title: 'Export & deletion',
-                    subtitle: 'Export or delete your data',
+                    title: l10n.settingsExportDelete,
+                    subtitle: l10n.settingsExportDeleteBody,
                     onTap: () => context.push('/account'),
                   ),
                 ],
@@ -740,7 +742,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
 
             // ── About ──
-            const _GroupLabel('About'),
+            _GroupLabel(l10n.settingsAboutGroup),
             _Group(
               children: [
                 _Row(
@@ -748,7 +750,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: l10n.settingsAbout,
-                  subtitle: 'What the app does · by $kDeveloperName',
+                  subtitle: l10n.settingsAboutBody(kDeveloperName),
                   onTap: () => context.push('/about'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
@@ -758,7 +760,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.chipBg,
                   fg: t.muted,
                   title: l10n.settingsVersion,
-                  subtitle: '1.0.0',
+                  subtitle: ref.watch(appVersionProvider).value ?? '…',
                   trailing: const SizedBox.shrink(),
                 ),
                 _Divider(),
@@ -767,7 +769,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: l10n.settingsPrivacyPolicy,
-                  subtitle: 'Read in full, in the app',
+                  subtitle: l10n.settingsPrivacyBody,
                   onTap: () => context.push('/privacy'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
@@ -779,11 +781,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  String _themeLabel(AppThemeMode mode) {
+  String _themeLabel(AppLocalizations l10n, AppThemeMode mode) {
     return switch (mode) {
-      AppThemeMode.system => 'System default',
-      AppThemeMode.light => 'Light',
-      AppThemeMode.dark => 'Dark',
+      AppThemeMode.system => l10n.settingsThemeSystem,
+      AppThemeMode.light => l10n.settingsThemeLight,
+      AppThemeMode.dark => l10n.settingsThemeDark,
     };
   }
 
@@ -1203,6 +1205,7 @@ class _AudioDownloadDialogState extends ConsumerState<_AudioDownloadDialog> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final subject = widget.subject;
     final subjectCapitalised =
         subject.isEmpty
@@ -1215,17 +1218,18 @@ class _AudioDownloadDialogState extends ConsumerState<_AudioDownloadDialog> {
         _offline ? Icons.wifi_off_rounded : Icons.download_rounded,
         color: _offline ? t.amber : t.pri,
       ),
-      title: Text(_offline ? 'Connect to save $subject' : 'Saving $subject'),
+      title: Text(
+        _offline
+            ? l10n.settingsDownloadConnectTitle(subject)
+            : l10n.settingsDownloadSavingTitle(subject),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             _offline
-                ? '$subjectCapitalised is not saved on your device yet, and '
-                    'there is no connection right now. Connect to Wi-Fi or '
-                    'mobile data and try again — it is only a few megabytes.'
-                : 'Downloading ${widget.missingCount} clips so this works '
-                    'offline too.',
+                ? l10n.settingsDownloadOfflineBody(subjectCapitalised)
+                : l10n.settingsDownloadingClips(widget.missingCount),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 14.5, color: t.muted, height: 1.45),
           ),
@@ -1236,11 +1240,10 @@ class _AudioDownloadDialogState extends ConsumerState<_AudioDownloadDialog> {
         ],
       ),
       actions: [
-        if (_offline)
-          TextButton(onPressed: _run, child: const Text('Try again')),
+        if (_offline) TextButton(onPressed: _run, child: Text(l10n.tryAgain)),
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text(_offline ? 'Not now' : 'Hide'),
+          child: Text(_offline ? l10n.settingsNotNow : l10n.settingsHide),
         ),
       ],
     );
@@ -1265,6 +1268,7 @@ class _LevelPickerSheetState extends ConsumerState<_LevelPickerSheet> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final currentNormalised =
         widget.current == CEFRLevel.a2 ? CEFRLevel.a2 : CEFRLevel.a1;
     // Counted, not written down. A literal here is a fact about today's
@@ -1282,7 +1286,7 @@ class _LevelPickerSheetState extends ConsumerState<_LevelPickerSheet> {
         );
     String unitLabel(Phase phase) {
       final count = unitCounts[phase];
-      return count == null ? '' : '$count units';
+      return count == null ? '' : l10n.settingsUnitsCount(count);
     }
 
     return SafeArea(
@@ -1301,7 +1305,7 @@ class _LevelPickerSheetState extends ConsumerState<_LevelPickerSheet> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Choose your course level',
+                l10n.settingsChooseLevel,
                 style: TextStyle(
                   fontFamily: AppFonts.display,
                   color: t.ink,
@@ -1311,20 +1315,16 @@ class _LevelPickerSheetState extends ConsumerState<_LevelPickerSheet> {
               ),
               const SizedBox(height: 6),
               Text(
-                'You can change this later. Nothing you have finished is lost '
-                'either way.',
+                l10n.settingsChooseLevelBody,
                 style: TextStyle(color: t.muted, fontSize: 14.5, height: 1.45),
               ),
               const SizedBox(height: 18),
               _LevelCard(
                 code: 'A1',
-                name: 'Beginner',
+                name: l10n.settingsLevelBeginner,
                 units: unitLabel(Phase.a1),
-                blurb:
-                    'Start from Czech sounds and spelling. Meet people, say who '
-                    'you are and what you do, ask for what you need, handle '
-                    'numbers, time and everyday errands.',
-                forWho: 'Start here if you are new to Czech.',
+                blurb: l10n.settingsLevelA1Body,
+                forWho: l10n.settingsLevelA1Audience,
                 selected: _selected == CEFRLevel.a1,
                 isCurrent: currentNormalised == CEFRLevel.a1,
                 onTap: () => setState(() => _selected = CEFRLevel.a1),
@@ -1332,15 +1332,10 @@ class _LevelPickerSheetState extends ConsumerState<_LevelPickerSheet> {
               const SizedBox(height: 12),
               _LevelCard(
                 code: 'A2',
-                name: 'Upper beginner',
+                name: l10n.settingsLevelUpperBeginner,
                 units: unitLabel(Phase.a2),
-                blurb:
-                    'Talk about what happened and what you plan to do, give '
-                    'directions and preferences, compare and choose, and deal '
-                    'with shops, appointments and things going wrong.',
-                forWho:
-                    'Choose this if you can already introduce yourself and hold '
-                    'a simple present-tense conversation.',
+                blurb: l10n.settingsLevelA2Body,
+                forWho: l10n.settingsLevelA2Audience,
                 selected: _selected == CEFRLevel.a2,
                 isCurrent: currentNormalised == CEFRLevel.a2,
                 onTap: () => setState(() => _selected = CEFRLevel.a2),
@@ -1361,8 +1356,8 @@ class _LevelPickerSheetState extends ConsumerState<_LevelPickerSheet> {
                   ),
                   child: Text(
                     _selected == currentNormalised
-                        ? 'This is your level'
-                        : 'Continue',
+                        ? l10n.settingsLevelCurrent
+                        : l10n.continueLabel,
                   ),
                 ),
               ),

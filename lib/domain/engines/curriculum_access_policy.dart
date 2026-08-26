@@ -23,6 +23,7 @@ class CurriculumAccessPolicy {
     required Map<int, List<Lesson>> lessonsByUnit,
     required Set<int> completedLessonIds,
     int? provisionalThroughUnitId,
+    bool unlockAll = false,
   }) {
     final units = [...orderedUnits]
       ..sort((a, b) => a.orderIndex.compareTo(b.orderIndex));
@@ -46,6 +47,7 @@ class CurriculumAccessPolicy {
       final provisionallyUnlocked =
           provisionalOrder != null && unit.orderIndex <= provisionalOrder;
       final unitUnlocked =
+          unlockAll ||
           provisionallyUnlocked ||
           earlierRequiredLessons.every(completedLessonIds.contains);
       if (unitUnlocked) unlockedUnits.add(unit.id);
@@ -57,7 +59,7 @@ class CurriculumAccessPolicy {
           ...earlierInUnit,
         };
         prerequisites[lesson.id] = Set.unmodifiable(required);
-        if (required.every(completedLessonIds.contains)) {
+        if (unlockAll || required.every(completedLessonIds.contains)) {
           unlockedLessons.add(lesson.id);
         }
         earlierInUnit.add(lesson.id);

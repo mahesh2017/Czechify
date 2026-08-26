@@ -12,10 +12,10 @@ import 'package:flutter/widgets.dart' show IconData;
 
 /// Bump whenever the privacy policy text changes in a way that affects what a
 /// learner is agreeing to. Consent records store this value.
-const String kPrivacyPolicyVersion = '2026-07-31.1';
+const String kPrivacyPolicyVersion = '2026-08-25.1';
 
 /// Bump when the cloud-speech consent wording changes.
-const String kVoiceCloudConsentVersion = 'voice-cloud-v2';
+const String kVoiceCloudConsentVersion = 'voice-cloud-v3';
 
 const String kDeveloperName = 'Mahesh Pathak';
 
@@ -26,6 +26,18 @@ const String kDeveloperName = 'Mahesh Pathak';
 /// route that differs between them is the kind of thing a store reviewer
 /// notices and a user gives up on.
 const String kSupportEmail = 'email.czechify@gmail.com';
+
+/// Canonical public pages used by the app and the Play Console listing.
+///
+/// Keeping them beside the legal copy prevents a future domain/path change
+/// from leaving Settings, About, and the store metadata pointing at different
+/// policies.
+const String kWebsiteUrl = 'https://eminentsite.cz/czechify/';
+const String kPrivacyPolicyUrl = 'https://eminentsite.cz/czechify/privacy.html';
+const String kAccountDeletionUrl =
+    'https://eminentsite.cz/czechify/delete-account.html';
+const String kGooglePlayStoreUrl =
+    'https://play.google.com/store/apps/details?id=com.eminentsite.czechify';
 
 class LegalSection {
   const LegalSection(this.heading, this.body);
@@ -39,98 +51,155 @@ class LegalSection {
 const List<LegalSection> kPrivacyPolicy = [
   LegalSection(
     'Who is responsible',
-    'Czechify is developed and operated by $kDeveloperName. Any question '
-        'about your data, or any request to exercise the rights described '
-        'below, can be sent to $kSupportEmail.',
+    'Czechify is operated by $kDeveloperName, Příčná 1892/4, Nové Město, '
+        '110 00 Praha, Czechia. He is the data controller. Privacy questions '
+        'and rights requests can be sent to $kSupportEmail. No data protection '
+        'officer has been appointed because Czechify\'s current processing '
+        'does not require one.',
   ),
   LegalSection(
     'The short version',
-    'Czechify never asks for your email address, your name, or any other '
-        'personal detail in order to work. Your lessons, progress and chat '
-        'history live on your device, and your progress is backed up to an '
-        'anonymous account so you do not lose it.\n\n'
-        'Pronunciation uses your device speech service by default. Optional cloud speech sends data '
-        'to services outside the app, and every one of them is listed below. '
-        'There is no advertising in this app and no tracking of you across '
-        'other apps or websites.',
+    'Czechify automatically creates an anonymous cloud account and syncs '
+        'learning data to it. You may optionally connect Google or link an '
+        'email address. The '
+        'optional name you give the tutor, AI chat history, exam results, '
+        'settings and downloaded lesson audio stay on your device. AI tutor '
+        'text and optional cloud-pronunciation audio leave the device as '
+        'described below.\n\n'
+        'There are no ads, third-party analytics or crash-reporting SDKs, and '
+        'no cross-app or cross-site tracking.',
   ),
   LegalSection(
-    'What stays on your device',
-    'Your name, learning progress, streaks, badges, review schedule, exam '
-        'results, chat history with the AI tutor, downloaded audio, and your '
-        'settings are held in a local database on your device. Uninstalling '
-        'the app removes them.',
+    'What we process and why',
+    'To provide Czechify under GDPR Article 6(1)(b), we process an anonymous '
+        'account ID, installation ID, synced lesson completion and scores, XP, '
+        'streaks, badges, review/SRS state, custom cards and gamification '
+        'state, plus any support or reviewer curriculum-access entitlement. '
+        'If you link email, Supabase also processes your email and password '
+        'credential for sign-in and recovery; Czechify never receives the '
+        'plain-text password. If you connect Google, Google and Supabase '
+        'process the selected account email, provider account identifier and '
+        'basic profile fields for authentication. Czechify requests no access '
+        'to Google Drive, contacts or other Google content.\n\n'
+        'When you request AI tutoring, correction or writing evaluation, the '
+        'text and recent context are processed to perform that request under '
+        'Article 6(1)(b). When you enable cloud speech, a short recording is '
+        'processed on consent under Article 6(1)(a).\n\n'
+        'Daily usage counters and ordinary network/security metadata such as '
+        'IP address, user agent, time and status are processed for the '
+        'legitimate interests in security, abuse prevention and reliable '
+        'operation under Article 6(1)(f). Privacy requests are processed to '
+        'meet legal obligations under Article 6(1)(c).',
   ),
   LegalSection(
-    'Your account',
-    'Czechify creates an account for you automatically the first time you '
-        'open it. This account is anonymous: it is identified by your device, '
-        'and it asks for no email address, no password, no name and no other '
-        'personal detail. Its only purpose is to hold your progress so it is '
-        'not lost.\n\n'
-        'Your lesson progress, badges, streaks and review '
-        'schedule are synchronised to that account regularly, so a broken or '
-        'reset phone does not cost you your learning.\n\n'
-        'If you want to move to a new device, or learn on more than one, you '
-        'can add an email address and password to your existing account. That '
-        'is the only point at which Czechify holds an email address, it is '
-        'entirely your choice, and everything you have already learned carries '
-        'across. You can export or delete all of it at any time under '
-        'Settings, Account and data.',
+    'Local data and your account',
+    'Your optional learner name, AI conversation history, exam results, '
+        'settings, device consent history and downloaded lesson audio are '
+        'local. Learning data also has a local copy, while the categories '
+        'listed above are synced. Authentication tokens use Android Keystore '
+        'or Apple Keychain facilities, and Android app backup is disabled.\n\n'
+        'The first time you use Czechify, it creates a random anonymous '
+        'Supabase user ID without asking for an email, password or name. You '
+        'can optionally connect Google or link an email and password for '
+        'recovery and multi-device use. After account deletion, continuing to use the app '
+        'creates a new, empty anonymous account; deleted progress is not '
+        'restored.',
   ),
   LegalSection(
     'Pronunciation and your voice',
-    'Pronunciation practice records short clips of your speech.\n\n'
-        'By default Czechify uses the speech-recognition service available on '
-        'your device. Your operating-system provider controls how that service '
-        'processes speech. Czechify does not send the recording to its own cloud '
-        'speech service unless you explicitly enable the option in Settings.\n\n'
-        'If you enable optional cloud pronunciation, Czechify sends the recording '
-        'through our server to OpenAI in the United States and receiving a '
-        'transcript back. Declining keeps device speech recognition available.\n\n'
-        'Nothing is sent anywhere unless you accept that offer, and you can '
-        'withdraw your agreement at any time from Settings — withdrawing is as '
-        'easy as giving it, and takes effect immediately. When you do agree, '
-        'we keep a record of when you agreed and to which version of this '
-        'notice, so that both of us can check later what was actually agreed.\n\n'
-        'OpenAI states that data submitted through its API is not used to '
-        'train its models and is retained only for a limited period for abuse '
-        'monitoring. Recordings are not stored on our servers after the '
-        'transcript is returned.',
+    'By default, Czechify uses your device speech-recognition service. It may '
+        'process speech locally or through your operating-system provider, '
+        'depending on the device and its settings.\n\n'
+        'Cloud speech is off until you allow it. When enabled, a short clip is '
+        'sent over encrypted connections through Supabase to OpenAI in the '
+        'United States. Czechify does not persist the recording or transcript '
+        'in its cloud database and removes its temporary local recording after '
+        'the attempt. OpenAI says API data is not used for model training by '
+        'default and may be retained for abuse monitoring for up to 30 days '
+        'unless zero data retention applies.\n\n'
+        'You can switch cloud speech off at any time. Withdrawal affects '
+        'future recordings and does not make earlier processing unlawful. A '
+        'local consent record stores the time, decision and notice version '
+        'until app data is cleared.',
   ),
   LegalSection(
     'AI tutor',
-    'Messages you send to the AI tutor, and writing you submit for feedback, '
-        'are forwarded through our server to DeepSeek, which processes them '
-        'outside the European Economic Area. Your conversation history itself '
-        'stays on your device. Please do not include sensitive personal '
-        'information in messages to the tutor.\n\n'
-        'The tutor is a language model, so it can occasionally produce '
-        'something wrong, inappropriate, or offensive. If it does, tap the '
-        'flag on that reply to report it. A report sends us the tutor\'s own '
-        'words and the scenario you were in — not your side of the '
-        'conversation, unless you choose to describe it yourself.',
+    'Messages, recent context and writing you submit are relayed through '
+        'Supabase to Scaleway SAS, which runs the selected DeepSeek V4 Flash '
+        'model on Scaleway infrastructure in Paris, France. The request body does not '
+        'contain your Czechify account ID or linked email. Your full history '
+        'stays on the device. Scaleway says the model creator cannot access '
+        'prompts or outputs and they are not used for model training. Never '
+        'submit sensitive personal information.\n\n'
+        'AI output can be inaccurate or inappropriate and is not professional '
+        'advice. It does not make legal or similarly significant decisions '
+        'about you. Reporting a reply opens your email app with the tutor '
+        'output, scenario, time, reason and any note you add.',
   ),
   LegalSection(
-    'Audio lessons',
-    'Spoken Czech in the course is pre-recorded. Your device downloads those '
-        'audio files from our storage and keeps them for offline use. '
-        'Requesting an audio file tells our server which file was requested, '
-        'but sends nothing about you.',
+    'Recipients and transfers',
+    'Supabase processes authentication, synced data, storage, Edge Functions, '
+        'quotas and infrastructure logs. Czechify\'s primary project data is '
+        'in Paris, France, within the European Union. Supabase\'s Data '
+        'Processing Addendum uses Standard Contractual Clauses where required '
+        'for onward transfers.\n\n'
+        'OpenAI Ireland Ltd/OpenAI, L.L.C. processes cloud-speech clips. Its '
+        'Data Processing Addendum uses adequacy decisions and Standard '
+        'Contractual Clauses for restricted transfers. Scaleway processes AI '
+        'text in Paris, France, without sending it to the model creator or '
+        'another model service. Google processes optional Google account '
+        'authentication. Google Gmail and '
+        'your email provider process privacy emails or reports you choose to '
+        'send, which may involve the United States.\n\n'
+        'Lesson audio and curriculum are downloaded from Supabase Storage. The '
+        'request identifies the file and includes ordinary network metadata.',
+  ),
+  LegalSection(
+    'Retention and deletion',
+    'Local learner data remains until in-app deletion, clearing app storage or '
+        'uninstalling. Downloaded non-personal lesson audio is removed '
+        'separately through Settings, Downloads, Clear audio cache, by '
+        'clearing storage, or by uninstalling. Cloud account data remains '
+        'until deletion; unlinked anonymous accounts are scheduled for '
+        'deletion after 90 inactive days. Provider backups and security logs '
+        'expire under their time-limited schedules.\n\n'
+        'OpenAI may retain API data for up to 30 days unless zero retention '
+        'applies. Scaleway\'s default Zero Data Retention policy says prompts '
+        'and outputs are not retained in ordinary operation. Anonymised usage '
+        'metadata may remain up to six months; relevant request content may be '
+        'kept up to two weeks in rare error, security, harmful-content or '
+        'misuse investigations. AI reports/support mail are kept while '
+        'handled and normally '
+        'no longer than 12 months afterwards; minimal proof of a completed '
+        'privacy request may be kept up to three years unless law or a legal '
+        'claim requires longer.',
+  ),
+  LegalSection(
+    'Security',
+    'Czechify uses HTTPS/TLS, owner-scoped database row-level security, '
+        'authenticated Edge Functions, server-side provider secrets, rate '
+        'limits and secure operating-system session storage. No internet '
+        'service can promise absolute security. Contact us if you suspect a '
+        'problem.',
   ),
   LegalSection(
     'Your rights',
-    'You can access, export, correct, or delete your data. Export and '
-        'deletion are built into the app under Settings, Account and data; '
-        'deletion there removes both the local and the cloud copy. You may '
-        'also object to processing, ask for it to be restricted, or complain '
-        'to your national data protection authority.',
+    'Subject to GDPR conditions, you may request access, correction, deletion, '
+        'restriction or portability, object to legitimate-interest processing, '
+        'and withdraw consent without affecting processing that was lawful '
+        'before withdrawal. Export and deletion are under Settings, Account '
+        'and data. External deletion instructions are on the Czechify website. '
+        'We normally respond within one month.\n\n'
+        'You may complain to the Czech Úřad pro ochranu osobních údajů '
+        '(uoou.gov.cz), Pplk. Sochora 27, 170 00 Praha 7, or the competent '
+        'authority where you live or work.',
   ),
   LegalSection(
     'Children',
-    'Czechify is not directed at children under 16. Czechify does not know your '
-        'age, so the cloud pronunciation control asks you to confirm eligibility. '
-        'Anyone under 16 must use it only with permission from a parent or guardian.',
+    'Czechify is not directed to children under 16 and should be used/listed '
+        'for ages 16 and over. Czechify does not collect a birth date. A person '
+        'under 16 must not enable cloud speech or submit personal data to an AI '
+        'feature. Contact $kSupportEmail if you believe a child has done so.',
   ),
   LegalSection(
     'Changes',
@@ -166,9 +235,11 @@ const List<AppFeature> kAppFeatures = [
   AppFeature(
     IconData(0xe029, fontFamily: 'MaterialIcons'), // mic
     'Pronunciation practice',
-    'Record yourself and get feedback on the sounds Czech learners find '
-        'hardest — ř, č, š, ž, ě and the long vowels — with the analysis '
-        'using device speech recognition by default, with optional cloud transcription.',
+    'Read a prompted phrase and see how closely the words recognised by '
+        'speech recognition match the target. This can flag missed or unclear '
+        'words, but it does not diagnose individual Czech sounds or replace '
+        'feedback from a teacher. Device speech recognition is the default; '
+        'cloud transcription is optional.',
   ),
   AppFeature(
     IconData(0xe0b7, fontFamily: 'MaterialIcons'), // chat

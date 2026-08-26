@@ -380,6 +380,930 @@ abstract class AppLocalizations {
   /// **'Clear audio cache'**
   String get settingsClearAudioCache;
 
+  /// No description provided for @settingsFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first name'**
+  String get settingsFirstName;
+
+  /// No description provided for @settingsSwitchLevelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to {level}?'**
+  String settingsSwitchLevelTitle(String level);
+
+  /// No description provided for @settingsSwitchLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to {level}'**
+  String settingsSwitchLevel(String level);
+
+  /// No description provided for @settingsSwitchUpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 opens from its first unit, and everything you have already finished in A1 stays open. The tutor will pitch its Czech higher.\n\nA2 audio will download now, which needs a connection and a few megabytes.'**
+  String get settingsSwitchUpBody;
+
+  /// No description provided for @settingsSwitchDownBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The tutor will pitch its Czech lower and A1 audio will be kept on your device.\n\nUnits you have already unlocked stay unlocked — going back to revise costs you nothing.'**
+  String get settingsSwitchDownBody;
+
+  /// No description provided for @settingsLevelOpened.
+  ///
+  /// In en, this message translates to:
+  /// **'{level} is now open.'**
+  String settingsLevelOpened(String level);
+
+  /// No description provided for @settingsLevelSwitched.
+  ///
+  /// In en, this message translates to:
+  /// **'Switched to {level}. Units you had already unlocked stay open.'**
+  String settingsLevelSwitched(String level);
+
+  /// No description provided for @settingsProfileGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get settingsProfileGroup;
+
+  /// No description provided for @settingsNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get settingsNotSet;
+
+  /// No description provided for @settingsAccountGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsAccountGroup;
+
+  /// No description provided for @settingsAccountDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account, sign in & data'**
+  String get settingsAccountDataTitle;
+
+  /// No description provided for @settingsAccountDataBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect, recover, export, or delete your data'**
+  String get settingsAccountDataBody;
+
+  /// No description provided for @settingsAppearanceGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearanceGroup;
+
+  /// No description provided for @settingsLearningGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get settingsLearningGroup;
+
+  /// No description provided for @settingsCourseLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Course level'**
+  String get settingsCourseLevel;
+
+  /// No description provided for @settingsA1Beginner.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 · beginner'**
+  String get settingsA1Beginner;
+
+  /// No description provided for @settingsA2UpperBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 · upper beginner'**
+  String get settingsA2UpperBeginner;
+
+  /// No description provided for @settingsHeartsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Off = practice freely'**
+  String get settingsHeartsBody;
+
+  /// No description provided for @settingsSoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers and celebrations'**
+  String get settingsSoundBody;
+
+  /// No description provided for @settingsHapticsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A tap you can feel'**
+  String get settingsHapticsBody;
+
+  /// No description provided for @settingsRemindersGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get settingsRemindersGroup;
+
+  /// No description provided for @settingsAudioGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio'**
+  String get settingsAudioGroup;
+
+  /// No description provided for @settingsSpeechRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech rate'**
+  String get settingsSpeechRate;
+
+  /// No description provided for @settingsSpeechRateBody.
+  ///
+  /// In en, this message translates to:
+  /// **'1x is the pace the lessons were recorded at'**
+  String get settingsSpeechRateBody;
+
+  /// No description provided for @settingsTestVoiceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Play a sample Czech phrase'**
+  String get settingsTestVoiceBody;
+
+  /// No description provided for @settingsCloudPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional cloud pronunciation'**
+  String get settingsCloudPronunciation;
+
+  /// No description provided for @settingsCloudPronunciationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Off = your phone checks it. On = clearer scoring, recording sent for transcription'**
+  String get settingsCloudPronunciationBody;
+
+  /// No description provided for @settingsRetrySync.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry failed sync'**
+  String get settingsRetrySync;
+
+  /// No description provided for @settingsRetryingItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Retrying {count} item(s)'**
+  String settingsRetryingItems(int count);
+
+  /// No description provided for @settingsClearAudioBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove cached audio files'**
+  String get settingsClearAudioBody;
+
+  /// No description provided for @settingsAudioCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio cache cleared'**
+  String get settingsAudioCleared;
+
+  /// No description provided for @settingsAccountDataGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & data'**
+  String get settingsAccountDataGroup;
+
+  /// No description provided for @settingsExportDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Export & deletion'**
+  String get settingsExportDelete;
+
+  /// No description provided for @settingsExportDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Export or delete your data'**
+  String get settingsExportDeleteBody;
+
+  /// No description provided for @settingsAboutGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAboutGroup;
+
+  /// No description provided for @settingsAboutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What the app does · by {name}'**
+  String settingsAboutBody(String name);
+
+  /// No description provided for @settingsPrivacyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Read in full, in the app'**
+  String get settingsPrivacyBody;
+
+  /// No description provided for @settingsDownloadConnectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect to save {subject}'**
+  String settingsDownloadConnectTitle(String subject);
+
+  /// No description provided for @settingsDownloadSavingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving {subject}'**
+  String settingsDownloadSavingTitle(String subject);
+
+  /// No description provided for @settingsDownloadOfflineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{subject} is not saved on your device yet, and there is no connection right now. Connect to Wi-Fi or mobile data and try again — it is only a few megabytes.'**
+  String settingsDownloadOfflineBody(String subject);
+
+  /// No description provided for @settingsDownloadingClips.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading {count} clips so this works offline too.'**
+  String settingsDownloadingClips(int count);
+
+  /// No description provided for @settingsNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get settingsNotNow;
+
+  /// No description provided for @settingsHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide'**
+  String get settingsHide;
+
+  /// No description provided for @settingsUnitsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} units'**
+  String settingsUnitsCount(int count);
+
+  /// No description provided for @settingsLevelBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get settingsLevelBeginner;
+
+  /// No description provided for @settingsLevelUpperBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper beginner'**
+  String get settingsLevelUpperBeginner;
+
+  /// No description provided for @settingsLevelA1Audience.
+  ///
+  /// In en, this message translates to:
+  /// **'Start here if you are new to Czech.'**
+  String get settingsLevelA1Audience;
+
+  /// No description provided for @settingsLevelCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your level'**
+  String get settingsLevelCurrent;
+
+  /// No description provided for @settingsTeacherVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher\'s voice'**
+  String get settingsTeacherVoice;
+
+  /// No description provided for @settingsAudioSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'{level} audio'**
+  String settingsAudioSubject(String level);
+
+  /// No description provided for @settingsVoiceSubjectMale.
+  ///
+  /// In en, this message translates to:
+  /// **'the male voice'**
+  String get settingsVoiceSubjectMale;
+
+  /// No description provided for @settingsVoiceSubjectFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'the female voice'**
+  String get settingsVoiceSubjectFemale;
+
+  /// No description provided for @settingsChooseLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your course level'**
+  String get settingsChooseLevel;
+
+  /// No description provided for @settingsChooseLevelBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can change this later. Nothing you have finished is lost either way.'**
+  String get settingsChooseLevelBody;
+
+  /// No description provided for @settingsLevelA1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from Czech sounds and spelling. Meet people, say who you are and what you do, ask for what you need, handle numbers, time and everyday errands.'**
+  String get settingsLevelA1Body;
+
+  /// No description provided for @settingsLevelA2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk about what happened and what you plan to do, give directions and preferences, compare and choose, and deal with shops, appointments and things going wrong.'**
+  String get settingsLevelA2Body;
+
+  /// No description provided for @settingsLevelA2Audience.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose this if you can already introduce yourself and hold a simple present-tense conversation.'**
+  String get settingsLevelA2Audience;
+
+  /// No description provided for @accountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & data'**
+  String get accountTitle;
+
+  /// No description provided for @accountCloudUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud account unavailable'**
+  String get accountCloudUnavailableTitle;
+
+  /// No description provided for @accountCloudUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The app is offline or cloud configuration is unavailable.'**
+  String get accountCloudUnavailableBody;
+
+  /// No description provided for @accountReviewerAccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewer access active'**
+  String get accountReviewerAccessTitle;
+
+  /// No description provided for @accountReviewerAccessBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All course units and lessons are available on this account.'**
+  String get accountReviewerAccessBody;
+
+  /// No description provided for @accountGoogleConnectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Google account connected'**
+  String get accountGoogleConnectedTitle;
+
+  /// No description provided for @accountGoogleConnectedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can use Google to sign in and recover your learning progress.'**
+  String get accountGoogleConnectedBody;
+
+  /// No description provided for @accountProtectWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect progress with email'**
+  String get accountProtectWithEmail;
+
+  /// No description provided for @accountSignInExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to an existing account'**
+  String get accountSignInExisting;
+
+  /// No description provided for @accountSetOrChangePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Set or change password'**
+  String get accountSetOrChangePassword;
+
+  /// No description provided for @accountSendRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Send password recovery email'**
+  String get accountSendRecovery;
+
+  /// No description provided for @accountYourData.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data'**
+  String get accountYourData;
+
+  /// No description provided for @accountExportJson.
+  ///
+  /// In en, this message translates to:
+  /// **'Export my data as JSON'**
+  String get accountExportJson;
+
+  /// No description provided for @accountDeleteCloudLocal.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete cloud account and local data'**
+  String get accountDeleteCloudLocal;
+
+  /// No description provided for @accountDeletionInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deletion instructions online'**
+  String get accountDeletionInstructions;
+
+  /// No description provided for @accountRequestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The request could not be completed. Try again.'**
+  String get accountRequestFailed;
+
+  /// No description provided for @accountGoogleLinkedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Google account connected. Your progress is protected.'**
+  String get accountGoogleLinkedSuccess;
+
+  /// No description provided for @accountGoogleAlreadyLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'This Google account is already connected.'**
+  String get accountGoogleAlreadyLinked;
+
+  /// No description provided for @accountGoogleDefaultLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'this Google account'**
+  String get accountGoogleDefaultLabel;
+
+  /// No description provided for @accountUseExistingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use existing Czechify account?'**
+  String get accountUseExistingTitle;
+
+  /// No description provided for @accountUseExistingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{account} already has a Czechify account. This device will replace its local learner progress with that account’s synced progress. Export first if you need a copy.'**
+  String accountUseExistingBody(String account);
+
+  /// No description provided for @accountSignInReplace.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in and replace'**
+  String get accountSignInReplace;
+
+  /// No description provided for @accountGoogleRecovered.
+  ///
+  /// In en, this message translates to:
+  /// **'Google account recovered and synchronized.'**
+  String get accountGoogleRecovered;
+
+  /// No description provided for @accountGoogleFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in could not be completed. Try again.'**
+  String get accountGoogleFailed;
+
+  /// No description provided for @accountProtectProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect progress'**
+  String get accountProtectProgress;
+
+  /// No description provided for @accountEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get accountEmail;
+
+  /// No description provided for @accountVerificationSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification email sent. Open its link, then set a password here.'**
+  String get accountVerificationSent;
+
+  /// No description provided for @accountSetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Set password'**
+  String get accountSetPassword;
+
+  /// No description provided for @accountPasswordMinimum.
+  ///
+  /// In en, this message translates to:
+  /// **'Password (at least 8 characters)'**
+  String get accountPasswordMinimum;
+
+  /// No description provided for @accountPasswordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at least 8 characters.'**
+  String get accountPasswordTooShort;
+
+  /// No description provided for @accountPasswordUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated.'**
+  String get accountPasswordUpdated;
+
+  /// No description provided for @accountReplaceLocalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace local learner data?'**
+  String get accountReplaceLocalTitle;
+
+  /// No description provided for @accountReplaceLocalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This device will remove its current learner progress, sign in, and download the selected account. Export first if you need a copy.'**
+  String get accountReplaceLocalBody;
+
+  /// No description provided for @accountRecovered.
+  ///
+  /// In en, this message translates to:
+  /// **'Account recovered and synchronized.'**
+  String get accountRecovered;
+
+  /// No description provided for @accountPasswordRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Password recovery'**
+  String get accountPasswordRecovery;
+
+  /// No description provided for @accountAccountEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Account email'**
+  String get accountAccountEmail;
+
+  /// No description provided for @accountRecoverySent.
+  ///
+  /// In en, this message translates to:
+  /// **'If that account exists, a recovery email has been sent.'**
+  String get accountRecoverySent;
+
+  /// No description provided for @accountExportPrepared.
+  ///
+  /// In en, this message translates to:
+  /// **'Export prepared.'**
+  String get accountExportPrepared;
+
+  /// No description provided for @accountPermanentDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanently delete account'**
+  String get accountPermanentDelete;
+
+  /// No description provided for @accountDeletePhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Type DELETE MY ACCOUNT'**
+  String get accountDeletePhrase;
+
+  /// No description provided for @accountPhraseMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmation phrase did not match.'**
+  String get accountPhraseMismatch;
+
+  /// No description provided for @accountConfirmIdentity.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm it is you'**
+  String get accountConfirmIdentity;
+
+  /// No description provided for @accountPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Account password'**
+  String get accountPassword;
+
+  /// No description provided for @accountDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud account and learner data deleted.'**
+  String get accountDeleted;
+
+  /// No description provided for @accountSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get accountSignIn;
+
+  /// No description provided for @accountAnonymousTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous account'**
+  String get accountAnonymousTitle;
+
+  /// No description provided for @accountProtectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected account'**
+  String get accountProtectedTitle;
+
+  /// No description provided for @accountAnonymousBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress syncs on this installation, but cannot be recovered on another device until you connect Google or link an email.'**
+  String get accountAnonymousBody;
+
+  /// No description provided for @accountEmailLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'Email identity linked'**
+  String get accountEmailLinked;
+
+  /// No description provided for @accountSignInGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Google'**
+  String get accountSignInGoogle;
+
+  /// No description provided for @aboutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn Czech properly — CEFR A1 to A2'**
+  String get aboutTagline;
+
+  /// No description provided for @aboutFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'What Czechify gives you'**
+  String get aboutFeatures;
+
+  /// No description provided for @aboutFeatureCourseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A complete A1 to A2 course'**
+  String get aboutFeatureCourseTitle;
+
+  /// No description provided for @aboutFeatureCourseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'31 units, 61 lessons and over 770 exercises, following the CEFR levels from complete beginner to elementary. Each unit builds on the one before, and nothing is skipped.'**
+  String get aboutFeatureCourseBody;
+
+  /// No description provided for @aboutFeatureAudioTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Every Czech word spoken aloud'**
+  String get aboutFeatureAudioTitle;
+
+  /// No description provided for @aboutFeatureAudioBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nearly 3,000 phrases recorded in studio quality, in a male or female voice you choose. The first units are saved to your device so they work without a connection.'**
+  String get aboutFeatureAudioBody;
+
+  /// No description provided for @aboutFeaturePronunciationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation practice'**
+  String get aboutFeaturePronunciationTitle;
+
+  /// No description provided for @aboutFeaturePronunciationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Read a prompted phrase and see how closely the words recognised by speech recognition match the target. This can flag missed or unclear words, but it does not diagnose individual Czech sounds or replace feedback from a teacher. Device speech recognition is the default; cloud transcription is optional.'**
+  String get aboutFeaturePronunciationBody;
+
+  /// No description provided for @aboutFeatureTutorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI conversation tutor'**
+  String get aboutFeatureTutorTitle;
+
+  /// No description provided for @aboutFeatureTutorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise real situations — ordering food, asking directions, introducing yourself — with a tutor that replies in Czech at your level and explains what you got wrong.'**
+  String get aboutFeatureTutorBody;
+
+  /// No description provided for @aboutFeatureReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Spaced repetition that remembers for you'**
+  String get aboutFeatureReviewTitle;
+
+  /// No description provided for @aboutFeatureReviewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Words you find difficult come back more often, words you know fade away. Reviews are scheduled so you revisit each item just before you would have forgotten it.'**
+  String get aboutFeatureReviewBody;
+
+  /// No description provided for @aboutFeatureGrammarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar you can actually look up'**
+  String get aboutFeatureGrammarTitle;
+
+  /// No description provided for @aboutFeatureGrammarBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Declension and conjugation tables, per-unit grammar notes and cheat sheets, all available offline and unlocked as you reach each unit.'**
+  String get aboutFeatureGrammarBody;
+
+  /// No description provided for @aboutFeatureExamTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam preparation'**
+  String get aboutFeatureExamTitle;
+
+  /// No description provided for @aboutFeatureExamBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Dedicated A1 and A2 exam units with graded practice covering reading, listening, writing and speaking. These are unverified practice activities, not official exam results.'**
+  String get aboutFeatureExamBody;
+
+  /// No description provided for @aboutFeatureProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress worth watching'**
+  String get aboutFeatureProgressTitle;
+
+  /// No description provided for @aboutFeatureProgressBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Streaks, daily goals, badges and per-skill statistics, so you can see what is improving and what needs work.'**
+  String get aboutFeatureProgressBody;
+
+  /// No description provided for @aboutYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account'**
+  String get aboutYourAccount;
+
+  /// No description provided for @aboutAccountBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify creates an anonymous account automatically — no email, password or name required. Progress syncs to that account. Connect Google or add an email and password if you want to recover it or use it on another device.'**
+  String get aboutAccountBody;
+
+  /// No description provided for @aboutDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer'**
+  String get aboutDeveloper;
+
+  /// No description provided for @aboutDeveloperBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed, built and maintained by {name}.'**
+  String aboutDeveloperBody(String name);
+
+  /// No description provided for @aboutOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get aboutOnline;
+
+  /// No description provided for @aboutOfficialWebsite.
+  ///
+  /// In en, this message translates to:
+  /// **'Official Czechify website'**
+  String get aboutOfficialWebsite;
+
+  /// No description provided for @aboutOnlinePrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Online privacy policy'**
+  String get aboutOnlinePrivacy;
+
+  /// No description provided for @aboutUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates'**
+  String get aboutUpdates;
+
+  /// No description provided for @updateCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get updateCheckTitle;
+
+  /// No description provided for @updateCheckBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Get the latest Czechify version from Google Play'**
+  String get updateCheckBody;
+
+  /// No description provided for @updateAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A Czechify update is available'**
+  String get updateAvailableTitle;
+
+  /// No description provided for @updateAvailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Get the latest improvements and fixes. You can continue learning while the update downloads.'**
+  String get updateAvailableBody;
+
+  /// No description provided for @updateNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get updateNotNow;
+
+  /// No description provided for @updateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateNow;
+
+  /// No description provided for @updateDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading the update… You can continue learning.'**
+  String get updateDownloading;
+
+  /// No description provided for @updateReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Update ready. Restart Czechify to finish installing it.'**
+  String get updateReady;
+
+  /// No description provided for @updateRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart now'**
+  String get updateRestart;
+
+  /// No description provided for @updateUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify is up to date.'**
+  String get updateUpToDate;
+
+  /// No description provided for @updateCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'The update was cancelled.'**
+  String get updateCancelled;
+
+  /// No description provided for @updateStartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play couldn\'t install the update. Try again later.'**
+  String get updateStartFailed;
+
+  /// No description provided for @updateCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play couldn\'t check for updates. Try again later.'**
+  String get updateCheckFailed;
+
+  /// No description provided for @updateUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'In-app updates are available for Czechify installations from Google Play on Android.'**
+  String get updateUnsupported;
+
+  /// No description provided for @updateCheckAlreadyRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'An update check is already running.'**
+  String get updateCheckAlreadyRunning;
+
+  /// No description provided for @updatePlayStoreOnlyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The update is available, but Google Play can\'t install it inside Czechify right now. Open Google Play to update.'**
+  String get updatePlayStoreOnlyBody;
+
+  /// No description provided for @updateOpenPlayStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Google Play'**
+  String get updateOpenPlayStore;
+
+  /// No description provided for @privacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get privacyTitle;
+
+  /// No description provided for @privacyVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String privacyVersion(String version);
+
+  /// No description provided for @privacyViewOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'View privacy policy on the Czechify website'**
+  String get privacyViewOnline;
+
   /// No description provided for @homeYourProgress.
   ///
   /// In en, this message translates to:
@@ -428,6 +1352,12 @@ abstract class AppLocalizations {
   /// **'All caught up!'**
   String get homeAllCaughtUp;
 
+  /// No description provided for @homeRetryLessonA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson {lesson} · try it again'**
+  String homeRetryLessonA11y(int lesson);
+
   /// No description provided for @homeDayStreak.
   ///
   /// In en, this message translates to:
@@ -451,6 +1381,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap to reveal'**
   String get reviewTapToReveal;
+
+  /// No description provided for @reviewTypeAnswerFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your answer first'**
+  String get reviewTypeAnswerFirst;
 
   /// No description provided for @reviewRatingAgain.
   ///
@@ -704,6 +1640,18 @@ abstract class AppLocalizations {
   /// **'Introduction'**
   String get lessonIntroduction;
 
+  /// No description provided for @lessonGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson goal'**
+  String get lessonGoal;
+
+  /// No description provided for @lessonGoalByEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'By the end, you’ll be able to {goal}'**
+  String lessonGoalByEnd(String goal);
+
   /// No description provided for @lessonMissedQuestions.
   ///
   /// In en, this message translates to:
@@ -739,6 +1687,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start practice'**
   String get lessonStartPractice;
+
+  /// No description provided for @lessonNowICan.
+  ///
+  /// In en, this message translates to:
+  /// **'Now I can'**
+  String get lessonNowICan;
+
+  /// No description provided for @lessonKeepPractising.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep practising'**
+  String get lessonKeepPractising;
 
   /// No description provided for @lessonGotItStartPractising.
   ///
@@ -1313,8 +2273,14 @@ abstract class AppLocalizations {
   /// No description provided for @reviewHowWellRecalled.
   ///
   /// In en, this message translates to:
-  /// **'How well did you recall it? · sets when it returns'**
+  /// **'How well did you remember it?'**
   String get reviewHowWellRecalled;
+
+  /// No description provided for @reviewChooseRatingToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose one to schedule this card and continue to the next.'**
+  String get reviewChooseRatingToContinue;
 
   /// No description provided for @reviewAllCaughtUp.
   ///
@@ -1453,6 +2419,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete conversation'**
   String get chatDeleteConversation;
+
+  /// No description provided for @chatDeleteConversationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this conversation?'**
+  String get chatDeleteConversationTitle;
+
+  /// No description provided for @chatDeleteConversationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your chat about “{scenario}” will be permanently removed. This cannot be undone.'**
+  String chatDeleteConversationBody(String scenario);
+
+  /// No description provided for @chatDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get chatDelete;
+
+  /// No description provided for @chatToday.
+  ///
+  /// In en, this message translates to:
+  /// **'today'**
+  String get chatToday;
+
+  /// No description provided for @chatYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'yesterday'**
+  String get chatYesterday;
+
+  /// No description provided for @chatDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days ago'**
+  String chatDaysAgo(int count);
+
+  /// No description provided for @chatReportSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks — your report is on its way.'**
+  String get chatReportSent;
+
+  /// No description provided for @chatReportReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Report this reply'**
+  String get chatReportReply;
+
+  /// No description provided for @chatNoRepliesLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'No tutor replies left today.'**
+  String get chatNoRepliesLeft;
+
+  /// No description provided for @chatRepliesLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural,=1{{count} tutor reply left today.}other{{count} tutor replies left today.}}'**
+  String chatRepliesLeft(int count);
+
+  /// No description provided for @chatAddedToReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Added “{word}” to your review deck'**
+  String chatAddedToReview(String word);
+
+  /// No description provided for @chatAlreadyInReview.
+  ///
+  /// In en, this message translates to:
+  /// **'“{word}” is already in your deck'**
+  String chatAlreadyInReview(String word);
 
   /// No description provided for @exerciseAllAnsweredCorrectly.
   ///
@@ -2570,6 +3608,144 @@ abstract class AppLocalizations {
   /// **'Your first achievements are already within reach.'**
   String get statsAchievementsEmpty;
 
+  /// No description provided for @statsCourseProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Course progress'**
+  String get statsCourseProgress;
+
+  /// No description provided for @statsCourseProgressBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Required lessons completed at each course level.'**
+  String get statsCourseProgressBody;
+
+  /// No description provided for @statsPracticeNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise next'**
+  String get statsPracticeNext;
+
+  /// No description provided for @statsPracticeNextDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with your next lesson to build a clearer picture of your strengths.'**
+  String get statsPracticeNextDefault;
+
+  /// No description provided for @statsPracticeNextConcept.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recent answers suggest revisiting {concept}.'**
+  String statsPracticeNextConcept(String concept);
+
+  /// No description provided for @statsContinueLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue learning'**
+  String get statsContinueLearning;
+
+  /// No description provided for @statsConceptsToRevisit.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics to revisit'**
+  String get statsConceptsToRevisit;
+
+  /// No description provided for @statsConceptsExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics that were difficult on the first try. Successful retries are shown separately.'**
+  String get statsConceptsExplanation;
+
+  /// No description provided for @statsNoConceptErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'No difficult topics recorded yet.'**
+  String get statsNoConceptErrors;
+
+  /// No description provided for @statsErrorsRepaired.
+  ///
+  /// In en, this message translates to:
+  /// **'{errors} difficult · {repaired} improved'**
+  String statsErrorsRepaired(int errors, int repaired);
+
+  /// No description provided for @statsSkillPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice by skill'**
+  String get statsSkillPractice;
+
+  /// No description provided for @statsSkillExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your accuracy the first time you answered each type of exercise.'**
+  String get statsSkillExplanation;
+
+  /// No description provided for @statsNoSkillEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete lesson exercises to see skill progress here.'**
+  String get statsNoSkillEvidence;
+
+  /// No description provided for @statsAttemptEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'{depth} · {attempts} first attempts · {repair} after retry'**
+  String statsAttemptEvidence(String depth, int attempts, String repair);
+
+  /// No description provided for @statsDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day streak'**
+  String get statsDayStreak;
+
+  /// No description provided for @statsTotalXp.
+  ///
+  /// In en, this message translates to:
+  /// **'Total XP'**
+  String get statsTotalXp;
+
+  /// No description provided for @statsLongestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest streak'**
+  String get statsLongestStreak;
+
+  /// No description provided for @statsHearts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hearts'**
+  String get statsHearts;
+
+  /// No description provided for @statsNoLessonsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete a lesson to start seeing your progress.'**
+  String get statsNoLessonsYet;
+
+  /// No description provided for @statsUnitProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress by unit'**
+  String get statsUnitProgress;
+
+  /// No description provided for @statsUnitProgressBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your best lesson results across the required lessons in each unit.'**
+  String get statsUnitProgressBody;
+
+  /// No description provided for @statsA1Units.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 units'**
+  String get statsA1Units;
+
+  /// No description provided for @statsA2Units.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 units'**
+  String get statsA2Units;
+
   /// No description provided for @placementTitle.
   ///
   /// In en, this message translates to:
@@ -2617,6 +3793,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finish later'**
   String get placementFinishLater;
+
+  /// No description provided for @placementAdaptiveQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {count} · adaptive test'**
+  String placementAdaptiveQuestion(int count);
 
   /// No description provided for @reviewNew.
   ///

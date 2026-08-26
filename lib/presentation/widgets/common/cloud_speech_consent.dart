@@ -25,9 +25,10 @@ Future<bool> requestCloudSpeechConsent(
           content: const Text(
             'Your pronunciation recording will be sent through Czechify to '
             'OpenAI in the United States for transcription. Czechify does not '
-            'keep the recording. This is optional, can be switched off any '
-            'time, and requires you to be at least 16 or have guardian '
-            'permission.',
+            'store the recording after the transcript is returned. OpenAI may '
+            'retain API data for abuse monitoring for up to 30 days. This is '
+            'optional, can be switched off at any time, and is available only '
+            'if you are at least 16.',
           ),
           actions: [
             TextButton(

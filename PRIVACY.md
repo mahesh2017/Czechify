@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated:** July 24, 2026
+**Last updated:** August 25, 2026
 
 Czechify ("the App") is built with privacy in mind. This policy explains what data the App handles and how.
 
@@ -20,12 +20,18 @@ published curriculum and stores selected learning state for synchronization:
 - lesson completion, scores, and attempt counts;
 - earned badge identifiers;
 - streak and exam-completion counters; and
-- vocabulary and grammar review scheduling state.
+- vocabulary and grammar review scheduling state; and
+- account-level curriculum access entitlements, when support or reviewer
+  access has been granted.
 
 The anonymous Supabase user ID and an installation-specific device ID are
 attached to synchronized records. Settings, locally stored chat history, and
-audio recordings are not currently synchronized. You can link a verified email
-to preserve the same cloud identity, sign in on another device, export local
+audio recordings are not currently synchronized. You can connect Google or
+link a verified email to preserve the same cloud identity and sign in on
+another device. Google and Supabase process the selected Google account's
+email address, provider account identifier, and basic profile fields (such as
+name and profile image) for authentication; Czechify requests no access to
+Google Drive, contacts, or other Google account content. You can export local
 and cloud learning data as JSON, or delete the cloud account and local learner
 data from **Settings → Account & data**. Temporary export files are deleted
 after the platform share/save flow completes. Supabase operational backups and
@@ -35,8 +41,16 @@ logs may remain for their documented retention periods.
 
 When you use the AI conversation tutor, grammar check, or writing evaluation,
 the relevant learner text and recent conversation context are sent over HTTPS
-to a Supabase Edge Function and then to DeepSeek for processing. The App uses a
-server-managed API credential; users do not provide their own AI key.
+to a Supabase Edge Function and then to Scaleway Generative APIs for processing
+by a DeepSeek V4 Flash model hosted in Paris, France. The App uses a server-managed API
+credential; users do not provide their own AI key. The request body does not
+include the Czechify account ID or linked email.
+
+Scaleway states that its default Zero Data Retention policy does not collect,
+read, reuse, or train on prompts and outputs, and that the model creator cannot
+access them. Anonymised usage metadata may be retained for up to six months. In
+rare error, security, harmful-content, or misuse investigations, relevant
+request content may be retained for up to two weeks.
 
 The Edge Function authenticates the anonymous/user session, enforces daily and
 short-window request quotas, and returns the model response. The App stores the
@@ -72,7 +86,7 @@ fallbacks.
 ## Analytics & Tracking
 
 The App does **not** currently include analytics, advertising, or crash-reporting
-SDKs. Supabase and DeepSeek may generate operational/security logs under their
+SDKs. Supabase and Scaleway may generate operational/security logs under their
 own terms when their services are used.
 
 ## Children's Privacy
@@ -85,4 +99,6 @@ We may update this policy. Changes will be reflected in the App.
 
 ## Contact
 
-This app is maintained as an open educational project. For questions, open an issue on GitHub: [github.com/mahesh2017/Czechify](https://github.com/mahesh2017/Czechify)
+For privacy questions or requests, email
+[email.czechify@gmail.com](mailto:email.czechify@gmail.com). The full policy is
+available at [eminentsite.cz/czechify/privacy.html](https://eminentsite.cz/czechify/privacy.html).

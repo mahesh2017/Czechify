@@ -12,6 +12,9 @@ import {
   parseMessages,
 } from "./request_policy.ts";
 
+const SCALEWAY_MODEL = Deno.env.get("SCALEWAY_MODEL") ??
+  "deepseek-v4-flash-0731";
+
 const CORS: CorsPolicy = {
   allowedOrigins: parseAllowedOrigins(Deno.env.get("ALLOWED_ORIGINS")),
   allowedHeaders: "authorization, apikey, content-type, x-client-info",
@@ -49,8 +52,9 @@ Deno.serve(async (request) => {
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-  const deepSeekKey = Deno.env.get("DEEPSEEK_API_KEY");
-  if (!supabaseUrl || !serviceRoleKey || !deepSeekKey) {
+  const scalewayKey = Deno.env.get("SCALEWAY_API_KEY");
+  const scalewayChatUrl = Deno.env.get("SCALEWAY_CHAT_COMPLETIONS_URL");
+  if (!supabaseUrl || !serviceRoleKey || !scalewayKey || !scalewayChatUrl) {
     console.error("Missing required server secrets.");
     return jsonResponse({ error: "AI tutor is not configured." }, 503);
   }
@@ -183,24 +187,27 @@ Deno.serve(async (request) => {
 
   let upstream: Response;
   try {
-    upstream = await fetch("https://api.deepseek.com/v1/chat/completions", {
+    upstream = await fetch(scalewayChatUrl, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${deepSeekKey}`,
+        "Authorization": `Bearer ${scalewayKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "deepseek-chat",
+        model: SCALEWAY_MODEL,
         messages: upstreamRequest.messages,
         temperature: upstreamRequest.temperature,
         max_tokens: upstreamRequest.maxTokens,
-        response_format: { type: "json_object" },
+        // DeepSeek V4 Flash otherwise spends its output budget on hidden
+        // reasoning and can leave the user-facing structured reply empty.
+        reasoning_effort: "none",
+        response_format: upstreamRequest.responseFormat,
       }),
       signal: AbortSignal.timeout(60_000),
     });
   } catch (error) {
     console.error(
-      "DeepSeek request failed",
+      "Scaleway request failed",
       error instanceof Error ? error.name : "unknown",
     );
     await refundDaily();
@@ -209,7 +216,7 @@ Deno.serve(async (request) => {
 
   const upstreamBody = await upstream.json().catch(() => null);
   if (!upstream.ok) {
-    console.error("DeepSeek error", upstream.status);
+    console.error("Scaleway error", upstream.status);
     await refundDaily();
     const status = upstream.status === 429 ? 429 : 502;
     return jsonResponse(
@@ -230,12 +237,23 @@ Deno.serve(async (request) => {
       502,
     );
   }
+  try {
+    JSON.parse(content);
+  } catch (_) {
+    // The app consumes typed JSON contracts. A syntactically invalid answer
+    // is not a successful learner turn even if the provider returned 200.
+    await refundDaily();
+    return jsonResponse(
+      { error: "AI tutor returned an invalid response." },
+      502,
+    );
+  }
   const usage = upstreamBody.usage ?? {};
   return jsonResponse({
     content,
     input_tokens: Number(usage.prompt_tokens ?? 0),
     output_tokens: Number(usage.completion_tokens ?? 0),
-    model: String(upstreamBody.model ?? "deepseek-chat"),
+    model: String(upstreamBody.model ?? SCALEWAY_MODEL),
     remaining_today: await remainingToday(),
     daily_limit: dailyLimit,
   });

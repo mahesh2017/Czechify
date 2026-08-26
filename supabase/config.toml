@@ -1,3 +1,28 @@
+[auth]
+# Czechify creates an anonymous authenticated account on first launch so
+# learner progress can be securely synced without requiring an email address.
+enable_anonymous_sign_ins = true
+# Required for converting an anonymous learner into a permanent Google/email
+# identity without changing the Supabase user id or losing synced progress.
+enable_manual_linking = true
+site_url = "https://eminentsite.cz/czechify/"
+additional_redirect_urls = ["czechify://auth-callback"]
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.email]
+enable_confirmations = true
+max_frequency = "1m0s"
+otp_length = 8
+
+[auth.external.google]
+enabled = true
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET)"
+skip_nonce_check = false
+
 [functions.deepseek-proxy]
 verify_jwt = true
 

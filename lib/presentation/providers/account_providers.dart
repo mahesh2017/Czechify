@@ -18,12 +18,15 @@ final accountServiceProvider = Provider<AccountService>((ref) {
     ref.watch(backendServiceProvider),
     ref.watch(databaseProvider),
     ref.watch(syncServiceProvider),
+    onAccountChanged: () => ref.invalidate(accountUserProvider),
     onLocalDataChanged: () {
       ref.invalidate(gamificationProvider);
       ref.invalidate(lessonSessionProvider);
       ref.invalidate(reviewSessionProvider);
       ref.invalidate(dueCardCountProvider);
       ref.invalidate(completedLessonIdsProvider);
+      ref.invalidate(curriculumEntitlementProvider);
+      ref.invalidate(curriculumAccessProvider);
       ref.invalidate(chatProvider);
       ref.invalidate(pronunciationProvider);
       ref.invalidate(writingEvalProvider);

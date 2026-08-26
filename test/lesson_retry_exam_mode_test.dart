@@ -24,8 +24,7 @@ void main() {
 
   ProviderContainer containerFor({
     required LessonSessionNotifier Function() session,
-    GamificationNotifier Function() gamification =
-        TestGamificationNotifier.new,
+    GamificationNotifier Function() gamification = TestGamificationNotifier.new,
     ProgressRepository? progress,
   }) {
     final container = ProviderContainer(
@@ -183,7 +182,5 @@ class _TestSettingsNotifier extends SettingsNotifier {
   AppSettings build() => const AppSettings();
 }
 
-
 /// The unit-completion celebration is best-effort and already swallows its
 /// own failures; this just keeps it from reaching for a real database.
-

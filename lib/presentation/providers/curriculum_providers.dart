@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/widgets.dart';
 import '../../core/config/dev_flags.dart';
+import '../../data/repositories/curriculum_entitlement_repository.dart';
 import '../../data/database/database.dart' as db;
+import '../../domain/entities/curriculum_entitlement.dart';
 import '../../domain/entities/unit.dart';
 import '../../domain/entities/lesson.dart';
 import '../../domain/entities/enums.dart';
@@ -12,6 +16,7 @@ import '../../domain/entities/learning_evidence.dart';
 import '../../l10n/app_localizations.dart';
 import 'database_providers.dart';
 import 'settings_providers.dart';
+import 'sync_providers.dart';
 import '../models/curriculum_path_item.dart';
 
 /// Changes the learner's level after onboarding.
@@ -108,12 +113,55 @@ final placementProfileProvider = FutureProvider<db.PlacementProfile?>((ref) {
   return database.select(database.placementProfiles).getSingleOrNull();
 });
 
+final curriculumEntitlementRepositoryProvider =
+    Provider<CurriculumEntitlementRepository>((ref) {
+      final backend = ref.watch(backendServiceProvider);
+      return CurriculumEntitlementRepository(
+        fetchRemote: (userId) async {
+          final client = backend.client;
+          if (client == null) {
+            throw StateError('Curriculum entitlement backend unavailable.');
+          }
+          final row = await client
+              .from('curriculum_entitlements')
+              .select('unlock_all, expires_at, reason')
+              .eq('user_id', userId)
+              .maybeSingle()
+              .timeout(const Duration(seconds: 4));
+          return row;
+        },
+      );
+    });
+
+/// Server-owned access used for reviewers and support cases. The repository
+/// falls back to the last result for this exact auth user while offline.
+final curriculumEntitlementProvider = FutureProvider<CurriculumEntitlement>((
+  ref,
+) async {
+  await ref.watch(backendInitProvider.future);
+  final backend = ref.watch(backendServiceProvider);
+  if (!backend.isEnabled) return CurriculumEntitlement.none;
+  final entitlement = await ref
+      .watch(curriculumEntitlementRepositoryProvider)
+      .load(backend.userId);
+  final expiresAt = entitlement.expiresAt;
+  if (expiresAt != null) {
+    final remaining = expiresAt.difference(DateTime.now().toUtc());
+    if (remaining > Duration.zero) {
+      final timer = Timer(remaining, ref.invalidateSelf);
+      ref.onDispose(timer.cancel);
+    }
+  }
+  return entitlement;
+});
+
 /// One explicit access graph for units, lessons, review introduction, direct
 /// lesson entry, and continue-learning. XP is intentionally not an input.
 final curriculumAccessProvider = FutureProvider<CurriculumAccess>((ref) async {
   final allUnits = await ref.watch(allUnitsProvider.future);
   final completedLessonIds = await ref.watch(completedLessonIdsProvider.future);
   final placement = await ref.watch(placementProfileProvider.future);
+  final entitlement = await ref.watch(curriculumEntitlementProvider.future);
   final lessonsByUnit = <int, List<Lesson>>{};
   for (final unit in allUnits) {
     lessonsByUnit[unit.id] = await ref.watch(
@@ -125,20 +173,9 @@ final curriculumAccessProvider = FutureProvider<CurriculumAccess>((ref) async {
     lessonsByUnit: lessonsByUnit,
     completedLessonIds: completedLessonIds,
     provisionalThroughUnitId: placement?.provisionalUnit,
+    unlockAll:
+        DevFlags.unlockAll || entitlement.isActiveAt(DateTime.now().toUtc()),
   );
-
-  // Developer review mode: open every unit and lesson regardless of progress.
-  // Off by default; enabled only with --dart-define=UNLOCK_ALL=true.
-  if (DevFlags.unlockAll) {
-    return CurriculumAccess(
-      unlockedUnitIds: {for (final unit in allUnits) unit.id},
-      unlockedLessonIds: {
-        for (final lessons in lessonsByUnit.values)
-          for (final lesson in lessons) lesson.id,
-      },
-      lessonPrerequisites: access.lessonPrerequisites,
-    );
-  }
   return access;
 });
 

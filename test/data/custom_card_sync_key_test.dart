@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:ceskina_pro/data/database/database.dart';
 import 'package:ceskina_pro/data/repositories/drift_vocabulary_repository.dart';
-import 'package:drift/drift.dart' show Value;
+import 'package:drift/drift.dart' show Value, driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -75,6 +75,18 @@ void main() {
   test(
     'a second device materializes the card, then attaches its SRS state',
     () async {
+      // This test intentionally models two devices with two simultaneous
+      // databases. Drift's warning protects production apps from accidental
+      // duplicate instances, but this is the scenario under test.
+      final previousWarningSetting =
+          driftRuntimeOptions.dontWarnAboutMultipleDatabases;
+      driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+      addTearDown(
+        () =>
+            driftRuntimeOptions.dontWarnAboutMultipleDatabases =
+                previousWarningSetting,
+      );
+
       // Device A creates the card and reads what it would sync.
       final deviceA = db;
       final repo = DriftVocabularyRepository(deviceA);

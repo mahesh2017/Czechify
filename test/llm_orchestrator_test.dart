@@ -9,15 +9,14 @@ void main() {
   const orchestrator = LLMOrchestrator();
 
   group('buildConversationRequest', () {
-    test('uses a valid DeepSeek model ID', () {
+    test('reports the server-selected Scaleway model ID', () {
       final request = orchestrator.buildConversationRequest(
         level: CEFRLevel.a1,
         scenarioId: 'casual_chat',
         userMessage: 'Ahoj',
         history: [],
       );
-      // 'deepseek-v3' is NOT a valid API model ID — regression guard.
-      expect(request.model, 'deepseek-chat');
+      expect(request.model, 'deepseek-v4-flash-0731');
     });
 
     test('appends the user message exactly once', () {

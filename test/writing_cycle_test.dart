@@ -3,6 +3,7 @@ import 'package:ceskina_pro/domain/entities/exercise.dart';
 import 'package:ceskina_pro/domain/entities/exercise_outcome.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:ceskina_pro/presentation/widgets/lesson/exercises/writing_task_view.dart';
+import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -35,7 +36,13 @@ void main() {
       ),
     );
 
+    expect(find.text('0 words'), findsOneWidget);
+    expect(tester.widget<KeyCta>(find.byType(KeyCta)).onPressed, isNull);
+
     await tester.enterText(find.byType(TextField).first, 'Dobrý den');
+    await tester.pump();
+    expect(find.text('2 words'), findsOneWidget);
+    expect(tester.widget<KeyCta>(find.byType(KeyCta)).onPressed, isNotNull);
     await tester.tap(find.text('Review draft'));
     await tester.pump();
     expect(find.textContaining('Revise:'), findsOneWidget);

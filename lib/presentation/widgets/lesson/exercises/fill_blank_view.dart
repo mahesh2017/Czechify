@@ -216,7 +216,20 @@ class _FillBlankViewState extends State<FillBlankView> {
                   null => t.ink,
                 },
               ),
-              onSubmitted: answered ? null : (_) => _checkAnswer(),
+              textInputAction:
+                  i < parts.length - 2
+                      ? TextInputAction.next
+                      : TextInputAction.done,
+              onSubmitted:
+                  answered
+                      ? null
+                      : (_) {
+                        if (i < parts.length - 2) {
+                          _focusFor(i + 1).requestFocus();
+                        } else {
+                          _checkAnswer();
+                        }
+                      },
             ),
           ),
         );

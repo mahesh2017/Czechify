@@ -26,3 +26,23 @@ class BackendConfig {
   static bool get isConfigured =>
       supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 }
+
+/// Public OAuth client identifiers used by native Google Sign-In.
+///
+/// These identifiers are not secrets, but keeping them in release-time config
+/// avoids coupling source builds to one Google Cloud project. Android needs the
+/// Web client ID as its server client ID. iOS additionally needs its native
+/// client ID and reversed-client-ID URL scheme (see docs/GOOGLE_SIGN_IN.md).
+class GoogleAuthConfig {
+  const GoogleAuthConfig._();
+
+  static const String webClientId = String.fromEnvironment(
+    'GOOGLE_WEB_CLIENT_ID',
+    defaultValue: '',
+  );
+
+  static const String iosClientId = String.fromEnvironment(
+    'GOOGLE_IOS_CLIENT_ID',
+    defaultValue: '',
+  );
+}

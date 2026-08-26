@@ -252,14 +252,21 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                 onPressed: _saving ? null : () => context.go('/'),
               ),
             ] else if (task != null) ...[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(999),
-                child: LinearProgressIndicator(
-                  value: _observations.length / PlacementEngine.minItems,
-                  minHeight: 5,
-                  backgroundColor: t.line,
-                  valueColor: AlwaysStoppedAnimation(t.pri),
-                ),
+              Row(
+                children: [
+                  Icon(Icons.tune_rounded, size: 17, color: t.pri),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      l10n.placementAdaptiveQuestion(_observations.length + 1),
+                      style: TextStyle(
+                        color: t.muted,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 22),
               LessonKicker(task.skill.name, color: t.pri),
@@ -278,6 +285,7 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                   controller: _answerController,
                   multiline: true,
                   semanticLabel: l10n.placementAnswerLabel,
+                  onChanged: (_) => setState(() {}),
                   onSubmitted: (_) => setState(() {}),
                 )
               else

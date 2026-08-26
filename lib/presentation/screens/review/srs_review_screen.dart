@@ -156,7 +156,9 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-                child: Row(
+                child: Wrap(
+                  spacing: 7,
+                  runSpacing: 7,
                   children: [
                     _DeckCountChip(
                       label: AppLocalizations.of(context).reviewNew,
@@ -168,7 +170,6 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                       bg: t.violetSoft,
                       ink: t.violetInk,
                     ),
-                    const SizedBox(width: 7),
                     _DeckCountChip(
                       label: AppLocalizations.of(context).reviewLearning,
                       count:
@@ -183,7 +184,6 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                       bg: t.amberSoft,
                       ink: t.amberInk,
                     ),
-                    const SizedBox(width: 7),
                     _DeckCountChip(
                       label: AppLocalizations.of(context).reviewDue,
                       count:
@@ -205,6 +205,9 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                   card: card.flashcard,
                   direction: card.direction,
                   isFlipped: session.isFlipped,
+                  canReveal:
+                      card.direction != CardDirection.enToCz ||
+                      _productionAttempt.trim().isNotEmpty,
                   onFlip:
                       card.direction != CardDirection.enToCz ||
                               _productionAttempt.trim().isNotEmpty
@@ -290,7 +293,11 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
                   child: KeyCta(
-                    label: l10n.reviewShowAnswer,
+                    label:
+                        card.direction == CardDirection.enToCz &&
+                                _productionAttempt.trim().isEmpty
+                            ? l10n.reviewTypeAnswerFirst
+                            : l10n.reviewShowAnswer,
                     onPressed:
                         card.direction != CardDirection.enToCz ||
                                 _productionAttempt.trim().isNotEmpty
@@ -408,12 +415,14 @@ class _FlashcardView extends ConsumerWidget {
   final Flashcard card;
   final CardDirection direction;
   final bool isFlipped;
+  final bool canReveal;
   final VoidCallback? onFlip;
 
   const _FlashcardView({
     required this.card,
     required this.direction,
     required this.isFlipped,
+    required this.canReveal,
     required this.onFlip,
   });
 
@@ -423,8 +432,8 @@ class _FlashcardView extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     return Semantics(
       button: onFlip != null,
-      label: l10n.a11yTapToFlipCard,
-      hint: l10n.reviewTapToReveal,
+      label: canReveal ? l10n.a11yTapToFlipCard : l10n.reviewTypeAnswerFirst,
+      hint: canReveal ? l10n.reviewTapToReveal : l10n.reviewTypeAnswerFirst,
       excludeSemantics: true,
       child: GestureDetector(
         onTap: isFlipped ? null : onFlip,
@@ -520,19 +529,28 @@ class _FlashcardView extends ConsumerWidget {
 
   /// Shared "tap the card to see the answer" affordance, identical on all
   /// three card fronts.
-  Widget _tapToReveal(BuildContext context) {
+  Widget _tapToReveal(BuildContext context, {bool enabled = true}) {
     final t = context.tokens;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(Icons.touch_app_outlined, color: t.faint, size: 18),
+        Icon(
+          enabled ? Icons.touch_app_outlined : Icons.keyboard_alt_outlined,
+          color: t.faint,
+          size: 18,
+        ),
         const SizedBox(width: 8),
-        Text(
-          AppLocalizations.of(context).reviewTapToReveal,
-          style: TextStyle(
-            color: t.faint,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
+        Flexible(
+          child: Text(
+            enabled
+                ? AppLocalizations.of(context).reviewTapToReveal
+                : AppLocalizations.of(context).reviewTypeAnswerFirst,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: t.faint,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],
@@ -673,7 +691,7 @@ class _FlashcardView extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 32),
-        _tapToReveal(context),
+        _tapToReveal(context, enabled: canReveal),
       ],
     );
   }
@@ -1017,10 +1035,30 @@ class _RatingButtons extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Say what the four buttons actually do — they schedule the card,
-          // they are not a score.
+          // The rating is also the commit-and-advance action. Say that before
+          // presenting the choices so this does not look like an optional
+          // self-assessment followed by a missing Next button.
           LessonKicker(l10n.reviewHowWellRecalled),
-          const SizedBox(height: 9),
+          const SizedBox(height: 5),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.arrow_forward_rounded, size: 17, color: t.pri),
+              const SizedBox(width: 7),
+              Expanded(
+                child: Text(
+                  l10n.reviewChooseRatingToContinue,
+                  style: TextStyle(
+                    color: t.muted,
+                    fontSize: 12.5,
+                    height: 1.35,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
           IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1146,7 +1184,7 @@ class _RatingButton extends StatelessWidget {
                         const SizedBox(height: 7),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
+                            horizontal: 5,
                             vertical: 3,
                           ),
                           decoration: BoxDecoration(
@@ -1157,7 +1195,7 @@ class _RatingButton extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(Icons.schedule, size: 11, color: ink),
-                              const SizedBox(width: 4),
+                              const SizedBox(width: 3),
                               Text(
                                 subtitle,
                                 style: TextStyle(

@@ -247,7 +247,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                         ),
                       ),
                       Text(
-                        l10n.chatTurnsIn(chat.messages.length),
+                        l10n.chatTurnsIn(
+                          chat.messages
+                              .where(
+                                (message) => message.role == MessageRole.user,
+                              )
+                              .length,
+                        ),
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -299,10 +305,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             Expanded(
                               child: Text(
                                 chat.remainingToday == 0
-                                    ? 'No tutor replies left today.'
-                                    : '${chat.remainingToday} tutor '
-                                        '${chat.remainingToday == 1 ? "reply" : "replies"} '
-                                        'left today.',
+                                    ? l10n.chatNoRepliesLeft
+                                    : l10n.chatRepliesLeft(
+                                      chat.remainingToday ?? 0,
+                                    ),
                                 style: TextStyle(
                                   color: t.amberInk,
                                   fontSize: 12.5,
@@ -472,10 +478,11 @@ Future<void> _confirmDelete(
     context: context,
     builder:
         (ctx) => AlertDialog(
-          title: const Text('Delete this conversation?'),
+          title: Text(AppLocalizations.of(context).chatDeleteConversationTitle),
           content: Text(
-            'Your chat about "${summary.scenario}" will be permanently removed. '
-            'This cannot be undone.',
+            AppLocalizations.of(
+              context,
+            ).chatDeleteConversationBody(summary.scenario),
           ),
           actions: [
             TextButton(
@@ -487,7 +494,7 @@ Future<void> _confirmDelete(
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(ctx).colorScheme.error,
               ),
-              child: const Text('Delete'),
+              child: Text(AppLocalizations.of(context).chatDelete),
             ),
           ],
         ),
@@ -497,7 +504,7 @@ Future<void> _confirmDelete(
   }
 }
 
-String _describeDay(DateTime when) {
+String _describeDay(AppLocalizations l10n, DateTime when) {
   final now = DateTime.now();
   final days =
       DateTime(
@@ -505,9 +512,9 @@ String _describeDay(DateTime when) {
         now.month,
         now.day,
       ).difference(DateTime(when.year, when.month, when.day)).inDays;
-  if (days <= 0) return 'today';
-  if (days == 1) return 'yesterday';
-  return '$days days ago';
+  if (days <= 0) return l10n.chatToday;
+  if (days == 1) return l10n.chatYesterday;
+  return l10n.chatDaysAgo(days);
 }
 
 /// Scenario picker — shown when no conversation is active.
@@ -567,7 +574,10 @@ class _ScenarioPicker extends ConsumerWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            _describeDay(summary.createdAt),
+                            _describeDay(
+                              AppLocalizations.of(context),
+                              summary.createdAt,
+                            ),
                             style: TextStyle(fontSize: 13, color: t.faint),
                           ),
                         ],
@@ -759,8 +769,8 @@ class _MessageBubble extends ConsumerWidget {
       SnackBar(
         content: Text(
           added
-              ? 'Added "${v.cz}" to your review deck'
-              : '"${v.cz}" is already in your deck',
+              ? AppLocalizations.of(context).chatAddedToReview(v.cz)
+              : AppLocalizations.of(context).chatAlreadyInReview(v.cz),
         ),
         duration: const Duration(seconds: 2),
       ),
@@ -892,7 +902,7 @@ class _TtsIconButton extends ConsumerWidget {
       icon: const Icon(Icons.volume_up, size: 18),
       color: Theme.of(context).colorScheme.primary,
       padding: EdgeInsets.zero,
-      constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+      constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
       tooltip: AppLocalizations.of(context).listen,
     );
   }
@@ -919,17 +929,17 @@ class _ReportIconButton extends ConsumerWidget {
         );
         if (!sent || !context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Thanks — your report is on its way.'),
-            duration: Duration(seconds: 3),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).chatReportSent),
+            duration: const Duration(seconds: 3),
           ),
         );
       },
       icon: const Icon(Icons.flag_outlined, size: 16),
       color: context.tokens.muted,
       padding: EdgeInsets.zero,
-      constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
-      tooltip: 'Report this reply',
+      constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+      tooltip: AppLocalizations.of(context).chatReportReply,
     );
   }
 }
@@ -1179,40 +1189,54 @@ class _InputBar extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Semantics(
-              label: AppLocalizations.of(context).a11ySendMessage,
-              button: true,
-              excludeSemantics: true,
-              child: InkWell(
-                onTap: isLoading ? null : onSend,
-                borderRadius: BorderRadius.circular(999),
-                child: Container(
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: t.priFill,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: t.priFill.withValues(alpha: 0.4),
-                        blurRadius: 18,
-                        offset: const Offset(0, 8),
-                        spreadRadius: -8,
+            ValueListenableBuilder<TextEditingValue>(
+              valueListenable: controller,
+              builder: (context, value, _) {
+                final enabled = !isLoading && value.text.trim().isNotEmpty;
+                return Semantics(
+                  label: AppLocalizations.of(context).a11ySendMessage,
+                  button: true,
+                  enabled: enabled,
+                  excludeSemantics: true,
+                  child: InkWell(
+                    onTap: enabled ? onSend : null,
+                    borderRadius: BorderRadius.circular(999),
+                    child: Container(
+                      width: 52,
+                      height: 52,
+                      decoration: BoxDecoration(
+                        color: enabled || isLoading ? t.priFill : t.elev,
+                        shape: BoxShape.circle,
+                        boxShadow:
+                            enabled
+                                ? [
+                                  BoxShadow(
+                                    color: t.priFill.withValues(alpha: 0.4),
+                                    blurRadius: 18,
+                                    offset: const Offset(0, 8),
+                                    spreadRadius: -8,
+                                  ),
+                                ]
+                                : null,
                       ),
-                    ],
+                      child:
+                          isLoading
+                              ? Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: t.onFill,
+                                ),
+                              )
+                              : Icon(
+                                Icons.send,
+                                size: 18,
+                                color: enabled ? t.onFill : t.faint,
+                              ),
+                    ),
                   ),
-                  child:
-                      isLoading
-                          ? Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: t.onFill,
-                            ),
-                          )
-                          : Icon(Icons.send, size: 18, color: t.onFill),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),

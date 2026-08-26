@@ -17,6 +17,7 @@ export const syncedUserTables = [
   "custom_cards",
   "gamification_state",
   "ai_daily_usage",
+  "curriculum_entitlements",
 ] as const;
 
 export const isSupportedMethod = (method: string): boolean =>

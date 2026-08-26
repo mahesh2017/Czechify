@@ -231,7 +231,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                                       session.currentIndex + 1,
                                       session.totalExercises,
                                     ),
-                                maxLines: 1,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: t.ink,
@@ -287,26 +287,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   (session.lesson?.canDo.trim().isNotEmpty ?? false))
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 2, 20, 12),
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: t.priSoft,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      'I can ${session.lesson!.canDo}',
-                      style: TextStyle(
-                        color: t.priInk,
-                        fontSize: 14,
-                        height: 1.35,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+                  child: _LessonGoalCard(goal: session.lesson!.canDo.trim()),
                 ),
               // What kind of task this is, and the streak riding on it.
               Padding(
@@ -517,6 +498,76 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   }
 }
 
+/// Frames the lesson outcome as a destination, not an ability the learner is
+/// expected to already have before the teaching card begins.
+class _LessonGoalCard extends StatelessWidget {
+  final String goal;
+
+  const _LessonGoalCard({required this.goal});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+
+    return Semantics(
+      container: true,
+      label: '${l10n.lessonGoal}: ${l10n.lessonGoalByEnd(goal)}',
+      excludeSemantics: true,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.fromLTRB(14, 12, 14, 13),
+        decoration: BoxDecoration(
+          color: t.priSoft,
+          border: Border.all(color: t.pri.withValues(alpha: .18)),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 34,
+              height: 34,
+              decoration: BoxDecoration(
+                color: t.card.withValues(alpha: .72),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(Icons.flag_outlined, size: 19, color: t.pri),
+            ),
+            const SizedBox(width: 11),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.lessonGoal.toUpperCase(),
+                    style: TextStyle(
+                      color: t.priInk,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1.35,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    l10n.lessonGoalByEnd(goal),
+                    style: TextStyle(
+                      color: t.ink,
+                      fontSize: 14,
+                      height: 1.35,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// Teach phase — the lesson's new vocabulary with audio, browsed before
 /// the exercises start.
 class _TeachPhaseScreen extends ConsumerWidget {
@@ -563,7 +614,7 @@ class _TeachPhaseScreen extends ConsumerWidget {
                             Text(
                               session.lesson?.title ??
                                   AppLocalizations.of(context).lessonNewWords,
-                              maxLines: 1,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 15,
@@ -935,13 +986,20 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                             width: double.infinity,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: tokens.priSoft,
+                              color:
+                                  passed ? tokens.priSoft : tokens.violetSoft,
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                LessonKicker('Now I can', color: tokens.priInk),
+                                LessonKicker(
+                                  passed
+                                      ? l10n.lessonNowICan
+                                      : l10n.lessonKeepPractising,
+                                  color:
+                                      passed ? tokens.priInk : tokens.violetInk,
+                                ),
                                 const SizedBox(height: 6),
                                 Text(
                                   session.lesson!.exitTask,

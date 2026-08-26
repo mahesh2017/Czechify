@@ -3,19 +3,20 @@ import '../../../l10n/app_localizations.dart';
 
 import '../../../core/legal/legal_content.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../utils/external_links.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// The full privacy policy, in the app.
 ///
-/// Deliberately not a link to a website: a learner should be able to read what
-/// happens to their data offline, without a browser, and without leaving the
-/// app to find out.
+/// The full text remains available offline. The canonical public copy is also
+/// linked at the end for store compliance and easy sharing.
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
       body: SafeArea(
@@ -30,14 +31,14 @@ class PrivacyPolicyScreen extends StatelessWidget {
                   onPressed: () => Navigator.of(context).maybePop(),
                   icon: Icon(Icons.arrow_back_ios_new, size: 18, color: t.ink),
                 ),
-                const Expanded(child: DisplayText('Privacy', size: 24)),
+                Expanded(child: DisplayText(l10n.privacyTitle, size: 24)),
               ],
             ),
             const SizedBox(height: 6),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: Text(
-                'Version $kPrivacyPolicyVersion',
+                l10n.privacyVersion(kPrivacyPolicyVersion),
                 style: TextStyle(fontSize: 13, color: t.faint),
               ),
             ),
@@ -71,6 +72,12 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
             ],
+            const SizedBox(height: 8),
+            OutlinedButton.icon(
+              onPressed: () => openExternalPage(context, kPrivacyPolicyUrl),
+              icon: const Icon(Icons.open_in_new),
+              label: Text(l10n.privacyViewOnline),
+            ),
           ],
         ),
       ),

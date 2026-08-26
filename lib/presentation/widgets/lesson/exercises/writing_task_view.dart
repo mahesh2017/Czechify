@@ -37,7 +37,20 @@ class _WritingTaskViewState extends State<WritingTaskView> {
   bool _showKeyVocab = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Listen to the controller rather than only TextField.onChanged so the
+    // word count and CTA also react to CzechCharBar's programmatic edits.
+    _controller.addListener(_draftChanged);
+  }
+
+  void _draftChanged() {
+    if (mounted) setState(() {});
+  }
+
+  @override
   void dispose() {
+    _controller.removeListener(_draftChanged);
     _controller.dispose();
     super.dispose();
   }
@@ -62,6 +75,8 @@ class _WritingTaskViewState extends State<WritingTaskView> {
   String? get _sampleAnswer =>
       widget.exercise.data['sample_answer'] as String? ??
       widget.exercise.data['answer_key'] as String?;
+
+  bool get _hasDraft => _controller.text.trim().isNotEmpty;
 
   void _submit() {
     final text = _controller.text.trim();
@@ -265,7 +280,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          '${_controller.text.trim().isEmpty ? 0 : _controller.text.trim().split(RegExp(r'\s+')).length} words',
+                          '${WritingWordGate.countWords(_controller.text)} words',
                           style: TextStyle(fontSize: 13, color: t.faint),
                         ),
                       ),
@@ -417,7 +432,8 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                   _revisionStage
                       ? l10n.writingSubmitRevision
                       : l10n.writingReviewDraft,
-              onPressed: _revisionStage ? _submit : _reviewDraft,
+              onPressed:
+                  !_hasDraft ? null : (_revisionStage ? _submit : _reviewDraft),
             ),
           ],
         ],

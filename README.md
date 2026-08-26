@@ -2,7 +2,7 @@
 
 AI-powered Czech language learning app targeting CEFR A1 → A2 proficiency and CCE exam preparation.
 
-Built with **Flutter, Clean Architecture, Riverpod, Drift/SQLite**, custom SM-2 spaced repetition, and DeepSeek LLM for AI tutoring.
+Built with **Flutter, Clean Architecture, Riverpod, Drift/SQLite**, custom SM-2 spaced repetition, and an EU-hosted DeepSeek V4 Flash model for AI tutoring.
 
 ## Tech Stack
 
@@ -12,7 +12,7 @@ Built with **Flutter, Clean Architecture, Riverpod, Drift/SQLite**, custom SM-2 
 - **Navigation:** GoRouter with adaptive scaffold (mobile bottom nav / desktop side rail)
 - **Database:** Drift (SQLite) — 12 tables, 4 DAOs
 - **Course source:** Published Supabase JSONB packs → cached local Drift
-- **AI:** Authenticated Supabase Edge Function → DeepSeek JSON completions
+- **AI:** Authenticated Supabase Edge Function → Scaleway Generative APIs (DeepSeek V4 Flash, Paris)
 - **STT:** native `speech_to_text` (on-device, OS-native, `cs_CZ` locale)
 - **TTS:** Azure neural voice packs from Supabase Storage, permanently cached
   for `just_audio`, with native `flutter_tts` fallback
@@ -35,7 +35,8 @@ Built with **Flutter, Clean Architecture, Riverpod, Drift/SQLite**, custom SM-2 
 - Gender badges, IPA, example sentences
 
 ### 🎤 Pronunciation Practice
-- Record and compare with OS-native speech recognition
+- Read aloud and compare the recognised words with the target phrase; this is
+  a transcript check, not acoustic diagnosis of individual Czech sounds
 - Levenshtein-based pronunciation scoring engine
 - Czech phoneme detection (ř, ě, long vowels, palatalized consonants)
 - Per-word score breakdown with color-coded feedback
@@ -53,7 +54,8 @@ Built with **Flutter, Clean Architecture, Riverpod, Drift/SQLite**, custom SM-2 
 - 4 timed sections: Reading, Listening, Writing, Speaking
 - Per-section countdown timer with visual progress bar
 - Listening plays real TTS audio (the sentence is never shown)
-- Speaking is recorded and scored via speech recognition
+- Prompted speaking is transcribed and compared with the target phrase; the
+  result does not replace pronunciation feedback from a teacher
 - AI writing evaluation (grammar, vocabulary, coherence scores)
 - Results persisted to the database; pass at 60% overall
 
@@ -100,16 +102,19 @@ lib/
 |---|---|
 | Dart files | **209 files** |
 | `flutter analyze --fatal-infos` | **clean (0 issues)** |
-| `flutter test` | **489 tests passing** |
+| `flutter test` | **709 tests passing** |
 | CI | GitHub Actions (analyze + test) |
 | Phases 1-4 | **All complete** |
 
 ### Remaining before store release
 
-- Configure Android release signing and build the production App Bundle.
-- Host the privacy policy and public account-deletion page from `docs/site`.
+- Keep the hosted privacy policy and public account-deletion page synchronized
+  with the current in-app policy version.
 - Complete the Play Console Data Safety, content rating, store listing, and
   closed-testing requirements that apply to the developer account.
+- Replace the current email-app AI reply report handoff with an in-app report
+  submission before Play review; Google requires generative-AI reports without
+  making the user leave the app.
 - Keep mock exams labelled as practice/sample content unless the question bank
   and scoring have been independently validated against the relevant official
   exam blueprint.
@@ -145,8 +150,8 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the full 20-section architecture docu
 - Layer architecture & dependency graph
 - 5 domain engines (SM-2, Gamification, Pronunciation, LLM, Curriculum)
 - Drift database schema (12 tables)
-- AI integration (Supabase proxy, DeepSeek, native STT, neural audio packs)
+- AI integration (Supabase proxy, Scaleway-hosted DeepSeek V4 Flash, native STT, neural audio packs)
 - LLM JSON contracts for tutor AI with corrections + vocabulary extraction
 - Audio pipeline & platform configs (mic permissions on Android + iOS)
 - 4-phase roadmap (MVP → Production)
-- Cost estimates (~$3-5/month with DeepSeek API for personal use)
+- Cost controls (server-side per-user and project quotas)

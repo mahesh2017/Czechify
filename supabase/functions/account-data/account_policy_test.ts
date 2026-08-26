@@ -44,6 +44,7 @@ Deno.test("export includes every user-owned cloud table", () => {
     "custom_cards",
     "gamification_state",
     "ai_daily_usage",
+    "curriculum_entitlements",
   ]);
 });
 

@@ -28,6 +28,7 @@ import '../providers/settings_providers.dart';
 import '../providers/daily_arrival_providers.dart';
 import 'app_scaffold.dart';
 import '../../domain/entities/enums.dart';
+import 'app_shell_keys.dart';
 
 /// App router. First launch starts at onboarding; after that, home.
 ///
@@ -44,6 +45,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       .maybeWhen(data: (due) => due, orElse: () => false);
 
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation:
         !onboardingDone ? '/onboarding' : (arrivalDue ? '/arrival' : '/'),
     // Unknown paths and malformed parameters land here instead of crashing.

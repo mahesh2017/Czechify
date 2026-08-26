@@ -4,23 +4,51 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../database/database.dart';
 import '../sync/backend_service.dart';
 import '../sync/sync_service.dart';
+import 'account_identity.dart';
+import 'google_auth_service.dart';
+
+sealed class GoogleAccountResult {
+  const GoogleAccountResult();
+}
+
+class GoogleAccountLinked extends GoogleAccountResult {
+  const GoogleAccountLinked();
+}
+
+class GoogleAccountAlreadyLinked extends GoogleAccountResult {
+  const GoogleAccountAlreadyLinked();
+}
+
+/// A verified Google session that is deliberately unusable outside this
+/// library except by passing it back to [AccountService.completeGoogleSwitch].
+class GoogleAccountNeedsSwitch extends GoogleAccountResult {
+  const GoogleAccountNeedsSwitch(this._session);
+
+  final Session _session;
+  String? get email => _session.user.email;
+}
 
 class AccountService {
   AccountService(
     this._backend,
     this._db,
     this._sync, {
+    GoogleAuthService? googleAuth,
     this.onLocalDataChanged,
-  });
+    this.onAccountChanged,
+  }) : _googleAuth = googleAuth ?? NativeGoogleAuthService();
 
   final BackendService _backend;
   final AppDatabase _db;
   final SyncService _sync;
+  final GoogleAuthService _googleAuth;
   final void Function()? onLocalDataChanged;
+  final void Function()? onAccountChanged;
 
   Future<void> linkEmail(String email) => _backend.requestEmailLink(email);
 
@@ -32,6 +60,33 @@ class AccountService {
   Future<void> sendPasswordRecovery(String email) =>
       _backend.sendPasswordRecovery(email);
 
+  /// Links Google in place for a new learner. If Google already belongs to a
+  /// different Supabase user, returns a verified pending switch so the UI can
+  /// request explicit permission before local learner data is replaced.
+  Future<GoogleAccountResult> startGoogleSignIn() async {
+    if (_backend.hasGoogleIdentity) {
+      return const GoogleAccountAlreadyLinked();
+    }
+    final tokens = await _googleAuth.authenticate();
+    try {
+      await _backend.linkGoogleIdentity(tokens);
+      onAccountChanged?.call();
+      return const GoogleAccountLinked();
+    } on AuthException catch (error) {
+      if (error.code != 'identity_already_exists') rethrow;
+      if (!_backend.isAnonymous) {
+        throw const AuthException(
+          'That Google account is already connected to another Czechify account.',
+        );
+      }
+      final session = await _backend.authenticateGoogle(tokens);
+      return GoogleAccountNeedsSwitch(session);
+    }
+  }
+
+  Future<void> completeGoogleSwitch(GoogleAccountNeedsSwitch pending) =>
+      _switchToSession(pending._session);
+
   Future<void> switchToExistingAccount({
     required String email,
     required String password,
@@ -40,6 +95,10 @@ class AccountService {
       email: email,
       password: password,
     );
+    await _switchToSession(session);
+  }
+
+  Future<void> _switchToSession(Session session) async {
     final previousSession = _backend.currentSession;
     var targetCommitted = false;
     await _sync.beginAccountTransition();
@@ -56,6 +115,7 @@ class AccountService {
       targetCommitted = true;
       await _clearAccountScopedArtifacts();
       onLocalDataChanged?.call();
+      onAccountChanged?.call();
     } catch (_) {
       // Once the target database commit succeeds, restoring the old session
       // would expose target data under the wrong identity.
@@ -69,6 +129,9 @@ class AccountService {
       _sync.endAccountTransition();
     }
   }
+
+  bool get hasGoogleIdentity =>
+      userHasIdentityProvider(_backend.currentUser, 'google');
 
   Future<File> createExportFile() async {
     final local = await _db.exportLearnerData();
@@ -113,6 +176,10 @@ class AccountService {
   /// anonymous accounts, which have no credential to re-enter.
   Future<void> deleteAccountAndLocalData({String? password}) async {
     if (_backend.isSignedIn) {
+      if (_backend.hasGoogleIdentity) {
+        final tokens = await _googleAuth.authenticate();
+        await _backend.reauthenticateGoogle(tokens);
+      }
       await _backend.deleteCloudAccount(password: password);
     }
     await _db.clearLearnerData();
