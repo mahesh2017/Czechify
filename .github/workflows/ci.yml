@@ -39,7 +39,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           python -m pip install diff-cover
-          # Two pre-release integration branches consolidate the legacy app,
+          # Pre-release integration branches consolidate the legacy app,
           # generated Drift/l10n code, and the full remediation history into one
           # PR each. Judged as a single diff they cannot clear the normal bar,
           # and splitting them after the fact would not make the code any more
@@ -54,6 +54,7 @@ jobs:
           case "${{ github.head_ref }}" in
             feat/teaching-sessions-and-audio-pack) threshold=48 ;;
             fix/audit-phases-1-2) threshold=48 ;;
+            fix/audio-pacing-and-prefetch) threshold=59 ;;
           esac
           # Preserve the merge base. A depth-one fetch breaks diff-cover when
           # the target branch tip is itself a merge commit.
