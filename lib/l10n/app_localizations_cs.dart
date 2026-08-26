@@ -624,6 +624,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get updateAvailableTitle => 'Je k dispozici aktualizace Czechify';
 
   @override
+  String get updateBadgeLabel => 'NOVÁ VERZE';
+
+  @override
   String get updateAvailableBody =>
       'Získejte nejnovější vylepšení a opravy. Během stahování se můžete dál učit.';
 

@@ -13,6 +13,26 @@ final appUpdateManagerProvider = Provider<AppUpdateManager>((ref) {
   return AppUpdateManager(ref.read(appUpdateServiceProvider));
 });
 
+final appUpdateAvailableProvider =
+    NotifierProvider<AppUpdateAvailabilityNotifier, bool>(
+      AppUpdateAvailabilityNotifier.new,
+    );
+
+class AppUpdateAvailabilityNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+
+  void record(AppUpdateCheck check) {
+    state = switch (check.availability) {
+      AppUpdateAvailability.available ||
+      AppUpdateAvailability.availableInPlayStoreOnly ||
+      AppUpdateAvailability.readyToInstall => true,
+      AppUpdateAvailability.unsupported ||
+      AppUpdateAvailability.upToDate => false,
+    };
+  }
+}
+
 /// Coordinates Play calls shared by the automatic prompt and About screen.
 ///
 /// Play Core permits only one update flow at a time. The manager deduplicates

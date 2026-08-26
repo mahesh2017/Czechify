@@ -1202,6 +1202,12 @@ abstract class AppLocalizations {
   /// **'A Czechify update is available'**
   String get updateAvailableTitle;
 
+  /// No description provided for @updateBadgeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'UPDATE'**
+  String get updateBadgeLabel;
+
   /// No description provided for @updateAvailableBody.
   ///
   /// In en, this message translates to:

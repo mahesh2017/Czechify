@@ -91,6 +91,7 @@ Future<void> showAppUpdateFlow({
 
   try {
     final check = await manager.checkForUpdate();
+    ref.read(appUpdateAvailableProvider.notifier).record(check);
     if (automatic && !await manager.shouldOfferAutomatically(check)) return;
     final context = rootNavigatorKey.currentContext;
     if (context == null || !context.mounted) return;
@@ -150,10 +151,11 @@ Future<void> _offerFlexibleUpdate(
           ],
         ),
   );
-  if (accepted != true) {
+  if (accepted == false) {
     await manager.rememberDismissal(check.availableVersionCode);
     return;
   }
+  if (accepted == null) return;
 
   final messenger = rootScaffoldMessengerKey.currentState;
   if (messenger == null) return;
@@ -213,7 +215,7 @@ Future<void> _offerPlayStoreUpdate(
   if (!context.mounted) return;
   if (openStore == true) {
     await openExternalPage(context, kGooglePlayStoreUrl);
-  } else if (automatic) {
+  } else if (openStore == false && automatic) {
     await manager.rememberDismissal(check.availableVersionCode);
   }
 }

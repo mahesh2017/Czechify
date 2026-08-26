@@ -76,6 +76,26 @@ void main() {
     expect(prefs.getInt('update_dismissed_version_code'), 8);
   });
 
+  testWidgets('backing out does not snooze the update', (tester) async {
+    final service = _FakeUpdateService(
+      const AppUpdateCheck(
+        AppUpdateAvailability.available,
+        availableVersionCode: 8,
+      ),
+    );
+    await tester.pumpWidget(_app(service, automatic: true));
+
+    await tester.tap(find.text('Check'));
+    await tester.pumpAndSettle();
+    expect(find.text('Persistent update indicator'), findsOneWidget);
+
+    await tester.tapAt(const Offset(5, 5));
+    await tester.pumpAndSettle();
+
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getInt('update_dismissed_version_code'), isNull);
+  });
+
   testWidgets('coordinator above a router can show the automatic prompt', (
     tester,
   ) async {
@@ -179,12 +199,23 @@ class _UpdateTestScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final updateAvailable = ref.watch(appUpdateAvailableProvider);
     return Scaffold(
-      body: Center(
-        child: FilledButton(
-          onPressed: () => showAppUpdateFlow(ref: ref, automatic: automatic),
-          child: const Text('Check'),
-        ),
+      body: Column(
+        children: [
+          Text(
+            updateAvailable
+                ? 'Persistent update indicator'
+                : 'No update indicator',
+          ),
+          Center(
+            child: FilledButton(
+              onPressed:
+                  () => showAppUpdateFlow(ref: ref, automatic: automatic),
+              child: const Text('Check'),
+            ),
+          ),
+        ],
       ),
     );
   }

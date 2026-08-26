@@ -205,6 +205,7 @@
   "updateCheckTitle": "Zkontrolovat aktualizace",
   "updateCheckBody": "Získejte nejnovější verzi Czechify z Google Play",
   "updateAvailableTitle": "Je k dispozici aktualizace Czechify",
+  "updateBadgeLabel": "NOVÁ VERZE",
   "updateAvailableBody": "Získejte nejnovější vylepšení a opravy. Během stahování se můžete dál učit.",
   "updateNotNow": "Teď ne",
   "updateNow": "Aktualizovat",

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
+import '../../providers/app_update_providers.dart';
 import '../../providers/review_providers.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/tts_providers.dart';
@@ -34,6 +35,7 @@ class HomeScreen extends ConsumerWidget {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final g = ref.watch(gamificationProvider);
+    final updateAvailable = ref.watch(appUpdateAvailableProvider);
     final settings = ref.watch(settingsProvider);
     final dueCount = ref.watch(dueCardCountProvider).value ?? 0;
     final hour = DateTime.now().hour;
@@ -183,33 +185,71 @@ class HomeScreen extends ConsumerWidget {
                             const SizedBox(width: 8),
                             Semantics(
                               button: true,
-                              label: AppLocalizations.of(context).a11ySettings,
+                              label:
+                                  updateAvailable
+                                      ? '${l10n.a11ySettings}. ${l10n.updateAvailableTitle}'
+                                      : l10n.a11ySettings,
                               child: InkWell(
                                 onTap: () => context.push('/settings'),
                                 borderRadius: BorderRadius.circular(999),
-                                child: Container(
-                                  width: 44,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color: t.priSoft,
-                                    border: Border.all(
-                                      color: t.pri.withValues(alpha: .38),
-                                      width: 1.5,
-                                    ),
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: t.pri.withValues(alpha: .15),
-                                        blurRadius: 12,
-                                        offset: const Offset(0, 4),
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
+                                      width: 44,
+                                      height: 44,
+                                      decoration: BoxDecoration(
+                                        color: t.priSoft,
+                                        border: Border.all(
+                                          color: t.pri.withValues(alpha: .38),
+                                          width: 1.5,
+                                        ),
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: t.pri.withValues(alpha: .15),
+                                            blurRadius: 12,
+                                            offset: const Offset(0, 4),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  child: Icon(
-                                    Icons.settings_rounded,
-                                    size: 22,
-                                    color: t.pri,
-                                  ),
+                                      child: Icon(
+                                        Icons.settings_rounded,
+                                        size: 22,
+                                        color: t.pri,
+                                      ),
+                                    ),
+                                    if (updateAvailable)
+                                      Positioned(
+                                        top: -9,
+                                        right: -8,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 6,
+                                            vertical: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: t.red,
+                                            borderRadius: BorderRadius.circular(
+                                              999,
+                                            ),
+                                            border: Border.all(
+                                              color: t.bg,
+                                              width: 2,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            l10n.updateBadgeLabel,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.w900,
+                                              letterSpacing: .35,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
                             ),
