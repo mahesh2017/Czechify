@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:ceskina_pro/domain/entities/chat_message.dart';
-import 'package:ceskina_pro/domain/repositories/conversation_repository.dart';
-import 'package:ceskina_pro/domain/repositories/llm_service.dart';
-import 'package:ceskina_pro/presentation/providers/chat_providers.dart';
-import 'package:ceskina_pro/presentation/providers/database_providers.dart';
-import 'package:ceskina_pro/presentation/providers/llm_providers.dart';
+import 'package:czechify/domain/entities/chat_message.dart';
+import 'package:czechify/domain/repositories/conversation_repository.dart';
+import 'package:czechify/domain/repositories/llm_service.dart';
+import 'package:czechify/presentation/providers/chat_providers.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:czechify/presentation/providers/llm_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 

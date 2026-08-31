@@ -1,5 +1,5 @@
-import 'package:ceskina_pro/domain/entities/pronunciation_result.dart';
-import 'package:ceskina_pro/presentation/providers/pronunciation_providers.dart';
+import 'package:czechify/domain/entities/pronunciation_result.dart';
+import 'package:czechify/presentation/providers/pronunciation_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 

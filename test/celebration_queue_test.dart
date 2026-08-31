@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/core/feedback/celebration.dart';
-import 'package:ceskina_pro/core/feedback/sfx.dart';
-import 'package:ceskina_pro/presentation/providers/feedback_providers.dart';
+import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/core/feedback/sfx.dart';
+import 'package:czechify/presentation/providers/feedback_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';

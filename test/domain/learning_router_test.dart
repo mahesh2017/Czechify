@@ -1,5 +1,5 @@
-import 'package:ceskina_pro/domain/engines/learning_router.dart';
-import 'package:ceskina_pro/domain/entities/learning_evidence.dart';
+import 'package:czechify/domain/engines/learning_router.dart';
+import 'package:czechify/domain/entities/learning_evidence.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

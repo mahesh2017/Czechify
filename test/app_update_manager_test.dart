@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:ceskina_pro/core/updates/app_update_service.dart';
-import 'package:ceskina_pro/presentation/providers/app_update_providers.dart';
+import 'package:czechify/core/updates/app_update_service.dart';
+import 'package:czechify/presentation/providers/app_update_providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

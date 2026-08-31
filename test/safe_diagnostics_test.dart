@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/core/diagnostics/safe_diagnostics.dart';
+import 'package:czechify/core/diagnostics/safe_diagnostics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 

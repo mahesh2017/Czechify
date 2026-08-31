@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/domain/engines/curriculum_tracker.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
+import 'package:czechify/domain/engines/curriculum_tracker.dart';
+import 'package:czechify/domain/entities/enums.dart';
 
 void main() {
   group('CurriculumProgressTracker.phaseCompletion', () {

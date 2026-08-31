@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/core/config/release_config.dart';
+import 'package:czechify/core/config/release_config.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

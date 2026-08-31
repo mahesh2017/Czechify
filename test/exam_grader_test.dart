@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/domain/engines/exam_grader.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/repositories/exam_repository.dart';
+import 'package:czechify/domain/engines/exam_grader.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/repositories/exam_repository.dart';
 
 MockExam _cceFormatExam() {
   return const MockExam(

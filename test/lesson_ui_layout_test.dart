@@ -1,5 +1,5 @@
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

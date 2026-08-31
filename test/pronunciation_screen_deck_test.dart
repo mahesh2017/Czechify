@@ -3,10 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/l10n/app_localizations.dart';
-import 'package:ceskina_pro/presentation/providers/pronunciation_providers.dart';
-import 'package:ceskina_pro/presentation/screens/pronunciation/pronunciation_screen.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/l10n/app_localizations.dart';
+import 'package:czechify/presentation/providers/pronunciation_providers.dart';
+import 'package:czechify/presentation/screens/pronunciation/pronunciation_screen.dart';
 
 /// The Pronunciation Lab must practice real deck content, not a hardcoded
 /// phrase (previously `/pronunciation/:id` ignored its content entirely).

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/data/database/database.dart';
+import 'package:czechify/data/database/database.dart';
 import 'package:sqlite3/sqlite3.dart' as sqlite;
 
 /// Opens the real [AppDatabase] one schema version ahead, so `onUpgrade` runs
@@ -40,6 +40,8 @@ void main() {
       'content_release_installations',
       'learning_evidence_events',
       'placement_profiles',
+      'learner_profiles',
+      'reminder_preferences',
       'delayed_transfer_assignments',
       'consent_records',
       'units',
@@ -112,12 +114,13 @@ void main() {
     legacy.close();
 
     final db = AppDatabase.forTesting(NativeDatabase(file));
-    final rows = await db
-        .customSelect(
-          'SELECT title, description, can_do, new_language_json, '
-          'recycles_json, exit_task FROM lessons WHERE id = 101',
-        )
-        .get();
+    final rows =
+        await db
+            .customSelect(
+              'SELECT title, description, can_do, new_language_json, '
+              'recycles_json, exit_task FROM lessons WHERE id = 101',
+            )
+            .get();
 
     expect(rows.single.read<String>('title'), 'Legacy lesson');
     expect(rows.single.read<String>('description'), 'Keep me');
@@ -125,6 +128,8 @@ void main() {
     expect(rows.single.read<String>('new_language_json'), '[]');
     expect(rows.single.read<String>('recycles_json'), '[]');
     expect(rows.single.read<String>('exit_task'), '');
+    await db.customSelect('SELECT key FROM learner_profiles LIMIT 1').get();
+    await db.customSelect('SELECT key FROM reminder_preferences LIMIT 1').get();
 
     await db.close();
     await directory.delete(recursive: true);
@@ -150,12 +155,13 @@ void main() {
     final upgraded = _NextVersionDatabase(NativeDatabase(file));
     await upgraded.customSelect('SELECT 1').get();
 
-    final indexes = await upgraded
-        .customSelect(
-          "SELECT name FROM sqlite_master WHERE type = 'index' AND "
-          "(name LIKE 'srs_cards_%' OR name LIKE 'content_release_single%')",
-        )
-        .get();
+    final indexes =
+        await upgraded
+            .customSelect(
+              "SELECT name FROM sqlite_master WHERE type = 'index' AND "
+              "(name LIKE 'srs_cards_%' OR name LIKE 'content_release_single%')",
+            )
+            .get();
     expect(
       indexes.map((row) => row.read<String>('name')),
       containsAll(<String>[
@@ -171,9 +177,7 @@ void main() {
   });
 
   test('upgrade collapses duplicates the missing indexes allowed', () async {
-    final directory = await Directory.systemTemp.createTemp(
-      'czechify-dedupe-',
-    );
+    final directory = await Directory.systemTemp.createTemp('czechify-dedupe-');
     final file = File('${directory.path}/db.sqlite');
 
     final created = AppDatabase.forTesting(NativeDatabase(file));
@@ -200,9 +204,8 @@ void main() {
 
     final upgraded = _NextVersionDatabase(NativeDatabase(file));
 
-    final cards = await upgraded
-        .customSelect('SELECT id, reps FROM srs_cards')
-        .get();
+    final cards =
+        await upgraded.customSelect('SELECT id, reps FROM srs_cards').get();
     expect(cards, hasLength(1));
     expect(
       cards.single.read<int>('reps'),
@@ -210,12 +213,13 @@ void main() {
       reason: 'the more-reviewed duplicate is the one a learner would miss',
     );
 
-    final active = await upgraded
-        .customSelect(
-          'SELECT release_id FROM content_release_installations '
-          'WHERE is_active = 1',
-        )
-        .get();
+    final active =
+        await upgraded
+            .customSelect(
+              'SELECT release_id FROM content_release_installations '
+              'WHERE is_active = 1',
+            )
+            .get();
     expect(active, hasLength(1));
     expect(active.single.read<String>('release_id'), 'new');
 

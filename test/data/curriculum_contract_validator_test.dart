@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ceskina_pro/data/content/curriculum_contract_validator.dart';
+import 'package:czechify/data/content/curriculum_contract_validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

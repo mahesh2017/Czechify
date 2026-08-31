@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/core/notifications/notification_messages.dart';
+import 'package:czechify/core/notifications/notification_messages.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

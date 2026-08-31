@@ -19,6 +19,7 @@ import 'presentation/providers/feedback_providers.dart';
 import 'presentation/providers/settings_providers.dart';
 import 'presentation/providers/sync_providers.dart';
 import 'presentation/providers/reminder_coordinator.dart';
+import 'presentation/providers/learner_profile_providers.dart';
 import 'presentation/widgets/celebration/celebration_host.dart';
 import 'presentation/widgets/common/app_update_coordinator.dart';
 import 'presentation/screens/onboarding/loading_screen.dart';
@@ -149,6 +150,9 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp>
     // local course is ready. Its failure must not replace the usable app UI.
     ref.watch(backgroundInitializationProvider);
     ref.watch(syncTriggerCoordinatorProvider);
+    // Backfill account-scoped profile data from legacy local preferences. It
+    // is deliberately background work and never delays a usable first frame.
+    ref.watch(learnerProfileBootstrapProvider);
     // Keep the reminder coordinator alive so it can react to settings
     // changes, XP transitions, and app lifecycle events.
     ref.watch(reminderCoordinatorProvider);

@@ -102,19 +102,22 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   Future<void> savePlacement(
     PlacementResult result, {
     int? learnerOverrideUnit,
-  }) => into(placementProfiles).insertOnConflictUpdate(
-    PlacementProfilesCompanion.insert(
-      key: const Value('primary'),
-      provisionalUnit: result.provisionalUnit,
-      learnerOverrideUnit: Value(learnerOverrideUnit),
-      estimatesJson: jsonEncode({
-        for (final entry in result.estimates.entries)
-          entry.key.name: entry.value,
-      }),
-      sampleSize: result.sampleSize,
-      updatedAt: DateTime.now(),
-    ),
-  );
+  }) => attachedDatabase.transaction(() async {
+    await into(placementProfiles).insertOnConflictUpdate(
+      PlacementProfilesCompanion.insert(
+        key: const Value('primary'),
+        provisionalUnit: result.provisionalUnit,
+        learnerOverrideUnit: Value(learnerOverrideUnit),
+        estimatesJson: jsonEncode({
+          for (final entry in result.estimates.entries)
+            entry.key.name: entry.value,
+        }),
+        sampleSize: result.sampleSize,
+        updatedAt: DateTime.now(),
+      ),
+    );
+    await _enqueuePlacement();
+  });
 
   /// Move the unlock ceiling without touching anything else in the profile.
   ///
@@ -125,26 +128,105 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   ///
   /// Inserts a profile when none exists yet, which is the case for anyone who
   /// onboarded as a beginner.
-  Future<void> setProvisionalUnit(int unitId) async {
+  Future<void> setProvisionalUnit(int unitId) =>
+      attachedDatabase.transaction(() async {
+        final existing = await select(placementProfiles).getSingleOrNull();
+        if (existing == null) {
+          await into(placementProfiles).insert(
+            PlacementProfilesCompanion.insert(
+              key: const Value('primary'),
+              provisionalUnit: unitId,
+              estimatesJson: jsonEncode(const <String, double>{}),
+              sampleSize: 0,
+              updatedAt: DateTime.now(),
+            ),
+          );
+        } else if (unitId > existing.provisionalUnit) {
+          await (update(placementProfiles)
+            ..where((row) => row.key.equals(existing.key))).write(
+            PlacementProfilesCompanion(
+              provisionalUnit: Value(unitId),
+              updatedAt: Value(DateTime.now()),
+            ),
+          );
+        } else {
+          return;
+        }
+        await _enqueuePlacement();
+      });
+
+  /// Merge placement evidence without allowing an older device to reduce the
+  /// learner's already-reached curriculum ceiling.
+  Future<void> mergeRemotePlacement({
+    required int provisionalUnit,
+    int? learnerOverrideUnit,
+    required String estimatesJson,
+    required int sampleSize,
+    required DateTime updatedAt,
+  }) async {
     final existing = await select(placementProfiles).getSingleOrNull();
     if (existing == null) {
       await into(placementProfiles).insert(
         PlacementProfilesCompanion.insert(
           key: const Value('primary'),
-          provisionalUnit: unitId,
-          estimatesJson: jsonEncode(const <String, double>{}),
-          sampleSize: 0,
-          updatedAt: DateTime.now(),
+          provisionalUnit: provisionalUnit,
+          learnerOverrideUnit: Value(learnerOverrideUnit),
+          estimatesJson: estimatesJson,
+          sampleSize: sampleSize,
+          updatedAt: updatedAt,
         ),
       );
       return;
     }
+    final remoteIsNewer = !existing.updatedAt.isAfter(updatedAt);
+    final mergedOverride = switch ((
+      existing.learnerOverrideUnit,
+      learnerOverrideUnit,
+    )) {
+      (final int local, final int remote) => local > remote ? local : remote,
+      (final int local, null) => local,
+      (null, final int remote) => remote,
+      _ => null,
+    };
     await (update(placementProfiles)
       ..where((row) => row.key.equals(existing.key))).write(
       PlacementProfilesCompanion(
-        provisionalUnit: Value(unitId),
-        updatedAt: Value(DateTime.now()),
+        provisionalUnit: Value(
+          existing.provisionalUnit > provisionalUnit
+              ? existing.provisionalUnit
+              : provisionalUnit,
+        ),
+        learnerOverrideUnit: Value(mergedOverride),
+        estimatesJson: Value(
+          remoteIsNewer ? estimatesJson : existing.estimatesJson,
+        ),
+        sampleSize: Value(
+          existing.sampleSize > sampleSize ? existing.sampleSize : sampleSize,
+        ),
+        updatedAt: Value(remoteIsNewer ? updatedAt : existing.updatedAt),
       ),
+    );
+  }
+
+  Future<void> _enqueuePlacement() async {
+    final row = await select(placementProfiles).getSingleOrNull();
+    if (row == null) return;
+    Object estimates;
+    try {
+      estimates = jsonDecode(row.estimatesJson);
+    } catch (_) {
+      estimates = const <String, double>{};
+    }
+    await attachedDatabase.syncDao.enqueue(
+      entity: 'placement_profiles',
+      entityKey: row.key,
+      payload: {
+        'key': row.key,
+        'provisional_unit': row.provisionalUnit,
+        'learner_override_unit': row.learnerOverrideUnit,
+        'estimates': estimates,
+        'sample_size': row.sampleSize,
+      },
     );
   }
 
@@ -234,6 +316,7 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
         updatedAt: Value(evidence.observedAt),
       ),
     );
+    await _enqueuePlacement();
   }
 
   // ── Lesson Progress ──

@@ -206,6 +206,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLearningGroup => 'Learning';
 
   @override
+  String get settingsLearningPlan => 'Learning plan';
+
+  @override
+  String get settingsLearningPlanBody =>
+      'Goal, focus, study rhythm and reminders';
+
+  @override
+  String get settingsLearningPlanMissing =>
+      'Personalize this account’s learning plan';
+
+  @override
   String get settingsCourseLevel => 'Course level';
 
   @override
@@ -1731,6 +1742,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeCopybookCta => 'Open today’s copybook';
 
   @override
+  String get homePersonalizePlan => 'Personalize your learning plan';
+
+  @override
+  String get homePersonalizePlanBody =>
+      'Tell Czechify your goal and available time to get a more useful plan.';
+
+  @override
   String homeXpRemaining(int xp) {
     return '$xp XP to your daily rhythm.';
   }
@@ -1774,7 +1792,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingNameBody =>
-      'Optional. Used to greet you in Czech, and it never leaves your device.';
+      'Optional. Used to greet you and synced with your Czechify account so it can be restored on another device.';
 
   @override
   String get onboardingFirstName => 'FIRST NAME';
@@ -1856,6 +1874,242 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSoundsOfCzech => 'The sounds of Czech';
+
+  @override
+  String get onboardingProfileTitle => 'Tell us where you’re starting';
+
+  @override
+  String get onboardingProfileBody =>
+      'Your name is optional. Your current level helps us choose a useful first lesson.';
+
+  @override
+  String get onboardingLevelPrompt => 'How much Czech do you know now?';
+
+  @override
+  String get onboardingB1Plus => 'B1 or higher';
+
+  @override
+  String get onboardingB1PlusBody => 'I can handle many everyday conversations';
+
+  @override
+  String get onboardingLevelUnsure => 'I’m not sure';
+
+  @override
+  String get onboardingLevelUnsureBody =>
+      'Start gently or use the placement check';
+
+  @override
+  String get onboardingPurposeTitle => 'What brings you to Czech?';
+
+  @override
+  String get onboardingPurposeBody =>
+      'Choose your main goal. You can change it later as life changes.';
+
+  @override
+  String get onboardingGoalEverydayTitle => 'Everyday life in Czechia';
+
+  @override
+  String get onboardingGoalEverydayBody =>
+      'Feel confident in shops, healthcare, housing and public offices';
+
+  @override
+  String get onboardingGoalPermanentResidenceTitle =>
+      'Permanent residence — A2';
+
+  @override
+  String get onboardingGoalPermanentResidenceBody =>
+      'Build toward the official Czech A2 language exam';
+
+  @override
+  String get onboardingGoalCitizenshipTitle => 'Foundation toward citizenship';
+
+  @override
+  String get onboardingGoalCitizenshipBody =>
+      'Build Czech toward B1 and learn the vocabulary around Czech life';
+
+  @override
+  String get onboardingGoalWorkTitle => 'Work and career';
+
+  @override
+  String get onboardingGoalWorkBody =>
+      'Communicate with colleagues, customers and employers';
+
+  @override
+  String get onboardingGoalStudyTitle => 'Study';
+
+  @override
+  String get onboardingGoalStudyBody =>
+      'Follow classes, read confidently and write more clearly';
+
+  @override
+  String get onboardingGoalRelationshipsTitle => 'Family and relationships';
+
+  @override
+  String get onboardingGoalRelationshipsBody =>
+      'Join conversations with family, friends and your community';
+
+  @override
+  String get onboardingGoalTravelTitle => 'Travel, culture and interest';
+
+  @override
+  String get onboardingGoalTravelBody =>
+      'Enjoy Czech places, people and culture in their language';
+
+  @override
+  String get onboardingFocusTitle => 'Shape your first plan';
+
+  @override
+  String get onboardingFocusBody =>
+      'Choose the skills you want Czechify to emphasize first.';
+
+  @override
+  String get onboardingPermanentResidenceDisclosure =>
+      'The current permanent-residence language exam is A2. Czechify can help you practise, but official eligibility and exemptions come from Czech authorities.';
+
+  @override
+  String get onboardingCitizenshipDisclosure =>
+      'Czechify currently teaches through A2. This creates a foundation toward the B1 language and Czech Life and Institutions exams; it is not yet full citizenship-exam preparation.';
+
+  @override
+  String get onboardingHorizonTitle => 'When would you like to be ready?';
+
+  @override
+  String get onboardingHorizonWithinThree => 'Within 3 months';
+
+  @override
+  String get onboardingHorizonWithinThreeBody =>
+      'A short, focused preparation window';
+
+  @override
+  String get onboardingHorizonThreeToSix => 'In 3–6 months';
+
+  @override
+  String get onboardingHorizonThreeToSixBody =>
+      'Steady preparation with regular review';
+
+  @override
+  String get onboardingHorizonSixToTwelve => 'In 6–12 months';
+
+  @override
+  String get onboardingHorizonSixToTwelveBody =>
+      'Build the foundation carefully over time';
+
+  @override
+  String get onboardingHorizonLater => 'Later or not sure';
+
+  @override
+  String get onboardingHorizonLaterBody =>
+      'Learn consistently without a fixed deadline';
+
+  @override
+  String get onboardingFocusPrompt => 'What should we emphasize?';
+
+  @override
+  String get onboardingFocusSpeaking => 'Speaking';
+
+  @override
+  String get onboardingFocusSpeakingBody =>
+      'Respond naturally in real conversations';
+
+  @override
+  String get onboardingFocusListening => 'Listening';
+
+  @override
+  String get onboardingFocusListeningBody =>
+      'Understand Czech at a comfortable native pace';
+
+  @override
+  String get onboardingFocusReading => 'Reading';
+
+  @override
+  String get onboardingFocusReadingBody =>
+      'Read signs, messages, forms and useful texts';
+
+  @override
+  String get onboardingFocusWriting => 'Writing';
+
+  @override
+  String get onboardingFocusWritingBody =>
+      'Write clear answers, messages and short texts';
+
+  @override
+  String get onboardingFocusVocabularyGrammar => 'Vocabulary and grammar';
+
+  @override
+  String get onboardingFocusVocabularyGrammarBody =>
+      'Build reliable words and sentence patterns';
+
+  @override
+  String get onboardingFocusLifeInstitutions => 'Czech life and institutions';
+
+  @override
+  String get onboardingFocusLifeInstitutionsBody =>
+      'Learn key civic topics and related vocabulary';
+
+  @override
+  String get onboardingCommitmentTitle => 'Choose a rhythm you can keep';
+
+  @override
+  String get onboardingCommitmentBody =>
+      'A realistic routine beats an ambitious plan that disappears after a week.';
+
+  @override
+  String get onboardingCommitmentLight => 'Light';
+
+  @override
+  String get onboardingCommitmentSteady => 'Steady';
+
+  @override
+  String get onboardingCommitmentFocused => 'Focused';
+
+  @override
+  String get onboardingCommitmentIntensive => 'Intensive';
+
+  @override
+  String onboardingCommitmentSchedule(int minutes, int days) {
+    return '$minutes minutes, $days days a week';
+  }
+
+  @override
+  String get onboardingTeacherChoiceTitle => 'Choose a Czech teacher voice';
+
+  @override
+  String get onboardingTeacherChoiceBody =>
+      'Tap either teacher to hear a sample. You can switch later.';
+
+  @override
+  String get onboardingPrimaryGoal => 'Primary goal';
+
+  @override
+  String get onboardingFocusSummary => 'Focus';
+
+  @override
+  String get onboardingTargetSummary => 'Target window';
+
+  @override
+  String get onboardingStudyPlanSummary => 'Study rhythm';
+
+  @override
+  String get onboardingPlanPermanentResidenceBody =>
+      'We’ll build from your current level toward practical A2 skills, with extra attention to your chosen focus areas.';
+
+  @override
+  String get onboardingPlanCitizenshipBody =>
+      'We’ll strengthen your Czech foundation through A2 and clearly mark where full B1 and civic-exam preparation goes beyond the current course.';
+
+  @override
+  String get accountRestoreReminderTitle => 'Use your saved reminder?';
+
+  @override
+  String accountRestoreReminderBody(String time) {
+    return 'This account used a $time study reminder on another device. Enable it on this device too?';
+  }
+
+  @override
+  String get accountRestoreReminderLater => 'Not now';
+
+  @override
+  String get accountRestoreReminderEnable => 'Enable reminder';
 
   @override
   String get scenarioCasual => 'Casual Chat';

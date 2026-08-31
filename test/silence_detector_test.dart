@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/domain/engines/silence_detector.dart';
+import 'package:czechify/domain/engines/silence_detector.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

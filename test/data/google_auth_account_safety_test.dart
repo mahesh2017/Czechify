@@ -41,11 +41,14 @@ void main() {
       final source = account.readAsStringSync();
       final completion = _method(
         source,
-        'Future<void> completeGoogleSwitch',
+        'Future<AccountRestoreSummary> completeGoogleSwitch',
         expressionBody: true,
       );
       expect(completion, contains('_switchToSession(pending._session)'));
-      final transition = _method(source, 'Future<void> _switchToSession');
+      final transition = _method(
+        source,
+        'Future<AccountRestoreSummary> _switchToSession',
+      );
       expect(transition, contains('beginAccountTransition()'));
       expect(transition, contains('downloadAccountSnapshot()'));
       expect(transition, contains('clearLearnerDataRows'));

@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/domain/engines/daily_arrival_engine.dart';
+import 'package:czechify/domain/engines/daily_arrival_engine.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

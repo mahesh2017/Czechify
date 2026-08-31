@@ -16,7 +16,7 @@
 // weights can be judged against output a learner would actually see, rather
 // than against unit-test assertions alone.
 
-import 'package:ceskina_pro/domain/engines/phoneme_scorer.dart';
+import 'package:czechify/domain/engines/phoneme_scorer.dart';
 
 void main() {
   final scorer = PhonemeScorer();

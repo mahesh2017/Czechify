@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../data/sync/backend_service.dart';
+import '../../data/account/account_restore_materializer.dart';
 import '../../data/sync/device_id.dart';
 import '../../data/sync/sync_service.dart';
 import '../coordinators/sync_trigger_coordinator.dart';
 import 'database_providers.dart';
+import 'settings_providers.dart';
 
 /// Secure storage instance (shared).
 final _secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
@@ -31,12 +33,17 @@ final syncDaoProvider = Provider((ref) {
 
 /// Drains the local outbox to the backend.
 final syncServiceProvider = Provider<SyncService>((ref) {
+  final database = ref.watch(databaseProvider);
   return SyncService(
-    db: ref.watch(databaseProvider),
+    db: database,
     backend: SupabaseSyncBackend(
       backend: ref.watch(backendServiceProvider),
       deviceId: ref.watch(deviceIdProvider),
     ),
+    onPortablePreferencesChanged: () async {
+      await AccountRestoreMaterializer(database).hydratePortablePreferences();
+      ref.invalidate(settingsProvider);
+    },
   );
 });
 

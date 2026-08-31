@@ -14,7 +14,9 @@ import '../../providers/database_providers.dart';
 import '../../providers/tts_providers.dart';
 
 class PlacementScreen extends ConsumerStatefulWidget {
-  const PlacementScreen({super.key});
+  const PlacementScreen({super.key, this.returnToOnboarding = false});
+
+  final bool returnToOnboarding;
 
   @override
   ConsumerState<PlacementScreen> createState() => _PlacementScreenState();
@@ -133,10 +135,9 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
   Future<void> _submit() async {
     final task = _task;
     if (task == null) return;
-    final correct =
-        task.accepted.isNotEmpty
-            ? task.accepted.contains(_normalize(_answerController.text))
-            : _selected == task.correctIndex;
+    final correct = task.accepted.isNotEmpty
+        ? task.accepted.contains(_normalize(_answerController.text))
+        : _selected == task.correctIndex;
     _observations.add(
       DiagnosticObservation(
         item: task.item,
@@ -166,7 +167,12 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
     ref.invalidate(placementProfileProvider);
     ref.invalidate(curriculumAccessProvider);
     ref.invalidate(nextLessonProvider);
-    if (mounted) setState(() => _saving = false);
+    if (mounted) {
+      setState(() {
+        _result = result;
+        _saving = false;
+      });
+    }
   }
 
   @override
@@ -223,33 +229,39 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                 decoration: InputDecoration(
                   labelText: l10n.placementChooseUnit,
                 ),
-                items:
-                    const [1, 6, 12, 18, 24]
-                        .map(
-                          (unit) => DropdownMenuItem(
-                            value: unit,
-                            child: Text('Unit $unit'),
+                items: const [1, 6, 12, 18, 24]
+                    .map(
+                      (unit) => DropdownMenuItem(
+                        value: unit,
+                        child: Text('Unit $unit'),
+                      ),
+                    )
+                    .toList(),
+                onChanged: _saving
+                    ? null
+                    : (unit) {
+                        if (unit == null) return;
+                        _save(
+                          _engine.result(
+                            _observations,
+                            learnerOverrideUnit: unit,
                           ),
-                        )
-                        .toList(),
-                onChanged:
-                    _saving
-                        ? null
-                        : (unit) {
-                          if (unit == null) return;
-                          _save(
-                            _engine.result(
-                              _observations,
-                              learnerOverrideUnit: unit,
-                            ),
-                            override: unit,
-                          );
-                        },
+                          override: unit,
+                        );
+                      },
               ),
               const SizedBox(height: 22),
               KeyCta(
                 label: l10n.placementUseStart,
-                onPressed: _saving ? null : () => context.go('/'),
+                onPressed: _saving
+                    ? null
+                    : () {
+                        if (widget.returnToOnboarding) {
+                          context.pop(result);
+                        } else {
+                          context.go('/');
+                        }
+                      },
               ),
             ] else if (task != null) ...[
               Row(
@@ -300,10 +312,9 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                       text: task.options[index],
                       // A diagnostic never reveals the answer, so only idle
                       // and selected are in play.
-                      state:
-                          _selected == index
-                              ? OptionState.selected
-                              : OptionState.idle,
+                      state: _selected == index
+                          ? OptionState.selected
+                          : OptionState.idle,
                       onTap: () => setState(() => _selected = index),
                     ),
                   ),
@@ -312,11 +323,11 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                 label: l10n.placementNext,
                 onPressed:
                     (task.accepted.isNotEmpty
-                                ? _answerController.text.trim().isNotEmpty
-                                : _selected != null) &&
-                            (task.spoken == null || _replays > 0)
-                        ? _submit
-                        : null,
+                            ? _answerController.text.trim().isNotEmpty
+                            : _selected != null) &&
+                        (task.spoken == null || _replays > 0)
+                    ? _submit
+                    : null,
               ),
               TextButton(
                 onPressed: () => context.pop(),

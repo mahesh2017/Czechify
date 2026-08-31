@@ -51,9 +51,9 @@ class SyncDao extends DatabaseAccessor<AppDatabase> with _$SyncDaoMixin {
     );
   }
 
-  /// Append a mutation to the outbox. [deviceId] is left blank here and
-  /// stamped by the sync service at push time — every outbox row is authored
-  /// by this device, so it need not be threaded through each write path.
+  /// Append a mutation to the outbox. [deviceId] is left blank here; the sync
+  /// service derives the backend LWW token from this row's generated id and
+  /// the install's stable device id at push time.
   Future<void> enqueue({
     required String entity,
     required String entityKey,
@@ -142,7 +142,8 @@ class SyncDao extends DatabaseAccessor<AppDatabase> with _$SyncDaoMixin {
   /// ladder rather than dead-lettering on its first stumble. Returns the
   /// number of rows revived.
   Future<int> retryDeadLettered() {
-    return (update(syncQueue)..where((t) => t.deadLetteredAt.isNotNull())).write(
+    return (update(syncQueue)
+      ..where((t) => t.deadLetteredAt.isNotNull())).write(
       const SyncQueueCompanion(
         attempts: Value(0),
         nextAttemptAt: Value(null),

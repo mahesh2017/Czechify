@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/core/theme/app_theme.dart';
+import 'package:czechify/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

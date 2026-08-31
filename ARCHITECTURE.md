@@ -1572,7 +1572,7 @@ Microphone:
 ## 14. Project Structure
 
 ```
-ceskina_pro/
+czechify/
 ├── lib/
 │   ├── main.dart                     # App entry, provider scope, router
 │   ├── app.dart                      # MaterialApp.router, theme
@@ -1999,8 +1999,8 @@ class MockLlmService extends Mock implements LlmService {}
 
 ```bash
 # Setup
-flutter create ceskina_pro --platforms=ios,android,macos,windows
-cd ceskina_pro
+flutter create czechify --platforms=ios,android,macos,windows
+cd czechify
 
 # Code generation (run after model/interface changes)
 dart run build_runner build --delete-conflicting-outputs

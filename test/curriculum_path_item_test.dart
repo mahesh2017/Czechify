@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ceskina_pro/l10n/app_localizations.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/lesson.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
-import 'package:ceskina_pro/presentation/models/curriculum_path_item.dart';
+import 'package:czechify/l10n/app_localizations.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/lesson.dart';
+import 'package:czechify/domain/entities/unit.dart';
+import 'package:czechify/presentation/models/curriculum_path_item.dart';
 
 void main() {
   const unit = Unit(

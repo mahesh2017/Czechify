@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/core/utils/ipa.dart';
-import 'package:ceskina_pro/domain/engines/phoneme_features.dart';
-import 'package:ceskina_pro/domain/engines/phoneme_scorer.dart';
-import 'package:ceskina_pro/domain/entities/pronunciation_result.dart';
+import 'package:czechify/core/utils/ipa.dart';
+import 'package:czechify/domain/engines/phoneme_features.dart';
+import 'package:czechify/domain/engines/phoneme_scorer.dart';
+import 'package:czechify/domain/entities/pronunciation_result.dart';
 
 void main() {
   group('IPA tokenizer', () {

@@ -1,7 +1,7 @@
-import 'package:ceskina_pro/core/feedback/celebration.dart';
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/domain/entities/gamification_state.dart';
-import 'package:ceskina_pro/presentation/widgets/celebration/reward_toast.dart';
+import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/domain/entities/gamification_state.dart';
+import 'package:czechify/presentation/widgets/celebration/reward_toast.dart';
 // Material has a Badge widget of its own; the one under test is the course's.
 import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_test/flutter_test.dart';

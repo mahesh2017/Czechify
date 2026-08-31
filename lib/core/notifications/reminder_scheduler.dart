@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/core/notifications/notification_messages.dart';
+import 'package:czechify/core/notifications/notification_messages.dart';
 import 'package:flutter/material.dart' show TimeOfDay;
 
 /// A single scheduled reminder produced by [ReminderScheduler].

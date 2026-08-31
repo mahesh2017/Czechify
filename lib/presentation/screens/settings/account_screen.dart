@@ -2,20 +2,47 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/legal/legal_content.dart';
+import '../../../core/diagnostics/safe_diagnostics.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../data/account/account_service.dart';
 import '../../../data/account/account_identity.dart';
 import '../../providers/account_providers.dart';
 import '../../providers/curriculum_providers.dart';
+import '../../providers/reminder_coordinator.dart';
+import '../../providers/settings_providers.dart';
 import '../../utils/external_links.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
+/// Why the account screen was opened.
+///
+/// Settings uses [manage] and keeps the learner on this screen after account
+/// actions. Onboarding uses [onboardingRecovery] so restoring an existing
+/// account completes the first-run gate and replaces the onboarding stack.
+enum AccountScreenMode {
+  manage,
+  onboardingRecovery;
+
+  static AccountScreenMode fromRouteValue(String? value) =>
+      value == AccountScreenMode.onboardingRecovery.name
+          ? AccountScreenMode.onboardingRecovery
+          : AccountScreenMode.manage;
+}
+
+/// A successful operation that installed an existing account on this device.
+///
+/// Linking a credential to the current anonymous account is deliberately not a
+/// recovery: there is no remote learner profile to resume in that case.
+enum AccountRecoveryResult { existingAccountInstalled }
+
 class AccountScreen extends ConsumerStatefulWidget {
-  const AccountScreen({super.key});
+  const AccountScreen({super.key, this.mode = AccountScreenMode.manage});
+
+  final AccountScreenMode mode;
 
   @override
   ConsumerState<AccountScreen> createState() => _AccountScreenState();
@@ -32,110 +59,121 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     final entitlement = ref.watch(curriculumEntitlementProvider);
     final hasReviewerAccess =
         entitlement.asData?.value.isActiveAt(DateTime.now().toUtc()) ?? false;
-    return Scaffold(
-      backgroundColor: t.bg,
-      appBar: AppBar(backgroundColor: t.bg, title: Text(l10n.accountTitle)),
-      body: account.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error:
-            (_, _) => _Message(
-              icon: Icons.cloud_off,
-              title: l10n.accountCloudUnavailableTitle,
-              message: l10n.accountCloudUnavailableBody,
-            ),
-        data:
-            (user) => ListView(
-              padding: const EdgeInsets.all(20),
-              children: [
-                _AccountHeader(user: user),
-                if (hasReviewerAccess) ...[
-                  const SizedBox(height: 12),
-                  _Message(
-                    icon: Icons.lock_open_outlined,
-                    title: l10n.accountReviewerAccessTitle,
-                    message: l10n.accountReviewerAccessBody,
-                  ),
-                ],
-                const SizedBox(height: 20),
-                if (userHasIdentityProvider(user, 'google')) ...[
-                  _Message(
-                    icon: Icons.check_circle_outline,
-                    title: l10n.accountGoogleConnectedTitle,
-                    message: l10n.accountGoogleConnectedBody,
-                  ),
-                  const SizedBox(height: 10),
-                ] else ...[
-                  _GoogleSignInButton(
-                    onPressed: _busy ? null : _continueWithGoogle,
-                  ),
-                  const SizedBox(height: 10),
-                ],
-                if (user?.isAnonymous ?? true) ...[
-                  OutlinedButton.icon(
-                    onPressed: _busy ? null : _linkEmail,
-                    icon: const Icon(Icons.mark_email_read_outlined),
-                    label: Text(l10n.accountProtectWithEmail),
-                  ),
-                  const SizedBox(height: 10),
-                  OutlinedButton.icon(
-                    onPressed: _busy ? null : _signInExisting,
-                    icon: const Icon(Icons.login),
-                    label: Text(l10n.accountSignInExisting),
-                  ),
-                ] else ...[
-                  FilledButton.icon(
-                    onPressed: _busy ? null : _setPassword,
-                    icon: const Icon(Icons.password),
-                    label: Text(l10n.accountSetOrChangePassword),
-                  ),
-                ],
-                const SizedBox(height: 10),
-                TextButton(
-                  onPressed: _busy ? null : _sendRecovery,
-                  child: Text(l10n.accountSendRecovery),
-                ),
-                const SizedBox(height: 24),
-                SectionLabel(l10n.accountYourData),
-                const SizedBox(height: 10),
-                OutlinedButton.icon(
-                  onPressed: _busy ? null : _exportData,
-                  icon: const Icon(Icons.download_outlined),
-                  label: Text(l10n.accountExportJson),
-                ),
-                const SizedBox(height: 12),
-                OutlinedButton.icon(
-                  style: OutlinedButton.styleFrom(foregroundColor: t.red),
-                  onPressed: _busy ? null : _deleteAccount,
-                  icon: const Icon(Icons.delete_forever_outlined),
-                  label: Text(l10n.accountDeleteCloudLocal),
-                ),
-                const SizedBox(height: 8),
-                TextButton.icon(
-                  onPressed:
-                      () => openExternalPage(context, kAccountDeletionUrl),
-                  icon: const Icon(Icons.open_in_new),
-                  label: Text(l10n.accountDeletionInstructions),
-                ),
-                if (_busy) ...[
+    return PopScope(
+      // An account replacement owns both the auth session and a transactional
+      // local snapshot install. Leaving midway used to dispose this screen and
+      // lose the successful recovery navigation, exposing onboarding again.
+      canPop: !_busy,
+      child: Scaffold(
+        backgroundColor: t.bg,
+        appBar: AppBar(backgroundColor: t.bg, title: Text(l10n.accountTitle)),
+        body: account.when(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error:
+              (_, _) => _Message(
+                icon: Icons.cloud_off,
+                title: l10n.accountCloudUnavailableTitle,
+                message: l10n.accountCloudUnavailableBody,
+              ),
+          data:
+              (user) => ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  _AccountHeader(user: user),
+                  if (hasReviewerAccess) ...[
+                    const SizedBox(height: 12),
+                    _Message(
+                      icon: Icons.lock_open_outlined,
+                      title: l10n.accountReviewerAccessTitle,
+                      message: l10n.accountReviewerAccessBody,
+                    ),
+                  ],
                   const SizedBox(height: 20),
-                  const Center(child: CircularProgressIndicator()),
+                  if (userHasIdentityProvider(user, 'google')) ...[
+                    _Message(
+                      icon: Icons.check_circle_outline,
+                      title: l10n.accountGoogleConnectedTitle,
+                      message: l10n.accountGoogleConnectedBody,
+                    ),
+                    const SizedBox(height: 10),
+                  ] else ...[
+                    _GoogleSignInButton(
+                      onPressed: _busy ? null : _continueWithGoogle,
+                    ),
+                    const SizedBox(height: 10),
+                  ],
+                  if (user?.isAnonymous ?? true) ...[
+                    OutlinedButton.icon(
+                      onPressed: _busy ? null : _linkEmail,
+                      icon: const Icon(Icons.mark_email_read_outlined),
+                      label: Text(l10n.accountProtectWithEmail),
+                    ),
+                    const SizedBox(height: 10),
+                    OutlinedButton.icon(
+                      onPressed: _busy ? null : _signInExisting,
+                      icon: const Icon(Icons.login),
+                      label: Text(l10n.accountSignInExisting),
+                    ),
+                  ] else ...[
+                    FilledButton.icon(
+                      onPressed: _busy ? null : _setPassword,
+                      icon: const Icon(Icons.password),
+                      label: Text(l10n.accountSetOrChangePassword),
+                    ),
+                  ],
+                  const SizedBox(height: 10),
+                  TextButton(
+                    onPressed: _busy ? null : _sendRecovery,
+                    child: Text(l10n.accountSendRecovery),
+                  ),
+                  const SizedBox(height: 24),
+                  SectionLabel(l10n.accountYourData),
+                  const SizedBox(height: 10),
+                  OutlinedButton.icon(
+                    onPressed: _busy ? null : _exportData,
+                    icon: const Icon(Icons.download_outlined),
+                    label: Text(l10n.accountExportJson),
+                  ),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(foregroundColor: t.red),
+                    onPressed: _busy ? null : _deleteAccount,
+                    icon: const Icon(Icons.delete_forever_outlined),
+                    label: Text(l10n.accountDeleteCloudLocal),
+                  ),
+                  const SizedBox(height: 8),
+                  TextButton.icon(
+                    onPressed:
+                        () => openExternalPage(context, kAccountDeletionUrl),
+                    icon: const Icon(Icons.open_in_new),
+                    label: Text(l10n.accountDeletionInstructions),
+                  ),
+                  if (_busy) ...[
+                    const SizedBox(height: 20),
+                    const Center(child: CircularProgressIndicator()),
+                  ],
                 ],
-              ],
-            ),
+              ),
+        ),
       ),
     );
   }
 
-  Future<void> _run(Future<void> Function() action, String success) async {
+  Future<void> _run(
+    Future<void> Function() action,
+    String success, {
+    AccountRecoveryResult? recoveryResult,
+    AccountRestoreSummary? Function()? restoreSummary,
+  }) async {
     final l10n = AppLocalizations.of(context);
     setState(() => _busy = true);
     try {
       await action();
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(success)));
-      }
+      await _handleSuccess(
+        success,
+        recoveryResult: recoveryResult,
+        restoreSummary: restoreSummary?.call(),
+      );
     } on AuthException catch (error) {
       _showError(error.message);
     } catch (_) {
@@ -172,14 +210,15 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
             confirmLabel: l10n.accountSignInReplace,
           );
           if (!confirmed) return;
-          await service.completeGoogleSwitch(result);
-          success = l10n.accountGoogleRecovered;
+          final restored = await service.completeGoogleSwitch(result);
+          await _handleSuccess(
+            l10n.accountGoogleRecovered,
+            recoveryResult: AccountRecoveryResult.existingAccountInstalled,
+            restoreSummary: restored,
+          );
+          return;
       }
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(success)));
-      }
+      await _handleSuccess(success);
     } on AuthException catch (error) {
       _showError(error.message);
     } catch (_) {
@@ -231,14 +270,106 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       confirmLabel: l10n.accountSignInReplace,
     );
     if (!confirmed) return;
-    await _run(() async {
-      await ref
-          .read(accountServiceProvider)
-          .switchToExistingAccount(
-            email: credentials.email,
-            password: credentials.password,
+    AccountRestoreSummary? restored;
+    await _run(
+      () async {
+        restored = await ref
+            .read(accountServiceProvider)
+            .switchToExistingAccount(
+              email: credentials.email,
+              password: credentials.password,
+            );
+      },
+      l10n.accountRecovered,
+      recoveryResult: AccountRecoveryResult.existingAccountInstalled,
+      restoreSummary: () => restored,
+    );
+  }
+
+  Future<void> _handleSuccess(
+    String message, {
+    AccountRecoveryResult? recoveryResult,
+    AccountRestoreSummary? restoreSummary,
+  }) async {
+    if (recoveryResult != null && restoreSummary != null) {
+      if (restoreSummary.onboardingComplete) {
+        try {
+          await _offerRestoredReminder(restoreSummary);
+        } catch (error, stack) {
+          // The account is already installed. A device-level notification
+          // failure must not strand recovery on this route or misreport the
+          // authentication as failed; reminders remain available in Settings.
+          SafeDiagnostics.error(
+            'restored_reminder_schedule_failed',
+            error,
+            stack,
           );
-    }, l10n.accountRecovered);
+        }
+      }
+      if (!mounted) return;
+      if (widget.mode == AccountScreenMode.onboardingRecovery) {
+        // AccountService has already materialized the restored completion
+        // state. Replacing the stack prevents Back from exposing stale first-
+        // run screens, while an actually incomplete account resumes onboarding.
+        context.go(restoreSummary.onboardingComplete ? '/' : '/onboarding');
+        return;
+      }
+    }
+
+    if (recoveryResult != null &&
+        widget.mode == AccountScreenMode.onboardingRecovery) {
+      // Defensive fallback for test doubles or older service adapters. Never
+      // strand a verified recovery on the Account screen.
+      if (mounted) context.go('/onboarding');
+      return;
+    }
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Future<void> _offerRestoredReminder(AccountRestoreSummary restored) async {
+    if (!restored.hasSavedReminder || !mounted) return;
+    final hour = restored.savedReminderHour!;
+    final minute = restored.savedReminderMinute!;
+    final time = TimeOfDay(hour: hour, minute: minute);
+    final useIt =
+        await showDialog<bool>(
+          context: context,
+          builder:
+              (dialogContext) => AlertDialog(
+                title: Text(
+                  AppLocalizations.of(context).accountRestoreReminderTitle,
+                ),
+                content: Text(
+                  AppLocalizations.of(
+                    context,
+                  ).accountRestoreReminderBody(time.format(context)),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(dialogContext, false),
+                    child: Text(
+                      AppLocalizations.of(context).accountRestoreReminderLater,
+                    ),
+                  ),
+                  FilledButton(
+                    onPressed: () => Navigator.pop(dialogContext, true),
+                    child: Text(
+                      AppLocalizations.of(context).accountRestoreReminderEnable,
+                    ),
+                  ),
+                ],
+              ),
+        ) ??
+        false;
+    if (!useIt || !mounted) return;
+    await ref.read(settingsProvider.notifier).ready;
+    await ref
+        .read(reminderCoordinatorProvider.notifier)
+        .setRemindersEnabled(true, preferredTime: time);
   }
 
   Future<void> _sendRecovery() async {

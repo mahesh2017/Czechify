@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/presentation/widgets/chat/report_tutor_reply_sheet.dart';
+import 'package:czechify/presentation/widgets/chat/report_tutor_reply_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

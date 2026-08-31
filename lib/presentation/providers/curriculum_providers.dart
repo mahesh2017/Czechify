@@ -35,7 +35,9 @@ final levelSwitchProvider = Provider(
     await ref.read(settingsProvider.notifier).setStartingLevel(level);
 
     final units = await ref.read(allUnitsProvider.future);
-    final placement = await ref.read(placementProfileProvider.future);
+    final database = ref.read(databaseProvider);
+    final placement =
+        await database.select(database.placementProfiles).getSingleOrNull();
     final target = const LevelSwitch().provisionalUnitFor(
       units: units,
       level: level,
@@ -46,7 +48,7 @@ final levelSwitchProvider = Provider(
     // exactly as it is — see [LevelSwitch.provisionalUnitFor]. The level still
     // changed, which is what the learner asked for.
     if (target != null) {
-      await ref.read(databaseProvider).progressDao.setProvisionalUnit(target);
+      await database.progressDao.setProvisionalUnit(target);
       ref.invalidate(placementProfileProvider);
       ref.invalidate(curriculumAccessProvider);
       ref.invalidate(nextLessonProvider);
@@ -108,9 +110,29 @@ final completedLessonIdsProvider = FutureProvider<Set<int>>((ref) async {
   return progressRepo.getCompletedLessonIds();
 });
 
-final placementProfileProvider = FutureProvider<db.PlacementProfile?>((ref) {
+final _placementProfileChangesProvider = StreamProvider<db.PlacementProfile?>((
+  ref,
+) {
   final database = ref.read(databaseProvider);
-  return database.select(database.placementProfiles).getSingleOrNull();
+  return database.select(database.placementProfiles).watchSingleOrNull();
+});
+
+/// Reactive placement state.
+///
+/// Placement can change outside the current widget flow when an ordinary
+/// background sync merges another device's result. Watching the Drift query
+/// keeps this provider, curriculum access, and continue-learning routing in
+/// step with that merge without requiring the sync layer to know about UI
+/// providers. Keeping the public provider asynchronous-but-single-valued also
+/// lets command providers safely `read(...future)` before a widget is listening.
+final placementProfileProvider = FutureProvider<db.PlacementProfile?>((ref) {
+  final placement = ref.watch(_placementProfileChangesProvider);
+  return switch (placement) {
+    AsyncData(:final value) => Future.value(value),
+    AsyncError(:final error, :final stackTrace) =>
+      Future<db.PlacementProfile?>.error(error, stackTrace),
+    _ => ref.watch(_placementProfileChangesProvider.future),
+  };
 });
 
 final curriculumEntitlementRepositoryProvider =

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/domain/engines/pronunciation_coverage.dart';
+import 'package:czechify/domain/engines/pronunciation_coverage.dart';
 
 /// The acoustic model is only trustworthy on part of the vocabulary. Being
 /// wrongly told you mispronounced something is more damaging than not being

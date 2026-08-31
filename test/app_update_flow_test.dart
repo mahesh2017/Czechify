@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:ceskina_pro/core/updates/app_update_service.dart';
-import 'package:ceskina_pro/presentation/providers/app_update_providers.dart';
-import 'package:ceskina_pro/presentation/routes/app_shell_keys.dart';
-import 'package:ceskina_pro/presentation/widgets/common/app_update_coordinator.dart';
+import 'package:czechify/core/updates/app_update_service.dart';
+import 'package:czechify/presentation/providers/app_update_providers.dart';
+import 'package:czechify/presentation/routes/app_shell_keys.dart';
+import 'package:czechify/presentation/widgets/common/app_update_coordinator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

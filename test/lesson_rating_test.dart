@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/domain/engines/lesson_rating.dart';
+import 'package:czechify/domain/engines/lesson_rating.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The completion screen used to show a bare percentage, which asks the

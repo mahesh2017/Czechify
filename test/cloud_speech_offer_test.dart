@@ -1,5 +1,5 @@
-import 'package:ceskina_pro/domain/repositories/speech_ports.dart';
-import 'package:ceskina_pro/presentation/providers/pronunciation_providers.dart';
+import 'package:czechify/domain/repositories/speech_ports.dart';
+import 'package:czechify/presentation/providers/pronunciation_providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// A phone with no Czech language pack cannot check pronunciation on device.

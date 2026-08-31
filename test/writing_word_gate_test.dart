@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/domain/engines/writing_word_gate.dart';
+import 'package:czechify/domain/engines/writing_word_gate.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

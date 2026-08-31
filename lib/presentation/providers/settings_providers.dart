@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/diagnostics/safe_diagnostics.dart';
 import '../../domain/entities/enums.dart';
+import 'learner_profile_providers.dart';
 
 /// Theme mode enum.
 enum AppThemeMode { system, light, dark }
@@ -264,6 +266,19 @@ class SettingsNotifier extends Notifier<AppSettings> {
   /// Prefs accessor — always awaited so setters can't race the initial load.
   Future<SharedPreferences> _prefs() => SharedPreferences.getInstance();
 
+  /// A temporarily unavailable profile database must not make a local setting
+  /// unusable. The saved preference is picked up by the bootstrap retry.
+  Future<void> _syncProfile(Future<void> Function() action) async {
+    // Lightweight provider tests intentionally mount Settings without the app
+    // database. In the real app main.dart keeps the bootstrap provider alive.
+    if (!ref.exists(learnerProfileRepositoryProvider)) return;
+    try {
+      await action();
+    } catch (error, stack) {
+      SafeDiagnostics.error('profile_preference_sync_failed', error, stack);
+    }
+  }
+
   /// The learner's daily goal, rescaled once if it was chosen when a lesson
   /// paid a flat 10/15/20 instead of the sum of its exercises' XP. Left alone
   /// otherwise: a goal of 50 under the new economy is met by half a lesson.
@@ -300,18 +315,12 @@ class SettingsNotifier extends Notifier<AppSettings> {
     if (!ref.mounted) return;
 
     state = AppSettings(
-      themeMode:
-          AppThemeMode.values[themeIdx.clamp(
-            0,
-            AppThemeMode.values.length - 1,
-          )],
+      themeMode: AppThemeMode
+          .values[themeIdx.clamp(0, AppThemeMode.values.length - 1)],
       dailyGoalXp: dailyGoal,
       ttsSpeechRate: ttsRate,
-      ttsVoiceGender:
-          TtsVoiceGender.values[voiceIndex.clamp(
-            0,
-            TtsVoiceGender.values.length - 1,
-          )],
+      ttsVoiceGender: TtsVoiceGender
+          .values[voiceIndex.clamp(0, TtsVoiceGender.values.length - 1)],
       startingLevel:
           CEFRLevel.values[levelIdx.clamp(0, CEFRLevel.values.length - 1)],
       heartsEnabled: prefs.getBool(_kHeartsEnabled) ?? true,
@@ -330,13 +339,13 @@ class SettingsNotifier extends Notifier<AppSettings> {
       curriculumMapView: prefs.getBool(_kCurriculumMapView) ?? true,
       preferredTime:
           reminderHour != null &&
-                  reminderHour >= 0 &&
-                  reminderHour <= 23 &&
-                  reminderMinute != null &&
-                  reminderMinute >= 0 &&
-                  reminderMinute <= 59
-              ? TimeOfDay(hour: reminderHour, minute: reminderMinute)
-              : null,
+              reminderHour >= 0 &&
+              reminderHour <= 23 &&
+              reminderMinute != null &&
+              reminderMinute >= 0 &&
+              reminderMinute <= 59
+          ? TimeOfDay(hour: reminderHour, minute: reminderMinute)
+          : null,
       remindersEnabled: remindersEnabled,
       catchUpEnabled: catchUpEnabled,
       lastKnownTimezone: lastKnownTz,
@@ -393,6 +402,9 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(dailyGoalXp: xp);
     final prefs = await _prefs();
     await prefs.setInt(_kDailyGoalXp, xp);
+    await _syncProfile(
+      () => ref.read(learnerProfileRepositoryProvider).updateDailyGoal(xp),
+    );
   }
 
   /// Set the TTS speech rate.
@@ -400,6 +412,10 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(ttsSpeechRate: rate);
     final prefs = await _prefs();
     await prefs.setDouble(_kTtsRate, rate);
+    await _syncProfile(
+      () =>
+          ref.read(learnerProfileRepositoryProvider).updateTtsSpeechRate(rate),
+    );
   }
 
   /// Select the bundled Czech neural voice.
@@ -407,6 +423,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(ttsVoiceGender: gender);
     final prefs = await _prefs();
     await prefs.setInt(_kTtsVoiceGender, gender.index);
+    await _syncProfile(
+      () => ref
+          .read(learnerProfileRepositoryProvider)
+          .updatePreferredVoice(gender.name),
+    );
   }
 
   /// Set the learner's self-assessed starting level (from onboarding).
@@ -414,6 +435,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(startingLevel: level);
     final prefs = await _prefs();
     await prefs.setInt(_kStartingLevel, level.index);
+    await _syncProfile(
+      () => ref
+          .read(learnerProfileRepositoryProvider)
+          .updateSelfAssessedLevel(level),
+    );
   }
 
   /// Set the learner's first name (from onboarding or settings).
@@ -422,6 +448,10 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(learnerName: trimmed);
     final prefs = await _prefs();
     await prefs.setString(_kLearnerName, trimmed);
+    await _syncProfile(
+      () =>
+          ref.read(learnerProfileRepositoryProvider).updateDisplayName(trimmed),
+    );
   }
 
   /// Check if onboarding has been completed.
@@ -443,6 +473,14 @@ class SettingsNotifier extends Notifier<AppSettings> {
     await prefs.setInt(_kReminderHour, time.hour);
     await prefs.setInt(_kReminderMinute, time.minute);
     state = state.copyWith(preferredTime: time);
+    await _syncProfile(
+      () => ref
+          .read(learnerProfileRepositoryProvider)
+          .updateReminderIntent(
+            preferredHour: time.hour,
+            preferredMinute: time.minute,
+          ),
+    );
   }
 
   /// Toggle daily study reminders on or off. The ReminderCoordinator reacts
@@ -452,6 +490,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
     final prefs = await _prefs();
     await prefs.setBool(_kRemindersEnabled, enabled);
     state = state.copyWith(remindersEnabled: enabled);
+    await _syncProfile(
+      () => ref
+          .read(learnerProfileRepositoryProvider)
+          .updateReminderIntent(wantsReminder: enabled),
+    );
   }
 
   /// Toggle the 21:30 evening catch-up reminder.
@@ -459,6 +502,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
     final prefs = await _prefs();
     await prefs.setBool(_kCatchUpEnabled, enabled);
     state = state.copyWith(catchUpEnabled: enabled);
+    await _syncProfile(
+      () => ref
+          .read(learnerProfileRepositoryProvider)
+          .updateReminderIntent(catchUpEnabled: enabled),
+    );
   }
 
   /// Record the last detected IANA timezone name. Used by the

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/presentation/widgets/home/streak_state_sheet.dart';
+import 'package:czechify/presentation/widgets/home/streak_state_sheet.dart';
 import 'support/localized_app.dart';
 
 void main() {

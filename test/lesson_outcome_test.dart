@@ -1,8 +1,8 @@
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/exercise.dart';
-import 'package:ceskina_pro/domain/entities/exercise_outcome.dart';
-import 'package:ceskina_pro/domain/engines/learning_loop_engine.dart';
-import 'package:ceskina_pro/presentation/providers/lesson_providers.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/domain/entities/exercise_outcome.dart';
+import 'package:czechify/domain/engines/learning_loop_engine.dart';
+import 'package:czechify/presentation/providers/lesson_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/data/repositories/drift_vocabulary_repository.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/repositories/drift_vocabulary_repository.dart';
 import 'package:drift/drift.dart' show Value, driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';

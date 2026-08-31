@@ -120,7 +120,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // (context.push) so closing them pops back to where the user was.
       GoRoute(
         path: '/account',
-        builder: (context, state) => const AccountScreen(),
+        builder:
+            (context, state) => AccountScreen(
+              mode: AccountScreenMode.fromRouteValue(
+                state.uri.queryParameters['mode'],
+              ),
+            ),
       ),
       // Reached with go() from the end of onboarding, so it replaces the flow
       // rather than sitting on top of it — there is nothing to go back to.
@@ -180,8 +185,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
+        path: '/learning-plan',
+        builder: (context, state) => const OnboardingScreen(editing: true),
+      ),
+      GoRoute(
         path: '/placement',
-        builder: (context, state) => const PlacementScreen(),
+        builder:
+            (context, state) => PlacementScreen(
+              returnToOnboarding:
+                  state.uri.queryParameters['return'] == 'onboarding',
+            ),
       ),
       GoRoute(
         path: '/copybook',

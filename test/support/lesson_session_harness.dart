@@ -1,13 +1,13 @@
-import 'package:ceskina_pro/core/feedback/celebration.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/exercise.dart';
-import 'package:ceskina_pro/domain/entities/exercise_attempt_evidence.dart';
-import 'package:ceskina_pro/domain/entities/gamification_state.dart';
-import 'package:ceskina_pro/domain/entities/lesson.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
-import 'package:ceskina_pro/domain/repositories/curriculum_repository.dart';
-import 'package:ceskina_pro/domain/repositories/progress_repository.dart';
-import 'package:ceskina_pro/presentation/providers/gamification_providers.dart';
+import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/domain/entities/exercise_attempt_evidence.dart';
+import 'package:czechify/domain/entities/gamification_state.dart';
+import 'package:czechify/domain/entities/lesson.dart';
+import 'package:czechify/domain/entities/unit.dart';
+import 'package:czechify/domain/repositories/curriculum_repository.dart';
+import 'package:czechify/domain/repositories/progress_repository.dart';
+import 'package:czechify/presentation/providers/gamification_providers.dart';
 
 /// Doubles for the three repositories a lesson session reaches for, so a test
 /// can drive [LessonSessionNotifier] without standing up Drift.

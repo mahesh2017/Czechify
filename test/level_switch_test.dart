@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/domain/engines/level_switch.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
+import 'package:czechify/domain/engines/level_switch.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/unit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Curriculum shaped like the real one, where ids are deliberately not in

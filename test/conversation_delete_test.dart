@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/data/database/database.dart' hide ChatMessage;
-import 'package:ceskina_pro/data/repositories/drift_conversation_repository.dart';
-import 'package:ceskina_pro/domain/entities/chat_message.dart';
+import 'package:czechify/data/database/database.dart' hide ChatMessage;
+import 'package:czechify/data/repositories/drift_conversation_repository.dart';
+import 'package:czechify/domain/entities/chat_message.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 

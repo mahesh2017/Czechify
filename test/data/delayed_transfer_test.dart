@@ -1,8 +1,8 @@
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/domain/entities/exercise_attempt_evidence.dart';
-import 'package:ceskina_pro/domain/entities/exercise_outcome.dart';
-import 'package:ceskina_pro/domain/entities/learning_evidence.dart';
-import 'package:ceskina_pro/domain/engines/placement_engine.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/domain/entities/exercise_attempt_evidence.dart';
+import 'package:czechify/domain/entities/exercise_outcome.dart';
+import 'package:czechify/domain/entities/learning_evidence.dart';
+import 'package:czechify/domain/engines/placement_engine.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 

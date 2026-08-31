@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/presentation/providers/writing_providers.dart';
+import 'package:czechify/presentation/providers/writing_providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

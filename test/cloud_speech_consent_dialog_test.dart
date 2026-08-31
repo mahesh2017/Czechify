@@ -1,8 +1,8 @@
-import 'package:ceskina_pro/core/legal/legal_content.dart';
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/data/repositories/consent_repository.dart';
-import 'package:ceskina_pro/presentation/providers/database_providers.dart';
-import 'package:ceskina_pro/presentation/widgets/common/cloud_speech_consent.dart';
+import 'package:czechify/core/legal/legal_content.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/repositories/consent_repository.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:czechify/presentation/widgets/common/cloud_speech_consent.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

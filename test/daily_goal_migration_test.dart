@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/presentation/providers/settings_providers.dart';
+import 'package:czechify/presentation/providers/settings_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';

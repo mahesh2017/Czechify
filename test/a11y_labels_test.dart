@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:ceskina_pro/l10n/app_localizations.dart';
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/presentation/providers/database_providers.dart';
-import 'package:ceskina_pro/presentation/widgets/common/hearts_display.dart';
-import 'package:ceskina_pro/presentation/widgets/common/streak_indicator.dart';
+import 'package:czechify/l10n/app_localizations.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:czechify/presentation/widgets/common/hearts_display.dart';
+import 'package:czechify/presentation/widgets/common/streak_indicator.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

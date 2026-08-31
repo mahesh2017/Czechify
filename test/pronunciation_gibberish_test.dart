@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/domain/engines/pronunciation_scorer.dart';
+import 'package:czechify/domain/engines/pronunciation_scorer.dart';
 
 /// A learner reported passing scores (~95%) while deliberately speaking
 /// gibberish. These tests pin down what the *scorer* must do when it is handed

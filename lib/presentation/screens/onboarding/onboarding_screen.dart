@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../../../core/diagnostics/safe_diagnostics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,14 +13,29 @@ import '../../providers/gamification_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../providers/database_providers.dart';
 import '../../providers/curriculum_providers.dart';
+import '../../providers/learner_profile_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/entities/enums.dart';
-import '../../../domain/entities/learning_evidence.dart';
+import '../../../domain/entities/learner_profile.dart';
 import '../../../domain/engines/placement_engine.dart';
 
-/// Onboarding flow — welcome → level assessment → goal setting.
+/// Six-step onboarding that turns a learner's purpose, starting point and
+/// available time into a transparent first plan.
 class OnboardingScreen extends ConsumerStatefulWidget {
-  const OnboardingScreen({super.key});
+  const OnboardingScreen({
+    super.key,
+    this.onProfileCompleted,
+    this.editing = false,
+  });
+
+  /// Seam for the cloud-backed profile store. The UI owns the structured
+  /// draft today; persistence can be attached without teaching this screen
+  /// about account or sync infrastructure.
+  final ValueChanged<LearnerProfile>? onProfileCompleted;
+
+  /// Reuses the same transparent choices from Settings without re-showing the
+  /// welcome screen or sending an established learner through offline setup.
+  final bool editing;
 
   @override
   ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -26,15 +43,112 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _step = 0;
-  CEFRLevel _selectedLevel = CEFRLevel.preA1;
-  int _selectedGoal = kDefaultDailyGoalXp;
-  TtsVoiceGender _selectedVoice = TtsVoiceGender.female;
+  LearnerProfileDraft _draft = LearnerProfileDraft();
   bool _finishing = false;
-  TimeOfDay _selectedReminderTime = const TimeOfDay(hour: 19, minute: 0);
-  bool _remindersChecked = false;
+  bool _loadingExistingProfile = false;
   final _nameController = TextEditingController();
-  // welcome → name → motivation/level → voice → goal → reminder → summary
+
+  // welcome → profile → purpose → focus/timing → commitment → reminder → plan
   static const _totalSteps = 7;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.editing) {
+      _step = 1;
+      _loadingExistingProfile = true;
+      Future<void>.microtask(_loadExistingProfile);
+    }
+  }
+
+  Future<void> _loadExistingProfile() async {
+    try {
+      final repository = ref.read(learnerProfileRepositoryProvider);
+      final profile = await repository.getProfile();
+      final reminder = await repository.getReminderPreference();
+      await ref.read(settingsProvider.notifier).ready;
+      if (!mounted) return;
+      if (profile != null) {
+        final focusNames = _decodeStringList(profile.focusSkillsJson);
+        final focuses = focusNames
+            .map((name) => LearningFocus.values.asNameMap()[name])
+            .whereType<LearningFocus>()
+            .toSet();
+        final goal =
+            LearningGoal.values.asNameMap()[profile.primaryGoal] ??
+            LearningGoal.everydayLife;
+        final horizon = GoalHorizon.values.asNameMap()[profile.targetHorizon];
+        final commitment = switch (profile.dailyCommitmentMinutes) {
+          <= 5 => StudyCommitment.light,
+          <= 15 => StudyCommitment.steady,
+          <= 30 => StudyCommitment.focused,
+          _ => StudyCommitment.intensive,
+        };
+        final currentLevel = switch (profile.selfAssessedCefr) {
+          'a1' => LearnerCzechLevel.a1,
+          'a2' => LearnerCzechLevel.a2,
+          'b1OrHigher' => LearnerCzechLevel.b1OrHigher,
+          'unsure' => LearnerCzechLevel.unsure,
+          _ => LearnerCzechLevel.preA1,
+        };
+        _nameController.text = profile.displayName;
+        _draft = LearnerProfileDraft(
+          displayName: profile.displayName,
+          primaryGoal: goal,
+          currentLevel: currentLevel,
+          focuses: focuses.isEmpty
+              ? const {LearningFocus.speaking, LearningFocus.listening}
+              : focuses,
+          goalHorizon: horizon,
+          commitment: commitment,
+          tutor: profile.preferredVoice == 'male'
+              ? TutorPreference.pavel
+              : TutorPreference.lenka,
+          remindersEnabled: ref.read(settingsProvider).remindersEnabled,
+          reminderMinutesAfterMidnight:
+              reminder?.preferredHour != null &&
+                  reminder?.preferredMinute != null
+              ? reminder!.preferredHour! * 60 + reminder.preferredMinute!
+              : 19 * 60,
+        );
+      }
+    } catch (error, stack) {
+      SafeDiagnostics.error('learning_plan_load_failed', error, stack);
+    } finally {
+      if (mounted) setState(() => _loadingExistingProfile = false);
+    }
+  }
+
+  static List<String> _decodeStringList(String source) {
+    try {
+      return (jsonDecode(source) as List).whereType<String>().toList();
+    } catch (_) {
+      return const [];
+    }
+  }
+
+  TtsVoiceGender get _selectedVoice => switch (_draft.tutor) {
+    TutorPreference.lenka => TtsVoiceGender.female,
+    TutorPreference.pavel => TtsVoiceGender.male,
+  };
+
+  TimeOfDay get _selectedReminderTime => TimeOfDay(
+    hour: _draft.reminderMinutesAfterMidnight ~/ 60,
+    minute: _draft.reminderMinutesAfterMidnight % 60,
+  );
+
+  int get _selectedGoal => switch (_draft.commitment) {
+    StudyCommitment.light => kDailyGoalPresets[0].$1,
+    StudyCommitment.steady => kDailyGoalPresets[1].$1,
+    StudyCommitment.focused => kDailyGoalPresets[2].$1,
+    StudyCommitment.intensive => kDailyGoalPresets[3].$1,
+  };
+
+  CEFRLevel get _curriculumStartingLevel => switch (_draft.currentLevel) {
+    LearnerCzechLevel.preA1 || LearnerCzechLevel.unsure => CEFRLevel.preA1,
+    LearnerCzechLevel.a1 => CEFRLevel.a1,
+    LearnerCzechLevel.a2 || LearnerCzechLevel.b1OrHigher => CEFRLevel.a2,
+  };
 
   void _next() {
     if (_step < _totalSteps - 1) {
@@ -45,36 +159,80 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   void _back() {
-    if (_step > 0) setState(() => _step--);
+    if (widget.editing && _step == 1) {
+      context.pop();
+    } else if (_step > 0) {
+      setState(() => _step--);
+    }
   }
 
   Future<void> _finish() async {
     if (_finishing) return;
-    setState(() => _finishing = true);
+    final completedProfile = _draft
+        .copyWith(displayName: _nameController.text)
+        .complete();
+    setState(() {
+      _finishing = true;
+      _draft = _draft.copyWith(displayName: completedProfile.displayName);
+    });
+    widget.onProfileCompleted?.call(completedProfile);
 
     // Persist choices, but never let a storage hiccup trap the user on
     // onboarding — always mark it complete and navigate home.
     try {
       final settings = ref.read(settingsProvider.notifier);
-      await settings.setLearnerName(_nameController.text);
+      await settings.setLearnerName(completedProfile.displayName);
       await settings.setDailyGoalXp(_selectedGoal);
-      await settings.setStartingLevel(_selectedLevel);
+      await settings.setStartingLevel(_curriculumStartingLevel);
       // Already written when previewed, but re-asserted so a learner who never
       // tapped a card still gets an explicitly stored choice.
       await settings.setTtsVoiceGender(_selectedVoice);
       await ref.read(gamificationProvider.notifier).setDailyGoal(_selectedGoal);
+      await ref
+          .read(learnerProfileRepositoryProvider)
+          .saveOnboardingProfile(
+            displayName: completedProfile.displayName,
+            selfAssessedLevel: completedProfile.currentLevel.name,
+            primaryGoal: completedProfile.primaryGoal.name,
+            examTrack: switch (completedProfile.primaryGoal) {
+              LearningGoal.permanentResidenceA2 => 'permanentResidenceA2',
+              LearningGoal.citizenshipB1 => 'citizenshipFoundation',
+              _ => null,
+            },
+            targetHorizon: completedProfile.goalHorizon?.name,
+            focusSkills: completedProfile.focuses
+                .map((focus) => focus.name)
+                .toList(),
+            dailyCommitmentMinutes:
+                completedProfile.commitment.minutesPerStudyDay,
+            studyDaysPerWeek: completedProfile.commitment.daysPerWeek,
+            preferredVoice: _selectedVoice.name,
+            ttsSpeechRate: ref.read(settingsProvider).ttsSpeechRate,
+            dailyGoalXp: _selectedGoal,
+            onboardingVersion: completedProfile.onboardingVersion,
+            onboardingLastStep: _totalSteps,
+            completed: true,
+          );
+      await ref
+          .read(learnerProfileRepositoryProvider)
+          .updateReminderIntent(
+            wantsReminder: completedProfile.remindersEnabled,
+            preferredHour: _selectedReminderTime.hour,
+            preferredMinute: _selectedReminderTime.minute,
+          );
 
       // Finish the complete permission + scheduling workflow while this route
       // is still mounted. Completing onboarding first rebuilds the router and
       // can dispose this widget before subsequent ref reads run.
-      if (_remindersChecked) {
-        try {
-          await ref
-              .read(reminderCoordinatorProvider.notifier)
-              .setRemindersEnabled(true, preferredTime: _selectedReminderTime);
-        } catch (e, stack) {
-          SafeDiagnostics.error('reminder_schedule_failed', e, stack);
-        }
+      try {
+        await ref
+            .read(reminderCoordinatorProvider.notifier)
+            .setRemindersEnabled(
+              completedProfile.remindersEnabled,
+              preferredTime: _selectedReminderTime,
+            );
+      } catch (e, stack) {
+        SafeDiagnostics.error('reminder_schedule_failed', e, stack);
       }
 
       await settings.completeOnboarding();
@@ -83,26 +241,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       // curriculum access policy unlocks the right starting unit.  Without
       // this, the onboarding "A2" selection only affects AI-chat difficulty
       // and the learner starts at unit 1 regardless.
-      final provisionalUnit = switch (_selectedLevel) {
+      final provisionalUnit = switch (_curriculumStartingLevel) {
         CEFRLevel.a2 => 16, // First A2 unit
         CEFRLevel.a1 => 1, // First A1 unit
         CEFRLevel.preA1 => 1,
       };
-      if (_selectedLevel != CEFRLevel.preA1) {
+      if (_curriculumStartingLevel != CEFRLevel.preA1) {
+        // Preserve real diagnostic evidence when the learner came here via
+        // the placement test. This only changes (or creates) the curriculum
+        // ceiling; it never replaces measured estimates with placeholders.
         await ref
             .read(databaseProvider)
             .progressDao
-            .savePlacement(
-              PlacementResult(
-                estimates: const {
-                  LearningSkill.reading: 0.5,
-                  LearningSkill.listening: 0.5,
-                  LearningSkill.writing: 0.5,
-                },
-                provisionalUnit: provisionalUnit,
-                sampleSize: 0,
-              ),
-            );
+            .setProvisionalUnit(provisionalUnit);
         ref.invalidate(placementProfileProvider);
         ref.invalidate(curriculumAccessProvider);
         ref.invalidate(nextLessonProvider);
@@ -121,7 +272,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
     // Straight into the offline download rather than home: this is the first
     // point the chosen voice is known, and only that voice is fetched.
-    if (mounted) context.go('/setup');
+    if (!mounted) return;
+    if (widget.editing) {
+      context.pop();
+    } else {
+      context.go('/setup');
+    }
   }
 
   @override
@@ -134,6 +290,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    if (_loadingExistingProfile) {
+      return Scaffold(
+        backgroundColor: t.bg,
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
     if (_step == 0) return _buildWelcomeStep();
 
     return Scaffold(
@@ -236,10 +398,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 const SizedBox(height: 8),
                 PrimaryButton(
-                  label:
-                      _step < _totalSteps - 1
-                          ? l10n.onboardingContinue
-                          : l10n.onboardingStartLearning,
+                  label: _step < _totalSteps - 1
+                      ? l10n.onboardingContinue
+                      : l10n.onboardingStartLearning,
                   onPressed: _finishing ? null : _next,
                 ),
                 TextButton(
@@ -263,60 +424,30 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   Widget _buildStep() {
     return switch (_step) {
-      1 => _buildNameStep(),
-      2 => _buildLevelStep(),
-      3 => _buildVoiceStep(),
-      4 => _buildGoalStep(),
+      1 => _buildProfileStep(),
+      2 => _buildPurposeStep(),
+      3 => _buildGoalDetailsStep(),
+      4 => _buildCommitmentStep(),
       5 => _buildReminderStep(),
       6 => _buildSummaryStep(),
       _ => const SizedBox(),
     };
   }
 
-  Widget _buildNameStep() {
+  Widget _buildProfileStep() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: t.priSoft,
-                border: Border.all(color: t.line),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                'L',
-                style: TextStyle(
-                  color: t.pri,
-                  fontFamily: AppFonts.display,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 22,
-                ),
-              ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Text(
-                '“Ahoj! I’m Lenka — what should I call you?”',
-                style: TextStyle(color: t.muted, fontSize: 15, height: 1.45),
-              ),
-            ),
-          ],
+        _stepHeader(
+          Icons.person_outline_rounded,
+          t.priSoft,
+          t.pri,
+          l10n.onboardingProfileTitle,
+          l10n.onboardingProfileBody,
         ),
         const SizedBox(height: 26),
-        DisplayText(l10n.onboardingNameTitle, size: 33, height: 1.1),
-        const SizedBox(height: 8),
-        Text(
-          l10n.onboardingNameBody,
-          style: TextStyle(fontSize: 15, color: t.muted, height: 1.5),
-        ),
-        const SizedBox(height: 22),
         Text(
           l10n.onboardingFirstName,
           style: TextStyle(
@@ -355,7 +486,89 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             color: t.ink,
             fontWeight: FontWeight.w600,
           ),
-          onSubmitted: (_) => _next(),
+          onChanged: (value) => _draft = _draft.copyWith(displayName: value),
+        ),
+        const SizedBox(height: 26),
+        Text(
+          l10n.onboardingLevelPrompt,
+          style: TextStyle(
+            color: t.ink,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 12),
+        _ChoiceCard(
+          title: l10n.onboardingBeginner,
+          subtitle: l10n.onboardingBeginnerBody,
+          isSelected: _draft.currentLevel == LearnerCzechLevel.preA1,
+          onTap: () => setState(
+            () =>
+                _draft = _draft.copyWith(currentLevel: LearnerCzechLevel.preA1),
+          ),
+        ),
+        const SizedBox(height: 10),
+        _ChoiceCard(
+          title: l10n.onboardingA1,
+          subtitle: l10n.onboardingA1Body,
+          isSelected: _draft.currentLevel == LearnerCzechLevel.a1,
+          onTap: () => setState(
+            () => _draft = _draft.copyWith(currentLevel: LearnerCzechLevel.a1),
+          ),
+        ),
+        const SizedBox(height: 10),
+        _ChoiceCard(
+          title: l10n.onboardingA2,
+          subtitle: l10n.onboardingA2Body,
+          isSelected: _draft.currentLevel == LearnerCzechLevel.a2,
+          onTap: () => setState(
+            () => _draft = _draft.copyWith(currentLevel: LearnerCzechLevel.a2),
+          ),
+        ),
+        const SizedBox(height: 10),
+        _ChoiceCard(
+          title: l10n.onboardingB1Plus,
+          subtitle: l10n.onboardingB1PlusBody,
+          isSelected: _draft.currentLevel == LearnerCzechLevel.b1OrHigher,
+          onTap: () => setState(
+            () => _draft = _draft.copyWith(
+              currentLevel: LearnerCzechLevel.b1OrHigher,
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        _ChoiceCard(
+          title: l10n.onboardingLevelUnsure,
+          subtitle: l10n.onboardingLevelUnsureBody,
+          isSelected: _draft.currentLevel == LearnerCzechLevel.unsure,
+          onTap: () => setState(
+            () => _draft = _draft.copyWith(
+              currentLevel: LearnerCzechLevel.unsure,
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        TextButton(
+          onPressed: () async {
+            final result = await context.push<PlacementResult>(
+              '/placement?return=onboarding',
+            );
+            if (!mounted || result == null) return;
+            final level = switch (result.provisionalUnit) {
+              >= 16 => LearnerCzechLevel.a2,
+              >= 6 => LearnerCzechLevel.a1,
+              _ => LearnerCzechLevel.preA1,
+            };
+            setState(() => _draft = _draft.copyWith(currentLevel: level));
+          },
+          child: Text(
+            l10n.onboardingTakePlacement,
+            style: TextStyle(
+              color: t.pri,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ],
     );
@@ -524,12 +737,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: t.card,
-                                  border:
-                                      i == features.length - 1
-                                          ? null
-                                          : Border(
-                                            bottom: BorderSide(color: t.line),
-                                          ),
+                                  border: i == features.length - 1
+                                      ? null
+                                      : Border(
+                                          bottom: BorderSide(color: t.line),
+                                        ),
                                 ),
                                 child: Row(
                                   children: [
@@ -634,10 +846,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   onPressed: _next,
                 ),
                 TextButton(
-                  onPressed:
-                      BackendConfig.isConfigured
-                          ? () => context.push('/account')
-                          : _finish,
+                  onPressed: BackendConfig.isConfigured
+                      ? () => context.push('/account?mode=onboardingRecovery')
+                      : _finish,
                   child: Text(
                     l10n.onboardingHaveAccount,
                     style: TextStyle(
@@ -655,57 +866,160 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  Widget _buildLevelStep() {
+  Widget _buildPurposeStep() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _stepHeader(
-          Icons.assessment_outlined,
+          Icons.explore_outlined,
           t.priSoft,
           t.pri,
-          l10n.onboardingLevelTitle,
-          l10n.onboardingLevelBody,
+          l10n.onboardingPurposeTitle,
+          l10n.onboardingPurposeBody,
         ),
         const SizedBox(height: 28),
-        _ChoiceCard(
-          title: l10n.onboardingBeginner,
-          subtitle: l10n.onboardingBeginnerBody,
-          isSelected: _selectedLevel == CEFRLevel.preA1,
-          onTap: () => setState(() => _selectedLevel = CEFRLevel.preA1),
-        ),
-        const SizedBox(height: 10),
-        _ChoiceCard(
-          title: l10n.onboardingA1,
-          subtitle: l10n.onboardingA1Body,
-          isSelected: _selectedLevel == CEFRLevel.a1,
-          onTap: () => setState(() => _selectedLevel = CEFRLevel.a1),
-        ),
-        const SizedBox(height: 10),
-        _ChoiceCard(
-          title: l10n.onboardingA2,
-          subtitle: l10n.onboardingA2Body,
-          isSelected: _selectedLevel == CEFRLevel.a2,
-          onTap: () => setState(() => _selectedLevel = CEFRLevel.a2),
-        ),
-        const SizedBox(height: 20),
-        // A precise placement test is available for learners who are not sure
-        // where to start.  It asks 8-12 questions across reading, listening
-        // and writing, then unlocks the right units.
-        TextButton(
-          onPressed: () => context.go('/placement'),
-          child: Text(
-            l10n.onboardingTakePlacement,
-            style: TextStyle(
-              color: t.pri,
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-            ),
+        for (final goal in LearningGoal.values) ...[
+          _ChoiceCard(
+            title: _goalTitle(l10n, goal),
+            subtitle: _goalBody(l10n, goal),
+            isSelected: _draft.primaryGoal == goal,
+            onTap: () => _selectGoal(goal),
           ),
-        ),
+          const SizedBox(height: 10),
+        ],
       ],
     );
+  }
+
+  void _selectGoal(LearningGoal goal) {
+    final defaults = switch (goal) {
+      LearningGoal.everydayLife => const {
+        LearningFocus.speaking,
+        LearningFocus.listening,
+      },
+      LearningGoal.permanentResidenceA2 => const {
+        LearningFocus.listening,
+        LearningFocus.writing,
+      },
+      LearningGoal.citizenshipB1 => const {
+        LearningFocus.reading,
+        LearningFocus.lifeAndInstitutions,
+      },
+      LearningGoal.workAndCareer => const {
+        LearningFocus.speaking,
+        LearningFocus.vocabularyAndGrammar,
+      },
+      LearningGoal.study => const {
+        LearningFocus.reading,
+        LearningFocus.writing,
+      },
+      LearningGoal.familyAndRelationships => const {
+        LearningFocus.speaking,
+        LearningFocus.listening,
+      },
+      LearningGoal.travelAndCulture => const {
+        LearningFocus.speaking,
+        LearningFocus.vocabularyAndGrammar,
+      },
+    };
+    setState(() {
+      _draft = _draft.copyWith(
+        primaryGoal: goal,
+        focuses: defaults,
+        goalHorizon: goal.isExamGoal
+            ? (_draft.goalHorizon ?? GoalHorizon.laterOrUnsure)
+            : null,
+        clearGoalHorizon: !goal.isExamGoal,
+      );
+    });
+  }
+
+  Widget _buildGoalDetailsStep() {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final availableFocuses = [
+      LearningFocus.speaking,
+      LearningFocus.listening,
+      LearningFocus.reading,
+      LearningFocus.writing,
+      LearningFocus.vocabularyAndGrammar,
+      if (_draft.primaryGoal == LearningGoal.citizenshipB1)
+        LearningFocus.lifeAndInstitutions,
+    ];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _stepHeader(
+          Icons.tune_rounded,
+          t.amberSoft,
+          t.amber,
+          l10n.onboardingFocusTitle,
+          l10n.onboardingFocusBody,
+        ),
+        const SizedBox(height: 24),
+        if (_draft.primaryGoal == LearningGoal.permanentResidenceA2)
+          _GoalDisclosure(
+            icon: Icons.verified_outlined,
+            text: l10n.onboardingPermanentResidenceDisclosure,
+          ),
+        if (_draft.primaryGoal == LearningGoal.citizenshipB1)
+          _GoalDisclosure(
+            icon: Icons.info_outline_rounded,
+            text: l10n.onboardingCitizenshipDisclosure,
+          ),
+        if (_draft.primaryGoal.isExamGoal) ...[
+          const SizedBox(height: 20),
+          Text(
+            l10n.onboardingHorizonTitle,
+            style: TextStyle(
+              color: t.ink,
+              fontSize: 17,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 10),
+          for (final horizon in GoalHorizon.values) ...[
+            _ChoiceCard(
+              title: _horizonLabel(l10n, horizon),
+              subtitle: _horizonBody(l10n, horizon),
+              isSelected: _draft.goalHorizon == horizon,
+              onTap: () => setState(
+                () => _draft = _draft.copyWith(goalHorizon: horizon),
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+          const SizedBox(height: 14),
+        ],
+        Text(
+          l10n.onboardingFocusPrompt,
+          style: TextStyle(
+            color: t.ink,
+            fontSize: 17,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 10),
+        for (final focus in availableFocuses) ...[
+          _ChoiceCard(
+            title: _focusLabel(l10n, focus),
+            subtitle: _focusBody(l10n, focus),
+            isSelected: _draft.focuses.contains(focus),
+            onTap: () => _toggleFocus(focus),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ],
+    );
+  }
+
+  void _toggleFocus(LearningFocus focus) {
+    final next = {..._draft.focuses};
+    if (!next.remove(focus)) next.add(focus);
+    if (next.isEmpty) return;
+    setState(() => _draft = _draft.copyWith(focuses: next));
   }
 
   /// Tapping a voice applies it immediately and speaks a sample.
@@ -714,28 +1028,61 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   /// onboarding: the neural path picks its clip by the *current* voice, so a
   /// preview that ignored the tap would play the other voice.
   Future<void> _previewVoice(TtsVoiceGender voice) async {
-    setState(() => _selectedVoice = voice);
+    setState(() {
+      _draft = _draft.copyWith(
+        tutor: voice == TtsVoiceGender.female
+            ? TutorPreference.lenka
+            : TutorPreference.pavel,
+      );
+    });
     await ref.read(settingsProvider.notifier).setTtsVoiceGender(voice);
     if (!mounted) return;
     await ref.read(czechTtsProvider).playVoiceSample(voice);
   }
 
-  Widget _buildVoiceStep() {
+  Widget _buildCommitmentStep() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _stepHeader(
-          Icons.record_voice_over_outlined,
+          Icons.calendar_today_outlined,
           t.priSoft,
           t.pri,
-          l10n.onboardingVoiceTitle,
-          l10n.onboardingVoiceBody,
+          l10n.onboardingCommitmentTitle,
+          l10n.onboardingCommitmentBody,
         ),
         const SizedBox(height: 28),
-        // "Choose your teacher", not "pick a voice gender" — so the cards
-        // lead with who they are.
+        for (final commitment in StudyCommitment.values) ...[
+          _ChoiceCard(
+            title: _commitmentLabel(l10n, commitment),
+            subtitle: l10n.onboardingCommitmentSchedule(
+              commitment.minutesPerStudyDay,
+              commitment.daysPerWeek,
+            ),
+            isSelected: _draft.commitment == commitment,
+            onTap: () => setState(
+              () => _draft = _draft.copyWith(commitment: commitment),
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+        const SizedBox(height: 18),
+        Text(
+          l10n.onboardingTeacherChoiceTitle,
+          style: TextStyle(
+            color: t.ink,
+            fontSize: 17,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          l10n.onboardingTeacherChoiceBody,
+          style: TextStyle(color: t.muted, fontSize: 14, height: 1.4),
+        ),
+        const SizedBox(height: 12),
         _ChoiceCard(
           title: TtsVoiceGender.female.tutorName,
           subtitle:
@@ -771,39 +1118,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  Widget _buildGoalStep() {
-    final t = context.tokens;
-    final l10n = AppLocalizations.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _stepHeader(
-          Icons.flag_outlined,
-          t.amberSoft,
-          t.amber,
-          l10n.onboardingGoalTitle,
-          l10n.onboardingGoalBody,
-        ),
-        const SizedBox(height: 28),
-        // The same list the Settings dropdown builds its items from, shared so
-        // the two cannot drift: a goal chosen here that Settings has no item
-        // for makes DropdownButton assert and takes that screen down.
-        for (final (xp, label, minutes) in kDailyGoalPresets) ...[
-          _ChoiceCard(
-            title: '$label — $xp XP',
-            subtitle:
-                xp == kDailyGoalPresets.last.$1
-                    ? '$minutes+ minutes/day'
-                    : '$minutes minutes/day',
-            isSelected: _selectedGoal == xp,
-            onTap: () => setState(() => _selectedGoal = xp),
-          ),
-          const SizedBox(height: 10),
-        ],
-      ],
-    );
-  }
-
   Widget _buildReminderStep() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
@@ -832,7 +1146,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               helpText: l10n.reminderStepTitle,
             );
             if (picked != null) {
-              setState(() => _selectedReminderTime = picked);
+              setState(() {
+                _draft = _draft.copyWith(
+                  reminderMinutesAfterMidnight:
+                      picked.hour * 60 + picked.minute,
+                );
+              });
             }
           },
           child: Row(
@@ -871,17 +1190,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         const SizedBox(height: 16),
         // Opt-in checkbox — default OFF, the user must actively enable.
         InkWell(
-          onTap: () => setState(() => _remindersChecked = !_remindersChecked),
+          onTap: () => setState(
+            () => _draft = _draft.copyWith(
+              remindersEnabled: !_draft.remindersEnabled,
+            ),
+          ),
           borderRadius: BorderRadius.circular(12),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
             child: Row(
               children: [
                 Icon(
-                  _remindersChecked
+                  _draft.remindersEnabled
                       ? Icons.check_box_rounded
                       : Icons.check_box_outline_blank_rounded,
-                  color: _remindersChecked ? t.pri : t.faint,
+                  color: _draft.remindersEnabled ? t.pri : t.faint,
                   size: 26,
                 ),
                 const SizedBox(width: 12),
@@ -934,19 +1257,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Widget _buildSummaryStep() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
-    final levelLabel = switch (_selectedLevel) {
-      CEFRLevel.preA1 => l10n.onboardingBeginner,
-      CEFRLevel.a1 => 'A1',
-      CEFRLevel.a2 => 'A2',
-    };
+    final profile = _draft.copyWith(displayName: _nameController.text);
+    final levelLabel = _levelLabel(l10n, profile.currentLevel);
     final teacher = _selectedVoice.tutorName;
-    final minutes =
-        kDailyGoalPresets
-            .firstWhere(
-              (p) => p.$1 == _selectedGoal,
-              orElse: () => kDailyGoalPresets.last,
-            )
-            .$3;
+    final focusLabel = profile.focuses
+        .map((focus) => _focusLabel(l10n, focus))
+        .join(', ');
     final rows = [
       (
         l10n.onboardingName,
@@ -954,15 +1270,27 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             ? l10n.onboardingLearner
             : _nameController.text.trim(),
       ),
+      (l10n.onboardingPrimaryGoal, _goalTitle(l10n, profile.primaryGoal)),
       (l10n.onboardingStartingPoint, levelLabel),
+      (l10n.onboardingFocusSummary, focusLabel),
+      if (profile.primaryGoal.isExamGoal && profile.goalHorizon != null)
+        (
+          l10n.onboardingTargetSummary,
+          _horizonLabel(l10n, profile.goalHorizon!),
+        ),
+      (
+        l10n.onboardingStudyPlanSummary,
+        l10n.onboardingCommitmentSchedule(
+          profile.commitment.minutesPerStudyDay,
+          profile.commitment.daysPerWeek,
+        ),
+      ),
       (l10n.onboardingTeacher, teacher),
-      (l10n.homeDailyGoal, '$minutes min · $_selectedGoal XP'),
-      if (_remindersChecked)
+      if (profile.remindersEnabled)
         (
           l10n.reminderTimeLabel,
           '${_selectedReminderTime.hour.toString().padLeft(2, '0')}:${_selectedReminderTime.minute.toString().padLeft(2, '0')}',
         ),
-      (l10n.onboardingFirstUnit, l10n.onboardingSoundsOfCzech),
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -980,7 +1308,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         DisplayText(l10n.onboardingPlanReady, size: 31, height: 1.1),
         const SizedBox(height: 8),
         Text(
-          l10n.onboardingPlanBody,
+          _planBody(l10n, profile.primaryGoal),
           style: TextStyle(color: t.muted, fontSize: 15, height: 1.5),
         ),
         const SizedBox(height: 20),
@@ -1000,10 +1328,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     vertical: 14,
                   ),
                   decoration: BoxDecoration(
-                    border:
-                        i == rows.length - 1
-                            ? null
-                            : Border(bottom: BorderSide(color: t.line)),
+                    border: i == rows.length - 1
+                        ? null
+                        : Border(bottom: BorderSide(color: t.line)),
                   ),
                   child: Row(
                     children: [
@@ -1034,6 +1361,126 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  String _goalTitle(AppLocalizations l10n, LearningGoal goal) => switch (goal) {
+    LearningGoal.everydayLife => l10n.onboardingGoalEverydayTitle,
+    LearningGoal.permanentResidenceA2 =>
+      l10n.onboardingGoalPermanentResidenceTitle,
+    LearningGoal.citizenshipB1 => l10n.onboardingGoalCitizenshipTitle,
+    LearningGoal.workAndCareer => l10n.onboardingGoalWorkTitle,
+    LearningGoal.study => l10n.onboardingGoalStudyTitle,
+    LearningGoal.familyAndRelationships =>
+      l10n.onboardingGoalRelationshipsTitle,
+    LearningGoal.travelAndCulture => l10n.onboardingGoalTravelTitle,
+  };
+
+  String _goalBody(AppLocalizations l10n, LearningGoal goal) => switch (goal) {
+    LearningGoal.everydayLife => l10n.onboardingGoalEverydayBody,
+    LearningGoal.permanentResidenceA2 =>
+      l10n.onboardingGoalPermanentResidenceBody,
+    LearningGoal.citizenshipB1 => l10n.onboardingGoalCitizenshipBody,
+    LearningGoal.workAndCareer => l10n.onboardingGoalWorkBody,
+    LearningGoal.study => l10n.onboardingGoalStudyBody,
+    LearningGoal.familyAndRelationships => l10n.onboardingGoalRelationshipsBody,
+    LearningGoal.travelAndCulture => l10n.onboardingGoalTravelBody,
+  };
+
+  String _levelLabel(AppLocalizations l10n, LearnerCzechLevel level) =>
+      switch (level) {
+        LearnerCzechLevel.preA1 => l10n.onboardingBeginner,
+        LearnerCzechLevel.a1 => l10n.onboardingA1,
+        LearnerCzechLevel.a2 => l10n.onboardingA2,
+        LearnerCzechLevel.b1OrHigher => l10n.onboardingB1Plus,
+        LearnerCzechLevel.unsure => l10n.onboardingLevelUnsure,
+      };
+
+  String _focusLabel(
+    AppLocalizations l10n,
+    LearningFocus focus,
+  ) => switch (focus) {
+    LearningFocus.speaking => l10n.onboardingFocusSpeaking,
+    LearningFocus.listening => l10n.onboardingFocusListening,
+    LearningFocus.reading => l10n.onboardingFocusReading,
+    LearningFocus.writing => l10n.onboardingFocusWriting,
+    LearningFocus.vocabularyAndGrammar => l10n.onboardingFocusVocabularyGrammar,
+    LearningFocus.lifeAndInstitutions => l10n.onboardingFocusLifeInstitutions,
+  };
+
+  String _focusBody(AppLocalizations l10n, LearningFocus focus) =>
+      switch (focus) {
+        LearningFocus.speaking => l10n.onboardingFocusSpeakingBody,
+        LearningFocus.listening => l10n.onboardingFocusListeningBody,
+        LearningFocus.reading => l10n.onboardingFocusReadingBody,
+        LearningFocus.writing => l10n.onboardingFocusWritingBody,
+        LearningFocus.vocabularyAndGrammar =>
+          l10n.onboardingFocusVocabularyGrammarBody,
+        LearningFocus.lifeAndInstitutions =>
+          l10n.onboardingFocusLifeInstitutionsBody,
+      };
+
+  String _horizonLabel(AppLocalizations l10n, GoalHorizon horizon) =>
+      switch (horizon) {
+        GoalHorizon.withinThreeMonths => l10n.onboardingHorizonWithinThree,
+        GoalHorizon.threeToSixMonths => l10n.onboardingHorizonThreeToSix,
+        GoalHorizon.sixToTwelveMonths => l10n.onboardingHorizonSixToTwelve,
+        GoalHorizon.laterOrUnsure => l10n.onboardingHorizonLater,
+      };
+
+  String _horizonBody(AppLocalizations l10n, GoalHorizon horizon) =>
+      switch (horizon) {
+        GoalHorizon.withinThreeMonths => l10n.onboardingHorizonWithinThreeBody,
+        GoalHorizon.threeToSixMonths => l10n.onboardingHorizonThreeToSixBody,
+        GoalHorizon.sixToTwelveMonths => l10n.onboardingHorizonSixToTwelveBody,
+        GoalHorizon.laterOrUnsure => l10n.onboardingHorizonLaterBody,
+      };
+
+  String _commitmentLabel(AppLocalizations l10n, StudyCommitment commitment) =>
+      switch (commitment) {
+        StudyCommitment.light => l10n.onboardingCommitmentLight,
+        StudyCommitment.steady => l10n.onboardingCommitmentSteady,
+        StudyCommitment.focused => l10n.onboardingCommitmentFocused,
+        StudyCommitment.intensive => l10n.onboardingCommitmentIntensive,
+      };
+
+  String _planBody(AppLocalizations l10n, LearningGoal goal) => switch (goal) {
+    LearningGoal.permanentResidenceA2 =>
+      l10n.onboardingPlanPermanentResidenceBody,
+    LearningGoal.citizenshipB1 => l10n.onboardingPlanCitizenshipBody,
+    _ => l10n.onboardingPlanBody,
+  };
+}
+
+class _GoalDisclosure extends StatelessWidget {
+  const _GoalDisclosure({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: t.priSoft,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: t.line),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: t.pri),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: t.muted, fontSize: 13.5, height: 1.45),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

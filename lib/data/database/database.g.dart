@@ -13318,6 +13318,1583 @@ class DelayedTransferAssignmentsCompanion
   }
 }
 
+class $LearnerProfilesTable extends LearnerProfiles
+    with TableInfo<$LearnerProfilesTable, LearnerProfile> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LearnerProfilesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedColumn<String> key = GeneratedColumn<String>(
+    'key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('primary'),
+  );
+  static const VerificationMeta _displayNameMeta = const VerificationMeta(
+    'displayName',
+  );
+  @override
+  late final GeneratedColumn<String> displayName = GeneratedColumn<String>(
+    'display_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _selfAssessedCefrMeta = const VerificationMeta(
+    'selfAssessedCefr',
+  );
+  @override
+  late final GeneratedColumn<String> selfAssessedCefr = GeneratedColumn<String>(
+    'self_assessed_cefr',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('preA1'),
+  );
+  static const VerificationMeta _primaryGoalMeta = const VerificationMeta(
+    'primaryGoal',
+  );
+  @override
+  late final GeneratedColumn<String> primaryGoal = GeneratedColumn<String>(
+    'primary_goal',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _secondaryGoalsJsonMeta =
+      const VerificationMeta('secondaryGoalsJson');
+  @override
+  late final GeneratedColumn<String> secondaryGoalsJson =
+      GeneratedColumn<String>(
+        'secondary_goals_json',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultValue: const Constant('[]'),
+      );
+  static const VerificationMeta _examTrackMeta = const VerificationMeta(
+    'examTrack',
+  );
+  @override
+  late final GeneratedColumn<String> examTrack = GeneratedColumn<String>(
+    'exam_track',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _targetHorizonMeta = const VerificationMeta(
+    'targetHorizon',
+  );
+  @override
+  late final GeneratedColumn<String> targetHorizon = GeneratedColumn<String>(
+    'target_horizon',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _focusSkillsJsonMeta = const VerificationMeta(
+    'focusSkillsJson',
+  );
+  @override
+  late final GeneratedColumn<String> focusSkillsJson = GeneratedColumn<String>(
+    'focus_skills_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('[]'),
+  );
+  static const VerificationMeta _dailyCommitmentMinutesMeta =
+      const VerificationMeta('dailyCommitmentMinutes');
+  @override
+  late final GeneratedColumn<int> dailyCommitmentMinutes = GeneratedColumn<int>(
+    'daily_commitment_minutes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(15),
+  );
+  static const VerificationMeta _studyDaysPerWeekMeta = const VerificationMeta(
+    'studyDaysPerWeek',
+  );
+  @override
+  late final GeneratedColumn<int> studyDaysPerWeek = GeneratedColumn<int>(
+    'study_days_per_week',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(7),
+  );
+  static const VerificationMeta _preferredVoiceMeta = const VerificationMeta(
+    'preferredVoice',
+  );
+  @override
+  late final GeneratedColumn<String> preferredVoice = GeneratedColumn<String>(
+    'preferred_voice',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('female'),
+  );
+  static const VerificationMeta _ttsSpeechRateMeta = const VerificationMeta(
+    'ttsSpeechRate',
+  );
+  @override
+  late final GeneratedColumn<double> ttsSpeechRate = GeneratedColumn<double>(
+    'tts_speech_rate',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0.45),
+  );
+  static const VerificationMeta _dailyGoalXpMeta = const VerificationMeta(
+    'dailyGoalXp',
+  );
+  @override
+  late final GeneratedColumn<int> dailyGoalXp = GeneratedColumn<int>(
+    'daily_goal_xp',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(300),
+  );
+  static const VerificationMeta _onboardingVersionMeta = const VerificationMeta(
+    'onboardingVersion',
+  );
+  @override
+  late final GeneratedColumn<int> onboardingVersion = GeneratedColumn<int>(
+    'onboarding_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _onboardingLastStepMeta =
+      const VerificationMeta('onboardingLastStep');
+  @override
+  late final GeneratedColumn<int> onboardingLastStep = GeneratedColumn<int>(
+    'onboarding_last_step',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _onboardingCompletedAtMeta =
+      const VerificationMeta('onboardingCompletedAt');
+  @override
+  late final GeneratedColumn<DateTime> onboardingCompletedAt =
+      GeneratedColumn<DateTime>(
+        'onboarding_completed_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    key,
+    displayName,
+    selfAssessedCefr,
+    primaryGoal,
+    secondaryGoalsJson,
+    examTrack,
+    targetHorizon,
+    focusSkillsJson,
+    dailyCommitmentMinutes,
+    studyDaysPerWeek,
+    preferredVoice,
+    ttsSpeechRate,
+    dailyGoalXp,
+    onboardingVersion,
+    onboardingLastStep,
+    onboardingCompletedAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'learner_profiles';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<LearnerProfile> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('key')) {
+      context.handle(
+        _keyMeta,
+        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
+      );
+    }
+    if (data.containsKey('display_name')) {
+      context.handle(
+        _displayNameMeta,
+        displayName.isAcceptableOrUnknown(
+          data['display_name']!,
+          _displayNameMeta,
+        ),
+      );
+    }
+    if (data.containsKey('self_assessed_cefr')) {
+      context.handle(
+        _selfAssessedCefrMeta,
+        selfAssessedCefr.isAcceptableOrUnknown(
+          data['self_assessed_cefr']!,
+          _selfAssessedCefrMeta,
+        ),
+      );
+    }
+    if (data.containsKey('primary_goal')) {
+      context.handle(
+        _primaryGoalMeta,
+        primaryGoal.isAcceptableOrUnknown(
+          data['primary_goal']!,
+          _primaryGoalMeta,
+        ),
+      );
+    }
+    if (data.containsKey('secondary_goals_json')) {
+      context.handle(
+        _secondaryGoalsJsonMeta,
+        secondaryGoalsJson.isAcceptableOrUnknown(
+          data['secondary_goals_json']!,
+          _secondaryGoalsJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('exam_track')) {
+      context.handle(
+        _examTrackMeta,
+        examTrack.isAcceptableOrUnknown(data['exam_track']!, _examTrackMeta),
+      );
+    }
+    if (data.containsKey('target_horizon')) {
+      context.handle(
+        _targetHorizonMeta,
+        targetHorizon.isAcceptableOrUnknown(
+          data['target_horizon']!,
+          _targetHorizonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('focus_skills_json')) {
+      context.handle(
+        _focusSkillsJsonMeta,
+        focusSkillsJson.isAcceptableOrUnknown(
+          data['focus_skills_json']!,
+          _focusSkillsJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('daily_commitment_minutes')) {
+      context.handle(
+        _dailyCommitmentMinutesMeta,
+        dailyCommitmentMinutes.isAcceptableOrUnknown(
+          data['daily_commitment_minutes']!,
+          _dailyCommitmentMinutesMeta,
+        ),
+      );
+    }
+    if (data.containsKey('study_days_per_week')) {
+      context.handle(
+        _studyDaysPerWeekMeta,
+        studyDaysPerWeek.isAcceptableOrUnknown(
+          data['study_days_per_week']!,
+          _studyDaysPerWeekMeta,
+        ),
+      );
+    }
+    if (data.containsKey('preferred_voice')) {
+      context.handle(
+        _preferredVoiceMeta,
+        preferredVoice.isAcceptableOrUnknown(
+          data['preferred_voice']!,
+          _preferredVoiceMeta,
+        ),
+      );
+    }
+    if (data.containsKey('tts_speech_rate')) {
+      context.handle(
+        _ttsSpeechRateMeta,
+        ttsSpeechRate.isAcceptableOrUnknown(
+          data['tts_speech_rate']!,
+          _ttsSpeechRateMeta,
+        ),
+      );
+    }
+    if (data.containsKey('daily_goal_xp')) {
+      context.handle(
+        _dailyGoalXpMeta,
+        dailyGoalXp.isAcceptableOrUnknown(
+          data['daily_goal_xp']!,
+          _dailyGoalXpMeta,
+        ),
+      );
+    }
+    if (data.containsKey('onboarding_version')) {
+      context.handle(
+        _onboardingVersionMeta,
+        onboardingVersion.isAcceptableOrUnknown(
+          data['onboarding_version']!,
+          _onboardingVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('onboarding_last_step')) {
+      context.handle(
+        _onboardingLastStepMeta,
+        onboardingLastStep.isAcceptableOrUnknown(
+          data['onboarding_last_step']!,
+          _onboardingLastStepMeta,
+        ),
+      );
+    }
+    if (data.containsKey('onboarding_completed_at')) {
+      context.handle(
+        _onboardingCompletedAtMeta,
+        onboardingCompletedAt.isAcceptableOrUnknown(
+          data['onboarding_completed_at']!,
+          _onboardingCompletedAtMeta,
+        ),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {key};
+  @override
+  LearnerProfile map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LearnerProfile(
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      displayName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}display_name'],
+      )!,
+      selfAssessedCefr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}self_assessed_cefr'],
+      )!,
+      primaryGoal: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}primary_goal'],
+      ),
+      secondaryGoalsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}secondary_goals_json'],
+      )!,
+      examTrack: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}exam_track'],
+      ),
+      targetHorizon: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}target_horizon'],
+      ),
+      focusSkillsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}focus_skills_json'],
+      )!,
+      dailyCommitmentMinutes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_commitment_minutes'],
+      )!,
+      studyDaysPerWeek: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}study_days_per_week'],
+      )!,
+      preferredVoice: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}preferred_voice'],
+      )!,
+      ttsSpeechRate: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}tts_speech_rate'],
+      )!,
+      dailyGoalXp: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}daily_goal_xp'],
+      )!,
+      onboardingVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}onboarding_version'],
+      )!,
+      onboardingLastStep: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}onboarding_last_step'],
+      )!,
+      onboardingCompletedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}onboarding_completed_at'],
+      ),
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $LearnerProfilesTable createAlias(String alias) {
+    return $LearnerProfilesTable(attachedDatabase, alias);
+  }
+}
+
+class LearnerProfile extends DataClass implements Insertable<LearnerProfile> {
+  final String key;
+  final String displayName;
+  final String selfAssessedCefr;
+  final String? primaryGoal;
+  final String secondaryGoalsJson;
+  final String? examTrack;
+  final String? targetHorizon;
+  final String focusSkillsJson;
+  final int dailyCommitmentMinutes;
+  final int studyDaysPerWeek;
+  final String preferredVoice;
+  final double ttsSpeechRate;
+  final int dailyGoalXp;
+  final int onboardingVersion;
+  final int onboardingLastStep;
+  final DateTime? onboardingCompletedAt;
+  final DateTime updatedAt;
+  const LearnerProfile({
+    required this.key,
+    required this.displayName,
+    required this.selfAssessedCefr,
+    this.primaryGoal,
+    required this.secondaryGoalsJson,
+    this.examTrack,
+    this.targetHorizon,
+    required this.focusSkillsJson,
+    required this.dailyCommitmentMinutes,
+    required this.studyDaysPerWeek,
+    required this.preferredVoice,
+    required this.ttsSpeechRate,
+    required this.dailyGoalXp,
+    required this.onboardingVersion,
+    required this.onboardingLastStep,
+    this.onboardingCompletedAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['key'] = Variable<String>(key);
+    map['display_name'] = Variable<String>(displayName);
+    map['self_assessed_cefr'] = Variable<String>(selfAssessedCefr);
+    if (!nullToAbsent || primaryGoal != null) {
+      map['primary_goal'] = Variable<String>(primaryGoal);
+    }
+    map['secondary_goals_json'] = Variable<String>(secondaryGoalsJson);
+    if (!nullToAbsent || examTrack != null) {
+      map['exam_track'] = Variable<String>(examTrack);
+    }
+    if (!nullToAbsent || targetHorizon != null) {
+      map['target_horizon'] = Variable<String>(targetHorizon);
+    }
+    map['focus_skills_json'] = Variable<String>(focusSkillsJson);
+    map['daily_commitment_minutes'] = Variable<int>(dailyCommitmentMinutes);
+    map['study_days_per_week'] = Variable<int>(studyDaysPerWeek);
+    map['preferred_voice'] = Variable<String>(preferredVoice);
+    map['tts_speech_rate'] = Variable<double>(ttsSpeechRate);
+    map['daily_goal_xp'] = Variable<int>(dailyGoalXp);
+    map['onboarding_version'] = Variable<int>(onboardingVersion);
+    map['onboarding_last_step'] = Variable<int>(onboardingLastStep);
+    if (!nullToAbsent || onboardingCompletedAt != null) {
+      map['onboarding_completed_at'] = Variable<DateTime>(
+        onboardingCompletedAt,
+      );
+    }
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  LearnerProfilesCompanion toCompanion(bool nullToAbsent) {
+    return LearnerProfilesCompanion(
+      key: Value(key),
+      displayName: Value(displayName),
+      selfAssessedCefr: Value(selfAssessedCefr),
+      primaryGoal: primaryGoal == null && nullToAbsent
+          ? const Value.absent()
+          : Value(primaryGoal),
+      secondaryGoalsJson: Value(secondaryGoalsJson),
+      examTrack: examTrack == null && nullToAbsent
+          ? const Value.absent()
+          : Value(examTrack),
+      targetHorizon: targetHorizon == null && nullToAbsent
+          ? const Value.absent()
+          : Value(targetHorizon),
+      focusSkillsJson: Value(focusSkillsJson),
+      dailyCommitmentMinutes: Value(dailyCommitmentMinutes),
+      studyDaysPerWeek: Value(studyDaysPerWeek),
+      preferredVoice: Value(preferredVoice),
+      ttsSpeechRate: Value(ttsSpeechRate),
+      dailyGoalXp: Value(dailyGoalXp),
+      onboardingVersion: Value(onboardingVersion),
+      onboardingLastStep: Value(onboardingLastStep),
+      onboardingCompletedAt: onboardingCompletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(onboardingCompletedAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory LearnerProfile.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LearnerProfile(
+      key: serializer.fromJson<String>(json['key']),
+      displayName: serializer.fromJson<String>(json['displayName']),
+      selfAssessedCefr: serializer.fromJson<String>(json['selfAssessedCefr']),
+      primaryGoal: serializer.fromJson<String?>(json['primaryGoal']),
+      secondaryGoalsJson: serializer.fromJson<String>(
+        json['secondaryGoalsJson'],
+      ),
+      examTrack: serializer.fromJson<String?>(json['examTrack']),
+      targetHorizon: serializer.fromJson<String?>(json['targetHorizon']),
+      focusSkillsJson: serializer.fromJson<String>(json['focusSkillsJson']),
+      dailyCommitmentMinutes: serializer.fromJson<int>(
+        json['dailyCommitmentMinutes'],
+      ),
+      studyDaysPerWeek: serializer.fromJson<int>(json['studyDaysPerWeek']),
+      preferredVoice: serializer.fromJson<String>(json['preferredVoice']),
+      ttsSpeechRate: serializer.fromJson<double>(json['ttsSpeechRate']),
+      dailyGoalXp: serializer.fromJson<int>(json['dailyGoalXp']),
+      onboardingVersion: serializer.fromJson<int>(json['onboardingVersion']),
+      onboardingLastStep: serializer.fromJson<int>(json['onboardingLastStep']),
+      onboardingCompletedAt: serializer.fromJson<DateTime?>(
+        json['onboardingCompletedAt'],
+      ),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'key': serializer.toJson<String>(key),
+      'displayName': serializer.toJson<String>(displayName),
+      'selfAssessedCefr': serializer.toJson<String>(selfAssessedCefr),
+      'primaryGoal': serializer.toJson<String?>(primaryGoal),
+      'secondaryGoalsJson': serializer.toJson<String>(secondaryGoalsJson),
+      'examTrack': serializer.toJson<String?>(examTrack),
+      'targetHorizon': serializer.toJson<String?>(targetHorizon),
+      'focusSkillsJson': serializer.toJson<String>(focusSkillsJson),
+      'dailyCommitmentMinutes': serializer.toJson<int>(dailyCommitmentMinutes),
+      'studyDaysPerWeek': serializer.toJson<int>(studyDaysPerWeek),
+      'preferredVoice': serializer.toJson<String>(preferredVoice),
+      'ttsSpeechRate': serializer.toJson<double>(ttsSpeechRate),
+      'dailyGoalXp': serializer.toJson<int>(dailyGoalXp),
+      'onboardingVersion': serializer.toJson<int>(onboardingVersion),
+      'onboardingLastStep': serializer.toJson<int>(onboardingLastStep),
+      'onboardingCompletedAt': serializer.toJson<DateTime?>(
+        onboardingCompletedAt,
+      ),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  LearnerProfile copyWith({
+    String? key,
+    String? displayName,
+    String? selfAssessedCefr,
+    Value<String?> primaryGoal = const Value.absent(),
+    String? secondaryGoalsJson,
+    Value<String?> examTrack = const Value.absent(),
+    Value<String?> targetHorizon = const Value.absent(),
+    String? focusSkillsJson,
+    int? dailyCommitmentMinutes,
+    int? studyDaysPerWeek,
+    String? preferredVoice,
+    double? ttsSpeechRate,
+    int? dailyGoalXp,
+    int? onboardingVersion,
+    int? onboardingLastStep,
+    Value<DateTime?> onboardingCompletedAt = const Value.absent(),
+    DateTime? updatedAt,
+  }) => LearnerProfile(
+    key: key ?? this.key,
+    displayName: displayName ?? this.displayName,
+    selfAssessedCefr: selfAssessedCefr ?? this.selfAssessedCefr,
+    primaryGoal: primaryGoal.present ? primaryGoal.value : this.primaryGoal,
+    secondaryGoalsJson: secondaryGoalsJson ?? this.secondaryGoalsJson,
+    examTrack: examTrack.present ? examTrack.value : this.examTrack,
+    targetHorizon: targetHorizon.present
+        ? targetHorizon.value
+        : this.targetHorizon,
+    focusSkillsJson: focusSkillsJson ?? this.focusSkillsJson,
+    dailyCommitmentMinutes:
+        dailyCommitmentMinutes ?? this.dailyCommitmentMinutes,
+    studyDaysPerWeek: studyDaysPerWeek ?? this.studyDaysPerWeek,
+    preferredVoice: preferredVoice ?? this.preferredVoice,
+    ttsSpeechRate: ttsSpeechRate ?? this.ttsSpeechRate,
+    dailyGoalXp: dailyGoalXp ?? this.dailyGoalXp,
+    onboardingVersion: onboardingVersion ?? this.onboardingVersion,
+    onboardingLastStep: onboardingLastStep ?? this.onboardingLastStep,
+    onboardingCompletedAt: onboardingCompletedAt.present
+        ? onboardingCompletedAt.value
+        : this.onboardingCompletedAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  LearnerProfile copyWithCompanion(LearnerProfilesCompanion data) {
+    return LearnerProfile(
+      key: data.key.present ? data.key.value : this.key,
+      displayName: data.displayName.present
+          ? data.displayName.value
+          : this.displayName,
+      selfAssessedCefr: data.selfAssessedCefr.present
+          ? data.selfAssessedCefr.value
+          : this.selfAssessedCefr,
+      primaryGoal: data.primaryGoal.present
+          ? data.primaryGoal.value
+          : this.primaryGoal,
+      secondaryGoalsJson: data.secondaryGoalsJson.present
+          ? data.secondaryGoalsJson.value
+          : this.secondaryGoalsJson,
+      examTrack: data.examTrack.present ? data.examTrack.value : this.examTrack,
+      targetHorizon: data.targetHorizon.present
+          ? data.targetHorizon.value
+          : this.targetHorizon,
+      focusSkillsJson: data.focusSkillsJson.present
+          ? data.focusSkillsJson.value
+          : this.focusSkillsJson,
+      dailyCommitmentMinutes: data.dailyCommitmentMinutes.present
+          ? data.dailyCommitmentMinutes.value
+          : this.dailyCommitmentMinutes,
+      studyDaysPerWeek: data.studyDaysPerWeek.present
+          ? data.studyDaysPerWeek.value
+          : this.studyDaysPerWeek,
+      preferredVoice: data.preferredVoice.present
+          ? data.preferredVoice.value
+          : this.preferredVoice,
+      ttsSpeechRate: data.ttsSpeechRate.present
+          ? data.ttsSpeechRate.value
+          : this.ttsSpeechRate,
+      dailyGoalXp: data.dailyGoalXp.present
+          ? data.dailyGoalXp.value
+          : this.dailyGoalXp,
+      onboardingVersion: data.onboardingVersion.present
+          ? data.onboardingVersion.value
+          : this.onboardingVersion,
+      onboardingLastStep: data.onboardingLastStep.present
+          ? data.onboardingLastStep.value
+          : this.onboardingLastStep,
+      onboardingCompletedAt: data.onboardingCompletedAt.present
+          ? data.onboardingCompletedAt.value
+          : this.onboardingCompletedAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LearnerProfile(')
+          ..write('key: $key, ')
+          ..write('displayName: $displayName, ')
+          ..write('selfAssessedCefr: $selfAssessedCefr, ')
+          ..write('primaryGoal: $primaryGoal, ')
+          ..write('secondaryGoalsJson: $secondaryGoalsJson, ')
+          ..write('examTrack: $examTrack, ')
+          ..write('targetHorizon: $targetHorizon, ')
+          ..write('focusSkillsJson: $focusSkillsJson, ')
+          ..write('dailyCommitmentMinutes: $dailyCommitmentMinutes, ')
+          ..write('studyDaysPerWeek: $studyDaysPerWeek, ')
+          ..write('preferredVoice: $preferredVoice, ')
+          ..write('ttsSpeechRate: $ttsSpeechRate, ')
+          ..write('dailyGoalXp: $dailyGoalXp, ')
+          ..write('onboardingVersion: $onboardingVersion, ')
+          ..write('onboardingLastStep: $onboardingLastStep, ')
+          ..write('onboardingCompletedAt: $onboardingCompletedAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    key,
+    displayName,
+    selfAssessedCefr,
+    primaryGoal,
+    secondaryGoalsJson,
+    examTrack,
+    targetHorizon,
+    focusSkillsJson,
+    dailyCommitmentMinutes,
+    studyDaysPerWeek,
+    preferredVoice,
+    ttsSpeechRate,
+    dailyGoalXp,
+    onboardingVersion,
+    onboardingLastStep,
+    onboardingCompletedAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LearnerProfile &&
+          other.key == this.key &&
+          other.displayName == this.displayName &&
+          other.selfAssessedCefr == this.selfAssessedCefr &&
+          other.primaryGoal == this.primaryGoal &&
+          other.secondaryGoalsJson == this.secondaryGoalsJson &&
+          other.examTrack == this.examTrack &&
+          other.targetHorizon == this.targetHorizon &&
+          other.focusSkillsJson == this.focusSkillsJson &&
+          other.dailyCommitmentMinutes == this.dailyCommitmentMinutes &&
+          other.studyDaysPerWeek == this.studyDaysPerWeek &&
+          other.preferredVoice == this.preferredVoice &&
+          other.ttsSpeechRate == this.ttsSpeechRate &&
+          other.dailyGoalXp == this.dailyGoalXp &&
+          other.onboardingVersion == this.onboardingVersion &&
+          other.onboardingLastStep == this.onboardingLastStep &&
+          other.onboardingCompletedAt == this.onboardingCompletedAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class LearnerProfilesCompanion extends UpdateCompanion<LearnerProfile> {
+  final Value<String> key;
+  final Value<String> displayName;
+  final Value<String> selfAssessedCefr;
+  final Value<String?> primaryGoal;
+  final Value<String> secondaryGoalsJson;
+  final Value<String?> examTrack;
+  final Value<String?> targetHorizon;
+  final Value<String> focusSkillsJson;
+  final Value<int> dailyCommitmentMinutes;
+  final Value<int> studyDaysPerWeek;
+  final Value<String> preferredVoice;
+  final Value<double> ttsSpeechRate;
+  final Value<int> dailyGoalXp;
+  final Value<int> onboardingVersion;
+  final Value<int> onboardingLastStep;
+  final Value<DateTime?> onboardingCompletedAt;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const LearnerProfilesCompanion({
+    this.key = const Value.absent(),
+    this.displayName = const Value.absent(),
+    this.selfAssessedCefr = const Value.absent(),
+    this.primaryGoal = const Value.absent(),
+    this.secondaryGoalsJson = const Value.absent(),
+    this.examTrack = const Value.absent(),
+    this.targetHorizon = const Value.absent(),
+    this.focusSkillsJson = const Value.absent(),
+    this.dailyCommitmentMinutes = const Value.absent(),
+    this.studyDaysPerWeek = const Value.absent(),
+    this.preferredVoice = const Value.absent(),
+    this.ttsSpeechRate = const Value.absent(),
+    this.dailyGoalXp = const Value.absent(),
+    this.onboardingVersion = const Value.absent(),
+    this.onboardingLastStep = const Value.absent(),
+    this.onboardingCompletedAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  LearnerProfilesCompanion.insert({
+    this.key = const Value.absent(),
+    this.displayName = const Value.absent(),
+    this.selfAssessedCefr = const Value.absent(),
+    this.primaryGoal = const Value.absent(),
+    this.secondaryGoalsJson = const Value.absent(),
+    this.examTrack = const Value.absent(),
+    this.targetHorizon = const Value.absent(),
+    this.focusSkillsJson = const Value.absent(),
+    this.dailyCommitmentMinutes = const Value.absent(),
+    this.studyDaysPerWeek = const Value.absent(),
+    this.preferredVoice = const Value.absent(),
+    this.ttsSpeechRate = const Value.absent(),
+    this.dailyGoalXp = const Value.absent(),
+    this.onboardingVersion = const Value.absent(),
+    this.onboardingLastStep = const Value.absent(),
+    this.onboardingCompletedAt = const Value.absent(),
+    required DateTime updatedAt,
+    this.rowid = const Value.absent(),
+  }) : updatedAt = Value(updatedAt);
+  static Insertable<LearnerProfile> custom({
+    Expression<String>? key,
+    Expression<String>? displayName,
+    Expression<String>? selfAssessedCefr,
+    Expression<String>? primaryGoal,
+    Expression<String>? secondaryGoalsJson,
+    Expression<String>? examTrack,
+    Expression<String>? targetHorizon,
+    Expression<String>? focusSkillsJson,
+    Expression<int>? dailyCommitmentMinutes,
+    Expression<int>? studyDaysPerWeek,
+    Expression<String>? preferredVoice,
+    Expression<double>? ttsSpeechRate,
+    Expression<int>? dailyGoalXp,
+    Expression<int>? onboardingVersion,
+    Expression<int>? onboardingLastStep,
+    Expression<DateTime>? onboardingCompletedAt,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (key != null) 'key': key,
+      if (displayName != null) 'display_name': displayName,
+      if (selfAssessedCefr != null) 'self_assessed_cefr': selfAssessedCefr,
+      if (primaryGoal != null) 'primary_goal': primaryGoal,
+      if (secondaryGoalsJson != null)
+        'secondary_goals_json': secondaryGoalsJson,
+      if (examTrack != null) 'exam_track': examTrack,
+      if (targetHorizon != null) 'target_horizon': targetHorizon,
+      if (focusSkillsJson != null) 'focus_skills_json': focusSkillsJson,
+      if (dailyCommitmentMinutes != null)
+        'daily_commitment_minutes': dailyCommitmentMinutes,
+      if (studyDaysPerWeek != null) 'study_days_per_week': studyDaysPerWeek,
+      if (preferredVoice != null) 'preferred_voice': preferredVoice,
+      if (ttsSpeechRate != null) 'tts_speech_rate': ttsSpeechRate,
+      if (dailyGoalXp != null) 'daily_goal_xp': dailyGoalXp,
+      if (onboardingVersion != null) 'onboarding_version': onboardingVersion,
+      if (onboardingLastStep != null)
+        'onboarding_last_step': onboardingLastStep,
+      if (onboardingCompletedAt != null)
+        'onboarding_completed_at': onboardingCompletedAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  LearnerProfilesCompanion copyWith({
+    Value<String>? key,
+    Value<String>? displayName,
+    Value<String>? selfAssessedCefr,
+    Value<String?>? primaryGoal,
+    Value<String>? secondaryGoalsJson,
+    Value<String?>? examTrack,
+    Value<String?>? targetHorizon,
+    Value<String>? focusSkillsJson,
+    Value<int>? dailyCommitmentMinutes,
+    Value<int>? studyDaysPerWeek,
+    Value<String>? preferredVoice,
+    Value<double>? ttsSpeechRate,
+    Value<int>? dailyGoalXp,
+    Value<int>? onboardingVersion,
+    Value<int>? onboardingLastStep,
+    Value<DateTime?>? onboardingCompletedAt,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return LearnerProfilesCompanion(
+      key: key ?? this.key,
+      displayName: displayName ?? this.displayName,
+      selfAssessedCefr: selfAssessedCefr ?? this.selfAssessedCefr,
+      primaryGoal: primaryGoal ?? this.primaryGoal,
+      secondaryGoalsJson: secondaryGoalsJson ?? this.secondaryGoalsJson,
+      examTrack: examTrack ?? this.examTrack,
+      targetHorizon: targetHorizon ?? this.targetHorizon,
+      focusSkillsJson: focusSkillsJson ?? this.focusSkillsJson,
+      dailyCommitmentMinutes:
+          dailyCommitmentMinutes ?? this.dailyCommitmentMinutes,
+      studyDaysPerWeek: studyDaysPerWeek ?? this.studyDaysPerWeek,
+      preferredVoice: preferredVoice ?? this.preferredVoice,
+      ttsSpeechRate: ttsSpeechRate ?? this.ttsSpeechRate,
+      dailyGoalXp: dailyGoalXp ?? this.dailyGoalXp,
+      onboardingVersion: onboardingVersion ?? this.onboardingVersion,
+      onboardingLastStep: onboardingLastStep ?? this.onboardingLastStep,
+      onboardingCompletedAt:
+          onboardingCompletedAt ?? this.onboardingCompletedAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (key.present) {
+      map['key'] = Variable<String>(key.value);
+    }
+    if (displayName.present) {
+      map['display_name'] = Variable<String>(displayName.value);
+    }
+    if (selfAssessedCefr.present) {
+      map['self_assessed_cefr'] = Variable<String>(selfAssessedCefr.value);
+    }
+    if (primaryGoal.present) {
+      map['primary_goal'] = Variable<String>(primaryGoal.value);
+    }
+    if (secondaryGoalsJson.present) {
+      map['secondary_goals_json'] = Variable<String>(secondaryGoalsJson.value);
+    }
+    if (examTrack.present) {
+      map['exam_track'] = Variable<String>(examTrack.value);
+    }
+    if (targetHorizon.present) {
+      map['target_horizon'] = Variable<String>(targetHorizon.value);
+    }
+    if (focusSkillsJson.present) {
+      map['focus_skills_json'] = Variable<String>(focusSkillsJson.value);
+    }
+    if (dailyCommitmentMinutes.present) {
+      map['daily_commitment_minutes'] = Variable<int>(
+        dailyCommitmentMinutes.value,
+      );
+    }
+    if (studyDaysPerWeek.present) {
+      map['study_days_per_week'] = Variable<int>(studyDaysPerWeek.value);
+    }
+    if (preferredVoice.present) {
+      map['preferred_voice'] = Variable<String>(preferredVoice.value);
+    }
+    if (ttsSpeechRate.present) {
+      map['tts_speech_rate'] = Variable<double>(ttsSpeechRate.value);
+    }
+    if (dailyGoalXp.present) {
+      map['daily_goal_xp'] = Variable<int>(dailyGoalXp.value);
+    }
+    if (onboardingVersion.present) {
+      map['onboarding_version'] = Variable<int>(onboardingVersion.value);
+    }
+    if (onboardingLastStep.present) {
+      map['onboarding_last_step'] = Variable<int>(onboardingLastStep.value);
+    }
+    if (onboardingCompletedAt.present) {
+      map['onboarding_completed_at'] = Variable<DateTime>(
+        onboardingCompletedAt.value,
+      );
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LearnerProfilesCompanion(')
+          ..write('key: $key, ')
+          ..write('displayName: $displayName, ')
+          ..write('selfAssessedCefr: $selfAssessedCefr, ')
+          ..write('primaryGoal: $primaryGoal, ')
+          ..write('secondaryGoalsJson: $secondaryGoalsJson, ')
+          ..write('examTrack: $examTrack, ')
+          ..write('targetHorizon: $targetHorizon, ')
+          ..write('focusSkillsJson: $focusSkillsJson, ')
+          ..write('dailyCommitmentMinutes: $dailyCommitmentMinutes, ')
+          ..write('studyDaysPerWeek: $studyDaysPerWeek, ')
+          ..write('preferredVoice: $preferredVoice, ')
+          ..write('ttsSpeechRate: $ttsSpeechRate, ')
+          ..write('dailyGoalXp: $dailyGoalXp, ')
+          ..write('onboardingVersion: $onboardingVersion, ')
+          ..write('onboardingLastStep: $onboardingLastStep, ')
+          ..write('onboardingCompletedAt: $onboardingCompletedAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ReminderPreferencesTable extends ReminderPreferences
+    with TableInfo<$ReminderPreferencesTable, ReminderPreference> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReminderPreferencesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedColumn<String> key = GeneratedColumn<String>(
+    'key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('primary'),
+  );
+  static const VerificationMeta _wantsReminderMeta = const VerificationMeta(
+    'wantsReminder',
+  );
+  @override
+  late final GeneratedColumn<bool> wantsReminder = GeneratedColumn<bool>(
+    'wants_reminder',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("wants_reminder" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _preferredHourMeta = const VerificationMeta(
+    'preferredHour',
+  );
+  @override
+  late final GeneratedColumn<int> preferredHour = GeneratedColumn<int>(
+    'preferred_hour',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _preferredMinuteMeta = const VerificationMeta(
+    'preferredMinute',
+  );
+  @override
+  late final GeneratedColumn<int> preferredMinute = GeneratedColumn<int>(
+    'preferred_minute',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _daysOfWeekJsonMeta = const VerificationMeta(
+    'daysOfWeekJson',
+  );
+  @override
+  late final GeneratedColumn<String> daysOfWeekJson = GeneratedColumn<String>(
+    'days_of_week_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('[1,2,3,4,5,6,7]'),
+  );
+  static const VerificationMeta _catchUpEnabledMeta = const VerificationMeta(
+    'catchUpEnabled',
+  );
+  @override
+  late final GeneratedColumn<bool> catchUpEnabled = GeneratedColumn<bool>(
+    'catch_up_enabled',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("catch_up_enabled" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _allowGoalSpecificTextMeta =
+      const VerificationMeta('allowGoalSpecificText');
+  @override
+  late final GeneratedColumn<bool> allowGoalSpecificText =
+      GeneratedColumn<bool>(
+        'allow_goal_specific_text',
+        aliasedName,
+        false,
+        type: DriftSqlType.bool,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("allow_goal_specific_text" IN (0, 1))',
+        ),
+        defaultValue: const Constant(false),
+      );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    key,
+    wantsReminder,
+    preferredHour,
+    preferredMinute,
+    daysOfWeekJson,
+    catchUpEnabled,
+    allowGoalSpecificText,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'reminder_preferences';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReminderPreference> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('key')) {
+      context.handle(
+        _keyMeta,
+        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
+      );
+    }
+    if (data.containsKey('wants_reminder')) {
+      context.handle(
+        _wantsReminderMeta,
+        wantsReminder.isAcceptableOrUnknown(
+          data['wants_reminder']!,
+          _wantsReminderMeta,
+        ),
+      );
+    }
+    if (data.containsKey('preferred_hour')) {
+      context.handle(
+        _preferredHourMeta,
+        preferredHour.isAcceptableOrUnknown(
+          data['preferred_hour']!,
+          _preferredHourMeta,
+        ),
+      );
+    }
+    if (data.containsKey('preferred_minute')) {
+      context.handle(
+        _preferredMinuteMeta,
+        preferredMinute.isAcceptableOrUnknown(
+          data['preferred_minute']!,
+          _preferredMinuteMeta,
+        ),
+      );
+    }
+    if (data.containsKey('days_of_week_json')) {
+      context.handle(
+        _daysOfWeekJsonMeta,
+        daysOfWeekJson.isAcceptableOrUnknown(
+          data['days_of_week_json']!,
+          _daysOfWeekJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('catch_up_enabled')) {
+      context.handle(
+        _catchUpEnabledMeta,
+        catchUpEnabled.isAcceptableOrUnknown(
+          data['catch_up_enabled']!,
+          _catchUpEnabledMeta,
+        ),
+      );
+    }
+    if (data.containsKey('allow_goal_specific_text')) {
+      context.handle(
+        _allowGoalSpecificTextMeta,
+        allowGoalSpecificText.isAcceptableOrUnknown(
+          data['allow_goal_specific_text']!,
+          _allowGoalSpecificTextMeta,
+        ),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {key};
+  @override
+  ReminderPreference map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReminderPreference(
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      wantsReminder: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}wants_reminder'],
+      )!,
+      preferredHour: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}preferred_hour'],
+      ),
+      preferredMinute: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}preferred_minute'],
+      ),
+      daysOfWeekJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}days_of_week_json'],
+      )!,
+      catchUpEnabled: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}catch_up_enabled'],
+      )!,
+      allowGoalSpecificText: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}allow_goal_specific_text'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ReminderPreferencesTable createAlias(String alias) {
+    return $ReminderPreferencesTable(attachedDatabase, alias);
+  }
+}
+
+class ReminderPreference extends DataClass
+    implements Insertable<ReminderPreference> {
+  final String key;
+  final bool wantsReminder;
+  final int? preferredHour;
+  final int? preferredMinute;
+  final String daysOfWeekJson;
+  final bool catchUpEnabled;
+  final bool allowGoalSpecificText;
+  final DateTime updatedAt;
+  const ReminderPreference({
+    required this.key,
+    required this.wantsReminder,
+    this.preferredHour,
+    this.preferredMinute,
+    required this.daysOfWeekJson,
+    required this.catchUpEnabled,
+    required this.allowGoalSpecificText,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['key'] = Variable<String>(key);
+    map['wants_reminder'] = Variable<bool>(wantsReminder);
+    if (!nullToAbsent || preferredHour != null) {
+      map['preferred_hour'] = Variable<int>(preferredHour);
+    }
+    if (!nullToAbsent || preferredMinute != null) {
+      map['preferred_minute'] = Variable<int>(preferredMinute);
+    }
+    map['days_of_week_json'] = Variable<String>(daysOfWeekJson);
+    map['catch_up_enabled'] = Variable<bool>(catchUpEnabled);
+    map['allow_goal_specific_text'] = Variable<bool>(allowGoalSpecificText);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  ReminderPreferencesCompanion toCompanion(bool nullToAbsent) {
+    return ReminderPreferencesCompanion(
+      key: Value(key),
+      wantsReminder: Value(wantsReminder),
+      preferredHour: preferredHour == null && nullToAbsent
+          ? const Value.absent()
+          : Value(preferredHour),
+      preferredMinute: preferredMinute == null && nullToAbsent
+          ? const Value.absent()
+          : Value(preferredMinute),
+      daysOfWeekJson: Value(daysOfWeekJson),
+      catchUpEnabled: Value(catchUpEnabled),
+      allowGoalSpecificText: Value(allowGoalSpecificText),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory ReminderPreference.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReminderPreference(
+      key: serializer.fromJson<String>(json['key']),
+      wantsReminder: serializer.fromJson<bool>(json['wantsReminder']),
+      preferredHour: serializer.fromJson<int?>(json['preferredHour']),
+      preferredMinute: serializer.fromJson<int?>(json['preferredMinute']),
+      daysOfWeekJson: serializer.fromJson<String>(json['daysOfWeekJson']),
+      catchUpEnabled: serializer.fromJson<bool>(json['catchUpEnabled']),
+      allowGoalSpecificText: serializer.fromJson<bool>(
+        json['allowGoalSpecificText'],
+      ),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'key': serializer.toJson<String>(key),
+      'wantsReminder': serializer.toJson<bool>(wantsReminder),
+      'preferredHour': serializer.toJson<int?>(preferredHour),
+      'preferredMinute': serializer.toJson<int?>(preferredMinute),
+      'daysOfWeekJson': serializer.toJson<String>(daysOfWeekJson),
+      'catchUpEnabled': serializer.toJson<bool>(catchUpEnabled),
+      'allowGoalSpecificText': serializer.toJson<bool>(allowGoalSpecificText),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  ReminderPreference copyWith({
+    String? key,
+    bool? wantsReminder,
+    Value<int?> preferredHour = const Value.absent(),
+    Value<int?> preferredMinute = const Value.absent(),
+    String? daysOfWeekJson,
+    bool? catchUpEnabled,
+    bool? allowGoalSpecificText,
+    DateTime? updatedAt,
+  }) => ReminderPreference(
+    key: key ?? this.key,
+    wantsReminder: wantsReminder ?? this.wantsReminder,
+    preferredHour: preferredHour.present
+        ? preferredHour.value
+        : this.preferredHour,
+    preferredMinute: preferredMinute.present
+        ? preferredMinute.value
+        : this.preferredMinute,
+    daysOfWeekJson: daysOfWeekJson ?? this.daysOfWeekJson,
+    catchUpEnabled: catchUpEnabled ?? this.catchUpEnabled,
+    allowGoalSpecificText: allowGoalSpecificText ?? this.allowGoalSpecificText,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  ReminderPreference copyWithCompanion(ReminderPreferencesCompanion data) {
+    return ReminderPreference(
+      key: data.key.present ? data.key.value : this.key,
+      wantsReminder: data.wantsReminder.present
+          ? data.wantsReminder.value
+          : this.wantsReminder,
+      preferredHour: data.preferredHour.present
+          ? data.preferredHour.value
+          : this.preferredHour,
+      preferredMinute: data.preferredMinute.present
+          ? data.preferredMinute.value
+          : this.preferredMinute,
+      daysOfWeekJson: data.daysOfWeekJson.present
+          ? data.daysOfWeekJson.value
+          : this.daysOfWeekJson,
+      catchUpEnabled: data.catchUpEnabled.present
+          ? data.catchUpEnabled.value
+          : this.catchUpEnabled,
+      allowGoalSpecificText: data.allowGoalSpecificText.present
+          ? data.allowGoalSpecificText.value
+          : this.allowGoalSpecificText,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReminderPreference(')
+          ..write('key: $key, ')
+          ..write('wantsReminder: $wantsReminder, ')
+          ..write('preferredHour: $preferredHour, ')
+          ..write('preferredMinute: $preferredMinute, ')
+          ..write('daysOfWeekJson: $daysOfWeekJson, ')
+          ..write('catchUpEnabled: $catchUpEnabled, ')
+          ..write('allowGoalSpecificText: $allowGoalSpecificText, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    key,
+    wantsReminder,
+    preferredHour,
+    preferredMinute,
+    daysOfWeekJson,
+    catchUpEnabled,
+    allowGoalSpecificText,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReminderPreference &&
+          other.key == this.key &&
+          other.wantsReminder == this.wantsReminder &&
+          other.preferredHour == this.preferredHour &&
+          other.preferredMinute == this.preferredMinute &&
+          other.daysOfWeekJson == this.daysOfWeekJson &&
+          other.catchUpEnabled == this.catchUpEnabled &&
+          other.allowGoalSpecificText == this.allowGoalSpecificText &&
+          other.updatedAt == this.updatedAt);
+}
+
+class ReminderPreferencesCompanion extends UpdateCompanion<ReminderPreference> {
+  final Value<String> key;
+  final Value<bool> wantsReminder;
+  final Value<int?> preferredHour;
+  final Value<int?> preferredMinute;
+  final Value<String> daysOfWeekJson;
+  final Value<bool> catchUpEnabled;
+  final Value<bool> allowGoalSpecificText;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const ReminderPreferencesCompanion({
+    this.key = const Value.absent(),
+    this.wantsReminder = const Value.absent(),
+    this.preferredHour = const Value.absent(),
+    this.preferredMinute = const Value.absent(),
+    this.daysOfWeekJson = const Value.absent(),
+    this.catchUpEnabled = const Value.absent(),
+    this.allowGoalSpecificText = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ReminderPreferencesCompanion.insert({
+    this.key = const Value.absent(),
+    this.wantsReminder = const Value.absent(),
+    this.preferredHour = const Value.absent(),
+    this.preferredMinute = const Value.absent(),
+    this.daysOfWeekJson = const Value.absent(),
+    this.catchUpEnabled = const Value.absent(),
+    this.allowGoalSpecificText = const Value.absent(),
+    required DateTime updatedAt,
+    this.rowid = const Value.absent(),
+  }) : updatedAt = Value(updatedAt);
+  static Insertable<ReminderPreference> custom({
+    Expression<String>? key,
+    Expression<bool>? wantsReminder,
+    Expression<int>? preferredHour,
+    Expression<int>? preferredMinute,
+    Expression<String>? daysOfWeekJson,
+    Expression<bool>? catchUpEnabled,
+    Expression<bool>? allowGoalSpecificText,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (key != null) 'key': key,
+      if (wantsReminder != null) 'wants_reminder': wantsReminder,
+      if (preferredHour != null) 'preferred_hour': preferredHour,
+      if (preferredMinute != null) 'preferred_minute': preferredMinute,
+      if (daysOfWeekJson != null) 'days_of_week_json': daysOfWeekJson,
+      if (catchUpEnabled != null) 'catch_up_enabled': catchUpEnabled,
+      if (allowGoalSpecificText != null)
+        'allow_goal_specific_text': allowGoalSpecificText,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ReminderPreferencesCompanion copyWith({
+    Value<String>? key,
+    Value<bool>? wantsReminder,
+    Value<int?>? preferredHour,
+    Value<int?>? preferredMinute,
+    Value<String>? daysOfWeekJson,
+    Value<bool>? catchUpEnabled,
+    Value<bool>? allowGoalSpecificText,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return ReminderPreferencesCompanion(
+      key: key ?? this.key,
+      wantsReminder: wantsReminder ?? this.wantsReminder,
+      preferredHour: preferredHour ?? this.preferredHour,
+      preferredMinute: preferredMinute ?? this.preferredMinute,
+      daysOfWeekJson: daysOfWeekJson ?? this.daysOfWeekJson,
+      catchUpEnabled: catchUpEnabled ?? this.catchUpEnabled,
+      allowGoalSpecificText:
+          allowGoalSpecificText ?? this.allowGoalSpecificText,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (key.present) {
+      map['key'] = Variable<String>(key.value);
+    }
+    if (wantsReminder.present) {
+      map['wants_reminder'] = Variable<bool>(wantsReminder.value);
+    }
+    if (preferredHour.present) {
+      map['preferred_hour'] = Variable<int>(preferredHour.value);
+    }
+    if (preferredMinute.present) {
+      map['preferred_minute'] = Variable<int>(preferredMinute.value);
+    }
+    if (daysOfWeekJson.present) {
+      map['days_of_week_json'] = Variable<String>(daysOfWeekJson.value);
+    }
+    if (catchUpEnabled.present) {
+      map['catch_up_enabled'] = Variable<bool>(catchUpEnabled.value);
+    }
+    if (allowGoalSpecificText.present) {
+      map['allow_goal_specific_text'] = Variable<bool>(
+        allowGoalSpecificText.value,
+      );
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReminderPreferencesCompanion(')
+          ..write('key: $key, ')
+          ..write('wantsReminder: $wantsReminder, ')
+          ..write('preferredHour: $preferredHour, ')
+          ..write('preferredMinute: $preferredMinute, ')
+          ..write('daysOfWeekJson: $daysOfWeekJson, ')
+          ..write('catchUpEnabled: $catchUpEnabled, ')
+          ..write('allowGoalSpecificText: $allowGoalSpecificText, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -13354,6 +14931,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $PlacementProfilesTable(this);
   late final $DelayedTransferAssignmentsTable delayedTransferAssignments =
       $DelayedTransferAssignmentsTable(this);
+  late final $LearnerProfilesTable learnerProfiles = $LearnerProfilesTable(
+    this,
+  );
+  late final $ReminderPreferencesTable reminderPreferences =
+      $ReminderPreferencesTable(this);
   late final CurriculumDao curriculumDao = CurriculumDao(this as AppDatabase);
   late final VocabularyDao vocabularyDao = VocabularyDao(this as AppDatabase);
   late final ConversationDao conversationDao = ConversationDao(
@@ -13364,6 +14946,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final GamificationDao gamificationDao = GamificationDao(
     this as AppDatabase,
   );
+  late final ProfileDao profileDao = ProfileDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -13394,6 +14977,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     learningEvidenceEvents,
     placementProfiles,
     delayedTransferAssignments,
+    learnerProfiles,
+    reminderPreferences,
   ];
 }
 
@@ -21852,6 +23437,753 @@ typedef $$DelayedTransferAssignmentsTableProcessedTableManager =
       DelayedTransferAssignment,
       PrefetchHooks Function()
     >;
+typedef $$LearnerProfilesTableCreateCompanionBuilder =
+    LearnerProfilesCompanion Function({
+      Value<String> key,
+      Value<String> displayName,
+      Value<String> selfAssessedCefr,
+      Value<String?> primaryGoal,
+      Value<String> secondaryGoalsJson,
+      Value<String?> examTrack,
+      Value<String?> targetHorizon,
+      Value<String> focusSkillsJson,
+      Value<int> dailyCommitmentMinutes,
+      Value<int> studyDaysPerWeek,
+      Value<String> preferredVoice,
+      Value<double> ttsSpeechRate,
+      Value<int> dailyGoalXp,
+      Value<int> onboardingVersion,
+      Value<int> onboardingLastStep,
+      Value<DateTime?> onboardingCompletedAt,
+      required DateTime updatedAt,
+      Value<int> rowid,
+    });
+typedef $$LearnerProfilesTableUpdateCompanionBuilder =
+    LearnerProfilesCompanion Function({
+      Value<String> key,
+      Value<String> displayName,
+      Value<String> selfAssessedCefr,
+      Value<String?> primaryGoal,
+      Value<String> secondaryGoalsJson,
+      Value<String?> examTrack,
+      Value<String?> targetHorizon,
+      Value<String> focusSkillsJson,
+      Value<int> dailyCommitmentMinutes,
+      Value<int> studyDaysPerWeek,
+      Value<String> preferredVoice,
+      Value<double> ttsSpeechRate,
+      Value<int> dailyGoalXp,
+      Value<int> onboardingVersion,
+      Value<int> onboardingLastStep,
+      Value<DateTime?> onboardingCompletedAt,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+class $$LearnerProfilesTableFilterComposer
+    extends Composer<_$AppDatabase, $LearnerProfilesTable> {
+  $$LearnerProfilesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get selfAssessedCefr => $composableBuilder(
+    column: $table.selfAssessedCefr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get primaryGoal => $composableBuilder(
+    column: $table.primaryGoal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get secondaryGoalsJson => $composableBuilder(
+    column: $table.secondaryGoalsJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get examTrack => $composableBuilder(
+    column: $table.examTrack,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get targetHorizon => $composableBuilder(
+    column: $table.targetHorizon,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get focusSkillsJson => $composableBuilder(
+    column: $table.focusSkillsJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dailyCommitmentMinutes => $composableBuilder(
+    column: $table.dailyCommitmentMinutes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get studyDaysPerWeek => $composableBuilder(
+    column: $table.studyDaysPerWeek,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get preferredVoice => $composableBuilder(
+    column: $table.preferredVoice,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get ttsSpeechRate => $composableBuilder(
+    column: $table.ttsSpeechRate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dailyGoalXp => $composableBuilder(
+    column: $table.dailyGoalXp,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get onboardingVersion => $composableBuilder(
+    column: $table.onboardingVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get onboardingLastStep => $composableBuilder(
+    column: $table.onboardingLastStep,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get onboardingCompletedAt => $composableBuilder(
+    column: $table.onboardingCompletedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$LearnerProfilesTableOrderingComposer
+    extends Composer<_$AppDatabase, $LearnerProfilesTable> {
+  $$LearnerProfilesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get selfAssessedCefr => $composableBuilder(
+    column: $table.selfAssessedCefr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get primaryGoal => $composableBuilder(
+    column: $table.primaryGoal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get secondaryGoalsJson => $composableBuilder(
+    column: $table.secondaryGoalsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get examTrack => $composableBuilder(
+    column: $table.examTrack,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get targetHorizon => $composableBuilder(
+    column: $table.targetHorizon,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get focusSkillsJson => $composableBuilder(
+    column: $table.focusSkillsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dailyCommitmentMinutes => $composableBuilder(
+    column: $table.dailyCommitmentMinutes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get studyDaysPerWeek => $composableBuilder(
+    column: $table.studyDaysPerWeek,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get preferredVoice => $composableBuilder(
+    column: $table.preferredVoice,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get ttsSpeechRate => $composableBuilder(
+    column: $table.ttsSpeechRate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dailyGoalXp => $composableBuilder(
+    column: $table.dailyGoalXp,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get onboardingVersion => $composableBuilder(
+    column: $table.onboardingVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get onboardingLastStep => $composableBuilder(
+    column: $table.onboardingLastStep,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get onboardingCompletedAt => $composableBuilder(
+    column: $table.onboardingCompletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$LearnerProfilesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $LearnerProfilesTable> {
+  $$LearnerProfilesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => column);
+
+  GeneratedColumn<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get selfAssessedCefr => $composableBuilder(
+    column: $table.selfAssessedCefr,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get primaryGoal => $composableBuilder(
+    column: $table.primaryGoal,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get secondaryGoalsJson => $composableBuilder(
+    column: $table.secondaryGoalsJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get examTrack =>
+      $composableBuilder(column: $table.examTrack, builder: (column) => column);
+
+  GeneratedColumn<String> get targetHorizon => $composableBuilder(
+    column: $table.targetHorizon,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get focusSkillsJson => $composableBuilder(
+    column: $table.focusSkillsJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get dailyCommitmentMinutes => $composableBuilder(
+    column: $table.dailyCommitmentMinutes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get studyDaysPerWeek => $composableBuilder(
+    column: $table.studyDaysPerWeek,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get preferredVoice => $composableBuilder(
+    column: $table.preferredVoice,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get ttsSpeechRate => $composableBuilder(
+    column: $table.ttsSpeechRate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get dailyGoalXp => $composableBuilder(
+    column: $table.dailyGoalXp,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get onboardingVersion => $composableBuilder(
+    column: $table.onboardingVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get onboardingLastStep => $composableBuilder(
+    column: $table.onboardingLastStep,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get onboardingCompletedAt => $composableBuilder(
+    column: $table.onboardingCompletedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$LearnerProfilesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $LearnerProfilesTable,
+          LearnerProfile,
+          $$LearnerProfilesTableFilterComposer,
+          $$LearnerProfilesTableOrderingComposer,
+          $$LearnerProfilesTableAnnotationComposer,
+          $$LearnerProfilesTableCreateCompanionBuilder,
+          $$LearnerProfilesTableUpdateCompanionBuilder,
+          (
+            LearnerProfile,
+            BaseReferences<
+              _$AppDatabase,
+              $LearnerProfilesTable,
+              LearnerProfile
+            >,
+          ),
+          LearnerProfile,
+          PrefetchHooks Function()
+        > {
+  $$LearnerProfilesTableTableManager(
+    _$AppDatabase db,
+    $LearnerProfilesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$LearnerProfilesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LearnerProfilesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LearnerProfilesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> key = const Value.absent(),
+                Value<String> displayName = const Value.absent(),
+                Value<String> selfAssessedCefr = const Value.absent(),
+                Value<String?> primaryGoal = const Value.absent(),
+                Value<String> secondaryGoalsJson = const Value.absent(),
+                Value<String?> examTrack = const Value.absent(),
+                Value<String?> targetHorizon = const Value.absent(),
+                Value<String> focusSkillsJson = const Value.absent(),
+                Value<int> dailyCommitmentMinutes = const Value.absent(),
+                Value<int> studyDaysPerWeek = const Value.absent(),
+                Value<String> preferredVoice = const Value.absent(),
+                Value<double> ttsSpeechRate = const Value.absent(),
+                Value<int> dailyGoalXp = const Value.absent(),
+                Value<int> onboardingVersion = const Value.absent(),
+                Value<int> onboardingLastStep = const Value.absent(),
+                Value<DateTime?> onboardingCompletedAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => LearnerProfilesCompanion(
+                key: key,
+                displayName: displayName,
+                selfAssessedCefr: selfAssessedCefr,
+                primaryGoal: primaryGoal,
+                secondaryGoalsJson: secondaryGoalsJson,
+                examTrack: examTrack,
+                targetHorizon: targetHorizon,
+                focusSkillsJson: focusSkillsJson,
+                dailyCommitmentMinutes: dailyCommitmentMinutes,
+                studyDaysPerWeek: studyDaysPerWeek,
+                preferredVoice: preferredVoice,
+                ttsSpeechRate: ttsSpeechRate,
+                dailyGoalXp: dailyGoalXp,
+                onboardingVersion: onboardingVersion,
+                onboardingLastStep: onboardingLastStep,
+                onboardingCompletedAt: onboardingCompletedAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                Value<String> key = const Value.absent(),
+                Value<String> displayName = const Value.absent(),
+                Value<String> selfAssessedCefr = const Value.absent(),
+                Value<String?> primaryGoal = const Value.absent(),
+                Value<String> secondaryGoalsJson = const Value.absent(),
+                Value<String?> examTrack = const Value.absent(),
+                Value<String?> targetHorizon = const Value.absent(),
+                Value<String> focusSkillsJson = const Value.absent(),
+                Value<int> dailyCommitmentMinutes = const Value.absent(),
+                Value<int> studyDaysPerWeek = const Value.absent(),
+                Value<String> preferredVoice = const Value.absent(),
+                Value<double> ttsSpeechRate = const Value.absent(),
+                Value<int> dailyGoalXp = const Value.absent(),
+                Value<int> onboardingVersion = const Value.absent(),
+                Value<int> onboardingLastStep = const Value.absent(),
+                Value<DateTime?> onboardingCompletedAt = const Value.absent(),
+                required DateTime updatedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => LearnerProfilesCompanion.insert(
+                key: key,
+                displayName: displayName,
+                selfAssessedCefr: selfAssessedCefr,
+                primaryGoal: primaryGoal,
+                secondaryGoalsJson: secondaryGoalsJson,
+                examTrack: examTrack,
+                targetHorizon: targetHorizon,
+                focusSkillsJson: focusSkillsJson,
+                dailyCommitmentMinutes: dailyCommitmentMinutes,
+                studyDaysPerWeek: studyDaysPerWeek,
+                preferredVoice: preferredVoice,
+                ttsSpeechRate: ttsSpeechRate,
+                dailyGoalXp: dailyGoalXp,
+                onboardingVersion: onboardingVersion,
+                onboardingLastStep: onboardingLastStep,
+                onboardingCompletedAt: onboardingCompletedAt,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$LearnerProfilesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $LearnerProfilesTable,
+      LearnerProfile,
+      $$LearnerProfilesTableFilterComposer,
+      $$LearnerProfilesTableOrderingComposer,
+      $$LearnerProfilesTableAnnotationComposer,
+      $$LearnerProfilesTableCreateCompanionBuilder,
+      $$LearnerProfilesTableUpdateCompanionBuilder,
+      (
+        LearnerProfile,
+        BaseReferences<_$AppDatabase, $LearnerProfilesTable, LearnerProfile>,
+      ),
+      LearnerProfile,
+      PrefetchHooks Function()
+    >;
+typedef $$ReminderPreferencesTableCreateCompanionBuilder =
+    ReminderPreferencesCompanion Function({
+      Value<String> key,
+      Value<bool> wantsReminder,
+      Value<int?> preferredHour,
+      Value<int?> preferredMinute,
+      Value<String> daysOfWeekJson,
+      Value<bool> catchUpEnabled,
+      Value<bool> allowGoalSpecificText,
+      required DateTime updatedAt,
+      Value<int> rowid,
+    });
+typedef $$ReminderPreferencesTableUpdateCompanionBuilder =
+    ReminderPreferencesCompanion Function({
+      Value<String> key,
+      Value<bool> wantsReminder,
+      Value<int?> preferredHour,
+      Value<int?> preferredMinute,
+      Value<String> daysOfWeekJson,
+      Value<bool> catchUpEnabled,
+      Value<bool> allowGoalSpecificText,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+class $$ReminderPreferencesTableFilterComposer
+    extends Composer<_$AppDatabase, $ReminderPreferencesTable> {
+  $$ReminderPreferencesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get wantsReminder => $composableBuilder(
+    column: $table.wantsReminder,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get preferredHour => $composableBuilder(
+    column: $table.preferredHour,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get preferredMinute => $composableBuilder(
+    column: $table.preferredMinute,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get daysOfWeekJson => $composableBuilder(
+    column: $table.daysOfWeekJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get catchUpEnabled => $composableBuilder(
+    column: $table.catchUpEnabled,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get allowGoalSpecificText => $composableBuilder(
+    column: $table.allowGoalSpecificText,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ReminderPreferencesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReminderPreferencesTable> {
+  $$ReminderPreferencesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get wantsReminder => $composableBuilder(
+    column: $table.wantsReminder,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get preferredHour => $composableBuilder(
+    column: $table.preferredHour,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get preferredMinute => $composableBuilder(
+    column: $table.preferredMinute,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get daysOfWeekJson => $composableBuilder(
+    column: $table.daysOfWeekJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get catchUpEnabled => $composableBuilder(
+    column: $table.catchUpEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get allowGoalSpecificText => $composableBuilder(
+    column: $table.allowGoalSpecificText,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ReminderPreferencesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReminderPreferencesTable> {
+  $$ReminderPreferencesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => column);
+
+  GeneratedColumn<bool> get wantsReminder => $composableBuilder(
+    column: $table.wantsReminder,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get preferredHour => $composableBuilder(
+    column: $table.preferredHour,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get preferredMinute => $composableBuilder(
+    column: $table.preferredMinute,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get daysOfWeekJson => $composableBuilder(
+    column: $table.daysOfWeekJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get catchUpEnabled => $composableBuilder(
+    column: $table.catchUpEnabled,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get allowGoalSpecificText => $composableBuilder(
+    column: $table.allowGoalSpecificText,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$ReminderPreferencesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ReminderPreferencesTable,
+          ReminderPreference,
+          $$ReminderPreferencesTableFilterComposer,
+          $$ReminderPreferencesTableOrderingComposer,
+          $$ReminderPreferencesTableAnnotationComposer,
+          $$ReminderPreferencesTableCreateCompanionBuilder,
+          $$ReminderPreferencesTableUpdateCompanionBuilder,
+          (
+            ReminderPreference,
+            BaseReferences<
+              _$AppDatabase,
+              $ReminderPreferencesTable,
+              ReminderPreference
+            >,
+          ),
+          ReminderPreference,
+          PrefetchHooks Function()
+        > {
+  $$ReminderPreferencesTableTableManager(
+    _$AppDatabase db,
+    $ReminderPreferencesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReminderPreferencesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReminderPreferencesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$ReminderPreferencesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> key = const Value.absent(),
+                Value<bool> wantsReminder = const Value.absent(),
+                Value<int?> preferredHour = const Value.absent(),
+                Value<int?> preferredMinute = const Value.absent(),
+                Value<String> daysOfWeekJson = const Value.absent(),
+                Value<bool> catchUpEnabled = const Value.absent(),
+                Value<bool> allowGoalSpecificText = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ReminderPreferencesCompanion(
+                key: key,
+                wantsReminder: wantsReminder,
+                preferredHour: preferredHour,
+                preferredMinute: preferredMinute,
+                daysOfWeekJson: daysOfWeekJson,
+                catchUpEnabled: catchUpEnabled,
+                allowGoalSpecificText: allowGoalSpecificText,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                Value<String> key = const Value.absent(),
+                Value<bool> wantsReminder = const Value.absent(),
+                Value<int?> preferredHour = const Value.absent(),
+                Value<int?> preferredMinute = const Value.absent(),
+                Value<String> daysOfWeekJson = const Value.absent(),
+                Value<bool> catchUpEnabled = const Value.absent(),
+                Value<bool> allowGoalSpecificText = const Value.absent(),
+                required DateTime updatedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => ReminderPreferencesCompanion.insert(
+                key: key,
+                wantsReminder: wantsReminder,
+                preferredHour: preferredHour,
+                preferredMinute: preferredMinute,
+                daysOfWeekJson: daysOfWeekJson,
+                catchUpEnabled: catchUpEnabled,
+                allowGoalSpecificText: allowGoalSpecificText,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ReminderPreferencesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ReminderPreferencesTable,
+      ReminderPreference,
+      $$ReminderPreferencesTableFilterComposer,
+      $$ReminderPreferencesTableOrderingComposer,
+      $$ReminderPreferencesTableAnnotationComposer,
+      $$ReminderPreferencesTableCreateCompanionBuilder,
+      $$ReminderPreferencesTableUpdateCompanionBuilder,
+      (
+        ReminderPreference,
+        BaseReferences<
+          _$AppDatabase,
+          $ReminderPreferencesTable,
+          ReminderPreference
+        >,
+      ),
+      ReminderPreference,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -21920,4 +24252,8 @@ class $AppDatabaseManager {
         _db,
         _db.delayedTransferAssignments,
       );
+  $$LearnerProfilesTableTableManager get learnerProfiles =>
+      $$LearnerProfilesTableTableManager(_db, _db.learnerProfiles);
+  $$ReminderPreferencesTableTableManager get reminderPreferences =>
+      $$ReminderPreferencesTableTableManager(_db, _db.reminderPreferences);
 }

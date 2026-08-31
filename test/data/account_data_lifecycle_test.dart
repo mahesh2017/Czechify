@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/data/database/database.dart';
+import 'package:czechify/data/database/database.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -37,6 +37,14 @@ void main() {
       'INSERT INTO gamification_state_table '
       '(key, hearts, total_xp) VALUES (\'primary\', 4, 120)',
     );
+    await db.customStatement(
+      '''INSERT INTO learner_profiles (key,display_name,updated_at)
+         VALUES ('primary','Mahesh',1725012000)''',
+    );
+    await db.customStatement(
+      '''INSERT INTO reminder_preferences (key,wants_reminder,updated_at)
+         VALUES ('primary',1,1725012000)''',
+    );
 
     final export = await db.exportLearnerData();
 
@@ -49,6 +57,8 @@ void main() {
     expect((export['earned_badges'] as List), hasLength(1));
     expect((export['user_progress'] as List), hasLength(1));
     expect((export['gamification_state'] as List), hasLength(1));
+    expect((export['learner_profiles'] as List), hasLength(1));
+    expect((export['reminder_preferences'] as List), hasLength(1));
     expect((export['custom_flashcards'] as List), hasLength(1));
     expect(export.containsKey('units'), isFalse);
     expect(export.containsKey('lessons'), isFalse);
@@ -75,6 +85,14 @@ void main() {
       'INSERT INTO gamification_state_table '
       '(key, hearts, total_xp) VALUES (\'primary\', 4, 120)',
     );
+    await db.customStatement(
+      '''INSERT INTO learner_profiles (key,display_name,updated_at)
+         VALUES ('primary','Mahesh',1725012000)''',
+    );
+    await db.customStatement(
+      '''INSERT INTO reminder_preferences (key,wants_reminder,updated_at)
+         VALUES ('primary',1,1725012000)''',
+    );
 
     await db.clearLearnerData();
 
@@ -85,6 +103,8 @@ void main() {
     expect(await db.select(db.reviewAttempts).get(), isEmpty);
     expect(await db.select(db.earnedBadges).get(), isEmpty);
     expect(await db.select(db.gamificationStateTable).get(), isEmpty);
+    expect(await db.select(db.learnerProfiles).get(), isEmpty);
+    expect(await db.select(db.reminderPreferences).get(), isEmpty);
     final cards = await db.select(db.flashcards).get();
     expect(cards.map((card) => card.id), [1]);
     final resetReviews = await db.select(db.srsCards).get();

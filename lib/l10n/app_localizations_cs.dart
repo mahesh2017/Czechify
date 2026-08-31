@@ -206,6 +206,17 @@ class AppLocalizationsCs extends AppLocalizations {
   String get settingsLearningGroup => 'Učení';
 
   @override
+  String get settingsLearningPlan => 'Studijní plán';
+
+  @override
+  String get settingsLearningPlanBody =>
+      'Cíl, zaměření, studijní rytmus a připomínky';
+
+  @override
+  String get settingsLearningPlanMissing =>
+      'Přizpůsobte studijní plán tomuto účtu';
+
+  @override
   String get settingsCourseLevel => 'Úroveň kurzu';
 
   @override
@@ -1739,6 +1750,13 @@ class AppLocalizationsCs extends AppLocalizations {
   String get homeCopybookCta => 'Otevřít dnešní písanku';
 
   @override
+  String get homePersonalizePlan => 'Přizpůsobte si studijní plán';
+
+  @override
+  String get homePersonalizePlanBody =>
+      'Řekněte Czechify, jaký máte cíl a kolik máte času, a získáte užitečnější plán.';
+
+  @override
   String homeXpRemaining(int xp) {
     return 'Do denního rytmu zbývá $xp XP.';
   }
@@ -1782,7 +1800,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get onboardingNameBody =>
-      'Nepovinné. Použije se pro český pozdrav a nikdy neopustí vaše zařízení.';
+      'Nepovinné. Použije se pro pozdrav a synchronizuje se s vaším účtem Czechify, aby ho bylo možné obnovit na jiném zařízení.';
 
   @override
   String get onboardingFirstName => 'KŘESTNÍ JMÉNO';
@@ -1866,6 +1884,243 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get onboardingSoundsOfCzech => 'Zvuky češtiny';
+
+  @override
+  String get onboardingProfileTitle => 'Řekněte nám, odkud začínáte';
+
+  @override
+  String get onboardingProfileBody =>
+      'Jméno je nepovinné. Vaše současná úroveň nám pomůže vybrat vhodnou první lekci.';
+
+  @override
+  String get onboardingLevelPrompt => 'Kolik češtiny už umíte?';
+
+  @override
+  String get onboardingB1Plus => 'B1 nebo vyšší';
+
+  @override
+  String get onboardingB1PlusBody => 'Zvládám mnoho běžných rozhovorů';
+
+  @override
+  String get onboardingLevelUnsure => 'Nejsem si jistý/á';
+
+  @override
+  String get onboardingLevelUnsureBody =>
+      'Začněte pozvolna nebo využijte test úrovně';
+
+  @override
+  String get onboardingPurposeTitle => 'Proč se učíte česky?';
+
+  @override
+  String get onboardingPurposeBody =>
+      'Vyberte svůj hlavní cíl. Kdykoli ho můžete změnit podle své situace.';
+
+  @override
+  String get onboardingGoalEverydayTitle => 'Každodenní život v Česku';
+
+  @override
+  String get onboardingGoalEverydayBody =>
+      'Získejte jistotu v obchodech, zdravotnictví, bydlení a na úřadech';
+
+  @override
+  String get onboardingGoalPermanentResidenceTitle => 'Trvalý pobyt — A2';
+
+  @override
+  String get onboardingGoalPermanentResidenceBody =>
+      'Připravujte se na oficiální zkoušku z češtiny na úrovni A2';
+
+  @override
+  String get onboardingGoalCitizenshipTitle => 'Základy pro získání občanství';
+
+  @override
+  String get onboardingGoalCitizenshipBody =>
+      'Rozvíjejte češtinu směrem k B1 a osvojte si slovní zásobu k životu v Česku';
+
+  @override
+  String get onboardingGoalWorkTitle => 'Práce a kariéra';
+
+  @override
+  String get onboardingGoalWorkBody =>
+      'Domluvte se s kolegy, zákazníky a zaměstnavateli';
+
+  @override
+  String get onboardingGoalStudyTitle => 'Studium';
+
+  @override
+  String get onboardingGoalStudyBody =>
+      'Sledujte výuku, čtěte s jistotou a pište srozumitelněji';
+
+  @override
+  String get onboardingGoalRelationshipsTitle => 'Rodina a vztahy';
+
+  @override
+  String get onboardingGoalRelationshipsBody =>
+      'Zapojte se do rozhovorů s rodinou, přáteli a lidmi kolem sebe';
+
+  @override
+  String get onboardingGoalTravelTitle =>
+      'Cestování, kultura a zájem o češtinu';
+
+  @override
+  String get onboardingGoalTravelBody =>
+      'Poznávejte česká místa, lidi a kulturu v jejich jazyce';
+
+  @override
+  String get onboardingFocusTitle => 'Sestavte si první plán';
+
+  @override
+  String get onboardingFocusBody =>
+      'Vyberte dovednosti, na které se má Czechify nejdříve zaměřit.';
+
+  @override
+  String get onboardingPermanentResidenceDisclosure =>
+      'Současná jazyková zkouška pro trvalý pobyt je na úrovni A2. Czechify vám může pomoci s procvičováním, ale oficiální podmínky a výjimky určují české úřady.';
+
+  @override
+  String get onboardingCitizenshipDisclosure =>
+      'Czechify nyní učí do úrovně A2. Tento plán vytváří základ pro jazykovou zkoušku B1 a zkoušku z českých reálií; zatím nejde o úplnou přípravu ke zkoušce pro občanství.';
+
+  @override
+  String get onboardingHorizonTitle => 'Kdy chcete být připraveni?';
+
+  @override
+  String get onboardingHorizonWithinThree => 'Do 3 měsíců';
+
+  @override
+  String get onboardingHorizonWithinThreeBody =>
+      'Krátké a soustředěné období přípravy';
+
+  @override
+  String get onboardingHorizonThreeToSix => 'Za 3–6 měsíců';
+
+  @override
+  String get onboardingHorizonThreeToSixBody =>
+      'Pravidelná příprava s průběžným opakováním';
+
+  @override
+  String get onboardingHorizonSixToTwelve => 'Za 6–12 měsíců';
+
+  @override
+  String get onboardingHorizonSixToTwelveBody =>
+      'Pečlivé budování základů v delším období';
+
+  @override
+  String get onboardingHorizonLater => 'Později nebo nevím';
+
+  @override
+  String get onboardingHorizonLaterBody =>
+      'Učte se pravidelně bez pevného termínu';
+
+  @override
+  String get onboardingFocusPrompt => 'Na co se máme zaměřit?';
+
+  @override
+  String get onboardingFocusSpeaking => 'Mluvení';
+
+  @override
+  String get onboardingFocusSpeakingBody =>
+      'Reagujte přirozeně ve skutečných rozhovorech';
+
+  @override
+  String get onboardingFocusListening => 'Poslech';
+
+  @override
+  String get onboardingFocusListeningBody =>
+      'Rozumějte češtině v příjemném tempu rodilých mluvčích';
+
+  @override
+  String get onboardingFocusReading => 'Čtení';
+
+  @override
+  String get onboardingFocusReadingBody =>
+      'Čtěte cedule, zprávy, formuláře a užitečné texty';
+
+  @override
+  String get onboardingFocusWriting => 'Psaní';
+
+  @override
+  String get onboardingFocusWritingBody =>
+      'Pište srozumitelné odpovědi, zprávy a krátké texty';
+
+  @override
+  String get onboardingFocusVocabularyGrammar => 'Slovní zásoba a gramatika';
+
+  @override
+  String get onboardingFocusVocabularyGrammarBody =>
+      'Osvojte si spolehlivou slovní zásobu a větné vzorce';
+
+  @override
+  String get onboardingFocusLifeInstitutions => 'Život a instituce v Česku';
+
+  @override
+  String get onboardingFocusLifeInstitutionsBody =>
+      'Poznejte klíčová občanská témata a související slovní zásobu';
+
+  @override
+  String get onboardingCommitmentTitle =>
+      'Zvolte si rytmus, který dokážete udržet';
+
+  @override
+  String get onboardingCommitmentBody =>
+      'Reálná rutina je lepší než ambiciózní plán, který po týdnu zmizí.';
+
+  @override
+  String get onboardingCommitmentLight => 'Lehké tempo';
+
+  @override
+  String get onboardingCommitmentSteady => 'Stálé tempo';
+
+  @override
+  String get onboardingCommitmentFocused => 'Soustředěné tempo';
+
+  @override
+  String get onboardingCommitmentIntensive => 'Intenzivní tempo';
+
+  @override
+  String onboardingCommitmentSchedule(int minutes, int days) {
+    return '$minutes minut, $days dní v týdnu';
+  }
+
+  @override
+  String get onboardingTeacherChoiceTitle => 'Vyberte si hlas českého lektora';
+
+  @override
+  String get onboardingTeacherChoiceBody =>
+      'Klepnutím na lektora si poslechnete ukázku. Hlas můžete později změnit.';
+
+  @override
+  String get onboardingPrimaryGoal => 'Hlavní cíl';
+
+  @override
+  String get onboardingFocusSummary => 'Zaměření';
+
+  @override
+  String get onboardingTargetSummary => 'Cílové období';
+
+  @override
+  String get onboardingStudyPlanSummary => 'Studijní rytmus';
+
+  @override
+  String get onboardingPlanPermanentResidenceBody =>
+      'Od vaší současné úrovně budeme postupovat k praktickým dovednostem A2 a více se zaměříme na vámi zvolené oblasti.';
+
+  @override
+  String get onboardingPlanCitizenshipBody =>
+      'Posílíme vaše základy češtiny do úrovně A2 a jasně označíme, kde úplná příprava na B1 a zkoušku z reálií přesahuje současný kurz.';
+
+  @override
+  String get accountRestoreReminderTitle => 'Použít uloženou připomínku?';
+
+  @override
+  String accountRestoreReminderBody(String time) {
+    return 'Tento účet používal na jiném zařízení připomínku ke studiu v $time. Chcete ji zapnout i na tomto zařízení?';
+  }
+
+  @override
+  String get accountRestoreReminderLater => 'Teď ne';
+
+  @override
+  String get accountRestoreReminderEnable => 'Zapnout připomínku';
 
   @override
   String get scenarioCasual => 'Neformální rozhovor';

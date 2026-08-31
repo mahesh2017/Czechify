@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/domain/entities/gamification_state.dart';
-import 'package:ceskina_pro/domain/engines/gamification_engine.dart';
+import 'package:czechify/domain/entities/gamification_state.dart';
+import 'package:czechify/domain/engines/gamification_engine.dart';
 
 void main() {
   group('GamificationEngine', () {

@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart' show IconData;
 
 /// Bump whenever the privacy policy text changes in a way that affects what a
 /// learner is agreeing to. Consent records store this value.
-const String kPrivacyPolicyVersion = '2026-08-25.1';
+const String kPrivacyPolicyVersion = '2026-08-30.1';
 
 /// Bump when the cloud-speech consent wording changes.
 const String kVoiceCloudConsentVersion = 'voice-cloud-v3';
@@ -62,8 +62,10 @@ const List<LegalSection> kPrivacyPolicy = [
     'Czechify automatically creates an anonymous cloud account and syncs '
         'learning data to it. You may optionally connect Google or link an '
         'email address. The '
-        'optional name you give the tutor, AI chat history, exam results, '
-        'settings and downloaded lesson audio stay on your device. AI tutor '
+        'optional learner profile (name, level, study goal, focus, pace and '
+        'reminder preference) and placement result sync so a recovered '
+        'account is ready on another device. AI chat history, exam results, '
+        'device settings and downloaded lesson audio stay on your device. AI tutor '
         'text and optional cloud-pronunciation audio leave the device as '
         'described below.\n\n'
         'There are no ads, third-party analytics or crash-reporting SDKs, and '
@@ -74,7 +76,10 @@ const List<LegalSection> kPrivacyPolicy = [
     'To provide Czechify under GDPR Article 6(1)(b), we process an anonymous '
         'account ID, installation ID, synced lesson completion and scores, XP, '
         'streaks, badges, review/SRS state, custom cards and gamification '
-        'state, plus any support or reviewer curriculum-access entitlement. '
+        'state, placement result, and the optional learner profile and reminder '
+        'preference you choose, plus any support or reviewer '
+        'curriculum-access entitlement. Study goals such as residence, work or '
+        'family are optional and are used only to shape your learning plan. '
         'If you link email, Supabase also processes your email and password '
         'credential for sign-in and recovery; Czechify never receives the '
         'plain-text password. If you connect Google, Google and Supabase '
@@ -93,10 +98,12 @@ const List<LegalSection> kPrivacyPolicy = [
   ),
   LegalSection(
     'Local data and your account',
-    'Your optional learner name, AI conversation history, exam results, '
-        'settings, device consent history and downloaded lesson audio are '
-        'local. Learning data also has a local copy, while the categories '
-        'listed above are synced. Authentication tokens use Android Keystore '
+    'AI conversation history, exam results, visual/device settings, notification '
+        'permission and scheduled notification identifiers, device consent '
+        'history and downloaded lesson audio are local. Your optional name, '
+        'learning goal, level, focus, study pace, teacher choice, reminder '
+        'preference, placement and learning progress also have a local copy and '
+        'are synced to your account. Authentication tokens use Android Keystore '
         'or Apple Keychain facilities, and Android app backup is disabled.\n\n'
         'The first time you use Czechify, it creates a random anonymous '
         'Supabase user ID without asking for an email, password or name. You '

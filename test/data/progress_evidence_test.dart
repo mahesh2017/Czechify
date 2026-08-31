@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/data/repositories/drift_progress_repository.dart';
-import 'package:ceskina_pro/domain/entities/practice_evidence.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/repositories/drift_progress_repository.dart';
+import 'package:czechify/domain/entities/practice_evidence.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';

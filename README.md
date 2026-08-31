@@ -122,7 +122,7 @@ lib/
 ## Development
 
 ```bash
-cd ceskina_pro
+cd Czechify
 
 # Get dependencies
 flutter pub get

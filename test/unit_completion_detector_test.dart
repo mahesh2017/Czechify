@@ -1,7 +1,7 @@
-import 'package:ceskina_pro/domain/engines/unit_completion_detector.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/lesson.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
+import 'package:czechify/domain/engines/unit_completion_detector.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/lesson.dart';
+import 'package:czechify/domain/entities/unit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Finishing a unit was previously undetectable: units were only ever read

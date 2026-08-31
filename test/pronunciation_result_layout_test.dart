@@ -1,10 +1,10 @@
-import 'package:ceskina_pro/data/services/stt/whisper_service.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/exercise.dart';
-import 'package:ceskina_pro/domain/repositories/speech_ports.dart';
-import 'package:ceskina_pro/presentation/providers/stt_providers.dart';
-import 'package:ceskina_pro/presentation/widgets/common/record_button.dart';
-import 'package:ceskina_pro/presentation/widgets/lesson/exercises/pronunciation_view.dart';
+import 'package:czechify/data/services/stt/whisper_service.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/domain/repositories/speech_ports.dart';
+import 'package:czechify/presentation/providers/stt_providers.dart';
+import 'package:czechify/presentation/widgets/common/record_button.dart';
+import 'package:czechify/presentation/widgets/lesson/exercises/pronunciation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

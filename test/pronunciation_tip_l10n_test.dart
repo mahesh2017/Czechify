@@ -1,8 +1,8 @@
-import 'package:ceskina_pro/domain/engines/phoneme_scorer.dart';
-import 'package:ceskina_pro/domain/engines/pronunciation_scorer.dart';
-import 'package:ceskina_pro/domain/entities/pronunciation_result.dart';
-import 'package:ceskina_pro/l10n/app_localizations.dart';
-import 'package:ceskina_pro/presentation/widgets/common/pronunciation_tip_text.dart';
+import 'package:czechify/domain/engines/phoneme_scorer.dart';
+import 'package:czechify/domain/engines/pronunciation_scorer.dart';
+import 'package:czechify/domain/entities/pronunciation_result.dart';
+import 'package:czechify/l10n/app_localizations.dart';
+import 'package:czechify/presentation/widgets/common/pronunciation_tip_text.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 

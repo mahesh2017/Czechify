@@ -1,9 +1,9 @@
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/exercise.dart';
-import 'package:ceskina_pro/domain/entities/exercise_outcome.dart';
-import 'package:ceskina_pro/presentation/widgets/lesson/exercises/exercise_shared.dart';
-import 'package:ceskina_pro/presentation/widgets/lesson/exercises/writing_task_view.dart';
-import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/domain/entities/exercise_outcome.dart';
+import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
+import 'package:czechify/presentation/widgets/lesson/exercises/writing_task_view.dart';
+import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

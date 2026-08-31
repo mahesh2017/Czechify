@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/domain/engines/concept_classifier.dart';
+import 'package:czechify/domain/engines/concept_classifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

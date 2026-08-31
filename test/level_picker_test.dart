@@ -1,10 +1,10 @@
-import 'package:ceskina_pro/data/database/database.dart' hide Unit;
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
-import 'package:ceskina_pro/presentation/providers/curriculum_providers.dart';
-import 'package:ceskina_pro/presentation/providers/database_providers.dart';
-import 'package:ceskina_pro/presentation/providers/settings_providers.dart';
-import 'package:ceskina_pro/presentation/screens/settings/settings_screen.dart';
+import 'package:czechify/data/database/database.dart' hide Unit;
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/unit.dart';
+import 'package:czechify/presentation/providers/curriculum_providers.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:czechify/presentation/providers/settings_providers.dart';
+import 'package:czechify/presentation/screens/settings/settings_screen.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/data/content/curriculum_pack_source.dart';
+import 'package:czechify/data/content/curriculum_pack_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

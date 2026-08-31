@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/domain/engines/pronunciation_scorer.dart';
-import 'package:ceskina_pro/core/utils/phoneme_mapper.dart';
+import 'package:czechify/domain/engines/pronunciation_scorer.dart';
+import 'package:czechify/core/utils/phoneme_mapper.dart';
 
 void main() {
   group('PronunciationScorer', () {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ceskina_pro/presentation/screens/practice/copybook_screen.dart';
-import 'package:ceskina_pro/presentation/providers/copybook_providers.dart';
+import 'package:czechify/presentation/screens/practice/copybook_screen.dart';
+import 'package:czechify/presentation/providers/copybook_providers.dart';
 import 'support/localized_app.dart';
 
 void main() {

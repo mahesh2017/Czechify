@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ceskina_pro/data/services/audio/offline_audio_prefetch.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/presentation/providers/settings_providers.dart';
+import 'package:czechify/data/services/audio/offline_audio_prefetch.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/presentation/providers/settings_providers.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

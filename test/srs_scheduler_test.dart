@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/domain/entities/srs_card.dart';
-import 'package:ceskina_pro/domain/engines/srs_scheduler.dart';
+import 'package:czechify/domain/entities/srs_card.dart';
+import 'package:czechify/domain/engines/srs_scheduler.dart';
 
 /// The scheduler's own ease floor; the ordering sweep starts here.
 const _minEase = 1.3;

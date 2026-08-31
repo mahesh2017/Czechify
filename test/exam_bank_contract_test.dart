@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ceskina_pro/domain/entities/exam_speaking_task.dart';
+import 'package:czechify/domain/entities/exam_speaking_task.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

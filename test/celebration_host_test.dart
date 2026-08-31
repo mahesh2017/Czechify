@@ -1,9 +1,9 @@
-import 'package:ceskina_pro/core/feedback/celebration.dart';
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/presentation/providers/feedback_providers.dart';
-import 'package:ceskina_pro/presentation/widgets/celebration/celebration_host.dart';
-import 'package:ceskina_pro/presentation/widgets/celebration/confetti_layer.dart';
-import 'package:ceskina_pro/presentation/widgets/celebration/count_up_text.dart';
+import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/presentation/providers/feedback_providers.dart';
+import 'package:czechify/presentation/widgets/celebration/celebration_host.dart';
+import 'package:czechify/presentation/widgets/celebration/confetti_layer.dart';
+import 'package:czechify/presentation/widgets/celebration/count_up_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

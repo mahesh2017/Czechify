@@ -5,7 +5,8 @@ import 'package:drift/drift.dart';
 ///
 /// This is an append-only log. Rows are deleted only after the backend
 /// acknowledges them. Per-row last-write-wins on the server uses
-/// [updatedAt] + [deviceId], so ordering here is best-effort, not strict.
+/// [updatedAt] plus a mutation-specific device token derived at push time, so
+/// ordering here is best-effort, not strict.
 class SyncQueue extends Table {
   IntColumn get id => integer().autoIncrement()();
 
@@ -25,7 +26,8 @@ class SyncQueue extends Table {
   /// Full row snapshot as JSON — what to send to the backend.
   TextColumn get payload => text()();
 
-  /// Origin device; part of the LWW tiebreaker.
+  /// Reserved origin-device field. New rows leave this blank because the sync
+  /// service derives the final LWW token after this row receives its id.
   TextColumn get deviceId => text()();
 
   /// Client mutation time — the LWW clock. Server compares this against the

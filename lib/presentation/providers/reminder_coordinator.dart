@@ -21,6 +21,24 @@ final gamificationDailyXpProvider = Provider<int>((ref) {
   return gamification.dailyXp;
 });
 
+/// Serializes native notification mutations.
+///
+/// Settings providers briefly emit their default state while being rebuilt
+/// after account/profile sync. Without one queue, an older cancellation can
+/// finish after the restored-state scheduling pass and silently delete the
+/// learner's newly created reminders.
+class ReminderOperationQueue {
+  Future<void> _tail = Future<void>.value();
+
+  Future<void> run(Future<void> Function() operation) {
+    final result = _tail.then((_) => operation());
+    // Keep the queue usable after a failed operation while still returning the
+    // original future (and error) to an explicit caller.
+    _tail = result.catchError((Object _, StackTrace __) {});
+    return result;
+  }
+}
+
 /// Coordinates study reminder notifications based on settings and app
 /// lifecycle.
 ///
@@ -35,12 +53,14 @@ final gamificationDailyXpProvider = Provider<int>((ref) {
 /// typically the app shell does `ref.watch(reminderCoordinatorProvider)`.
 class ReminderCoordinator extends Notifier<void> {
   static final _log = Logger('ReminderCoordinator');
+  static const defaultReminderTime = TimeOfDay(hour: 19, minute: 0);
 
   late final NotificationService _service;
   late final ReminderScheduler _scheduler;
   AppLifecycleListener? _lifecycleListener;
   Future<void>? _replenishInFlight;
   bool _explicitSettingsMutation = false;
+  final ReminderOperationQueue _operations = ReminderOperationQueue();
 
   @override
   void build() {
@@ -49,13 +69,17 @@ class ReminderCoordinator extends Notifier<void> {
 
     // 1. Watch settings changes — schedule/cancel/reschedule as needed.
     ref.listen(settingsProvider, (prev, next) {
-      _onSettingsChanged(prev, next);
+      // Public actions update Settings while already owning the operation
+      // queue. Suppress their listener echo synchronously, before it can be
+      // queued behind the action and observe the flag after it is cleared.
+      if (_explicitSettingsMutation) return;
+      unawaited(_operations.run(() => _onSettingsChanged(prev, next)));
     });
 
     // 2. Watch dailyXp for zero→positive transition — cancel today's evening.
     ref.listen(gamificationDailyXpProvider, (prev, next) {
       if (prev == 0 && next > 0) {
-        _cancelTodaysEvening();
+        unawaited(_operations.run(_cancelTodaysEvening));
       }
     });
 
@@ -212,14 +236,24 @@ class ReminderCoordinator extends Notifier<void> {
   ///
   /// Used by both onboarding and Settings so navigation cannot dispose the
   /// initiating screen between persistence and the platform scheduling call.
-  Future<void> setRemindersEnabled(
+  Future<void> setRemindersEnabled(bool enabled, {TimeOfDay? preferredTime}) =>
+      _operations.run(
+        () => _setRemindersEnabled(enabled, preferredTime: preferredTime),
+      );
+
+  Future<void> _setRemindersEnabled(
     bool enabled, {
     TimeOfDay? preferredTime,
   }) async {
     _explicitSettingsMutation = true;
     try {
       final settings = ref.read(settingsProvider.notifier);
-      if (preferredTime != null) await settings.setPreferredTime(preferredTime);
+      final resolvedTime =
+          preferredTime ??
+          (enabled
+              ? ref.read(settingsProvider).preferredTime ?? defaultReminderTime
+              : null);
+      if (resolvedTime != null) await settings.setPreferredTime(resolvedTime);
       await settings.setRemindersEnabled(enabled);
 
       if (!enabled) {
@@ -242,7 +276,10 @@ class ReminderCoordinator extends Notifier<void> {
   }
 
   /// Persists a new time and completes the reschedule before returning.
-  Future<void> setPreferredTime(TimeOfDay time) async {
+  Future<void> setPreferredTime(TimeOfDay time) =>
+      _operations.run(() => _setPreferredTime(time));
+
+  Future<void> _setPreferredTime(TimeOfDay time) async {
     _explicitSettingsMutation = true;
     try {
       await ref.read(settingsProvider.notifier).setPreferredTime(time);
@@ -260,7 +297,7 @@ class ReminderCoordinator extends Notifier<void> {
   Future<void> replenish() {
     final active = _replenishInFlight;
     if (active != null) return active;
-    final future = _replenish();
+    final future = _operations.run(_replenish);
     _replenishInFlight = future;
     return future.whenComplete(() {
       if (identical(_replenishInFlight, future)) {
@@ -268,6 +305,13 @@ class ReminderCoordinator extends Notifier<void> {
       }
     });
   }
+
+  /// Removes all reminder IDs owned by Czechify and waits for native cleanup.
+  ///
+  /// Account replacement calls this explicitly so reminders belonging to the
+  /// previous learner cannot survive if the process exits immediately after
+  /// the local snapshot is replaced.
+  Future<void> resetDeviceReminders() => _operations.run(_cancelAllOwned);
 
   Future<void> _replenish() async {
     await ref.read(settingsProvider.notifier).ready;

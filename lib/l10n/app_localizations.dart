@@ -464,6 +464,24 @@ abstract class AppLocalizations {
   /// **'Learning'**
   String get settingsLearningGroup;
 
+  /// No description provided for @settingsLearningPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning plan'**
+  String get settingsLearningPlan;
+
+  /// No description provided for @settingsLearningPlanBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal, focus, study rhythm and reminders'**
+  String get settingsLearningPlanBody;
+
+  /// No description provided for @settingsLearningPlanMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalize this account’s learning plan'**
+  String get settingsLearningPlanMissing;
+
   /// No description provided for @settingsCourseLevel.
   ///
   /// In en, this message translates to:
@@ -3044,6 +3062,18 @@ abstract class AppLocalizations {
   /// **'Open today’s copybook'**
   String get homeCopybookCta;
 
+  /// No description provided for @homePersonalizePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalize your learning plan'**
+  String get homePersonalizePlan;
+
+  /// No description provided for @homePersonalizePlanBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell Czechify your goal and available time to get a more useful plan.'**
+  String get homePersonalizePlanBody;
+
   /// No description provided for @homeXpRemaining.
   ///
   /// In en, this message translates to:
@@ -3119,7 +3149,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingNameBody.
   ///
   /// In en, this message translates to:
-  /// **'Optional. Used to greet you in Czech, and it never leaves your device.'**
+  /// **'Optional. Used to greet you and synced with your Czechify account so it can be restored on another device.'**
   String get onboardingNameBody;
 
   /// No description provided for @onboardingFirstName.
@@ -3277,6 +3307,414 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The sounds of Czech'**
   String get onboardingSoundsOfCzech;
+
+  /// No description provided for @onboardingProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us where you’re starting'**
+  String get onboardingProfileTitle;
+
+  /// No description provided for @onboardingProfileBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name is optional. Your current level helps us choose a useful first lesson.'**
+  String get onboardingProfileBody;
+
+  /// No description provided for @onboardingLevelPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'How much Czech do you know now?'**
+  String get onboardingLevelPrompt;
+
+  /// No description provided for @onboardingB1Plus.
+  ///
+  /// In en, this message translates to:
+  /// **'B1 or higher'**
+  String get onboardingB1Plus;
+
+  /// No description provided for @onboardingB1PlusBody.
+  ///
+  /// In en, this message translates to:
+  /// **'I can handle many everyday conversations'**
+  String get onboardingB1PlusBody;
+
+  /// No description provided for @onboardingLevelUnsure.
+  ///
+  /// In en, this message translates to:
+  /// **'I’m not sure'**
+  String get onboardingLevelUnsure;
+
+  /// No description provided for @onboardingLevelUnsureBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Start gently or use the placement check'**
+  String get onboardingLevelUnsureBody;
+
+  /// No description provided for @onboardingPurposeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What brings you to Czech?'**
+  String get onboardingPurposeTitle;
+
+  /// No description provided for @onboardingPurposeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your main goal. You can change it later as life changes.'**
+  String get onboardingPurposeBody;
+
+  /// No description provided for @onboardingGoalEverydayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyday life in Czechia'**
+  String get onboardingGoalEverydayTitle;
+
+  /// No description provided for @onboardingGoalEverydayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Feel confident in shops, healthcare, housing and public offices'**
+  String get onboardingGoalEverydayBody;
+
+  /// No description provided for @onboardingGoalPermanentResidenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanent residence — A2'**
+  String get onboardingGoalPermanentResidenceTitle;
+
+  /// No description provided for @onboardingGoalPermanentResidenceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Build toward the official Czech A2 language exam'**
+  String get onboardingGoalPermanentResidenceBody;
+
+  /// No description provided for @onboardingGoalCitizenshipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Foundation toward citizenship'**
+  String get onboardingGoalCitizenshipTitle;
+
+  /// No description provided for @onboardingGoalCitizenshipBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Czech toward B1 and learn the vocabulary around Czech life'**
+  String get onboardingGoalCitizenshipBody;
+
+  /// No description provided for @onboardingGoalWorkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Work and career'**
+  String get onboardingGoalWorkTitle;
+
+  /// No description provided for @onboardingGoalWorkBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Communicate with colleagues, customers and employers'**
+  String get onboardingGoalWorkBody;
+
+  /// No description provided for @onboardingGoalStudyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Study'**
+  String get onboardingGoalStudyTitle;
+
+  /// No description provided for @onboardingGoalStudyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow classes, read confidently and write more clearly'**
+  String get onboardingGoalStudyBody;
+
+  /// No description provided for @onboardingGoalRelationshipsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Family and relationships'**
+  String get onboardingGoalRelationshipsTitle;
+
+  /// No description provided for @onboardingGoalRelationshipsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Join conversations with family, friends and your community'**
+  String get onboardingGoalRelationshipsBody;
+
+  /// No description provided for @onboardingGoalTravelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel, culture and interest'**
+  String get onboardingGoalTravelTitle;
+
+  /// No description provided for @onboardingGoalTravelBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy Czech places, people and culture in their language'**
+  String get onboardingGoalTravelBody;
+
+  /// No description provided for @onboardingFocusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shape your first plan'**
+  String get onboardingFocusTitle;
+
+  /// No description provided for @onboardingFocusBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the skills you want Czechify to emphasize first.'**
+  String get onboardingFocusBody;
+
+  /// No description provided for @onboardingPermanentResidenceDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'The current permanent-residence language exam is A2. Czechify can help you practise, but official eligibility and exemptions come from Czech authorities.'**
+  String get onboardingPermanentResidenceDisclosure;
+
+  /// No description provided for @onboardingCitizenshipDisclosure.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify currently teaches through A2. This creates a foundation toward the B1 language and Czech Life and Institutions exams; it is not yet full citizenship-exam preparation.'**
+  String get onboardingCitizenshipDisclosure;
+
+  /// No description provided for @onboardingHorizonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When would you like to be ready?'**
+  String get onboardingHorizonTitle;
+
+  /// No description provided for @onboardingHorizonWithinThree.
+  ///
+  /// In en, this message translates to:
+  /// **'Within 3 months'**
+  String get onboardingHorizonWithinThree;
+
+  /// No description provided for @onboardingHorizonWithinThreeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short, focused preparation window'**
+  String get onboardingHorizonWithinThreeBody;
+
+  /// No description provided for @onboardingHorizonThreeToSix.
+  ///
+  /// In en, this message translates to:
+  /// **'In 3–6 months'**
+  String get onboardingHorizonThreeToSix;
+
+  /// No description provided for @onboardingHorizonThreeToSixBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady preparation with regular review'**
+  String get onboardingHorizonThreeToSixBody;
+
+  /// No description provided for @onboardingHorizonSixToTwelve.
+  ///
+  /// In en, this message translates to:
+  /// **'In 6–12 months'**
+  String get onboardingHorizonSixToTwelve;
+
+  /// No description provided for @onboardingHorizonSixToTwelveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Build the foundation carefully over time'**
+  String get onboardingHorizonSixToTwelveBody;
+
+  /// No description provided for @onboardingHorizonLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later or not sure'**
+  String get onboardingHorizonLater;
+
+  /// No description provided for @onboardingHorizonLaterBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn consistently without a fixed deadline'**
+  String get onboardingHorizonLaterBody;
+
+  /// No description provided for @onboardingFocusPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we emphasize?'**
+  String get onboardingFocusPrompt;
+
+  /// No description provided for @onboardingFocusSpeaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking'**
+  String get onboardingFocusSpeaking;
+
+  /// No description provided for @onboardingFocusSpeakingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Respond naturally in real conversations'**
+  String get onboardingFocusSpeakingBody;
+
+  /// No description provided for @onboardingFocusListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get onboardingFocusListening;
+
+  /// No description provided for @onboardingFocusListeningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Understand Czech at a comfortable native pace'**
+  String get onboardingFocusListeningBody;
+
+  /// No description provided for @onboardingFocusReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
+  String get onboardingFocusReading;
+
+  /// No description provided for @onboardingFocusReadingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Read signs, messages, forms and useful texts'**
+  String get onboardingFocusReadingBody;
+
+  /// No description provided for @onboardingFocusWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing'**
+  String get onboardingFocusWriting;
+
+  /// No description provided for @onboardingFocusWritingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Write clear answers, messages and short texts'**
+  String get onboardingFocusWritingBody;
+
+  /// No description provided for @onboardingFocusVocabularyGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary and grammar'**
+  String get onboardingFocusVocabularyGrammar;
+
+  /// No description provided for @onboardingFocusVocabularyGrammarBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Build reliable words and sentence patterns'**
+  String get onboardingFocusVocabularyGrammarBody;
+
+  /// No description provided for @onboardingFocusLifeInstitutions.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech life and institutions'**
+  String get onboardingFocusLifeInstitutions;
+
+  /// No description provided for @onboardingFocusLifeInstitutionsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn key civic topics and related vocabulary'**
+  String get onboardingFocusLifeInstitutionsBody;
+
+  /// No description provided for @onboardingCommitmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a rhythm you can keep'**
+  String get onboardingCommitmentTitle;
+
+  /// No description provided for @onboardingCommitmentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A realistic routine beats an ambitious plan that disappears after a week.'**
+  String get onboardingCommitmentBody;
+
+  /// No description provided for @onboardingCommitmentLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get onboardingCommitmentLight;
+
+  /// No description provided for @onboardingCommitmentSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady'**
+  String get onboardingCommitmentSteady;
+
+  /// No description provided for @onboardingCommitmentFocused.
+  ///
+  /// In en, this message translates to:
+  /// **'Focused'**
+  String get onboardingCommitmentFocused;
+
+  /// No description provided for @onboardingCommitmentIntensive.
+  ///
+  /// In en, this message translates to:
+  /// **'Intensive'**
+  String get onboardingCommitmentIntensive;
+
+  /// No description provided for @onboardingCommitmentSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes, {days} days a week'**
+  String onboardingCommitmentSchedule(int minutes, int days);
+
+  /// No description provided for @onboardingTeacherChoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a Czech teacher voice'**
+  String get onboardingTeacherChoiceTitle;
+
+  /// No description provided for @onboardingTeacherChoiceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap either teacher to hear a sample. You can switch later.'**
+  String get onboardingTeacherChoiceBody;
+
+  /// No description provided for @onboardingPrimaryGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary goal'**
+  String get onboardingPrimaryGoal;
+
+  /// No description provided for @onboardingFocusSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get onboardingFocusSummary;
+
+  /// No description provided for @onboardingTargetSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Target window'**
+  String get onboardingTargetSummary;
+
+  /// No description provided for @onboardingStudyPlanSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Study rhythm'**
+  String get onboardingStudyPlanSummary;
+
+  /// No description provided for @onboardingPlanPermanentResidenceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We’ll build from your current level toward practical A2 skills, with extra attention to your chosen focus areas.'**
+  String get onboardingPlanPermanentResidenceBody;
+
+  /// No description provided for @onboardingPlanCitizenshipBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We’ll strengthen your Czech foundation through A2 and clearly mark where full B1 and civic-exam preparation goes beyond the current course.'**
+  String get onboardingPlanCitizenshipBody;
+
+  /// No description provided for @accountRestoreReminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your saved reminder?'**
+  String get accountRestoreReminderTitle;
+
+  /// No description provided for @accountRestoreReminderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This account used a {time} study reminder on another device. Enable it on this device too?'**
+  String accountRestoreReminderBody(String time);
+
+  /// No description provided for @accountRestoreReminderLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get accountRestoreReminderLater;
+
+  /// No description provided for @accountRestoreReminderEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable reminder'**
+  String get accountRestoreReminderEnable;
 
   /// No description provided for @scenarioCasual.
   ///

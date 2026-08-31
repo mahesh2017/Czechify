@@ -9,8 +9,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../database/database.dart';
 import '../sync/backend_service.dart';
 import '../sync/sync_service.dart';
+import 'account_restore_materializer.dart';
 import 'account_identity.dart';
 import 'google_auth_service.dart';
+
+export 'account_restore_materializer.dart' show AccountRestoreSummary;
 
 sealed class GoogleAccountResult {
   const GoogleAccountResult();
@@ -41,6 +44,7 @@ class AccountService {
     GoogleAuthService? googleAuth,
     this.onLocalDataChanged,
     this.onAccountChanged,
+    this.onDeviceRemindersReset,
   }) : _googleAuth = googleAuth ?? NativeGoogleAuthService();
 
   final BackendService _backend;
@@ -49,6 +53,7 @@ class AccountService {
   final GoogleAuthService _googleAuth;
   final void Function()? onLocalDataChanged;
   final void Function()? onAccountChanged;
+  final Future<void> Function()? onDeviceRemindersReset;
 
   Future<void> linkEmail(String email) => _backend.requestEmailLink(email);
 
@@ -84,10 +89,11 @@ class AccountService {
     }
   }
 
-  Future<void> completeGoogleSwitch(GoogleAccountNeedsSwitch pending) =>
-      _switchToSession(pending._session);
+  Future<AccountRestoreSummary> completeGoogleSwitch(
+    GoogleAccountNeedsSwitch pending,
+  ) => _switchToSession(pending._session);
 
-  Future<void> switchToExistingAccount({
+  Future<AccountRestoreSummary> switchToExistingAccount({
     required String email,
     required String password,
   }) async {
@@ -95,10 +101,10 @@ class AccountService {
       email: email,
       password: password,
     );
-    await _switchToSession(session);
+    return _switchToSession(session);
   }
 
-  Future<void> _switchToSession(Session session) async {
+  Future<AccountRestoreSummary> _switchToSession(Session session) async {
     final previousSession = _backend.currentSession;
     var targetCommitted = false;
     await _sync.beginAccountTransition();
@@ -113,9 +119,12 @@ class AccountService {
         }
       });
       targetCommitted = true;
-      await _clearAccountScopedArtifacts();
+      final restored = await AccountRestoreMaterializer(_db).materialize();
+      await _resetDeviceReminders();
+      await _clearTemporaryArtifacts();
       onLocalDataChanged?.call();
       onAccountChanged?.call();
+      return restored;
     } catch (_) {
       // Once the target database commit succeeds, restoring the old session
       // would expose target data under the wrong identity.
@@ -184,6 +193,7 @@ class AccountService {
     }
     await _db.clearLearnerData();
     await _clearAccountScopedArtifacts();
+    await _resetDeviceReminders();
     await _backend.ensureAnonymousSession();
     onLocalDataChanged?.call();
   }
@@ -206,24 +216,34 @@ class AccountService {
     'settings_tts_voice_gender',
     'settings_daily_goal_xp',
     'settings_hearts_enabled',
-    'settings_sound_enabled',
-    'settings_haptic_enabled',
+    'settings_sound_effects_enabled',
+    'settings_haptics_enabled',
+    'settings_reminder_hour',
+    'settings_reminder_minute',
+    'settings_reminders_enabled',
+    'settings_catch_up_enabled',
   };
 
   Future<void> _clearAccountScopedArtifacts() async {
     final preferences = await SharedPreferences.getInstance();
-    for (final key in const {
-      'settings_learner_name',
-      'settings_starting_level',
-      'settings_onboarding_done',
-      'srs_new_cards_today',
-      'srs_new_cards_date',
-      'exam_checkpoint_a1',
-      'exam_checkpoint_a2',
-    }) {
+    for (final key in AccountRestoreMaterializer.accountScopedPreferenceKeys) {
       await preferences.remove(key);
     }
 
+    await _clearTemporaryArtifacts();
+  }
+
+  Future<void> _resetDeviceReminders() async {
+    try {
+      await onDeviceRemindersReset?.call();
+    } catch (_) {
+      // Notification cleanup is device-local and best effort. The cloud
+      // identity/database switch may already be committed, so surfacing this
+      // as an account failure would be both misleading and unsafe to retry.
+    }
+  }
+
+  Future<void> _clearTemporaryArtifacts() async {
     final temporary = await getTemporaryDirectory();
     if (!await temporary.exists()) return;
     await for (final entity in temporary.list()) {

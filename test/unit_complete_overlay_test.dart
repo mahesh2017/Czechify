@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/core/feedback/celebration.dart';
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/presentation/widgets/celebration/unit_complete_overlay.dart';
+import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/presentation/widgets/celebration/unit_complete_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

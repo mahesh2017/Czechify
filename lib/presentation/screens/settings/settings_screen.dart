@@ -9,6 +9,8 @@ import '../../../core/legal/legal_content.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/curriculum_providers.dart';
+import '../../providers/gamification_providers.dart';
+import '../../providers/learner_profile_providers.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/reminder_coordinator.dart';
 import '../../../domain/entities/enums.dart';
@@ -223,6 +225,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final settings = ref.watch(settingsProvider);
     final cloudSpeech = ref.watch(cloudSpeechConsentProvider);
     final syncHealth = ref.watch(syncHealthProvider);
+    // In production the app root has already bootstrapped this repository.
+    // Keeping it optional here lets lightweight Settings widget tests avoid
+    // creating a live Drift stream whose close timer outlives the test frame.
+    final learnerProfile =
+        ref.exists(learnerProfileRepositoryProvider)
+            ? ref.watch(learnerProfileProvider).value
+            : null;
 
     return Scaffold(
       backgroundColor: t.bg,
@@ -326,6 +335,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             _Group(
               children: [
                 _Row(
+                  icon: Icons.route_outlined,
+                  tint: t.amberSoft,
+                  fg: t.amber,
+                  title: l10n.settingsLearningPlan,
+                  subtitle:
+                      learnerProfile?.primaryGoal == null
+                          ? l10n.settingsLearningPlanMissing
+                          : l10n.settingsLearningPlanBody,
+                  onTap: () => context.push('/learning-plan'),
+                  trailing: Icon(Icons.chevron_right, color: t.faint),
+                ),
+                _Divider(),
+                _Row(
                   icon: Icons.school_outlined,
                   tint: t.priSoft,
                   fg: t.pri,
@@ -357,9 +379,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       fontWeight: FontWeight.w700,
                       fontSize: 15,
                     ),
-                    onChanged: (xp) {
+                    onChanged: (xp) async {
                       if (xp != null) {
-                        ref.read(settingsProvider.notifier).setDailyGoalXp(xp);
+                        await ref
+                            .read(settingsProvider.notifier)
+                            .setDailyGoalXp(xp);
+                        await ref
+                            .read(gamificationProvider.notifier)
+                            .setDailyGoal(xp);
                       }
                     },
                     items: [
@@ -458,7 +485,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     _ReminderTimeRow(
                       time:
                           settings.preferredTime ??
-                          const TimeOfDay(hour: 19, minute: 0),
+                          ReminderCoordinator.defaultReminderTime,
                       onChanged: (time) async {
                         await ref
                             .read(reminderCoordinatorProvider.notifier)
@@ -469,7 +496,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     // suppressed by the scheduler's own gap check).
                     if (_catchUpGapIsWide(
                       settings.preferredTime ??
-                          const TimeOfDay(hour: 19, minute: 0),
+                          ReminderCoordinator.defaultReminderTime,
                     )) ...[
                       _Divider(),
                       _Row(

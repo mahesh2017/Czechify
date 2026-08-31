@@ -8,7 +8,7 @@ drop extension if exists pgtap cascade;
 create extension pgtap with schema public;
 set local search_path = public;
 
-select public.plan(38);
+select public.plan(51);
 
 select public.has_table('public', 'lesson_progress', 'lesson progress exists');
 select public.has_table('public', 'earned_badges', 'earned badges exists');
@@ -19,6 +19,21 @@ select public.has_table(
   'gamification_state',
   'gamification state exists'
 );
+select public.has_table(
+  'public',
+  'learner_profiles',
+  'learner profiles exist'
+);
+select public.has_table(
+  'public',
+  'reminder_preferences',
+  'reminder preferences exist'
+);
+select public.has_table(
+  'public',
+  'placement_profiles',
+  'placement profiles exist'
+);
 
 select public.ok(
   (select bool_and(relrowsecurity)
@@ -28,7 +43,11 @@ select public.ok(
      'public.earned_badges'::regclass,
      'public.user_progress'::regclass,
      'public.srs_cards'::regclass,
-     'public.gamification_state'::regclass
+     'public.gamification_state'::regclass,
+     'public.custom_cards'::regclass,
+     'public.learner_profiles'::regclass,
+     'public.reminder_preferences'::regclass,
+     'public.placement_profiles'::regclass
    )),
   'RLS is enabled on every user sync table'
 );
@@ -38,7 +57,11 @@ select public.ok(
   and not has_table_privilege('anon', 'public.earned_badges', 'SELECT')
   and not has_table_privilege('anon', 'public.user_progress', 'SELECT')
   and not has_table_privilege('anon', 'public.srs_cards', 'SELECT')
-  and not has_table_privilege('anon', 'public.gamification_state', 'SELECT'),
+  and not has_table_privilege('anon', 'public.gamification_state', 'SELECT')
+  and not has_table_privilege('anon', 'public.custom_cards', 'SELECT')
+  and not has_table_privilege('anon', 'public.learner_profiles', 'SELECT')
+  and not has_table_privilege('anon', 'public.reminder_preferences', 'SELECT')
+  and not has_table_privilege('anon', 'public.placement_profiles', 'SELECT'),
   'anon cannot read user sync tables'
 );
 
@@ -65,6 +88,51 @@ select public.ok(
     'SELECT,INSERT,UPDATE,DELETE'
   ),
   'authenticated has the required gamification API grants'
+);
+
+select public.ok(
+  has_table_privilege(
+    'authenticated',
+    'public.learner_profiles',
+    'SELECT,INSERT,UPDATE,DELETE'
+  )
+  and has_table_privilege(
+    'authenticated',
+    'public.reminder_preferences',
+    'SELECT,INSERT,UPDATE,DELETE'
+  )
+  and has_table_privilege(
+    'authenticated',
+    'public.placement_profiles',
+    'SELECT,INSERT,UPDATE,DELETE'
+  ),
+  'authenticated has the required profile foundation API grants'
+);
+
+select public.ok(
+  (select count(*)
+   from pg_attribute attribute
+   join pg_class relation on relation.oid = attribute.attrelid
+   join pg_namespace namespace on namespace.oid = relation.relnamespace
+   where namespace.nspname = 'public'
+     and relation.relname in (
+       'learner_profiles',
+       'reminder_preferences',
+       'placement_profiles'
+     )
+     and attribute.attname = 'revision'
+     and attribute.attnotnull) = 3
+  and
+  (select count(*)
+   from pg_indexes
+   where schemaname = 'public'
+     and indexname in (
+       'learner_profiles_revision_pull_idx',
+       'reminder_preferences_revision_pull_idx',
+       'placement_profiles_revision_pull_idx'
+     )
+     and indexdef like '%(user_id, revision)%') = 3,
+  'profile foundation tables have server revision pull metadata'
 );
 
 select public.ok(
@@ -304,6 +372,37 @@ select public.throws_ok(
   'gamification constraints reject impossible heart state'
 );
 
+select public.throws_ok(
+  $$insert into public.learner_profiles
+      (user_id, self_assessed_cefr, device_id)
+    values
+      ('10000000-0000-0000-0000-000000000001', '', 'device-a')$$,
+  '23514',
+  'new row for relation "learner_profiles" violates check constraint "learner_profiles_cefr_valid"',
+  'learner profile rejects an empty course-level key'
+);
+
+select public.throws_ok(
+  $$insert into public.reminder_preferences
+      (user_id, wants_reminder, preferred_hour, preferred_minute, device_id)
+    values
+      ('10000000-0000-0000-0000-000000000001', true, 24, 0, 'device-a')$$,
+  '23514',
+  'new row for relation "reminder_preferences" violates check constraint "reminder_preferences_clock_valid"',
+  'reminder preference rejects an invalid local time'
+);
+
+select public.throws_ok(
+  $$insert into public.placement_profiles
+      (user_id, provisional_unit, estimates, device_id)
+    values
+      ('10000000-0000-0000-0000-000000000001', 1,
+       '{"reading":1.5}'::jsonb, 'device-a')$$,
+  '23514',
+  'new row for relation "placement_profiles" violates check constraint "placement_profiles_estimates_valid"',
+  'placement profile rejects an out-of-range skill estimate'
+);
+
 insert into public.lesson_progress (
   user_id, lesson_id, unit_id, is_completed, best_score, attempts,
   device_id, updated_at
@@ -358,12 +457,101 @@ select public.lives_ok(
   'owner can insert their progress'
 );
 
+select public.lives_ok(
+  $$insert into public.learner_profiles
+      (user_id, display_name, primary_goal, onboarding_version,
+       onboarding_last_step, onboarding_completed_at, device_id, updated_at)
+    values
+      ('10000000-0000-0000-0000-000000000001', 'Mahesh',
+       'everyday_communication', 2, 7, '2026-08-30T10:00:00Z',
+       'device-a', '2026-08-30T10:00:00Z')$$,
+  'owner can insert their learner profile'
+);
+
+update public.learner_profiles
+set onboarding_version = 1,
+    onboarding_last_step = 1,
+    onboarding_completed_at = null,
+    primary_goal = 'legacyOverwrite',
+    device_id = 'device-z',
+    updated_at = '2026-08-30T11:00:00Z'
+where user_id = '10000000-0000-0000-0000-000000000001'
+  and key = 'primary';
+
+select public.ok(
+  (select onboarding_version = 2
+          and onboarding_last_step = 7
+          and primary_goal = 'everyday_communication'
+          and onboarding_completed_at = '2026-08-30T10:00:00Z'::timestamptz
+   from public.learner_profiles
+   where user_id = '10000000-0000-0000-0000-000000000001'
+     and key = 'primary'),
+  'a legacy profile schema cannot erase richer onboarding fields or milestones'
+);
+
+update public.learner_profiles
+set onboarding_version = 3,
+    onboarding_last_step = 8,
+    primary_goal = 'workAndCareer',
+    focus_skills = '["speaking"]'::jsonb,
+    device_id = 'device-a',
+    updated_at = '2026-08-30T09:00:00Z'
+where user_id = '10000000-0000-0000-0000-000000000001'
+  and key = 'primary';
+
+select public.ok(
+  (select onboarding_version = 3
+          and onboarding_last_step = 8
+          and primary_goal = 'workAndCareer'
+          and focus_skills = '["speaking"]'::jsonb
+   from public.learner_profiles
+   where user_id = '10000000-0000-0000-0000-000000000001'
+     and key = 'primary'),
+  'a higher profile schema wins even when its device clock is behind'
+);
+
+insert into public.placement_profiles (
+  user_id, provisional_unit, estimates, sample_size, device_id, updated_at
+) values (
+  '10000000-0000-0000-0000-000000000001', 18,
+  '{"reading":0.8}'::jsonb, 10, 'device-a', '2026-08-30T10:00:00Z'
+);
+
+update public.placement_profiles
+set provisional_unit = 1,
+    estimates = '{"reading":0.1}'::jsonb,
+    sample_size = 2,
+    device_id = 'device-z',
+    updated_at = '2026-08-30T11:00:00Z'
+where user_id = '10000000-0000-0000-0000-000000000001'
+  and key = 'primary';
+
+select public.ok(
+  (select provisional_unit = 18
+          and sample_size = 10
+          and estimates = '{"reading":0.8}'::jsonb
+   from public.placement_profiles
+   where user_id = '10000000-0000-0000-0000-000000000001'
+     and key = 'primary'),
+  'a newer device cannot reduce established placement evidence'
+);
+
 select public.throws_ok(
   $$insert into public.user_progress (user_id, key, value, device_id)
     values ('20000000-0000-0000-0000-000000000002', 'streak', '4', 'device-a')$$,
   '42501',
   'new row violates row-level security policy for table "user_progress"',
   'RLS rejects writes for another user'
+);
+
+select public.throws_ok(
+  $$insert into public.learner_profiles
+      (user_id, display_name, device_id)
+    values
+      ('20000000-0000-0000-0000-000000000002', 'Other', 'device-a')$$,
+  '42501',
+  'new row violates row-level security policy for table "learner_profiles"',
+  'RLS rejects learner profiles for another user'
 );
 
 select public.is(
@@ -374,7 +562,7 @@ select public.is(
 \else
 select * from public.skip(
   'hosted CLI role cannot create rollback-only auth fixtures',
-  9
+  15
 );
 \endif
 

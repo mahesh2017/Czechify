@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:ceskina_pro/core/config/release_config.dart';
-import 'package:ceskina_pro/data/services/audio/audio_pack_cache.dart';
+import 'package:czechify/core/config/release_config.dart';
+import 'package:czechify/data/services/audio/audio_pack_cache.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';

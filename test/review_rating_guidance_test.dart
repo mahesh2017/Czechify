@@ -1,10 +1,10 @@
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/domain/entities/flashcard.dart';
-import 'package:ceskina_pro/domain/entities/srs_card.dart';
-import 'package:ceskina_pro/domain/repositories/vocabulary_repository.dart';
-import 'package:ceskina_pro/presentation/providers/review_providers.dart';
-import 'package:ceskina_pro/presentation/screens/review/srs_review_screen.dart';
-import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/domain/entities/flashcard.dart';
+import 'package:czechify/domain/entities/srs_card.dart';
+import 'package:czechify/domain/repositories/vocabulary_repository.dart';
+import 'package:czechify/presentation/providers/review_providers.dart';
+import 'package:czechify/presentation/screens/review/srs_review_screen.dart';
+import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
