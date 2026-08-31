@@ -59,8 +59,12 @@ jobs:
           # Preserve the merge base. A depth-one fetch breaks diff-cover when
           # the target branch tip is itself a merge commit.
           git fetch origin "${{ github.base_ref }}"
+          # Generated Drift and localization output is verified by generation,
+          # analysis, tests, and builds; keep the changed-line gate focused on
+          # source that engineers can meaningfully unit test.
           diff-cover coverage/lcov.info \
             --compare-branch="origin/${{ github.base_ref }}" \
+            --exclude "*.g.dart" "app_localizations_*.dart" \
             --fail-under="$threshold"
 
       - name: Capture dependency evidence
