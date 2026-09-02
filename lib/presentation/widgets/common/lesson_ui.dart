@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/settings_providers.dart';
@@ -236,24 +238,66 @@ class ComboChip extends StatelessWidget {
 /// The "+10 XP" that flies up out of the lesson header on a correct answer.
 ///
 /// Plays once per mount, so give it a [ValueKey] that changes when a new award
-/// should animate. Under reduced motion it holds still and fades instead.
+/// should animate. Under reduced motion it holds still briefly before removal.
 class XpFlyUp extends StatefulWidget {
-  const XpFlyUp({super.key, required this.label});
+  const XpFlyUp({super.key, required this.label, required this.onCompleted});
 
   final String label;
+  final VoidCallback onCompleted;
 
   @override
   State<XpFlyUp> createState() => _XpFlyUpState();
 }
 
 class _XpFlyUpState extends State<XpFlyUp> with SingleTickerProviderStateMixin {
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 1100),
-  )..forward();
+  late final AnimationController _c;
+  Timer? _reducedMotionTimer;
+  bool? _motionDisabled;
+  bool _completed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _c = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1100),
+    )..addStatusListener(_handleStatus);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = context.motionDisabled;
+    if (disabled == _motionDisabled || _completed) return;
+    _motionDisabled = disabled;
+    _reducedMotionTimer?.cancel();
+    if (disabled) {
+      // The static label remains readable, but no invisible controller ticks.
+      _c.stop();
+      _c.reset();
+      _reducedMotionTimer = Timer(
+        AppMotion.reducedFeedbackHold,
+        _notifyCompleted,
+      );
+    } else {
+      _c.forward(from: 0);
+    }
+  }
+
+  void _handleStatus(AnimationStatus status) {
+    if (status == AnimationStatus.completed) _notifyCompleted();
+  }
+
+  void _notifyCompleted() {
+    if (_completed || !mounted) return;
+    _completed = true;
+    widget.onCompleted();
+  }
 
   @override
   void dispose() {
+    _reducedMotionTimer?.cancel();
+    _c.removeStatusListener(_handleStatus);
     _c.dispose();
     super.dispose();
   }
@@ -271,7 +315,7 @@ class _XpFlyUpState extends State<XpFlyUp> with SingleTickerProviderStateMixin {
       ),
     );
 
-    if (MediaQuery.disableAnimationsOf(context)) return text;
+    if (_motionDisabled ?? context.motionDisabled) return text;
 
     return AnimatedBuilder(
       animation: _c,
@@ -1462,86 +1506,6 @@ class StatCell {
   final String value;
   final String label;
   final Color? color;
-}
-
-/// Shakes its child once, horizontally — the wrong-answer tell.
-///
-/// Under reduced motion the shake becomes a coral outline flash, as the design
-/// system requires of every named animation.
-class ShakeOnce extends StatefulWidget {
-  const ShakeOnce({super.key, required this.child, required this.trigger});
-
-  final Widget child;
-
-  /// Change this value to replay the shake.
-  final Object? trigger;
-
-  @override
-  State<ShakeOnce> createState() => _ShakeOnceState();
-}
-
-class _ShakeOnceState extends State<ShakeOnce>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 420),
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.trigger != null) _c.forward(from: 0);
-  }
-
-  @override
-  void didUpdateWidget(covariant ShakeOnce old) {
-    super.didUpdateWidget(old);
-    if (old.trigger != widget.trigger && widget.trigger != null) {
-      _c.forward(from: 0);
-    }
-  }
-
-  @override
-  void dispose() {
-    _c.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-
-    if (MediaQuery.disableAnimationsOf(context)) {
-      return AnimatedBuilder(
-        animation: _c,
-        builder: (context, child) {
-          final flashing = widget.trigger != null && _c.value < 1;
-          return Container(
-            foregroundDecoration:
-                flashing
-                    ? BoxDecoration(
-                      border: Border.all(color: t.redInk, width: 2),
-                      borderRadius: BorderRadius.circular(24),
-                    )
-                    : null,
-            child: child,
-          );
-        },
-        child: widget.child,
-      );
-    }
-
-    return AnimatedBuilder(
-      animation: _c,
-      builder: (context, child) {
-        // Four decaying swings, matching the handoff's shakeX keyframes.
-        final v = _c.value;
-        final dx = v >= 1 ? 0.0 : -9 * (1 - v) * math.sin(v * 4 * math.pi);
-        return Transform.translate(offset: Offset(dx, 0), child: child);
-      },
-      child: widget.child,
-    );
-  }
 }
 
 /// Playback speed, shown as three visible choices rather than hidden behind a

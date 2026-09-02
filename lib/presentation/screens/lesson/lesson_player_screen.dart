@@ -1321,6 +1321,11 @@ class _XpCounterState extends State<_XpCounter> {
   int? _award;
   int _awardSeq = 0;
 
+  void _clearAward(int sequence) {
+    if (!mounted || sequence != _awardSeq) return;
+    setState(() => _award = null);
+  }
+
   @override
   void didUpdateWidget(covariant _XpCounter old) {
     super.didUpdateWidget(old);
@@ -1337,6 +1342,7 @@ class _XpCounterState extends State<_XpCounter> {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    final awardSequence = _awardSeq;
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -1364,6 +1370,7 @@ class _XpCounterState extends State<_XpCounter> {
               child: XpFlyUp(
                 key: ValueKey(_awardSeq),
                 label: l10n.lessonXpAward(award),
+                onCompleted: () => _clearAward(awardSequence),
               ),
             ),
           ),

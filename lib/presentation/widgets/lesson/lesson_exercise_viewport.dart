@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/feedback/answer_streak.dart';
 import '../../../core/feedback/sfx.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/exercise.dart';
@@ -64,6 +65,7 @@ class _LessonExerciseViewportState extends ConsumerState<LessonExerciseViewport>
 
   ExerciseOutcome? _outcome;
   int _comboStreak = 0;
+  bool _motionDisabled = false;
 
   @override
   void initState() {
@@ -76,6 +78,23 @@ class _LessonExerciseViewportState extends ConsumerState<LessonExerciseViewport>
       vsync: this,
       duration: const Duration(milliseconds: 1700),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = context.motionDisabled;
+    if (disabled == _motionDisabled) return;
+    _motionDisabled = disabled;
+    if (disabled) {
+      // Do not leave invisible tickers running behind the reduced-motion
+      // composition. The answer still changes colour and keeps its audio and
+      // haptic feedback through the exercise widget and feedback service.
+      _reaction.stop();
+      _reaction.reset();
+      _combo.stop();
+      _combo.reset();
+    }
   }
 
   @override
@@ -123,8 +142,10 @@ class _LessonExerciseViewportState extends ConsumerState<LessonExerciseViewport>
     }
 
     setState(() => _outcome = outcome);
-    _reaction.forward(from: 0);
-    if (isMilestone) {
+    if (!_motionDisabled) {
+      _reaction.forward(from: 0);
+    }
+    if (isMilestone && !_motionDisabled) {
       _comboStreak = streak;
       _combo.forward(from: 0);
     }
@@ -180,7 +201,7 @@ class _LessonExerciseViewportState extends ConsumerState<LessonExerciseViewport>
     // Someone who has asked the OS to reduce motion still gets the sound, the
     // haptic and the colour change — they asked for less movement, not for a
     // less rewarding app.
-    if (MediaQuery.disableAnimationsOf(context)) return composed;
+    if (_motionDisabled) return composed;
 
     final tokens = context.tokens;
     final accent = _wasCorrect ? tokens.green : tokens.red;

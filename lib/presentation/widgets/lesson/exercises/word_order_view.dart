@@ -122,47 +122,45 @@ class _WordOrderViewState extends State<WordOrderView> {
 
           // The sentence being built, on ruled lines. Empty it reads as the
           // place the answer goes, rather than as an empty box.
-          ShakeOnce(
-            trigger: isCorrect == false ? selected.length : null,
-            child: Container(
-              width: double.infinity,
-              constraints: const BoxConstraints(minHeight: 84),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: t.card,
-                border: Border.all(color: verdictBorder, width: 1.5),
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: t.shadow,
-              ),
-              child:
-                  selected.isEmpty
-                      ? Center(
-                        child: Text(
-                          l10n.exerciseTapWordsInOrder,
-                          style: TextStyle(fontSize: 15, color: t.faint),
-                        ),
-                      )
-                      : Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          for (final entry in selected.asMap().entries)
-                            WordChip(
-                              word: entry.value,
-                              placed: true,
-                              verdict: isCorrect,
-                              onTap:
-                                  answered
-                                      ? null
-                                      : () => setState(() {
-                                        available.add(
-                                          selected.removeAt(entry.key),
-                                        );
-                                      }),
-                            ),
-                        ],
-                      ),
+          // Answer-impact movement is centralized in LessonExerciseViewport.
+          Container(
+            width: double.infinity,
+            constraints: const BoxConstraints(minHeight: 84),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: t.card,
+              border: Border.all(color: verdictBorder, width: 1.5),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: t.shadow,
             ),
+            child:
+                selected.isEmpty
+                    ? Center(
+                      child: Text(
+                        l10n.exerciseTapWordsInOrder,
+                        style: TextStyle(fontSize: 15, color: t.faint),
+                      ),
+                    )
+                    : Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final entry in selected.asMap().entries)
+                          WordChip(
+                            word: entry.value,
+                            placed: true,
+                            verdict: isCorrect,
+                            onTap:
+                                answered
+                                    ? null
+                                    : () => setState(() {
+                                      available.add(
+                                        selected.removeAt(entry.key),
+                                      );
+                                    }),
+                          ),
+                      ],
+                    ),
           ),
           const SizedBox(height: 18),
 

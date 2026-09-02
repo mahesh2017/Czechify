@@ -4,6 +4,7 @@ import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/exercise.dart';
 import 'package:czechify/presentation/providers/feedback_providers.dart';
+import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,7 @@ void main() {
     bool correctly = true,
     Exercise exercise = question,
     bool reduceMotion = false,
+    bool invokeDirectly = false,
   }) async {
     ExerciseResult? result;
     await tester.pumpWidget(
@@ -72,7 +74,15 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.text(correctly ? 'Ahoj' : 'Kočka'));
+    if (invokeDirectly) {
+      tester
+          .widget<QuizOptionTile>(
+            find.byType(QuizOptionTile).at(correctly ? 0 : 1),
+          )
+          .onTap!();
+    } else {
+      await tester.tap(find.text(correctly ? 'Ahoj' : 'Kočka'));
+    }
     // Deliberately no settle: everything asserted below must already be true.
     await tester.pump();
     return result;
@@ -94,6 +104,19 @@ void main() {
     ) async {
       await answer(tester);
       await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('reduced motion leaves no invisible reaction ticker', (
+      tester,
+    ) async {
+      // Invoke the option directly so InkWell's platform ripple does not get
+      // mistaken for an exercise-reaction ticker.
+      await answer(tester, reduceMotion: true, invokeDirectly: true);
+
+      expect(tester.binding.transientCallbackCount, 0);
+      await tester.pump(const Duration(seconds: 2));
+      expect(tester.binding.transientCallbackCount, 0);
       expect(tester.takeException(), isNull);
     });
   });
