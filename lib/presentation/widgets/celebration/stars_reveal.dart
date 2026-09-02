@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/feedback/celebration.dart';
 import '../../../core/feedback/feedback_service.dart';
 import '../../../core/feedback/sfx.dart';
 import '../../../core/theme/app_motion.dart';
@@ -40,7 +41,7 @@ class StarsReveal extends StatefulWidget {
 
 class _StarsRevealState extends State<StarsReveal> {
   static const _total = 3;
-  static const _step = Duration(milliseconds: 380);
+  static const _step = CelebrationTimeline.starStep;
 
   int _landed = 0;
 
@@ -85,6 +86,7 @@ class _StarsRevealState extends State<StarsReveal> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: _Star(
+              index: i,
               filled: i < _landed,
               size: widget.size,
               // The middle star sits higher, the way a podium does.
@@ -102,6 +104,7 @@ class _StarsRevealState extends State<StarsReveal> {
 
 class _Star extends StatelessWidget {
   const _Star({
+    required this.index,
     required this.filled,
     required this.size,
     required this.lift,
@@ -109,6 +112,7 @@ class _Star extends StatelessWidget {
     required this.empty,
   });
 
+  final int index;
   final bool filled;
   final double size;
   final double lift;
@@ -120,13 +124,19 @@ class _Star extends StatelessWidget {
     return Transform.translate(
       offset: Offset(0, -lift),
       child: TweenAnimationBuilder<double>(
-        tween: Tween(begin: filled ? 0 : 1, end: 1),
+        // The target changes from 0 to 1 when the star fills. Keeping the end
+        // value fixed at 1 was the old bug: Flutter correctly saw no change,
+        // so the intended landing animation never ran.
+        tween: Tween(end: filled ? 1 : 0),
         duration: context.motionDuration(AppMotion.reward),
-        curve: Curves.elasticOut,
         builder:
-            (context, t, child) => Transform.scale(
+            (context, landing, child) => Transform.scale(
+              key: ValueKey('star-scale-$index'),
               // Overshoot on landing: a star that simply appears has no weight.
-              scale: filled ? 0.5 + 0.5 * t : 1,
+              scale:
+                  filled
+                      ? 0.5 + 0.5 * AppMotion.emphasis.transform(landing)
+                      : 1,
               child: child,
             ),
         child: Icon(

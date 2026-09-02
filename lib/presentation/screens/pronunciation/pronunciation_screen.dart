@@ -225,74 +225,43 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
   }
 }
 
-/// Animated recording indicator.
-class _RecordingIndicator extends StatefulWidget {
-  @override
-  State<_RecordingIndicator> createState() => _RecordingIndicatorState();
-}
-
-class _RecordingIndicatorState extends State<_RecordingIndicator>
-    with TickerProviderStateMixin {
-  late AnimationController _controller;
-  bool? _motionDisabled;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final disabled = MediaQuery.disableAnimationsOf(context);
-    if (disabled == _motionDisabled) return;
-    _motionDisabled = disabled;
-    if (disabled) {
-      _controller
-        ..stop()
-        ..value = 0;
-    } else {
-      _controller.repeat(reverse: true);
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+/// Static recording status. The record button already owns the single live
+/// pulse, so duplicating it here made the centre of the screen throb twice.
+class _RecordingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ScaleTransition(
-          scale: Tween(begin: 1.0, end: 1.3).animate(
-            CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-          ),
-          child: Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: context.tokens.redInk,
+    return Semantics(
+      liveRegion: true,
+      label: 'Listening',
+      excludeSemantics: true,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          color: context.tokens.redSoft,
+          borderRadius: BorderRadius.circular(999),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: context.tokens.redInk,
+              ),
             ),
-            child: Icon(Icons.mic, color: context.tokens.onFill, size: 36),
-          ),
+            const SizedBox(width: 9),
+            Text(
+              'Listening...',
+              style: TextStyle(
+                color: context.tokens.redInk,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 16),
-        Text(
-          'Listening...',
-          style: TextStyle(
-            color: context.tokens.redInk,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

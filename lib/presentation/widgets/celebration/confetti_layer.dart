@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -15,11 +16,13 @@ class ConfettiLayer extends StatefulWidget {
     super.key,
     this.pieces = 70,
     this.duration = const Duration(milliseconds: 2600),
+    this.delay = Duration.zero,
     this.seed = 7,
   });
 
   final int pieces;
   final Duration duration;
+  final Duration delay;
 
   /// Fixed by default so a celebration looks the same each time it is shown —
   /// worth more for a screenshot test than randomness is worth for delight.
@@ -32,6 +35,7 @@ class ConfettiLayer extends StatefulWidget {
 class _ConfettiLayerState extends State<ConfettiLayer>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  Timer? _startTimer;
   List<_Piece> _pieces = const [];
   List<Color>? _palette;
   bool? _motionDisabled;
@@ -55,13 +59,7 @@ class _ConfettiLayerState extends State<ConfettiLayer>
     final disabled = MediaQuery.disableAnimationsOf(context);
     if (_motionDisabled == disabled) return;
     _motionDisabled = disabled;
-    if (disabled || widget.pieces <= 0) {
-      _controller
-        ..stop()
-        ..value = 0;
-    } else if (_controller.status == AnimationStatus.dismissed) {
-      _controller.forward();
-    }
+    _syncPlayback();
   }
 
   @override
@@ -73,18 +71,33 @@ class _ConfettiLayerState extends State<ConfettiLayer>
     if (oldWidget.pieces != widget.pieces || oldWidget.seed != widget.seed) {
       _pieces = _build(widget.pieces, widget.seed, _palette ?? const []);
     }
-    if (widget.pieces <= 0) {
+    if (oldWidget.pieces != widget.pieces || oldWidget.delay != widget.delay) {
+      _syncPlayback();
+    }
+  }
+
+  void _syncPlayback() {
+    _startTimer?.cancel();
+    if (_motionDisabled != false || widget.pieces <= 0) {
       _controller
         ..stop()
         ..value = 0;
-    } else if (_motionDisabled == false &&
-        _controller.status == AnimationStatus.dismissed) {
-      _controller.forward();
+      return;
     }
+    if (_controller.status != AnimationStatus.dismissed) return;
+    if (widget.delay <= Duration.zero) {
+      _controller.forward();
+      return;
+    }
+    _startTimer = Timer(widget.delay, () {
+      if (!mounted || _motionDisabled != false || widget.pieces <= 0) return;
+      _controller.forward();
+    });
   }
 
   @override
   void dispose() {
+    _startTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }

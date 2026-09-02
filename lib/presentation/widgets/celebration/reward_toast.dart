@@ -31,7 +31,7 @@ class _RewardToastState extends State<RewardToast>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 420),
+      duration: CelebrationTimeline.toastEntrance,
     );
   }
 

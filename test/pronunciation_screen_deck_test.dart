@@ -66,4 +66,54 @@ void main() {
     expect(find.text('Zadaná věta.'), findsOneWidget);
     expect(find.text('Skip'), findsNothing);
   });
+
+  testWidgets('recording has one live pulse, owned by the record button', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          pronunciationProvider.overrideWith(
+            _RecordingPronunciationNotifier.new,
+          ),
+        ],
+        child: MaterialApp(
+          theme: lightTheme(),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const PronunciationScreen(
+            exerciseId: 'practice',
+            expectedText: 'Ahoj.',
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.text('Listening...'), findsOneWidget);
+    expect(
+      find.ancestor(
+        of: find.text('Listening...'),
+        matching: find.byType(ScaleTransition),
+      ),
+      findsNothing,
+    );
+  });
+}
+
+class _RecordingPronunciationNotifier extends PronunciationNotifier {
+  @override
+  PronunciationState build() =>
+      const PronunciationState(expectedText: 'Ahoj.', isRecording: true);
+
+  @override
+  void setExpectedText(String text) {
+    state = PronunciationState(expectedText: text, isRecording: true);
+  }
 }

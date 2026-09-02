@@ -1,5 +1,26 @@
 import 'sfx.dart';
 
+/// Shared timing for the visual and sensory beats of earned celebrations.
+///
+/// Durations live here so the host, painters and completion screens cannot
+/// silently drift into different interpretations of "impact".
+abstract final class CelebrationTimeline {
+  static const lessonReveal = Duration(milliseconds: 1700);
+  static const lessonImpact = Duration(milliseconds: 510);
+
+  static const unitReveal = Duration(milliseconds: 1400);
+  static const unitImpact = Duration(milliseconds: 450);
+
+  static const toastEntrance = Duration(milliseconds: 420);
+  static const toastImpact = Duration(milliseconds: 120);
+
+  static const starLeadAfterLessonImpact = Duration(milliseconds: 200);
+  static const starStep = Duration(milliseconds: 380);
+
+  static double progress(Duration moment, Duration total) =>
+      moment.inMicroseconds / total.inMicroseconds;
+}
+
 /// A moment worth marking.
 ///
 /// Sealed on purpose. Adding a celebration means the `switch` in [recipeFor]
@@ -137,32 +158,32 @@ CelebrationRecipe recipeFor(Celebration celebration) => switch (celebration) {
   LessonCompleted(isPerfect: true) => const CelebrationRecipe(
     sound: Sfx.perfectLesson,
     haptic: Haptic.double,
-    visualImpactDelay: Duration(milliseconds: 510),
+    visualImpactDelay: CelebrationTimeline.lessonImpact,
     autoDismiss: Duration(milliseconds: 2600),
   ),
   LessonCompleted() => const CelebrationRecipe(
     sound: Sfx.lessonComplete,
     haptic: Haptic.medium,
-    visualImpactDelay: Duration(milliseconds: 510),
+    visualImpactDelay: CelebrationTimeline.lessonImpact,
     autoDismiss: Duration(milliseconds: 2200),
   ),
   UnitCompleted() => const CelebrationRecipe(
     sound: Sfx.unitComplete,
     haptic: Haptic.double,
-    visualImpactDelay: Duration(milliseconds: 450),
+    visualImpactDelay: CelebrationTimeline.unitImpact,
     // No auto-dismiss: this one is the payoff, and it names what was just
     // unlocked — sliding it away on a timer would waste both.
   ),
   BadgeEarned() => const CelebrationRecipe(
     sound: Sfx.badge,
     haptic: Haptic.light,
-    visualImpactDelay: Duration(milliseconds: 120),
+    visualImpactDelay: CelebrationTimeline.toastImpact,
     autoDismiss: Duration(milliseconds: 3400),
   ),
   StreakExtended() => const CelebrationRecipe(
     sound: Sfx.combo,
     haptic: Haptic.medium,
-    visualImpactDelay: Duration(milliseconds: 120),
+    visualImpactDelay: CelebrationTimeline.toastImpact,
     autoDismiss: Duration(milliseconds: 3000),
   ),
 };

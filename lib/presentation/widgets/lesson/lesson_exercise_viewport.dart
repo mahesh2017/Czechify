@@ -212,8 +212,11 @@ class _LessonExerciseViewportState extends ConsumerState<LessonExerciseViewport>
         AnimatedBuilder(
           animation: _reaction,
           builder:
-              (context, child) =>
-                  Transform.translate(offset: Offset(_shake, 0), child: child),
+              (context, child) => Transform.translate(
+                key: const ValueKey('answer-reaction-translation'),
+                offset: Offset(_shake, 0),
+                child: child,
+              ),
           child: composed,
         ),
         if (_outcome != null && _outcome != ExerciseOutcome.skipped)

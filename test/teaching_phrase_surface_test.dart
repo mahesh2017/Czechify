@@ -6,6 +6,7 @@ import 'package:czechify/presentation/widgets/lesson/exercises/teaching_view.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lottie/lottie.dart';
 
 import 'support/localized_app.dart';
 
@@ -54,5 +55,48 @@ void main() {
     expect(surface.color, AppTokens.light.card);
     expect(surface.border, isNotNull);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('legacy teacher Lottie stays still with reduced motion', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          theme: lightTheme(),
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: MediaQuery(
+            data: const MediaQueryData(disableAnimations: true),
+            child: Scaffold(
+              body: SingleChildScrollView(
+                child: TeachingView(
+                  exercise: const Exercise(
+                    id: 2,
+                    lessonId: 1,
+                    type: ExerciseType.teaching,
+                    prompt: 'Listen',
+                    data: {
+                      'heading': 'Useful words',
+                      'intro': 'Listen to your teacher.',
+                      'items': [
+                        {'cz': 'káva', 'en': 'coffee'},
+                      ],
+                    },
+                  ),
+                  onAnswered: (_) {},
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    final lottie = tester.widget<Lottie>(find.byType(Lottie));
+    expect(lottie.animate, isFalse);
+    expect(lottie.repeat, isFalse);
+    expect(tester.binding.transientCallbackCount, 0);
   });
 }

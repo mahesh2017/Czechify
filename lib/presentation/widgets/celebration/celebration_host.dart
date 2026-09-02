@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/feedback/celebration.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../domain/engines/lesson_rating.dart';
 import '../../providers/feedback_providers.dart';
+import '../common/motion_widgets.dart';
 import 'confetti_layer.dart';
 import 'reward_toast.dart';
 import 'unit_complete_overlay.dart';
@@ -99,7 +101,19 @@ class _CelebrationHostState extends ConsumerState<CelebrationHost> {
     return Stack(
       children: [
         widget.child,
-        if (current != null) Positioned.fill(child: _visual(current)),
+        Positioned.fill(
+          child: MotionSwap(
+            duration: AppMotion.content,
+            offset: const Offset(0, 0.015),
+            child:
+                current == null
+                    ? const SizedBox.shrink(key: ValueKey('celebration-idle'))
+                    : KeyedSubtree(
+                      key: ValueKey(current.key),
+                      child: _visual(current),
+                    ),
+          ),
+        ),
       ],
     );
   }
@@ -110,10 +124,8 @@ class _CelebrationHostState extends ConsumerState<CelebrationHost> {
     // passing gets none — confetti for a result the learner is about to be
     // asked to retry would read as mockery.
     LessonCompleted() => ConfettiLayer(
-      key: ValueKey(celebration.key),
-      duration:
-          recipeFor(celebration).autoDismiss ??
-          const Duration(milliseconds: 2600),
+      delay: recipeFor(celebration).visualImpactDelay,
+      duration: _confettiDuration(recipeFor(celebration)),
       pieces: switch (LessonRating.grade(celebration.accuracy)) {
         LessonGrade.perfect => 160,
         LessonGrade.great => 120,
@@ -132,4 +144,10 @@ class _CelebrationHostState extends ConsumerState<CelebrationHost> {
       celebration: celebration,
     ),
   };
+
+  Duration _confettiDuration(CelebrationRecipe recipe) {
+    final total = recipe.autoDismiss ?? const Duration(milliseconds: 2600);
+    final remaining = total - recipe.visualImpactDelay;
+    return remaining > Duration.zero ? remaining : AppMotion.reward;
+  }
 }

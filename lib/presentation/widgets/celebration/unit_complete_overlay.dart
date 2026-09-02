@@ -35,14 +35,17 @@ class _UnitCompleteOverlayState extends State<UnitCompleteOverlay>
 
   /// The frame the seal lands on. Everything else is timed off this, so the
   /// shockwave and the confetti read as caused by the impact.
-  static const _impact = 0.32;
+  static final _impact = CelebrationTimeline.progress(
+    CelebrationTimeline.unitImpact,
+    CelebrationTimeline.unitReveal,
+  );
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: CelebrationTimeline.unitReveal,
     );
   }
 

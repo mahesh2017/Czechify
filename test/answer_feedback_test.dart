@@ -161,6 +161,16 @@ void main() {
   });
 
   group('a wrong answer is a nudge, not a penalty', () {
+    testWidgets('one viewport translation owns the displacement', (
+      tester,
+    ) async {
+      await answer(tester, correctly: false);
+      expect(
+        find.byKey(const ValueKey('answer-reaction-translation')),
+        findsOneWidget,
+      );
+    });
+
     testWidgets('it plays the soft low sound', (tester) async {
       await answer(tester, correctly: false);
       expect(player.played, [Sfx.wrong]);

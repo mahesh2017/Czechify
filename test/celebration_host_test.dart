@@ -5,6 +5,7 @@ import 'package:czechify/presentation/providers/feedback_providers.dart';
 import 'package:czechify/presentation/widgets/celebration/celebration_host.dart';
 import 'package:czechify/presentation/widgets/celebration/confetti_layer.dart';
 import 'package:czechify/presentation/widgets/celebration/count_up_text.dart';
+import 'package:czechify/presentation/widgets/celebration/reward_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -35,6 +36,12 @@ void main() {
 
   const lesson = LessonCompleted(lessonId: 3, xp: 40, correct: 10, total: 12);
   const unit = UnitCompleted(unitId: 2, unitNumber: 2, unitTitle: 'Greetings');
+  const badge = BadgeEarned(
+    badgeId: 'first',
+    name: 'First step',
+    icon: '⭐',
+    xpReward: 10,
+  );
 
   Future<void> mount(
     WidgetTester tester, {
@@ -147,17 +154,17 @@ void main() {
   group('how much confetti the result earns', () {
     Future<int> piecesFor(WidgetTester tester, int correct, int total) async {
       await mount(tester);
-      fire(
-        LessonCompleted(
-          lessonId: correct * 100 + total,
-          xp: 60,
-          correct: correct,
-          total: total,
-        ),
+      final celebration = LessonCompleted(
+        lessonId: correct * 100 + total,
+        xp: 60,
+        correct: correct,
+        total: total,
       );
+      fire(celebration);
       await tester.pump();
       final pieces =
           tester.widget<ConfettiLayer>(find.byType(ConfettiLayer)).pieces;
+      await tester.pump(recipeFor(celebration).autoDismiss!);
       await tester.pumpAndSettle();
       return pieces;
     }
@@ -195,6 +202,21 @@ void main() {
       expect(idle(), isTrue);
 
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('a self-dismissing reward gets a short visual exit', (
+      tester,
+    ) async {
+      await mount(tester);
+      fire(badge);
+      await tester.pump();
+      await tester.pump(recipeFor(badge).autoDismiss!);
+
+      expect(idle(), isTrue);
+      expect(find.byType(RewardToast), findsOneWidget);
+
+      await tester.pumpAndSettle();
+      expect(find.byType(RewardToast), findsNothing);
     });
 
     testWidgets('a rebuild does not restart the clock', (tester) async {
@@ -272,6 +294,27 @@ void main() {
     expect(tester.binding.transientCallbackCount, 0);
     await tester.pump(const Duration(seconds: 3));
     expect(tester.binding.transientCallbackCount, 0);
+  });
+
+  testWidgets('delayed confetti schedules frames only at visual impact', (
+    tester,
+  ) async {
+    const delay = Duration(milliseconds: 500);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: const Scaffold(body: ConfettiLayer(pieces: 20, delay: delay)),
+      ),
+    );
+    await tester.pump();
+    expect(tester.binding.transientCallbackCount, 0);
+
+    await tester.pump(delay - const Duration(milliseconds: 1));
+    expect(tester.binding.transientCallbackCount, 0);
+
+    await tester.pump(const Duration(milliseconds: 1));
+    expect(tester.binding.transientCallbackCount, greaterThan(0));
+    await tester.pumpAndSettle();
   });
 
   group('count-up', () {

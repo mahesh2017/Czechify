@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/theme/app_motion.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -662,7 +663,8 @@ class _IntroBlock extends ConsumerWidget {
                         final anim = isSpeaking ? 'talk' : 'idle';
                         return Lottie.asset(
                           'assets/animations/teacher_${genderKey}_$anim.json',
-                          repeat: true,
+                          animate: !context.motionDisabled,
+                          repeat: !context.motionDisabled,
                           fit: BoxFit.contain,
                           errorBuilder:
                               (context, error, stack) => Icon(

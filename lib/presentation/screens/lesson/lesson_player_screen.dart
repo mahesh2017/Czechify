@@ -852,14 +852,17 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
   /// The frame the trophy lands on. The burst, the rays and everything below
   /// are timed off it, so the screen reads as one event rather than a list of
   /// things that happen to be animating.
-  static const _impact = 0.30;
+  static final _impact = CelebrationTimeline.progress(
+    CelebrationTimeline.lessonImpact,
+    CelebrationTimeline.lessonReveal,
+  );
 
   @override
   void initState() {
     super.initState();
     _reveal = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1700),
+      duration: CelebrationTimeline.lessonReveal,
     );
     // Slow and endless. Fast rotation reads as a loading spinner.
     _rays = AnimationController(
@@ -979,7 +982,8 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                           StarsReveal(
                             earned: LessonRating.stars(grade),
                             feedback: ref.read(feedbackServiceProvider),
-                            initialDelay: const Duration(milliseconds: 200),
+                            initialDelay:
+                                CelebrationTimeline.starLeadAfterLessonImpact,
                             announceLandings: false,
                           ),
                         SizedBox(height: passed ? 18 : 0),

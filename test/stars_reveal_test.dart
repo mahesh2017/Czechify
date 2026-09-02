@@ -1,3 +1,4 @@
+import 'package:czechify/core/feedback/celebration.dart';
 import 'package:czechify/core/feedback/feedback_service.dart';
 import 'package:czechify/core/feedback/sfx.dart';
 import 'package:czechify/core/theme/app_theme.dart';
@@ -72,6 +73,45 @@ void main() {
   testWidgets('all three fill for a perfect lesson', (tester) async {
     await show(tester, 3);
     expect(filled(tester), 3);
+  });
+
+  testWidgets('a star visibly scales between landing and rest', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: MediaQuery(
+          data: const MediaQueryData(disableAnimations: false),
+          child: Scaffold(body: StarsReveal(earned: 1, feedback: feedback)),
+        ),
+      ),
+    );
+    await tester.pump();
+    await tester.pump(
+      CelebrationTimeline.starStep - const Duration(milliseconds: 1),
+    );
+    expect(filled(tester), 0);
+    await tester.pump(const Duration(milliseconds: 1));
+
+    double scale() =>
+        tester
+            .widget<Transform>(find.byKey(const ValueKey('star-scale-0')))
+            .transform
+            .storage[0];
+
+    expect(filled(tester), 1);
+    final intermediateScales = <double>[scale()];
+    for (var frame = 0; frame < 10; frame++) {
+      await tester.pump(const Duration(milliseconds: 16));
+      intermediateScales.add(scale());
+    }
+    expect(
+      intermediateScales.any((value) => (value - 1).abs() > 0.01),
+      isTrue,
+      reason: 'the filled star must visibly travel before resting at 1.0',
+    );
+
+    await tester.pumpAndSettle();
+    expect(scale(), closeTo(1.0, 0.001));
   });
 
   testWidgets('none fill when the lesson fell short', (tester) async {
