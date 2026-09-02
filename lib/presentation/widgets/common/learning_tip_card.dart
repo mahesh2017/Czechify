@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/learning_tip.dart';
+import 'motion_widgets.dart';
 import 'soft_ui.dart';
 
 /// A card on the home screen that shows a daily evidence-based learning tip.
@@ -36,11 +37,13 @@ class _LearningTipCardState extends State<LearningTipCard> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return GestureDetector(
+    return SoftCard(
       onTap: _shuffle,
-      child: SoftCard(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: MotionSwap(
+        alignment: Alignment.topCenter,
         child: Row(
+          key: ValueKey(_tip.title),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -61,16 +64,18 @@ class _LearningTipCardState extends State<LearningTipCard> {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        '💡 Tip of the day',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.6,
-                          color: t.muted,
+                      Expanded(
+                        child: Text(
+                          '💡 Tip of the day',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 0.6,
+                            color: t.muted,
+                          ),
                         ),
                       ),
-                      const Spacer(),
+                      const SizedBox(width: 8),
                       Icon(Icons.refresh, size: 14, color: t.faint),
                     ],
                   ),

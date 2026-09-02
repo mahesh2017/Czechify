@@ -291,6 +291,7 @@ class _ScoreDisplay extends StatelessWidget {
             color: color,
             showBadge: result.overallScore >= 0.8,
             size: 112,
+            animateOnMount: true,
           ),
         ),
         const SizedBox(height: 10),

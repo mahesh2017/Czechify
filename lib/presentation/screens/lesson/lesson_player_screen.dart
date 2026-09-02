@@ -1537,6 +1537,7 @@ class _ExamCompleteScreen extends ConsumerWidget {
                 caption: l10n.captionAccuracy,
                 color: hue,
                 showBadge: passed,
+                animateOnMount: true,
               ),
               const SizedBox(height: 20),
               DisplayText(

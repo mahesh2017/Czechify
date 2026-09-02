@@ -1371,6 +1371,7 @@ class _ReviewCompleteScreen extends StatelessWidget {
                         color: accuracyColor,
                         showBadge: accuracy >= 80,
                         size: 104,
+                        animateOnMount: true,
                       ),
                     ),
                     const SizedBox(height: 18),

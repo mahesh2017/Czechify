@@ -2,6 +2,127 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_motion.dart';
 
+/// Animates a numeric value only after it changes.
+///
+/// The first frame renders [value] exactly as supplied, which keeps restored
+/// progress and persisted stats still on screen load. If the platform asks for
+/// reduced motion, an in-flight change snaps to its destination and the
+/// controller is stopped instead of scheduling more frames.
+class MotionValueBuilder extends StatefulWidget {
+  const MotionValueBuilder({
+    super.key,
+    required this.value,
+    required this.builder,
+    this.initialValue,
+    this.duration = AppMotion.content,
+    this.curve = AppMotion.enter,
+    this.child,
+  });
+
+  final double value;
+  final ValueWidgetBuilder<double> builder;
+  final double? initialValue;
+  final Duration duration;
+  final Curve curve;
+  final Widget? child;
+
+  @override
+  State<MotionValueBuilder> createState() => _MotionValueBuilderState();
+}
+
+class _MotionValueBuilderState extends State<MotionValueBuilder>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+    value: widget.initialValue == null ? 1 : 0,
+  );
+  late double _from = widget.initialValue ?? widget.value;
+  late double _to = widget.value;
+  bool _initialAnimationHandled = false;
+
+  double get _value =>
+      _from + (_to - _from) * widget.curve.transform(_controller.value);
+
+  @override
+  void didUpdateWidget(covariant MotionValueBuilder oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _controller.duration = widget.duration;
+    if (widget.value == _to) return;
+
+    _from = _value;
+    _to = widget.value;
+    if (context.motionDisabled) {
+      _controller.stop();
+      _controller.value = 1;
+    } else {
+      _controller.forward(from: 0);
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (context.motionDisabled) {
+      _controller.stop();
+      _controller.value = 1;
+      _initialAnimationHandled = true;
+    } else if (!_initialAnimationHandled) {
+      _initialAnimationHandled = true;
+      if (_from != _to) _controller.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      child: widget.child,
+      builder: (context, child) => widget.builder(context, _value, child),
+    );
+  }
+}
+
+/// A compact integer label backed by [MotionValueBuilder].
+class MotionNumberText extends StatelessWidget {
+  const MotionNumberText(
+    this.value, {
+    super.key,
+    this.style,
+    this.prefix = '',
+    this.suffix = '',
+    this.duration = AppMotion.content,
+    this.textAlign,
+  });
+
+  final int value;
+  final TextStyle? style;
+  final String prefix;
+  final String suffix;
+  final Duration duration;
+  final TextAlign? textAlign;
+
+  @override
+  Widget build(BuildContext context) {
+    return MotionValueBuilder(
+      value: value.toDouble(),
+      duration: duration,
+      builder:
+          (context, animated, _) => Text(
+            '$prefix${animated.round()}$suffix',
+            textAlign: textAlign,
+            style: style,
+          ),
+    );
+  }
+}
+
 /// Replaces one keyed piece of local UI with a short fade and vertical shift.
 ///
 /// Give [child] a key that represents its state. Outgoing content is removed

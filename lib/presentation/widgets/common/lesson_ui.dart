@@ -8,6 +8,7 @@ import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/settings_providers.dart';
+import 'motion_widgets.dart';
 
 /// Shared primitives for the learning loop — the surfaces the Czechify 2.0
 /// handoff specifies most precisely: the lesson chrome, the teaching card, the
@@ -1339,6 +1340,7 @@ class ScoreRing extends StatelessWidget {
     this.color,
     this.showBadge = true,
     this.size = 118,
+    this.animateOnMount = false,
   });
 
   /// 0–1. Drives the sweep, not the printed [label].
@@ -1348,89 +1350,100 @@ class ScoreRing extends StatelessWidget {
   final Color? color;
   final bool showBadge;
   final double size;
+  final bool animateOnMount;
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     final hue = color ?? t.greenInk;
     final inner = size - 20;
+    final percentLabel = RegExp(r'^\d+%$').hasMatch(label);
 
-    return SizedBox(
-      width: size,
-      height: size,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          SizedBox(
-            width: size,
-            height: size,
-            child: CircularProgressIndicator(
-              value: fraction.clamp(0.0, 1.0),
-              strokeWidth: 10,
-              // Flat ends: the comp draws these as conic sweeps, and a round
-              // cap makes a 0% ring show a stub of colour it has not earned.
-              strokeCap: StrokeCap.butt,
-              backgroundColor: t.elev,
-              valueColor: AlwaysStoppedAnimation(hue),
-            ),
-          ),
-          Center(
-            child: Container(
-              width: inner,
-              height: inner,
-              decoration: BoxDecoration(
-                color: t.card,
-                shape: BoxShape.circle,
-                border: Border.all(color: t.line),
+    return MotionValueBuilder(
+      value: fraction.clamp(0.0, 1.0),
+      initialValue: animateOnMount ? 0 : null,
+      duration: AppMotion.reward,
+      builder: (context, animatedFraction, _) {
+        final animatedLabel =
+            percentLabel ? '${(animatedFraction * 100).round()}%' : label;
+        return SizedBox(
+          width: size,
+          height: size,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              SizedBox(
+                width: size,
+                height: size,
+                child: CircularProgressIndicator(
+                  value: animatedFraction,
+                  strokeWidth: 10,
+                  // Flat ends: the comp draws these as conic sweeps, and a round
+                  // cap makes a 0% ring show a stub of colour it has not earned.
+                  strokeCap: StrokeCap.butt,
+                  backgroundColor: t.elev,
+                  valueColor: AlwaysStoppedAnimation(hue),
+                ),
               ),
-              // Pad in from the stroke, then let FittedBox shrink the pair
-              // rather than overflow the circle. The ring is a fixed size but
-              // the text inside it is not: it grows with the device's font
-              // scale, and the design system asks for 200% text scaling to
-              // work.
-              child: Padding(
-                padding: EdgeInsets.all(inner * 0.16),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        label,
-                        style: TextStyle(
-                          fontFamily: AppFonts.display,
-                          fontSize: 32,
-                          height: 1,
-                          fontWeight: FontWeight.w800,
-                          color: hue,
-                        ),
+              Center(
+                child: Container(
+                  width: inner,
+                  height: inner,
+                  decoration: BoxDecoration(
+                    color: t.card,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: t.line),
+                  ),
+                  // Pad in from the stroke, then let FittedBox shrink the pair
+                  // rather than overflow the circle. The ring is a fixed size but
+                  // the text inside it is not: it grows with the device's font
+                  // scale, and the design system asks for 200% text scaling to
+                  // work.
+                  child: Padding(
+                    padding: EdgeInsets.all(inner * 0.16),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            animatedLabel,
+                            style: TextStyle(
+                              fontFamily: AppFonts.display,
+                              fontSize: 32,
+                              height: 1,
+                              fontWeight: FontWeight.w800,
+                              color: hue,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          LessonKicker(caption, color: t.muted),
+                        ],
                       ),
-                      const SizedBox(height: 3),
-                      LessonKicker(caption, color: t.muted),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          if (showBadge)
-            Positioned(
-              right: -6,
-              bottom: -4,
-              child: Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: t.card,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: hue, width: 2.5),
-                  boxShadow: t.shadow,
+              if (showBadge)
+                Positioned(
+                  right: -6,
+                  bottom: -4,
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: t.card,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: hue, width: 2.5),
+                      boxShadow: t.shadow,
+                    ),
+                    child: Icon(Icons.check, size: 20, color: hue),
+                  ),
                 ),
-                child: Icon(Icons.check, size: 20, color: hue),
-              ),
-            ),
-        ],
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
+import 'motion_widgets.dart';
 
 /// Shared building blocks for the "Calm & premium" redesign.
 ///
@@ -11,7 +13,7 @@ import '../../../core/theme/app_tokens.dart';
 ///
 /// Use instead of Material [Card] when you need padding, tap handling, an
 /// optional border, or a non-default radius in one place.
-class SoftCard extends StatelessWidget {
+class SoftCard extends StatefulWidget {
   const SoftCard({
     super.key,
     required this.child,
@@ -32,25 +34,47 @@ class SoftCard extends StatelessWidget {
   final bool shadow;
 
   @override
+  State<SoftCard> createState() => _SoftCardState();
+}
+
+class _SoftCardState extends State<SoftCard> {
+  bool _pressed = false;
+
+  void _setPressed(bool value) {
+    if (_pressed == value || widget.onTap == null) return;
+    setState(() => _pressed = value);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final decorated = Container(
-      decoration: BoxDecoration(
-        color: color ?? t.card,
-        borderRadius: BorderRadius.circular(radius),
-        border: border,
-        boxShadow: shadow ? t.shadow : null,
-      ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(radius),
-          child: Padding(padding: padding, child: child),
+    final radius = widget.radius;
+    return Listener(
+      onPointerDown: (_) => _setPressed(true),
+      onPointerUp: (_) => _setPressed(false),
+      onPointerCancel: (_) => _setPressed(false),
+      child: AnimatedScale(
+        scale: _pressed ? 0.985 : 1,
+        duration: context.motionDuration(AppMotion.press),
+        curve: AppMotion.enter,
+        child: Container(
+          decoration: BoxDecoration(
+            color: widget.color ?? t.card,
+            borderRadius: BorderRadius.circular(radius),
+            border: widget.border,
+            boxShadow: widget.shadow ? t.shadow : null,
+          ),
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              onTap: widget.onTap,
+              borderRadius: BorderRadius.circular(radius),
+              child: Padding(padding: widget.padding, child: widget.child),
+            ),
+          ),
         ),
       ),
     );
-    return decorated;
   }
 }
 
@@ -187,14 +211,18 @@ class SoftProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(999),
-      child: LinearProgressIndicator(
-        value: value.clamp(0.0, 1.0),
-        minHeight: height,
-        backgroundColor: track ?? t.elev,
-        valueColor: AlwaysStoppedAnimation(color ?? t.pri),
-      ),
+    return MotionValueBuilder(
+      value: value.clamp(0.0, 1.0),
+      builder:
+          (context, animated, _) => ClipRRect(
+            borderRadius: BorderRadius.circular(999),
+            child: LinearProgressIndicator(
+              value: animated,
+              minHeight: height,
+              backgroundColor: track ?? t.elev,
+              valueColor: AlwaysStoppedAnimation(color ?? t.pri),
+            ),
+          ),
     );
   }
 }
@@ -208,7 +236,7 @@ class SoftProgressBar extends StatelessWidget {
 /// colour. Flutter has no inset box-shadow, so the two edges are drawn as
 /// clipped bands inside the rounded rect — visually identical, and it keeps
 /// the corners correct.
-class PrimaryButton extends StatelessWidget {
+class PrimaryButton extends StatefulWidget {
   const PrimaryButton({
     super.key,
     required this.label,
@@ -225,99 +253,125 @@ class PrimaryButton extends StatelessWidget {
   final double height;
 
   @override
+  State<PrimaryButton> createState() => _PrimaryButtonState();
+}
+
+class _PrimaryButtonState extends State<PrimaryButton> {
+  bool _pressed = false;
+
+  void _setPressed(bool value) {
+    if (_pressed == value || widget.onPressed == null) return;
+    setState(() => _pressed = value);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final enabled = onPressed != null;
+    final enabled = widget.onPressed != null;
     final fg = enabled ? t.onFill : t.faint;
     return Semantics(
       button: true,
       enabled: enabled,
-      label: label,
-      child: Container(
-        height: height,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
-          boxShadow:
-              enabled
-                  ? [
-                    BoxShadow(
-                      color: t.priFill.withValues(alpha: .55),
-                      blurRadius: 26,
-                      spreadRadius: -12,
-                      offset: const Offset(0, 12),
-                    ),
-                  ]
-                  : null,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(radius),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient:
-                      enabled
-                          ? LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Color.lerp(t.priFill, Colors.white, .12)!,
-                              t.priFill,
-                            ],
-                          )
-                          : null,
-                  color: enabled ? null : t.elev,
-                ),
-              ),
-              if (enabled) ...[
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 2,
-                  child: ColoredBox(color: Colors.white.withValues(alpha: .28)),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: 3,
-                  child: ColoredBox(color: Colors.black.withValues(alpha: .18)),
-                ),
-              ],
-              Material(
-                type: MaterialType.transparency,
-                child: InkWell(
-                  onTap: onPressed,
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (icon != null) ...[
-                          Icon(icon, size: 18, color: fg),
-                          const SizedBox(width: 10),
-                        ],
-                        Flexible(
-                          child: Text(
-                            label,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontFamily: AppFonts.body,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: fg,
-                            ),
-                          ),
+      label: widget.label,
+      child: Listener(
+        onPointerDown: (_) => _setPressed(true),
+        onPointerUp: (_) => _setPressed(false),
+        onPointerCancel: (_) => _setPressed(false),
+        child: AnimatedScale(
+          scale: _pressed ? 0.985 : 1,
+          duration: context.motionDuration(AppMotion.press),
+          curve: AppMotion.enter,
+          child: Container(
+            height: widget.height,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(widget.radius),
+              boxShadow:
+                  enabled
+                      ? [
+                        BoxShadow(
+                          color: t.priFill.withValues(alpha: .55),
+                          blurRadius: 26,
+                          spreadRadius: -12,
+                          offset: const Offset(0, 12),
                         ),
-                      ],
+                      ]
+                      : null,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(widget.radius),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient:
+                          enabled
+                              ? LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.lerp(t.priFill, Colors.white, .12)!,
+                                  t.priFill,
+                                ],
+                              )
+                              : null,
+                      color: enabled ? null : t.elev,
                     ),
                   ),
-                ),
+                  if (enabled) ...[
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: 2,
+                      child: ColoredBox(
+                        color: Colors.white.withValues(alpha: .28),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 3,
+                      child: ColoredBox(
+                        color: Colors.black.withValues(alpha: .18),
+                      ),
+                    ),
+                  ],
+                  Material(
+                    type: MaterialType.transparency,
+                    child: InkWell(
+                      onTap: widget.onPressed,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (widget.icon != null) ...[
+                              Icon(widget.icon, size: 18, color: fg),
+                              const SizedBox(width: 10),
+                            ],
+                            Flexible(
+                              child: Text(
+                                widget.label,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: AppFonts.body,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: fg,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
