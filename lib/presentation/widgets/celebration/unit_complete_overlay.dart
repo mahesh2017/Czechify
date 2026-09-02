@@ -31,6 +31,7 @@ class UnitCompleteOverlay extends StatefulWidget {
 class _UnitCompleteOverlayState extends State<UnitCompleteOverlay>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  bool _motionConfigured = false;
 
   /// The frame the seal lands on. Everything else is timed off this, so the
   /// shockwave and the confetti read as caused by the impact.
@@ -42,7 +43,25 @@ class _UnitCompleteOverlayState extends State<UnitCompleteOverlay>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1400),
-    )..forward();
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final instant = MediaQuery.disableAnimationsOf(context);
+    if (!_motionConfigured) {
+      _motionConfigured = true;
+      if (instant) {
+        _controller.value = 1;
+      } else {
+        _controller.forward();
+      }
+    } else if (instant && _controller.isAnimating) {
+      _controller
+        ..stop()
+        ..value = 1;
+    }
   }
 
   @override

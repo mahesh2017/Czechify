@@ -738,6 +738,7 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
 
   late final AnimationController _bob;
   bool _speaking = false;
+  bool? _motionDisabled;
 
   @override
   void initState() {
@@ -746,17 +747,31 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
     _bob = AnimationController(
       vsync: this,
       duration: _speaking ? _talkDuration : _idleDuration,
-    )..repeat(reverse: true);
+    );
     widget.speaking.addListener(_onSpeakingChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = MediaQuery.disableAnimationsOf(context);
+    if (disabled == _motionDisabled) return;
+    _motionDisabled = disabled;
+    if (disabled) {
+      _bob
+        ..stop()
+        ..value = 0.5;
+    } else {
+      _bob.repeat(reverse: true);
+    }
   }
 
   void _onSpeakingChanged() {
     final speaking = widget.speaking.value;
     if (speaking == _speaking || !mounted) return;
     setState(() => _speaking = speaking);
-    _bob
-      ..duration = speaking ? _talkDuration : _idleDuration
-      ..repeat(reverse: true);
+    _bob.duration = speaking ? _talkDuration : _idleDuration;
+    if (_motionDisabled == false) _bob.repeat(reverse: true);
   }
 
   @override

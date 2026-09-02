@@ -9,11 +9,18 @@ import 'package:flutter_test/flutter_test.dart';
 /// Badges were written to the database and never mentioned. These pin that
 /// they now reach the learner, and that the badge set is worth reaching for.
 void main() {
-  Future<void> show(WidgetTester tester, Celebration celebration) async {
+  Future<void> show(
+    WidgetTester tester,
+    Celebration celebration, {
+    bool reduceMotion = false,
+  }) async {
     await tester.pumpWidget(
       MaterialApp(
         theme: lightTheme(),
-        home: Scaffold(body: RewardToast(celebration: celebration)),
+        home: MediaQuery(
+          data: MediaQueryData(disableAnimations: reduceMotion),
+          child: Scaffold(body: RewardToast(celebration: celebration)),
+        ),
       ),
     );
     await tester.pump(const Duration(milliseconds: 500));
@@ -38,6 +45,13 @@ void main() {
     await show(tester, const StreakExtended(days: 7));
     expect(find.textContaining('7-day streak'), findsOneWidget);
     expect(find.textContaining('tomorrow'), findsOneWidget);
+  });
+
+  testWidgets('reduce motion does not leave an entry ticker running', (
+    tester,
+  ) async {
+    await show(tester, const StreakExtended(days: 7), reduceMotion: true);
+    expect(tester.binding.transientCallbackCount, 0);
   });
 
   group('the badge set has no long empty stretches', () {

@@ -92,4 +92,22 @@ void main() {
     await tester.pumpAndSettle();
     expect(completions, 1);
   });
+
+  testWidgets('reduced-motion listening prompt has no idle ticker', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: MediaQuery(
+          data: const MediaQueryData(disableAnimations: true),
+          child: Scaffold(body: ListenPanel(onPlay: () {}, onSlow: () {})),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(tester.binding.transientCallbackCount, 0);
+    expect(find.byIcon(Icons.play_arrow), findsOneWidget);
+  });
 }

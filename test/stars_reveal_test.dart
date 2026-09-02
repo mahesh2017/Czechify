@@ -24,6 +24,7 @@ void main() {
     WidgetTester tester,
     int earned, {
     bool reduceMotion = false,
+    bool announceLandings = true,
   }) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -32,7 +33,11 @@ void main() {
           data: MediaQueryData(disableAnimations: reduceMotion),
           child: Scaffold(
             body: Center(
-              child: StarsReveal(earned: earned, feedback: feedback),
+              child: StarsReveal(
+                earned: earned,
+                feedback: feedback,
+                announceLandings: announceLandings,
+              ),
             ),
           ),
         ),
@@ -91,10 +96,18 @@ void main() {
     expect(player.played, isEmpty);
   });
 
+  testWidgets('a parent ceremony can own the sensory impact', (tester) async {
+    await show(tester, 3, announceLandings: false);
+    expect(filled(tester), 3);
+    expect(player.played, isEmpty);
+    expect(haptics.fired, isEmpty);
+  });
+
   testWidgets('reduce motion still shows the result', (tester) async {
     // The stars are the score. Dropping them because someone asked for less
     // movement would remove information, not decoration.
     await show(tester, 2, reduceMotion: true);
     expect(filled(tester), 2);
+    expect(tester.binding.transientCallbackCount, 0);
   });
 }

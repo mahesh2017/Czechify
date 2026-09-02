@@ -24,6 +24,7 @@ class RewardToast extends StatefulWidget {
 class _RewardToastState extends State<RewardToast>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  bool _motionConfigured = false;
 
   @override
   void initState() {
@@ -31,7 +32,25 @@ class _RewardToastState extends State<RewardToast>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 420),
-    )..forward();
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final instant = MediaQuery.disableAnimationsOf(context);
+    if (!_motionConfigured) {
+      _motionConfigured = true;
+      if (instant) {
+        _controller.value = 1;
+      } else {
+        _controller.forward();
+      }
+    } else if (instant && _controller.isAnimating) {
+      _controller
+        ..stop()
+        ..value = 1;
+    }
   }
 
   @override

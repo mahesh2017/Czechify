@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/feedback/feedback_service.dart';
 import '../../../core/feedback/sfx.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 
 /// Three stars, landing one at a time with a rising note each.
@@ -15,6 +16,8 @@ class StarsReveal extends StatefulWidget {
     required this.earned,
     required this.feedback,
     this.size = 56,
+    this.initialDelay = Duration.zero,
+    this.announceLandings = true,
   });
 
   /// 0 to 3.
@@ -22,22 +25,28 @@ class StarsReveal extends StatefulWidget {
   final FeedbackService feedback;
   final double size;
 
+  /// Holds the first landing until the surrounding ceremony has made room.
+  final Duration initialDelay;
+
+  /// Whether each star adds its own sound and haptic.
+  ///
+  /// Standalone stars use the rising notes. A larger ceremony can turn them
+  /// off when it already owns a signature impact sound.
+  final bool announceLandings;
+
   @override
   State<StarsReveal> createState() => _StarsRevealState();
 }
 
-class _StarsRevealState extends State<StarsReveal>
-    with SingleTickerProviderStateMixin {
+class _StarsRevealState extends State<StarsReveal> {
   static const _total = 3;
   static const _step = Duration(milliseconds: 380);
 
-  late final AnimationController _controller;
   int _landed = 0;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: _step * _total);
     WidgetsBinding.instance.addPostFrameCallback((_) => _run());
   }
 
@@ -47,24 +56,23 @@ class _StarsRevealState extends State<StarsReveal>
       setState(() => _landed = widget.earned);
       return;
     }
-    _controller.forward();
+    if (widget.initialDelay > Duration.zero) {
+      await Future<void>.delayed(widget.initialDelay);
+      if (!mounted) return;
+    }
     for (var i = 0; i < widget.earned; i++) {
       await Future<void>.delayed(_step);
       if (!mounted) return;
       setState(() => _landed = i + 1);
       // The same three rising notes a run of correct answers uses, so the
       // reward vocabulary stays consistent across the whole app.
-      widget.feedback.play(
-        Sfx.correctForStreak(i + 1),
-        haptic: i == widget.earned - 1 ? Haptic.heavy : Haptic.medium,
-      );
+      if (widget.announceLandings) {
+        widget.feedback.play(
+          Sfx.correctForStreak(i + 1),
+          haptic: i == widget.earned - 1 ? Haptic.heavy : Haptic.medium,
+        );
+      }
     }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -113,7 +121,7 @@ class _Star extends StatelessWidget {
       offset: Offset(0, -lift),
       child: TweenAnimationBuilder<double>(
         tween: Tween(begin: filled ? 0 : 1, end: 1),
-        duration: const Duration(milliseconds: 520),
+        duration: context.motionDuration(AppMotion.reward),
         curve: Curves.elasticOut,
         builder:
             (context, t, child) => Transform.scale(

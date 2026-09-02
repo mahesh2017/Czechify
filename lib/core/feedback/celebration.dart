@@ -111,11 +111,18 @@ class CelebrationRecipe {
   const CelebrationRecipe({
     required this.sound,
     required this.haptic,
+    required this.visualImpactDelay,
     this.autoDismiss,
   });
 
   final Sfx sound;
   final Haptic haptic;
+
+  /// Delay before the ceremony's main visual lands.
+  ///
+  /// Sound and haptics are scheduled against this moment by the host, rather
+  /// than firing while the overlay is only beginning to enter.
+  final Duration visualImpactDelay;
 
   /// How long before the next queued celebration takes over. Null means the
   /// learner dismisses it themselves — reserved for moments big enough that
@@ -130,27 +137,32 @@ CelebrationRecipe recipeFor(Celebration celebration) => switch (celebration) {
   LessonCompleted(isPerfect: true) => const CelebrationRecipe(
     sound: Sfx.perfectLesson,
     haptic: Haptic.double,
+    visualImpactDelay: Duration(milliseconds: 510),
     autoDismiss: Duration(milliseconds: 2600),
   ),
   LessonCompleted() => const CelebrationRecipe(
     sound: Sfx.lessonComplete,
     haptic: Haptic.medium,
+    visualImpactDelay: Duration(milliseconds: 510),
     autoDismiss: Duration(milliseconds: 2200),
   ),
   UnitCompleted() => const CelebrationRecipe(
     sound: Sfx.unitComplete,
     haptic: Haptic.double,
+    visualImpactDelay: Duration(milliseconds: 450),
     // No auto-dismiss: this one is the payoff, and it names what was just
     // unlocked — sliding it away on a timer would waste both.
   ),
   BadgeEarned() => const CelebrationRecipe(
     sound: Sfx.badge,
     haptic: Haptic.light,
+    visualImpactDelay: Duration(milliseconds: 120),
     autoDismiss: Duration(milliseconds: 3400),
   ),
   StreakExtended() => const CelebrationRecipe(
     sound: Sfx.combo,
     haptic: Haptic.medium,
+    visualImpactDelay: Duration(milliseconds: 120),
     autoDismiss: Duration(milliseconds: 3000),
   ),
 };

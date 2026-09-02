@@ -747,15 +747,21 @@ class _ListenPanelState extends State<ListenPanel>
     vsync: this,
     duration: const Duration(milliseconds: 2400),
   );
+  bool? _motionDisabled;
 
   @override
-  void initState() {
-    super.initState();
-    // Deferred to the first build so the reduced-motion check can gate it.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted || MediaQuery.disableAnimationsOf(context)) return;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = MediaQuery.disableAnimationsOf(context);
+    if (disabled == _motionDisabled) return;
+    _motionDisabled = disabled;
+    if (disabled) {
+      _pulse
+        ..stop()
+        ..value = 0;
+    } else {
       _pulse.repeat(reverse: true);
-    });
+    }
   }
 
   @override

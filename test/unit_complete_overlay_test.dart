@@ -100,6 +100,7 @@ void main() {
     expect(find.text('2'), findsOneWidget);
     expect(find.textContaining('At the Café'), findsOneWidget);
     expect(find.text('Continue'), findsOneWidget);
+    expect(tester.binding.transientCallbackCount, 0);
   });
 
   testWidgets('sharing is offered but never automatic', (tester) async {

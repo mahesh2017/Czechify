@@ -234,6 +234,7 @@ class _RecordingIndicator extends StatefulWidget {
 class _RecordingIndicatorState extends State<_RecordingIndicator>
     with TickerProviderStateMixin {
   late AnimationController _controller;
+  bool? _motionDisabled;
 
   @override
   void initState() {
@@ -241,7 +242,22 @@ class _RecordingIndicatorState extends State<_RecordingIndicator>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
-    )..repeat(reverse: true);
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = MediaQuery.disableAnimationsOf(context);
+    if (disabled == _motionDisabled) return;
+    _motionDisabled = disabled;
+    if (disabled) {
+      _controller
+        ..stop()
+        ..value = 0;
+    } else {
+      _controller.repeat(reverse: true);
+    }
   }
 
   @override
@@ -472,7 +488,10 @@ class _ScoreDisplay extends StatelessWidget {
 /// Error display.
 class _ErrorDisplay extends StatelessWidget {
   final String error;
-  const _ErrorDisplay({required this.error, this.suggestsMicrophoneCheck = true});
+  const _ErrorDisplay({
+    required this.error,
+    this.suggestsMicrophoneCheck = true,
+  });
 
   /// Whether the failure could plausibly be a microphone or permission problem.
   final bool suggestsMicrophoneCheck;

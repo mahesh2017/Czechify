@@ -1,4 +1,5 @@
 import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/core/feedback/sfx.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/presentation/providers/feedback_providers.dart';
 import 'package:czechify/presentation/widgets/celebration/celebration_host.dart';
@@ -15,13 +16,17 @@ import 'feedback_service_test.dart' show RecordingHaptics, RecordingSfxPlayer;
 
 void main() {
   late ProviderContainer container;
+  late RecordingSfxPlayer player;
+  late RecordingHaptics haptics;
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
+    player = RecordingSfxPlayer();
+    haptics = RecordingHaptics();
     container = ProviderContainer(
       overrides: [
-        sfxPlayerProvider.overrideWithValue(RecordingSfxPlayer()),
-        hapticDriverProvider.overrideWithValue(RecordingHaptics()),
+        sfxPlayerProvider.overrideWithValue(player),
+        hapticDriverProvider.overrideWithValue(haptics),
       ],
     );
   });
@@ -64,6 +69,68 @@ void main() {
 
     expect(find.text('app'), findsOneWidget);
     expect(find.byType(ConfettiLayer), findsOneWidget);
+  });
+
+  group('sensory timeline', () {
+    testWidgets('lesson feedback lands with the trophy impact', (tester) async {
+      await mount(tester);
+      fire(lesson);
+      await tester.pump();
+
+      expect(player.played, isEmpty);
+      expect(haptics.fired, isEmpty);
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(player.played, isEmpty);
+
+      await tester.pump(const Duration(milliseconds: 20));
+      expect(player.played, [Sfx.lessonComplete]);
+      expect(haptics.fired, [Haptic.medium]);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('reduced motion gets immediate non-visual feedback', (
+      tester,
+    ) async {
+      await mount(tester, reduceMotion: true);
+      fire(lesson);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1));
+
+      expect(player.played, [Sfx.lessonComplete]);
+      expect(haptics.fired, [Haptic.medium]);
+      await tester.pump(const Duration(milliseconds: 2400));
+    });
+
+    testWidgets('enabling reduced motion finishes a pending impact promptly', (
+      tester,
+    ) async {
+      await mount(tester);
+      fire(lesson);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 250));
+      expect(player.played, isEmpty);
+
+      await mount(tester, reduceMotion: true);
+      await tester.pump(const Duration(milliseconds: 1));
+
+      expect(player.played, [Sfx.lessonComplete]);
+      await tester.pump(const Duration(milliseconds: 2200));
+    });
+
+    testWidgets('feedback is cancelled if its ceremony leaves before impact', (
+      tester,
+    ) async {
+      await mount(tester);
+      fire(lesson);
+      await tester.pump();
+
+      container.read(celebrationQueueProvider.notifier).dismissCurrent();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+
+      expect(player.played, isEmpty);
+      expect(haptics.fired, isEmpty);
+    });
   });
 
   testWidgets('a finished lesson gets confetti', (tester) async {
@@ -189,6 +256,22 @@ void main() {
     expect(idle(), isFalse);
 
     await tester.pump(const Duration(milliseconds: 2400));
+  });
+
+  testWidgets('zero-piece confetti never starts an invisible ticker', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: const Scaffold(body: ConfettiLayer(pieces: 0)),
+      ),
+    );
+    await tester.pump();
+
+    expect(tester.binding.transientCallbackCount, 0);
+    await tester.pump(const Duration(seconds: 3));
+    expect(tester.binding.transientCallbackCount, 0);
   });
 
   group('count-up', () {

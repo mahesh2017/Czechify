@@ -26,12 +26,45 @@ class CelebrationHost extends ConsumerStatefulWidget {
 
 class _CelebrationHostState extends ConsumerState<CelebrationHost> {
   Timer? _dismiss;
+  Timer? _feedback;
   String? _timedKey;
+  String? _feedbackKey;
+  bool? _feedbackMotionDisabled;
 
   @override
   void dispose() {
     _dismiss?.cancel();
+    _feedback?.cancel();
     super.dispose();
+  }
+
+  /// Land sound and touch on the visible impact, not the first build frame.
+  void _scheduleFeedback(Celebration? current) {
+    if (current == null) {
+      _feedback?.cancel();
+      _feedbackKey = null;
+      _feedbackMotionDisabled = null;
+      return;
+    }
+    final motionDisabled = MediaQuery.disableAnimationsOf(context);
+    if (_feedbackKey == current.key &&
+        _feedbackMotionDisabled == motionDisabled) {
+      return;
+    }
+
+    _feedback?.cancel();
+    _feedbackKey = current.key;
+    _feedbackMotionDisabled = motionDisabled;
+    final recipe = recipeFor(current);
+    final delay = motionDisabled ? Duration.zero : recipe.visualImpactDelay;
+    _feedback = Timer(delay, () {
+      if (!mounted) return;
+      final visible = ref.read(celebrationQueueProvider).current;
+      if (visible?.key != current.key) return;
+      ref
+          .read(feedbackServiceProvider)
+          .play(recipe.sound, haptic: recipe.haptic);
+    });
   }
 
   /// Start the clock for a self-dismissing ceremony, once per ceremony.
@@ -61,6 +94,7 @@ class _CelebrationHostState extends ConsumerState<CelebrationHost> {
     // Scheduling during build is safe here: it only ever arms a timer, and the
     // guard on `_timedKey` means a rebuild cannot restart one already running.
     _scheduleDismiss(current);
+    _scheduleFeedback(current);
 
     return Stack(
       children: [
@@ -77,6 +111,9 @@ class _CelebrationHostState extends ConsumerState<CelebrationHost> {
     // asked to retry would read as mockery.
     LessonCompleted() => ConfettiLayer(
       key: ValueKey(celebration.key),
+      duration:
+          recipeFor(celebration).autoDismiss ??
+          const Duration(milliseconds: 2600),
       pieces: switch (LessonRating.grade(celebration.accuracy)) {
         LessonGrade.perfect => 160,
         LessonGrade.great => 120,

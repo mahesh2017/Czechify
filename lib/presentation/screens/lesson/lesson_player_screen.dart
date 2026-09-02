@@ -6,6 +6,7 @@ import '../../widgets/common/degraded_mode_banner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/feedback/celebration.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/flashcard.dart';
@@ -846,6 +847,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     with TickerProviderStateMixin {
   late final AnimationController _reveal;
   late final AnimationController _rays;
+  bool _motionConfigured = false;
 
   /// The frame the trophy lands on. The burst, the rays and everything below
   /// are timed off it, so the screen reads as one event rather than a list of
@@ -858,12 +860,12 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     _reveal = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1700),
-    )..forward();
+    );
     // Slow and endless. Fast rotation reads as a loading spinner.
     _rays = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 22),
-    )..repeat();
+    );
 
     // After the first frame, so the queue is not mutated while the tree that
     // watches it is still building.
@@ -883,6 +885,31 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
       // the lesson rather than in place of it.
       session.pendingRewards.forEach(queue.fire);
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final instant = context.motionDisabled;
+    if (!_motionConfigured) {
+      _motionConfigured = true;
+      if (instant) {
+        _reveal.value = 1;
+      } else {
+        _reveal.forward();
+        if (LessonRating.grade(widget.session.accuracy) !=
+            LessonGrade.practice) {
+          _rays.repeat();
+        }
+      }
+    } else if (instant) {
+      _reveal
+        ..stop()
+        ..value = 1;
+      _rays
+        ..stop()
+        ..value = 0;
+    }
   }
 
   @override
@@ -952,6 +979,8 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                           StarsReveal(
                             earned: LessonRating.stars(grade),
                             feedback: ref.read(feedbackServiceProvider),
+                            initialDelay: const Duration(milliseconds: 200),
+                            announceLandings: false,
                           ),
                         SizedBox(height: passed ? 18 : 0),
                         Opacity(
