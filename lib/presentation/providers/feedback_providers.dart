@@ -67,7 +67,6 @@ class CelebrationQueue extends Notifier<CelebrationState> {
 
     if (state.current == null) {
       state = CelebrationState(current: celebration);
-      _announce(celebration);
       return;
     }
     state = CelebrationState(
@@ -86,18 +85,10 @@ class CelebrationQueue extends Notifier<CelebrationState> {
     }
     final next = state.pending.first;
     state = CelebrationState(current: next, pending: state.pending.sublist(1));
-    _announce(next);
   }
 
   /// Drop everything — for leaving a lesson mid-ceremony.
   void clear() => state = const CelebrationState();
-
-  /// Sound and haptics fire here rather than in the host so they can never
-  /// drift out of step with which ceremony is actually on screen.
-  void _announce(Celebration celebration) {
-    final recipe = recipeFor(celebration);
-    ref.read(feedbackServiceProvider).play(recipe.sound, haptic: recipe.haptic);
-  }
 }
 
 final celebrationQueueProvider =

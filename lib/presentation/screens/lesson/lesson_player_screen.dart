@@ -6,6 +6,7 @@ import '../../widgets/common/degraded_mode_banner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/feedback/celebration.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/flashcard.dart';
@@ -23,6 +24,7 @@ import '../../widgets/lesson/exercise_widget.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
 import '../../widgets/common/gender_pill.dart';
 import '../../widgets/common/lesson_ui.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// Lesson player — loads exercises from DB, cycles through them one by one.
@@ -324,36 +326,48 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               // so the learner can study their answer at their own pace —
               // no timed auto-advance.
               Expanded(
-                child: LessonExerciseViewport(
-                  // Key by position so widget state (selected answers) resets
-                  // for each exercise, including mistake re-asks of the same
-                  // exercise id.
-                  key: ValueKey(session.currentIndex),
-                  exercise: exercise,
-                  answerStreak: session.answerStreak,
-                  onAnswered: (result) {
-                    // Teaching cards are presentations, not questions: advance
-                    // straight to the next exercise with no grading banner,
-                    // heart, or XP.
-                    if (exercise.type == ExerciseType.teaching) {
-                      ref.read(lessonSessionProvider.notifier).nextExercise();
-                      return;
-                    }
-                    ref
-                        .read(lessonSessionProvider.notifier)
-                        .onExerciseAnswered(
-                          outcome: result.outcome,
-                          explanation: result.explanation,
-                          correctAnswer: result.correctAnswer,
-                          supports: result.supports,
-                          xpEarned: exercise.xpReward,
-                        );
-                  },
+                child: MotionEntrance(
+                  // Replacing this key disposes the outgoing exercise in the
+                  // same frame. Only the incoming exercise is animated, so a
+                  // microphone or TTS owner can never survive behind an exit.
+                  key: ValueKey(
+                    'lesson-question-${session.currentIndex}-${exercise.id}',
+                  ),
+                  child: LessonExerciseViewport(
+                    // Key by position so widget state (selected answers) resets
+                    // for each exercise, including mistake re-asks of the same
+                    // exercise id.
+                    key: ValueKey(session.currentIndex),
+                    exercise: exercise,
+                    answerStreak: session.answerStreak,
+                    onAnswered: (result) {
+                      // Teaching cards are presentations, not questions: advance
+                      // straight to the next exercise with no grading banner,
+                      // heart, or XP.
+                      if (exercise.type == ExerciseType.teaching) {
+                        ref.read(lessonSessionProvider.notifier).nextExercise();
+                        return;
+                      }
+                      ref
+                          .read(lessonSessionProvider.notifier)
+                          .onExerciseAnswered(
+                            outcome: result.outcome,
+                            explanation: result.explanation,
+                            correctAnswer: result.correctAnswer,
+                            supports: result.supports,
+                            xpEarned: exercise.xpReward,
+                          );
+                    },
+                  ),
                 ),
               ),
 
               // Feedback banner — appears under the answered exercise.
-              if (session.showFeedback) _buildFeedbackBanner(context, session),
+              MotionDisclosure(
+                visible: session.showFeedback,
+                alignment: Alignment.bottomCenter,
+                child: _buildFeedbackBanner(context, session),
+              ),
             ],
           ),
         ),
@@ -846,24 +860,35 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     with TickerProviderStateMixin {
   late final AnimationController _reveal;
   late final AnimationController _rays;
+  bool _motionConfigured = false;
 
   /// The frame the trophy lands on. The burst, the rays and everything below
   /// are timed off it, so the screen reads as one event rather than a list of
   /// things that happen to be animating.
-  static const _impact = 0.30;
+  static final _impact = CelebrationTimeline.progress(
+    CelebrationTimeline.lessonImpact,
+    CelebrationTimeline.lessonReveal,
+  );
+  static const _scoreboardRevealStart = 0.42;
+  static final _scoreboardCountDelay = Duration(
+    microseconds:
+        (CelebrationTimeline.lessonReveal.inMicroseconds *
+                _scoreboardRevealStart)
+            .round(),
+  );
 
   @override
   void initState() {
     super.initState();
     _reveal = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1700),
-    )..forward();
+      duration: CelebrationTimeline.lessonReveal,
+    );
     // Slow and endless. Fast rotation reads as a loading spinner.
     _rays = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 22),
-    )..repeat();
+    );
 
     // After the first frame, so the queue is not mutated while the tree that
     // watches it is still building.
@@ -883,6 +908,31 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
       // the lesson rather than in place of it.
       session.pendingRewards.forEach(queue.fire);
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final instant = context.motionDisabled;
+    if (!_motionConfigured) {
+      _motionConfigured = true;
+      if (instant) {
+        _reveal.value = 1;
+      } else {
+        _reveal.forward();
+        if (LessonRating.grade(widget.session.accuracy) !=
+            LessonGrade.practice) {
+          _rays.repeat();
+        }
+      }
+    } else if (instant) {
+      _reveal
+        ..stop()
+        ..value = 1;
+      _rays
+        ..stop()
+        ..value = 0;
+    }
   }
 
   @override
@@ -952,6 +1002,9 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                           StarsReveal(
                             earned: LessonRating.stars(grade),
                             feedback: ref.read(feedbackServiceProvider),
+                            initialDelay:
+                                CelebrationTimeline.starLeadAfterLessonImpact,
+                            announceLandings: false,
                           ),
                         SizedBox(height: passed ? 18 : 0),
                         Opacity(
@@ -1161,7 +1214,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     final session = widget.session;
     final l10n = AppLocalizations.of(context);
     return Opacity(
-      opacity: instant ? 1 : _slice(0.42, 0.7),
+      opacity: instant ? 1 : _slice(_scoreboardRevealStart, 0.7),
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -1180,6 +1233,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                 CountUpText(
                   value: (accuracy * 100).round(),
                   suffix: '%',
+                  delay: _scoreboardCountDelay,
                   duration: const Duration(milliseconds: 1100),
                   style: _statStyle(accent),
                 ),
@@ -1191,6 +1245,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                 CountUpText(
                   value: session.totalXp,
                   prefix: '+',
+                  delay: _scoreboardCountDelay,
                   duration: const Duration(milliseconds: 1100),
                   // Ink, not the raw hue: this is a glyph, not a fill.
                   style: _statStyle(tokens.amberInk),
@@ -1321,6 +1376,11 @@ class _XpCounterState extends State<_XpCounter> {
   int? _award;
   int _awardSeq = 0;
 
+  void _clearAward(int sequence) {
+    if (!mounted || sequence != _awardSeq) return;
+    setState(() => _award = null);
+  }
+
   @override
   void didUpdateWidget(covariant _XpCounter old) {
     super.didUpdateWidget(old);
@@ -1337,6 +1397,7 @@ class _XpCounterState extends State<_XpCounter> {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    final awardSequence = _awardSeq;
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -1364,6 +1425,7 @@ class _XpCounterState extends State<_XpCounter> {
               child: XpFlyUp(
                 key: ValueKey(_awardSeq),
                 label: l10n.lessonXpAward(award),
+                onCompleted: () => _clearAward(awardSequence),
               ),
             ),
           ),
@@ -1497,6 +1559,7 @@ class _ExamCompleteScreen extends ConsumerWidget {
                 caption: l10n.captionAccuracy,
                 color: hue,
                 showBadge: passed,
+                animateOnMount: true,
               ),
               const SizedBox(height: 20),
               DisplayText(

@@ -48,10 +48,70 @@ void main() {
 
     await tester.tap(find.text('Good'));
     await tester.pump();
+    await tester.pump();
 
     expect(find.text('kočka'), findsOneWidget);
     expect(find.text('HOW WELL DID YOU REMEMBER IT?'), findsNothing);
+    final incomingCard = find.byKey(const ValueKey('1:2'));
+    final translation = tester.widget<FractionalTranslation>(
+      find
+          .descendant(
+            of: incomingCard,
+            matching: find.byType(FractionalTranslation),
+          )
+          .first,
+    );
+    expect(translation.translation.dx, greaterThan(0));
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('review card advancement snaps with reduced motion', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(400, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          reviewSessionProvider.overrideWith(_GuidedReviewNotifier.new),
+        ],
+        child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          theme: lightTheme(),
+          builder:
+              (context, child) => MediaQuery(
+                data: MediaQuery.of(context).copyWith(disableAnimations: true),
+                child: child!,
+              ),
+          home: const SrsReviewScreen(),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Good'));
+    await tester.pump();
+    await tester.pump();
+
+    final incomingCard = find.byKey(const ValueKey('1:2'));
+    final translations = find.descendant(
+      of: incomingCard,
+      matching: find.byType(FractionalTranslation),
+    );
+    expect(
+      tester.widgetList<FractionalTranslation>(translations),
+      everyElement(
+        isA<FractionalTranslation>().having(
+          (widget) => widget.translation,
+          'translation',
+          Offset.zero,
+        ),
+      ),
+    );
+    expect(tester.binding.transientCallbackCount, 0);
   });
 
   testWidgets('production review explains why reveal is unavailable', (

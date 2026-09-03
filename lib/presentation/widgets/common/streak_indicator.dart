@@ -3,6 +3,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/gamification_providers.dart';
+import 'motion_widgets.dart';
 
 /// Streak indicator widget — shows current streak from persisted state.
 class StreakIndicator extends ConsumerWidget {
@@ -26,8 +27,8 @@ class StreakIndicator extends ConsumerWidget {
             size: 18,
           ),
           const SizedBox(width: 4),
-          Text(
-            '$streak',
+          MotionNumberText(
+            streak,
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,

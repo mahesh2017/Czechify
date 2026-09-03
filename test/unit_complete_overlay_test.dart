@@ -1,5 +1,6 @@
 import 'package:czechify/core/feedback/celebration.dart';
 import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/presentation/widgets/celebration/confetti_layer.dart';
 import 'package:czechify/presentation/widgets/celebration/unit_complete_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -100,6 +101,7 @@ void main() {
     expect(find.text('2'), findsOneWidget);
     expect(find.textContaining('At the Café'), findsOneWidget);
     expect(find.text('Continue'), findsOneWidget);
+    expect(tester.binding.transientCallbackCount, 0);
   });
 
   testWidgets('sharing is offered but never automatic', (tester) async {
@@ -107,5 +109,46 @@ void main() {
     // the learner picks a destination there.
     await show(tester, unit);
     expect(find.text('Share'), findsOneWidget);
+  });
+
+  testWidgets('reduce motion turned on mid-ceremony completes it', (
+    tester,
+  ) async {
+    Widget overlay({required bool reduceMotion}) => MaterialApp(
+      localizationsDelegates: testLocalizationsDelegates,
+      supportedLocales: testSupportedLocales,
+      theme: lightTheme(),
+      home: MediaQuery(
+        data: MediaQueryData(disableAnimations: reduceMotion),
+        child: UnitCompleteOverlay(celebration: unit, onDismiss: () {}),
+      ),
+    );
+
+    await tester.pumpWidget(overlay(reduceMotion: false));
+    await tester.pump(const Duration(milliseconds: 60));
+    expect(tester.binding.transientCallbackCount, greaterThan(0));
+
+    // The ceremony gates what the learner just unlocked, so interrupting it
+    // has to finish it rather than strand them mid-stamp.
+    await tester.pumpWidget(overlay(reduceMotion: true));
+    await tester.pump();
+
+    expect(find.textContaining('At the Café'), findsOneWidget);
+    expect(find.text('Continue'), findsOneWidget);
+
+    // The confetti already in flight is the part that has to actually stop,
+    // rather than keep painting behind a ceremony that has been told to hold
+    // still.
+    expect(
+      find.descendant(
+        of: find.byType(ConfettiLayer),
+        matching: find.byType(CustomPaint),
+      ),
+      findsNothing,
+    );
+
+    // Returning at all proves nothing is left ticking indefinitely.
+    await tester.pumpAndSettle();
+    expect(tester.binding.transientCallbackCount, 0);
   });
 }

@@ -5,6 +5,7 @@ import '../../../domain/engines/gamification_engine.dart';
 import '../../../domain/entities/gamification_state.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/gamification_providers.dart';
+import 'motion_widgets.dart';
 
 /// XP badge widget — shows total XP and current league from persisted state.
 class XpBadge extends ConsumerWidget {
@@ -23,8 +24,8 @@ class XpBadge extends ConsumerWidget {
       children: [
         Icon(Icons.star, color: context.tokens.amber, size: 18),
         const SizedBox(width: 4),
-        Text(
-          '$totalXp',
+        MotionNumberText(
+          totalXp,
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -37,9 +38,7 @@ class XpBadge extends ConsumerWidget {
           decoration: BoxDecoration(
             color: _rankColor(rank).withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(999),
-            border: Border.all(
-              color: _rankColor(rank).withValues(alpha: 0.3),
-            ),
+            border: Border.all(color: _rankColor(rank).withValues(alpha: 0.3)),
           ),
           child: Text(
             rankLabelFor(rank, AppLocalizations.of(context)),

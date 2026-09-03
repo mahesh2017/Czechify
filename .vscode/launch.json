@@ -2,13 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ceskina_pro (prod backend)",
+      "name": "czechify (prod backend)",
       "request": "launch",
       "type": "dart",
       "toolArgs": ["--dart-define-from-file=env/prod.json"]
     },
     {
-      "name": "ceskina_pro (offline, no backend)",
+      "name": "czechify (offline, no backend)",
       "request": "launch",
       "type": "dart"
     }

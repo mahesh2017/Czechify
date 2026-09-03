@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../core/theme/app_motion.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/motion_widgets.dart';
 import 'exercise_shared.dart';
 
 /// Word-order exercise view: tap words to build the sentence.
@@ -21,8 +23,9 @@ class WordOrderView extends StatefulWidget {
 }
 
 class _WordOrderViewState extends State<WordOrderView> {
-  List<String> available = [];
-  List<String> selected = [];
+  List<_WordToken> available = [];
+  List<_WordToken> selected = [];
+  final Set<int> _movedTokenIds = {};
   bool answered = false;
   bool? isCorrect;
 
@@ -38,7 +41,10 @@ class _WordOrderViewState extends State<WordOrderView> {
   @override
   void initState() {
     super.initState();
-    available = List.of(_czechWords())..shuffle();
+    available = [
+      for (final (id, word) in _czechWords().indexed)
+        _WordToken(id: id, word: word),
+    ]..shuffle();
   }
 
   void _checkAnswer() {
@@ -49,7 +55,11 @@ class _WordOrderViewState extends State<WordOrderView> {
     // Compare by position, not by indexOf (which breaks on duplicate words).
     final correct =
         selected.length == correctOrder.length &&
-        _checkOrder(selected, czechWords, correctOrder);
+        _checkOrder(
+          selected.map((token) => token.word).toList(),
+          czechWords,
+          correctOrder,
+        );
 
     setState(() {
       answered = true;
@@ -122,47 +132,55 @@ class _WordOrderViewState extends State<WordOrderView> {
 
           // The sentence being built, on ruled lines. Empty it reads as the
           // place the answer goes, rather than as an empty box.
-          ShakeOnce(
-            trigger: isCorrect == false ? selected.length : null,
-            child: Container(
-              width: double.infinity,
-              constraints: const BoxConstraints(minHeight: 84),
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: t.card,
-                border: Border.all(color: verdictBorder, width: 1.5),
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: t.shadow,
-              ),
-              child:
-                  selected.isEmpty
-                      ? Center(
-                        child: Text(
-                          l10n.exerciseTapWordsInOrder,
-                          style: TextStyle(fontSize: 15, color: t.faint),
-                        ),
-                      )
-                      : Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          for (final entry in selected.asMap().entries)
-                            WordChip(
-                              word: entry.value,
+          // Answer-impact movement is centralized in LessonExerciseViewport.
+          Container(
+            width: double.infinity,
+            constraints: const BoxConstraints(minHeight: 84),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: t.card,
+              border: Border.all(color: verdictBorder, width: 1.5),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: t.shadow,
+            ),
+            child:
+                selected.isEmpty
+                    ? Center(
+                      child: Text(
+                        l10n.exerciseTapWordsInOrder,
+                        style: TextStyle(fontSize: 15, color: t.faint),
+                      ),
+                    )
+                    : Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final entry in selected.asMap().entries)
+                          MotionEntrance(
+                            key: ValueKey('word-token-${entry.value.id}'),
+                            animateOnMount: _movedTokenIds.contains(
+                              entry.value.id,
+                            ),
+                            duration: AppMotion.selection,
+                            offset: const Offset(0, 0.12),
+                            child: WordChip(
+                              word: entry.value.word,
                               placed: true,
                               verdict: isCorrect,
                               onTap:
                                   answered
                                       ? null
                                       : () => setState(() {
-                                        available.add(
-                                          selected.removeAt(entry.key),
+                                        final token = selected.removeAt(
+                                          entry.key,
                                         );
+                                        _movedTokenIds.add(token.id);
+                                        available.add(token);
                                       }),
                             ),
-                        ],
-                      ),
-            ),
+                          ),
+                      ],
+                    ),
           ),
           const SizedBox(height: 18),
 
@@ -172,14 +190,22 @@ class _WordOrderViewState extends State<WordOrderView> {
             runSpacing: 8,
             children: [
               for (final entry in available.asMap().entries)
-                WordChip(
-                  word: entry.value,
-                  onTap:
-                      answered
-                          ? null
-                          : () => setState(() {
-                            selected.add(available.removeAt(entry.key));
-                          }),
+                MotionEntrance(
+                  key: ValueKey('word-token-${entry.value.id}'),
+                  animateOnMount: _movedTokenIds.contains(entry.value.id),
+                  duration: AppMotion.selection,
+                  offset: const Offset(0, 0.12),
+                  child: WordChip(
+                    word: entry.value.word,
+                    onTap:
+                        answered
+                            ? null
+                            : () => setState(() {
+                              final token = available.removeAt(entry.key);
+                              _movedTokenIds.add(token.id);
+                              selected.add(token);
+                            }),
+                  ),
                 ),
             ],
           ),
@@ -192,6 +218,13 @@ class _WordOrderViewState extends State<WordOrderView> {
       ),
     );
   }
+}
+
+class _WordToken {
+  const _WordToken({required this.id, required this.word});
+
+  final int id;
+  final String word;
 }
 
 /// One draggable-by-tap word. Raised like a key when it is still in the bank,

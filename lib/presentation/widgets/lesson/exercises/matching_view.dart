@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
+import '../../../../core/theme/app_motion.dart';
 import '../../../../domain/entities/exercise.dart';
 import 'exercise_shared.dart';
+import '../../common/motion_widgets.dart';
 
 /// Matching exercise — pair Czech items with their English equivalents
 /// by tapping matching pairs in two columns.
@@ -214,12 +216,19 @@ class _MatchingViewState extends State<MatchingView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  l10n.exerciseMatchedOfTotal(_matchedCount, _leftItems.length),
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: t.muted,
+                MotionSwap(
+                  offset: const Offset(0, 0.12),
+                  child: Text(
+                    l10n.exerciseMatchedOfTotal(
+                      _matchedCount,
+                      _leftItems.length,
+                    ),
+                    key: ValueKey(_matchedCount),
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: t.muted,
+                    ),
                   ),
                 ),
                 if (_allMatched && !answered)
@@ -287,8 +296,6 @@ class _MatchingViewState extends State<MatchingView> {
         final t = context.tokens;
         final item = items[i];
         final isSelected = side == _Side.left && _selectedLeftIdx == i;
-        final instant = MediaQuery.disableAnimationsOf(context);
-
         final (bg, border, fg) = switch ((item.matched, isSelected)) {
           (true, _) => (t.priSoft, t.pri, t.priInk),
           (_, true) => (t.priSoft, t.pri, t.priInk),
@@ -304,8 +311,7 @@ class _MatchingViewState extends State<MatchingView> {
               onTap: () => onTap(i),
               borderRadius: BorderRadius.circular(16),
               child: AnimatedContainer(
-                duration:
-                    instant ? Duration.zero : const Duration(milliseconds: 180),
+                duration: context.motionDuration(AppMotion.selection),
                 constraints: const BoxConstraints(minHeight: 56),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
@@ -326,21 +332,28 @@ class _MatchingViewState extends State<MatchingView> {
                     // carry the same badge.
                     if (item.matched)
                       Padding(
+                        key: ValueKey(
+                          'match-badge-${side.name}-${item.pairIdx}',
+                        ),
                         padding: const EdgeInsets.only(right: 9),
-                        child: Container(
-                          width: 22,
-                          height: 22,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: t.pri,
-                            borderRadius: BorderRadius.circular(999),
-                          ),
-                          child: Text(
-                            '${_pairBadge(item, _leftItems)}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                              color: t.onFill,
+                        child: MotionEntrance(
+                          duration: AppMotion.selection,
+                          offset: const Offset(0, 0.18),
+                          child: Container(
+                            width: 22,
+                            height: 22,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: t.pri,
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                            child: Text(
+                              '${_pairBadge(item, _leftItems)}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w800,
+                                color: t.onFill,
+                              ),
                             ),
                           ),
                         ),

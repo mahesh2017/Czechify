@@ -5,6 +5,7 @@ import '../../../core/diagnostics/safe_diagnostics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/settings_providers.dart';
@@ -15,11 +16,12 @@ import '../../providers/database_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/learner_profile_providers.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/learner_profile.dart';
 import '../../../domain/engines/placement_engine.dart';
 
-/// Six-step onboarding that turns a learner's purpose, starting point and
+/// Seven-step onboarding that turns a learner's purpose, starting point and
 /// available time into a transparent first plan.
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({
@@ -46,10 +48,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   LearnerProfileDraft _draft = LearnerProfileDraft();
   bool _finishing = false;
   bool _loadingExistingProfile = false;
+  bool _movingForward = true;
+  TtsVoiceGender? _previewingVoice;
   final _nameController = TextEditingController();
+  final _stepScrollController = ScrollController();
 
-  // welcome → profile → purpose → focus/timing → commitment → reminder → plan
-  static const _totalSteps = 7;
+  // welcome → profile → purpose → focus/timing → commitment → teacher →
+  // reminder → plan
+  static const _totalSteps = 8;
 
   @override
   void initState() {
@@ -70,10 +76,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       if (!mounted) return;
       if (profile != null) {
         final focusNames = _decodeStringList(profile.focusSkillsJson);
-        final focuses = focusNames
-            .map((name) => LearningFocus.values.asNameMap()[name])
-            .whereType<LearningFocus>()
-            .toSet();
+        final focuses =
+            focusNames
+                .map((name) => LearningFocus.values.asNameMap()[name])
+                .whereType<LearningFocus>()
+                .toSet();
         final goal =
             LearningGoal.values.asNameMap()[profile.primaryGoal] ??
             LearningGoal.everydayLife;
@@ -96,20 +103,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           displayName: profile.displayName,
           primaryGoal: goal,
           currentLevel: currentLevel,
-          focuses: focuses.isEmpty
-              ? const {LearningFocus.speaking, LearningFocus.listening}
-              : focuses,
+          focuses:
+              focuses.isEmpty
+                  ? const {LearningFocus.speaking, LearningFocus.listening}
+                  : focuses,
           goalHorizon: horizon,
           commitment: commitment,
-          tutor: profile.preferredVoice == 'male'
-              ? TutorPreference.pavel
-              : TutorPreference.lenka,
+          tutor:
+              profile.preferredVoice == 'male'
+                  ? TutorPreference.pavel
+                  : TutorPreference.lenka,
           remindersEnabled: ref.read(settingsProvider).remindersEnabled,
           reminderMinutesAfterMidnight:
               reminder?.preferredHour != null &&
-                  reminder?.preferredMinute != null
-              ? reminder!.preferredHour! * 60 + reminder.preferredMinute!
-              : 19 * 60,
+                      reminder?.preferredMinute != null
+                  ? reminder!.preferredHour! * 60 + reminder.preferredMinute!
+                  : 19 * 60,
         );
       }
     } catch (error, stack) {
@@ -152,7 +161,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   void _next() {
     if (_step < _totalSteps - 1) {
-      setState(() => _step++);
+      _moveToStep(_step + 1);
     } else {
       _finish();
     }
@@ -162,15 +171,26 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     if (widget.editing && _step == 1) {
       context.pop();
     } else if (_step > 0) {
-      setState(() => _step--);
+      _moveToStep(_step - 1);
     }
+  }
+
+  void _moveToStep(int nextStep) {
+    if (nextStep == _step) return;
+    FocusManager.instance.primaryFocus?.unfocus();
+    if (_stepScrollController.hasClients) {
+      _stepScrollController.jumpTo(0);
+    }
+    setState(() {
+      _movingForward = nextStep > _step;
+      _step = nextStep;
+    });
   }
 
   Future<void> _finish() async {
     if (_finishing) return;
-    final completedProfile = _draft
-        .copyWith(displayName: _nameController.text)
-        .complete();
+    final completedProfile =
+        _draft.copyWith(displayName: _nameController.text).complete();
     setState(() {
       _finishing = true;
       _draft = _draft.copyWith(displayName: completedProfile.displayName);
@@ -200,9 +220,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               _ => null,
             },
             targetHorizon: completedProfile.goalHorizon?.name,
-            focusSkills: completedProfile.focuses
-                .map((focus) => focus.name)
-                .toList(),
+            focusSkills:
+                completedProfile.focuses.map((focus) => focus.name).toList(),
             dailyCommitmentMinutes:
                 completedProfile.commitment.minutesPerStudyDay,
             studyDaysPerWeek: completedProfile.commitment.daysPerWeek,
@@ -283,6 +302,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   void dispose() {
     _nameController.dispose();
+    _stepScrollController.dispose();
     super.dispose();
   }
 
@@ -329,23 +349,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 const SizedBox(width: 14),
                 Expanded(
-                  child: Row(
-                    children: List.generate(_totalSteps - 1, (index) {
-                      final active = index <= _step - 1;
-                      return Expanded(
-                        flex: index == _step - 1 ? 2 : 1,
-                        child: Container(
-                          height: 4,
-                          margin: EdgeInsets.only(
-                            right: index == _totalSteps - 2 ? 0 : 5,
-                          ),
-                          decoration: BoxDecoration(
-                            color: active ? t.pri : t.elev,
-                            borderRadius: BorderRadius.circular(999),
-                          ),
-                        ),
-                      );
-                    }),
+                  child: _OnboardingProgressPips(
+                    step: _step,
+                    count: _totalSteps - 1,
                   ),
                 ),
                 const SizedBox(width: 14),
@@ -365,8 +371,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             child: Stack(
               children: [
                 SingleChildScrollView(
+                  controller: _stepScrollController,
                   padding: const EdgeInsets.fromLTRB(24, 14, 24, 24),
-                  child: _buildStep(),
+                  child: _DirectionalStepSwap(
+                    step: _step,
+                    movingForward: _movingForward,
+                    child: _buildStep(),
+                  ),
                 ),
                 Positioned(
                   left: 0,
@@ -398,9 +409,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 const SizedBox(height: 8),
                 PrimaryButton(
-                  label: _step < _totalSteps - 1
-                      ? l10n.onboardingContinue
-                      : l10n.onboardingStartLearning,
+                  label:
+                      _step < _totalSteps - 1
+                          ? l10n.onboardingContinue
+                          : l10n.onboardingStartLearning,
                   onPressed: _finishing ? null : _next,
                 ),
                 TextButton(
@@ -428,8 +440,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       2 => _buildPurposeStep(),
       3 => _buildGoalDetailsStep(),
       4 => _buildCommitmentStep(),
-      5 => _buildReminderStep(),
-      6 => _buildSummaryStep(),
+      5 => _buildTeacherStep(),
+      6 => _buildReminderStep(),
+      7 => _buildSummaryStep(),
       _ => const SizedBox(),
     };
   }
@@ -502,50 +515,65 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           title: l10n.onboardingBeginner,
           subtitle: l10n.onboardingBeginnerBody,
           isSelected: _draft.currentLevel == LearnerCzechLevel.preA1,
-          onTap: () => setState(
-            () =>
-                _draft = _draft.copyWith(currentLevel: LearnerCzechLevel.preA1),
-          ),
+          onTap:
+              () => setState(
+                () =>
+                    _draft = _draft.copyWith(
+                      currentLevel: LearnerCzechLevel.preA1,
+                    ),
+              ),
         ),
         const SizedBox(height: 10),
         _ChoiceCard(
           title: l10n.onboardingA1,
           subtitle: l10n.onboardingA1Body,
           isSelected: _draft.currentLevel == LearnerCzechLevel.a1,
-          onTap: () => setState(
-            () => _draft = _draft.copyWith(currentLevel: LearnerCzechLevel.a1),
-          ),
+          onTap:
+              () => setState(
+                () =>
+                    _draft = _draft.copyWith(
+                      currentLevel: LearnerCzechLevel.a1,
+                    ),
+              ),
         ),
         const SizedBox(height: 10),
         _ChoiceCard(
           title: l10n.onboardingA2,
           subtitle: l10n.onboardingA2Body,
           isSelected: _draft.currentLevel == LearnerCzechLevel.a2,
-          onTap: () => setState(
-            () => _draft = _draft.copyWith(currentLevel: LearnerCzechLevel.a2),
-          ),
+          onTap:
+              () => setState(
+                () =>
+                    _draft = _draft.copyWith(
+                      currentLevel: LearnerCzechLevel.a2,
+                    ),
+              ),
         ),
         const SizedBox(height: 10),
         _ChoiceCard(
           title: l10n.onboardingB1Plus,
           subtitle: l10n.onboardingB1PlusBody,
           isSelected: _draft.currentLevel == LearnerCzechLevel.b1OrHigher,
-          onTap: () => setState(
-            () => _draft = _draft.copyWith(
-              currentLevel: LearnerCzechLevel.b1OrHigher,
-            ),
-          ),
+          onTap:
+              () => setState(
+                () =>
+                    _draft = _draft.copyWith(
+                      currentLevel: LearnerCzechLevel.b1OrHigher,
+                    ),
+              ),
         ),
         const SizedBox(height: 10),
         _ChoiceCard(
           title: l10n.onboardingLevelUnsure,
           subtitle: l10n.onboardingLevelUnsureBody,
           isSelected: _draft.currentLevel == LearnerCzechLevel.unsure,
-          onTap: () => setState(
-            () => _draft = _draft.copyWith(
-              currentLevel: LearnerCzechLevel.unsure,
-            ),
-          ),
+          onTap:
+              () => setState(
+                () =>
+                    _draft = _draft.copyWith(
+                      currentLevel: LearnerCzechLevel.unsure,
+                    ),
+              ),
         ),
         const SizedBox(height: 12),
         TextButton(
@@ -737,11 +765,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: t.card,
-                                  border: i == features.length - 1
-                                      ? null
-                                      : Border(
-                                          bottom: BorderSide(color: t.line),
-                                        ),
+                                  border:
+                                      i == features.length - 1
+                                          ? null
+                                          : Border(
+                                            bottom: BorderSide(color: t.line),
+                                          ),
                                 ),
                                 child: Row(
                                   children: [
@@ -846,9 +875,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   onPressed: _next,
                 ),
                 TextButton(
-                  onPressed: BackendConfig.isConfigured
-                      ? () => context.push('/account?mode=onboardingRecovery')
-                      : _finish,
+                  onPressed:
+                      BackendConfig.isConfigured
+                          ? () =>
+                              context.push('/account?mode=onboardingRecovery')
+                          : _finish,
                   child: Text(
                     l10n.onboardingHaveAccount,
                     style: TextStyle(
@@ -928,9 +959,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       _draft = _draft.copyWith(
         primaryGoal: goal,
         focuses: defaults,
-        goalHorizon: goal.isExamGoal
-            ? (_draft.goalHorizon ?? GoalHorizon.laterOrUnsure)
-            : null,
+        goalHorizon:
+            goal.isExamGoal
+                ? (_draft.goalHorizon ?? GoalHorizon.laterOrUnsure)
+                : null,
         clearGoalHorizon: !goal.isExamGoal,
       );
     });
@@ -985,9 +1017,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               title: _horizonLabel(l10n, horizon),
               subtitle: _horizonBody(l10n, horizon),
               isSelected: _draft.goalHorizon == horizon,
-              onTap: () => setState(
-                () => _draft = _draft.copyWith(goalHorizon: horizon),
-              ),
+              onTap:
+                  () => setState(
+                    () => _draft = _draft.copyWith(goalHorizon: horizon),
+                  ),
             ),
             const SizedBox(height: 10),
           ],
@@ -1028,16 +1061,23 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   /// onboarding: the neural path picks its clip by the *current* voice, so a
   /// preview that ignored the tap would play the other voice.
   Future<void> _previewVoice(TtsVoiceGender voice) async {
+    if (_previewingVoice != null) return;
     setState(() {
+      _previewingVoice = voice;
       _draft = _draft.copyWith(
-        tutor: voice == TtsVoiceGender.female
-            ? TutorPreference.lenka
-            : TutorPreference.pavel,
+        tutor:
+            voice == TtsVoiceGender.female
+                ? TutorPreference.lenka
+                : TutorPreference.pavel,
       );
     });
-    await ref.read(settingsProvider.notifier).setTtsVoiceGender(voice);
-    if (!mounted) return;
-    await ref.read(czechTtsProvider).playVoiceSample(voice);
+    try {
+      await ref.read(settingsProvider.notifier).setTtsVoiceGender(voice);
+      if (!mounted) return;
+      await ref.read(czechTtsProvider).playVoiceSample(voice);
+    } finally {
+      if (mounted) setState(() => _previewingVoice = null);
+    }
   }
 
   Widget _buildCommitmentStep() {
@@ -1062,34 +1102,43 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               commitment.daysPerWeek,
             ),
             isSelected: _draft.commitment == commitment,
-            onTap: () => setState(
-              () => _draft = _draft.copyWith(commitment: commitment),
-            ),
+            onTap:
+                () => setState(
+                  () => _draft = _draft.copyWith(commitment: commitment),
+                ),
           ),
           const SizedBox(height: 10),
         ],
-        const SizedBox(height: 18),
-        Text(
+      ],
+    );
+  }
+
+  Widget _buildTeacherStep() {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final previewing = _previewingVoice;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _stepHeader(
+          Icons.record_voice_over_outlined,
+          t.priSoft,
+          t.pri,
           l10n.onboardingTeacherChoiceTitle,
-          style: TextStyle(
-            color: t.ink,
-            fontSize: 17,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        const SizedBox(height: 6),
-        Text(
           l10n.onboardingTeacherChoiceBody,
-          style: TextStyle(color: t.muted, fontSize: 14, height: 1.4),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 28),
         _ChoiceCard(
           title: TtsVoiceGender.female.tutorName,
           subtitle:
               '${l10n.onboardingFemaleVoice} · '
               '${TtsVoiceGender.female.tutorTagline}',
           isSelected: _selectedVoice == TtsVoiceGender.female,
-          onTap: () => _previewVoice(TtsVoiceGender.female),
+          isBusy: previewing == TtsVoiceGender.female,
+          onTap:
+              previewing == null
+                  ? () => _previewVoice(TtsVoiceGender.female)
+                  : null,
         ),
         const SizedBox(height: 10),
         _ChoiceCard(
@@ -1098,7 +1147,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               '${l10n.onboardingMaleVoice} · '
               '${TtsVoiceGender.male.tutorTagline}',
           isSelected: _selectedVoice == TtsVoiceGender.male,
-          onTap: () => _previewVoice(TtsVoiceGender.male),
+          isBusy: previewing == TtsVoiceGender.male,
+          onTap:
+              previewing == null
+                  ? () => _previewVoice(TtsVoiceGender.male)
+                  : null,
         ),
         const SizedBox(height: 16),
         Row(
@@ -1190,11 +1243,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         const SizedBox(height: 16),
         // Opt-in checkbox — default OFF, the user must actively enable.
         InkWell(
-          onTap: () => setState(
-            () => _draft = _draft.copyWith(
-              remindersEnabled: !_draft.remindersEnabled,
-            ),
-          ),
+          onTap:
+              () => setState(
+                () =>
+                    _draft = _draft.copyWith(
+                      remindersEnabled: !_draft.remindersEnabled,
+                    ),
+              ),
           borderRadius: BorderRadius.circular(12),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6),
@@ -1328,9 +1383,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     vertical: 14,
                   ),
                   decoration: BoxDecoration(
-                    border: i == rows.length - 1
-                        ? null
-                        : Border(bottom: BorderSide(color: t.line)),
+                    border:
+                        i == rows.length - 1
+                            ? null
+                            : Border(bottom: BorderSide(color: t.line)),
                   ),
                   child: Row(
                     children: [
@@ -1485,55 +1541,221 @@ class _GoalDisclosure extends StatelessWidget {
   }
 }
 
+/// Keeps every onboarding step change directional while ensuring outgoing
+/// content immediately leaves the input and semantics trees.
+class _DirectionalStepSwap extends StatelessWidget {
+  const _DirectionalStepSwap({
+    required this.step,
+    required this.movingForward,
+    required this.child,
+  });
+
+  final int step;
+  final bool movingForward;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final stepKey = ValueKey('onboarding-step-$step');
+    final direction = movingForward ? 1.0 : -1.0;
+    return AnimatedSwitcher(
+      duration: context.motionDuration(AppMotion.content),
+      reverseDuration: context.motionDuration(AppMotion.content),
+      switchInCurve: AppMotion.enter,
+      switchOutCurve: AppMotion.exit,
+      layoutBuilder:
+          (currentChild, previousChildren) => Stack(
+            alignment: Alignment.topCenter,
+            clipBehavior: Clip.none,
+            children: [
+              ...previousChildren,
+              if (currentChild != null) currentChild,
+            ],
+          ),
+      transitionBuilder: (transitionChild, animation) {
+        final incoming = transitionChild.key == stepKey;
+        return _GuardedDirectionalStepTransition(
+          animation: animation,
+          begin: Offset(direction * (incoming ? 0.08 : -0.08), 0),
+          child: transitionChild,
+        );
+      },
+      child: KeyedSubtree(
+        key: stepKey,
+        child: SizedBox(width: double.infinity, child: child),
+      ),
+    );
+  }
+}
+
+class _GuardedDirectionalStepTransition extends StatelessWidget {
+  const _GuardedDirectionalStepTransition({
+    required this.animation,
+    required this.begin,
+    required this.child,
+  });
+
+  final Animation<double> animation;
+  final Offset begin;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        final outgoing = animation.status == AnimationStatus.reverse;
+        final value = animation.value;
+        return IgnorePointer(
+          ignoring: outgoing,
+          child: ExcludeSemantics(
+            excluding: outgoing,
+            child: Opacity(
+              opacity: value,
+              child: FractionalTranslation(
+                translation: Offset.lerp(begin, Offset.zero, value)!,
+                child: child,
+              ),
+            ),
+          ),
+        );
+      },
+      child: child,
+    );
+  }
+}
+
+class _OnboardingProgressPips extends StatelessWidget {
+  const _OnboardingProgressPips({required this.step, required this.count});
+
+  final int step;
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    const gap = 5.0;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final available = constraints.maxWidth - gap * (count - 1);
+        final unit = available / (count + 1);
+        return Row(
+          children: [
+            for (var index = 0; index < count; index++) ...[
+              AnimatedContainer(
+                key: ValueKey('onboarding-progress-$index'),
+                duration: context.motionDuration(AppMotion.selection),
+                curve: AppMotion.enter,
+                width: unit * (index == step - 1 ? 2 : 1),
+                height: 4,
+                decoration: BoxDecoration(
+                  color: index <= step - 1 ? t.pri : t.elev,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+              if (index != count - 1) const SizedBox(width: gap),
+            ],
+          ],
+        );
+      },
+    );
+  }
+}
+
 /// A selectable option card used for the level and goal steps.
 class _ChoiceCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final bool isSelected;
-  final VoidCallback onTap;
+  final bool isBusy;
+  final VoidCallback? onTap;
 
   const _ChoiceCard({
     required this.title,
     required this.subtitle,
     required this.isSelected,
     required this.onTap,
+    this.isBusy = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    return SoftCard(
-      radius: 18,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      color: isSelected ? t.priSoft : t.card,
-      border: isSelected ? Border.all(color: t.pri, width: 1.5) : null,
-      onTap: onTap,
-      child: Row(
-        children: [
-          Icon(
-            isSelected ? Icons.check_circle : Icons.circle_outlined,
-            color: isSelected ? t.pri : t.faint,
-            size: 24,
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Semantics(
+      selected: isSelected,
+      button: true,
+      enabled: onTap != null,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(end: isSelected ? 1 : 0),
+        duration: context.motionDuration(AppMotion.selection),
+        curve: AppMotion.enter,
+        builder: (context, selected, child) {
+          return SoftCard(
+            radius: 18,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            color: Color.lerp(t.card, t.priSoft, selected),
+            border:
+                selected == 0
+                    ? null
+                    : Border.all(
+                      color: t.pri.withValues(alpha: selected),
+                      width: 1 + 0.5 * selected,
+                    ),
+            onTap: onTap,
+            child: Row(
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: isSelected ? t.priInk : t.ink,
+                MotionSwap(
+                  child: KeyedSubtree(
+                    key: ValueKey((isSelected, isBusy)),
+                    child:
+                        isBusy
+                            ? context.motionDisabled
+                                ? Icon(
+                                  Icons.volume_up_rounded,
+                                  color: t.pri,
+                                  size: 24,
+                                )
+                                : SizedBox.square(
+                                  dimension: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: t.pri,
+                                  ),
+                                )
+                            : Icon(
+                              isSelected
+                                  ? Icons.check_circle
+                                  : Icons.circle_outlined,
+                              color: Color.lerp(t.faint, t.pri, selected),
+                              size: 24,
+                            ),
                   ),
                 ),
-                const SizedBox(height: 6),
-                Text(subtitle, style: TextStyle(fontSize: 14, color: t.muted)),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Color.lerp(t.ink, t.priInk, selected),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        subtitle,
+                        style: TextStyle(fontSize: 14, color: t.muted),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

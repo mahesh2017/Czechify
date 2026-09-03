@@ -55,8 +55,6 @@ class _MultipleChoiceViewState extends State<MultipleChoiceView> {
     final options = _presentation.options;
     final correctIdx = _presentation.correctIndex;
     final questionEn = data['question_en'] as String? ?? widget.exercise.prompt;
-    final wrong = answered && selectedIdx != correctIdx;
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       child: Column(
@@ -68,48 +66,45 @@ class _MultipleChoiceViewState extends State<MultipleChoiceView> {
           ),
           const SizedBox(height: 22),
 
-          // Shakes once as a whole when the answer was wrong; under reduced
-          // motion the group flashes a coral outline instead.
-          ShakeOnce(
-            trigger: wrong ? selectedIdx : null,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (var i = 0; i < options.length; i++) ...[
-                  if (i > 0) const SizedBox(height: 11),
-                  QuizOptionTile(
-                    keyLabel: String.fromCharCode(65 + i),
-                    text: options[i],
-                    state: optionState(
-                      index: i,
-                      correctIndex: correctIdx,
-                      selectedIndex: selectedIdx,
-                      answered: answered,
-                    ),
-                    onTap:
-                        answered
-                            ? null
-                            : () {
-                              setState(() {
-                                selectedIdx = i;
-                                answered = true;
-                              });
-                              // Report immediately — the lesson player shows a
-                              // feedback sheet alongside the highlighted
-                              // options and the learner advances at their own
-                              // pace.
-                              widget.onAnswered(
-                                ExerciseResult(
-                                  isCorrect: i == correctIdx,
-                                  explanation: data['explanation'] as String?,
-                                  correctAnswer: options[correctIdx],
-                                ),
-                              );
-                            },
+          // The lesson viewport owns answer-impact motion so every exercise
+          // gets one consistent reaction rather than compounded shakes.
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (var i = 0; i < options.length; i++) ...[
+                if (i > 0) const SizedBox(height: 11),
+                QuizOptionTile(
+                  keyLabel: String.fromCharCode(65 + i),
+                  text: options[i],
+                  state: optionState(
+                    index: i,
+                    correctIndex: correctIdx,
+                    selectedIndex: selectedIdx,
+                    answered: answered,
                   ),
-                ],
+                  onTap:
+                      answered
+                          ? null
+                          : () {
+                            setState(() {
+                              selectedIdx = i;
+                              answered = true;
+                            });
+                            // Report immediately — the lesson player shows a
+                            // feedback sheet alongside the highlighted
+                            // options and the learner advances at their own
+                            // pace.
+                            widget.onAnswered(
+                              ExerciseResult(
+                                isCorrect: i == correctIdx,
+                                explanation: data['explanation'] as String?,
+                                correctAnswer: options[correctIdx],
+                              ),
+                            );
+                          },
+                ),
               ],
-            ),
+            ],
           ),
         ],
       ),

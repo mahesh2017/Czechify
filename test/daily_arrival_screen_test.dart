@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/domain/engines/daily_arrival_engine.dart';
 import 'package:czechify/presentation/providers/daily_arrival_providers.dart';
@@ -111,5 +113,36 @@ void main() {
 
     expect(tester.takeException(), isNull);
     expect(find.text('Review now'), findsOneWidget);
+  });
+
+  testWidgets('content choreography starts when loading resolves', (
+    tester,
+  ) async {
+    final completion = Completer<DailyArrivalState>();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          dailyArrivalStateProvider.overrideWith((_) => completion.future),
+          dailyArrivalClockProvider.overrideWithValue(
+            () => DateTime(2026, 8, 2, 8),
+          ),
+        ],
+        child: MaterialApp(
+          theme: lightTheme(),
+          home: const DailyArrivalScreen(),
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(tester.binding.transientCallbackCount, 0);
+
+    completion.complete(reviewState);
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.text('8 words are ready for you, Mahesh'), findsOneWidget);
+    expect(tester.binding.transientCallbackCount, greaterThan(0));
+    await tester.pumpAndSettle();
+    expect(tester.binding.transientCallbackCount, 0);
   });
 }

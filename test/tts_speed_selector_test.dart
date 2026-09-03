@@ -144,12 +144,59 @@ void main() {
       );
     });
 
-    test('an extreme rate clamps to an end stop rather than going out of range', () {
-      expect(TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 0.2), 0);
-      expect(
-        TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 5),
-        kTtsQuickSpeedStops.length - 1,
+    test(
+      'an extreme rate clamps to an end stop rather than going out of range',
+      () {
+        expect(
+          TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 0.2),
+          0,
+        );
+        expect(
+          TtsSpeedSelector.nearestStopIndex(kNativeTtsSpeechRate * 5),
+          kTtsQuickSpeedStops.length - 1,
+        );
+      },
+    );
+  });
+
+  testWidgets('reduce motion settles the selection without a tween', (
+    tester,
+  ) async {
+    // The segment fades its fill on selection. That fade has to resolve
+    // through the shared motion helper, not a hardcoded duration, or it keeps
+    // animating for a learner who asked the platform for less motion.
+    await tester.pumpWidget(
+      const ProviderScope(
+        child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: MediaQuery(
+            data: MediaQueryData(disableAnimations: true),
+            child: Scaffold(body: Center(child: TtsSpeedSelector())),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    Color? fillOf(String label) {
+      final container = tester.widget<Container>(
+        find.descendant(
+          of: find.ancestor(
+            of: find.text(label),
+            matching: find.byType(AnimatedContainer),
+          ),
+          matching: find.byType(Container),
+        ),
       );
-    });
+      return (container.decoration as BoxDecoration?)?.color;
+    }
+
+    await tester.tap(find.text('0.75x'));
+    await tester.pump();
+    final firstFrame = fillOf('0.75x');
+    await tester.pumpAndSettle();
+
+    expect(firstFrame, fillOf('0.75x'));
   });
 }

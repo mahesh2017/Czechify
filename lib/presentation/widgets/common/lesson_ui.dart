@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/settings_providers.dart';
+import 'motion_widgets.dart';
 
 /// Shared primitives for the learning loop — the surfaces the Czechify 2.0
 /// handoff specifies most precisely: the lesson chrome, the teaching card, the
@@ -122,39 +125,50 @@ class SegmentPips extends StatelessWidget {
     // them, which reads as noise — fall back to a plain track.
     if (count > 12) {
       final value = count == 0 ? 0.0 : (currentIndex + 1) / count;
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(999),
-        child: LinearProgressIndicator(
-          value: value.clamp(0.0, 1.0),
-          minHeight: height,
-          backgroundColor: t.line,
-          valueColor: AlwaysStoppedAnimation(fill),
-        ),
+      return MotionValueBuilder(
+        value: value.clamp(0.0, 1.0),
+        builder:
+            (context, animated, _) => ClipRRect(
+              borderRadius: BorderRadius.circular(999),
+              child: LinearProgressIndicator(
+                value: animated,
+                minHeight: height,
+                backgroundColor: t.line,
+                valueColor: AlwaysStoppedAnimation(fill),
+              ),
+            ),
       );
     }
 
-    final instant = MediaQuery.disableAnimationsOf(context);
-    return Row(
-      children: [
-        for (var i = 0; i < count; i++) ...[
-          if (i > 0) const SizedBox(width: 4),
-          Expanded(
-            // The current step takes more of the row than the others, so the
-            // eye lands on where you are rather than counting segments.
-            flex: i == currentIndex ? 24 : 10,
-            child: AnimatedContainer(
-              duration:
-                  instant ? Duration.zero : const Duration(milliseconds: 350),
-              curve: Curves.easeOutCubic,
-              height: height,
-              decoration: BoxDecoration(
-                color: i <= currentIndex ? fill : t.line,
-                borderRadius: BorderRadius.circular(999),
+    if (count <= 0) return SizedBox(height: height);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (!constraints.hasBoundedWidth) return SizedBox(height: height);
+        final gap =
+            count == 1
+                ? 0.0
+                : math.min(4.0, constraints.maxWidth / (count - 1));
+        final usable = math.max(0.0, constraints.maxWidth - gap * (count - 1));
+        final weightTotal = 24 + 10 * (count - 1);
+        return Row(
+          children: [
+            for (var i = 0; i < count; i++) ...[
+              if (i > 0) SizedBox(width: gap),
+              AnimatedContainer(
+                key: ValueKey('segment-pip-$i'),
+                duration: context.motionDuration(AppMotion.content),
+                curve: AppMotion.enter,
+                width: usable * (i == currentIndex ? 24 : 10) / weightTotal,
+                height: height,
+                decoration: BoxDecoration(
+                  color: i <= currentIndex ? fill : t.line,
+                  borderRadius: BorderRadius.circular(999),
+                ),
               ),
-            ),
-          ),
-        ],
-      ],
+            ],
+          ],
+        );
+      },
     );
   }
 }
@@ -236,24 +250,66 @@ class ComboChip extends StatelessWidget {
 /// The "+10 XP" that flies up out of the lesson header on a correct answer.
 ///
 /// Plays once per mount, so give it a [ValueKey] that changes when a new award
-/// should animate. Under reduced motion it holds still and fades instead.
+/// should animate. Under reduced motion it holds still briefly before removal.
 class XpFlyUp extends StatefulWidget {
-  const XpFlyUp({super.key, required this.label});
+  const XpFlyUp({super.key, required this.label, required this.onCompleted});
 
   final String label;
+  final VoidCallback onCompleted;
 
   @override
   State<XpFlyUp> createState() => _XpFlyUpState();
 }
 
 class _XpFlyUpState extends State<XpFlyUp> with SingleTickerProviderStateMixin {
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 1100),
-  )..forward();
+  late final AnimationController _c;
+  Timer? _reducedMotionTimer;
+  bool? _motionDisabled;
+  bool _completed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _c = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1100),
+    )..addStatusListener(_handleStatus);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = context.motionDisabled;
+    if (disabled == _motionDisabled || _completed) return;
+    _motionDisabled = disabled;
+    _reducedMotionTimer?.cancel();
+    if (disabled) {
+      // The static label remains readable, but no invisible controller ticks.
+      _c.stop();
+      _c.reset();
+      _reducedMotionTimer = Timer(
+        AppMotion.reducedFeedbackHold,
+        _notifyCompleted,
+      );
+    } else {
+      _c.forward(from: 0);
+    }
+  }
+
+  void _handleStatus(AnimationStatus status) {
+    if (status == AnimationStatus.completed) _notifyCompleted();
+  }
+
+  void _notifyCompleted() {
+    if (_completed || !mounted) return;
+    _completed = true;
+    widget.onCompleted();
+  }
 
   @override
   void dispose() {
+    _reducedMotionTimer?.cancel();
+    _c.removeStatusListener(_handleStatus);
     _c.dispose();
     super.dispose();
   }
@@ -271,7 +327,7 @@ class _XpFlyUpState extends State<XpFlyUp> with SingleTickerProviderStateMixin {
       ),
     );
 
-    if (MediaQuery.disableAnimationsOf(context)) return text;
+    if (_motionDisabled ?? context.motionDisabled) return text;
 
     return AnimatedBuilder(
       animation: _c,
@@ -703,15 +759,21 @@ class _ListenPanelState extends State<ListenPanel>
     vsync: this,
     duration: const Duration(milliseconds: 2400),
   );
+  bool? _motionDisabled;
 
   @override
-  void initState() {
-    super.initState();
-    // Deferred to the first build so the reduced-motion check can gate it.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted || MediaQuery.disableAnimationsOf(context)) return;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = MediaQuery.disableAnimationsOf(context);
+    if (disabled == _motionDisabled) return;
+    _motionDisabled = disabled;
+    if (disabled) {
+      _pulse
+        ..stop()
+        ..value = 0;
+    } else {
       _pulse.repeat(reverse: true);
-    });
+    }
   }
 
   @override
@@ -1289,6 +1351,7 @@ class ScoreRing extends StatelessWidget {
     this.color,
     this.showBadge = true,
     this.size = 118,
+    this.animateOnMount = false,
   });
 
   /// 0–1. Drives the sweep, not the printed [label].
@@ -1298,89 +1361,100 @@ class ScoreRing extends StatelessWidget {
   final Color? color;
   final bool showBadge;
   final double size;
+  final bool animateOnMount;
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     final hue = color ?? t.greenInk;
     final inner = size - 20;
+    final percentLabel = RegExp(r'^\d+%$').hasMatch(label);
 
-    return SizedBox(
-      width: size,
-      height: size,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          SizedBox(
-            width: size,
-            height: size,
-            child: CircularProgressIndicator(
-              value: fraction.clamp(0.0, 1.0),
-              strokeWidth: 10,
-              // Flat ends: the comp draws these as conic sweeps, and a round
-              // cap makes a 0% ring show a stub of colour it has not earned.
-              strokeCap: StrokeCap.butt,
-              backgroundColor: t.elev,
-              valueColor: AlwaysStoppedAnimation(hue),
-            ),
-          ),
-          Center(
-            child: Container(
-              width: inner,
-              height: inner,
-              decoration: BoxDecoration(
-                color: t.card,
-                shape: BoxShape.circle,
-                border: Border.all(color: t.line),
+    return MotionValueBuilder(
+      value: fraction.clamp(0.0, 1.0),
+      initialValue: animateOnMount ? 0 : null,
+      duration: AppMotion.reward,
+      builder: (context, animatedFraction, _) {
+        final animatedLabel =
+            percentLabel ? '${(animatedFraction * 100).round()}%' : label;
+        return SizedBox(
+          width: size,
+          height: size,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              SizedBox(
+                width: size,
+                height: size,
+                child: CircularProgressIndicator(
+                  value: animatedFraction,
+                  strokeWidth: 10,
+                  // Flat ends: the comp draws these as conic sweeps, and a round
+                  // cap makes a 0% ring show a stub of colour it has not earned.
+                  strokeCap: StrokeCap.butt,
+                  backgroundColor: t.elev,
+                  valueColor: AlwaysStoppedAnimation(hue),
+                ),
               ),
-              // Pad in from the stroke, then let FittedBox shrink the pair
-              // rather than overflow the circle. The ring is a fixed size but
-              // the text inside it is not: it grows with the device's font
-              // scale, and the design system asks for 200% text scaling to
-              // work.
-              child: Padding(
-                padding: EdgeInsets.all(inner * 0.16),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        label,
-                        style: TextStyle(
-                          fontFamily: AppFonts.display,
-                          fontSize: 32,
-                          height: 1,
-                          fontWeight: FontWeight.w800,
-                          color: hue,
-                        ),
+              Center(
+                child: Container(
+                  width: inner,
+                  height: inner,
+                  decoration: BoxDecoration(
+                    color: t.card,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: t.line),
+                  ),
+                  // Pad in from the stroke, then let FittedBox shrink the pair
+                  // rather than overflow the circle. The ring is a fixed size but
+                  // the text inside it is not: it grows with the device's font
+                  // scale, and the design system asks for 200% text scaling to
+                  // work.
+                  child: Padding(
+                    padding: EdgeInsets.all(inner * 0.16),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            animatedLabel,
+                            style: TextStyle(
+                              fontFamily: AppFonts.display,
+                              fontSize: 32,
+                              height: 1,
+                              fontWeight: FontWeight.w800,
+                              color: hue,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          LessonKicker(caption, color: t.muted),
+                        ],
                       ),
-                      const SizedBox(height: 3),
-                      LessonKicker(caption, color: t.muted),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-          if (showBadge)
-            Positioned(
-              right: -6,
-              bottom: -4,
-              child: Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: t.card,
-                  shape: BoxShape.circle,
-                  border: Border.all(color: hue, width: 2.5),
-                  boxShadow: t.shadow,
+              if (showBadge)
+                Positioned(
+                  right: -6,
+                  bottom: -4,
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: t.card,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: hue, width: 2.5),
+                      boxShadow: t.shadow,
+                    ),
+                    child: Icon(Icons.check, size: 20, color: hue),
+                  ),
                 ),
-                child: Icon(Icons.check, size: 20, color: hue),
-              ),
-            ),
-        ],
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -1462,86 +1536,6 @@ class StatCell {
   final String value;
   final String label;
   final Color? color;
-}
-
-/// Shakes its child once, horizontally — the wrong-answer tell.
-///
-/// Under reduced motion the shake becomes a coral outline flash, as the design
-/// system requires of every named animation.
-class ShakeOnce extends StatefulWidget {
-  const ShakeOnce({super.key, required this.child, required this.trigger});
-
-  final Widget child;
-
-  /// Change this value to replay the shake.
-  final Object? trigger;
-
-  @override
-  State<ShakeOnce> createState() => _ShakeOnceState();
-}
-
-class _ShakeOnceState extends State<ShakeOnce>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 420),
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.trigger != null) _c.forward(from: 0);
-  }
-
-  @override
-  void didUpdateWidget(covariant ShakeOnce old) {
-    super.didUpdateWidget(old);
-    if (old.trigger != widget.trigger && widget.trigger != null) {
-      _c.forward(from: 0);
-    }
-  }
-
-  @override
-  void dispose() {
-    _c.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-
-    if (MediaQuery.disableAnimationsOf(context)) {
-      return AnimatedBuilder(
-        animation: _c,
-        builder: (context, child) {
-          final flashing = widget.trigger != null && _c.value < 1;
-          return Container(
-            foregroundDecoration:
-                flashing
-                    ? BoxDecoration(
-                      border: Border.all(color: t.redInk, width: 2),
-                      borderRadius: BorderRadius.circular(24),
-                    )
-                    : null,
-            child: child,
-          );
-        },
-        child: widget.child,
-      );
-    }
-
-    return AnimatedBuilder(
-      animation: _c,
-      builder: (context, child) {
-        // Four decaying swings, matching the handoff's shakeX keyframes.
-        final v = _c.value;
-        final dx = v >= 1 ? 0.0 : -9 * (1 - v) * math.sin(v * 4 * math.pi);
-        return Transform.translate(offset: Offset(dx, 0), child: child);
-      },
-      child: widget.child,
-    );
-  }
 }
 
 /// Playback speed, shown as three visible choices rather than hidden behind a
@@ -1649,7 +1643,7 @@ class _SpeedSegment extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(11),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
+          duration: context.motionDuration(AppMotion.selection),
           height: 38,
           alignment: Alignment.center,
           decoration: BoxDecoration(

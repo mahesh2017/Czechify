@@ -9,11 +9,18 @@ import 'package:flutter_test/flutter_test.dart';
 /// Badges were written to the database and never mentioned. These pin that
 /// they now reach the learner, and that the badge set is worth reaching for.
 void main() {
-  Future<void> show(WidgetTester tester, Celebration celebration) async {
+  Future<void> show(
+    WidgetTester tester,
+    Celebration celebration, {
+    bool reduceMotion = false,
+  }) async {
     await tester.pumpWidget(
       MaterialApp(
         theme: lightTheme(),
-        home: Scaffold(body: RewardToast(celebration: celebration)),
+        home: MediaQuery(
+          data: MediaQueryData(disableAnimations: reduceMotion),
+          child: Scaffold(body: RewardToast(celebration: celebration)),
+        ),
       ),
     );
     await tester.pump(const Duration(milliseconds: 500));
@@ -38,6 +45,43 @@ void main() {
     await show(tester, const StreakExtended(days: 7));
     expect(find.textContaining('7-day streak'), findsOneWidget);
     expect(find.textContaining('tomorrow'), findsOneWidget);
+  });
+
+  testWidgets('reduce motion does not leave an entry ticker running', (
+    tester,
+  ) async {
+    await show(tester, const StreakExtended(days: 7), reduceMotion: true);
+    expect(tester.binding.transientCallbackCount, 0);
+  });
+
+  testWidgets('reduce motion turned on mid-entry finishes the toast', (
+    tester,
+  ) async {
+    Widget toast({required bool reduceMotion}) => MaterialApp(
+      theme: lightTheme(),
+      home: MediaQuery(
+        data: MediaQueryData(disableAnimations: reduceMotion),
+        child: const Scaffold(
+          body: RewardToast(celebration: StreakExtended(days: 7)),
+        ),
+      ),
+    );
+
+    await tester.pumpWidget(toast(reduceMotion: false));
+    await tester.pump(const Duration(milliseconds: 40));
+    final midEntry = tester.widget<Opacity>(find.byType(Opacity).first);
+    expect(midEntry.opacity, lessThan(1));
+
+    // Switching the setting on mid-entry has to land the toast where it was
+    // heading rather than leaving it part-way in and half-transparent.
+    await tester.pumpWidget(toast(reduceMotion: true));
+    await tester.pump();
+
+    expect(tester.widget<Opacity>(find.byType(Opacity).first).opacity, 1);
+    expect(find.textContaining('7-day streak'), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(tester.binding.transientCallbackCount, 0);
   });
 
   group('the badge set has no long empty stretches', () {

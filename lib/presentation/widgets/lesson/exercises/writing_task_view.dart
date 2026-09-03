@@ -5,6 +5,7 @@ import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 import '../../../../domain/engines/writing_word_gate.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/motion_widgets.dart';
 import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
 
@@ -184,60 +185,73 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                       ),
                     ),
                   ],
-                  if (_keyVocab != null &&
-                      _keyVocab!.isNotEmpty &&
-                      _showKeyVocab) ...[
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: t.amberSoft,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.writingTryUsing,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: t.amberInk,
-                            ),
+                  MotionDisclosure(
+                    visible:
+                        _keyVocab != null &&
+                        _keyVocab!.isNotEmpty &&
+                        _showKeyVocab,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: t.amberSoft,
+                            borderRadius: BorderRadius.circular(16),
                           ),
-                          const SizedBox(height: 8),
-                          Wrap(
-                            spacing: 6,
-                            runSpacing: 6,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              for (final v in _keyVocab!)
-                                PillChip(label: v, bg: t.card, fg: t.ink),
+                              Text(
+                                l10n.writingTryUsing,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: t.amberInk,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
+                                children: [
+                                  for (final v in _keyVocab ?? const <String>[])
+                                    PillChip(label: v, bg: t.card, fg: t.ink),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                  ],
-
-                  if (_revisionStage && !answered) ...[
-                    Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: t.violetSoft,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        l10n.writingReviseNote,
-                        style: TextStyle(
-                          fontSize: 14.5,
-                          height: 1.5,
-                          color: t.ink,
                         ),
-                      ),
+                        const SizedBox(height: 14),
+                      ],
                     ),
-                    const SizedBox(height: 14),
-                  ],
+                  ),
+
+                  MotionDisclosure(
+                    visible: _revisionStage && !answered,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: t.violetSoft,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Text(
+                            l10n.writingReviseNote,
+                            style: TextStyle(
+                              fontSize: 14.5,
+                              height: 1.5,
+                              color: t.ink,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 14),
+                      ],
+                    ),
+                  ),
 
                   // The page to write on: paper-like, and the tallest thing here.
                   // It grows with the answer rather than filling the viewport, so a
@@ -286,137 +300,153 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                       ),
                     ),
                   // Feedback after submission
-                  if (answered) ...[
-                    const SizedBox(height: 12),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: _isCorrect ? t.greenSoft : t.redSoft,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
+                  if (answered)
+                    MotionEntrance(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                _isCorrect ? Icons.check_circle : Icons.cancel,
-                                color: _isCorrect ? t.greenInk : t.redInk,
-                                size: 22,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  // Not "Good!"/"Needs improvement": nothing here read
-                                  // the writing. This path is a keyword comparison, and
-                                  // the verdict should not imply more than that.
-                                  widget.exercise.answerKey == null
-                                      ? l10n.writingCycleComplete
-                                      : _isCorrect
-                                      ? AppLocalizations.of(
-                                        context,
-                                      ).writingKeyPhrasesFound
-                                      : AppLocalizations.of(
-                                        context,
-                                      ).writingKeyPhrasesMissing,
-                                  style: TextStyle(
-                                    fontFamily: AppFonts.display,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800,
-                                    color: _isCorrect ? t.greenInk : t.redInk,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            _feedbackText,
-                            style: TextStyle(
-                              fontSize: 15,
-                              height: 1.5,
-                              color: t.ink,
+                          const SizedBox(height: 12),
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: _isCorrect ? t.greenSoft : t.redSoft,
+                              borderRadius: BorderRadius.circular(24),
                             ),
-                          ),
-                          if (widget.exercise.answerKey != null) ...[
-                            const SizedBox(height: 8),
-                            Text(
-                              AppLocalizations.of(
-                                context,
-                              ).writingKeywordCheckNote,
-                              style: TextStyle(
-                                fontSize: 13,
-                                height: 1.45,
-                                color: t.muted,
-                              ),
-                            ),
-                          ],
-                          if (_minWords != null) ...[
-                            const SizedBox(height: 8),
-                            Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
-                                  _meetsMinWords ? Icons.check : Icons.close,
-                                  size: 15,
-                                  color: _meetsMinWords ? t.greenInk : t.redInk,
+                                Row(
+                                  children: [
+                                    Icon(
+                                      _isCorrect
+                                          ? Icons.check_circle
+                                          : Icons.cancel,
+                                      color: _isCorrect ? t.greenInk : t.redInk,
+                                      size: 22,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        // Not "Good!"/"Needs improvement": nothing here read
+                                        // the writing. This path is a keyword comparison, and
+                                        // the verdict should not imply more than that.
+                                        widget.exercise.answerKey == null
+                                            ? l10n.writingCycleComplete
+                                            : _isCorrect
+                                            ? AppLocalizations.of(
+                                              context,
+                                            ).writingKeyPhrasesFound
+                                            : AppLocalizations.of(
+                                              context,
+                                            ).writingKeyPhrasesMissing,
+                                        style: TextStyle(
+                                          fontFamily: AppFonts.display,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w800,
+                                          color:
+                                              _isCorrect
+                                                  ? t.greenInk
+                                                  : t.redInk,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 5),
+                                const SizedBox(height: 8),
                                 Text(
-                                  l10n.writingWordCountMin(
-                                    _wordCount,
-                                    _minWords!,
-                                  ),
+                                  _feedbackText,
                                   style: TextStyle(
-                                    fontSize: 13,
-                                    color: t.muted,
+                                    fontSize: 15,
+                                    height: 1.5,
+                                    color: t.ink,
                                   ),
                                 ),
+                                if (widget.exercise.answerKey != null) ...[
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    ).writingKeywordCheckNote,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      height: 1.45,
+                                      color: t.muted,
+                                    ),
+                                  ),
+                                ],
+                                if (_minWords != null) ...[
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        _meetsMinWords
+                                            ? Icons.check
+                                            : Icons.close,
+                                        size: 15,
+                                        color:
+                                            _meetsMinWords
+                                                ? t.greenInk
+                                                : t.redInk,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        l10n.writingWordCountMin(
+                                          _wordCount,
+                                          _minWords!,
+                                        ),
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: t.muted,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ],
                             ),
+                          ),
+
+                          // Show sample/reference answer if available
+                          if (_sampleAnswer != null || _answerKey != null) ...[
+                            const SizedBox(height: 12),
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: t.card,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: t.line),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  LessonKicker(
+                                    l10n.writingReferenceAnswer,
+                                    color: t.pri,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    _sampleAnswer ?? _answerKey!,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      height: 1.55,
+                                      color: t.ink,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
+
+                          // Retry button
+                          const SizedBox(height: 12),
+                          OutlinedButton.icon(
+                            onPressed: _retry,
+                            icon: const Icon(Icons.refresh, size: 18),
+                            label: Text(AppLocalizations.of(context).tryAgain),
+                          ),
                         ],
                       ),
                     ),
-
-                    // Show sample/reference answer if available
-                    if (_sampleAnswer != null || _answerKey != null) ...[
-                      const SizedBox(height: 12),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: t.card,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: t.line),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            LessonKicker(
-                              l10n.writingReferenceAnswer,
-                              color: t.pri,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              _sampleAnswer ?? _answerKey!,
-                              style: TextStyle(
-                                fontSize: 15,
-                                height: 1.55,
-                                color: t.ink,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-
-                    // Retry button
-                    const SizedBox(height: 12),
-                    OutlinedButton.icon(
-                      onPressed: _retry,
-                      icon: const Icon(Icons.refresh, size: 18),
-                      label: Text(AppLocalizations.of(context).tryAgain),
-                    ),
-                  ],
                 ],
               ),
             ),

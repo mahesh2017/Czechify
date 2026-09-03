@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../widgets/common/soft_ui.dart';
@@ -9,6 +10,7 @@ import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/unit.dart';
 import '../../../domain/entities/lesson.dart';
 import '../../providers/settings_providers.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../models/curriculum_path_item.dart';
 
@@ -33,6 +35,10 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
   List<GlobalKey> _unitKeys = const [];
   final _listKey = GlobalKey();
   int _activeUnit = 0;
+  bool _layoutChangedLive = false;
+  bool _railHasMoved = false;
+  Set<int>? _knownUnlockedIds;
+  final Set<int> _liveUnlockedIds = {};
 
   @override
   void dispose() {
@@ -62,7 +68,10 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
       if (dy <= 24) active = i;
     }
     if (active != _activeUnit) {
-      setState(() => _activeUnit = active);
+      setState(() {
+        _activeUnit = active;
+        _railHasMoved = true;
+      });
       _centreChip(active);
     }
   }
@@ -77,14 +86,15 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
         chipExtent;
     _railController.animateTo(
       target.clamp(0.0, _railController.position.maxScrollExtent),
-      duration: const Duration(milliseconds: 260),
-      curve: Curves.easeOutCubic,
+      duration: context.motionDuration(AppMotion.content),
+      curve: AppMotion.enter,
     );
   }
 
   Future<void> _jumpToUnit(int index) async {
     // The active unit is derived from the scroll position, not set here —
     // otherwise the header can claim a unit the scroll never reached.
+    setState(() => _railHasMoved = true);
     _centreChip(index);
     final target = _unitKeys.length > index ? _unitKeys[index] : null;
     if (target == null) return;
@@ -108,9 +118,14 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
     await Scrollable.ensureVisible(
       settled,
       alignment: 0,
-      duration: const Duration(milliseconds: 320),
-      curve: Curves.easeOutCubic,
+      duration: context.motionDuration(AppMotion.reveal),
+      curve: AppMotion.enter,
     );
+  }
+
+  void _changeMapView(bool value) {
+    setState(() => _layoutChangedLive = true);
+    ref.read(settingsProvider.notifier).setCurriculumMapView(value);
   }
 
   @override
@@ -119,6 +134,15 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
     final l10n = AppLocalizations.of(context);
     final pathAsync = ref.watch(curriculumPathItemsProvider);
     final unlockedIdsAsync = ref.watch(unlockedUnitIdsProvider);
+    ref.listen(unlockedUnitIdsProvider, (_, next) {
+      final ids = next.asData?.value;
+      if (ids == null) return;
+      final previous = _knownUnlockedIds;
+      if (previous != null) {
+        _liveUnlockedIds.addAll(ids.difference(previous));
+      }
+      _knownUnlockedIds = Set.of(ids);
+    });
     final level = ref.watch(
       settingsProvider.select((settings) => settings.startingLevel),
     );
@@ -224,10 +248,7 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                             ),
                             _ViewToggle(
                               mapView: mapView,
-                              onChanged:
-                                  (value) => ref
-                                      .read(settingsProvider.notifier)
-                                      .setCurriculumMapView(value),
+                              onChanged: _changeMapView,
                             ),
                           ],
                         ),
@@ -262,6 +283,11 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                                 unlocked: unlockedIds.contains(
                                   shown[index].unit.id,
                                 ),
+                                animateChange:
+                                    _railHasMoved ||
+                                    _liveUnlockedIds.contains(
+                                      shown[index].unit.id,
+                                    ),
                                 onTap: () => _jumpToUnit(index),
                               );
                             },
@@ -279,88 +305,106 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                         }
                         return false;
                       },
-                      child: ListView(
-                        controller: _pathController,
-                        padding: const EdgeInsets.fromLTRB(20, 8, 20, 132),
-                        children: [
-                          if (shown.isEmpty)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 32),
-                              child: Text(
-                                l10n.curriculumAddingLessons,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 15, color: t.muted),
-                              ),
-                            ),
-                          // Numbered by position within the level, not by unit id. The
-                          // A1 capstones carry ids 28 and 30 (16-27 are A2 units), so
-                          // using the id printed "Unit 28" directly under "Unit 15" and
-                          // read as a numbering bug.
-                          if (mapView)
-                            for (final (index, item) in shown.indexed) ...[
-                              if (index == 0 ||
-                                  shown[index - 1].section != item.section)
-                                _SectionHeader(item.section),
-                              KeyedSubtree(
-                                key: _unitKeys[index],
-                                child: _PathUnit(
-                                  unit: item.unit,
-                                  number: index + 1,
-                                  isUnlocked: unlockedIds.contains(
-                                    item.unit.id,
+                      child: MotionEntrance(
+                        key: ValueKey('curriculum-layout-$mapView'),
+                        animateOnMount: _layoutChangedLive,
+                        offset: Offset(mapView ? -.025 : .025, 0),
+                        duration: AppMotion.content,
+                        child: ListView(
+                          controller: _pathController,
+                          padding: const EdgeInsets.fromLTRB(20, 8, 20, 132),
+                          children: [
+                            if (shown.isEmpty)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 32,
+                                ),
+                                child: Text(
+                                  l10n.curriculumAddingLessons,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: t.muted,
                                   ),
-                                  palette: _UnitPalette.of(t, index),
                                 ),
                               ),
-                            ]
-                          else
-                            for (final (index, item) in shown.indexed) ...[
-                              if (index == 0 ||
-                                  shown[index - 1].section != item.section)
-                                _SectionHeader(item.section),
-                              KeyedSubtree(
-                                key: _unitKeys[index],
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 12),
-                                  child: _UnitCard(
+                            // Numbered by position within the level, not by unit id. The
+                            // A1 capstones carry ids 28 and 30 (16-27 are A2 units), so
+                            // using the id printed "Unit 28" directly under "Unit 15" and
+                            // read as a numbering bug.
+                            if (mapView)
+                              for (final (index, item) in shown.indexed) ...[
+                                if (index == 0 ||
+                                    shown[index - 1].section != item.section)
+                                  _SectionHeader(item.section),
+                                KeyedSubtree(
+                                  key: _unitKeys[index],
+                                  child: _PathUnit(
                                     unit: item.unit,
                                     number: index + 1,
                                     isUnlocked: unlockedIds.contains(
                                       item.unit.id,
                                     ),
+                                    animateUnlock: _liveUnlockedIds.contains(
+                                      item.unit.id,
+                                    ),
                                     palette: _UnitPalette.of(t, index),
                                   ),
                                 ),
+                              ]
+                            else
+                              for (final (index, item) in shown.indexed) ...[
+                                if (index == 0 ||
+                                    shown[index - 1].section != item.section)
+                                  _SectionHeader(item.section),
+                                KeyedSubtree(
+                                  key: _unitKeys[index],
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 12),
+                                    child: _UnitCard(
+                                      unit: item.unit,
+                                      number: index + 1,
+                                      isUnlocked: unlockedIds.contains(
+                                        item.unit.id,
+                                      ),
+                                      animateUnlock: _liveUnlockedIds.contains(
+                                        item.unit.id,
+                                      ),
+                                      palette: _UnitPalette.of(t, index),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            const SizedBox(height: 8),
+                            // Finishing A1 used to end in a sentence saying A2
+                            // opens, with nothing to open it. The level lives in
+                            // Settings, and a learner who has just finished a
+                            // level is not going to go looking there — so the
+                            // moment they finish is the moment we offer it.
+                            if (phase == Phase.a1 &&
+                                shown.isNotEmpty &&
+                                shown.every(
+                                  (item) =>
+                                      item.state ==
+                                      CurriculumPathState.completed,
+                                ))
+                              _NextLevelPrompt(
+                                onTap: () => context.push('/settings'),
+                              )
+                            else
+                              Text(
+                                phase == Phase.a1
+                                    ? l10n.curriculumA1Complete
+                                    : l10n.curriculumA2Complete,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: t.muted,
+                                  fontSize: 14,
+                                  height: 1.5,
+                                ),
                               ),
-                            ],
-                          const SizedBox(height: 8),
-                          // Finishing A1 used to end in a sentence saying A2
-                          // opens, with nothing to open it. The level lives in
-                          // Settings, and a learner who has just finished a
-                          // level is not going to go looking there — so the
-                          // moment they finish is the moment we offer it.
-                          if (phase == Phase.a1 &&
-                              shown.isNotEmpty &&
-                              shown.every(
-                                (item) =>
-                                    item.state == CurriculumPathState.completed,
-                              ))
-                            _NextLevelPrompt(
-                              onTap: () => context.push('/settings'),
-                            )
-                          else
-                            Text(
-                              phase == Phase.a1
-                                  ? l10n.curriculumA1Complete
-                                  : l10n.curriculumA2Complete,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: t.muted,
-                                fontSize: 14,
-                                height: 1.5,
-                              ),
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -399,12 +443,14 @@ class _UnitChip extends StatelessWidget {
     required this.number,
     required this.active,
     required this.unlocked,
+    required this.animateChange,
     required this.onTap,
   });
 
   final int number;
   final bool active;
   final bool unlocked;
+  final bool animateChange;
   final VoidCallback onTap;
 
   @override
@@ -423,9 +469,10 @@ class _UnitChip extends StatelessWidget {
           child: Center(
             child: AnimatedContainer(
               duration:
-                  MediaQuery.disableAnimationsOf(context)
-                      ? Duration.zero
-                      : const Duration(milliseconds: 250),
+                  animateChange
+                      ? context.motionDuration(AppMotion.selection)
+                      : Duration.zero,
+              curve: AppMotion.enter,
               width: 30,
               height: 30,
               alignment: Alignment.center,
@@ -537,10 +584,8 @@ class _ViewToggleButton extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: AnimatedContainer(
-          duration:
-              MediaQuery.disableAnimationsOf(context)
-                  ? Duration.zero
-                  : const Duration(milliseconds: 200),
+          duration: context.motionDuration(AppMotion.selection),
+          curve: AppMotion.enter,
           // Drawn small, as the comp does, with the 44pt target coming from
           // the opaque hit region around it rather than from the pill.
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 7),
@@ -569,12 +614,14 @@ class _PathUnit extends ConsumerWidget {
     required this.unit,
     required this.number,
     required this.isUnlocked,
+    required this.animateUnlock,
     required this.palette,
   });
 
   final Unit unit;
   final int number;
   final bool isUnlocked;
+  final bool animateUnlock;
   final _UnitPalette palette;
 
   @override
@@ -597,7 +644,12 @@ class _PathUnit extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          AnimatedContainer(
+            duration:
+                animateUnlock
+                    ? context.motionDuration(AppMotion.content)
+                    : Duration.zero,
+            curve: AppMotion.enter,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
@@ -923,6 +975,7 @@ class _UnitCard extends ConsumerWidget {
     required this.unit,
     required this.number,
     required this.isUnlocked,
+    required this.animateUnlock,
     required this.palette,
   });
   final Unit unit;
@@ -931,6 +984,7 @@ class _UnitCard extends ConsumerWidget {
   /// where this is built.
   final int number;
   final bool isUnlocked;
+  final bool animateUnlock;
   final _UnitPalette palette;
 
   @override
@@ -956,7 +1010,12 @@ class _UnitCard extends ConsumerWidget {
             ? Icons.check_circle
             : Icons.play_arrow_rounded;
 
-    return Container(
+    return AnimatedContainer(
+      duration:
+          animateUnlock
+              ? context.motionDuration(AppMotion.content)
+              : Duration.zero,
+      curve: AppMotion.enter,
       decoration: BoxDecoration(
         color: t.card,
         borderRadius: BorderRadius.circular(24),

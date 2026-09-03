@@ -13,6 +13,7 @@ import '../../providers/learner_profile_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../screens/lesson/delayed_transfer_screen.dart'
     show dueTransferProvider;
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../widgets/home/streak_state_sheet.dart';
@@ -43,23 +44,24 @@ class HomeScreen extends ConsumerWidget {
     // focused widget tests intentionally mount Home without the full app
     // bootstrap; do not open a second Drift stream just for the optional
     // personalization card in that reduced harness.
-    final learnerProfile = ref.exists(learnerProfileRepositoryProvider)
-        ? ref.watch(learnerProfileProvider)
-        : const AsyncValue.data(null);
+    final learnerProfile =
+        ref.exists(learnerProfileRepositoryProvider)
+            ? ref.watch(learnerProfileProvider)
+            : const AsyncValue.data(null);
     final hour = DateTime.now().hour;
     // Deliberately not localised. This is the language being taught, not app
     // chrome — the learner meets "Dobré ráno" here before any lesson teaches
     // it, in whichever locale they run the app. Flagged in review as an
     // inconsistency next to the localised weekday below; recorded here as a
     // choice so it is not "fixed" into English by the next reader.
-    final greeting = hour < 12
-        ? 'Dobré ráno'
-        : hour < 18
-        ? 'Dobré odpoledne'
-        : 'Dobrý večer';
-    final name = settings.learnerName.isNotEmpty
-        ? settings.learnerName
-        : 'Czechify';
+    final greeting =
+        hour < 12
+            ? 'Dobré ráno'
+            : hour < 18
+            ? 'Dobré odpoledne'
+            : 'Dobrý večer';
+    final name =
+        settings.learnerName.isNotEmpty ? settings.learnerName : 'Czechify';
     final weekday = DateFormat.EEEE(
       Localizations.localeOf(context).toLanguageTag(),
     ).format(DateTime.now());
@@ -138,11 +140,12 @@ class HomeScreen extends ConsumerWidget {
                               ).homeDayStreak(g.currentStreak),
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(999),
-                                onTap: () => showStreakStateSheet(
-                                  context,
-                                  streak: g.currentStreak,
-                                  freezeAvailable: g.streakFreezeAvailable,
-                                ),
+                                onTap:
+                                    () => showStreakStateSheet(
+                                      context,
+                                      streak: g.currentStreak,
+                                      freezeAvailable: g.streakFreezeAvailable,
+                                    ),
                                 child: Container(
                                   width: 44,
                                   height: 44,
@@ -192,9 +195,10 @@ class HomeScreen extends ConsumerWidget {
                             const SizedBox(width: 8),
                             Semantics(
                               button: true,
-                              label: updateAvailable
-                                  ? '${l10n.a11ySettings}. ${l10n.updateAvailableTitle}'
-                                  : l10n.a11ySettings,
+                              label:
+                                  updateAvailable
+                                      ? '${l10n.a11ySettings}. ${l10n.updateAvailableTitle}'
+                                      : l10n.a11ySettings,
                               child: InkWell(
                                 onTap: () => context.push('/settings'),
                                 borderRadius: BorderRadius.circular(999),
@@ -311,9 +315,10 @@ class HomeScreen extends ConsumerWidget {
                     tint: t.redSoft,
                     fg: t.redInk,
                     title: l10n.homeSpeakTitle,
-                    subtitle: dueCount > 0
-                        ? l10n.homeSpeakReviews(dueCount)
-                        : l10n.homeSpeakSound,
+                    subtitle:
+                        dueCount > 0
+                            ? l10n.homeSpeakReviews(dueCount)
+                            : l10n.homeSpeakSound,
                     onTap: () => context.push('/pronunciation/practice'),
                   ),
                   const SizedBox(height: 12),
@@ -418,9 +423,8 @@ class _DailyGoalHero extends StatelessWidget {
     final dark = Theme.of(context).brightness == Brightness.dark;
     final freezeTint = dark ? _freezeTintDark : _freezeTintLight;
     final freezeInk = dark ? _freezeInkDark : _freezeInkLight;
-    final progress = dailyGoalXp > 0
-        ? (dailyXp / dailyGoalXp).clamp(0.0, 1.0)
-        : 0.0;
+    final progress =
+        dailyGoalXp > 0 ? (dailyXp / dailyGoalXp).clamp(0.0, 1.0) : 0.0;
     // The rule between the goal and the streak runs edge to edge, so the
     // card carries no padding of its own and each block pads itself.
     return SoftCard(
@@ -434,36 +438,40 @@ class _DailyGoalHero extends StatelessWidget {
               children: [
                 SizedBox.square(
                   dimension: 76,
-                  child: CustomPaint(
-                    painter: _GoalRingPainter(
-                      progress: progress,
-                      track: t.elev,
-                      fill: t.pri,
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '$dailyXp',
-                            style: TextStyle(
-                              fontFamily: AppFonts.display,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800,
-                              color: t.ink,
+                  child: MotionValueBuilder(
+                    value: progress,
+                    builder:
+                        (context, animatedProgress, _) => CustomPaint(
+                          painter: _GoalRingPainter(
+                            progress: animatedProgress,
+                            track: t.elev,
+                            fill: t.pri,
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                MotionNumberText(
+                                  dailyXp,
+                                  style: TextStyle(
+                                    fontFamily: AppFonts.display,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w800,
+                                    color: t.ink,
+                                  ),
+                                ),
+                                Text(
+                                  '/ $dailyGoalXp XP',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: t.faint,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            '/ $dailyGoalXp XP',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: t.faint,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -507,13 +515,17 @@ class _DailyGoalHero extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      l10n.streakDays(streak),
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: t.ink,
-                      ),
+                    MotionValueBuilder(
+                      value: streak.toDouble(),
+                      builder:
+                          (context, animated, _) => Text(
+                            l10n.streakDays(animated.round()),
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: t.ink,
+                            ),
+                          ),
                     ),
                     const Spacer(),
                     Container(
@@ -531,15 +543,19 @@ class _DailyGoalHero extends StatelessWidget {
                             color: freezeInk,
                           ),
                           const SizedBox(width: 5),
-                          Text(
-                            freezeAvailable
-                                ? l10n.homeFreezeLeft
-                                : l10n.homeTotalXp(totalXp),
-                            style: TextStyle(
-                              color: freezeInk,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
+                          MotionValueBuilder(
+                            value: totalXp.toDouble(),
+                            builder:
+                                (context, animated, _) => Text(
+                                  freezeAvailable
+                                      ? l10n.homeFreezeLeft
+                                      : l10n.homeTotalXp(animated.round()),
+                                  style: TextStyle(
+                                    color: freezeInk,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                           ),
                         ],
                       ),
@@ -574,10 +590,11 @@ class _GoalRingPainter extends CustomPainter {
     final radius = size.shortestSide / 2 - 4;
     // A conic donut in the comp, not a stroked arc: 8pt between the 76pt
     // outer and 60pt inner circles, with flat ends.
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 8
-      ..strokeCap = StrokeCap.butt;
+    final paint =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 8
+          ..strokeCap = StrokeCap.butt;
     canvas.drawCircle(center, radius, paint..color = track);
     if (progress > 0) {
       canvas.drawArc(
@@ -628,46 +645,49 @@ class _WeekStrip extends StatelessWidget {
               height: 38,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: done
-                    ? Color.lerp(t.amber, t.card, .84)
-                    : current
-                    ? t.card
-                    : Colors.transparent,
+                color:
+                    done
+                        ? Color.lerp(t.amber, t.card, .84)
+                        : current
+                        ? t.card
+                        : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   width: 1.5,
-                  color: current
-                      ? t.pri
-                      : done
-                      ? t.amber.withValues(alpha: .26)
-                      : t.line,
+                  color:
+                      current
+                          ? t.pri
+                          : done
+                          ? t.amber.withValues(alpha: .26)
+                          : t.line,
                 ),
               ),
-              child: done
-                  ? Icon(Icons.check_rounded, size: 18, color: t.amber)
-                  : current
-                  ? Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: t.pri,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: t.pri.withValues(alpha: .12),
-                            spreadRadius: 4,
-                          ),
-                        ],
+              child:
+                  done
+                      ? Icon(Icons.check_rounded, size: 18, color: t.amber)
+                      : current
+                      ? Container(
+                        width: 8,
+                        height: 8,
+                        decoration: BoxDecoration(
+                          color: t.pri,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: t.pri.withValues(alpha: .12),
+                              spreadRadius: 4,
+                            ),
+                          ],
+                        ),
+                      )
+                      : Text(
+                        '${monday.add(Duration(days: index)).day}',
+                        style: TextStyle(
+                          color: t.faint,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    )
-                  : Text(
-                      '${monday.add(Duration(days: index)).day}',
-                      style: TextStyle(
-                        color: t.faint,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
             ),
             const SizedBox(height: 7),
             Text(
@@ -695,30 +715,32 @@ class _ContinueLearningCard extends ConsumerWidget {
     final nextAsync = ref.watch(nextLessonProvider);
 
     return nextAsync.when(
-      loading: () => SoftCard(
-        child: Row(
-          children: [
-            const SizedBox(
-              width: 22,
-              height: 22,
-              child: CircularProgressIndicator(strokeWidth: 2),
+      loading:
+          () => SoftCard(
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 22,
+                  height: 22,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+                const SizedBox(width: 14),
+                Text(
+                  AppLocalizations.of(context).homeLoading,
+                  style: TextStyle(color: t.muted),
+                ),
+              ],
             ),
-            const SizedBox(width: 14),
-            Text(
-              AppLocalizations.of(context).homeLoading,
-              style: TextStyle(color: t.muted),
-            ),
-          ],
-        ),
-      ),
-      error: (_, __) => _ShortcutRow(
-        icon: Icons.school_outlined,
-        tint: t.priSoft,
-        fg: t.pri,
-        title: AppLocalizations.of(context).homeBrowseCurriculum,
-        subtitle: AppLocalizations.of(context).homeStartFirstLesson,
-        onTap: () => context.go('/curriculum'),
-      ),
+          ),
+      error:
+          (_, __) => _ShortcutRow(
+            icon: Icons.school_outlined,
+            tint: t.priSoft,
+            fg: t.pri,
+            title: AppLocalizations.of(context).homeBrowseCurriculum,
+            subtitle: AppLocalizations.of(context).homeStartFirstLesson,
+            onTap: () => context.go('/curriculum'),
+          ),
       data: (next) {
         if (next == null) {
           return _ShortcutRow(
@@ -858,9 +880,7 @@ class _MethodOfDay extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.fromLTRB(2, 20, 2, 0),
-      decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: t.line)),
-      ),
+      decoration: BoxDecoration(border: Border(top: BorderSide(color: t.line))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -1095,8 +1115,9 @@ class _DueTransfers extends ConsumerWidget {
                       ).homeRetryLessonA11y(item.lessonId),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
-                        onTap: () =>
-                            context.push('/transfer/${item.assignmentId}'),
+                        onTap:
+                            () =>
+                                context.push('/transfer/${item.assignmentId}'),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 12,

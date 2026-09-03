@@ -75,26 +75,53 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/arrival',
         builder: (context, state) => const DailyArrivalScreen(),
       ),
-      // Tab destinations live inside the adaptive shell.
-      ShellRoute(
-        builder: (context, state, child) => AdaptiveScaffold(child: child),
-        routes: [
-          GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-          GoRoute(
-            path: '/curriculum',
-            builder: (context, state) => const CurriculumScreen(),
+      // Each tab owns a Navigator. Switching tabs therefore keeps its route
+      // stack, scroll positions and local widget state alive in the indexed
+      // shell instead of rebuilding the destination from scratch.
+      StatefulShellRoute.indexedStack(
+        builder:
+            (context, state, navigationShell) =>
+                AdaptiveScaffold(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/',
+                builder: (context, state) => const HomeScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/review',
-            builder: (context, state) => const SrsReviewScreen(),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/curriculum',
+                builder: (context, state) => const CurriculumScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/chat',
-            builder: (context, state) => const ChatScreen(),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/review',
+                builder: (context, state) => const SrsReviewScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/stats',
-            builder: (context, state) => const StatsScreen(),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/chat',
+                builder: (context, state) => const ChatScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/stats',
+                builder: (context, state) => const StatsScreen(),
+              ),
+            ],
           ),
         ],
       ),

@@ -3,9 +3,6 @@ import 'package:czechify/core/feedback/sfx.dart';
 import 'package:czechify/presentation/providers/feedback_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'feedback_service_test.dart' show RecordingHaptics, RecordingSfxPlayer;
 
 /// Finishing the second lesson of a unit can complete the unit *and* earn a
 /// badge in the same frame. These pin what happens when celebrations collide.
@@ -13,23 +10,13 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late ProviderContainer container;
-  late RecordingSfxPlayer player;
-  late RecordingHaptics haptics;
   late CelebrationQueue queue;
 
   /// Read fresh each time — the notifier replaces the state object.
   CelebrationState state() => container.read(celebrationQueueProvider);
 
   setUp(() {
-    SharedPreferences.setMockInitialValues({});
-    player = RecordingSfxPlayer();
-    haptics = RecordingHaptics();
-    container = ProviderContainer(
-      overrides: [
-        sfxPlayerProvider.overrideWithValue(player),
-        hapticDriverProvider.overrideWithValue(haptics),
-      ],
-    );
+    container = ProviderContainer();
     queue = container.read(celebrationQueueProvider.notifier);
   });
 
@@ -77,31 +64,18 @@ void main() {
     expect(state().isIdle, isTrue);
   });
 
-  test('each celebration is announced exactly once', () {
-    queue.fire(lesson);
-    queue.fire(unit);
-    queue.dismissCurrent();
-    queue.dismissCurrent();
-
-    expect(player.played, [Sfx.lessonComplete, Sfx.unitComplete]);
-  });
-
-  test('what you feel escalates with what you earned', () {
+  test('the feedback recipe escalates with what was earned', () {
     // A unit is the payoff; a badge rides alongside it. If both landed as the
     // same bump, the bigger achievement would not read as bigger.
-    queue.fire(unit);
-    queue.fire(badge);
-    queue.dismissCurrent();
-
-    expect(haptics.fired, [Haptic.double, Haptic.light]);
+    expect(recipeFor(unit).haptic, Haptic.double);
+    expect(recipeFor(badge).haptic, Haptic.light);
   });
 
-  test('a queued celebration stays silent until it reaches the screen', () {
-    // Otherwise three sounds fire at once and mix into noise, which is the
-    // whole reason these are serialized.
+  test('a queued celebration stays pending until it reaches the screen', () {
     queue.fire(lesson);
     queue.fire(unit);
-    expect(player.played, [Sfx.lessonComplete]);
+    expect(state().current, lesson);
+    expect(state().pending, [unit]);
   });
 
   group('duplicates', () {
@@ -111,7 +85,6 @@ void main() {
       queue.fire(lesson);
       queue.fire(lesson);
       expect(state().pending, isEmpty);
-      expect(player.played, hasLength(1));
     });
 
     test('re-firing one already queued is ignored', () {
@@ -142,7 +115,6 @@ void main() {
   test('dismissing an empty queue is harmless', () {
     queue.dismissCurrent();
     expect(state().isIdle, isTrue);
-    expect(player.played, isEmpty);
   });
 
   test('clearing drops everything, for leaving mid-ceremony', () {
@@ -158,6 +130,5 @@ void main() {
     queue.dismissCurrent();
     queue.fire(unit);
     expect(state().current, unit);
-    expect(player.played, [Sfx.lessonComplete, Sfx.unitComplete]);
   });
 }

@@ -1,9 +1,11 @@
 import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/core/feedback/sfx.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/presentation/providers/feedback_providers.dart';
 import 'package:czechify/presentation/widgets/celebration/celebration_host.dart';
 import 'package:czechify/presentation/widgets/celebration/confetti_layer.dart';
 import 'package:czechify/presentation/widgets/celebration/count_up_text.dart';
+import 'package:czechify/presentation/widgets/celebration/reward_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,13 +17,17 @@ import 'feedback_service_test.dart' show RecordingHaptics, RecordingSfxPlayer;
 
 void main() {
   late ProviderContainer container;
+  late RecordingSfxPlayer player;
+  late RecordingHaptics haptics;
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
+    player = RecordingSfxPlayer();
+    haptics = RecordingHaptics();
     container = ProviderContainer(
       overrides: [
-        sfxPlayerProvider.overrideWithValue(RecordingSfxPlayer()),
-        hapticDriverProvider.overrideWithValue(RecordingHaptics()),
+        sfxPlayerProvider.overrideWithValue(player),
+        hapticDriverProvider.overrideWithValue(haptics),
       ],
     );
   });
@@ -30,6 +36,12 @@ void main() {
 
   const lesson = LessonCompleted(lessonId: 3, xp: 40, correct: 10, total: 12);
   const unit = UnitCompleted(unitId: 2, unitNumber: 2, unitTitle: 'Greetings');
+  const badge = BadgeEarned(
+    badgeId: 'first',
+    name: 'First step',
+    icon: '⭐',
+    xpReward: 10,
+  );
 
   Future<void> mount(
     WidgetTester tester, {
@@ -66,6 +78,68 @@ void main() {
     expect(find.byType(ConfettiLayer), findsOneWidget);
   });
 
+  group('sensory timeline', () {
+    testWidgets('lesson feedback lands with the trophy impact', (tester) async {
+      await mount(tester);
+      fire(lesson);
+      await tester.pump();
+
+      expect(player.played, isEmpty);
+      expect(haptics.fired, isEmpty);
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(player.played, isEmpty);
+
+      await tester.pump(const Duration(milliseconds: 20));
+      expect(player.played, [Sfx.lessonComplete]);
+      expect(haptics.fired, [Haptic.medium]);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('reduced motion gets immediate non-visual feedback', (
+      tester,
+    ) async {
+      await mount(tester, reduceMotion: true);
+      fire(lesson);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1));
+
+      expect(player.played, [Sfx.lessonComplete]);
+      expect(haptics.fired, [Haptic.medium]);
+      await tester.pump(const Duration(milliseconds: 2400));
+    });
+
+    testWidgets('enabling reduced motion finishes a pending impact promptly', (
+      tester,
+    ) async {
+      await mount(tester);
+      fire(lesson);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 250));
+      expect(player.played, isEmpty);
+
+      await mount(tester, reduceMotion: true);
+      await tester.pump(const Duration(milliseconds: 1));
+
+      expect(player.played, [Sfx.lessonComplete]);
+      await tester.pump(const Duration(milliseconds: 2200));
+    });
+
+    testWidgets('feedback is cancelled if its ceremony leaves before impact', (
+      tester,
+    ) async {
+      await mount(tester);
+      fire(lesson);
+      await tester.pump();
+
+      container.read(celebrationQueueProvider.notifier).dismissCurrent();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+
+      expect(player.played, isEmpty);
+      expect(haptics.fired, isEmpty);
+    });
+  });
+
   testWidgets('a finished lesson gets confetti', (tester) async {
     await mount(tester);
     expect(find.byType(ConfettiLayer), findsNothing);
@@ -80,17 +154,17 @@ void main() {
   group('how much confetti the result earns', () {
     Future<int> piecesFor(WidgetTester tester, int correct, int total) async {
       await mount(tester);
-      fire(
-        LessonCompleted(
-          lessonId: correct * 100 + total,
-          xp: 60,
-          correct: correct,
-          total: total,
-        ),
+      final celebration = LessonCompleted(
+        lessonId: correct * 100 + total,
+        xp: 60,
+        correct: correct,
+        total: total,
       );
+      fire(celebration);
       await tester.pump();
       final pieces =
           tester.widget<ConfettiLayer>(find.byType(ConfettiLayer)).pieces;
+      await tester.pump(recipeFor(celebration).autoDismiss!);
       await tester.pumpAndSettle();
       return pieces;
     }
@@ -128,6 +202,21 @@ void main() {
       expect(idle(), isTrue);
 
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('a self-dismissing reward gets a short visual exit', (
+      tester,
+    ) async {
+      await mount(tester);
+      fire(badge);
+      await tester.pump();
+      await tester.pump(recipeFor(badge).autoDismiss!);
+
+      expect(idle(), isTrue);
+      expect(find.byType(RewardToast), findsOneWidget);
+
+      await tester.pumpAndSettle();
+      expect(find.byType(RewardToast), findsNothing);
     });
 
     testWidgets('a rebuild does not restart the clock', (tester) async {
@@ -191,6 +280,43 @@ void main() {
     await tester.pump(const Duration(milliseconds: 2400));
   });
 
+  testWidgets('zero-piece confetti never starts an invisible ticker', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: const Scaffold(body: ConfettiLayer(pieces: 0)),
+      ),
+    );
+    await tester.pump();
+
+    expect(tester.binding.transientCallbackCount, 0);
+    await tester.pump(const Duration(seconds: 3));
+    expect(tester.binding.transientCallbackCount, 0);
+  });
+
+  testWidgets('delayed confetti schedules frames only at visual impact', (
+    tester,
+  ) async {
+    const delay = Duration(milliseconds: 500);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: const Scaffold(body: ConfettiLayer(pieces: 20, delay: delay)),
+      ),
+    );
+    await tester.pump();
+    expect(tester.binding.transientCallbackCount, 0);
+
+    await tester.pump(delay - const Duration(milliseconds: 1));
+    expect(tester.binding.transientCallbackCount, 0);
+
+    await tester.pump(const Duration(milliseconds: 1));
+    expect(tester.binding.transientCallbackCount, greaterThan(0));
+    await tester.pumpAndSettle();
+  });
+
   group('count-up', () {
     testWidgets('it starts below the total and lands on it', (tester) async {
       await tester.pumpWidget(
@@ -207,6 +333,36 @@ void main() {
       expect(find.text('40'), findsOneWidget);
     });
 
+    testWidgets('it waits for its containing result to be revealed', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: Scaffold(
+            body: Center(
+              child: CountUpText(
+                value: 40,
+                delay: Duration(milliseconds: 300),
+                duration: Duration(milliseconds: 400),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 299));
+      expect(find.text('0'), findsOneWidget);
+
+      await tester.pump(const Duration(milliseconds: 101));
+      expect(find.text('0'), findsNothing);
+      expect(find.text('40'), findsNothing);
+
+      await tester.pumpAndSettle();
+      expect(find.text('40'), findsOneWidget);
+    });
+
     testWidgets('reduce motion shows the total straight away', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
@@ -215,13 +371,20 @@ void main() {
           home: MediaQuery(
             data: MediaQueryData(disableAnimations: true),
             child: Scaffold(
-              body: Center(child: CountUpText(value: 40, prefix: '+')),
+              body: Center(
+                child: CountUpText(
+                  value: 40,
+                  prefix: '+',
+                  delay: Duration(seconds: 1),
+                ),
+              ),
             ),
           ),
         ),
       );
       await tester.pump();
       expect(find.text('+40'), findsOneWidget);
+      expect(tester.binding.transientCallbackCount, 0);
     });
   });
 }
