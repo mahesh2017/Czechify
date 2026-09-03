@@ -1,6 +1,9 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/unit.dart';
 import '../../providers/curriculum_providers.dart';
@@ -22,6 +25,10 @@ class GrammarReferenceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final unitsAsync = ref.watch(allUnitsProvider);
     final unlockedAsync = ref.watch(unlockedUnitIdsProvider);
+    final highlightedRule =
+        highlightRuleId == null
+            ? null
+            : ref.watch(grammarRuleByIdProvider(highlightRuleId!)).value;
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +37,16 @@ class GrammarReferenceScreen extends ConsumerWidget {
         ),
       ),
       body: unitsAsync.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading:
+            () => Center(
+              child:
+                  context.motionDisabled
+                      ? Icon(
+                        Icons.hourglass_top_rounded,
+                        color: context.tokens.muted,
+                      )
+                      : const CircularProgressIndicator(),
+            ),
         error:
             (_, __) => const Center(
               child: Padding(
@@ -52,7 +68,12 @@ class GrammarReferenceScreen extends ConsumerWidget {
                   unlocked == null ||
                   unlocked.contains(unit.id))
                 unit,
-          ]..sort((a, b) => b.orderIndex.compareTo(a.orderIndex));
+          ]..sort((a, b) {
+            final targetUnitId = highlightedRule?.unitId;
+            if (a.id == targetUnitId) return -1;
+            if (b.id == targetUnitId) return 1;
+            return b.orderIndex.compareTo(a.orderIndex);
+          });
 
           if (visible.isEmpty) {
             return const Center(
@@ -84,16 +105,53 @@ class GrammarReferenceScreen extends ConsumerWidget {
   }
 }
 
-class _UnitGrammarSection extends ConsumerWidget {
+class _UnitGrammarSection extends ConsumerStatefulWidget {
   final Unit unit;
   final String? highlightRuleId;
 
   const _UnitGrammarSection({required this.unit, this.highlightRuleId});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_UnitGrammarSection> createState() =>
+      _UnitGrammarSectionState();
+}
+
+class _UnitGrammarSectionState extends ConsumerState<_UnitGrammarSection> {
+  final _expansionController = ExpansibleController();
+  final _highlightKey = GlobalKey();
+  bool _highlightRevealScheduled = false;
+
+  @override
+  void didUpdateWidget(covariant _UnitGrammarSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.highlightRuleId != widget.highlightRuleId) {
+      _highlightRevealScheduled = false;
+    }
+  }
+
+  void _scheduleHighlightReveal() {
+    if (_highlightRevealScheduled) return;
+    _highlightRevealScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      _expansionController.expand();
+      await WidgetsBinding.instance.endOfFrame;
+      if (!mounted) return;
+      final target = _highlightKey.currentContext;
+      if (target == null || !target.mounted) return;
+      await Scrollable.ensureVisible(
+        target,
+        alignment: .22,
+        duration: context.motionDuration(AppMotion.reveal),
+        curve: AppMotion.enter,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final t = context.tokens;
-    final rulesAsync = ref.watch(grammarRulesByUnitProvider(unit.id));
+    final rulesAsync = ref.watch(grammarRulesByUnitProvider(widget.unit.id));
 
     return Container(
       decoration: BoxDecoration(
@@ -102,9 +160,15 @@ class _UnitGrammarSection extends ConsumerWidget {
         border: Border.all(color: t.line),
       ),
       child: ExpansionTile(
-        initiallyExpanded: highlightRuleId != null,
+        controller: _expansionController,
+        expansionAnimationStyle: AnimationStyle(
+          duration: context.motionDuration(AppMotion.content),
+          curve: AppMotion.enter,
+          reverseDuration: context.motionDuration(AppMotion.selection),
+          reverseCurve: AppMotion.exit,
+        ),
         title: Text(
-          'Unit ${unit.id}: ${unit.title}',
+          'Unit ${widget.unit.id}: ${widget.unit.title}',
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 16,
@@ -112,15 +176,20 @@ class _UnitGrammarSection extends ConsumerWidget {
           ),
         ),
         subtitle: Text(
-          unit.grammarTags.join(', '),
+          widget.unit.grammarTags.join(', '),
           style: TextStyle(fontSize: 13, color: t.muted),
         ),
         children: [
           rulesAsync.when(
             loading:
-                () => const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Center(child: CircularProgressIndicator()),
+                () => Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Center(
+                    child:
+                        context.motionDisabled
+                            ? Icon(Icons.hourglass_top_rounded, color: t.muted)
+                            : const CircularProgressIndicator(),
+                  ),
                 ),
             error:
                 (_, __) => Padding(
@@ -140,23 +209,61 @@ class _UnitGrammarSection extends ConsumerWidget {
                   ),
                 );
               }
+              if (widget.highlightRuleId != null &&
+                  rules.any((rule) => rule.id == widget.highlightRuleId)) {
+                _scheduleHighlightReveal();
+              }
               return Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: Column(
                   children:
                       rules.map((rule) {
-                        final isHighlighted = highlightRuleId == rule.id;
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: isHighlighted ? t.priSoft : t.elev,
-                            borderRadius: BorderRadius.circular(12),
-                            border:
-                                isHighlighted
-                                    ? Border.all(color: t.pri, width: 2)
-                                    : null,
-                          ),
+                        final isHighlighted = widget.highlightRuleId == rule.id;
+                        return TweenAnimationBuilder<double>(
+                          key:
+                              isHighlighted ? _highlightKey : ValueKey(rule.id),
+                          tween: Tween(begin: 0, end: 1),
+                          duration:
+                              isHighlighted
+                                  ? context.motionDuration(AppMotion.reward)
+                                  : Duration.zero,
+                          curve: AppMotion.enter,
+                          builder:
+                              (context, emphasis, child) => Container(
+                                margin: const EdgeInsets.only(bottom: 12),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color:
+                                      isHighlighted
+                                          ? Color.lerp(
+                                            t.priFill,
+                                            t.priSoft,
+                                            emphasis,
+                                          )
+                                          : t.elev,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border:
+                                      isHighlighted
+                                          ? Border.all(
+                                            color: t.pri,
+                                            width: 2 + (1 - emphasis),
+                                          )
+                                          : null,
+                                  boxShadow:
+                                      isHighlighted && emphasis < 1
+                                          ? [
+                                            BoxShadow(
+                                              color: t.pri.withValues(
+                                                alpha: .22 * (1 - emphasis),
+                                              ),
+                                              blurRadius: 18 * (1 - emphasis),
+                                              spreadRadius: 3 * (1 - emphasis),
+                                            ),
+                                          ]
+                                          : null,
+                                ),
+                                child: child,
+                              ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

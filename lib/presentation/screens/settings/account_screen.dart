@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/legal/legal_content.dart';
 import '../../../core/diagnostics/safe_diagnostics.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../data/account/account_service.dart';
 import '../../../data/account/account_identity.dart';
@@ -15,6 +16,7 @@ import '../../providers/curriculum_providers.dart';
 import '../../providers/reminder_coordinator.dart';
 import '../../providers/settings_providers.dart';
 import '../../utils/external_links.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
@@ -148,10 +150,22 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
                     icon: const Icon(Icons.open_in_new),
                     label: Text(l10n.accountDeletionInstructions),
                   ),
-                  if (_busy) ...[
-                    const SizedBox(height: 20),
-                    const Center(child: CircularProgressIndicator()),
-                  ],
+                  MotionDisclosure(
+                    visible: _busy,
+                    duration: AppMotion.content,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Center(
+                        child:
+                            context.motionDisabled
+                                ? Icon(
+                                  Icons.hourglass_top_rounded,
+                                  color: t.muted,
+                                )
+                                : const CircularProgressIndicator(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
         ),

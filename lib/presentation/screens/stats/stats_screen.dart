@@ -6,6 +6,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/database_providers.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/engines/curriculum_tracker.dart';
 import '../../../domain/entities/exam_result.dart';
@@ -455,28 +456,29 @@ class _StatsGrid extends StatelessWidget {
           icon: Icons.local_fire_department_outlined,
           tint: context.tokens.amberSoft,
           foreground: context.tokens.amberInk,
-          value: '${gamification.currentStreak}',
+          value: gamification.currentStreak,
           label: AppLocalizations.of(context).statsDayStreak,
         ),
         _StatTile(
           icon: Icons.bolt_outlined,
           tint: context.tokens.amberSoft,
           foreground: context.tokens.amberInk,
-          value: '${gamification.totalXp}',
+          value: gamification.totalXp,
           label: AppLocalizations.of(context).statsTotalXp,
         ),
         _StatTile(
           icon: Icons.calendar_month_outlined,
           tint: context.tokens.priSoft,
           foreground: context.tokens.priInk,
-          value: '${gamification.longestStreak}',
+          value: gamification.longestStreak,
           label: AppLocalizations.of(context).statsLongestStreak,
         ),
         _StatTile(
           icon: Icons.favorite_border,
           tint: context.tokens.redSoft,
           foreground: context.tokens.redInk,
-          value: '${gamification.hearts}/${gamification.maxHearts}',
+          value: gamification.hearts,
+          suffix: '/${gamification.maxHearts}',
           label: AppLocalizations.of(context).statsHearts,
         ),
       ],
@@ -488,7 +490,8 @@ class _StatTile extends StatelessWidget {
   final IconData icon;
   final Color tint;
   final Color foreground;
-  final String value;
+  final int value;
+  final String suffix;
   final String label;
 
   const _StatTile({
@@ -497,6 +500,7 @@ class _StatTile extends StatelessWidget {
     required this.foreground,
     required this.value,
     required this.label,
+    this.suffix = '',
   });
 
   @override
@@ -519,8 +523,9 @@ class _StatTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                MotionNumberText(
                   value,
+                  suffix: suffix,
                   style: TextStyle(
                     fontFamily: AppFonts.display,
                     fontSize: 21,

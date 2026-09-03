@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/copybook_providers.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 
@@ -17,6 +19,8 @@ class CopybookScreen extends ConsumerStatefulWidget {
 
 class _CopybookScreenState extends ConsumerState<CopybookScreen> {
   final Set<int> _done = {};
+  final Set<int> _liveChangedItems = {};
+  bool _completionChangedLive = false;
 
   String get _dayKey => DateUtils.dateOnly(DateTime.now()).toIso8601String();
 
@@ -32,8 +36,14 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
     if (mounted) setState(() => _done.addAll(saved.map(int.parse)));
   }
 
-  Future<void> _toggle(int id) async {
-    setState(() => _done.contains(id) ? _done.remove(id) : _done.add(id));
+  Future<void> _toggle(int id, List<CopybookItem> dailyItems) async {
+    final wasComplete = dailyItems.every((item) => _done.contains(item.id));
+    setState(() {
+      _done.contains(id) ? _done.remove(id) : _done.add(id);
+      _liveChangedItems.add(id);
+      final isComplete = dailyItems.every((item) => _done.contains(item.id));
+      _completionChangedLive = wasComplete != isComplete;
+    });
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(
       'copybook_done_$_dayKey',
@@ -75,7 +85,13 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
             ),
             const SizedBox(height: 20),
             items.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading:
+                  () => Center(
+                    child:
+                        context.motionDisabled
+                            ? Icon(Icons.hourglass_top_rounded, color: t.muted)
+                            : const CircularProgressIndicator(),
+                  ),
               error:
                   (_, __) => _MessageCard(
                     message: l10n.copybookLoadError,
@@ -95,7 +111,7 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
                             checked: _done.contains(item.id),
                             label: '${item.czech}, ${item.english}',
                             child: SoftCard(
-                              onTap: () => _toggle(item.id),
+                              onTap: () => _toggle(item.id, dailyItems),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -130,14 +146,22 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
                                       ],
                                     ),
                                   ),
-                                  Icon(
-                                    _done.contains(item.id)
-                                        ? Icons.check_circle
-                                        : Icons.circle_outlined,
-                                    color:
-                                        _done.contains(item.id)
-                                            ? t.greenInk
-                                            : t.faint,
+                                  MotionSwap(
+                                    duration:
+                                        _liveChangedItems.contains(item.id)
+                                            ? AppMotion.selection
+                                            : Duration.zero,
+                                    offset: const Offset(0, 0.12),
+                                    child: Icon(
+                                      _done.contains(item.id)
+                                          ? Icons.check_circle
+                                          : Icons.circle_outlined,
+                                      key: ValueKey(_done.contains(item.id)),
+                                      color:
+                                          _done.contains(item.id)
+                                              ? t.greenInk
+                                              : t.faint,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -146,9 +170,15 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
                         ),
                       if (dailyItems.isEmpty)
                         _MessageCard(message: l10n.copybookOfflineEmpty),
-                      if (dailyItems.isNotEmpty &&
-                          dailyItems.every((item) => _done.contains(item.id)))
-                        SoftCard(
+                      MotionDisclosure(
+                        visible:
+                            dailyItems.isNotEmpty &&
+                            dailyItems.every((item) => _done.contains(item.id)),
+                        duration:
+                            _completionChangedLive
+                                ? AppMotion.reward
+                                : Duration.zero,
+                        child: SoftCard(
                           color: t.greenSoft,
                           child: Text(
                             l10n.copybookComplete,
@@ -158,6 +188,7 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
                             ),
                           ),
                         ),
+                      ),
                     ],
                   ),
             ),

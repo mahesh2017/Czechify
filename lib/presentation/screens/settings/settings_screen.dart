@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
 import '../../../core/legal/legal_content.dart';
 import '../../../core/notifications/notification_service.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
@@ -24,6 +25,7 @@ import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
 import '../../widgets/common/cloud_speech_consent.dart';
 import '../../widgets/common/lesson_ui.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
@@ -479,66 +481,100 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       },
                     ),
                   ),
-                  if (settings.remindersEnabled) ...[
-                    _Divider(),
-                    // Reminder time picker row.
-                    _ReminderTimeRow(
-                      time:
-                          settings.preferredTime ??
-                          ReminderCoordinator.defaultReminderTime,
-                      onChanged: (time) async {
-                        await ref
-                            .read(reminderCoordinatorProvider.notifier)
-                            .setPreferredTime(time);
-                      },
+                  MotionDisclosure(
+                    visible: settings.remindersEnabled,
+                    duration: AppMotion.content,
+                    child: Column(
+                      children: [
+                        _Divider(),
+                        // Reminder time picker row.
+                        _ReminderTimeRow(
+                          time:
+                              settings.preferredTime ??
+                              ReminderCoordinator.defaultReminderTime,
+                          onChanged: (time) async {
+                            await ref
+                                .read(reminderCoordinatorProvider.notifier)
+                                .setPreferredTime(time);
+                          },
+                        ),
+                        // Catch-up availability can change when the reminder
+                        // time changes, so replace only that local row.
+                        MotionSwap(
+                          alignment: Alignment.topCenter,
+                          child:
+                              _catchUpGapIsWide(
+                                    settings.preferredTime ??
+                                        ReminderCoordinator.defaultReminderTime,
+                                  )
+                                  ? Column(
+                                    key: const ValueKey('catch-up-toggle'),
+                                    children: [
+                                      _Divider(),
+                                      _Row(
+                                        icon: Icons.nights_stay_outlined,
+                                        tint: t.violetSoft,
+                                        fg: t.violet,
+                                        title: l10n.reminderCatchUpLabel,
+                                        subtitle: l10n.reminderStepCatchUp,
+                                        trailing: Switch(
+                                          value: settings.catchUpEnabled,
+                                          onChanged:
+                                              (v) => ref
+                                                  .read(
+                                                    settingsProvider.notifier,
+                                                  )
+                                                  .setCatchUpEnabled(v),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  : settings.catchUpEnabled
+                                  ? Column(
+                                    key: const ValueKey('catch-up-suppressed'),
+                                    children: [
+                                      _Divider(),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          16,
+                                          14,
+                                          16,
+                                          14,
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.info_outline,
+                                              size: 18,
+                                              color: t.faint,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Expanded(
+                                              child: Text(
+                                                l10n.reminderCatchUpSuppressed,
+                                                style: TextStyle(
+                                                  fontSize: 13.5,
+                                                  color: t.muted,
+                                                  height: 1.5,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  : const SizedBox.shrink(
+                                    key: ValueKey('catch-up-hidden'),
+                                  ),
+                        ),
+                        // Permission blocked warning.
+                        _ReminderPermissionWarning(),
+                      ],
                     ),
-                    // Catch-up toggle — only when gap > 2h (otherwise
-                    // suppressed by the scheduler's own gap check).
-                    if (_catchUpGapIsWide(
-                      settings.preferredTime ??
-                          ReminderCoordinator.defaultReminderTime,
-                    )) ...[
-                      _Divider(),
-                      _Row(
-                        icon: Icons.nights_stay_outlined,
-                        tint: t.violetSoft,
-                        fg: t.violet,
-                        title: l10n.reminderCatchUpLabel,
-                        subtitle: l10n.reminderStepCatchUp,
-                        trailing: Switch(
-                          value: settings.catchUpEnabled,
-                          onChanged:
-                              (v) => ref
-                                  .read(settingsProvider.notifier)
-                                  .setCatchUpEnabled(v),
-                        ),
-                      ),
-                    ] else if (settings.catchUpEnabled) ...[
-                      _Divider(),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(Icons.info_outline, size: 18, color: t.faint),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                l10n.reminderCatchUpSuppressed,
-                                style: TextStyle(
-                                  fontSize: 13.5,
-                                  color: t.muted,
-                                  height: 1.5,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    // Permission blocked warning.
-                    _ReminderPermissionWarning(),
-                  ],
+                  ),
                 ],
               ),
             ],

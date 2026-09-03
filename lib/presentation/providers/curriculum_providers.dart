@@ -359,3 +359,14 @@ final grammarRulesByUnitProvider =
       final database = ref.read(databaseProvider);
       return database.curriculumDao.getGrammarRulesByUnit(unitId);
     });
+
+/// Resolves a deep-linked grammar rule before the reference list is laid out,
+/// allowing its unit to be placed on screen instead of waiting for a lazily
+/// built off-screen section to discover the rule.
+final grammarRuleByIdProvider = FutureProvider.family<db.GrammarRule?, String>((
+  ref,
+  ruleId,
+) {
+  final database = ref.read(databaseProvider);
+  return database.curriculumDao.getGrammarRuleById(ruleId);
+});

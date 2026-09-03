@@ -6,6 +6,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../domain/repositories/conversation_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../domain/entities/chat_message.dart';
 import '../../providers/chat_providers.dart';
 import '../../../domain/repositories/speech_ports.dart';
@@ -17,6 +18,7 @@ import '../../widgets/chat/report_tutor_reply_sheet.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
+import '../../widgets/common/motion_widgets.dart';
 
 /// Icon + soft-tint colors for each conversation scenario.
 ({IconData icon, Color tint, Color fg}) _scenarioStyle(
@@ -128,6 +130,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   final _scrollController = ScrollController();
   bool _isListening = false;
   String? _voiceNotice;
+  final Set<String> _enteringMessageIds = {};
   late final LiveTranscriber _transcriber;
 
   @override
@@ -179,11 +182,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
+        final target = _scrollController.position.maxScrollExtent;
+        if (context.motionDisabled) {
+          _scrollController.jumpTo(target);
+        } else {
+          _scrollController.animateTo(
+            target,
+            duration: AppMotion.reveal,
+            curve: AppMotion.enter,
+          );
+        }
       }
     });
   }
@@ -204,6 +212,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     // async tutor reply) or the typing indicator toggles.
     ref.listen(chatProvider, (prev, next) {
       if (prev == null) return;
+      if (prev.conversationId != next.conversationId) {
+        _enteringMessageIds.clear();
+      } else {
+        final previousIds = prev.messages.map((message) => message.id).toSet();
+        _enteringMessageIds.addAll(
+          next.messages
+              .where((message) => !previousIds.contains(message.id))
+              .map((message) => message.id),
+        );
+      }
       if (prev.messages.length != next.messages.length ||
           prev.isLoading != next.isLoading) {
         _scrollToBottom();
@@ -277,9 +295,24 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             chat.messages.length + (chat.isLoading ? 1 : 0),
                         itemBuilder: (context, index) {
                           if (index == chat.messages.length && chat.isLoading) {
-                            return const _TypingIndicator();
+                            return const MotionEntrance(
+                              key: ValueKey('typing-indicator'),
+                              offset: Offset(-0.025, 0),
+                              child: _TypingIndicator(),
+                            );
                           }
-                          return _MessageBubble(message: chat.messages[index]);
+                          final message = chat.messages[index];
+                          return MotionEntrance(
+                            key: ValueKey('chat-message-${message.id}'),
+                            animateOnMount: _enteringMessageIds.contains(
+                              message.id,
+                            ),
+                            offset:
+                                message.role == MessageRole.user
+                                    ? const Offset(0.025, 0)
+                                    : const Offset(-0.025, 0),
+                            child: _MessageBubble(message: message),
+                          );
                         },
                       ),
                     ),
@@ -288,8 +321,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     // surfaced near the end — a running count every turn would
                     // be noise, and this is meant to give the learner a chance
                     // to finish the exchange rather than be cut off in it.
-                    if (chat.shouldWarnAboutQuota && chat.error == null)
-                      Padding(
+                    MotionDisclosure(
+                      visible: chat.shouldWarnAboutQuota && chat.error == null,
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 4,
@@ -319,10 +353,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           ],
                         ),
                       ),
+                    ),
                     // Error message with a one-tap retry — the message is already
                     // in the transcript, so retry only repeats the tutor call.
-                    if (chat.error != null)
-                      Padding(
+                    MotionDisclosure(
+                      visible: chat.error != null,
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 4,
@@ -331,7 +367,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           children: [
                             Expanded(
                               child: Text(
-                                chat.error!,
+                                chat.error ?? '',
                                 style: TextStyle(
                                   color: t.redInk,
                                   fontSize: 13.5,
@@ -351,10 +387,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           ],
                         ),
                       ),
+                    ),
                     // Suggested replies — tap to prefill, learner reviews
                     // before sending.
-                    if (chat.suggestedReplies.isNotEmpty && !chat.isLoading)
-                      SizedBox(
+                    MotionDisclosure(
+                      visible:
+                          chat.suggestedReplies.isNotEmpty && !chat.isLoading,
+                      child: SizedBox(
                         height: 52,
                         child: ListView.separated(
                           scrollDirection: Axis.horizontal,
@@ -390,11 +429,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           },
                         ),
                       ),
-                    if (_voiceNotice != null)
-                      _VoiceNotice(
-                        message: _voiceNotice!,
+                    ),
+                    MotionDisclosure(
+                      visible: _voiceNotice != null,
+                      child: _VoiceNotice(
+                        message: _voiceNotice ?? '',
                         onDismiss: () => setState(() => _voiceNotice = null),
                       ),
+                    ),
                     // Input bar
                     _InputBar(
                       controller: _inputController,
@@ -1077,19 +1119,28 @@ class _DotState extends State<_Dot> with SingleTickerProviderStateMixin {
     vsync: this,
     duration: const Duration(milliseconds: 1200),
   );
+  Timer? _delayTimer;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (!mounted || MediaQuery.disableAnimationsOf(context)) return;
-      await Future<void>.delayed(Duration(milliseconds: widget.delay));
-      if (mounted) _c.repeat();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (context.motionDisabled) {
+      _delayTimer?.cancel();
+      _delayTimer = null;
+      _c.stop();
+      _c.value = 0;
+      return;
+    }
+    if (_c.isAnimating || _delayTimer != null) return;
+    _delayTimer = Timer(Duration(milliseconds: widget.delay), () {
+      _delayTimer = null;
+      if (mounted && !context.motionDisabled) _c.repeat();
     });
   }
 
   @override
   void dispose() {
+    _delayTimer?.cancel();
     _c.dispose();
     super.dispose();
   }
@@ -1201,7 +1252,9 @@ class _InputBar extends StatelessWidget {
                   child: InkWell(
                     onTap: enabled ? onSend : null,
                     borderRadius: BorderRadius.circular(999),
-                    child: Container(
+                    child: AnimatedContainer(
+                      duration: context.motionDuration(AppMotion.selection),
+                      curve: AppMotion.enter,
                       width: 52,
                       height: 52,
                       decoration: BoxDecoration(
@@ -1219,20 +1272,32 @@ class _InputBar extends StatelessWidget {
                                 ]
                                 : null,
                       ),
-                      child:
-                          isLoading
-                              ? Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: t.onFill,
+                      child: MotionSwap(
+                        offset: Offset.zero,
+                        child:
+                            isLoading
+                                ? context.motionDisabled
+                                    ? Icon(
+                                      Icons.more_horiz,
+                                      key: const ValueKey('sending-static'),
+                                      size: 20,
+                                      color: t.onFill,
+                                    )
+                                    : Padding(
+                                      key: const ValueKey('sending'),
+                                      padding: const EdgeInsets.all(16),
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: t.onFill,
+                                      ),
+                                    )
+                                : Icon(
+                                  Icons.send,
+                                  key: const ValueKey('send'),
+                                  size: 18,
+                                  color: enabled ? t.onFill : t.faint,
                                 ),
-                              )
-                              : Icon(
-                                Icons.send,
-                                size: 18,
-                                color: enabled ? t.onFill : t.faint,
-                              ),
+                      ),
                     ),
                   ),
                 );
