@@ -7,6 +7,7 @@ import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/l10n/app_localizations.dart';
 import 'package:czechify/presentation/providers/pronunciation_providers.dart';
 import 'package:czechify/presentation/screens/pronunciation/pronunciation_screen.dart';
+import 'package:czechify/presentation/widgets/common/record_button.dart';
 
 /// The Pronunciation Lab must practice real deck content, not a hardcoded
 /// phrase (previously `/pronunciation/:id` ignored its content entirely).
@@ -105,6 +106,56 @@ void main() {
       findsNothing,
     );
   });
+
+  testWidgets(
+    'processing snaps to a static, disabled state with reduced motion',
+    (tester) async {
+      late _StagePronunciationNotifier notifier;
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            pronunciationProvider.overrideWith(
+              () => notifier = _StagePronunciationNotifier(),
+            ),
+          ],
+          child: MaterialApp(
+            theme: lightTheme(),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            builder:
+                (context, child) => MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(disableAnimations: true),
+                  child: child!,
+                ),
+            home: const PronunciationScreen(
+              exerciseId: 'practice',
+              expectedText: 'Ahoj.',
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.pump();
+
+      notifier.showProcessing();
+      await tester.pump();
+
+      expect(find.text('Analyzing your pronunciation...'), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(
+        tester.widget<RecordButton>(find.byType(RecordButton)).onPressed,
+        isNull,
+      );
+      expect(tester.binding.transientCallbackCount, 0);
+    },
+  );
 }
 
 class _RecordingPronunciationNotifier extends PronunciationNotifier {
@@ -115,5 +166,18 @@ class _RecordingPronunciationNotifier extends PronunciationNotifier {
   @override
   void setExpectedText(String text) {
     state = PronunciationState(expectedText: text, isRecording: true);
+  }
+}
+
+class _StagePronunciationNotifier extends PronunciationNotifier {
+  @override
+  PronunciationState build() => const PronunciationState(expectedText: 'Ahoj.');
+
+  void showProcessing() {
+    state = const PronunciationState(
+      expectedText: 'Ahoj.',
+      isProcessing: true,
+      attemptId: 2,
+    );
   }
 }

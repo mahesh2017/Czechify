@@ -18,7 +18,7 @@ class RecordButton extends StatefulWidget {
     this.size = 76,
   });
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isRecording;
   final double size;
 
@@ -72,6 +72,7 @@ class _RecordButtonState extends State<RecordButton>
     final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
     return Semantics(
       button: true,
+      enabled: widget.onPressed != null,
       label:
           widget.isRecording
               ? (l10n?.stopRecording ?? 'Stop recording')

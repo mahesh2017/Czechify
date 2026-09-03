@@ -8,10 +8,12 @@ import '../../../domain/entities/flashcard.dart';
 import '../../../domain/entities/srs_card.dart';
 import '../../../domain/engines/srs_scheduler.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/gender_pill.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
+import '../../widgets/common/motion_widgets.dart';
 
 /// SRS review screen — flashcard interface with simplified SM-2 ratings.
 class SrsReviewScreen extends ConsumerStatefulWidget {
@@ -201,25 +203,34 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
 
               // Flashcard
               Expanded(
-                child: _FlashcardView(
-                  card: card.flashcard,
-                  direction: card.direction,
-                  isFlipped: session.isFlipped,
-                  canReveal:
-                      card.direction != CardDirection.enToCz ||
-                      _productionAttempt.trim().isNotEmpty,
-                  onFlip:
-                      card.direction != CardDirection.enToCz ||
-                              _productionAttempt.trim().isNotEmpty
-                          ? () {
-                            ref.read(reviewSessionProvider.notifier).flipCard();
-                          }
-                          : null,
+                child: MotionEntrance(
+                  key: ValueKey('${session.currentIndex}:${card.flashcard.id}'),
+                  offset: const Offset(0.035, 0),
+                  child: _FlashcardView(
+                    card: card.flashcard,
+                    direction: card.direction,
+                    isFlipped: session.isFlipped,
+                    canReveal:
+                        card.direction != CardDirection.enToCz ||
+                        _productionAttempt.trim().isNotEmpty,
+                    onFlip:
+                        card.direction != CardDirection.enToCz ||
+                                _productionAttempt.trim().isNotEmpty
+                            ? () {
+                              ref
+                                  .read(reviewSessionProvider.notifier)
+                                  .flipCard();
+                            }
+                            : null,
+                  ),
                 ),
               ),
 
-              if (!session.isFlipped && card.direction == CardDirection.enToCz)
-                Padding(
+              MotionDisclosure(
+                visible:
+                    !session.isFlipped &&
+                    card.direction == CardDirection.enToCz,
+                child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -262,53 +273,74 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
                     ],
                   ),
                 ),
+              ),
 
               // Rating buttons (only after flip)
-              if (session.isFlipped)
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (session.commitError != null)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                          session.commitError!,
-                          style: TextStyle(fontSize: 13, color: t.redInk),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    _RatingButtons(
-                      intervals: _intervalLabels(card.srs),
-                      enabled: !session.isCommitting,
-                      onRate: (rating) async {
-                        await ref
-                            .read(reviewSessionProvider.notifier)
-                            .rateCard(rating);
-                        if (mounted) setState(() => _productionAttempt = '');
-                      },
-                    ),
-                  ],
-                )
-              else
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
-                  child: KeyCta(
-                    label:
-                        card.direction == CardDirection.enToCz &&
-                                _productionAttempt.trim().isEmpty
-                            ? l10n.reviewTypeAnswerFirst
-                            : l10n.reviewShowAnswer,
-                    onPressed:
-                        card.direction != CardDirection.enToCz ||
-                                _productionAttempt.trim().isNotEmpty
-                            ? () {
-                              ref
-                                  .read(reviewSessionProvider.notifier)
-                                  .flipCard();
-                            }
-                            : null,
-                  ),
+              MotionEntrance(
+                key: ValueKey(
+                  session.isFlipped ? 'rating-controls' : 'reveal-control',
                 ),
+                offset: const Offset(0, 0.025),
+                child:
+                    session.isFlipped
+                        ? Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (session.commitError != null)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                ),
+                                child: Text(
+                                  session.commitError!,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: t.redInk,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            _RatingButtons(
+                              intervals: _intervalLabels(card.srs),
+                              enabled: !session.isCommitting,
+                              onRate: (rating) async {
+                                final ratedCardId = card.flashcard.id;
+                                await ref
+                                    .read(reviewSessionProvider.notifier)
+                                    .rateCard(rating);
+                                if (!mounted) return;
+                                final current =
+                                    ref.read(reviewSessionProvider).currentCard;
+                                // Keep a production answer when persistence failed and
+                                // the learner is still on the same card. Clear it only
+                                // once the committed review actually advanced.
+                                if (current?.flashcard.id != ratedCardId) {
+                                  setState(() => _productionAttempt = '');
+                                }
+                              },
+                            ),
+                          ],
+                        )
+                        : Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
+                          child: KeyCta(
+                            label:
+                                card.direction == CardDirection.enToCz &&
+                                        _productionAttempt.trim().isEmpty
+                                    ? l10n.reviewTypeAnswerFirst
+                                    : l10n.reviewShowAnswer,
+                            onPressed:
+                                card.direction != CardDirection.enToCz ||
+                                        _productionAttempt.trim().isNotEmpty
+                                    ? () {
+                                      ref
+                                          .read(reviewSessionProvider.notifier)
+                                          .flipCard();
+                                    }
+                                    : null,
+                          ),
+                        ),
+              ),
             ],
           ),
         ),
@@ -464,19 +496,8 @@ class _FlashcardView extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: t.shadowLg,
                 ),
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 250),
-                  transitionBuilder:
-                      (child, anim) => FadeTransition(
-                        opacity: anim,
-                        child: ScaleTransition(
-                          scale: Tween<double>(
-                            begin: 0.96,
-                            end: 1.0,
-                          ).animate(anim),
-                          child: child,
-                        ),
-                      ),
+                child: MotionSwap(
+                  offset: Offset.zero,
                   child: KeyedSubtree(
                     key: ValueKey(isFlipped),
                     child:
@@ -565,12 +586,17 @@ class _FlashcardView extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            if (card.gender != null)
-              GenderPill(gender: card.gender!, abbreviated: false)
-            else
-              LessonKicker(l10n.reviewWhatDoesItMean),
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child:
+                    card.gender != null
+                        ? GenderPill(gender: card.gender!, abbreviated: false)
+                        : LessonKicker(l10n.reviewWhatDoesItMean),
+              ),
+            ),
+            const SizedBox(width: 8),
             _AudioPill(text: card.wordCz),
           ],
         ),
@@ -1147,7 +1173,8 @@ class _RatingButton extends StatelessWidget {
       label: AppLocalizations.of(context).a11yRateCard(label),
       hint: subtitle,
       excludeSemantics: true,
-      child: Opacity(
+      child: AnimatedOpacity(
+        duration: context.motionDuration(AppMotion.selection),
         opacity: enabled ? 1 : 0.5,
         child: Material(
           color: t.card,

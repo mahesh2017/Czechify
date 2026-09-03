@@ -2,12 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../widgets/common/pronunciation_tip_text.dart';
 import '../../providers/pronunciation_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/record_button.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../../core/utils/score_colors.dart';
 import '../../../domain/entities/pronunciation_result.dart';
 
@@ -86,15 +88,18 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                 children: [
                   Center(child: LessonKicker(l10n.sayThis, color: t.pri)),
                   const SizedBox(height: 12),
-                  Text(
-                    pronState.expectedText,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: AppFonts.display,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
-                      height: 1.15,
-                      color: t.ink,
+                  MotionSwap(
+                    child: Text(
+                      pronState.expectedText,
+                      key: ValueKey(pronState.expectedText),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: AppFonts.display,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w800,
+                        height: 1.15,
+                        color: t.ink,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -109,118 +114,154 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             ),
             const Spacer(),
 
-            // Recording state / score display
-            if (pronState.isRecording)
-              _RecordingIndicator()
-            else if (pronState.isProcessing)
-              Column(
-                children: [
-                  const CircularProgressIndicator(),
-                  const SizedBox(height: 16),
-                  Text(l10n.analyzingPronunciation),
-                ],
-              )
-            else if (pronState.result != null)
-              Column(
-                children: [
-                  _ScoreDisplay(result: pronState.result!),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Heard: "${pronState.transcribedText ?? ''}"',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 13, color: context.tokens.muted),
-                  ),
-                  // Learners only see a gentle accuracy note when the cloud
-                  // engine was unavailable; raw engine diagnostics (exception
-                  // text, URLs, timings) are debug-build only.
-                  if (!pronState.usedWhisper)
-                    Text(
-                      l10n.onDeviceRecognitionNote,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: context.tokens.amberInk,
-                      ),
-                    ),
-                  if (kDebugMode && pronState.diagnostic != null)
-                    Text(
-                      pronState.diagnostic!,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color:
-                            pronState.usedWhisper
-                                ? context.tokens.green
-                                : context.tokens.amberInk,
-                      ),
-                    ),
-                ],
-              )
-            else if (pronState.error != null)
-              _ErrorDisplay(
-                error: pronState.error!,
-                suggestsMicrophoneCheck: !pronState.errorIsServiceSide,
-              )
-            else
-              Text(
-                l10n.tapMicrophoneHint,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15, height: 1.45, color: t.muted),
-              ),
+            // These are lightweight status views; the microphone remains in
+            // the provider and record control below, never in an outgoing
+            // AnimatedSwitcher subtree.
+            MotionSwap(child: _pronunciationStage(context, pronState)),
 
             const Spacer(),
 
             // Record button — the mic ring is the app's only live state.
             RecordButton(
               isRecording: pronState.isRecording,
-              onPressed: () {
-                if (pronState.isRecording) {
-                  ref.read(pronunciationProvider.notifier).stopRecording();
-                } else {
-                  ref
-                      .read(pronunciationProvider.notifier)
-                      .startRecording(expectedText: pronState.expectedText);
-                }
-              },
+              onPressed:
+                  pronState.isProcessing
+                      ? null
+                      : () {
+                        if (pronState.isRecording) {
+                          ref
+                              .read(pronunciationProvider.notifier)
+                              .stopRecording();
+                        } else {
+                          ref
+                              .read(pronunciationProvider.notifier)
+                              .startRecording(
+                                expectedText: pronState.expectedText,
+                              );
+                        }
+                      },
             ),
             const SizedBox(height: 16),
 
             // Try again / next phrase
-            if (pronState.result != null)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton.icon(
-                    onPressed: () {
-                      ref.read(pronunciationProvider.notifier).reset();
-                    },
-                    icon: const Icon(Icons.refresh),
-                    label: Text(l10n.tryAgain),
-                  ),
-                  if (!_singlePhrase) ...[
-                    const SizedBox(width: 16),
-                    TextButton.icon(
-                      onPressed: () {
-                        setState(() => _deckIndex++);
-                        ref.read(pronunciationProvider.notifier).reset();
-                      },
-                      icon: const Icon(Icons.arrow_forward),
-                      label: Text(l10n.nextPhrase),
-                    ),
-                  ],
-                ],
-              )
-            else if (!_singlePhrase &&
-                !pronState.isRecording &&
-                !pronState.isProcessing)
-              TextButton.icon(
-                onPressed: () => setState(() => _deckIndex++),
-                icon: const Icon(Icons.skip_next),
-                label: Text(l10n.skip),
-              ),
+            MotionSwap(
+              alignment: Alignment.topCenter,
+              child:
+                  pronState.result != null
+                      ? Row(
+                        key: const ValueKey('result-actions'),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              ref.read(pronunciationProvider.notifier).reset();
+                            },
+                            icon: const Icon(Icons.refresh),
+                            label: Text(l10n.tryAgain),
+                          ),
+                          if (!_singlePhrase) ...[
+                            const SizedBox(width: 16),
+                            TextButton.icon(
+                              onPressed: () {
+                                setState(() => _deckIndex++);
+                                ref
+                                    .read(pronunciationProvider.notifier)
+                                    .reset();
+                              },
+                              icon: const Icon(Icons.arrow_forward),
+                              label: Text(l10n.nextPhrase),
+                            ),
+                          ],
+                        ],
+                      )
+                      : !_singlePhrase &&
+                          !pronState.isRecording &&
+                          !pronState.isProcessing
+                      ? TextButton.icon(
+                        key: const ValueKey('skip-action'),
+                        onPressed: () => setState(() => _deckIndex++),
+                        icon: const Icon(Icons.skip_next),
+                        label: Text(l10n.skip),
+                      )
+                      : const SizedBox.shrink(key: ValueKey('no-actions')),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _pronunciationStage(BuildContext context, PronunciationState state) {
+    final l10n = AppLocalizations.of(context);
+    if (state.isRecording) {
+      return const _RecordingIndicator(key: ValueKey('recording'));
+    }
+    if (state.isProcessing) {
+      return Semantics(
+        key: const ValueKey('processing'),
+        liveRegion: true,
+        label: l10n.analyzingPronunciation,
+        excludeSemantics: true,
+        child: Column(
+          children: [
+            if (context.motionDisabled)
+              Icon(
+                Icons.graphic_eq_rounded,
+                color: context.tokens.pri,
+                size: 32,
+              )
+            else
+              const CircularProgressIndicator(),
+            const SizedBox(height: 16),
+            Text(l10n.analyzingPronunciation),
+          ],
+        ),
+      );
+    }
+    if (state.result != null) {
+      return Column(
+        key: ValueKey('result-${state.attemptId}'),
+        children: [
+          _ScoreDisplay(result: state.result!),
+          const SizedBox(height: 12),
+          Text(
+            'Heard: "${state.transcribedText ?? ''}"',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 13, color: context.tokens.muted),
+          ),
+          if (!state.usedWhisper)
+            Text(
+              l10n.onDeviceRecognitionNote,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12, color: context.tokens.amberInk),
+            ),
+          if (kDebugMode && state.diagnostic != null)
+            Text(
+              state.diagnostic!,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                color:
+                    state.usedWhisper
+                        ? context.tokens.green
+                        : context.tokens.amberInk,
+              ),
+            ),
+        ],
+      );
+    }
+    if (state.error != null) {
+      return _ErrorDisplay(
+        key: ValueKey('error-${state.attemptId}'),
+        error: state.error!,
+        suggestsMicrophoneCheck: !state.errorIsServiceSide,
+      );
+    }
+    return Text(
+      l10n.tapMicrophoneHint,
+      key: const ValueKey('idle'),
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 15, height: 1.45, color: context.tokens.muted),
     );
   }
 }
@@ -228,6 +269,8 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
 /// Static recording status. The record button already owns the single live
 /// pulse, so duplicating it here made the centre of the screen throb twice.
 class _RecordingIndicator extends StatelessWidget {
+  const _RecordingIndicator({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -459,6 +502,7 @@ class _ScoreDisplay extends StatelessWidget {
 class _ErrorDisplay extends StatelessWidget {
   final String error;
   const _ErrorDisplay({
+    super.key,
     required this.error,
     this.suggestsMicrophoneCheck = true,
   });
