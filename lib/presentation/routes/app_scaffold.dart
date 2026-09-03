@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../l10n/app_localizations.dart';
+import '../../core/theme/app_motion.dart';
 import '../../core/theme/app_tokens.dart';
 import '../providers/chat_providers.dart';
+import '../widgets/common/motion_widgets.dart';
 
 /// Adaptive scaffold — bottom nav on mobile, side rail on desktop.
 class AdaptiveScaffold extends ConsumerWidget {
-  final Widget child;
+  final StatefulNavigationShell navigationShell;
 
-  const AdaptiveScaffold({super.key, required this.child});
+  const AdaptiveScaffold({super.key, required this.navigationShell});
 
   static const _destinations = [
-    (icon: Icons.home_outlined, path: '/'),
-    (icon: Icons.school_outlined, path: '/curriculum'),
-    (icon: Icons.style_outlined, path: '/review'),
-    (icon: Icons.chat_outlined, path: '/chat'),
-    (icon: Icons.bar_chart_outlined, path: '/stats'),
+    Icons.home_outlined,
+    Icons.school_outlined,
+    Icons.style_outlined,
+    Icons.chat_outlined,
+    Icons.bar_chart_outlined,
   ];
 
   /// Labels are resolved per build so they follow the app locale; the
@@ -40,6 +42,7 @@ class AdaptiveScaffold extends ConsumerWidget {
     final isDesktop = width >= 600;
     final labels = _labels(context);
     final location = GoRouterState.of(context).uri.path;
+    final selectedIndex = navigationShell.currentIndex;
     final conversationActive =
         location == '/chat' &&
         ref.watch(chatProvider.select((chat) => chat.conversationId != null));
@@ -50,13 +53,13 @@ class AdaptiveScaffold extends ConsumerWidget {
         body: Row(
           children: [
             NavigationRail(
-              selectedIndex: _selectedIndex(context),
-              onDestinationSelected: (i) => context.go(_destinations[i].path),
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (i) => _selectBranch(i),
               destinations: [
-                for (final (index, d) in _destinations.indexed)
+                for (final (index, icon) in _destinations.indexed)
                   NavigationRailDestination(
-                    icon: Icon(d.icon),
-                    selectedIcon: Icon(d.icon),
+                    icon: Icon(icon),
+                    selectedIcon: Icon(icon),
                     label: Text(labels[index]),
                   ),
               ],
@@ -69,7 +72,10 @@ class AdaptiveScaffold extends ConsumerWidget {
                 alignment: Alignment.topCenter,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 840),
-                  child: child,
+                  child: _BranchEntrance(
+                    index: selectedIndex,
+                    child: navigationShell,
+                  ),
                 ),
               ),
             ),
@@ -79,28 +85,94 @@ class AdaptiveScaffold extends ConsumerWidget {
     }
 
     return Scaffold(
-      extendBody: !hideBottomNavigation,
-      body: child,
-      bottomNavigationBar:
-          hideBottomNavigation
-              ? null
-              : _PrototypeTabBar(
-                selectedIndex: _selectedIndex(context),
-                labels: labels,
-                onSelected: (i) => context.go(_destinations[i].path),
-              ),
+      extendBody: true,
+      body: _BranchEntrance(index: selectedIndex, child: navigationShell),
+      bottomNavigationBar: MotionDisclosure(
+        visible: !hideBottomNavigation,
+        duration: AppMotion.content,
+        alignment: Alignment.bottomCenter,
+        offset: const Offset(0, 0.08),
+        child: _PrototypeTabBar(
+          selectedIndex: selectedIndex,
+          labels: labels,
+          onSelected: _selectBranch,
+        ),
+      ),
     );
   }
 
-  int _selectedIndex(BuildContext context) {
-    final location = GoRouterState.of(context).uri.path;
-    for (var i = 0; i < _destinations.length; i++) {
-      final path = _destinations[i].path;
-      // '/' prefixes every location, so home only matches exactly.
-      final matches = path == '/' ? location == '/' : location.startsWith(path);
-      if (matches) return i;
+  void _selectBranch(int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
+}
+
+/// A subtle incoming-only branch transition. The indexed shell itself stays
+/// mounted, so this polish cannot reset a tab's Navigator or scroll state.
+class _BranchEntrance extends StatefulWidget {
+  const _BranchEntrance({required this.index, required this.child});
+
+  final int index;
+  final Widget child;
+
+  @override
+  State<_BranchEntrance> createState() => _BranchEntranceState();
+}
+
+class _BranchEntranceState extends State<_BranchEntrance>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: AppMotion.content,
+    value: 1,
+  );
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (context.motionDisabled) {
+      _controller
+        ..stop()
+        ..value = 1;
     }
-    return 0;
+  }
+
+  @override
+  void didUpdateWidget(covariant _BranchEntrance oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.index == widget.index) return;
+    if (context.motionDisabled) {
+      _controller.value = 1;
+    } else {
+      _controller.forward(from: 0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        final value = AppMotion.enter.transform(_controller.value);
+        return Opacity(
+          key: const ValueKey('branch-transition-opacity'),
+          opacity: 0.88 + 0.12 * value,
+          child: FractionalTranslation(
+            translation: Offset(0, 0.015 * (1 - value)),
+            child: child,
+          ),
+        );
+      },
+      child: widget.child,
+    );
   }
 }
 
@@ -135,7 +207,7 @@ class _PrototypeTabBar extends StatelessWidget {
           ),
           child: Row(
             children: [
-              for (final (index, destination)
+              for (final (index, icon)
                   in AdaptiveScaffold._destinations.indexed)
                 Expanded(
                   child: Semantics(
@@ -149,7 +221,10 @@ class _PrototypeTabBar extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           AnimatedContainer(
-                            duration: const Duration(milliseconds: 250),
+                            duration: context.motionDuration(
+                              AppMotion.selection,
+                            ),
+                            curve: AppMotion.enter,
                             width: 44,
                             height: 30,
                             decoration: BoxDecoration(
@@ -161,7 +236,7 @@ class _PrototypeTabBar extends StatelessWidget {
                             ),
                             alignment: Alignment.center,
                             child: Icon(
-                              destination.icon,
+                              icon,
                               size: 21,
                               color: selectedIndex == index ? t.pri : t.faint,
                             ),
