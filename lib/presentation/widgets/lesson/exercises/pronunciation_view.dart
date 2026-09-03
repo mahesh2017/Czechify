@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../common/pronunciation_tip_text.dart';
 import '../../../../core/theme/app_tokens.dart';
+import '../../../../core/theme/app_motion.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/utils/score_colors.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -9,6 +10,7 @@ import '../../../providers/pronunciation_providers.dart';
 import '../../../providers/tts_providers.dart';
 import '../../common/cloud_speech_consent.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/motion_widgets.dart';
 import '../../common/record_button.dart';
 import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
@@ -258,97 +260,120 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
           // fold, so finishing an attempt meant scrolling to do anything with
           // it — and the thing you most want to see after a poor score, the
           // word itself, was the thing scrolled away.
-          if (showResult)
-            _ResultBlock(
-              score: score!,
-              passed: passed,
-              feedback: feedback,
-              failedAttempts: _failedAttempts,
-              onRetry: _toggleRecording,
-              onContinue: _submitResult,
-              onMoveOn: _submitResult,
-            )
-          else
-            Column(
-              children: [
-                if (isProcessing)
-                  SizedBox(
-                    width: 76,
-                    height: 76,
-                    child: Padding(
-                      padding: const EdgeInsets.all(18),
-                      child: CircularProgressIndicator(
-                        strokeWidth: 3,
-                        valueColor: AlwaysStoppedAnimation(t.pri),
-                      ),
-                    ),
-                  )
-                else
-                  RecordButton(
-                    isRecording: isRecording,
-                    onPressed: _toggleRecording,
-                  ),
-                const SizedBox(height: 8),
-                Text(
-                  isRecording
-                      ? l10n.pronListeningTapToStop
-                      : isProcessing
-                      ? l10n.pronAnalysing
-                      : l10n.pronTapToRecord,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: isRecording ? t.redInk : t.muted,
-                  ),
-                ),
-                // A recording that could not be checked says so. Without this
-                // the exercise showed nothing at all on failure — the spinner
-                // simply stopped — and the learner had no way to tell a
-                // service outage from having said the phrase wrong.
-                if (attemptFailed) ...[
-                  const SizedBox(height: 10),
-                  Text(
-                    pronState.error!,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 13,
-                      height: 1.35,
-                      color: t.redInk,
-                    ),
-                  ),
-                  // When there is a switch that fixes it, offer the switch.
-                  // Telling a learner mid-exercise to go and add a language
-                  // pack in their phone's system settings is a dead end: they
-                  // came here to practise, not to administer their device.
-                  if (pronState.errorCloudSpeechWouldFix) ...[
-                    const SizedBox(height: 12),
-                    FilledButton.icon(
-                      onPressed: () async {
-                        final granted = await requestCloudSpeechConsent(
-                          context,
-                          ref,
-                        );
-                        if (granted && mounted) await _toggleRecording();
-                      },
-                      icon: const Icon(Icons.cloud_outlined, size: 18),
-                      label: const Text('Check it in the cloud instead'),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Sends this recording for transcription. You can turn '
-                      'it off again in Settings.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 12,
-                        height: 1.35,
-                        color: t.muted,
-                      ),
-                    ),
-                  ],
-                ],
-              ],
+          MotionEntrance(
+            key: ValueKey(
+              showResult
+                  ? 'pronunciation-result'
+                  : isProcessing
+                  ? 'pronunciation-processing'
+                  : 'pronunciation-recording',
             ),
+            duration: AppMotion.content,
+            child:
+                showResult
+                    ? _ResultBlock(
+                      score: score!,
+                      passed: passed,
+                      feedback: feedback,
+                      failedAttempts: _failedAttempts,
+                      onRetry: _toggleRecording,
+                      onContinue: _submitResult,
+                      onMoveOn: _submitResult,
+                    )
+                    : Column(
+                      children: [
+                        if (isProcessing)
+                          SizedBox(
+                            width: 76,
+                            height: 76,
+                            child: Padding(
+                              padding: const EdgeInsets.all(18),
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                valueColor: AlwaysStoppedAnimation(t.pri),
+                              ),
+                            ),
+                          )
+                        else
+                          RecordButton(
+                            isRecording: isRecording,
+                            onPressed: _toggleRecording,
+                          ),
+                        const SizedBox(height: 8),
+                        Text(
+                          isRecording
+                              ? l10n.pronListeningTapToStop
+                              : isProcessing
+                              ? l10n.pronAnalysing
+                              : l10n.pronTapToRecord,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: isRecording ? t.redInk : t.muted,
+                          ),
+                        ),
+                        // A recording that could not be checked says so. Without this
+                        // the exercise showed nothing at all on failure — the spinner
+                        // simply stopped — and the learner had no way to tell a
+                        // service outage from having said the phrase wrong.
+                        MotionDisclosure(
+                          visible: attemptFailed,
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Text(
+                                pronState.error ?? '',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  height: 1.35,
+                                  color: t.redInk,
+                                ),
+                              ),
+                              // When there is a switch that fixes it, offer the switch.
+                              // Telling a learner mid-exercise to go and add a language
+                              // pack in their phone's system settings is a dead end: they
+                              // came here to practise, not to administer their device.
+                              if (pronState.errorCloudSpeechWouldFix) ...[
+                                const SizedBox(height: 12),
+                                FilledButton.icon(
+                                  onPressed: () async {
+                                    final granted =
+                                        await requestCloudSpeechConsent(
+                                          context,
+                                          ref,
+                                        );
+                                    if (granted && mounted) {
+                                      await _toggleRecording();
+                                    }
+                                  },
+                                  icon: const Icon(
+                                    Icons.cloud_outlined,
+                                    size: 18,
+                                  ),
+                                  label: const Text(
+                                    'Check it in the cloud instead',
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Sends this recording for transcription. You can turn '
+                                  'it off again in Settings.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    height: 1.35,
+                                    color: t.muted,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+          ),
 
           // Escape hatch: pronunciation should never hard-block progress.
           // Below the actions now — it used to sit between the microphone and

@@ -149,4 +149,89 @@ void main() {
     expect(find.text('reduced hint'), findsNothing);
     expect(tester.binding.transientCallbackCount, 0);
   });
+
+  testWidgets('incoming entrance disposes outgoing resources immediately', (
+    tester,
+  ) async {
+    final semantics = tester.ensureSemantics();
+    var state = 0;
+    var disposals = 0;
+    late StateSetter update;
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: StatefulBuilder(
+          builder: (context, setState) {
+            update = setState;
+            return MotionEntrance(
+              key: ValueKey(state),
+              child: _DisposeProbe(
+                label: 'Question $state',
+                onDispose: () => disposals++,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    update(() => state = 1);
+    await tester.pump();
+    expect(disposals, 1);
+    expect(find.text('Question 0'), findsNothing);
+    expect(find.bySemanticsLabel('Question 0'), findsNothing);
+    expect(find.text('Question 1'), findsOneWidget);
+
+    // A second advance before the entrance settles still leaves exactly one
+    // live subtree; the intermediate question cannot become stale UI.
+    update(() => state = 2);
+    await tester.pump(const Duration(milliseconds: 1));
+    expect(disposals, 2);
+    expect(find.text('Question 1'), findsNothing);
+    expect(find.bySemanticsLabel('Question 1'), findsNothing);
+    expect(find.text('Question 2'), findsOneWidget);
+    semantics.dispose();
+  });
+
+  testWidgets('incoming entrance schedules no reduced-motion frames', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: const MediaQuery(
+          data: MediaQueryData(disableAnimations: true),
+          child: MotionEntrance(child: Text('Final question')),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Final question'), findsOneWidget);
+    expect(tester.binding.transientCallbackCount, 0);
+  });
+}
+
+class _DisposeProbe extends StatefulWidget {
+  const _DisposeProbe({required this.label, required this.onDispose});
+
+  final String label;
+  final VoidCallback onDispose;
+
+  @override
+  State<_DisposeProbe> createState() => _DisposeProbeState();
+}
+
+class _DisposeProbeState extends State<_DisposeProbe> {
+  @override
+  void dispose() {
+    widget.onDispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(label: widget.label, child: Text(widget.label));
+  }
 }

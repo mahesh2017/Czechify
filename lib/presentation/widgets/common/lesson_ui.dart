@@ -125,39 +125,50 @@ class SegmentPips extends StatelessWidget {
     // them, which reads as noise — fall back to a plain track.
     if (count > 12) {
       final value = count == 0 ? 0.0 : (currentIndex + 1) / count;
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(999),
-        child: LinearProgressIndicator(
-          value: value.clamp(0.0, 1.0),
-          minHeight: height,
-          backgroundColor: t.line,
-          valueColor: AlwaysStoppedAnimation(fill),
-        ),
+      return MotionValueBuilder(
+        value: value.clamp(0.0, 1.0),
+        builder:
+            (context, animated, _) => ClipRRect(
+              borderRadius: BorderRadius.circular(999),
+              child: LinearProgressIndicator(
+                value: animated,
+                minHeight: height,
+                backgroundColor: t.line,
+                valueColor: AlwaysStoppedAnimation(fill),
+              ),
+            ),
       );
     }
 
-    final instant = MediaQuery.disableAnimationsOf(context);
-    return Row(
-      children: [
-        for (var i = 0; i < count; i++) ...[
-          if (i > 0) const SizedBox(width: 4),
-          Expanded(
-            // The current step takes more of the row than the others, so the
-            // eye lands on where you are rather than counting segments.
-            flex: i == currentIndex ? 24 : 10,
-            child: AnimatedContainer(
-              duration:
-                  instant ? Duration.zero : const Duration(milliseconds: 350),
-              curve: Curves.easeOutCubic,
-              height: height,
-              decoration: BoxDecoration(
-                color: i <= currentIndex ? fill : t.line,
-                borderRadius: BorderRadius.circular(999),
+    if (count <= 0) return SizedBox(height: height);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (!constraints.hasBoundedWidth) return SizedBox(height: height);
+        final gap =
+            count == 1
+                ? 0.0
+                : math.min(4.0, constraints.maxWidth / (count - 1));
+        final usable = math.max(0.0, constraints.maxWidth - gap * (count - 1));
+        final weightTotal = 24 + 10 * (count - 1);
+        return Row(
+          children: [
+            for (var i = 0; i < count; i++) ...[
+              if (i > 0) SizedBox(width: gap),
+              AnimatedContainer(
+                key: ValueKey('segment-pip-$i'),
+                duration: context.motionDuration(AppMotion.content),
+                curve: AppMotion.enter,
+                width: usable * (i == currentIndex ? 24 : 10) / weightTotal,
+                height: height,
+                decoration: BoxDecoration(
+                  color: i <= currentIndex ? fill : t.line,
+                  borderRadius: BorderRadius.circular(999),
+                ),
               ),
-            ),
-          ),
-        ],
-      ],
+            ],
+          ],
+        );
+      },
     );
   }
 }

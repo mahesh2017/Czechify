@@ -4,6 +4,7 @@ import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/grammar_tip_card.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/motion_widgets.dart';
 import 'exercise_shared.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 
@@ -206,8 +207,9 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                       ),
                     ),
 
-                  if (_errorRevealed && !answered)
-                    Text(
+                  MotionDisclosure(
+                    visible: _errorRevealed && !answered,
+                    child: Text(
                       l10n.exerciseErrorInHighlighted,
                       style: TextStyle(
                         fontSize: 14,
@@ -215,6 +217,7 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                         color: t.amberInk,
                       ),
                     ),
+                  ),
 
                   // Options after word selected
                   if (_selectedWordIdx != null && !answered) ...[

@@ -143,4 +143,46 @@ void main() {
     await tester.pump();
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('SegmentPips interpolates the active segment width', (
+    tester,
+  ) async {
+    var current = 0;
+    late StateSetter update;
+    await tester.pumpWidget(
+      host(
+        StatefulBuilder(
+          builder: (context, setState) {
+            update = setState;
+            return SizedBox(
+              width: 300,
+              child: SegmentPips(count: 3, currentIndex: current),
+            );
+          },
+        ),
+      ),
+    );
+
+    final first = find.byKey(const ValueKey('segment-pip-0'));
+    final second = find.byKey(const ValueKey('segment-pip-1'));
+    final initialFirst = tester.getSize(first).width;
+    final initialSecond = tester.getSize(second).width;
+    expect(initialFirst, greaterThan(initialSecond));
+
+    update(() => current = 1);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 110));
+    expect(
+      tester.getSize(first).width,
+      inExclusiveRange(initialSecond, initialFirst),
+    );
+    expect(
+      tester.getSize(second).width,
+      inExclusiveRange(initialSecond, initialFirst),
+    );
+
+    await tester.pumpAndSettle();
+    expect(tester.getSize(first).width, closeTo(initialSecond, 0.01));
+    expect(tester.getSize(second).width, closeTo(initialFirst, 0.01));
+  });
 }

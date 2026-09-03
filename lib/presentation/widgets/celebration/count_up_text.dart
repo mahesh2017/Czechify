@@ -12,6 +12,7 @@ class CountUpText extends StatelessWidget {
     required this.value,
     this.prefix = '',
     this.suffix = '',
+    this.delay = Duration.zero,
     this.duration = const Duration(milliseconds: 900),
     this.style,
     this.curve = Curves.easeOutCubic,
@@ -20,6 +21,13 @@ class CountUpText extends StatelessWidget {
   final int value;
   final String prefix;
   final String suffix;
+
+  /// How long the number holds at zero before the count begins.
+  ///
+  /// This lets a result wait for its container to become visible without
+  /// adding a timer or retaining an outgoing widget. Reduced motion ignores
+  /// both [delay] and [duration].
+  final Duration delay;
   final Duration duration;
   final TextStyle? style;
   final Curve curve;
@@ -27,10 +35,18 @@ class CountUpText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final instant = MediaQuery.disableAnimationsOf(context);
+    final totalDuration = delay + duration;
+    final delayFraction =
+        totalDuration == Duration.zero
+            ? 0.0
+            : delay.inMicroseconds / totalDuration.inMicroseconds;
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: value.toDouble()),
-      duration: instant ? Duration.zero : duration,
-      curve: curve,
+      duration: instant ? Duration.zero : totalDuration,
+      curve:
+          delay == Duration.zero
+              ? curve
+              : Interval(delayFraction, 1, curve: curve),
       builder:
           (context, current, _) =>
               Text('$prefix${current.round()}$suffix', style: style),

@@ -123,6 +123,84 @@ class MotionNumberText extends StatelessWidget {
   }
 }
 
+/// Fades and lifts one incoming subtree without retaining the previous one.
+///
+/// Key this widget by the content identity. When the key changes Flutter
+/// disposes the old subtree immediately, then only the new subtree animates.
+/// This is the safe screen-level transition for exercises that may own a
+/// microphone, TTS playback, timers, or other resources that must not survive
+/// behind an exit animation.
+class MotionEntrance extends StatefulWidget {
+  const MotionEntrance({
+    super.key,
+    required this.child,
+    this.duration = AppMotion.reveal,
+    this.offset = const Offset(0, 0.025),
+    this.animateOnMount = true,
+  });
+
+  final Widget child;
+  final Duration duration;
+  final Offset offset;
+  final bool animateOnMount;
+
+  @override
+  State<MotionEntrance> createState() => _MotionEntranceState();
+}
+
+class _MotionEntranceState extends State<MotionEntrance>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+    value: widget.animateOnMount ? 0 : 1,
+  );
+  bool _started = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (context.motionDisabled) {
+      _controller.stop();
+      _controller.value = 1;
+      _started = true;
+    } else if (!_started) {
+      _started = true;
+      if (widget.animateOnMount) _controller.forward();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant MotionEntrance oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _controller.duration = widget.duration;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        final value = AppMotion.enter.transform(_controller.value);
+        return Opacity(
+          opacity: value,
+          child: FractionalTranslation(
+            translation: widget.offset * (1 - value),
+            child: child,
+          ),
+        );
+      },
+      child: widget.child,
+    );
+  }
+}
+
 /// Replaces one keyed piece of local UI with a short fade and vertical shift.
 ///
 /// Give [child] a key that represents its state. Outgoing content is removed
@@ -181,12 +259,14 @@ class MotionDisclosure extends StatelessWidget {
     required this.child,
     this.duration = AppMotion.content,
     this.alignment = Alignment.topCenter,
+    this.offset = const Offset(0, 0.025),
   });
 
   final bool visible;
   final Widget child;
   final Duration duration;
   final AlignmentGeometry alignment;
+  final Offset offset;
 
   @override
   Widget build(BuildContext context) {
@@ -200,6 +280,7 @@ class MotionDisclosure extends StatelessWidget {
           (child, animation) => _GuardedSizeTransition(
             animation: animation,
             alignment: alignment,
+            offset: offset,
             child: child,
           ),
       child:
@@ -251,11 +332,13 @@ class _GuardedSizeTransition extends StatelessWidget {
   const _GuardedSizeTransition({
     required this.animation,
     required this.alignment,
+    required this.offset,
     required this.child,
   });
 
   final Animation<double> animation;
   final AlignmentGeometry alignment;
+  final Offset offset;
   final Widget child;
 
   @override
@@ -273,7 +356,13 @@ class _GuardedSizeTransition extends StatelessWidget {
               child: Align(
                 alignment: alignment,
                 heightFactor: value,
-                child: Opacity(opacity: value, child: child),
+                child: Opacity(
+                  opacity: value,
+                  child: FractionalTranslation(
+                    translation: offset * (1 - value),
+                    child: child,
+                  ),
+                ),
               ),
             ),
           ),

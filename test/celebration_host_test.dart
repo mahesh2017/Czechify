@@ -333,6 +333,36 @@ void main() {
       expect(find.text('40'), findsOneWidget);
     });
 
+    testWidgets('it waits for its containing result to be revealed', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: Scaffold(
+            body: Center(
+              child: CountUpText(
+                value: 40,
+                delay: Duration(milliseconds: 300),
+                duration: Duration(milliseconds: 400),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pump(const Duration(milliseconds: 299));
+      expect(find.text('0'), findsOneWidget);
+
+      await tester.pump(const Duration(milliseconds: 101));
+      expect(find.text('0'), findsNothing);
+      expect(find.text('40'), findsNothing);
+
+      await tester.pumpAndSettle();
+      expect(find.text('40'), findsOneWidget);
+    });
+
     testWidgets('reduce motion shows the total straight away', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
@@ -341,13 +371,20 @@ void main() {
           home: MediaQuery(
             data: MediaQueryData(disableAnimations: true),
             child: Scaffold(
-              body: Center(child: CountUpText(value: 40, prefix: '+')),
+              body: Center(
+                child: CountUpText(
+                  value: 40,
+                  prefix: '+',
+                  delay: Duration(seconds: 1),
+                ),
+              ),
             ),
           ),
         ),
       );
       await tester.pump();
       expect(find.text('+40'), findsOneWidget);
+      expect(tester.binding.transientCallbackCount, 0);
     });
   });
 }

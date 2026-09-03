@@ -11,6 +11,7 @@ import '../../../../domain/entities/exercise.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../providers/tts_providers.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/motion_widgets.dart';
 import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
 
@@ -315,202 +316,203 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
       }
     }
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: LessonKicker(
-                  sentencePage
-                      ? l10n.teachingInSentence
-                      : l10n.teachingLookAndGuess,
-                  color: t.pri,
+    return MotionEntrance(
+      key: ValueKey('teaching-page-$_imageTeachingPage'),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: LessonKicker(
+                    sentencePage
+                        ? l10n.teachingInSentence
+                        : l10n.teachingLookAndGuess,
+                    color: t.pri,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                l10n.teachingWordProgress(wordIndex + 1, items.length),
-                style: TextStyle(
-                  color: t.faint,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
+                const SizedBox(width: 10),
+                Text(
+                  l10n.teachingWordProgress(wordIndex + 1, items.length),
+                  style: TextStyle(
+                    color: t.faint,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(24),
-            child: AspectRatio(
-              aspectRatio: 1.25,
-              child: Image.asset(
-                item.image,
-                fit: BoxFit.cover,
-                cacheWidth: 880,
-                semanticLabel: item.imageLabel,
+              ],
+            ),
+            const SizedBox(height: 12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: AspectRatio(
+                aspectRatio: 1.25,
+                child: Image.asset(
+                  item.image,
+                  fit: BoxFit.cover,
+                  cacheWidth: 880,
+                  semanticLabel: item.imageLabel,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 18),
-          if (!sentencePage) ...[
-            Semantics(
-              button: true,
-              child: InkWell(
-                onTap: () {
-                  _say(item.cz);
-                  setState(() => _translationRevealed = true);
-                },
-                borderRadius: BorderRadius.circular(24),
-                child: SoftCard(
-                  shadow: false,
-                  border: Border.all(color: t.line),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: DisplayText(
-                              item.cz,
-                              size: 30,
-                              weight: FontWeight.w800,
+            const SizedBox(height: 18),
+            if (!sentencePage) ...[
+              Semantics(
+                button: true,
+                child: InkWell(
+                  onTap: () {
+                    _say(item.cz);
+                    setState(() => _translationRevealed = true);
+                  },
+                  borderRadius: BorderRadius.circular(24),
+                  child: SoftCard(
+                    shadow: false,
+                    border: Border.all(color: t.line),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: DisplayText(
+                                item.cz,
+                                size: 30,
+                                weight: FontWeight.w800,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Icon(Icons.volume_up_outlined, color: t.pri),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 220),
-                        child:
-                            _translationRevealed
-                                ? Column(
-                                  key: const ValueKey('meaning'),
-                                  children: [
-                                    Text(
-                                      l10n.teachingMeaning.toUpperCase(),
-                                      style: TextStyle(
-                                        color: t.faint,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w800,
-                                        letterSpacing: 1.4,
+                            const SizedBox(width: 10),
+                            Icon(Icons.volume_up_outlined, color: t.pri),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        MotionSwap(
+                          child:
+                              _translationRevealed
+                                  ? Column(
+                                    key: const ValueKey('meaning'),
+                                    children: [
+                                      Text(
+                                        l10n.teachingMeaning.toUpperCase(),
+                                        style: TextStyle(
+                                          color: t.faint,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w800,
+                                          letterSpacing: 1.4,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Text(
-                                      item.en,
-                                      style: TextStyle(
-                                        color: t.muted,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
+                                      const SizedBox(height: 3),
+                                      Text(
+                                        item.en,
+                                        style: TextStyle(
+                                          color: t.muted,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
+                                    ],
+                                  )
+                                  : Text(
+                                    l10n.teachingTapWordMeaning,
+                                    key: const ValueKey('hint'),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: t.faint,
+                                      fontSize: 13,
                                     ),
-                                  ],
-                                )
-                                : Text(
-                                  l10n.teachingTapWordMeaning,
-                                  key: const ValueKey('hint'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: t.faint,
-                                    fontSize: 13,
                                   ),
-                                ),
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ] else ...[
-            SoftCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Semantics(
-                    button: true,
-                    label: AppLocalizations.of(context).a11yTapToHearSentence,
-                    excludeSemantics: true,
-                    child: InkWell(
-                      onTap: () {
-                        _say(item.sentence);
-                        setState(() => _translationRevealed = true);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 40,
-                              ),
-                              child: Text(
-                                item.sentence,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: t.ink,
-                                  fontFamily: AppFonts.display,
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w700,
-                                  height: 1.3,
+            ] else ...[
+              SoftCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Semantics(
+                      button: true,
+                      label: AppLocalizations.of(context).a11yTapToHearSentence,
+                      excludeSemantics: true,
+                      child: InkWell(
+                        onTap: () {
+                          _say(item.sentence);
+                          setState(() => _translationRevealed = true);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                ),
+                                child: Text(
+                                  item.sentence,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: t.ink,
+                                    fontFamily: AppFonts.display,
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.3,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Icon(
-                                Icons.volume_up_outlined,
-                                color: t.pri,
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(
+                                  Icons.volume_up_outlined,
+                                  color: t.pri,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 220),
-                    child:
-                        _translationRevealed
-                            ? Text(
-                              item.sentenceEn,
-                              key: const ValueKey('sentence-meaning'),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: t.muted,
-                                fontSize: 15,
-                                height: 1.45,
+                    const SizedBox(height: 10),
+                    MotionSwap(
+                      child:
+                          _translationRevealed
+                              ? Text(
+                                item.sentenceEn,
+                                key: const ValueKey('sentence-meaning'),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: t.muted,
+                                  fontSize: 15,
+                                  height: 1.45,
+                                ),
+                              )
+                              : Text(
+                                l10n.teachingTapSentenceTranslation,
+                                key: const ValueKey('sentence-hint'),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: t.faint, fontSize: 13),
                               ),
-                            )
-                            : Text(
-                              l10n.teachingTapSentenceTranslation,
-                              key: const ValueKey('sentence-hint'),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: t.faint, fontSize: 13),
-                            ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
+            ],
+            const SizedBox(height: 20),
+            KeyCta(
+              label:
+                  lastPage
+                      ? l10n.teachingStartExercises
+                      : sentencePage
+                      ? l10n.teachingNextWord
+                      : l10n.teachingSeeExample,
+              onPressed: advance,
             ),
           ],
-          const SizedBox(height: 20),
-          KeyCta(
-            label:
-                lastPage
-                    ? l10n.teachingStartExercises
-                    : sentencePage
-                    ? l10n.teachingNextWord
-                    : l10n.teachingSeeExample,
-            onPressed: advance,
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -9,6 +9,7 @@ import '../../../../domain/repositories/speech_ports.dart';
 import '../../../providers/stt_providers.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/record_button.dart';
+import '../../common/motion_widgets.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'exercise_shared.dart';
 
@@ -298,41 +299,52 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
           const SizedBox(height: 20),
 
           // What was heard, then what to make of it.
-          if (transcription != null && transcription!.isNotEmpty) ...[
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: t.elev,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LessonKicker(l10n.speakingYouSaid),
-                  const SizedBox(height: 6),
-                  Text(
-                    transcription!,
-                    style: TextStyle(fontSize: 16, height: 1.45, color: t.ink),
+          MotionDisclosure(
+            visible: transcription != null && transcription!.isNotEmpty,
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: t.elev,
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                ],
-              ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LessonKicker(l10n.speakingYouSaid),
+                      const SizedBox(height: 6),
+                      Text(
+                        transcription ?? '',
+                        style: TextStyle(
+                          fontSize: 16,
+                          height: 1.45,
+                          color: t.ink,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
-            const SizedBox(height: 10),
-          ],
+          ),
 
-          if (feedback != null)
-            Text(
-              feedback!,
+          MotionDisclosure(
+            visible: feedback != null,
+            child: Text(
+              feedback ?? '',
               style: TextStyle(
                 fontSize: 15,
                 height: 1.5,
                 fontWeight: FontWeight.w600,
                 // Amber means streak and XP, never a verdict — a speaking
                 // result that is not clearly good is neutral, not a warning.
-                color: feedback!.contains('Good') ? t.greenInk : t.ink,
+                color: (feedback ?? '').contains('Good') ? t.greenInk : t.ink,
               ),
             ),
+          ),
         ],
       ),
     );

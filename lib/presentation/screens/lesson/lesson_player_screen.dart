@@ -24,6 +24,7 @@ import '../../widgets/lesson/exercise_widget.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
 import '../../widgets/common/gender_pill.dart';
 import '../../widgets/common/lesson_ui.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// Lesson player — loads exercises from DB, cycles through them one by one.
@@ -325,36 +326,48 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               // so the learner can study their answer at their own pace —
               // no timed auto-advance.
               Expanded(
-                child: LessonExerciseViewport(
-                  // Key by position so widget state (selected answers) resets
-                  // for each exercise, including mistake re-asks of the same
-                  // exercise id.
-                  key: ValueKey(session.currentIndex),
-                  exercise: exercise,
-                  answerStreak: session.answerStreak,
-                  onAnswered: (result) {
-                    // Teaching cards are presentations, not questions: advance
-                    // straight to the next exercise with no grading banner,
-                    // heart, or XP.
-                    if (exercise.type == ExerciseType.teaching) {
-                      ref.read(lessonSessionProvider.notifier).nextExercise();
-                      return;
-                    }
-                    ref
-                        .read(lessonSessionProvider.notifier)
-                        .onExerciseAnswered(
-                          outcome: result.outcome,
-                          explanation: result.explanation,
-                          correctAnswer: result.correctAnswer,
-                          supports: result.supports,
-                          xpEarned: exercise.xpReward,
-                        );
-                  },
+                child: MotionEntrance(
+                  // Replacing this key disposes the outgoing exercise in the
+                  // same frame. Only the incoming exercise is animated, so a
+                  // microphone or TTS owner can never survive behind an exit.
+                  key: ValueKey(
+                    'lesson-question-${session.currentIndex}-${exercise.id}',
+                  ),
+                  child: LessonExerciseViewport(
+                    // Key by position so widget state (selected answers) resets
+                    // for each exercise, including mistake re-asks of the same
+                    // exercise id.
+                    key: ValueKey(session.currentIndex),
+                    exercise: exercise,
+                    answerStreak: session.answerStreak,
+                    onAnswered: (result) {
+                      // Teaching cards are presentations, not questions: advance
+                      // straight to the next exercise with no grading banner,
+                      // heart, or XP.
+                      if (exercise.type == ExerciseType.teaching) {
+                        ref.read(lessonSessionProvider.notifier).nextExercise();
+                        return;
+                      }
+                      ref
+                          .read(lessonSessionProvider.notifier)
+                          .onExerciseAnswered(
+                            outcome: result.outcome,
+                            explanation: result.explanation,
+                            correctAnswer: result.correctAnswer,
+                            supports: result.supports,
+                            xpEarned: exercise.xpReward,
+                          );
+                    },
+                  ),
                 ),
               ),
 
               // Feedback banner — appears under the answered exercise.
-              if (session.showFeedback) _buildFeedbackBanner(context, session),
+              MotionDisclosure(
+                visible: session.showFeedback,
+                alignment: Alignment.bottomCenter,
+                child: _buildFeedbackBanner(context, session),
+              ),
             ],
           ),
         ),
@@ -856,6 +869,13 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     CelebrationTimeline.lessonImpact,
     CelebrationTimeline.lessonReveal,
   );
+  static const _scoreboardRevealStart = 0.42;
+  static final _scoreboardCountDelay = Duration(
+    microseconds:
+        (CelebrationTimeline.lessonReveal.inMicroseconds *
+                _scoreboardRevealStart)
+            .round(),
+  );
 
   @override
   void initState() {
@@ -1194,7 +1214,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     final session = widget.session;
     final l10n = AppLocalizations.of(context);
     return Opacity(
-      opacity: instant ? 1 : _slice(0.42, 0.7),
+      opacity: instant ? 1 : _slice(_scoreboardRevealStart, 0.7),
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -1213,6 +1233,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                 CountUpText(
                   value: (accuracy * 100).round(),
                   suffix: '%',
+                  delay: _scoreboardCountDelay,
                   duration: const Duration(milliseconds: 1100),
                   style: _statStyle(accent),
                 ),
@@ -1224,6 +1245,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                 CountUpText(
                   value: session.totalXp,
                   prefix: '+',
+                  delay: _scoreboardCountDelay,
                   duration: const Duration(milliseconds: 1100),
                   // Ink, not the raw hue: this is a glyph, not a fill.
                   style: _statStyle(tokens.amberInk),
