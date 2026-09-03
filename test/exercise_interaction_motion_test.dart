@@ -16,6 +16,7 @@ void main() {
     ExerciseType type,
     Map<String, dynamic> data, {
     bool reduceMotion = false,
+    bool settle = true,
   }) async {
     tester.view.physicalSize = const Size(1200, 1600);
     tester.view.devicePixelRatio = 1;
@@ -46,7 +47,11 @@ void main() {
         ),
       ),
     );
-    await tester.pumpAndSettle();
+    if (settle) {
+      await tester.pumpAndSettle();
+    } else {
+      await tester.pump();
+    }
     return answers;
   }
 
@@ -168,5 +173,55 @@ void main() {
     // was not perfect.
     expect(find.textContaining('0/1'), findsWidgets);
     expect(answers.single.isCorrect, isFalse);
+  });
+
+  // The illustrated teacher rides on the intro block, so the card needs an
+  // intro before there is a teacher to animate at all.
+  const illustratedTeaching = {
+    'heading': 'The Czech Alphabet',
+    'intro': 'Czech spelling is regular: each letter keeps one sound.',
+    'character': 'v3',
+    'items': [
+      {'symbol': 'a', 'sound': 'like u in cup', 'example': 'matka'},
+    ],
+  };
+
+  testWidgets('the illustrated teacher bobs while it is on screen', (
+    tester,
+  ) async {
+    await pump(
+      tester,
+      ExerciseType.teaching,
+      illustratedTeaching,
+      settle: false,
+    );
+
+    // The bob repeats for as long as the card is shown, so it is still
+    // scheduling frames rather than settling.
+    expect(tester.binding.transientCallbackCount, greaterThan(0));
+    expect(tester.takeException(), isNull);
+
+    await tester.pump(const Duration(milliseconds: 650));
+    expect(tester.binding.transientCallbackCount, greaterThan(0));
+  });
+
+  testWidgets('the illustrated teacher holds still with reduced motion', (
+    tester,
+  ) async {
+    await pump(
+      tester,
+      ExerciseType.teaching,
+      illustratedTeaching,
+      reduceMotion: true,
+      settle: false,
+    );
+
+    // Parked at the midpoint of the bob, which is its rest position, and not
+    // costing a frame for a learner who asked for less movement.
+    expect(tester.binding.transientCallbackCount, 0);
+    expect(tester.takeException(), isNull);
+
+    await tester.pump(const Duration(milliseconds: 650));
+    expect(tester.binding.transientCallbackCount, 0);
   });
 }
