@@ -43,33 +43,11 @@ class AccountRestoreMaterializer {
     final preferences = await SharedPreferences.getInstance();
     final profile = await _db.profileDao.learnerProfile();
     final reminder = await _db.profileDao.reminderPreference();
-    if (profile != null) {
-      await preferences.setString('settings_learner_name', profile.displayName);
-      await preferences.setInt(
-        'settings_starting_level',
-        _curriculumLevel(profile.selfAssessedCefr).index,
-      );
-      await preferences.setInt(
-        'settings_tts_voice_gender',
-        profile.preferredVoice == 'male' ? 1 : 0,
-      );
-      await preferences.setDouble('settings_tts_rate', profile.ttsSpeechRate);
-      await preferences.setInt('settings_daily_goal_xp', profile.dailyGoalXp);
-      if (profile.onboardingCompletedAt != null) {
-        await preferences.setBool('settings_onboarding_done', true);
-      }
-    }
-    if (reminder != null) {
-      final hour = reminder.preferredHour;
-      final minute = reminder.preferredMinute;
-      if (hour != null && minute != null) {
-        await preferences.setInt('settings_reminder_hour', hour);
-        await preferences.setInt('settings_reminder_minute', minute);
-      }
-      await preferences.setBool(
-        'settings_catch_up_enabled',
-        reminder.catchUpEnabled,
-      );
+    await _writePortableValues(preferences, profile, reminder);
+    // A background sync may confirm onboarding, but must never un-confirm it:
+    // the flag is only ever raised here, never cleared.
+    if (profile?.onboardingCompletedAt != null) {
+      await preferences.setBool('settings_onboarding_done', true);
     }
   }
 
@@ -81,44 +59,13 @@ class AccountRestoreMaterializer {
 
     final profile = await _db.profileDao.learnerProfile();
     final reminder = await _db.profileDao.reminderPreference();
-    final hasProgress =
-        (await (_db.select(_db.lessonProgress)..limit(1)).get()).isNotEmpty ||
-        (await (_db.select(_db.earnedBadges)..limit(1)).get()).isNotEmpty ||
-        (await (_db.select(_db.userProgress)..limit(1)).get()).isNotEmpty ||
-        (await (_db.select(
-          _db.gamificationStateTable,
-        )..limit(1)).get()).isNotEmpty;
-
-    if (profile != null) {
-      await preferences.setString('settings_learner_name', profile.displayName);
-      await preferences.setInt(
-        'settings_starting_level',
-        _curriculumLevel(profile.selfAssessedCefr).index,
-      );
-      await preferences.setInt(
-        'settings_tts_voice_gender',
-        profile.preferredVoice == 'male' ? 1 : 0,
-      );
-      await preferences.setDouble('settings_tts_rate', profile.ttsSpeechRate);
-      await preferences.setInt('settings_daily_goal_xp', profile.dailyGoalXp);
-    }
-
-    if (reminder != null) {
-      final hour = reminder.preferredHour;
-      final minute = reminder.preferredMinute;
-      if (hour != null && minute != null) {
-        await preferences.setInt('settings_reminder_hour', hour);
-        await preferences.setInt('settings_reminder_minute', minute);
-      }
-      await preferences.setBool(
-        'settings_catch_up_enabled',
-        reminder.catchUpEnabled,
-      );
-    }
+    await _writePortableValues(preferences, profile, reminder);
     await preferences.setBool('settings_reminders_enabled', false);
 
     final completed = profile?.onboardingCompletedAt != null;
-    final legacyProgressOnly = profile == null && hasProgress;
+    // Only a profile-less account can be legacy progress, so the four probe
+    // queries stay unrun for everyone who has one.
+    final legacyProgressOnly = profile == null && await _hasLocalProgress();
     final onboardingComplete = completed || legacyProgressOnly;
     await preferences.setBool('settings_onboarding_done', onboardingComplete);
 
@@ -131,6 +78,51 @@ class AccountRestoreMaterializer {
       wantsReminder: reminder?.wantsReminder ?? false,
     );
   }
+
+  /// Writes the preference values both restore paths share.
+  ///
+  /// `settings_onboarding_done` is deliberately not written here: a background
+  /// sync may only raise it, while a full restore has to write it either way.
+  Future<void> _writePortableValues(
+    SharedPreferences preferences,
+    LearnerProfile? profile,
+    ReminderPreference? reminder,
+  ) async {
+    if (profile != null) {
+      await preferences.setString('settings_learner_name', profile.displayName);
+      await preferences.setInt(
+        'settings_starting_level',
+        _curriculumLevel(profile.selfAssessedCefr).index,
+      );
+      await preferences.setInt(
+        'settings_tts_voice_gender',
+        profile.preferredVoice == 'male' ? 1 : 0,
+      );
+      await preferences.setDouble('settings_tts_rate', profile.ttsSpeechRate);
+      await preferences.setInt('settings_daily_goal_xp', profile.dailyGoalXp);
+    }
+    if (reminder != null) {
+      final hour = reminder.preferredHour;
+      final minute = reminder.preferredMinute;
+      if (hour != null && minute != null) {
+        await preferences.setInt('settings_reminder_hour', hour);
+        await preferences.setInt('settings_reminder_minute', minute);
+      }
+      await preferences.setBool(
+        'settings_catch_up_enabled',
+        reminder.catchUpEnabled,
+      );
+    }
+  }
+
+  /// Whether anything was ever learned on this device, for accounts that
+  /// predate the learner profile.
+  Future<bool> _hasLocalProgress() async =>
+      (await (_db.select(_db.lessonProgress)..limit(1)).get()).isNotEmpty ||
+      (await (_db.select(_db.earnedBadges)..limit(1)).get()).isNotEmpty ||
+      (await (_db.select(_db.userProgress)..limit(1)).get()).isNotEmpty ||
+      (await (_db.select(_db.gamificationStateTable)..limit(1)).get())
+          .isNotEmpty;
 
   static const accountScopedPreferenceKeys = <String>{
     'settings_learner_name',

@@ -110,6 +110,38 @@ void main() {
   );
 
   test(
+    'sync hydration may confirm onboarding but never un-confirms it',
+    () async {
+      // The two restore paths differ here on purpose: a full replacement
+      // writes this flag either way, while a background sync only ever raises
+      // it. Unifying them would sign a learner back out of a finished setup.
+      SharedPreferences.setMockInitialValues({
+        'settings_onboarding_done': true,
+      });
+      await database.profileDao.mergeRemoteLearnerProfile(
+        displayName: 'Mahesh',
+        selfAssessedCefr: 'a1',
+        secondaryGoalsJson: '[]',
+        focusSkillsJson: '[]',
+        dailyCommitmentMinutes: 15,
+        studyDaysPerWeek: 5,
+        preferredVoice: 'male',
+        ttsSpeechRate: 0.6,
+        dailyGoalXp: 600,
+        onboardingVersion: 1,
+        onboardingLastStep: 3,
+        updatedAt: DateTime.utc(2026, 8, 30, 11),
+      );
+
+      await AccountRestoreMaterializer(database).hydratePortablePreferences();
+
+      final preferences = await SharedPreferences.getInstance();
+      expect(preferences.getBool('settings_onboarding_done'), isTrue);
+      expect(preferences.getString('settings_learner_name'), 'Mahesh');
+    },
+  );
+
+  test(
     'an empty incomplete account resumes onboarding and clears stale data',
     () async {
       SharedPreferences.setMockInitialValues({
