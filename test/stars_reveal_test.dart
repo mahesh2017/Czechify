@@ -150,4 +150,32 @@ void main() {
     expect(filled(tester), 2);
     expect(tester.binding.transientCallbackCount, 0);
   });
+
+  testWidgets('an initial delay holds the first star back', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        home: Scaffold(
+          body: Center(
+            child: StarsReveal(
+              earned: 3,
+              feedback: feedback,
+              initialDelay: const Duration(milliseconds: 400),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // A larger ceremony asks for this delay so the stars do not land on top of
+    // the moment that introduces them; nothing may land before it elapses.
+    await tester.pump(const Duration(milliseconds: 200));
+    expect(filled(tester), 0);
+    expect(player.played, isEmpty);
+
+    // Long enough for the held first landing and all three steps after it.
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
+    expect(filled(tester), 3);
+  });
 }

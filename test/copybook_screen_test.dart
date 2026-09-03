@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -103,6 +105,34 @@ void main() {
     expect(liveDisclosure.duration, AppMotion.reward);
     expect(tester.binding.transientCallbackCount, greaterThan(0));
     await tester.pumpAndSettle();
+    expect(tester.binding.transientCallbackCount, 0);
+  });
+
+  testWidgets('reduce motion waits with a still indicator', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          dailyCopybookProvider.overrideWith(
+            (ref) => Completer<List<CopybookItem>>().future,
+          ),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: MediaQuery(
+            data: MediaQueryData(disableAnimations: true),
+            child: CopybookScreen(),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+
+    // A spinner is motion that never stops, so reduced motion gets a still
+    // glyph rather than a permanently turning one.
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(find.byIcon(Icons.hourglass_top_rounded), findsOneWidget);
     expect(tester.binding.transientCallbackCount, 0);
   });
 }

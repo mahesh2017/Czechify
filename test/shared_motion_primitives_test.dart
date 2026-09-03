@@ -212,6 +212,99 @@ void main() {
     await tester.pumpAndSettle();
   });
 
+  testWidgets('an abandoned press releases the depth it took on', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      host(
+        SizedBox(
+          width: 320,
+          child: SoftCard(onTap: () {}, child: const Text('Open lesson')),
+        ),
+      ),
+    );
+
+    final gesture = await tester.startGesture(
+      tester.getCenter(find.text('Open lesson')),
+    );
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 60));
+
+    // A press that turns into a scroll is cancelled rather than lifted. The
+    // card has to come back up, or it stays visibly dented afterwards.
+    await gesture.cancel();
+    await tester.pumpAndSettle();
+
+    final scale = find.descendant(
+      of: find.byType(SoftCard),
+      matching: find.byType(ScaleTransition),
+    );
+    expect(tester.widget<ScaleTransition>(scale).scale.value, 1);
+  });
+
+  testWidgets('an abandoned button press releases its depth too', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      host(
+        SizedBox(
+          width: 320,
+          child: PrimaryButton(label: 'Continue', onPressed: () {}),
+        ),
+      ),
+    );
+
+    final gesture = await tester.startGesture(
+      tester.getCenter(find.text('Continue')),
+    );
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 60));
+    await gesture.cancel();
+    await tester.pumpAndSettle();
+
+    final scale = find.descendant(
+      of: find.byType(PrimaryButton),
+      matching: find.byType(ScaleTransition),
+    );
+    expect(tester.widget<ScaleTransition>(scale).scale.value, 1);
+  });
+
+  testWidgets('a disabled button is flat and a labelled one keeps its icon', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      host(
+        const SizedBox(
+          width: 320,
+          child: PrimaryButton(label: 'Continue', onPressed: null),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Disabled drops the gradient for a flat surface, so the button reads as
+    // unavailable rather than merely unlit.
+    expect(find.text('Continue'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+
+    await tester.pumpWidget(
+      host(
+        SizedBox(
+          width: 320,
+          child: PrimaryButton(
+            label: 'Record',
+            icon: Icons.mic_rounded,
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.byIcon(Icons.mic_rounded), findsOneWidget);
+    expect(find.text('Record'), findsOneWidget);
+  });
+
   testWidgets('record state changes fill and icon without losing semantics', (
     tester,
   ) async {

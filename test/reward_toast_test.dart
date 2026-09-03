@@ -54,6 +54,36 @@ void main() {
     expect(tester.binding.transientCallbackCount, 0);
   });
 
+  testWidgets('reduce motion turned on mid-entry finishes the toast', (
+    tester,
+  ) async {
+    Widget toast({required bool reduceMotion}) => MaterialApp(
+      theme: lightTheme(),
+      home: MediaQuery(
+        data: MediaQueryData(disableAnimations: reduceMotion),
+        child: const Scaffold(
+          body: RewardToast(celebration: StreakExtended(days: 7)),
+        ),
+      ),
+    );
+
+    await tester.pumpWidget(toast(reduceMotion: false));
+    await tester.pump(const Duration(milliseconds: 40));
+    final midEntry = tester.widget<Opacity>(find.byType(Opacity).first);
+    expect(midEntry.opacity, lessThan(1));
+
+    // Switching the setting on mid-entry has to land the toast where it was
+    // heading rather than leaving it part-way in and half-transparent.
+    await tester.pumpWidget(toast(reduceMotion: true));
+    await tester.pump();
+
+    expect(tester.widget<Opacity>(find.byType(Opacity).first).opacity, 1);
+    expect(find.textContaining('7-day streak'), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(tester.binding.transientCallbackCount, 0);
+  });
+
   group('the badge set has no long empty stretches', () {
     int unitOf(Badge badge) => badge.criteria.unitId ?? -1;
 
