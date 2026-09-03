@@ -788,28 +788,36 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return AnimatedBuilder(
-      animation: _bob,
-      builder: (context, child) {
-        final t = _bob.value; // ping-pongs 0 → 1 → 0
-        final amplitude = _speaking ? 5.0 : 2.5;
-        final dy = -amplitude / 2 + amplitude * t;
-        // A touch of sway only while talking, so idle stays calm.
-        final angle = _speaking ? (t - 0.5) * 0.04 : 0.0;
-        return Transform.rotate(
-          angle: angle,
-          child: Transform.translate(offset: Offset(0, dy), child: child),
-        );
-      },
-      child: Image.asset(
-        'assets/images/teacher_${widget.genderKey}.png',
-        fit: BoxFit.contain,
-        // The art ships at ~3x the rendered size; cap the decode to match.
-        cacheWidth: 400,
-        filterQuality: FilterQuality.medium,
-        errorBuilder:
-            (context, error, stack) =>
-                Icon(Icons.person_outline, size: 64, color: cs.primary),
+    // The bob repeats for as long as the card is on screen, so it gets its own
+    // layer: the outer boundary keeps the rest of the card off the per-frame
+    // repaint path, and the inner one lets the decoded portrait be composited
+    // under a new transform instead of re-rasterised every frame.
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _bob,
+        builder: (context, child) {
+          final t = _bob.value; // ping-pongs 0 → 1 → 0
+          final amplitude = _speaking ? 5.0 : 2.5;
+          final dy = -amplitude / 2 + amplitude * t;
+          // A touch of sway only while talking, so idle stays calm.
+          final angle = _speaking ? (t - 0.5) * 0.04 : 0.0;
+          return Transform.rotate(
+            angle: angle,
+            child: Transform.translate(offset: Offset(0, dy), child: child),
+          );
+        },
+        child: RepaintBoundary(
+          child: Image.asset(
+            'assets/images/teacher_${widget.genderKey}.png',
+            fit: BoxFit.contain,
+            // The art ships at ~3x the rendered size; cap the decode to match.
+            cacheWidth: 400,
+            filterQuality: FilterQuality.medium,
+            errorBuilder:
+                (context, error, stack) =>
+                    Icon(Icons.person_outline, size: 64, color: cs.primary),
+          ),
+        ),
       ),
     );
   }

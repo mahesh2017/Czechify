@@ -23,8 +23,7 @@ class SrsReviewScreen extends ConsumerStatefulWidget {
   ConsumerState<SrsReviewScreen> createState() => _SrsReviewScreenState();
 }
 
-class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen>
-    with SingleTickerProviderStateMixin {
+class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
   bool _loaded = false;
   String _productionAttempt = '';
 

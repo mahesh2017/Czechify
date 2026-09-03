@@ -1463,7 +1463,7 @@ class _LevelCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(18),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
+          duration: context.motionDuration(AppMotion.selection),
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
           decoration: BoxDecoration(
             color: selected ? t.priSoft : t.card,

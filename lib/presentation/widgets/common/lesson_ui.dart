@@ -1643,7 +1643,7 @@ class _SpeedSegment extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(11),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
+          duration: context.motionDuration(AppMotion.selection),
           height: 38,
           alignment: Alignment.center,
           decoration: BoxDecoration(
