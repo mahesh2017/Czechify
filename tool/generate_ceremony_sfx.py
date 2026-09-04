@@ -78,6 +78,15 @@ BED = (
 # catches it before any call is billed.
 MAX_TEXT = 450
 
+# Themes get a wider bed than the cues. A launch theme is the one place the
+# app can sound like more than one instrument without breaking the palette,
+# because nothing else is playing near it.
+THEME_BED = (
+    "Warm acoustic instruments only: marimba, vibraphone, celesta, light "
+    "plucked strings. No drum kit, no brass, no synth pads, no cinematic "
+    "swell. Ends resolved and fully silent, no fade-out."
+)
+
 # peak is the ladder position each file has to land on, measured from the
 # palette it is replacing.
 CUES = {
@@ -153,6 +162,41 @@ CUES = {
             "Three quick marimba notes rising through a C major triad and "
             "landing, like a small door-chime. Brisk and light, over almost "
             "before it starts. Warm, never bright or piercing. " + BED
+        ),
+    ),
+    # Full launch themes, the game-style read of "welcome music". Longer and
+    # actually melodic, where the launch_* cues are single gestures. They play
+    # over the loading screen and on into Home — the dwell there depends on DB
+    # seeding, so nothing here may depend on a screen still being up.
+    "theme_a": dict(
+        seconds=5.0,
+        peak=0.72,
+        text=(
+            "A short warm welcome theme, played once. A gentle marimba melody "
+            "in C major rising over a soft vibraphone bed, unhurried and "
+            "friendly, settling onto a final chord. Encouraging rather than "
+            "grand — the feeling of sitting down to something you enjoy. "
+            + THEME_BED
+        ),
+    ),
+    "theme_b": dict(
+        seconds=5.0,
+        peak=0.72,
+        text=(
+            "A short welcome theme with a light Central European folk lilt, "
+            "in a gentle three-beat sway. Marimba and plucked strings trade a "
+            "simple warm melody in C major and resolve together. Charming and "
+            "hand-made, never grand or touristy. " + THEME_BED
+        ),
+    ),
+    "theme_c": dict(
+        seconds=6.0,
+        peak=0.72,
+        text=(
+            "A warm welcome theme that opens up. Marimba states a simple C "
+            "major phrase, celesta answers above it, and soft sustained "
+            "strings lift underneath before everything resolves together. "
+            "Generous and inviting, still gentle. " + THEME_BED
         ),
     ),
     "badge": dict(
