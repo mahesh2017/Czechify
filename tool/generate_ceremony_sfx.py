@@ -122,6 +122,30 @@ CUES = {
             "acoustic throughout. Resolves to a low C. " + BED
         ),
     ),
+    # The launch fanfare, against a named reference: Clash of Clans.
+    #
+    # That reference is orchestral and loud — heroic brass, timpani, a choir
+    # shout, a cymbal crash. Every earlier attempt failed because the prompts
+    # banned brass and percussion outright, so the only thing left to build
+    # from was warm acoustic chamber music, which is why sixteen takes came
+    # back sounding wistful. The ban belonged to the ceremony tier and had no
+    # business here.
+    #
+    # C major stays, at no cost: it is the only thread tying a big orchestral
+    # opening to the marimba chime that answers a correct answer minutes later.
+    "welcome": dict(
+        seconds=4.0,
+        peak=0.80,
+        text=(
+            "An epic orchestral fanfare for a fantasy adventure game title. "
+            "Heroic brass blazes a bold triumphant phrase in C major over "
+            "thundering timpani and taiko drums, with a short choir shout and "
+            "a cymbal crash, landing on one huge resolved chord. Full "
+            "symphony orchestra, cinematic and exhilarating, fast and "
+            "driving. Bright major key, nothing slow or wistful. Ends on a "
+            "decisive hit, no fade-out."
+        ),
+    ),
     "badge": dict(
         seconds=1.5,
         peak=0.68,
