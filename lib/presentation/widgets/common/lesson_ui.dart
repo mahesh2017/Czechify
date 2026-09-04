@@ -804,19 +804,23 @@ class _ListenPanelState extends State<ListenPanel>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ScaleTransition(
-                      scale: Tween(begin: 1.0, end: 1.09).animate(_pulse),
-                      child: Container(
-                        width: 38,
-                        height: 38,
-                        decoration: BoxDecoration(
-                          color: t.violet,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.play_arrow,
-                          size: 22,
-                          color: t.onFill,
+                    // The pulse never stops while the panel is on screen, so
+                    // it is boundaried away from the exercise behind it.
+                    RepaintBoundary(
+                      child: ScaleTransition(
+                        scale: Tween(begin: 1.0, end: 1.09).animate(_pulse),
+                        child: Container(
+                          width: 38,
+                          height: 38,
+                          decoration: BoxDecoration(
+                            color: t.violet,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.play_arrow,
+                            size: 22,
+                            color: t.onFill,
+                          ),
                         ),
                       ),
                     ),

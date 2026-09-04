@@ -1143,17 +1143,22 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
         alignment: Alignment.center,
         children: [
           if (!instant && grade != LessonGrade.practice)
-            AnimatedBuilder(
-              animation: _rays,
-              builder:
-                  (context, _) => CustomPaint(
-                    size: const Size(240, 200),
-                    painter: RaysPainter(
-                      rotation: _rays.value * 2 * math.pi,
-                      color: accent,
-                      scale: landed,
+            // These rays never stop — the learner can sit on the completion
+            // screen indefinitely. Their own layer keeps the rest of the
+            // screen (wash, scoreboard, buttons) off the per-frame path.
+            RepaintBoundary(
+              child: AnimatedBuilder(
+                animation: _rays,
+                builder:
+                    (context, _) => CustomPaint(
+                      size: const Size(240, 200),
+                      painter: RaysPainter(
+                        rotation: _rays.value * 2 * math.pi,
+                        color: accent,
+                        scale: landed,
+                      ),
                     ),
-                  ),
+              ),
             ),
           if (!instant)
             CustomPaint(

@@ -171,7 +171,10 @@ class _BranchEntranceState extends State<_BranchEntrance>
           ),
         );
       },
-      child: widget.child,
+      // The shell is the whole app below the tab bar. Retaining it as its own
+      // layer means the branch transition composites that raster under a new
+      // opacity and offset, rather than re-recording every screen it holds.
+      child: RepaintBoundary(child: widget.child),
     );
   }
 }

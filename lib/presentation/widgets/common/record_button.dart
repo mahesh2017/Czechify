@@ -87,24 +87,43 @@ class _RecordButtonState extends State<RecordButton>
             alignment: Alignment.center,
             children: [
               if (widget.isRecording)
-                AnimatedBuilder(
-                  animation: _ring,
-                  builder: (context, _) {
-                    final v = _ring.value;
-                    return IgnorePointer(
-                      child: Opacity(
-                        opacity: (0.55 * (1 - v)).clamp(0.0, 1.0),
-                        child: Container(
-                          width: widget.size * (0.9 + v),
-                          height: widget.size * (0.9 + v),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: t.red, width: 2),
-                          ),
-                        ),
+                // The ring runs for as long as the learner holds a recording,
+                // so it gets its own layer: without one, every frame of it
+                // re-records the whole screen behind the button — including
+                // the wash's three full-screen gradients.
+                //
+                // The boundary alone is not enough. The circle changes size
+                // every frame, and a repaint boundary contains painting, not
+                // layout — the relayout would escape to the Stack, which then
+                // repaints outside the boundary anyway. The fixed-extent box
+                // below gives the growing circle a tightly constrained parent
+                // to relayout against, so nothing above it is disturbed.
+                RepaintBoundary(
+                  child: SizedBox(
+                    width: extent,
+                    height: extent,
+                    child: Center(
+                      child: AnimatedBuilder(
+                        animation: _ring,
+                        builder: (context, _) {
+                          final v = _ring.value;
+                          return IgnorePointer(
+                            child: Opacity(
+                              opacity: (0.55 * (1 - v)).clamp(0.0, 1.0),
+                              child: Container(
+                                width: widget.size * (0.9 + v),
+                                height: widget.size * (0.9 + v),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: t.red, width: 2),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
               AnimatedContainer(
                 duration: context.motionDuration(AppMotion.selection),
