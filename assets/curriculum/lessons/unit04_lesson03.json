@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Jste student? Ano, jsem. Jste z Prahy? Ne, nejsem. Máte telefon? Ano, mám.",
-        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image": "assets/images/unit04/profile_inventory_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image": "assets/images/unit04/profile_inventory_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "text_cz": "Lucie je z Brna. Je studentka a má nový batoh. Nemá notebook.",
         "text_en": "Lucie is from Brno. She is a student and has a new backpack. She does not have a laptop.",
@@ -257,7 +257,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "A Short Profile Interview",
-        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image": "assets/images/unit04/profile_inventory_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "lines": [
           {

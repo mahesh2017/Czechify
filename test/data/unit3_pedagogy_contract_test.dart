@@ -135,7 +135,7 @@ void main() {
       final visualData = visualMission['data'] as Map<String, dynamic>;
       expect(
         visualData['image'],
-        'assets/images/unit03/identification_scene_v1.png',
+        'assets/images/unit03/identification_scene_v1.webp',
       );
       expect((visualData['questions'] as List<dynamic>), hasLength(6));
 

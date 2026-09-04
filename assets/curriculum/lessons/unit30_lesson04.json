@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit30/review_plan_v1.png",
+        "image": "assets/images/unit30/review_plan_v1.webp",
         "image_label": "Final A1 Survival Mission",
         "text_cz": "Eva a Pavel plánují setkání. Sejdou se v pátek v šest v kavárně. Eva přijde tramvají.",
         "text_en": "Eva and Pavel plan a meeting. They will meet on Friday at six in a café. Eva will come by tram.",

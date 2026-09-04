@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit30/review_cafe_v1.png",
+        "image": "assets/images/unit30/review_cafe_v1.webp",
         "image_label": "Use Czech at the Café",
         "text_cz": "Dvě kamarádky jsou v kavárně. Jedna si dává kávu a koláč. Potom se ptá na cenu.",
         "text_en": "Two friends are in a café. One has a coffee and cake. Then she asks the price.",

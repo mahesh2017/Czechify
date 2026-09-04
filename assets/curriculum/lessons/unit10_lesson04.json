@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Ráno vstávám v sedm a sprchuju se. Potom pracuju. Odpoledne sportuju a večer čtu.",
-        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "text_cz": "Plán dne: 7:00 vstávám; 8:00 práce; 12:00 oběd; 18:00 sport; 22:30 spím.",
         "text_en": "Daily plan: 7:00 get up; 8:00 work; 12:00 lunch; 18:00 exercise; 22:30 sleep.",
@@ -256,7 +256,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Mission: My Daily Routine",
-        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "lines": [
           {
@@ -320,7 +320,7 @@
         "type": "speaking_task",
         "prompt_en": "Record a five-sentence daily routine from morning to night. Include times, potom, and one se or si expression.",
         "prompt_cz": "Dokončete krátkou misi česky.",
-        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,

@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Ráno vstávám v šest. Snídám v sedm, potom pracuju a večer jdu spát v deset.",
-        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "text_cz": "Marta ráno vstává, pije čaj a jede do práce. Večer čte a spí.",
         "text_en": "Marta gets up in the morning, drinks tea, and goes to work. In the evening she reads and sleeps.",
@@ -260,7 +260,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "See a Day in Six Steps",
-        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "lines": [
           {

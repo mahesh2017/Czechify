@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Jmenuju se Nina. Jsem z Polska. Jsem doma. Mám telefon, ale nemám auto.",
-        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image": "assets/images/unit04/identity_pattern_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image": "assets/images/unit04/identity_pattern_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "text_cz": "Profil: Adam, student, Praha. Má kolo a klíče. Nemá auto.",
         "text_en": "Profile: Adam, student, Prague. He has a bicycle and keys. He does not have a car.",
@@ -257,7 +257,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Mission: My Profile",
-        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image": "assets/images/unit04/identity_pattern_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "lines": [
           {
@@ -321,7 +321,7 @@
         "type": "speaking_task",
         "prompt_en": "Record a 20–30 second profile: introduce yourself, say where you are, and name something you have and something you do not have.",
         "prompt_cz": "Dokončete krátkou misi česky.",
-        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image": "assets/images/unit04/identity_pattern_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,

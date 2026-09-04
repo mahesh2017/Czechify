@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Moje telefonní číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
-        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image": "assets/images/unit09/making_a_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image": "assets/images/unit09/making_a_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "text_cz": "Kontakt: Eva Malá, telefon 702 430 815, kancelář 12.",
         "text_en": "Contact: Eva Malá, telephone 702 430 815, office 12.",
@@ -259,7 +259,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Hear the Important Numbers",
-        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image": "assets/images/unit09/making_a_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "lines": [
           {

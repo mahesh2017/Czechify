@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit13/hobby_concert_v1.png",
+        "image": "assets/images/unit13/hobby_concert_v1.webp",
         "image_label": "Use Always, Often, Sometimes",
         "text_cz": "Petra často chodí na koncerty. Někdy jde do kina. Vždycky poslouchá hudbu doma.",
         "text_en": "Petra often goes to concerts. Sometimes she goes to the cinema. She always listens to music at home.",

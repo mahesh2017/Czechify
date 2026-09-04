@@ -77,7 +77,7 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(24),
               child: Image.asset(
-                'assets/images/copybook_hero_v1.png',
+                'assets/images/copybook_hero_v1.webp',
                 height: 190,
                 width: double.infinity,
                 fit: BoxFit.cover,

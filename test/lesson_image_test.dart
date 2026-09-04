@@ -19,8 +19,8 @@ Exercise exercise(Map<String, dynamic> data) => Exercise(
 void main() {
   test('finds the illustration four exercise types carry directly', () {
     expect(
-      LessonImage.assetFor(exercise({'image': 'assets/images/unit16/a.png'})),
-      'assets/images/unit16/a.png',
+      LessonImage.assetFor(exercise({'image': 'assets/images/unit16/a.webp'})),
+      'assets/images/unit16/a.webp',
     );
   });
 
@@ -31,12 +31,12 @@ void main() {
           'style': 'image_cards',
           'items': [
             {'cz': 'káva'},
-            {'cz': 'čaj', 'image': 'assets/images/unit02/tea.png'},
-            {'cz': 'voda', 'image': 'assets/images/unit02/water.png'},
+            {'cz': 'čaj', 'image': 'assets/images/unit02/tea.webp'},
+            {'cz': 'voda', 'image': 'assets/images/unit02/water.webp'},
           ],
         }),
       ),
-      'assets/images/unit02/tea.png',
+      'assets/images/unit02/tea.webp',
     );
   });
 
@@ -44,13 +44,13 @@ void main() {
     expect(
       LessonImage.assetFor(
         exercise({
-          'image': 'assets/images/unit05/scene.png',
+          'image': 'assets/images/unit05/scene.webp',
           'items': [
-            {'image': 'assets/images/unit05/item.png'},
+            {'image': 'assets/images/unit05/item.webp'},
           ],
         }),
       ),
-      'assets/images/unit05/scene.png',
+      'assets/images/unit05/scene.webp',
     );
   });
 

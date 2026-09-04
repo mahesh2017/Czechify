@@ -77,7 +77,7 @@
       "prompt": "Listen to the call",
       "data": {
         "type": "listening_comprehension",
-        "image": "assets/images/unit31/workday_problem_v1.png",
+        "image": "assets/images/unit31/workday_problem_v1.webp",
         "image_label": "Adult leaving a workplace voice message",
         "prompt_en": "What did the employee ask for?",
         "transcript_cz": "Dobrý den, včera jsem byl u lékaře a dnes se necítím dobře. Mohl bych pracovat z domova? Zítra už snad přijdu do kanceláře.",

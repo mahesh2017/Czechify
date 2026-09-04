@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit11/restaurant_order_v1.png",
+        "image": "assets/images/unit11/restaurant_order_v1.webp",
         "image_label": "Say What You Eat and Drink",
         "text_cz": "Daniel jí rybu s bramborami. Nepije kávu; pije čaj. Má rád zeleninu.",
         "text_en": "Daniel eats fish with potatoes. He does not drink coffee; he drinks tea. He likes vegetables.",

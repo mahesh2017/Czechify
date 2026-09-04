@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit13/hobby_plan_v1.png",
+        "image": "assets/images/unit13/hobby_plan_v1.webp",
         "image_label": "Mission: Make a Free-Time Plan",
         "text_cz": "Dva kamarádi plánují sobotu. Jeden chce do kina, druhý chce na koncert. Nakonec se domluví na kině.",
         "text_en": "Two friends are planning Saturday. One wants to go to the cinema, the other wants to go to a concert. In the end they agree on the cinema.",

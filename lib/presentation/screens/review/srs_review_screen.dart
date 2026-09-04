@@ -1306,7 +1306,7 @@ class _NoDueCardsScreen extends StatelessWidget {
                           child: AspectRatio(
                             aspectRatio: 3 / 2,
                             child: Image.asset(
-                              'assets/images/review_empty_v2.png',
+                              'assets/images/review_empty_v2.webp',
                               fit: BoxFit.cover,
                               semanticLabel:
                                   'Flashcards, a notebook and a growing plant by a Prague window',

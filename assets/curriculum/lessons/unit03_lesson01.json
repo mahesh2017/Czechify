@@ -23,7 +23,7 @@
             "cz": "muž",
             "en": "man",
             "say": "muž",
-            "image": "assets/images/unit03/muz_v1.png",
+            "image": "assets/images/unit03/muz_v1.webp",
             "image_label": "A man",
             "sentence": "To je muž.",
             "sentence_en": "That is a man."
@@ -32,7 +32,7 @@
             "cz": "žena",
             "en": "woman",
             "say": "žena",
-            "image": "assets/images/unit03/zena_v1.png",
+            "image": "assets/images/unit03/zena_v1.webp",
             "image_label": "A woman",
             "sentence": "To je žena.",
             "sentence_en": "That is a woman."
@@ -41,7 +41,7 @@
             "cz": "dítě",
             "en": "child",
             "say": "dítě",
-            "image": "assets/images/unit03/dite_v1.png",
+            "image": "assets/images/unit03/dite_v1.webp",
             "image_label": "A child",
             "sentence": "To je dítě.",
             "sentence_en": "That is a child."
@@ -50,7 +50,7 @@
             "cz": "pes",
             "en": "dog",
             "say": "pes",
-            "image": "assets/images/unit01/pes_v1.png",
+            "image": "assets/images/unit01/pes_v1.webp",
             "image_label": "A dog",
             "sentence": "To je pes.",
             "sentence_en": "That is a dog."
@@ -59,7 +59,7 @@
             "cz": "dům",
             "en": "house",
             "say": "dům",
-            "image": "assets/images/unit01/dum_v1.png",
+            "image": "assets/images/unit01/dum_v1.webp",
             "image_label": "A house",
             "sentence": "To je dům.",
             "sentence_en": "That is a house."
@@ -68,7 +68,7 @@
             "cz": "auto",
             "en": "car",
             "say": "auto",
-            "image": "assets/images/unit03/auto_v1.png",
+            "image": "assets/images/unit03/auto_v1.webp",
             "image_label": "A car",
             "sentence": "To je auto.",
             "sentence_en": "That is a car."

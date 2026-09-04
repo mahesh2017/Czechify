@@ -60,27 +60,27 @@ import '../../widgets/common/motion_widgets.dart';
 ({String path, String label})? _scenarioArt(String id, AppLocalizations l10n) =>
     switch (id) {
       'casual_chat' => (
-        path: 'assets/images/chat_scenario_cafe_v1.png',
+        path: 'assets/images/chat_scenario_cafe_v1.webp',
         label: l10n.scenarioCafeImage,
       ),
       'directions' => (
-        path: 'assets/images/chat_scenario_directions_v1.png',
+        path: 'assets/images/chat_scenario_directions_v1.webp',
         label: l10n.scenarioDirectionsImage,
       ),
       'shopping' => (
-        path: 'assets/images/chat_scenario_shopping_v1.png',
+        path: 'assets/images/chat_scenario_shopping_v1.webp',
         label: l10n.scenarioShoppingImage,
       ),
       'restaurant' => (
-        path: 'assets/images/chat_scenario_restaurant_v1.png',
+        path: 'assets/images/chat_scenario_restaurant_v1.webp',
         label: l10n.scenarioRestaurantImage,
       ),
       'doctor' => (
-        path: 'assets/images/chat_scenario_doctor_v1.png',
+        path: 'assets/images/chat_scenario_doctor_v1.webp',
         label: l10n.scenarioDoctorImage,
       ),
       'job_interview' => (
-        path: 'assets/images/chat_scenario_interview_v1.png',
+        path: 'assets/images/chat_scenario_interview_v1.webp',
         label: l10n.scenarioInterviewImage,
       ),
       _ => null,

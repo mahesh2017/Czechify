@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit14/town_directions_v1.png",
+        "image": "assets/images/unit14/town_directions_v1.webp",
         "image_label": "Understand a Simple Route",
         "text_cz": "Od parku jděte rovně. U mostu zahněte doleva. Nádraží není daleko.",
         "text_en": "From the park go straight. At the bridge turn left. The station is not far.",

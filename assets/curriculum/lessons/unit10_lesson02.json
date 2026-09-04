@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Ráno se sprchuju, potom se oblékám, čistím si zuby a dělám si kávu.",
-        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "text_cz": "Nejdřív si čistím zuby. Potom se oblékám a dělám si snídani.",
         "text_en": "First I brush my teeth. Then I get dressed and make breakfast.",
@@ -260,7 +260,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Put the Routine in Order",
-        "image": "assets/images/unit10/routine_sequence_v1.png",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "lines": [
           {

@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit11/restaurant_payment_v1.png",
+        "image": "assets/images/unit11/restaurant_payment_v1.webp",
         "image_label": "Mission: Order a Simple Meal",
         "text_cz": "Tom je v malé restauraci. Pozdraví, objedná si jídlo a pití, a na konci požádá o účet.",
         "text_en": "Tom is in a small restaurant. He greets, orders food and a drink, and asks for the bill at the end.",

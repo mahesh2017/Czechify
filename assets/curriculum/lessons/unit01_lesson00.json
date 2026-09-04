@@ -23,7 +23,7 @@
             "cz": "káva",
             "en": "coffee",
             "say": "káva",
-            "image": "assets/images/unit01/kava_v1.png",
+            "image": "assets/images/unit01/kava_v1.webp",
             "image_label": "A warm cup of coffee",
             "sentence": "To je káva.",
             "sentence_en": "This is coffee."
@@ -32,7 +32,7 @@
             "cz": "čaj",
             "en": "tea",
             "say": "čaj",
-            "image": "assets/images/unit01/caj_v1.png",
+            "image": "assets/images/unit01/caj_v1.webp",
             "image_label": "A cup of tea",
             "sentence": "To je čaj.",
             "sentence_en": "This is tea."
@@ -41,7 +41,7 @@
             "cz": "dům",
             "en": "house",
             "say": "dům",
-            "image": "assets/images/unit01/dum_v1.png",
+            "image": "assets/images/unit01/dum_v1.webp",
             "image_label": "A family house",
             "sentence": "To je dům.",
             "sentence_en": "This is a house."
@@ -50,7 +50,7 @@
             "cz": "pes",
             "en": "dog",
             "say": "pes",
-            "image": "assets/images/unit01/pes_v1.png",
+            "image": "assets/images/unit01/pes_v1.webp",
             "image_label": "A friendly dog",
             "sentence": "To je pes.",
             "sentence_en": "This is a dog."
@@ -59,7 +59,7 @@
             "cz": "chléb",
             "en": "bread",
             "say": "chléb",
-            "image": "assets/images/unit01/chleb_v1.png",
+            "image": "assets/images/unit01/chleb_v1.webp",
             "image_label": "A loaf of bread",
             "sentence": "To je chléb.",
             "sentence_en": "This is bread."
@@ -68,7 +68,7 @@
             "cz": "jablko",
             "en": "apple",
             "say": "jablko",
-            "image": "assets/images/unit01/jablko_v1.png",
+            "image": "assets/images/unit01/jablko_v1.webp",
             "image_label": "A red apple",
             "sentence": "To je jablko.",
             "sentence_en": "This is an apple."
@@ -77,7 +77,7 @@
             "cz": "kolo",
             "en": "bicycle",
             "say": "kolo",
-            "image": "assets/images/unit01/kolo_v1.png",
+            "image": "assets/images/unit01/kolo_v1.webp",
             "image_label": "A city bicycle",
             "sentence": "To je kolo.",
             "sentence_en": "This is a bicycle."
@@ -86,7 +86,7 @@
             "cz": "děti",
             "en": "children",
             "say": "děti",
-            "image": "assets/images/unit01/deti_v1.png",
+            "image": "assets/images/unit01/deti_v1.webp",
             "image_label": "Two school-age children",
             "sentence": "To jsou děti.",
             "sentence_en": "These are children."

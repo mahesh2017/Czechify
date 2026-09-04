@@ -123,7 +123,7 @@
       "prompt": "Tell the short story",
       "data": {
         "type": "speaking_task",
-        "image": "assets/images/unit29/a2_exam_speaking_v1.png",
+        "image": "assets/images/unit29/a2_exam_speaking_v1.webp",
         "image_label": "Two learners discussing a four-picture story",
         "prompt_cz": "Nahrajte 30–45 sekund: vysvětlete, proč se vaše cesta změnila, co jste udělal/a a kdy jste nakonec přijel/a.",
         "prompt_en": "Record 30–45 seconds: explain why your journey changed, what you did and when you finally arrived.",

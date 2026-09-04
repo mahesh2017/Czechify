@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Dobrý den, jsem Eva. Jsem nová kolegyně. Mám notebook, ale nemám klíč.",
-        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image": "assets/images/unit04/profile_inventory_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image": "assets/images/unit04/profile_inventory_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "text_cz": "To je Marek. Je nový kolega. Má telefon a kartu. Dnes není doma.",
         "text_en": "This is Marek. He is a new colleague. He has a phone and a card. Today he is not at home.",
@@ -257,7 +257,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Meet a New Colleague",
-        "image": "assets/images/unit04/profile_inventory_v1.png",
+        "image": "assets/images/unit04/profile_inventory_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "lines": [
           {

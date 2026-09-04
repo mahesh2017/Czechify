@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "To je Anna. Je milá a mladá. Její bratr Petr je také mladý.",
-        "image": "assets/images/unit08/people_description_v1.png",
+        "image": "assets/images/unit08/people_description_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit08/people_description_v1.png",
+        "image": "assets/images/unit08/people_description_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "text_cz": "Můj dědeček je starý a milý. Moje babička je také milá.",
         "text_en": "My grandfather is old and kind. My grandmother is also kind.",
@@ -260,7 +260,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Describe Someone Simply",
-        "image": "assets/images/unit08/people_description_v1.png",
+        "image": "assets/images/unit08/people_description_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "lines": [
           {

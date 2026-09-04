@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit14/town_route_v1.png",
+        "image": "assets/images/unit14/town_route_v1.webp",
         "image_label": "Choose How to Travel",
         "text_cz": "Marek jde pěšky do parku. Do centra jede tramvají. Na nádraží jede metrem.",
         "text_en": "Marek walks to the park. He takes the tram to the centre. He takes the metro to the station.",

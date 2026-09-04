@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit15/weather_seasons_v1.png",
+        "image": "assets/images/unit15/weather_seasons_v1.webp",
         "image_label": "Describe Today's Weather",
         "text_cz": "Dnes je v Praze chladno a prší. Odpoledne fouká vítr. Zítra bude slunečno.",
         "text_en": "Today it is cool and raining in Prague. In the afternoon the wind blows. Tomorrow it will be sunny.",

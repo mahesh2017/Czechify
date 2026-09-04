@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit12/shop_payment_v1.png",
+        "image": "assets/images/unit12/shop_payment_v1.webp",
         "image_label": "Mission: Buy One Thing",
         "text_cz": "Marek chce koupit košili. Zeptá se na cenu, vybere barvu a platí kartou.",
         "text_en": "Marek wants to buy a shirt. He asks the price, chooses a colour, and pays by card.",

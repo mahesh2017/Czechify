@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Tady je vaše taška. Děkuju, je moje. A telefon? Ne, není můj.",
-        "image": "assets/images/unit07/lost_property_v1.png",
+        "image": "assets/images/unit07/lost_property_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit07/lost_property_v1.png",
+        "image": "assets/images/unit07/lost_property_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "text_cz": "Pokoj 12: telefon pana Nováka. Pokoj 14: taška paní Malé.",
         "text_en": "Room 12: Mr Novák’s phone. Room 14: Ms Malá’s bag.",
@@ -261,7 +261,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Return the Right Item",
-        "image": "assets/images/unit07/lost_property_v1.png",
+        "image": "assets/images/unit07/lost_property_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "lines": [
           {

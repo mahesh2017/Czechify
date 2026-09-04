@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Jsi doma? Ne, nejsem doma. Jsem v práci. Máš auto? Ne, nemám auto.",
-        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image": "assets/images/unit04/identity_pattern_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image": "assets/images/unit04/identity_pattern_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "text_cz": "Petra není studentka. Je učitelka. Nemá auto, ale má kolo.",
         "text_en": "Petra is not a student. She is a teacher. She does not have a car, but she has a bicycle.",
@@ -257,7 +257,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Say It, Ask It, Negate It",
-        "image": "assets/images/unit04/identity_pattern_v1.png",
+        "image": "assets/images/unit04/identity_pattern_v1.webp",
         "image_label": "Identity and possessions: statement, question, and negative",
         "lines": [
           {

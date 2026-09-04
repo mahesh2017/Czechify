@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Máte kávu? Bohužel nemáme. Tak si dám čaj. Ještě jednou, prosím? Čaj.",
-        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image": "assets/images/unit06/cafe_counter_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image": "assets/images/unit06/cafe_counter_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "text_cz": "Kavárna: Káva dnes není. Máme čaj, vodu a pomerančovou limonádu.",
         "text_en": "Café: Coffee is unavailable today. We have tea, water, and orange lemonade.",
@@ -258,7 +258,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Handle a Simple Order",
-        "image": "assets/images/unit06/cafe_counter_v1.png",
+        "image": "assets/images/unit06/cafe_counter_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "lines": [
           {

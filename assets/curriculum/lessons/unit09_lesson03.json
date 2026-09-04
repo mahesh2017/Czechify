@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Můžeme v úterý? Ano, v šest. Sejdeme se u metra. Dobře, platí.",
-        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image": "assets/images/unit09/making_a_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image": "assets/images/unit09/making_a_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "text_cz": "Zpráva: Ve středu nemůžu. Můžeme ve čtvrtek v 17:30 před knihovnou?",
         "text_en": "Message: I cannot on Wednesday. Can we meet Thursday at 17:30 in front of the library?",
@@ -259,7 +259,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Confirm a Simple Plan",
-        "image": "assets/images/unit09/making_a_plan_v1.png",
+        "image": "assets/images/unit09/making_a_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "lines": [
           {
