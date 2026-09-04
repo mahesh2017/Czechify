@@ -180,7 +180,6 @@ void main() {
   const illustratedTeaching = {
     'heading': 'The Czech Alphabet',
     'intro': 'Czech spelling is regular: each letter keeps one sound.',
-    'character': 'v3',
     'items': [
       {'symbol': 'a', 'sound': 'like u in cup', 'example': 'matka'},
     ],

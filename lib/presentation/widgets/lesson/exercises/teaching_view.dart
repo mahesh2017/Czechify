@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 
-import '../../../../core/theme/app_motion.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -203,9 +201,6 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
               text: intro,
               english: _english,
               onToggle: () => _toggleIntro(intro),
-              // "v3" opts into the illustrated teacher art; other cards still
-              // use the original Lottie until they're migrated.
-              useIllustratedCharacter: (data['character'] as String?) == 'v3',
             ),
             const SizedBox(height: 16),
           ],
@@ -604,28 +599,22 @@ class _LetterGrid extends StatelessWidget {
   }
 }
 
-/// The spoken intro: a looping teacher character beside the narration text and
-/// a play/stop control. English TTS now; a recorded `.mp3` voice can replace it
-/// later without changing this widget.
+/// The spoken intro: the teacher beside the narration text and a play/stop
+/// control. English TTS now; a recorded `.mp3` voice can replace it later
+/// without changing this widget.
 class _IntroBlock extends ConsumerWidget {
   final String text;
   final EnglishTts? english;
   final VoidCallback onToggle;
 
-  /// Whether to show the illustrated teacher art instead of the older
-  /// procedural Lottie character.
-  final bool useIllustratedCharacter;
-
   const _IntroBlock({
     required this.text,
     required this.english,
     required this.onToggle,
-    this.useIllustratedCharacter = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cs = Theme.of(context).colorScheme;
     final t = context.tokens;
     final gender = ref.watch(settingsProvider.select((s) => s.ttsVoiceGender));
     final genderKey = gender == TtsVoiceGender.male ? 'male' : 'female';
@@ -651,32 +640,9 @@ class _IntroBlock extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: useIllustratedCharacter ? 112 : 92,
-            height: useIllustratedCharacter ? 140 : 108,
-            child:
-                useIllustratedCharacter
-                    ? _TeacherCharacter(
-                      genderKey: genderKey,
-                      speaking: speaking,
-                    )
-                    : ValueListenableBuilder<bool>(
-                      valueListenable: speaking,
-                      builder: (context, isSpeaking, _) {
-                        final anim = isSpeaking ? 'talk' : 'idle';
-                        return Lottie.asset(
-                          'assets/animations/teacher_${genderKey}_$anim.json',
-                          animate: !context.motionDisabled,
-                          repeat: !context.motionDisabled,
-                          fit: BoxFit.contain,
-                          errorBuilder:
-                              (context, error, stack) => Icon(
-                                Icons.person_outline,
-                                size: 64,
-                                color: cs.primary,
-                              ),
-                        );
-                      },
-                    ),
+            width: 112,
+            height: 140,
+            child: _TeacherCharacter(genderKey: genderKey, speaking: speaking),
           ),
           const SizedBox(width: 12),
           Expanded(
