@@ -122,28 +122,32 @@ CUES = {
             "acoustic throughout. Resolves to a low C. " + BED
         ),
     ),
-    # The launch fanfare, against a named reference: Clash of Clans.
+    # The launch cue. Two rejections bracket it, and they failed in opposite
+    # directions, which is what finally made the target measurable:
     #
-    # That reference is orchestral and loud — heroic brass, timpani, a choir
-    # shout, a cymbal crash. Every earlier attempt failed because the prompts
-    # banned brass and percussion outright, so the only thing left to build
-    # from was warm acoustic chamber music, which is why sixteen takes came
-    # back sounding wistful. The ban belonged to the ceremony tier and had no
-    # business here.
+    #   the wistful takes   2.4 onsets/s,  599 Hz   slow and dark
+    #   the fanfare         4.2 onsets/s, 2829 Hz   bright but a barrage
     #
-    # C major stays, at no cost: it is the only thread tying a big orchestral
-    # opening to the marimba chime that answers a correct answer minutes later.
+    # Smooth without being sad is the remaining corner: few transients, high
+    # brightness. A line that flows rather than a series of hits, in a bright
+    # colour rather than a dark one. So no percussion here — but unlike the
+    # earlier attempts, the energy comes from upward motion and register
+    # instead of from tempo, which is what those were missing.
+    #
+    # C major stays, at no cost: it is the only thread tying the opening to
+    # the marimba chime that answers a correct answer minutes later.
     "welcome": dict(
         seconds=4.0,
-        peak=0.80,
+        peak=0.72,
         text=(
-            "An epic orchestral fanfare for a fantasy adventure game title. "
-            "Heroic brass blazes a bold triumphant phrase in C major over "
-            "thundering timpani and taiko drums, with a short choir shout and "
-            "a cymbal crash, landing on one huge resolved chord. Full "
-            "symphony orchestra, cinematic and exhilarating, fast and "
-            "driving. Bright major key, nothing slow or wistful. Ends on a "
-            "decisive hit, no fade-out."
+            "A smooth bright uplifting orchestral swell in C major. "
+            "Sustained high violins carry one long rising legato line, a soft "
+            "flute above them, warm horns underneath, growing steadily and "
+            "settling onto an open major chord. Only sustained bowed and "
+            "blown notes: no percussion, no harp, no bells or chimes, no "
+            "plucked or struck instruments, no arpeggios or tremolo. Bright "
+            "and hopeful, never dark, harsh or busy. Ends resolved, no "
+            "fade-out."
         ),
     ),
     "badge": dict(
