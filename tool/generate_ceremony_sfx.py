@@ -199,6 +199,57 @@ CUES = {
             "Generous and inviting, still gentle. " + THEME_BED
         ),
     ),
+    # A spread around theme_b, the Central European read. Same prompt gives a
+    # different take every call, and this is the app's signature, so it is
+    # worth several — but they also probe different amounts of folk, because
+    # the failure mode here is souvenir-shop rather than dull.
+    #
+    # The cimbalom is the reason this direction can work at all: Czech folk's
+    # signature instrument is a hammered dulcimer, so it is struck-string, and
+    # it sits inside the mallet family the palette is already built from
+    # instead of arriving from somewhere else.
+    "theme_b1": dict(
+        seconds=5.0,
+        peak=0.72,
+        text=(
+            "A short welcome theme with a gentle Central European folk lilt "
+            "in three. A cimbalom hammered dulcimer carries a simple warm "
+            "melody in C major with marimba beneath it, and they resolve "
+            "together. Hand-made and affectionate, never touristy. "
+            + THEME_BED
+        ),
+    ),
+    "theme_b2": dict(
+        seconds=5.0,
+        peak=0.72,
+        text=(
+            "A sparse welcome theme in a slow three-beat sway. A few cimbalom "
+            "notes in C major over a quiet marimba pulse, plenty of air "
+            "between them, resolving simply. Restrained and intimate — folk "
+            "colour by suggestion, not by costume. " + THEME_BED
+        ),
+    ),
+    "theme_b3": dict(
+        seconds=5.5,
+        peak=0.72,
+        text=(
+            "A warm Bohemian folk welcome in three. Cimbalom and a single "
+            "soft violin trade a simple singing melody in C major over "
+            "plucked strings, lifting once and settling. Village dance at "
+            "half speed — affectionate and unhurried. " + THEME_BED
+        ),
+    ),
+    "theme_b4": dict(
+        seconds=5.0,
+        peak=0.72,
+        text=(
+            "A short welcome theme in three, Central European in colour but "
+            "modern: cimbalom and marimba in C major over soft sustained "
+            "strings, a clear singable phrase that rises and resolves. "
+            "Polished and warm, a title theme rather than a field recording. "
+            + THEME_BED
+        ),
+    ),
     "badge": dict(
         seconds=1.5,
         peak=0.68,
