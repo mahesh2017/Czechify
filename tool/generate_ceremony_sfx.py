@@ -121,6 +121,40 @@ CUES = {
             "acoustic throughout. Resolves to a low C. " + BED
         ),
     ),
+    # Three takes on the launch signature, to be auditioned against each other
+    # and narrowed to one. This is the most-heard sound in the app — a learner
+    # opens it daily — so it is the one place where "catchy" is a hazard: a
+    # melody you can hum is a melody you get sick of. All three are a single
+    # gesture rather than a tune, and all three are the palette's own C major
+    # so the app is recognisable from its first 200 ms rather than novel.
+    "launch_a": dict(
+        seconds=1.2,
+        peak=0.66,
+        text=(
+            "A two-note signature, played once and never repeated. A warm "
+            "marimba note stepping up to a soft vibraphone note a fifth "
+            "above, in C major, ringing briefly and stopping. Confident and "
+            "plain — a greeting, not a fanfare. " + BED
+        ),
+    ),
+    "launch_b": dict(
+        seconds=1.2,
+        peak=0.66,
+        text=(
+            "One soft C major chord on vibraphone, struck once with felt and "
+            "allowed to bloom and settle. No melody, no movement — a single "
+            "warm breath of sound that opens and closes. " + BED
+        ),
+    ),
+    "launch_c": dict(
+        seconds=1.3,
+        peak=0.66,
+        text=(
+            "Three quick marimba notes rising through a C major triad and "
+            "landing, like a small door-chime. Brisk and light, over almost "
+            "before it starts. Warm, never bright or piercing. " + BED
+        ),
+    ),
     "badge": dict(
         seconds=1.5,
         peak=0.68,
