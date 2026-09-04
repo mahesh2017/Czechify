@@ -3,9 +3,13 @@
 
 The art is watercolour-style illustration that was being stored losslessly,
 which is the worst possible format for it: `assets/images` was 42 MB of a
-75.6 MB app. WebP q90 takes that to about 7.7 MB with no difference visible at
-display size — verified by encoding every file and comparing PSNR against the
-original, worst case 32.6.
+75.6 MB app. WebP q95 takes that to about 11.3 MB. q90 was tried first and is smaller
+still, at 7.7 MB, but at 4x magnification it visibly flattens the paper grain
+the watercolour style depends on — worst-case SSIM 0.938 against 0.953 for
+q95. Three and a half megabytes is not worth losing the texture over. Going
+further has no more to give: q98 costs another 3 MB for 0.005 of SSIM, because
+the ceiling is lossy WebP's 4:2:0 chroma subsampling, which no quality setting
+changes.
 
 Images with an alpha channel are left alone. There are eight, they total half
 a megabyte, and they are the ones where re-encoding would actually cost
@@ -33,7 +37,7 @@ try:
 except ImportError:  # pragma: no cover - developer tooling
     sys.exit("Pillow is required: python3 -m pip install Pillow")
 
-QUALITY = 90
+QUALITY = 95
 ROOT = pathlib.Path(__file__).resolve().parent.parent / "assets" / "images"
 
 
