@@ -1,8 +1,8 @@
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/exercise.dart';
-import 'package:ceskina_pro/domain/entities/exercise_outcome.dart';
-import 'package:ceskina_pro/domain/engines/learning_loop_engine.dart';
-import 'package:ceskina_pro/presentation/providers/lesson_providers.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/domain/entities/exercise_outcome.dart';
+import 'package:czechify/domain/engines/learning_loop_engine.dart';
+import 'package:czechify/presentation/providers/lesson_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -115,6 +115,35 @@ void main() {
     expect(state.lastExplanation, isNull);
     expect(state.lastCorrectAnswer, isNull);
     expect(state.mistakeQueue, hasLength(1));
+  });
+
+  test('progress does not run backwards when mistakes are appended', () {
+    const exercise = Exercise(
+      id: 1,
+      lessonId: 1,
+      type: ExerciseType.pronunciation,
+      prompt: 'Say this',
+      data: {},
+    );
+
+    // Ten questions answered, ten questions long: the lesson proper is done.
+    const finished = LessonSessionState(
+      exercises: [exercise, exercise, exercise],
+      originalCount: 3,
+      currentIndex: 3,
+    );
+    expect(finished.progress, 1.0);
+
+    // Three of them were missed and get appended. Dividing by the grown list
+    // sent this to 0.5.
+    const reviewing = LessonSessionState(
+      exercises: [exercise, exercise, exercise, exercise, exercise, exercise],
+      originalCount: 3,
+      currentIndex: 3,
+      mistakesAppended: true,
+    );
+    expect(reviewing.progress, 1.0);
+    expect(reviewing.inMistakeReview, isTrue);
   });
 }
 

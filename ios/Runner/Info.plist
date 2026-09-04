@@ -22,6 +22,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>czechify</string>
+				<string>com.googleusercontent.apps.397715936907-22dfarft831mp3se4rr3pkggjgtsphto</string>
 			</array>
 		</dict>
 	</array>
@@ -64,18 +65,17 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<!-- Portrait only, on both idioms. These arrays were Flutter's default
+	     template and permitted landscape that no screen was ever drawn for —
+	     see the note in main.dart. setPreferredOrientations asks; this is what
+	     makes the OS enforce it. -->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<!-- Mic permission for pronunciation recording (Phase 2) -->
 	<key>NSMicrophoneUsageDescription</key>

@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/presentation/widgets/lesson/exercises/exercise_shared.dart';
+import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

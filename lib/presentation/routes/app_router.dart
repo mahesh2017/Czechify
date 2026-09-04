@@ -28,6 +28,7 @@ import '../providers/settings_providers.dart';
 import '../providers/daily_arrival_providers.dart';
 import 'app_scaffold.dart';
 import '../../domain/entities/enums.dart';
+import 'app_shell_keys.dart';
 
 /// App router. First launch starts at onboarding; after that, home.
 ///
@@ -44,6 +45,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       .maybeWhen(data: (due) => due, orElse: () => false);
 
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation:
         !onboardingDone ? '/onboarding' : (arrivalDue ? '/arrival' : '/'),
     // Unknown paths and malformed parameters land here instead of crashing.
@@ -73,26 +75,53 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/arrival',
         builder: (context, state) => const DailyArrivalScreen(),
       ),
-      // Tab destinations live inside the adaptive shell.
-      ShellRoute(
-        builder: (context, state, child) => AdaptiveScaffold(child: child),
-        routes: [
-          GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
-          GoRoute(
-            path: '/curriculum',
-            builder: (context, state) => const CurriculumScreen(),
+      // Each tab owns a Navigator. Switching tabs therefore keeps its route
+      // stack, scroll positions and local widget state alive in the indexed
+      // shell instead of rebuilding the destination from scratch.
+      StatefulShellRoute.indexedStack(
+        builder:
+            (context, state, navigationShell) =>
+                AdaptiveScaffold(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/',
+                builder: (context, state) => const HomeScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/review',
-            builder: (context, state) => const SrsReviewScreen(),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/curriculum',
+                builder: (context, state) => const CurriculumScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/chat',
-            builder: (context, state) => const ChatScreen(),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/review',
+                builder: (context, state) => const SrsReviewScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/stats',
-            builder: (context, state) => const StatsScreen(),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/chat',
+                builder: (context, state) => const ChatScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/stats',
+                builder: (context, state) => const StatsScreen(),
+              ),
+            ],
           ),
         ],
       ),
@@ -118,7 +147,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // (context.push) so closing them pops back to where the user was.
       GoRoute(
         path: '/account',
-        builder: (context, state) => const AccountScreen(),
+        builder:
+            (context, state) => AccountScreen(
+              mode: AccountScreenMode.fromRouteValue(
+                state.uri.queryParameters['mode'],
+              ),
+            ),
       ),
       // Reached with go() from the end of onboarding, so it replaces the flow
       // rather than sitting on top of it — there is nothing to go back to.
@@ -178,8 +212,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
+        path: '/learning-plan',
+        builder: (context, state) => const OnboardingScreen(editing: true),
+      ),
+      GoRoute(
         path: '/placement',
-        builder: (context, state) => const PlacementScreen(),
+        builder:
+            (context, state) => PlacementScreen(
+              returnToOnboarding:
+                  state.uri.queryParameters['return'] == 'onboarding',
+            ),
       ),
       GoRoute(
         path: '/copybook',

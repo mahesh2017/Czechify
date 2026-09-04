@@ -4,158 +4,244 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Czechify Privacy Policy</title>
+  <link rel="icon" type="image/png" href="app-icon.png">
   <style>
-    body{font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#18302f;background:#fff}
+    html{background:#f6f7fc}
+    body{font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:800px;margin:40px auto;padding:34px 38px;color:#1d2747;background:#fff;border:1px solid #e3e7f5;border-radius:20px;box-shadow:0 12px 36px rgba(31,48,120,.08)}
     h1{line-height:1.2;margin-bottom:.2em}
-    h2{line-height:1.25;margin-top:2em;border-bottom:1px solid #e4ebea;padding-bottom:.25em}
-    a{color:#176b67}
+    h2{line-height:1.25;margin-top:2em;border-bottom:1px solid #e3e7f5;padding-bottom:.25em}
+    a{color:#334fd1}
     table{border-collapse:collapse;width:100%;margin:1em 0;font-size:15px}
-    th,td{border:1px solid #dfe7e6;padding:8px 10px;text-align:left;vertical-align:top}
-    th{background:#f4f8f8}
-    .meta{color:#5c7370;font-size:15px}
-    code{background:#f4f8f8;padding:1px 5px;border-radius:3px;font-size:14px}
+    th,td{border:1px solid #e0e4f1;padding:8px 10px;text-align:left;vertical-align:top}
+    th{background:#f5f7ff}
+    .brand{display:flex;align-items:center;gap:16px;padding-bottom:24px;margin-bottom:28px;border-bottom:1px solid #e3e7f5}
+    .brand img{width:72px;height:72px;border-radius:18px;box-shadow:0 7px 18px rgba(52,74,190,.2)}
+    .brand-name{font-size:25px;font-weight:750;line-height:1.15;color:#24398f;letter-spacing:-.02em}
+    .brand-tagline{color:#677092;margin-top:4px;font-size:15px}
+    .meta{color:#68708c;font-size:15px}
+    .notice{background:#fff8e8;border:1px solid #e8d29a;border-radius:8px;padding:14px 16px}
+    @media(max-width:640px){body{margin:0;padding:24px 20px;border:0;border-radius:0;box-shadow:none}.brand img{width:62px;height:62px;border-radius:15px}}
   </style>
 </head>
 <body>
+  <header class="brand">
+    <img src="app-icon.png" width="72" height="72" alt="Czechify app logo">
+    <div>
+      <div class="brand-name">Czechify</div>
+      <div class="brand-tagline">Learn Czech with confidence</div>
+    </div>
+  </header>
   <h1>Czechify Privacy Policy</h1>
-  <p class="meta"><strong>Last updated:</strong> 18 August 2026</p>
+  <p class="meta"><strong>Last updated:</strong> 30 August 2026 · <strong>Version:</strong> 2026-08-30.1</p>
 
-  <h2>Who is responsible</h2>
+  <h2>1. Controller and contact</h2>
   <p>Czechify is operated by <strong>Mahesh Pathak</strong>, Příčná 1892/4, Nové Město,
-  110 00 Praha, Czechia. We are the data controller for the processing described
-  here.</p>
-  <p>For any privacy question, or to exercise any right below, email
-  <a href="mailto:email.czechify@gmail.com">email.czechify@gmail.com</a>. This is also the address
-  that receives reports about AI tutor replies.</p>
+  110 00 Praha, Czechia (the “controller”, “we”, or “us”).</p>
+  <p>For privacy questions or requests, email
+  <a href="mailto:email.czechify@gmail.com">email.czechify@gmail.com</a>. No data protection
+  officer has been appointed because Czechify's current processing does not require one.</p>
 
-  <h2>The short version</h2>
-  <p>Czechify never asks for your name, email address, or any other personal detail in order to
-  work. Your lessons, progress, and chat history live on your device. Your progress is backed up to
-  an anonymous account so a lost phone does not cost you your learning.</p>
-  <p>There is no advertising in this app, no analytics SDK, no crash-reporting SDK, and no tracking
-  of you across other apps or websites.</p>
+  <h2>2. Summary</h2>
+  <p>Czechify automatically creates an anonymous cloud account and synchronises learning data to it.
+  You may optionally connect Google or add an email address for account recovery and multi-device use. The optional
+  learner profile (name, level, study goal, focus, pace, teacher and reminder preference), placement,
+  and learning progress synchronise so a recovered account is ready on another device. AI chat
+  history, exam results, device settings, and downloaded lesson audio stay on your device. AI tutor
+  text and optional cloud-pronunciation audio leave the device as described below.</p>
+  <p>There are no ads, third-party analytics or crash-reporting SDKs, and no cross-app or cross-site
+  tracking.</p>
 
-  <h2>What we process, why, and on what basis</h2>
+  <h2>3. Data, purposes, and legal bases</h2>
   <table>
-    <tr><th>Data</th><th>Purpose</th><th>Legal basis (GDPR Art. 6)</th></tr>
+    <tr><th>Data</th><th>Purpose</th><th>Legal basis under GDPR Article 6</th></tr>
     <tr>
-      <td>Learning progress: lesson scores, XP, streaks, badges, review schedule, exam results, custom cards</td>
-      <td>Saving your progress and syncing it across your devices</td>
-      <td>Performance of a contract, 6(1)(b)</td>
+      <td>Anonymous account ID, installation/device ID, authentication session, and basic network/security metadata such as IP address, user agent, request time and status</td>
+      <td>Create and secure the account, operate the service, prevent abuse, diagnose failures, and resolve sync conflicts</td>
+      <td>Contract, Art. 6(1)(b), for the account and service; legitimate interests, Art. 6(1)(f), for proportionate security and abuse prevention</td>
     </tr>
     <tr>
-      <td>Anonymous account identifier and an installation device identifier</td>
-      <td>Attaching progress to you, and resolving conflicts when two devices sync</td>
-      <td>Performance of a contract, 6(1)(b)</td>
+      <td>Synced learning data: lesson completion and scores, XP, streaks, badges, review/SRS state, custom cards, and gamification state</td>
+      <td>Save progress and keep it consistent across installations</td>
+      <td>Contract, Art. 6(1)(b)</td>
     </tr>
     <tr>
-      <td>Email address <em>(only if you choose to link one)</em></td>
-      <td>Letting you recover your account and use it on another device</td>
-      <td>Performance of a contract, 6(1)(b)</td>
+      <td>Optional learner profile and preferences: name, self-assessed level, study goal, focus skills, broad target horizon, study pace, teacher choice, reminder time/intention, and placement result</td>
+      <td>Restore the account on another device and tailor the learning plan. Goals such as residence, work, study, or family are optional. Notification permission and actual schedules remain device-specific.</td>
+      <td>Contract, Art. 6(1)(b)</td>
     </tr>
     <tr>
-      <td>Messages you send the AI tutor, and writing you submit for feedback</td>
-      <td>Generating tutor replies, corrections, and evaluations</td>
-      <td>Performance of a contract, 6(1)(b)</td>
+      <td>Account-level curriculum access entitlement, when support or reviewer access has been granted</td>
+      <td>Make the authorised course content available and administer temporary access</td>
+      <td>Contract, Art. 6(1)(b)</td>
     </tr>
     <tr>
-      <td>Short recordings of your speech <em>(only if you enable cloud pronunciation)</em></td>
-      <td>Transcribing what you said so pronunciation can be scored</td>
-      <td>Your consent, 6(1)(a) — withdrawable at any time</td>
+      <td>Email address and password credential <em>(only if you link an account)</em></td>
+      <td>Sign-in, account recovery, and multi-device use. Supabase stores the password credential; Czechify does not receive your plain-text password.</td>
+      <td>Contract, Art. 6(1)(b)</td>
     </tr>
     <tr>
-      <td>Daily usage counters, and a record of consent you have given</td>
-      <td>Enforcing fair-use limits, preventing abuse, and demonstrating consent as the law requires</td>
-      <td>Legitimate interests, 6(1)(f); and 7(1) for the consent record</td>
+      <td>Google account email, provider account identifier, and basic profile fields such as name and profile image <em>(only if you connect Google)</em></td>
+      <td>Sign-in, account recovery, and multi-device use. Czechify requests no access to Google Drive, contacts, or other Google account content.</td>
+      <td>Contract, Art. 6(1)(b)</td>
+    </tr>
+    <tr>
+      <td>AI tutor messages, recent conversation context, and writing submitted for evaluation</td>
+      <td>Generate the reply, correction, summary, or writing assessment you request</td>
+      <td>Contract, Art. 6(1)(b). Using AI features is optional; the rest of the course remains available without them.</td>
+    </tr>
+    <tr>
+      <td>Short pronunciation recording <em>(only when cloud speech is enabled)</em></td>
+      <td>Transcribe speech so the app can compare recognised words with the prompted phrase; this is not acoustic diagnosis of individual sounds</td>
+      <td>Consent, Art. 6(1)(a). You may refuse or withdraw without losing the rest of the app.</td>
+    </tr>
+    <tr>
+      <td>Daily AI/speech usage counters and security events</td>
+      <td>Enforce fair-use limits and protect Czechify and its providers from abuse</td>
+      <td>Legitimate interests, Art. 6(1)(f)</td>
+    </tr>
+    <tr>
+      <td>AI-reply report: reported tutor output, scenario, time, reason, and any note you add; plus sender details supplied by your email app</td>
+      <td>Investigate safety or quality reports and respond where appropriate</td>
+      <td>Legitimate interests, Art. 6(1)(f), in maintaining a safe and reliable service</td>
+    </tr>
+    <tr>
+      <td>Privacy/support email and evidence that a request was completed</td>
+      <td>Answer you, fulfil legal requests, and demonstrate compliance</td>
+      <td>Legal obligation, Art. 6(1)(c), and legitimate interests, Art. 6(1)(f)</td>
     </tr>
   </table>
+  <p>Data is obtained from you, generated by your use of Czechify, or supplied automatically by your
+  device and network. You do not have to provide a name or linked email. Without the automatically
+  created account and synced identifiers, cloud sync and cloud-backed features cannot operate.
+  Without AI text or voice audio, the specific AI or cloud-speech request cannot be performed.</p>
+  <p><strong>Do not put health, biometric, political, religious, financial, identity-document, or
+  other sensitive personal information into the AI tutor or support reports.</strong> Czechify does
+  not need it.</p>
 
-  <h2>What stays on your device</h2>
-  <p>Your name, learning progress, streaks, badges, review schedule, exam results, your chat history
-  with the AI tutor, downloaded audio, and your settings are held in a local database on your
-  device. Uninstalling the app removes them.</p>
+  <h2>4. What stays on the device</h2>
+  <p>AI conversation history, exam results, visual/device settings, notification permission and
+  scheduled notification identifiers, device consent history, and downloaded lesson audio are
+  stored locally. The optional learner profile, reminder preference, placement, and learning
+  progress also have a local copy but the categories listed as synced above are sent to the cloud. Authentication
+  tokens are stored using Android Keystore or Apple Keychain facilities. Android app backup is
+  disabled.</p>
+  <p>Your device's default speech-recognition feature may process audio on the device or send it to
+  the operating-system provider (for example, Google or Apple), depending on your device and its
+  settings. That processing is controlled by the provider's terms and privacy notice, not by
+  Czechify.</p>
 
-  <h2>Your account</h2>
-  <p>Czechify creates an account for you automatically the first time you open it. That account is
-  anonymous: it asks for no email address, no password, and no name. Its only purpose is to hold
-  your progress so it is not lost.</p>
-  <p>You may later add an email address and password so the same account works on another device.
-  That is the only point at which Czechify holds an email address, it is entirely your choice, and
-  everything you have already learned carries across.</p>
+  <h2>5. Account and cloud sync</h2>
+  <p>On first use, Czechify creates a random anonymous Supabase user ID. No email, password, or name
+  is required. Synced rows are tied to that account ID and an installation ID. You may later link an
+  Google account or an email address and password to recover the same account or use it on another device.</p>
+  <p>Deleting an account removes the old account and its synced rows. If you continue using the app,
+  Czechify then creates a new, empty anonymous account so cloud-backed functions can keep working.</p>
 
-  <h2>Who else processes your data</h2>
+  <h2>6. Recipients and service providers</h2>
   <table>
-    <tr><th>Recipient</th><th>What they receive</th><th>Where</th></tr>
-    <tr><td><strong>Supabase</strong> — hosting, database, authentication, storage</td>
-        <td>Your account, synced progress, usage counters</td><td>United Kingdom (London region)</td></tr>
-    <tr><td><strong>DeepSeek</strong> — AI tutor, grammar and writing feedback</td>
-        <td>The messages and text you submit, plus recent conversation context</td><td>Outside the EEA</td></tr>
-    <tr><td><strong>OpenAI</strong> — speech-to-text <em>(only with your consent)</em></td>
-        <td>The short recording you just made</td><td>United States</td></tr>
+    <tr><th>Recipient</th><th>Data and role</th><th>Primary location</th></tr>
+    <tr>
+      <td><strong>Supabase, Inc.</strong></td>
+      <td>Processor for authentication, database sync, storage, Edge Functions, quotas, and infrastructure/security logs</td>
+      <td>Primary Czechify project data: Paris, France (European Union); supporting subprocessors may operate elsewhere</td>
+    </tr>
+    <tr>
+      <td><strong>Scaleway SAS</strong></td>
+      <td>Processor providing Generative APIs for AI tutor, grammar, summary, and writing-evaluation requests. Czechify currently uses a DeepSeek V4 Flash model hosted by Scaleway. The request body does not contain your Czechify account ID or linked email.</td>
+      <td>Paris, France (European Union)</td>
+    </tr>
+    <tr>
+      <td><strong>OpenAI Ireland Ltd / OpenAI, L.L.C.</strong></td>
+      <td>Processes a pronunciation clip for transcription only after cloud-speech consent. It does not receive your Czechify account ID or linked email in the request body.</td>
+      <td>EEA and United States</td>
+    </tr>
+    <tr>
+      <td><strong>Google LLC</strong></td>
+      <td>Identity provider for optional Google account authentication; processes the selected account email, provider identifier, and basic profile fields. No Google content scope is requested.</td>
+      <td>May be processed globally, including in the United States</td>
+    </tr>
+    <tr>
+      <td><strong>Google LLC (Gmail)</strong> and your email provider</td>
+      <td>Carry and store privacy/support emails and AI-reply reports that you choose to send</td>
+      <td>May be processed globally, including in the United States</td>
+    </tr>
   </table>
-  <p>Requests to the AI tutor and to speech-to-text are relayed through our own server, so those
-  providers never receive your account identifier or your email address.</p>
+  <p>Lesson audio and curriculum are also downloaded from Supabase Storage. The request identifies
+  the requested file and includes ordinary network metadata.</p>
 
-  <h2>Transfers outside the EEA</h2>
-  <p>The United Kingdom is covered by a European Commission adequacy decision. Transfers to OpenAI
-  in the United States and to DeepSeek are made on the basis of the safeguards described in
-  <a href="#contact">our contracts with those providers</a>; you can ask us for details. Cloud
-  pronunciation is additionally sent only with your explicit consent, which you can withdraw at any
-  time in Settings.</p>
+  <h2>7. International transfers</h2>
+  <p>Czechify's primary Supabase project data is hosted in Paris, France, within the European Union.
+  Supabase's <a href="https://supabase.com/downloads/docs/Supabase%2BDPA%2B260317.pdf">Data
+  Processing Addendum</a> incorporates the European Commission's Standard Contractual Clauses
+  where they are required for restricted transfers or onward transfers.</p>
+  <p>OpenAI's <a href="https://openai.com/policies/data-processing-addendum/">Data Processing
+  Addendum</a> uses applicable adequacy decisions and Standard Contractual Clauses for restricted
+  transfers and onward transfers. You may ask us for information about those safeguards.</p>
+  <p>AI-text inference is performed by Scaleway in Paris, France. Scaleway states that models on its
+  Generative APIs infrastructure operate in Europe without sending prompts or outputs to the model
+  creator or another third-party model service. This AI-text flow therefore does not itself require
+  a transfer outside the EEA. See Scaleway's
+  <a href="https://www.scaleway.com/en/docs/generative-apis/reference-content/data-privacy/">Generative
+  APIs data-privacy information</a>.</p>
 
-  <h2>Pronunciation and your voice</h2>
-  <p>Pronunciation practice records short clips of your speech. By default Czechify uses the
-  speech-recognition service built into your device, and your operating-system provider controls
-  how that service handles speech.</p>
-  <p>Nothing is sent to our cloud speech service unless you switch it on in Settings. If you do,
-  the recording is relayed through our server to OpenAI and a transcript comes back. The recording
-  is not stored on our servers afterwards. Withdrawing is as easy as giving it and takes effect
-  immediately; when you do agree, we record when you agreed and to which version of this notice, so
-  both of us can check later what was actually agreed.</p>
+  <h2>8. Pronunciation and consent</h2>
+  <p>Cloud speech is off until you allow it. When enabled, a short recording is sent over encrypted
+  connections through a Supabase Edge Function to OpenAI, and the transcript returns to the app.
+  Czechify does not write the recording or transcript to its cloud database and removes its
+  temporary local recording after the attempt.</p>
+  <p>OpenAI states that API inputs and outputs are not used to train its models by default and may be
+  retained for abuse monitoring for up to 30 days unless a zero-data-retention configuration
+  applies. You can switch cloud speech off at any time in Settings. Withdrawal affects future
+  recordings and does not make earlier consent-based processing unlawful. The app keeps a local
+  record of the consent/withdrawal time and notice version until app data is cleared.</p>
 
-  <h2>AI tutor</h2>
-  <p>Your conversation history stays on your device. Please do not include sensitive personal
-  information in messages to the tutor.</p>
-  <p>The tutor is a language model and can occasionally produce something wrong, inappropriate, or
-  offensive. Every tutor reply in the app carries a flag you can tap to report it. A report sends us
-  the tutor's own words and the scenario — not your side of the conversation, unless you choose to
-  describe it yourself.</p>
+  <h2>9. AI tutor and reports</h2>
+  <p>AI output can be inaccurate, inappropriate, or offensive and is not professional advice. It
+  does not make legal or similarly significant decisions about you. Your full chat history stays on
+  your device, but the current message, recent context, and sometimes a generated summary are sent
+  for each request.</p>
+  <p>Reporting a tutor reply opens your email app with the tutor output, scenario, time, reason, and
+  optional note. Your side of the conversation is not included unless you put it in the note. Your
+  email provider may add your name, address, signature, or other account details.</p>
 
-  <h2>How long we keep things</h2>
+  <h2>10. Retention</h2>
   <ul>
-    <li><strong>On your device:</strong> until you delete the data in the app or uninstall it.</li>
-    <li><strong>In your cloud account:</strong> until you delete your account.</li>
-    <li><strong>Anonymous accounts you never linked to an email:</strong> automatically deleted
-      after 90 days without use, together with everything synced to them.</li>
-    <li><strong>Voice recordings:</strong> not retained after the transcript is returned.</li>
-    <li><strong>Consent records:</strong> kept while your account exists, because they are the
-      evidence that consent was given.</li>
+    <li><strong>Local learner data:</strong> until you delete the account/data in the app, clear app storage, or uninstall. Downloaded lesson audio remains after in-app account deletion because it is non-personal course content; use <strong>Settings → Downloads → Clear audio cache</strong>, clear app storage, or uninstall to remove it.</li>
+    <li><strong>Cloud account and synced learning data:</strong> until account deletion. Unlinked anonymous accounts and their synced data are scheduled for deletion after 90 days without use.</li>
+    <li><strong>Supabase backups and security logs:</strong> deleted records may remain in isolated, time-limited backups or security logs until the provider's plan-based retention window expires. They are not restored as active user records except for disaster recovery.</li>
+    <li><strong>Cloud pronunciation:</strong> Czechify does not persist recordings in its cloud database. OpenAI may retain API data for up to 30 days for abuse monitoring unless zero data retention applies.</li>
+    <li><strong>Scaleway AI input/output:</strong> Czechify does not store it in its cloud database. Scaleway's default Zero Data Retention policy says prompts and outputs are not collected, read, reused, or used for training. Anonymised operational usage metadata may be retained for up to six months. In rare error, security, harmful-content, or misuse cases, relevant request content may be stored temporarily for investigation for up to two weeks.</li>
+    <li><strong>Local consent history:</strong> until account/data deletion, app-data clearing, or uninstall.</li>
+    <li><strong>AI reports and ordinary support correspondence:</strong> while the issue is handled and normally no longer than 12 months afterwards. Minimal records needed to prove completion of a privacy request may be kept for up to three years, unless a legal claim or law requires longer.</li>
   </ul>
-  <p>Our providers may keep operational backups and security logs for their own retention periods.</p>
 
-  <h2>Analytics and advertising</h2>
-  <p>Czechify contains no advertising, no cross-app or cross-site tracking, no analytics SDK, and no
-  third-party crash-reporting SDK.</p>
+  <h2>11. Security</h2>
+  <p>Czechify uses HTTPS/TLS, owner-scoped database row-level security, authenticated Edge
+  Functions, server-side provider secrets, rate limits, and secure operating-system storage for
+  authentication sessions. Access is limited to what is needed to operate and support the service.
+  No internet service can promise absolute security; contact us if you suspect a problem.</p>
 
-  <h2>Children</h2>
-  <p>Czechify is not directed at children under 16. Czechify does not know your age, so the cloud
-  pronunciation control asks you to confirm eligibility. Anyone under 16 should use that feature
-  only with permission from a parent or guardian.</p>
+  <h2>12. Your rights</h2>
+  <p>Subject to the GDPR's conditions and exceptions, you may request access, rectification,
+  erasure, restriction, portability, or object to processing based on legitimate interests. You may
+  withdraw consent at any time without affecting the lawfulness of processing before withdrawal.</p>
+  <p>Export and in-app deletion are under <strong>Settings → Account &amp; data</strong>. For an
+  external deletion request, follow the <a href="delete-account.html">Czechify account-deletion
+  instructions</a>. We may need proportionate information to verify a request. We normally respond
+  within one month.</p>
+  <p>You may complain to the Czech supervisory authority, the
+  <a href="https://uoou.gov.cz/">Úřad pro ochranu osobních údajů</a>, Pplk. Sochora 27,
+  170 00 Praha 7, <a href="mailto:posta@uoou.cz">posta@uoou.cz</a>, or to the competent authority
+  where you live or work.</p>
 
-  <h2 id="contact">Your rights</h2>
-  <p>You have the right to access your data, correct it, delete it, restrict or object to its
-  processing, receive it in a portable form, and withdraw any consent you have given.</p>
-  <p>Export and deletion are built into the app under <strong>Settings → Account &amp; data</strong>;
-  deletion there removes both the local and the cloud copy. If you cannot open the app, use the
-  <a href="delete-account.html">account-deletion instructions</a>. For anything else, email
-  <a href="mailto:email.czechify@gmail.com">email.czechify@gmail.com</a>.</p>
-  <p>You may also complain to the Czech supervisory authority, the
-  <a href="https://uoou.gov.cz/">Úřad pro ochranu osobních údajů</a> (Pplk. Sochora 27,
-  170 00 Praha 7, <a href="mailto:posta@uoou.cz">posta@uoou.cz</a>), or to the authority where you
-  live.</p>
+  <h2>13. Children</h2>
+  <p>Czechify is not directed to children under 16 and should be listed in Google Play for an
+  audience aged 16 and over. Czechify does not collect a birth date. A person under 16 must not
+  enable cloud speech or submit personal data to an AI feature. If you believe a child has done so,
+  contact us so we can take appropriate action.</p>
 
-  <h2>Changes</h2>
-  <p>If this policy changes in a way that affects what you have agreed to, you will be asked again
-  rather than opted in silently.</p>
+  <h2>14. Changes</h2>
+  <p>We will update the date and version when this notice changes. If a change affects a consent you
+  previously gave, Czechify will ask again before further consent-based processing.</p>
 </body>
 </html>

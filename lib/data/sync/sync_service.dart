@@ -12,7 +12,11 @@ abstract class SyncBackend {
   bool get isReady;
   String? get userId;
   Future<String> deviceId();
-  Future<void> send(SyncQueueData row, {required String onConflict});
+  Future<void> send(
+    SyncQueueData row, {
+    required String onConflict,
+    required String mutationDeviceId,
+  });
   Future<List<Map<String, dynamic>>> pullPage(
     String entity, {
     required PullCursor? cursor,
@@ -59,7 +63,11 @@ class SupabaseSyncBackend implements SyncBackend {
   }
 
   @override
-  Future<void> send(SyncQueueData row, {required String onConflict}) async {
+  Future<void> send(
+    SyncQueueData row, {
+    required String onConflict,
+    required String mutationDeviceId,
+  }) async {
     final owner = userId;
     if (owner == null) return;
     final client = Supabase.instance.client;
@@ -75,7 +83,7 @@ class SupabaseSyncBackend implements SyncBackend {
     final record = <String, dynamic>{
       ...jsonDecode(row.payload) as Map<String, dynamic>,
       'user_id': owner,
-      'device_id': await deviceId(),
+      'device_id': mutationDeviceId,
       'updated_at': row.updatedAt.toUtc().toIso8601String(),
     };
     await client.from(row.entity).upsert(record, onConflict: onConflict);
@@ -95,11 +103,16 @@ class AccountSyncSnapshot {
 ///
 /// Every method is a safe no-op when the backend is disabled or signed out.
 class SyncService {
+  static const _mutationSequenceWidth = 20;
+  static const _mutationDeviceIdMaxLength = 128;
+  static const _mutationSeparator = ':';
+
   SyncService({
     required AppDatabase db,
     required SyncBackend backend,
     DateTime Function()? clock,
     Logger? log,
+    this.onPortablePreferencesChanged,
   }) : _db = db,
        _backend = backend,
        _clock = clock ?? DateTime.now,
@@ -111,6 +124,7 @@ class SyncService {
   final SyncBackend _backend;
   final DateTime Function() _clock;
   final Logger _log;
+  final FutureOr<void> Function()? onPortablePreferencesChanged;
   Future<void>? _activeRun;
   bool _accountTransition = false;
 
@@ -124,6 +138,9 @@ class SyncService {
   /// `account-data` function produces. `custom_cards` was synced for months
   /// without being exported, and nothing could have caught it.
   static const conflictKeys = <String, String>{
+    'learner_profiles': 'user_id,key',
+    'reminder_preferences': 'user_id,key',
+    'placement_profiles': 'user_id,key',
     'lesson_progress': 'user_id,lesson_id',
     'earned_badges': 'user_id,badge_id',
     'user_progress': 'user_id,key',
@@ -137,6 +154,7 @@ class SyncService {
 
   Future<void> _push() async {
     if (!_backend.isReady) return;
+    String? stableDeviceId;
     var batch = await _db.syncDao.pending(now: _clock());
     while (batch.isNotEmpty) {
       final acked = <int>[];
@@ -146,7 +164,12 @@ class SyncService {
           if (conflict == null) {
             throw StateError('Unknown sync entity: ${row.entity}');
           }
-          await _backend.send(row, onConflict: conflict);
+          stableDeviceId ??= await _backend.deviceId();
+          await _backend.send(
+            row,
+            onConflict: conflict,
+            mutationDeviceId: _mutationDeviceId(stableDeviceId, row.id),
+          );
           acked.add(row.id);
         } catch (e) {
           await _db.syncDao.markFailed(row.id, error: e, now: _clock());
@@ -242,6 +265,7 @@ class SyncService {
   Future<void> _pull({required bool strict}) async {
     if (!_backend.isReady) return;
     final deviceId = await _backend.deviceId();
+    var portablePreferencesChanged = false;
     for (final entity in conflictKeys.keys) {
       try {
         var cursor = await _db.syncDao.pullCursor(entity);
@@ -255,7 +279,13 @@ class SyncService {
             // Skipping our own rows is only correct here, where local state is
             // already current. See [installAccountSnapshot] for why an install
             // must apply them.
-            if (row['device_id'] != deviceId) await _applyRemote(entity, row);
+            if (!_isMutationFromDevice(row['device_id'], deviceId)) {
+              await _applyRemote(entity, row);
+              if (entity == 'learner_profiles' ||
+                  entity == 'reminder_preferences') {
+                portablePreferencesChanged = true;
+              }
+            }
           }
           if (rows.isEmpty) break;
           final last = rows.last;
@@ -273,6 +303,42 @@ class SyncService {
         if (strict) rethrow;
       }
     }
+    if (portablePreferencesChanged) {
+      await onPortablePreferencesChanged?.call();
+    }
+  }
+
+  /// Builds a deterministic LWW tiebreaker for one outbox mutation.
+  ///
+  /// Drift persists DateTimes at second precision. Two edits to the same
+  /// logical row can therefore have identical `updated_at` values. Reusing
+  /// the install's stable device id would make PostgreSQL reject the second
+  /// edit as an equal `(updated_at, device_id)` write. The monotonically
+  /// increasing, fixed-width outbox id makes later same-device writes sort
+  /// after earlier ones while staying within the backend's 128-char limit.
+  static String _mutationDeviceId(String stableDeviceId, int outboxId) {
+    final sequence = outboxId.toString().padLeft(_mutationSequenceWidth, '0');
+    final maxStableLength =
+        _mutationDeviceIdMaxLength -
+        _mutationSeparator.length -
+        sequence.length;
+    final stablePart =
+        stableDeviceId.length <= maxStableLength
+            ? stableDeviceId
+            : stableDeviceId.substring(0, maxStableLength);
+    return '$stablePart$_mutationSeparator$sequence';
+  }
+
+  static bool _isMutationFromDevice(Object? value, String stableDeviceId) {
+    if (value is! String) return false;
+    if (value == stableDeviceId) return true; // Legacy rows.
+    final zeroToken = _mutationDeviceId(stableDeviceId, 0);
+    final tokenPrefix = zeroToken.substring(
+      0,
+      zeroToken.length - _mutationSequenceWidth,
+    );
+    return value.startsWith(tokenPrefix) &&
+        value.length == tokenPrefix.length + _mutationSequenceWidth;
   }
 
   Future<void> _serialized(Future<void> Function() action) {
@@ -299,6 +365,56 @@ class SyncService {
 
   Future<void> _applyRemote(String entity, Map<String, dynamic> r) async {
     switch (entity) {
+      case 'learner_profiles':
+        await _db.profileDao.mergeRemoteLearnerProfile(
+          displayName: r['display_name'] as String? ?? '',
+          selfAssessedCefr: r['self_assessed_cefr'] as String? ?? 'preA1',
+          primaryGoal: r['primary_goal'] as String?,
+          secondaryGoalsJson: _jsonText(r['secondary_goals'], const []),
+          examTrack: r['exam_track'] as String?,
+          targetHorizon: r['target_horizon'] as String?,
+          focusSkillsJson: _jsonText(r['focus_skills'], const []),
+          dailyCommitmentMinutes:
+              (r['daily_commitment_minutes'] as num?)?.toInt() ?? 15,
+          studyDaysPerWeek: (r['study_days_per_week'] as num?)?.toInt() ?? 7,
+          preferredVoice: r['preferred_voice'] as String? ?? 'female',
+          ttsSpeechRate: (r['tts_speech_rate'] as num?)?.toDouble() ?? 0.45,
+          dailyGoalXp: (r['daily_goal_xp'] as num?)?.toInt() ?? 300,
+          onboardingVersion: (r['onboarding_version'] as num?)?.toInt() ?? 1,
+          onboardingLastStep: (r['onboarding_last_step'] as num?)?.toInt() ?? 0,
+          onboardingCompletedAt: _ts(r['onboarding_completed_at']),
+          updatedAt: _ts(r['updated_at']) ?? DateTime.now(),
+        );
+        break;
+      case 'reminder_preferences':
+        await _db.profileDao.mergeRemoteReminderPreference(
+          wantsReminder: r['wants_reminder'] as bool? ?? false,
+          preferredHour: (r['preferred_hour'] as num?)?.toInt(),
+          preferredMinute: (r['preferred_minute'] as num?)?.toInt(),
+          daysOfWeekJson: _jsonText(r['days_of_week'], const [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+          ]),
+          catchUpEnabled: r['catch_up_enabled'] as bool? ?? true,
+          allowGoalSpecificText:
+              r['allow_goal_specific_text'] as bool? ?? false,
+          updatedAt: _ts(r['updated_at']) ?? DateTime.now(),
+        );
+        break;
+      case 'placement_profiles':
+        await _db.progressDao.mergeRemotePlacement(
+          provisionalUnit: (r['provisional_unit'] as num?)?.toInt() ?? 1,
+          learnerOverrideUnit: (r['learner_override_unit'] as num?)?.toInt(),
+          estimatesJson: _jsonText(r['estimates'], const {}),
+          sampleSize: (r['sample_size'] as num?)?.toInt() ?? 0,
+          updatedAt: _ts(r['updated_at']) ?? DateTime.now(),
+        );
+        break;
       case 'lesson_progress':
         await _db.progressDao.mergeLessonProgress(
           lessonId: (r['lesson_id'] as num).toInt(),
@@ -366,6 +482,18 @@ class SyncService {
     if (value is String) return value;
     if (value is List) return jsonEncode(value);
     return '[]';
+  }
+
+  String _jsonText(Object? value, Object fallback) {
+    if (value is String) {
+      try {
+        jsonDecode(value);
+        return value;
+      } catch (_) {
+        return jsonEncode(fallback);
+      }
+    }
+    return jsonEncode(value ?? fallback);
   }
 
   /// user_progress.value is jsonb. Locally it's an app-defined string; unwrap a

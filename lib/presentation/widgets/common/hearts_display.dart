@@ -3,6 +3,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_tokens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/gamification_providers.dart';
+import 'motion_widgets.dart';
 
 /// Hearts display widget — shows current hearts from persisted state.
 class HeartsDisplay extends ConsumerWidget {
@@ -30,8 +31,8 @@ class HeartsDisplay extends ConsumerWidget {
             size: 18,
           ),
           const SizedBox(width: 4),
-          Text(
-            '$hearts',
+          MotionNumberText(
+            hearts,
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/core/utils/text_normalizer.dart';
+import 'package:czechify/core/utils/text_normalizer.dart';
 
 /// TTS must never read fill-in-the-blank markers aloud (they were being spoken
 /// as "podtržítko") or editorial hints.

@@ -28,12 +28,14 @@ import 'tables/content_release_packs.dart';
 import 'tables/learning_evidence_events.dart';
 import 'tables/placement_profiles.dart';
 import 'tables/delayed_transfer_assignments.dart';
+import 'tables/learner_profiles.dart';
 import 'daos/curriculum_dao.dart';
 import 'daos/vocabulary_dao.dart';
 import 'daos/conversation_dao.dart';
 import 'daos/progress_dao.dart';
 import 'daos/sync_dao.dart';
 import 'daos/gamification_dao.dart';
+import 'daos/profile_dao.dart';
 
 part 'database.g.dart';
 
@@ -65,6 +67,8 @@ part 'database.g.dart';
     LearningEvidenceEvents,
     PlacementProfiles,
     DelayedTransferAssignments,
+    LearnerProfiles,
+    ReminderPreferences,
   ],
   daos: [
     CurriculumDao,
@@ -73,6 +77,7 @@ part 'database.g.dart';
     ProgressDao,
     SyncDao,
     GamificationDao,
+    ProfileDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -82,8 +87,8 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  /// Version 2 adds explicit lesson outcomes and recycling metadata.
-  int get schemaVersion => 2;
+  /// Version 3 adds portable learner profiles and reminder intent.
+  int get schemaVersion => 3;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -145,6 +150,14 @@ class AppDatabase extends _$AppDatabase {
         (await select(gamificationStateTable).get())
             .map((row) => row.toJson())
             .toList(),
+    'learner_profiles':
+        (await select(learnerProfiles).get())
+            .map((row) => row.toJson())
+            .toList(),
+    'reminder_preferences':
+        (await select(reminderPreferences).get())
+            .map((row) => row.toJson())
+            .toList(),
   };
 
   /// Removes learner-created state before an account switch or after account
@@ -185,6 +198,8 @@ class AppDatabase extends _$AppDatabase {
     await delete(syncQueue).go();
     await delete(syncState).go();
     await delete(gamificationStateTable).go();
+    await delete(reminderPreferences).go();
+    await delete(learnerProfiles).go();
 
     // Reset bundled vocabulary to usable new-card state immediately. Waiting
     // for a future app restart/seeder pass would leave the review deck empty
@@ -238,6 +253,10 @@ class AppDatabase extends _$AppDatabase {
         await m.addColumn(lessons, lessons.newLanguageJson);
         await m.addColumn(lessons, lessons.recyclesJson);
         await m.addColumn(lessons, lessons.exitTask);
+      }
+      if (from < 3) {
+        await m.createTable(learnerProfiles);
+        await m.createTable(reminderPreferences);
       }
       // Not guarded by a version check. These indexes were only ever created
       // in [onCreate], so every upgraded install has been running without the

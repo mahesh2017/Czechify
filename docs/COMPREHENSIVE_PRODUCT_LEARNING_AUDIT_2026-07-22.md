@@ -4,7 +4,7 @@
 
 **Repository state reviewed:** commit `4e69ee7891b5b51ccdb447a6c8bb63e8c8d67e1c`
 
-**Product:** Czechify (`ceskina_pro`)
+**Product:** Czechify (`czechify`)
 
 **Scope:** Flutter application, bundled curriculum, local Drift database, Supabase schema and linked project, Edge Functions, sync, exams, speech, accessibility, tests, and instructional design
 

@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/data/services/stt/phoneme_recognizer.dart';
+import 'package:czechify/data/services/stt/phoneme_recognizer.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The acoustic recogniser receives raw recordings of the learner's voice to a

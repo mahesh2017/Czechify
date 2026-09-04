@@ -2,6 +2,8 @@ import 'package:logging/logging.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../core/config/backend_config.dart';
+import '../account/account_identity.dart';
+import '../account/google_auth_service.dart';
 import 'secure_auth_storage.dart';
 
 /// Owns the Supabase client lifecycle and authentication.
@@ -100,6 +102,53 @@ class BackendService {
     }
   }
 
+  bool get hasGoogleIdentity => userHasIdentityProvider(currentUser, 'google');
+
+  /// Links Google to the active user without changing that user's id.
+  Future<void> linkGoogleIdentity(GoogleAuthTokens tokens) async {
+    final before = _requireClient().auth.currentUser?.id;
+    if (before == null) throw const AuthException('No account is active.');
+    final response = await _requireClient().auth.linkIdentityWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: tokens.idToken,
+      accessToken: tokens.accessToken,
+    );
+    if (response.user?.id != before) {
+      throw StateError('Google linking changed the active account.');
+    }
+    // Refresh so the active session and auth-state stream expose the newly
+    // linked provider immediately, rather than waiting for token auto-refresh.
+    await _requireClient().auth.refreshSession();
+    if (!hasGoogleIdentity) {
+      throw const AuthException('Google account linking was not persisted.');
+    }
+  }
+
+  /// Validates Google credentials on an isolated client. The current session
+  /// remains untouched until AccountService has permission to replace it.
+  Future<Session> authenticateGoogle(GoogleAuthTokens tokens) async {
+    if (!BackendConfig.isConfigured) {
+      throw const AuthException('Cloud account service is unavailable.');
+    }
+    final temporary = SupabaseClient(
+      BackendConfig.supabaseUrl,
+      BackendConfig.supabaseAnonKey,
+      authOptions: const AuthClientOptions(autoRefreshToken: false),
+    );
+    try {
+      final response = await temporary.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: tokens.idToken,
+        accessToken: tokens.accessToken,
+      );
+      final session = response.session;
+      if (session == null) throw const AuthException('Google sign-in failed.');
+      return session;
+    } finally {
+      await temporary.dispose();
+    }
+  }
+
   /// Installs [session] as the active session.
   ///
   /// A session with no refresh token cannot be installed. This is reached on
@@ -109,7 +158,9 @@ class BackendService {
   Future<void> installSession(Session session) async {
     final refreshToken = session.refreshToken;
     if (refreshToken == null) {
-      throw const AuthException('Session cannot be restored: no refresh token.');
+      throw const AuthException(
+        'Session cannot be restored: no refresh token.',
+      );
     }
     await _requireClient().auth.setSession(
       refreshToken,
@@ -168,11 +219,34 @@ class BackendService {
     await client.auth.signOut(scope: SignOutScope.local);
   }
 
+  /// Installs a freshly verified session only when it belongs to the account
+  /// already active on this device. Used before deleting Google-only accounts.
+  Future<void> reauthenticateGoogle(GoogleAuthTokens tokens) async {
+    final currentId = userId;
+    if (currentId == null) throw const AuthException('No account is active.');
+    final verified = await authenticateGoogle(tokens);
+    if (verified.user.id != currentId) {
+      throw const AuthException(
+        'Choose the Google account currently connected to Czechify.',
+      );
+    }
+    await installSession(verified);
+  }
+
   /// Whether the signed-in account has a password to re-enter before
   /// deletion. Anonymous sessions do not.
+  bool get hasPasswordIdentity =>
+      currentUser?.identities?.any(
+        (identity) => identity.provider == 'email',
+      ) ??
+      false;
+
   bool get requiresPasswordToDelete {
     final user = _clientOrNull?.auth.currentUser;
-    return user != null && user.isAnonymous != true && user.email != null;
+    return user != null &&
+        user.isAnonymous != true &&
+        !hasGoogleIdentity &&
+        hasPasswordIdentity;
   }
 
   Future<void> ensureAnonymousSession() async {

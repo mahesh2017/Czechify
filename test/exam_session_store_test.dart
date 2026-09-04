@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:ceskina_pro/data/services/exam_session_store.dart';
+import 'package:czechify/data/services/exam_session_store.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import 'motion_widgets.dart';
 
 /// The mic control. Tap to start, tap again to stop.
 ///
@@ -16,7 +18,7 @@ class RecordButton extends StatefulWidget {
     this.size = 76,
   });
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isRecording;
   final double size;
 
@@ -70,6 +72,7 @@ class _RecordButtonState extends State<RecordButton>
     final l10n = Localizations.of<AppLocalizations>(context, AppLocalizations);
     return Semantics(
       button: true,
+      enabled: widget.onPressed != null,
       label:
           widget.isRecording
               ? (l10n?.stopRecording ?? 'Stop recording')
@@ -103,7 +106,9 @@ class _RecordButtonState extends State<RecordButton>
                     );
                   },
                 ),
-              Container(
+              AnimatedContainer(
+                duration: context.motionDuration(AppMotion.selection),
+                curve: AppMotion.enter,
                 width: widget.size,
                 height: widget.size,
                 decoration: BoxDecoration(
@@ -118,10 +123,15 @@ class _RecordButtonState extends State<RecordButton>
                     ),
                   ],
                 ),
-                child: Icon(
-                  widget.isRecording ? Icons.stop_rounded : Icons.mic_rounded,
-                  color: t.onFill,
-                  size: widget.size * 0.44,
+                child: MotionSwap(
+                  duration: AppMotion.selection,
+                  offset: Offset.zero,
+                  child: Icon(
+                    widget.isRecording ? Icons.stop_rounded : Icons.mic_rounded,
+                    key: ValueKey(widget.isRecording),
+                    color: t.onFill,
+                    size: widget.size * 0.44,
+                  ),
                 ),
               ),
             ],

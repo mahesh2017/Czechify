@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -15,11 +16,13 @@ class ConfettiLayer extends StatefulWidget {
     super.key,
     this.pieces = 70,
     this.duration = const Duration(milliseconds: 2600),
+    this.delay = Duration.zero,
     this.seed = 7,
   });
 
   final int pieces;
   final Duration duration;
+  final Duration delay;
 
   /// Fixed by default so a celebration looks the same each time it is shown —
   /// worth more for a screenshot test than randomness is worth for delight.
@@ -32,26 +35,78 @@ class ConfettiLayer extends StatefulWidget {
 class _ConfettiLayerState extends State<ConfettiLayer>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
+  Timer? _startTimer;
+  List<_Piece> _pieces = const [];
+  List<Color>? _palette;
+  bool? _motionDisabled;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.duration)
-      ..forward();
+    _controller = AnimationController(vsync: this, duration: widget.duration);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final tokens = context.tokens;
+    final palette = [tokens.pri, tokens.amber, tokens.violet, tokens.green];
+    if (_palette == null || !_samePalette(_palette!, palette)) {
+      _palette = palette;
+      _pieces = _build(widget.pieces, widget.seed, palette);
+    }
+
+    final disabled = MediaQuery.disableAnimationsOf(context);
+    if (_motionDisabled == disabled) return;
+    _motionDisabled = disabled;
+    _syncPlayback();
+  }
+
+  @override
+  void didUpdateWidget(ConfettiLayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.duration != widget.duration) {
+      _controller.duration = widget.duration;
+    }
+    if (oldWidget.pieces != widget.pieces || oldWidget.seed != widget.seed) {
+      _pieces = _build(widget.pieces, widget.seed, _palette ?? const []);
+    }
+    if (oldWidget.pieces != widget.pieces || oldWidget.delay != widget.delay) {
+      _syncPlayback();
+    }
+  }
+
+  void _syncPlayback() {
+    _startTimer?.cancel();
+    if (_motionDisabled != false || widget.pieces <= 0) {
+      _controller
+        ..stop()
+        ..value = 0;
+      return;
+    }
+    if (_controller.status != AnimationStatus.dismissed) return;
+    if (widget.delay <= Duration.zero) {
+      _controller.forward();
+      return;
+    }
+    _startTimer = Timer(widget.delay, () {
+      if (!mounted || _motionDisabled != false || widget.pieces <= 0) return;
+      _controller.forward();
+    });
   }
 
   @override
   void dispose() {
+    _startTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.disableAnimationsOf(context)) {
+    if (_motionDisabled != false || widget.pieces <= 0) {
       return const SizedBox.shrink();
     }
-    final tokens = context.tokens;
     return IgnorePointer(
       child: RepaintBoundary(
         child: AnimatedBuilder(
@@ -61,13 +116,7 @@ class _ConfettiLayerState extends State<ConfettiLayer>
                 size: Size.infinite,
                 painter: _ConfettiPainter(
                   progress: _controller.value,
-                  pieces: _build(
-                    widget.pieces,
-                    widget.seed,
-                    // Red is deliberately absent: it means "wrong" everywhere else
-                    // in this app, and confetti is not the place to blur that.
-                    [tokens.pri, tokens.amber, tokens.violet, tokens.green],
-                  ),
+                  pieces: _pieces,
                   seconds: widget.duration.inMilliseconds / 1000,
                 ),
               ),
@@ -75,6 +124,14 @@ class _ConfettiLayerState extends State<ConfettiLayer>
       ),
     );
   }
+}
+
+bool _samePalette(List<Color> a, List<Color> b) {
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
 }
 
 class _Piece {
@@ -110,6 +167,7 @@ class _Piece {
 }
 
 List<_Piece> _build(int count, int seed, List<Color> palette) {
+  if (count <= 0 || palette.isEmpty) return const [];
   final random = math.Random(seed);
   double between(double a, double b) => a + random.nextDouble() * (b - a);
   return [

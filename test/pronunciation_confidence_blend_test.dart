@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/data/services/stt/whisper_service.dart';
-import 'package:ceskina_pro/domain/repositories/speech_ports.dart';
-import 'package:ceskina_pro/presentation/providers/stt_providers.dart';
+import 'package:czechify/data/services/stt/whisper_service.dart';
+import 'package:czechify/domain/repositories/speech_ports.dart';
+import 'package:czechify/presentation/providers/stt_providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 
@@ -131,6 +131,9 @@ class _StubTranscriber implements CloudTranscriber {
 }
 
 class _UnusedTranscriber implements LiveTranscriber {
+  @override
+  Future<bool> supportsCzech() async => true;
+
   @override
   Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) {
     throw StateError('the cloud path must not fall back in these tests');

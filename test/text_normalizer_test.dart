@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/core/utils/text_normalizer.dart';
+import 'package:czechify/core/utils/text_normalizer.dart';
 
 void main() {
   group('TextNormalizer.matchesIgnoringDiacritics', () {

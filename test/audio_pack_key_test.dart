@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/core/utils/text_normalizer.dart';
-import 'package:ceskina_pro/data/services/audio/audio_manifest.dart';
-import 'package:ceskina_pro/data/services/audio/audio_pack_cache.dart';
+import 'package:czechify/core/utils/text_normalizer.dart';
+import 'package:czechify/data/services/audio/audio_manifest.dart';
+import 'package:czechify/data/services/audio/audio_pack_cache.dart';
 
 /// The audio pack is looked up by hash: the generator names each MP3
 /// `{gender}_{sha256}.mp3`, and at runtime CzechTts hashes the text it is about

@@ -1,17 +1,61 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/widgets.dart';
 import '../../core/config/dev_flags.dart';
+import '../../data/repositories/curriculum_entitlement_repository.dart';
 import '../../data/database/database.dart' as db;
+import '../../domain/entities/curriculum_entitlement.dart';
 import '../../domain/entities/unit.dart';
 import '../../domain/entities/lesson.dart';
 import '../../domain/entities/enums.dart';
 import '../../domain/engines/curriculum_access_policy.dart';
+import '../../domain/engines/level_switch.dart';
 import '../../domain/engines/learning_router.dart';
 import '../../domain/entities/learning_evidence.dart';
 import '../../l10n/app_localizations.dart';
 import 'database_providers.dart';
 import 'settings_providers.dart';
+import 'sync_providers.dart';
 import '../models/curriculum_path_item.dart';
+
+/// Changes the learner's level after onboarding.
+///
+/// Deliberately one call rather than two settings writes, because the two
+/// pieces of state that decide what a learner can open are easy to change
+/// independently and useless apart. [AppSettings.startingLevel] drives chat
+/// difficulty and which units prefetch for offline use; the placement
+/// profile's provisional unit is what actually unlocks curriculum. Onboarding
+/// wrote both and nothing wrote either again.
+///
+/// Returns true when the unlocked span moved, so the caller can offer to
+/// download the new level's audio.
+final levelSwitchProvider = Provider(
+  (ref) => (CEFRLevel level) async {
+    await ref.read(settingsProvider.notifier).setStartingLevel(level);
+
+    final units = await ref.read(allUnitsProvider.future);
+    final database = ref.read(databaseProvider);
+    final placement =
+        await database.select(database.placementProfiles).getSingleOrNull();
+    final target = const LevelSwitch().provisionalUnitFor(
+      units: units,
+      level: level,
+      currentProvisionalUnit: placement?.provisionalUnit,
+    );
+
+    // Null means the switch would move the ceiling down, so placement is left
+    // exactly as it is — see [LevelSwitch.provisionalUnitFor]. The level still
+    // changed, which is what the learner asked for.
+    if (target != null) {
+      await database.progressDao.setProvisionalUnit(target);
+      ref.invalidate(placementProfileProvider);
+      ref.invalidate(curriculumAccessProvider);
+      ref.invalidate(nextLessonProvider);
+    }
+    return target != null;
+  },
+);
 
 /// Provider for all units in a phase (A1 or A2).
 final unitsProvider = FutureProvider.family<List<Unit>, Phase>((ref, phase) {
@@ -66,9 +110,71 @@ final completedLessonIdsProvider = FutureProvider<Set<int>>((ref) async {
   return progressRepo.getCompletedLessonIds();
 });
 
-final placementProfileProvider = FutureProvider<db.PlacementProfile?>((ref) {
+final _placementProfileChangesProvider = StreamProvider<db.PlacementProfile?>((
+  ref,
+) {
   final database = ref.read(databaseProvider);
-  return database.select(database.placementProfiles).getSingleOrNull();
+  return database.select(database.placementProfiles).watchSingleOrNull();
+});
+
+/// Reactive placement state.
+///
+/// Placement can change outside the current widget flow when an ordinary
+/// background sync merges another device's result. Watching the Drift query
+/// keeps this provider, curriculum access, and continue-learning routing in
+/// step with that merge without requiring the sync layer to know about UI
+/// providers. Keeping the public provider asynchronous-but-single-valued also
+/// lets command providers safely `read(...future)` before a widget is listening.
+final placementProfileProvider = FutureProvider<db.PlacementProfile?>((ref) {
+  final placement = ref.watch(_placementProfileChangesProvider);
+  return switch (placement) {
+    AsyncData(:final value) => Future.value(value),
+    AsyncError(:final error, :final stackTrace) =>
+      Future<db.PlacementProfile?>.error(error, stackTrace),
+    _ => ref.watch(_placementProfileChangesProvider.future),
+  };
+});
+
+final curriculumEntitlementRepositoryProvider =
+    Provider<CurriculumEntitlementRepository>((ref) {
+      final backend = ref.watch(backendServiceProvider);
+      return CurriculumEntitlementRepository(
+        fetchRemote: (userId) async {
+          final client = backend.client;
+          if (client == null) {
+            throw StateError('Curriculum entitlement backend unavailable.');
+          }
+          final row = await client
+              .from('curriculum_entitlements')
+              .select('unlock_all, expires_at, reason')
+              .eq('user_id', userId)
+              .maybeSingle()
+              .timeout(const Duration(seconds: 4));
+          return row;
+        },
+      );
+    });
+
+/// Server-owned access used for reviewers and support cases. The repository
+/// falls back to the last result for this exact auth user while offline.
+final curriculumEntitlementProvider = FutureProvider<CurriculumEntitlement>((
+  ref,
+) async {
+  await ref.watch(backendInitProvider.future);
+  final backend = ref.watch(backendServiceProvider);
+  if (!backend.isEnabled) return CurriculumEntitlement.none;
+  final entitlement = await ref
+      .watch(curriculumEntitlementRepositoryProvider)
+      .load(backend.userId);
+  final expiresAt = entitlement.expiresAt;
+  if (expiresAt != null) {
+    final remaining = expiresAt.difference(DateTime.now().toUtc());
+    if (remaining > Duration.zero) {
+      final timer = Timer(remaining, ref.invalidateSelf);
+      ref.onDispose(timer.cancel);
+    }
+  }
+  return entitlement;
 });
 
 /// One explicit access graph for units, lessons, review introduction, direct
@@ -77,6 +183,7 @@ final curriculumAccessProvider = FutureProvider<CurriculumAccess>((ref) async {
   final allUnits = await ref.watch(allUnitsProvider.future);
   final completedLessonIds = await ref.watch(completedLessonIdsProvider.future);
   final placement = await ref.watch(placementProfileProvider.future);
+  final entitlement = await ref.watch(curriculumEntitlementProvider.future);
   final lessonsByUnit = <int, List<Lesson>>{};
   for (final unit in allUnits) {
     lessonsByUnit[unit.id] = await ref.watch(
@@ -88,20 +195,9 @@ final curriculumAccessProvider = FutureProvider<CurriculumAccess>((ref) async {
     lessonsByUnit: lessonsByUnit,
     completedLessonIds: completedLessonIds,
     provisionalThroughUnitId: placement?.provisionalUnit,
+    unlockAll:
+        DevFlags.unlockAll || entitlement.isActiveAt(DateTime.now().toUtc()),
   );
-
-  // Developer review mode: open every unit and lesson regardless of progress.
-  // Off by default; enabled only with --dart-define=UNLOCK_ALL=true.
-  if (DevFlags.unlockAll) {
-    return CurriculumAccess(
-      unlockedUnitIds: {for (final unit in allUnits) unit.id},
-      unlockedLessonIds: {
-        for (final lessons in lessonsByUnit.values)
-          for (final lesson in lessons) lesson.id,
-      },
-      lessonPrerequisites: access.lessonPrerequisites,
-    );
-  }
   return access;
 });
 
@@ -263,3 +359,14 @@ final grammarRulesByUnitProvider =
       final database = ref.read(databaseProvider);
       return database.curriculumDao.getGrammarRulesByUnit(unitId);
     });
+
+/// Resolves a deep-linked grammar rule before the reference list is laid out,
+/// allowing its unit to be placed on screen instead of waiting for a lazily
+/// built off-screen section to discover the rule.
+final grammarRuleByIdProvider = FutureProvider.family<db.GrammarRule?, String>((
+  ref,
+  ruleId,
+) {
+  final database = ref.read(databaseProvider);
+  return database.curriculumDao.getGrammarRuleById(ruleId);
+});

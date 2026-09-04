@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ceskina_pro/data/services/audio/audio_manifest.dart';
+import 'package:czechify/data/services/audio/audio_manifest.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

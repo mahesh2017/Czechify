@@ -153,6 +153,552 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsClearAudioCache => 'Clear audio cache';
 
   @override
+  String get settingsFirstName => 'Your first name';
+
+  @override
+  String settingsSwitchLevelTitle(String level) {
+    return 'Switch to $level?';
+  }
+
+  @override
+  String settingsSwitchLevel(String level) {
+    return 'Switch to $level';
+  }
+
+  @override
+  String get settingsSwitchUpBody =>
+      'A2 opens from its first unit, and everything you have already finished in A1 stays open. The tutor will pitch its Czech higher.\n\nA2 audio will download now, which needs a connection and a few megabytes.';
+
+  @override
+  String get settingsSwitchDownBody =>
+      'The tutor will pitch its Czech lower and A1 audio will be kept on your device.\n\nUnits you have already unlocked stay unlocked — going back to revise costs you nothing.';
+
+  @override
+  String settingsLevelOpened(String level) {
+    return '$level is now open.';
+  }
+
+  @override
+  String settingsLevelSwitched(String level) {
+    return 'Switched to $level. Units you had already unlocked stay open.';
+  }
+
+  @override
+  String get settingsProfileGroup => 'Profile';
+
+  @override
+  String get settingsNotSet => 'Not set';
+
+  @override
+  String get settingsAccountGroup => 'Account';
+
+  @override
+  String get settingsAccountDataTitle => 'Account, sign in & data';
+
+  @override
+  String get settingsAccountDataBody =>
+      'Protect, recover, export, or delete your data';
+
+  @override
+  String get settingsAppearanceGroup => 'Appearance';
+
+  @override
+  String get settingsLearningGroup => 'Learning';
+
+  @override
+  String get settingsLearningPlan => 'Learning plan';
+
+  @override
+  String get settingsLearningPlanBody =>
+      'Goal, focus, study rhythm and reminders';
+
+  @override
+  String get settingsLearningPlanMissing =>
+      'Personalize this account’s learning plan';
+
+  @override
+  String get settingsCourseLevel => 'Course level';
+
+  @override
+  String get settingsA1Beginner => 'A1 · beginner';
+
+  @override
+  String get settingsA2UpperBeginner => 'A2 · upper beginner';
+
+  @override
+  String get settingsHeartsBody => 'Off = practice freely';
+
+  @override
+  String get settingsSoundBody => 'Answers and celebrations';
+
+  @override
+  String get settingsHapticsBody => 'A tap you can feel';
+
+  @override
+  String get settingsRemindersGroup => 'Reminders';
+
+  @override
+  String get settingsAudioGroup => 'Audio';
+
+  @override
+  String get settingsSpeechRate => 'Speech rate';
+
+  @override
+  String get settingsSpeechRateBody =>
+      '1x is the pace the lessons were recorded at';
+
+  @override
+  String get settingsTestVoiceBody => 'Play a sample Czech phrase';
+
+  @override
+  String get settingsCloudPronunciation => 'Optional cloud pronunciation';
+
+  @override
+  String get settingsCloudPronunciationBody =>
+      'Off = your phone checks it. On = clearer scoring, recording sent for transcription';
+
+  @override
+  String get settingsRetrySync => 'Retry failed sync';
+
+  @override
+  String settingsRetryingItems(int count) {
+    return 'Retrying $count item(s)';
+  }
+
+  @override
+  String get settingsClearAudioBody => 'Remove cached audio files';
+
+  @override
+  String get settingsAudioCleared => 'Audio cache cleared';
+
+  @override
+  String get settingsAccountDataGroup => 'Account & data';
+
+  @override
+  String get settingsExportDelete => 'Export & deletion';
+
+  @override
+  String get settingsExportDeleteBody => 'Export or delete your data';
+
+  @override
+  String get settingsAboutGroup => 'About';
+
+  @override
+  String settingsAboutBody(String name) {
+    return 'What the app does · by $name';
+  }
+
+  @override
+  String get settingsPrivacyBody => 'Read in full, in the app';
+
+  @override
+  String settingsDownloadConnectTitle(String subject) {
+    return 'Connect to save $subject';
+  }
+
+  @override
+  String settingsDownloadSavingTitle(String subject) {
+    return 'Saving $subject';
+  }
+
+  @override
+  String settingsDownloadOfflineBody(String subject) {
+    return '$subject is not saved on your device yet, and there is no connection right now. Connect to Wi-Fi or mobile data and try again — it is only a few megabytes.';
+  }
+
+  @override
+  String settingsDownloadingClips(int count) {
+    return 'Downloading $count clips so this works offline too.';
+  }
+
+  @override
+  String get settingsNotNow => 'Not now';
+
+  @override
+  String get settingsHide => 'Hide';
+
+  @override
+  String settingsUnitsCount(int count) {
+    return '$count units';
+  }
+
+  @override
+  String get settingsLevelBeginner => 'Beginner';
+
+  @override
+  String get settingsLevelUpperBeginner => 'Upper beginner';
+
+  @override
+  String get settingsLevelA1Audience => 'Start here if you are new to Czech.';
+
+  @override
+  String get settingsLevelCurrent => 'This is your level';
+
+  @override
+  String get settingsTeacherVoice => 'Teacher\'s voice';
+
+  @override
+  String settingsAudioSubject(String level) {
+    return '$level audio';
+  }
+
+  @override
+  String get settingsVoiceSubjectMale => 'the male voice';
+
+  @override
+  String get settingsVoiceSubjectFemale => 'the female voice';
+
+  @override
+  String get settingsChooseLevel => 'Choose your course level';
+
+  @override
+  String get settingsChooseLevelBody =>
+      'You can change this later. Nothing you have finished is lost either way.';
+
+  @override
+  String get settingsLevelA1Body =>
+      'Start from Czech sounds and spelling. Meet people, say who you are and what you do, ask for what you need, handle numbers, time and everyday errands.';
+
+  @override
+  String get settingsLevelA2Body =>
+      'Talk about what happened and what you plan to do, give directions and preferences, compare and choose, and deal with shops, appointments and things going wrong.';
+
+  @override
+  String get settingsLevelA2Audience =>
+      'Choose this if you can already introduce yourself and hold a simple present-tense conversation.';
+
+  @override
+  String get accountTitle => 'Account & data';
+
+  @override
+  String get accountCloudUnavailableTitle => 'Cloud account unavailable';
+
+  @override
+  String get accountCloudUnavailableBody =>
+      'The app is offline or cloud configuration is unavailable.';
+
+  @override
+  String get accountReviewerAccessTitle => 'Reviewer access active';
+
+  @override
+  String get accountReviewerAccessBody =>
+      'All course units and lessons are available on this account.';
+
+  @override
+  String get accountGoogleConnectedTitle => 'Google account connected';
+
+  @override
+  String get accountGoogleConnectedBody =>
+      'You can use Google to sign in and recover your learning progress.';
+
+  @override
+  String get accountProtectWithEmail => 'Protect progress with email';
+
+  @override
+  String get accountSignInExisting => 'Sign in to an existing account';
+
+  @override
+  String get accountSetOrChangePassword => 'Set or change password';
+
+  @override
+  String get accountSendRecovery => 'Send password recovery email';
+
+  @override
+  String get accountYourData => 'Your data';
+
+  @override
+  String get accountExportJson => 'Export my data as JSON';
+
+  @override
+  String get accountDeleteCloudLocal => 'Delete cloud account and local data';
+
+  @override
+  String get accountDeletionInstructions =>
+      'Account deletion instructions online';
+
+  @override
+  String get accountRequestFailed =>
+      'The request could not be completed. Try again.';
+
+  @override
+  String get accountGoogleLinkedSuccess =>
+      'Google account connected. Your progress is protected.';
+
+  @override
+  String get accountGoogleAlreadyLinked =>
+      'This Google account is already connected.';
+
+  @override
+  String get accountGoogleDefaultLabel => 'this Google account';
+
+  @override
+  String get accountUseExistingTitle => 'Use existing Czechify account?';
+
+  @override
+  String accountUseExistingBody(String account) {
+    return '$account already has a Czechify account. This device will replace its local learner progress with that account’s synced progress. Export first if you need a copy.';
+  }
+
+  @override
+  String get accountSignInReplace => 'Sign in and replace';
+
+  @override
+  String get accountGoogleRecovered =>
+      'Google account recovered and synchronized.';
+
+  @override
+  String get accountGoogleFailed =>
+      'Google sign-in could not be completed. Try again.';
+
+  @override
+  String get accountProtectProgress => 'Protect progress';
+
+  @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountVerificationSent =>
+      'Verification email sent. Open its link, then set a password here.';
+
+  @override
+  String get accountSetPassword => 'Set password';
+
+  @override
+  String get accountPasswordMinimum => 'Password (at least 8 characters)';
+
+  @override
+  String get accountPasswordTooShort => 'Use at least 8 characters.';
+
+  @override
+  String get accountPasswordUpdated => 'Password updated.';
+
+  @override
+  String get accountReplaceLocalTitle => 'Replace local learner data?';
+
+  @override
+  String get accountReplaceLocalBody =>
+      'This device will remove its current learner progress, sign in, and download the selected account. Export first if you need a copy.';
+
+  @override
+  String get accountRecovered => 'Account recovered and synchronized.';
+
+  @override
+  String get accountPasswordRecovery => 'Password recovery';
+
+  @override
+  String get accountAccountEmail => 'Account email';
+
+  @override
+  String get accountRecoverySent =>
+      'If that account exists, a recovery email has been sent.';
+
+  @override
+  String get accountExportPrepared => 'Export prepared.';
+
+  @override
+  String get accountPermanentDelete => 'Permanently delete account';
+
+  @override
+  String get accountDeletePhrase => 'Type DELETE MY ACCOUNT';
+
+  @override
+  String get accountPhraseMismatch => 'Confirmation phrase did not match.';
+
+  @override
+  String get accountConfirmIdentity => 'Confirm it is you';
+
+  @override
+  String get accountPassword => 'Account password';
+
+  @override
+  String get accountDeleted => 'Cloud account and learner data deleted.';
+
+  @override
+  String get accountSignIn => 'Sign in';
+
+  @override
+  String get accountAnonymousTitle => 'Anonymous account';
+
+  @override
+  String get accountProtectedTitle => 'Protected account';
+
+  @override
+  String get accountAnonymousBody =>
+      'Progress syncs on this installation, but cannot be recovered on another device until you connect Google or link an email.';
+
+  @override
+  String get accountEmailLinked => 'Email identity linked';
+
+  @override
+  String get accountSignInGoogle => 'Sign in with Google';
+
+  @override
+  String get aboutTitle => 'About';
+
+  @override
+  String get aboutTagline => 'Learn Czech properly — CEFR A1 to A2';
+
+  @override
+  String get aboutFeatures => 'What Czechify gives you';
+
+  @override
+  String get aboutFeatureCourseTitle => 'A complete A1 to A2 course';
+
+  @override
+  String get aboutFeatureCourseBody =>
+      '31 units, 61 lessons and over 770 exercises, following the CEFR levels from complete beginner to elementary. Each unit builds on the one before, and nothing is skipped.';
+
+  @override
+  String get aboutFeatureAudioTitle => 'Every Czech word spoken aloud';
+
+  @override
+  String get aboutFeatureAudioBody =>
+      'Nearly 3,000 phrases recorded in studio quality, in a male or female voice you choose. The first units are saved to your device so they work without a connection.';
+
+  @override
+  String get aboutFeaturePronunciationTitle => 'Pronunciation practice';
+
+  @override
+  String get aboutFeaturePronunciationBody =>
+      'Read a prompted phrase and see how closely the words recognised by speech recognition match the target. This can flag missed or unclear words, but it does not diagnose individual Czech sounds or replace feedback from a teacher. Device speech recognition is the default; cloud transcription is optional.';
+
+  @override
+  String get aboutFeatureTutorTitle => 'AI conversation tutor';
+
+  @override
+  String get aboutFeatureTutorBody =>
+      'Practise real situations — ordering food, asking directions, introducing yourself — with a tutor that replies in Czech at your level and explains what you got wrong.';
+
+  @override
+  String get aboutFeatureReviewTitle =>
+      'Spaced repetition that remembers for you';
+
+  @override
+  String get aboutFeatureReviewBody =>
+      'Words you find difficult come back more often, words you know fade away. Reviews are scheduled so you revisit each item just before you would have forgotten it.';
+
+  @override
+  String get aboutFeatureGrammarTitle => 'Grammar you can actually look up';
+
+  @override
+  String get aboutFeatureGrammarBody =>
+      'Declension and conjugation tables, per-unit grammar notes and cheat sheets, all available offline and unlocked as you reach each unit.';
+
+  @override
+  String get aboutFeatureExamTitle => 'Exam preparation';
+
+  @override
+  String get aboutFeatureExamBody =>
+      'Dedicated A1 and A2 exam units with graded practice covering reading, listening, writing and speaking. These are unverified practice activities, not official exam results.';
+
+  @override
+  String get aboutFeatureProgressTitle => 'Progress worth watching';
+
+  @override
+  String get aboutFeatureProgressBody =>
+      'Streaks, daily goals, badges and per-skill statistics, so you can see what is improving and what needs work.';
+
+  @override
+  String get aboutYourAccount => 'Your account';
+
+  @override
+  String get aboutAccountBody =>
+      'Czechify creates an anonymous account automatically — no email, password or name required. Progress syncs to that account. Connect Google or add an email and password if you want to recover it or use it on another device.';
+
+  @override
+  String get aboutDeveloper => 'Developer';
+
+  @override
+  String aboutDeveloperBody(String name) {
+    return 'Designed, built and maintained by $name.';
+  }
+
+  @override
+  String get aboutOnline => 'Online';
+
+  @override
+  String get aboutOfficialWebsite => 'Official Czechify website';
+
+  @override
+  String get aboutOnlinePrivacy => 'Online privacy policy';
+
+  @override
+  String get aboutUpdates => 'Updates';
+
+  @override
+  String get updateCheckTitle => 'Check for updates';
+
+  @override
+  String get updateCheckBody =>
+      'Get the latest Czechify version from Google Play';
+
+  @override
+  String get updateAvailableTitle => 'A Czechify update is available';
+
+  @override
+  String get updateBadgeLabel => 'UPDATE';
+
+  @override
+  String get updateAvailableBody =>
+      'Get the latest improvements and fixes. You can continue learning while the update downloads.';
+
+  @override
+  String get updateNotNow => 'Not now';
+
+  @override
+  String get updateNow => 'Update';
+
+  @override
+  String get updateDownloading =>
+      'Downloading the update… You can continue learning.';
+
+  @override
+  String get updateReady =>
+      'Update ready. Restart Czechify to finish installing it.';
+
+  @override
+  String get updateRestart => 'Restart now';
+
+  @override
+  String get updateUpToDate => 'Czechify is up to date.';
+
+  @override
+  String get updateCancelled => 'The update was cancelled.';
+
+  @override
+  String get updateStartFailed =>
+      'Google Play couldn\'t install the update. Try again later.';
+
+  @override
+  String get updateCheckFailed =>
+      'Google Play couldn\'t check for updates. Try again later.';
+
+  @override
+  String get updateUnsupported =>
+      'In-app updates are available for Czechify installations from Google Play on Android.';
+
+  @override
+  String get updateCheckAlreadyRunning => 'An update check is already running.';
+
+  @override
+  String get updatePlayStoreOnlyBody =>
+      'The update is available, but Google Play can\'t install it inside Czechify right now. Open Google Play to update.';
+
+  @override
+  String get updateOpenPlayStore => 'Open Google Play';
+
+  @override
+  String get privacyTitle => 'Privacy';
+
+  @override
+  String privacyVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get privacyViewOnline => 'View privacy policy on the Czechify website';
+
+  @override
   String get homeYourProgress => 'Your progress';
 
   @override
@@ -175,6 +721,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeAllCaughtUp => 'All caught up!';
+
+  @override
+  String homeRetryLessonA11y(int lesson) {
+    return 'Lesson $lesson · try it again';
+  }
 
   @override
   String homeDayStreak(int count) {
@@ -203,6 +754,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reviewTapToReveal => 'Tap to reveal';
+
+  @override
+  String get reviewTypeAnswerFirst => 'Type your answer first';
 
   @override
   String get reviewRatingAgain => 'Again';
@@ -358,6 +912,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lessonIntroduction => 'Introduction';
 
   @override
+  String get lessonGoal => 'Lesson goal';
+
+  @override
+  String lessonGoalByEnd(String goal) {
+    return 'By the end, you’ll be able to $goal';
+  }
+
+  @override
   String get lessonMissedQuestions => 'Missed questions';
 
   @override
@@ -380,6 +942,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lessonStartPractice => 'Start practice';
+
+  @override
+  String get lessonNowICan => 'Now I can';
+
+  @override
+  String get lessonKeepPractising => 'Keep practising';
 
   @override
   String get lessonGotItStartPractising => 'Got it — start practising';
@@ -697,8 +1265,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reviewDirectionListening => 'Listening';
 
   @override
-  String get reviewHowWellRecalled =>
-      'How well did you recall it? · sets when it returns';
+  String get reviewHowWellRecalled => 'How well did you remember it?';
+
+  @override
+  String get reviewChooseRatingToContinue =>
+      'Choose one to schedule this card and continue to the next.';
 
   @override
   String get reviewAllCaughtUp => 'All caught up';
@@ -788,6 +1359,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatDeleteConversation => 'Delete conversation';
+
+  @override
+  String get chatDeleteConversationTitle => 'Delete this conversation?';
+
+  @override
+  String chatDeleteConversationBody(String scenario) {
+    return 'Your chat about “$scenario” will be permanently removed. This cannot be undone.';
+  }
+
+  @override
+  String get chatDelete => 'Delete';
+
+  @override
+  String get chatToday => 'today';
+
+  @override
+  String get chatYesterday => 'yesterday';
+
+  @override
+  String chatDaysAgo(int count) {
+    return '$count days ago';
+  }
+
+  @override
+  String get chatReportSent => 'Thanks — your report is on its way.';
+
+  @override
+  String get chatReportReply => 'Report this reply';
+
+  @override
+  String get chatNoRepliesLeft => 'No tutor replies left today.';
+
+  @override
+  String chatRepliesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tutor replies left today.',
+      one: '$count tutor reply left today.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String chatAddedToReview(String word) {
+    return 'Added “$word” to your review deck';
+  }
+
+  @override
+  String chatAlreadyInReview(String word) {
+    return '“$word” is already in your deck';
+  }
 
   @override
   String get exerciseAllAnsweredCorrectly =>
@@ -1119,6 +1742,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeCopybookCta => 'Open today’s copybook';
 
   @override
+  String get homePersonalizePlan => 'Personalize your learning plan';
+
+  @override
+  String get homePersonalizePlanBody =>
+      'Tell Czechify your goal and available time to get a more useful plan.';
+
+  @override
   String homeXpRemaining(int xp) {
     return '$xp XP to your daily rhythm.';
   }
@@ -1162,7 +1792,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingNameBody =>
-      'Optional. Used to greet you in Czech, and it never leaves your device.';
+      'Optional. Used to greet you and synced with your Czechify account so it can be restored on another device.';
 
   @override
   String get onboardingFirstName => 'FIRST NAME';
@@ -1244,6 +1874,242 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSoundsOfCzech => 'The sounds of Czech';
+
+  @override
+  String get onboardingProfileTitle => 'Tell us where you’re starting';
+
+  @override
+  String get onboardingProfileBody =>
+      'Your name is optional. Your current level helps us choose a useful first lesson.';
+
+  @override
+  String get onboardingLevelPrompt => 'How much Czech do you know now?';
+
+  @override
+  String get onboardingB1Plus => 'B1 or higher';
+
+  @override
+  String get onboardingB1PlusBody => 'I can handle many everyday conversations';
+
+  @override
+  String get onboardingLevelUnsure => 'I’m not sure';
+
+  @override
+  String get onboardingLevelUnsureBody =>
+      'Start gently or use the placement check';
+
+  @override
+  String get onboardingPurposeTitle => 'What brings you to Czech?';
+
+  @override
+  String get onboardingPurposeBody =>
+      'Choose your main goal. You can change it later as life changes.';
+
+  @override
+  String get onboardingGoalEverydayTitle => 'Everyday life in Czechia';
+
+  @override
+  String get onboardingGoalEverydayBody =>
+      'Feel confident in shops, healthcare, housing and public offices';
+
+  @override
+  String get onboardingGoalPermanentResidenceTitle =>
+      'Permanent residence — A2';
+
+  @override
+  String get onboardingGoalPermanentResidenceBody =>
+      'Build toward the official Czech A2 language exam';
+
+  @override
+  String get onboardingGoalCitizenshipTitle => 'Foundation toward citizenship';
+
+  @override
+  String get onboardingGoalCitizenshipBody =>
+      'Build Czech toward B1 and learn the vocabulary around Czech life';
+
+  @override
+  String get onboardingGoalWorkTitle => 'Work and career';
+
+  @override
+  String get onboardingGoalWorkBody =>
+      'Communicate with colleagues, customers and employers';
+
+  @override
+  String get onboardingGoalStudyTitle => 'Study';
+
+  @override
+  String get onboardingGoalStudyBody =>
+      'Follow classes, read confidently and write more clearly';
+
+  @override
+  String get onboardingGoalRelationshipsTitle => 'Family and relationships';
+
+  @override
+  String get onboardingGoalRelationshipsBody =>
+      'Join conversations with family, friends and your community';
+
+  @override
+  String get onboardingGoalTravelTitle => 'Travel, culture and interest';
+
+  @override
+  String get onboardingGoalTravelBody =>
+      'Enjoy Czech places, people and culture in their language';
+
+  @override
+  String get onboardingFocusTitle => 'Shape your first plan';
+
+  @override
+  String get onboardingFocusBody =>
+      'Choose the skills you want Czechify to emphasize first.';
+
+  @override
+  String get onboardingPermanentResidenceDisclosure =>
+      'The current permanent-residence language exam is A2. Czechify can help you practise, but official eligibility and exemptions come from Czech authorities.';
+
+  @override
+  String get onboardingCitizenshipDisclosure =>
+      'Czechify currently teaches through A2. This creates a foundation toward the B1 language and Czech Life and Institutions exams; it is not yet full citizenship-exam preparation.';
+
+  @override
+  String get onboardingHorizonTitle => 'When would you like to be ready?';
+
+  @override
+  String get onboardingHorizonWithinThree => 'Within 3 months';
+
+  @override
+  String get onboardingHorizonWithinThreeBody =>
+      'A short, focused preparation window';
+
+  @override
+  String get onboardingHorizonThreeToSix => 'In 3–6 months';
+
+  @override
+  String get onboardingHorizonThreeToSixBody =>
+      'Steady preparation with regular review';
+
+  @override
+  String get onboardingHorizonSixToTwelve => 'In 6–12 months';
+
+  @override
+  String get onboardingHorizonSixToTwelveBody =>
+      'Build the foundation carefully over time';
+
+  @override
+  String get onboardingHorizonLater => 'Later or not sure';
+
+  @override
+  String get onboardingHorizonLaterBody =>
+      'Learn consistently without a fixed deadline';
+
+  @override
+  String get onboardingFocusPrompt => 'What should we emphasize?';
+
+  @override
+  String get onboardingFocusSpeaking => 'Speaking';
+
+  @override
+  String get onboardingFocusSpeakingBody =>
+      'Respond naturally in real conversations';
+
+  @override
+  String get onboardingFocusListening => 'Listening';
+
+  @override
+  String get onboardingFocusListeningBody =>
+      'Understand Czech at a comfortable native pace';
+
+  @override
+  String get onboardingFocusReading => 'Reading';
+
+  @override
+  String get onboardingFocusReadingBody =>
+      'Read signs, messages, forms and useful texts';
+
+  @override
+  String get onboardingFocusWriting => 'Writing';
+
+  @override
+  String get onboardingFocusWritingBody =>
+      'Write clear answers, messages and short texts';
+
+  @override
+  String get onboardingFocusVocabularyGrammar => 'Vocabulary and grammar';
+
+  @override
+  String get onboardingFocusVocabularyGrammarBody =>
+      'Build reliable words and sentence patterns';
+
+  @override
+  String get onboardingFocusLifeInstitutions => 'Czech life and institutions';
+
+  @override
+  String get onboardingFocusLifeInstitutionsBody =>
+      'Learn key civic topics and related vocabulary';
+
+  @override
+  String get onboardingCommitmentTitle => 'Choose a rhythm you can keep';
+
+  @override
+  String get onboardingCommitmentBody =>
+      'A realistic routine beats an ambitious plan that disappears after a week.';
+
+  @override
+  String get onboardingCommitmentLight => 'Light';
+
+  @override
+  String get onboardingCommitmentSteady => 'Steady';
+
+  @override
+  String get onboardingCommitmentFocused => 'Focused';
+
+  @override
+  String get onboardingCommitmentIntensive => 'Intensive';
+
+  @override
+  String onboardingCommitmentSchedule(int minutes, int days) {
+    return '$minutes minutes, $days days a week';
+  }
+
+  @override
+  String get onboardingTeacherChoiceTitle => 'Choose a Czech teacher voice';
+
+  @override
+  String get onboardingTeacherChoiceBody =>
+      'Tap either teacher to hear a sample. You can switch later.';
+
+  @override
+  String get onboardingPrimaryGoal => 'Primary goal';
+
+  @override
+  String get onboardingFocusSummary => 'Focus';
+
+  @override
+  String get onboardingTargetSummary => 'Target window';
+
+  @override
+  String get onboardingStudyPlanSummary => 'Study rhythm';
+
+  @override
+  String get onboardingPlanPermanentResidenceBody =>
+      'We’ll build from your current level toward practical A2 skills, with extra attention to your chosen focus areas.';
+
+  @override
+  String get onboardingPlanCitizenshipBody =>
+      'We’ll strengthen your Czech foundation through A2 and clearly mark where full B1 and civic-exam preparation goes beyond the current course.';
+
+  @override
+  String get accountRestoreReminderTitle => 'Use your saved reminder?';
+
+  @override
+  String accountRestoreReminderBody(String time) {
+    return 'This account used a $time study reminder on another device. Enable it on this device too?';
+  }
+
+  @override
+  String get accountRestoreReminderLater => 'Not now';
+
+  @override
+  String get accountRestoreReminderEnable => 'Enable reminder';
 
   @override
   String get scenarioCasual => 'Casual Chat';
@@ -1440,6 +2306,88 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your first achievements are already within reach.';
 
   @override
+  String get statsCourseProgress => 'Course progress';
+
+  @override
+  String get statsCourseProgressBody =>
+      'Required lessons completed at each course level.';
+
+  @override
+  String get statsPracticeNext => 'Practise next';
+
+  @override
+  String get statsPracticeNextDefault =>
+      'Continue with your next lesson to build a clearer picture of your strengths.';
+
+  @override
+  String statsPracticeNextConcept(String concept) {
+    return 'Your recent answers suggest revisiting $concept.';
+  }
+
+  @override
+  String get statsContinueLearning => 'Continue learning';
+
+  @override
+  String get statsConceptsToRevisit => 'Topics to revisit';
+
+  @override
+  String get statsConceptsExplanation =>
+      'Topics that were difficult on the first try. Successful retries are shown separately.';
+
+  @override
+  String get statsNoConceptErrors => 'No difficult topics recorded yet.';
+
+  @override
+  String statsErrorsRepaired(int errors, int repaired) {
+    return '$errors difficult · $repaired improved';
+  }
+
+  @override
+  String get statsSkillPractice => 'Practice by skill';
+
+  @override
+  String get statsSkillExplanation =>
+      'Your accuracy the first time you answered each type of exercise.';
+
+  @override
+  String get statsNoSkillEvidence =>
+      'Complete lesson exercises to see skill progress here.';
+
+  @override
+  String statsAttemptEvidence(String depth, int attempts, String repair) {
+    return '$depth · $attempts first attempts · $repair after retry';
+  }
+
+  @override
+  String get statsDayStreak => 'Day streak';
+
+  @override
+  String get statsTotalXp => 'Total XP';
+
+  @override
+  String get statsLongestStreak => 'Longest streak';
+
+  @override
+  String get statsHearts => 'Hearts';
+
+  @override
+  String get statsNoLessonsYet =>
+      'Complete a lesson to start seeing your progress.';
+
+  @override
+  String get statsUnitProgress => 'Progress by unit';
+
+  @override
+  String get statsUnitProgressBody =>
+      'Your best lesson results across the required lessons in each unit.';
+
+  @override
+  String get statsA1Units => 'A1 units';
+
+  @override
+  String get statsA2Units => 'A2 units';
+
+  @override
   String get placementTitle => 'Find my starting point';
 
   @override
@@ -1465,6 +2413,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get placementFinishLater => 'Finish later';
+
+  @override
+  String placementAdaptiveQuestion(int count) {
+    return 'Question $count · adaptive test';
+  }
 
   @override
   String get reviewNew => 'New';
@@ -1605,4 +2558,77 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get reminderSettingsEntryBanner =>
       'Get daily reminders to keep your streak going.';
+
+  @override
+  String get pronTipExcellent => 'Great! Excellent pronunciation.';
+
+  @override
+  String get pronTipUnrecognisable =>
+      'That didn\'t match the phrase — listen again and try once more.';
+
+  @override
+  String get pronTipRolledRAsPlainR =>
+      'Your “ř” came out as a plain “r”. Keep the tongue trilling but press it closer to the ridge so it buzzes.';
+
+  @override
+  String get pronTipRolledR =>
+      'Work on “ř” — trill the tongue and add a buzz at the same time.';
+
+  @override
+  String get pronTipSofteningE =>
+      'The “ě” softens the consonant before it (dě → d+ye).';
+
+  @override
+  String get pronTipVowelLength =>
+      'Czech distinguishes short and long vowels. Lengthen the vowel.';
+
+  @override
+  String pronTipVowelTooShort(String sound) {
+    return '“$sound” is a long vowel — hold it about twice as long. Czech uses length to change meaning (byt vs být).';
+  }
+
+  @override
+  String pronTipVowelTooLong(String sound) {
+    return '“$sound” is short here — you lengthened it.';
+  }
+
+  @override
+  String pronTipPalatal(String sound) {
+    return '“$sound” is palatal — press the middle of the tongue against the hard palate.';
+  }
+
+  @override
+  String pronTipSoundDropped(String sound) {
+    return 'You dropped the “$sound” sound.';
+  }
+
+  @override
+  String pronTipSoundSubstituted(String sound, String heard) {
+    return '“$sound” came out closer to “$heard”.';
+  }
+
+  @override
+  String pronTipRepeatWord(String word) {
+    return 'Listen again and repeat “$word” carefully.';
+  }
+
+  @override
+  String pronTipCheckSound(String sound, String word) {
+    return 'Check the “$sound” sound in “$word”.';
+  }
+
+  @override
+  String get rankBronze => 'Bronze';
+
+  @override
+  String get rankSilver => 'Silver';
+
+  @override
+  String get rankGold => 'Gold';
+
+  @override
+  String get rankPlatinum => 'Platinum';
+
+  @override
+  String get rankDiamond => 'Diamond';
 }

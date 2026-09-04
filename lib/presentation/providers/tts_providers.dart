@@ -269,7 +269,9 @@ class CzechTts {
       await _player.setFilePath(path);
       // flutter_tts's default setting is 0.45. Preserve the existing control
       // semantics while keeping a single pre-generated file per utterance.
-      await _player.setSpeed((effectiveRate / 0.45).clamp(0.5, 1.5));
+      await _player.setSpeed(
+        (effectiveRate / kNativeTtsSpeechRate).clamp(0.5, 1.5),
+      );
       await _player.play();
       return true;
     } catch (_) {

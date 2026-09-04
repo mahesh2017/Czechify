@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ceskina_pro/core/diagnostics/safe_diagnostics.dart';
-import 'package:ceskina_pro/core/notifications/navigation_intent.dart';
-import 'package:ceskina_pro/core/notifications/reminder_scheduler.dart';
+import 'package:czechify/core/diagnostics/safe_diagnostics.dart';
+import 'package:czechify/core/notifications/navigation_intent.dart';
+import 'package:czechify/core/notifications/reminder_scheduler.dart';
 import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/material.dart' show TimeOfDay;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -283,12 +283,10 @@ class NotificationService {
 
   /// Cancels every ID owned by [ReminderScheduler] (daily + 30 evening slots).
   Future<void> cancelOwnedIds() async {
-    try {
-      for (final id in _scheduler.ownedIds) {
-        await _plugin.cancel(id: id);
-      }
-    } catch (e, st) {
-      SafeDiagnostics.error('notification_cancel_owned_failed', e, st);
+    // Each cancellation is isolated. One corrupt/stale native request must not
+    // abort cleanup of the remaining 30 IDs during an account replacement.
+    for (final id in _scheduler.ownedIds) {
+      await cancel(id);
     }
   }
 

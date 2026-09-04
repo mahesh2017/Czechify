@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/domain/entities/flashcard.dart';
-import 'package:ceskina_pro/domain/entities/srs_card.dart';
-import 'package:ceskina_pro/domain/repositories/vocabulary_repository.dart';
-import 'package:ceskina_pro/presentation/providers/review_providers.dart';
+import 'package:czechify/domain/entities/flashcard.dart';
+import 'package:czechify/domain/entities/srs_card.dart';
+import 'package:czechify/domain/repositories/vocabulary_repository.dart';
+import 'package:czechify/presentation/providers/review_providers.dart';
 
 void main() {
   final now = DateTime(2026, 7, 18);

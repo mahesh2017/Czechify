@@ -1,23 +1,22 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ceskina_pro/domain/engines/llm_orchestrator.dart';
-import 'package:ceskina_pro/domain/entities/chat_message.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/repositories/llm_service.dart';
+import 'package:czechify/domain/engines/llm_orchestrator.dart';
+import 'package:czechify/domain/entities/chat_message.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/repositories/llm_service.dart';
 
 void main() {
   const orchestrator = LLMOrchestrator();
 
   group('buildConversationRequest', () {
-    test('uses a valid DeepSeek model ID', () {
+    test('reports the server-selected Scaleway model ID', () {
       final request = orchestrator.buildConversationRequest(
         level: CEFRLevel.a1,
         scenarioId: 'casual_chat',
         userMessage: 'Ahoj',
         history: [],
       );
-      // 'deepseek-v3' is NOT a valid API model ID — regression guard.
-      expect(request.model, 'deepseek-chat');
+      expect(request.model, 'deepseek-v4-flash-0731');
     });
 
     test('appends the user message exactly once', () {

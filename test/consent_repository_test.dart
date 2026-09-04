@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/core/legal/legal_content.dart';
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/data/repositories/consent_repository.dart';
+import 'package:czechify/core/legal/legal_content.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/repositories/consent_repository.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 

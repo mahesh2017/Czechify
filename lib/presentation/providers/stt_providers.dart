@@ -344,6 +344,21 @@ class PronunciationAssessor {
   }) async {
     _log.info('Whisper unavailable; falling back to OS-native STT.');
 
+    // Refuse rather than guess. With no Czech language pack the platform
+    // listens in the phone's default language and returns an English-shaped
+    // transcription of Czech speech, which the scorer reads as a bad
+    // pronunciation. Being told you got it wrong when you got it right is
+    // worse than being told it could not be checked — the same reasoning the
+    // Whisper path already applies to audio it captured but could not score.
+    if (!await _fallbackStt.supportsCzech()) {
+      _log.warning('No Czech recogniser on this device; refusing to score.');
+      throw const SpeechServiceException(
+        'Your phone cannot recognise Czech speech, so this cannot be checked '
+        'on the device.',
+        cloudSpeechWouldFix: true,
+      );
+    }
+
     final transcription = await _fallbackStt.listenFor(timeout: maxDuration);
 
     final result = _scorer.score(
@@ -402,10 +417,10 @@ class PronunciationAssessor {
     return PronunciationResult(
       overallScore: assessment.overallScore,
       // Per-word detail belongs to the transcript scorer; this path reports at
-      // sound level, and the feedback strings carry the specifics.
+      // sound level, and the tips carry the specifics.
       wordScores: const [],
       problemSounds: const [],
-      feedback: assessment.displayFeedback.join('\n'),
+      tips: assessment.displayTips,
     );
   }
 
@@ -479,7 +494,7 @@ class PronunciationAssessor {
       overallScore: accuracy.clamp(0.0, 1.0),
       wordScores: enrichedWordScores,
       problemSounds: base.problemSounds,
-      feedback: base.feedback,
+      tips: base.tips,
       insertionCount: base.insertionCount,
     );
   }
@@ -511,9 +526,27 @@ class _CaptureUnavailable implements Exception {
 /// Used as a fallback when Whisper is unavailable (offline, backend not
 /// configured). For Czech, this uses the OS's built-in speech recognition
 /// (Google on Android, Apple on iOS/macOS).
-final sttServiceProvider = Provider<SttService>((ref) {
-  return NativeSttService();
-});
+final sttServiceProvider = Provider<SttService>(
+  (ref) => ref.watch(_nativeSttProvider),
+);
+
+/// The same recogniser, typed as the port the recording UI actually needs.
+///
+/// [SttService] describes transcribing a file; holding the microphone open and
+/// letting go of it is [LiveTranscriber]. Every screen that records was
+/// reaching the second through `ref.read(sttServiceProvider) as
+/// NativeSttService`, which is also where the lifecycle bugs collected — a
+/// cast to the implementation invites reaching past the port for whatever else
+/// it happens to expose.
+final liveTranscriberProvider = Provider<LiveTranscriber>(
+  (ref) => ref.watch(_nativeSttProvider),
+);
+
+/// One recogniser behind both ports. Two instances would mean two
+/// [SpeechToText] objects contending for one microphone.
+final _nativeSttProvider = Provider<NativeSttService>(
+  (ref) => NativeSttService(),
+);
 
 /// Native on-device STT implementation using speech_to_text package.
 class NativeSttService implements SttService, LiveTranscriber {
@@ -570,6 +603,12 @@ class NativeSttService implements SttService, LiveTranscriber {
   Future<bool> isAvailable() async {
     await _ensureInitialized();
     return _initialized;
+  }
+
+  @override
+  Future<bool> supportsCzech() async {
+    await _ensureInitialized();
+    return _initialized && _czechLocaleId != null;
   }
 
   /// Start live listening and return the recognized text.

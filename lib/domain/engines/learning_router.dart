@@ -49,9 +49,29 @@ class LearningRouter {
                     item.conceptKeys.any(candidate.conceptKeys.contains),
               )
               .toList();
-      final delayed = relevant.where((item) => item.isDelayedTransfer).toList();
-      final independent = relevant.where((item) => item.independent).toList();
-      final supportCount = relevant.where((item) => !item.independent).length;
+      // Only the most recent attempt at each exercise counts, because these
+      // scores are meant to describe what the learner is weak at *now*.
+      //
+      // Evidence is append-only, so counting the whole history made a mistake
+      // permanent: two wrong answers in lesson 1 scored it above an untouched
+      // lesson 2 for ever, and passing lesson 1 again could not undo it — a
+      // later success adds a row but removes nothing. Home's "continue
+      // learning" then pointed at the same finished lesson every time, which
+      // is where this was noticed.
+      final current = <Object, LearningEvidence>{};
+      for (final item in relevant) {
+        // Exercise-level where we have it; whole-lesson evidence groups under
+        // the lesson so one stale row cannot outvote a later one.
+        final key = item.exerciseId ?? 'lesson:${item.lessonId}';
+        final held = current[key];
+        if (held == null || item.observedAt.isAfter(held.observedAt)) {
+          current[key] = item;
+        }
+      }
+      final latest = current.values;
+      final delayed = latest.where((item) => item.isDelayedTransfer).toList();
+      final independent = latest.where((item) => item.independent).toList();
+      final supportCount = latest.where((item) => !item.independent).length;
       final failures = independent.where((item) => !item.correct).length;
       final delayedFailures = delayed.where((item) => !item.correct).length;
 

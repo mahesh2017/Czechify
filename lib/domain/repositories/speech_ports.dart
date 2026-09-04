@@ -8,13 +8,24 @@ import '../../data/services/stt/whisper_service.dart' show WhisperResult;
 /// replaced with a fabricated 0% score, which reads as "you pronounced this
 /// badly" rather than "we could not check it".
 class SpeechServiceException implements Exception {
-  const SpeechServiceException(this.message, {this.isQuotaExhausted = false});
+  const SpeechServiceException(
+    this.message, {
+    this.isQuotaExhausted = false,
+    this.cloudSpeechWouldFix = false,
+  });
 
   /// Shown to the learner as-is, so it must be plain language.
   final String message;
 
   /// True when retrying now cannot help — the allowance is spent.
   final bool isQuotaExhausted;
+
+  /// True when turning on cloud speech would resolve this outright.
+  ///
+  /// Set when the phone has no Czech recogniser. The learner is not being told
+  /// about a fault to wait out — there is a switch that fixes it — so the UI
+  /// can offer that switch instead of leaving them to work it out from prose.
+  final bool cloudSpeechWouldFix;
 
   @override
   String toString() => message;
@@ -60,4 +71,17 @@ abstract class AudioRecorderPort {
 abstract class LiveTranscriber {
   Future<String> listenFor({Duration timeout});
   Future<void> stop();
+
+  /// Whether this transcriber can recognise Czech at all.
+  ///
+  /// The OS recogniser only has the languages the phone has installed, and
+  /// Czech is not among the defaults on most devices sold outside Czechia.
+  /// Asked before listening because the failure is silent otherwise: with no
+  /// Czech locale the platform listens in the phone's default language, hands
+  /// back an English-shaped transcription of Czech speech, and the scorer
+  /// dutifully reports that a correctly said phrase was mispronounced.
+  ///
+  /// Defaults to true so existing implementations keep working; only the
+  /// platform recogniser has a language inventory to be missing from.
+  Future<bool> supportsCzech() async => true;
 }

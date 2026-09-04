@@ -1,6 +1,7 @@
 import { assertEquals, assertNotEquals } from "jsr:@std/assert@1.0.14";
 import {
   buildUpstreamRequest,
+  type Operation,
   parseBoundedInteger,
   parseContext,
   parseMessages,
@@ -45,8 +46,56 @@ Deno.test("server owns conversation prompt and output limit", () => {
 
   assertNotEquals(request, null);
   assertEquals(request!.maxTokens, 700);
+  assertEquals(request!.responseFormat.type, "json_schema");
+  assertEquals(
+    request!.responseFormat.json_schema.name,
+    "CzechifyTutorReply",
+  );
   assertEquals(request!.messages[0].role, "system");
   assertEquals(request!.messages[1], { role: "user", content: learnerText });
+});
+
+Deno.test("every operation uses a strict server-owned response schema", () => {
+  const cases: Array<{
+    operation: Operation;
+    context: Record<string, string>;
+    messages: Array<{ role: "user" | "assistant"; content: string }>;
+  }> = [
+    {
+      operation: "conversation" as const,
+      context: { level: "a1", scenario_id: "casual_chat" },
+      messages: [{ role: "user" as const, content: "Ahoj" }],
+    },
+    {
+      operation: "conversation_summary" as const,
+      context: { level: "a1" },
+      messages: [{ role: "user" as const, content: "Ahoj" }],
+    },
+    {
+      operation: "grammar_check" as const,
+      context: { level: "a1" },
+      messages: [{ role: "user" as const, content: "Já být doma." }],
+    },
+    {
+      operation: "writing_evaluation" as const,
+      context: { level: "a2", task_description: "Write a short email." },
+      messages: [{ role: "user" as const, content: "Dobrý den." }],
+    },
+  ];
+
+  for (const item of cases) {
+    const request = buildUpstreamRequest(
+      item.operation,
+      item.context,
+      item.messages,
+    );
+    assertNotEquals(request, null);
+    assertEquals(request!.responseFormat.type, "json_schema");
+    assertEquals(
+      request!.responseFormat.json_schema.schema.additionalProperties,
+      false,
+    );
+  }
 });
 
 Deno.test("writing task and response remain user-role data", () => {

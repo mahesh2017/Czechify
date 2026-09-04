@@ -105,8 +105,8 @@ the single most rage-inducing failure mode the app can have.
 ### P0.4 Store identity is placeholder
 - Launcher icons are the default Flutter logo (442-byte `ic_launcher.png`).
 - Naming is inconsistent: UI + platform manifests say **Czechify**,
-  pubspec/repo say **ceskina_pro / Čeština Pro**, bundle id is
-  `com.ceskinapro.ceskina_pro`.
+  pubspec/repo say **czechify / Čeština Pro**, bundle id is
+  `com.ceskinapro.czechify`.
 - **Fix:** decide the brand name once; align `CFBundleDisplayName`,
   `android:label`, MaterialApp `title`, and store listings; generate real
   icon + adaptive icon + splash (e.g. `flutter_launcher_icons`,

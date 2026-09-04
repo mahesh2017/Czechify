@@ -4,23 +4,56 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../database/database.dart';
 import '../sync/backend_service.dart';
 import '../sync/sync_service.dart';
+import 'account_restore_materializer.dart';
+import 'account_identity.dart';
+import 'google_auth_service.dart';
+
+export 'account_restore_materializer.dart' show AccountRestoreSummary;
+
+sealed class GoogleAccountResult {
+  const GoogleAccountResult();
+}
+
+class GoogleAccountLinked extends GoogleAccountResult {
+  const GoogleAccountLinked();
+}
+
+class GoogleAccountAlreadyLinked extends GoogleAccountResult {
+  const GoogleAccountAlreadyLinked();
+}
+
+/// A verified Google session that is deliberately unusable outside this
+/// library except by passing it back to [AccountService.completeGoogleSwitch].
+class GoogleAccountNeedsSwitch extends GoogleAccountResult {
+  const GoogleAccountNeedsSwitch(this._session);
+
+  final Session _session;
+  String? get email => _session.user.email;
+}
 
 class AccountService {
   AccountService(
     this._backend,
     this._db,
     this._sync, {
+    GoogleAuthService? googleAuth,
     this.onLocalDataChanged,
-  });
+    this.onAccountChanged,
+    this.onDeviceRemindersReset,
+  }) : _googleAuth = googleAuth ?? NativeGoogleAuthService();
 
   final BackendService _backend;
   final AppDatabase _db;
   final SyncService _sync;
+  final GoogleAuthService _googleAuth;
   final void Function()? onLocalDataChanged;
+  final void Function()? onAccountChanged;
+  final Future<void> Function()? onDeviceRemindersReset;
 
   Future<void> linkEmail(String email) => _backend.requestEmailLink(email);
 
@@ -32,7 +65,35 @@ class AccountService {
   Future<void> sendPasswordRecovery(String email) =>
       _backend.sendPasswordRecovery(email);
 
-  Future<void> switchToExistingAccount({
+  /// Links Google in place for a new learner. If Google already belongs to a
+  /// different Supabase user, returns a verified pending switch so the UI can
+  /// request explicit permission before local learner data is replaced.
+  Future<GoogleAccountResult> startGoogleSignIn() async {
+    if (_backend.hasGoogleIdentity) {
+      return const GoogleAccountAlreadyLinked();
+    }
+    final tokens = await _googleAuth.authenticate();
+    try {
+      await _backend.linkGoogleIdentity(tokens);
+      onAccountChanged?.call();
+      return const GoogleAccountLinked();
+    } on AuthException catch (error) {
+      if (error.code != 'identity_already_exists') rethrow;
+      if (!_backend.isAnonymous) {
+        throw const AuthException(
+          'That Google account is already connected to another Czechify account.',
+        );
+      }
+      final session = await _backend.authenticateGoogle(tokens);
+      return GoogleAccountNeedsSwitch(session);
+    }
+  }
+
+  Future<AccountRestoreSummary> completeGoogleSwitch(
+    GoogleAccountNeedsSwitch pending,
+  ) => _switchToSession(pending._session);
+
+  Future<AccountRestoreSummary> switchToExistingAccount({
     required String email,
     required String password,
   }) async {
@@ -40,6 +101,10 @@ class AccountService {
       email: email,
       password: password,
     );
+    return _switchToSession(session);
+  }
+
+  Future<AccountRestoreSummary> _switchToSession(Session session) async {
     final previousSession = _backend.currentSession;
     var targetCommitted = false;
     await _sync.beginAccountTransition();
@@ -54,8 +119,12 @@ class AccountService {
         }
       });
       targetCommitted = true;
-      await _clearAccountScopedArtifacts();
+      final restored = await AccountRestoreMaterializer(_db).materialize();
+      await _resetDeviceReminders();
+      await _clearTemporaryArtifacts();
       onLocalDataChanged?.call();
+      onAccountChanged?.call();
+      return restored;
     } catch (_) {
       // Once the target database commit succeeds, restoring the old session
       // would expose target data under the wrong identity.
@@ -69,6 +138,9 @@ class AccountService {
       _sync.endAccountTransition();
     }
   }
+
+  bool get hasGoogleIdentity =>
+      userHasIdentityProvider(_backend.currentUser, 'google');
 
   Future<File> createExportFile() async {
     final local = await _db.exportLearnerData();
@@ -113,10 +185,15 @@ class AccountService {
   /// anonymous accounts, which have no credential to re-enter.
   Future<void> deleteAccountAndLocalData({String? password}) async {
     if (_backend.isSignedIn) {
+      if (_backend.hasGoogleIdentity) {
+        final tokens = await _googleAuth.authenticate();
+        await _backend.reauthenticateGoogle(tokens);
+      }
       await _backend.deleteCloudAccount(password: password);
     }
     await _db.clearLearnerData();
     await _clearAccountScopedArtifacts();
+    await _resetDeviceReminders();
     await _backend.ensureAnonymousSession();
     onLocalDataChanged?.call();
   }
@@ -139,24 +216,34 @@ class AccountService {
     'settings_tts_voice_gender',
     'settings_daily_goal_xp',
     'settings_hearts_enabled',
-    'settings_sound_enabled',
-    'settings_haptic_enabled',
+    'settings_sound_effects_enabled',
+    'settings_haptics_enabled',
+    'settings_reminder_hour',
+    'settings_reminder_minute',
+    'settings_reminders_enabled',
+    'settings_catch_up_enabled',
   };
 
   Future<void> _clearAccountScopedArtifacts() async {
     final preferences = await SharedPreferences.getInstance();
-    for (final key in const {
-      'settings_learner_name',
-      'settings_starting_level',
-      'settings_onboarding_done',
-      'srs_new_cards_today',
-      'srs_new_cards_date',
-      'exam_checkpoint_a1',
-      'exam_checkpoint_a2',
-    }) {
+    for (final key in AccountRestoreMaterializer.accountScopedPreferenceKeys) {
       await preferences.remove(key);
     }
 
+    await _clearTemporaryArtifacts();
+  }
+
+  Future<void> _resetDeviceReminders() async {
+    try {
+      await onDeviceRemindersReset?.call();
+    } catch (_) {
+      // Notification cleanup is device-local and best effort. The cloud
+      // identity/database switch may already be committed, so surfacing this
+      // as an account failure would be both misleading and unsafe to retry.
+    }
+  }
+
+  Future<void> _clearTemporaryArtifacts() async {
     final temporary = await getTemporaryDirectory();
     if (!await temporary.exists()) return;
     await for (final entity in temporary.list()) {

@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/core/notifications/reminder_scheduler.dart';
+import 'package:czechify/core/notifications/reminder_scheduler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/tts_providers.dart';
+import 'motion_widgets.dart';
 
 /// Tells the learner when the app is running on a substitute, and why.
 ///
@@ -23,12 +24,14 @@ class DegradedModeBanner extends ConsumerWidget {
     return ValueListenableBuilder<bool>(
       valueListenable: tts.usingFallbackVoice,
       builder: (context, isFallback, _) {
-        if (!isFallback) return const SizedBox.shrink();
-        return const _Notice(
-          icon: Icons.cloud_off_rounded,
-          message:
-              'Offline — using your device\'s voice. Connect to hear the '
-              'recorded Czech voice.',
+        return MotionDisclosure(
+          visible: isFallback,
+          child: const _Notice(
+            icon: Icons.cloud_off_rounded,
+            message:
+                'Offline — using your device\'s voice. Connect to hear the '
+                'recorded Czech voice.',
+          ),
         );
       },
     );

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../core/theme/app_motion.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../providers/tts_providers.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/motion_widgets.dart';
 import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
 
@@ -103,11 +105,13 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     return hasSymbol ? 'alphabet' : 'list';
   }
 
-  Future<void> _say(String text, {bool slow = false}) async {
+  Future<void> _say(String text) async {
     if (text.trim().isEmpty) return;
     try {
-      final tts = ref.read(czechTtsProvider);
-      await (slow ? tts.speakSlow(text) : tts.speak(text));
+      // No rate argument: speak() reads the learner's stored speed, which the
+      // selector under the play button writes. Passing one here would pin the
+      // pace and ignore what they chose.
+      await ref.read(czechTtsProvider).speak(text);
     } catch (_) {
       // Speech is best-effort — a missing voice must not break the lesson.
     }
@@ -123,7 +127,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     }
   }
 
-  Future<void> _playAll(List<_TeachingItem> items, {bool slow = false}) async {
+  Future<void> _playAll(List<_TeachingItem> items) async {
     if (_playingAll) {
       setState(() {
         _playingAll = false;
@@ -139,10 +143,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     for (var i = 0; i < items.length; i++) {
       if (!_playingAll || !mounted) break;
       setState(() => _playingIndex = i);
-      await _say(alphabet ? items[i].nameSay : items[i].playText, slow: slow);
+      await _say(alphabet ? items[i].nameSay : items[i].playText);
       // TTS returns before playback finishes; a fixed pace gives a clear gap
-      // between items — longer when the utterance itself is stretched out.
-      await Future<void>.delayed(Duration(milliseconds: slow ? 1700 : 1100));
+      // between items.
+      await Future<void>.delayed(const Duration(milliseconds: 1100));
     }
     if (mounted) {
       setState(() {
@@ -235,10 +239,6 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                     playing: _playingAll,
                     playLabel: playAllLabel,
                     onPlay: () => _playAll(items),
-                    // Half speed, one item at a time — the "Slow" pass exists
-                    // for the sounds English does not have.
-                    onSlow: () => _playAll(items, slow: true),
-                    slowLabel: l10n.audioSlower,
                   ),
                 ],
               ],
@@ -316,202 +316,203 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
       }
     }
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: LessonKicker(
-                  sentencePage
-                      ? l10n.teachingInSentence
-                      : l10n.teachingLookAndGuess,
-                  color: t.pri,
+    return MotionEntrance(
+      key: ValueKey('teaching-page-$_imageTeachingPage'),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: LessonKicker(
+                    sentencePage
+                        ? l10n.teachingInSentence
+                        : l10n.teachingLookAndGuess,
+                    color: t.pri,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                l10n.teachingWordProgress(wordIndex + 1, items.length),
-                style: TextStyle(
-                  color: t.faint,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
+                const SizedBox(width: 10),
+                Text(
+                  l10n.teachingWordProgress(wordIndex + 1, items.length),
+                  style: TextStyle(
+                    color: t.faint,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(24),
-            child: AspectRatio(
-              aspectRatio: 1.25,
-              child: Image.asset(
-                item.image,
-                fit: BoxFit.cover,
-                cacheWidth: 880,
-                semanticLabel: item.imageLabel,
+              ],
+            ),
+            const SizedBox(height: 12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: AspectRatio(
+                aspectRatio: 1.25,
+                child: Image.asset(
+                  item.image,
+                  fit: BoxFit.cover,
+                  cacheWidth: 880,
+                  semanticLabel: item.imageLabel,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 18),
-          if (!sentencePage) ...[
-            Semantics(
-              button: true,
-              child: InkWell(
-                onTap: () {
-                  _say(item.cz);
-                  setState(() => _translationRevealed = true);
-                },
-                borderRadius: BorderRadius.circular(24),
-                child: SoftCard(
-                  shadow: false,
-                  border: Border.all(color: t.line),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: DisplayText(
-                              item.cz,
-                              size: 30,
-                              weight: FontWeight.w800,
+            const SizedBox(height: 18),
+            if (!sentencePage) ...[
+              Semantics(
+                button: true,
+                child: InkWell(
+                  onTap: () {
+                    _say(item.cz);
+                    setState(() => _translationRevealed = true);
+                  },
+                  borderRadius: BorderRadius.circular(24),
+                  child: SoftCard(
+                    shadow: false,
+                    border: Border.all(color: t.line),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: DisplayText(
+                                item.cz,
+                                size: 30,
+                                weight: FontWeight.w800,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Icon(Icons.volume_up_outlined, color: t.pri),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 220),
-                        child:
-                            _translationRevealed
-                                ? Column(
-                                  key: const ValueKey('meaning'),
-                                  children: [
-                                    Text(
-                                      l10n.teachingMeaning.toUpperCase(),
-                                      style: TextStyle(
-                                        color: t.faint,
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w800,
-                                        letterSpacing: 1.4,
+                            const SizedBox(width: 10),
+                            Icon(Icons.volume_up_outlined, color: t.pri),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        MotionSwap(
+                          child:
+                              _translationRevealed
+                                  ? Column(
+                                    key: const ValueKey('meaning'),
+                                    children: [
+                                      Text(
+                                        l10n.teachingMeaning.toUpperCase(),
+                                        style: TextStyle(
+                                          color: t.faint,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w800,
+                                          letterSpacing: 1.4,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Text(
-                                      item.en,
-                                      style: TextStyle(
-                                        color: t.muted,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
+                                      const SizedBox(height: 3),
+                                      Text(
+                                        item.en,
+                                        style: TextStyle(
+                                          color: t.muted,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
+                                    ],
+                                  )
+                                  : Text(
+                                    l10n.teachingTapWordMeaning,
+                                    key: const ValueKey('hint'),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: t.faint,
+                                      fontSize: 13,
                                     ),
-                                  ],
-                                )
-                                : Text(
-                                  l10n.teachingTapWordMeaning,
-                                  key: const ValueKey('hint'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: t.faint,
-                                    fontSize: 13,
                                   ),
-                                ),
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ] else ...[
-            SoftCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Semantics(
-                    button: true,
-                    label: AppLocalizations.of(context).a11yTapToHearSentence,
-                    excludeSemantics: true,
-                    child: InkWell(
-                      onTap: () {
-                        _say(item.sentence);
-                        setState(() => _translationRevealed = true);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 40,
-                              ),
-                              child: Text(
-                                item.sentence,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: t.ink,
-                                  fontFamily: AppFonts.display,
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w700,
-                                  height: 1.3,
+            ] else ...[
+              SoftCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Semantics(
+                      button: true,
+                      label: AppLocalizations.of(context).a11yTapToHearSentence,
+                      excludeSemantics: true,
+                      child: InkWell(
+                        onTap: () {
+                          _say(item.sentence);
+                          setState(() => _translationRevealed = true);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                ),
+                                child: Text(
+                                  item.sentence,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: t.ink,
+                                    fontFamily: AppFonts.display,
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.3,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Icon(
-                                Icons.volume_up_outlined,
-                                color: t.pri,
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(
+                                  Icons.volume_up_outlined,
+                                  color: t.pri,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 220),
-                    child:
-                        _translationRevealed
-                            ? Text(
-                              item.sentenceEn,
-                              key: const ValueKey('sentence-meaning'),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: t.muted,
-                                fontSize: 15,
-                                height: 1.45,
+                    const SizedBox(height: 10),
+                    MotionSwap(
+                      child:
+                          _translationRevealed
+                              ? Text(
+                                item.sentenceEn,
+                                key: const ValueKey('sentence-meaning'),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: t.muted,
+                                  fontSize: 15,
+                                  height: 1.45,
+                                ),
+                              )
+                              : Text(
+                                l10n.teachingTapSentenceTranslation,
+                                key: const ValueKey('sentence-hint'),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: t.faint, fontSize: 13),
                               ),
-                            )
-                            : Text(
-                              l10n.teachingTapSentenceTranslation,
-                              key: const ValueKey('sentence-hint'),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: t.faint, fontSize: 13),
-                            ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
+            ],
+            const SizedBox(height: 20),
+            KeyCta(
+              label:
+                  lastPage
+                      ? l10n.teachingStartExercises
+                      : sentencePage
+                      ? l10n.teachingNextWord
+                      : l10n.teachingSeeExample,
+              onPressed: advance,
             ),
           ],
-          const SizedBox(height: 20),
-          KeyCta(
-            label:
-                lastPage
-                    ? l10n.teachingStartExercises
-                    : sentencePage
-                    ? l10n.teachingNextWord
-                    : l10n.teachingSeeExample,
-            onPressed: advance,
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -664,7 +665,8 @@ class _IntroBlock extends ConsumerWidget {
                         final anim = isSpeaking ? 'talk' : 'idle';
                         return Lottie.asset(
                           'assets/animations/teacher_${genderKey}_$anim.json',
-                          repeat: true,
+                          animate: !context.motionDisabled,
+                          repeat: !context.motionDisabled,
                           fit: BoxFit.contain,
                           errorBuilder:
                               (context, error, stack) => Icon(
@@ -740,6 +742,7 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
 
   late final AnimationController _bob;
   bool _speaking = false;
+  bool? _motionDisabled;
 
   @override
   void initState() {
@@ -748,17 +751,31 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
     _bob = AnimationController(
       vsync: this,
       duration: _speaking ? _talkDuration : _idleDuration,
-    )..repeat(reverse: true);
+    );
     widget.speaking.addListener(_onSpeakingChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final disabled = MediaQuery.disableAnimationsOf(context);
+    if (disabled == _motionDisabled) return;
+    _motionDisabled = disabled;
+    if (disabled) {
+      _bob
+        ..stop()
+        ..value = 0.5;
+    } else {
+      _bob.repeat(reverse: true);
+    }
   }
 
   void _onSpeakingChanged() {
     final speaking = widget.speaking.value;
     if (speaking == _speaking || !mounted) return;
     setState(() => _speaking = speaking);
-    _bob
-      ..duration = speaking ? _talkDuration : _idleDuration
-      ..repeat(reverse: true);
+    _bob.duration = speaking ? _talkDuration : _idleDuration;
+    if (_motionDisabled == false) _bob.repeat(reverse: true);
   }
 
   @override
@@ -771,28 +788,36 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    return AnimatedBuilder(
-      animation: _bob,
-      builder: (context, child) {
-        final t = _bob.value; // ping-pongs 0 → 1 → 0
-        final amplitude = _speaking ? 5.0 : 2.5;
-        final dy = -amplitude / 2 + amplitude * t;
-        // A touch of sway only while talking, so idle stays calm.
-        final angle = _speaking ? (t - 0.5) * 0.04 : 0.0;
-        return Transform.rotate(
-          angle: angle,
-          child: Transform.translate(offset: Offset(0, dy), child: child),
-        );
-      },
-      child: Image.asset(
-        'assets/images/teacher_${widget.genderKey}.png',
-        fit: BoxFit.contain,
-        // The art ships at ~3x the rendered size; cap the decode to match.
-        cacheWidth: 400,
-        filterQuality: FilterQuality.medium,
-        errorBuilder:
-            (context, error, stack) =>
-                Icon(Icons.person_outline, size: 64, color: cs.primary),
+    // The bob repeats for as long as the card is on screen, so it gets its own
+    // layer: the outer boundary keeps the rest of the card off the per-frame
+    // repaint path, and the inner one lets the decoded portrait be composited
+    // under a new transform instead of re-rasterised every frame.
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _bob,
+        builder: (context, child) {
+          final t = _bob.value; // ping-pongs 0 → 1 → 0
+          final amplitude = _speaking ? 5.0 : 2.5;
+          final dy = -amplitude / 2 + amplitude * t;
+          // A touch of sway only while talking, so idle stays calm.
+          final angle = _speaking ? (t - 0.5) * 0.04 : 0.0;
+          return Transform.rotate(
+            angle: angle,
+            child: Transform.translate(offset: Offset(0, dy), child: child),
+          );
+        },
+        child: RepaintBoundary(
+          child: Image.asset(
+            'assets/images/teacher_${widget.genderKey}.png',
+            fit: BoxFit.contain,
+            // The art ships at ~3x the rendered size; cap the decode to match.
+            cacheWidth: 400,
+            filterQuality: FilterQuality.medium,
+            errorBuilder:
+                (context, error, stack) =>
+                    Icon(Icons.person_outline, size: 64, color: cs.primary),
+          ),
+        ),
       ),
     );
   }

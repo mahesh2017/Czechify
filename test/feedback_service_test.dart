@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:ceskina_pro/core/feedback/celebration.dart';
-import 'package:ceskina_pro/core/feedback/feedback_service.dart';
-import 'package:ceskina_pro/core/feedback/sfx.dart';
+import 'package:czechify/core/feedback/celebration.dart';
+import 'package:czechify/core/feedback/feedback_service.dart';
+import 'package:czechify/core/feedback/sfx.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Records what was asked for. Whether a speaker actually made a noise is not

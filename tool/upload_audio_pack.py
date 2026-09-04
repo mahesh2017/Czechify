@@ -72,7 +72,7 @@ def manifest_files(manifest: dict) -> list[str]:
 
 def list_bucket(base: str, token: str) -> list[str]:
     """Every object name in the bucket, following pagination."""
-    return sorted(list_bucket_sizes(base, token))
+    return sorted(list_bucket_meta(base, token))
 
 
 def get_bucket(base: str, token: str) -> dict:
@@ -84,9 +84,15 @@ def get_bucket(base: str, token: str) -> dict:
         return json.loads(response.read().decode("utf-8"))
 
 
-def list_bucket_sizes(base: str, token: str) -> dict[str, int]:
-    """{object name: byte size}, so a re-upload can tell changed from present."""
-    sizes: dict[str, int] = {}
+def list_bucket_meta(base: str, token: str) -> dict[str, dict]:
+    """{object name: {"size": int, "etag": str}} for every object in the bucket.
+
+    The eTag is the content MD5, which is what a re-upload actually needs:
+    these filenames hash the *text*, so a re-recorded clip keeps its name and
+    can easily keep its byte count too. Size alone called three regenerated
+    clips unchanged and left the old audio live under the new checksum.
+    """
+    meta: dict[str, dict] = {}
     offset = 0
     while True:
         body = json.dumps(
@@ -101,10 +107,17 @@ def list_bucket_sizes(base: str, token: str) -> dict[str, int]:
         with urllib.request.urlopen(request, timeout=60) as response:
             page = json.loads(response.read().decode("utf-8"))
         if not page:
-            return sizes
+            return meta
         for item in page:
             if item.get("name"):
-                sizes[item["name"]] = (item.get("metadata") or {}).get("size", -1)
+                info = item.get("metadata") or {}
+                meta[item["name"]] = {
+                    "size": info.get("size", -1),
+                    # Quoted by the API; a "-N" suffix means a multipart upload
+                    # whose eTag is not a plain MD5, so it is dropped and the
+                    # size comparison stands in.
+                    "etag": (info.get("eTag") or "").strip('"'),
+                }
         offset += len(page)
 
 
@@ -216,11 +229,19 @@ def main() -> int:
         # filename — the name is a hash of the *text*, not the audio — so a
         # presence check silently skips repaired audio and leaves the old
         # version live.
-        remote = list_bucket_sizes(base, token)
-        to_upload = [
-            n for n in files
-            if remote.get(n, -1) != (AUDIO / n).stat().st_size
-        ]
+        remote = list_bucket_meta(base, token)
+
+        def changed_on_disk(name: str) -> bool:
+            info = remote.get(name)
+            if info is None:
+                return True
+            local = AUDIO / name
+            etag = info["etag"]
+            if etag and "-" not in etag:
+                return hashlib.md5(local.read_bytes()).hexdigest() != etag
+            return info["size"] != local.stat().st_size
+
+        to_upload = [n for n in files if changed_on_disk(n)]
         changed = [n for n in to_upload if n in remote]
         print(f"{len(files) - len(to_upload)} unchanged; uploading "
               f"{len(to_upload)} ({len(changed)} replaced, "

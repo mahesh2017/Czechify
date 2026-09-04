@@ -313,3 +313,16 @@ class TtsButton extends ConsumerWidget {
     );
   }
 }
+
+/// How long after a listening exercise appears before its audio plays itself.
+///
+/// These exercises ask the learner to type or answer what they heard, and
+/// nothing had played — the only control said "Play it again", which was the
+/// first thing that ever played it. So the audio now starts on arrival and the
+/// label becomes true.
+///
+/// Short on purpose. A second is a long time to sit in silence wondering
+/// whether the screen is broken, and a learner meets this many times in a
+/// lesson; this is just enough to let the transition finish and their eyes
+/// land on the prompt first.
+const Duration kListenAutoPlayDelay = Duration(milliseconds: 450);

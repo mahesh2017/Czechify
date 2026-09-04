@@ -1,4 +1,4 @@
-import 'package:ceskina_pro/data/seeds/content_seeder.dart';
+import 'package:czechify/data/seeds/content_seeder.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

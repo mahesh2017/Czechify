@@ -6,11 +6,14 @@ import 'package:intl/intl.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
+import '../../providers/app_update_providers.dart';
 import '../../providers/review_providers.dart';
 import '../../providers/settings_providers.dart';
+import '../../providers/learner_profile_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../screens/lesson/delayed_transfer_screen.dart'
     show dueTransferProvider;
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../widgets/home/streak_state_sheet.dart';
@@ -34,9 +37,23 @@ class HomeScreen extends ConsumerWidget {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final g = ref.watch(gamificationProvider);
+    final updateAvailable = ref.watch(appUpdateAvailableProvider);
     final settings = ref.watch(settingsProvider);
     final dueCount = ref.watch(dueCardCountProvider).value ?? 0;
+    // The app root starts the profile repository before Home is built. Some
+    // focused widget tests intentionally mount Home without the full app
+    // bootstrap; do not open a second Drift stream just for the optional
+    // personalization card in that reduced harness.
+    final learnerProfile =
+        ref.exists(learnerProfileRepositoryProvider)
+            ? ref.watch(learnerProfileProvider)
+            : const AsyncValue.data(null);
     final hour = DateTime.now().hour;
+    // Deliberately not localised. This is the language being taught, not app
+    // chrome — the learner meets "Dobré ráno" here before any lesson teaches
+    // it, in whichever locale they run the app. Flagged in review as an
+    // inconsistency next to the localised weekday below; recorded here as a
+    // choice so it is not "fixed" into English by the next reader.
     final greeting =
         hour < 12
             ? 'Dobré ráno'
@@ -95,30 +112,6 @@ class HomeScreen extends ConsumerWidget {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 44,
-                              height: 44,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [t.card, t.elev],
-                                ),
-                                border: Border.all(color: t.line),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Text(
-                                name.characters.first.toUpperCase(),
-                                style: TextStyle(
-                                  fontFamily: AppFonts.display,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w800,
-                                  color: t.muted,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 13),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,46 +146,120 @@ class HomeScreen extends ConsumerWidget {
                                       streak: g.currentStreak,
                                       freezeAvailable: g.streakFreezeAvailable,
                                     ),
-                                child: PillChip(
-                                  label: '${g.currentStreak}',
-                                  bg: t.card,
-                                  fg: t.ink,
-                                  // Amber is the streak's colour; the count
-                                  // beside it is ordinary ink.
-                                  icon: Icons.local_fire_department,
-                                  iconColor: t.amber,
-                                  border: t.line,
-                                  fontSize: 13,
-                                  shadow: [
-                                    BoxShadow(
-                                      color: t.ink.withValues(alpha: .44),
-                                      blurRadius: 16,
-                                      spreadRadius: -14,
-                                      offset: const Offset(0, 8),
+                                child: Container(
+                                  width: 44,
+                                  height: 44,
+                                  decoration: BoxDecoration(
+                                    color: t.amberSoft,
+                                    border: Border.all(
+                                      color: t.amber.withValues(alpha: .42),
+                                      width: 1.5,
                                     ),
-                                  ],
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: t.amber.withValues(alpha: .14),
+                                        blurRadius: 12,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.local_fire_department_rounded,
+                                        size: 18,
+                                        color: t.amber,
+                                      ),
+                                      const SizedBox(width: 1),
+                                      Flexible(
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            '${g.currentStreak}',
+                                            style: TextStyle(
+                                              color: t.ink,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                             const SizedBox(width: 8),
                             Semantics(
                               button: true,
-                              label: AppLocalizations.of(context).a11ySettings,
+                              label:
+                                  updateAvailable
+                                      ? '${l10n.a11ySettings}. ${l10n.updateAvailableTitle}'
+                                      : l10n.a11ySettings,
                               child: InkWell(
                                 onTap: () => context.push('/settings'),
                                 borderRadius: BorderRadius.circular(999),
-                                child: Container(
-                                  width: 44,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: t.line),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Icon(
-                                    Icons.tune_rounded,
-                                    size: 18,
-                                    color: t.muted,
-                                  ),
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    Container(
+                                      width: 44,
+                                      height: 44,
+                                      decoration: BoxDecoration(
+                                        color: t.priSoft,
+                                        border: Border.all(
+                                          color: t.pri.withValues(alpha: .38),
+                                          width: 1.5,
+                                        ),
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: t.pri.withValues(alpha: .15),
+                                            blurRadius: 12,
+                                            offset: const Offset(0, 4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Icon(
+                                        Icons.settings_rounded,
+                                        size: 22,
+                                        color: t.pri,
+                                      ),
+                                    ),
+                                    if (updateAvailable)
+                                      Positioned(
+                                        top: -9,
+                                        right: -8,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 6,
+                                            vertical: 2,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: t.red,
+                                            borderRadius: BorderRadius.circular(
+                                              999,
+                                            ),
+                                            border: Border.all(
+                                              color: t.bg,
+                                              width: 2,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            l10n.updateBadgeLabel,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 8,
+                                              fontWeight: FontWeight.w900,
+                                              letterSpacing: .35,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -221,13 +288,23 @@ class HomeScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(22, 16, 22, 132),
               child: Column(
                 children: [
+                  if (learnerProfile.hasValue &&
+                      learnerProfile.value?.primaryGoal == null) ...[
+                    const _PersonalizePlanCard(),
+                    const SizedBox(height: 12),
+                  ],
                   if (ref.watch(czechTtsAvailableProvider).value == false) ...[
                     const _CzechVoiceHint(),
                     const SizedBox(height: 12),
                   ],
                   _DailyGoalHero(
                     dailyXp: g.dailyXp,
-                    dailyGoalXp: g.dailyGoalXp,
+                    // The goal is a setting, and settings own it: that is the
+                    // copy the learner picks, the copy the Settings screen
+                    // writes, and the copy the XP-economy rescale migrates.
+                    // Reading gamification's duplicate here meant a goal
+                    // changed in Settings never reached this ring.
+                    dailyGoalXp: ref.watch(settingsProvider).dailyGoalXp,
                     totalXp: g.totalXp,
                     streak: g.currentStreak,
                     freezeAvailable: g.streakFreezeAvailable,
@@ -247,14 +324,53 @@ class HomeScreen extends ConsumerWidget {
                   const SizedBox(height: 12),
                   _DueTransfers(),
                   const SizedBox(height: 22),
-                  _TodayQuests(dailyXp: g.dailyXp, dueCount: dueCount),
-                  const SizedBox(height: 22),
                   const _MethodOfDay(),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _PersonalizePlanCard extends StatelessWidget {
+  const _PersonalizePlanCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return SoftCard(
+      onTap: () => context.push('/learning-plan'),
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          IconTile(icon: Icons.route_outlined, tint: t.amberSoft, fg: t.amber),
+          const SizedBox(width: 13),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.homePersonalizePlan,
+                  style: TextStyle(
+                    color: t.ink,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  l10n.homePersonalizePlanBody,
+                  style: TextStyle(color: t.muted, fontSize: 13, height: 1.4),
+                ),
+              ],
+            ),
+          ),
+          Icon(Icons.chevron_right_rounded, color: t.faint),
+        ],
       ),
     );
   }
@@ -322,36 +438,40 @@ class _DailyGoalHero extends StatelessWidget {
               children: [
                 SizedBox.square(
                   dimension: 76,
-                  child: CustomPaint(
-                    painter: _GoalRingPainter(
-                      progress: progress,
-                      track: t.elev,
-                      fill: t.pri,
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '$dailyXp',
-                            style: TextStyle(
-                              fontFamily: AppFonts.display,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800,
-                              color: t.ink,
+                  child: MotionValueBuilder(
+                    value: progress,
+                    builder:
+                        (context, animatedProgress, _) => CustomPaint(
+                          painter: _GoalRingPainter(
+                            progress: animatedProgress,
+                            track: t.elev,
+                            fill: t.pri,
+                          ),
+                          child: Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                MotionNumberText(
+                                  dailyXp,
+                                  style: TextStyle(
+                                    fontFamily: AppFonts.display,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w800,
+                                    color: t.ink,
+                                  ),
+                                ),
+                                Text(
+                                  '/ $dailyGoalXp XP',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: t.faint,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            '/ $dailyGoalXp XP',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: t.faint,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -395,13 +515,17 @@ class _DailyGoalHero extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      l10n.streakDays(streak),
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: t.ink,
-                      ),
+                    MotionValueBuilder(
+                      value: streak.toDouble(),
+                      builder:
+                          (context, animated, _) => Text(
+                            l10n.streakDays(animated.round()),
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: t.ink,
+                            ),
+                          ),
                     ),
                     const Spacer(),
                     Container(
@@ -419,15 +543,19 @@ class _DailyGoalHero extends StatelessWidget {
                             color: freezeInk,
                           ),
                           const SizedBox(width: 5),
-                          Text(
-                            freezeAvailable
-                                ? l10n.homeFreezeLeft
-                                : l10n.homeTotalXp(totalXp),
-                            style: TextStyle(
-                              color: freezeInk,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
+                          MotionValueBuilder(
+                            value: totalXp.toDouble(),
+                            builder:
+                                (context, animated, _) => Text(
+                                  freezeAvailable
+                                      ? l10n.homeFreezeLeft
+                                      : l10n.homeTotalXp(animated.round()),
+                                  style: TextStyle(
+                                    color: freezeInk,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                           ),
                         ],
                       ),
@@ -697,43 +825,13 @@ class _ContinueLearningCard extends ConsumerWidget {
                                 const SizedBox(height: 5),
                                 Text(
                                   '${next.unitTitle} · ${next.reason}',
-                                  maxLines: 1,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: t.faint,
+                                    height: 1.35,
                                   ),
-                                ),
-                                const SizedBox(height: 14),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                          999,
-                                        ),
-                                        child: LinearProgressIndicator(
-                                          value: .35,
-                                          minHeight: 5,
-                                          backgroundColor: t.pri.withValues(
-                                            alpha: .12,
-                                          ),
-                                          valueColor: AlwaysStoppedAnimation(
-                                            t.pri,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      '35%',
-                                      style: TextStyle(
-                                        color: t.pri,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ],
                             ),
@@ -769,147 +867,6 @@ class _ContinueLearningCard extends ConsumerWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _TodayQuests extends StatelessWidget {
-  const _TodayQuests({required this.dailyXp, required this.dueCount});
-
-  final int dailyXp;
-  final int dueCount;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    final l10n = AppLocalizations.of(context);
-    final quests = [
-      (
-        l10n.homeCompleteLesson,
-        dailyXp > 0 ? 1.0 : 0.0,
-        '10 XP',
-        Icons.school_outlined,
-        t.pri,
-        t.priSoft,
-      ),
-      (
-        l10n.homeReviewFive,
-        (dueCount == 0 ? 1.0 : 0.2),
-        '5 XP',
-        Icons.refresh_rounded,
-        t.green,
-        t.greenSoft,
-      ),
-      (l10n.homeSpeakTwoMinutes, 0.0, '5 XP', Icons.mic_none, t.red, t.redSoft),
-    ];
-    final done = quests.where((q) => q.$2 >= 1).length;
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2),
-          child: Row(
-            children: [
-              Text(
-                l10n.homeSmallSteps,
-                style: TextStyle(
-                  color: t.ink,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                '$done of 3',
-                style: TextStyle(
-                  color: t.faint,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 10),
-        for (var i = 0; i < quests.length; i++) ...[
-          if (i > 0) Divider(height: 1, color: t.line),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
-            child: Row(
-              children: [
-                IconTile(
-                  icon: quests[i].$4,
-                  tint: quests[i].$6,
-                  fg: quests[i].$5,
-                  size: 42,
-                  radius: 16,
-                  iconSize: 21,
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              quests[i].$1,
-                              style: TextStyle(
-                                color: t.ink,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            quests[i].$2 >= 1 ? '1 / 1' : '0 / 1',
-                            style: TextStyle(
-                              color: t.faint,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(999),
-                        child: LinearProgressIndicator(
-                          minHeight: 7,
-                          value: quests[i].$2,
-                          backgroundColor: t.elev,
-                          valueColor: AlwaysStoppedAnimation(quests[i].$5),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // The reward pill only earns colour once it is claimed —
-                // until then it is neutral, so the row's one hue is the
-                // quest's own progress bar.
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: quests[i].$2 >= 1 ? t.greenSoft : t.elev,
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: Text(
-                    quests[i].$2 >= 1 ? l10n.homeDone : quests[i].$3,
-                    style: TextStyle(
-                      color: quests[i].$2 >= 1 ? t.green : t.faint,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ],
     );
   }
 }
@@ -1153,7 +1110,9 @@ class _DueTransfers extends ConsumerWidget {
                     color: Colors.transparent,
                     child: Semantics(
                       button: true,
-                      label: 'Lesson ${item.lessonId} · try it again',
+                      label: AppLocalizations.of(
+                        context,
+                      ).homeRetryLessonA11y(item.lessonId),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
                         onTap:

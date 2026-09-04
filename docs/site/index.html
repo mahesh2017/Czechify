@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Czechify is a complete Czech course from CEFR A1 to A2, with guided lessons, pronunciation practice, spaced repetition, exam preparation and an optional AI tutor.">
+  <meta name="theme-color" content="#3355e8">
+  <title>Czechify — Learn Czech properly</title>
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <style>
+    :root{
+      --bg:#faf7f2;--card:#fff;--ink:#17161c;--muted:#5b5765;--faint:#716c7d;
+      --line:#e8e2d7;--blue:#3355e8;--blue-dark:#22308c;--blue-soft:#e7ebff;
+      --amber:#e9992a;--amber-soft:#fff0d9;--green:#0d9368;--green-soft:#e0f6ee;
+      --red:#e84e3c;--red-soft:#ffe9e5;--violet:#6f50d8;--violet-soft:#eee9ff;
+      --shadow:0 2px 4px rgba(23,22,28,.04),0 24px 50px -28px rgba(23,22,28,.4)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;text-rendering:optimizeLegibility}
+    img{display:block;max-width:100%}
+    a{color:inherit}
+    .shell{width:min(1160px,calc(100% - 40px));margin-inline:auto}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(250,247,242,.92);border-bottom:1px solid rgba(232,226,215,.85);backdrop-filter:blur(14px)}
+    .nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-size:20px;font-weight:800;color:var(--blue-dark);letter-spacing:-.02em}
+    .brand img{width:44px;height:44px;border-radius:12px;box-shadow:0 7px 18px rgba(51,85,232,.2)}
+    .nav-links{display:flex;align-items:center;gap:26px;font-size:14px;font-weight:650;color:var(--muted)}
+    .nav-links a{text-decoration:none}
+    .nav-links a:hover,.nav-links a:focus-visible{color:var(--blue)}
+    .nav-cta{padding:10px 16px;border-radius:999px!important;background:var(--blue);color:#fff!important;box-shadow:0 8px 20px -10px rgba(51,85,232,.85)}
+    .hero{padding:68px 0 42px;overflow:hidden}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid #d2d9ff;border-radius:999px;background:var(--blue-soft);color:var(--blue-dark);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(51,85,232,.12)}
+    .hero-copy{max-width:910px;margin-bottom:36px;animation:rise .65s ease-out both}
+    h1{max-width:880px;margin:20px 0 18px;font-size:clamp(48px,7.6vw,92px);line-height:.98;letter-spacing:-.065em}
+    h1 span{color:var(--blue)}
+    .lead{max-width:690px;margin:0;color:var(--muted);font-size:clamp(18px,2vw,22px);line-height:1.55}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 20px;border-radius:14px;text-decoration:none;font-weight:780;transition:transform .18s ease,box-shadow .18s ease}
+    .button:hover{transform:translateY(-2px)}
+    .button-primary{background:var(--blue);color:#fff;box-shadow:0 13px 26px -14px rgba(51,85,232,.9)}
+    .button-secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+    .hero-art{position:relative;border-radius:32px;overflow:hidden;box-shadow:var(--shadow);animation:rise .65s .12s ease-out both;background:#e8dfcf}
+    .hero-art>img{width:100%;aspect-ratio:3/1;object-fit:cover}
+    .art-note{position:absolute;right:22px;bottom:22px;max-width:295px;padding:14px 16px;border:1px solid rgba(255,255,255,.55);border-radius:16px;background:rgba(255,255,255,.9);box-shadow:0 15px 30px -20px rgba(23,22,28,.7);backdrop-filter:blur(10px)}
+    .art-note strong{display:block;color:var(--blue-dark);font-size:14px}
+    .art-note span{display:block;margin-top:2px;color:var(--muted);font-size:13px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 0}
+    .stat{padding:21px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.72)}
+    .stat strong{display:block;font-size:30px;line-height:1;color:var(--blue-dark);letter-spacing:-.04em}
+    .stat span{display:block;margin-top:8px;color:var(--muted);font-size:13px}
+    section{padding:76px 0}
+    .section-kicker{margin:0 0 10px;color:var(--blue);font-size:12px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+    h2{max-width:760px;margin:0;font-size:clamp(36px,4.5vw,58px);line-height:1.05;letter-spacing:-.045em}
+    .section-intro{max-width:690px;margin:18px 0 0;color:var(--muted);font-size:18px}
+    .feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:38px}
+    .feature{position:relative;min-height:285px;padding:26px;border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:0 14px 34px -30px rgba(23,22,28,.7);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+    .feature:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .feature::after{content:"";position:absolute;right:-58px;bottom:-74px;width:190px;height:190px;border-radius:50%;background:var(--soft,var(--blue-soft));opacity:.42;pointer-events:none}
+    .icon{width:50px;height:50px;display:grid;place-items:center;border-radius:15px;background:var(--soft,var(--blue-soft));color:var(--accent,var(--blue-dark));font-size:18px;font-weight:900;letter-spacing:-.03em}
+    .feature h3{margin:24px 0 10px;font-size:22px;line-height:1.18;letter-spacing:-.025em}
+    .feature p{max-width:480px;margin:0;color:var(--muted)}
+    .tag{display:inline-block;margin-top:18px;padding:6px 9px;border-radius:8px;background:var(--soft,var(--blue-soft));color:var(--accent,var(--blue-dark));font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+    .amber{--soft:var(--amber-soft);--accent:#985f00}.green{--soft:var(--green-soft);--accent:#087451}.red{--soft:var(--red-soft);--accent:#ba3425}.violet{--soft:var(--violet-soft);--accent:#5639b7}
+    .method{padding-top:34px}
+    .method-panel{display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;border:1px solid var(--line);border-radius:30px;background:#fff;box-shadow:var(--shadow)}
+    .method-art{min-height:520px}
+    .method-art img{width:100%;height:100%;object-fit:cover}
+    .method-copy{padding:clamp(34px,5vw,66px);align-self:center}
+    .method-copy h2{font-size:clamp(34px,4vw,52px)}
+    .steps{display:grid;gap:20px;margin-top:30px}
+    .step{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start}
+    .step-num{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--blue-soft);color:var(--blue-dark);font-weight:900}
+    .step strong{display:block;margin-top:1px;font-size:16px}
+    .step p{margin:4px 0 0;color:var(--muted);font-size:14px}
+    .trust{background:#17266f;color:#fff}
+    .trust-inner{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+    .trust .section-kicker{color:#b8c4ff}
+    .trust h2{color:#fff}
+    .trust p{color:#d6dcff}
+    .trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .trust-card{min-height:150px;padding:22px;border:1px solid rgba(255,255,255,.14);border-radius:20px;background:rgba(255,255,255,.08)}
+    .trust-card strong{display:block;font-size:16px}
+    .trust-card span{display:block;margin-top:7px;color:#cbd3ff;font-size:13px}
+    #features,#method,#availability{scroll-margin-top:92px}
+    .final{padding:90px 0;text-align:center}
+    .final .section-kicker{display:block}
+    .final h2{margin-inline:auto;max-width:820px}
+    .final p{max-width:650px;margin:18px auto 0;color:var(--muted);font-size:18px}
+    .availability{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;font-weight:750}
+    .availability img{width:32px;height:32px;border-radius:9px}
+    footer{padding:30px 0;border-top:1px solid var(--line);background:#fff}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;color:var(--muted);font-size:13px}
+    .footer-links{display:flex;flex-wrap:wrap;gap:20px}
+    .footer-links a:hover{color:var(--blue)}
+    @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+    @media(max-width:820px){
+      .nav-links a:not(.nav-cta){display:none}.hero{padding-top:48px}.hero-art>img{aspect-ratio:16/8;object-position:center}
+      .stats{grid-template-columns:repeat(2,1fr)}.feature-grid{grid-template-columns:1fr}.feature{min-height:0}
+      .method-panel,.trust-inner{grid-template-columns:1fr}.method-art{min-height:360px}.trust-inner{gap:36px}
+    }
+    @media(max-width:520px){
+      .shell{width:min(100% - 28px,1160px)}.nav{min-height:68px}.brand img{width:40px;height:40px}.nav-cta{padding:9px 13px}
+      .hero{padding:40px 0 26px}h1{font-size:48px}.lead{font-size:17px}.hero-actions{display:grid}.button{width:100%}
+      .hero-art{border-radius:22px}.hero-art>img{aspect-ratio:4/3;object-position:66% center}.art-note{position:static;max-width:none;border:0;border-radius:0;box-shadow:none;background:#fff}
+      .stats{gap:8px}.stat{padding:17px 15px}.stat strong{font-size:26px}section{padding:58px 0}
+      .feature{padding:22px;border-radius:20px}.method{padding-top:20px}.method-panel{border-radius:22px}.method-art{min-height:280px}.method-copy{padding:28px 22px}
+      .trust-grid{grid-template-columns:1fr}.final{padding:66px 0}.footer-inner{align-items:flex-start;flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-copy,.hero-art{animation:none}.feature,.button{transition:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="index.html"><img src="app-icon.png" width="44" height="44" alt="">Czechify</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#method">How it works</a>
+        <a href="privacy.html">Privacy</a>
+        <a class="nav-cta" href="#availability">Google Play</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-copy">
+          <div class="eyebrow">A complete CEFR A1–A2 course</div>
+          <h1>From <span>ahoj</span> to real conversations.</h1>
+          <p class="lead">Czechify turns the Czech you study into the Czech you can actually use—with a clear path, human-recorded audio, smart review and practice that feels like real life.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#features">Explore everything inside <span aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="#method">See how you learn</a>
+          </div>
+        </div>
+
+        <div class="hero-art">
+          <img src="czechify-hero.jpg" width="1800" height="600" alt="Two Czech learners practising a conversation at a café overlooking Prague">
+          <div class="art-note">
+            <strong>Learn for the moment you need it.</strong>
+            <span>Ordering coffee, finding your way, meeting people—and feeling understood.</span>
+          </div>
+        </div>
+
+        <div class="stats" aria-label="Czechify course facts">
+          <div class="stat"><strong>31</strong><span>carefully sequenced units</span></div>
+          <div class="stat"><strong>61</strong><span>focused lessons</span></div>
+          <div class="stat"><strong>770+</strong><span>interactive exercises</span></div>
+          <div class="stat"><strong>≈3,000</strong><span>spoken Czech phrases</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="shell">
+        <p class="section-kicker">Everything you need</p>
+        <h2>One course. Every skill working together.</h2>
+        <p class="section-intro">Czechify follows a real learning sequence: understand it, hear it, say it, use it, then meet it again before you forget.</p>
+
+        <div class="feature-grid">
+          <article class="feature" data-mark="A2">
+            <div class="icon">A2</div>
+            <h3>A complete A1 to A2 path</h3>
+            <p>Start as a complete beginner and build steadily toward elementary Czech. Every unit depends on what came before, so there are no mysterious gaps.</p>
+            <span class="tag">31 units · 61 lessons</span>
+          </article>
+          <article class="feature amber" data-mark="♪">
+            <div class="icon" aria-hidden="true">♪</div>
+            <h3>Every Czech word spoken aloud</h3>
+            <p>Listen to nearly 3,000 studio-quality phrases in the male or female voice you choose. Early-course audio is saved for learning without a connection.</p>
+            <span class="tag">Human-recorded audio</span>
+          </article>
+          <article class="feature green" data-mark="Ř">
+            <div class="icon">Ř</div>
+            <h3>Read aloud and check what was understood</h3>
+            <p>Say a prompted phrase and compare the recognised words with the target. It can flag missed or unclear words, but it does not diagnose individual Czech sounds or replace a teacher.</p>
+            <span class="tag">Device speech · optional cloud transcript</span>
+          </article>
+          <article class="feature violet" data-mark="AI">
+            <div class="icon">AI</div>
+            <h3>An optional conversation tutor</h3>
+            <p>Practise ordering food, asking directions or introducing yourself with a tutor that answers at your level and explains what needs attention.</p>
+            <span class="tag">Real-life role play</span>
+          </article>
+          <article class="feature red" data-mark="↻">
+            <div class="icon" aria-hidden="true">↻</div>
+            <h3>Review that remembers for you</h3>
+            <p>Words you find difficult return sooner. Words you know fade back. Spaced repetition brings each item back when it is most useful.</p>
+            <span class="tag">Personal review timing</span>
+          </article>
+          <article class="feature" data-mark="7">
+            <div class="icon" aria-hidden="true">Aa</div>
+            <h3>Grammar you can actually find again</h3>
+            <p>Use declension and conjugation tables, per-unit notes and compact cheat sheets—available offline and unlocked as you reach each topic.</p>
+            <span class="tag">Clear reference tools</span>
+          </article>
+          <article class="feature amber" data-mark="✓">
+            <div class="icon" aria-hidden="true">✓</div>
+            <h3>A1 and A2 exam preparation</h3>
+            <p>Build confidence with graded practice across reading, listening, writing and speaking. Activities are practice—not official exam results.</p>
+            <span class="tag">All four skills</span>
+          </article>
+          <article class="feature green" data-mark="↗">
+            <div class="icon" aria-hidden="true">↗</div>
+            <h3>Progress worth watching</h3>
+            <p>Streaks, daily goals, badges and per-skill statistics make improvement visible—and show you exactly where the next useful effort belongs.</p>
+            <span class="tag">Goals · badges · insights</span>
+          </article>
+        </div>
+        <p style="margin:18px 2px 0;color:var(--faint);font-size:12px">AI feature availability is subject to regional privacy requirements. See the <a href="privacy.html">Privacy Policy</a> for current details.</p>
+      </div>
+    </section>
+
+    <section class="method" id="method">
+      <div class="shell">
+        <div class="method-panel">
+          <div class="method-art"><img src="czechify-copybook.jpg" width="1000" height="666" loading="lazy" alt="A Czech handwriting notebook beside a window overlooking Prague"></div>
+          <div class="method-copy">
+            <p class="section-kicker">Designed for retention</p>
+            <h2>Learn it. Use it. Keep it.</h2>
+            <div class="steps">
+              <div class="step"><span class="step-num">1</span><div><strong>Meet Czech in context</strong><p>Short lessons introduce meaning before asking you to perform.</p></div></div>
+              <div class="step"><span class="step-num">2</span><div><strong>Turn recognition into use</strong><p>Listening, speaking, reading and writing build toward practical missions.</p></div></div>
+              <div class="step"><span class="step-num">3</span><div><strong>Return at the right moment</strong><p>Personal review timing strengthens the words and patterns most likely to fade.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust">
+      <div class="shell trust-inner">
+        <div>
+          <p class="section-kicker">Built with respect</p>
+          <h2>A focused experience, built with privacy in mind.</h2>
+          <p class="section-intro">The current release does not include advertising, third-party behaviour analytics, or cross-app tracking.</p>
+        </div>
+        <div class="trust-grid">
+          <div class="trust-card"><strong>Focused learning experience</strong><span>No advertising is included in the current release.</span></div>
+          <div class="trust-card"><strong>Privacy-conscious launch</strong><span>The current release contains no third-party behaviour analytics SDK.</span></div>
+          <div class="trust-card"><strong>Anonymous-first account</strong><span>Begin without giving Czechify your name or email address.</span></div>
+          <div class="trust-card"><strong>Delete or export</strong><span>Account data controls are available directly in Settings.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" id="availability">
+      <div class="shell">
+        <p class="section-kicker">Czechify for Android</p>
+        <h2>Czech is difficult. Your learning path does not have to be.</h2>
+        <p>A practical, encouraging course built for the long game—from your first sound to your next real conversation.</p>
+        <div class="availability"><img src="app-icon.png" width="32" height="32" alt="">Preparing for Google Play</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <div>© 2026 Czechify · Designed, built and maintained by Mahesh Pathak.</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="delete-account.html">Delete account &amp; data</a>
+        <a href="mailto:email.czechify@gmail.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

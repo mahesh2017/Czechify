@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +9,7 @@ import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 import '../../../providers/tts_providers.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/motion_widgets.dart';
 import 'exercise_shared.dart';
 
 /// Listening comprehension exercise — listen to a Czech dialogue/recording,
@@ -31,8 +34,40 @@ class ListeningComprehensionView extends ConsumerStatefulWidget {
 
 class _ListeningComprehensionViewState
     extends ConsumerState<ListeningComprehensionView> {
+  /// Plays the learner asked for. Deliberately excludes the automatic first
+  /// play: `_playCount > 1` is recorded as [SupportKind.replay], evidence that
+  /// they needed to hear it again, and that must mean they chose to.
   int _playCount = 0;
+
+  /// Whether the automatic play has happened, so the button can say "Play it
+  /// again" truthfully without counting as a replay.
+  bool _autoPlayed = false;
+
   bool _transcriptRevealed = false;
+
+  /// Cancelled on dispose — see [DictationView] for why.
+  Timer? _autoPlay;
+
+  @override
+  void initState() {
+    super.initState();
+    // Same reasoning as dictation: the task is to answer what you heard, and
+    // until now nothing had been heard unless the learner pressed a button
+    // labelled "Play it again".
+    _autoPlay = Timer(kListenAutoPlayDelay, () {
+      if (!mounted) return;
+      final transcript = widget.exercise.data['transcript_cz'] as String? ?? '';
+      if (transcript.isEmpty) return;
+      setState(() => _autoPlayed = true);
+      ref.read(czechTtsProvider).speak(transcript);
+    });
+  }
+
+  @override
+  void dispose() {
+    _autoPlay?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +97,10 @@ class _ListeningComprehensionViewState
                   image,
                   fit: BoxFit.cover,
                   cacheWidth: 1024,
-                  semanticLabel: imageLabel == null || imageLabel.isEmpty
-                      ? null
-                      : imageLabel,
+                  semanticLabel:
+                      imageLabel == null || imageLabel.isEmpty
+                          ? null
+                          : imageLabel,
                 ),
               ),
             ),
@@ -74,7 +110,10 @@ class _ListeningComprehensionViewState
           // Listen first: the audio is the exercise, so it gets the hero.
           if (transcriptCz.isNotEmpty)
             ListenPanel(
-              label: _playCount == 0 ? l10n.listen : l10n.audioPlayAgain,
+              label:
+                  _playCount == 0 && !_autoPlayed
+                      ? l10n.listen
+                      : l10n.audioPlayAgain,
               onPlay: () {
                 setState(() => _playCount++);
                 ref.read(czechTtsProvider).speak(transcriptCz);
@@ -92,30 +131,41 @@ class _ListeningComprehensionViewState
           ),
           const SizedBox(height: 16),
 
-          if (!_transcriptRevealed)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: OutlinedButton.icon(
-                onPressed: transcriptCz.isEmpty
-                    ? null
-                    : () => setState(() => _transcriptRevealed = true),
-                icon: const Icon(Icons.subtitles_outlined, size: 18),
-                label: Text(l10n.exerciseRevealTranscript),
-              ),
-            )
-          else
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: t.elev,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                transcriptCz,
-                style: TextStyle(fontSize: 15, height: 1.6, color: t.ink),
-              ),
-            ),
+          MotionSwap(
+            alignment: Alignment.centerLeft,
+            child:
+                !_transcriptRevealed
+                    ? Align(
+                      key: const ValueKey('transcript-action'),
+                      alignment: Alignment.centerLeft,
+                      child: OutlinedButton.icon(
+                        onPressed:
+                            transcriptCz.isEmpty
+                                ? null
+                                : () =>
+                                    setState(() => _transcriptRevealed = true),
+                        icon: const Icon(Icons.subtitles_outlined, size: 18),
+                        label: Text(l10n.exerciseRevealTranscript),
+                      ),
+                    )
+                    : Container(
+                      key: const ValueKey('transcript-content'),
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: t.elev,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        transcriptCz,
+                        style: TextStyle(
+                          fontSize: 15,
+                          height: 1.6,
+                          color: t.ink,
+                        ),
+                      ),
+                    ),
+          ),
           const SizedBox(height: 16),
 
           // The questions own the rest of the screen: they scroll on their own
@@ -231,8 +281,8 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
       _allCorrect
           ? AppLocalizations.of(context).exerciseAllAnsweredCorrectly
           : AppLocalizations.of(
-              context,
-            ).exerciseYouGotCorrect(_correctCount, _questions.length),
+            context,
+          ).exerciseYouGotCorrect(_correctCount, _questions.length),
       _questions
           .map(
             (q) =>
@@ -307,8 +357,8 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
             padding: EdgeInsets.zero,
             itemCount: _questions.length,
             separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder: (context, qIdx) =>
-                _buildQuestion(context, qIdx, theme),
+            itemBuilder:
+                (context, qIdx) => _buildQuestion(context, qIdx, theme),
           ),
         ),
         if (_allAnswered && !submitted)
@@ -335,9 +385,9 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                     _allCorrect
                         ? AppLocalizations.of(context).exerciseAllCorrect
                         : AppLocalizations.of(context).exerciseCorrectOfTotal(
-                            _correctCount,
-                            _questions.length,
-                          ),
+                          _correctCount,
+                          _questions.length,
+                        ),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -408,9 +458,10 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                   selectedIndex: selected,
                   answered: submitted,
                 ),
-                onTap: submitted
-                    ? null
-                    : () => setState(() => _selectedAnswers[qIdx] = i),
+                onTap:
+                    submitted
+                        ? null
+                        : () => setState(() => _selectedAnswers[qIdx] = i),
               ),
             ),
         ],

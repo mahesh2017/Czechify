@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/presentation/providers/database_providers.dart';
-import 'package:ceskina_pro/presentation/providers/gamification_providers.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:czechify/presentation/providers/gamification_providers.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

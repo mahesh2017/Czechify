@@ -7,20 +7,30 @@ import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
 import '../../../core/legal/legal_content.dart';
 import '../../../core/notifications/notification_service.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../providers/curriculum_providers.dart';
+import '../../providers/gamification_providers.dart';
+import '../../providers/learner_profile_providers.dart';
 import '../../providers/settings_providers.dart';
+import '../../providers/reminder_coordinator.dart';
+import '../../../domain/entities/enums.dart';
 import '../../providers/tts_providers.dart';
 import '../onboarding/offline_setup_screen.dart';
 import '../../../data/services/audio/offline_audio_prefetch.dart';
 import '../../providers/audio_prefetch_providers.dart';
+import '../../providers/app_info_providers.dart';
 import '../../providers/consent_providers.dart';
 import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
+import '../../widgets/common/cloud_speech_consent.dart';
+import '../../widgets/common/lesson_ui.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 
 /// Settings screen — theme, daily goal, TTS rate, cache management.
-/// The AI tutor credential lives in the `deepseek-proxy` Edge Function, never
+/// The AI-provider credential lives in the `deepseek-proxy` Edge Function, never
 /// in the client, so there is no API-key entry here.
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key, this.scrollController});
@@ -35,13 +45,14 @@ class SettingsScreen extends ConsumerStatefulWidget {
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Future<void> _editName(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context);
     final result = await showTextPromptDialog(
       context: context,
-      title: 'Your name',
-      confirmLabel: AppLocalizations.of(context).save,
+      title: l10n.settingsYourName,
+      confirmLabel: l10n.save,
       fields: [
         TextPromptField(
-          label: 'Your first name',
+          label: l10n.settingsFirstName,
           initialValue: ref.read(settingsProvider).learnerName,
           textCapitalization: TextCapitalization.words,
         ),
@@ -53,6 +64,116 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
   }
 
+  /// Show what the two levels actually contain, then confirm before moving.
+  ///
+  /// A dropdown put a content-unlocking, bandwidth-spending change one stray
+  /// thumb away, and told a learner nothing about what they were choosing
+  /// between. "A1" and "A2" mean little to the people this course is for.
+  Future<void> _openLevelPicker() async {
+    final l10n = AppLocalizations.of(context);
+    final current = ref.read(settingsProvider).startingLevel;
+    final chosen = await showModalBottomSheet<CEFRLevel>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      backgroundColor: context.tokens.bg,
+      builder: (ctx) => _LevelPickerSheet(current: current),
+    );
+    if (chosen == null || !mounted) return;
+
+    final normalisedCurrent =
+        current == CEFRLevel.a2 ? CEFRLevel.a2 : CEFRLevel.a1;
+    if (chosen == normalisedCurrent) return;
+
+    final movingUp = chosen == CEFRLevel.a2;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder:
+          (ctx) => AlertDialog(
+            icon: Icon(Icons.school_outlined, color: context.tokens.pri),
+            title: Text(l10n.settingsSwitchLevelTitle(_levelLabel(chosen))),
+            content: Text(
+              movingUp
+                  ? l10n.settingsSwitchUpBody
+                  : l10n.settingsSwitchDownBody,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(false),
+                child: Text(l10n.cancel),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(ctx).pop(true),
+                child: Text(l10n.settingsSwitchLevel(_levelLabel(chosen))),
+              ),
+            ],
+          ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    await _switchLevel(chosen);
+  }
+
+  /// Change course level, and fetch the new level's audio if it is missing.
+  ///
+  /// A learner who picked A1 to try the app and then wanted A2 previously had
+  /// no way through: the level chosen at onboarding was never written again,
+  /// and the A1/A2 control on the course screen only changed what was listed,
+  /// not what was unlocked.
+  ///
+  /// Moving up unlocks the new level and leaves everything below it open.
+  /// Moving back down is not a demotion — units already unlocked stay that
+  /// way, and only the tutor's pitch and the offline downloads follow the
+  /// setting. That asymmetry is the point: exploring this control must never
+  /// cost a learner access they have earned.
+  Future<void> _switchLevel(CEFRLevel level) async {
+    final l10n = AppLocalizations.of(context);
+    final unlockedMore = await ref.read(levelSwitchProvider)(level);
+    if (!mounted) return;
+
+    final label = _levelLabel(level);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          unlockedMore
+              ? l10n.settingsLevelOpened(label)
+              : l10n.settingsLevelSwitched(label),
+        ),
+      ),
+    );
+
+    // The prefetch set is level-dependent, so the clips for the new level are
+    // almost certainly absent. Left alone, the first lesson falls back to the
+    // device voice under an offline notice on a working connection.
+    final gender = ref.read(settingsProvider).ttsVoiceGender;
+    final units = await OfflineAudioPrefetch.unitsForLevel(
+      level,
+      count: OfflineSetupScreen.prefetchUnitCount,
+    );
+    final missing = await ref
+        .read(offlineAudioPrefetchProvider)
+        .missingFiles(units, gender.name);
+    if (missing.isEmpty || !mounted) return;
+
+    await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (ctx) => _AudioDownloadDialog(
+            subject: l10n.settingsAudioSubject(label),
+            gender: gender,
+            missingCount: missing.length,
+            units: units,
+          ),
+    );
+  }
+
+  static String _levelLabel(CEFRLevel level) => switch (level) {
+    CEFRLevel.preA1 => 'A1',
+    CEFRLevel.a1 => 'A1',
+    CEFRLevel.a2 => 'A2',
+  };
+
   /// Switch voice, and fetch that voice's audio if it is not on device yet.
   ///
   /// Only the voice chosen at onboarding is downloaded, so switching can leave
@@ -63,10 +184,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await ref.read(settingsProvider.notifier).setTtsVoiceGender(gender);
 
     final prefetch = ref.read(offlineAudioPrefetchProvider);
-    final missing = await prefetch.missingFiles(
-      OfflineSetupScreen.unitsToPrefetch,
-      gender.name,
+    final units = await OfflineAudioPrefetch.unitsForLevel(
+      ref.read(settingsProvider).startingLevel,
+      count: OfflineSetupScreen.prefetchUnitCount,
     );
+    final missing = await prefetch.missingFiles(units, gender.name);
     if (missing.isEmpty) {
       if (mounted) {
         await ref.read(czechTtsProvider).playVoiceSample(gender);
@@ -81,9 +203,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       context: context,
       barrierDismissible: false,
       builder:
-          (ctx) => _VoiceDownloadDialog(
+          (ctx) => _AudioDownloadDialog(
+            subject:
+                gender == TtsVoiceGender.male
+                    ? AppLocalizations.of(context).settingsVoiceSubjectMale
+                    : AppLocalizations.of(context).settingsVoiceSubjectFemale,
             gender: gender,
             missingCount: missing.length,
+            units: units,
           ),
     );
 
@@ -100,6 +227,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final settings = ref.watch(settingsProvider);
     final cloudSpeech = ref.watch(cloudSpeechConsentProvider);
     final syncHealth = ref.watch(syncHealthProvider);
+    // In production the app root has already bootstrapped this repository.
+    // Keeping it optional here lets lightweight Settings widget tests avoid
+    // creating a live Drift stream whose close timer outlives the test frame.
+    final learnerProfile =
+        ref.exists(learnerProfileRepositoryProvider)
+            ? ref.watch(learnerProfileProvider).value
+            : null;
 
     return Scaffold(
       backgroundColor: t.bg,
@@ -117,7 +251,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Expanded(child: DisplayText('Settings', size: 29)),
+                Expanded(child: DisplayText(l10n.settings, size: 29)),
                 FilledButton.tonal(
                   onPressed: () => Navigator.of(context).maybePop(),
                   style: FilledButton.styleFrom(
@@ -138,7 +272,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             const SizedBox(height: 8),
 
             // ── Profile ──
-            const _GroupLabel('Profile'),
+            _GroupLabel(l10n.settingsProfileGroup),
             _Group(
               children: [
                 _Row(
@@ -148,7 +282,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   title: l10n.settingsYourName,
                   subtitle:
                       settings.learnerName.isEmpty
-                          ? 'Not set'
+                          ? l10n.settingsNotSet
                           : settings.learnerName,
                   onTap: () => _editName(context, ref),
                 ),
@@ -157,15 +291,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             // ── Account (only when backend is configured) ──
             if (BackendConfig.isConfigured) ...[
-              const _GroupLabel('Account'),
+              _GroupLabel(l10n.settingsAccountGroup),
               _Group(
                 children: [
                   _Row(
                     icon: Icons.manage_accounts_outlined,
                     tint: t.priSoft,
                     fg: t.pri,
-                    title: 'Account, sign in & data',
-                    subtitle: 'Protect, recover, export, or delete your data',
+                    title: l10n.settingsAccountDataTitle,
+                    subtitle: l10n.settingsAccountDataBody,
                     onTap: () => context.push('/account'),
                   ),
                 ],
@@ -173,7 +307,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
 
             // ── Appearance ──
-            const _GroupLabel('Appearance'),
+            _GroupLabel(l10n.settingsAppearanceGroup),
             _Group(
               children: [
                 _Row(
@@ -181,7 +315,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.violetSoft,
                   fg: t.violet,
                   title: l10n.settingsTheme,
-                  subtitle: _themeLabel(settings.themeMode),
+                  subtitle: _themeLabel(l10n, settings.themeMode),
                   trailing: _ThemeToggle(
                     mode: settings.themeMode,
                     onChanged:
@@ -199,9 +333,40 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
 
             // ── Learning ──
-            const _GroupLabel('Learning'),
+            _GroupLabel(l10n.settingsLearningGroup),
             _Group(
               children: [
+                _Row(
+                  icon: Icons.route_outlined,
+                  tint: t.amberSoft,
+                  fg: t.amber,
+                  title: l10n.settingsLearningPlan,
+                  subtitle:
+                      learnerProfile?.primaryGoal == null
+                          ? l10n.settingsLearningPlanMissing
+                          : l10n.settingsLearningPlanBody,
+                  onTap: () => context.push('/learning-plan'),
+                  trailing: Icon(Icons.chevron_right, color: t.faint),
+                ),
+                _Divider(),
+                _Row(
+                  icon: Icons.school_outlined,
+                  tint: t.priSoft,
+                  fg: t.pri,
+                  title: l10n.settingsCourseLevel,
+                  subtitle:
+                      settings.startingLevel == CEFRLevel.a2
+                          ? l10n.settingsA2UpperBeginner
+                          : l10n.settingsA1Beginner,
+                  // Not a dropdown. Changing level unlocks curriculum, repitches
+                  // the tutor and pulls down a new level's audio, so it is worth
+                  // a screen that says what each level is and a confirmation
+                  // that names the consequences — rather than something you can
+                  // knock into with a thumb while scrolling past.
+                  onTap: _openLevelPicker,
+                  trailing: Icon(Icons.chevron_right, color: t.faint),
+                ),
+                _Divider(),
                 _Row(
                   icon: Icons.flag_outlined,
                   tint: t.priSoft,
@@ -216,16 +381,33 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       fontWeight: FontWeight.w700,
                       fontSize: 15,
                     ),
-                    onChanged: (xp) {
+                    onChanged: (xp) async {
                       if (xp != null) {
-                        ref.read(settingsProvider.notifier).setDailyGoalXp(xp);
+                        await ref
+                            .read(settingsProvider.notifier)
+                            .setDailyGoalXp(xp);
+                        await ref
+                            .read(gamificationProvider.notifier)
+                            .setDailyGoal(xp);
                       }
                     },
-                    items: const [
-                      DropdownMenuItem(value: 20, child: Text('Casual')),
-                      DropdownMenuItem(value: 50, child: Text('Regular')),
-                      DropdownMenuItem(value: 100, child: Text('Serious')),
-                      DropdownMenuItem(value: 150, child: Text('Intense')),
+                    items: [
+                      // A stored goal that is not one of the presets — written
+                      // by an older build, or by an onboarding whose numbers
+                      // had drifted from these — makes DropdownButton assert,
+                      // which took the whole Settings screen down. Offering it
+                      // as its own item keeps the screen openable and shows the
+                      // learner the goal they are actually on; choosing any
+                      // preset replaces it.
+                      if (!kDailyGoalPresets.any(
+                        (p) => p.$1 == settings.dailyGoalXp,
+                      ))
+                        DropdownMenuItem(
+                          value: settings.dailyGoalXp,
+                          child: Text('${settings.dailyGoalXp} XP'),
+                        ),
+                      for (final (xp, label, _) in kDailyGoalPresets)
+                        DropdownMenuItem(value: xp, child: Text(label)),
                     ],
                   ),
                 ),
@@ -235,7 +417,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.redSoft,
                   fg: t.red,
                   title: l10n.settingsHearts,
-                  subtitle: 'Off = practice freely',
+                  subtitle: l10n.settingsHeartsBody,
                   trailing: Switch(
                     value: settings.heartsEnabled,
                     onChanged:
@@ -252,7 +434,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.amberSoft,
                   fg: t.amber,
                   title: l10n.settingsSoundEffects,
-                  subtitle: 'Answers and celebrations',
+                  subtitle: l10n.settingsSoundBody,
                   trailing: Switch(
                     value: settings.soundEffectsEnabled,
                     onChanged:
@@ -267,7 +449,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.violetSoft,
                   fg: t.violet,
                   title: l10n.settingsVibration,
-                  subtitle: 'A tap you can feel',
+                  subtitle: l10n.settingsHapticsBody,
                   trailing: Switch(
                     value: settings.hapticsEnabled,
                     onChanged:
@@ -281,7 +463,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
             // ── Study Reminders (mobile only — hidden on macOS) ──
             if (Platform.isIOS || Platform.isAndroid) ...[
-              const _GroupLabel('Reminders'),
+              _GroupLabel(l10n.settingsRemindersGroup),
               _Group(
                 children: [
                   _Row(
@@ -294,77 +476,111 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       value: settings.remindersEnabled,
                       onChanged: (v) async {
                         await ref
-                            .read(settingsProvider.notifier)
+                            .read(reminderCoordinatorProvider.notifier)
                             .setRemindersEnabled(v);
                       },
                     ),
                   ),
-                  if (settings.remindersEnabled) ...[
-                    _Divider(),
-                    // Reminder time picker row.
-                    _ReminderTimeRow(
-                      time:
-                          settings.preferredTime ??
-                          const TimeOfDay(hour: 19, minute: 0),
-                      onChanged: (time) async {
-                        await ref
-                            .read(settingsProvider.notifier)
-                            .setPreferredTime(time);
-                      },
+                  MotionDisclosure(
+                    visible: settings.remindersEnabled,
+                    duration: AppMotion.content,
+                    child: Column(
+                      children: [
+                        _Divider(),
+                        // Reminder time picker row.
+                        _ReminderTimeRow(
+                          time:
+                              settings.preferredTime ??
+                              ReminderCoordinator.defaultReminderTime,
+                          onChanged: (time) async {
+                            await ref
+                                .read(reminderCoordinatorProvider.notifier)
+                                .setPreferredTime(time);
+                          },
+                        ),
+                        // Catch-up availability can change when the reminder
+                        // time changes, so replace only that local row.
+                        MotionSwap(
+                          alignment: Alignment.topCenter,
+                          child:
+                              _catchUpGapIsWide(
+                                    settings.preferredTime ??
+                                        ReminderCoordinator.defaultReminderTime,
+                                  )
+                                  ? Column(
+                                    key: const ValueKey('catch-up-toggle'),
+                                    children: [
+                                      _Divider(),
+                                      _Row(
+                                        icon: Icons.nights_stay_outlined,
+                                        tint: t.violetSoft,
+                                        fg: t.violet,
+                                        title: l10n.reminderCatchUpLabel,
+                                        subtitle: l10n.reminderStepCatchUp,
+                                        trailing: Switch(
+                                          value: settings.catchUpEnabled,
+                                          onChanged:
+                                              (v) => ref
+                                                  .read(
+                                                    settingsProvider.notifier,
+                                                  )
+                                                  .setCatchUpEnabled(v),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  : settings.catchUpEnabled
+                                  ? Column(
+                                    key: const ValueKey('catch-up-suppressed'),
+                                    children: [
+                                      _Divider(),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          16,
+                                          14,
+                                          16,
+                                          14,
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.info_outline,
+                                              size: 18,
+                                              color: t.faint,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Expanded(
+                                              child: Text(
+                                                l10n.reminderCatchUpSuppressed,
+                                                style: TextStyle(
+                                                  fontSize: 13.5,
+                                                  color: t.muted,
+                                                  height: 1.5,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  : const SizedBox.shrink(
+                                    key: ValueKey('catch-up-hidden'),
+                                  ),
+                        ),
+                        // Permission blocked warning.
+                        _ReminderPermissionWarning(),
+                      ],
                     ),
-                    // Catch-up toggle — only when gap > 2h (otherwise
-                    // suppressed by the scheduler's own gap check).
-                    if (_catchUpGapIsWide(
-                      settings.preferredTime ??
-                          const TimeOfDay(hour: 19, minute: 0),
-                    )) ...[
-                      _Divider(),
-                      _Row(
-                        icon: Icons.nights_stay_outlined,
-                        tint: t.violetSoft,
-                        fg: t.violet,
-                        title: l10n.reminderCatchUpLabel,
-                        subtitle: l10n.reminderStepCatchUp,
-                        trailing: Switch(
-                          value: settings.catchUpEnabled,
-                          onChanged:
-                              (v) => ref
-                                  .read(settingsProvider.notifier)
-                                  .setCatchUpEnabled(v),
-                        ),
-                      ),
-                    ] else if (settings.catchUpEnabled) ...[
-                      _Divider(),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(Icons.info_outline, size: 18, color: t.faint),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                l10n.reminderCatchUpSuppressed,
-                                style: TextStyle(
-                                  fontSize: 13.5,
-                                  color: t.muted,
-                                  height: 1.5,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    // Permission blocked warning.
-                    _ReminderPermissionWarning(),
-                  ],
+                  ),
                 ],
               ),
             ],
 
             // ── Audio ──
-            const _GroupLabel('Audio'),
+            _GroupLabel(l10n.settingsAudioGroup),
             _Group(
               children: [
                 Padding(
@@ -388,7 +604,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Teacher\'s voice',
+                                  l10n.settingsTeacherVoice,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -450,7 +666,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Speech rate',
+                                  l10n.settingsSpeechRate,
                                   style: TextStyle(
                                     fontSize: 14.5,
                                     fontWeight: FontWeight.w600,
@@ -458,10 +674,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   ),
                                 ),
                                 Text(
-                                  _speechRateLabel(settings.ttsSpeechRate),
+                                  l10n.settingsSpeechRateBody,
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 13.5,
                                     color: t.muted,
+                                    height: 1.35,
                                   ),
                                 ),
                               ],
@@ -469,18 +686,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                           ),
                         ],
                       ),
-                      Slider(
-                        value: settings.ttsSpeechRate,
-                        min: 0.2,
-                        max: 1.0,
-                        divisions: 8,
-                        label: _speechRateLabel(settings.ttsSpeechRate),
-                        semanticFormatterCallback: _speechRateLabel,
-                        onChanged:
-                            (value) => ref
-                                .read(settingsProvider.notifier)
-                                .setTtsSpeechRate(value),
-                      ),
+                      const SizedBox(height: 10),
+                      // Was a raw-rate slider labelled Slow/Normal/Fast. It
+                      // stored 0.2-1.0 in nine steps while playback divides by
+                      // the native rate and clamps to 0.5x-1.5x, so its top
+                      // four stops all produced 1.5x and the words hid that
+                      // three separate positions did the same thing. These are
+                      // the speeds playback can actually distinguish.
+                      const TtsSpeedSelector(stops: kTtsSpeedStops),
                     ],
                   ),
                 ),
@@ -490,7 +703,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.greenSoft,
                   fg: t.green,
                   title: l10n.settingsTestVoice,
-                  subtitle: 'Play a sample Czech phrase',
+                  subtitle: l10n.settingsTestVoiceBody,
                   onTap:
                       () =>
                           ref.read(czechTtsProvider).speak('Ahoj, jak se máš?'),
@@ -500,8 +713,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   icon: Icons.cloud_outlined,
                   tint: t.violetSoft,
                   fg: t.violet,
-                  title: 'Optional cloud pronunciation',
-                  subtitle: 'Send recordings for more detailed transcription',
+                  title: l10n.settingsCloudPronunciation,
+                  // Naming the alternative, because "optional" invites the
+                  // question "optional instead of what?" — and the answer is
+                  // not "no pronunciation checking", it is your phone's own
+                  // recogniser, which is what runs by default.
+                  subtitle: l10n.settingsCloudPronunciationBody,
                   trailing: Switch(
                     value: cloudSpeech.value ?? false,
                     onChanged:
@@ -514,37 +731,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                     .setGranted(false);
                                 return;
                               }
-                              final accepted = await showDialog<bool>(
-                                context: context,
-                                builder:
-                                    (ctx) => AlertDialog(
-                                      title: const Text('Allow cloud speech?'),
-                                      content: const Text(
-                                        'Your pronunciation recording will be sent through Czechify to OpenAI in the United States for transcription. Czechify does not keep the recording. This is optional, can be switched off any time, and requires you to be at least 16 or have guardian permission.',
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed:
-                                              () => Navigator.pop(ctx, false),
-                                          child: const Text(
-                                            'Keep device recognition',
-                                          ),
-                                        ),
-                                        FilledButton(
-                                          onPressed:
-                                              () => Navigator.pop(ctx, true),
-                                          child: const Text(
-                                            'Allow cloud speech',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                              );
-                              if (accepted ?? false) {
-                                await ref
-                                    .read(cloudSpeechConsentProvider.notifier)
-                                    .setGranted(true);
-                              }
+                              // Same words, same record, wherever it is
+                              // asked — see requestCloudSpeechConsent.
+                              await requestCloudSpeechConsent(context, ref);
                             },
                   ),
                 ),
@@ -558,7 +747,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     icon: Icons.sync_problem_outlined,
                     tint: t.redSoft,
                     fg: t.redInk,
-                    title: 'Retry failed sync',
+                    title: l10n.settingsRetrySync,
                     subtitle: syncHealth.description,
                     onTap: () async {
                       final messenger = ScaffoldMessenger.of(context);
@@ -571,7 +760,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       if (!context.mounted) return;
                       messenger.showSnackBar(
                         SnackBar(
-                          content: Text('Retrying $revived item(s)'),
+                          content: Text(l10n.settingsRetryingItems(revived)),
                         ),
                       );
                     },
@@ -583,12 +772,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.chipBg,
                   fg: t.muted,
                   title: l10n.settingsClearAudioCache,
-                  subtitle: 'Remove cached audio files',
+                  subtitle: l10n.settingsClearAudioBody,
                   onTap: () async {
                     await ref.read(czechTtsProvider).clearCache();
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('TTS cache cleared')),
+                        SnackBar(content: Text(l10n.settingsAudioCleared)),
                       );
                     }
                   },
@@ -600,15 +789,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             // configured; it used to be repeated here with a different title
             // but the same subtitle and the same /account route.
             if (!BackendConfig.isConfigured) ...[
-              const _GroupLabel('Account & data'),
+              _GroupLabel(l10n.settingsAccountDataGroup),
               _Group(
                 children: [
                   _Row(
                     icon: Icons.manage_accounts_outlined,
                     tint: t.priSoft,
                     fg: t.pri,
-                    title: 'Export & deletion',
-                    subtitle: 'Export or delete your data',
+                    title: l10n.settingsExportDelete,
+                    subtitle: l10n.settingsExportDeleteBody,
                     onTap: () => context.push('/account'),
                   ),
                 ],
@@ -616,7 +805,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
 
             // ── About ──
-            const _GroupLabel('About'),
+            _GroupLabel(l10n.settingsAboutGroup),
             _Group(
               children: [
                 _Row(
@@ -624,7 +813,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: l10n.settingsAbout,
-                  subtitle: 'What the app does · by $kDeveloperName',
+                  subtitle: l10n.settingsAboutBody(kDeveloperName),
                   onTap: () => context.push('/about'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
@@ -634,7 +823,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.chipBg,
                   fg: t.muted,
                   title: l10n.settingsVersion,
-                  subtitle: '1.0.0',
+                  subtitle: ref.watch(appVersionProvider).value ?? '…',
                   trailing: const SizedBox.shrink(),
                 ),
                 _Divider(),
@@ -643,7 +832,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: l10n.settingsPrivacyPolicy,
-                  subtitle: 'Read in full, in the app',
+                  subtitle: l10n.settingsPrivacyBody,
                   onTap: () => context.push('/privacy'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
@@ -655,11 +844,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     );
   }
 
-  String _themeLabel(AppThemeMode mode) {
+  String _themeLabel(AppLocalizations l10n, AppThemeMode mode) {
     return switch (mode) {
-      AppThemeMode.system => 'System default',
-      AppThemeMode.light => 'Light',
-      AppThemeMode.dark => 'Dark',
+      AppThemeMode.system => l10n.settingsThemeSystem,
+      AppThemeMode.light => l10n.settingsThemeLight,
+      AppThemeMode.dark => l10n.settingsThemeDark,
     };
   }
 
@@ -953,12 +1142,6 @@ class _Row extends StatelessWidget {
   }
 }
 
-String _speechRateLabel(double rate) {
-  if (rate <= 0.4) return 'Slow';
-  if (rate <= 0.7) return 'Normal';
-  return 'Fast';
-}
-
 /// Light / Auto / Dark segmented control.
 class _ThemeToggle extends StatelessWidget {
   final AppThemeMode mode;
@@ -1016,21 +1199,38 @@ class _ThemeToggle extends StatelessWidget {
 /// app, and a learner who is told "connect to Wi-Fi to save this voice" will
 /// wait, whereas one who just hears nothing concludes the app is faulty and
 /// leaves. Pops `true` once the audio is on device.
-class _VoiceDownloadDialog extends ConsumerStatefulWidget {
-  const _VoiceDownloadDialog({
+/// Fetches a set of units' clips while showing progress.
+///
+/// Used for two different reasons — switching voice and switching level — that
+/// leave a learner in the same place: settings say one thing, the clips on
+/// disk say another, and offline that difference is silence. Silence reads as
+/// a broken app rather than a missing download, so it is explained rather than
+/// left to be discovered.
+class _AudioDownloadDialog extends ConsumerStatefulWidget {
+  const _AudioDownloadDialog({
+    required this.subject,
     required this.gender,
     required this.missingCount,
+    required this.units,
   });
+
+  /// What is being saved, as a noun phrase that reads inside a sentence:
+  /// 'the male voice', 'A2 audio'.
+  final String subject;
 
   final TtsVoiceGender gender;
   final int missingCount;
 
+  /// The units resolved for the learner's level, so the dialog downloads the
+  /// same set the caller measured as missing.
+  final List<int> units;
+
   @override
-  ConsumerState<_VoiceDownloadDialog> createState() =>
-      _VoiceDownloadDialogState();
+  ConsumerState<_AudioDownloadDialog> createState() =>
+      _AudioDownloadDialogState();
 }
 
-class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
+class _AudioDownloadDialogState extends ConsumerState<_AudioDownloadDialog> {
   PrefetchProgress? _progress;
   bool _offline = false;
   bool _done = false;
@@ -1050,7 +1250,7 @@ class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
     try {
       await for (final progress in ref
           .read(offlineAudioPrefetchProvider)
-          .download(OfflineSetupScreen.unitsToPrefetch, widget.gender.name)) {
+          .download(widget.units, widget.gender.name)) {
         if (!mounted) return;
         setState(() => _progress = progress);
         if (progress.finished) {
@@ -1068,7 +1268,12 @@ class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final label = widget.gender == TtsVoiceGender.male ? 'male' : 'female';
+    final l10n = AppLocalizations.of(context);
+    final subject = widget.subject;
+    final subjectCapitalised =
+        subject.isEmpty
+            ? subject
+            : subject[0].toUpperCase() + subject.substring(1);
     final progress = _progress;
 
     return AlertDialog(
@@ -1077,18 +1282,17 @@ class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
         color: _offline ? t.amber : t.pri,
       ),
       title: Text(
-        _offline ? 'Connect to save this voice' : 'Saving the $label voice',
+        _offline
+            ? l10n.settingsDownloadConnectTitle(subject)
+            : l10n.settingsDownloadSavingTitle(subject),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             _offline
-                ? 'The $label voice isn\'t saved on your device yet, and there\'s '
-                    'no connection right now. Connect to Wi-Fi or mobile data '
-                    'and try again — it\'s only a few megabytes.'
-                : 'Downloading ${widget.missingCount} clips so this voice works '
-                    'offline too.',
+                ? l10n.settingsDownloadOfflineBody(subjectCapitalised)
+                : l10n.settingsDownloadingClips(widget.missingCount),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 14.5, color: t.muted, height: 1.45),
           ),
@@ -1099,13 +1303,263 @@ class _VoiceDownloadDialogState extends ConsumerState<_VoiceDownloadDialog> {
         ],
       ),
       actions: [
-        if (_offline)
-          TextButton(onPressed: _run, child: const Text('Try again')),
+        if (_offline) TextButton(onPressed: _run, child: Text(l10n.tryAgain)),
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text(_offline ? 'Not now' : 'Hide'),
+          child: Text(_offline ? l10n.settingsNotNow : l10n.settingsHide),
         ),
       ],
+    );
+  }
+}
+
+/// What the two levels contain, in the words of what a learner will be able to
+/// do — not "A1" and "A2", which mean nothing until someone tells you.
+class _LevelPickerSheet extends ConsumerStatefulWidget {
+  const _LevelPickerSheet({required this.current});
+
+  final CEFRLevel current;
+
+  @override
+  ConsumerState<_LevelPickerSheet> createState() => _LevelPickerSheetState();
+}
+
+class _LevelPickerSheetState extends ConsumerState<_LevelPickerSheet> {
+  late CEFRLevel _selected =
+      widget.current == CEFRLevel.a2 ? CEFRLevel.a2 : CEFRLevel.a1;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final currentNormalised =
+        widget.current == CEFRLevel.a2 ? CEFRLevel.a2 : CEFRLevel.a1;
+    // Counted, not written down. A literal here is a fact about today's
+    // curriculum file rather than about the course, and goes stale silently
+    // the first time a unit is added.
+    final unitCounts = ref
+        .watch(allUnitsProvider)
+        .maybeWhen(
+          data:
+              (units) => {
+                for (final phase in Phase.values)
+                  phase: units.where((u) => u.phase == phase).length,
+              },
+          orElse: () => const <Phase, int>{},
+        );
+    String unitLabel(Phase phase) {
+      final count = unitCounts[phase];
+      return count == null ? '' : l10n.settingsUnitsCount(count);
+    }
+
+    return SafeArea(
+      // Scrollable and height-capped: two description cards plus a button do
+      // not fit a short screen, and at large text sizes they do not fit any
+      // screen. Overflowing here would paint the striped bar over the choice
+      // the sheet exists to offer.
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.sizeOf(context).height * 0.85,
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.settingsChooseLevel,
+                style: TextStyle(
+                  fontFamily: AppFonts.display,
+                  color: t.ink,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                l10n.settingsChooseLevelBody,
+                style: TextStyle(color: t.muted, fontSize: 14.5, height: 1.45),
+              ),
+              const SizedBox(height: 18),
+              _LevelCard(
+                code: 'A1',
+                name: l10n.settingsLevelBeginner,
+                units: unitLabel(Phase.a1),
+                blurb: l10n.settingsLevelA1Body,
+                forWho: l10n.settingsLevelA1Audience,
+                selected: _selected == CEFRLevel.a1,
+                isCurrent: currentNormalised == CEFRLevel.a1,
+                onTap: () => setState(() => _selected = CEFRLevel.a1),
+              ),
+              const SizedBox(height: 12),
+              _LevelCard(
+                code: 'A2',
+                name: l10n.settingsLevelUpperBeginner,
+                units: unitLabel(Phase.a2),
+                blurb: l10n.settingsLevelA2Body,
+                forWho: l10n.settingsLevelA2Audience,
+                selected: _selected == CEFRLevel.a2,
+                isCurrent: currentNormalised == CEFRLevel.a2,
+                onTap: () => setState(() => _selected = CEFRLevel.a2),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed:
+                      _selected == currentNormalised
+                          ? null
+                          : () => Navigator.of(context).pop(_selected),
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size(0, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Text(
+                    _selected == currentNormalised
+                        ? l10n.settingsLevelCurrent
+                        : l10n.continueLabel,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LevelCard extends StatelessWidget {
+  const _LevelCard({
+    required this.code,
+    required this.name,
+    required this.units,
+    required this.blurb,
+    required this.forWho,
+    required this.selected,
+    required this.isCurrent,
+    required this.onTap,
+  });
+
+  final String code;
+  final String name;
+  final String units;
+  final String blurb;
+  final String forWho;
+  final bool selected;
+  final bool isCurrent;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: AnimatedContainer(
+          duration: context.motionDuration(AppMotion.selection),
+          padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
+          decoration: BoxDecoration(
+            color: selected ? t.priSoft : t.card,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: selected ? t.pri : t.line,
+              width: selected ? 1.6 : 1,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    code,
+                    style: TextStyle(
+                      fontFamily: AppFonts.display,
+                      color: selected ? t.pri : t.ink,
+                      fontSize: 19,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        color: t.ink,
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  if (isCurrent)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: t.card,
+                        borderRadius: BorderRadius.circular(999),
+                        border: Border.all(color: t.line),
+                      ),
+                      child: Text(
+                        'Current',
+                        style: TextStyle(
+                          color: t.muted,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: .6,
+                        ),
+                      ),
+                    )
+                  else
+                    Icon(
+                      selected
+                          ? Icons.radio_button_checked
+                          : Icons.radio_button_unchecked,
+                      size: 20,
+                      color: selected ? t.pri : t.faint,
+                    ),
+                ],
+              ),
+              if (units.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(
+                  units,
+                  style: TextStyle(
+                    color: t.faint,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+              ],
+              const SizedBox(height: 10),
+              Text(
+                blurb,
+                style: TextStyle(color: t.muted, fontSize: 14, height: 1.45),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                forWho,
+                style: TextStyle(
+                  color: selected ? t.pri : t.faint,
+                  fontSize: 13,
+                  height: 1.4,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

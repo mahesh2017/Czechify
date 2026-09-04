@@ -3,57 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Delete your Czechify account</title>
+  <title>Delete your Czechify account and data</title>
+  <link rel="icon" type="image/png" href="app-icon.png">
   <style>
-    body{font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#18302f;background:#fff}
-    h1{line-height:1.2}
-    h2{line-height:1.25;margin-top:2em;border-bottom:1px solid #e4ebea;padding-bottom:.25em}
-    a{color:#176b67}
-    .box{background:#f4f8f8;border:1px solid #dfe7e6;border-radius:8px;padding:16px 18px;margin:1.2em 0}
+    html{background:#f6f7fc}
+    body{font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:800px;margin:40px auto;padding:34px 38px;color:#1d2747;background:#fff;border:1px solid #e3e7f5;border-radius:20px;box-shadow:0 12px 36px rgba(31,48,120,.08)}
+    h1{line-height:1.2;margin-bottom:.2em}
+    h2{line-height:1.25;margin-top:2em;border-bottom:1px solid #e3e7f5;padding-bottom:.25em}
+    a{color:#334fd1}
+    .brand{display:flex;align-items:center;gap:16px;padding-bottom:24px;margin-bottom:28px;border-bottom:1px solid #e3e7f5}
+    .brand img{width:72px;height:72px;border-radius:18px;box-shadow:0 7px 18px rgba(52,74,190,.2)}
+    .brand-name{font-size:25px;font-weight:750;line-height:1.15;color:#24398f;letter-spacing:-.02em}
+    .brand-tagline{color:#677092;margin-top:4px;font-size:15px}
+    .meta{color:#68708c;font-size:15px}
+    .box{background:#f5f7ff;border:1px solid #dce2fa;border-radius:10px;padding:16px 18px;margin:1.2em 0}
     ul{padding-left:1.2em}
+    @media(max-width:640px){body{margin:0;padding:24px 20px;border:0;border-radius:0;box-shadow:none}.brand img{width:62px;height:62px;border-radius:15px}}
   </style>
 </head>
 <body>
-  <h1>Delete your Czechify account</h1>
-  <p>Deleting your account permanently removes your Czechify account and everything synced to it.
-  The app clears the copy on your device as part of the same step.</p>
+  <header class="brand">
+    <img src="app-icon.png" width="72" height="72" alt="Czechify app logo">
+    <div>
+      <div class="brand-name">Czechify</div>
+      <div class="brand-tagline">Learn Czech with confidence</div>
+    </div>
+  </header>
+  <h1>Delete your Czechify account and data</h1>
+  <p class="meta"><strong>Last updated:</strong> 24 August 2026</p>
+  <p>This page is provided by <strong>Czechify</strong>, operated by <strong>Mahesh Pathak</strong>.
+  Account deletion is permanent and cannot be undone.</p>
 
   <div class="box">
-    <strong>Fastest way:</strong> open Czechify and go to
-    <strong>Settings → Account &amp; data → Delete account</strong>, then confirm.
-    It takes effect immediately.
+    <strong>Fastest method:</strong> open Czechify and go to
+    <strong>Settings → Account &amp; data → Delete account</strong>. Confirm the warning; if you linked
+    an email/password account, enter its current password when asked. The live cloud account and the
+    app's local learner records are deleted immediately when the request succeeds.
   </div>
 
   <h2>If you cannot open the app</h2>
-  <p>Email <a href="mailto:email.czechify@gmail.com">email.czechify@gmail.com</a> and ask for your
-  account to be deleted.</p>
-  <p>If you linked an email address to the account, write from that address so we can verify the
-  request. If you never linked one, your account is anonymous and we have no way to identify which
-  account is yours — in that case, uninstalling the app removes the copy on your device, and the
-  anonymous account is deleted automatically after 90 days without use.</p>
-  <p><strong>Never include your password, an access token, or a recording in the message.</strong>
-  None of them are needed to delete an account.</p>
+  <p>Email <a href="mailto:email.czechify@gmail.com?subject=Czechify%20account%20deletion%20request">email.czechify@gmail.com</a>
+  with the subject “Czechify account deletion request”. If you linked an email address, send the
+  request from that address so we can verify ownership. We will handle verified requests without
+  undue delay and normally within 30 days.</p>
+  <p>If you never linked an email, the account has only a random identifier that we cannot match to
+  an external email. Use in-app deletion while you still have access. If that is impossible, clear
+  Czechify's app storage or uninstall it to remove the device copy; the unlinked anonymous cloud
+  account and its synced data are scheduled for automatic deletion after 90 days without use.</p>
+  <p><strong>Never send your password, access token, recording, or identity document.</strong> We do
+  not need them for an ordinary deletion request. We may ask a limited follow-up question if needed
+  to verify account ownership.</p>
 
-  <h2>What gets deleted</h2>
+  <h2>What in-app deletion removes</h2>
   <ul>
-    <li>Your Czechify account itself, and any linked email address</li>
-    <li>Synced lesson progress, scores, XP, streaks and badges</li>
-    <li>Your review schedule and any custom cards you created</li>
-    <li>Your record of consent choices</li>
-    <li>The local database on your device, and cached audio</li>
+    <li>The current Czechify cloud account and any linked email credential</li>
+    <li>Synced lesson completion and scores, XP, streaks, badges, review/SRS state, custom cards, gamification state, learner profile, reminder preference, and placement result</li>
+    <li>Local learning progress, attempts, badges, review data, custom cards, exam results, AI conversations, optional learner name, account-scoped settings, and device consent records</li>
+    <li>Temporary pronunciation recordings and temporary export files managed by Czechify</li>
   </ul>
-  <p>Your chat history with the AI tutor lives only on your device and goes with the local data.</p>
+  <p>If you keep using Czechify after deletion, the app creates a new, empty anonymous account. It
+  does not restore the deleted account or its progress.</p>
 
-  <h2>What may remain briefly</h2>
-  <p>Our hosting providers keep operational backups and security logs for their own retention
-  periods. Those are not accessible to us as ordinary records and roll off on their own schedule.</p>
+  <h2>What it does not remove automatically</h2>
+  <ul>
+    <li><strong>Downloaded lesson audio:</strong> this is non-personal course content. Remove it with <strong>Settings → Downloads → Clear audio cache</strong>, by clearing app storage, or by uninstalling.</li>
+    <li><strong>Copies outside the device after an email-only request:</strong> we cannot remotely erase local app data. Clear app storage or uninstall if you cannot use in-app deletion.</li>
+    <li><strong>Email reports or support correspondence:</strong> these are not stored in the Czechify account. Ask for their deletion in the same email; limited evidence of a completed privacy request may still be retained where legally necessary.</li>
+  </ul>
 
-  <h2>Want a copy first?</h2>
-  <p>Deletion cannot be undone. If you want your data before you delete it, use
-  <strong>Settings → Account &amp; data → Export</strong> first — it gives you a file containing
-  everything held in your cloud account.</p>
+  <h2>Provider copies and deletion timing</h2>
+  <p>Deletion removes the account and data from Czechify's live Supabase tables. Deleted records may
+  remain temporarily in isolated provider backups or security logs until their normal retention
+  windows expire and are not available as ordinary user records.</p>
+  <p>Czechify does not store AI tutor requests or cloud-pronunciation recordings in its cloud
+  database. Requests sent to Scaleway or OpenAI do not contain your Czechify account ID or linked
+  email in the request body, so we generally cannot identify a particular provider-side request as
+  yours after processing. OpenAI may retain API data for up to 30 days for abuse monitoring unless
+  zero data retention applies. Scaleway's default Zero Data Retention policy says AI prompts and
+  outputs are not retained in ordinary operation; anonymised usage metadata may remain for up to six
+  months, and relevant request content may be kept for up to two weeks in rare error, security,
+  harmful-content, or misuse investigations.</p>
 
-  <p style="margin-top:2.5em">See the <a href="privacy.html">Czechify Privacy Policy</a> for what we
-  process and why.</p>
+  <h2>Export first</h2>
+  <p>If you want a copy before deletion, use <strong>Settings → Account &amp; data → Export</strong>.
+  The export contains data held in the cloud account. Local-only AI chat history, exam results,
+  settings, and downloaded audio are not part of that cloud export.</p>
+
+  <p style="margin-top:2.5em">For details about processing, retention, and your GDPR rights, read the
+  <a href="privacy.html">Czechify Privacy Policy</a>.</p>
 </body>
 </html>

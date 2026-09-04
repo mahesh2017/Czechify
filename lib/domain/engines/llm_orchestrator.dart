@@ -244,9 +244,8 @@ class LLMOrchestrator {
   }
 
   String _selectModel(CEFRLevel level) {
-    // 'deepseek-chat' is the official API model ID for DeepSeek-V3 —
-    // the cheapest model that handles Czech well.
-    return 'deepseek-chat';
+    // Informational metadata only: the server owns the actual model choice.
+    return 'deepseek-v4-flash-0731';
   }
 }
 

@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/exercise.dart';
-import 'package:ceskina_pro/presentation/widgets/lesson/exercises/exercise_shared.dart';
-import 'package:ceskina_pro/presentation/widgets/common/lesson_ui.dart';
-import 'package:ceskina_pro/presentation/widgets/lesson/lesson_exercise_viewport.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
+import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
+import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -213,6 +213,61 @@ void main() {
 
     expect(result?.isCorrect, isTrue);
     expect(result?.correctAnswer, 'vstávám, snídám');
+  });
+
+  testWidgets('fill blank keyboard advances before submitting all blanks', (
+    tester,
+  ) async {
+    ExerciseResult? result;
+    const exercise = Exercise(
+      id: 999003,
+      lessonId: 999,
+      type: ExerciseType.fillBlank,
+      prompt: 'Complete',
+      data: {
+        'type': 'fill_blank',
+        'sentence': 'Ráno ___ a potom ___.',
+        'blank_count': 2,
+        'blank_answers': [
+          ['vstávám'],
+          ['snídám'],
+        ],
+      },
+      xpReward: 10,
+    );
+
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          theme: lightTheme(),
+          home: Scaffold(
+            body: LessonExerciseViewport(
+              exercise: exercise,
+              onAnswered: (value) => result = value,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.enterText(find.byType(TextField).first, 'vstávám');
+    await tester.testTextInput.receiveAction(TextInputAction.next);
+    await tester.pump();
+
+    expect(result, isNull);
+    expect(find.byType(TextField), findsNWidgets(2));
+    expect(
+      tester.widget<TextField>(find.byType(TextField).last).focusNode?.hasFocus,
+      isTrue,
+    );
+
+    await tester.enterText(find.byType(TextField).last, 'snídám');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pump();
+
+    expect(result?.isCorrect, isTrue);
   });
 }
 

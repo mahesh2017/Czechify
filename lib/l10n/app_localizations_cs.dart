@@ -153,6 +153,551 @@ class AppLocalizationsCs extends AppLocalizations {
   String get settingsClearAudioCache => 'Vymazat mezipaměť zvuku';
 
   @override
+  String get settingsFirstName => 'Vaše křestní jméno';
+
+  @override
+  String settingsSwitchLevelTitle(String level) {
+    return 'Přejít na $level?';
+  }
+
+  @override
+  String settingsSwitchLevel(String level) {
+    return 'Přejít na $level';
+  }
+
+  @override
+  String get settingsSwitchUpBody =>
+      'Úroveň A2 se otevře od první jednotky a vše, co jste už dokončili v A1, zůstane dostupné. Lektor bude používat náročnější češtinu.\n\nNyní se stáhnou nahrávky pro A2, což vyžaduje připojení a několik megabajtů.';
+
+  @override
+  String get settingsSwitchDownBody =>
+      'Lektor bude používat jednodušší češtinu a nahrávky A1 zůstanou v zařízení.\n\nJednotky, které už máte odemčené, zůstanou dostupné — návratem k opakování o nic nepřijdete.';
+
+  @override
+  String settingsLevelOpened(String level) {
+    return 'Úroveň $level je nyní otevřená.';
+  }
+
+  @override
+  String settingsLevelSwitched(String level) {
+    return 'Přešli jste na $level. Dříve odemčené jednotky zůstávají dostupné.';
+  }
+
+  @override
+  String get settingsProfileGroup => 'Profil';
+
+  @override
+  String get settingsNotSet => 'Nenastaveno';
+
+  @override
+  String get settingsAccountGroup => 'Účet';
+
+  @override
+  String get settingsAccountDataTitle => 'Účet, přihlášení a data';
+
+  @override
+  String get settingsAccountDataBody =>
+      'Ochrana, obnovení, export nebo smazání dat';
+
+  @override
+  String get settingsAppearanceGroup => 'Vzhled';
+
+  @override
+  String get settingsLearningGroup => 'Učení';
+
+  @override
+  String get settingsLearningPlan => 'Studijní plán';
+
+  @override
+  String get settingsLearningPlanBody =>
+      'Cíl, zaměření, studijní rytmus a připomínky';
+
+  @override
+  String get settingsLearningPlanMissing =>
+      'Přizpůsobte studijní plán tomuto účtu';
+
+  @override
+  String get settingsCourseLevel => 'Úroveň kurzu';
+
+  @override
+  String get settingsA1Beginner => 'A1 · začátečník';
+
+  @override
+  String get settingsA2UpperBeginner => 'A2 · mírně pokročilý';
+
+  @override
+  String get settingsHeartsBody => 'Vypnuto = procvičování bez omezení';
+
+  @override
+  String get settingsSoundBody => 'Odpovědi a oslavy';
+
+  @override
+  String get settingsHapticsBody => 'Hmatová odezva při klepnutí';
+
+  @override
+  String get settingsRemindersGroup => 'Připomínky';
+
+  @override
+  String get settingsAudioGroup => 'Zvuk';
+
+  @override
+  String get settingsSpeechRate => 'Rychlost řeči';
+
+  @override
+  String get settingsSpeechRateBody => '1× odpovídá tempu původních nahrávek';
+
+  @override
+  String get settingsTestVoiceBody => 'Přehrát ukázkovou českou frázi';
+
+  @override
+  String get settingsCloudPronunciation =>
+      'Volitelné cloudové vyhodnocení výslovnosti';
+
+  @override
+  String get settingsCloudPronunciationBody =>
+      'Vypnuto = kontrola v telefonu. Zapnuto = přesnější hodnocení, nahrávka se odešle k přepisu';
+
+  @override
+  String get settingsRetrySync => 'Opakovat neúspěšnou synchronizaci';
+
+  @override
+  String settingsRetryingItems(int count) {
+    return 'Opakuji synchronizaci $count položek';
+  }
+
+  @override
+  String get settingsClearAudioBody => 'Odstranit uložené zvukové soubory';
+
+  @override
+  String get settingsAudioCleared => 'Mezipaměť zvuku byla vymazána';
+
+  @override
+  String get settingsAccountDataGroup => 'Účet a data';
+
+  @override
+  String get settingsExportDelete => 'Export a smazání';
+
+  @override
+  String get settingsExportDeleteBody => 'Exportovat nebo smazat vaše data';
+
+  @override
+  String get settingsAboutGroup => 'O aplikaci';
+
+  @override
+  String settingsAboutBody(String name) {
+    return 'Co aplikace umí · vytvořil $name';
+  }
+
+  @override
+  String get settingsPrivacyBody => 'Přečíst celé znění v aplikaci';
+
+  @override
+  String settingsDownloadConnectTitle(String subject) {
+    return 'Připojte se a uložte: $subject';
+  }
+
+  @override
+  String settingsDownloadSavingTitle(String subject) {
+    return 'Ukládám: $subject';
+  }
+
+  @override
+  String settingsDownloadOfflineBody(String subject) {
+    return '$subject zatím není uložené v zařízení a nyní není dostupné připojení. Připojte se k Wi-Fi nebo mobilním datům a zkuste to znovu — jde jen o několik megabajtů.';
+  }
+
+  @override
+  String settingsDownloadingClips(int count) {
+    return 'Stahuji $count nahrávek, aby vše fungovalo i offline.';
+  }
+
+  @override
+  String get settingsNotNow => 'Teď ne';
+
+  @override
+  String get settingsHide => 'Skrýt';
+
+  @override
+  String settingsUnitsCount(int count) {
+    return '$count jednotek';
+  }
+
+  @override
+  String get settingsLevelBeginner => 'Začátečník';
+
+  @override
+  String get settingsLevelUpperBeginner => 'Mírně pokročilý';
+
+  @override
+  String get settingsLevelA1Audience =>
+      'Začněte zde, pokud jste v češtině noví.';
+
+  @override
+  String get settingsLevelCurrent => 'Toto je vaše úroveň';
+
+  @override
+  String get settingsTeacherVoice => 'Hlas lektora';
+
+  @override
+  String settingsAudioSubject(String level) {
+    return 'nahrávky $level';
+  }
+
+  @override
+  String get settingsVoiceSubjectMale => 'mužský hlas';
+
+  @override
+  String get settingsVoiceSubjectFemale => 'ženský hlas';
+
+  @override
+  String get settingsChooseLevel => 'Vyberte úroveň kurzu';
+
+  @override
+  String get settingsChooseLevelBody =>
+      'Tuto volbu můžete později změnit. O nic dokončeného nepřijdete.';
+
+  @override
+  String get settingsLevelA1Body =>
+      'Začněte českými hláskami a pravopisem. Seznamte se s lidmi, řekněte, kdo jste a co děláte, požádejte o to, co potřebujete, a zvládněte čísla, čas i běžné pochůzky.';
+
+  @override
+  String get settingsLevelA2Body =>
+      'Mluvte o tom, co se stalo a co plánujete, popisujte cestu a preference, porovnávejte a vybírejte a zvládněte obchody, schůzky i situace, kdy se něco pokazí.';
+
+  @override
+  String get settingsLevelA2Audience =>
+      'Vyberte tuto úroveň, pokud se už umíte představit a vést jednoduchou konverzaci v přítomném čase.';
+
+  @override
+  String get accountTitle => 'Účet a data';
+
+  @override
+  String get accountCloudUnavailableTitle => 'Cloudový účet není dostupný';
+
+  @override
+  String get accountCloudUnavailableBody =>
+      'Aplikace je offline nebo není dostupné cloudové nastavení.';
+
+  @override
+  String get accountReviewerAccessTitle => 'Přístup pro recenzenta je aktivní';
+
+  @override
+  String get accountReviewerAccessBody =>
+      'Na tomto účtu jsou dostupné všechny jednotky a lekce kurzu.';
+
+  @override
+  String get accountGoogleConnectedTitle => 'Účet Google je propojený';
+
+  @override
+  String get accountGoogleConnectedBody =>
+      'Pomocí Googlu se můžete přihlásit a obnovit svůj studijní pokrok.';
+
+  @override
+  String get accountProtectWithEmail => 'Chránit pokrok pomocí e-mailu';
+
+  @override
+  String get accountSignInExisting => 'Přihlásit se k existujícímu účtu';
+
+  @override
+  String get accountSetOrChangePassword => 'Nastavit nebo změnit heslo';
+
+  @override
+  String get accountSendRecovery => 'Poslat e-mail pro obnovení hesla';
+
+  @override
+  String get accountYourData => 'Vaše data';
+
+  @override
+  String get accountExportJson => 'Exportovat moje data jako JSON';
+
+  @override
+  String get accountDeleteCloudLocal => 'Smazat cloudový účet i místní data';
+
+  @override
+  String get accountDeletionInstructions => 'Online pokyny ke smazání účtu';
+
+  @override
+  String get accountRequestFailed =>
+      'Požadavek se nepodařilo dokončit. Zkuste to znovu.';
+
+  @override
+  String get accountGoogleLinkedSuccess =>
+      'Účet Google byl propojen. Váš pokrok je chráněný.';
+
+  @override
+  String get accountGoogleAlreadyLinked => 'Tento účet Google už je propojený.';
+
+  @override
+  String get accountGoogleDefaultLabel => 'tento účet Google';
+
+  @override
+  String get accountUseExistingTitle => 'Použít existující účet Czechify?';
+
+  @override
+  String accountUseExistingBody(String account) {
+    return '$account už má účet Czechify. Místní pokrok v tomto zařízení bude nahrazen synchronizovaným pokrokem daného účtu. Pokud potřebujete kopii, nejprve data exportujte.';
+  }
+
+  @override
+  String get accountSignInReplace => 'Přihlásit a nahradit';
+
+  @override
+  String get accountGoogleRecovered =>
+      'Účet Google byl obnoven a synchronizován.';
+
+  @override
+  String get accountGoogleFailed =>
+      'Přihlášení přes Google se nepodařilo dokončit. Zkuste to znovu.';
+
+  @override
+  String get accountProtectProgress => 'Chránit pokrok';
+
+  @override
+  String get accountEmail => 'E-mail';
+
+  @override
+  String get accountVerificationSent =>
+      'Ověřovací e-mail byl odeslán. Otevřete odkaz a potom zde nastavte heslo.';
+
+  @override
+  String get accountSetPassword => 'Nastavit heslo';
+
+  @override
+  String get accountPasswordMinimum => 'Heslo (alespoň 8 znaků)';
+
+  @override
+  String get accountPasswordTooShort => 'Použijte alespoň 8 znaků.';
+
+  @override
+  String get accountPasswordUpdated => 'Heslo bylo aktualizováno.';
+
+  @override
+  String get accountReplaceLocalTitle => 'Nahradit místní studijní data?';
+
+  @override
+  String get accountReplaceLocalBody =>
+      'Toto zařízení odstraní aktuální studijní pokrok, přihlásí se a stáhne vybraný účet. Pokud potřebujete kopii, nejprve data exportujte.';
+
+  @override
+  String get accountRecovered => 'Účet byl obnoven a synchronizován.';
+
+  @override
+  String get accountPasswordRecovery => 'Obnovení hesla';
+
+  @override
+  String get accountAccountEmail => 'E-mail účtu';
+
+  @override
+  String get accountRecoverySent =>
+      'Pokud účet existuje, byl odeslán e-mail pro obnovení.';
+
+  @override
+  String get accountExportPrepared => 'Export je připraven.';
+
+  @override
+  String get accountPermanentDelete => 'Trvale smazat účet';
+
+  @override
+  String get accountDeletePhrase => 'Napište DELETE MY ACCOUNT';
+
+  @override
+  String get accountPhraseMismatch => 'Potvrzovací text se neshoduje.';
+
+  @override
+  String get accountConfirmIdentity => 'Potvrďte svou totožnost';
+
+  @override
+  String get accountPassword => 'Heslo účtu';
+
+  @override
+  String get accountDeleted => 'Cloudový účet a studijní data byly smazány.';
+
+  @override
+  String get accountSignIn => 'Přihlásit se';
+
+  @override
+  String get accountAnonymousTitle => 'Anonymní účet';
+
+  @override
+  String get accountProtectedTitle => 'Chráněný účet';
+
+  @override
+  String get accountAnonymousBody =>
+      'Pokrok se synchronizuje v tomto zařízení, ale na jiném zařízení jej nelze obnovit, dokud nepropojíte Google nebo e-mail.';
+
+  @override
+  String get accountEmailLinked => 'E-mailová identita je propojená';
+
+  @override
+  String get accountSignInGoogle => 'Přihlásit se přes Google';
+
+  @override
+  String get aboutTitle => 'O aplikaci';
+
+  @override
+  String get aboutTagline => 'Naučte se česky pořádně — od A1 do A2 podle CEFR';
+
+  @override
+  String get aboutFeatures => 'Co vám Czechify nabízí';
+
+  @override
+  String get aboutFeatureCourseTitle => 'Kompletní kurz od A1 do A2';
+
+  @override
+  String get aboutFeatureCourseBody =>
+      '31 jednotek, 61 lekcí a více než 770 cvičení podle úrovní CEFR od úplného začátečníka po mírně pokročilého. Každá jednotka navazuje na předchozí a nic důležitého nepřeskakuje.';
+
+  @override
+  String get aboutFeatureAudioTitle => 'Každé české slovo nahlas';
+
+  @override
+  String get aboutFeatureAudioBody =>
+      'Téměř 3 000 frází ve studiové kvalitě, namluvených mužským nebo ženským hlasem podle vašeho výběru. První jednotky se uloží do zařízení a fungují i bez připojení.';
+
+  @override
+  String get aboutFeaturePronunciationTitle => 'Procvičování výslovnosti';
+
+  @override
+  String get aboutFeaturePronunciationBody =>
+      'Přečtěte zadanou frázi a podívejte se, jak přesně rozpoznaná slova odpovídají předloze. Funkce může odhalit vynechaná nebo nejasná slova, ale nediagnostikuje jednotlivé české hlásky ani nenahrazuje zpětnou vazbu učitele. Ve výchozím nastavení se používá rozpoznávání v zařízení; cloudový přepis je volitelný.';
+
+  @override
+  String get aboutFeatureTutorTitle => 'Konverzační lektor s AI';
+
+  @override
+  String get aboutFeatureTutorBody =>
+      'Procvičujte skutečné situace — objednávání jídla, ptaní se na cestu nebo představování — s lektorem, který odpovídá česky na vaší úrovni a vysvětlí chyby.';
+
+  @override
+  String get aboutFeatureReviewTitle => 'Chytré rozložené opakování';
+
+  @override
+  String get aboutFeatureReviewBody =>
+      'Obtížná slova se vracejí častěji a známá postupně ustupují. Opakování se plánuje tak, abyste se k položce vrátili těsně předtím, než byste ji zapomněli.';
+
+  @override
+  String get aboutFeatureGrammarTitle =>
+      'Gramatika, kterou lze snadno dohledat';
+
+  @override
+  String get aboutFeatureGrammarBody =>
+      'Tabulky skloňování a časování, gramatické poznámky ke každé jednotce a taháky, dostupné offline a odemykané spolu s jednotkami.';
+
+  @override
+  String get aboutFeatureExamTitle => 'Příprava na zkoušku';
+
+  @override
+  String get aboutFeatureExamBody =>
+      'Samostatné zkouškové jednotky A1 a A2 s hodnoceným procvičováním čtení, poslechu, psaní a mluvení. Jde o neověřené cvičné aktivity, nikoli o oficiální výsledky zkoušky.';
+
+  @override
+  String get aboutFeatureProgressTitle => 'Pokrok, který stojí za sledování';
+
+  @override
+  String get aboutFeatureProgressBody =>
+      'Série, denní cíle, odznaky a statistiky podle dovedností vám ukážou, co se zlepšuje a na čem je potřeba pracovat.';
+
+  @override
+  String get aboutYourAccount => 'Váš účet';
+
+  @override
+  String get aboutAccountBody =>
+      'Czechify automaticky vytvoří anonymní účet — bez e-mailu, hesla nebo jména. Pokrok se synchronizuje s tímto účtem. Pokud jej chcete obnovit nebo používat na jiném zařízení, propojte Google nebo přidejte e-mail a heslo.';
+
+  @override
+  String get aboutDeveloper => 'Vývojář';
+
+  @override
+  String aboutDeveloperBody(String name) {
+    return 'Navrhl, vytvořil a spravuje $name.';
+  }
+
+  @override
+  String get aboutOnline => 'Webové odkazy';
+
+  @override
+  String get aboutOfficialWebsite => 'Oficiální web Czechify';
+
+  @override
+  String get aboutOnlinePrivacy => 'Online zásady ochrany osobních údajů';
+
+  @override
+  String get aboutUpdates => 'Aktualizace';
+
+  @override
+  String get updateCheckTitle => 'Zkontrolovat aktualizace';
+
+  @override
+  String get updateCheckBody =>
+      'Získejte nejnovější verzi Czechify z Google Play';
+
+  @override
+  String get updateAvailableTitle => 'Je k dispozici aktualizace Czechify';
+
+  @override
+  String get updateBadgeLabel => 'NOVÁ VERZE';
+
+  @override
+  String get updateAvailableBody =>
+      'Získejte nejnovější vylepšení a opravy. Během stahování se můžete dál učit.';
+
+  @override
+  String get updateNotNow => 'Teď ne';
+
+  @override
+  String get updateNow => 'Aktualizovat';
+
+  @override
+  String get updateDownloading => 'Aktualizace se stahuje… Můžete se dál učit.';
+
+  @override
+  String get updateReady =>
+      'Aktualizace je připravena. Restartováním Czechify dokončíte instalaci.';
+
+  @override
+  String get updateRestart => 'Restartovat nyní';
+
+  @override
+  String get updateUpToDate => 'Czechify je aktuální.';
+
+  @override
+  String get updateCancelled => 'Aktualizace byla zrušena.';
+
+  @override
+  String get updateStartFailed =>
+      'Google Play nemohl aktualizaci nainstalovat. Zkuste to později.';
+
+  @override
+  String get updateCheckFailed =>
+      'Google Play nemohl zkontrolovat aktualizace. Zkuste to později.';
+
+  @override
+  String get updateUnsupported =>
+      'Aktualizace v aplikaci jsou dostupné pro instalace Czechify z Google Play v systému Android.';
+
+  @override
+  String get updateCheckAlreadyRunning => 'Kontrola aktualizací již probíhá.';
+
+  @override
+  String get updatePlayStoreOnlyBody =>
+      'Aktualizace je dostupná, ale Google Play ji nyní nemůže nainstalovat přímo v Czechify. Otevřete Google Play a proveďte aktualizaci.';
+
+  @override
+  String get updateOpenPlayStore => 'Otevřít Google Play';
+
+  @override
+  String get privacyTitle => 'Soukromí';
+
+  @override
+  String privacyVersion(String version) {
+    return 'Verze $version';
+  }
+
+  @override
+  String get privacyViewOnline =>
+      'Zobrazit zásady ochrany osobních údajů na webu Czechify';
+
+  @override
   String get homeYourProgress => 'Váš pokrok';
 
   @override
@@ -175,6 +720,11 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get homeAllCaughtUp => 'Vše hotovo!';
+
+  @override
+  String homeRetryLessonA11y(int lesson) {
+    return 'Lekce $lesson · zkuste ji znovu';
+  }
 
   @override
   String homeDayStreak(int count) {
@@ -205,6 +755,9 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get reviewTapToReveal => 'Klepnutím zobrazíte';
+
+  @override
+  String get reviewTypeAnswerFirst => 'Nejprve napište odpověď';
 
   @override
   String get reviewRatingAgain => 'Znovu';
@@ -363,6 +916,14 @@ class AppLocalizationsCs extends AppLocalizations {
   String get lessonIntroduction => 'Úvod';
 
   @override
+  String get lessonGoal => 'Cíl lekce';
+
+  @override
+  String lessonGoalByEnd(String goal) {
+    return 'Na konci budete umět $goal';
+  }
+
+  @override
   String get lessonMissedQuestions => 'Chybné otázky';
 
   @override
@@ -385,6 +946,12 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get lessonStartPractice => 'Začít procvičovat';
+
+  @override
+  String get lessonNowICan => 'Teď už umím';
+
+  @override
+  String get lessonKeepPractising => 'Ještě procvičit';
 
   @override
   String get lessonGotItStartPractising => 'Rozumím — jdeme procvičovat';
@@ -701,8 +1268,11 @@ class AppLocalizationsCs extends AppLocalizations {
   String get reviewDirectionListening => 'Poslech';
 
   @override
-  String get reviewHowWellRecalled =>
-      'Jak dobře jste si to vybavili? · určuje, kdy se karta vrátí';
+  String get reviewHowWellRecalled => 'Jak dobře jste si to zapamatovali?';
+
+  @override
+  String get reviewChooseRatingToContinue =>
+      'Výběrem naplánujete návrat karty a přejdete na další.';
 
   @override
   String get reviewAllCaughtUp => 'Vše hotovo';
@@ -794,6 +1364,60 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get chatDeleteConversation => 'Smazat konverzaci';
+
+  @override
+  String get chatDeleteConversationTitle => 'Smazat tuto konverzaci?';
+
+  @override
+  String chatDeleteConversationBody(String scenario) {
+    return 'Konverzace na téma „$scenario“ bude trvale odstraněna. Tuto akci nelze vrátit zpět.';
+  }
+
+  @override
+  String get chatDelete => 'Smazat';
+
+  @override
+  String get chatToday => 'dnes';
+
+  @override
+  String get chatYesterday => 'včera';
+
+  @override
+  String chatDaysAgo(int count) {
+    return 'před $count dny';
+  }
+
+  @override
+  String get chatReportSent => 'Děkujeme — hlášení je připravené k odeslání.';
+
+  @override
+  String get chatReportReply => 'Nahlásit tuto odpověď';
+
+  @override
+  String get chatNoRepliesLeft =>
+      'Pro dnešek už nezbývají žádné odpovědi lektora.';
+
+  @override
+  String chatRepliesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dnes zbývá $count odpovědí lektora.',
+      few: 'Dnes zbývají $count odpovědi lektora.',
+      one: 'Dnes zbývá $count odpověď lektora.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String chatAddedToReview(String word) {
+    return 'Slovo „$word“ bylo přidáno k opakování';
+  }
+
+  @override
+  String chatAlreadyInReview(String word) {
+    return 'Slovo „$word“ už je v balíčku na opakování';
+  }
 
   @override
   String get exerciseAllAnsweredCorrectly => 'Všechny otázky správně.';
@@ -1126,6 +1750,13 @@ class AppLocalizationsCs extends AppLocalizations {
   String get homeCopybookCta => 'Otevřít dnešní písanku';
 
   @override
+  String get homePersonalizePlan => 'Přizpůsobte si studijní plán';
+
+  @override
+  String get homePersonalizePlanBody =>
+      'Řekněte Czechify, jaký máte cíl a kolik máte času, a získáte užitečnější plán.';
+
+  @override
   String homeXpRemaining(int xp) {
     return 'Do denního rytmu zbývá $xp XP.';
   }
@@ -1169,7 +1800,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get onboardingNameBody =>
-      'Nepovinné. Použije se pro český pozdrav a nikdy neopustí vaše zařízení.';
+      'Nepovinné. Použije se pro pozdrav a synchronizuje se s vaším účtem Czechify, aby ho bylo možné obnovit na jiném zařízení.';
 
   @override
   String get onboardingFirstName => 'KŘESTNÍ JMÉNO';
@@ -1253,6 +1884,243 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get onboardingSoundsOfCzech => 'Zvuky češtiny';
+
+  @override
+  String get onboardingProfileTitle => 'Řekněte nám, odkud začínáte';
+
+  @override
+  String get onboardingProfileBody =>
+      'Jméno je nepovinné. Vaše současná úroveň nám pomůže vybrat vhodnou první lekci.';
+
+  @override
+  String get onboardingLevelPrompt => 'Kolik češtiny už umíte?';
+
+  @override
+  String get onboardingB1Plus => 'B1 nebo vyšší';
+
+  @override
+  String get onboardingB1PlusBody => 'Zvládám mnoho běžných rozhovorů';
+
+  @override
+  String get onboardingLevelUnsure => 'Nejsem si jistý/á';
+
+  @override
+  String get onboardingLevelUnsureBody =>
+      'Začněte pozvolna nebo využijte test úrovně';
+
+  @override
+  String get onboardingPurposeTitle => 'Proč se učíte česky?';
+
+  @override
+  String get onboardingPurposeBody =>
+      'Vyberte svůj hlavní cíl. Kdykoli ho můžete změnit podle své situace.';
+
+  @override
+  String get onboardingGoalEverydayTitle => 'Každodenní život v Česku';
+
+  @override
+  String get onboardingGoalEverydayBody =>
+      'Získejte jistotu v obchodech, zdravotnictví, bydlení a na úřadech';
+
+  @override
+  String get onboardingGoalPermanentResidenceTitle => 'Trvalý pobyt — A2';
+
+  @override
+  String get onboardingGoalPermanentResidenceBody =>
+      'Připravujte se na oficiální zkoušku z češtiny na úrovni A2';
+
+  @override
+  String get onboardingGoalCitizenshipTitle => 'Základy pro získání občanství';
+
+  @override
+  String get onboardingGoalCitizenshipBody =>
+      'Rozvíjejte češtinu směrem k B1 a osvojte si slovní zásobu k životu v Česku';
+
+  @override
+  String get onboardingGoalWorkTitle => 'Práce a kariéra';
+
+  @override
+  String get onboardingGoalWorkBody =>
+      'Domluvte se s kolegy, zákazníky a zaměstnavateli';
+
+  @override
+  String get onboardingGoalStudyTitle => 'Studium';
+
+  @override
+  String get onboardingGoalStudyBody =>
+      'Sledujte výuku, čtěte s jistotou a pište srozumitelněji';
+
+  @override
+  String get onboardingGoalRelationshipsTitle => 'Rodina a vztahy';
+
+  @override
+  String get onboardingGoalRelationshipsBody =>
+      'Zapojte se do rozhovorů s rodinou, přáteli a lidmi kolem sebe';
+
+  @override
+  String get onboardingGoalTravelTitle =>
+      'Cestování, kultura a zájem o češtinu';
+
+  @override
+  String get onboardingGoalTravelBody =>
+      'Poznávejte česká místa, lidi a kulturu v jejich jazyce';
+
+  @override
+  String get onboardingFocusTitle => 'Sestavte si první plán';
+
+  @override
+  String get onboardingFocusBody =>
+      'Vyberte dovednosti, na které se má Czechify nejdříve zaměřit.';
+
+  @override
+  String get onboardingPermanentResidenceDisclosure =>
+      'Současná jazyková zkouška pro trvalý pobyt je na úrovni A2. Czechify vám může pomoci s procvičováním, ale oficiální podmínky a výjimky určují české úřady.';
+
+  @override
+  String get onboardingCitizenshipDisclosure =>
+      'Czechify nyní učí do úrovně A2. Tento plán vytváří základ pro jazykovou zkoušku B1 a zkoušku z českých reálií; zatím nejde o úplnou přípravu ke zkoušce pro občanství.';
+
+  @override
+  String get onboardingHorizonTitle => 'Kdy chcete být připraveni?';
+
+  @override
+  String get onboardingHorizonWithinThree => 'Do 3 měsíců';
+
+  @override
+  String get onboardingHorizonWithinThreeBody =>
+      'Krátké a soustředěné období přípravy';
+
+  @override
+  String get onboardingHorizonThreeToSix => 'Za 3–6 měsíců';
+
+  @override
+  String get onboardingHorizonThreeToSixBody =>
+      'Pravidelná příprava s průběžným opakováním';
+
+  @override
+  String get onboardingHorizonSixToTwelve => 'Za 6–12 měsíců';
+
+  @override
+  String get onboardingHorizonSixToTwelveBody =>
+      'Pečlivé budování základů v delším období';
+
+  @override
+  String get onboardingHorizonLater => 'Později nebo nevím';
+
+  @override
+  String get onboardingHorizonLaterBody =>
+      'Učte se pravidelně bez pevného termínu';
+
+  @override
+  String get onboardingFocusPrompt => 'Na co se máme zaměřit?';
+
+  @override
+  String get onboardingFocusSpeaking => 'Mluvení';
+
+  @override
+  String get onboardingFocusSpeakingBody =>
+      'Reagujte přirozeně ve skutečných rozhovorech';
+
+  @override
+  String get onboardingFocusListening => 'Poslech';
+
+  @override
+  String get onboardingFocusListeningBody =>
+      'Rozumějte češtině v příjemném tempu rodilých mluvčích';
+
+  @override
+  String get onboardingFocusReading => 'Čtení';
+
+  @override
+  String get onboardingFocusReadingBody =>
+      'Čtěte cedule, zprávy, formuláře a užitečné texty';
+
+  @override
+  String get onboardingFocusWriting => 'Psaní';
+
+  @override
+  String get onboardingFocusWritingBody =>
+      'Pište srozumitelné odpovědi, zprávy a krátké texty';
+
+  @override
+  String get onboardingFocusVocabularyGrammar => 'Slovní zásoba a gramatika';
+
+  @override
+  String get onboardingFocusVocabularyGrammarBody =>
+      'Osvojte si spolehlivou slovní zásobu a větné vzorce';
+
+  @override
+  String get onboardingFocusLifeInstitutions => 'Život a instituce v Česku';
+
+  @override
+  String get onboardingFocusLifeInstitutionsBody =>
+      'Poznejte klíčová občanská témata a související slovní zásobu';
+
+  @override
+  String get onboardingCommitmentTitle =>
+      'Zvolte si rytmus, který dokážete udržet';
+
+  @override
+  String get onboardingCommitmentBody =>
+      'Reálná rutina je lepší než ambiciózní plán, který po týdnu zmizí.';
+
+  @override
+  String get onboardingCommitmentLight => 'Lehké tempo';
+
+  @override
+  String get onboardingCommitmentSteady => 'Stálé tempo';
+
+  @override
+  String get onboardingCommitmentFocused => 'Soustředěné tempo';
+
+  @override
+  String get onboardingCommitmentIntensive => 'Intenzivní tempo';
+
+  @override
+  String onboardingCommitmentSchedule(int minutes, int days) {
+    return '$minutes minut, $days dní v týdnu';
+  }
+
+  @override
+  String get onboardingTeacherChoiceTitle => 'Vyberte si hlas českého lektora';
+
+  @override
+  String get onboardingTeacherChoiceBody =>
+      'Klepnutím na lektora si poslechnete ukázku. Hlas můžete později změnit.';
+
+  @override
+  String get onboardingPrimaryGoal => 'Hlavní cíl';
+
+  @override
+  String get onboardingFocusSummary => 'Zaměření';
+
+  @override
+  String get onboardingTargetSummary => 'Cílové období';
+
+  @override
+  String get onboardingStudyPlanSummary => 'Studijní rytmus';
+
+  @override
+  String get onboardingPlanPermanentResidenceBody =>
+      'Od vaší současné úrovně budeme postupovat k praktickým dovednostem A2 a více se zaměříme na vámi zvolené oblasti.';
+
+  @override
+  String get onboardingPlanCitizenshipBody =>
+      'Posílíme vaše základy češtiny do úrovně A2 a jasně označíme, kde úplná příprava na B1 a zkoušku z reálií přesahuje současný kurz.';
+
+  @override
+  String get accountRestoreReminderTitle => 'Použít uloženou připomínku?';
+
+  @override
+  String accountRestoreReminderBody(String time) {
+    return 'Tento účet používal na jiném zařízení připomínku ke studiu v $time. Chcete ji zapnout i na tomto zařízení?';
+  }
+
+  @override
+  String get accountRestoreReminderLater => 'Teď ne';
+
+  @override
+  String get accountRestoreReminderEnable => 'Zapnout připomínku';
 
   @override
   String get scenarioCasual => 'Neformální rozhovor';
@@ -1449,6 +2317,89 @@ class AppLocalizationsCs extends AppLocalizations {
   String get statsAchievementsEmpty => 'První úspěchy už máte na dosah.';
 
   @override
+  String get statsCourseProgress => 'Pokrok v kurzu';
+
+  @override
+  String get statsCourseProgressBody =>
+      'Dokončené povinné lekce v jednotlivých úrovních kurzu.';
+
+  @override
+  String get statsPracticeNext => 'Co procvičit dál';
+
+  @override
+  String get statsPracticeNextDefault =>
+      'Pokračujte další lekcí, abyste získali jasnější přehled o svých silných stránkách.';
+
+  @override
+  String statsPracticeNextConcept(String concept) {
+    return 'Vaše poslední odpovědi naznačují, že je vhodné zopakovat: $concept.';
+  }
+
+  @override
+  String get statsContinueLearning => 'Pokračovat v učení';
+
+  @override
+  String get statsConceptsToRevisit => 'Témata k zopakování';
+
+  @override
+  String get statsConceptsExplanation =>
+      'Témata, která byla obtížná na první pokus. Úspěšné opravy jsou uvedeny zvlášť.';
+
+  @override
+  String get statsNoConceptErrors =>
+      'Zatím nebyla zaznamenána žádná obtížná témata.';
+
+  @override
+  String statsErrorsRepaired(int errors, int repaired) {
+    return '$errors obtížných · $repaired opravených';
+  }
+
+  @override
+  String get statsSkillPractice => 'Procvičování podle dovedností';
+
+  @override
+  String get statsSkillExplanation =>
+      'Vaše úspěšnost při prvním pokusu u jednotlivých typů cvičení.';
+
+  @override
+  String get statsNoSkillEvidence =>
+      'Dokončete cvičení v lekcích a zde uvidíte pokrok podle dovedností.';
+
+  @override
+  String statsAttemptEvidence(String depth, int attempts, String repair) {
+    return '$depth · $attempts prvních pokusů · $repair po opravě';
+  }
+
+  @override
+  String get statsDayStreak => 'Série dnů';
+
+  @override
+  String get statsTotalXp => 'XP celkem';
+
+  @override
+  String get statsLongestStreak => 'Nejdelší série';
+
+  @override
+  String get statsHearts => 'Srdce';
+
+  @override
+  String get statsNoLessonsYet =>
+      'Dokončete lekci a zde se začne zobrazovat váš pokrok.';
+
+  @override
+  String get statsUnitProgress => 'Pokrok podle jednotek';
+
+  @override
+  String get statsUnitProgressBody =>
+      'Vaše nejlepší výsledky v povinných lekcích každé jednotky.';
+
+  @override
+  String get statsA1Units => 'Jednotky A1';
+
+  @override
+  String get statsA2Units => 'Jednotky A2';
+
+  @override
   String get placementTitle => 'Najít výchozí úroveň';
 
   @override
@@ -1474,6 +2425,11 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get placementFinishLater => 'Dokončit později';
+
+  @override
+  String placementAdaptiveQuestion(int count) {
+    return 'Otázka $count · adaptivní test';
+  }
 
   @override
   String get reviewNew => 'Nové';
@@ -1614,4 +2570,77 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get reminderSettingsEntryBanner =>
       'Dostávej denní připomínky a udržuj svou sérii.';
+
+  @override
+  String get pronTipExcellent => 'Skvělé! Výborná výslovnost.';
+
+  @override
+  String get pronTipUnrecognisable =>
+      'To se frázi nepodobalo — poslechni si ji znovu a zkus to ještě jednou.';
+
+  @override
+  String get pronTipRolledRAsPlainR =>
+      'Tvoje „ř\" znělo jako obyčejné „r\". Nech jazyk kmitat, ale přitiskni ho blíž k dásni, aby to zabzučelo.';
+
+  @override
+  String get pronTipRolledR =>
+      'Zapracuj na „ř\" — kmitej jazykem a zároveň přidej bzučení.';
+
+  @override
+  String get pronTipSofteningE =>
+      '„ě\" změkčuje souhlásku před sebou (dě → d+je).';
+
+  @override
+  String get pronTipVowelLength =>
+      'Čeština rozlišuje krátké a dlouhé samohlásky. Prodluž samohlásku.';
+
+  @override
+  String pronTipVowelTooShort(String sound) {
+    return '„$sound\" je dlouhá samohláska — drž ji asi dvakrát déle. Délka v češtině mění význam (byt vs. být).';
+  }
+
+  @override
+  String pronTipVowelTooLong(String sound) {
+    return '„$sound\" je tady krátké — prodloužil/a jsi ho.';
+  }
+
+  @override
+  String pronTipPalatal(String sound) {
+    return '„$sound\" je palatální — přitiskni střed jazyka na tvrdé patro.';
+  }
+
+  @override
+  String pronTipSoundDropped(String sound) {
+    return 'Vynechal/a jsi hlásku „$sound\".';
+  }
+
+  @override
+  String pronTipSoundSubstituted(String sound, String heard) {
+    return '„$sound\" znělo spíš jako „$heard\".';
+  }
+
+  @override
+  String pronTipRepeatWord(String word) {
+    return 'Poslechni si znovu a pečlivě zopakuj „$word\".';
+  }
+
+  @override
+  String pronTipCheckSound(String sound, String word) {
+    return 'Zkontroluj hlásku „$sound\" ve slově „$word\".';
+  }
+
+  @override
+  String get rankBronze => 'Bronz';
+
+  @override
+  String get rankSilver => 'Stříbro';
+
+  @override
+  String get rankGold => 'Zlato';
+
+  @override
+  String get rankPlatinum => 'Platina';
+
+  @override
+  String get rankDiamond => 'Diamant';
 }

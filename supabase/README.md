@@ -1,11 +1,12 @@
 # Supabase deployment
 
 The app uses anonymous Supabase Auth for progress sync and an authenticated
-Edge Function for AI. The DeepSeek key exists only as a server secret.
+Edge Function for AI. The Scaleway key exists only as a server secret.
 
 1. Create an EU Supabase project, enable anonymous and email sign-ins, enable
    manual identity linking, and add `czechify://auth-callback` to the Auth
-   redirect allowlist.
+   redirect allowlist. Google provider setup is documented in
+   [docs/GOOGLE_SIGN_IN.md](../docs/GOOGLE_SIGN_IN.md).
 2. Install/login to the Supabase CLI, link the project, apply the committed
    migrations, and deploy:
 
@@ -13,7 +14,9 @@ Edge Function for AI. The DeepSeek key exists only as a server secret.
 supabase login
 supabase link --project-ref YOUR_PROJECT_REF
 supabase db push
-supabase secrets set DEEPSEEK_API_KEY='YOUR_DEEPSEEK_KEY'
+supabase secrets set SCALEWAY_API_KEY='YOUR_SCALEWAY_SECRET_KEY'
+supabase secrets set SCALEWAY_CHAT_COMPLETIONS_URL='https://api.scaleway.ai/YOUR_PROJECT_ID/v1/chat/completions'
+supabase secrets set SCALEWAY_MODEL='deepseek-v4-flash-0731'
 supabase secrets set AI_DAILY_REQUEST_LIMIT='20'
 supabase secrets set AI_USER_REQUESTS_PER_MINUTE='5'
 supabase secrets set AI_PROJECT_REQUESTS_PER_MINUTE='60'
@@ -32,7 +35,7 @@ supabase storage cp assets/audio/manifest.json ss:///course-audio/manifest.json 
   --content-type application/json --experimental
 ```
 
-Do not create a `DEEPSEEK_API_KEY` Dart define and never put it in a checked-in
+Do not create a `SCALEWAY_API_KEY` Dart define and never put it in a checked-in
 `.env` file. Supabase automatically provides `SUPABASE_URL` and
 `SUPABASE_SERVICE_ROLE_KEY` to the deployed function.
 
@@ -45,7 +48,7 @@ flutter run \
 ```
 
 The public key is designed to ship in clients; RLS and authenticated Edge
-Functions provide authorization. The service-role and DeepSeek keys must never
+Functions provide authorization. The service-role and Scaleway keys must never
 be shipped.
 
 The three AI quota settings are optional. Their bounded defaults are 20 daily

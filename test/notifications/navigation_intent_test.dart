@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ceskina_pro/core/notifications/navigation_intent.dart';
+import 'package:czechify/core/notifications/navigation_intent.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -1,5 +1,5 @@
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/unit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Units were numbered by [Unit.id] on the curriculum screen, so the two A1

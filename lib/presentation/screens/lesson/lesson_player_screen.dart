@@ -6,6 +6,7 @@ import '../../widgets/common/degraded_mode_banner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/feedback/celebration.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/flashcard.dart';
@@ -23,6 +24,7 @@ import '../../widgets/lesson/exercise_widget.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
 import '../../widgets/common/gender_pill.dart';
 import '../../widgets/common/lesson_ui.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// Lesson player — loads exercises from DB, cycles through them one by one.
@@ -187,181 +189,187 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: t.bg,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      RoundIconButton(
-                        icon: Icons.chevron_left_rounded,
-                        tooltip: AppLocalizations.of(context).a11yClose,
-                        onTap: () => _showExitConfirm(context),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            LessonKicker(
-                              session.isExamMode
-                                  ? l10n.lessonBadgeExam
-                                  : session.lesson?.isReview == true
-                                  ? l10n.navReview
-                                  : l10n.lessonIntroduction,
-                            ),
-                            const SizedBox(height: 1),
-                            Text(
-                              session.lesson?.title ??
-                                  l10n.lessonQuestionOf(
-                                    session.currentIndex + 1,
-                                    session.totalExercises,
-                                  ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: t.ink,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        '${session.currentIndex + 1} / ${session.totalExercises}',
-                        style: TextStyle(
-                          color: t.faint,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: .8,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      if (session.isExamMode)
-                        _ExamTimer(initialSeconds: session.remainingSeconds)
-                      else
-                        Semantics(
-                          container: true,
-                          label: AppLocalizations.of(
-                            context,
-                          ).a11yHearts(session.hearts),
-                          excludeSemantics: true,
-                          child: HeartsChip(hearts: session.hearts),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 13),
-                  Semantics(
-                    label: AppLocalizations.of(context).a11yLessonProgress(
-                      session.currentIndex + 1,
-                      session.totalExercises,
-                    ),
-                    excludeSemantics: true,
-                    child: SegmentPips(
-                      count: session.totalExercises,
-                      currentIndex: session.currentIndex,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Shown only while a substitute is in use — silent otherwise.
-            const DegradedModeBanner(),
-            if (session.currentIndex == 0 &&
-                (session.lesson?.canDo.trim().isNotEmpty ?? false))
+      body: GestureDetector(
+        // Tapping away from the answer box puts the keyboard away, which
+        // is what every other app on the phone does. Without it the only
+        // way out was the system back gesture, and on a typing exercise
+        // the keyboard covers half the screen it is asking you to read.
+        //
+        // Translucent rather than opaque: the answer field and the buttons
+        // win the gesture arena on their own hits, so this only sees taps
+        // that land on nothing.
+        behavior: HitTestBehavior.translucent,
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SafeArea(
+          child: Column(
+            children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 2, 20, 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    color: t.priSoft,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Text(
-                    'I can ${session.lesson!.canDo}',
-                    style: TextStyle(
-                      color: t.priInk,
-                      fontSize: 14,
-                      height: 1.35,
-                      fontWeight: FontWeight.w700,
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        RoundIconButton(
+                          icon: Icons.chevron_left_rounded,
+                          tooltip: AppLocalizations.of(context).a11yClose,
+                          onTap: () => _showExitConfirm(context),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              LessonKicker(
+                                session.isExamMode
+                                    ? l10n.lessonBadgeExam
+                                    : session.lesson?.isReview == true
+                                    ? l10n.navReview
+                                    : l10n.lessonIntroduction,
+                              ),
+                              const SizedBox(height: 1),
+                              Text(
+                                session.lesson?.title ??
+                                    l10n.lessonQuestionOf(
+                                      session.currentIndex + 1,
+                                      session.totalExercises,
+                                    ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: t.ink,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          '${session.currentIndex + 1} / ${session.totalExercises}',
+                          style: TextStyle(
+                            color: t.faint,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: .8,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        if (session.isExamMode)
+                          _ExamTimer(initialSeconds: session.remainingSeconds)
+                        else
+                          Semantics(
+                            container: true,
+                            label: AppLocalizations.of(
+                              context,
+                            ).a11yHearts(session.hearts),
+                            excludeSemantics: true,
+                            child: HeartsChip(hearts: session.hearts),
+                          ),
+                      ],
                     ),
+                    const SizedBox(height: 13),
+                    Semantics(
+                      label: AppLocalizations.of(context).a11yLessonProgress(
+                        session.currentIndex + 1,
+                        session.totalExercises,
+                      ),
+                      excludeSemantics: true,
+                      child: SegmentPips(
+                        count: session.totalExercises,
+                        currentIndex: session.currentIndex,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Shown only while a substitute is in use — silent otherwise.
+              const DegradedModeBanner(),
+              if (session.currentIndex == 0 &&
+                  (session.lesson?.canDo.trim().isNotEmpty ?? false))
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 2, 20, 12),
+                  child: _LessonGoalCard(goal: session.lesson!.canDo.trim()),
+                ),
+              // What kind of task this is, and the streak riding on it.
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: LessonKicker(
+                        session.currentExercise?.type == ExerciseType.teaching
+                            ? l10n.lessonIntroduction
+                            : session.inMistakeReview
+                            ? l10n.lessonMissedQuestions
+                            : l10n.lessonQuestionOf(
+                              session.currentIndex + 1,
+                              session.totalExercises,
+                            ),
+                        color: session.inMistakeReview ? t.amberInk : t.faint,
+                      ),
+                    ),
+                    if (session.answerStreak >= 3) ...[
+                      const SizedBox(width: 9),
+                      ComboChip(label: l10n.lessonInARow(session.answerStreak)),
+                    ],
+                    const Spacer(),
+                    // The running total flies up out of the header on each
+                    // award, then settles back into the quiet count.
+                    if (session.totalXp > 0)
+                      _XpCounter(totalXp: session.totalXp),
+                  ],
+                ),
+              ),
+
+              // The exercise stays visible while the feedback banner is shown,
+              // so the learner can study their answer at their own pace —
+              // no timed auto-advance.
+              Expanded(
+                child: MotionEntrance(
+                  // Replacing this key disposes the outgoing exercise in the
+                  // same frame. Only the incoming exercise is animated, so a
+                  // microphone or TTS owner can never survive behind an exit.
+                  key: ValueKey(
+                    'lesson-question-${session.currentIndex}-${exercise.id}',
+                  ),
+                  child: LessonExerciseViewport(
+                    // Key by position so widget state (selected answers) resets
+                    // for each exercise, including mistake re-asks of the same
+                    // exercise id.
+                    key: ValueKey(session.currentIndex),
+                    exercise: exercise,
+                    answerStreak: session.answerStreak,
+                    onAnswered: (result) {
+                      // Teaching cards are presentations, not questions: advance
+                      // straight to the next exercise with no grading banner,
+                      // heart, or XP.
+                      if (exercise.type == ExerciseType.teaching) {
+                        ref.read(lessonSessionProvider.notifier).nextExercise();
+                        return;
+                      }
+                      ref
+                          .read(lessonSessionProvider.notifier)
+                          .onExerciseAnswered(
+                            outcome: result.outcome,
+                            explanation: result.explanation,
+                            correctAnswer: result.correctAnswer,
+                            supports: result.supports,
+                            xpEarned: exercise.xpReward,
+                          );
+                    },
                   ),
                 ),
               ),
-            // What kind of task this is, and the streak riding on it.
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: LessonKicker(
-                      session.currentExercise?.type == ExerciseType.teaching
-                          ? l10n.lessonIntroduction
-                          : session.inMistakeReview
-                          ? l10n.lessonMissedQuestions
-                          : l10n.lessonQuestionOf(
-                            session.currentIndex + 1,
-                            session.totalExercises,
-                          ),
-                      color: session.inMistakeReview ? t.amberInk : t.faint,
-                    ),
-                  ),
-                  if (session.answerStreak >= 3) ...[
-                    const SizedBox(width: 9),
-                    ComboChip(label: l10n.lessonInARow(session.answerStreak)),
-                  ],
-                  const Spacer(),
-                  // The running total flies up out of the header on each
-                  // award, then settles back into the quiet count.
-                  if (session.totalXp > 0) _XpCounter(totalXp: session.totalXp),
-                ],
-              ),
-            ),
 
-            // The exercise stays visible while the feedback banner is shown,
-            // so the learner can study their answer at their own pace —
-            // no timed auto-advance.
-            Expanded(
-              child: LessonExerciseViewport(
-                // Key by position so widget state (selected answers) resets
-                // for each exercise, including mistake re-asks of the same
-                // exercise id.
-                key: ValueKey(session.currentIndex),
-                exercise: exercise,
-                answerStreak: session.answerStreak,
-                onAnswered: (result) {
-                  // Teaching cards are presentations, not questions: advance
-                  // straight to the next exercise with no grading banner,
-                  // heart, or XP.
-                  if (exercise.type == ExerciseType.teaching) {
-                    ref.read(lessonSessionProvider.notifier).nextExercise();
-                    return;
-                  }
-                  ref
-                      .read(lessonSessionProvider.notifier)
-                      .onExerciseAnswered(
-                        outcome: result.outcome,
-                        explanation: result.explanation,
-                        correctAnswer: result.correctAnswer,
-                        supports: result.supports,
-                        xpEarned: exercise.xpReward,
-                      );
-                },
+              // Feedback banner — appears under the answered exercise.
+              MotionDisclosure(
+                visible: session.showFeedback,
+                alignment: Alignment.bottomCenter,
+                child: _buildFeedbackBanner(context, session),
               ),
-            ),
-
-            // Feedback banner — appears under the answered exercise.
-            if (session.showFeedback) _buildFeedbackBanner(context, session),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -504,6 +512,76 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   }
 }
 
+/// Frames the lesson outcome as a destination, not an ability the learner is
+/// expected to already have before the teaching card begins.
+class _LessonGoalCard extends StatelessWidget {
+  final String goal;
+
+  const _LessonGoalCard({required this.goal});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+
+    return Semantics(
+      container: true,
+      label: '${l10n.lessonGoal}: ${l10n.lessonGoalByEnd(goal)}',
+      excludeSemantics: true,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.fromLTRB(14, 12, 14, 13),
+        decoration: BoxDecoration(
+          color: t.priSoft,
+          border: Border.all(color: t.pri.withValues(alpha: .18)),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 34,
+              height: 34,
+              decoration: BoxDecoration(
+                color: t.card.withValues(alpha: .72),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(Icons.flag_outlined, size: 19, color: t.pri),
+            ),
+            const SizedBox(width: 11),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.lessonGoal.toUpperCase(),
+                    style: TextStyle(
+                      color: t.priInk,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1.35,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    l10n.lessonGoalByEnd(goal),
+                    style: TextStyle(
+                      color: t.ink,
+                      fontSize: 14,
+                      height: 1.35,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 /// Teach phase — the lesson's new vocabulary with audio, browsed before
 /// the exercises start.
 class _TeachPhaseScreen extends ConsumerWidget {
@@ -550,7 +628,7 @@ class _TeachPhaseScreen extends ConsumerWidget {
                             Text(
                               session.lesson?.title ??
                                   AppLocalizations.of(context).lessonNewWords,
-                              maxLines: 1,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 15,
@@ -782,24 +860,35 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     with TickerProviderStateMixin {
   late final AnimationController _reveal;
   late final AnimationController _rays;
+  bool _motionConfigured = false;
 
   /// The frame the trophy lands on. The burst, the rays and everything below
   /// are timed off it, so the screen reads as one event rather than a list of
   /// things that happen to be animating.
-  static const _impact = 0.30;
+  static final _impact = CelebrationTimeline.progress(
+    CelebrationTimeline.lessonImpact,
+    CelebrationTimeline.lessonReveal,
+  );
+  static const _scoreboardRevealStart = 0.42;
+  static final _scoreboardCountDelay = Duration(
+    microseconds:
+        (CelebrationTimeline.lessonReveal.inMicroseconds *
+                _scoreboardRevealStart)
+            .round(),
+  );
 
   @override
   void initState() {
     super.initState();
     _reveal = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1700),
-    )..forward();
+      duration: CelebrationTimeline.lessonReveal,
+    );
     // Slow and endless. Fast rotation reads as a loading spinner.
     _rays = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 22),
-    )..repeat();
+    );
 
     // After the first frame, so the queue is not mutated while the tree that
     // watches it is still building.
@@ -819,6 +908,31 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
       // the lesson rather than in place of it.
       session.pendingRewards.forEach(queue.fire);
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final instant = context.motionDisabled;
+    if (!_motionConfigured) {
+      _motionConfigured = true;
+      if (instant) {
+        _reveal.value = 1;
+      } else {
+        _reveal.forward();
+        if (LessonRating.grade(widget.session.accuracy) !=
+            LessonGrade.practice) {
+          _rays.repeat();
+        }
+      }
+    } else if (instant) {
+      _reveal
+        ..stop()
+        ..value = 1;
+      _rays
+        ..stop()
+        ..value = 0;
+    }
   }
 
   @override
@@ -888,6 +1002,9 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                           StarsReveal(
                             earned: LessonRating.stars(grade),
                             feedback: ref.read(feedbackServiceProvider),
+                            initialDelay:
+                                CelebrationTimeline.starLeadAfterLessonImpact,
+                            announceLandings: false,
                           ),
                         SizedBox(height: passed ? 18 : 0),
                         Opacity(
@@ -922,13 +1039,20 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                             width: double.infinity,
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: tokens.priSoft,
+                              color:
+                                  passed ? tokens.priSoft : tokens.violetSoft,
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                LessonKicker('Now I can', color: tokens.priInk),
+                                LessonKicker(
+                                  passed
+                                      ? l10n.lessonNowICan
+                                      : l10n.lessonKeepPractising,
+                                  color:
+                                      passed ? tokens.priInk : tokens.violetInk,
+                                ),
                                 const SizedBox(height: 6),
                                 Text(
                                   session.lesson!.exitTask,
@@ -1090,7 +1214,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
     final session = widget.session;
     final l10n = AppLocalizations.of(context);
     return Opacity(
-      opacity: instant ? 1 : _slice(0.42, 0.7),
+      opacity: instant ? 1 : _slice(_scoreboardRevealStart, 0.7),
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
@@ -1109,6 +1233,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                 CountUpText(
                   value: (accuracy * 100).round(),
                   suffix: '%',
+                  delay: _scoreboardCountDelay,
                   duration: const Duration(milliseconds: 1100),
                   style: _statStyle(accent),
                 ),
@@ -1120,6 +1245,7 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
                 CountUpText(
                   value: session.totalXp,
                   prefix: '+',
+                  delay: _scoreboardCountDelay,
                   duration: const Duration(milliseconds: 1100),
                   // Ink, not the raw hue: this is a glyph, not a fill.
                   style: _statStyle(tokens.amberInk),
@@ -1250,6 +1376,11 @@ class _XpCounterState extends State<_XpCounter> {
   int? _award;
   int _awardSeq = 0;
 
+  void _clearAward(int sequence) {
+    if (!mounted || sequence != _awardSeq) return;
+    setState(() => _award = null);
+  }
+
   @override
   void didUpdateWidget(covariant _XpCounter old) {
     super.didUpdateWidget(old);
@@ -1266,6 +1397,7 @@ class _XpCounterState extends State<_XpCounter> {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    final awardSequence = _awardSeq;
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -1293,6 +1425,7 @@ class _XpCounterState extends State<_XpCounter> {
               child: XpFlyUp(
                 key: ValueKey(_awardSeq),
                 label: l10n.lessonXpAward(award),
+                onCompleted: () => _clearAward(awardSequence),
               ),
             ),
           ),
@@ -1426,6 +1559,7 @@ class _ExamCompleteScreen extends ConsumerWidget {
                 caption: l10n.captionAccuracy,
                 color: hue,
                 showBadge: passed,
+                animateOnMount: true,
               ),
               const SizedBox(height: 20),
               DisplayText(

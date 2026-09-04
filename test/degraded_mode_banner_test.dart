@@ -1,6 +1,6 @@
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/presentation/widgets/common/degraded_mode_banner.dart';
-import 'package:ceskina_pro/presentation/providers/tts_providers.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/presentation/widgets/common/degraded_mode_banner.dart';
+import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,13 +13,20 @@ import 'package:flutter_test/flutter_test.dart';
 /// it is completely absent otherwise. A banner that lingers is noise, and
 /// noise gets ignored precisely when it matters.
 void main() {
-  Future<void> pump(WidgetTester tester, CzechTts tts) async {
+  Future<void> pump(
+    WidgetTester tester,
+    CzechTts tts, {
+    bool reducedMotion = false,
+  }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [czechTtsProvider.overrideWithValue(tts)],
         child: MaterialApp(
           theme: lightTheme(),
-          home: const Scaffold(body: DegradedModeBanner()),
+          home: MediaQuery(
+            data: MediaQueryData(disableAnimations: reducedMotion),
+            child: const Scaffold(body: DegradedModeBanner()),
+          ),
         ),
       ),
     );
@@ -44,6 +51,7 @@ void main() {
 
   testWidgets('appears and disappears as the state changes', (tester) async {
     final tts = _FakeTts(usingFallback: false);
+    final semantics = tester.ensureSemantics();
     await pump(tester, tts);
     expect(find.textContaining('Offline'), findsNothing);
 
@@ -54,7 +62,27 @@ void main() {
     // Reconnecting must clear it without needing a rebuild of the screen.
     tts.usingFallbackVoice.value = false;
     await tester.pump();
+    expect(find.bySemanticsLabel(RegExp('Offline')), findsNothing);
+    await tester.pumpAndSettle();
     expect(find.textContaining('Offline'), findsNothing);
+    semantics.dispose();
+  });
+
+  testWidgets('changes immediately without scheduling reduced-motion frames', (
+    tester,
+  ) async {
+    final tts = _FakeTts(usingFallback: false);
+    await pump(tester, tts, reducedMotion: true);
+
+    tts.usingFallbackVoice.value = true;
+    await tester.pump();
+    expect(find.textContaining('Offline'), findsOneWidget);
+    expect(tester.binding.transientCallbackCount, 0);
+
+    tts.usingFallbackVoice.value = false;
+    await tester.pump();
+    expect(find.textContaining('Offline'), findsNothing);
+    expect(tester.binding.transientCallbackCount, 0);
   });
 }
 

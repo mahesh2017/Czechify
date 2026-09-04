@@ -1,11 +1,12 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart' hide Badge;
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/database_providers.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/engines/curriculum_tracker.dart';
 import '../../../domain/entities/exam_result.dart';
@@ -77,6 +78,12 @@ class StatsScreen extends ConsumerWidget {
                       )
                       .toList()
                     ..sort();
+              final difficultConcepts =
+                  snapshot.conceptErrors.values.toList()..sort(
+                    (a, b) => b.initialErrors.compareTo(a.initialErrors),
+                  );
+              final nextConcept =
+                  difficultConcepts.isEmpty ? null : difficultConcepts.first;
 
               return ListView(
                 // The shell deliberately extends content behind its 92pt
@@ -94,17 +101,16 @@ class StatsScreen extends ConsumerWidget {
                     style: TextStyle(fontSize: 14, color: t.muted, height: 1.5),
                   ),
                   const SizedBox(height: 16),
-                  _PracticeEvidenceCard(
-                    a1Completion: a1Completion,
-                    updatedAt: snapshot.evidenceUpdatedAt,
-                  ),
+                  _StatsGrid(gamification: gamification),
                   const SizedBox(height: 14),
                   _CompletionCard(
                     a1Completion: a1Completion,
                     a2Completion: a2Completion,
                   ),
                   const SizedBox(height: 14),
-                  _StatsGrid(gamification: gamification),
+                  _NextPracticeCard(concept: nextConcept),
+                  const SizedBox(height: 14),
+                  const _ExamHistoryCard(),
                   const SizedBox(height: 14),
                   _UnitMasteryCard(
                     unitScores: snapshot.unitScores,
@@ -116,14 +122,63 @@ class StatsScreen extends ConsumerWidget {
                   const SizedBox(height: 14),
                   _ConceptErrorsCard(evidence: snapshot.conceptErrors),
                   const SizedBox(height: 14),
-                  const _ExamHistoryCard(),
-                  const SizedBox(height: 14),
                   _BadgesCard(earnedBadges: gamification.earnedBadges),
                 ],
               );
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// A learner-facing recommendation before the detailed evidence tables.
+class _NextPracticeCard extends StatelessWidget {
+  const _NextPracticeCard({required this.concept});
+
+  final ConceptErrorEvidence? concept;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return SoftCard(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              IconTile(
+                icon: Icons.auto_awesome_outlined,
+                tint: t.violetSoft,
+                fg: t.violetInk,
+                size: 40,
+                radius: 13,
+                iconSize: 20,
+              ),
+              const SizedBox(width: 12),
+              Expanded(child: SectionLabel(l10n.statsPracticeNext)),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            concept == null
+                ? l10n.statsPracticeNextDefault
+                : l10n.statsPracticeNextConcept(concept!.label),
+            style: TextStyle(fontSize: 15, height: 1.45, color: t.muted),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: () => context.go('/curriculum'),
+              icon: const Icon(Icons.school_outlined),
+              label: Text(l10n.statsContinueLearning),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -148,17 +203,16 @@ class _ConceptErrorsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionLabel('Concepts to revisit'),
+          SectionLabel(AppLocalizations.of(context).statsConceptsToRevisit),
           const SizedBox(height: 5),
           Text(
-            'Based on first-pass errors in exercises with explicit concept '
-            'metadata. Same-session repairs are shown separately.',
+            AppLocalizations.of(context).statsConceptsExplanation,
             style: TextStyle(fontSize: 13, color: t.muted, height: 1.4),
           ),
           const SizedBox(height: 12),
           if (concepts.isEmpty)
             Text(
-              'No concept-specific first-pass errors recorded yet.',
+              AppLocalizations.of(context).statsNoConceptErrors,
               style: TextStyle(color: t.muted),
             )
           else
@@ -175,8 +229,10 @@ class _ConceptErrorsCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${concept.initialErrors} errors · '
-                    '${concept.repairedErrors} repaired',
+                    AppLocalizations.of(context).statsErrorsRepaired(
+                      concept.initialErrors,
+                      concept.repairedErrors,
+                    ),
                     style: TextStyle(fontSize: 12.5, color: t.muted),
                   ),
                 ],
@@ -209,17 +265,16 @@ class _SkillEvidenceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionLabel('Skill practice evidence'),
+          SectionLabel(AppLocalizations.of(context).statsSkillPractice),
           const SizedBox(height: 5),
           Text(
-            'First attempts are kept separate from same-session repair. '
-            'Evidence depth reflects sample size, not mastery.',
+            AppLocalizations.of(context).statsSkillExplanation,
             style: TextStyle(fontSize: 13, color: t.muted, height: 1.4),
           ),
           const SizedBox(height: 12),
           if (skills.isEmpty)
             Text(
-              'Complete lesson exercises to build skill-specific evidence.',
+              AppLocalizations.of(context).statsNoSkillEvidence,
               style: TextStyle(color: t.muted),
             )
           else
@@ -255,9 +310,11 @@ class _SkillEvidenceRow extends StatelessWidget {
               ),
               const SizedBox(height: 3),
               Text(
-                '${evidence.evidenceDepth.label} · '
-                '${evidence.initialAttempts} first attempts'
-                '${repair == null ? '' : ' · ${(repair * 100).round()}% repair'}',
+                AppLocalizations.of(context).statsAttemptEvidence(
+                  evidence.evidenceDepth.label,
+                  evidence.initialAttempts,
+                  repair == null ? '—' : '${(repair * 100).round()}%',
+                ),
                 style: TextStyle(fontSize: 12.5, color: t.muted),
               ),
             ],
@@ -299,114 +356,6 @@ final _statsDataProvider = FutureProvider.autoDispose<_StatsData>((ref) async {
   return _StatsData(snapshot: snapshot, units: units);
 });
 
-/// Course-practice coverage, explicitly distinct from CEFR attainment.
-class _PracticeEvidenceCard extends StatelessWidget {
-  final double a1Completion;
-  final DateTime? updatedAt;
-
-  const _PracticeEvidenceCard({
-    required this.a1Completion,
-    required this.updatedAt,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    final pct = (a1Completion * 100).round();
-    return SoftCard(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 76,
-            height: 76,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomPaint(
-                  size: const Size(76, 76),
-                  painter: _RingPainter(
-                    progress: a1Completion,
-                    color: t.pri,
-                    track: t.elev,
-                  ),
-                ),
-                Text(
-                  '$pct%',
-                  style: TextStyle(
-                    fontFamily: AppFonts.display,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: t.ink,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 18),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SectionLabel('Course practice evidence'),
-                const SizedBox(height: 7),
-                Text(
-                  'Working through the A1 course',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: t.ink,
-                  ),
-                ),
-                const SizedBox(height: 7),
-                Text(
-                  '$pct% of required A1 lessons completed'
-                  '${updatedAt == null ? '' : ' · updated ${_date(updatedAt!)}'}.',
-                  style: TextStyle(fontSize: 15, color: t.muted, height: 1.45),
-                ),
-                const SizedBox(height: 7),
-                Tooltip(
-                  message: AppLocalizations.of(context).statsCourseActivityInfo,
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(8, 5, 10, 5),
-                    decoration: BoxDecoration(
-                      color: t.elev,
-                      borderRadius: BorderRadius.circular(999),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.info_outline, size: 13, color: t.faint),
-                        const SizedBox(width: 6),
-                        Flexible(
-                          child: Text(
-                            AppLocalizations.of(context).statsAboutNumber,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: t.muted,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _date(DateTime value) {
-    final local = value.toLocal();
-    return '${local.year}-${local.month.toString().padLeft(2, '0')}-'
-        '${local.day.toString().padLeft(2, '0')}';
-  }
-}
-
 /// A1/A2 completion progress bars.
 class _CompletionCard extends StatelessWidget {
   final double a1Completion;
@@ -424,7 +373,16 @@ class _CompletionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionLabel('Required lesson coverage'),
+          SectionLabel(AppLocalizations.of(context).statsCourseProgress),
+          const SizedBox(height: 5),
+          Text(
+            AppLocalizations.of(context).statsCourseProgressBody,
+            style: TextStyle(
+              fontSize: 13,
+              color: context.tokens.muted,
+              height: 1.4,
+            ),
+          ),
           const SizedBox(height: 14),
           _ProgressRow(label: 'A1 — Beginner', progress: a1Completion),
           const SizedBox(height: 14),
@@ -498,29 +456,30 @@ class _StatsGrid extends StatelessWidget {
           icon: Icons.local_fire_department_outlined,
           tint: context.tokens.amberSoft,
           foreground: context.tokens.amberInk,
-          value: '${gamification.currentStreak}',
-          label: 'Day streak',
+          value: gamification.currentStreak,
+          label: AppLocalizations.of(context).statsDayStreak,
         ),
         _StatTile(
           icon: Icons.bolt_outlined,
           tint: context.tokens.amberSoft,
           foreground: context.tokens.amberInk,
-          value: '${gamification.totalXp}',
-          label: 'Total XP',
+          value: gamification.totalXp,
+          label: AppLocalizations.of(context).statsTotalXp,
         ),
         _StatTile(
           icon: Icons.calendar_month_outlined,
           tint: context.tokens.priSoft,
           foreground: context.tokens.priInk,
-          value: '${gamification.longestStreak}',
-          label: 'Longest streak',
+          value: gamification.longestStreak,
+          label: AppLocalizations.of(context).statsLongestStreak,
         ),
         _StatTile(
           icon: Icons.favorite_border,
           tint: context.tokens.redSoft,
           foreground: context.tokens.redInk,
-          value: '${gamification.hearts}/${gamification.maxHearts}',
-          label: 'Hearts',
+          value: gamification.hearts,
+          suffix: '/${gamification.maxHearts}',
+          label: AppLocalizations.of(context).statsHearts,
         ),
       ],
     );
@@ -531,7 +490,8 @@ class _StatTile extends StatelessWidget {
   final IconData icon;
   final Color tint;
   final Color foreground;
-  final String value;
+  final int value;
+  final String suffix;
   final String label;
 
   const _StatTile({
@@ -540,6 +500,7 @@ class _StatTile extends StatelessWidget {
     required this.foreground,
     required this.value,
     required this.label,
+    this.suffix = '',
   });
 
   @override
@@ -562,8 +523,9 @@ class _StatTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                MotionNumberText(
                   value,
+                  suffix: suffix,
                   style: TextStyle(
                     fontFamily: AppFonts.display,
                     fontSize: 21,
@@ -643,13 +605,28 @@ class _ExamHistoryCard extends ConsumerWidget {
                     size: 18,
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    '${r.product.displayName} ${r.level.name.toUpperCase()}',
-                    style: TextStyle(fontWeight: FontWeight.w700, color: t.ink),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${r.product.displayName} '
+                          '${r.level.name.toUpperCase()}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: t.ink,
+                          ),
+                        ),
+                        Text(
+                          date,
+                          style: TextStyle(fontSize: 13, color: t.muted),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  Text(date, style: TextStyle(fontSize: 14, color: t.muted)),
-                  const Spacer(),
                   Text(
                     '${r.totalScore}%',
                     style: TextStyle(fontWeight: FontWeight.w700, color: color),
@@ -683,7 +660,7 @@ class _UnitMasteryCard extends StatelessWidget {
       return SoftCard(
         padding: const EdgeInsets.all(20),
         child: Text(
-          'No lessons completed yet. Start learning to see your progress!',
+          AppLocalizations.of(context).statsNoLessonsYet,
           style: TextStyle(color: t.muted),
           textAlign: TextAlign.center,
         ),
@@ -695,16 +672,16 @@ class _UnitMasteryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionLabel('Unit practice evidence'),
+          SectionLabel(AppLocalizations.of(context).statsUnitProgress),
           const SizedBox(height: 5),
           Text(
-            'Best lesson scores divided by every required lesson in the unit.',
+            AppLocalizations.of(context).statsUnitProgressBody,
             style: TextStyle(fontSize: 13, color: t.muted),
           ),
           const SizedBox(height: 12),
           if (a1Units.isNotEmpty) ...[
             Text(
-              'A1 Units',
+              AppLocalizations.of(context).statsA1Units,
               style: TextStyle(
                 fontSize: 14,
                 color: t.pri,
@@ -719,7 +696,7 @@ class _UnitMasteryCard extends StatelessWidget {
           if (a2Units.isNotEmpty) ...[
             const SizedBox(height: 10),
             Text(
-              'A2 Units',
+              AppLocalizations.of(context).statsA2Units,
               style: TextStyle(
                 fontSize: 14,
                 color: t.green,
@@ -927,49 +904,4 @@ class _BadgeTile extends StatelessWidget {
     if (criteria.unitId != null) return Icons.flag_outlined;
     return Icons.military_tech_outlined;
   }
-}
-
-/// Paints a rounded progress ring (used by the CEFR card).
-class _RingPainter extends CustomPainter {
-  final double progress;
-  final Color color;
-  final Color track;
-
-  _RingPainter({
-    required this.progress,
-    required this.color,
-    required this.track,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    // The comp draws these as conic donuts — a thick band with flat ends, not
-    // a thin capped arc. Twelve points on a 104pt ring, scaled here.
-    final stroke = size.width * 0.115;
-    final radius = (size.width - stroke) / 2;
-    final trackPaint =
-        Paint()
-          ..color = track
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = stroke;
-    final arcPaint =
-        Paint()
-          ..color = color
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = stroke
-          ..strokeCap = StrokeCap.butt;
-    canvas.drawCircle(center, radius, trackPaint);
-    canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius),
-      -math.pi / 2,
-      2 * math.pi * progress.clamp(0.0, 1.0),
-      false,
-      arcPaint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _RingPainter old) =>
-      old.progress != progress || old.color != color || old.track != track;
 }

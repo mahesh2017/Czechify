@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ceskina_pro/presentation/screens/onboarding/loading_screen.dart';
+import 'package:czechify/presentation/screens/onboarding/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/services.dart';

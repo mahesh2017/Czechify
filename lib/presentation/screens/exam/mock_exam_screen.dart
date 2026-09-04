@@ -10,14 +10,18 @@ import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/exam_result.dart';
 import '../../../domain/entities/exam_speaking_task.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../data/services/exam_session_store.dart';
 import '../../../domain/repositories/exam_repository.dart';
 import '../../providers/database_providers.dart';
+import '../../../domain/repositories/speech_ports.dart';
 import '../../providers/stt_providers.dart';
+import '../../widgets/common/record_button.dart';
 import '../../providers/writing_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/lesson/exercises/exercise_shared.dart'
     show QuestionPrompt;
 import '../../widgets/lesson/exercise_widget.dart' show TtsButton;
@@ -43,7 +47,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   final Map<int, Map<int, dynamic>> _answers = {};
 
   Timer? _timer;
+  Timer? _questionTransitionTimer;
   int _secondsLeft = 0;
+  final ValueNotifier<int> _secondsLeftListenable = ValueNotifier(0);
   bool _examStarted = false;
   bool _examComplete = false;
   bool _finishing = false;
@@ -67,6 +73,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
   // Speaking section state
   bool _isRecordingSpeaking = false;
+  int _speakingAttemptId = 0;
+  bool _questionTransitionLocked = false;
+  int _questionDirection = 1;
   final Map<({int section, int question}), String> _speakingTranscriptions = {};
 
   /// Durable mid-exam checkpoint so process death (memory pressure, a phone
@@ -74,15 +83,23 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   final ExamSessionStore _sessionStore = ExamSessionStore();
   ExamCheckpoint? _pendingCheckpoint;
 
+  late final LiveTranscriber _transcriber;
+
   @override
   void initState() {
     super.initState();
+    _transcriber = ref.read(liveTranscriberProvider);
     _loadExam();
   }
 
   @override
   void dispose() {
+    // Leaving mid-recording used to leave the recogniser holding the
+    // microphone for a screen that no longer exists.
+    if (_isRecordingSpeaking) unawaited(_transcriber.stop());
     _timer?.cancel();
+    _questionTransitionTimer?.cancel();
+    _secondsLeftListenable.dispose();
     for (final controller in _writingControllers.values) {
       controller.dispose();
     }
@@ -239,26 +256,34 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   void _startSectionTimer({int? resumeSeconds}) {
     _timer?.cancel();
     final section = _exam!.sections[_currentSection];
+    final sectionIndex = _currentSection;
     final totalSeconds = resumeSeconds ?? section.timeLimitMinutes * 60;
     // Use a wall-clock deadline so backgrounding or process death never
     // pauses the countdown — the learner doesn't get extra time by
     // switching apps.
     _sectionDeadline = DateTime.now().add(Duration(seconds: totalSeconds));
-    setState(() => _secondsLeft = totalSeconds);
+    _setSecondsLeft(totalSeconds);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!mounted) return;
+      if (_currentSection != sectionIndex) {
+        timer.cancel();
+        return;
+      }
       final remaining = _sectionDeadline!.difference(DateTime.now()).inSeconds;
-      setState(() {
-        _secondsLeft = remaining > 0 ? remaining : 0;
-        if (remaining <= 0) {
-          timer.cancel();
-          _nextSection();
-        }
-      });
+      _setSecondsLeft(remaining > 0 ? remaining : 0);
+      if (remaining <= 0) {
+        timer.cancel();
+        _nextSection(fromTimer: true);
+      }
       // Persist the clock periodically so a killed app resumes close to
       // where it stopped (answer edits save immediately; this is time-only).
       if (_secondsLeft > 0 && _secondsLeft % 10 == 0) _saveCheckpoint();
     });
+  }
+
+  void _setSecondsLeft(int value) {
+    _secondsLeft = value;
+    _secondsLeftListenable.value = value;
   }
 
   dynamic get _currentAnswer => _answers[_currentSection]?[_currentQuestion];
@@ -272,16 +297,60 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   void _nextQuestion() {
+    if (!_claimQuestionTransition(direction: 1)) return;
     final section = _exam!.sections[_currentSection];
     if (_currentQuestion < section.questions.length - 1) {
+      _stopQuestionResources();
       setState(() => _currentQuestion++);
       _saveCheckpoint();
     } else {
-      _nextSection();
+      _nextSection(transitionClaimed: true);
     }
   }
 
-  void _nextSection() {
+  void _previousQuestion() {
+    if (_currentQuestion == 0 || !_claimQuestionTransition(direction: -1)) {
+      return;
+    }
+    _stopQuestionResources();
+    setState(() => _currentQuestion--);
+    _saveCheckpoint();
+  }
+
+  bool _claimQuestionTransition({required int direction}) {
+    if (_questionTransitionLocked || _finishing) return false;
+    _questionTransitionTimer?.cancel();
+    setState(() {
+      _questionTransitionLocked = true;
+      _questionDirection = direction;
+    });
+    // This lock prevents a fast double tap from skipping a question. It is an
+    // input debounce, not visual motion, so it remains in reduced-motion mode.
+    _questionTransitionTimer = Timer(AppMotion.content, () {
+      if (!mounted) return;
+      setState(() => _questionTransitionLocked = false);
+    });
+    return true;
+  }
+
+  void _stopQuestionResources() {
+    _speakingAttemptId++;
+    if (_isRecordingSpeaking) {
+      _isRecordingSpeaking = false;
+      unawaited(_transcriber.stop());
+    }
+    if (ref.exists(czechTtsProvider)) {
+      unawaited(ref.read(czechTtsProvider).stop().catchError((_) {}));
+    }
+  }
+
+  void _nextSection({bool transitionClaimed = false, bool fromTimer = false}) {
+    if (!transitionClaimed &&
+        !fromTimer &&
+        !_claimQuestionTransition(direction: 1)) {
+      return;
+    }
+    _stopQuestionResources();
     _timer?.cancel();
     if (_currentSection < _exam!.sections.length - 1) {
       setState(() {
@@ -297,8 +366,8 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
   Future<void> _finishExam() async {
     if (_finishing) return;
-    _finishing = true;
     _timer?.cancel();
+    setState(() => _finishing = true);
 
     await _evaluatePendingWritingTasks();
 
@@ -667,14 +736,23 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     if (_finishing) {
       return Scaffold(
         appBar: AppBar(title: const Text('Grading...')),
-        body: const Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text('Evaluating your answers...'),
-            ],
+        body: MotionEntrance(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (context.motionDisabled)
+                  Icon(
+                    Icons.fact_check_outlined,
+                    size: 40,
+                    color: context.tokens.pri,
+                  )
+                else
+                  const CircularProgressIndicator(),
+                const SizedBox(height: 16),
+                const Text('Evaluating your answers...'),
+              ],
+            ),
           ),
         ),
       );
@@ -683,8 +761,8 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     final section = _exam!.sections[_currentSection];
     final question = section.questions[_currentQuestion];
     final totalQuestions = section.questions.length;
-    final minutes = _secondsLeft ~/ 60;
-    final seconds = _secondsLeft % 60;
+    final sectionLabel =
+        '${section.type.name[0].toUpperCase()}${section.type.name.substring(1)}';
 
     return PopScope(
       canPop: false,
@@ -703,8 +781,15 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               if (leave && mounted) Navigator.of(context).pop();
             },
           ),
-          title: Text(
-            '${section.type.name[0].toUpperCase()}${section.type.name.substring(1)} — $minutes:${seconds.toString().padLeft(2, '0')}',
+          title: ValueListenableBuilder<int>(
+            valueListenable: _secondsLeftListenable,
+            builder: (context, secondsLeft, _) {
+              final minutes = secondsLeft ~/ 60;
+              final seconds = secondsLeft % 60;
+              return Text(
+                '$sectionLabel — $minutes:${seconds.toString().padLeft(2, '0')}',
+              );
+            },
           ),
           actions: [
             Center(
@@ -722,21 +807,24 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Timer bar
-              ClipRRect(
-                borderRadius: BorderRadius.circular(999),
-                child: LinearProgressIndicator(
-                  value: _secondsLeft / (section.timeLimitMinutes * 60),
-                  minHeight: 5,
-                  backgroundColor: context.tokens.line,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    _secondsLeft < 60 ? context.tokens.red : context.tokens.pri,
-                  ),
-                ),
+              ValueListenableBuilder<int>(
+                valueListenable: _secondsLeftListenable,
+                builder:
+                    (context, secondsLeft, _) => _ExamTimerBar(
+                      value: secondsLeft / (section.timeLimitMinutes * 60),
+                      urgent: secondsLeft < 60,
+                    ),
               ),
               const SizedBox(height: 24),
 
               // Question
-              Expanded(child: _buildQuestion(section.type, question)),
+              Expanded(
+                child: MotionEntrance(
+                  key: ValueKey('$_currentSection:$_currentQuestion'),
+                  offset: Offset(0.035 * _questionDirection, 0),
+                  child: _buildQuestion(section.type, question),
+                ),
+              ),
 
               // Navigation.
               //
@@ -753,13 +841,14 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 children: [
                   if (_currentQuestion > 0)
                     TextButton(
-                      onPressed: () => setState(() => _currentQuestion--),
+                      onPressed:
+                          _questionTransitionLocked ? null : _previousQuestion,
                       child: const Text('Previous'),
                     )
                   else
                     const SizedBox(width: 80),
                   FilledButton(
-                    onPressed: _nextQuestion,
+                    onPressed: _questionTransitionLocked ? null : _nextQuestion,
                     style: FilledButton.styleFrom(
                       minimumSize: kRowButtonMinSize,
                     ),
@@ -1106,24 +1195,22 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           ),
           const SizedBox(height: 24),
           Center(
-            child: GestureDetector(
-              onTap: _isRecordingSpeaking ? null : () => _recordSpeaking(task),
-              child: Container(
-                width: 72,
-                height: 72,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      _isRecordingSpeaking
-                          ? context.tokens.red
-                          : context.tokens.pri,
-                ),
-                child: Icon(
-                  _isRecordingSpeaking ? Icons.hearing : Icons.mic,
-                  color: context.tokens.onFill,
-                  size: 30,
-                ),
-              ),
+            // The shared control rather than a bare GestureDetector: this was
+            // the one recording surface in the app with no screen-reader
+            // label, announcing itself as an unnamed button, and it signalled
+            // recording by colour alone. RecordButton carries both, and its
+            // "tap again to stop" is wired here rather than left inert so the
+            // label it announces is true.
+            child: RecordButton(
+              isRecording: _isRecordingSpeaking,
+              size: 72,
+              onPressed: () {
+                if (_isRecordingSpeaking) {
+                  unawaited(_transcriber.stop());
+                  return;
+                }
+                _recordSpeaking(task);
+              },
             ),
           ),
           const SizedBox(height: 8),
@@ -1190,10 +1277,11 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   }
 
   Future<void> _recordSpeaking(ExamSpeakingTask task) async {
+    if (_isRecordingSpeaking) return;
     final responseKey = _currentResponseKey;
+    final attemptId = ++_speakingAttemptId;
     setState(() => _isRecordingSpeaking = true);
     try {
-      final stt = ref.read(sttServiceProvider) as NativeSttService;
       // Read-aloud is a short fixed text; prompted/open responses need room
       // for a real utterance — a 12 s cap cut CCE-style answers off mid-turn.
       final timeout = switch (task) {
@@ -1201,7 +1289,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         ExamPromptedResponseTask() => const Duration(seconds: 30),
         ExamOpenResponseTask() => const Duration(seconds: 45),
       };
-      final transcription = await stt.listenFor(timeout: timeout);
+      final transcription = await _transcriber.listenFor(timeout: timeout);
 
       final int? score = switch (task) {
         ExamReadAloudTask(:final targetText) =>
@@ -1218,7 +1306,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         ExamOpenResponseTask() => null,
       };
 
-      if (!mounted || responseKey != _currentResponseKey) return;
+      if (!mounted) return;
+      if (attemptId != _speakingAttemptId ||
+          responseKey != _currentResponseKey) {
+        // The learner moved on while this was recording, so the result belongs
+        // to a question they have left and is dropped. The flag still has to be
+        // cleared: returning without it left the button reading "Listening…"
+        // and disabled for the rest of the exam.
+        if (_isRecordingSpeaking) {
+          setState(() => _isRecordingSpeaking = false);
+        }
+        return;
+      }
       setState(() {
         _isRecordingSpeaking = false;
         _speakingTranscriptions[responseKey] = transcription;
@@ -1227,6 +1326,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _answer(score ?? transcription);
     } catch (_) {
       if (!mounted) return;
+      if (attemptId != _speakingAttemptId ||
+          responseKey != _currentResponseKey) {
+        return;
+      }
       setState(() {
         _isRecordingSpeaking = false;
         _speakingTranscriptions.remove(responseKey);
@@ -1436,6 +1539,43 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         ),
         ...entries,
       ],
+    );
+  }
+}
+
+class _ExamTimerBar extends StatelessWidget {
+  const _ExamTimerBar({required this.value, required this.urgent});
+
+  final double value;
+  final bool urgent;
+
+  @override
+  Widget build(BuildContext context) {
+    final fill = Container(
+      color: urgent ? context.tokens.red : context.tokens.pri,
+    );
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(999),
+      child: ColoredBox(
+        color: context.tokens.line,
+        child: SizedBox(
+          height: 5,
+          child:
+              context.motionDisabled
+                  ? FractionallySizedBox(
+                    widthFactor: value.clamp(0.0, 1.0),
+                    alignment: Alignment.centerLeft,
+                    child: fill,
+                  )
+                  : AnimatedFractionallySizedBox(
+                    widthFactor: value.clamp(0.0, 1.0),
+                    alignment: Alignment.centerLeft,
+                    duration: AppMotion.selection,
+                    curve: Curves.linear,
+                    child: fill,
+                  ),
+        ),
+      ),
     );
   }
 }

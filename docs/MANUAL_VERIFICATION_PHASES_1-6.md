@@ -384,19 +384,19 @@ the identifier is now, per platform:
 | Windows | `CompanyName`, `LegalCopyright` | `com.eminentsite` |
 
 Deliberately **not** renamed: the Dart package (`pubspec.yaml: name:
-ceskina_pro`, and every `package:ceskina_pro/…` import) and the Windows binary
-name (`ceskina_pro.exe`). Those are internal names no user or store ever sees,
+czechify`, and every `package:czechify/…` import) and the Windows binary
+name (`czechify.exe`). Those are internal names no user or store ever sees,
 and renaming the Dart package alone would rewrite the import line of every file
 in `lib/` and `test/`. Say the word if you want them aligned too — but it is a
 separate change with a separate diff.
 
 Also fixed while in here: the macOS project still pointed its test host at
-`ceskina_pro.app` even though `PRODUCT_NAME` has been `Czechify` for a while.
+`czechify.app` even though `PRODUCT_NAME` has been `Czechify` for a while.
 That staleness predates the rename; the built product is `Czechify.app`.
 
 - [ ] **Confirm nothing is published under the old id.** An `applicationId`
       (Play) or bundle id (App Store) is permanent after the first upload. If
-      `com.ceskinapro.ceskina_pro` was ever uploaded to Play Console — even to
+      `com.ceskinapro.czechify` was ever uploaded to Play Console — even to
       an internal test track — that listing can never become
       `com.eminentsite.czechify`; you would be creating a new app, with a new
       upload key, new reviews, and no upgrade path for existing installs.

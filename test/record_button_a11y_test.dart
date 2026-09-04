@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/presentation/widgets/common/record_button.dart';
+import 'package:czechify/presentation/widgets/common/record_button.dart';
 
 /// The record button is the primary control of the pronunciation flow; it must
 /// expose a screen-reader label that reflects its state (not color alone).

@@ -8,6 +8,7 @@ import 'database_providers.dart';
 import 'gamification_providers.dart';
 import 'lesson_providers.dart';
 import 'pronunciation_providers.dart';
+import 'reminder_coordinator.dart';
 import 'review_providers.dart';
 import 'settings_providers.dart';
 import 'sync_providers.dart';
@@ -18,12 +19,20 @@ final accountServiceProvider = Provider<AccountService>((ref) {
     ref.watch(backendServiceProvider),
     ref.watch(databaseProvider),
     ref.watch(syncServiceProvider),
+    onAccountChanged: () => ref.invalidate(accountUserProvider),
+    onDeviceRemindersReset:
+        () =>
+            ref
+                .read(reminderCoordinatorProvider.notifier)
+                .resetDeviceReminders(),
     onLocalDataChanged: () {
       ref.invalidate(gamificationProvider);
       ref.invalidate(lessonSessionProvider);
       ref.invalidate(reviewSessionProvider);
       ref.invalidate(dueCardCountProvider);
       ref.invalidate(completedLessonIdsProvider);
+      ref.invalidate(curriculumEntitlementProvider);
+      ref.invalidate(curriculumAccessProvider);
       ref.invalidate(chatProvider);
       ref.invalidate(pronunciationProvider);
       ref.invalidate(writingEvalProvider);

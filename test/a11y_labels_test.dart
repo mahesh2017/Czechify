@@ -1,8 +1,11 @@
 import 'dart:io';
 
-import 'package:ceskina_pro/l10n/app_localizations.dart';
-import 'package:ceskina_pro/presentation/widgets/common/hearts_display.dart';
-import 'package:ceskina_pro/presentation/widgets/common/streak_indicator.dart';
+import 'package:czechify/l10n/app_localizations.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:czechify/presentation/widgets/common/hearts_display.dart';
+import 'package:czechify/presentation/widgets/common/streak_indicator.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// reader announcing "5" tells the learner nothing, so both carry a label
 /// covering the pair.
 void main() {
-  Widget host(Widget child) => ProviderScope(
+  Widget host(Widget child, AppDatabase database) => ProviderScope(
+    overrides: [databaseProvider.overrideWithValue(database)],
     child: MaterialApp(
       locale: const Locale('en'),
       localizationsDelegates: const [
@@ -27,8 +31,10 @@ void main() {
   );
 
   testWidgets('hearts announce what the number means', (tester) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
     final handle = tester.ensureSemantics();
-    await tester.pumpWidget(host(const HeartsDisplay()));
+    await tester.pumpWidget(host(const HeartsDisplay(), database));
     await tester.pump();
 
     expect(find.bySemanticsLabel(RegExp(r'heart')), findsOneWidget);
@@ -36,8 +42,10 @@ void main() {
   });
 
   testWidgets('streak announces what the number means', (tester) async {
+    final database = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(database.close);
     final handle = tester.ensureSemantics();
-    await tester.pumpWidget(host(const StreakIndicator()));
+    await tester.pumpWidget(host(const StreakIndicator(), database));
     await tester.pump();
 
     expect(find.bySemanticsLabel(RegExp(r'day streak')), findsOneWidget);

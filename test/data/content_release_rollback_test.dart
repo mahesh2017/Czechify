@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:ceskina_pro/data/content/curriculum_pack_source.dart';
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/data/seeds/content_seeder.dart';
-import 'package:ceskina_pro/data/sync/backend_service.dart';
+import 'package:czechify/data/content/curriculum_pack_source.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/seeds/content_seeder.dart';
+import 'package:czechify/data/sync/backend_service.dart';
 import 'package:drift/native.dart';
 import 'package:drift/drift.dart' hide isNotNull, isNull;
 import 'package:flutter/services.dart';

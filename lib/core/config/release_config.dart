@@ -6,7 +6,7 @@ class ReleaseConfig {
   ///
   /// The same value forces existing installs to reseed curriculum and gives
   /// the CDN a new manifest URL for the matching app release.
-  static const int bundledContentRevision = 22;
+  static const int bundledContentRevision = 23;
 
   static String audioManifestUrl(String url) =>
       '$url?v=$bundledContentRevision';

@@ -1,7 +1,7 @@
-import 'package:ceskina_pro/domain/engines/curriculum_access_policy.dart';
-import 'package:ceskina_pro/domain/entities/enums.dart';
-import 'package:ceskina_pro/domain/entities/lesson.dart';
-import 'package:ceskina_pro/domain/entities/unit.dart';
+import 'package:czechify/domain/engines/curriculum_access_policy.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/lesson.dart';
+import 'package:czechify/domain/entities/unit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -79,4 +79,22 @@ void main() {
     expect(access.lessonPrerequisites[201], isEmpty);
     expect(access.unlockedLessonIds, isNot(contains(102)));
   });
+
+  test(
+    'server entitlement unlocks every unit and lesson without completion',
+    () {
+      final access = policy.evaluate(
+        orderedUnits: units,
+        lessonsByUnit: lessons,
+        completedLessonIds: const {},
+        unlockAll: true,
+      );
+
+      expect(access.unlockedUnitIds, {1, 2});
+      expect(access.unlockedLessonIds, {101, 102, 201});
+      // Keep the real graph for auditing and for immediate restoration after
+      // the entitlement expires or is revoked.
+      expect(access.lessonPrerequisites[201], {101, 102});
+    },
+  );
 }

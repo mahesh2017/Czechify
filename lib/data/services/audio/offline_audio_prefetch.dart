@@ -6,6 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../domain/entities/enums.dart';
+
 import '../../../core/config/backend_config.dart';
 
 /// Progress of a first-run (or on-demand) unit audio download.
@@ -48,6 +50,7 @@ class OfflineAudioPrefetch {
   static const _manifestAsset = 'assets/audio/offline_units.json';
 
   Map<String, List<String>>? _unitKeys;
+  Map<String, List<String>>? _introKeys;
   String? _cacheDir;
 
   String get _publicBase =>
@@ -66,20 +69,63 @@ class OfflineAudioPrefetch {
     final raw = await rootBundle.loadString(_manifestAsset);
     final json = jsonDecode(raw) as Map<String, dynamic>;
     final units = json['units'] as Map<String, dynamic>? ?? const {};
+    // English narration lives in the other pack, under `en{gender}_` names.
+    // Absent in v1 manifests, so an older asset simply yields no intros.
+    final intros = json['intros'] as Map<String, dynamic>? ?? const {};
+    _introKeys = {
+      for (final entry in intros.entries)
+        entry.key: (entry.value as List<dynamic>).cast<String>(),
+    };
     return _unitKeys = {
       for (final entry in units.entries)
         entry.key: (entry.value as List<dynamic>).cast<String>(),
     };
   }
 
+  /// The first [count] units of [level], in curriculum order.
+  ///
+  /// Unit numbering is global rather than per-level — A1 is 1–15, 28, 30 and
+  /// A2 is 16–27, 29, 31 — so the prefetch set cannot be a constant. It used
+  /// to be `[1, 2, 3]` for everyone, which handed an A2 learner three units of
+  /// A1 audio they will never open and nothing at all for unit 16, where they
+  /// actually start. Every clip then streamed on demand and the offline notice
+  /// became permanent furniture.
+  static Future<List<int>> unitsForLevel(
+    CEFRLevel level, {
+    int count = 3,
+  }) async {
+    final asset =
+        level == CEFRLevel.a2
+            ? 'assets/curriculum/a2_units.json'
+            : 'assets/curriculum/a1_units.json';
+    final json = jsonDecode(await rootBundle.loadString(asset));
+    final units = ((json as Map<String, dynamic>)['units'] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .toList()
+      ..sort(
+        (a, b) => (a['order_index'] as int).compareTo(b['order_index'] as int),
+      );
+    return [for (final u in units.take(count)) u['id'] as int];
+  }
+
   /// Clips for [unitIds] that are not already on disk, for [gender].
   Future<List<String>> missingFiles(List<int> unitIds, String gender) async {
     final byUnit = await _load();
+    final byUnitIntro = _introKeys ?? const {};
     final dir = await _dir();
-    final keys = <String>{for (final id in unitIds) ...?byUnit['$id']};
+
+    // Czech clips and the English narration are two packs with two filename
+    // shapes in one bucket. Both are needed before a unit works offline: the
+    // intro is the first thing played on a teaching card, so leaving it out
+    // meant the very first sound of a unit always went to the network.
+    final names = <String>{
+      for (final id in unitIds) ...?byUnit['$id']?.map((k) => '${gender}_$k.mp3'),
+      for (final id in unitIds)
+        ...?byUnitIntro['$id']?.map((k) => 'en${gender}_$k.mp3'),
+    };
+
     final missing = <String>[];
-    for (final key in keys) {
-      final name = '${gender}_$key.mp3';
+    for (final name in names) {
       if (!await File('$dir/$name').exists()) missing.add(name);
     }
     return missing;

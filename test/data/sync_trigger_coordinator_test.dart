@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:ceskina_pro/data/database/daos/sync_dao.dart';
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/data/sync/sync_service.dart';
-import 'package:ceskina_pro/presentation/coordinators/sync_trigger_coordinator.dart';
+import 'package:czechify/data/database/daos/sync_dao.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/sync/sync_service.dart';
+import 'package:czechify/presentation/coordinators/sync_trigger_coordinator.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/widgets.dart';
@@ -23,7 +23,11 @@ class _OfflineBackend implements SyncBackend {
     required int limit,
   }) async => const [];
   @override
-  Future<void> send(SyncQueueData row, {required String onConflict}) async {}
+  Future<void> send(
+    SyncQueueData row, {
+    required String onConflict,
+    required String mutationDeviceId,
+  }) async {}
 }
 
 class _CountingSyncService extends SyncService {

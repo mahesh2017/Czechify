@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ceskina_pro/core/theme/app_theme.dart';
-import 'package:ceskina_pro/presentation/providers/curriculum_providers.dart';
-import 'package:ceskina_pro/presentation/screens/grammar/quick_reference_screen.dart';
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/presentation/providers/curriculum_providers.dart';
+import 'package:czechify/presentation/screens/grammar/quick_reference_screen.dart';
 
 /// Renders the reference screens against the real bundled assets so schema
 /// drift between the JSON files and the renderer fails loudly (previously the

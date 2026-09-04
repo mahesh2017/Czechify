@@ -16,7 +16,11 @@ export const syncedUserTables = [
   "srs_cards",
   "custom_cards",
   "gamification_state",
+  "learner_profiles",
+  "reminder_preferences",
+  "placement_profiles",
   "ai_daily_usage",
+  "curriculum_entitlements",
 ] as const;
 
 export const isSupportedMethod = (method: string): boolean =>

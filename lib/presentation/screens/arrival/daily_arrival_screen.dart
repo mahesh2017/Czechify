@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_tokens.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../domain/engines/daily_arrival_engine.dart';
 import '../../providers/daily_arrival_providers.dart';
 
@@ -21,14 +22,12 @@ class _DailyArrivalScreenState extends ConsumerState<DailyArrivalScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _entrance;
   bool _motionConfigured = false;
+  bool _contentEntranceStarted = false;
 
   @override
   void initState() {
     super.initState();
-    _entrance = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1250),
-    );
+    _entrance = AnimationController(vsync: this, duration: AppMotion.reward);
     // Count an impression when the route is actually mounted, not merely when
     // startup checks it. Failure is harmless: the welcome may appear again.
     unawaited(markDailyArrivalShown(ref));
@@ -41,8 +40,6 @@ class _DailyArrivalScreenState extends ConsumerState<DailyArrivalScreen>
     _motionConfigured = true;
     if (MediaQuery.disableAnimationsOf(context)) {
       _entrance.value = 1;
-    } else {
-      _entrance.forward();
     }
   }
 
@@ -55,10 +52,21 @@ class _DailyArrivalScreenState extends ConsumerState<DailyArrivalScreen>
   @override
   Widget build(BuildContext context) {
     final asyncState = ref.watch(dailyArrivalStateProvider);
+    if (asyncState.hasValue && !_contentEntranceStarted) {
+      _contentEntranceStarted = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        if (context.motionDisabled) {
+          _entrance.value = 1;
+        } else {
+          _entrance.forward(from: 0);
+        }
+      });
+    }
     return Scaffold(
       body: SafeArea(
         child: asyncState.when(
-          loading: () => _ArrivalLoading(animation: _entrance),
+          loading: () => const _ArrivalLoading(),
           error: (_, __) => _ArrivalFallback(onContinue: () => context.go('/')),
           data:
               (state) => _ArrivalContent(
@@ -535,19 +543,14 @@ class _ArrivalCopy {
 }
 
 class _ArrivalLoading extends StatelessWidget {
-  const _ArrivalLoading({required this.animation});
-
-  final Animation<double> animation;
+  const _ArrivalLoading();
 
   @override
   Widget build(BuildContext context) => Center(
-    child: AnimatedBuilder(
-      animation: animation,
-      builder:
-          (context, _) => Transform.scale(
-            scale: .8 + (.2 * Curves.easeOutBack.transform(animation.value)),
-            child: _HacekGuide(color: context.tokens.pri),
-          ),
+    child: Semantics(
+      liveRegion: true,
+      label: 'Preparing today’s practice',
+      child: _HacekGuide(color: context.tokens.pri),
     ),
   );
 }

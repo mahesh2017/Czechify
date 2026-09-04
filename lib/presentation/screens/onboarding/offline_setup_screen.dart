@@ -19,8 +19,11 @@ import '../../widgets/common/soft_ui.dart';
 class OfflineSetupScreen extends ConsumerStatefulWidget {
   const OfflineSetupScreen({super.key});
 
-  /// Units a new learner can reach immediately.
-  static const unitsToPrefetch = [1, 2, 3];
+  /// How many units a new learner can reach offline immediately.
+  ///
+  /// Which units those are depends on the level they chose — see
+  /// [OfflineAudioPrefetch.unitsForLevel].
+  static const prefetchUnitCount = 3;
 
   @override
   ConsumerState<OfflineSetupScreen> createState() => _OfflineSetupScreenState();
@@ -38,13 +41,15 @@ class _OfflineSetupScreenState extends ConsumerState<OfflineSetupScreen> {
   }
 
   Future<void> _start() async {
-    final gender = ref.read(settingsProvider).ttsVoiceGender.name;
+    final settings = ref.read(settingsProvider);
+    final gender = settings.ttsVoiceGender.name;
+    final units = await OfflineAudioPrefetch.unitsForLevel(
+      settings.startingLevel,
+      count: OfflineSetupScreen.prefetchUnitCount,
+    );
     final prefetch = ref.read(offlineAudioPrefetchProvider);
     try {
-      await for (final progress in prefetch.download(
-        OfflineSetupScreen.unitsToPrefetch,
-        gender,
-      )) {
+      await for (final progress in prefetch.download(units, gender)) {
         if (!mounted) return;
         setState(() => _progress = progress);
         if (progress.finished) {

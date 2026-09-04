@@ -5,9 +5,13 @@ name: Release
 # (final signing/upload is done from Xcode or a Mac runner with credentials).
 #
 # Required repository secrets/vars for a signed Android build + backend config:
-#   SUPABASE_URL, SUPABASE_ANON_KEY   — dart-defines baked into the build
+#   SUPABASE_URL, SUPABASE_ANON_KEY, GOOGLE_WEB_CLIENT_ID — dart-defines
+#   GOOGLE_IOS_CLIENT_ID              — additionally required by the iOS job
 #   ANDROID_KEYSTORE_BASE64           — base64 of the release .jks
 #   ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+# Optional repository variable:
+#   ENABLE_IOS_RELEASE=true            — enables the unsigned iOS release job
+#                                        once GOOGLE_IOS_CLIENT_ID is present
 
 on:
   push:
@@ -17,6 +21,12 @@ on:
 
 permissions:
   contents: read
+
+# Release builds must never be pointed at staging/test by changing a secret.
+# Keep the production project identity in version control and validate the
+# secret against it before any distributable artifact is compiled.
+env:
+  PRODUCTION_SUPABASE_URL: https://twhvcxtieolvnbnczypj.supabase.co
 
 jobs:
   android:
@@ -38,13 +48,19 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          GOOGLE_WEB_CLIENT_ID: ${{ secrets.GOOGLE_WEB_CLIENT_ID }}
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           test -n "$SUPABASE_URL" || { echo "Missing SUPABASE_URL" >&2; exit 1; }
+          test "$SUPABASE_URL" = "$PRODUCTION_SUPABASE_URL" || {
+            echo "Refusing release: SUPABASE_URL is not Czechify-prod" >&2
+            exit 1
+          }
           test -n "$SUPABASE_ANON_KEY" || { echo "Missing SUPABASE_ANON_KEY" >&2; exit 1; }
+          test -n "$GOOGLE_WEB_CLIENT_ID" || { echo "Missing GOOGLE_WEB_CLIENT_ID" >&2; exit 1; }
           test -n "$ANDROID_KEYSTORE_BASE64" || { echo "Missing ANDROID_KEYSTORE_BASE64" >&2; exit 1; }
           test -n "$ANDROID_KEYSTORE_PASSWORD" || { echo "Missing ANDROID_KEYSTORE_PASSWORD" >&2; exit 1; }
           test -n "$ANDROID_KEY_ALIAS" || { echo "Missing ANDROID_KEY_ALIAS" >&2; exit 1; }
@@ -56,7 +72,8 @@ jobs:
           cat > env/prod.json <<EOF
           {
             "SUPABASE_URL": "${{ secrets.SUPABASE_URL }}",
-            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}"
+            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}",
+            "GOOGLE_WEB_CLIENT_ID": "${{ secrets.GOOGLE_WEB_CLIENT_ID }}"
           }
           EOF
 
@@ -94,6 +111,10 @@ jobs:
           retention-days: 90
 
   ios:
+    # The app is currently released through Google Play. CI still compiles iOS
+    # on every change, while this release-specific job stays off until the iOS
+    # OAuth client is deliberately configured.
+    if: ${{ vars.ENABLE_IOS_RELEASE == 'true' }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
@@ -107,9 +128,17 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          GOOGLE_WEB_CLIENT_ID: ${{ secrets.GOOGLE_WEB_CLIENT_ID }}
+          GOOGLE_IOS_CLIENT_ID: ${{ secrets.GOOGLE_IOS_CLIENT_ID }}
         run: |
           test -n "$SUPABASE_URL" || { echo "Missing SUPABASE_URL" >&2; exit 1; }
+          test "$SUPABASE_URL" = "$PRODUCTION_SUPABASE_URL" || {
+            echo "Refusing release: SUPABASE_URL is not Czechify-prod" >&2
+            exit 1
+          }
           test -n "$SUPABASE_ANON_KEY" || { echo "Missing SUPABASE_ANON_KEY" >&2; exit 1; }
+          test -n "$GOOGLE_WEB_CLIENT_ID" || { echo "Missing GOOGLE_WEB_CLIENT_ID" >&2; exit 1; }
+          test -n "$GOOGLE_IOS_CLIENT_ID" || { echo "Missing GOOGLE_IOS_CLIENT_ID" >&2; exit 1; }
 
       - name: Write backend config
         run: |
@@ -117,7 +146,9 @@ jobs:
           cat > env/prod.json <<EOF
           {
             "SUPABASE_URL": "${{ secrets.SUPABASE_URL }}",
-            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}"
+            "SUPABASE_ANON_KEY": "${{ secrets.SUPABASE_ANON_KEY }}",
+            "GOOGLE_WEB_CLIENT_ID": "${{ secrets.GOOGLE_WEB_CLIENT_ID }}",
+            "GOOGLE_IOS_CLIENT_ID": "${{ secrets.GOOGLE_IOS_CLIENT_ID }}"
           }
           EOF
 

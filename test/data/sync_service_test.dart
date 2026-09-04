@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:ceskina_pro/data/database/daos/sync_dao.dart';
-import 'package:ceskina_pro/data/database/database.dart';
-import 'package:ceskina_pro/data/sync/sync_service.dart';
+import 'package:czechify/data/database/daos/sync_dao.dart';
+import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/sync/sync_service.dart';
+import 'package:drift/drift.dart' as drift;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,6 +13,8 @@ class FakeSyncBackend implements SyncBackend {
   final sentKeys = <String>[];
   final failingKeys = <String>{};
   final failingPullEntities = <String>{};
+  final sentMutationDeviceIds = <String>[];
+  final serverRecords = <String, Map<String, dynamic>>{};
   Completer<void>? sendGate;
   int activeSends = 0;
   int maxActiveSends = 0;
@@ -25,19 +29,51 @@ class FakeSyncBackend implements SyncBackend {
   Future<String> deviceId() async => 'local-device';
 
   @override
-  Future<void> send(SyncQueueData row, {required String onConflict}) async {
+  Future<void> send(
+    SyncQueueData row, {
+    required String onConflict,
+    required String mutationDeviceId,
+  }) async {
     activeSends++;
     if (activeSends > maxActiveSends) maxActiveSends = activeSends;
     try {
       await sendGate?.future;
       sentKeys.add(row.entityKey);
+      sentMutationDeviceIds.add(mutationDeviceId);
       if (failingKeys.contains(row.entityKey)) {
         throw StateError('rejected ${row.entityKey}');
+      }
+      final serverKey = '${row.entity}\u0000${row.entityKey}';
+      if (row.op == 'delete') {
+        serverRecords.remove(serverKey);
+        return;
+      }
+      final existing = serverRecords[serverKey];
+      final existingUpdatedAt =
+          existing == null
+              ? null
+              : DateTime.parse(existing['updated_at'] as String);
+      final existingDeviceId = existing?['device_id'] as String?;
+      final incomingUpdatedAt = row.updatedAt.toUtc();
+      final wins =
+          existing == null ||
+          incomingUpdatedAt.isAfter(existingUpdatedAt!) ||
+          (incomingUpdatedAt.isAtSameMomentAs(existingUpdatedAt) &&
+              mutationDeviceId.compareTo(existingDeviceId!) > 0);
+      if (wins) {
+        serverRecords[serverKey] = <String, dynamic>{
+          ...jsonDecode(row.payload) as Map<String, dynamic>,
+          'device_id': mutationDeviceId,
+          'updated_at': incomingUpdatedAt.toIso8601String(),
+        };
       }
     } finally {
       activeSends--;
     }
   }
+
+  Map<String, dynamic>? serverRecord(String entity, String entityKey) =>
+      serverRecords['$entity\u0000$entityKey'];
 
   @override
   Future<List<Map<String, dynamic>>> pullPage(
@@ -77,11 +113,34 @@ void main() {
 
   tearDown(() => database.close());
 
-  Future<void> enqueue(String key) => database.syncDao.enqueue(
+  Future<void> enqueue(String key, {int value = 1}) => database.syncDao.enqueue(
     entity: 'user_progress',
     entityKey: key,
-    payload: {'key': key, 'value': 1},
+    payload: {'key': key, 'value': value},
   );
+
+  test('later same-second mutation wins the server LWW tie', () async {
+    await enqueue('streak', value: 1);
+    await enqueue('streak', value: 2);
+    await (database.update(
+      database.syncQueue,
+    )).write(SyncQueueCompanion(updatedAt: drift.Value(now)));
+
+    await service.push();
+
+    expect(backend.sentMutationDeviceIds, hasLength(2));
+    expect(
+      backend.sentMutationDeviceIds,
+      everyElement(matches(RegExp(r'^local-device:[0-9]{20}$'))),
+    );
+    expect(
+      backend.sentMutationDeviceIds[1].compareTo(
+        backend.sentMutationDeviceIds[0],
+      ),
+      greaterThan(0),
+    );
+    expect(backend.serverRecord('user_progress', 'streak')?['value'], 2);
+  });
 
   test('concurrent sync callers share one serialized run', () async {
     await enqueue('streak');
@@ -279,6 +338,108 @@ void main() {
   );
 
   test(
+    'profile, reminder, and placement restore without sync echoes',
+    () async {
+      var portableHydrations = 0;
+      service = SyncService(
+        db: database,
+        backend: backend,
+        clock: () => now,
+        onPortablePreferencesChanged: () => portableHydrations++,
+      );
+      final timestamp = DateTime.utc(2026, 8, 30, 13).toIso8601String();
+      backend.rows['learner_profiles'] = [
+        {
+          'revision': 1,
+          'updated_at': timestamp,
+          'device_id': 'remote-device',
+          'key': 'primary',
+          'display_name': 'Mahesh',
+          'self_assessed_cefr': 'a2',
+          'primary_goal': 'permanentResidenceA2',
+          'secondary_goals': <String>[],
+          'exam_track': 'permanentResidenceA2',
+          'target_horizon': 'threeToSixMonths',
+          'focus_skills': ['listening', 'writing'],
+          'daily_commitment_minutes': 30,
+          'study_days_per_week': 6,
+          'preferred_voice': 'male',
+          'daily_goal_xp': 600,
+          'onboarding_version': 2,
+          'onboarding_last_step': 7,
+          'onboarding_completed_at': timestamp,
+        },
+      ];
+      backend.rows['reminder_preferences'] = [
+        {
+          'revision': 1,
+          'updated_at': timestamp,
+          'device_id': 'remote-device',
+          'key': 'primary',
+          'wants_reminder': true,
+          'preferred_hour': 19,
+          'preferred_minute': 15,
+          'days_of_week': [1, 2, 3, 4, 5],
+          'catch_up_enabled': false,
+          'allow_goal_specific_text': false,
+        },
+      ];
+      backend.rows['placement_profiles'] = [
+        {
+          'revision': 1,
+          'updated_at': timestamp,
+          'device_id': 'remote-device',
+          'key': 'primary',
+          'provisional_unit': 18,
+          'learner_override_unit': null,
+          'estimates': {'reading': .7, 'listening': .6, 'writing': .5},
+          'sample_size': 9,
+        },
+      ];
+
+      await service.pull();
+
+      final profile = await database.profileDao.learnerProfile();
+      expect(profile?.displayName, 'Mahesh');
+      expect(profile?.primaryGoal, 'permanentResidenceA2');
+      expect(profile?.onboardingCompletedAt, isNotNull);
+      final reminder = await database.profileDao.reminderPreference();
+      expect(reminder?.wantsReminder, isTrue);
+      expect(reminder?.preferredHour, 19);
+      final placement =
+          await database.select(database.placementProfiles).getSingle();
+      expect(placement.provisionalUnit, 18);
+      expect(placement.sampleSize, 9);
+      expect(await database.syncDao.pendingCount(), 0);
+      expect(portableHydrations, 1);
+    },
+  );
+
+  test('remote placement cannot reduce locally reached curriculum', () async {
+    await database.progressDao.setProvisionalUnit(24);
+    final timestamp = DateTime.utc(2026, 8, 30, 13).toIso8601String();
+    backend.rows['placement_profiles'] = [
+      {
+        'revision': 1,
+        'updated_at': timestamp,
+        'device_id': 'remote-device',
+        'key': 'primary',
+        'provisional_unit': 6,
+        'learner_override_unit': 6,
+        'estimates': {'reading': .4, 'listening': .4, 'writing': .4},
+        'sample_size': 8,
+      },
+    ];
+
+    await service.pull();
+
+    final placement =
+        await database.select(database.placementProfiles).getSingle();
+    expect(placement.provisionalUnit, 24);
+    expect(placement.learnerOverrideUnit, 6);
+  });
+
+  test(
     'account snapshot download failure leaves local data untouched',
     () async {
       await database.customStatement(
@@ -300,56 +461,53 @@ void main() {
     },
   );
 
-  test(
-    'account install restores rows this device authored',
-    () async {
-      // The returning account's most recent work was done on THIS install, so
-      // every row carries the local device id. Pull skips such rows because
-      // local state already has them; an install must not, because the local
-      // database was just cleared. Skipping them silently lost the learner's
-      // own progress on their own phone.
-      backend.rows['lesson_progress'] = [
-        {
-          'revision': 1,
-          'device_id': 'local-device',
-          'lesson_id': 1,
-          'unit_id': 1,
-          'is_completed': true,
-          'best_score': 0.9,
-          'attempts': 2,
-          'last_attempted': DateTime.utc(2026, 7, 19).toIso8601String(),
-        },
-        {
-          'revision': 2,
-          'device_id': 'other-device',
-          'lesson_id': 2,
-          'unit_id': 1,
-          'is_completed': true,
-          'best_score': 0.8,
-          'attempts': 1,
-          'last_attempted': DateTime.utc(2026, 7, 19).toIso8601String(),
-        },
-      ];
+  test('account install restores rows this device authored', () async {
+    // The returning account's most recent work was done on THIS install, so
+    // every row carries the local device id. Pull skips such rows because
+    // local state already has them; an install must not, because the local
+    // database was just cleared. Skipping them silently lost the learner's
+    // own progress on their own phone.
+    backend.rows['lesson_progress'] = [
+      {
+        'revision': 1,
+        'device_id': 'local-device',
+        'lesson_id': 1,
+        'unit_id': 1,
+        'is_completed': true,
+        'best_score': 0.9,
+        'attempts': 2,
+        'last_attempted': DateTime.utc(2026, 7, 19).toIso8601String(),
+      },
+      {
+        'revision': 2,
+        'device_id': 'other-device',
+        'lesson_id': 2,
+        'unit_id': 1,
+        'is_completed': true,
+        'best_score': 0.8,
+        'attempts': 1,
+        'last_attempted': DateTime.utc(2026, 7, 19).toIso8601String(),
+      },
+    ];
 
-      await service.beginAccountTransition();
-      try {
-        final snapshot = await service.downloadAccountSnapshot();
-        await database.transaction(() async {
-          await database.clearLearnerDataRows();
-          await service.installAccountSnapshot(snapshot);
-        });
-      } finally {
-        service.endAccountTransition();
-      }
+    await service.beginAccountTransition();
+    try {
+      final snapshot = await service.downloadAccountSnapshot();
+      await database.transaction(() async {
+        await database.clearLearnerDataRows();
+        await service.installAccountSnapshot(snapshot);
+      });
+    } finally {
+      service.endAccountTransition();
+    }
 
-      final rows = await database.select(database.lessonProgress).get();
-      expect(
-        rows.map((r) => r.lessonId),
-        containsAll(<int>[1, 2]),
-        reason: 'both the local-device and remote-device rows must install',
-      );
-    },
-  );
+    final rows = await database.select(database.lessonProgress).get();
+    expect(
+      rows.map((r) => r.lessonId),
+      containsAll(<int>[1, 2]),
+      reason: 'both the local-device and remote-device rows must install',
+    );
+  });
 
   test(
     'ordinary sync cannot push while an account transition is paused',

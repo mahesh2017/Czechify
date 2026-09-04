@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:ceskina_pro/data/sync/sync_service.dart';
+import 'package:czechify/data/sync/sync_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The account export lives in TypeScript and the sync map lives in Dart, so

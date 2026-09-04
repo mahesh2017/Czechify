@@ -74,16 +74,50 @@ def keys_for_unit(unit_id: int) -> list[str]:
     return sorted(keys)
 
 
+def intro_keys_for_unit(unit_id: int) -> list[str]:
+    """English narration keys for one unit's teaching cards.
+
+    These live in the *other* pack. manifest_en.json is generated separately
+    and its clips are named `en{gender}_{key}.mp3`, so they were invisible to
+    a prefetch that only ever built `{gender}_{key}.mp3` — the unit intro was
+    the one thing on the first screen that always needed the network, and fell
+    back to the device voice whenever it was slow.
+
+    Only A2 units carry intros today; the map is empty for the rest, which is
+    exactly what should happen if intros are added to A1 later.
+    """
+    found: set[str] = set()
+
+    for path in sorted(au.LESSONS.glob("*.json")):
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        if lesson.get("unit_id") != unit_id:
+            continue
+        for exercise in lesson.get("exercises", []):
+            data = exercise.get("data", {}) or {}
+            intro = data.get("intro")
+            if isinstance(intro, str) and intro.strip():
+                found.add(intro.strip())
+
+    return sorted(au.key_for(text) for text in found)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
     by_unit = {str(uid): keys_for_unit(uid) for uid in unit_ids()}
+    intros = {
+        str(uid): keys
+        for uid in unit_ids()
+        if (keys := intro_keys_for_unit(uid))
+    }
     total = sum(len(v) for v in by_unit.values())
 
     print(f"{len(by_unit)} units, {total} utterance keys "
           f"({len(set().union(*by_unit.values()))} distinct)")
+    print(f"{sum(len(v) for v in intros.values())} English intro keys "
+          f"across {len(intros)} units")
     for uid in list(by_unit)[:5]:
         clips = by_unit[uid]
         have = sum(
@@ -98,7 +132,10 @@ def main() -> int:
         return 0
 
     OUT.write_text(
-        json.dumps({"version": 1, "units": by_unit}, indent=0) + "\n",
+        json.dumps(
+            {"version": 2, "units": by_unit, "intros": intros}, indent=0
+        )
+        + "\n",
         encoding="utf-8",
     )
     print(f"\nWrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size / 1024:.0f} KB)")

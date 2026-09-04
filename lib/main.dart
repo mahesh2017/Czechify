@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
@@ -10,18 +11,37 @@ import 'core/diagnostics/safe_diagnostics.dart';
 import 'core/notifications/notification_service.dart';
 import 'core/notifications/navigation_intent.dart';
 import 'presentation/routes/app_router.dart';
+import 'presentation/routes/app_shell_keys.dart';
 import 'presentation/providers/database_providers.dart';
 import 'presentation/providers/daily_arrival_providers.dart';
+import 'presentation/providers/curriculum_providers.dart';
 import 'presentation/providers/feedback_providers.dart';
 import 'presentation/providers/settings_providers.dart';
 import 'presentation/providers/sync_providers.dart';
 import 'presentation/providers/reminder_coordinator.dart';
+import 'presentation/providers/learner_profile_providers.dart';
 import 'presentation/widgets/celebration/celebration_host.dart';
+import 'presentation/widgets/common/app_update_coordinator.dart';
 import 'presentation/screens/onboarding/loading_screen.dart';
 
 /// App entry point.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Portrait only. Every screen in this app is drawn against a tall viewport —
+  // notch-sized top paddings, fixed-height exercise images, decorations placed
+  // in portrait coordinates — and none of that was ever adapted. Rotated to
+  // landscape the app stayed usable but showed its seams: the name step
+  // overflowed by 99px once the keyboard was up, and 115 listening-
+  // comprehension cards overflowed outright, every single one carrying an
+  // image among them.
+  //
+  // Nothing had ever asked for portrait; the platform manifests simply carried
+  // Flutter's default template, which permits both landscape modes. This is
+  // the request, and the iOS and Android manifests are narrowed to match so
+  // the OS enforces it rather than merely being asked.
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   try {
     await NotificationService.instance.initialize();
   } catch (e, stack) {
@@ -66,7 +86,8 @@ class CzechifyApp extends ConsumerStatefulWidget {
   ConsumerState<CzechifyApp> createState() => _CzechifyAppState();
 }
 
-class _CzechifyAppState extends ConsumerState<CzechifyApp> {
+class _CzechifyAppState extends ConsumerState<CzechifyApp>
+    with WidgetsBindingObserver {
   StreamSubscription<NavigationTarget>? _navigationSubscription;
   NavigationTarget? _pendingNavigation;
   bool _navigationFlushScheduled = false;
@@ -74,6 +95,7 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _navigationSubscription = NavigationIntent.stream.listen((target) {
       if (!mounted) return;
       setState(() => _pendingNavigation = target);
@@ -82,8 +104,20 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _navigationSubscription?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Reviewer/support access is server-owned and may have changed while
+      // the app was backgrounded. Invalidating its provider also invalidates
+      // the curriculum graph that watches it; the repository retains the last
+      // result for this auth user if the refresh is offline.
+      ref.invalidate(curriculumEntitlementProvider);
+    }
   }
 
   @override
@@ -116,6 +150,9 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp> {
     // local course is ready. Its failure must not replace the usable app UI.
     ref.watch(backgroundInitializationProvider);
     ref.watch(syncTriggerCoordinatorProvider);
+    // Backfill account-scoped profile data from legacy local preferences. It
+    // is deliberately background work and never delays a usable first frame.
+    ref.watch(learnerProfileBootstrapProvider);
     // Keep the reminder coordinator alive so it can react to settings
     // changes, XP transitions, and app lifecycle events.
     ref.watch(reminderCoordinatorProvider);
@@ -127,6 +164,7 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp> {
     ref.read(feedbackServiceProvider).preload();
 
     return MaterialApp.router(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'Czechify',
       debugShowCheckedModeBanner: false,
       theme: lightTheme(),
@@ -146,8 +184,12 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp> {
       // player, so a celebration owned by that screen would be disposed at
       // the moment it was supposed to play.
       builder:
-          (context, child) =>
-              CelebrationHost(child: child ?? const SizedBox.shrink()),
+          (context, child) => AppUpdateCoordinator(
+            // Never interrupt first-run setup with a store prompt. The saved
+            // flag enables the quiet Play check on the next app launch.
+            enabled: onboardingDone.value ?? false,
+            child: CelebrationHost(child: child ?? const SizedBox.shrink()),
+          ),
     );
   }
 

@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../domain/repositories/llm_service.dart';
 import 'llm_service_exception.dart';
 
-/// Calls the server-side LLM proxy. The DeepSeek credential never enters the
+/// Calls the server-side LLM proxy. The Scaleway credential never enters the
 /// app binary; Supabase attaches the current anonymous/user JWT instead.
 class SupabaseLlmService implements LlmService {
   // SupabaseClient is public while the field is intentionally private.

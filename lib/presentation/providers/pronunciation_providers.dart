@@ -61,6 +61,10 @@ class PronunciationState {
   /// telling a learner to check microphone permissions that are fine.
   final bool errorIsServiceSide;
 
+  /// True when [error] is one that enabling cloud speech would resolve, so the
+  /// UI can offer that rather than describing it.
+  final bool errorCloudSpeechWouldFix;
+
   final bool usedWhisper;
   final String? diagnostic;
   final int attemptId;
@@ -73,6 +77,7 @@ class PronunciationState {
     this.isProcessing = false,
     this.error,
     this.errorIsServiceSide = false,
+    this.errorCloudSpeechWouldFix = false,
     this.usedWhisper = false,
     this.diagnostic,
     this.attemptId = 0,
@@ -86,6 +91,7 @@ class PronunciationState {
     bool? isProcessing,
     String? error,
     bool? errorIsServiceSide,
+    bool? errorCloudSpeechWouldFix,
     bool? usedWhisper,
     String? diagnostic,
     int? attemptId,
@@ -100,6 +106,9 @@ class PronunciationState {
       // Cleared alongside [error], which is deliberately not `??`-defaulted:
       // a state with no error must not keep the previous one's provenance.
       errorIsServiceSide: errorIsServiceSide ?? false,
+      // Cleared with [error] for the same reason: an offer that belongs to a
+      // failure the learner has moved past would be nonsense.
+      errorCloudSpeechWouldFix: errorCloudSpeechWouldFix ?? false,
       usedWhisper: usedWhisper ?? this.usedWhisper,
       diagnostic: diagnostic ?? this.diagnostic,
       attemptId: attemptId ?? this.attemptId,
@@ -173,6 +182,7 @@ class PronunciationNotifier extends Notifier<PronunciationState> {
         isProcessing: false,
         error: e.message,
         errorIsServiceSide: true,
+        errorCloudSpeechWouldFix: e.cloudSpeechWouldFix,
       );
     } catch (e) {
       if (!ref.mounted || state.attemptId != attemptId) return;

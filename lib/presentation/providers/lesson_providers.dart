@@ -196,8 +196,22 @@ class LessonSessionState {
   Exercise? get currentExercise =>
       currentIndex < exercises.length ? exercises[currentIndex] : null;
 
-  double get progress =>
-      exercises.isEmpty ? 0.0 : (currentIndex) / exercises.length;
+  /// How far through the lesson proper the learner is, 0..1.
+  ///
+  /// Measured against [originalCount], not `exercises.length`: the list grows
+  /// when missed questions are appended, so dividing by it sent this
+  /// backwards — 10/10 became 10/13 the moment the re-ask pass began. The
+  /// mistake pass is extra work after a finished lesson, so this saturates at
+  /// 1.0 rather than pretending there is more of the lesson left.
+  ///
+  /// Nothing renders this today; the header shows [inMistakeReview] and
+  /// "Question x of y" instead. Kept correct so wiring it up cannot
+  /// reintroduce the reversal.
+  double get progress {
+    final total = originalCount > 0 ? originalCount : exercises.length;
+    if (total == 0) return 0.0;
+    return (currentIndex / total).clamp(0.0, 1.0);
+  }
 
   double get accuracy {
     final total = correctCount + wrongCount;
@@ -490,12 +504,21 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
             ? state.exercises.sublist(0, state.originalCount)
             : state.exercises;
 
+    // An exam stays an exam across a retry: the countdown restarts, hearts
+    // stay out of it, and nextExercise() keeps skipping the mistake re-asks.
+    final isExamMode = state.isExamMode;
+    final lesson = state.lesson;
     state = LessonSessionState(
-      lesson: state.lesson,
+      lesson: lesson,
       exercises: baseExercises,
-      hearts: hearts,
-      isGameOver: ref.read(settingsProvider).heartsEnabled && hearts <= 0,
+      hearts: isExamMode ? 999 : hearts,
+      isGameOver:
+          !isExamMode &&
+          ref.read(settingsProvider).heartsEnabled &&
+          hearts <= 0,
       originalCount: baseExercises.length,
+      isExamMode: isExamMode,
+      remainingSeconds: isExamMode ? (lesson?.durationMinutes ?? 0) * 60 : 0,
     );
   }
 
@@ -510,7 +533,13 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     final accuracy = state.accuracy;
     try {
       final gamification = ref.read(gamificationProvider.notifier);
-      final activityXp = gamification.lessonCompletionXp(accuracy: accuracy);
+      // The XP the learner watched climb is the XP that gets recorded. These
+      // used to be two unrelated numbers: the HUD summed each exercise's
+      // authored `xp_reward` while the database received a flat 10/15/20 by
+      // accuracy, so a lesson that displayed 125 XP committed 20. Accuracy
+      // still shapes the award, but through the answers it is computed from
+      // rather than as a second, competing rule.
+      final activityXp = state.totalXp;
       // Read before committing: this is what distinguishes finishing a unit
       // from replaying a lesson inside one that was already finished.
       final completedBefore =
