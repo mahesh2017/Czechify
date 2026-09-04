@@ -34,9 +34,6 @@ dependencies:
   speech_to_text: ^7.0.0
   flutter_tts: ^4.0.0
 
-  # Animations (teacher character on teaching cards)
-  lottie: ^3.1.2
-
   # Networking
   dio: ^5.4.0
   connectivity_plus: ^7.0.0
@@ -82,7 +79,9 @@ dev_dependencies:
 flutter_launcher_icons:
   image_path: assets/images/app_icon.png
   android: true
-  adaptive_icon_background: "#415AE8"
+  # A gradient rather than a flat colour, so Android reads like iOS.
+  # Both layers are derived from app_icon.png by tool/generate_app_icons.py.
+  adaptive_icon_background: assets/images/app_icon_background.png
   adaptive_icon_foreground: assets/images/app_icon_foreground.png
   ios: true
   remove_alpha_ios: true
@@ -130,7 +129,6 @@ flutter:
     - assets/images/unit28/
     - assets/images/unit30/
     - assets/images/unit31/
-    - assets/animations/
     # Synthesized by tool/generate_sfx.py — see that script before editing,
     # these are generated output rather than hand-authored files.
     - assets/sfx/

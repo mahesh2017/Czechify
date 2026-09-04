@@ -23,7 +23,7 @@
             "cz": "Dobrý den",
             "en": "Hello / Good day (formal)",
             "say": "Dobrý den.",
-            "image": "assets/images/unit02/formal_reception_v1.png",
+            "image": "assets/images/unit02/formal_reception_v1.webp",
             "image_label": "A visitor politely greeting a receptionist in a Prague office",
             "sentence": "Dobrý den, jak se máte?",
             "sentence_en": "Hello, how are you? (formal)"
@@ -32,7 +32,7 @@
             "cz": "Ahoj",
             "en": "Hi / Bye (informal)",
             "say": "Ahoj.",
-            "image": "assets/images/unit02/informal_cafe_v1.png",
+            "image": "assets/images/unit02/informal_cafe_v1.webp",
             "image_label": "Two friends greeting each other at a Prague café",
             "sentence": "Ahoj, jak se máš?",
             "sentence_en": "Hi, how are you? (informal)"

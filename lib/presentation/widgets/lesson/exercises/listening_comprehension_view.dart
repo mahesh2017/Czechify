@@ -8,6 +8,7 @@ import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 import '../../../providers/tts_providers.dart';
+import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import 'exercise_shared.dart';
@@ -88,21 +89,11 @@ class _ListeningComprehensionViewState
           const SizedBox(height: 16),
 
           if (image != null && image.isNotEmpty) ...[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: SizedBox(
-                height: 140,
-                width: double.infinity,
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  cacheWidth: 1024,
-                  semanticLabel:
-                      imageLabel == null || imageLabel.isEmpty
-                          ? null
-                          : imageLabel,
-                ),
-              ),
+            LessonImage(
+              asset: image,
+              height: 140,
+              semanticLabel:
+                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
             ),
             const SizedBox(height: 14),
           ],

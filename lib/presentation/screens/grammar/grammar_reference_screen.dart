@@ -7,6 +7,7 @@ import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/unit.dart';
 import '../../providers/curriculum_providers.dart';
+import '../../widgets/common/motion_async.dart';
 
 /// Full-screen grammar reference browser.
 /// - No highlight: shows a unit-picker then rules per unit.
@@ -36,7 +37,8 @@ class GrammarReferenceScreen extends ConsumerWidget {
           highlightRuleId != null ? 'Grammar Rule' : 'Grammar Reference',
         ),
       ),
-      body: unitsAsync.when(
+      body: MotionAsync(
+        value: unitsAsync,
         loading:
             () => Center(
               child:

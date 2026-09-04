@@ -43,7 +43,7 @@
       "prompt": "Read the moving message",
       "data": {
         "type": "reading_comprehension",
-        "image": "assets/images/unit31/moving_day_v1.png",
+        "image": "assets/images/unit31/moving_day_v1.webp",
         "image_label": "Friends carrying boxes into an apartment",
         "prompt_en": "What should the friend bring and where should they meet?",
         "text_cz": "Ahoj, v sobotu se stěhuju do nového bytu. Přines prosím dvě malé krabice a přijď v deset před dům na ulici Lipová. Těžký stůl dáme do ložnice.",

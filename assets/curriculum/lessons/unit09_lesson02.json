@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "V kolik se sejdeme? V pět hodin. Dobře, v sedmnáct hodin u metra.",
-        "image": "assets/images/unit09/time_plan_v1.png",
+        "image": "assets/images/unit09/time_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit09/time_plan_v1.png",
+        "image": "assets/images/unit09/time_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "text_cz": "Kavárna je otevřená od 8:00 do 18:00. Schůzka je v 16:30.",
         "text_en": "The café is open from 8:00 to 18:00. The meeting is at 16:30.",
@@ -259,7 +259,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "What Time Shall We Meet?",
-        "image": "assets/images/unit09/time_plan_v1.png",
+        "image": "assets/images/unit09/time_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "lines": [
           {

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">#415AE8</color>
+    <!-- The adaptive icon's background is @drawable/ic_launcher_background, a
+         gradient generated from app_icon.png, not a flat colour. The colour
+         this file used to hold is gone with it; flutter_launcher_icons writes
+         one back here only if adaptive_icon_background in pubspec.yaml is set
+         to a colour again. -->
 </resources>

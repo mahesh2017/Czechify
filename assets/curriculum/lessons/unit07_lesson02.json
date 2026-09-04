@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Batoh je tvůj. Kolo je jeho a telefon je její.",
-        "image": "assets/images/unit07/ownership_pattern_v1.png",
+        "image": "assets/images/unit07/ownership_pattern_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit07/ownership_pattern_v1.png",
+        "image": "assets/images/unit07/ownership_pattern_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "text_cz": "Anna má knihu a Petr má kolo. To je její kniha a jeho kolo.",
         "text_en": "Anna has a book and Petr has a bicycle. That is her book and his bicycle.",
@@ -261,7 +261,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Name the Owner",
-        "image": "assets/images/unit07/ownership_pattern_v1.png",
+        "image": "assets/images/unit07/ownership_pattern_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "lines": [
           {

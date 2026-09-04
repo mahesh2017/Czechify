@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit14/town_corner_v1.png",
+        "image": "assets/images/unit14/town_corner_v1.webp",
         "image_label": "Find a Place in Town",
         "text_cz": "Lékárna je vedle banky. Pošta je naproti parku. Všechno je blízko tramvajové zastávky.",
         "text_en": "The pharmacy is next to the bank. The post office is opposite the park. Everything is near the tram stop.",

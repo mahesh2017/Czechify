@@ -23,6 +23,7 @@ import '../../widgets/celebration/stars_reveal.dart';
 import '../../widgets/lesson/exercise_widget.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
 import '../../widgets/common/gender_pill.dart';
+import '../../widgets/common/lesson_image.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
@@ -41,6 +42,10 @@ class LessonPlayerScreen extends ConsumerStatefulWidget {
 class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   bool _loaded = false;
   bool _locked = false;
+
+  /// The exercise whose illustration has already been warmed, so an unrelated
+  /// rebuild does not re-issue the same decode request.
+  int? _warmedIndex;
 
   @override
   void initState() {
@@ -66,9 +71,25 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     });
   }
 
+  /// Decodes the *next* exercise's illustration while the learner is still on
+  /// the current one.
+  ///
+  /// The art is up to ~1 MB a file, so decoding it at the moment it is asked
+  /// for costs frames the learner sees as a hole in the card. Warming it one
+  /// exercise ahead means the common case is already in the image cache by
+  /// the time the exercise arrives, and the fade in [LessonImage] is left to
+  /// cover only the first exercise and genuine misses.
+  void _warmNextIllustration(LessonSessionState session) {
+    final next = session.currentIndex + 1;
+    if (next == _warmedIndex || next >= session.exercises.length) return;
+    _warmedIndex = next;
+    LessonImage.precacheFor(context, session.exercises[next]);
+  }
+
   @override
   Widget build(BuildContext context) {
     final session = ref.watch(lessonSessionProvider);
+    if (_loaded && !_locked) _warmNextIllustration(session);
 
     if (!_loaded) {
       return Scaffold(
@@ -1143,17 +1164,22 @@ class _LessonCompleteScreenState extends ConsumerState<_LessonCompleteScreen>
         alignment: Alignment.center,
         children: [
           if (!instant && grade != LessonGrade.practice)
-            AnimatedBuilder(
-              animation: _rays,
-              builder:
-                  (context, _) => CustomPaint(
-                    size: const Size(240, 200),
-                    painter: RaysPainter(
-                      rotation: _rays.value * 2 * math.pi,
-                      color: accent,
-                      scale: landed,
+            // These rays never stop — the learner can sit on the completion
+            // screen indefinitely. Their own layer keeps the rest of the
+            // screen (wash, scoreboard, buttons) off the per-frame path.
+            RepaintBoundary(
+              child: AnimatedBuilder(
+                animation: _rays,
+                builder:
+                    (context, _) => CustomPaint(
+                      size: const Size(240, 200),
+                      painter: RaysPainter(
+                        rotation: _rays.value * 2 * math.pi,
+                        color: accent,
+                        scale: landed,
+                      ),
                     ),
-                  ),
+              ),
             ),
           if (!instant)
             CustomPaint(

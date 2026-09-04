@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit15/weather_forecast_v1.png",
+        "image": "assets/images/unit15/weather_forecast_v1.webp",
         "image_label": "Connect Seasons and Plans",
         "text_cz": "Petra má ráda léto, protože je teplo. V zimě ráda vidí sníh. Na podzim často prší.",
         "text_en": "Petra likes summer because it is warm. In winter she likes seeing snow. In autumn it often rains.",

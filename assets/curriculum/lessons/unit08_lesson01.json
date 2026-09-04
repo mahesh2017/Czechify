@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "To je moje rodina. Tohle je moje maminka, můj tatínek a moje sestra Klára.",
-        "image": "assets/images/unit08/family_people_v1.png",
+        "image": "assets/images/unit08/family_people_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit08/family_people_v1.png",
+        "image": "assets/images/unit08/family_people_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "text_cz": "Na fotografii je Pavel, jeho žena Jana a jejich syn Matěj.",
         "text_en": "In the photograph are Pavel, his wife Jana, and their son Matěj.",
@@ -262,7 +262,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Meet the People in the Photo",
-        "image": "assets/images/unit08/family_people_v1.png",
+        "image": "assets/images/unit08/family_people_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "lines": [
           {

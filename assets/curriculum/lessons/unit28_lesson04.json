@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit28/exam_speaking_v1.png",
+        "image": "assets/images/unit28/exam_speaking_v1.webp",
         "image_label": "Speak with Confidence",
         "text_cz": "Anna a zkoušející se dívají na obrázek Prahy. Anna popisuje řeku, most a svůj plán na zítřek.",
         "text_en": "Anna and her language partner look at a picture of Prague. Anna describes the river, bridge, and her plan for tomorrow.",

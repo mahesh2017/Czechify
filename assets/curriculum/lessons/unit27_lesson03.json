@@ -81,7 +81,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Find the usual route and today’s route.",
-        "image": "assets/images/unit27/changed_journey_map_v1.png",
+        "image": "assets/images/unit27/changed_journey_map_v1.webp",
         "image_label": "Traveler changing route on a Prague map",
         "text_cz": "Každé ráno chodím pěšky na nádraží a potom jedu vlakem do Prahy. Dnes ale vlak nejede. Jdu na autobusovou zastávku a pojedu autobusem.",
         "text_en": "Every morning I walk to the station and then take the train to Prague. Today the train is not running. I am walking to the bus stop and will go by bus.",

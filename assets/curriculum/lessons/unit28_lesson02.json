@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit28/exam_listening_v1.png",
+        "image": "assets/images/unit28/exam_listening_v1.webp",
         "image_label": "Hear Essential Details",
         "text_cz": "Na informacích se ptá David na vlak. Vlak do Brna odjíždí v devět hodin z nástupiště číslo tři.",
         "text_en": "At the information desk David asks about a train. The train to Brno leaves at nine o'clock from platform number three.",

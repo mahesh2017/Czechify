@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit30/review_shopping_v1.png",
+        "image": "assets/images/unit30/review_shopping_v1.webp",
         "image_label": "Choose and Buy",
         "text_cz": "V obchodě hledá Tomáš modrý svetr. Červenou košili nechce. Ptá se na větší velikost a cenu.",
         "text_en": "In a shop Tomáš looks for a blue sweater. He does not want the red shirt. He asks for a larger size and the price.",

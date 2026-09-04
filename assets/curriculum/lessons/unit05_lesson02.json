@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Co děláte? Pracuju v obchodě. Kde bydlíte? Bydlím v Plzni.",
-        "image": "assets/images/unit05/activity_questions_v1.png",
+        "image": "assets/images/unit05/activity_questions_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit05/activity_questions_v1.png",
+        "image": "assets/images/unit05/activity_questions_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "text_cz": "Ahoj, jsem Mila. Studuju medicínu. Bydlím v Praze a mluvím ukrajinsky.",
         "text_en": "Hi, I am Mila. I study medicine. I live in Prague and speak Ukrainian.",
@@ -257,7 +257,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Ask About Everyday Activities",
-        "image": "assets/images/unit05/activity_questions_v1.png",
+        "image": "assets/images/unit05/activity_questions_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "lines": [
           {

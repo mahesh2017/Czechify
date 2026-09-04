@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit15/travel_arrival_v1.png",
+        "image": "assets/images/unit15/travel_arrival_v1.webp",
         "image_label": "Mission: Give a Travel Update",
         "text_cz": "Včera byl Daniel v Praze. Pršelo, ale dnes svítí slunce. Zítra pojede vlakem domů.",
         "text_en": "Yesterday Daniel was in Prague. It rained, but today the sun shines. Tomorrow he will go home by train.",

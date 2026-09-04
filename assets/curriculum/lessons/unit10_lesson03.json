@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "V pracovní den vstávám v šest. O víkendu vstávám v devět a odpoledne sportuju.",
-        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "text_cz": "Anna pracuje v pondělí. Vstává brzy. V sobotu nepracuje, dlouho spí a večer se dívá na film.",
         "text_en": "Anna works on Monday. She gets up early. On Saturday she does not work, sleeps late, and watches a film in the evening.",
@@ -262,7 +262,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Compare Two Days",
-        "image": "assets/images/unit10/daily_routine_storyboard_v1.png",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
         "lines": [
           {

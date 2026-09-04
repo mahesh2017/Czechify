@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit13/hobby_cycling_v1.png",
+        "image": "assets/images/unit13/hobby_cycling_v1.webp",
         "image_label": "Talk About Activities",
         "text_cz": "Tom sportuje. O víkendu jezdí na kole a někdy plave v bazénu.",
         "text_en": "Tom does sport. At the weekend he rides a bike and sometimes swims in a pool.",

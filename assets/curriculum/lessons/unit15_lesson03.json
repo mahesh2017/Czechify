@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit15/travel_packing_v1.png",
+        "image": "assets/images/unit15/travel_packing_v1.webp",
         "image_label": "Prepare a Small Trip",
         "text_cz": "Rodina jede vlakem na dovolenou. Mají kufry, pasy a jízdenky. Zítra bude teplo.",
         "text_en": "A family is going by train on holiday. They have suitcases, passports, and tickets. Tomorrow it will be warm.",

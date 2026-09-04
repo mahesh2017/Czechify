@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit12/shop_choice_v1.png",
+        "image": "assets/images/unit12/shop_choice_v1.webp",
         "image_label": "Ask About Price and Size",
         "text_cz": "Pavel chce modrý svetr. Zeptá se na cenu a velikost. Svetr stojí pět set korun.",
         "text_en": "Pavel wants a blue sweater. He asks about the price and size. The sweater costs five hundred crowns.",

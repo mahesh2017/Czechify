@@ -66,8 +66,8 @@ void main() {
           'dialogue',
         ]),
       );
-      expect(allText, contains('assets/images/unit02/formal_reception_v1.png'));
-      expect(allText, contains('assets/images/unit02/informal_cafe_v1.png'));
+      expect(allText, contains('assets/images/unit02/formal_reception_v1.webp'));
+      expect(allText, contains('assets/images/unit02/informal_cafe_v1.webp'));
       expect(allText, contains('Jak se jmenujete?'));
       expect(allText, contains('Jak se jmenuješ?'));
       expect(allText, contains('Odkud jste?'));

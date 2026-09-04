@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit13/hobby_reading_v1.png",
+        "image": "assets/images/unit13/hobby_reading_v1.webp",
         "image_label": "Say What You Like",
         "text_cz": "Lenka má ráda hudbu a čtení. Ve volném čase čte knížku a poslouchá hudbu.",
         "text_en": "Lenka likes music and reading. In her free time she reads a book and listens to music.",

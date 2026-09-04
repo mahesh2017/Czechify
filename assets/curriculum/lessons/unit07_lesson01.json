@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Dobrý den. Je to váš klíč? Ano, je můj. A ta taška? Ta není moje.",
-        "image": "assets/images/unit07/lost_property_v1.png",
+        "image": "assets/images/unit07/lost_property_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit07/lost_property_v1.png",
+        "image": "assets/images/unit07/lost_property_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "text_cz": "Nalezené věci: černý telefon, modrá taška, dva klíče a kniha.",
         "text_en": "Found items: a black phone, a blue bag, two keys, and a book.",
@@ -261,7 +261,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "At Lost Property",
-        "image": "assets/images/unit07/lost_property_v1.png",
+        "image": "assets/images/unit07/lost_property_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "lines": [
           {

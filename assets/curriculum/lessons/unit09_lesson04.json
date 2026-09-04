@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Máš čas zítra? Ano. V kolik? V sedmnáct třicet. Sejdeme se v kavárně.",
-        "image": "assets/images/unit09/time_plan_v1.png",
+        "image": "assets/images/unit09/time_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit09/time_plan_v1.png",
+        "image": "assets/images/unit09/time_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "text_cz": "Plán: sobota 10:00, kavárna Luna, telefon 603 218 440.",
         "text_en": "Plan: Saturday 10:00, Café Luna, telephone 603 218 440.",
@@ -257,7 +257,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Mission: Arrange a Meeting",
-        "image": "assets/images/unit09/time_plan_v1.png",
+        "image": "assets/images/unit09/time_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "lines": [
           {
@@ -321,7 +321,7 @@
         "type": "speaking_task",
         "prompt_en": "Record a simple plan: exchange a contact detail, propose a day and time, name the meeting place, and confirm it.",
         "prompt_cz": "Dokončete krátkou misi česky.",
-        "image": "assets/images/unit09/time_plan_v1.png",
+        "image": "assets/images/unit09/time_plan_v1.webp",
         "image_label": "Phone numbers, clock time, and a simple meeting plan",
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,

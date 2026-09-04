@@ -820,7 +820,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         child: SizedBox(
                           height: 92,
                           child: Image.asset(
-                            'assets/images/onboarding_hero_v2.png',
+                            'assets/images/onboarding_hero_v2.webp',
                             fit: BoxFit.cover,
                             width: double.infinity,
                             semanticLabel: l10n.onboardingHeroImage,

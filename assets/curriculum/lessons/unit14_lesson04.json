@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit14/town_arrival_v1.png",
+        "image": "assets/images/unit14/town_arrival_v1.webp",
         "image_label": "Mission: Guide a Visitor",
         "text_cz": "Návštěvník hledá nádraží. Místní člověk říká: Jeďte tramvají, potom jděte rovně a zahněte doprava.",
         "text_en": "A visitor is looking for the station. A local says to take the tram, then go straight and turn right.",

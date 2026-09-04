@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/repositories/speech_ports.dart';
 import '../../../providers/stt_providers.dart';
+import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/record_button.dart';
 import '../../common/motion_widgets.dart';
@@ -207,20 +208,11 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
           const SizedBox(height: 16),
 
           if (image != null && image.isNotEmpty) ...[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: AspectRatio(
-                aspectRatio: 5 / 4,
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  cacheWidth: 1024,
-                  semanticLabel:
-                      imageLabel == null || imageLabel.isEmpty
-                          ? null
-                          : imageLabel,
-                ),
-              ),
+            LessonImage(
+              asset: image,
+              aspectRatio: 5 / 4,
+              semanticLabel:
+                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
             ),
             const SizedBox(height: 16),
           ],

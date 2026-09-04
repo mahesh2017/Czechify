@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Moje sestra se jmenuje Eva. Bydlí v Brně, je studentka a má ráda hudbu.",
-        "image": "assets/images/unit08/family_people_v1.png",
+        "image": "assets/images/unit08/family_people_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit08/family_people_v1.png",
+        "image": "assets/images/unit08/family_people_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "text_cz": "Můj kamarád Amir bydlí v Praze. Pracuje v hotelu a je velmi milý.",
         "text_en": "My friend Amir lives in Prague. He works in a hotel and is very kind.",
@@ -260,7 +260,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Tell a Short Family Story",
-        "image": "assets/images/unit08/family_people_v1.png",
+        "image": "assets/images/unit08/family_people_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "lines": [
           {

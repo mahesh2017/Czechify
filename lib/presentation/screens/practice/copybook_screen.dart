@@ -9,6 +9,7 @@ import '../../providers/copybook_providers.dart';
 import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
+import '../../widgets/common/motion_async.dart';
 
 class CopybookScreen extends ConsumerStatefulWidget {
   const CopybookScreen({super.key});
@@ -76,7 +77,7 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(24),
               child: Image.asset(
-                'assets/images/copybook_hero_v1.png',
+                'assets/images/copybook_hero_v1.webp',
                 height: 190,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -84,7 +85,8 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            items.when(
+            MotionAsync(
+              value: items,
               loading:
                   () => Center(
                     child:

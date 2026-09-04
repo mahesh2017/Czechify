@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "To je moje rodina. Moje maminka se jmenuje Jana. Je milá. Můj bratr Adam je student.",
-        "image": "assets/images/unit08/people_description_v1.png",
+        "image": "assets/images/unit08/people_description_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit08/people_description_v1.png",
+        "image": "assets/images/unit08/people_description_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "text_cz": "Lidé pro misi: maminka Jana – milá; bratr Adam – student; kamarád Leo – veselý.",
         "text_en": "People for the mission: mother Jana – kind; brother Adam – student; friend Leo – cheerful.",
@@ -262,7 +262,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Mission: Introduce Three People",
-        "image": "assets/images/unit08/people_description_v1.png",
+        "image": "assets/images/unit08/people_description_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "lines": [
           {
@@ -326,7 +326,7 @@
         "type": "speaking_task",
         "prompt_en": "Record a short introduction to three important people. Say who they are and give at least two simple descriptions.",
         "prompt_cz": "Dokončete krátkou misi česky.",
-        "image": "assets/images/unit08/people_description_v1.png",
+        "image": "assets/images/unit08/people_description_v1.webp",
         "image_label": "Family relationships and simple description agreement",
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,

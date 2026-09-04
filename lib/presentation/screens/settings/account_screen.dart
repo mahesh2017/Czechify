@@ -19,6 +19,7 @@ import '../../utils/external_links.dart';
 import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
+import '../../widgets/common/motion_async.dart';
 
 /// Why the account screen was opened.
 ///
@@ -69,7 +70,8 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       child: Scaffold(
         backgroundColor: t.bg,
         appBar: AppBar(backgroundColor: t.bg, title: Text(l10n.accountTitle)),
-        body: account.when(
+        body: MotionAsync(
+          value: account,
           loading: () => const Center(child: CircularProgressIndicator()),
           error:
               (_, _) => _Message(

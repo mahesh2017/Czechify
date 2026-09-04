@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit30/review_directions_v1.png",
+        "image": "assets/images/unit30/review_directions_v1.webp",
         "image_label": "Find Your Way",
         "text_cz": "U tramvaje se Jana ptá na zastávku. Muž ukazuje rovně a potom doleva. Zastávka je blízko.",
         "text_en": "Near the tram Jana asks for the stop. A man points straight ahead and then left. The stop is close.",

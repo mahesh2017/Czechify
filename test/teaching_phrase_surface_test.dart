@@ -6,7 +6,6 @@ import 'package:czechify/presentation/widgets/lesson/exercises/teaching_view.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lottie/lottie.dart';
 
 import 'support/localized_app.dart';
 
@@ -57,9 +56,7 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('legacy teacher Lottie stays still with reduced motion', (
-    tester,
-  ) async {
+  testWidgets('the teacher stays still with reduced motion', (tester) async {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
@@ -94,9 +91,10 @@ void main() {
     );
     await tester.pump();
 
-    final lottie = tester.widget<Lottie>(find.byType(Lottie));
-    expect(lottie.animate, isFalse);
-    expect(lottie.repeat, isFalse);
+    // The portrait is still drawn — only its bob is parked. Asserting on the
+    // ticker rather than the widget is what catches a controller that was
+    // left running behind a zeroed duration.
+    expect(find.byType(Image), findsWidgets);
     expect(tester.binding.transientCallbackCount, 0);
   });
 }

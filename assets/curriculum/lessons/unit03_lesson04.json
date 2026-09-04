@@ -50,7 +50,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Look closely. Identify six people or things without relying on English labels.",
-        "image": "assets/images/unit03/identification_scene_v1.png",
+        "image": "assets/images/unit03/identification_scene_v1.webp",
         "image_label": "A Prague street café with a man, woman, child, dog, car, building, window, table, chair, book, and coffee",
         "text_cz": "Kdo je to? Co je to? Najděte šest věcí nebo lidí: muž, žena, dítě, pes, auto a kniha.",
         "text_en": "Who is that? What is that? Find six people or things: a man, woman, child, dog, car, and book.",

@@ -43,7 +43,7 @@
       "prompt": "Read the weekend choice",
       "data": {
         "type": "reading_comprehension",
-        "image": "assets/images/unit31/weekend_journey_v1.png",
+        "image": "assets/images/unit31/weekend_journey_v1.webp",
         "image_label": "Friends comparing transport routes on a map",
         "prompt_en": "Which option is cheaper and which is faster?",
         "text_cz": "Do Olomouce můžete jet vlakem za 180 korun. Cesta trvá dvě hodiny. Autobus stojí 140 korun, ale jede dvě a půl hodiny. Oba spoje odjíždějí v sobotu ráno.",
@@ -133,7 +133,7 @@
       "prompt": "Record your A2 response",
       "data": {
         "type": "speaking_task",
-        "image": "assets/images/unit31/personal_challenge_v1.png",
+        "image": "assets/images/unit31/personal_challenge_v1.webp",
         "image_label": "Adult confidently describing a personal plan",
         "prompt_cz": "Nahrajte 35–55 sekund: představte se, popište jednu nedávnou událost a vysvětlete jeden plán na příští víkend.",
         "prompt_en": "Record 35–55 seconds: introduce yourself, describe one recent event and explain one plan for next weekend.",

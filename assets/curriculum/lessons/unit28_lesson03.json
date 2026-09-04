@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit28/exam_message_v1.png",
+        "image": "assets/images/unit28/exam_message_v1.webp",
         "image_label": "Write a Short Message",
         "text_cz": "Martin píše Petře krátkou zprávu. Dnes nepřijde, protože je nemocný. Chce se vidět zítra.",
         "text_en": "Martin writes Petra a short message. He is not coming today because he is ill. He wants to see her tomorrow.",

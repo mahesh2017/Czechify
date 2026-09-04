@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Dobrý den. Máte polévku? Ano. Dám si polévku a čaj, prosím. Děkuju.",
-        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "text_cz": "Objednávka: jedna polévka, jeden čaj. Cena: 145 Kč.",
         "text_en": "Order: one soup, one tea. Price: 145 CZK.",
@@ -256,7 +256,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Mission: Order Two Items",
-        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "lines": [
           {
@@ -320,7 +320,7 @@
         "type": "speaking_task",
         "prompt_en": "Record a polite two-item order: greet, ask whether an item is available, order food and drink, and close politely.",
         "prompt_cz": "Dokončete krátkou misi česky.",
-        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,

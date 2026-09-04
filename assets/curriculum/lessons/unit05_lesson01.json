@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Jmenuju se Sara. Bydlím v Brně, studuju češtinu a mluvím anglicky.",
-        "image": "assets/images/unit05/activity_profiles_v1.png",
+        "image": "assets/images/unit05/activity_profiles_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit05/activity_profiles_v1.png",
+        "image": "assets/images/unit05/activity_profiles_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "text_cz": "Pavel bydlí v Praze. Pracuje v hotelu a mluví česky a německy.",
         "text_en": "Pavel lives in Prague. He works in a hotel and speaks Czech and German.",
@@ -257,7 +257,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Meet People in Action",
-        "image": "assets/images/unit05/activity_profiles_v1.png",
+        "image": "assets/images/unit05/activity_profiles_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "lines": [
           {

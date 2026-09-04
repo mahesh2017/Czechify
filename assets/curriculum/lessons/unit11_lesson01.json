@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit11/restaurant_table_v1.png",
+        "image": "assets/images/unit11/restaurant_table_v1.webp",
         "image_label": "Choose Something to Eat",
         "text_cz": "Petra je v restauraci. Má hlad a žízeň. Dává si polévku, chléb a vodu.",
         "text_en": "Petra is in a restaurant. She is hungry and thirsty. She orders soup, bread, and water.",

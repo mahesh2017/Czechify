@@ -65,7 +65,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Chci kávu a vodu. Petr chce pivo a polévku.",
-        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "questions": [
           {
@@ -99,7 +99,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "text_cz": "Anna chce kávu. David chce čaj. Eva si dá vodu a pivo.",
         "text_en": "Anna wants coffee. David wants tea. Eva will have water and beer.",
@@ -260,7 +260,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Choose the Useful Object Form",
-        "image": "assets/images/unit06/request_pattern_v1.png",
+        "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "lines": [
           {

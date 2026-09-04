@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit12/shop_display_v1.png",
+        "image": "assets/images/unit12/shop_display_v1.webp",
         "image_label": "See Colours and Clothes",
         "text_cz": "V obchodě je červená košile, modrý svetr a černé kalhoty. Petra hledá nové boty.",
         "text_en": "In the shop there is a red shirt, a blue sweater, and black trousers. Petra is looking for new shoes.",

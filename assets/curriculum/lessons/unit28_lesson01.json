@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit28/exam_form_v1.png",
+        "image": "assets/images/unit28/exam_form_v1.webp",
         "image_label": "Read a Simple Form",
         "text_cz": "Anna vyplňuje formulář. Jmenuje se Anna Nováková a bydlí v Praze. Její telefonní číslo je 777 123 456.",
         "text_en": "Anna is filling in a form. Her name is Anna Nováková and she lives in Prague. Her telephone number is 777 123 456.",

@@ -82,7 +82,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Use the image and short text together.",
-        "image": "assets/images/unit11/restaurant_menu_v1.png",
+        "image": "assets/images/unit11/restaurant_menu_v1.webp",
         "image_label": "Ask, Pay, and Say Thank You",
         "text_cz": "V restauraci chce Anna polévku. Zeptá se: Máte polévku? Po jídle říká: Účet, prosím. Platí kartou.",
         "text_en": "At the restaurant Anna wants soup. She asks: Do you have soup? After eating she says: The bill, please. She pays by card.",

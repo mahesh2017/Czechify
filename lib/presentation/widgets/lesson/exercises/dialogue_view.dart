@@ -4,6 +4,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/tts_providers.dart';
+import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
 
@@ -239,20 +240,11 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
           const SizedBox(height: 18),
 
           if (image != null && image.isNotEmpty) ...[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: AspectRatio(
-                aspectRatio: 5 / 4,
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  cacheWidth: 1024,
-                  semanticLabel:
-                      imageLabel == null || imageLabel.isEmpty
-                          ? null
-                          : imageLabel,
-                ),
-              ),
+            LessonImage(
+              asset: image,
+              aspectRatio: 5 / 4,
+              semanticLabel:
+                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
             ),
             const SizedBox(height: 14),
           ],

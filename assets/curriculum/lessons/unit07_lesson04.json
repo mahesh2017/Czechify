@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Čí je ta kniha? Je moje. A ten telefon? To je jeho. Tady máte.",
-        "image": "assets/images/unit07/ownership_pattern_v1.png",
+        "image": "assets/images/unit07/ownership_pattern_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit07/ownership_pattern_v1.png",
+        "image": "assets/images/unit07/ownership_pattern_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "text_cz": "Ztráty a nálezy: Jana – kniha; Omar – telefon; já – černá taška.",
         "text_en": "Lost property: Jana – book; Omar – phone; me – black bag.",
@@ -259,7 +259,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Mission: Whose Is It?",
-        "image": "assets/images/unit07/ownership_pattern_v1.png",
+        "image": "assets/images/unit07/ownership_pattern_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "lines": [
           {
@@ -323,7 +323,7 @@
         "type": "speaking_task",
         "prompt_en": "Record two ownership questions and answers, then return one item to yourself and one to another person.",
         "prompt_cz": "Dokončete krátkou misi česky.",
-        "image": "assets/images/unit07/ownership_pattern_v1.png",
+        "image": "assets/images/unit07/ownership_pattern_v1.webp",
         "image_label": "Ownership words matched to common belongings",
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,

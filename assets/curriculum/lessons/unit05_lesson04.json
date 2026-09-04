@@ -64,7 +64,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen first for the situation, then for the requested detail.",
         "transcript_cz": "Pracuju v kanceláři, bydlím v Praze, mluvím anglicky a rozumím trochu česky.",
-        "image": "assets/images/unit05/activity_questions_v1.png",
+        "image": "assets/images/unit05/activity_questions_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "questions": [
           {
@@ -98,7 +98,7 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the short functional text and find the requested detail.",
-        "image": "assets/images/unit05/activity_questions_v1.png",
+        "image": "assets/images/unit05/activity_questions_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "text_cz": "Vizitka: Hana, Brno, učitelka. Mluví česky a anglicky.",
         "text_en": "Profile card: Hana, Brno, teacher. She speaks Czech and English.",
@@ -255,7 +255,7 @@
       "data": {
         "type": "dialogue",
         "scenario": "Mission: What Do You Do?",
-        "image": "assets/images/unit05/activity_questions_v1.png",
+        "image": "assets/images/unit05/activity_questions_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "lines": [
           {
@@ -319,7 +319,7 @@
         "type": "speaking_task",
         "prompt_en": "Record four personal activity answers: what you do, where you live, which language you speak, and what you understand.",
         "prompt_cz": "Dokončete krátkou misi česky.",
-        "image": "assets/images/unit05/activity_questions_v1.png",
+        "image": "assets/images/unit05/activity_questions_v1.webp",
         "image_label": "Everyday activity profiles and matching questions",
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,

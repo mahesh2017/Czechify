@@ -23,7 +23,7 @@
             "cz": "ten stůl",
             "en": "the/that table · masculine",
             "say": "ten stůl",
-            "image": "assets/images/unit03/stul_v1.png",
+            "image": "assets/images/unit03/stul_v1.webp",
             "image_label": "A table",
             "sentence": "To je ten stůl.",
             "sentence_en": "That is the table."
@@ -32,7 +32,7 @@
             "cz": "ta kniha",
             "en": "the/that book · feminine",
             "say": "ta kniha",
-            "image": "assets/images/unit03/kniha_v1.png",
+            "image": "assets/images/unit03/kniha_v1.webp",
             "image_label": "A book",
             "sentence": "To je ta kniha.",
             "sentence_en": "That is the book."
@@ -41,7 +41,7 @@
             "cz": "ta káva",
             "en": "the/that coffee · feminine",
             "say": "ta káva",
-            "image": "assets/images/unit01/kava_v1.png",
+            "image": "assets/images/unit01/kava_v1.webp",
             "image_label": "A cup of coffee",
             "sentence": "To je ta káva.",
             "sentence_en": "That is the coffee."
@@ -50,7 +50,7 @@
             "cz": "ta židle",
             "en": "the/that chair · feminine",
             "say": "ta židle",
-            "image": "assets/images/unit03/zidle_v1.png",
+            "image": "assets/images/unit03/zidle_v1.webp",
             "image_label": "A chair",
             "sentence": "To je ta židle.",
             "sentence_en": "That is the chair."
@@ -59,7 +59,7 @@
             "cz": "to okno",
             "en": "the/that window · neuter",
             "say": "to okno",
-            "image": "assets/images/unit03/okno_v1.png",
+            "image": "assets/images/unit03/okno_v1.webp",
             "image_label": "A window",
             "sentence": "To je to okno.",
             "sentence_en": "That is the window."
@@ -68,7 +68,7 @@
             "cz": "to město",
             "en": "the/that city · neuter",
             "say": "to město",
-            "image": "assets/images/unit03/mesto_v1.png",
+            "image": "assets/images/unit03/mesto_v1.webp",
             "image_label": "A Prague city neighborhood",
             "sentence": "To je to město.",
             "sentence_en": "That is the city."
