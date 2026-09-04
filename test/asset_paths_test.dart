@@ -71,13 +71,17 @@ void main() {
   });
 
   test('the alpha images that stay PNG are still PNG', () {
-    // tool/compress_images.py skips these deliberately: two launcher-icon
+    // tool/compress_images.py skips these deliberately: three launcher-icon
     // sources that flutter_launcher_icons reads from pubspec.yaml, four Google
     // sign-in brand buttons, and the two teacher portraits. If one turns up as
     // WebP, the icon build or the brand asset has been quietly re-encoded.
+    //
+    // app_icon_background.png is the one with no alpha, so nothing but this
+    // list keeps the compressor off it.
     for (final name in const [
       'app_icon',
       'app_icon_foreground',
+      'app_icon_background',
       'google_sign_in_android_dark',
       'google_sign_in_android_light',
       'google_sign_in_ios_dark',

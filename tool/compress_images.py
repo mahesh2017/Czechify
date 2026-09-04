@@ -40,6 +40,12 @@ except ImportError:  # pragma: no cover - developer tooling
 QUALITY = 95
 ROOT = pathlib.Path(__file__).resolve().parent.parent / "assets" / "images"
 
+# Launcher-icon sources, which `flutter_launcher_icons` reads by path from
+# pubspec.yaml and which must stay PNG. The alpha rule below already spares the
+# two that have transparency; the generated gradient background does not, and
+# would otherwise be swept up here and quietly break the icon build.
+KEEP_AS_PNG = {"app_icon", "app_icon_foreground", "app_icon_background"}
+
 
 def has_alpha(image: Image.Image) -> bool:
     return image.mode in ("RGBA", "LA") or (
@@ -55,6 +61,9 @@ def main() -> int:
     before = after = 0
 
     for png in sorted(ROOT.rglob("*.png")):
+        if png.stem in KEEP_AS_PNG:
+            kept += 1
+            continue
         with Image.open(png) as image:
             image.load()
             if has_alpha(image):
@@ -74,7 +83,7 @@ def main() -> int:
             f"{converted} converted: {before / 1e6:.1f} MB -> {after / 1e6:.1f} MB "
             f"({100 * (1 - after / before):.0f}% smaller)"
         )
-    print(f"{kept} left as PNG (alpha channel)")
+    print(f"{kept} left as PNG (alpha channel or launcher source)")
     return 0
 
 

@@ -79,7 +79,9 @@ dev_dependencies:
 flutter_launcher_icons:
   image_path: assets/images/app_icon.png
   android: true
-  adaptive_icon_background: "#415AE8"
+  # A gradient rather than a flat colour, so Android reads like iOS.
+  # Both layers are derived from app_icon.png by tool/generate_app_icons.py.
+  adaptive_icon_background: assets/images/app_icon_background.png
   adaptive_icon_foreground: assets/images/app_icon_foreground.png
   ios: true
   remove_alpha_ios: true
