@@ -101,6 +101,25 @@ RICH_BED = (
     "instruments. Ends resolved and fully silent, no fade-out."
 )
 
+# Everything before this came back melancholy, and the prompts were the
+# cause: warm, gentle, unhurried, intimate, settling, half speed — written to
+# avoid irritating anyone, which is not the same as being good. The bans made
+# it worse by removing every source of energy at once (no percussion, no
+# swell, nothing bright).
+#
+# So this bed inverts it, and says the failure mode out loud: generators
+# respond to "not wistful" far better than to the absence of the word warm.
+#
+# The polka is the other correction. It originated in Bohemia, it is fast and
+# major and instantly readable as joy, and it is the most catchy thing Czech
+# music has to offer — which was sitting there the whole time behind a
+# cimbalom playing a slow waltz.
+EXCITE_BED = (
+    "Bright major key, fast and upbeat, driving pulse. Nothing wistful, "
+    "melancholy, slow or reflective. Live acoustic ensemble, close and "
+    "lively. Ends on one decisive resolved hit, no fade-out."
+)
+
 # peak is the ladder position each file has to land on, measured from the
 # palette it is replacing.
 CUES = {
@@ -309,6 +328,62 @@ CUES = {
             "warm clarinet lift it, and the whole ensemble resolves together. "
             "Cinematic warmth with a Central European accent, never brassy or "
             "loud. " + RICH_BED
+        ),
+    ),
+    # Four seconds, maximum. A pickup, a hook, a landing — nothing else fits,
+    # and nothing else is needed.
+    "spark_a": dict(
+        seconds=3.5,
+        peak=0.78,
+        text=(
+            "A fast joyful Bohemian polka burst in C major. Clarinet rips out "
+            "a bright catchy hook over cimbalom, oompah double bass and a "
+            "snappy tambourine, violins answering, finishing on a punchy "
+            "chord. Grinning, energetic, over in a flash. " + EXCITE_BED
+        ),
+    ),
+    "spark_b": dict(
+        seconds=3.5,
+        peak=0.78,
+        text=(
+            "A short celebratory flourish in C major: cimbalom tremolo rolls "
+            "up into violins and clarinet hitting a bright triumphant phrase "
+            "together, landing on a big warm chord. Folk-flavoured fanfare, "
+            "exhilarating, no brass. " + EXCITE_BED
+        ),
+    ),
+    "spark_c": dict(
+        seconds=3.5,
+        peak=0.78,
+        text=(
+            "A playful bouncing welcome in C major. A skipping marimba and "
+            "pizzicato bass groove with hand claps, a bright glockenspiel "
+            "hook on top, cheeky and infectious, ending on a confident hit. "
+            "Modern and fun rather than traditional. " + EXCITE_BED
+        ),
+    ),
+    "spark_d": dict(
+        seconds=4.0,
+        peak=0.78,
+        text=(
+            "A fast Czech folk dance in C major, skocna style. Racing violin "
+            "and clarinet trade a spirited catchy melody over fast cimbalom "
+            "tremolo and a driving bass, accelerating into one final unison "
+            "hit. Exuberant village celebration. " + EXCITE_BED
+        ),
+    ),
+    # spark_a asked for a polka and came back at 2.0 onsets/s, which is not
+    # one. Adjectives were not enough; this states the tempo as a number and
+    # the rhythm as a mechanism.
+    "spark_a2": dict(
+        seconds=3.5,
+        peak=0.78,
+        text=(
+            "A blazing Bohemian polka at 160 bpm in C major, two-beat and "
+            "relentless. Oompah bass and off-beat chords drive under clarinet "
+            "and violin tearing through a bright catchy hook in unison, "
+            "tambourine on every beat, ending on one hard stab. No rubato, no "
+            "pauses. " + EXCITE_BED
         ),
     ),
     "badge": dict(
