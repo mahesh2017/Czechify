@@ -87,6 +87,20 @@ THEME_BED = (
     "swell. Ends resolved and fully silent, no fade-out."
 )
 
+# The launch theme is the one thing in the app that plays alone — nothing
+# else is sounding within seconds of it. The single-instrument rule that the
+# ceremony tier needs (those land right after a correct-answer chime) does not
+# apply to it, and holding the theme to solo mallets was over-applying it.
+#
+# The reference ensemble is a cimbalova muzika: cimbalom, violins, viola,
+# double bass, clarinet. It is both the authentic Czech folk band and,
+# because the cimbalom is struck-string, still anchored to the mallet family
+# the rest of the palette lives in.
+RICH_BED = (
+    "Played by a small live ensemble, warm and close, real acoustic "
+    "instruments. Ends resolved and fully silent, no fade-out."
+)
+
 # peak is the ladder position each file has to land on, measured from the
 # palette it is replacing.
 CUES = {
@@ -248,6 +262,53 @@ CUES = {
             "strings, a clear singable phrase that rises and resolves. "
             "Polished and warm, a title theme rather than a field recording. "
             + THEME_BED
+        ),
+    ),
+    # Full-ensemble launch themes. Short, C major, and written around a hook
+    # rather than a texture — "catchy" is the brief here, and these are the
+    # only sounds in the app allowed to try for it.
+    "rich_a": dict(
+        seconds=5.0,
+        peak=0.72,
+        text=(
+            "A short warm welcome played by a Czech cimbalom band: cimbalom, "
+            "two violins, viola and plucked double bass, with a clarinet "
+            "singing a clear four-note hook in C major over the top. Gentle "
+            "three-beat sway, lifts once and resolves together. Affectionate "
+            "and alive. " + RICH_BED
+        ),
+    ),
+    "rich_b": dict(
+        seconds=5.0,
+        peak=0.72,
+        text=(
+            "A bright memorable welcome theme in C major. A clarinet and "
+            "violin carry a catchy singable phrase together over shimmering "
+            "cimbalom, pizzicato double bass and a light tambourine pulse. "
+            "Folk-rooted but polished, the opening titles of something you "
+            "are glad to see. " + RICH_BED
+        ),
+    ),
+    "rich_c": dict(
+        seconds=4.5,
+        peak=0.72,
+        text=(
+            "A quick, joyful welcome in C major with a strong hook. Violin "
+            "and clarinet answer each other over fast cimbalom tremolo and "
+            "walking pizzicato bass, warm strings filling underneath, ending "
+            "on one bright resolved chord. Central European, spirited, over "
+            "quickly. " + RICH_BED
+        ),
+    ),
+    "rich_d": dict(
+        seconds=6.0,
+        peak=0.72,
+        text=(
+            "A generous welcome theme in C major that opens out. Cimbalom "
+            "and celesta state a simple hook, a small string section and a "
+            "warm clarinet lift it, and the whole ensemble resolves together. "
+            "Cinematic warmth with a Central European accent, never brassy or "
+            "loud. " + RICH_BED
         ),
     ),
     "badge": dict(
