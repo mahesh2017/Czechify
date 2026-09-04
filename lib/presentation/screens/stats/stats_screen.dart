@@ -16,6 +16,7 @@ import '../../../domain/entities/unit.dart';
 import '../../../domain/entities/practice_evidence.dart';
 import '../../../domain/entities/concept_error_evidence.dart';
 import '../../widgets/common/wash_background.dart';
+import '../../widgets/common/motion_async.dart';
 
 /// Stats screen — dated course-practice evidence, badges, and engagement.
 class StatsScreen extends ConsumerWidget {
@@ -32,7 +33,8 @@ class StatsScreen extends ConsumerWidget {
       body: WashBackground(
         child: SafeArea(
           bottom: false,
-          child: dataAsync.when(
+          child: MotionAsync(
+            value: dataAsync,
             loading: () => const Center(child: CircularProgressIndicator()),
             error:
                 (_, __) => Center(

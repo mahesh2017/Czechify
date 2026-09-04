@@ -8,6 +8,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../providers/tts_providers.dart';
+import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import '../../common/soft_ui.dart';
@@ -341,17 +342,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
               ],
             ),
             const SizedBox(height: 12),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: AspectRatio(
-                aspectRatio: 1.25,
-                child: Image.asset(
-                  item.image,
-                  fit: BoxFit.cover,
-                  cacheWidth: 880,
-                  semanticLabel: item.imageLabel,
-                ),
-              ),
+            LessonImage(
+              asset: item.image,
+              aspectRatio: 1.25,
+              semanticLabel: item.imageLabel,
             ),
             const SizedBox(height: 18),
             if (!sentencePage) ...[

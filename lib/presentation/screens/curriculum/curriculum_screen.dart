@@ -13,6 +13,7 @@ import '../../providers/settings_providers.dart';
 import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../models/curriculum_path_item.dart';
+import '../../widgets/common/motion_async.dart';
 
 /// Curriculum — units for A1/A2 with progress and inline lessons.
 ///
@@ -155,7 +156,8 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
       body: WashBackground(
         child: SafeArea(
           bottom: false,
-          child: pathAsync.when(
+          child: MotionAsync(
+            value: pathAsync,
             loading: () => const Center(child: CircularProgressIndicator()),
             error:
                 (err, _) => Center(
