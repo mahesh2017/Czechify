@@ -95,6 +95,41 @@ void main() {
     expect(File('${packDir().path}/$currentCacheName').existsSync(), isTrue);
   });
 
+  test('a failed fetch is not remembered, so the voice comes back', () async {
+    // The failure used to be memoised alongside the success (`_manifest ??=
+    // _load()`), so one flaky moment — a tunnel, a captive portal, a cold start
+    // with no signal — silently switched the whole process to the device's own
+    // voice and kept it there until the app was restarted. Nothing told the
+    // learner that relaunching was the cure, and the recorded voice is the
+    // product.
+    final cache = newCache();
+    adapter.offline = true;
+
+    expect(await cache.load(), isNull, reason: 'offline, and nothing cached');
+
+    adapter.offline = false;
+    final recovered = await cache.load();
+
+    expect(
+      recovered,
+      isNotNull,
+      reason: 'the same instance must retry once the network is back',
+    );
+  });
+
+  test('a successful fetch is still read only once', () async {
+    final cache = newCache();
+
+    expect(await cache.load(), isNotNull);
+    expect(await cache.load(), isNotNull);
+
+    expect(
+      adapter.calls,
+      1,
+      reason: 'retrying failures must not turn into refetching successes',
+    );
+  });
+
   test('a later launch holding that revision makes no request', () async {
     await newCache().load();
     expect(adapter.calls, 1);

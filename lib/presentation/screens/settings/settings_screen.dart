@@ -704,9 +704,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   fg: t.green,
                   title: l10n.settingsTestVoice,
                   subtitle: l10n.settingsTestVoiceBody,
-                  onTap:
-                      () =>
-                          ref.read(czechTtsProvider).speak('Ahoj, jak se máš?'),
+                  onTap: () => ref.read(czechTtsProvider).previewVoice(),
                 ),
                 _Divider(),
                 _Row(

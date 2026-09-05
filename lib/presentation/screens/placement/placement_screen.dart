@@ -129,7 +129,12 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
 
   Future<void> _play(_PlacementTask task) async {
     setState(() => _replays++);
-    await ref.read(ttsProvider).speak(task.spoken!);
+    // czechTts, not the raw engine: this is the one path that consults the
+    // recorded pack, re-asserts cs-CZ, honours the learner's speed, and reports
+    // when it had to substitute the device voice. Speaking through FlutterTts
+    // directly meant the placement test — which decides where a learner starts,
+    // from audio they have to understand — was always the phone's voice.
+    await ref.read(czechTtsProvider).speak(task.spoken!);
   }
 
   Future<void> _submit() async {
