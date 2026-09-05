@@ -275,15 +275,28 @@ def main() -> int:
     # Part of the male pack is ElevenLabs Oliver, not Azure — recording only
     # the Azure voice here would tell the next person regenerating this pack
     # that every clip came from one engine, and they would overwrite the other.
+    # The same applies to the female pack since Azure's credit ran out: clips
+    # added after that are ElevenLabs Hanka, and a label naming only Vlasta
+    # would send the next person regenerating this pack over the top of them.
+    _MIXED = {
+        "male": [("eleven_done.json", "ElevenLabs Oliver"),
+                 ("eleven_paced.json", "ElevenLabs Oliver")],
+        "female": [("eleven_done_female.json", "ElevenLabs Hanka"),
+                   ("eleven_paced_female.json", "ElevenLabs Hanka")],
+    }
     name = voice
-    try:
-        oliver = set(json.loads(
-            (AUDIO / "eleven_done.json").read_text(encoding="utf-8")))
-        shared = len(oliver & set(entries))
-        if args.gender == "male" and shared:
-            name = f"{voice} (+{shared} ElevenLabs Oliver)"
-    except (FileNotFoundError, json.JSONDecodeError):
-        pass
+    counts: dict[str, set[str]] = {}
+    for ledger_name, label in _MIXED.get(args.gender, []):
+        try:
+            keys = set(json.loads(
+                (AUDIO / ledger_name).read_text(encoding="utf-8")))
+        except (FileNotFoundError, json.JSONDecodeError):
+            continue
+        counts.setdefault(label, set()).update(keys & set(entries))
+    extra = ", ".join(f"+{len(keys)} {label}"
+                      for label, keys in sorted(counts.items()) if keys)
+    if extra:
+        name = f"{voice} ({extra})"
 
     # Build v3 entries: {path, sha256, size} per clip so clients can detect
     # re-recorded audio for unchanged text and re-download instead of playing
