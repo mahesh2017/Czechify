@@ -106,7 +106,6 @@ class _ChatMotionNotifier extends ChatNotifier {
   ChatState build() => ChatState(
     conversationId: 'conversation',
     scenarioId: 'casual_chat',
-    scenarioTitle: 'Casual Chat',
     messages: [_message('restored', 'Dobrý den!', MessageRole.tutor)],
   );
 

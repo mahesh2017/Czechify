@@ -525,7 +525,9 @@ Future<void> _confirmDelete(
           icon: Icons.delete_outline_rounded,
           tone: AppDialogTone.danger,
           title: l10n.chatDeleteConversationTitle,
-          message: l10n.chatDeleteConversationBody(summary.scenario),
+          message: l10n.chatDeleteConversationBody(
+            _scenarioCopy(l10n, ChatScenario.idFor(summary.scenario)).title,
+          ),
           confirmLabel: l10n.chatDelete,
           onConfirm: () => Navigator.pop(ctx, true),
           dismissLabel: l10n.cancel,
@@ -573,7 +575,8 @@ class _ScenarioPicker extends ConsumerWidget {
           LessonKicker(l10n.chatUnfinished),
           const SizedBox(height: 8),
           ...recent.map((summary) {
-            final s = _scenarioStyle(context, summary.scenario);
+            final scenarioId = ChatScenario.idFor(summary.scenario);
+            final s = _scenarioStyle(context, scenarioId);
             return Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: SoftCard(
@@ -598,7 +601,7 @@ class _ScenarioPicker extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            summary.scenario,
+                            _scenarioCopy(l10n, scenarioId).title,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -953,17 +956,21 @@ class _ReportIconButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    // The report is read by a person, so it names the scenario in words
+    // rather than by id.
+    final scenario = _scenarioCopy(l10n, ref.read(chatProvider).scenarioId);
     return IconButton(
       onPressed: () async {
         final sent = await showReportTutorReplySheet(
           context: context,
           replyText: message.content,
-          scenarioTitle: ref.read(chatProvider).scenarioTitle,
+          scenarioTitle: scenario.title,
         );
         if (!sent || !context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context).chatReportSent),
+            content: Text(l10n.chatReportSent),
             duration: const Duration(seconds: 3),
           ),
         );
@@ -972,7 +979,7 @@ class _ReportIconButton extends ConsumerWidget {
       color: context.tokens.muted,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-      tooltip: AppLocalizations.of(context).chatReportReply,
+      tooltip: l10n.chatReportReply,
     );
   }
 }

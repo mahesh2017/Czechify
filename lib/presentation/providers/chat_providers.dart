@@ -19,7 +19,6 @@ class ChatState {
   final String scenarioId;
 
   /// Human-readable scenario name for the app bar (e.g. "At the Doctor").
-  final String scenarioTitle;
   final CEFRLevel level;
   final List<ChatMessage> messages;
   final bool isLoading;
@@ -43,7 +42,6 @@ class ChatState {
   const ChatState({
     this.conversationId,
     this.scenarioId = 'casual_chat',
-    this.scenarioTitle = 'AI Tutor',
     this.level = CEFRLevel.a1,
     this.messages = const [],
     this.isLoading = false,
@@ -62,7 +60,6 @@ class ChatState {
   ChatState copyWith({
     String? conversationId,
     String? scenarioId,
-    String? scenarioTitle,
     CEFRLevel? level,
     List<ChatMessage>? messages,
     bool? isLoading,
@@ -74,7 +71,6 @@ class ChatState {
     return ChatState(
       conversationId: conversationId ?? this.conversationId,
       scenarioId: scenarioId ?? this.scenarioId,
-      scenarioTitle: scenarioTitle ?? this.scenarioTitle,
       level: level ?? this.level,
       messages: messages ?? this.messages,
       isLoading: isLoading ?? this.isLoading,
@@ -87,49 +83,41 @@ class ChatState {
 }
 
 /// Conversation scenarios available for role-play.
+///
+/// Identity only. The wording lives in the ARB and is resolved where there is
+/// a BuildContext to resolve it with — `_scenarioCopy` in the chat screen —
+/// because it is displayed, and displayed text follows the interface
+/// language.
 class ChatScenario {
   final String id;
-  final String title;
-  final String description;
 
-  const ChatScenario({
-    required this.id,
-    required this.title,
-    required this.description,
-  });
+  const ChatScenario({required this.id});
 
   static const List<ChatScenario> all = [
-    ChatScenario(
-      id: 'casual_chat',
-      title: 'Casual Chat',
-      description: 'Everyday small talk — greetings, weather, how are you',
-    ),
-    ChatScenario(
-      id: 'restaurant',
-      title: 'At the Restaurant',
-      description: 'Order food, ask about menu, pay the bill',
-    ),
-    ChatScenario(
-      id: 'directions',
-      title: 'Asking Directions',
-      description: 'Ask for and give directions in the city',
-    ),
-    ChatScenario(
-      id: 'shopping',
-      title: 'Shopping',
-      description: 'Buy items, ask prices, negotiate',
-    ),
-    ChatScenario(
-      id: 'doctor',
-      title: 'At the Doctor',
-      description: 'Describe symptoms, make an appointment',
-    ),
-    ChatScenario(
-      id: 'job_interview',
-      title: 'Job Interview',
-      description: 'Practice a basic job interview in Czech',
-    ),
+    ChatScenario(id: 'casual_chat'),
+    ChatScenario(id: 'restaurant'),
+    ChatScenario(id: 'directions'),
+    ChatScenario(id: 'shopping'),
+    ChatScenario(id: 'doctor'),
+    ChatScenario(id: 'job_interview'),
   ];
+
+  /// The scenario id for a value read out of the conversations table.
+  ///
+  /// That column used to hold the English title, which made a display string
+  /// carry identity — `resumeConversation` matched on it, and the saved-list
+  /// icons switched on an id they were never given, so every past
+  /// conversation drew the fallback. Rows written from here on hold the id;
+  /// this maps the older ones, and passes an id through untouched.
+  static String idFor(String stored) => switch (stored) {
+    'Casual Chat' => 'casual_chat',
+    'At the Restaurant' => 'restaurant',
+    'Asking Directions' => 'directions',
+    'Shopping' => 'shopping',
+    'At the Doctor' => 'doctor',
+    'Job Interview' => 'job_interview',
+    _ => stored,
+  };
 }
 
 /// Notifier that manages the AI conversation lifecycle.
@@ -163,7 +151,7 @@ class ChatNotifier extends Notifier<ChatState> {
 
     final generation = ++_generation;
     final convId = await convRepo.createConversation(
-      scenario.title,
+      scenario.id,
       effectiveLevel.label,
     );
     if (_isStale(generation)) return;
@@ -171,7 +159,6 @@ class ChatNotifier extends Notifier<ChatState> {
     state = ChatState(
       conversationId: convId,
       scenarioId: scenario.id,
-      scenarioTitle: scenario.title,
       level: effectiveLevel,
       messages: [],
     );
@@ -370,7 +357,6 @@ class ChatNotifier extends Notifier<ChatState> {
     state = ChatState(
       conversationId: conversationId,
       scenarioId: state.scenarioId,
-      scenarioTitle: state.scenarioTitle,
       level: state.level,
       messages: messages,
       remainingToday: state.remainingToday,
@@ -384,15 +370,14 @@ class ChatNotifier extends Notifier<ChatState> {
     final convRepo = ref.read(conversationRepositoryProvider);
     final messages = await convRepo.getHistory(summary.id);
     if (_isStale(generation)) return;
-    // The table stores the scenario title; map back to its server-side id.
+    final storedId = ChatScenario.idFor(summary.scenario);
     final scenario = ChatScenario.all.firstWhere(
-      (s) => s.title == summary.scenario,
+      (s) => s.id == storedId,
       orElse: () => ChatScenario.all.first,
     );
     state = ChatState(
       conversationId: summary.id,
       scenarioId: scenario.id,
-      scenarioTitle: summary.scenario,
       level:
           summary.cefrLevel.toLowerCase().contains('a2')
               ? CEFRLevel.a2

@@ -2974,6 +2974,76 @@ class AppLocalizationsCs extends AppLocalizations {
   }
 
   @override
+  String get tip1Title => 'Piš si to rukou';
+
+  @override
+  String get tip1Body =>
+      'Psaní českých slov rukou zapojuje motorickou paměť. Studie ukazují, že ručně psané poznámky si pamatujeme lépe než psané na klávesnici. Veď si na nová slovíčka malý sešit.';
+
+  @override
+  String get tip2Title => 'Rozložené opakování funguje';
+
+  @override
+  String get tip2Body =>
+      'Opakování ve stále delších intervalech je nejúčinnější způsob, jak si udržet slovní zásobu. Přesně to dělají opakovací kartičky — dělej je každý den, klidně krátce.';
+
+  @override
+  String get tip3Title => 'Opakuj po nahrávce';
+
+  @override
+  String get tip3Body =>
+      'Poslechni si českou frázi a hned ji nahlas zopakuj — snaž se výslovnost přesně napodobit. Tahle technika trénuje sluch i svaly úst.';
+
+  @override
+  String get tip4Title => 'Vybavování místo čtení dokola';
+
+  @override
+  String get tip4Body =>
+      'Místo opakovaného čtení gramatiky se vyzkoušej. Zkus pravidlo vysvětlit nahlas bez koukání. Když to nejde, ještě ho neumíš — a právě tam se učení děje.';
+
+  @override
+  String get tip5Title => 'Spojuj slova s obrazy';
+
+  @override
+  String get tip5Body =>
+      'Ke každému novému českému slovu si představ živý obraz. Čím podivnější, tím lépe utkví. U slova „kočka\" si představ kočku v kroji.';
+
+  @override
+  String get tip6Title => 'Krátká cvičení jsou lepší než dlouhá';
+
+  @override
+  String get tip6Body =>
+      'Tři desetiminutová cvičení rozložená do dne fungují lépe než jeden půlhodinový blok. Mozek si jazyk ukládá mezi cvičeními, ne jen během nich.';
+
+  @override
+  String get tip7Title => 'Uč se v kontextu';
+
+  @override
+  String get tip7Body =>
+      'Nebiflej si izolované seznamy slov. Uč se slova v celých větách — „Dám si pivo, prosím\" utkví lépe než „pivo = beer\".';
+
+  @override
+  String get tip8Title => 'Vyspi se na to';
+
+  @override
+  String get tip8Body =>
+      'Mozek si jazyk upevňuje během spánku. Opakování slovíček před spaním může ráno zlepšit vybavování. Nebiflej naraz — raději trochu každý den a dobře se vyspi.';
+
+  @override
+  String get tip9Title => 'Dělej chyby schválně';
+
+  @override
+  String get tip9Body =>
+      'Zkus použít české slovo, kterým si nejsi jistý/á. Oprava, která přijde, vytvoří silnější stopu než pasivní studium. AI tutor je na to ideální — nebude tě soudit.';
+
+  @override
+  String get tip10Title => 'Poslouchej českou hudbu';
+
+  @override
+  String get tip10Body =>
+      'České písničky, podcasty nebo rádio na pozadí trénují sluch na rytmus a intonaci jazyka, i když nerozumíš každému slovu. Zkus ČRo online.';
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

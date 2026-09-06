@@ -5132,6 +5132,126 @@ abstract class AppLocalizations {
   /// **'{name}, {body}'**
   String notifyBodyWithName(String name, String body);
 
+  /// No description provided for @tip1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Write it down'**
+  String get tip1Title;
+
+  /// No description provided for @tip1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing Czech words by hand engages motor memory. Studies show handwritten notes are remembered better than typed ones. Keep a small notebook for new vocabulary.'**
+  String get tip1Body;
+
+  /// No description provided for @tip2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Spaced repetition works'**
+  String get tip2Title;
+
+  /// No description provided for @tip2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewing material at increasing intervals is the single most effective way to retain vocabulary. That’s exactly what the SRS review cards do — do them every day, even briefly.'**
+  String get tip2Body;
+
+  /// No description provided for @tip3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Shadow the audio'**
+  String get tip3Title;
+
+  /// No description provided for @tip3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to a Czech phrase, then immediately repeat it out loud trying to match the pronunciation exactly. This \"shadowing\" technique trains both your ear and your mouth muscles.'**
+  String get tip3Body;
+
+  /// No description provided for @tip4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Active recall over re-reading'**
+  String get tip4Title;
+
+  /// No description provided for @tip4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Instead of re-reading grammar rules, test yourself. Try to explain a rule out loud without looking. If you can’t, you don’t know it yet — that’s where learning happens.'**
+  String get tip4Body;
+
+  /// No description provided for @tip5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Link words to images'**
+  String get tip5Title;
+
+  /// No description provided for @tip5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Associate each new Czech word with a vivid mental image. The stranger the image, the better it sticks. For \"kočka\" (cat), imagine a cat wearing a traditional Czech kroj.'**
+  String get tip5Body;
+
+  /// No description provided for @tip6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Short sessions beat long ones'**
+  String get tip6Title;
+
+  /// No description provided for @tip6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Three 10-minute sessions spread through the day are more effective than one 30-minute block. Your brain consolidates language between sessions, not just during them.'**
+  String get tip6Body;
+
+  /// No description provided for @tip7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn in context'**
+  String get tip7Title;
+
+  /// No description provided for @tip7Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Don’t memorize isolated word lists. Learn words inside full sentences — \"Dám si pivo, prosím\" (I’ll have a beer, please) sticks better than \"pivo = beer\".'**
+  String get tip7Body;
+
+  /// No description provided for @tip8Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep on it'**
+  String get tip8Title;
+
+  /// No description provided for @tip8Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your brain reinforces language learning during sleep. Reviewing vocabulary before bed can improve recall the next morning. Don’t cram — a little each day with good rest in between.'**
+  String get tip8Body;
+
+  /// No description provided for @tip9Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Make mistakes on purpose'**
+  String get tip9Title;
+
+  /// No description provided for @tip9Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Try to use a Czech word you’re unsure about. The correction that follows creates a stronger memory than passive study. The AI chat tutor is perfect for this — it won’t judge you.'**
+  String get tip9Body;
+
+  /// No description provided for @tip10Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to Czech music'**
+  String get tip10Title;
+
+  /// No description provided for @tip10Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech songs, podcasts, or radio in the background train your ear to the rhythm and intonation of the language, even when you don’t understand every word. Try ČRo (Czech Radio) online.'**
+  String get tip10Body;
+
   /// No description provided for @rankBronze.
   ///
   /// In en, this message translates to:

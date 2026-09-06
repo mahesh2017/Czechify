@@ -58,17 +58,16 @@ void main() {
     'mock_exam_screen.dart': {'• \$criterion'},
   };
 
-  /// Whole files still to do, with why they are harder than an ARB key.
+  /// Whole files exempted from the scan.
   ///
-  /// All three build user-visible text away from a `BuildContext` — a
-  /// background isolate, a domain entity, a provider — so each needs
-  /// `lookupAppLocalizations(locale)` and a locale to hand it, which is a
-  /// different piece of work from moving a string off a widget. Deleting a
-  /// line here is the signal that one is done.
-  const backlogFiles = <String>{
-    'learning_tip.dart',
-    'chat_providers.dart',
-  };
+  /// Empty, and meant to stay that way. It held notification messages,
+  /// learning tips and chat scenario names — all three built user-visible
+  /// text away from a `BuildContext`, which is a different problem from
+  /// moving a string off a widget and was worth naming separately while it
+  /// lasted. Each was solved by splitting identity from wording: the entity
+  /// keeps an id, and whoever displays it resolves the words. Anything added
+  /// back here needs the same kind of reason.
+  const backlogFiles = <String>{};
 
   test('user-visible strings live in the ARB, not in Dart', () {
     final offenders = <String>[];

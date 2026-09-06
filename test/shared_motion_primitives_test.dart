@@ -7,10 +7,14 @@ import 'package:czechify/presentation/widgets/common/soft_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 void main() {
   Widget host(Widget child, {bool reducedMotion = false, double scale = 1}) {
     return MaterialApp(
       theme: lightTheme(),
+      localizationsDelegates: testLocalizationsDelegates,
+      supportedLocales: testSupportedLocales,
       home: MediaQuery(
         data: MediaQueryData(
           disableAnimations: reducedMotion,
