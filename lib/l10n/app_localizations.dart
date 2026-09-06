@@ -4970,6 +4970,168 @@ abstract class AppLocalizations {
   /// **'See my progress'**
   String get arrivalGoalCtaProgress;
 
+  /// No description provided for @notifyDaily1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for Czech! 🇨🇿'**
+  String get notifyDaily1Title;
+
+  /// No description provided for @notifyDaily1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Just 5 minutes keeps your streak alive. Your next lesson is waiting!'**
+  String get notifyDaily1Body;
+
+  /// No description provided for @notifyDaily2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for Czech? 💪'**
+  String get notifyDaily2Title;
+
+  /// No description provided for @notifyDaily2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app, do one lesson, feel amazing. That\'s the deal.'**
+  String get notifyDaily2Body;
+
+  /// No description provided for @notifyDaily3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech is calling 📚'**
+  String get notifyDaily3Title;
+
+  /// No description provided for @notifyDaily3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Five minutes now, one lesson done. Your future self says thanks.'**
+  String get notifyDaily3Body;
+
+  /// No description provided for @notifyDaily4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahoj! Let\'s practice 💚'**
+  String get notifyDaily4Title;
+
+  /// No description provided for @notifyDaily4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'One lesson today keeps the momentum going. You\'ve got this!'**
+  String get notifyDaily4Body;
+
+  /// No description provided for @notifyDaily5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily Czech awaits ⚡'**
+  String get notifyDaily5Title;
+
+  /// No description provided for @notifyDaily5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Czechify and finish one lesson. Just five minutes.'**
+  String get notifyDaily5Body;
+
+  /// No description provided for @notifyDaily6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dobrý den! 🌙'**
+  String get notifyDaily6Title;
+
+  /// No description provided for @notifyDaily6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect time for Czech. One lesson, then relax.'**
+  String get notifyDaily6Body;
+
+  /// No description provided for @notifyDaily7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the magic going ✨'**
+  String get notifyDaily7Title;
+
+  /// No description provided for @notifyDaily7Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Every word you learn today is a word you didn\'t know yesterday.'**
+  String get notifyDaily7Body;
+
+  /// No description provided for @notifyDaily8Title.
+  ///
+  /// In en, this message translates to:
+  /// **'One lesson away 🎯'**
+  String get notifyDaily8Title;
+
+  /// No description provided for @notifyDaily8Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Czechify, pick up where you left off, done in minutes.'**
+  String get notifyDaily8Body;
+
+  /// No description provided for @notifyEvening1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech missed you today 😊'**
+  String get notifyEvening1Title;
+
+  /// No description provided for @notifyEvening1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s not too late! One lesson before bed keeps your streak alive.'**
+  String get notifyEvening1Body;
+
+  /// No description provided for @notifyEvening2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Last chance to practice today! 🌙'**
+  String get notifyEvening2Title;
+
+  /// No description provided for @notifyEvening2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'One lesson — about 5 minutes — and you\'re done for today.'**
+  String get notifyEvening2Body;
+
+  /// No description provided for @notifyEvening3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech is waiting 💚'**
+  String get notifyEvening3Title;
+
+  /// No description provided for @notifyEvening3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'The day\'s almost over, but one lesson fits. Open Czechify?'**
+  String get notifyEvening3Body;
+
+  /// No description provided for @notifyEvening4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'One more day, one more word 📖'**
+  String get notifyEvening4Title;
+
+  /// No description provided for @notifyEvening4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'A quick lesson now keeps your streak going. You\'ve got this!'**
+  String get notifyEvening4Body;
+
+  /// No description provided for @notifyEvening5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t miss today 🌟'**
+  String get notifyEvening5Title;
+
+  /// No description provided for @notifyEvening5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Five minutes of Czech before you call it a day. One lesson!'**
+  String get notifyEvening5Body;
+
+  /// No description provided for @notifyBodyWithName.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, {body}'**
+  String notifyBodyWithName(String name, String body);
+
   /// No description provided for @rankBronze.
   ///
   /// In en, this message translates to:

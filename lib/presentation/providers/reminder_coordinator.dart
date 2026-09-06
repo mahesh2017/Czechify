@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import 'package:logging/logging.dart';
 import '../../core/notifications/notification_messages.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/notifications/reminder_scheduler.dart';
+import '../../l10n/app_localizations.dart';
 import 'gamification_providers.dart';
 import 'settings_providers.dart';
 
@@ -129,6 +131,15 @@ class ReminderCoordinator extends Notifier<void> {
       return;
     }
 
+    // Interface language changed — the queue holds up to thirty reminders
+    // whose text was written when they were scheduled, so they would keep
+    // arriving in the previous language until they had all fired.
+    if (prev != null && prev.locale != next.locale) {
+      await _cancelAllOwned();
+      if (next.remindersEnabled) await _scheduleAll(next);
+      return;
+    }
+
     // Preferred time changed — reschedule everything.
     if (prev?.preferredTime != next.preferredTime) {
       await _cancelAllOwned();
@@ -153,6 +164,25 @@ class ReminderCoordinator extends Notifier<void> {
 
   // ── Scheduling helpers ──
 
+  /// The wording a reminder is written in.
+  ///
+  /// `lookupAppLocalizations` rather than `AppLocalizations.of(context)`:
+  /// scheduling happens in a provider, which has no BuildContext. Null follows
+  /// the device, which is what `MaterialApp` does with the same setting.
+  AppLocalizations _l10n(AppSettings settings) => lookupAppLocalizations(
+    settings.locale ?? _deviceLocale(),
+  );
+
+  /// The device locale, narrowed to something the app has strings for.
+  Locale _deviceLocale() {
+    final device = PlatformDispatcher.instance.locale;
+    return AppLocalizations.supportedLocales.any(
+          (l) => l.languageCode == device.languageCode,
+        )
+        ? Locale(device.languageCode)
+        : const Locale('en');
+  }
+
   /// Schedule the daily repeating reminder plus the 30-day evening horizon.
   Future<void> _scheduleAll(AppSettings settings) async {
     if (settings.preferredTime == null) return;
@@ -167,7 +197,10 @@ class ReminderCoordinator extends Notifier<void> {
     final learnerName = settings.learnerName;
 
     // 1. Daily repeating reminder (ID 1001).
-    final dailyMessage = NotificationMessages.daily(learnerName);
+    final dailyMessage = NotificationMessages.daily(
+      _l10n(settings),
+      learnerName,
+    );
     await _service.scheduleDailyReminder(
       time: settings.preferredTime!,
       title: dailyMessage.title,
@@ -194,6 +227,7 @@ class ReminderCoordinator extends Notifier<void> {
     if (settings.preferredTime == null) return;
 
     final reminders = _scheduler.buildEveningSchedule(
+      l10n: _l10n(settings),
       today: DateTime.now(),
       catchUpEnabled: settings.catchUpEnabled,
       preferredTime: settings.preferredTime!,
@@ -336,7 +370,10 @@ class ReminderCoordinator extends Notifier<void> {
     final learnerName = settings.learnerName;
 
     // 1. Ensure daily repeating reminder is scheduled (refreshes message).
-    final dailyMessage = NotificationMessages.daily(learnerName);
+    final dailyMessage = NotificationMessages.daily(
+      _l10n(settings),
+      learnerName,
+    );
     await _service.scheduleDailyReminder(
       time: settings.preferredTime!,
       title: dailyMessage.title,

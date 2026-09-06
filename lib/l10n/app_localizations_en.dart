@@ -2866,6 +2866,102 @@ class AppLocalizationsEn extends AppLocalizations {
   String get arrivalGoalCtaProgress => 'See my progress';
 
   @override
+  String get notifyDaily1Title => 'Time for Czech! 🇨🇿';
+
+  @override
+  String get notifyDaily1Body =>
+      'Just 5 minutes keeps your streak alive. Your next lesson is waiting!';
+
+  @override
+  String get notifyDaily2Title => 'Ready for Czech? 💪';
+
+  @override
+  String get notifyDaily2Body =>
+      'Open the app, do one lesson, feel amazing. That\'s the deal.';
+
+  @override
+  String get notifyDaily3Title => 'Czech is calling 📚';
+
+  @override
+  String get notifyDaily3Body =>
+      'Five minutes now, one lesson done. Your future self says thanks.';
+
+  @override
+  String get notifyDaily4Title => 'Ahoj! Let\'s practice 💚';
+
+  @override
+  String get notifyDaily4Body =>
+      'One lesson today keeps the momentum going. You\'ve got this!';
+
+  @override
+  String get notifyDaily5Title => 'Your daily Czech awaits ⚡';
+
+  @override
+  String get notifyDaily5Body =>
+      'Open Czechify and finish one lesson. Just five minutes.';
+
+  @override
+  String get notifyDaily6Title => 'Dobrý den! 🌙';
+
+  @override
+  String get notifyDaily6Body =>
+      'Perfect time for Czech. One lesson, then relax.';
+
+  @override
+  String get notifyDaily7Title => 'Keep the magic going ✨';
+
+  @override
+  String get notifyDaily7Body =>
+      'Every word you learn today is a word you didn\'t know yesterday.';
+
+  @override
+  String get notifyDaily8Title => 'One lesson away 🎯';
+
+  @override
+  String get notifyDaily8Body =>
+      'Open Czechify, pick up where you left off, done in minutes.';
+
+  @override
+  String get notifyEvening1Title => 'Your Czech missed you today 😊';
+
+  @override
+  String get notifyEvening1Body =>
+      'It\'s not too late! One lesson before bed keeps your streak alive.';
+
+  @override
+  String get notifyEvening2Title => 'Last chance to practice today! 🌙';
+
+  @override
+  String get notifyEvening2Body =>
+      'One lesson — about 5 minutes — and you\'re done for today.';
+
+  @override
+  String get notifyEvening3Title => 'Czech is waiting 💚';
+
+  @override
+  String get notifyEvening3Body =>
+      'The day\'s almost over, but one lesson fits. Open Czechify?';
+
+  @override
+  String get notifyEvening4Title => 'One more day, one more word 📖';
+
+  @override
+  String get notifyEvening4Body =>
+      'A quick lesson now keeps your streak going. You\'ve got this!';
+
+  @override
+  String get notifyEvening5Title => 'Don\'t miss today 🌟';
+
+  @override
+  String get notifyEvening5Body =>
+      'Five minutes of Czech before you call it a day. One lesson!';
+
+  @override
+  String notifyBodyWithName(String name, String body) {
+    return '$name, $body';
+  }
+
+  @override
   String get rankBronze => 'Bronze';
 
   @override

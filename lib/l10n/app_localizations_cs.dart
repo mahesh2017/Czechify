@@ -2879,6 +2879,101 @@ class AppLocalizationsCs extends AppLocalizations {
   String get arrivalGoalCtaProgress => 'Zobrazit můj pokrok';
 
   @override
+  String get notifyDaily1Title => 'Čas na češtinu! 🇨🇿';
+
+  @override
+  String get notifyDaily1Body =>
+      'Pouhých 5 minut udrží tvou sérii. Další lekce už čeká!';
+
+  @override
+  String get notifyDaily2Title => 'Připraven/a na češtinu? 💪';
+
+  @override
+  String get notifyDaily2Body =>
+      'Otevři appku, dej si jednu lekci a budeš se cítit skvěle.';
+
+  @override
+  String get notifyDaily3Title => 'Čeština volá 📚';
+
+  @override
+  String get notifyDaily3Body =>
+      'Pět minut teď, jedna lekce hotová. Tvoje budoucí já děkuje.';
+
+  @override
+  String get notifyDaily4Title => 'Ahoj! Pojďme cvičit 💚';
+
+  @override
+  String get notifyDaily4Body => 'Jedna lekce dnes udrží tempo. Zvládneš to!';
+
+  @override
+  String get notifyDaily5Title => 'Tvoje denní čeština čeká ⚡';
+
+  @override
+  String get notifyDaily5Body =>
+      'Otevři Czechify a dokonči jednu lekci. Jen pět minut.';
+
+  @override
+  String get notifyDaily6Title => 'Dobrý den! 🌙';
+
+  @override
+  String get notifyDaily6Body =>
+      'Ideální čas na češtinu. Jedna lekce a pak odpočinek.';
+
+  @override
+  String get notifyDaily7Title => 'Udrž to kouzlo ✨';
+
+  @override
+  String get notifyDaily7Body =>
+      'Každé slovo, které se dnes naučíš, je slovo, které jsi včera neznal/a.';
+
+  @override
+  String get notifyDaily8Title => 'Jedna lekce a je to 🎯';
+
+  @override
+  String get notifyDaily8Body =>
+      'Otevři Czechify, naváž tam, kde jsi skončil/a, a za pár minut je hotovo.';
+
+  @override
+  String get notifyEvening1Title => 'Tvoje čeština ti dnes chyběla 😊';
+
+  @override
+  String get notifyEvening1Body =>
+      'Ještě není pozdě! Jedna lekce před spaním udrží tvou sérii.';
+
+  @override
+  String get notifyEvening2Title => 'Poslední šance na dnešek! 🌙';
+
+  @override
+  String get notifyEvening2Body =>
+      'Jedna lekce — asi 5 minut — a máš dnešek splněný.';
+
+  @override
+  String get notifyEvening3Title => 'Čeština čeká 💚';
+
+  @override
+  String get notifyEvening3Body =>
+      'Den se chýlí ke konci, ale jedna lekce se vejde. Otevřeš Czechify?';
+
+  @override
+  String get notifyEvening4Title => 'Další den, další slovo 📖';
+
+  @override
+  String get notifyEvening4Body =>
+      'Rychlá lekce teď udrží tvou sérii. Zvládneš to!';
+
+  @override
+  String get notifyEvening5Title => 'Nenech si dnešek utéct 🌟';
+
+  @override
+  String get notifyEvening5Body =>
+      'Pět minut češtiny, než zavřeš den. Jedna lekce!';
+
+  @override
+  String notifyBodyWithName(String name, String body) {
+    return '$name, $body';
+  }
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

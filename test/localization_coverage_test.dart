@@ -66,7 +66,6 @@ void main() {
   /// different piece of work from moving a string off a widget. Deleting a
   /// line here is the signal that one is done.
   const backlogFiles = <String>{
-    'notification_messages.dart',
     'learning_tip.dart',
     'chat_providers.dart',
   };
