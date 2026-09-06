@@ -3032,6 +3032,68 @@ class AppLocalizationsEn extends AppLocalizations {
       'Czech songs, podcasts, or radio in the background train your ear to the rhythm and intonation of the language, even when you don’t understand every word. Try ČRo (Czech Radio) online.';
 
   @override
+  String get googleAuthNotConfigured =>
+      'Google sign-in is not configured in this build.';
+
+  @override
+  String get googleAuthNotConfiguredIos =>
+      'Google sign-in is not configured for iOS in this build.';
+
+  @override
+  String get googleAuthNoIdToken => 'Google did not return an identity token.';
+
+  @override
+  String get googleAuthCancelled => 'Google sign-in was cancelled.';
+
+  @override
+  String get googleAuthConfigUnavailable =>
+      'Google sign-in configuration is unavailable. Try again later.';
+
+  @override
+  String get googleAuthInterrupted =>
+      'Google sign-in was interrupted. Try again.';
+
+  @override
+  String get googleAuthUiUnavailable =>
+      'Google sign-in could not open on this device.';
+
+  @override
+  String get googleAuthAccountChanged =>
+      'The selected Google account changed. Try again.';
+
+  @override
+  String get googleAuthUnknown =>
+      'Google sign-in could not be completed. Try again.';
+
+  @override
+  String get backendUnavailable => 'Cloud account service is unavailable.';
+
+  @override
+  String get backendAlreadyLinked => 'This account is already linked.';
+
+  @override
+  String get backendVerifyEmailFirst => 'Verify the account email first.';
+
+  @override
+  String get backendSignInFailed => 'Sign in failed.';
+
+  @override
+  String get backendNoActiveAccount => 'No account is active.';
+
+  @override
+  String get backendGoogleLinkNotSaved =>
+      'Google account linking was not persisted.';
+
+  @override
+  String get backendGoogleSignInFailed => 'Google sign-in failed.';
+
+  @override
+  String get backendExportFailed => 'Cloud export failed.';
+
+  @override
+  String get backendDeleteFailed => 'Cloud account deletion failed.';
+
+  @override
   String get rankBronze => 'Bronze';
 
   @override

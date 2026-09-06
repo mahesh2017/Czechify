@@ -1,3 +1,7 @@
+import 'package:flutter/widgets.dart';
+
+import '../../data/account/google_auth_service.dart';
+import '../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -16,6 +20,15 @@ import 'writing_providers.dart';
 
 final accountServiceProvider = Provider<AccountService>((ref) {
   return AccountService(
+    // The sign-in messages a learner reads follow the interface language.
+    // Read at throw time rather than captured here, so a language change
+    // during the app's life is reflected without rebuilding the service.
+    googleAuth: NativeGoogleAuthService(
+      localizations:
+          () => lookupAppLocalizations(
+            ref.read(settingsProvider).locale ?? const Locale('en'),
+          ),
+    ),
     ref.watch(backendServiceProvider),
     ref.watch(databaseProvider),
     ref.watch(syncServiceProvider),

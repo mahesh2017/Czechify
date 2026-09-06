@@ -3044,6 +3044,68 @@ class AppLocalizationsCs extends AppLocalizations {
       'České písničky, podcasty nebo rádio na pozadí trénují sluch na rytmus a intonaci jazyka, i když nerozumíš každému slovu. Zkus ČRo online.';
 
   @override
+  String get googleAuthNotConfigured =>
+      'Přihlášení přes Google není v této verzi nastavené.';
+
+  @override
+  String get googleAuthNotConfiguredIos =>
+      'Přihlášení přes Google není v této verzi nastavené pro iOS.';
+
+  @override
+  String get googleAuthNoIdToken => 'Google nevrátil identifikační token.';
+
+  @override
+  String get googleAuthCancelled => 'Přihlášení přes Google bylo zrušeno.';
+
+  @override
+  String get googleAuthConfigUnavailable =>
+      'Nastavení přihlášení přes Google není dostupné. Zkus to později.';
+
+  @override
+  String get googleAuthInterrupted =>
+      'Přihlášení přes Google bylo přerušeno. Zkus to znovu.';
+
+  @override
+  String get googleAuthUiUnavailable =>
+      'Přihlášení přes Google se na tomto zařízení nepodařilo otevřít.';
+
+  @override
+  String get googleAuthAccountChanged =>
+      'Vybraný účet Google se změnil. Zkus to znovu.';
+
+  @override
+  String get googleAuthUnknown =>
+      'Přihlášení přes Google se nepodařilo dokončit. Zkus to znovu.';
+
+  @override
+  String get backendUnavailable => 'Cloudová služba účtu není dostupná.';
+
+  @override
+  String get backendAlreadyLinked => 'Tento účet je už propojený.';
+
+  @override
+  String get backendVerifyEmailFirst => 'Nejdřív ověř e-mail účtu.';
+
+  @override
+  String get backendSignInFailed => 'Přihlášení se nezdařilo.';
+
+  @override
+  String get backendNoActiveAccount => 'Není aktivní žádný účet.';
+
+  @override
+  String get backendGoogleLinkNotSaved => 'Propojení účtu Google se neuložilo.';
+
+  @override
+  String get backendGoogleSignInFailed =>
+      'Přihlášení přes Google se nezdařilo.';
+
+  @override
+  String get backendExportFailed => 'Export do cloudu se nezdařil.';
+
+  @override
+  String get backendDeleteFailed => 'Smazání cloudového účtu se nezdařilo.';
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

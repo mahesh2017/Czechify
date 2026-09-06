@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+
+import '../../l10n/app_localizations.dart';
 import 'package:logging/logging.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -16,9 +19,17 @@ import 'secure_auth_storage.dart';
 /// When [BackendConfig.isConfigured] is false the service is inert and the app
 /// continues with its bundled curriculum and local-only progress.
 class BackendService {
-  BackendService({Logger? log}) : _log = log ?? Logger('BackendService');
+  BackendService({Logger? log, AppLocalizations Function()? localizations})
+    : _log = log ?? Logger('BackendService'),
+      _l10n =
+          localizations ?? (() => lookupAppLocalizations(const Locale('en')));
 
   final Logger _log;
+
+  /// Resolved when a failure happens, not when the service is built: these
+  /// messages are shown to the learner by `account_screen`, and the service
+  /// outlives a change of interface language.
+  final AppLocalizations Function() _l10n;
   bool _initialized = false;
 
   /// True once `Supabase.initialize` has succeeded this process — it must never
@@ -50,7 +61,7 @@ class BackendService {
   SupabaseClient _requireClient() {
     final value = _clientOrNull;
     if (value == null) {
-      throw const AuthException('Cloud account service is unavailable.');
+      throw AuthException(_l10n().backendUnavailable);
     }
     return value;
   }
@@ -58,7 +69,7 @@ class BackendService {
   Future<void> requestEmailLink(String email) async {
     final client = _requireClient();
     if (client.auth.currentUser?.isAnonymous != true) {
-      throw const AuthException('This account is already linked.');
+      throw AuthException(_l10n().backendAlreadyLinked);
     }
     await client.auth.updateUser(
       UserAttributes(email: email.trim()),
@@ -69,7 +80,7 @@ class BackendService {
   Future<void> setPassword(String password) async {
     final user = _requireClient().auth.currentUser;
     if (user == null || user.emailConfirmedAt == null) {
-      throw const AuthException('Verify the account email first.');
+      throw AuthException(_l10n().backendVerifyEmailFirst);
     }
     await _requireClient().auth.updateUser(UserAttributes(password: password));
   }
@@ -82,7 +93,7 @@ class BackendService {
     required String password,
   }) async {
     if (!BackendConfig.isConfigured) {
-      throw const AuthException('Cloud account service is unavailable.');
+      throw AuthException(_l10n().backendUnavailable);
     }
     final temporary = SupabaseClient(
       BackendConfig.supabaseUrl,
@@ -95,7 +106,7 @@ class BackendService {
         password: password,
       );
       final session = response.session;
-      if (session == null) throw const AuthException('Sign in failed.');
+      if (session == null) throw AuthException(_l10n().backendSignInFailed);
       return session;
     } finally {
       await temporary.dispose();
@@ -107,7 +118,7 @@ class BackendService {
   /// Links Google to the active user without changing that user's id.
   Future<void> linkGoogleIdentity(GoogleAuthTokens tokens) async {
     final before = _requireClient().auth.currentUser?.id;
-    if (before == null) throw const AuthException('No account is active.');
+    if (before == null) throw AuthException(_l10n().backendNoActiveAccount);
     final response = await _requireClient().auth.linkIdentityWithIdToken(
       provider: OAuthProvider.google,
       idToken: tokens.idToken,
@@ -120,7 +131,7 @@ class BackendService {
     // linked provider immediately, rather than waiting for token auto-refresh.
     await _requireClient().auth.refreshSession();
     if (!hasGoogleIdentity) {
-      throw const AuthException('Google account linking was not persisted.');
+      throw AuthException(_l10n().backendGoogleLinkNotSaved);
     }
   }
 
@@ -128,7 +139,7 @@ class BackendService {
   /// remains untouched until AccountService has permission to replace it.
   Future<Session> authenticateGoogle(GoogleAuthTokens tokens) async {
     if (!BackendConfig.isConfigured) {
-      throw const AuthException('Cloud account service is unavailable.');
+      throw AuthException(_l10n().backendUnavailable);
     }
     final temporary = SupabaseClient(
       BackendConfig.supabaseUrl,
@@ -142,7 +153,9 @@ class BackendService {
         accessToken: tokens.accessToken,
       );
       final session = response.session;
-      if (session == null) throw const AuthException('Google sign-in failed.');
+      if (session == null) {
+        throw AuthException(_l10n().backendGoogleSignInFailed);
+      }
       return session;
     } finally {
       await temporary.dispose();
@@ -184,7 +197,7 @@ class BackendService {
       method: HttpMethod.get,
     );
     if (response.status != 200 || response.data is! Map) {
-      throw const AuthException('Cloud export failed.');
+      throw AuthException(_l10n().backendExportFailed);
     }
     return Map<String, dynamic>.from(response.data as Map);
   }
@@ -214,7 +227,7 @@ class BackendService {
       );
     }
     if (response.status != 204) {
-      throw const AuthException('Cloud account deletion failed.');
+      throw AuthException(_l10n().backendDeleteFailed);
     }
     await client.auth.signOut(scope: SignOutScope.local);
   }
@@ -223,7 +236,7 @@ class BackendService {
   /// already active on this device. Used before deleting Google-only accounts.
   Future<void> reauthenticateGoogle(GoogleAuthTokens tokens) async {
     final currentId = userId;
-    if (currentId == null) throw const AuthException('No account is active.');
+    if (currentId == null) throw AuthException(_l10n().backendNoActiveAccount);
     final verified = await authenticateGoogle(tokens);
     if (verified.user.id != currentId) {
       throw const AuthException(

@@ -5252,6 +5252,114 @@ abstract class AppLocalizations {
   /// **'Czech songs, podcasts, or radio in the background train your ear to the rhythm and intonation of the language, even when you don’t understand every word. Try ČRo (Czech Radio) online.'**
   String get tip10Body;
 
+  /// No description provided for @googleAuthNotConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in is not configured in this build.'**
+  String get googleAuthNotConfigured;
+
+  /// No description provided for @googleAuthNotConfiguredIos.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in is not configured for iOS in this build.'**
+  String get googleAuthNotConfiguredIos;
+
+  /// No description provided for @googleAuthNoIdToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Google did not return an identity token.'**
+  String get googleAuthNoIdToken;
+
+  /// No description provided for @googleAuthCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in was cancelled.'**
+  String get googleAuthCancelled;
+
+  /// No description provided for @googleAuthConfigUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in configuration is unavailable. Try again later.'**
+  String get googleAuthConfigUnavailable;
+
+  /// No description provided for @googleAuthInterrupted.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in was interrupted. Try again.'**
+  String get googleAuthInterrupted;
+
+  /// No description provided for @googleAuthUiUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in could not open on this device.'**
+  String get googleAuthUiUnavailable;
+
+  /// No description provided for @googleAuthAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected Google account changed. Try again.'**
+  String get googleAuthAccountChanged;
+
+  /// No description provided for @googleAuthUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in could not be completed. Try again.'**
+  String get googleAuthUnknown;
+
+  /// No description provided for @backendUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud account service is unavailable.'**
+  String get backendUnavailable;
+
+  /// No description provided for @backendAlreadyLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is already linked.'**
+  String get backendAlreadyLinked;
+
+  /// No description provided for @backendVerifyEmailFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify the account email first.'**
+  String get backendVerifyEmailFirst;
+
+  /// No description provided for @backendSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in failed.'**
+  String get backendSignInFailed;
+
+  /// No description provided for @backendNoActiveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'No account is active.'**
+  String get backendNoActiveAccount;
+
+  /// No description provided for @backendGoogleLinkNotSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Google account linking was not persisted.'**
+  String get backendGoogleLinkNotSaved;
+
+  /// No description provided for @backendGoogleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in failed.'**
+  String get backendGoogleSignInFailed;
+
+  /// No description provided for @backendExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud export failed.'**
+  String get backendExportFailed;
+
+  /// No description provided for @backendDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud account deletion failed.'**
+  String get backendDeleteFailed;
+
   /// No description provided for @rankBronze.
   ///
   /// In en, this message translates to:

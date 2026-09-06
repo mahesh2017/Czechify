@@ -29,6 +29,11 @@ void main() {
     RegExp(r"""\bText\(\s*(?:const\s+)?['"]([^'"\n]{2,})['"]"""),
     RegExp(r"""\bDisplayText\(\s*(?:const\s+)?['"]([^'"\n]{2,})['"]"""),
     RegExp(attributes + r""":\s*(?:const\s+)?['"]([^'"\n]{2,})['"]"""),
+    // `account_screen` shows `error.message` verbatim, so an
+    // AuthException built from a literal is a sentence a learner
+    // reads. Nine lived in the Google sign-in catch blocks, invisible
+    // to the patterns above because they attach to no widget.
+    RegExp(r"""AuthException\(\s*(?:const\s+)?['"]([^'"\n]{2,})['"]"""),
   ];
 
   /// Files whose strings never reach a learner.
