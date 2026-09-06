@@ -745,9 +745,13 @@ class _ContinueLearningCard extends ConsumerWidget {
                   child: CircularProgressIndicator(strokeWidth: 2),
                 ),
                 const SizedBox(width: 14),
-                Text(
-                  AppLocalizations.of(context).homeLoading,
-                  style: TextStyle(color: t.muted),
+                // "Načítání…" is wider than "Loading…", and at a large text
+                // size the difference is enough to push the row off the card.
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context).homeLoading,
+                    style: TextStyle(color: t.muted),
+                  ),
                 ),
               ],
             ),

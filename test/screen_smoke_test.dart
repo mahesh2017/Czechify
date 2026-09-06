@@ -152,21 +152,18 @@ void main() {
         );
       }
     }
-    // At 1x, not 2x. Czech at 2x currently trips a ~10px horizontal overflow
-    // on home and curriculum. It is a real steady-state overflow, not an
-    // artefact: it survives `disableAnimations`, so it is not a transient
-    // animation frame. It is also never painted — the offending widget lays
-    // out inside a scrollable's cache region, so no overflow stripe appears at
-    // any scroll offset, and the framework reports only the summary. Locating
-    // it needs the widget inspector rather than more guessing, so it is left
-    // named here instead of silently dropped.
+    // At 2x, which is where it earns its keep: Czech runs longer than English
+    // almost everywhere, and a longer string at a larger size is the worst
+    // case. It found three overflows the English matrix did not — a loading
+    // row, a pinned header that ate the viewport before its list saw any, and
+    // a view toggle with nowhere to shrink.
     testWidgets(
-      '$name renders in Czech',
+      '$name renders in Czech — 2.0x text',
       (tester) => render(
         tester,
         build(),
         dark: false,
-        textScale: 1,
+        textScale: 2,
         locale: 'cs',
         scope: scope,
       ),
