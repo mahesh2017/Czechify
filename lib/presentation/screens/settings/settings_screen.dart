@@ -23,6 +23,8 @@ import '../../providers/app_info_providers.dart';
 import '../../providers/consent_providers.dart';
 import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
+import '../../providers/app_update_providers.dart';
+import '../../widgets/common/app_update_coordinator.dart';
 import '../../widgets/common/cloud_speech_consent.dart';
 import '../../widgets/common/app_dialog.dart';
 import '../../widgets/common/lesson_ui.dart';
@@ -214,11 +216,26 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
   }
 
+  bool _checkingForUpdate = false;
+
+  /// Runs the same flow the automatic prompt uses, with the 24-hour dismissal
+  /// cooldown bypassed — the learner asked for this one.
+  Future<void> _checkForUpdate() async {
+    if (_checkingForUpdate) return;
+    setState(() => _checkingForUpdate = true);
+    try {
+      await showAppUpdateFlow(ref: ref, automatic: false);
+    } finally {
+      if (mounted) setState(() => _checkingForUpdate = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final settings = ref.watch(settingsProvider);
+    final updateAvailable = ref.watch(appUpdateAvailableProvider);
     final cloudSpeech = ref.watch(cloudSpeechConsentProvider);
     final syncHealth = ref.watch(syncHealthProvider);
     // In production the app root has already bootstrapped this repository.
@@ -264,6 +281,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ],
             ),
             const SizedBox(height: 8),
+
+            // ── Update ──
+            //
+            // The home screen badges its settings icon when an update is
+            // waiting, which sends the learner here — and until this card
+            // existed, here said nothing about it. The only way through was
+            // Settings → About → Check for updates, and About is where you go
+            // for a version number and a privacy link, not for something to
+            // do. Dismissing the automatic prompt sets a 24-hour cooldown, so
+            // without this the badge just sat there all day with no way back
+            // in.
+            if (updateAvailable) ...[
+              _UpdateCard(busy: _checkingForUpdate, onUpdate: _checkForUpdate),
+              const SizedBox(height: 18),
+            ],
 
             // ── Profile ──
             _GroupLabel(l10n.settingsProfileGroup),
@@ -819,6 +851,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   trailing: const SizedBox.shrink(),
                 ),
                 _Divider(),
+                // Directly under the version it acts on: that row states which
+                // version this is and offers nothing to do about it.
+                _Row(
+                  icon: Icons.system_update_alt_rounded,
+                  tint: t.priSoft,
+                  fg: t.pri,
+                  title: l10n.updateCheckTitle,
+                  subtitle: l10n.updateCheckBody,
+                  onTap: _checkingForUpdate ? null : _checkForUpdate,
+                  trailing:
+                      _checkingForUpdate
+                          ? SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: t.pri,
+                            ),
+                          )
+                          : Icon(Icons.chevron_right, size: 15, color: t.faint),
+                ),
+                _Divider(),
                 _Row(
                   icon: Icons.privacy_tip_outlined,
                   tint: t.priSoft,
@@ -1018,6 +1072,80 @@ class _ReminderPermissionWarningState
   Future<void> _openSystemSettings() async {
     await system_settings.AppSettings.openAppSettings(
       type: system_settings.AppSettingsType.notification,
+    );
+  }
+}
+
+/// The update prompt Settings owes the badge that sent the learner here.
+///
+/// A card rather than another row: a row in a list of twenty is something to
+/// scan past, and this is the one thing on the screen the learner did not
+/// come looking for but does need to see. It is absent entirely when there is
+/// nothing to update, so it costs nothing on every other visit.
+class _UpdateCard extends StatelessWidget {
+  const _UpdateCard({required this.busy, required this.onUpdate});
+
+  final bool busy;
+  final VoidCallback onUpdate;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return SoftCard(
+      radius: 18,
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              IconTile(
+                icon: Icons.system_update_alt_rounded,
+                tint: t.priSoft,
+                fg: t.priInk,
+                size: 40,
+                iconSize: 20,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  l10n.settingsUpdateReady,
+                  style: TextStyle(
+                    fontSize: 15.5,
+                    fontWeight: FontWeight.w700,
+                    color: t.ink,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            l10n.settingsUpdateReadyBody,
+            style: TextStyle(fontSize: 14, height: 1.45, color: t.muted),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: busy ? null : onUpdate,
+              icon:
+                  busy
+                      ? SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: t.onFill,
+                        ),
+                      )
+                      : const Icon(Icons.download_rounded, size: 18),
+              label: Text(l10n.updateNow),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

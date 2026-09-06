@@ -1274,6 +1274,8 @@
   "backendGoogleSignInFailed": "Google sign-in failed.",
   "backendExportFailed": "Cloud export failed.",
   "backendDeleteFailed": "Cloud account deletion failed.",
+  "settingsUpdateReady": "Update Czechify",
+  "settingsUpdateReadyBody": "A newer version is available. Updating takes a moment and keeps your progress.",
   "rankBronze": "Bronze",
   "rankSilver": "Silver",
   "rankGold": "Gold",

@@ -991,6 +991,8 @@
   "backendGoogleSignInFailed": "Přihlášení přes Google se nezdařilo.",
   "backendExportFailed": "Export do cloudu se nezdařil.",
   "backendDeleteFailed": "Smazání cloudového účtu se nezdařilo.",
+  "settingsUpdateReady": "Aktualizovat Czechify",
+  "settingsUpdateReadyBody": "Je dostupná novější verze. Aktualizace chvilku trvá a tvůj pokrok zůstane zachovaný.",
   "rankBronze": "Bronz",
   "rankSilver": "Stříbro",
   "rankGold": "Zlato",

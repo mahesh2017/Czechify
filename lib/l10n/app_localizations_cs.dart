@@ -3106,6 +3106,13 @@ class AppLocalizationsCs extends AppLocalizations {
   String get backendDeleteFailed => 'Smazání cloudového účtu se nezdařilo.';
 
   @override
+  String get settingsUpdateReady => 'Aktualizovat Czechify';
+
+  @override
+  String get settingsUpdateReadyBody =>
+      'Je dostupná novější verze. Aktualizace chvilku trvá a tvůj pokrok zůstane zachovaný.';
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

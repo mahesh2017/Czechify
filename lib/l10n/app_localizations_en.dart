@@ -3094,6 +3094,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backendDeleteFailed => 'Cloud account deletion failed.';
 
   @override
+  String get settingsUpdateReady => 'Update Czechify';
+
+  @override
+  String get settingsUpdateReadyBody =>
+      'A newer version is available. Updating takes a moment and keeps your progress.';
+
+  @override
   String get rankBronze => 'Bronze';
 
   @override

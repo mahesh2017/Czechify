@@ -5360,6 +5360,18 @@ abstract class AppLocalizations {
   /// **'Cloud account deletion failed.'**
   String get backendDeleteFailed;
 
+  /// No description provided for @settingsUpdateReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Czechify'**
+  String get settingsUpdateReady;
+
+  /// No description provided for @settingsUpdateReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A newer version is available. Updating takes a moment and keeps your progress.'**
+  String get settingsUpdateReadyBody;
+
   /// No description provided for @rankBronze.
   ///
   /// In en, this message translates to:
