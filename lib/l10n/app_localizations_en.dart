@@ -2618,6 +2618,81 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get examLeaveTitle => 'Leave the exam?';
+
+  @override
+  String get examLeaveBody =>
+      'Your exam is in progress. If you leave now it will not be scored.';
+
+  @override
+  String get cloudSpeechTitle => 'Allow cloud speech?';
+
+  @override
+  String get cloudSpeechBody =>
+      'Your pronunciation recording will be sent through Czechify to OpenAI in the United States for transcription. Czechify does not store the recording after the transcript is returned. OpenAI may retain API data for abuse monitoring for up to 30 days. This is optional, can be switched off at any time, and is available only if you are at least 16.';
+
+  @override
+  String get cloudSpeechAllow => 'Allow cloud speech';
+
+  @override
+  String get reportNoteLabel => 'Anything you want to add (optional)';
+
+  @override
+  String get examWritingHint => 'Write your answer in Czech…';
+
+  @override
+  String get arrivalGoHome => 'Go to Home';
+
+  @override
+  String get arrivalContinueHome => 'Continue to Home';
+
+  @override
+  String get arrivalStreakLabel => 'day streak';
+
+  @override
+  String get arrivalXpLabel => 'today’s XP';
+
+  @override
+  String get arrivalReviewLabel => 'to review';
+
+  @override
+  String get arrivalGuideA11y => 'Czechify language guide';
+
+  @override
+  String get arrivalPreparing => 'Preparing today’s practice';
+
+  @override
+  String get examSaveFailed =>
+      'Could not save this result to your exam history.';
+
+  @override
+  String get examGrading => 'Grading…';
+
+  @override
+  String get examEvaluatingAnswers => 'Evaluating your answers…';
+
+  @override
+  String get examPrevious => 'Previous';
+
+  @override
+  String get examEvaluatingWriting => 'AI evaluating your writing…';
+
+  @override
+  String get examRequestFeedback => 'Request practice feedback';
+
+  @override
+  String get examCriterionGrammar => 'Grammar';
+
+  @override
+  String get examCriterionVocabulary => 'Vocabulary';
+
+  @override
+  String get examCriterionCoherence => 'Coherence';
+
+  @override
+  String get examScoreOverall => 'Overall';
+
+  @override
   String get rankBronze => 'Bronze';
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/legal/legal_content.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_tokens.dart';
 
 /// Why a learner is reporting a tutor reply.
@@ -186,9 +187,8 @@ class _ReportSheetState extends State<_ReportSheet> {
               enabled: !_sending,
               maxLines: 3,
               maxLength: 500,
-              decoration: const InputDecoration(
-                labelText: 'Anything you want to add (optional)',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).reportNoteLabel,
               ),
             ),
             if (_showFallback) ...[
@@ -213,7 +213,7 @@ class _ReportSheetState extends State<_ReportSheet> {
                 TextButton(
                   onPressed:
                       _sending ? null : () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context).cancel),
                 ),
                 const SizedBox(width: 8),
                 FilledButton(

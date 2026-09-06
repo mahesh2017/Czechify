@@ -813,7 +813,7 @@ class _ListenPanelState extends State<ListenPanel>
                           width: 38,
                           height: 38,
                           decoration: BoxDecoration(
-                            color: t.violet,
+                            color: t.violetFill,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(

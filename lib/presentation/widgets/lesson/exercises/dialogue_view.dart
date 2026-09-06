@@ -103,7 +103,6 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
                 controller: controller,
                 enabled: !answered,
                 decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
                   isDense: true,
                   hintText: AppLocalizations.of(context).exerciseYourAnswer,
                 ),

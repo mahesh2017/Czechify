@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 /// url_launcher's default method-channel implementation.
 const _launcherChannel = MethodChannel('plugins.flutter.io/url_launcher');
 
@@ -89,6 +91,8 @@ void main() {
     Future<void> open(WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           home: Scaffold(
             body: Builder(
               builder:

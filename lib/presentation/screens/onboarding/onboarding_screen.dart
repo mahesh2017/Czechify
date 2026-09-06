@@ -708,13 +708,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                             height: 34,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: t.pri,
+                              color: t.priFill,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Č',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: t.onFill,
                                 fontFamily: AppFonts.display,
                                 fontWeight: FontWeight.w800,
                                 fontSize: 18,

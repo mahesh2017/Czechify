@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_tokens.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../domain/engines/daily_arrival_engine.dart';
 import '../../providers/daily_arrival_providers.dart';
@@ -204,7 +205,7 @@ class _ArrivalContent extends StatelessWidget {
                               const SizedBox(height: 8),
                               TextButton(
                                 onPressed: onHome,
-                                child: const Text('Go to Home'),
+                                child: Text(AppLocalizations.of(context).arrivalGoHome),
                               ),
                             ],
                           ),
@@ -249,14 +250,14 @@ class _ProgressCard extends StatelessWidget {
                 icon: Icons.local_fire_department_rounded,
                 color: t.amber,
                 value: '${state.streak}',
-                label: 'day streak',
+                label: AppLocalizations.of(context).arrivalStreakLabel,
               ),
               Container(width: 1, height: 38, color: t.line),
               _Metric(
                 icon: Icons.bolt_rounded,
                 color: accent,
                 value: '${state.dailyXp}/${state.dailyGoalXp}',
-                label: 'today’s XP',
+                label: AppLocalizations.of(context).arrivalXpLabel,
               ),
               if (state.dueReviews > 0) ...[
                 Container(width: 1, height: 38, color: t.line),
@@ -264,7 +265,7 @@ class _ProgressCard extends StatelessWidget {
                   icon: Icons.style_rounded,
                   color: t.violet,
                   value: '${state.dueReviews}',
-                  label: 'to review',
+                  label: AppLocalizations.of(context).arrivalReviewLabel,
                 ),
               ],
             ],
@@ -356,7 +357,7 @@ class _HacekGuide extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Semantics(
     image: true,
-    label: 'Czechify language guide',
+    label: AppLocalizations.of(context).arrivalGuideA11y,
     child: SizedBox(
       width: 148,
       height: 148,
@@ -549,7 +550,7 @@ class _ArrivalLoading extends StatelessWidget {
   Widget build(BuildContext context) => Center(
     child: Semantics(
       liveRegion: true,
-      label: 'Preparing today’s practice',
+      label: AppLocalizations.of(context).arrivalPreparing,
       child: _HacekGuide(color: context.tokens.pri),
     ),
   );
@@ -580,7 +581,7 @@ class _ArrivalFallback extends StatelessWidget {
               width: double.infinity,
               child: FilledButton(
                 onPressed: onContinue,
-                child: const Text('Continue to Home'),
+                child: Text(AppLocalizations.of(context).arrivalContinueHome),
               ),
             ),
           ],

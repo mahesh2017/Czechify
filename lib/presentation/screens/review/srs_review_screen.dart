@@ -11,6 +11,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/gender_pill.dart';
+import '../../widgets/common/app_dialog.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../widgets/common/motion_widgets.dart';
@@ -371,25 +372,21 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
   }
 
   void _showExitConfirm(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder:
-          (ctx) => AlertDialog(
-            title: Text(AppLocalizations.of(context).reviewEndTitle),
-            content: Text(AppLocalizations.of(context).reviewEndBody),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: Text(AppLocalizations.of(context).reviewStay),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(ctx);
-                  context.go('/');
-                },
-                child: Text(AppLocalizations.of(context).reviewEnd),
-              ),
-            ],
+          (ctx) => AppDialog(
+            icon: Icons.pause_circle_outline_rounded,
+            title: l10n.reviewEndTitle,
+            message: l10n.reviewEndBody,
+            confirmLabel: l10n.reviewStay,
+            onConfirm: () => Navigator.pop(ctx),
+            dismissLabel: l10n.reviewEnd,
+            onDismiss: () {
+              Navigator.pop(ctx);
+              context.go('/');
+            },
           ),
     );
   }
@@ -1008,7 +1005,7 @@ class _AudioPill extends ConsumerWidget {
                   width: 24,
                   height: 24,
                   decoration: BoxDecoration(
-                    color: t.pri,
+                    color: t.priFill,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(Icons.play_arrow, size: 15, color: t.onFill),

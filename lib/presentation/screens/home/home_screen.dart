@@ -239,7 +239,7 @@ class HomeScreen extends ConsumerWidget {
                                             vertical: 2,
                                           ),
                                           decoration: BoxDecoration(
-                                            color: t.red,
+                                            color: t.redFill,
                                             borderRadius: BorderRadius.circular(
                                               999,
                                             ),
@@ -250,8 +250,8 @@ class HomeScreen extends ConsumerWidget {
                                           ),
                                           child: Text(
                                             l10n.updateBadgeLabel,
-                                            style: const TextStyle(
-                                              color: Colors.white,
+                                            style: TextStyle(
+                                              color: t.onFill,
                                               fontSize: 8,
                                               fontWeight: FontWeight.w900,
                                               letterSpacing: .35,
@@ -841,7 +841,7 @@ class _ContinueLearningCard extends ConsumerWidget {
                             width: 56,
                             height: 56,
                             decoration: BoxDecoration(
-                              color: t.pri,
+                              color: t.priFill,
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
@@ -851,9 +851,9 @@ class _ContinueLearningCard extends ConsumerWidget {
                                 ),
                               ],
                             ),
-                            child: const Icon(
+                            child: Icon(
                               Icons.play_arrow_rounded,
-                              color: Colors.white,
+                              color: t.onFill,
                               size: 31,
                             ),
                           ),
@@ -1079,15 +1079,15 @@ class _DueTransfers extends ConsumerWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: t.violet,
+                        color: t.violetFill,
                         borderRadius: BorderRadius.circular(999),
                       ),
                       child: Text(
                         '${items.length}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                          color: t.onFill,
                         ),
                       ),
                     ),

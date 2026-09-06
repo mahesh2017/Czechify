@@ -344,7 +344,7 @@ class _MatchingViewState extends State<MatchingView> {
                             height: 22,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: t.pri,
+                              color: t.priFill,
                               borderRadius: BorderRadius.circular(999),
                             ),
                             child: Text(

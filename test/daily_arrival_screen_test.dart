@@ -10,6 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/localized_app.dart';
+
 void main() {
   const reviewState = DailyArrivalState(
     kind: DailyArrivalKind.reviewsReady,
@@ -62,7 +64,12 @@ void main() {
             () => DateTime(2026, 8, 2, 8),
           ),
         ],
-        child: MaterialApp.router(theme: lightTheme(), routerConfig: router),
+        child: MaterialApp.router(
+          theme: lightTheme(),
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          routerConfig: router,
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -129,6 +136,8 @@ void main() {
         ],
         child: MaterialApp(
           theme: lightTheme(),
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           home: const DailyArrivalScreen(),
         ),
       ),

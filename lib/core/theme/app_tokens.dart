@@ -26,12 +26,14 @@ class AppTokens extends ThemeExtension<AppTokens> {
     required this.amberSoft,
     required this.amberInk,
     required this.red,
+    required this.redFill,
     required this.redSoft,
     required this.redInk,
     required this.green,
     required this.greenSoft,
     required this.greenInk,
     required this.violet,
+    required this.violetFill,
     required this.violetSoft,
     required this.violetInk,
     required this.chipBg,
@@ -81,12 +83,24 @@ class AppTokens extends ThemeExtension<AppTokens> {
   final Color amberSoft;
   final Color amberInk;
   final Color red;
+
+  /// Solid red for a filled badge or button carrying [onFill] text.
+  ///
+  /// Distinct from [red], which is an accent for text and icons *on* the page
+  /// and therefore goes lighter in dark mode — under white it lands at 2.5:1.
+  /// A fill has to go the other way. This mirrors [pri]/[priFill]; the absence
+  /// of the red and violet equivalents is why five badges reached for the
+  /// accent and shipped unreadable in dark mode.
+  final Color redFill;
   final Color redSoft;
   final Color redInk;
   final Color green;
   final Color greenSoft;
   final Color greenInk;
   final Color violet;
+
+  /// Solid violet for a filled badge carrying [onFill]. See [redFill].
+  final Color violetFill;
   final Color violetSoft;
   final Color violetInk;
 
@@ -125,12 +139,16 @@ class AppTokens extends ThemeExtension<AppTokens> {
     // darker so the rule actually holds; see app_tokens_test.dart.
     amberInk: Color(0xFF985F00),
     red: Color(0xFFF0503F),
+    // The accent red is 3.54:1 under white — it fails even in light mode, so
+    // the fill is a deeper coral rather than the accent reused.
+    redFill: Color(0xFFD13A26),
     redSoft: Color(0xFFFFE9E5),
     redInk: Color(0xFFC8321F),
     green: Color(0xFF12A272),
     greenSoft: Color(0xFFE0F6EE),
     greenInk: Color(0xFF0A7A56),
     violet: Color(0xFF7355DC),
+    violetFill: Color(0xFF7355DC),
     violetSoft: Color(0xFFEEE9FF),
     violetInk: Color(0xFF5B3FBF),
     chipBg: Color(0xFFF2EDE4),
@@ -178,12 +196,14 @@ class AppTokens extends ThemeExtension<AppTokens> {
     amberSoft: Color(0xFF382A12),
     amberInk: Color(0xFFF2BC66),
     red: Color(0xFFFF7D6D),
+    redFill: Color(0xFFC93520),
     redSoft: Color(0xFF3B201C),
     redInk: Color(0xFFFF9E8E),
     green: Color(0xFF4ECB9B),
     greenSoft: Color(0xFF123027),
     greenInk: Color(0xFF54DCA9),
     violet: Color(0xFFA897F5),
+    violetFill: Color(0xFF6244C9),
     violetSoft: Color(0xFF251F44),
     violetInk: Color(0xFFC2B2FF),
     chipBg: Color(0xFF2B2937),
@@ -229,12 +249,14 @@ class AppTokens extends ThemeExtension<AppTokens> {
     Color? amberSoft,
     Color? amberInk,
     Color? red,
+    Color? redFill,
     Color? redSoft,
     Color? redInk,
     Color? green,
     Color? greenSoft,
     Color? greenInk,
     Color? violet,
+    Color? violetFill,
     Color? violetSoft,
     Color? violetInk,
     Color? chipBg,
@@ -260,12 +282,14 @@ class AppTokens extends ThemeExtension<AppTokens> {
       amberSoft: amberSoft ?? this.amberSoft,
       amberInk: amberInk ?? this.amberInk,
       red: red ?? this.red,
+      redFill: redFill ?? this.redFill,
       redSoft: redSoft ?? this.redSoft,
       redInk: redInk ?? this.redInk,
       green: green ?? this.green,
       greenSoft: greenSoft ?? this.greenSoft,
       greenInk: greenInk ?? this.greenInk,
       violet: violet ?? this.violet,
+      violetFill: violetFill ?? this.violetFill,
       violetSoft: violetSoft ?? this.violetSoft,
       violetInk: violetInk ?? this.violetInk,
       chipBg: chipBg ?? this.chipBg,
@@ -297,12 +321,14 @@ class AppTokens extends ThemeExtension<AppTokens> {
       amberSoft: c(amberSoft, other.amberSoft),
       amberInk: c(amberInk, other.amberInk),
       red: c(red, other.red),
+      redFill: c(redFill, other.redFill),
       redSoft: c(redSoft, other.redSoft),
       redInk: c(redInk, other.redInk),
       green: c(green, other.green),
       greenSoft: c(greenSoft, other.greenSoft),
       greenInk: c(greenInk, other.greenInk),
       violet: c(violet, other.violet),
+      violetFill: c(violetFill, other.violetFill),
       violetSoft: c(violetSoft, other.violetSoft),
       violetInk: c(violetInk, other.violetInk),
       chipBg: c(chipBg, other.chipBg),

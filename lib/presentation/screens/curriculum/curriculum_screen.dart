@@ -721,7 +721,7 @@ class _PathUnit extends ConsumerWidget {
                             Container(
                               padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
                               decoration: BoxDecoration(
-                                color: t.pri,
+                                color: t.priFill,
                                 borderRadius: BorderRadius.circular(999),
                               ),
                               child: Text(
@@ -931,7 +931,7 @@ class _PathLessonRow extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
                             decoration: BoxDecoration(
-                              color: t.pri,
+                              color: t.priFill,
                               borderRadius: BorderRadius.circular(999),
                             ),
                             child: Text(
@@ -1101,13 +1101,13 @@ class _UnitCard extends ConsumerWidget {
                               vertical: 3,
                             ),
                             decoration: BoxDecoration(
-                              color: t.pri,
+                              color: t.priFill,
                               borderRadius: BorderRadius.circular(999),
                             ),
                             child: Text(
                               l10n.curriculumInProgress,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: t.onFill,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 1,

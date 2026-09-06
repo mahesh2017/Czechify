@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_dialog.dart';
+
 import '../../../l10n/app_localizations.dart';
 
 /// One field inside a [TextPromptDialog].
@@ -98,10 +100,16 @@ class _TextPromptDialogState extends State<TextPromptDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    return AlertDialog(
-      title: Text(widget.title),
+    return AppDialog(
+      icon: Icons.lock_outline_rounded,
+      title: widget.title,
+      confirmLabel: widget.confirmLabel,
+      onConfirm: _submit,
+      dismissLabel: l10n.cancel,
+      onDismiss: () => Navigator.pop(context),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        spacing: 12,
         children: [
           for (final (index, field) in widget.fields.indexed)
             TextField(
@@ -124,13 +132,6 @@ class _TextPromptDialogState extends State<TextPromptDialog> {
             ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(l10n.cancel),
-        ),
-        FilledButton(onPressed: _submit, child: Text(widget.confirmLabel)),
-      ],
     );
   }
 }

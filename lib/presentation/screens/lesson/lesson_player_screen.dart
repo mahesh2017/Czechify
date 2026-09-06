@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../widgets/common/degraded_mode_banner.dart';
+import '../../widgets/common/app_dialog.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/feedback/celebration.dart';
@@ -509,25 +510,22 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   }
 
   void _showExitConfirm(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder:
-          (ctx) => AlertDialog(
-            title: Text(AppLocalizations.of(context).lessonLeaveTitle),
-            content: Text(AppLocalizations.of(context).lessonLeaveBody),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: Text(AppLocalizations.of(context).reviewStay),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(ctx);
-                  leaveLesson(context);
-                },
-                child: Text(AppLocalizations.of(context).lessonLeave),
-              ),
-            ],
+          (ctx) => AppDialog(
+            icon: Icons.logout_rounded,
+            tone: AppDialogTone.warning,
+            title: l10n.lessonLeaveTitle,
+            message: l10n.lessonLeaveBody,
+            confirmLabel: l10n.reviewStay,
+            onConfirm: () => Navigator.pop(ctx),
+            dismissLabel: l10n.lessonLeave,
+            onDismiss: () {
+              Navigator.pop(ctx);
+              leaveLesson(context);
+            },
           ),
     );
   }

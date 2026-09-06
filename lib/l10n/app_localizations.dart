@@ -4556,6 +4556,150 @@ abstract class AppLocalizations {
   /// **'Check the “{sound}” sound in “{word}”.'**
   String pronTipCheckSound(String sound, String word);
 
+  /// No description provided for @examLeaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the exam?'**
+  String get examLeaveTitle;
+
+  /// No description provided for @examLeaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your exam is in progress. If you leave now it will not be scored.'**
+  String get examLeaveBody;
+
+  /// No description provided for @cloudSpeechTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow cloud speech?'**
+  String get cloudSpeechTitle;
+
+  /// No description provided for @cloudSpeechBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pronunciation recording will be sent through Czechify to OpenAI in the United States for transcription. Czechify does not store the recording after the transcript is returned. OpenAI may retain API data for abuse monitoring for up to 30 days. This is optional, can be switched off at any time, and is available only if you are at least 16.'**
+  String get cloudSpeechBody;
+
+  /// No description provided for @cloudSpeechAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow cloud speech'**
+  String get cloudSpeechAllow;
+
+  /// No description provided for @reportNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Anything you want to add (optional)'**
+  String get reportNoteLabel;
+
+  /// No description provided for @examWritingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your answer in Czech…'**
+  String get examWritingHint;
+
+  /// No description provided for @arrivalGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home'**
+  String get arrivalGoHome;
+
+  /// No description provided for @arrivalContinueHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Home'**
+  String get arrivalContinueHome;
+
+  /// No description provided for @arrivalStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'day streak'**
+  String get arrivalStreakLabel;
+
+  /// No description provided for @arrivalXpLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'today’s XP'**
+  String get arrivalXpLabel;
+
+  /// No description provided for @arrivalReviewLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'to review'**
+  String get arrivalReviewLabel;
+
+  /// No description provided for @arrivalGuideA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify language guide'**
+  String get arrivalGuideA11y;
+
+  /// No description provided for @arrivalPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing today’s practice'**
+  String get arrivalPreparing;
+
+  /// No description provided for @examSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save this result to your exam history.'**
+  String get examSaveFailed;
+
+  /// No description provided for @examGrading.
+  ///
+  /// In en, this message translates to:
+  /// **'Grading…'**
+  String get examGrading;
+
+  /// No description provided for @examEvaluatingAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Evaluating your answers…'**
+  String get examEvaluatingAnswers;
+
+  /// No description provided for @examPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get examPrevious;
+
+  /// No description provided for @examEvaluatingWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'AI evaluating your writing…'**
+  String get examEvaluatingWriting;
+
+  /// No description provided for @examRequestFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Request practice feedback'**
+  String get examRequestFeedback;
+
+  /// No description provided for @examCriterionGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get examCriterionGrammar;
+
+  /// No description provided for @examCriterionVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get examCriterionVocabulary;
+
+  /// No description provided for @examCriterionCoherence.
+  ///
+  /// In en, this message translates to:
+  /// **'Coherence'**
+  String get examCriterionCoherence;
+
+  /// No description provided for @examScoreOverall.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall'**
+  String get examScoreOverall;
+
   /// No description provided for @rankBronze.
   ///
   /// In en, this message translates to:

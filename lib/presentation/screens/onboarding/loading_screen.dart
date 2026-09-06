@@ -60,6 +60,14 @@ class LoadingScreen extends StatelessWidget {
                               FilledButton.icon(
                                 onPressed: onRetry,
                                 icon: const Icon(Icons.refresh_rounded),
+                                // Not localized, and cannot be: this screen
+                                // is returned *instead of* MaterialApp.router
+                                // while the app boots, so no Localizations
+                                // ancestor exists yet and
+                                // `AppLocalizations.of` would return null.
+                                // Reaching for the ARB here crashes the
+                                // startup-error path — the one path where
+                                // this button is the only way forward.
                                 label: const Text('Try again'),
                               ),
                             ],

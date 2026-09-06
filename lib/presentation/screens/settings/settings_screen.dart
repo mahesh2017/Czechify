@@ -24,6 +24,7 @@ import '../../providers/consent_providers.dart';
 import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
 import '../../widgets/common/cloud_speech_consent.dart';
+import '../../widgets/common/app_dialog.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
@@ -89,24 +90,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder:
-          (ctx) => AlertDialog(
-            icon: Icon(Icons.school_outlined, color: context.tokens.pri),
-            title: Text(l10n.settingsSwitchLevelTitle(_levelLabel(chosen))),
-            content: Text(
-              movingUp
-                  ? l10n.settingsSwitchUpBody
-                  : l10n.settingsSwitchDownBody,
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(false),
-                child: Text(l10n.cancel),
-              ),
-              FilledButton(
-                onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text(l10n.settingsSwitchLevel(_levelLabel(chosen))),
-              ),
-            ],
+          (ctx) => AppDialog(
+            icon: Icons.school_outlined,
+            title: l10n.settingsSwitchLevelTitle(_levelLabel(chosen)),
+            message:
+                movingUp
+                    ? l10n.settingsSwitchUpBody
+                    : l10n.settingsSwitchDownBody,
+            confirmLabel: l10n.settingsSwitchLevel(_levelLabel(chosen)),
+            onConfirm: () => Navigator.of(ctx).pop(true),
+            dismissLabel: l10n.cancel,
+            onDismiss: () => Navigator.of(ctx).pop(false),
           ),
     );
     if (confirmed != true || !mounted) return;
@@ -1274,39 +1268,34 @@ class _AudioDownloadDialogState extends ConsumerState<_AudioDownloadDialog> {
             : subject[0].toUpperCase() + subject.substring(1);
     final progress = _progress;
 
-    return AlertDialog(
-      icon: Icon(
-        _offline ? Icons.wifi_off_rounded : Icons.download_rounded,
-        color: _offline ? t.amber : t.pri,
-      ),
-      title: Text(
-        _offline
-            ? l10n.settingsDownloadConnectTitle(subject)
-            : l10n.settingsDownloadSavingTitle(subject),
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            _offline
-                ? l10n.settingsDownloadOfflineBody(subjectCapitalised)
-                : l10n.settingsDownloadingClips(widget.missingCount),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14.5, color: t.muted, height: 1.45),
-          ),
-          if (!_offline) ...[
-            const SizedBox(height: 16),
-            LinearProgressIndicator(value: progress?.fraction ?? 0),
-          ],
-        ],
-      ),
-      actions: [
-        if (_offline) TextButton(onPressed: _run, child: Text(l10n.tryAgain)),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(false),
-          child: Text(_offline ? l10n.settingsNotNow : l10n.settingsHide),
-        ),
-      ],
+    return AppDialog(
+      icon: _offline ? Icons.wifi_off_rounded : Icons.download_rounded,
+      tone: _offline ? AppDialogTone.warning : AppDialogTone.primary,
+      title:
+          _offline
+              ? l10n.settingsDownloadConnectTitle(subject)
+              : l10n.settingsDownloadSavingTitle(subject),
+      message:
+          _offline
+              ? l10n.settingsDownloadOfflineBody(subjectCapitalised)
+              : l10n.settingsDownloadingClips(widget.missingCount),
+      content:
+          _offline
+              ? null
+              : ClipRRect(
+                borderRadius: BorderRadius.circular(999),
+                child: LinearProgressIndicator(
+                  value: progress?.fraction ?? 0,
+                  minHeight: 8,
+                  backgroundColor: t.elev,
+                ),
+              ),
+      // Offline, retrying is the action worth offering; mid-download the only
+      // thing left to do is get on with a lesson while it finishes.
+      confirmLabel: _offline ? l10n.tryAgain : null,
+      onConfirm: _offline ? _run : null,
+      dismissLabel: _offline ? l10n.settingsNotNow : l10n.settingsHide,
+      onDismiss: () => Navigator.of(context).pop(false),
     );
   }
 }

@@ -2630,6 +2630,81 @@ class AppLocalizationsCs extends AppLocalizations {
   }
 
   @override
+  String get examLeaveTitle => 'Opustit zkoušku?';
+
+  @override
+  String get examLeaveBody =>
+      'Zkouška právě probíhá. Pokud teď odejdeš, nebude vyhodnocena.';
+
+  @override
+  String get cloudSpeechTitle => 'Povolit cloudovou výslovnost?';
+
+  @override
+  String get cloudSpeechBody =>
+      'Tvoje nahrávka výslovnosti bude přes Czechify odeslána společnosti OpenAI do Spojených států k přepisu. Czechify nahrávku po vrácení přepisu neukládá. OpenAI může data z API uchovávat kvůli kontrole zneužití až 30 dní. Je to volitelné, kdykoli to můžeš vypnout a je to dostupné jen od 16 let.';
+
+  @override
+  String get cloudSpeechAllow => 'Povolit cloudovou výslovnost';
+
+  @override
+  String get reportNoteLabel => 'Chceš něco doplnit? (nepovinné)';
+
+  @override
+  String get examWritingHint => 'Napiš svou odpověď v češtině…';
+
+  @override
+  String get arrivalGoHome => 'Přejít na hlavní obrazovku';
+
+  @override
+  String get arrivalContinueHome => 'Pokračovat na hlavní obrazovku';
+
+  @override
+  String get arrivalStreakLabel => 'denní série';
+
+  @override
+  String get arrivalXpLabel => 'dnešní XP';
+
+  @override
+  String get arrivalReviewLabel => 'k opakování';
+
+  @override
+  String get arrivalGuideA11y => 'Jazykový průvodce Czechify';
+
+  @override
+  String get arrivalPreparing => 'Připravuji dnešní procvičování';
+
+  @override
+  String get examSaveFailed =>
+      'Tento výsledek se nepodařilo uložit do historie zkoušek.';
+
+  @override
+  String get examGrading => 'Vyhodnocuji…';
+
+  @override
+  String get examEvaluatingAnswers => 'Vyhodnocuji tvé odpovědi…';
+
+  @override
+  String get examPrevious => 'Předchozí';
+
+  @override
+  String get examEvaluatingWriting => 'AI vyhodnocuje tvůj text…';
+
+  @override
+  String get examRequestFeedback => 'Požádat o zpětnou vazbu';
+
+  @override
+  String get examCriterionGrammar => 'Gramatika';
+
+  @override
+  String get examCriterionVocabulary => 'Slovní zásoba';
+
+  @override
+  String get examCriterionCoherence => 'Souvislost';
+
+  @override
+  String get examScoreOverall => 'Celkem';
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

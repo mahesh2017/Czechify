@@ -28,12 +28,42 @@ void main() {
     }
   });
 
-  test('primary filled actions meet AA contrast', () {
+  test('every filled surface meets AA contrast under onFill', () {
+    // This used to cover `priFill` alone, which passed — while five badges
+    // filled themselves with `pri`, `violet` and `red` instead and put white
+    // on top. The accent tokens go *lighter* in dark mode, by design, because
+    // they are meant for text and icons sitting on the page; under white they
+    // land at 2.5–2.7:1. The `*Fill` tokens are the ones that may carry
+    // [AppTokens.onFill], so every one of them is checked here, and any new
+    // fill added to the palette has to clear the same bar.
     for (final tokens in [AppTokens.light, AppTokens.dark]) {
-      expect(
-        _contrast(tokens.onFill, tokens.priFill),
-        greaterThanOrEqualTo(4.5),
-      );
+      for (final fill in <String, Color>{
+        'priFill': tokens.priFill,
+        'violetFill': tokens.violetFill,
+        'redFill': tokens.redFill,
+      }.entries) {
+        expect(
+          _contrast(tokens.onFill, fill.value),
+          greaterThanOrEqualTo(4.5),
+          reason:
+              '${fill.key} carries onFill text; at this contrast the label is '
+              'not readable',
+        );
+      }
+    }
+  });
+
+  test('accent tokens are not mistaken for fills', () {
+    // Records why the `*Fill` variants exist at all: the accents they were
+    // being substituted for genuinely fail. If a palette change ever made
+    // these pass, the separate tokens could be reconsidered — until then this
+    // is the evidence that they are not redundant.
+    for (final accent in [
+      AppTokens.dark.pri,
+      AppTokens.dark.violet,
+      AppTokens.dark.red,
+    ]) {
+      expect(_contrast(AppTokens.dark.onFill, accent), lessThan(4.5));
     }
   });
 }

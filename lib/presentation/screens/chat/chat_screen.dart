@@ -15,6 +15,7 @@ import '../../providers/tts_providers.dart';
 import '../../providers/database_providers.dart';
 import '../../providers/review_providers.dart';
 import '../../widgets/chat/report_tutor_reply_sheet.dart';
+import '../../widgets/common/app_dialog.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
@@ -516,29 +517,19 @@ Future<void> _confirmDelete(
   WidgetRef ref,
   ConversationSummary summary,
 ) async {
+  final l10n = AppLocalizations.of(context);
   final confirmed = await showDialog<bool>(
     context: context,
     builder:
-        (ctx) => AlertDialog(
-          title: Text(AppLocalizations.of(context).chatDeleteConversationTitle),
-          content: Text(
-            AppLocalizations.of(
-              context,
-            ).chatDeleteConversationBody(summary.scenario),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx, false),
-              child: Text(AppLocalizations.of(context).cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(ctx, true),
-              style: TextButton.styleFrom(
-                foregroundColor: Theme.of(ctx).colorScheme.error,
-              ),
-              child: Text(AppLocalizations.of(context).chatDelete),
-            ),
-          ],
+        (ctx) => AppDialog(
+          icon: Icons.delete_outline_rounded,
+          tone: AppDialogTone.danger,
+          title: l10n.chatDeleteConversationTitle,
+          message: l10n.chatDeleteConversationBody(summary.scenario),
+          confirmLabel: l10n.chatDelete,
+          onConfirm: () => Navigator.pop(ctx, true),
+          dismissLabel: l10n.cancel,
+          onDismiss: () => Navigator.pop(ctx, false),
         ),
   );
   if (confirmed ?? false) {

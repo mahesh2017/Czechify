@@ -201,6 +201,70 @@ ThemeData _build(Brightness brightness, AppTokens t) {
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
     ),
+    // Text fields had split into two populations: six that hand-roll a filled,
+    // 16-radius, `line`-bordered box in ~15 lines each, and six left on stock
+    // Material. The stock ones include the email and password fields a learner
+    // signs in with — the first typing they ever do here — and the exam's
+    // writing box. Naming the house treatment once lets the stock six inherit
+    // it, and the hand-rolled six keep their own: a local InputDecoration wins
+    // over the theme, so nothing that already looks right changes.
+    //
+    // `elev` rather than `card` for the fill: these appear on cards and inside
+    // dialogs as well as on the page, and a card-coloured well is invisible on
+    // a card.
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: t.elev,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      hintStyle: TextStyle(color: t.faint),
+      labelStyle: TextStyle(color: t.muted),
+      floatingLabelStyle: TextStyle(color: t.pri, fontWeight: FontWeight.w600),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: t.line, width: 1.5),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: t.line, width: 1.5),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: t.pri, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: t.red, width: 1.5),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide(color: t.red, width: 2),
+      ),
+    ),
+    // 28 snackbars across the app, every one of them stock Material: a
+    // square-cornered slab pinned to the bottom edge in a grey the palette
+    // does not contain. They carry real news — the update downloading, a level
+    // opening, sync failing — so they were the loudest unstyled surface left.
+    // Theming them here rather than at 28 call sites keeps them in step.
+    snackBarTheme: SnackBarThemeData(
+      behavior: SnackBarBehavior.floating,
+      // Light inverts to near-black; dark stays dark rather than flashing a
+      // pale slab across a dark screen.
+      backgroundColor: isLight ? t.ink : t.elev,
+      contentTextStyle: TextStyle(
+        fontFamily: AppFonts.body,
+        fontSize: 14.5,
+        fontWeight: FontWeight.w600,
+        height: 1.35,
+        color: isLight ? t.bg : t.ink,
+      ),
+      // The action sits on the snackbar's own background, not the screen's, so
+      // it cannot reuse `pri` in light mode — that is tuned for the cream page
+      // and disappears against near-black.
+      actionTextColor: isLight ? const Color(0xFFAFBEFF) : t.pri,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      insetPadding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+      elevation: 6,
+    ),
     listTileTheme: ListTileThemeData(iconColor: t.muted, textColor: t.ink),
     iconTheme: IconThemeData(color: t.muted),
     splashFactory: isLight ? InkSparkle.splashFactory : InkRipple.splashFactory,
