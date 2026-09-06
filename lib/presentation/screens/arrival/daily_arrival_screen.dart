@@ -110,7 +110,7 @@ class _ArrivalContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final copy = _ArrivalCopy.forState(state);
+    final copy = _ArrivalCopy.forState(state, AppLocalizations.of(context));
 
     return AnimatedBuilder(
       animation: animation,
@@ -484,58 +484,63 @@ class _ArrivalCopy {
   final IconData primaryIcon;
   final Color Function(AppTokens) accent;
 
-  factory _ArrivalCopy.forState(DailyArrivalState state) {
+  factory _ArrivalCopy.forState(
+    DailyArrivalState state,
+    AppLocalizations l10n,
+  ) {
+    // Empty, or ", Mahesh". The ARB takes it whole rather than composing a
+    // greeting from parts: where a name sits in a sentence, and whether it is
+    // set off by a comma at all, is a decision each language makes for itself.
     final name = state.learnerName.isEmpty ? '' : ', ${state.learnerName}';
     return switch (state.kind) {
       DailyArrivalKind.firstStep => _ArrivalCopy(
         eyebrow: 'DOBRÝ DEN',
-        title: 'Ready for your Czech win$name?',
-        body: 'A few focused minutes are enough to move forward today.',
-        primaryLabel: 'Start today’s lesson',
+        title: l10n.arrivalReadyTitle(name),
+        body: l10n.arrivalReadyBody,
+        primaryLabel: l10n.arrivalReadyCta,
         primaryIcon: Icons.play_arrow_rounded,
         accent: (t) => t.pri,
       ),
       DailyArrivalKind.keepStreak => _ArrivalCopy(
-        eyebrow: '${state.streak}-DAY STREAK',
-        title: 'Keep the fire alive$name',
-        body: 'One short lesson protects the rhythm you’ve built.',
-        primaryLabel: 'Continue learning',
+        eyebrow: l10n.arrivalStreakEyebrow(state.streak),
+        title: l10n.arrivalStreakTitle(name),
+        body: l10n.arrivalStreakBody,
+        primaryLabel: l10n.arrivalStreakCta,
         primaryIcon: Icons.local_fire_department_rounded,
         accent: (t) => t.amber,
       ),
       DailyArrivalKind.reviewsReady => _ArrivalCopy(
-        eyebrow: 'MEMORY BOOST',
-        title:
-            state.dueReviews == 1
-                ? '1 word is ready for you$name'
-                : '${state.dueReviews} words are ready for you$name',
-        body: 'A quick review now will make them easier to recall later.',
-        primaryLabel: 'Review now',
+        eyebrow: l10n.arrivalReviewEyebrow,
+        title: l10n.arrivalReviewTitle(state.dueReviews, name),
+        body: l10n.arrivalReviewBody,
+        primaryLabel: l10n.arrivalReviewCta,
         primaryIcon: Icons.style_rounded,
         accent: (t) => t.violet,
       ),
       DailyArrivalKind.welcomeBack => _ArrivalCopy(
         eyebrow: 'VÍTEJTE ZPĚT',
-        title: 'Your Czech is still here$name',
-        body: 'Restart gently. One small step is all today needs.',
-        primaryLabel: 'Make a fresh start',
+        title: l10n.arrivalReturnTitle(name),
+        body: l10n.arrivalReturnBody,
+        primaryLabel: l10n.arrivalReturnCta,
         primaryIcon: Icons.wb_sunny_rounded,
         accent: (t) => t.green,
       ),
       DailyArrivalKind.goalComplete => _ArrivalCopy(
-        eyebrow: 'DAILY GOAL COMPLETE',
-        title: 'You did it$name!',
-        body: 'Your Czech moved forward today. Anything else is a bonus.',
+        eyebrow: l10n.arrivalGoalEyebrow,
+        title: l10n.arrivalGoalTitle(name),
+        body: l10n.arrivalGoalBody,
         primaryLabel:
-            state.hasLesson ? 'Take a bonus lesson' : 'See my progress',
+            state.hasLesson
+                ? l10n.arrivalGoalCtaBonus
+                : l10n.arrivalGoalCtaProgress,
         primaryIcon: Icons.auto_awesome_rounded,
         accent: (t) => t.green,
       ),
       DailyArrivalKind.courseComplete => _ArrivalCopy(
         eyebrow: 'SKVĚLÁ PRÁCE',
-        title: 'Look how far you’ve come$name',
-        body: 'Explore the course or revisit a lesson to keep Czech fresh.',
-        primaryLabel: 'Explore the course',
+        title: l10n.arrivalDoneTitle(name),
+        body: l10n.arrivalDoneBody,
+        primaryLabel: l10n.arrivalDoneCta,
         primaryIcon: Icons.map_rounded,
         accent: (t) => t.pri,
       ),

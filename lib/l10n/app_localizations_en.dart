@@ -18,7 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get continueLabel => 'Continue';
 
   @override
-  String get tryAgain => 'Try Again';
+  String get tryAgain => 'Try again';
 
   @override
   String get nextPhrase => 'Next Phrase';
@@ -2694,6 +2694,176 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingFirstNameHint => 'Your first name';
+
+  @override
+  String linkOpenFailed(String url) {
+    return 'Could not open a browser. Visit $url';
+  }
+
+  @override
+  String quickRefLoadFailed(String title) {
+    return 'Could not load $title.';
+  }
+
+  @override
+  String get curriculumLayoutA11y => 'Curriculum layout';
+
+  @override
+  String get curriculumGrammarRules => 'Grammar Rules';
+
+  @override
+  String get pronListeningA11y => 'Listening';
+
+  @override
+  String pronScoreA11y(int percent, String label) {
+    return 'Score $percent percent. $label';
+  }
+
+  @override
+  String get transferTryNewWay => 'Try it in a new way';
+
+  @override
+  String arrivalReadyTitle(String name) {
+    return 'Ready for your Czech win$name?';
+  }
+
+  @override
+  String get arrivalReadyBody =>
+      'A few focused minutes are enough to move forward today.';
+
+  @override
+  String get arrivalReadyCta => 'Start today’s lesson';
+
+  @override
+  String arrivalStreakTitle(String name) {
+    return 'Keep the fire alive$name';
+  }
+
+  @override
+  String get arrivalStreakBody =>
+      'One short lesson protects the rhythm you’ve built.';
+
+  @override
+  String get arrivalStreakCta => 'Continue learning';
+
+  @override
+  String get arrivalReviewEyebrow => 'MEMORY BOOST';
+
+  @override
+  String get arrivalReviewBody =>
+      'A quick review now will make them easier to recall later.';
+
+  @override
+  String get arrivalReviewCta => 'Review now';
+
+  @override
+  String arrivalReturnTitle(String name) {
+    return 'Your Czech is still here$name';
+  }
+
+  @override
+  String get arrivalReturnBody =>
+      'Restart gently. One small step is all today needs.';
+
+  @override
+  String get arrivalReturnCta => 'Make a fresh start';
+
+  @override
+  String get arrivalGoalEyebrow => 'DAILY GOAL COMPLETE';
+
+  @override
+  String arrivalGoalTitle(String name) {
+    return 'You did it$name!';
+  }
+
+  @override
+  String get arrivalGoalBody =>
+      'Your Czech moved forward today. Anything else is a bonus.';
+
+  @override
+  String arrivalDoneTitle(String name) {
+    return 'Look how far you’ve come$name';
+  }
+
+  @override
+  String get arrivalDoneBody =>
+      'Explore the course or revisit a lesson to keep Czech fresh.';
+
+  @override
+  String get arrivalDoneCta => 'Explore the course';
+
+  @override
+  String get statsLevelA1 => 'A1 — Beginner';
+
+  @override
+  String get statsLevelA2 => 'A2 — Elementary';
+
+  @override
+  String placementUnitLabel(int unit) {
+    return 'Unit $unit';
+  }
+
+  @override
+  String get routeNotFoundTitle => 'Not found';
+
+  @override
+  String get routeNotFoundBody => 'That page could not be opened.';
+
+  @override
+  String get genderFeminine => 'fem';
+
+  @override
+  String get genderNeuter => 'neut';
+
+  @override
+  String get genderMascInanimate => 'masc inan';
+
+  @override
+  String get genderMascAnimate => 'masc anim';
+
+  @override
+  String playbackSpeedA11y(String speed) {
+    return 'Playback speed $speed';
+  }
+
+  @override
+  String rewardBadgeEarned(int xp) {
+    return 'Badge earned · +$xp XP';
+  }
+
+  @override
+  String get rewardWellDone => 'Well done';
+
+  @override
+  String get shareLabel => 'Share';
+
+  @override
+  String get pronMoveOn => 'Move on for now';
+
+  @override
+  String get pronTryOnceMore => 'Try once more';
+
+  @override
+  String arrivalStreakEyebrow(int count) {
+    return '$count-DAY STREAK';
+  }
+
+  @override
+  String arrivalReviewTitle(int count, String name) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count words are ready for you$name',
+      one: '1 word is ready for you$name',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get arrivalGoalCtaBonus => 'Take a bonus lesson';
+
+  @override
+  String get arrivalGoalCtaProgress => 'See my progress';
 
   @override
   String get rankBronze => 'Bronze';

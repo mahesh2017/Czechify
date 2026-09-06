@@ -537,7 +537,7 @@ class _ViewToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.tokens;
     return Semantics(
-      label: 'Curriculum layout',
+      label: AppLocalizations.of(context).curriculumLayoutA11y,
       child: Container(
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
@@ -1214,7 +1214,7 @@ class _UnitCard extends ConsumerWidget {
                   child: OutlinedButton.icon(
                     onPressed: () => context.push('/grammar?unit=${unit.id}'),
                     icon: const Icon(Icons.menu_book, size: 16),
-                    label: const Text('Grammar Rules'),
+                    label: Text(AppLocalizations.of(context).curriculumGrammarRules),
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 40),
                     ),

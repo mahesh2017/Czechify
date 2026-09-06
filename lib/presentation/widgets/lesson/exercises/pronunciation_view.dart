@@ -522,7 +522,7 @@ class _ResultBlock extends StatelessWidget {
           // Submitted as it stands, which is a miss — so the lesson's own
           // mistake queue re-asks it and the evidence row records a speaking
           // miss. "Bring it back" is a promise the app already keeps.
-          KeyCta(label: 'Move on for now', onPressed: onMoveOn),
+          KeyCta(label: l10n.pronMoveOn, onPressed: onMoveOn),
           const SizedBox(height: 8),
           TextButton(
             onPressed: onRetry,
@@ -530,10 +530,10 @@ class _ResultBlock extends StatelessWidget {
               foregroundColor: t.muted,
               minimumSize: const Size(0, 44),
             ),
-            child: const Text('Try once more'),
+            child: Text(l10n.pronTryOnceMore),
           ),
         ] else ...[
-          KeyCta(label: 'Try again', onPressed: onRetry),
+          KeyCta(label: l10n.tryAgain, onPressed: onRetry),
           const SizedBox(height: 8),
           TextButton(
             onPressed: onContinue,

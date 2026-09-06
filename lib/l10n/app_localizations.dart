@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:
-  /// **'Try Again'**
+  /// **'Try again'**
   String get tryAgain;
 
   /// No description provided for @nextPhrase.
@@ -4705,6 +4705,270 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your first name'**
   String get onboardingFirstNameHint;
+
+  /// No description provided for @linkOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open a browser. Visit {url}'**
+  String linkOpenFailed(String url);
+
+  /// No description provided for @quickRefLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load {title}.'**
+  String quickRefLoadFailed(String title);
+
+  /// No description provided for @curriculumLayoutA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Curriculum layout'**
+  String get curriculumLayoutA11y;
+
+  /// No description provided for @curriculumGrammarRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Rules'**
+  String get curriculumGrammarRules;
+
+  /// No description provided for @pronListeningA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get pronListeningA11y;
+
+  /// No description provided for @pronScoreA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Score {percent} percent. {label}'**
+  String pronScoreA11y(int percent, String label);
+
+  /// No description provided for @transferTryNewWay.
+  ///
+  /// In en, this message translates to:
+  /// **'Try it in a new way'**
+  String get transferTryNewWay;
+
+  /// No description provided for @arrivalReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for your Czech win{name}?'**
+  String arrivalReadyTitle(String name);
+
+  /// No description provided for @arrivalReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A few focused minutes are enough to move forward today.'**
+  String get arrivalReadyBody;
+
+  /// No description provided for @arrivalReadyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start today’s lesson'**
+  String get arrivalReadyCta;
+
+  /// No description provided for @arrivalStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the fire alive{name}'**
+  String arrivalStreakTitle(String name);
+
+  /// No description provided for @arrivalStreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One short lesson protects the rhythm you’ve built.'**
+  String get arrivalStreakBody;
+
+  /// No description provided for @arrivalStreakCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue learning'**
+  String get arrivalStreakCta;
+
+  /// No description provided for @arrivalReviewEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'MEMORY BOOST'**
+  String get arrivalReviewEyebrow;
+
+  /// No description provided for @arrivalReviewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A quick review now will make them easier to recall later.'**
+  String get arrivalReviewBody;
+
+  /// No description provided for @arrivalReviewCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Review now'**
+  String get arrivalReviewCta;
+
+  /// No description provided for @arrivalReturnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech is still here{name}'**
+  String arrivalReturnTitle(String name);
+
+  /// No description provided for @arrivalReturnBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart gently. One small step is all today needs.'**
+  String get arrivalReturnBody;
+
+  /// No description provided for @arrivalReturnCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Make a fresh start'**
+  String get arrivalReturnCta;
+
+  /// No description provided for @arrivalGoalEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY GOAL COMPLETE'**
+  String get arrivalGoalEyebrow;
+
+  /// No description provided for @arrivalGoalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You did it{name}!'**
+  String arrivalGoalTitle(String name);
+
+  /// No description provided for @arrivalGoalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech moved forward today. Anything else is a bonus.'**
+  String get arrivalGoalBody;
+
+  /// No description provided for @arrivalDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Look how far you’ve come{name}'**
+  String arrivalDoneTitle(String name);
+
+  /// No description provided for @arrivalDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the course or revisit a lesson to keep Czech fresh.'**
+  String get arrivalDoneBody;
+
+  /// No description provided for @arrivalDoneCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the course'**
+  String get arrivalDoneCta;
+
+  /// No description provided for @statsLevelA1.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 — Beginner'**
+  String get statsLevelA1;
+
+  /// No description provided for @statsLevelA2.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 — Elementary'**
+  String get statsLevelA2;
+
+  /// No description provided for @placementUnitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {unit}'**
+  String placementUnitLabel(int unit);
+
+  /// No description provided for @routeNotFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found'**
+  String get routeNotFoundTitle;
+
+  /// No description provided for @routeNotFoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'That page could not be opened.'**
+  String get routeNotFoundBody;
+
+  /// No description provided for @genderFeminine.
+  ///
+  /// In en, this message translates to:
+  /// **'fem'**
+  String get genderFeminine;
+
+  /// No description provided for @genderNeuter.
+  ///
+  /// In en, this message translates to:
+  /// **'neut'**
+  String get genderNeuter;
+
+  /// No description provided for @genderMascInanimate.
+  ///
+  /// In en, this message translates to:
+  /// **'masc inan'**
+  String get genderMascInanimate;
+
+  /// No description provided for @genderMascAnimate.
+  ///
+  /// In en, this message translates to:
+  /// **'masc anim'**
+  String get genderMascAnimate;
+
+  /// No description provided for @playbackSpeedA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback speed {speed}'**
+  String playbackSpeedA11y(String speed);
+
+  /// No description provided for @rewardBadgeEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'Badge earned · +{xp} XP'**
+  String rewardBadgeEarned(int xp);
+
+  /// No description provided for @rewardWellDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done'**
+  String get rewardWellDone;
+
+  /// No description provided for @shareLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get shareLabel;
+
+  /// No description provided for @pronMoveOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Move on for now'**
+  String get pronMoveOn;
+
+  /// No description provided for @pronTryOnceMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Try once more'**
+  String get pronTryOnceMore;
+
+  /// No description provided for @arrivalStreakEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-DAY STREAK'**
+  String arrivalStreakEyebrow(int count);
+
+  /// No description provided for @arrivalReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural,=1{1 word is ready for you{name}}other{{count} words are ready for you{name}}}'**
+  String arrivalReviewTitle(int count, String name);
+
+  /// No description provided for @arrivalGoalCtaBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a bonus lesson'**
+  String get arrivalGoalCtaBonus;
+
+  /// No description provided for @arrivalGoalCtaProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'See my progress'**
+  String get arrivalGoalCtaProgress;
 
   /// No description provided for @rankBronze.
   ///

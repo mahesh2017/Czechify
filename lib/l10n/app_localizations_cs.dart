@@ -2708,6 +2708,177 @@ class AppLocalizationsCs extends AppLocalizations {
   String get onboardingFirstNameHint => 'Tvoje křestní jméno';
 
   @override
+  String linkOpenFailed(String url) {
+    return 'Nepodařilo se otevřít prohlížeč. Navštiv $url';
+  }
+
+  @override
+  String quickRefLoadFailed(String title) {
+    return 'Nepodařilo se načíst $title.';
+  }
+
+  @override
+  String get curriculumLayoutA11y => 'Rozvržení kurzu';
+
+  @override
+  String get curriculumGrammarRules => 'Gramatická pravidla';
+
+  @override
+  String get pronListeningA11y => 'Poslouchám';
+
+  @override
+  String pronScoreA11y(int percent, String label) {
+    return 'Skóre $percent procent. $label';
+  }
+
+  @override
+  String get transferTryNewWay => 'Zkus to jinak';
+
+  @override
+  String arrivalReadyTitle(String name) {
+    return 'Připraven/a na dnešní úspěch v češtině$name?';
+  }
+
+  @override
+  String get arrivalReadyBody =>
+      'Pár soustředěných minut dnes stačí k pokroku.';
+
+  @override
+  String get arrivalReadyCta => 'Začít dnešní lekci';
+
+  @override
+  String arrivalStreakTitle(String name) {
+    return 'Udrž plamen$name';
+  }
+
+  @override
+  String get arrivalStreakBody =>
+      'Jedna krátká lekce ochrání rytmus, který sis vybudoval/a.';
+
+  @override
+  String get arrivalStreakCta => 'Pokračovat v učení';
+
+  @override
+  String get arrivalReviewEyebrow => 'POSÍLENÍ PAMĚTI';
+
+  @override
+  String get arrivalReviewBody =>
+      'Rychlé opakování teď ti je později usnadní vybavit.';
+
+  @override
+  String get arrivalReviewCta => 'Opakovat teď';
+
+  @override
+  String arrivalReturnTitle(String name) {
+    return 'Tvoje čeština tu pořád je$name';
+  }
+
+  @override
+  String get arrivalReturnBody =>
+      'Rozjeď to zlehka. Dnes stačí jeden malý krok.';
+
+  @override
+  String get arrivalReturnCta => 'Začít znovu';
+
+  @override
+  String get arrivalGoalEyebrow => 'DENNÍ CÍL SPLNĚN';
+
+  @override
+  String arrivalGoalTitle(String name) {
+    return 'Dokázal/a jsi to$name!';
+  }
+
+  @override
+  String get arrivalGoalBody =>
+      'Tvoje čeština se dnes posunula. Cokoli dalšího je bonus.';
+
+  @override
+  String arrivalDoneTitle(String name) {
+    return 'Podívej, kam ses dostal/a$name';
+  }
+
+  @override
+  String get arrivalDoneBody =>
+      'Prozkoumej kurz nebo si zopakuj lekci, ať ti čeština zůstane v hlavě.';
+
+  @override
+  String get arrivalDoneCta => 'Prozkoumat kurz';
+
+  @override
+  String get statsLevelA1 => 'A1 — Začátečník';
+
+  @override
+  String get statsLevelA2 => 'A2 — Mírně pokročilý';
+
+  @override
+  String placementUnitLabel(int unit) {
+    return 'Jednotka $unit';
+  }
+
+  @override
+  String get routeNotFoundTitle => 'Nenalezeno';
+
+  @override
+  String get routeNotFoundBody => 'Tuto stránku se nepodařilo otevřít.';
+
+  @override
+  String get genderFeminine => 'žen.';
+
+  @override
+  String get genderNeuter => 'stř.';
+
+  @override
+  String get genderMascInanimate => 'muž. neživ.';
+
+  @override
+  String get genderMascAnimate => 'muž. živ.';
+
+  @override
+  String playbackSpeedA11y(String speed) {
+    return 'Rychlost přehrávání $speed';
+  }
+
+  @override
+  String rewardBadgeEarned(int xp) {
+    return 'Získán odznak · +$xp XP';
+  }
+
+  @override
+  String get rewardWellDone => 'Výborně';
+
+  @override
+  String get shareLabel => 'Sdílet';
+
+  @override
+  String get pronMoveOn => 'Zatím pokračovat';
+
+  @override
+  String get pronTryOnceMore => 'Zkusit ještě jednou';
+
+  @override
+  String arrivalStreakEyebrow(int count) {
+    return 'SÉRIE $count DNÍ';
+  }
+
+  @override
+  String arrivalReviewTitle(int count, String name) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count slov na tebe čeká$name',
+      few: '$count slova na tebe čekají$name',
+      one: '1 slovo na tebe čeká$name',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get arrivalGoalCtaBonus => 'Dát si bonusovou lekci';
+
+  @override
+  String get arrivalGoalCtaProgress => 'Zobrazit můj pokrok';
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

@@ -1642,7 +1642,8 @@ class _SpeedSegment extends StatelessWidget {
     return Semantics(
       button: true,
       selected: selected,
-      label: 'Playback speed $label',
+      label:
+          _l10n(context)?.playbackSpeedA11y(label) ?? 'Playback speed $label',
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(11),

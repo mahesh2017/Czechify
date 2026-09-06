@@ -238,7 +238,7 @@ class _PlacementScreenState extends ConsumerState<PlacementScreen> {
                     .map(
                       (unit) => DropdownMenuItem(
                         value: unit,
-                        child: Text('Unit $unit'),
+                        child: Text(l10n.placementUnitLabel(unit)),
                       ),
                     )
                     .toList(),

@@ -75,7 +75,10 @@ class _QuickReferenceScreenState extends ConsumerState<QuickReferenceScreen> {
             children: [
               Icon(Icons.error_outline, size: 48, color: t.red),
               const SizedBox(height: 16),
-              Text('Could not load $_title.', style: TextStyle(color: t.muted)),
+              Text(
+                AppLocalizations.of(context).quickRefLoadFailed(_title),
+                style: TextStyle(color: t.muted),
+              ),
               const SizedBox(height: 16),
               FilledButton(
                 onPressed: _load,

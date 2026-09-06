@@ -275,7 +275,7 @@ class _RecordingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Semantics(
       liveRegion: true,
-      label: 'Listening',
+      label: AppLocalizations.of(context).pronListeningA11y,
       excludeSemantics: true,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -325,7 +325,9 @@ class _ScoreDisplay extends StatelessWidget {
     return Column(
       children: [
         Semantics(
-          label: 'Score $scorePercent percent. $label',
+          label: AppLocalizations.of(
+            context,
+          ).pronScoreA11y(scorePercent, label),
           excludeSemantics: true,
           child: ScoreRing(
             fraction: result.overallScore,

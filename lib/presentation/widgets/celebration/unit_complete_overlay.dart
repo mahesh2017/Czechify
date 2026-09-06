@@ -217,7 +217,7 @@ class _UnitCompleteOverlayState extends State<UnitCompleteOverlay>
                                 TextButton.icon(
                                   onPressed: _share,
                                   icon: const Icon(Icons.ios_share, size: 18),
-                                  label: const Text('Share'),
+                                  label: Text(AppLocalizations.of(context).shareLabel),
                                   style: TextButton.styleFrom(
                                     foregroundColor: Colors.white70,
                                   ),

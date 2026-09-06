@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 import '../../../core/feedback/celebration.dart';
 import '../../../core/theme/app_tokens.dart';
 
@@ -67,7 +69,7 @@ class _RewardToastState extends State<RewardToast>
     BadgeEarned(:final icon, :final name, :final xpReward) => (
       glyph: icon,
       title: name,
-      subtitle: 'Badge earned · +$xpReward XP',
+      subtitle: AppLocalizations.of(context).rewardBadgeEarned(xpReward),
       accent: tokens.amberInk,
     ),
     StreakExtended(:final days) => (
@@ -79,7 +81,7 @@ class _RewardToastState extends State<RewardToast>
     // The larger ceremonies own the whole screen and never appear here.
     LessonCompleted() || UnitCompleted() => (
       glyph: '⭐',
-      title: 'Well done',
+      title: AppLocalizations.of(context).rewardWellDone,
       subtitle: '',
       accent: tokens.priInk,
     ),

@@ -386,9 +386,9 @@ class _CompletionCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          _ProgressRow(label: 'A1 — Beginner', progress: a1Completion),
+          _ProgressRow(label: AppLocalizations.of(context).statsLevelA1, progress: a1Completion),
           const SizedBox(height: 14),
-          _ProgressRow(label: 'A2 — Elementary', progress: a2Completion),
+          _ProgressRow(label: AppLocalizations.of(context).statsLevelA2, progress: a2Completion),
         ],
       ),
     );
