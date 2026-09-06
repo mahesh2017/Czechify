@@ -2705,6 +2705,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get examScoreOverall => 'Celkem';
 
   @override
+  String get onboardingFirstNameHint => 'Tvoje křestní jméno';
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

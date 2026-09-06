@@ -2693,6 +2693,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get examScoreOverall => 'Overall';
 
   @override
+  String get onboardingFirstNameHint => 'Your first name';
+
+  @override
   String get rankBronze => 'Bronze';
 
   @override

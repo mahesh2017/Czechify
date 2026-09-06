@@ -477,7 +477,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           textCapitalization: TextCapitalization.words,
           textInputAction: TextInputAction.done,
           decoration: InputDecoration(
-            hintText: 'e.g. Mahesh',
+            hintText: l10n.onboardingFirstNameHint,
             hintStyle: TextStyle(color: t.faint),
             filled: true,
             fillColor: t.card,

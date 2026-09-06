@@ -1150,6 +1150,7 @@
   "examCriterionVocabulary": "Vocabulary",
   "examCriterionCoherence": "Coherence",
   "examScoreOverall": "Overall",
+  "onboardingFirstNameHint": "Your first name",
   "rankBronze": "Bronze",
   "rankSilver": "Silver",
   "rankGold": "Gold",

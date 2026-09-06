@@ -130,7 +130,7 @@ class AppDialog extends StatelessWidget {
                           tint: tone.tint(t),
                           fg: tone.ink(t),
                           size: 60,
-                          radius: 20,
+                          radius: 16,
                           iconSize: 28,
                         ),
                       ),

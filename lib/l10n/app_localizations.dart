@@ -4700,6 +4700,12 @@ abstract class AppLocalizations {
   /// **'Overall'**
   String get examScoreOverall;
 
+  /// No description provided for @onboardingFirstNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first name'**
+  String get onboardingFirstNameHint;
+
   /// No description provided for @rankBronze.
   ///
   /// In en, this message translates to:
