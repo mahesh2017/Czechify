@@ -157,7 +157,7 @@ class _NextPracticeCard extends StatelessWidget {
                 tint: t.violetSoft,
                 fg: t.violetInk,
                 size: 40,
-                radius: 13,
+                radius: 12,
                 iconSize: 20,
               ),
               const SizedBox(width: 12),

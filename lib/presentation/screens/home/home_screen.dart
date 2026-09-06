@@ -997,7 +997,7 @@ class _ShortcutRow extends StatelessWidget {
               tint: tint,
               fg: fg,
               size: 40,
-              radius: 14,
+              radius: 12,
               iconSize: 17,
             ),
             const SizedBox(width: 14),

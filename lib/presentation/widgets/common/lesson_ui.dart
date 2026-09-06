@@ -16,8 +16,12 @@ import 'motion_widgets.dart';
 ///
 /// The system rules these encode, so they don't have to be restated per screen:
 ///
-///  - Radius is 12 (icon containers, keys), 16 (buttons, inner panels),
-///    24 (cards, sheets, hero surfaces) or 999 (pills). Nothing else.
+///  - Radius is 6 (hairline chips), 12 (icon containers, keys), 16 (buttons,
+///    inner panels), 18 (settings and about rows), 24 (cards), 28 (sheets and
+///    dialogs) or 999 (pills). Nothing else, and `radius_scale_test` says so —
+///    this list used to name only 12/16/24/999 while 18 was in use at sixteen
+///    sites and 28 at four, which made it a description of an intention
+///    rather than of the app.
 ///  - Raw hues are for fills and ≥3:1 graphics; anything holding a glyph uses
 ///    the matching `*Ink` token, which is what passes 4.5:1 at 17/700.
 ///  - Tracked uppercase is reserved for step kickers inside a lesson, which is
@@ -1576,7 +1580,7 @@ class TtsSpeedSelector extends ConsumerWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: t.card,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: t.line),
             ),
             child: Padding(
@@ -1646,14 +1650,14 @@ class _SpeedSegment extends StatelessWidget {
           _l10n(context)?.playbackSpeedA11y(label) ?? 'Playback speed $label',
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(11),
+        borderRadius: BorderRadius.circular(12),
         child: AnimatedContainer(
           duration: context.motionDuration(AppMotion.selection),
           height: 38,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: selected ? t.priFill : Colors.transparent,
-            borderRadius: BorderRadius.circular(11),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
             label,

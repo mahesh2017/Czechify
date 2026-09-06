@@ -1298,7 +1298,7 @@ class _LessonTile extends StatelessWidget {
               tint: isCompleted ? t.greenSoft : (isUnlocked ? tint : t.chipBg),
               fg: isCompleted ? t.green : (isUnlocked ? fg : t.faint),
               size: 32,
-              radius: 11,
+              radius: 12,
               iconSize: 14,
             ),
             const SizedBox(width: 12),
