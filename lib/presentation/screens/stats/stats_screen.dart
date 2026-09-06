@@ -411,12 +411,15 @@ class _ProgressRow extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: t.ink,
+            Flexible(
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: t.ink,
+                ),
               ),
             ),
             Text(
@@ -444,47 +447,61 @@ class _StatsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      // 2.5 left the tile ~7pt shorter than its own content, so every tile
-      // overflowed and clipped its label.
-      childAspectRatio: 2.2,
-      children: [
-        _StatTile(
-          icon: Icons.local_fire_department_outlined,
-          tint: context.tokens.amberSoft,
-          foreground: context.tokens.amberInk,
-          value: gamification.currentStreak,
-          label: AppLocalizations.of(context).statsDayStreak,
-        ),
-        _StatTile(
-          icon: Icons.bolt_outlined,
-          tint: context.tokens.amberSoft,
-          foreground: context.tokens.amberInk,
-          value: gamification.totalXp,
-          label: AppLocalizations.of(context).statsTotalXp,
-        ),
-        _StatTile(
-          icon: Icons.calendar_month_outlined,
-          tint: context.tokens.priSoft,
-          foreground: context.tokens.priInk,
-          value: gamification.longestStreak,
-          label: AppLocalizations.of(context).statsLongestStreak,
-        ),
-        _StatTile(
-          icon: Icons.favorite_border,
-          tint: context.tokens.redSoft,
-          foreground: context.tokens.redInk,
-          value: gamification.hearts,
-          suffix: '/${gamification.maxHearts}',
-          label: AppLocalizations.of(context).statsHearts,
-        ),
-      ],
+    // Two rows of two, sized by their content.
+    //
+    // This was a GridView with a fixed `childAspectRatio`, and the ratio had
+    // already been retuned once — 2.5 clipped every label, so it became 2.2.
+    // That is a number fitted to one screen width at one text size, and it
+    // cannot hold: on a 360dp phone the tiles are narrower, so the same text
+    // needs more height than the ratio allows, and at a large text size it is
+    // not close. A ratio can only ever be re-fitted, never made right, because
+    // the content's height depends on settings the layout cannot see.
+    // IntrinsicHeight costs an extra measuring pass over two children, which
+    // is nothing here, and lets each row be exactly as tall as it needs.
+    final tiles = [
+      _StatTile(
+        icon: Icons.local_fire_department_outlined,
+        tint: context.tokens.amberSoft,
+        foreground: context.tokens.amberInk,
+        value: gamification.currentStreak,
+        label: AppLocalizations.of(context).statsDayStreak,
+      ),
+      _StatTile(
+        icon: Icons.bolt_outlined,
+        tint: context.tokens.amberSoft,
+        foreground: context.tokens.amberInk,
+        value: gamification.totalXp,
+        label: AppLocalizations.of(context).statsTotalXp,
+      ),
+      _StatTile(
+        icon: Icons.calendar_month_outlined,
+        tint: context.tokens.priSoft,
+        foreground: context.tokens.priInk,
+        value: gamification.longestStreak,
+        label: AppLocalizations.of(context).statsLongestStreak,
+      ),
+      _StatTile(
+        icon: Icons.favorite_border,
+        tint: context.tokens.redSoft,
+        foreground: context.tokens.redInk,
+        value: gamification.hearts,
+        suffix: '/${gamification.maxHearts}',
+        label: AppLocalizations.of(context).statsHearts,
+      ),
+    ];
+
+    Widget row(int first) => IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(child: tiles[first]),
+          const SizedBox(width: 10),
+          Expanded(child: tiles[first + 1]),
+        ],
+      ),
     );
+
+    return Column(children: [row(0), const SizedBox(height: 10), row(2)]);
   }
 }
 
@@ -537,9 +554,14 @@ class _StatTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
+                // Two lines, not one: the tile is about 70dp wide inside its
+                // icon and padding on a 360dp phone, which truncated "Day
+                // streak" to "Day stre…". The row sizes to its content now, so
+                // wrapping costs nothing and a label that fits beats one that
+                // ellipsizes.
                 Text(
                   label,
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 15, color: t.muted),
                 ),

@@ -448,27 +448,30 @@ class _DailyGoalHero extends StatelessWidget {
                             fill: t.pri,
                           ),
                           child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                MotionNumberText(
-                                  dailyXp,
-                                  style: TextStyle(
-                                    fontFamily: AppFonts.display,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w800,
-                                    color: t.ink,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  MotionNumberText(
+                                    dailyXp,
+                                    style: TextStyle(
+                                      fontFamily: AppFonts.display,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
+                                      color: t.ink,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  '/ $dailyGoalXp XP',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: t.faint,
+                                  Text(
+                                    '/ $dailyGoalXp XP',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: t.faint,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -514,50 +517,63 @@ class _DailyGoalHero extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MotionValueBuilder(
-                      value: streak.toDouble(),
-                      builder:
-                          (context, animated, _) => Text(
-                            l10n.streakDays(animated.round()),
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              color: t.ink,
+                    // Both children were unbounded with a Spacer between them,
+                    // so the row could only grow. Czech is longer than English
+                    // here ("Série: 12 dní" against "12-day streak") and at a
+                    // large text size neither had anywhere to go.
+                    Flexible(
+                      child: MotionValueBuilder(
+                        value: streak.toDouble(),
+                        builder:
+                            (context, animated, _) => Text(
+                              l10n.streakDays(animated.round()),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: t.ink,
+                              ),
                             ),
-                          ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(9, 5, 10, 5),
-                      decoration: BoxDecoration(
-                        color: freezeTint,
-                        borderRadius: BorderRadius.circular(999),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.ac_unit_rounded,
-                            size: 12,
-                            color: freezeInk,
-                          ),
-                          const SizedBox(width: 5),
-                          MotionValueBuilder(
-                            value: totalXp.toDouble(),
-                            builder:
-                                (context, animated, _) => Text(
-                                  freezeAvailable
-                                      ? l10n.homeFreezeLeft
-                                      : l10n.homeTotalXp(animated.round()),
-                                  style: TextStyle(
-                                    color: freezeInk,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                          ),
-                        ],
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.fromLTRB(9, 5, 10, 5),
+                        decoration: BoxDecoration(
+                          color: freezeTint,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.ac_unit_rounded,
+                              size: 12,
+                              color: freezeInk,
+                            ),
+                            const SizedBox(width: 5),
+                            Flexible(
+                              child: MotionValueBuilder(
+                                value: totalXp.toDouble(),
+                                builder:
+                                    (context, animated, _) => Text(
+                                      freezeAvailable
+                                          ? l10n.homeFreezeLeft
+                                          : l10n.homeTotalXp(animated.round()),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: freezeInk,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -638,67 +654,71 @@ class _WeekStrip extends StatelessWidget {
         // Earned days carry an amber tint, today is a card-white tile ringed
         // in the accent, and days still to come are drawn as an empty
         // outline — never filled, so the week reads as progress.
-        return Column(
-          children: [
-            Container(
-              width: 38,
-              height: 38,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color:
-                    done
-                        ? Color.lerp(t.amber, t.card, .84)
-                        : current
-                        ? t.card
-                        : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  width: 1.5,
+        return Expanded(
+          child: Column(
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
                   color:
-                      current
-                          ? t.pri
-                          : done
-                          ? t.amber.withValues(alpha: .26)
-                          : t.line,
+                      done
+                          ? Color.lerp(t.amber, t.card, .84)
+                          : current
+                          ? t.card
+                          : Colors.transparent,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    width: 1.5,
+                    color:
+                        current
+                            ? t.pri
+                            : done
+                            ? t.amber.withValues(alpha: .26)
+                            : t.line,
+                  ),
+                ),
+                child:
+                    done
+                        ? Icon(Icons.check_rounded, size: 18, color: t.amber)
+                        : current
+                        ? Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: t.pri,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: t.pri.withValues(alpha: .12),
+                                spreadRadius: 4,
+                              ),
+                            ],
+                          ),
+                        )
+                        : Text(
+                          '${monday.add(Duration(days: index)).day}',
+                          style: TextStyle(
+                            color: t.faint,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+              ),
+              const SizedBox(height: 7),
+              Text(
+                labels[index],
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: t.faint,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              child:
-                  done
-                      ? Icon(Icons.check_rounded, size: 18, color: t.amber)
-                      : current
-                      ? Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: t.pri,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: t.pri.withValues(alpha: .12),
-                              spreadRadius: 4,
-                            ),
-                          ],
-                        ),
-                      )
-                      : Text(
-                        '${monday.add(Duration(days: index)).day}',
-                        style: TextStyle(
-                          color: t.faint,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-            ),
-            const SizedBox(height: 7),
-            Text(
-              labels[index],
-              style: TextStyle(
-                color: t.faint,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
+            ],
+          ),
         );
       }),
     );
@@ -895,28 +915,30 @@ class _MethodOfDay extends StatelessWidget {
                 iconSize: 20,
               ),
               const SizedBox(width: 11),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.homeMethodOfDay,
-                    style: TextStyle(
-                      color: t.amberInk,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.7,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.homeMethodOfDay,
+                      style: TextStyle(
+                        color: t.amberInk,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.7,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    l10n.homeWriteBeforeType,
-                    style: TextStyle(
-                      color: t.ink,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
+                    const SizedBox(height: 2),
+                    Text(
+                      l10n.homeWriteBeforeType,
+                      style: TextStyle(
+                        color: t.ink,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

@@ -62,20 +62,37 @@ class FakeProgressRepository implements ProgressRepository {
 /// The unit-completion celebration is best-effort and swallows its own
 /// failures; this only keeps it from reaching for a real database.
 class FakeCurriculumRepository implements CurriculumRepository {
-  @override
-  Future<List<Unit>> getUnits(Phase phase) async => const [];
+  /// [lesson] and [exercises] are optional so the two callers that only need
+  /// the repository to exist keep the empty behaviour they were written
+  /// against; the screen smoke test supplies real content.
+  FakeCurriculumRepository({
+    this.lesson,
+    this.unit,
+    this.exercises = const [],
+  });
+
+  final Lesson? lesson;
+  final Unit? unit;
+  final List<Exercise> exercises;
 
   @override
-  Future<Unit> getUnit(int unitId) async => throw UnimplementedError();
+  Future<List<Unit>> getUnits(Phase phase) async =>
+      unit == null ? const [] : [unit!];
 
   @override
-  Future<List<Lesson>> getLessons(int unitId) async => const [];
+  Future<Unit> getUnit(int unitId) async =>
+      unit ?? (throw UnimplementedError());
 
   @override
-  Future<Lesson> getLesson(int lessonId) async => throw UnimplementedError();
+  Future<List<Lesson>> getLessons(int unitId) async =>
+      lesson == null ? const [] : [lesson!];
 
   @override
-  Future<List<Exercise>> getExercises(int lessonId) async => const [];
+  Future<Lesson> getLesson(int lessonId) async =>
+      lesson ?? (throw UnimplementedError());
+
+  @override
+  Future<List<Exercise>> getExercises(int lessonId) async => exercises;
 }
 
 /// Keeps hearts, celebrations and the wrong-answer path off the database.
