@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The notification sound is referenced only by name, from Dart:
+  `RawResourceAndroidNotificationSound('notification_alert')` resolves it at
+  runtime through getIdentifier(). Nothing in Java, Kotlin or XML mentions it,
+  so the resource shrinker sees an unused file and strips it from the release
+  bundle — leaving the notification to fall back to the system sound, on
+  release builds only, with no error anywhere.
+
+  This says otherwise. Any new raw resource used the same way belongs here.
+-->
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/notification_alert" />

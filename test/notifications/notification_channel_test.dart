@@ -168,4 +168,35 @@ void main() {
       reason: 'initialize() is not awaited, so runApp can race it',
     );
   });
+
+  test('the sound is protected from the resource shrinker', () {
+    // The first build 21 shipped without it. Gradle merged the file
+    // correctly, and the release bundle still had no `res/raw` at all: the
+    // resource shrinker strips anything nothing references, and nothing does
+    // — `RawResourceAndroidNotificationSound` resolves the name at runtime
+    // through getIdentifier(), which no static analysis can follow.
+    //
+    // It fails only in release, only in the bundle, and reports nothing. The
+    // notification simply falls back to the system sound.
+    final keep = File('android/app/src/main/res/raw/keep.xml');
+    expect(
+      keep.existsSync(),
+      isTrue,
+      reason:
+          'res/raw/keep.xml is gone; the shrinker will strip the alert sound '
+          'out of release builds again',
+    );
+
+    final match = RegExp(
+      r"RawResourceAndroidNotificationSound\(\s*'([^']+)'",
+    ).firstMatch(source);
+    final resource = match!.group(1)!;
+    expect(
+      keep.readAsStringSync(),
+      contains('@raw/$resource'),
+      reason:
+          'keep.xml does not name @raw/$resource, so the shrinker is free to '
+          'remove it',
+    );
+  });
 }
