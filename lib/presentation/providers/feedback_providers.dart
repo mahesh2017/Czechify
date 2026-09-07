@@ -29,7 +29,8 @@ final feedbackServiceProvider = Provider<FeedbackService>((ref) {
     ref.watch(sfxPlayerProvider),
     () => ref.read(settingsProvider).soundEffectsEnabled,
     () => ref.read(settingsProvider).hapticsEnabled,
-    ref.watch(hapticDriverProvider),
+    welcomeEnabled: () => ref.read(settingsProvider).welcomeSoundEnabled,
+    haptics: ref.watch(hapticDriverProvider),
   );
 });
 

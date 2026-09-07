@@ -1276,6 +1276,8 @@
   "backendDeleteFailed": "Cloud account deletion failed.",
   "settingsUpdateReady": "Update Czechify",
   "settingsUpdateReadyBody": "A newer version is available. Updating takes a moment and keeps your progress.",
+  "settingsWelcomeSound": "Welcome sound",
+  "settingsWelcomeSoundBody": "A short greeting when you open Czechify",
   "rankBronze": "Bronze",
   "rankSilver": "Silver",
   "rankGold": "Gold",

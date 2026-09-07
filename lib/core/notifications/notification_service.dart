@@ -23,9 +23,29 @@ class NotificationService {
   /// Singleton instance.
   static final instance = NotificationService._();
 
-  static const _channelId = 'study_reminders';
+  /// The notification channel, versioned in its own id.
+  ///
+  /// Android freezes a channel's sound, importance and vibration when it is
+  /// created and ignores every later change — that is deliberate on their
+  /// part, so an app cannot quietly make itself louder after the fact. The
+  /// only way to change any of it is a new channel, which is why this id
+  /// carries a version. Editing the sound below without bumping `_channelId`
+  /// would ship a silent no-op: correct on a fresh install, unchanged on
+  /// every device that already had the app.
+  ///
+  /// v2 introduces the custom alert sound. `_legacyChannelIds` is deleted on
+  /// init so the old one does not linger in Android's notification settings
+  /// as a second, dead entry the learner can toggle.
+  static const _channelId = 'study_reminders_v2';
+  static const _legacyChannelIds = <String>['study_reminders'];
   static const _channelName = 'Study Reminders';
   static const _channelDesc = 'Daily reminders to practice Czech';
+
+  /// `res/raw/notification_alert.mp3`, named without extension as Android
+  /// resources are.
+  static const _alertSound = RawResourceAndroidNotificationSound(
+    'notification_alert',
+  );
 
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
@@ -72,12 +92,16 @@ class NotificationService {
                 .resolvePlatformSpecificImplementation<
                   AndroidFlutterLocalNotificationsPlugin
                 >();
+        for (final legacy in _legacyChannelIds) {
+          await androidPlugin?.deleteNotificationChannel(channelId: legacy);
+        }
         await androidPlugin?.createNotificationChannel(
           const AndroidNotificationChannel(
             _channelId,
             _channelName,
             description: _channelDesc,
             importance: Importance.high,
+            sound: _alertSound,
           ),
         );
       }
@@ -224,6 +248,7 @@ class NotificationService {
             channelDescription: _channelDesc,
             importance: Importance.high,
             priority: Priority.high,
+            sound: _alertSound,
           ),
           iOS: DarwinNotificationDetails(),
         ),
@@ -259,6 +284,7 @@ class NotificationService {
             channelDescription: _channelDesc,
             importance: Importance.high,
             priority: Priority.high,
+            sound: _alertSound,
           ),
           iOS: DarwinNotificationDetails(),
         ),

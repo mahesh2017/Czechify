@@ -18,7 +18,7 @@ void main() {
   setUp(() {
     player = RecordingSfxPlayer();
     haptics = RecordingHaptics();
-    feedback = FeedbackService(player, () => true, () => true, haptics);
+    feedback = FeedbackService(player, () => true, () => true, haptics: haptics);
   });
 
   Future<void> show(

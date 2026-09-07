@@ -25,7 +25,10 @@ enum Sfx {
   lessonComplete('lesson_complete.mp3'),
   perfectLesson('perfect_lesson.mp3'),
   unitComplete('unit_complete.mp3'),
-  badge('badge.mp3');
+  badge('badge.mp3'),
+
+  /// Plays once when the app opens, if the learner has left it on.
+  welcome('welcome.mp3');
 
   const Sfx(this.file);
 

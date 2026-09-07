@@ -5372,6 +5372,18 @@ abstract class AppLocalizations {
   /// **'A newer version is available. Updating takes a moment and keeps your progress.'**
   String get settingsUpdateReadyBody;
 
+  /// No description provided for @settingsWelcomeSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome sound'**
+  String get settingsWelcomeSound;
+
+  /// No description provided for @settingsWelcomeSoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short greeting when you open Czechify'**
+  String get settingsWelcomeSoundBody;
+
   /// No description provided for @rankBronze.
   ///
   /// In en, this message translates to:

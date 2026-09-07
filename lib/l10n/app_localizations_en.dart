@@ -3101,6 +3101,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'A newer version is available. Updating takes a moment and keeps your progress.';
 
   @override
+  String get settingsWelcomeSound => 'Welcome sound';
+
+  @override
+  String get settingsWelcomeSoundBody =>
+      'A short greeting when you open Czechify';
+
+  @override
   String get rankBronze => 'Bronze';
 
   @override

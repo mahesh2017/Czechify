@@ -470,6 +470,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 _Divider(),
+                // Directly under sound effects, because it is switched off by
+                // that one as well as by itself — a learner who silences the
+                // app has silenced this too, and the ordering says so.
+                _Row(
+                  icon: Icons.waving_hand_outlined,
+                  tint: t.greenSoft,
+                  fg: t.green,
+                  title: l10n.settingsWelcomeSound,
+                  subtitle: l10n.settingsWelcomeSoundBody,
+                  trailing: Switch(
+                    value: settings.welcomeSoundEnabled,
+                    onChanged:
+                        (v) => ref
+                            .read(settingsProvider.notifier)
+                            .setWelcomeSoundEnabled(v),
+                  ),
+                ),
+                _Divider(),
                 _Row(
                   icon: Icons.vibration,
                   tint: t.violetSoft,

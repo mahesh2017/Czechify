@@ -993,6 +993,8 @@
   "backendDeleteFailed": "Smazání cloudového účtu se nezdařilo.",
   "settingsUpdateReady": "Aktualizovat Czechify",
   "settingsUpdateReadyBody": "Je dostupná novější verze. Aktualizace chvilku trvá a tvůj pokrok zůstane zachovaný.",
+  "settingsWelcomeSound": "Uvítací zvuk",
+  "settingsWelcomeSoundBody": "Krátký pozdrav při otevření Czechify",
   "rankBronze": "Bronz",
   "rankSilver": "Stříbro",
   "rankGold": "Zlato",

@@ -3113,6 +3113,12 @@ class AppLocalizationsCs extends AppLocalizations {
       'Je dostupná novější verze. Aktualizace chvilku trvá a tvůj pokrok zůstane zachovaný.';
 
   @override
+  String get settingsWelcomeSound => 'Uvítací zvuk';
+
+  @override
+  String get settingsWelcomeSoundBody => 'Krátký pozdrav při otevření Czechify';
+
+  @override
   String get rankBronze => 'Bronz';
 
   @override

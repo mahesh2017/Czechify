@@ -118,14 +118,24 @@ class FeedbackService {
   FeedbackService(
     this._player,
     this._soundEnabled,
-    this._hapticsEnabled, [
-    this._haptics = const PlatformHapticDriver(),
-  ]);
+    this._hapticsEnabled, {
+    ValueGetter<bool>? welcomeEnabled,
+    HapticDriver haptics = const PlatformHapticDriver(),
+  }) : _welcomeEnabled = welcomeEnabled ?? (() => true),
+       // Not an initializing formal: a named parameter cannot be private, and
+       // Dart will not let a constructor take optional positional and named
+       // arguments at once — so adding `welcomeEnabled` moved this one across.
+       // ignore: prefer_initializing_formals
+       _haptics = haptics;
 
   final SfxPlayer _player;
   final ValueGetter<bool> _soundEnabled;
   final ValueGetter<bool> _hapticsEnabled;
+  final ValueGetter<bool> _welcomeEnabled;
   final HapticDriver _haptics;
+
+  /// Whether the welcome sound has already played this process.
+  bool _welcomed = false;
 
   /// True while the microphone is recording.
   ///
@@ -149,6 +159,23 @@ class FeedbackService {
     if (_soundEnabled()) {
       unawaited(_player.play(sound));
     }
+  }
+
+  /// Play the welcome sound, at most once per launch.
+  ///
+  /// The once-per-process guard lives here rather than at the call site
+  /// because "when the app opens" is not a moment a widget can identify: the
+  /// root rebuilds whenever a provider it watches changes, and returning from
+  /// the background rebuilds it again. Anywhere this is called from would
+  /// otherwise replay the jingle on a rebuild.
+  ///
+  /// Gated on the general sound setting as well as its own: this is still a
+  /// sound the app makes, and someone who asked for a quiet app meant it.
+  void playWelcome() {
+    if (_welcomed) return;
+    _welcomed = true;
+    if (!_soundEnabled() || !_welcomeEnabled()) return;
+    play(Sfx.welcome);
   }
 
   /// Fire a haptic on its own — for moments that should be felt but not
