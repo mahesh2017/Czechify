@@ -139,4 +139,33 @@ void main() {
       );
     },
   );
+
+  test('the channel exists before anything can schedule against it', () {
+    // The v2 channel is created, and v1 deleted, inside
+    // NotificationService.initialize(). If that ran after `runApp`, a
+    // coordinator replenishing on cold launch could schedule against a
+    // channel that did not exist yet, and the delete could land after the
+    // reschedule and take the new notifications with it.
+    final main = File('lib/main.dart').readAsStringSync();
+    final init = main.indexOf('NotificationService.instance.initialize()');
+    final run = main.indexOf('runApp(');
+    expect(
+      init,
+      greaterThan(-1),
+      reason: 'Notifications are never initialized',
+    );
+    expect(run, greaterThan(-1));
+    expect(
+      init,
+      lessThan(run),
+      reason:
+          'Notification setup must complete before runApp, or the reminder '
+          'coordinator can schedule against a channel that is not there yet',
+    );
+    expect(
+      main.substring(init - 30, init),
+      contains('await'),
+      reason: 'initialize() is not awaited, so runApp can race it',
+    );
+  });
 }
