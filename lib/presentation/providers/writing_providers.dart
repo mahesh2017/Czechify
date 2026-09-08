@@ -22,8 +22,27 @@ class WritingEvaluation {
     required this.errors,
   });
 
+  /// Throws [FormatException] when the payload is not an evaluation.
+  ///
+  /// Every field used to fall back to a default, so `fromJson({})` produced a
+  /// perfectly well-formed evaluation scoring zero on everything with no
+  /// feedback — indistinguishable from a real assessment of a bad answer. A
+  /// provider that returned the wrong shape therefore cost the learner a
+  /// quota unit and appeared to them as their own failure.
+  ///
+  /// The model is told what shape to return, but instructions are not a
+  /// runtime guarantee. A missing overall score means no evaluation happened,
+  /// and the caller must treat that as an evaluation failure rather than a
+  /// grade.
   factory WritingEvaluation.fromJson(Map<String, dynamic> json) {
-    final score = json['score'] as Map<String, dynamic>? ?? {};
+    final score = json['score'];
+    if (score is! Map<String, dynamic>) {
+      throw const FormatException('writing evaluation has no score object');
+    }
+    final overall = score['overall'];
+    if (overall is! num || !overall.isFinite) {
+      throw const FormatException('writing evaluation has no overall score');
+    }
     return WritingEvaluation(
       grammar: _boundedScore(score['grammar']),
       vocabulary: _boundedScore(score['vocabulary']),

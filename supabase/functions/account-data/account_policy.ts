@@ -20,6 +20,10 @@ export const syncedUserTables = [
   "reminder_preferences",
   "placement_profiles",
   "ai_daily_usage",
+  // Speech processing writes user-linked counters here. It was missing from
+  // this list, so an export handed the learner an incomplete picture of what
+  // is held about them — the one thing a subject-access request is for.
+  "ai_service_daily_usage",
   "curriculum_entitlements",
 ] as const;
 
@@ -35,27 +39,54 @@ export const confirmsDeletion = (value: string | null): boolean =>
 /// delete is the account holder — only that someone holds a token.
 export const maxDeletionAuthAgeSeconds = 300;
 
-/// Reads `iat` out of an already-verified access token.
+/// The payload of an already-verified access token.
 ///
-/// The signature is checked by `auth.getUser()` before this is called; this
-/// only reads a claim out of the payload, so it deliberately does no
-/// verification of its own. Returns null when the token is malformed or has
-/// no usable `iat`, which callers must treat as "not recent".
-export const decodeJwtIssuedAt = (jwt: string): number | null => {
+/// The signature is checked by `auth.getUser()` before any of this is called,
+/// so these helpers deliberately do no verification of their own — they only
+/// read claims out of a token that has already been established as genuine.
+const decodePayload = (jwt: string): Record<string, unknown> | null => {
   const segments = jwt.split(".");
   if (segments.length !== 3) return null;
   try {
     const padded = segments[1].replaceAll("-", "+").replaceAll("_", "/");
-    const payload = JSON.parse(
+    return JSON.parse(
       atob(padded.padEnd(Math.ceil(padded.length / 4) * 4, "=")),
-    );
-    const issuedAt = (payload as Record<string, unknown>).iat;
-    return typeof issuedAt === "number" && Number.isFinite(issuedAt)
-      ? issuedAt
-      : null;
+    ) as Record<string, unknown>;
   } catch {
     return null;
   }
+};
+
+/// When the caller most recently *authenticated*, from the `amr` claim.
+///
+/// This gate used to read `iat`, which is when the token was issued — and a
+/// refresh issues a new token with a fresh `iat` without the learner typing
+/// anything. So "authenticated in the last five minutes" was satisfied by any
+/// session that had merely refreshed, and stolen refresh credentials cleared
+/// the step-up the prompt in the UI implies.
+///
+/// `amr` records the authentication methods actually used and when, and a
+/// refresh does not add an entry. The most recent entry is the last time the
+/// account holder genuinely proved who they were.
+///
+/// Returns null when the claim is missing or unusable — including for tokens
+/// minted before this claim was relied on — which callers must treat as "not
+/// recent" and refuse.
+export const decodeLatestAuthTime = (jwt: string): number | null => {
+  const payload = decodePayload(jwt);
+  if (payload === null) return null;
+
+  const amr = payload.amr;
+  if (!Array.isArray(amr)) return null;
+
+  let latest: number | null = null;
+  for (const entry of amr) {
+    if (typeof entry !== "object" || entry === null) continue;
+    const timestamp = (entry as Record<string, unknown>).timestamp;
+    if (typeof timestamp !== "number" || !Number.isFinite(timestamp)) continue;
+    if (latest === null || timestamp > latest) latest = timestamp;
+  }
+  return latest;
 };
 
 /// Anonymous accounts hold no credential to re-enter, so requiring a fresh
@@ -63,16 +94,16 @@ export const decodeJwtIssuedAt = (jwt: string): number | null => {
 export const requiresRecentAuth = (isAnonymous: boolean): boolean =>
   !isAnonymous;
 
-/// A token counts as recent when it was issued within [maxAgeSeconds].
+/// Authentication counts as recent when it happened within [maxAgeSeconds].
 ///
-/// Tokens issued in the future are rejected rather than trusted, so clock
-/// skew or a forged `iat` cannot buy an indefinite window.
+/// Timestamps in the future are rejected rather than trusted, so clock skew
+/// or a forged claim cannot buy an indefinite window.
 export const hasRecentAuth = (
-  issuedAt: number | null,
+  authenticatedAt: number | null,
   nowSeconds: number,
   maxAgeSeconds: number = maxDeletionAuthAgeSeconds,
 ): boolean => {
-  if (issuedAt === null) return false;
-  const age = nowSeconds - issuedAt;
+  if (authenticatedAt === null) return false;
+  const age = nowSeconds - authenticatedAt;
   return age >= 0 && age <= maxAgeSeconds;
 };
