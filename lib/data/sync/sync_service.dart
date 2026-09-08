@@ -24,7 +24,23 @@ abstract class SyncBackend {
   });
 }
 
-class SupabaseSyncBackend implements SyncBackend {
+/// A batch either commits completely or throws. Each mutation retains its
+/// original tiebreaker, including when a response is lost and it is retried.
+class SyncMutation {
+  const SyncMutation(this.row, this.deviceId);
+  final SyncQueueData row;
+  final String deviceId;
+}
+
+abstract interface class BatchSyncBackend {
+  Future<void> sendBatch(
+    List<SyncMutation> mutations, {
+    required String onConflict,
+    required String ownerId,
+  });
+}
+
+class SupabaseSyncBackend implements SyncBackend, BatchSyncBackend {
   SupabaseSyncBackend({
     required BackendService backend,
     required DeviceId deviceId,
@@ -69,8 +85,8 @@ class SupabaseSyncBackend implements SyncBackend {
     required String mutationDeviceId,
   }) async {
     final owner = userId;
-    if (owner == null) return;
-    final client = Supabase.instance.client;
+    if (owner == null) throw StateError('Sync account is unavailable.');
+    final client = _backend.client!;
     if (row.op == 'delete') {
       final payload = jsonDecode(row.payload) as Map<String, dynamic>;
       var query = client.from(row.entity).delete().eq('user_id', owner);
@@ -87,6 +103,30 @@ class SupabaseSyncBackend implements SyncBackend {
       'updated_at': row.updatedAt.toUtc().toIso8601String(),
     };
     await client.from(row.entity).upsert(record, onConflict: onConflict);
+  }
+
+  @override
+  Future<void> sendBatch(
+    List<SyncMutation> mutations, {
+    required String onConflict,
+    required String ownerId,
+  }) async {
+    if (!isReady || userId != ownerId) {
+      throw StateError('Sync account changed.');
+    }
+    final records = [
+      for (final mutation in mutations)
+        <String, dynamic>{
+          ...jsonDecode(mutation.row.payload) as Map<String, dynamic>,
+          'user_id': ownerId,
+          'device_id': mutation.deviceId,
+          'updated_at': mutation.row.updatedAt.toUtc().toIso8601String(),
+        },
+    ];
+    // PostgREST performs the array upsert in one database transaction.
+    await _backend.client!
+        .from(mutations.first.row.entity)
+        .upsert(records, onConflict: onConflict);
   }
 }
 
@@ -176,30 +216,111 @@ class SyncService {
 
   Future<void> _push() async {
     if (!_backend.isReady) return;
+    final owner = _backend.userId;
+    if (owner == null) return;
     String? stableDeviceId;
     var batch = await _db.syncDao.pending(now: _clock());
     while (batch.isNotEmpty) {
-      final acked = <int>[];
-      for (final row in batch) {
+      for (var index = 0; index < batch.length;) {
+        if (!_backend.isReady || _backend.userId != owner) return;
+        final rows = <SyncQueueData>[batch[index++]];
+        if (_backend is BatchSyncBackend && rows.first.op == 'upsert') {
+          var bytes = utf8.encode(rows.first.payload).length + 256;
+          while (index < batch.length && _canBatch(rows, batch[index])) {
+            final nextBytes = utf8.encode(batch[index].payload).length + 256;
+            if (bytes + nextBytes > 256 * 1024) break;
+            bytes += nextBytes;
+            rows.add(batch[index++]);
+          }
+        }
         try {
-          final conflict = conflictKeys[row.entity];
+          final conflict = conflictKeys[rows.first.entity];
           if (conflict == null) {
-            throw StateError('Unknown sync entity: ${row.entity}');
+            throw StateError('Unknown sync entity: ${rows.first.entity}');
           }
           stableDeviceId ??= await _backend.deviceId();
-          await _backend.send(
-            row,
-            onConflict: conflict,
-            mutationDeviceId: _mutationDeviceId(stableDeviceId, row.id),
-          );
-          acked.add(row.id);
+          if (!_backend.isReady || _backend.userId != owner) return;
+          await _sendGroup(rows, stableDeviceId, owner, conflict);
         } catch (e) {
-          await _db.syncDao.markFailed(row.id, error: e, now: _clock());
-          _log.warning('Push failed for ${row.entity}/${row.entityKey}', e);
+          await _failRows(rows, e);
         }
       }
-      if (acked.isNotEmpty) await _db.syncDao.ack(acked);
       batch = await _db.syncDao.pending(now: _clock());
+    }
+  }
+
+  /// Keep FIFO boundaries, column defaults and duplicate-key mutations intact.
+  /// PostgreSQL cannot update the same conflict key twice in one INSERT.
+  static bool _canBatch(List<SyncQueueData> rows, SyncQueueData next) {
+    if (next.op != 'upsert' || next.entity != rows.first.entity) return false;
+    final conflict = conflictKeys[next.entity];
+    if (conflict == null) return false;
+    try {
+      final payload = jsonDecode(next.payload) as Map<String, dynamic>;
+      final columns = payload.keys.toList()..sort();
+      final keys = conflict.split(',').where((key) => key != 'user_id');
+      if (keys.any((key) => payload[key] == null)) return false;
+      final identity = jsonEncode([for (final key in keys) payload[key]]);
+      for (final row in rows) {
+        final previous = jsonDecode(row.payload) as Map<String, dynamic>;
+        final previousColumns = previous.keys.toList()..sort();
+        if (jsonEncode(columns) != jsonEncode(previousColumns) ||
+            identity == jsonEncode([for (final key in keys) previous[key]])) {
+          return false;
+        }
+      }
+      return true;
+    } on Object {
+      return false; // A malformed row is sent alone and gets its own failure.
+    }
+  }
+
+  Future<void> _sendGroup(
+    List<SyncQueueData> rows,
+    String device,
+    String owner,
+    String conflict,
+  ) async {
+    if (!_backend.isReady || _backend.userId != owner) return;
+    try {
+      final backend = _backend;
+      if (backend is BatchSyncBackend && rows.first.op == 'upsert') {
+        await (backend as BatchSyncBackend).sendBatch(
+          [
+            for (final row in rows)
+              SyncMutation(row, _mutationDeviceId(device, row.id)),
+          ],
+          onConflict: conflict,
+          ownerId: owner,
+        );
+      } else {
+        await backend.send(
+          rows.single,
+          onConflict: conflict,
+          mutationDeviceId: _mutationDeviceId(device, rows.single.id),
+        );
+      }
+    } catch (error) {
+      // Split only definitive data/constraint rejections (SQLSTATE classes
+      // 22/23), never a timeout, auth error or outage. Those keep the entire
+      // batch queued and spend one attempt per row, not one per probe.
+      final code = error is PostgrestException ? error.code ?? '' : '';
+      if (rows.length > 1 && (code.startsWith('22') || code.startsWith('23'))) {
+        final middle = rows.length ~/ 2;
+        await _sendGroup(rows.sublist(0, middle), device, owner, conflict);
+        await _sendGroup(rows.sublist(middle), device, owner, conflict);
+      } else {
+        await _failRows(rows, error);
+      }
+      return;
+    }
+    await _db.syncDao.ack([for (final row in rows) row.id]);
+  }
+
+  Future<void> _failRows(List<SyncQueueData> rows, Object error) async {
+    for (final row in rows) {
+      await _db.syncDao.markFailed(row.id, error: error, now: _clock());
+      _log.warning('Push failed for ${row.entity}/${row.entityKey}', error);
     }
   }
 

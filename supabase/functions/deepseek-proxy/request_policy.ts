@@ -15,6 +15,8 @@ export type UpstreamRequest = {
   temperature: number;
   maxTokens: number;
   messages: ApiMessage[];
+  // Server-only. Never serialize this into the provider request.
+  validationSchema: Record<string, unknown>;
   responseFormat: {
     type: "json_schema";
     json_schema: {
@@ -39,11 +41,13 @@ const stringProperty = { type: "string" } as const;
 // well. Nothing but a live call could have caught it — which is what did,
 // seven minutes after deploy and before any learner traffic.
 //
-// Blank answers are refused by the client instead: TutorResponse.fromJson and
-// WritingEvaluation.fromJson both reject whitespace-only fields. Restoring the
-// server-side half needs a validation schema kept separate from the wire
-// schema, so the constraints never reach the decoder.
-const answerProperty = stringProperty;
+// Define the contract once with validation constraints. jsonSchema derives a
+// separate provider schema without these keywords; validation keeps them.
+const answerProperty = {
+  type: "string",
+  minLength: 1,
+  pattern: "\\S",
+} as const;
 
 const strictObject = (
   properties: Record<string, unknown>,
@@ -54,12 +58,36 @@ const strictObject = (
   additionalProperties: false,
 });
 
+const providerSchema = (
+  schema: Record<string, unknown>,
+): Record<string, unknown> => {
+  const result = { ...schema };
+  for (const keyword of ["minLength", "maxLength", "pattern", "format"]) {
+    delete result[keyword];
+  }
+  if (schema.properties) {
+    result.properties = Object.fromEntries(
+      Object.entries(
+        schema.properties as Record<string, Record<string, unknown>>,
+      )
+        .map(([name, property]) => [name, providerSchema(property)]),
+    );
+  }
+  if (schema.items) {
+    result.items = providerSchema(schema.items as Record<string, unknown>);
+  }
+  return result;
+};
+
 const jsonSchema = (
   name: string,
   schema: Record<string, unknown>,
-): UpstreamRequest["responseFormat"] => ({
-  type: "json_schema",
-  json_schema: { name, schema },
+): Pick<UpstreamRequest, "responseFormat" | "validationSchema"> => ({
+  responseFormat: {
+    type: "json_schema",
+    json_schema: { name, schema: providerSchema(schema) },
+  },
+  validationSchema: schema,
 });
 
 const conversationResponse = jsonSchema(
@@ -163,9 +191,8 @@ const writingResponse = jsonSchema(
 /// that quietly approves the constructs it cannot check is worse than none: it
 /// reports a guarantee it is not making.
 ///
-/// `minLength`/`pattern` support is kept for the validation schema that will
-/// one day be separate from the wire schema. Nothing sent upstream may use
-/// them — see [answerProperty] for what happens when it does.
+/// Length and pattern constraints are server-only; providerSchema removes
+/// them from the separate schema sent to the decoder.
 export const matchesSchema = (schema: unknown, value: unknown): boolean => {
   if (typeof schema !== "object" || schema === null) return false;
   const shape = schema as Record<string, unknown>;
@@ -236,6 +263,13 @@ export const satisfiesResponseFormat = (
   responseFormat: UpstreamRequest["responseFormat"],
   content: unknown,
 ): boolean => matchesSchema(responseFormat.json_schema.schema, content);
+
+/// Validate the exact contract used to construct this request, including
+/// server-only nonblank rules. A failure follows the proxy's quota-refund path.
+export const satisfiesReply = (
+  request: UpstreamRequest,
+  content: unknown,
+): boolean => matchesSchema(request.validationSchema, content);
 
 export const parseBoundedInteger = (
   value: string | undefined,
@@ -337,7 +371,7 @@ export const buildUpstreamRequest = (
       return {
         temperature: 0.7,
         maxTokens: 700,
-        responseFormat: conversationResponse,
+        ...conversationResponse,
         messages: [
           {
             role: "system",
@@ -375,7 +409,7 @@ Rules:
       return {
         temperature: 0.2,
         maxTokens: 400,
-        responseFormat: summaryResponse,
+        ...summaryResponse,
         messages: [
           {
             role: "system",
@@ -391,7 +425,7 @@ Rules:
       return {
         temperature: 0.2,
         maxTokens: 600,
-        responseFormat: grammarResponse,
+        ...grammarResponse,
         messages: [
           {
             role: "system",
@@ -408,7 +442,7 @@ Rules:
       return {
         temperature: 0.2,
         maxTokens: 800,
-        responseFormat: writingResponse,
+        ...writingResponse,
         messages: [
           {
             role: "system",
