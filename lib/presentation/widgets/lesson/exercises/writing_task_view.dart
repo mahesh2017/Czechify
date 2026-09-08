@@ -29,7 +29,6 @@ class WritingTaskView extends StatefulWidget {
 class _WritingTaskViewState extends State<WritingTaskView> {
   final _controller = TextEditingController();
   bool answered = false;
-  bool _isCorrect = false;
   int _wordCount = 0;
   bool _meetsMinWords = false;
   String _feedbackText = '';
@@ -100,7 +99,6 @@ class _WritingTaskViewState extends State<WritingTaskView> {
 
     setState(() {
       answered = true;
-      _isCorrect = false; // Never "correct" — writing is formative
       _wordCount = wordCount;
       _meetsMinWords = meetsMinWords;
       _feedbackText = parts.join(' ');
@@ -129,7 +127,6 @@ class _WritingTaskViewState extends State<WritingTaskView> {
   void _retry() {
     setState(() {
       answered = false;
-      _isCorrect = false;
       _wordCount = 0;
       _meetsMinWords = false;
       _feedbackText = '';
@@ -306,10 +303,25 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           const SizedBox(height: 12),
+                          // Neutral, because nothing here graded the writing.
+                          //
+                          // This panel used to be a verdict: green/check when
+                          // correct, red/cancel otherwise. Writing is
+                          // deliberately formative and never scored, so the
+                          // correct branch was unreachable and every learner
+                          // finished every task on a red failure card. With an
+                          // answer key present — as all 97 shipped writing
+                          // tasks have — it also read "Key phrases not found",
+                          // which no code had checked; submitting the answer
+                          // key verbatim produced it.
+                          //
+                          // Violet for an unscored outcome follows the exam
+                          // result screen; amber stays reserved for streak
+                          // and XP.
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: _isCorrect ? t.greenSoft : t.redSoft,
+                              color: t.violetSoft,
                               borderRadius: BorderRadius.circular(24),
                             ),
                             child: Column(
@@ -318,35 +330,19 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                                 Row(
                                   children: [
                                     Icon(
-                                      _isCorrect
-                                          ? Icons.check_circle
-                                          : Icons.cancel,
-                                      color: _isCorrect ? t.greenInk : t.redInk,
+                                      Icons.check_circle_outline,
+                                      color: t.violetInk,
                                       size: 22,
                                     ),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
-                                        // Not "Good!"/"Needs improvement": nothing here read
-                                        // the writing. This path is a keyword comparison, and
-                                        // the verdict should not imply more than that.
-                                        widget.exercise.answerKey == null
-                                            ? l10n.writingCycleComplete
-                                            : _isCorrect
-                                            ? AppLocalizations.of(
-                                              context,
-                                            ).writingKeyPhrasesFound
-                                            : AppLocalizations.of(
-                                              context,
-                                            ).writingKeyPhrasesMissing,
+                                        l10n.writingCycleComplete,
                                         style: TextStyle(
                                           fontFamily: AppFonts.display,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w800,
-                                          color:
-                                              _isCorrect
-                                                  ? t.greenInk
-                                                  : t.redInk,
+                                          color: t.violetInk,
                                         ),
                                       ),
                                     ),
@@ -361,19 +357,12 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                                     color: t.ink,
                                   ),
                                 ),
-                                if (widget.exercise.answerKey != null) ...[
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    AppLocalizations.of(
-                                      context,
-                                    ).writingKeywordCheckNote,
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      height: 1.45,
-                                      color: t.muted,
-                                    ),
-                                  ),
-                                ],
+                                // No keyword-check note here either. It told
+                                // the learner their words had been compared
+                                // against the expected phrases; nothing ever
+                                // ran that comparison. What is actually true —
+                                // that this is unscored practice — is already
+                                // in [_feedbackText] above.
                                 if (_minWords != null) ...[
                                   const SizedBox(height: 8),
                                   Row(
