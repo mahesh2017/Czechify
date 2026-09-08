@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../providers/database_providers.dart';
 
 import '../../../core/legal/legal_content.dart';
 import '../../../l10n/app_localizations.dart';
@@ -11,14 +14,21 @@ import '../../../core/theme/app_tokens.dart';
 /// just read something upsetting should not have to work out which internal
 /// category it belongs to.
 enum ReportReason {
-  offensive('Offensive or hateful'),
-  sexual('Sexual or adult content'),
-  dangerous('Dangerous or harmful advice'),
-  wrongCzech('The Czech is wrong'),
-  other('Something else');
+  offensive('Offensive or hateful', 'offensive'),
+  sexual('Sexual or adult content', 'sexual'),
+  dangerous('Dangerous or harmful advice', 'dangerous'),
+  wrongCzech('The Czech is wrong', 'wrong_czech'),
+  other('Something else', 'other');
 
-  const ReportReason(this.label);
+  const ReportReason(this.label, this.id);
+
+  /// What the learner reads.
   final String label;
+
+  /// What is stored. Separate from [label] so the wording can be reworded, or
+  /// translated, without orphaning every report already filed — and so it
+  /// matches the `tutor_reply_reports_reason_valid` constraint.
+  final String id;
 }
 
 /// The text of a report.
@@ -45,11 +55,17 @@ String buildReportBody({
       '${trimmed.isEmpty ? '(nothing added)' : trimmed}\n';
 }
 
-/// Report an AI reply. Returns true once a report has been handed off.
+/// Report an AI reply. Returns true once the report has been recorded.
 ///
 /// Required by Google Play's generative-AI policy: an app whose model writes
 /// free-form text has to give the reader somewhere to take it when the model
-/// writes something it should not have.
+/// writes something it should not have — and the policy is explicit that this
+/// must not require leaving the app.
+///
+/// The report is written locally and queued for the backend in one
+/// transaction, so it is durable before the learner is told it was received,
+/// and survives being filed with no signal. The mail draft remains only for a
+/// learner with no account to file it against.
 ///
 /// The report carries the tutor's own reply and the scenario. It deliberately
 /// does not carry the learner's messages — those are the private half of the
@@ -59,6 +75,9 @@ Future<bool> showReportTutorReplySheet({
   required BuildContext context,
   required String replyText,
   required String scenarioTitle,
+  required String scenarioId,
+  String? messageId,
+  String? conversationId,
 }) async {
   final sent = await showModalBottomSheet<bool>(
     context: context,
@@ -68,22 +87,34 @@ Future<bool> showReportTutorReplySheet({
         (ctx) => _ReportSheet(
           replyText: replyText,
           scenarioTitle: scenarioTitle,
+          scenarioId: scenarioId,
+          messageId: messageId,
+          conversationId: conversationId,
         ),
   );
   return sent ?? false;
 }
 
-class _ReportSheet extends StatefulWidget {
-  const _ReportSheet({required this.replyText, required this.scenarioTitle});
+class _ReportSheet extends ConsumerStatefulWidget {
+  const _ReportSheet({
+    required this.replyText,
+    required this.scenarioTitle,
+    required this.scenarioId,
+    this.messageId,
+    this.conversationId,
+  });
 
   final String replyText;
   final String scenarioTitle;
+  final String scenarioId;
+  final String? messageId;
+  final String? conversationId;
 
   @override
-  State<_ReportSheet> createState() => _ReportSheetState();
+  ConsumerState<_ReportSheet> createState() => _ReportSheetState();
 }
 
-class _ReportSheetState extends State<_ReportSheet> {
+class _ReportSheetState extends ConsumerState<_ReportSheet> {
   ReportReason? _reason;
   final _note = TextEditingController();
   bool _sending = false;
@@ -108,6 +139,30 @@ class _ReportSheetState extends State<_ReportSheet> {
   Future<void> _send() async {
     if (_reason == null) return;
     setState(() => _sending = true);
+
+    // Recorded in the app, which is what the policy asks for and what makes a
+    // report answerable. Written locally and queued in one transaction, so it
+    // is durable before the learner is told it was received.
+    try {
+      await ref
+          .read(tutorReplyReportRepositoryProvider)
+          .file(
+            scenarioId: widget.scenarioId,
+            reason: _reason!.id,
+            replyText: widget.replyText,
+            learnerNote: _note.text,
+            messageId: widget.messageId,
+            conversationId: widget.conversationId,
+          );
+      if (!mounted) return;
+      Navigator.of(context).pop(true);
+      return;
+    } catch (_) {
+      // Falls through to the mail draft below. Reaching here means the local
+      // write failed outright — a report must never be a dead end.
+    }
+    if (!mounted) return;
+
     // Built with queryParameters so the subject and body are percent-encoded;
     // a reply containing & or # would otherwise truncate the mail draft.
     final uri = Uri(

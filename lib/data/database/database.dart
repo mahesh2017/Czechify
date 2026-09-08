@@ -29,6 +29,7 @@ import 'tables/learning_evidence_events.dart';
 import 'tables/placement_profiles.dart';
 import 'tables/delayed_transfer_assignments.dart';
 import 'tables/learner_profiles.dart';
+import 'tables/tutor_reply_reports.dart';
 import 'daos/curriculum_dao.dart';
 import 'daos/vocabulary_dao.dart';
 import 'daos/conversation_dao.dart';
@@ -69,6 +70,7 @@ part 'database.g.dart';
     DelayedTransferAssignments,
     LearnerProfiles,
     ReminderPreferences,
+    TutorReplyReports,
   ],
   daos: [
     CurriculumDao,
@@ -91,7 +93,8 @@ class AppDatabase extends _$AppDatabase {
   /// Version 4 replaces frozen `DateTime.now()` column defaults with a SQL one.
   /// Version 5 makes the externally-scored exam columns nullable.
   /// Version 6 scopes consent records to the account that made the decision.
-  int get schemaVersion => 6;
+  /// Version 7 adds the in-app tutor-reply report log.
+  int get schemaVersion => 7;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -285,6 +288,9 @@ class AppDatabase extends _$AppDatabase {
         if (await _hasTable('consent_records')) {
           await m.addColumn(consentRecords, consentRecords.accountId);
         }
+      }
+      if (from < 7) {
+        await m.createTable(tutorReplyReports);
       }
       // Not guarded by a version check. These indexes were only ever created
       // in [onCreate], so every upgraded install has been running without the

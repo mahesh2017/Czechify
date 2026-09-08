@@ -25,6 +25,9 @@ export const syncedUserTables = [
   // is held about them — the one thing a subject-access request is for.
   "ai_service_daily_usage",
   "curriculum_entitlements",
+  // Reports a learner filed about the tutor. Theirs, so it belongs in an
+  // export — and in a deletion.
+  "tutor_reply_reports",
 ] as const;
 
 export const isSupportedMethod = (method: string): boolean =>

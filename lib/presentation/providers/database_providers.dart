@@ -1,9 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'app_info_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/database/database.dart' as db;
 import '../../data/repositories/drift_curriculum_repository.dart';
 import '../../data/repositories/drift_vocabulary_repository.dart';
 import '../../data/repositories/drift_conversation_repository.dart';
+import '../../data/repositories/tutor_reply_report_repository.dart';
 import '../../data/repositories/drift_progress_repository.dart';
 import '../../data/repositories/drift_exam_repository.dart';
 import '../../data/seeds/content_seeder.dart';
@@ -84,6 +87,17 @@ final appInitializationProvider = FutureProvider<void>((ref) async {
     await seeder.ensureBundledContent();
   }
 });
+
+/// Files learner reports about AI tutor replies.
+///
+/// Carries the installed app version so a later question about which build
+/// produced the reported reply can be answered.
+final tutorReplyReportRepositoryProvider = Provider<TutorReplyReportRepository>(
+  (ref) => TutorReplyReportRepository(
+    ref.watch(databaseProvider),
+    appVersion: ref.watch(appVersionProvider).asData?.value ?? '',
+  ),
+);
 
 /// Refresh backend state and curriculum after local startup has completed.
 /// Consumers deliberately ignore errors so cached/bundled content remains

@@ -1,6 +1,11 @@
 import 'package:czechify/presentation/widgets/chat/report_tutor_reply_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:czechify/data/database/database.dart' as db;
+import 'package:czechify/data/repositories/tutor_reply_report_repository.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:drift/native.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
@@ -88,29 +93,47 @@ void main() {
   });
 
   group('report sheet', () {
-    Future<void> open(WidgetTester tester) async {
+    Future<db.AppDatabase> open(
+      WidgetTester tester, {
+      TutorReplyReportRepository Function(db.AppDatabase)? repository,
+    }) async {
+      final database = db.AppDatabase.forTesting(NativeDatabase.memory());
+      addTearDown(database.close);
       await tester.pumpWidget(
-        MaterialApp(
-          localizationsDelegates: testLocalizationsDelegates,
-          supportedLocales: testSupportedLocales,
-          home: Scaffold(
-            body: Builder(
-              builder:
-                  (context) => ElevatedButton(
-                    onPressed:
-                        () => showReportTutorReplySheet(
-                          context: context,
-                          replyText: 'Tohle je ta odpověď.',
-                          scenarioTitle: 'At the Doctor',
-                        ),
-                    child: const Text('open'),
-                  ),
+        ProviderScope(
+          overrides: [
+            databaseProvider.overrideWithValue(database),
+            if (repository != null)
+              tutorReplyReportRepositoryProvider.overrideWithValue(
+                repository(database),
+              ),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: testLocalizationsDelegates,
+            supportedLocales: testSupportedLocales,
+            home: Scaffold(
+              body: Builder(
+                builder:
+                    (context) => ElevatedButton(
+                      onPressed:
+                          () => showReportTutorReplySheet(
+                            context: context,
+                            replyText: 'Tohle je ta odpověď.',
+                            scenarioTitle: 'At the Doctor',
+                            scenarioId: 'doctor',
+                            messageId: 'msg-1',
+                            conversationId: 'conv-1',
+                          ),
+                      child: const Text('open'),
+                    ),
+              ),
             ),
           ),
         ),
       );
       await tester.tap(find.text('open'));
       await tester.pumpAndSettle();
+      return database;
     }
 
     testWidgets('offers every reason', (tester) async {
@@ -150,17 +173,78 @@ void main() {
       expect(find.text('Report this reply'), findsNothing);
     });
 
-    testWidgets('a device with no mail app gets the address, not a dead end', (
+    testWidgets('the report is recorded without leaving the app', (
       tester,
     ) async {
-      // Modelled as the platform declining the launch, which is what a device
-      // with nothing registered for mailto: actually reports. Mocked rather
-      // than left unregistered so the result does not depend on when a
-      // MissingPluginException happens to settle.
+      // No launcher is mocked at all: the policy requires reporting without
+      // leaving the app, so the happy path must never reach a mail draft.
+      final database = await open(tester);
+      await tester.tap(find.text(ReportReason.offensive.label));
+      await tester.pump();
+      await tester.enterText(find.byType(TextField), 'it told me to stop');
+      await tester.tap(find.text('Send report'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Report this reply'), findsNothing);
+
+      final stored = await database.select(database.tutorReplyReports).get();
+      expect(stored, hasLength(1));
+      expect(stored.single.reason, 'offensive');
+      expect(stored.single.replyText, 'Tohle je ta odpověď.');
+      expect(stored.single.learnerNote, 'it told me to stop');
+      expect(stored.single.messageId, 'msg-1');
+      expect(stored.single.conversationId, 'conv-1');
+    });
+
+    testWidgets('the report is queued for the backend, not just kept', (
+      tester,
+    ) async {
+      // Written and enqueued in one transaction, so a report filed with no
+      // signal still reaches someone.
+      final database = await open(tester);
+      await tester.tap(find.text(ReportReason.dangerous.label));
+      await tester.pump();
+      await tester.tap(find.text('Send report'));
+      await tester.pumpAndSettle();
+
+      final queued = await database.select(database.syncQueue).get();
+      expect(
+        queued.where((row) => row.entity == 'tutor_reply_reports'),
+        hasLength(1),
+      );
+    });
+
+    testWidgets('the learner\'s own messages are still never stored', (
+      tester,
+    ) async {
+      final database = await open(tester);
+      await tester.tap(find.text(ReportReason.other.label));
+      await tester.pump();
+      await tester.tap(find.text('Send report'));
+      await tester.pumpAndSettle();
+
+      // The promise the sheet makes on screen has to hold in the row too.
+      final stored = await database.select(database.tutorReplyReports).get();
+      final queued = await database.select(database.syncQueue).get();
+      for (final text in [
+        stored.single.replyText,
+        stored.single.learnerNote,
+        queued.first.payload,
+      ]) {
+        expect(text, isNot(contains('Dobrý den')));
+      }
+    });
+
+    testWidgets('a failed local write falls back to mail, not a dead end', (
+      tester,
+    ) async {
+      // The only remaining reason to open a mail draft. Modelled by closing
+      // the database out from under the sheet.
       launcherReturns(tester, false);
       addTearDown(() => clearLauncher(tester));
 
-      await open(tester);
+      await open(tester, repository: _FailingReportRepository.new);
+
       await tester.tap(find.text(ReportReason.offensive.label));
       await tester.pump();
       await tester.tap(find.text('Send report'));
@@ -170,19 +254,21 @@ void main() {
       expect(find.textContaining('email.czechify@gmail.com'), findsOneWidget);
       expect(find.text('Send report'), findsOneWidget);
     });
-
-    testWidgets('a successful handoff closes the sheet', (tester) async {
-      launcherReturns(tester, true);
-      addTearDown(() => clearLauncher(tester));
-
-      await open(tester);
-      await tester.tap(find.text(ReportReason.wrongCzech.label));
-      await tester.pump();
-      await tester.tap(find.text('Send report'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Report this reply'), findsNothing);
-      expect(find.textContaining('No mail app opened'), findsNothing);
-    });
   });
+}
+
+/// Recording the report fails outright — the only case that should still open
+/// a mail draft.
+class _FailingReportRepository extends TutorReplyReportRepository {
+  _FailingReportRepository(super.db);
+
+  @override
+  Future<String> file({
+    required String scenarioId,
+    required String reason,
+    required String replyText,
+    String learnerNote = '',
+    String? messageId,
+    String? conversationId,
+  }) async => throw Exception('database unavailable');
 }
