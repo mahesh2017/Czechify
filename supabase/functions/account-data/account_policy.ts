@@ -34,6 +34,39 @@ export const syncedUserTables = [
   "delayed_transfer_assignments",
 ] as const;
 
+/// A deterministic total order for reading each exported table, one page at
+/// a time.
+///
+/// Paging needs a tiebreak-free sort or it is not paging. The export ordered
+/// by `user_id` *inside* a filter on `user_id`, so every row carried the same
+/// sort key: Postgres is free to order ties differently between statements,
+/// and offset paging over that returns some rows twice and never returns
+/// others. Nothing about a truncated export announces itself, which is why
+/// this is declared here rather than left to each call site — a new table
+/// without an entry fails the test below rather than paging incorrectly in
+/// production.
+///
+/// Every synced table carries `revision`, the server-owned sequence stamped on
+/// insert and update, which is unique and ascending. The three server-owned
+/// tables have no revision and are keyed on their own primary keys instead.
+export const exportOrderColumns: Record<string, readonly string[]> = {
+  lesson_progress: ["revision"],
+  earned_badges: ["revision"],
+  user_progress: ["revision"],
+  srs_cards: ["revision"],
+  custom_cards: ["revision"],
+  gamification_state: ["revision"],
+  learner_profiles: ["revision"],
+  reminder_preferences: ["revision"],
+  placement_profiles: ["revision"],
+  tutor_reply_reports: ["revision"],
+  learning_evidence_events: ["revision"],
+  delayed_transfer_assignments: ["revision"],
+  ai_daily_usage: ["usage_date"],
+  ai_service_daily_usage: ["service", "usage_date"],
+  curriculum_entitlements: ["user_id"],
+};
+
 export const isSupportedMethod = (method: string): boolean =>
   method === "GET" || method === "DELETE" || method === "OPTIONS";
 

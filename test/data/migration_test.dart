@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:drift/native.dart';
@@ -382,6 +383,176 @@ void main() {
               .getSingle();
       expect(fresh.read<int?>('writing_score'), isNull);
       expect(fresh.read<int?>('total_score'), isNull);
+
+      await db.close();
+      await directory.delete(recursive: true);
+    });
+  });
+
+  group('schema v8 queues learning history written before it could sync', () {
+    // `learning_evidence_events` and `delayed_transfer_assignments` started
+    // syncing in v1.0.7, and only on write. Nothing ever looked at what was
+    // already on the device, so the learners the feature was built for — the
+    // ones with a history to carry — still lost it on a new device, while
+    // anyone who installed afterwards was fine. The account screen said this
+    // history transfers.
+    Future<File> writeV7Database(String name) async {
+      final directory = await Directory.systemTemp.createTemp(name);
+      final file = File('${directory.path}/v7.sqlite');
+      final legacy = sqlite.sqlite3.open(file.path);
+      legacy.execute('''
+        CREATE TABLE learning_evidence_events (
+          evidence_id TEXT NOT NULL PRIMARY KEY,
+          lesson_id INTEGER NOT NULL,
+          exercise_id INTEGER,
+          skill TEXT NOT NULL,
+          phase TEXT NOT NULL,
+          correct INTEGER NOT NULL,
+          novel_task INTEGER NOT NULL,
+          supports_json TEXT NOT NULL DEFAULT '[]',
+          concept_keys_json TEXT NOT NULL DEFAULT '[]',
+          response_latency_ms INTEGER NOT NULL,
+          observed_at INTEGER NOT NULL
+        );
+        CREATE TABLE delayed_transfer_assignments (
+          assignment_id TEXT NOT NULL PRIMARY KEY,
+          source_attempt_id TEXT NOT NULL,
+          lesson_id INTEGER NOT NULL,
+          source_exercise_id INTEGER NOT NULL,
+          due_at INTEGER NOT NULL,
+          status TEXT NOT NULL DEFAULT 'pending',
+          completed_evidence_id TEXT,
+          created_at INTEGER NOT NULL,
+          completed_at INTEGER
+        );
+        CREATE TABLE sync_queue (
+          id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+          entity TEXT NOT NULL,
+          entity_key TEXT NOT NULL,
+          op TEXT NOT NULL DEFAULT 'upsert',
+          payload TEXT NOT NULL,
+          device_id TEXT NOT NULL,
+          updated_at INTEGER NOT NULL,
+          attempts INTEGER NOT NULL DEFAULT 0,
+          next_attempt_at INTEGER,
+          last_error TEXT,
+          dead_lettered_at INTEGER
+        );
+        INSERT INTO learning_evidence_events (
+          evidence_id, lesson_id, exercise_id, skill, phase, correct,
+          novel_task, supports_json, concept_keys_json, response_latency_ms,
+          observed_at
+        ) VALUES (
+          'ev-old', 4, 11, 'vocabulary', 'retrieve', 1, 0,
+          '["hint"]', '["byt"]', 1400, 1756000000
+        );
+        INSERT INTO delayed_transfer_assignments (
+          assignment_id, source_attempt_id, lesson_id, source_exercise_id,
+          due_at, status, created_at
+        ) VALUES ('transfer:old:11', 'att-old', 4, 11, 1757000000,
+          'pending', 1756000000);
+        PRAGMA user_version = 7;
+      ''');
+      legacy.close();
+      return file;
+    }
+
+    test('history already on the device is queued for upload', () async {
+      final file = await writeV7Database('czechify-history-backfill-');
+      final db = AppDatabase.forTesting(NativeDatabase(file));
+
+      final queued = await db.select(db.syncQueue).get();
+      final entities = queued.map((row) => row.entity).toSet();
+      expect(entities, {
+        'learning_evidence_events',
+        'delayed_transfer_assignments',
+      });
+      expect(
+        queued.map((row) => row.entityKey),
+        containsAll(['ev-old', 'transfer:old:11']),
+      );
+
+      // The payload is what the backend receives, so the fields have to be
+      // there and shaped like the ones the write path enqueues — JSON arrays,
+      // not the strings they are stored as.
+      final evidence =
+          jsonDecode(
+                queued
+                    .firstWhere(
+                      (row) => row.entity == 'learning_evidence_events',
+                    )
+                    .payload,
+              )
+              as Map<String, dynamic>;
+      expect(evidence['evidence_id'], 'ev-old');
+      expect(evidence['lesson_id'], 4);
+      expect(evidence['correct'], isTrue);
+      expect(evidence['supports'], ['hint']);
+      expect(evidence['concept_keys'], ['byt']);
+      expect(evidence['observed_at'], endsWith('Z'));
+
+      await db.close();
+      await file.parent.delete(recursive: true);
+    });
+
+    test('the rows themselves are untouched', () async {
+      final file = await writeV7Database('czechify-history-backfill-rows-');
+      final db = AppDatabase.forTesting(NativeDatabase(file));
+
+      expect(await db.select(db.learningEvidenceEvents).get(), hasLength(1));
+      final assignment =
+          (await db.select(db.delayedTransferAssignments).get()).single;
+      expect(assignment.assignmentId, 'transfer:old:11');
+      expect(assignment.status, 'pending');
+
+      await db.close();
+      await file.parent.delete(recursive: true);
+    });
+
+    test('it runs once, not on every open', () async {
+      final file = await writeV7Database('czechify-history-backfill-once-');
+      final first = AppDatabase.forTesting(NativeDatabase(file));
+      final afterUpgrade = (await first.select(first.syncQueue).get()).length;
+      await first.close();
+
+      final second = AppDatabase.forTesting(NativeDatabase(file));
+      expect(
+        (await second.select(second.syncQueue).get()).length,
+        afterUpgrade,
+        reason: 'the migration is stamped, so reopening must queue nothing',
+      );
+      await second.close();
+      await file.parent.delete(recursive: true);
+    });
+
+    test('a database predating either table still opens', () async {
+      // A learner far enough behind may have neither table. A missing one
+      // must not turn a schema change into a failure to launch.
+      final directory = await Directory.systemTemp.createTemp(
+        'czechify-history-backfill-absent-',
+      );
+      final file = File('${directory.path}/v7.sqlite');
+      final legacy = sqlite.sqlite3.open(file.path);
+      legacy.execute('''
+        CREATE TABLE sync_queue (
+          id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+          entity TEXT NOT NULL,
+          entity_key TEXT NOT NULL,
+          op TEXT NOT NULL DEFAULT 'upsert',
+          payload TEXT NOT NULL,
+          device_id TEXT NOT NULL,
+          updated_at INTEGER NOT NULL,
+          attempts INTEGER NOT NULL DEFAULT 0,
+          next_attempt_at INTEGER,
+          last_error TEXT,
+          dead_lettered_at INTEGER
+        );
+        PRAGMA user_version = 7;
+      ''');
+      legacy.close();
+
+      final db = AppDatabase.forTesting(NativeDatabase(file));
+      expect(await db.select(db.syncQueue).get(), isEmpty);
 
       await db.close();
       await directory.delete(recursive: true);
