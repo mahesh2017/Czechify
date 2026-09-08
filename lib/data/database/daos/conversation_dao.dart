@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
+import '../../../domain/repositories/conversation_repository.dart';
 import '../database.dart';
 import '../tables/conversations.dart';
 import '../tables/chat_messages.dart';
@@ -24,6 +25,57 @@ class ConversationDao extends DatabaseAccessor<AppDatabase>
       ),
     );
     return id;
+  }
+
+  /// Conversations by most recent activity, newest first, paged in SQL.
+  ///
+  /// Two things this fixes. The list was ordered by creation, so resuming a
+  /// months-old chat and talking in it left it at the bottom — the ordering
+  /// answered "when did this start" when the learner is asking "what was I
+  /// last doing". And the repository used to read *every* conversation and
+  /// throw away all but the first 25 in Dart, so the cost of the query grew
+  /// with the archive while the answer stayed the same size.
+  ///
+  /// Activity is the newest message, falling back to the conversation's own
+  /// creation time for one with no messages yet. The id breaks ties, because
+  /// date-times are stored as whole seconds.
+  Future<List<ConversationSummary>> recentConversations({
+    int limit = 25,
+    int offset = 0,
+  }) async {
+    final rows =
+        await customSelect(
+          'SELECT c.id, c.scenario, c.cefr_level, c.created_at, '
+          '  COALESCE(MAX(m.created_at), c.created_at) AS last_activity '
+          'FROM conversations c '
+          'LEFT JOIN chat_messages m ON m.conversation_id = c.id '
+          'GROUP BY c.id '
+          'ORDER BY last_activity DESC, c.id DESC '
+          'LIMIT ? OFFSET ?',
+          variables: [Variable<int>(limit), Variable<int>(offset)],
+          readsFrom: {conversations, chatMessages},
+        ).get();
+
+    return [
+      for (final row in rows)
+        ConversationSummary(
+          id: row.read<String>('id'),
+          scenario: row.read<String>('scenario'),
+          cefrLevel: row.read<String>('cefr_level'),
+          createdAt: row.read<DateTime>('created_at'),
+          lastActivityAt: row.read<DateTime>('last_activity'),
+        ),
+    ];
+  }
+
+  /// How many conversations exist, for a caller paging through them.
+  Future<int> conversationCount() async {
+    final row =
+        await customSelect(
+          'SELECT COUNT(*) AS c FROM conversations',
+          readsFrom: {conversations},
+        ).getSingle();
+    return row.read<int>('c');
   }
 
   /// Conversations newest-first.

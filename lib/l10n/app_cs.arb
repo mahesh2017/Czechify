@@ -473,6 +473,7 @@
   "reviewIntervalSoon": "Brzy",
   "chatTitle": "Konverzace s AI",
   "chatSubtitle": "Reálné situace, na které tento týden v Česku narazíte. Lektor se přizpůsobí vaší úrovni.",
+  "chatShowOlder": "Zobrazit starší konverzace",
   "chatUnfinished": "Nedokončené",
   "chatPickASituation": "Vyberte situaci",
   "chatRoomCount": "{count} situací",
