@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:czechify/presentation/providers/stt_providers.dart';
@@ -26,15 +25,21 @@ void main() {
     expect(kPhonemeServiceToken, isEmpty);
   });
 
-  test('the release dart-defines do not enable it either', () {
+  test('the release build does not define it either', () {
     // A passing unit test only proves the *test* build has no value. Release
-    // builds take their defines from this file, so it is the one that decides
-    // what learners actually run.
-    final file = File('env/prod.json');
-    expect(file.existsSync(), isTrue, reason: 'release defines are missing');
+    // builds take their dart-defines from `env/prod.json`, which is gitignored
+    // and written by the release workflow from three secrets — so the workflow
+    // is the committed source of truth for what ships, and the thing to check.
+    final workflow = File('.github/workflows/release.yml');
+    expect(workflow.existsSync(), isTrue, reason: 'release workflow missing');
 
-    final defines = jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
-    expect(defines.containsKey('PHONEME_SERVICE_URL'), isFalse);
-    expect(defines.containsKey('PHONEME_SERVICE_TOKEN'), isFalse);
+    expect(
+      workflow.readAsStringSync(),
+      isNot(contains('PHONEME')),
+      reason:
+          'The release build would enable an unauthenticated service and send '
+          'voice recordings outside the consent wording. See the notes at '
+          'kPhonemeServiceUrl before changing this.',
+    );
   });
 }
