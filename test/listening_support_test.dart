@@ -97,6 +97,47 @@ void main() {
     expect(result?.supports, contains(SupportKind.replay));
   });
 
+  testWidgets('needing the audio twice counts, even after autoplay', (
+    tester,
+  ) async {
+    ExerciseResult? result;
+    await tester.pumpWidget(_listening(onAnswered: (value) => result = value));
+
+    // Let the automatic play happen — the learner has now heard it once,
+    // without having chosen to.
+    await tester.pump(kListenAutoPlayDelay);
+    await tester.pump();
+
+    // One chosen play after that is a second hearing, and that is exactly
+    // what SupportKind.replay is evidence of. Counting only `_playCount > 1`
+    // ignored the automatic play and filed this learner as unaided.
+    await tester.tap(find.text('Play it again'));
+    await tester.pump();
+
+    await tester.tap(find.text('Coffee'));
+    await tester.pump();
+    await tester.tap(find.text('Check answers'));
+    await tester.pump();
+
+    expect(result?.supports, contains(SupportKind.replay));
+  });
+
+  testWidgets('one play with no autoplay is not a replay', (tester) async {
+    ExerciseResult? result;
+    await tester.pumpWidget(_listening(onAnswered: (value) => result = value));
+
+    // No autoplay has run, so this is the learner's first hearing.
+    await tester.tap(find.text('Listen'));
+    await tester.pump();
+
+    await tester.tap(find.text('Coffee'));
+    await tester.pump();
+    await tester.tap(find.text('Check answers'));
+    await tester.pump();
+
+    expect(result?.supports, isNot(contains(SupportKind.replay)));
+  });
+
   testWidgets('an exercise with no questions still shows its audio', (
     tester,
   ) async {
