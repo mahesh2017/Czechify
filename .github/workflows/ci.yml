@@ -95,9 +95,19 @@ jobs:
           # Generated Drift and localization output is verified by generation,
           # analysis, tests, and builds; keep the changed-line gate focused on
           # source that engineers can meaningfully unit test.
+          #
+          # Drift table *definitions* belong in the same category. Their column
+          # getters are read by drift_dev at build time to emit the real table
+          # class into .g.dart; nothing calls them at runtime, so they report
+          # as uncovered however thoroughly the table is exercised. Three
+          # consecutive PRs measured this — 8, 4 and 11 uncovered lines, purely
+          # for adding columns — which understates every schema change and
+          # pushes the incentive toward not writing the declaration rather than
+          # toward testing it.
           diff-cover coverage/lcov.info \
             --compare-branch="origin/$BASE_REF" \
             --exclude "*.g.dart" "app_localizations_*.dart" \
+              "lib/data/database/tables/*.dart" \
             --fail-under="$threshold"
 
       - name: Capture dependency evidence
