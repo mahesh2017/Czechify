@@ -104,10 +104,15 @@ jobs:
           # for adding columns — which understates every schema change and
           # pushes the incentive toward not writing the declaration rather than
           # toward testing it.
+          #
+          # The leading */ is load-bearing: diff-cover matches these patterns
+          # against the path in a way that a repo-rooted glob does not satisfy.
+          # "lib/data/database/tables/*.dart" reads correctly and excludes
+          # nothing, which is the sort of mistake that looks like it worked.
           diff-cover coverage/lcov.info \
             --compare-branch="origin/$BASE_REF" \
             --exclude "*.g.dart" "app_localizations_*.dart" \
-              "lib/data/database/tables/*.dart" \
+              "*/database/tables/*.dart" \
             --fail-under="$threshold"
 
       - name: Capture dependency evidence
