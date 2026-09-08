@@ -160,6 +160,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     try {
       final transcription = await _transcriber.listenFor(
         timeout: const Duration(seconds: 10),
+        // The learner reads this in the composer and edits it before sending,
+        // and nothing scores it — so on a phone with no Czech pack a rough
+        // transcription is still worth having. The scored paths refuse.
+        requireCzech: false,
       );
       if (!mounted) return;
       if (transcription.isNotEmpty) {

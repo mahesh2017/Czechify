@@ -247,7 +247,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _result = null;
       _pendingCheckpoint = null;
     });
-    _startSectionTimer(resumeSeconds: checkpoint.secondsLeft);
+    // Time spent away counts. The live timer already runs off a wall-clock
+    // deadline precisely so backgrounding does not pause it — but resume
+    // handed the stored seconds straight back, so quitting the app did what
+    // backgrounding could not. Leaving and returning could extend a timed
+    // section by hours.
+    //
+    // A section whose time ran out while the app was closed resumes at zero,
+    // and the timer moves on at its first tick, exactly as it would have.
+    final secondsAway = DateTime.now().difference(checkpoint.savedAt).inSeconds;
+    final remaining =
+        checkpoint.secondsLeft - (secondsAway < 0 ? 0 : secondsAway);
+    _startSectionTimer(resumeSeconds: remaining > 0 ? remaining : 0);
   }
 
   void _saveCheckpoint() {
@@ -1349,7 +1360,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         if (score != null) _speakingScores[responseKey] = score;
       });
       _answer(score ?? transcription);
-    } catch (_) {
+    } catch (error) {
       if (!mounted) return;
       if (attemptId != _speakingAttemptId ||
           responseKey != _currentResponseKey) {
@@ -1357,12 +1368,20 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       }
       setState(() {
         _isRecordingSpeaking = false;
+        // No score is recorded, so an unavailable recogniser leaves the task
+        // unassessed rather than failed — which the result screen now shows
+        // as "Not assessed" instead of a zero.
         _speakingTranscriptions.remove(responseKey);
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'Speech recognition failed. Check microphone permissions.',
+            // A recogniser that cannot handle Czech says so itself; guessing
+            // at microphone permissions would send the learner to fix
+            // something that is not broken.
+            error is SpeechServiceException
+                ? error.message
+                : 'Speech recognition failed. Check microphone permissions.',
           ),
         ),
       );
@@ -1378,7 +1397,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
     return Scaffold(
       backgroundColor: t.bg,
-      appBar: AppBar(backgroundColor: t.bg, title: Text(AppLocalizations.of(context).examResultsTitle)),
+      appBar: AppBar(
+        backgroundColor: t.bg,
+        title: Text(AppLocalizations.of(context).examResultsTitle),
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -1425,16 +1447,25 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               SoftCard(
                 child: Column(
                   children: [
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionReading, score: _result!.readingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionReading,
+                      score: _result!.readingScore,
+                    ),
                     const Divider(),
                     _ScoreRow(
                       label: AppLocalizations.of(context).examSectionListening,
                       score: _result!.listeningScore,
                     ),
                     const Divider(),
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionWriting, score: _result!.writingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionWriting,
+                      score: _result!.writingScore,
+                    ),
                     const Divider(),
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionSpeaking, score: _result!.speakingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionSpeaking,
+                      score: _result!.speakingScore,
+                    ),
                     const Divider(),
                     _ScoreRow(
                       label: AppLocalizations.of(context).examScoreOverall,

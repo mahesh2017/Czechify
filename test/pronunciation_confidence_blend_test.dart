@@ -135,7 +135,10 @@ class _UnusedTranscriber implements LiveTranscriber {
   Future<bool> supportsCzech() async => true;
 
   @override
-  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) {
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 10),
+    bool requireCzech = true,
+  }) {
     throw StateError('the cloud path must not fall back in these tests');
   }
 
