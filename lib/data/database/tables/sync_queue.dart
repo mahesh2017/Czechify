@@ -33,7 +33,7 @@ class SyncQueue extends Table {
   /// Client mutation time — the LWW clock. Server compares this against the
   /// stored row and keeps the newer one.
   DateTimeColumn get updatedAt =>
-      dateTime().withDefault(Constant(DateTime.now()))();
+      dateTime().withDefault(currentDateAndTime)();
 
   /// Set when a push attempt fails, for backoff/inspection.
   IntColumn get attempts => integer().withDefault(const Constant(0))();

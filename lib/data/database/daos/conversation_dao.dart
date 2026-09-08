@@ -26,9 +26,17 @@ class ConversationDao extends DatabaseAccessor<AppDatabase>
     return id;
   }
 
+  /// Conversations newest-first.
+  ///
+  /// The id tiebreak cannot restore chronology — ids are uuids — but it does
+  /// make the order stable. Rows written under the frozen `createdAt` default
+  /// all tie, and without a tiebreak sqlite is free to return them in a
+  /// different order on every read, reshuffling the learner's recent list.
   Future<List<Conversation>> getAllConversations() =>
-      (select(conversations)
-        ..orderBy([(c) => OrderingTerm.desc(c.createdAt)])).get();
+      (select(conversations)..orderBy([
+        (c) => OrderingTerm.desc(c.createdAt),
+        (c) => OrderingTerm.desc(c.id),
+      ])).get();
 
   Future<void> deleteConversation(String conversationId) async {
     await (delete(chatMessages)
@@ -39,10 +47,20 @@ class ConversationDao extends DatabaseAccessor<AppDatabase>
 
   // ── Chat Messages ──
 
+  /// Messages oldest-first.
+  ///
+  /// [ChatMessages.id] breaks ties. Date-times are stored as whole seconds, so
+  /// a fast exchange can leave two messages with the same `createdAt` and no
+  /// defined order between them — and every message written before the frozen
+  /// default was fixed ties with all the others in its conversation. The
+  /// auto-incrementing id preserves insertion order in both cases.
   Future<List<ChatMessage>> getMessagesByConversation(String conversationId) {
     return (select(chatMessages)
           ..where((m) => m.conversationId.equals(conversationId))
-          ..orderBy([(m) => OrderingTerm.asc(m.createdAt)]))
+          ..orderBy([
+            (m) => OrderingTerm.asc(m.createdAt),
+            (m) => OrderingTerm.asc(m.id),
+          ]))
         .get();
   }
 

@@ -88,7 +88,8 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   /// Version 3 adds portable learner profiles and reminder intent.
-  int get schemaVersion => 3;
+  /// Version 4 replaces frozen `DateTime.now()` column defaults with a SQL one.
+  int get schemaVersion => 4;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -258,6 +259,9 @@ class AppDatabase extends _$AppDatabase {
         await m.createTable(learnerProfiles);
         await m.createTable(reminderPreferences);
       }
+      if (from < 4) {
+        await _replaceFrozenTimestampDefaults(m);
+      }
       // Not guarded by a version check. These indexes were only ever created
       // in [onCreate], so every upgraded install has been running without the
       // uniqueness they enforce — duplicate SRS cards and more than one active
@@ -268,6 +272,48 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('PRAGMA foreign_keys = ON');
     },
   );
+
+  /// Rebuilds the tables whose timestamp columns carried a frozen default.
+  ///
+  /// These columns were declared `withDefault(Constant(DateTime.now()))`. Drift
+  /// resolves a Dart constant while building `CREATE TABLE`, so the schema was
+  /// written with a literal — the moment the database happened to be created on
+  /// that device — and every insert since that omitted the column reused it.
+  /// Conversations and chat messages were the visible casualties: an entire
+  /// history could share one timestamp, leaving `ORDER BY created_at` with
+  /// nothing to sort on.
+  ///
+  /// sqlite cannot alter a column default in place, so each table is rebuilt
+  /// through the 12-step procedure [Migrator.alterTable] implements. Rows are
+  /// copied unchanged: the timestamps already written are wrong and there is
+  /// nothing left to recover them from, so this only stops the bleeding. The
+  /// readers that depend on the order break ties on the primary key.
+  Future<void> _replaceFrozenTimestampDefaults(Migrator m) async {
+    // Every table that had the frozen default, including the ones whose
+    // inserts always passed a timestamp explicitly and so were never wrong.
+    // Leaving a working table on the old DDL would keep the trap armed for the
+    // next insert that omits the column.
+    //
+    // Listed as table objects rather than names: a rename would then be a
+    // compile error here instead of a silently skipped table.
+    final affected = <TableInfo<Table, dynamic>>[
+      conversations,
+      chatMessages,
+      userProgress,
+      srsCards,
+      examResults,
+      earnedBadges,
+      syncQueue,
+      gamificationStateTable,
+    ];
+    for (final table in affected) {
+      // Same reasoning as [_backfillUniquenessConstraints]: a database old
+      // enough to reach here may predate one of these tables, and a missing
+      // table must not turn a schema repair into a failure to launch.
+      if (!await _hasTable(table.actualTableName)) continue;
+      await m.alterTable(TableMigration(table));
+    }
+  }
 
   /// Adds the natural-key uniqueness that [onCreate] has always installed but
   /// [onUpgrade] never did, to a database that may already violate it.

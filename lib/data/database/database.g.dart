@@ -3080,7 +3080,7 @@ class $SrsCardsTable extends SrsCards with TableInfo<$SrsCardsTable, SrsCard> {
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   static const VerificationMeta _repsMeta = const VerificationMeta('reps');
   @override
@@ -3649,7 +3649,7 @@ class $ConversationsTable extends Conversations
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   @override
   List<GeneratedColumn> get $columns => [id, scenario, cefrLevel, createdAt];
@@ -3730,6 +3730,11 @@ class Conversation extends DataClass implements Insertable<Conversation> {
   final String id;
   final String scenario;
   final String cefrLevel;
+
+  /// Must stay a SQL-evaluated default, never `Constant(DateTime.now())`.
+  /// A Dart constant is baked into `CREATE TABLE` as a literal, so it freezes
+  /// at the moment the schema is created on the device and every later insert
+  /// that omits this column is stamped with that same first-launch time.
   final DateTime createdAt;
   const Conversation({
     required this.id,
@@ -4017,7 +4022,7 @@ class $ChatMessagesTable extends ChatMessages
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -4175,6 +4180,13 @@ class ChatMessage extends DataClass implements Insertable<ChatMessage> {
   final String? corrections;
   final String? newVocabulary;
   final String? audioPath;
+
+  /// See [Conversations.createdAt] on why this is a SQL default. Message order
+  /// is read back from this column, so a frozen default made every message in
+  /// a conversation sort equal.
+  ///
+  /// Drift stores date-times as whole unix seconds, so two messages written in
+  /// the same second still tie — readers order by [id] as well.
   final DateTime createdAt;
   const ChatMessage({
     required this.id,
@@ -5059,7 +5071,7 @@ class $ExamResultsTable extends ExamResults
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   static const VerificationMeta _readingScoreMeta = const VerificationMeta(
     'readingScore',
@@ -5697,7 +5709,7 @@ class $UserProgressTable extends UserProgress
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   @override
   List<GeneratedColumn> get $columns => [key, value, updatedAt];
@@ -5954,7 +5966,7 @@ class $EarnedBadgesTable extends EarnedBadges
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   @override
   List<GeneratedColumn> get $columns => [badgeId, earnedAt];
@@ -7224,7 +7236,7 @@ class $SyncQueueTable extends SyncQueue
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   static const VerificationMeta _attemptsMeta = const VerificationMeta(
     'attempts',
@@ -7454,7 +7466,8 @@ class SyncQueueData extends DataClass implements Insertable<SyncQueueData> {
   /// Full row snapshot as JSON — what to send to the backend.
   final String payload;
 
-  /// Origin device; part of the LWW tiebreaker.
+  /// Reserved origin-device field. New rows leave this blank because the sync
+  /// service derives the final LWW token after this row receives its id.
   final String deviceId;
 
   /// Client mutation time — the LWW clock. Server compares this against the
@@ -8207,7 +8220,7 @@ class $GamificationStateTableTable extends GamificationStateTable
     false,
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
-    defaultValue: Constant(DateTime.now()),
+    defaultValue: currentDateAndTime,
   );
   @override
   List<GeneratedColumn> get $columns => [
