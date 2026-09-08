@@ -385,6 +385,14 @@ class SyncService {
   DateTime? _ts(Object? iso) =>
       iso is String ? DateTime.tryParse(iso)?.toLocal() : null;
 
+  /// Writes one pulled row into local storage.
+  ///
+  /// Visible for testing. This is the seam where a server column name meets a
+  /// local field, so a typo here silently drops a value rather than failing —
+  /// which is worth a test more than it is worth being private.
+  Future<void> applyRemoteRow(String entity, Map<String, dynamic> r) =>
+      _applyRemote(entity, r);
+
   Future<void> _applyRemote(String entity, Map<String, dynamic> r) async {
     switch (entity) {
       case 'learner_profiles':

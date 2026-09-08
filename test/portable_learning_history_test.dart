@@ -1,4 +1,5 @@
 import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/database/daos/sync_dao.dart';
 import 'package:czechify/data/sync/sync_service.dart';
 import 'package:czechify/domain/entities/learning_evidence.dart';
 import 'package:drift/native.dart';
@@ -138,4 +139,92 @@ void main() {
       ]),
     );
   });
+
+  group('pulled rows land in the right columns', () {
+    // The seam where a server column name meets a local field. A typo here
+    // drops a value silently rather than failing, so it is worth driving the
+    // real mapping rather than the DAO underneath it.
+    late SyncService sync;
+
+    setUp(() {
+      sync = SyncService(db: db, backend: _IdleBackend());
+    });
+
+    test('evidence keeps every field it was sent', () async {
+      await sync.applyRemoteRow('learning_evidence_events', {
+        'evidence_id': 'ev-remote',
+        'lesson_id': 4,
+        'exercise_id': 11,
+        'skill': 'grammar',
+        'phase': 'repair',
+        'correct': true,
+        'novel_task': true,
+        'supports': ['hint'],
+        'concept_keys': ['dative'],
+        'response_latency_ms': 900,
+        'observed_at': '2026-09-08T10:00:00.000Z',
+      });
+
+      final stored = (await db.select(db.learningEvidenceEvents).get()).single;
+      expect(stored.evidenceId, 'ev-remote');
+      expect(stored.lessonId, 4);
+      expect(stored.exerciseId, 11);
+      expect(stored.skill, 'grammar');
+      expect(stored.phase, 'repair');
+      expect(stored.correct, isTrue);
+      expect(stored.novelTask, isTrue);
+      expect(stored.supportsJson, contains('hint'));
+      expect(stored.conceptKeysJson, contains('dative'));
+      expect(stored.responseLatencyMs, 900);
+    });
+
+    test('an assignment keeps every field it was sent', () async {
+      await sync.applyRemoteRow('delayed_transfer_assignments', {
+        'assignment_id': 'transfer:b:3',
+        'source_attempt_id': 'b',
+        'lesson_id': 2,
+        'source_exercise_id': 3,
+        'due_at': '2026-09-15T09:00:00.000Z',
+        'status': 'pending',
+        'completed_evidence_id': null,
+        'created_at': '2026-09-08T09:00:00.000Z',
+        'completed_at': null,
+      });
+
+      final stored =
+          (await db.select(db.delayedTransferAssignments).get()).single;
+      expect(stored.assignmentId, 'transfer:b:3');
+      expect(stored.sourceAttemptId, 'b');
+      expect(stored.lessonId, 2);
+      expect(stored.sourceExerciseId, 3);
+      expect(stored.status, 'pending');
+      expect(stored.completedAt, isNull);
+    });
+  });
+}
+
+/// Enough of a backend to construct the service; these tests never sync.
+class _IdleBackend implements SyncBackend {
+  @override
+  bool get isReady => false;
+
+  @override
+  String? get userId => null;
+
+  @override
+  Future<String> deviceId() async => 'test-device';
+
+  @override
+  Future<void> send(
+    SyncQueueData row, {
+    required String onConflict,
+    required String mutationDeviceId,
+  }) async {}
+
+  @override
+  Future<List<Map<String, dynamic>>> pullPage(
+    String entity, {
+    required PullCursor? cursor,
+    required int limit,
+  }) async => const [];
 }
