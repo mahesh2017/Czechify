@@ -9,11 +9,17 @@ import 'package:czechify/presentation/providers/database_providers.dart';
 import 'package:czechify/presentation/providers/llm_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// A tutor turn spans two awaits the learner can outlive: persisting their
 /// message, and the LLM call itself. Both used to write back into whatever
 /// state existed when they returned.
 void main() {
+  // startConversation reads settingsProvider for the learner's level, and
+  // SettingsNotifier loads from SharedPreferences on build.
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
   test('a message that cannot be saved leaves the composer usable', () async {
     final repo = _FakeConversationRepository()..saveThrows = true;
     final llm = _FakeLlmService();
@@ -113,6 +119,86 @@ void main() {
       container.read(chatProvider).messages.map((m) => m.content),
       contains('Odpověď pro B'),
     );
+  });
+
+  /// A new conversation is created before its greeting is requested, and the
+  /// greeting used to write `messages: [greeting]` — assigning, not appending.
+  /// Between those two points the screen was live with an unlocked composer,
+  /// so anything the learner sent was on screen until the greeting arrived and
+  /// replaced it. The message stayed in the database, so the transcript and
+  /// the record disagreed.
+  group('the opening greeting', () {
+    test('locks the composer until it arrives', () async {
+      final llm = _FakeLlmService();
+      final container = _container(_FakeConversationRepository(), llm);
+      final notifier = container.read(chatProvider.notifier);
+
+      final start = notifier.startConversation(
+        scenario: ChatScenario.all.first,
+      );
+      await _settle();
+
+      // The conversation exists and is on screen, but the tutor is still
+      // composing — sendMessage returns early while isLoading.
+      expect(container.read(chatProvider).conversationId, isNotNull);
+      expect(container.read(chatProvider).isLoading, isTrue);
+
+      llm.pending.single.complete(LlmResponse(content: _tutorJson('Ahoj!')));
+      await start;
+
+      expect(container.read(chatProvider).isLoading, isFalse);
+      expect(
+        container.read(chatProvider).messages.map((m) => m.content),
+        ['Ahoj!'],
+      );
+    });
+
+    test('does not erase a message that reached the transcript', () async {
+      final repo = _FakeConversationRepository();
+      final llm = _FakeLlmService();
+      final container = _container(repo, llm);
+      final notifier = container.read(chatProvider.notifier);
+
+      final start = notifier.startConversation(
+        scenario: ChatScenario.all.first,
+      );
+      await _settle();
+
+      // Belt and braces: even if something gets a message in while the
+      // greeting is pending, the greeting must not take it away again.
+      container.read(chatProvider.notifier).state = container
+          .read(chatProvider)
+          .copyWith(
+            messages: [
+              ChatMessage.user('Dobrý den', conversationId: 'conv-new'),
+            ],
+          );
+
+      llm.pending.single.complete(LlmResponse(content: _tutorJson('Ahoj!')));
+      await start;
+
+      expect(container.read(chatProvider).messages.map((m) => m.content), [
+        'Dobrý den',
+        'Ahoj!',
+      ]);
+    });
+
+    test('hands the composer back when it fails', () async {
+      final llm = _FakeLlmService();
+      final container = _container(_FakeConversationRepository(), llm);
+      final notifier = container.read(chatProvider.notifier);
+
+      final start = notifier.startConversation(
+        scenario: ChatScenario.all.first,
+      );
+      await _settle();
+      llm.pending.single.completeError(const LlmServiceExceptionStub());
+      await start;
+
+      // A conversation whose greeting failed still has to be usable.
+      expect(container.read(chatProvider).isLoading, isFalse);
+      expect(container.read(chatProvider).messages, hasLength(1));
+    });
   });
 }
 
