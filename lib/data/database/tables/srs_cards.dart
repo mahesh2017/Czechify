@@ -10,7 +10,7 @@ class SrsCards extends Table {
   TextColumn get grammarPatternKey => text().nullable()();
   RealColumn get stability => real().withDefault(const Constant(0.0))();
   RealColumn get difficulty => real().withDefault(const Constant(0.0))();
-  DateTimeColumn get due => dateTime().withDefault(Constant(DateTime.now()))();
+  DateTimeColumn get due => dateTime().withDefault(currentDateAndTime)();
   IntColumn get reps => integer().withDefault(const Constant(0))();
   TextColumn get state => text().withDefault(const Constant('newCard'))();
   DateTimeColumn get lastReviewed => dateTime().nullable()();

@@ -5,7 +5,7 @@ class UserProgress extends Table {
   TextColumn get key => text()();
   TextColumn get value => text()(); // JSON
   DateTimeColumn get updatedAt =>
-      dateTime().withDefault(Constant(DateTime.now()))();
+      dateTime().withDefault(currentDateAndTime)();
 
   @override
   Set<Column> get primaryKey => {key};

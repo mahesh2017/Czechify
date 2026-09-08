@@ -857,16 +857,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get writingKeyPhrasesFound => 'Key phrases found';
-
-  @override
-  String get writingKeyPhrasesMissing => 'Key phrases not found';
-
-  @override
-  String get writingKeywordCheckNote =>
-      'Automatic keyword check only — it compares your words against the expected phrases and does not judge grammar, spelling, or style.';
-
-  @override
   String get audioHearIt => 'Hear it';
 
   @override

@@ -56,6 +56,58 @@ void main() {
     },
   );
 
+  /// Resuming an interrupted attempt has to land on the paper the answers were
+  /// given to, so the checkpoint stores a paper id and the screen resolves it
+  /// through here rather than drawing again.
+  group('findMockExam', () {
+    test('returns the paper the id names, not a fresh draw', () async {
+      // Every paper in the bank, so this cannot pass by drawing lucky.
+      for (final paper in await repo.getAllMockExams(ExamLevel.a2)) {
+        final found = await repo.findMockExam(ExamLevel.a2, paper.id);
+
+        expect(found, isNotNull, reason: '${paper.id} was not findable');
+        expect(found!.id, paper.id);
+        expect(
+          found.sections.first.questions.first,
+          paper.sections.first.questions.first,
+        );
+      }
+    });
+
+    test('returns null for a paper the bank no longer has', () async {
+      // The caller discards the checkpoint on null. Anything else would put
+      // the saved answers on a different paper.
+      expect(await repo.findMockExam(ExamLevel.a2, 'a2-retired-paper'), isNull);
+    });
+
+    test('does not match a paper id from another level', () async {
+      final a1 = await repo.getAllMockExams(
+        ExamLevel.a1,
+        product: ExamProduct.coursePractice,
+      );
+
+      expect(await repo.findMockExam(ExamLevel.a2, a1.first.id), isNull);
+    });
+
+    test('resolves the sample that stands in for an unshipped bank', () async {
+      // No CCE bank ships, so getMockExam hands back the labeled sample — and
+      // a checkpoint taken against it has to resolve here too.
+      final sample = await repo.getMockExam(
+        ExamLevel.a2,
+        product: ExamProduct.cce,
+      );
+
+      final found = await repo.findMockExam(
+        ExamLevel.a2,
+        sample.id,
+        product: ExamProduct.cce,
+      );
+
+      expect(found, isNotNull);
+      expect(found!.id, sample.id);
+    });
+  });
+
   test('results are persisted and filterable by product', () async {
     await repo.saveResult(_result(ExamProduct.permanentResidence));
     await repo.saveResult(_result(ExamProduct.cce));

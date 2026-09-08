@@ -168,12 +168,18 @@ class ChatNotifier extends Notifier<ChatState> {
     );
     if (_isStale(generation)) return;
 
+    // isLoading from the moment the conversation exists, not from the moment
+    // the greeting request goes out. The state below is what unlocks the
+    // screen, and it used to unlock a composer the learner could type into
+    // while the greeting was still in flight — the greeting then landed and
+    // replaced the message they had just sent.
     state = ChatState(
       conversationId: convId,
       scenarioId: scenario.id,
       scenarioTitle: scenario.title,
       level: effectiveLevel,
       messages: [],
+      isLoading: true,
     );
 
     // Send initial greeting from tutor
@@ -452,12 +458,18 @@ class ChatNotifier extends Notifier<ChatState> {
         conversationId: conversationId,
       );
 
-      // This write replaces the message list outright, so landing it in a
-      // conversation the learner has since switched to would erase that
-      // conversation's history on screen.
+      // Landing this in a conversation the learner has since switched to
+      // would show a stranger's greeting in it.
       if (_isStale(generation)) return;
+      // Appended, never assigned. `messages: [greeting]` discarded anything
+      // added while the request was in flight, which is how a learner's first
+      // message could vanish from the screen while staying in the database.
+      // The composer is locked for the duration now, so this list is normally
+      // empty — appending is what keeps that from being load-bearing, and it
+      // matches the order the two messages were persisted in.
       state = state.copyWith(
-        messages: [greeting],
+        messages: [...state.messages, greeting],
+        isLoading: false,
         suggestedReplies: tutorResponse.suggestedReplies,
       );
 
@@ -472,7 +484,12 @@ class ChatNotifier extends Notifier<ChatState> {
       );
 
       if (_isStale(generation)) return;
-      state = state.copyWith(messages: [greeting]);
+      // Same append, and the same unlock: a greeting that failed must still
+      // hand the composer back, or the conversation is unusable.
+      state = state.copyWith(
+        messages: [...state.messages, greeting],
+        isLoading: false,
+      );
 
       final convRepo = ref.read(conversationRepositoryProvider);
       await convRepo.saveMessage(greeting);

@@ -8,7 +8,7 @@ class ExamResults extends Table {
   TextColumn get product =>
       text().withDefault(const Constant('permanent_residence'))();
   DateTimeColumn get takenAt =>
-      dateTime().withDefault(Constant(DateTime.now()))();
+      dateTime().withDefault(currentDateAndTime)();
   IntColumn get readingScore => integer().withDefault(const Constant(0))();
   IntColumn get listeningScore => integer().withDefault(const Constant(0))();
   IntColumn get writingScore => integer().withDefault(const Constant(0))();

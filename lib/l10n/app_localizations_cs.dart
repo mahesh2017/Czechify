@@ -861,16 +861,6 @@ class AppLocalizationsCs extends AppLocalizations {
   }
 
   @override
-  String get writingKeyPhrasesFound => 'Klíčové fráze nalezeny';
-
-  @override
-  String get writingKeyPhrasesMissing => 'Klíčové fráze nenalezeny';
-
-  @override
-  String get writingKeywordCheckNote =>
-      'Pouze automatická kontrola klíčových slov — porovnává vaše slova s očekávanými frázemi a nehodnotí gramatiku, pravopis ani styl.';
-
-  @override
   String get audioHearIt => 'Přehrát';
 
   @override

@@ -5,6 +5,7 @@ import 'package:czechify/domain/repositories/exam_repository.dart';
 
 MockExam _cceFormatExam() {
   return const MockExam(
+    id: 'cce-format-exam',
     level: ExamLevel.a1,
     blueprint: ExamBlueprint(
       product: ExamProduct.permanentResidence,

@@ -32,6 +32,29 @@ void main() {
     expect(tasks.whereType<ExamOpenResponseTask>(), hasLength(6));
   });
 
+  test('every paper carries an id, unique within its bank', () {
+    // Resuming an interrupted attempt restores answers onto the paper the
+    // checkpoint names. A missing or reused id would send them to a different
+    // paper of the same shape, which is undetectable once it happens.
+    for (final path in [
+      'assets/curriculum/exam_bank_permres_a1.json',
+      'assets/curriculum/exam_bank_permres_a2.json',
+    ]) {
+      final bank = jsonDecode(File(path).readAsStringSync()) as Map;
+      final ids = [
+        for (final exam in bank['exams'] as List) (exam as Map)['id'],
+      ];
+
+      expect(ids, isNotEmpty, reason: '$path ships no papers');
+      expect(
+        ids.whereType<String>().where((id) => id.isNotEmpty),
+        hasLength(ids.length),
+        reason: '$path has a paper with no usable id',
+      );
+      expect(ids.toSet(), hasLength(ids.length), reason: '$path reuses an id');
+    }
+  });
+
   test('malformed speaking task is rejected before rendering', () {
     expect(
       () => ExamSpeakingTask.fromJson({'prompt': 'Speak', 'points': 5}),

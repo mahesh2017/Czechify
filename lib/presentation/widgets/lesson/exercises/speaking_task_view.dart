@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_tokens.dart';
-import '../../../../core/utils/text_normalizer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../domain/engines/pronunciation_scorer.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/repositories/speech_ports.dart';
 import '../../../providers/stt_providers.dart';
@@ -32,6 +32,7 @@ class SpeakingTaskView extends ConsumerStatefulWidget {
 
 class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
   late final LiveTranscriber _transcriber;
+  final PronunciationScorer _scorer = PronunciationScorer();
 
   @override
   void initState() {
@@ -130,24 +131,26 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
 
       // Partial match: how much of the expected Czech actually turned up.
       //
-      // Both sides are normalised first. Splitting raw text on whitespace
-      // leaves punctuation welded to the token, so a recogniser returning
-      // "Dobrý den." compared "den." against the expected "den" and missed;
-      // a correct formal role-play graded 0.39. This is the same
-      // normalisation matchAnswer already applies on the exact-match path.
+      // This counted how many spoken tokens appeared anywhere in the expected
+      // vocabulary and divided by the number of distinct expected words, so
+      // repetition paid: saying "dobrý" six times scored 6/5 against "Dobrý
+      // den, jmenuji se Jana." and passed a task the learner had not answered.
+      // Pooling every alternative phrasing into one bag of words made it worse
+      // — the more ways a task could be answered, the more words counted.
+      //
+      // [PronunciationScorer] aligns the utterance against one phrase instead
+      // of counting tokens: each expected word can be satisfied once, and
+      // anything extra lands in the denominator as an insertion. The exam's
+      // read-aloud tasks already score this way. Alternatives are scored
+      // separately and the best one wins, so a learner is credited for the
+      // phrasing they actually chose.
       if (score < 1.0 && recorded.isNotEmpty) {
-        final words =
-            TextNormalizer.normalize(
-              recorded,
-            ).split(' ').where((w) => w.isNotEmpty).toList();
-        final expectedWords =
-            _expectedPhrases
-                .expand((p) => TextNormalizer.normalize(p).split(' '))
-                .where((w) => w.isNotEmpty)
-                .toSet();
-        final matched = words.where((w) => expectedWords.contains(w)).length;
-        if (expectedWords.isNotEmpty) {
-          score = matched / expectedWords.length;
+        for (final phrase in _expectedPhrases) {
+          final phraseScore =
+              _scorer
+                  .score(expectedText: phrase, actualTranscription: recorded)
+                  .overallScore;
+          if (phraseScore > score) score = phraseScore;
         }
         if (score > 1.0) score = 1.0;
       }

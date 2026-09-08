@@ -24,7 +24,7 @@ class GamificationStateTable extends Table {
   TextColumn get lastOpenDate => text().nullable()();
   TextColumn get dailyXpResetDate => text().nullable()();
   DateTimeColumn get updatedAt =>
-      dateTime().withDefault(Constant(DateTime.now()))();
+      dateTime().withDefault(currentDateAndTime)();
 
   @override
   Set<Column> get primaryKey => {key};

@@ -225,6 +225,7 @@ class _SpeakingExamRepository extends _FakeExamRepository {
     ExamLevel level, {
     ExamProduct product = ExamProduct.permanentResidence,
   }) async => MockExam(
+    id: 'speaking-paper',
     level: level,
     blueprint: _FakeExamRepository._blueprint,
     totalTimeMinutes: 5,
@@ -254,6 +255,7 @@ class _FinishingExamRepository extends _FakeExamRepository {
     ExamLevel level, {
     ExamProduct product = ExamProduct.permanentResidence,
   }) async => MockExam(
+    id: 'finishing-paper',
     level: level,
     blueprint: _FakeExamRepository._blueprint,
     totalTimeMinutes: 5,
@@ -295,6 +297,7 @@ class _FakeExamRepository implements ExamRepository {
     ExamLevel level, {
     ExamProduct product = ExamProduct.permanentResidence,
   }) async => MockExam(
+    id: 'fake-paper',
     level: level,
     blueprint: _blueprint,
     totalTimeMinutes: 5,
@@ -326,6 +329,18 @@ class _FakeExamRepository implements ExamRepository {
       ),
     ],
   );
+
+  /// Subclasses override [getMockExam], so resolving through it keeps each
+  /// fake's single paper findable by its own id.
+  @override
+  Future<MockExam?> findMockExam(
+    ExamLevel level,
+    String id, {
+    ExamProduct product = ExamProduct.permanentResidence,
+  }) async {
+    final exam = await getMockExam(level, product: product);
+    return exam.id == id ? exam : null;
+  }
 
   @override
   Future<List<ExamResult>> getResults(

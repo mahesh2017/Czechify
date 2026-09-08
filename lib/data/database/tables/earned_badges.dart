@@ -4,7 +4,7 @@ import 'package:drift/drift.dart';
 class EarnedBadges extends Table {
   TextColumn get badgeId => text()();
   DateTimeColumn get earnedAt =>
-      dateTime().withDefault(Constant(DateTime.now()))();
+      dateTime().withDefault(currentDateAndTime)();
 
   @override
   Set<Column> get primaryKey => {badgeId};

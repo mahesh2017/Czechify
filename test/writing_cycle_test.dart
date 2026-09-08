@@ -59,4 +59,53 @@ void main() {
     expect(result?.explanation, contains('You wrote 4 words.'));
     expect(find.text('Writing cycle complete'), findsOneWidget);
   });
+
+  /// Writing is never scored, so the "correct" branch of the old feedback
+  /// panel was unreachable and every learner finished every task on a red
+  /// failure card. With an answer key present — as all 97 shipped writing
+  /// tasks have — it also announced "Key phrases not found", a check no code
+  /// ever ran: submitting the answer key verbatim still produced it.
+  testWidgets('a task with an answer key ends neutrally, not as a failure', (
+    tester,
+  ) async {
+    const answerKey = 'Dobrý den, potřebuji pomoc.';
+
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: testLocalizationsDelegates,
+        supportedLocales: testSupportedLocales,
+        home: Scaffold(
+          body: WritingTaskView(
+            exercise: const Exercise(
+              id: 1,
+              lessonId: 1,
+              type: ExerciseType.writingTask,
+              prompt: 'Write to your landlord.',
+              answerKey: answerKey,
+              data: {'min_words': 2},
+            ),
+            onAnswered: (_) {},
+          ),
+        ),
+      ),
+    );
+
+    // The answer key itself — the strongest possible submission.
+    await tester.enterText(find.byType(TextField).first, answerKey);
+    await tester.pump();
+    await tester.tap(find.text('Review draft'));
+    await tester.pump();
+    await tester.enterText(find.byType(TextField).first, answerKey);
+    await tester.tap(find.text('Submit revision'));
+    await tester.pump();
+
+    expect(find.text('Writing cycle complete'), findsOneWidget);
+    expect(find.text('Key phrases not found'), findsNothing);
+    expect(find.byIcon(Icons.cancel), findsNothing);
+    expect(
+      find.textContaining('Automatic keyword check'),
+      findsNothing,
+      reason: 'no keyword check runs, so nothing may claim one did',
+    );
+  });
 }

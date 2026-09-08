@@ -108,16 +108,35 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
   Future<void> _loadExam() async {
     try {
-      final exam = await ref
-          .read(examRepositoryProvider)
-          .getMockExam(
-            widget.level,
-            product:
-                widget.level == ExamLevel.a1
-                    ? ExamProduct.coursePractice
-                    : ExamProduct.permanentResidence,
-          );
-      final checkpoint = await _sessionStore.load(widget.level.name);
+      final repository = ref.read(examRepositoryProvider);
+      final product =
+          widget.level == ExamLevel.a1
+              ? ExamProduct.coursePractice
+              : ExamProduct.permanentResidence;
+
+      // The checkpoint is read first because it decides which paper to load.
+      // Drawing a random one and then overlaying saved answers onto it is the
+      // whole bug: the papers in a bank are interchangeable in shape and
+      // different in content.
+      var checkpoint = await _sessionStore.load(widget.level.name);
+
+      MockExam? exam;
+      if (checkpoint != null) {
+        exam = await repository.findMockExam(
+          widget.level,
+          checkpoint.examId,
+          product: product,
+        );
+        if (exam == null || exam.blueprint.version != checkpoint.blueprintVersion) {
+          // The paper is gone or has been reissued under a new blueprint.
+          // There is nothing left to resume onto.
+          unawaited(_sessionStore.clear(widget.level.name));
+          checkpoint = null;
+          exam = null;
+        }
+      }
+      exam ??= await repository.getMockExam(widget.level, product: product);
+
       if (mounted) {
         setState(() {
           _exam = exam;
@@ -170,8 +189,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   void _resumeExam() {
     final checkpoint = _pendingCheckpoint;
     if (_exam == null || checkpoint == null) return;
-    // A checkpoint from a different exam build could point out of bounds.
-    if (checkpoint.sectionIndex >= _exam!.sections.length ||
+    // _loadExam only keeps a checkpoint whose paper it managed to load, so a
+    // mismatch here means the two fell out of step — resuming anyway would put
+    // the answers on the wrong paper, which is exactly what this guards.
+    if (checkpoint.examId != _exam!.id ||
+        checkpoint.blueprintVersion != _exam!.blueprint.version ||
+        // A checkpoint from a different exam build could point out of bounds.
+        checkpoint.sectionIndex >= _exam!.sections.length ||
         checkpoint.questionIndex >=
             _exam!.sections[checkpoint.sectionIndex].questions.length) {
       unawaited(_sessionStore.clear(widget.level.name));
@@ -232,6 +256,8 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _sessionStore.save(
         ExamCheckpoint(
           level: widget.level.name,
+          examId: _exam!.id,
+          blueprintVersion: _exam!.blueprint.version,
           sectionIndex: _currentSection,
           questionIndex: _currentQuestion,
           secondsLeft: _secondsLeft,

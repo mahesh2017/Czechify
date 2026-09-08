@@ -249,4 +249,81 @@ void main() {
     await current.close().catchError((_) {});
     await directory.delete(recursive: true);
   });
+
+  group('schema v4 replaces the frozen timestamp defaults', () {
+    // These columns were declared `withDefault(Constant(DateTime.now()))`.
+    // Drift resolves a Dart constant while building `CREATE TABLE`, so the
+    // schema was written with a literal — whenever the database happened to be
+    // created on that device — and every later insert that omitted the column
+    // reused it. Only `conversations` is created here: the upgrade step skips
+    // tables a database does not have, which keeps this focused on the default
+    // instead of reconstructing all of v3.
+    const frozen = 1700000000;
+    const createV3Conversations = '''
+      CREATE TABLE conversations (
+        id TEXT NOT NULL PRIMARY KEY,
+        scenario TEXT NOT NULL,
+        cefr_level TEXT NOT NULL,
+        created_at INTEGER NOT NULL DEFAULT $frozen
+      );
+      PRAGMA user_version = 3;
+    ''';
+
+    test('a v3 install stops handing out the baked-in literal', () async {
+      final directory = await Directory.systemTemp.createTemp(
+        'czechify-frozen-default-',
+      );
+      final file = File('${directory.path}/v3.sqlite');
+      final legacy = sqlite.sqlite3.open(file.path);
+      legacy.execute(createV3Conversations);
+      legacy.close();
+
+      final db = AppDatabase.forTesting(NativeDatabase(file));
+      final id = await db.conversationDao.createConversation('Shopping', 'A1');
+      final row = (await db.conversationDao.getAllConversations()).single;
+
+      expect(row.id, id);
+      expect(
+        row.createdAt.millisecondsSinceEpoch ~/ 1000,
+        isNot(frozen),
+        reason: 'the rebuilt table still carried the old literal default',
+      );
+      expect(
+        row.createdAt.isAfter(
+          DateTime.now().subtract(const Duration(minutes: 1)),
+        ),
+        isTrue,
+      );
+
+      await db.close();
+      await directory.delete(recursive: true);
+    });
+
+    test('rows written before the upgrade survive the rebuild', () async {
+      final directory = await Directory.systemTemp.createTemp(
+        'czechify-frozen-default-rows-',
+      );
+      final file = File('${directory.path}/v3.sqlite');
+      final legacy = sqlite.sqlite3.open(file.path);
+      legacy.execute(createV3Conversations);
+      legacy.execute(
+        'INSERT INTO conversations (id, scenario, cefr_level) '
+        "VALUES ('conv_old', 'Casual Chat', 'A2')",
+      );
+      legacy.close();
+
+      final db = AppDatabase.forTesting(NativeDatabase(file));
+      final row = (await db.conversationDao.getAllConversations()).single;
+
+      expect(row.id, 'conv_old');
+      expect(row.scenario, 'Casual Chat');
+      expect(row.cefrLevel, 'A2');
+      // Timestamps already written are wrong and there is nothing left to
+      // recover them from. The rebuild must at least not lose or alter them.
+      expect(row.createdAt.millisecondsSinceEpoch ~/ 1000, frozen);
+
+      await db.close();
+      await directory.delete(recursive: true);
+    });
+  });
 }
