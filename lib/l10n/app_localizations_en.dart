@@ -1318,6 +1318,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Real situations you will hit this week in Czechia. The tutor adapts to your level.';
 
   @override
+  String get chatShowOlder => 'Show older conversations';
+
+  @override
   String get chatUnfinished => 'Unfinished';
 
   @override

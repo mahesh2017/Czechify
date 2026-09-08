@@ -1322,6 +1322,9 @@ class AppLocalizationsCs extends AppLocalizations {
       'Reálné situace, na které tento týden v Česku narazíte. Lektor se přizpůsobí vaší úrovni.';
 
   @override
+  String get chatShowOlder => 'Zobrazit starší konverzace';
+
+  @override
   String get chatUnfinished => 'Nedokončené';
 
   @override

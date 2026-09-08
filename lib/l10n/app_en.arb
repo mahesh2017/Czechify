@@ -585,6 +585,7 @@
   "reviewIntervalSoon": "Soon",
   "chatTitle": "AI Tutor",
   "chatSubtitle": "Real situations you will hit this week in Czechia. The tutor adapts to your level.",
+  "chatShowOlder": "Show older conversations",
   "chatUnfinished": "Unfinished",
   "chatPickASituation": "Pick a situation",
   "chatRoomCount": "{count} rooms",

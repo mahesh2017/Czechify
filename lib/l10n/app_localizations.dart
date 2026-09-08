@@ -2378,6 +2378,12 @@ abstract class AppLocalizations {
   /// **'Real situations you will hit this week in Czechia. The tutor adapts to your level.'**
   String get chatSubtitle;
 
+  /// No description provided for @chatShowOlder.
+  ///
+  /// In en, this message translates to:
+  /// **'Show older conversations'**
+  String get chatShowOlder;
+
   /// No description provided for @chatUnfinished.
   ///
   /// In en, this message translates to:

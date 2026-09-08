@@ -657,6 +657,20 @@ class _ScenarioPicker extends ConsumerWidget {
               ),
             );
           }),
+          // Reachable rather than capped. The list stopped at 25 with nothing
+          // beyond it, so an older conversation could not be resumed or
+          // deleted without first removing newer ones.
+          if (ref.watch(hasMoreConversationsProvider).value ?? false)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed:
+                    () =>
+                        ref.read(conversationPagesProvider.notifier).showMore(),
+                icon: const Icon(Icons.history, size: 18),
+                label: Text(l10n.chatShowOlder),
+              ),
+            ),
         ],
         const SizedBox(height: 22),
         Row(

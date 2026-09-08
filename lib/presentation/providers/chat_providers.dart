@@ -508,16 +508,48 @@ final chatProvider = NotifierProvider<ChatNotifier, ChatState>(
   ChatNotifier.new,
 );
 
-/// Recent conversations for the scenario picker's "continue" section.
+/// How many conversations the picker shows before "show more".
+const kRecentConversationPageSize = 25;
+
+/// How many pages the picker has been asked to show.
+///
+/// The list was a flat 25 with nothing beyond it: a learner past that could
+/// not reach an older conversation to resume or delete it without first
+/// removing newer ones. Paging is in SQL, so asking for more costs one more
+/// page rather than re-reading the archive.
+final conversationPagesProvider =
+    NotifierProvider<ConversationPagesNotifier, int>(
+      ConversationPagesNotifier.new,
+    );
+
+class ConversationPagesNotifier extends Notifier<int> {
+  @override
+  int build() => 1;
+
+  void showMore() => state = state + 1;
+
+  /// Back to one page — for leaving the picker, so reopening it does not
+  /// silently re-read everything the learner once scrolled to.
+  void reset() => state = 1;
+}
+
+/// Conversations for the scenario picker's "continue" section, most recently
+/// active first.
 final recentConversationsProvider = FutureProvider<List<ConversationSummary>>((
   ref,
 ) {
   // Recompute when the active conversation changes (a new one was created).
   ref.watch(chatProvider.select((s) => s.conversationId));
-  // Enough to clear a backlog. The list previously fetched five and showed
-  // three, so conversations accumulated out of sight with no way to remove
-  // them.
+  final pages = ref.watch(conversationPagesProvider);
   return ref
       .read(conversationRepositoryProvider)
-      .getRecentConversations(limit: 25);
+      .getRecentConversations(limit: kRecentConversationPageSize * pages);
+});
+
+/// Whether more conversations exist than are currently shown.
+final hasMoreConversationsProvider = FutureProvider<bool>((ref) async {
+  final shown = (await ref.watch(recentConversationsProvider.future)).length;
+  final total =
+      await ref.read(conversationRepositoryProvider).countConversations();
+  return total > shown;
 });

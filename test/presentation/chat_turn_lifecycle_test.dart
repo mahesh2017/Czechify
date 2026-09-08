@@ -328,7 +328,11 @@ class _FakeConversationRepository implements ConversationRepository {
   @override
   Future<List<ConversationSummary>> getRecentConversations({
     int limit = 5,
+    int offset = 0,
   }) async => const [];
+
+  @override
+  Future<int> countConversations() async => histories.length;
 }
 
 class _FakeLlmService implements LlmService {
