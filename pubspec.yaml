@@ -1,7 +1,7 @@
 name: czechify
 description: AI-powered Czech language learning app for CEFR A1/A2 proficiency.
 publish_to: 'none'
-version: 1.0.9+22
+version: 1.0.10+23
 
 environment:
   sdk: ^3.12.0
