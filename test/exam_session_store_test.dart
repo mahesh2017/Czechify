@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +14,8 @@ void main() {
 
   ExamCheckpoint checkpoint({DateTime? savedAt}) => ExamCheckpoint(
     level: 'a1',
+    examId: 'a1-practice-2',
+    blueprintVersion: '2026-04-11',
     sectionIndex: 1,
     questionIndex: 3,
     secondsLeft: 421,
@@ -31,7 +35,9 @@ void main() {
 
     final restored = await store.load('a1');
     expect(restored, isNotNull);
-    expect(restored!.sectionIndex, 1);
+    expect(restored!.examId, 'a1-practice-2');
+    expect(restored.blueprintVersion, '2026-04-11');
+    expect(restored.sectionIndex, 1);
     expect(restored.questionIndex, 3);
     expect(restored.secondsLeft, 421);
     expect(restored.answers[0]![1], 'napsaná odpověď');
@@ -63,6 +69,27 @@ void main() {
     SharedPreferences.setMockInitialValues({
       'exam_checkpoint_a1': '{not valid json',
     });
+    final store = ExamSessionStore();
+    expect(await store.load('a1'), isNull);
+  });
+
+  test('a checkpoint written before papers had ids is dropped', () async {
+    // Valid in every other respect, but it cannot say which of the bank's
+    // interchangeable papers those answers belong to. Restoring it would put
+    // them on whichever paper the next random draw returned.
+    SharedPreferences.setMockInitialValues({
+      'exam_checkpoint_a1': jsonEncode({
+        'level': 'a1',
+        'section_index': 1,
+        'question_index': 3,
+        'seconds_left': 421,
+        'answers': {
+          '0': {'0': 2},
+        },
+        'saved_at': DateTime.now().toIso8601String(),
+      }),
+    });
+
     final store = ExamSessionStore();
     expect(await store.load('a1'), isNull);
   });

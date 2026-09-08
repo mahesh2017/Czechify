@@ -9,6 +9,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// would make no sense).
 class ExamCheckpoint {
   final String level;
+
+  /// The paper these answers were given to, and the blueprint it was read
+  /// under.
+  ///
+  /// A bank holds several interchangeable papers and one is drawn at random
+  /// per attempt. Without this, resuming overlaid the saved answers onto
+  /// whatever the next draw returned — and since every shipped bank's papers
+  /// have identical section lengths, the index bounds check could not notice.
+  /// The version guards the other direction: an app update can reissue the
+  /// same id with different questions.
+  final String examId;
+  final String blueprintVersion;
+
   final int sectionIndex;
   final int questionIndex;
   final int secondsLeft;
@@ -28,6 +41,8 @@ class ExamCheckpoint {
 
   const ExamCheckpoint({
     required this.level,
+    required this.examId,
+    required this.blueprintVersion,
     required this.sectionIndex,
     required this.questionIndex,
     required this.secondsLeft,
@@ -40,6 +55,8 @@ class ExamCheckpoint {
 
   Map<String, dynamic> toJson() => {
     'level': level,
+    'exam_id': examId,
+    'blueprint_version': blueprintVersion,
     'section_index': sectionIndex,
     'question_index': questionIndex,
     'seconds_left': secondsLeft,
@@ -67,6 +84,12 @@ class ExamCheckpoint {
       });
       return ExamCheckpoint(
         level: json['level'] as String,
+        // Non-null casts on purpose. A checkpoint written before papers had
+        // an identity cannot say which one it belongs to, so it falls into
+        // the catch below and is treated as absent — losing one interrupted
+        // attempt across the upgrade beats restoring it onto a stranger.
+        examId: json['exam_id'] as String,
+        blueprintVersion: json['blueprint_version'] as String,
         sectionIndex: json['section_index'] as int,
         questionIndex: json['question_index'] as int,
         secondsLeft: json['seconds_left'] as int,

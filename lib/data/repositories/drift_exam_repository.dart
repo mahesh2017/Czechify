@@ -56,6 +56,22 @@ class DriftExamRepository implements ExamRepository {
     return exams[Random().nextInt(exams.length)];
   }
 
+  @override
+  Future<MockExam?> findMockExam(
+    ExamLevel level,
+    String id, {
+    ExamProduct product = ExamProduct.permanentResidence,
+  }) async {
+    final exams = await _loadExams(level, product);
+    for (final exam in exams) {
+      if (exam.id == id) return exam;
+    }
+    // The sample stands in for an unshipped product's bank, so a checkpoint
+    // taken against it has to resolve here too.
+    final sample = buildSampleExam(level, product: product);
+    return sample.id == id ? sample : null;
+  }
+
   /// Get all available mock exams for a product + level.
   Future<List<MockExam>> getAllMockExams(
     ExamLevel level, {
@@ -78,10 +94,11 @@ class DriftExamRepository implements ExamRepository {
       final blueprint = _parseBlueprint(json, product);
       final examsJson = json['exams'] as List<dynamic>? ?? [];
 
-      final exams = examsJson
-          .whereType<Map<String, dynamic>>()
-          .map((e) => _parseExam(e, level, blueprint))
-          .toList();
+      final papers = examsJson.whereType<Map<String, dynamic>>().toList();
+      final exams = [
+        for (var i = 0; i < papers.length; i++)
+          _parseExam(papers[i], level, blueprint, i),
+      ];
 
       _cache[key] = exams;
       _log.info(
@@ -112,6 +129,7 @@ class DriftExamRepository implements ExamRepository {
     Map<String, dynamic> json,
     ExamLevel level,
     ExamBlueprint blueprint,
+    int indexInBank,
   ) {
     final sectionsJson = json['sections'] as List<dynamic>? ?? [];
     final sections = sectionsJson
@@ -119,7 +137,14 @@ class DriftExamRepository implements ExamRepository {
         .map(_parseSection)
         .toList();
 
+    // Every shipped bank gives its papers an id. The positional fallback keeps
+    // a bank that omits one resumable rather than unidentifiable — it is stable
+    // for as long as the bank's order is, which a content update can change,
+    // and [findMockExam] treats a vanished id as a checkpoint to discard.
+    final id = json['id'] as String? ?? '${level.name}-paper-$indexInBank';
+
     return MockExam(
+      id: id,
       level: level,
       blueprint: blueprint,
       totalTimeMinutes: json['total_time_minutes'] as int? ?? 120,
@@ -292,6 +317,7 @@ MockExam buildSampleExam(
   };
 
   return MockExam(
+    id: 'sample-${product.id}-${level.name}',
     level: level,
     blueprint: ExamBlueprint(
       product: product,

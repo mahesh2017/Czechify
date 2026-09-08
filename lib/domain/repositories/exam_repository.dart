@@ -25,12 +25,23 @@ class ExamBlueprint {
 
 /// Mock exam definition.
 class MockExam {
+  /// Stable identity of this paper within its bank (e.g. `a2-practice-2`).
+  ///
+  /// A bank holds several interchangeable papers and one is picked at random
+  /// per attempt, so nothing else distinguishes them: they share a level, a
+  /// blueprint and — in every shipped bank — the same section lengths. An
+  /// interrupted attempt has to name the paper it was taken from, or its
+  /// answers get restored on top of whichever paper the next random draw
+  /// returns.
+  final String id;
+
   final ExamLevel level;
   final ExamBlueprint blueprint;
   final List<MockExamSection> sections;
   final int totalTimeMinutes;
 
   const MockExam({
+    required this.id,
     required this.level,
     required this.blueprint,
     required this.sections,
@@ -59,6 +70,18 @@ class MockExamSection {
 abstract class ExamRepository {
   Future<MockExam> getMockExam(
     ExamLevel level, {
+    ExamProduct product = ExamProduct.permanentResidence,
+  });
+
+  /// The paper [id] names, or null when this bank no longer contains it.
+  ///
+  /// Resuming an interrupted attempt must land on the paper the answers were
+  /// given to. Null means the checkpoint outlived its paper — a content update
+  /// replaced the bank — and the caller must discard it rather than overlay
+  /// those answers onto a different paper.
+  Future<MockExam?> findMockExam(
+    ExamLevel level,
+    String id, {
     ExamProduct product = ExamProduct.permanentResidence,
   });
   Future<ExamResult> saveResult(ExamResult result);
