@@ -8,11 +8,10 @@ import {
 import {
   confirmsDeletion,
   decodeLatestAuthTime,
-  exportOrderColumns,
   hasRecentAuth,
+  isCompleteAccountSnapshot,
   isSupportedMethod,
   requiresRecentAuth,
-  syncedUserTables,
 } from "./account_policy.ts";
 
 const CORS: CorsPolicy = {
@@ -64,62 +63,16 @@ Deno.serve(async (request) => {
   }
 
   if (request.method === "GET") {
-    // Paged, because a plain select stops at the project's API row cap
-    // (1,000 by default) and says nothing about it. A learner with more rows
-    // than that was handed a truncated export that looked complete — the
-    // failure mode a subject-access request can least afford.
-    //
-    // The previous attempt was wrong in two ways that both looked right.
-    //
-    //   * `.order("user_id")` inside `.eq("user_id", ...)` sorts by a
-    //     constant, so every row ties. Postgres may order ties differently
-    //     between statements, and offset paging over that returns some rows
-    //     twice and never returns others. The comment beside it asserted the
-    //     pages tiled, which is what stopped anyone looking again.
-    //   * "a short page is the last page" holds only if the page size is what
-    //     came back. A project whose API cap is below the requested size
-    //     returns the cap every time, so the first page reads as the last —
-    //     truncating exactly the large export this paging exists for.
-    //
-    // Ordering comes from `exportOrderColumns`, which is tiebreak-free per
-    // table, and the window advances by the number of rows actually returned
-    // and stops only on an empty page. A lower cap then costs round trips
-    // rather than rows.
-    const pageSize = 1000;
-    const readAll = async (table: string) => {
-      const order = exportOrderColumns[table];
-      if (!order) throw new Error(`${table}:unordered`);
-      const rows: unknown[] = [];
-      let from = 0;
-      for (;;) {
-        let query = admin
-          .from(table)
-          .select("*")
-          .eq("user_id", user.id);
-        for (const column of order) {
-          query = query.order(column, { ascending: true });
-        }
-        const { data, error } = await query.range(from, from + pageSize - 1);
-        if (error) throw new Error(`${table}:${error.code}`);
-        const page = data ?? [];
-        if (page.length === 0) return rows;
-        rows.push(...page);
-        from += page.length;
-      }
-    };
-
-    const results = await Promise.all(
-      syncedUserTables.map(async (table) => {
-        return [table, await readAll(table)] as const;
-      }),
-    ).catch((error) => {
-      console.error(
-        "Account export failed",
-        error instanceof Error ? error.message : "unknown",
-      );
-      return null;
-    });
-    if (!results) {
+    // A single database statement gives all tables one snapshot, including
+    // while another device is syncing. Missing migrations fail visibly.
+    const { data: snapshot, error } = await admin.rpc(
+      "export_account_snapshot",
+      {
+        target_user_id: user.id,
+      },
+    );
+    if (error || !isCompleteAccountSnapshot(snapshot)) {
+      console.error("Account export failed", error?.code ?? "invalid_snapshot");
       return jsonResponse({ error: "Could not export account data." }, 503);
     }
     return jsonResponse({
@@ -138,7 +91,7 @@ Deno.serve(async (request) => {
           identity_data: identity.identity_data ?? {},
         })),
       },
-      cloud_data: Object.fromEntries(results),
+      cloud_data: snapshot,
     });
   }
 

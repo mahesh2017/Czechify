@@ -6,6 +6,15 @@ import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/repositories/llm_service.dart';
 
 void main() {
+  test('blank tutor text is not a usable reply', () {
+    for (final blank in ['', ' ', '\n\t']) {
+      expect(
+        () => TutorResponse.fromJson({'tutor_reply_cz': blank}),
+        throwsFormatException,
+      );
+    }
+  });
+
   const orchestrator = LLMOrchestrator();
 
   group('buildConversationRequest', () {

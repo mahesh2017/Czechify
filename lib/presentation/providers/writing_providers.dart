@@ -47,7 +47,7 @@ class WritingEvaluation {
       throw const FormatException('writing evaluation has no score object');
     }
     final feedback = json['feedback'];
-    if (feedback is! String) {
+    if (feedback is! String || feedback.trim().isEmpty) {
       throw const FormatException('writing evaluation has no feedback');
     }
     return WritingEvaluation(

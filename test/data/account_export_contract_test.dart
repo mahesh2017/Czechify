@@ -45,6 +45,18 @@ void main() {
     expect(exported.length, greaterThanOrEqualTo(6));
   });
 
+  test('the database snapshot covers exactly the declared export tables', () {
+    final sql =
+        File(
+          'supabase/migrations/20260908202000_export_account_snapshot.sql',
+        ).readAsStringSync();
+    final selected =
+        RegExp(
+          r"'([a-z_]+)', \(select",
+        ).allMatches(sql).map((match) => match.group(1)!).toSet();
+    expect(selected, _syncedUserTables(policy.readAsStringSync()));
+  });
+
   test('push-only entities are still exported', () {
     // A report travels up and never comes back — nothing in the app displays
     // one. That is a sync decision, not an export one: the rows are still the

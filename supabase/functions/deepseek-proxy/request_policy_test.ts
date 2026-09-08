@@ -283,3 +283,49 @@ Deno.test("a tutor reply is checked to the same standard", () => {
     false,
   );
 });
+
+Deno.test("required answers cannot be empty or whitespace-only", () => {
+  const cases = [
+    ["conversation", { level: "a1", scenario_id: "casual_chat" }, {
+      tutor_reply_cz: "Ahoj!",
+      tutor_reply_en: "",
+      corrections: [],
+      new_vocabulary: [],
+      suggested_replies: [],
+    }, "tutor_reply_cz"],
+    [
+      "conversation_summary",
+      { level: "a1" },
+      { summary: "A greeting." },
+      "summary",
+    ],
+    [
+      "grammar_check",
+      { level: "a1" },
+      { corrected_text: "Ahoj!", errors: [] },
+      "corrected_text",
+    ],
+    ["writing_evaluation", {
+      level: "a1",
+      task_description: "Write a greeting.",
+    }, {
+      score: { grammar: 80, vocabulary: 75, coherence: 90, overall: 82 },
+      feedback: "Good work.",
+      errors: [],
+    }, "feedback"],
+  ] as const;
+  for (const [operation, context, valid, field] of cases) {
+    const format = buildUpstreamRequest(operation, context, [{
+      role: "user",
+      content: "Ahoj",
+    }])!.responseFormat;
+    assertEquals(satisfiesResponseFormat(format, valid), true, operation);
+    for (const blank of ["", " ", "\t\n", "\u00a0"]) {
+      assertEquals(
+        satisfiesResponseFormat(format, { ...valid, [field]: blank }),
+        false,
+        operation,
+      );
+    }
+  }
+});

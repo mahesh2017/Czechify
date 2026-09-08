@@ -1,9 +1,9 @@
-import { assertEquals, assertNotEquals } from "jsr:@std/assert@1.0.14";
+import { assertEquals } from "jsr:@std/assert@1.0.14";
 import {
   confirmsDeletion,
   decodeLatestAuthTime,
-  exportOrderColumns,
   hasRecentAuth,
+  isCompleteAccountSnapshot,
   isSupportedMethod,
   maxDeletionAuthAgeSeconds,
   requiresRecentAuth,
@@ -127,33 +127,21 @@ Deno.test("anonymous accounts are exempt — they hold no credential to re-enter
   assertEquals(requiresRecentAuth(true), false);
 });
 
-Deno.test("every exported table has a tiebreak-free page order", () => {
-  // Paging without a total order is not paging. The export sorted by
-  // `user_id` inside a filter on `user_id`, so every row tied and offset
-  // pages could repeat some rows and drop others — while the comment beside
-  // it claimed they tiled. A table added to the export without an order
-  // declared for it fails here rather than truncating someone's
-  // subject-access request in production.
+Deno.test("an account snapshot must include every table, even when empty", () => {
+  const complete = Object.fromEntries(
+    syncedUserTables.map((table) => [table, []]),
+  );
+  assertEquals(isCompleteAccountSnapshot(complete), true);
   for (const table of syncedUserTables) {
-    const order = exportOrderColumns[table];
-    assertNotEquals(order, undefined, `${table} has no export order`);
-    assertEquals(order.length > 0, true, `${table} has an empty export order`);
-    // `user_id` is constant within an export, so it can only be a tiebreak
-    // for a table that holds exactly one row per account.
+    const missing = { ...complete };
+    delete missing[table];
+    assertEquals(isCompleteAccountSnapshot(missing), false, table);
     assertEquals(
-      order[0] !== "user_id" || table === "curriculum_entitlements",
-      true,
-      `${table} orders by a column that is constant within the export`,
+      isCompleteAccountSnapshot({ ...complete, [table]: null }),
+      false,
     );
   }
-});
-
-Deno.test("nothing is ordered that is not exported", () => {
-  for (const table of Object.keys(exportOrderColumns)) {
-    assertEquals(
-      (syncedUserTables as readonly string[]).includes(table),
-      true,
-      `${table} has a page order but is not exported`,
-    );
+  for (const invalid of [null, [], {}, "invalid"]) {
+    assertEquals(isCompleteAccountSnapshot(invalid), false);
   }
 });
