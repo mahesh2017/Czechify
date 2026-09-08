@@ -101,14 +101,24 @@ style preference.
 
 ### 3. Smoke the deployed backend, before tagging the app
 
-- **One real tutor turn.** The response schemas carry `minLength`/`pattern` on
-  the fields that must not come back blank. Those keywords ride along as a hint
-  to the model; OpenAI-style strict structured output does not support them for
-  strings, so if the provider *validates* rather than ignores them, every AI
-  request returns 502 — chat, writing, grammar and summarization together.
-  If that happens, drop them from `answerProperty` in
-  [request_policy.ts](../supabase/functions/deepseek-proxy/request_policy.ts):
-  `matchesSchema` enforces the same rule server-side, so nothing is lost.
+- **One real tutor turn, and read the reply — not just the status code.**
+  This is not optional and 200 is not enough.
+
+  On 8 September 2026 a deploy added `minLength: 1, pattern: "\\S"` to the
+  response schemas so blank answers would be refused. Scaleway constrains
+  *decoding* to the schema it is given, so it read the pattern as the complete
+  grammar for the string rather than a validation rule. `\S` matches exactly
+  one character, so every tutor reply, summary, correction and piece of writing
+  feedback came back one character long — `tutor_reply_cz` was literally
+  `"D"`. HTTP 200, well-formed JSON, and it passed our own validator, because
+  an unanchored `\S` search matches a one-character string. Reverted seven
+  minutes later, before any learner traffic.
+
+  A Deno test now fails on any `minLength`/`maxLength`/`pattern`/`format` in a
+  schema sent upstream, so this specific mistake cannot return. The general
+  lesson does not have a test: a structured-output provider treats the schema
+  as a generation grammar, so anything expressible there shapes the output, and
+  only reading a real reply tells you what it did.
 - **File a report** from a tutor reply and confirm the row lands in
   `public.tutor_reply_reports`. This is the Play gate; a silent failure here
   looks exactly like success from inside the app.
