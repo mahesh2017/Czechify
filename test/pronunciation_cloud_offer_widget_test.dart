@@ -1,4 +1,5 @@
 import 'package:czechify/data/database/database.dart' hide Exercise;
+import 'package:czechify/core/legal/legal_content.dart';
 import 'package:czechify/data/repositories/consent_repository.dart';
 import 'package:czechify/data/services/stt/whisper_service.dart';
 import 'package:czechify/domain/entities/enums.dart';
@@ -105,7 +106,10 @@ void main() {
     await tester.pumpAndSettle();
 
     final repo = ConsentRepository(database);
-    expect(await repo.isGranted(ConsentPurpose.voiceCloudProcessing), isFalse);
+    expect(await repo.isGranted(
+      ConsentPurpose.voiceCloudProcessing,
+      noticeVersion: kVoiceCloudConsentVersion,
+    ), isFalse);
   });
 
   testWidgets('an ordinary failure gets no such offer', (tester) async {

@@ -81,7 +81,10 @@ void main() {
     await tester.pumpAndSettle();
 
     final repo = ConsentRepository(database);
-    expect(await repo.isGranted(ConsentPurpose.voiceCloudProcessing), isTrue);
+    expect(await repo.isGranted(
+      ConsentPurpose.voiceCloudProcessing,
+      noticeVersion: kVoiceCloudConsentVersion,
+    ), isTrue);
 
     // The version is the evidence of *what* was agreed to. Without it a later
     // change to the wording silently reinterprets an old agreement.

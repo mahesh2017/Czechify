@@ -20,7 +20,7 @@
   "sayThis": "Řekněte:",
   "tapMicrophoneHint": "Klepněte na mikrofon a vyslovte frázi",
   "analyzingPronunciation": "Analyzuji výslovnost…",
-  "onDeviceRecognitionNote": "Používá se rozpoznávání přímo v zařízení — výsledky mohou být méně přesné.",
+  "onDeviceRecognitionNote": "Používá se řečová služba tvého zařízení — může odesílat zvuk poskytovateli a výsledky mohou být méně přesné.",
   "navHome": "Domů",
   "navLearn": "Učit se",
   "navReview": "Opakování",

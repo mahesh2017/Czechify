@@ -70,7 +70,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get onDeviceRecognitionNote =>
-      'Používá se rozpoznávání přímo v zařízení — výsledky mohou být méně přesné.';
+      'Používá se řečová služba tvého zařízení — může odesílat zvuk poskytovateli a výsledky mohou být méně přesné.';
 
   @override
   String get navHome => 'Domů';

@@ -70,7 +70,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onDeviceRecognitionNote =>
-      'Using on-device recognition — results may be less accurate.';
+      'Using your device’s speech service — it may send audio to the provider, and results may be less accurate.';
 
   @override
   String get navHome => 'Home';
