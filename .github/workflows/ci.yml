@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
 
+# Read-only by default. This workflow runs pull-request code, so the token it
+# runs with should not be able to write to the repository; the one job that
+# needs more asks for it itself.
+permissions:
+  contents: read
+
 jobs:
   analyze-and-test:
     runs-on: ubuntu-latest
@@ -37,6 +43,14 @@ jobs:
 
       - name: Enforce changed-line coverage
         if: ${{ github.event_name == 'pull_request' }}
+        # Branch and base names reach the shell as environment variables, never
+        # as `${{ }}` interpolated into the script. Git accepts a branch called
+        # `audit-$(id)`, and interpolation pastes that name into the script
+        # before bash sees it — the substitution then runs. Quoted expansions
+        # of these variables are just strings.
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
         run: |
           python -m pip install diff-cover
           # Pre-release integration branches consolidate the legacy app,
@@ -69,7 +83,7 @@ jobs:
           # split-PR habit the audit work established, and every PR since has
           # cleared 80% on its own.
           threshold=80
-          case "${{ github.head_ref }}" in
+          case "$HEAD_REF" in
             feat/teaching-sessions-and-audio-pack) threshold=48 ;;
             fix/audit-phases-1-2) threshold=48 ;;
             fix/audio-pacing-and-prefetch) threshold=59 ;;
@@ -77,12 +91,12 @@ jobs:
           esac
           # Preserve the merge base. A depth-one fetch breaks diff-cover when
           # the target branch tip is itself a merge commit.
-          git fetch origin "${{ github.base_ref }}"
+          git fetch origin "$BASE_REF"
           # Generated Drift and localization output is verified by generation,
           # analysis, tests, and builds; keep the changed-line gate focused on
           # source that engineers can meaningfully unit test.
           diff-cover coverage/lcov.info \
-            --compare-branch="origin/${{ github.base_ref }}" \
+            --compare-branch="origin/$BASE_REF" \
             --exclude "*.g.dart" "app_localizations_*.dart" \
             --fail-under="$threshold"
 

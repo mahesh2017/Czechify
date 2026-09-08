@@ -7,7 +7,7 @@ import {
 } from "../_shared/cors.ts";
 import {
   confirmsDeletion,
-  decodeJwtIssuedAt,
+  decodeLatestAuthTime,
   hasRecentAuth,
   isSupportedMethod,
   requiresRecentAuth,
@@ -63,14 +63,34 @@ Deno.serve(async (request) => {
   }
 
   if (request.method === "GET") {
-    const results = await Promise.all(
-      syncedUserTables.map(async (table) => {
+    // Paged, because a plain select stops at the project's API row cap
+    // (1,000 by default) and says nothing about it. A learner with more rows
+    // than that was handed a truncated export that looked complete — the
+    // failure mode a subject-access request can least afford.
+    //
+    // Ordered by primary-key-ish columns so the pages tile rather than
+    // overlap: an unordered paged read may return the same row twice and skip
+    // another.
+    const pageSize = 1000;
+    const readAll = async (table: string) => {
+      const rows: unknown[] = [];
+      for (let from = 0; ; from += pageSize) {
         const { data, error } = await admin
           .from(table)
           .select("*")
-          .eq("user_id", user.id);
+          .eq("user_id", user.id)
+          .order("user_id", { ascending: true })
+          .range(from, from + pageSize - 1);
         if (error) throw new Error(`${table}:${error.code}`);
-        return [table, data ?? []] as const;
+        const page = data ?? [];
+        rows.push(...page);
+        if (page.length < pageSize) return rows;
+      }
+    };
+
+    const results = await Promise.all(
+      syncedUserTables.map(async (table) => {
+        return [table, await readAll(table)] as const;
       }),
     ).catch((error) => {
       console.error(
@@ -116,7 +136,7 @@ Deno.serve(async (request) => {
   // caller has just proved who they are.
   if (
     requiresRecentAuth(user.is_anonymous === true) &&
-    !hasRecentAuth(decodeJwtIssuedAt(jwt), Math.floor(Date.now() / 1000))
+    !hasRecentAuth(decodeLatestAuthTime(jwt), Math.floor(Date.now() / 1000))
   ) {
     return jsonResponse({
       error: "Please sign in again to confirm account deletion.",
