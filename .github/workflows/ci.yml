@@ -43,52 +43,33 @@ jobs:
 
       - name: Enforce changed-line coverage
         if: ${{ github.event_name == 'pull_request' }}
-        # Branch and base names reach the shell as environment variables, never
-        # as `${{ }}` interpolated into the script. Git accepts a branch called
+        # The base name reaches the shell as an environment variable, never as
+        # `${{ }}` interpolated into the script. Git accepts a branch called
         # `audit-$(id)`, and interpolation pastes that name into the script
-        # before bash sees it — the substitution then runs. Quoted expansions
-        # of these variables are just strings.
+        # before bash sees it — the substitution then runs. A quoted expansion
+        # of this variable is just a string.
         env:
-          HEAD_REF: ${{ github.head_ref }}
           BASE_REF: ${{ github.base_ref }}
         run: |
           python -m pip install diff-cover
-          # Pre-release integration branches consolidate the legacy app,
-          # generated Drift/l10n code, and the full remediation history into one
-          # PR each. Judged as a single diff they cannot clear the normal bar,
-          # and splitting them after the fact would not make the code any more
-          # tested. Each preserves its own measured baseline once; every
-          # subsequent PR remains subject to the 80% changed-line gate.
+          # Every PR is judged at 80% of its changed lines.
           #
-          # fix/audit-phases-1-2 measured 48%, and the shortfall is concentrated
-          # in code it inherited rather than wrote: audio_pack_cache (4.7%),
-          # tts_providers (11.5%), whisper_service (0%). Those are the files to
-          # aim at when this baseline is retired.
+          # Four pre-release integration branches once carried their own lower
+          # baselines here — each consolidated the legacy app, generated code
+          # and a whole remediation history into a single diff that could not
+          # clear the normal bar. All four have merged and their branches are
+          # gone, so the arms could never match again; they are removed rather
+          # than left as rules for branches that do not exist.
           #
-          # fix/recorded-voice-and-audio-gaps measures 70-72% of its 723 changed
-          # lines. The shortfall is spread across UI it touched rather than any
-          # one subsystem: settings_screen (70.1%, 26 lines),
-          # daily_arrival_screen (37.5%), reminder_coordinator (0%),
-          # chat_screen (18.8%), backend_service (13.3%).
+          # The habit that replaced them is worth keeping: split the work into
+          # PRs small enough to be tested on their own. Every PR since has
+          # cleared 80% unaided.
           #
-          # Set at 69 rather than the measured figure because the measurement
-          # is not stable: two runs over identical Dart code reported 207 and
-          # 212 missing lines (71.4% and 70.7%). Something in the suite is
-          # nondeterministic, and a baseline pinned to the top of that range
-          # would fail on the unlucky run. Worth finding separately — it means
-          # the coverage number is approximate for every branch, not just this
-          # one.
-          #
-          # This should be the last of these baselines: the branch predates the
-          # split-PR habit the audit work established, and every PR since has
-          # cleared 80% on its own.
+          # One measurement caveat survives them. Two CI runs over identical
+          # Dart code have reported 207 and 212 missing lines out of 723 — the
+          # figure moves about half a point between runs, so treat a result
+          # within noise of the threshold as unresolved rather than passing.
           threshold=80
-          case "$HEAD_REF" in
-            feat/teaching-sessions-and-audio-pack) threshold=48 ;;
-            fix/audit-phases-1-2) threshold=48 ;;
-            fix/audio-pacing-and-prefetch) threshold=59 ;;
-            fix/recorded-voice-and-audio-gaps) threshold=69 ;;
-          esac
           # Preserve the merge base. A depth-one fetch breaks diff-cover when
           # the target branch tip is itself a merge commit.
           git fetch origin "$BASE_REF"
