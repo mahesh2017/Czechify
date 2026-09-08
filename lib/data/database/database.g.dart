@@ -14984,6 +14984,592 @@ class ReminderPreferencesCompanion extends UpdateCompanion<ReminderPreference> {
   }
 }
 
+class $TutorReplyReportsTable extends TutorReplyReports
+    with TableInfo<$TutorReplyReportsTable, TutorReplyReport> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TutorReplyReportsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _reportIdMeta = const VerificationMeta(
+    'reportId',
+  );
+  @override
+  late final GeneratedColumn<String> reportId = GeneratedColumn<String>(
+    'report_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _messageIdMeta = const VerificationMeta(
+    'messageId',
+  );
+  @override
+  late final GeneratedColumn<String> messageId = GeneratedColumn<String>(
+    'message_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _conversationIdMeta = const VerificationMeta(
+    'conversationId',
+  );
+  @override
+  late final GeneratedColumn<String> conversationId = GeneratedColumn<String>(
+    'conversation_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _scenarioIdMeta = const VerificationMeta(
+    'scenarioId',
+  );
+  @override
+  late final GeneratedColumn<String> scenarioId = GeneratedColumn<String>(
+    'scenario_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _reasonMeta = const VerificationMeta('reason');
+  @override
+  late final GeneratedColumn<String> reason = GeneratedColumn<String>(
+    'reason',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _replyTextMeta = const VerificationMeta(
+    'replyText',
+  );
+  @override
+  late final GeneratedColumn<String> replyText = GeneratedColumn<String>(
+    'reply_text',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _learnerNoteMeta = const VerificationMeta(
+    'learnerNote',
+  );
+  @override
+  late final GeneratedColumn<String> learnerNote = GeneratedColumn<String>(
+    'learner_note',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _appVersionMeta = const VerificationMeta(
+    'appVersion',
+  );
+  @override
+  late final GeneratedColumn<String> appVersion = GeneratedColumn<String>(
+    'app_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
+  static const VerificationMeta _reportedAtMeta = const VerificationMeta(
+    'reportedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> reportedAt = GeneratedColumn<DateTime>(
+    'reported_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    reportId,
+    messageId,
+    conversationId,
+    scenarioId,
+    reason,
+    replyText,
+    learnerNote,
+    appVersion,
+    reportedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tutor_reply_reports';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TutorReplyReport> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('report_id')) {
+      context.handle(
+        _reportIdMeta,
+        reportId.isAcceptableOrUnknown(data['report_id']!, _reportIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_reportIdMeta);
+    }
+    if (data.containsKey('message_id')) {
+      context.handle(
+        _messageIdMeta,
+        messageId.isAcceptableOrUnknown(data['message_id']!, _messageIdMeta),
+      );
+    }
+    if (data.containsKey('conversation_id')) {
+      context.handle(
+        _conversationIdMeta,
+        conversationId.isAcceptableOrUnknown(
+          data['conversation_id']!,
+          _conversationIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('scenario_id')) {
+      context.handle(
+        _scenarioIdMeta,
+        scenarioId.isAcceptableOrUnknown(data['scenario_id']!, _scenarioIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_scenarioIdMeta);
+    }
+    if (data.containsKey('reason')) {
+      context.handle(
+        _reasonMeta,
+        reason.isAcceptableOrUnknown(data['reason']!, _reasonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_reasonMeta);
+    }
+    if (data.containsKey('reply_text')) {
+      context.handle(
+        _replyTextMeta,
+        replyText.isAcceptableOrUnknown(data['reply_text']!, _replyTextMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_replyTextMeta);
+    }
+    if (data.containsKey('learner_note')) {
+      context.handle(
+        _learnerNoteMeta,
+        learnerNote.isAcceptableOrUnknown(
+          data['learner_note']!,
+          _learnerNoteMeta,
+        ),
+      );
+    }
+    if (data.containsKey('app_version')) {
+      context.handle(
+        _appVersionMeta,
+        appVersion.isAcceptableOrUnknown(data['app_version']!, _appVersionMeta),
+      );
+    }
+    if (data.containsKey('reported_at')) {
+      context.handle(
+        _reportedAtMeta,
+        reportedAt.isAcceptableOrUnknown(data['reported_at']!, _reportedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {reportId};
+  @override
+  TutorReplyReport map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TutorReplyReport(
+      reportId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}report_id'],
+      )!,
+      messageId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}message_id'],
+      ),
+      conversationId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}conversation_id'],
+      ),
+      scenarioId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}scenario_id'],
+      )!,
+      reason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reason'],
+      )!,
+      replyText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reply_text'],
+      )!,
+      learnerNote: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}learner_note'],
+      )!,
+      appVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}app_version'],
+      )!,
+      reportedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}reported_at'],
+      )!,
+    );
+  }
+
+  @override
+  $TutorReplyReportsTable createAlias(String alias) {
+    return $TutorReplyReportsTable(attachedDatabase, alias);
+  }
+}
+
+class TutorReplyReport extends DataClass
+    implements Insertable<TutorReplyReport> {
+  /// Client-generated uuid, so the row is idempotent across retries and the
+  /// outbox can upsert it without the server assigning anything.
+  final String reportId;
+
+  /// The message being reported, when it is known. Reports are deduplicated on
+  /// it server-side so one reply cannot be filed twice.
+  final String? messageId;
+  final String? conversationId;
+  final String scenarioId;
+  final String reason;
+  final String replyText;
+  final String learnerNote;
+
+  /// The build that produced the reply, so a later question about which model
+  /// or prompt version said it can be answered.
+  final String appVersion;
+  final DateTime reportedAt;
+  const TutorReplyReport({
+    required this.reportId,
+    this.messageId,
+    this.conversationId,
+    required this.scenarioId,
+    required this.reason,
+    required this.replyText,
+    required this.learnerNote,
+    required this.appVersion,
+    required this.reportedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['report_id'] = Variable<String>(reportId);
+    if (!nullToAbsent || messageId != null) {
+      map['message_id'] = Variable<String>(messageId);
+    }
+    if (!nullToAbsent || conversationId != null) {
+      map['conversation_id'] = Variable<String>(conversationId);
+    }
+    map['scenario_id'] = Variable<String>(scenarioId);
+    map['reason'] = Variable<String>(reason);
+    map['reply_text'] = Variable<String>(replyText);
+    map['learner_note'] = Variable<String>(learnerNote);
+    map['app_version'] = Variable<String>(appVersion);
+    map['reported_at'] = Variable<DateTime>(reportedAt);
+    return map;
+  }
+
+  TutorReplyReportsCompanion toCompanion(bool nullToAbsent) {
+    return TutorReplyReportsCompanion(
+      reportId: Value(reportId),
+      messageId: messageId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(messageId),
+      conversationId: conversationId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(conversationId),
+      scenarioId: Value(scenarioId),
+      reason: Value(reason),
+      replyText: Value(replyText),
+      learnerNote: Value(learnerNote),
+      appVersion: Value(appVersion),
+      reportedAt: Value(reportedAt),
+    );
+  }
+
+  factory TutorReplyReport.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TutorReplyReport(
+      reportId: serializer.fromJson<String>(json['reportId']),
+      messageId: serializer.fromJson<String?>(json['messageId']),
+      conversationId: serializer.fromJson<String?>(json['conversationId']),
+      scenarioId: serializer.fromJson<String>(json['scenarioId']),
+      reason: serializer.fromJson<String>(json['reason']),
+      replyText: serializer.fromJson<String>(json['replyText']),
+      learnerNote: serializer.fromJson<String>(json['learnerNote']),
+      appVersion: serializer.fromJson<String>(json['appVersion']),
+      reportedAt: serializer.fromJson<DateTime>(json['reportedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'reportId': serializer.toJson<String>(reportId),
+      'messageId': serializer.toJson<String?>(messageId),
+      'conversationId': serializer.toJson<String?>(conversationId),
+      'scenarioId': serializer.toJson<String>(scenarioId),
+      'reason': serializer.toJson<String>(reason),
+      'replyText': serializer.toJson<String>(replyText),
+      'learnerNote': serializer.toJson<String>(learnerNote),
+      'appVersion': serializer.toJson<String>(appVersion),
+      'reportedAt': serializer.toJson<DateTime>(reportedAt),
+    };
+  }
+
+  TutorReplyReport copyWith({
+    String? reportId,
+    Value<String?> messageId = const Value.absent(),
+    Value<String?> conversationId = const Value.absent(),
+    String? scenarioId,
+    String? reason,
+    String? replyText,
+    String? learnerNote,
+    String? appVersion,
+    DateTime? reportedAt,
+  }) => TutorReplyReport(
+    reportId: reportId ?? this.reportId,
+    messageId: messageId.present ? messageId.value : this.messageId,
+    conversationId: conversationId.present
+        ? conversationId.value
+        : this.conversationId,
+    scenarioId: scenarioId ?? this.scenarioId,
+    reason: reason ?? this.reason,
+    replyText: replyText ?? this.replyText,
+    learnerNote: learnerNote ?? this.learnerNote,
+    appVersion: appVersion ?? this.appVersion,
+    reportedAt: reportedAt ?? this.reportedAt,
+  );
+  TutorReplyReport copyWithCompanion(TutorReplyReportsCompanion data) {
+    return TutorReplyReport(
+      reportId: data.reportId.present ? data.reportId.value : this.reportId,
+      messageId: data.messageId.present ? data.messageId.value : this.messageId,
+      conversationId: data.conversationId.present
+          ? data.conversationId.value
+          : this.conversationId,
+      scenarioId: data.scenarioId.present
+          ? data.scenarioId.value
+          : this.scenarioId,
+      reason: data.reason.present ? data.reason.value : this.reason,
+      replyText: data.replyText.present ? data.replyText.value : this.replyText,
+      learnerNote: data.learnerNote.present
+          ? data.learnerNote.value
+          : this.learnerNote,
+      appVersion: data.appVersion.present
+          ? data.appVersion.value
+          : this.appVersion,
+      reportedAt: data.reportedAt.present
+          ? data.reportedAt.value
+          : this.reportedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TutorReplyReport(')
+          ..write('reportId: $reportId, ')
+          ..write('messageId: $messageId, ')
+          ..write('conversationId: $conversationId, ')
+          ..write('scenarioId: $scenarioId, ')
+          ..write('reason: $reason, ')
+          ..write('replyText: $replyText, ')
+          ..write('learnerNote: $learnerNote, ')
+          ..write('appVersion: $appVersion, ')
+          ..write('reportedAt: $reportedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    reportId,
+    messageId,
+    conversationId,
+    scenarioId,
+    reason,
+    replyText,
+    learnerNote,
+    appVersion,
+    reportedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TutorReplyReport &&
+          other.reportId == this.reportId &&
+          other.messageId == this.messageId &&
+          other.conversationId == this.conversationId &&
+          other.scenarioId == this.scenarioId &&
+          other.reason == this.reason &&
+          other.replyText == this.replyText &&
+          other.learnerNote == this.learnerNote &&
+          other.appVersion == this.appVersion &&
+          other.reportedAt == this.reportedAt);
+}
+
+class TutorReplyReportsCompanion extends UpdateCompanion<TutorReplyReport> {
+  final Value<String> reportId;
+  final Value<String?> messageId;
+  final Value<String?> conversationId;
+  final Value<String> scenarioId;
+  final Value<String> reason;
+  final Value<String> replyText;
+  final Value<String> learnerNote;
+  final Value<String> appVersion;
+  final Value<DateTime> reportedAt;
+  final Value<int> rowid;
+  const TutorReplyReportsCompanion({
+    this.reportId = const Value.absent(),
+    this.messageId = const Value.absent(),
+    this.conversationId = const Value.absent(),
+    this.scenarioId = const Value.absent(),
+    this.reason = const Value.absent(),
+    this.replyText = const Value.absent(),
+    this.learnerNote = const Value.absent(),
+    this.appVersion = const Value.absent(),
+    this.reportedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TutorReplyReportsCompanion.insert({
+    required String reportId,
+    this.messageId = const Value.absent(),
+    this.conversationId = const Value.absent(),
+    required String scenarioId,
+    required String reason,
+    required String replyText,
+    this.learnerNote = const Value.absent(),
+    this.appVersion = const Value.absent(),
+    this.reportedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : reportId = Value(reportId),
+       scenarioId = Value(scenarioId),
+       reason = Value(reason),
+       replyText = Value(replyText);
+  static Insertable<TutorReplyReport> custom({
+    Expression<String>? reportId,
+    Expression<String>? messageId,
+    Expression<String>? conversationId,
+    Expression<String>? scenarioId,
+    Expression<String>? reason,
+    Expression<String>? replyText,
+    Expression<String>? learnerNote,
+    Expression<String>? appVersion,
+    Expression<DateTime>? reportedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (reportId != null) 'report_id': reportId,
+      if (messageId != null) 'message_id': messageId,
+      if (conversationId != null) 'conversation_id': conversationId,
+      if (scenarioId != null) 'scenario_id': scenarioId,
+      if (reason != null) 'reason': reason,
+      if (replyText != null) 'reply_text': replyText,
+      if (learnerNote != null) 'learner_note': learnerNote,
+      if (appVersion != null) 'app_version': appVersion,
+      if (reportedAt != null) 'reported_at': reportedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TutorReplyReportsCompanion copyWith({
+    Value<String>? reportId,
+    Value<String?>? messageId,
+    Value<String?>? conversationId,
+    Value<String>? scenarioId,
+    Value<String>? reason,
+    Value<String>? replyText,
+    Value<String>? learnerNote,
+    Value<String>? appVersion,
+    Value<DateTime>? reportedAt,
+    Value<int>? rowid,
+  }) {
+    return TutorReplyReportsCompanion(
+      reportId: reportId ?? this.reportId,
+      messageId: messageId ?? this.messageId,
+      conversationId: conversationId ?? this.conversationId,
+      scenarioId: scenarioId ?? this.scenarioId,
+      reason: reason ?? this.reason,
+      replyText: replyText ?? this.replyText,
+      learnerNote: learnerNote ?? this.learnerNote,
+      appVersion: appVersion ?? this.appVersion,
+      reportedAt: reportedAt ?? this.reportedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (reportId.present) {
+      map['report_id'] = Variable<String>(reportId.value);
+    }
+    if (messageId.present) {
+      map['message_id'] = Variable<String>(messageId.value);
+    }
+    if (conversationId.present) {
+      map['conversation_id'] = Variable<String>(conversationId.value);
+    }
+    if (scenarioId.present) {
+      map['scenario_id'] = Variable<String>(scenarioId.value);
+    }
+    if (reason.present) {
+      map['reason'] = Variable<String>(reason.value);
+    }
+    if (replyText.present) {
+      map['reply_text'] = Variable<String>(replyText.value);
+    }
+    if (learnerNote.present) {
+      map['learner_note'] = Variable<String>(learnerNote.value);
+    }
+    if (appVersion.present) {
+      map['app_version'] = Variable<String>(appVersion.value);
+    }
+    if (reportedAt.present) {
+      map['reported_at'] = Variable<DateTime>(reportedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TutorReplyReportsCompanion(')
+          ..write('reportId: $reportId, ')
+          ..write('messageId: $messageId, ')
+          ..write('conversationId: $conversationId, ')
+          ..write('scenarioId: $scenarioId, ')
+          ..write('reason: $reason, ')
+          ..write('replyText: $replyText, ')
+          ..write('learnerNote: $learnerNote, ')
+          ..write('appVersion: $appVersion, ')
+          ..write('reportedAt: $reportedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -15025,6 +15611,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $ReminderPreferencesTable reminderPreferences =
       $ReminderPreferencesTable(this);
+  late final $TutorReplyReportsTable tutorReplyReports =
+      $TutorReplyReportsTable(this);
   late final CurriculumDao curriculumDao = CurriculumDao(this as AppDatabase);
   late final VocabularyDao vocabularyDao = VocabularyDao(this as AppDatabase);
   late final ConversationDao conversationDao = ConversationDao(
@@ -15068,6 +15656,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     delayedTransferAssignments,
     learnerProfiles,
     reminderPreferences,
+    tutorReplyReports,
   ];
 }
 
@@ -24292,6 +24881,305 @@ typedef $$ReminderPreferencesTableProcessedTableManager =
       ReminderPreference,
       PrefetchHooks Function()
     >;
+typedef $$TutorReplyReportsTableCreateCompanionBuilder =
+    TutorReplyReportsCompanion Function({
+      required String reportId,
+      Value<String?> messageId,
+      Value<String?> conversationId,
+      required String scenarioId,
+      required String reason,
+      required String replyText,
+      Value<String> learnerNote,
+      Value<String> appVersion,
+      Value<DateTime> reportedAt,
+      Value<int> rowid,
+    });
+typedef $$TutorReplyReportsTableUpdateCompanionBuilder =
+    TutorReplyReportsCompanion Function({
+      Value<String> reportId,
+      Value<String?> messageId,
+      Value<String?> conversationId,
+      Value<String> scenarioId,
+      Value<String> reason,
+      Value<String> replyText,
+      Value<String> learnerNote,
+      Value<String> appVersion,
+      Value<DateTime> reportedAt,
+      Value<int> rowid,
+    });
+
+class $$TutorReplyReportsTableFilterComposer
+    extends Composer<_$AppDatabase, $TutorReplyReportsTable> {
+  $$TutorReplyReportsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get reportId => $composableBuilder(
+    column: $table.reportId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get messageId => $composableBuilder(
+    column: $table.messageId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get conversationId => $composableBuilder(
+    column: $table.conversationId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get scenarioId => $composableBuilder(
+    column: $table.scenarioId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get replyText => $composableBuilder(
+    column: $table.replyText,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get learnerNote => $composableBuilder(
+    column: $table.learnerNote,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get appVersion => $composableBuilder(
+    column: $table.appVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get reportedAt => $composableBuilder(
+    column: $table.reportedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$TutorReplyReportsTableOrderingComposer
+    extends Composer<_$AppDatabase, $TutorReplyReportsTable> {
+  $$TutorReplyReportsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get reportId => $composableBuilder(
+    column: $table.reportId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get messageId => $composableBuilder(
+    column: $table.messageId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get conversationId => $composableBuilder(
+    column: $table.conversationId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get scenarioId => $composableBuilder(
+    column: $table.scenarioId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get replyText => $composableBuilder(
+    column: $table.replyText,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get learnerNote => $composableBuilder(
+    column: $table.learnerNote,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get appVersion => $composableBuilder(
+    column: $table.appVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get reportedAt => $composableBuilder(
+    column: $table.reportedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$TutorReplyReportsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TutorReplyReportsTable> {
+  $$TutorReplyReportsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get reportId =>
+      $composableBuilder(column: $table.reportId, builder: (column) => column);
+
+  GeneratedColumn<String> get messageId =>
+      $composableBuilder(column: $table.messageId, builder: (column) => column);
+
+  GeneratedColumn<String> get conversationId => $composableBuilder(
+    column: $table.conversationId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get scenarioId => $composableBuilder(
+    column: $table.scenarioId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reason =>
+      $composableBuilder(column: $table.reason, builder: (column) => column);
+
+  GeneratedColumn<String> get replyText =>
+      $composableBuilder(column: $table.replyText, builder: (column) => column);
+
+  GeneratedColumn<String> get learnerNote => $composableBuilder(
+    column: $table.learnerNote,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get appVersion => $composableBuilder(
+    column: $table.appVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get reportedAt => $composableBuilder(
+    column: $table.reportedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$TutorReplyReportsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TutorReplyReportsTable,
+          TutorReplyReport,
+          $$TutorReplyReportsTableFilterComposer,
+          $$TutorReplyReportsTableOrderingComposer,
+          $$TutorReplyReportsTableAnnotationComposer,
+          $$TutorReplyReportsTableCreateCompanionBuilder,
+          $$TutorReplyReportsTableUpdateCompanionBuilder,
+          (
+            TutorReplyReport,
+            BaseReferences<
+              _$AppDatabase,
+              $TutorReplyReportsTable,
+              TutorReplyReport
+            >,
+          ),
+          TutorReplyReport,
+          PrefetchHooks Function()
+        > {
+  $$TutorReplyReportsTableTableManager(
+    _$AppDatabase db,
+    $TutorReplyReportsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TutorReplyReportsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TutorReplyReportsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TutorReplyReportsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> reportId = const Value.absent(),
+                Value<String?> messageId = const Value.absent(),
+                Value<String?> conversationId = const Value.absent(),
+                Value<String> scenarioId = const Value.absent(),
+                Value<String> reason = const Value.absent(),
+                Value<String> replyText = const Value.absent(),
+                Value<String> learnerNote = const Value.absent(),
+                Value<String> appVersion = const Value.absent(),
+                Value<DateTime> reportedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TutorReplyReportsCompanion(
+                reportId: reportId,
+                messageId: messageId,
+                conversationId: conversationId,
+                scenarioId: scenarioId,
+                reason: reason,
+                replyText: replyText,
+                learnerNote: learnerNote,
+                appVersion: appVersion,
+                reportedAt: reportedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String reportId,
+                Value<String?> messageId = const Value.absent(),
+                Value<String?> conversationId = const Value.absent(),
+                required String scenarioId,
+                required String reason,
+                required String replyText,
+                Value<String> learnerNote = const Value.absent(),
+                Value<String> appVersion = const Value.absent(),
+                Value<DateTime> reportedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TutorReplyReportsCompanion.insert(
+                reportId: reportId,
+                messageId: messageId,
+                conversationId: conversationId,
+                scenarioId: scenarioId,
+                reason: reason,
+                replyText: replyText,
+                learnerNote: learnerNote,
+                appVersion: appVersion,
+                reportedAt: reportedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$TutorReplyReportsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TutorReplyReportsTable,
+      TutorReplyReport,
+      $$TutorReplyReportsTableFilterComposer,
+      $$TutorReplyReportsTableOrderingComposer,
+      $$TutorReplyReportsTableAnnotationComposer,
+      $$TutorReplyReportsTableCreateCompanionBuilder,
+      $$TutorReplyReportsTableUpdateCompanionBuilder,
+      (
+        TutorReplyReport,
+        BaseReferences<
+          _$AppDatabase,
+          $TutorReplyReportsTable,
+          TutorReplyReport
+        >,
+      ),
+      TutorReplyReport,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -24364,4 +25252,6 @@ class $AppDatabaseManager {
       $$LearnerProfilesTableTableManager(_db, _db.learnerProfiles);
   $$ReminderPreferencesTableTableManager get reminderPreferences =>
       $$ReminderPreferencesTableTableManager(_db, _db.reminderPreferences);
+  $$TutorReplyReportsTableTableManager get tutorReplyReports =>
+      $$TutorReplyReportsTableTableManager(_db, _db.tutorReplyReports);
 }

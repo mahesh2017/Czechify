@@ -21,6 +21,9 @@ export const syncedUserTables = [
   "placement_profiles",
   "ai_daily_usage",
   "curriculum_entitlements",
+  // Reports a learner filed about the tutor. Theirs, so it belongs in an
+  // export — and in a deletion.
+  "tutor_reply_reports",
 ] as const;
 
 export const isSupportedMethod = (method: string): boolean =>

@@ -959,13 +959,22 @@ class _ReportIconButton extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     // The report is read by a person, so it names the scenario in words
     // rather than by id.
-    final scenario = _scenarioCopy(l10n, ref.read(chatProvider).scenarioId);
+    final chat = ref.read(chatProvider);
+    final scenario = _scenarioCopy(l10n, chat.scenarioId);
     return IconButton(
+      // First, not last: the a11y guard reads a window after the constructor,
+      // and an icon-only button with no reachable tooltip is a silent button.
+      tooltip: l10n.chatReportReply,
       onPressed: () async {
         final sent = await showReportTutorReplySheet(
           context: context,
           replyText: message.content,
           scenarioTitle: scenario.title,
+          // The id as well as the title: the title is display copy and will
+          // be translated, the id is what the report is filed under.
+          scenarioId: chat.scenarioId,
+          messageId: message.id,
+          conversationId: chat.conversationId,
         );
         if (!sent || !context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -979,7 +988,6 @@ class _ReportIconButton extends ConsumerWidget {
       color: context.tokens.muted,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-      tooltip: l10n.chatReportReply,
     );
   }
 }

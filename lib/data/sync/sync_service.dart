@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:drift/drift.dart' show Value;
 import 'package:logging/logging.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -147,6 +148,10 @@ class SyncService {
     'custom_cards': 'user_id,content_uid',
     'srs_cards': 'user_id,card_type,content_key',
     'gamification_state': 'user_id,key',
+    // Reports are append-only and carry a client-generated id, so the upsert
+    // is idempotent: a retried push files the same report rather than a
+    // second one.
+    'tutor_reply_reports': 'user_id,report_id',
   };
 
   /// Push all eligible outbox rows. Concurrent callers share one run.
@@ -474,6 +479,26 @@ class SyncService {
           dailyXpResetDate: r['daily_xp_reset_date'] as String?,
           updatedAt: _ts(r['updated_at']) ?? DateTime.now(),
         );
+        break;
+      case 'tutor_reply_reports':
+        // Reports are immutable once filed, so this is a plain restore: a
+        // learner on a new device gets back what they reported, and a retried
+        // pull writes the same row rather than a duplicate.
+        await _db
+            .into(_db.tutorReplyReports)
+            .insertOnConflictUpdate(
+              TutorReplyReportsCompanion.insert(
+                reportId: r['report_id'] as String,
+                messageId: Value(r['message_id'] as String?),
+                conversationId: Value(r['conversation_id'] as String?),
+                scenarioId: r['scenario_id'] as String? ?? '',
+                reason: r['reason'] as String? ?? '',
+                replyText: r['reply_text'] as String? ?? '',
+                learnerNote: Value(r['learner_note'] as String? ?? ''),
+                appVersion: Value(r['app_version'] as String? ?? ''),
+                reportedAt: Value(_ts(r['reported_at']) ?? DateTime.now()),
+              ),
+            );
         break;
     }
   }
