@@ -28,6 +28,11 @@ class LLMOrchestrator {
   /// the count window alone would have allowed it through.
   static const maxTotalCharacters = 11000;
 
+  /// The server refuses any single message longer than this, so the composer
+  /// stops the learner before they spend a turn on a rejection. Mirrors
+  /// `parseMessages` in the deepseek-proxy request policy.
+  static const maxMessageCharacters = 4000;
+
   /// Longest summary the server will accept in a context value.
   static const maxSummaryCharacters = 2000;
 
@@ -91,13 +96,23 @@ class LLMOrchestrator {
     // The previous summary leads, so successive compressions accumulate rather
     // than each one forgetting what the one before it knew.
     final previous = previousSummary?.trim();
+    final carried =
+        previous == null || previous.isEmpty
+            ? null
+            : 'Earlier summary: $previous';
+
     return LlmRequest(
       operation: LlmOperation.conversationSummary,
       model: _selectModel(level),
       messages: [
-        if (previous != null && previous.isNotEmpty)
-          LlmMessage(LlmRole.user, 'Earlier summary: $previous'),
-        ..._windowedHistory(messages, ''),
+        if (carried != null) LlmMessage(LlmRole.user, carried),
+        // The carried summary claims its share of the budget before history
+        // gets any, the same way a user message does. It used to be added on
+        // top of a full window instead, so a long summary pushed the request
+        // past the server's 12,000-character total and the whole compression
+        // was refused — the one request whose job is to stop the thread
+        // outgrowing the window.
+        ..._windowedHistory(messages, carried ?? ''),
       ],
       context: {'level': level.name},
     );

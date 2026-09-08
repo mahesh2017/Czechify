@@ -81,10 +81,7 @@ void main() {
     );
     // B's own history is intact, and nothing was persisted against it.
     expect(state.messages.map((m) => m.content), ['older message in B']);
-    expect(
-      repo.saved.where((m) => m.content == 'Odpověď pro A'),
-      isEmpty,
-    );
+    expect(repo.saved.where((m) => m.content == 'Odpověď pro A'), isEmpty);
   });
 
   test('a stale turn does not clear the loading flag of the new one', () async {
@@ -121,6 +118,84 @@ void main() {
     );
   });
 
+  test('deleting the open conversation abandons its pending reply', () async {
+    final repo = _FakeConversationRepository();
+    repo.histories['conv-a'] = [
+      ChatMessage.user('older message', conversationId: 'conv-a'),
+    ];
+    final llm = _FakeLlmService();
+    final container = _container(repo, llm);
+    final notifier = container.read(chatProvider.notifier);
+    await notifier.loadConversation('conv-a');
+
+    final turn = notifier.sendMessage('Ahoj');
+    await _settle();
+    expect(llm.pending, hasLength(1));
+
+    // The learner deletes the conversation they are sitting in.
+    await notifier.deleteConversation('conv-a');
+    expect(container.read(chatProvider).conversationId, isNull);
+
+    // The reply finally arrives for a conversation whose rows are gone. It
+    // used to repopulate `messages` and try to save against a deleted parent.
+    llm.pending.single.complete(LlmResponse(content: _tutorJson('Odpověď')));
+    await turn;
+
+    expect(container.read(chatProvider).conversationId, isNull);
+    expect(container.read(chatProvider).messages, isEmpty);
+    expect(
+      repo.saved.where((m) => m.content == 'Odpověď'),
+      isEmpty,
+      reason: 'a reply must not be saved against a deleted conversation',
+    );
+  });
+
+  test('a message that cannot be saved is reported as rejected', () async {
+    final repo = _FakeConversationRepository()..saveThrows = true;
+    final container = _container(repo, _FakeLlmService());
+    final notifier = container.read(chatProvider.notifier);
+    await notifier.loadConversation('conv-a');
+
+    // The composer clears optimistically and needs this to put the draft
+    // back; it used to get no answer and the text was gone for good.
+    expect(await notifier.sendMessage('Ahoj'), isFalse);
+    expect(container.read(chatProvider).isLoading, isFalse);
+  });
+
+  test('an accepted message reports acceptance', () async {
+    final repo = _FakeConversationRepository();
+    final llm = _FakeLlmService();
+    final container = _container(repo, llm);
+    final notifier = container.read(chatProvider.notifier);
+    await notifier.loadConversation('conv-a');
+
+    final send = notifier.sendMessage('Ahoj');
+    await _settle();
+    llm.pending.single.complete(LlmResponse(content: _tutorJson('Dobrý den')));
+
+    expect(await send, isTrue);
+  });
+
+  test('the submission lock is claimed before the first await', () async {
+    final repo = _FakeConversationRepository();
+    final llm = _FakeLlmService();
+    final container = _container(repo, llm);
+    final notifier = container.read(chatProvider.notifier);
+    await notifier.loadConversation('conv-a');
+
+    // Two sends in the same turn of the event loop. The isLoading guard is
+    // the only thing stopping them overlapping, and it used to be set after
+    // the message had been persisted — a window both could pass through.
+    final first = notifier.sendMessage('one');
+    final second = notifier.sendMessage('two');
+
+    expect(await second, isFalse, reason: 'the second must be turned away');
+    await _settle();
+    expect(llm.pending, hasLength(1));
+    llm.pending.single.complete(LlmResponse(content: _tutorJson('ok')));
+    await first;
+  });
+
   /// A new conversation is created before its greeting is requested, and the
   /// greeting used to write `messages: [greeting]` — assigning, not appending.
   /// Between those two points the screen was live with an unlocked composer,
@@ -147,10 +222,9 @@ void main() {
       await start;
 
       expect(container.read(chatProvider).isLoading, isFalse);
-      expect(
-        container.read(chatProvider).messages.map((m) => m.content),
-        ['Ahoj!'],
-      );
+      expect(container.read(chatProvider).messages.map((m) => m.content), [
+        'Ahoj!',
+      ]);
     });
 
     test('does not erase a message that reached the transcript', () async {

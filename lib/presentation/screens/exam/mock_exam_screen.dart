@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show MaxLengthEnforcement;
+import '../../../domain/engines/llm_orchestrator.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -440,9 +442,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       // Result still shown; only history is lost — but say so.
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context).examSaveFailed),
-          ),
+          SnackBar(content: Text(AppLocalizations.of(context).examSaveFailed)),
         );
       }
     }
@@ -1062,6 +1062,27 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             expands: true,
             textAlignVertical: TextAlignVertical.top,
             enabled: !isEvaluating,
+            // The evaluator refuses anything longer, and finding that out
+            // after the learner has written it — at the end of a timed
+            // section — costs them the response.
+            maxLength: LLMOrchestrator.maxMessageCharacters,
+            maxLengthEnforcement: MaxLengthEnforcement.enforced,
+            buildCounter:
+                (
+                  context, {
+                  required currentLength,
+                  required isFocused,
+                  required maxLength,
+                }) =>
+                    currentLength < LLMOrchestrator.maxMessageCharacters - 400
+                        ? null
+                        : Text(
+                          '$currentLength / $maxLength',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: context.tokens.muted,
+                          ),
+                        ),
             decoration: InputDecoration(
               hintText: AppLocalizations.of(context).examWritingHint,
             ),
@@ -1097,7 +1118,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  _MiniScoreRow(label: AppLocalizations.of(context).examCriterionGrammar, score: evaluation.grammar),
+                  _MiniScoreRow(
+                    label: AppLocalizations.of(context).examCriterionGrammar,
+                    score: evaluation.grammar,
+                  ),
                   _MiniScoreRow(
                     label: AppLocalizations.of(context).examCriterionVocabulary,
                     score: evaluation.vocabulary,
@@ -1378,7 +1402,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
     return Scaffold(
       backgroundColor: t.bg,
-      appBar: AppBar(backgroundColor: t.bg, title: Text(AppLocalizations.of(context).examResultsTitle)),
+      appBar: AppBar(
+        backgroundColor: t.bg,
+        title: Text(AppLocalizations.of(context).examResultsTitle),
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -1425,16 +1452,25 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               SoftCard(
                 child: Column(
                   children: [
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionReading, score: _result!.readingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionReading,
+                      score: _result!.readingScore,
+                    ),
                     const Divider(),
                     _ScoreRow(
                       label: AppLocalizations.of(context).examSectionListening,
                       score: _result!.listeningScore,
                     ),
                     const Divider(),
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionWriting, score: _result!.writingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionWriting,
+                      score: _result!.writingScore,
+                    ),
                     const Divider(),
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionSpeaking, score: _result!.speakingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionSpeaking,
+                      score: _result!.speakingScore,
+                    ),
                     const Divider(),
                     _ScoreRow(
                       label: AppLocalizations.of(context).examScoreOverall,
