@@ -109,7 +109,7 @@ class TutorResponse {
 
   factory TutorResponse.fromJson(Map<String, dynamic> json) {
     final replyCz = json['tutor_reply_cz'] as String?;
-    if (replyCz == null || replyCz.isEmpty) {
+    if (replyCz == null || replyCz.trim().isEmpty) {
       throw const FormatException('Tutor response is missing tutor_reply_cz');
     }
     return TutorResponse(

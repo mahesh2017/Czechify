@@ -96,7 +96,9 @@ final pronunciationAssessmentProvider = Provider<PronunciationAssessor>((ref) {
     coverage: ref.watch(pronunciationCoverageProvider).value,
     recorder: ref.watch(audioRecorderProvider),
     whisper: ref.watch(whisperServiceProvider),
-    fallbackStt: NativeSttService(),
+    // The plugin is a singleton. Sharing its wrapper keeps pronunciation,
+    // lessons and dictation on the same active error handler.
+    fallbackStt: ref.watch(liveTranscriberProvider),
     log: Logger('PronunciationAssessor'),
     cloudConsentGranted:
         () async => await ref.read(cloudSpeechConsentProvider.future),
@@ -572,7 +574,10 @@ final _nativeSttProvider = Provider<NativeSttService>(
 
 /// Native on-device STT implementation using speech_to_text package.
 class NativeSttService implements SttService, LiveTranscriber {
-  final SpeechToText _speech = SpeechToText();
+  NativeSttService({SpeechToText? speech}) : _speech = speech ?? SpeechToText();
+
+  final SpeechToText _speech;
+  void Function(String)? _onRecordingError;
   bool _initialized = false;
   String? _czechLocaleId;
 
@@ -590,10 +595,11 @@ class NativeSttService implements SttService, LiveTranscriber {
     _startupFailure = null;
     _initialized = await _speech.initialize(
       onError: (error) {
-        // Only a failure to *start* is recorded here. Errors raised during a
-        // listen belong to that call and are the caller's to handle; letting
-        // them overwrite this would misreport why the next start failed.
-        if (!_initialized) _startupFailure = error.errorMsg;
+        if (!_initialized) {
+          _startupFailure = error.errorMsg;
+        } else {
+          _onRecordingError?.call(error.errorMsg);
+        }
       },
       onStatus: (status) {
         // Listening state changes
@@ -691,37 +697,63 @@ class NativeSttService implements SttService, LiveTranscriber {
       );
     }
 
+    if (_onRecordingError != null) {
+      throw const SpeechServiceException('A recording is already in progress.');
+    }
     final completer = Completer<String>();
     String result = '';
+    SpeechServiceException? failure;
+    _onRecordingError = (message) {
+      failure =
+          message.toLowerCase().contains('permission')
+              ? const SpeechServiceException(
+                'Czechify needs microphone permission. You can enable it in '
+                'your device settings.',
+              )
+              : const SpeechServiceException(
+                'Speech recognition stopped unexpectedly. Please try recording again.',
+              );
+      // Wake the awaiting call even if the platform emits no final result.
+      // Store the error separately: callbacks can run before listen() returns.
+      if (!completer.isCompleted) completer.complete('');
+    };
 
-    await _speech.listen(
-      onResult: (recognition) {
-        // Keep the latest transcription — partial OR final. Czech recognition
-        // (and short utterances) often never emit a final result, so relying
-        // only on finalResult loses everything the user said.
-        if (recognition.recognizedWords.isNotEmpty) {
-          result = recognition.recognizedWords;
-        }
-        if (recognition.finalResult && !completer.isCompleted) {
-          completer.complete(result);
-        }
-      },
-      listenOptions: SpeechListenOptions(
-        listenFor: timeout,
-        // Use the resolved Czech locale when available; otherwise fall back to
-        // the device default rather than a possibly-unknown 'cs_CZ'.
-        localeId: _czechLocaleId,
-        listenMode: ListenMode.dictation,
-      ),
-    );
-
-    return completer.future.timeout(
-      timeout,
-      onTimeout: () {
-        _speech.stop();
-        return result;
-      },
-    );
+    try {
+      await _speech.listen(
+        onResult: (recognition) {
+          if (recognition.recognizedWords.isNotEmpty) {
+            result = recognition.recognizedWords;
+          }
+          if (recognition.finalResult && !completer.isCompleted) {
+            completer.complete(result);
+          }
+        },
+        listenOptions: SpeechListenOptions(
+          listenFor: timeout,
+          localeId: _czechLocaleId,
+          listenMode: ListenMode.dictation,
+        ),
+      );
+      final transcript = await completer.future.timeout(
+        timeout,
+        onTimeout: () => result,
+      );
+      if (failure != null) throw failure!;
+      if (transcript.trim().isEmpty) {
+        throw const SpeechServiceException(
+          'No speech was recognised. Please try recording again.',
+          nothingHeard: true,
+        );
+      }
+      return transcript;
+    } finally {
+      _onRecordingError = null;
+      // Cancel clears plugin timers and prevents late partial/final events
+      // from leaking into a retry. Cleanup must not replace the useful error.
+      try {
+        await _speech.cancel();
+      } catch (_) {}
+    }
   }
 
   /// Why the recogniser could not start, in words a learner can act on.

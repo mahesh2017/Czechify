@@ -25,6 +25,13 @@ export type UpstreamRequest = {
 };
 
 const stringProperty = { type: "string" } as const;
+// JSON Schema pattern also rejects whitespace-only output. Keep optional
+// auxiliary text (for example IPA) permissive; required answers must be usable.
+const answerProperty = {
+  type: "string",
+  minLength: 1,
+  pattern: "\\S",
+} as const;
 
 const strictObject = (
   properties: Record<string, unknown>,
@@ -46,7 +53,7 @@ const jsonSchema = (
 const conversationResponse = jsonSchema(
   "CzechifyTutorReply",
   strictObject({
-    tutor_reply_cz: stringProperty,
+    tutor_reply_cz: answerProperty,
     tutor_reply_en: stringProperty,
     corrections: {
       type: "array",
@@ -83,13 +90,13 @@ const conversationResponse = jsonSchema(
 
 const summaryResponse = jsonSchema(
   "CzechifyConversationSummary",
-  strictObject({ summary: stringProperty }),
+  strictObject({ summary: answerProperty }),
 );
 
 const grammarResponse = jsonSchema(
   "CzechifyGrammarCheck",
   strictObject({
-    corrected_text: stringProperty,
+    corrected_text: answerProperty,
     errors: {
       type: "array",
       items: strictObject({
@@ -123,7 +130,7 @@ const writingResponse = jsonSchema(
       coherence: { type: "integer", minimum: 0, maximum: 100 },
       overall: { type: "integer", minimum: 0, maximum: 100 },
     }),
-    feedback: stringProperty,
+    feedback: answerProperty,
     errors: {
       type: "array",
       items: strictObject({
@@ -139,10 +146,14 @@ const writingResponse = jsonSchema(
 ///
 /// Handles exactly the JSON Schema subset [jsonSchema] emits — object with
 /// `required`/`additionalProperties: false`, array with `items`, string with
-/// an optional `enum`, and bounded integer — and refuses anything it does not
-/// understand rather than passing it. A validator that quietly approves the
-/// constructs it cannot check is worse than none: it reports a guarantee it
-/// is not making.
+/// an optional `enum`, `minLength` or `pattern`, and bounded integer — and
+/// refuses anything it does not understand rather than passing it. A validator
+/// that quietly approves the constructs it cannot check is worse than none: it
+/// reports a guarantee it is not making.
+///
+/// This is where the blank-answer rule is actually enforced. The same
+/// constraints ride along in the schema sent upstream as a hint to the model,
+/// but nothing depends on the provider honouring — or even accepting — them.
 export const matchesSchema = (schema: unknown, value: unknown): boolean => {
   if (typeof schema !== "object" || schema === null) return false;
   const shape = schema as Record<string, unknown>;
@@ -173,6 +184,18 @@ export const matchesSchema = (schema: unknown, value: unknown): boolean => {
         value.every((item) => matchesSchema(shape.items, item));
     case "string": {
       if (typeof value !== "string") return false;
+      if (
+        typeof shape.minLength === "number" &&
+        [...value].length < shape.minLength
+      ) {
+        return false;
+      }
+      if (
+        typeof shape.pattern === "string" &&
+        !new RegExp(shape.pattern).test(value)
+      ) {
+        return false;
+      }
       const options = shape.enum;
       return !Array.isArray(options) || options.includes(value);
     }

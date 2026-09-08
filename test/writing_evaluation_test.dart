@@ -2,6 +2,24 @@ import 'package:czechify/presentation/providers/writing_providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('blank writing feedback is not a usable evaluation', () {
+    for (final blank in ['', ' ', '\n\t']) {
+      expect(
+        () => WritingEvaluation.fromJson({
+          'score': {
+            'grammar': 80,
+            'vocabulary': 80,
+            'coherence': 80,
+            'overall': 80,
+          },
+          'feedback': blank,
+          'errors': [],
+        }),
+        throwsFormatException,
+      );
+    }
+  });
+
   test('AI writing scores are bounded and malformed errors are ignored', () {
     // Out of range is a real judgement expressed sloppily; reading a 101 as
     // 100 loses nothing.

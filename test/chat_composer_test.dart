@@ -17,6 +17,7 @@ void main() {
   Future<_RecordingNotifier> mount(
     WidgetTester tester, {
     required bool accepts,
+    LiveTranscriber? transcriber,
   }) async {
     tester.view.physicalSize = const Size(400, 800);
     tester.view.devicePixelRatio = 1;
@@ -30,7 +31,9 @@ void main() {
           chatProvider.overrideWith(
             () => notifier = _RecordingNotifier(accepts: accepts),
           ),
-          liveTranscriberProvider.overrideWithValue(_FakeTranscriber()),
+          liveTranscriberProvider.overrideWithValue(
+            transcriber ?? _FakeTranscriber(),
+          ),
         ],
         child: MaterialApp(
           theme: lightTheme(),
@@ -45,6 +48,51 @@ void main() {
   }
 
   final composer = find.byType(TextField).first;
+
+  group('what the learner is told when dictation does not produce text', () {
+    // The recogniser used to return an empty string when it heard nothing and
+    // when it could not run at all, so both arrived here as a transcription of
+    // silence and got the same notice. They are different problems: one is
+    // fixed by speaking again, the other by leaving the app.
+    Future<String> noticeFor(
+      WidgetTester tester,
+      SpeechServiceException failure,
+    ) async {
+      await mount(
+        tester,
+        accepts: true,
+        transcriber: _FailingTranscriber(failure),
+      );
+      await tester.tap(find.byIcon(Icons.mic_none));
+      await tester.pumpAndSettle();
+      return tester
+          .widgetList<Text>(find.byType(Text))
+          .map((text) => text.data ?? '')
+          .firstWhere((text) => text.contains('type'), orElse: () => '');
+    }
+
+    testWidgets('hearing nothing invites another try', (tester) async {
+      final notice = await noticeFor(
+        tester,
+        const SpeechServiceException(
+          'No speech was recognised. Please try recording again.',
+          nothingHeard: true,
+        ),
+      );
+      expect(notice, contains('Try again'));
+    });
+
+    testWidgets('a recogniser that cannot run says so instead', (tester) async {
+      final notice = await noticeFor(
+        tester,
+        const SpeechServiceException(
+          'Speech recognition is not available on this phone.',
+          cloudSpeechWouldFix: true,
+        ),
+      );
+      expect(notice, contains('unavailable'));
+    });
+  });
 
   testWidgets('a refused message is put back in the composer', (tester) async {
     final notifier = await mount(tester, accepts: false);
@@ -135,12 +183,31 @@ class _RecordingNotifier extends ChatNotifier {
   }
 }
 
+/// A recogniser that fails in a stated way.
+class _FailingTranscriber implements LiveTranscriber {
+  _FailingTranscriber(this.failure);
+
+  final SpeechServiceException failure;
+
+  @override
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 30),
+    bool requireCzech = true,
+  }) async => throw failure;
+
+  @override
+  Future<void> stop() async {}
+
+  @override
+  Future<bool> supportsCzech() async => true;
+}
+
 class _FakeTranscriber implements LiveTranscriber {
   @override
   Future<String> listenFor({
     Duration timeout = const Duration(seconds: 30),
     bool requireCzech = true,
-  }) async => '';
+  }) async => 'Dobrý den';
 
   @override
   Future<void> stop() async {}
