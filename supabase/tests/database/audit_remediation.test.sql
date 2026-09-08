@@ -108,6 +108,13 @@ select public.is((select count(*) from jsonb_object_keys(public.export_account_s
 select public.is(jsonb_array_length(public.export_account_snapshot('40000000-0000-0000-0000-000000000001')->'tutor_reply_reports'),
  1,'reports are included in the snapshot');
 
+-- Back to the migration owner for the concurrency check below. service_role
+-- deliberately holds no privileges on the history tables — the export reaches
+-- them through export_account_snapshot, which is SECURITY DEFINER — so writing
+-- to one directly as service_role tests a path that does not exist and fails
+-- on permissions before it can test anything.
+reset role;
+
 -- STABLE SQL functions retain the calling statement's snapshot, even when
 -- this same statement changes a row before reading the exported data.
 with changed as (
@@ -124,6 +131,5 @@ select public.is((select correct from public.learning_evidence_events
  where user_id='40000000-0000-0000-0000-000000000001' and evidence_id='audit-1'), false,
  'the concurrent-statement test really changed the underlying row');
 
-reset role;
 select * from public.finish();
 rollback;
