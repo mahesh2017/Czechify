@@ -117,6 +117,103 @@ void main() {
     },
   );
 
+  test('a stale pending pull cannot reopen completed practice', () async {
+    // The direction the test above never ran. `insertOnConflictUpdate` was
+    // unconditional, and the sync cycle pulls after a *failed* push — so a
+    // device that finished the practice offline, failed to push, then pulled
+    // had its completion overwritten by the `pending` row still on the server.
+    // The assignment reappeared in due practice and the learner was asked to
+    // redo what they had already done, with the local record of having done it
+    // gone.
+    await db.progressDao.mergeRemoteTransferAssignment(
+      assignmentId: 'transfer:a:7',
+      sourceAttemptId: 'a',
+      lessonId: 1,
+      sourceExerciseId: 7,
+      dueAt: DateTime.utc(2026, 9, 15),
+      status: 'completed',
+      completedEvidenceId: 'ev-9',
+      createdAt: DateTime.utc(2026, 9, 8),
+      completedAt: DateTime.utc(2026, 9, 12),
+    );
+
+    await db.progressDao.mergeRemoteTransferAssignment(
+      assignmentId: 'transfer:a:7',
+      sourceAttemptId: 'a',
+      lessonId: 1,
+      sourceExerciseId: 7,
+      dueAt: DateTime.utc(2026, 9, 15),
+      status: 'pending',
+      createdAt: DateTime.utc(2026, 9, 8),
+    );
+
+    final stored = await db.select(db.delayedTransferAssignments).get();
+    expect(stored.single.status, 'completed');
+    expect(
+      stored.single.completedEvidenceId,
+      'ev-9',
+      reason: 'the attempt that completed it is part of what must survive',
+    );
+    expect(stored.single.completedAt, isNotNull);
+  });
+
+  test('an expiry does not undo a completion', () async {
+    // A learner who did the practice did it, whatever another device decided
+    // about the clock afterwards.
+    await db.progressDao.mergeRemoteTransferAssignment(
+      assignmentId: 'transfer:a:8',
+      sourceAttemptId: 'a',
+      lessonId: 1,
+      sourceExerciseId: 8,
+      dueAt: DateTime.utc(2026, 9, 15),
+      status: 'completed',
+      completedEvidenceId: 'ev-10',
+      createdAt: DateTime.utc(2026, 9, 8),
+      completedAt: DateTime.utc(2026, 9, 12),
+    );
+
+    await db.progressDao.mergeRemoteTransferAssignment(
+      assignmentId: 'transfer:a:8',
+      sourceAttemptId: 'a',
+      lessonId: 1,
+      sourceExerciseId: 8,
+      dueAt: DateTime.utc(2026, 9, 15),
+      status: 'expired',
+      createdAt: DateTime.utc(2026, 9, 8),
+    );
+
+    final stored = await db.select(db.delayedTransferAssignments).get();
+    expect(stored.single.status, 'completed');
+  });
+
+  test('a pending assignment still takes a changed due date', () async {
+    // Refusing to move backwards must not freeze a row that has not moved
+    // anywhere yet.
+    await db.progressDao.mergeRemoteTransferAssignment(
+      assignmentId: 'transfer:a:9',
+      sourceAttemptId: 'a',
+      lessonId: 1,
+      sourceExerciseId: 9,
+      dueAt: DateTime.utc(2026, 9, 15),
+      status: 'pending',
+      createdAt: DateTime.utc(2026, 9, 8),
+    );
+
+    await db.progressDao.mergeRemoteTransferAssignment(
+      assignmentId: 'transfer:a:9',
+      sourceAttemptId: 'a',
+      lessonId: 1,
+      sourceExerciseId: 9,
+      dueAt: DateTime.utc(2026, 9, 20),
+      status: 'pending',
+      createdAt: DateTime.utc(2026, 9, 8),
+    );
+
+    final stored = await db.select(db.delayedTransferAssignments).get();
+    // Drift reads timestamps back in local time, so compare the instant.
+    expect(stored.single.dueAt.toUtc(), DateTime.utc(2026, 9, 20));
+  });
+
   test('the raw attempt logs are deliberately not synced', () {
     // These stay local: the state a learner experiences is derived from them
     // and already syncs, so carrying them would multiply rows for

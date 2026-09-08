@@ -117,10 +117,29 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     );
   }
 
+  /// How far along an assignment is. A merge only ever moves forward.
+  ///
+  /// `completed` outranks `expired`: a learner who did the practice did it,
+  /// whatever another device decided about the clock afterwards.
+  static int _assignmentProgress(String status) => switch (status) {
+    'completed' => 2,
+    'expired' => 1,
+    _ => 0,
+  };
+
   /// Applies a transfer assignment pulled from the backend.
   ///
-  /// Upsert, because an assignment mutates: pending becomes completed, and the
-  /// device that completed it is the one with the newer row.
+  /// Monotonic, not last-write-wins. This upserted unconditionally, and the
+  /// sync cycle pulls after a *failed* push — so a device that finished the
+  /// practice offline, failed to push, and then pulled had its completion
+  /// overwritten by the stale `pending` row still on the server. The
+  /// assignment reappeared in due practice and the learner was asked to do
+  /// again what they had already done, with the local record of having done it
+  /// gone.
+  ///
+  /// A local row that is further along therefore wins outright, including the
+  /// evidence id pointing at the attempt that completed it. Two rows at the
+  /// same stage still take the remote, so a changed due date propagates.
   Future<void> mergeRemoteTransferAssignment({
     required String assignmentId,
     required String sourceAttemptId,
@@ -132,6 +151,15 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     required DateTime createdAt,
     DateTime? completedAt,
   }) async {
+    final local =
+        await (select(
+          delayedTransferAssignments,
+        )..where((r) => r.assignmentId.equals(assignmentId))).getSingleOrNull();
+    if (local != null &&
+        _assignmentProgress(local.status) >= _assignmentProgress(status) &&
+        _assignmentProgress(local.status) > 0) {
+      return;
+    }
     await into(delayedTransferAssignments).insertOnConflictUpdate(
       DelayedTransferAssignmentsCompanion.insert(
         assignmentId: assignmentId,

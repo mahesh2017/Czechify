@@ -8,6 +8,7 @@ import {
 import {
   confirmsDeletion,
   decodeLatestAuthTime,
+  exportOrderColumns,
   hasRecentAuth,
   isSupportedMethod,
   requiresRecentAuth,
@@ -68,28 +69,43 @@ Deno.serve(async (request) => {
     // than that was handed a truncated export that looked complete — the
     // failure mode a subject-access request can least afford.
     //
-    // Ordered by primary-key-ish columns so the pages tile rather than
-    // overlap: an unordered paged read may return the same row twice and skip
-    // another.
+    // The previous attempt was wrong in two ways that both looked right.
+    //
+    //   * `.order("user_id")` inside `.eq("user_id", ...)` sorts by a
+    //     constant, so every row ties. Postgres may order ties differently
+    //     between statements, and offset paging over that returns some rows
+    //     twice and never returns others. The comment beside it asserted the
+    //     pages tiled, which is what stopped anyone looking again.
+    //   * "a short page is the last page" holds only if the page size is what
+    //     came back. A project whose API cap is below the requested size
+    //     returns the cap every time, so the first page reads as the last —
+    //     truncating exactly the large export this paging exists for.
+    //
+    // Ordering comes from `exportOrderColumns`, which is tiebreak-free per
+    // table, and the window advances by the number of rows actually returned
+    // and stops only on an empty page. A lower cap then costs round trips
+    // rather than rows.
     const pageSize = 1000;
     const readAll = async (table: string) => {
+      const order = exportOrderColumns[table];
+      if (!order) throw new Error(`${table}:unordered`);
       const rows: unknown[] = [];
       let from = 0;
-      let page: unknown[] = [];
-      do {
-        const { data, error } = await admin
+      for (;;) {
+        let query = admin
           .from(table)
           .select("*")
-          .eq("user_id", user.id)
-          .order("user_id", { ascending: true })
-          .range(from, from + pageSize - 1);
+          .eq("user_id", user.id);
+        for (const column of order) {
+          query = query.order(column, { ascending: true });
+        }
+        const { data, error } = await query.range(from, from + pageSize - 1);
         if (error) throw new Error(`${table}:${error.code}`);
-        page = data ?? [];
+        const page = data ?? [];
+        if (page.length === 0) return rows;
         rows.push(...page);
-        from += pageSize;
-        // A short page is the last page.
-      } while (page.length === pageSize);
-      return rows;
+        from += page.length;
+      }
     };
 
     const results = await Promise.all(

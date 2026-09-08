@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
 import 'dart:io';
 
 import 'tables/units.dart';
@@ -94,7 +95,8 @@ class AppDatabase extends _$AppDatabase {
   /// Version 5 makes the externally-scored exam columns nullable.
   /// Version 6 scopes consent records to the account that made the decision.
   /// Version 7 adds the in-app tutor-reply report log.
-  int get schemaVersion => 7;
+  /// Version 8 queues learning history written before it was ever synced.
+  int get schemaVersion => 8;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -292,6 +294,9 @@ class AppDatabase extends _$AppDatabase {
       if (from < 7) {
         await m.createTable(tutorReplyReports);
       }
+      if (from < 8) {
+        await _backfillPortableLearningHistory();
+      }
       // Not guarded by a version check. These indexes were only ever created
       // in [onCreate], so every upgraded install has been running without the
       // uniqueness they enforce — duplicate SRS cards and more than one active
@@ -302,6 +307,67 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('PRAGMA foreign_keys = ON');
     },
   );
+
+  /// Queues learning history that was written before it could be synced.
+  ///
+  /// `learning_evidence_events` and `delayed_transfer_assignments` started
+  /// syncing in v1.0.7, and only on write: evidence is enqueued as it is
+  /// recorded, an assignment as it is created or completed. Nothing ever
+  /// looked at what was already on the device. So the learners the feature was
+  /// built for — the ones with a history to carry — still lost it on a new
+  /// device, while a learner who installed afterwards was fine. The account
+  /// screen said this history transfers.
+  ///
+  /// Runs once, inside the migration transaction. The pushes are upserts on a
+  /// client-generated id, so a row that somehow reaches the backend twice is
+  /// the same row; and a queue row for an entity already there costs one
+  /// request, not a duplicate.
+  ///
+  /// Guarded per table: a database old enough to arrive here may predate
+  /// either, and a missing one must not turn a schema change into a failure to
+  /// launch.
+  Future<void> _backfillPortableLearningHistory() async {
+    if (await _hasTable('learning_evidence_events')) {
+      for (final row in await select(learningEvidenceEvents).get()) {
+        await syncDao.enqueue(
+          entity: 'learning_evidence_events',
+          entityKey: row.evidenceId,
+          payload: {
+            'evidence_id': row.evidenceId,
+            'lesson_id': row.lessonId,
+            'exercise_id': row.exerciseId,
+            'skill': row.skill,
+            'phase': row.phase,
+            'correct': row.correct,
+            'novel_task': row.novelTask,
+            'supports': jsonDecode(row.supportsJson),
+            'concept_keys': jsonDecode(row.conceptKeysJson),
+            'response_latency_ms': row.responseLatencyMs,
+            'observed_at': row.observedAt.toUtc().toIso8601String(),
+          },
+        );
+      }
+    }
+    if (await _hasTable('delayed_transfer_assignments')) {
+      for (final row in await select(delayedTransferAssignments).get()) {
+        await syncDao.enqueue(
+          entity: 'delayed_transfer_assignments',
+          entityKey: row.assignmentId,
+          payload: {
+            'assignment_id': row.assignmentId,
+            'source_attempt_id': row.sourceAttemptId,
+            'lesson_id': row.lessonId,
+            'source_exercise_id': row.sourceExerciseId,
+            'due_at': row.dueAt.toUtc().toIso8601String(),
+            'status': row.status,
+            'completed_evidence_id': row.completedEvidenceId,
+            'created_at': row.createdAt.toUtc().toIso8601String(),
+            'completed_at': row.completedAt?.toUtc().toIso8601String(),
+          },
+        );
+      }
+    }
+  }
 
   /// Rebuilds the tables whose timestamp columns carried a frozen default.
   ///
