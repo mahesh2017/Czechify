@@ -404,6 +404,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountSendRecovery => 'Send password recovery email';
 
   @override
+  String get accountWhatTransfersTitle => 'What moves with your account';
+
+  @override
+  String get accountWhatTransfersBody =>
+      'Your progress, vocabulary schedule, placement, streak and the evidence behind your level all follow you to a new device, along with practice already scheduled for you. Detailed answer-by-answer history and your conversations with the tutor stay on this device only.';
+
+  @override
   String get accountYourData => 'Your data';
 
   @override

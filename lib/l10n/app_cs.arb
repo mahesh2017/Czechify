@@ -137,6 +137,8 @@
   "accountSignInExisting": "Přihlásit se k existujícímu účtu",
   "accountSetOrChangePassword": "Nastavit nebo změnit heslo",
   "accountSendRecovery": "Poslat e-mail pro obnovení hesla",
+  "accountWhatTransfersTitle": "Co se přenáší s účtem",
+  "accountWhatTransfersBody": "Tvůj pokrok, plán slovní zásoby, zařazení, série i podklady k tvé úrovni tě doprovodí na nové zařízení, včetně už naplánovaného procvičování. Podrobná historie jednotlivých odpovědí a konverzace s lektorem zůstávají jen v tomto zařízení.",
   "accountYourData": "Vaše data",
   "accountExportJson": "Exportovat moje data jako JSON",
   "accountDeleteCloudLocal": "Smazat cloudový účet i místní data",

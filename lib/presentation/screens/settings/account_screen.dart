@@ -132,6 +132,16 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
                     child: Text(l10n.accountSendRecovery),
                   ),
                   const SizedBox(height: 24),
+                  // Said plainly rather than left to be discovered. Most of a
+                  // learner's history follows the account; the raw
+                  // answer-by-answer log and their conversations do not, and
+                  // finding that out after changing phone is the wrong moment.
+                  _Message(
+                    icon: Icons.sync_outlined,
+                    title: l10n.accountWhatTransfersTitle,
+                    message: l10n.accountWhatTransfersBody,
+                  ),
+                  const SizedBox(height: 24),
                   SectionLabel(l10n.accountYourData),
                   const SizedBox(height: 10),
                   OutlinedButton.icon(

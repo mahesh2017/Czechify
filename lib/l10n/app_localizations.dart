@@ -806,6 +806,18 @@ abstract class AppLocalizations {
   /// **'Send password recovery email'**
   String get accountSendRecovery;
 
+  /// No description provided for @accountWhatTransfersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What moves with your account'**
+  String get accountWhatTransfersTitle;
+
+  /// No description provided for @accountWhatTransfersBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress, vocabulary schedule, placement, streak and the evidence behind your level all follow you to a new device, along with practice already scheduled for you. Detailed answer-by-answer history and your conversations with the tutor stay on this device only.'**
+  String get accountWhatTransfersBody;
+
   /// No description provided for @accountYourData.
   ///
   /// In en, this message translates to:

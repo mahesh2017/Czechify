@@ -24,6 +24,10 @@ export const syncedUserTables = [
   // Reports a learner filed about the tutor. Theirs, so it belongs in an
   // export — and in a deletion.
   "tutor_reply_reports",
+  // The portable half of the learning history: the evidence placement reads,
+  // and practice already scheduled for a future date.
+  "learning_evidence_events",
+  "delayed_transfer_assignments",
 ] as const;
 
 export const isSupportedMethod = (method: string): boolean =>
