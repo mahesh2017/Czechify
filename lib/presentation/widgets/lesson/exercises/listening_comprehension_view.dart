@@ -80,90 +80,100 @@ class _ListeningComprehensionViewState
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
 
+    // The header scrolls with the questions rather than sitting above them.
+    //
+    // It used to be a fixed block above an [Expanded] question list. On a
+    // 320x568 screen the prompt, image, listen panel, gist note and transcript
+    // button already came to more than the exercise box, so the list was left
+    // with nothing and the column overflowed — 109 of the 151 shipped
+    // listening exercises. At 200% text every one of them did. Anything that
+    // grows with the text scale has to be inside the scrollable.
+    final header = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        QuestionPrompt(question: promptEn),
+        const SizedBox(height: 16),
+
+        if (image != null && image.isNotEmpty) ...[
+          LessonImage(
+            asset: image,
+            height: 140,
+            semanticLabel:
+                imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
+          ),
+          const SizedBox(height: 14),
+        ],
+
+        // Listen first: the audio is the exercise, so it gets the hero.
+        if (transcriptCz.isNotEmpty)
+          ListenPanel(
+            label:
+                _playCount == 0 && !_autoPlayed
+                    ? l10n.listen
+                    : l10n.audioPlayAgain,
+            onPlay: () {
+              setState(() => _playCount++);
+              ref.read(czechTtsProvider).speak(transcriptCz);
+            },
+            onSlow: () {
+              setState(() => _playCount++);
+              ref.read(czechTtsProvider).speakSlow(transcriptCz);
+            },
+          ),
+        const SizedBox(height: 10),
+        Text(
+          l10n.exerciseGistFirstNote,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
+        ),
+        const SizedBox(height: 16),
+
+        MotionSwap(
+          alignment: Alignment.centerLeft,
+          child:
+              !_transcriptRevealed
+                  ? Align(
+                    key: const ValueKey('transcript-action'),
+                    alignment: Alignment.centerLeft,
+                    child: OutlinedButton.icon(
+                      onPressed:
+                          transcriptCz.isEmpty
+                              ? null
+                              : () =>
+                                  setState(() => _transcriptRevealed = true),
+                      icon: const Icon(Icons.subtitles_outlined, size: 18),
+                      label: Text(l10n.exerciseRevealTranscript),
+                    ),
+                  )
+                  : Container(
+                    key: const ValueKey('transcript-content'),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: t.elev,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      transcriptCz,
+                      style: TextStyle(fontSize: 15, height: 1.6, color: t.ink),
+                    ),
+                  ),
+        ),
+        // No trailing spacer: the list's separator already sits between the
+        // header and the first question.
+      ],
+    );
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QuestionPrompt(question: promptEn),
-          const SizedBox(height: 16),
-
-          if (image != null && image.isNotEmpty) ...[
-            LessonImage(
-              asset: image,
-              height: 140,
-              semanticLabel:
-                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
-            ),
-            const SizedBox(height: 14),
-          ],
-
-          // Listen first: the audio is the exercise, so it gets the hero.
-          if (transcriptCz.isNotEmpty)
-            ListenPanel(
-              label:
-                  _playCount == 0 && !_autoPlayed
-                      ? l10n.listen
-                      : l10n.audioPlayAgain,
-              onPlay: () {
-                setState(() => _playCount++);
-                ref.read(czechTtsProvider).speak(transcriptCz);
-              },
-              onSlow: () {
-                setState(() => _playCount++);
-                ref.read(czechTtsProvider).speakSlow(transcriptCz);
-              },
-            ),
-          const SizedBox(height: 10),
-          Text(
-            l10n.exerciseGistFirstNote,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 13, height: 1.45, color: t.faint),
-          ),
-          const SizedBox(height: 16),
-
-          MotionSwap(
-            alignment: Alignment.centerLeft,
-            child:
-                !_transcriptRevealed
-                    ? Align(
-                      key: const ValueKey('transcript-action'),
-                      alignment: Alignment.centerLeft,
-                      child: OutlinedButton.icon(
-                        onPressed:
-                            transcriptCz.isEmpty
-                                ? null
-                                : () =>
-                                    setState(() => _transcriptRevealed = true),
-                        icon: const Icon(Icons.subtitles_outlined, size: 18),
-                        label: Text(l10n.exerciseRevealTranscript),
-                      ),
-                    )
-                    : Container(
-                      key: const ValueKey('transcript-content'),
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: t.elev,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        transcriptCz,
-                        style: TextStyle(
-                          fontSize: 15,
-                          height: 1.6,
-                          color: t.ink,
-                        ),
-                      ),
-                    ),
-          ),
-          const SizedBox(height: 16),
-
-          // The questions own the rest of the screen: they scroll on their own
-          // and their Check action stays pinned, rather than being pushed below
-          // the fold by a long question list.
+          // The Check action stays pinned at the bottom; the header and the
+          // questions share one scrollable above it.
           Expanded(
             child: _ListeningQuestions(
+              header: header,
               exerciseId: widget.exercise.id,
               data: data,
               onComplete: (isCorrect, explanation, correctAnswer) {
@@ -189,6 +199,10 @@ class _ListeningComprehensionViewState
 
 /// Questions section extracted from reading comprehension logic.
 class _ListeningQuestions extends StatefulWidget {
+  /// Prompt, artwork, audio controls and transcript — scrolled as the first
+  /// item of the question list so it can never squeeze the questions out.
+  final Widget header;
+
   final int exerciseId;
   final Map<String, dynamic> data;
   final void Function(
@@ -199,6 +213,7 @@ class _ListeningQuestions extends StatefulWidget {
   onComplete;
 
   const _ListeningQuestions({
+    required this.header,
     required this.exerciseId,
     required this.data,
     required this.onComplete,
@@ -301,9 +316,9 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
 
     // Empty-questions error state
     if (_questions.isEmpty) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      return ListView(
         children: [
+          widget.header,
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -346,10 +361,14 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
         Expanded(
           child: ListView.separated(
             padding: EdgeInsets.zero,
-            itemCount: _questions.length,
+            // One extra leading item: the header.
+            itemCount: _questions.length + 1,
             separatorBuilder: (_, __) => const SizedBox(height: 12),
             itemBuilder:
-                (context, qIdx) => _buildQuestion(context, qIdx, theme),
+                (context, index) =>
+                    index == 0
+                        ? widget.header
+                        : _buildQuestion(context, index - 1, theme),
           ),
         ),
         if (_allAnswered && !submitted)
