@@ -576,11 +576,24 @@ class NativeSttService implements SttService, LiveTranscriber {
   bool _initialized = false;
   String? _czechLocaleId;
 
+  /// Why the recogniser last refused to start, when it did.
+  ///
+  /// `initialize()` reports only true or false; the reason arrives separately
+  /// through the error callback, so it has to be caught on the way past or it
+  /// is gone. Without it, "you have not granted the microphone" and "this
+  /// phone has no recogniser" are the same false, and the learner is told the
+  /// wrong one.
+  String? _startupFailure;
+
   Future<void> _ensureInitialized() async {
     if (_initialized) return;
+    _startupFailure = null;
     _initialized = await _speech.initialize(
       onError: (error) {
-        // Log error but don't crash
+        // Only a failure to *start* is recorded here. Errors raised during a
+        // listen belong to that call and are the caller's to handle; letting
+        // them overwrite this would misreport why the next start failed.
+        if (!_initialized) _startupFailure = error.errorMsg;
       },
       onStatus: (status) {
         // Listening state changes
@@ -641,7 +654,21 @@ class NativeSttService implements SttService, LiveTranscriber {
     bool requireCzech = true,
   }) async {
     await _ensureInitialized();
-    if (!_initialized) return '';
+
+    // A recogniser that never started has heard nothing, and "" is not that.
+    //
+    // This returned an empty string, which every caller then treated as a
+    // real transcript of silence: the lesson speaking task scored it against
+    // the expected phrase and marked the learner wrong, and the exam recorded
+    // a zero. Denying the microphone became a failed answer on their record.
+    // The Czech-locale refusal below was added for exactly this reason and
+    // sits *after* this line, so it never covered the commoner case.
+    //
+    // Thrown for every caller, including the ones that pass
+    // [requireCzech] false: dictation with no recogniser is not a rough
+    // transcription worth having, it is nothing at all, and the chat composer
+    // already says so rather than silently doing nothing.
+    if (!_initialized) throw _cannotStart();
 
     // Refuse rather than listen in the wrong language — when the result is
     // going to be scored.
@@ -695,6 +722,27 @@ class NativeSttService implements SttService, LiveTranscriber {
         return result;
       },
     );
+  }
+
+  /// Why the recogniser could not start, in words a learner can act on.
+  ///
+  /// Permission is the one cause they can fix themselves, and the one cloud
+  /// speech does not work around — it needs the microphone too. Everything
+  /// else means this device has no usable recogniser, which is precisely what
+  /// the cloud path is for.
+  SpeechServiceException _cannotStart() {
+    final denied =
+        _startupFailure?.toLowerCase().contains('permission') ?? false;
+    return denied
+        ? const SpeechServiceException(
+          'Czechify needs permission to use the microphone before it can '
+          'hear you. You can turn it on in your device settings.',
+        )
+        : const SpeechServiceException(
+          'Speech recognition is not available on this phone, so this cannot '
+          'be checked on the device.',
+          cloudSpeechWouldFix: true,
+        );
   }
 
   /// Stop listening.

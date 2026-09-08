@@ -104,12 +104,22 @@ class ConsentRepository {
       ..where((r) => r.id.equals(id))).getSingle();
   }
 
-  /// The full history, newest first — what a subject-access request or a
+  /// This account's history, newest first — what a subject-access request or a
   /// complaint would need to be answered.
+  ///
+  /// Scoped to [accountId], like [isGranted]. The log keeps every row and
+  /// deliberately survives an account switch, so an unscoped read returns
+  /// decisions made by whoever used this device before: the previous learner's
+  /// evidence, handed to the current one. Whose decision counts as current and
+  /// whose history this is have to be answered the same way.
   Future<List<ConsentRecord>> history([String? purpose]) {
-    final query = _db.select(_db.consentRecords)..orderBy([
-      (r) => OrderingTerm(expression: r.decidedAt, mode: OrderingMode.desc),
-    ]);
+    final query =
+        _db.select(_db.consentRecords)
+          ..where((r) => r.accountId.equals(accountId))
+          ..orderBy([
+            (r) =>
+                OrderingTerm(expression: r.decidedAt, mode: OrderingMode.desc),
+          ]);
     if (purpose != null) query.where((r) => r.purpose.equals(purpose));
     return query.get();
   }

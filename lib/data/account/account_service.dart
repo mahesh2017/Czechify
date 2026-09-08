@@ -143,7 +143,9 @@ class AccountService {
       userHasIdentityProvider(_backend.currentUser, 'google');
 
   Future<File> createExportFile() async {
-    final local = await _db.exportLearnerData();
+    // The account the export belongs to, so the consent log comes back scoped
+    // to whoever is asking. Consent rows outlive an account switch by design.
+    final local = await _db.exportLearnerData(accountId: _backend.userId ?? '');
     final preferences = await _exportLocalPreferences();
     Map<String, dynamic>? cloud;
     if (_backend.isSignedIn) cloud = await _backend.exportCloudData();
