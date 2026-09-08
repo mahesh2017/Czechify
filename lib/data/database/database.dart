@@ -90,7 +90,8 @@ class AppDatabase extends _$AppDatabase {
   /// Version 3 adds portable learner profiles and reminder intent.
   /// Version 4 replaces frozen `DateTime.now()` column defaults with a SQL one.
   /// Version 5 makes the externally-scored exam columns nullable.
-  int get schemaVersion => 5;
+  /// Version 6 scopes consent records to the account that made the decision.
+  int get schemaVersion => 6;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -271,6 +272,18 @@ class AppDatabase extends _$AppDatabase {
         // to tell "unscored" from "scored zero" was never written down.
         if (await _hasTable('exam_results')) {
           await m.alterTable(TableMigration(examResults));
+        }
+      }
+      if (from < 6) {
+        // Consent was device-global, so switching account inherited the
+        // previous learner's grant. Existing rows keep an empty account id:
+        // they were made before anyone signed in, or by someone the row
+        // cannot now name. They stay in the log as evidence either way.
+        // Guarded like the steps around it: a database old enough to reach
+        // here may predate the table, and a missing one must not turn a
+        // schema change into a failure to launch.
+        if (await _hasTable('consent_records')) {
+          await m.addColumn(consentRecords, consentRecords.accountId);
         }
       }
       // Not guarded by a version check. These indexes were only ever created

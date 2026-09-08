@@ -17,6 +17,19 @@ class ConsentRecords extends Table {
   /// What was consented to, e.g. `voice_cloud_processing`.
   TextColumn get purpose => text()();
 
+  /// The account the decision belongs to; empty for a device-local learner
+  /// who has not signed in.
+  ///
+  /// Consent used to be device-global. Switching account kept the previous
+  /// learner's grant, so signing in as someone else silently inherited their
+  /// permission to send voice to a cloud service — a decision that person
+  /// made, applied to someone who never saw the notice.
+  ///
+  /// The log stays append-only and keeps every row: the history is evidence
+  /// and belongs to whoever made each decision. This only changes whose
+  /// decision counts as current.
+  TextColumn get accountId => text().withDefault(const Constant(''))();
+
   /// Version of the notice shown, e.g. `voice-cloud-v1`. Sourced from the same
   /// constant the screen renders, so it cannot drift from what was displayed.
   TextColumn get noticeVersion => text()();

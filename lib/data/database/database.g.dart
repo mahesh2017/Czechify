@@ -6202,6 +6202,18 @@ class $ConsentRecordsTable extends ConsentRecords
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(''),
+  );
   static const VerificationMeta _noticeVersionMeta = const VerificationMeta(
     'noticeVersion',
   );
@@ -6290,6 +6302,7 @@ class $ConsentRecordsTable extends ConsentRecords
   List<GeneratedColumn> get $columns => [
     id,
     purpose,
+    accountId,
     noticeVersion,
     policyVersion,
     granted,
@@ -6320,6 +6333,12 @@ class $ConsentRecordsTable extends ConsentRecords
       );
     } else if (isInserting) {
       context.missing(_purposeMeta);
+    }
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
     }
     if (data.containsKey('notice_version')) {
       context.handle(
@@ -6394,6 +6413,10 @@ class $ConsentRecordsTable extends ConsentRecords
         DriftSqlType.string,
         data['${effectivePrefix}purpose'],
       )!,
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      )!,
       noticeVersion: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}notice_version'],
@@ -6437,6 +6460,19 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
   /// What was consented to, e.g. `voice_cloud_processing`.
   final String purpose;
 
+  /// The account the decision belongs to; empty for a device-local learner
+  /// who has not signed in.
+  ///
+  /// Consent used to be device-global. Switching account kept the previous
+  /// learner's grant, so signing in as someone else silently inherited their
+  /// permission to send voice to a cloud service — a decision that person
+  /// made, applied to someone who never saw the notice.
+  ///
+  /// The log stays append-only and keeps every row: the history is evidence
+  /// and belongs to whoever made each decision. This only changes whose
+  /// decision counts as current.
+  final String accountId;
+
   /// Version of the notice shown, e.g. `voice-cloud-v1`. Sourced from the same
   /// constant the screen renders, so it cannot drift from what was displayed.
   final String noticeVersion;
@@ -6468,6 +6504,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
   const ConsentRecord({
     required this.id,
     required this.purpose,
+    required this.accountId,
     required this.noticeVersion,
     required this.policyVersion,
     required this.granted,
@@ -6481,6 +6518,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['purpose'] = Variable<String>(purpose);
+    map['account_id'] = Variable<String>(accountId);
     map['notice_version'] = Variable<String>(noticeVersion);
     map['policy_version'] = Variable<String>(policyVersion);
     map['granted'] = Variable<bool>(granted);
@@ -6495,6 +6533,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
     return ConsentRecordsCompanion(
       id: Value(id),
       purpose: Value(purpose),
+      accountId: Value(accountId),
       noticeVersion: Value(noticeVersion),
       policyVersion: Value(policyVersion),
       granted: Value(granted),
@@ -6513,6 +6552,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
     return ConsentRecord(
       id: serializer.fromJson<int>(json['id']),
       purpose: serializer.fromJson<String>(json['purpose']),
+      accountId: serializer.fromJson<String>(json['accountId']),
       noticeVersion: serializer.fromJson<String>(json['noticeVersion']),
       policyVersion: serializer.fromJson<String>(json['policyVersion']),
       granted: serializer.fromJson<bool>(json['granted']),
@@ -6528,6 +6568,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'purpose': serializer.toJson<String>(purpose),
+      'accountId': serializer.toJson<String>(accountId),
       'noticeVersion': serializer.toJson<String>(noticeVersion),
       'policyVersion': serializer.toJson<String>(policyVersion),
       'granted': serializer.toJson<bool>(granted),
@@ -6541,6 +6582,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
   ConsentRecord copyWith({
     int? id,
     String? purpose,
+    String? accountId,
     String? noticeVersion,
     String? policyVersion,
     bool? granted,
@@ -6551,6 +6593,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
   }) => ConsentRecord(
     id: id ?? this.id,
     purpose: purpose ?? this.purpose,
+    accountId: accountId ?? this.accountId,
     noticeVersion: noticeVersion ?? this.noticeVersion,
     policyVersion: policyVersion ?? this.policyVersion,
     granted: granted ?? this.granted,
@@ -6563,6 +6606,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
     return ConsentRecord(
       id: data.id.present ? data.id.value : this.id,
       purpose: data.purpose.present ? data.purpose.value : this.purpose,
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
       noticeVersion: data.noticeVersion.present
           ? data.noticeVersion.value
           : this.noticeVersion,
@@ -6584,6 +6628,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
     return (StringBuffer('ConsentRecord(')
           ..write('id: $id, ')
           ..write('purpose: $purpose, ')
+          ..write('accountId: $accountId, ')
           ..write('noticeVersion: $noticeVersion, ')
           ..write('policyVersion: $policyVersion, ')
           ..write('granted: $granted, ')
@@ -6599,6 +6644,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
   int get hashCode => Object.hash(
     id,
     purpose,
+    accountId,
     noticeVersion,
     policyVersion,
     granted,
@@ -6613,6 +6659,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
       (other is ConsentRecord &&
           other.id == this.id &&
           other.purpose == this.purpose &&
+          other.accountId == this.accountId &&
           other.noticeVersion == this.noticeVersion &&
           other.policyVersion == this.policyVersion &&
           other.granted == this.granted &&
@@ -6625,6 +6672,7 @@ class ConsentRecord extends DataClass implements Insertable<ConsentRecord> {
 class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
   final Value<int> id;
   final Value<String> purpose;
+  final Value<String> accountId;
   final Value<String> noticeVersion;
   final Value<String> policyVersion;
   final Value<bool> granted;
@@ -6635,6 +6683,7 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
   const ConsentRecordsCompanion({
     this.id = const Value.absent(),
     this.purpose = const Value.absent(),
+    this.accountId = const Value.absent(),
     this.noticeVersion = const Value.absent(),
     this.policyVersion = const Value.absent(),
     this.granted = const Value.absent(),
@@ -6646,6 +6695,7 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
   ConsentRecordsCompanion.insert({
     this.id = const Value.absent(),
     required String purpose,
+    this.accountId = const Value.absent(),
     required String noticeVersion,
     required String policyVersion,
     required bool granted,
@@ -6661,6 +6711,7 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
   static Insertable<ConsentRecord> custom({
     Expression<int>? id,
     Expression<String>? purpose,
+    Expression<String>? accountId,
     Expression<String>? noticeVersion,
     Expression<String>? policyVersion,
     Expression<bool>? granted,
@@ -6672,6 +6723,7 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (purpose != null) 'purpose': purpose,
+      if (accountId != null) 'account_id': accountId,
       if (noticeVersion != null) 'notice_version': noticeVersion,
       if (policyVersion != null) 'policy_version': policyVersion,
       if (granted != null) 'granted': granted,
@@ -6685,6 +6737,7 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
   ConsentRecordsCompanion copyWith({
     Value<int>? id,
     Value<String>? purpose,
+    Value<String>? accountId,
     Value<String>? noticeVersion,
     Value<String>? policyVersion,
     Value<bool>? granted,
@@ -6696,6 +6749,7 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
     return ConsentRecordsCompanion(
       id: id ?? this.id,
       purpose: purpose ?? this.purpose,
+      accountId: accountId ?? this.accountId,
       noticeVersion: noticeVersion ?? this.noticeVersion,
       policyVersion: policyVersion ?? this.policyVersion,
       granted: granted ?? this.granted,
@@ -6714,6 +6768,9 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
     }
     if (purpose.present) {
       map['purpose'] = Variable<String>(purpose.value);
+    }
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
     }
     if (noticeVersion.present) {
       map['notice_version'] = Variable<String>(noticeVersion.value);
@@ -6744,6 +6801,7 @@ class ConsentRecordsCompanion extends UpdateCompanion<ConsentRecord> {
     return (StringBuffer('ConsentRecordsCompanion(')
           ..write('id: $id, ')
           ..write('purpose: $purpose, ')
+          ..write('accountId: $accountId, ')
           ..write('noticeVersion: $noticeVersion, ')
           ..write('policyVersion: $policyVersion, ')
           ..write('granted: $granted, ')
@@ -19525,6 +19583,7 @@ typedef $$ConsentRecordsTableCreateCompanionBuilder =
     ConsentRecordsCompanion Function({
       Value<int> id,
       required String purpose,
+      Value<String> accountId,
       required String noticeVersion,
       required String policyVersion,
       required bool granted,
@@ -19537,6 +19596,7 @@ typedef $$ConsentRecordsTableUpdateCompanionBuilder =
     ConsentRecordsCompanion Function({
       Value<int> id,
       Value<String> purpose,
+      Value<String> accountId,
       Value<String> noticeVersion,
       Value<String> policyVersion,
       Value<bool> granted,
@@ -19562,6 +19622,11 @@ class $$ConsentRecordsTableFilterComposer
 
   ColumnFilters<String> get purpose => $composableBuilder(
     column: $table.purpose,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get accountId => $composableBuilder(
+    column: $table.accountId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -19620,6 +19685,11 @@ class $$ConsentRecordsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get noticeVersion => $composableBuilder(
     column: $table.noticeVersion,
     builder: (column) => ColumnOrderings(column),
@@ -19670,6 +19740,9 @@ class $$ConsentRecordsTableAnnotationComposer
 
   GeneratedColumn<String> get purpose =>
       $composableBuilder(column: $table.purpose, builder: (column) => column);
+
+  GeneratedColumn<String> get accountId =>
+      $composableBuilder(column: $table.accountId, builder: (column) => column);
 
   GeneratedColumn<String> get noticeVersion => $composableBuilder(
     column: $table.noticeVersion,
@@ -19734,6 +19807,7 @@ class $$ConsentRecordsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 Value<String> purpose = const Value.absent(),
+                Value<String> accountId = const Value.absent(),
                 Value<String> noticeVersion = const Value.absent(),
                 Value<String> policyVersion = const Value.absent(),
                 Value<bool> granted = const Value.absent(),
@@ -19744,6 +19818,7 @@ class $$ConsentRecordsTableTableManager
               }) => ConsentRecordsCompanion(
                 id: id,
                 purpose: purpose,
+                accountId: accountId,
                 noticeVersion: noticeVersion,
                 policyVersion: policyVersion,
                 granted: granted,
@@ -19756,6 +19831,7 @@ class $$ConsentRecordsTableTableManager
               ({
                 Value<int> id = const Value.absent(),
                 required String purpose,
+                Value<String> accountId = const Value.absent(),
                 required String noticeVersion,
                 required String policyVersion,
                 required bool granted,
@@ -19766,6 +19842,7 @@ class $$ConsentRecordsTableTableManager
               }) => ConsentRecordsCompanion.insert(
                 id: id,
                 purpose: purpose,
+                accountId: accountId,
                 noticeVersion: noticeVersion,
                 policyVersion: policyVersion,
                 granted: granted,

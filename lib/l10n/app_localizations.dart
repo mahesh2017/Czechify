@@ -221,7 +221,7 @@ abstract class AppLocalizations {
   /// No description provided for @onDeviceRecognitionNote.
   ///
   /// In en, this message translates to:
-  /// **'Using on-device recognition — results may be less accurate.'**
+  /// **'Using your device’s speech service — it may send audio to the provider, and results may be less accurate.'**
   String get onDeviceRecognitionNote;
 
   /// Bottom navigation label. Keep short — it sits under an icon in a five-item bar.

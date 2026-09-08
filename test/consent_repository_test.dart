@@ -20,7 +20,13 @@ void main() {
 
   test('nothing is consented to by default', () async {
     // Consent must be an active choice. A missing row is not agreement.
-    expect(await repo.isGranted(ConsentPurpose.voiceCloudProcessing), isFalse);
+    expect(
+      await repo.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
+      isFalse,
+    );
   });
 
   test('a decision records the wording that was shown', () async {
@@ -38,6 +44,78 @@ void main() {
     expect(DateTime.parse(row.decidedAt).isUtc, isTrue);
   });
 
+  test('a grant against older wording does not carry forward', () async {
+    // The privacy policy promises materially changed terms are presented
+    // again. A grant is evidence of agreement to what was actually read, so
+    // an obsolete one reads as no grant and the learner is asked afresh.
+    await repo.record(
+      purpose: ConsentPurpose.voiceCloudProcessing,
+      granted: true,
+      noticeVersion: 'voice-cloud-v1',
+    );
+
+    expect(
+      await repo.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
+      isFalse,
+    );
+
+    // The obsolete decision is still in the log — it happened, and the log is
+    // evidence, not state.
+    final history = await repo.history(ConsentPurpose.voiceCloudProcessing);
+    expect(history.single.noticeVersion, 'voice-cloud-v1');
+    expect(history.single.granted, isTrue);
+  });
+
+  test('one account does not inherit another account\'s consent', () async {
+    final ada = ConsentRepository(db, appVersion: '1.2.3', accountId: 'ada');
+    final bob = ConsentRepository(db, appVersion: '1.2.3', accountId: 'bob');
+
+    await ada.record(
+      purpose: ConsentPurpose.voiceCloudProcessing,
+      granted: true,
+      noticeVersion: kVoiceCloudConsentVersion,
+    );
+
+    expect(
+      await ada.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
+      isTrue,
+    );
+    // Signing in as someone else used to inherit this — permission to send
+    // voice to a cloud service, granted by a person Bob has never met.
+    expect(
+      await bob.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
+      isFalse,
+    );
+  });
+
+  test('a device-local learner is not the same as a signed-in one', () async {
+    final local = ConsentRepository(db, appVersion: '1.2.3');
+    final signedIn = ConsentRepository(db, appVersion: '1.2.3', accountId: 'x');
+
+    await local.record(
+      purpose: ConsentPurpose.voiceCloudProcessing,
+      granted: true,
+      noticeVersion: kVoiceCloudConsentVersion,
+    );
+
+    expect(
+      await signedIn.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
+      isFalse,
+    );
+  });
+
   test('withdrawal appends rather than erasing', () async {
     await repo.record(
       purpose: ConsentPurpose.voiceCloudProcessing,
@@ -50,7 +128,13 @@ void main() {
       noticeVersion: kVoiceCloudConsentVersion,
     );
 
-    expect(await repo.isGranted(ConsentPurpose.voiceCloudProcessing), isFalse);
+    expect(
+      await repo.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
+      isFalse,
+    );
 
     final history = await repo.history(ConsentPurpose.voiceCloudProcessing);
     expect(
@@ -71,7 +155,13 @@ void main() {
         noticeVersion: kVoiceCloudConsentVersion,
       );
     }
-    expect(await repo.isGranted(ConsentPurpose.voiceCloudProcessing), isTrue);
+    expect(
+      await repo.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
+      isTrue,
+    );
     expect((await repo.history()).length, 3);
   });
 
@@ -82,7 +172,10 @@ void main() {
       noticeVersion: 'other-v1',
     );
     expect(
-      await repo.isGranted(ConsentPurpose.voiceCloudProcessing),
+      await repo.isGranted(
+        ConsentPurpose.voiceCloudProcessing,
+        noticeVersion: kVoiceCloudConsentVersion,
+      ),
       isFalse,
       reason: 'consent to one thing is never consent to another',
     );

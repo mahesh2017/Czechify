@@ -21,12 +21,18 @@ class ConsentPurpose {
 /// * The notice version is recorded with every decision, because being able
 ///   to demonstrate consent (Art. 7(1)) means being able to show the wording.
 class ConsentRepository {
-  ConsentRepository(this._db, {String appVersion = '1.0.0'})
-    : _appVersion = appVersion,
-      assert(appVersion != '');
+  ConsentRepository(
+    this._db, {
+    String appVersion = '1.0.0',
+    this.accountId = '',
+  }) : _appVersion = appVersion,
+       assert(appVersion != '');
 
   final AppDatabase _db;
   final String _appVersion;
+
+  /// The signed-in account, or empty for a device-local learner.
+  final String accountId;
 
   String get _platform {
     if (Platform.isAndroid) return 'android';
@@ -40,10 +46,25 @@ class ConsentRepository {
   ///
   /// Defaulting to false matters: consent must be an active choice, never the
   /// result of a missing row or a failed read.
-  Future<bool> isGranted(String purpose) async {
+  /// [noticeVersion] is the wording the app would show *now*. A decision made
+  /// against older wording does not carry forward: the privacy policy promises
+  /// that materially changed terms are presented again, and a grant is only
+  /// evidence of agreement to what was actually read. An obsolete grant
+  /// therefore reads as no grant, and the learner is asked again.
+  Future<bool> isGranted(
+    String purpose, {
+    required String noticeVersion,
+  }) async {
     final latest =
         await (_db.select(_db.consentRecords)
-              ..where((r) => r.purpose.equals(purpose))
+              ..where(
+                (r) =>
+                    r.purpose.equals(purpose) &
+                    // Scoped to the account that made the decision. Without
+                    // this, signing in as someone else inherited the previous
+                    // learner's grant.
+                    r.accountId.equals(accountId),
+              )
               ..orderBy([
                 (r) => OrderingTerm(
                   expression: r.decidedAt,
@@ -53,7 +74,8 @@ class ConsentRepository {
               ])
               ..limit(1))
             .getSingleOrNull();
-    return latest?.granted ?? false;
+    if (latest == null || !latest.granted) return false;
+    return latest.noticeVersion == noticeVersion;
   }
 
   /// Record a decision. Returns the row written.
@@ -75,6 +97,7 @@ class ConsentRepository {
             decidedAt: DateTime.now().toUtc().toIso8601String(),
             appVersion: Value(_appVersion),
             platform: Value(_platform),
+            accountId: Value(accountId),
           ),
         );
     return (_db.select(_db.consentRecords)

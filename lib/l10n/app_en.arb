@@ -23,7 +23,7 @@
   "sayThis": "Say this:",
   "tapMicrophoneHint": "Tap the microphone and say the phrase",
   "analyzingPronunciation": "Analyzing your pronunciation...",
-  "onDeviceRecognitionNote": "Using on-device recognition — results may be less accurate.",
+  "onDeviceRecognitionNote": "Using your device\u2019s speech service — it may send audio to the provider, and results may be less accurate.",
   "navHome": "Home",
   "@navHome": {
     "description": "Bottom navigation label. Keep short — it sits under an icon in a five-item bar."
