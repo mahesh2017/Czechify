@@ -1,6 +1,7 @@
 import { assertEquals, assertNotEquals } from "jsr:@std/assert@1.0.14";
 import {
   buildUpstreamRequest,
+  matchesSchema,
   type Operation,
   parseBoundedInteger,
   parseContext,
@@ -284,48 +285,51 @@ Deno.test("a tutor reply is checked to the same standard", () => {
   );
 });
 
-Deno.test("required answers cannot be empty or whitespace-only", () => {
-  const cases = [
-    ["conversation", { level: "a1", scenario_id: "casual_chat" }, {
-      tutor_reply_cz: "Ahoj!",
-      tutor_reply_en: "",
-      corrections: [],
-      new_vocabulary: [],
-      suggested_replies: [],
-    }, "tutor_reply_cz"],
-    [
-      "conversation_summary",
-      { level: "a1" },
-      { summary: "A greeting." },
-      "summary",
-    ],
-    [
-      "grammar_check",
-      { level: "a1" },
-      { corrected_text: "Ahoj!", errors: [] },
-      "corrected_text",
-    ],
-    ["writing_evaluation", {
-      level: "a1",
-      task_description: "Write a greeting.",
-    }, {
-      score: { grammar: 80, vocabulary: 75, coherence: 90, overall: 82 },
-      feedback: "Good work.",
-      errors: [],
-    }, "feedback"],
-  ] as const;
-  for (const [operation, context, valid, field] of cases) {
-    const format = buildUpstreamRequest(operation, context, [{
-      role: "user",
-      content: "Ahoj",
-    }])!.responseFormat;
-    assertEquals(satisfiesResponseFormat(format, valid), true, operation);
-    for (const blank of ["", " ", "\t\n", "\u00a0"]) {
-      assertEquals(
-        satisfiesResponseFormat(format, { ...valid, [field]: blank }),
-        false,
-        operation,
-      );
+Deno.test("no schema sent upstream shapes the model's grammar", () => {
+  // The regression test for the 8 Sep 2026 incident. Scaleway constrains
+  // decoding to the schema it is given, so a keyword meant as a validation
+  // rule becomes a generation rule: `pattern: "\\S"` produced one-character
+  // tutor replies, at HTTP 200, past our own validator. Length and pattern
+  // constraints belong in a validation schema, never on the wire.
+  const forbidden = ["minLength", "maxLength", "pattern", "format"];
+  const walk = (node: unknown, path: string): void => {
+    if (Array.isArray(node)) {
+      node.forEach((item, index) => walk(item, `${path}[${index}]`));
+      return;
     }
+    if (typeof node !== "object" || node === null) return;
+    for (const [key, value] of Object.entries(node)) {
+      assertEquals(
+        forbidden.includes(key),
+        false,
+        `${path}.${key} would constrain generation, not just validation`,
+      );
+      walk(value, `${path}.${key}`);
+    }
+  };
+
+  const cases: ReadonlyArray<[Operation, Record<string, string>]> = [
+    ["conversation", { level: "a1", scenario_id: "restaurant" }],
+    ["conversation_summary", { level: "a1" }],
+    ["grammar_check", { level: "a1" }],
+    ["writing_evaluation", { level: "a1", task_description: "Say hello." }],
+  ];
+  for (const [operation, context] of cases) {
+    const request = buildUpstreamRequest(
+      operation,
+      context,
+      parseMessages([{ role: "user", content: "Ahoj" }])!,
+    );
+    assertNotEquals(request, null, operation);
+    walk(request!.responseFormat.json_schema.schema, operation);
   }
+});
+
+Deno.test("matchesSchema still understands the constraints it is given", () => {
+  // Support stays, for the validation schema that will be separate from the
+  // wire schema. It is the *sending* that was unsafe, not the checking.
+  const bounded = { type: "string", minLength: 1, pattern: "\\S" };
+  assertEquals(matchesSchema(bounded, "Dobrý den"), true);
+  assertEquals(matchesSchema(bounded, ""), false);
+  assertEquals(matchesSchema(bounded, "   "), false);
 });

@@ -25,13 +25,25 @@ export type UpstreamRequest = {
 };
 
 const stringProperty = { type: "string" } as const;
-// JSON Schema pattern also rejects whitespace-only output. Keep optional
-// auxiliary text (for example IPA) permissive; required answers must be usable.
-const answerProperty = {
-  type: "string",
-  minLength: 1,
-  pattern: "\\S",
-} as const;
+
+// INCIDENT, 8 Sep 2026 — never put a grammar-shaping keyword in a schema sent
+// upstream. This briefly carried `minLength: 1, pattern: "\\S"` to reject
+// whitespace-only answers. Scaleway constrains *decoding* to the schema, so it
+// read the pattern as the complete grammar for the string rather than a
+// validation rule: `\S` matches exactly one character, and every tutor reply,
+// summary, correction and piece of writing feedback came back one character
+// long. `tutor_reply_cz` was literally "D".
+//
+// It returned HTTP 200 with well-formed JSON, and it passed our own validator,
+// because an unanchored `\S` search matches a one-character string perfectly
+// well. Nothing but a live call could have caught it — which is what did,
+// seven minutes after deploy and before any learner traffic.
+//
+// Blank answers are refused by the client instead: TutorResponse.fromJson and
+// WritingEvaluation.fromJson both reject whitespace-only fields. Restoring the
+// server-side half needs a validation schema kept separate from the wire
+// schema, so the constraints never reach the decoder.
+const answerProperty = stringProperty;
 
 const strictObject = (
   properties: Record<string, unknown>,
@@ -151,9 +163,9 @@ const writingResponse = jsonSchema(
 /// that quietly approves the constructs it cannot check is worse than none: it
 /// reports a guarantee it is not making.
 ///
-/// This is where the blank-answer rule is actually enforced. The same
-/// constraints ride along in the schema sent upstream as a hint to the model,
-/// but nothing depends on the provider honouring — or even accepting — them.
+/// `minLength`/`pattern` support is kept for the validation schema that will
+/// one day be separate from the wire schema. Nothing sent upstream may use
+/// them — see [answerProperty] for what happens when it does.
 export const matchesSchema = (schema: unknown, value: unknown): boolean => {
   if (typeof schema !== "object" || schema === null) return false;
   const shape = schema as Record<string, unknown>;
