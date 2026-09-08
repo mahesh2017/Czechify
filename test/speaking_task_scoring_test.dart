@@ -74,10 +74,7 @@ void main() {
   ) async {
     // Two of the five expected words, then filler. The filler must not carry
     // it over the line.
-    final result = await speak(
-      tester,
-      'dobrý den den den den den den den den',
-    );
+    final result = await speak(tester, 'dobrý den den den den den den den den');
 
     expect(result.isCorrect, isFalse);
   });
@@ -112,6 +109,68 @@ void main() {
 
     expect(result.isCorrect, isTrue);
   });
+
+  testWidgets('a phone without Czech says so, and records no failure', (
+    tester,
+  ) async {
+    ExerciseResult? result;
+    final mic = _NoCzechTranscriber();
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [liveTranscriberProvider.overrideWithValue(mic)],
+        child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: Scaffold(
+            body: SpeakingTaskView(
+              exercise: const Exercise(
+                id: 1,
+                lessonId: 1,
+                type: ExerciseType.speakingTask,
+                prompt: 'Introduce yourself',
+                data: {
+                  'prompt_en': 'Introduce yourself',
+                  'expected_phrases': ['Dobrý den, jmenuji se Jana.'],
+                },
+              ),
+              onAnswered: (r) => result = r,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.byType(RecordButton));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+
+    // The learner is told what is actually wrong, not "recording failed",
+    // which they can only read as their own doing.
+    expect(find.textContaining('cannot recognise Czech'), findsOneWidget);
+    // And nothing is submitted, so an unavailable recogniser never becomes a
+    // wrong answer on their record.
+    expect(result, isNull);
+  });
+}
+
+/// A recogniser that cannot handle Czech refuses rather than transcribing with
+/// the device default — an English recogniser hearing Czech produces words
+/// that then get scored, and the learner is told their Czech was wrong.
+class _NoCzechTranscriber implements LiveTranscriber {
+  @override
+  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) =>
+      throw const SpeechServiceException(
+        'Your phone cannot recognise Czech speech, so this cannot be checked '
+        'on the device.',
+        cloudSpeechWouldFix: true,
+      );
+
+  @override
+  Future<void> stop() async {}
+
+  @override
+  Future<bool> supportsCzech() async => false;
 }
 
 class _FakeTranscriber implements LiveTranscriber {

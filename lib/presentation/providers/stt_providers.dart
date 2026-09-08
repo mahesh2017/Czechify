@@ -620,6 +620,22 @@ class NativeSttService implements SttService, LiveTranscriber {
     await _ensureInitialized();
     if (!_initialized) return '';
 
+    // Refuse rather than listen in the wrong language.
+    //
+    // Without a Czech locale, `localeId: null` below hands the utterance to
+    // the device default — an English recogniser transcribing Czech produces
+    // words that are then scored, and the learner is told their Czech was
+    // wrong. [PronunciationAssessor] checked this before calling, but the
+    // lesson speaking task and the exam call straight through, so the check
+    // belongs here where nothing can route around it.
+    if (_czechLocaleId == null) {
+      throw const SpeechServiceException(
+        'Your phone cannot recognise Czech speech, so this cannot be checked '
+        'on the device.',
+        cloudSpeechWouldFix: true,
+      );
+    }
+
     final completer = Completer<String>();
     String result = '';
 
