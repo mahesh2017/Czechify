@@ -153,6 +153,24 @@ void main() {
     expect(result, isNull);
   });
 
+  test('dictation still works on a phone with no Czech pack', () async {
+    // Speaking practice refuses rather than score a mis-recognised utterance.
+    // Dictation is not scored — the learner reads it in the composer and edits
+    // it before sending — so refusing there would remove a working feature for
+    // no gain.
+    final mic = _NoCzechTranscriber();
+
+    expect(
+      await mic.listenFor(requireCzech: false),
+      _NoCzechTranscriber.misheard,
+    );
+    expect(
+      () => mic.listenFor(),
+      throwsA(isA<SpeechServiceException>()),
+      reason: 'the default is the scored path, which must refuse',
+    );
+  });
+
   testWidgets('any other recogniser failure still records nothing', (
     tester,
   ) async {
@@ -199,8 +217,10 @@ void main() {
 /// on their record.
 class _BrokenTranscriber implements LiveTranscriber {
   @override
-  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) =>
-      throw Exception('platform channel unavailable');
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 10),
+    bool requireCzech = true,
+  }) => throw Exception('platform channel unavailable');
 
   @override
   Future<void> stop() async {}
@@ -213,13 +233,22 @@ class _BrokenTranscriber implements LiveTranscriber {
 /// the device default — an English recogniser hearing Czech produces words
 /// that then get scored, and the learner is told their Czech was wrong.
 class _NoCzechTranscriber implements LiveTranscriber {
+  /// What a device with no Czech pack would return if asked anyway — an
+  /// English-shaped transcription of Czech speech.
+  static const misheard = 'dough bree den';
+
   @override
-  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) =>
-      throw const SpeechServiceException(
-        'Your phone cannot recognise Czech speech, so this cannot be checked '
-        'on the device.',
-        cloudSpeechWouldFix: true,
-      );
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 10),
+    bool requireCzech = true,
+  }) async {
+    if (!requireCzech) return misheard;
+    throw const SpeechServiceException(
+      'Your phone cannot recognise Czech speech, so this cannot be checked '
+      'on the device.',
+      cloudSpeechWouldFix: true,
+    );
+  }
 
   @override
   Future<void> stop() async {}
@@ -237,8 +266,10 @@ class _FakeTranscriber implements LiveTranscriber {
   }
 
   @override
-  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) =>
-      (_pending = Completer<String>()).future;
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 10),
+    bool requireCzech = true,
+  }) => (_pending = Completer<String>()).future;
 
   @override
   Future<void> stop() async => complete('');

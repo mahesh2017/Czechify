@@ -266,6 +266,7 @@ class _FakeLiveTranscriber implements LiveTranscriber {
   @override
   Future<String> listenFor({
     Duration timeout = const Duration(seconds: 10),
+    bool requireCzech = true,
   }) async {
     listenCount++;
     return result;
