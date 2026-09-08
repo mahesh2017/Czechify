@@ -173,40 +173,55 @@ class _MatchingViewState extends State<MatchingView> {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+      // Prompt, instruction and both columns share one scrollable; only the
+      // action below is pinned. The prompt and instruction used to sit above
+      // an Expanded, and at 200% text they took the whole box — all 84 shipped
+      // matching exercises overflowed, with the pairs unreachable.
+      //
+      // The two columns scrolled independently before. They shrink-wrap, so
+      // one shared scroll works and is the better reading anyway: a matching
+      // pair is a row, and the halves of it now stay level.
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
-          const SizedBox(height: 8),
-          Text(
-            l10n.exerciseTapCzechThenEnglish,
-            style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
-          ),
-          const SizedBox(height: 18),
-
-          // Two-column matching area
           Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left column (Czech)
-                Expanded(
-                  child: _buildColumn(
-                    items: _leftItems,
-                    side: _Side.left,
-                    onTap: _onLeftTap,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.exerciseTapCzechThenEnglish,
+                    style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
                   ),
-                ),
-                const SizedBox(width: 8),
-                // Right column (English)
-                Expanded(
-                  child: _buildColumn(
-                    items: _rightItems,
-                    side: _Side.right,
-                    onTap: _onRightTap,
+                  const SizedBox(height: 18),
+
+                  // Two-column matching area
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Left column (Czech)
+                      Expanded(
+                        child: _buildColumn(
+                          items: _leftItems,
+                          side: _Side.left,
+                          onTap: _onLeftTap,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      // Right column (English)
+                      Expanded(
+                        child: _buildColumn(
+                          items: _rightItems,
+                          side: _Side.right,
+                          onTap: _onRightTap,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
@@ -290,6 +305,8 @@ class _MatchingViewState extends State<MatchingView> {
   }) {
     return ListView.separated(
       shrinkWrap: true,
+      // The outer scrollable owns scrolling now; these only lay out.
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: items.length,
       separatorBuilder: (_, __) => const SizedBox(height: 8),
       itemBuilder: (context, i) {

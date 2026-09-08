@@ -2,7 +2,9 @@ import 'dart:math' as math;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import '../../../l10n/app_localizations.dart';
+import '../../../domain/engines/llm_orchestrator.dart';
 import '../../../domain/repositories/conversation_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -160,6 +162,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     try {
       final transcription = await _transcriber.listenFor(
         timeout: const Duration(seconds: 10),
+        // The learner reads this in the composer and edits it before sending,
+        // and nothing scores it — so on a phone with no Czech pack a rough
+        // transcription is still worth having. The scored paths refuse.
+        requireCzech: false,
       );
       if (!mounted) return;
       if (transcription.isNotEmpty) {
@@ -197,12 +203,26 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     });
   }
 
-  void _sendMessage() {
+  Future<void> _sendMessage() async {
     final text = _inputController.text.trim();
     if (text.isEmpty) return;
+
+    // Cleared optimistically, because waiting for the database before the
+    // composer empties feels broken. But a rejected message used to be gone
+    // for good: the notifier said "please try again" and there was nothing
+    // left to try again with.
     _inputController.clear();
-    ref.read(chatProvider.notifier).sendMessage(text);
     _scrollToBottom();
+
+    final accepted = await ref.read(chatProvider.notifier).sendMessage(text);
+    if (accepted || !mounted) return;
+
+    // Put it back, and only if the learner has not started typing something
+    // else in the meantime — their new draft outranks the failed one.
+    if (_inputController.text.trim().isEmpty) {
+      _inputController.text = text;
+      _inputController.selection = TextSelection.collapsed(offset: text.length);
+    }
   }
 
   @override
@@ -637,6 +657,20 @@ class _ScenarioPicker extends ConsumerWidget {
               ),
             );
           }),
+          // Reachable rather than capped. The list stopped at 25 with nothing
+          // beyond it, so an older conversation could not be resumed or
+          // deleted without first removing newer ones.
+          if (ref.watch(hasMoreConversationsProvider).value ?? false)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed:
+                    () =>
+                        ref.read(conversationPagesProvider.notifier).showMore(),
+                icon: const Icon(Icons.history, size: 18),
+                label: Text(l10n.chatShowOlder),
+              ),
+            ),
         ],
         const SizedBox(height: 22),
         Row(
@@ -1215,6 +1249,33 @@ class _InputBar extends StatelessWidget {
                       child: TextField(
                         controller: controller,
                         enabled: !isLoading,
+                        // The server refuses anything longer, and the message
+                        // was persisted before it was sent — so an oversized
+                        // one came back rejected, stayed in the transcript,
+                        // and failed again on every retry. Stopping it here
+                        // costs the learner a counter instead of a turn.
+                        maxLength: LLMOrchestrator.maxMessageCharacters,
+                        maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                        // Only appears as the limit approaches; a counter on
+                        // an empty composer is noise.
+                        buildCounter:
+                            (
+                              context, {
+                              required currentLength,
+                              required isFocused,
+                              required maxLength,
+                            }) =>
+                                currentLength <
+                                        LLMOrchestrator.maxMessageCharacters -
+                                            400
+                                    ? null
+                                    : Text(
+                                      '$currentLength / $maxLength',
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: t.muted,
+                                      ),
+                                    ),
                         style: TextStyle(fontSize: 16, color: t.ink),
                         decoration: InputDecoration(
                           isCollapsed: true,

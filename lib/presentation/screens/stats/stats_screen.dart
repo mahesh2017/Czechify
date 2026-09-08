@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' show TableUpdate, TableUpdateQuery;
 import 'package:flutter/material.dart' hide Badge;
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -334,10 +335,37 @@ class _SkillEvidenceRow extends StatelessWidget {
   }
 }
 
+/// Ticks whenever a table this screen reads is written.
+///
+/// Both providers below are cached futures, and
+/// `StatefulShellRoute.indexedStack` keeps this tab mounted — so nothing
+/// disposed them and nothing invalidated them. Completing a lesson elsewhere
+/// and coming back showed the old numbers, and switching account showed the
+/// previous learner's, until something happened to rebuild the screen.
+///
+/// Watching the writes themselves rather than invalidating from each call site
+/// means a new write path cannot forget to do it. Account switching clears
+/// these tables, so it refreshes through the same route.
+final _statsSourcesChangedProvider =
+    StreamProvider.autoDispose<Set<TableUpdate>>((ref) {
+      final database = ref.watch(databaseProvider);
+      return database.tableUpdates(
+        TableUpdateQuery.onAllTables([
+          database.lessonProgress,
+          database.lessonAttempts,
+          database.examResults,
+          database.userProgress,
+          database.srsCards,
+          database.gamificationStateTable,
+        ]),
+      );
+    });
+
 /// Past mock-exam attempts across both levels, newest first.
 final _examHistoryProvider = FutureProvider.autoDispose<List<ExamResult>>((
   ref,
 ) async {
+  ref.watch(_statsSourcesChangedProvider);
   final repo = ref.read(examRepositoryProvider);
   final a1 = await repo.getResults(ExamLevel.a1);
   final a2 = await repo.getResults(ExamLevel.a2);
@@ -352,6 +380,7 @@ class _StatsData {
 
 /// Progress snapshot + unit catalogue for the stats screen.
 final _statsDataProvider = FutureProvider.autoDispose<_StatsData>((ref) async {
+  ref.watch(_statsSourcesChangedProvider);
   final repo = ref.read(progressRepositoryProvider);
   final snapshot = await repo.getSnapshot();
   final units = await ref.watch(allUnitsProvider.future);
@@ -386,9 +415,15 @@ class _CompletionCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          _ProgressRow(label: AppLocalizations.of(context).statsLevelA1, progress: a1Completion),
+          _ProgressRow(
+            label: AppLocalizations.of(context).statsLevelA1,
+            progress: a1Completion,
+          ),
           const SizedBox(height: 14),
-          _ProgressRow(label: AppLocalizations.of(context).statsLevelA2, progress: a2Completion),
+          _ProgressRow(
+            label: AppLocalizations.of(context).statsLevelA2,
+            progress: a2Completion,
+          ),
         ],
       ),
     );
@@ -618,13 +653,23 @@ class _ExamHistoryCard extends ConsumerWidget {
           ...results.take(10).map((r) {
             final date =
                 '${r.takenAt.year}-${r.takenAt.month.toString().padLeft(2, '0')}-${r.takenAt.day.toString().padLeft(2, '0')}';
-            final color = r.passed ? t.green : t.red;
+            // `passed` is deliberately false for every attempt: the shipped
+            // banks have not been through independent examination-specialist
+            // validation, so the exam screen refuses to make an attainment
+            // claim. Reading that as "failed" and painting a red cancel icon
+            // turned a deliberate refusal to judge into a verdict — a perfect
+            // practice run was filed as a failure.
+            //
+            // Practice is its own state, shown neutrally, in the violet the
+            // result screen already uses for an unscored outcome. The passed
+            // branch stays for the day a validated bank ships.
+            final color = r.passed ? t.green : t.violetInk;
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Row(
                 children: [
                   Icon(
-                    r.passed ? Icons.check_circle : Icons.cancel,
+                    r.passed ? Icons.check_circle : Icons.analytics_outlined,
                     color: color,
                     size: 18,
                   ),

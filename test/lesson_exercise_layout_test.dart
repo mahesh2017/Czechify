@@ -26,14 +26,12 @@ void main() {
 
   /// Types still known to overflow, by configuration.
   ///
-  /// `matching` is not fixed here on purpose: `matching_view.dart` is also
-  /// changed by the open "recorded teacher voice" PR, and editing it now would
-  /// manufacture a conflict. Fix it once that lands and delete the entry —
-  /// this test fails if the set stops matching reality in either direction, so
-  /// it cannot rot into a silent exclusion.
+  /// Empty, and meant to stay that way: every shipped exercise now fits both
+  /// configurations. The map remains because the test asserts equality in both
+  /// directions, so a regression fails here rather than accumulating quietly.
   const knownOverflowing = <String, Set<ExerciseType>>{
     '320x568 at default text': {},
-    '400x700 at 200% text': {ExerciseType.matching},
+    '400x700 at 200% text': {},
   };
 
   for (final config in configs) {

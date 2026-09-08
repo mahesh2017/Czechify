@@ -69,7 +69,20 @@ abstract class AudioRecorderPort {
 
 /// On-device live transcriber used as the degraded fallback.
 abstract class LiveTranscriber {
-  Future<String> listenFor({Duration timeout});
+  /// Listen and return what was recognised.
+  ///
+  /// [requireCzech] decides what happens on a device with no Czech language
+  /// pack, where the platform falls back to the phone's default language and
+  /// returns an English-shaped transcription of Czech speech.
+  ///
+  /// Scored paths pass true — the default — and get a [SpeechServiceException]
+  /// rather than a transcription, because a mis-recognised utterance reaches
+  /// the learner as their own bad pronunciation.
+  ///
+  /// Paths where the learner reads the text before anything happens to it —
+  /// dictating a chat message they then edit and send — pass false. A rough
+  /// transcription is worth having there, and nothing grades it.
+  Future<String> listenFor({Duration timeout, bool requireCzech});
   Future<void> stop();
 
   /// Whether this transcriber can recognise Czech at all.

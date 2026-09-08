@@ -36,9 +36,18 @@ class ListeningComprehensionView extends ConsumerStatefulWidget {
 class _ListeningComprehensionViewState
     extends ConsumerState<ListeningComprehensionView> {
   /// Plays the learner asked for. Deliberately excludes the automatic first
-  /// play: `_playCount > 1` is recorded as [SupportKind.replay], evidence that
-  /// they needed to hear it again, and that must mean they chose to.
+  /// play, which they did not choose.
   int _playCount = 0;
+
+  /// Whether the learner asked to hear a recording they had already heard.
+  ///
+  /// This is the evidence [SupportKind.replay] is meant to carry, and the
+  /// count alone could not express it. `_playCount > 1` ignored the automatic
+  /// play entirely, so a learner who let it play and then asked for it once
+  /// more — needing it twice — was recorded as having understood it
+  /// unaided, and that fed placement and recommendations.
+  bool get _replayedAfterHearing =>
+      _autoPlayed ? _playCount >= 1 : _playCount > 1;
 
   /// Whether the automatic play has happened, so the button can say "Play it
   /// again" truthfully without counting as a replay.
@@ -183,7 +192,7 @@ class _ListeningComprehensionViewState
                     explanation: explanation,
                     correctAnswer: correctAnswer,
                     supports: {
-                      if (_playCount > 1) SupportKind.replay,
+                      if (_replayedAfterHearing) SupportKind.replay,
                       if (_transcriptRevealed) SupportKind.transcript,
                     },
                   ),

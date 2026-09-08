@@ -1,5 +1,16 @@
 # Phoneme recogniser
 
+> **Status: prototype, not shipped.** No build sets `PHONEME_SERVICE_URL`, so
+> the app constructs no client for this and falls back to transcript-level
+> scoring. Phoneme scoring is postponed until there is a cloud model trained
+> for Czech audio; this local service is kept for that work.
+>
+> It is not production-ready and three known issues must be fixed before any
+> build points at it — unauthenticated by default, unbounded upload memory,
+> and consent wording that does not cover sending recordings here. They are
+> written out at `kPhonemeServiceUrl` in
+> `lib/presentation/providers/stt_providers.dart`.
+
 Audio in, IPA out. Scoring lives in the app (`PhonemeScorer`), not here — this
 service only recognises sounds, so the recogniser can be swapped without
 touching the Czech weights or the wording learners see.

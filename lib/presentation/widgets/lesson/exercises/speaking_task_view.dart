@@ -186,11 +186,18 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
           ),
         );
       });
-    } catch (e) {
+    } catch (error) {
       if (_sessionCancelled) return;
       setState(() {
         isRecording = false;
-        feedback = AppLocalizations.of(context).recordingFailed;
+        // A recogniser that cannot handle Czech says so in plain language, and
+        // saying it beats a generic failure the learner can only read as their
+        // own. Nothing is submitted either way, so an unavailable recogniser
+        // never becomes a wrong answer on their record.
+        feedback =
+            error is SpeechServiceException
+                ? error.message
+                : AppLocalizations.of(context).recordingFailed;
       });
     }
   }

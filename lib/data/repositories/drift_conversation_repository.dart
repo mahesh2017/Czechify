@@ -78,20 +78,18 @@ class DriftConversationRepository implements ConversationRepository {
   @override
   Future<List<ConversationSummary>> getRecentConversations({
     int limit = 5,
-  }) async {
-    final rows = await _db.conversationDao.getAllConversations();
-    return rows
-        .take(limit)
-        .map(
-          (c) => ConversationSummary(
-            id: c.id,
-            scenario: c.scenario,
-            cefrLevel: c.cefrLevel,
-            createdAt: c.createdAt,
-          ),
-        )
-        .toList();
+    int offset = 0,
+  }) {
+    // Paged and ordered in SQL. This used to read every conversation and drop
+    // all but the first `limit` in Dart, so the work grew with the archive.
+    return _db.conversationDao.recentConversations(
+      limit: limit,
+      offset: offset,
+    );
   }
+
+  @override
+  Future<int> countConversations() => _db.conversationDao.conversationCount();
 
   entity.ChatMessage _toEntityChatMessage(db.ChatMessage row) {
     return entity.ChatMessage(

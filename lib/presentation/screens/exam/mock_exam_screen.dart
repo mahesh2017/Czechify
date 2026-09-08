@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show MaxLengthEnforcement;
+import '../../../domain/engines/llm_orchestrator.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -247,7 +249,18 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       _result = null;
       _pendingCheckpoint = null;
     });
-    _startSectionTimer(resumeSeconds: checkpoint.secondsLeft);
+    // Time spent away counts. The live timer already runs off a wall-clock
+    // deadline precisely so backgrounding does not pause it — but resume
+    // handed the stored seconds straight back, so quitting the app did what
+    // backgrounding could not. Leaving and returning could extend a timed
+    // section by hours.
+    //
+    // A section whose time ran out while the app was closed resumes at zero,
+    // and the timer moves on at its first tick, exactly as it would have.
+    final secondsAway = DateTime.now().difference(checkpoint.savedAt).inSeconds;
+    final remaining =
+        checkpoint.secondsLeft - (secondsAway < 0 ? 0 : secondsAway);
+    _startSectionTimer(resumeSeconds: remaining > 0 ? remaining : 0);
   }
 
   void _saveCheckpoint() {
@@ -440,9 +453,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       // Result still shown; only history is lost — but say so.
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context).examSaveFailed),
-          ),
+          SnackBar(content: Text(AppLocalizations.of(context).examSaveFailed)),
         );
       }
     }
@@ -1062,6 +1073,27 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             expands: true,
             textAlignVertical: TextAlignVertical.top,
             enabled: !isEvaluating,
+            // The evaluator refuses anything longer, and finding that out
+            // after the learner has written it — at the end of a timed
+            // section — costs them the response.
+            maxLength: LLMOrchestrator.maxMessageCharacters,
+            maxLengthEnforcement: MaxLengthEnforcement.enforced,
+            buildCounter:
+                (
+                  context, {
+                  required currentLength,
+                  required isFocused,
+                  required maxLength,
+                }) =>
+                    currentLength < LLMOrchestrator.maxMessageCharacters - 400
+                        ? null
+                        : Text(
+                          '$currentLength / $maxLength',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: context.tokens.muted,
+                          ),
+                        ),
             decoration: InputDecoration(
               hintText: AppLocalizations.of(context).examWritingHint,
             ),
@@ -1097,7 +1129,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  _MiniScoreRow(label: AppLocalizations.of(context).examCriterionGrammar, score: evaluation.grammar),
+                  _MiniScoreRow(
+                    label: AppLocalizations.of(context).examCriterionGrammar,
+                    score: evaluation.grammar,
+                  ),
                   _MiniScoreRow(
                     label: AppLocalizations.of(context).examCriterionVocabulary,
                     score: evaluation.vocabulary,
@@ -1349,7 +1384,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         if (score != null) _speakingScores[responseKey] = score;
       });
       _answer(score ?? transcription);
-    } catch (_) {
+    } catch (error) {
       if (!mounted) return;
       if (attemptId != _speakingAttemptId ||
           responseKey != _currentResponseKey) {
@@ -1357,12 +1392,20 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       }
       setState(() {
         _isRecordingSpeaking = false;
+        // No score is recorded, so an unavailable recogniser leaves the task
+        // unassessed rather than failed — which the result screen now shows
+        // as "Not assessed" instead of a zero.
         _speakingTranscriptions.remove(responseKey);
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'Speech recognition failed. Check microphone permissions.',
+            // A recogniser that cannot handle Czech says so itself; guessing
+            // at microphone permissions would send the learner to fix
+            // something that is not broken.
+            error is SpeechServiceException
+                ? error.message
+                : 'Speech recognition failed. Check microphone permissions.',
           ),
         ),
       );
@@ -1378,7 +1421,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
     return Scaffold(
       backgroundColor: t.bg,
-      appBar: AppBar(backgroundColor: t.bg, title: Text(AppLocalizations.of(context).examResultsTitle)),
+      appBar: AppBar(
+        backgroundColor: t.bg,
+        title: Text(AppLocalizations.of(context).examResultsTitle),
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -1425,16 +1471,25 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               SoftCard(
                 child: Column(
                   children: [
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionReading, score: _result!.readingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionReading,
+                      score: _result!.readingScore,
+                    ),
                     const Divider(),
                     _ScoreRow(
                       label: AppLocalizations.of(context).examSectionListening,
                       score: _result!.listeningScore,
                     ),
                     const Divider(),
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionWriting, score: _result!.writingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionWriting,
+                      score: _result!.writingScore,
+                    ),
                     const Divider(),
-                    _ScoreRow(label: AppLocalizations.of(context).examSectionSpeaking, score: _result!.speakingScore),
+                    _ScoreRow(
+                      label: AppLocalizations.of(context).examSectionSpeaking,
+                      score: _result!.speakingScore,
+                    ),
                     const Divider(),
                     _ScoreRow(
                       label: AppLocalizations.of(context).examScoreOverall,

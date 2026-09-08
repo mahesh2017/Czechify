@@ -1272,6 +1272,13 @@ class AppLocalizationsCs extends AppLocalizations {
       'Výběrem naplánujete návrat karty a přejdete na další.';
 
   @override
+  String get reviewLoadFailedTitle => 'Opakování se nepodařilo načíst';
+
+  @override
+  String get reviewLoadFailedBody =>
+      'Při sestavování relace došlo k chybě. Tvůj pokrok je v bezpečí.';
+
+  @override
   String get reviewAllCaughtUp => 'Vše hotovo';
 
   @override
@@ -1320,6 +1327,9 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get chatSubtitle =>
       'Reálné situace, na které tento týden v Česku narazíte. Lektor se přizpůsobí vaší úrovni.';
+
+  @override
+  String get chatShowOlder => 'Zobrazit starší konverzace';
 
   @override
   String get chatUnfinished => 'Nedokončené';

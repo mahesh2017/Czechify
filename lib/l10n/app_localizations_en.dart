@@ -1269,6 +1269,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Choose one to schedule this card and continue to the next.';
 
   @override
+  String get reviewLoadFailedTitle => 'Couldn’t load your review';
+
+  @override
+  String get reviewLoadFailedBody =>
+      'Something went wrong building this session. Your progress is safe.';
+
+  @override
   String get reviewAllCaughtUp => 'All caught up';
 
   @override
@@ -1316,6 +1323,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get chatSubtitle =>
       'Real situations you will hit this week in Czechia. The tutor adapts to your level.';
+
+  @override
+  String get chatShowOlder => 'Show older conversations';
 
   @override
   String get chatUnfinished => 'Unfinished';
