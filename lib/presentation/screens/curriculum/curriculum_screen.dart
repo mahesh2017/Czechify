@@ -248,9 +248,22 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                                 ),
                               ),
                             ),
-                            _ViewToggle(
-                              mapView: mapView,
-                              onChanged: _changeMapView,
+                            // The toggle is two text pills beside a label
+                            // that already takes the rest of the row. At 200%
+                            // the three together want more width than the
+                            // screen has, and the toggle is the part that can
+                            // give: it scales as a unit rather than clipping
+                            // one of its labels, and stays a 44pt target
+                            // because the hit region around it is unscaled.
+                            Flexible(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerRight,
+                                child: _ViewToggle(
+                                  mapView: mapView,
+                                  onChanged: _changeMapView,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -259,7 +272,16 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                           shown.isEmpty
                               ? (active?.title ?? l10n.curriculumPathTitle)
                               : shown[activeIndex].unit.title,
-                          maxLines: 2,
+                          // One line once the type is large. This header is
+                          // pinned above an Expanded list, so its intrinsic
+                          // height is taken out of the viewport before the
+                          // list sees any — at 200% a second title line is
+                          // more than the screen has left, and the unit name
+                          // is repeated in the list directly below.
+                          maxLines:
+                              MediaQuery.textScalerOf(context).scale(20) > 30
+                                  ? 1
+                                  : 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontFamily: AppFonts.display,
@@ -537,7 +559,7 @@ class _ViewToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.tokens;
     return Semantics(
-      label: 'Curriculum layout',
+      label: AppLocalizations.of(context).curriculumLayoutA11y,
       child: Container(
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
@@ -721,7 +743,7 @@ class _PathUnit extends ConsumerWidget {
                             Container(
                               padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
                               decoration: BoxDecoration(
-                                color: t.pri,
+                                color: t.priFill,
                                 borderRadius: BorderRadius.circular(999),
                               ),
                               child: Text(
@@ -931,7 +953,7 @@ class _PathLessonRow extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
                             decoration: BoxDecoration(
-                              color: t.pri,
+                              color: t.priFill,
                               borderRadius: BorderRadius.circular(999),
                             ),
                             child: Text(
@@ -1101,13 +1123,13 @@ class _UnitCard extends ConsumerWidget {
                               vertical: 3,
                             ),
                             decoration: BoxDecoration(
-                              color: t.pri,
+                              color: t.priFill,
                               borderRadius: BorderRadius.circular(999),
                             ),
                             child: Text(
                               l10n.curriculumInProgress,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: t.onFill,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w800,
                                 letterSpacing: 1,
@@ -1214,7 +1236,9 @@ class _UnitCard extends ConsumerWidget {
                   child: OutlinedButton.icon(
                     onPressed: () => context.push('/grammar?unit=${unit.id}'),
                     icon: const Icon(Icons.menu_book, size: 16),
-                    label: const Text('Grammar Rules'),
+                    label: Text(
+                      AppLocalizations.of(context).curriculumGrammarRules,
+                    ),
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 40),
                     ),
@@ -1274,7 +1298,7 @@ class _LessonTile extends StatelessWidget {
               tint: isCompleted ? t.greenSoft : (isUnlocked ? tint : t.chipBg),
               fg: isCompleted ? t.green : (isUnlocked ? fg : t.faint),
               size: 32,
-              radius: 11,
+              radius: 12,
               iconSize: 14,
             ),
             const SizedBox(width: 12),

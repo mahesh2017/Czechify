@@ -18,7 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get continueLabel => 'Continue';
 
   @override
-  String get tryAgain => 'Try Again';
+  String get tryAgain => 'Try again';
 
   @override
   String get nextPhrase => 'Next Phrase';
@@ -2609,6 +2609,496 @@ class AppLocalizationsEn extends AppLocalizations {
   String pronTipCheckSound(String sound, String word) {
     return 'Check the “$sound” sound in “$word”.';
   }
+
+  @override
+  String get examLeaveTitle => 'Leave the exam?';
+
+  @override
+  String get examLeaveBody =>
+      'Your exam is in progress. If you leave now it will not be scored.';
+
+  @override
+  String get cloudSpeechTitle => 'Allow cloud speech?';
+
+  @override
+  String get cloudSpeechBody =>
+      'Your pronunciation recording will be sent through Czechify to OpenAI in the United States for transcription. Czechify does not store the recording after the transcript is returned. OpenAI may retain API data for abuse monitoring for up to 30 days. This is optional, can be switched off at any time, and is available only if you are at least 16.';
+
+  @override
+  String get cloudSpeechAllow => 'Allow cloud speech';
+
+  @override
+  String get reportNoteLabel => 'Anything you want to add (optional)';
+
+  @override
+  String get examWritingHint => 'Write your answer in Czech…';
+
+  @override
+  String get arrivalGoHome => 'Go to Home';
+
+  @override
+  String get arrivalContinueHome => 'Continue to Home';
+
+  @override
+  String get arrivalStreakLabel => 'day streak';
+
+  @override
+  String get arrivalXpLabel => 'today’s XP';
+
+  @override
+  String get arrivalReviewLabel => 'to review';
+
+  @override
+  String get arrivalGuideA11y => 'Czechify language guide';
+
+  @override
+  String get arrivalPreparing => 'Preparing today’s practice';
+
+  @override
+  String get examSaveFailed =>
+      'Could not save this result to your exam history.';
+
+  @override
+  String get examGrading => 'Grading…';
+
+  @override
+  String get examEvaluatingAnswers => 'Evaluating your answers…';
+
+  @override
+  String get examPrevious => 'Previous';
+
+  @override
+  String get examEvaluatingWriting => 'AI evaluating your writing…';
+
+  @override
+  String get examRequestFeedback => 'Request practice feedback';
+
+  @override
+  String get examCriterionGrammar => 'Grammar';
+
+  @override
+  String get examCriterionVocabulary => 'Vocabulary';
+
+  @override
+  String get examCriterionCoherence => 'Coherence';
+
+  @override
+  String get examScoreOverall => 'Overall';
+
+  @override
+  String get onboardingFirstNameHint => 'Your first name';
+
+  @override
+  String linkOpenFailed(String url) {
+    return 'Could not open a browser. Visit $url';
+  }
+
+  @override
+  String quickRefLoadFailed(String title) {
+    return 'Could not load $title.';
+  }
+
+  @override
+  String get curriculumLayoutA11y => 'Curriculum layout';
+
+  @override
+  String get curriculumGrammarRules => 'Grammar Rules';
+
+  @override
+  String get pronListeningA11y => 'Listening';
+
+  @override
+  String pronScoreA11y(int percent, String label) {
+    return 'Score $percent percent. $label';
+  }
+
+  @override
+  String get transferTryNewWay => 'Try it in a new way';
+
+  @override
+  String arrivalReadyTitle(String name) {
+    return 'Ready for your Czech win$name?';
+  }
+
+  @override
+  String get arrivalReadyBody =>
+      'A few focused minutes are enough to move forward today.';
+
+  @override
+  String get arrivalReadyCta => 'Start today’s lesson';
+
+  @override
+  String arrivalStreakTitle(String name) {
+    return 'Keep the fire alive$name';
+  }
+
+  @override
+  String get arrivalStreakBody =>
+      'One short lesson protects the rhythm you’ve built.';
+
+  @override
+  String get arrivalStreakCta => 'Continue learning';
+
+  @override
+  String get arrivalReviewEyebrow => 'MEMORY BOOST';
+
+  @override
+  String get arrivalReviewBody =>
+      'A quick review now will make them easier to recall later.';
+
+  @override
+  String get arrivalReviewCta => 'Review now';
+
+  @override
+  String arrivalReturnTitle(String name) {
+    return 'Your Czech is still here$name';
+  }
+
+  @override
+  String get arrivalReturnBody =>
+      'Restart gently. One small step is all today needs.';
+
+  @override
+  String get arrivalReturnCta => 'Make a fresh start';
+
+  @override
+  String get arrivalGoalEyebrow => 'DAILY GOAL COMPLETE';
+
+  @override
+  String arrivalGoalTitle(String name) {
+    return 'You did it$name!';
+  }
+
+  @override
+  String get arrivalGoalBody =>
+      'Your Czech moved forward today. Anything else is a bonus.';
+
+  @override
+  String arrivalDoneTitle(String name) {
+    return 'Look how far you’ve come$name';
+  }
+
+  @override
+  String get arrivalDoneBody =>
+      'Explore the course or revisit a lesson to keep Czech fresh.';
+
+  @override
+  String get arrivalDoneCta => 'Explore the course';
+
+  @override
+  String get statsLevelA1 => 'A1 — Beginner';
+
+  @override
+  String get statsLevelA2 => 'A2 — Elementary';
+
+  @override
+  String placementUnitLabel(int unit) {
+    return 'Unit $unit';
+  }
+
+  @override
+  String get routeNotFoundTitle => 'Not found';
+
+  @override
+  String get routeNotFoundBody => 'That page could not be opened.';
+
+  @override
+  String get genderFeminine => 'fem';
+
+  @override
+  String get genderNeuter => 'neut';
+
+  @override
+  String get genderMascInanimate => 'masc inan';
+
+  @override
+  String get genderMascAnimate => 'masc anim';
+
+  @override
+  String playbackSpeedA11y(String speed) {
+    return 'Playback speed $speed';
+  }
+
+  @override
+  String rewardBadgeEarned(int xp) {
+    return 'Badge earned · +$xp XP';
+  }
+
+  @override
+  String get rewardWellDone => 'Well done';
+
+  @override
+  String get shareLabel => 'Share';
+
+  @override
+  String get pronMoveOn => 'Move on for now';
+
+  @override
+  String get pronTryOnceMore => 'Try once more';
+
+  @override
+  String arrivalStreakEyebrow(int count) {
+    return '$count-DAY STREAK';
+  }
+
+  @override
+  String arrivalReviewTitle(int count, String name) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count words are ready for you$name',
+      one: '1 word is ready for you$name',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get arrivalGoalCtaBonus => 'Take a bonus lesson';
+
+  @override
+  String get arrivalGoalCtaProgress => 'See my progress';
+
+  @override
+  String get notifyDaily1Title => 'Time for Czech! 🇨🇿';
+
+  @override
+  String get notifyDaily1Body =>
+      'Just 5 minutes keeps your streak alive. Your next lesson is waiting!';
+
+  @override
+  String get notifyDaily2Title => 'Ready for Czech? 💪';
+
+  @override
+  String get notifyDaily2Body =>
+      'Open the app, do one lesson, feel amazing. That\'s the deal.';
+
+  @override
+  String get notifyDaily3Title => 'Czech is calling 📚';
+
+  @override
+  String get notifyDaily3Body =>
+      'Five minutes now, one lesson done. Your future self says thanks.';
+
+  @override
+  String get notifyDaily4Title => 'Ahoj! Let\'s practice 💚';
+
+  @override
+  String get notifyDaily4Body =>
+      'One lesson today keeps the momentum going. You\'ve got this!';
+
+  @override
+  String get notifyDaily5Title => 'Your daily Czech awaits ⚡';
+
+  @override
+  String get notifyDaily5Body =>
+      'Open Czechify and finish one lesson. Just five minutes.';
+
+  @override
+  String get notifyDaily6Title => 'Dobrý den! 🌙';
+
+  @override
+  String get notifyDaily6Body =>
+      'Perfect time for Czech. One lesson, then relax.';
+
+  @override
+  String get notifyDaily7Title => 'Keep the magic going ✨';
+
+  @override
+  String get notifyDaily7Body =>
+      'Every word you learn today is a word you didn\'t know yesterday.';
+
+  @override
+  String get notifyDaily8Title => 'One lesson away 🎯';
+
+  @override
+  String get notifyDaily8Body =>
+      'Open Czechify, pick up where you left off, done in minutes.';
+
+  @override
+  String get notifyEvening1Title => 'Your Czech missed you today 😊';
+
+  @override
+  String get notifyEvening1Body =>
+      'It\'s not too late! One lesson before bed keeps your streak alive.';
+
+  @override
+  String get notifyEvening2Title => 'Last chance to practice today! 🌙';
+
+  @override
+  String get notifyEvening2Body =>
+      'One lesson — about 5 minutes — and you\'re done for today.';
+
+  @override
+  String get notifyEvening3Title => 'Czech is waiting 💚';
+
+  @override
+  String get notifyEvening3Body =>
+      'The day\'s almost over, but one lesson fits. Open Czechify?';
+
+  @override
+  String get notifyEvening4Title => 'One more day, one more word 📖';
+
+  @override
+  String get notifyEvening4Body =>
+      'A quick lesson now keeps your streak going. You\'ve got this!';
+
+  @override
+  String get notifyEvening5Title => 'Don\'t miss today 🌟';
+
+  @override
+  String get notifyEvening5Body =>
+      'Five minutes of Czech before you call it a day. One lesson!';
+
+  @override
+  String notifyBodyWithName(String name, String body) {
+    return '$name, $body';
+  }
+
+  @override
+  String get tip1Title => 'Write it down';
+
+  @override
+  String get tip1Body =>
+      'Writing Czech words by hand engages motor memory. Studies show handwritten notes are remembered better than typed ones. Keep a small notebook for new vocabulary.';
+
+  @override
+  String get tip2Title => 'Spaced repetition works';
+
+  @override
+  String get tip2Body =>
+      'Reviewing material at increasing intervals is the single most effective way to retain vocabulary. That’s exactly what the SRS review cards do — do them every day, even briefly.';
+
+  @override
+  String get tip3Title => 'Shadow the audio';
+
+  @override
+  String get tip3Body =>
+      'Listen to a Czech phrase, then immediately repeat it out loud trying to match the pronunciation exactly. This \"shadowing\" technique trains both your ear and your mouth muscles.';
+
+  @override
+  String get tip4Title => 'Active recall over re-reading';
+
+  @override
+  String get tip4Body =>
+      'Instead of re-reading grammar rules, test yourself. Try to explain a rule out loud without looking. If you can’t, you don’t know it yet — that’s where learning happens.';
+
+  @override
+  String get tip5Title => 'Link words to images';
+
+  @override
+  String get tip5Body =>
+      'Associate each new Czech word with a vivid mental image. The stranger the image, the better it sticks. For \"kočka\" (cat), imagine a cat wearing a traditional Czech kroj.';
+
+  @override
+  String get tip6Title => 'Short sessions beat long ones';
+
+  @override
+  String get tip6Body =>
+      'Three 10-minute sessions spread through the day are more effective than one 30-minute block. Your brain consolidates language between sessions, not just during them.';
+
+  @override
+  String get tip7Title => 'Learn in context';
+
+  @override
+  String get tip7Body =>
+      'Don’t memorize isolated word lists. Learn words inside full sentences — \"Dám si pivo, prosím\" (I’ll have a beer, please) sticks better than \"pivo = beer\".';
+
+  @override
+  String get tip8Title => 'Sleep on it';
+
+  @override
+  String get tip8Body =>
+      'Your brain reinforces language learning during sleep. Reviewing vocabulary before bed can improve recall the next morning. Don’t cram — a little each day with good rest in between.';
+
+  @override
+  String get tip9Title => 'Make mistakes on purpose';
+
+  @override
+  String get tip9Body =>
+      'Try to use a Czech word you’re unsure about. The correction that follows creates a stronger memory than passive study. The AI chat tutor is perfect for this — it won’t judge you.';
+
+  @override
+  String get tip10Title => 'Listen to Czech music';
+
+  @override
+  String get tip10Body =>
+      'Czech songs, podcasts, or radio in the background train your ear to the rhythm and intonation of the language, even when you don’t understand every word. Try ČRo (Czech Radio) online.';
+
+  @override
+  String get googleAuthNotConfigured =>
+      'Google sign-in is not configured in this build.';
+
+  @override
+  String get googleAuthNotConfiguredIos =>
+      'Google sign-in is not configured for iOS in this build.';
+
+  @override
+  String get googleAuthNoIdToken => 'Google did not return an identity token.';
+
+  @override
+  String get googleAuthCancelled => 'Google sign-in was cancelled.';
+
+  @override
+  String get googleAuthConfigUnavailable =>
+      'Google sign-in configuration is unavailable. Try again later.';
+
+  @override
+  String get googleAuthInterrupted =>
+      'Google sign-in was interrupted. Try again.';
+
+  @override
+  String get googleAuthUiUnavailable =>
+      'Google sign-in could not open on this device.';
+
+  @override
+  String get googleAuthAccountChanged =>
+      'The selected Google account changed. Try again.';
+
+  @override
+  String get googleAuthUnknown =>
+      'Google sign-in could not be completed. Try again.';
+
+  @override
+  String get backendUnavailable => 'Cloud account service is unavailable.';
+
+  @override
+  String get backendAlreadyLinked => 'This account is already linked.';
+
+  @override
+  String get backendVerifyEmailFirst => 'Verify the account email first.';
+
+  @override
+  String get backendSignInFailed => 'Sign in failed.';
+
+  @override
+  String get backendNoActiveAccount => 'No account is active.';
+
+  @override
+  String get backendGoogleLinkNotSaved =>
+      'Google account linking was not persisted.';
+
+  @override
+  String get backendGoogleSignInFailed => 'Google sign-in failed.';
+
+  @override
+  String get backendExportFailed => 'Cloud export failed.';
+
+  @override
+  String get backendDeleteFailed => 'Cloud account deletion failed.';
+
+  @override
+  String get settingsUpdateReady => 'Update Czechify';
+
+  @override
+  String get settingsUpdateReadyBody =>
+      'A newer version is available. Updating takes a moment and keeps your progress.';
+
+  @override
+  String get settingsWelcomeSound => 'Welcome sound';
+
+  @override
+  String get settingsWelcomeSoundBody =>
+      'A short greeting when you open Czechify';
 
   @override
   String get rankBronze => 'Bronze';

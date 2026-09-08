@@ -41,13 +41,28 @@ AUDIO = ROOT / "assets" / "audio"
 MANIFEST = AUDIO / "manifest.json"
 
 OLIVER = "daJ4gHLkIVFskWuoLuDX"
+HANKA = "12CHcREbuPdJY02VY7zT"
+
+# Azure supplied the female voice until its credit ran out; clips added after
+# that come from Hanka. The 3,388 existing Vlasta clips are left alone.
+VOICES = {"male": OLIVER, "female": HANKA}
+
+# Set from --gender before any request is made.
+GENDER = "male"
 MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_v3")
 
 # Which clips are already Oliver. The filename is a hash of the *text*, so an
 # Azure clip and an ElevenLabs clip of the same phrase are indistinguishable on
 # disk — without this ledger a run interrupted by an exhausted quota would
 # restart from the top and pay for everything a second time.
-LEDGER = AUDIO / "eleven_done.json"
+# Per voice: the male ledger must not tell a female run that its clips are
+# already generated. The unsuffixed file stays the male history.
+_LEDGERS = {"male": AUDIO / "eleven_done.json",
+            "female": AUDIO / "eleven_done_female.json"}
+
+
+def ledger_path():
+    return _LEDGERS[GENDER]
 
 # The unit ids the curriculum files mark as phase a1. A2 is the complement
 # among the course units, so it stays correct when new A2 units are added.
@@ -133,7 +148,7 @@ def is_clipped(text: str, path: Path) -> bool:
 
 def synthesize(text: str, destination: Path, key: str) -> None:
     body = {"text": spoken_for_eleven(text), "model_id": MODEL, "seed": SEED}
-    url = (f"https://api.elevenlabs.io/v1/text-to-speech/{OLIVER}"
+    url = (f"https://api.elevenlabs.io/v1/text-to-speech/{VOICES[GENDER]}"
            "?output_format=mp3_44100_128")
     request = urllib.request.Request(
         url, data=json.dumps(body).encode("utf-8"), method="POST")
@@ -159,6 +174,11 @@ def main() -> int:
         help="skip utterances shorter than this. v3 clips very short input — "
              "'Ano' came back at 0.17s against Azure's 0.37s — so short items "
              "are better recorded in a batched take and split in separately.")
+    parser.add_argument(
+        "--gender", choices=("male", "female"), default="male",
+        help="which side of the pack to synthesize: male uses Oliver, "
+             "female uses Hanka. Sets the voice, the output prefix and the "
+             "ledger")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--limit", type=int,
                         help="stop after N clips — use this to sample the "
@@ -172,6 +192,9 @@ def main() -> int:
     parser.add_argument("--rate", type=float, default=60.0,
                         help="max requests per minute")
     args = parser.parse_args()
+
+    global GENDER
+    GENDER = args.gender
 
     items = scoped_utterances(
         args.scope, set(args.units) if args.units else None,
@@ -196,12 +219,12 @@ def main() -> int:
             encoding="utf-8")
     chars = sum(len(t) for t in items.values())
     try:
-        already = set(json.loads(LEDGER.read_text(encoding="utf-8")))
+        already = set(json.loads(ledger_path().read_text(encoding="utf-8")))
     except (FileNotFoundError, json.JSONDecodeError):
         already = set()
     pending = {k: t for k, t in items.items()
                if args.force or k not in already
-               or not (AUDIO / f"male_{k}.mp3").exists()}
+               or not (AUDIO / f"{GENDER}_{k}.mp3").exists()}
     if args.force:
         pending = dict(items)
 
@@ -209,7 +232,7 @@ def main() -> int:
         f"units {sorted(set(args.units))}" if args.units else f"scope {args.scope}"
     )
     print(f"{scope_label}: {len(items)} clips, {chars:,} characters")
-    print(f"already Oliver: {len(already & set(items))}")
+    print(f"already {VOICES[GENDER]}: {len(already & set(items))}")
     print(f"to synthesize: {len(pending)}, "
           f"{sum(len(t) for t in pending.values()):,} characters")
     if args.limit:
@@ -234,7 +257,7 @@ def main() -> int:
     for index, (key, text) in enumerate(pending.items(), 1):
         if args.limit and done >= args.limit:
             break
-        destination = AUDIO / f"male_{key}.mp3"
+        destination = AUDIO / f"{GENDER}_{key}.mp3"
         for attempt in range(4):
             wait = interval - (time.monotonic() - last)
             if wait > 0:
@@ -248,7 +271,7 @@ def main() -> int:
                 already.add(key)
                 # Written every time, not at the end: a run killed by Ctrl-C or
                 # an exhausted quota must not lose track of what was paid for.
-                LEDGER.write_text(json.dumps(sorted(already), indent=0),
+                ledger_path().write_text(json.dumps(sorted(already), indent=0),
                                   encoding="utf-8")
                 break
             except urllib.error.HTTPError as error:

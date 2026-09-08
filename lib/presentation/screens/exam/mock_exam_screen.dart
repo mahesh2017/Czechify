@@ -17,6 +17,7 @@ import '../../providers/database_providers.dart';
 import '../../../domain/repositories/speech_ports.dart';
 import '../../providers/stt_providers.dart';
 import '../../widgets/common/record_button.dart';
+import '../../widgets/common/app_dialog.dart';
 import '../../providers/writing_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../widgets/common/lesson_ui.dart';
@@ -439,8 +440,8 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       // Result still shown; only history is lost — but say so.
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Could not save this result to your exam history.'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).examSaveFailed),
           ),
         );
       }
@@ -762,7 +763,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   Widget _buildExamScreen() {
     if (_finishing) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Grading...')),
+        appBar: AppBar(title: Text(AppLocalizations.of(context).examGrading)),
         body: MotionEntrance(
           child: Center(
             child: Column(
@@ -777,7 +778,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 else
                   const CircularProgressIndicator(),
                 const SizedBox(height: 16),
-                const Text('Evaluating your answers...'),
+                Text(AppLocalizations.of(context).examEvaluatingAnswers),
               ],
             ),
           ),
@@ -870,7 +871,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     TextButton(
                       onPressed:
                           _questionTransitionLocked ? null : _previousQuestion,
-                      child: const Text('Previous'),
+                      child: Text(AppLocalizations.of(context).examPrevious),
                     )
                   else
                     const SizedBox(width: 80),
@@ -898,24 +899,22 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
   /// Confirm before abandoning an in-progress exam attempt.
   Future<bool> _confirmExit() async {
+    final l10n = AppLocalizations.of(context);
     final result = await showDialog<bool>(
       context: context,
       builder:
-          (ctx) => AlertDialog(
-            title: const Text('Leave exam?'),
-            content: const Text(
-              'Your exam is in progress and will not be scored if you leave now.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx, false),
-                child: Text(AppLocalizations.of(context).reviewStay),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(ctx, true),
-                child: Text(AppLocalizations.of(context).lessonLeave),
-              ),
-            ],
+          (ctx) => AppDialog(
+            icon: Icons.timer_off_outlined,
+            tone: AppDialogTone.warning,
+            title: l10n.examLeaveTitle,
+            message: l10n.examLeaveBody,
+            // Staying is the safe outcome, so it takes the filled key and
+            // leaving the quiet one. Both were identical text buttons, which
+            // gave an unscored attempt the same weight as carrying on.
+            confirmLabel: l10n.reviewStay,
+            onConfirm: () => Navigator.pop(ctx, false),
+            dismissLabel: l10n.lessonLeave,
+            onDismiss: () => Navigator.pop(ctx, true),
           ),
     );
     return result ?? false;
@@ -1063,9 +1062,8 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
             expands: true,
             textAlignVertical: TextAlignVertical.top,
             enabled: !isEvaluating,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Napište svou odpověď v češtině...',
+            decoration: InputDecoration(
+              hintText: AppLocalizations.of(context).examWritingHint,
             ),
             onChanged: _answer,
           ),
@@ -1073,15 +1071,15 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         // AI evaluation feedback
         if (isEvaluating) ...[
           const SizedBox(height: 12),
-          const Row(
+          Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 16,
                 height: 16,
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
-              SizedBox(width: 12),
-              Text('AI evaluating your writing...'),
+              const SizedBox(width: 12),
+              Text(AppLocalizations.of(context).examEvaluatingWriting),
             ],
           ),
         ],
@@ -1099,13 +1097,13 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  _MiniScoreRow(label: 'Grammar', score: evaluation.grammar),
+                  _MiniScoreRow(label: AppLocalizations.of(context).examCriterionGrammar, score: evaluation.grammar),
                   _MiniScoreRow(
-                    label: 'Vocabulary',
+                    label: AppLocalizations.of(context).examCriterionVocabulary,
                     score: evaluation.vocabulary,
                   ),
                   _MiniScoreRow(
-                    label: 'Coherence',
+                    label: AppLocalizations.of(context).examCriterionCoherence,
                     score: evaluation.coherence,
                   ),
                   const SizedBox(height: 8),
@@ -1129,7 +1127,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               await _evaluateWritingTask(key, question, learnerText);
             },
             icon: const Icon(Icons.rate_review),
-            label: const Text('Request practice feedback'),
+            label: Text(AppLocalizations.of(context).examRequestFeedback),
           ),
         ],
       ],
@@ -1380,7 +1378,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
 
     return Scaffold(
       backgroundColor: t.bg,
-      appBar: AppBar(backgroundColor: t.bg, title: const Text('Exam results')),
+      appBar: AppBar(backgroundColor: t.bg, title: Text(AppLocalizations.of(context).examResultsTitle)),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -1427,19 +1425,19 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
               SoftCard(
                 child: Column(
                   children: [
-                    _ScoreRow(label: 'Reading', score: _result!.readingScore),
+                    _ScoreRow(label: AppLocalizations.of(context).examSectionReading, score: _result!.readingScore),
                     const Divider(),
                     _ScoreRow(
-                      label: 'Listening',
+                      label: AppLocalizations.of(context).examSectionListening,
                       score: _result!.listeningScore,
                     ),
                     const Divider(),
-                    _ScoreRow(label: 'Writing', score: _result!.writingScore),
+                    _ScoreRow(label: AppLocalizations.of(context).examSectionWriting, score: _result!.writingScore),
                     const Divider(),
-                    _ScoreRow(label: 'Speaking', score: _result!.speakingScore),
+                    _ScoreRow(label: AppLocalizations.of(context).examSectionSpeaking, score: _result!.speakingScore),
                     const Divider(),
                     _ScoreRow(
-                      label: 'Overall',
+                      label: AppLocalizations.of(context).examScoreOverall,
                       score: _result!.totalScore,
                       isBold: true,
                     ),

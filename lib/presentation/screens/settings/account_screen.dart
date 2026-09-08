@@ -17,6 +17,7 @@ import '../../providers/reminder_coordinator.dart';
 import '../../providers/settings_providers.dart';
 import '../../utils/external_links.dart';
 import '../../widgets/common/motion_widgets.dart';
+import '../../widgets/common/app_dialog.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/text_prompt_dialog.dart';
 import '../../widgets/common/motion_async.dart';
@@ -354,31 +355,18 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
     final useIt =
         await showDialog<bool>(
           context: context,
-          builder:
-              (dialogContext) => AlertDialog(
-                title: Text(
-                  AppLocalizations.of(context).accountRestoreReminderTitle,
-                ),
-                content: Text(
-                  AppLocalizations.of(
-                    context,
-                  ).accountRestoreReminderBody(time.format(context)),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(dialogContext, false),
-                    child: Text(
-                      AppLocalizations.of(context).accountRestoreReminderLater,
-                    ),
-                  ),
-                  FilledButton(
-                    onPressed: () => Navigator.pop(dialogContext, true),
-                    child: Text(
-                      AppLocalizations.of(context).accountRestoreReminderEnable,
-                    ),
-                  ),
-                ],
-              ),
+          builder: (dialogContext) {
+            final l10n = AppLocalizations.of(context);
+            return AppDialog(
+              icon: Icons.notifications_active_outlined,
+              title: l10n.accountRestoreReminderTitle,
+              message: l10n.accountRestoreReminderBody(time.format(context)),
+              confirmLabel: l10n.accountRestoreReminderEnable,
+              onConfirm: () => Navigator.pop(dialogContext, true),
+              dismissLabel: l10n.accountRestoreReminderLater,
+              onDismiss: () => Navigator.pop(dialogContext, false),
+            );
+          },
         ) ??
         false;
     if (!useIt || !mounted) return;
@@ -487,19 +475,15 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       await showDialog<bool>(
         context: context,
         builder:
-            (dialogContext) => AlertDialog(
-              title: Text(title),
-              content: Text(message),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(dialogContext, false),
-                  child: Text(AppLocalizations.of(context).cancel),
-                ),
-                FilledButton(
-                  onPressed: () => Navigator.pop(dialogContext, true),
-                  child: Text(confirmLabel),
-                ),
-              ],
+            (dialogContext) => AppDialog(
+              icon: Icons.warning_amber_rounded,
+              tone: AppDialogTone.danger,
+              title: title,
+              message: message,
+              confirmLabel: confirmLabel,
+              onConfirm: () => Navigator.pop(dialogContext, true),
+              dismissLabel: AppLocalizations.of(context).cancel,
+              onDismiss: () => Navigator.pop(dialogContext, false),
             ),
       ) ??
       false;

@@ -149,6 +149,16 @@ class AppSettings {
   /// Haptic feedback on answers and completions.
   final bool hapticsEnabled;
 
+  /// The short welcome sound on launch.
+  ///
+  /// Its own setting rather than a case of [soundEffectsEnabled]: the others
+  /// answer something the learner just did, while this one plays unasked
+  /// before they have touched anything. Somebody who wants the answer
+  /// chime and not a jingle on every open has a way to say so — though
+  /// switching sound effects off silences this too, since it is still sound
+  /// the app makes.
+  final bool welcomeSoundEnabled;
+
   /// Language of the app's own interface, constrained to
   /// [kInterfaceLocales]. Null follows the device locale. Distinct from the
   /// language being learned, which is always Czech.
@@ -183,6 +193,7 @@ class AppSettings {
     this.learnerName = '',
     this.soundEffectsEnabled = true,
     this.hapticsEnabled = true,
+    this.welcomeSoundEnabled = true,
     this.locale,
     this.curriculumMapView = true,
     this.preferredTime,
@@ -201,6 +212,7 @@ class AppSettings {
     String? learnerName,
     bool? soundEffectsEnabled,
     bool? hapticsEnabled,
+    bool? welcomeSoundEnabled,
     Locale? locale,
     bool clearLocale = false,
     bool? curriculumMapView,
@@ -219,6 +231,7 @@ class AppSettings {
       learnerName: learnerName ?? this.learnerName,
       soundEffectsEnabled: soundEffectsEnabled ?? this.soundEffectsEnabled,
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
+      welcomeSoundEnabled: welcomeSoundEnabled ?? this.welcomeSoundEnabled,
       // copyWith cannot express "back to null" through a nullable argument,
       // and "follow the device" is a real choice the user can pick.
       locale: clearLocale ? null : (locale ?? this.locale),
@@ -244,6 +257,7 @@ class SettingsNotifier extends Notifier<AppSettings> {
   static const _kLearnerName = 'settings_learner_name';
   static const _kSoundEffects = 'settings_sound_effects_enabled';
   static const _kHaptics = 'settings_haptics_enabled';
+  static const _kWelcomeSound = 'settings_welcome_sound_enabled';
   static const _kLocale = 'settings_locale';
   static const _kCurriculumMapView = 'settings_curriculum_map_view';
   static const _kReminderHour = 'settings_reminder_hour';
@@ -327,6 +341,7 @@ class SettingsNotifier extends Notifier<AppSettings> {
       learnerName: prefs.getString(_kLearnerName) ?? '',
       soundEffectsEnabled: prefs.getBool(_kSoundEffects) ?? true,
       hapticsEnabled: prefs.getBool(_kHaptics) ?? true,
+      welcomeSoundEnabled: prefs.getBool(_kWelcomeSound) ?? true,
       // A preference for a language we no longer offer falls back to
       // "follow the device" rather than stranding the learner in it.
       locale: switch (prefs.getString(_kLocale)) {
@@ -381,6 +396,13 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(hapticsEnabled: enabled);
     final prefs = await _prefs();
     await prefs.setBool(_kHaptics, enabled);
+  }
+
+  /// Toggle the welcome sound on launch.
+  Future<void> setWelcomeSoundEnabled(bool enabled) async {
+    state = state.copyWith(welcomeSoundEnabled: enabled);
+    final prefs = await _prefs();
+    await prefs.setBool(_kWelcomeSound, enabled);
   }
 
   /// Toggle hearts in lessons (off = practice mode, no heart loss).

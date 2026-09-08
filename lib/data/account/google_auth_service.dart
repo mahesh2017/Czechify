@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../core/config/backend_config.dart';
+import '../../l10n/app_localizations.dart';
 
 class GoogleAuthTokens {
   const GoogleAuthTokens({required this.idToken, required this.accessToken});
@@ -16,15 +18,48 @@ abstract interface class GoogleAuthService {
   Future<GoogleAuthTokens> authenticate();
 }
 
+/// What a learner is told when Google sign-in fails.
+///
+/// A pure function of the code, so every branch can be exercised without
+/// standing up the plugin — which was the whole of this file's test coverage
+/// problem. Google's own failure modes are not something a test can provoke,
+/// but what we say about each of them is, and that is the part a learner
+/// reads.
+///
+/// Exhaustive on purpose: no default branch, so a new code in a future
+/// version of `google_sign_in` fails the build here rather than silently
+/// becoming "unknown error".
+String googleAuthMessage(
+  GoogleSignInExceptionCode code,
+  AppLocalizations l10n,
+) => switch (code) {
+  GoogleSignInExceptionCode.canceled => l10n.googleAuthCancelled,
+  GoogleSignInExceptionCode.clientConfigurationError ||
+  GoogleSignInExceptionCode.providerConfigurationError =>
+    l10n.googleAuthConfigUnavailable,
+  GoogleSignInExceptionCode.interrupted => l10n.googleAuthInterrupted,
+  GoogleSignInExceptionCode.uiUnavailable => l10n.googleAuthUiUnavailable,
+  GoogleSignInExceptionCode.userMismatch => l10n.googleAuthAccountChanged,
+  GoogleSignInExceptionCode.unknownError => l10n.googleAuthUnknown,
+};
+
 /// Obtains Google tokens without changing the active Supabase session.
 ///
 /// Keeping these two authentication steps separate is what lets AccountService
 /// validate a returning Google account before replacing any local learner data.
 class NativeGoogleAuthService implements GoogleAuthService {
-  NativeGoogleAuthService({GoogleSignIn? signIn})
-    : _signIn = signIn ?? GoogleSignIn.instance;
+  NativeGoogleAuthService({
+    GoogleSignIn? signIn,
+    AppLocalizations Function()? localizations,
+  }) : _signIn = signIn ?? GoogleSignIn.instance,
+       _localizations =
+           localizations ?? (() => lookupAppLocalizations(const Locale('en')));
 
   final GoogleSignIn _signIn;
+
+  /// Resolved at throw time, not construction time: this service outlives a
+  /// language change, and the message is read after the failure, not before.
+  final AppLocalizations Function() _localizations;
   Future<void>? _initialization;
 
   // Supabase needs an access token when Google's ID token includes `at_hash`.
@@ -43,14 +78,10 @@ class NativeGoogleAuthService implements GoogleAuthService {
     final webClientId = GoogleAuthConfig.webClientId.trim();
     final iosClientId = GoogleAuthConfig.iosClientId.trim();
     if (webClientId.isEmpty) {
-      throw const AuthException(
-        'Google sign-in is not configured in this build.',
-      );
+      throw AuthException(_localizations().googleAuthNotConfigured);
     }
     if (Platform.isIOS && iosClientId.isEmpty) {
-      throw const AuthException(
-        'Google sign-in is not configured for iOS in this build.',
-      );
+      throw AuthException(_localizations().googleAuthNotConfiguredIos);
     }
     await _signIn.initialize(
       clientId: Platform.isIOS ? iosClientId : null,
@@ -69,7 +100,7 @@ class NativeGoogleAuthService implements GoogleAuthService {
       final authentication = account.authentication;
       final idToken = authentication.idToken;
       if (idToken == null || idToken.isEmpty) {
-        throw const AuthException('Google did not return an identity token.');
+        throw AuthException(_localizations().googleAuthNoIdToken);
       }
 
       // Supabase verifies the access-token hash when Google includes `at_hash`
@@ -85,31 +116,7 @@ class NativeGoogleAuthService implements GoogleAuthService {
         accessToken: authorization.accessToken,
       );
     } on GoogleSignInException catch (error) {
-      switch (error.code) {
-        case GoogleSignInExceptionCode.canceled:
-          throw const AuthException('Google sign-in was cancelled.');
-        case GoogleSignInExceptionCode.clientConfigurationError:
-        case GoogleSignInExceptionCode.providerConfigurationError:
-          throw const AuthException(
-            'Google sign-in configuration is unavailable. Try again later.',
-          );
-        case GoogleSignInExceptionCode.interrupted:
-          throw const AuthException(
-            'Google sign-in was interrupted. Try again.',
-          );
-        case GoogleSignInExceptionCode.uiUnavailable:
-          throw const AuthException(
-            'Google sign-in could not open on this device.',
-          );
-        case GoogleSignInExceptionCode.userMismatch:
-          throw const AuthException(
-            'The selected Google account changed. Try again.',
-          );
-        case GoogleSignInExceptionCode.unknownError:
-          throw const AuthException(
-            'Google sign-in could not be completed. Try again.',
-          );
-      }
+      throw AuthException(googleAuthMessage(error.code, _localizations()));
     }
   }
 }

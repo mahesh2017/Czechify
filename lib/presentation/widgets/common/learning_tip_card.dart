@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/learning_tip.dart';
 import 'motion_widgets.dart';
@@ -29,7 +31,7 @@ class _LearningTipCardState extends State<LearningTipCard> {
       LearningTip next;
       do {
         next = LearningTip.random();
-      } while (next.title == _tip.title && LearningTip.all.length > 1);
+      } while (next.index == _tip.index && LearningTip.all.length > 1);
       _tip = next;
     });
   }
@@ -37,13 +39,14 @@ class _LearningTipCardState extends State<LearningTipCard> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return SoftCard(
       onTap: _shuffle,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: MotionSwap(
         alignment: Alignment.topCenter,
         child: Row(
-          key: ValueKey(_tip.title),
+          key: ValueKey(_tip.index),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -81,7 +84,7 @@ class _LearningTipCardState extends State<LearningTipCard> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    _tip.title,
+                    _tip.title(l10n),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -90,7 +93,7 @@ class _LearningTipCardState extends State<LearningTipCard> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    _tip.body,
+                    _tip.body(l10n),
                     style: TextStyle(fontSize: 15, color: t.muted, height: 1.4),
                   ),
                 ],

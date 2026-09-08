@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:
-  /// **'Try Again'**
+  /// **'Try again'**
   String get tryAgain;
 
   /// No description provided for @nextPhrase.
@@ -4543,6 +4543,834 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check the “{sound}” sound in “{word}”.'**
   String pronTipCheckSound(String sound, String word);
+
+  /// No description provided for @examLeaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the exam?'**
+  String get examLeaveTitle;
+
+  /// No description provided for @examLeaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your exam is in progress. If you leave now it will not be scored.'**
+  String get examLeaveBody;
+
+  /// No description provided for @cloudSpeechTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow cloud speech?'**
+  String get cloudSpeechTitle;
+
+  /// No description provided for @cloudSpeechBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pronunciation recording will be sent through Czechify to OpenAI in the United States for transcription. Czechify does not store the recording after the transcript is returned. OpenAI may retain API data for abuse monitoring for up to 30 days. This is optional, can be switched off at any time, and is available only if you are at least 16.'**
+  String get cloudSpeechBody;
+
+  /// No description provided for @cloudSpeechAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow cloud speech'**
+  String get cloudSpeechAllow;
+
+  /// No description provided for @reportNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Anything you want to add (optional)'**
+  String get reportNoteLabel;
+
+  /// No description provided for @examWritingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your answer in Czech…'**
+  String get examWritingHint;
+
+  /// No description provided for @arrivalGoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home'**
+  String get arrivalGoHome;
+
+  /// No description provided for @arrivalContinueHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Home'**
+  String get arrivalContinueHome;
+
+  /// No description provided for @arrivalStreakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'day streak'**
+  String get arrivalStreakLabel;
+
+  /// No description provided for @arrivalXpLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'today’s XP'**
+  String get arrivalXpLabel;
+
+  /// No description provided for @arrivalReviewLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'to review'**
+  String get arrivalReviewLabel;
+
+  /// No description provided for @arrivalGuideA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify language guide'**
+  String get arrivalGuideA11y;
+
+  /// No description provided for @arrivalPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing today’s practice'**
+  String get arrivalPreparing;
+
+  /// No description provided for @examSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save this result to your exam history.'**
+  String get examSaveFailed;
+
+  /// No description provided for @examGrading.
+  ///
+  /// In en, this message translates to:
+  /// **'Grading…'**
+  String get examGrading;
+
+  /// No description provided for @examEvaluatingAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Evaluating your answers…'**
+  String get examEvaluatingAnswers;
+
+  /// No description provided for @examPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get examPrevious;
+
+  /// No description provided for @examEvaluatingWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'AI evaluating your writing…'**
+  String get examEvaluatingWriting;
+
+  /// No description provided for @examRequestFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Request practice feedback'**
+  String get examRequestFeedback;
+
+  /// No description provided for @examCriterionGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get examCriterionGrammar;
+
+  /// No description provided for @examCriterionVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get examCriterionVocabulary;
+
+  /// No description provided for @examCriterionCoherence.
+  ///
+  /// In en, this message translates to:
+  /// **'Coherence'**
+  String get examCriterionCoherence;
+
+  /// No description provided for @examScoreOverall.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall'**
+  String get examScoreOverall;
+
+  /// No description provided for @onboardingFirstNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first name'**
+  String get onboardingFirstNameHint;
+
+  /// No description provided for @linkOpenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open a browser. Visit {url}'**
+  String linkOpenFailed(String url);
+
+  /// No description provided for @quickRefLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load {title}.'**
+  String quickRefLoadFailed(String title);
+
+  /// No description provided for @curriculumLayoutA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Curriculum layout'**
+  String get curriculumLayoutA11y;
+
+  /// No description provided for @curriculumGrammarRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Rules'**
+  String get curriculumGrammarRules;
+
+  /// No description provided for @pronListeningA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get pronListeningA11y;
+
+  /// No description provided for @pronScoreA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Score {percent} percent. {label}'**
+  String pronScoreA11y(int percent, String label);
+
+  /// No description provided for @transferTryNewWay.
+  ///
+  /// In en, this message translates to:
+  /// **'Try it in a new way'**
+  String get transferTryNewWay;
+
+  /// No description provided for @arrivalReadyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for your Czech win{name}?'**
+  String arrivalReadyTitle(String name);
+
+  /// No description provided for @arrivalReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A few focused minutes are enough to move forward today.'**
+  String get arrivalReadyBody;
+
+  /// No description provided for @arrivalReadyCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start today’s lesson'**
+  String get arrivalReadyCta;
+
+  /// No description provided for @arrivalStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the fire alive{name}'**
+  String arrivalStreakTitle(String name);
+
+  /// No description provided for @arrivalStreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One short lesson protects the rhythm you’ve built.'**
+  String get arrivalStreakBody;
+
+  /// No description provided for @arrivalStreakCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue learning'**
+  String get arrivalStreakCta;
+
+  /// No description provided for @arrivalReviewEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'MEMORY BOOST'**
+  String get arrivalReviewEyebrow;
+
+  /// No description provided for @arrivalReviewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A quick review now will make them easier to recall later.'**
+  String get arrivalReviewBody;
+
+  /// No description provided for @arrivalReviewCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Review now'**
+  String get arrivalReviewCta;
+
+  /// No description provided for @arrivalReturnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech is still here{name}'**
+  String arrivalReturnTitle(String name);
+
+  /// No description provided for @arrivalReturnBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart gently. One small step is all today needs.'**
+  String get arrivalReturnBody;
+
+  /// No description provided for @arrivalReturnCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Make a fresh start'**
+  String get arrivalReturnCta;
+
+  /// No description provided for @arrivalGoalEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY GOAL COMPLETE'**
+  String get arrivalGoalEyebrow;
+
+  /// No description provided for @arrivalGoalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You did it{name}!'**
+  String arrivalGoalTitle(String name);
+
+  /// No description provided for @arrivalGoalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech moved forward today. Anything else is a bonus.'**
+  String get arrivalGoalBody;
+
+  /// No description provided for @arrivalDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Look how far you’ve come{name}'**
+  String arrivalDoneTitle(String name);
+
+  /// No description provided for @arrivalDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the course or revisit a lesson to keep Czech fresh.'**
+  String get arrivalDoneBody;
+
+  /// No description provided for @arrivalDoneCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the course'**
+  String get arrivalDoneCta;
+
+  /// No description provided for @statsLevelA1.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 — Beginner'**
+  String get statsLevelA1;
+
+  /// No description provided for @statsLevelA2.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 — Elementary'**
+  String get statsLevelA2;
+
+  /// No description provided for @placementUnitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {unit}'**
+  String placementUnitLabel(int unit);
+
+  /// No description provided for @routeNotFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found'**
+  String get routeNotFoundTitle;
+
+  /// No description provided for @routeNotFoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'That page could not be opened.'**
+  String get routeNotFoundBody;
+
+  /// No description provided for @genderFeminine.
+  ///
+  /// In en, this message translates to:
+  /// **'fem'**
+  String get genderFeminine;
+
+  /// No description provided for @genderNeuter.
+  ///
+  /// In en, this message translates to:
+  /// **'neut'**
+  String get genderNeuter;
+
+  /// No description provided for @genderMascInanimate.
+  ///
+  /// In en, this message translates to:
+  /// **'masc inan'**
+  String get genderMascInanimate;
+
+  /// No description provided for @genderMascAnimate.
+  ///
+  /// In en, this message translates to:
+  /// **'masc anim'**
+  String get genderMascAnimate;
+
+  /// No description provided for @playbackSpeedA11y.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback speed {speed}'**
+  String playbackSpeedA11y(String speed);
+
+  /// No description provided for @rewardBadgeEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'Badge earned · +{xp} XP'**
+  String rewardBadgeEarned(int xp);
+
+  /// No description provided for @rewardWellDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done'**
+  String get rewardWellDone;
+
+  /// No description provided for @shareLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get shareLabel;
+
+  /// No description provided for @pronMoveOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Move on for now'**
+  String get pronMoveOn;
+
+  /// No description provided for @pronTryOnceMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Try once more'**
+  String get pronTryOnceMore;
+
+  /// No description provided for @arrivalStreakEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-DAY STREAK'**
+  String arrivalStreakEyebrow(int count);
+
+  /// No description provided for @arrivalReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural,=1{1 word is ready for you{name}}other{{count} words are ready for you{name}}}'**
+  String arrivalReviewTitle(int count, String name);
+
+  /// No description provided for @arrivalGoalCtaBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a bonus lesson'**
+  String get arrivalGoalCtaBonus;
+
+  /// No description provided for @arrivalGoalCtaProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'See my progress'**
+  String get arrivalGoalCtaProgress;
+
+  /// No description provided for @notifyDaily1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for Czech! 🇨🇿'**
+  String get notifyDaily1Title;
+
+  /// No description provided for @notifyDaily1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Just 5 minutes keeps your streak alive. Your next lesson is waiting!'**
+  String get notifyDaily1Body;
+
+  /// No description provided for @notifyDaily2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for Czech? 💪'**
+  String get notifyDaily2Title;
+
+  /// No description provided for @notifyDaily2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app, do one lesson, feel amazing. That\'s the deal.'**
+  String get notifyDaily2Body;
+
+  /// No description provided for @notifyDaily3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech is calling 📚'**
+  String get notifyDaily3Title;
+
+  /// No description provided for @notifyDaily3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Five minutes now, one lesson done. Your future self says thanks.'**
+  String get notifyDaily3Body;
+
+  /// No description provided for @notifyDaily4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahoj! Let\'s practice 💚'**
+  String get notifyDaily4Title;
+
+  /// No description provided for @notifyDaily4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'One lesson today keeps the momentum going. You\'ve got this!'**
+  String get notifyDaily4Body;
+
+  /// No description provided for @notifyDaily5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily Czech awaits ⚡'**
+  String get notifyDaily5Title;
+
+  /// No description provided for @notifyDaily5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Czechify and finish one lesson. Just five minutes.'**
+  String get notifyDaily5Body;
+
+  /// No description provided for @notifyDaily6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Dobrý den! 🌙'**
+  String get notifyDaily6Title;
+
+  /// No description provided for @notifyDaily6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect time for Czech. One lesson, then relax.'**
+  String get notifyDaily6Body;
+
+  /// No description provided for @notifyDaily7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the magic going ✨'**
+  String get notifyDaily7Title;
+
+  /// No description provided for @notifyDaily7Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Every word you learn today is a word you didn\'t know yesterday.'**
+  String get notifyDaily7Body;
+
+  /// No description provided for @notifyDaily8Title.
+  ///
+  /// In en, this message translates to:
+  /// **'One lesson away 🎯'**
+  String get notifyDaily8Title;
+
+  /// No description provided for @notifyDaily8Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Czechify, pick up where you left off, done in minutes.'**
+  String get notifyDaily8Body;
+
+  /// No description provided for @notifyEvening1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Czech missed you today 😊'**
+  String get notifyEvening1Title;
+
+  /// No description provided for @notifyEvening1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s not too late! One lesson before bed keeps your streak alive.'**
+  String get notifyEvening1Body;
+
+  /// No description provided for @notifyEvening2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Last chance to practice today! 🌙'**
+  String get notifyEvening2Title;
+
+  /// No description provided for @notifyEvening2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'One lesson — about 5 minutes — and you\'re done for today.'**
+  String get notifyEvening2Body;
+
+  /// No description provided for @notifyEvening3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech is waiting 💚'**
+  String get notifyEvening3Title;
+
+  /// No description provided for @notifyEvening3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'The day\'s almost over, but one lesson fits. Open Czechify?'**
+  String get notifyEvening3Body;
+
+  /// No description provided for @notifyEvening4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'One more day, one more word 📖'**
+  String get notifyEvening4Title;
+
+  /// No description provided for @notifyEvening4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'A quick lesson now keeps your streak going. You\'ve got this!'**
+  String get notifyEvening4Body;
+
+  /// No description provided for @notifyEvening5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t miss today 🌟'**
+  String get notifyEvening5Title;
+
+  /// No description provided for @notifyEvening5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Five minutes of Czech before you call it a day. One lesson!'**
+  String get notifyEvening5Body;
+
+  /// No description provided for @notifyBodyWithName.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, {body}'**
+  String notifyBodyWithName(String name, String body);
+
+  /// No description provided for @tip1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Write it down'**
+  String get tip1Title;
+
+  /// No description provided for @tip1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing Czech words by hand engages motor memory. Studies show handwritten notes are remembered better than typed ones. Keep a small notebook for new vocabulary.'**
+  String get tip1Body;
+
+  /// No description provided for @tip2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Spaced repetition works'**
+  String get tip2Title;
+
+  /// No description provided for @tip2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewing material at increasing intervals is the single most effective way to retain vocabulary. That’s exactly what the SRS review cards do — do them every day, even briefly.'**
+  String get tip2Body;
+
+  /// No description provided for @tip3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Shadow the audio'**
+  String get tip3Title;
+
+  /// No description provided for @tip3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to a Czech phrase, then immediately repeat it out loud trying to match the pronunciation exactly. This \"shadowing\" technique trains both your ear and your mouth muscles.'**
+  String get tip3Body;
+
+  /// No description provided for @tip4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Active recall over re-reading'**
+  String get tip4Title;
+
+  /// No description provided for @tip4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Instead of re-reading grammar rules, test yourself. Try to explain a rule out loud without looking. If you can’t, you don’t know it yet — that’s where learning happens.'**
+  String get tip4Body;
+
+  /// No description provided for @tip5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Link words to images'**
+  String get tip5Title;
+
+  /// No description provided for @tip5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Associate each new Czech word with a vivid mental image. The stranger the image, the better it sticks. For \"kočka\" (cat), imagine a cat wearing a traditional Czech kroj.'**
+  String get tip5Body;
+
+  /// No description provided for @tip6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Short sessions beat long ones'**
+  String get tip6Title;
+
+  /// No description provided for @tip6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Three 10-minute sessions spread through the day are more effective than one 30-minute block. Your brain consolidates language between sessions, not just during them.'**
+  String get tip6Body;
+
+  /// No description provided for @tip7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn in context'**
+  String get tip7Title;
+
+  /// No description provided for @tip7Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Don’t memorize isolated word lists. Learn words inside full sentences — \"Dám si pivo, prosím\" (I’ll have a beer, please) sticks better than \"pivo = beer\".'**
+  String get tip7Body;
+
+  /// No description provided for @tip8Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep on it'**
+  String get tip8Title;
+
+  /// No description provided for @tip8Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your brain reinforces language learning during sleep. Reviewing vocabulary before bed can improve recall the next morning. Don’t cram — a little each day with good rest in between.'**
+  String get tip8Body;
+
+  /// No description provided for @tip9Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Make mistakes on purpose'**
+  String get tip9Title;
+
+  /// No description provided for @tip9Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Try to use a Czech word you’re unsure about. The correction that follows creates a stronger memory than passive study. The AI chat tutor is perfect for this — it won’t judge you.'**
+  String get tip9Body;
+
+  /// No description provided for @tip10Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to Czech music'**
+  String get tip10Title;
+
+  /// No description provided for @tip10Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Czech songs, podcasts, or radio in the background train your ear to the rhythm and intonation of the language, even when you don’t understand every word. Try ČRo (Czech Radio) online.'**
+  String get tip10Body;
+
+  /// No description provided for @googleAuthNotConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in is not configured in this build.'**
+  String get googleAuthNotConfigured;
+
+  /// No description provided for @googleAuthNotConfiguredIos.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in is not configured for iOS in this build.'**
+  String get googleAuthNotConfiguredIos;
+
+  /// No description provided for @googleAuthNoIdToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Google did not return an identity token.'**
+  String get googleAuthNoIdToken;
+
+  /// No description provided for @googleAuthCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in was cancelled.'**
+  String get googleAuthCancelled;
+
+  /// No description provided for @googleAuthConfigUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in configuration is unavailable. Try again later.'**
+  String get googleAuthConfigUnavailable;
+
+  /// No description provided for @googleAuthInterrupted.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in was interrupted. Try again.'**
+  String get googleAuthInterrupted;
+
+  /// No description provided for @googleAuthUiUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in could not open on this device.'**
+  String get googleAuthUiUnavailable;
+
+  /// No description provided for @googleAuthAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected Google account changed. Try again.'**
+  String get googleAuthAccountChanged;
+
+  /// No description provided for @googleAuthUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in could not be completed. Try again.'**
+  String get googleAuthUnknown;
+
+  /// No description provided for @backendUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud account service is unavailable.'**
+  String get backendUnavailable;
+
+  /// No description provided for @backendAlreadyLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is already linked.'**
+  String get backendAlreadyLinked;
+
+  /// No description provided for @backendVerifyEmailFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify the account email first.'**
+  String get backendVerifyEmailFirst;
+
+  /// No description provided for @backendSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in failed.'**
+  String get backendSignInFailed;
+
+  /// No description provided for @backendNoActiveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'No account is active.'**
+  String get backendNoActiveAccount;
+
+  /// No description provided for @backendGoogleLinkNotSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Google account linking was not persisted.'**
+  String get backendGoogleLinkNotSaved;
+
+  /// No description provided for @backendGoogleSignInFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in failed.'**
+  String get backendGoogleSignInFailed;
+
+  /// No description provided for @backendExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud export failed.'**
+  String get backendExportFailed;
+
+  /// No description provided for @backendDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud account deletion failed.'**
+  String get backendDeleteFailed;
+
+  /// No description provided for @settingsUpdateReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Czechify'**
+  String get settingsUpdateReady;
+
+  /// No description provided for @settingsUpdateReadyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A newer version is available. Updating takes a moment and keeps your progress.'**
+  String get settingsUpdateReadyBody;
+
+  /// No description provided for @settingsWelcomeSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome sound'**
+  String get settingsWelcomeSound;
+
+  /// No description provided for @settingsWelcomeSoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short greeting when you open Czechify'**
+  String get settingsWelcomeSoundBody;
 
   /// No description provided for @rankBronze.
   ///

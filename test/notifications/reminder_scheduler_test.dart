@@ -1,12 +1,15 @@
 import 'package:czechify/core/notifications/reminder_scheduler.dart';
+import 'package:czechify/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const scheduler = ReminderScheduler();
+  final l10n = lookupAppLocalizations(const Locale('en'));
 
   test('builds a thirty-day date-specific evening horizon', () {
     final reminders = scheduler.buildEveningSchedule(
+      l10n: l10n,
       today: DateTime(2026, 8, 2, 10),
       catchUpEnabled: true,
       preferredTime: const TimeOfDay(hour: 19, minute: 0),
@@ -25,6 +28,7 @@ void main() {
     // Adding `Duration(days:)` adds exact elapsed hours, so every reminder
     // after the change landed an hour early — 20:30 for the rest of the month.
     final reminders = scheduler.buildEveningSchedule(
+      l10n: l10n,
       today: DateTime(2026, 10, 20, 8),
       catchUpEnabled: true,
       preferredTime: const TimeOfDay(hour: 8, minute: 0),
@@ -47,6 +51,7 @@ void main() {
 
   test('skips only the elapsed slot when today is past catch-up time', () {
     final reminders = scheduler.buildEveningSchedule(
+      l10n: l10n,
       today: DateTime(2026, 8, 2, 22),
       catchUpEnabled: true,
       preferredTime: const TimeOfDay(hour: 18, minute: 0),
@@ -71,6 +76,7 @@ void main() {
   test('disabled catch-up produces no scheduled requests', () {
     expect(
       scheduler.buildEveningSchedule(
+        l10n: l10n,
         today: DateTime(2026, 8, 2, 10),
         catchUpEnabled: false,
         preferredTime: const TimeOfDay(hour: 18, minute: 0),

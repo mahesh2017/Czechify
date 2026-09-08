@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+
+import '../../l10n/app_localizations.dart';
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +26,12 @@ final deviceIdProvider = Provider<DeviceId>((ref) {
 
 /// Supabase client + anonymous auth lifecycle.
 final backendServiceProvider = Provider<BackendService>((ref) {
-  return BackendService();
+  return BackendService(
+    localizations:
+        () => lookupAppLocalizations(
+          ref.read(settingsProvider).locale ?? const Locale('en'),
+        ),
+  );
 });
 
 /// Sync outbox DAO.

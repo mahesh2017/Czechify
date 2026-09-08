@@ -10,6 +10,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../providers/app_update_providers.dart';
 import '../../routes/app_shell_keys.dart';
 import '../../utils/external_links.dart';
+import 'app_dialog.dart';
 
 /// Runs a quiet Play check after the learner reaches the real app, and checks
 /// again when a long-backgrounded app resumes. Nothing here can gate startup.
@@ -134,21 +135,15 @@ Future<void> _offerFlexibleUpdate(
     context: context,
     useRootNavigator: true,
     builder:
-        (dialogContext) => AlertDialog(
-          icon: const Icon(Icons.system_update_alt),
-          title: Text(l10n.updateAvailableTitle),
-          content: Text(l10n.updateAvailableBody),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: Text(l10n.updateNotNow),
-            ),
-            FilledButton.icon(
-              onPressed: () => Navigator.of(dialogContext).pop(true),
-              icon: const Icon(Icons.download_outlined),
-              label: Text(l10n.updateNow),
-            ),
-          ],
+        (dialogContext) => AppDialog(
+          icon: Icons.system_update_alt_rounded,
+          title: l10n.updateAvailableTitle,
+          message: l10n.updateAvailableBody,
+          confirmLabel: l10n.updateNow,
+          confirmIcon: Icons.download_rounded,
+          onConfirm: () => Navigator.of(dialogContext).pop(true),
+          dismissLabel: l10n.updateNotNow,
+          onDismiss: () => Navigator.of(dialogContext).pop(false),
         ),
   );
   if (accepted == false) {
@@ -196,20 +191,15 @@ Future<void> _offerPlayStoreUpdate(
     context: context,
     useRootNavigator: true,
     builder:
-        (dialogContext) => AlertDialog(
-          icon: const Icon(Icons.shop_outlined),
-          title: Text(l10n.updateAvailableTitle),
-          content: Text(l10n.updatePlayStoreOnlyBody),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: Text(l10n.updateNotNow),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: Text(l10n.updateOpenPlayStore),
-            ),
-          ],
+        (dialogContext) => AppDialog(
+          icon: Icons.storefront_rounded,
+          title: l10n.updateAvailableTitle,
+          message: l10n.updatePlayStoreOnlyBody,
+          confirmLabel: l10n.updateOpenPlayStore,
+          confirmIcon: Icons.open_in_new_rounded,
+          onConfirm: () => Navigator.of(dialogContext).pop(true),
+          dismissLabel: l10n.updateNotNow,
+          onDismiss: () => Navigator.of(dialogContext).pop(false),
         ),
   );
   if (!context.mounted) return;

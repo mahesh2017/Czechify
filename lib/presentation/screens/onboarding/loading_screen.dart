@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+
+/// Side of the launcher mark on the loading screen, in logical pixels.
+const double _logoExtent = 92;
 
 /// Loading screen shown while the database is being seeded. Standalone
 /// MaterialApp (renders before the themed router), so it carries the brand
@@ -56,6 +60,14 @@ class LoadingScreen extends StatelessWidget {
                               FilledButton.icon(
                                 onPressed: onRetry,
                                 icon: const Icon(Icons.refresh_rounded),
+                                // Not localized, and cannot be: this screen
+                                // is returned *instead of* MaterialApp.router
+                                // while the app boots, so no Localizations
+                                // ancestor exists yet and
+                                // `AppLocalizations.of` would return null.
+                                // Reaching for the ARB here crashes the
+                                // startup-error path — the one path where
+                                // this button is the only way forward.
                                 label: const Text('Try again'),
                               ),
                             ],
@@ -85,18 +97,7 @@ class LoadingScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                        // The launcher icon itself, rounded the way Android
-                        // and iOS mask it. The first thing a learner sees on
-                        // opening should be the mark they just tapped, not a
-                        // second, unrelated one.
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(22),
-                          child: Image.asset(
-                            'assets/images/app_icon.png',
-                            width: 92,
-                            height: 92,
-                          ),
-                        ),
+                        child: const _LauncherMark(),
                       ),
                       const SizedBox(height: 24),
                       const Text(
@@ -115,6 +116,87 @@ class LoadingScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The launcher icon, drawn the way the launcher draws it.
+///
+/// The first thing a learner sees on opening should be the mark they just
+/// tapped. Getting that wrong is not subtle: Android 12 and later paint their
+/// own splash from the adaptive icon and crop it to a circle, so a rounded
+/// square here arrives a moment later and reads as a *second, different* logo
+/// rather than the same one.
+///
+/// Android therefore gets the adaptive icon reassembled from its own two
+/// layers, under the same geometry `ic_launcher.xml` declares — the foreground
+/// inset by [_adaptiveInset], the canvas cropped to its safe zone — so the
+/// shape, the padding and the size of the glyph all match what the system just
+/// showed. iOS has no such splash and masks the single-image icon to a
+/// superellipse, which a 24% corner radius approximates closely enough.
+class _LauncherMark extends StatelessWidget {
+  const _LauncherMark();
+
+  /// The inset `mipmap-anydpi-v26/ic_launcher.xml` applies to the foreground.
+  static const _adaptiveInset = .16;
+
+  /// An adaptive icon is a 108dp canvas of which the launcher shows the middle
+  /// 72dp; the rest is bleed for the system's mask and parallax.
+  static const _safeZone = 72 / 108;
+
+  @override
+  Widget build(BuildContext context) {
+    // Decoded at the size it is drawn. Without this the 1024px source is
+    // resampled by the GPU on every frame of the entrance animation — wasteful,
+    // and softer than a proper downscale.
+    final decode =
+        (_logoExtent / _safeZone * MediaQuery.devicePixelRatioOf(context))
+            .round();
+
+    if (defaultTargetPlatform != TargetPlatform.android) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(_logoExtent * .24),
+        child: Image.asset(
+          'assets/images/app_icon.png',
+          width: _logoExtent,
+          height: _logoExtent,
+          cacheWidth: decode,
+          filterQuality: FilterQuality.medium,
+        ),
+      );
+    }
+
+    return ClipOval(
+      child: SizedBox(
+        width: _logoExtent,
+        height: _logoExtent,
+        // Scaling the full canvas up until its safe zone fills the circle is
+        // what crops the bleed, exactly as the launcher's mask does.
+        child: Transform.scale(
+          scale: 1 / _safeZone,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset(
+                'assets/images/app_icon_background.png',
+                fit: BoxFit.cover,
+                cacheWidth: decode,
+                filterQuality: FilterQuality.medium,
+              ),
+              FractionallySizedBox(
+                widthFactor: 1 - (_adaptiveInset * 2),
+                heightFactor: 1 - (_adaptiveInset * 2),
+                child: Image.asset(
+                  'assets/images/app_icon_foreground.png',
+                  fit: BoxFit.contain,
+                  cacheWidth: decode,
+                  filterQuality: FilterQuality.medium,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

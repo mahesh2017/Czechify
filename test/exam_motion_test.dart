@@ -168,7 +168,7 @@ void main() {
     await tester.pump();
 
     expect(repository.saveCalls, 1);
-    expect(find.text('Evaluating your answers...'), findsOneWidget);
+    expect(find.text('Evaluating your answers…'), findsOneWidget);
 
     repository.complete();
     await tester.pumpAndSettle();

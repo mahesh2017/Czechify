@@ -163,6 +163,13 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp>
     // costs enough to be heard as lag on a clip meant to land with the tap.
     ref.read(feedbackServiceProvider).preload();
 
+    // The welcome sound, once per launch. This runs at the point the app
+    // first has something usable to show — after seeding and the onboarding
+    // flag have resolved, which is when a learner would say it "opened".
+    // FeedbackService owns the once-only guard, because this build method
+    // runs again on any provider change and on every return from background.
+    ref.read(feedbackServiceProvider).playWelcome();
+
     return MaterialApp.router(
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       title: 'Czechify',

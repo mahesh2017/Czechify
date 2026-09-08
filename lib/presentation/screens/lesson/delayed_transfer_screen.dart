@@ -134,7 +134,7 @@ class _DelayedTransferScreenState extends ConsumerState<DelayedTransferScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Try it in a new way')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).transferTryNewWay)),
       body:
           _loading
               ? const Center(child: CircularProgressIndicator())

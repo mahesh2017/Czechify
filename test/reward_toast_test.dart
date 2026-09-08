@@ -6,6 +6,8 @@ import 'package:czechify/presentation/widgets/celebration/reward_toast.dart';
 import 'package:flutter/material.dart' hide Badge;
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 /// Badges were written to the database and never mentioned. These pin that
 /// they now reach the learner, and that the badge set is worth reaching for.
 void main() {
@@ -16,6 +18,8 @@ void main() {
   }) async {
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: testLocalizationsDelegates,
+        supportedLocales: testSupportedLocales,
         theme: lightTheme(),
         home: MediaQuery(
           data: MediaQueryData(disableAnimations: reduceMotion),

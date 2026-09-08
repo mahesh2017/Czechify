@@ -228,7 +228,7 @@ class _BlockingTts implements CzechTts {
   int previewCalls = 0;
 
   @override
-  Future<void> playVoiceSample(TtsVoiceGender gender) {
+  Future<void> playVoiceSample(TtsVoiceGender gender, {double? rate}) {
     previewCalls++;
     return _preview.future;
   }

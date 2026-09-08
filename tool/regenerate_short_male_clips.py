@@ -88,9 +88,26 @@ from audio_utterances import extract_utterances  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 AUDIO = ROOT / "assets" / "audio"
 CACHE = ROOT / ".audio_batches"
-LEDGER = AUDIO / "eleven_paced.json"
+# Which clips this script has already cut. Per voice: the male ledger must not
+# tell a female run that its clips exist, which would silently write nothing
+# and report success. The unsuffixed file is the male history, kept as-is.
+_LEDGERS = {"male": AUDIO / "eleven_paced.json",
+            "female": AUDIO / "eleven_paced_female.json"}
+
+
+def ledger_path() -> Path:
+    return _LEDGERS[GENDER]
 
 OLIVER = "daJ4gHLkIVFskWuoLuDX"
+HANKA = "12CHcREbuPdJY02VY7zT"
+
+# Which ElevenLabs voice each side of the pack is cut from. Azure supplied the
+# female voice until its credit ran out, so new female clips come from Hanka;
+# the 3,388 existing Vlasta clips are untouched and still Lenka.
+VOICES = {"male": OLIVER, "female": HANKA}
+
+# Set from --gender before any batch is fetched or cut.
+GENDER = "male"
 MODEL = os.environ.get("ELEVENLABS_MODEL", "eleven_v3")
 SEED = int(os.environ.get("ELEVENLABS_SEED", "42"))
 
@@ -132,12 +149,42 @@ def spoken(text: str) -> str:
     return out
 
 
-def selection(min_words: int, max_words: int) -> dict[str, str]:
+def selection(
+    min_words: int,
+    max_words: int,
+    only: list[str] | None = None,
+    missing_only: bool = False,
+) -> dict[str, str]:
+    """The utterances to re-record, narrowest filter last.
+
+    [only] names exact texts, for the case this script is now mostly used for:
+    a handful of new literals were added and need clips, and nothing else
+    should be touched. [missing_only] keeps utterances that have no male clip
+    yet. Both exist because the default word-count filter selects 1,659
+    utterances — re-recording work that was already done and paid for, which
+    is both a waste of the character quota and a way to regress clips that are
+    currently fine.
+    """
     items = extract_utterances()
-    return {
+    picked = {
         k: t for k, t in sorted(items.items(), key=lambda kv: kv[1])
         if min_words <= len(t.split()) <= max_words
     }
+    if only:
+        wanted = {" ".join(t.split()) for t in only}
+        picked = {k: t for k, t in picked.items()
+                  if " ".join(t.split()) in wanted}
+        unmatched = wanted - {" ".join(t.split()) for t in picked.values()}
+        if unmatched:
+            raise SystemExit(
+                "--only did not match any utterance (check the word-count "
+                f"range too): {sorted(unmatched)}"
+            )
+    if missing_only:
+        picked = {k: t for k, t in picked.items()
+                  if not (AUDIO / f"{GENDER}_{k}.mp3").exists()
+                  or (AUDIO / f"{GENDER}_{k}.mp3").stat().st_size == 0}
+    return picked
 
 
 def batches(picked: dict[str, str], size: int) -> list[list[tuple[str, str]]]:
@@ -152,14 +199,18 @@ def batch_id(group: list[tuple[str, str]]) -> str:
     content means the cache stays valid for whatever groups repeat.
     """
     payload = " ".join(f"{k}:{spoken(t)}" for k, t in group)
-    stamp = f"{MODEL}|{SEED}|{LEAD_IN}|{TAIL}|{payload}"
+    # The voice belongs in the key. Without it the same batch of text
+    # resolves to one cache entry for every voice, so asking for the
+    # female side silently re-cuts the male audio that was fetched
+    # earlier — and writes it to female_*.mp3.
+    stamp = f"{VOICES[GENDER]}|{MODEL}|{SEED}|{LEAD_IN}|{TAIL}|{payload}"
     return hashlib.sha256(stamp.encode("utf-8")).hexdigest()[:16]
 
 
 def request_batch(text: str, api_key: str) -> dict:
     body = {"text": text, "model_id": MODEL, "seed": SEED}
     request = urllib.request.Request(
-        f"https://api.elevenlabs.io/v1/text-to-speech/{OLIVER}"
+        f"https://api.elevenlabs.io/v1/text-to-speech/{VOICES[GENDER]}"
         "/with-timestamps?output_format=mp3_44100_128",
         data=json.dumps(body).encode("utf-8"), method="POST")
     request.add_header("xi-api-key", api_key)
@@ -174,7 +225,8 @@ def fetch(args) -> int:
         print("Set ELEVENLABS_API_KEY in .env", file=sys.stderr)
         return 2
     CACHE.mkdir(exist_ok=True)
-    picked = selection(args.min_words, args.max_words)
+    picked = selection(args.min_words, args.max_words,
+                       args.only, args.missing_only)
     groups = batches(picked, args.batch_size)
     pending = [g for g in groups if not (CACHE / f"{batch_id(g)}.json").exists()]
     print(f"{len(picked)} utterances in {len(groups)} batches; "
@@ -204,6 +256,11 @@ def fetch(args) -> int:
             base64.b64decode(payload["audio_base64"]))
         (CACHE / f"{name}.json").write_text(json.dumps({
             "sent": text,
+            # cut() walks the whole cache directory, so each entry has to say
+            # which voice it holds. Without this a female run re-cuts every
+            # cached male batch and writes Oliver into female_*.mp3.
+            "voice_id": VOICES[GENDER],
+            "gender": GENDER,
             "targets": [{"key": k, "spoken": spoken(t), "text": t}
                         for k, t in group],
             "alignment": payload["alignment"],
@@ -293,6 +350,13 @@ def speech_seconds(path: Path) -> float:
         return 0.0
 
 
+def reference_path(key: str) -> Path:
+    """The clip whose pace a new one is matched to: the other voice
+    saying the same sentence."""
+    other = "female" if GENDER == "male" else "male"
+    return AUDIO / f"{other}_{key}.mp3"
+
+
 def matched_tempo(key: str, cut_length: float, factor: float,
                   floor: float) -> float:
     """Stretch factor that brings this clip to [factor] x Lenka's speaking time.
@@ -306,7 +370,7 @@ def matched_tempo(key: str, cut_length: float, factor: float,
     Only ever slows down: a clip that already speaks for long enough is left
     exactly as the model paced it.
     """
-    reference = AUDIO / f"female_{key}.mp3"
+    reference = reference_path(key)
     if not reference.exists() or cut_length <= 0:
         return 1.0
     target = speech_seconds(reference) * factor
@@ -360,11 +424,12 @@ def cut(args) -> int:
               file=sys.stderr)
         return 2
     try:
-        done = set(json.loads(LEDGER.read_text(encoding="utf-8")))
+        done = set(json.loads(ledger_path().read_text(encoding="utf-8")))
     except (FileNotFoundError, json.JSONDecodeError):
         done = set()
 
     written = 0
+    cut_keys: list[str] = []
     rejected: list[str] = []
     stretched: list[float] = []
     for meta_path in sorted(CACHE.glob("*.json")):
@@ -373,6 +438,10 @@ def cut(args) -> int:
         except json.JSONDecodeError:
             # A fetch running in another shell is part-way through this file.
             rejected.append(f"{meta_path.stem}: cache entry still being written")
+            continue
+        # Entries written before the voice was recorded are all Oliver: this
+        # script only ever generated the male side until Azure's credit ran out.
+        if payload.get("voice_id", OLIVER) != VOICES[GENDER]:
             continue
         alignment = payload["alignment"]
         targets = payload["targets"]
@@ -398,7 +467,7 @@ def cut(args) -> int:
                 rejected.append(
                     f"{target['text']!r}: cut only {end - begin:.2f}s")
                 continue
-            destination = AUDIO / f"male_{target['key']}.mp3"
+            destination = AUDIO / f"{GENDER}_{target['key']}.mp3"
             tempo = args.tempo
             if args.match_female:
                 # Needs the cut before it can measure it, so the clip is made
@@ -412,8 +481,23 @@ def cut(args) -> int:
                 cut_clip(audio, begin, end, destination, tempo)
             stretched.append(tempo)
             done.add(target["key"])
+            cut_keys.append(target["key"])
             written += 1
-    LEDGER.write_text(json.dumps(sorted(done), indent=0), encoding="utf-8")
+    ledger_path().write_text(json.dumps(sorted(done), indent=0),
+                             encoding="utf-8")
+    # A clip whose female counterpart does not exist yet cannot be paced against
+    # it, and matched_tempo quietly returns 1.0. Left unsaid, the summary below
+    # reports that as "none needed stretching" — indistinguishable from every
+    # clip already being correct. Generate the Azure pack for these texts first,
+    # then re-cut with --force.
+    unpaced = [k for k in cut_keys if not reference_path(k).exists()]
+    if args.match_female and unpaced:
+        print(f"WARNING: {len(unpaced)} clip(s) had no female clip to pace "
+              f"against and were left at the paragraph's own pace. "
+              f"Generate those with generate_audio_pack.py --gender female "
+              f"--texts ..., then re-run this cut with --force.")
+        for k in unpaced[:10]:
+            print(f"  - {extract_utterances().get(k, k)}")
     if args.match_female:
         slowed = [t for t in stretched if t < 1.0]
         pace = (f"matched to {args.match_female:.2f}x Lenka "
@@ -461,7 +545,7 @@ def verify(args) -> int:
     a bad boundary still plays, it just plays the wrong half a second.
     """
     try:
-        done = sorted(json.loads(LEDGER.read_text(encoding="utf-8")))
+        done = sorted(json.loads(ledger_path().read_text(encoding="utf-8")))
     except (FileNotFoundError, json.JSONDecodeError):
         print("Nothing in the ledger yet.", file=sys.stderr)
         return 2
@@ -469,7 +553,7 @@ def verify(args) -> int:
     problems: list[str] = []
     ratios: list[float] = []
     for key in done:
-        clip = AUDIO / f"male_{key}.mp3"
+        clip = AUDIO / f"{GENDER}_{key}.mp3"
         text = items.get(key, "(no longer in the curriculum)")
         if not clip.exists() or clip.stat().st_size == 0:
             problems.append(f"{text!r}: file missing or empty")
@@ -484,7 +568,7 @@ def verify(args) -> int:
             problems.append(f"{text!r}: {lead:.2f}s of silence before it starts")
         elif trail > 0.60:
             problems.append(f"{text!r}: {trail:.2f}s of silence at the end")
-        reference = AUDIO / f"female_{key}.mp3"
+        reference = reference_path(key)
         if reference.exists():
             female = speech_seconds(reference)
             if female > 0:
@@ -505,7 +589,8 @@ def verify(args) -> int:
 
 
 def dry_run(args) -> int:
-    picked = selection(args.min_words, args.max_words)
+    picked = selection(args.min_words, args.max_words,
+                       args.only, args.missing_only)
     groups = batches(picked, args.batch_size)
     chars = sum(len(spoken(t)) for t in picked.values())
     carrier = len(groups) * (len(LEAD_IN) + len(TAIL) + 2)
@@ -532,7 +617,21 @@ def main() -> int:
         "--max-words", type=int, default=4,
         help="single words are excluded by default: measured against Lenka "
              "they sit at 0.86x, so they are not what a learner loses")
+    parser.add_argument(
+        "--gender", choices=("male", "female"), default="male",
+        help="which side of the pack to generate. male cuts from Oliver; "
+             "female from Hanka, used for clips added after Azure's "
+             "credit ran out. Sets the output prefix and the voice whose "
+             "pace the result is matched to")
     parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument(
+        "--only", action="append", metavar="TEXT",
+        help="restrict to these exact utterances (repeatable). Use this when "
+             "a few new literals need clips: the word-count default would "
+             "otherwise re-record 1,659 already-corrected utterances")
+    parser.add_argument(
+        "--missing-only", action="store_true",
+        help="restrict to utterances that have no male clip yet")
     parser.add_argument("--limit", type=int, help="fetch only N more batches")
     parser.add_argument("--rate", type=float, default=30.0,
                         help="max requests per minute")
@@ -544,7 +643,7 @@ def main() -> int:
         "--match-female", type=float, metavar="FACTOR", nargs="?",
         const=1.25, default=1.25,
         help="stretch each clip to FACTOR times the speaking time of the "
-             "female clip for the same text, instead of a fixed --tempo. "
+             "other voice's clip for the same text, instead of a fixed --tempo. "
              "Never speeds a clip up. 1.25 is calibrated, not arbitrary: it is "
              "what puts the swallowed 'To je' back on Lenka's 0.261s")
     parser.add_argument(
@@ -555,6 +654,9 @@ def main() -> int:
     parser.add_argument("--force", action="store_true",
                         help="re-cut clips already in the ledger")
     args = parser.parse_args()
+
+    global GENDER
+    GENDER = args.gender
 
     if args.dry_run or args.stage is None:
         return dry_run(args)

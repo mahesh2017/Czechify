@@ -38,7 +38,30 @@ CURRICULUM = ROOT / "assets" / "curriculum"
 
 # Settings -> "Test voice". Must always be in the pack, otherwise the voice
 # comparison silently demonstrates device TTS instead of the neural voice.
+#
+# Settings now plays the *bundled* sample clip rather than requesting this
+# through speak(), because an unbundled, un-prefetched clip meant one tap with
+# no signal answered "what does my teacher sound like?" in the phone's voice.
+# The phrase is still generated: it is the fallback speak() target, and it is
+# the first clip in the pack so a partial download always has it.
 PREVIEW_TEXT = "Ahoj, jak se máš?"
+
+# The bundled sample the voice picker and "Test voice" actually play. Ships in
+# the app (see pubspec.yaml) and is kept in the pack too, so the two never drift.
+BUNDLED_SAMPLE_TEXT = "Dobrý den, jak se máte?"
+
+# Placement test prompts. Hardcoded in placement_screen.dart rather than in the
+# curriculum, so the field-walking extraction below cannot see them — they had
+# no clips at all, which made the test that decides a learner's starting level
+# the one screen guaranteed to speak in the device voice.
+PLACEMENT_TEXTS = (
+    "Dobré ráno.",
+    "Potřebuji lékaře.",
+    "Nesmím jíst lepek.",
+)
+
+# Everything spoken from a Dart literal rather than from curriculum content.
+LITERAL_TEXTS = (PREVIEW_TEXT, BUNDLED_SAMPLE_TEXT, *PLACEMENT_TEXTS)
 
 # Kept byte-for-byte equivalent to TextNormalizer.forSpeech in the app so a
 # pre-generated clip and a runtime speak() request resolve to the same hash.
@@ -110,7 +133,7 @@ def _dialogue_lines(data: dict) -> list[str]:
 
 def raw_utterances() -> set[str]:
     """Every distinct Czech string the app can ask the TTS to speak."""
-    found: set[str] = {PREVIEW_TEXT}
+    found: set[str] = set(LITERAL_TEXTS)
 
     for path in sorted(VOCABULARY.glob("*.json")):
         rows = json.loads(path.read_text(encoding="utf-8"))
@@ -170,7 +193,7 @@ def scoped_utterances(
     else:
         raise ValueError(f"unsupported scope: {scope}")
 
-    found: set[str] = {PREVIEW_TEXT}
+    found: set[str] = set(LITERAL_TEXTS)
     for path in sorted(VOCABULARY.glob("*.json")):
         for row in json.loads(path.read_text(encoding="utf-8")):
             if unit_matches(row.get("unit_id")):

@@ -133,7 +133,33 @@ class AudioPackCache {
   /// This leans on a contract the `?v=` cache-buster already implied: bump the
   /// revision whenever the manifest changes. Replacing the stored object
   /// without bumping it leaves clients on the copy they already have.
-  Future<AudioManifest?> load() => _manifest ??= _load();
+  ///
+  /// Only a *successful* read is remembered. Caching the failure as well —
+  /// which `_manifest ??= _load()` did — meant one flaky moment (a tunnel, a
+  /// captive portal, a cold start with no signal) silently switched the whole
+  /// process to the device's own voice and kept it there until the app was
+  /// restarted. The learner has no way to know that relaunching is the cure,
+  /// and the recorded voice is the product.
+  Future<AudioManifest?> load() {
+    final pending = _manifest;
+    if (pending != null) return pending;
+
+    final attempt = _load();
+    _manifest = attempt;
+    // Clear only if this attempt is still the one on record, so a retry that
+    // has already succeeded is never discarded by an older failure.
+    attempt
+        .then((manifest) {
+          if (manifest == null && identical(_manifest, attempt)) {
+            _manifest = null;
+          }
+        })
+        .catchError((Object _) {
+          if (identical(_manifest, attempt)) _manifest = null;
+          return null;
+        });
+    return attempt;
+  }
 
   /// Cache file for [revision]: `manifest.json` becomes `manifest.v22.json`.
   ///

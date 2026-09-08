@@ -70,6 +70,13 @@ void main() {
       'lessonXpAward',
       // A language-pair code, not prose.
       'reviewDirectionEnToCz',
+      // The English catalogue greets the learner in Czech on purpose, so the
+      // Czech one has nothing to change.
+      'notifyDaily6Title',
+      // Pure format, no words: "{name}, {body}". It exists so a language that
+      // wants the name elsewhere, or without a comma, can say so — Czech
+      // happens to agree with English here.
+      'notifyBodyWithName',
     };
 
     final untranslated =

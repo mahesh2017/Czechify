@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/localized_app.dart';
+
 /// Consent is a record, not a prompt. It is asked in two places — Settings,
 /// and the moment a learner's phone turns out not to recognise Czech — and
 /// both have to ask the same thing and write the same row.
@@ -27,6 +29,8 @@ void main() {
       ProviderScope(
         overrides: [databaseProvider.overrideWithValue(database)],
         child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           home: Consumer(
             builder:
                 (context, ref, _) => Scaffold(
@@ -93,6 +97,8 @@ void main() {
       ProviderScope(
         overrides: [databaseProvider.overrideWithValue(database)],
         child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
           home: Consumer(
             builder:
                 (context, ref, _) => Scaffold(

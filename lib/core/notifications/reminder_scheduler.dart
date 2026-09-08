@@ -1,4 +1,5 @@
 import 'package:czechify/core/notifications/notification_messages.dart';
+import 'package:czechify/l10n/app_localizations.dart';
 import 'package:flutter/material.dart' show TimeOfDay;
 
 /// A single scheduled reminder produced by [ReminderScheduler].
@@ -80,6 +81,7 @@ class ReminderScheduler {
     required DateTime today,
     required bool catchUpEnabled,
     required TimeOfDay preferredTime,
+    required AppLocalizations l10n,
   }) {
     if (!catchUpEnabled || shouldSuppressEvening(preferredTime)) {
       return const <ScheduledReminder>[];
@@ -107,7 +109,7 @@ class ReminderScheduler {
         continue;
       }
 
-      final message = NotificationMessages.evening();
+      final message = NotificationMessages.evening(l10n);
       reminders.add(
         ScheduledReminder(
           id: eveningIdForDay(dayOffset),

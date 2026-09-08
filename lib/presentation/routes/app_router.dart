@@ -51,14 +51,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     // Unknown paths and malformed parameters land here instead of crashing.
     errorBuilder:
         (context, state) => Scaffold(
-          appBar: AppBar(title: const Text('Not found')),
+          appBar: AppBar(
+            title: Text(AppLocalizations.of(context).routeNotFoundTitle),
+          ),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.explore_off, size: 48, color: context.tokens.muted),
                 const SizedBox(height: 16),
-                const Text('That page could not be opened.'),
+                Text(AppLocalizations.of(context).routeNotFoundBody),
                 const SizedBox(height: 16),
                 FilledButton(
                   onPressed: () => context.go('/'),

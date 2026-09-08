@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Opens a canonical public page outside the app and leaves a usable fallback
@@ -16,7 +18,9 @@ Future<void> openExternalPage(BuildContext context, String url) async {
 
   if (!opened && context.mounted) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Could not open a browser. Visit $url')),
+      SnackBar(
+        content: Text(AppLocalizations.of(context).linkOpenFailed(url)),
+      ),
     );
   }
 }

@@ -33,8 +33,17 @@ void main() {
   late RecordingSfxPlayer player;
   late RecordingHaptics haptics;
 
-  FeedbackService serviceWith({bool sound = true, bool haptic = true}) =>
-      FeedbackService(player, () => sound, () => haptic, haptics);
+  FeedbackService serviceWith({
+    bool sound = true,
+    bool haptic = true,
+    bool welcome = true,
+  }) => FeedbackService(
+    player,
+    () => sound,
+    () => haptic,
+    welcomeEnabled: () => welcome,
+    haptics: haptics,
+  );
 
   setUp(() {
     player = RecordingSfxPlayer();
@@ -67,7 +76,7 @@ void main() {
         player,
         () => enabled,
         () => true,
-        haptics,
+        haptics: haptics,
       );
       service.play(Sfx.correct1);
       enabled = false;
@@ -211,6 +220,52 @@ void main() {
       expect(StreakExtended.isMilestone(30), isTrue);
       expect(StreakExtended.isMilestone(4), isFalse);
       expect(StreakExtended.isMilestone(8), isFalse);
+    });
+  });
+
+  group('the welcome sound', () {
+    test('plays once, however many times the root rebuilds', () {
+      // The app root rebuilds on any provider change and on every return from
+      // background. Without the guard the jingle would replay each time, and
+      // no call site is in a position to know which rebuild was the first.
+      final service = serviceWith();
+      service.playWelcome();
+      service.playWelcome();
+      service.playWelcome();
+      expect(player.played, [Sfx.welcome]);
+    });
+
+    test('its own switch silences it', () {
+      serviceWith(welcome: false).playWelcome();
+      expect(player.played, isEmpty);
+    });
+
+    test('turning sound effects off silences it too', () {
+      // It is still a sound the app makes unasked. Someone who wanted a quiet
+      // app should not have to find a second switch.
+      serviceWith(sound: false).playWelcome();
+      expect(player.played, isEmpty);
+    });
+
+    test('a silenced launch still counts as the one launch', () {
+      // Otherwise switching the sound on mid-session would let the greeting
+      // arrive later, in the middle of a lesson.
+      var sound = false;
+      final service = FeedbackService(
+        player,
+        () => sound,
+        () => true,
+        haptics: haptics,
+      );
+      service.playWelcome();
+      sound = true;
+      service.playWelcome();
+      expect(player.played, isEmpty);
+    });
+
+    test('it is warmed with the rest, so the greeting is not late', () {
+      serviceWith().preload();
+      expect(player.preloaded, contains(Sfx.welcome));
     });
   });
 }

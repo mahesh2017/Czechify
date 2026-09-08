@@ -381,11 +381,18 @@ class CzechTts {
   /// voice for both options, which makes the choice meaningless — the whole
   /// point of the screen is hearing the difference. These two clips ship in
   /// the app so the preview is always the real thing, online or not.
-  Future<void> playVoiceSample(TtsVoiceGender gender) async {
+  /// [rate] plays the sample at the learner's configured speed instead of the
+  /// recorded 1x. The picker leaves it null — comparing two teachers is fairer
+  /// at the pace they were recorded at — while Settings' "Test voice" passes it,
+  /// because that control sits directly under the speed selector and is the
+  /// only way to hear what a speed setting actually sounds like.
+  Future<void> playVoiceSample(TtsVoiceGender gender, {double? rate}) async {
     await stop();
     try {
       await _player.setAsset(voiceSampleAsset(gender));
-      await _player.setSpeed(1.0);
+      await _player.setSpeed(
+        rate == null ? 1.0 : (rate / kNativeTtsSpeechRate).clamp(0.5, 1.5),
+      );
       await _player.play();
       usingFallbackVoice.value = false;
     } catch (error) {
@@ -395,6 +402,17 @@ class CzechTts {
       await speak(kVoicePreviewPhrase);
     }
   }
+
+  /// Settings' "Test voice": the current teacher, at the current speed.
+  ///
+  /// Deliberately not `speak(...)` with a phrase. The sample clip for that
+  /// phrase is not bundled and is outside the units that get pre-fetched, so
+  /// going through [speak] meant one tap with no signal answered "what does my
+  /// teacher sound like?" with the *phone's* voice — and Settings shows no
+  /// [DegradedModeBanner], so nothing said why. That is the same trap the
+  /// voice picker documents avoiding; this control needs the same guarantee.
+  Future<void> previewVoice() =>
+      playVoiceSample(_voiceGender(), rate: _speechRate());
 
   Future<void> speakSlow(String text) {
     final slow = (_speechRate() * 0.6).clamp(0.1, 1.0);

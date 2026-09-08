@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../l10n/app_localizations.dart';
 import '../../providers/consent_providers.dart';
+import 'app_dialog.dart';
 
 /// Ask for cloud speech consent, and record it if given.
 ///
@@ -16,32 +18,21 @@ Future<bool> requestCloudSpeechConsent(
   BuildContext context,
   WidgetRef ref,
 ) async {
+  final l10n = AppLocalizations.of(context);
   final accepted = await showDialog<bool>(
     context: context,
     builder:
-        (ctx) => AlertDialog(
-          icon: const Icon(Icons.cloud_outlined),
-          title: const Text('Allow cloud speech?'),
-          content: const Text(
-            'Your pronunciation recording will be sent through Czechify to '
-            'OpenAI in the United States for transcription. Czechify does not '
-            'store the recording after the transcript is returned. OpenAI may '
-            'retain API data for abuse monitoring for up to 30 days. This is '
-            'optional, can be switched off at any time, and is available only '
-            'if you are at least 16.',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Not now'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.pop(ctx, true),
-              child: const Text('Allow cloud speech'),
-            ),
-          ],
+        (ctx) => AppDialog(
+          icon: Icons.cloud_outlined,
+          title: l10n.cloudSpeechTitle,
+          message: l10n.cloudSpeechBody,
+          confirmLabel: l10n.cloudSpeechAllow,
+          onConfirm: () => Navigator.pop(ctx, true),
+          dismissLabel: l10n.settingsNotNow,
+          onDismiss: () => Navigator.pop(ctx, false),
         ),
   );
+
   if (accepted != true) return false;
 
   await ref.read(cloudSpeechConsentProvider.notifier).setGranted(true);

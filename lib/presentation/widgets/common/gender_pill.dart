@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// Maps a flashcard `gender` string to a short pill label + token colors.
 ///
@@ -12,16 +13,21 @@ import '../../../core/theme/app_tokens.dart';
   String g,
 ) {
   final t = context.tokens;
+  final l10n = AppLocalizations.of(context);
   final v = g.toLowerCase();
-  if (v.startsWith('fem')) return (label: 'fem', bg: t.redSoft, fg: t.red);
+  // The abbreviations are grammatical terms, not Czech content: a German
+  // speaker learning Czech needs "mask. belebt", not "masc anim".
+  if (v.startsWith('fem')) {
+    return (label: l10n.genderFeminine, bg: t.redSoft, fg: t.red);
+  }
   if (v.startsWith('neut')) {
-    return (label: 'neut', bg: t.amberSoft, fg: t.amber);
+    return (label: l10n.genderNeuter, bg: t.amberSoft, fg: t.amber);
   }
   if (v.contains('inanimate')) {
-    return (label: 'masc inan', bg: t.violetSoft, fg: t.violet);
+    return (label: l10n.genderMascInanimate, bg: t.violetSoft, fg: t.violet);
   }
   if (v.startsWith('masc')) {
-    return (label: 'masc anim', bg: t.priSoft, fg: t.priInk);
+    return (label: l10n.genderMascAnimate, bg: t.priSoft, fg: t.priInk);
   }
   return (label: g, bg: t.chipBg, fg: t.muted);
 }

@@ -79,69 +79,90 @@ class _OfflineSetupScreenState extends ConsumerState<OfflineSetupScreen> {
     return Scaffold(
       backgroundColor: t.bg,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(28),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Container(
-                  width: 84,
-                  height: 84,
-                  decoration: BoxDecoration(
-                    color: _failedOffline ? t.amberSoft : t.priSoft,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    _failedOffline
-                        ? Icons.wifi_off_rounded
-                        : Icons.download_rounded,
-                    size: 38,
-                    color: _failedOffline ? t.amber : t.pri,
+        // A centred, non-scrolling Column: at a large text size the content is
+        // more than twice the height of the screen and there was nowhere for
+        // it to go, so the download progress and the button under it were
+        // simply off the bottom. Constraining to the viewport height keeps the
+        // centred composition whenever it fits, and lets it scroll when it
+        // does not.
+        child: LayoutBuilder(
+          builder:
+              (context, constraints) => SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Padding(
+                    padding: const EdgeInsets.all(28),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 84,
+                            height: 84,
+                            decoration: BoxDecoration(
+                              color: _failedOffline ? t.amberSoft : t.priSoft,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              _failedOffline
+                                  ? Icons.wifi_off_rounded
+                                  : Icons.download_rounded,
+                              size: 38,
+                              color: _failedOffline ? t.amber : t.pri,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 22),
+                        Center(
+                          child: DisplayText(
+                            _failedOffline
+                                ? 'No connection right now'
+                                : 'Getting your first lessons ready',
+                            size: 24,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          _failedOffline
+                              ? 'You can start learning straight away — lessons will load '
+                                  'as you go. Connect to Wi-Fi later and we\'ll save the '
+                                  'first units to your device so they work offline.'
+                              : 'Saving the audio for your first three units so they work '
+                                  'without an internet connection. This is a few megabytes.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15.5,
+                            color: t.muted,
+                            height: 1.5,
+                          ),
+                        ),
+                        const SizedBox(height: 28),
+                        if (!_failedOffline) ...[
+                          SoftProgressBar(value: fraction, height: 8),
+                          const SizedBox(height: 10),
+                          Center(
+                            child: Text(
+                              progress == null
+                                  ? 'Starting…'
+                                  : '${progress.completed} of ${progress.total} clips',
+                              style: TextStyle(fontSize: 14, color: t.faint),
+                            ),
+                          ),
+                        ],
+                        const SizedBox(height: 28),
+                        PrimaryButton(
+                          label:
+                              _failedOffline
+                                  ? 'Start learning'
+                                  : 'Skip for now',
+                          onPressed: _finish,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 22),
-              Center(
-                child: DisplayText(
-                  _failedOffline
-                      ? 'No connection right now'
-                      : 'Getting your first lessons ready',
-                  size: 24,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                _failedOffline
-                    ? 'You can start learning straight away — lessons will load '
-                        'as you go. Connect to Wi-Fi later and we\'ll save the '
-                        'first units to your device so they work offline.'
-                    : 'Saving the audio for your first three units so they work '
-                        'without an internet connection. This is a few megabytes.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15.5, color: t.muted, height: 1.5),
-              ),
-              const SizedBox(height: 28),
-              if (!_failedOffline) ...[
-                SoftProgressBar(value: fraction, height: 8),
-                const SizedBox(height: 10),
-                Center(
-                  child: Text(
-                    progress == null
-                        ? 'Starting…'
-                        : '${progress.completed} of ${progress.total} clips',
-                    style: TextStyle(fontSize: 14, color: t.faint),
-                  ),
-                ),
-              ],
-              const SizedBox(height: 28),
-              PrimaryButton(
-                label: _failedOffline ? 'Start learning' : 'Skip for now',
-                onPressed: _finish,
-              ),
-            ],
-          ),
         ),
       ),
     );
