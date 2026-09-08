@@ -68,12 +68,4 @@ class TutorReplyReportRepository {
 
     return reportId;
   }
-
-  /// Reports filed on this device, newest first.
-  Future<List<TutorReplyReport>> history() {
-    return (_db.select(_db.tutorReplyReports)..orderBy([
-      (r) => OrderingTerm(expression: r.reportedAt, mode: OrderingMode.desc),
-      (r) => OrderingTerm(expression: r.reportId, mode: OrderingMode.desc),
-    ])).get();
-  }
 }

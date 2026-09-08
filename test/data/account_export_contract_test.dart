@@ -44,6 +44,19 @@ void main() {
     expect(exported, contains('lesson_progress'));
     expect(exported.length, greaterThanOrEqualTo(6));
   });
+
+  test('push-only entities are still exported', () {
+    // A report travels up and never comes back — nothing in the app displays
+    // one. That is a sync decision, not an export one: the rows are still the
+    // learner's, and a subject-access request has to see them.
+    for (final entity in SyncService.pushOnlyEntities) {
+      expect(
+        SyncService.conflictKeys.keys,
+        contains(entity),
+        reason: 'a push-only entity still pushes, so it needs a conflict key',
+      );
+    }
+  });
 }
 
 /// Extracts the string literals from the `syncedUserTables` array.
@@ -55,8 +68,7 @@ Set<String> _syncedUserTables(String source) {
   if (block == null) {
     fail('could not find syncedUserTables in account_policy.ts');
   }
-  return RegExp(r'"([a-z_]+)"')
-      .allMatches(block.group(1)!)
-      .map((match) => match.group(1)!)
-      .toSet();
+  return RegExp(
+    r'"([a-z_]+)"',
+  ).allMatches(block.group(1)!).map((match) => match.group(1)!).toSet();
 }

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:drift/drift.dart' show Value;
 import 'package:logging/logging.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -150,9 +149,22 @@ class SyncService {
     'gamification_state': 'user_id,key',
     // Reports are append-only and carry a client-generated id, so the upsert
     // is idempotent: a retried push files the same report rather than a
-    // second one.
+    // second one. Push-only — see [pushOnlyEntities].
     'tutor_reply_reports': 'user_id,report_id',
   };
+
+  /// Entities that travel up but never come back.
+  ///
+  /// A report is filed, not read: nothing in the app displays one, and the
+  /// account export reads them server-side. Pulling them would fetch rows on
+  /// every sync for a table no screen touches.
+  ///
+  /// They still push through the ordinary outbox, so a report filed with no
+  /// signal is retried like anything else.
+  static const pushOnlyEntities = <String>{'tutor_reply_reports'};
+
+  static Iterable<String> get _pullEntities =>
+      conflictKeys.keys.where((e) => !pushOnlyEntities.contains(e));
 
   /// Push all eligible outbox rows. Concurrent callers share one run.
   Future<void> push() => _serialized(_push);
@@ -222,7 +234,7 @@ class SyncService {
     }
     final rowsByEntity = <String, List<Map<String, dynamic>>>{};
     final cursors = <String, PullCursor>{};
-    for (final entity in conflictKeys.keys) {
+    for (final entity in _pullEntities) {
       final collected = <Map<String, dynamic>>[];
       PullCursor? cursor;
       while (true) {
@@ -258,7 +270,7 @@ class SyncService {
     if (!_accountTransition) {
       throw StateError('Account install requires an account transition.');
     }
-    for (final entity in conflictKeys.keys) {
+    for (final entity in _pullEntities) {
       for (final row in snapshot.rows[entity] ?? const []) {
         await _applyRemote(entity, row);
       }
@@ -271,7 +283,7 @@ class SyncService {
     if (!_backend.isReady) return;
     final deviceId = await _backend.deviceId();
     var portablePreferencesChanged = false;
-    for (final entity in conflictKeys.keys) {
+    for (final entity in _pullEntities) {
       try {
         var cursor = await _db.syncDao.pullCursor(entity);
         while (true) {
@@ -479,26 +491,6 @@ class SyncService {
           dailyXpResetDate: r['daily_xp_reset_date'] as String?,
           updatedAt: _ts(r['updated_at']) ?? DateTime.now(),
         );
-        break;
-      case 'tutor_reply_reports':
-        // Reports are immutable once filed, so this is a plain restore: a
-        // learner on a new device gets back what they reported, and a retried
-        // pull writes the same row rather than a duplicate.
-        await _db
-            .into(_db.tutorReplyReports)
-            .insertOnConflictUpdate(
-              TutorReplyReportsCompanion.insert(
-                reportId: r['report_id'] as String,
-                messageId: Value(r['message_id'] as String?),
-                conversationId: Value(r['conversation_id'] as String?),
-                scenarioId: r['scenario_id'] as String? ?? '',
-                reason: r['reason'] as String? ?? '',
-                replyText: r['reply_text'] as String? ?? '',
-                learnerNote: Value(r['learner_note'] as String? ?? ''),
-                appVersion: Value(r['app_version'] as String? ?? ''),
-                reportedAt: Value(_ts(r['reported_at']) ?? DateTime.now()),
-              ),
-            );
         break;
     }
   }
