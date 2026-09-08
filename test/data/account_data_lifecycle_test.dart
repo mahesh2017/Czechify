@@ -46,7 +46,7 @@ void main() {
          VALUES ('primary',1,1725012000)''',
     );
 
-    final export = await db.exportLearnerData();
+    final export = await db.exportLearnerData(accountId: '');
 
     expect(export['format_version'], 1);
     expect((export['lesson_progress'] as List), hasLength(1));
@@ -115,6 +115,36 @@ void main() {
     expect(await db.select(db.units).get(), hasLength(1));
   });
 
+  group('tutor reply reports', () {
+    Future<void> fileReport() => db.customStatement(
+      'INSERT INTO tutor_reply_reports '
+      '(report_id, scenario_id, reason, reply_text, learner_note, reported_at) '
+      "VALUES ('rep_1', 'cafe', 'offensive', 'the reply', 'my note', 0)",
+    );
+
+    test('appear in the export', () async {
+      // Filed by the learner, held by us: a subject-access request that omits
+      // it is answering a different question than the one asked.
+      await fileReport();
+
+      final export = await db.exportLearnerData(accountId: '');
+
+      final reports = export['tutor_reply_reports'] as List;
+      expect(reports, hasLength(1));
+      expect((reports.single as Map)['learnerNote'], 'my note');
+    });
+
+    test('are erased with the account', () async {
+      // The reported reply and the learner's note about it outlived account
+      // deletion, sitting on the device after everything else had gone.
+      await fileReport();
+
+      await db.clearLearnerData();
+
+      expect(await db.select(db.tutorReplyReports).get(), isEmpty);
+    });
+  });
+
   group('consent audit log', () {
     Future<void> recordConsent() => db.customStatement(
       'INSERT INTO consent_records '
@@ -146,6 +176,33 @@ void main() {
       await db.clearLearnerData();
 
       expect(await db.select(db.consentRecords).get(), isEmpty);
+    });
+
+    test('exports only the account that is asking', () async {
+      // The log survives an account switch on purpose, so an unscoped export
+      // handed the learner now signed in the decisions of whoever used this
+      // device before them — the previous account's evidence, under a new
+      // name, in a file built to be shared.
+      await db.customStatement(
+        'INSERT INTO consent_records '
+        '(purpose, account_id, notice_version, policy_version, granted, '
+        'decided_at) '
+        "VALUES ('voice_cloud_processing', 'account-a', '1', '1', 1, "
+        "'2026-08-01T10:00:00Z')",
+      );
+      await db.customStatement(
+        'INSERT INTO consent_records '
+        '(purpose, account_id, notice_version, policy_version, granted, '
+        'decided_at) '
+        "VALUES ('voice_cloud_processing', 'account-b', '1', '1', 0, "
+        "'2026-08-02T10:00:00Z')",
+      );
+
+      final export = await db.exportLearnerData(accountId: 'account-b');
+
+      final records = export['consent_records'] as List;
+      expect(records, hasLength(1));
+      expect((records.single as Map)['accountId'], 'account-b');
     });
   });
 }

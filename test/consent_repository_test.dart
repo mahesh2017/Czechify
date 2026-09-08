@@ -181,6 +181,33 @@ void main() {
     );
   });
 
+  test('history belongs to the account that made the decisions', () async {
+    // The log deliberately survives an account switch, so an unscoped read
+    // returns the previous learner's decisions to whoever signs in next —
+    // their evidence, under someone else's name, in the export they share.
+    // Whose grant counts as current and whose history this is are the same
+    // question, and were being answered two different ways.
+    final a = ConsentRepository(db, accountId: 'account-a');
+    final b = ConsentRepository(db, accountId: 'account-b');
+    await a.record(
+      purpose: ConsentPurpose.voiceCloudProcessing,
+      granted: true,
+      noticeVersion: kVoiceCloudConsentVersion,
+    );
+    await b.record(
+      purpose: ConsentPurpose.voiceCloudProcessing,
+      granted: false,
+      noticeVersion: kVoiceCloudConsentVersion,
+    );
+
+    expect((await b.history()).single.accountId, 'account-b');
+    expect((await b.history()).single.granted, isFalse);
+    expect((await a.history()).single.accountId, 'account-a');
+
+    // Both rows are still there. Scoping the read never removes evidence.
+    expect(await db.select(db.consentRecords).get(), hasLength(2));
+  });
+
   test('records are written locally before they are synced', () async {
     final row = await repo.record(
       purpose: ConsentPurpose.voiceCloudProcessing,
