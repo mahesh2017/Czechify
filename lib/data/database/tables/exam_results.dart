@@ -7,13 +7,19 @@ class ExamResults extends Table {
   /// Official exam product: 'permanent_residence' (default) or 'cce'.
   TextColumn get product =>
       text().withDefault(const Constant('permanent_residence'))();
-  DateTimeColumn get takenAt =>
-      dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get takenAt => dateTime().withDefault(currentDateAndTime)();
   IntColumn get readingScore => integer().withDefault(const Constant(0))();
   IntColumn get listeningScore => integer().withDefault(const Constant(0))();
-  IntColumn get writingScore => integer().withDefault(const Constant(0))();
-  IntColumn get speakingScore => integer().withDefault(const Constant(0))();
-  IntColumn get totalScore => integer().withDefault(const Constant(0))();
+
+  /// Nullable: null means the section was never assessed.
+  ///
+  /// These defaulted to 0, so an evaluator that was offline or failed left a
+  /// stored zero indistinguishable from a genuinely bad answer. Rows written
+  /// before schema v5 keep whatever zero they were given — there is nothing
+  /// left to tell the two apart.
+  IntColumn get writingScore => integer().nullable()();
+  IntColumn get speakingScore => integer().nullable()();
+  IntColumn get totalScore => integer().nullable()();
   BoolColumn get passed => boolean().withDefault(const Constant(false))();
   TextColumn get details => text().nullable()(); // JSON
 }

@@ -11,9 +11,18 @@ class ExamResult {
   final DateTime takenAt;
   final int readingScore; // 0-100
   final int listeningScore; // 0-100
-  final int writingScore; // 0-100
-  final int speakingScore; // 0-100
-  final int totalScore; // 0-100
+
+  /// 0-100, or null when the section was never assessed.
+  ///
+  /// Writing and speaking are scored outside the grader. An evaluator that is
+  /// offline or fails leaves no score, which is not a zero — recording it as
+  /// one showed the learner a service failure as their own result.
+  final int? writingScore;
+  final int? speakingScore;
+
+  /// 0-100, or null while any productive section is unassessed.
+  final int? totalScore;
+
   final bool passed;
   final Map<String, dynamic>? details;
 
@@ -31,7 +40,6 @@ class ExamResult {
     this.details,
   });
 
-  int get sectionAverage =>
-      ((readingScore + listeningScore + writingScore + speakingScore) / 4)
-          .round();
+  /// Whether every productive section was actually scored.
+  bool get fullyScored => writingScore != null && speakingScore != null;
 }

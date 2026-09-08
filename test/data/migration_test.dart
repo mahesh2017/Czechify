@@ -326,4 +326,65 @@ void main() {
       await directory.delete(recursive: true);
     });
   });
+
+  group('schema v5 makes the externally-scored exam columns nullable', () {
+    test('v4 exam results accept an unassessed section afterwards', () async {
+      // Schema v4: writing/speaking/total were NOT NULL DEFAULT 0, so a
+      // section nobody scored was stored as a zero the learner appeared to
+      // have earned.
+      final directory = await Directory.systemTemp.createTemp(
+        'czechify-exam-nullable-',
+      );
+      final file = File('${directory.path}/v4.sqlite');
+      final legacy = sqlite.sqlite3.open(file.path);
+      legacy.execute('''
+        CREATE TABLE exam_results (
+          id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+          level TEXT NOT NULL,
+          product TEXT NOT NULL DEFAULT 'permanent_residence',
+          taken_at INTEGER NOT NULL DEFAULT 0,
+          reading_score INTEGER NOT NULL DEFAULT 0,
+          listening_score INTEGER NOT NULL DEFAULT 0,
+          writing_score INTEGER NOT NULL DEFAULT 0,
+          speaking_score INTEGER NOT NULL DEFAULT 0,
+          total_score INTEGER NOT NULL DEFAULT 0,
+          passed INTEGER NOT NULL DEFAULT 0,
+          details TEXT
+        );
+        INSERT INTO exam_results (id, level, reading_score, listening_score,
+          writing_score, speaking_score, total_score)
+          VALUES (7, 'a2', 80, 70, 0, 0, 38);
+        PRAGMA user_version = 4;
+      ''');
+      legacy.close();
+
+      final db = AppDatabase.forTesting(NativeDatabase(file));
+
+      // The existing row keeps its zeros — nothing recorded whether they were
+      // scored or merely missing, and the migration must not invent that.
+      final legacyRow =
+          await db
+              .customSelect('SELECT writing_score FROM exam_results WHERE id=7')
+              .getSingle();
+      expect(legacyRow.read<int?>('writing_score'), 0);
+
+      // But a new attempt can now say a section was never assessed.
+      await db.customStatement(
+        'INSERT INTO exam_results (level, reading_score, listening_score) '
+        "VALUES ('a2', 60, 60)",
+      );
+      final fresh =
+          await db
+              .customSelect(
+                'SELECT writing_score, total_score FROM exam_results '
+                'WHERE id != 7',
+              )
+              .getSingle();
+      expect(fresh.read<int?>('writing_score'), isNull);
+      expect(fresh.read<int?>('total_score'), isNull);
+
+      await db.close();
+      await directory.delete(recursive: true);
+    });
+  });
 }

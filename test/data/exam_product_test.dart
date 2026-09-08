@@ -138,6 +138,55 @@ void main() {
       expect(results.single.product, ExamProduct.permanentResidence);
     },
   );
+
+  /// Writing and speaking are scored outside the grader, so an evaluator that
+  /// is offline or fails leaves no score at all. That has to survive the round
+  /// trip as "not assessed" rather than arriving back as a zero the learner
+  /// looks like they earned.
+  test('an unassessed section round-trips as null, not zero', () async {
+    await repo.saveResult(
+      ExamResult(
+        id: 0,
+        level: ExamLevel.a2,
+        takenAt: DateTime.utc(2026, 9, 8),
+        readingScore: 80,
+        listeningScore: 70,
+        writingScore: null,
+        speakingScore: null,
+        totalScore: null,
+        passed: false,
+      ),
+    );
+
+    final stored = (await repo.getResults(ExamLevel.a2)).single;
+    expect(stored.readingScore, 80);
+    expect(stored.writingScore, isNull);
+    expect(stored.speakingScore, isNull);
+    expect(stored.totalScore, isNull);
+    expect(stored.fullyScored, isFalse);
+  });
+
+  test('a genuine zero round-trips as a zero', () async {
+    await repo.saveResult(
+      ExamResult(
+        id: 0,
+        level: ExamLevel.a2,
+        takenAt: DateTime.utc(2026, 9, 8),
+        readingScore: 0,
+        listeningScore: 0,
+        writingScore: 0,
+        speakingScore: 0,
+        totalScore: 0,
+        passed: false,
+      ),
+    );
+
+    final stored = (await repo.getResults(ExamLevel.a2)).single;
+    expect(stored.writingScore, 0);
+    expect(stored.speakingScore, 0);
+    expect(stored.totalScore, 0);
+    expect(stored.fullyScored, isTrue);
+  });
 }
 
 ExamResult _result(ExamProduct product) => ExamResult(

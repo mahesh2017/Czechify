@@ -2630,6 +2630,12 @@ abstract class AppLocalizations {
   /// **'Practice threshold not met'**
   String get examThresholdNotMet;
 
+  /// No description provided for @examSectionNotAssessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not assessed'**
+  String get examSectionNotAssessed;
+
   /// No description provided for @examPartlyUnscored.
   ///
   /// In en, this message translates to:

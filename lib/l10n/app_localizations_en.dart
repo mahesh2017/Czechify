@@ -1486,6 +1486,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get examThresholdNotMet => 'Practice threshold not met';
 
   @override
+  String get examSectionNotAssessed => 'Not assessed';
+
+  @override
   String get examPartlyUnscored => 'Practice completed — some tasks unscored';
 
   @override

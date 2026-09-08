@@ -1493,6 +1493,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get examThresholdNotMet => 'Cvičná hranice nesplněna';
 
   @override
+  String get examSectionNotAssessed => 'Nehodnoceno';
+
+  @override
   String get examPartlyUnscored =>
       'Cvičení dokončeno — některé úlohy nebyly bodovány';
 

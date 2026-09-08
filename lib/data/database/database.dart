@@ -89,7 +89,8 @@ class AppDatabase extends _$AppDatabase {
   @override
   /// Version 3 adds portable learner profiles and reminder intent.
   /// Version 4 replaces frozen `DateTime.now()` column defaults with a SQL one.
-  int get schemaVersion => 4;
+  /// Version 5 makes the externally-scored exam columns nullable.
+  int get schemaVersion => 5;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -261,6 +262,16 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 4) {
         await _replaceFrozenTimestampDefaults(m);
+      }
+      if (from < 5) {
+        // Writing, speaking and the overall total were NOT NULL DEFAULT 0, so
+        // a section nobody scored was stored as a zero and shown to the
+        // learner as one. sqlite cannot drop a NOT NULL in place, so the table
+        // is rebuilt. Existing rows keep their zeros: the information needed
+        // to tell "unscored" from "scored zero" was never written down.
+        if (await _hasTable('exam_results')) {
+          await m.alterTable(TableMigration(examResults));
+        }
       }
       // Not guarded by a version check. These indexes were only ever created
       // in [onCreate], so every upgraded install has been running without the

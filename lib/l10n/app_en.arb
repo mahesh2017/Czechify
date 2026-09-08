@@ -691,6 +691,7 @@
   "examPracticeTargetMet": "Practice target met",
   "examThresholdMet": "Practice threshold met",
   "examThresholdNotMet": "Practice threshold not met",
+  "examSectionNotAssessed": "Not assessed",
   "examPartlyUnscored": "Practice completed — some tasks unscored",
   "examCourseTrack": "Course track {level}",
   "@examCourseTrack": {
