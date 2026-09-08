@@ -10,6 +10,7 @@ import {
   parseBoundedInteger,
   parseContext,
   parseMessages,
+  satisfiesResponseFormat,
 } from "./request_policy.ts";
 
 const SCALEWAY_MODEL = Deno.env.get("SCALEWAY_MODEL") ??
@@ -250,11 +251,28 @@ Deno.serve(async (request) => {
       502,
     );
   }
+  let parsed: unknown;
   try {
-    JSON.parse(content);
+    parsed = JSON.parse(content);
   } catch (_) {
     // The app consumes typed JSON contracts. A syntactically invalid answer
     // is not a successful learner turn even if the provider returned 200.
+    await refundDaily();
+    return jsonResponse(
+      { error: "AI tutor returned an invalid response." },
+      502,
+    );
+  }
+  if (!satisfiesResponseFormat(upstreamRequest.responseFormat, parsed)) {
+    // Syntax was all this checked, so a well-formed answer to a different
+    // question was billed as a successful turn. The client then filled the
+    // gaps with defaults, and an evaluation carrying only an overall score
+    // reached the learner as three criterion scores of zero it had invented —
+    // indistinguishable from a real assessment of a bad answer.
+    //
+    // Checked against the schema this request actually sent, so the contract
+    // has one description rather than two that can drift.
+    console.error("Upstream reply did not match", operation);
     await refundDaily();
     return jsonResponse(
       { error: "AI tutor returned an invalid response." },

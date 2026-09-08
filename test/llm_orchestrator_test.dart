@@ -243,6 +243,114 @@ void main() {
     });
   });
 
+  group('oversized messages already in the history', () {
+    // The composer caps what a learner can type, which does nothing about the
+    // messages already saved: one written before that limit existed, or a
+    // tutor reply, which the proxy accepts up to 20,000 characters and the
+    // history then hands straight back at a 4,000 limit. One such message in
+    // the window made every request in that conversation fail identically —
+    // including the summarization that would have moved it out of the window.
+    // The thread became unusable rather than degraded.
+    final oversized = 'á' * 6000;
+
+    test('a saved learner message is cut, not passed through', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'Ahoj',
+        history: [ChatMessage.user(oversized, conversationId: 'c1')],
+      );
+
+      final carried = request.messages.first.content;
+      expect(carried.length, LLMOrchestrator.maxMessageCharacters);
+      expect(carried, startsWith('áááá'));
+      expect(carried, endsWith('…'));
+    });
+
+    test('an oversized tutor reply is cut too', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'Ahoj',
+        history: [ChatMessage.tutor(text: oversized, conversationId: 'c1')],
+      );
+
+      expect(
+        request.messages.first.content.length,
+        LLMOrchestrator.maxMessageCharacters,
+      );
+    });
+
+    test('every message in a request fits the server limit', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: oversized,
+        history: [
+          ChatMessage.user(oversized, conversationId: 'c1'),
+          ChatMessage.tutor(text: oversized, conversationId: 'c1'),
+        ],
+      );
+
+      for (final message in request.messages) {
+        expect(
+          message.content.length,
+          lessThanOrEqualTo(LLMOrchestrator.maxMessageCharacters),
+        );
+      }
+    });
+
+    test('summarizing a thread that contains one still works', () {
+      // The one request whose job is to clear the oversized message out of
+      // the window must not be the request it breaks.
+      final request = orchestrator.buildConversationSummaryRequest(
+        level: CEFRLevel.a1,
+        messages: [ChatMessage.tutor(text: oversized, conversationId: 'c1')],
+      );
+
+      for (final message in request.messages) {
+        expect(
+          message.content.length,
+          lessThanOrEqualTo(LLMOrchestrator.maxMessageCharacters),
+        );
+      }
+    });
+
+    test('a message that fits is untouched', () {
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'Ahoj',
+        history: [ChatMessage.user('Dobrý den', conversationId: 'c1')],
+      );
+
+      expect(request.messages.first.content, 'Dobrý den');
+      expect(request.messages.last.content, 'Ahoj');
+    });
+
+    test('a cut never splits a surrogate pair', () {
+      // Half a surrogate pair is not text and does not survive being encoded,
+      // which would trade a rejected request for a failure further from its
+      // cause.
+      final emoji = '\u{1F642}' * 4000;
+      final request = orchestrator.buildConversationRequest(
+        level: CEFRLevel.a1,
+        scenarioId: 'casual_chat',
+        userMessage: 'Ahoj',
+        history: [ChatMessage.user(emoji, conversationId: 'c1')],
+      );
+
+      final carried = request.messages.first.content;
+      expect(
+        carried.length,
+        lessThanOrEqualTo(LLMOrchestrator.maxMessageCharacters),
+      );
+      // Round-trips, which a lone surrogate would not.
+      expect(jsonDecode(jsonEncode(carried)), carried);
+      expect(carried.runes.last, 0x2026);
+    });
+  });
+
   group('parseTutorResponse', () {
     test('parses a complete response', () {
       final response = LlmResponse(
