@@ -161,17 +161,19 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+      // Content scrolls, only the action pins. A fixed prompt above the
+      // scrollable takes the whole box at 200% text and leaves the sentence
+      // with no room.
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
-          const SizedBox(height: 20),
-
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
+                  const SizedBox(height: 20),
                   // The sentence, word by word — tap the one that is wrong.
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -255,25 +257,26 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
                       ),
                     ],
                   ],
+
+                  // Feedback is content — it scrolls with the sentence rather
+                  // than being pinned where a long explanation cannot fit.
+                  if (answered && _explanation.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: GrammarTipCard(
+                        isCorrect: _wasCorrect,
+                        explanation: _explanation,
+                        correctAnswer:
+                            _correctSentence.isNotEmpty
+                                ? _correctSentence
+                                : widget.exercise.answerKey,
+                        grammarRuleId: widget.exercise.grammarRuleId,
+                      ),
+                    ),
                 ],
               ),
             ),
           ),
-
-          // Feedback
-          if (answered && _explanation.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: GrammarTipCard(
-                isCorrect: _wasCorrect,
-                explanation: _explanation,
-                correctAnswer:
-                    _correctSentence.isNotEmpty
-                        ? _correctSentence
-                        : widget.exercise.answerKey,
-                grammarRuleId: widget.exercise.grammarRuleId,
-              ),
-            ),
 
           // Show-answer fallback
           if (_errorRevealed && !answered && !useTextInput && _options == null)

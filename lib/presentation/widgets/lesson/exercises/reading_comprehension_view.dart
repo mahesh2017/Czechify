@@ -113,15 +113,22 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+      // Only the action is pinned; everything else scrolls.
+      //
+      // The prompt used to sit above the [Expanded] list as a fixed row. At
+      // 200% text a long prompt is taller than the whole exercise box, so it
+      // took every pixel, left the list zero height, and the column overflowed
+      // by hundreds of pixels — with the passage and questions unreachable
+      // below the fold. Content that can grow with the text scale has to be
+      // inside the scrollable, not competing with it.
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
-          const SizedBox(height: 16),
-
           Expanded(
             child: ListView(
               children: [
+                QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
+                const SizedBox(height: 16),
                 if (image != null && image.isNotEmpty) ...[
                   LessonImage(
                     asset: image,
@@ -176,6 +183,38 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
                   _buildQuestion(qIdx),
                   const SizedBox(height: 16),
                 ],
+
+                // The verdict is content, not an action — it wraps to several
+                // lines at large text sizes, so it scrolls with everything
+                // else rather than being pinned where it cannot fit.
+                if (answered)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Row(
+                      children: [
+                        Icon(
+                          _allCorrect
+                              ? Icons.check_circle
+                              : Icons.error_outline,
+                          color: _allCorrect ? t.greenInk : t.redInk,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            _allCorrect
+                                ? l10n.exerciseAllCorrect
+                                : l10n.exerciseSomeAnswersWrong,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: _allCorrect ? t.greenInk : t.redInk,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),
@@ -186,33 +225,6 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
               child: KeyCta(
                 label: l10n.exerciseCheckAnswers,
                 onPressed: _submit,
-              ),
-            ),
-
-          if (answered)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Row(
-                children: [
-                  Icon(
-                    _allCorrect ? Icons.check_circle : Icons.error_outline,
-                    color: _allCorrect ? t.greenInk : t.redInk,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      _allCorrect
-                          ? l10n.exerciseAllCorrect
-                          : l10n.exerciseSomeAnswersWrong,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: _allCorrect ? t.greenInk : t.redInk,
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
         ],
