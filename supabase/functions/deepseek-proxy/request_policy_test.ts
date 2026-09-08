@@ -5,6 +5,7 @@ import {
   parseBoundedInteger,
   parseContext,
   parseMessages,
+  satisfiesResponseFormat,
 } from "./request_policy.ts";
 
 Deno.test("bounds integer environment configuration", () => {
@@ -175,4 +176,110 @@ Deno.test("summarization owns its prompt and stays cheap", () => {
   // Cheaper than a tutor turn: this runs in addition to one, not instead.
   assertEquals(request!.maxTokens, 400);
   assertEquals(request!.messages.length, 3);
+});
+
+/// The proxy checked only that a reply parsed as JSON, so a well-formed answer
+/// to a different question was billed as a successful turn and handed on. The
+/// client then filled the gaps with defaults: `{"score":{"overall":85}}`
+/// reached the learner as three criterion scores of zero it had invented,
+/// indistinguishable from a real assessment of a bad answer.
+const writingFormat = buildUpstreamRequest(
+  "writing_evaluation",
+  { level: "a1", task_description: "Describe your morning." },
+  parseMessages([{ role: "user", content: "Ráno piju kávu." }])!,
+)!.responseFormat;
+
+Deno.test("a complete writing evaluation is accepted", () => {
+  assertEquals(
+    satisfiesResponseFormat(writingFormat, {
+      score: { grammar: 80, vocabulary: 75, coherence: 90, overall: 82 },
+      feedback: "Good use of the accusative.",
+      errors: [{
+        original: "piju",
+        correction: "piji",
+        explanation: "More formal in writing.",
+      }],
+    }),
+    true,
+  );
+});
+
+Deno.test("a score with only an overall is not an evaluation", () => {
+  assertEquals(
+    satisfiesResponseFormat(writingFormat, { score: { overall: 85 } }),
+    false,
+  );
+});
+
+Deno.test("a partial score is refused rather than half-graded", () => {
+  assertEquals(
+    satisfiesResponseFormat(writingFormat, {
+      score: { grammar: 80, vocabulary: 75, overall: 82 },
+      feedback: "Nice.",
+      errors: [],
+    }),
+    false,
+  );
+});
+
+Deno.test("scores outside the range are refused", () => {
+  assertEquals(
+    satisfiesResponseFormat(writingFormat, {
+      score: { grammar: 80, vocabulary: 75, coherence: 90, overall: 140 },
+      feedback: "Nice.",
+      errors: [],
+    }),
+    false,
+  );
+});
+
+Deno.test("prose where an object was asked for is refused", () => {
+  assertEquals(satisfiesResponseFormat(writingFormat, "Looks good!"), false);
+});
+
+Deno.test("a tutor reply is checked to the same standard", () => {
+  const conversationFormat = buildUpstreamRequest(
+    "conversation",
+    { level: "a1", scenario_id: "restaurant" },
+    parseMessages([{ role: "user", content: "Dobrý den." }])!,
+  )!.responseFormat;
+
+  assertEquals(
+    satisfiesResponseFormat(conversationFormat, {
+      tutor_reply_cz: "Dobrý den!",
+      tutor_reply_en: "Good day!",
+      corrections: [],
+      new_vocabulary: [],
+      suggested_replies: ["Dobrý den."],
+    }),
+    true,
+  );
+
+  // A reply the learner can read, with the teaching stripped out. The client
+  // would have shown it and quietly lost the corrections.
+  assertEquals(
+    satisfiesResponseFormat(conversationFormat, {
+      tutor_reply_cz: "Dobrý den!",
+      tutor_reply_en: "Good day!",
+    }),
+    false,
+  );
+
+  // An enum the client switches on, answered with something else.
+  assertEquals(
+    satisfiesResponseFormat(conversationFormat, {
+      tutor_reply_cz: "Dobrý den!",
+      tutor_reply_en: "Good day!",
+      corrections: [{
+        type: "vibes",
+        user_said: "Dobry den",
+        correct: "Dobrý den",
+        rule: "Vowel length.",
+        severity: "error",
+      }],
+      new_vocabulary: [],
+      suggested_replies: [],
+    }),
+    false,
+  );
 });

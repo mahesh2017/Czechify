@@ -135,6 +135,73 @@ const writingResponse = jsonSchema(
   }),
 );
 
+/// Whether `value` satisfies `schema`.
+///
+/// Handles exactly the JSON Schema subset [jsonSchema] emits — object with
+/// `required`/`additionalProperties: false`, array with `items`, string with
+/// an optional `enum`, and bounded integer — and refuses anything it does not
+/// understand rather than passing it. A validator that quietly approves the
+/// constructs it cannot check is worse than none: it reports a guarantee it
+/// is not making.
+export const matchesSchema = (schema: unknown, value: unknown): boolean => {
+  if (typeof schema !== "object" || schema === null) return false;
+  const shape = schema as Record<string, unknown>;
+  switch (shape.type) {
+    case "object": {
+      if (typeof value !== "object" || value === null || Array.isArray(value)) {
+        return false;
+      }
+      const properties = (shape.properties ?? {}) as Record<string, unknown>;
+      const required = (shape.required ?? []) as string[];
+      const record = value as Record<string, unknown>;
+      for (const key of required) {
+        if (!(key in record)) return false;
+      }
+      for (const [key, item] of Object.entries(record)) {
+        if (!(key in properties)) {
+          // `additionalProperties: false` is what every schema here sets, so
+          // an unknown key means the model answered a different question.
+          if (shape.additionalProperties === false) return false;
+          continue;
+        }
+        if (!matchesSchema(properties[key], item)) return false;
+      }
+      return true;
+    }
+    case "array":
+      return Array.isArray(value) &&
+        value.every((item) => matchesSchema(shape.items, item));
+    case "string": {
+      if (typeof value !== "string") return false;
+      const options = shape.enum;
+      return !Array.isArray(options) || options.includes(value);
+    }
+    case "integer": {
+      if (typeof value !== "number" || !Number.isInteger(value)) return false;
+      const min = shape.minimum;
+      const max = shape.maximum;
+      if (typeof min === "number" && value < min) return false;
+      if (typeof max === "number" && value > max) return false;
+      return true;
+    }
+    default:
+      return false;
+  }
+};
+
+/// Whether a reply is the shape the request asked for.
+///
+/// The proxy checked only that the content parsed as JSON, so a syntactically
+/// valid answer to a different question was billed as a successful turn and
+/// handed to a client that then filled the gaps with defaults —
+/// `{"score":{"overall":85}}` reached the learner as three criterion scores of
+/// zero it had invented. Validating against the schema that was *sent* keeps
+/// the two from drifting apart: there is only one description of the contract.
+export const satisfiesResponseFormat = (
+  responseFormat: UpstreamRequest["responseFormat"],
+  content: unknown,
+): boolean => matchesSchema(responseFormat.json_schema.schema, content);
+
 export const parseBoundedInteger = (
   value: string | undefined,
   fallback: number,

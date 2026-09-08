@@ -50,7 +50,7 @@ class LLMOrchestrator {
   }) {
     final messages = <LlmMessage>[
       ..._windowedHistory(history, userMessage),
-      LlmMessage(LlmRole.user, userMessage),
+      LlmMessage(LlmRole.user, _bounded(userMessage)),
     ];
 
     final summary = earlierSummary?.trim();
@@ -123,28 +123,47 @@ class LLMOrchestrator {
   /// Oldest-first is the right thing to drop: recent turns carry the thread the
   /// tutor is answering. [userMessage] is never dropped — it is what the turn
   /// is for — so it claims its share of the budget before history gets any.
-  /// A single message longer than the server's 4,000-character per-message cap
-  /// is still refused server-side; that is an input-length concern, not a
-  /// windowing one.
+  ///
+  /// Each entry is also cut to the per-message cap. The composer stops a
+  /// learner from *typing* an over-long message, which does nothing about the
+  /// ones already saved: a message written before that limit existed, or a
+  /// tutor reply, which the proxy accepts up to 20,000 characters and history
+  /// then hands straight back at 4,000. One such message in the window makes
+  /// every request in that conversation fail identically, including the one
+  /// that would have summarized it away — the thread becomes unusable rather
+  /// than degraded. Truncating loses the tail of one old turn instead.
   List<LlmMessage> _windowedHistory(
     List<ChatMessage> history,
     String userMessage,
   ) {
-    final budget = maxTotalCharacters - userMessage.length;
+    final budget = maxTotalCharacters - _bounded(userMessage).length;
     final kept = <LlmMessage>[];
     var used = 0;
     for (final message in history.reversed) {
       if (kept.length >= maxHistoryMessages) break;
-      if (used + message.content.length > budget) break;
-      used += message.content.length;
+      final content = _bounded(message.content);
+      if (used + content.length > budget) break;
+      used += content.length;
       kept.add(
         LlmMessage(
           message.role == MessageRole.user ? LlmRole.user : LlmRole.assistant,
-          message.content,
+          content,
         ),
       );
     }
     return kept.reversed.toList();
+  }
+
+  /// One message, cut to what the server will accept.
+  static String _bounded(String content) {
+    if (content.length <= maxMessageCharacters) return content;
+    var end = maxMessageCharacters - 1;
+    // Never split a surrogate pair. Half of one is not text, and it does not
+    // survive being encoded — which would trade a rejected request for a
+    // failure further from its cause.
+    final last = content.codeUnitAt(end - 1);
+    if (last >= 0xD800 && last <= 0xDBFF) end--;
+    return '${content.substring(0, end)}…';
   }
 
   /// Parse the LLM response into structured data.

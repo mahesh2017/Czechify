@@ -3,11 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('AI writing scores are bounded and malformed errors are ignored', () {
+    // Out of range is a real judgement expressed sloppily; reading a 101 as
+    // 100 loses nothing.
     final evaluation = WritingEvaluation.fromJson({
       'score': {
         'grammar': -20,
         'vocabulary': 101.4,
-        'coherence': double.infinity,
+        'coherence': 64,
         'overall': 82.6,
       },
       'feedback': 'Keep practising.',
@@ -19,9 +21,84 @@ void main() {
 
     expect(evaluation.grammar, 0);
     expect(evaluation.vocabulary, 100);
-    expect(evaluation.coherence, 0);
+    expect(evaluation.coherence, 64);
     expect(evaluation.overall, 83);
     expect(evaluation.errors, hasLength(1));
+  });
+
+  test('a missing criterion is refused rather than invented', () {
+    // Requiring only `overall` was the same defect as requiring nothing, with
+    // a smaller blast radius: this payload produced three criterion scores of
+    // zero the client had made up, shown beside a real 85 as though they
+    // carried the same weight. A default is a claim about the learner's
+    // writing, and there is no default that is safe to make.
+    expect(
+      () => WritingEvaluation.fromJson({
+        'score': {'overall': 85},
+        'feedback': 'Good effort.',
+      }),
+      throwsFormatException,
+    );
+
+    for (final missing in ['grammar', 'vocabulary', 'coherence', 'overall']) {
+      final score = {
+        'grammar': 80,
+        'vocabulary': 80,
+        'coherence': 80,
+        'overall': 80,
+      }..remove(missing);
+      expect(
+        () => WritingEvaluation.fromJson({
+          'score': score,
+          'feedback': 'Good effort.',
+        }),
+        throwsFormatException,
+        reason: 'an evaluation missing $missing is not an evaluation',
+      );
+    }
+
+    // Not a number at all, and a number that is not one either.
+    expect(
+      () => WritingEvaluation.fromJson({
+        'score': {
+          'grammar': 'good',
+          'vocabulary': 80,
+          'coherence': 80,
+          'overall': 80,
+        },
+        'feedback': 'Good effort.',
+      }),
+      throwsFormatException,
+    );
+    expect(
+      () => WritingEvaluation.fromJson({
+        'score': {
+          'grammar': double.infinity,
+          'vocabulary': 80,
+          'coherence': 80,
+          'overall': 80,
+        },
+        'feedback': 'Good effort.',
+      }),
+      throwsFormatException,
+    );
+  });
+
+  test('an evaluation with no feedback is not an evaluation', () {
+    // Scores without the reasoning are a mark with nothing to learn from, and
+    // the empty string this used to substitute reads as one the model chose
+    // not to give.
+    expect(
+      () => WritingEvaluation.fromJson({
+        'score': {
+          'grammar': 80,
+          'vocabulary': 80,
+          'coherence': 80,
+          'overall': 80,
+        },
+      }),
+      throwsFormatException,
+    );
   });
 
   test('a payload that is not an evaluation is refused, not scored', () {
@@ -45,6 +122,7 @@ void main() {
     expect(
       () => WritingEvaluation.fromJson({
         'score': {'grammar': 80},
+        'feedback': 'Good effort.',
       }),
       throwsFormatException,
       reason: 'an evaluation without an overall score is not an evaluation',

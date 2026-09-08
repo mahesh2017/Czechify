@@ -30,25 +30,32 @@ class WritingEvaluation {
   /// provider that returned the wrong shape therefore cost the learner a
   /// quota unit and appeared to them as their own failure.
   ///
-  /// The model is told what shape to return, but instructions are not a
-  /// runtime guarantee. A missing overall score means no evaluation happened,
-  /// and the caller must treat that as an evaluation failure rather than a
-  /// grade.
+  /// Requiring only `overall` was the same bug with a smaller blast radius:
+  /// `{"score":{"overall":85}}` still yielded three criterion scores of zero
+  /// this code had invented, shown to the learner beside a real one as though
+  /// they carried the same weight. A default is a claim about the learner's
+  /// writing, and there is no default that is safe to make.
+  ///
+  /// The model is told what shape to return, and the server now checks the
+  /// reply against that schema, but neither is a runtime guarantee here: an
+  /// older deployment or a changed provider reaches this code first. A missing
+  /// criterion means no evaluation happened, and the caller must treat it as
+  /// an evaluation failure rather than a grade.
   factory WritingEvaluation.fromJson(Map<String, dynamic> json) {
     final score = json['score'];
     if (score is! Map<String, dynamic>) {
       throw const FormatException('writing evaluation has no score object');
     }
-    final overall = score['overall'];
-    if (overall is! num || !overall.isFinite) {
-      throw const FormatException('writing evaluation has no overall score');
+    final feedback = json['feedback'];
+    if (feedback is! String) {
+      throw const FormatException('writing evaluation has no feedback');
     }
     return WritingEvaluation(
-      grammar: _boundedScore(score['grammar']),
-      vocabulary: _boundedScore(score['vocabulary']),
-      coherence: _boundedScore(score['coherence']),
-      overall: _boundedScore(score['overall']),
-      feedback: json['feedback'] as String? ?? '',
+      grammar: _requiredScore(score, 'grammar'),
+      vocabulary: _requiredScore(score, 'vocabulary'),
+      coherence: _requiredScore(score, 'coherence'),
+      overall: _requiredScore(score, 'overall'),
+      feedback: feedback,
       errors:
           (json['errors'] as List<dynamic>?)
               ?.whereType<Map<String, dynamic>>()
@@ -57,9 +64,17 @@ class WritingEvaluation {
     );
   }
 
-  static int _boundedScore(Object? value) {
-    final numeric = value is num && value.isFinite ? value : 0;
-    return numeric.clamp(0, 100).round();
+  /// One criterion the model was asked to assess, or nothing.
+  ///
+  /// Clamped rather than refused when out of range: a 101 is a real judgement
+  /// expressed sloppily, and reading it as 100 loses nothing. Absent, or not a
+  /// finite number, is different — there is no judgement to read.
+  static int _requiredScore(Map<String, dynamic> score, String criterion) {
+    final value = score[criterion];
+    if (value is! num || !value.isFinite) {
+      throw FormatException('writing evaluation has no $criterion score');
+    }
+    return value.clamp(0, 100).round();
   }
 }
 
