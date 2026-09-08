@@ -147,6 +147,11 @@ class SyncService {
     'custom_cards': 'user_id,content_uid',
     'srs_cards': 'user_id,card_type,content_key',
     'gamification_state': 'user_id,key',
+    // The learning history worth carrying across devices. Both hold
+    // client-generated ids, so a push is idempotent and two devices cannot
+    // collide. The raw attempt logs stay local — see the migration for why.
+    'learning_evidence_events': 'user_id,evidence_id',
+    'delayed_transfer_assignments': 'user_id,assignment_id',
     // Reports are append-only and carry a client-generated id, so the upsert
     // is idempotent: a retried push files the same report rather than a
     // second one. Push-only — see [pushOnlyEntities].
@@ -380,6 +385,14 @@ class SyncService {
   DateTime? _ts(Object? iso) =>
       iso is String ? DateTime.tryParse(iso)?.toLocal() : null;
 
+  /// Writes one pulled row into local storage.
+  ///
+  /// Visible for testing. This is the seam where a server column name meets a
+  /// local field, so a typo here silently drops a value rather than failing —
+  /// which is worth a test more than it is worth being private.
+  Future<void> applyRemoteRow(String entity, Map<String, dynamic> r) =>
+      _applyRemote(entity, r);
+
   Future<void> _applyRemote(String entity, Map<String, dynamic> r) async {
     switch (entity) {
       case 'learner_profiles':
@@ -490,6 +503,36 @@ class SyncService {
           lastOpenDate: r['last_open_date'] as String?,
           dailyXpResetDate: r['daily_xp_reset_date'] as String?,
           updatedAt: _ts(r['updated_at']) ?? DateTime.now(),
+        );
+        break;
+      case 'learning_evidence_events':
+        // Immutable once observed, so a pull is a plain restore and a repeated
+        // one writes the same row rather than a second observation.
+        await _db.progressDao.mergeRemoteLearningEvidence(
+          evidenceId: r['evidence_id'] as String,
+          lessonId: (r['lesson_id'] as num?)?.toInt() ?? 0,
+          exerciseId: (r['exercise_id'] as num?)?.toInt(),
+          skill: r['skill'] as String? ?? '',
+          phase: r['phase'] as String? ?? '',
+          correct: r['correct'] as bool? ?? false,
+          novelTask: r['novel_task'] as bool? ?? false,
+          supportsJson: _jsonText(r['supports'], const []),
+          conceptKeysJson: _jsonText(r['concept_keys'], const []),
+          responseLatencyMs: (r['response_latency_ms'] as num?)?.toInt() ?? 0,
+          observedAt: _ts(r['observed_at']) ?? DateTime.now(),
+        );
+        break;
+      case 'delayed_transfer_assignments':
+        await _db.progressDao.mergeRemoteTransferAssignment(
+          assignmentId: r['assignment_id'] as String,
+          sourceAttemptId: r['source_attempt_id'] as String? ?? '',
+          lessonId: (r['lesson_id'] as num?)?.toInt() ?? 0,
+          sourceExerciseId: (r['source_exercise_id'] as num?)?.toInt() ?? 0,
+          dueAt: _ts(r['due_at']) ?? DateTime.now(),
+          status: r['status'] as String? ?? 'pending',
+          completedEvidenceId: r['completed_evidence_id'] as String?,
+          createdAt: _ts(r['created_at']) ?? DateTime.now(),
+          completedAt: _ts(r['completed_at']),
         );
         break;
     }

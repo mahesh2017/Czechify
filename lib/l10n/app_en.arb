@@ -146,6 +146,8 @@
   "accountSignInExisting": "Sign in to an existing account",
   "accountSetOrChangePassword": "Set or change password",
   "accountSendRecovery": "Send password recovery email",
+  "accountWhatTransfersTitle": "What moves with your account",
+  "accountWhatTransfersBody": "Your progress, vocabulary schedule, placement, streak and the evidence behind your level all follow you to a new device, along with practice already scheduled for you. Detailed answer-by-answer history and your conversations with the tutor stay on this device only.",
   "accountYourData": "Your data",
   "accountExportJson": "Export my data as JSON",
   "accountDeleteCloudLocal": "Delete cloud account and local data",

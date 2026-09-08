@@ -405,6 +405,13 @@ class AppLocalizationsCs extends AppLocalizations {
   String get accountSendRecovery => 'Poslat e-mail pro obnovení hesla';
 
   @override
+  String get accountWhatTransfersTitle => 'Co se přenáší s účtem';
+
+  @override
+  String get accountWhatTransfersBody =>
+      'Tvůj pokrok, plán slovní zásoby, zařazení, série i podklady k tvé úrovni tě doprovodí na nové zařízení, včetně už naplánovaného procvičování. Podrobná historie jednotlivých odpovědí a konverzace s lektorem zůstávají jen v tomto zařízení.';
+
+  @override
   String get accountYourData => 'Vaše data';
 
   @override

@@ -61,8 +61,115 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
             observedAt: evidence.observedAt,
           ),
         );
+        await attachedDatabase.syncDao.enqueue(
+          entity: 'learning_evidence_events',
+          entityKey: evidence.evidenceId,
+          payload: {
+            'evidence_id': evidence.evidenceId,
+            'lesson_id': evidence.lessonId,
+            'exercise_id': evidence.exerciseId,
+            'skill': evidence.skill.name,
+            'phase': evidence.phase.name,
+            'correct': evidence.correct,
+            'novel_task': evidence.novelTask,
+            'supports': evidence.supports.map((v) => v.name).toList(),
+            'concept_keys': evidence.conceptKeys.toList(),
+            'response_latency_ms': evidence.responseLatency.inMilliseconds,
+            'observed_at': evidence.observedAt.toUtc().toIso8601String(),
+          },
+        );
         return true;
       });
+
+  /// Applies an evidence row pulled from the backend.
+  ///
+  /// Insert-or-ignore rather than upsert: evidence is immutable once observed,
+  /// so a row already here is the same row, and a repeated pull must not
+  /// rewrite it.
+  Future<void> mergeRemoteLearningEvidence({
+    required String evidenceId,
+    required int lessonId,
+    int? exerciseId,
+    required String skill,
+    required String phase,
+    required bool correct,
+    required bool novelTask,
+    required String supportsJson,
+    required String conceptKeysJson,
+    required int responseLatencyMs,
+    required DateTime observedAt,
+  }) async {
+    await into(learningEvidenceEvents).insert(
+      LearningEvidenceEventsCompanion.insert(
+        evidenceId: evidenceId,
+        lessonId: lessonId,
+        exerciseId: Value(exerciseId),
+        skill: skill,
+        phase: phase,
+        correct: correct,
+        novelTask: novelTask,
+        supportsJson: Value(supportsJson),
+        conceptKeysJson: Value(conceptKeysJson),
+        responseLatencyMs: responseLatencyMs,
+        observedAt: observedAt,
+      ),
+      mode: InsertMode.insertOrIgnore,
+    );
+  }
+
+  /// Applies a transfer assignment pulled from the backend.
+  ///
+  /// Upsert, because an assignment mutates: pending becomes completed, and the
+  /// device that completed it is the one with the newer row.
+  Future<void> mergeRemoteTransferAssignment({
+    required String assignmentId,
+    required String sourceAttemptId,
+    required int lessonId,
+    required int sourceExerciseId,
+    required DateTime dueAt,
+    required String status,
+    String? completedEvidenceId,
+    required DateTime createdAt,
+    DateTime? completedAt,
+  }) async {
+    await into(delayedTransferAssignments).insertOnConflictUpdate(
+      DelayedTransferAssignmentsCompanion.insert(
+        assignmentId: assignmentId,
+        sourceAttemptId: sourceAttemptId,
+        lessonId: lessonId,
+        sourceExerciseId: sourceExerciseId,
+        dueAt: dueAt,
+        status: Value(status),
+        completedEvidenceId: Value(completedEvidenceId),
+        createdAt: createdAt,
+        completedAt: Value(completedAt),
+      ),
+    );
+  }
+
+  /// Queues an assignment for the backend in its current state.
+  Future<void> _enqueueTransferAssignment(String assignmentId) async {
+    final row =
+        await (select(
+          delayedTransferAssignments,
+        )..where((r) => r.assignmentId.equals(assignmentId))).getSingleOrNull();
+    if (row == null) return;
+    await attachedDatabase.syncDao.enqueue(
+      entity: 'delayed_transfer_assignments',
+      entityKey: assignmentId,
+      payload: {
+        'assignment_id': row.assignmentId,
+        'source_attempt_id': row.sourceAttemptId,
+        'lesson_id': row.lessonId,
+        'source_exercise_id': row.sourceExerciseId,
+        'due_at': row.dueAt.toUtc().toIso8601String(),
+        'status': row.status,
+        'completed_evidence_id': row.completedEvidenceId,
+        'created_at': row.createdAt.toUtc().toIso8601String(),
+        'completed_at': row.completedAt?.toUtc().toIso8601String(),
+      },
+    );
+  }
 
   Future<List<LearningEvidence>> getLearningEvidence() async {
     final rows =
@@ -269,6 +376,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
         completedAt: Value(evidence.observedAt),
       ),
     );
+    // Completion is the half that matters most across devices: without it a
+    // restored learner is asked to redo practice they have already done.
+    await _enqueueTransferAssignment(assignmentId);
     return true;
   });
 
@@ -394,6 +504,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
             createdAt: now,
           ),
           mode: InsertMode.insertOrIgnore,
+        );
+        await _enqueueTransferAssignment(
+          'transfer:$attemptId:${evidence.exerciseId}',
         );
       }
     }
