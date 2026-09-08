@@ -98,10 +98,94 @@ void main() {
 
       expect(scores.reading, 0);
       expect(scores.listening, 0);
+      // Nobody scored the productive sections, which is not the same as
+      // scoring zero in them — and an overall percentage computed over an
+      // unassessed section would be a confident number with a hole in it.
+      expect(scores.writing, isNull);
+      expect(scores.speaking, isNull);
+      expect(scores.total, isNull);
+      expect(scores.fullyScored, isFalse);
+      expect(scores.passed, isFalse);
+    });
+
+    test('an offline writing evaluator leaves writing unassessed', () {
+      final exam = _cceFormatExam();
+      final scores = grader.grade(
+        exam: exam,
+        answers: {
+          0: {0: 0, 1: 1, 2: 2, 3: 3, 4: 4},
+          1: {0: 4, 1: 3, 2: 2, 3: 1, 4: 0},
+        },
+        // Speaking came back; writing did not.
+        speakingScore: 60,
+      );
+
+      expect(scores.reading, 100);
+      expect(scores.speaking, 60);
+      expect(scores.writing, isNull);
+      expect(scores.total, isNull, reason: 'no overall without every section');
+      expect(scores.fullyScored, isFalse);
+      expect(scores.passed, isFalse);
+    });
+
+    test('a paper carrying no points falls back to the section average', () {
+      // Nothing here contributes raw points, so the overall cannot be computed
+      // from them — it averages the four section percentages instead.
+      const exam = MockExam(
+        id: 'pointless',
+        level: ExamLevel.a2,
+        blueprint: ExamBlueprint(
+          product: ExamProduct.permanentResidence,
+          version: 'test',
+          effectiveDate: '2026-01-01',
+          scoringRule: ExamScoringRule.rawPointsWrittenSpeakingGate,
+        ),
+        totalTimeMinutes: 10,
+        sections: [
+          MockExamSection(
+            type: ExamSectionType.writing,
+            timeLimitMinutes: 5,
+            maxScore: 0,
+            questions: [],
+          ),
+          MockExamSection(
+            type: ExamSectionType.speaking,
+            timeLimitMinutes: 5,
+            maxScore: 0,
+            questions: [],
+          ),
+        ],
+      );
+
+      final scores = grader.grade(
+        exam: exam,
+        answers: {},
+        writingScore: 80,
+        speakingScore: 60,
+      );
+
+      expect(scores.fullyScored, isTrue);
+      // (0 reading + 0 listening + 80 writing + 60 speaking) / 4
+      expect(scores.total, 35);
+    });
+
+    test('a genuine zero is still reported as a zero', () {
+      final exam = _cceFormatExam();
+      final scores = grader.grade(
+        exam: exam,
+        answers: {
+          0: {0: 0, 1: 1, 2: 2, 3: 3, 4: 4},
+          1: {0: 4, 1: 3, 2: 2, 3: 1, 4: 0},
+        },
+        writingScore: 0,
+        speakingScore: 0,
+      );
+
+      // Nothing here is null: these sections were assessed and scored zero.
       expect(scores.writing, 0);
       expect(scores.speaking, 0);
-      expect(scores.total, 0);
-      expect(scores.passed, isFalse);
+      expect(scores.total, isNotNull);
+      expect(scores.fullyScored, isTrue);
     });
 
     test('writing and speaking use externally provided scores', () {

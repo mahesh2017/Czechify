@@ -127,7 +127,8 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           checkpoint.examId,
           product: product,
         );
-        if (exam == null || exam.blueprint.version != checkpoint.blueprintVersion) {
+        if (exam == null ||
+            exam.blueprint.version != checkpoint.blueprintVersion) {
           // The paper is gone or has been reissued under a new blueprint.
           // There is nothing left to resume onto.
           unawaited(_sessionStore.clear(widget.level.name));
@@ -1407,6 +1408,21 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: t.muted, height: 1.4),
               ),
+              // Says plainly that the paper is incomplete, so the rows below
+              // reading "Not assessed" are explained rather than mysterious.
+              // The string already existed for this and was wired to nothing.
+              if (!_result!.fullyScored) ...[
+                const SizedBox(height: 12),
+                Text(
+                  AppLocalizations.of(context).examPartlyUnscored,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: t.violetInk,
+                    fontWeight: FontWeight.w700,
+                    height: 1.4,
+                  ),
+                ),
+              ],
               const SizedBox(height: 20),
               SoftCard(
                 child: Column(
@@ -1608,7 +1624,14 @@ class _ExamTimerBar extends StatelessWidget {
 
 class _ScoreRow extends StatelessWidget {
   final String label;
-  final int score;
+
+  /// Null means the section was never assessed.
+  ///
+  /// Writing and speaking are scored outside the grader, so an evaluator that
+  /// is offline or fails leaves no score. That used to arrive here as a 0 and
+  /// render in red as though the learner had earned it.
+  final int? score;
+
   final bool isBold;
 
   const _ScoreRow({
@@ -1620,8 +1643,13 @@ class _ScoreRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final score = this.score;
+    // Violet for an unassessed section, matching the result screen's own
+    // treatment of an incomplete outcome; amber stays with streak and XP.
     final color =
-        score >= 80
+        score == null
+            ? t.violetInk
+            : score >= 80
             ? t.green
             : score >= 60
             ? t.amber
@@ -1639,7 +1667,9 @@ class _ScoreRow extends StatelessWidget {
             ),
           ),
           Text(
-            '$score / 100',
+            score == null
+                ? AppLocalizations.of(context).examSectionNotAssessed
+                : '$score / 100',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: color,

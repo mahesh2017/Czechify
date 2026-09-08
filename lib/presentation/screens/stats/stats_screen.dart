@@ -630,7 +630,11 @@ class _ExamHistoryCard extends ConsumerWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    '${r.totalScore}%',
+                    // An attempt whose writing or speaking was never assessed
+                    // has no meaningful overall percentage to show.
+                    r.totalScore == null
+                        ? AppLocalizations.of(context).examSectionNotAssessed
+                        : '${r.totalScore}%',
                     style: TextStyle(fontWeight: FontWeight.w700, color: color),
                   ),
                 ],

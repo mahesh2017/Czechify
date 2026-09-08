@@ -5104,10 +5104,9 @@ class $ExamResultsTable extends ExamResults
   late final GeneratedColumn<int> writingScore = GeneratedColumn<int>(
     'writing_score',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultValue: const Constant(0),
   );
   static const VerificationMeta _speakingScoreMeta = const VerificationMeta(
     'speakingScore',
@@ -5116,10 +5115,9 @@ class $ExamResultsTable extends ExamResults
   late final GeneratedColumn<int> speakingScore = GeneratedColumn<int>(
     'speaking_score',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultValue: const Constant(0),
   );
   static const VerificationMeta _totalScoreMeta = const VerificationMeta(
     'totalScore',
@@ -5128,10 +5126,9 @@ class $ExamResultsTable extends ExamResults
   late final GeneratedColumn<int> totalScore = GeneratedColumn<int>(
     'total_score',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultValue: const Constant(0),
   );
   static const VerificationMeta _passedMeta = const VerificationMeta('passed');
   @override
@@ -5296,15 +5293,15 @@ class $ExamResultsTable extends ExamResults
       writingScore: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}writing_score'],
-      )!,
+      ),
       speakingScore: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}speaking_score'],
-      )!,
+      ),
       totalScore: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}total_score'],
-      )!,
+      ),
       passed: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}passed'],
@@ -5331,9 +5328,16 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
   final DateTime takenAt;
   final int readingScore;
   final int listeningScore;
-  final int writingScore;
-  final int speakingScore;
-  final int totalScore;
+
+  /// Nullable: null means the section was never assessed.
+  ///
+  /// These defaulted to 0, so an evaluator that was offline or failed left a
+  /// stored zero indistinguishable from a genuinely bad answer. Rows written
+  /// before schema v5 keep whatever zero they were given — there is nothing
+  /// left to tell the two apart.
+  final int? writingScore;
+  final int? speakingScore;
+  final int? totalScore;
   final bool passed;
   final String? details;
   const ExamResult({
@@ -5343,9 +5347,9 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
     required this.takenAt,
     required this.readingScore,
     required this.listeningScore,
-    required this.writingScore,
-    required this.speakingScore,
-    required this.totalScore,
+    this.writingScore,
+    this.speakingScore,
+    this.totalScore,
     required this.passed,
     this.details,
   });
@@ -5358,9 +5362,15 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
     map['taken_at'] = Variable<DateTime>(takenAt);
     map['reading_score'] = Variable<int>(readingScore);
     map['listening_score'] = Variable<int>(listeningScore);
-    map['writing_score'] = Variable<int>(writingScore);
-    map['speaking_score'] = Variable<int>(speakingScore);
-    map['total_score'] = Variable<int>(totalScore);
+    if (!nullToAbsent || writingScore != null) {
+      map['writing_score'] = Variable<int>(writingScore);
+    }
+    if (!nullToAbsent || speakingScore != null) {
+      map['speaking_score'] = Variable<int>(speakingScore);
+    }
+    if (!nullToAbsent || totalScore != null) {
+      map['total_score'] = Variable<int>(totalScore);
+    }
     map['passed'] = Variable<bool>(passed);
     if (!nullToAbsent || details != null) {
       map['details'] = Variable<String>(details);
@@ -5376,9 +5386,15 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
       takenAt: Value(takenAt),
       readingScore: Value(readingScore),
       listeningScore: Value(listeningScore),
-      writingScore: Value(writingScore),
-      speakingScore: Value(speakingScore),
-      totalScore: Value(totalScore),
+      writingScore: writingScore == null && nullToAbsent
+          ? const Value.absent()
+          : Value(writingScore),
+      speakingScore: speakingScore == null && nullToAbsent
+          ? const Value.absent()
+          : Value(speakingScore),
+      totalScore: totalScore == null && nullToAbsent
+          ? const Value.absent()
+          : Value(totalScore),
       passed: Value(passed),
       details: details == null && nullToAbsent
           ? const Value.absent()
@@ -5398,9 +5414,9 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
       takenAt: serializer.fromJson<DateTime>(json['takenAt']),
       readingScore: serializer.fromJson<int>(json['readingScore']),
       listeningScore: serializer.fromJson<int>(json['listeningScore']),
-      writingScore: serializer.fromJson<int>(json['writingScore']),
-      speakingScore: serializer.fromJson<int>(json['speakingScore']),
-      totalScore: serializer.fromJson<int>(json['totalScore']),
+      writingScore: serializer.fromJson<int?>(json['writingScore']),
+      speakingScore: serializer.fromJson<int?>(json['speakingScore']),
+      totalScore: serializer.fromJson<int?>(json['totalScore']),
       passed: serializer.fromJson<bool>(json['passed']),
       details: serializer.fromJson<String?>(json['details']),
     );
@@ -5415,9 +5431,9 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
       'takenAt': serializer.toJson<DateTime>(takenAt),
       'readingScore': serializer.toJson<int>(readingScore),
       'listeningScore': serializer.toJson<int>(listeningScore),
-      'writingScore': serializer.toJson<int>(writingScore),
-      'speakingScore': serializer.toJson<int>(speakingScore),
-      'totalScore': serializer.toJson<int>(totalScore),
+      'writingScore': serializer.toJson<int?>(writingScore),
+      'speakingScore': serializer.toJson<int?>(speakingScore),
+      'totalScore': serializer.toJson<int?>(totalScore),
       'passed': serializer.toJson<bool>(passed),
       'details': serializer.toJson<String?>(details),
     };
@@ -5430,9 +5446,9 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
     DateTime? takenAt,
     int? readingScore,
     int? listeningScore,
-    int? writingScore,
-    int? speakingScore,
-    int? totalScore,
+    Value<int?> writingScore = const Value.absent(),
+    Value<int?> speakingScore = const Value.absent(),
+    Value<int?> totalScore = const Value.absent(),
     bool? passed,
     Value<String?> details = const Value.absent(),
   }) => ExamResult(
@@ -5442,9 +5458,11 @@ class ExamResult extends DataClass implements Insertable<ExamResult> {
     takenAt: takenAt ?? this.takenAt,
     readingScore: readingScore ?? this.readingScore,
     listeningScore: listeningScore ?? this.listeningScore,
-    writingScore: writingScore ?? this.writingScore,
-    speakingScore: speakingScore ?? this.speakingScore,
-    totalScore: totalScore ?? this.totalScore,
+    writingScore: writingScore.present ? writingScore.value : this.writingScore,
+    speakingScore: speakingScore.present
+        ? speakingScore.value
+        : this.speakingScore,
+    totalScore: totalScore.present ? totalScore.value : this.totalScore,
     passed: passed ?? this.passed,
     details: details.present ? details.value : this.details,
   );
@@ -5530,9 +5548,9 @@ class ExamResultsCompanion extends UpdateCompanion<ExamResult> {
   final Value<DateTime> takenAt;
   final Value<int> readingScore;
   final Value<int> listeningScore;
-  final Value<int> writingScore;
-  final Value<int> speakingScore;
-  final Value<int> totalScore;
+  final Value<int?> writingScore;
+  final Value<int?> speakingScore;
+  final Value<int?> totalScore;
   final Value<bool> passed;
   final Value<String?> details;
   const ExamResultsCompanion({
@@ -5596,9 +5614,9 @@ class ExamResultsCompanion extends UpdateCompanion<ExamResult> {
     Value<DateTime>? takenAt,
     Value<int>? readingScore,
     Value<int>? listeningScore,
-    Value<int>? writingScore,
-    Value<int>? speakingScore,
-    Value<int>? totalScore,
+    Value<int?>? writingScore,
+    Value<int?>? speakingScore,
+    Value<int?>? totalScore,
     Value<bool>? passed,
     Value<String?>? details,
   }) {
@@ -18888,9 +18906,9 @@ typedef $$ExamResultsTableCreateCompanionBuilder =
       Value<DateTime> takenAt,
       Value<int> readingScore,
       Value<int> listeningScore,
-      Value<int> writingScore,
-      Value<int> speakingScore,
-      Value<int> totalScore,
+      Value<int?> writingScore,
+      Value<int?> speakingScore,
+      Value<int?> totalScore,
       Value<bool> passed,
       Value<String?> details,
     });
@@ -18902,9 +18920,9 @@ typedef $$ExamResultsTableUpdateCompanionBuilder =
       Value<DateTime> takenAt,
       Value<int> readingScore,
       Value<int> listeningScore,
-      Value<int> writingScore,
-      Value<int> speakingScore,
-      Value<int> totalScore,
+      Value<int?> writingScore,
+      Value<int?> speakingScore,
+      Value<int?> totalScore,
       Value<bool> passed,
       Value<String?> details,
     });
@@ -19129,9 +19147,9 @@ class $$ExamResultsTableTableManager
                 Value<DateTime> takenAt = const Value.absent(),
                 Value<int> readingScore = const Value.absent(),
                 Value<int> listeningScore = const Value.absent(),
-                Value<int> writingScore = const Value.absent(),
-                Value<int> speakingScore = const Value.absent(),
-                Value<int> totalScore = const Value.absent(),
+                Value<int?> writingScore = const Value.absent(),
+                Value<int?> speakingScore = const Value.absent(),
+                Value<int?> totalScore = const Value.absent(),
                 Value<bool> passed = const Value.absent(),
                 Value<String?> details = const Value.absent(),
               }) => ExamResultsCompanion(
@@ -19155,9 +19173,9 @@ class $$ExamResultsTableTableManager
                 Value<DateTime> takenAt = const Value.absent(),
                 Value<int> readingScore = const Value.absent(),
                 Value<int> listeningScore = const Value.absent(),
-                Value<int> writingScore = const Value.absent(),
-                Value<int> speakingScore = const Value.absent(),
-                Value<int> totalScore = const Value.absent(),
+                Value<int?> writingScore = const Value.absent(),
+                Value<int?> speakingScore = const Value.absent(),
+                Value<int?> totalScore = const Value.absent(),
                 Value<bool> passed = const Value.absent(),
                 Value<String?> details = const Value.absent(),
               }) => ExamResultsCompanion.insert(

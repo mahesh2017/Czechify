@@ -8,10 +8,26 @@ import '../repositories/exam_repository.dart';
 class ExamScores {
   final int reading; // 0-100
   final int listening; // 0-100
-  final int writing; // 0-100
-  final int speaking; // 0-100
-  final int total; // 0-100
+
+  /// 0-100, or null when the section was not assessed.
+  ///
+  /// Writing and speaking are scored outside the grader — by the AI evaluator
+  /// and the pronunciation scorer. When either is offline, fails, or simply
+  /// has not run, there is no score, and that is not the same as scoring
+  /// zero. Substituting 0 here reported a service failure to the learner as
+  /// a wrong answer and dragged the overall result down with it.
+  final int? writing;
+  final int? speaking;
+
+  /// 0-100, or null while any productive section is unassessed.
+  ///
+  /// An overall percentage computed over a section nobody scored is a
+  /// confident-looking number with a hole in it.
+  final int? total;
+
   final bool passed;
+
+  /// Whether every productive section actually got a score.
   final bool fullyScored;
 
   /// Raw points earned per section (permanent-residence A2 format: reading 25,
@@ -122,8 +138,11 @@ class ExamGrader {
         readingMax > 0 ? ((readingPoints / readingMax) * 100).round() : 0;
     final listening =
         listeningMax > 0 ? ((listeningPoints / listeningMax) * 100).round() : 0;
-    final writing = writingPct;
-    final speaking = speakingPct;
+    // Reported only when there was something to report. `writingPts` above
+    // still uses 0 for the points arithmetic, but that only feeds the pass
+    // gate, and the gate already requires [fullyScored].
+    final writing = writingScore == null ? null : writingPct;
+    final speaking = speakingScore == null ? null : speakingPct;
 
     final totalPoints =
         readingPoints + writingPts + listeningPoints + speakingPts;
@@ -141,11 +160,16 @@ class ExamGrader {
         writtenPct >= passThreshold &&
         speakingPctCalculated >= passThreshold;
 
-    // Total as overall percentage.
+    // Total as overall percentage — withheld until every productive section
+    // has a score, because an average over an unscored section is a confident
+    // number with a hole in it.
     final total =
-        totalMax > 0
+        !fullyScored
+            ? null
+            : totalMax > 0
             ? ((totalPoints / totalMax) * 100).round()
-            : ((reading + listening + writing + speaking) / 4).round();
+            : ((reading + listening + (writing ?? 0) + (speaking ?? 0)) / 4)
+                .round();
 
     return ExamScores(
       reading: reading,

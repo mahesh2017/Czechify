@@ -522,6 +522,7 @@
   "examPracticeTargetMet": "Cvičný cíl splněn",
   "examThresholdMet": "Cvičná hranice splněna",
   "examThresholdNotMet": "Cvičná hranice nesplněna",
+  "examSectionNotAssessed": "Nehodnoceno",
   "examPartlyUnscored": "Cvičení dokončeno — některé úlohy nebyly bodovány",
   "examCourseTrack": "Úroveň kurzu {level}",
   "examAccuracyCaveat": "Jde pouze o úspěšnost ve cvičeních. Není to oficiální výsledek zkoušky ani certifikace CEFR.",
