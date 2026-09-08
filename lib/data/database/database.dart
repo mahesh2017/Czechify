@@ -98,7 +98,16 @@ class AppDatabase extends _$AppDatabase {
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
-  Future<Map<String, dynamic>> exportLearnerData() async => {
+  ///
+  /// [accountId] is the account the export is being produced for — the signed
+  /// in user's id, or the empty string for a device-local learner. It is
+  /// required rather than defaulted because the one table it scopes is the one
+  /// a wrong answer leaks: consent rows survive an account switch on purpose,
+  /// so an unscoped read hands the current learner the previous account's
+  /// decisions. Everything else here is cleared on switch and cannot mix.
+  Future<Map<String, dynamic>> exportLearnerData({
+    required String accountId,
+  }) async => {
     'format_version': 1,
     'exported_at': DateTime.now().toUtc().toIso8601String(),
     'lesson_progress':
@@ -140,7 +149,8 @@ class AppDatabase extends _$AppDatabase {
     'exam_results':
         (await select(examResults).get()).map((row) => row.toJson()).toList(),
     'consent_records':
-        (await select(consentRecords).get())
+        (await (select(consentRecords)
+              ..where((row) => row.accountId.equals(accountId))).get())
             .map((row) => row.toJson())
             .toList(),
     'conversations':
@@ -162,6 +172,12 @@ class AppDatabase extends _$AppDatabase {
             .toList(),
     'reminder_preferences':
         (await select(reminderPreferences).get())
+            .map((row) => row.toJson())
+            .toList(),
+    // The learner's own words about a tutor reply. Filed by them, held by us,
+    // and therefore theirs to ask for and theirs to have erased.
+    'tutor_reply_reports':
+        (await select(tutorReplyReports).get())
             .map((row) => row.toJson())
             .toList(),
   };
@@ -206,6 +222,7 @@ class AppDatabase extends _$AppDatabase {
     await delete(gamificationStateTable).go();
     await delete(reminderPreferences).go();
     await delete(learnerProfiles).go();
+    await delete(tutorReplyReports).go();
 
     // Reset bundled vocabulary to usable new-card state immediately. Waiting
     // for a future app restart/seeder pass would leave the review deck empty
