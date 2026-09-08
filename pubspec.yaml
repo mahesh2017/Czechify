@@ -65,6 +65,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # The seam under speech_to_text. Tests that drive the real NativeSttService
+  # swap SpeechToTextPlatform.instance for a fake, so a denied microphone can
+  # be exercised without a device; faking the transcriber instead is what let
+  # the empty-string return survive the fix meant to remove it.
+  speech_to_text_platform_interface: ^2.3.0
+
   # Code Generation (Drift)
   build_runner: ^2.4.0
   drift_dev: ^2.34.0
