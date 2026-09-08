@@ -168,11 +168,20 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         requireCzech: false,
       );
       if (!mounted) return;
-      if (transcription.isNotEmpty) {
-        _inputController.text = transcription;
-      } else {
+      _inputController.text = transcription;
+    } on SpeechServiceException catch (error) {
+      // Hearing nothing is not a fault, and it is the only one of these the
+      // learner fixes by speaking again. The recogniser used to return an
+      // empty string for it, which this read as a transcription of silence;
+      // now it says so, and the two cases keep their own copy rather than
+      // sending someone who merely stayed quiet to a settings screen.
+      if (mounted) {
+        final l10n = AppLocalizations.of(context);
         setState(() {
-          _voiceNotice = AppLocalizations.of(context).chatVoiceRetry;
+          _voiceNotice =
+              error.nothingHeard
+                  ? l10n.chatVoiceRetry
+                  : l10n.chatVoiceUnavailable;
         });
       }
     } catch (_) {

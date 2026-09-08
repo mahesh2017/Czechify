@@ -742,6 +742,7 @@ class NativeSttService implements SttService, LiveTranscriber {
       if (transcript.trim().isEmpty) {
         throw const SpeechServiceException(
           'No speech was recognised. Please try recording again.',
+          nothingHeard: true,
         );
       }
       return transcript;

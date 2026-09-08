@@ -12,6 +12,7 @@ class SpeechServiceException implements Exception {
     this.message, {
     this.isQuotaExhausted = false,
     this.cloudSpeechWouldFix = false,
+    this.nothingHeard = false,
   });
 
   /// Shown to the learner as-is, so it must be plain language.
@@ -19,6 +20,14 @@ class SpeechServiceException implements Exception {
 
   /// True when retrying now cannot help — the allowance is spent.
   final bool isQuotaExhausted;
+
+  /// True when the recogniser worked and simply heard nothing.
+  ///
+  /// Not a fault, and the only one of these the learner fixes by speaking
+  /// again. Everything else here is a broken recogniser; telling someone their
+  /// microphone is unavailable when they merely stayed quiet sends them to a
+  /// settings screen with nothing to change.
+  final bool nothingHeard;
 
   /// True when turning on cloud speech would resolve this outright.
   ///

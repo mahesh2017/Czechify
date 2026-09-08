@@ -146,10 +146,14 @@ const writingResponse = jsonSchema(
 ///
 /// Handles exactly the JSON Schema subset [jsonSchema] emits — object with
 /// `required`/`additionalProperties: false`, array with `items`, string with
-/// an optional `enum`, and bounded integer — and refuses anything it does not
-/// understand rather than passing it. A validator that quietly approves the
-/// constructs it cannot check is worse than none: it reports a guarantee it
-/// is not making.
+/// an optional `enum`, `minLength` or `pattern`, and bounded integer — and
+/// refuses anything it does not understand rather than passing it. A validator
+/// that quietly approves the constructs it cannot check is worse than none: it
+/// reports a guarantee it is not making.
+///
+/// This is where the blank-answer rule is actually enforced. The same
+/// constraints ride along in the schema sent upstream as a hint to the model,
+/// but nothing depends on the provider honouring — or even accepting — them.
 export const matchesSchema = (schema: unknown, value: unknown): boolean => {
   if (typeof schema !== "object" || schema === null) return false;
   const shape = schema as Record<string, unknown>;
