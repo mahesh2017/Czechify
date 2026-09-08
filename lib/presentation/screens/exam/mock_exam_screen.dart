@@ -451,7 +451,9 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
       // Result still shown; only history is lost — but say so.
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context).examSaveFailed)),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).examSaveFailed),
+          ),
         );
       }
     }
@@ -1106,10 +1108,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  _MiniScoreRow(
-                    label: AppLocalizations.of(context).examCriterionGrammar,
-                    score: evaluation.grammar,
-                  ),
+                  _MiniScoreRow(label: AppLocalizations.of(context).examCriterionGrammar, score: evaluation.grammar),
                   _MiniScoreRow(
                     label: AppLocalizations.of(context).examCriterionVocabulary,
                     score: evaluation.vocabulary,

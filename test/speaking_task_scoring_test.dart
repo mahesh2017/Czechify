@@ -152,6 +152,61 @@ void main() {
     // wrong answer on their record.
     expect(result, isNull);
   });
+
+  testWidgets('any other recogniser failure still records nothing', (
+    tester,
+  ) async {
+    ExerciseResult? result;
+
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          liveTranscriberProvider.overrideWithValue(_BrokenTranscriber()),
+        ],
+        child: MaterialApp(
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          home: Scaffold(
+            body: SpeakingTaskView(
+              exercise: const Exercise(
+                id: 1,
+                lessonId: 1,
+                type: ExerciseType.speakingTask,
+                prompt: 'Introduce yourself',
+                data: {
+                  'prompt_en': 'Introduce yourself',
+                  'expected_phrases': ['Dobrý den, jmenuji se Jana.'],
+                },
+              ),
+              onAnswered: (r) => result = r,
+            ),
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.byType(RecordButton));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3));
+
+    expect(find.textContaining('Recording'), findsOneWidget);
+    expect(result, isNull);
+  });
+}
+
+/// The recogniser fails for some other reason — no microphone permission, a
+/// platform error. The learner gets the generic message, and still no failure
+/// on their record.
+class _BrokenTranscriber implements LiveTranscriber {
+  @override
+  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) =>
+      throw Exception('platform channel unavailable');
+
+  @override
+  Future<void> stop() async {}
+
+  @override
+  Future<bool> supportsCzech() async => true;
 }
 
 /// A recogniser that cannot handle Czech refuses rather than transcribing with
