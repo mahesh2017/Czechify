@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.14";
 import {
   confirmsDeletion,
-  decodeJwtIssuedAt,
+  decodeLatestAuthTime,
   hasRecentAuth,
   isSupportedMethod,
   maxDeletionAuthAgeSeconds,
@@ -47,36 +47,74 @@ Deno.test("export includes every user-owned cloud table", () => {
     "reminder_preferences",
     "placement_profiles",
     "ai_daily_usage",
+    "ai_service_daily_usage",
     "curriculum_entitlements",
     "tutor_reply_reports",
   ]);
 });
 
-Deno.test("issued-at is read out of a well-formed token", () => {
+Deno.test("the authentication time is read out of a well-formed token", () => {
   assertEquals(
-    decodeJwtIssuedAt(jwtWithPayload({ iat: 1730000000 })),
+    decodeLatestAuthTime(jwtWithPayload({
+      amr: [{ method: "password", timestamp: 1730000000 }],
+    })),
     1730000000,
   );
 });
 
-Deno.test("a token with no usable issued-at is not trusted", () => {
-  assertEquals(decodeJwtIssuedAt("not-a-jwt"), null);
-  assertEquals(decodeJwtIssuedAt(jwtWithPayload({})), null);
-  assertEquals(decodeJwtIssuedAt(jwtWithPayload({ iat: "recently" })), null);
-  // Missing iat must fail closed, never read as "recent".
+Deno.test("the most recent authentication wins", () => {
+  assertEquals(
+    decodeLatestAuthTime(jwtWithPayload({
+      amr: [
+        { method: "password", timestamp: 1730000000 },
+        { method: "oauth", timestamp: 1730000500 },
+      ],
+    })),
+    1730000500,
+  );
+});
+
+Deno.test("a refreshed token does not count as re-authentication", () => {
+  // This is the whole finding. `iat` moves on every refresh, so reading it
+  // meant any session that had merely refreshed satisfied a gate that exists
+  // to prove the account holder is present. `amr` records authentication
+  // events, and a refresh adds none — so a fresh token carrying an old
+  // authentication is correctly judged stale.
+  const now = 1730000000;
+  const refreshed = jwtWithPayload({
+    iat: now,
+    amr: [{ method: "password", timestamp: now - 86400 }],
+  });
+
+  assertEquals(decodeLatestAuthTime(refreshed), now - 86400);
+  assertEquals(hasRecentAuth(decodeLatestAuthTime(refreshed), now), false);
+});
+
+Deno.test("a token with no usable authentication claim is not trusted", () => {
+  assertEquals(decodeLatestAuthTime("not-a-jwt"), null);
+  assertEquals(decodeLatestAuthTime(jwtWithPayload({})), null);
+  // Tokens minted before this claim was relied on land here too, and must
+  // fail closed rather than be read as recent.
+  assertEquals(decodeLatestAuthTime(jwtWithPayload({ iat: 1730000000 })), null);
+  assertEquals(decodeLatestAuthTime(jwtWithPayload({ amr: "password" })), null);
+  assertEquals(
+    decodeLatestAuthTime(jwtWithPayload({ amr: [{ method: "password" }] })),
+    null,
+  );
   assertEquals(hasRecentAuth(null, 1730000000), false);
 });
 
-Deno.test("deletion requires a session minted in the last few minutes", () => {
+Deno.test("deletion requires authentication in the last few minutes", () => {
   const now = 1730000000;
   assertEquals(hasRecentAuth(now, now), true);
   assertEquals(hasRecentAuth(now - maxDeletionAuthAgeSeconds, now), true);
   assertEquals(hasRecentAuth(now - maxDeletionAuthAgeSeconds - 1, now), false);
-  // A day-old token is exactly the stolen-token case this gate exists for.
+  // A day-old authentication is exactly the stolen-credential case this
+  // gate exists for.
   assertEquals(hasRecentAuth(now - 86400, now), false);
 });
 
-Deno.test("a future-dated token buys no extra window", () => {
+Deno.test("a future-dated authentication buys no extra window", () => {
   const now = 1730000000;
   assertEquals(hasRecentAuth(now + 60, now), false);
 });

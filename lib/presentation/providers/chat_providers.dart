@@ -174,9 +174,14 @@ class ChatNotifier extends Notifier<ChatState> {
   }
 
   /// Send a user message and get the AI tutor's response.
-  Future<void> sendMessage(String text) async {
-    if (state.conversationId == null) return;
-    if (state.isLoading) return;
+  ///
+  /// Returns whether the message was accepted. The composer clears the draft
+  /// optimistically and needs to know to put it back: a rejected message used
+  /// to vanish from the input box while the notifier told the learner to try
+  /// again, with nothing left to try again with.
+  Future<bool> sendMessage(String text) async {
+    if (state.conversationId == null) return false;
+    if (state.isLoading) return false;
 
     // Capture the history BEFORE appending the new user message —
     // the orchestrator adds `text` itself, so including it in the
@@ -189,6 +194,12 @@ class ChatNotifier extends Notifier<ChatState> {
       conversationId: state.conversationId,
     );
 
+    // Claim the lock before the first await, not after it. The isLoading guard
+    // above is the only thing stopping two submissions overlapping, and it
+    // used to be set after the message had been persisted — a window in which
+    // a second send passed the same guard.
+    state = state.copyWith(isLoading: true, error: null);
+
     // Persist before showing it. The append used to come first and the save
     // after, outside any try — so a failed write left isLoading stuck true
     // and the composer locked until restart, with a transcript that no longer
@@ -199,13 +210,14 @@ class ChatNotifier extends Notifier<ChatState> {
       await convRepo.saveMessage(userMsg);
     } catch (error, stackTrace) {
       _log.warning('Failed to save user message', error, stackTrace);
-      if (_isStale(generation)) return;
+      if (_isStale(generation)) return false;
       state = state.copyWith(
+        isLoading: false,
         error: 'Couldn’t save your message. Please try again.',
       );
-      return;
+      return false;
     }
-    if (_isStale(generation)) return;
+    if (_isStale(generation)) return false;
 
     state = state.copyWith(
       messages: [...state.messages, userMsg],
@@ -215,6 +227,7 @@ class ChatNotifier extends Notifier<ChatState> {
     );
 
     await _completeTutorTurn(text, history, generation);
+    return true;
   }
 
   /// Re-run the tutor completion for the last user message after a failure —
@@ -405,10 +418,18 @@ class ChatNotifier extends Notifier<ChatState> {
   /// screen also clears it, otherwise the tutor would keep replying into a
   /// thread whose history no longer exists.
   Future<void> deleteConversation(String conversationId) async {
+    // Abandon anything in flight for the conversation being deleted, before
+    // the rows go. A turn started against it would otherwise return, find the
+    // generation unchanged, repopulate `messages` with a thread that no longer
+    // exists, and try to save the reply against a deleted parent — an orphan
+    // row, or a foreign-key failure, depending on enforcement.
+    final wasActive = state.conversationId == conversationId;
+    if (wasActive) _generation++;
+
     await ref
         .read(conversationRepositoryProvider)
         .clearConversation(conversationId);
-    if (state.conversationId == conversationId) {
+    if (wasActive) {
       state = const ChatState();
     }
     // The list is keyed off the active conversation id, which does not change
@@ -487,16 +508,48 @@ final chatProvider = NotifierProvider<ChatNotifier, ChatState>(
   ChatNotifier.new,
 );
 
-/// Recent conversations for the scenario picker's "continue" section.
+/// How many conversations the picker shows before "show more".
+const kRecentConversationPageSize = 25;
+
+/// How many pages the picker has been asked to show.
+///
+/// The list was a flat 25 with nothing beyond it: a learner past that could
+/// not reach an older conversation to resume or delete it without first
+/// removing newer ones. Paging is in SQL, so asking for more costs one more
+/// page rather than re-reading the archive.
+final conversationPagesProvider =
+    NotifierProvider<ConversationPagesNotifier, int>(
+      ConversationPagesNotifier.new,
+    );
+
+class ConversationPagesNotifier extends Notifier<int> {
+  @override
+  int build() => 1;
+
+  void showMore() => state = state + 1;
+
+  /// Back to one page — for leaving the picker, so reopening it does not
+  /// silently re-read everything the learner once scrolled to.
+  void reset() => state = 1;
+}
+
+/// Conversations for the scenario picker's "continue" section, most recently
+/// active first.
 final recentConversationsProvider = FutureProvider<List<ConversationSummary>>((
   ref,
 ) {
   // Recompute when the active conversation changes (a new one was created).
   ref.watch(chatProvider.select((s) => s.conversationId));
-  // Enough to clear a backlog. The list previously fetched five and showed
-  // three, so conversations accumulated out of sight with no way to remove
-  // them.
+  final pages = ref.watch(conversationPagesProvider);
   return ref
       .read(conversationRepositoryProvider)
-      .getRecentConversations(limit: 25);
+      .getRecentConversations(limit: kRecentConversationPageSize * pages);
+});
+
+/// Whether more conversations exist than are currently shown.
+final hasMoreConversationsProvider = FutureProvider<bool>((ref) async {
+  final shown = (await ref.watch(recentConversationsProvider.future)).length;
+  final total =
+      await ref.read(conversationRepositoryProvider).countConversations();
+  return total > shown;
 });

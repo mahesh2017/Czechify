@@ -49,6 +49,28 @@ final whisperServiceProvider = Provider<WhisperService?>((ref) {
 ///
 /// Must be `https`. The endpoint receives raw voice recordings, so a cleartext
 /// host is ignored rather than trusted — see [PhonemeRecognizer.isConfigured].
+///
+/// **Not a shipped feature, deliberately.** `env/prod.json` sets no value, so
+/// release builds leave this empty and `pronunciationAssessmentProvider`
+/// constructs no recogniser at all. The plan is to revisit phoneme scoring
+/// with a cloud model trained for Czech audio; the local service under
+/// `services/phoneme-recognizer/` is a prototype kept for that work.
+///
+/// Three findings from the September 2026 audit are dormant only because this
+/// is empty, and must be addressed **before** any build sets it:
+///
+/// * Docker Compose publishes port 8080 on all interfaces and defaults
+///   `API_TOKEN` to empty, and the server then skips authentication. A shared
+///   token would also travel inside every client binary, so it cannot be a
+///   durable secret or a per-user authorisation boundary — the recogniser
+///   belongs behind the authenticated server proxy with per-user quotas.
+/// * The upload endpoint reads the whole file and decodes it before checking
+///   the 20-second limit, so large or highly compressed audio can exhaust the
+///   container's memory before rejection.
+/// * Cloud-speech consent names OpenAI as the recipient. Sending recordings to
+///   a phoneme host as well is outside the wording the learner agreed to, and
+///   the notice would need re-versioning first — see [ConsentRepository],
+///   which now refuses a grant made against superseded wording.
 const String kPhonemeServiceUrl = String.fromEnvironment('PHONEME_SERVICE_URL');
 const String kPhonemeServiceToken = String.fromEnvironment(
   'PHONEME_SERVICE_TOKEN',
@@ -616,9 +638,31 @@ class NativeSttService implements SttService, LiveTranscriber {
   @override
   Future<String> listenFor({
     Duration timeout = const Duration(seconds: 10),
+    bool requireCzech = true,
   }) async {
     await _ensureInitialized();
     if (!_initialized) return '';
+
+    // Refuse rather than listen in the wrong language — when the result is
+    // going to be scored.
+    //
+    // Without a Czech locale, `localeId: null` below hands the utterance to
+    // the device default, and an English recogniser transcribing Czech
+    // produces words the scorer reads as bad pronunciation.
+    // [PronunciationAssessor] checked this before calling, but the lesson
+    // speaking task and the exam call straight through, so the check belongs
+    // here where nothing can route around it.
+    //
+    // Callers whose text the learner reads and edits before anything happens
+    // to it — chat dictation — opt out. A rough transcription is better than
+    // no dictation at all when nothing grades it.
+    if (requireCzech && _czechLocaleId == null) {
+      throw const SpeechServiceException(
+        'Your phone cannot recognise Czech speech, so this cannot be checked '
+        'on the device.',
+        cloudSpeechWouldFix: true,
+      );
+    }
 
     final completer = Completer<String>();
     String result = '';

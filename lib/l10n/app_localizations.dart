@@ -2288,6 +2288,18 @@ abstract class AppLocalizations {
   /// **'Choose one to schedule this card and continue to the next.'**
   String get reviewChooseRatingToContinue;
 
+  /// No description provided for @reviewLoadFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load your review'**
+  String get reviewLoadFailedTitle;
+
+  /// No description provided for @reviewLoadFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong building this session. Your progress is safe.'**
+  String get reviewLoadFailedBody;
+
   /// No description provided for @reviewAllCaughtUp.
   ///
   /// In en, this message translates to:
@@ -2365,6 +2377,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Real situations you will hit this week in Czechia. The tutor adapts to your level.'**
   String get chatSubtitle;
+
+  /// No description provided for @chatShowOlder.
+  ///
+  /// In en, this message translates to:
+  /// **'Show older conversations'**
+  String get chatShowOlder;
 
   /// No description provided for @chatUnfinished.
   ///

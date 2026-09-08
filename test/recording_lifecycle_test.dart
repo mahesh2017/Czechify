@@ -103,7 +103,10 @@ class _FakeTranscriber implements LiveTranscriber {
   }
 
   @override
-  Future<String> listenFor({Duration timeout = const Duration(seconds: 10)}) {
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 10),
+    bool requireCzech = true,
+  }) {
     listening = true;
     return (_pending = Completer<String>()).future;
   }

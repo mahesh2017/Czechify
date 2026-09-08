@@ -356,6 +356,7 @@ class _FakeTranscriber implements LiveTranscriber {
   @override
   Future<String> listenFor({
     Duration timeout = const Duration(seconds: 30),
+    bool requireCzech = true,
   }) async => 'Ahoj';
 
   @override
@@ -372,7 +373,10 @@ class _ControlledTranscriber implements LiveTranscriber {
   void complete(String value) => _completion.complete(value);
 
   @override
-  Future<String> listenFor({Duration timeout = const Duration(seconds: 30)}) =>
+  Future<String> listenFor({
+    Duration timeout = const Duration(seconds: 30),
+    bool requireCzech = true,
+  }) =>
       _completion.future;
 
   @override

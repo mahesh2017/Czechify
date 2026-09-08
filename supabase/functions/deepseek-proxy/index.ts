@@ -85,10 +85,14 @@ Deno.serve(async (request) => {
 
   // conversation_summary is machinery, not a turn: the client issues it to
   // compress history the learner never asked to lose. Charging their daily
-  // allowance for it would mean a long conversation quietly costs double, so
-  // it is exempt from the daily cap. It still passes the burst limits below,
-  // which is what protects the project from a client looping on it.
-  const consumesDailyAllowance = operation !== "conversation_summary";
+  // allowance for it would mean a long conversation quietly costs double.
+  //
+  // So it does not spend conversation turns — but it is not unlimited either.
+  // It used to be exempt from the daily cap entirely, leaving only a
+  // per-minute burst limit between any authenticated caller (an anonymous
+  // account included) and the paid model, indefinitely. A per-minute ceiling
+  // is not a spending ceiling. Summaries have their own daily counter.
+  const isSummary = operation === "conversation_summary";
   const context = parseContext(body.context);
   const messages = parseMessages(body.messages);
   if (!context || !messages) {
@@ -137,10 +141,21 @@ Deno.serve(async (request) => {
     1,
     500,
   );
-  if (consumesDailyAllowance) {
+  // Compression is cheaper than a turn and happens on the client's schedule
+  // rather than the learner's, so its ceiling is higher — but it is a ceiling.
+  const summaryDailyLimit = parseBoundedInteger(
+    Deno.env.get("AI_DAILY_SUMMARY_LIMIT"),
+    60,
+    1,
+    500,
+  );
+  {
     const { data: allowed, error: quotaError } = await admin.rpc(
-      "consume_ai_quota",
-      { p_user_id: userData.user.id, p_daily_limit: dailyLimit },
+      isSummary ? "consume_ai_summary_quota" : "consume_ai_quota",
+      {
+        p_user_id: userData.user.id,
+        p_daily_limit: isSummary ? summaryDailyLimit : dailyLimit,
+      },
     );
     if (quotaError) {
       console.error("Quota check failed", quotaError.code);
@@ -176,12 +191,10 @@ Deno.serve(async (request) => {
   // consumed. The burst window is per-minute and heals itself; a daily unit
   // lost to a server-side fault is gone until tomorrow.
   const refundDaily = async () => {
-    // Refunding what was never consumed would hand the learner free allowance
-    // every time a summary request failed.
-    if (!consumesDailyAllowance) return;
-    const { error } = await admin.rpc("refund_ai_daily_quota", {
-      p_user_id: userData.user.id,
-    });
+    const { error } = await admin.rpc(
+      isSummary ? "refund_ai_summary_quota" : "refund_ai_daily_quota",
+      { p_user_id: userData.user.id },
+    );
     if (error) console.error("Quota refund failed", error.code);
   };
 

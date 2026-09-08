@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 import '../../domain/entities/flashcard.dart';
 import '../../domain/entities/srs_card.dart';
@@ -133,6 +134,8 @@ SessionPlan planReviewSession({
   ], newToShow.length);
 }
 
+final _log = Logger('Review');
+
 /// State of an SRS review session.
 class ReviewSessionState {
   final List<SessionCard> dueCards;
@@ -148,6 +151,12 @@ class ReviewSessionState {
   final bool isLoading;
   final bool isCommitting;
   final String? commitError;
+
+  /// Set when [ReviewSessionNotifier.loadDueCards] could not build a session.
+  ///
+  /// Loading awaited several queries with no error handler, so a failing one
+  /// left `isLoading` true for good: an unbreakable spinner with no way back.
+  final String? loadError;
 
   /// True when finishing this session restored a heart.
   final bool heartEarned;
@@ -166,6 +175,7 @@ class ReviewSessionState {
     this.isLoading = true,
     this.isCommitting = false,
     this.commitError,
+    this.loadError,
     this.heartEarned = false,
   });
 
@@ -184,6 +194,8 @@ class ReviewSessionState {
     bool? isCommitting,
     String? commitError,
     bool clearCommitError = false,
+    String? loadError,
+    bool clearLoadError = false,
     bool? heartEarned,
   }) {
     return ReviewSessionState(
@@ -200,6 +212,7 @@ class ReviewSessionState {
       isLoading: isLoading ?? this.isLoading,
       isCommitting: isCommitting ?? this.isCommitting,
       commitError: clearCommitError ? null : commitError ?? this.commitError,
+      loadError: clearLoadError ? null : loadError ?? this.loadError,
       heartEarned: heartEarned ?? this.heartEarned,
     );
   }
@@ -233,27 +246,42 @@ class ReviewSessionNotifier extends Notifier<ReviewSessionState> {
   /// a fresh learner isn't flooded with the whole deck.
   Future<void> loadDueCards() async {
     state = const ReviewSessionState(isLoading: true);
-    final repo = ref.read(vocabularyRepositoryProvider);
-    final allDue = await repo.getDueCards();
-    final unlockedUnits = await _unlockedUnits(ref);
-    final completedLessons = await _completedLessons(ref);
-    final introducedToday = await repo.introducedCardCountForDay(
-      DateTime.now(),
-    );
+    try {
+      final repo = ref.read(vocabularyRepositoryProvider);
+      final allDue = await repo.getDueCards();
+      final unlockedUnits = await _unlockedUnits(ref);
+      final completedLessons = await _completedLessons(ref);
+      final introducedToday = await repo.introducedCardCountForDay(
+        DateTime.now(),
+      );
 
-    final plan = planReviewSession(
-      allDue: allDue,
-      unlockedUnits: unlockedUnits,
-      completedLessons: completedLessons,
-      introducedToday: introducedToday,
-    );
+      final plan = planReviewSession(
+        allDue: allDue,
+        unlockedUnits: unlockedUnits,
+        completedLessons: completedLessons,
+        introducedToday: introducedToday,
+      );
 
-    _reviewId = _uuid.v4();
-    state = ReviewSessionState(
-      dueCards: plan.cards,
-      isLoading: false,
-      isComplete: plan.cards.isEmpty,
-    );
+      _reviewId = _uuid.v4();
+      state = ReviewSessionState(
+        dueCards: plan.cards,
+        isLoading: false,
+        // Nothing due is not a finished session. This used to report
+        // `plan.cards.isEmpty` as completion, which sent a learner who had
+        // reviewed nothing to the congratulations screen — and made the
+        // screen's own no-cards-due branch, guarded on `!isComplete`,
+        // unreachable on a normal empty load.
+        isComplete: false,
+      );
+    } catch (error, stackTrace) {
+      // Several queries are awaited above. Without this the first failure
+      // left isLoading true for the rest of the app's life.
+      _log.warning('Could not load the review session', error, stackTrace);
+      state = const ReviewSessionState(
+        isLoading: false,
+        loadError: 'Couldn’t load your review session. Please try again.',
+      );
+    }
   }
 
   /// Flip the current card to reveal the answer.
