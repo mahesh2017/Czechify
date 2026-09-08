@@ -1262,6 +1262,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Choose one to schedule this card and continue to the next.';
 
   @override
+  String get reviewLoadFailedTitle => 'Couldn’t load your review';
+
+  @override
+  String get reviewLoadFailedBody =>
+      'Something went wrong building this session. Your progress is safe.';
+
+  @override
   String get reviewAllCaughtUp => 'All caught up';
 
   @override

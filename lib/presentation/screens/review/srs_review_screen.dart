@@ -56,6 +56,17 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
       );
     }
 
+    // Loading failed. Checked before the empty and complete branches, because
+    // a failed load also has no cards and would otherwise look like either.
+    if (session.loadError != null) {
+      return _ReviewLoadErrorScreen(
+        onRetry: () {
+          ref.read(reviewSessionProvider.notifier).loadDueCards();
+        },
+        onExit: () => context.go('/'),
+      );
+    }
+
     // No due cards
     if (session.dueCards.isEmpty && !session.isComplete) {
       return _NoDueCardsScreen(
@@ -1236,6 +1247,60 @@ class _RatingButton extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Shown when the session could not be built at all.
+///
+/// Loading used to await several queries with no error handler, so a failing
+/// one left the screen on its spinner with no retry and no way back.
+class _ReviewLoadErrorScreen extends StatelessWidget {
+  final VoidCallback onRetry;
+  final VoidCallback onExit;
+
+  const _ReviewLoadErrorScreen({required this.onRetry, required this.onExit});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      backgroundColor: t.bg,
+      appBar: AppBar(
+        backgroundColor: t.bg,
+        title: Text(l10n.navReview),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          tooltip: l10n.a11yClose,
+          onPressed: onExit,
+        ),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(28, 20, 28, 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.cloud_off_outlined, size: 44, color: t.muted),
+              const SizedBox(height: 16),
+              DisplayText(
+                l10n.reviewLoadFailedTitle,
+                size: 26,
+                weight: FontWeight.w800,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                l10n.reviewLoadFailedBody,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
+              ),
+              const SizedBox(height: 26),
+              KeyCta(label: l10n.retry, onPressed: onRetry),
+            ],
           ),
         ),
       ),

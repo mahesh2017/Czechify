@@ -1265,6 +1265,13 @@ class AppLocalizationsCs extends AppLocalizations {
       'Výběrem naplánujete návrat karty a přejdete na další.';
 
   @override
+  String get reviewLoadFailedTitle => 'Opakování se nepodařilo načíst';
+
+  @override
+  String get reviewLoadFailedBody =>
+      'Při sestavování relace došlo k chybě. Tvůj pokrok je v bezpečí.';
+
+  @override
   String get reviewAllCaughtUp => 'Vše hotovo';
 
   @override
