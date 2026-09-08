@@ -59,7 +59,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
     // Loading failed. Checked before the empty and complete branches, because
     // a failed load also has no cards and would otherwise look like either.
     if (session.loadError != null) {
-      return _ReviewLoadErrorScreen(
+      return ReviewLoadErrorScreen(
         onRetry: () {
           ref.read(reviewSessionProvider.notifier).loadDueCards();
         },
@@ -1258,11 +1258,19 @@ class _RatingButton extends StatelessWidget {
 ///
 /// Loading used to await several queries with no error handler, so a failing
 /// one left the screen on its spinner with no retry and no way back.
-class _ReviewLoadErrorScreen extends StatelessWidget {
+///
+/// Public so it can be pumped on its own. The review screen around it pulls in
+/// TTS, an animated background and the whole session provider graph, none of
+/// which this needs to be worth testing.
+class ReviewLoadErrorScreen extends StatelessWidget {
   final VoidCallback onRetry;
   final VoidCallback onExit;
 
-  const _ReviewLoadErrorScreen({required this.onRetry, required this.onExit});
+  const ReviewLoadErrorScreen({
+    super.key,
+    required this.onRetry,
+    required this.onExit,
+  });
 
   @override
   Widget build(BuildContext context) {
