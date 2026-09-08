@@ -74,7 +74,9 @@ Deno.serve(async (request) => {
     const pageSize = 1000;
     const readAll = async (table: string) => {
       const rows: unknown[] = [];
-      for (let from = 0; ; from += pageSize) {
+      let from = 0;
+      let page: unknown[] = [];
+      do {
         const { data, error } = await admin
           .from(table)
           .select("*")
@@ -82,10 +84,12 @@ Deno.serve(async (request) => {
           .order("user_id", { ascending: true })
           .range(from, from + pageSize - 1);
         if (error) throw new Error(`${table}:${error.code}`);
-        const page = data ?? [];
+        page = data ?? [];
         rows.push(...page);
-        if (page.length < pageSize) return rows;
-      }
+        from += pageSize;
+        // A short page is the last page.
+      } while (page.length === pageSize);
+      return rows;
     };
 
     const results = await Promise.all(
