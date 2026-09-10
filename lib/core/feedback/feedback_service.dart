@@ -48,8 +48,11 @@ class JustAudioSfxPlayer implements SfxPlayer {
       }
       return _players[sound] = player;
     } catch (error, stack) {
-      // A missing or undecodable clip must never take down a lesson.
-      _log.fine('Could not load ${sound.asset}', error, stack);
+      // A missing or undecodable clip must never take down a lesson — but it
+      // must not be invisible either. This was `fine`, which is below the
+      // app's INFO level in debug and WARNING in release, so a sound that
+      // never loaded produced silence and no trace of why.
+      _log.warning('Could not load ${sound.asset}', error, stack);
       return null;
     }
   }
@@ -65,7 +68,7 @@ class JustAudioSfxPlayer implements SfxPlayer {
       await player.seek(Duration.zero);
       await player.play();
     } catch (error, stack) {
-      _log.fine('Could not play ${sound.asset}', error, stack);
+      _log.warning('Could not play ${sound.asset}', error, stack);
     }
   }
 
