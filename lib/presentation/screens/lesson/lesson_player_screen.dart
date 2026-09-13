@@ -43,6 +43,8 @@ class LessonPlayerScreen extends ConsumerStatefulWidget {
 class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   bool _loaded = false;
   bool _locked = false;
+  bool _allowExit = false;
+  bool _exitDialogOpen = false;
 
   /// The exercise whose illustration has already been warmed, so an unrelated
   /// rebuild does not re-issue the same decode request.
@@ -90,6 +92,18 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     final session = ref.watch(lessonSessionProvider);
+    final active =
+        _loaded && !_locked && !session.isComplete && !session.isGameOver;
+    return PopScope<Object?>(
+      canPop: !active || _allowExit,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _showExitConfirm(context);
+      },
+      child: _buildContent(context, session),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, LessonSessionState session) {
     if (_loaded && !_locked) _warmNextIllustration(session);
 
     if (!_loaded) {
@@ -192,7 +206,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
         onStart: () {
           ref.read(lessonSessionProvider.notifier).startExercises();
         },
-        onExit: () => leaveLesson(context),
+        onExit: () => _showExitConfirm(context),
       );
     }
 
@@ -509,25 +523,35 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     );
   }
 
-  void _showExitConfirm(BuildContext context) {
+  Future<void> _showExitConfirm(BuildContext context) async {
+    if (_exitDialogOpen || ref.read(lessonSessionProvider).isCompleting) return;
+    _exitDialogOpen = true;
     final l10n = AppLocalizations.of(context);
-    showDialog(
-      context: context,
-      builder:
-          (ctx) => AppDialog(
-            icon: Icons.logout_rounded,
-            tone: AppDialogTone.warning,
-            title: l10n.lessonLeaveTitle,
-            message: l10n.lessonLeaveBody,
-            confirmLabel: l10n.reviewStay,
-            onConfirm: () => Navigator.pop(ctx),
-            dismissLabel: l10n.lessonLeave,
-            onDismiss: () {
-              Navigator.pop(ctx);
-              leaveLesson(context);
-            },
-          ),
-    );
+    bool? leave;
+    try {
+      leave = await showDialog<bool>(
+        context: context,
+        builder:
+            (ctx) => AppDialog(
+              icon: Icons.logout_rounded,
+              tone: AppDialogTone.warning,
+              title: l10n.lessonLeaveTitle,
+              message: l10n.lessonLeaveBody,
+              confirmLabel: l10n.reviewStay,
+              onConfirm: () => Navigator.pop(ctx, false),
+              dismissLabel: l10n.lessonLeave,
+              onDismiss: () => Navigator.pop(ctx, true),
+            ),
+      );
+    } finally {
+      _exitDialogOpen = false;
+    }
+    if (!mounted || leave != true) return;
+    setState(() => _allowExit = true);
+    // Let PopScope publish the approved state before leaving the route.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) leaveLesson(this.context);
+    });
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../domain/entities/enums.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/app_update_providers.dart';
@@ -297,6 +298,19 @@ class HomeScreen extends ConsumerWidget {
                     const _CzechVoiceHint(),
                     const SizedBox(height: 12),
                   ],
+                  _ShortcutRow(
+                    icon: Icons.assignment_outlined,
+                    tint: t.violetSoft,
+                    fg: t.violetInk,
+                    title: l10n.homeMockExam,
+                    subtitle:
+                        '${settings.startingLevel == CEFRLevel.a2 ? 'A2' : 'A1'} · ${l10n.examInformalNote}',
+                    onTap:
+                        () => context.push(
+                          '/exam/${settings.startingLevel == CEFRLevel.a2 ? 'a2' : 'a1'}',
+                        ),
+                  ),
+                  const SizedBox(height: 12),
                   _DailyGoalHero(
                     dailyXp: g.dailyXp,
                     // The goal is a setting, and settings own it: that is the

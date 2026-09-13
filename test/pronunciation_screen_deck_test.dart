@@ -59,6 +59,28 @@ void main() {
     expect(find.text('První věta.'), findsOneWidget);
   });
 
+  for (final scale in [1.0, 2.0]) {
+    testWidgets('small-screen practice stays usable at ${scale}x text', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(360, 640);
+      tester.view.devicePixelRatio = 1;
+      tester.platformDispatcher.textScaleFactorTestValue = scale;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpLab(tester, deck: ['Vltava je řeka.', 'Druhá věta.']);
+      expect(tester.takeException(), isNull);
+      await tester.ensureVisible(find.text('Skip'));
+      await tester.pumpAndSettle();
+      expect(tester.getCenter(find.text('Skip')).dy, lessThan(640));
+      await tester.tap(find.text('Skip'));
+      await tester.pumpAndSettle();
+      expect(find.text('Druhá věta.'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+  }
+
   testWidgets('explicit expectedText pins the phrase (no skip control)', (
     tester,
   ) async {

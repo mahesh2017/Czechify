@@ -3,6 +3,57 @@ import 'package:czechify/domain/entities/learning_evidence.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  const levels = [
+    LearningCandidate(
+      lessonId: 1,
+      order: 1,
+      completed: false,
+      isPreferredLevel: false,
+      skills: {LearningSkill.grammar},
+    ),
+    LearningCandidate(
+      lessonId: 16,
+      order: 16,
+      completed: false,
+      skills: {LearningSkill.grammar},
+    ),
+  ];
+  test('fresh A2 learner starts at A2 while A1 stays accessible', () {
+    final route = const LearningRouter().select(
+      candidates: levels,
+      accessibleLessonIds: {1, 16},
+      evidence: [],
+    );
+    expect(route?.lessonId, 16);
+  });
+  test('earlier-level evidence can still recommend targeted repair', () {
+    final route = const LearningRouter().select(
+      candidates: levels,
+      accessibleLessonIds: {1, 16},
+      evidence: [
+        LearningEvidence(
+          evidenceId: 'a1-repair',
+          lessonId: 1,
+          skill: LearningSkill.grammar,
+          phase: LearningPhase.delayedTransfer,
+          correct: false,
+          novelTask: true,
+          responseLatency: const Duration(seconds: 5),
+          observedAt: DateTime(2026),
+        ),
+      ],
+    );
+    expect(route?.lessonId, 1);
+  });
+  test('inaccessible preferred level falls back to accessible work', () {
+    final route = const LearningRouter().select(
+      candidates: levels,
+      accessibleLessonIds: {1},
+      evidence: [],
+    );
+    expect(route?.lessonId, 1);
+  });
+
   test('delayed novel-task failure outranks linear next lesson', () {
     const router = LearningRouter();
     final route = router.select(

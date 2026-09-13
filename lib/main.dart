@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'core/theme/app_theme.dart';
+import 'core/theme/system_bars.dart';
 import 'l10n/app_localizations.dart';
 import 'core/diagnostics/safe_diagnostics.dart';
 import 'core/notifications/notification_service.dart';
@@ -195,7 +196,9 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp>
             // Never interrupt first-run setup with a store prompt. The saved
             // flag enables the quiet Play check on the next app launch.
             enabled: onboardingDone.value ?? false,
-            child: CelebrationHost(child: child ?? const SizedBox.shrink()),
+            child: AppSystemBars(
+              child: CelebrationHost(child: child ?? const SizedBox.shrink()),
+            ),
           ),
     );
   }

@@ -291,6 +291,8 @@ final learningEvidenceProvider = FutureProvider<List<LearningEvidence>>(
 /// Evidence-driven next work. Delayed transfer and support dependence can
 /// route a learner back to a completed lesson; XP is not an input.
 final nextLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
+  final level = ref.watch(settingsProvider.select((s) => s.startingLevel));
+  final preferredPhase = level == CEFRLevel.a2 ? Phase.a2 : Phase.a1;
   final allUnits = await ref.watch(allUnitsProvider.future);
   final unlockedLessonIds = await ref.watch(unlockedLessonIdsProvider.future);
   final completedLessonIds = await ref.watch(completedLessonIdsProvider.future);
@@ -318,6 +320,7 @@ final nextLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
           lessonId: lesson.id,
           order: order,
           completed: completedLessonIds.contains(lesson.id),
+          isPreferredLevel: unit.phase == preferredPhase,
           skills: exercises.map((exercise) => _skillFor(exercise.type)).toSet(),
           conceptKeys: concepts,
         ),

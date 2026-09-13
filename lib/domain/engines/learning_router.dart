@@ -4,6 +4,7 @@ class LearningCandidate {
   final int lessonId;
   final int order;
   final bool completed;
+  final bool isPreferredLevel;
   final Set<LearningSkill> skills;
   final Set<String> conceptKeys;
 
@@ -11,6 +12,7 @@ class LearningCandidate {
     required this.lessonId,
     required this.order,
     required this.completed,
+    this.isPreferredLevel = true,
     required this.skills,
     this.conceptKeys = const {},
   });
@@ -38,6 +40,11 @@ class LearningRouter {
     required Set<int> accessibleLessonIds,
     required List<LearningEvidence> evidence,
   }) {
+    final hasPreferredLevel = candidates.any(
+      (candidate) =>
+          candidate.isPreferredLevel &&
+          accessibleLessonIds.contains(candidate.lessonId),
+    );
     LearningRoute? best;
     for (final candidate in candidates) {
       if (!accessibleLessonIds.contains(candidate.lessonId)) continue;
@@ -49,6 +56,13 @@ class LearningRouter {
                     item.conceptKeys.any(candidate.conceptKeys.contains),
               )
               .toList();
+      // Placement chooses new work; evidence can still recommend revisiting
+      // an earlier level. Merely unlocking A1 must not restart an A2 learner.
+      if (hasPreferredLevel &&
+          !candidate.isPreferredLevel &&
+          relevant.isEmpty) {
+        continue;
+      }
       // Only the most recent attempt at each exercise counts, because these
       // scores are meant to describe what the learner is weak at *now*.
       //
