@@ -783,7 +783,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get reviewEndBody =>
-      'Váš pokrok bude uložen. Můžete pokračovat později.';
+      'Dokončená opakování jsou uložená. Nedokončené kartičky zůstanou připravené k dalšímu opakování.';
 
   @override
   String get reviewStay => 'Zůstat';
@@ -1232,8 +1232,14 @@ class AppLocalizationsCs extends AppLocalizations {
   String get reviewSayItThenTypeIt => 'Řekněte to a pak napište';
 
   @override
+  String get reviewDontRemember => 'Nevzpomínám si';
+
+  @override
+  String get reviewPractiseAgain => 'Procvičit znovu';
+
+  @override
   String get reviewOvertAttemptNote =>
-      'Zkuste odpovědět dřív, než si odpověď zobrazíte.';
+      'Zkuste si vybavit odpověď, nebo zvolte „Nevzpomínám si“.';
 
   @override
   String get reviewWhatDoesItMean => 'Co to znamená?';

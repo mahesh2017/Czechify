@@ -1457,7 +1457,7 @@ abstract class AppLocalizations {
   /// No description provided for @reviewEndBody.
   ///
   /// In en, this message translates to:
-  /// **'Your progress will be saved. You can continue later.'**
+  /// **'Completed reviews are saved. Unfinished cards stay due for your next review.'**
   String get reviewEndBody;
 
   /// No description provided for @reviewStay.
@@ -2228,10 +2228,22 @@ abstract class AppLocalizations {
   /// **'Say it, then type it'**
   String get reviewSayItThenTypeIt;
 
+  /// No description provided for @reviewDontRemember.
+  ///
+  /// In en, this message translates to:
+  /// **'I don’t remember'**
+  String get reviewDontRemember;
+
+  /// No description provided for @reviewPractiseAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise again'**
+  String get reviewPractiseAgain;
+
   /// No description provided for @reviewOvertAttemptNote.
   ///
   /// In en, this message translates to:
-  /// **'Make an overt attempt before revealing.'**
+  /// **'Try recalling the answer, or choose “I don’t remember”.'**
   String get reviewOvertAttemptNote;
 
   /// No description provided for @reviewWhatDoesItMean.

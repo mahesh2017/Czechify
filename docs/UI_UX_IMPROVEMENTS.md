@@ -30,11 +30,29 @@ The emulator was not matched to the owner's phone or installed build.
 Exit confirmation does **not** save lesson position or writing drafts. The Home
 shortcut is an initial discovery improvement, not the full proposed Exams hub.
 
+## Second implementation batch: review recovery
+
+- Typed recall now offers **I don't remember**. It reveals the answer without
+  recording a successful recall. **Practise again** uses the existing Again
+  scheduler and persistence path; a failed save keeps the answer open for retry.
+- Active review uses the same confirmation for system Back and the close
+  control. Stay preserves the current typed answer. End explains that completed
+  ratings are saved and unfinished cards remain due.
+- Review content scrolls on compact screens, with large text and with the
+  keyboard visible. Each new attempt clears the input and returns to the top,
+  even when the same forgotten card returns immediately.
+- Progress segments reset their width animation when Again expands the queue,
+  avoiding a transient horizontal overflow.
+- Flashcard text, translation and audio controls are exposed to screen readers;
+  the revealed card no longer announces itself as a flip button.
+
+This batch does not add draft persistence across leaving the screen or restarting
+the app. It uses the existing review scheduler and saved-rating behavior.
+
 ## Next work, in order
 
 1. **Practice and recovery:** persist session position and writing drafts;
-   handle review Back consistently; add “I don't remember” to typed review;
-   provide a clear retry, hint and explanation sequence. Revisit default heart
+   provide a clear lesson retry, hint and explanation sequence. Revisit default heart
    interruptions while keeping exam simulation rules explicit.
 2. **Today, Exams and Progress:** prototype these screens together. Today
    should show one suitable session with duration and rationale. Exams should
@@ -67,6 +85,16 @@ English/Czech layouts. Final analysis and suite results are recorded below.
 - `flutter test --no-pub --reporter expanded`: all 1,125 tests passed.
 - `git diff --check`: passed.
 - Post-change native Android visual verification: pending.
+
+Second-batch checks cover review Back, keyboard/100%/200% layouts, revealed-answer
+semantics, failed-save retry and repeated-card input reset, alongside existing
+review persistence and screen regression tests. Results are recorded with the
+implementation commit.
+
+- Second batch: all 58 affected regression tests passed.
+- Second batch: `flutter analyze --no-pub` and `git diff --check` passed.
+- The full 1,125-test run above belongs to the first batch; the second batch
+  reran the affected review, navigation and screen tests.
 
 Before release, verify the changed screens on Android at normal text and 200%
 text separately, with gesture and three-button navigation, keyboard input and

@@ -782,7 +782,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reviewEndBody =>
-      'Your progress will be saved. You can continue later.';
+      'Completed reviews are saved. Unfinished cards stay due for your next review.';
 
   @override
   String get reviewStay => 'Stay';
@@ -1229,8 +1229,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reviewSayItThenTypeIt => 'Say it, then type it';
 
   @override
+  String get reviewDontRemember => 'I don’t remember';
+
+  @override
+  String get reviewPractiseAgain => 'Practise again';
+
+  @override
   String get reviewOvertAttemptNote =>
-      'Make an overt attempt before revealing.';
+      'Try recalling the answer, or choose “I don’t remember”.';
 
   @override
   String get reviewWhatDoesItMean => 'What does it mean?';

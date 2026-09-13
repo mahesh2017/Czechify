@@ -27,6 +27,10 @@ class SrsReviewScreen extends ConsumerStatefulWidget {
 class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
   bool _loaded = false;
   String _productionAttempt = '';
+  bool _forgotAnswer = false;
+  bool _exitDialogOpen = false;
+  bool _allowExit = false;
+  final _scrollController = ScrollController();
 
   /// Stateless, so one instance serves the whole session — it was being
   /// constructed once per card render.
@@ -42,9 +46,30 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final session = ref.watch(reviewSessionProvider);
 
+    final active =
+        _loaded &&
+        !session.isLoading &&
+        !session.isComplete &&
+        session.currentCard != null;
+    return PopScope<Object?>(
+      canPop: !active || _allowExit,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _showExitConfirm(context);
+      },
+      child: _buildContent(context, session),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, ReviewSessionState session) {
     if (!_loaded || session.isLoading) {
       return Scaffold(
         backgroundColor: context.tokens.bg,
@@ -109,112 +134,117 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
       backgroundColor: t.bg,
       body: WashBackground(
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Header: what this screen is, how far in, and the way out.
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.reviewSpacedRepetition,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                              color: t.faint,
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Header: what this screen is, how far in, and the way out.
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.reviewSpacedRepetition,
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: t.faint,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 3),
-                          DisplayText(
-                            l10n.navReview,
-                            size: 27,
-                            weight: FontWeight.w800,
-                            height: 1.1,
-                          ),
-                        ],
+                            const SizedBox(height: 3),
+                            DisplayText(
+                              l10n.navReview,
+                              size: 27,
+                              weight: FontWeight.w800,
+                              height: 1.1,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    PillChip(
-                      label: l10n.reviewCardsLeft(session.remainingCards),
-                      bg: t.chipBg,
-                      fg: t.muted,
-                    ),
-                    const SizedBox(width: 9),
-                    RoundIconButton(
-                      icon: Icons.close,
-                      tooltip: AppLocalizations.of(context).a11yClose,
-                      onTap: () => _showExitConfirm(context),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-                child: Semantics(
-                  label: AppLocalizations.of(
-                    context,
-                  ).reviewCardOf(session.currentIndex + 1, session.totalCards),
-                  excludeSemantics: true,
-                  child: SegmentPips(
-                    count: session.totalCards,
-                    currentIndex: session.currentIndex,
+                      PillChip(
+                        label: l10n.reviewCardsLeft(session.remainingCards),
+                        bg: t.chipBg,
+                        fg: t.muted,
+                      ),
+                      const SizedBox(width: 9),
+                      RoundIconButton(
+                        icon: Icons.close,
+                        tooltip: AppLocalizations.of(context).a11yClose,
+                        onTap: () => _showExitConfirm(context),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-                child: Wrap(
-                  spacing: 7,
-                  runSpacing: 7,
-                  children: [
-                    _DeckCountChip(
-                      label: AppLocalizations.of(context).reviewNew,
-                      count:
-                          session.dueCards
-                              .where((c) => c.srs.state == CardState.newCard)
-                              .length,
-                      color: t.violet,
-                      bg: t.violetSoft,
-                      ink: t.violetInk,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+                  child: Semantics(
+                    label: AppLocalizations.of(context).reviewCardOf(
+                      session.currentIndex + 1,
+                      session.totalCards,
                     ),
-                    _DeckCountChip(
-                      label: AppLocalizations.of(context).reviewLearning,
-                      count:
-                          session.dueCards
-                              .where(
-                                (c) =>
-                                    c.srs.state == CardState.learning ||
-                                    c.srs.state == CardState.relearning,
-                              )
-                              .length,
-                      color: t.amber,
-                      bg: t.amberSoft,
-                      ink: t.amberInk,
+                    excludeSemantics: true,
+                    child: SegmentPips(
+                      // Again can grow the queue. Restart width animations when
+                      // the segment count changes to avoid overlapping widths.
+                      key: ValueKey(session.totalCards),
+                      count: session.totalCards,
+                      currentIndex: session.currentIndex,
                     ),
-                    _DeckCountChip(
-                      label: AppLocalizations.of(context).reviewDue,
-                      count:
-                          session.dueCards
-                              .where((c) => c.srs.state == CardState.review)
-                              .length,
-                      color: t.pri,
-                      bg: t.priSoft,
-                      ink: t.priInk,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 6),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+                  child: Wrap(
+                    spacing: 7,
+                    runSpacing: 7,
+                    children: [
+                      _DeckCountChip(
+                        label: AppLocalizations.of(context).reviewNew,
+                        count:
+                            session.dueCards
+                                .where((c) => c.srs.state == CardState.newCard)
+                                .length,
+                        color: t.violet,
+                        bg: t.violetSoft,
+                        ink: t.violetInk,
+                      ),
+                      _DeckCountChip(
+                        label: AppLocalizations.of(context).reviewLearning,
+                        count:
+                            session.dueCards
+                                .where(
+                                  (c) =>
+                                      c.srs.state == CardState.learning ||
+                                      c.srs.state == CardState.relearning,
+                                )
+                                .length,
+                        color: t.amber,
+                        bg: t.amberSoft,
+                        ink: t.amberInk,
+                      ),
+                      _DeckCountChip(
+                        label: AppLocalizations.of(context).reviewDue,
+                        count:
+                            session.dueCards
+                                .where((c) => c.srs.state == CardState.review)
+                                .length,
+                        color: t.pri,
+                        bg: t.priSoft,
+                        ink: t.priInk,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 6),
 
-              // Flashcard
-              Expanded(
-                child: MotionEntrance(
+                // The card grows with its content; the page handles scrolling.
+                MotionEntrance(
                   key: ValueKey('${session.currentIndex}:${card.flashcard.id}'),
                   offset: const Offset(0.035, 0),
                   child: _FlashcardView(
@@ -235,124 +265,155 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
                             : null,
                   ),
                 ),
-              ),
 
-              MotionDisclosure(
-                visible:
-                    !session.isFlipped &&
-                    card.direction == CardDirection.enToCz,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      LessonKicker(l10n.reviewRetrieveTheCzech),
-                      const SizedBox(height: 8),
-                      TextField(
-                        key: ValueKey(card.flashcard.id),
-                        autocorrect: false,
-                        cursorColor: t.pri,
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          color: t.ink,
+                MotionDisclosure(
+                  visible:
+                      !session.isFlipped &&
+                      card.direction == CardDirection.enToCz,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        LessonKicker(l10n.reviewRetrieveTheCzech),
+                        const SizedBox(height: 8),
+                        TextField(
+                          key: ValueKey(
+                            '${session.currentIndex}:${card.flashcard.id}:input',
+                          ),
+                          autocorrect: false,
+                          cursorColor: t.pri,
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: t.ink,
+                          ),
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: t.card,
+                            hintText: l10n.reviewSayItThenTypeIt,
+                            hintStyle: TextStyle(fontSize: 16, color: t.faint),
+                            helperText: l10n.reviewOvertAttemptNote,
+                            helperMaxLines: 3,
+                            helperStyle: TextStyle(
+                              fontSize: 12,
+                              color: t.faint,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(color: t.line),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(color: t.line),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(color: t.pri, width: 1.5),
+                            ),
+                          ),
+                          onChanged:
+                              (value) =>
+                                  setState(() => _productionAttempt = value),
                         ),
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: t.card,
-                          hintText: l10n.reviewSayItThenTypeIt,
-                          hintStyle: TextStyle(fontSize: 16, color: t.faint),
-                          helperText: l10n.reviewOvertAttemptNote,
-                          helperStyle: TextStyle(fontSize: 12, color: t.faint),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: t.line),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: t.line),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: t.pri, width: 1.5),
-                          ),
-                        ),
-                        onChanged:
-                            (value) =>
-                                setState(() => _productionAttempt = value),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
-              // Rating buttons (only after flip)
-              MotionEntrance(
-                key: ValueKey(
-                  session.isFlipped ? 'rating-controls' : 'reveal-control',
-                ),
-                offset: const Offset(0, 0.025),
-                child:
-                    session.isFlipped
-                        ? Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (session.commitError != null)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                ),
-                                child: Text(
-                                  session.commitError!,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: t.redInk,
+                // Rating buttons (only after flip)
+                MotionEntrance(
+                  key: ValueKey(
+                    session.isFlipped ? 'rating-controls' : 'reveal-control',
+                  ),
+                  offset: const Offset(0, 0.025),
+                  child:
+                      session.isFlipped
+                          ? Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (session.commitError != null)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
                                   ),
-                                  textAlign: TextAlign.center,
+                                  child: Text(
+                                    session.commitError!,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: t.redInk,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                              ),
-                            _RatingButtons(
-                              intervals: _intervalLabels(card.srs),
-                              enabled: !session.isCommitting,
-                              onRate: (rating) async {
-                                final ratedCardId = card.flashcard.id;
-                                await ref
-                                    .read(reviewSessionProvider.notifier)
-                                    .rateCard(rating);
-                                if (!mounted) return;
-                                final current =
-                                    ref.read(reviewSessionProvider).currentCard;
-                                // Keep a production answer when persistence failed and
-                                // the learner is still on the same card. Clear it only
-                                // once the committed review actually advanced.
-                                if (current?.flashcard.id != ratedCardId) {
-                                  setState(() => _productionAttempt = '');
-                                }
-                              },
-                            ),
-                          ],
-                        )
-                        : Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
-                          child: KeyCta(
-                            label:
-                                card.direction == CardDirection.enToCz &&
-                                        _productionAttempt.trim().isEmpty
-                                    ? l10n.reviewTypeAnswerFirst
-                                    : l10n.reviewShowAnswer,
-                            onPressed:
-                                card.direction != CardDirection.enToCz ||
-                                        _productionAttempt.trim().isNotEmpty
-                                    ? () {
+                              if (_forgotAnswer)
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                    20,
+                                    14,
+                                    20,
+                                    112,
+                                  ),
+                                  child: KeyCta(
+                                    label: l10n.reviewPractiseAgain,
+                                    onPressed:
+                                        session.isCommitting
+                                            ? null
+                                            : () => _rateCard(Rating.again),
+                                  ),
+                                )
+                              else
+                                _RatingButtons(
+                                  intervals: _intervalLabels(card.srs),
+                                  enabled: !session.isCommitting,
+                                  onRate: _rateCard,
+                                ),
+                            ],
+                          )
+                          : Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                KeyCta(
+                                  label:
+                                      card.direction == CardDirection.enToCz &&
+                                              _productionAttempt.trim().isEmpty
+                                          ? l10n.reviewTypeAnswerFirst
+                                          : l10n.reviewShowAnswer,
+                                  onPressed:
+                                      card.direction != CardDirection.enToCz ||
+                                              _productionAttempt
+                                                  .trim()
+                                                  .isNotEmpty
+                                          ? () {
+                                            ref
+                                                .read(
+                                                  reviewSessionProvider
+                                                      .notifier,
+                                                )
+                                                .flipCard();
+                                          }
+                                          : null,
+                                ),
+                                if (card.direction == CardDirection.enToCz)
+                                  TextButton(
+                                    onPressed: () {
+                                      FocusScope.of(context).unfocus();
+                                      setState(() => _forgotAnswer = true);
                                       ref
                                           .read(reviewSessionProvider.notifier)
                                           .flipCard();
-                                    }
-                                    : null,
+                                    },
+                                    child: Text(l10n.reviewDontRemember),
+                                  ),
+                              ],
+                            ),
                           ),
-                        ),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -382,24 +443,47 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
     };
   }
 
-  void _showExitConfirm(BuildContext context) {
+  Future<void> _rateCard(Rating rating) async {
+    final index = ref.read(reviewSessionProvider).currentIndex;
+    await ref.read(reviewSessionProvider.notifier).rateCard(rating);
+    if (!mounted) return;
+    // Index identifies an attempt, even when the same card returns next.
+    if (ref.read(reviewSessionProvider).currentIndex != index) {
+      setState(() {
+        _productionAttempt = '';
+        _forgotAnswer = false;
+      });
+      if (_scrollController.hasClients) _scrollController.jumpTo(0);
+    }
+  }
+
+  Future<void> _showExitConfirm(BuildContext context) async {
+    if (_exitDialogOpen || ref.read(reviewSessionProvider).isCommitting) return;
+    _exitDialogOpen = true;
     final l10n = AppLocalizations.of(context);
-    showDialog(
-      context: context,
-      builder:
-          (ctx) => AppDialog(
-            icon: Icons.pause_circle_outline_rounded,
-            title: l10n.reviewEndTitle,
-            message: l10n.reviewEndBody,
-            confirmLabel: l10n.reviewStay,
-            onConfirm: () => Navigator.pop(ctx),
-            dismissLabel: l10n.reviewEnd,
-            onDismiss: () {
-              Navigator.pop(ctx);
-              context.go('/');
-            },
-          ),
-    );
+    bool? leave;
+    try {
+      leave = await showDialog<bool>(
+        context: context,
+        builder:
+            (ctx) => AppDialog(
+              icon: Icons.pause_circle_outline_rounded,
+              title: l10n.reviewEndTitle,
+              message: l10n.reviewEndBody,
+              confirmLabel: l10n.reviewStay,
+              onConfirm: () => Navigator.pop(ctx, false),
+              dismissLabel: l10n.reviewEnd,
+              onDismiss: () => Navigator.pop(ctx, true),
+            ),
+      );
+    } finally {
+      _exitDialogOpen = false;
+    }
+    if (!mounted || leave != true) return;
+    setState(() => _allowExit = true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) this.context.go('/');
+    });
   }
 }
 
@@ -470,10 +554,15 @@ class _FlashcardView extends ConsumerWidget {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     return Semantics(
-      button: onFlip != null,
-      label: canReveal ? l10n.a11yTapToFlipCard : l10n.reviewTypeAnswerFirst,
-      hint: canReveal ? l10n.reviewTapToReveal : l10n.reviewTypeAnswerFirst,
-      excludeSemantics: true,
+      button: !isFlipped && onFlip != null,
+      label:
+          isFlipped
+              ? null
+              : canReveal
+              ? l10n.a11yTapToFlipCard
+              : l10n.reviewTypeAnswerFirst,
+      hint: !isFlipped && canReveal ? l10n.reviewTapToReveal : null,
+      // Keep the Czech, translation and audio controls available to TalkBack.
       child: GestureDetector(
         onTap: isFlipped ? null : onFlip,
         child: Padding(
