@@ -258,6 +258,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
         // win the gesture arena on their own hits, so this only sees taps
         // that land on nothing.
         behavior: HitTestBehavior.translucent,
+        excludeFromSemantics: true,
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SafeArea(
           child: Column(

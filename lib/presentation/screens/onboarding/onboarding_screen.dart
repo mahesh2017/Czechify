@@ -17,6 +17,7 @@ import '../../providers/curriculum_providers.dart';
 import '../../providers/learner_profile_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/motion_widgets.dart';
+import '../../widgets/common/minimum_tap_area.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/learner_profile.dart';
 import '../../../domain/engines/placement_engine.dart';
@@ -332,17 +333,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   child: InkWell(
                     onTap: _finishing ? null : _back,
                     borderRadius: BorderRadius.circular(999),
-                    child: Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: t.elev,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.chevron_left_rounded,
-                        size: 25,
-                        color: t.muted,
+                    child: MinimumTapArea(
+                      child: Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          color: t.elev,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.chevron_left_rounded,
+                          size: 25,
+                          color: t.muted,
+                        ),
                       ),
                     ),
                   ),

@@ -894,7 +894,7 @@ class _LetterRow extends StatelessWidget {
     return Semantics(
       button: true,
       label: l10n.a11yTapToHear(item.name.isEmpty ? item.symbol : item.name),
-      excludeSemantics: true,
+      explicitChildNodes: true,
       child: Material(
         color: active ? t.priSoft : t.card,
         borderRadius: BorderRadius.circular(16),

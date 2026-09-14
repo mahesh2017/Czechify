@@ -15,6 +15,7 @@ import '../../widgets/common/app_dialog.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../widgets/common/motion_widgets.dart';
+import '../../widgets/common/minimum_tap_area.dart';
 
 /// SRS review screen — flashcard interface with simplified SM-2 ratings.
 class SrsReviewScreen extends ConsumerStatefulWidget {
@@ -994,21 +995,23 @@ class _HintRowState extends State<_HintRow> {
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () => setState(() => _shown = true),
-          child: Container(
-            constraints: const BoxConstraints(minHeight: 44),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              border: Border.all(color: t.line),
-              borderRadius: BorderRadius.circular(999),
-            ),
-            child: Text(
-              l10n.reviewNeedAHint,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: t.muted,
+          child: MinimumTapArea(
+            child: Container(
+              constraints: const BoxConstraints(minHeight: 44),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                border: Border.all(color: t.line),
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                l10n.reviewNeedAHint,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: t.muted,
+                ),
               ),
             ),
           ),
@@ -1072,7 +1075,7 @@ class _DeckShadowCard extends StatelessWidget {
   }
 }
 
-/// The play control on a flashcard: drawn small, but with a 44pt target.
+/// The play control on a flashcard: drawn small, with a 48dp target.
 class _AudioPill extends ConsumerWidget {
   const _AudioPill({required this.text});
 
@@ -1088,38 +1091,41 @@ class _AudioPill extends ConsumerWidget {
       child: InkWell(
         onTap: () => ref.read(czechTtsProvider).speak(text),
         borderRadius: BorderRadius.circular(999),
-        child: Container(
-          // The pill is drawn at 34pt to stay quiet beside the word; the
-          // padding is what carries it to the 44pt minimum.
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+        child: MinimumTapArea(
           child: Container(
-            padding: const EdgeInsets.fromLTRB(6, 5, 13, 5),
-            decoration: BoxDecoration(
-              color: t.priSoft,
-              borderRadius: BorderRadius.circular(999),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    color: t.priFill,
-                    shape: BoxShape.circle,
+            // The pill is drawn at 34pt to stay quiet beside the word; the
+            // padding is what carries it to the 44pt visual height; the
+            // surrounding hit area carries it to 48dp.
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(6, 5, 13, 5),
+              decoration: BoxDecoration(
+                color: t.priSoft,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: t.priFill,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.play_arrow, size: 15, color: t.onFill),
                   ),
-                  child: Icon(Icons.play_arrow, size: 15, color: t.onFill),
-                ),
-                const SizedBox(width: 7),
-                Text(
-                  AppLocalizations.of(context).audioHearIt,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w700,
-                    color: t.priInk,
+                  const SizedBox(width: 7),
+                  Text(
+                    AppLocalizations.of(context).audioHearIt,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: t.priInk,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -1314,8 +1320,9 @@ class _RatingButton extends StatelessWidget {
                             color: tint,
                             borderRadius: BorderRadius.circular(999),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
                               Icon(Icons.schedule, size: 11, color: ink),
                               const SizedBox(width: 3),

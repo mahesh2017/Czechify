@@ -6,6 +6,7 @@ import '../../../../domain/entities/exercise.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import 'exercise_shared.dart';
+import '../../common/minimum_tap_area.dart';
 
 /// Word-order exercise view: tap words to build the sentence.
 class WordOrderView extends StatefulWidget {
@@ -260,35 +261,38 @@ class WordChip extends StatelessWidget {
     return Semantics(
       button: onTap != null,
       child: Material(
-        color: bg,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(12),
-          child: Container(
-            constraints: const BoxConstraints(minHeight: 44),
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: placed ? Colors.transparent : t.line),
-              // The bank sits proud of the page; a placed word lies flat.
-              boxShadow:
-                  placed
-                      ? null
-                      : [
-                        BoxShadow(
-                          color: t.ink.withValues(alpha: 0.12),
-                          offset: const Offset(0, 1.5),
-                        ),
-                      ],
-            ),
-            child: Text(
-              word,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-                color: fg,
+          child: MinimumTapArea(
+            child: Container(
+              constraints: const BoxConstraints(minHeight: 44),
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: bg,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: placed ? Colors.transparent : t.line),
+                // The bank sits proud of the page; a placed word lies flat.
+                boxShadow:
+                    placed
+                        ? null
+                        : [
+                          BoxShadow(
+                            color: t.ink.withValues(alpha: 0.12),
+                            offset: const Offset(0, 1.5),
+                          ),
+                        ],
+              ),
+              child: Text(
+                word,
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: fg,
+                ),
               ),
             ),
           ),

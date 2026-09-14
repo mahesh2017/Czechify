@@ -9,6 +9,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/settings_providers.dart';
 import 'motion_widgets.dart';
+import 'minimum_tap_area.dart';
 
 /// Shared primitives for the learning loop — the surfaces the Czechify 2.0
 /// handoff specifies most precisely: the lesson chrome, the teaching card, the
@@ -63,8 +64,9 @@ class LessonKicker extends StatelessWidget {
   }
 }
 
-/// A 44pt circular control with a hairline border — the leave button on the
-/// lesson and review flows, and the back arrow on the full-screen ones.
+/// A 44pt circular control with a hairline border inside a 48pt tap target —
+/// the leave button on the lesson and review flows, and the back arrow on the
+/// full-screen ones.
 class RoundIconButton extends StatelessWidget {
   const RoundIconButton({
     super.key,
@@ -85,17 +87,23 @@ class RoundIconButton extends StatelessWidget {
       child: Semantics(
         button: true,
         label: tooltip,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(999),
-          child: Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: t.line),
+        child: SizedBox(
+          width: 48,
+          height: 48,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(999),
+            child: Center(
+              child: Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: t.line),
+                ),
+                child: Icon(icon, size: 18, color: t.muted),
+              ),
             ),
-            child: Icon(icon, size: 18, color: t.muted),
           ),
         ),
       ),
@@ -932,54 +940,68 @@ class AnswerField extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 18, 20, 26),
-            child: TextField(
-              controller: controller,
+            child: MinimumInputTapArea(
               enabled: enabled,
-              autofocus: autofocus,
-              textAlign: TextAlign.center,
-              maxLines: multiline ? 3 : 1,
-              minLines: 1,
-              cursorColor: t.pri,
-              cursorWidth: 3,
-              cursorRadius: const Radius.circular(2),
-              // Room for the Check button below the field.
-              //
-              // A focused TextField scrolls itself into view with 20px of
-              // slack, which put the field just above the keyboard and left
-              // the button that submits it underneath — the learner typed an
-              // answer and then had to scroll to do anything with it. Reserving
-              // the button's height plus the letter row means focusing brings
-              // the whole answering apparatus up, not just the box.
-              scrollPadding: const EdgeInsets.only(bottom: 180),
-              onChanged: onChanged,
-              onSubmitted: onSubmitted,
-              textInputAction:
-                  multiline ? TextInputAction.newline : TextInputAction.done,
-              style: TextStyle(
-                fontFamily: AppFonts.display,
-                fontSize: size,
-                fontWeight: FontWeight.w800,
-                color: ink,
-              ),
-              decoration: InputDecoration(
-                isDense: true,
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                contentPadding: EdgeInsets.zero,
-                hintText: hint,
-                hintStyle: TextStyle(
-                  fontFamily: AppFonts.display,
-                  fontSize: size,
-                  fontWeight: FontWeight.w800,
-                  // The hint doubles as the design's tracing guide: the shape
-                  // of the answer, faint enough not to be readable as input.
-                  color: t.ink.withValues(alpha: 0.13),
-                ),
-                label: semanticLabel == null ? null : Text(semanticLabel!),
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-              ),
+              // A given semanticLabel is already the field's own label below;
+              // naming it here as well made TalkBack read it twice.
+              label:
+                  semanticLabel == null
+                      ? _l10n(context)?.exerciseYourAnswer
+                      : null,
+              builder:
+                  (focus) => TextField(
+                    focusNode: focus,
+                    controller: controller,
+                    enabled: enabled,
+                    autofocus: autofocus,
+                    textAlign: TextAlign.center,
+                    maxLines: multiline ? 3 : 1,
+                    minLines: 1,
+                    cursorColor: t.pri,
+                    cursorWidth: 3,
+                    cursorRadius: const Radius.circular(2),
+                    // Room for the Check button below the field.
+                    //
+                    // A focused TextField scrolls itself into view with 20px of
+                    // slack, which put the field just above the keyboard and left
+                    // the button that submits it underneath — the learner typed an
+                    // answer and then had to scroll to do anything with it. Reserving
+                    // the button's height plus the letter row means focusing brings
+                    // the whole answering apparatus up, not just the box.
+                    scrollPadding: const EdgeInsets.only(bottom: 180),
+                    onChanged: onChanged,
+                    onSubmitted: onSubmitted,
+                    textInputAction:
+                        multiline
+                            ? TextInputAction.newline
+                            : TextInputAction.done,
+                    style: TextStyle(
+                      fontFamily: AppFonts.display,
+                      fontSize: size,
+                      fontWeight: FontWeight.w800,
+                      color: ink,
+                    ),
+                    decoration: InputDecoration(
+                      isDense: true,
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.zero,
+                      hintText: hint,
+                      hintStyle: TextStyle(
+                        fontFamily: AppFonts.display,
+                        fontSize: size,
+                        fontWeight: FontWeight.w800,
+                        // The hint doubles as the design's tracing guide: the shape
+                        // of the answer, faint enough not to be readable as input.
+                        color: t.ink.withValues(alpha: 0.13),
+                      ),
+                      label:
+                          semanticLabel == null ? null : Text(semanticLabel!),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ),
+                  ),
             ),
           ),
         ],
@@ -1577,31 +1599,46 @@ class TtsSpeedSelector extends ConsumerWidget {
           child: Icon(Icons.speed_rounded, size: 18, color: t.faint),
         ),
         Expanded(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: t.card,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: t.line),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(3),
-              child: Row(
-                children: [
-                  for (var i = 0; i < stops.length; i++)
-                    Expanded(
-                      child: _SpeedSegment(
-                        label: formatSpeedMultiplier(stops[i]),
-                        selected: i == selected,
-                        onTap:
-                            () => ref
-                                .read(settingsProvider.notifier)
-                                .setTtsSpeechRate(
-                                  kNativeTtsSpeechRate * stops[i],
-                                ),
+          child: SizedBox(
+            height: 48,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  child: SizedBox(
+                    height: 44,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: t.card,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: t.line),
                       ),
                     ),
-                ],
-              ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3),
+                  child: Row(
+                    children: [
+                      for (var i = 0; i < stops.length; i++)
+                        Expanded(
+                          child: _SpeedSegment(
+                            label: formatSpeedMultiplier(stops[i]),
+                            selected: i == selected,
+                            onTap:
+                                () => ref
+                                    .read(settingsProvider.notifier)
+                                    .setTtsSpeechRate(
+                                      kNativeTtsSpeechRate * stops[i],
+                                    ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -1648,23 +1685,28 @@ class _SpeedSegment extends StatelessWidget {
       selected: selected,
       label:
           _l10n(context)?.playbackSpeedA11y(label) ?? 'Playback speed $label',
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: AnimatedContainer(
-          duration: context.motionDuration(AppMotion.selection),
-          height: 38,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: selected ? t.priFill : Colors.transparent,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              color: selected ? t.onFill : t.muted,
-              fontSize: 14,
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+      child: SizedBox(
+        height: 48,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Center(
+            child: AnimatedContainer(
+              duration: context.motionDuration(AppMotion.selection),
+              height: 38,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: selected ? t.priFill : Colors.transparent,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: selected ? t.onFill : t.muted,
+                  fontSize: 14,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),

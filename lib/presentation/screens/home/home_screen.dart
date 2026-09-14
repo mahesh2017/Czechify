@@ -16,6 +16,7 @@ import '../../providers/tts_providers.dart';
 import '../../screens/lesson/delayed_transfer_screen.dart'
     show dueTransferProvider;
 import '../../widgets/common/motion_widgets.dart';
+import '../../widgets/common/minimum_tap_area.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../widgets/home/streak_state_sheet.dart';
@@ -148,48 +149,51 @@ class HomeScreen extends ConsumerWidget {
                                       streak: g.currentStreak,
                                       freezeAvailable: g.streakFreezeAvailable,
                                     ),
-                                child: Container(
-                                  width: 44,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color: t.amberSoft,
-                                    border: Border.all(
-                                      color: t.amber.withValues(alpha: .42),
-                                      width: 1.5,
+                                child: MinimumTapArea(
+                                  child: Container(
+                                    width: 44,
+                                    height: 44,
+                                    decoration: BoxDecoration(
+                                      color: t.amberSoft,
+                                      border: Border.all(
+                                        color: t.amber.withValues(alpha: .42),
+                                        width: 1.5,
+                                      ),
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: t.amber.withValues(alpha: .14),
+                                          blurRadius: 12,
+                                          offset: const Offset(0, 4),
+                                        ),
+                                      ],
                                     ),
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: t.amber.withValues(alpha: .14),
-                                        blurRadius: 12,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.local_fire_department_rounded,
-                                        size: 18,
-                                        color: t.amber,
-                                      ),
-                                      const SizedBox(width: 1),
-                                      Flexible(
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Text(
-                                            '${g.currentStreak}',
-                                            style: TextStyle(
-                                              color: t.ink,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w800,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.local_fire_department_rounded,
+                                          size: 18,
+                                          color: t.amber,
+                                        ),
+                                        const SizedBox(width: 1),
+                                        Flexible(
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              '${g.currentStreak}',
+                                              style: TextStyle(
+                                                color: t.ink,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w800,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -204,64 +208,67 @@ class HomeScreen extends ConsumerWidget {
                               child: InkWell(
                                 onTap: () => context.push('/settings'),
                                 borderRadius: BorderRadius.circular(999),
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Container(
-                                      width: 44,
-                                      height: 44,
-                                      decoration: BoxDecoration(
-                                        color: t.priSoft,
-                                        border: Border.all(
-                                          color: t.pri.withValues(alpha: .38),
-                                          width: 1.5,
+                                child: MinimumTapArea(
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Container(
+                                        width: 44,
+                                        height: 44,
+                                        decoration: BoxDecoration(
+                                          color: t.priSoft,
+                                          border: Border.all(
+                                            color: t.pri.withValues(alpha: .38),
+                                            width: 1.5,
+                                          ),
+                                          shape: BoxShape.circle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: t.pri.withValues(
+                                                alpha: .15,
+                                              ),
+                                              blurRadius: 12,
+                                              offset: const Offset(0, 4),
+                                            ),
+                                          ],
                                         ),
-                                        shape: BoxShape.circle,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: t.pri.withValues(alpha: .15),
-                                            blurRadius: 12,
-                                            offset: const Offset(0, 4),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Icon(
-                                        Icons.settings_rounded,
-                                        size: 22,
-                                        color: t.pri,
-                                      ),
-                                    ),
-                                    if (updateAvailable)
-                                      Positioned(
-                                        top: -9,
-                                        right: -8,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 6,
-                                            vertical: 2,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: t.redFill,
-                                            borderRadius: BorderRadius.circular(
-                                              999,
-                                            ),
-                                            border: Border.all(
-                                              color: t.bg,
-                                              width: 2,
-                                            ),
-                                          ),
-                                          child: Text(
-                                            l10n.updateBadgeLabel,
-                                            style: TextStyle(
-                                              color: t.onFill,
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w900,
-                                              letterSpacing: .35,
-                                            ),
-                                          ),
+                                        child: Icon(
+                                          Icons.settings_rounded,
+                                          size: 22,
+                                          color: t.pri,
                                         ),
                                       ),
-                                  ],
+                                      if (updateAvailable)
+                                        Positioned(
+                                          top: -9,
+                                          right: -8,
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 6,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: t.redFill,
+                                              borderRadius:
+                                                  BorderRadius.circular(999),
+                                              border: Border.all(
+                                                color: t.bg,
+                                                width: 2,
+                                              ),
+                                            ),
+                                            child: Text(
+                                              l10n.updateBadgeLabel,
+                                              style: TextStyle(
+                                                color: t.onFill,
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w900,
+                                                letterSpacing: .35,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

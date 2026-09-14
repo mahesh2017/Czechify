@@ -6,6 +6,7 @@ import '../../common/grammar_tip_card.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import 'exercise_shared.dart';
+import '../../common/minimum_tap_area.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 
 /// Error correction exercise — spot the mistake in a Czech sentence and
@@ -327,26 +328,28 @@ class _ErrorCorrectionViewState extends State<ErrorCorrectionView> {
         child: InkWell(
           onTap: () => _onWordTap(idx),
           borderRadius: BorderRadius.circular(12),
-          child: AnimatedContainer(
-            duration:
-                instant ? Duration.zero : const Duration(milliseconds: 180),
-            constraints: const BoxConstraints(minHeight: 44),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            decoration: BoxDecoration(
-              color: bg,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: border, width: 1.5),
-            ),
-            child: Text(
-              word,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight:
-                    isSelected || struck ? FontWeight.w700 : FontWeight.w500,
-                decoration: struck ? TextDecoration.lineThrough : null,
-                decorationColor: fg,
-                color: fg,
+          child: MinimumTapArea(
+            child: AnimatedContainer(
+              duration:
+                  instant ? Duration.zero : const Duration(milliseconds: 180),
+              constraints: const BoxConstraints(minHeight: 44),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: bg,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: border, width: 1.5),
+              ),
+              child: Text(
+                word,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight:
+                      isSelected || struck ? FontWeight.w700 : FontWeight.w500,
+                  decoration: struck ? TextDecoration.lineThrough : null,
+                  decorationColor: fg,
+                  color: fg,
+                ),
               ),
             ),
           ),

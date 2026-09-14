@@ -102,9 +102,12 @@ view) and the Android Settings page presentation.
 3. **First-session experience:** correct introductory A1-only copy; shorten
    onboarding around starting level, goal and available time; defer optional
    preferences until after useful practice. Consolidate repeated greetings.
-4. **Android polish:** complete the 48 dp target and semantics audit, adapt
-   settings presentation, reduce repeated titles and heavy card shadows, and
-   let important lesson names and recommendation explanations wrap.
+4. **Android polish:** 48 dp tap areas and labels are in place on Home, the
+   lesson player, every shipped exercise type, review, Daily Arrival and
+   onboarding, held by `touch_target_guidelines_test.dart` and
+   `input_semantics_labels_test.dart`. Still to do: check TalkBack on a device,
+   adapt settings presentation, reduce repeated titles and heavy card shadows,
+   and let important lesson names and recommendation explanations wrap.
 5. **Offline confidence:** distinguish downloaded lessons from temporary cache,
    explain removal consequences, and expose accurate local-save and sync states.
 
