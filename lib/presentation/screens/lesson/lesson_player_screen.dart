@@ -40,7 +40,8 @@ class LessonPlayerScreen extends ConsumerStatefulWidget {
   ConsumerState<LessonPlayerScreen> createState() => _LessonPlayerScreenState();
 }
 
-class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
+class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
+    with WidgetsBindingObserver {
   bool _loaded = false;
   bool _locked = false;
   bool _allowExit = false;
@@ -53,6 +54,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     // Load lesson data on first build
     Future.microtask(() async {
       final unlocked = await ref.read(
@@ -72,6 +74,27 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           .loadLesson(widget.lessonId);
       if (mounted) setState(() => _loaded = true);
     });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  /// Android can end a backgrounded app without warning, so the position —
+  /// and any typing still waiting for its save — is written on the way out.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState lifecycle) {
+    if (lifecycle != AppLifecycleState.paused &&
+        lifecycle != AppLifecycleState.hidden) {
+      return;
+    }
+    final session = ref.read(lessonSessionProvider);
+    if (!_loaded || _locked || session.lesson == null || session.isComplete) {
+      return;
+    }
+    ref.read(lessonSessionProvider.notifier).saveProgress();
   }
 
   /// Decodes the *next* exercise's illustration while the learner is still on
@@ -321,6 +344,22 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               ),
               // Shown only while a substitute is in use — silent otherwise.
               const DegradedModeBanner(),
+              if (session.resumed || session.saveFailed)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+                  child: Text(
+                    session.saveFailed
+                        ? l10n.lessonSaveFailed
+                        : l10n.lessonResumed(
+                          session.currentIndex + 1,
+                          session.totalExercises,
+                        ),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: session.saveFailed ? t.redInk : t.muted,
+                    ),
+                  ),
+                ),
               if (session.currentIndex == 0 &&
                   (session.lesson?.canDo.trim().isNotEmpty ?? false))
                 Padding(
@@ -367,15 +406,21 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                   // same frame. Only the incoming exercise is animated, so a
                   // microphone or TTS owner can never survive behind an exit.
                   key: ValueKey(
-                    'lesson-question-${session.currentIndex}-${exercise.id}',
+                    'lesson-question-${session.currentIndex}-${exercise.id}'
+                    '-${session.retrySeq}',
                   ),
                   child: LessonExerciseViewport(
                     // Key by position so widget state (selected answers) resets
                     // for each exercise, including mistake re-asks of the same
-                    // exercise id.
-                    key: ValueKey(session.currentIndex),
+                    // exercise id — and by retry, so "Try again" starts clean.
+                    key: ValueKey((session.currentIndex, session.retrySeq)),
                     exercise: exercise,
                     answerStreak: session.answerStreak,
+                    initialDraft: session.writingDraft,
+                    onDraftChanged:
+                        ref
+                            .read(lessonSessionProvider.notifier)
+                            .updateWritingDraft,
                     onAnswered: (result) {
                       // Teaching cards are presentations, not questions: advance
                       // straight to the next exercise with no grading banner,
@@ -483,7 +528,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     );
   }
 
-  /// The grammar-rule link and any save error — nothing, on the common path.
+  /// "Try again" after a miss, the grammar-rule link and any save error —
+  /// nothing, on the common path.
   Widget? _feedbackExtra(
     BuildContext context,
     LessonSessionState session,
@@ -491,11 +537,31 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
   ) {
     final ruleId = session.lastGrammarRuleId;
     final error = session.completionError;
-    if (ruleId == null && error == null) return null;
+    final canRetry = session.canRetry;
+    if (ruleId == null && error == null && !canRetry) return null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (canRetry)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              onPressed:
+                  session.isCompleting
+                      ? null
+                      : ref
+                          .read(lessonSessionProvider.notifier)
+                          .retryCurrentExercise,
+              icon: const Icon(Icons.refresh_rounded, size: 18),
+              label: Text(AppLocalizations.of(context).tryAgain),
+              style: TextButton.styleFrom(
+                foregroundColor: t.ink,
+                minimumSize: const Size(0, 44),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+              ),
+            ),
+          ),
         if (ruleId != null)
           Align(
             alignment: Alignment.centerLeft,
@@ -536,7 +602,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
               icon: Icons.logout_rounded,
               tone: AppDialogTone.warning,
               title: l10n.lessonLeaveTitle,
-              message: l10n.lessonLeaveBody,
+              message:
+                  ref.read(lessonSessionProvider).isExamMode
+                      ? l10n.lessonLeaveBody
+                      : l10n.lessonResumeLeaveBody,
               confirmLabel: l10n.reviewStay,
               onConfirm: () => Navigator.pop(ctx, false),
               dismissLabel: l10n.lessonLeave,
@@ -547,10 +616,31 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
       _exitDialogOpen = false;
     }
     if (!mounted || leave != true) return;
+    await ref.read(lessonSessionProvider.notifier).saveProgress();
+    if (!mounted) return;
+    if (ref.read(lessonSessionProvider).saveFailed) {
+      // Say so rather than leave silently — but never hold the learner in a
+      // lesson because this phone's storage is failing.
+      ScaffoldMessenger.of(this.context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.lessonSaveFailed),
+          action: SnackBarAction(
+            label: l10n.lessonLeaveWithoutSaving,
+            onPressed: _exitApproved,
+          ),
+        ),
+      );
+      return;
+    }
+    _exitApproved();
+  }
+
+  void _exitApproved() {
+    if (!mounted) return;
     setState(() => _allowExit = true);
     // Let PopScope publish the approved state before leaving the route.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) leaveLesson(this.context);
+      if (mounted) leaveLesson(context);
     });
   }
 }

@@ -2204,7 +2204,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get onboardingWelcomeBody =>
-      'Pro lidi žijící v Česku — od prvního slova až ke zkoušce A1.';
+      'Pro lidi žijící v Česku — od prvních slov až po procvičování A1 a A2.';
 
   @override
   String get onboardingHeroImage =>
@@ -3148,4 +3148,20 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get rankDiamond => 'Diamant';
+
+  @override
+  String get lessonSaveFailed =>
+      'Místo v lekci se do telefonu nepodařilo uložit.';
+
+  @override
+  String get lessonLeaveWithoutSaving => 'Odejít bez uložení';
+
+  @override
+  String get lessonResumeLeaveBody =>
+      'Místo v lekci i rozepsaný text zůstanou uložené v tomhle telefonu. Až lekci znovu otevřeš, budeš pokračovat.';
+
+  @override
+  String lessonResumed(int current, int total) {
+    return 'Pokračuješ · otázka $current z $total';
+  }
 }

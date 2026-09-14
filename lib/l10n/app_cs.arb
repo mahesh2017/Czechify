@@ -727,7 +727,7 @@
   "scenarioDoctorImage": "Student mluví s lékařem",
   "scenarioInterviewImage": "Student se účastní pracovního pohovoru",
   "onboardingTagline": "Čeština,\nkterá se\nudrží.",
-  "onboardingWelcomeBody": "Pro lidi žijící v Česku — od prvního slova až ke zkoušce A1.",
+  "onboardingWelcomeBody": "Pro lidi žijící v Česku — od prvních slov až po procvičování A1 a A2.",
   "onboardingHeroImage": "Student procvičuje češtinu s lektorkou v pražské kavárně",
   "onboardingOffline": "Funguje offline — lekce i nahrávky máte v telefonu",
   "onboardingStartFree": "Začít se učit zdarma",
@@ -1004,5 +1004,9 @@
   "rankSilver": "Stříbro",
   "rankGold": "Zlato",
   "rankPlatinum": "Platina",
-  "rankDiamond": "Diamant"
+  "rankDiamond": "Diamant",
+  "lessonSaveFailed": "Místo v lekci se do telefonu nepodařilo uložit.",
+  "lessonLeaveWithoutSaving": "Odejít bez uložení",
+  "lessonResumeLeaveBody": "Místo v lekci i rozepsaný text zůstanou uložené v tomhle telefonu. Až lekci znovu otevřeš, budeš pokračovat.",
+  "lessonResumed": "Pokračuješ · otázka {current} z {total}"
 }

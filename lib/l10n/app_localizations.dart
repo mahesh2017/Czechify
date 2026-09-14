@@ -3863,7 +3863,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeBody.
   ///
   /// In en, this message translates to:
-  /// **'Built for people living in Czechia — from your first word to the A1 exam.'**
+  /// **'Built for people living in Czechia — from your first words through A1 and A2 practice.'**
   String get onboardingWelcomeBody;
 
   /// No description provided for @onboardingHeroImage.
@@ -5443,6 +5443,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Diamond'**
   String get rankDiamond;
+
+  /// No description provided for @lessonSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your place on this phone.'**
+  String get lessonSaveFailed;
+
+  /// No description provided for @lessonLeaveWithoutSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without saving'**
+  String get lessonLeaveWithoutSaving;
+
+  /// No description provided for @lessonResumeLeaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your place in this lesson and anything you’ve written stay saved on this phone. Open the lesson again to carry on.'**
+  String get lessonResumeLeaveBody;
+
+  /// No description provided for @lessonResumed.
+  ///
+  /// In en, this message translates to:
+  /// **'Resumed · question {current} of {total}'**
+  String lessonResumed(int current, int total);
 }
 
 class _AppLocalizationsDelegate

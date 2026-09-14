@@ -2193,7 +2193,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingWelcomeBody =>
-      'Built for people living in Czechia — from your first word to the A1 exam.';
+      'Built for people living in Czechia — from your first words through A1 and A2 practice.';
 
   @override
   String get onboardingHeroImage =>
@@ -3137,4 +3137,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rankDiamond => 'Diamond';
+
+  @override
+  String get lessonSaveFailed => 'Couldn’t save your place on this phone.';
+
+  @override
+  String get lessonLeaveWithoutSaving => 'Leave without saving';
+
+  @override
+  String get lessonResumeLeaveBody =>
+      'Your place in this lesson and anything you’ve written stay saved on this phone. Open the lesson again to carry on.';
+
+  @override
+  String lessonResumed(int current, int total) {
+    return 'Resumed · question $current of $total';
+  }
 }
