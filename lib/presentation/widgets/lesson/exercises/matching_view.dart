@@ -136,20 +136,11 @@ class _MatchingViewState extends State<MatchingView> {
     );
   }
 
-  void _tryAgain() {
-    setState(() {
-      answered = false;
-      _selectedLeftIdx = null;
-      for (final item in _leftItems) {
-        item.matched = false;
-        item.matchedTo = -1;
-      }
-      for (final item in _rightItems) {
-        item.matched = false;
-        item.matchedTo = -1;
-      }
-    });
-  }
+  // No retry lives here. Once the pairs are submitted the result belongs to
+  // the lesson: its Try again re-asks the question, costs a heart and moves
+  // along the feedback ladder. A local retry only cleared the pairs, and the
+  // lesson ignores a second answer while its feedback is showing, so that
+  // re-answer was never recorded.
 
   /// Which pair number a matched item belongs to, in the order the learner
   /// made the matches.
@@ -277,16 +268,6 @@ class _MatchingViewState extends State<MatchingView> {
                             ),
                           ),
                         ),
-                        if (!_isCorrect) ...[
-                          const SizedBox(width: 10),
-                          FilledButton.tonal(
-                            onPressed: _tryAgain,
-                            style: FilledButton.styleFrom(
-                              minimumSize: kRowButtonMinSize,
-                            ),
-                            child: Text(AppLocalizations.of(context).tryAgain),
-                          ),
-                        ],
                       ],
                     ),
                   ),

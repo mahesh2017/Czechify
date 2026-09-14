@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
@@ -309,14 +308,11 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
     );
   }
 
-  void _retry() {
-    setState(() {
-      for (int i = 0; i < _selectedAnswers.length; i++) {
-        _selectedAnswers[i] = null;
-      }
-      submitted = false;
-    });
-  }
+  // No retry lives here. Once the answers are checked the result belongs to
+  // the lesson: its Try again re-asks the question, costs a heart and moves
+  // along the feedback ladder. A local retry only cleared the selections, and
+  // the lesson ignores a second answer while its feedback is showing, so that
+  // re-answer was never recorded.
 
   @override
   Widget build(BuildContext context) {
@@ -351,15 +347,6 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
               ],
             ),
           ),
-          if (submitted)
-            Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: OutlinedButton.icon(
-                onPressed: _retry,
-                icon: const Icon(Icons.refresh, size: 18),
-                label: Text(AppLocalizations.of(context).retry),
-              ),
-            ),
         ],
       );
     }
@@ -414,15 +401,6 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
                     ),
                   ),
                 ),
-                if (!_allCorrect)
-                  OutlinedButton.icon(
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: kRowButtonMinSize,
-                    ),
-                    onPressed: _retry,
-                    icon: const Icon(Icons.refresh, size: 18),
-                    label: Text(AppLocalizations.of(context).retry),
-                  ),
               ],
             ),
           ),
