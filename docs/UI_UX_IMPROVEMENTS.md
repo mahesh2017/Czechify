@@ -171,8 +171,14 @@ and the finished-A1 recommendation.
 - One next lesson: `home_continue_and_revisit_test.dart` (fails against the
   previous Home) and router kind tests; 1,174 tests pass. On the emulator,
   Daily Arrival and Home's Continue learning card both named "Hear Czech in
-  Useful Words · Hear, Read & Repair Czech". The Worth revisiting card was not
-  seen on a device: it needs a finished lesson with repair evidence.
+  Useful Words · Hear, Read & Repair Czech". The Worth revisiting card was then
+  checked by finishing that lesson with unaided misses left standing (3 of 18
+  correct): Home moved Continue learning on to "The First Beat and Long Vowels"
+  and showed "Hear Czech in Useful Words · Worth revisiting · some answers were
+  missed without help" as a separate card directly beneath it, and the lesson's
+  saved checkpoint was removed. On that run the emulator keyboard's floating
+  toolbar covered the first keys of the Czech letter bar, so "á" could not be
+  tapped; a dictation typed through an uncovered key ("ě") was accepted.
 
 Before release, verify the changed screens on Android at normal text and 200%
 text separately, with gesture and three-button navigation, keyboard input and
