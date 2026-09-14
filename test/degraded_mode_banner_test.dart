@@ -39,13 +39,13 @@ void main() {
     final tts = _FakeTts(usingFallback: false);
     await pump(tester, tts);
     expect(find.byType(SizedBox), findsWidgets);
-    expect(find.textContaining('Offline'), findsNothing);
+    expect(find.textContaining('Using your device'), findsNothing);
   });
 
   testWidgets('explains the substitute when one is in use', (tester) async {
     final tts = _FakeTts(usingFallback: true);
     await pump(tester, tts);
-    expect(find.textContaining('Offline'), findsOneWidget);
+    expect(find.textContaining('Using your device'), findsOneWidget);
     expect(find.textContaining('device\'s voice'), findsOneWidget);
   });
 
@@ -53,18 +53,18 @@ void main() {
     final tts = _FakeTts(usingFallback: false);
     final semantics = tester.ensureSemantics();
     await pump(tester, tts);
-    expect(find.textContaining('Offline'), findsNothing);
+    expect(find.textContaining('Using your device'), findsNothing);
 
     tts.usingFallbackVoice.value = true;
     await tester.pump();
-    expect(find.textContaining('Offline'), findsOneWidget);
+    expect(find.textContaining('Using your device'), findsOneWidget);
 
     // Reconnecting must clear it without needing a rebuild of the screen.
     tts.usingFallbackVoice.value = false;
     await tester.pump();
-    expect(find.bySemanticsLabel(RegExp('Offline')), findsNothing);
+    expect(find.bySemanticsLabel(RegExp('Using your device')), findsNothing);
     await tester.pumpAndSettle();
-    expect(find.textContaining('Offline'), findsNothing);
+    expect(find.textContaining('Using your device'), findsNothing);
     semantics.dispose();
   });
 
@@ -76,12 +76,12 @@ void main() {
 
     tts.usingFallbackVoice.value = true;
     await tester.pump();
-    expect(find.textContaining('Offline'), findsOneWidget);
+    expect(find.textContaining('Using your device'), findsOneWidget);
     expect(tester.binding.transientCallbackCount, 0);
 
     tts.usingFallbackVoice.value = false;
     await tester.pump();
-    expect(find.textContaining('Offline'), findsNothing);
+    expect(find.textContaining('Using your device'), findsNothing);
     expect(tester.binding.transientCallbackCount, 0);
   });
 }

@@ -32,10 +32,16 @@ class LessonExerciseViewport extends ConsumerStatefulWidget {
     required this.exercise,
     required this.onAnswered,
     this.answerStreak = 0,
+    this.initialDraft = '',
+    this.onDraftChanged,
   });
 
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
+
+  /// A writing task's saved text, and where its edits are reported.
+  final String initialDraft;
+  final ValueChanged<String>? onDraftChanged;
 
   /// Correct answers in a row *before* this one, so the reward can escalate.
   final int answerStreak;
@@ -191,6 +197,8 @@ class _LessonExerciseViewportState extends ConsumerState<LessonExerciseViewport>
       key: ValueKey(widget.exercise.id),
       exercise: widget.exercise,
       onAnswered: _handleAnswered,
+      initialDraft: widget.initialDraft,
+      onDraftChanged: widget.onDraftChanged,
     );
 
     final composed =

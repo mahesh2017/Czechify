@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 import '../../core/feedback/celebration.dart';
+import '../../data/services/lesson_checkpoint_store.dart';
 import '../../domain/entities/exercise.dart';
 import '../../domain/entities/enums.dart';
 import '../../domain/entities/exercise_outcome.dart';
@@ -18,6 +22,11 @@ import 'review_providers.dart';
 import 'settings_providers.dart';
 
 final _log = Logger('LessonSession');
+
+/// Where an unfinished lesson's position is kept on this device.
+final lessonCheckpointStoreProvider = Provider<LessonCheckpointStore>(
+  (ref) => LessonCheckpointStore(),
+);
 
 /// State of a lesson session.
 class LessonSessionState {
@@ -88,6 +97,21 @@ class LessonSessionState {
   /// passed without any acknowledgement at all.
   final UnitCompleted? unitJustCompleted;
 
+  /// Text the learner had typed into a writing task when the lesson was last
+  /// saved. Read only when the task's field is built; typing after that is
+  /// held by the notifier, so a keystroke does not rebuild the player.
+  final String writingDraft;
+
+  /// True while showing the question a saved lesson was reopened at.
+  final bool resumed;
+
+  /// True when the last attempt to save the lesson's position failed.
+  final bool saveFailed;
+
+  /// Bumped by "Try again" so the same question is built afresh, with none of
+  /// the previous answer's selections left in place.
+  final int retrySeq;
+
   const LessonSessionState({
     this.lesson,
     this.exercises = const [],
@@ -118,6 +142,10 @@ class LessonSessionState {
     this.bestAnswerStreak = 0,
     this.pendingRewards = const [],
     this.unitJustCompleted,
+    this.writingDraft = '',
+    this.resumed = false,
+    this.saveFailed = false,
+    this.retrySeq = 0,
   });
 
   LessonSessionState copyWith({
@@ -152,6 +180,10 @@ class LessonSessionState {
     int? bestAnswerStreak,
     List<Celebration>? pendingRewards,
     UnitCompleted? unitJustCompleted,
+    String? writingDraft,
+    bool? resumed,
+    bool? saveFailed,
+    int? retrySeq,
   }) {
     return LessonSessionState(
       lesson: lesson ?? this.lesson,
@@ -187,6 +219,10 @@ class LessonSessionState {
       bestAnswerStreak: bestAnswerStreak ?? this.bestAnswerStreak,
       pendingRewards: pendingRewards ?? this.pendingRewards,
       unitJustCompleted: unitJustCompleted ?? this.unitJustCompleted,
+      writingDraft: writingDraft ?? this.writingDraft,
+      resumed: resumed ?? this.resumed,
+      saveFailed: saveFailed ?? this.saveFailed,
+      retrySeq: retrySeq ?? this.retrySeq,
     );
   }
 
@@ -223,11 +259,26 @@ class LessonSessionState {
 
   bool get lastWasCorrect => lastOutcome == ExerciseOutcome.correct;
   bool get lastWasSkipped => lastOutcome == ExerciseOutcome.skipped;
+
+  /// Whether the feedback for a wrong answer offers "Try again".
+  ///
+  /// Only on the main pass of a normal lesson, where a miss costs a heart —
+  /// the mistake pass already re-asks, and for free. The offer ends once the
+  /// ladder reaches the full explanation and answer: trying again after that
+  /// would only be copying, so the question returns in the mistake pass.
+  bool get canRetry =>
+      showFeedback &&
+      !isExamMode &&
+      !inMistakeReview &&
+      lastOutcome == ExerciseOutcome.incorrect &&
+      feedbackStep != null &&
+      feedbackStep != FeedbackStep.explanation;
 }
 
 /// Provider that manages a lesson session.
 class LessonSessionNotifier extends Notifier<LessonSessionState> {
   static const _uuid = Uuid();
+  static const _draftSaveDelay = Duration(milliseconds: 800);
   int? _answerInFlightIndex;
   String? _attemptId;
   DateTime? _attemptStartedAt;
@@ -236,8 +287,20 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
   final List<ExerciseAttemptEvidence> _exerciseEvidence = [];
   final Map<int, int> _unsuccessfulAttempts = {};
 
+  /// The loaded exercises, fingerprinted. A saved position is only restored
+  /// into the same content; an update that changes the lesson discards it.
+  String _contentSignature = '';
+
+  /// The writing task's live text. Kept out of [state] so typing does not
+  /// rebuild the player, and saved a moment after the learner stops typing.
+  String _writingDraft = '';
+  Timer? _draftSave;
+
   @override
-  LessonSessionState build() => const LessonSessionState();
+  LessonSessionState build() {
+    ref.onDispose(() => _draftSave?.cancel());
+    return const LessonSessionState();
+  }
 
   /// Load a lesson and its exercises from the database.
   /// Hearts come from the global gamification state (regen applied first),
@@ -250,6 +313,8 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     _presentationStartedAt = DateTime.now();
     _exerciseEvidence.clear();
     _unsuccessfulAttempts.clear();
+    _draftSave?.cancel();
+    _writingDraft = '';
     state = const LessonSessionState();
     final gamification = ref.read(gamificationProvider.notifier);
     await gamification.refreshHearts();
@@ -261,6 +326,18 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     final unit = await repo.getUnit(lesson.unitId);
     final exercises = await repo.getExercises(lessonId);
 
+    _contentSignature = jsonEncode([
+      for (final e in exercises)
+        [
+          e.id,
+          e.type.name,
+          e.prompt,
+          e.data,
+          e.answerKey,
+          e.grammarRuleId,
+          e.xpReward,
+        ],
+    ]);
     final isExamMode = unit.isExamPrep;
     final isReview = lesson.isReview;
 
@@ -289,11 +366,21 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       isExamMode: isExamMode,
       remainingSeconds: isExamMode ? lesson.durationMinutes * 60 : 0,
     );
+    if (!isExamMode) await _restoreCheckpoint();
+  }
+
+  /// Called as the learner types into a writing task.
+  void updateWritingDraft(String text) {
+    if (text == _writingDraft) return;
+    _writingDraft = text;
+    _draftSave?.cancel();
+    _draftSave = Timer(_draftSaveDelay, () => unawaited(_saveCheckpoint()));
   }
 
   /// Leave the teach phase and start the exercises.
-  void startExercises() {
+  Future<void> startExercises() async {
     state = state.copyWith(isTeaching: false);
+    await _saveCheckpoint();
   }
 
   /// Called when the current exercise is answered.
@@ -309,6 +396,9 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     final answerIndex = state.currentIndex;
     if (state.showFeedback || _answerInFlightIndex == answerIndex) return;
     _answerInFlightIndex = answerIndex;
+    // A question already answered in this attempt — through "Try again" or in
+    // the mistake pass — is repair, not a first retrieval.
+    final repeated = _exerciseEvidence.any((e) => e.exerciseId == exercise.id);
     final isCorrect = outcome == ExerciseOutcome.correct;
     final isIncorrect = outcome == ExerciseOutcome.incorrect;
     final isSkipped = outcome == ExerciseOutcome.skipped;
@@ -347,7 +437,11 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       feedbackStep = loopState.feedbackStep;
     }
     if (isIncorrect && !state.mistakesAppended) {
-      mistakeQueue = [...state.mistakeQueue, exercise];
+      // "Try again" can miss the same question more than once; it still comes
+      // back only once in the mistake pass.
+      if (!state.mistakeQueue.any((queued) => queued.id == exercise.id)) {
+        mistakeQueue = [...state.mistakeQueue, exercise];
+      }
     } else if (isIncorrect &&
         state.inMistakeReview &&
         (_unsuccessfulAttempts[exercise.id] ?? 0) < 4) {
@@ -359,7 +453,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
         presentationId: presentationId,
         exerciseId: exercise.id,
         phase:
-            state.inMistakeReview
+            repeated
                 ? ExerciseEvidencePhase.immediateRepair
                 : ExerciseEvidencePhase.initial,
         outcome: outcome,
@@ -379,7 +473,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
                 exerciseId: exercise.id,
                 skill: _learningSkillFor(exercise.type),
                 phase:
-                    state.inMistakeReview
+                    repeated
                         ? LearningPhase.repair
                         : LearningPhase.retrieve,
                 correct: isCorrect,
@@ -423,6 +517,8 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       skippedCount: state.skippedCount + (isSkipped ? 1 : 0),
       hearts: newHearts,
       totalXp: state.totalXp + (isCorrect ? xpEarned : 0),
+      // The feedback ladder: a miss is signalled first, the explanation
+      // arrives on the third, and the answer itself only on the fourth.
       lastExplanation:
           !isIncorrect || (_unsuccessfulAttempts[exercise.id] ?? 0) >= 3
               ? explanation
@@ -438,6 +534,35 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       mistakeQueue: mistakeQueue,
       exercises: exercises,
     );
+    await _saveCheckpoint();
+  }
+
+  /// Saves the lesson's position now, including typing not yet saved.
+  Future<void> saveProgress() => _saveCheckpoint();
+
+  /// Asks the question the learner just missed again, straight away.
+  ///
+  /// The same position is presented afresh rather than a copy inserted after
+  /// it, so "question x of y" and the lesson's progress do not run ahead. Each
+  /// further miss costs another heart and climbs the feedback ladder. A
+  /// writing task keeps its text, so it can be corrected rather than retyped.
+  Future<void> retryCurrentExercise() async {
+    if (!state.canRetry || state.isCompleting) return;
+    if (ref.read(settingsProvider).heartsEnabled && state.hearts <= 0) {
+      state = state.copyWith(isGameOver: true);
+      return;
+    }
+    _answerInFlightIndex = null;
+    _presentationId = _uuid.v4();
+    _presentationStartedAt = DateTime.now();
+    state = state.copyWith(
+      showFeedback: false,
+      clearFeedback: true,
+      writingDraft: _writingDraft,
+      resumed: false,
+      retrySeq: state.retrySeq + 1,
+    );
+    await _saveCheckpoint();
   }
 
   /// Advance to the next exercise or complete the lesson.
@@ -466,9 +591,13 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
           showFeedback: false,
           clearFeedback: true,
           mistakesAppended: true,
+          writingDraft: '',
+          resumed: false,
         );
         _presentationId = _uuid.v4();
         _presentationStartedAt = DateTime.now();
+        _writingDraft = '';
+        await _saveCheckpoint();
         return;
       }
       // Lesson complete
@@ -480,9 +609,13 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       currentIndex: nextIndex,
       showFeedback: false,
       clearFeedback: true,
+      writingDraft: '',
+      resumed: false,
     );
     _presentationId = _uuid.v4();
     _presentationStartedAt = DateTime.now();
+    _writingDraft = '';
+    await _saveCheckpoint();
   }
 
   /// Retry the lesson from the beginning.
@@ -497,6 +630,8 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     _presentationStartedAt = DateTime.now();
     _exerciseEvidence.clear();
     _unsuccessfulAttempts.clear();
+    _draftSave?.cancel();
+    _writingDraft = '';
 
     // Restore the original exercise list (drop any appended mistake re-asks).
     final baseExercises =
@@ -520,6 +655,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       isExamMode: isExamMode,
       remainingSeconds: isExamMode ? (lesson?.durationMinutes ?? 0) * 60 : 0,
     );
+    await _saveCheckpoint();
   }
 
   /// Persist the attempt before showing success or awarding completion XP.
@@ -571,12 +707,173 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
         pendingRewards: rewards,
         unitJustCompleted: await _unitFinishedBy(lesson, completedBefore),
       );
+      await _saveCheckpoint();
     } catch (error, stackTrace) {
       _log.warning('Failed to commit lesson completion', error, stackTrace);
       state = state.copyWith(
         isCompleting: false,
         completionError: 'Couldn’t save this attempt. Please try again.',
       );
+    }
+  }
+
+  /// Saves where this attempt is, so leaving or losing the app does not lose
+  /// it. Device-only, like the mock exam's checkpoint. Exams are not saved
+  /// here, and finishing the lesson removes its entry.
+  Future<void> _saveCheckpoint() async {
+    _draftSave?.cancel();
+    final lesson = state.lesson;
+    if (lesson == null || state.isExamMode) return;
+    final snapshot = state;
+    final checkpoint =
+        snapshot.isComplete
+            ? null
+            : <String, dynamic>{
+              'version': 1,
+              'signature': _contentSignature,
+              'attempt': _attemptId,
+              'started': _attemptStartedAt?.toIso8601String(),
+              'presentation': _presentationId,
+              'index': snapshot.currentIndex,
+              'exercises': [for (final e in snapshot.exercises) e.id],
+              'mistakes': [for (final e in snapshot.mistakeQueue) e.id],
+              'appended': snapshot.mistakesAppended,
+              'correct': snapshot.correctCount,
+              'wrong': snapshot.wrongCount,
+              'skipped': snapshot.skippedCount,
+              'xp': snapshot.totalXp,
+              'streak': snapshot.answerStreak,
+              'bestStreak': snapshot.bestAnswerStreak,
+              'teaching': snapshot.isTeaching,
+              'feedback': snapshot.showFeedback,
+              'outcome': snapshot.lastOutcome?.name,
+              'explanation': snapshot.lastExplanation,
+              'answer': snapshot.lastCorrectAnswer,
+              'rule': snapshot.lastGrammarRuleId,
+              'step': snapshot.feedbackStep?.name,
+              'draft': _writingDraft,
+              'failures': {
+                for (final entry in _unsuccessfulAttempts.entries)
+                  '${entry.key}': entry.value,
+              },
+              'evidence': [
+                for (final e in _exerciseEvidence)
+                  {
+                    'presentation': e.presentationId,
+                    'exercise': e.exerciseId,
+                    'phase': e.phase.name,
+                    'outcome': e.outcome.name,
+                    'answered': e.answeredAt.toIso8601String(),
+                  },
+              ],
+            };
+    try {
+      await ref
+          .read(lessonCheckpointStoreProvider)
+          .write(lesson.id, checkpoint);
+      if (state.lesson?.id == lesson.id && state.saveFailed) {
+        state = state.copyWith(saveFailed: false);
+      }
+    } catch (error, stack) {
+      _log.warning('Could not save lesson checkpoint', error, stack);
+      if (state.lesson?.id == lesson.id) {
+        state = state.copyWith(saveFailed: true);
+      }
+    }
+  }
+
+  /// Puts back a position saved by [_saveCheckpoint], if it still fits.
+  ///
+  /// Anything unreadable, or saved against different content, is discarded
+  /// and the lesson starts from the beginning: a lost position costs a few
+  /// questions, a position replayed into the wrong questions corrupts the
+  /// attempt. Nothing about the attempt changes until every field has parsed.
+  Future<void> _restoreCheckpoint() async {
+    final lesson = state.lesson!;
+    final store = ref.read(lessonCheckpointStoreProvider);
+    try {
+      final saved = await store.load(lesson.id);
+      if (saved == null) return;
+      if (saved['version'] != 1 || saved['signature'] != _contentSignature) {
+        await store.write(lesson.id, null);
+        return;
+      }
+      final byId = {for (final e in state.exercises) e.id: e};
+      Exercise exerciseFor(Object? id) =>
+          byId[id] ?? (throw const FormatException('Unknown exercise'));
+      final exercises = [
+        for (final id in saved['exercises'] as List) exerciseFor(id),
+      ];
+      final index = saved['index'] as int;
+      if (index < 0 || index >= exercises.length) {
+        throw const FormatException('Position outside the lesson');
+      }
+      final evidence =
+          (saved['evidence'] as List).map((raw) {
+            final e = raw as Map;
+            return ExerciseAttemptEvidence(
+              presentationId: e['presentation'] as String,
+              exerciseId: e['exercise'] as int,
+              phase: ExerciseEvidencePhase.values.byName(e['phase'] as String),
+              outcome: ExerciseOutcome.values.byName(e['outcome'] as String),
+              answeredAt: DateTime.parse(e['answered'] as String),
+            );
+          }).toList();
+      final failures = {
+        for (final entry in (saved['failures'] as Map).entries)
+          int.parse(entry.key as String): entry.value as int,
+      };
+      final attemptId = saved['attempt'] as String;
+      final startedAt = DateTime.parse(saved['started'] as String);
+      final presentationId = saved['presentation'] as String;
+      final draft = saved['draft'] as String;
+      final showFeedback = saved['feedback'] as bool;
+      final restored = state.copyWith(
+        exercises: exercises,
+        currentIndex: index,
+        mistakeQueue: [
+          for (final id in saved['mistakes'] as List) exerciseFor(id),
+        ],
+        mistakesAppended: saved['appended'] as bool,
+        correctCount: saved['correct'] as int,
+        wrongCount: saved['wrong'] as int,
+        skippedCount: saved['skipped'] as int,
+        totalXp: saved['xp'] as int,
+        answerStreak: saved['streak'] as int,
+        bestAnswerStreak: saved['bestStreak'] as int,
+        isTeaching: saved['teaching'] as bool,
+        showFeedback: showFeedback,
+        lastOutcome: switch (saved['outcome']) {
+          final String name => ExerciseOutcome.values.byName(name),
+          _ => null,
+        },
+        lastExplanation: saved['explanation'] as String?,
+        lastCorrectAnswer: saved['answer'] as String?,
+        lastGrammarRuleId: saved['rule'] as String?,
+        feedbackStep: switch (saved['step']) {
+          final String name => FeedbackStep.values.byName(name),
+          _ => null,
+        },
+        writingDraft: draft,
+        // Reopening before answering anything is simply starting.
+        resumed: index > 0 || showFeedback,
+      );
+      _attemptId = attemptId;
+      _attemptStartedAt = startedAt;
+      _presentationId = presentationId;
+      // Time away is not response latency.
+      _presentationStartedAt = DateTime.now();
+      _exerciseEvidence.addAll(evidence);
+      _unsuccessfulAttempts.addAll(failures);
+      _writingDraft = draft;
+      state = restored;
+    } catch (error, stack) {
+      _log.fine('Discarding unreadable lesson checkpoint', error, stack);
+      try {
+        await store.write(lesson.id, null);
+      } catch (_) {
+        // Still unreadable next time, and discarded again then.
+      }
     }
   }
 

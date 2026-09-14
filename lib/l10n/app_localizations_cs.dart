@@ -783,7 +783,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get reviewEndBody =>
-      'Váš pokrok bude uložen. Můžete pokračovat později.';
+      'Dokončená opakování jsou uložená. Nedokončené kartičky zůstanou připravené k dalšímu opakování.';
 
   @override
   String get reviewStay => 'Zůstat';
@@ -1232,8 +1232,14 @@ class AppLocalizationsCs extends AppLocalizations {
   String get reviewSayItThenTypeIt => 'Řekněte to a pak napište';
 
   @override
+  String get reviewDontRemember => 'Nevzpomínám si';
+
+  @override
+  String get reviewPractiseAgain => 'Procvičit znovu';
+
+  @override
   String get reviewOvertAttemptNote =>
-      'Zkuste odpovědět dřív, než si odpověď zobrazíte.';
+      'Zkuste si vybavit odpověď, nebo zvolte „Nevzpomínám si“.';
 
   @override
   String get reviewWhatDoesItMean => 'Co to znamená?';
@@ -2198,7 +2204,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get onboardingWelcomeBody =>
-      'Pro lidi žijící v Česku — od prvního slova až ke zkoušce A1.';
+      'Pro lidi žijící v Česku — od prvních slov až po procvičování A1 a A2.';
 
   @override
   String get onboardingHeroImage =>
@@ -3142,4 +3148,32 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get rankDiamond => 'Diamant';
+
+  @override
+  String get lessonSaveFailed =>
+      'Místo v lekci se do telefonu nepodařilo uložit.';
+
+  @override
+  String get lessonLeaveWithoutSaving => 'Odejít bez uložení';
+
+  @override
+  String get lessonResumeLeaveBody =>
+      'Místo v lekci i rozepsaný text zůstanou uložené v tomhle telefonu. Až lekci znovu otevřeš, budeš pokračovat.';
+
+  @override
+  String get homeRevisitDelayed =>
+      'Stojí za zopakování · pozdější kontrola se ještě nepovedla';
+
+  @override
+  String get homeRevisitIndependent =>
+      'Stojí za zopakování · některé odpovědi bez nápovědy nevyšly';
+
+  @override
+  String get homeRevisitSupport =>
+      'Stojí za zopakování · pomáhaly ti nápovědy a opakovaný poslech';
+
+  @override
+  String lessonResumed(int current, int total) {
+    return 'Pokračuješ · otázka $current z $total';
+  }
 }

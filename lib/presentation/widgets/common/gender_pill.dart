@@ -18,13 +18,13 @@ import '../../../l10n/app_localizations.dart';
   // The abbreviations are grammatical terms, not Czech content: a German
   // speaker learning Czech needs "mask. belebt", not "masc anim".
   if (v.startsWith('fem')) {
-    return (label: l10n.genderFeminine, bg: t.redSoft, fg: t.red);
+    return (label: l10n.genderFeminine, bg: t.redSoft, fg: t.redInk);
   }
   if (v.startsWith('neut')) {
-    return (label: l10n.genderNeuter, bg: t.amberSoft, fg: t.amber);
+    return (label: l10n.genderNeuter, bg: t.amberSoft, fg: t.amberInk);
   }
   if (v.contains('inanimate')) {
-    return (label: l10n.genderMascInanimate, bg: t.violetSoft, fg: t.violet);
+    return (label: l10n.genderMascInanimate, bg: t.violetSoft, fg: t.violetInk);
   }
   if (v.startsWith('masc')) {
     return (label: l10n.genderMascAnimate, bg: t.priSoft, fg: t.priInk);

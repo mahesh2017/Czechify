@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../domain/engines/learning_router.dart';
+import '../../../domain/entities/enums.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/app_update_providers.dart';
@@ -288,6 +290,7 @@ class HomeScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(22, 16, 22, 132),
               child: Column(
                 children: [
+                  const _RevisitLessonCard(),
                   if (learnerProfile.hasValue &&
                       learnerProfile.value?.primaryGoal == null) ...[
                     const _PersonalizePlanCard(),
@@ -297,6 +300,19 @@ class HomeScreen extends ConsumerWidget {
                     const _CzechVoiceHint(),
                     const SizedBox(height: 12),
                   ],
+                  _ShortcutRow(
+                    icon: Icons.assignment_outlined,
+                    tint: t.violetSoft,
+                    fg: t.violetInk,
+                    title: l10n.homeMockExam,
+                    subtitle:
+                        '${settings.startingLevel == CEFRLevel.a2 ? 'A2' : 'A1'} · ${l10n.examInformalNote}',
+                    onTap:
+                        () => context.push(
+                          '/exam/${settings.startingLevel == CEFRLevel.a2 ? 'a2' : 'a1'}',
+                        ),
+                  ),
+                  const SizedBox(height: 12),
                   _DailyGoalHero(
                     dailyXp: g.dailyXp,
                     // The goal is a setting, and settings own it: that is the
@@ -725,14 +741,44 @@ class _WeekStrip extends StatelessWidget {
   }
 }
 
-/// Continue-learning card — next uncompleted lesson.
+/// A finished lesson worth another look, shown under the next lesson and never
+/// in its place — see [revisitLessonProvider]. Nothing when there is none.
+class _RevisitLessonCard extends ConsumerWidget {
+  const _RevisitLessonCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final revisit = ref.watch(revisitLessonProvider).value;
+    if (revisit == null) return const SizedBox.shrink();
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: _ShortcutRow(
+        icon: Icons.replay_rounded,
+        tint: t.priSoft,
+        fg: t.pri,
+        title: revisit.lesson.title,
+        subtitle: switch (revisit.kind) {
+          LearningRouteKind.delayedTransferRepair => l10n.homeRevisitDelayed,
+          LearningRouteKind.supportRepair => l10n.homeRevisitSupport,
+          _ => l10n.homeRevisitIndependent,
+        },
+        onTap: () => context.push('/lesson/${revisit.lesson.id}'),
+      ),
+    );
+  }
+}
+
+/// Continue-learning card — the lesson after the one the learner last
+/// finished, the same lesson Daily Arrival offers.
 class _ContinueLearningCard extends ConsumerWidget {
   const _ContinueLearningCard();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    final nextAsync = ref.watch(nextLessonProvider);
+    final nextAsync = ref.watch(continueLessonProvider);
 
     return nextAsync.when(
       loading:
@@ -847,8 +893,10 @@ class _ContinueLearningCard extends ConsumerWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 5),
+                                // The unit alone: the router's reason is
+                                // untranslated, and "continue" needs none.
                                 Text(
-                                  '${next.unitTitle} · ${next.reason}',
+                                  next.unitTitle,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(

@@ -15,11 +15,15 @@ import 'exercise_shared.dart';
 class WritingTaskView extends StatefulWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
+  final String initialDraft;
+  final ValueChanged<String>? onDraftChanged;
 
   const WritingTaskView({
     super.key,
     required this.exercise,
     required this.onAnswered,
+    this.initialDraft = '',
+    this.onDraftChanged,
   });
 
   @override
@@ -41,10 +45,12 @@ class _WritingTaskViewState extends State<WritingTaskView> {
     super.initState();
     // Listen to the controller rather than only TextField.onChanged so the
     // word count and CTA also react to CzechCharBar's programmatic edits.
+    _controller.text = widget.initialDraft;
     _controller.addListener(_draftChanged);
   }
 
   void _draftChanged() {
+    widget.onDraftChanged?.call(_controller.text);
     if (mounted) setState(() {});
   }
 
@@ -124,16 +130,11 @@ class _WritingTaskViewState extends State<WritingTaskView> {
     });
   }
 
-  void _retry() {
-    setState(() {
-      answered = false;
-      _wordCount = 0;
-      _meetsMinWords = false;
-      _feedbackText = '';
-      _firstDraft = '';
-      _revisionStage = false;
-    });
-  }
+  // No retry after submitting. The draft is reworked before that, in the
+  // review-then-revise step. Once submitted, the result belongs to the lesson,
+  // which ignores a second answer while its feedback is showing — a rewrite
+  // here was never recorded — and the reference answer is on screen by then,
+  // so writing again would mostly be copying it.
 
   @override
   Widget build(BuildContext context) {
@@ -425,14 +426,6 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                               ),
                             ),
                           ],
-
-                          // Retry button
-                          const SizedBox(height: 12),
-                          OutlinedButton.icon(
-                            onPressed: _retry,
-                            icon: const Icon(Icons.refresh, size: 18),
-                            label: Text(AppLocalizations.of(context).tryAgain),
-                          ),
                         ],
                       ),
                     ),

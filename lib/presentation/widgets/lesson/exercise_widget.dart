@@ -37,11 +37,15 @@ export 'exercises/exercise_shared.dart'
 class ExerciseWidget extends StatelessWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
+  final String initialDraft;
+  final ValueChanged<String>? onDraftChanged;
 
   const ExerciseWidget({
     super.key,
     required this.exercise,
     required this.onAnswered,
+    this.initialDraft = '',
+    this.onDraftChanged,
   });
 
   @override
@@ -108,6 +112,8 @@ class ExerciseWidget extends StatelessWidget {
         onAnswered: onAnswered,
       ),
       ExerciseType.writingTask => WritingTaskView(
+        initialDraft: initialDraft,
+        onDraftChanged: onDraftChanged,
         exercise: exercise,
         onAnswered: onAnswered,
       ),

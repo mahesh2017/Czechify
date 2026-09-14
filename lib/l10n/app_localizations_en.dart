@@ -782,7 +782,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reviewEndBody =>
-      'Your progress will be saved. You can continue later.';
+      'Completed reviews are saved. Unfinished cards stay due for your next review.';
 
   @override
   String get reviewStay => 'Stay';
@@ -1229,8 +1229,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reviewSayItThenTypeIt => 'Say it, then type it';
 
   @override
+  String get reviewDontRemember => 'I don’t remember';
+
+  @override
+  String get reviewPractiseAgain => 'Practise again';
+
+  @override
   String get reviewOvertAttemptNote =>
-      'Make an overt attempt before revealing.';
+      'Try recalling the answer, or choose “I don’t remember”.';
 
   @override
   String get reviewWhatDoesItMean => 'What does it mean?';
@@ -2187,7 +2193,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingWelcomeBody =>
-      'Built for people living in Czechia — from your first word to the A1 exam.';
+      'Built for people living in Czechia — from your first words through A1 and A2 practice.';
 
   @override
   String get onboardingHeroImage =>
@@ -3131,4 +3137,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rankDiamond => 'Diamond';
+
+  @override
+  String get lessonSaveFailed => 'Couldn’t save your place on this phone.';
+
+  @override
+  String get lessonLeaveWithoutSaving => 'Leave without saving';
+
+  @override
+  String get lessonResumeLeaveBody =>
+      'Your place in this lesson and anything you’ve written stay saved on this phone. Open the lesson again to carry on.';
+
+  @override
+  String get homeRevisitDelayed =>
+      'Worth revisiting · a later check didn’t hold yet';
+
+  @override
+  String get homeRevisitIndependent =>
+      'Worth revisiting · some answers were missed without help';
+
+  @override
+  String get homeRevisitSupport =>
+      'Worth revisiting · you leaned on hints and replays';
+
+  @override
+  String lessonResumed(int current, int total) {
+    return 'Resumed · question $current of $total';
+  }
 }

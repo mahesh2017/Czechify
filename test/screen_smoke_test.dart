@@ -74,6 +74,7 @@ void main() {
         databaseProvider.overrideWithValue(database),
         gamificationProvider.overrideWith(TestGamificationNotifier.new),
         nextLessonProvider.overrideWith((ref) async => nextLesson),
+        continueLessonProvider.overrideWith((ref) async => nextLesson),
         dueCardCountProvider.overrideWith((ref) async => 8),
         // Reaches a platform channel for the installed voices.
         czechTtsAvailableProvider.overrideWith((ref) async => true),

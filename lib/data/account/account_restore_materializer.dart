@@ -137,6 +137,7 @@ class AccountRestoreMaterializer {
     'settings_catch_up_enabled',
     'srs_new_cards_today',
     'srs_new_cards_date',
+    'lesson_checkpoints',
     'exam_checkpoint_a1',
     'exam_checkpoint_a2',
   };

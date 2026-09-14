@@ -1457,7 +1457,7 @@ abstract class AppLocalizations {
   /// No description provided for @reviewEndBody.
   ///
   /// In en, this message translates to:
-  /// **'Your progress will be saved. You can continue later.'**
+  /// **'Completed reviews are saved. Unfinished cards stay due for your next review.'**
   String get reviewEndBody;
 
   /// No description provided for @reviewStay.
@@ -2228,10 +2228,22 @@ abstract class AppLocalizations {
   /// **'Say it, then type it'**
   String get reviewSayItThenTypeIt;
 
+  /// No description provided for @reviewDontRemember.
+  ///
+  /// In en, this message translates to:
+  /// **'I don’t remember'**
+  String get reviewDontRemember;
+
+  /// No description provided for @reviewPractiseAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise again'**
+  String get reviewPractiseAgain;
+
   /// No description provided for @reviewOvertAttemptNote.
   ///
   /// In en, this message translates to:
-  /// **'Make an overt attempt before revealing.'**
+  /// **'Try recalling the answer, or choose “I don’t remember”.'**
   String get reviewOvertAttemptNote;
 
   /// No description provided for @reviewWhatDoesItMean.
@@ -3851,7 +3863,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcomeBody.
   ///
   /// In en, this message translates to:
-  /// **'Built for people living in Czechia — from your first word to the A1 exam.'**
+  /// **'Built for people living in Czechia — from your first words through A1 and A2 practice.'**
   String get onboardingWelcomeBody;
 
   /// No description provided for @onboardingHeroImage.
@@ -5431,6 +5443,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Diamond'**
   String get rankDiamond;
+
+  /// No description provided for @lessonSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your place on this phone.'**
+  String get lessonSaveFailed;
+
+  /// No description provided for @lessonLeaveWithoutSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without saving'**
+  String get lessonLeaveWithoutSaving;
+
+  /// No description provided for @lessonResumeLeaveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your place in this lesson and anything you’ve written stay saved on this phone. Open the lesson again to carry on.'**
+  String get lessonResumeLeaveBody;
+
+  /// No description provided for @homeRevisitDelayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Worth revisiting · a later check didn’t hold yet'**
+  String get homeRevisitDelayed;
+
+  /// No description provided for @homeRevisitIndependent.
+  ///
+  /// In en, this message translates to:
+  /// **'Worth revisiting · some answers were missed without help'**
+  String get homeRevisitIndependent;
+
+  /// No description provided for @homeRevisitSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Worth revisiting · you leaned on hints and replays'**
+  String get homeRevisitSupport;
+
+  /// No description provided for @lessonResumed.
+  ///
+  /// In en, this message translates to:
+  /// **'Resumed · question {current} of {total}'**
+  String lessonResumed(int current, int total);
 }
 
 class _AppLocalizationsDelegate

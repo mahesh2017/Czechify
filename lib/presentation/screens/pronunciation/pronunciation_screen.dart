@@ -75,115 +75,132 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     return Scaffold(
       backgroundColor: t.bg,
       appBar: AppBar(backgroundColor: t.bg, title: Text(l10n.pronunciationLab)),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // What to say, on the hero surface — hearing it and saying it are
-            // the whole screen.
-            TeachingHeroCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Center(child: LessonKicker(l10n.sayThis, color: t.pri)),
-                  const SizedBox(height: 12),
-                  MotionSwap(
-                    child: Text(
-                      pronState.expectedText,
-                      key: ValueKey(pronState.expectedText),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: AppFonts.display,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w800,
-                        height: 1.15,
-                        color: t.ink,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // What to say, on the hero surface — hearing it and saying it are
+                    // the whole screen.
+                    TeachingHeroCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Center(
+                            child: LessonKicker(l10n.sayThis, color: t.pri),
+                          ),
+                          const SizedBox(height: 12),
+                          MotionSwap(
+                            child: Text(
+                              pronState.expectedText,
+                              key: ValueKey(pronState.expectedText),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: AppFonts.display,
+                                fontSize: 32,
+                                fontWeight: FontWeight.w800,
+                                height: 1.15,
+                                color: t.ink,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          AudioPairButtons(
+                            onPlay:
+                                () => ref
+                                    .read(czechTtsProvider)
+                                    .speak(pronState.expectedText),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  AudioPairButtons(
-                    onPlay:
-                        () => ref
-                            .read(czechTtsProvider)
-                            .speak(pronState.expectedText),
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
+                    const Spacer(),
 
-            // These are lightweight status views; the microphone remains in
-            // the provider and record control below, never in an outgoing
-            // AnimatedSwitcher subtree.
-            MotionSwap(child: _pronunciationStage(context, pronState)),
+                    // These are lightweight status views; the microphone remains in
+                    // the provider and record control below, never in an outgoing
+                    // AnimatedSwitcher subtree.
+                    MotionSwap(child: _pronunciationStage(context, pronState)),
 
-            const Spacer(),
+                    const Spacer(),
 
-            // Record button — the mic ring is the app's only live state.
-            RecordButton(
-              isRecording: pronState.isRecording,
-              onPressed:
-                  pronState.isProcessing
-                      ? null
-                      : () {
-                        if (pronState.isRecording) {
-                          ref
-                              .read(pronunciationProvider.notifier)
-                              .stopRecording();
-                        } else {
-                          ref
-                              .read(pronunciationProvider.notifier)
-                              .startRecording(
-                                expectedText: pronState.expectedText,
-                              );
-                        }
-                      },
-            ),
-            const SizedBox(height: 16),
-
-            // Try again / next phrase
-            MotionSwap(
-              alignment: Alignment.topCenter,
-              child:
-                  pronState.result != null
-                      ? Row(
-                        key: const ValueKey('result-actions'),
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton.icon(
-                            onPressed: () {
-                              ref.read(pronunciationProvider.notifier).reset();
-                            },
-                            icon: const Icon(Icons.refresh),
-                            label: Text(l10n.tryAgain),
-                          ),
-                          if (!_singlePhrase) ...[
-                            const SizedBox(width: 16),
-                            TextButton.icon(
-                              onPressed: () {
-                                setState(() => _deckIndex++);
-                                ref
-                                    .read(pronunciationProvider.notifier)
-                                    .reset();
+                    // Record button — the mic ring is the app's only live state.
+                    RecordButton(
+                      isRecording: pronState.isRecording,
+                      onPressed:
+                          pronState.isProcessing
+                              ? null
+                              : () {
+                                if (pronState.isRecording) {
+                                  ref
+                                      .read(pronunciationProvider.notifier)
+                                      .stopRecording();
+                                } else {
+                                  ref
+                                      .read(pronunciationProvider.notifier)
+                                      .startRecording(
+                                        expectedText: pronState.expectedText,
+                                      );
+                                }
                               },
-                              icon: const Icon(Icons.arrow_forward),
-                              label: Text(l10n.nextPhrase),
-                            ),
-                          ],
-                        ],
-                      )
-                      : !_singlePhrase &&
-                          !pronState.isRecording &&
-                          !pronState.isProcessing
-                      ? TextButton.icon(
-                        key: const ValueKey('skip-action'),
-                        onPressed: () => setState(() => _deckIndex++),
-                        icon: const Icon(Icons.skip_next),
-                        label: Text(l10n.skip),
-                      )
-                      : const SizedBox.shrink(key: ValueKey('no-actions')),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Try again / next phrase
+                    MotionSwap(
+                      alignment: Alignment.topCenter,
+                      child:
+                          pronState.result != null
+                              ? Wrap(
+                                key: const ValueKey('result-actions'),
+                                alignment: WrapAlignment.center,
+                                spacing: 16,
+                                children: [
+                                  TextButton.icon(
+                                    onPressed: () {
+                                      ref
+                                          .read(pronunciationProvider.notifier)
+                                          .reset();
+                                    },
+                                    icon: const Icon(Icons.refresh),
+                                    label: Text(l10n.tryAgain),
+                                  ),
+                                  if (!_singlePhrase) ...[
+                                    TextButton.icon(
+                                      onPressed: () {
+                                        setState(() => _deckIndex++);
+                                        ref
+                                            .read(
+                                              pronunciationProvider.notifier,
+                                            )
+                                            .reset();
+                                      },
+                                      icon: const Icon(Icons.arrow_forward),
+                                      label: Text(l10n.nextPhrase),
+                                    ),
+                                  ],
+                                ],
+                              )
+                              : !_singlePhrase &&
+                                  !pronState.isRecording &&
+                                  !pronState.isProcessing
+                              ? TextButton.icon(
+                                key: const ValueKey('skip-action'),
+                                onPressed: () => setState(() => _deckIndex++),
+                                icon: const Icon(Icons.skip_next),
+                                label: Text(l10n.skip),
+                              )
+                              : const SizedBox.shrink(
+                                key: ValueKey('no-actions'),
+                              ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

@@ -29,8 +29,8 @@ class DegradedModeBanner extends ConsumerWidget {
           child: const _Notice(
             icon: Icons.cloud_off_rounded,
             message:
-                'Offline — using your device\'s voice. Connect to hear the '
-                'recorded Czech voice.',
+                'Using your device\'s voice — the recorded Czech voice '
+                'is unavailable right now.',
           ),
         );
       },
@@ -58,12 +58,12 @@ class _Notice extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, size: 16, color: t.amber),
+          Icon(icon, size: 16, color: t.amberInk),
           const SizedBox(width: 9),
           Expanded(
             child: Text(
               message,
-              style: TextStyle(fontSize: 13, height: 1.35, color: t.amber),
+              style: TextStyle(fontSize: 13, height: 1.35, color: t.amberInk),
             ),
           ),
         ],
