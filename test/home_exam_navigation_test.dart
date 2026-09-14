@@ -24,6 +24,7 @@ void main() {
         overrides: [
           gamificationProvider.overrideWith(TestGamificationNotifier.new),
           nextLessonProvider.overrideWith((ref) async => null),
+          continueLessonProvider.overrideWith((ref) async => null),
           dueCardCountProvider.overrideWith((ref) async => 0),
           dueTransferProvider.overrideWith((ref) async => []),
           czechTtsAvailableProvider.overrideWith((ref) async => true),

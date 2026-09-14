@@ -49,11 +49,51 @@ shortcut is an initial discovery improvement, not the full proposed Exams hub.
 This batch does not add draft persistence across leaving the screen or restarting
 the app. It uses the existing review scheduler and saved-rating behavior.
 
+## Third implementation batch: lesson recovery
+
+Product decisions, 14 September 2026: hearts stay on by default; the graduated
+feedback ladder stays, with Try again added on top of it; onboarding keeps its
+teacher-voice and reminder steps; Daily Arrival stays and offers the lesson
+after the one last finished.
+
+- **Resume.** An unfinished normal lesson saves its position on this phone after
+  every answer, when the teach phase ends, when Leave is chosen and when the app
+  goes to the background. Reopening it continues at the same question with the
+  same score, mistake queue and feedback-ladder state. Mock exams keep their own
+  checkpoint and are not saved here. Finishing the lesson removes its entry;
+  changed lesson content, or a save that cannot be read, starts the lesson over.
+  Entries are cleared with the other account-scoped preferences.
+- **Writing drafts.** Typing is saved 0.8 s after it stops and restored into the
+  writing task. The revision stage after a first submission is not saved.
+- **Try again.** After a wrong answer on the main pass of a normal lesson, the
+  same question can be asked again straight away. Every miss costs a heart. The
+  explanation still appears on the third miss and the answer on the fourth, and
+  Try again is not offered after that. The question returns once in the mistake
+  pass either way. Exams and the mistake pass do not offer it.
+- **Leaving when saving fails.** The learner is told, and can choose Leave
+  without saving.
+- **One next lesson everywhere.** Daily Arrival, Home's Continue learning card
+  and the Pronunciation Lab deck all use the next unfinished, unlocked lesson
+  after the one most recently finished, or the first at the chosen level when
+  none is. Home's card shows the unit name instead of the router's
+  untranslated reason.
+- **Worth revisiting.** When the evidence-weighted router picks a finished
+  lesson for repair (a later check that didn't hold, unaided misses, or
+  reliance on hints and replays) and it is not already the next lesson, Home
+  shows it as a separate card under Continue learning, with a translated
+  reason. It never replaces the next lesson. Decided 14 September 2026.
+- **Home recommendation fix (first batch).** Finished lessons at the starting
+  level no longer hold a learner there: an A1 starter who has finished A1 is
+  recommended A2 instead of completed A1 lessons.
+
+Held back for their own work: the unused Exams, Practice and Downloads strings,
+48 dp touch-target resizing (it pushed the pronunciation retry controls out of
+view) and the Android Settings page presentation.
+
 ## Next work, in order
 
-1. **Practice and recovery:** persist session position and writing drafts;
-   provide a clear lesson retry, hint and explanation sequence. Revisit default heart
-   interruptions while keeping exam simulation rules explicit.
+1. **Practice and recovery (remaining):** verify resume, drafts, Try again and
+   the Worth revisiting card on physical devices.
 2. **Today, Exams and Progress:** prototype these screens together. Today
    should show one suitable session with duration and rationale. Exams should
    explain supported coverage and offer section practice and attempts. Progress
@@ -95,6 +135,44 @@ implementation commit.
 - Second batch: `flutter analyze --no-pub` and `git diff --check` passed.
 - The full 1,125-test run above belongs to the first batch; the second batch
   reran the affected review, navigation and screen tests.
+
+Third-batch checks cover resume after a fresh start of the app state, draft
+save after typing stops, feedback-ladder continuity across a resume, removal on
+completion, discarding changed or damaged checkpoints, exam exclusion, store
+write ordering, Try again hearts and ladder limits, draft wiring into the
+writing task, Leave without saving, Daily Arrival's continue-lesson selection
+and the finished-A1 recommendation.
+
+- Third batch: `flutter analyze --no-pub`: no issues found.
+- Third batch: `flutter test --no-pub`: all 1,161 tests passed.
+- Third batch, Android emulator (Pixel 10 Pro, API 37, offline debug build,
+  fresh install, 100% text, gesture navigation), 14 September 2026: onboarding
+  showed all seven steps including teacher voice and reminders; Leave showed the
+  new message and reopening resumed at question 2 of 10; after a force-stop,
+  Daily Arrival appeared on relaunch offering the first A1 lesson, and starting
+  it resumed at question 2 of 10; on a listening question, four misses in a row
+  went 5 → 1 hearts with the signal, self-repair, cue-plus-explanation and
+  answer steps in order, Try again was offered for the first three and not after
+  the answer was shown.
+- Not exercised on a device: writing-draft restore (no writing task in the
+  first unlocked lesson), Leave without saving (needs failing storage), 200%
+  text, three-button navigation and TalkBack.
+- Found on the device and fixed: listening comprehension, matching and writing
+  tasks showed their own Retry or Try again after submitting, beside the
+  lesson's Try again. Those controls only cleared the answer, and the lesson
+  ignores a second answer while its feedback is showing, so the re-answer was
+  never recorded. They are removed; the lesson's Try again is the only retry.
+  Pronunciation keeps its record-again control, which comes before the attempt
+  is submitted. The delayed-transfer screen replaces the exercise once
+  answered, so no use of these views needed its own retry. Covered by
+  `in_exercise_retry_test.dart` and `lesson_single_retry_control_test.dart`
+  (the latter fails against the previous listening view); 1,166 tests pass,
+  and the emulator showed a single Try again after a missed listening question.
+- One next lesson: `home_continue_and_revisit_test.dart` (fails against the
+  previous Home) and router kind tests; 1,174 tests pass. On the emulator,
+  Daily Arrival and Home's Continue learning card both named "Hear Czech in
+  Useful Words · Hear, Read & Repair Czech". The Worth revisiting card was not
+  seen on a device: it needs a finished lesson with repair evidence.
 
 Before release, verify the changed screens on Android at normal text and 200%
 text separately, with gesture and three-button navigation, keyboard input and

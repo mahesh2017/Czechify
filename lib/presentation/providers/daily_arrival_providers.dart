@@ -40,7 +40,9 @@ final dailyArrivalStateProvider = FutureProvider<DailyArrivalState>((
     ref.read(settingsProvider.notifier).ready,
   ]);
   final gamification = ref.read(gamificationProvider);
-  final nextLesson = await ref.watch(nextLessonProvider.future);
+  // The lesson after the last one finished, not Home's evidence-weighted
+  // pick: a greeting that says "continue" should mean exactly that.
+  final nextLesson = await ref.watch(continueLessonProvider.future);
   final dueReviews = await ref.watch(dueCardCountProvider.future);
   final stored = await ref.read(databaseProvider).gamificationDao.load();
   final lastActivity = DateTime.tryParse(stored?.lastOpenDate ?? '');

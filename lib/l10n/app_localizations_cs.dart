@@ -3161,6 +3161,18 @@ class AppLocalizationsCs extends AppLocalizations {
       'Místo v lekci i rozepsaný text zůstanou uložené v tomhle telefonu. Až lekci znovu otevřeš, budeš pokračovat.';
 
   @override
+  String get homeRevisitDelayed =>
+      'Stojí za zopakování · pozdější kontrola se ještě nepovedla';
+
+  @override
+  String get homeRevisitIndependent =>
+      'Stojí za zopakování · některé odpovědi bez nápovědy nevyšly';
+
+  @override
+  String get homeRevisitSupport =>
+      'Stojí za zopakování · pomáhaly ti nápovědy a opakovaný poslech';
+
+  @override
   String lessonResumed(int current, int total) {
     return 'Pokračuješ · otázka $current z $total';
   }

@@ -18,15 +18,33 @@ class LearningCandidate {
   });
 }
 
+/// Why the router chose a lesson, so a screen can word it in the learner's
+/// language instead of showing [LearningRoute.reason].
+enum LearningRouteKind {
+  delayedTransferRepair,
+  independentRepair,
+  supportRepair,
+  maintain,
+  newWork;
+
+  /// The learner's own answers say this lesson needs another look.
+  bool get isRepair =>
+      this == delayedTransferRepair ||
+      this == independentRepair ||
+      this == supportRepair;
+}
+
 class LearningRoute {
   final int lessonId;
   final double priority;
   final String reason;
+  final LearningRouteKind kind;
 
   const LearningRoute({
     required this.lessonId,
     required this.priority,
     required this.reason,
+    this.kind = LearningRouteKind.newWork,
   });
 }
 
@@ -40,9 +58,13 @@ class LearningRouter {
     required Set<int> accessibleLessonIds,
     required List<LearningEvidence> evidence,
   }) {
+    // Only unfinished work at the preferred level holds the learner there.
+    // Counting finished lessons stranded an A1 starter on completed A1 work
+    // once A2 opened, because the starting level never changes.
     final hasPreferredLevel = candidates.any(
       (candidate) =>
           candidate.isPreferredLevel &&
+          !candidate.completed &&
           accessibleLessonIds.contains(candidate.lessonId),
     );
     LearningRoute? best;
@@ -96,21 +118,31 @@ class LearningRouter {
       if (relevant.isEmpty) priority += 6;
       priority -= candidate.order / 1000;
 
-      final reason =
+      final kind =
           delayedFailures > 0
-              ? 'Delayed transfer needs repair'
+              ? LearningRouteKind.delayedTransferRepair
               : failures > 0
-              ? 'Independent practice needs reinforcement'
+              ? LearningRouteKind.independentRepair
               : supportCount > 0
-              ? 'Reduce support dependence'
+              ? LearningRouteKind.supportRepair
               : candidate.completed
-              ? 'Maintain retained performance'
-              : 'Continue with new accessible work';
+              ? LearningRouteKind.maintain
+              : LearningRouteKind.newWork;
+      final reason = switch (kind) {
+        LearningRouteKind.delayedTransferRepair =>
+          'Delayed transfer needs repair',
+        LearningRouteKind.independentRepair =>
+          'Independent practice needs reinforcement',
+        LearningRouteKind.supportRepair => 'Reduce support dependence',
+        LearningRouteKind.maintain => 'Maintain retained performance',
+        LearningRouteKind.newWork => 'Continue with new accessible work',
+      };
       if (best == null || priority > best.priority) {
         best = LearningRoute(
           lessonId: candidate.lessonId,
           priority: priority,
           reason: reason,
+          kind: kind,
         );
       }
     }

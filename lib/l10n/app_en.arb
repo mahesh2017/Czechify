@@ -1291,6 +1291,9 @@
   "lessonSaveFailed": "Couldn’t save your place on this phone.",
   "lessonLeaveWithoutSaving": "Leave without saving",
   "lessonResumeLeaveBody": "Your place in this lesson and anything you’ve written stay saved on this phone. Open the lesson again to carry on.",
+  "homeRevisitDelayed": "Worth revisiting · a later check didn’t hold yet",
+  "homeRevisitIndependent": "Worth revisiting · some answers were missed without help",
+  "homeRevisitSupport": "Worth revisiting · you leaned on hints and replays",
   "lessonResumed": "Resumed · question {current} of {total}",
   "@lessonResumed": {
     "placeholders": {

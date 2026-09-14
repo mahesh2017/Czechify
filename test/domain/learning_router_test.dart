@@ -54,6 +54,79 @@ void main() {
     expect(route?.lessonId, 1);
   });
 
+  test('an A1 starter who has finished A1 moves on to A2', () {
+    // The starting level never changes after onboarding. Counting finished
+    // A1 lessons as "work at the preferred level" kept this learner on lesson
+    // 1 for good, with "Maintain retained performance" as the reason.
+    final route = const LearningRouter().select(
+      candidates: const [
+        LearningCandidate(
+          lessonId: 1,
+          order: 1,
+          completed: true,
+          skills: {LearningSkill.grammar},
+        ),
+        LearningCandidate(
+          lessonId: 2,
+          order: 2,
+          completed: true,
+          skills: {LearningSkill.grammar},
+        ),
+        LearningCandidate(
+          lessonId: 16,
+          order: 16,
+          completed: false,
+          isPreferredLevel: false,
+          skills: {LearningSkill.grammar},
+        ),
+      ],
+      accessibleLessonIds: {1, 2, 16},
+      evidence: [],
+    );
+    expect(route?.lessonId, 16);
+    expect(route?.kind, LearningRouteKind.newWork);
+    expect(route?.kind.isRepair, isFalse);
+  });
+
+  test('independent misses in a finished lesson mark it for repair', () {
+    // Two latest unaided misses outweigh an untouched lesson — this is the
+    // pick Home shows as "Worth revisiting", beside the next lesson.
+    LearningEvidence miss(int exerciseId) => LearningEvidence(
+      evidenceId: 'miss-$exerciseId',
+      lessonId: 3,
+      exerciseId: exerciseId,
+      skill: LearningSkill.grammar,
+      phase: LearningPhase.retrieve,
+      correct: false,
+      novelTask: false,
+      responseLatency: const Duration(seconds: 4),
+      observedAt: DateTime(2026, 9, 1),
+    );
+
+    final route = const LearningRouter().select(
+      candidates: const [
+        LearningCandidate(
+          lessonId: 3,
+          order: 3,
+          completed: true,
+          skills: {LearningSkill.grammar},
+        ),
+        LearningCandidate(
+          lessonId: 4,
+          order: 4,
+          completed: false,
+          skills: {LearningSkill.grammar},
+        ),
+      ],
+      accessibleLessonIds: {3, 4},
+      evidence: [miss(31), miss(32)],
+    );
+
+    expect(route?.lessonId, 3);
+    expect(route?.kind, LearningRouteKind.independentRepair);
+    expect(route?.kind.isRepair, isTrue);
+  });
+
   test('delayed novel-task failure outranks linear next lesson', () {
     const router = LearningRouter();
     final route = router.select(

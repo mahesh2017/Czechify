@@ -1008,5 +1008,8 @@
   "lessonSaveFailed": "Místo v lekci se do telefonu nepodařilo uložit.",
   "lessonLeaveWithoutSaving": "Odejít bez uložení",
   "lessonResumeLeaveBody": "Místo v lekci i rozepsaný text zůstanou uložené v tomhle telefonu. Až lekci znovu otevřeš, budeš pokračovat.",
+  "homeRevisitDelayed": "Stojí za zopakování · pozdější kontrola se ještě nepovedla",
+  "homeRevisitIndependent": "Stojí za zopakování · některé odpovědi bez nápovědy nevyšly",
+  "homeRevisitSupport": "Stojí za zopakování · pomáhaly ti nápovědy a opakovaný poslech",
   "lessonResumed": "Pokračuješ · otázka {current} z {total}"
 }

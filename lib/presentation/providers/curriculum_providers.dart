@@ -11,6 +11,7 @@ import '../../domain/entities/lesson.dart';
 import '../../domain/entities/enums.dart';
 import '../../domain/engines/curriculum_access_policy.dart';
 import '../../domain/engines/level_switch.dart';
+import '../../domain/engines/continue_lesson_selector.dart';
 import '../../domain/engines/learning_router.dart';
 import '../../domain/entities/learning_evidence.dart';
 import '../../l10n/app_localizations.dart';
@@ -277,10 +278,18 @@ class NextLessonInfo {
   final String unitTitle;
   final String reason;
 
+  /// Why this lesson was chosen; [reason] is the untranslated form.
+  final LearningRouteKind kind;
+
+  /// Whether the learner has already finished this lesson.
+  final bool completed;
+
   const NextLessonInfo({
     required this.lesson,
     required this.unitTitle,
     this.reason = 'Continue with new accessible work',
+    this.kind = LearningRouteKind.newWork,
+    this.completed = false,
   });
 }
 
@@ -340,6 +349,70 @@ final nextLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
     lesson: selected.$1,
     unitTitle: selected.$2,
     reason: route.reason,
+    kind: route.kind,
+    completed: completedLessonIds.contains(route.lessonId),
+  );
+});
+
+/// A finished lesson the learner's answers say is worth another look.
+///
+/// Home shows this beside the next lesson, never instead of it, so Home and
+/// Daily Arrival always agree on where the course continues. Null unless the
+/// evidence-weighted pick is a finished lesson marked for repair and differs
+/// from [continueLessonProvider].
+final revisitLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
+  final pick = await ref.watch(nextLessonProvider.future);
+  if (pick == null || !pick.completed || !pick.kind.isRepair) return null;
+  final continuing = await ref.watch(continueLessonProvider.future);
+  if (pick.lesson.id == continuing?.lesson.id) return null;
+  return pick;
+});
+
+/// The lesson after the one the learner last finished — the course read in
+/// order.
+///
+/// Daily Arrival offers this, so "continue" picks up exactly where the
+/// learner left off. [nextLessonProvider] is the evidence-weighted choice,
+/// which can send someone back to repair earlier work instead.
+final continueLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
+  final level = ref.watch(settingsProvider.select((s) => s.startingLevel));
+  final preferredPhase = level == CEFRLevel.a2 ? Phase.a2 : Phase.a1;
+  final allUnits = await ref.watch(allUnitsProvider.future);
+  final unlockedLessonIds = await ref.watch(unlockedLessonIdsProvider.future);
+  // Watched so that finishing a lesson refreshes this; the completion times
+  // themselves live on the progress rows.
+  await ref.watch(completedLessonIdsProvider.future);
+  final completedRows =
+      await ref.read(databaseProvider).progressDao.getCompletedLessons();
+
+  final lessons = <ContinueLessonCandidate>[];
+  final lessonById = <int, (Lesson, String)>{};
+  for (final unit in allUnits) {
+    final unitLessons = await ref.watch(unitLessonsProvider(unit.id).future);
+    for (final lesson in unitLessons) {
+      lessons.add(
+        ContinueLessonCandidate(
+          lessonId: lesson.id,
+          isPreferredLevel: unit.phase == preferredPhase,
+        ),
+      );
+      lessonById[lesson.id] = (lesson, unit.title);
+    }
+  }
+
+  final lessonId = const ContinueLessonSelector().select(
+    lessons: lessons,
+    unlockedLessonIds: unlockedLessonIds,
+    completedAt: {
+      for (final row in completedRows) row.lessonId: row.lastAttempted,
+    },
+  );
+  final selected = lessonById[lessonId];
+  if (selected == null) return null;
+  return NextLessonInfo(
+    lesson: selected.$1,
+    unitTitle: selected.$2,
+    reason: 'Continue from the last lesson you finished',
   );
 });
 

@@ -5462,6 +5462,24 @@ abstract class AppLocalizations {
   /// **'Your place in this lesson and anything you’ve written stay saved on this phone. Open the lesson again to carry on.'**
   String get lessonResumeLeaveBody;
 
+  /// No description provided for @homeRevisitDelayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Worth revisiting · a later check didn’t hold yet'**
+  String get homeRevisitDelayed;
+
+  /// No description provided for @homeRevisitIndependent.
+  ///
+  /// In en, this message translates to:
+  /// **'Worth revisiting · some answers were missed without help'**
+  String get homeRevisitIndependent;
+
+  /// No description provided for @homeRevisitSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Worth revisiting · you leaned on hints and replays'**
+  String get homeRevisitSupport;
+
   /// No description provided for @lessonResumed.
   ///
   /// In en, this message translates to:

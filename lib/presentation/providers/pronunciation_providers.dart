@@ -24,7 +24,9 @@ const List<String> starterPronunciationPhrases = [
 /// words drawn from the learner's current unit, with a curated fallback so
 /// the lab always has material.
 final pronunciationDeckProvider = FutureProvider<List<String>>((ref) async {
-  final next = await ref.watch(nextLessonProvider.future);
+  // The lesson the learner is continuing with — the same one Home and Daily
+  // Arrival show — not a finished lesson picked for repair.
+  final next = await ref.watch(continueLessonProvider.future);
   final unitId = next?.lesson.unitId ?? 1;
 
   final cards = await ref

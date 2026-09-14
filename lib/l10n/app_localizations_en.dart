@@ -3149,6 +3149,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your place in this lesson and anything you’ve written stay saved on this phone. Open the lesson again to carry on.';
 
   @override
+  String get homeRevisitDelayed =>
+      'Worth revisiting · a later check didn’t hold yet';
+
+  @override
+  String get homeRevisitIndependent =>
+      'Worth revisiting · some answers were missed without help';
+
+  @override
+  String get homeRevisitSupport =>
+      'Worth revisiting · you leaned on hints and replays';
+
+  @override
   String lessonResumed(int current, int total) {
     return 'Resumed · question $current of $total';
   }
