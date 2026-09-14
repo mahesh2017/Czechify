@@ -25,6 +25,13 @@ abstract interface class SfxPlayer {
 /// plainly audible on a sound meant to coincide with a tap. Nine players hold
 /// well under a megabyte between them, so the trade is one-sided.
 class JustAudioSfxPlayer implements SfxPlayer {
+  /// [createPlayer] is for tests. A widget test cannot load or play real
+  /// audio, so a stand-in player is the only way to reach the failure paths
+  /// that must log rather than stay silent.
+  JustAudioSfxPlayer({AudioPlayer Function()? createPlayer})
+    : _createPlayer = createPlayer ?? AudioPlayer.new;
+
+  final AudioPlayer Function() _createPlayer;
   final _players = <Sfx, AudioPlayer>{};
   bool _disposed = false;
 
@@ -40,7 +47,7 @@ class JustAudioSfxPlayer implements SfxPlayer {
     final existing = _players[sound];
     if (existing != null) return existing;
     try {
-      final player = AudioPlayer();
+      final player = _createPlayer();
       await player.setAsset(sound.asset);
       if (_disposed) {
         await player.dispose();
@@ -48,8 +55,11 @@ class JustAudioSfxPlayer implements SfxPlayer {
       }
       return _players[sound] = player;
     } catch (error, stack) {
-      // A missing or undecodable clip must never take down a lesson.
-      _log.fine('Could not load ${sound.asset}', error, stack);
+      // A missing or undecodable clip must never take down a lesson — but it
+      // must not be invisible either. This was `fine`, which is below the
+      // app's INFO level in debug and WARNING in release, so a sound that
+      // never loaded produced silence and no trace of why.
+      _log.warning('Could not load ${sound.asset}', error, stack);
       return null;
     }
   }
@@ -65,7 +75,7 @@ class JustAudioSfxPlayer implements SfxPlayer {
       await player.seek(Duration.zero);
       await player.play();
     } catch (error, stack) {
-      _log.fine('Could not play ${sound.asset}', error, stack);
+      _log.warning('Could not play ${sound.asset}', error, stack);
     }
   }
 

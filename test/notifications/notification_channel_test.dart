@@ -199,4 +199,53 @@ void main() {
           'remove it',
     );
   });
+
+  test('iOS carries its own copy of the alert sound', () {
+    // iOS will not take the Android file. Notification sounds must be Linear
+    // PCM, MA4, uLaw or aLaw in .caf/.aif/.wav — MP3 is rejected — and must
+    // sit at the root of the app bundle. Flutter assets land inside
+    // App.framework/flutter_assets/, where the system never looks, so this
+    // one is a Copy Bundle Resources entry in the Xcode project instead.
+    final match = RegExp(r"_iosAlertSound = '([^']+)'").firstMatch(source);
+    expect(
+      match,
+      isNotNull,
+      reason: 'No iOS alert sound is declared; iOS falls back to the default',
+    );
+    final file = match!.group(1)!;
+    expect(
+      File('ios/Runner/$file').existsSync(),
+      isTrue,
+      reason: 'ios/Runner/$file is missing',
+    );
+
+    // Present on disk is not enough — Xcode only copies what the project
+    // references. A file sitting beside the project that nothing lists is
+    // exactly as absent, at runtime, as one that was never added.
+    final project =
+        File('ios/Runner.xcodeproj/project.pbxproj').readAsStringSync();
+    // Scoped to the build phase itself. The string "<file> in Resources"
+    // also appears in the PBXBuildFile declaration, so a bare `contains`
+    // still matched after the phase entry was deleted — the file would have
+    // stopped shipping and this would have stayed green.
+    final phase = RegExp(
+      r'isa = PBXResourcesBuildPhase;.*?files = \((.*?)\);',
+      dotAll: true,
+    ).allMatches(project).map((m) => m.group(1)!).join('\n');
+    expect(
+      phase.contains('$file in Resources'),
+      isTrue,
+      reason:
+          '$file is not in a Copy Bundle Resources phase, so it never reaches '
+          'the app bundle and iOS falls back to the default sound',
+    );
+
+    // And every scheduled notification has to name it, the same way the
+    // Android details name theirs.
+    expect(
+      RegExp('DarwinNotificationDetails\\(\\)').hasMatch(source),
+      isFalse,
+      reason: 'A DarwinNotificationDetails() with no sound is silent on iOS',
+    );
+  });
 }

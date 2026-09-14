@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:czechify/core/feedback/celebration.dart';
 import 'package:czechify/core/feedback/feedback_service.dart';
 import 'package:czechify/core/feedback/sfx.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:logging/logging.dart';
 
 /// Records what was asked for. Whether a speaker actually made a noise is not
 /// something a test can observe, and a test that pretends otherwise passes
@@ -27,6 +30,42 @@ class RecordingHaptics implements HapticDriver {
 
   @override
   void fire(Haptic haptic) => fired.add(haptic);
+}
+
+/// Stands in for just_audio's player, which cannot load or play inside a
+/// widget test. Answers only the calls [JustAudioSfxPlayer] makes.
+class _StandInAudioPlayer implements AudioPlayer {
+  _StandInAudioPlayer({this.loads = true, this.plays = true, this.loadGate});
+
+  final bool loads;
+  final bool plays;
+
+  /// When given, loading waits for it, so a test can act mid-load.
+  final Completer<void>? loadGate;
+  int playCalls = 0;
+  int disposeCalls = 0;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    switch (invocation.memberName) {
+      case #setAsset:
+        if (!loads) return Future<Duration?>.error(Exception('asset missing'));
+        return (loadGate?.future ?? Future<void>.value()).then<Duration?>(
+          (_) => Duration.zero,
+        );
+      case #seek:
+        return Future<void>.value();
+      case #play:
+        playCalls++;
+        return plays
+            ? Future<void>.value()
+            : Future<void>.error(Exception('decoder failed'));
+      case #dispose:
+        disposeCalls++;
+        return Future<void>.value();
+    }
+    return super.noSuchMethod(invocation);
+  }
 }
 
 void main() {
@@ -266,6 +305,55 @@ void main() {
     test('it is warmed with the rest, so the greeting is not late', () {
       serviceWith().preload();
       expect(player.preloaded, contains(Sfx.welcome));
+    });
+  });
+
+  // These were logged at FINE, below the app's level in both debug and
+  // release, so a clip that never loaded left silence and no trace of why.
+  group('a clip that cannot load or play is logged, not silent', () {
+    late List<LogRecord> warnings;
+
+    setUp(() {
+      warnings = [];
+      final subscription = Logger.root.onRecord
+          .where((record) => record.level >= Level.WARNING)
+          .listen(warnings.add);
+      addTearDown(subscription.cancel);
+    });
+
+    test('a clip that fails to load warns and plays nothing', () async {
+      final standIn = _StandInAudioPlayer(loads: false);
+
+      await JustAudioSfxPlayer(createPlayer: () => standIn).play(Sfx.wrong);
+
+      expect(warnings.single.loggerName, 'Feedback');
+      expect(warnings.single.message, 'Could not load ${Sfx.wrong.asset}');
+      expect(standIn.playCalls, 0);
+    });
+
+    test('a clip that loads but fails to play warns', () async {
+      final standIn = _StandInAudioPlayer(plays: false);
+
+      await JustAudioSfxPlayer(createPlayer: () => standIn).play(Sfx.wrong);
+
+      expect(warnings.single.loggerName, 'Feedback');
+      expect(warnings.single.message, 'Could not play ${Sfx.wrong.asset}');
+      expect(standIn.playCalls, 1);
+    });
+
+    test('a clip still loading at disposal is released, not played', () async {
+      final loadGate = Completer<void>();
+      final standIn = _StandInAudioPlayer(loadGate: loadGate);
+      final sfx = JustAudioSfxPlayer(createPlayer: () => standIn);
+
+      final playing = sfx.play(Sfx.wrong);
+      await sfx.dispose();
+      loadGate.complete();
+      await playing;
+
+      expect(standIn.disposeCalls, 1);
+      expect(standIn.playCalls, 0);
+      expect(warnings, isEmpty);
     });
   });
 }

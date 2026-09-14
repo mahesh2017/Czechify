@@ -47,6 +47,16 @@ class NotificationService {
     'notification_alert',
   );
 
+  /// The same alert on iOS, which will not take the Android file.
+  ///
+  /// iOS notification sounds must be Linear PCM, MA4, µLaw or aLaw in a
+  /// `.caf`, `.aif` or `.wav` container — MP3 is rejected outright — and must
+  /// sit at the root of the app bundle, which Flutter assets do not: they land
+  /// inside `App.framework/flutter_assets/`, where the system never looks.
+  /// So `ios/Runner/notification_alert.caf` is a Copy Bundle Resources entry
+  /// in the Xcode project rather than a pubspec asset.
+  static const _iosAlertSound = 'notification_alert.caf';
+
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
@@ -250,7 +260,7 @@ class NotificationService {
             priority: Priority.high,
             sound: _alertSound,
           ),
-          iOS: DarwinNotificationDetails(),
+          iOS: DarwinNotificationDetails(sound: _iosAlertSound),
         ),
         androidScheduleMode: AndroidScheduleMode.inexact,
         matchDateTimeComponents: DateTimeComponents.time,
@@ -286,7 +296,7 @@ class NotificationService {
             priority: Priority.high,
             sound: _alertSound,
           ),
-          iOS: DarwinNotificationDetails(),
+          iOS: DarwinNotificationDetails(sound: _iosAlertSound),
         ),
         androidScheduleMode: AndroidScheduleMode.inexact,
         // null → no repeat (one-shot).
