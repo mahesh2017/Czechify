@@ -144,37 +144,49 @@ class CzechCharBar extends StatelessWidget {
             ),
           ],
           SizedBox(
-            // 46pt keys: the target is the drawn size here, so it has to
-            // clear the minimum on its own.
-            height: 46,
+            // 48pt targets keep the 40×46pt keys comfortably tappable without
+            // changing their drawn size.
+            height: 48,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 6),
               itemCount: TextNormalizer.czechDiacriticChars.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 5),
+              // The 48pt cells already leave 8pt between the 40pt keys; an
+              // extra gap here widened the spacing and pushed a letter off
+              // a phone-width bar.
+              separatorBuilder: (_, __) => const SizedBox.shrink(),
               itemBuilder: (context, i) {
                 final ch = TextNormalizer.czechDiacriticChars[i];
                 return Semantics(
                   button: enabled,
                   label: AppLocalizations.of(context).a11yInsertCharacter(ch),
                   excludeSemantics: true,
-                  child: Material(
-                    color: enabled ? t.priSoft : t.card,
-                    borderRadius: BorderRadius.circular(12),
-                    child: InkWell(
-                      onTap: enabled ? () => _insert(ch) : null,
-                      borderRadius: BorderRadius.circular(12),
-                      child: SizedBox(
-                        width: 40,
-                        height: 46,
+                  child: SizedBox(
+                    width: 48,
+                    height: 48,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: enabled ? () => _insert(ch) : null,
+                        borderRadius: BorderRadius.circular(12),
                         child: Center(
-                          child: Text(
-                            ch,
-                            style: TextStyle(
-                              fontFamily: AppFonts.display,
-                              fontSize: 19,
-                              fontWeight: FontWeight.w700,
-                              color: enabled ? t.pri : t.faint,
+                          child: Container(
+                            width: 40,
+                            height: 46,
+                            decoration: BoxDecoration(
+                              color: enabled ? t.priSoft : t.card,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: Text(
+                                ch,
+                                style: TextStyle(
+                                  fontFamily: AppFonts.display,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w700,
+                                  color: enabled ? t.pri : t.faint,
+                                ),
+                              ),
                             ),
                           ),
                         ),

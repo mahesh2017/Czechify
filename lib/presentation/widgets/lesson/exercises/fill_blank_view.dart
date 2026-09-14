@@ -4,6 +4,7 @@ import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../common/lesson_ui.dart';
 import 'exercise_shared.dart';
+import '../../common/minimum_tap_area.dart';
 
 /// Fill-in-the-blank exercise view.
 class FillBlankView extends StatefulWidget {
@@ -167,70 +168,82 @@ class _FillBlankViewState extends State<FillBlankView> {
         // The blank is a filled slot with a ruled underline, so it reads as a
         // gap in the sentence rather than as a form field dropped into prose.
         children.add(
-          SizedBox(
-            width: _blankWidth(data, i),
-            child: TextField(
-              controller: _controllerFor(i),
-              focusNode: _focusFor(i),
-              enabled: !answered,
-              textAlign: TextAlign.center,
-              cursorColor: t.pri,
-              decoration: InputDecoration(
-                isDense: true,
-                filled: true,
-                fillColor: t.elev,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 10,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: t.line),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: t.line),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: t.pri, width: 1.5),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                    color: switch (isCorrect) {
-                      true => t.green,
-                      false => t.red,
-                      null => t.line,
-                    },
-                    width: 1.5,
+          MinimumInputTapArea(
+            focusNode: _focusFor(i),
+            enabled: !answered,
+            // The words around the blank are read on their own, so the label
+            // only names the blank — numbered when the sentence has several.
+            // The raw sentence carried its underscores into TalkBack.
+            label:
+                parts.length > 2
+                    ? '${AppLocalizations.of(context).exerciseYourAnswer} ${i + 1}'
+                    : AppLocalizations.of(context).exerciseYourAnswer,
+            builder:
+                (focus) => SizedBox(
+                  width: _blankWidth(data, i),
+                  child: TextField(
+                    controller: _controllerFor(i),
+                    focusNode: focus,
+                    enabled: !answered,
+                    textAlign: TextAlign.center,
+                    cursorColor: t.pri,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      filled: true,
+                      fillColor: t.elev,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 10,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: t.line),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: t.line),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: t.pri, width: 1.5),
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                          color: switch (isCorrect) {
+                            true => t.green,
+                            false => t.red,
+                            null => t.line,
+                          },
+                          width: 1.5,
+                        ),
+                      ),
+                    ),
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.w700,
+                      color: switch (isCorrect) {
+                        true => t.greenInk,
+                        false => t.redInk,
+                        null => t.ink,
+                      },
+                    ),
+                    textInputAction:
+                        i < parts.length - 2
+                            ? TextInputAction.next
+                            : TextInputAction.done,
+                    onSubmitted:
+                        answered
+                            ? null
+                            : (_) {
+                              if (i < parts.length - 2) {
+                                _focusFor(i + 1).requestFocus();
+                              } else {
+                                _checkAnswer();
+                              }
+                            },
                   ),
                 ),
-              ),
-              style: TextStyle(
-                fontSize: 19,
-                fontWeight: FontWeight.w700,
-                color: switch (isCorrect) {
-                  true => t.greenInk,
-                  false => t.redInk,
-                  null => t.ink,
-                },
-              ),
-              textInputAction:
-                  i < parts.length - 2
-                      ? TextInputAction.next
-                      : TextInputAction.done,
-              onSubmitted:
-                  answered
-                      ? null
-                      : (_) {
-                        if (i < parts.length - 2) {
-                          _focusFor(i + 1).requestFocus();
-                        } else {
-                          _checkAnswer();
-                        }
-                      },
-            ),
           ),
         );
       }
