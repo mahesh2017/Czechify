@@ -25,6 +25,13 @@ abstract interface class SfxPlayer {
 /// plainly audible on a sound meant to coincide with a tap. Nine players hold
 /// well under a megabyte between them, so the trade is one-sided.
 class JustAudioSfxPlayer implements SfxPlayer {
+  /// [createPlayer] is for tests. A widget test cannot load or play real
+  /// audio, so a stand-in player is the only way to reach the failure paths
+  /// that must log rather than stay silent.
+  JustAudioSfxPlayer({AudioPlayer Function()? createPlayer})
+    : _createPlayer = createPlayer ?? AudioPlayer.new;
+
+  final AudioPlayer Function() _createPlayer;
   final _players = <Sfx, AudioPlayer>{};
   bool _disposed = false;
 
@@ -40,7 +47,7 @@ class JustAudioSfxPlayer implements SfxPlayer {
     final existing = _players[sound];
     if (existing != null) return existing;
     try {
-      final player = AudioPlayer();
+      final player = _createPlayer();
       await player.setAsset(sound.asset);
       if (_disposed) {
         await player.dispose();
