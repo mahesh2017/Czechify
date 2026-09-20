@@ -2,6 +2,8 @@
 
 Research date: 20 September 2026. Status: proposed implementation, not deployed.
 
+**Superseded strategy:** the user has since rejected ads and proposed paid course access with milestone referrals. Read the [current course/referral assessment](MONETIZATION_COURSE_ACCESS_AND_REFERRALS_2026-09-20.md). This document is retained as research history; its advertising backlog and estimates are no longer the active recommendation.
+
 **Latest direction:** [Rewarded hearts and 250/400 CZK subscription tiers](MONETIZATION_REWARDED_HEARTS_AND_TIERS_2026-09-20.md) supersedes this document's recommendation to defer rewarded ads and its single-price/single-product hypothesis. The user confirmed that free learning remains, with 250 CZK/month removing ads and heart limits; the proposed 400 CZK total tier adds AI chat. The original baseline below is retained for its research and engineering detail. Migration of existing free hearts/chat benefits remains a product decision; nothing is implemented.
 
 Branch: `codex/monetization-research-plan`. Baseline: `b852f3c4`, taken from `release/1.1.1-age-signals`; that checkout currently declares **1.1.3+27**. This document does not establish which build Google Play is reviewing. The user reports that a production release is pending review. No Play Console or AdMob account was inspected, and approval timing is unknown.

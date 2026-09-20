@@ -2,6 +2,8 @@
 
 20 September 2026. Follow-up to the [initial monetization plan](MONETIZATION_RESEARCH_AND_PLAN_2026-09-20.md), on `codex/monetization-research-plan`. Research and product proposal only; no app behavior or store products changed.
 
+**Superseded:** the user has moved to a limited free course and referrals, with no advertising. Read the [current assessment](MONETIZATION_COURSE_ACCESS_AND_REFERRALS_2026-09-20.md); the rewarded-heart work and free-full-course assumption below are historical.
+
 ## Recommendation
 
 Test optional **one rewarded ad for one heart**, retain a free recovery route, and evaluate **250 CZK/month for Pro** and **400 CZK/month for Pro + AI chat**. Present the extra 150 CZK as the difference between two tiers, with one active subscription, rather than requiring two separate purchases. Rewarded ads can complement subscriptions, but frustration alone is a poor measure of success: users can leave instead of buying.
