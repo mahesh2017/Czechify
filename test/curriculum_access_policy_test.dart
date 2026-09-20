@@ -97,4 +97,105 @@ void main() {
       expect(access.lessonPrerequisites[201], {101, 102});
     },
   );
+
+  const mixedUnits = [
+    ...units,
+    Unit(
+      id: 16,
+      title: 'A2 start',
+      description: '',
+      phase: Phase.a2,
+      orderIndex: 16,
+    ),
+    Unit(
+      id: 28,
+      title: 'Late A1',
+      description: '',
+      phase: Phase.a1,
+      orderIndex: 28,
+    ),
+    Unit(
+      id: 29,
+      title: 'Late A2',
+      description: '',
+      phase: Phase.a2,
+      orderIndex: 29,
+    ),
+    Unit(
+      id: 30,
+      title: 'Final A1',
+      description: '',
+      phase: Phase.a1,
+      orderIndex: 30,
+    ),
+  ];
+  const mixedLessons = {
+    ...lessons,
+    16: [
+      Lesson(id: 1601, unitId: 16, orderInUnit: 0, title: '', description: ''),
+    ],
+    28: [
+      Lesson(id: 2801, unitId: 28, orderInUnit: 0, title: '', description: ''),
+    ],
+    29: [
+      Lesson(id: 2901, unitId: 29, orderInUnit: 0, title: '', description: ''),
+    ],
+    30: [
+      Lesson(id: 3001, unitId: 30, orderInUnit: 0, title: '', description: ''),
+    ],
+  };
+
+  test('late A1 lessons never depend on interleaved A2 units', () {
+    final access = policy.evaluate(
+      orderedUnits: mixedUnits.reversed.toList(),
+      lessonsByUnit: mixedLessons,
+      completedLessonIds: {101, 102, 201, 2801},
+    );
+    expect(access.unlockedLessonIds, contains(3001));
+    expect(access.lessonPrerequisites[3001], {101, 102, 201, 2801});
+    expect(access.lessonPrerequisites[2901], {1601});
+    expect(access.unlockedLessonIds, isNot(contains(2901)));
+    expect(access.lessonPrerequisites[1601], isEmpty);
+  });
+
+  test('explicit A2 placement does not waive an A1 prerequisite', () {
+    final access = policy.evaluate(
+      orderedUnits: mixedUnits,
+      lessonsByUnit: mixedLessons,
+      completedLessonIds: {},
+      placements: [
+        const CurriculumPlacement(phase: Phase.a2, throughUnitId: 29),
+      ],
+    );
+    expect(access.unlockedLessonIds, contains(2901));
+    expect(access.unlockedLessonIds, isNot(contains(201)));
+    expect(access.lessonPrerequisites[201], {101, 102});
+  });
+
+  test('placement with mismatched or unknown phase membership is ignored', () {
+    final access = policy.evaluate(
+      orderedUnits: mixedUnits,
+      lessonsByUnit: mixedLessons,
+      completedLessonIds: {},
+      placements: [
+        const CurriculumPlacement(phase: Phase.a1, throughUnitId: 29),
+        const CurriculumPlacement(phase: Phase.a2, throughUnitId: 999),
+      ],
+    );
+    expect(access.unlockedLessonIds, {101, 1601});
+  });
+
+  test(
+    'legacy scalar retains its old open span without cross-phase dependencies',
+    () {
+      final access = policy.evaluate(
+        orderedUnits: mixedUnits,
+        lessonsByUnit: mixedLessons,
+        completedLessonIds: {},
+        provisionalThroughUnitId: 16,
+      );
+      expect(access.unlockedLessonIds, {101, 201, 1601});
+      expect(access.lessonPrerequisites[2801], {101, 102, 201});
+    },
+  );
 }
