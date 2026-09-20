@@ -24,66 +24,62 @@ void main() {
   /// visibly squarer second mark. Each platform is therefore checked against
   /// the pubspec key that actually feeds its launcher.
   final pubspec = File('pubspec.yaml').readAsStringSync();
-  String? iconKey(String key) =>
-      RegExp(
-        'flutter_launcher_icons:.*?$key:\\s*(\\S+)',
-        dotAll: true,
-      ).firstMatch(pubspec)?.group(1);
+  String? iconKey(String key) => RegExp(
+    'flutter_launcher_icons:.*?$key:\\s*(\\S+)',
+    dotAll: true,
+  ).firstMatch(pubspec)?.group(1);
 
   for (final platform in const [TargetPlatform.android, TargetPlatform.iOS]) {
-    testWidgets(
-      'the ${platform.name} loading screen shows the launcher icon, '
-      'not a second mark',
-      (tester) async {
-        // Reset inside the body: the framework asserts every foundation debug
-        // variable is clear before addTearDown callbacks would run.
-        debugDefaultTargetPlatformOverride = platform;
+    testWidgets('the ${platform.name} loading screen shows the launcher icon, '
+        'not a second mark', (tester) async {
+      // Reset inside the body: the framework asserts every foundation debug
+      // variable is clear before addTearDown callbacks would run.
+      debugDefaultTargetPlatformOverride = platform;
 
-        // Android composes its launcher icon from the adaptive layers; every
-        // other platform masks the single image.
-        final expected =
-            platform == TargetPlatform.android
-                ? [
-                  iconKey('adaptive_icon_background'),
-                  iconKey('adaptive_icon_foreground'),
-                ]
-                : [iconKey('image_path')];
+      // Android composes its launcher icon from the adaptive layers; every
+      // other platform masks the single image.
+      final expected =
+          platform == TargetPlatform.android
+              ? [
+                iconKey('adaptive_icon_background'),
+                iconKey('adaptive_icon_foreground'),
+              ]
+              : [iconKey('image_path')];
+      expect(
+        expected,
+        everyElement(isNotNull),
+        reason: 'pubspec must declare the ${platform.name} launcher icon',
+      );
+
+      await tester.pumpWidget(const LoadingScreen());
+      await tester.pump(const Duration(seconds: 1));
+
+      final images =
+          tester
+              .widgetList<Image>(find.byType(Image))
+              .map((image) => image.image)
+              .map(
+                // The mark is decoded at display size, so the AssetImage is
+                // wrapped in a ResizeImage.
+                (provider) =>
+                    provider is ResizeImage ? provider.imageProvider : provider,
+              )
+              .whereType<AssetImage>()
+              .map((asset) => asset.assetName)
+              .toList();
+
+      debugDefaultTargetPlatformOverride = null;
+
+      for (final asset in expected) {
         expect(
-          expected,
-          everyElement(isNotNull),
-          reason: 'pubspec must declare the ${platform.name} launcher icon',
+          images,
+          contains(asset),
+          reason:
+              'the first screen must show the same mark as the '
+              '${platform.name} launcher icon',
         );
-
-        await tester.pumpWidget(const LoadingScreen());
-        await tester.pump(const Duration(seconds: 1));
-
-        final images =
-            tester
-                .widgetList<Image>(find.byType(Image))
-                .map((image) => image.image)
-                .map(
-                  // The mark is decoded at display size, so the AssetImage is
-                  // wrapped in a ResizeImage.
-                  (provider) =>
-                      provider is ResizeImage ? provider.imageProvider : provider,
-                )
-                .whereType<AssetImage>()
-                .map((asset) => asset.assetName)
-                .toList();
-
-        debugDefaultTargetPlatformOverride = null;
-
-        for (final asset in expected) {
-          expect(
-            images,
-            contains(asset),
-            reason:
-                'the first screen must show the same mark as the '
-                '${platform.name} launcher icon',
-          );
-        }
-      },
-    );
+      }
+    });
   }
 
   testWidgets('startup error explains the problem and retries', (tester) async {
@@ -106,7 +102,13 @@ void main() {
     expect(retries, 1);
   });
 
-  for (final size in const [Size(320, 568), Size(375, 667), Size(768, 1024)]) {
+  for (final size in const [
+    Size(320, 568),
+    Size(375, 667),
+    Size(768, 1024),
+    Size(1024, 600),
+    Size(1366, 768),
+  ]) {
     for (final brightness in Brightness.values) {
       testWidgets('startup recovery fits ${size.width.toInt()}px at 2x text in '
           '${brightness.name} mode', (tester) async {

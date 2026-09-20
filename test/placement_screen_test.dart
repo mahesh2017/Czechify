@@ -25,6 +25,21 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('placement start fits a minimum-size tablet in landscape', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1024, 600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const ProviderScope(child: _PlacementTestApp()));
+
+    expect(find.text('Find my starting point'), findsOneWidget);
+    expect(find.byType(QuizOptionTile), findsNWidgets(3));
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('typing a valid writing answer enables Next immediately', (
     tester,
   ) async {

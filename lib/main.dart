@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/system_bars.dart';
 import 'core/age_signals/play_age_signals_service.dart';
+import 'core/platform/orientation_policy.dart';
 import 'l10n/app_localizations.dart';
 import 'core/diagnostics/safe_diagnostics.dart';
 import 'core/notifications/notification_service.dart';
@@ -32,19 +32,11 @@ import 'presentation/screens/compliance/age_signals_gate_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Portrait only. Every screen in this app is drawn against a tall viewport —
-  // notch-sized top paddings, fixed-height exercise images, decorations placed
-  // in portrait coordinates — and none of that was ever adapted. Rotated to
-  // landscape the app stayed usable but showed its seams: the name step
-  // overflowed by 99px once the keyboard was up, and 115 listening-
-  // comprehension cards overflowed outright, every single one carrying an
-  // image among them.
-  //
-  // Nothing had ever asked for portrait; the platform manifests simply carried
-  // Flutter's default template, which permits both landscape modes. This is
-  // the request, and the iOS and Android manifests are narrowed to match so
-  // the OS enforces it rather than merely being asked.
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // Keep compact Android phones portrait-only while allowing tablets,
+  // unfolded large-screen foldables, and desktop-class displays to rotate.
+  // The policy uses the physical display (not a split-screen window) and is
+  // re-applied when metrics change.
+  await applyAdaptiveOrientationPolicy();
 
   try {
     await NotificationService.instance.initialize();
@@ -128,6 +120,11 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp>
       // result for this auth user if the refresh is offline.
       ref.invalidate(curriculumEntitlementProvider);
     }
+  }
+
+  @override
+  void didChangeMetrics() {
+    unawaited(applyAdaptiveOrientationPolicy());
   }
 
   @override

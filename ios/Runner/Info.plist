@@ -65,10 +65,8 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<!-- Portrait only, on both idioms. These arrays were Flutter's default
-	     template and permitted landscape that no screen was ever drawn for —
-	     see the note in main.dart. setPreferredOrientations asks; this is what
-	     makes the OS enforce it. -->
+	<!-- Keep compact iPhones portrait-only. iPad uses its idiom-specific list
+	     below so large screens can follow the user's chosen orientation. -->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -76,6 +74,9 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<!-- Mic permission for pronunciation recording (Phase 2) -->
 	<key>NSMicrophoneUsageDescription</key>

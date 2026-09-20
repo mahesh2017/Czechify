@@ -123,6 +123,27 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('every setup step fits a minimum-size tablet in landscape', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1024, 600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host(disableAnimations: true));
+    await enterSetup(tester);
+
+    for (var step = 1; step <= 7; step++) {
+      expect(find.text('$step / 7'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      if (step < 7) {
+        await tester.tap(find.text('Continue'));
+        await tester.pumpAndSettle();
+      }
+    }
+  });
+
   testWidgets('forward and back transitions use opposite directions', (
     tester,
   ) async {
