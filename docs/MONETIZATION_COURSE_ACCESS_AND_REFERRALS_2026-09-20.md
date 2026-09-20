@@ -1,5 +1,7 @@
 # Czechify: paid course access and milestone referrals
 
+> Engineering handoff: [the implementation specification](monetization/README.md) defines the current contracts, recommended defaults, ordered PRs and acceptance tests. Use it for coding where this assessment is less specific or differs in packaging.
+
 20 September 2026. Assessment of the user's latest proposal, on `codex/monetization-research-plan`. This supersedes the advertising strategy and the earlier assumption that the entire core course stays free. Product recommendations only; no access restrictions, purchases, referral rewards, or production changes have been implemented.
 
 ## Agreed referral direction and proposed paid offering

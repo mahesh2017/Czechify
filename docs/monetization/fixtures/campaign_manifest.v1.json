@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "status": "planning fixture; generate and publish a reviewed server manifest during implementation",
+  "campaign_id": "a1-referral-v1",
+  "content_revision": 25,
+  "a1_unit_order": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    28,
+    30
+  ],
+  "a2_unit_order": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    29,
+    31
+  ],
+  "free_unit_ids": [
+    1,
+    2
+  ],
+  "reward_unit_order": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    28,
+    30
+  ],
+  "max_rewards_per_referee": 2,
+  "free_unit_lessons": [
+    {
+      "unit_id": 1,
+      "lessons": [
+        {
+          "lesson_id": 100,
+          "order_in_unit": 0,
+          "sha256": "1832921327bcfa26384ad2a4f8dffefe7a87f6548fc5fa0659c54be7263718ee",
+          "source": "assets/curriculum/lessons/unit01_lesson00.json",
+          "exercise_ids": [
+            898,
+            899,
+            900,
+            901,
+            902,
+            903,
+            904,
+            905,
+            906,
+            907
+          ],
+          "teaching_exercise_ids": [
+            898,
+            899
+          ],
+          "required_initial_coverage": 10
+        },
+        {
+          "lesson_id": 101,
+          "order_in_unit": 1,
+          "sha256": "0bbc4c57fea4e94033e7df163c1eb2a90f959b4ce72dd9c6b310a57cd640170d",
+          "source": "assets/curriculum/lessons/unit01_lesson01.json",
+          "exercise_ids": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007,
+            1008,
+            1009,
+            1010
+          ],
+          "teaching_exercise_ids": [
+            1001
+          ],
+          "required_initial_coverage": 10
+        },
+        {
+          "lesson_id": 102,
+          "order_in_unit": 2,
+          "sha256": "9d0cfb6597a83159382202f3ae599cda665927912cba404de0e7db4a6c51b8f0",
+          "source": "assets/curriculum/lessons/unit01_lesson02.json",
+          "exercise_ids": [
+            1101,
+            1102,
+            1103,
+            1104,
+            1105,
+            1106,
+            1107,
+            1108,
+            1109,
+            1110,
+            1111
+          ],
+          "teaching_exercise_ids": [
+            1101,
+            1111
+          ],
+          "required_initial_coverage": 11
+        },
+        {
+          "lesson_id": 103,
+          "order_in_unit": 3,
+          "sha256": "72fbfc913c1b9ccc9d549b30fa09800961104d0a437547d8e231a277be4c1575",
+          "source": "assets/curriculum/lessons/unit01_lesson03.json",
+          "exercise_ids": [
+            1121,
+            1122,
+            1123,
+            1124,
+            1125,
+            1126,
+            1127,
+            1128,
+            1129,
+            1130,
+            1131,
+            1132,
+            1133
+          ],
+          "teaching_exercise_ids": [
+            1121
+          ],
+          "required_initial_coverage": 13
+        }
+      ]
+    },
+    {
+      "unit_id": 2,
+      "lessons": [
+        {
+          "lesson_id": 201,
+          "order_in_unit": 0,
+          "sha256": "b408c6d9f556d44507c43d3c808391ef840c7e0703b84951a01e27207d18076d",
+          "source": "assets/curriculum/lessons/unit02_lesson01.json",
+          "exercise_ids": [
+            2000,
+            2001,
+            2002,
+            2003,
+            2004,
+            2005,
+            2006,
+            2007,
+            2008,
+            2009,
+            2010,
+            2011
+          ],
+          "teaching_exercise_ids": [
+            2000
+          ],
+          "required_initial_coverage": 12
+        },
+        {
+          "lesson_id": 202,
+          "order_in_unit": 1,
+          "sha256": "046dd5d8b37e2a3603578cce47327d1b00a5d7832667ce20771d3998cd5705c0",
+          "source": "assets/curriculum/lessons/unit02_lesson02.json",
+          "exercise_ids": [
+            2100,
+            2101,
+            2102,
+            2103,
+            2104,
+            2105,
+            2106,
+            2107,
+            2108,
+            2109,
+            2110,
+            2111
+          ],
+          "teaching_exercise_ids": [
+            2100
+          ],
+          "required_initial_coverage": 12
+        },
+        {
+          "lesson_id": 203,
+          "order_in_unit": 2,
+          "sha256": "af2136d483728ddb307a905ef8410b73bb3d4eb6847117dfdb90e3f7abec2176",
+          "source": "assets/curriculum/lessons/unit02_lesson03.json",
+          "exercise_ids": [
+            2200,
+            2201,
+            2202,
+            2203,
+            2204,
+            2205,
+            2206,
+            2207,
+            2208,
+            2209,
+            2210,
+            2211
+          ],
+          "teaching_exercise_ids": [
+            2200
+          ],
+          "required_initial_coverage": 12
+        },
+        {
+          "lesson_id": 204,
+          "order_in_unit": 3,
+          "sha256": "7611cec14f67b9b2894afa56140794c850797b14fd89fecddd100e3f7d2cd3f2",
+          "source": "assets/curriculum/lessons/unit02_lesson04.json",
+          "exercise_ids": [
+            2300,
+            2301,
+            2302,
+            2303,
+            2304,
+            2305,
+            2306,
+            2307,
+            2308,
+            2309,
+            2310,
+            2311
+          ],
+          "teaching_exercise_ids": [
+            2300
+          ],
+          "required_initial_coverage": 12
+        }
+      ]
+    }
+  ]
+}
