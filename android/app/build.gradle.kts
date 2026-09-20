@@ -80,6 +80,10 @@ kotlin {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    // Google Play's privacy-preserving age-range signal for regulated regions
+    // such as Brazil. Keep this pinned while the API is in beta so a release
+    // cannot silently pick up a response-contract change.
+    implementation("com.google.android.play:age-signals:0.0.4")
 }
 
 flutter {

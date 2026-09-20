@@ -18,6 +18,13 @@ submission if the data flows change.
 
 No advertising, no third-party analytics, no tracking across apps/sites.
 
+Google Play Age Signals are evaluated only in memory on production Android.
+The coarse age range and approval status do **not** leave the device, and the
+Play install identifier is neither exposed to Dart nor retained. Google states
+that the client library itself does not collect data, so this integration does
+not add a Play Data safety category. Reassess that answer if the implementation
+is later changed to persist or transmit any response field.
+
 ## Apple — App Privacy answers
 
 **Data used to track you:** None.
@@ -88,6 +95,9 @@ not shared; answer differently if the actual contract or configuration changes.
 
 - Set Google Play target audience to **16 and over** unless the app is separately
   redesigned and reviewed for the Families policy.
+- Keep Play Age Signals enabled for the production package, use the default
+  `0–12`, `13–15`, `16–17`, and `18+` ranges (or document any custom range), and
+  verify the under-16 and verification-required gates on an internal-track AAB.
 - Retain the production Scaleway account terms/DPA and re-check its Paris/EEA
   hosting and Zero Data Retention status before each release.
 - Confirm the OpenAI API project retention setting and keep the public policy's

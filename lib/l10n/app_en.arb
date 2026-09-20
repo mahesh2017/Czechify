@@ -1300,5 +1300,18 @@
       "current": {"type": "int"},
       "total": {"type": "int"}
     }
-  }
+  },
+  "ageSignalsUnderAgeTitle": "Czechify is for ages 16 and over",
+  "ageSignalsUnderAgeBody": "Google Play shared an age range below Czechify’s minimum age. Access stays locked to protect younger learners.",
+  "ageSignalsVerificationTitle": "Confirm your age in Google Play",
+  "ageSignalsVerificationBody": "Google Play needs you to complete age verification or family supervision before Czechify can open. Complete it in Google Play, then return here and check again.",
+  "ageSignalsApprovalPendingTitle": "Parent approval is pending",
+  "ageSignalsApprovalPendingBody": "A parent or guardian still needs to approve the latest change before Czechify can open. Check again after they respond in Family Link.",
+  "ageSignalsApprovalDeclinedTitle": "Parent approval is required",
+  "ageSignalsApprovalDeclinedBody": "A parent or guardian did not approve the latest change, so Czechify cannot open for this account.",
+  "ageSignalsUnavailableTitle": "Age check is temporarily unavailable",
+  "ageSignalsUnavailableBody": "Czechify could not confirm age eligibility. Check your connection and make sure Google Play is up to date, then try again.",
+  "ageSignalsOpenPlayStore": "Open Google Play",
+  "ageSignalsCheckAgain": "Check again",
+  "ageSignalsPrivacyNote": "Czechify uses only the coarse age range and approval status on this device. It does not store your birth date or Google Play install identifier."
 }

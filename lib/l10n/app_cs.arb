@@ -1011,5 +1011,18 @@
   "homeRevisitDelayed": "Stojí za zopakování · pozdější kontrola se ještě nepovedla",
   "homeRevisitIndependent": "Stojí za zopakování · některé odpovědi bez nápovědy nevyšly",
   "homeRevisitSupport": "Stojí za zopakování · pomáhaly ti nápovědy a opakovaný poslech",
-  "lessonResumed": "Pokračuješ · otázka {current} z {total}"
+  "lessonResumed": "Pokračuješ · otázka {current} z {total}",
+  "ageSignalsUnderAgeTitle": "Czechify je pro uživatele od 16 let",
+  "ageSignalsUnderAgeBody": "Google Play sdílel věkové rozmezí nižší než minimální věk pro Czechify. Přístup zůstává uzamčený kvůli ochraně mladších uživatelů.",
+  "ageSignalsVerificationTitle": "Potvrď svůj věk v Google Play",
+  "ageSignalsVerificationBody": "Než se Czechify otevře, musíš v Google Play dokončit ověření věku nebo nastavení rodinného dohledu. Potom se vrať a spusť kontrolu znovu.",
+  "ageSignalsApprovalPendingTitle": "Čeká se na souhlas rodiče",
+  "ageSignalsApprovalPendingBody": "Než se Czechify otevře, musí rodič nebo zákonný zástupce schválit nejnovější změnu. Po jeho odpovědi ve Family Link spusť kontrolu znovu.",
+  "ageSignalsApprovalDeclinedTitle": "Je vyžadován souhlas rodiče",
+  "ageSignalsApprovalDeclinedBody": "Rodič nebo zákonný zástupce nejnovější změnu neschválil, proto Czechify nelze pro tento účet otevřít.",
+  "ageSignalsUnavailableTitle": "Kontrola věku je dočasně nedostupná",
+  "ageSignalsUnavailableBody": "Czechify nemohl ověřit věkovou způsobilost. Zkontroluj připojení a aktualizaci Google Play a zkus to znovu.",
+  "ageSignalsOpenPlayStore": "Otevřít Google Play",
+  "ageSignalsCheckAgain": "Zkontrolovat znovu",
+  "ageSignalsPrivacyNote": "Czechify používá pouze přibližné věkové rozmezí a stav souhlasu v tomto zařízení. Neukládá datum narození ani identifikátor instalace Google Play."
 }

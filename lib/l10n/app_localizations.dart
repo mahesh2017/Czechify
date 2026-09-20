@@ -5485,6 +5485,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resumed · question {current} of {total}'**
   String lessonResumed(int current, int total);
+
+  /// No description provided for @ageSignalsUnderAgeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify is for ages 16 and over'**
+  String get ageSignalsUnderAgeTitle;
+
+  /// No description provided for @ageSignalsUnderAgeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play shared an age range below Czechify’s minimum age. Access stays locked to protect younger learners.'**
+  String get ageSignalsUnderAgeBody;
+
+  /// No description provided for @ageSignalsVerificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your age in Google Play'**
+  String get ageSignalsVerificationTitle;
+
+  /// No description provided for @ageSignalsVerificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play needs you to complete age verification or family supervision before Czechify can open. Complete it in Google Play, then return here and check again.'**
+  String get ageSignalsVerificationBody;
+
+  /// No description provided for @ageSignalsApprovalPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent approval is pending'**
+  String get ageSignalsApprovalPendingTitle;
+
+  /// No description provided for @ageSignalsApprovalPendingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A parent or guardian still needs to approve the latest change before Czechify can open. Check again after they respond in Family Link.'**
+  String get ageSignalsApprovalPendingBody;
+
+  /// No description provided for @ageSignalsApprovalDeclinedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent approval is required'**
+  String get ageSignalsApprovalDeclinedTitle;
+
+  /// No description provided for @ageSignalsApprovalDeclinedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A parent or guardian did not approve the latest change, so Czechify cannot open for this account.'**
+  String get ageSignalsApprovalDeclinedBody;
+
+  /// No description provided for @ageSignalsUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Age check is temporarily unavailable'**
+  String get ageSignalsUnavailableTitle;
+
+  /// No description provided for @ageSignalsUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify could not confirm age eligibility. Check your connection and make sure Google Play is up to date, then try again.'**
+  String get ageSignalsUnavailableBody;
+
+  /// No description provided for @ageSignalsOpenPlayStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Google Play'**
+  String get ageSignalsOpenPlayStore;
+
+  /// No description provided for @ageSignalsCheckAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Check again'**
+  String get ageSignalsCheckAgain;
+
+  /// No description provided for @ageSignalsPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify uses only the coarse age range and approval status on this device. It does not store your birth date or Google Play install identifier.'**
+  String get ageSignalsPrivacyNote;
 }
 
 class _AppLocalizationsDelegate

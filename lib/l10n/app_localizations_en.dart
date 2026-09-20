@@ -3164,4 +3164,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String lessonResumed(int current, int total) {
     return 'Resumed · question $current of $total';
   }
+
+  @override
+  String get ageSignalsUnderAgeTitle => 'Czechify is for ages 16 and over';
+
+  @override
+  String get ageSignalsUnderAgeBody =>
+      'Google Play shared an age range below Czechify’s minimum age. Access stays locked to protect younger learners.';
+
+  @override
+  String get ageSignalsVerificationTitle => 'Confirm your age in Google Play';
+
+  @override
+  String get ageSignalsVerificationBody =>
+      'Google Play needs you to complete age verification or family supervision before Czechify can open. Complete it in Google Play, then return here and check again.';
+
+  @override
+  String get ageSignalsApprovalPendingTitle => 'Parent approval is pending';
+
+  @override
+  String get ageSignalsApprovalPendingBody =>
+      'A parent or guardian still needs to approve the latest change before Czechify can open. Check again after they respond in Family Link.';
+
+  @override
+  String get ageSignalsApprovalDeclinedTitle => 'Parent approval is required';
+
+  @override
+  String get ageSignalsApprovalDeclinedBody =>
+      'A parent or guardian did not approve the latest change, so Czechify cannot open for this account.';
+
+  @override
+  String get ageSignalsUnavailableTitle =>
+      'Age check is temporarily unavailable';
+
+  @override
+  String get ageSignalsUnavailableBody =>
+      'Czechify could not confirm age eligibility. Check your connection and make sure Google Play is up to date, then try again.';
+
+  @override
+  String get ageSignalsOpenPlayStore => 'Open Google Play';
+
+  @override
+  String get ageSignalsCheckAgain => 'Check again';
+
+  @override
+  String get ageSignalsPrivacyNote =>
+      'Czechify uses only the coarse age range and approval status on this device. It does not store your birth date or Google Play install identifier.';
 }

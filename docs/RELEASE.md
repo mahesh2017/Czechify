@@ -169,6 +169,10 @@ Done:
   `docs/site/`.
 - 16 KB page alignment verified across all four ABIs (required for new
   submissions since November 2025).
+- Google Play Age Signals 0.0.4 is checked before account sync or cloud-backed
+  features in production Android builds. The app enforces its 16+ audience,
+  blocks unresolved mandatory verification and parent-approval states, and
+  neither retains `installId` nor transmits the coarse range off-device.
 
 Before submission:
 - [ ] **Replace the test upload keystore.** `android/key.properties` currently
@@ -196,6 +200,14 @@ Before submission:
 - [ ] Enable Supabase Auth "leaked password protection" (Dashboard →
       Authentication) — the one remaining P1 advisor, dashboard-only.
 - [ ] Age rating, screenshots, store descriptions.
+- [ ] Open **Play Console → Policy and programs → Age signals**, confirm API
+      access is enabled for `com.eminentsite.czechify`, and keep the default
+      age bands unless a documented product decision requires custom ranges.
+      Upload build 25 to an internal track, install it from Play on the tester
+      accounts, and verify the live eligible path. Keep automated fake-response
+      coverage for `0–12`, `13–15`, `16–17`, `18+`,
+      `VERIFICATION_REQUIRED`, `NOT_SHARED`, and pending/declined significant
+      changes before adding Brazil to production availability.
 - [ ] Verify the anonymous-user cleanup is actually *running* in production.
       The migration (`20260724155330_schedule_anonymous_user_cleanup`) is
       applied; confirm the `cron.job` row exists and has recent entries in

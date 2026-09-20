@@ -32,7 +32,7 @@
     </div>
   </header>
   <h1>Czechify Privacy Policy</h1>
-  <p class="meta"><strong>Last updated:</strong> 30 August 2026 · <strong>Version:</strong> 2026-08-30.1</p>
+  <p class="meta"><strong>Last updated:</strong> 20 September 2026 · <strong>Version:</strong> 2026-09-20.1</p>
 
   <h2>1. Controller and contact</h2>
   <p>Czechify is operated by <strong>Mahesh Pathak</strong>, Příčná 1892/4, Nové Město,
@@ -100,6 +100,11 @@
       <td>Legitimate interests, Art. 6(1)(f)</td>
     </tr>
     <tr>
+      <td>Coarse age range and age-verification or parent-approval status supplied by Google Play <em>(production Android only)</em></td>
+      <td>Enforce Czechify's minimum age of 16 and meet age-assurance obligations in regulated regions, including Brazil. The response is evaluated on the device and is not sent to Czechify's servers or retained.</td>
+      <td>Legal obligation, Art. 6(1)(c), where an age-assurance law applies; legitimate interests, Art. 6(1)(f), in protecting younger users and enforcing the 16+ audience elsewhere</td>
+    </tr>
+    <tr>
       <td>AI-reply report: reported tutor output, scenario, time, reason, and any note you add; plus sender details supplied by your email app</td>
       <td>Investigate safety or quality reports and respond where appropriate</td>
       <td>Legitimate interests, Art. 6(1)(f), in maintaining a safe and reliable service</td>
@@ -125,6 +130,11 @@
   progress also have a local copy but the categories listed as synced above are sent to the cloud. Authentication
   tokens are stored using Android Keystore or Apple Keychain facilities. Android app backup is
   disabled.</p>
+  <p>On production Android installations, Czechify requests a coarse age range and applicable
+  verification or parent-approval status through the Google Play Age Signals API before starting
+  account sync or cloud-backed features. Czechify evaluates the response in memory on the device.
+  It does not request or store a birth date, does not retain Google Play's installation identifier,
+  and does not send the response to Czechify's servers or other third parties.</p>
   <p>Your device's default speech-recognition feature may process audio on the device or send it to
   the operating-system provider (for example, Google or Apple), depending on your device and its
   settings. That processing is controlled by the provider's terms and privacy notice, not by
@@ -157,7 +167,7 @@
     </tr>
     <tr>
       <td><strong>Google LLC</strong></td>
-      <td>Identity provider for optional Google account authentication; processes the selected account email, provider identifier, and basic profile fields. No Google content scope is requested.</td>
+      <td>Identity provider for optional Google account authentication; processes the selected account email, provider identifier, and basic profile fields. On production Android, Google Play also supplies Czechify with a coarse age range and applicable age-verification or parent-approval status. No Google content scope is requested.</td>
       <td>May be processed globally, including in the United States</td>
     </tr>
     <tr>
@@ -236,9 +246,14 @@
 
   <h2>13. Children</h2>
   <p>Czechify is not directed to children under 16 and should be listed in Google Play for an
-  audience aged 16 and over. Czechify does not collect a birth date. A person under 16 must not
-  enable cloud speech or submit personal data to an AI feature. If you believe a child has done so,
-  contact us so we can take appropriate action.</p>
+  audience aged 16 and over. On production Android installations, Czechify uses Google Play Age
+  Signals to enforce this minimum age. A range wholly below 16, a required-but-incomplete age
+  verification, or a pending or declined parent approval prevents the app from opening until the
+  status becomes eligible. If age sharing is optional and the user or parent chooses not to share,
+  Czechify does not infer an age from that choice. Czechify does not collect a birth date, retain
+  Google Play's installation identifier, or send the age signal to its servers. If you believe a
+  child under 16 has provided personal information to Czechify, contact us so we can take
+  appropriate action.</p>
 
   <h2>14. Changes</h2>
   <p>We will update the date and version when this notice changes. If a change affects a consent you
