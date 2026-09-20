@@ -32,6 +32,10 @@ import 'presentation/screens/compliance/age_signals_gate_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Match Android 15+'s enforced behavior on every supported Android release.
+  // Native MainActivity also opts in before Flutter creates its first view.
+  await enableAppEdgeToEdge();
+
   // Keep compact Android phones portrait-only while allowing tablets,
   // unfolded large-screen foldables, and desktop-class displays to rotate.
   // The policy uses the physical display (not a split-screen window) and is

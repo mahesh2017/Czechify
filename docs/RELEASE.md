@@ -203,15 +203,20 @@ Before submission:
 - [ ] Open **Play Console → Policy and programs → Age signals**, confirm API
       access is enabled for `com.eminentsite.czechify`, and keep the default
       age bands unless a documented product decision requires custom ranges.
-      Upload build 26 to an internal track, install it from Play on the tester
+      Upload build 27 to an internal track, install it from Play on the tester
       accounts, and verify the live eligible path. Keep automated fake-response
       coverage for `0–12`, `13–15`, `16–17`, `18+`,
       `VERIFICATION_REQUIRED`, `NOT_SHARED`, and pending/declined significant
       changes before adding Brazil to production availability.
-- [ ] On build 26, confirm a phone remains portrait-only and rotate a tablet or
+- [ ] On build 27, confirm a phone remains portrait-only and rotate a tablet or
       unfolded large-screen foldable through both orientations. The Android
       policy clears its orientation request at a 600dp display shortest side;
       iPhone remains portrait-only while iPad declares all orientations.
+- [ ] On build 27, verify edge-to-edge rendering on Android 15 and 16 with both
+      gesture and three-button navigation. Exercise keyboard-visible forms and
+      confirm the status bar, primary navigation, sheets, and dialogs remain
+      clear of system UI. MainActivity opts in before Flutter's first frame and
+      Dart keeps the mode explicit on older supported Android releases.
 - [ ] Verify the anonymous-user cleanup is actually *running* in production.
       The migration (`20260724155330_schedule_anonymous_user_cleanup`) is
       applied; confirm the `cron.job` row exists and has recent entries in

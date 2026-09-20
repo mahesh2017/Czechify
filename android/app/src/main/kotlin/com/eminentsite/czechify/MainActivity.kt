@@ -3,6 +3,8 @@ package com.eminentsite.czechify
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import androidx.core.view.WindowCompat
 import com.google.android.play.agesignals.AgeSignalsAccessRequest
 import com.google.android.play.agesignals.AgeSignalsManager
 import com.google.android.play.agesignals.AgeSignalsManagerFactory
@@ -16,6 +18,14 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
     private lateinit var ageSignalsManager: AgeSignalsManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Apply before Flutter creates its content view. Android 15+ enforces
+        // edge-to-edge for our target SDK; this call gives older supported
+        // Android versions the same layout and lets Play verify the opt-in.
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)

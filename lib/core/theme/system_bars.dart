@@ -1,5 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+/// Keeps Android system UI behavior consistent below and above Android 15.
+///
+/// Android 15+ enforces edge-to-edge for Czechify's target SDK. Calling this
+/// explicitly makes older supported releases behave the same way, while the
+/// native activity enables it before Flutter draws its first frame.
+Future<void> enableAppEdgeToEdge() async {
+  if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) return;
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+}
 
 /// Custom headers need the same theme-aware system icons as an AppBar.
 class AppSystemBars extends StatelessWidget {
