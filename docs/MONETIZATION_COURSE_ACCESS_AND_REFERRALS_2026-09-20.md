@@ -2,7 +2,7 @@
 
 20 September 2026. Assessment of the user's latest proposal, on `codex/monetization-research-plan`. This supersedes the advertising strategy and the earlier assumption that the entire core course stays free. Product recommendations only; no access restrictions, purchases, referral rewards, or production changes have been implemented.
 
-## Assessment and recommended pilot
+## Agreed referral direction and proposed paid offering
 
 Paid course access gives 250 CZK/month a clearer benefit than removing ads from a small app. A referral reward tied to learning is a useful acquisition experiment, but acquiring free users does not itself produce revenue. The program must earn incremental paying learners or sufficient retained learners to justify its costs and displaced subscriptions.
 
@@ -10,7 +10,7 @@ Recommend **the first two A1 units free**, **Core at 250 CZK/month**, and **AI c
 
 Use **one additional A1 unit for each of the referred learner's first two qualifying unit completions**, at most two units per friend. Do not grant anything for merely registering or installing. This implements the user's staged reward without requiring the friend to pay.
 
-For an initial revenue-focused pilot, recommend a **published cap of six referral-earned units per referrer**, corresponding to three friends completing both milestones. Including the two free units, this grants eight of 17 A1 units, leaving nine outside the free/referral allowance. This cap is a proposed modification to the user's full-A1 reward, not an accepted requirement. If the priority is maximum growth and full-A1 giveaways are intentional, remove the cap: eight fully qualified friends then unlock all 17 units. Never add a lower cap retroactively to rewards already promised.
+**User-confirmed direction:** the maximum is **two earned units per referred learner**, with no six-unit campaign cap. All 15 A1 units beyond the initial two may be earned. The user accepts possible subscription cannibalization in exchange for learning-qualified acquisition and word of mouth. The earlier six-unit cap recommendation is withdrawn. Rewards remain limited to the current A1 inventory; they do not grant A2 or AI chat. Never lower promised rewards retroactively.
 
 Do not require a card for the free sample. Explain the limit and paid price from onboarding, and offer upgrade or referral at the boundary. With course access already monetized, retain unlimited attempts or optional hearts rather than making mistake recovery a second payment pressure. Recommend reconsidering the old 500-download launch threshold: billing readiness and a convincing course sample now matter more than reaching the former advertising milestone.
 
@@ -25,13 +25,36 @@ Verified bundled curriculum: A1 has **17 units**; A2 has **14**. The first two A
 
 The three-unit version reaches 15 credits after five friends; only 14 are needed. The two-unit version reaches 16 credits after eight friends; only 15 are needed. Clip to the remaining A1 inventory and explain this in advance; do not silently turn excess credits into A2 or AI access. Once the learner reaches their cap, remove the promise of further credit from new referral offers.
 
+Exact two-unit boundary: seven friends finishing both milestones provide 14 credits. The eighth friend's first qualifying unit supplies the fifteenth and final credit. Thus the staged design requires **at least eight distinct qualified referrals**, but does not guarantee that all eight finish unit 2 before the referrer obtains full A1. If some stop after unit 1, it may take up to 15 distinct one-unit completers. Do not advertise that eight signups alone unlock the course.
+
+```text
+earned A1 units = min(15, sum of validated milestones across direct referrals)
+milestones per distinct referred learner = 0, 1, or 2
+available A1 units = 2 + earned A1 units
+```
+
 The reward is **cumulative**: friend finishes unit 1 → one credit total; finishes unit 2 → two total; under the three-unit variant, finishes unit 3 → three total. It is not 1 + 2 + 3 credits from one friend.
 
 Two free units is a sensible starting experiment because it already includes eight lessons, not simply because 17 is a small unit count. However, these units focus on Czech sounds/repair phrases and introductions. Unit 3 begins gender/noun identification; later units show cafés, shopping and daily-life tasks. The paywall should preview these concrete outcomes. If users do not experience useful progress in the first two units, shortening the sample could reduce conversion; three free units remains a valid alternative to test later.
 
 ## Growth and revenue are different outcomes
 
-Completion makes a referral more valuable than an installation but does not guarantee retention, payment, or a distinct human. A learner may recruit friends interested only in the same free route. A chain of referrals can grow accounts while leaving subscription revenue near zero.
+Completion makes a referral more valuable than an installation but does not guarantee retention, payment, or a distinct human. The accepted strategy intentionally permits some learners to earn all A1 while others subscribe for immediate access or purchase AI. That is a reasonable acquisition hypothesis to test; the model does not require every free learner to convert. Do not assume conversion from expat income or willingness to recruit: measure actual behavior.
+
+### User's 31.25–62.50 CZK acquisition estimate
+
+The arithmetic is correct under the stated scenario:
+
+| Assumed subscription revenue forgone for the referrer | Incremental qualified learners gained | Forgone gross revenue per learner |
+|---|---:|---:|
+| One month: 250 CZK | 8 | 31.25 CZK |
+| Two months: 500 CZK | 8 | 62.50 CZK |
+
+Treat this as a **scenario for opportunity cost per activated learner**, not an observed all-in customer acquisition cost or cash advertising expense. It assumes the referrer would otherwise have paid for one or two months and that all eight referrals are genuinely additional. A referrer who would never pay has little displaced subscription revenue; a longer-lived payer could have more. Use net contribution after applicable fees/taxes and servicing costs when assessing profitability, rather than equating the gross subscription price with profit.
+
+The program also costs engineering, ongoing operations, fraud handling and the referred users' course services. Some invitees may have joined organically. If only four of the eight are incremental, the same gross opportunity-cost assumption becomes 62.50–125 CZK each. First-unit, second-unit, D30-retained and paying learners need separate denominators. An attributable invite is not automatically an incremental acquisition.
+
+Low cash outlay and meaningful learning before reward are advantages of this proposal. The practical decision is whether measured incremental value exceeds these costs, rather than whether all referrers eventually pay. An external advertising-cost comparison has not been established; claims of massive marketing savings remain hypotheses until compared with another acquisition channel or a credible baseline.
 
 Illustrative, not forecast: if 5% of qualified referred learners buy one month of Core, five referrals yield `5 × 0.05 × 250 = 62.50 CZK` expected gross billings; eight yield `100 CZK`. Compare this with the referrer's probability of buying and renewing without the reward, not with an assumption that every rewarded referrer would have paid. The 5% conversion is an example only.
 
@@ -88,6 +111,6 @@ Google requires subscriptions to provide sustained value and clear price, renewa
 
 First ship and test the free-sample boundary, paid course/AI entitlements, restore, expiry and offline behavior. Then add an invitation-code pilot and staged server-side rewards; automatic link attribution can follow. Remove AdMob/UMP/rewarded-hearts work from the active backlog, since ads were never implemented. Retain the existing non-ad privacy promises unless the new referral/billing data flows require specific updates.
 
-Pilot two free units and at most six earned units, with the terms visible before invitations. Track sample completion, paywall-to-purchase conversion, first paid renewal, referred D7/D30 learning retention, milestone approvals, fraud/appeal rates, incremental support cost and net subscription contribution. At small sample sizes, report counts and uncertainty rather than claiming a statistically proven winner. Expand toward full-A1 earning only if acquisition quality and economics justify it; honor existing grants if new referrals are paused.
+Pilot two free units and the ability to earn all 15 remaining A1 units, with at most two grants per referred learner and the terms visible before invitations. Track sample completion, paywall-to-purchase conversion, first paid renewal, referred D7/D30 learning retention, milestone approvals, fraud/appeal rates, incremental support cost and net subscription contribution. Report cash acquisition cost separately from estimated opportunity-cost-adjusted acquisition cost, and distinguish first-unit activation from both-unit completion. At small sample sizes, report counts and uncertainty rather than claiming a statistically proven winner. Honor existing grants and already accepted referral commitments if new invitations are paused.
 
 The earlier engineering estimates covered advertising and a simpler entitlement model; they are superseded, not additive. A fresh estimate must cover course-wide access, migration, account restore, the referral ledger/validation, and optional AI-only/bundle billing. No guarantee of quick growth or fraud elimination follows from the proposal.
