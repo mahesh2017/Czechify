@@ -89,7 +89,7 @@ All mutations except authenticated external notifications accept `Idempotency-Ke
 | `GET /configuration` | Supported client/protocol version | Campaign summary, feature flags/cohort, allowed product IDs, protocol minimum; no secrets. |
 | `GET /entitlements` | Optional known revision | Signed current snapshot, or explicit unchanged revision plus fresh verified signed snapshot if validity was refreshed. |
 | `POST /purchase-intents` | `{product_id,base_plan_id,platform:"android"}` | `201 {intent_id,expires_at,obfuscated_account_id,product_id,base_plan_id}`. Reject anonymous owner or disabled product. |
-| `POST /purchases/verify` | `{purchase_token,intent_id?,source:"purchase"|"restore"}` | `200 {status:"provisioned",revision}` or `202 {status:"verification_pending",verification_id,retry_after_seconds:5}`. Token limit 16 KiB; full body 24 KiB. |
+| `POST /purchases/verify` | `{purchase_token,product_id,intent_id?,source:"purchase"|"restore"}`. `product_id` is required because Play's `subscriptionsv2` lookup is keyed by product. | `200 {status:"provisioned",verification_id,state,access,revision}` (a pending Play purchase is provisioned with `access:false`) or `202 {status:"verification_pending",verification_id,retry_after_seconds:5}`. Token limit 16 KiB; full body 24 KiB. |
 | `GET /purchases/status/<verification_id>` | None | Owner-scoped status, safe error, current revision. No token or another owner's details. |
 | `GET /subscriptions` | None | Own Core/AI status, paid-through times, auto-renew state, safe management links. Store supplies display price. |
 | `POST /referrals/code` | `{campaign_id}` | Existing or newly minted `{code,share_url}`. Linked account required. |

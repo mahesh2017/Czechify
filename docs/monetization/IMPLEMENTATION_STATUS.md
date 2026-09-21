@@ -46,14 +46,32 @@ Known limitations to resolve before activation:
 - `keep_newest_sync_row` still discards an entire placement write whose `updated_at` is older than the stored row, so a phase ceiling from a device with an older timestamp is dropped rather than merged. This matches the pre-existing scalar behavior.
 - The staging signing key, public-key distribution and a staging Supabase project have not been provisioned; nothing has been deployed.
 
+## Delivery 3a — Server-side purchase verification
+
+PR 3 is split into 3a (server verification), 3b (Play notifications and the retry worker) and 3c (Flutter checkout, restore and subscriptions screen). 3a is backend only.
+
+- Private billing tables: products (seeded disabled), frozen per-account Play bindings, purchase intents, purchases with SHA-256 token digests and AES-GCM encrypted tokens, fenced verification/acknowledgement jobs and an audit log. A deleted owner leaves a tombstone that no other account can claim.
+- Service-only RPCs for binding, intents, registration, job leases, applying a Play result, completing an acknowledgement, failing a job, owner-scoped status and an operator product switch. `apply_play_verification` rechecks the lease and the account binding, provisions through `apply_verified_feature`, and only then creates the acknowledgement job.
+- `monetization-api` routes: `POST /purchase-intents`, `POST /purchases/verify` and `GET /purchases/status/<id>`, all requiring a linked account. Verification runs inline and returns `202 verification_pending` when Play is slow or failing. The purchase routes return `503` until all billing secrets are configured.
+- A Play Developer API client (service-account OAuth, `subscriptionsv2.get`, `subscriptions.acknowledge`) and a pure normalizer that maps every documented `SubscriptionState` and refuses unknown ones instead of guessing.
+- Contract change: `/purchases/verify` requires `product_id`, because Play's lookup is keyed by product.
+
+Validation:
+
+- Database: `supabase test db` passes 173/173 on the full migration chain, including 50 new billing checks for client isolation, frozen bindings, intent idempotency and rate limits, foreign and tombstoned tokens, fencing, binding mismatch, pending purchases, acknowledgement ordering and backoff.
+- Edge Functions: `deno fmt --check`, `deno lint`, `deno check` and 76/76 `deno test`.
+- End to end: `billing_integration_test.ts` drove the real handler, RPC wiring, Auth and database on the local stack with only Play faked. A linked account bought Core and was acknowledged; a second account and an anonymous account were refused.
+
+Not in 3a: the background retry worker, Play notification intake and daily reconciliation (3b); the Flutter purchase flow (3c); the generic `operation_results` idempotency table (purchase verification is idempotent through the token digest, and intents through their own key); and real Play license tests, which need the staging setup in [BACKEND_SETUP.md](BACKEND_SETUP.md).
+
 ## Activation boundary
 
-Only the phase-local progression correction is connected to the existing runtime. The entitlement repository and providers exist, but no screen, route or lesson admission reads them yet. There is no checkout, production paywall, deployed migration, new external service or real referral grant. No production backend was changed.
+Only the phase-local progression correction is connected to the existing runtime. The entitlement repository and providers exist, but no screen, route or lesson admission reads them yet. Purchase verification exists on the server with its products disabled; there is no in-app checkout, production paywall, deployed migration or real referral grant. No production backend was changed.
 
 Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. The next backend/client repository work must verify the signed snapshot, account and protocol before these policies receive it. `ReferralRewardPolicy` is a preview; authoritative rewards require the locked database transaction and uniqueness constraints in the specification.
 
 ## Next implementation work
 
-1. Implement and license-test Play purchase/restore, token binding, durable verification, acknowledgement and notifications (PR 3). Real tests need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account and a notification topic.
+1. PR 3b: authenticated Play notification intake, a scheduled worker for due jobs and daily reconciliation. PR 3c: Flutter Store adapter, purchase and restore, and a minimal subscriptions screen behind the disabled flag. Real license tests need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account and a notification topic.
 2. Implement referral claim/evidence/Integrity/outbox and transactional allocation (PR 4), including the three database concurrency fixtures deferred from Delivery 1.
 3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).
