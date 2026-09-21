@@ -49,12 +49,19 @@ Secrets: `PLAY_PACKAGE_NAME`, `PLAY_INTEGRITY_CERT_DIGESTS` (the app's signing-c
 
 Still open: operator authorization and audit attribution for review and campaign changes (both are service-only RPCs without an operator identity), a generic `Idempotency-Key` store (all referral mutations are idempotent through domain uniqueness), and export extensions (Phase 7).
 
-## What 4c must add before activation
+## 4c: Flutter client
 
-Items 1–4 of the original handoff are delivered in 4b above; operator identity for reviews remains open.
+Delivered on `codex/referral-client`:
 
-1. Dart canonical receipts that pass `referral_receipt.v1.json` byte for byte, and a Play Integrity standard token requested with the fixture's request-hash construction.
-2. Flutter manual-code claim flow, actual initial-player interaction coverage and teaching acknowledgements, and an account-scoped outbox committed in the same local transaction as the lesson attempt. Network failure must not undo learning progress. Account switches cannot move receipts.
+- **Receipts** (`lib/domain/entities/referral_receipt.dart`): Dart canonical JSON, receipt digest and Integrity request hash reproduce `referral_receipt.v1.json` byte for byte, so Python, Deno and Dart agree. Timestamps are always UTC with milliseconds.
+- **Coverage from the real player**: the first `initial` evidence per exercise. Teaching exercises report their Continue as a skip, so a teaching exercise's first interaction is recorded as `teaching_acknowledged`; answered exercises are correct or incorrect; a skipped practice exercise is `skipped`. Repairs never replace the first interaction, and an attempt missing any exercise produces no receipt.
+- **Claim at attempt start**: the lesson player looks up the signed-in account's claim when an attempt begins (and on retry), only for the free units and never in exam mode, and keeps it in the resume checkpoint. A checkpoint from before this build carries no claim, so that attempt is not evidence. An account switch mid-lesson drops the receipt, never the lesson.
+- **Local storage** (Drift schema 10): `referral_claims` (the account's own claim, written only from a successful claim response) and `referral_receipt_outbox`, both keyed by account, cleared with learner data and never synced. The receipt is inserted inside `recordLessonCompletion`'s transaction after the duplicate-attempt check: a failed receipt write rolls the attempt back, and a replayed attempt queues nothing.
+- **Upload** (`ReferralUploader`): challenge, Play Integrity token for the fixture's request hash, then submit. Triggered after a lesson commits, at startup, on app resume and when a network interface returns. Transient failures back off (30 s doubling to 6 h); a used challenge retries in 5 s; rate limits wait an hour; permanent refusals (`integrity_rejected`, `invalid_receipt`, `referral_unavailable`, `idempotency_conflict`) stop as `rejected`; `content_update_required` and `campaign_unavailable` are `held` for support. Only the signed-in account's receipts are read, and a pass stops the moment the account changes.
+- **Play Integrity bridge**: `com.google.android.play:integrity:1.6.0` behind a `MainActivity` channel. The token provider is prepared once and re-prepared once when Play reports it expired. Error codes map to unsupported (Integrity, Play Store or services missing or outdated, app not installed through Play), which takes the explicit review route; misconfigured (invalid Cloud project number, hash too long), which holds and logs rather than sending everyone to review; and retry (everything else). Play's error text never reaches Dart. The Cloud project number comes from `--dart-define=PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`; builds without it hold receipts.
+- **Claim**: `referralClaimProvider` claims a manual code for the signed-in account and stores the claim only if the same account is still signed in when the answer arrives. The screen that calls it is Phase 5.
+
+Still open for activation: the referral screen and course-boundary prompts (Phase 5), real Integrity tokens from a Play-distributed build, operator identity for reviews, and export extensions (Phase 7).
 
 ## Verification
 

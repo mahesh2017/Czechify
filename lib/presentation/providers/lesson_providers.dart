@@ -15,11 +15,16 @@ import '../../domain/entities/lesson.dart';
 import '../../domain/entities/learning_evidence.dart';
 import '../../domain/engines/learning_loop_engine.dart';
 import '../../domain/engines/unit_completion_detector.dart';
+import '../../domain/entities/course_catalog.dart';
+import '../../domain/entities/pending_referral_receipt.dart';
+import '../../domain/entities/referral_receipt.dart';
 import 'curriculum_providers.dart';
 import 'database_providers.dart';
 import 'gamification_providers.dart';
+import 'referral_providers.dart';
 import 'review_providers.dart';
 import 'settings_providers.dart';
+import 'sync_providers.dart';
 
 final _log = Logger('LessonSession');
 
@@ -287,6 +292,11 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
   final List<ExerciseAttemptEvidence> _exerciseEvidence = [];
   final Map<int, int> _unsuccessfulAttempts = {};
 
+  /// The referral claim held when this attempt began, and its account. Only
+  /// an attempt started under a claim can become referral evidence.
+  String? _referralClaimId;
+  String? _referralAccountId;
+
   /// The loaded exercises, fingerprinted. A saved position is only restored
   /// into the same content; an update that changes the lesson discards it.
   String _contentSignature = '';
@@ -340,6 +350,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     ]);
     final isExamMode = unit.isExamPrep;
     final isReview = lesson.isReview;
+    await _captureReferralClaim(lesson.unitId, isExamMode: isExamMode);
 
     // Teach before testing: load the vocabulary this lesson introduces so
     // the player can present it before the first exercise.
@@ -643,6 +654,9 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     // stay out of it, and nextExercise() keeps skipping the mistake re-asks.
     final isExamMode = state.isExamMode;
     final lesson = state.lesson;
+    if (lesson != null) {
+      await _captureReferralClaim(lesson.unitId, isExamMode: isExamMode);
+    }
     state = LessonSessionState(
       lesson: lesson,
       exercises: baseExercises,
@@ -680,6 +694,11 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       // from replaying a lesson inside one that was already finished.
       final completedBefore =
           await ref.read(progressRepositoryProvider).getCompletedLessonIds();
+      final referralReceipt = _referralReceiptFor(
+        lesson.id,
+        attemptId,
+        startedAt,
+      );
       final committed = await ref
           .read(progressRepositoryProvider)
           .recordCompletion(
@@ -693,7 +712,9 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
             startedAt: startedAt,
             activityXp: activityXp,
             exerciseEvidence: List.unmodifiable(_exerciseEvidence),
+            referralReceipt: referralReceipt,
           );
+      if (committed && referralReceipt != null) drainReferralReceipts(ref);
 
       final rewards =
           committed
@@ -715,6 +736,57 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
         completionError: 'Couldn’t save this attempt. Please try again.',
       );
     }
+  }
+
+  /// Records the referral claim the signed-in account holds as this attempt
+  /// begins. Only the free units qualify, and never in exam mode. Any failure
+  /// just means this attempt is not referral evidence; learning is unaffected.
+  Future<void> _captureReferralClaim(
+    int unitId, {
+    required bool isExamMode,
+  }) async {
+    _referralClaimId = null;
+    _referralAccountId = null;
+    if (isExamMode ||
+        !CourseCatalog.a1ReferralV1.freeUnitIds.contains(unitId)) {
+      return;
+    }
+    try {
+      final account = ref.read(backendServiceProvider).userId;
+      if (account == null) return;
+      final claim = await ref.read(referralStoreProvider).activeClaim(account);
+      if (claim == null) return;
+      _referralClaimId = claim;
+      _referralAccountId = account;
+    } catch (error, stack) {
+      _log.fine('No referral claim for this attempt', error, stack);
+    }
+  }
+
+  /// A receipt for this completed attempt, when it began under a claim and
+  /// the same account is still signed in. Null when any exercise is missing
+  /// its first interaction.
+  PendingReferralReceipt? _referralReceiptFor(
+    int lessonId,
+    String attemptId,
+    DateTime startedAt,
+  ) {
+    final claim = _referralClaimId;
+    final account = _referralAccountId;
+    if (claim == null || account == null) return null;
+    if (ref.read(backendServiceProvider).userId != account) return null;
+    final receipt = ReferralReceipt.fromAttempt(
+      claimId: claim,
+      lessonId: lessonId,
+      attemptId: attemptId,
+      startedAt: startedAt,
+      completedAt: DateTime.now(),
+      exercises: state.exercises,
+      evidence: _exerciseEvidence,
+    );
+    return receipt == null
+        ? null
+        : PendingReferralReceipt(accountId: account, receipt: receipt);
   }
 
   /// Saves where this attempt is, so leaving or losing the app does not lose
@@ -752,6 +824,13 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
               'rule': snapshot.lastGrammarRuleId,
               'step': snapshot.feedbackStep?.name,
               'draft': _writingDraft,
+              'referral':
+                  _referralClaimId == null
+                      ? null
+                      : {
+                        'claim': _referralClaimId,
+                        'account': _referralAccountId,
+                      },
               'failures': {
                 for (final entry in _unsuccessfulAttempts.entries)
                   '${entry.key}': entry.value,
@@ -828,6 +907,11 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       final presentationId = saved['presentation'] as String;
       final draft = saved['draft'] as String;
       final showFeedback = saved['feedback'] as bool;
+      // A checkpoint written before claims were recorded carries no claim:
+      // that attempt began before any claim this build knows about.
+      final referral = saved['referral'] as Map?;
+      final referralClaim = referral?['claim'] as String?;
+      final referralAccount = referral?['account'] as String?;
       final restored = state.copyWith(
         exercises: exercises,
         currentIndex: index,
@@ -865,6 +949,8 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       _presentationStartedAt = DateTime.now();
       _exerciseEvidence.addAll(evidence);
       _unsuccessfulAttempts.addAll(failures);
+      _referralClaimId = referralClaim;
+      _referralAccountId = referralAccount;
       _writingDraft = draft;
       state = restored;
     } catch (error, stack) {

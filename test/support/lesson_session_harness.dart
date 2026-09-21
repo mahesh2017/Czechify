@@ -4,6 +4,7 @@ import 'package:czechify/domain/entities/exercise.dart';
 import 'package:czechify/domain/entities/exercise_attempt_evidence.dart';
 import 'package:czechify/domain/entities/gamification_state.dart';
 import 'package:czechify/domain/entities/lesson.dart';
+import 'package:czechify/domain/entities/pending_referral_receipt.dart';
 import 'package:czechify/domain/entities/unit.dart';
 import 'package:czechify/domain/repositories/curriculum_repository.dart';
 import 'package:czechify/domain/repositories/progress_repository.dart';
@@ -19,6 +20,9 @@ import 'package:czechify/presentation/providers/gamification_providers.dart';
 class FakeProgressRepository implements ProgressRepository {
   int? recordedXp;
   int recordCalls = 0;
+
+  /// The referral receipt queued with the last committed attempt, if any.
+  PendingReferralReceipt? recordedReferralReceipt;
 
   /// Whether the lesson reached the point of committing an attempt.
   bool get committed => recordCalls > 0;
@@ -36,9 +40,11 @@ class FakeProgressRepository implements ProgressRepository {
     required int activityXp,
     required List<ExerciseAttemptEvidence> exerciseEvidence,
     String phase = 'initial',
+    PendingReferralReceipt? referralReceipt,
   }) async {
     recordCalls++;
     recordedXp = activityXp;
+    recordedReferralReceipt = referralReceipt;
     return true;
   }
 

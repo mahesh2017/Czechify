@@ -135,14 +135,33 @@ Validation:
 
 Not in 4b: the Flutter claim flow, player coverage capture and receipt outbox (4c); operator identity for reviews; real Play Integrity tokens, which need a Play-distributed build.
 
+## Delivery 4c — Flutter referral client
+
+Implemented on `codex/referral-client`, stacked on 4b. Details: [REFERRAL_BACKEND.md](REFERRAL_BACKEND.md).
+
+- Dart canonical receipts and Integrity request hash matching the shared Python-generated fixture byte for byte.
+- Receipt coverage from the real lesson player, recording teaching cards as acknowledged although the player reports their Continue as a skip.
+- The claim captured when an attempt starts and kept in the resume checkpoint; receipts only for the free units, never in exam mode, never across an account switch.
+- Drift schema 10: an account-scoped claim table and receipt outbox, cleared with learner data and never synced. The receipt commits in the same transaction as the lesson attempt.
+- An uploader (challenge, Integrity token, submit) with backoff, permanent and held outcomes, account fencing, and triggers after a lesson, at startup, on resume and on reconnect.
+- A native Play Integrity channel (`integrity:1.6.0`) mapping Play's error codes to unsupported, misconfigured and retry.
+- A claim provider for the Phase 5 screen.
+
+Validation:
+
+- Flutter: 1,430 tests pass, `flutter analyze --fatal-infos` is clean, changed-line coverage is 92%. The debug APK builds with the new native code.
+- Atomicity is proven by failing the receipt insert inside the lesson transaction: the attempt row is rolled back too. A v9 database upgrades to v10 with both tables.
+
+Not verified on a device: a real Integrity token needs a Play-distributed build with the Cloud project configured, and no screen calls the claim yet.
+
 ## Activation boundary
 
-Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused; the Flutter client integration remains pending. No production backend was changed.
+Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim, but nothing in the app can create a claim yet (the referral screen is Phase 5). No production backend was changed.
 
 Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course admission must consume the existing repository's signature-, account- and protocol-verified result. `ReferralRewardPolicy` is a client preview; only verified server intake followed by the 4a database transaction may issue real referral rewards.
 
 ## Next implementation work
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
-2. Flutter claim flow, player coverage and teaching acknowledgements, Dart canonical receipts against the shared fixture, Play Integrity token requests and an account-scoped receipt outbox (4c).
+2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts with the paywall (Phase 5).
 3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).

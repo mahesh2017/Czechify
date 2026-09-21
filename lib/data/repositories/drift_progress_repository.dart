@@ -1,3 +1,4 @@
+import '../../domain/entities/pending_referral_receipt.dart';
 import 'dart:convert';
 import '../../domain/entities/gamification_state.dart';
 import '../../domain/repositories/progress_repository.dart';
@@ -43,6 +44,7 @@ class DriftProgressRepository implements ProgressRepository {
     required int activityXp,
     required List<ExerciseAttemptEvidence> exerciseEvidence,
     String phase = 'initial',
+    PendingReferralReceipt? referralReceipt,
   }) {
     return _db.progressDao.recordLessonCompletion(
       attemptId: attemptId,
@@ -56,6 +58,7 @@ class DriftProgressRepository implements ProgressRepository {
       activityXp: activityXp,
       exerciseEvidence: exerciseEvidence,
       phase: phase,
+      referralReceipt: referralReceipt,
     );
   }
 

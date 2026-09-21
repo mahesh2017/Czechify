@@ -14,6 +14,8 @@ import '../tables/exercise_attempts.dart';
 import '../tables/learning_evidence_events.dart';
 import '../tables/placement_profiles.dart';
 import '../tables/delayed_transfer_assignments.dart';
+import '../tables/referral_tables.dart';
+import '../../../domain/entities/pending_referral_receipt.dart';
 import '../../../domain/entities/exercise_attempt_evidence.dart';
 import '../../../domain/entities/exercise_outcome.dart';
 import '../../../domain/entities/learning_evidence.dart';
@@ -34,6 +36,7 @@ part 'progress_dao.g.dart';
     LearningEvidenceEvents,
     PlacementProfiles,
     DelayedTransferAssignments,
+    ReferralReceiptOutbox,
   ],
 )
 class ProgressDao extends DatabaseAccessor<AppDatabase>
@@ -498,6 +501,7 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     required int activityXp,
     required List<ExerciseAttemptEvidence> exerciseEvidence,
     String phase = 'initial',
+    PendingReferralReceipt? referralReceipt,
   }) => attachedDatabase.transaction(() async {
     final duplicate = await (select(
       lessonAttempts,
@@ -519,6 +523,25 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
         committedAt: now,
       ),
     );
+
+    // Queued with the attempt it describes: both commit or neither does, and
+    // a replayed attempt returned above never queues a second receipt.
+    if (referralReceipt != null) {
+      final receipt = referralReceipt.receipt;
+      await into(referralReceiptOutbox).insert(
+        ReferralReceiptOutboxCompanion.insert(
+          accountId: referralReceipt.accountId,
+          attemptId: receipt.attemptId,
+          claimId: receipt.claimId,
+          lessonId: receipt.lessonId,
+          receiptJson: jsonEncode(receipt.toJson()),
+          receiptDigest: receipt.digest,
+          nextAttemptAt: now,
+          createdAt: now,
+        ),
+        mode: InsertMode.insertOrIgnore,
+      );
+    }
 
     if (exerciseEvidence.isNotEmpty) {
       await batch((batch) {

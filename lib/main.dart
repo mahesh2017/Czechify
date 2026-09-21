@@ -14,6 +14,7 @@ import 'core/notifications/notification_service.dart';
 import 'core/notifications/navigation_intent.dart';
 import 'presentation/routes/app_router.dart';
 import 'presentation/routes/app_shell_keys.dart';
+import 'presentation/providers/referral_providers.dart';
 import 'presentation/providers/database_providers.dart';
 import 'presentation/providers/age_signals_provider.dart';
 import 'presentation/providers/daily_arrival_providers.dart';
@@ -195,6 +196,8 @@ class _CzechifyAppState extends ConsumerState<CzechifyApp>
     // local course is ready. Its failure must not replace the usable app UI.
     ref.watch(backgroundInitializationProvider);
     ref.watch(syncTriggerCoordinatorProvider);
+    // Referral receipts left from earlier sessions upload in the background.
+    ref.watch(referralUploadBootstrapProvider);
     // Backfill account-scoped profile data from legacy local preferences. It
     // is deliberately background work and never delays a usable first frame.
     ref.watch(learnerProfileBootstrapProvider);
