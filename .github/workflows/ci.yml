@@ -180,6 +180,14 @@ jobs:
       - name: Run pgTAP security, RLS, sync, and release tests
         run: supabase test db
 
+      - name: Verify referral manifest and concurrent reward transactions
+        run: |
+          if ! command -v psql >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y postgresql-client
+          fi
+          python3 tool/test_referral_concurrency.py
+
       - name: Lint the resulting database
         run: supabase db lint --level warning
 

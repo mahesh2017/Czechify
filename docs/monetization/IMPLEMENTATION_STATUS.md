@@ -98,14 +98,32 @@ Validation:
 - On the Pixel emulator (Google Play image) against the local stack, with `monetization-api` served locally and a throwaway signing key: the Settings entry and screen render; an anonymous learner sees the link-account prompt with purchase and restore disabled; and the app fetched, verified and cached the signed entitlement document for its own account, confirmed in the device database. This was the first device run of the Delivery 2 entitlement path.
 - Not verified on a device: the emulator was not signed in to Google Play (`In-app billing API version 3 is not supported`), and no Play products exist yet, so no real price, purchase or restore ran. The linked-account screen state is covered by widget tests only.
 
+## Delivery 4a — Referral database foundation
+
+Phase 4 is split into 4a (database attribution, evidence and reward allocation), 4b (authenticated API, canonical receipts, request-bound Play Integrity and worker/review integration), and 4c (Flutter claim flow, real player coverage and durable account-scoped receipt upload). The referral screen and course boundary UI remain part of Phase 5.
+
+Implemented on `codex/referral-foundation`, stacked on the billing client branch:
+
+- Private, client-inaccessible campaign, code, claim, receipt, qualification, milestone, review and reward audit tables. Enrollment ships disabled, processing paused, and campaign dates unset.
+- The immutable revision-25 catalog pins all eight free lessons, their 92 exercise IDs, teaching acknowledgements and source hashes. An independently computed manifest digest and a CI check compare the server rows against both the planning fixture and actual bundled lesson files.
+- Service-only manual-code creation and claim operations: random opaque codes, linked referrers, a seven-day invitee window, no self-referral or already-completed first unit, fixed attribution, idempotent domain operations and rate-limited code creation/claim attempts (including failed guesses).
+- A **trusted-worker-only** verified-receipt persistence operation rechecks ownership, exact manifest coverage, teaching acknowledgements, attempt replay and conflicting payloads. Skipped attempts cannot qualify; incorrect answers can. Timing anomalies and unsupported attestation outcomes wait for review. This RPC does not verify Play Integrity itself and has no HTTP route in 4a.
+- Reward allocation derives both milestones from accepted lesson evidence, handles unit 2 arriving first, waits for in-place anonymous linking, and serializes with all permanent-grant writers on the beneficiary account. It skips existing permanent ownership, ignores temporary Core, grants at most two units per claim and caps at A1 unit 30. Grant, revision, audit, outbox and reward event commit together.
+- Invitee deletion removes receipt details and tombstones attribution while preserving the referrer's earned units. Review decisions are explicit; replay cannot resurrect a revoked award or turn a previous cap outcome into banked credit.
+- A local-only concurrent PostgreSQL harness consumes the three previously deferred transaction fixtures. It holds the beneficiary lock until both competing transactions are confirmed blocked, then checks grants, reward events, audit and outbox counts. CI runs it after the normal database suite.
+
+Not in 4a: public referral endpoints/status projections, generic request idempotency, challenge consumption and Integrity verification, a scheduled retry/link-trigger worker, Flutter claim storage and player receipts, local atomic outbox, referral UI, App Links or install attribution. Do not expose the trusted receipt RPC through an API accepting a client-provided `verified` result. See [REFERRAL_BACKEND.md](REFERRAL_BACKEND.md) for the handoff.
+
+Validation: full local Supabase reset; all 278 pgTAP tests pass (74 new referral checks); all three real concurrency fixtures and the server/bundled-manifest comparison pass; database lint is clean. This slice changes no Flutter or Edge Function runtime code. CI also runs the new contention harness after pgTAP.
+
 ## Activation boundary
 
-Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access, and referral qualification and authoritative reward allocation are still pending. No production backend was changed.
+Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access. Referral evidence validation and allocation exist behind service-only database operations; verified intake and client integration remain pending. No production backend was changed.
 
-Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course admission must consume the existing repository's signature-, account- and protocol-verified result. `ReferralRewardPolicy` is a preview; authoritative rewards require the locked database transaction and uniqueness constraints in the specification.
+Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course admission must consume the existing repository's signature-, account- and protocol-verified result. `ReferralRewardPolicy` is a client preview; only verified server intake followed by the 4a database transaction may issue real referral rewards.
 
 ## Next implementation work
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
-2. Implement referral claim/evidence/Integrity/outbox and transactional allocation (PR 4), including the three database concurrency fixtures deferred from Delivery 1.
+2. Complete referral API, canonical request/nonce binding, Play Integrity and durable processing (4b), then the Flutter claim/player-receipt/outbox integration (4c). Database allocation and the three concurrency fixtures are implemented in 4a.
 3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).
