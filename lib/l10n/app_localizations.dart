@@ -5563,6 +5563,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Czechify uses only the coarse age range and approval status on this device. It does not store your birth date or Google Play install identifier.'**
   String get ageSignalsPrivacyNote;
+
+  /// No description provided for @settingsSubscriptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions'**
+  String get settingsSubscriptionsTitle;
+
+  /// No description provided for @settingsSubscriptionsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Course access and AI chat'**
+  String get settingsSubscriptionsBody;
+
+  /// No description provided for @subscriptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions'**
+  String get subscriptionsTitle;
+
+  /// No description provided for @subscriptionsCoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify Core'**
+  String get subscriptionsCoreTitle;
+
+  /// No description provided for @subscriptionsCoreBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every published A1 and A2 lesson while you are subscribed. Units you earn by inviting friends stay yours if you cancel.'**
+  String get subscriptionsCoreBody;
+
+  /// No description provided for @subscriptionsAiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI chat'**
+  String get subscriptionsAiTitle;
+
+  /// No description provided for @subscriptionsAiBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversations with the AI tutor, within a daily limit. Course access is a separate subscription.'**
+  String get subscriptionsAiBody;
+
+  /// No description provided for @subscriptionsSeparateNote.
+  ///
+  /// In en, this message translates to:
+  /// **'These are two separate monthly subscriptions. Each renews, and can be cancelled, on its own in Google Play.'**
+  String get subscriptionsSeparateNote;
+
+  /// No description provided for @subscriptionsPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} / month'**
+  String subscriptionsPerMonth(String price);
+
+  /// No description provided for @subscriptionsPriceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Price not available'**
+  String get subscriptionsPriceUnavailable;
+
+  /// No description provided for @subscriptionsActiveUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Active until {date}'**
+  String subscriptionsActiveUntil(String date);
+
+  /// No description provided for @subscriptionsNotSubscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not subscribed'**
+  String get subscriptionsNotSubscribed;
+
+  /// No description provided for @subscriptionsSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get subscriptionsSubscribe;
+
+  /// No description provided for @subscriptionsRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore purchases'**
+  String get subscriptionsRestore;
+
+  /// No description provided for @subscriptionsManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage in Google Play'**
+  String get subscriptionsManage;
+
+  /// No description provided for @subscriptionsLinkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Link your account to subscribe'**
+  String get subscriptionsLinkTitle;
+
+  /// No description provided for @subscriptionsLinkBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A subscription belongs to a linked account, so it stays with you on a new phone or after reinstalling.'**
+  String get subscriptionsLinkBody;
+
+  /// No description provided for @subscriptionsLinkAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Link account'**
+  String get subscriptionsLinkAction;
+
+  /// No description provided for @subscriptionsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions are not available on this device yet.'**
+  String get subscriptionsUnavailable;
+
+  /// No description provided for @billingNoticePaymentPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Your payment is still pending in Google Play. Access starts once it completes.'**
+  String get billingNoticePaymentPending;
+
+  /// No description provided for @billingNoticeVerifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirming your purchase with Google Play…'**
+  String get billingNoticeVerifying;
+
+  /// No description provided for @billingNoticeProvisioned.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription is active.'**
+  String get billingNoticeProvisioned;
+
+  /// No description provided for @billingNoticeNothingToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'No active subscription was found for this Google Play account.'**
+  String get billingNoticeNothingToRestore;
+
+  /// No description provided for @billingNoticeAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account changed during the purchase. Sign in to the account you bought with, then restore purchases.'**
+  String get billingNoticeAccountChanged;
+
+  /// No description provided for @billingNoticeBindingMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'This purchase belongs to a different Czechify account. Sign in to that account, or contact support.'**
+  String get billingNoticeBindingMismatch;
+
+  /// No description provided for @billingNoticeCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled.'**
+  String get billingNoticeCanceled;
+
+  /// No description provided for @billingNoticeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Try again, or restore purchases if you were charged.'**
+  String get billingNoticeFailed;
+
+  /// No description provided for @billingNoticeCheckoutDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions are not available yet.'**
+  String get billingNoticeCheckoutDisabled;
+
+  /// No description provided for @billingNoticeStoreUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play is not available right now.'**
+  String get billingNoticeStoreUnavailable;
 }
 
 class _AppLocalizationsDelegate

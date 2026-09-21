@@ -3222,4 +3222,107 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get ageSignalsPrivacyNote =>
       'Czechify používá pouze přibližné věkové rozmezí a stav souhlasu v tomto zařízení. Neukládá datum narození ani identifikátor instalace Google Play.';
+
+  @override
+  String get settingsSubscriptionsTitle => 'Předplatné';
+
+  @override
+  String get settingsSubscriptionsBody => 'Přístup ke kurzu a AI chat';
+
+  @override
+  String get subscriptionsTitle => 'Předplatné';
+
+  @override
+  String get subscriptionsCoreTitle => 'Czechify Core';
+
+  @override
+  String get subscriptionsCoreBody =>
+      'Všechny zveřejněné lekce A1 a A2 po dobu předplatného. Lekce získané za pozvání přátel vám zůstanou i po zrušení.';
+
+  @override
+  String get subscriptionsAiTitle => 'Chat s AI';
+
+  @override
+  String get subscriptionsAiBody =>
+      'Rozhovory s AI lektorem v rámci denního limitu. Přístup ke kurzu je samostatné předplatné.';
+
+  @override
+  String get subscriptionsSeparateNote =>
+      'Jde o dvě samostatná měsíční předplatná. Každé se obnovuje a dá se zrušit zvlášť v Google Play.';
+
+  @override
+  String subscriptionsPerMonth(String price) {
+    return '$price / měsíc';
+  }
+
+  @override
+  String get subscriptionsPriceUnavailable => 'Cena není k dispozici';
+
+  @override
+  String subscriptionsActiveUntil(String date) {
+    return 'Aktivní do $date';
+  }
+
+  @override
+  String get subscriptionsNotSubscribed => 'Bez předplatného';
+
+  @override
+  String get subscriptionsSubscribe => 'Předplatit';
+
+  @override
+  String get subscriptionsRestore => 'Obnovit nákupy';
+
+  @override
+  String get subscriptionsManage => 'Spravovat v Google Play';
+
+  @override
+  String get subscriptionsLinkTitle => 'Pro předplatné propojte účet';
+
+  @override
+  String get subscriptionsLinkBody =>
+      'Předplatné patří k propojenému účtu, takže vám zůstane i na novém telefonu nebo po přeinstalaci.';
+
+  @override
+  String get subscriptionsLinkAction => 'Propojit účet';
+
+  @override
+  String get subscriptionsUnavailable =>
+      'Předplatné zatím na tomto zařízení není k dispozici.';
+
+  @override
+  String get billingNoticePaymentPending =>
+      'Platba v Google Play ještě čeká na dokončení. Přístup získáte, jakmile proběhne.';
+
+  @override
+  String get billingNoticeVerifying => 'Ověřujeme nákup v Google Play…';
+
+  @override
+  String get billingNoticeProvisioned => 'Předplatné je aktivní.';
+
+  @override
+  String get billingNoticeNothingToRestore =>
+      'Pro tento účet Google Play jsme nenašli žádné aktivní předplatné.';
+
+  @override
+  String get billingNoticeAccountChanged =>
+      'Během nákupu se změnil účet. Přihlaste se k účtu, se kterým jste nakupovali, a obnovte nákupy.';
+
+  @override
+  String get billingNoticeBindingMismatch =>
+      'Tento nákup patří k jinému účtu Czechify. Přihlaste se k němu, nebo kontaktujte podporu.';
+
+  @override
+  String get billingNoticeCanceled => 'Nákup byl zrušen.';
+
+  @override
+  String get billingNoticeFailed =>
+      'Něco se nepovedlo. Zkuste to znovu, a pokud vám byla stržena platba, obnovte nákupy.';
+
+  @override
+  String get billingNoticeCheckoutDisabled =>
+      'Předplatné zatím není k dispozici.';
+
+  @override
+  String get billingNoticeStoreUnavailable =>
+      'Google Play teď není k dispozici.';
 }
