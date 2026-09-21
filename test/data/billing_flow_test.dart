@@ -71,6 +71,7 @@ void main() {
   late String? account;
   late int refreshes;
   late BillingFlow flow;
+  Future<ApiResponse>? pendingReply;
 
   setUp(() async {
     store = _Store();
@@ -79,6 +80,7 @@ void main() {
     waits = [];
     account = 'account-a';
     refreshes = 0;
+    pendingReply = null;
     flow = BillingFlow(
       api: MonetizationApi((
         route, {
@@ -88,6 +90,7 @@ void main() {
       }) async {
         calls.add('$method $route ${body ?? ''}');
         store.log.add('api:$route');
+        if (pendingReply != null) return pendingReply!;
         return replies.isEmpty ? const ApiResponse(503) : replies.removeAt(0);
       }),
       store: store,
@@ -100,7 +103,10 @@ void main() {
     );
     await flow.start();
   });
-  tearDown(() => flow.dispose());
+  tearDown(() async {
+    flow.dispose();
+    await store.updates.close();
+  });
 
   Future<void> settle() => Future<void>.delayed(
     Duration.zero,
@@ -268,6 +274,56 @@ void main() {
     await settle();
     expect(calls, isEmpty);
   });
+
+  test('a disposed flow cannot start checkout or restore', () async {
+    flow.dispose();
+    store.log.clear();
+    await flow.start();
+    await flow.buy('czechify_core', linkedAccount: true, checkoutEnabled: true);
+    await flow.restore();
+    expect(calls, isEmpty);
+    expect(store.log, isEmpty);
+  });
+
+  test('a lagging account flow cannot create an intent or restore', () async {
+    account = 'account-b';
+    store.log.clear();
+    await flow.buy('czechify_core', linkedAccount: true, checkoutEnabled: true);
+    await flow.restore();
+    expect(calls, isEmpty);
+    expect(store.log, isEmpty);
+    expect(flow.state.notice, BillingNotice.accountChanged);
+  });
+
+  test('disposal while creating an intent prevents opening Play', () async {
+    final reply = Completer<ApiResponse>();
+    pendingReply = reply.future;
+    final buying = flow.buy(
+      'czechify_core',
+      linkedAccount: true,
+      checkoutEnabled: true,
+    );
+    await settle();
+    expect(calls, hasLength(1));
+    flow.dispose();
+    reply.complete(intent);
+    await buying;
+    expect(store.log.where((entry) => entry.startsWith('buy:')), isEmpty);
+  });
+
+  test(
+    'a purchase-stream error is reported and later updates still work',
+    () async {
+      store.updates.addError(StateError('store disconnected'));
+      await settle();
+      expect(flow.state.notice, BillingNotice.failed);
+      replies.add(provisioned);
+      store.updates.add([_purchase(StorePurchaseStatus.restored)]);
+      await settle();
+      expect(flow.state.notice, BillingNotice.provisioned);
+      expect(refreshes, 1);
+    },
+  );
 
   test('an unavailable store offers nothing to buy', () async {
     final offline = _Store()..available = false;

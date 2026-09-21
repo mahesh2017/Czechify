@@ -100,8 +100,12 @@ class BillingFlow {
 
   /// Listens to the store before anything can be bought, then loads prices.
   Future<void> start() async {
+    if (_disposed || _subscription != null) return;
     _subscription = store.purchases.listen(
       (updates) => _queue = _queue.then((_) => _handle(updates)),
+      onError: (Object error, StackTrace stack) {
+        _emit(_state.copyWith(notice: BillingNotice.failed));
+      },
     );
     try {
       if (!await store.isAvailable()) {
@@ -124,6 +128,10 @@ class BillingFlow {
     required bool linkedAccount,
     required bool checkoutEnabled,
   }) async {
+    if (_disposed) return;
+    if (currentAccount() != accountId) {
+      return _emit(_state.copyWith(notice: BillingNotice.accountChanged));
+    }
     if (_state.busyProductId != null || _state.restoring) return;
     if (!checkoutEnabled) {
       return _emit(_state.copyWith(notice: BillingNotice.checkoutDisabled));
@@ -149,6 +157,7 @@ class BillingFlow {
         basePlanId: basePlans[productId]!,
         idempotencyKey: newIdempotencyKey(),
       );
+      if (_disposed) return;
       if (currentAccount() != accountId) {
         return _emit(_state.copyWith(notice: BillingNotice.accountChanged));
       }
@@ -170,6 +179,10 @@ class BillingFlow {
   /// Asks the store for this device's subscriptions; each one found is
   /// verified with the server, which decides whose it is.
   Future<void> restore() async {
+    if (_disposed) return;
+    if (currentAccount() != accountId) {
+      return _emit(_state.copyWith(notice: BillingNotice.accountChanged));
+    }
     if (_state.busyProductId != null || _state.restoring) return;
     _restoreFoundPurchase = false;
     _emit(_state.copyWith(restoring: true, notice: BillingNotice.none));
@@ -251,15 +264,15 @@ class BillingFlow {
             // Retried by the store on the next launch.
           }
         }
+        if (_disposed || currentAccount() != accountId) return;
         onEntitlementsChanged();
         _emit(
           _state.copyWith(
-            notice:
-                access
-                    ? BillingNotice.provisioned
-                    : state == 'pending'
-                    ? BillingNotice.paymentPending
-                    : BillingNotice.nothingToRestore,
+            notice: access
+                ? BillingNotice.provisioned
+                : state == 'pending'
+                ? BillingNotice.paymentPending
+                : BillingNotice.nothingToRestore,
           ),
         );
       case PurchaseVerificationPending():
