@@ -41,6 +41,21 @@ ApiCall supabaseMonetizationCall(SupabaseClient client) => (
 Map<String, Object?> _object(Object? data) =>
     data is Map ? Map<String, Object?>.from(data) : const {};
 
+/// Server activation switches. Only `true` from the server turns one on.
+class MonetizationConfiguration {
+  final bool playCheckoutEnabled;
+  final bool coursePaywallEnabled;
+  const MonetizationConfiguration({
+    required this.playCheckoutEnabled,
+    required this.coursePaywallEnabled,
+  });
+
+  static const off = MonetizationConfiguration(
+    playCheckoutEnabled: false,
+    coursePaywallEnabled: false,
+  );
+}
+
 class PurchaseIntent {
   final String id;
   final String obfuscatedAccountId;
@@ -85,17 +100,29 @@ class MonetizationApi {
   final ApiCall call;
   const MonetizationApi(this.call);
 
-  /// Whether Play checkout is switched on for this account's cohort. Any
-  /// failure reads as off: a paywall must never appear by accident.
-  Future<bool> checkoutEnabled() async {
+  /// The server's activation switches for this account's cohort, or null when
+  /// the server could not be asked. Only `true` turns a switch on.
+  Future<MonetizationConfiguration?> fetchConfiguration() async {
     try {
       final response = await call('configuration', method: 'GET');
-      return response.status == 200 &&
-          response.body['play_checkout_enabled'] == true;
+      if (response.status != 200) return null;
+      return MonetizationConfiguration(
+        playCheckoutEnabled: response.body['play_checkout_enabled'] == true,
+        coursePaywallEnabled: response.body['course_paywall_enabled'] == true,
+      );
     } on Exception {
-      return false;
+      return null;
     }
   }
+
+  /// As [fetchConfiguration], with every switch off when it fails: a paywall
+  /// must never appear by accident.
+  Future<MonetizationConfiguration> configuration() async =>
+      await fetchConfiguration() ?? MonetizationConfiguration.off;
+
+  /// Whether Play checkout is switched on for this account's cohort.
+  Future<bool> checkoutEnabled() async =>
+      (await configuration()).playCheckoutEnabled;
 
   Future<PurchaseIntent> createIntent({
     required String productId,

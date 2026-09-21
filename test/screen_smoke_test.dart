@@ -1,3 +1,4 @@
+import 'package:czechify/presentation/providers/course_admission_providers.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/database/database.dart' show AppDatabase;
 import 'package:czechify/data/services/audio/offline_audio_prefetch.dart';
@@ -222,7 +223,9 @@ void main() {
         (app) => ProviderScope(
           overrides: [
             ...commonOverrides(),
-            lessonUnlockedProvider(1).overrideWith((ref) async => true),
+            lessonAdmissionProvider(
+              1,
+            ).overrideWith((_) async => LessonAdmission.allowed),
             curriculumRepositoryProvider.overrideWithValue(
               FakeCurriculumRepository(
                 unit: const Unit(

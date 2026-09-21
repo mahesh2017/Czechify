@@ -9,6 +9,7 @@ import 'package:czechify/presentation/providers/billing_providers.dart';
 import 'package:czechify/presentation/providers/sync_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class _Backend extends BackendService {
@@ -91,6 +92,86 @@ ProviderContainer _container({
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  group('configuration', () {
+    ProviderContainer withReply(Future<ApiResponse> Function() reply) {
+      final c = ProviderContainer(
+        overrides: [
+          backendServiceProvider.overrideWithValue(_Backend()),
+          backendInitProvider.overrideWith((ref) async {}),
+          monetizationApiProvider.overrideWithValue(
+            MonetizationApi(
+              (route, {required method, body, headers = const {}}) => reply(),
+            ),
+          ),
+          accountUserProvider.overrideWith((ref) => Stream.value(null)),
+        ],
+      );
+      addTearDown(c.dispose);
+      return c;
+    }
+
+    test('a fresh answer is used and remembered for this account', () async {
+      final fresh = await withReply(
+        () async => const ApiResponse(200, {'course_paywall_enabled': true}),
+      ).read(monetizationConfigurationProvider.future);
+      expect(fresh.coursePaywallEnabled, isTrue);
+      expect(fresh.playCheckoutEnabled, isFalse);
+      // Offline next time: the remembered answer still applies.
+      final offline = await withReply(
+        () => Future.error(Exception('offline')),
+      ).read(monetizationConfigurationProvider.future);
+      expect(offline.coursePaywallEnabled, isTrue);
+    });
+
+    test('a slow server does not hold lessons up', () async {
+      final started = DateTime.now();
+      final slow = await withReply(
+        () => Completer<ApiResponse>().future,
+      ).read(monetizationConfigurationProvider.future);
+      expect(slow.coursePaywallEnabled, isFalse);
+      expect(DateTime.now().difference(started).inSeconds, lessThan(5));
+    });
+
+    test('with no answer ever received everything is off', () async {
+      final none = await withReply(
+        () async => const ApiResponse(503),
+      ).read(monetizationConfigurationProvider.future);
+      expect(none.coursePaywallEnabled, isFalse);
+      expect(none.playCheckoutEnabled, isFalse);
+    });
+
+    test('another account on the device does not inherit the answer', () async {
+      await withReply(
+        () async => const ApiResponse(200, {'course_paywall_enabled': true}),
+      ).read(monetizationConfigurationProvider.future);
+      final other = ProviderContainer(
+        overrides: [
+          backendServiceProvider.overrideWithValue(
+            _Backend()..userId = 'account-b',
+          ),
+          backendInitProvider.overrideWith((ref) async {}),
+          monetizationApiProvider.overrideWithValue(
+            MonetizationApi(
+              (route, {required method, body, headers = const {}}) =>
+                  Future.error(Exception('offline')),
+            ),
+          ),
+          accountUserProvider.overrideWith((ref) => Stream.value(null)),
+        ],
+      );
+      addTearDown(other.dispose);
+      expect(
+        (await other.read(
+          monetizationConfigurationProvider.future,
+        )).coursePaywallEnabled,
+        isFalse,
+      );
+    });
+  });
+
   test('checkout needs Android, a backend and the server switch', () async {
     expect(
       await _container(supported: false).read(checkoutEnabledProvider.future),

@@ -1,3 +1,4 @@
+import 'course_admission_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
@@ -24,6 +25,37 @@ Future<Set<int>> _unlockedUnits(Ref ref) async {
   } catch (_) {
     return const {};
   }
+}
+
+/// Which completed lessons and unlocked units may introduce new cards: only
+/// those in units the account can access. Cards already introduced stay in
+/// review whatever happens to access; this limits only new introductions, so
+/// a lapsed subscription never keeps feeding new words from paid lessons.
+Future<(Set<int> lessons, Set<int> units)> _introductionGates(Ref ref) async {
+  final units = await _unlockedUnits(ref);
+  final lessons = await _completedLessons(ref);
+  final Set<int> accessible;
+  try {
+    accessible = await ref.read(commerciallyAccessibleUnitIdsProvider.future);
+  } catch (_) {
+    return (lessons, units);
+  }
+  final accessibleLessons = <int>{};
+  for (final unitId in accessible) {
+    try {
+      for (final lesson in await ref.read(
+        unitLessonsProvider(unitId).future,
+      )) {
+        accessibleLessons.add(lesson.id);
+      }
+    } catch (_) {
+      // A unit whose lessons cannot load introduces nothing new.
+    }
+  }
+  return (
+    lessons.intersection(accessibleLessons),
+    units.intersection(accessible),
+  );
 }
 
 /// The set of lesson ids the learner has completed, used as the primary gate
@@ -249,8 +281,7 @@ class ReviewSessionNotifier extends Notifier<ReviewSessionState> {
     try {
       final repo = ref.read(vocabularyRepositoryProvider);
       final allDue = await repo.getDueCards();
-      final unlockedUnits = await _unlockedUnits(ref);
-      final completedLessons = await _completedLessons(ref);
+      final (completedLessons, unlockedUnits) = await _introductionGates(ref);
       final introducedToday = await repo.introducedCardCountForDay(
         DateTime.now(),
       );
@@ -408,8 +439,7 @@ final reviewSessionProvider =
 final dueCardCountProvider = FutureProvider<int>((ref) async {
   final repo = ref.read(vocabularyRepositoryProvider);
   final allDue = await repo.getDueCards();
-  final unlockedUnits = await _unlockedUnits(ref);
-  final completedLessons = await _completedLessons(ref);
+  final (completedLessons, unlockedUnits) = await _introductionGates(ref);
   final introducedToday = await repo.introducedCardCountForDay(DateTime.now());
   final plan = planReviewSession(
     allDue: allDue,

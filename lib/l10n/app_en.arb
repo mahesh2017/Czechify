@@ -1356,5 +1356,14 @@
   "billingNoticeCanceled": "Purchase cancelled.",
   "billingNoticeFailed": "Something went wrong. Try again, or restore purchases if you were charged.",
   "billingNoticeCheckoutDisabled": "Subscriptions are not available yet.",
-  "billingNoticeStoreUnavailable": "Google Play is not available right now."
+  "billingNoticeStoreUnavailable": "Google Play is not available right now.",
+  "lessonPaidTitle": "Part of the full course",
+  "lessonPaidBody": "This lesson is in a unit your account hasn't unlocked yet. Subscribe to Czechify Core, or invite friends to unlock A1 units for good.",
+  "lessonPaidAction": "See your options",
+  "lessonVerifyTitle": "Connect to confirm your access",
+  "lessonVerifyBody": "Your subscription needs a quick online check before this lesson opens. The free units and units you own still work offline.",
+  "lessonVerifyAction": "Try again",
+  "lessonSwitchingTitle": "Switching accounts…",
+  "lessonSwitchingBody": "This lesson opens once the account switch finishes.",
+  "examPaidBody": "Mock exams cover their whole level. Subscribe to Czechify Core, or unlock every unit of this level, to take one."
 }

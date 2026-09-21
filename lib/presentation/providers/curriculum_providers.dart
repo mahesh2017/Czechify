@@ -1,3 +1,4 @@
+import 'course_admission_providers.dart';
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -278,12 +279,6 @@ final curriculumPathItemsProvider = FutureProvider<List<CurriculumPathItem>>((
   return result;
 });
 
-final lessonUnlockedProvider = FutureProvider.family<bool, int>(
-  (ref, lessonId) async => (await ref.watch(
-    curriculumAccessProvider.future,
-  )).unlockedLessonIds.contains(lessonId),
-);
-
 /// The next lesson the learner should continue with, plus its unit title.
 class NextLessonInfo {
   final Lesson lesson;
@@ -315,7 +310,8 @@ final nextLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
   final level = ref.watch(settingsProvider.select((s) => s.startingLevel));
   final preferredPhase = level == CEFRLevel.a2 ? Phase.a2 : Phase.a1;
   final allUnits = await ref.watch(allUnitsProvider.future);
-  final unlockedLessonIds = await ref.watch(unlockedLessonIdsProvider.future);
+  // Playable: open by progression and, with the paywall on, paid for.
+  final unlockedLessonIds = await ref.watch(playableLessonIdsProvider.future);
   final completedLessonIds = await ref.watch(completedLessonIdsProvider.future);
   final evidence = await ref.watch(learningEvidenceProvider.future);
   final candidates = <LearningCandidate>[];
@@ -390,7 +386,8 @@ final continueLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
   final level = ref.watch(settingsProvider.select((s) => s.startingLevel));
   final preferredPhase = level == CEFRLevel.a2 ? Phase.a2 : Phase.a1;
   final allUnits = await ref.watch(allUnitsProvider.future);
-  final unlockedLessonIds = await ref.watch(unlockedLessonIdsProvider.future);
+  // Playable: open by progression and, with the paywall on, paid for.
+  final unlockedLessonIds = await ref.watch(playableLessonIdsProvider.future);
   // Watched so that finishing a lesson refreshes this; the completion times
   // themselves live on the progress rows.
   await ref.watch(completedLessonIdsProvider.future);

@@ -5,6 +5,7 @@ import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/exam_result.dart';
 import 'package:czechify/domain/repositories/exam_repository.dart';
 import 'package:czechify/domain/repositories/speech_ports.dart';
+import 'package:czechify/presentation/providers/course_admission_providers.dart';
 import 'package:czechify/presentation/providers/database_providers.dart';
 import 'package:czechify/presentation/providers/stt_providers.dart';
 import 'package:czechify/presentation/screens/exam/mock_exam_screen.dart';
@@ -20,6 +21,23 @@ import 'support/localized_app.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  testWidgets('a level the account cannot access offers options, not a start', (
+    tester,
+  ) async {
+    await _pumpExam(tester, levelAccessible: false);
+    expect(find.text('Start Exam'), findsNothing);
+    expect(
+      find.textContaining('Mock exams cover their whole level'),
+      findsOneWidget,
+    );
+    expect(find.text('See your options'), findsOneWidget);
+  });
+
+  testWidgets('an accessible level starts as before', (tester) async {
+    await _pumpExam(tester, levelAccessible: true);
+    expect(find.text('Start Exam'), findsOneWidget);
+  });
 
   testWidgets('rapid next taps advance only one exam question', (tester) async {
     await _pumpExam(tester);
@@ -182,6 +200,7 @@ Future<void> _pumpExam(
   ExamRepository? repository,
   LiveTranscriber? transcriber,
   bool disableAnimations = false,
+  bool? levelAccessible,
 }) async {
   tester.view.physicalSize = const Size(430, 900);
   tester.view.devicePixelRatio = 1;
@@ -196,6 +215,10 @@ Future<void> _pumpExam(
         liveTranscriberProvider.overrideWithValue(
           transcriber ?? _FakeTranscriber(),
         ),
+        if (levelAccessible != null)
+          examAdmissionProvider(
+            ExamLevel.a2,
+          ).overrideWith((_) async => levelAccessible),
       ],
       child: MaterialApp(
         theme: lightTheme(),
@@ -215,6 +238,7 @@ Future<void> _pumpExam(
     ),
   );
   await tester.pumpAndSettle();
+  if (levelAccessible == false) return;
   await tester.ensureVisible(find.text('Start Exam'));
   await tester.pump();
 }
@@ -376,8 +400,7 @@ class _ControlledTranscriber implements LiveTranscriber {
   Future<String> listenFor({
     Duration timeout = const Duration(seconds: 30),
     bool requireCzech = true,
-  }) =>
-      _completion.future;
+  }) => _completion.future;
 
   @override
   Future<void> stop() async {

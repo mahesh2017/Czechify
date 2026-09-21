@@ -154,6 +154,23 @@ Validation:
 
 Not verified on a device: a real Integrity token needs a Play-distributed build with the Cloud project configured, and no screen calls the claim yet.
 
+## Delivery 5a — Course admission
+
+Phase 5 is split into 5a (one admission decision enforced at every entry point), 5b (upgrade and referral screens, paid-unit visuals and the course-boundary prompt) and 5c (audio downloads, accessibility and locale review).
+
+- **Switch:** `course_paywall_enabled` from `/configuration`, off by default; `--dart-define=MONETIZATION_PAYWALL_PREVIEW=true` turns it on in staging builds. While it is off, every published unit counts as accessible and only learning progression applies, as before.
+- **One configuration fetch per account,** shared by the checkout and paywall switches. Lessons wait on it, so it times out after three seconds; the account's last answer on this device then applies (a paywall that was on stays on offline), and with no answer ever received everything is off. A second account on the device never inherits the first one's answer.
+- **Providers:** `commercialAccessProvider` (the verified snapshot's access, or null while off), `playableLessonIdsProvider` (open by progression and paid for), `lessonAdmissionProvider` (Delivery 1's policy: payment ahead of prerequisites, loading never read as a paywall, account switches admit nothing), `examAdmissionProvider` and `paidBoundaryLessonProvider` (the lesson Continue would choose by progression alone, for 5b's prompt).
+- **Entry points:** the lesson player checks admission before every new attempt, so deep links, restored routes and checkpoint resume pass through it; it shows distinct screens for payment, reconnect-to-verify, an account switch in progress and an unfinished prerequisite. Continue and the evidence-based next lesson use playable lessons. The course map's lesson rows use playable lessons. Starting a new mock exam needs access to the whole level; results stay readable and a saved exam can be resumed. Review introduces new cards only from accessible units; cards already introduced stay. Grammar, quick reference and copybook keep their progression-only gate, since reference pages stay readable. Previously assigned transfer review stays open.
+- The old `lessonUnlockedProvider` is removed so no screen can use a second, weaker gate.
+
+Validation:
+
+- Flutter: 1,449 tests pass, `flutter analyze --fatal-infos` is clean, changed-line coverage is 85% before the added exam tests.
+- On the Pixel emulator with the paywall preview on and the local stack: Daily Arrival and Home continue with the free-unit lesson; that lesson opens and resumes its checkpoint; the A1 mock exam shows the options message instead of Start; the course map is unchanged for the free units.
+
+Not in 5a: the upgrade and referral screens (the payment screens link to `/subscriptions` for now), paid-unit visuals on the course map, the course-boundary prompt, and audio-download filtering.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim, but nothing in the app can create a claim yet (the referral screen is Phase 5). No production backend was changed.
