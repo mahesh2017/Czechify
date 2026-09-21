@@ -15,6 +15,7 @@ import '../../../domain/engines/learning_loop_engine.dart';
 import '../../../domain/engines/lesson_rating.dart';
 import '../../providers/course_admission_providers.dart';
 import '../../providers/monetization_providers.dart';
+import '../../providers/curriculum_providers.dart';
 import '../../providers/lesson_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/feedback_providers.dart';
@@ -166,13 +167,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     if (_locked) {
       final t = context.tokens;
       final l10n = AppLocalizations.of(context);
+      final unitId = ref.watch(lessonProvider(widget.lessonId)).value?.unitId;
       final (icon, title, body, action, onAction) = switch (_denial) {
         LessonAdmission.paymentRequired => (
           Icons.workspace_premium_outlined,
           l10n.lessonPaidTitle,
           l10n.lessonPaidBody,
           l10n.lessonPaidAction,
-          () => context.push('/subscriptions'),
+          () => context.push('/upgrade?unit=${unitId ?? ''}'),
         ),
         LessonAdmission.reverificationRequired => (
           Icons.cloud_sync_outlined,
@@ -221,11 +223,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                   iconSize: 28,
                 ),
                 const SizedBox(height: 18),
-                DisplayText(
-                  title,
-                  size: 26,
-                  weight: FontWeight.w800,
-                ),
+                DisplayText(title, size: 26, weight: FontWeight.w800),
                 const SizedBox(height: 8),
                 Text(
                   body,

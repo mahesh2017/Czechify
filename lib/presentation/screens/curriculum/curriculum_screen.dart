@@ -6,6 +6,7 @@ import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/course_admission_providers.dart';
 import '../../providers/curriculum_providers.dart';
+import '../../providers/referral_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/unit.dart';
@@ -830,6 +831,7 @@ class _PathUnit extends ConsumerWidget {
               ],
             ),
           ),
+          _PaidUnitNotice(unit: unit),
           if (lessons.isNotEmpty)
             Padding(
               padding: const EdgeInsets.fromLTRB(6, 16, 0, 0),
@@ -990,6 +992,68 @@ class _PathLessonRow extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Marks a unit the account has not paid for and leads to the ways to open
+/// it. Shows nothing while access is loading, so loading never looks like a
+/// paywall, and nothing at all while the paywall is off.
+class _PaidUnitNotice extends ConsumerWidget {
+  final Unit unit;
+  const _PaidUnitNotice({required this.unit});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final accessible = ref.watch(commerciallyAccessibleUnitIdsProvider).value;
+    if (accessible == null || accessible.contains(unit.id)) {
+      return const SizedBox.shrink();
+    }
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final invites =
+        unit.phase == Phase.a1 &&
+        (ref.watch(referralsEnabledProvider).value ?? false);
+    return Padding(
+      padding: const EdgeInsets.only(top: 12),
+      child: SoftCard(
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.workspace_premium_outlined, size: 20, color: t.pri),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    l10n.paidUnitTitle,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: t.ink,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              invites ? l10n.paidUnitBodyA1 : l10n.paidUnitBodyA2,
+              style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
+            ),
+            const SizedBox(height: 10),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: OutlinedButton(
+                onPressed: () => context.push('/upgrade?unit=${unit.id}'),
+                style: OutlinedButton.styleFrom(minimumSize: const Size(0, 44)),
+                child: Text(l10n.paidUnitAction),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -1227,6 +1291,7 @@ class _UnitCard extends ConsumerWidget {
                 ];
               }
               return <Widget>[
+                _PaidUnitNotice(unit: unit),
                 ...ls.map(
                   (lesson) => _LessonTile(
                     lesson: lesson,

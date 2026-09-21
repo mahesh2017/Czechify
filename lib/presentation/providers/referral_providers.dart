@@ -7,6 +7,8 @@ import '../../data/referrals/play_integrity_service.dart';
 import '../../data/referrals/referral_api.dart';
 import '../../data/referrals/referral_store.dart';
 import '../../data/referrals/referral_uploader.dart';
+import 'account_providers.dart';
+import 'billing_providers.dart';
 import 'database_providers.dart';
 import 'sync_providers.dart';
 
@@ -69,3 +71,26 @@ final referralClaimProvider = Provider<Future<String?> Function(String code)>(
     return null;
   },
 );
+
+/// Shows invitations in staging builds before the server opens them for a
+/// cohort. The server still refuses codes and claims while it is closed.
+const referralsPreview = bool.fromEnvironment('MONETIZATION_REFERRALS_PREVIEW');
+
+/// Whether invitations are offered. Off unless the server opens them.
+final referralsEnabledProvider = FutureProvider<bool>((ref) async {
+  if (referralsPreview) return true;
+  return (await ref.watch(
+    monetizationConfigurationProvider.future,
+  )).referralClaimsEnabled;
+});
+
+/// The account's referral picture: its code, units earned, friends by number
+/// and its own progress as an invited learner. Null when it cannot load.
+final referralStatusProvider = FutureProvider.autoDispose<ReferralStatus?>((
+  ref,
+) async {
+  ref.watch(accountUserProvider.select((user) => user.value?.id));
+  final api = ref.watch(referralApiProvider);
+  if (api == null) return null;
+  return api.status();
+});

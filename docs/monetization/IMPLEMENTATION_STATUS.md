@@ -171,14 +171,30 @@ Validation:
 
 Not in 5a: the upgrade and referral screens (the payment screens link to `/subscriptions` for now), paid-unit visuals on the course map, the course-boundary prompt, and audio-download filtering.
 
+## Delivery 5b — Upgrade and referral screens
+
+- **Switch:** `referral_claims_enabled` from `/configuration`, off by default; `--dart-define=MONETIZATION_REFERRALS_PREVIEW=true` shows invitations in staging builds. The server still refuses codes and claims while the campaign is closed.
+- **Upgrade screen** (`/upgrade?unit=`): every payment prompt now leads here instead of straight to `/subscriptions`. It offers Core, and for A1 units (with invitations open) inviting friends. An A2 unit never promises a referral reward and says A2 comes with Core.
+- **Referral screen** (`/referrals`, also from Settings when invitations are open): anonymous learners are asked to link their account first. Linked learners get their code with Share and Copy, units earned and the next reward unit, and their friends by number only with each milestone's status. An invited learner enters a friend's code (each server refusal has its own message) and then sees their own lesson progress, including review and rejection. A reward is shown only once the server has committed it.
+- **Course map:** units the account has not paid for carry a notice with a button to the upgrade screen, in both the path and list layouts. Nothing shows while access is loading or while the paywall is off.
+- **Home:** at the paid boundary (`paidBoundaryLessonProvider`), Continue shows "Ready for the next unit?" instead of "All caught up".
+- Every prompt that mentions invitations falls back to Core-only wording while invitations are closed.
+
+Validation:
+
+- Flutter: 1,470 tests pass, `flutter analyze --fatal-infos` is clean, changed-line coverage is 89% against 5a. New widget tests cover the upgrade and referral screens (14), the lesson paid view (it passes its unit), and Home and the course map at the boundary (7). The course-map tests use the path layout; the list layout already trips Flutter's debug check for a ListTile under a coloured DecoratedBox (its expansion header, not the new notice), so it is not driven in tests yet.
+- On the Pixel emulator with the paywall, referral and checkout previews on and the local stack: the course map marks unit 3 with the A1 notice; See your options opens the upgrade screen with Core and Invite friends; Settings shows Invite friends; the referral screen asks an anonymous learner to link first. That run caught the screen saying "0 of 15 earned" beside "You've unlocked every A1 unit" when the status had not loaded; it now says nothing about rewards until the status loads and claims every unit only when that is true. Linking an account and a real invite round trip were not run on the device.
+
+Not in 5b: audio-download filtering and the accessibility and locale review (5c).
+
 ## Activation boundary
 
-Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim, but nothing in the app can create a claim yet (the referral screen is Phase 5). No production backend was changed.
+Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
 
 Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course admission must consume the existing repository's signature-, account- and protocol-verified result. `ReferralRewardPolicy` is a client preview; only verified server intake followed by the 4a database transaction may issue real referral rewards.
 
 ## Next implementation work
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
-2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts with the paywall (Phase 5).
+2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
 3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).

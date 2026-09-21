@@ -1365,5 +1365,100 @@
   "lessonVerifyAction": "Try again",
   "lessonSwitchingTitle": "Switching accounts…",
   "lessonSwitchingBody": "This lesson opens once the account switch finishes.",
-  "examPaidBody": "Mock exams cover their whole level. Subscribe to Czechify Core, or unlock every unit of this level, to take one."
+  "examPaidBody": "Mock exams cover their whole level. Subscribe to Czechify Core, or unlock every unit of this level, to take one.",
+  "upgradeTitle": "Keep learning",
+  "upgradeIntro": "You've reached the part of the course that isn't free. Here's how to keep going.",
+  "upgradeCoreTitle": "Subscribe to Czechify Core",
+  "upgradeCoreBody": "Every A1 and A2 lesson while you're subscribed. Cancel any time in Google Play.",
+  "upgradeCoreAction": "See subscriptions",
+  "upgradeInviteTitle": "Invite friends",
+  "upgradeInviteBody": "Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good.",
+  "upgradeInviteAction": "Invite friends",
+  "upgradeA2Note": "Friend invitations unlock A1 units only. A2 is included with Core.",
+  "paidUnitTitle": "Part of the full course",
+  "paidUnitBodyA1": "Subscribe, or invite friends to unlock this unit for good.",
+  "paidUnitBodyA2": "Included with Czechify Core.",
+  "paidUnitAction": "See your options",
+  "homeBoundaryTitle": "Ready for the next unit?",
+  "homeBoundaryBody": "You've finished the free units. Subscribe or invite friends to keep going.",
+  "homeBoundaryBodyCore": "You've finished the free units. Subscribe to Czechify Core to keep going.",
+  "settingsInviteTitle": "Invite friends",
+  "settingsInviteBody": "Unlock A1 units for good",
+  "referralsTitle": "Invite friends",
+  "referralsUnavailable": "Invitations aren't open yet.",
+  "referralsHowItWorks": "When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another. Units you earn stay yours, even without a subscription.",
+  "referralsUnitsEarned": "{earned} of {total} A1 units earned",
+  "@referralsUnitsEarned": {
+    "placeholders": {
+      "earned": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "referralsNextUnit": "Next reward: unit {unit}",
+  "@referralsNextUnit": {
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "referralsAllEarned": "You've unlocked every A1 unit.",
+  "referralsYourCode": "Your invite code",
+  "referralsGetCode": "Get my invite code",
+  "referralsShare": "Share",
+  "referralsCopy": "Copy",
+  "referralsCopied": "Code copied.",
+  "referralsShareMessage": "Learn Czech with me on Czechify. When you start, enter my invite code: {code}",
+  "@referralsShareMessage": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "referralsLinkNeeded": "Link your account to get an invite code, so the units you earn stay with you.",
+  "referralsLinkAction": "Link account",
+  "referralsFriendsTitle": "Your invitations",
+  "referralsNoFriends": "No one has joined with your code yet.",
+  "referralsFriend": "Friend {number}",
+  "@referralsFriend": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "referralsFirstUnit": "First unit",
+  "referralsSecondUnit": "Second unit",
+  "referralsStatusLearning": "Learning",
+  "referralsStatusLink": "Waiting for their account to be linked",
+  "referralsStatusPending": "Being checked",
+  "referralsStatusGranted": "Unit unlocked",
+  "referralsStatusCap": "All A1 units already unlocked",
+  "referralsStatusReview": "Under review. If this takes more than a few days, contact support.",
+  "referralsStatusRejected": "Not eligible. Contact support if you think this is wrong.",
+  "referralsJoinTitle": "Got a code from a friend?",
+  "referralsJoinHint": "Invite code",
+  "referralsJoinAction": "Use code",
+  "referralsJoined": "You're in. Finish the first two units and the person who invited you gets their reward.",
+  "referralsOwnProgress": "{done} of {total} lessons completed",
+  "@referralsOwnProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "referralsErrorClaimed": "You've already joined with an invite code.",
+  "referralsErrorIneligible": "This code can't be used. Codes work within 7 days of creating your account, before you finish the first unit, and not with your own code.",
+  "referralsErrorClosed": "Invitations aren't open right now.",
+  "referralsErrorRateLimited": "Too many tries. Please try again in an hour.",
+  "referralsErrorGeneric": "Couldn't check that right now. Please try again."
 }

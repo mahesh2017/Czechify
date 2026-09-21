@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/engines/exam_grader.dart';
 import '../../../domain/engines/pronunciation_scorer.dart';
 import '../../../domain/engines/writing_word_gate.dart';
+import '../../../domain/entities/course_catalog.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/exam_result.dart';
 import '../../../domain/entities/exam_speaking_task.dart';
@@ -778,7 +779,12 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                   ),
                   const SizedBox(height: 12),
                   FilledButton(
-                    onPressed: () => context.push('/subscriptions'),
+                    onPressed:
+                        () => context.push(
+                          widget.level == ExamLevel.a2
+                              ? '/upgrade?unit=${CourseCatalog.a1ReferralV1.a2UnitIds.first}'
+                              : '/upgrade',
+                        ),
                     child: Text(l10n.lessonPaidAction),
                   ),
                 ] else

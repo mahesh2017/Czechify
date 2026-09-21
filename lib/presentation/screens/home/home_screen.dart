@@ -6,12 +6,14 @@ import 'package:intl/intl.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/engines/learning_router.dart';
 import '../../../domain/entities/enums.dart';
+import '../../providers/course_admission_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/app_update_providers.dart';
 import '../../providers/review_providers.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/learner_profile_providers.dart';
+import '../../providers/referral_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../screens/lesson/delayed_transfer_screen.dart'
     show dueTransferProvider;
@@ -819,6 +821,22 @@ class _ContinueLearningCard extends ConsumerWidget {
             onTap: () => context.go('/curriculum'),
           ),
       data: (next) {
+        // Learning has reached units the account has not paid for: say so
+        // instead of claiming everything is done.
+        final boundary = ref.watch(paidBoundaryLessonProvider).value;
+        if (next == null && boundary != null) {
+          final l10n = AppLocalizations.of(context);
+          final invites = ref.watch(referralsEnabledProvider).value ?? false;
+          return _ShortcutRow(
+            icon: Icons.workspace_premium_outlined,
+            tint: t.priSoft,
+            fg: t.pri,
+            title: l10n.homeBoundaryTitle,
+            subtitle:
+                invites ? l10n.homeBoundaryBody : l10n.homeBoundaryBodyCore,
+            onTap: () => context.push('/upgrade?unit=${boundary.unitId}'),
+          );
+        }
         if (next == null) {
           return _ShortcutRow(
             icon: Icons.check_circle_outline,
