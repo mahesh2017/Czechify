@@ -1,3 +1,5 @@
+import 'package:czechify/data/sync/backend_service.dart';
+import 'package:czechify/presentation/providers/sync_providers.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/monetization/monetization_api.dart';
 import 'package:czechify/data/referrals/referral_api.dart';
@@ -26,16 +28,23 @@ User _user({required bool anonymous}) => User(
 
 /// A referral backend that answers status and code requests from [status],
 /// which a code request fills in, and records every call.
+class _Backend extends BackendService {
+  @override
+  String? get userId => 'account-a';
+}
+
 class _Server {
   Map<String, Object?> status = {'units_earned': 0, 'next_reward_unit': 3};
   ApiResponse codeReply = const ApiResponse(200, {'referral_code': 'AB12CD'});
   int statusCode = 200;
+  bool codeThrows = false;
   final calls = <String>[];
 
   ReferralApi get api =>
       ReferralApi((route, {required method, body, headers = const {}}) async {
         calls.add(route);
         if (route == 'referrals/code') {
+          if (codeThrows) throw Exception('connection reset');
           if (codeReply.status == 200) {
             status = {...status, 'referral_code': 'AB12CD'};
           }
@@ -78,6 +87,7 @@ Future<void> _pump(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        backendServiceProvider.overrideWithValue(_Backend()),
         referralsEnabledProvider.overrideWith((_) async => referrals),
         accountUserProvider.overrideWith(
           (_) => Stream.value(_user(anonymous: anonymous)),
@@ -97,6 +107,28 @@ Future<void> _pump(
 }
 
 void main() {
+  testWidgets('claim network errors clear busy and allow retry', (
+    tester,
+  ) async {
+    var calls = 0;
+    await _pump(
+      tester,
+      '/referrals',
+      claim: (_) async {
+        calls++;
+        throw StateError('offline');
+      },
+    );
+    await tester.enterText(find.byType(TextField), 'ABC123');
+    await tester.ensureVisible(find.text('Use code'));
+    await tester.tap(find.text('Use code'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Use code'));
+    await tester.pumpAndSettle();
+    expect(calls, 2);
+    expect(tester.takeException(), isNull);
+  });
+
   group('upgrade', () {
     testWidgets('an A1 unit offers Core and invitations', (tester) async {
       await _pump(tester, '/upgrade?unit=3');
@@ -165,6 +197,23 @@ void main() {
       semantics.dispose();
       expect(find.text('Share'), findsOneWidget);
       expect(find.text('Copy'), findsOneWidget);
+    });
+
+    testWidgets('a code request that fails in transport can be retried', (
+      tester,
+    ) async {
+      final server = _Server()..codeThrows = true;
+      await _pump(tester, '/referrals', server: server);
+      await tester.tap(find.text('Get my invite code'));
+      await tester.pumpAndSettle();
+      expect(
+        find.text("Couldn't check that right now. Please try again."),
+        findsOneWidget,
+      );
+      server.codeThrows = false;
+      await tester.tap(find.text('Get my invite code'));
+      await tester.pumpAndSettle();
+      expect(find.text('AB12CD'), findsOneWidget);
     });
 
     testWidgets('a refused code request explains why', (tester) async {

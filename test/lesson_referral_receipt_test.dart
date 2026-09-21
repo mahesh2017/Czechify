@@ -1,3 +1,5 @@
+import 'package:czechify/data/referrals/referral_api.dart';
+import 'package:czechify/data/monetization/monetization_api.dart';
 import 'package:czechify/data/referrals/referral_store.dart';
 import 'package:czechify/data/sync/backend_service.dart';
 import 'package:czechify/domain/entities/enums.dart';
@@ -29,7 +31,12 @@ class _Backend extends BackendService {
 
 class _Store implements ReferralStore {
   final Map<String, String> claims;
-  _Store(this.claims);
+  _Store(Map<String, String> claims) : claims = Map.of(claims);
+  @override
+  Future<void> saveClaim(String accountId, String claimId, DateTime at) async {
+    claims[accountId] = claimId;
+  }
+
   @override
   Future<String?> activeClaim(String accountId) async => claims[accountId];
   @override
@@ -79,6 +86,7 @@ void main() {
   Future<FakeProgressRepository> play({
     int unitId = 1,
     bool examMode = false,
+    String? serverClaim,
     Map<String, String> claims = const {'account-a': 'claim-1'},
     void Function(_Backend backend)? duringLesson,
   }) async {
@@ -93,6 +101,15 @@ void main() {
         gamificationProvider.overrideWith(TestGamificationNotifier.new),
         backendServiceProvider.overrideWithValue(backend),
         referralStoreProvider.overrideWithValue(_Store(claims)),
+        if (serverClaim != null)
+          referralApiProvider.overrideWithValue(
+            ReferralApi(
+              (route, {required method, body, headers = const {}}) async =>
+                  ApiResponse(200, {
+                    'own_claim': {'claim_id': serverClaim},
+                  }),
+            ),
+          ),
         lessonSessionProvider.overrideWith(
           () => _Session(unitId, examMode: examMode),
         ),
@@ -151,6 +168,14 @@ void main() {
         duringLesson: (backend) => backend.userId = 'account-b',
       );
       expect(repo.recordedReferralReceipt, isNull);
+    },
+  );
+  test(
+    'first lesson after reinstall records evidence under recovered server claim',
+    () async {
+      final repo = await play(claims: {}, serverClaim: 'recovered');
+      expect(repo.recordedReferralReceipt?.receipt.claimId, 'recovered');
+      expect(repo.recordedReferralReceipt?.accountId, 'account-a');
     },
   );
 }

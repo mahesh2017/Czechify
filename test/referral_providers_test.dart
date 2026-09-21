@@ -1,3 +1,6 @@
+import 'package:czechify/data/monetization/monetization_repository.dart';
+import 'package:czechify/presentation/providers/monetization_providers.dart';
+import 'package:czechify/presentation/providers/account_providers.dart';
 import 'package:czechify/data/database/database.dart';
 import 'package:czechify/data/monetization/monetization_api.dart';
 import 'package:czechify/data/referrals/referral_api.dart';
@@ -33,10 +36,22 @@ void main() {
     ApiResponse Function() reply, {
     bool withApi = true,
     void Function()? duringCall,
+    void Function()? snapshotLoaded,
   }) {
     final c = ProviderContainer(
       overrides: [
         databaseProvider.overrideWithValue(db),
+        accountUserProvider.overrideWith((_) => const Stream.empty()),
+        if (snapshotLoaded != null)
+          monetizationLoadProvider.overrideWith((_) async {
+            snapshotLoaded();
+            return MonetizationLoad(
+              null,
+              offline: false,
+              requiresReverification: false,
+              now: DateTime.now(),
+            );
+          }),
         backendServiceProvider.overrideWithValue(backend),
         referralApiProvider.overrideWithValue(
           withApi
@@ -133,4 +148,71 @@ void main() {
     expect(c.read(referralUploaderProvider), isNotNull);
     expect(c.read(referralUploaderProvider)!.currentAccount(), 'account-a');
   });
+  final recover = FutureProvider<String?>((ref) => recoverReferralClaim(ref));
+
+  test(
+    'recovers server claim after reinstall before collecting evidence',
+    () async {
+      final c = container(
+        () => const ApiResponse(200, {
+          'own_claim': {'claim_id': 'restored-claim', 'lessons_completed': 0},
+        }),
+      );
+      expect(await c.read(recover.future), 'restored-claim');
+      expect(
+        await c.read(referralStoreProvider).activeClaim('account-a'),
+        'restored-claim',
+      );
+    },
+  );
+
+  test('recovery cannot attach an old response after account switch', () async {
+    final c = container(
+      () => const ApiResponse(200, {
+        'own_claim': {'claim_id': 'old-claim'},
+      }),
+      duringCall: () => backend.userId = 'account-b',
+    );
+    expect(await c.read(recover.future), isNull);
+    expect(
+      await c.read(referralStoreProvider).activeClaim('account-b'),
+      isNull,
+    );
+    expect(
+      await c.read(referralStoreProvider).activeClaim('account-a'),
+      isNull,
+    );
+  });
+
+  test(
+    'offline local claim remains usable without another network call',
+    () async {
+      final c = container(() => throw StateError('offline'));
+      await c
+          .read(referralStoreProvider)
+          .saveClaim('account-a', 'cached', DateTime.now());
+      expect(await c.read(recover.future), 'cached');
+      expect(sent, isEmpty);
+    },
+  );
+
+  test('network failure during recovery leaves learning available', () async {
+    final c = container(() => throw StateError('offline'));
+    expect(await c.read(recover.future), isNull);
+  });
+  test(
+    'reward status reloads signed entitlements instead of trusting status as access',
+    () async {
+      var loads = 0;
+      final c = container(
+        () => const ApiResponse(200, {'units_earned': 1}),
+        snapshotLoaded: () => loads++,
+      );
+      await c.read(monetizationLoadProvider.future);
+      expect(loads, 1);
+      expect((await c.read(referralStatusProvider.future))?.unitsEarned, 1);
+      await c.read(monetizationLoadProvider.future);
+      expect(loads, 2);
+    },
+  );
 }

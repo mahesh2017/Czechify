@@ -24,6 +24,7 @@ class SubscriptionsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    final supported = ref.watch(billingPlatformSupportedProvider);
     final checkout = ref.watch(checkoutEnabledProvider).value ?? false;
     final user = ref.watch(accountUserProvider).value;
     final linked = user != null && !user.isAnonymous;
@@ -53,9 +54,10 @@ class SubscriptionsScreen extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
-            if (!checkout)
+            if (!supported)
               _Message(text: l10n.subscriptionsUnavailable)
             else ...[
+              if (!checkout) _Message(text: l10n.billingNoticeCheckoutDisabled),
               if (!linked) ...[
                 _LinkAccountCard(onLink: () => context.push('/account')),
                 const SizedBox(height: 16),
@@ -85,7 +87,8 @@ class SubscriptionsScreen extends ConsumerWidget {
                   activeUntil: active(feature) ? feature!.validUntil : null,
                   busy: billing.busyProductId == id,
                   onSubscribe:
-                      linked &&
+                      checkout &&
+                              linked &&
                               !active(feature) &&
                               billing.products[id] != null &&
                               billing.busyProductId == null &&

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -13,6 +14,9 @@ import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/flashcard.dart';
 import '../../../domain/engines/learning_loop_engine.dart';
 import '../../../domain/engines/lesson_rating.dart';
+import '../../../domain/engines/lesson_admission_policy.dart';
+import '../../providers/sync_providers.dart';
+import '../../providers/account_providers.dart';
 import '../../providers/course_admission_providers.dart';
 import '../../providers/monetization_providers.dart';
 import '../../providers/curriculum_providers.dart';
@@ -44,6 +48,9 @@ class LessonPlayerScreen extends ConsumerStatefulWidget {
 
 class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     with WidgetsBindingObserver {
+  Timer? _permitTimer;
+  String? _boundAccount;
+  int _admissionGeneration = 0;
   bool _loaded = false;
   bool _locked = false;
 
@@ -65,25 +72,191 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     Future.microtask(_admitAndLoad);
   }
 
-  /// Checks admission before a new attempt, a restored route, a deep link or
-  /// a resumed checkpoint alike. An attempt already on screen is not
-  /// re-checked, so it can finish even if access lapses meanwhile.
-  Future<void> _admitAndLoad() async {
-    final admission = await ref.read(
-      lessonAdmissionProvider(widget.lessonId).future,
-    );
-    if (admission != LessonAdmission.allowed) {
-      if (mounted) {
-        setState(() {
-          _denial = admission;
-          _locked = true;
-          _loaded = true;
-        });
-      }
+  DateTime get _now => ref.read(lessonAdmissionClockProvider)().toUtc();
+
+  String get _account =>
+      ref.read(backendServiceProvider).userId ?? 'device-local';
+
+  void _deny(LessonAdmission denial) {
+    if (!mounted) return;
+    _permitTimer?.cancel();
+    setState(() {
+      _denial = denial;
+      _locked = true;
+      _loaded = true;
+    });
+  }
+
+  Future<LessonAdmission> _freshAdmission() async {
+    ref.invalidate(lessonAdmissionProvider(widget.lessonId));
+    try {
+      return await ref.read(lessonAdmissionProvider(widget.lessonId).future);
+    } catch (_) {
+      return LessonAdmission.reverificationRequired;
+    }
+  }
+
+  /// A persisted permit authorizes only the exact restored attempt. Retry
+  /// always obtains fresh admission and receives a new permit after loading.
+  Future<void> _admitAndLoad({bool retry = false}) async {
+    try {
+      await _loadAdmittedAttempt(retry: retry);
+    } catch (_) {
+      _deny(LessonAdmission.reverificationRequired);
+    }
+  }
+
+  Future<void> _loadAdmittedAttempt({required bool retry}) async {
+    final generation = ++_admissionGeneration;
+    final account = _account;
+    final store = ref.read(lessonCheckpointStoreProvider);
+    final epoch = await store.accountEpoch();
+    final saved = retry ? null : await store.load(widget.lessonId);
+    final permit = LessonAdmissionPermit.fromJson(saved?['admission']);
+    final permitted =
+        permit?.allows(
+          accountId: account,
+          accountEpoch: epoch,
+          lessonId: widget.lessonId,
+          attemptId: saved?['attempt'] as String?,
+          now: _now,
+        ) ??
+        false;
+    final admission =
+        permitted ? LessonAdmission.allowed : await _freshAdmission();
+    if (!mounted || generation != _admissionGeneration) return;
+    if (_account != account || await store.accountEpoch() != epoch) {
+      _deny(LessonAdmission.accountTransition);
       return;
     }
-    await ref.read(lessonSessionProvider.notifier).loadLesson(widget.lessonId);
+    if (admission != LessonAdmission.allowed) {
+      _deny(admission);
+      return;
+    }
+    final notifier = ref.read(lessonSessionProvider.notifier);
+    if (retry) {
+      await notifier.retry();
+    } else {
+      await notifier.loadLesson(widget.lessonId);
+    }
+    if (!mounted || generation != _admissionGeneration) return;
+    if (_account != account || await store.accountEpoch() != epoch) {
+      _deny(LessonAdmission.accountTransition);
+      return;
+    }
+    // Content changes or malformed checkpoints may have caused a new attempt.
+    if (permitted && notifier.attemptId != permit!.attemptId) {
+      final fresh = await _freshAdmission();
+      if (fresh != LessonAdmission.allowed) {
+        _deny(fresh);
+        return;
+      }
+    }
+    if (!mounted || generation != _admissionGeneration) return;
+    if (_account != account || await store.accountEpoch() != epoch) {
+      _deny(LessonAdmission.accountTransition);
+      return;
+    }
+    _boundAccount = account;
+    if (notifier.attemptId != null) {
+      final usable = permitted && notifier.attemptId == permit!.attemptId;
+      await notifier.setAdmissionPermit(
+        usable
+            ? permit
+            : LessonAdmissionPermit(
+              accountId: account,
+              accountEpoch: epoch,
+              lessonId: widget.lessonId,
+              attemptId: notifier.attemptId!,
+              admittedAt: _now,
+            ),
+      );
+      _schedulePermitCheck();
+    }
+    if (mounted && generation == _admissionGeneration && _account == account) {
+      setState(() {
+        _loaded = true;
+        _locked = false;
+      });
+    }
+  }
+
+  void _schedulePermitCheck() {
+    _permitTimer?.cancel();
+    final permit = ref.read(lessonSessionProvider.notifier).admissionPermit;
+    if (permit == null) return;
+    final remaining = permit.admittedAt
+        .add(const Duration(hours: 2))
+        .difference(_now);
+    _permitTimer = Timer(
+      remaining.isNegative ? Duration.zero : remaining,
+      _checkPermit,
+    );
+  }
+
+  Future<void> _checkPermit() async {
+    try {
+      await _revalidatePermit();
+    } catch (_) {
+      _deny(LessonAdmission.reverificationRequired);
+    }
+  }
+
+  Future<void> _revalidatePermit() async {
+    if (!mounted || !_loaded || _locked) return;
+    final notifier = ref.read(lessonSessionProvider.notifier);
+    final permit = notifier.admissionPermit;
+    final epoch = await ref.read(lessonCheckpointStoreProvider).accountEpoch();
+    if (!mounted) return;
+    if (_boundAccount != _account || permit?.accountEpoch != epoch) {
+      _deny(LessonAdmission.accountTransition);
+      return;
+    }
+    if (permit?.allows(
+          accountId: _account,
+          accountEpoch: epoch,
+          lessonId: widget.lessonId,
+          attemptId: notifier.attemptId,
+          now: _now,
+        ) ??
+        false) {
+      _schedulePermitCheck();
+      return;
+    }
+    // Preserve the checkpoint while rechecking a long-lived player.
+    setState(() => _loaded = false);
+    ref.invalidate(monetizationLoadProvider);
+    final admission = await _freshAdmission();
+    if (!mounted) return;
+    if (_boundAccount != _account ||
+        await ref.read(lessonCheckpointStoreProvider).accountEpoch() != epoch) {
+      _deny(LessonAdmission.accountTransition);
+      return;
+    }
+    if (admission != LessonAdmission.allowed) {
+      _deny(admission);
+      return;
+    }
+    if (notifier.attemptId != null) {
+      await notifier.setAdmissionPermit(
+        LessonAdmissionPermit(
+          accountId: _account,
+          accountEpoch: epoch,
+          lessonId: widget.lessonId,
+          attemptId: notifier.attemptId!,
+          admittedAt: _now,
+        ),
+      );
+    }
     if (mounted) setState(() => _loaded = true);
+    _schedulePermitCheck();
+  }
+
+  Future<void> _retryLesson() async {
+    _permitTimer?.cancel();
+    ref.invalidate(monetizationLoadProvider);
+    setState(() => _loaded = false);
+    await _admitAndLoad(retry: true);
   }
 
   Future<void> _retryAdmission() async {
@@ -98,6 +271,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
 
   @override
   void dispose() {
+    _admissionGeneration++;
+    _permitTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -106,6 +281,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
   /// and any typing still waiting for its save — is written on the way out.
   @override
   void didChangeAppLifecycleState(AppLifecycleState lifecycle) {
+    if (lifecycle == AppLifecycleState.resumed) {
+      unawaited(_checkPermit());
+      return;
+    }
     if (lifecycle != AppLifecycleState.paused &&
         lifecycle != AppLifecycleState.hidden) {
       return;
@@ -134,6 +313,16 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(lessonAccountTransitionProvider, (_, _) {
+      _admissionGeneration++;
+      _deny(LessonAdmission.accountTransition);
+    });
+    ref.listen(accountUserProvider, (_, _) {
+      if (_loaded && _boundAccount != null && _boundAccount != _account) {
+        _admissionGeneration++;
+        _deny(LessonAdmission.accountTransition);
+      }
+    });
     final session = ref.watch(lessonSessionProvider);
     final active =
         _loaded && !_locked && !session.isComplete && !session.isGameOver;
@@ -242,9 +431,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     // Game over screen
     if (session.isGameOver) {
       return _GameOverScreen(
-        onRetry: () {
-          ref.read(lessonSessionProvider.notifier).retry();
-        },
+        onRetry: _retryLesson,
         onExit: () => leaveLesson(context),
       );
     }
@@ -260,9 +447,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
       return _LessonCompleteScreen(
         session: session,
         onExit: () => context.go('/curriculum'),
-        onRetry: () {
-          ref.read(lessonSessionProvider.notifier).retry();
-        },
+        onRetry: _retryLesson,
       );
     }
 

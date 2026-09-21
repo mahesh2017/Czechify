@@ -14,6 +14,38 @@ import 'sync_providers.dart';
 
 export '../../domain/engines/lesson_admission_policy.dart' show LessonAdmission;
 
+/// Injectable wall clock for bounded player permits and expiry tests.
+final lessonAdmissionClockProvider = Provider<DateTime Function()>(
+  (ref) => DateTime.now,
+);
+
+/// Immediately revokes an on-screen attempt at account transition start.
+final lessonAccountTransitionProvider =
+    NotifierProvider<LessonAccountTransition, int>(LessonAccountTransition.new);
+
+class LessonAccountTransition extends Notifier<int> {
+  @override
+  int build() => 0;
+  void revoke() => state++;
+}
+
+/// Whether Settings offers the subscriptions screen. Nothing shows before
+/// launch. Once checkout, the course paywall or a subscription applies to the
+/// account, the screen stays reachable even while new purchases are paused, so
+/// restore and subscription management always remain available.
+final subscriptionsEntryVisibleProvider = Provider<bool>((ref) {
+  if (!ref.watch(billingPlatformSupportedProvider)) return false;
+  if (ref.watch(checkoutEnabledProvider).value ?? false) return true;
+  if (ref.watch(coursePaywallEnabledProvider).value ?? false) return true;
+  final load = ref.watch(monetizationLoadProvider).value;
+  final snapshot = load?.document?.snapshot;
+  if (load == null || snapshot == null) return false;
+  return [
+    snapshot.core,
+    snapshot.aiChat,
+  ].any((feature) => feature.isActiveAt(load.now, offline: load.offline));
+});
+
 /// Turns on the commercial course gate in internal and staging builds before
 /// the server enables it for a cohort. Access still comes only from the
 /// signed entitlement snapshot.

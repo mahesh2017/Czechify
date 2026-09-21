@@ -3,6 +3,7 @@ import 'package:czechify/data/services/audio/offline_audio_prefetch.dart';
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/presentation/providers/audio_prefetch_providers.dart';
 import 'package:czechify/presentation/providers/course_admission_providers.dart';
+import 'package:czechify/presentation/providers/monetization_providers.dart';
 import 'package:czechify/presentation/screens/onboarding/offline_setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -134,5 +135,34 @@ void main() {
     await tester.tap(find.text('Start learning'));
     await tester.pumpAndSettle();
     expect(find.text('Home page'), findsOneWidget);
+  });
+
+  test('the app prefetcher reads access and account when work runs', () async {
+    var accessible = {1, 2};
+    var loads = 0;
+    final container = ProviderContainer(
+      overrides: [
+        commerciallyAccessibleUnitIdsProvider.overrideWith((ref) async {
+          ref.watch(monetizationLoadProvider);
+          return accessible;
+        }),
+        monetizationLoadProvider.overrideWith((_) async {
+          loads++;
+          throw StateError('not needed');
+        }),
+      ],
+    );
+    addTearDown(container.dispose);
+    final prefetch = container.read(offlineAudioPrefetchProvider);
+
+    expect(await prefetch.accessibleUnits!(), {1, 2});
+    accessible = {1};
+    await prefetch.refreshAccess!();
+    expect(await prefetch.accessibleUnits!(), {1});
+    expect(loads, greaterThan(0), reason: 'refresh fetches signed access');
+
+    final before = prefetch.accountContext!();
+    container.read(lessonAccountTransitionProvider.notifier).revoke();
+    expect(prefetch.accountContext!(), isNot(before));
   });
 }

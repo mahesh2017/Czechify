@@ -1,4 +1,6 @@
 import 'referral_providers.dart';
+import 'monetization_providers.dart';
+import 'billing_providers.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -61,7 +63,16 @@ final syncServiceProvider = Provider<SyncService>((ref) {
 final syncTriggerCoordinatorProvider = Provider<SyncTriggerCoordinator>((ref) {
   final coordinator = SyncTriggerCoordinator(
     ref.watch(syncServiceProvider),
-    alsoRun: () => drainReferralReceipts(ref),
+    alsoRun: () {
+      ref.invalidate(monetizationLoadProvider);
+      ref.invalidate(monetizationConfigurationProvider);
+      ref.invalidate(referralStatusProvider);
+      unawaited(
+        recoverReferralClaim(
+          ref,
+        ).then((_) => drainReferralReceipts(ref)).catchError((Object _) {}),
+      );
+    },
   );
   ref.onDispose(coordinator.dispose);
   return coordinator;

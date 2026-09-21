@@ -65,6 +65,9 @@ select is(pg_temp.reserve('free',pg_temp.id('t1'),'conversation','hello',pg_temp
 -- Summaries need a server-known session with a new turn since the last one.
 select is(pg_temp.reserve('buyer',pg_temp.id('sum1'),'conversation_summary','sum',gen_random_uuid())->>'outcome','summary_not_due','unknown session cannot summarize');
 select is(pg_temp.reserve('buyer',pg_temp.id('sum1'),'conversation_summary','sum',pg_temp.id('s1'))->>'outcome','reserved','a session with a new turn can summarize');
+select is(pg_temp.reserve('buyer',pg_temp.id('sum2'),'conversation_summary','sum2',pg_temp.id('s1'))->>'outcome','summary_not_due','in-flight summary reserves the same turns');
+select ok(release_ai_request(pg_temp.uid('buyer'),pg_temp.id('sum1'),0),'definite summary failure releases eligibility');
+select is(pg_temp.reserve('buyer',pg_temp.id('sum1'),'conversation_summary','sum',pg_temp.id('s1'))->>'outcome','reserved','failed summary may retry');
 select ok(complete_ai_request(pg_temp.uid('buyer'),pg_temp.id('sum1'),10,5,20,'v1.sum',86400),'summary completes');
 select is(pg_temp.reserve('buyer',pg_temp.id('sum2'),'conversation_summary','sum2',pg_temp.id('s1'))->>'outcome','summary_not_due','no new turn, no second summary');
 select is((select conversation_count from monetization_private.ai_daily_allowance where user_id=pg_temp.uid('buyer')),1,'summaries do not spend turns');

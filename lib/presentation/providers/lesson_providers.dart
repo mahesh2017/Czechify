@@ -14,6 +14,7 @@ import '../../domain/entities/flashcard.dart';
 import '../../domain/entities/lesson.dart';
 import '../../domain/entities/learning_evidence.dart';
 import '../../domain/engines/learning_loop_engine.dart';
+import '../../domain/engines/lesson_admission_policy.dart';
 import '../../domain/engines/unit_completion_detector.dart';
 import '../../domain/entities/course_catalog.dart';
 import '../../domain/entities/pending_referral_receipt.dart';
@@ -286,6 +287,14 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
   static const _draftSaveDelay = Duration(milliseconds: 800);
   int? _answerInFlightIndex;
   String? _attemptId;
+  String? get attemptId => _attemptId;
+  LessonAdmissionPermit? admissionPermit;
+
+  Future<void> setAdmissionPermit(LessonAdmissionPermit permit) async {
+    admissionPermit = permit;
+    await _saveCheckpoint();
+  }
+
   DateTime? _attemptStartedAt;
   String? _presentationId;
   DateTime? _presentationStartedAt;
@@ -317,6 +326,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
   /// so losses persist across lessons and refill over time.
   Future<void> loadLesson(int lessonId) async {
     _answerInFlightIndex = null;
+    admissionPermit = null;
     _attemptId = _uuid.v4();
     _attemptStartedAt = DateTime.now();
     _presentationId = _uuid.v4();
@@ -483,10 +493,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
                 lessonId: state.lesson?.id ?? exercise.lessonId,
                 exerciseId: exercise.id,
                 skill: _learningSkillFor(exercise.type),
-                phase:
-                    repeated
-                        ? LearningPhase.repair
-                        : LearningPhase.retrieve,
+                phase: repeated ? LearningPhase.repair : LearningPhase.retrieve,
                 correct: isCorrect,
                 novelTask: false,
                 supports: supports,
@@ -635,6 +642,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     final gamification = ref.read(gamificationProvider.notifier);
     await gamification.refreshHearts();
     final hearts = ref.read(gamificationProvider).hearts;
+    admissionPermit = null;
     _attemptId = _uuid.v4();
     _attemptStartedAt = DateTime.now();
     _presentationId = _uuid.v4();
@@ -754,8 +762,12 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     try {
       final account = ref.read(backendServiceProvider).userId;
       if (account == null) return;
-      final claim = await ref.read(referralStoreProvider).activeClaim(account);
-      if (claim == null) return;
+      final claim = await recoverReferralClaim(ref);
+      if (!ref.mounted ||
+          claim == null ||
+          ref.read(backendServiceProvider).userId != account) {
+        return;
+      }
       _referralClaimId = claim;
       _referralAccountId = account;
     } catch (error, stack) {
@@ -804,6 +816,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
               'version': 1,
               'signature': _contentSignature,
               'attempt': _attemptId,
+              'admission': admissionPermit?.toJson(),
               'started': _attemptStartedAt?.toIso8601String(),
               'presentation': _presentationId,
               'index': snapshot.currentIndex,
@@ -942,6 +955,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
         // Reopening before answering anything is simply starting.
         resumed: index > 0 || showFeedback,
       );
+      admissionPermit = LessonAdmissionPermit.fromJson(saved['admission']);
       _attemptId = attemptId;
       _attemptStartedAt = startedAt;
       _presentationId = presentationId;

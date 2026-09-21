@@ -46,10 +46,12 @@ class ReferredFriend {
 }
 
 class OwnReferralClaim {
+  final String? claimId;
   final int lessonsCompleted;
   final int lessonsRequired;
   final List<ReferralMilestoneStatus> milestones;
   const OwnReferralClaim({
+    this.claimId,
     required this.lessonsCompleted,
     required this.lessonsRequired,
     required this.milestones,
@@ -88,6 +90,7 @@ class ReferralStatus {
       nextRewardUnit: json['next_reward_unit'] as int?,
       ownClaim: own is Map
           ? OwnReferralClaim(
+              claimId: own['claim_id'] as String?,
               lessonsCompleted: count(own['lessons_completed']),
               lessonsRequired: count(own['lessons_required']),
               milestones: _milestones(own['milestones']),

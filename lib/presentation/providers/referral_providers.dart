@@ -8,6 +8,7 @@ import '../../data/referrals/referral_api.dart';
 import '../../data/referrals/referral_store.dart';
 import '../../data/referrals/referral_uploader.dart';
 import 'account_providers.dart';
+import 'monetization_providers.dart';
 import 'billing_providers.dart';
 import 'database_providers.dart';
 import 'sync_providers.dart';
@@ -48,7 +49,9 @@ void drainReferralReceipts(Ref ref) {
 /// Uploads anything left from earlier sessions once the backend is up.
 final referralUploadBootstrapProvider = FutureProvider<void>((ref) async {
   await ref.watch(backendInitProvider.future);
-  drainReferralReceipts(ref);
+  ref.watch(accountUserProvider.select((user) => user.value?.id));
+  await recoverReferralClaim(ref);
+  if (ref.mounted) drainReferralReceipts(ref);
 });
 
 /// Claims an invite code for the signed-in account. Returns null on success,
@@ -62,7 +65,7 @@ final referralClaimProvider = Provider<Future<String?> Function(String code)>(
     final claimId = result.claimId;
     if (claimId == null) return result.code;
     // The session may have changed while the claim was in flight.
-    if (ref.read(backendServiceProvider).userId != account) {
+    if (!ref.mounted || ref.read(backendServiceProvider).userId != account) {
       return 'verification_unavailable';
     }
     await ref
@@ -92,5 +95,54 @@ final referralStatusProvider = FutureProvider.autoDispose<ReferralStatus?>((
   ref.watch(accountUserProvider.select((user) => user.value?.id));
   final api = ref.watch(referralApiProvider);
   if (api == null) return null;
-  return api.status();
+  final account = ref.read(backendServiceProvider).userId;
+  final status = await api.status();
+  if (!ref.mounted ||
+      account == null ||
+      ref.read(backendServiceProvider).userId != account) {
+    return null;
+  }
+  final claimId = status?.ownClaim?.claimId;
+  if (claimId != null) {
+    await ref
+        .read(referralStoreProvider)
+        .saveClaim(account, claimId, DateTime.now().toUtc());
+  }
+  if (!ref.mounted || ref.read(backendServiceProvider).userId != account) {
+    return null;
+  }
+  // Reward status is not itself authorization. Fetch a new signed snapshot.
+  ref.invalidate(monetizationLoadProvider);
+  return status;
 });
+
+/// Recover server attribution after reinstall/switch before collecting evidence.
+/// Offline learners keep their existing account-scoped local claim.
+Future<String?> recoverReferralClaim(Ref ref) async {
+  final account = ref.read(backendServiceProvider).userId;
+  if (account == null) return null;
+  final store = ref.read(referralStoreProvider);
+  final local = await store.activeClaim(account);
+  if (!ref.mounted || ref.read(backendServiceProvider).userId != account) {
+    return null;
+  }
+  if (local != null) return local;
+  try {
+    final status = await ref
+        .read(referralApiProvider)
+        ?.status()
+        .timeout(const Duration(seconds: 3));
+    if (!ref.mounted || ref.read(backendServiceProvider).userId != account) {
+      return null;
+    }
+    final claimId = status?.ownClaim?.claimId;
+    if (claimId != null) {
+      await store.saveClaim(account, claimId, DateTime.now().toUtc());
+    }
+    return ref.mounted && ref.read(backendServiceProvider).userId == account
+        ? claimId
+        : null;
+  } catch (_) {
+    return null;
+  }
+}
