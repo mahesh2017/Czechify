@@ -1,15 +1,43 @@
 import type { SupabaseClient } from "npm:@supabase/supabase-js@2.110.7";
-import type { BillingDependencies } from "./handler.ts";
 import {
   createTokenCipher,
   deriveObfuscatedAccountId,
-} from "../_shared/monetization/billing_crypto.ts";
+} from "./billing_crypto.ts";
 import {
   createPlayClient,
   parseServiceAccount,
   type PlayClient,
-} from "../_shared/monetization/play_client.ts";
-import type { BillingStore } from "../_shared/monetization/purchase_jobs.ts";
+} from "./play_client.ts";
+import type { BillingStore, JobContext } from "./purchase_jobs.ts";
+
+type Json = Record<string, unknown>;
+
+export interface BillingDependencies {
+  /** HMAC-derived candidate; the database freezes the first one per user. */
+  obfuscatedAccountId(
+    userId: string,
+  ): Promise<{ id: string; keyVersion: number }>;
+  bindAccount(
+    userId: string,
+    candidate: string,
+    keyVersion: number,
+  ): Promise<string>;
+  createIntent(
+    userId: string,
+    productId: string,
+    basePlanId: string,
+    idempotencyKey: string,
+  ): Promise<Json>;
+  register(
+    userId: string,
+    tokenDigest: string,
+    encryptedToken: string,
+    productId: string,
+    intentId: string | null,
+  ): Promise<Json>;
+  status(userId: string, purchaseId: string): Promise<Json | null>;
+  jobs: JobContext;
+}
 
 // Every billing secret must be present, or the purchase routes stay off.
 export const billingSecrets = [
@@ -118,3 +146,41 @@ export async function createBilling(
     },
   };
 }
+
+async function call<T>(
+  admin: () => SupabaseClient,
+  name: string,
+  args: Record<string, unknown> = {},
+): Promise<T> {
+  const { data, error } = await admin().rpc(name, args);
+  if (error) throw new Error(`${name} failed`);
+  return data as T;
+}
+
+/** Records one authenticated Play notification; returns its outcome. */
+export const recordPlayNotification = (admin: () => SupabaseClient) =>
+(
+  subscription: string,
+  messageId: string,
+  kind: string,
+  type: number | null,
+  tokenDigest: string | null,
+  eventTime: string | null,
+) =>
+  call<string>(admin, "record_play_notification", {
+    p_subscription: subscription,
+    p_message_id: messageId,
+    p_kind: kind,
+    p_type: type,
+    p_token_digest: tokenDigest,
+    p_event_time: eventTime,
+  });
+
+/** Scheduler-side queries for the billing worker. */
+export const workerQueries = (admin: () => SupabaseClient) => ({
+  enqueueReconciliation: (limit: number) =>
+    call<number>(admin, "enqueue_billing_reconciliation", { p_limit: limit }),
+  dueJobs: (limit: number) =>
+    call<string[]>(admin, "due_billing_jobs", { p_limit: limit }),
+  health: () => call<Record<string, number>>(admin, "billing_health"),
+});

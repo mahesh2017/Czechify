@@ -16,6 +16,24 @@ This delivery implements signed access documents and phase-specific placement. S
    - `PLAY_SERVICE_ACCOUNT_JSON`: a Google Cloud service-account key with access to the app in Play Console (financial data and order management).
 7. Products ship disabled. Enable them per project with the service-only `set_billing_product_enabled('czechify_core', true)` and `set_billing_product_enabled('czechify_ai', true)` after the Play Console products and `monthly` base plans exist.
 
+8. For notifications and the worker (PR 3b), deploy `play-billing-notifications` and `monetization-worker`. Both run with gateway JWT verification off (`config.toml`) and authenticate callers themselves.
+   - Create a Pub/Sub topic, grant `google-play-developer-notifications@system.gserviceaccount.com` the Publisher role on it, and set it as the app's real-time notification topic in Play Console.
+   - Create a push subscription to `https://<project>.supabase.co/functions/v1/play-billing-notifications` with authentication enabled, using a dedicated service account and an explicit audience. Set `PLAY_PUSH_AUDIENCE` and `PLAY_PUSH_SERVICE_ACCOUNT` on the function to those exact values, plus `PLAY_PACKAGE_NAME`. If any is missing, every push is refused with `401`.
+   - Give `monetization-worker` the billing secrets from step 6 plus `BILLING_WORKER_SECRET` (at least 32 random characters). Without all of them it refuses every call.
+   - Schedule the worker every minute. With `pg_cron` and `pg_net`, keeping the URL and secret in Vault:
+
+     ```sql
+     select cron.schedule('billing-worker', '* * * * *', $$
+       select net.http_post(
+         url := (select decrypted_secret from vault.decrypted_secrets where name = 'billing_worker_url'),
+         headers := jsonb_build_object('x-worker-secret',
+           (select decrypted_secret from vault.decrypted_secrets where name = 'billing_worker_secret')),
+         timeout_milliseconds := 55000);
+     $$);
+     ```
+
+     This is deliberately not a migration: the URL and secret differ per project. Confirm in staging that the job runs, by watching `billing_health()` and the function logs.
+
 No production project or Store configuration was changed by implementation.
 
 ## Purchase verification (PR 3a)
@@ -52,3 +70,10 @@ The new migrations and pgTAP security suite are tested in a disposable local Pos
 The standard Deno suite includes JWT-routing and JOSE signing tests. A committed public test vector produced by `jose` is verified by Dart's independent Ed25519 implementation. Its ephemeral private key was discarded.
 
 Primary library references: [Supabase function security](https://supabase.com/docs/guides/database/functions), [Dart cryptography](https://pub.dev/documentation/cryptography/latest/).
+
+## Notifications and the worker (PR 3b)
+
+- A notification is only a hint. Intake verifies Google's OIDC token (issuer, exact audience, service-account email, verified email), checks the package name, stores the message once per Pub/Sub message ID and queues a refresh for a known purchase. It answers `204` only after storing, so a storage failure is redelivered. Unusable messages (another package, malformed) are acknowledged and logged, because redelivery can never fix them. Tokens are matched by digest and never stored in the inbox.
+- A notification for a token no account has registered is kept as `unmatched`; the owner's own verify call provisions it. A notification that arrives while a refresh is running queues one more behind it, because the running one may have read Play before the change.
+- Every minute the worker queues reconciliation for purchases that grant or may soon change access and were not verified in the last day, those within a day of their paid-through time, and pending purchases hourly. Purchases with an open refresh are skipped, so reconciliation never cancels a backoff. It then runs due jobs, acknowledgements first, for up to 40 seconds.
+- A job that has failed 80 times (two to three days with backoff) is marked dead and keeps its last verified access. `billing_health()` reports unacknowledged paid purchases older than an hour, dead jobs, the oldest due job and unmatched notifications; the worker logs `billing_attention_required` when the first two are non-zero. Wire that log to an alert before launch: Play refunds purchases left unacknowledged for three days.

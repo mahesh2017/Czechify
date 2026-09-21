@@ -64,6 +64,21 @@ Validation:
 
 Not in 3a: the background retry worker, Play notification intake and daily reconciliation (3b); the Flutter purchase flow (3c); the generic `operation_results` idempotency table (purchase verification is idempotent through the token digest, and intents through their own key); and real Play license tests, which need the staging setup in [BACKEND_SETUP.md](BACKEND_SETUP.md).
 
+## Delivery 3b — Play notifications and the billing worker
+
+- `play-billing-notifications` Edge Function: verifies Google's Pub/Sub OIDC token, parses the developer notification and records it once per message ID by token digest, then queues a Play refresh for a known purchase. Success is returned only after storage; unusable messages are acknowledged and logged.
+- `monetization-worker` Edge Function, called every minute by a scheduler with a shared secret: queues reconciliation, runs due jobs with acknowledgements first within a 40-second budget, and reports `billing_health()` counts.
+- Database: notification inbox; refresh queueing that brings a waiting job forward and queues one more behind a running one; reconciliation selection; due-job ordering; health counts. Jobs are marked dead after 80 attempts.
+- Found and fixed while testing: reconciliation originally reused the notification path, which would have cancelled every backing-off job's delay on each one-minute run. Reconciliation now skips purchases with an open refresh; a regression test covers it.
+
+Validation:
+
+- Database: `supabase test db` passes 204/204 on the full migration chain, including 31 new notification and worker checks.
+- Edge Functions: `deno fmt --check`, `deno lint`, `deno check` on all six entry points, and 90 unit tests. Push-token checks sign real RS256 tokens against a local key set and refuse the wrong issuer, audience, email, unverified email and a foreign signing key.
+- End to end: the integration test now also sends a cancellation notification (plus its redelivery) through real intake and runs the real worker against the local stack. The worker re-read Play and recorded the cancellation, and Core access stayed active until the paid-through date.
+
+Not in 3b: deploying the functions, the Pub/Sub topic and the scheduler; alert routing for `billing_attention_required`. See [BACKEND_SETUP.md](BACKEND_SETUP.md).
+
 ## Activation boundary
 
 Only the phase-local progression correction is connected to the existing runtime. The entitlement repository and providers exist, but no screen, route or lesson admission reads them yet. Purchase verification exists on the server with its products disabled; there is no in-app checkout, production paywall, deployed migration or real referral grant. No production backend was changed.
@@ -72,6 +87,6 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. The ne
 
 ## Next implementation work
 
-1. PR 3b: authenticated Play notification intake, a scheduled worker for due jobs and daily reconciliation. PR 3c: Flutter Store adapter, purchase and restore, and a minimal subscriptions screen behind the disabled flag. Real license tests need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account and a notification topic.
+1. PR 3c: Flutter Store adapter, purchase and restore, and a minimal subscriptions screen behind the disabled flag. Real license tests need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account and a notification topic.
 2. Implement referral claim/evidence/Integrity/outbox and transactional allocation (PR 4), including the three database concurrency fixtures deferred from Delivery 1.
 3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).

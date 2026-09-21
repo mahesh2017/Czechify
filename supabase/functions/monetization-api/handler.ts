@@ -4,39 +4,12 @@ import {
   preflightResponse,
 } from "../_shared/cors.ts";
 import { sha256Hex } from "../_shared/monetization/billing_crypto.ts";
-import {
-  type JobContext,
-  runBillingJob,
-} from "../_shared/monetization/purchase_jobs.ts";
+import type { BillingDependencies } from "../_shared/monetization/billing_rpc.ts";
+import { runBillingJob } from "../_shared/monetization/purchase_jobs.ts";
+
+export type { BillingDependencies };
 
 type Json = Record<string, unknown>;
-
-export interface BillingDependencies {
-  /** HMAC-derived candidate; the database freezes the first one per user. */
-  obfuscatedAccountId(
-    userId: string,
-  ): Promise<{ id: string; keyVersion: number }>;
-  bindAccount(
-    userId: string,
-    candidate: string,
-    keyVersion: number,
-  ): Promise<string>;
-  createIntent(
-    userId: string,
-    productId: string,
-    basePlanId: string,
-    idempotencyKey: string,
-  ): Promise<Json>;
-  register(
-    userId: string,
-    tokenDigest: string,
-    encryptedToken: string,
-    productId: string,
-    intentId: string | null,
-  ): Promise<Json>;
-  status(userId: string, purchaseId: string): Promise<Json | null>;
-  jobs: JobContext;
-}
 
 export interface Dependencies {
   authenticate(

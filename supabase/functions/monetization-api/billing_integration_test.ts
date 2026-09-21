@@ -11,7 +11,13 @@
 
 import { assertEquals } from "jsr:@std/assert@1";
 import { createClient } from "npm:@supabase/supabase-js@2.110.7";
-import { createBilling } from "./billing.ts";
+import {
+  createBilling,
+  recordPlayNotification,
+  workerQueries,
+} from "../_shared/monetization/billing_rpc.ts";
+import { createHandler as createNotificationHandler } from "../play-billing-notifications/handler.ts";
+import { createHandler as createWorkerHandler } from "../monetization-worker/handler.ts";
 import { createHandler } from "./handler.ts";
 import { deriveObfuscatedAccountId } from "../_shared/monetization/billing_crypto.ts";
 import type { PlayClient } from "../_shared/monetization/play_client.ts";
@@ -71,11 +77,14 @@ Deno.test({
       buyer.id,
     );
     const acknowledged: string[] = [];
+    let playState = "SUBSCRIPTION_STATE_ACTIVE";
     const play: PlayClient = {
       getSubscription: (productId, token) => {
         const body = {
-          subscriptionState: "SUBSCRIPTION_STATE_ACTIVE",
-          acknowledgementState: "ACKNOWLEDGEMENT_STATE_PENDING",
+          subscriptionState: playState,
+          acknowledgementState: acknowledged.length > 0
+            ? "ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED"
+            : "ACKNOWLEDGEMENT_STATE_PENDING",
           externalAccountIdentifiers: { obfuscatedExternalAccountId: binding },
           lineItems: [{
             productId,
@@ -161,6 +170,67 @@ Deno.test({
         ),
       );
       assertEquals((await status.json()).verification, "verified");
+
+      // Play reports a cancellation: intake queues a refresh, the worker
+      // re-reads Play, and access continues to the paid-through time.
+      playState = "SUBSCRIPTION_STATE_CANCELED";
+      const notify = createNotificationHandler({
+        authenticate: () => Promise.resolve(true),
+        packageName: env.PLAY_PACKAGE_NAME,
+        record: recordPlayNotification(admin),
+        log: () => {},
+      });
+      const message = {
+        subscription: "projects/local/subscriptions/play",
+        message: {
+          messageId: crypto.randomUUID(),
+          data: btoa(JSON.stringify({
+            packageName: env.PLAY_PACKAGE_NAME,
+            subscriptionNotification: {
+              notificationType: 3,
+              purchaseToken: "integration-play-token",
+            },
+          })),
+        },
+      };
+      const pushed = () =>
+        notify(
+          new Request(`${url}/functions/v1/play-billing-notifications`, {
+            method: "POST",
+            body: JSON.stringify(message),
+          }),
+        );
+      assertEquals((await pushed()).status, 204);
+      assertEquals((await pushed()).status, 204, "redelivery is acknowledged");
+
+      const workerSecret = "w".repeat(40);
+      const worker = createWorkerHandler({
+        secret: workerSecret,
+        jobs: () => Promise.resolve(billing.jobs),
+        ...workerQueries(admin),
+        log: () => {},
+      });
+      const run = await worker(
+        new Request(`${url}/functions/v1/monetization-worker`, {
+          method: "POST",
+          headers: { "x-worker-secret": workerSecret },
+        }),
+      );
+      const ran = await run.json();
+      assertEquals(run.status, 200);
+      assertEquals(ran.outcomes.provisioned >= 1, true);
+      assertEquals(ran.outcomes.retry, undefined);
+      const after = await handle(
+        new Request(
+          `${url}/functions/v1/monetization-api/purchases/status/${verified.verification_id}`,
+          { headers: { authorization: `Bearer ${buyer.token}` } },
+        ),
+      );
+      assertEquals((await after.json()).state, "canceled");
+      const stillPaid = await service.rpc("get_monetization_snapshot", {
+        p_user: buyer.id,
+      });
+      assertEquals(stillPaid.data.features.core.state, "active");
 
       const stolen = await post("purchases/verify", other.token, {
         purchase_token: "integration-play-token",

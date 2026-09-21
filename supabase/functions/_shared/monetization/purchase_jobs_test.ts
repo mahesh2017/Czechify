@@ -3,6 +3,7 @@ import { PlayApiError, type PlayClient } from "./play_client.ts";
 import {
   backoffSeconds,
   type BillingStore,
+  maxAttempts,
   runBillingJob,
 } from "./purchase_jobs.ts";
 
@@ -174,4 +175,19 @@ Deno.test("backoff doubles from 5 s to an hour, with jitter and Retry-After", ()
   assertEquals(backoffSeconds(40, null, () => 1), 3600);
   assertEquals(backoffSeconds(1, 90, () => 0), 90);
   assertEquals(backoffSeconds(1, 99999, () => 0), 3600);
+});
+
+Deno.test("a job stops retrying after the attempt cap", async () => {
+  const failing = {
+    getSubscription: () =>
+      Promise.reject(new PlayApiError("play_verification_failed", true)),
+  };
+  const before = setup({ fence: maxAttempts - 1, play: failing });
+  assertEquals((await runBillingJob(before.ctx, "job")).status, "retry");
+  const last = setup({ fence: maxAttempts, play: failing });
+  assertEquals(await runBillingJob(last.ctx, "job"), {
+    status: "dead",
+    code: "play_verification_failed",
+  });
+  assertEquals(last.log, ["fail:play_verification_failed:3600:true"]);
 });
