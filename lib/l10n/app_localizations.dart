@@ -6175,6 +6175,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change your level in Settings. Everything you have finished stays open.'**
   String get curriculumNextLevelBody;
+
+  /// No description provided for @chatErrorEntitlement.
+  ///
+  /// In en, this message translates to:
+  /// **'Talking with the tutor needs the AI chat subscription.'**
+  String get chatErrorEntitlement;
+
+  /// No description provided for @chatErrorQuota.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used today\'s tutor replies. More tomorrow.'**
+  String get chatErrorQuota;
+
+  /// No description provided for @chatErrorUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The tutor is unavailable right now. Your message is saved; try again later.'**
+  String get chatErrorUnavailable;
+
+  /// No description provided for @chatErrorResultUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t confirm the tutor\'s reply. Sending again uses a new reply.'**
+  String get chatErrorResultUnknown;
+
+  /// No description provided for @chatErrorUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Czechify to keep talking with the tutor.'**
+  String get chatErrorUpdate;
+
+  /// No description provided for @chatSeeAiPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'See AI chat'**
+  String get chatSeeAiPlan;
+
+  /// No description provided for @chatSendAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Send again'**
+  String get chatSendAgain;
+
+  /// No description provided for @chatLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk with the AI tutor'**
+  String get chatLockedTitle;
+
+  /// No description provided for @chatLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{limit,plural,=1{Practise real conversations with a tutor who corrects you as you go: up to {limit} tutor reply a day with the AI chat subscription. Lessons and exams are part of Czechify Core, not AI chat. Your past conversations stay readable.}other{Practise real conversations with a tutor who corrects you as you go: up to {limit} tutor replies a day with the AI chat subscription. Lessons and exams are part of Czechify Core, not AI chat. Your past conversations stay readable.}}'**
+  String chatLockedBody(int limit);
+
+  /// No description provided for @subscriptionsAiBodyLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'{limit,plural,=1{Conversations with the AI tutor, up to {limit} tutor reply a day. Lessons and exams are not included; they are part of Czechify Core.}other{Conversations with the AI tutor, up to {limit} tutor replies a day. Lessons and exams are not included; they are part of Czechify Core.}}'**
+  String subscriptionsAiBodyLimit(int limit);
 }
 
 class _AppLocalizationsDelegate

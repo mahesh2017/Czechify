@@ -14,12 +14,32 @@ class LlmRequest {
   final List<LlmMessage> messages;
   final Map<String, String> context;
 
+  /// Idempotency key for a paid chat turn or summary. Resending the same
+  /// request under the same key gets the stored reply rather than a second
+  /// charge; a new key is a new turn.
+  final String? requestId;
+
+  /// The tutor conversation this request belongs to, as the server tracks it.
+  final String? sessionId;
+
   const LlmRequest({
     required this.operation,
     required this.model,
     required this.messages,
     this.context = const {},
+    this.requestId,
+    this.sessionId,
   });
+
+  LlmRequest withIds({required String requestId, required String sessionId}) =>
+      LlmRequest(
+        operation: operation,
+        model: model,
+        messages: messages,
+        context: context,
+        requestId: requestId,
+        sessionId: sessionId,
+      );
 }
 
 /// Product operations exposed by the server-side AI gateway.

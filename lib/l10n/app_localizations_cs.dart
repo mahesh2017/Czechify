@@ -3579,4 +3579,63 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get curriculumNextLevelBody =>
       'Úroveň změníte v Nastavení. Vše, co jste dokončili, zůstane otevřené.';
+
+  @override
+  String get chatErrorEntitlement =>
+      'Rozhovory s lektorem vyžadují předplatné Chat s AI.';
+
+  @override
+  String get chatErrorQuota =>
+      'Dnešní odpovědi lektora jste vyčerpali. Další budou zítra.';
+
+  @override
+  String get chatErrorUnavailable =>
+      'Lektor teď není k dispozici. Vaše zpráva je uložená, zkuste to později.';
+
+  @override
+  String get chatErrorResultUnknown =>
+      'Nepodařilo se ověřit odpověď lektora. Opětovné odeslání spotřebuje další odpověď.';
+
+  @override
+  String get chatErrorUpdate =>
+      'Aktualizujte Czechify, abyste mohli s lektorem dál mluvit.';
+
+  @override
+  String get chatSeeAiPlan => 'Zobrazit Chat s AI';
+
+  @override
+  String get chatSendAgain => 'Odeslat znovu';
+
+  @override
+  String get chatLockedTitle => 'Mluvte s AI lektorem';
+
+  @override
+  String chatLockedBody(int limit) {
+    String _temp0 = intl.Intl.pluralLogic(
+      limit,
+      locale: localeName,
+      other:
+          'Procvičujte skutečné rozhovory s lektorem, který vás průběžně opravuje: s předplatným Chat s AI až $limit odpovědí lektora denně. Lekce a zkoušky patří do Czechify Core, ne do Chatu s AI. Vaše dřívější rozhovory zůstávají k přečtení.',
+      few:
+          'Procvičujte skutečné rozhovory s lektorem, který vás průběžně opravuje: s předplatným Chat s AI až $limit odpovědi lektora denně. Lekce a zkoušky patří do Czechify Core, ne do Chatu s AI. Vaše dřívější rozhovory zůstávají k přečtení.',
+      one:
+          'Procvičujte skutečné rozhovory s lektorem, který vás průběžně opravuje: s předplatným Chat s AI až $limit odpověď lektora denně. Lekce a zkoušky patří do Czechify Core, ne do Chatu s AI. Vaše dřívější rozhovory zůstávají k přečtení.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String subscriptionsAiBodyLimit(int limit) {
+    String _temp0 = intl.Intl.pluralLogic(
+      limit,
+      locale: localeName,
+      other:
+          'Rozhovory s AI lektorem, až $limit odpovědí lektora denně. Lekce a zkoušky nejsou součástí, patří do Czechify Core.',
+      few:
+          'Rozhovory s AI lektorem, až $limit odpovědi lektora denně. Lekce a zkoušky nejsou součástí, patří do Czechify Core.',
+      one:
+          'Rozhovory s AI lektorem, až $limit odpověď lektora denně. Lekce a zkoušky nejsou součástí, patří do Czechify Core.',
+    );
+    return '$_temp0';
+  }
 }

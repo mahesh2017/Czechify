@@ -46,11 +46,22 @@ class MonetizationConfiguration {
   final bool playCheckoutEnabled;
   final bool coursePaywallEnabled;
   final bool referralClaimsEnabled;
+
+  /// Whether the AI tutor needs the AI chat subscription.
+  final bool paidChatRequired;
+
+  /// Tutor turns per day on the AI chat subscription, as the server enforces.
+  final int aiDailyTurnLimit;
+
   const MonetizationConfiguration({
     required this.playCheckoutEnabled,
     required this.coursePaywallEnabled,
     this.referralClaimsEnabled = false,
+    this.paidChatRequired = false,
+    this.aiDailyTurnLimit = defaultAiDailyTurnLimit,
   });
+
+  static const defaultAiDailyTurnLimit = 20;
 
   static const off = MonetizationConfiguration(
     playCheckoutEnabled: false,
@@ -113,6 +124,11 @@ class MonetizationApi {
         coursePaywallEnabled: response.body['course_paywall_enabled'] == true,
         referralClaimsEnabled:
             response.body['referral_claims_enabled'] == true,
+        paidChatRequired: response.body['paid_chat_required'] == true,
+        aiDailyTurnLimit: switch (response.body['ai_daily_turn_limit']) {
+          final int limit when limit > 0 => limit,
+          _ => MonetizationConfiguration.defaultAiDailyTurnLimit,
+        },
       );
     } on Exception {
       return null;

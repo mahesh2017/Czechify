@@ -274,6 +274,21 @@ Validation:
 
 Not in 6b: review-exercise AI authorization. No lesson or review exercise calls the AI today, so there is nothing to authorize. Any future one needs a manifest entry and a recorded review assignment, never a client-supplied lesson ID.
 
+## Delivery 6c — Paid chat in the app
+
+- **Request identity:**
+  - Tutor turns, greetings and summaries carry a `request_id` and a `session_id` (the UUID in the conversation's `conv_` ID).
+  - A retry of a failed turn resends the exact request the first attempt sent, under the same ID, without re-summarizing. Otherwise the payload would change and the server would treat it as a conflict.
+  - While the server reports `request_in_progress`, the app asks again about that same request (up to three times, five seconds apart), never under a new ID.
+  - After `result_unavailable` or a conflict, "Send again" is an explicit new turn, and the app says it uses a reply.
+- **Refusals:** each has its own localized message, in English and Czech. A missing subscription offers the AI plan instead of a retry. A used-up day and an old app offer no retry at all. A new conversation refused for subscription never shows a stand-in greeting.
+- **Gate:**
+  - When `/configuration` reports `paid_chat_required` (or a staging build sets `MONETIZATION_PAID_CHAT_PREVIEW`), new conversations need an active AI chat subscription in the verified snapshot. Core does not count.
+  - Without one, the situations are replaced by an explanation and the plan. Past conversations stay listed and readable.
+- **AI plan:** the card states the daily reply limit the server enforces (`ai_daily_turn_limit` in `/configuration`, parsed from the proxy's own setting), and that lessons and exams are not included.
+
+Validation: 1,546 Flutter tests pass with 96% changed-line coverage; 144 function tests pass. On the Pixel emulator with the paid-chat preview, a new account sees the chat lock (with the enforced limit and the Core separation) and the AI plan card states the limit. Staging still needs the proxy with `AI_REPLAY_KEY` set and a real AI subscription purchase, to see replay and quota end to end.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
@@ -284,4 +299,4 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
 2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
-3. PR 6c (chat and AI purchase UI), then existing-user migration and privacy, and release activation (PRs 7–8). Course admission and its screens (Phase 5), the paid-chat server (6a) and course feedback authorization (6b) are done.
+3. Existing-user migration and privacy (PR 7), then staging verification and release activation (PR 8). Course admission and its screens (Phase 5) and the AI subscription with spend protection (PR 6: 6a–6c) are done.

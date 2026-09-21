@@ -127,3 +127,8 @@ Primary library references: [Supabase function security](https://supabase.com/do
   - It also refuses free-form writing feedback (`426 client_update_required`) and every `grammar_check`, which the app never sends (`403 course_task_required`).
   - Default off. Today's app keeps the previous path until it is on.
 - **Allowance:** course feedback has its own daily counter, `AI_DAILY_FEEDBACK_LIMIT`, default 30, apart from chat turns and the legacy counter. Any failure refunds it to the day it was taken from, and the provider cost still counts toward the spend ceiling.
+
+## Paid chat in the app (PR 6c)
+
+- `/configuration` now also reports `ai_daily_turn_limit`, parsed from `AI_DAILY_REQUEST_LIMIT` the same way the proxy parses it, so the AI plan states the limit that is enforced. Set it on both functions together; it is one project-wide secret.
+- Staging builds can show the AI subscription gate before the server requires it with `--dart-define=MONETIZATION_PAID_CHAT_PREVIEW=true`. The server still decides what it serves.

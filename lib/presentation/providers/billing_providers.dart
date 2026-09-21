@@ -63,6 +63,8 @@ final monetizationConfigurationProvider =
             'checkout': fresh.playCheckoutEnabled,
             'paywall': fresh.coursePaywallEnabled,
             'referrals': fresh.referralClaimsEnabled,
+            'paid_chat': fresh.paidChatRequired,
+            'ai_turns': fresh.aiDailyTurnLimit,
           }),
         );
         return fresh;
@@ -74,6 +76,11 @@ final monetizationConfigurationProvider =
             playCheckoutEnabled: cached['checkout'] == true,
             coursePaywallEnabled: cached['paywall'] == true,
             referralClaimsEnabled: cached['referrals'] == true,
+            paidChatRequired: cached['paid_chat'] == true,
+            aiDailyTurnLimit: switch (cached['ai_turns']) {
+              final int limit when limit > 0 => limit,
+              _ => MonetizationConfiguration.defaultAiDailyTurnLimit,
+            },
           );
         }
       } on FormatException {
@@ -141,3 +148,23 @@ class BillingNotifier extends Notifier<BillingState> {
 
   Future<void> restore() async => _flow?.restore();
 }
+
+/// Shows the AI chat subscription requirement in staging builds before the
+/// server requires it for a cohort. The server alone decides what it serves.
+const paidChatPreview = bool.fromEnvironment('MONETIZATION_PAID_CHAT_PREVIEW');
+
+/// Whether this account may start new tutor conversations: always, until
+/// the server requires paid chat; after that only with an active AI chat
+/// subscription in the verified snapshot. The server enforces the same rule;
+/// this only decides what the chat screen offers.
+final aiChatAccessProvider = FutureProvider<bool>((ref) async {
+  final required =
+      paidChatPreview ||
+      (await ref.watch(monetizationConfigurationProvider.future))
+          .paidChatRequired;
+  if (!required) return true;
+  final load = await ref.watch(monetizationLoadProvider.future);
+  final snapshot = load.document?.snapshot;
+  if (snapshot == null) return false;
+  return snapshot.aiChat.isActiveAt(load.now, offline: load.offline);
+});

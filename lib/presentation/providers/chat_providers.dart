@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
+import 'package:uuid/uuid.dart';
 import '../../data/repositories/llm_service_exception.dart';
 import '../../domain/engines/llm_orchestrator.dart';
 import '../../domain/entities/chat_message.dart';
 import '../../domain/entities/enums.dart';
 import '../../domain/repositories/conversation_repository.dart';
+import '../../domain/repositories/llm_service.dart';
 import 'database_providers.dart';
 import 'llm_providers.dart';
 import 'settings_providers.dart';
@@ -23,6 +26,11 @@ class ChatState {
   final List<ChatMessage> messages;
   final bool isLoading;
   final String? error;
+
+  /// The server's reason for [error], when it gave one (for example
+  /// `quota_exceeded` or `ai_entitlement_required`), so the screen can say
+  /// it in the learner's language and offer the right next step.
+  final String? errorCode;
 
   /// Short Czech replies suggested for the learner's next turn. Cleared
   /// when the learner sends a message.
@@ -46,6 +54,7 @@ class ChatState {
     this.messages = const [],
     this.isLoading = false,
     this.error,
+    this.errorCode,
     this.suggestedReplies = const [],
     this.remainingToday,
     this.earlierSummary,
@@ -64,6 +73,7 @@ class ChatState {
     List<ChatMessage>? messages,
     bool? isLoading,
     String? error,
+    String? errorCode,
     List<String>? suggestedReplies,
     int? remainingToday,
     String? earlierSummary,
@@ -75,6 +85,7 @@ class ChatState {
       messages: messages ?? this.messages,
       isLoading: isLoading ?? this.isLoading,
       error: error,
+      errorCode: errorCode,
       suggestedReplies: suggestedReplies ?? this.suggestedReplies,
       remainingToday: remainingToday ?? this.remainingToday,
       earlierSummary: earlierSummary ?? this.earlierSummary,
@@ -135,6 +146,53 @@ class ChatNotifier extends Notifier<ChatState> {
   int _generation = 0;
 
   bool _isStale(int generation) => generation != _generation;
+
+  /// How long to wait before asking again about a turn the server reports as
+  /// still running.
+  @visibleForTesting
+  static Duration inProgressDelay = const Duration(seconds: 5);
+
+  /// The exact request last sent for a conversation's newest learner message.
+  ///
+  /// A paid turn is identified by its request ID and bound to its payload, so
+  /// a retry must resend this request unchanged: rebuilding it would refresh
+  /// the summary, change the payload and be refused as a conflict. Cleared
+  /// once the turn succeeds or its outcome is unknown, so the next attempt
+  /// is a new turn the learner chose to spend.
+  ({String conversationId, int userIndex, LlmRequest request})? _pendingTurn;
+
+  static final _uuidPattern = RegExp(
+    r'^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+  );
+
+  /// The server's session for a conversation: the UUID in its local ID.
+  /// Null for IDs that are not of that shape, whose requests then go without
+  /// IDs, as before.
+  static String? sessionIdFor(String? conversationId) {
+    if (conversationId == null || !conversationId.startsWith('conv_')) {
+      return null;
+    }
+    final id = conversationId.substring('conv_'.length);
+    return _uuidPattern.hasMatch(id) ? id : null;
+  }
+
+  LlmRequest _identified(LlmRequest request, String? sessionId) =>
+      sessionId == null
+          ? request
+          : request.withIds(requestId: const Uuid().v4(), sessionId: sessionId);
+
+  /// Sends [request] once, and while the server says the same request is
+  /// still running, asks again about that same request — never a new one.
+  Future<LlmResponse> _complete(LlmRequest request) async {
+    for (var attempt = 0; ; attempt++) {
+      try {
+        return await ref.read(llmServiceProvider).complete(request);
+      } on LlmServiceException catch (error) {
+        if (error.code != 'request_in_progress' || attempt >= 3) rethrow;
+        await Future<void>.delayed(inProgressDelay);
+      }
+    }
+  }
 
   /// Start a new conversation with the given scenario.
   /// Defaults to the learner's level from onboarding/settings.
@@ -245,6 +303,7 @@ class ChatNotifier extends Notifier<ChatState> {
       messages[lastUserIndex].content,
       messages.sublist(0, lastUserIndex),
       _generation,
+      retry: true,
     );
   }
 
@@ -267,12 +326,14 @@ class ChatNotifier extends Notifier<ChatState> {
     if (dropped.isEmpty) return state.earlierSummary;
 
     try {
-      final llm = ref.read(llmServiceProvider);
-      final response = await llm.complete(
-        orchestrator.buildConversationSummaryRequest(
-          level: state.level,
-          messages: dropped,
-          previousSummary: state.earlierSummary,
+      final response = await _complete(
+        _identified(
+          orchestrator.buildConversationSummaryRequest(
+            level: state.level,
+            messages: dropped,
+            previousSummary: state.earlierSummary,
+          ),
+          sessionIdFor(state.conversationId),
         ),
       );
       final summary = orchestrator.parseConversationSummary(response);
@@ -289,8 +350,9 @@ class ChatNotifier extends Notifier<ChatState> {
   Future<void> _completeTutorTurn(
     String text,
     List<ChatMessage> history,
-    int generation,
-  ) async {
+    int generation, {
+    bool retry = false,
+  }) async {
     final convRepo = ref.read(conversationRepositoryProvider);
     // Captured now, not read back after the await: the reply belongs to the
     // conversation that asked for it.
@@ -299,28 +361,46 @@ class ChatNotifier extends Notifier<ChatState> {
       // Build LLM request via orchestrator
       final orchestrator = ref.read(llmOrchestratorProvider);
 
-      // Compress whatever this turn is about to push out of the window, so a
-      // long conversation loses its oldest turns from the request but not from
-      // the tutor's memory of it.
-      final summary = await _summarizeIfNeeded(
-        orchestrator,
-        text,
-        history,
-        generation,
-      );
-      if (_isStale(generation)) return;
+      final pending = _pendingTurn;
+      final LlmRequest request;
+      if (retry &&
+          pending != null &&
+          pending.conversationId == conversationId &&
+          pending.userIndex == history.length) {
+        request = pending.request;
+      } else {
+        // Compress whatever this turn is about to push out of the window, so
+        // a long conversation loses its oldest turns from the request but not
+        // from the tutor's memory of it.
+        final summary = await _summarizeIfNeeded(
+          orchestrator,
+          text,
+          history,
+          generation,
+        );
+        if (_isStale(generation)) return;
 
-      final request = orchestrator.buildConversationRequest(
-        level: state.level,
-        scenarioId: state.scenarioId,
-        userMessage: text,
-        history: history,
-        earlierSummary: summary,
-      );
+        request = _identified(
+          orchestrator.buildConversationRequest(
+            level: state.level,
+            scenarioId: state.scenarioId,
+            userMessage: text,
+            history: history,
+            earlierSummary: summary,
+          ),
+          sessionIdFor(conversationId),
+        );
+        if (conversationId != null) {
+          _pendingTurn = (
+            conversationId: conversationId,
+            userIndex: history.length,
+            request: request,
+          );
+        }
+      }
 
-      // Call LLM
-      final llm = ref.read(llmServiceProvider);
-      final response = await llm.complete(request);
+      final response = await _complete(request);
+      _pendingTurn = null;
 
       if (_isStale(generation)) return;
 
@@ -349,8 +429,17 @@ class ChatNotifier extends Notifier<ChatState> {
       // Persist tutor message
       await convRepo.saveMessage(tutorMsg);
     } on LlmServiceException catch (e) {
+      // After an unknown outcome or a conflict, resending this request can
+      // never answer it; the learner's next attempt is a new turn.
+      if (e.code == 'result_unavailable' || e.code == 'idempotency_conflict') {
+        _pendingTurn = null;
+      }
       if (_isStale(generation)) return;
-      state = state.copyWith(isLoading: false, error: e.message);
+      state = state.copyWith(
+        isLoading: false,
+        error: e.message,
+        errorCode: e.code,
+      );
     } catch (e) {
       if (_isStale(generation)) return;
       state = state.copyWith(
@@ -443,15 +532,17 @@ class ChatNotifier extends Notifier<ChatState> {
     final conversationId = state.conversationId;
     try {
       final orchestrator = ref.read(llmOrchestratorProvider);
-      final request = orchestrator.buildConversationRequest(
-        level: state.level,
-        scenarioId: state.scenarioId,
-        userMessage: 'Start the conversation by greeting me.',
-        history: [],
+      final request = _identified(
+        orchestrator.buildConversationRequest(
+          level: state.level,
+          scenarioId: state.scenarioId,
+          userMessage: 'Start the conversation by greeting me.',
+          history: [],
+        ),
+        sessionIdFor(conversationId),
       );
 
-      final llm = ref.read(llmServiceProvider);
-      final response = await llm.complete(request);
+      final response = await _complete(request);
       final parsed = orchestrator.parseTutorResponseSafe(response);
       if (parsed is TutorParseError) {
         throw LlmServiceException(parsed.reason);
@@ -482,6 +573,19 @@ class ChatNotifier extends Notifier<ChatState> {
       final convRepo = ref.read(conversationRepositoryProvider);
       await convRepo.saveMessage(greeting);
     } catch (e) {
+      if (e is LlmServiceException &&
+          (e.code == 'ai_entitlement_required' ||
+              e.code == 'client_update_required')) {
+        // A stand-in greeting would invite a reply the server will refuse.
+        // Say why instead, and offer what fixes it.
+        if (_isStale(generation)) return;
+        state = state.copyWith(
+          isLoading: false,
+          error: e.message,
+          errorCode: e.code,
+        );
+        return;
+      }
       // If greeting fails, provide a fallback
       final greeting = ChatMessage.tutor(
         text: 'Ahoj! Jsem tvůj učitel češtiny. Jak se jmenuješ?',

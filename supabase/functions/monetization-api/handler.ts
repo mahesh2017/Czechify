@@ -32,6 +32,8 @@ export interface Dependencies {
    * exactly what the server enforces.
    */
   paidChatRequired?: boolean;
+  /** Tutor turns per day, from the proxy's AI_DAILY_REQUEST_LIMIT. */
+  aiDailyTurnLimit?: number;
 }
 const cors: CorsPolicy = {
   allowedOrigins: [],
@@ -114,6 +116,7 @@ export function createHandler(deps: Dependencies) {
           play_checkout_enabled: false,
           referral_claims_enabled: false,
           paid_chat_required: deps.paidChatRequired === true,
+          ai_daily_turn_limit: deps.aiDailyTurnLimit ?? 20,
           product_ids: [],
         });
       }

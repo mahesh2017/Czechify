@@ -29,6 +29,8 @@ class SupabaseLlmService implements LlmService {
                   )
                   .toList(),
           'context': request.context,
+          if (request.requestId != null) 'request_id': request.requestId,
+          if (request.sessionId != null) 'session_id': request.sessionId,
         },
       );
       final data = Map<String, dynamic>.from(response.data as Map);

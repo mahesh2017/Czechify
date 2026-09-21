@@ -1,5 +1,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2.110.7";
 import { type BillingDependencies, createHandler } from "./handler.ts";
+import { parseBoundedInteger } from "../deepseek-proxy/request_policy.ts";
 import { createSnapshotSigner } from "./signing.ts";
 import {
   billingSecrets,
@@ -28,6 +29,13 @@ function integrity() {
 
 Deno.serve(createHandler({
   paidChatRequired: Deno.env.get("AI_PAID_CHAT_REQUIRED") === "true",
+  // Parsed as the proxy parses it, so the app states the limit enforced.
+  aiDailyTurnLimit: parseBoundedInteger(
+    Deno.env.get("AI_DAILY_REQUEST_LIMIT"),
+    20,
+    1,
+    500,
+  ),
   async authenticate(token) {
     const { data, error } = await admin().auth.getUser(token);
     // An unknown anonymity flag is treated as anonymous: it cannot buy.

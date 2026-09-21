@@ -1480,5 +1480,29 @@
   "offlineSetupStart": "Start learning",
   "offlineSetupSkip": "Skip for now",
   "curriculumNextLevelTitle": "That is all of A1. Ready for A2?",
-  "curriculumNextLevelBody": "Change your level in Settings. Everything you have finished stays open."
+  "curriculumNextLevelBody": "Change your level in Settings. Everything you have finished stays open.",
+  "chatErrorEntitlement": "Talking with the tutor needs the AI chat subscription.",
+  "chatErrorQuota": "You've used today's tutor replies. More tomorrow.",
+  "chatErrorUnavailable": "The tutor is unavailable right now. Your message is saved; try again later.",
+  "chatErrorResultUnknown": "We couldn't confirm the tutor's reply. Sending again uses a new reply.",
+  "chatErrorUpdate": "Update Czechify to keep talking with the tutor.",
+  "chatSeeAiPlan": "See AI chat",
+  "chatSendAgain": "Send again",
+  "chatLockedTitle": "Talk with the AI tutor",
+  "chatLockedBody": "{limit,plural,=1{Practise real conversations with a tutor who corrects you as you go: up to {limit} tutor reply a day with the AI chat subscription. Lessons and exams are part of Czechify Core, not AI chat. Your past conversations stay readable.}other{Practise real conversations with a tutor who corrects you as you go: up to {limit} tutor replies a day with the AI chat subscription. Lessons and exams are part of Czechify Core, not AI chat. Your past conversations stay readable.}}",
+  "@chatLockedBody": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "subscriptionsAiBodyLimit": "{limit,plural,=1{Conversations with the AI tutor, up to {limit} tutor reply a day. Lessons and exams are not included; they are part of Czechify Core.}other{Conversations with the AI tutor, up to {limit} tutor replies a day. Lessons and exams are not included; they are part of Czechify Core.}}",
+  "@subscriptionsAiBodyLimit": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    }
+  }
 }
