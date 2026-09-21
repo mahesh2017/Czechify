@@ -77,3 +77,28 @@ Primary library references: [Supabase function security](https://supabase.com/do
 - A notification for a token no account has registered is kept as `unmatched`; the owner's own verify call provisions it. A notification that arrives while a refresh is running queues one more behind it, because the running one may have read Play before the change.
 - Every minute the worker queues reconciliation for purchases that grant or may soon change access and were not verified in the last day, those within a day of their paid-through time, and pending purchases hourly. Purchases with an open refresh are skipped, so reconciliation never cancels a backoff. It then runs due jobs, acknowledgements first, for up to 40 seconds.
 - A job that has failed 80 times (two to three days with backoff) is marked dead and keeps its last verified access. `billing_health()` reports unacknowledged paid purchases older than an hour, dead jobs, the oldest due job and unmatched notifications; the worker logs `billing_attention_required` when the first two are non-zero. Wire that log to an alert before launch: Play refunds purchases left unacknowledged for three days.
+
+## Paid AI chat and spend protection (PR 6a)
+
+- **Switches** (Edge Function secrets, shared by `deepseek-proxy` and `monetization-api`):
+  - `AI_PAID_CHAT_REQUIRED`: `true` requires a verified AI subscription for `conversation` and `conversation_summary`, and `/configuration` then reports `paid_chat_required: true`. Default off. While it is on, a chat request without a `request_id` (an app too old for paid chat) gets `426 client_update_required`.
+  - `AI_PROVIDER_REQUESTS_ENABLED`: `false` is the emergency stop. Every AI request, course feedback included, answers `503 ai_temporarily_unavailable`, and nothing is charged.
+- **Spend ceiling:**
+  - `AI_DAILY_SPEND_CEILING_MICROS` caps the estimated provider spend per UTC day. The default is 20,000,000 micros, which is 20 units of the billing currency.
+  - Costs are estimated from token counts using `AI_INPUT_MICROS_PER_MILLION_TOKENS` and `AI_OUTPUT_MICROS_PER_MILLION_TOKENS`. The defaults (300,000 and 1,200,000) are placeholders; set them from the provider's price list before launch.
+  - A call whose outcome is unknown is counted at its worst case.
+  - Reaching the ceiling stops new provider requests with `503 ai_temporarily_unavailable` and logs `ai_spend_ceiling_tripped` once. Wire that log to an alert.
+- **Replay:** `AI_REPLAY_KEY` is a base64 32-byte AES-256-GCM key that seals chat replies stored for replay. Paid chat answers 503 without it. Rotating the key makes stored replays unreadable, and they then answer `result_unavailable` rather than being resent.
+- **Summaries:** `AI_SUMMARY_MIN_NEW_TURNS` (default 1) is the number of completed turns a server-known chat session needs since its last summary.
+- **Idempotency:** a chat request carries a `request_id` and `session_id` (lowercase UUIDs). `reserve_ai_request` binds the ID to a digest of the operation, session, context and messages, and takes the daily allowance in the same transaction. A retry then gets one of four answers:
+  - the sealed reply (`replayed: true`);
+  - `request_in_progress` while the first attempt's 90-second lease runs;
+  - `result_unavailable` once the outcome is unknown;
+  - `idempotency_conflict` for a different payload under the same ID.
+
+  Nothing reaches the provider twice. A definite provider failure refunds the turn to the day it was taken from. A timeout keeps it spent.
+- **Allowances:** chat allowances (`AI_DAILY_REQUEST_LIMIT`, default 20 turns; `AI_DAILY_SUMMARY_LIMIT`, default 60 summaries) are counted in `monetization_private.ai_daily_allowance`, apart from the course-feedback counters in `public.ai_daily_usage`.
+- **Access and retention:**
+  - AI access is `has_ai_chat_access`: an active, in-grace or canceled-but-paid `ai_chat` purchase. Staff course overrides and referral grants never count.
+  - The worker calls `cleanup_ai_request_records()`, which clears replay content after 24 hours and removes content-free tombstones after seven days.
+- **Unchanged here:** requests without a `request_id` (today's app) take the previous path while paid chat is not required; their cost now counts toward the ceiling. `grammar_check` and `writing_evaluation` also still take that path; PR 6b authorizes them against course content.

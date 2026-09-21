@@ -1,7 +1,8 @@
 // Scheduled monetization worker. Billing: queues reconciliation, runs due
 // verification and acknowledgement jobs within a time budget. Referrals:
 // moves forward claims that were waiting on account linking or paused
-// processing, then applies retention. Reports health counts. The scheduler
+// processing, then applies retention. AI: clears expired chat replay and
+// tombstones. Reports health counts. The scheduler
 // authenticates with a shared secret; gateway JWT verification is off for
 // this function (config.toml).
 
@@ -29,6 +30,8 @@ export interface Dependencies {
   /** Absent until billing secrets are configured. */
   billing?: BillingWork;
   referrals?: ReferralWork;
+  /** Clears expired AI chat replay content and request tombstones. */
+  aiRetention?: () => Promise<unknown>;
   now?: () => number;
   log?: (event: string, detail: Record<string, unknown>) => void;
 }
@@ -90,6 +93,9 @@ export function createHandler(deps: Dependencies) {
           retention: await deps.referrals.cleanup(),
         };
         if (failed > 0) log("referral_processing_failed", { failed });
+      }
+      if (deps.aiRetention) {
+        report.ai = { retention: await deps.aiRetention() };
       }
       return Response.json(report);
     } catch {

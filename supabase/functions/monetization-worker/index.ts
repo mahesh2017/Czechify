@@ -21,6 +21,11 @@ Deno.serve(createHandler({
     }
     : undefined,
   referrals: referralWorkerQueries(admin),
+  aiRetention: async () => {
+    const { data, error } = await admin().rpc("cleanup_ai_request_records");
+    if (error) throw new Error("AI retention failed");
+    return data;
+  },
 }));
 
 function admin() {

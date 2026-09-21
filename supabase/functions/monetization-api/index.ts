@@ -27,6 +27,7 @@ function integrity() {
 }
 
 Deno.serve(createHandler({
+  paidChatRequired: Deno.env.get("AI_PAID_CHAT_REQUIRED") === "true",
   async authenticate(token) {
     const { data, error } = await admin().auth.getUser(token);
     // An unknown anonymity flag is treated as anonymous: it cannot buy.

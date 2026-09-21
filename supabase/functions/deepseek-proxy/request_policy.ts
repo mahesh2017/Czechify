@@ -9,7 +9,7 @@ export type Operation =
   | "grammar_check"
   | "writing_evaluation";
 
-type AllowedMessage = ApiMessage & { role: "user" | "assistant" };
+export type AllowedMessage = ApiMessage & { role: "user" | "assistant" };
 
 export type UpstreamRequest = {
   temperature: number;

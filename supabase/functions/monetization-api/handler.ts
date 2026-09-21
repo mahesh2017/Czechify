@@ -26,6 +26,12 @@ export interface Dependencies {
   billing?: () => Promise<BillingDependencies>;
   /** Absent when the backend cannot reach the database; routes then 503. */
   referrals?: () => Promise<ReferralDependencies>;
+  /**
+   * Whether the AI tutor proxy requires the AI subscription for chat. The
+   * proxy reads the same AI_PAID_CHAT_REQUIRED switch, so the app is told
+   * exactly what the server enforces.
+   */
+  paidChatRequired?: boolean;
 }
 const cors: CorsPolicy = {
   allowedOrigins: [],
@@ -107,7 +113,7 @@ export function createHandler(deps: Dependencies) {
           course_paywall_enabled: false,
           play_checkout_enabled: false,
           referral_claims_enabled: false,
-          paid_chat_required: false,
+          paid_chat_required: deps.paidChatRequired === true,
           product_ids: [],
         });
       }

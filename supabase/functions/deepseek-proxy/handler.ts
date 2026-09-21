@@ -1,16 +1,28 @@
-import { createClient } from "npm:@supabase/supabase-js@2.110.7";
+import {
+  createClient,
+  type SupabaseClient,
+} from "npm:@supabase/supabase-js@2.110.7";
 import {
   corsHeaders,
   type CorsPolicy,
   parseAllowedOrigins,
   preflightResponse,
 } from "../_shared/cors.ts";
+import { createTokenCipher } from "../_shared/monetization/billing_crypto.ts";
+import {
+  handlePaidChat,
+  isRequestUuid,
+  type PaidChatStore,
+  type ProviderResult,
+  type Reservation,
+} from "./paid_chat.ts";
 import {
   buildUpstreamRequest,
   parseBoundedInteger,
   parseContext,
   parseMessages,
   satisfiesReply,
+  type UpstreamRequest,
 } from "./request_policy.ts";
 
 const SCALEWAY_MODEL = Deno.env.get("SCALEWAY_MODEL") ??
@@ -136,6 +148,76 @@ export const handleRequest = async (request: Request): Promise<Response> => {
     );
   }
 
+  // Emergency switch: stops every new provider request, whatever its kind.
+  // History stays readable in the app; nothing is charged.
+  if (Deno.env.get("AI_PROVIDER_REQUESTS_ENABLED") === "false") {
+    return jsonResponse(
+      {
+        error: "AI tutor is temporarily unavailable.",
+        code: "ai_temporarily_unavailable",
+      },
+      503,
+    );
+  }
+  // Project spend ceiling, estimated from token counts. Reaching it stops new
+  // provider requests for the rest of the UTC day and is logged once as an
+  // incident.
+  const spendCeiling = parseBoundedInteger(
+    Deno.env.get("AI_DAILY_SPEND_CEILING_MICROS"),
+    20_000_000,
+    1,
+    1_000_000_000_000,
+  );
+  {
+    const { data: ceiling, error: ceilingError } = await admin.rpc(
+      "ai_spend_ceiling_reached",
+      { p_ceiling_micros: spendCeiling },
+    );
+    if (ceilingError) {
+      console.error("Spend ceiling check failed", ceilingError.code);
+      return jsonResponse(
+        {
+          error: "AI tutor is temporarily unavailable.",
+          code: "ai_temporarily_unavailable",
+        },
+        503,
+      );
+    }
+    if (ceiling?.reached === true) {
+      if (ceiling.newly_tripped === true) {
+        console.error("ai_spend_ceiling_tripped", { ceiling: spendCeiling });
+      }
+      return jsonResponse(
+        {
+          error: "AI tutor is temporarily unavailable.",
+          code: "ai_temporarily_unavailable",
+        },
+        503,
+      );
+    }
+  }
+  const inputPrice = parseBoundedInteger(
+    Deno.env.get("AI_INPUT_MICROS_PER_MILLION_TOKENS"),
+    300_000,
+    0,
+    1_000_000_000,
+  );
+  const outputPrice = parseBoundedInteger(
+    Deno.env.get("AI_OUTPUT_MICROS_PER_MILLION_TOKENS"),
+    1_200_000,
+    0,
+    1_000_000_000,
+  );
+  const cost = (input: number, output: number) =>
+    Math.ceil((input * inputPrice + output * outputPrice) / 1_000_000);
+  const recordSpend = async (micros: number) => {
+    if (micros <= 0) return;
+    const { error } = await admin.rpc("record_ai_spend", {
+      p_cost_micros: micros,
+    });
+    if (error) console.error("Spend record failed", error.code);
+  };
+
   const dailyLimit = parseBoundedInteger(
     Deno.env.get("AI_DAILY_REQUEST_LIMIT"),
     20,
@@ -150,6 +232,91 @@ export const handleRequest = async (request: Request): Promise<Response> => {
     1,
     500,
   );
+
+  // A provider call whose outcome is unknown may still have been billed, so
+  // it counts against the ceiling at its worst case: every output token the
+  // request allowed, and its input at a conservative characters-per-token.
+  const dispatch = async (): Promise<ProviderResult> => {
+    const result = await callProvider(
+      scalewayChatUrl,
+      scalewayKey,
+      upstreamRequest,
+    );
+    if (result.kind === "unknown") {
+      await recordSpend(cost(
+        Math.ceil(JSON.stringify(upstreamRequest.messages).length / 3),
+        upstreamRequest.maxTokens,
+      ));
+    }
+    return result;
+  };
+
+  const isChat = operation === "conversation" || isSummary;
+  const paidChatRequired = Deno.env.get("AI_PAID_CHAT_REQUIRED") === "true";
+  if (isChat && body.request_id !== undefined) {
+    if (!isRequestUuid(body.request_id) || !isRequestUuid(body.session_id)) {
+      return jsonResponse({ code: "invalid_request" }, 400);
+    }
+    const replayKey = Deno.env.get("AI_REPLAY_KEY");
+    if (!replayKey) {
+      console.error("Missing AI_REPLAY_KEY.");
+      return jsonResponse(
+        {
+          error: "AI tutor is not configured.",
+          code: "ai_temporarily_unavailable",
+        },
+        503,
+      );
+    }
+    let result;
+    try {
+      result = await handlePaidChat(
+        {
+          user: userData.user.id,
+          requestId: body.request_id,
+          sessionId: body.session_id,
+          operation,
+          context,
+          messages,
+        },
+        {
+          store: paidChatStore(admin, {
+            conversation: dailyLimit,
+            summary: summaryDailyLimit,
+            minNewTurns: parseBoundedInteger(
+              Deno.env.get("AI_SUMMARY_MIN_NEW_TURNS"),
+              1,
+              1,
+              50,
+            ),
+          }),
+          cipher: await createTokenCipher(replayKey),
+          callProvider: dispatch,
+          cost,
+          paidChatRequired,
+        },
+      );
+    } catch (error) {
+      console.error(
+        "Paid chat failed",
+        error instanceof Error ? error.message : "unknown",
+      );
+      return jsonResponse({ code: "ai_temporarily_unavailable" }, 503);
+    }
+    return jsonResponse(
+      result.status === 200
+        ? { ...result.body, daily_limit: dailyLimit }
+        : result.body,
+      result.status,
+      result.headers,
+    );
+  }
+  if (isChat && paidChatRequired) {
+    // A client too old to send request IDs cannot be held to the paid-chat
+    // rules, so it is asked to update rather than served on the old path.
+    return jsonResponse({ code: "client_update_required" }, 426);
+  }
+
   {
     const { data: allowed, error: quotaError } = await admin.rpc(
       isSummary ? "consume_ai_summary_quota" : "consume_ai_quota",
@@ -199,12 +366,45 @@ export const handleRequest = async (request: Request): Promise<Response> => {
     if (error) console.error("Quota refund failed", error.code);
   };
 
+  const result = await dispatch();
+  if (result.kind === "unknown") {
+    await refundDaily();
+    return jsonResponse({ error: "AI tutor request timed out." }, 504);
+  }
+  await recordSpend(cost(result.inputTokens, result.outputTokens));
+  if (result.kind === "failed") {
+    await refundDaily();
+    return jsonResponse(
+      {
+        error: result.status === 429
+          ? "AI tutor is temporarily unavailable."
+          : "AI tutor returned an invalid response.",
+      },
+      result.status,
+    );
+  }
+  return jsonResponse({
+    ...result.body,
+    remaining_today: await remainingToday(),
+    daily_limit: dailyLimit,
+  });
+};
+
+/**
+ * One provider call, classified. A timeout or dropped connection is
+ * "unknown": the provider may have billed it, so callers must not resend.
+ */
+async function callProvider(
+  url: string,
+  key: string,
+  upstreamRequest: UpstreamRequest,
+): Promise<ProviderResult> {
   let upstream: Response;
   try {
-    upstream = await fetch(scalewayChatUrl, {
+    upstream = await fetch(url, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${scalewayKey}`,
+        "Authorization": `Bearer ${key}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -224,32 +424,35 @@ export const handleRequest = async (request: Request): Promise<Response> => {
       "Scaleway request failed",
       error instanceof Error ? error.name : "unknown",
     );
-    await refundDaily();
-    return jsonResponse({ error: "AI tutor request timed out." }, 504);
+    return { kind: "unknown" };
   }
 
   const upstreamBody = await upstream.json().catch(() => null);
+  const usage = upstreamBody?.usage ?? {};
+  const inputTokens = Number(usage.prompt_tokens ?? 0) || 0;
+  const outputTokens = Number(usage.completion_tokens ?? 0) || 0;
   if (!upstream.ok) {
     console.error("Scaleway error", upstream.status);
-    await refundDaily();
-    const status = upstream.status === 429 ? 429 : 502;
-    return jsonResponse(
-      { error: "AI tutor is temporarily unavailable." },
-      status,
-    );
+    return {
+      kind: "failed",
+      status: upstream.status === 429 ? 429 : 502,
+      inputTokens,
+      outputTokens,
+    };
   }
-
+  const invalid: ProviderResult = {
+    kind: "failed",
+    status: 502,
+    inputTokens,
+    outputTokens,
+  };
   const content = upstreamBody?.choices?.[0]?.message?.content;
   if (
     typeof content !== "string" || content.length < 1 || content.length > 20_000
   ) {
     // A 200 carrying nothing usable is still a failed turn from the learner's
     // side, so it is refunded like any other.
-    await refundDaily();
-    return jsonResponse(
-      { error: "AI tutor returned an invalid response." },
-      502,
-    );
+    return invalid;
   }
   let parsed: unknown;
   try {
@@ -257,11 +460,7 @@ export const handleRequest = async (request: Request): Promise<Response> => {
   } catch (_) {
     // The app consumes typed JSON contracts. A syntactically invalid answer
     // is not a successful learner turn even if the provider returned 200.
-    await refundDaily();
-    return jsonResponse(
-      { error: "AI tutor returned an invalid response." },
-      502,
-    );
+    return invalid;
   }
   if (!satisfiesReply(upstreamRequest, parsed)) {
     // Syntax was all this checked, so a well-formed answer to a different
@@ -272,20 +471,64 @@ export const handleRequest = async (request: Request): Promise<Response> => {
     //
     // The server contract includes nonblank rules removed from the provider
     // schema, where they would accidentally constrain generated language.
-    console.error("Upstream reply did not match", operation);
-    await refundDaily();
-    return jsonResponse(
-      { error: "AI tutor returned an invalid response." },
-      502,
-    );
+    console.error("Upstream reply did not match");
+    return invalid;
   }
-  const usage = upstreamBody.usage ?? {};
-  return jsonResponse({
-    content,
-    input_tokens: Number(usage.prompt_tokens ?? 0),
-    output_tokens: Number(usage.completion_tokens ?? 0),
-    model: String(upstreamBody.model ?? SCALEWAY_MODEL),
-    remaining_today: await remainingToday(),
-    daily_limit: dailyLimit,
-  });
-};
+  return {
+    kind: "reply",
+    body: {
+      content,
+      input_tokens: inputTokens,
+      output_tokens: outputTokens,
+      model: String(upstreamBody.model ?? SCALEWAY_MODEL),
+    },
+    inputTokens,
+    outputTokens,
+  };
+}
+
+/** The paid-chat RPCs. A database error throws; the handler maps it to 503. */
+function paidChatStore(
+  admin: SupabaseClient,
+  limits: { conversation: number; summary: number; minNewTurns: number },
+): PaidChatStore {
+  const call = async <T>(name: string, args: Record<string, unknown>) => {
+    const { data, error } = await admin.rpc(name, args);
+    if (error) throw new Error(`${name} failed: ${error.code}`);
+    return data as T;
+  };
+  return {
+    hasAccess: (user) => call<boolean>("has_ai_chat_access", { p_user: user }),
+    reserve: ({ user, request, operation, digest, session }) =>
+      call<Reservation>("reserve_ai_request", {
+        p_user: user,
+        p_request: request,
+        p_operation: operation,
+        p_digest: digest,
+        p_session: session,
+        p_conversation_limit: limits.conversation,
+        p_summary_limit: limits.summary,
+        p_min_new_turns: limits.minNewTurns,
+        // The provider timeout is 60 seconds; the lease outlasts it.
+        p_lease_seconds: 90,
+      }),
+    complete: (user, request, usage, sealed) =>
+      call<boolean>("complete_ai_request", {
+        p_user: user,
+        p_request: request,
+        p_input_tokens: usage.input,
+        p_output_tokens: usage.output,
+        p_cost_micros: usage.costMicros,
+        p_replay_sealed: sealed,
+        p_replay_seconds: 86_400,
+      }),
+    release: (user, request, costMicros) =>
+      call<boolean>("release_ai_request", {
+        p_user: user,
+        p_request: request,
+        p_cost_micros: costMicros,
+      }),
+    abandon: (user, request) =>
+      call<boolean>("abandon_ai_request", { p_user: user, p_request: request }),
+  };
+}
