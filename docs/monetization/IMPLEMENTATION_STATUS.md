@@ -262,6 +262,18 @@ Validation:
   - its permit is saved, bound to account, epoch, lesson and attempt;
   - leaving and reopening resumes the same attempt under the same permit.
 
+## Delivery 6b — Course feedback authorization
+
+- The app's only course AI call is mock-exam writing evaluation; nothing sends `grammar_check`. Writing requests now name a task (`examTaskId`), and the server evaluates against its own copy.
+- The server's copy lives in `monetization_private.course_ai_tasks`, seeded by migration `20260926100000_course_ai_tasks.sql` from a manifest generated from the bundled exam banks. CI checks assets, fixture and database agree.
+- Free-form task text can no longer become an arbitrary prompt once `AI_COURSE_ACCESS_REQUIRED` is on. Before this, any client could put any text in `task_description` and get a paid model call.
+- **Access:** the level must be open to the account by the same rule the app uses. Referral units and the AI subscription never open A2 or the exam alone.
+- **Allowance:** course feedback has its own daily allowance (default 30), apart from paid chat.
+- **Errors:** proxy refusals map to specific messages in the app (`llmFailure`), and keep their code for 6c. A chat limit is never reported as a feedback limit.
+- Setup and switches: [BACKEND_SETUP.md](BACKEND_SETUP.md#course-feedback-authorization-pr-6b).
+
+Not in 6b: review-exercise AI authorization. No lesson or review exercise calls the AI today, so there is nothing to authorize. Any future one needs a manifest entry and a recorded review assignment, never a client-supplied lesson ID.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
@@ -272,4 +284,4 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
 2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
-3. PR 6b–6c (course-operation authorization, chat and AI purchase UI), then existing-user migration and privacy, and release activation (PRs 7–8). Course admission and its screens (Phase 5) and the paid-chat server (6a) are done.
+3. PR 6c (chat and AI purchase UI), then existing-user migration and privacy, and release activation (PRs 7–8). Course admission and its screens (Phase 5), the paid-chat server (6a) and course feedback authorization (6b) are done.

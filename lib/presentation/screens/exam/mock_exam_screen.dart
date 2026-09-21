@@ -562,6 +562,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
           level: widget.level == ExamLevel.a1 ? CEFRLevel.a1 : CEFRLevel.a2,
           taskDescription: question['prompt'] as String,
           learnerText: text,
+          taskId: examTaskId(_exam!.id, key.section, key.question),
         );
     if (!mounted) return;
     setState(() {

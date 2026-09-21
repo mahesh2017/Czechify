@@ -16,6 +16,15 @@ import {
   type ProviderResult,
   type Reservation,
 } from "./paid_chat.ts";
+
+/** A server-known course task, as course_ai_task returns it. */
+type CourseTask = {
+  task_id: string;
+  operation: string;
+  level: string;
+  task_description: string;
+  allowed: boolean;
+};
 import {
   buildUpstreamRequest,
   parseBoundedInteger,
@@ -111,7 +120,51 @@ export const handleRequest = async (request: Request): Promise<Response> => {
   if (!context || !messages) {
     return jsonResponse({ error: "Invalid AI request." }, 400);
   }
-  const upstreamRequest = buildUpstreamRequest(operation, context, messages);
+  // Course feedback names a server-known task; the server supplies its text
+  // and level, so client context cannot become an arbitrary prompt.
+  const isCourseOperation = operation === "grammar_check" ||
+    operation === "writing_evaluation";
+  const courseAccessRequired =
+    Deno.env.get("AI_COURSE_ACCESS_REQUIRED") === "true";
+  let courseTask: CourseTask | null = null;
+  let upstreamContext = context;
+  if (isCourseOperation && context.task_id !== undefined) {
+    const { data: task, error: taskError } = await admin.rpc(
+      "course_ai_task",
+      { p_user: userData.user.id, p_task: context.task_id },
+    );
+    if (taskError) {
+      console.error("Course task lookup failed", taskError.code);
+      return jsonResponse({ code: "ai_temporarily_unavailable" }, 503);
+    }
+    if (!task || task.operation !== operation) {
+      return jsonResponse({ code: "unknown_task" }, 404);
+    }
+    // One learner answer; nothing else from the client reaches the prompt.
+    if (messages.length !== 1 || messages[0].role !== "user") {
+      return jsonResponse({ code: "invalid_request" }, 400);
+    }
+    if (courseAccessRequired && task.allowed !== true) {
+      return jsonResponse({ code: "course_access_required" }, 403);
+    }
+    courseTask = task as CourseTask;
+    upstreamContext = {
+      level: courseTask.level,
+      task_description: courseTask.task_description,
+    };
+  } else if (isCourseOperation && courseAccessRequired) {
+    // Free-form feedback is how a claimed course operation would become an
+    // unmetered chat. The app sends task IDs for writing; nothing in it
+    // sends grammar_check.
+    return operation === "writing_evaluation"
+      ? jsonResponse({ code: "client_update_required" }, 426)
+      : jsonResponse({ code: "course_task_required" }, 403);
+  }
+  const upstreamRequest = buildUpstreamRequest(
+    operation,
+    upstreamContext,
+    messages,
+  );
   if (!upstreamRequest) {
     return jsonResponse({ error: "Invalid operation context." }, 400);
   }
@@ -250,6 +303,57 @@ export const handleRequest = async (request: Request): Promise<Response> => {
     }
     return result;
   };
+
+  if (courseTask) {
+    const feedbackLimit = parseBoundedInteger(
+      Deno.env.get("AI_DAILY_FEEDBACK_LIMIT"),
+      30,
+      1,
+      500,
+    );
+    const { data: allowance, error: allowanceError } = await admin.rpc(
+      "consume_ai_feedback",
+      { p_user: userData.user.id, p_limit: feedbackLimit },
+    );
+    if (allowanceError) {
+      console.error("Feedback allowance failed", allowanceError.code);
+      return jsonResponse({ code: "ai_temporarily_unavailable" }, 503);
+    }
+    if (allowance?.allowed !== true) {
+      return jsonResponse(
+        { code: "quota_exceeded", resets_at: allowance?.resets_at ?? null },
+        429,
+      );
+    }
+    // Feedback has no replay: any failure returns the allowance, and the
+    // learner may simply ask again.
+    const refund = async () => {
+      const { error } = await admin.rpc("refund_ai_feedback", {
+        p_user: userData.user.id,
+        p_day: allowance.quota_day,
+      });
+      if (error) console.error("Feedback refund failed", error.code);
+    };
+    const result = await dispatch();
+    if (result.kind === "unknown") {
+      await refund();
+      return jsonResponse({ code: "result_unavailable" }, 504);
+    }
+    await recordSpend(cost(result.inputTokens, result.outputTokens));
+    if (result.kind === "failed") {
+      await refund();
+      return jsonResponse(
+        { code: "ai_temporarily_unavailable" },
+        result.status,
+      );
+    }
+    return jsonResponse({
+      ...result.body,
+      task_id: courseTask.task_id,
+      remaining_feedback: allowance.remaining,
+      feedback_limit: feedbackLimit,
+    });
+  }
 
   const isChat = operation === "conversation" || isSummary;
   const paidChatRequired = Deno.env.get("AI_PAID_CHAT_REQUIRED") === "true";

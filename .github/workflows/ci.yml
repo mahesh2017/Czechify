@@ -188,6 +188,7 @@ jobs:
           fi
           python3 tool/test_referral_concurrency.py
           python3 tool/test_ai_reservation_concurrency.py
+          python3 tool/generate_course_ai_tasks.py --check-db
 
       - name: Lint the resulting database
         run: supabase db lint --level warning
