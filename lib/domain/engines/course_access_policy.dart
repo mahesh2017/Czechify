@@ -30,6 +30,7 @@ class CourseAccessPolicy {
     required String? accountId,
     required DateTime now,
     required bool offline,
+    bool clockTrusted = true,
     MonetizationSnapshot? snapshot,
     CurriculumEntitlement staff = CurriculumEntitlement.none,
   }) {
@@ -41,11 +42,16 @@ class CourseAccessPolicy {
       }
     }
 
+    final needsVerification = <int>{};
     grant(catalog.freeUnitIds, CourseAccessSource.free);
     // The existing staff repository is already account-scoped; its caller
     // must supply only that account's override, never a global cached value.
     if (accountId != null && accountId.isNotEmpty && staff.isActiveAt(now)) {
-      grant(allUnits, CourseAccessSource.staff);
+      if (clockTrusted || staff.expiresAt == null) {
+        grant(allUnits, CourseAccessSource.staff);
+      } else {
+        needsVerification.addAll(allUnits);
+      }
     }
 
     final validSnapshot =
@@ -54,7 +60,6 @@ class CourseAccessPolicy {
         snapshot != null &&
         snapshot.userId == accountId &&
         snapshot.revision >= 0;
-    final needsVerification = <int>{};
     if (validSnapshot) {
       for (final permanent in snapshot.permanentGrants.where(
         (g) => !g.revoked,
@@ -68,13 +73,18 @@ class CourseAccessPolicy {
           },
         );
       }
-      if (snapshot.core.isActiveAt(now, offline: offline)) {
+      if (clockTrusted && snapshot.core.isActiveAt(now, offline: offline)) {
         grant(allUnits, CourseAccessSource.core);
-      } else if (offline && snapshot.core.isActiveAt(now, offline: false)) {
+      } else if ((offline || !clockTrusted) &&
+          snapshot.core.isActiveAt(now, offline: false)) {
         needsVerification.addAll(allUnits);
       }
       if (snapshot.migrationGraceUntil?.isAfter(now) ?? false) {
-        grant(allUnits, CourseAccessSource.migrationGrace);
+        if (clockTrusted) {
+          grant(allUnits, CourseAccessSource.migrationGrace);
+        } else {
+          needsVerification.addAll(allUnits);
+        }
       }
     }
     needsVerification.removeAll(sources.keys);

@@ -1,5 +1,6 @@
 import '../entities/enums.dart';
 import '../entities/unit.dart';
+import 'placement_ceilings.dart';
 
 /// Where a learner should be placed when they change level after onboarding.
 ///
@@ -30,13 +31,27 @@ class LevelSwitch {
     required List<Unit> units,
     required CEFRLevel level,
     required int? currentProvisionalUnit,
+    PlacementCeilings? ceilings,
   }) {
     final target = firstUnitOf(units: units, level: level);
     if (target == null) return null;
 
-    final current = units
-        .cast<Unit?>()
-        .firstWhere((u) => u?.id == currentProvisionalUnit, orElse: () => null);
+    final placement =
+        ceilings ??
+        PlacementCeilings.read(
+          json: null,
+          legacyUnit: currentProvisionalUnit,
+          units: units,
+        );
+    final currentId = placement.throughUnitIds[target.phase];
+    // The first A1 unit is already progression-accessible. Returning to it
+    // from A2 need not invent an A1 placement or change the stored ceiling.
+    if (target.phase == Phase.a1 &&
+        currentId == null &&
+        placement.throughUnitIds.containsKey(Phase.a2)) {
+      return null;
+    }
+    final current = units.where((u) => u.id == currentId).firstOrNull;
     if (current != null && current.orderIndex >= target.orderIndex) return null;
 
     return target.id;

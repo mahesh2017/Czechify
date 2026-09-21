@@ -44,6 +44,8 @@ class AccountService {
     GoogleAuthService? googleAuth,
     this.onLocalDataChanged,
     this.onAccountChanged,
+    this.onAccountTransitionStarted,
+    this.onAccountTransitionEnded,
     this.onDeviceRemindersReset,
   }) : _googleAuth = googleAuth ?? NativeGoogleAuthService();
 
@@ -53,6 +55,8 @@ class AccountService {
   final GoogleAuthService _googleAuth;
   final void Function()? onLocalDataChanged;
   final void Function()? onAccountChanged;
+  final void Function()? onAccountTransitionStarted;
+  final void Function()? onAccountTransitionEnded;
   final Future<void> Function()? onDeviceRemindersReset;
 
   Future<void> linkEmail(String email) => _backend.requestEmailLink(email);
@@ -107,8 +111,9 @@ class AccountService {
   Future<AccountRestoreSummary> _switchToSession(Session session) async {
     final previousSession = _backend.currentSession;
     var targetCommitted = false;
-    await _sync.beginAccountTransition();
+    onAccountTransitionStarted?.call();
     try {
+      await _sync.beginAccountTransition();
       await _backend.installSession(session);
       final snapshot = await _sync.downloadAccountSnapshot();
       await _db.transaction(() async {
@@ -136,6 +141,7 @@ class AccountService {
       rethrow;
     } finally {
       _sync.endAccountTransition();
+      onAccountTransitionEnded?.call();
     }
   }
 
@@ -186,18 +192,23 @@ class AccountService {
   /// deleted; see [BackendService.deleteCloudAccount]. Null is correct for
   /// anonymous accounts, which have no credential to re-enter.
   Future<void> deleteAccountAndLocalData({String? password}) async {
-    if (_backend.isSignedIn) {
-      if (_backend.hasGoogleIdentity) {
-        final tokens = await _googleAuth.authenticate();
-        await _backend.reauthenticateGoogle(tokens);
+    onAccountTransitionStarted?.call();
+    try {
+      if (_backend.isSignedIn) {
+        if (_backend.hasGoogleIdentity) {
+          final tokens = await _googleAuth.authenticate();
+          await _backend.reauthenticateGoogle(tokens);
+        }
+        await _backend.deleteCloudAccount(password: password);
       }
-      await _backend.deleteCloudAccount(password: password);
+      await _db.clearLearnerData();
+      await _clearAccountScopedArtifacts();
+      await _resetDeviceReminders();
+      await _backend.ensureAnonymousSession();
+      onLocalDataChanged?.call();
+    } finally {
+      onAccountTransitionEnded?.call();
     }
-    await _db.clearLearnerData();
-    await _clearAccountScopedArtifacts();
-    await _resetDeviceReminders();
-    await _backend.ensureAnonymousSession();
-    onLocalDataChanged?.call();
   }
 
   Future<Map<String, Object?>> _exportLocalPreferences() async {

@@ -39,3 +39,8 @@ entrypoint = "./functions/account-data/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
 # static_files = [ "./functions/account-data/*.html" ]
+
+[functions.monetization-api]
+enabled = true
+verify_jwt = true
+entrypoint = "./functions/monetization-api/index.ts"

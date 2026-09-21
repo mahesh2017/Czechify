@@ -144,7 +144,8 @@ jobs:
           deno check \
             supabase/functions/account-data/index.ts \
             supabase/functions/deepseek-proxy/index.ts \
-            supabase/functions/whisper-proxy/index.ts
+            supabase/functions/whisper-proxy/index.ts \
+            supabase/functions/monetization-api/index.ts
 
       - name: Run Edge Function policy tests
         run: deno test --allow-env supabase/functions

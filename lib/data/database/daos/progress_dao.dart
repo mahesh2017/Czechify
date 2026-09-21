@@ -1,4 +1,7 @@
 import 'dart:convert';
+import '../../../domain/engines/placement_ceilings.dart';
+import '../../../domain/entities/unit.dart' as domain;
+import '../../../domain/entities/enums.dart' as domain;
 import 'package:drift/drift.dart';
 import '../database.dart';
 import '../tables/lesson_progress.dart';
@@ -40,9 +43,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   Future<bool> recordLearningEvidence(LearningEvidence evidence) =>
       attachedDatabase.transaction(() async {
         final duplicate =
-            await (select(learningEvidenceEvents)..where(
-              (row) => row.evidenceId.equals(evidence.evidenceId),
-            )).getSingleOrNull();
+            await (select(learningEvidenceEvents)
+                  ..where((row) => row.evidenceId.equals(evidence.evidenceId)))
+                .getSingleOrNull();
         if (duplicate != null) return false;
         await into(learningEvidenceEvents).insert(
           LearningEvidenceEventsCompanion.insert(
@@ -151,10 +154,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     required DateTime createdAt,
     DateTime? completedAt,
   }) async {
-    final local =
-        await (select(
-          delayedTransferAssignments,
-        )..where((r) => r.assignmentId.equals(assignmentId))).getSingleOrNull();
+    final local = await (select(
+      delayedTransferAssignments,
+    )..where((r) => r.assignmentId.equals(assignmentId))).getSingleOrNull();
     if (local != null &&
         _assignmentProgress(local.status) >= _assignmentProgress(status) &&
         _assignmentProgress(local.status) > 0) {
@@ -177,10 +179,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
 
   /// Queues an assignment for the backend in its current state.
   Future<void> _enqueueTransferAssignment(String assignmentId) async {
-    final row =
-        await (select(
-          delayedTransferAssignments,
-        )..where((r) => r.assignmentId.equals(assignmentId))).getSingleOrNull();
+    final row = await (select(
+      delayedTransferAssignments,
+    )..where((r) => r.assignmentId.equals(assignmentId))).getSingleOrNull();
     if (row == null) return;
     await attachedDatabase.syncDao.enqueue(
       entity: 'delayed_transfer_assignments',
@@ -200,9 +201,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<List<LearningEvidence>> getLearningEvidence() async {
-    final rows =
-        await (select(learningEvidenceEvents)
-          ..orderBy([(row) => OrderingTerm.asc(row.observedAt)])).get();
+    final rows = await (select(
+      learningEvidenceEvents,
+    )..orderBy([(row) => OrderingTerm.asc(row.observedAt)])).get();
     return rows
         .map(
           (row) => LearningEvidence(
@@ -217,16 +218,14 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
                 LearningPhase.retrieve,
             correct: row.correct,
             novelTask: row.novelTask,
-            supports:
-                (jsonDecode(row.supportsJson) as List)
-                    .whereType<String>()
-                    .map((name) => SupportKind.values.asNameMap()[name])
-                    .whereType<SupportKind>()
-                    .toSet(),
-            conceptKeys:
-                (jsonDecode(row.conceptKeysJson) as List)
-                    .whereType<String>()
-                    .toSet(),
+            supports: (jsonDecode(row.supportsJson) as List)
+                .whereType<String>()
+                .map((name) => SupportKind.values.asNameMap()[name])
+                .whereType<SupportKind>()
+                .toSet(),
+            conceptKeys: (jsonDecode(row.conceptKeysJson) as List)
+                .whereType<String>()
+                .toSet(),
             responseLatency: Duration(milliseconds: row.responseLatencyMs),
             observedAt: row.observedAt,
           ),
@@ -234,18 +233,47 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
         .toList();
   }
 
+  Future<List<domain.Unit>> _placementUnits() async {
+    final rows = await select(attachedDatabase.units).get();
+    if (rows.isEmpty) return PlacementCeilings.bundledUnits;
+    return rows
+        .map(
+          (u) => domain.Unit(
+            id: u.id,
+            title: u.title,
+            description: u.description,
+            phase: domain.Phase.values.byName(u.phase),
+            orderIndex: u.orderIndex,
+          ),
+        )
+        .toList();
+  }
+
+  PlacementCeilings _ceilings(PlacementProfile? row, List<domain.Unit> units) =>
+      PlacementCeilings.read(
+        json: row?.phaseCeilingsJson,
+        legacyUnit: row?.provisionalUnit,
+        units: units,
+      );
+
   Future<void> savePlacement(
     PlacementResult result, {
     int? learnerOverrideUnit,
   }) => attachedDatabase.transaction(() async {
+    final existing = await select(placementProfiles).getSingleOrNull();
+    final units = await _placementUnits();
+    final ceilings = _ceilings(
+      existing,
+      units,
+    ).advance(result.provisionalUnit, units);
     await into(placementProfiles).insertOnConflictUpdate(
       PlacementProfilesCompanion.insert(
         key: const Value('primary'),
         provisionalUnit: result.provisionalUnit,
+        phaseCeilingsJson: Value(ceilings.encode()),
         learnerOverrideUnit: Value(learnerOverrideUnit),
         estimatesJson: jsonEncode({
-          for (final entry in result.estimates.entries)
-            entry.key.name: entry.value,
+          for (final e in result.estimates.entries) e.key.name: e.value,
         }),
         sampleSize: result.sampleSize,
         updatedAt: DateTime.now(),
@@ -254,94 +282,79 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     await _enqueuePlacement();
   });
 
-  /// Move the unlock ceiling without touching anything else in the profile.
-  ///
-  /// A learner changing level in Settings is not retaking the placement test,
-  /// so their skill estimates and sample size have to survive. Going through
-  /// [savePlacement] would overwrite both with whatever the caller invented,
-  /// quietly discarding a real placement result.
-  ///
-  /// Inserts a profile when none exists yet, which is the case for anyone who
-  /// onboarded as a beginner.
-  Future<void> setProvisionalUnit(int unitId) =>
-      attachedDatabase.transaction(() async {
-        final existing = await select(placementProfiles).getSingleOrNull();
-        if (existing == null) {
-          await into(placementProfiles).insert(
-            PlacementProfilesCompanion.insert(
-              key: const Value('primary'),
-              provisionalUnit: unitId,
-              estimatesJson: jsonEncode(const <String, double>{}),
-              sampleSize: 0,
-              updatedAt: DateTime.now(),
-            ),
-          );
-        } else if (unitId > existing.provisionalUnit) {
-          await (update(placementProfiles)
-            ..where((row) => row.key.equals(existing.key))).write(
-            PlacementProfilesCompanion(
-              provisionalUnit: Value(unitId),
-              updatedAt: Value(DateTime.now()),
-            ),
-          );
-        } else {
-          return;
-        }
-        await _enqueuePlacement();
-      });
+  /// Advance only the selected phase; keep estimates and the other phase.
+  /// The scalar remains a compatibility field for older clients, not access.
+  Future<void> setProvisionalUnit(
+    int unitId, {
+    List<domain.Unit>? curriculum,
+  }) => attachedDatabase.transaction(() async {
+    final existing = await select(placementProfiles).getSingleOrNull();
+    final units = curriculum ?? await _placementUnits();
+    final before = _ceilings(existing, units);
+    final after = before.advance(unitId, units);
+    if (existing != null &&
+        existing.phaseCeilingsJson != null &&
+        before.encode() == after.encode()) {
+      return;
+    }
+    await into(placementProfiles).insertOnConflictUpdate(
+      PlacementProfilesCompanion.insert(
+        key: const Value('primary'),
+        provisionalUnit: existing == null || unitId > existing.provisionalUnit
+            ? unitId
+            : existing.provisionalUnit,
+        phaseCeilingsJson: Value(after.encode()),
+        learnerOverrideUnit: Value(existing?.learnerOverrideUnit),
+        estimatesJson: existing?.estimatesJson ?? '{}',
+        sampleSize: existing?.sampleSize ?? 0,
+        updatedAt: DateTime.now(),
+      ),
+    );
+    await _enqueuePlacement();
+  });
 
-  /// Merge placement evidence without allowing an older device to reduce the
-  /// learner's already-reached curriculum ceiling.
+  /// Merge independently within each phase, including writes from old devices.
   Future<void> mergeRemotePlacement({
     required int provisionalUnit,
+    String? phaseCeilingsJson,
     int? learnerOverrideUnit,
     required String estimatesJson,
     required int sampleSize,
     required DateTime updatedAt,
-  }) async {
+  }) => attachedDatabase.transaction(() async {
     final existing = await select(placementProfiles).getSingleOrNull();
-    if (existing == null) {
-      await into(placementProfiles).insert(
-        PlacementProfilesCompanion.insert(
-          key: const Value('primary'),
-          provisionalUnit: provisionalUnit,
-          learnerOverrideUnit: Value(learnerOverrideUnit),
-          estimatesJson: estimatesJson,
-          sampleSize: sampleSize,
-          updatedAt: updatedAt,
-        ),
-      );
-      return;
-    }
-    final remoteIsNewer = !existing.updatedAt.isAfter(updatedAt);
-    final mergedOverride = switch ((
-      existing.learnerOverrideUnit,
-      learnerOverrideUnit,
-    )) {
-      (final int local, final int remote) => local > remote ? local : remote,
-      (final int local, null) => local,
-      (null, final int remote) => remote,
-      _ => null,
-    };
-    await (update(placementProfiles)
-      ..where((row) => row.key.equals(existing.key))).write(
-      PlacementProfilesCompanion(
-        provisionalUnit: Value(
-          existing.provisionalUnit > provisionalUnit
-              ? existing.provisionalUnit
-              : provisionalUnit,
-        ),
+    final units = await _placementUnits();
+    final remote = PlacementCeilings.read(
+      json: phaseCeilingsJson,
+      legacyUnit: provisionalUnit,
+      units: units,
+    );
+    final merged = _ceilings(existing, units).merge(remote, units);
+    final remoteIsNewer =
+        existing == null || !existing.updatedAt.isAfter(updatedAt);
+    final localOverride = existing?.learnerOverrideUnit;
+    final mergedOverride = localOverride == null
+        ? learnerOverrideUnit
+        : learnerOverrideUnit == null || localOverride > learnerOverrideUnit
+        ? localOverride
+        : learnerOverrideUnit;
+    await into(placementProfiles).insertOnConflictUpdate(
+      PlacementProfilesCompanion.insert(
+        key: const Value('primary'),
+        provisionalUnit:
+            existing == null || provisionalUnit > existing.provisionalUnit
+            ? provisionalUnit
+            : existing.provisionalUnit,
+        phaseCeilingsJson: Value(merged.encode()),
         learnerOverrideUnit: Value(mergedOverride),
-        estimatesJson: Value(
-          remoteIsNewer ? estimatesJson : existing.estimatesJson,
-        ),
-        sampleSize: Value(
-          existing.sampleSize > sampleSize ? existing.sampleSize : sampleSize,
-        ),
-        updatedAt: Value(remoteIsNewer ? updatedAt : existing.updatedAt),
+        estimatesJson: remoteIsNewer ? estimatesJson : existing.estimatesJson,
+        sampleSize: existing == null || sampleSize > existing.sampleSize
+            ? sampleSize
+            : existing.sampleSize,
+        updatedAt: remoteIsNewer ? updatedAt : existing.updatedAt,
       ),
     );
-  }
+  });
 
   Future<void> _enqueuePlacement() async {
     final row = await select(placementProfiles).getSingleOrNull();
@@ -358,6 +371,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
       payload: {
         'key': row.key,
         'provisional_unit': row.provisionalUnit,
+        'phase_ceilings': jsonDecode(
+          _ceilings(row, await _placementUnits()).encode(),
+        ),
         'learner_override_unit': row.learnerOverrideUnit,
         'estimates': estimates,
         'sample_size': row.sampleSize,
@@ -380,10 +396,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     required String assignmentId,
     required LearningEvidence evidence,
   }) => attachedDatabase.transaction(() async {
-    final assignment =
-        await (select(delayedTransferAssignments)..where(
-          (row) => row.assignmentId.equals(assignmentId),
-        )).getSingleOrNull();
+    final assignment = await (select(
+      delayedTransferAssignments,
+    )..where((row) => row.assignmentId.equals(assignmentId))).getSingleOrNull();
     if (assignment == null || assignment.status != 'pending') return false;
     if (!evidence.isDelayedTransfer ||
         evidence.lessonId != assignment.lessonId ||
@@ -396,8 +411,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     final inserted = await recordLearningEvidence(evidence);
     if (!inserted) return false;
     await _reestimatePlacementFrom(evidence);
-    await (update(delayedTransferAssignments)
-      ..where((row) => row.assignmentId.equals(assignmentId))).write(
+    await (update(
+      delayedTransferAssignments,
+    )..where((row) => row.assignmentId.equals(assignmentId))).write(
       DelayedTransferAssignmentsCompanion(
         status: const Value('completed'),
         completedEvidenceId: Value(evidence.evidenceId),
@@ -411,9 +427,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   });
 
   Future<void> _reestimatePlacementFrom(LearningEvidence evidence) async {
-    final profile =
-        await (select(placementProfiles)
-          ..where((row) => row.key.equals('primary'))).getSingleOrNull();
+    final profile = await (select(
+      placementProfiles,
+    )..where((row) => row.key.equals('primary'))).getSingleOrNull();
     if (profile == null) return;
 
     final decoded = jsonDecode(profile.estimatesJson);
@@ -425,18 +441,16 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     final key = evidence.skill.name;
     final current = estimates[key];
     if (current == null) return;
-    final adjustment =
-        evidence.correct && evidence.independent
-            ? 0.05
-            : evidence.correct
-            ? -0.03
-            : -0.12;
+    final adjustment = evidence.correct && evidence.independent
+        ? 0.05
+        : evidence.correct
+        ? -0.03
+        : -0.12;
     estimates[key] = (current + adjustment).clamp(0.0, 1.0);
-    final required =
-        PlacementEngine.requiredSkills
-            .map((skill) => estimates[skill.name])
-            .whereType<double>()
-            .toList();
+    final required = PlacementEngine.requiredSkills
+        .map((skill) => estimates[skill.name])
+        .whereType<double>()
+        .toList();
     if (required.isEmpty) return;
     final conservative = required.reduce((a, b) => a < b ? a : b);
     final inferredUnit = switch (conservative) {
@@ -446,10 +460,19 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
       < 0.78 => 18,
       _ => 24,
     };
-    await (update(placementProfiles)
-      ..where((row) => row.key.equals('primary'))).write(
+    await (update(
+      placementProfiles,
+    )..where((row) => row.key.equals('primary'))).write(
       PlacementProfilesCompanion(
         provisionalUnit: Value(profile.learnerOverrideUnit ?? inferredUnit),
+        phaseCeilingsJson: Value(
+          _ceilings(profile, await _placementUnits())
+              .advance(
+                profile.learnerOverrideUnit ?? inferredUnit,
+                await _placementUnits(),
+              )
+              .encode(),
+        ),
         estimatesJson: Value(jsonEncode(estimates)),
         updatedAt: Value(evidence.observedAt),
       ),
@@ -476,9 +499,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     required List<ExerciseAttemptEvidence> exerciseEvidence,
     String phase = 'initial',
   }) => attachedDatabase.transaction(() async {
-    final duplicate =
-        await (select(lessonAttempts)
-          ..where((row) => row.attemptId.equals(attemptId))).getSingleOrNull();
+    final duplicate = await (select(
+      lessonAttempts,
+    )..where((row) => row.attemptId.equals(attemptId))).getSingleOrNull();
     if (duplicate != null) return false;
 
     final now = DateTime.now();
@@ -549,14 +572,13 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
       ),
     );
 
-    final gamification =
-        await (select(gamificationStateTable)
-          ..where((row) => row.key.equals('primary'))).getSingleOrNull();
+    final gamification = await (select(
+      gamificationStateTable,
+    )..where((row) => row.key.equals('primary'))).getSingleOrNull();
     final today = DateTime(now.year, now.month, now.day).toIso8601String();
-    final priorDailyXp =
-        gamification?.dailyXpResetDate == today
-            ? gamification?.dailyXp ?? 0
-            : 0;
+    final priorDailyXp = gamification?.dailyXpResetDate == today
+        ? gamification?.dailyXp ?? 0
+        : 0;
     final totalXp = (gamification?.totalXp ?? 0) + activityXp;
     final dailyXp = priorDailyXp + activityXp;
     final earnedBadges = gamification?.earnedBadges ?? '[]';
@@ -583,14 +605,13 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
       ),
     );
 
-    final existing =
-        await (select(lessonProgress)
-          ..where((l) => l.lessonId.equals(lessonId))).getSingleOrNull();
+    final existing = await (select(
+      lessonProgress,
+    )..where((l) => l.lessonId.equals(lessonId))).getSingleOrNull();
 
-    final bestScore =
-        existing == null
-            ? score
-            : (score > existing.bestScore ? score : existing.bestScore);
+    final bestScore = existing == null
+        ? score
+        : (score > existing.bestScore ? score : existing.bestScore);
     final attempts = existing == null ? 1 : existing.attempts + 1;
 
     if (existing == null) {
@@ -605,8 +626,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
         ),
       );
     } else {
-      await (update(lessonProgress)
-        ..where((l) => l.lessonId.equals(lessonId))).write(
+      await (update(
+        lessonProgress,
+      )..where((l) => l.lessonId.equals(lessonId))).write(
         LessonProgressCompanion(
           isCompleted: const Value(true),
           bestScore: Value(bestScore),
@@ -642,8 +664,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
         'daily_goal_xp': gamification?.dailyGoalXp ?? 50,
         'gems': gamification?.gems ?? 0,
         'earned_badges': jsonDecode(earnedBadges),
-        'last_heart_refill':
-            gamification?.lastHeartRefill?.toUtc().toIso8601String(),
+        'last_heart_refill': gamification?.lastHeartRefill
+            ?.toUtc()
+            .toIso8601String(),
         'streak_freeze_available': gamification?.streakFreezeAvailable ?? true,
         'last_open_date': gamification?.lastOpenDate,
         'daily_xp_reset_date': today,
@@ -653,18 +676,21 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   });
 
   Future<List<LessonProgressData>> getCompletedLessons() {
-    return (select(lessonProgress)
-      ..where((l) => l.isCompleted.equals(true))).get();
+    return (select(
+      lessonProgress,
+    )..where((l) => l.isCompleted.equals(true))).get();
   }
 
   Future<List<LessonProgressData>> getLessonsByUnit(int unitId) {
-    return (select(lessonProgress)
-      ..where((l) => l.unitId.equals(unitId))).get();
+    return (select(
+      lessonProgress,
+    )..where((l) => l.unitId.equals(unitId))).get();
   }
 
   Stream<List<LessonProgressData>> watchCompletedLessons() {
-    return (select(lessonProgress)
-      ..where((l) => l.isCompleted.equals(true))).watch();
+    return (select(
+      lessonProgress,
+    )..where((l) => l.isCompleted.equals(true))).watch();
   }
 
   // ── Earned Badges ──
@@ -706,9 +732,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     required int attempts,
     DateTime? lastAttempted,
   }) async {
-    final existing =
-        await (select(lessonProgress)
-          ..where((l) => l.lessonId.equals(lessonId))).getSingleOrNull();
+    final existing = await (select(
+      lessonProgress,
+    )..where((l) => l.lessonId.equals(lessonId))).getSingleOrNull();
     if (existing == null) {
       await into(lessonProgress).insert(
         LessonProgressCompanion.insert(
@@ -722,8 +748,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
       );
       return;
     }
-    await (update(lessonProgress)
-      ..where((l) => l.lessonId.equals(lessonId))).write(
+    await (update(
+      lessonProgress,
+    )..where((l) => l.lessonId.equals(lessonId))).write(
       LessonProgressCompanion(
         isCompleted: Value(existing.isCompleted || isCompleted),
         bestScore: Value(
@@ -738,9 +765,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<void> mergeBadge(String badgeId, DateTime earnedAt) async {
-    final existing =
-        await (select(earnedBadges)
-          ..where((b) => b.badgeId.equals(badgeId))).getSingleOrNull();
+    final existing = await (select(
+      earnedBadges,
+    )..where((b) => b.badgeId.equals(badgeId))).getSingleOrNull();
     if (existing != null) return; // union: a badge is never un-earned
     await into(earnedBadges).insert(
       EarnedBadgesCompanion.insert(badgeId: badgeId, earnedAt: Value(earnedAt)),
@@ -788,9 +815,9 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
   }
 
   Future<String?> getProgressValue(String key) async {
-    final row =
-        await (select(userProgress)
-          ..where((u) => u.key.equals(key))).getSingleOrNull();
+    final row = await (select(
+      userProgress,
+    )..where((u) => u.key.equals(key))).getSingleOrNull();
     return row?.value;
   }
 

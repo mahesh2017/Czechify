@@ -567,6 +567,454 @@ class UnitsCompanion extends UpdateCompanion<Unit> {
   }
 }
 
+class $MonetizationSnapshotsTable extends MonetizationSnapshots
+    with TableInfo<$MonetizationSnapshotsTable, MonetizationSnapshot> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MonetizationSnapshotsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _signedPayloadMeta = const VerificationMeta(
+    'signedPayload',
+  );
+  @override
+  late final GeneratedColumn<String> signedPayload = GeneratedColumn<String>(
+    'signed_payload',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _revisionMeta = const VerificationMeta(
+    'revision',
+  );
+  @override
+  late final GeneratedColumn<int> revision = GeneratedColumn<int>(
+    'revision',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _serverAnchorMeta = const VerificationMeta(
+    'serverAnchor',
+  );
+  @override
+  late final GeneratedColumn<DateTime> serverAnchor = GeneratedColumn<DateTime>(
+    'server_anchor',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _localAnchorMeta = const VerificationMeta(
+    'localAnchor',
+  );
+  @override
+  late final GeneratedColumn<DateTime> localAnchor = GeneratedColumn<DateTime>(
+    'local_anchor',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _maximumObservedTimeMeta =
+      const VerificationMeta('maximumObservedTime');
+  @override
+  late final GeneratedColumn<DateTime> maximumObservedTime =
+      GeneratedColumn<DateTime>(
+        'maximum_observed_time',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  @override
+  List<GeneratedColumn> get $columns => [
+    accountId,
+    signedPayload,
+    revision,
+    serverAnchor,
+    localAnchor,
+    maximumObservedTime,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'monetization_snapshots';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MonetizationSnapshot> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_accountIdMeta);
+    }
+    if (data.containsKey('signed_payload')) {
+      context.handle(
+        _signedPayloadMeta,
+        signedPayload.isAcceptableOrUnknown(
+          data['signed_payload']!,
+          _signedPayloadMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_signedPayloadMeta);
+    }
+    if (data.containsKey('revision')) {
+      context.handle(
+        _revisionMeta,
+        revision.isAcceptableOrUnknown(data['revision']!, _revisionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_revisionMeta);
+    }
+    if (data.containsKey('server_anchor')) {
+      context.handle(
+        _serverAnchorMeta,
+        serverAnchor.isAcceptableOrUnknown(
+          data['server_anchor']!,
+          _serverAnchorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_serverAnchorMeta);
+    }
+    if (data.containsKey('local_anchor')) {
+      context.handle(
+        _localAnchorMeta,
+        localAnchor.isAcceptableOrUnknown(
+          data['local_anchor']!,
+          _localAnchorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_localAnchorMeta);
+    }
+    if (data.containsKey('maximum_observed_time')) {
+      context.handle(
+        _maximumObservedTimeMeta,
+        maximumObservedTime.isAcceptableOrUnknown(
+          data['maximum_observed_time']!,
+          _maximumObservedTimeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_maximumObservedTimeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {accountId};
+  @override
+  MonetizationSnapshot map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MonetizationSnapshot(
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      )!,
+      signedPayload: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}signed_payload'],
+      )!,
+      revision: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}revision'],
+      )!,
+      serverAnchor: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}server_anchor'],
+      )!,
+      localAnchor: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}local_anchor'],
+      )!,
+      maximumObservedTime: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}maximum_observed_time'],
+      )!,
+    );
+  }
+
+  @override
+  $MonetizationSnapshotsTable createAlias(String alias) {
+    return $MonetizationSnapshotsTable(attachedDatabase, alias);
+  }
+}
+
+class MonetizationSnapshot extends DataClass
+    implements Insertable<MonetizationSnapshot> {
+  final String accountId;
+  final String signedPayload;
+  final int revision;
+  final DateTime serverAnchor;
+  final DateTime localAnchor;
+  final DateTime maximumObservedTime;
+  const MonetizationSnapshot({
+    required this.accountId,
+    required this.signedPayload,
+    required this.revision,
+    required this.serverAnchor,
+    required this.localAnchor,
+    required this.maximumObservedTime,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['account_id'] = Variable<String>(accountId);
+    map['signed_payload'] = Variable<String>(signedPayload);
+    map['revision'] = Variable<int>(revision);
+    map['server_anchor'] = Variable<DateTime>(serverAnchor);
+    map['local_anchor'] = Variable<DateTime>(localAnchor);
+    map['maximum_observed_time'] = Variable<DateTime>(maximumObservedTime);
+    return map;
+  }
+
+  MonetizationSnapshotsCompanion toCompanion(bool nullToAbsent) {
+    return MonetizationSnapshotsCompanion(
+      accountId: Value(accountId),
+      signedPayload: Value(signedPayload),
+      revision: Value(revision),
+      serverAnchor: Value(serverAnchor),
+      localAnchor: Value(localAnchor),
+      maximumObservedTime: Value(maximumObservedTime),
+    );
+  }
+
+  factory MonetizationSnapshot.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MonetizationSnapshot(
+      accountId: serializer.fromJson<String>(json['accountId']),
+      signedPayload: serializer.fromJson<String>(json['signedPayload']),
+      revision: serializer.fromJson<int>(json['revision']),
+      serverAnchor: serializer.fromJson<DateTime>(json['serverAnchor']),
+      localAnchor: serializer.fromJson<DateTime>(json['localAnchor']),
+      maximumObservedTime: serializer.fromJson<DateTime>(
+        json['maximumObservedTime'],
+      ),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'accountId': serializer.toJson<String>(accountId),
+      'signedPayload': serializer.toJson<String>(signedPayload),
+      'revision': serializer.toJson<int>(revision),
+      'serverAnchor': serializer.toJson<DateTime>(serverAnchor),
+      'localAnchor': serializer.toJson<DateTime>(localAnchor),
+      'maximumObservedTime': serializer.toJson<DateTime>(maximumObservedTime),
+    };
+  }
+
+  MonetizationSnapshot copyWith({
+    String? accountId,
+    String? signedPayload,
+    int? revision,
+    DateTime? serverAnchor,
+    DateTime? localAnchor,
+    DateTime? maximumObservedTime,
+  }) => MonetizationSnapshot(
+    accountId: accountId ?? this.accountId,
+    signedPayload: signedPayload ?? this.signedPayload,
+    revision: revision ?? this.revision,
+    serverAnchor: serverAnchor ?? this.serverAnchor,
+    localAnchor: localAnchor ?? this.localAnchor,
+    maximumObservedTime: maximumObservedTime ?? this.maximumObservedTime,
+  );
+  MonetizationSnapshot copyWithCompanion(MonetizationSnapshotsCompanion data) {
+    return MonetizationSnapshot(
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
+      signedPayload: data.signedPayload.present
+          ? data.signedPayload.value
+          : this.signedPayload,
+      revision: data.revision.present ? data.revision.value : this.revision,
+      serverAnchor: data.serverAnchor.present
+          ? data.serverAnchor.value
+          : this.serverAnchor,
+      localAnchor: data.localAnchor.present
+          ? data.localAnchor.value
+          : this.localAnchor,
+      maximumObservedTime: data.maximumObservedTime.present
+          ? data.maximumObservedTime.value
+          : this.maximumObservedTime,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MonetizationSnapshot(')
+          ..write('accountId: $accountId, ')
+          ..write('signedPayload: $signedPayload, ')
+          ..write('revision: $revision, ')
+          ..write('serverAnchor: $serverAnchor, ')
+          ..write('localAnchor: $localAnchor, ')
+          ..write('maximumObservedTime: $maximumObservedTime')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    accountId,
+    signedPayload,
+    revision,
+    serverAnchor,
+    localAnchor,
+    maximumObservedTime,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MonetizationSnapshot &&
+          other.accountId == this.accountId &&
+          other.signedPayload == this.signedPayload &&
+          other.revision == this.revision &&
+          other.serverAnchor == this.serverAnchor &&
+          other.localAnchor == this.localAnchor &&
+          other.maximumObservedTime == this.maximumObservedTime);
+}
+
+class MonetizationSnapshotsCompanion
+    extends UpdateCompanion<MonetizationSnapshot> {
+  final Value<String> accountId;
+  final Value<String> signedPayload;
+  final Value<int> revision;
+  final Value<DateTime> serverAnchor;
+  final Value<DateTime> localAnchor;
+  final Value<DateTime> maximumObservedTime;
+  final Value<int> rowid;
+  const MonetizationSnapshotsCompanion({
+    this.accountId = const Value.absent(),
+    this.signedPayload = const Value.absent(),
+    this.revision = const Value.absent(),
+    this.serverAnchor = const Value.absent(),
+    this.localAnchor = const Value.absent(),
+    this.maximumObservedTime = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  MonetizationSnapshotsCompanion.insert({
+    required String accountId,
+    required String signedPayload,
+    required int revision,
+    required DateTime serverAnchor,
+    required DateTime localAnchor,
+    required DateTime maximumObservedTime,
+    this.rowid = const Value.absent(),
+  }) : accountId = Value(accountId),
+       signedPayload = Value(signedPayload),
+       revision = Value(revision),
+       serverAnchor = Value(serverAnchor),
+       localAnchor = Value(localAnchor),
+       maximumObservedTime = Value(maximumObservedTime);
+  static Insertable<MonetizationSnapshot> custom({
+    Expression<String>? accountId,
+    Expression<String>? signedPayload,
+    Expression<int>? revision,
+    Expression<DateTime>? serverAnchor,
+    Expression<DateTime>? localAnchor,
+    Expression<DateTime>? maximumObservedTime,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (accountId != null) 'account_id': accountId,
+      if (signedPayload != null) 'signed_payload': signedPayload,
+      if (revision != null) 'revision': revision,
+      if (serverAnchor != null) 'server_anchor': serverAnchor,
+      if (localAnchor != null) 'local_anchor': localAnchor,
+      if (maximumObservedTime != null)
+        'maximum_observed_time': maximumObservedTime,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  MonetizationSnapshotsCompanion copyWith({
+    Value<String>? accountId,
+    Value<String>? signedPayload,
+    Value<int>? revision,
+    Value<DateTime>? serverAnchor,
+    Value<DateTime>? localAnchor,
+    Value<DateTime>? maximumObservedTime,
+    Value<int>? rowid,
+  }) {
+    return MonetizationSnapshotsCompanion(
+      accountId: accountId ?? this.accountId,
+      signedPayload: signedPayload ?? this.signedPayload,
+      revision: revision ?? this.revision,
+      serverAnchor: serverAnchor ?? this.serverAnchor,
+      localAnchor: localAnchor ?? this.localAnchor,
+      maximumObservedTime: maximumObservedTime ?? this.maximumObservedTime,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
+    }
+    if (signedPayload.present) {
+      map['signed_payload'] = Variable<String>(signedPayload.value);
+    }
+    if (revision.present) {
+      map['revision'] = Variable<int>(revision.value);
+    }
+    if (serverAnchor.present) {
+      map['server_anchor'] = Variable<DateTime>(serverAnchor.value);
+    }
+    if (localAnchor.present) {
+      map['local_anchor'] = Variable<DateTime>(localAnchor.value);
+    }
+    if (maximumObservedTime.present) {
+      map['maximum_observed_time'] = Variable<DateTime>(
+        maximumObservedTime.value,
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MonetizationSnapshotsCompanion(')
+          ..write('accountId: $accountId, ')
+          ..write('signedPayload: $signedPayload, ')
+          ..write('revision: $revision, ')
+          ..write('serverAnchor: $serverAnchor, ')
+          ..write('localAnchor: $localAnchor, ')
+          ..write('maximumObservedTime: $maximumObservedTime, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -12382,6 +12830,18 @@ class $PlacementProfilesTable extends PlacementProfiles
     requiredDuringInsert: false,
     defaultValue: const Constant('primary'),
   );
+  static const VerificationMeta _phaseCeilingsJsonMeta = const VerificationMeta(
+    'phaseCeilingsJson',
+  );
+  @override
+  late final GeneratedColumn<String> phaseCeilingsJson =
+      GeneratedColumn<String>(
+        'phase_ceilings_json',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _provisionalUnitMeta = const VerificationMeta(
     'provisionalUnit',
   );
@@ -12439,6 +12899,7 @@ class $PlacementProfilesTable extends PlacementProfiles
   @override
   List<GeneratedColumn> get $columns => [
     key,
+    phaseCeilingsJson,
     provisionalUnit,
     learnerOverrideUnit,
     estimatesJson,
@@ -12461,6 +12922,15 @@ class $PlacementProfilesTable extends PlacementProfiles
       context.handle(
         _keyMeta,
         key.isAcceptableOrUnknown(data['key']!, _keyMeta),
+      );
+    }
+    if (data.containsKey('phase_ceilings_json')) {
+      context.handle(
+        _phaseCeilingsJsonMeta,
+        phaseCeilingsJson.isAcceptableOrUnknown(
+          data['phase_ceilings_json']!,
+          _phaseCeilingsJsonMeta,
+        ),
       );
     }
     if (data.containsKey('provisional_unit')) {
@@ -12523,6 +12993,10 @@ class $PlacementProfilesTable extends PlacementProfiles
         DriftSqlType.string,
         data['${effectivePrefix}key'],
       )!,
+      phaseCeilingsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phase_ceilings_json'],
+      ),
       provisionalUnit: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}provisional_unit'],
@@ -12555,6 +13029,7 @@ class $PlacementProfilesTable extends PlacementProfiles
 class PlacementProfile extends DataClass
     implements Insertable<PlacementProfile> {
   final String key;
+  final String? phaseCeilingsJson;
   final int provisionalUnit;
   final int? learnerOverrideUnit;
   final String estimatesJson;
@@ -12562,6 +13037,7 @@ class PlacementProfile extends DataClass
   final DateTime updatedAt;
   const PlacementProfile({
     required this.key,
+    this.phaseCeilingsJson,
     required this.provisionalUnit,
     this.learnerOverrideUnit,
     required this.estimatesJson,
@@ -12572,6 +13048,9 @@ class PlacementProfile extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['key'] = Variable<String>(key);
+    if (!nullToAbsent || phaseCeilingsJson != null) {
+      map['phase_ceilings_json'] = Variable<String>(phaseCeilingsJson);
+    }
     map['provisional_unit'] = Variable<int>(provisionalUnit);
     if (!nullToAbsent || learnerOverrideUnit != null) {
       map['learner_override_unit'] = Variable<int>(learnerOverrideUnit);
@@ -12585,6 +13064,9 @@ class PlacementProfile extends DataClass
   PlacementProfilesCompanion toCompanion(bool nullToAbsent) {
     return PlacementProfilesCompanion(
       key: Value(key),
+      phaseCeilingsJson: phaseCeilingsJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(phaseCeilingsJson),
       provisionalUnit: Value(provisionalUnit),
       learnerOverrideUnit: learnerOverrideUnit == null && nullToAbsent
           ? const Value.absent()
@@ -12602,6 +13084,9 @@ class PlacementProfile extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return PlacementProfile(
       key: serializer.fromJson<String>(json['key']),
+      phaseCeilingsJson: serializer.fromJson<String?>(
+        json['phaseCeilingsJson'],
+      ),
       provisionalUnit: serializer.fromJson<int>(json['provisionalUnit']),
       learnerOverrideUnit: serializer.fromJson<int?>(
         json['learnerOverrideUnit'],
@@ -12616,6 +13101,7 @@ class PlacementProfile extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'key': serializer.toJson<String>(key),
+      'phaseCeilingsJson': serializer.toJson<String?>(phaseCeilingsJson),
       'provisionalUnit': serializer.toJson<int>(provisionalUnit),
       'learnerOverrideUnit': serializer.toJson<int?>(learnerOverrideUnit),
       'estimatesJson': serializer.toJson<String>(estimatesJson),
@@ -12626,6 +13112,7 @@ class PlacementProfile extends DataClass
 
   PlacementProfile copyWith({
     String? key,
+    Value<String?> phaseCeilingsJson = const Value.absent(),
     int? provisionalUnit,
     Value<int?> learnerOverrideUnit = const Value.absent(),
     String? estimatesJson,
@@ -12633,6 +13120,9 @@ class PlacementProfile extends DataClass
     DateTime? updatedAt,
   }) => PlacementProfile(
     key: key ?? this.key,
+    phaseCeilingsJson: phaseCeilingsJson.present
+        ? phaseCeilingsJson.value
+        : this.phaseCeilingsJson,
     provisionalUnit: provisionalUnit ?? this.provisionalUnit,
     learnerOverrideUnit: learnerOverrideUnit.present
         ? learnerOverrideUnit.value
@@ -12644,6 +13134,9 @@ class PlacementProfile extends DataClass
   PlacementProfile copyWithCompanion(PlacementProfilesCompanion data) {
     return PlacementProfile(
       key: data.key.present ? data.key.value : this.key,
+      phaseCeilingsJson: data.phaseCeilingsJson.present
+          ? data.phaseCeilingsJson.value
+          : this.phaseCeilingsJson,
       provisionalUnit: data.provisionalUnit.present
           ? data.provisionalUnit.value
           : this.provisionalUnit,
@@ -12664,6 +13157,7 @@ class PlacementProfile extends DataClass
   String toString() {
     return (StringBuffer('PlacementProfile(')
           ..write('key: $key, ')
+          ..write('phaseCeilingsJson: $phaseCeilingsJson, ')
           ..write('provisionalUnit: $provisionalUnit, ')
           ..write('learnerOverrideUnit: $learnerOverrideUnit, ')
           ..write('estimatesJson: $estimatesJson, ')
@@ -12676,6 +13170,7 @@ class PlacementProfile extends DataClass
   @override
   int get hashCode => Object.hash(
     key,
+    phaseCeilingsJson,
     provisionalUnit,
     learnerOverrideUnit,
     estimatesJson,
@@ -12687,6 +13182,7 @@ class PlacementProfile extends DataClass
       identical(this, other) ||
       (other is PlacementProfile &&
           other.key == this.key &&
+          other.phaseCeilingsJson == this.phaseCeilingsJson &&
           other.provisionalUnit == this.provisionalUnit &&
           other.learnerOverrideUnit == this.learnerOverrideUnit &&
           other.estimatesJson == this.estimatesJson &&
@@ -12696,6 +13192,7 @@ class PlacementProfile extends DataClass
 
 class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
   final Value<String> key;
+  final Value<String?> phaseCeilingsJson;
   final Value<int> provisionalUnit;
   final Value<int?> learnerOverrideUnit;
   final Value<String> estimatesJson;
@@ -12704,6 +13201,7 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
   final Value<int> rowid;
   const PlacementProfilesCompanion({
     this.key = const Value.absent(),
+    this.phaseCeilingsJson = const Value.absent(),
     this.provisionalUnit = const Value.absent(),
     this.learnerOverrideUnit = const Value.absent(),
     this.estimatesJson = const Value.absent(),
@@ -12713,6 +13211,7 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
   });
   PlacementProfilesCompanion.insert({
     this.key = const Value.absent(),
+    this.phaseCeilingsJson = const Value.absent(),
     required int provisionalUnit,
     this.learnerOverrideUnit = const Value.absent(),
     required String estimatesJson,
@@ -12725,6 +13224,7 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
        updatedAt = Value(updatedAt);
   static Insertable<PlacementProfile> custom({
     Expression<String>? key,
+    Expression<String>? phaseCeilingsJson,
     Expression<int>? provisionalUnit,
     Expression<int>? learnerOverrideUnit,
     Expression<String>? estimatesJson,
@@ -12734,6 +13234,7 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
   }) {
     return RawValuesInsertable({
       if (key != null) 'key': key,
+      if (phaseCeilingsJson != null) 'phase_ceilings_json': phaseCeilingsJson,
       if (provisionalUnit != null) 'provisional_unit': provisionalUnit,
       if (learnerOverrideUnit != null)
         'learner_override_unit': learnerOverrideUnit,
@@ -12746,6 +13247,7 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
 
   PlacementProfilesCompanion copyWith({
     Value<String>? key,
+    Value<String?>? phaseCeilingsJson,
     Value<int>? provisionalUnit,
     Value<int?>? learnerOverrideUnit,
     Value<String>? estimatesJson,
@@ -12755,6 +13257,7 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
   }) {
     return PlacementProfilesCompanion(
       key: key ?? this.key,
+      phaseCeilingsJson: phaseCeilingsJson ?? this.phaseCeilingsJson,
       provisionalUnit: provisionalUnit ?? this.provisionalUnit,
       learnerOverrideUnit: learnerOverrideUnit ?? this.learnerOverrideUnit,
       estimatesJson: estimatesJson ?? this.estimatesJson,
@@ -12769,6 +13272,9 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
     final map = <String, Expression>{};
     if (key.present) {
       map['key'] = Variable<String>(key.value);
+    }
+    if (phaseCeilingsJson.present) {
+      map['phase_ceilings_json'] = Variable<String>(phaseCeilingsJson.value);
     }
     if (provisionalUnit.present) {
       map['provisional_unit'] = Variable<int>(provisionalUnit.value);
@@ -12795,6 +13301,7 @@ class PlacementProfilesCompanion extends UpdateCompanion<PlacementProfile> {
   String toString() {
     return (StringBuffer('PlacementProfilesCompanion(')
           ..write('key: $key, ')
+          ..write('phaseCeilingsJson: $phaseCeilingsJson, ')
           ..write('provisionalUnit: $provisionalUnit, ')
           ..write('learnerOverrideUnit: $learnerOverrideUnit, ')
           ..write('estimatesJson: $estimatesJson, ')
@@ -15574,6 +16081,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $UnitsTable units = $UnitsTable(this);
+  late final $MonetizationSnapshotsTable monetizationSnapshots =
+      $MonetizationSnapshotsTable(this);
   late final $LessonsTable lessons = $LessonsTable(this);
   late final $ExercisesTable exercises = $ExercisesTable(this);
   late final $FlashcardsTable flashcards = $FlashcardsTable(this);
@@ -15630,6 +16139,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     units,
+    monetizationSnapshots,
     lessons,
     exercises,
     flashcards,
@@ -16223,6 +16733,252 @@ typedef $$UnitsTableProcessedTableManager =
         bool flashcardsRefs,
         bool grammarRulesRefs,
       })
+    >;
+typedef $$MonetizationSnapshotsTableCreateCompanionBuilder =
+    MonetizationSnapshotsCompanion Function({
+      required String accountId,
+      required String signedPayload,
+      required int revision,
+      required DateTime serverAnchor,
+      required DateTime localAnchor,
+      required DateTime maximumObservedTime,
+      Value<int> rowid,
+    });
+typedef $$MonetizationSnapshotsTableUpdateCompanionBuilder =
+    MonetizationSnapshotsCompanion Function({
+      Value<String> accountId,
+      Value<String> signedPayload,
+      Value<int> revision,
+      Value<DateTime> serverAnchor,
+      Value<DateTime> localAnchor,
+      Value<DateTime> maximumObservedTime,
+      Value<int> rowid,
+    });
+
+class $$MonetizationSnapshotsTableFilterComposer
+    extends Composer<_$AppDatabase, $MonetizationSnapshotsTable> {
+  $$MonetizationSnapshotsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get signedPayload => $composableBuilder(
+    column: $table.signedPayload,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get revision => $composableBuilder(
+    column: $table.revision,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get serverAnchor => $composableBuilder(
+    column: $table.serverAnchor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get localAnchor => $composableBuilder(
+    column: $table.localAnchor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get maximumObservedTime => $composableBuilder(
+    column: $table.maximumObservedTime,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$MonetizationSnapshotsTableOrderingComposer
+    extends Composer<_$AppDatabase, $MonetizationSnapshotsTable> {
+  $$MonetizationSnapshotsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get signedPayload => $composableBuilder(
+    column: $table.signedPayload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get revision => $composableBuilder(
+    column: $table.revision,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get serverAnchor => $composableBuilder(
+    column: $table.serverAnchor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get localAnchor => $composableBuilder(
+    column: $table.localAnchor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get maximumObservedTime => $composableBuilder(
+    column: $table.maximumObservedTime,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$MonetizationSnapshotsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MonetizationSnapshotsTable> {
+  $$MonetizationSnapshotsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get accountId =>
+      $composableBuilder(column: $table.accountId, builder: (column) => column);
+
+  GeneratedColumn<String> get signedPayload => $composableBuilder(
+    column: $table.signedPayload,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get revision =>
+      $composableBuilder(column: $table.revision, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get serverAnchor => $composableBuilder(
+    column: $table.serverAnchor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get localAnchor => $composableBuilder(
+    column: $table.localAnchor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get maximumObservedTime => $composableBuilder(
+    column: $table.maximumObservedTime,
+    builder: (column) => column,
+  );
+}
+
+class $$MonetizationSnapshotsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $MonetizationSnapshotsTable,
+          MonetizationSnapshot,
+          $$MonetizationSnapshotsTableFilterComposer,
+          $$MonetizationSnapshotsTableOrderingComposer,
+          $$MonetizationSnapshotsTableAnnotationComposer,
+          $$MonetizationSnapshotsTableCreateCompanionBuilder,
+          $$MonetizationSnapshotsTableUpdateCompanionBuilder,
+          (
+            MonetizationSnapshot,
+            BaseReferences<
+              _$AppDatabase,
+              $MonetizationSnapshotsTable,
+              MonetizationSnapshot
+            >,
+          ),
+          MonetizationSnapshot,
+          PrefetchHooks Function()
+        > {
+  $$MonetizationSnapshotsTableTableManager(
+    _$AppDatabase db,
+    $MonetizationSnapshotsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MonetizationSnapshotsTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$MonetizationSnapshotsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$MonetizationSnapshotsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> accountId = const Value.absent(),
+                Value<String> signedPayload = const Value.absent(),
+                Value<int> revision = const Value.absent(),
+                Value<DateTime> serverAnchor = const Value.absent(),
+                Value<DateTime> localAnchor = const Value.absent(),
+                Value<DateTime> maximumObservedTime = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => MonetizationSnapshotsCompanion(
+                accountId: accountId,
+                signedPayload: signedPayload,
+                revision: revision,
+                serverAnchor: serverAnchor,
+                localAnchor: localAnchor,
+                maximumObservedTime: maximumObservedTime,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String accountId,
+                required String signedPayload,
+                required int revision,
+                required DateTime serverAnchor,
+                required DateTime localAnchor,
+                required DateTime maximumObservedTime,
+                Value<int> rowid = const Value.absent(),
+              }) => MonetizationSnapshotsCompanion.insert(
+                accountId: accountId,
+                signedPayload: signedPayload,
+                revision: revision,
+                serverAnchor: serverAnchor,
+                localAnchor: localAnchor,
+                maximumObservedTime: maximumObservedTime,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$MonetizationSnapshotsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $MonetizationSnapshotsTable,
+      MonetizationSnapshot,
+      $$MonetizationSnapshotsTableFilterComposer,
+      $$MonetizationSnapshotsTableOrderingComposer,
+      $$MonetizationSnapshotsTableAnnotationComposer,
+      $$MonetizationSnapshotsTableCreateCompanionBuilder,
+      $$MonetizationSnapshotsTableUpdateCompanionBuilder,
+      (
+        MonetizationSnapshot,
+        BaseReferences<
+          _$AppDatabase,
+          $MonetizationSnapshotsTable,
+          MonetizationSnapshot
+        >,
+      ),
+      MonetizationSnapshot,
+      PrefetchHooks Function()
     >;
 typedef $$LessonsTableCreateCompanionBuilder =
     LessonsCompanion Function({
@@ -23592,6 +24348,7 @@ typedef $$LearningEvidenceEventsTableProcessedTableManager =
 typedef $$PlacementProfilesTableCreateCompanionBuilder =
     PlacementProfilesCompanion Function({
       Value<String> key,
+      Value<String?> phaseCeilingsJson,
       required int provisionalUnit,
       Value<int?> learnerOverrideUnit,
       required String estimatesJson,
@@ -23602,6 +24359,7 @@ typedef $$PlacementProfilesTableCreateCompanionBuilder =
 typedef $$PlacementProfilesTableUpdateCompanionBuilder =
     PlacementProfilesCompanion Function({
       Value<String> key,
+      Value<String?> phaseCeilingsJson,
       Value<int> provisionalUnit,
       Value<int?> learnerOverrideUnit,
       Value<String> estimatesJson,
@@ -23621,6 +24379,11 @@ class $$PlacementProfilesTableFilterComposer
   });
   ColumnFilters<String> get key => $composableBuilder(
     column: $table.key,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get phaseCeilingsJson => $composableBuilder(
+    column: $table.phaseCeilingsJson,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -23664,6 +24427,11 @@ class $$PlacementProfilesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get phaseCeilingsJson => $composableBuilder(
+    column: $table.phaseCeilingsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get provisionalUnit => $composableBuilder(
     column: $table.provisionalUnit,
     builder: (column) => ColumnOrderings(column),
@@ -23701,6 +24469,11 @@ class $$PlacementProfilesTableAnnotationComposer
   });
   GeneratedColumn<String> get key =>
       $composableBuilder(column: $table.key, builder: (column) => column);
+
+  GeneratedColumn<String> get phaseCeilingsJson => $composableBuilder(
+    column: $table.phaseCeilingsJson,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get provisionalUnit => $composableBuilder(
     column: $table.provisionalUnit,
@@ -23767,6 +24540,7 @@ class $$PlacementProfilesTableTableManager
           updateCompanionCallback:
               ({
                 Value<String> key = const Value.absent(),
+                Value<String?> phaseCeilingsJson = const Value.absent(),
                 Value<int> provisionalUnit = const Value.absent(),
                 Value<int?> learnerOverrideUnit = const Value.absent(),
                 Value<String> estimatesJson = const Value.absent(),
@@ -23775,6 +24549,7 @@ class $$PlacementProfilesTableTableManager
                 Value<int> rowid = const Value.absent(),
               }) => PlacementProfilesCompanion(
                 key: key,
+                phaseCeilingsJson: phaseCeilingsJson,
                 provisionalUnit: provisionalUnit,
                 learnerOverrideUnit: learnerOverrideUnit,
                 estimatesJson: estimatesJson,
@@ -23785,6 +24560,7 @@ class $$PlacementProfilesTableTableManager
           createCompanionCallback:
               ({
                 Value<String> key = const Value.absent(),
+                Value<String?> phaseCeilingsJson = const Value.absent(),
                 required int provisionalUnit,
                 Value<int?> learnerOverrideUnit = const Value.absent(),
                 required String estimatesJson,
@@ -23793,6 +24569,7 @@ class $$PlacementProfilesTableTableManager
                 Value<int> rowid = const Value.absent(),
               }) => PlacementProfilesCompanion.insert(
                 key: key,
+                phaseCeilingsJson: phaseCeilingsJson,
                 provisionalUnit: provisionalUnit,
                 learnerOverrideUnit: learnerOverrideUnit,
                 estimatesJson: estimatesJson,
@@ -25186,6 +25963,8 @@ class $AppDatabaseManager {
   $AppDatabaseManager(this._db);
   $$UnitsTableTableManager get units =>
       $$UnitsTableTableManager(_db, _db.units);
+  $$MonetizationSnapshotsTableTableManager get monetizationSnapshots =>
+      $$MonetizationSnapshotsTableTableManager(_db, _db.monetizationSnapshots);
   $$LessonsTableTableManager get lessons =>
       $$LessonsTableTableManager(_db, _db.lessons);
   $$ExercisesTableTableManager get exercises =>

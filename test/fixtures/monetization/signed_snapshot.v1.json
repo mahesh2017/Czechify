@@ -1,0 +1,41 @@
+{
+  "note": "TEST ONLY. Ephemeral private key was discarded. Public interoperability vector from jose 6.2.12.",
+  "public_key": {
+    "kty": "OKP",
+    "crv": "Ed25519",
+    "x": "m4PWsHqHL_TeakHcSIiSeIxFtN90OMSoo2CPe7QY368"
+  },
+  "payload": {
+    "schema_version": 1,
+    "user_id": "00000000-0000-0000-0000-000000000001",
+    "revision": 7,
+    "issued_at": "2026-09-21T12:00:00Z",
+    "verified_at": "2026-09-21T12:00:00Z",
+    "policy_version": "course-access-v1",
+    "campaign_id": "a1-referral-v1",
+    "manifest_revision": 25,
+    "features": {
+      "core": {
+        "state": "active",
+        "valid_until": "2026-10-21T12:00:00Z",
+        "offline_valid_until": "2026-09-28T12:00:00Z"
+      },
+      "ai_chat": {
+        "state": "inactive",
+        "valid_until": null,
+        "offline_valid_until": null
+      }
+    },
+    "permanent_unit_grants": [
+      {
+        "grant_id": "test-grant",
+        "unit_id": 3,
+        "source": "referral"
+      }
+    ],
+    "migration_grace_until": null,
+    "staff_course_until": null,
+    "staff_course_unlimited": false
+  },
+  "jws": "eyJhbGciOiJFZERTQSIsImtpZCI6InRlc3Qtb25seSIsInR5cCI6ImN6ZWNoaWZ5LWVudGl0bGVtZW50cytqd3MifQ.eyJzY2hlbWFfdmVyc2lvbiI6MSwidXNlcl9pZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMSIsInJldmlzaW9uIjo3LCJpc3N1ZWRfYXQiOiIyMDI2LTA5LTIxVDEyOjAwOjAwWiIsInZlcmlmaWVkX2F0IjoiMjAyNi0wOS0yMVQxMjowMDowMFoiLCJwb2xpY3lfdmVyc2lvbiI6ImNvdXJzZS1hY2Nlc3MtdjEiLCJjYW1wYWlnbl9pZCI6ImExLXJlZmVycmFsLXYxIiwibWFuaWZlc3RfcmV2aXNpb24iOjI1LCJmZWF0dXJlcyI6eyJjb3JlIjp7InN0YXRlIjoiYWN0aXZlIiwidmFsaWRfdW50aWwiOiIyMDI2LTEwLTIxVDEyOjAwOjAwWiIsIm9mZmxpbmVfdmFsaWRfdW50aWwiOiIyMDI2LTA5LTI4VDEyOjAwOjAwWiJ9LCJhaV9jaGF0Ijp7InN0YXRlIjoiaW5hY3RpdmUiLCJ2YWxpZF91bnRpbCI6bnVsbCwib2ZmbGluZV92YWxpZF91bnRpbCI6bnVsbH19LCJwZXJtYW5lbnRfdW5pdF9ncmFudHMiOlt7ImdyYW50X2lkIjoidGVzdC1ncmFudCIsInVuaXRfaWQiOjMsInNvdXJjZSI6InJlZmVycmFsIn1dLCJtaWdyYXRpb25fZ3JhY2VfdW50aWwiOm51bGwsInN0YWZmX2NvdXJzZV91bnRpbCI6bnVsbCwic3RhZmZfY291cnNlX3VubGltaXRlZCI6ZmFsc2V9.x1uFcmj4oJkdq07uoP4S-t_8dAaWeHmTWwRWnNdyjZqK4sRwZHXtsXoEIOEmb4mtN7GShyDVLNvVyc0m_iKFBA"
+}
