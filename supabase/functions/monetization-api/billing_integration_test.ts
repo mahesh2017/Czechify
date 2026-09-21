@@ -206,8 +206,10 @@ Deno.test({
       const workerSecret = "w".repeat(40);
       const worker = createWorkerHandler({
         secret: workerSecret,
-        jobs: () => Promise.resolve(billing.jobs),
-        ...workerQueries(admin),
+        billing: {
+          jobs: () => Promise.resolve(billing.jobs),
+          ...workerQueries(admin),
+        },
         log: () => {},
       });
       const run = await worker(

@@ -5,15 +5,22 @@ import {
   createBilling,
   workerQueries,
 } from "../_shared/monetization/billing_rpc.ts";
+import { referralWorkerQueries } from "../_shared/monetization/referral_rpc.ts";
+
+const billingConfigured = billingSecrets.every((name) => Deno.env.get(name));
 
 Deno.serve(createHandler({
-  // Missing billing secrets leave the secret empty, which never matches.
-  secret: billingSecrets.every((name) => Deno.env.get(name))
-    ? Deno.env.get("BILLING_WORKER_SECRET") ?? ""
-    : "",
-  jobs: async () =>
-    (await createBilling((name) => Deno.env.get(name) as string, admin)).jobs,
-  ...workerQueries(admin),
+  // A missing secret stays empty, which never matches.
+  secret: Deno.env.get("BILLING_WORKER_SECRET") ?? "",
+  billing: billingConfigured
+    ? {
+      jobs: async () =>
+        (await createBilling((name) => Deno.env.get(name) as string, admin))
+          .jobs,
+      ...workerQueries(admin),
+    }
+    : undefined,
+  referrals: referralWorkerQueries(admin),
 }));
 
 function admin() {

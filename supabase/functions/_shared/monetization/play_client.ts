@@ -2,31 +2,20 @@
 // acknowledgement, authenticated as a service account. `fetch` and the clock
 // are injectable so tests never reach Google.
 
-import { importPKCS8, SignJWT } from "npm:jose@6.2.12";
+import {
+  classifyGoogleResponse,
+  createTokenSource,
+  GoogleApiError,
+  parseServiceAccount as parseAccount,
+  type ServiceAccount,
+} from "./google_auth.ts";
+
+export type { ServiceAccount };
+/** Billing's name for a Google API failure; see [GoogleApiError]. */
+export { GoogleApiError as PlayApiError };
 
 const scope = "https://www.googleapis.com/auth/androidpublisher";
 const api = "https://androidpublisher.googleapis.com/androidpublisher/v3";
-
-export interface ServiceAccount {
-  client_email: string;
-  private_key: string;
-  token_uri: string;
-}
-
-/**
- * `retryable` failures back off and keep the last verified entitlement;
- * permanent ones end the job. Configuration and auth failures are retryable
- * so a bad deploy never marks every subscription expired.
- */
-export class PlayApiError extends Error {
-  constructor(
-    readonly code: string,
-    readonly retryable: boolean,
-    readonly retryAfterSeconds: number | null = null,
-  ) {
-    super(code);
-  }
-}
 
 export interface PlayClient {
   getSubscription(
@@ -36,17 +25,8 @@ export interface PlayClient {
   acknowledge(productId: string, token: string): Promise<void>;
 }
 
-export function parseServiceAccount(raw: string | undefined): ServiceAccount {
-  const value = JSON.parse(raw ?? "null");
-  if (
-    typeof value?.client_email !== "string" ||
-    typeof value?.private_key !== "string" ||
-    typeof value?.token_uri !== "string"
-  ) {
-    throw new PlayApiError("play_not_configured", true);
-  }
-  return value;
-}
+export const parseServiceAccount = (raw: string | undefined) =>
+  parseAccount(raw, "play_not_configured");
 
 export function createPlayClient(options: {
   packageName: string;
@@ -55,49 +35,17 @@ export function createPlayClient(options: {
   now?: () => Date;
 }): PlayClient {
   const doFetch = options.fetch ?? fetch;
-  const now = options.now ?? (() => new Date());
-  if (
-    !/^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$/.test(
-      options.packageName,
-    )
-  ) {
-    throw new PlayApiError("play_not_configured", true);
+  if (!isPackageName(options.packageName)) {
+    throw new GoogleApiError("play_not_configured", true);
   }
-  let cached: { token: string; expires: number } | null = null;
-
-  async function accessToken(): Promise<string> {
-    const at = now().getTime();
-    if (cached && cached.expires - 60_000 > at) return cached.token;
-    const key = await importPKCS8(options.account.private_key, "RS256");
-    const assertion = await new SignJWT({ scope })
-      .setProtectedHeader({ alg: "RS256", typ: "JWT" })
-      .setIssuer(options.account.client_email)
-      .setAudience(options.account.token_uri)
-      .setIssuedAt(Math.floor(at / 1000))
-      .setExpirationTime(Math.floor(at / 1000) + 3600)
-      .sign(key);
-    const response = await doFetch(options.account.token_uri, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
-        assertion,
-      }),
-    });
-    if (!response.ok) {
-      await response.body?.cancel();
-      throw classify(response, "play_auth_failed");
-    }
-    const json = await response.json();
-    if (typeof json.access_token !== "string") {
-      throw new PlayApiError("play_auth_failed", true);
-    }
-    cached = {
-      token: json.access_token,
-      expires: at + Number(json.expires_in ?? 0) * 1000,
-    };
-    return cached.token;
-  }
+  const accessToken = createTokenSource({
+    account: options.account,
+    scope,
+    fetch: doFetch,
+    now: options.now,
+    failureCode: "play_auth_failed",
+  });
+  const codes = { notFound: "purchase_not_found", rejected: "play_rejected" };
 
   const path = (productId: string, token: string, v2: boolean) =>
     `${api}/applications/${encodeURIComponent(options.packageName)}/purchases/${
@@ -111,7 +59,11 @@ export function createPlayClient(options: {
       });
       if (!response.ok) {
         await response.body?.cancel();
-        throw classify(response, "play_verification_failed");
+        throw classifyGoogleResponse(
+          response,
+          "play_verification_failed",
+          codes,
+        );
       }
       const text = await response.text();
       return { body: JSON.parse(text), text };
@@ -129,19 +81,16 @@ export function createPlayClient(options: {
         },
       );
       await response.body?.cancel();
-      if (!response.ok) throw classify(response, "play_acknowledge_failed");
+      if (!response.ok) {
+        throw classifyGoogleResponse(
+          response,
+          "play_acknowledge_failed",
+          codes,
+        );
+      }
     },
   };
 }
 
-function classify(response: Response, fallback: string): PlayApiError {
-  const retryAfter = Number(response.headers.get("Retry-After"));
-  const after = Number.isFinite(retryAfter) && retryAfter > 0
-    ? retryAfter
-    : null;
-  if (response.status === 404 || response.status === 410) {
-    return new PlayApiError("purchase_not_found", false);
-  }
-  if (response.status === 400) return new PlayApiError("play_rejected", false);
-  return new PlayApiError(fallback, true, after);
-}
+export const isPackageName = (value: string) =>
+  /^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$/.test(value);

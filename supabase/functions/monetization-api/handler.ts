@@ -6,8 +6,13 @@ import {
 import { sha256Hex } from "../_shared/monetization/billing_crypto.ts";
 import type { BillingDependencies } from "../_shared/monetization/billing_rpc.ts";
 import { runBillingJob } from "../_shared/monetization/purchase_jobs.ts";
+import {
+  handleReferralRoute,
+  type ReferralDependencies,
+  referralRoutes,
+} from "./referrals.ts";
 
-export type { BillingDependencies };
+export type { BillingDependencies, ReferralDependencies };
 
 type Json = Record<string, unknown>;
 
@@ -19,6 +24,8 @@ export interface Dependencies {
   sign(payload: Record<string, unknown>): Promise<string>;
   /** Absent until billing secrets are configured; purchase routes then 503. */
   billing?: () => Promise<BillingDependencies>;
+  /** Absent when the backend cannot reach the database; routes then 503. */
+  referrals?: () => Promise<ReferralDependencies>;
 }
 const cors: CorsPolicy = {
   allowedOrigins: [],
@@ -32,10 +39,13 @@ const routes: Record<string, string> = {
   "purchase-intents": "POST",
   "purchases/verify": "POST",
   "purchases/status": "GET",
+  ...referralRoutes,
 };
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const productPattern = /^[a-z0-9_.]{1,100}$/;
 const maxBody = 24 * 1024;
+// Receipts carry full lesson coverage; the contract allows 64 KiB.
+const maxReceiptBody = 64 * 1024;
 const maxToken = 16 * 1024;
 
 export function createHandler(deps: Dependencies) {
@@ -74,7 +84,13 @@ export function createHandler(deps: Dependencies) {
     if (routes[name] !== request.method) {
       return response({ code: "method_not_allowed" }, 405);
     }
-    if (url.search) return response({ code: "unexpected_parameters" }, 400);
+    // Only referral status pages; nothing else takes query parameters.
+    const allowedParams = name === "referrals/status"
+      ? ["cursor", "limit"]
+      : [];
+    if ([...url.searchParams.keys()].some((k) => !allowedParams.includes(k))) {
+      return response({ code: "unexpected_parameters" }, 400);
+    }
     const authorization = request.headers.get("Authorization");
     if (!authorization?.startsWith("Bearer ") || authorization.length > 16384) {
       return response({ code: "authentication_required" }, 401);
@@ -105,6 +121,21 @@ export function createHandler(deps: Dependencies) {
         }
         return response({ snapshot_jws: await deps.sign(snapshot) });
       }
+      if (name.startsWith("referrals/")) {
+        if (!deps.referrals) {
+          return response({ code: "verification_unavailable" }, 503);
+        }
+        return await handleReferralRoute(
+          name,
+          user.id,
+          url,
+          request.method === "POST"
+            ? await readJson(request, maxReceiptBody)
+            : null,
+          await deps.referrals(),
+          response,
+        );
+      }
       if (!deps.billing) {
         return response({ code: "verification_unavailable" }, 503);
       }
@@ -117,7 +148,7 @@ export function createHandler(deps: Dependencies) {
         const status = await billing.status(user.id, statusId);
         return status ? response(status) : response({ code: "not_found" }, 404);
       }
-      const body = await readJson(request);
+      const body = await readJson(request, maxBody);
       if (!body) return response({ code: "invalid_request" }, 400);
       if (name === "purchase-intents") {
         return await createIntent(request, body, user.id, billing, response);
@@ -232,12 +263,15 @@ async function verify(
   });
 }
 
-async function readJson(request: Request): Promise<Json | null> {
-  if (Number(request.headers.get("Content-Length") ?? "0") > maxBody) {
+async function readJson(
+  request: Request,
+  limit: number,
+): Promise<Json | null> {
+  if (Number(request.headers.get("Content-Length") ?? "0") > limit) {
     return null;
   }
   const text = await request.text();
-  if (new TextEncoder().encode(text).length > maxBody) return null;
+  if (new TextEncoder().encode(text).length > limit) return null;
   try {
     const value = JSON.parse(text);
     return typeof value === "object" && value !== null && !Array.isArray(value)
