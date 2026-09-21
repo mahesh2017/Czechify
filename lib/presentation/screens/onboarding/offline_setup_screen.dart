@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_tokens.dart';
 import '../../../data/services/audio/offline_audio_prefetch.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../providers/audio_prefetch_providers.dart';
 import '../../providers/settings_providers.dart';
 import '../../widgets/common/soft_ui.dart';
@@ -23,7 +24,7 @@ class OfflineSetupScreen extends ConsumerStatefulWidget {
   ///
   /// Which units those are depends on the level they chose — see
   /// [OfflineAudioPrefetch.unitsForLevel].
-  static const prefetchUnitCount = 3;
+  static const prefetchUnitCount = OfflineAudioPrefetch.setupUnitCount;
 
   @override
   ConsumerState<OfflineSetupScreen> createState() => _OfflineSetupScreenState();
@@ -43,12 +44,13 @@ class _OfflineSetupScreenState extends ConsumerState<OfflineSetupScreen> {
   Future<void> _start() async {
     final settings = ref.read(settingsProvider);
     final gender = settings.ttsVoiceGender.name;
-    final units = await OfflineAudioPrefetch.unitsForLevel(
-      settings.startingLevel,
-      count: OfflineSetupScreen.prefetchUnitCount,
-    );
     final prefetch = ref.read(offlineAudioPrefetchProvider);
     try {
+      // Only units the account can open. Others are not fetched ahead; once
+      // opened, their lessons stream audio as they play.
+      final units = await ref.read(
+        offlineAudioUnitsProvider(settings.startingLevel).future,
+      );
       await for (final progress in prefetch.download(units, gender)) {
         if (!mounted) return;
         setState(() => _progress = progress);
@@ -73,6 +75,7 @@ class _OfflineSetupScreenState extends ConsumerState<OfflineSetupScreen> {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     final progress = _progress;
     final fraction = progress?.fraction ?? 0;
 
@@ -117,19 +120,16 @@ class _OfflineSetupScreenState extends ConsumerState<OfflineSetupScreen> {
                         Center(
                           child: DisplayText(
                             _failedOffline
-                                ? 'No connection right now'
-                                : 'Getting your first lessons ready',
+                                ? l10n.offlineSetupNoConnectionTitle
+                                : l10n.offlineSetupTitle,
                             size: 24,
                           ),
                         ),
                         const SizedBox(height: 10),
                         Text(
                           _failedOffline
-                              ? 'You can start learning straight away — lessons will load '
-                                  'as you go. Connect to Wi-Fi later and we\'ll save the '
-                                  'first units to your device so they work offline.'
-                              : 'Saving the audio for your first three units so they work '
-                                  'without an internet connection. This is a few megabytes.',
+                              ? l10n.offlineSetupNoConnectionBody
+                              : l10n.offlineSetupBody,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 15.5,
@@ -144,8 +144,11 @@ class _OfflineSetupScreenState extends ConsumerState<OfflineSetupScreen> {
                           Center(
                             child: Text(
                               progress == null
-                                  ? 'Starting…'
-                                  : '${progress.completed} of ${progress.total} clips',
+                                  ? l10n.offlineSetupStarting
+                                  : l10n.offlineSetupClips(
+                                    progress.completed,
+                                    progress.total,
+                                  ),
                               style: TextStyle(fontSize: 14, color: t.faint),
                             ),
                           ),
@@ -154,8 +157,8 @@ class _OfflineSetupScreenState extends ConsumerState<OfflineSetupScreen> {
                         PrimaryButton(
                           label:
                               _failedOffline
-                                  ? 'Start learning'
-                                  : 'Skip for now',
+                                  ? l10n.offlineSetupStart
+                                  : l10n.offlineSetupSkip,
                           onPressed: _finish,
                         ),
                       ],

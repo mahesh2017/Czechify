@@ -147,6 +147,7 @@ void main() {
     });
 
     testWidgets('a linked learner gets a code to share', (tester) async {
+      final semantics = tester.ensureSemantics();
       final server = _Server();
       await _pump(tester, '/referrals', server: server);
       expect(find.text('0 of 15 A1 units earned'), findsOneWidget);
@@ -155,6 +156,13 @@ void main() {
       await tester.pumpAndSettle();
       expect(server.calls, contains('referrals/code'));
       expect(find.text('AB12CD'), findsOneWidget);
+      // A screen reader spells the code out rather than reading a word.
+      expect(find.bySemanticsLabel(RegExp(r'\bA B 1 2 C D\b')), findsOneWidget);
+      expect(
+        tester.getSemantics(find.text('Your invitations')),
+        isSemantics(isHeader: true),
+      );
+      semantics.dispose();
       expect(find.text('Share'), findsOneWidget);
       expect(find.text('Copy'), findsOneWidget);
     });

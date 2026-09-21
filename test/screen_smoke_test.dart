@@ -1,4 +1,12 @@
+import 'package:czechify/data/monetization/monetization_api.dart';
+import 'package:czechify/data/referrals/referral_api.dart';
+import 'package:czechify/presentation/models/curriculum_path_item.dart';
+import 'package:czechify/presentation/providers/account_providers.dart';
 import 'package:czechify/presentation/providers/course_admission_providers.dart';
+import 'package:czechify/presentation/providers/referral_providers.dart';
+import 'package:czechify/presentation/screens/monetization/referrals_screen.dart';
+import 'package:czechify/presentation/screens/monetization/upgrade_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' show User;
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/database/database.dart' show AppDatabase;
 import 'package:czechify/data/services/audio/offline_audio_prefetch.dart';
@@ -122,6 +130,10 @@ void main() {
           'Rendering failed in $locale at ${dark ? 'dark' : 'light'} / '
           '${textScale}x text on a 360x640 screen',
     );
+    // Unmount before the test ends so a Drift query stream the screen
+    // watched finishes closing (it closes on a zero-length timer).
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(Duration.zero);
   }
 
   /// Runs one screen through both themes at both text sizes, plus one pass in
@@ -282,6 +294,111 @@ void main() {
             // up, and the state worth rendering is the one with a progress bar
             // and a count in it.
             offlineAudioPrefetchProvider.overrideWithValue(_StalledPrefetch()),
+            offlineAudioUnitsProvider.overrideWith(
+              (ref, level) async => [1, 2],
+            ),
+          ],
+          child: app,
+        ),
+  );
+
+  // The monetization screens at their fullest: every option offered, a code,
+  // friends in each state and a paid unit on the course map.
+  // ignore: prefer_function_declarations_over_variables
+  final referralOverrides =
+      () => [
+        referralsEnabledProvider.overrideWith((_) async => true),
+        accountUserProvider.overrideWith(
+          (_) => Stream.value(
+            const User(
+              id: 'account-a',
+              appMetadata: {},
+              userMetadata: {},
+              aud: 'authenticated',
+              createdAt: '2026-09-01T00:00:00Z',
+            ),
+          ),
+        ),
+        referralApiProvider.overrideWithValue(
+          ReferralApi(
+            (route, {required method, body, headers = const {}}) async =>
+                const ApiResponse(200, {
+                  'referral_code': 'AB12CD34',
+                  'units_earned': 3,
+                  'next_reward_unit': 6,
+                  'friends': [
+                    {
+                      'friend': 1,
+                      'milestones': [
+                        {'ordinal': 1, 'status': 'reward_granted'},
+                        {'ordinal': 2, 'status': 'waiting_for_account_link'},
+                      ],
+                    },
+                    {
+                      'friend': 2,
+                      'milestones': [
+                        {'ordinal': 1, 'status': 'cap_reached'},
+                      ],
+                    },
+                  ],
+                }),
+          ),
+        ),
+      ];
+
+  smoke(
+    'upgrade',
+    () => const UpgradeScreen(unitId: 3),
+    scope:
+        (app) => ProviderScope(
+          overrides: [...commonOverrides(), ...referralOverrides()],
+          child: app,
+        ),
+  );
+
+  smoke(
+    'referrals',
+    () => const ReferralsScreen(),
+    scope:
+        (app) => ProviderScope(
+          overrides: [...commonOverrides(), ...referralOverrides()],
+          child: app,
+        ),
+  );
+
+  const paidUnit = Unit(
+    id: 3,
+    title: 'People and Things Around Me',
+    description: 'Ask who or what something is',
+    phase: Phase.a1,
+    orderIndex: 3,
+  );
+  smoke(
+    'course map with a paid unit',
+    () => const CurriculumScreen(),
+    scope:
+        (app) => ProviderScope(
+          overrides: [
+            ...commonOverrides(),
+            ...referralOverrides(),
+            allUnitsProvider.overrideWith((ref) async => const [paidUnit]),
+            unlockedUnitIdsProvider.overrideWith((ref) async => <int>{3}),
+            unitLessonsProvider(3).overrideWith((ref) async => const []),
+            curriculumPathItemsProvider.overrideWith(
+              (ref) async => const [
+                CurriculumPathItem(
+                  unit: paidUnit,
+                  lessons: [],
+                  state: CurriculumPathState.available,
+                  section: 'A1',
+                  payoff: '',
+                  durationMinutes: 12,
+                ),
+              ],
+            ),
+            commerciallyAccessibleUnitIdsProvider.overrideWith(
+              (ref) async => <int>{},
+            ),
           ],
           child: app,
         ),

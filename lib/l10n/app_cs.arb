@@ -1116,5 +1116,15 @@
   "referralsErrorIneligible": "Tento kód nelze použít. Kód platí do 7 dnů od založení účtu, před dokončením první jednotky a nelze použít vlastní kód.",
   "referralsErrorClosed": "Pozvánky teď nejsou otevřené.",
   "referralsErrorRateLimited": "Příliš mnoho pokusů. Zkuste to prosím za hodinu.",
-  "referralsErrorGeneric": "Teď se to nepodařilo ověřit. Zkuste to prosím znovu."
+  "referralsErrorGeneric": "Teď se to nepodařilo ověřit. Zkuste to prosím znovu.",
+  "offlineSetupTitle": "Připravujeme vaše první lekce",
+  "offlineSetupBody": "Ukládáme zvuk k vašim prvním jednotkám, aby fungovaly bez připojení k internetu. Jde o několik megabajtů.",
+  "offlineSetupNoConnectionTitle": "Teď nejste připojeni",
+  "offlineSetupNoConnectionBody": "Učit se můžete začít hned – lekce se budou načítat průběžně. Až se později připojíte k Wi-Fi, uložíme první jednotky do zařízení, aby fungovaly offline.",
+  "offlineSetupStarting": "Začínáme…",
+  "offlineSetupClips": "{completed} z {total} nahrávek",
+  "offlineSetupStart": "Začít se učit",
+  "offlineSetupSkip": "Zatím přeskočit",
+  "curriculumNextLevelTitle": "To je celé A1. Chcete pokračovat na A2?",
+  "curriculumNextLevelBody": "Úroveň změníte v Nastavení. Vše, co jste dokončili, zůstane otevřené."
 }

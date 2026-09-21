@@ -96,7 +96,12 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
                   onPressed: () => Navigator.of(context).maybePop(),
                   icon: Icon(Icons.arrow_back_ios_new, size: 18, color: t.ink),
                 ),
-                Expanded(child: DisplayText(l10n.referralsTitle, size: 24)),
+                Expanded(
+                  child: Semantics(
+                    header: true,
+                    child: DisplayText(l10n.referralsTitle, size: 24),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -201,13 +206,18 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
                 style: TextStyle(fontSize: 13, color: t.muted),
               ),
               const SizedBox(height: 4),
-              SelectableText(
-                s.inviteCode!,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.2,
-                  color: t.ink,
+              // Read letter by letter, as it will be typed; Copy sits beside it.
+              Semantics(
+                label: s.inviteCode!.split('').join(' '),
+                excludeSemantics: true,
+                child: SelectableText(
+                  s.inviteCode!,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
+                    color: t.ink,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
@@ -250,7 +260,7 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
         ),
       ),
       const SizedBox(height: 20),
-      SectionLabel(l10n.referralsFriendsTitle),
+      Semantics(header: true, child: SectionLabel(l10n.referralsFriendsTitle)),
       const SizedBox(height: 8),
       if (s.friends.isEmpty)
         Text(l10n.referralsNoFriends, style: TextStyle(color: t.muted))
@@ -262,7 +272,7 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
           ),
       const SizedBox(height: 20),
       // As an invited learner: either your progress or a code to enter.
-      SectionLabel(l10n.referralsJoinTitle),
+      Semantics(header: true, child: SectionLabel(l10n.referralsJoinTitle)),
       const SizedBox(height: 8),
       if (s.ownClaim case final own?)
         _MilestoneCard(

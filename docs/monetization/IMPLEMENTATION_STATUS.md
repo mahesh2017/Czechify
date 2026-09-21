@@ -187,6 +187,17 @@ Validation:
 
 Not in 5b: audio-download filtering and the accessibility and locale review (5c).
 
+## Delivery 5c — Audio downloads, accessibility and locale review
+
+- **Audio downloads:** `offlineAudioUnitsProvider` narrows the audio fetched ahead (onboarding setup, a level change, a voice change) to the level's first units the account can open. Clips already on the device stay and still play; a unit opened later streams its audio as its lessons play. While the paywall is off every unit is accessible, so nothing changes. An A2 learner without access downloads nothing ahead, and setup continues straight to Home.
+- **Locale:** the offline setup screen and the end-of-A1 prompt were hard-coded English; both are now in English and Czech. Setup no longer promises "your first three units", since fewer may be downloadable.
+- **Accessibility:**
+  - Page and section titles on the upgrade and referral screens are marked as headings.
+  - The invite code is read letter by letter.
+  - The paid-unit button meets the 48 dp touch target.
+  - The upgrade screen, the referral screen and a course map with a paid unit join the screen smoke matrix (light and dark, 1x and 2x text, Czech at 2x). At 2x text that matrix found the course map's unit header overflowing on the current unit, where the "UNIT n" label and the "IN PROGRESS" pill share a row. This predates monetization: the old smoke case rendered no units. The row now wraps.
+- **Out of scope, found in passing:** the mock exam and parts of Home still carry hard-coded English that predates monetization. The list layout's ListTile debug assertion is being fixed separately.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
@@ -197,4 +208,4 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
 2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
-3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).
+3. AI authorization and cost controls, existing-user migration and privacy, and release activation (PRs 6–8). Course admission and its screens (Phase 5) are done.

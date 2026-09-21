@@ -82,6 +82,9 @@ class OfflineAudioPrefetch {
     };
   }
 
+  /// How many units a new learner can reach offline immediately.
+  static const setupUnitCount = 3;
+
   /// The first [count] units of [level], in curriculum order.
   ///
   /// Unit numbering is global rather than per-level — A1 is 1–15, 28, 30 and
