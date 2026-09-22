@@ -36,6 +36,11 @@ export interface Dependencies {
   privacyRetention?: () => Promise<unknown>;
   /** The operations report; each crossed threshold is logged as an alert. */
   operations?: () => Promise<Record<string, unknown>>;
+  /**
+   * Sends crossed alerts to the operator's webhook, throttled in the
+   * database. Absent when no webhook is configured.
+   */
+  notify?: (alerts: { alert: string; level: string }[]) => Promise<void>;
   now?: () => number;
   log?: (event: string, detail: Record<string, unknown>) => void;
 }
@@ -110,14 +115,21 @@ export function createHandler(deps: Dependencies) {
         const alerts = Array.isArray(operations.alerts)
           ? operations.alerts
           : [];
-        for (const alert of alerts) {
-          // A log line per alert, for log drains and alerting rules.
-          log("monetization_alert", {
-            alert: String(
-              (alert as Record<string, unknown>)?.alert ?? "unknown",
-            ),
-            level: String((alert as Record<string, unknown>)?.level ?? ""),
-          });
+        const crossed = alerts.map((alert) => ({
+          alert: String(
+            (alert as Record<string, unknown>)?.alert ?? "unknown",
+          ),
+          level: String((alert as Record<string, unknown>)?.level ?? ""),
+        }));
+        // A log line per alert, for log drains and alerting rules.
+        for (const alert of crossed) log("monetization_alert", alert);
+        if (deps.notify && crossed.length > 0) {
+          try {
+            await deps.notify(crossed);
+          } catch {
+            // Delivery never fails the run; the log lines remain.
+            log("monetization_alert_delivery_failed", {});
+          }
         }
       }
       return Response.json(report);
@@ -139,4 +151,17 @@ async function secretMatches(given: string | null, secret: string) {
   let difference = 0;
   for (let i = 0; i < a.length; i++) difference |= a[i] ^ b[i];
   return difference === 0;
+}
+
+/**
+ * The webhook body: a `text` line that Slack, Discord (as `content`) and most
+ * chat or paging webhooks display, plus the structured alerts. Carries no
+ * account, purchase or learner data.
+ */
+export function alertMessage(alerts: { alert: string; level: string }[]) {
+  const pause = alerts.some((a) => a.level === "pause");
+  const text = `${pause ? "PAUSE — " : ""}Czechify monetization alerts: ${
+    alerts.map((a) => `${a.alert} (${a.level})`).join(", ")
+  }. See docs/monetization/SUPPORT_AND_OPERATIONS.md.`;
+  return { text, content: text, alerts };
 }

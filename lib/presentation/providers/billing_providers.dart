@@ -13,10 +13,12 @@ import 'account_providers.dart';
 import 'monetization_providers.dart';
 import 'sync_providers.dart';
 
-/// Shows the subscriptions entry in internal and staging builds before the
-/// server enables checkout for a cohort. It only reveals the screen: the
-/// server still refuses disabled products.
-const checkoutPreview = bool.fromEnvironment('MONETIZATION_CHECKOUT_PREVIEW');
+/// Shows the subscriptions entry in debug and profile builds before the
+/// server enables checkout. It only reveals the screen: the server still
+/// refuses disabled products. Release builds, including internal-track ones,
+/// follow the server's rollout; put testers on its allowlist instead.
+const checkoutPreview =
+    !kReleaseMode && bool.fromEnvironment('MONETIZATION_CHECKOUT_PREVIEW');
 
 /// Play Billing is the only store integrated so far.
 final billingPlatformSupportedProvider = Provider<bool>(
@@ -149,9 +151,10 @@ class BillingNotifier extends Notifier<BillingState> {
   Future<void> restore() async => _flow?.restore();
 }
 
-/// Shows the AI chat subscription requirement in staging builds before the
-/// server requires it for a cohort. The server alone decides what it serves.
-const paidChatPreview = bool.fromEnvironment('MONETIZATION_PAID_CHAT_PREVIEW');
+/// Shows the AI chat subscription requirement in debug and profile builds.
+/// The server alone decides what it serves; release builds ignore this.
+const paidChatPreview =
+    !kReleaseMode && bool.fromEnvironment('MONETIZATION_PAID_CHAT_PREVIEW');
 
 /// Whether this account may start new tutor conversations: always, until
 /// the server requires paid chat; after that only with an active AI chat

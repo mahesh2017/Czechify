@@ -82,9 +82,9 @@ accepted for the production account. When those providers act only on
 Czechify's instructions, declare the data as collected for app functionality,
 not shared; answer differently if the actual contract or configuration changes.
 
-## Monetization (not yet active)
+## Monetization (update before the first external cohort)
 
-Subscriptions, invitations and the AI chat subscription are built but switched off. Until a release activates them, the answers above stay as they are. The Data safety and privacy-policy changes that go live with activation, and the decisions still open, are drafted in [monetization/PRIVACY_AND_DATA_SAFETY.md](monetization/PRIVACY_AND_DATA_SAFETY.md).
+Subscriptions, invitations and the AI chat subscription ship switched off and roll out by cohort. The privacy policy covering them is published (version 2026-09-22.1). Before any learner outside the testers gets them, add the Data safety answers in [monetization/PRIVACY_AND_DATA_SAFETY.md](monetization/PRIVACY_AND_DATA_SAFETY.md): purchase history, and optional Play Integrity device information. The order of steps is in [monetization/ACTIVATION_RUNBOOK.md](monetization/ACTIVATION_RUNBOOK.md).
 
 ## Subprocessors to name in the listing / privacy label
 

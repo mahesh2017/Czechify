@@ -75,14 +75,53 @@ Deno.test("configuration keeps all activation switches disabled", async () => {
   assertEquals(body.referral_claims_enabled, false);
   assertEquals(body.paid_chat_required, false);
 });
-Deno.test("configuration reports the proxy's paid-chat switch", async () => {
-  const response = await setup({ paidChatRequired: true }).handle(
-    req("configuration"),
+Deno.test("paid chat is required only where the proxy switch and the cohort agree", async () => {
+  for (
+    const [env, cohort, expected] of [
+      [true, true, true],
+      [true, false, false],
+      [false, true, false],
+    ] as const
+  ) {
+    const response = await setup({
+      paidChatRequired: env,
+      rollout: () => Promise.resolve({ paid_chat: cohort }),
+    }).handle(req("configuration"));
+    const body = await response.json();
+    assertEquals(body.paid_chat_required, expected, `${env}/${cohort}`);
+    assertEquals(body.ai_daily_turn_limit, 20);
+  }
+});
+Deno.test("configuration turns on only what the account's cohort has", async () => {
+  const on = {
+    course_paywall: true,
+    play_checkout: true,
+    referral_claims: true,
+    paid_chat: "yes",
+  };
+  const withBilling = setup({
+    rollout: () => Promise.resolve(on),
+    billing: () => Promise.reject(new Error("unused")),
+  });
+  const body = await (await withBilling.handle(req("configuration"))).json();
+  assertEquals(
+    [
+      body.course_paywall_enabled,
+      body.play_checkout_enabled,
+      body.referral_claims_enabled,
+    ],
+    [true, true, true],
   );
-  const body = await response.json();
-  assertEquals(body.paid_chat_required, true);
-  assertEquals(body.ai_daily_turn_limit, 20);
-  assertEquals(body.course_paywall_enabled, false);
+  // Checkout needs billing configured on this server as well.
+  const noBilling = setup({ rollout: () => Promise.resolve(on) });
+  assertEquals(
+    (await (await noBilling.handle(req("configuration"))).json())
+      .play_checkout_enabled,
+    false,
+  );
+  // A failed cohort lookup fails closed.
+  const broken = setup({ rollout: () => Promise.reject(new Error("db")) });
+  assertEquals((await broken.handle(req("configuration"))).status, 503);
 });
 Deno.test("Ed25519 compact JWS interoperates with JOSE verifier and rejects tampering", async () => {
   const { publicKey, privateKey } = await generateKeyPair("EdDSA", {
@@ -126,6 +165,7 @@ function billingSetup(options: {
   intent?: Record<string, unknown>;
   playFails?: boolean;
   status?: Record<string, unknown> | null;
+  checkout?: boolean;
 } = {}) {
   const log: string[] = [];
   const billing: BillingDependencies = {
@@ -210,6 +250,8 @@ function billingSetup(options: {
       snapshot: () => Promise.resolve(null),
       sign: () => Promise.resolve(""),
       billing: () => Promise.resolve(billing),
+      rollout: () =>
+        Promise.resolve({ play_checkout: options.checkout ?? true }),
     }),
   };
 }
@@ -399,4 +441,20 @@ Deno.test("purchase status is owner-scoped and path-validated", async () => {
     404,
   );
   assertEquals((await own.handle(req("purchases/verify"))).status, 405);
+});
+
+Deno.test("new purchases need the cohort; restores never do", async () => {
+  const { handle, log } = billingSetup({ checkout: false });
+  const intent = await handle(
+    post("purchase-intents", {
+      product_id: "czechify_core",
+      base_plan_id: "monthly",
+      platform: "android",
+    }, { "Idempotency-Key": crypto.randomUUID() }),
+  );
+  assertEquals(intent.status, 422);
+  assertEquals((await intent.json()).code, "product_unavailable");
+  assertEquals(log.some((l) => l.startsWith("intent")), false);
+  const restore = await handle(post("purchases/verify", verifyBody));
+  assertEquals(restore.status, 200);
 });

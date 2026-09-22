@@ -9,6 +9,9 @@ import '../database/database.dart';
 /// stay stable — a renamed purpose would orphan every existing record.
 class ConsentPurpose {
   static const voiceCloudProcessing = 'voice_cloud_processing';
+
+  /// Play Integrity checks for a friend invitation (ePrivacy Art. 5(3)).
+  static const referralIntegrity = 'referral_integrity';
 }
 
 /// Reads and writes the consent audit log.

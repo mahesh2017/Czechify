@@ -1,6 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1";
 import type { JobContext } from "../_shared/monetization/purchase_jobs.ts";
 import {
+  alertMessage,
   type BillingWork,
   createHandler,
   type Dependencies,
@@ -234,4 +235,45 @@ Deno.test("a quiet report logs nothing", async () => {
   }));
   assertEquals((await handle(call())).status, 200);
   assertEquals(events.includes("monetization_alert"), false);
+});
+
+Deno.test("crossed alerts go to the webhook; a failed delivery never fails the run", async () => {
+  const sent: unknown[] = [];
+  const events: string[] = [];
+  const report = {
+    alerts: [{ alert: "billing_jobs_dead", level: "investigate" }],
+  };
+  const { handle } = setup(() => ({
+    operations: () => Promise.resolve(report),
+    notify: (alerts) => {
+      sent.push(alerts);
+      return Promise.resolve();
+    },
+    log: (event: string) => events.push(event),
+  }));
+  assertEquals((await handle(call())).status, 200);
+  assertEquals(sent, [[{ alert: "billing_jobs_dead", level: "investigate" }]]);
+
+  const failing = setup(() => ({
+    operations: () => Promise.resolve(report),
+    notify: () => Promise.reject(new Error("webhook down")),
+    log: (event: string) => events.push(event),
+  }));
+  assertEquals((await failing.handle(call())).status, 200);
+  assertEquals(events.includes("monetization_alert_delivery_failed"), true);
+});
+
+Deno.test("the alert message leads with a pause and carries no account data", () => {
+  const message = alertMessage([
+    { alert: "verification_slow", level: "investigate" },
+    { alert: "acknowledged_without_access", level: "pause" },
+  ]);
+  assertEquals(message.text.startsWith("PAUSE — "), true);
+  assertEquals(message.content, message.text);
+  assertEquals(message.alerts.length, 2);
+  assertEquals(
+    alertMessage([{ alert: "billing_jobs_dead", level: "investigate" }]).text
+      .startsWith("Czechify"),
+    true,
+  );
 });

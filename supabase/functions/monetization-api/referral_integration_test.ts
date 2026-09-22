@@ -71,6 +71,8 @@ Deno.test({
       },
       snapshot: () => Promise.resolve(null),
       sign: () => Promise.resolve(""),
+      // The cohort rules have their own tests; these accounts are in it.
+      rollout: () => Promise.resolve({ referral_claims: true }),
       referrals: () => Promise.resolve(referrals),
     });
     const call = async (token: string, path: string, body?: unknown) => {

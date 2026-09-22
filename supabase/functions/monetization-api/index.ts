@@ -43,6 +43,13 @@ Deno.serve(createHandler({
       ? null
       : { id: data.user.id, anonymous: data.user.is_anonymous ?? true };
   },
+  async rollout(userId) {
+    const { data, error } = await admin().rpc("rollout_for", {
+      p_user: userId,
+    });
+    if (error) throw new Error("Rollout lookup failed");
+    return data ?? {};
+  },
   async snapshot(userId) {
     const { data, error } = await admin().rpc("get_monetization_snapshot", {
       p_user: userId,

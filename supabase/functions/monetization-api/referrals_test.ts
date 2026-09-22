@@ -24,6 +24,7 @@ function setup(options: {
   deps?: Partial<ReferralDependencies>;
   integrity?: IntegrityVerifier | null;
   referrals?: boolean;
+  cohort?: boolean;
 } = {}) {
   const log: string[] = [];
   const verified: IntegrityVerifier = {
@@ -69,6 +70,7 @@ function setup(options: {
     referrals: options.referrals === false
       ? undefined
       : () => Promise.resolve(deps),
+    rollout: () => Promise.resolve({ referral_claims: options.cohort ?? true }),
   });
   return { handle, log };
 }
@@ -284,4 +286,24 @@ Deno.test("status pages take a cursor; other routes take no parameters", async (
 Deno.test("without referral wiring the routes answer 503", async () => {
   const { handle } = setup({ referrals: false });
   assertEquals((await handle(get("referrals/status"))).status, 503);
+});
+
+Deno.test("new codes and claims need the cohort; status and evidence do not", async () => {
+  const { handle, log } = setup({ cohort: false });
+  for (
+    const [path, body] of [
+      ["referrals/code", { campaign_id: "a1-referral-v1" }],
+      ["referrals/claim", {
+        campaign_id: "a1-referral-v1",
+        code: "ABCDEF0123456789ABCDEF01",
+        attribution_source: "manual",
+      }],
+    ] as const
+  ) {
+    const response = await handle(post(path, body));
+    assertEquals(response.status, 409);
+    assertEquals((await response.json()).code, "campaign_unavailable");
+  }
+  assertEquals((await handle(get("referrals/status"))).status, 200);
+  assertEquals(log, [`status:${user}:0:20`]);
 });

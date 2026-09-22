@@ -1,6 +1,6 @@
 # Privacy wording and Play Data safety for monetization
 
-Drafted in PR 7b. **Not live.** The in-app policy (`lib/core/legal/legal_content.dart`), the website copy in `docs/site` and the Play Data safety form describe only what the released app does. Monetization processing doesn't happen until activation. These texts go live in PR 8, in the same release that turns a cohort on, and follow the decisions below. Publishing them earlier would describe processing that isn't happening. Leaving them out after activation would hide processing that is.
+Drafted in PR 7b and **published in PR 8**, as version 2026-09-22.1 of both the in-app policy (`lib/core/legal/legal_content.dart`) and `docs/site/privacy.html`. The wording is conditional ("if you subscribe…", "if you invite…"), so it is true for learners outside the rollout cohort too. The Play Data safety answers below still have to be entered in Play Console before the first external cohort; see [ACTIVATION_RUNBOOK.md](ACTIVATION_RUNBOOK.md).
 
 The no-ads statement stays true: monetization adds no ads, third-party analytics or tracking SDKs.
 

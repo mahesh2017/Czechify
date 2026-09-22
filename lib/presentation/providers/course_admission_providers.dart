@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/engines/continue_lesson_selector.dart';
@@ -46,10 +47,11 @@ final subscriptionsEntryVisibleProvider = Provider<bool>((ref) {
   ].any((feature) => feature.isActiveAt(load.now, offline: load.offline));
 });
 
-/// Turns on the commercial course gate in internal and staging builds before
-/// the server enables it for a cohort. Access still comes only from the
-/// signed entitlement snapshot.
-const paywallPreview = bool.fromEnvironment('MONETIZATION_PAYWALL_PREVIEW');
+/// Turns on the commercial course gate in debug and profile builds before the
+/// server enables it. Access still comes only from the signed entitlement
+/// snapshot. Release builds ignore this and follow the server's rollout.
+const paywallPreview =
+    !kReleaseMode && bool.fromEnvironment('MONETIZATION_PAYWALL_PREVIEW');
 
 /// Whether commercial access limits the course for this account. Off unless
 /// the server says otherwise: with it off, every published unit counts as
