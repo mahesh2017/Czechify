@@ -6355,6 +6355,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Got it'**
   String get legacyDismiss;
+
+  /// No description provided for @referralsIntegrityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check this phone with Google Play'**
+  String get referralsIntegrityTitle;
+
+  /// No description provided for @referralsIntegrityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play confirms this is the genuine Czechify app, installed from Google Play, so the person who invited you gets their reward without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.'**
+  String get referralsIntegrityBody;
 }
 
 class _AppLocalizationsDelegate

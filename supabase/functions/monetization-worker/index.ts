@@ -26,6 +26,11 @@ Deno.serve(createHandler({
     if (error) throw new Error("AI retention failed");
     return data;
   },
+  privacyRetention: async () => {
+    const { data, error } = await admin().rpc("cleanup_privacy_records");
+    if (error) throw new Error("Privacy retention failed");
+    return data;
+  },
 }));
 
 function admin() {

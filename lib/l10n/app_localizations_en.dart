@@ -3699,4 +3699,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get legacyDismiss => 'Got it';
+
+  @override
+  String get referralsIntegrityTitle => 'Check this phone with Google Play';
+
+  @override
+  String get referralsIntegrityBody =>
+      'Google Play confirms this is the genuine Czechify app, installed from Google Play, so the person who invited you gets their reward without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.';
 }

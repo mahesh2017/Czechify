@@ -329,7 +329,13 @@ Validation: `supabase test db` passes (451 tests; the new file has 45). They cov
   - an explanation card for pre-cutoff accounts at the top of the upgrade screen, and on Home during grace (dismissible per account). It shows the grace end and the units kept for good.
   - The one offline claim is offered only when this device holds lessons from before the cutoff that reach a unit the account doesn't already keep. Only attempts recorded before the cutoff are sent, never lessons learned during grace. A reply for an account that has since switched is dropped.
   - Account deletion warns that Google Play keeps charging, from the verified snapshot or when the server asks.
-- **Privacy:** wording and Data safety changes are drafted in [PRIVACY_AND_DATA_SAFETY.md](PRIVACY_AND_DATA_SAFETY.md). They go live with activation. Billing-record and referral-receipt retention are open decisions.
+- **Privacy:** wording and Data safety changes are drafted in [PRIVACY_AND_DATA_SAFETY.md](PRIVACY_AND_DATA_SAFETY.md) and go live with activation. The EU rules apply to every learner:
+  - Migration `20260928110000_privacy_retention.sql` adds `cleanup_privacy_records`, run by `monetization-worker` on each pass.
+  - A deleted account's purchases stay only while Google Play could still restore them, then 30 days.
+  - Referral lesson summaries go 90 days after the invitation is decided or the campaign ends.
+  - The existing-user snapshot goes 90 days after its claim window closes.
+  - Operational rows go after 30 days.
+  - The Play Integrity check is opt-in (ePrivacy Art. 5(3)): a switch on the invite screen, off by default. Without consent, receipts go to support review and the device is never asked.
 - **Checked, no change needed:**
   - Deleting an invitee erases their receipts and keeps the referrer's earned units.
   - Deleting a referrer removes only their own code and access; their open claims earn nothing further.
@@ -337,7 +343,7 @@ Validation: `supabase test db` passes (451 tests; the new file has 45). They cov
   - Account switches clear the monetization snapshot, referral claim and receipt outbox (`clearLearnerDataRows`).
 
 Validation:
-- `supabase test db`: 485 tests; `account_lifecycle.test.sql` adds 34. They cover export privacy for both sides of a referral and for purchases, the deletion notice, tombstoning on buyer and referrer deletion, and migration status before and after apply.
+- `supabase test db`: 505 tests; `account_lifecycle.test.sql` adds 34 and `privacy_retention.test.sql` 20. They cover export privacy for both sides of a referral and for purchases, the deletion notice, tombstoning on buyer and referrer deletion, and migration status before and after apply.
 - Deno: 156 tests, including the legacy routes and the deletion warning policy.
 - Flutter: the new claim flow, local record, providers, card, deletion request and account-screen warning tests.
 

@@ -21,6 +21,10 @@ class ReferralUploader {
   final ReferralApi api;
   final PlayIntegrityService integrity;
   final String? Function() currentAccount;
+
+  /// Whether the account consented to Play Integrity checks. Without it no
+  /// token is requested and the receipt goes to support review.
+  final Future<bool> Function(String account) integrityAllowed;
   final DateTime Function() now;
   final double Function() random;
   final Logger _log = Logger('ReferralUploader');
@@ -31,6 +35,7 @@ class ReferralUploader {
     required this.api,
     required this.integrity,
     required this.currentAccount,
+    required this.integrityAllowed,
     DateTime Function()? now,
     double Function()? random,
   }) : now = now ?? DateTime.now,
@@ -62,14 +67,18 @@ class ReferralUploader {
     if (challenge.status != 201 || nonce is! String) {
       return _refused(row, challenge.status, challenge.code);
     }
-    final token = await integrity.requestToken(
-      referralIntegrityRequestHash(
-        accountId: account,
-        claimId: row.claimId,
-        nonce: nonce,
-        receiptDigest: row.receiptDigest,
-      ),
-    );
+    // Without consent the device is not asked at all.
+    final token =
+        await integrityAllowed(account)
+            ? await integrity.requestToken(
+              referralIntegrityRequestHash(
+                accountId: account,
+                claimId: row.claimId,
+                nonce: nonce,
+                receiptDigest: row.receiptDigest,
+              ),
+            )
+            : const IntegrityUnsupported();
     if (currentAccount() != account) return;
     final String? tokenValue;
     switch (token) {

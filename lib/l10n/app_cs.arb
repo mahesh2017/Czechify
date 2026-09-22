@@ -1156,5 +1156,7 @@
   "legacyClaimAlready": "Tento účet už svůj záznam poslal.",
   "legacyClaimClosed": "Čas na poslání záznamu už uplynul.",
   "legacyClaimFailed": "Nepodařilo se spojit s Czechify. Zkuste to znovu.",
-  "legacyDismiss": "Rozumím"
+  "legacyDismiss": "Rozumím",
+  "referralsIntegrityTitle": "Ověřit telefon přes Google Play",
+  "referralsIntegrityBody": "Google Play potvrdí, že jde o pravou aplikaci Czechify nainstalovanou z Google Play, a ten, kdo vás pozval, tak dostane odměnu bez ruční kontroly. Czechify si uchová jen výsledek. Když to necháte vypnuté, vaše lekce zkontroluje ručně podpora, což trvá déle. Volbu můžete kdykoli změnit."
 }

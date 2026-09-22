@@ -3715,4 +3715,11 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get legacyDismiss => 'Rozumím';
+
+  @override
+  String get referralsIntegrityTitle => 'Ověřit telefon přes Google Play';
+
+  @override
+  String get referralsIntegrityBody =>
+      'Google Play potvrdí, že jde o pravou aplikaci Czechify nainstalovanou z Google Play, a ten, kdo vás pozval, tak dostane odměnu bez ruční kontroly. Czechify si uchová jen výsledek. Když to necháte vypnuté, vaše lekce zkontroluje ručně podpora, což trvá déle. Volbu můžete kdykoli změnit.';
 }

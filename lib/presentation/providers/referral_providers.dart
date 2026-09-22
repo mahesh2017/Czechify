@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/monetization/monetization_api.dart';
 import '../../data/referrals/play_integrity_service.dart';
 import '../../data/referrals/referral_api.dart';
+import '../../data/referrals/referral_integrity_consent.dart';
 import '../../data/referrals/referral_store.dart';
 import '../../data/referrals/referral_uploader.dart';
 import 'account_providers.dart';
@@ -36,8 +37,27 @@ final referralUploaderProvider = Provider<ReferralUploader?>((ref) {
     api: api,
     integrity: ref.watch(playIntegrityServiceProvider),
     currentAccount: () => backend.userId,
+    integrityAllowed: ReferralIntegrityConsent.granted,
   );
 });
+
+/// This account's Play Integrity choice for its invitation; off until chosen.
+final referralIntegrityConsentProvider = FutureProvider<bool>((ref) async {
+  ref.watch(accountUserProvider.select((user) => user.value?.id));
+  final account = ref.read(backendServiceProvider).userId;
+  return account != null && await ReferralIntegrityConsent.granted(account);
+});
+
+/// Records the choice; receipts already waiting follow the new answer.
+final setReferralIntegrityConsentProvider =
+    Provider<Future<void> Function(bool)>(
+      (ref) => (granted) async {
+        final account = ref.read(backendServiceProvider).userId;
+        if (account == null) return;
+        await ReferralIntegrityConsent.set(account, granted);
+        ref.invalidate(referralIntegrityConsentProvider);
+      },
+    );
 
 /// Starts one upload pass. Never throws: failures stay queued in the outbox.
 void drainReferralReceipts(Ref ref) {
