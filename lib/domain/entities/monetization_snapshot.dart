@@ -122,6 +122,9 @@ class MonetizationSnapshot {
   final List<PermanentUnitGrant> permanentGrants;
   final DateTime? migrationGraceUntil;
 
+  /// While an invited friend's free trial of Core lasts.
+  final DateTime? referralTrialUntil;
+
   MonetizationSnapshot({
     required this.userId,
     required this.revision,
@@ -130,6 +133,7 @@ class MonetizationSnapshot {
     this.aiChat = FeatureEntitlement.none,
     Iterable<PermanentUnitGrant> permanentGrants = const [],
     this.migrationGraceUntil,
+    this.referralTrialUntil,
   }) : permanentGrants = List.unmodifiable(permanentGrants);
 
   /// Reject cross-account and replayed snapshots. Refreshes of the same

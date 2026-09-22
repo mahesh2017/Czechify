@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart' show IconData;
 
 /// Bump whenever the privacy policy text changes in a way that affects what a
 /// learner is agreeing to. Consent records store this value.
-const String kPrivacyPolicyVersion = '2026-09-22.1';
+const String kPrivacyPolicyVersion = '2026-09-23.1';
 
 /// Bump when the cloud-speech consent wording changes.
 const String kVoiceCloudConsentVersion = 'voice-cloud-v3';
@@ -170,8 +170,10 @@ const List<LegalSection> kPrivacyPolicy = [
         'the invitation connects and a summary of each lesson the invited '
         'friend completes (the lesson, which exercises were answered or '
         'skipped, and when), to show the friend really learned before a unit '
-        'is given (Article 6(1)(b); abuse prevention under 6(1)(f)). Neither '
-        'side sees the other\'s account, email or learning details. If you '
+        'is given (Article 6(1)(b); abuse prevention under 6(1)(f)). When the '
+        'invited friend finishes those units, they get two weeks of Czechify '
+        'Core free, recorded on their account as free access until a date. '
+        'Neither side sees the other\'s account, email or learning details. If you '
         'turn on "Check this phone with Google Play", Google Play Integrity '
         'confirms the app is genuine and installed from Google Play. That '
         'reads information from your device, so it happens only with your '

@@ -77,7 +77,7 @@ Then run each row on at least one real Android phone, preferably one old and one
 | 7 | Refund or revoke from Play Console | Access ends at the next refresh. |
 | 8 | Airplane mode for 8 days on Core | Access for 7 days offline, then asks to reconnect. Free and permanent units always stay. |
 | 9 | Delete account with an active subscription | Warned that Play keeps charging. After deletion, restore on a new account opens a recovery case with a reference; support approves (SUPPORT_AND_OPERATIONS.md) and access returns after the Play check. |
-| 10 | Invite a friend (Integrity switch on); the friend finishes units 1–2 | The inviter gets 2 permanent units. The friend's rows show progress only. |
+| 10 | Invite a friend (Integrity switch on); the friend finishes units 1–2 | The inviter gets 2 permanent units. The friend gets 14 days of Core free, shown on the invite and subscriptions screens, and the whole course opens for them. The friend's rows show progress only. |
 | 11 | Same, with the Integrity switch off | A review case appears; after approval, the rewards arrive. |
 | 12 | Switch Google accounts mid-lesson and mid-purchase | Nothing carries over between accounts; the purchase stays with the account that started it. |
 | 13 | Export data; delete account | The export has the subscription and referral records, with no tokens and no other learner. |

@@ -50,11 +50,16 @@ class OwnReferralClaim {
   final int lessonsCompleted;
   final int lessonsRequired;
   final List<ReferralMilestoneStatus> milestones;
+
+  /// When this learner's free trial of Core, earned by joining with a
+  /// friend's code, ends. Null until they finish the two free units.
+  final DateTime? trialUntil;
   const OwnReferralClaim({
     this.claimId,
     required this.lessonsCompleted,
     required this.lessonsRequired,
     required this.milestones,
+    this.trialUntil,
   });
 }
 
@@ -67,6 +72,9 @@ class ReferralStatus {
   final List<ReferredFriend> friends;
   final int? nextCursor;
 
+  /// How long the friend's trial runs, as the server grants it.
+  final int trialDays;
+
   const ReferralStatus({
     this.inviteCode,
     this.unitsEarned = 0,
@@ -75,6 +83,7 @@ class ReferralStatus {
     this.ownClaim,
     this.friends = const [],
     this.nextCursor,
+    this.trialDays = 14,
   });
 
   factory ReferralStatus.fromJson(Map<String, Object?> json) {
@@ -84,18 +93,19 @@ class ReferralStatus {
     return ReferralStatus(
       inviteCode: json['referral_code'] as String?,
       unitsEarned: count(json['units_earned']),
-      unitsAvailable: json['units_available'] is int
-          ? json['units_available'] as int
-          : 15,
+      unitsAvailable:
+          json['units_available'] is int ? json['units_available'] as int : 15,
       nextRewardUnit: json['next_reward_unit'] as int?,
-      ownClaim: own is Map
-          ? OwnReferralClaim(
-              claimId: own['claim_id'] as String?,
-              lessonsCompleted: count(own['lessons_completed']),
-              lessonsRequired: count(own['lessons_required']),
-              milestones: _milestones(own['milestones']),
-            )
-          : null,
+      ownClaim:
+          own is Map
+              ? OwnReferralClaim(
+                claimId: own['claim_id'] as String?,
+                lessonsCompleted: count(own['lessons_completed']),
+                lessonsRequired: count(own['lessons_required']),
+                milestones: _milestones(own['milestones']),
+                trialUntil: DateTime.tryParse('${own['trial_until']}')?.toUtc(),
+              )
+              : null,
       friends: [
         if (friends is List)
           for (final f in friends)
@@ -103,6 +113,10 @@ class ReferralStatus {
               ReferredFriend(f['friend'] as int, _milestones(f['milestones'])),
       ],
       nextCursor: json['next_cursor'] as int?,
+      trialDays: switch (json['trial_days']) {
+        final int days when days > 0 => days,
+        _ => 14,
+      },
     );
   }
 }
