@@ -82,6 +82,10 @@ accepted for the production account. When those providers act only on
 Czechify's instructions, declare the data as collected for app functionality,
 not shared; answer differently if the actual contract or configuration changes.
 
+## Monetization (not yet active)
+
+Subscriptions, invitations and the AI chat subscription are built but switched off. Until a release activates them, the answers above stay as they are. The Data safety and privacy-policy changes that go live with activation, and the decisions still open, are drafted in [monetization/PRIVACY_AND_DATA_SAFETY.md](monetization/PRIVACY_AND_DATA_SAFETY.md).
+
 ## Subprocessors to name in the listing / privacy label
 
 - **Supabase** — auth, database sync, storage, Edge Functions (hosting).

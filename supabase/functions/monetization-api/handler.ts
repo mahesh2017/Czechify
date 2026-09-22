@@ -7,12 +7,17 @@ import { sha256Hex } from "../_shared/monetization/billing_crypto.ts";
 import type { BillingDependencies } from "../_shared/monetization/billing_rpc.ts";
 import { runBillingJob } from "../_shared/monetization/purchase_jobs.ts";
 import {
+  handleLegacyRoute,
+  type LegacyDependencies,
+  legacyRoutes,
+} from "./legacy.ts";
+import {
   handleReferralRoute,
   type ReferralDependencies,
   referralRoutes,
 } from "./referrals.ts";
 
-export type { BillingDependencies, ReferralDependencies };
+export type { BillingDependencies, LegacyDependencies, ReferralDependencies };
 
 type Json = Record<string, unknown>;
 
@@ -26,6 +31,8 @@ export interface Dependencies {
   billing?: () => Promise<BillingDependencies>;
   /** Absent when the backend cannot reach the database; routes then 503. */
   referrals?: () => Promise<ReferralDependencies>;
+  /** The existing-user migration's status and offline claim. */
+  legacy?: LegacyDependencies;
   /**
    * Whether the AI tutor proxy requires the AI subscription for chat. The
    * proxy reads the same AI_PAID_CHAT_REQUIRED switch, so the app is told
@@ -48,6 +55,7 @@ const routes: Record<string, string> = {
   "purchases/verify": "POST",
   "purchases/status": "GET",
   ...referralRoutes,
+  ...legacyRoutes,
 };
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const productPattern = /^[a-z0-9_.]{1,100}$/;
@@ -142,6 +150,18 @@ export function createHandler(deps: Dependencies) {
             ? await readJson(request, maxReceiptBody)
             : null,
           await deps.referrals(),
+          response,
+        );
+      }
+      if (name.startsWith("legacy/")) {
+        if (!deps.legacy) {
+          return response({ code: "verification_unavailable" }, 503);
+        }
+        return await handleLegacyRoute(
+          name,
+          user.id,
+          request.method === "POST" ? await readJson(request, maxBody) : null,
+          deps.legacy,
           response,
         );
       }

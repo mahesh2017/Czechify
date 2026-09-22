@@ -1,12 +1,15 @@
 import { assertEquals } from "jsr:@std/assert@1.0.14";
 import {
+  acknowledgesStoreSubscription,
   confirmsDeletion,
   decodeLatestAuthTime,
   hasRecentAuth,
   isCompleteAccountSnapshot,
   isSupportedMethod,
   maxDeletionAuthAgeSeconds,
+  needsSubscriptionWarning,
   requiresRecentAuth,
+  serverOwnedExportKeys,
   syncedUserTables,
 } from "./account_policy.ts";
 
@@ -128,11 +131,12 @@ Deno.test("anonymous accounts are exempt — they hold no credential to re-enter
 });
 
 Deno.test("an account snapshot must include every table, even when empty", () => {
-  const complete = Object.fromEntries(
-    syncedUserTables.map((table) => [table, []]),
-  );
+  // Server-owned monetization records count too: an export that dropped
+  // subscriptions or referral rewards would be just as incomplete.
+  const tables = [...syncedUserTables, ...serverOwnedExportKeys];
+  const complete = Object.fromEntries(tables.map((table) => [table, []]));
   assertEquals(isCompleteAccountSnapshot(complete), true);
-  for (const table of syncedUserTables) {
+  for (const table of tables) {
     const missing = { ...complete };
     delete missing[table];
     assertEquals(isCompleteAccountSnapshot(missing), false, table);
@@ -143,5 +147,28 @@ Deno.test("an account snapshot must include every table, even when empty", () =>
   }
   for (const invalid of [null, [], {}, "invalid"]) {
     assertEquals(isCompleteAccountSnapshot(invalid), false);
+  }
+});
+
+Deno.test("deleting with a renewing subscription warns first", () => {
+  const ack = "KEEPS RENEWING IN GOOGLE PLAY";
+  assertEquals(acknowledgesStoreSubscription(ack), true);
+  assertEquals(acknowledgesStoreSubscription("yes"), false);
+  assertEquals(
+    needsSubscriptionWarning({ renewing_subscriptions: 0 }, null),
+    false,
+  );
+  assertEquals(
+    needsSubscriptionWarning({ renewing_subscriptions: 1 }, null),
+    true,
+  );
+  assertEquals(
+    needsSubscriptionWarning({ renewing_subscriptions: 2 }, ack),
+    false,
+  );
+  // An unreadable answer is treated as renewing, never as safe to delete.
+  for (const notice of [null, {}, { renewing_subscriptions: "1" }, [], 3]) {
+    assertEquals(needsSubscriptionWarning(notice, null), true);
+    assertEquals(needsSubscriptionWarning(notice, ack), false);
   }
 });

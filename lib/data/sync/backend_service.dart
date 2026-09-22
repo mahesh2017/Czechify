@@ -209,26 +209,25 @@ class BackendService {
   /// with a password must supply it — otherwise a stolen access token would
   /// be enough to wipe someone's account. Anonymous accounts hold no
   /// credential and are exempt server-side, so they pass null.
-  Future<void> deleteCloudAccount({String? password}) async {
+  ///
+  /// A Google Play subscription outlives the account. While one renews, the
+  /// server refuses with [StoreSubscriptionActiveException] until
+  /// [subscriptionAcknowledged] says the learner was told.
+  Future<void> deleteCloudAccount({
+    String? password,
+    bool subscriptionAcknowledged = false,
+  }) async {
     final client = _requireClient();
     final email = client.auth.currentUser?.email;
     if (password != null && email != null) {
       // Mints a fresh access token, which is what satisfies the server gate.
       await client.auth.signInWithPassword(email: email, password: password);
     }
-    final response = await client.functions.invoke(
-      'account-data',
-      method: HttpMethod.delete,
-      headers: const {'x-confirm-account-deletion': 'DELETE MY ACCOUNT'},
+    await requestAccountDeletion(
+      client.functions,
+      subscriptionAcknowledged: subscriptionAcknowledged,
+      failed: _l10n().backendDeleteFailed,
     );
-    if (response.status == 401) {
-      throw const AuthException(
-        'Please sign in again to confirm account deletion.',
-      );
-    }
-    if (response.status != 204) {
-      throw AuthException(_l10n().backendDeleteFailed);
-    }
     await client.auth.signOut(scope: SignOutScope.local);
   }
 
@@ -311,4 +310,51 @@ class BackendService {
       _log.warning('Backend init failed; continuing offline.', e, st);
     }
   }
+}
+
+/// The account still has a renewing Google Play subscription, which deleting
+/// Czechify data does not cancel. Ask the learner, then delete with
+/// `subscriptionAcknowledged`.
+class StoreSubscriptionActiveException implements Exception {
+  const StoreSubscriptionActiveException();
+}
+
+/// Asks `account-data` to delete the signed-in account. Throws
+/// [StoreSubscriptionActiveException] while a Play subscription renews and
+/// the learner has not been told, and [AuthException] otherwise.
+@visibleForTesting
+Future<void> requestAccountDeletion(
+  FunctionsClient functions, {
+  required bool subscriptionAcknowledged,
+  required String failed,
+}) async {
+  int status;
+  Object? details;
+  try {
+    status =
+        (await functions.invoke(
+          'account-data',
+          method: HttpMethod.delete,
+          headers: {
+            'x-confirm-account-deletion': 'DELETE MY ACCOUNT',
+            if (subscriptionAcknowledged)
+              'x-confirm-store-subscription': 'KEEPS RENEWING IN GOOGLE PLAY',
+          },
+        )).status;
+  } on FunctionException catch (error) {
+    status = error.status;
+    details = error.details;
+  }
+  if (status == 204) return;
+  if (status == 409 &&
+      details is Map &&
+      details['code'] == 'store_subscription_active') {
+    throw const StoreSubscriptionActiveException();
+  }
+  if (status == 401) {
+    throw const AuthException(
+      'Please sign in again to confirm account deletion.',
+    );
+  }
+  throw AuthException(failed);
 }

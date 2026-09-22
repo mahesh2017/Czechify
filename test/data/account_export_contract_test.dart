@@ -46,15 +46,31 @@ void main() {
   });
 
   test('the database snapshot covers exactly the declared export tables', () {
-    final sql =
-        File(
-          'supabase/migrations/20260908202000_export_account_snapshot.sql',
-        ).readAsStringSync();
+    // The latest migration that defines the export is the one in force.
+    final definitions =
+        Directory('supabase/migrations')
+            .listSync()
+            .whereType<File>()
+            .where(
+              (file) => file.readAsStringSync().contains(
+                'function public.export_account_snapshot(',
+              ),
+            )
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    // Only the export's own body: the same migration may define others.
+    final file = definitions.last.readAsStringSync();
+    final start = file.indexOf('function public.export_account_snapshot(');
+    final sql = file.substring(start, file.indexOf(r'$$;', start));
     final selected =
         RegExp(
           r"'([a-z_]+)', \(select",
         ).allMatches(sql).map((match) => match.group(1)!).toSet();
-    expect(selected, _syncedUserTables(policy.readAsStringSync()));
+    final source = policy.readAsStringSync();
+    expect(selected, {
+      ..._exportList(source, 'syncedUserTables'),
+      ..._exportList(source, 'serverOwnedExportKeys'),
+    });
   });
 
   test('push-only entities are still exported', () {
@@ -72,13 +88,17 @@ void main() {
 }
 
 /// Extracts the string literals from the `syncedUserTables` array.
-Set<String> _syncedUserTables(String source) {
+Set<String> _syncedUserTables(String source) =>
+    _exportList(source, 'syncedUserTables');
+
+/// Extracts the string literals from the named exported array.
+Set<String> _exportList(String source, String name) {
   final block = RegExp(
-    r'export const syncedUserTables\s*=\s*\[(.*?)\]',
+    'export const $name\\s*=\\s*\\[(.*?)\\]',
     dotAll: true,
   ).firstMatch(source);
   if (block == null) {
-    fail('could not find syncedUserTables in account_policy.ts');
+    fail('could not find $name in account_policy.ts');
   }
   return RegExp(
     r'"([a-z_]+)"',
