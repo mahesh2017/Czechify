@@ -347,6 +347,28 @@ Validation:
 - Deno: 156 tests, including the legacy routes and the deletion warning policy.
 - Flutter: the new claim flow, local record, providers, card, deletion request and account-screen warning tests.
 
+## Delivery 7c — Support recovery and operations
+
+- **Migration `20260929100000_purchase_recovery_ops.sql`:**
+  - `purchase_recovery_cases` opens automatically when a linked account restores a purchase that belongs to a deleted account, to another account, or to another account's Play binding. The case ID reaches the app as `recovery_case_id` on the `403 account_binding_mismatch`.
+  - `resolve_purchase_recovery` takes a required operator and reason, both audited. Approving moves the purchase, revokes the previous owner's access from it and queues a Play verification. Access follows only if Play reports the purchase active. The binding Play reports at that first verification is recorded, and renewals must match it.
+  - `support_recovery_case` and `support_account_summary` are the support views; neither shows a token.
+  - `monetization_operations_report` gives the release plan's metrics and thresholds. `monetization-worker` returns it and logs each crossed threshold as `monetization_alert`.
+  - `cleanup_privacy_records` also deletes recovery cases 90 days after the decision, and expires open ones after 90 days.
+- **App:** Subscriptions shows the case reference and an "Email support" button with the reference in the subject.
+- **Runbook:** [SUPPORT_AND_OPERATIONS.md](SUPPORT_AND_OPERATIONS.md) covers how to decide a case, what each alert means and what to do, and saved dashboard queries.
+
+Validation: `supabase test db` passes 552 tests; `purchase_recovery.test.sql` adds 47. They cover:
+- the ownerless, other-account and Play-binding cases, including a repeated restore returning the same case;
+- support views without tokens;
+- required operator and reason;
+- approval followed by Play verification, and the recorded binding at renewal;
+- the previous owner's revocation;
+- rejection changing nothing;
+- each alert and retention.
+
+Deno and Flutter tests cover the reference passing through the job, the API, the billing state and the screen.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
@@ -357,4 +379,4 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
 2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
-3. Support recovery tooling and operating dashboards (7c), then staging verification and release activation (PR 8), which also publishes the privacy wording. Course admission and its screens (Phase 5) and the AI subscription with spend protection (PR 6: 6a–6c) are done.
+3. Staging verification and release activation (PR 8), which also publishes the privacy wording and wires `monetization_alert` log lines to alerting. Course admission and its screens (Phase 5) and the AI subscription with spend protection (PR 6: 6a–6c) are done.

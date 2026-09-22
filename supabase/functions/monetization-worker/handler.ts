@@ -34,6 +34,8 @@ export interface Dependencies {
   aiRetention?: () => Promise<unknown>;
   /** Deletes monetization records past their retention period. */
   privacyRetention?: () => Promise<unknown>;
+  /** The operations report; each crossed threshold is logged as an alert. */
+  operations?: () => Promise<Record<string, unknown>>;
   now?: () => number;
   log?: (event: string, detail: Record<string, unknown>) => void;
 }
@@ -101,6 +103,22 @@ export function createHandler(deps: Dependencies) {
       }
       if (deps.privacyRetention) {
         report.privacy = { retention: await deps.privacyRetention() };
+      }
+      if (deps.operations) {
+        const operations = await deps.operations();
+        report.operations = operations;
+        const alerts = Array.isArray(operations.alerts)
+          ? operations.alerts
+          : [];
+        for (const alert of alerts) {
+          // A log line per alert, for log drains and alerting rules.
+          log("monetization_alert", {
+            alert: String(
+              (alert as Record<string, unknown>)?.alert ?? "unknown",
+            ),
+            level: String((alert as Record<string, unknown>)?.level ?? ""),
+          });
+        }
       }
       return Response.json(report);
     } catch {

@@ -28,6 +28,8 @@ The operator is in Czechia, so EU law (GDPR, the ePrivacy Directive as implement
 >
 > We also send Google Play a pseudonymous code derived from your account, so a purchase can be matched to the right Czechify account. This is processed to provide the subscription you bought (GDPR Article 6(1)(b)).
 >
+> If you restore a purchase that belongs to another Czechify account, for example one you deleted, support can move it to your account after checking your Google Play order. To decide, support sees both accounts' email addresses and the purchase, never your payment details. The case is deleted 90 days after the decision.
+>
 > Deleting your Czechify account doesn't cancel a Google Play subscription. Cancel it in Google Play under Payments & subscriptions. After deletion, a record of the purchase without your account ID is kept only while Google Play could still restore it, and deleted 30 days after it ends.
 
 **New section: "Inviting friends"**

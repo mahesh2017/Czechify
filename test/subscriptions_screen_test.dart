@@ -179,6 +179,39 @@ void main() {
     expect(calls, isEmpty);
   });
 
+  testWidgets('a purchase on another account shows how support can move it', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      billing: const BillingState(
+        storeAvailable: true,
+        products: _products,
+        notice: BillingNotice.bindingMismatch,
+        supportReference: '0b6f2c1e-4d3a-4f5b-9c8d-7e6f5a4b3c2d',
+      ),
+    );
+    expect(
+      find.text('Your reference: 0b6f2c1e-4d3a-4f5b-9c8d-7e6f5a4b3c2d'),
+      findsOneWidget,
+    );
+    expect(find.textContaining('order number'), findsOneWidget);
+    await tester.tap(find.text('Email support'));
+    await tester.pump();
+  });
+
+  testWidgets('without a case there is no support reference', (tester) async {
+    await _pump(
+      tester,
+      billing: const BillingState(
+        storeAvailable: true,
+        products: _products,
+        notice: BillingNotice.bindingMismatch,
+      ),
+    );
+    expect(find.text('Email support'), findsNothing);
+  });
+
   testWidgets('purchase outcomes are announced', (tester) async {
     await _pump(
       tester,

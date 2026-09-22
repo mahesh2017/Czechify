@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../core/legal/legal_content.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../data/monetization/billing_flow.dart';
 import '../../../data/monetization/monetization_api.dart';
@@ -69,6 +70,12 @@ class SubscriptionsScreen extends ConsumerWidget {
               ],
               if (billing.notice != BillingNotice.none) ...[
                 _Message(text: _noticeText(l10n, billing.notice)),
+                const SizedBox(height: 16),
+              ],
+              // Support can move a purchase that belongs to another account.
+              if (billing.notice == BillingNotice.bindingMismatch &&
+                  billing.supportReference != null) ...[
+                _SupportRecovery(reference: billing.supportReference!),
                 const SizedBox(height: 16),
               ],
               for (final (id, title, body, feature) in [
@@ -300,6 +307,49 @@ class _Message extends StatelessWidget {
         text,
         style: TextStyle(fontSize: 15, height: 1.4, color: t.ink),
       ),
+    );
+  }
+}
+
+class _SupportRecovery extends StatelessWidget {
+  final String reference;
+  const _SupportRecovery({required this.reference});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.subscriptionsRecoveryBody,
+          style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
+        ),
+        const SizedBox(height: 6),
+        SelectableText(
+          l10n.subscriptionsRecoveryReference(reference),
+          style: TextStyle(fontSize: 14, color: t.ink),
+        ),
+        const SizedBox(height: 10),
+        OutlinedButton.icon(
+          style: OutlinedButton.styleFrom(minimumSize: const Size(0, 48)),
+          icon: const Icon(Icons.mail_outline),
+          label: Text(l10n.subscriptionsRecoveryContact),
+          // Percent-encoded through Uri, so the reference survives intact.
+          onPressed:
+              () => openExternalPage(
+                context,
+                Uri(
+                  scheme: 'mailto',
+                  path: kSupportEmail,
+                  queryParameters: {
+                    'subject': 'Czechify purchase recovery $reference',
+                  },
+                ).toString(),
+              ),
+        ),
+      ],
     );
   }
 }

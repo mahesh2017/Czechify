@@ -116,6 +116,16 @@ Deno.test("mismatches are reported, not retried", async () => {
   });
 });
 
+Deno.test("a binding mismatch carries its support case", async () => {
+  const { ctx } = setup({
+    applied: { status: "account_binding_mismatch", recovery_case_id: "case-1" },
+  });
+  assertEquals(await runBillingJob(ctx, "job"), {
+    status: "account_binding_mismatch",
+    recoveryCaseId: "case-1",
+  });
+});
+
 Deno.test("Play outages back off; unreadable or unknown purchases end the job", async () => {
   const outage = setup({
     play: {

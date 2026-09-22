@@ -339,6 +339,32 @@ Deno.test("a token owned by another account is refused without detail", async ()
   assertEquals(log.some((l) => l.startsWith("claim")), false);
 });
 
+Deno.test("a restore of another account's purchase returns only a support reference", async () => {
+  const caseId = "0b6f2c1e-4d3a-4f5b-9c8d-7e6f5a4b3c2d";
+  const { handle } = billingSetup({
+    registered: {
+      status: "account_binding_mismatch",
+      recovery_case_id: caseId,
+    },
+  });
+  const response = await handle(post("purchases/verify", verifyBody));
+  assertEquals(response.status, 403);
+  const body = await response.json();
+  assertEquals([body.code, body.recovery_case_id], [
+    "account_binding_mismatch",
+    caseId,
+  ]);
+  const odd = billingSetup({
+    registered: {
+      status: "account_binding_mismatch",
+      recovery_case_id: "not-a-uuid",
+    },
+  });
+  const plain = await (await odd.handle(post("purchases/verify", verifyBody)))
+    .json();
+  assertEquals("recovery_case_id" in plain, false);
+});
+
 Deno.test("verify rejects unknown fields, oversized tokens and bad sources", async () => {
   const { handle, log } = billingSetup();
   for (

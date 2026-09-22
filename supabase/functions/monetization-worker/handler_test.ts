@@ -197,3 +197,41 @@ Deno.test("privacy retention runs last and is reported", async () => {
   });
   assertEquals(log.slice(-2), ["ai-retention", "privacy-retention"]);
 });
+
+Deno.test("each crossed threshold is logged as an alert", async () => {
+  const events: [string, Record<string, unknown>][] = [];
+  const { handle } = setup(() => ({
+    operations: () =>
+      Promise.resolve({
+        verify_p95_seconds: 42,
+        alerts: [
+          { alert: "verification_slow", level: "investigate" },
+          { alert: "acknowledged_without_access", level: "pause" },
+        ],
+      }),
+    log: (event: string, detail: Record<string, unknown>) =>
+      events.push([event, detail]),
+  }));
+  const body = await (await handle(call())).json();
+  assertEquals(body.operations.verify_p95_seconds, 42);
+  assertEquals(events.filter(([e]) => e === "monetization_alert"), [
+    ["monetization_alert", {
+      alert: "verification_slow",
+      level: "investigate",
+    }],
+    ["monetization_alert", {
+      alert: "acknowledged_without_access",
+      level: "pause",
+    }],
+  ]);
+});
+
+Deno.test("a quiet report logs nothing", async () => {
+  const events: string[] = [];
+  const { handle } = setup(() => ({
+    operations: () => Promise.resolve({ alerts: "none" }),
+    log: (event: string) => events.push(event),
+  }));
+  assertEquals((await handle(call())).status, 200);
+  assertEquals(events.includes("monetization_alert"), false);
+});

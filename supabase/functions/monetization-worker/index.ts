@@ -31,6 +31,13 @@ Deno.serve(createHandler({
     if (error) throw new Error("Privacy retention failed");
     return data;
   },
+  operations: async () => {
+    const { data, error } = await admin().rpc(
+      "monetization_operations_report",
+    );
+    if (error) throw new Error("Operations report failed");
+    return data;
+  },
 }));
 
 function admin() {

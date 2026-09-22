@@ -3722,4 +3722,16 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get referralsIntegrityBody =>
       'Google Play potvrdí, že jde o pravou aplikaci Czechify nainstalovanou z Google Play, a ten, kdo vás pozval, tak dostane odměnu bez ruční kontroly. Czechify si uchová jen výsledek. Když to necháte vypnuté, vaše lekce zkontroluje ručně podpora, což trvá déle. Volbu můžete kdykoli změnit.';
+
+  @override
+  String get subscriptionsRecoveryBody =>
+      'Pokud jste ho koupili na účtu, který jste smazali nebo ke kterému se nedostanete, podpora ho po ověření objednávky v Google Play může převést na tento účet. Uveďte číslo objednávky Google Play (začíná GPA).';
+
+  @override
+  String subscriptionsRecoveryReference(String reference) {
+    return 'Vaše číslo případu: $reference';
+  }
+
+  @override
+  String get subscriptionsRecoveryContact => 'Napsat podpoře';
 }

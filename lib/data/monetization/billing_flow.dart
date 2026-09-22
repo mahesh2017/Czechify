@@ -27,12 +27,16 @@ class BillingState {
   final bool restoring;
   final BillingNotice notice;
 
+  /// The support case for a purchase that belongs to another account.
+  final String? supportReference;
+
   const BillingState({
     this.storeAvailable = false,
     this.products = const {},
     this.busyProductId,
     this.restoring = false,
     this.notice = BillingNotice.none,
+    this.supportReference,
   });
 
   BillingState copyWith({
@@ -41,12 +45,20 @@ class BillingState {
     String? Function()? busyProductId,
     bool? restoring,
     BillingNotice? notice,
+    String? Function()? supportReference,
   }) => BillingState(
     storeAvailable: storeAvailable ?? this.storeAvailable,
     products: products ?? this.products,
     busyProductId: busyProductId != null ? busyProductId() : this.busyProductId,
     restoring: restoring ?? this.restoring,
     notice: notice ?? this.notice,
+    // A new notice replaces the reference unless one is given with it.
+    supportReference:
+        supportReference != null
+            ? supportReference()
+            : notice == null
+            ? this.supportReference
+            : null,
   );
 }
 
@@ -268,18 +280,24 @@ class BillingFlow {
         onEntitlementsChanged();
         _emit(
           _state.copyWith(
-            notice: access
-                ? BillingNotice.provisioned
-                : state == 'pending'
-                ? BillingNotice.paymentPending
-                : BillingNotice.nothingToRestore,
+            notice:
+                access
+                    ? BillingNotice.provisioned
+                    : state == 'pending'
+                    ? BillingNotice.paymentPending
+                    : BillingNotice.nothingToRestore,
           ),
         );
       case PurchaseVerificationPending():
         // The server keeps verifying in the background.
         _emit(_state.copyWith(notice: BillingNotice.verifying));
-      case PurchaseRejected(:final code):
-        _emit(_state.copyWith(notice: _noticeFor(code)));
+      case PurchaseRejected(:final code, :final recoveryCaseId):
+        _emit(
+          _state.copyWith(
+            notice: _noticeFor(code),
+            supportReference: () => recoveryCaseId,
+          ),
+        );
     }
   }
 

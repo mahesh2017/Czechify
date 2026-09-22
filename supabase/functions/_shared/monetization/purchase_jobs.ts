@@ -55,7 +55,7 @@ export type JobOutcome =
     ackJobId: string | null;
   }
   | { status: "acknowledged" }
-  | { status: "account_binding_mismatch" }
+  | { status: "account_binding_mismatch"; recoveryCaseId?: string }
   | { status: "product_mismatch" }
   | { status: "not_claimed" }
   | { status: "retry"; code: string }
@@ -119,6 +119,10 @@ export async function runBillingJob(
             : null,
         };
       case "account_binding_mismatch":
+        // Support can move the purchase; the case is its reference.
+        return typeof applied.recovery_case_id === "string"
+          ? { status: applied.status, recoveryCaseId: applied.recovery_case_id }
+          : { status: applied.status };
       case "product_mismatch":
         return { status: applied.status };
       default:
