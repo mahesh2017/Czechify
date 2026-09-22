@@ -270,7 +270,13 @@ def mutual_invitation_case():
                 sql(f"delete from monetization_private.{table} where claim_id in ({claim_ids});")
             sql(f"delete from monetization_private.referral_claims where id in ({claim_ids});")
         sql(f"delete from auth.users where id in ({ids});")
-        sql("delete from monetization_private.entitlement_audit where user_id is null and action='referral_trial';")
+        # Audit rows outlive their account, so remove this run's by source key:
+        # both milestones of each claim, and the trial keyed by the claim.
+        sources = [f"{claim}:{ordinal}" for claim in claims.values() for ordinal in (1, 2)]
+        sources += [str(claim) for claim in claims.values()]
+        if sources:
+            sql("delete from monetization_private.entitlement_audit where user_id is null and source_key in ("
+                + ",".join(map(literal, sources)) + ");")
         assignments = ",".join(f"{key}=" + ("null" if value is None else str(value).lower() if isinstance(value, bool) else literal(value)) for key, value in controls.items())
         sql(f"update monetization_private.referral_campaigns set {assignments} where id='a1-referral-v1';")
 
