@@ -407,6 +407,15 @@ Validation: `supabase test db` (`referee_trial.test.sql` adds 22), the concurren
 
 Validation: `supabase test db` (`purchase_ownership.test.sql` added), db lint, both concurrency tools, Deno tests for discovery, the notification hand-off, the worker and the verify route.
 
+## Delivery 11 — Worker isolation, purchase-check limit, retention
+
+- **Worker stages are independent:** one exception used to end the whole run, so a billing failure (bad Play credentials, say) also stopped referral processing, retention and the operations alerts that would report it. Each stage now runs on its own; a failed one is logged, sent as a `worker_<stage>_failed` alert, and the run answers 503.
+- **Purchase checks are rate limited:** `POST purchases/verify` allows 30 per account an hour (`20261003100000_worker_limits_retention.sql`). Each check may call the Play API, whose daily quota the whole app shares, and each made-up token used to be kept for good.
+- **Dead-job alert:** `billing_jobs_dead` and `billing_health().dead_jobs` count jobs that died in the last day, so one failure no longer keeps the alert on for the 30 days the job is kept.
+- **Retention:** a deleted account's purchase whose last known state was active, in grace, cancelled, on hold or paused was never deleted, because nothing re-checks it once the owner is gone. It now goes 120 days after its last paid-through date. Tokens that never became a purchase go after 30 days unless still being checked or under a support case. The privacy policy (app and site) says so, as version 2026-09-23.2.
+
+Validation: `supabase test db` (`worker_limits_retention.test.sql` added), db lint, both concurrency tools, Deno tests for the worker stages and the rate limit.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.

@@ -26,7 +26,7 @@ Every `set_rollout` call is recorded in `monetization_private.rollout_changes` w
 ## 1. Staging backend — **You**
 
 1. Create a separate Supabase project for staging, in the EU (Frankfurt or Paris, matching production).
-2. `supabase link --project-ref <staging>` then `supabase db push`. Check that the migration list ends at `20261002100000_purchase_ownership`.
+2. `supabase link --project-ref <staging>` then `supabase db push`. Check that the migration list ends at `20261003100000_worker_limits_retention`.
 3. Deploy the functions: `supabase functions deploy monetization-api deepseek-proxy play-billing-notifications monetization-worker account-data`.
 4. Set secrets as listed in [BACKEND_SETUP.md](BACKEND_SETUP.md):
    - snapshot signing key;
@@ -93,7 +93,7 @@ Go/no-go gate:
 
 ## 4. Privacy, listing and support text — **You**
 
-1. Publish `docs/site/privacy.html` (version 2026-09-23.1) to the website. The in-app policy in this release carries the same version and wording.
+1. Publish `docs/site/privacy.html` (version 2026-09-23.2) to the website. The in-app policy in this release carries the same version and wording.
 2. Play Console → Data safety: apply the table in [PRIVACY_AND_DATA_SAFETY.md](PRIVACY_AND_DATA_SAFETY.md) (purchase history; Play Integrity device information, optional).
 3. Store listing: mention the subscriptions and that units 1–2 are free. Play shows prices itself.
 4. Confirm with your accountant how long Google's payout and tax reports are kept (5 years for accounting records, 10 for VAT documents).

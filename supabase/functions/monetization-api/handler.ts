@@ -68,6 +68,9 @@ const maxBody = 24 * 1024;
 // Receipts carry full lesson coverage; the contract allows 64 KiB.
 const maxReceiptBody = 64 * 1024;
 const maxToken = 16 * 1024;
+// Purchase checks per account an hour. Real use is a purchase or a restore of
+// two products, retried a few times; far more is someone probing tokens.
+const verificationsPerHour = 30;
 
 export function createHandler(deps: Dependencies) {
   return async (request: Request): Promise<Response> => {
@@ -273,6 +276,9 @@ async function verify(
       (typeof intent !== "string" || !uuid.test(intent)))
   ) {
     return response({ code: "invalid_request" }, 400);
+  }
+  if (!await billing.allowVerification(userId, verificationsPerHour)) {
+    return response({ code: "rate_limited", retry_after_seconds: 3600 }, 429);
   }
   const registered = await billing.register(
     userId,
