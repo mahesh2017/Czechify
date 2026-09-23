@@ -106,7 +106,11 @@ class PurchaseVerificationPending extends VerifyOutcome {
 
 class PurchaseRejected extends VerifyOutcome {
   final String code;
-  const PurchaseRejected(this.code);
+
+  /// Support's reference when the purchase belongs to another account and a
+  /// recovery case was opened for this one.
+  final String? recoveryCaseId;
+  const PurchaseRejected(this.code, [this.recoveryCaseId]);
 }
 
 /// The existing-user migration as it applies to this account.
@@ -339,6 +343,10 @@ class MonetizationApi {
         Duration(seconds: seconds is int && seconds > 0 ? seconds : 5),
       );
     }
-    return PurchaseRejected(response.code ?? 'verification_unavailable');
+    final caseId = response.body['recovery_case_id'];
+    return PurchaseRejected(
+      response.code ?? 'verification_unavailable',
+      caseId is String ? caseId : null,
+    );
   }
 }

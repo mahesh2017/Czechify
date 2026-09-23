@@ -232,6 +232,25 @@ void main() {
     },
   );
 
+  test('a purchase support can move keeps its case as the reference', () async {
+    replies.add(
+      const ApiResponse(403, {
+        'code': 'account_binding_mismatch',
+        'recovery_case_id': 'case-1',
+      }),
+    );
+    store.updates.add([_purchase(StorePurchaseStatus.restored)]);
+    await settle();
+    expect(flow.state.notice, BillingNotice.bindingMismatch);
+    expect(flow.state.supportReference, 'case-1');
+    // The next notice clears it.
+    expect(
+      flow.state.copyWith(notice: BillingNotice.none).supportReference,
+      isNull,
+    );
+    expect(flow.state.copyWith(restoring: true).supportReference, 'case-1');
+  });
+
   test(
     'a purchase is never verified under a different signed-in account',
     () async {

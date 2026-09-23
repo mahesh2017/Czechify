@@ -259,7 +259,7 @@ async function verify(
     (intent as string | undefined) ?? null,
   );
   if (registered.status === "account_binding_mismatch") {
-    return response({ code: "account_binding_mismatch" }, 403);
+    return mismatch(registered.recovery_case_id, response);
   }
   if (registered.status !== "queued") {
     return response({ code: "product_unavailable" }, 422);
@@ -274,7 +274,7 @@ async function verify(
   if (typeof registered.job_id !== "string") return pending();
   const outcome = await runBillingJob(billing.jobs, registered.job_id);
   if (outcome.status === "account_binding_mismatch") {
-    return response({ code: "account_binding_mismatch" }, 403);
+    return mismatch(outcome.recoveryCaseId, response);
   }
   if (outcome.status === "product_mismatch") {
     return response({ code: "product_unavailable" }, 422);
@@ -290,6 +290,19 @@ async function verify(
     access: outcome.access,
     revision: outcome.revision,
   });
+}
+
+/**
+ * The purchase belongs to another account. A support case opened for this
+ * account is its reference; the other account is never revealed.
+ */
+function mismatch(caseId: unknown, response: Respond): Response {
+  return response({
+    code: "account_binding_mismatch",
+    ...(typeof caseId === "string" && uuid.test(caseId)
+      ? { recovery_case_id: caseId }
+      : {}),
+  }, 403);
 }
 
 async function readJson(

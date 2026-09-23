@@ -164,7 +164,7 @@ Maintain accepted manifest versions rather than recomputing expected lesson cont
 |---|---|
 | `401 authentication_required` | Refresh auth once, then show sign-in; retain local work. |
 | `403 linked_account_required` | Start safe link-account flow. |
-| `403 account_binding_mismatch` | Offer correct-account restore/support; do not reveal the other account. |
+| `403 account_binding_mismatch` | Offer correct-account restore/support; do not reveal the other account. With `recovery_case_id` (7c), show it as the support reference: support can move the purchase after checking the Play order ([SUPPORT_AND_OPERATIONS.md](SUPPORT_AND_OPERATIONS.md)). |
 | `402 subscription_required` | Show the relevant product and free alternatives; history remains readable. |
 | `403 integrity_rejected` | Explain verification failed and offer support; no automatic endless retry. |
 | `409 idempotency_conflict` | Treat as implementation/data conflict and preserve diagnostics. |
