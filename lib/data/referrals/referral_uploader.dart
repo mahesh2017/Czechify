@@ -23,8 +23,9 @@ class ReferralUploader {
   final String? Function() currentAccount;
 
   /// Whether the account consented to Play Integrity checks. Without it no
-  /// token is requested and the receipt goes to support review.
-  final Future<bool> Function(String account) integrityAllowed;
+  /// token is requested and the receipt goes to support review. Null means
+  /// the learner has not chosen yet: nothing is sent until they do.
+  final Future<bool?> Function(String account) integrityAllowed;
   final DateTime Function() now;
   final double Function() random;
   final Logger _log = Logger('ReferralUploader');
@@ -48,10 +49,15 @@ class ReferralUploader {
   Future<void> _drain() async {
     final account = currentAccount();
     if (account == null) return;
+    final allowed = await integrityAllowed(account);
+    if (allowed == null) {
+      _log.fine('Referral receipts wait for the Play Integrity choice');
+      return;
+    }
     for (final row in await store.due(account, now())) {
       if (currentAccount() != account) return;
       try {
-        await _upload(account, row);
+        await _upload(account, row, allowed);
       } on Exception catch (error) {
         // Network or transport failure: the same receipt waits and retries.
         await store.retryLater(row, _backoff(row.attempts), 'transport');
@@ -60,7 +66,11 @@ class ReferralUploader {
     }
   }
 
-  Future<void> _upload(String account, ReferralReceiptOutboxData row) async {
+  Future<void> _upload(
+    String account,
+    ReferralReceiptOutboxData row,
+    bool integrityAllowed,
+  ) async {
     final challenge = await api.challenge(row.claimId, row.receiptDigest);
     if (currentAccount() != account) return;
     final nonce = challenge.body['nonce'];
@@ -69,7 +79,7 @@ class ReferralUploader {
     }
     // Without consent the device is not asked at all.
     final token =
-        await integrityAllowed(account)
+        integrityAllowed
             ? await integrity.requestToken(
               referralIntegrityRequestHash(
                 accountId: account,

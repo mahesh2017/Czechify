@@ -119,6 +119,26 @@ Deno.test("configuration turns on only what the account's cohort has", async () 
       .play_checkout_enabled,
     false,
   );
+  // Only the products on sale are named; with none, checkout is off.
+  const coreOnly = setup({
+    rollout: () => Promise.resolve(on),
+    billing: () => Promise.reject(new Error("unused")),
+    productsOnSale: () => Promise.resolve(["czechify_core"]),
+  });
+  const sale = await (await coreOnly.handle(req("configuration"))).json();
+  assertEquals([sale.play_checkout_enabled, sale.product_ids], [true, [
+    "czechify_core",
+  ]]);
+  const nothing = setup({
+    rollout: () => Promise.resolve(on),
+    billing: () => Promise.reject(new Error("unused")),
+    productsOnSale: () => Promise.resolve([]),
+  });
+  assertEquals(
+    (await (await nothing.handle(req("configuration"))).json())
+      .play_checkout_enabled,
+    false,
+  );
   // A failed cohort lookup fails closed.
   const broken = setup({ rollout: () => Promise.reject(new Error("db")) });
   assertEquals((await broken.handle(req("configuration"))).status, 503);

@@ -28,10 +28,15 @@ class SubscriptionsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final supported = ref.watch(billingPlatformSupportedProvider);
     final checkout = ref.watch(checkoutEnabledProvider).value ?? false;
+    final configuration = ref.watch(monetizationConfigurationProvider).value;
     // The AI plan states the limit the server enforces, not a copy of it.
     final aiDailyTurnLimit =
-        ref.watch(monetizationConfigurationProvider).value?.aiDailyTurnLimit ??
+        configuration?.aiDailyTurnLimit ??
         MonetizationConfiguration.defaultAiDailyTurnLimit;
+    // A product switched off on the server is shown but not offered. The
+    // staging preview offers everything; the server still decides.
+    bool onSale(String id) =>
+        checkoutPreview || (configuration?.offers(id) ?? true);
     final user = ref.watch(accountUserProvider).value;
     final linked = user != null && !user.isAnonymous;
     final billing = ref.watch(billingProvider);
@@ -116,6 +121,7 @@ class SubscriptionsScreen extends ConsumerWidget {
                   onSubscribe:
                       checkout &&
                               linked &&
+                              onSale(id) &&
                               !active(feature) &&
                               billing.products[id] != null &&
                               billing.busyProductId == null &&

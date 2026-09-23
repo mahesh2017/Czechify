@@ -1564,7 +1564,11 @@
   "legacyClaimFailed": "Couldn't reach Czechify. Try again.",
   "legacyDismiss": "Got it",
   "referralsIntegrityTitle": "Check this phone with Google Play",
-  "referralsIntegrityBody": "Google Play confirms this is the genuine Czechify app, installed from Google Play, so the person who invited you gets their reward without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.",
+  "referralsIntegrityBody": "Google Play confirms this is the genuine Czechify app, installed from Google Play, so your free trial and your friend's reward arrive without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.",
+  "referralsIntegrityAskTitle": "Choose how your lessons are checked",
+  "referralsIntegrityAskBody": "Your lesson results wait on this phone until you choose. You can change it at any time.",
+  "referralsIntegrityAllow": "Check with Google Play",
+  "referralsIntegrityDecline": "Check by hand",
   "subscriptionsRecoveryBody": "If you bought it on an account you deleted or can't reach, support can move it to this one after checking your Google Play order. Include your Google Play order number (it starts with GPA).",
   "subscriptionsRecoveryReference": "Your reference: {reference}",
   "@subscriptionsRecoveryReference": {

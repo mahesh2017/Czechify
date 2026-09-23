@@ -53,13 +53,23 @@ class MonetizationConfiguration {
   /// Tutor turns per day on the AI chat subscription, as the server enforces.
   final int aiDailyTurnLimit;
 
+  /// Products on sale now. Empty when the server did not say (an older
+  /// server, or a cached answer from before it did): every product is then
+  /// offered and the server still refuses one that is off.
+  final Set<String> productIds;
+
   const MonetizationConfiguration({
     required this.playCheckoutEnabled,
     required this.coursePaywallEnabled,
     this.referralClaimsEnabled = false,
     this.paidChatRequired = false,
     this.aiDailyTurnLimit = defaultAiDailyTurnLimit,
+    this.productIds = const {},
   });
+
+  /// Whether checkout may offer [productId].
+  bool offers(String productId) =>
+      productIds.isEmpty || productIds.contains(productId);
 
   static const defaultAiDailyTurnLimit = 20;
 
@@ -166,6 +176,13 @@ class LegacyClaimException implements Exception {
   String toString() => 'LegacyClaimException: $code';
 }
 
+/// Product IDs from the server's configuration; anything else is ignored.
+Set<String> productIdSet(Object? value) => {
+  if (value is List)
+    for (final id in value)
+      if (id is String && id.isNotEmpty) id,
+};
+
 List<int> _unitIds(Object? value) =>
     value is List
         ? [
@@ -193,6 +210,7 @@ class MonetizationApi {
           final int limit when limit > 0 => limit,
           _ => MonetizationConfiguration.defaultAiDailyTurnLimit,
         },
+        productIds: productIdSet(response.body['product_ids']),
       );
     } on Exception {
       return null;

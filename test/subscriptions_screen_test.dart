@@ -1,5 +1,6 @@
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/monetization/billing_flow.dart';
+import 'package:czechify/data/monetization/monetization_api.dart';
 import 'package:czechify/data/monetization/monetization_repository.dart';
 import 'package:czechify/data/monetization/snapshot_verifier.dart';
 import 'package:czechify/data/monetization/store_adapter.dart';
@@ -59,6 +60,7 @@ Future<List<String>> _pump(
     products: _products,
   ),
   FeatureEntitlement core = FeatureEntitlement.none,
+  Set<String>? onSale,
 }) async {
   final calls = <String>[];
   final now = DateTime.now().toUtc();
@@ -67,6 +69,14 @@ Future<List<String>> _pump(
       overrides: [
         billingPlatformSupportedProvider.overrideWithValue(supported),
         checkoutEnabledProvider.overrideWith((_) async => checkout),
+        if (onSale != null)
+          monetizationConfigurationProvider.overrideWith(
+            (_) async => MonetizationConfiguration(
+              playCheckoutEnabled: checkout,
+              coursePaywallEnabled: false,
+              productIds: onSale,
+            ),
+          ),
         accountUserProvider.overrideWith(
           (_) => Stream.value(_user(anonymous: anonymous)),
         ),
@@ -153,6 +163,16 @@ void main() {
       expect(find.text('Subscribe'), findsOneWidget);
     },
   );
+
+  testWidgets('a product switched off on the server is shown but not sold', (
+    tester,
+  ) async {
+    final calls = await _pump(tester, onSale: {'czechify_core'});
+    expect(find.text('Subscribe'), findsNWidgets(2));
+    await tester.tap(find.text('Subscribe').last);
+    await tester.tap(find.text('Subscribe').first);
+    expect(calls, ['buy:czechify_core']);
+  });
 
   testWidgets('with checkout off the screen offers nothing to buy', (
     tester,
