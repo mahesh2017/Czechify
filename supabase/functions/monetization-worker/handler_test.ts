@@ -165,3 +165,17 @@ Deno.test("backlogs raise an attention log; failures answer 503", async () => {
   }));
   assertEquals((await broken.handle(call())).status, 503);
 });
+
+Deno.test("AI retention runs after referrals and is reported", async () => {
+  const { handle, log } = setup((log) => ({
+    aiRetention: () => {
+      log.push("ai-retention");
+      return Promise.resolve({ replay_cleared: 4, tombstones_removed: 1 });
+    },
+  }));
+  const body = await (await handle(call())).json();
+  assertEquals(body.ai, {
+    retention: { replay_cleared: 4, tombstones_removed: 1 },
+  });
+  assertEquals(log.at(-1), "ai-retention");
+});

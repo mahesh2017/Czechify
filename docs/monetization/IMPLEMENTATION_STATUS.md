@@ -198,6 +198,35 @@ Not in 5b: audio-download filtering and the accessibility and locale review (5c)
   - The upgrade screen, the referral screen and a course map with a paid unit join the screen smoke matrix (light and dark, 1x and 2x text, Czech at 2x). At 2x text that matrix found the course map's unit header overflowing on the current unit, where the "UNIT n" label and the "IN PROGRESS" pill share a row. This predates monetization: the old smoke case rendered no units. The row now wraps.
 - **Out of scope, found in passing:** the mock exam and parts of Home still carry hard-coded English that predates monetization. The list layout's ListTile debug assertion is being fixed separately.
 
+## Delivery 6a — Paid AI chat and spend protection (server)
+
+PR 6 is split into 6a (server: AI entitlement, idempotent reservations, replay and spend protection), 6b (course grammar/writing authorized against server content, separate from chat) and 6c (chat and upgrade UI: quota, denials, AI purchase page).
+
+- **Database:** migration `20260924100000_ai_request_reservations.sql` adds chat sessions, per-day chat allowances, request reservations and project spend, all in `monetization_private` and reached only through service-role functions.
+- **Proxy:**
+  - Chat requests that carry a `request_id` go through `paid_chat.ts`: an entitlement check when `AI_PAID_CHAT_REQUIRED` is on, then an atomic reservation, a single provider call, and a sealed replay.
+  - The emergency switch and the daily spend ceiling sit in front of every provider call.
+  - Old clients keep the previous path until paid chat is required, and are then asked to update.
+- **Configuration:** `/configuration` reports `paid_chat_required` from the same switch.
+- **Worker:** clears replay content after 24 hours and tombstones after seven days.
+- Setup, switches and secrets: [BACKEND_SETUP.md](BACKEND_SETUP.md#paid-ai-chat-and-spend-protection-pr-6a).
+
+Validation:
+
+- `supabase test db`: 373 tests across 10 files. The new file covers:
+  - access: AI buyer yes; staff, Core, expired and on-hold no; grace yes;
+  - reserve, replay and conflict; account-scoped replay;
+  - summaries need a known session with a new turn;
+  - release refunds and may retry; abandon and an expired lease never redispatch;
+  - the allowance stops at the limit;
+  - the ceiling trips once;
+  - retention;
+  - privileges.
+- Deno: 136 function tests pass; fmt and lint are clean. They cover every reservation outcome, provider unknown vs failed vs reply, digest stability, the emergency switch, the spend ceiling, old-client refusal under enforcement, course feedback unaffected by the chat subscription, and worker retention.
+- Concurrency relies on the same conditional-update pattern as the existing quotas: a row at the limit matches nothing, so parallel requests cannot pass together. pgTAP runs in one session and does not exercise real parallelism.
+
+Not in 6a: course-operation authorization (6b); the app sending request and session IDs, and the chat and purchase UI (6c).
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
@@ -208,4 +237,4 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
 2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
-3. AI authorization and cost controls, existing-user migration and privacy, and release activation (PRs 6–8). Course admission and its screens (Phase 5) are done.
+3. PR 6b–6c (course-operation authorization, chat and AI purchase UI), then existing-user migration and privacy, and release activation (PRs 7–8). Course admission and its screens (Phase 5) and the paid-chat server (6a) are done.

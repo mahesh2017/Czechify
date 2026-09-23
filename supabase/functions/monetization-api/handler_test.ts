@@ -75,6 +75,14 @@ Deno.test("configuration keeps all activation switches disabled", async () => {
   assertEquals(body.referral_claims_enabled, false);
   assertEquals(body.paid_chat_required, false);
 });
+Deno.test("configuration reports the proxy's paid-chat switch", async () => {
+  const response = await setup({ paidChatRequired: true }).handle(
+    req("configuration"),
+  );
+  const body = await response.json();
+  assertEquals(body.paid_chat_required, true);
+  assertEquals(body.course_paywall_enabled, false);
+});
 Deno.test("Ed25519 compact JWS interoperates with JOSE verifier and rejects tampering", async () => {
   const { publicKey, privateKey } = await generateKeyPair("EdDSA", {
     extractable: true,
