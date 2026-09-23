@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -193,17 +194,22 @@ class _PrototypeTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    // Preserve the original 32pt visual breathing room, but grow when a
+    // device's navigation bar needs more. viewPadding stays stable while the
+    // keyboard is visible, so opening an input cannot resize this navigation.
+    final bottomInset = math.max(
+      32.0,
+      MediaQuery.viewPaddingOf(context).bottom,
+    );
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
         child: Container(
-          height: 92,
-          // The design's bar is a fixed 92pt with `padding:10px 8px 0` and no
-          // bottom inset of its own — the icon/label stack sits in the top
-          // 60pt and the home indicator overlaps the empty remainder. Adding
-          // the safe-area inset here instead squeezed the stack into 50pt and
-          // overflowed the column.
-          padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
+          key: const ValueKey('primary-bottom-navigation'),
+          height: 60 + bottomInset,
+          // The icon/label stack keeps its original 50pt allocation. System
+          // navigation occupies only the reserved space below it.
+          padding: EdgeInsets.fromLTRB(8, 10, 8, bottomInset),
           decoration: BoxDecoration(
             color: t.bg.withValues(alpha: 0.88),
             border: Border(top: BorderSide(color: t.line)),

@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated:** August 25, 2026
+**Last updated:** September 20, 2026
 
 Czechify ("the App") is built with privacy in mind. This policy explains what data the App handles and how.
 
@@ -89,9 +89,30 @@ The App does **not** currently include analytics, advertising, or crash-reportin
 SDKs. Supabase and Scaleway may generate operational/security logs under their
 own terms when their services are used.
 
+## Google Play Age Signals (Android)
+
+On production Android installations, Czechify asks Google Play for a coarse
+age range and any applicable age-verification or parent-approval status before
+starting account sync or cloud-backed features. This check enforces Czechify's
+minimum age of 16 and supports age-assurance requirements in regulated regions,
+including Brazil. Google Play may ask the user to share an age range or complete
+verification or family supervision.
+
+Czechify evaluates the response on the device. It does not request or store a
+birth date, does not retain Google Play's installation identifier, and does not
+send the age range or approval status to Czechify's servers or other third
+parties. A range wholly below 16, a required-but-incomplete verification, or a
+pending or declined parent approval prevents the App from opening until the
+status becomes eligible. If sharing is optional and the user or parent chooses
+not to share, Czechify does not infer an age from that choice.
+
 ## Children's Privacy
 
-The App is intended for general audiences and does not knowingly collect personal information from children under 13.
+The App is not directed to children under 16 and is intended for an audience
+aged 16 and over. The Android age check described above is used to prevent
+known under-16 users from accessing the App. If you believe a child under 16
+has provided personal information to Czechify, contact us so we can take
+appropriate action.
 
 ## Changes
 

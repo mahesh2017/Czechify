@@ -44,39 +44,40 @@ void main() {
     ExerciseType.teaching: TeachingView,
   };
 
-  for (final entry in cases.entries) {
-    testWidgets('dispatches ${entry.key.name} to its extracted view', (
-      tester,
-    ) async {
-      tester.view.physicalSize = const Size(1200, 1600);
-      tester.view.devicePixelRatio = 1;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
+  for (final size in const [Size(1200, 1600), Size(1024, 600)]) {
+    for (final entry in cases.entries) {
+      testWidgets('dispatches ${entry.key.name} at '
+          '${size.width.toInt()}x${size.height.toInt()}', (tester) async {
+        tester.view.physicalSize = size;
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
 
-      await tester.pumpWidget(
-        ProviderScope(
-          child: MaterialApp(
-            localizationsDelegates: testLocalizationsDelegates,
-            supportedLocales: testSupportedLocales,
-            home: Scaffold(
-              body: ExerciseWidget(
-                exercise: Exercise(
-                  id: 1,
-                  lessonId: 1,
-                  type: entry.key,
-                  prompt: 'Prompt',
-                  data: _dataFor(entry.key),
+        await tester.pumpWidget(
+          ProviderScope(
+            child: MaterialApp(
+              localizationsDelegates: testLocalizationsDelegates,
+              supportedLocales: testSupportedLocales,
+              home: Scaffold(
+                body: ExerciseWidget(
+                  exercise: Exercise(
+                    id: 1,
+                    lessonId: 1,
+                    type: entry.key,
+                    prompt: 'Prompt',
+                    data: _dataFor(entry.key),
+                  ),
+                  onAnswered: (_) {},
                 ),
-                onAnswered: (_) {},
               ),
             ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byType(entry.value), findsOneWidget);
-      expect(tester.takeException(), isNull);
-    });
+        expect(find.byType(entry.value), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      });
+    }
   }
 }
 

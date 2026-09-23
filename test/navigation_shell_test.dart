@@ -33,29 +33,35 @@ void main() {
 
   tearDown(() => router.dispose());
 
-  Widget host({bool disableAnimations = false, _TestChatNotifier? chat}) =>
-      ProviderScope(
-        overrides: [if (chat != null) chatProvider.overrideWith(() => chat)],
-        child: MaterialApp.router(
-          routerConfig: router,
-          theme: lightTheme(),
-          locale: const Locale('en'),
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: AppLocalizations.supportedLocales,
-          builder:
-              (context, child) => MediaQuery(
-                data: MediaQuery.of(
-                  context,
-                ).copyWith(disableAnimations: disableAnimations),
-                child: child!,
-              ),
-        ),
-      );
+  Widget host({
+    bool disableAnimations = false,
+    _TestChatNotifier? chat,
+    double bottomViewPadding = 0,
+    double bottomViewInset = 0,
+  }) => ProviderScope(
+    overrides: [if (chat != null) chatProvider.overrideWith(() => chat)],
+    child: MaterialApp.router(
+      routerConfig: router,
+      theme: lightTheme(),
+      locale: const Locale('en'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      builder:
+          (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              disableAnimations: disableAnimations,
+              viewPadding: EdgeInsets.only(bottom: bottomViewPadding),
+              viewInsets: EdgeInsets.only(bottom: bottomViewInset),
+            ),
+            child: child!,
+          ),
+    ),
+  );
 
   testWidgets('switching tabs preserves local state and scroll position', (
     tester,
@@ -148,6 +154,43 @@ void main() {
     chat.endConversation();
     await tester.pumpAndSettle();
     expect(find.text('Home'), findsOneWidget);
+  });
+
+  testWidgets('bottom navigation reserves a tall three-button system bar', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(393, 852);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host(bottomViewPadding: 48));
+    await tester.pumpAndSettle();
+
+    expect(
+      tester.getSize(find.byKey(const ValueKey('primary-bottom-navigation'))),
+      const Size(393, 108),
+    );
+    expect(tester.getBottomLeft(find.text('Home')).dy, lessThanOrEqualTo(804));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('keyboard does not inflate the system-navigation reservation', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(393, 852);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(host(bottomViewPadding: 24, bottomViewInset: 320));
+    await tester.pumpAndSettle();
+
+    expect(
+      tester.getSize(find.byKey(const ValueKey('primary-bottom-navigation'))),
+      const Size(393, 92),
+    );
+    expect(tester.takeException(), isNull);
   });
 }
 

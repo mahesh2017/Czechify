@@ -3176,4 +3176,50 @@ class AppLocalizationsCs extends AppLocalizations {
   String lessonResumed(int current, int total) {
     return 'Pokračuješ · otázka $current z $total';
   }
+
+  @override
+  String get ageSignalsUnderAgeTitle => 'Czechify je pro uživatele od 16 let';
+
+  @override
+  String get ageSignalsUnderAgeBody =>
+      'Google Play sdílel věkové rozmezí nižší než minimální věk pro Czechify. Přístup zůstává uzamčený kvůli ochraně mladších uživatelů.';
+
+  @override
+  String get ageSignalsVerificationTitle => 'Potvrď svůj věk v Google Play';
+
+  @override
+  String get ageSignalsVerificationBody =>
+      'Než se Czechify otevře, musíš v Google Play dokončit ověření věku nebo nastavení rodinného dohledu. Potom se vrať a spusť kontrolu znovu.';
+
+  @override
+  String get ageSignalsApprovalPendingTitle => 'Čeká se na souhlas rodiče';
+
+  @override
+  String get ageSignalsApprovalPendingBody =>
+      'Než se Czechify otevře, musí rodič nebo zákonný zástupce schválit nejnovější změnu. Po jeho odpovědi ve Family Link spusť kontrolu znovu.';
+
+  @override
+  String get ageSignalsApprovalDeclinedTitle => 'Je vyžadován souhlas rodiče';
+
+  @override
+  String get ageSignalsApprovalDeclinedBody =>
+      'Rodič nebo zákonný zástupce nejnovější změnu neschválil, proto Czechify nelze pro tento účet otevřít.';
+
+  @override
+  String get ageSignalsUnavailableTitle =>
+      'Kontrola věku je dočasně nedostupná';
+
+  @override
+  String get ageSignalsUnavailableBody =>
+      'Czechify nemohl ověřit věkovou způsobilost. Zkontroluj připojení a aktualizaci Google Play a zkus to znovu.';
+
+  @override
+  String get ageSignalsOpenPlayStore => 'Otevřít Google Play';
+
+  @override
+  String get ageSignalsCheckAgain => 'Zkontrolovat znovu';
+
+  @override
+  String get ageSignalsPrivacyNote =>
+      'Czechify používá pouze přibližné věkové rozmezí a stav souhlasu v tomto zařízení. Neukládá datum narození ani identifikátor instalace Google Play.';
 }
