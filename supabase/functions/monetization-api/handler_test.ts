@@ -1,6 +1,11 @@
 import { assertEquals, assertRejects } from "jsr:@std/assert@1";
 import { compactVerify, exportJWK, generateKeyPair } from "npm:jose@6.2.12";
-import { createHandler, type Dependencies } from "./handler.ts";
+import {
+  type BillingDependencies,
+  createHandler,
+  type Dependencies,
+} from "./handler.ts";
+import { PlayApiError } from "../_shared/monetization/play_client.ts";
 import { createSnapshotSigner } from "./signing.ts";
 
 const user = "00000000-0000-0000-0000-000000000001";
@@ -91,4 +96,272 @@ Deno.test("Ed25519 compact JWS interoperates with JOSE verifier and rejects tamp
   await assertRejects(() =>
     createSnapshotSigner({ kty: "oct", k: "AAAA" }, "test")
   );
+});
+
+// Purchase routes. The database is faked here; its rules have their own
+// pgTAP suite (billing_verification.test.sql).
+const intentKey = "10000000-0000-4000-8000-000000000001";
+const purchaseId = "20000000-0000-4000-8000-000000000002";
+const activePlay = {
+  subscriptionState: "SUBSCRIPTION_STATE_ACTIVE",
+  externalAccountIdentifiers: { obfuscatedExternalAccountId: "binding" },
+  lineItems: [{
+    productId: "czechify_core",
+    expiryTime: "2099-01-01T00:00:00Z",
+    offerDetails: { basePlanId: "monthly" },
+  }],
+};
+function billingSetup(options: {
+  anonymous?: boolean;
+  registered?: Record<string, unknown>;
+  intent?: Record<string, unknown>;
+  playFails?: boolean;
+  status?: Record<string, unknown> | null;
+} = {}) {
+  const log: string[] = [];
+  const billing: BillingDependencies = {
+    obfuscatedAccountId: (id) =>
+      Promise.resolve({ id: `hmac-${id}`, keyVersion: 1 }),
+    bindAccount: (_id, candidate) => {
+      log.push(`bind:${candidate}`);
+      return Promise.resolve(candidate);
+    },
+    createIntent: (_id, product, _plan, key) => {
+      log.push(`intent:${product}:${key}`);
+      return Promise.resolve(
+        options.intent ??
+          {
+            status: "created",
+            intent_id: "i",
+            obfuscated_account_id: "binding",
+          },
+      );
+    },
+    register: (id, digest, encrypted, product) => {
+      log.push(`register:${id}:${digest.length}:${encrypted}:${product}`);
+      return Promise.resolve(
+        options.registered ??
+          { status: "queued", purchase_id: purchaseId, job_id: "verify-job" },
+      );
+    },
+    status: (id) =>
+      Promise.resolve(
+        options.status === undefined
+          ? (id === user ? { state: "active" } : null)
+          : options.status,
+      ),
+    jobs: {
+      owner: "test",
+      cipher: {
+        encrypt: () => Promise.resolve("sealed"),
+        decrypt: () => Promise.resolve("token"),
+      },
+      play: {
+        getSubscription: () =>
+          options.playFails
+            ? Promise.reject(new PlayApiError("play_verification_failed", true))
+            : Promise.resolve({ body: activePlay, text: "{}" }),
+        acknowledge: () => {
+          log.push("play-ack");
+          return Promise.resolve();
+        },
+      },
+      store: {
+        claim: (job) => {
+          log.push(`claim:${job}`);
+          return Promise.resolve(1);
+        },
+        jobPurchase: (job) =>
+          Promise.resolve({
+            operation: job === "ack-job" ? "acknowledge" : "verify",
+            product_id: "czechify_core",
+            encrypted_token: "sealed",
+          }),
+        apply: () =>
+          Promise.resolve({
+            status: "provisioned",
+            access: true,
+            revision: 4,
+            ack_job_id: "ack-job",
+          }),
+        completeAcknowledgement: () => Promise.resolve(true),
+        fail: () => Promise.resolve(true),
+      },
+    },
+  };
+  return {
+    log,
+    handle: createHandler({
+      authenticate: (token) =>
+        Promise.resolve(
+          token === "valid"
+            ? { id: user, anonymous: options.anonymous ?? false }
+            : null,
+        ),
+      snapshot: () => Promise.resolve(null),
+      sign: () => Promise.resolve(""),
+      billing: () => Promise.resolve(billing),
+    }),
+  };
+}
+const post = (
+  path: string,
+  body: unknown,
+  headers: Record<string, string> = {},
+) =>
+  new Request(`https://example.com/functions/v1/monetization-api/${path}`, {
+    method: "POST",
+    headers: { authorization: "Bearer valid", ...headers },
+    body: typeof body === "string" ? body : JSON.stringify(body),
+  });
+const verifyBody = {
+  purchase_token: "play-token",
+  product_id: "czechify_core",
+  source: "purchase",
+};
+
+Deno.test("purchase routes are off without billing secrets and refuse anonymous accounts", async () => {
+  const off = setup();
+  assertEquals(
+    (await off.handle(post("purchases/verify", verifyBody))).status,
+    503,
+  );
+  const { handle, log } = billingSetup({ anonymous: true });
+  const response = await handle(post("purchases/verify", verifyBody));
+  assertEquals(response.status, 403);
+  assertEquals((await response.json()).code, "linked_account_required");
+  assertEquals(log, []);
+});
+
+Deno.test("purchase intent binds the account and requires an idempotency key", async () => {
+  const { handle, log } = billingSetup();
+  const body = {
+    product_id: "czechify_core",
+    base_plan_id: "monthly",
+    platform: "android",
+  };
+  assertEquals((await handle(post("purchase-intents", body))).status, 400);
+  assertEquals(
+    (await handle(
+      post("purchase-intents", { ...body, user_id: "x" }, {
+        "Idempotency-Key": intentKey,
+      }),
+    )).status,
+    400,
+  );
+  assertEquals(
+    (await handle(
+      post("purchase-intents", { ...body, platform: "ios" }, {
+        "Idempotency-Key": intentKey,
+      }),
+    )).status,
+    400,
+  );
+  const created = await handle(
+    post("purchase-intents", body, { "Idempotency-Key": intentKey }),
+  );
+  assertEquals(created.status, 201);
+  assertEquals((await created.json()).obfuscated_account_id, "binding");
+  assertEquals(log, [`bind:hmac-${user}`, `intent:czechify_core:${intentKey}`]);
+});
+
+Deno.test("intent refusals map to stable errors", async () => {
+  const body = {
+    product_id: "czechify_core",
+    base_plan_id: "monthly",
+    platform: "android",
+  };
+  for (
+    const [status, code] of [
+      ["product_unavailable", 422],
+      ["rate_limited", 429],
+      ["idempotency_conflict", 409],
+    ] as const
+  ) {
+    const { handle } = billingSetup({ intent: { status } });
+    assertEquals(
+      (await handle(
+        post("purchase-intents", body, { "Idempotency-Key": intentKey }),
+      )).status,
+      code,
+    );
+  }
+});
+
+Deno.test("verification provisions, then acknowledges, and never echoes the token", async () => {
+  const { handle, log } = billingSetup();
+  const response = await handle(post("purchases/verify", verifyBody));
+  const text = await response.text();
+  assertEquals(response.status, 200);
+  assertEquals(JSON.parse(text).status, "provisioned");
+  assertEquals(JSON.parse(text).access, true);
+  assertEquals(text.includes("play-token"), false);
+  assertEquals(log, [
+    `register:${user}:64:sealed:czechify_core`,
+    "claim:verify-job",
+    "claim:ack-job",
+    "play-ack",
+  ]);
+});
+
+Deno.test("a Play outage returns 202 with the verification ID to poll", async () => {
+  const { handle } = billingSetup({ playFails: true });
+  const response = await handle(post("purchases/verify", verifyBody));
+  assertEquals(response.status, 202);
+  const body = await response.json();
+  assertEquals([body.status, body.verification_id], [
+    "verification_pending",
+    purchaseId,
+  ]);
+});
+
+Deno.test("a token owned by another account is refused without detail", async () => {
+  const { handle, log } = billingSetup({
+    registered: { status: "account_binding_mismatch" },
+  });
+  const response = await handle(post("purchases/verify", verifyBody));
+  assertEquals(response.status, 403);
+  assertEquals(Object.keys(await response.json()).sort(), [
+    "code",
+    "policy_version",
+    "request_id",
+    "server_time",
+  ]);
+  assertEquals(log.some((l) => l.startsWith("claim")), false);
+});
+
+Deno.test("verify rejects unknown fields, oversized tokens and bad sources", async () => {
+  const { handle, log } = billingSetup();
+  for (
+    const body of [
+      { ...verifyBody, user_id: user },
+      { ...verifyBody, source: "gift" },
+      { ...verifyBody, purchase_token: "x".repeat(16 * 1024 + 1) },
+      { ...verifyBody, intent_id: "not-a-uuid" },
+      { ...verifyBody, product_id: "Core Product" },
+      "not json",
+      "x".repeat(25 * 1024),
+    ]
+  ) {
+    assertEquals((await handle(post("purchases/verify", body))).status, 400);
+  }
+  assertEquals(log, []);
+});
+
+Deno.test("purchase status is owner-scoped and path-validated", async () => {
+  const own = billingSetup();
+  assertEquals(
+    (await own.handle(req(`purchases/status/${purchaseId}`))).status,
+    200,
+  );
+  assertEquals(
+    (await own.handle(req("purchases/status/not-a-uuid"))).status,
+    404,
+  );
+  const other = billingSetup({ status: null });
+  assertEquals(
+    (await other.handle(req(`purchases/status/${purchaseId}`))).status,
+    404,
+  );
+  assertEquals((await own.handle(req("purchases/verify"))).status, 405);
 });
