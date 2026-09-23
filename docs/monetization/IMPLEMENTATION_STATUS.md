@@ -289,6 +289,34 @@ Not in 6b: review-exercise AI authorization. No lesson or review exercise calls 
 
 Validation: 1,546 Flutter tests pass with 96% changed-line coverage; 144 function tests pass. On the Pixel emulator with the paid-chat preview, a new account sees the chat lock (with the enforced limit and the Core separation) and the AI plan card states the limit. Staging still needs the proxy with `AI_REPLAY_KEY` set and a real AI subscription purchase, to see replay and quota end to end.
 
+## Delivery 7a — Existing-user migration (server)
+
+Phase 7 is split into 7a (the fixed-cutoff migration ledger), 7b (the app's explanation and offline claim, safe deletion and export, privacy wording) and 7c (support recovery and operating dashboards).
+
+- **Migration `20260927100000_legacy_migration.sql`:**
+  - `course_lessons`, generated from the bundled lessons and checked in CI;
+  - `legacy_migration_runs`, with a fixed `cutoff_at`, `grace_ends_at` = T0 + 30 days, and the claim window;
+  - an immutable per-run snapshot of pre-cutoff progress;
+  - `legacy_migration_claims`, statuses `planned` / `applied` / `needs_review` / `rejected`.
+- **Operations:**
+  - `legacy_migration_prepare` snapshots once at or after the cutoff, plans, and returns the dry-run summary.
+  - `legacy_migration_apply` grants the grace window to every pre-cutoff account and the exact reached units as permanent legacy grants. Rerunning it changes nothing.
+  - `submit_legacy_claim` accepts one offline claim per account inside the window; larger claims wait for support's `resolve_legacy_claim`.
+- **Unit rule:** reached units are those with a completed or attempted lesson. A phase's next unit is added only after every earlier lesson in that phase is complete. Placement, empty rows, unknown lessons and client-written unit IDs are ignored. A2 stays A2, and legacy grants never take a referral reward.
+- Operator steps: [BACKEND_SETUP.md](BACKEND_SETUP.md#existing-user-migration-pr-7a).
+
+Validation: `supabase test db` passes (451 tests; the new file has 45). They cover:
+- the unit rules;
+- a dry run grants nothing;
+- the fixed snapshot and immutable cutoff;
+- exact grants;
+- grace for accounts with no units;
+- no migration after the cutoff;
+- idempotent reapply (no duplicate grants, windows or events);
+- no grace restart after progress is wiped;
+- each offline-claim path (ineligible, not ready, applied, repeat, already claimed, already owned, review and approval, rejected, window closed);
+- privileges.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
