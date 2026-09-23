@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:czechify/core/platform/orientation_policy.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -31,6 +32,56 @@ void main() {
           reason: '$size should be free to rotate',
         );
       }
+    });
+
+    testWidgets('on Android the display, not the window, decides', (
+      tester,
+    ) async {
+      final requested = <Object?>[];
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        (call) async {
+          if (call.method == 'SystemChrome.setPreferredOrientations') {
+            requested.add(call.arguments);
+          }
+          return null;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          SystemChannels.platform,
+          null,
+        ),
+      );
+      addTearDown(tester.view.display.reset);
+      debugDefaultTargetPlatformOverride = TargetPlatform.android;
+      try {
+        // A phone: 1179 x 2556 physical pixels at 3x is 393 x 852 dp.
+        tester.view.display.size = const Size(1179, 2556);
+        tester.view.display.devicePixelRatio = 3;
+        await applyAdaptiveOrientationPolicy();
+        // A tablet, even when the app window itself is narrow.
+        tester.view.display.size = const Size(2560, 1600);
+        tester.view.display.devicePixelRatio = 2;
+        tester.view.physicalSize = const Size(600, 1600);
+        addTearDown(tester.view.resetPhysicalSize);
+        await applyAdaptiveOrientationPolicy();
+      } finally {
+        debugDefaultTargetPlatformOverride = null;
+      }
+      expect(requested, [
+        ['DeviceOrientation.portraitUp'],
+        <String>[],
+      ]);
+
+      // Other platforms keep their own settings.
+      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+      try {
+        await applyAdaptiveOrientationPolicy();
+      } finally {
+        debugDefaultTargetPlatformOverride = null;
+      }
+      expect(requested, hasLength(2));
     });
 
     test('does not statically lock Android in the manifest', () {
