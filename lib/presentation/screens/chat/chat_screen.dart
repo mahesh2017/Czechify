@@ -7,6 +7,9 @@ import '../../../l10n/app_localizations.dart';
 import '../../../domain/engines/llm_orchestrator.dart';
 import '../../../domain/repositories/conversation_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../data/monetization/monetization_api.dart';
+import '../../providers/billing_providers.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../domain/entities/chat_message.dart';
@@ -397,7 +400,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           children: [
                             Expanded(
                               child: Text(
-                                chat.error ?? '',
+                                _chatErrorText(l10n, chat),
                                 style: TextStyle(
                                   color: t.redInk,
                                   fontSize: 13.5,
@@ -405,15 +408,29 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                                 ),
                               ),
                             ),
-                            TextButton.icon(
-                              onPressed:
-                                  () =>
-                                      ref
-                                          .read(chatProvider.notifier)
-                                          .retryLastMessage(),
-                              icon: const Icon(Icons.refresh, size: 16),
-                              label: Text(AppLocalizations.of(context).retry),
-                            ),
+                            // Retrying cannot fix a missing subscription or
+                            // an old app, so those offer what can.
+                            if (chat.errorCode == 'ai_entitlement_required')
+                              TextButton(
+                                onPressed: () => context.push('/subscriptions'),
+                                child: Text(l10n.chatSeeAiPlan),
+                              )
+                            else if (chat.errorCode !=
+                                    'client_update_required' &&
+                                chat.errorCode != 'quota_exceeded')
+                              TextButton.icon(
+                                onPressed:
+                                    () =>
+                                        ref
+                                            .read(chatProvider.notifier)
+                                            .retryLastMessage(),
+                                icon: const Icon(Icons.refresh, size: 16),
+                                label: Text(
+                                  chat.errorCode == 'result_unavailable'
+                                      ? l10n.chatSendAgain
+                                      : l10n.retry,
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -682,147 +699,153 @@ class _ScenarioPicker extends ConsumerWidget {
             ),
         ],
         const SizedBox(height: 22),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SectionLabel(l10n.chatPickASituation),
-            Text(
-              l10n.chatRoomCount(ChatScenario.all.length),
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: t.faint,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          // A fixed extent rather than an aspect ratio: with an aspect ratio
-          // the two cards in a row were sized from the column width and ended
-          // up visibly unequal once the descriptions differed in length.
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            mainAxisExtent: 218,
-          ),
-          itemCount: ChatScenario.all.length,
-          itemBuilder: (context, i) {
-            final scenario = ChatScenario.all[i];
-            final l10n = AppLocalizations.of(context);
-            final copy = _scenarioCopy(l10n, scenario.id);
-            final s = _scenarioStyle(context, scenario.id);
-            final art = _scenarioArt(scenario.id, l10n);
-            return Semantics(
-              label: l10n.a11yScenarioCard(copy.title, copy.description),
-              button: true,
-              excludeSemantics: true,
-              child: SoftCard(
-                padding: EdgeInsets.zero,
-                onTap:
-                    () => ref
-                        .read(chatProvider.notifier)
-                        .startConversation(scenario: scenario),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (art != null)
-                      ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(24),
-                        ),
-                        child: Image.asset(
-                          art.path,
-                          height: 96,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          semanticLabel: art.label,
-                        ),
-                      )
-                    else
-                      IconTile(
-                        icon: s.icon,
-                        tint: s.tint,
-                        fg: s.fg,
-                        size: 44,
-                        radius: 16,
-                        iconSize: 20,
-                      ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              copy.title,
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                                height: 1.2,
-                                color: t.ink,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Expanded(
-                              child: Text(
-                                copy.description,
-                                // Two lines is what the 218pt card actually
-                                // has room for; a third was drawn clipped
-                                // mid-word instead of ellipsised.
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: t.muted,
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 9,
-                                    vertical: 3,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: t.elev,
-                                    borderRadius: BorderRadius.circular(999),
-                                  ),
-                                  child: Text(
-                                    'A1',
-                                    style: TextStyle(
-                                      color: t.muted,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 7),
-                                Text(
-                                  '5–8 min',
-                                  style: TextStyle(
-                                    color: t.faint,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+        // New conversations need the AI chat subscription once the server
+        // requires it; while that is unknown, the cards stay.
+        if (!(ref.watch(aiChatAccessProvider).value ?? true))
+          const _AiChatLocked()
+        else ...[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SectionLabel(l10n.chatPickASituation),
+              Text(
+                l10n.chatRoomCount(ChatScenario.all.length),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: t.faint,
                 ),
               ),
-            );
-          },
-        ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            // A fixed extent rather than an aspect ratio: with an aspect ratio
+            // the two cards in a row were sized from the column width and ended
+            // up visibly unequal once the descriptions differed in length.
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              mainAxisExtent: 218,
+            ),
+            itemCount: ChatScenario.all.length,
+            itemBuilder: (context, i) {
+              final scenario = ChatScenario.all[i];
+              final l10n = AppLocalizations.of(context);
+              final copy = _scenarioCopy(l10n, scenario.id);
+              final s = _scenarioStyle(context, scenario.id);
+              final art = _scenarioArt(scenario.id, l10n);
+              return Semantics(
+                label: l10n.a11yScenarioCard(copy.title, copy.description),
+                button: true,
+                excludeSemantics: true,
+                child: SoftCard(
+                  padding: EdgeInsets.zero,
+                  onTap:
+                      () => ref
+                          .read(chatProvider.notifier)
+                          .startConversation(scenario: scenario),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (art != null)
+                        ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(24),
+                          ),
+                          child: Image.asset(
+                            art.path,
+                            height: 96,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            semanticLabel: art.label,
+                          ),
+                        )
+                      else
+                        IconTile(
+                          icon: s.icon,
+                          tint: s.tint,
+                          fg: s.fg,
+                          size: 44,
+                          radius: 16,
+                          iconSize: 20,
+                        ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 12, 16, 14),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                copy.title,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700,
+                                  height: 1.2,
+                                  color: t.ink,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Expanded(
+                                child: Text(
+                                  copy.description,
+                                  // Two lines is what the 218pt card actually
+                                  // has room for; a third was drawn clipped
+                                  // mid-word instead of ellipsised.
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: t.muted,
+                                    height: 1.4,
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 9,
+                                      vertical: 3,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: t.elev,
+                                      borderRadius: BorderRadius.circular(999),
+                                    ),
+                                    child: Text(
+                                      'A1',
+                                      style: TextStyle(
+                                        color: t.muted,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 7),
+                                  Text(
+                                    '5–8 min',
+                                    style: TextStyle(
+                                      color: t.faint,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ],
     );
   }
@@ -1381,6 +1404,75 @@ class _InputBar extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// The chat error in the learner's language when the server said why, and
+/// the service's own text otherwise.
+String _chatErrorText(AppLocalizations l10n, ChatState chat) => switch (chat
+    .errorCode) {
+  'ai_entitlement_required' => l10n.chatErrorEntitlement,
+  'quota_exceeded' => l10n.chatErrorQuota,
+  'ai_temporarily_unavailable' => l10n.chatErrorUnavailable,
+  'result_unavailable' => l10n.chatErrorResultUnknown,
+  'client_update_required' => l10n.chatErrorUpdate,
+  _ => chat.error ?? '',
+};
+
+/// Shown in place of the scenario cards when new conversations need the AI
+/// chat subscription. Past conversations above it stay open to read.
+class _AiChatLocked extends ConsumerWidget {
+  const _AiChatLocked();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final limit =
+        ref.watch(monetizationConfigurationProvider).value?.aiDailyTurnLimit ??
+        MonetizationConfiguration.defaultAiDailyTurnLimit;
+    return SoftCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              IconTile(
+                icon: Icons.forum_outlined,
+                tint: t.priSoft,
+                fg: t.pri,
+                size: 44,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Semantics(
+                  header: true,
+                  child: Text(
+                    l10n.chatLockedTitle,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: t.ink,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            l10n.chatLockedBody(limit),
+            style: TextStyle(fontSize: 14, height: 1.45, color: t.muted),
+          ),
+          const SizedBox(height: 14),
+          PrimaryButton(
+            label: l10n.chatSeeAiPlan,
+            height: 48,
+            onPressed: () => context.push('/subscriptions'),
+          ),
+        ],
       ),
     );
   }

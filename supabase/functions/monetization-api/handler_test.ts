@@ -81,6 +81,7 @@ Deno.test("configuration reports the proxy's paid-chat switch", async () => {
   );
   const body = await response.json();
   assertEquals(body.paid_chat_required, true);
+  assertEquals(body.ai_daily_turn_limit, 20);
   assertEquals(body.course_paywall_enabled, false);
 });
 Deno.test("Ed25519 compact JWS interoperates with JOSE verifier and rejects tampering", async () => {

@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../core/theme/app_tokens.dart';
 import '../../../data/monetization/billing_flow.dart';
+import '../../../data/monetization/monetization_api.dart';
 import '../../../domain/entities/monetization_snapshot.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/account_providers.dart';
@@ -26,6 +27,10 @@ class SubscriptionsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final supported = ref.watch(billingPlatformSupportedProvider);
     final checkout = ref.watch(checkoutEnabledProvider).value ?? false;
+    // The AI plan states the limit the server enforces, not a copy of it.
+    final aiDailyTurnLimit =
+        ref.watch(monetizationConfigurationProvider).value?.aiDailyTurnLimit ??
+        MonetizationConfiguration.defaultAiDailyTurnLimit;
     final user = ref.watch(accountUserProvider).value;
     final linked = user != null && !user.isAnonymous;
     final billing = ref.watch(billingProvider);
@@ -76,7 +81,7 @@ class SubscriptionsScreen extends ConsumerWidget {
                 (
                   'czechify_ai',
                   l10n.subscriptionsAiTitle,
-                  l10n.subscriptionsAiBody,
+                  l10n.subscriptionsAiBodyLimit(aiDailyTurnLimit),
                   snapshot?.aiChat,
                 ),
               ]) ...[

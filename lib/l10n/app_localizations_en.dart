@@ -3568,4 +3568,59 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get curriculumNextLevelBody =>
       'Change your level in Settings. Everything you have finished stays open.';
+
+  @override
+  String get chatErrorEntitlement =>
+      'Talking with the tutor needs the AI chat subscription.';
+
+  @override
+  String get chatErrorQuota =>
+      'You\'ve used today\'s tutor replies. More tomorrow.';
+
+  @override
+  String get chatErrorUnavailable =>
+      'The tutor is unavailable right now. Your message is saved; try again later.';
+
+  @override
+  String get chatErrorResultUnknown =>
+      'We couldn\'t confirm the tutor\'s reply. Sending again uses a new reply.';
+
+  @override
+  String get chatErrorUpdate =>
+      'Update Czechify to keep talking with the tutor.';
+
+  @override
+  String get chatSeeAiPlan => 'See AI chat';
+
+  @override
+  String get chatSendAgain => 'Send again';
+
+  @override
+  String get chatLockedTitle => 'Talk with the AI tutor';
+
+  @override
+  String chatLockedBody(int limit) {
+    String _temp0 = intl.Intl.pluralLogic(
+      limit,
+      locale: localeName,
+      other:
+          'Practise real conversations with a tutor who corrects you as you go: up to $limit tutor replies a day with the AI chat subscription. Lessons and exams are part of Czechify Core, not AI chat. Your past conversations stay readable.',
+      one:
+          'Practise real conversations with a tutor who corrects you as you go: up to $limit tutor reply a day with the AI chat subscription. Lessons and exams are part of Czechify Core, not AI chat. Your past conversations stay readable.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String subscriptionsAiBodyLimit(int limit) {
+    String _temp0 = intl.Intl.pluralLogic(
+      limit,
+      locale: localeName,
+      other:
+          'Conversations with the AI tutor, up to $limit tutor replies a day. Lessons and exams are not included; they are part of Czechify Core.',
+      one:
+          'Conversations with the AI tutor, up to $limit tutor reply a day. Lessons and exams are not included; they are part of Czechify Core.',
+    );
+    return '$_temp0';
+  }
 }
