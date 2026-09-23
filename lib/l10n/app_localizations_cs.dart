@@ -3543,4 +3543,40 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get referralsErrorGeneric =>
       'Teď se to nepodařilo ověřit. Zkuste to prosím znovu.';
+
+  @override
+  String get offlineSetupTitle => 'Připravujeme vaše první lekce';
+
+  @override
+  String get offlineSetupBody =>
+      'Ukládáme zvuk k vašim prvním jednotkám, aby fungovaly bez připojení k internetu. Jde o několik megabajtů.';
+
+  @override
+  String get offlineSetupNoConnectionTitle => 'Teď nejste připojeni';
+
+  @override
+  String get offlineSetupNoConnectionBody =>
+      'Učit se můžete začít hned – lekce se budou načítat průběžně. Až se později připojíte k Wi-Fi, uložíme první jednotky do zařízení, aby fungovaly offline.';
+
+  @override
+  String get offlineSetupStarting => 'Začínáme…';
+
+  @override
+  String offlineSetupClips(int completed, int total) {
+    return '$completed z $total nahrávek';
+  }
+
+  @override
+  String get offlineSetupStart => 'Začít se učit';
+
+  @override
+  String get offlineSetupSkip => 'Zatím přeskočit';
+
+  @override
+  String get curriculumNextLevelTitle =>
+      'To je celé A1. Chcete pokračovat na A2?';
+
+  @override
+  String get curriculumNextLevelBody =>
+      'Úroveň změníte v Nastavení. Vše, co jste dokončili, zůstane otevřené.';
 }

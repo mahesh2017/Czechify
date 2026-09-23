@@ -1460,5 +1460,25 @@
   "referralsErrorIneligible": "This code can't be used. Codes work within 7 days of creating your account, before you finish the first unit, and not with your own code.",
   "referralsErrorClosed": "Invitations aren't open right now.",
   "referralsErrorRateLimited": "Too many tries. Please try again in an hour.",
-  "referralsErrorGeneric": "Couldn't check that right now. Please try again."
+  "referralsErrorGeneric": "Couldn't check that right now. Please try again.",
+  "offlineSetupTitle": "Getting your first lessons ready",
+  "offlineSetupBody": "Saving the audio for your first units so they work without an internet connection. This is a few megabytes.",
+  "offlineSetupNoConnectionTitle": "No connection right now",
+  "offlineSetupNoConnectionBody": "You can start learning straight away — lessons will load as you go. Connect to Wi-Fi later and we'll save the first units to your device so they work offline.",
+  "offlineSetupStarting": "Starting…",
+  "offlineSetupClips": "{completed} of {total} clips",
+  "@offlineSetupClips": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "offlineSetupStart": "Start learning",
+  "offlineSetupSkip": "Skip for now",
+  "curriculumNextLevelTitle": "That is all of A1. Ready for A2?",
+  "curriculumNextLevelBody": "Change your level in Settings. Everything you have finished stays open."
 }

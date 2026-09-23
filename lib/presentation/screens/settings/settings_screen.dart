@@ -18,7 +18,6 @@ import '../../providers/settings_providers.dart';
 import '../../providers/reminder_coordinator.dart';
 import '../../../domain/entities/enums.dart';
 import '../../providers/tts_providers.dart';
-import '../onboarding/offline_setup_screen.dart';
 import '../../../data/services/audio/offline_audio_prefetch.dart';
 import '../../providers/audio_prefetch_providers.dart';
 import '../../providers/app_info_providers.dart';
@@ -144,10 +143,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     // almost certainly absent. Left alone, the first lesson falls back to the
     // device voice under an offline notice on a working connection.
     final gender = ref.read(settingsProvider).ttsVoiceGender;
-    final units = await OfflineAudioPrefetch.unitsForLevel(
-      level,
-      count: OfflineSetupScreen.prefetchUnitCount,
-    );
+    final units = await ref.read(offlineAudioUnitsProvider(level).future);
     final missing = await ref
         .read(offlineAudioPrefetchProvider)
         .missingFiles(units, gender.name);
@@ -182,9 +178,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await ref.read(settingsProvider.notifier).setTtsVoiceGender(gender);
 
     final prefetch = ref.read(offlineAudioPrefetchProvider);
-    final units = await OfflineAudioPrefetch.unitsForLevel(
-      ref.read(settingsProvider).startingLevel,
-      count: OfflineSetupScreen.prefetchUnitCount,
+    final units = await ref.read(
+      offlineAudioUnitsProvider(
+        ref.read(settingsProvider).startingLevel,
+      ).future,
     );
     final missing = await prefetch.missingFiles(units, gender.name);
     if (missing.isEmpty) {

@@ -6115,6 +6115,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t check that right now. Please try again.'**
   String get referralsErrorGeneric;
+
+  /// No description provided for @offlineSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting your first lessons ready'**
+  String get offlineSetupTitle;
+
+  /// No description provided for @offlineSetupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving the audio for your first units so they work without an internet connection. This is a few megabytes.'**
+  String get offlineSetupBody;
+
+  /// No description provided for @offlineSetupNoConnectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No connection right now'**
+  String get offlineSetupNoConnectionTitle;
+
+  /// No description provided for @offlineSetupNoConnectionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can start learning straight away — lessons will load as you go. Connect to Wi-Fi later and we\'ll save the first units to your device so they work offline.'**
+  String get offlineSetupNoConnectionBody;
+
+  /// No description provided for @offlineSetupStarting.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting…'**
+  String get offlineSetupStarting;
+
+  /// No description provided for @offlineSetupClips.
+  ///
+  /// In en, this message translates to:
+  /// **'{completed} of {total} clips'**
+  String offlineSetupClips(int completed, int total);
+
+  /// No description provided for @offlineSetupStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning'**
+  String get offlineSetupStart;
+
+  /// No description provided for @offlineSetupSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get offlineSetupSkip;
+
+  /// No description provided for @curriculumNextLevelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'That is all of A1. Ready for A2?'**
+  String get curriculumNextLevelTitle;
+
+  /// No description provided for @curriculumNextLevelBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Change your level in Settings. Everything you have finished stays open.'**
+  String get curriculumNextLevelBody;
 }
 
 class _AppLocalizationsDelegate

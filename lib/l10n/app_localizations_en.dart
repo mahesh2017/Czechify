@@ -3533,4 +3533,39 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get referralsErrorGeneric =>
       'Couldn\'t check that right now. Please try again.';
+
+  @override
+  String get offlineSetupTitle => 'Getting your first lessons ready';
+
+  @override
+  String get offlineSetupBody =>
+      'Saving the audio for your first units so they work without an internet connection. This is a few megabytes.';
+
+  @override
+  String get offlineSetupNoConnectionTitle => 'No connection right now';
+
+  @override
+  String get offlineSetupNoConnectionBody =>
+      'You can start learning straight away — lessons will load as you go. Connect to Wi-Fi later and we\'ll save the first units to your device so they work offline.';
+
+  @override
+  String get offlineSetupStarting => 'Starting…';
+
+  @override
+  String offlineSetupClips(int completed, int total) {
+    return '$completed of $total clips';
+  }
+
+  @override
+  String get offlineSetupStart => 'Start learning';
+
+  @override
+  String get offlineSetupSkip => 'Skip for now';
+
+  @override
+  String get curriculumNextLevelTitle => 'That is all of A1. Ready for A2?';
+
+  @override
+  String get curriculumNextLevelBody =>
+      'Change your level in Settings. Everything you have finished stays open.';
 }

@@ -38,7 +38,12 @@ class UpgradeScreen extends ConsumerWidget {
                   onPressed: () => Navigator.of(context).maybePop(),
                   icon: Icon(Icons.arrow_back_ios_new, size: 18, color: t.ink),
                 ),
-                Expanded(child: DisplayText(l10n.upgradeTitle, size: 24)),
+                Expanded(
+                  child: Semantics(
+                    header: true,
+                    child: DisplayText(l10n.upgradeTitle, size: 24),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -104,12 +109,15 @@ class _Option extends StatelessWidget {
               IconTile(icon: icon, tint: t.priSoft, fg: t.pri, size: 44),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: t.ink,
+                child: Semantics(
+                  header: true,
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: t.ink,
+                    ),
                   ),
                 ),
               ),

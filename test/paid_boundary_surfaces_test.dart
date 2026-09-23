@@ -42,14 +42,15 @@ Unit _unit(int id, Phase phase) => Unit(
   orderIndex: id,
 );
 
-CurriculumPathItem _item(Unit unit) => CurriculumPathItem(
-  unit: unit,
-  lessons: const [],
-  state: CurriculumPathState.available,
-  section: unit.phase == Phase.a1 ? 'A1' : 'A2',
-  payoff: '',
-  durationMinutes: 10,
-);
+CurriculumPathItem _item(Unit unit, CurriculumPathState state) =>
+    CurriculumPathItem(
+      unit: unit,
+      lessons: const [],
+      state: state,
+      section: unit.phase == Phase.a1 ? 'A1' : 'A2',
+      payoff: '',
+      durationMinutes: 10,
+    );
 
 void main() {
   late AppDatabase database;
@@ -61,6 +62,8 @@ void main() {
     Widget screen, {
     Lesson? boundary,
     bool referrals = true,
+    Set<int> unlocked = const {1, 4, 16},
+    CurriculumPathState state = CurriculumPathState.available,
     Set<int> accessible = const {1},
     CEFRLevel level = CEFRLevel.a1,
   }) async {
@@ -96,9 +99,9 @@ void main() {
           paidBoundaryLessonProvider.overrideWith((_) async => boundary),
           referralsEnabledProvider.overrideWith((_) async => referrals),
           allUnitsProvider.overrideWith((_) async => units),
-          unlockedUnitIdsProvider.overrideWith((_) async => {1, 4, 16}),
+          unlockedUnitIdsProvider.overrideWith((_) async => unlocked),
           curriculumPathItemsProvider.overrideWith(
-            (_) async => [for (final unit in units) _item(unit)],
+            (_) async => [for (final unit in units) _item(unit, state)],
           ),
           commerciallyAccessibleUnitIdsProvider.overrideWith(
             (_) async => accessible,
@@ -188,6 +191,23 @@ void main() {
     ) async {
       await pump(tester, const CurriculumScreen(), accessible: {1, 4, 16});
       expect(find.text('Part of the full course'), findsNothing);
+      await settle(tester);
+    });
+
+    testWidgets('a locked unit says what opens it', (tester) async {
+      await pump(tester, const CurriculumScreen(), unlocked: {1});
+      expect(find.text('· Unlocks after unit 1'), findsOneWidget);
+      await settle(tester);
+    });
+
+    testWidgets('finishing A1 offers the next level', (tester) async {
+      await pump(
+        tester,
+        const CurriculumScreen(),
+        accessible: {1, 4, 16},
+        state: CurriculumPathState.completed,
+      );
+      expect(find.text('That is all of A1. Ready for A2?'), findsOneWidget);
       await settle(tester);
     });
   });

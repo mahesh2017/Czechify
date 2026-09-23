@@ -1,6 +1,7 @@
 import 'package:czechify/data/database/database.dart' hide Unit;
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/unit.dart';
+import 'package:czechify/presentation/providers/audio_prefetch_providers.dart';
 import 'package:czechify/presentation/providers/curriculum_providers.dart';
 import 'package:czechify/presentation/providers/database_providers.dart';
 import 'package:czechify/presentation/providers/settings_providers.dart';
@@ -33,12 +34,19 @@ void main() {
 
   tearDown(() async => database.close());
 
-  Future<void> openSettings(WidgetTester tester) async {
+  Future<void> openSettings(
+    WidgetTester tester, {
+    List<int>? audioUnits,
+  }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           databaseProvider.overrideWithValue(database),
           allUnitsProvider.overrideWith((ref) async => _units),
+          if (audioUnits != null)
+            offlineAudioUnitsProvider.overrideWith(
+              (ref, level) async => audioUnits,
+            ),
         ],
         child: const MaterialApp(
           localizationsDelegates: testLocalizationsDelegates,
@@ -63,8 +71,11 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  Future<void> openLevelSheet(WidgetTester tester) async {
-    await openSettings(tester);
+  Future<void> openLevelSheet(
+    WidgetTester tester, {
+    List<int>? audioUnits,
+  }) async {
+    await openSettings(tester, audioUnits: audioUnits);
     await tester.scrollUntilVisible(find.text('Course level'), 200);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Course level'));
@@ -79,7 +90,10 @@ void main() {
     expect(find.text('Choose your course level'), findsOneWidget);
     // Both levels are explained in terms of what a learner will be able to do.
     expect(find.textContaining('Start from Czech sounds'), findsOneWidget);
-    expect(find.textContaining('what happened and what you plan'), findsOneWidget);
+    expect(
+      find.textContaining('what happened and what you plan'),
+      findsOneWidget,
+    );
     // Nothing has changed yet.
     expect(
       ProviderScope.containerOf(
@@ -147,5 +161,17 @@ void main() {
       isNull,
       reason: 'nothing was written',
     );
+  });
+
+  testWidgets('a level with no audio the account can open asks to download '
+      'nothing', (tester) async {
+    // A2 is paid, so none of its units are fetched ahead for this account.
+    await openLevelSheet(tester, audioUnits: const []);
+    await chooseA2AndContinue(tester);
+    await tester.tap(find.text('Switch to A2'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('A2 is now open.'), findsOneWidget);
+    expect(find.textContaining('A2 audio'), findsNothing);
   });
 }

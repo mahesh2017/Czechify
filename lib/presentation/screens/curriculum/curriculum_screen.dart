@@ -730,7 +730,12 @@ class _PathUnit extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      // Wraps rather than overflowing: at large text sizes
+                      // the label and the status pill do not fit on one line.
+                      Wrap(
+                        spacing: 9,
+                        runSpacing: 4,
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
                           Text(
                             l10n.curriculumUnit(number).toUpperCase(),
@@ -741,8 +746,7 @@ class _PathUnit extends ConsumerWidget {
                               letterSpacing: 1.9,
                             ),
                           ),
-                          if (inProgress) ...[
-                            const SizedBox(width: 9),
+                          if (inProgress)
                             Container(
                               padding: const EdgeInsets.fromLTRB(9, 3, 9, 3),
                               decoration: BoxDecoration(
@@ -758,22 +762,18 @@ class _PathUnit extends ConsumerWidget {
                                   letterSpacing: 1.4,
                                 ),
                               ),
-                            ),
-                          ] else if (!isUnlocked && number > 1) ...[
-                            const SizedBox(width: 9),
-                            Flexible(
-                              child: Text(
-                                '· ${l10n.curriculumUnlocksAfter(number - 1)}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: t.faint,
-                                ),
+                            )
+                          else if (!isUnlocked && number > 1)
+                            Text(
+                              '· ${l10n.curriculumUnlocksAfter(number - 1)}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: t.faint,
                               ),
                             ),
-                          ],
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -1049,7 +1049,7 @@ class _PaidUnitNotice extends ConsumerWidget {
               alignment: AlignmentDirectional.centerStart,
               child: OutlinedButton(
                 onPressed: () => context.push('/upgrade?unit=${unit.id}'),
-                style: OutlinedButton.styleFrom(minimumSize: const Size(0, 44)),
+                style: OutlinedButton.styleFrom(minimumSize: const Size(0, 48)),
                 child: Text(l10n.paidUnitAction),
               ),
             ),
@@ -1432,7 +1432,7 @@ class _NextLevelPrompt extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'That is all of A1. Ready for A2?',
+                    AppLocalizations.of(context).curriculumNextLevelTitle,
                     style: TextStyle(
                       fontFamily: AppFonts.display,
                       color: t.ink,
@@ -1442,8 +1442,7 @@ class _NextLevelPrompt extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Change your level in Settings. Everything you have '
-                    'finished stays open.',
+                    AppLocalizations.of(context).curriculumNextLevelBody,
                     style: TextStyle(
                       color: t.muted,
                       fontSize: 13.5,

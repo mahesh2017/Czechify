@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/services/audio/offline_audio_prefetch.dart';
+import '../../domain/entities/enums.dart';
+import 'course_admission_providers.dart';
 
 /// Pre-downloads unit audio into the cache [CzechTts] already plays from.
 final offlineAudioPrefetchProvider = Provider<OfflineAudioPrefetch>((ref) {
@@ -31,3 +33,24 @@ final voiceAudioReadyProvider =
       final missing = await prefetch.missingFiles(args.units, args.gender);
       return missing.isEmpty;
     });
+
+/// Units whose audio is downloaded ahead for [level]: the level's first few,
+/// less any the account cannot open under the course paywall. Only new
+/// downloads are held back; clips already on the device stay and still play.
+/// While the paywall is off every unit is accessible, as before.
+final offlineAudioUnitsProvider = FutureProvider.family<List<int>, CEFRLevel>((
+  ref,
+  level,
+) async {
+  final units = await OfflineAudioPrefetch.unitsForLevel(
+    level,
+    count: OfflineAudioPrefetch.setupUnitCount,
+  );
+  final accessible = await ref.watch(
+    commerciallyAccessibleUnitIdsProvider.future,
+  );
+  return [
+    for (final id in units)
+      if (accessible.contains(id)) id,
+  ];
+});
