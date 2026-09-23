@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "manifest_sha256": "3e3949719e0e8419dca4671071226c6970e5f03983fa740b124c15fa9dd78da9",
+  "tasks": [
+    {
+      "task_id": "a1-practice-1/s1/q0",
+      "operation": "writing_evaluation",
+      "level": "a1",
+      "task_description": "Write about yourself: your name, age, where you live, what you do, and what you like to do in your free time. Write at least 30 words in Czech.",
+      "source": "assets/curriculum/exam_bank_permres_a1.json",
+      "source_sha256": "3db63770f622924bbd29d30fc819135ad7708d4cd86b35f5b52d517f9311bd4f"
+    },
+    {
+      "task_id": "a1-practice-2/s1/q0",
+      "operation": "writing_evaluation",
+      "level": "a1",
+      "task_description": "You are writing an email to your Czech friend. Tell them what you did last weekend (at least 30 words in Czech). Use past tense.",
+      "source": "assets/curriculum/exam_bank_permres_a1.json",
+      "source_sha256": "3db63770f622924bbd29d30fc819135ad7708d4cd86b35f5b52d517f9311bd4f"
+    },
+    {
+      "task_id": "a1-practice-2/s1/q1",
+      "operation": "writing_evaluation",
+      "level": "a1",
+      "task_description": "Write a short message to a restaurant to reserve a table for 4 people on Friday at 7 PM. Include your name and phone number. Write at least 20 words in Czech.",
+      "source": "assets/curriculum/exam_bank_permres_a1.json",
+      "source_sha256": "3db63770f622924bbd29d30fc819135ad7708d4cd86b35f5b52d517f9311bd4f"
+    },
+    {
+      "task_id": "a1-practice-3/s1/q0",
+      "operation": "writing_evaluation",
+      "level": "a1",
+      "task_description": "Write a short text about your family. Describe who is in your family, where they live, and what they do. Write at least 40 words in Czech.",
+      "source": "assets/curriculum/exam_bank_permres_a1.json",
+      "source_sha256": "3db63770f622924bbd29d30fc819135ad7708d4cd86b35f5b52d517f9311bd4f"
+    },
+    {
+      "task_id": "a1-practice-3/s1/q1",
+      "operation": "writing_evaluation",
+      "level": "a1",
+      "task_description": "You want to buy a phone. Write a message to a shop asking about: the price, available colors, and warranty. Write at least 25 words in Czech.",
+      "source": "assets/curriculum/exam_bank_permres_a1.json",
+      "source_sha256": "3db63770f622924bbd29d30fc819135ad7708d4cd86b35f5b52d517f9311bd4f"
+    },
+    {
+      "task_id": "a2-practice-1/s1/q0",
+      "operation": "writing_evaluation",
+      "level": "a2",
+      "task_description": "Napište e-mail svému nadřízenému (šéfovi/šéfové), ve kterém se omluvíte za to, že nemůžete přijít do práce. Uveďte důvod (např. nemoc, rodinný problém), řekněte, jak dlouho budete chybět, a navrhněte, jak nahradíte zmeškanou práci. (60–80 slov)",
+      "source": "assets/curriculum/exam_bank_permres_a2.json",
+      "source_sha256": "236d94c529ad361a99652b33b662ae22c3d638e4a87a321325c97a7810028d26"
+    },
+    {
+      "task_id": "a2-practice-1/s1/q1",
+      "operation": "writing_evaluation",
+      "level": "a2",
+      "task_description": "Popište svůj byt nebo dům. Napište, kde bydlíte, kolik máte pokojů, co se vám na vašem bydlení líbí a co byste chtěli změnit. (50–70 slov)",
+      "source": "assets/curriculum/exam_bank_permres_a2.json",
+      "source_sha256": "236d94c529ad361a99652b33b662ae22c3d638e4a87a321325c97a7810028d26"
+    },
+    {
+      "task_id": "a2-practice-2/s1/q0",
+      "operation": "writing_evaluation",
+      "level": "a2",
+      "task_description": "Napište e-mail příteli nebo přítelkyni, ve kterém je pozvete na oslavu narozenin. Napište, kdy a kde se oslava koná, co byste chtěli dostat jako dárek (nebo že dárky nechcete), a co se bude na oslavě dělat. (60–80 slov)",
+      "source": "assets/curriculum/exam_bank_permres_a2.json",
+      "source_sha256": "236d94c529ad361a99652b33b662ae22c3d638e4a87a321325c97a7810028d26"
+    },
+    {
+      "task_id": "a2-practice-2/s1/q1",
+      "operation": "writing_evaluation",
+      "level": "a2",
+      "task_description": "Napište svůj názor na to, zda je lepší bydlet ve městě nebo na vesnici. Uveďte výhody a nevýhody obou možností a řekněte, kde byste chtěli bydlet v budoucnu. (50–70 slov)",
+      "source": "assets/curriculum/exam_bank_permres_a2.json",
+      "source_sha256": "236d94c529ad361a99652b33b662ae22c3d638e4a87a321325c97a7810028d26"
+    },
+    {
+      "task_id": "a2-practice-3/s1/q0",
+      "operation": "writing_evaluation",
+      "level": "a2",
+      "task_description": "Napište stížnost do restaurace, ve které jste byli nespokojeni s jídlem nebo službou. Popište, co se stalo, kdy se to stalo a co byste chtěli, aby restaurace udělala. (60–80 slov)",
+      "source": "assets/curriculum/exam_bank_permres_a2.json",
+      "source_sha256": "236d94c529ad361a99652b33b662ae22c3d638e4a87a321325c97a7810028d26"
+    },
+    {
+      "task_id": "a2-practice-3/s1/q1",
+      "operation": "writing_evaluation",
+      "level": "a2",
+      "task_description": "Napište krátký článek o svém městě nebo vesnici. Popište, co se tam nachází, co je zajímavého a proč by turisté měli vaše město navštívit. (50–70 slov)",
+      "source": "assets/curriculum/exam_bank_permres_a2.json",
+      "source_sha256": "236d94c529ad361a99652b33b662ae22c3d638e4a87a321325c97a7810028d26"
+    }
+  ]
+}

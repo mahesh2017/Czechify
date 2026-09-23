@@ -42,9 +42,7 @@ class SupabaseLlmService implements LlmService {
         dailyLimit: (data['daily_limit'] as num?)?.toInt(),
       );
     } on FunctionException catch (error) {
-      final details = error.details;
-      final message = details is Map ? details['error']?.toString() : null;
-      throw LlmServiceException(message ?? _messageForStatus(error.status));
+      throw llmFailure(error.status, error.details, request.operation);
     } catch (error) {
       if (error is LlmServiceException) rethrow;
       throw const LlmServiceException(
@@ -52,13 +50,6 @@ class SupabaseLlmService implements LlmService {
       );
     }
   }
-
-  String _messageForStatus(int status) => switch (status) {
-    401 => 'Your session expired. Restart the app and try again.',
-    429 => 'Daily AI tutor limit reached. Try again tomorrow.',
-    >= 500 => 'The AI tutor is temporarily unavailable. Try again later.',
-    _ => 'The AI tutor could not complete that request.',
-  };
 
   /// Streaming is not used by the current UI. Preserve the interface by
   /// yielding the completed payload as one final chunk.
@@ -70,4 +61,38 @@ class SupabaseLlmService implements LlmService {
 
   @override
   Future<bool> isAvailable() async => _client.auth.currentSession != null;
+}
+
+/// The learner-facing failure for a proxy error response. Course feedback
+/// refusals carry only a code, and their status alone would read as the
+/// tutor's chat limit.
+LlmServiceException llmFailure(
+  int status,
+  Object? details,
+  LlmOperation operation,
+) {
+  final code = details is Map ? details['code']?.toString() : null;
+  final message = details is Map ? details['error']?.toString() : null;
+  final chat =
+      operation == LlmOperation.conversation ||
+      operation == LlmOperation.conversationSummary;
+  final byCode = switch (code) {
+    'course_access_required' =>
+      'Feedback on this exam is part of the full course.',
+    'quota_exceeded' when chat =>
+      'Daily AI tutor limit reached. Try again tomorrow.',
+    'quota_exceeded' => 'Daily feedback limit reached. Try again tomorrow.',
+    'client_update_required' ||
+    'unknown_task' => 'Update Czechify to get feedback on this task.',
+    'ai_temporarily_unavailable' || 'result_unavailable' =>
+      'The AI tutor is temporarily unavailable. Try again later.',
+    _ => null,
+  };
+  final byStatus = switch (status) {
+    401 => 'Your session expired. Restart the app and try again.',
+    429 => 'Daily AI tutor limit reached. Try again tomorrow.',
+    >= 500 => 'The AI tutor is temporarily unavailable. Try again later.',
+    _ => 'The AI tutor could not complete that request.',
+  };
+  return LlmServiceException(byCode ?? message ?? byStatus, code: code);
 }

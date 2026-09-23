@@ -116,6 +116,7 @@ class WritingEvalNotifier extends Notifier<WritingEvalState> {
     required CEFRLevel level,
     required String taskDescription,
     required String learnerText,
+    String? taskId,
   }) async {
     state = const WritingEvalState(isEvaluating: true);
 
@@ -125,6 +126,7 @@ class WritingEvalNotifier extends Notifier<WritingEvalState> {
         level: level,
         taskDescription: taskDescription,
         learnerText: learnerText,
+        taskId: taskId,
       );
 
       final llm = ref.read(llmServiceProvider);

@@ -105,3 +105,9 @@ class ExamAssetException implements Exception {
   @override
   String toString() => 'ExamAssetException($product $level): $message';
 }
+
+/// The server's name for one writing task of a mock exam paper: the paper,
+/// then the section and question positions within it. The server evaluates
+/// against its own copy of that task (tool/generate_course_ai_tasks.py).
+String examTaskId(String examId, int sectionIndex, int questionIndex) =>
+    '$examId/s$sectionIndex/q$questionIndex';

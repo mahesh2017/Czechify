@@ -102,3 +102,28 @@ Primary library references: [Supabase function security](https://supabase.com/do
   - AI access is `has_ai_chat_access`: an active, in-grace or canceled-but-paid `ai_chat` purchase. Staff course overrides and referral grants never count.
   - The worker calls `cleanup_ai_request_records()`, which clears replay content after 24 hours and removes content-free tombstones after seven days.
 - **Unchanged here:** requests without a `request_id` (today's app) take the previous path while paid chat is not required; their cost now counts toward the ceiling. `grammar_check` and `writing_evaluation` also still take that path; PR 6b authorizes them against course content.
+
+## Course feedback authorization (PR 6b)
+
+- **Tasks:**
+  - Writing feedback names a server-known task: `context.task_id` = `<exam id>/s<section>/q<question>`.
+  - The server takes the task's text and level from `monetization_private.course_ai_tasks`. The client's `task_description` and `level` are ignored for such requests.
+  - A task request carries exactly one learner answer.
+  - Unknown tasks answer `404 unknown_task`.
+- **Manifest:**
+  - `tool/generate_course_ai_tasks.py` builds the task list from the bundled exam banks: 11 writing tasks, with the fixture in `docs/monetization/fixtures/course_ai_tasks.v1.json`.
+  - CI checks the fixture against the assets (`--check`) and the local database against the fixture (`--check-db`).
+  - A changed or new exam task needs a regenerated fixture and a new migration that ships before the app that uses it.
+- **Access:** `has_course_level_access` mirrors the app's `CourseAccessPolicy`. A level is open when every one of its units comes from one of these:
+  - the free units;
+  - an active staff override;
+  - Core;
+  - a migration grace window;
+  - permanent grants that have not been revoked.
+
+  The AI subscription alone is not course access.
+- **Switch:**
+  - `AI_COURSE_ACCESS_REQUIRED=true` refuses feedback for a level the account cannot open (`403 course_access_required`).
+  - It also refuses free-form writing feedback (`426 client_update_required`) and every `grammar_check`, which the app never sends (`403 course_task_required`).
+  - Default off. Today's app keeps the previous path until it is on.
+- **Allowance:** course feedback has its own daily counter, `AI_DAILY_FEEDBACK_LIMIT`, default 30, apart from chat turns and the legacy counter. Any failure refunds it to the day it was taken from, and the provider cost still counts toward the spend ceiling.

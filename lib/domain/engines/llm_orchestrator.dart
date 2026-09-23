@@ -264,16 +264,25 @@ class LLMOrchestrator {
   }
 
   /// Build a writing evaluation request (for mock exam writing section).
+  ///
+  /// [taskId] names the server's copy of the task, which is what the server
+  /// evaluates against; the description still travels for servers that
+  /// predate task IDs.
   LlmRequest buildWritingEvaluationRequest({
     required CEFRLevel level,
     required String taskDescription,
     required String learnerText,
+    String? taskId,
   }) {
     return LlmRequest(
       operation: LlmOperation.writingEvaluation,
       model: _selectModel(level),
       messages: [LlmMessage(LlmRole.user, learnerText)],
-      context: {'level': level.name, 'task_description': taskDescription},
+      context: {
+        'level': level.name,
+        'task_description': taskDescription,
+        if (taskId != null) 'task_id': taskId,
+      },
     );
   }
 
