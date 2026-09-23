@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../data/account/account_service.dart';
 import 'chat_providers.dart';
+import 'monetization_providers.dart';
 import 'curriculum_providers.dart';
 import 'database_providers.dart';
 import 'gamification_providers.dart';
@@ -24,20 +25,26 @@ final accountServiceProvider = Provider<AccountService>((ref) {
     // Read at throw time rather than captured here, so a language change
     // during the app's life is reflected without rebuilding the service.
     googleAuth: NativeGoogleAuthService(
-      localizations:
-          () => lookupAppLocalizations(
-            ref.read(settingsProvider).locale ?? const Locale('en'),
-          ),
+      localizations: () => lookupAppLocalizations(
+        ref.read(settingsProvider).locale ?? const Locale('en'),
+      ),
     ),
     ref.watch(backendServiceProvider),
     ref.watch(databaseProvider),
     ref.watch(syncServiceProvider),
     onAccountChanged: () => ref.invalidate(accountUserProvider),
-    onDeviceRemindersReset:
-        () =>
-            ref
-                .read(reminderCoordinatorProvider.notifier)
-                .resetDeviceReminders(),
+    onAccountTransitionStarted: () {
+      ref.read(monetizationRepositoryProvider).suspend();
+      ref.invalidate(monetizationLoadProvider);
+    },
+    onAccountTransitionEnded: () {
+      ref
+          .read(monetizationRepositoryProvider)
+          .resume(ref.read(backendServiceProvider).userId);
+      ref.invalidate(monetizationLoadProvider);
+    },
+    onDeviceRemindersReset: () =>
+        ref.read(reminderCoordinatorProvider.notifier).resetDeviceReminders(),
     onLocalDataChanged: () {
       ref.invalidate(gamificationProvider);
       ref.invalidate(lessonSessionProvider);

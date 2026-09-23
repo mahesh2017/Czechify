@@ -60,6 +60,7 @@ dependencies:
   package_info_plus: ^10.2.1
   # Google Play's native flexible in-app update flow (Android only).
   in_app_update: ^5.0.0
+  cryptography: ^2.9.0
 
 dev_dependencies:
   http: ^1.6.0

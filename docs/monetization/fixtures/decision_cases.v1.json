@@ -1,0 +1,951 @@
+{
+  "schema_version": 1,
+  "status": "Normative expected outcomes for future Dart, Deno and SQL tests; not an implemented test runner.",
+  "campaign_manifest": "campaign_manifest.v1.json",
+  "conventions": {
+    "unit_lists": "curriculum order, not numeric range inference",
+    "billing_state": "normalized current authoritative state; paused means pause has taken effect",
+    "time_boundaries": "half-open; equality at expiry or lease end denies access",
+    "commercial_access": "inputs are already normalized feature/window states; does not imply progression access",
+    "milestone_readiness": "empty ordinals during identity/review hold does not discard qualified evidence"
+  },
+  "cases": [
+    {
+      "kind": "commercial_access",
+      "id": "free_account",
+      "input": {
+        "active_permanent_unit_ids": [],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2
+        ],
+        "a2_unit_ids": []
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "one_referral_milestone",
+      "input": {
+        "active_permanent_unit_ids": [
+          3
+        ],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3
+        ],
+        "a2_unit_ids": []
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "one_referee_both_units",
+      "input": {
+        "active_permanent_unit_ids": [
+          3,
+          4
+        ],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "a2_unit_ids": []
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "full_a1_earned",
+      "input": {
+        "active_permanent_unit_ids": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28,
+          30
+        ],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28,
+          30
+        ],
+        "a2_unit_ids": []
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "active_core",
+      "input": {
+        "active_permanent_unit_ids": [],
+        "revoked_unit_ids": [],
+        "core_entitled": true,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28,
+          30
+        ],
+        "a2_unit_ids": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          29,
+          31
+        ]
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "core_expired_permanent_retained",
+      "input": {
+        "active_permanent_unit_ids": [
+          3,
+          4
+        ],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "a2_unit_ids": []
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "migration_grace",
+      "input": {
+        "active_permanent_unit_ids": [],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": true,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28,
+          30
+        ],
+        "a2_unit_ids": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          29,
+          31
+        ]
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "staff_course_override",
+      "input": {
+        "active_permanent_unit_ids": [],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": true
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28,
+          30
+        ],
+        "a2_unit_ids": [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          29,
+          31
+        ]
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "legacy_a2_grant",
+      "input": {
+        "active_permanent_unit_ids": [
+          3,
+          16
+        ],
+        "revoked_unit_ids": [],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          3
+        ],
+        "a2_unit_ids": [
+          16
+        ]
+      }
+    },
+    {
+      "kind": "commercial_access",
+      "id": "specific_fraud_revocation",
+      "input": {
+        "active_permanent_unit_ids": [
+          3,
+          4
+        ],
+        "revoked_unit_ids": [
+          3
+        ],
+        "core_entitled": false,
+        "migration_grace_active": false,
+        "staff_course_active": false
+      },
+      "expected": {
+        "a1_unit_ids": [
+          1,
+          2,
+          4
+        ],
+        "a2_unit_ids": []
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "first_referee",
+      "input": {
+        "permanent_owned_unit_ids": [],
+        "new_qualified_ordinals": [
+          1,
+          2
+        ],
+        "core_entitled": false
+      },
+      "expected": {
+        "new_unit_ids": [
+          3,
+          4
+        ],
+        "ordinal_outcomes": [
+          "granted",
+          "granted"
+        ]
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "second_referee",
+      "input": {
+        "permanent_owned_unit_ids": [
+          3,
+          4
+        ],
+        "new_qualified_ordinals": [
+          1,
+          2
+        ],
+        "core_entitled": false
+      },
+      "expected": {
+        "new_unit_ids": [
+          5,
+          6
+        ],
+        "ordinal_outcomes": [
+          "granted",
+          "granted"
+        ]
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "skip_legacy_owned",
+      "input": {
+        "permanent_owned_unit_ids": [
+          3,
+          5
+        ],
+        "new_qualified_ordinals": [
+          1,
+          2
+        ],
+        "core_entitled": false
+      },
+      "expected": {
+        "new_unit_ids": [
+          4,
+          6
+        ],
+        "ordinal_outcomes": [
+          "granted",
+          "granted"
+        ]
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "last_three_slots",
+      "input": {
+        "permanent_owned_unit_ids": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "new_qualified_ordinals": [
+          1,
+          2
+        ],
+        "core_entitled": false
+      },
+      "expected": {
+        "new_unit_ids": [
+          15,
+          28
+        ],
+        "ordinal_outcomes": [
+          "granted",
+          "granted"
+        ]
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "eighth_referee_first_unit",
+      "input": {
+        "permanent_owned_unit_ids": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28
+        ],
+        "new_qualified_ordinals": [
+          1
+        ],
+        "core_entitled": false
+      },
+      "expected": {
+        "new_unit_ids": [
+          30
+        ],
+        "ordinal_outcomes": [
+          "granted"
+        ]
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "eighth_referee_second_unit",
+      "input": {
+        "permanent_owned_unit_ids": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28
+        ],
+        "new_qualified_ordinals": [
+          1,
+          2
+        ],
+        "core_entitled": false
+      },
+      "expected": {
+        "new_unit_ids": [
+          30
+        ],
+        "ordinal_outcomes": [
+          "granted",
+          "cap_reached"
+        ]
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "already_owns_a1",
+      "input": {
+        "permanent_owned_unit_ids": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28,
+          30
+        ],
+        "new_qualified_ordinals": [
+          1,
+          2
+        ],
+        "core_entitled": false
+      },
+      "expected": {
+        "new_unit_ids": [],
+        "ordinal_outcomes": [
+          "cap_reached",
+          "cap_reached"
+        ]
+      }
+    },
+    {
+      "kind": "reward_allocation",
+      "id": "active_core_does_not_consume_slots",
+      "input": {
+        "permanent_owned_unit_ids": [],
+        "new_qualified_ordinals": [
+          1,
+          2
+        ],
+        "core_entitled": true
+      },
+      "expected": {
+        "new_unit_ids": [
+          3,
+          4
+        ],
+        "ordinal_outcomes": [
+          "granted",
+          "granted"
+        ]
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "pending",
+      "input": {
+        "state": "pending",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": false
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "active",
+      "input": {
+        "state": "active",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": true
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "in_grace_period",
+      "input": {
+        "state": "in_grace_period",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": true
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "canceled",
+      "input": {
+        "state": "canceled",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": true
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "on_hold",
+      "input": {
+        "state": "on_hold",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": false
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "paused",
+      "input": {
+        "state": "paused",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": false
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "expired",
+      "input": {
+        "state": "expired",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": false
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "revoked",
+      "input": {
+        "state": "revoked",
+        "now": "2026-10-01T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": false
+      }
+    },
+    {
+      "kind": "billing_access",
+      "id": "exact_expiry",
+      "input": {
+        "state": "canceled",
+        "now": "2026-10-05T12:00:00Z",
+        "valid_until": "2026-10-05T12:00:00Z"
+      },
+      "expected": {
+        "entitled": false
+      }
+    },
+    {
+      "kind": "paid_offline_lease",
+      "id": "inside_lease",
+      "input": {
+        "adjusted_now": "2026-10-03T12:00:00Z",
+        "valid_until": "2026-10-30T12:00:00Z",
+        "feature_verified_at": "2026-10-01T12:00:00Z",
+        "snapshot_issued_at": "2026-10-03T12:00:00Z"
+      },
+      "expected": {
+        "allowed": true
+      }
+    },
+    {
+      "kind": "paid_offline_lease",
+      "id": "exact_seven_day_boundary",
+      "input": {
+        "adjusted_now": "2026-10-08T12:00:00Z",
+        "valid_until": "2026-10-30T12:00:00Z",
+        "feature_verified_at": "2026-10-01T12:00:00Z",
+        "snapshot_issued_at": "2026-10-08T12:00:00Z"
+      },
+      "expected": {
+        "allowed": false
+      }
+    },
+    {
+      "kind": "paid_offline_lease",
+      "id": "paid_expiry_before_lease",
+      "input": {
+        "adjusted_now": "2026-10-03T12:00:00Z",
+        "valid_until": "2026-10-03T12:00:00Z",
+        "feature_verified_at": "2026-10-01T12:00:00Z",
+        "snapshot_issued_at": "2026-10-03T12:00:00Z"
+      },
+      "expected": {
+        "allowed": false
+      }
+    },
+    {
+      "kind": "paid_offline_lease",
+      "id": "fresh_snapshot_does_not_refresh_store_verification",
+      "input": {
+        "adjusted_now": "2026-10-10T12:00:00Z",
+        "valid_until": "2026-10-30T12:00:00Z",
+        "feature_verified_at": "2026-10-01T12:00:00Z",
+        "snapshot_issued_at": "2026-10-10T12:00:00Z"
+      },
+      "expected": {
+        "allowed": false
+      }
+    },
+    {
+      "kind": "milestone_readiness",
+      "id": "unit_two_arrives_first",
+      "input": {
+        "complete_manifest_unit_ids": [
+          2
+        ],
+        "both_accounts_linked": true,
+        "risk_state": "clear"
+      },
+      "expected": {
+        "awardable_ordinals": []
+      }
+    },
+    {
+      "kind": "milestone_readiness",
+      "id": "first_unit_qualifies",
+      "input": {
+        "complete_manifest_unit_ids": [
+          1
+        ],
+        "both_accounts_linked": true,
+        "risk_state": "clear"
+      },
+      "expected": {
+        "awardable_ordinals": [
+          1
+        ]
+      }
+    },
+    {
+      "kind": "milestone_readiness",
+      "id": "both_units_qualify",
+      "input": {
+        "complete_manifest_unit_ids": [
+          1,
+          2
+        ],
+        "both_accounts_linked": true,
+        "risk_state": "clear"
+      },
+      "expected": {
+        "awardable_ordinals": [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      "kind": "milestone_readiness",
+      "id": "wait_for_link",
+      "input": {
+        "complete_manifest_unit_ids": [
+          1,
+          2
+        ],
+        "both_accounts_linked": false,
+        "risk_state": "clear"
+      },
+      "expected": {
+        "awardable_ordinals": []
+      }
+    },
+    {
+      "kind": "milestone_readiness",
+      "id": "wait_for_risk_review",
+      "input": {
+        "complete_manifest_unit_ids": [
+          1,
+          2
+        ],
+        "both_accounts_linked": true,
+        "risk_state": "review"
+      },
+      "expected": {
+        "awardable_ordinals": []
+      }
+    },
+    {
+      "kind": "lesson_admission",
+      "id": "paid_and_ready",
+      "input": {
+        "commercially_accessible": true,
+        "progression_accessible": true,
+        "has_placement": false
+      },
+      "expected": {
+        "result": "allowed"
+      }
+    },
+    {
+      "kind": "lesson_admission",
+      "id": "paid_but_prerequisite_missing",
+      "input": {
+        "commercially_accessible": true,
+        "progression_accessible": false,
+        "has_placement": false
+      },
+      "expected": {
+        "result": "prerequisite_required"
+      }
+    },
+    {
+      "kind": "lesson_admission",
+      "id": "placement_cannot_bypass_paywall",
+      "input": {
+        "commercially_accessible": false,
+        "progression_accessible": true,
+        "has_placement": true
+      },
+      "expected": {
+        "result": "payment_required"
+      }
+    },
+    {
+      "kind": "lesson_admission",
+      "id": "payment_denial_precedes_prerequisite",
+      "input": {
+        "commercially_accessible": false,
+        "progression_accessible": false,
+        "has_placement": false
+      },
+      "expected": {
+        "result": "payment_required"
+      }
+    },
+    {
+      "kind": "transaction_scenario",
+      "id": "duplicate_same_milestone",
+      "input": {
+        "existing_owned_unit_ids": [],
+        "parallel_requests": [
+          {
+            "claim": "friend-a",
+            "ordinal": 1
+          },
+          {
+            "claim": "friend-a",
+            "ordinal": 1
+          }
+        ]
+      },
+      "expected": {
+        "new_unit_ids": [
+          3
+        ],
+        "reward_event_count": 1
+      }
+    },
+    {
+      "kind": "transaction_scenario",
+      "id": "two_friends_same_time",
+      "input": {
+        "existing_owned_unit_ids": [],
+        "parallel_requests": [
+          {
+            "claim": "friend-a",
+            "ordinal": 1
+          },
+          {
+            "claim": "friend-b",
+            "ordinal": 1
+          }
+        ]
+      },
+      "expected": {
+        "new_unit_ids": [
+          3,
+          4
+        ],
+        "reward_event_count": 2,
+        "claim_assignment_order": "unspecified"
+      }
+    },
+    {
+      "kind": "transaction_scenario",
+      "id": "two_friends_final_slot",
+      "input": {
+        "existing_owned_unit_ids": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          28
+        ],
+        "parallel_requests": [
+          {
+            "claim": "friend-a",
+            "ordinal": 1
+          },
+          {
+            "claim": "friend-b",
+            "ordinal": 1
+          }
+        ]
+      },
+      "expected": {
+        "new_unit_ids": [
+          30
+        ],
+        "reward_event_count": 2,
+        "outcome_counts": {
+          "granted": 1,
+          "cap_reached": 1
+        },
+        "claim_assignment_order": "unspecified"
+      }
+    }
+  ]
+}

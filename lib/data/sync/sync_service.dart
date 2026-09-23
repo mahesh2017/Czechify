@@ -465,10 +465,9 @@ class SyncService {
         _mutationDeviceIdMaxLength -
         _mutationSeparator.length -
         sequence.length;
-    final stablePart =
-        stableDeviceId.length <= maxStableLength
-            ? stableDeviceId
-            : stableDeviceId.substring(0, maxStableLength);
+    final stablePart = stableDeviceId.length <= maxStableLength
+        ? stableDeviceId
+        : stableDeviceId.substring(0, maxStableLength);
     return '$stablePart$_mutationSeparator$sequence';
   }
 
@@ -560,6 +559,9 @@ class SyncService {
       case 'placement_profiles':
         await _db.progressDao.mergeRemotePlacement(
           provisionalUnit: (r['provisional_unit'] as num?)?.toInt() ?? 1,
+          phaseCeilingsJson: r['phase_ceilings'] == null
+              ? null
+              : _jsonText(r['phase_ceilings'], const {}),
           learnerOverrideUnit: (r['learner_override_unit'] as num?)?.toInt(),
           estimatesJson: _jsonText(r['estimates'], const {}),
           sampleSize: (r['sample_size'] as num?)?.toInt() ?? 0,

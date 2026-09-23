@@ -11,6 +11,7 @@ import '../../domain/entities/lesson.dart';
 import '../../domain/entities/enums.dart';
 import '../../domain/engines/curriculum_access_policy.dart';
 import '../../domain/engines/level_switch.dart';
+import '../../domain/engines/placement_ceilings.dart';
 import '../../domain/engines/continue_lesson_selector.dart';
 import '../../domain/engines/learning_router.dart';
 import '../../domain/entities/learning_evidence.dart';
@@ -37,19 +38,25 @@ final levelSwitchProvider = Provider(
 
     final units = await ref.read(allUnitsProvider.future);
     final database = ref.read(databaseProvider);
-    final placement =
-        await database.select(database.placementProfiles).getSingleOrNull();
+    final placement = await database
+        .select(database.placementProfiles)
+        .getSingleOrNull();
     final target = const LevelSwitch().provisionalUnitFor(
       units: units,
       level: level,
       currentProvisionalUnit: placement?.provisionalUnit,
+      ceilings: PlacementCeilings.read(
+        json: placement?.phaseCeilingsJson,
+        legacyUnit: placement?.provisionalUnit,
+        units: units,
+      ),
     );
 
     // Null means the switch would move the ceiling down, so placement is left
     // exactly as it is — see [LevelSwitch.provisionalUnitFor]. The level still
     // changed, which is what the learner asked for.
     if (target != null) {
-      await database.progressDao.setProvisionalUnit(target);
+      await database.progressDao.setProvisionalUnit(target, curriculum: units);
       ref.invalidate(placementProfileProvider);
       ref.invalidate(curriculumAccessProvider);
       ref.invalidate(nextLessonProvider);
@@ -195,7 +202,11 @@ final curriculumAccessProvider = FutureProvider<CurriculumAccess>((ref) async {
     orderedUnits: allUnits,
     lessonsByUnit: lessonsByUnit,
     completedLessonIds: completedLessonIds,
-    provisionalThroughUnitId: placement?.provisionalUnit,
+    placements: PlacementCeilings.read(
+      json: placement?.phaseCeilingsJson,
+      legacyUnit: placement?.provisionalUnit,
+      units: allUnits,
+    ).placements,
     unlockAll:
         DevFlags.unlockAll || entitlement.isActiveAt(DateTime.now().toUtc()),
   );
@@ -227,20 +238,20 @@ final curriculumPathItemsProvider = FutureProvider<List<CurriculumPathItem>>((
     final levelUnits = units.where((unit) => unit.phase == phase).toList();
     for (final (index, unit) in levelUnits.indexed) {
       final lessons = await ref.watch(unitLessonsProvider(unit.id).future);
-      final completedCount =
-          lessons.where((lesson) => completed.contains(lesson.id)).length;
+      final completedCount = lessons
+          .where((lesson) => completed.contains(lesson.id))
+          .length;
       final unlocked = access.unlockedUnitIds.contains(unit.id);
-      final state =
-          lessons.isNotEmpty && completedCount == lessons.length
-              ? CurriculumPathState.completed
-              : !unlocked
-              ? CurriculumPathState.locked
-              : completedCount > 0 ||
-                  lessons.any(
-                    (lesson) => access.unlockedLessonIds.contains(lesson.id),
-                  )
-              ? CurriculumPathState.current
-              : CurriculumPathState.available;
+      final state = lessons.isNotEmpty && completedCount == lessons.length
+          ? CurriculumPathState.completed
+          : !unlocked
+          ? CurriculumPathState.locked
+          : completedCount > 0 ||
+                lessons.any(
+                  (lesson) => access.unlockedLessonIds.contains(lesson.id),
+                )
+          ? CurriculumPathState.current
+          : CurriculumPathState.available;
       result.add(
         CurriculumPathItem(
           unit: unit,
@@ -257,8 +268,9 @@ final curriculumPathItemsProvider = FutureProvider<List<CurriculumPathItem>>((
             0,
             (total, lesson) => total + lesson.durationMinutes,
           ),
-          recommendation:
-              state == CurriculumPathState.current ? 'Recommended next' : null,
+          recommendation: state == CurriculumPathState.current
+              ? 'Recommended next'
+              : null,
         ),
       );
     }
@@ -382,8 +394,10 @@ final continueLessonProvider = FutureProvider<NextLessonInfo?>((ref) async {
   // Watched so that finishing a lesson refreshes this; the completion times
   // themselves live on the progress rows.
   await ref.watch(completedLessonIdsProvider.future);
-  final completedRows =
-      await ref.read(databaseProvider).progressDao.getCompletedLessons();
+  final completedRows = await ref
+      .read(databaseProvider)
+      .progressDao
+      .getCompletedLessons();
 
   final lessons = <ContinueLessonCandidate>[];
   final lessonById = <int, (Lesson, String)>{};

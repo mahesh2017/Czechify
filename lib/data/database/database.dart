@@ -5,6 +5,8 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
 
+import '../../domain/engines/placement_ceilings.dart';
+import 'tables/monetization_snapshots.dart';
 import 'tables/units.dart';
 import 'tables/lessons.dart';
 import 'tables/exercises.dart';
@@ -45,6 +47,7 @@ part 'database.g.dart';
 @DriftDatabase(
   tables: [
     Units,
+    MonetizationSnapshots,
     Lessons,
     Exercises,
     Flashcards,
@@ -96,7 +99,8 @@ class AppDatabase extends _$AppDatabase {
   /// Version 6 scopes consent records to the account that made the decision.
   /// Version 7 adds the in-app tutor-reply report log.
   /// Version 8 queues learning history written before it was ever synced.
-  int get schemaVersion => 8;
+  /// Version 9 stores independent phase ceilings and signed access caches.
+  int get schemaVersion => 9;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -112,76 +116,74 @@ class AppDatabase extends _$AppDatabase {
   }) async => {
     'format_version': 1,
     'exported_at': DateTime.now().toUtc().toIso8601String(),
-    'lesson_progress':
-        (await select(lessonProgress).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'lesson_attempts':
-        (await select(lessonAttempts).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'reward_ledger':
-        (await select(rewardLedger).get()).map((row) => row.toJson()).toList(),
-    'exercise_attempts':
-        (await select(exerciseAttempts).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'review_attempts':
-        (await select(reviewAttempts).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'learning_evidence':
-        (await select(learningEvidenceEvents).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'placement_profiles':
-        (await select(placementProfiles).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'delayed_transfer_assignments':
-        (await select(delayedTransferAssignments).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'earned_badges':
-        (await select(earnedBadges).get()).map((row) => row.toJson()).toList(),
-    'user_progress':
-        (await select(userProgress).get()).map((row) => row.toJson()).toList(),
-    'srs_cards':
-        (await select(srsCards).get()).map((row) => row.toJson()).toList(),
-    'exam_results':
-        (await select(examResults).get()).map((row) => row.toJson()).toList(),
+    'lesson_progress': (await select(
+      lessonProgress,
+    ).get()).map((row) => row.toJson()).toList(),
+    'lesson_attempts': (await select(
+      lessonAttempts,
+    ).get()).map((row) => row.toJson()).toList(),
+    'reward_ledger': (await select(
+      rewardLedger,
+    ).get()).map((row) => row.toJson()).toList(),
+    'exercise_attempts': (await select(
+      exerciseAttempts,
+    ).get()).map((row) => row.toJson()).toList(),
+    'review_attempts': (await select(
+      reviewAttempts,
+    ).get()).map((row) => row.toJson()).toList(),
+    'learning_evidence': (await select(
+      learningEvidenceEvents,
+    ).get()).map((row) => row.toJson()).toList(),
+    'placement_profiles': (await select(
+      placementProfiles,
+    ).get()).map((row) => row.toJson()).toList(),
+    'delayed_transfer_assignments': (await select(
+      delayedTransferAssignments,
+    ).get()).map((row) => row.toJson()).toList(),
+    'earned_badges': (await select(
+      earnedBadges,
+    ).get()).map((row) => row.toJson()).toList(),
+    'user_progress': (await select(
+      userProgress,
+    ).get()).map((row) => row.toJson()).toList(),
+    'srs_cards': (await select(
+      srsCards,
+    ).get()).map((row) => row.toJson()).toList(),
+    'exam_results': (await select(
+      examResults,
+    ).get()).map((row) => row.toJson()).toList(),
     'consent_records':
-        (await (select(consentRecords)
-              ..where((row) => row.accountId.equals(accountId))).get())
+        (await (select(
+              consentRecords,
+            )..where((row) => row.accountId.equals(accountId))).get())
             .map((row) => row.toJson())
             .toList(),
-    'conversations':
-        (await select(conversations).get()).map((row) => row.toJson()).toList(),
-    'chat_messages':
-        (await select(chatMessages).get()).map((row) => row.toJson()).toList(),
+    'conversations': (await select(
+      conversations,
+    ).get()).map((row) => row.toJson()).toList(),
+    'chat_messages': (await select(
+      chatMessages,
+    ).get()).map((row) => row.toJson()).toList(),
     'custom_flashcards':
-        (await (select(flashcards)
-              ..where((row) => row.id.isBiggerThanValue(900000))).get())
+        (await (select(
+              flashcards,
+            )..where((row) => row.id.isBiggerThanValue(900000))).get())
             .map((row) => row.toJson())
             .toList(),
-    'gamification_state':
-        (await select(gamificationStateTable).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'learner_profiles':
-        (await select(learnerProfiles).get())
-            .map((row) => row.toJson())
-            .toList(),
-    'reminder_preferences':
-        (await select(reminderPreferences).get())
-            .map((row) => row.toJson())
-            .toList(),
+    'gamification_state': (await select(
+      gamificationStateTable,
+    ).get()).map((row) => row.toJson()).toList(),
+    'learner_profiles': (await select(
+      learnerProfiles,
+    ).get()).map((row) => row.toJson()).toList(),
+    'reminder_preferences': (await select(
+      reminderPreferences,
+    ).get()).map((row) => row.toJson()).toList(),
     // The learner's own words about a tutor reply. Filed by them, held by us,
     // and therefore theirs to ask for and theirs to have erased.
-    'tutor_reply_reports':
-        (await select(tutorReplyReports).get())
-            .map((row) => row.toJson())
-            .toList(),
+    'tutor_reply_reports': (await select(
+      tutorReplyReports,
+    ).get()).map((row) => row.toJson()).toList(),
   };
 
   /// Removes learner-created state before an account switch or after account
@@ -202,6 +204,7 @@ class AppDatabase extends _$AppDatabase {
   /// *deletion* is different and still clears it: that is erasure, and the
   /// record is the learner's to remove.
   Future<void> clearLearnerDataRows({bool preserveConsentLog = false}) async {
+    await delete(monetizationSnapshots).go();
     await delete(chatMessages).go();
     await delete(conversations).go();
     await delete(examResults).go();
@@ -217,8 +220,9 @@ class AppDatabase extends _$AppDatabase {
     await delete(earnedBadges).go();
     await delete(userProgress).go();
     await delete(srsCards).go();
-    await (delete(flashcards)
-      ..where((row) => row.id.isBiggerThanValue(900000))).go();
+    await (delete(
+      flashcards,
+    )..where((row) => row.id.isBiggerThanValue(900000))).go();
     await delete(syncQueue).go();
     await delete(syncState).go();
     await delete(gamificationStateTable).go();
@@ -231,9 +235,12 @@ class AppDatabase extends _$AppDatabase {
     // after account deletion or switching.
     final bundledIds =
         await (select(flashcards)..where(
-          (row) =>
-              row.id.isSmallerOrEqualValue(900000) & row.isActive.equals(true),
-        )).map((row) => row.id).get();
+              (row) =>
+                  row.id.isSmallerOrEqualValue(900000) &
+                  row.isActive.equals(true),
+            ))
+            .map((row) => row.id)
+            .get();
     if (bundledIds.isNotEmpty) {
       final now = DateTime.now();
       await batch((batch) {
@@ -313,6 +320,29 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 8) {
         await _backfillPortableLearningHistory();
+      }
+      if (from < 9) {
+        if (await _hasTable('placement_profiles')) {
+          await m.addColumn(
+            placementProfiles,
+            placementProfiles.phaseCeilingsJson,
+          );
+          for (final row in await select(placementProfiles).get()) {
+            final ceilings = PlacementCeilings.read(
+              json: null,
+              legacyUnit: row.provisionalUnit,
+              units: PlacementCeilings.bundledUnits,
+            );
+            await (update(
+              placementProfiles,
+            )..where((p) => p.key.equals(row.key))).write(
+              PlacementProfilesCompanion(
+                phaseCeilingsJson: Value(ceilings.encode()),
+              ),
+            );
+          }
+        }
+        await m.createTable(monetizationSnapshots);
       }
       // Not guarded by a version check. These indexes were only ever created
       // in [onCreate], so every upgraded install has been running without the
@@ -451,11 +481,10 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Future<bool> _hasTable(String name) async {
-    final rows =
-        await customSelect(
-          "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?",
-          variables: [Variable<String>(name)],
-        ).get();
+    final rows = await customSelect(
+      "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?",
+      variables: [Variable<String>(name)],
+    ).get();
     return rows.isNotEmpty;
   }
 
