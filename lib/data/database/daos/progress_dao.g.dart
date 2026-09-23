@@ -19,6 +19,8 @@ mixin _$ProgressDaoMixin on DatabaseAccessor<AppDatabase> {
       attachedDatabase.placementProfiles;
   $DelayedTransferAssignmentsTable get delayedTransferAssignments =>
       attachedDatabase.delayedTransferAssignments;
+  $ReferralReceiptOutboxTable get referralReceiptOutbox =>
+      attachedDatabase.referralReceiptOutbox;
   ProgressDaoManager get managers => ProgressDaoManager(this);
 }
 
@@ -66,5 +68,10 @@ class ProgressDaoManager {
       $$DelayedTransferAssignmentsTableTableManager(
         _db.attachedDatabase,
         _db.delayedTransferAssignments,
+      );
+  $$ReferralReceiptOutboxTableTableManager get referralReceiptOutbox =>
+      $$ReferralReceiptOutboxTableTableManager(
+        _db.attachedDatabase,
+        _db.referralReceiptOutbox,
       );
 }

@@ -1,3 +1,4 @@
+import '../entities/pending_referral_receipt.dart';
 import '../entities/gamification_state.dart';
 import '../entities/exercise_attempt_evidence.dart';
 
@@ -16,6 +17,7 @@ abstract class ProgressRepository {
     required int activityXp,
     required List<ExerciseAttemptEvidence> exerciseEvidence,
     String phase = 'initial',
+    PendingReferralReceipt? referralReceipt,
   });
   Future<Set<int>> getCompletedLessonIds();
   Future<ProgressSnapshot> getSnapshot();

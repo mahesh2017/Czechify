@@ -1,3 +1,4 @@
+import 'referral_providers.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -58,7 +59,10 @@ final syncServiceProvider = Provider<SyncService>((ref) {
 /// Lifecycle/connectivity trigger owner. [SyncService] coalesces all requests,
 /// so rapid resume and network events cannot create overlapping sync cycles.
 final syncTriggerCoordinatorProvider = Provider<SyncTriggerCoordinator>((ref) {
-  final coordinator = SyncTriggerCoordinator(ref.watch(syncServiceProvider));
+  final coordinator = SyncTriggerCoordinator(
+    ref.watch(syncServiceProvider),
+    alsoRun: () => drainReferralReceipts(ref),
+  );
   ref.onDispose(coordinator.dispose);
   return coordinator;
 });

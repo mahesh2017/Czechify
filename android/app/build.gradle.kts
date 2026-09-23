@@ -84,6 +84,9 @@ dependencies {
     // such as Brazil. Keep this pinned while the API is in beta so a release
     // cannot silently pick up a response-contract change.
     implementation("com.google.android.play:age-signals:0.0.4")
+    // Standard Play Integrity requests bind referral receipts to this app and
+    // device; the server decodes and judges the token.
+    implementation("com.google.android.play:integrity:1.6.0")
 }
 
 flutter {

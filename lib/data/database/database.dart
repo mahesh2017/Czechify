@@ -7,6 +7,7 @@ import 'dart:io';
 
 import '../../domain/engines/placement_ceilings.dart';
 import 'tables/monetization_snapshots.dart';
+import 'tables/referral_tables.dart';
 import 'tables/units.dart';
 import 'tables/lessons.dart';
 import 'tables/exercises.dart';
@@ -48,6 +49,8 @@ part 'database.g.dart';
   tables: [
     Units,
     MonetizationSnapshots,
+    ReferralClaims,
+    ReferralReceiptOutbox,
     Lessons,
     Exercises,
     Flashcards,
@@ -100,7 +103,8 @@ class AppDatabase extends _$AppDatabase {
   /// Version 7 adds the in-app tutor-reply report log.
   /// Version 8 queues learning history written before it was ever synced.
   /// Version 9 stores independent phase ceilings and signed access caches.
-  int get schemaVersion => 9;
+  /// Version 10 adds the referral claim and the lesson-receipt outbox.
+  int get schemaVersion => 10;
 
   /// Portable snapshot of learner-created state. Bundled curriculum rows are
   /// intentionally excluded because they are app content, not user data.
@@ -205,6 +209,8 @@ class AppDatabase extends _$AppDatabase {
   /// record is the learner's to remove.
   Future<void> clearLearnerDataRows({bool preserveConsentLog = false}) async {
     await delete(monetizationSnapshots).go();
+    await delete(referralClaims).go();
+    await delete(referralReceiptOutbox).go();
     await delete(chatMessages).go();
     await delete(conversations).go();
     await delete(examResults).go();
@@ -343,6 +349,10 @@ class AppDatabase extends _$AppDatabase {
           }
         }
         await m.createTable(monetizationSnapshots);
+      }
+      if (from < 10) {
+        await m.createTable(referralClaims);
+        await m.createTable(referralReceiptOutbox);
       }
       // Not guarded by a version check. These indexes were only ever created
       // in [onCreate], so every upgraded install has been running without the

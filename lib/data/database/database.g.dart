@@ -1015,6 +1015,1010 @@ class MonetizationSnapshotsCompanion
   }
 }
 
+class $ReferralClaimsTable extends ReferralClaims
+    with TableInfo<$ReferralClaimsTable, ReferralClaim> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReferralClaimsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _campaignIdMeta = const VerificationMeta(
+    'campaignId',
+  );
+  @override
+  late final GeneratedColumn<String> campaignId = GeneratedColumn<String>(
+    'campaign_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _claimIdMeta = const VerificationMeta(
+    'claimId',
+  );
+  @override
+  late final GeneratedColumn<String> claimId = GeneratedColumn<String>(
+    'claim_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _claimedAtMeta = const VerificationMeta(
+    'claimedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> claimedAt = GeneratedColumn<DateTime>(
+    'claimed_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    accountId,
+    campaignId,
+    claimId,
+    claimedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'referral_claims';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReferralClaim> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_accountIdMeta);
+    }
+    if (data.containsKey('campaign_id')) {
+      context.handle(
+        _campaignIdMeta,
+        campaignId.isAcceptableOrUnknown(data['campaign_id']!, _campaignIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_campaignIdMeta);
+    }
+    if (data.containsKey('claim_id')) {
+      context.handle(
+        _claimIdMeta,
+        claimId.isAcceptableOrUnknown(data['claim_id']!, _claimIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_claimIdMeta);
+    }
+    if (data.containsKey('claimed_at')) {
+      context.handle(
+        _claimedAtMeta,
+        claimedAt.isAcceptableOrUnknown(data['claimed_at']!, _claimedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_claimedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {accountId, campaignId};
+  @override
+  ReferralClaim map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReferralClaim(
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      )!,
+      campaignId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}campaign_id'],
+      )!,
+      claimId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}claim_id'],
+      )!,
+      claimedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}claimed_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ReferralClaimsTable createAlias(String alias) {
+    return $ReferralClaimsTable(attachedDatabase, alias);
+  }
+}
+
+class ReferralClaim extends DataClass implements Insertable<ReferralClaim> {
+  final String accountId;
+  final String campaignId;
+  final String claimId;
+  final DateTime claimedAt;
+  const ReferralClaim({
+    required this.accountId,
+    required this.campaignId,
+    required this.claimId,
+    required this.claimedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['account_id'] = Variable<String>(accountId);
+    map['campaign_id'] = Variable<String>(campaignId);
+    map['claim_id'] = Variable<String>(claimId);
+    map['claimed_at'] = Variable<DateTime>(claimedAt);
+    return map;
+  }
+
+  ReferralClaimsCompanion toCompanion(bool nullToAbsent) {
+    return ReferralClaimsCompanion(
+      accountId: Value(accountId),
+      campaignId: Value(campaignId),
+      claimId: Value(claimId),
+      claimedAt: Value(claimedAt),
+    );
+  }
+
+  factory ReferralClaim.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReferralClaim(
+      accountId: serializer.fromJson<String>(json['accountId']),
+      campaignId: serializer.fromJson<String>(json['campaignId']),
+      claimId: serializer.fromJson<String>(json['claimId']),
+      claimedAt: serializer.fromJson<DateTime>(json['claimedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'accountId': serializer.toJson<String>(accountId),
+      'campaignId': serializer.toJson<String>(campaignId),
+      'claimId': serializer.toJson<String>(claimId),
+      'claimedAt': serializer.toJson<DateTime>(claimedAt),
+    };
+  }
+
+  ReferralClaim copyWith({
+    String? accountId,
+    String? campaignId,
+    String? claimId,
+    DateTime? claimedAt,
+  }) => ReferralClaim(
+    accountId: accountId ?? this.accountId,
+    campaignId: campaignId ?? this.campaignId,
+    claimId: claimId ?? this.claimId,
+    claimedAt: claimedAt ?? this.claimedAt,
+  );
+  ReferralClaim copyWithCompanion(ReferralClaimsCompanion data) {
+    return ReferralClaim(
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
+      campaignId: data.campaignId.present
+          ? data.campaignId.value
+          : this.campaignId,
+      claimId: data.claimId.present ? data.claimId.value : this.claimId,
+      claimedAt: data.claimedAt.present ? data.claimedAt.value : this.claimedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReferralClaim(')
+          ..write('accountId: $accountId, ')
+          ..write('campaignId: $campaignId, ')
+          ..write('claimId: $claimId, ')
+          ..write('claimedAt: $claimedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(accountId, campaignId, claimId, claimedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReferralClaim &&
+          other.accountId == this.accountId &&
+          other.campaignId == this.campaignId &&
+          other.claimId == this.claimId &&
+          other.claimedAt == this.claimedAt);
+}
+
+class ReferralClaimsCompanion extends UpdateCompanion<ReferralClaim> {
+  final Value<String> accountId;
+  final Value<String> campaignId;
+  final Value<String> claimId;
+  final Value<DateTime> claimedAt;
+  final Value<int> rowid;
+  const ReferralClaimsCompanion({
+    this.accountId = const Value.absent(),
+    this.campaignId = const Value.absent(),
+    this.claimId = const Value.absent(),
+    this.claimedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ReferralClaimsCompanion.insert({
+    required String accountId,
+    required String campaignId,
+    required String claimId,
+    required DateTime claimedAt,
+    this.rowid = const Value.absent(),
+  }) : accountId = Value(accountId),
+       campaignId = Value(campaignId),
+       claimId = Value(claimId),
+       claimedAt = Value(claimedAt);
+  static Insertable<ReferralClaim> custom({
+    Expression<String>? accountId,
+    Expression<String>? campaignId,
+    Expression<String>? claimId,
+    Expression<DateTime>? claimedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (accountId != null) 'account_id': accountId,
+      if (campaignId != null) 'campaign_id': campaignId,
+      if (claimId != null) 'claim_id': claimId,
+      if (claimedAt != null) 'claimed_at': claimedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ReferralClaimsCompanion copyWith({
+    Value<String>? accountId,
+    Value<String>? campaignId,
+    Value<String>? claimId,
+    Value<DateTime>? claimedAt,
+    Value<int>? rowid,
+  }) {
+    return ReferralClaimsCompanion(
+      accountId: accountId ?? this.accountId,
+      campaignId: campaignId ?? this.campaignId,
+      claimId: claimId ?? this.claimId,
+      claimedAt: claimedAt ?? this.claimedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
+    }
+    if (campaignId.present) {
+      map['campaign_id'] = Variable<String>(campaignId.value);
+    }
+    if (claimId.present) {
+      map['claim_id'] = Variable<String>(claimId.value);
+    }
+    if (claimedAt.present) {
+      map['claimed_at'] = Variable<DateTime>(claimedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReferralClaimsCompanion(')
+          ..write('accountId: $accountId, ')
+          ..write('campaignId: $campaignId, ')
+          ..write('claimId: $claimId, ')
+          ..write('claimedAt: $claimedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ReferralReceiptOutboxTable extends ReferralReceiptOutbox
+    with TableInfo<$ReferralReceiptOutboxTable, ReferralReceiptOutboxData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReferralReceiptOutboxTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _accountIdMeta = const VerificationMeta(
+    'accountId',
+  );
+  @override
+  late final GeneratedColumn<String> accountId = GeneratedColumn<String>(
+    'account_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _attemptIdMeta = const VerificationMeta(
+    'attemptId',
+  );
+  @override
+  late final GeneratedColumn<String> attemptId = GeneratedColumn<String>(
+    'attempt_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _claimIdMeta = const VerificationMeta(
+    'claimId',
+  );
+  @override
+  late final GeneratedColumn<String> claimId = GeneratedColumn<String>(
+    'claim_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lessonIdMeta = const VerificationMeta(
+    'lessonId',
+  );
+  @override
+  late final GeneratedColumn<int> lessonId = GeneratedColumn<int>(
+    'lesson_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _receiptJsonMeta = const VerificationMeta(
+    'receiptJson',
+  );
+  @override
+  late final GeneratedColumn<String> receiptJson = GeneratedColumn<String>(
+    'receipt_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _receiptDigestMeta = const VerificationMeta(
+    'receiptDigest',
+  );
+  @override
+  late final GeneratedColumn<String> receiptDigest = GeneratedColumn<String>(
+    'receipt_digest',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('pending'),
+  );
+  static const VerificationMeta _attemptsMeta = const VerificationMeta(
+    'attempts',
+  );
+  @override
+  late final GeneratedColumn<int> attempts = GeneratedColumn<int>(
+    'attempts',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _nextAttemptAtMeta = const VerificationMeta(
+    'nextAttemptAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> nextAttemptAt =
+      GeneratedColumn<DateTime>(
+        'next_attempt_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _lastErrorMeta = const VerificationMeta(
+    'lastError',
+  );
+  @override
+  late final GeneratedColumn<String> lastError = GeneratedColumn<String>(
+    'last_error',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    accountId,
+    attemptId,
+    claimId,
+    lessonId,
+    receiptJson,
+    receiptDigest,
+    status,
+    attempts,
+    nextAttemptAt,
+    lastError,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'referral_receipt_outbox';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReferralReceiptOutboxData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('account_id')) {
+      context.handle(
+        _accountIdMeta,
+        accountId.isAcceptableOrUnknown(data['account_id']!, _accountIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_accountIdMeta);
+    }
+    if (data.containsKey('attempt_id')) {
+      context.handle(
+        _attemptIdMeta,
+        attemptId.isAcceptableOrUnknown(data['attempt_id']!, _attemptIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_attemptIdMeta);
+    }
+    if (data.containsKey('claim_id')) {
+      context.handle(
+        _claimIdMeta,
+        claimId.isAcceptableOrUnknown(data['claim_id']!, _claimIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_claimIdMeta);
+    }
+    if (data.containsKey('lesson_id')) {
+      context.handle(
+        _lessonIdMeta,
+        lessonId.isAcceptableOrUnknown(data['lesson_id']!, _lessonIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_lessonIdMeta);
+    }
+    if (data.containsKey('receipt_json')) {
+      context.handle(
+        _receiptJsonMeta,
+        receiptJson.isAcceptableOrUnknown(
+          data['receipt_json']!,
+          _receiptJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_receiptJsonMeta);
+    }
+    if (data.containsKey('receipt_digest')) {
+      context.handle(
+        _receiptDigestMeta,
+        receiptDigest.isAcceptableOrUnknown(
+          data['receipt_digest']!,
+          _receiptDigestMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_receiptDigestMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    }
+    if (data.containsKey('attempts')) {
+      context.handle(
+        _attemptsMeta,
+        attempts.isAcceptableOrUnknown(data['attempts']!, _attemptsMeta),
+      );
+    }
+    if (data.containsKey('next_attempt_at')) {
+      context.handle(
+        _nextAttemptAtMeta,
+        nextAttemptAt.isAcceptableOrUnknown(
+          data['next_attempt_at']!,
+          _nextAttemptAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_nextAttemptAtMeta);
+    }
+    if (data.containsKey('last_error')) {
+      context.handle(
+        _lastErrorMeta,
+        lastError.isAcceptableOrUnknown(data['last_error']!, _lastErrorMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {accountId, attemptId};
+  @override
+  ReferralReceiptOutboxData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReferralReceiptOutboxData(
+      accountId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}account_id'],
+      )!,
+      attemptId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}attempt_id'],
+      )!,
+      claimId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}claim_id'],
+      )!,
+      lessonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}lesson_id'],
+      )!,
+      receiptJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}receipt_json'],
+      )!,
+      receiptDigest: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}receipt_digest'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      attempts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}attempts'],
+      )!,
+      nextAttemptAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}next_attempt_at'],
+      )!,
+      lastError: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}last_error'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ReferralReceiptOutboxTable createAlias(String alias) {
+    return $ReferralReceiptOutboxTable(attachedDatabase, alias);
+  }
+}
+
+class ReferralReceiptOutboxData extends DataClass
+    implements Insertable<ReferralReceiptOutboxData> {
+  final String accountId;
+  final String attemptId;
+  final String claimId;
+  final int lessonId;
+  final String receiptJson;
+  final String receiptDigest;
+
+  /// pending: to upload; sent: the server holds it; held: the server needs a
+  /// content or campaign change first; rejected: the server refused it.
+  final String status;
+  final int attempts;
+  final DateTime nextAttemptAt;
+  final String? lastError;
+  final DateTime createdAt;
+  const ReferralReceiptOutboxData({
+    required this.accountId,
+    required this.attemptId,
+    required this.claimId,
+    required this.lessonId,
+    required this.receiptJson,
+    required this.receiptDigest,
+    required this.status,
+    required this.attempts,
+    required this.nextAttemptAt,
+    this.lastError,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['account_id'] = Variable<String>(accountId);
+    map['attempt_id'] = Variable<String>(attemptId);
+    map['claim_id'] = Variable<String>(claimId);
+    map['lesson_id'] = Variable<int>(lessonId);
+    map['receipt_json'] = Variable<String>(receiptJson);
+    map['receipt_digest'] = Variable<String>(receiptDigest);
+    map['status'] = Variable<String>(status);
+    map['attempts'] = Variable<int>(attempts);
+    map['next_attempt_at'] = Variable<DateTime>(nextAttemptAt);
+    if (!nullToAbsent || lastError != null) {
+      map['last_error'] = Variable<String>(lastError);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  ReferralReceiptOutboxCompanion toCompanion(bool nullToAbsent) {
+    return ReferralReceiptOutboxCompanion(
+      accountId: Value(accountId),
+      attemptId: Value(attemptId),
+      claimId: Value(claimId),
+      lessonId: Value(lessonId),
+      receiptJson: Value(receiptJson),
+      receiptDigest: Value(receiptDigest),
+      status: Value(status),
+      attempts: Value(attempts),
+      nextAttemptAt: Value(nextAttemptAt),
+      lastError: lastError == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastError),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory ReferralReceiptOutboxData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReferralReceiptOutboxData(
+      accountId: serializer.fromJson<String>(json['accountId']),
+      attemptId: serializer.fromJson<String>(json['attemptId']),
+      claimId: serializer.fromJson<String>(json['claimId']),
+      lessonId: serializer.fromJson<int>(json['lessonId']),
+      receiptJson: serializer.fromJson<String>(json['receiptJson']),
+      receiptDigest: serializer.fromJson<String>(json['receiptDigest']),
+      status: serializer.fromJson<String>(json['status']),
+      attempts: serializer.fromJson<int>(json['attempts']),
+      nextAttemptAt: serializer.fromJson<DateTime>(json['nextAttemptAt']),
+      lastError: serializer.fromJson<String?>(json['lastError']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'accountId': serializer.toJson<String>(accountId),
+      'attemptId': serializer.toJson<String>(attemptId),
+      'claimId': serializer.toJson<String>(claimId),
+      'lessonId': serializer.toJson<int>(lessonId),
+      'receiptJson': serializer.toJson<String>(receiptJson),
+      'receiptDigest': serializer.toJson<String>(receiptDigest),
+      'status': serializer.toJson<String>(status),
+      'attempts': serializer.toJson<int>(attempts),
+      'nextAttemptAt': serializer.toJson<DateTime>(nextAttemptAt),
+      'lastError': serializer.toJson<String?>(lastError),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  ReferralReceiptOutboxData copyWith({
+    String? accountId,
+    String? attemptId,
+    String? claimId,
+    int? lessonId,
+    String? receiptJson,
+    String? receiptDigest,
+    String? status,
+    int? attempts,
+    DateTime? nextAttemptAt,
+    Value<String?> lastError = const Value.absent(),
+    DateTime? createdAt,
+  }) => ReferralReceiptOutboxData(
+    accountId: accountId ?? this.accountId,
+    attemptId: attemptId ?? this.attemptId,
+    claimId: claimId ?? this.claimId,
+    lessonId: lessonId ?? this.lessonId,
+    receiptJson: receiptJson ?? this.receiptJson,
+    receiptDigest: receiptDigest ?? this.receiptDigest,
+    status: status ?? this.status,
+    attempts: attempts ?? this.attempts,
+    nextAttemptAt: nextAttemptAt ?? this.nextAttemptAt,
+    lastError: lastError.present ? lastError.value : this.lastError,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  ReferralReceiptOutboxData copyWithCompanion(
+    ReferralReceiptOutboxCompanion data,
+  ) {
+    return ReferralReceiptOutboxData(
+      accountId: data.accountId.present ? data.accountId.value : this.accountId,
+      attemptId: data.attemptId.present ? data.attemptId.value : this.attemptId,
+      claimId: data.claimId.present ? data.claimId.value : this.claimId,
+      lessonId: data.lessonId.present ? data.lessonId.value : this.lessonId,
+      receiptJson: data.receiptJson.present
+          ? data.receiptJson.value
+          : this.receiptJson,
+      receiptDigest: data.receiptDigest.present
+          ? data.receiptDigest.value
+          : this.receiptDigest,
+      status: data.status.present ? data.status.value : this.status,
+      attempts: data.attempts.present ? data.attempts.value : this.attempts,
+      nextAttemptAt: data.nextAttemptAt.present
+          ? data.nextAttemptAt.value
+          : this.nextAttemptAt,
+      lastError: data.lastError.present ? data.lastError.value : this.lastError,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReferralReceiptOutboxData(')
+          ..write('accountId: $accountId, ')
+          ..write('attemptId: $attemptId, ')
+          ..write('claimId: $claimId, ')
+          ..write('lessonId: $lessonId, ')
+          ..write('receiptJson: $receiptJson, ')
+          ..write('receiptDigest: $receiptDigest, ')
+          ..write('status: $status, ')
+          ..write('attempts: $attempts, ')
+          ..write('nextAttemptAt: $nextAttemptAt, ')
+          ..write('lastError: $lastError, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    accountId,
+    attemptId,
+    claimId,
+    lessonId,
+    receiptJson,
+    receiptDigest,
+    status,
+    attempts,
+    nextAttemptAt,
+    lastError,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReferralReceiptOutboxData &&
+          other.accountId == this.accountId &&
+          other.attemptId == this.attemptId &&
+          other.claimId == this.claimId &&
+          other.lessonId == this.lessonId &&
+          other.receiptJson == this.receiptJson &&
+          other.receiptDigest == this.receiptDigest &&
+          other.status == this.status &&
+          other.attempts == this.attempts &&
+          other.nextAttemptAt == this.nextAttemptAt &&
+          other.lastError == this.lastError &&
+          other.createdAt == this.createdAt);
+}
+
+class ReferralReceiptOutboxCompanion
+    extends UpdateCompanion<ReferralReceiptOutboxData> {
+  final Value<String> accountId;
+  final Value<String> attemptId;
+  final Value<String> claimId;
+  final Value<int> lessonId;
+  final Value<String> receiptJson;
+  final Value<String> receiptDigest;
+  final Value<String> status;
+  final Value<int> attempts;
+  final Value<DateTime> nextAttemptAt;
+  final Value<String?> lastError;
+  final Value<DateTime> createdAt;
+  final Value<int> rowid;
+  const ReferralReceiptOutboxCompanion({
+    this.accountId = const Value.absent(),
+    this.attemptId = const Value.absent(),
+    this.claimId = const Value.absent(),
+    this.lessonId = const Value.absent(),
+    this.receiptJson = const Value.absent(),
+    this.receiptDigest = const Value.absent(),
+    this.status = const Value.absent(),
+    this.attempts = const Value.absent(),
+    this.nextAttemptAt = const Value.absent(),
+    this.lastError = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ReferralReceiptOutboxCompanion.insert({
+    required String accountId,
+    required String attemptId,
+    required String claimId,
+    required int lessonId,
+    required String receiptJson,
+    required String receiptDigest,
+    this.status = const Value.absent(),
+    this.attempts = const Value.absent(),
+    required DateTime nextAttemptAt,
+    this.lastError = const Value.absent(),
+    required DateTime createdAt,
+    this.rowid = const Value.absent(),
+  }) : accountId = Value(accountId),
+       attemptId = Value(attemptId),
+       claimId = Value(claimId),
+       lessonId = Value(lessonId),
+       receiptJson = Value(receiptJson),
+       receiptDigest = Value(receiptDigest),
+       nextAttemptAt = Value(nextAttemptAt),
+       createdAt = Value(createdAt);
+  static Insertable<ReferralReceiptOutboxData> custom({
+    Expression<String>? accountId,
+    Expression<String>? attemptId,
+    Expression<String>? claimId,
+    Expression<int>? lessonId,
+    Expression<String>? receiptJson,
+    Expression<String>? receiptDigest,
+    Expression<String>? status,
+    Expression<int>? attempts,
+    Expression<DateTime>? nextAttemptAt,
+    Expression<String>? lastError,
+    Expression<DateTime>? createdAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (accountId != null) 'account_id': accountId,
+      if (attemptId != null) 'attempt_id': attemptId,
+      if (claimId != null) 'claim_id': claimId,
+      if (lessonId != null) 'lesson_id': lessonId,
+      if (receiptJson != null) 'receipt_json': receiptJson,
+      if (receiptDigest != null) 'receipt_digest': receiptDigest,
+      if (status != null) 'status': status,
+      if (attempts != null) 'attempts': attempts,
+      if (nextAttemptAt != null) 'next_attempt_at': nextAttemptAt,
+      if (lastError != null) 'last_error': lastError,
+      if (createdAt != null) 'created_at': createdAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ReferralReceiptOutboxCompanion copyWith({
+    Value<String>? accountId,
+    Value<String>? attemptId,
+    Value<String>? claimId,
+    Value<int>? lessonId,
+    Value<String>? receiptJson,
+    Value<String>? receiptDigest,
+    Value<String>? status,
+    Value<int>? attempts,
+    Value<DateTime>? nextAttemptAt,
+    Value<String?>? lastError,
+    Value<DateTime>? createdAt,
+    Value<int>? rowid,
+  }) {
+    return ReferralReceiptOutboxCompanion(
+      accountId: accountId ?? this.accountId,
+      attemptId: attemptId ?? this.attemptId,
+      claimId: claimId ?? this.claimId,
+      lessonId: lessonId ?? this.lessonId,
+      receiptJson: receiptJson ?? this.receiptJson,
+      receiptDigest: receiptDigest ?? this.receiptDigest,
+      status: status ?? this.status,
+      attempts: attempts ?? this.attempts,
+      nextAttemptAt: nextAttemptAt ?? this.nextAttemptAt,
+      lastError: lastError ?? this.lastError,
+      createdAt: createdAt ?? this.createdAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (accountId.present) {
+      map['account_id'] = Variable<String>(accountId.value);
+    }
+    if (attemptId.present) {
+      map['attempt_id'] = Variable<String>(attemptId.value);
+    }
+    if (claimId.present) {
+      map['claim_id'] = Variable<String>(claimId.value);
+    }
+    if (lessonId.present) {
+      map['lesson_id'] = Variable<int>(lessonId.value);
+    }
+    if (receiptJson.present) {
+      map['receipt_json'] = Variable<String>(receiptJson.value);
+    }
+    if (receiptDigest.present) {
+      map['receipt_digest'] = Variable<String>(receiptDigest.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (attempts.present) {
+      map['attempts'] = Variable<int>(attempts.value);
+    }
+    if (nextAttemptAt.present) {
+      map['next_attempt_at'] = Variable<DateTime>(nextAttemptAt.value);
+    }
+    if (lastError.present) {
+      map['last_error'] = Variable<String>(lastError.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReferralReceiptOutboxCompanion(')
+          ..write('accountId: $accountId, ')
+          ..write('attemptId: $attemptId, ')
+          ..write('claimId: $claimId, ')
+          ..write('lessonId: $lessonId, ')
+          ..write('receiptJson: $receiptJson, ')
+          ..write('receiptDigest: $receiptDigest, ')
+          ..write('status: $status, ')
+          ..write('attempts: $attempts, ')
+          ..write('nextAttemptAt: $nextAttemptAt, ')
+          ..write('lastError: $lastError, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $LessonsTable extends Lessons with TableInfo<$LessonsTable, Lesson> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -16083,6 +17087,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $UnitsTable units = $UnitsTable(this);
   late final $MonetizationSnapshotsTable monetizationSnapshots =
       $MonetizationSnapshotsTable(this);
+  late final $ReferralClaimsTable referralClaims = $ReferralClaimsTable(this);
+  late final $ReferralReceiptOutboxTable referralReceiptOutbox =
+      $ReferralReceiptOutboxTable(this);
   late final $LessonsTable lessons = $LessonsTable(this);
   late final $ExercisesTable exercises = $ExercisesTable(this);
   late final $FlashcardsTable flashcards = $FlashcardsTable(this);
@@ -16140,6 +17147,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     units,
     monetizationSnapshots,
+    referralClaims,
+    referralReceiptOutbox,
     lessons,
     exercises,
     flashcards,
@@ -16978,6 +17987,530 @@ typedef $$MonetizationSnapshotsTableProcessedTableManager =
         >,
       ),
       MonetizationSnapshot,
+      PrefetchHooks Function()
+    >;
+typedef $$ReferralClaimsTableCreateCompanionBuilder =
+    ReferralClaimsCompanion Function({
+      required String accountId,
+      required String campaignId,
+      required String claimId,
+      required DateTime claimedAt,
+      Value<int> rowid,
+    });
+typedef $$ReferralClaimsTableUpdateCompanionBuilder =
+    ReferralClaimsCompanion Function({
+      Value<String> accountId,
+      Value<String> campaignId,
+      Value<String> claimId,
+      Value<DateTime> claimedAt,
+      Value<int> rowid,
+    });
+
+class $$ReferralClaimsTableFilterComposer
+    extends Composer<_$AppDatabase, $ReferralClaimsTable> {
+  $$ReferralClaimsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get campaignId => $composableBuilder(
+    column: $table.campaignId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get claimId => $composableBuilder(
+    column: $table.claimId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get claimedAt => $composableBuilder(
+    column: $table.claimedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ReferralClaimsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReferralClaimsTable> {
+  $$ReferralClaimsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get campaignId => $composableBuilder(
+    column: $table.campaignId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get claimId => $composableBuilder(
+    column: $table.claimId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get claimedAt => $composableBuilder(
+    column: $table.claimedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ReferralClaimsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReferralClaimsTable> {
+  $$ReferralClaimsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get accountId =>
+      $composableBuilder(column: $table.accountId, builder: (column) => column);
+
+  GeneratedColumn<String> get campaignId => $composableBuilder(
+    column: $table.campaignId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get claimId =>
+      $composableBuilder(column: $table.claimId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get claimedAt =>
+      $composableBuilder(column: $table.claimedAt, builder: (column) => column);
+}
+
+class $$ReferralClaimsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ReferralClaimsTable,
+          ReferralClaim,
+          $$ReferralClaimsTableFilterComposer,
+          $$ReferralClaimsTableOrderingComposer,
+          $$ReferralClaimsTableAnnotationComposer,
+          $$ReferralClaimsTableCreateCompanionBuilder,
+          $$ReferralClaimsTableUpdateCompanionBuilder,
+          (
+            ReferralClaim,
+            BaseReferences<_$AppDatabase, $ReferralClaimsTable, ReferralClaim>,
+          ),
+          ReferralClaim,
+          PrefetchHooks Function()
+        > {
+  $$ReferralClaimsTableTableManager(
+    _$AppDatabase db,
+    $ReferralClaimsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReferralClaimsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReferralClaimsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReferralClaimsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> accountId = const Value.absent(),
+                Value<String> campaignId = const Value.absent(),
+                Value<String> claimId = const Value.absent(),
+                Value<DateTime> claimedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ReferralClaimsCompanion(
+                accountId: accountId,
+                campaignId: campaignId,
+                claimId: claimId,
+                claimedAt: claimedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String accountId,
+                required String campaignId,
+                required String claimId,
+                required DateTime claimedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => ReferralClaimsCompanion.insert(
+                accountId: accountId,
+                campaignId: campaignId,
+                claimId: claimId,
+                claimedAt: claimedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ReferralClaimsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ReferralClaimsTable,
+      ReferralClaim,
+      $$ReferralClaimsTableFilterComposer,
+      $$ReferralClaimsTableOrderingComposer,
+      $$ReferralClaimsTableAnnotationComposer,
+      $$ReferralClaimsTableCreateCompanionBuilder,
+      $$ReferralClaimsTableUpdateCompanionBuilder,
+      (
+        ReferralClaim,
+        BaseReferences<_$AppDatabase, $ReferralClaimsTable, ReferralClaim>,
+      ),
+      ReferralClaim,
+      PrefetchHooks Function()
+    >;
+typedef $$ReferralReceiptOutboxTableCreateCompanionBuilder =
+    ReferralReceiptOutboxCompanion Function({
+      required String accountId,
+      required String attemptId,
+      required String claimId,
+      required int lessonId,
+      required String receiptJson,
+      required String receiptDigest,
+      Value<String> status,
+      Value<int> attempts,
+      required DateTime nextAttemptAt,
+      Value<String?> lastError,
+      required DateTime createdAt,
+      Value<int> rowid,
+    });
+typedef $$ReferralReceiptOutboxTableUpdateCompanionBuilder =
+    ReferralReceiptOutboxCompanion Function({
+      Value<String> accountId,
+      Value<String> attemptId,
+      Value<String> claimId,
+      Value<int> lessonId,
+      Value<String> receiptJson,
+      Value<String> receiptDigest,
+      Value<String> status,
+      Value<int> attempts,
+      Value<DateTime> nextAttemptAt,
+      Value<String?> lastError,
+      Value<DateTime> createdAt,
+      Value<int> rowid,
+    });
+
+class $$ReferralReceiptOutboxTableFilterComposer
+    extends Composer<_$AppDatabase, $ReferralReceiptOutboxTable> {
+  $$ReferralReceiptOutboxTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get attemptId => $composableBuilder(
+    column: $table.attemptId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get claimId => $composableBuilder(
+    column: $table.claimId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lessonId => $composableBuilder(
+    column: $table.lessonId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get receiptJson => $composableBuilder(
+    column: $table.receiptJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get receiptDigest => $composableBuilder(
+    column: $table.receiptDigest,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get attempts => $composableBuilder(
+    column: $table.attempts,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get nextAttemptAt => $composableBuilder(
+    column: $table.nextAttemptAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ReferralReceiptOutboxTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReferralReceiptOutboxTable> {
+  $$ReferralReceiptOutboxTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get accountId => $composableBuilder(
+    column: $table.accountId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get attemptId => $composableBuilder(
+    column: $table.attemptId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get claimId => $composableBuilder(
+    column: $table.claimId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lessonId => $composableBuilder(
+    column: $table.lessonId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get receiptJson => $composableBuilder(
+    column: $table.receiptJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get receiptDigest => $composableBuilder(
+    column: $table.receiptDigest,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get attempts => $composableBuilder(
+    column: $table.attempts,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get nextAttemptAt => $composableBuilder(
+    column: $table.nextAttemptAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ReferralReceiptOutboxTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReferralReceiptOutboxTable> {
+  $$ReferralReceiptOutboxTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get accountId =>
+      $composableBuilder(column: $table.accountId, builder: (column) => column);
+
+  GeneratedColumn<String> get attemptId =>
+      $composableBuilder(column: $table.attemptId, builder: (column) => column);
+
+  GeneratedColumn<String> get claimId =>
+      $composableBuilder(column: $table.claimId, builder: (column) => column);
+
+  GeneratedColumn<int> get lessonId =>
+      $composableBuilder(column: $table.lessonId, builder: (column) => column);
+
+  GeneratedColumn<String> get receiptJson => $composableBuilder(
+    column: $table.receiptJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get receiptDigest => $composableBuilder(
+    column: $table.receiptDigest,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get attempts =>
+      $composableBuilder(column: $table.attempts, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get nextAttemptAt => $composableBuilder(
+    column: $table.nextAttemptAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get lastError =>
+      $composableBuilder(column: $table.lastError, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$ReferralReceiptOutboxTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ReferralReceiptOutboxTable,
+          ReferralReceiptOutboxData,
+          $$ReferralReceiptOutboxTableFilterComposer,
+          $$ReferralReceiptOutboxTableOrderingComposer,
+          $$ReferralReceiptOutboxTableAnnotationComposer,
+          $$ReferralReceiptOutboxTableCreateCompanionBuilder,
+          $$ReferralReceiptOutboxTableUpdateCompanionBuilder,
+          (
+            ReferralReceiptOutboxData,
+            BaseReferences<
+              _$AppDatabase,
+              $ReferralReceiptOutboxTable,
+              ReferralReceiptOutboxData
+            >,
+          ),
+          ReferralReceiptOutboxData,
+          PrefetchHooks Function()
+        > {
+  $$ReferralReceiptOutboxTableTableManager(
+    _$AppDatabase db,
+    $ReferralReceiptOutboxTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReferralReceiptOutboxTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$ReferralReceiptOutboxTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$ReferralReceiptOutboxTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> accountId = const Value.absent(),
+                Value<String> attemptId = const Value.absent(),
+                Value<String> claimId = const Value.absent(),
+                Value<int> lessonId = const Value.absent(),
+                Value<String> receiptJson = const Value.absent(),
+                Value<String> receiptDigest = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> attempts = const Value.absent(),
+                Value<DateTime> nextAttemptAt = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ReferralReceiptOutboxCompanion(
+                accountId: accountId,
+                attemptId: attemptId,
+                claimId: claimId,
+                lessonId: lessonId,
+                receiptJson: receiptJson,
+                receiptDigest: receiptDigest,
+                status: status,
+                attempts: attempts,
+                nextAttemptAt: nextAttemptAt,
+                lastError: lastError,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String accountId,
+                required String attemptId,
+                required String claimId,
+                required int lessonId,
+                required String receiptJson,
+                required String receiptDigest,
+                Value<String> status = const Value.absent(),
+                Value<int> attempts = const Value.absent(),
+                required DateTime nextAttemptAt,
+                Value<String?> lastError = const Value.absent(),
+                required DateTime createdAt,
+                Value<int> rowid = const Value.absent(),
+              }) => ReferralReceiptOutboxCompanion.insert(
+                accountId: accountId,
+                attemptId: attemptId,
+                claimId: claimId,
+                lessonId: lessonId,
+                receiptJson: receiptJson,
+                receiptDigest: receiptDigest,
+                status: status,
+                attempts: attempts,
+                nextAttemptAt: nextAttemptAt,
+                lastError: lastError,
+                createdAt: createdAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ReferralReceiptOutboxTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ReferralReceiptOutboxTable,
+      ReferralReceiptOutboxData,
+      $$ReferralReceiptOutboxTableFilterComposer,
+      $$ReferralReceiptOutboxTableOrderingComposer,
+      $$ReferralReceiptOutboxTableAnnotationComposer,
+      $$ReferralReceiptOutboxTableCreateCompanionBuilder,
+      $$ReferralReceiptOutboxTableUpdateCompanionBuilder,
+      (
+        ReferralReceiptOutboxData,
+        BaseReferences<
+          _$AppDatabase,
+          $ReferralReceiptOutboxTable,
+          ReferralReceiptOutboxData
+        >,
+      ),
+      ReferralReceiptOutboxData,
       PrefetchHooks Function()
     >;
 typedef $$LessonsTableCreateCompanionBuilder =
@@ -25965,6 +27498,10 @@ class $AppDatabaseManager {
       $$UnitsTableTableManager(_db, _db.units);
   $$MonetizationSnapshotsTableTableManager get monetizationSnapshots =>
       $$MonetizationSnapshotsTableTableManager(_db, _db.monetizationSnapshots);
+  $$ReferralClaimsTableTableManager get referralClaims =>
+      $$ReferralClaimsTableTableManager(_db, _db.referralClaims);
+  $$ReferralReceiptOutboxTableTableManager get referralReceiptOutbox =>
+      $$ReferralReceiptOutboxTableTableManager(_db, _db.referralReceiptOutbox);
   $$LessonsTableTableManager get lessons =>
       $$LessonsTableTableManager(_db, _db.lessons);
   $$ExercisesTableTableManager get exercises =>

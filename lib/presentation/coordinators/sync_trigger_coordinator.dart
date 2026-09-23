@@ -13,6 +13,7 @@ class SyncTriggerCoordinator with WidgetsBindingObserver {
     this._syncService, {
     Connectivity? connectivity,
     Stream<List<ConnectivityResult>>? connectivityChanges,
+    this.alsoRun,
   }) {
     WidgetsBinding.instance.addObserver(this);
     _subscription = (connectivityChanges ??
@@ -21,11 +22,16 @@ class SyncTriggerCoordinator with WidgetsBindingObserver {
   }
 
   final SyncService _syncService;
+
+  /// Other durable uploads that want the same resume/connectivity signal,
+  /// such as queued referral receipts. Must not throw.
+  final void Function()? alsoRun;
   late final StreamSubscription<List<ConnectivityResult>> _subscription;
 
   void _onConnectivityChanged(List<ConnectivityResult> results) {
     if (results.any((result) => result != ConnectivityResult.none)) {
       unawaited(_syncService.sync());
+      alsoRun?.call();
     }
   }
 
@@ -33,6 +39,7 @@ class SyncTriggerCoordinator with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       unawaited(_syncService.sync());
+      alsoRun?.call();
     }
   }
 
