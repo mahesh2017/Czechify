@@ -3368,7 +3368,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upgradeInviteBody =>
-      'Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good.';
+      'Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good. Your friend gets two weeks of Czechify Core free.';
 
   @override
   String get upgradeInviteAction => 'Invite friends';
@@ -3415,7 +3415,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get referralsHowItWorks =>
-      'When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another. Units you earn stay yours, even without a subscription.';
+      'When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another, and your friend gets two weeks of Czechify Core free. Units you earn stay yours, even without a subscription.';
 
   @override
   String referralsUnitsEarned(int earned, int total) {
@@ -3508,7 +3508,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get referralsJoined =>
-      'You\'re in. Finish the first two units and the person who invited you gets their reward.';
+      'You\'re in. Finish the first two units: you get two weeks of Czechify Core free, and the person who invited you gets their reward.';
 
   @override
   String referralsOwnProgress(int done, int total) {
@@ -3718,4 +3718,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscriptionsRecoveryContact => 'Email support';
+
+  @override
+  String referralsJoinReward(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other:
+          'Enter a friend\'s code: you get $days days of Czechify Core free when you finish the first two units, and they unlock a unit.',
+      one:
+          'Enter a friend\'s code: you get $days day of Czechify Core free when you finish the first two units, and they unlock a unit.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String referralsTrialActive(String date) {
+    return 'Czechify Core is free for you until $date, for joining with a friend\'s code.';
+  }
+
+  @override
+  String subscriptionsTrialActive(String date) {
+    return 'Czechify Core is free until $date, from a friend\'s invitation. Subscribe before then to keep it.';
+  }
 }

@@ -1069,7 +1069,7 @@
   "upgradeCoreBody": "Všechny lekce A1 a A2 po dobu předplatného. Zrušit ho můžete kdykoli v Google Play.",
   "upgradeCoreAction": "Zobrazit předplatné",
   "upgradeInviteTitle": "Pozvěte přátele",
-  "upgradeInviteBody": "Každá pozvaná osoba, která dokončí první dvě jednotky, vám odemkne až dvě jednotky A1, a ty vám zůstanou natrvalo.",
+  "upgradeInviteBody": "Každá pozvaná osoba, která dokončí první dvě jednotky, vám odemkne až dvě jednotky A1, a ty vám zůstanou natrvalo. Pozvaná osoba dostane dva týdny Czechify Core zdarma.",
   "upgradeInviteAction": "Pozvat přátele",
   "upgradeA2Note": "Pozvánky odemykají pouze jednotky A1. Úroveň A2 je součástí předplatného Core.",
   "paidUnitTitle": "Součást plného kurzu",
@@ -1083,7 +1083,7 @@
   "settingsInviteBody": "Odemkněte si jednotky A1 natrvalo",
   "referralsTitle": "Pozvat přátele",
   "referralsUnavailable": "Pozvánky zatím nejsou otevřené.",
-  "referralsHowItWorks": "Když pozvaná osoba dokončí první jednotku, odemknete si jednu jednotku A1. Když dokončí druhou, odemknete si další. Získané jednotky vám zůstanou i bez předplatného.",
+  "referralsHowItWorks": "Když pozvaná osoba dokončí první jednotku, odemknete si jednu jednotku A1. Když dokončí druhou, odemknete si další a pozvaná osoba dostane dva týdny Czechify Core zdarma. Získané jednotky vám zůstanou i bez předplatného.",
   "referralsUnitsEarned": "Získané jednotky A1: {earned} z {total}",
   "referralsNextUnit": "Další odměna: jednotka {unit}",
   "referralsAllEarned": "Odemkli jste všechny jednotky A1.",
@@ -1110,7 +1110,7 @@
   "referralsJoinTitle": "Máte kód od přátel?",
   "referralsJoinHint": "Kód pozvánky",
   "referralsJoinAction": "Použít kód",
-  "referralsJoined": "Hotovo. Dokončete první dvě jednotky a odměnu získá ten, kdo vás pozval.",
+  "referralsJoined": "Hotovo. Dokončete první dvě jednotky: získáte dva týdny Czechify Core zdarma a odměnu dostane i ten, kdo vás pozval.",
   "referralsOwnProgress": "Dokončené lekce: {done} z {total}",
   "referralsErrorClaimed": "Kód pozvánky už jste použili.",
   "referralsErrorIneligible": "Tento kód nelze použít. Kód platí do 7 dnů od založení účtu, před dokončením první jednotky a nelze použít vlastní kód.",
@@ -1161,5 +1161,8 @@
   "referralsIntegrityBody": "Google Play potvrdí, že jde o pravou aplikaci Czechify nainstalovanou z Google Play, a ten, kdo vás pozval, tak dostane odměnu bez ruční kontroly. Czechify si uchová jen výsledek. Když to necháte vypnuté, vaše lekce zkontroluje ručně podpora, což trvá déle. Volbu můžete kdykoli změnit.",
   "subscriptionsRecoveryBody": "Pokud jste ho koupili na účtu, který jste smazali nebo ke kterému se nedostanete, podpora ho po ověření objednávky v Google Play může převést na tento účet. Uveďte číslo objednávky Google Play (začíná GPA).",
   "subscriptionsRecoveryReference": "Vaše číslo případu: {reference}",
-  "subscriptionsRecoveryContact": "Napsat podpoře"
+  "subscriptionsRecoveryContact": "Napsat podpoře",
+  "referralsJoinReward": "{days,plural,one{Zadejte kód od přátel: po dokončení prvních dvou jednotek získáte {days} den Czechify Core zdarma a oni si odemknou jednotku.}few{Zadejte kód od přátel: po dokončení prvních dvou jednotek získáte {days} dny Czechify Core zdarma a oni si odemknou jednotku.}other{Zadejte kód od přátel: po dokončení prvních dvou jednotek získáte {days} dní Czechify Core zdarma a oni si odemknou jednotku.}}",
+  "referralsTrialActive": "Czechify Core máte zdarma do {date}, protože jste se připojili s kódem od přátel.",
+  "subscriptionsTrialActive": "Czechify Core máte zdarma do {date} díky pozvánce od přátel. Předplaťte si ho do té doby, abyste o něj nepřišli."
 }

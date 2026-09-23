@@ -2,7 +2,15 @@ import '../entities/course_catalog.dart';
 import '../entities/curriculum_entitlement.dart';
 import '../entities/monetization_snapshot.dart';
 
-enum CourseAccessSource { free, referral, legacy, core, migrationGrace, staff }
+enum CourseAccessSource {
+  free,
+  referral,
+  legacy,
+  core,
+  migrationGrace,
+  referralTrial,
+  staff,
+}
 
 class CourseAccess {
   final Map<int, Set<CourseAccessSource>> sourcesByUnit;
@@ -79,11 +87,18 @@ class CourseAccessPolicy {
           snapshot.core.isActiveAt(now, offline: false)) {
         needsVerification.addAll(allUnits);
       }
-      if (snapshot.migrationGraceUntil?.isAfter(now) ?? false) {
-        if (clockTrusted) {
-          grant(allUnits, CourseAccessSource.migrationGrace);
-        } else {
-          needsVerification.addAll(allUnits);
+      // Free access for a time: the existing-user grace, and the trial an
+      // invited friend earns. Both open the whole course while they last.
+      for (final window in [
+        (snapshot.migrationGraceUntil, CourseAccessSource.migrationGrace),
+        (snapshot.referralTrialUntil, CourseAccessSource.referralTrial),
+      ]) {
+        if (window.$1?.isAfter(now) ?? false) {
+          if (clockTrusted) {
+            grant(allUnits, window.$2);
+          } else {
+            needsVerification.addAll(allUnits);
+          }
         }
       }
     }

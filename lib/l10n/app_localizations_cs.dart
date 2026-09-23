@@ -3379,7 +3379,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get upgradeInviteBody =>
-      'Každá pozvaná osoba, která dokončí první dvě jednotky, vám odemkne až dvě jednotky A1, a ty vám zůstanou natrvalo.';
+      'Každá pozvaná osoba, která dokončí první dvě jednotky, vám odemkne až dvě jednotky A1, a ty vám zůstanou natrvalo. Pozvaná osoba dostane dva týdny Czechify Core zdarma.';
 
   @override
   String get upgradeInviteAction => 'Pozvat přátele';
@@ -3426,7 +3426,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get referralsHowItWorks =>
-      'Když pozvaná osoba dokončí první jednotku, odemknete si jednu jednotku A1. Když dokončí druhou, odemknete si další. Získané jednotky vám zůstanou i bez předplatného.';
+      'Když pozvaná osoba dokončí první jednotku, odemknete si jednu jednotku A1. Když dokončí druhou, odemknete si další a pozvaná osoba dostane dva týdny Czechify Core zdarma. Získané jednotky vám zůstanou i bez předplatného.';
 
   @override
   String referralsUnitsEarned(int earned, int total) {
@@ -3519,7 +3519,7 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get referralsJoined =>
-      'Hotovo. Dokončete první dvě jednotky a odměnu získá ten, kdo vás pozval.';
+      'Hotovo. Dokončete první dvě jednotky: získáte dva týdny Czechify Core zdarma a odměnu dostane i ten, kdo vás pozval.';
 
   @override
   String referralsOwnProgress(int done, int total) {
@@ -3734,4 +3734,29 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get subscriptionsRecoveryContact => 'Napsat podpoře';
+
+  @override
+  String referralsJoinReward(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other:
+          'Zadejte kód od přátel: po dokončení prvních dvou jednotek získáte $days dní Czechify Core zdarma a oni si odemknou jednotku.',
+      few:
+          'Zadejte kód od přátel: po dokončení prvních dvou jednotek získáte $days dny Czechify Core zdarma a oni si odemknou jednotku.',
+      one:
+          'Zadejte kód od přátel: po dokončení prvních dvou jednotek získáte $days den Czechify Core zdarma a oni si odemknou jednotku.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String referralsTrialActive(String date) {
+    return 'Czechify Core máte zdarma do $date, protože jste se připojili s kódem od přátel.';
+  }
+
+  @override
+  String subscriptionsTrialActive(String date) {
+    return 'Czechify Core máte zdarma do $date díky pozvánce od přátel. Předplaťte si ho do té doby, abyste o něj nepřišli.';
+  }
 }

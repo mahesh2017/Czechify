@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
@@ -286,15 +287,27 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
       // As an invited learner: either your progress or a code to enter.
       Semantics(header: true, child: SectionLabel(l10n.referralsJoinTitle)),
       const SizedBox(height: 8),
-      if (s.ownClaim case final own?)
+      if (s.ownClaim case final own?) ...[
         _MilestoneCard(
           title: l10n.referralsOwnProgress(
             own.lessonsCompleted,
             own.lessonsRequired,
           ),
           milestones: own.milestones,
-        )
-      else
+        ),
+        // Their own side of the invitation, once the free units are done.
+        if (own.trialUntil?.isAfter(DateTime.now().toUtc()) ?? false) ...[
+          const SizedBox(height: 8),
+          Text(
+            l10n.referralsTrialActive(
+              DateFormat.yMMMd(
+                Localizations.localeOf(context).toLanguageTag(),
+              ).format(own.trialUntil!.toLocal()),
+            ),
+            style: TextStyle(fontSize: 14, height: 1.4, color: t.ink),
+          ),
+        ],
+      ] else ...[
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -322,6 +335,12 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
             ),
           ],
         ),
+        const SizedBox(height: 8),
+        Text(
+          l10n.referralsJoinReward(s.trialDays),
+          style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
+        ),
+      ],
       const SizedBox(height: 12),
       // Consent for the device check: off until chosen, changeable any time.
       SwitchListTile(

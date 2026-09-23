@@ -68,6 +68,21 @@ class SubscriptionsScreen extends ConsumerWidget {
                 _LinkAccountCard(onLink: () => context.push('/account')),
                 const SizedBox(height: 16),
               ],
+              // Free access from a friend's invitation, so "Not subscribed"
+              // below does not read as a contradiction.
+              if (snapshot?.referralTrialUntil?.isAfter(
+                    load?.now ?? DateTime.now().toUtc(),
+                  ) ??
+                  false) ...[
+                _Message(
+                  text: l10n.subscriptionsTrialActive(
+                    DateFormat.yMMMd(
+                      Localizations.localeOf(context).toLanguageTag(),
+                    ).format(snapshot!.referralTrialUntil!.toLocal()),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
               if (billing.notice != BillingNotice.none) ...[
                 _Message(text: _noticeText(l10n, billing.notice)),
                 const SizedBox(height: 16),

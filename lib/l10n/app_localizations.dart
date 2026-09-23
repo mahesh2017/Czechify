@@ -5831,7 +5831,7 @@ abstract class AppLocalizations {
   /// No description provided for @upgradeInviteBody.
   ///
   /// In en, this message translates to:
-  /// **'Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good.'**
+  /// **'Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good. Your friend gets two weeks of Czechify Core free.'**
   String get upgradeInviteBody;
 
   /// No description provided for @upgradeInviteAction.
@@ -5915,7 +5915,7 @@ abstract class AppLocalizations {
   /// No description provided for @referralsHowItWorks.
   ///
   /// In en, this message translates to:
-  /// **'When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another. Units you earn stay yours, even without a subscription.'**
+  /// **'When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another, and your friend gets two weeks of Czechify Core free. Units you earn stay yours, even without a subscription.'**
   String get referralsHowItWorks;
 
   /// No description provided for @referralsUnitsEarned.
@@ -6077,7 +6077,7 @@ abstract class AppLocalizations {
   /// No description provided for @referralsJoined.
   ///
   /// In en, this message translates to:
-  /// **'You\'re in. Finish the first two units and the person who invited you gets their reward.'**
+  /// **'You\'re in. Finish the first two units: you get two weeks of Czechify Core free, and the person who invited you gets their reward.'**
   String get referralsJoined;
 
   /// No description provided for @referralsOwnProgress.
@@ -6385,6 +6385,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email support'**
   String get subscriptionsRecoveryContact;
+
+  /// No description provided for @referralsJoinReward.
+  ///
+  /// In en, this message translates to:
+  /// **'{days,plural,=1{Enter a friend\'s code: you get {days} day of Czechify Core free when you finish the first two units, and they unlock a unit.}other{Enter a friend\'s code: you get {days} days of Czechify Core free when you finish the first two units, and they unlock a unit.}}'**
+  String referralsJoinReward(int days);
+
+  /// No description provided for @referralsTrialActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify Core is free for you until {date}, for joining with a friend\'s code.'**
+  String referralsTrialActive(String date);
+
+  /// No description provided for @subscriptionsTrialActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Czechify Core is free until {date}, from a friend\'s invitation. Subscribe before then to keep it.'**
+  String subscriptionsTrialActive(String date);
 }
 
 class _AppLocalizationsDelegate

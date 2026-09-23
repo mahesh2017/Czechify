@@ -75,3 +75,13 @@ supabase db lint --level warning
 ```
 
 The Python harness needs `psql` (set `PSQL` if it is outside PATH), accepts loopback database hosts only and uses no extra Python packages. It checks the published manifest and all three concurrency fixtures using independent PostgreSQL connections. Test accounts and campaign settings are cleaned up. The reset removes disposable local test data; none of these commands target production.
+
+## The invited friend's reward (PR 9)
+
+`20261001100000_referee_trial.sql` gives the friend their own reason to enter a code: **two weeks of Czechify Core, free**, when they finish the two free units.
+
+- Granted in `process_referral_claim` at the moment the second milestone is decided, so the same evidence, review and pause rules apply. A held, rejected or unlinked invitation grants nothing to either side; the inviter reaching the 15-unit cap does not stop the friend's trial.
+- One per account, ever. A second invitation, a new code, a repeat of the same claim or an expired trial never grants another, and the window is never extended.
+- Stored as a `course_access_windows` row of kind `referral_trial`, the same machinery as the existing-user grace, so access, offline behaviour and the paywall need no special case. The signed snapshot reports `referral_trial_until` separately from `migration_grace_until`, and course access follows either.
+- `get_referral_status` returns the trial on the account's own claim, plus `trial_days`, so the invite screen states the offer and the end date from the server rather than a copy in the app.
+- **Lock order.** A claim now writes to both accounts, so two invitations can touch the same pair from opposite sides (A invited B, B invited A). Both transactions lock the **lower account ID first**, whichever side of their claim it is on. `tool/test_referral_concurrency.py` covers this: with the previous beneficiary-first order the same test fails with `deadlock detected`.

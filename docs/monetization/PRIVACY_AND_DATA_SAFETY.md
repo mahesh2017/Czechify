@@ -1,6 +1,6 @@
 # Privacy wording and Play Data safety for monetization
 
-Drafted in PR 7b and **published in PR 8**, as version 2026-09-22.1 of both the in-app policy (`lib/core/legal/legal_content.dart`) and `docs/site/privacy.html`. The wording is conditional ("if you subscribe…", "if you invite…"), so it is true for learners outside the rollout cohort too. The Play Data safety answers below still have to be entered in Play Console before the first external cohort; see [ACTIVATION_RUNBOOK.md](ACTIVATION_RUNBOOK.md).
+Drafted in PR 7b and **published in PR 8**, as version 2026-09-23.1 of both the in-app policy (`lib/core/legal/legal_content.dart`) and `docs/site/privacy.html`. The wording is conditional ("if you subscribe…", "if you invite…"), so it is true for learners outside the rollout cohort too. The Play Data safety answers below still have to be entered in Play Console before the first external cohort; see [ACTIVATION_RUNBOOK.md](ACTIVATION_RUNBOOK.md).
 
 The no-ads statement stays true: monetization adds no ads, third-party analytics or tracking SDKs.
 
@@ -39,6 +39,8 @@ The operator is in Czechia, so EU law (GDPR, the ePrivacy Directive as implement
 > If you turn on "Check this phone with Google Play", the app asks Google Play Integrity to confirm the app is genuine and was installed from Google Play. This reads information from your device, so it only happens with your consent (Article 6(1)(a)). You can turn it off at any time. We keep only the result ("verified" or "needs review"), never the token. If it's off, support checks your lessons by hand instead.
 >
 > Neither side sees the other's account, email or learning details. The person who invited you sees only "Friend 1: first unit complete" style progress.
+>
+> When the invited friend finishes those units they get two weeks of Czechify Core free, recorded on their account as free access until a date.
 >
 > This is processed under Article 6(1)(b) to run the program you joined, and under Article 6(1)(f) to prevent abuse. Lesson summaries are deleted 90 days after the invitation is decided, or 90 days after the campaign ends. If either account is deleted, that account's details go with it. Units the other person already earned stay theirs.
 

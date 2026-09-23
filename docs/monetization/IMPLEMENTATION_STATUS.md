@@ -387,6 +387,18 @@ Deno and Flutter tests cover the reference passing through the job, the API, the
   - The privacy policy, in-app and website, is published as version 2026-09-22.1.
 - **Runbook:** [ACTIVATION_RUNBOOK.md](ACTIVATION_RUNBOOK.md) covers staging, Play Console, the device test matrix, T0, the stages, and pause and rollback. Those steps need the operator's accounts and devices and have not been done.
 
+## Delivery 9 — The invited friend's reward
+
+The invitation was one-sided: the friend did the same two free units they would do anyway and got nothing, so only a personal favour explained entering a code.
+
+- **Migration `20261001100000_referee_trial.sql`:** finishing the two free units gives the friend two weeks of Czechify Core free, as a `referral_trial` access window. One per account ever, never extended, never granted for a held, rejected or unlinked invitation, and not blocked by the inviter's 15-unit cap.
+- **Snapshot and status:** `referral_trial_until` is reported apart from `migration_grace_until`; course access follows either. `get_referral_status` carries the trial and `trial_days`.
+- **Lock order:** claims now write to both accounts, so both transactions take the lower account ID first. Proven by `tool/test_referral_concurrency.py`: the previous order fails the new `mutual_invitation` case with `deadlock detected`.
+- **App:** the invite screen states the offer before joining and the end date while the trial runs; the subscriptions screen explains why the course is open. `CourseAccessSource.referralTrial` keeps it distinct from the existing-user grace.
+- **Privacy:** policy 2026-09-23.1, in the app and on the site, names the friend's trial.
+
+Validation: `supabase test db` (`referee_trial.test.sql` adds 22), the concurrency tool, Flutter tests for access, status parsing and both screens.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.

@@ -174,6 +174,113 @@ def run_case(case):
         sql(f"update monetization_private.referral_campaigns set {assignments} where id='a1-referral-v1';")
 
 
+def mutual_invitation_case():
+    """Two learners who invited each other, processed at the same time.
+
+    Since the friend's trial landed, one claim writes to both accounts, so a
+    pair of claims can touch the same two rows from opposite sides. Locking
+    each claim's own beneficiary first would let one hold A wanting B while
+    the other holds B wanting A: a deadlock PostgreSQL resolves by killing a
+    transaction, losing a reward. Both must take the lower account ID first,
+    whichever side of their claim it is on. That is what this checks: both
+    workers block on the SAME row, then both finish.
+    """
+    a, b = sorted(str(uuid.uuid4()) for _ in range(2))
+    ids = ",".join(map(literal, (a, b)))
+    controls = query("""select jsonb_build_object('enabled',enabled,'processing_paused',processing_paused,
+        'starts_at',starts_at,'claim_closes_at',claim_closes_at,'ends_at',ends_at)
+        from monetization_private.referral_campaigns where id='a1-referral-v1';""")
+    holder = None
+    claims = {}
+    try:
+        sql("""update monetization_private.referral_campaigns set enabled=true,processing_paused=true,
+            starts_at=now()-interval '1 day',claim_closes_at=now()+interval '1 month',ends_at=now()+interval '2 months';""")
+        sql("insert into auth.users(id,is_anonymous,created_at) values " + ",".join(
+            f"({literal(user)},false,now()-interval '1 hour')" for user in (a, b)
+        ) + ";" + f"""insert into auth.identities(user_id,provider,provider_id,identity_data)
+            select id,'email',id::text,'{{}}'::jsonb from auth.users where id in ({ids});""")
+        for inviter, friend in ((a, b), (b, a)):
+            sql(f"select get_or_create_referral_code({literal(inviter)},'a1-referral-v1');")
+            response = query(f"""select claim_referral({literal(friend)},'a1-referral-v1',
+                (select code from monetization_private.referral_codes where owner_id={literal(inviter)}));""")
+            assert "claim_id" in response, response
+            claims[friend] = response["claim_id"]
+            # Both free units, so processing decides the second milestone and
+            # the friend's trial in the same transaction.
+            for unit in (1, 2):
+                for lesson in query(f"select jsonb_agg(to_jsonb(m) order by lesson_id) from monetization_private.referral_manifest_lessons m where unit_id={unit};"):
+                    now = sql("select now();")
+                    receipt = {
+                        "schema_version": 1, "claim_id": claims[friend], "campaign_id": "a1-referral-v1",
+                        "content_revision": 25, "lesson_id": lesson["lesson_id"], "attempt_id": str(uuid.uuid4()),
+                        "started_at_client": now, "completed_at_client": now,
+                        "initial_coverage": [{"exercise_id": exercise, "interaction":
+                            "teaching_acknowledged" if exercise in lesson["teaching_ids"] else "answered_incorrectly"}
+                            for exercise in lesson["exercise_ids"]],
+                    }
+                    payload = json.dumps(receipt, sort_keys=True, separators=(",", ":"))
+                    digest = hashlib.sha256(payload.encode()).hexdigest()
+                    accepted = query(f"select accept_verified_referral_receipt({literal(friend)},{literal(claims[friend])},{literal(payload)}::jsonb,{literal(digest)},'verified');")
+                    assert accepted["status"] == "accepted", accepted
+        claim_ids = ",".join(map(literal, claims.values()))
+        sql("update monetization_private.referral_campaigns set processing_paused=false;")
+
+        # A third connection holds the LOWER account. Correct ordering makes
+        # both workers queue behind it; beneficiary-first ordering would let
+        # one run ahead, take the other row and deadlock.
+        holder = subprocess.Popen(CMD, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        holder.stdin.write(f"begin; select 1 from public.monetization_accounts where user_id={literal(a)} for update;\n\\echo LOCKED\n")
+        holder.stdin.flush()
+        assert holder.stdout.readline().strip() == "1"
+        assert holder.stdout.readline().strip() == "LOCKED"
+        names = [f"mutual-{a[:8]}-{index}" for index in range(2)]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+            pending = [pool.submit(sql, f"select process_referral_claim({literal(claim)});", names[index])
+                       for index, claim in enumerate(claims.values())]
+            deadline = time.monotonic() + 10
+            while time.monotonic() < deadline:
+                blocked = int(sql("select count(*) from pg_stat_activity where application_name in ("
+                                  + ",".join(map(literal, names)) + ") and wait_event_type='Lock';"))
+                if blocked == 2:
+                    break
+                time.sleep(0.05)
+            else:
+                raise AssertionError("Both transactions did not queue on the same account row")
+            holder.stdin.write("commit;\n\\q\n")
+            holder.stdin.flush()
+            holder.wait(timeout=10)
+            for result in pending:
+                # A deadlock surfaces here as SQLSTATE 40P01.
+                result.result(timeout=15)
+        for user in (a, b):
+            trial = sql(f"""select count(*) from public.course_access_windows
+                where user_id={literal(user)} and kind='referral_trial' and ends_at>now();""")
+            assert int(trial) == 1, (user, trial)
+            earned = sql(f"select count(*) from public.course_unit_grants where user_id={literal(user)} and source='referral';")
+            assert int(earned) == 2, (user, earned)
+        print("PASS: mutual_invitation (both transactions queued on the same account, no deadlock)")
+    finally:
+        if holder and holder.poll() is None:
+            holder.kill()
+            holder.wait(timeout=5)
+        if claims:
+            claim_ids = ",".join(map(literal, claims.values()))
+            for table in ("referral_review_cases", "referral_reward_events", "referral_milestones",
+                          "referral_lesson_qualifications", "referral_receipts"):
+                sql(f"delete from monetization_private.{table} where claim_id in ({claim_ids});")
+            sql(f"delete from monetization_private.referral_claims where id in ({claim_ids});")
+        sql(f"delete from auth.users where id in ({ids});")
+        # Audit rows outlive their account, so remove this run's by source key:
+        # both milestones of each claim, and the trial keyed by the claim.
+        sources = [f"{claim}:{ordinal}" for claim in claims.values() for ordinal in (1, 2)]
+        sources += [str(claim) for claim in claims.values()]
+        if sources:
+            sql("delete from monetization_private.entitlement_audit where user_id is null and source_key in ("
+                + ",".join(map(literal, sources)) + ");")
+        assignments = ",".join(f"{key}=" + ("null" if value is None else str(value).lower() if isinstance(value, bool) else literal(value)) for key, value in controls.items())
+        sql(f"update monetization_private.referral_campaigns set {assignments} where id='a1-referral-v1';")
+
+
 if __name__ == "__main__":
     manifest_check()
     cases = json.loads((ROOT / "docs/monetization/fixtures/decision_cases.v1.json").read_text())["cases"]
@@ -181,3 +288,4 @@ if __name__ == "__main__":
     assert len(scenarios) == 3
     for scenario in scenarios:
         run_case(scenario)
+    mutual_invitation_case()

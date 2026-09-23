@@ -1372,7 +1372,7 @@
   "upgradeCoreBody": "Every A1 and A2 lesson while you're subscribed. Cancel any time in Google Play.",
   "upgradeCoreAction": "See subscriptions",
   "upgradeInviteTitle": "Invite friends",
-  "upgradeInviteBody": "Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good.",
+  "upgradeInviteBody": "Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good. Your friend gets two weeks of Czechify Core free.",
   "upgradeInviteAction": "Invite friends",
   "upgradeA2Note": "Friend invitations unlock A1 units only. A2 is included with Core.",
   "paidUnitTitle": "Part of the full course",
@@ -1386,7 +1386,7 @@
   "settingsInviteBody": "Unlock A1 units for good",
   "referralsTitle": "Invite friends",
   "referralsUnavailable": "Invitations aren't open yet.",
-  "referralsHowItWorks": "When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another. Units you earn stay yours, even without a subscription.",
+  "referralsHowItWorks": "When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another, and your friend gets two weeks of Czechify Core free. Units you earn stay yours, even without a subscription.",
   "referralsUnitsEarned": "{earned} of {total} A1 units earned",
   "@referralsUnitsEarned": {
     "placeholders": {
@@ -1444,7 +1444,7 @@
   "referralsJoinTitle": "Got a code from a friend?",
   "referralsJoinHint": "Invite code",
   "referralsJoinAction": "Use code",
-  "referralsJoined": "You're in. Finish the first two units and the person who invited you gets their reward.",
+  "referralsJoined": "You're in. Finish the first two units: you get two weeks of Czechify Core free, and the person who invited you gets their reward.",
   "referralsOwnProgress": "{done} of {total} lessons completed",
   "@referralsOwnProgress": {
     "placeholders": {
@@ -1574,5 +1574,29 @@
       }
     }
   },
-  "subscriptionsRecoveryContact": "Email support"
+  "subscriptionsRecoveryContact": "Email support",
+  "referralsJoinReward": "{days,plural,=1{Enter a friend's code: you get {days} day of Czechify Core free when you finish the first two units, and they unlock a unit.}other{Enter a friend's code: you get {days} days of Czechify Core free when you finish the first two units, and they unlock a unit.}}",
+  "@referralsJoinReward": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "referralsTrialActive": "Czechify Core is free for you until {date}, for joining with a friend's code.",
+  "@referralsTrialActive": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "subscriptionsTrialActive": "Czechify Core is free until {date}, from a friend's invitation. Subscribe before then to keep it.",
+  "@subscriptionsTrialActive": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

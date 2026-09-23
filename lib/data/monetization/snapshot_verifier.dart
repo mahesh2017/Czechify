@@ -127,6 +127,7 @@ class SnapshotVerifier {
           body['migration_grace_until'],
           nullable: true,
         ),
+        referralTrialUntil: _date(body['referral_trial_until'], nullable: true),
       ),
       CurriculumEntitlement(
         unlockAll: unlimited || staffUntil != null,
