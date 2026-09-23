@@ -62,6 +62,13 @@ export type JobOutcome =
   | { status: "dead"; code: string };
 
 const leaseSeconds = 60;
+/**
+ * After this many attempts a job stops retrying and is counted by
+ * `billing_health` as dead. With the one-hour backoff cap and jitter this
+ * spans two to three days, inside Play's three-day acknowledgement deadline;
+ * `unacknowledged_over_1h` alerts long before that.
+ */
+export const maxAttempts = 80;
 
 /** 5 s doubling to one hour, with jitter; Play's Retry-After wins. */
 export function backoffSeconds(
@@ -119,7 +126,8 @@ export async function runBillingJob(
     }
   } catch (error) {
     const permanent = error instanceof UnexpectedPlayResponse ||
-      (error instanceof PlayApiError && !error.retryable);
+      (error instanceof PlayApiError && !error.retryable) ||
+      fence >= maxAttempts;
     const code = error instanceof PlayApiError
       ? error.code
       : error instanceof UnexpectedPlayResponse

@@ -1,7 +1,10 @@
 import { createClient } from "npm:@supabase/supabase-js@2.110.7";
 import { type BillingDependencies, createHandler } from "./handler.ts";
 import { createSnapshotSigner } from "./signing.ts";
-import { billingSecrets, createBilling } from "./billing.ts";
+import {
+  billingSecrets,
+  createBilling,
+} from "../_shared/monetization/billing_rpc.ts";
 
 const billingConfigured = billingSecrets.every((name) => Deno.env.get(name));
 let billing: Promise<BillingDependencies> | null = null;

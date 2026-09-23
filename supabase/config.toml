@@ -44,3 +44,16 @@ entrypoint = "./functions/account-data/index.ts"
 enabled = true
 verify_jwt = true
 entrypoint = "./functions/monetization-api/index.ts"
+
+# Google Pub/Sub push signs its own OIDC token; the handler verifies issuer,
+# audience and service account. Gateway JWT verification is off here only.
+[functions.play-billing-notifications]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/play-billing-notifications/index.ts"
+
+# Called by the scheduler with BILLING_WORKER_SECRET, not a user JWT.
+[functions.monetization-worker]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/monetization-worker/index.ts"
