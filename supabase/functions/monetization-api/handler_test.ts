@@ -168,6 +168,8 @@ function billingSetup(options: {
   checkout?: boolean;
   /** The account Play's check says owns the purchase. */
   owner?: string;
+  /** The account has used up its purchase checks for the hour. */
+  limited?: boolean;
 } = {}) {
   const log: string[] = [];
   const billing: BillingDependencies = {
@@ -201,6 +203,10 @@ function billingSetup(options: {
           ? (id === user ? { state: "active" } : null)
           : options.status,
       ),
+    allowVerification: (id, limit) => {
+      log.push(`allow:${id}:${limit}`);
+      return Promise.resolve(!options.limited);
+    },
     jobs: {
       owner: "test",
       cipher: {
@@ -351,6 +357,7 @@ Deno.test("verification provisions, then acknowledges, and never echoes the toke
   assertEquals(JSON.parse(text).access, true);
   assertEquals(text.includes("play-token"), false);
   assertEquals(log, [
+    `allow:${user}:30`,
     `register:${user}:64:sealed:czechify_core`,
     "claim:verify-job",
     "claim:ack-job",
@@ -369,6 +376,15 @@ Deno.test("a purchase Play says another account made goes to it, and this caller
   }
   // The buyer's purchase is still acknowledged, so Play keeps it.
   assertEquals(log.includes("play-ack"), true);
+});
+
+Deno.test("purchase checks are limited per account, before any token is stored", async () => {
+  const { handle, log } = billingSetup({ limited: true });
+  const response = await handle(post("purchases/verify", verifyBody));
+  assertEquals(response.status, 429);
+  const body = await response.json();
+  assertEquals([body.code, body.retry_after_seconds], ["rate_limited", 3600]);
+  assertEquals(log, [`allow:${user}:30`]);
 });
 
 Deno.test("a Play outage returns 202 with the verification ID to poll", async () => {

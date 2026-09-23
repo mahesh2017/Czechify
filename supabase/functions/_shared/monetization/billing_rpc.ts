@@ -37,6 +37,11 @@ export interface BillingDependencies {
     intentId: string | null,
   ): Promise<Json>;
   status(userId: string, purchaseId: string): Promise<Json | null>;
+  /**
+   * Records a purchase check; false once the account has made [limit] in
+   * the last hour. Each check may call the Play API, whose quota is shared.
+   */
+  allowVerification(userId: string, limit: number): Promise<boolean>;
   jobs: JobContext;
 }
 
@@ -139,6 +144,8 @@ export async function createBilling(
         p_user: userId,
         p_purchase: purchaseId,
       }),
+    allowVerification: (userId, limit) =>
+      rpc("allow_purchase_verification", { p_user: userId, p_limit: limit }),
     jobs: {
       store,
       play,

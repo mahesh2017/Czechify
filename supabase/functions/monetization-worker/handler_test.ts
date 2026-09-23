@@ -309,3 +309,60 @@ Deno.test("purchases Google notified first are looked up after the due jobs", as
     "discovery-fail:false",
   ]);
 });
+
+Deno.test("a billing outage still runs everything else and raises its own alert", async () => {
+  const sent: unknown[] = [];
+  const { handle, log } = setup((log) => ({
+    billing: billing(log, {
+      jobs: () => Promise.reject(new Error("Play credentials rejected")),
+    }),
+    privacyRetention: () => {
+      log.push("privacy-retention");
+      return Promise.resolve({});
+    },
+    operations: () => {
+      log.push("operations");
+      return Promise.resolve({
+        alerts: [{ alert: "acknowledgement_overdue", level: "investigate" }],
+      });
+    },
+    notify: (alerts) => {
+      sent.push(alerts);
+      return Promise.resolve();
+    },
+  }));
+  const response = await handle(call());
+  assertEquals(response.status, 503);
+  assertEquals((await response.json()).failed, ["billing"]);
+  for (
+    const step of [
+      "process:c1",
+      "cleanup",
+      "privacy-retention",
+      "operations",
+      "monetization_worker_stage_failed",
+    ]
+  ) {
+    assertEquals(log.includes(step), true, step);
+  }
+  assertEquals(sent, [[
+    { alert: "acknowledgement_overdue", level: "investigate" },
+    { alert: "worker_billing_failed", level: "investigate" },
+  ]]);
+});
+
+Deno.test("a failing report is itself an alert", async () => {
+  const sent: unknown[] = [];
+  const { handle } = setup(() => ({
+    operations: () => Promise.reject(new Error("db")),
+    notify: (alerts) => {
+      sent.push(alerts);
+      return Promise.resolve();
+    },
+  }));
+  assertEquals((await handle(call())).status, 503);
+  assertEquals(sent, [[{
+    alert: "worker_operations_failed",
+    level: "investigate",
+  }]]);
+});

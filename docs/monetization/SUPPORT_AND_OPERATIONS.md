@@ -68,7 +68,7 @@ select monetization_operations_report();
 | `verify_p95_seconds`, `verifications_30m` | Purchase verification time, from registration to result, over the last 30 minutes. |
 | `unacknowledged_over_1h` | Active purchases not acknowledged to Google Play after an hour. Play refunds unacknowledged purchases after three days. |
 | `acknowledged_without_access` | Acknowledged to Google, but the learner has no access recorded. |
-| `dead_billing_jobs`, `oldest_due_billing_job_seconds` | Jobs that gave up, and the backlog. |
+| `dead_billing_jobs`, `dead_billing_jobs_24h`, `oldest_due_billing_job_seconds` | Jobs that gave up (kept 30 days), those from the last day, and the backlog. |
 | `unmatched_notifications_24h` | Play notifications for tokens no account registered. |
 | `referral_queue_age_seconds`, `referral_rewards_24h` | Oldest invitation milestone waiting to be processed; rewards granted in the last day. |
 | `referral_reviews_open`, `legacy_claims_open`, `recovery_cases_open` (each with its oldest age) | Support queues. |
@@ -81,10 +81,11 @@ select monetization_operations_report();
 | `acknowledged_without_access` | **pause** | any | Immediate pause trigger from the release plan. Turn off checkout for the cohort, keep verification, acknowledgement and restore running, then reconcile each purchase with `support_account_summary`. |
 | `verification_slow` | investigate | p95 over 30 s | Check the Play Developer API quota and errors in the worker logs. |
 | `acknowledgement_overdue` | investigate | any purchase unacknowledged after 1 h | Check the acknowledge jobs. Play refunds after three days. |
-| `billing_jobs_dead` | investigate | any | Read `last_error_code` and requeue after fixing the cause. |
+| `billing_jobs_dead` | investigate | any in the last 24 h | Read `last_error_code` and requeue after fixing the cause. |
 | `referral_queue_slow` | investigate | oldest over 15 min | Check whether processing is paused and whether the worker is running. |
 | `ai_ceiling_tripped` | investigate | more than 1 trip in 7 days | Compare observed token use with the budget before raising the ceiling. |
 | `support_queue_waiting` | support | any case over 48 h | Work the oldest referral review, legacy claim or recovery case. |
+| `worker_<stage>_failed` | investigate | a worker stage failed this run | The stage (`billing`, `discoveries`, `referrals`, `ai_retention`, `privacy_retention`, `operations`) threw; the others still ran. Check that function's logs for `monetization_worker_stage_failed`. `worker_billing_failed` usually means Play credentials or the Play API. |
 
 With little traffic, look at every failure rather than trusting percentages. The rollback steps are in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md): pause, never delete entitlements, reconcile.
 

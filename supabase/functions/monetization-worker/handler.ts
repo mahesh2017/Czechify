@@ -69,12 +69,26 @@ export function createHandler(deps: Dependencies) {
     }
     const started = now();
     const report: Record<string, unknown> = {};
-    try {
-      if (deps.billing) {
-        const ctx = await deps.billing.jobs();
-        report.reconciliation = await deps.billing.enqueueReconciliation(100);
+    const failed: string[] = [];
+    // Every stage runs even when an earlier one failed: a billing outage must
+    // not also stop referral processing, retention, or the alerts that would
+    // report it.
+    const stage = async (name: string, work: () => Promise<void>) => {
+      try {
+        await work();
+      } catch {
+        failed.push(name);
+        log("monetization_worker_stage_failed", { stage: name });
+      }
+    };
+    const billing = deps.billing;
+    const shared: { ctx?: JobContext } = {};
+    if (billing) {
+      await stage("billing", async () => {
+        const ctx = shared.ctx = await billing.jobs();
+        report.reconciliation = await billing.enqueueReconciliation(100);
         const outcomes: Record<string, number> = {};
-        for (const job of await deps.billing.dueJobs(batch)) {
+        for (const job of await billing.dueJobs(batch)) {
           if (now() - started > budgetMs) break;
           let outcome: JobOutcome["status"];
           try {
@@ -86,9 +100,17 @@ export function createHandler(deps: Dependencies) {
           outcomes[outcome] = (outcomes[outcome] ?? 0) + 1;
         }
         report.outcomes = outcomes;
-        if (deps.billing.discoveries) {
+        const health = await billing.health();
+        report.health = health;
+        if (health.unacknowledged_over_1h > 0 || health.dead_jobs > 0) {
+          log("billing_attention_required", health);
+        }
+      });
+      const store = billing.discoveries;
+      if (store) {
+        await stage("discoveries", async () => {
+          const ctx = shared.ctx ?? await billing.jobs();
           const found: Record<string, number> = {};
-          const store = deps.billing.discoveries;
           for (const discovery of await store.due(discoveryBatch)) {
             if (now() - started > budgetMs) break;
             let outcome: DiscoveryOutcome;
@@ -101,67 +123,82 @@ export function createHandler(deps: Dependencies) {
             found[outcome] = (found[outcome] ?? 0) + 1;
           }
           report.discoveries = found;
-        }
-        const health = await deps.billing.health();
-        report.health = health;
-        if (health.unacknowledged_over_1h > 0 || health.dead_jobs > 0) {
-          log("billing_attention_required", health);
-        }
+        });
       }
-      if (deps.referrals) {
+    }
+    const referrals = deps.referrals;
+    if (referrals) {
+      await stage("referrals", async () => {
         let processed = 0;
-        let failed = 0;
-        for (const claim of await deps.referrals.claimsToProcess(batch)) {
+        let failures = 0;
+        for (const claim of await referrals.claimsToProcess(batch)) {
           if (now() - started > budgetMs) break;
           try {
-            await deps.referrals.processClaim(claim);
+            await referrals.processClaim(claim);
             processed++;
           } catch {
             // Processing is idempotent; the claim is selected again next run.
-            failed++;
+            failures++;
           }
         }
         report.referrals = {
           processed,
-          failed,
-          retention: await deps.referrals.cleanup(),
+          failed: failures,
+          retention: await referrals.cleanup(),
         };
-        if (failed > 0) log("referral_processing_failed", { failed });
-      }
-      if (deps.aiRetention) {
-        report.ai = { retention: await deps.aiRetention() };
-      }
-      if (deps.privacyRetention) {
-        report.privacy = { retention: await deps.privacyRetention() };
-      }
-      if (deps.operations) {
-        const operations = await deps.operations();
-        report.operations = operations;
-        const alerts = Array.isArray(operations.alerts)
-          ? operations.alerts
-          : [];
-        const crossed = alerts.map((alert) => ({
-          alert: String(
-            (alert as Record<string, unknown>)?.alert ?? "unknown",
-          ),
-          level: String((alert as Record<string, unknown>)?.level ?? ""),
-        }));
-        // A log line per alert, for log drains and alerting rules.
-        for (const alert of crossed) log("monetization_alert", alert);
-        if (deps.notify && crossed.length > 0) {
-          try {
-            await deps.notify(crossed);
-          } catch {
-            // Delivery never fails the run; the log lines remain.
-            log("monetization_alert_delivery_failed", {});
-          }
+        if (failures > 0) {
+          log("referral_processing_failed", { failed: failures });
         }
-      }
-      return Response.json(report);
-    } catch {
-      log("monetization_worker_failed", {});
-      return new Response(null, { status: 503 });
+      });
     }
+    const aiRetention = deps.aiRetention;
+    if (aiRetention) {
+      await stage("ai_retention", async () => {
+        report.ai = { retention: await aiRetention() };
+      });
+    }
+    const privacyRetention = deps.privacyRetention;
+    if (privacyRetention) {
+      await stage("privacy_retention", async () => {
+        report.privacy = { retention: await privacyRetention() };
+      });
+    }
+    const alerts: { alert: string; level: string }[] = [];
+    const operations = deps.operations;
+    if (operations) {
+      await stage("operations", async () => {
+        const result = await operations();
+        report.operations = result;
+        for (const alert of Array.isArray(result.alerts) ? result.alerts : []) {
+          alerts.push({
+            alert: String(
+              (alert as Record<string, unknown>)?.alert ?? "unknown",
+            ),
+            level: String((alert as Record<string, unknown>)?.level ?? ""),
+          });
+        }
+      });
+    }
+    // A stage that failed is an alert of its own, so the webhook hears of a
+    // billing outage even though billing's own numbers could not be read.
+    for (const name of failed) {
+      alerts.push({ alert: `worker_${name}_failed`, level: "investigate" });
+    }
+    // A log line per alert, for log drains and alerting rules.
+    for (const alert of alerts) log("monetization_alert", alert);
+    if (deps.notify && alerts.length > 0) {
+      try {
+        await deps.notify(alerts);
+      } catch {
+        // Delivery never fails the run; the log lines remain.
+        log("monetization_alert_delivery_failed", {});
+      }
+    }
+    if (failed.length > 0) {
+      report.failed = failed;
+      return Response.json(report, { status: 503 });
+    }
+    return Response.json(report);
   };
 }
 
