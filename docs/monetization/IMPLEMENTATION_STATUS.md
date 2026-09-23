@@ -317,6 +317,36 @@ Validation: `supabase test db` passes (451 tests; the new file has 45). They cov
 - each offline-claim path (ineligible, not ready, applied, repeat, already claimed, already owned, review and approval, rejected, window closed);
 - privileges.
 
+## Delivery 7b — Legacy claims, deletion and export
+
+- **Migration `20260928100000_account_lifecycle.sql`:**
+  - `legacy_claim_status` reports the latest applied run for an account: cutoff, grace end, claim window, eligibility, the kept units and any claim;
+  - `export_account_snapshot` adds the account's own purchases, referral code, claim, receipts and rewards, AI allowance and chat sessions, and legacy claims. It uses fixed column lists: no tokens or digests, no replay content, no fraud signals, no internal keys, and nothing about the other side of a referral;
+  - `account_deletion_notice` counts subscriptions still renewing.
+- **`monetization-api`:** `GET legacy/status` and `POST legacy/claim`. The account comes from the token and the run from the database; lesson IDs are validated, deduplicated and capped at 500. `LEGACY_CLAIM_REVIEW_UNITS` sets the review threshold.
+- **`account-data`:** a deletion that would leave a Play subscription renewing answers `409 store_subscription_active` until the learner has been told. An export missing any monetization record is refused.
+- **App:**
+  - an explanation card for pre-cutoff accounts at the top of the upgrade screen, and on Home during grace (dismissible per account). It shows the grace end and the units kept for good.
+  - The one offline claim is offered only when this device holds lessons from before the cutoff that reach a unit the account doesn't already keep. Only attempts recorded before the cutoff are sent, never lessons learned during grace. A reply for an account that has since switched is dropped.
+  - Account deletion warns that Google Play keeps charging, from the verified snapshot or when the server asks.
+- **Privacy:** wording and Data safety changes are drafted in [PRIVACY_AND_DATA_SAFETY.md](PRIVACY_AND_DATA_SAFETY.md) and go live with activation. The EU rules apply to every learner:
+  - Migration `20260928110000_privacy_retention.sql` adds `cleanup_privacy_records`, run by `monetization-worker` on each pass.
+  - A deleted account's purchases stay only while Google Play could still restore them, then 30 days.
+  - Referral lesson summaries go 90 days after the invitation is decided or the campaign ends.
+  - The existing-user snapshot goes 90 days after its claim window closes.
+  - Operational rows go after 30 days.
+  - The Play Integrity check is opt-in (ePrivacy Art. 5(3)): a switch on the invite screen, off by default. Without consent, receipts go to support review and the device is never asked.
+- **Checked, no change needed:**
+  - Deleting an invitee erases their receipts and keeps the referrer's earned units.
+  - Deleting a referrer removes only their own code and access; their open claims earn nothing further.
+  - Anonymous learners reach linking from both the subscriptions and the invite screens.
+  - Account switches clear the monetization snapshot, referral claim and receipt outbox (`clearLearnerDataRows`).
+
+Validation:
+- `supabase test db`: 505 tests; `account_lifecycle.test.sql` adds 34 and `privacy_retention.test.sql` 20. They cover export privacy for both sides of a referral and for purchases, the deletion notice, tombstoning on buyer and referrer deletion, and migration status before and after apply.
+- Deno: 156 tests, including the legacy routes and the deletion warning policy.
+- Flutter: the new claim flow, local record, providers, card, deletion request and account-screen warning tests.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
@@ -327,4 +357,4 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
 2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
-3. Existing-user migration and privacy (PR 7), then staging verification and release activation (PR 8). Course admission and its screens (Phase 5) and the AI subscription with spend protection (PR 6: 6a–6c) are done.
+3. Support recovery tooling and operating dashboards (7c), then staging verification and release activation (PR 8), which also publishes the privacy wording. Course admission and its screens (Phase 5) and the AI subscription with spend protection (PR 6: 6a–6c) are done.

@@ -3638,4 +3638,88 @@ class AppLocalizationsCs extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get accountDeleteSubscriptionTitle =>
+      'Předplatné se bude dál obnovovat';
+
+  @override
+  String get accountDeleteSubscriptionBody =>
+      'Smazáním účtu Czechify se předplatné v Google Play nezruší. Bude se dál obnovovat a účtovat, dokud ho nezrušíte v Google Play v části Platby a předplatná.';
+
+  @override
+  String get accountDeleteSubscriptionConfirm => 'Přesto smazat';
+
+  @override
+  String get accountDeleteSubscriptionKeep => 'Ponechat účet';
+
+  @override
+  String get accountDeleteKept => 'Účet nebyl smazán.';
+
+  @override
+  String get legacyTitle => 'Byli jste tu dřív než předplatné';
+
+  @override
+  String legacyGraceBody(String cutoff, String date) {
+    return 'Protože jste se začali učit před $cutoff, celý kurz zůstává otevřený do $date.';
+  }
+
+  @override
+  String legacyGraceEndedBody(String date) {
+    return 'Přístup pro první studenty skončil $date.';
+  }
+
+  @override
+  String legacyKeptUnits(String units) {
+    return 'Jednotky, ke kterým jste se dostali, vám zůstávají natrvalo: $units.';
+  }
+
+  @override
+  String get legacyNoKeptUnits =>
+      'Potom zůstanou zdarma jednotky 1 a 2 a zbytek otevře Czechify Core.';
+
+  @override
+  String legacyClaimBody(String cutoff) {
+    return 'Učili jste se v tomto telefonu bez synchronizace? Pošlete záznam lekcí tohoto telefonu z doby před $cutoff a ponecháte si i tyto jednotky. Každý účet to může udělat jednou.';
+  }
+
+  @override
+  String get legacyClaimAction => 'Poslat záznam z telefonu';
+
+  @override
+  String legacyClaimApplied(String units) {
+    return 'Hotovo. Tyto jednotky vám zůstávají natrvalo: $units.';
+  }
+
+  @override
+  String get legacyClaimNothingNew =>
+      'Hotovo. Všechny jednotky ze záznamu tohoto telefonu už máte.';
+
+  @override
+  String get legacyClaimReview =>
+      'Děkujeme. Podpora záznam zkontroluje a jednotky pak přidá.';
+
+  @override
+  String get legacyClaimRejected =>
+      'Záznam tohoto telefonu neobsahuje žádné lekce z doby před předplatným.';
+
+  @override
+  String get legacyClaimAlready => 'Tento účet už svůj záznam poslal.';
+
+  @override
+  String get legacyClaimClosed => 'Čas na poslání záznamu už uplynul.';
+
+  @override
+  String get legacyClaimFailed =>
+      'Nepodařilo se spojit s Czechify. Zkuste to znovu.';
+
+  @override
+  String get legacyDismiss => 'Rozumím';
+
+  @override
+  String get referralsIntegrityTitle => 'Ověřit telefon přes Google Play';
+
+  @override
+  String get referralsIntegrityBody =>
+      'Google Play potvrdí, že jde o pravou aplikaci Czechify nainstalovanou z Google Play, a ten, kdo vás pozval, tak dostane odměnu bez ruční kontroly. Czechify si uchová jen výsledek. Když to necháte vypnuté, vaše lekce zkontroluje ručně podpora, což trvá déle. Volbu můžete kdykoli změnit.';
 }

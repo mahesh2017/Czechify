@@ -179,3 +179,21 @@ Deno.test("AI retention runs after referrals and is reported", async () => {
   });
   assertEquals(log.at(-1), "ai-retention");
 });
+
+Deno.test("privacy retention runs last and is reported", async () => {
+  const { handle, log } = setup((log) => ({
+    aiRetention: () => {
+      log.push("ai-retention");
+      return Promise.resolve({});
+    },
+    privacyRetention: () => {
+      log.push("privacy-retention");
+      return Promise.resolve({ ownerless_purchases: 1, referral_receipts: 8 });
+    },
+  }));
+  const body = await (await handle(call())).json();
+  assertEquals(body.privacy, {
+    retention: { ownerless_purchases: 1, referral_receipts: 8 },
+  });
+  assertEquals(log.slice(-2), ["ai-retention", "privacy-retention"]);
+});

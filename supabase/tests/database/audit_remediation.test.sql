@@ -104,7 +104,7 @@ select public.is(jsonb_array_length(public.export_account_snapshot('40000000-000
 select public.is(jsonb_array_length(public.export_account_snapshot('40000000-0000-0000-0000-000000000002')->'learning_evidence_events'),
  1,'the second account receives only its own evidence');
 select public.is((select count(*) from jsonb_object_keys(public.export_account_snapshot('40000000-0000-0000-0000-000000000001'))),
- 18::bigint,'every declared cloud table is included, including empty tables');
+ 26::bigint,'every declared cloud table and monetization record is included, including empty ones');
 select public.is(jsonb_array_length(public.export_account_snapshot('40000000-0000-0000-0000-000000000001')->'tutor_reply_reports'),
  1,'reports are included in the snapshot');
 

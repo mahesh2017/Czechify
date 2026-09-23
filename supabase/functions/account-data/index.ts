@@ -11,13 +11,14 @@ import {
   hasRecentAuth,
   isCompleteAccountSnapshot,
   isSupportedMethod,
+  needsSubscriptionWarning,
   requiresRecentAuth,
 } from "./account_policy.ts";
 
 const CORS: CorsPolicy = {
   allowedOrigins: parseAllowedOrigins(Deno.env.get("ALLOWED_ORIGINS")),
   allowedHeaders:
-    "authorization, apikey, content-type, x-client-info, x-confirm-account-deletion",
+    "authorization, apikey, content-type, x-client-info, x-confirm-account-deletion, x-confirm-store-subscription",
   allowedMethods: "GET, DELETE, OPTIONS",
 };
 
@@ -115,6 +116,28 @@ Deno.serve(async (request) => {
       error: "Please sign in again to confirm account deletion.",
       code: "reauthentication_required",
     }, 401);
+  }
+
+  // A renewing Play subscription outlives the account. Say so before the
+  // data is gone; the app shows how to cancel it in Google Play.
+  const { data: notice, error: noticeError } = await admin.rpc(
+    "account_deletion_notice",
+    { p_user: user.id },
+  );
+  if (noticeError) {
+    console.error("Account deletion notice failed", noticeError.code);
+    return jsonResponse({ error: "Could not delete account." }, 503);
+  }
+  if (
+    needsSubscriptionWarning(
+      notice,
+      request.headers.get("x-confirm-store-subscription"),
+    )
+  ) {
+    return jsonResponse({
+      error: "A Google Play subscription keeps renewing after deletion.",
+      code: "store_subscription_active",
+    }, 409);
   }
 
   const { error: signOutError } = await admin.auth.admin.signOut(jwt, "global");

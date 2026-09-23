@@ -32,6 +32,8 @@ export interface Dependencies {
   referrals?: ReferralWork;
   /** Clears expired AI chat replay content and request tombstones. */
   aiRetention?: () => Promise<unknown>;
+  /** Deletes monetization records past their retention period. */
+  privacyRetention?: () => Promise<unknown>;
   now?: () => number;
   log?: (event: string, detail: Record<string, unknown>) => void;
 }
@@ -96,6 +98,9 @@ export function createHandler(deps: Dependencies) {
       }
       if (deps.aiRetention) {
         report.ai = { retention: await deps.aiRetention() };
+      }
+      if (deps.privacyRetention) {
+        report.privacy = { retention: await deps.privacyRetention() };
       }
       return Response.json(report);
     } catch {

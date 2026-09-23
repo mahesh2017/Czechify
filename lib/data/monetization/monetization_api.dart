@@ -109,6 +109,67 @@ class PurchaseRejected extends VerifyOutcome {
   const PurchaseRejected(this.code);
 }
 
+/// The existing-user migration as it applies to this account.
+class LegacyMigrationStatus {
+  final DateTime cutoffAt;
+  final DateTime graceEndsAt;
+  final DateTime claimWindowEndsAt;
+
+  /// Whether the account existed before the cutoff.
+  final bool eligible;
+  final bool claimWindowOpen;
+
+  /// Units this account keeps for good from the migration.
+  final List<int> legacyUnitIds;
+
+  /// This account's one offline claim, once made.
+  final LegacyClaim? claim;
+
+  const LegacyMigrationStatus({
+    required this.cutoffAt,
+    required this.graceEndsAt,
+    required this.claimWindowEndsAt,
+    required this.eligible,
+    required this.claimWindowOpen,
+    required this.legacyUnitIds,
+    this.claim,
+  });
+
+  /// Whether this device may still send its one claim.
+  bool get canClaim => eligible && claimWindowOpen && claim == null;
+}
+
+/// An offline claim's result: `applied`, `needs_review` or `rejected`.
+class LegacyClaim {
+  final String status;
+  final List<int> unitIds;
+  const LegacyClaim(this.status, this.unitIds);
+
+  static LegacyClaim? parse(Object? value) {
+    if (value is! Map) return null;
+    final status = value['status'];
+    if (status is! String) return null;
+    return LegacyClaim(status, _unitIds(value['unit_ids']));
+  }
+}
+
+/// Why the server refused a legacy claim. Stable API codes.
+class LegacyClaimException implements Exception {
+  final String code;
+  const LegacyClaimException(this.code);
+
+  @override
+  String toString() => 'LegacyClaimException: $code';
+}
+
+List<int> _unitIds(Object? value) =>
+    value is List
+        ? [
+          for (final id in value)
+            if (id is int) id,
+        ]
+        : const [];
+
 class MonetizationApi {
   final ApiCall call;
   const MonetizationApi(this.call);
@@ -122,8 +183,7 @@ class MonetizationApi {
       return MonetizationConfiguration(
         playCheckoutEnabled: response.body['play_checkout_enabled'] == true,
         coursePaywallEnabled: response.body['course_paywall_enabled'] == true,
-        referralClaimsEnabled:
-            response.body['referral_claims_enabled'] == true,
+        referralClaimsEnabled: response.body['referral_claims_enabled'] == true,
         paidChatRequired: response.body['paid_chat_required'] == true,
         aiDailyTurnLimit: switch (response.body['ai_daily_turn_limit']) {
           final int limit when limit > 0 => limit,
@@ -212,6 +272,53 @@ class MonetizationApi {
         validUntil != null &&
         validUntil.isAfter(DateTime.now());
     return PurchaseProvisioned(verificationId, state, access);
+  }
+
+  /// The applied existing-user migration for this account, or null when
+  /// there is none or the server could not say. An older server without the
+  /// route counts as none.
+  Future<LegacyMigrationStatus?> fetchLegacyStatus() async {
+    try {
+      final response = await call('legacy/status', method: 'GET');
+      final body = response.body;
+      if (response.status != 200 || body['available'] != true) return null;
+      final cutoff = DateTime.tryParse(body['cutoff_at'] as String? ?? '');
+      final grace = DateTime.tryParse(body['grace_ends_at'] as String? ?? '');
+      final window = DateTime.tryParse(
+        body['claim_window_ends_at'] as String? ?? '',
+      );
+      if (cutoff == null || grace == null || window == null) return null;
+      return LegacyMigrationStatus(
+        cutoffAt: cutoff,
+        graceEndsAt: grace,
+        claimWindowEndsAt: window,
+        eligible: body['eligible'] == true,
+        claimWindowOpen: body['claim_window_open'] == true,
+        legacyUnitIds: _unitIds(body['legacy_unit_ids']),
+        claim: LegacyClaim.parse(body['claim']),
+      );
+    } on Exception {
+      return null;
+    }
+  }
+
+  /// Sends this device's record of lessons from before the cutoff. The
+  /// server decides the units; throws [LegacyClaimException] when it refuses.
+  Future<LegacyClaim> submitLegacyClaim({
+    required Iterable<int> completedLessonIds,
+    required Iterable<int> attemptedLessonIds,
+  }) async {
+    final response = await call(
+      'legacy/claim',
+      method: 'POST',
+      body: {
+        'completed_lesson_ids': completedLessonIds.toList(),
+        'attempted_lesson_ids': attemptedLessonIds.toList(),
+      },
+    );
+    final claim = LegacyClaim.parse(response.body);
+    if (response.status == 200 && claim != null) return claim;
+    throw LegacyClaimException(response.code ?? 'verification_unavailable');
   }
 
   VerifyOutcome _outcome(ApiResponse response) {

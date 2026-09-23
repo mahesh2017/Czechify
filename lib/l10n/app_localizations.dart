@@ -6235,6 +6235,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{limit,plural,=1{Conversations with the AI tutor, up to {limit} tutor reply a day. Lessons and exams are not included; they are part of Czechify Core.}other{Conversations with the AI tutor, up to {limit} tutor replies a day. Lessons and exams are not included; they are part of Czechify Core.}}'**
   String subscriptionsAiBodyLimit(int limit);
+
+  /// No description provided for @accountDeleteSubscriptionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription keeps renewing'**
+  String get accountDeleteSubscriptionTitle;
+
+  /// No description provided for @accountDeleteSubscriptionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting your Czechify account doesn\'t cancel a Google Play subscription. It keeps renewing and charging you until you cancel it in Google Play, under Payments & subscriptions.'**
+  String get accountDeleteSubscriptionBody;
+
+  /// No description provided for @accountDeleteSubscriptionConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete anyway'**
+  String get accountDeleteSubscriptionConfirm;
+
+  /// No description provided for @accountDeleteSubscriptionKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep my account'**
+  String get accountDeleteSubscriptionKeep;
+
+  /// No description provided for @accountDeleteKept.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account was not deleted.'**
+  String get accountDeleteKept;
+
+  /// No description provided for @legacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You were here before subscriptions'**
+  String get legacyTitle;
+
+  /// No description provided for @legacyGraceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Because you started learning before {cutoff}, the whole course stays open until {date}.'**
+  String legacyGraceBody(String cutoff, String date);
+
+  /// No description provided for @legacyGraceEndedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your early-learner access ended on {date}.'**
+  String legacyGraceEndedBody(String date);
+
+  /// No description provided for @legacyKeptUnits.
+  ///
+  /// In en, this message translates to:
+  /// **'The units you\'d reached stay yours for good: {units}.'**
+  String legacyKeptUnits(String units);
+
+  /// No description provided for @legacyNoKeptUnits.
+  ///
+  /// In en, this message translates to:
+  /// **'After that, units 1 and 2 stay free, and Czechify Core opens the rest.'**
+  String get legacyNoKeptUnits;
+
+  /// No description provided for @legacyClaimBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Learned on this phone without syncing? Send this phone\'s lesson record from before {cutoff} to keep those units too. Each account can do this once.'**
+  String legacyClaimBody(String cutoff);
+
+  /// No description provided for @legacyClaimAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Send this phone\'s record'**
+  String get legacyClaimAction;
+
+  /// No description provided for @legacyClaimApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Done. These units are yours for good: {units}.'**
+  String legacyClaimApplied(String units);
+
+  /// No description provided for @legacyClaimNothingNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Done. You already keep every unit this phone\'s record reaches.'**
+  String get legacyClaimNothingNew;
+
+  /// No description provided for @legacyClaimReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks. Support will check this record, then add the units.'**
+  String get legacyClaimReview;
+
+  /// No description provided for @legacyClaimRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone\'s record has no lessons from before subscriptions arrived.'**
+  String get legacyClaimRejected;
+
+  /// No description provided for @legacyClaimAlready.
+  ///
+  /// In en, this message translates to:
+  /// **'This account has already sent its record.'**
+  String get legacyClaimAlready;
+
+  /// No description provided for @legacyClaimClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'The time to send a record has ended.'**
+  String get legacyClaimClosed;
+
+  /// No description provided for @legacyClaimFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t reach Czechify. Try again.'**
+  String get legacyClaimFailed;
+
+  /// No description provided for @legacyDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get legacyDismiss;
+
+  /// No description provided for @referralsIntegrityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check this phone with Google Play'**
+  String get referralsIntegrityTitle;
+
+  /// No description provided for @referralsIntegrityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play confirms this is the genuine Czechify app, installed from Google Play, so the person who invited you gets their reward without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.'**
+  String get referralsIntegrityBody;
 }
 
 class _AppLocalizationsDelegate

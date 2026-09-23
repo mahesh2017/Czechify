@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'support/localized_app.dart';
@@ -334,5 +335,34 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.textContaining("You're in."), findsOneWidget);
     });
+  });
+
+  testWidgets('the Play Integrity check is off until the learner turns it on', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    tester.view.physicalSize = const Size(400, 2000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await _pump(tester, '/referrals');
+    final toggle = find.widgetWithText(
+      SwitchListTile,
+      'Check this phone with Google Play',
+    );
+    expect(tester.widget<SwitchListTile>(toggle).value, isFalse);
+    await tester.tap(toggle);
+    await tester.pumpAndSettle();
+    expect(tester.widget<SwitchListTile>(toggle).value, isTrue);
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getBool('referral_integrity_consent_v1:account-a'), isTrue);
+    expect(
+      prefs.getString('referral_integrity_consent_v1:account-a:at'),
+      isNotNull,
+    );
+    // Withdrawing is as easy as giving it.
+    await tester.tap(toggle);
+    await tester.pumpAndSettle();
+    expect(prefs.getBool('referral_integrity_consent_v1:account-a'), isFalse);
   });
 }

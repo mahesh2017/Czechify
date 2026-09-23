@@ -34,6 +34,24 @@ export const syncedUserTables = [
   "delayed_transfer_assignments",
 ] as const;
 
+/// Records the server keeps about the account on its own: course access,
+/// subscriptions, referrals, AI allowance and the existing-user migration.
+/// The database exports each through a fixed column list, so purchase
+/// tokens, fraud signals and the other side of a referral never appear.
+export const serverOwnedExportKeys = [
+  "course_unit_grants",
+  "course_access_windows",
+  "feature_access",
+  "store_purchases",
+  "referral_codes",
+  "referral_claims",
+  "referral_receipts",
+  "referral_rewards",
+  "ai_daily_allowance",
+  "ai_chat_sessions",
+  "legacy_migration_claims",
+] as const;
+
 /// Refuse an incomplete backend export rather than silently losing a table.
 export const isCompleteAccountSnapshot = (
   value: unknown,
@@ -42,7 +60,9 @@ export const isCompleteAccountSnapshot = (
     return false;
   }
   const snapshot = value as Record<string, unknown>;
-  return syncedUserTables.every((table) => Array.isArray(snapshot[table]));
+  return [...syncedUserTables, ...serverOwnedExportKeys].every((table) =>
+    Array.isArray(snapshot[table])
+  );
 };
 
 export const isSupportedMethod = (method: string): boolean =>
@@ -50,6 +70,26 @@ export const isSupportedMethod = (method: string): boolean =>
 
 export const confirmsDeletion = (value: string | null): boolean =>
   value === "DELETE MY ACCOUNT";
+
+/// Deleting Czechify data does not cancel a Google Play subscription. While
+/// one is still renewing, deletion needs the learner to have been told so.
+export const acknowledgesStoreSubscription = (value: string | null): boolean =>
+  value === "KEEPS RENEWING IN GOOGLE PLAY";
+
+/// Whether the deletion must stop and warn first.
+export const needsSubscriptionWarning = (
+  notice: unknown,
+  acknowledgement: string | null,
+): boolean => {
+  const renewing = typeof notice === "object" && notice !== null
+    ? (notice as Record<string, unknown>).renewing_subscriptions
+    : undefined;
+  // An unreadable notice warns rather than deleting silently.
+  if (typeof renewing !== "number" || !Number.isInteger(renewing)) {
+    return !acknowledgesStoreSubscription(acknowledgement);
+  }
+  return renewing > 0 && !acknowledgesStoreSubscription(acknowledgement);
+};
 
 /// How recently the caller must have proved their identity to delete an
 /// account. A stolen access token stays valid for its full lifetime, so the

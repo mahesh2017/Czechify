@@ -15,6 +15,7 @@ import '../tables/learning_evidence_events.dart';
 import '../tables/placement_profiles.dart';
 import '../tables/delayed_transfer_assignments.dart';
 import '../tables/referral_tables.dart';
+import '../../../domain/entities/legacy_lesson_record.dart';
 import '../../../domain/entities/pending_referral_receipt.dart';
 import '../../../domain/entities/exercise_attempt_evidence.dart';
 import '../../../domain/entities/exercise_outcome.dart';
@@ -708,6 +709,36 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     return (select(
       lessonProgress,
     )..where((l) => l.unitId.equals(unitId))).get();
+  }
+
+  /// Lessons this device recorded before [cutoff]. Every committed attempt
+  /// completes its lesson, so an attempt committed before the cutoff is a
+  /// completion then; progress rows cover devices from before attempts were
+  /// recorded. Lessons touched only afterwards, during grace, never count.
+  Future<LegacyLessonRecord> legacyLessonRecord(DateTime cutoff) async {
+    final completed = <int>{};
+    final attempted = <int>{};
+    final units = <int>{};
+    final attempts = await (select(
+      lessonAttempts,
+    )..where((a) => a.committedAt.isSmallerThanValue(cutoff))).get();
+    for (final attempt in attempts) {
+      completed.add(attempt.lessonId);
+      units.add(attempt.unitId);
+    }
+    final rows = await (select(
+      lessonProgress,
+    )..where((l) => l.lastAttempted.isSmallerThanValue(cutoff))).get();
+    for (final row in rows) {
+      (row.isCompleted ? completed : attempted).add(row.lessonId);
+      units.add(row.unitId);
+    }
+    attempted.removeAll(completed);
+    return LegacyLessonRecord(
+      completedLessonIds: completed,
+      attemptedLessonIds: attempted,
+      unitIds: units,
+    );
   }
 
   Stream<List<LessonProgressData>> watchCompletedLessons() {

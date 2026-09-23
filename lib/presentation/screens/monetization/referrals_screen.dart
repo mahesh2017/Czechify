@@ -322,6 +322,22 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
             ),
           ],
         ),
+      const SizedBox(height: 12),
+      // Consent for the device check: off until chosen, changeable any time.
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        value: ref.watch(referralIntegrityConsentProvider).value ?? false,
+        onChanged:
+            (value) => ref.read(setReferralIntegrityConsentProvider)(value),
+        title: Text(
+          l10n.referralsIntegrityTitle,
+          style: TextStyle(fontSize: 15, color: t.ink),
+        ),
+        subtitle: Text(
+          l10n.referralsIntegrityBody,
+          style: TextStyle(fontSize: 13, height: 1.4, color: t.muted),
+        ),
+      ),
     ];
   }
 }

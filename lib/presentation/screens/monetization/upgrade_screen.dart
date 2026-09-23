@@ -7,6 +7,7 @@ import '../../../domain/entities/course_catalog.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/referral_providers.dart';
 import '../../widgets/common/soft_ui.dart';
+import '../../widgets/monetization/legacy_migration_card.dart';
 
 /// Where a learner lands at paid content: subscribe to Core, or (for A1 only)
 /// invite friends to unlock units for good. No reward is promised for A2.
@@ -52,6 +53,8 @@ class UpgradeScreen extends ConsumerWidget {
               style: TextStyle(fontSize: 15, height: 1.45, color: t.muted),
             ),
             const SizedBox(height: 18),
+            // Learners from before subscriptions see what they keep first.
+            const LegacyMigrationCard(),
             _Option(
               icon: Icons.workspace_premium_outlined,
               title: l10n.upgradeCoreTitle,

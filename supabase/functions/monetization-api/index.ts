@@ -69,6 +69,32 @@ Deno.serve(createHandler({
     }
     : undefined,
   referrals: () => Promise.resolve(referrals),
+  legacy: {
+    async status(user) {
+      const { data, error } = await admin().rpc("legacy_claim_status", {
+        p_user: user,
+      });
+      if (error) throw new Error("legacy_claim_status failed");
+      return data;
+    },
+    async claim(user, migration, completed, attempted, reviewThreshold) {
+      const { data, error } = await admin().rpc("submit_legacy_claim", {
+        p_user: user,
+        p_migration: migration,
+        p_completed: completed,
+        p_attempted: attempted,
+        p_review_threshold: reviewThreshold,
+      });
+      if (error) throw new Error("submit_legacy_claim failed");
+      return data;
+    },
+    reviewThreshold: parseBoundedInteger(
+      Deno.env.get("LEGACY_CLAIM_REVIEW_UNITS"),
+      3,
+      0,
+      31,
+    ),
+  },
 }));
 
 function admin() {

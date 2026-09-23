@@ -3623,4 +3623,87 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get accountDeleteSubscriptionTitle =>
+      'Your subscription keeps renewing';
+
+  @override
+  String get accountDeleteSubscriptionBody =>
+      'Deleting your Czechify account doesn\'t cancel a Google Play subscription. It keeps renewing and charging you until you cancel it in Google Play, under Payments & subscriptions.';
+
+  @override
+  String get accountDeleteSubscriptionConfirm => 'Delete anyway';
+
+  @override
+  String get accountDeleteSubscriptionKeep => 'Keep my account';
+
+  @override
+  String get accountDeleteKept => 'Your account was not deleted.';
+
+  @override
+  String get legacyTitle => 'You were here before subscriptions';
+
+  @override
+  String legacyGraceBody(String cutoff, String date) {
+    return 'Because you started learning before $cutoff, the whole course stays open until $date.';
+  }
+
+  @override
+  String legacyGraceEndedBody(String date) {
+    return 'Your early-learner access ended on $date.';
+  }
+
+  @override
+  String legacyKeptUnits(String units) {
+    return 'The units you\'d reached stay yours for good: $units.';
+  }
+
+  @override
+  String get legacyNoKeptUnits =>
+      'After that, units 1 and 2 stay free, and Czechify Core opens the rest.';
+
+  @override
+  String legacyClaimBody(String cutoff) {
+    return 'Learned on this phone without syncing? Send this phone\'s lesson record from before $cutoff to keep those units too. Each account can do this once.';
+  }
+
+  @override
+  String get legacyClaimAction => 'Send this phone\'s record';
+
+  @override
+  String legacyClaimApplied(String units) {
+    return 'Done. These units are yours for good: $units.';
+  }
+
+  @override
+  String get legacyClaimNothingNew =>
+      'Done. You already keep every unit this phone\'s record reaches.';
+
+  @override
+  String get legacyClaimReview =>
+      'Thanks. Support will check this record, then add the units.';
+
+  @override
+  String get legacyClaimRejected =>
+      'This phone\'s record has no lessons from before subscriptions arrived.';
+
+  @override
+  String get legacyClaimAlready => 'This account has already sent its record.';
+
+  @override
+  String get legacyClaimClosed => 'The time to send a record has ended.';
+
+  @override
+  String get legacyClaimFailed => 'Couldn\'t reach Czechify. Try again.';
+
+  @override
+  String get legacyDismiss => 'Got it';
+
+  @override
+  String get referralsIntegrityTitle => 'Check this phone with Google Play';
+
+  @override
+  String get referralsIntegrityBody =>
+      'Google Play confirms this is the genuine Czechify app, installed from Google Play, so the person who invited you gets their reward without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.';
 }

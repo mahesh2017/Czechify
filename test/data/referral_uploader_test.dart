@@ -33,6 +33,7 @@ void main() {
   late List<ApiResponse> submitReplies;
   late ApiResponse challengeReply;
   late String? account;
+  late bool consent;
   late ReferralUploader uploader;
 
   Future<void> queue(String attemptId, {String accountId = 'account-a'}) =>
@@ -68,6 +69,7 @@ void main() {
     submitReplies = [];
     challengeReply = const ApiResponse(201, {'nonce': _nonce});
     account = 'account-a';
+    consent = true;
     uploader = ReferralUploader(
       store: store,
       api: ReferralApi((
@@ -84,6 +86,7 @@ void main() {
       }),
       integrity: integrity,
       currentAccount: () => account,
+      integrityAllowed: (_) async => consent,
       now: () => _now,
       random: () => 1,
     );
@@ -119,6 +122,18 @@ void main() {
     expect(calls.last['receipt'], jsonDecode(stored.receiptJson));
     expect(calls.last.containsKey('integrity_unavailable'), isFalse);
   });
+
+  test(
+    'without consent the device is never asked and support reviews',
+    () async {
+      consent = false;
+      await uploader.drain();
+      expect(integrity.hashes, isEmpty);
+      expect(calls.last['integrity_unavailable'], isTrue);
+      expect(calls.last.containsKey('integrity_token'), isFalse);
+      expect((await row()).status, 'sent');
+    },
+  );
 
   test('a device without Integrity takes the review route', () async {
     integrity.result = const IntegrityUnsupported();
@@ -202,6 +217,7 @@ void main() {
       ),
       integrity: integrity,
       currentAccount: () => 'account-a',
+      integrityAllowed: (_) async => consent,
       now: () => _now,
       random: () => 1,
     );
@@ -245,6 +261,7 @@ void main() {
       }),
       integrity: integrity,
       currentAccount: () => account,
+      integrityAllowed: (_) async => consent,
       now: () => _now,
     );
     await switching.drain();

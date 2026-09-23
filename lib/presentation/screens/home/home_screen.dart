@@ -22,6 +22,7 @@ import '../../widgets/common/minimum_tap_area.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
 import '../../widgets/home/streak_state_sheet.dart';
+import '../../widgets/monetization/legacy_migration_card.dart';
 
 /// The freeze chip's ice blue. Not tokenised, because a freeze is none of the
 /// six semantic hues — it is its own idea, and it needs to stay recognisable
@@ -300,6 +301,7 @@ class HomeScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   const _RevisitLessonCard(),
+                  const LegacyMigrationCard(dismissible: true),
                   if (learnerProfile.hasValue &&
                       learnerProfile.value?.primaryGoal == null) ...[
                     const _PersonalizePlanCard(),

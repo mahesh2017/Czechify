@@ -11,8 +11,10 @@ import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../data/account/account_service.dart';
 import '../../../data/account/account_identity.dart';
+import '../../../data/sync/backend_service.dart';
 import '../../providers/account_providers.dart';
 import '../../providers/curriculum_providers.dart';
+import '../../providers/monetization_providers.dart';
 import '../../providers/reminder_coordinator.dart';
 import '../../providers/settings_providers.dart';
 import '../../utils/external_links.dart';
@@ -429,12 +431,77 @@ class _AccountScreenState extends ConsumerState<AccountScreen> {
       if (password == null || password.isEmpty) return;
     }
 
-    await _run(
-      () => ref
-          .read(accountServiceProvider)
-          .deleteAccountAndLocalData(password: password),
-      l10n.accountDeleted,
+    // Deleting Czechify data is not a Play cancellation. Warn up front when
+    // the verified snapshot shows a subscription; the server has the final
+    // say and asks again if it knows of one this device does not.
+    var acknowledged = false;
+    if (await _hasActiveSubscription()) {
+      if (!await _confirmSubscriptionContinues()) return;
+      acknowledged = true;
+    }
+
+    await _run(() async {
+      final account = ref.read(accountServiceProvider);
+      try {
+        await account.deleteAccountAndLocalData(
+          password: password,
+          subscriptionAcknowledged: acknowledged,
+        );
+      } on StoreSubscriptionActiveException {
+        if (!await _confirmSubscriptionContinues()) {
+          throw AuthException(l10n.accountDeleteKept);
+        }
+        await account.deleteAccountAndLocalData(
+          password: password,
+          subscriptionAcknowledged: true,
+        );
+      }
+    }, l10n.accountDeleted);
+  }
+
+  Future<bool> _hasActiveSubscription() async {
+    // Listened while awaited: an unlistened provider can pause and never
+    // answer. Unknown reads as no; the server still asks if it knows better.
+    final subscription = ref.listenManual(
+      monetizationLoadProvider.future,
+      (_, _) {},
     );
+    try {
+      final load = await subscription.read().timeout(
+        const Duration(seconds: 3),
+      );
+      final snapshot = load.document?.snapshot;
+      if (snapshot == null) return false;
+      return [
+        snapshot.core,
+        snapshot.aiChat,
+      ].any((feature) => feature.isActiveAt(load.now, offline: load.offline));
+    } on Object {
+      return false;
+    } finally {
+      subscription.close();
+    }
+  }
+
+  Future<bool> _confirmSubscriptionContinues() async {
+    if (!mounted) return false;
+    return await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) {
+            final l10n = AppLocalizations.of(context);
+            return AppDialog(
+              icon: Icons.credit_card_outlined,
+              tone: AppDialogTone.warning,
+              title: l10n.accountDeleteSubscriptionTitle,
+              message: l10n.accountDeleteSubscriptionBody,
+              confirmLabel: l10n.accountDeleteSubscriptionConfirm,
+              onConfirm: () => Navigator.pop(dialogContext, true),
+              dismissLabel: l10n.accountDeleteSubscriptionKeep,
+              onDismiss: () => Navigator.pop(dialogContext, false),
+            );
+          },
+        ) ??
+        false;
   }
 
   Future<String?> _askText({

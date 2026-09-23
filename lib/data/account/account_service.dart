@@ -191,7 +191,10 @@ class AccountService {
   /// [password] is forwarded to re-authenticate before the cloud account is
   /// deleted; see [BackendService.deleteCloudAccount]. Null is correct for
   /// anonymous accounts, which have no credential to re-enter.
-  Future<void> deleteAccountAndLocalData({String? password}) async {
+  Future<void> deleteAccountAndLocalData({
+    String? password,
+    bool subscriptionAcknowledged = false,
+  }) async {
     onAccountTransitionStarted?.call();
     try {
       if (_backend.isSignedIn) {
@@ -199,7 +202,10 @@ class AccountService {
           final tokens = await _googleAuth.authenticate();
           await _backend.reauthenticateGoogle(tokens);
         }
-        await _backend.deleteCloudAccount(password: password);
+        await _backend.deleteCloudAccount(
+          password: password,
+          subscriptionAcknowledged: subscriptionAcknowledged,
+        );
       }
       await _db.clearLearnerData();
       await _clearAccountScopedArtifacts();
