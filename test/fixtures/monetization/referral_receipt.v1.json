@@ -1,0 +1,66 @@
+{
+  "note": "Cross-language contract for referral receipts. Canonical JSON: keys sorted, no whitespace, integers, ASCII strings; coverage sorted by exercise_id. Generated with Python's json module independently of the Deno and Dart implementations.",
+  "receipt_as_sent": {
+    "schema_version": 1,
+    "claim_id": "5c1b3f60-2b0e-4c57-9d8e-3a7f0f6c2e11",
+    "campaign_id": "a1-referral-v1",
+    "content_revision": 25,
+    "lesson_id": 100,
+    "attempt_id": "0d9f4a52-8c3e-4b7a-a1f2-6e5d4c3b2a19",
+    "started_at_client": "2026-10-01T11:40:00.000Z",
+    "completed_at_client": "2026-10-01T11:52:30.250Z",
+    "initial_coverage": [
+      {
+        "exercise_id": 907,
+        "interaction": "answered_correctly"
+      },
+      {
+        "exercise_id": 906,
+        "interaction": "answered_correctly"
+      },
+      {
+        "exercise_id": 905,
+        "interaction": "answered_correctly"
+      },
+      {
+        "exercise_id": 904,
+        "interaction": "answered_correctly"
+      },
+      {
+        "exercise_id": 903,
+        "interaction": "answered_incorrectly"
+      },
+      {
+        "exercise_id": 902,
+        "interaction": "answered_correctly"
+      },
+      {
+        "exercise_id": 901,
+        "interaction": "answered_correctly"
+      },
+      {
+        "exercise_id": 900,
+        "interaction": "answered_correctly"
+      },
+      {
+        "exercise_id": 899,
+        "interaction": "teaching_acknowledged"
+      },
+      {
+        "exercise_id": 898,
+        "interaction": "teaching_acknowledged"
+      }
+    ]
+  },
+  "canonical": "{\"attempt_id\":\"0d9f4a52-8c3e-4b7a-a1f2-6e5d4c3b2a19\",\"campaign_id\":\"a1-referral-v1\",\"claim_id\":\"5c1b3f60-2b0e-4c57-9d8e-3a7f0f6c2e11\",\"completed_at_client\":\"2026-10-01T11:52:30.250Z\",\"content_revision\":25,\"initial_coverage\":[{\"exercise_id\":898,\"interaction\":\"teaching_acknowledged\"},{\"exercise_id\":899,\"interaction\":\"teaching_acknowledged\"},{\"exercise_id\":900,\"interaction\":\"answered_correctly\"},{\"exercise_id\":901,\"interaction\":\"answered_correctly\"},{\"exercise_id\":902,\"interaction\":\"answered_correctly\"},{\"exercise_id\":903,\"interaction\":\"answered_incorrectly\"},{\"exercise_id\":904,\"interaction\":\"answered_correctly\"},{\"exercise_id\":905,\"interaction\":\"answered_correctly\"},{\"exercise_id\":906,\"interaction\":\"answered_correctly\"},{\"exercise_id\":907,\"interaction\":\"answered_correctly\"}],\"lesson_id\":100,\"schema_version\":1,\"started_at_client\":\"2026-10-01T11:40:00.000Z\"}",
+  "receipt_digest": "762f6ac7ca366adcefd83824e079f818c98a8d671e8a3d327f8fb3edabf00688",
+  "integrity_binding": {
+    "account_id": "7a4e2c90-1f3b-4d6a-8b5c-9e0d1f2a3b4c",
+    "campaign_id": "a1-referral-v1",
+    "claim_id": "5c1b3f60-2b0e-4c57-9d8e-3a7f0f6c2e11",
+    "nonce": "9999999999999999999999999999999999999999999999999999999999999999",
+    "receipt_digest": "762f6ac7ca366adcefd83824e079f818c98a8d671e8a3d327f8fb3edabf00688"
+  },
+  "integrity_binding_canonical": "{\"account_id\":\"7a4e2c90-1f3b-4d6a-8b5c-9e0d1f2a3b4c\",\"campaign_id\":\"a1-referral-v1\",\"claim_id\":\"5c1b3f60-2b0e-4c57-9d8e-3a7f0f6c2e11\",\"nonce\":\"9999999999999999999999999999999999999999999999999999999999999999\",\"receipt_digest\":\"762f6ac7ca366adcefd83824e079f818c98a8d671e8a3d327f8fb3edabf00688\"}",
+  "integrity_request_hash": "26d93f4925ecaeaed539c1c919fa68d59687dd8d6e140c0bae6c201cf0cb1f4d"
+}

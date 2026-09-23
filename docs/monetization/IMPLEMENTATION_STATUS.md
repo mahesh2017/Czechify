@@ -116,14 +116,33 @@ Not in 4a: public referral endpoints/status projections, generic request idempot
 
 Validation: full local Supabase reset; all 278 pgTAP tests pass (74 new referral checks); all three real concurrency fixtures and the server/bundled-manifest comparison pass; database lint is clean. This slice changes no Flutter or Edge Function runtime code. CI also runs the new contention harness after pgTAP.
 
+## Delivery 4b — Referral API, challenges and Play Integrity
+
+Implemented on `codex/referral-intake`, stacked on 4a. Details and secrets: [REFERRAL_BACKEND.md](REFERRAL_BACKEND.md).
+
+- Five referral routes on `monetization-api`, with the account from the verified JWT and stable error codes.
+- Canonical receipt bytes with a Python-generated cross-language fixture, and a Play Integrity request hash binding account, campaign, claim, receipt and a single-use nonce.
+- Challenges consumed in the same transaction as receipt persistence; committed receipts replay before any challenge or token check.
+- A Play Integrity verifier: reject a token not made for this request, review verdicts Play cannot vouch for, verify the rest. Devices without Integrity take an explicit review route.
+- Privacy-safe status with numbered friends and cursor pagination; worker processing of claims released by account linking or resumed processing; retention; a service-only campaign switch.
+- Refactor: service-account OAuth moved to `_shared/monetization/google_auth.ts` for Play billing and Integrity; the monetization worker no longer requires billing secrets for referral work.
+
+Validation:
+
+- Database: `supabase test db` passes 323/323 on the full migration chain (45 new intake checks); all three concurrency fixtures pass; lint is clean.
+- Edge Functions: fmt, lint, `deno check` on all entry points, 114 unit tests. The canonical bytes match the independently generated fixture.
+- End to end, on the local stack with only Integrity faked: a linked friend claimed a code and submitted all eight lessons through challenge, token check and receipt. While paused the learning was recorded without rewards; once resumed, the worker granted units 3 and 4, and a retried receipt returned the original result without a new token check or reward. The billing integration test still passes after the worker change.
+
+Not in 4b: the Flutter claim flow, player coverage capture and receipt outbox (4c); operator identity for reviews; real Play Integrity tokens, which need a Play-distributed build.
+
 ## Activation boundary
 
-Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access. Referral evidence validation and allocation exist behind service-only database operations; verified intake and client integration remain pending. No production backend was changed.
+Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused; the Flutter client integration remains pending. No production backend was changed.
 
 Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course admission must consume the existing repository's signature-, account- and protocol-verified result. `ReferralRewardPolicy` is a client preview; only verified server intake followed by the 4a database transaction may issue real referral rewards.
 
 ## Next implementation work
 
 1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
-2. Complete referral API, canonical request/nonce binding, Play Integrity and durable processing (4b), then the Flutter claim/player-receipt/outbox integration (4c). Database allocation and the three concurrency fixtures are implemented in 4a.
+2. Flutter claim flow, player coverage and teaching acknowledgements, Dart canonical receipts against the shared fixture, Play Integrity token requests and an account-scoped receipt outbox (4c).
 3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).

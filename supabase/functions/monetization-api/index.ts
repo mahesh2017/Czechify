@@ -5,9 +5,26 @@ import {
   billingSecrets,
   createBilling,
 } from "../_shared/monetization/billing_rpc.ts";
+import {
+  createReferrals,
+  integrityFromEnv,
+} from "../_shared/monetization/referral_rpc.ts";
 
 const billingConfigured = billingSecrets.every((name) => Deno.env.get(name));
 let billing: Promise<BillingDependencies> | null = null;
+// The campaign itself ships disabled in the database; these routes are inert
+// until an operator enables it.
+const referrals = createReferrals(admin, integrity());
+
+// A malformed Integrity secret must not take the whole API down with it.
+function integrity() {
+  try {
+    return integrityFromEnv((name) => Deno.env.get(name));
+  } catch {
+    console.warn("play_integrity_misconfigured");
+    return null;
+  }
+}
 
 Deno.serve(createHandler({
   async authenticate(token) {
@@ -42,6 +59,7 @@ Deno.serve(createHandler({
       return billing;
     }
     : undefined,
+  referrals: () => Promise.resolve(referrals),
 }));
 
 function admin() {
