@@ -26,7 +26,7 @@ Every `set_rollout` call is recorded in `monetization_private.rollout_changes` w
 ## 1. Staging backend — **You**
 
 1. Create a separate Supabase project for staging, in the EU (Frankfurt or Paris, matching production).
-2. `supabase link --project-ref <staging>` then `supabase db push`. Check that the migration list ends at `20261003100000_worker_limits_retention`.
+2. `supabase link --project-ref <staging>` then `supabase db push`. Check that the migration list ends at `20261004100000_review_followups`.
 3. Deploy the functions: `supabase functions deploy monetization-api deepseek-proxy play-billing-notifications monetization-worker account-data`.
 4. Set secrets as listed in [BACKEND_SETUP.md](BACKEND_SETUP.md):
    - snapshot signing key;

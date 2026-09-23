@@ -18,7 +18,7 @@ const String kPrivacyPolicyVersion = '2026-09-23.2';
 const String kVoiceCloudConsentVersion = 'voice-cloud-v3';
 
 /// Bump when the "Check this phone with Google Play" wording changes.
-const String kReferralIntegrityConsentVersion = 'referral-integrity-v1';
+const String kReferralIntegrityConsentVersion = 'referral-integrity-v2';
 
 const String kDeveloperName = 'Mahesh Pathak';
 

@@ -126,6 +126,30 @@ void main() {
       expect(offline.coursePaywallEnabled, isTrue);
     });
 
+    test('the products on sale are read and remembered', () async {
+      final fresh = await withReply(
+        () async => const ApiResponse(200, {
+          'play_checkout_enabled': true,
+          'product_ids': ['czechify_core', 7, ''],
+        }),
+      ).read(monetizationConfigurationProvider.future);
+      expect(fresh.productIds, {'czechify_core'});
+      expect(fresh.offers('czechify_core'), isTrue);
+      expect(fresh.offers('czechify_ai'), isFalse);
+      final offline = await withReply(
+        () => Future.error(Exception('offline')),
+      ).read(monetizationConfigurationProvider.future);
+      expect(offline.productIds, {'czechify_core'});
+    });
+
+    test('an older server that names no products offers them all', () async {
+      final older = await withReply(
+        () async => const ApiResponse(200, {'play_checkout_enabled': true}),
+      ).read(monetizationConfigurationProvider.future);
+      expect(older.productIds, isEmpty);
+      expect(older.offers('czechify_ai'), isTrue);
+    });
+
     test('a slow server does not hold lessons up', () async {
       final started = DateTime.now();
       final slow = await withReply(

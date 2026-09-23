@@ -335,8 +335,10 @@ begin
 end;
 $$;
 
--- Operator switch for staging and rollout. Disabling stops new checkouts and
--- verifications of unknown tokens; it never changes existing entitlements.
+-- Operator switch for staging and rollout. Disabling stops new checkouts
+-- (purchase intents); restores and checks of any token still run, so a
+-- learner who already paid is never refused. It never changes existing
+-- entitlements.
 create function public.set_billing_product_enabled(p_product text, p_enabled boolean)
 returns boolean language plpgsql security definer set search_path = '' as $$
 begin

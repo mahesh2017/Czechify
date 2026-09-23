@@ -41,7 +41,7 @@ final referralUploaderProvider = Provider<ReferralUploader?>((ref) {
     api: api,
     integrity: ref.watch(playIntegrityServiceProvider),
     currentAccount: () => backend.userId,
-    integrityAllowed: ReferralIntegrityConsent.granted,
+    integrityAllowed: ReferralIntegrityConsent.choice,
   );
 });
 
@@ -50,6 +50,14 @@ final referralIntegrityConsentProvider = FutureProvider<bool>((ref) async {
   ref.watch(accountUserProvider.select((user) => user.value?.id));
   final account = ref.read(backendServiceProvider).userId;
   return account != null && await ReferralIntegrityConsent.granted(account);
+});
+
+/// This account's answer, or null before it was asked. Lesson results wait
+/// for it.
+final referralIntegrityChoiceProvider = FutureProvider<bool?>((ref) async {
+  ref.watch(accountUserProvider.select((user) => user.value?.id));
+  final account = ref.read(backendServiceProvider).userId;
+  return account == null ? null : ReferralIntegrityConsent.choice(account);
 });
 
 /// Records the choice; receipts already waiting follow the new answer.
@@ -68,6 +76,9 @@ final setReferralIntegrityConsentProvider =
               noticeVersion: kReferralIntegrityConsentVersion,
             );
         ref.invalidate(referralIntegrityConsentProvider);
+        ref.invalidate(referralIntegrityChoiceProvider);
+        // Results held for the first answer can go now.
+        drainReferralReceipts(ref);
       },
     );
 

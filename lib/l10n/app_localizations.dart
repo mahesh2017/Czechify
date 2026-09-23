@@ -6365,8 +6365,32 @@ abstract class AppLocalizations {
   /// No description provided for @referralsIntegrityBody.
   ///
   /// In en, this message translates to:
-  /// **'Google Play confirms this is the genuine Czechify app, installed from Google Play, so the person who invited you gets their reward without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.'**
+  /// **'Google Play confirms this is the genuine Czechify app, installed from Google Play, so your free trial and your friend\'s reward arrive without a manual check. Czechify keeps only the result. If you leave this off, support checks your lessons by hand, which takes longer. You can change this at any time.'**
   String get referralsIntegrityBody;
+
+  /// No description provided for @referralsIntegrityAskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how your lessons are checked'**
+  String get referralsIntegrityAskTitle;
+
+  /// No description provided for @referralsIntegrityAskBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your lesson results wait on this phone until you choose. You can change it at any time.'**
+  String get referralsIntegrityAskBody;
+
+  /// No description provided for @referralsIntegrityAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Check with Google Play'**
+  String get referralsIntegrityAllow;
+
+  /// No description provided for @referralsIntegrityDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Check by hand'**
+  String get referralsIntegrityDecline;
 
   /// No description provided for @subscriptionsRecoveryBody.
   ///

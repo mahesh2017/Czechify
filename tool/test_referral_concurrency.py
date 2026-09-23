@@ -195,6 +195,28 @@ def receipt_sql(friend, claim, lesson):
             f"{literal(payload)}::jsonb,{literal(digest)},'verified');")
 
 
+def pair_claim(inviter, friend, claims):
+    """A claim between two accounts; the second one reverses the first.
+
+    claim_referral refuses a mutual invitation (delivery 12), so the reverse
+    claim is written directly. Ordered locking is still what keeps any two
+    claims over the same pair of accounts from deadlocking, which is what
+    these cases check.
+    """
+    if not claims:
+        sql(f"select get_or_create_referral_code({literal(inviter)},'a1-referral-v1');")
+        response = query(f"""select claim_referral({literal(friend)},'a1-referral-v1',
+            (select code from monetization_private.referral_codes where owner_id={literal(inviter)}));""")
+        assert "claim_id" in response, response
+        return response["claim_id"]
+    refused = query(f"""select get_or_create_referral_code({literal(inviter)},'a1-referral-v1')
+        || jsonb_build_object('claim', claim_referral({literal(friend)},'a1-referral-v1',
+        (select code from monetization_private.referral_codes where owner_id={literal(inviter)})));""")
+    assert refused["claim"] == {"code": "referral_ineligible"}, refused
+    return sql(f"""insert into monetization_private.referral_claims(campaign_id,referrer_id,referee_id,attribution_source)
+        values('a1-referral-v1',{literal(inviter)},{literal(friend)},'manual') returning id;""")
+
+
 def mutual_invitation_case():
     """Two learners who invited each other, processed at the same time.
 
@@ -221,11 +243,7 @@ def mutual_invitation_case():
         ) + ";" + f"""insert into auth.identities(user_id,provider,provider_id,identity_data)
             select id,'email',id::text,'{{}}'::jsonb from auth.users where id in ({ids});""")
         for inviter, friend in ((a, b), (b, a)):
-            sql(f"select get_or_create_referral_code({literal(inviter)},'a1-referral-v1');")
-            response = query(f"""select claim_referral({literal(friend)},'a1-referral-v1',
-                (select code from monetization_private.referral_codes where owner_id={literal(inviter)}));""")
-            assert "claim_id" in response, response
-            claims[friend] = response["claim_id"]
+            claims[friend] = pair_claim(inviter, friend, claims)
             # Both free units, so processing decides the second milestone and
             # the friend's trial in the same transaction.
             for unit in (1, 2):
@@ -319,11 +337,7 @@ def mutual_receipt_case():
             select id,'email',id::text,'{{}}'::jsonb from auth.users where id in ({ids});""")
         lessons = manifest_lessons(1) + manifest_lessons(2)
         for inviter, friend in ((a, b), (b, a)):
-            sql(f"select get_or_create_referral_code({literal(inviter)},'a1-referral-v1');")
-            response = query(f"""select claim_referral({literal(friend)},'a1-referral-v1',
-                (select code from monetization_private.referral_codes where owner_id={literal(inviter)}));""")
-            assert "claim_id" in response, response
-            claims[friend] = response["claim_id"]
+            claims[friend] = pair_claim(inviter, friend, claims)
             # Everything but the last lesson; that receipt decides the claim.
             for lesson in lessons[:-1]:
                 accepted = query(receipt_sql(friend, claims[friend], lesson))

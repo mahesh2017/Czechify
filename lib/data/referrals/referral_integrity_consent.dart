@@ -7,14 +7,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// consent unless strictly necessary. Invitations work without it: receipts
 /// then go to support review. So it is opt-in, off until chosen, and can be
 /// withdrawn at any time. The same rule applies everywhere.
+///
+/// Until the learner has chosen, their lesson results wait on the device:
+/// sending one unchecked would put the whole invitation into manual review
+/// before they had a chance to say yes.
 class ReferralIntegrityConsent {
   const ReferralIntegrityConsent._();
 
   static String _key(String account) =>
       'referral_integrity_consent_v1:$account';
 
+  /// The learner's answer, or null if they have not been asked yet.
+  static Future<bool?> choice(String account) async =>
+      (await SharedPreferences.getInstance()).getBool(_key(account));
+
   static Future<bool> granted(String account) async =>
-      (await SharedPreferences.getInstance()).getBool(_key(account)) ?? false;
+      await choice(account) ?? false;
 
   /// Records the choice and when it was made.
   static Future<void> set(String account, bool granted) async {

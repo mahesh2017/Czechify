@@ -33,7 +33,7 @@ void main() {
   late List<ApiResponse> submitReplies;
   late ApiResponse challengeReply;
   late String? account;
-  late bool consent;
+  late bool? consent;
   late ReferralUploader uploader;
 
   Future<void> queue(String attemptId, {String accountId = 'account-a'}) =>
@@ -207,6 +207,21 @@ void main() {
       );
     },
   );
+
+  test('before the learner chooses, nothing is sent at all', () async {
+    consent = null;
+    await uploader.drain();
+    expect(calls, isEmpty);
+    expect(integrity.hashes, isEmpty);
+    final waiting = await row();
+    expect([waiting.status, waiting.attempts], ['pending', 0]);
+    // Their answer releases it.
+    consent = false;
+    await uploader.drain();
+    expect((await row()).status, 'sent');
+    expect(integrity.hashes, isEmpty);
+    expect(calls.last['integrity_unavailable'], isTrue);
+  });
 
   test('a lost connection keeps the receipt for later', () async {
     final failing = ReferralUploader(

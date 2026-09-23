@@ -6,10 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/theme/app_tokens.dart';
+import '../../../data/referrals/referral_integrity_consent.dart';
 import '../../../data/referrals/referral_status.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/account_providers.dart';
 import '../../providers/referral_providers.dart';
+import '../../providers/sync_providers.dart';
+import '../../widgets/common/app_dialog.dart';
 import '../../widgets/common/soft_ui.dart';
 
 /// Invite friends and follow what they unlock. Friends appear only as
@@ -66,12 +69,42 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
       if (refusal == null) {
         _code.clear();
         ref.invalidate(referralStatusProvider);
+        // Asked now, before the first lesson result is sent: one sent
+        // unchecked would put the whole invitation into manual review.
+        final account = ref.read(backendServiceProvider).userId;
+        if (account != null &&
+            await ReferralIntegrityConsent.choice(account) == null &&
+            mounted) {
+          await _askIntegrity();
+        }
       }
     } catch (_) {
       if (mounted) setState(() => _message = _refusal(null));
     } finally {
       if (mounted) setState(() => _busy = false);
     }
+  }
+
+  Future<void> _askIntegrity() async {
+    final l10n = AppLocalizations.of(context);
+    // Both parts are translated: the question, then what the check is.
+    final explanation =
+        '${l10n.referralsIntegrityAskBody}\n\n${l10n.referralsIntegrityBody}';
+    final allow = await showDialog<bool>(
+      context: context,
+      builder:
+          (context) => AppDialog(
+            icon: Icons.verified_user_outlined,
+            title: l10n.referralsIntegrityAskTitle,
+            message: explanation,
+            confirmLabel: l10n.referralsIntegrityAllow,
+            onConfirm: () => Navigator.of(context).pop(true),
+            dismissLabel: l10n.referralsIntegrityDecline,
+            onDismiss: () => Navigator.of(context).pop(false),
+          ),
+    );
+    if (allow == null || !mounted) return;
+    await ref.read(setReferralIntegrityConsentProvider)(allow);
   }
 
   String _refusal(String? code) {
@@ -295,6 +328,15 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
           ),
           milestones: own.milestones,
         ),
+        // Not chosen yet (the question was dismissed): results wait for it.
+        if (ref.watch(referralIntegrityChoiceProvider)
+            case AsyncData(value: null)) ...[
+          const SizedBox(height: 12),
+          _IntegrityChoiceCard(
+            onChoose:
+                (allow) => ref.read(setReferralIntegrityConsentProvider)(allow),
+          ),
+        ],
         // Their own side of the invitation, once the free units are done.
         if (own.trialUntil?.isAfter(DateTime.now().toUtc()) ?? false) ...[
           const SizedBox(height: 8),
@@ -358,6 +400,57 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
         ),
       ),
     ];
+  }
+}
+
+class _IntegrityChoiceCard extends StatelessWidget {
+  final void Function(bool allow) onChoose;
+  const _IntegrityChoiceCard({required this.onChoose});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return SoftCard(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.referralsIntegrityAskTitle,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: t.ink,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            l10n.referralsIntegrityAskBody,
+            style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            children: [
+              FilledButton(
+                onPressed: () => onChoose(true),
+                style: FilledButton.styleFrom(minimumSize: const Size(0, 48)),
+                child: Text(l10n.referralsIntegrityAllow),
+              ),
+              OutlinedButton(
+                onPressed: () => onChoose(false),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(0, 48),
+                ),
+                child: Text(l10n.referralsIntegrityDecline),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 

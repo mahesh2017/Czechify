@@ -67,6 +67,7 @@ final monetizationConfigurationProvider =
             'referrals': fresh.referralClaimsEnabled,
             'paid_chat': fresh.paidChatRequired,
             'ai_turns': fresh.aiDailyTurnLimit,
+            'products': fresh.productIds.toList(),
           }),
         );
         return fresh;
@@ -83,6 +84,7 @@ final monetizationConfigurationProvider =
               final int limit when limit > 0 => limit,
               _ => MonetizationConfiguration.defaultAiDailyTurnLimit,
             },
+            productIds: productIdSet(cached['products']),
           );
         }
       } on FormatException {

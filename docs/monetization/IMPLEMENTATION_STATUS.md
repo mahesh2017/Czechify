@@ -416,6 +416,17 @@ Validation: `supabase test db` (`purchase_ownership.test.sql` added), db lint, b
 
 Validation: `supabase test db` (`worker_limits_retention.test.sql` added), db lint, both concurrency tools, Deno tests for the worker stages and the rate limit.
 
+## Delivery 12 — Remaining review items
+
+- **Device-check choice at the right time:** the Play Integrity question is asked when the friend enters a code, and lesson results wait on the device until they answer. It used to be a switch that was off by default; the first result then went unchecked and put the whole invitation into manual review before the learner had seen the question. A dismissed question stays on the invite screen. Consent wording `referral-integrity-v2` also names the friend's trial.
+- **No mutual invitations:** `claim_referral` refuses the code of someone the caller invited. Chosen over remembering deleted accounts: no new personal data is kept, so delete-and-recreate can still earn a new trial.
+- **The friend's trial stands on its own** (`20261004100000_review_followups.sql`): an inviter who deleted their account or is not linked no longer takes the trial with them, and the worker picks up friends owed one (`private.referral_trial_due`).
+- **One trial length:** `referral_campaigns.referee_trial_days`, used by processing and the status the app shows.
+- **Products on sale:** the configuration names the enabled products and reports checkout off when none are; the subscriptions screen offers only those. The comment on `set_billing_product_enabled` now says what it does: it stops new checkouts, not checks of existing tokens.
+- **Offline first launch (kept as designed):** a device that has never received the server's configuration treats the paywall as off. Lessons are bundled, so the app's lock was never protection against a determined learner; failing closed would lock units for everyone offline before the rollout reaches them. Access the server grants or refuses (purchases, AI, referrals) is enforced on the server regardless.
+
+Validation: `supabase test db` (`review_followups.test.sql` added; `account_lifecycle` now checks that a deleted inviter earns nothing while the friend's side still runs), both concurrency tools, Deno and Flutter tests for the configuration, the subscriptions screen, the uploader hold and the invite-screen question.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.

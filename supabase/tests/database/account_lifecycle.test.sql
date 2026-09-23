@@ -73,7 +73,13 @@ delete from auth.users where id=(select owner from ids);
 select is((select count(*)::integer from monetization_private.referral_codes where code='ABCDEF0123456789ABCDEF01'),0,'the referrer''s code is gone');
 select ok((select referrer_id is null from monetization_private.referral_claims where id='71000000-0000-0000-0000-000000000001'),'the referrer is tombstoned on the claim');
 select is(jsonb_array_length(export_account_snapshot((select friend from ids))->'referral_claims'),1,'the invitee still exports their own claim');
-select is(process_referral_claim('71000000-0000-0000-0000-000000000001')->>'code','referral_unavailable','a deleted referrer earns nothing further');
+-- Processing still runs for the invitee's own trial (delivery 12), but no
+-- reward can go to the deleted referrer.
+create temp table events_before as select count(*) n from monetization_private.referral_reward_events
+  where claim_id='71000000-0000-0000-0000-000000000001';
+select ok(process_referral_claim('71000000-0000-0000-0000-000000000001') ? 'claim_id','the invitee''s side is still processed');
+select is((select count(*) from monetization_private.referral_reward_events where claim_id='71000000-0000-0000-0000-000000000001'),
+  (select n from events_before),'a deleted referrer earns nothing further');
 
 -- Migration status once a run is applied.
 select legacy_migration_prepare('t0-lifecycle',now()-interval '5 days',25);

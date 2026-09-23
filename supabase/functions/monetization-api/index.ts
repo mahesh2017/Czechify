@@ -75,6 +75,13 @@ Deno.serve(createHandler({
       return billing;
     }
     : undefined,
+  productsOnSale: billingConfigured
+    ? async () => {
+      const { data, error } = await admin().rpc("enabled_billing_products");
+      if (error) throw new Error("enabled_billing_products failed");
+      return (data ?? []) as string[];
+    }
+    : undefined,
   referrals: () => Promise.resolve(referrals),
   legacy: {
     async status(user) {

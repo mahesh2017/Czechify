@@ -374,8 +374,8 @@ void main() {
     // Both decisions are in the consent log, with the wording's version.
     final log = await tester.runAsync(() => db.select(db.consentRecords).get());
     expect(log!.map((r) => (r.purpose, r.granted, r.noticeVersion)), [
-      ('referral_integrity', true, 'referral-integrity-v1'),
-      ('referral_integrity', false, 'referral-integrity-v1'),
+      ('referral_integrity', true, 'referral-integrity-v2'),
+      ('referral_integrity', false, 'referral-integrity-v2'),
     ]);
   });
 }

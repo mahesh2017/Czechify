@@ -46,6 +46,11 @@ export interface Dependencies {
    * nothing is switched on.
    */
   rollout?: (userId: string) => Promise<Record<string, unknown>>;
+  /**
+   * Products on sale now (`set_billing_product_enabled`). Checkout is off
+   * when none are, so the app never offers a purchase the server refuses.
+   */
+  productsOnSale?: () => Promise<string[]>;
 }
 const cors: CorsPolicy = {
   allowedOrigins: [],
@@ -127,19 +132,25 @@ export function createHandler(deps: Dependencies) {
         deps.rollout ? await deps.rollout(user.id) : {};
       if (name === "configuration") {
         const on = await cohort();
+        const checkout = on.play_checkout === true &&
+          deps.billing !== undefined;
+        const onSale = checkout && deps.productsOnSale
+          ? await deps.productsOnSale()
+          : null;
         return response({
           schema_version: 1,
           minimum_protocol_version: 1,
           campaign_id: "a1-referral-v1",
           free_unit_ids: [1, 2],
           course_paywall_enabled: on.course_paywall === true,
-          play_checkout_enabled: on.play_checkout === true &&
-            deps.billing !== undefined,
+          play_checkout_enabled: checkout &&
+            (onSale === null || onSale.length > 0),
           referral_claims_enabled: on.referral_claims === true,
           paid_chat_required: deps.paidChatRequired === true &&
             on.paid_chat === true,
           ai_daily_turn_limit: deps.aiDailyTurnLimit ?? 20,
-          product_ids: [],
+          // Empty when unknown; the app then offers every product.
+          product_ids: onSale ?? [],
         });
       }
       if (name === "entitlements") {
