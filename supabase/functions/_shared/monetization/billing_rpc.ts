@@ -8,6 +8,7 @@ import {
   parseServiceAccount,
   type PlayClient,
 } from "./play_client.ts";
+import type { Discovery } from "./play_discovery.ts";
 import type { BillingStore, JobContext } from "./purchase_jobs.ts";
 
 type Json = Record<string, unknown>;
@@ -183,4 +184,19 @@ export const workerQueries = (admin: () => SupabaseClient) => ({
   dueJobs: (limit: number) =>
     call<string[]>(admin, "due_billing_jobs", { p_limit: limit }),
   health: () => call<Record<string, number>>(admin, "billing_health"),
+  discoveries: {
+    due: (limit: number) =>
+      call<Discovery[]>(admin, "due_play_discoveries", { p_limit: limit }),
+    resolve: (digest: string, obfuscated: string | null) =>
+      call<Record<string, unknown>>(admin, "resolve_play_discovery", {
+        p_token_digest: digest,
+        p_obfuscated_id: obfuscated,
+      }),
+    fail: (digest: string, retrySeconds: number, final: boolean) =>
+      call<boolean>(admin, "fail_play_discovery", {
+        p_token_digest: digest,
+        p_retry_seconds: retrySeconds,
+        p_final: final,
+      }),
+  },
 });

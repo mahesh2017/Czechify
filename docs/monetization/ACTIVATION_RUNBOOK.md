@@ -26,7 +26,7 @@ Every `set_rollout` call is recorded in `monetization_private.rollout_changes` w
 ## 1. Staging backend — **You**
 
 1. Create a separate Supabase project for staging, in the EU (Frankfurt or Paris, matching production).
-2. `supabase link --project-ref <staging>` then `supabase db push`. Check that the migration list ends at `20260930100000_staged_rollout`.
+2. `supabase link --project-ref <staging>` then `supabase db push`. Check that the migration list ends at `20261002100000_purchase_ownership`.
 3. Deploy the functions: `supabase functions deploy monetization-api deepseek-proxy play-billing-notifications monetization-worker account-data`.
 4. Set secrets as listed in [BACKEND_SETUP.md](BACKEND_SETUP.md):
    - snapshot signing key;
@@ -37,6 +37,7 @@ Every `set_rollout` call is recorded in `monetization_private.rollout_changes` w
    - `AI_REPLAY_KEY`;
    - Play Integrity digests and service account;
    - `LEGACY_CLAIM_REVIEW_UNITS`;
+   - `MONETIZATION_TOKEN_KEY` must reach `play-billing-notifications` too, so it can keep unknown purchase tokens for the worker to look up;
    - `MONETIZATION_ALERT_WEBHOOK_URL`: an https webhook such as Slack, Discord or a paging service. Each crossed alert is sent at most once an hour while it stays crossed.
 5. Schedule `monetization-worker` every minute (the SQL is in BACKEND_SETUP §8). After a few minutes, check that `select monetization_operations_report();` is fresh and that a test alert reaches the webhook.
 6. Generate staging Ed25519 keys; never reuse the test vector. Build the staging app with `MONETIZATION_SNAPSHOT_PUBLIC_KEYS`, `PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER` and the staging `SUPABASE_URL` and `SUPABASE_ANON_KEY`.
@@ -92,7 +93,7 @@ Go/no-go gate:
 
 ## 4. Privacy, listing and support text — **You**
 
-1. Publish `docs/site/privacy.html` (version 2026-09-22.1) to the website. The in-app policy in this release carries the same version and wording.
+1. Publish `docs/site/privacy.html` (version 2026-09-23.1) to the website. The in-app policy in this release carries the same version and wording.
 2. Play Console → Data safety: apply the table in [PRIVACY_AND_DATA_SAFETY.md](PRIVACY_AND_DATA_SAFETY.md) (purchase history; Play Integrity device information, optional).
 3. Store listing: mention the subscriptions and that units 1–2 are free. Play shows prices itself.
 4. Confirm with your accountant how long Google's payout and tax reports are kept (5 years for accounting records, 10 for VAT documents).

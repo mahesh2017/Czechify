@@ -78,7 +78,11 @@ Deno.test("subscription and voided notifications carry their token", () => {
     push({
       packageName: pkg,
       eventTimeMillis: "1790000000000",
-      subscriptionNotification: { notificationType: 2, purchaseToken: "t" },
+      subscriptionNotification: {
+        notificationType: 2,
+        purchaseToken: "t",
+        subscriptionId: "czechify_core",
+      },
     }),
     pkg,
   );
@@ -89,7 +93,20 @@ Deno.test("subscription and voided notifications carry their token", () => {
     kind: "subscription",
     type: 2,
     purchaseToken: "t",
+    productId: "czechify_core",
   });
+  const odd = parsePushBody(
+    push({
+      packageName: pkg,
+      subscriptionNotification: {
+        notificationType: 2,
+        purchaseToken: "t",
+        subscriptionId: "Not A Product/..",
+      },
+    }),
+    pkg,
+  );
+  assertEquals(odd.productId, null);
   const voided = parsePushBody(
     push({
       packageName: pkg,
@@ -97,7 +114,11 @@ Deno.test("subscription and voided notifications carry their token", () => {
     }),
     pkg,
   );
-  assertEquals([voided.kind, voided.purchaseToken], ["voided", "v"]);
+  assertEquals([voided.kind, voided.purchaseToken, voided.productId], [
+    "voided",
+    "v",
+    null,
+  ]);
 });
 
 Deno.test("test, one-time and unknown notifications carry no token", () => {

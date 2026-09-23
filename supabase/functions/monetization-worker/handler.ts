@@ -1,11 +1,17 @@
 // Scheduled monetization worker. Billing: queues reconciliation, runs due
-// verification and acknowledgement jobs within a time budget. Referrals:
+// verification and acknowledgement jobs within a time budget, and finds the
+// owner of purchases Google notified before the app sent them in. Referrals:
 // moves forward claims that were waiting on account linking or paused
 // processing, then applies retention. AI: clears expired chat replay and
 // tombstones. Reports health counts. The scheduler
 // authenticates with a shared secret; gateway JWT verification is off for
 // this function (config.toml).
 
+import {
+  type DiscoveryOutcome,
+  type DiscoveryStore,
+  runDiscovery,
+} from "../_shared/monetization/play_discovery.ts";
 import {
   type JobContext,
   type JobOutcome,
@@ -17,6 +23,8 @@ export interface BillingWork {
   enqueueReconciliation(limit: number): Promise<number>;
   dueJobs(limit: number): Promise<string[]>;
   health(): Promise<Record<string, number>>;
+  /** Purchases Google notified before the app sent them in. */
+  discoveries?: DiscoveryStore;
 }
 
 export interface ReferralWork {
@@ -47,6 +55,7 @@ export interface Dependencies {
 
 const budgetMs = 40_000;
 const batch = 50;
+const discoveryBatch = 20;
 
 export function createHandler(deps: Dependencies) {
   const now = deps.now ?? Date.now;
@@ -77,6 +86,22 @@ export function createHandler(deps: Dependencies) {
           outcomes[outcome] = (outcomes[outcome] ?? 0) + 1;
         }
         report.outcomes = outcomes;
+        if (deps.billing.discoveries) {
+          const found: Record<string, number> = {};
+          const store = deps.billing.discoveries;
+          for (const discovery of await store.due(discoveryBatch)) {
+            if (now() - started > budgetMs) break;
+            let outcome: DiscoveryOutcome;
+            try {
+              outcome = await runDiscovery(ctx, store, discovery);
+            } catch {
+              // Registered or not, it is retried from where it stopped.
+              outcome = "retry";
+            }
+            found[outcome] = (found[outcome] ?? 0) + 1;
+          }
+          report.discoveries = found;
+        }
         const health = await deps.billing.health();
         report.health = health;
         if (health.unacknowledged_over_1h > 0 || health.dead_jobs > 0) {

@@ -87,8 +87,26 @@ Deno.test("verification applies Play's state and reports the acknowledgement job
     access: true,
     revision: 3,
     ackJobId: "ack-1",
+    ownerId: null,
   });
   assertEquals(log, ["apply:active"]);
+});
+
+Deno.test("verification reports whose purchase it is", async () => {
+  const { ctx } = setup({
+    applied: {
+      status: "provisioned",
+      access: true,
+      revision: 4,
+      ack_job_id: null,
+      owner_id: "account-b",
+    },
+  });
+  const outcome = await runBillingJob(ctx, "job");
+  assertEquals(
+    outcome.status === "provisioned" ? outcome.ownerId : "not provisioned",
+    "account-b",
+  );
 });
 
 Deno.test("acknowledgement calls Play before completing the job", async () => {

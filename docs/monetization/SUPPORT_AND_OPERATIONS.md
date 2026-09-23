@@ -9,6 +9,8 @@ A purchase never follows its token to another account on its own. A **recovery c
 - belongs to another Czechify account (`other_account`);
 - or was bought under another account's Play binding (`play_binding`).
 
+Google Play settles most of these without you. Until a purchase has been confirmed for someone, the account whose obfuscated ID Play reports is its buyer: the purchase moves there and any open case about it closes with `decided_by = google_play`. That covers a second account on the same phone restoring first. Cases that reach you are the rest: a purchase already confirmed for another account, a deleted owner, or a binding that is no Czechify account's.
+
 The app shows the learner the case ID as their reference, next to an "Email support" button that puts the reference in the subject line. Restoring again returns the same open case.
 
 ### Deciding a case

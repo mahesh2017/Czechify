@@ -166,6 +166,8 @@ function billingSetup(options: {
   playFails?: boolean;
   status?: Record<string, unknown> | null;
   checkout?: boolean;
+  /** The account Play's check says owns the purchase. */
+  owner?: string;
 } = {}) {
   const log: string[] = [];
   const billing: BillingDependencies = {
@@ -232,6 +234,7 @@ function billingSetup(options: {
             access: true,
             revision: 4,
             ack_job_id: "ack-job",
+            owner_id: options.owner ?? user,
           }),
         completeAcknowledgement: () => Promise.resolve(true),
         fail: () => Promise.resolve(true),
@@ -353,6 +356,19 @@ Deno.test("verification provisions, then acknowledges, and never echoes the toke
     "claim:ack-job",
     "play-ack",
   ]);
+});
+
+Deno.test("a purchase Play says another account made goes to it, and this caller learns nothing of it", async () => {
+  const { handle, log } = billingSetup({ owner: "account-that-bought" });
+  const response = await handle(post("purchases/verify", verifyBody));
+  assertEquals(response.status, 403);
+  const body = await response.json();
+  assertEquals(body.code, "account_binding_mismatch");
+  for (const leaked of ["access", "state", "revision", "recovery_case_id"]) {
+    assertEquals(leaked in body, false, leaked);
+  }
+  // The buyer's purchase is still acknowledged, so Play keeps it.
+  assertEquals(log.includes("play-ack"), true);
 });
 
 Deno.test("a Play outage returns 202 with the verification ID to poll", async () => {

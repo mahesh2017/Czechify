@@ -43,6 +43,8 @@ export interface PlayNotification {
   kind: "subscription" | "voided" | "test" | "other";
   type: number | null;
   purchaseToken: string | null;
+  /** The subscription product, for a subscription notification. */
+  productId: string | null;
   eventTime: string | null;
 }
 
@@ -83,7 +85,12 @@ export function parsePushBody(
   const eventTime = Number.isFinite(millis) && millis > 0
     ? new Date(millis).toISOString()
     : null;
-  const base = { subscription: body.subscription, messageId, eventTime };
+  const base = {
+    subscription: body.subscription,
+    messageId,
+    eventTime,
+    productId: null,
+  };
   const token = (value: unknown) =>
     typeof value === "string" && value.length > 0 && value.length <= 16384
       ? value
@@ -99,6 +106,10 @@ export function parsePushBody(
         ? n.notificationType as number
         : null,
       purchaseToken,
+      productId: typeof n.subscriptionId === "string" &&
+          /^[a-z0-9_.]{1,100}$/.test(n.subscriptionId)
+        ? n.subscriptionId
+        : null,
     };
   }
   if (isObject(data.voidedPurchaseNotification)) {

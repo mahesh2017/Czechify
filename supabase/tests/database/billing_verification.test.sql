@@ -49,11 +49,12 @@ select is(get_billing_job_purchase((select (v->>'job_id')::uuid from r),1,'worke
 select is(get_billing_job_purchase((select (v->>'job_id')::uuid from r),1,'worker-1')->>'encrypted_token','enc-a','lease owner reads the encrypted token');
 select is(apply_play_verification((select (v->>'job_id')::uuid from r),0,'worker-1','{}')->>'status','stale_lease','stale fence cannot apply');
 
--- Play binding must match the owner's frozen binding.
+-- Play binding must match the owner's frozen binding. (A binding that is
+-- another Czechify account's moves the purchase to it: purchase_ownership.)
 select is(apply_play_verification((select (v->>'job_id')::uuid from r),1,'worker-1',jsonb_build_object(
   'state','active','valid_until',now()+interval '30 days','verified_at',now(),'auto_renewing',true,'acknowledged',false,
-  'product_id','czechify_core','base_plan_id','monthly','obfuscated_account_id','bindingBBBBBBBBBBBBB','raw_state','SUBSCRIPTION_STATE_ACTIVE'))->>'status',
-  'account_binding_mismatch','purchase made for another account is not provisioned');
+  'product_id','czechify_core','base_plan_id','monthly','obfuscated_account_id','bindingNOBODYAAAAAAA','raw_state','SUBSCRIPTION_STATE_ACTIVE'))->>'status',
+  'account_binding_mismatch','purchase made for an unknown account is not provisioned');
 select is(get_monetization_snapshot('00000000-0000-0000-0000-00000000000a')->'features'->'core'->>'state','inactive','mismatch grants nothing');
 
 -- A correct verification provisions before any acknowledgement exists.
