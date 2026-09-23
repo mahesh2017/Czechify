@@ -111,7 +111,21 @@ abstract interface class AgeSignalsService {
 }
 
 class GooglePlayAgeSignalsService implements AgeSignalsService {
-  GooglePlayAgeSignalsService._();
+  GooglePlayAgeSignalsService._({bool Function()? isAndroid, bool? debugBuild})
+    : _isAndroid = isAndroid ?? (() => Platform.isAndroid),
+      _debugBuild = debugBuild ?? kDebugMode;
+
+  /// The service as it behaves on [android] in a release ([debugBuild]
+  /// false) or debug build. Tests run on the host in debug mode, where the
+  /// real service never reaches the Play channel.
+  @visibleForTesting
+  factory GooglePlayAgeSignalsService.forTesting({
+    required bool android,
+    bool debugBuild = false,
+  }) => GooglePlayAgeSignalsService._(
+    isAndroid: () => android,
+    debugBuild: debugBuild,
+  );
 
   static final GooglePlayAgeSignalsService instance =
       GooglePlayAgeSignalsService._();
@@ -120,12 +134,15 @@ class GooglePlayAgeSignalsService implements AgeSignalsService {
     'com.eminentsite.czechify/age_signals',
   );
 
+  final bool Function() _isAndroid;
+  final bool _debugBuild;
+
   @override
   Future<AgeSignalsSnapshot> requestAgeSignals() async {
     // Play only returns production signals to Play-owned installs. Let local
     // debug/sideloaded builds remain usable; release-track builds take the
     // real, fail-closed path below.
-    if (!Platform.isAndroid || kDebugMode) {
+    if (!_isAndroid() || _debugBuild) {
       return const AgeSignalsSnapshot(status: AgeSignalsStatus.unsupported);
     }
 
@@ -143,7 +160,7 @@ class GooglePlayAgeSignalsService implements AgeSignalsService {
 
   @override
   Future<void> openPlayStore() async {
-    if (!Platform.isAndroid) return;
+    if (!_isAndroid()) return;
     await _channel.invokeMethod<void>('openPlayStore');
   }
 

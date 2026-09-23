@@ -49,4 +49,50 @@ void main() {
     );
     expect(find.text('Check again'), findsOneWidget);
   });
+
+  testWidgets('each refusal has its own explanation', (tester) async {
+    for (final (outcome, title, store) in [
+      (
+        AgeEligibilityOutcome.underMinimumAge,
+        'Czechify is for ages 16 and over',
+        true,
+      ),
+      (
+        AgeEligibilityOutcome.parentApprovalDeclined,
+        'Parent approval is required',
+        false,
+      ),
+      (
+        AgeEligibilityOutcome.temporarilyUnavailable,
+        'Age check is temporarily unavailable',
+        true,
+      ),
+    ]) {
+      await tester.pumpWidget(
+        AgeSignalsGateApp(
+          key: ValueKey(outcome),
+          decision: AgeEligibilityDecision(outcome),
+          onRetry: () {},
+          onOpenPlayStore: () {},
+        ),
+      );
+      expect(find.text(title), findsOneWidget, reason: '$outcome');
+      expect(
+        find.text('Open Google Play'),
+        store ? findsOneWidget : findsNothing,
+        reason: '$outcome',
+      );
+    }
+  });
+
+  testWidgets('an allowed learner never sees the gate', (tester) async {
+    await tester.pumpWidget(
+      AgeSignalsGateApp(
+        decision: const AgeEligibilityDecision(AgeEligibilityOutcome.allowed),
+        onRetry: () {},
+        onOpenPlayStore: () {},
+      ),
+    );
+    expect(tester.takeException(), isStateError);
+  });
 }
