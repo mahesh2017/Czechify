@@ -124,8 +124,27 @@ export const handleRequest = async (request: Request): Promise<Response> => {
   // and level, so client context cannot become an arbitrary prompt.
   const isCourseOperation = operation === "grammar_check" ||
     operation === "writing_evaluation";
-  const courseAccessRequired =
-    Deno.env.get("AI_COURSE_ACCESS_REQUIRED") === "true";
+  // A server switch turns each rule on; the account's rollout cohort
+  // decides whom it reaches. Asked only when the switch is on.
+  let cohort: Record<string, unknown> | null = null;
+  const inCohort = async (feature: string) => {
+    if (cohort === null) {
+      const { data, error } = await admin.rpc("rollout_for", {
+        p_user: userData.user.id,
+      });
+      if (error) throw new CohortUnavailable();
+      cohort = (data ?? {}) as Record<string, unknown>;
+    }
+    return cohort[feature] === true;
+  };
+  let courseAccessRequired: boolean;
+  try {
+    courseAccessRequired =
+      Deno.env.get("AI_COURSE_ACCESS_REQUIRED") === "true" &&
+      isCourseOperation && await inCohort("course_paywall");
+  } catch {
+    return jsonResponse({ code: "ai_temporarily_unavailable" }, 503);
+  }
   let courseTask: CourseTask | null = null;
   let upstreamContext = context;
   if (isCourseOperation && context.task_id !== undefined) {
@@ -356,7 +375,13 @@ export const handleRequest = async (request: Request): Promise<Response> => {
   }
 
   const isChat = operation === "conversation" || isSummary;
-  const paidChatRequired = Deno.env.get("AI_PAID_CHAT_REQUIRED") === "true";
+  let paidChatRequired: boolean;
+  try {
+    paidChatRequired = Deno.env.get("AI_PAID_CHAT_REQUIRED") === "true" &&
+      isChat && await inCohort("paid_chat");
+  } catch {
+    return jsonResponse({ code: "ai_temporarily_unavailable" }, 503);
+  }
   if (isChat && body.request_id !== undefined) {
     if (!isRequestUuid(body.request_id) || !isRequestUuid(body.session_id)) {
       return jsonResponse({ code: "invalid_request" }, 400);
@@ -636,3 +661,5 @@ function paidChatStore(
       call<boolean>("abandon_ai_request", { p_user: user, p_request: request }),
   };
 }
+
+class CohortUnavailable extends Error {}

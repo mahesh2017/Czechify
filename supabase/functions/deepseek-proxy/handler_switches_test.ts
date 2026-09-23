@@ -96,7 +96,14 @@ async function run(
       }
       if (url.pathname.startsWith("/rest/v1/rpc/")) {
         const name = url.pathname.slice("/rest/v1/rpc/".length);
-        return Promise.resolve(json(name in rpc ? rpc[name] : true));
+        if (rpc[name] === "error") {
+          return Promise.resolve(new Response("{}", { status: 500 }));
+        }
+        // Unless a test says otherwise, the account is in every cohort.
+        const fallback = name === "rollout_for"
+          ? { paid_chat: true, course_paywall: true }
+          : true;
+        return Promise.resolve(json(name in rpc ? rpc[name] : fallback));
       }
       if (url.pathname === "/rest/v1/ai_daily_usage") {
         return Promise.resolve(json({ request_count: 1 }));
@@ -168,6 +175,32 @@ Deno.test("with paid chat required, an old client is asked to update", async () 
   assertEquals(result.status, 426);
   assertEquals(result.body.code, "client_update_required");
   assertEquals(result.providerCalled, false);
+});
+
+Deno.test("outside the paid-chat cohort, the switch does not apply", async () => {
+  const result = await run({ AI_PAID_CHAT_REQUIRED: "true" }, {
+    operation: "conversation",
+  }, { rollout_for: { paid_chat: false } });
+  assertEquals(result.status, 200);
+  assertEquals(result.providerCalled, true);
+});
+
+Deno.test("an unknown cohort is a temporary failure, not free access", async () => {
+  const result = await run({ AI_PAID_CHAT_REQUIRED: "true" }, {
+    operation: "conversation",
+  }, { rollout_for: "error" });
+  assertEquals(result.status, 503);
+  assertEquals(result.body.code, "ai_temporarily_unavailable");
+  assertEquals(result.providerCalled, false);
+  const course = await run({ AI_COURSE_ACCESS_REQUIRED: "true" }, {
+    operation: "grammar_check",
+  }, { rollout_for: "error" });
+  assertEquals(course.status, 503);
+});
+
+Deno.test("with the switches off, the cohort is never asked", async () => {
+  const result = await run({}, { operation: "conversation" });
+  assertEquals(result.calls.includes("/rest/v1/rpc/rollout_for"), false);
 });
 
 Deno.test("course feedback is not held to the chat subscription", async () => {
@@ -278,6 +311,23 @@ Deno.test("course feedback needs access to the task's level once enforced", asyn
   assertEquals(result.status, 403);
   assertEquals(result.body.code, "course_access_required");
   assertEquals(result.providerCalled, false);
+});
+
+Deno.test("outside the paywall cohort, course feedback is not gated", async () => {
+  const result = await run(
+    { AI_COURSE_ACCESS_REQUIRED: "true" },
+    writing({ level: "a1", task_id: task.task_id }),
+    {
+      course_ai_task: { ...task, allowed: false },
+      rollout_for: { course_paywall: false },
+      consume_ai_feedback: {
+        allowed: true,
+        quota_day: "2026-09-21",
+        remaining: 1,
+      },
+    },
+  );
+  assertEquals(result.status, 200);
 });
 
 Deno.test("before enforcement, a level without access still gets feedback", async () => {

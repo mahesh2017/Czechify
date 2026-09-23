@@ -41,6 +41,11 @@ export interface Dependencies {
   paidChatRequired?: boolean;
   /** Tutor turns per day, from the proxy's AI_DAILY_REQUEST_LIMIT. */
   aiDailyTurnLimit?: number;
+  /**
+   * The account's staged-rollout cohort ({feature: boolean}). Absent means
+   * nothing is switched on.
+   */
+  rollout?: (userId: string) => Promise<Record<string, unknown>>;
 }
 const cors: CorsPolicy = {
   allowedOrigins: [],
@@ -114,16 +119,22 @@ export function createHandler(deps: Dependencies) {
     try {
       const user = await deps.authenticate(authorization.slice(7));
       if (!user) return response({ code: "authentication_required" }, 401);
+      // Only an explicit true from the account's cohort turns a feature on.
+      const cohort = async () =>
+        deps.rollout ? await deps.rollout(user.id) : {};
       if (name === "configuration") {
+        const on = await cohort();
         return response({
           schema_version: 1,
           minimum_protocol_version: 1,
           campaign_id: "a1-referral-v1",
           free_unit_ids: [1, 2],
-          course_paywall_enabled: false,
-          play_checkout_enabled: false,
-          referral_claims_enabled: false,
-          paid_chat_required: deps.paidChatRequired === true,
+          course_paywall_enabled: on.course_paywall === true,
+          play_checkout_enabled: on.play_checkout === true &&
+            deps.billing !== undefined,
+          referral_claims_enabled: on.referral_claims === true,
+          paid_chat_required: deps.paidChatRequired === true &&
+            on.paid_chat === true,
           ai_daily_turn_limit: deps.aiDailyTurnLimit ?? 20,
           product_ids: [],
         });
@@ -141,6 +152,14 @@ export function createHandler(deps: Dependencies) {
       if (name.startsWith("referrals/")) {
         if (!deps.referrals) {
           return response({ code: "verification_unavailable" }, 503);
+        }
+        // New codes and claims only in the cohort; evidence and status for
+        // claims already made keep working.
+        if (
+          (name === "referrals/code" || name === "referrals/claim") &&
+          (await cohort()).referral_claims !== true
+        ) {
+          return response({ code: "campaign_unavailable" }, 409);
         }
         return await handleReferralRoute(
           name,
@@ -180,6 +199,10 @@ export function createHandler(deps: Dependencies) {
       const body = await readJson(request, maxBody);
       if (!body) return response({ code: "invalid_request" }, 400);
       if (name === "purchase-intents") {
+        // Restores stay open to everyone; new purchases only in the cohort.
+        if ((await cohort()).play_checkout !== true) {
+          return response({ code: "product_unavailable" }, 422);
+        }
         return await createIntent(request, body, user.id, billing, response);
       }
       return await verify(body, user.id, billing, response);

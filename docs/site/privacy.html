@@ -32,7 +32,7 @@
     </div>
   </header>
   <h1>Czechify Privacy Policy</h1>
-  <p class="meta"><strong>Last updated:</strong> 20 September 2026 · <strong>Version:</strong> 2026-09-20.1</p>
+  <p class="meta"><strong>Last updated:</strong> 22 September 2026 · <strong>Version:</strong> 2026-09-22.1</p>
 
   <h2>1. Controller and contact</h2>
   <p>Czechify is operated by <strong>Mahesh Pathak</strong>, Příčná 1892/4, Nové Město,
@@ -47,7 +47,8 @@
   learner profile (name, level, study goal, focus, pace, teacher and reminder preference), placement,
   and learning progress synchronise so a recovered account is ready on another device. AI chat
   history, exam results, device settings, and downloaded lesson audio stay on your device. AI tutor
-  text and optional cloud-pronunciation audio leave the device as described below.</p>
+  text and optional cloud-pronunciation audio leave the device as described below. Optional
+  subscriptions and friend invitations are described in section 10.</p>
   <p>There are no ads, third-party analytics or crash-reporting SDKs, and no cross-app or cross-site
   tracking.</p>
 
@@ -171,6 +172,11 @@
       <td>May be processed globally, including in the United States</td>
     </tr>
     <tr>
+      <td><strong>Google Ireland Ltd / Google LLC (Google Play)</strong></td>
+      <td>If you subscribe: handles the payment as merchant of record and confirms the subscription to Czechify. Czechify never receives your card or bank details. If you turn on the check for a friend invitation: Play Integrity confirms the app is genuine, which reads information from your device.</td>
+      <td>May be processed globally, including in the United States</td>
+    </tr>
+    <tr>
       <td><strong>Google LLC (Gmail)</strong> and your email provider</td>
       <td>Carry and store privacy/support emails and AI-reply reports that you choose to send</td>
       <td>May be processed globally, including in the United States</td>
@@ -214,28 +220,71 @@
   optional note. Your side of the conversation is not included unless you put it in the note. Your
   email provider may add your name, address, signature, or other account details.</p>
 
-  <h2>10. Retention</h2>
+  <h2>10. Subscriptions, invitations, and existing learners</h2>
+  <h3>Subscriptions</h3>
+  <p>If you subscribe, Google Play handles the payment. Czechify never receives your card or bank
+  details. We store what is needed to give you access and to restore it: the subscription and plan
+  you chose, Google's purchase token (encrypted), the subscription's state, renewal and end date,
+  and when we last checked it with Google. We also send Google Play a pseudonymous code derived
+  from your account, so a purchase is matched to the right Czechify account. Legal basis: contract,
+  Art. 6(1)(b).</p>
+  <p>Deleting your Czechify account does not cancel a Google Play subscription; cancel it in Google
+  Play under Payments &amp; subscriptions. After deletion, a record of the purchase without your
+  account ID is kept only while Google Play could still restore it, and deleted 30 days after it
+  ends. If you restore a purchase that belongs to another Czechify account, for example one you
+  deleted, support can move it to your account after checking your Google Play order; to decide,
+  support sees both accounts' email addresses and the purchase, never your payment details.</p>
+  <h3>AI chat subscription</h3>
+  <p>To enforce the daily limit and avoid charging you twice, we record each tutor request's time,
+  the number of tokens used and its estimated cost, never the message text. So a reply is not lost
+  when your connection drops, it is stored encrypted for 24 hours and then deleted; a content-free
+  record that the request happened is kept for 7 days.</p>
+  <h3>Inviting friends</h3>
+  <p>If you invite a friend with your code, or join with someone's code, we record which accounts
+  the invitation connects, and a summary of each lesson the invited friend completes (the lesson,
+  which exercises were answered or skipped, and when). This shows that the friend really learned
+  before a unit is given to the person who invited them. Neither side sees the other's account,
+  email or learning details; the person who invited you sees only progress such as “Friend 1: first
+  unit complete”. Legal bases: contract, Art. 6(1)(b), to run the programme you joined; legitimate
+  interests, Art. 6(1)(f), to prevent abuse.</p>
+  <p>If you turn on <strong>Check this phone with Google Play</strong>, the app asks Google Play
+  Integrity to confirm that the app is genuine and was installed from Google Play. Because this reads
+  information from your device, it happens only with your consent (Art. 6(1)(a) GDPR and § 89(3) of
+  Czech Act No. 127/2005 Coll.), and you can switch it off at any time. We keep only the result
+  (“verified” or “needs review”), never the token. If it is off, support checks your lessons by
+  hand instead.</p>
+  <h3>Learners from before subscriptions</h3>
+  <p>When subscriptions start, we take a one-time copy of the lesson progress already synchronised to
+  accounts created before that date and use it to decide which units each learner keeps for good.
+  If you learned offline, you can send this device's record of lessons from before that date once,
+  within 30 days; larger claims are checked by support. The copy is deleted 90 days after the claim
+  period ends; the units you keep stay.</p>
+
+  <h2>11. Retention</h2>
   <ul>
     <li><strong>Local learner data:</strong> until you delete the account/data in the app, clear app storage, or uninstall. Downloaded lesson audio remains after in-app account deletion because it is non-personal course content; use <strong>Settings → Downloads → Clear audio cache</strong>, clear app storage, or uninstall to remove it.</li>
     <li><strong>Cloud account and synced learning data:</strong> until account deletion. Unlinked anonymous accounts and their synced data are scheduled for deletion after 90 days without use.</li>
     <li><strong>Supabase backups and security logs:</strong> deleted records may remain in isolated, time-limited backups or security logs until the provider's plan-based retention window expires. They are not restored as active user records except for disaster recovery.</li>
     <li><strong>Cloud pronunciation:</strong> Czechify does not persist recordings in its cloud database. OpenAI may retain API data for up to 30 days for abuse monitoring unless zero data retention applies.</li>
     <li><strong>Scaleway AI input/output:</strong> Czechify does not store it in its cloud database. Scaleway's default Zero Data Retention policy says prompts and outputs are not collected, read, reused, or used for training. Anonymised operational usage metadata may be retained for up to six months. In rare error, security, harmful-content, or misuse cases, relevant request content may be stored temporarily for investigation for up to two weeks.</li>
+    <li><strong>Subscriptions and invitations:</strong> purchase records while your account exists; after deletion, only while Google Play could restore the purchase, then 30 days. Friend-invitation lesson summaries 90 days after the invitation is decided or the campaign ends. Support recovery cases 90 days after the decision. The existing-learner progress copy 90 days after its claim period.</li>
     <li><strong>Local consent history:</strong> until account/data deletion, app-data clearing, or uninstall.</li>
     <li><strong>AI reports and ordinary support correspondence:</strong> while the issue is handled and normally no longer than 12 months afterwards. Minimal records needed to prove completion of a privacy request may be kept for up to three years, unless a legal claim or law requires longer.</li>
   </ul>
 
-  <h2>11. Security</h2>
+  <h2>12. Security</h2>
   <p>Czechify uses HTTPS/TLS, owner-scoped database row-level security, authenticated Edge
   Functions, server-side provider secrets, rate limits, and secure operating-system storage for
   authentication sessions. Access is limited to what is needed to operate and support the service.
   No internet service can promise absolute security; contact us if you suspect a problem.</p>
 
-  <h2>12. Your rights</h2>
+  <h2>13. Your rights</h2>
   <p>Subject to the GDPR's conditions and exceptions, you may request access, rectification,
   erasure, restriction, portability, or object to processing based on legitimate interests. You may
   withdraw consent at any time without affecting the lawfulness of processing before withdrawal.</p>
-  <p>Export and in-app deletion are under <strong>Settings → Account &amp; data</strong>. For an
+  <p>Export and in-app deletion are under <strong>Settings → Account &amp; data</strong>. The export
+  includes your subscriptions, invitations, rewards, AI allowance and existing-learner claim; it
+  never includes purchase tokens or anything about other learners. For an
   external deletion request, follow the <a href="delete-account.html">Czechify account-deletion
   instructions</a>. We may need proportionate information to verify a request. We normally respond
   within one month.</p>
@@ -244,7 +293,7 @@
   170 00 Praha 7, <a href="mailto:posta@uoou.cz">posta@uoou.cz</a>, or to the competent authority
   where you live or work.</p>
 
-  <h2>13. Children</h2>
+  <h2>14. Children</h2>
   <p>Czechify is not directed to children under 16 and should be listed in Google Play for an
   audience aged 16 and over. On production Android installations, Czechify uses Google Play Age
   Signals to enforce this minimum age. A range wholly below 16, a required-but-incomplete age
@@ -255,7 +304,7 @@
   child under 16 has provided personal information to Czechify, contact us so we can take
   appropriate action.</p>
 
-  <h2>14. Changes</h2>
+  <h2>15. Changes</h2>
   <p>We will update the date and version when this notice changes. If a change affects a consent you
   previously gave, Czechify will ask again before further consent-based processing.</p>
 </body>

@@ -369,6 +369,24 @@ Validation: `supabase test db` passes 552 tests; `purchase_recovery.test.sql` ad
 
 Deno and Flutter tests cover the reference passing through the job, the API, the billing state and the screen.
 
+## Delivery 8 — Staged activation (code); release steps are the operator's
+
+- **Migration `20260930100000_staged_rollout.sql`:**
+  - `rollout_for` and `set_rollout` give per-account cohorts: an allowlist for testers and closed cohorts, plus a percentage over a stable bucket shared by every feature.
+  - A paywall or paid chat can never reach further than checkout.
+  - Every change is recorded with its operator and reason.
+  - `claim_alert_deliveries` sends each alert at most once an hour.
+- **Server:**
+  - `monetization-api` configuration reports the account's cohort.
+  - New purchases and new referral codes and claims need the cohort; restores, evidence and status never do.
+  - The tutor proxy applies `AI_PAID_CHAT_REQUIRED` and `AI_COURSE_ACCESS_REQUIRED` only to accounts in the matching cohort. An unknown cohort gives a temporary failure, not free access.
+  - `monetization-worker` posts crossed alerts to `MONETIZATION_ALERT_WEBHOOK_URL`.
+- **App:**
+  - The `MONETIZATION_*_PREVIEW` flags work only in debug and profile builds, with a source guard test.
+  - The Play Integrity choice is also written to the consent log with its wording version.
+  - The privacy policy, in-app and website, is published as version 2026-09-22.1.
+- **Runbook:** [ACTIVATION_RUNBOOK.md](ACTIVATION_RUNBOOK.md) covers staging, Play Console, the device test matrix, T0, the stages, and pause and rollback. Those steps need the operator's accounts and devices and have not been done.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.
@@ -377,6 +395,4 @@ Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course
 
 ## Next implementation work
 
-1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
-2. Real Play Integrity tokens end to end from an internal-track build (`PLAY_INTEGRITY_CLOUD_PROJECT_NUMBER`, `PLAY_INTEGRITY_CERT_DIGESTS`), then the referral screen and course-boundary prompts against them.
-3. Staging verification and release activation (PR 8), which also publishes the privacy wording and wires `monetization_alert` log lines to alerting. Course admission and its screens (Phase 5) and the AI subscription with spend protection (PR 6: 6a–6c) are done.
+Implementation of the plan is complete. What remains is the operator's release work in [ACTIVATION_RUNBOOK.md](ACTIVATION_RUNBOOK.md): a staging project, Play Console products and testers, the device and Play test matrix, publishing the privacy page and Data safety answers, the T0 migration, and the staged rollout. Any defect found there comes back as a fix PR.

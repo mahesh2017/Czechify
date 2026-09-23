@@ -1,16 +1,20 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/legal/legal_content.dart';
 import '../../data/monetization/monetization_api.dart';
 import '../../data/referrals/play_integrity_service.dart';
 import '../../data/referrals/referral_api.dart';
 import '../../data/referrals/referral_integrity_consent.dart';
 import '../../data/referrals/referral_store.dart';
 import '../../data/referrals/referral_uploader.dart';
+import '../../data/repositories/consent_repository.dart';
 import 'account_providers.dart';
 import 'monetization_providers.dart';
 import 'billing_providers.dart';
+import 'consent_providers.dart';
 import 'database_providers.dart';
 import 'sync_providers.dart';
 
@@ -55,6 +59,14 @@ final setReferralIntegrityConsentProvider =
         final account = ref.read(backendServiceProvider).userId;
         if (account == null) return;
         await ReferralIntegrityConsent.set(account, granted);
+        // The consent log keeps what was agreed, to which wording, and when.
+        await ref
+            .read(consentRepositoryProvider)
+            .record(
+              purpose: ConsentPurpose.referralIntegrity,
+              granted: granted,
+              noticeVersion: kReferralIntegrityConsentVersion,
+            );
         ref.invalidate(referralIntegrityConsentProvider);
       },
     );
@@ -95,9 +107,11 @@ final referralClaimProvider = Provider<Future<String?> Function(String code)>(
   },
 );
 
-/// Shows invitations in staging builds before the server opens them for a
-/// cohort. The server still refuses codes and claims while it is closed.
-const referralsPreview = bool.fromEnvironment('MONETIZATION_REFERRALS_PREVIEW');
+/// Shows invitations in debug and profile builds before the server opens
+/// them. The server still refuses codes and claims while they are closed;
+/// release builds ignore this.
+const referralsPreview =
+    !kReleaseMode && bool.fromEnvironment('MONETIZATION_REFERRALS_PREVIEW');
 
 /// Whether invitations are offered. Off unless the server opens them.
 final referralsEnabledProvider = FutureProvider<bool>((ref) async {

@@ -1,4 +1,7 @@
+import 'package:czechify/data/database/database.dart';
 import 'package:czechify/data/sync/backend_service.dart';
+import 'package:czechify/presentation/providers/database_providers.dart';
+import 'package:drift/native.dart';
 import 'package:czechify/presentation/providers/sync_providers.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/monetization/monetization_api.dart';
@@ -62,6 +65,7 @@ Future<void> _pump(
   bool anonymous = false,
   _Server? server,
   Future<String?> Function(String code)? claim,
+  AppDatabase? database,
 }) async {
   final router = GoRouter(
     initialLocation: location,
@@ -95,6 +99,7 @@ Future<void> _pump(
         ),
         referralApiProvider.overrideWithValue((server ?? _Server()).api),
         if (claim != null) referralClaimProvider.overrideWithValue(claim),
+        if (database != null) databaseProvider.overrideWithValue(database),
       ],
       child: MaterialApp.router(
         theme: lightTheme(),
@@ -341,11 +346,13 @@ void main() {
     tester,
   ) async {
     SharedPreferences.setMockInitialValues({});
+    final db = AppDatabase.forTesting(NativeDatabase.memory());
+    addTearDown(db.close);
     tester.view.physicalSize = const Size(400, 2000);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    await _pump(tester, '/referrals');
+    await _pump(tester, '/referrals', database: db);
     final toggle = find.widgetWithText(
       SwitchListTile,
       'Check this phone with Google Play',
@@ -364,5 +371,11 @@ void main() {
     await tester.tap(toggle);
     await tester.pumpAndSettle();
     expect(prefs.getBool('referral_integrity_consent_v1:account-a'), isFalse);
+    // Both decisions are in the consent log, with the wording's version.
+    final log = await tester.runAsync(() => db.select(db.consentRecords).get());
+    expect(log!.map((r) => (r.purpose, r.granted, r.noticeVersion)), [
+      ('referral_integrity', true, 'referral-integrity-v1'),
+      ('referral_integrity', false, 'referral-integrity-v1'),
+    ]);
   });
 }

@@ -110,6 +110,8 @@ Deno.test({
       },
       snapshot: () => Promise.resolve(null),
       sign: () => Promise.resolve(""),
+      // The cohort rules have their own tests; these accounts are in it.
+      rollout: () => Promise.resolve({ play_checkout: true }),
       billing: () => Promise.resolve(billing),
     });
     const post = (path: string, token: string, body: unknown) =>
