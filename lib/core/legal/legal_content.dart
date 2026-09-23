@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart' show IconData;
 
 /// Bump whenever the privacy policy text changes in a way that affects what a
 /// learner is agreeing to. Consent records store this value.
-const String kPrivacyPolicyVersion = '2026-09-23.1';
+const String kPrivacyPolicyVersion = '2026-09-23.2';
 
 /// Bump when the cloud-speech consent wording changes.
 const String kVoiceCloudConsentVersion = 'voice-cloud-v3';
@@ -158,7 +158,9 @@ const List<LegalSection> kPrivacyPolicy = [
         'Czechify account does not cancel a Google Play subscription: cancel '
         'it in Google Play under Payments & subscriptions. After deletion, a '
         'record of the purchase without your account ID is kept only while '
-        'Google Play could still restore it, then 30 days. If you restore a '
+        'Google Play could still restore it: 30 days after it ends if we saw '
+        'it end, and otherwise at most 120 days after the last paid period '
+        'we recorded. If you restore a '
         'purchase that belongs to another Czechify account, support can move '
         'it after checking your Google Play order, seeing both accounts\' '
         'email addresses but never payment details.\n\n'
