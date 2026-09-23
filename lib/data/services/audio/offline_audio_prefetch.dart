@@ -44,8 +44,19 @@ class PrefetchProgress {
 /// these apart means a learner can start a lesson in seconds rather than
 /// waiting behind a few hundred megabytes.
 class OfflineAudioPrefetch {
-  OfflineAudioPrefetch(this._http);
+  OfflineAudioPrefetch(
+    this._http, {
+    this.accessibleUnits,
+    this.accountContext,
+    this.refreshAccess,
+    this.storageBaseUrl,
+  });
 
+  final Future<Set<int>> Function()? accessibleUnits;
+  final Object? Function()? accountContext;
+  final Future<void> Function()? refreshAccess;
+
+  final String? storageBaseUrl;
   final Dio _http;
   static const _manifestAsset = 'assets/audio/offline_units.json';
 
@@ -54,6 +65,7 @@ class OfflineAudioPrefetch {
   String? _cacheDir;
 
   String get _publicBase =>
+      storageBaseUrl ??
       '${BackendConfig.supabaseUrl}/storage/v1/object/public/course-audio';
 
   Future<String> _dir() async {
@@ -102,12 +114,14 @@ class OfflineAudioPrefetch {
             ? 'assets/curriculum/a2_units.json'
             : 'assets/curriculum/a1_units.json';
     final json = jsonDecode(await rootBundle.loadString(asset));
-    final units = ((json as Map<String, dynamic>)['units'] as List<dynamic>)
-        .cast<Map<String, dynamic>>()
-        .toList()
-      ..sort(
-        (a, b) => (a['order_index'] as int).compareTo(b['order_index'] as int),
-      );
+    final units =
+        ((json as Map<String, dynamic>)['units'] as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .toList()
+          ..sort(
+            (a, b) =>
+                (a['order_index'] as int).compareTo(b['order_index'] as int),
+          );
     return [for (final u in units.take(count)) u['id'] as int];
   }
 
@@ -122,7 +136,8 @@ class OfflineAudioPrefetch {
     // intro is the first thing played on a teaching card, so leaving it out
     // meant the very first sound of a unit always went to the network.
     final names = <String>{
-      for (final id in unitIds) ...?byUnit['$id']?.map((k) => '${gender}_$k.mp3'),
+      for (final id in unitIds)
+        ...?byUnit['$id']?.map((k) => '${gender}_$k.mp3'),
       for (final id in unitIds)
         ...?byUnitIntro['$id']?.map((k) => 'en${gender}_$k.mp3'),
     };
@@ -144,12 +159,40 @@ class OfflineAudioPrefetch {
     String gender, {
     int concurrency = 4,
   }) async* {
-    if (!BackendConfig.isConfigured) {
+    if (storageBaseUrl == null && !BackendConfig.isConfigured) {
       yield const PrefetchProgress(completed: 0, total: 0, finished: true);
       return;
     }
 
-    final files = await missingFiles(unitIds, gender);
+    final account = accountContext?.call();
+    final filesByUnit = <int, List<String>>{};
+    try {
+      await refreshAccess?.call();
+      final allowed = await accessibleUnits?.call();
+      if (accountContext?.call() != account) {
+        yield const PrefetchProgress(
+          completed: 0,
+          total: 0,
+          failed: 1,
+          finished: true,
+        );
+        return;
+      }
+      for (final id in unitIds) {
+        if (allowed == null || allowed.contains(id)) {
+          filesByUnit[id] = await missingFiles([id], gender);
+        }
+      }
+    } catch (_) {
+      yield const PrefetchProgress(
+        completed: 0,
+        total: 0,
+        failed: 1,
+        finished: true,
+      );
+      return;
+    }
+    final files = filesByUnit.values.expand((files) => files).toSet().toList();
     final total = files.length;
     if (total == 0) {
       yield const PrefetchProgress(completed: 0, total: 0, finished: true);
@@ -177,6 +220,18 @@ class OfflineAudioPrefetch {
         // truncated file that looks cached and plays as silence.
         final partial = File('${target.path}.part');
         try {
+          final allowed = await accessibleUnits?.call();
+          if (cancelled) return;
+          if (accountContext?.call() != account ||
+              (allowed != null &&
+                  !filesByUnit.entries.any(
+                    (entry) =>
+                        allowed.contains(entry.key) &&
+                        entry.value.contains(name),
+                  ))) {
+            failed++;
+            continue;
+          }
           await _http.download('$_publicBase/$name', partial.path);
           if (!await partial.exists() || await partial.length() == 0) {
             throw const FileSystemException('empty clip');

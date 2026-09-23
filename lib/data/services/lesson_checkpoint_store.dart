@@ -7,6 +7,24 @@ class LessonCheckpointStore {
   static const preferenceKey = 'lesson_checkpoints';
   Future<void> _pending = Future.value();
 
+  static const _epochKey = 'lesson_admission_epoch';
+
+  Future<int> accountEpoch() async {
+    await _pending;
+    return (await SharedPreferences.getInstance()).getInt(_epochKey) ?? 0;
+  }
+
+  Future<void> revokePermits() {
+    final operation = _pending.then((_) async {
+      final prefs = await SharedPreferences.getInstance();
+      if (!await prefs.setInt(_epochKey, (prefs.getInt(_epochKey) ?? 0) + 1)) {
+        throw StateError('Could not revoke lesson permits');
+      }
+    });
+    _pending = operation;
+    return operation;
+  }
+
   Future<Map<String, dynamic>> _read() async {
     final prefs = await SharedPreferences.getInstance();
     try {

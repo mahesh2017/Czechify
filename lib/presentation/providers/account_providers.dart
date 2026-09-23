@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 
 import '../../data/account/google_auth_service.dart';
@@ -7,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../data/account/account_service.dart';
 import 'chat_providers.dart';
+import 'course_admission_providers.dart';
 import 'monetization_providers.dart';
 import 'curriculum_providers.dart';
 import 'database_providers.dart';
@@ -34,6 +37,8 @@ final accountServiceProvider = Provider<AccountService>((ref) {
     ref.watch(syncServiceProvider),
     onAccountChanged: () => ref.invalidate(accountUserProvider),
     onAccountTransitionStarted: () {
+      ref.read(lessonAccountTransitionProvider.notifier).revoke();
+      unawaited(ref.read(lessonCheckpointStoreProvider).revokePermits());
       ref.read(monetizationRepositoryProvider).suspend();
       ref.invalidate(monetizationLoadProvider);
     },

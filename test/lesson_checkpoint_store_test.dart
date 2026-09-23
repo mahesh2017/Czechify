@@ -47,16 +47,27 @@ void main() {
     expect(await LessonCheckpointStore().load(4), {'index': 1});
   });
 
-  test('unreadable storage reads as no checkpoint rather than throwing', () async {
-    SharedPreferences.setMockInitialValues({
-      LessonCheckpointStore.preferenceKey: 'not json',
-    });
-    final store = LessonCheckpointStore();
+  test(
+    'unreadable storage reads as no checkpoint rather than throwing',
+    () async {
+      SharedPreferences.setMockInitialValues({
+        LessonCheckpointStore.preferenceKey: 'not json',
+      });
+      final store = LessonCheckpointStore();
 
-    expect(await store.load(1), isNull);
+      expect(await store.load(1), isNull);
 
-    // And the next save replaces it cleanly.
-    await store.write(1, {'index': 2});
-    expect(await store.load(1), {'index': 2});
+      // And the next save replaces it cleanly.
+      await store.write(1, {'index': 2});
+      expect(await store.load(1), {'index': 2});
+    },
+  );
+  test('account transition revokes permits across store recreation', () async {
+    final first = LessonCheckpointStore();
+    final before = await first.accountEpoch();
+    final revoking = first.revokePermits();
+    expect(await first.accountEpoch(), before + 1);
+    await revoking;
+    expect(await LessonCheckpointStore().accountEpoch(), before + 1);
   });
 }

@@ -29,6 +29,29 @@ class LessonAdmissionPermit {
     required this.admittedAt,
   });
 
+  Map<String, Object> toJson() => {
+    'account': accountId,
+    'epoch': accountEpoch,
+    'lesson': lessonId,
+    'attempt': attemptId,
+    'admitted': admittedAt.toIso8601String(),
+  };
+
+  static LessonAdmissionPermit? fromJson(Object? raw) {
+    try {
+      if (raw is! Map) return null;
+      return LessonAdmissionPermit(
+        accountId: raw['account'] as String,
+        accountEpoch: raw['epoch'] as int,
+        lessonId: raw['lesson'] as int,
+        attemptId: raw['attempt'] as String,
+        admittedAt: DateTime.parse(raw['admitted'] as String),
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
   bool allows({
     required String? accountId,
     required int accountEpoch,

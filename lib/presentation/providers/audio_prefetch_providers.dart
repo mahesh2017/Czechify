@@ -4,9 +4,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/services/audio/offline_audio_prefetch.dart';
 import '../../domain/entities/enums.dart';
 import 'course_admission_providers.dart';
+import 'monetization_providers.dart';
+import 'sync_providers.dart';
 
 /// Pre-downloads unit audio into the cache [CzechTts] already plays from.
 final offlineAudioPrefetchProvider = Provider<OfflineAudioPrefetch>((ref) {
+  // Held open for the read: an unlistened provider pauses rather than
+  // rebuilding after invalidation, and a bare read of its future would then
+  // never complete, leaving a download stuck before its first clip.
+  Future<Set<int>> accessibleNow() async {
+    final subscription = ref.listen(
+      commerciallyAccessibleUnitIdsProvider.future,
+      (_, _) {},
+    );
+    try {
+      return await subscription.read();
+    } finally {
+      subscription.close();
+    }
+  }
+
   return OfflineAudioPrefetch(
     Dio(
       BaseOptions(
@@ -17,6 +34,15 @@ final offlineAudioPrefetchProvider = Provider<OfflineAudioPrefetch>((ref) {
         receiveTimeout: const Duration(seconds: 30),
       ),
     ),
+    accountContext: () => (
+      ref.read(backendServiceProvider).userId,
+      ref.read(lessonAccountTransitionProvider),
+    ),
+    refreshAccess: () async {
+      ref.invalidate(monetizationLoadProvider);
+      await accessibleNow();
+    },
+    accessibleUnits: accessibleNow,
   );
 });
 

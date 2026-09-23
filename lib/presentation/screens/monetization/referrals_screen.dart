@@ -36,28 +36,40 @@ class _ReferralsScreenState extends ConsumerState<ReferralsScreen> {
     final api = ref.read(referralApiProvider);
     if (api == null) return;
     setState(() => _busy = true);
-    final result = await api.inviteCode();
-    if (!mounted) return;
-    setState(() {
-      _busy = false;
-      _message = result.code == null ? _refusal(result.refusal) : null;
-    });
-    ref.invalidate(referralStatusProvider);
+    try {
+      final result = await api.inviteCode();
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        _message = result.code == null ? _refusal(result.refusal) : null;
+      });
+      ref.invalidate(referralStatusProvider);
+    } catch (_) {
+      if (mounted) setState(() => _message = _refusal(null));
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
   }
 
   Future<void> _claim() async {
     if (_code.text.trim().isEmpty) return;
     setState(() => _busy = true);
-    final refusal = await ref.read(referralClaimProvider)(_code.text);
-    if (!mounted) return;
-    final l10n = AppLocalizations.of(context);
-    setState(() {
-      _busy = false;
-      _message = refusal == null ? l10n.referralsJoined : _refusal(refusal);
-    });
-    if (refusal == null) {
-      _code.clear();
-      ref.invalidate(referralStatusProvider);
+    try {
+      final refusal = await ref.read(referralClaimProvider)(_code.text);
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context);
+      setState(() {
+        _busy = false;
+        _message = refusal == null ? l10n.referralsJoined : _refusal(refusal);
+      });
+      if (refusal == null) {
+        _code.clear();
+        ref.invalidate(referralStatusProvider);
+      }
+    } catch (_) {
+      if (mounted) setState(() => _message = _refusal(null));
+    } finally {
+      if (mounted) setState(() => _busy = false);
     }
   }
 

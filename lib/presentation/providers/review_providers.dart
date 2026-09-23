@@ -38,14 +38,12 @@ Future<(Set<int> lessons, Set<int> units)> _introductionGates(Ref ref) async {
   try {
     accessible = await ref.read(commerciallyAccessibleUnitIdsProvider.future);
   } catch (_) {
-    return (lessons, units);
+    return (<int>{}, <int>{});
   }
   final accessibleLessons = <int>{};
   for (final unitId in accessible) {
     try {
-      for (final lesson in await ref.read(
-        unitLessonsProvider(unitId).future,
-      )) {
+      for (final lesson in await ref.read(unitLessonsProvider(unitId).future)) {
         accessibleLessons.add(lesson.id);
       }
     } catch (_) {

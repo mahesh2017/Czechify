@@ -227,6 +227,41 @@ Validation:
 
 Not in 6a: course-operation authorization (6b); the app sending request and session IDs, and the chat and purchase UI (6c).
 
+## Audit fixes after 6a
+
+An audit of #39–#49 found eight defects. All are fixed, and each fix has tests that fail on the old behaviour:
+
+1. **AI double charge under simultaneous retries.**
+   - `reserve_ai_request` locked nothing when the reservation row did not exist yet, so two identical first calls both took an allowance and both dispatched.
+   - Migration `20260925100000_ai_reservation_concurrency.sql` serializes each account's reservations with a transaction advisory lock.
+   - It also fences summaries while one is in flight. A released summary may retry; an abandoned one stays spent.
+   - `tool/test_ai_reservation_concurrency.py`, now run in CI, forces real lock contention. It fails on the 6a schema (`['reserved', 'reserved']`) and passes now.
+2. **Referral claim lost after reinstall or account switch.** Lesson evidence now recovers the account's claim from `/referrals/status` when no local claim exists. An offline local claim still works without a network call.
+3. **Earned referral units stayed locked.** A referral status fetch now reloads the signed entitlement snapshot, and so do app resume and reconnection. Status is never treated as access.
+4. **Lesson retry skipped the access check.**
+   - The two-hour, account-bound permit is now connected to the player and saved with the checkpoint.
+   - Retry and a replacement attempt always get fresh admission.
+   - An account switch revokes permits immediately.
+   - A long-running attempt is rechecked at the two-hour boundary.
+5. **Pausing checkout hid restore.**
+   - Subscriptions stays reachable, with restore and management, whenever checkout, the course paywall or a subscription applies to the account.
+   - It remains hidden before launch; the audit's first fix would have shown it to every Android user.
+6. **Referral actions stuck on network errors.** Claiming and code requests always clear their busy state and explain the failure.
+7. **Review introduced paid cards when access failed to load.** It now fails closed.
+8. **Audio downloads not rechecked when work starts.**
+   - Access is refreshed when a queued download starts and checked again before each file.
+   - A change of account stops the batch.
+   - Access reads hold a subscription: an unlistened provider pauses after invalidation, so a bare read would never complete and a download would stay stuck on "Starting…".
+
+Validation:
+
+- Flutter: 1,520 tests pass; `flutter analyze --fatal-infos` is clean; changed-line coverage is 85% against 6a.
+- Database: `supabase test db` passes (376 tests) from a clean `supabase db reset`, followed by both concurrency tools and `supabase db lint`.
+- Pixel emulator with the paywall preview on:
+  - a free lesson is admitted and resumes its checkpoint;
+  - its permit is saved, bound to account, epoch, lesson and attempt;
+  - leaving and reopening resumes the same attempt under the same permit.
+
 ## Activation boundary
 
 Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission, the course map and Home enforce commercial access once `course_paywall_enabled` is on (5a, 5b); it is off. Referral routes, challenges, Integrity verification and allocation exist on the server with the campaign disabled and processing paused. The app records and uploads lesson receipts for learners holding a claim; the referral screen (5b) creates claims and shows progress, hidden until the server opens the campaign. No production backend was changed.

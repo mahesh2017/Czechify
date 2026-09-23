@@ -52,6 +52,7 @@ const _products = {
 Future<List<String>> _pump(
   WidgetTester tester, {
   bool checkout = true,
+  bool supported = true,
   bool anonymous = false,
   BillingState billing = const BillingState(
     storeAvailable: true,
@@ -64,6 +65,7 @@ Future<List<String>> _pump(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        billingPlatformSupportedProvider.overrideWithValue(supported),
         checkoutEnabledProvider.overrideWith((_) async => checkout),
         accountUserProvider.overrideWith(
           (_) => Stream.value(_user(anonymous: anonymous)),
@@ -155,13 +157,14 @@ void main() {
   testWidgets('with checkout off the screen offers nothing to buy', (
     tester,
   ) async {
-    await _pump(tester, checkout: false);
-    expect(
-      find.text('Subscriptions are not available on this device yet.'),
-      findsOneWidget,
-    );
-    expect(find.text('Subscribe'), findsNothing);
-    expect(find.text('Restore purchases'), findsNothing);
+    final calls = await _pump(tester, checkout: false);
+    expect(find.text('Subscriptions are not available yet.'), findsOneWidget);
+    await tester.tap(find.text('Subscribe').first);
+    expect(calls, isEmpty);
+    await tester.scrollUntilVisible(find.text('Restore purchases'), 200);
+    await tester.tap(find.text('Restore purchases'));
+    expect(calls, ['restore']);
+    await tester.scrollUntilVisible(find.text('Manage in Google Play'), 200);
   });
 
   testWidgets('a missing Store price is said plainly and cannot be bought', (
@@ -189,5 +192,16 @@ void main() {
       find.textContaining('belongs to a different Czechify account'),
       findsOneWidget,
     );
+  });
+  testWidgets('unsupported platforms do not offer Google Play recovery', (
+    tester,
+  ) async {
+    await _pump(tester, checkout: false, supported: false);
+    expect(
+      find.text('Subscriptions are not available on this device yet.'),
+      findsOneWidget,
+    );
+    expect(find.text('Restore purchases'), findsNothing);
+    expect(find.text('Manage in Google Play'), findsNothing);
   });
 }

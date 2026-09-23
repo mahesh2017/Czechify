@@ -19,7 +19,7 @@ class ReferralStore {
     return row?.claimId;
   }
 
-  /// Written only from the server's claim response.
+  /// Written only from authenticated server claim or status responses.
   Future<void> saveClaim(String accountId, String claimId, DateTime at) => _db
       .into(_db.referralClaims)
       .insertOnConflictUpdate(

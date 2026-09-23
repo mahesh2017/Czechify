@@ -1,3 +1,7 @@
+import 'package:czechify/domain/entities/flashcard.dart';
+import 'package:czechify/domain/entities/srs_card.dart';
+import 'package:czechify/presentation/providers/course_admission_providers.dart';
+import 'package:czechify/presentation/providers/curriculum_providers.dart';
 import 'package:czechify/data/database/database.dart' as db;
 import 'package:czechify/domain/repositories/vocabulary_repository.dart';
 import 'package:czechify/presentation/providers/database_providers.dart';
@@ -26,6 +30,29 @@ void main() {
     addTearDown(container.dispose);
     return container;
   }
+
+  test(
+    'access failure stops new paid cards but preserves existing review',
+    () async {
+      final container = ProviderContainer(
+        overrides: [
+          vocabularyRepositoryProvider.overrideWithValue(
+            _PaidCardsRepository(),
+          ),
+          unlockedUnitIdsProvider.overrideWith((_) async => {3}),
+          completedLessonIdsProvider.overrideWith((_) async => {31}),
+          commerciallyAccessibleUnitIdsProvider.overrideWith(
+            (_) async => throw StateError('unavailable'),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      await container.read(reviewSessionProvider.notifier).loadDueCards();
+      final state = container.read(reviewSessionProvider);
+      expect(state.loadError, isNull);
+      expect(state.dueCards.map((c) => c.flashcard.id), [2]);
+    },
+  );
 
   test('an empty queue is not a finished session', () async {
     final container = containerWith(_EmptyRepository());
@@ -87,4 +114,27 @@ class _FailingRepository implements VocabularyRepository {
 
   @override
   noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class _PaidCardsRepository extends _EmptyRepository {
+  @override
+  Future<List<ReviewCard>> getDueCards({DateTime? asOf}) async => [
+    for (final id in [1, 2])
+      ReviewCard(
+        flashcard: Flashcard(
+          id: id,
+          wordCz: 'cz',
+          wordEn: 'en',
+          unitId: 3,
+          lessonId: 31,
+        ),
+        srs: SrsCard(
+          id: '$id',
+          cardType: CardType.vocabulary,
+          due: DateTime.now(),
+          reps: id == 1 ? 0 : 3,
+          state: id == 1 ? CardState.newCard : CardState.review,
+        ),
+      ),
+  ];
 }
