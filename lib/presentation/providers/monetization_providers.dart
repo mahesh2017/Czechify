@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../data/monetization/monetization_repository.dart';
 import '../../data/monetization/snapshot_verifier.dart';
+import 'account_providers.dart';
 import 'database_providers.dart';
 import 'sync_providers.dart';
 
@@ -48,13 +49,6 @@ final Provider<MonetizationRepository> monetizationRepositoryProvider =
           return data['snapshot_jws'] as String;
         },
       )..setAccount(backend.userId);
-      if (backend.client != null) {
-        final subscription = backend.authChanges.listen((_) {
-          repository.setAccount(backend.userId);
-          ref.invalidate(monetizationLoadProvider);
-        });
-        ref.onDispose(subscription.cancel);
-      }
       ref.onDispose(repository.dispose);
       return repository;
     });
@@ -62,7 +56,16 @@ final Provider<MonetizationRepository> monetizationRepositoryProvider =
 final FutureProvider<MonetizationLoad> monetizationLoadProvider =
     FutureProvider<MonetizationLoad>((ref) async {
       await ref.watch(backendInitProvider.future);
-      final result = await ref.watch(monetizationRepositoryProvider).load();
+      // Rebuilds on every account change and points the repository at the
+      // current session first. The repository must not invalidate this
+      // provider itself: it is this provider's dependency, and Riverpod
+      // rejects a dependency invalidating its dependent. The stream is only
+      // the trigger; the account comes from the live session, because the
+      // stream can still hold the previous account during a switch.
+      ref.watch(accountUserProvider.select((user) => user.value?.id));
+      final repository = ref.watch(monetizationRepositoryProvider)
+        ..setAccount(ref.read(backendServiceProvider).userId);
+      final result = await repository.load();
       final document = result.document;
       if (document != null) {
         final boundaries =

@@ -18,6 +18,7 @@ import '../screens/grammar/grammar_reference_screen.dart';
 import '../screens/grammar/quick_reference_screen.dart';
 import '../screens/onboarding/offline_setup_screen.dart';
 import '../screens/settings/about_screen.dart';
+import '../screens/settings/subscriptions_screen.dart';
 import '../screens/settings/privacy_policy_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/arrival/daily_arrival_screen.dart';
@@ -159,6 +160,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // Reached with go() from the end of onboarding, so it replaces the flow
       // rather than sitting on top of it — there is nothing to go back to.
       GoRoute(path: '/about', builder: (context, state) => const AboutScreen()),
+      GoRoute(
+        path: '/subscriptions',
+        builder: (context, state) => const SubscriptionsScreen(),
+      ),
       GoRoute(
         path: '/privacy',
         builder: (context, state) => const PrivacyPolicyScreen(),

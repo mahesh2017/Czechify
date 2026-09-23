@@ -79,14 +79,33 @@ Validation:
 
 Not in 3b: deploying the functions, the Pub/Sub topic and the scheduler; alert routing for `billing_attention_required`. See [BACKEND_SETUP.md](BACKEND_SETUP.md).
 
+## Delivery 3c — Flutter purchase, restore and subscriptions screen
+
+- `in_app_purchase` 3.3.1 with `in_app_purchase_android` 0.5.3, which bundles Play Billing Library 8.0.0 (version 7's update deadline passed on 2026-08-31).
+- `PlayStoreAdapter` offers each product's configured `monthly` base plan without promotional offers, and binds every purchase to the server's obfuscated account reference.
+- `BillingFlow`, one per signed-in account: listens to the store before any purchase can start; creates a server intent; verifies purchased and restored tokens with the server, polling briefly while verification is pending; completes the store transaction only after the server provisioned; refreshes entitlements. A pending payment grants nothing, and a purchase begun for another account is never verified under the current one.
+- `/subscriptions` screen: Store-localized prices, status from the signed entitlement snapshot only, separate Core and AI purchases, restore, management in Google Play, a link-account prompt for anonymous learners, and a live-region message for each outcome. English and Czech. The Settings entry and the screen appear only when `/configuration` enables checkout on Android, or in a build with `--dart-define=MONETIZATION_CHECKOUT_PREVIEW=true`. The server still refuses disabled products.
+
+Found by running the app, then fixed:
+
+- **Delivery 2 bug:** `monetizationRepositoryProvider` invalidated `monetizationLoadProvider`, its own dependent, from an auth listener. Riverpod raises `CircularDependencyError`, so in debug builds every sign-in event threw and entitlements were never refreshed after an account change. The load provider now rebuilds on account changes itself and takes the account from the live session, not the account stream, which can still hold the previous account during a switch. Regression tests cover both; the second fails if the account is taken from the stream.
+- `BillingNotifier` kept the previous account's disposed flow reachable after sign-out. It now clears it on every rebuild.
+- Final lifecycle review also found that an already-started checkout could resume after its flow was disposed. Checkout and restore now reject stale accounts and disposed flows before side effects, and checkout rechecks disposal after creating its intent. Purchase-stream errors report failure while allowing subsequent updates to recover. Four regression tests cover these cases.
+
+Validation:
+
+- Flutter: 1,392 tests pass, `flutter analyze --no-pub --fatal-infos` clean, 87% changed-line coverage (364/415 executable lines against the 3b branch).
+- On the Pixel emulator (Google Play image) against the local stack, with `monetization-api` served locally and a throwaway signing key: the Settings entry and screen render; an anonymous learner sees the link-account prompt with purchase and restore disabled; and the app fetched, verified and cached the signed entitlement document for its own account, confirmed in the device database. This was the first device run of the Delivery 2 entitlement path.
+- Not verified on a device: the emulator was not signed in to Google Play (`In-app billing API version 3 is not supported`), and no Play products exist yet, so no real price, purchase or restore ran. The linked-account screen state is covered by widget tests only.
+
 ## Activation boundary
 
-Only the phase-local progression correction is connected to the existing runtime. The entitlement repository and providers exist, but no screen, route or lesson admission reads them yet. Purchase verification exists on the server with its products disabled; there is no in-app checkout, production paywall, deployed migration or real referral grant. No production backend was changed.
+Phase-local progression is connected to the existing runtime. The subscriptions screen reads verified entitlement snapshots and supports Play checkout and restore, gated by Android support and the server checkout switch (or an explicit staging preview build). Server products remain disabled. Lesson admission and the course paywall do not yet enforce commercial access, and referral qualification and authoritative reward allocation are still pending. No production backend was changed.
 
-Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. The next backend/client repository work must verify the signed snapshot, account and protocol before these policies receive it. `ReferralRewardPolicy` is a preview; authoritative rewards require the locked database transaction and uniqueness constraints in the specification.
+Do not connect an unverified JSON/cache object to `MonetizationSnapshot`. Course admission must consume the existing repository's signature-, account- and protocol-verified result. `ReferralRewardPolicy` is a preview; authoritative rewards require the locked database transaction and uniqueness constraints in the specification.
 
 ## Next implementation work
 
-1. PR 3c: Flutter Store adapter, purchase and restore, and a minimal subscriptions screen behind the disabled flag. Real license tests need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account and a notification topic.
+1. Real Play license tests of the whole purchase path (see the matrix in [IMPLEMENTATION_AND_TESTS.md](IMPLEMENTATION_AND_TESTS.md)). They need a staging Supabase project, Play Console subscription products with license testers, a Play Developer API service account, a notification topic, and a staging build with `MONETIZATION_CHECKOUT_PREVIEW=true` and the staging public key.
 2. Implement referral claim/evidence/Integrity/outbox and transactional allocation (PR 4), including the three database concurrency fixtures deferred from Delivery 1.
 3. Course UI/admission, AI authorization/cost controls, existing-user migration and rollout (PRs 5–8).

@@ -3210,4 +3210,108 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ageSignalsPrivacyNote =>
       'Czechify uses only the coarse age range and approval status on this device. It does not store your birth date or Google Play install identifier.';
+
+  @override
+  String get settingsSubscriptionsTitle => 'Subscriptions';
+
+  @override
+  String get settingsSubscriptionsBody => 'Course access and AI chat';
+
+  @override
+  String get subscriptionsTitle => 'Subscriptions';
+
+  @override
+  String get subscriptionsCoreTitle => 'Czechify Core';
+
+  @override
+  String get subscriptionsCoreBody =>
+      'Every published A1 and A2 lesson while you are subscribed. Units you earn by inviting friends stay yours if you cancel.';
+
+  @override
+  String get subscriptionsAiTitle => 'AI chat';
+
+  @override
+  String get subscriptionsAiBody =>
+      'Conversations with the AI tutor, within a daily limit. Course access is a separate subscription.';
+
+  @override
+  String get subscriptionsSeparateNote =>
+      'These are two separate monthly subscriptions. Each renews, and can be cancelled, on its own in Google Play.';
+
+  @override
+  String subscriptionsPerMonth(String price) {
+    return '$price / month';
+  }
+
+  @override
+  String get subscriptionsPriceUnavailable => 'Price not available';
+
+  @override
+  String subscriptionsActiveUntil(String date) {
+    return 'Active until $date';
+  }
+
+  @override
+  String get subscriptionsNotSubscribed => 'Not subscribed';
+
+  @override
+  String get subscriptionsSubscribe => 'Subscribe';
+
+  @override
+  String get subscriptionsRestore => 'Restore purchases';
+
+  @override
+  String get subscriptionsManage => 'Manage in Google Play';
+
+  @override
+  String get subscriptionsLinkTitle => 'Link your account to subscribe';
+
+  @override
+  String get subscriptionsLinkBody =>
+      'A subscription belongs to a linked account, so it stays with you on a new phone or after reinstalling.';
+
+  @override
+  String get subscriptionsLinkAction => 'Link account';
+
+  @override
+  String get subscriptionsUnavailable =>
+      'Subscriptions are not available on this device yet.';
+
+  @override
+  String get billingNoticePaymentPending =>
+      'Your payment is still pending in Google Play. Access starts once it completes.';
+
+  @override
+  String get billingNoticeVerifying =>
+      'Confirming your purchase with Google Play…';
+
+  @override
+  String get billingNoticeProvisioned => 'Your subscription is active.';
+
+  @override
+  String get billingNoticeNothingToRestore =>
+      'No active subscription was found for this Google Play account.';
+
+  @override
+  String get billingNoticeAccountChanged =>
+      'Your account changed during the purchase. Sign in to the account you bought with, then restore purchases.';
+
+  @override
+  String get billingNoticeBindingMismatch =>
+      'This purchase belongs to a different Czechify account. Sign in to that account, or contact support.';
+
+  @override
+  String get billingNoticeCanceled => 'Purchase cancelled.';
+
+  @override
+  String get billingNoticeFailed =>
+      'Something went wrong. Try again, or restore purchases if you were charged.';
+
+  @override
+  String get billingNoticeCheckoutDisabled =>
+      'Subscriptions are not available yet.';
+
+  @override
+  String get billingNoticeStoreUnavailable =>
+      'Google Play is not available right now.';
 }

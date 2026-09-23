@@ -9,6 +9,7 @@ import '../../../core/legal/legal_content.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../providers/billing_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/learner_profile_providers.dart';
@@ -328,6 +329,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     subtitle: l10n.settingsAccountDataBody,
                     onTap: () => context.push('/account'),
                   ),
+                  if (ref.watch(checkoutEnabledProvider).value ?? false)
+                    _Row(
+                      icon: Icons.workspace_premium_outlined,
+                      tint: t.priSoft,
+                      fg: t.pri,
+                      title: l10n.settingsSubscriptionsTitle,
+                      subtitle: l10n.settingsSubscriptionsBody,
+                      onTap: () => context.push('/subscriptions'),
+                    ),
                 ],
               ),
             ],

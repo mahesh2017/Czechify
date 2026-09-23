@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:czechify/data/account/account_service.dart';
 import 'package:czechify/data/database/database.dart';
+import 'package:czechify/data/monetization/monetization_repository.dart';
 import 'package:czechify/data/monetization/snapshot_verifier.dart';
 import 'package:czechify/data/sync/backend_service.dart';
 import 'package:czechify/data/sync/device_id.dart';
@@ -60,6 +62,14 @@ class _Backend extends BackendService {
   @override
   Future<void> clearLocalSession() async => events.add('cleared session');
 }
+
+User _signedIn(String id) => User(
+  id: id,
+  appMetadata: const {},
+  userMetadata: const {},
+  aud: 'authenticated',
+  createdAt: '2026-09-21T12:00:00Z',
+);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -149,6 +159,72 @@ void main() {
   );
 
   group('entitlement providers', () {
+    test('a sign-in change reloads entitlements for the new session', () async {
+      await seedCache();
+      final users = StreamController<User?>();
+      addTearDown(users.close);
+      final c = ProviderContainer(
+        overrides: [
+          backendServiceProvider.overrideWithValue(backend),
+          backendInitProvider.overrideWith((ref) async {}),
+          databaseProvider.overrideWithValue(db),
+          snapshotVerifierProvider.overrideWithValue(verifier),
+          accountUserProvider.overrideWith((ref) => users.stream),
+        ],
+      );
+      addTearDown(c.dispose);
+      final loads = <MonetizationLoad>[];
+      c.listen(
+        monetizationLoadProvider,
+        (_, next) => next.whenData(loads.add),
+        fireImmediately: true,
+      );
+      users.add(_signedIn(account));
+      await pumpEventQueue();
+      expect(loads.last.document?.snapshot.userId, account);
+
+      // Another account signs in: its load must not show the first
+      // account's cached access.
+      backend.userId = 'account-b';
+      users.add(_signedIn('account-b'));
+      await pumpEventQueue();
+      expect(loads.last.document, isNull);
+    });
+
+    test(
+      'a lagging account stream cannot restore the previous account',
+      () async {
+        await seedCache();
+        final c = ProviderContainer(
+          overrides: [
+            backendServiceProvider.overrideWithValue(backend),
+            backendInitProvider.overrideWith((ref) async {}),
+            databaseProvider.overrideWithValue(db),
+            snapshotVerifierProvider.overrideWithValue(verifier),
+            // Still reports the previous account throughout.
+            accountUserProvider.overrideWith(
+              (ref) => Stream.value(_signedIn(account)),
+            ),
+          ],
+        );
+        addTearDown(c.dispose);
+        // Held open as a screen would: Riverpod pauses an unlistened
+        // provider instead of rebuilding it when a dependency changes.
+        c.listen(monetizationLoadProvider, (_, _) {});
+        final service = c.read(accountServiceProvider);
+        expect(
+          (await c.read(monetizationLoadProvider.future)).document,
+          isNotNull,
+        );
+        // The session switched, but the account stream has not caught up.
+        service.onAccountTransitionStarted!();
+        backend.userId = 'account-b';
+        service.onAccountTransitionEnded!();
+        final after = await c.read(monetizationLoadProvider.future);
+        expect(after.document, isNull);
+      },
+    );
+
     test('an unconfigured build trusts no signing key', () async {
       await seedCache();
       final c = ProviderContainer(

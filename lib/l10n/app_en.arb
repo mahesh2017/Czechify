@@ -1313,5 +1313,48 @@
   "ageSignalsUnavailableBody": "Czechify could not confirm age eligibility. Check your connection and make sure Google Play is up to date, then try again.",
   "ageSignalsOpenPlayStore": "Open Google Play",
   "ageSignalsCheckAgain": "Check again",
-  "ageSignalsPrivacyNote": "Czechify uses only the coarse age range and approval status on this device. It does not store your birth date or Google Play install identifier."
+  "ageSignalsPrivacyNote": "Czechify uses only the coarse age range and approval status on this device. It does not store your birth date or Google Play install identifier.",
+  "settingsSubscriptionsTitle": "Subscriptions",
+  "settingsSubscriptionsBody": "Course access and AI chat",
+  "subscriptionsTitle": "Subscriptions",
+  "subscriptionsCoreTitle": "Czechify Core",
+  "subscriptionsCoreBody": "Every published A1 and A2 lesson while you are subscribed. Units you earn by inviting friends stay yours if you cancel.",
+  "subscriptionsAiTitle": "AI chat",
+  "subscriptionsAiBody": "Conversations with the AI tutor, within a daily limit. Course access is a separate subscription.",
+  "subscriptionsSeparateNote": "These are two separate monthly subscriptions. Each renews, and can be cancelled, on its own in Google Play.",
+  "subscriptionsPerMonth": "{price} / month",
+  "@subscriptionsPerMonth": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "subscriptionsPriceUnavailable": "Price not available",
+  "subscriptionsActiveUntil": "Active until {date}",
+  "@subscriptionsActiveUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "subscriptionsNotSubscribed": "Not subscribed",
+  "subscriptionsSubscribe": "Subscribe",
+  "subscriptionsRestore": "Restore purchases",
+  "subscriptionsManage": "Manage in Google Play",
+  "subscriptionsLinkTitle": "Link your account to subscribe",
+  "subscriptionsLinkBody": "A subscription belongs to a linked account, so it stays with you on a new phone or after reinstalling.",
+  "subscriptionsLinkAction": "Link account",
+  "subscriptionsUnavailable": "Subscriptions are not available on this device yet.",
+  "billingNoticePaymentPending": "Your payment is still pending in Google Play. Access starts once it completes.",
+  "billingNoticeVerifying": "Confirming your purchase with Google Play…",
+  "billingNoticeProvisioned": "Your subscription is active.",
+  "billingNoticeNothingToRestore": "No active subscription was found for this Google Play account.",
+  "billingNoticeAccountChanged": "Your account changed during the purchase. Sign in to the account you bought with, then restore purchases.",
+  "billingNoticeBindingMismatch": "This purchase belongs to a different Czechify account. Sign in to that account, or contact support.",
+  "billingNoticeCanceled": "Purchase cancelled.",
+  "billingNoticeFailed": "Something went wrong. Try again, or restore purchases if you were charged.",
+  "billingNoticeCheckoutDisabled": "Subscriptions are not available yet.",
+  "billingNoticeStoreUnavailable": "Google Play is not available right now."
 }

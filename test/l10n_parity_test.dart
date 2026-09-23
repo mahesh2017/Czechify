@@ -77,6 +77,8 @@ void main() {
       // wants the name elsewhere, or without a comma, can say so — Czech
       // happens to agree with English here.
       'notifyBodyWithName',
+      // A product name, sold under the same name in every Play storefront.
+      'subscriptionsCoreTitle',
     };
 
     final untranslated =
