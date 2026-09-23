@@ -277,3 +277,35 @@ Deno.test("the alert message leads with a pause and carries no account data", ()
     true,
   );
 });
+
+Deno.test("purchases Google notified first are looked up after the due jobs", async () => {
+  const { handle, log } = setup((log) => ({
+    billing: billing(log, {
+      dueJobs: () => Promise.resolve([]),
+      discoveries: {
+        due: (limit) => {
+          log.push(`discoveries:${limit}`);
+          return Promise.resolve([{
+            token_digest: "d".repeat(64),
+            encrypted_token: "sealed",
+            product_id: "czechify_core",
+            attempts: 0,
+          }]);
+        },
+        resolve: () => Promise.reject(new Error("not reached")),
+        fail: (_digest, _retry, final) => {
+          log.push(`discovery-fail:${final}`);
+          return Promise.resolve(true);
+        },
+      },
+    }),
+  }));
+  const response = await handle(call());
+  assertEquals((await response.json()).discoveries, { retry: 1 });
+  // The test context's Play is unreachable, so the discovery backs off.
+  assertEquals(log.slice(0, 3), [
+    "reconcile:100",
+    "discoveries:20",
+    "discovery-fail:false",
+  ]);
+});

@@ -174,6 +174,27 @@ def run_case(case):
         sql(f"update monetization_private.referral_campaigns set {assignments} where id='a1-referral-v1';")
 
 
+def manifest_lessons(unit):
+    return query(f"select jsonb_agg(to_jsonb(m) order by lesson_id) from monetization_private.referral_manifest_lessons m where unit_id={unit};")
+
+
+def receipt_sql(friend, claim, lesson):
+    """The statement that submits one lesson receipt, as the API does."""
+    now = sql("select now();")
+    receipt = {
+        "schema_version": 1, "claim_id": claim, "campaign_id": "a1-referral-v1",
+        "content_revision": 25, "lesson_id": lesson["lesson_id"], "attempt_id": str(uuid.uuid4()),
+        "started_at_client": now, "completed_at_client": now,
+        "initial_coverage": [{"exercise_id": exercise, "interaction":
+            "teaching_acknowledged" if exercise in lesson["teaching_ids"] else "answered_incorrectly"}
+            for exercise in lesson["exercise_ids"]],
+    }
+    payload = json.dumps(receipt, sort_keys=True, separators=(",", ":"))
+    digest = hashlib.sha256(payload.encode()).hexdigest()
+    return (f"select accept_verified_referral_receipt({literal(friend)},{literal(claim)},"
+            f"{literal(payload)}::jsonb,{literal(digest)},'verified');")
+
+
 def mutual_invitation_case():
     """Two learners who invited each other, processed at the same time.
 
@@ -208,19 +229,8 @@ def mutual_invitation_case():
             # Both free units, so processing decides the second milestone and
             # the friend's trial in the same transaction.
             for unit in (1, 2):
-                for lesson in query(f"select jsonb_agg(to_jsonb(m) order by lesson_id) from monetization_private.referral_manifest_lessons m where unit_id={unit};"):
-                    now = sql("select now();")
-                    receipt = {
-                        "schema_version": 1, "claim_id": claims[friend], "campaign_id": "a1-referral-v1",
-                        "content_revision": 25, "lesson_id": lesson["lesson_id"], "attempt_id": str(uuid.uuid4()),
-                        "started_at_client": now, "completed_at_client": now,
-                        "initial_coverage": [{"exercise_id": exercise, "interaction":
-                            "teaching_acknowledged" if exercise in lesson["teaching_ids"] else "answered_incorrectly"}
-                            for exercise in lesson["exercise_ids"]],
-                    }
-                    payload = json.dumps(receipt, sort_keys=True, separators=(",", ":"))
-                    digest = hashlib.sha256(payload.encode()).hexdigest()
-                    accepted = query(f"select accept_verified_referral_receipt({literal(friend)},{literal(claims[friend])},{literal(payload)}::jsonb,{literal(digest)},'verified');")
+                for lesson in manifest_lessons(unit):
+                    accepted = query(receipt_sql(friend, claims[friend], lesson))
                     assert accepted["status"] == "accepted", accepted
         claim_ids = ",".join(map(literal, claims.values()))
         sql("update monetization_private.referral_campaigns set processing_paused=false;")
@@ -281,6 +291,98 @@ def mutual_invitation_case():
         sql(f"update monetization_private.referral_campaigns set {assignments} where id='a1-referral-v1';")
 
 
+def mutual_receipt_case():
+    """The same pair of learners, through the path the app actually uses.
+
+    Each friend's last lesson receipt decides their claim. Receipts (and
+    review decisions) used to lock the inviter before claim processing took
+    its ordered locks, so the pair could still deadlock even with processing
+    fixed. Here the higher account is held; A's receipt queues on it first,
+    then B's receipt takes the lower account and queues behind. Released, A's
+    transaction gets the higher row and needs the lower one next: with the
+    old order that is a deadlock, with ordered locks B's receipt never took
+    the lower row ahead of A.
+    """
+    a, b = sorted(str(uuid.uuid4()) for _ in range(2))
+    ids = ",".join(map(literal, (a, b)))
+    controls = query("""select jsonb_build_object('enabled',enabled,'processing_paused',processing_paused,
+        'starts_at',starts_at,'claim_closes_at',claim_closes_at,'ends_at',ends_at)
+        from monetization_private.referral_campaigns where id='a1-referral-v1';""")
+    holder = None
+    claims = {}
+    try:
+        sql("""update monetization_private.referral_campaigns set enabled=true,processing_paused=false,
+            starts_at=now()-interval '1 day',claim_closes_at=now()+interval '1 month',ends_at=now()+interval '2 months';""")
+        sql("insert into auth.users(id,is_anonymous,created_at) values " + ",".join(
+            f"({literal(user)},false,now()-interval '1 hour')" for user in (a, b)
+        ) + ";" + f"""insert into auth.identities(user_id,provider,provider_id,identity_data)
+            select id,'email',id::text,'{{}}'::jsonb from auth.users where id in ({ids});""")
+        lessons = manifest_lessons(1) + manifest_lessons(2)
+        for inviter, friend in ((a, b), (b, a)):
+            sql(f"select get_or_create_referral_code({literal(inviter)},'a1-referral-v1');")
+            response = query(f"""select claim_referral({literal(friend)},'a1-referral-v1',
+                (select code from monetization_private.referral_codes where owner_id={literal(inviter)}));""")
+            assert "claim_id" in response, response
+            claims[friend] = response["claim_id"]
+            # Everything but the last lesson; that receipt decides the claim.
+            for lesson in lessons[:-1]:
+                accepted = query(receipt_sql(friend, claims[friend], lesson))
+                assert accepted["status"] == "accepted", accepted
+        last = {friend: receipt_sql(friend, claims[friend], lessons[-1]) for friend in (a, b)}
+
+        holder = subprocess.Popen(CMD, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        holder.stdin.write(f"begin; select 1 from public.monetization_accounts where user_id={literal(b)} for update;\n\\echo LOCKED\n")
+        holder.stdin.flush()
+        assert holder.stdout.readline().strip() == "1"
+        assert holder.stdout.readline().strip() == "LOCKED"
+
+        def waiting(name):
+            deadline = time.monotonic() + 10
+            while time.monotonic() < deadline:
+                if int(sql(f"select count(*) from pg_stat_activity where application_name={literal(name)} and wait_event_type='Lock';")):
+                    return
+                time.sleep(0.05)
+            raise AssertionError(f"{name} never waited on a lock")
+
+        names = [f"receipt-{a[:8]}-{index}" for index in range(2)]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+            first = pool.submit(sql, last[a], names[0])
+            waiting(names[0])
+            second = pool.submit(sql, last[b], names[1])
+            waiting(names[1])
+            holder.stdin.write("commit;\n\\q\n")
+            holder.stdin.flush()
+            holder.wait(timeout=10)
+            for result in (first, second):
+                # A deadlock surfaces here as SQLSTATE 40P01.
+                result.result(timeout=15)
+        for user in (a, b):
+            trial = sql(f"""select count(*) from public.course_access_windows
+                where user_id={literal(user)} and kind='referral_trial' and ends_at>now();""")
+            assert int(trial) == 1, (user, trial)
+            earned = sql(f"select count(*) from public.course_unit_grants where user_id={literal(user)} and source='referral';")
+            assert int(earned) == 2, (user, earned)
+        print("PASS: mutual_receipts (the receipt path locks both accounts in order, no deadlock)")
+    finally:
+        if holder and holder.poll() is None:
+            holder.kill()
+            holder.wait(timeout=5)
+        if claims:
+            claim_ids = ",".join(map(literal, claims.values()))
+            for table in ("referral_review_cases", "referral_reward_events", "referral_milestones",
+                          "referral_lesson_qualifications", "referral_receipts"):
+                sql(f"delete from monetization_private.{table} where claim_id in ({claim_ids});")
+            sql(f"delete from monetization_private.referral_claims where id in ({claim_ids});")
+        sql(f"delete from auth.users where id in ({ids});")
+        sources = [f"{claim}:{ordinal}" for claim in claims.values() for ordinal in (1, 2)]
+        sources += [str(claim) for claim in claims.values()]
+        if sources:
+            sql("delete from monetization_private.entitlement_audit where user_id is null and source_key in ("
+                + ",".join(map(literal, sources)) + ");")
+        assignments = ",".join(f"{key}=" + ("null" if value is None else str(value).lower() if isinstance(value, bool) else literal(value)) for key, value in controls.items())
+        sql(f"update monetization_private.referral_campaigns set {assignments} where id='a1-referral-v1';")
+
+
 if __name__ == "__main__":
     manifest_check()
     cases = json.loads((ROOT / "docs/monetization/fixtures/decision_cases.v1.json").read_text())["cases"]
@@ -289,3 +391,4 @@ if __name__ == "__main__":
     for scenario in scenarios:
         run_case(scenario)
     mutual_invitation_case()
+    mutual_receipt_case()

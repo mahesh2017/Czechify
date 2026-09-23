@@ -4,6 +4,11 @@
 // redelivery of one that was), so Pub/Sub redelivers anything that failed to
 // store. No Play call happens here: the notification is only a hint, and the
 // worker re-fetches Play for the queued purchase.
+//
+// A subscription token the server has never seen is handed on for
+// discovery: the app may never send it (a payment that completed later, a
+// failed check), and Play refunds what nobody acknowledges in three days.
+// The worker asks Play which account made it.
 
 import { sha256Hex } from "../_shared/monetization/billing_crypto.ts";
 import {
@@ -22,6 +27,15 @@ export interface Dependencies {
     tokenDigest: string | null,
     eventTime: string | null,
   ): Promise<string>;
+  /**
+   * Keeps an unknown subscription token (encrypted) for the worker to ask
+   * Play whose it is. Absent when the token key is not configured.
+   */
+  discover?: (
+    tokenDigest: string,
+    token: string,
+    productId: string,
+  ) => Promise<string>;
   log?: (event: string, detail: Record<string, unknown>) => void;
 }
 
@@ -50,23 +64,40 @@ export function createHandler(deps: Dependencies) {
       });
       return new Response(null, { status: 204 });
     }
+    const digest = parsed.purchaseToken
+      ? await sha256Hex(parsed.purchaseToken)
+      : null;
+    let outcome: string;
     try {
-      const outcome = await deps.record(
+      outcome = await deps.record(
         parsed.subscription,
         parsed.messageId,
         parsed.kind,
         parsed.type,
-        parsed.purchaseToken ? await sha256Hex(parsed.purchaseToken) : null,
+        digest,
         parsed.eventTime,
       );
-      if (outcome === "unmatched") {
-        log("play_notification_unmatched", { type: parsed.type });
-      }
-      return new Response(null, { status: 204 });
     } catch {
       // Not stored: let Pub/Sub redeliver.
       log("play_notification_store_failed", {});
       return new Response(null, { status: 500 });
     }
+    if (outcome === "unmatched") {
+      log("play_notification_unmatched", { type: parsed.type });
+    }
+    // A redelivery may be the retry of a discovery that failed below.
+    if (
+      (outcome === "unmatched" || outcome === "duplicate") &&
+      parsed.kind === "subscription" && digest && parsed.purchaseToken &&
+      parsed.productId && deps.discover
+    ) {
+      try {
+        await deps.discover(digest, parsed.purchaseToken, parsed.productId);
+      } catch {
+        log("play_notification_discovery_failed", {});
+        return new Response(null, { status: 500 });
+      }
+    }
+    return new Response(null, { status: 204 });
   };
 }

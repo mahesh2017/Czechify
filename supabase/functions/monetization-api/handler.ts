@@ -306,6 +306,11 @@ async function verify(
   // Access is already committed. A failed acknowledgement stays queued for
   // retry and never undoes it.
   if (outcome.ackJobId) await runBillingJob(billing.jobs, outcome.ackJobId);
+  // Play named the account that made the purchase, and it is not this one:
+  // the purchase went to its buyer. Say nothing about their access.
+  if (outcome.ownerId !== null && outcome.ownerId !== userId) {
+    return mismatch(undefined, response);
+  }
   return response({
     status: "provisioned",
     verification_id: verificationId,

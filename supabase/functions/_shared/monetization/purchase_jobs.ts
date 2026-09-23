@@ -53,6 +53,11 @@ export type JobOutcome =
     access: boolean;
     revision: number;
     ackJobId: string | null;
+    /**
+     * Whose purchase it is after this check. Play can name another account
+     * than the one that sent the token in; that account then owns it.
+     */
+    ownerId: string | null;
   }
   | { status: "acknowledged" }
   | { status: "account_binding_mismatch"; recoveryCaseId?: string }
@@ -116,6 +121,9 @@ export async function runBillingJob(
           revision: Number(applied.revision),
           ackJobId: typeof applied.ack_job_id === "string"
             ? applied.ack_job_id
+            : null,
+          ownerId: typeof applied.owner_id === "string"
+            ? applied.owner_id
             : null,
         };
       case "account_binding_mismatch":

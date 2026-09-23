@@ -90,3 +90,60 @@ Deno.test("duplicates and unmatched tokens are still acknowledged", async () => 
     );
   }
 });
+
+const purchased = {
+  packageName: pkg,
+  subscriptionNotification: {
+    notificationType: 4,
+    purchaseToken: "secret-token",
+    subscriptionId: "czechify_core",
+  },
+};
+
+Deno.test("an unknown subscription token is handed on so the worker can find its buyer", async () => {
+  const found: unknown[][] = [];
+  for (const outcome of ["unmatched", "duplicate"]) {
+    const { handle } = setup({
+      record: () => Promise.resolve(outcome),
+      discover: (...args) => {
+        found.push(args);
+        return Promise.resolve("queued");
+      },
+    });
+    assertEquals((await handle(request(purchased))).status, 204);
+  }
+  const digest = await sha256Hex("secret-token");
+  assertEquals(found, [
+    [digest, "secret-token", "czechify_core"],
+    [digest, "secret-token", "czechify_core"],
+  ]);
+});
+
+Deno.test("a known purchase, a voided one or one without a product is not handed on", async () => {
+  const found: unknown[] = [];
+  const discover = () => {
+    found.push(1);
+    return Promise.resolve("queued");
+  };
+  const known = setup({ discover });
+  assertEquals((await known.handle(request(purchased))).status, 204);
+  const unmatched = setup({
+    record: () => Promise.resolve("unmatched"),
+    discover,
+  });
+  await unmatched.handle(request(renewal));
+  await unmatched.handle(request({
+    packageName: pkg,
+    voidedPurchaseNotification: { purchaseToken: "v", productType: 1 },
+  }));
+  assertEquals(found, []);
+});
+
+Deno.test("a failed discovery is not acknowledged, so Pub/Sub redelivers", async () => {
+  const { handle, logged } = setup({
+    record: () => Promise.resolve("unmatched"),
+    discover: () => Promise.reject(new Error("db down")),
+  });
+  assertEquals((await handle(request(purchased))).status, 500);
+  assertEquals(logged.includes("play_notification_discovery_failed"), true);
+});
