@@ -1,5 +1,7 @@
 import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/domain/entities/lesson.dart';
 import 'package:czechify/presentation/providers/course_admission_providers.dart';
+import 'package:czechify/presentation/providers/curriculum_providers.dart';
 import 'package:czechify/presentation/providers/lesson_providers.dart';
 import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/screens/lesson/lesson_player_screen.dart';
@@ -39,8 +41,11 @@ void main() {
           builder: (_, _) => const LessonPlayerScreen(lessonId: 1),
         ),
         GoRoute(
-          path: '/subscriptions',
-          builder: (_, _) => const Scaffold(body: Text('Subscriptions page')),
+          path: '/upgrade',
+          builder:
+              (_, state) => Scaffold(
+                body: Text('Upgrade for ${state.uri.queryParameters['unit']}'),
+              ),
         ),
         GoRoute(
           path: '/curriculum',
@@ -54,6 +59,15 @@ void main() {
         overrides: [
           lessonSessionProvider.overrideWith(() => session),
           lessonAdmissionProvider(1).overrideWith((_) async => admission),
+          lessonProvider(1).overrideWith(
+            (_) async => const Lesson(
+              id: 1,
+              unitId: 4,
+              orderInUnit: 1,
+              title: 'Lesson',
+              description: '',
+            ),
+          ),
           czechTtsProvider.overrideWithValue(_Tts()),
         ],
         child: MaterialApp.router(
@@ -68,7 +82,7 @@ void main() {
     return session;
   }
 
-  testWidgets('an unpaid lesson explains the options and starts nothing', (
+  testWidgets('an unpaid lesson leads to the options for its unit', (
     tester,
   ) async {
     final session = await open(tester, LessonAdmission.paymentRequired);
@@ -76,7 +90,7 @@ void main() {
     expect(session.loads, 0);
     await tester.tap(find.text('See your options'));
     await tester.pumpAndSettle();
-    expect(find.text('Subscriptions page'), findsOneWidget);
+    expect(find.text('Upgrade for 4'), findsOneWidget);
   });
 
   testWidgets('offline past the lease asks to reconnect, not to pay', (

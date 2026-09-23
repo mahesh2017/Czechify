@@ -45,9 +45,11 @@ Map<String, Object?> _object(Object? data) =>
 class MonetizationConfiguration {
   final bool playCheckoutEnabled;
   final bool coursePaywallEnabled;
+  final bool referralClaimsEnabled;
   const MonetizationConfiguration({
     required this.playCheckoutEnabled,
     required this.coursePaywallEnabled,
+    this.referralClaimsEnabled = false,
   });
 
   static const off = MonetizationConfiguration(
@@ -109,6 +111,8 @@ class MonetizationApi {
       return MonetizationConfiguration(
         playCheckoutEnabled: response.body['play_checkout_enabled'] == true,
         coursePaywallEnabled: response.body['course_paywall_enabled'] == true,
+        referralClaimsEnabled:
+            response.body['referral_claims_enabled'] == true,
       );
     } on Exception {
       return null;

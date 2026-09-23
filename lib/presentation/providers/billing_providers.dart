@@ -62,6 +62,7 @@ final monetizationConfigurationProvider =
           jsonEncode({
             'checkout': fresh.playCheckoutEnabled,
             'paywall': fresh.coursePaywallEnabled,
+            'referrals': fresh.referralClaimsEnabled,
           }),
         );
         return fresh;
@@ -72,6 +73,7 @@ final monetizationConfigurationProvider =
           return MonetizationConfiguration(
             playCheckoutEnabled: cached['checkout'] == true,
             coursePaywallEnabled: cached['paywall'] == true,
+            referralClaimsEnabled: cached['referrals'] == true,
           );
         }
       } on FormatException {

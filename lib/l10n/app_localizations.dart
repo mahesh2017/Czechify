@@ -5791,6 +5791,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mock exams cover their whole level. Subscribe to Czechify Core, or unlock every unit of this level, to take one.'**
   String get examPaidBody;
+
+  /// No description provided for @upgradeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep learning'**
+  String get upgradeTitle;
+
+  /// No description provided for @upgradeIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached the part of the course that isn\'t free. Here\'s how to keep going.'**
+  String get upgradeIntro;
+
+  /// No description provided for @upgradeCoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to Czechify Core'**
+  String get upgradeCoreTitle;
+
+  /// No description provided for @upgradeCoreBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every A1 and A2 lesson while you\'re subscribed. Cancel any time in Google Play.'**
+  String get upgradeCoreBody;
+
+  /// No description provided for @upgradeCoreAction.
+  ///
+  /// In en, this message translates to:
+  /// **'See subscriptions'**
+  String get upgradeCoreAction;
+
+  /// No description provided for @upgradeInviteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite friends'**
+  String get upgradeInviteTitle;
+
+  /// No description provided for @upgradeInviteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good.'**
+  String get upgradeInviteBody;
+
+  /// No description provided for @upgradeInviteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite friends'**
+  String get upgradeInviteAction;
+
+  /// No description provided for @upgradeA2Note.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend invitations unlock A1 units only. A2 is included with Core.'**
+  String get upgradeA2Note;
+
+  /// No description provided for @paidUnitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Part of the full course'**
+  String get paidUnitTitle;
+
+  /// No description provided for @paidUnitBodyA1.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe, or invite friends to unlock this unit for good.'**
+  String get paidUnitBodyA1;
+
+  /// No description provided for @paidUnitBodyA2.
+  ///
+  /// In en, this message translates to:
+  /// **'Included with Czechify Core.'**
+  String get paidUnitBodyA2;
+
+  /// No description provided for @paidUnitAction.
+  ///
+  /// In en, this message translates to:
+  /// **'See your options'**
+  String get paidUnitAction;
+
+  /// No description provided for @homeBoundaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for the next unit?'**
+  String get homeBoundaryTitle;
+
+  /// No description provided for @homeBoundaryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve finished the free units. Subscribe or invite friends to keep going.'**
+  String get homeBoundaryBody;
+
+  /// No description provided for @homeBoundaryBodyCore.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve finished the free units. Subscribe to Czechify Core to keep going.'**
+  String get homeBoundaryBodyCore;
+
+  /// No description provided for @settingsInviteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite friends'**
+  String get settingsInviteTitle;
+
+  /// No description provided for @settingsInviteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock A1 units for good'**
+  String get settingsInviteBody;
+
+  /// No description provided for @referralsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite friends'**
+  String get referralsTitle;
+
+  /// No description provided for @referralsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitations aren\'t open yet.'**
+  String get referralsUnavailable;
+
+  /// No description provided for @referralsHowItWorks.
+  ///
+  /// In en, this message translates to:
+  /// **'When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another. Units you earn stay yours, even without a subscription.'**
+  String get referralsHowItWorks;
+
+  /// No description provided for @referralsUnitsEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'{earned} of {total} A1 units earned'**
+  String referralsUnitsEarned(int earned, int total);
+
+  /// No description provided for @referralsNextUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Next reward: unit {unit}'**
+  String referralsNextUnit(int unit);
+
+  /// No description provided for @referralsAllEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve unlocked every A1 unit.'**
+  String get referralsAllEarned;
+
+  /// No description provided for @referralsYourCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Your invite code'**
+  String get referralsYourCode;
+
+  /// No description provided for @referralsGetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Get my invite code'**
+  String get referralsGetCode;
+
+  /// No description provided for @referralsShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get referralsShare;
+
+  /// No description provided for @referralsCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get referralsCopy;
+
+  /// No description provided for @referralsCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Code copied.'**
+  String get referralsCopied;
+
+  /// No description provided for @referralsShareMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn Czech with me on Czechify. When you start, enter my invite code: {code}'**
+  String referralsShareMessage(String code);
+
+  /// No description provided for @referralsLinkNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Link your account to get an invite code, so the units you earn stay with you.'**
+  String get referralsLinkNeeded;
+
+  /// No description provided for @referralsLinkAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Link account'**
+  String get referralsLinkAction;
+
+  /// No description provided for @referralsFriendsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your invitations'**
+  String get referralsFriendsTitle;
+
+  /// No description provided for @referralsNoFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'No one has joined with your code yet.'**
+  String get referralsNoFriends;
+
+  /// No description provided for @referralsFriend.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend {number}'**
+  String referralsFriend(int number);
+
+  /// No description provided for @referralsFirstUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'First unit'**
+  String get referralsFirstUnit;
+
+  /// No description provided for @referralsSecondUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Second unit'**
+  String get referralsSecondUnit;
+
+  /// No description provided for @referralsStatusLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get referralsStatusLearning;
+
+  /// No description provided for @referralsStatusLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for their account to be linked'**
+  String get referralsStatusLink;
+
+  /// No description provided for @referralsStatusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Being checked'**
+  String get referralsStatusPending;
+
+  /// No description provided for @referralsStatusGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit unlocked'**
+  String get referralsStatusGranted;
+
+  /// No description provided for @referralsStatusCap.
+  ///
+  /// In en, this message translates to:
+  /// **'All A1 units already unlocked'**
+  String get referralsStatusCap;
+
+  /// No description provided for @referralsStatusReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Under review. If this takes more than a few days, contact support.'**
+  String get referralsStatusReview;
+
+  /// No description provided for @referralsStatusRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not eligible. Contact support if you think this is wrong.'**
+  String get referralsStatusRejected;
+
+  /// No description provided for @referralsJoinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Got a code from a friend?'**
+  String get referralsJoinTitle;
+
+  /// No description provided for @referralsJoinHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite code'**
+  String get referralsJoinHint;
+
+  /// No description provided for @referralsJoinAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Use code'**
+  String get referralsJoinAction;
+
+  /// No description provided for @referralsJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re in. Finish the first two units and the person who invited you gets their reward.'**
+  String get referralsJoined;
+
+  /// No description provided for @referralsOwnProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} lessons completed'**
+  String referralsOwnProgress(int done, int total);
+
+  /// No description provided for @referralsErrorClaimed.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve already joined with an invite code.'**
+  String get referralsErrorClaimed;
+
+  /// No description provided for @referralsErrorIneligible.
+  ///
+  /// In en, this message translates to:
+  /// **'This code can\'t be used. Codes work within 7 days of creating your account, before you finish the first unit, and not with your own code.'**
+  String get referralsErrorIneligible;
+
+  /// No description provided for @referralsErrorClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitations aren\'t open right now.'**
+  String get referralsErrorClosed;
+
+  /// No description provided for @referralsErrorRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many tries. Please try again in an hour.'**
+  String get referralsErrorRateLimited;
+
+  /// No description provided for @referralsErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t check that right now. Please try again.'**
+  String get referralsErrorGeneric;
 }
 
 class _AppLocalizationsDelegate

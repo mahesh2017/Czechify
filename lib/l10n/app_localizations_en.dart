@@ -3345,4 +3345,192 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get examPaidBody =>
       'Mock exams cover their whole level. Subscribe to Czechify Core, or unlock every unit of this level, to take one.';
+
+  @override
+  String get upgradeTitle => 'Keep learning';
+
+  @override
+  String get upgradeIntro =>
+      'You\'ve reached the part of the course that isn\'t free. Here\'s how to keep going.';
+
+  @override
+  String get upgradeCoreTitle => 'Subscribe to Czechify Core';
+
+  @override
+  String get upgradeCoreBody =>
+      'Every A1 and A2 lesson while you\'re subscribed. Cancel any time in Google Play.';
+
+  @override
+  String get upgradeCoreAction => 'See subscriptions';
+
+  @override
+  String get upgradeInviteTitle => 'Invite friends';
+
+  @override
+  String get upgradeInviteBody =>
+      'Each friend who finishes the first two units unlocks up to two A1 units for you, and they stay yours for good.';
+
+  @override
+  String get upgradeInviteAction => 'Invite friends';
+
+  @override
+  String get upgradeA2Note =>
+      'Friend invitations unlock A1 units only. A2 is included with Core.';
+
+  @override
+  String get paidUnitTitle => 'Part of the full course';
+
+  @override
+  String get paidUnitBodyA1 =>
+      'Subscribe, or invite friends to unlock this unit for good.';
+
+  @override
+  String get paidUnitBodyA2 => 'Included with Czechify Core.';
+
+  @override
+  String get paidUnitAction => 'See your options';
+
+  @override
+  String get homeBoundaryTitle => 'Ready for the next unit?';
+
+  @override
+  String get homeBoundaryBody =>
+      'You\'ve finished the free units. Subscribe or invite friends to keep going.';
+
+  @override
+  String get homeBoundaryBodyCore =>
+      'You\'ve finished the free units. Subscribe to Czechify Core to keep going.';
+
+  @override
+  String get settingsInviteTitle => 'Invite friends';
+
+  @override
+  String get settingsInviteBody => 'Unlock A1 units for good';
+
+  @override
+  String get referralsTitle => 'Invite friends';
+
+  @override
+  String get referralsUnavailable => 'Invitations aren\'t open yet.';
+
+  @override
+  String get referralsHowItWorks =>
+      'When a friend you invite finishes the first unit, you unlock one A1 unit. When they finish the second, you unlock another. Units you earn stay yours, even without a subscription.';
+
+  @override
+  String referralsUnitsEarned(int earned, int total) {
+    return '$earned of $total A1 units earned';
+  }
+
+  @override
+  String referralsNextUnit(int unit) {
+    return 'Next reward: unit $unit';
+  }
+
+  @override
+  String get referralsAllEarned => 'You\'ve unlocked every A1 unit.';
+
+  @override
+  String get referralsYourCode => 'Your invite code';
+
+  @override
+  String get referralsGetCode => 'Get my invite code';
+
+  @override
+  String get referralsShare => 'Share';
+
+  @override
+  String get referralsCopy => 'Copy';
+
+  @override
+  String get referralsCopied => 'Code copied.';
+
+  @override
+  String referralsShareMessage(String code) {
+    return 'Learn Czech with me on Czechify. When you start, enter my invite code: $code';
+  }
+
+  @override
+  String get referralsLinkNeeded =>
+      'Link your account to get an invite code, so the units you earn stay with you.';
+
+  @override
+  String get referralsLinkAction => 'Link account';
+
+  @override
+  String get referralsFriendsTitle => 'Your invitations';
+
+  @override
+  String get referralsNoFriends => 'No one has joined with your code yet.';
+
+  @override
+  String referralsFriend(int number) {
+    return 'Friend $number';
+  }
+
+  @override
+  String get referralsFirstUnit => 'First unit';
+
+  @override
+  String get referralsSecondUnit => 'Second unit';
+
+  @override
+  String get referralsStatusLearning => 'Learning';
+
+  @override
+  String get referralsStatusLink => 'Waiting for their account to be linked';
+
+  @override
+  String get referralsStatusPending => 'Being checked';
+
+  @override
+  String get referralsStatusGranted => 'Unit unlocked';
+
+  @override
+  String get referralsStatusCap => 'All A1 units already unlocked';
+
+  @override
+  String get referralsStatusReview =>
+      'Under review. If this takes more than a few days, contact support.';
+
+  @override
+  String get referralsStatusRejected =>
+      'Not eligible. Contact support if you think this is wrong.';
+
+  @override
+  String get referralsJoinTitle => 'Got a code from a friend?';
+
+  @override
+  String get referralsJoinHint => 'Invite code';
+
+  @override
+  String get referralsJoinAction => 'Use code';
+
+  @override
+  String get referralsJoined =>
+      'You\'re in. Finish the first two units and the person who invited you gets their reward.';
+
+  @override
+  String referralsOwnProgress(int done, int total) {
+    return '$done of $total lessons completed';
+  }
+
+  @override
+  String get referralsErrorClaimed =>
+      'You\'ve already joined with an invite code.';
+
+  @override
+  String get referralsErrorIneligible =>
+      'This code can\'t be used. Codes work within 7 days of creating your account, before you finish the first unit, and not with your own code.';
+
+  @override
+  String get referralsErrorClosed => 'Invitations aren\'t open right now.';
+
+  @override
+  String get referralsErrorRateLimited =>
+      'Too many tries. Please try again in an hour.';
+
+  @override
+  String get referralsErrorGeneric =>
+      'Couldn\'t check that right now. Please try again.';
 }

@@ -13,6 +13,7 @@ import '../../providers/billing_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/learner_profile_providers.dart';
+import '../../providers/referral_providers.dart';
 import '../../providers/settings_providers.dart';
 import '../../providers/reminder_coordinator.dart';
 import '../../../domain/entities/enums.dart';
@@ -337,6 +338,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       title: l10n.settingsSubscriptionsTitle,
                       subtitle: l10n.settingsSubscriptionsBody,
                       onTap: () => context.push('/subscriptions'),
+                    ),
+                  if (ref.watch(referralsEnabledProvider).value ?? false)
+                    _Row(
+                      icon: Icons.group_add_outlined,
+                      tint: t.priSoft,
+                      fg: t.pri,
+                      title: l10n.settingsInviteTitle,
+                      subtitle: l10n.settingsInviteBody,
+                      onTap: () => context.push('/referrals'),
                     ),
                 ],
               ),

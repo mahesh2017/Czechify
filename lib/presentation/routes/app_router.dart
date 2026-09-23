@@ -19,6 +19,8 @@ import '../screens/grammar/quick_reference_screen.dart';
 import '../screens/onboarding/offline_setup_screen.dart';
 import '../screens/settings/about_screen.dart';
 import '../screens/settings/subscriptions_screen.dart';
+import '../screens/monetization/referrals_screen.dart';
+import '../screens/monetization/upgrade_screen.dart';
 import '../screens/settings/privacy_policy_screen.dart';
 import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/arrival/daily_arrival_screen.dart';
@@ -163,6 +165,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/subscriptions',
         builder: (context, state) => const SubscriptionsScreen(),
+      ),
+      GoRoute(
+        path: '/upgrade',
+        builder:
+            (context, state) => UpgradeScreen(
+              unitId: int.tryParse(state.uri.queryParameters['unit'] ?? ''),
+            ),
+      ),
+      GoRoute(
+        path: '/referrals',
+        builder: (context, state) => const ReferralsScreen(),
       ),
       GoRoute(
         path: '/privacy',

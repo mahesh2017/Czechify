@@ -3356,4 +3356,191 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get examPaidBody =>
       'Cvičný test pokrývá celou úroveň. Pro jeho spuštění si předplaťte Czechify Core, nebo si odemkněte všechny jednotky této úrovně.';
+
+  @override
+  String get upgradeTitle => 'Pokračujte v učení';
+
+  @override
+  String get upgradeIntro =>
+      'Dostali jste se do části kurzu, která není zdarma. Takto můžete pokračovat.';
+
+  @override
+  String get upgradeCoreTitle => 'Předplaťte si Czechify Core';
+
+  @override
+  String get upgradeCoreBody =>
+      'Všechny lekce A1 a A2 po dobu předplatného. Zrušit ho můžete kdykoli v Google Play.';
+
+  @override
+  String get upgradeCoreAction => 'Zobrazit předplatné';
+
+  @override
+  String get upgradeInviteTitle => 'Pozvěte přátele';
+
+  @override
+  String get upgradeInviteBody =>
+      'Každá pozvaná osoba, která dokončí první dvě jednotky, vám odemkne až dvě jednotky A1, a ty vám zůstanou natrvalo.';
+
+  @override
+  String get upgradeInviteAction => 'Pozvat přátele';
+
+  @override
+  String get upgradeA2Note =>
+      'Pozvánky odemykají pouze jednotky A1. Úroveň A2 je součástí předplatného Core.';
+
+  @override
+  String get paidUnitTitle => 'Součást plného kurzu';
+
+  @override
+  String get paidUnitBodyA1 =>
+      'Předplaťte si kurz, nebo pozvěte přátele a odemkněte si tuto jednotku natrvalo.';
+
+  @override
+  String get paidUnitBodyA2 => 'Součást předplatného Czechify Core.';
+
+  @override
+  String get paidUnitAction => 'Zobrazit možnosti';
+
+  @override
+  String get homeBoundaryTitle => 'Připraveni na další jednotku?';
+
+  @override
+  String get homeBoundaryBody =>
+      'Bezplatné jednotky máte hotové. Pokračovat můžete s předplatným, nebo když pozvete přátele.';
+
+  @override
+  String get homeBoundaryBodyCore =>
+      'Bezplatné jednotky máte hotové. Pokračovat můžete s předplatným Czechify Core.';
+
+  @override
+  String get settingsInviteTitle => 'Pozvat přátele';
+
+  @override
+  String get settingsInviteBody => 'Odemkněte si jednotky A1 natrvalo';
+
+  @override
+  String get referralsTitle => 'Pozvat přátele';
+
+  @override
+  String get referralsUnavailable => 'Pozvánky zatím nejsou otevřené.';
+
+  @override
+  String get referralsHowItWorks =>
+      'Když pozvaná osoba dokončí první jednotku, odemknete si jednu jednotku A1. Když dokončí druhou, odemknete si další. Získané jednotky vám zůstanou i bez předplatného.';
+
+  @override
+  String referralsUnitsEarned(int earned, int total) {
+    return 'Získané jednotky A1: $earned z $total';
+  }
+
+  @override
+  String referralsNextUnit(int unit) {
+    return 'Další odměna: jednotka $unit';
+  }
+
+  @override
+  String get referralsAllEarned => 'Odemkli jste všechny jednotky A1.';
+
+  @override
+  String get referralsYourCode => 'Váš kód pozvánky';
+
+  @override
+  String get referralsGetCode => 'Získat kód pozvánky';
+
+  @override
+  String get referralsShare => 'Sdílet';
+
+  @override
+  String get referralsCopy => 'Kopírovat';
+
+  @override
+  String get referralsCopied => 'Kód zkopírován.';
+
+  @override
+  String referralsShareMessage(String code) {
+    return 'Učte se se mnou česky v aplikaci Czechify. Na začátku zadejte můj kód pozvánky: $code';
+  }
+
+  @override
+  String get referralsLinkNeeded =>
+      'Pro získání kódu pozvánky propojte účet, aby vám získané jednotky zůstaly.';
+
+  @override
+  String get referralsLinkAction => 'Propojit účet';
+
+  @override
+  String get referralsFriendsTitle => 'Vaše pozvánky';
+
+  @override
+  String get referralsNoFriends => 'S vaším kódem se zatím nikdo nepřipojil.';
+
+  @override
+  String referralsFriend(int number) {
+    return 'Pozvánka $number';
+  }
+
+  @override
+  String get referralsFirstUnit => 'První jednotka';
+
+  @override
+  String get referralsSecondUnit => 'Druhá jednotka';
+
+  @override
+  String get referralsStatusLearning => 'Probíhá učení';
+
+  @override
+  String get referralsStatusLink => 'Čeká se na propojení účtu';
+
+  @override
+  String get referralsStatusPending => 'Probíhá ověření';
+
+  @override
+  String get referralsStatusGranted => 'Jednotka odemčena';
+
+  @override
+  String get referralsStatusCap => 'Všechny jednotky A1 už máte odemčené';
+
+  @override
+  String get referralsStatusReview =>
+      'Probíhá kontrola. Pokud to potrvá déle než několik dní, kontaktujte podporu.';
+
+  @override
+  String get referralsStatusRejected =>
+      'Nesplňuje podmínky. Pokud se domníváte, že jde o chybu, kontaktujte podporu.';
+
+  @override
+  String get referralsJoinTitle => 'Máte kód od přátel?';
+
+  @override
+  String get referralsJoinHint => 'Kód pozvánky';
+
+  @override
+  String get referralsJoinAction => 'Použít kód';
+
+  @override
+  String get referralsJoined =>
+      'Hotovo. Dokončete první dvě jednotky a odměnu získá ten, kdo vás pozval.';
+
+  @override
+  String referralsOwnProgress(int done, int total) {
+    return 'Dokončené lekce: $done z $total';
+  }
+
+  @override
+  String get referralsErrorClaimed => 'Kód pozvánky už jste použili.';
+
+  @override
+  String get referralsErrorIneligible =>
+      'Tento kód nelze použít. Kód platí do 7 dnů od založení účtu, před dokončením první jednotky a nelze použít vlastní kód.';
+
+  @override
+  String get referralsErrorClosed => 'Pozvánky teď nejsou otevřené.';
+
+  @override
+  String get referralsErrorRateLimited =>
+      'Příliš mnoho pokusů. Zkuste to prosím za hodinu.';
+
+  @override
+  String get referralsErrorGeneric =>
+      'Teď se to nepodařilo ověřit. Zkuste to prosím znovu.';
 }
