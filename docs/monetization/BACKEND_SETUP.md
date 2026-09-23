@@ -1,10 +1,10 @@
 # Entitlement backend: staging setup
 
-This delivery implements signed access documents and phase-specific placement. Server-side purchase verification exists (PR 3a); the in-app checkout, Play notifications, referral qualification/Integrity and paywall activation remain later phases. All `/configuration` activation switches return false; no existing screen enforces paid access yet.
+Signed access documents, phase-specific placement, server purchase verification, Play notifications, a billing worker and Android checkout are implemented through PR 3c. Referral database operations are added in 4a; see [REFERRAL_BACKEND.md](REFERRAL_BACKEND.md). Referral Integrity/intake/client integration and course paywall enforcement remain later work. All `/configuration` activation switches return false.
 
 ## Deployment order
 
-1. Apply the three `20260921` migrations to a dedicated staging Supabase project. The phase-ceiling migration must precede the entitlement schema. New clients send `phase_ceilings`, so deploy the backend migration before distributing the updated app. Old clients remain compatible after the migration.
+1. Apply the complete forward migration chain for the chosen release to a dedicated staging Supabase project, including its billing and referral migrations. The phase-ceiling migration must precede the entitlement schema. New clients send `phase_ceilings`, so deploy the backend migration before distributing the updated app. Old clients remain compatible after the migration. Referral campaign dates remain unset and its controls disabled until verified intake and the client flow are complete.
 2. Provision an Ed25519 signing key in your secret manager. Set `MONETIZATION_SNAPSHOT_PRIVATE_JWK` (private OKP JWK, `crv=Ed25519`) and `MONETIZATION_SNAPSHOT_KEY_ID` for the `monetization-api` function. Never commit the private key or place it in Flutter configuration.
 3. Put only the corresponding raw 32-byte public key, base64url encoded, in the app's `MONETIZATION_SNAPSHOT_PUBLIC_KEYS` Dart define: a JSON map of key ID to public key. The default is an empty map, so unconfigured builds cannot accept any signed entitlement. Never use the committed test vector key in a deployed environment.
 4. Deploy `monetization-api` with Supabase gateway JWT verification enabled. Its handler also verifies the JWT through Auth and derives the account from the verified user. `GET /entitlements` returns `snapshot_jws`; caller-selected account IDs are rejected, and the purchase routes below derive the account the same way.
@@ -41,7 +41,7 @@ No production project or Store configuration was changed by implementation.
 - `POST /purchase-intents` and `POST /purchases/verify` require a linked (non-anonymous) account. Verification looks the token up by SHA-256 digest; a token already recorded for another account, or for a deleted account, is refused with `account_binding_mismatch` and never reassigned.
 - Play's `obfuscatedExternalAccountId` must equal the owner's frozen binding. A purchase without it (for example, redeemed outside the app) is not provisioned and needs support.
 - Each verification or acknowledgement is a job with a lease and a fencing number. Only the current lease holder can apply a result, and only one job per purchase lineage runs at a time. Acknowledgement jobs are created by the provisioning transaction, so Play is never acknowledged for access that was not committed.
-- Failed jobs back off (5 s doubling to 1 h, or Play's `Retry-After`) and keep the last verified entitlement. In 3a nothing retries them in the background: the next verify or restore call does. The scheduled worker and Play notifications are PR 3b.
+- Failed jobs back off (5 s doubling to 1 h, or Play's `Retry-After`) and keep the last verified entitlement. The PR 3b worker retries them in the background once its scheduler is configured; verify and restore can also drive processing.
 - `billing_integration_test.ts` runs the real handler and RPC wiring against a local stack with Play faked; its header shows how to run it.
 
 
@@ -50,7 +50,7 @@ No production project or Store configuration was changed by implementation.
 - `monetization_accounts`, `course_unit_grants` and `course_access_windows` expose owner-only reads. Clients cannot write them.
 - Private feature sources, audit and outbox records are not exposed. Service role cannot bypass the grant/revision transaction with a direct table write.
 - Service-only `set_course_unit_grant` serializes on the account, deduplicates source keys, increments the revision and records audit/outbox entries atomically. It is a persistence primitive, **not referral eligibility verification**. The referral worker must prove eligibility and apply the two-milestone rule before invoking it.
-- Service-only `apply_verified_feature` accepts state only after the future billing worker verifies Play and holds its fenced lineage lease. It cannot itself verify a purchase token. Do not expose it in a client mutation endpoint.
+- Service-only `apply_verified_feature` accepts state only after the billing worker verifies Play and holds its fenced lineage lease. It cannot itself verify a purchase token. Do not expose it in a client mutation endpoint.
 - Access windows are read by the snapshot resolver, but the fixed-cutoff legacy migration writer is intentionally deferred to the existing-user rollout phase.
 - `get_monetization_snapshot` reads a consistent statement snapshot, omits revoked grants, separates Core from AI, and computes each purchase's offline bound before aggregating. Routine snapshot requests do not refresh purchase verification timestamps.
 - Account export includes safe grant/window/feature history, excluding source keys and internal audit records. Account deletion cascades owned access/cache data and removes the user's ID from retained audit records. Define final audit retention with the production privacy/accounting policy before rollout.
@@ -65,7 +65,7 @@ Retain old public keys while permanent offline documents may still exist. Publis
 
 ## Verification scope
 
-The new migrations and pgTAP security suite are tested in a disposable local PostgreSQL 17 container. That harness supplies minimal Auth/legacy relations; CI's normal Supabase reset remains responsible for exercising the complete historical Supabase migration chain. Tests cover owner isolation, rejected client writes/RPCs, idempotent grants, revision/outbox atomicity, purchase-bound offline validity, old/new placement merges, export redaction and deletion.
+The migrations and pgTAP suite are tested against a full disposable local Supabase stack and again in CI, including a reset through every historical migration. The earlier minimal PostgreSQL harness was insufficient and is not release evidence. Tests cover owner isolation, rejected client writes/RPCs, idempotent grants, revision/outbox atomicity, purchase-bound offline validity, old/new placement merges, export redaction and deletion. Phase 4a additionally runs real concurrent reward transactions and compares its server manifest with the bundled lesson files.
 
 The standard Deno suite includes JWT-routing and JOSE signing tests. A committed public test vector produced by `jose` is verified by Dart's independent Ed25519 implementation. Its ephemeral private key was discarded.
 

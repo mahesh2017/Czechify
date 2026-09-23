@@ -84,6 +84,8 @@ Implement products, purchase intents, Store adapter, verification, durable jobs,
 
 ### PR 4 — Referral evidence and transactional allocation
 
+Implementation slices: 4a is the private database, pinned manifest, attribution and transactional allocation; 4b adds authenticated API/Integrity/idempotency and durable processing; 4c adds Flutter claim capture, actual player evidence and local outbox upload. Keep every slice disabled until the complete Phase 4 acceptance gate below passes.
+
 Implement code/claim, receipts, manifest validation, integrity challenges, identity waiting/review and locked allocation. Add local receipt outbox to the existing lesson completion transaction. First use manual-code entry; App Links/install-referrer attribution can be included only when its hosting path is verified.
 
 **Done when:** a normal learner completing the first two units grants exactly two units; no subscription is required; skipped/incomplete coverage does not qualify; retries do not double-grant; simultaneous completions allocate distinct units; the fifteenth paid unit is ID 30; extra milestones cannot grant A2/AI. Offline completion uploads after reconnect and account switching cannot move receipts. A crash at each transaction boundary preserves the appropriate retry state.
@@ -155,6 +157,7 @@ deno test --allow-env supabase/functions
 supabase start
 supabase db reset
 supabase test db
+python3 tool/test_referral_concurrency.py
 supabase db lint --level warning
 git diff --check
 ```
