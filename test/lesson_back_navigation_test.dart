@@ -1,8 +1,8 @@
+import 'package:czechify/presentation/providers/course_admission_providers.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/exercise.dart';
 import 'package:czechify/domain/entities/lesson.dart';
-import 'package:czechify/presentation/providers/curriculum_providers.dart';
 import 'package:czechify/presentation/providers/lesson_providers.dart';
 import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/screens/lesson/lesson_player_screen.dart';
@@ -73,7 +73,9 @@ void main() {
         ProviderScope(
           overrides: [
             lessonSessionProvider.overrideWith(_Session.new),
-            lessonUnlockedProvider(1).overrideWith((ref) async => true),
+            lessonAdmissionProvider(
+              1,
+            ).overrideWith((_) async => LessonAdmission.allowed),
             czechTtsProvider.overrideWithValue(_Tts()),
           ],
           child: MaterialApp.router(

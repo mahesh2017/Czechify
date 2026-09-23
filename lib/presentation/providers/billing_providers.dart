@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../data/monetization/billing_flow.dart';
@@ -30,13 +34,60 @@ final storeAdapterProvider = Provider<StoreAdapter>(
   (ref) => PlayStoreAdapter(),
 );
 
+/// One configuration fetch per account, shared by every switch: cohorts are
+/// per account, so a switch fetches again. Lessons wait on this, so the fetch
+/// is short; when the server cannot be reached the account's last answer on
+/// this device applies (a paywall that was on stays on offline), and with no
+/// answer ever received everything is off. Without a backend everything is off.
+final monetizationConfigurationProvider =
+    FutureProvider<MonetizationConfiguration>((ref) async {
+      await ref.watch(backendInitProvider.future);
+      ref.watch(accountUserProvider.select((user) => user.value?.id));
+      final api = ref.watch(monetizationApiProvider);
+      final account = ref.read(backendServiceProvider).userId;
+      if (api == null || account == null) return MonetizationConfiguration.off;
+      final key = 'monetization_configuration_v1:$account';
+      final prefs = await SharedPreferences.getInstance();
+      MonetizationConfiguration? fresh;
+      try {
+        fresh = await api.fetchConfiguration().timeout(
+          const Duration(seconds: 3),
+        );
+      } on TimeoutException {
+        fresh = null;
+      }
+      if (fresh != null) {
+        await prefs.setString(
+          key,
+          jsonEncode({
+            'checkout': fresh.playCheckoutEnabled,
+            'paywall': fresh.coursePaywallEnabled,
+          }),
+        );
+        return fresh;
+      }
+      try {
+        final cached = jsonDecode(prefs.getString(key) ?? 'null');
+        if (cached is Map) {
+          return MonetizationConfiguration(
+            playCheckoutEnabled: cached['checkout'] == true,
+            coursePaywallEnabled: cached['paywall'] == true,
+          );
+        }
+      } on FormatException {
+        // An unreadable cache is no answer.
+      }
+      return MonetizationConfiguration.off;
+    });
+
 /// Whether this build may offer Play checkout at all. Any doubt reads as no.
 final checkoutEnabledProvider = FutureProvider<bool>((ref) async {
   await ref.watch(backendInitProvider.future);
   if (!ref.watch(billingPlatformSupportedProvider)) return false;
-  final api = ref.watch(monetizationApiProvider);
-  if (api == null) return false;
-  return checkoutPreview || await api.checkoutEnabled();
+  if (ref.watch(monetizationApiProvider) == null) return false;
+  return checkoutPreview ||
+      (await ref.watch(monetizationConfigurationProvider.future))
+          .playCheckoutEnabled;
 });
 
 final billingProvider =

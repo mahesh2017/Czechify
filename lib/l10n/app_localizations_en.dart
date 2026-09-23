@@ -3314,4 +3314,35 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get billingNoticeStoreUnavailable =>
       'Google Play is not available right now.';
+
+  @override
+  String get lessonPaidTitle => 'Part of the full course';
+
+  @override
+  String get lessonPaidBody =>
+      'This lesson is in a unit your account hasn\'t unlocked yet. Subscribe to Czechify Core, or invite friends to unlock A1 units for good.';
+
+  @override
+  String get lessonPaidAction => 'See your options';
+
+  @override
+  String get lessonVerifyTitle => 'Connect to confirm your access';
+
+  @override
+  String get lessonVerifyBody =>
+      'Your subscription needs a quick online check before this lesson opens. The free units and units you own still work offline.';
+
+  @override
+  String get lessonVerifyAction => 'Try again';
+
+  @override
+  String get lessonSwitchingTitle => 'Switching accounts…';
+
+  @override
+  String get lessonSwitchingBody =>
+      'This lesson opens once the account switch finishes.';
+
+  @override
+  String get examPaidBody =>
+      'Mock exams cover their whole level. Subscribe to Czechify Core, or unlock every unit of this level, to take one.';
 }

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../providers/course_admission_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/entities/enums.dart';
@@ -656,8 +657,9 @@ class _PathUnit extends ConsumerWidget {
     final completedIds = ref
         .watch(completedLessonIdsProvider)
         .maybeWhen(data: (ids) => ids, orElse: () => const <int>{});
+    // Playable: open by progression and, with the paywall on, paid for.
     final unlockedLessonIds = ref
-        .watch(unlockedLessonIdsProvider)
+        .watch(playableLessonIdsProvider)
         .maybeWhen(data: (ids) => ids, orElse: () => const <int>{});
     final doneCount = lessons.where((l) => completedIds.contains(l.id)).length;
     final allDone = lessons.isNotEmpty && doneCount == lessons.length;
@@ -1019,8 +1021,9 @@ class _UnitCard extends ConsumerWidget {
     final completedIds = ref
         .watch(completedLessonIdsProvider)
         .maybeWhen(data: (ids) => ids, orElse: () => const <int>{});
+    // Playable: open by progression and, with the paywall on, paid for.
     final unlockedLessonIds = ref
-        .watch(unlockedLessonIdsProvider)
+        .watch(playableLessonIdsProvider)
         .maybeWhen(data: (ids) => ids, orElse: () => const <int>{});
     final lessons = lessonsAsync.value ?? const [];
     final doneCount = lessons.where((l) => completedIds.contains(l.id)).length;

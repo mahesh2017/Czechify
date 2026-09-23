@@ -3325,4 +3325,35 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get billingNoticeStoreUnavailable =>
       'Google Play teď není k dispozici.';
+
+  @override
+  String get lessonPaidTitle => 'Součást plného kurzu';
+
+  @override
+  String get lessonPaidBody =>
+      'Tato lekce patří do jednotky, kterou váš účet zatím nemá odemčenou. Předplaťte si Czechify Core, nebo pozvěte přátele a odemkněte si jednotky A1 natrvalo.';
+
+  @override
+  String get lessonPaidAction => 'Zobrazit možnosti';
+
+  @override
+  String get lessonVerifyTitle => 'Připojte se a potvrďte přístup';
+
+  @override
+  String get lessonVerifyBody =>
+      'Předplatné je potřeba krátce ověřit online, než se tato lekce otevře. Bezplatné jednotky a jednotky, které vlastníte, fungují i bez připojení.';
+
+  @override
+  String get lessonVerifyAction => 'Zkusit znovu';
+
+  @override
+  String get lessonSwitchingTitle => 'Přepínání účtu…';
+
+  @override
+  String get lessonSwitchingBody =>
+      'Lekce se otevře, jakmile přepnutí účtu skončí.';
+
+  @override
+  String get examPaidBody =>
+      'Cvičný test pokrývá celou úroveň. Pro jeho spuštění si předplaťte Czechify Core, nebo si odemkněte všechny jednotky této úrovně.';
 }

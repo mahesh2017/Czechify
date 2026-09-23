@@ -5737,6 +5737,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Google Play is not available right now.'**
   String get billingNoticeStoreUnavailable;
+
+  /// No description provided for @lessonPaidTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Part of the full course'**
+  String get lessonPaidTitle;
+
+  /// No description provided for @lessonPaidBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson is in a unit your account hasn\'t unlocked yet. Subscribe to Czechify Core, or invite friends to unlock A1 units for good.'**
+  String get lessonPaidBody;
+
+  /// No description provided for @lessonPaidAction.
+  ///
+  /// In en, this message translates to:
+  /// **'See your options'**
+  String get lessonPaidAction;
+
+  /// No description provided for @lessonVerifyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect to confirm your access'**
+  String get lessonVerifyTitle;
+
+  /// No description provided for @lessonVerifyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your subscription needs a quick online check before this lesson opens. The free units and units you own still work offline.'**
+  String get lessonVerifyBody;
+
+  /// No description provided for @lessonVerifyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get lessonVerifyAction;
+
+  /// No description provided for @lessonSwitchingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switching accounts…'**
+  String get lessonSwitchingTitle;
+
+  /// No description provided for @lessonSwitchingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson opens once the account switch finishes.'**
+  String get lessonSwitchingBody;
+
+  /// No description provided for @examPaidBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Mock exams cover their whole level. Subscribe to Czechify Core, or unlock every unit of this level, to take one.'**
+  String get examPaidBody;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show MaxLengthEnforcement;
 import '../../../domain/engines/llm_orchestrator.dart';
@@ -15,6 +16,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../data/services/exam_session_store.dart';
 import '../../../domain/repositories/exam_repository.dart';
+import '../../providers/course_admission_providers.dart';
 import '../../providers/database_providers.dart';
 import '../../../domain/repositories/speech_ports.dart';
 import '../../providers/stt_providers.dart';
@@ -588,6 +590,10 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
   Widget _buildIntroScreen() {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    // Starting a new exam needs access to the whole level; loading is never
+    // read as a refusal.
+    final admission = ref.watch(examAdmissionProvider(widget.level));
+    final canStart = admission.value ?? false;
     return Scaffold(
       backgroundColor: t.bg,
       appBar: AppBar(
@@ -748,19 +754,35 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
                     icon: const Icon(Icons.restore),
                     label: Text(AppLocalizations.of(context).resumeExam),
                   ),
-                  const SizedBox(height: 8),
-                  TextButton(
-                    onPressed: _startExam,
-                    child: Text(
-                      AppLocalizations.of(context).discardAndStartOver,
+                  if (canStart) ...[
+                    const SizedBox(height: 8),
+                    TextButton(
+                      onPressed: _startExam,
+                      child: Text(
+                        AppLocalizations.of(context).discardAndStartOver,
+                      ),
                     ),
-                  ),
-                ] else
+                  ],
+                ] else if (canStart)
                   FilledButton.icon(
                     onPressed: _startExam,
                     icon: const Icon(Icons.play_arrow),
                     label: Text(AppLocalizations.of(context).startExam),
+                  )
+                else if (admission.hasValue) ...[
+                  // Access is known and does not cover this level.
+                  Text(
+                    l10n.examPaidBody,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
                   ),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: () => context.push('/subscriptions'),
+                    child: Text(l10n.lessonPaidAction),
+                  ),
+                ] else
+                  const Center(child: CircularProgressIndicator()),
               ] else ...[
                 const CircularProgressIndicator(),
               ],

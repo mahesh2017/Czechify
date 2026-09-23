@@ -13,9 +13,10 @@ import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/flashcard.dart';
 import '../../../domain/engines/learning_loop_engine.dart';
 import '../../../domain/engines/lesson_rating.dart';
+import '../../providers/course_admission_providers.dart';
+import '../../providers/monetization_providers.dart';
 import '../../providers/lesson_providers.dart';
 import '../../providers/gamification_providers.dart';
-import '../../providers/curriculum_providers.dart';
 import '../../providers/feedback_providers.dart';
 import '../../routes/lesson_navigation.dart';
 import '../../widgets/celebration/burst_painter.dart';
@@ -44,6 +45,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     with WidgetsBindingObserver {
   bool _loaded = false;
   bool _locked = false;
+
+  /// Why the lesson did not open, when [_locked]. Loading never lands here:
+  /// admission resolves only once access has loaded.
+  LessonAdmission _denial = LessonAdmission.prerequisiteRequired;
   bool _allowExit = false;
   bool _exitDialogOpen = false;
 
@@ -56,24 +61,38 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     // Load lesson data on first build
-    Future.microtask(() async {
-      final unlocked = await ref.read(
-        lessonUnlockedProvider(widget.lessonId).future,
-      );
-      if (!unlocked) {
-        if (mounted) {
-          setState(() {
-            _locked = true;
-            _loaded = true;
-          });
-        }
-        return;
+    Future.microtask(_admitAndLoad);
+  }
+
+  /// Checks admission before a new attempt, a restored route, a deep link or
+  /// a resumed checkpoint alike. An attempt already on screen is not
+  /// re-checked, so it can finish even if access lapses meanwhile.
+  Future<void> _admitAndLoad() async {
+    final admission = await ref.read(
+      lessonAdmissionProvider(widget.lessonId).future,
+    );
+    if (admission != LessonAdmission.allowed) {
+      if (mounted) {
+        setState(() {
+          _denial = admission;
+          _locked = true;
+          _loaded = true;
+        });
       }
-      await ref
-          .read(lessonSessionProvider.notifier)
-          .loadLesson(widget.lessonId);
-      if (mounted) setState(() => _loaded = true);
+      return;
+    }
+    await ref.read(lessonSessionProvider.notifier).loadLesson(widget.lessonId);
+    if (mounted) setState(() => _loaded = true);
+  }
+
+  Future<void> _retryAdmission() async {
+    ref.invalidate(monetizationLoadProvider);
+    ref.invalidate(lessonAdmissionProvider(widget.lessonId));
+    setState(() {
+      _locked = false;
+      _loaded = false;
     });
+    await _admitAndLoad();
   }
 
   @override
@@ -147,6 +166,36 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     if (_locked) {
       final t = context.tokens;
       final l10n = AppLocalizations.of(context);
+      final (icon, title, body, action, onAction) = switch (_denial) {
+        LessonAdmission.paymentRequired => (
+          Icons.workspace_premium_outlined,
+          l10n.lessonPaidTitle,
+          l10n.lessonPaidBody,
+          l10n.lessonPaidAction,
+          () => context.push('/subscriptions'),
+        ),
+        LessonAdmission.reverificationRequired => (
+          Icons.cloud_sync_outlined,
+          l10n.lessonVerifyTitle,
+          l10n.lessonVerifyBody,
+          l10n.lessonVerifyAction,
+          _retryAdmission,
+        ),
+        LessonAdmission.accountTransition || LessonAdmission.loading => (
+          Icons.sync,
+          l10n.lessonSwitchingTitle,
+          l10n.lessonSwitchingBody,
+          l10n.lessonVerifyAction,
+          _retryAdmission,
+        ),
+        _ => (
+          Icons.lock_outline,
+          l10n.lessonLockedTitle,
+          l10n.lessonLockedBody,
+          l10n.lessonBackToCurriculum,
+          () => context.go('/curriculum'),
+        ),
+      };
       return Scaffold(
         backgroundColor: t.bg,
         appBar: AppBar(
@@ -164,7 +213,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconTile(
-                  icon: Icons.lock_outline,
+                  icon: icon,
                   tint: t.elev,
                   fg: t.muted,
                   size: 64,
@@ -173,21 +222,18 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                 ),
                 const SizedBox(height: 18),
                 DisplayText(
-                  l10n.lessonLockedTitle,
+                  title,
                   size: 26,
                   weight: FontWeight.w800,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  l10n.lessonLockedBody,
+                  body,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
                 ),
                 const SizedBox(height: 22),
-                KeyCta(
-                  label: l10n.lessonBackToCurriculum,
-                  onPressed: () => context.go('/curriculum'),
-                ),
+                KeyCta(label: action, onPressed: onAction),
               ],
             ),
           ),

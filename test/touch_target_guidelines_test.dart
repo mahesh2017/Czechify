@@ -1,3 +1,4 @@
+import 'package:czechify/presentation/providers/course_admission_providers.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/database/database.dart' show AppDatabase;
 import 'package:czechify/domain/engines/daily_arrival_engine.dart';
@@ -108,7 +109,9 @@ void main() {
                 unitTitle: 'First conversations',
               ),
             ),
-          lessonUnlockedProvider(1).overrideWith((_) async => true),
+          lessonAdmissionProvider(
+            1,
+          ).overrideWith((_) async => LessonAdmission.allowed),
           progressRepositoryProvider.overrideWithValue(
             FakeProgressRepository(),
           ),

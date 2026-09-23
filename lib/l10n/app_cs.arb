@@ -1053,5 +1053,14 @@
   "billingNoticeCanceled": "Nákup byl zrušen.",
   "billingNoticeFailed": "Něco se nepovedlo. Zkuste to znovu, a pokud vám byla stržena platba, obnovte nákupy.",
   "billingNoticeCheckoutDisabled": "Předplatné zatím není k dispozici.",
-  "billingNoticeStoreUnavailable": "Google Play teď není k dispozici."
+  "billingNoticeStoreUnavailable": "Google Play teď není k dispozici.",
+  "lessonPaidTitle": "Součást plného kurzu",
+  "lessonPaidBody": "Tato lekce patří do jednotky, kterou váš účet zatím nemá odemčenou. Předplaťte si Czechify Core, nebo pozvěte přátele a odemkněte si jednotky A1 natrvalo.",
+  "lessonPaidAction": "Zobrazit možnosti",
+  "lessonVerifyTitle": "Připojte se a potvrďte přístup",
+  "lessonVerifyBody": "Předplatné je potřeba krátce ověřit online, než se tato lekce otevře. Bezplatné jednotky a jednotky, které vlastníte, fungují i bez připojení.",
+  "lessonVerifyAction": "Zkusit znovu",
+  "lessonSwitchingTitle": "Přepínání účtu…",
+  "lessonSwitchingBody": "Lekce se otevře, jakmile přepnutí účtu skončí.",
+  "examPaidBody": "Cvičný test pokrývá celou úroveň. Pro jeho spuštění si předplaťte Czechify Core, nebo si odemkněte všechny jednotky této úrovně."
 }

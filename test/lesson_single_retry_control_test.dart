@@ -1,10 +1,10 @@
+import 'package:czechify/presentation/providers/course_admission_providers.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/database/database.dart' show AppDatabase;
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/exercise.dart';
 import 'package:czechify/domain/entities/lesson.dart';
 import 'package:czechify/domain/entities/unit.dart';
-import 'package:czechify/presentation/providers/curriculum_providers.dart';
 import 'package:czechify/presentation/providers/database_providers.dart';
 import 'package:czechify/presentation/providers/gamification_providers.dart';
 import 'package:czechify/presentation/providers/tts_providers.dart';
@@ -45,108 +45,111 @@ void main() {
     await settle(tester);
   }
 
-  testWidgets('after a missed listening question, Try again is the only retry', (
-    tester,
-  ) async {
-    tester.view.physicalSize = const Size(412, 900);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
+  testWidgets(
+    'after a missed listening question, Try again is the only retry',
+    (tester) async {
+      tester.view.physicalSize = const Size(412, 900);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          databaseProvider.overrideWithValue(database),
-          gamificationProvider.overrideWith(TestGamificationNotifier.new),
-          // Reaches a platform channel for the installed voices.
-          czechTtsAvailableProvider.overrideWith((ref) async => true),
-          lessonUnlockedProvider(1).overrideWith((ref) async => true),
-          progressRepositoryProvider.overrideWithValue(
-            FakeProgressRepository(),
-          ),
-          curriculumRepositoryProvider.overrideWithValue(
-            FakeCurriculumRepository(
-              unit: const Unit(
-                id: 1,
-                title: 'Hear, Read & Repair Czech',
-                description: '',
-                phase: Phase.a1,
-                orderIndex: 1,
-              ),
-              lesson: const Lesson(
-                id: 1,
-                unitId: 1,
-                orderInUnit: 1,
-                title: 'Hear Czech in Useful Words',
-                description: '',
-              ),
-              exercises: const [
-                Exercise(
-                  id: 1,
-                  lessonId: 1,
-                  type: ExerciseType.listeningComprehension,
-                  prompt: 'Listen to the words. Which order did you hear?',
-                  data: {
-                    'transcript_cz': 'káva, čaj',
-                    'questions': [
-                      {
-                        'question_en': 'What was the order?',
-                        'options': ['coffee — tea', 'tea — coffee'],
-                        'correct_index': 0,
-                      },
-                    ],
-                  },
-                ),
-                Exercise(
-                  id: 2,
-                  lessonId: 1,
-                  type: ExerciseType.multipleChoice,
-                  prompt: 'What does “káva” mean?',
-                  data: {
-                    'options': ['coffee', 'tea'],
-                    'correct_index': 0,
-                  },
-                ),
-              ],
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            databaseProvider.overrideWithValue(database),
+            gamificationProvider.overrideWith(TestGamificationNotifier.new),
+            // Reaches a platform channel for the installed voices.
+            czechTtsAvailableProvider.overrideWith((ref) async => true),
+            lessonAdmissionProvider(
+              1,
+            ).overrideWith((_) async => LessonAdmission.allowed),
+            progressRepositoryProvider.overrideWithValue(
+              FakeProgressRepository(),
             ),
+            curriculumRepositoryProvider.overrideWithValue(
+              FakeCurriculumRepository(
+                unit: const Unit(
+                  id: 1,
+                  title: 'Hear, Read & Repair Czech',
+                  description: '',
+                  phase: Phase.a1,
+                  orderIndex: 1,
+                ),
+                lesson: const Lesson(
+                  id: 1,
+                  unitId: 1,
+                  orderInUnit: 1,
+                  title: 'Hear Czech in Useful Words',
+                  description: '',
+                ),
+                exercises: const [
+                  Exercise(
+                    id: 1,
+                    lessonId: 1,
+                    type: ExerciseType.listeningComprehension,
+                    prompt: 'Listen to the words. Which order did you hear?',
+                    data: {
+                      'transcript_cz': 'káva, čaj',
+                      'questions': [
+                        {
+                          'question_en': 'What was the order?',
+                          'options': ['coffee — tea', 'tea — coffee'],
+                          'correct_index': 0,
+                        },
+                      ],
+                    },
+                  ),
+                  Exercise(
+                    id: 2,
+                    lessonId: 1,
+                    type: ExerciseType.multipleChoice,
+                    prompt: 'What does “káva” mean?',
+                    data: {
+                      'options': ['coffee', 'tea'],
+                      'correct_index': 0,
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+          child: MaterialApp(
+            theme: lightTheme(),
+            localizationsDelegates: testLocalizationsDelegates,
+            supportedLocales: testSupportedLocales,
+            home: const LessonPlayerScreen(lessonId: 1),
           ),
-        ],
-        child: MaterialApp(
-          theme: lightTheme(),
-          localizationsDelegates: testLocalizationsDelegates,
-          supportedLocales: testSupportedLocales,
-          home: const LessonPlayerScreen(lessonId: 1),
         ),
-      ),
-    );
-    await settle(tester);
-    expect(find.text('What was the order?'), findsOneWidget);
+      );
+      await settle(tester);
+      expect(find.text('What was the order?'), findsOneWidget);
 
-    await missTheQuestion(tester);
+      await missTheQuestion(tester);
 
-    expect(find.text('Not quite'), findsOneWidget);
-    expect(find.text('Try again'), findsOneWidget);
-    expect(find.text('Retry'), findsNothing);
+      expect(find.text('Not quite'), findsOneWidget);
+      expect(find.text('Try again'), findsOneWidget);
+      expect(find.text('Retry'), findsNothing);
 
-    await tester.tap(find.text('Try again'));
-    await settle(tester);
+      await tester.tap(find.text('Try again'));
+      await settle(tester);
 
-    expect(find.text('Not quite'), findsNothing);
-    expect(find.text('What was the order?'), findsOneWidget);
-    expect(
-      find.text('Check answers'),
-      findsNothing,
-      reason: 'the same question, with the missed selection cleared',
-    );
+      expect(find.text('Not quite'), findsNothing);
+      expect(find.text('What was the order?'), findsOneWidget);
+      expect(
+        find.text('Check answers'),
+        findsNothing,
+        reason: 'the same question, with the missed selection cleared',
+      );
 
-    await missTheQuestion(tester);
+      await missTheQuestion(tester);
 
-    expect(
-      find.text('Try again'),
-      findsOneWidget,
-      reason: 'the second miss still goes through the lesson',
-    );
-    expect(find.text('Retry'), findsNothing);
-    expect(tester.takeException(), isNull);
-  });
+      expect(
+        find.text('Try again'),
+        findsOneWidget,
+        reason: 'the second miss still goes through the lesson',
+      );
+      expect(find.text('Retry'), findsNothing);
+      expect(tester.takeException(), isNull);
+    },
+  );
 }
