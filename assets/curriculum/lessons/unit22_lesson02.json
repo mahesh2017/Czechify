@@ -2,232 +2,570 @@
   "id": 2202,
   "unit_id": 22,
   "order_in_unit": 1,
-  "title": "Purpose & Condition — Aby, Kdyby",
-  "description": "Learn two powerful Czech conjunctions for complex sentences: aby (so that / in order to — expressing purpose) and kdyby (if — expressing hypothetical or contrary-to-fact conditions). Practice the unique grammar patterns where both conjunctions require past-tense verb forms and gender agreement. Build rich conditional sentences combining both conjunctions.",
+  "title": "Joining Ideas",
+  "description": "Learn že and jestli, protože, když and až, and který.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "join two ideas into one sentence.",
+  "new_language": [
+    "Myslím, že…",
+    "Nevím, jestli…",
+    "když × až",
+    "který, která, které"
+  ],
+  "recycles": [
+    "protože",
+    "přijdu",
+    "zavolám"
+  ],
+  "exit_task": "say what you think and why.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 22013,
+      "id": 22200,
       "lesson_id": 2202,
-      "type": "multiple_choice",
-      "prompt": "What does the conjunction 'aby' express?",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co vyjadřuje spojka 'aby'?",
-        "question_en": "What does the conjunction 'aby' express?",
-        "options": ["a reason (because)", "a condition (if)", "a purpose (so that / in order to)", "a time (when)"],
-        "correct_index": 2,
-        "explanation": "'Aby' = so that / in order to — expresses purpose or intention. Example: 'Učím se česky, abych rozuměl lidem.' = I'm learning Czech so that I can understand people. The verb after 'aby' is always in the past-tense form (the -l participle) with gender agreement."
-      },
-      "answer_key": "a purpose (so that / in order to)",
-      "grammar_rule_id": "GR-212",
-      "xp_reward": 10
-    },
-    {
-      "id": 22014,
-      "lesson_id": 2202,
-      "type": "multiple_choice",
-      "prompt": "What is the correct 'aby' form for 'já' (I, masculine speaker)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký je správný tvar 'aby' pro 'já' (mužský mluvčí)?",
-        "question_en": "What is the correct 'aby' form for 'I' (masculine speaker)?",
-        "options": ["aby", "abys", "abych", "abyste"],
-        "correct_index": 2,
-        "explanation": "'Aby' conjugates like a past-tense conditional: abych (I), abys (you sg.), aby (he/she/it), abychom (we), abyste (you pl.), aby (they). The verb following aby is in the past participle (-l form): 'abych dělal' (masc.), 'abych dělala' (fem.)."
-      },
-      "answer_key": "abych",
-      "grammar_rule_id": "GR-212",
-      "xp_reward": 10
-    },
-    {
-      "id": 22015,
-      "lesson_id": 2202,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct 'aby' form: 'I'm learning Czech so that I can speak with friends.' (male speaker)",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Učím se česky, ___ mohl mluvit s kamarády.",
-        "blank_count": 1,
-        "explanation": "'Učím se česky, abych mohl mluvit s kamarády.' = I'm learning Czech so that I can speak with friends. 'Abych' is the 1st person singular form. The verb after 'abych' is 'mohl' (past participle of 'moci/to be able', masc.) followed by the infinitive 'mluvit'. Aby + past participle + (optionally) infinitive.",
-        "blank_answers": [
-          ["abych"]
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write the Czech for because, I think that, and whether. Then check.",
+        "items": [
+          {
+            "cz": "Nejdu ven, protože prší.",
+            "en": "I'm not going out because it's raining."
+          },
+          {
+            "cz": "Myslím, že…",
+            "en": "I think that…"
+          },
+          {
+            "cz": "Nevím, jestli…",
+            "en": "I don't know whether…"
+          }
         ]
       },
-      "answer_key": "abych",
-      "grammar_rule_id": "GR-212",
-      "xp_reward": 15
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 22016,
+      "id": 22201,
       "lesson_id": 2202,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct 'aby' form + past participle: 'I told him so that he would know.'",
+      "type": "teaching",
+      "prompt": "že and jestli: that and whether",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Řekl jsem mu to, ___ to ___. (on — vědět)",
-        "blank_count": 2,
-        "explanation": "'Řekl jsem mu to, aby to věděl.' = I told him so that he would know. 'Aby' = 3rd person singular (he). 'Věděl' = past participle of 'vědět' (masculine, agreeing with 'on'). The aby-clause uses past-tense forms regardless of when the action happens — this is a grammatical requirement, not a time reference.",
-        "blank_answers": [
-          ["aby"],
-          ["věděl"]
-        ]
-      },
-      "answer_key": "aby, věděl",
-      "grammar_rule_id": "GR-212",
-      "xp_reward": 15
-    },
-    {
-      "id": 22017,
-      "lesson_id": 2202,
-      "type": "multiple_choice",
-      "prompt": "What does 'kdyby' mean and when is it used?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'kdyby' a kdy se používá?",
-        "question_en": "What does 'kdyby' mean and when is it used?",
-        "options": [
-          "when — for factual recurring events",
-          "because — for giving reasons",
-          "if — for hypothetical or contrary-to-fact situations",
-          "that — for reporting speech"
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-210",
+        "rule_step": 1,
+        "heading": "že and jestli: that and whether",
+        "items": [
+          {
+            "cz": "Myslím, že má pravdu.",
+            "en": "I think he is right."
+          },
+          {
+            "cz": "Nevím, jestli má čas.",
+            "en": "I don't know whether she has time."
+          }
         ],
-        "correct_index": 2,
-        "explanation": "'Kdyby' = if (hypothetical / contrary-to-fact). It expresses unreal conditions. Example: 'Kdybych měl čas, šel bych s tebou.' = If I had time, I would go with you (but I don't have time). The result clause uses the conditional 'bych/bys/by...'. This is different from 'jestli' (if/whether — expressing factual uncertainty)."
+        "say": "že reports what you think or know. jestli asks whether something is true. Always put a comma before them.",
+        "table": [
+          [
+            "I think that…",
+            "Myslím, že…"
+          ],
+          [
+            "I know that…",
+            "Vím, že…"
+          ],
+          [
+            "He says that…",
+            "Říká, že…"
+          ],
+          [
+            "I don't know whether…",
+            "Nevím, jestli…"
+          ],
+          [
+            "I will ask whether…",
+            "Zeptám se, jestli…"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Myslím, že má pravdu.",
+            "en": "I think he is right."
+          },
+          {
+            "cz": "Nevím, jestli má čas.",
+            "en": "I don't know whether she has time."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Myslím že má pravdu.",
+          "right": "Myslím, že má pravdu."
+        },
+        "step": 1,
+        "steps": 3
       },
-      "answer_key": "if — for hypothetical or contrary-to-fact situations",
-      "grammar_rule_id": "GR-213",
-      "xp_reward": 10
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 22018,
-      "lesson_id": 2202,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct 'kdyby' form: 'If I had more money, I would buy a new car.' (male speaker)",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ měl víc peněz, koupil bych si nové auto.",
-        "blank_count": 1,
-        "explanation": "'Kdybych měl víc peněz, koupil bych si nové auto.' = If I had more money, I would buy a new car. Kdyby conjugation: kdybych (I), kdybys (you sg.), kdyby (he/she/it), kdybychom (we), kdybyste (you pl.), kdyby (they). The result clause uses conditional 'koupil bych' (I would buy). Both verbs use past participle + gender agreement.",
-        "blank_answers": [
-          ["Kdybych", "kdybych"]
-        ]
-      },
-      "answer_key": "Kdybych",
-      "grammar_rule_id": "GR-213",
-      "xp_reward": 15
-    },
-    {
-      "id": 22019,
-      "lesson_id": 2202,
-      "type": "fill_blank",
-      "prompt": "Complete with 'kdyby' form + past participle: 'If he knew the truth, he would be angry.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ ___ pravdu, byl by naštvaný. (on — vědět)",
-        "blank_count": 2,
-        "explanation": "'Kdyby věděl pravdu, byl by naštvaný.' = If he knew the truth, he would be angry. Structure: kdyby + past participle (věděl) → main clause: past participle (byl) + conditional particle (by). Both parts use the -l participle! This is a classic contrary-to-fact conditional.",
-        "blank_answers": [
-          ["Kdyby", "kdyby"],
-          ["věděl"]
-        ]
-      },
-      "answer_key": "Kdyby věděl",
-      "grammar_rule_id": "GR-213",
-      "xp_reward": 15
-    },
-    {
-      "id": 22020,
+      "id": 22202,
       "lesson_id": 2202,
       "type": "multiple_choice",
-      "prompt": "How does the verb form after 'kdyby' compare to the verb form after 'aby'?",
+      "prompt": "Quick check",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Jaký je rozdíl ve tvaru slovesa po 'kdyby' a po 'aby'?",
-        "question_en": "How does the verb form after 'kdyby' compare to the verb form after 'aby'?",
+        "mode": "check",
+        "question_cz": "Nevím, ___ má čas.",
+        "question_en": "I don't know whether she has time.",
         "options": [
-          "Both use the infinitive",
-          "Both use the past participle (-l form)",
-          "Kdyby uses present tense, aby uses future",
-          "Kdyby uses infinitive, aby uses past participle"
+          "jestli",
+          "že",
+          "protože"
         ],
-        "correct_index": 1,
-        "explanation": "Both 'kdyby' and 'aby' require the past participle (-l form) of the verb with gender agreement! Examples: 'abych udělal' (so that I do — masc.), 'kdybych udělal' (if I did — masc.). The difference is meaning: aby = purpose, kdyby = hypothetical condition. The result clause after kdyby uses 'bych/bys/by' + past participle."
+        "correct_index": 0,
+        "explanation": "Whether = jestli."
       },
-      "answer_key": "Both use the past participle (-l form)",
-      "grammar_rule_id": "GR-213",
-      "xp_reward": 10
+      "answer_key": "jestli",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-210"
     },
     {
-      "id": 22021,
+      "id": 22203,
+      "lesson_id": 2202,
+      "type": "teaching",
+      "prompt": "protože, když, až",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-211",
+        "rule_step": 1,
+        "heading": "protože, když, až",
+        "items": [
+          {
+            "cz": "Nejdu ven, protože prší.",
+            "en": "I'm not going out because it's raining."
+          },
+          {
+            "cz": "Až přijdu domů, zavolám ti.",
+            "en": "When I get home, I will call you."
+          }
+        ],
+        "say": "protože gives the reason. když is for what happens or is true. až is for one moment in the future.",
+        "table": [
+          [
+            "because",
+            "protože"
+          ],
+          [
+            "when, whenever, if",
+            "když"
+          ],
+          [
+            "when (future, once)",
+            "až"
+          ],
+          [
+            "so, therefore",
+            "a proto"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Nejdu ven, protože prší.",
+            "en": "I'm not going out because it's raining."
+          },
+          {
+            "cz": "Až přijdu domů, zavolám ti.",
+            "en": "When I get home, I will call you."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Až mám volno, chodím do parku.",
+          "right": "Když mám volno, chodím do parku."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 22204,
+      "lesson_id": 2202,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "___ mám volno, chodím do parku.",
+        "question_en": "When I have time off, I go to the park.",
+        "options": [
+          "Když",
+          "Až",
+          "Že"
+        ],
+        "correct_index": 0,
+        "explanation": "Something that happens regularly: když. až is only for one future moment."
+      },
+      "answer_key": "Když",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-211"
+    },
+    {
+      "id": 22205,
+      "lesson_id": 2202,
+      "type": "teaching",
+      "prompt": "který: the one that",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-214",
+        "rule_step": 1,
+        "heading": "který: the one that",
+        "items": [
+          {
+            "cz": "To je film, který se mi líbil.",
+            "en": "That is the film I liked."
+          },
+          {
+            "cz": "Mám kamarádku, která mluví česky.",
+            "en": "I have a friend who speaks Czech."
+          }
+        ],
+        "say": "který joins a description to a noun and takes its gender: který, která, které. For a place, use kde.",
+        "table": [
+          [
+            "vlak (m.)",
+            "vlak, který jede do Brna"
+          ],
+          [
+            "paní (f.)",
+            "paní, která tu pracuje"
+          ],
+          [
+            "auto (n.)",
+            "auto, které stojí venku"
+          ],
+          [
+            "město (place)",
+            "město, kde bydlím"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "To je film, který se mi líbil.",
+            "en": "That is the film I liked."
+          },
+          {
+            "cz": "Mám kamarádku, která mluví česky.",
+            "en": "I have a friend who speaks Czech."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "To je paní, který tu pracuje.",
+          "right": "To je paní, která tu pracuje."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 22206,
+      "lesson_id": 2202,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "To je paní, ___ tu pracuje.",
+        "question_en": "That is the lady who works here.",
+        "options": [
+          "která",
+          "který",
+          "které"
+        ],
+        "correct_index": 0,
+        "explanation": "paní is feminine: která."
+      },
+      "answer_key": "která",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-214"
+    },
+    {
+      "id": 22207,
+      "lesson_id": 2202,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write when you use že, jestli, protože, když and až, with one example each. Then add který, která, které.",
+        "items": [
+          {
+            "cz": "Myslím, že… / Nevím, jestli…",
+            "en": "that / whether"
+          },
+          {
+            "cz": "protože",
+            "en": "because"
+          },
+          {
+            "cz": "když × až",
+            "en": "when (happens) × when (future moment)"
+          },
+          {
+            "cz": "vlak, který… / paní, která… / auto, které…",
+            "en": "the one that"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 22208,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Myslím, že… = I think that…",
+        "sentence": "Myslím, ___ má pravdu.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "že"
+          ]
+        ],
+        "explanation": "Myslím, že má pravdu."
+      },
+      "answer_key": "že",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-210"
+    },
+    {
+      "id": 22209,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Whether → jestli.",
+        "sentence": "Zeptám se, ___ přijde.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jestli"
+          ]
+        ],
+        "explanation": "Zeptám se, jestli přijde."
+      },
+      "answer_key": "jestli",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-210"
+    },
+    {
+      "id": 22210,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "One moment in the future: až.",
+        "sentence": "___ přijdu domů, zavolám ti.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Až",
+            "až"
+          ]
+        ],
+        "explanation": "Až přijdu domů, zavolám ti."
+      },
+      "answer_key": "Až",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-211"
+    },
+    {
+      "id": 22211,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "vlak is masculine.",
+        "sentence": "To je vlak, ___ jede do Brna.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "který"
+          ]
+        ],
+        "explanation": "vlak, který jede…"
+      },
+      "answer_key": "který",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-214"
+    },
+    {
+      "id": 22212,
+      "lesson_id": 2202,
+      "type": "pronunciation",
+      "prompt": "Pronounce the complex sentence using multiple conjunctions.",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Myslím, že je to dobrý nápad, protože když pracujeme spolu, všechno je lehčí.",
+        "focus_sounds": [
+          "first_syllable_stress"
+        ],
+        "min_score": 0.6,
+        "translation_en": "I think it's a good idea, because when we work together, everything is easier."
+      },
+      "answer_key": "Myslím, že je to dobrý nápad, protože když pracujeme spolu, všechno je lehčí.",
+      "grammar_rule_id": "GR-211",
+      "xp_reward": 15
+    },
+    {
+      "id": 22213,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with 'že': 'I know that you are right.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Vím, ___ máš pravdu.",
+        "blank_count": 1,
+        "explanation": "'Vím, že máš pravdu.' = I know that you are right. The conjunction 'že' introduces the subordinate clause. Note the comma before 'že' — Czech always uses a comma before že, protože, když, jestli, and other subordinating conjunctions.",
+        "blank_answers": [
+          [
+            "že"
+          ]
+        ]
+      },
+      "answer_key": "že",
+      "grammar_rule_id": "GR-210",
+      "xp_reward": 15
+    },
+    {
+      "id": 22214,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with 'protože': 'He stayed home because he was sick.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Zůstal doma, ___ byl nemocný.",
+        "blank_count": 1,
+        "explanation": "'Zůstal doma, protože byl nemocný.' = He stayed home because he was sick. 'Protože' always introduces the reason. Word order: main clause + comma + protože + subordinate clause. The subordinate clause keeps normal subject-verb order.",
+        "blank_answers": [
+          [
+            "protože"
+          ]
+        ]
+      },
+      "answer_key": "protože",
+      "grammar_rule_id": "GR-211",
+      "xp_reward": 15
+    },
+    {
+      "id": 22215,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with 'když': 'When the sun shines, we go outside.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ svítí slunce, chodíme ven.",
+        "blank_count": 1,
+        "explanation": "'Když svítí slunce, chodíme ven.' = When the sun shines, we go outside (a recurring/general situation). 'Když' is used for factual 'when' — things that happen regularly or are generally true. The když-clause can start the sentence (with comma) or follow the main clause.",
+        "blank_answers": [
+          [
+            "Když",
+            "když"
+          ]
+        ]
+      },
+      "answer_key": "Když",
+      "grammar_rule_id": "GR-211",
+      "xp_reward": 15
+    },
+    {
+      "id": 22216,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with 'jestli': 'I will ask if he has time.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Zeptám se, ___ má čas.",
+        "blank_count": 1,
+        "explanation": "'Zeptám se, jestli má čas.' = I will ask if/whether he has time. 'Jestli' introduces indirect yes/no questions. The clause after 'jestli' uses normal indicative word order, not question word order. This is different from direct questions.",
+        "blank_answers": [
+          [
+            "jestli"
+          ]
+        ]
+      },
+      "answer_key": "jestli",
+      "grammar_rule_id": "GR-210",
+      "xp_reward": 15
+    },
+    {
+      "id": 22217,
       "lesson_id": 2202,
       "type": "translation",
-      "prompt": "Translate to Czech: 'If I had time, I would go with you.' (male speaker)",
+      "prompt": "Translate to Czech: 'She says that she is tired.'",
       "data": {
         "type": "translation",
         "direction": "en_to_cz",
-        "source": "If I had time, I would go with you. (male speaker)",
+        "source": "She says that she is tired.",
         "accepted_answers": [
-          "Kdybych měl čas, šel bych s tebou.",
-          "Kdybych měl čas, šel bych s vámi.",
-          "Šel bych s tebou, kdybych měl čas."
+          "Říká, že je unavená.",
+          "Ona říká, že je unavená.",
+          "Říká, že je unavená ona."
         ],
-        "grammar_note": "'Kdybych měl čas, šel bych s tebou.' = If I had time, I would go with you. Two-part structure: (1) kdybych + past participle 'měl' (masc.), (2) past participle 'šel' (masc.) + conditional 'bych'. Note 's tebou' (with you, informal) vs 's vámi' (formal/plural). The kdyby-clause can come first or second."
+        "grammar_note": "'Říká, že je unavená.' = She says that she is tired. 'Říká' = she says (3rd person sing. of 'říkat'). 'Že' introduces the reported speech. 'Je unavená' = she is tired (feminine -á ending agrees with female subject). The pronoun 'ona' can be omitted — the verb ending already indicates the subject."
       },
-      "answer_key": "Kdybych měl čas, šel bych s tebou.",
-      "grammar_rule_id": "GR-213",
+      "answer_key": "Říká, že je unavená.",
+      "grammar_rule_id": "GR-210",
       "xp_reward": 10
     },
     {
-      "id": 22022,
-      "lesson_id": 2202,
-      "type": "word_order",
-      "prompt": "Arrange the words: 'If you (sg.) helped me, I would finish it today.'",
-      "data": {
-        "type": "word_order",
-        "correct_order": [2, 0, 6, 5, 1, 4, 3],
-        "explanation": "'Kdybys mi pomohl, dokončil bych to dnes.' = If you helped me, I would finish it today. Two-part conditional: (1) Kdybys + past participle 'pomohl' (you helped), (2) past participle 'dokončil' + conditional 'bych' (I would finish). Note the subject shift — the helper is 'ty' (you) but the finisher is 'já' (I), so two different conditional forms: kdybys and bych.",
-        "words": ["mi", "bych", "Kdybys", "dnes.", "to", "dokončil", "pomohl,"]
-      },
-      "answer_key": "Kdybys mi pomohl, dokončil bych to dnes.",
-      "grammar_rule_id": "GR-213",
-      "xp_reward": 15
-    },
-    {
-      "id": 22023,
+      "id": 22218,
       "lesson_id": 2202,
       "type": "fill_blank",
-      "prompt": "Complete the sentence by choosing aby or kdyby + the correct form: 'I'm telling you this so that you understand.'",
+      "prompt": "Choose the correct conjunction: že, protože, když, or jestli?",
       "data": {
         "type": "fill_blank",
-        "sentence": "Říkám ti to, ___ to ___ . (ty — chápat)",
-        "blank_count": 2,
-        "explanation": "'Říkám ti to, abys to chápal.' = I'm telling you this so that you understand. 'Abys' = 2nd person singular (you), 'chápal' = past participle of 'chápat' (masc.). This is a purpose clause — we want the person to understand. Compare with kdyby: 'Kdybys to chápal, neptal by ses.' = If you understood it, you wouldn't ask.",
+        "sentence": "Nepřišel do práce, ___ byl nemocný. Vím, ___ to není pravda. Nevím, ___ zítra přijde.",
+        "blank_count": 3,
+        "explanation": "The three sentences use three different conjunctions: 1) 'protože' (because — giving a reason), 2) 'že' (that — reporting what you know), 3) 'jestli' (if/whether — expressing uncertainty). 'Nepřišel do práce, protože byl nemocný. Vím, že to není pravda. Nevím, jestli zítra přijde.'",
         "blank_answers": [
-          ["abys"],
-          ["chápal"]
+          [
+            "protože"
+          ],
+          [
+            "že"
+          ],
+          [
+            "jestli"
+          ]
         ]
       },
-      "answer_key": "abys, chápal",
-      "grammar_rule_id": "GR-212",
-      "xp_reward": 15
-    },
-    {
-      "id": 22024,
-      "lesson_id": 2202,
-      "type": "pronunciation",
-      "prompt": "Pronounce the complex conditional sentence combining purpose and hypothetical condition.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Kdybych měl víc času, učil bych se česky každý den, abych mohl mluvit s tvou rodinou.",
-        "target_audio_hash": "placeholder_22024",
-        "focus_sounds": ["Kdybych", "měl", "učil bych se", "abych", "mohl", "mluvit", "rodinou"],
-        "min_score": 0.6,
-        "translation_en": "If I had more time, I would study Czech every day so that I could speak with your family."
-      },
-      "answer_key": "Kdybych měl víc času, učil bych se česky každý den, abych mohl mluvit s tvou rodinou.",
-      "grammar_rule_id": "GR-213",
+      "answer_key": "protože, že, jestli",
+      "grammar_rule_id": "GR-211",
       "xp_reward": 15
     }
   ]

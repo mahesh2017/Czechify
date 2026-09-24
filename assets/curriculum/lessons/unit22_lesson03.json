@@ -1,1 +1,310 @@
-{"id":2203,"unit_id":22,"title":"Explain a Changed Plan","description":"Read, hear and write a clear reason and a new plan.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[{"id":22025,"lesson_id":2203,"type":"teaching","prompt":"Connect the useful ideas","data":{"type":"teaching","style":"list","heading":"Reason, condition, next step","body":"Use short clauses to make your message easy to follow.","items":[{"cz":"Nejdu ven, protože prší.","en":"I am not going out because it is raining."},{"cz":"Když přestane pršet, půjdeme ven.","en":"When it stops raining, we will go out."},{"cz":"Myslím, že přijdu později.","en":"I think I will come later."}]},"answer_key":"connected chunks","xp_reward":0},{"id":22026,"lesson_id":2203,"type":"listening_comprehension","prompt":"Listen to the changed plan","data":{"type":"listening_comprehension","prompt_en":"Why has the plan changed and what happens next?","transcript_cz":"Ahoj, dnes nepřijdu do parku, protože prší. Když bude zítra hezky, sejdeme se v kavárně. Myslím, že přijdu v šest.","questions":[{"question_en":"Why does the speaker not go to the park?","options":["It is raining","They are ill","They work"],"correct_index":0},{"question_en":"Where will they meet?","options":["In a café","In the park","At school"],"correct_index":0}]},"answer_key":"rain; café","xp_reward":15},{"id":22027,"lesson_id":2203,"type":"reading_comprehension","prompt":"Read the new arrangement","data":{"type":"reading_comprehension","prompt_en":"Find the problem, reason and next plan.","image":"assets/images/unit22/connected_ideas_v1.webp","image_label":"Friends connecting ideas in a café","text_cz":"Ahoj Petro, vlak má zpoždění, takže přijedu později. Protože už nemáš čas večer, můžeme se sejít zítra. Až přijedu do Prahy, zavolám ti.","text_en":"Hi Petra, the train is delayed, so I will arrive later. Because you do not have time this evening, we can meet tomorrow. When I arrive in Prague, I will call you.","questions":[{"question_en":"Why will the speaker arrive later?","options":["The train is delayed","It is raining","They forgot"],"correct_index":0},{"question_en":"What will the speaker do on arrival?","options":["Call Petra","Buy a ticket","Go home"],"correct_index":0}]},"answer_key":"train delay; call Petra","xp_reward":15},{"id":22028,"lesson_id":2203,"type":"matching","prompt":"Match the connecting words","data":{"type":"matching","pairs":[{"left":"protože","right":"because"},{"left":"když","right":"when"},{"left":"že","right":"that"},{"left":"až","right":"when, in the future"}]},"answer_key":"conjunctions","xp_reward":10},{"id":22029,"lesson_id":2203,"type":"fill_blank","prompt":"Give the reason","data":{"type":"fill_blank","sentence":"Přijdu později, ___ vlak má zpoždění.","blank_count":1,"blank_answers":[["protože"]]},"answer_key":"protože","xp_reward":10},{"id":22030,"lesson_id":2203,"type":"dialogue","prompt":"Explain the new plan","data":{"type":"dialogue","scenario":"A short update","lines":[{"speaker":"friend","text":"Proč dnes nepřijdeš?"},{"speaker":"you","text":"___"},{"speaker":"friend","text":"Kdy se uvidíme?"},{"speaker":"you","text":"___"}],"blank_answers":[["Protože pracuju."],["Když budu mít čas, přijdu zítra."]]},"answer_key":"reason and new plan","xp_reward":15},{"id":22031,"lesson_id":2203,"type":"writing_task","prompt":"Write a changed-plan message","data":{"type":"writing_task","prompt_en":"Write 2–3 sentences with a problem, because, and a new plan.","prompt_cz":"Napište krátkou změnu plánu.","min_words":12,"max_words":50,"key_vocab":["protože","když/až","přijdu"],"sample_answer":"Dnes nepřijdu, protože pracuju. Když skončím, zavolám ti."},"answer_key":"changed plan","xp_reward":0},{"id":22032,"lesson_id":2203,"type":"speaking_task","prompt":"Leave a clear voice message","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds explaining a problem and a new plan.","prompt_cz":"Nahrajte krátkou zprávu.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["protože","když/až","přijdu"]},"answer_key":"voice update","xp_reward":20}]}
+{
+  "id": 2203,
+  "unit_id": 22,
+  "title": "Explain a Changed Plan",
+  "description": "Explain a problem, give the reason and offer a new plan.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "can_do": "explain a change of plan clearly.",
+  "new_language": [
+    "Dovolte, abych vám představil/a…",
+    "kvůli",
+    "díky"
+  ],
+  "recycles": [
+    "protože",
+    "když",
+    "až",
+    "který"
+  ],
+  "exit_task": "write a short message about a changed plan.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 22300,
+      "lesson_id": 2203,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “because” and “when I get home” in Czech. Then one line from Unit 20: what will you do tomorrow? (Zítra…)",
+        "items": [
+          {
+            "cz": "protože",
+            "en": "because"
+          },
+          {
+            "cz": "až přijdu domů",
+            "en": "when I get home"
+          },
+          {
+            "cz": "Zítra budu… / Zítra zavolám…",
+            "en": "Tomorrow I will…"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 22301,
+      "lesson_id": 2203,
+      "type": "teaching",
+      "prompt": "Connect the useful ideas",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Reason, condition, next step",
+        "body": "Short clauses make a message easy to follow. The last line is a set phrase for introducing someone formally.",
+        "items": [
+          {
+            "cz": "Nejdu ven, protože prší.",
+            "en": "I am not going out because it is raining."
+          },
+          {
+            "cz": "Když přestane pršet, půjdeme ven.",
+            "en": "When it stops raining, we will go out."
+          },
+          {
+            "cz": "Myslím, že přijdu později.",
+            "en": "I think I will come later."
+          },
+          {
+            "cz": "Dovolte, abych vám představil pana Nováka.",
+            "en": "Allow me to introduce Mr Novák."
+          }
+        ]
+      },
+      "answer_key": "connected chunks",
+      "xp_reward": 0
+    },
+    {
+      "id": 22302,
+      "lesson_id": 2203,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write two true sentences: one with protože, one with který.",
+        "items": [
+          {
+            "cz": "Učím se česky, protože bydlím v Praze.",
+            "en": "I learn Czech because I live in Prague."
+          },
+          {
+            "cz": "Mám kamarádku, která mluví česky.",
+            "en": "I have a friend who speaks Czech."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 22303,
+      "lesson_id": 2203,
+      "type": "reading_comprehension",
+      "prompt": "Read the new arrangement",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Find the problem, reason and next plan.",
+        "image": "assets/images/unit22/connected_ideas_v1.webp",
+        "image_label": "Friends connecting ideas in a café",
+        "text_cz": "Ahoj Petro, vlak má zpoždění, takže přijedu později. Protože už nemáš čas večer, můžeme se sejít zítra. Až přijedu do Prahy, zavolám ti.",
+        "text_en": "Hi Petra, the train is delayed, so I will arrive later. Because you do not have time this evening, we can meet tomorrow. When I arrive in Prague, I will call you.",
+        "questions": [
+          {
+            "question_en": "Why will the speaker arrive later?",
+            "options": [
+              "The train is delayed",
+              "It is raining",
+              "They forgot"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What will the speaker do on arrival?",
+            "options": [
+              "Call Petra",
+              "Buy a ticket",
+              "Go home"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "train delay; call Petra",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-211"
+    },
+    {
+      "id": 22304,
+      "lesson_id": 2203,
+      "type": "listening_comprehension",
+      "prompt": "A new colleague",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "A new colleague",
+        "transcript_cz": "Mám novou kolegyni, která mluví česky i anglicky. Pracuje v kanceláři, kde sedím já. Myslím, že je moc milá.",
+        "questions": [
+          {
+            "question_en": "What does the new colleague speak?",
+            "options": [
+              "Czech and English",
+              "Only Czech",
+              "German"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where does she work?",
+            "options": [
+              "In the speaker's office",
+              "At home",
+              "In a shop"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Czech and English",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-214"
+    },
+    {
+      "id": 22305,
+      "lesson_id": 2203,
+      "type": "fill_blank",
+      "prompt": "Complete the sentence",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Mám kamaráda, ___ bydlí v Brně.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "který"
+          ]
+        ],
+        "explanation": "kamarád is masculine: který."
+      },
+      "answer_key": "který",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-214"
+    },
+    {
+      "id": 22306,
+      "lesson_id": 2203,
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta je správně?",
+        "question_en": "Which sentence is correct?",
+        "options": [
+          "To je auto, které stojí venku.",
+          "To je auto, který stojí venku.",
+          "To je auto, která stojí venku."
+        ],
+        "correct_index": 0,
+        "explanation": "auto is neuter: které."
+      },
+      "answer_key": "To je auto, které stojí venku.",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-214"
+    },
+    {
+      "id": 22307,
+      "lesson_id": 2203,
+      "type": "dialogue",
+      "prompt": "Explain the new plan",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Say you cannot come because you are working, then say you will come tomorrow if you have time.",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Proč dnes nepřijdeš?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Kdy se uvidíme?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Protože pracuju.",
+            "Protože pracuji.",
+            "Protože musím pracovat."
+          ],
+          [
+            "Když budu mít čas, přijdu zítra.",
+            "Přijdu zítra, když budu mít čas.",
+            "Jestli budu mít čas, přijdu zítra."
+          ]
+        ]
+      },
+      "answer_key": "reason and new plan",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-211"
+    },
+    {
+      "id": 22308,
+      "lesson_id": 2203,
+      "type": "writing_task",
+      "prompt": "Write a changed-plan message",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 sentences with a problem, because, and a new plan.",
+        "prompt_cz": "Napište krátkou změnu plánu.",
+        "min_words": 12,
+        "max_words": 50,
+        "key_vocab": [
+          "protože",
+          "když/až",
+          "přijdu"
+        ],
+        "sample_answer": "Dnes nepřijdu, protože pracuju. Když skončím, zavolám ti.",
+        "targets": "vocab"
+      },
+      "answer_key": "changed plan",
+      "xp_reward": 0
+    },
+    {
+      "id": 22309,
+      "lesson_id": 2203,
+      "type": "speaking_task",
+      "prompt": "Leave a clear voice message",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds explaining a problem and a new plan.",
+        "prompt_cz": "Nahrajte krátkou zprávu.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "protože",
+          "když/až",
+          "přijdu"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "voice update",
+      "xp_reward": 20
+    }
+  ]
+}

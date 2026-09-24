@@ -252,6 +252,426 @@
       "example_en": "I fear it won't work.",
       "lesson_id": 2001,
       "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1109,
+      "word_cz": "ačkoli",
+      "word_en": "although",
+      "ipa": "ˈat͡ʃkolɪ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Ačkoli prší, jdu ven.",
+      "example_en": "Although it's raining, I'm going out.",
+      "lesson_id": 2202,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1111,
+      "word_cz": "přesto",
+      "word_en": "nevertheless",
+      "ipa": "ˈpr̝̊ɛsto",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Prší, přesto jdu.",
+      "example_en": "It's raining, nevertheless I'm going.",
+      "lesson_id": 2202,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1115,
+      "word_cz": "přitom",
+      "word_en": "at the same time / yet",
+      "ipa": "ˈpr̝̊ɪtom",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Mluví česky, a přitom je tu jen rok.",
+      "example_en": "He speaks Czech, yet he's only been here a year.",
+      "lesson_id": 2202,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1117,
+      "word_cz": "tvrdit",
+      "word_en": "to claim",
+      "ipa": "ˈtvr̩ɟɪt",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Tvrdí, že má pravdu.",
+      "example_en": "He claims he's right.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1119,
+      "word_cz": "rozhodnout se",
+      "word_en": "to decide",
+      "ipa": "ˈrozɦodnou̯t sɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Rozhodl jsem se odejít.",
+      "example_en": "I decided to leave.",
+      "lesson_id": 2202,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1651,
+      "word_cz": "ačkoli",
+      "word_en": "although",
+      "ipa": "at͡ʃkolɪ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Ačkoli pršelo, šli jsme ven.",
+      "example_en": "Although it rained, we went out.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1652,
+      "word_cz": "zatímco",
+      "word_en": "while / whereas",
+      "ipa": "ˈzatɪmtsɔ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Zatímco já pracuji, on spí.",
+      "example_en": "While I work, he sleeps.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1653,
+      "word_cz": "přestože",
+      "word_en": "although / despite",
+      "ipa": "ˈpr̝ɛstoʒɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Přestože je drahé, koupil jsem to.",
+      "example_en": "Although it's expensive, I bought it.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1654,
+      "word_cz": "jakmile",
+      "word_en": "as soon as",
+      "ipa": "ˈjakmɪlɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Jakmile přijdeš, zavolej mi.",
+      "example_en": "As soon as you arrive, call me.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1655,
+      "word_cz": "dokud",
+      "word_en": "as long as / until",
+      "ipa": "ˈdokut",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Dokud jsi tady, jsem šťastný.",
+      "example_en": "As long as you're here, I'm happy.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1656,
+      "word_cz": "pokud",
+      "word_en": "if / provided that",
+      "ipa": "ˈpokut",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Pokud bude hezky, půjdeme ven.",
+      "example_en": "If it's nice, we'll go out.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1657,
+      "word_cz": "spíše",
+      "word_en": "rather / more likely",
+      "ipa": "ˈspiːʃɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Spíše bych šel do kina.",
+      "example_en": "I'd rather go to the cinema.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1658,
+      "word_cz": "tudíž",
+      "word_en": "therefore / thus",
+      "ipa": "ˈtudiːʒ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Neměl čas, tudíž nepřišel.",
+      "example_en": "He had no time, therefore he didn't come.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1664,
+      "word_cz": "vzhledem k",
+      "word_en": "considering / with regard to",
+      "ipa": "ˈvzhlɛdɛm k",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Vzhledem k situaci musíme jednat.",
+      "example_en": "Considering the situation, we must act.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1665,
+      "word_cz": "pokud jde o",
+      "word_en": "as for / regarding",
+      "ipa": "ˈpokut jɛn o",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Pokud jde o peníze, nemám problém.",
+      "example_en": "As for money, I have no problem.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1666,
+      "word_cz": "co se týče",
+      "word_en": "as regards / concerning",
+      "ipa": "t͡so sɛ tiːt͡ʃɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Co se týče češtiny, učím se každý den.",
+      "example_en": "As regards Czech, I study every day.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1667,
+      "word_cz": "na jedné straně",
+      "word_en": "on one hand",
+      "ipa": "na ˈjɛdnɛː ˈstraːnɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Na jedné straně je to drahé, na druhé straně je to kvalitní.",
+      "example_en": "On one hand it's expensive, on the other it's quality.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1668,
+      "word_cz": "na druhé straně",
+      "word_en": "on the other hand",
+      "ipa": "na ˈdruhɛː ˈstraːnɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Na druhé straně to je rychlé.",
+      "example_en": "On the other hand it's fast.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1669,
+      "word_cz": "navzdory",
+      "word_en": "despite / in spite of",
+      "ipa": "ˈnavzdorɪ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Navzdory problémům jsem to dokončil.",
+      "example_en": "Despite the problems I finished it.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1670,
+      "word_cz": "ovšem",
+      "word_en": "however / though",
+      "ipa": "ˈofʃɛm",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Je to dobré, ovšem drahé.",
+      "example_en": "It's good, however expensive.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1671,
+      "word_cz": "nicméně",
+      "word_en": "nevertheless / however",
+      "ipa": "ˈnɪt͡smnɛɲɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Pršelo, nicméně jsme šli ven.",
+      "example_en": "It rained, nevertheless we went out.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1672,
+      "word_cz": "avšak",
+      "word_en": "but / however",
+      "ipa": "ˈafʃak",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Je hezký, avšak trochu drahý.",
+      "example_en": "It's nice, but a bit expensive.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1673,
+      "word_cz": "přesto",
+      "word_en": "nevertheless / still",
+      "ipa": "ˈpr̝ɛsto",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Přesto jsem šel dál.",
+      "example_en": "Nevertheless I continued.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1674,
+      "word_cz": "z toho důvodu",
+      "word_en": "for that reason",
+      "ipa": "z toɦo ˈduːvodu",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Z toho důvodu jsem nepřišel.",
+      "example_en": "For that reason I didn't come.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1675,
+      "word_cz": "v neposlední řadě",
+      "word_en": "last but not least",
+      "ipa": "v nɛposlɛdɲiː r̝aːdɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "V neposlední řadě děkuji rodině.",
+      "example_en": "Last but not least, I thank my family.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1676,
+      "word_cz": "na závěr",
+      "word_en": "in conclusion / finally",
+      "ipa": "na ˈzavɛːr",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Na závěr bych řekl, že to byla dobrá zkušenost.",
+      "example_en": "In conclusion I'd say it was a good experience.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1677,
+      "word_cz": "naopak",
+      "word_en": "on the contrary",
+      "ipa": "ˈnaopak",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Naopak, je to velmi dobrý nápad.",
+      "example_en": "On the contrary, it's a very good idea.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1678,
+      "word_cz": "podobně",
+      "word_en": "similarly",
+      "ipa": "ˈpodobɲɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Podobně jako on, i já studuji češtinu.",
+      "example_en": "Similarly to him, I also study Czech.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1679,
+      "word_cz": "stejně tak",
+      "word_en": "just as / likewise",
+      "ipa": "ˈstɛjnɛː tak",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Stejně tak jako ty, mám rád kávu.",
+      "example_en": "Just as you, I like coffee.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1680,
+      "word_cz": "na rozdíl od",
+      "word_en": "unlike / in contrast to",
+      "ipa": "na ˈrozɟiːl ot",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Na rozdíl od tebe, já mám rád zimu.",
+      "example_en": "Unlike you, I like winter.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1681,
+      "word_cz": "v porovnání s",
+      "word_en": "in comparison with",
+      "ipa": "v porovnaːɲiː s",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "V porovnání s Prahou je Brno menší.",
+      "example_en": "In comparison with Prague, Brno is smaller.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1682,
+      "word_cz": "dále",
+      "word_en": "furthermore / next",
+      "ipa": "ˈdaːlɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Dále bych chtěl dodat, že...",
+      "example_en": "Furthermore I'd like to add that...",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1683,
+      "word_cz": "poté",
+      "word_en": "after that / afterwards",
+      "ipa": "ˈpotɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Poté jsme šli do kavárny.",
+      "example_en": "Afterwards we went to a cafe.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1684,
+      "word_cz": "následně",
+      "word_en": "subsequently / then",
+      "ipa": "ˈnaslɛdɲɛ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Následně jsem dostal email.",
+      "example_en": "Subsequently I received an email.",
+      "lesson_id": 2201,
+      "parked_reason": "Written-register connective (B1+), not in the official A1/A2 scope."
+    },
+    {
+      "id": 1650,
+      "word_cz": "aby",
+      "word_en": "so that / in order to",
+      "ipa": "abɪ",
+      "gender": null,
+      "unit_id": 22,
+      "example_cz": "Učím se, abych dostal práci.",
+      "example_en": "I study so that I get a job.",
+      "lesson_id": null,
+      "parked_reason": "Duplicate of vocabulary 1108; its example used the abych form, beyond A2."
     }
   ],
   "exercises": [
@@ -364,6 +784,293 @@
       "grammar_rule_id": "GR-192",
       "xp_reward": 15,
       "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    },
+    {
+      "id": 22013,
+      "lesson_id": 2202,
+      "type": "multiple_choice",
+      "prompt": "What does the conjunction 'aby' express?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Co vyjadřuje spojka 'aby'?",
+        "question_en": "What does the conjunction 'aby' express?",
+        "options": [
+          "a reason (because)",
+          "a condition (if)",
+          "a purpose (so that / in order to)",
+          "a time (when)"
+        ],
+        "correct_index": 2,
+        "explanation": "'Aby' = so that / in order to — expresses purpose or intention. Example: 'Učím se česky, abych rozuměl lidem.' = I'm learning Czech so that I can understand people. The verb after 'aby' is always in the past-tense form (the -l participle) with gender agreement."
+      },
+      "answer_key": "a purpose (so that / in order to)",
+      "grammar_rule_id": "GR-212",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22014,
+      "lesson_id": 2202,
+      "type": "multiple_choice",
+      "prompt": "What is the correct 'aby' form for 'já' (I, masculine speaker)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je správný tvar 'aby' pro 'já' (mužský mluvčí)?",
+        "question_en": "What is the correct 'aby' form for 'I' (masculine speaker)?",
+        "options": [
+          "aby",
+          "abys",
+          "abych",
+          "abyste"
+        ],
+        "correct_index": 2,
+        "explanation": "'Aby' conjugates like a past-tense conditional: abych (I), abys (you sg.), aby (he/she/it), abychom (we), abyste (you pl.), aby (they). The verb following aby is in the past participle (-l form): 'abych dělal' (masc.), 'abych dělala' (fem.)."
+      },
+      "answer_key": "abych",
+      "grammar_rule_id": "GR-212",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22015,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with the correct 'aby' form: 'I'm learning Czech so that I can speak with friends.' (male speaker)",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Učím se česky, ___ mohl mluvit s kamarády.",
+        "blank_count": 1,
+        "explanation": "'Učím se česky, abych mohl mluvit s kamarády.' = I'm learning Czech so that I can speak with friends. 'Abych' is the 1st person singular form. The verb after 'abych' is 'mohl' (past participle of 'moci/to be able', masc.) followed by the infinitive 'mluvit'. Aby + past participle + (optionally) infinitive.",
+        "blank_answers": [
+          [
+            "abych"
+          ]
+        ]
+      },
+      "answer_key": "abych",
+      "grammar_rule_id": "GR-212",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22016,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with the correct 'aby' form + past participle: 'I told him so that he would know.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Řekl jsem mu to, ___ to ___. (on — vědět)",
+        "blank_count": 2,
+        "explanation": "'Řekl jsem mu to, aby to věděl.' = I told him so that he would know. 'Aby' = 3rd person singular (he). 'Věděl' = past participle of 'vědět' (masculine, agreeing with 'on'). The aby-clause uses past-tense forms regardless of when the action happens — this is a grammatical requirement, not a time reference.",
+        "blank_answers": [
+          [
+            "aby"
+          ],
+          [
+            "věděl"
+          ]
+        ]
+      },
+      "answer_key": "aby, věděl",
+      "grammar_rule_id": "GR-212",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22017,
+      "lesson_id": 2202,
+      "type": "multiple_choice",
+      "prompt": "What does 'kdyby' mean and when is it used?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Co znamená 'kdyby' a kdy se používá?",
+        "question_en": "What does 'kdyby' mean and when is it used?",
+        "options": [
+          "when — for factual recurring events",
+          "because — for giving reasons",
+          "if — for hypothetical or contrary-to-fact situations",
+          "that — for reporting speech"
+        ],
+        "correct_index": 2,
+        "explanation": "'Kdyby' = if (hypothetical / contrary-to-fact). It expresses unreal conditions. Example: 'Kdybych měl čas, šel bych s tebou.' = If I had time, I would go with you (but I don't have time). The result clause uses the conditional 'bych/bys/by...'. This is different from 'jestli' (if/whether — expressing factual uncertainty)."
+      },
+      "answer_key": "if — for hypothetical or contrary-to-fact situations",
+      "grammar_rule_id": "GR-213",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22018,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with the correct 'kdyby' form: 'If I had more money, I would buy a new car.' (male speaker)",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ měl víc peněz, koupil bych si nové auto.",
+        "blank_count": 1,
+        "explanation": "'Kdybych měl víc peněz, koupil bych si nové auto.' = If I had more money, I would buy a new car. Kdyby conjugation: kdybych (I), kdybys (you sg.), kdyby (he/she/it), kdybychom (we), kdybyste (you pl.), kdyby (they). The result clause uses conditional 'koupil bych' (I would buy). Both verbs use past participle + gender agreement.",
+        "blank_answers": [
+          [
+            "Kdybych",
+            "kdybych"
+          ]
+        ]
+      },
+      "answer_key": "Kdybych",
+      "grammar_rule_id": "GR-213",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22019,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete with 'kdyby' form + past participle: 'If he knew the truth, he would be angry.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ ___ pravdu, byl by naštvaný. (on — vědět)",
+        "blank_count": 2,
+        "explanation": "'Kdyby věděl pravdu, byl by naštvaný.' = If he knew the truth, he would be angry. Structure: kdyby + past participle (věděl) → main clause: past participle (byl) + conditional particle (by). Both parts use the -l participle! This is a classic contrary-to-fact conditional.",
+        "blank_answers": [
+          [
+            "Kdyby",
+            "kdyby"
+          ],
+          [
+            "věděl"
+          ]
+        ]
+      },
+      "answer_key": "Kdyby věděl",
+      "grammar_rule_id": "GR-213",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22020,
+      "lesson_id": 2202,
+      "type": "multiple_choice",
+      "prompt": "How does the verb form after 'kdyby' compare to the verb form after 'aby'?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je rozdíl ve tvaru slovesa po 'kdyby' a po 'aby'?",
+        "question_en": "How does the verb form after 'kdyby' compare to the verb form after 'aby'?",
+        "options": [
+          "Both use the infinitive",
+          "Both use the past participle (-l form)",
+          "Kdyby uses present tense, aby uses future",
+          "Kdyby uses infinitive, aby uses past participle"
+        ],
+        "correct_index": 1,
+        "explanation": "Both 'kdyby' and 'aby' require the past participle (-l form) of the verb with gender agreement! Examples: 'abych udělal' (so that I do — masc.), 'kdybych udělal' (if I did — masc.). The difference is meaning: aby = purpose, kdyby = hypothetical condition. The result clause after kdyby uses 'bych/bys/by' + past participle."
+      },
+      "answer_key": "Both use the past participle (-l form)",
+      "grammar_rule_id": "GR-213",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22021,
+      "lesson_id": 2202,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'If I had time, I would go with you.' (male speaker)",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "If I had time, I would go with you. (male speaker)",
+        "accepted_answers": [
+          "Kdybych měl čas, šel bych s tebou.",
+          "Kdybych měl čas, šel bych s vámi.",
+          "Šel bych s tebou, kdybych měl čas."
+        ],
+        "grammar_note": "'Kdybych měl čas, šel bych s tebou.' = If I had time, I would go with you. Two-part structure: (1) kdybych + past participle 'měl' (masc.), (2) past participle 'šel' (masc.) + conditional 'bych'. Note 's tebou' (with you, informal) vs 's vámi' (formal/plural). The kdyby-clause can come first or second."
+      },
+      "answer_key": "Kdybych měl čas, šel bych s tebou.",
+      "grammar_rule_id": "GR-213",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22022,
+      "lesson_id": 2202,
+      "type": "word_order",
+      "prompt": "Arrange the words: 'If you (sg.) helped me, I would finish it today.'",
+      "data": {
+        "type": "word_order",
+        "correct_order": [
+          2,
+          0,
+          6,
+          5,
+          1,
+          4,
+          3
+        ],
+        "explanation": "'Kdybys mi pomohl, dokončil bych to dnes.' = If you helped me, I would finish it today. Two-part conditional: (1) Kdybys + past participle 'pomohl' (you helped), (2) past participle 'dokončil' + conditional 'bych' (I would finish). Note the subject shift — the helper is 'ty' (you) but the finisher is 'já' (I), so two different conditional forms: kdybys and bych.",
+        "words": [
+          "mi",
+          "bych",
+          "Kdybys",
+          "dnes.",
+          "to",
+          "dokončil",
+          "pomohl,"
+        ]
+      },
+      "answer_key": "Kdybys mi pomohl, dokončil bych to dnes.",
+      "grammar_rule_id": "GR-213",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22023,
+      "lesson_id": 2202,
+      "type": "fill_blank",
+      "prompt": "Complete the sentence by choosing aby or kdyby + the correct form: 'I'm telling you this so that you understand.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Říkám ti to, ___ to ___ . (ty — chápat)",
+        "blank_count": 2,
+        "explanation": "'Říkám ti to, abys to chápal.' = I'm telling you this so that you understand. 'Abys' = 2nd person singular (you), 'chápal' = past participle of 'chápat' (masc.). This is a purpose clause — we want the person to understand. Compare with kdyby: 'Kdybys to chápal, neptal by ses.' = If you understood it, you wouldn't ask.",
+        "blank_answers": [
+          [
+            "abys"
+          ],
+          [
+            "chápal"
+          ]
+        ]
+      },
+      "answer_key": "abys, chápal",
+      "grammar_rule_id": "GR-212",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 22024,
+      "lesson_id": 2202,
+      "type": "pronunciation",
+      "prompt": "Pronounce the complex conditional sentence combining purpose and hypothetical condition.",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Kdybych měl víc času, učil bych se česky každý den, abych mohl mluvit s tvou rodinou.",
+        "target_audio_hash": "placeholder_22024",
+        "focus_sounds": [
+          "Kdybych",
+          "měl",
+          "učil bych se",
+          "abych",
+          "mohl",
+          "mluvit",
+          "rodinou"
+        ],
+        "min_score": 0.6,
+        "translation_en": "If I had more time, I would study Czech every day so that I could speak with your family."
+      },
+      "answer_key": "Kdybych měl víc času, učil bych se česky každý den, abych mohl mluvit s tvou rodinou.",
+      "grammar_rule_id": "GR-213",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
     }
   ],
   "grammar_rules": [
@@ -389,6 +1096,29 @@
       ],
       "unit_id": 20,
       "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    },
+    {
+      "id": "GR-212",
+      "rule_name": "Aby — purpose clauses",
+      "pattern": "Abych, abys, aby, abychom, abyste, aby + -l participle. Aby = 'so that / in order to'.",
+      "explanation": "'Aby' introduces purpose clauses — why you do something. It uses the conditional forms + -l participle: Musím se učit, abych udělal zkoušku (I must study so that I pass the exam). Přišel jsem dřív, abychom si mohli popovídat (I came earlier so we could chat). When the subject is the same in both clauses, Czech prefers aby over the infinitive: Chci, abys přišel (I want you to come) vs Chci přijít (I want to come — same subject). The aby form bych/bys/by/bychom/byste/by matches the subject of the subordinate clause.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Učím se česky, abych mohl pracovat v Praze.",
+          "en": "I'm learning Czech so that I can work in Prague."
+        },
+        {
+          "cz": "Chci, abys mi pomohl.",
+          "en": "I want you to help me."
+        },
+        {
+          "cz": "Zavřel okno, aby nebyla zima.",
+          "en": "He closed the window so it wouldn't be cold."
+        }
+      ],
+      "unit_id": 22,
+      "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
     }
   ]
 }

@@ -2594,73 +2594,192 @@
           "en": "I heard that you're moving."
         }
       ],
-      "unit_id": 22
+      "unit_id": 22,
+      "concept_keys": [
+        "clauses_ze_jestli_ktery_kdyz_az_proto"
+      ],
+      "lecture": [
+        {
+          "heading": "že and jestli: that and whether",
+          "say": "že reports what you think or know. jestli asks whether something is true. Always put a comma before them.",
+          "table": [
+            [
+              "I think that…",
+              "Myslím, že…"
+            ],
+            [
+              "I know that…",
+              "Vím, že…"
+            ],
+            [
+              "He says that…",
+              "Říká, že…"
+            ],
+            [
+              "I don't know whether…",
+              "Nevím, jestli…"
+            ],
+            [
+              "I will ask whether…",
+              "Zeptám se, jestli…"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Myslím, že má pravdu.",
+              "en": "I think he is right."
+            },
+            {
+              "cz": "Nevím, jestli má čas.",
+              "en": "I don't know whether she has time."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Myslím že má pravdu.",
+            "right": "Myslím, že má pravdu."
+          }
+        }
+      ]
     },
     {
       "id": "GR-211",
-      "rule_name": "Protože and když — cause and time clauses",
-      "pattern": "Protože + clause (because). Když + clause (when/whenever). Word order: standard SVO, auxiliary clitics in 2nd position.",
-      "explanation": "'Protože' (because) introduces a reason clause: Nepřišel, protože byl nemocný (He didn't come because he was sick). 'Když' (when/whenever) for factual or repeated events: Když prší, zůstávám doma (When it rains, I stay home). Both use standard word order. With 'protože', the se/si reflexive stays near the verb: protože se učím (because I'm studying). With 'když', clitics follow: když se vrátím (when I return). Jestli/zda = if/whether for indirect questions: Nevím, jestli přijde (I don't know if he'll come).",
+      "rule_name": "protože, když, až — reason and time",
+      "pattern": "protože = because; když = when, whenever, if (real); až = when, once (a moment in the future).",
+      "explanation": "protože gives the reason: Nejdu ven, protože prší. když is for things that happen or are true: Když mám volno, chodím do parku. až is for one moment in the future: Až přijdu domů, zavolám ti. The clause after the conjunction keeps normal word order; a comma always separates the clauses.",
       "case_affected": null,
       "examples": [
         {
-          "cz": "Nepřišel, protože byl nemocný.",
-          "en": "He didn't come because he was sick."
+          "cz": "Nejdu ven, protože prší.",
+          "en": "I'm not going out because it's raining."
         },
         {
-          "cz": "Když mám čas, rád čtu.",
-          "en": "When I have time, I like to read."
+          "cz": "Když mám volno, chodím do parku.",
+          "en": "When I have time off, I go to the park."
         },
         {
-          "cz": "Nevím, jestli to stihnu.",
-          "en": "I don't know if I'll make it."
+          "cz": "Až přijdu domů, zavolám ti.",
+          "en": "When I get home, I will call you."
         }
       ],
-      "unit_id": 22
-    },
-    {
-      "id": "GR-212",
-      "rule_name": "Aby — purpose clauses",
-      "pattern": "Abych, abys, aby, abychom, abyste, aby + -l participle. Aby = 'so that / in order to'.",
-      "explanation": "'Aby' introduces purpose clauses — why you do something. It uses the conditional forms + -l participle: Musím se učit, abych udělal zkoušku (I must study so that I pass the exam). Přišel jsem dřív, abychom si mohli popovídat (I came earlier so we could chat). When the subject is the same in both clauses, Czech prefers aby over the infinitive: Chci, abys přišel (I want you to come) vs Chci přijít (I want to come — same subject). The aby form bych/bys/by/bychom/byste/by matches the subject of the subordinate clause.",
-      "case_affected": null,
-      "examples": [
-        {
-          "cz": "Učím se česky, abych mohl pracovat v Praze.",
-          "en": "I'm learning Czech so that I can work in Prague."
-        },
-        {
-          "cz": "Chci, abys mi pomohl.",
-          "en": "I want you to help me."
-        },
-        {
-          "cz": "Zavřel okno, aby nebyla zima.",
-          "en": "He closed the window so it wouldn't be cold."
-        }
+      "unit_id": 22,
+      "concept_keys": [
+        "clauses_ze_jestli_ktery_kdyz_az_proto"
       ],
-      "unit_id": 22
+      "lecture": [
+        {
+          "heading": "protože, když, až",
+          "say": "protože gives the reason. když is for what happens or is true. až is for one moment in the future.",
+          "table": [
+            [
+              "because",
+              "protože"
+            ],
+            [
+              "when, whenever, if",
+              "když"
+            ],
+            [
+              "when (future, once)",
+              "až"
+            ],
+            [
+              "so, therefore",
+              "a proto"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Nejdu ven, protože prší.",
+              "en": "I'm not going out because it's raining."
+            },
+            {
+              "cz": "Až přijdu domů, zavolám ti.",
+              "en": "When I get home, I will call you."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Až mám volno, chodím do parku.",
+            "right": "Když mám volno, chodím do parku."
+          }
+        }
+      ]
     },
     {
       "id": "GR-213",
       "rule_name": "Word order in complex sentences",
-      "pattern": "Main clause: SVO. Subordinate clause after že/když/protože: SVO (normal). After aby/kdyby: S + conditional + -l participle. Clitics (se, si, mi, ti, ho) in 2nd position.",
-      "explanation": "Czech word order in complex sentences follows consistent rules. In main clauses: standard SVO with clitics in 2nd position (Já se učím česky). After že, protože, když, jestli: normal word order, clitics in 2nd position (Vím, že se učíš česky). After aby/kdyby: the aby/kdyby form takes 2nd position, followed by the -l participle (Chci, aby ses učil). The reflexive se/si is absorbed into the aby form: aby + se → aby ses, aby + si → aby sis. For 1st person: abych se, 2nd: aby ses, 3rd: aby se.",
+      "pattern": "After že, protože, když, jestli: normal word order. Short words (jsem, se, si, mi, ti, ho) come second in their clause. A comma separates the clauses.",
+      "explanation": "A subordinate clause keeps the usual order: Myslím, že ten film je dobrý. The short words (jsem, se, si, mi, ti, ho) take second place in their own clause: Vím, že se ti to líbí. Czech always puts a comma before že, protože, když, jestli, až and který.",
       "case_affected": null,
       "examples": [
         {
-          "cz": "Vím, že se učíš česky.",
-          "en": "I know that you're studying Czech."
+          "cz": "Myslím, že ten film je dobrý.",
+          "en": "I think (that) the film is good."
         },
         {
-          "cz": "Chci, aby ses víc učil.",
-          "en": "I want you to study more."
-        },
-        {
-          "cz": "Když jsem přišel domů, nikdo tam nebyl.",
-          "en": "When I came home, nobody was there."
+          "cz": "Vím, že se ti to líbí.",
+          "en": "I know you like it."
         }
       ],
       "unit_id": 22
+    },
+    {
+      "id": "GR-214",
+      "rule_name": "který, kde — the one that",
+      "pattern": "noun, který/která/které + verb (who, which, that); place, kde + verb (where). který takes the gender of the noun.",
+      "explanation": "který joins a description to a noun: To je film, který se mi líbil. It agrees with the noun: vlak, který…; paní, která…; auto, které… For places, use kde: Město, kde bydlím. A comma always comes before který and kde.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "To je paní, která tu pracuje.",
+          "en": "That is the lady who works here."
+        },
+        {
+          "cz": "To je město, kde bydlím.",
+          "en": "That is the town where I live."
+        }
+      ],
+      "unit_id": 22,
+      "concept_keys": [
+        "clauses_ze_jestli_ktery_kdyz_az_proto"
+      ],
+      "lecture": [
+        {
+          "heading": "který: the one that",
+          "say": "který joins a description to a noun and takes its gender: který, která, které. For a place, use kde.",
+          "table": [
+            [
+              "vlak (m.)",
+              "vlak, který jede do Brna"
+            ],
+            [
+              "paní (f.)",
+              "paní, která tu pracuje"
+            ],
+            [
+              "auto (n.)",
+              "auto, které stojí venku"
+            ],
+            [
+              "město (place)",
+              "město, kde bydlím"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je film, který se mi líbil.",
+              "en": "That is the film I liked."
+            },
+            {
+              "cz": "Mám kamarádku, která mluví česky.",
+              "en": "I have a friend who speaks Czech."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "To je paní, který tu pracuje.",
+            "right": "To je paní, která tu pracuje."
+          }
+        }
+      ]
     },
     {
       "id": "GR-220",

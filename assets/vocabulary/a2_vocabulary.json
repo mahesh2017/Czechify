@@ -1150,20 +1150,9 @@
     "ipa": "ˈabɪ",
     "gender": null,
     "unit_id": 22,
-    "example_cz": "Učím se, abych rozuměl.",
-    "example_en": "I study so that I understand.",
-    "lesson_id": 2202
-  },
-  {
-    "id": 1109,
-    "word_cz": "ačkoli",
-    "word_en": "although",
-    "ipa": "ˈat͡ʃkolɪ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Ačkoli prší, jdu ven.",
-    "example_en": "Although it's raining, I'm going out.",
-    "lesson_id": 2202
+    "example_cz": "Řekni mu, aby zavolal.",
+    "example_en": "Tell him to call.",
+    "lesson_id": null
   },
   {
     "id": 1110,
@@ -1177,17 +1166,6 @@
     "lesson_id": 2201
   },
   {
-    "id": 1111,
-    "word_cz": "přesto",
-    "word_en": "nevertheless",
-    "ipa": "ˈpr̝̊ɛsto",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Prší, přesto jdu.",
-    "example_en": "It's raining, nevertheless I'm going.",
-    "lesson_id": 2202
-  },
-  {
     "id": 1112,
     "word_cz": "dokonce",
     "word_en": "even",
@@ -1196,7 +1174,7 @@
     "unit_id": 22,
     "example_cz": "Dokonce i on to ví.",
     "example_en": "Even he knows it.",
-    "lesson_id": 2202
+    "lesson_id": 2201
   },
   {
     "id": 1113,
@@ -1207,7 +1185,7 @@
     "unit_id": 22,
     "example_cz": "Hlavně nezapomeň.",
     "example_en": "Above all, don't forget.",
-    "lesson_id": 2201
+    "lesson_id": 2202
   },
   {
     "id": 1114,
@@ -1218,17 +1196,6 @@
     "unit_id": 22,
     "example_cz": "Tak tedy pojďme.",
     "example_en": "Well then, let's go.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1115,
-    "word_cz": "přitom",
-    "word_en": "at the same time / yet",
-    "ipa": "ˈpr̝̊ɪtom",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Mluví česky, a přitom je tu jen rok.",
-    "example_en": "He speaks Czech, yet he's only been here a year.",
     "lesson_id": 2202
   },
   {
@@ -1243,17 +1210,6 @@
     "lesson_id": 2201
   },
   {
-    "id": 1117,
-    "word_cz": "tvrdit",
-    "word_en": "to claim",
-    "ipa": "ˈtvr̩ɟɪt",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Tvrdí, že má pravdu.",
-    "example_en": "He claims he's right.",
-    "lesson_id": 2201
-  },
-  {
     "id": 1118,
     "word_cz": "požádat",
     "word_en": "to request/ask for",
@@ -1262,17 +1218,6 @@
     "unit_id": 22,
     "example_cz": "Požádal mě o pomoc.",
     "example_en": "He asked me for help.",
-    "lesson_id": 2202
-  },
-  {
-    "id": 1119,
-    "word_cz": "rozhodnout se",
-    "word_en": "to decide",
-    "ipa": "ˈrozɦodnou̯t sɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Rozhodl jsem se odejít.",
-    "example_en": "I decided to leave.",
     "lesson_id": 2202
   },
   {
@@ -6883,7 +6828,7 @@
     "unit_id": 22,
     "example_cz": "Nepřišel, protože byl nemocný.",
     "example_en": "He didn't come because he was sick.",
-    "lesson_id": 2201
+    "lesson_id": null
   },
   {
     "id": 1647,
@@ -6894,7 +6839,7 @@
     "unit_id": 22,
     "example_cz": "Když prší, zůstávám doma.",
     "example_en": "When it rains, I stay home.",
-    "lesson_id": 2201
+    "lesson_id": null
   },
   {
     "id": 1648,
@@ -6916,106 +6861,7 @@
     "unit_id": 22,
     "example_cz": "Nevím, jestli přijde.",
     "example_en": "I don't know if he'll come.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1650,
-    "word_cz": "aby",
-    "word_en": "so that / in order to",
-    "ipa": "abɪ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Učím se, abych dostal práci.",
-    "example_en": "I study so that I get a job.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1651,
-    "word_cz": "ačkoli",
-    "word_en": "although",
-    "ipa": "at͡ʃkolɪ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Ačkoli pršelo, šli jsme ven.",
-    "example_en": "Although it rained, we went out.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1652,
-    "word_cz": "zatímco",
-    "word_en": "while / whereas",
-    "ipa": "ˈzatɪmtsɔ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Zatímco já pracuji, on spí.",
-    "example_en": "While I work, he sleeps.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1653,
-    "word_cz": "přestože",
-    "word_en": "although / despite",
-    "ipa": "ˈpr̝ɛstoʒɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Přestože je drahé, koupil jsem to.",
-    "example_en": "Although it's expensive, I bought it.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1654,
-    "word_cz": "jakmile",
-    "word_en": "as soon as",
-    "ipa": "ˈjakmɪlɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Jakmile přijdeš, zavolej mi.",
-    "example_en": "As soon as you arrive, call me.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1655,
-    "word_cz": "dokud",
-    "word_en": "as long as / until",
-    "ipa": "ˈdokut",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Dokud jsi tady, jsem šťastný.",
-    "example_en": "As long as you're here, I'm happy.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1656,
-    "word_cz": "pokud",
-    "word_en": "if / provided that",
-    "ipa": "ˈpokut",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Pokud bude hezky, půjdeme ven.",
-    "example_en": "If it's nice, we'll go out.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1657,
-    "word_cz": "spíše",
-    "word_en": "rather / more likely",
-    "ipa": "ˈspiːʃɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Spíše bych šel do kina.",
-    "example_en": "I'd rather go to the cinema.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1658,
-    "word_cz": "tudíž",
-    "word_en": "therefore / thus",
-    "ipa": "ˈtudiːʒ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Neměl čas, tudíž nepřišel.",
-    "example_en": "He had no time, therefore he didn't come.",
-    "lesson_id": 2201
+    "lesson_id": null
   },
   {
     "id": 1659,
@@ -7026,7 +6872,7 @@
     "unit_id": 22,
     "example_cz": "Je hezký a navíc velmi chytrý.",
     "example_en": "He's nice and moreover very smart.",
-    "lesson_id": 2201
+    "lesson_id": null
   },
   {
     "id": 1660,
@@ -7037,7 +6883,7 @@
     "unit_id": 22,
     "example_cz": "Kromě mě tam byl i Pavel.",
     "example_en": "Besides me, Pavel was there too.",
-    "lesson_id": 2201
+    "lesson_id": 2202
   },
   {
     "id": 1661,
@@ -7048,7 +6894,7 @@
     "unit_id": 22,
     "example_cz": "Místo kávy piju čaj.",
     "example_en": "Instead of coffee I drink tea.",
-    "lesson_id": 2201
+    "lesson_id": 2202
   },
   {
     "id": 1662,
@@ -7059,7 +6905,7 @@
     "unit_id": 22,
     "example_cz": "Díky němu jsem našel práci.",
     "example_en": "Thanks to him I found a job.",
-    "lesson_id": 2201
+    "lesson_id": 2202
   },
   {
     "id": 1663,
@@ -7070,238 +6916,7 @@
     "unit_id": 22,
     "example_cz": "Kvůli dešti jsme nešli ven.",
     "example_en": "Because of rain we didn't go out.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1664,
-    "word_cz": "vzhledem k",
-    "word_en": "considering / with regard to",
-    "ipa": "ˈvzhlɛdɛm k",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Vzhledem k situaci musíme jednat.",
-    "example_en": "Considering the situation, we must act.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1665,
-    "word_cz": "pokud jde o",
-    "word_en": "as for / regarding",
-    "ipa": "ˈpokut jɛn o",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Pokud jde o peníze, nemám problém.",
-    "example_en": "As for money, I have no problem.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1666,
-    "word_cz": "co se týče",
-    "word_en": "as regards / concerning",
-    "ipa": "t͡so sɛ tiːt͡ʃɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Co se týče češtiny, učím se každý den.",
-    "example_en": "As regards Czech, I study every day.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1667,
-    "word_cz": "na jedné straně",
-    "word_en": "on one hand",
-    "ipa": "na ˈjɛdnɛː ˈstraːnɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Na jedné straně je to drahé, na druhé straně je to kvalitní.",
-    "example_en": "On one hand it's expensive, on the other it's quality.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1668,
-    "word_cz": "na druhé straně",
-    "word_en": "on the other hand",
-    "ipa": "na ˈdruhɛː ˈstraːnɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Na druhé straně to je rychlé.",
-    "example_en": "On the other hand it's fast.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1669,
-    "word_cz": "navzdory",
-    "word_en": "despite / in spite of",
-    "ipa": "ˈnavzdorɪ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Navzdory problémům jsem to dokončil.",
-    "example_en": "Despite the problems I finished it.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1670,
-    "word_cz": "ovšem",
-    "word_en": "however / though",
-    "ipa": "ˈofʃɛm",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Je to dobré, ovšem drahé.",
-    "example_en": "It's good, however expensive.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1671,
-    "word_cz": "nicméně",
-    "word_en": "nevertheless / however",
-    "ipa": "ˈnɪt͡smnɛɲɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Pršelo, nicméně jsme šli ven.",
-    "example_en": "It rained, nevertheless we went out.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1672,
-    "word_cz": "avšak",
-    "word_en": "but / however",
-    "ipa": "ˈafʃak",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Je hezký, avšak trochu drahý.",
-    "example_en": "It's nice, but a bit expensive.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1673,
-    "word_cz": "přesto",
-    "word_en": "nevertheless / still",
-    "ipa": "ˈpr̝ɛsto",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Přesto jsem šel dál.",
-    "example_en": "Nevertheless I continued.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1674,
-    "word_cz": "z toho důvodu",
-    "word_en": "for that reason",
-    "ipa": "z toɦo ˈduːvodu",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Z toho důvodu jsem nepřišel.",
-    "example_en": "For that reason I didn't come.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1675,
-    "word_cz": "v neposlední řadě",
-    "word_en": "last but not least",
-    "ipa": "v nɛposlɛdɲiː r̝aːdɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "V neposlední řadě děkuji rodině.",
-    "example_en": "Last but not least, I thank my family.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1676,
-    "word_cz": "na závěr",
-    "word_en": "in conclusion / finally",
-    "ipa": "na ˈzavɛːr",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Na závěr bych řekl, že to byla dobrá zkušenost.",
-    "example_en": "In conclusion I'd say it was a good experience.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1677,
-    "word_cz": "naopak",
-    "word_en": "on the contrary",
-    "ipa": "ˈnaopak",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Naopak, je to velmi dobrý nápad.",
-    "example_en": "On the contrary, it's a very good idea.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1678,
-    "word_cz": "podobně",
-    "word_en": "similarly",
-    "ipa": "ˈpodobɲɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Podobně jako on, i já studuji češtinu.",
-    "example_en": "Similarly to him, I also study Czech.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1679,
-    "word_cz": "stejně tak",
-    "word_en": "just as / likewise",
-    "ipa": "ˈstɛjnɛː tak",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Stejně tak jako ty, mám rád kávu.",
-    "example_en": "Just as you, I like coffee.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1680,
-    "word_cz": "na rozdíl od",
-    "word_en": "unlike / in contrast to",
-    "ipa": "na ˈrozɟiːl ot",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Na rozdíl od tebe, já mám rád zimu.",
-    "example_en": "Unlike you, I like winter.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1681,
-    "word_cz": "v porovnání s",
-    "word_en": "in comparison with",
-    "ipa": "v porovnaːɲiː s",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "V porovnání s Prahou je Brno menší.",
-    "example_en": "In comparison with Prague, Brno is smaller.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1682,
-    "word_cz": "dále",
-    "word_en": "furthermore / next",
-    "ipa": "ˈdaːlɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Dále bych chtěl dodat, že...",
-    "example_en": "Furthermore I'd like to add that...",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1683,
-    "word_cz": "poté",
-    "word_en": "after that / afterwards",
-    "ipa": "ˈpotɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Poté jsme šli do kavárny.",
-    "example_en": "Afterwards we went to a cafe.",
-    "lesson_id": 2201
-  },
-  {
-    "id": 1684,
-    "word_cz": "následně",
-    "word_en": "subsequently / then",
-    "ipa": "ˈnaslɛdɲɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Následně jsem dostal email.",
-    "example_en": "Subsequently I received an email.",
-    "lesson_id": 2201
+    "lesson_id": 2202
   },
   {
     "id": 1685,

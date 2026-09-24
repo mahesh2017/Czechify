@@ -2,62 +2,164 @@
   "id": 2201,
   "unit_id": 22,
   "order_in_unit": 0,
-  "title": "Conjunctions — že, protože, když",
-  "description": "Master four essential Czech conjunctions for building complex sentences: že (that — reporting speech/thoughts), protože (because — giving reasons), když (when — for factual/recurring events), and jestli (if/whether — expressing uncertainty). Learn how word order changes in subordinate clauses and practice connecting ideas naturally.",
-  "duration_min": 15,
+  "title": "Why? Because…",
+  "description": "Hear someone explain a changed plan, then learn the words that join ideas.",
+  "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "give a simple reason with protože.",
+  "new_language": [
+    "Nejdu ven, protože prší.",
+    "Myslím, že…",
+    "Nevím, jestli…",
+    "Když mám čas…",
+    "Až přijdu domů…",
+    "a proto…"
+  ],
+  "recycles": [
+    "dnes",
+    "zítra",
+    "v kavárně",
+    "přijdu"
+  ],
+  "exit_task": "say why you cannot come.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 22000,
+      "id": 22100,
       "lesson_id": 2201,
-      "type": "teaching",
-      "prompt": "Joining Words (Conjunctions)",
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
       "data": {
-        "type": "teaching",
-        "heading": "Joining Words (Conjunctions)",
-        "body": "With \"because,\" \"when,\" and \"that,\" you'll stitch short lines into flowing Czech.",
-        "intro": "Real fluency isn't longer words — it's smoother sentences. With 'because', 'when', and 'that', you'll stitch your short lines into flowing Czech, and dodge one sneaky word-order trap.",
-        "style": "list",
-        "play_all_label": "Play all",
-        "items": [
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess what has changed.",
+        "transcript_cz": "Ahoj, dnes nepřijdu do parku, protože prší. Když bude zítra hezky, sejdeme se v kavárně. Myslím, že přijdu v šest.",
+        "questions": [
           {
-            "cz": "že",
-            "en": "that"
+            "question_en": "Why is the plan changing?",
+            "options": [
+              "It's raining",
+              "The café is closed",
+              "They are ill"
+            ],
+            "correct_index": 0
           },
           {
-            "cz": "Myslím, že je to dobré.",
-            "en": "I think (that) it's good."
-          },
-          {
-            "cz": "protože",
-            "en": "because"
-          },
-          {
-            "cz": "když",
-            "en": "when"
-          },
-          {
-            "cz": "Když prší, jsem doma.",
-            "en": "When it rains, I'm at home."
-          },
-          {
-            "cz": "jestli",
-            "en": "if / whether"
-          },
-          {
-            "cz": "až",
-            "en": "when (in the future)"
-          },
-          {
-            "cz": "aby",
-            "en": "so that (needs the conditional)"
+            "question_en": "Where will they meet if the weather is nice?",
+            "options": [
+              "In a café",
+              "In the park",
+              "At the station"
+            ],
+            "correct_index": 0
           }
-        ]
+        ],
+        "mode": "predict"
       },
+      "answer_key": "rain; café",
       "xp_reward": 0
     },
     {
-      "id": 22001,
+      "id": 22101,
+      "lesson_id": 2201,
+      "type": "teaching",
+      "prompt": "Learn the language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Joining ideas",
+        "body": "protože gives a reason; že reports what you think; jestli means whether. když is for what happens, až for one moment in the future.",
+        "items": [
+          {
+            "cz": "Nejdu ven, protože prší.",
+            "en": "I'm not going out because it's raining."
+          },
+          {
+            "cz": "Myslím, že…",
+            "en": "I think that…"
+          },
+          {
+            "cz": "Nevím, jestli…",
+            "en": "I don't know whether…"
+          },
+          {
+            "cz": "Když mám čas…",
+            "en": "When I have time…"
+          },
+          {
+            "cz": "Až přijdu domů…",
+            "en": "When I get home…"
+          },
+          {
+            "cz": "a proto…",
+            "en": "and so…"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 22102,
+      "lesson_id": 2201,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 22 page",
+        "instruction": "Write “Unit 22 — Protože…” at the top of a new page. Then, from memory, write the Czech for because, I think that, and whether.",
+        "items": [
+          {
+            "cz": "Nejdu ven, protože prší.",
+            "en": "I'm not going out because it's raining."
+          },
+          {
+            "cz": "Myslím, že…",
+            "en": "I think that…"
+          },
+          {
+            "cz": "Nevím, jestli…",
+            "en": "I don't know whether…"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 22103,
+      "lesson_id": 2201,
+      "type": "matching",
+      "prompt": "Match the connecting words",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "protože",
+            "right": "because"
+          },
+          {
+            "left": "když",
+            "right": "when"
+          },
+          {
+            "left": "že",
+            "right": "that"
+          },
+          {
+            "left": "až",
+            "right": "when, in the future"
+          }
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "conjunctions",
+      "xp_reward": 10
+    },
+    {
+      "id": 22104,
       "lesson_id": 2201,
       "type": "multiple_choice",
       "prompt": "What does the conjunction 'že' mean in Czech?",
@@ -72,34 +174,15 @@
           "and"
         ],
         "correct_index": 1,
-        "explanation": "'Že' = that. It introduces a subordinate clause reporting what someone thinks, says, knows, etc. Example: 'Myslím, že je to pravda.' = I think that it is true. 'Že' is one of the most common Czech conjunctions."
+        "explanation": "'Že' = that. It introduces a subordinate clause reporting what someone thinks, says, knows, etc. Example: 'Myslím, že je to pravda.' = I think that it is true. 'Že' is one of the most common Czech conjunctions.",
+        "targets": "vocab"
       },
       "answer_key": "that",
       "grammar_rule_id": "GR-210",
       "xp_reward": 10
     },
     {
-      "id": 22002,
-      "lesson_id": 2201,
-      "type": "fill_blank",
-      "prompt": "Complete with 'že': 'I know that you are right.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Vím, ___ máš pravdu.",
-        "blank_count": 1,
-        "explanation": "'Vím, že máš pravdu.' = I know that you are right. The conjunction 'že' introduces the subordinate clause. Note the comma before 'že' — Czech always uses a comma before že, protože, když, jestli, and other subordinating conjunctions.",
-        "blank_answers": [
-          [
-            "že"
-          ]
-        ]
-      },
-      "answer_key": "že",
-      "grammar_rule_id": "GR-210",
-      "xp_reward": 15
-    },
-    {
-      "id": 22003,
+      "id": 22105,
       "lesson_id": 2201,
       "type": "multiple_choice",
       "prompt": "Which conjunction means 'because' in Czech?",
@@ -114,119 +197,49 @@
           "jestli"
         ],
         "correct_index": 2,
-        "explanation": "'Protože' = because. It gives a reason or cause. Example: 'Nešel jsem ven, protože pršelo.' = I didn't go out because it was raining. The subordinate clause with 'protože' can come after or before the main clause."
+        "explanation": "'Protože' = because. It gives a reason or cause. Example: 'Nešel jsem ven, protože pršelo.' = I didn't go out because it was raining. The subordinate clause with 'protože' can come after or before the main clause.",
+        "targets": "vocab"
       },
       "answer_key": "protože",
       "grammar_rule_id": "GR-210",
       "xp_reward": 10
     },
     {
-      "id": 22004,
+      "id": 22106,
       "lesson_id": 2201,
       "type": "fill_blank",
-      "prompt": "Complete with 'protože': 'He stayed home because he was sick.'",
+      "prompt": "Give the reason",
       "data": {
         "type": "fill_blank",
-        "sentence": "Zůstal doma, ___ byl nemocný.",
+        "sentence": "Přijdu později, ___ vlak má zpoždění.",
         "blank_count": 1,
-        "explanation": "'Zůstal doma, protože byl nemocný.' = He stayed home because he was sick. 'Protože' always introduces the reason. Word order: main clause + comma + protože + subordinate clause. The subordinate clause keeps normal subject-verb order.",
         "blank_answers": [
           [
             "protože"
           ]
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "protože",
-      "grammar_rule_id": "GR-210",
-      "xp_reward": 15
-    },
-    {
-      "id": 22005,
-      "lesson_id": 2201,
-      "type": "multiple_choice",
-      "prompt": "When do you use 'když' (as opposed to 'až' for future)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Kdy používáme 'když'?",
-        "question_en": "When do you use 'když' (as opposed to 'až' for future)?",
-        "options": [
-          "For one-time future events",
-          "For factual, recurring, or real situations",
-          "Only for past events",
-          "For hypothetical situations"
-        ],
-        "correct_index": 1,
-        "explanation": "'Když' = when — for factual, recurring, or generally true events. Example: 'Když prší, zůstávám doma.' = When it rains, I stay home (generally/recurring). Compare with 'až' which is 'when' for one-time future events: 'Až přijdeš, zavolej.' = When you arrive (in the future), call me."
-      },
-      "answer_key": "For factual, recurring, or real situations",
-      "grammar_rule_id": "GR-211",
       "xp_reward": 10
     },
     {
-      "id": 22006,
+      "id": 22107,
       "lesson_id": 2201,
-      "type": "fill_blank",
-      "prompt": "Complete with 'když': 'When the sun shines, we go outside.'",
+      "type": "dictation",
+      "prompt": "Listen and type",
       "data": {
-        "type": "fill_blank",
-        "sentence": "___ svítí slunce, chodíme ven.",
-        "blank_count": 1,
-        "explanation": "'Když svítí slunce, chodíme ven.' = When the sun shines, we go outside (a recurring/general situation). 'Když' is used for factual 'when' — things that happen regularly or are generally true. The když-clause can start the sentence (with comma) or follow the main clause.",
-        "blank_answers": [
-          [
-            "Když",
-            "když"
-          ]
-        ]
+        "type": "dictation",
+        "expected_text": "Myslím, že je to dobrý nápad.",
+        "language": "cs-CZ",
+        "note": "A comma before že.",
+        "targets": "vocab"
       },
-      "answer_key": "Když",
-      "grammar_rule_id": "GR-211",
-      "xp_reward": 15
-    },
-    {
-      "id": 22007,
-      "lesson_id": 2201,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'if/whether' (expressing uncertainty) in Czech?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řekneme 'if/whether' v češtině?",
-        "question_en": "How do you say 'if/whether' (expressing uncertainty) in Czech?",
-        "options": [
-          "kdyby",
-          "jestli",
-          "protože",
-          "aby"
-        ],
-        "correct_index": 1,
-        "explanation": "'Jestli' = if/whether — used for indirect questions and expressing uncertainty. Example: 'Nevím, jestli přijde.' = I don't know if/whether he will come. Not to be confused with 'kdyby' (if — hypothetical) or 'jestliže' (if — conditional, more formal)."
-      },
-      "answer_key": "jestli",
-      "grammar_rule_id": "GR-210",
+      "answer_key": "Myslím, že je to dobrý nápad.",
       "xp_reward": 10
     },
     {
-      "id": 22008,
-      "lesson_id": 2201,
-      "type": "fill_blank",
-      "prompt": "Complete with 'jestli': 'I will ask if he has time.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Zeptám se, ___ má čas.",
-        "blank_count": 1,
-        "explanation": "'Zeptám se, jestli má čas.' = I will ask if/whether he has time. 'Jestli' introduces indirect yes/no questions. The clause after 'jestli' uses normal indicative word order, not question word order. This is different from direct questions.",
-        "blank_answers": [
-          [
-            "jestli"
-          ]
-        ]
-      },
-      "answer_key": "jestli",
-      "grammar_rule_id": "GR-210",
-      "xp_reward": 15
-    },
-    {
-      "id": 22009,
+      "id": 22108,
       "lesson_id": 2201,
       "type": "word_order",
       "prompt": "Arrange the words into a correct sentence: 'I think that this film is good.'",
@@ -248,80 +261,10 @@
           "je",
           "ten",
           "film"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Myslím, že ten film je dobrý.",
-      "grammar_rule_id": "GR-210",
-      "xp_reward": 15
-    },
-    {
-      "id": 22010,
-      "lesson_id": 2201,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'She says that she is tired.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "She says that she is tired.",
-        "accepted_answers": [
-          "Říká, že je unavená.",
-          "Ona říká, že je unavená.",
-          "Říká, že je unavená ona."
-        ],
-        "grammar_note": "'Říká, že je unavená.' = She says that she is tired. 'Říká' = she says (3rd person sing. of 'říkat'). 'Že' introduces the reported speech. 'Je unavená' = she is tired (feminine -á ending agrees with female subject). The pronoun 'ona' can be omitted — the verb ending already indicates the subject."
-      },
-      "answer_key": "Říká, že je unavená.",
-      "grammar_rule_id": "GR-210",
-      "xp_reward": 10
-    },
-    {
-      "id": 22011,
-      "lesson_id": 2201,
-      "type": "fill_blank",
-      "prompt": "Choose the correct conjunction: že, protože, když, or jestli?",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Nepřišel do práce, ___ byl nemocný. Vím, ___ to není pravda. Nevím, ___ zítra přijde.",
-        "blank_count": 3,
-        "explanation": "The three sentences use three different conjunctions: 1) 'protože' (because — giving a reason), 2) 'že' (that — reporting what you know), 3) 'jestli' (if/whether — expressing uncertainty). 'Nepřišel do práce, protože byl nemocný. Vím, že to není pravda. Nevím, jestli zítra přijde.'",
-        "blank_answers": [
-          [
-            "protože"
-          ],
-          [
-            "že"
-          ],
-          [
-            "jestli"
-          ]
-        ]
-      },
-      "answer_key": "protože, že, jestli",
-      "grammar_rule_id": "GR-210",
-      "xp_reward": 15
-    },
-    {
-      "id": 22012,
-      "lesson_id": 2201,
-      "type": "pronunciation",
-      "prompt": "Pronounce the complex sentence using multiple conjunctions.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Myslím, že je to dobrý nápad, protože když pracujeme spolu, všechno je lehčí.",
-        "target_audio_hash": "placeholder_22012",
-        "focus_sounds": [
-          "Myslím",
-          "že",
-          "protože",
-          "když",
-          "pracujeme",
-          "spolu",
-          "lehčí"
-        ],
-        "min_score": 0.6,
-        "translation_en": "I think it's a good idea, because when we work together, everything is easier."
-      },
-      "answer_key": "Myslím, že je to dobrý nápad, protože když pracujeme spolu, všechno je lehčí.",
       "grammar_rule_id": "GR-210",
       "xp_reward": 15
     }

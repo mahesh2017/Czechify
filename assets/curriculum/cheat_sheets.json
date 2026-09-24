@@ -2155,9 +2155,9 @@
     },
     {
       "unit_id": 22,
-      "title": "Complex Sentences",
+      "title": "Joining Ideas",
       "phase": "A2",
-      "description": "že, protože, když, až, jestli, aby, word order in subordinate clauses",
+      "description": "že, jestli, protože, když × až, který, kde",
       "grammar_rules": [
         {
           "id": "GR-210",
@@ -2167,21 +2167,21 @@
         },
         {
           "id": "GR-211",
-          "name": "Protože and když — cause and time clauses",
-          "pattern": "Protože + clause (because). Když + clause (when/whenever). Word order: standard SVO, auxiliary clitics in 2nd position.",
-          "example": "Nepřišel, protože byl nemocný. — He didn't come because he was sick."
-        },
-        {
-          "id": "GR-212",
-          "name": "Aby — purpose clauses",
-          "pattern": "Abych, abys, aby, abychom, abyste, aby + -l participle. Aby = 'so that / in order to'.",
-          "example": "Učím se česky, abych mohl pracovat v Praze. — I'm learning Czech so that I can work in Prague."
+          "name": "protože, když, až — reason and time",
+          "pattern": "protože = because; když = when, whenever, if (real); až = when, once (a moment in the future).",
+          "example": "Nejdu ven, protože prší. — I'm not going out because it's raining."
         },
         {
           "id": "GR-213",
           "name": "Word order in complex sentences",
-          "pattern": "Main clause: SVO. Subordinate clause after že/když/protože: SVO (normal). After aby/kdyby: S + conditional + -l particip",
-          "example": "Vím, že se učíš česky. — I know that you're studying Czech."
+          "pattern": "After že, protože, když, jestli: normal word order. Short words (jsem, se, si, mi, ti, ho) come second in their clause. A comma separates the clauses.",
+          "example": "Myslím, že ten film je dobrý. — I think (that) the film is good."
+        },
+        {
+          "id": "GR-214",
+          "name": "který, kde — the one that",
+          "pattern": "noun, který/která/které + verb (who, which, that); place, kde + verb (where). který takes the gender of the noun.",
+          "example": "To je paní, která tu pracuje. — That is the lady who works here."
         }
       ],
       "core_vocabulary": [
@@ -2237,7 +2237,99 @@
         "Záměna 'když' (stejný čas) a 'až' (budoucnost)",
         "Anglický slovosled ve vedlejších větách"
       ],
-      "study_tip": "Spojujte věty spojkami: 'Zůstal jsem doma, protože pršelo.' 'Nevím, jestli přijdu.'"
+      "study_tip": "Spojujte věty spojkami: 'Zůstal jsem doma, protože pršelo.' 'Nevím, jestli přijdu.'",
+      "notebook_page": {
+        "title_cz": "Protože…",
+        "title_en": "Explain reasons and connect ideas",
+        "can_do": {
+          "cz": "Vysvětlím, proč se plán změnil.",
+          "en": "I can explain why a plan has changed."
+        },
+        "words": [
+          {
+            "cz": "Nejdu ven, protože prší.",
+            "en": "I'm not going out because it's raining."
+          },
+          {
+            "cz": "Myslím, že…",
+            "en": "I think that…"
+          },
+          {
+            "cz": "Nevím, jestli…",
+            "en": "I don't know whether…"
+          },
+          {
+            "cz": "Když mám čas…",
+            "en": "When I have time…"
+          },
+          {
+            "cz": "Až přijdu domů…",
+            "en": "When I get home…"
+          },
+          {
+            "cz": "a proto…",
+            "en": "and so…"
+          },
+          {
+            "cz": "Dovolte, abych vám představil/a…",
+            "en": "Allow me to introduce…"
+          }
+        ],
+        "pattern": {
+          "name": "Joining ideas",
+          "rule_plain": "že = that, jestli = whether, protože = because. když is for what happens, až for one future moment. který (která, které) = the one that. Always a comma before them.",
+          "table": [
+            [
+              "I think that…",
+              "Myslím, že…"
+            ],
+            [
+              "I don't know whether…",
+              "Nevím, jestli…"
+            ],
+            [
+              "because",
+              "protože"
+            ],
+            [
+              "when (happens)",
+              "když"
+            ],
+            [
+              "when (future)",
+              "až"
+            ],
+            [
+              "the one that",
+              "který / která / které"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Až přijdu domů, zavolám ti.",
+              "en": "When I get home, I will call you."
+            },
+            {
+              "cz": "To je film, který se mi líbil.",
+              "en": "That is the film I liked."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Myslím že má pravdu.",
+            "right": "Myslím, že má pravdu."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Učím se česky, protože bydlím v Praze.",
+            "en": "I learn Czech because I live in Prague."
+          },
+          {
+            "cz": "Mám kamarádku, která mluví česky.",
+            "en": "I have a friend who speaks Czech."
+          }
+        ]
+      }
     },
     {
       "unit_id": 23,
