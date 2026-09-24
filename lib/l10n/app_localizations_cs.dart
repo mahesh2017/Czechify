@@ -3899,4 +3899,171 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get notebookIntroBody =>
       'Na každou jednotku jedna stránka. Lekce vás požádají, abyste hlavní body napsali zpaměti a pak je porovnali se vzorem. Právě to, že je píšete sami, vám pomůže si je zapamatovat.';
+
+  @override
+  String get unitGuideButton => 'Průvodce jednotkou';
+
+  @override
+  String unitGuideTitle(int unit) {
+    return 'Průvodce jednotkou $unit';
+  }
+
+  @override
+  String get unitGuideGoal => 'Na konci této jednotky';
+
+  @override
+  String get unitGuideGrammar => 'Gramatika';
+
+  @override
+  String unitGuideLesson(String letter, String title) {
+    return 'Lekce $letter · $title';
+  }
+
+  @override
+  String get unitGuideNotReached => 'Sem jste ještě nedošli';
+
+  @override
+  String get unitGuidePhrases => 'Hlavní fráze';
+
+  @override
+  String get unitGuideNotebook => 'Vaše stránka v sešitě';
+
+  @override
+  String get unitGuideNotebookHint =>
+      'Takhle by měla vypadat vaše papírová stránka na konci jednotky. Porovnejte ji se svou.';
+
+  @override
+  String get unitGuideChecklist => 'Než budete pokračovat, zvládnete…';
+
+  @override
+  String get unitGuideSave => 'Uložit stránku jako obrázek';
+
+  @override
+  String get modelPageRule => 'Pravidlo';
+
+  @override
+  String get modelPageOwnSentences => 'Vaše vlastní věty (příklady)';
+
+  @override
+  String get lessonRuleButton => 'Pravidlo';
+
+  @override
+  String get lessonRuleSheetTitle => 'Co jste se zatím naučili';
+
+  @override
+  String lessonRuleLesson(String letter) {
+    return 'Lekce $letter';
+  }
+
+  @override
+  String get notebookSeeModelPage => 'Zobrazit celou vzorovou stránku';
+
+  @override
+  String get slideNext => 'Dál';
+
+  @override
+  String get slideBack => 'Zpět';
+
+  @override
+  String get slideDone => 'Hotovo';
+
+  @override
+  String get ruleBackToLesson => 'Zpět do lekce';
+
+  @override
+  String unitGuideRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pravidel',
+      few: '$count pravidla',
+      one: '1 pravidlo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String unitGuidePhrasesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count frází',
+      few: '$count fráze',
+      one: '1 fráze',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get unitGuideNotebookShort => 'Porovnejte svou stránku';
+
+  @override
+  String get lessonRulePick => 'Které pravidlo chcete vidět?';
+
+  @override
+  String lessonStartKicker(String letter, int unit) {
+    return 'Lekce $letter · Jednotka $unit';
+  }
+
+  @override
+  String lessonStartMinutes(int minutes) {
+    return 'Asi $minutes min';
+  }
+
+  @override
+  String lessonStartRules(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pravidel',
+      few: '$count pravidla',
+      one: '1 pravidlo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lessonStartNotebook(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count zápisů do sešitu',
+      few: '$count zápisy do sešitu',
+      one: '1 zápis do sešitu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lessonStartQuestions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count otázek',
+      few: '$count otázky',
+      one: '1 otázka',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lessonStartResume(int current, int total) {
+    return 'Budete pokračovat otázkou $current z $total.';
+  }
+
+  @override
+  String get lessonStartButton => 'Začít';
+
+  @override
+  String get lessonTagWarmUp => 'Rozcvička · bez srdíček';
+
+  @override
+  String get lessonTagCheck => 'Kontrola · bez srdíček';
+
+  @override
+  String get lessonTagGuided => 'S nápovědou · bez srdíček';
+
+  @override
+  String get lessonVoiceFallback =>
+      'Používá se hlas vašeho zařízení — nahraný český hlas teď není k dispozici.';
 }

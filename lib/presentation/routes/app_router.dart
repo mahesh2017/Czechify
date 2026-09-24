@@ -27,6 +27,7 @@ import '../screens/onboarding/onboarding_screen.dart';
 import '../screens/arrival/daily_arrival_screen.dart';
 import '../screens/placement/placement_screen.dart';
 import '../screens/lesson/delayed_transfer_screen.dart';
+import '../screens/grammar/unit_guide_screen.dart';
 import '../screens/practice/copybook_screen.dart';
 import '../providers/settings_providers.dart';
 import '../providers/daily_arrival_providers.dart';
@@ -249,6 +250,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder:
             (context, state) => UnitNotebookScreen(
               unitId: int.tryParse(state.pathParameters['unitId'] ?? '') ?? 0,
+            ),
+      ),
+      GoRoute(
+        path: '/unit-guide/:unitId',
+        builder:
+            (context, state) => UnitGuideScreen(
+              unitId: int.tryParse(state.pathParameters['unitId'] ?? '') ?? 0,
+              openNotebook: state.uri.queryParameters['section'] == 'notebook',
             ),
       ),
       GoRoute(

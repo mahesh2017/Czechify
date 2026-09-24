@@ -16,7 +16,13 @@ import 'motion_widgets.dart';
 /// So this is written as information, never as an error: no red, no warning
 /// icon, no apology. It states the situation and what would fix it.
 class DegradedModeBanner extends ConsumerWidget {
-  const DegradedModeBanner({super.key});
+  const DegradedModeBanner({super.key, this.margin = _defaultMargin});
+
+  static const _defaultMargin = EdgeInsets.fromLTRB(16, 0, 16, 8);
+
+  /// Space around the notice: the default suits a full-width placement; a
+  /// screen that already pads its content passes [EdgeInsets.zero].
+  final EdgeInsetsGeometry margin;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +32,8 @@ class DegradedModeBanner extends ConsumerWidget {
       builder: (context, isFallback, _) {
         return MotionDisclosure(
           visible: isFallback,
-          child: const _Notice(
+          child: _Notice(
+            margin: margin,
             icon: Icons.cloud_off_rounded,
             message:
                 'Using your device\'s voice — the recorded Czech voice '
@@ -39,16 +46,21 @@ class DegradedModeBanner extends ConsumerWidget {
 }
 
 class _Notice extends StatelessWidget {
-  const _Notice({required this.icon, required this.message});
+  const _Notice({
+    required this.icon,
+    required this.message,
+    required this.margin,
+  });
 
   final IconData icon;
   final String message;
+  final EdgeInsetsGeometry margin;
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     return Container(
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      margin: margin,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
       decoration: BoxDecoration(
         // Amber, not red: nothing has failed, and colouring it like an error

@@ -6,6 +6,7 @@ import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/course_admission_providers.dart';
 import '../../providers/curriculum_providers.dart';
+import '../grammar/unit_guide_screen.dart';
 import '../../providers/referral_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/entities/enums.dart';
@@ -825,6 +826,10 @@ class _PathUnit extends ConsumerWidget {
                           ],
                         ),
                       ],
+                      if (isUnlocked && unitGuideEnabled(unit.id)) ...[
+                        const SizedBox(height: 12),
+                        _UnitGuideButton(unitId: unit.id, color: palette.ink),
+                      ],
                     ],
                   ),
                 ),
@@ -860,7 +865,7 @@ class _PathUnit extends ConsumerWidget {
             ),
           // The map is the default view, so the unit's lecture and model
           // notebook page have to be reachable from here, not only the list.
-          if (isUnlocked && lessons.isNotEmpty)
+          if (isUnlocked && lessons.isNotEmpty && !unitGuideEnabled(unit.id))
             Align(
               alignment: Alignment.centerLeft,
               child: TextButton.icon(
@@ -1308,6 +1313,22 @@ class _UnitCard extends ConsumerWidget {
                   ),
                 ];
               }
+              if (unitGuideEnabled(unit.id)) {
+                return <Widget>[
+                  _PaidUnitNotice(unit: unit),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: _UnitGuideButton(unitId: unit.id, color: t.pri),
+                  ),
+                  ...ls.map(
+                    (lesson) => _LessonTile(
+                      lesson: lesson,
+                      isUnlocked: unlockedLessonIds.contains(lesson.id),
+                      isCompleted: completedIds.contains(lesson.id),
+                    ),
+                  ),
+                ];
+              }
               return <Widget>[
                 _PaidUnitNotice(unit: unit),
                 ...ls.map(
@@ -1486,6 +1507,31 @@ class _NextLevelPrompt extends StatelessWidget {
             Icon(Icons.chevron_right_rounded, color: t.pri),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// The unit guide's entry, in the unit header: a reference to open any time,
+/// not a step after the mission.
+class _UnitGuideButton extends StatelessWidget {
+  final int unitId;
+  final Color color;
+
+  const _UnitGuideButton({required this.unitId, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      onPressed: () => context.push('/unit-guide/$unitId'),
+      icon: Icon(Icons.menu_book_rounded, size: 18, color: color),
+      label: Text(
+        AppLocalizations.of(context).unitGuideButton,
+        style: TextStyle(color: color, fontWeight: FontWeight.w700),
+      ),
+      style: OutlinedButton.styleFrom(
+        minimumSize: const Size(0, 44),
+        side: BorderSide(color: color.withValues(alpha: .45)),
       ),
     );
   }

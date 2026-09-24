@@ -54,6 +54,30 @@ final unitLectureStepsProvider = FutureProvider.family<List<Exercise>, int>((
   ];
 });
 
+/// Renders the widget under [key] (a model page in a [RepaintBoundary]) to a
+/// PNG and hands it to the share sheet, where the learner can save it to
+/// their photos or print it.
+Future<void> shareModelPage(GlobalKey key, int unitId) async {
+  final boundary = key.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+  if (boundary == null) return;
+  File? file;
+  try {
+    final image = await boundary.toImage(pixelRatio: 3);
+    final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (bytes == null) return;
+    final directory = await getTemporaryDirectory();
+    file = File('${directory.path}/czechify_unit_${unitId}_page.png');
+    await file.writeAsBytes(bytes.buffer.asUint8List(), flush: true);
+    await SharePlus.instance.share(
+      ShareParams(files: [XFile(file.path, mimeType: 'image/png')]),
+    );
+  } catch (_) {
+    // Sharing is optional; the page stays on screen either way.
+  } finally {
+    if (file != null && await file.exists()) await file.delete();
+  }
+}
+
 /// "Lecture & notebook" for one unit: the model page to check a paper
 /// notebook against, and the unit's lecture steps to revise from.
 ///
@@ -72,30 +96,11 @@ class _UnitNotebookScreenState extends ConsumerState<UnitNotebookScreen> {
   final _pageKey = GlobalKey();
   bool _sharing = false;
 
-  /// Renders the model page to a PNG and hands it to the share sheet, where
-  /// the learner can save it to their photos or print it.
   Future<void> _sharePage() async {
-    final boundary =
-        _pageKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
-    if (boundary == null || _sharing) return;
+    if (_sharing) return;
     setState(() => _sharing = true);
-    File? file;
-    try {
-      final image = await boundary.toImage(pixelRatio: 3);
-      final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-      if (bytes == null) return;
-      final directory = await getTemporaryDirectory();
-      file = File('${directory.path}/czechify_unit_${widget.unitId}_page.png');
-      await file.writeAsBytes(bytes.buffer.asUint8List(), flush: true);
-      await SharePlus.instance.share(
-        ShareParams(files: [XFile(file.path, mimeType: 'image/png')]),
-      );
-    } catch (_) {
-      // Sharing is optional; the page stays on screen either way.
-    } finally {
-      if (file != null && await file.exists()) await file.delete();
-      if (mounted) setState(() => _sharing = false);
-    }
+    await shareModelPage(_pageKey, widget.unitId);
+    if (mounted) setState(() => _sharing = false);
   }
 
   @override
@@ -230,7 +235,16 @@ class ModelNotebookPage extends StatelessWidget {
   final int unitId;
   final Map<String, dynamic> page;
 
-  const ModelNotebookPage({super.key, required this.unitId, required this.page});
+  /// The unit guide's plain section names (Key phrases, The rule, Your own
+  /// sentences), and no empty Check box: the guide shows a real checklist.
+  final bool guideLabels;
+
+  const ModelNotebookPage({
+    super.key,
+    required this.unitId,
+    required this.page,
+    this.guideLabels = false,
+  });
 
   static List<({String cz, String en})> _rows(Object? raw) => [
     for (final row in (raw as List? ?? const []))
@@ -341,10 +355,10 @@ class ModelNotebookPage extends StatelessWidget {
             line('${l10n.modelPageCanDo}: ${canDo['cz'] ?? ''}', strong: true),
             if (canDo['en'] != null) line('${canDo['en']}'),
           ],
-          box(l10n.modelPageWords, [
+          box(guideLabels ? l10n.unitGuidePhrases : l10n.modelPageWords, [
             for (final row in _rows(page['words'])) pairLine(row.cz, row.en),
           ]),
-          box(l10n.modelPagePattern, [
+          box(guideLabels ? l10n.modelPageRule : l10n.modelPagePattern, [
             if (pattern['rule_plain'] != null) line('${pattern['rule_plain']}'),
             const SizedBox(height: 4),
             for (final (a, b) in _pairs(pattern['table']))
@@ -376,11 +390,16 @@ class ModelNotebookPage extends StatelessWidget {
             if (pattern['preview'] != null)
               line('${pattern['preview']}'),
           ]),
-          box(l10n.modelPageMySentences, [
-            for (final row in _rows(page['my_sentences_models']))
-              pairLine(row.cz, row.en),
-          ]),
-          box(l10n.modelPageCheck, const []),
+          box(
+            guideLabels
+                ? l10n.modelPageOwnSentences
+                : l10n.modelPageMySentences,
+            [
+              for (final row in _rows(page['my_sentences_models']))
+                pairLine(row.cz, row.en),
+            ],
+          ),
+          if (!guideLabels) box(l10n.modelPageCheck, const []),
         ],
       ),
     );

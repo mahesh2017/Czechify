@@ -1658,5 +1658,127 @@
   "modelPageMySentences": "My sentences",
   "modelPageCheck": "Check ✓",
   "notebookIntroTitle": "Keep a Czech notebook",
-  "notebookIntroBody": "One paper page per unit. Lessons ask you to write the key points from memory, then check them against a model. Writing it yourself is what makes it stick."
+  "notebookIntroBody": "One paper page per unit. Lessons ask you to write the key points from memory, then check them against a model. Writing it yourself is what makes it stick.",
+  "unitGuideButton": "Unit guide",
+  "unitGuideTitle": "Unit {unit} guide",
+  "@unitGuideTitle": {
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "unitGuideGoal": "By the end of this unit",
+  "unitGuideGrammar": "Grammar",
+  "unitGuideLesson": "Lesson {letter} · {title}",
+  "@unitGuideLesson": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "unitGuideNotReached": "Not reached yet",
+  "unitGuidePhrases": "Key phrases",
+  "unitGuideNotebook": "Your notebook page",
+  "unitGuideNotebookHint": "What your paper page should look like by the end of the unit. Compare yours with it.",
+  "unitGuideChecklist": "Before you move on, can you…",
+  "unitGuideSave": "Save page as image",
+  "modelPageRule": "The rule",
+  "modelPageOwnSentences": "Your own sentences (examples)",
+  "lessonRuleButton": "Rule",
+  "lessonRuleSheetTitle": "What you've learned so far",
+  "lessonRuleLesson": "Lesson {letter}",
+  "@lessonRuleLesson": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "notebookSeeModelPage": "See the whole model page",
+  "slideNext": "Next",
+  "slideBack": "Back",
+  "slideDone": "Done",
+  "ruleBackToLesson": "Back to the lesson",
+  "unitGuideRulesCount": "{count, plural, =1{1 rule} other{{count} rules}}",
+  "@unitGuideRulesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unitGuidePhrasesCount": "{count, plural, =1{1 phrase} other{{count} phrases}}",
+  "@unitGuidePhrasesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unitGuideNotebookShort": "Compare your paper page",
+  "lessonRulePick": "Which rule do you want to see?",
+  "lessonStartKicker": "Lesson {letter} · Unit {unit}",
+  "@lessonStartKicker": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonStartMinutes": "About {minutes} min",
+  "@lessonStartMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonStartRules": "{count, plural, =1{1 rule} other{{count} rules}}",
+  "@lessonStartRules": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonStartNotebook": "{count, plural, =1{1 notebook step} other{{count} notebook steps}}",
+  "@lessonStartNotebook": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonStartQuestions": "{count, plural, =1{1 question} other{{count} questions}}",
+  "@lessonStartQuestions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonStartResume": "You'll carry on from question {current} of {total}.",
+  "@lessonStartResume": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonStartButton": "Start",
+  "lessonTagWarmUp": "Warm-up · no hearts",
+  "lessonTagCheck": "Check · no hearts",
+  "lessonTagGuided": "Guided · no hearts",
+  "lessonVoiceFallback": "Using your device's voice — the recorded Czech voice is unavailable right now."
 }

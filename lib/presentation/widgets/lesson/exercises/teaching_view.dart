@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/config/unit_guide_pilot.dart';
+import '../../../../core/theme/app_motion.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../domain/entities/enums.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../providers/tts_providers.dart';
@@ -30,6 +33,13 @@ import 'exercise_shared.dart';
 /// above it and narrates the intro in English (swappable for a recorded voice
 /// later). The character loops an idle animation and switches to a talking one
 /// while the narration plays.
+/// Whether a lesson shows this lecture step as slides: in the unit-guide
+/// pilot, so the learner never has to scroll through a rule.
+bool usesLectureSlides(Exercise exercise) =>
+    exercise.type == ExerciseType.teaching &&
+    exercise.data['style'] == 'lecture' &&
+    unitGuideEnabled(unitOfLesson(exercise.lessonId));
+
 class TeachingView extends ConsumerStatefulWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
@@ -298,165 +308,34 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   /// never teach two versions of it. The card also carries plain `items`, which
   /// is what an app that predates this layout shows instead.
   Widget _buildLecture(BuildContext context) {
-    final t = context.tokens;
     final l10n = AppLocalizations.of(context);
-    final data = widget.exercise.data;
-    final heading = data['heading'] as String? ?? widget.exercise.prompt;
-    final say = (data['say'] as String?) ?? (data['body'] as String?);
-    final intro = (data['intro'] as String?)?.trim();
-    final step = (data['step'] as num?)?.toInt();
-    final steps = (data['steps'] as num?)?.toInt();
-    final table = [
-      for (final row in (data['table'] as List? ?? const []))
-        if (row is List && row.length >= 2) ('${row[0]}', '${row[1]}'),
-    ];
-    final examples = [
-      for (final example in (data['examples'] as List? ?? const []))
-        if (example is Map)
-          _TeachingItem.fromJson(Map<String, dynamic>.from(example)),
-    ];
-    final mistake = data['common_mistake'];
-    final wrong = mistake is Map ? '${mistake['wrong'] ?? ''}'.trim() : '';
-    final right = mistake is Map ? '${mistake['right'] ?? ''}'.trim() : '';
-
+    final intro = (widget.exercise.data['intro'] as String?)?.trim();
+    final lead =
+        intro != null && intro.isNotEmpty
+            ? _IntroBlock(
+              text: intro,
+              english: _english,
+              onToggle: () => _toggleIntro(intro),
+            )
+            : null;
+    void done() => widget.onAnswered(const ExerciseResult.skipped());
+    if (usesLectureSlides(widget.exercise)) {
+      return LectureSlides(
+        exercise: widget.exercise,
+        lead: lead,
+        doneLabel: l10n.lectureContinue,
+        onDone: done,
+      );
+    }
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (intro != null && intro.isNotEmpty) ...[
-            _IntroBlock(
-              text: intro,
-              english: _english,
-              onToggle: () => _toggleIntro(intro),
-            ),
-            const SizedBox(height: 16),
-          ],
-          TeachingHeroCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                LessonKicker(
-                  step != null && steps != null
-                      ? l10n.lectureKicker(step, steps)
-                      : l10n.teachingKicker,
-                  color: t.pri,
-                ),
-                const SizedBox(height: 12),
-                DisplayText(
-                  heading,
-                  size: 26,
-                  weight: FontWeight.w800,
-                  height: 1.1,
-                ),
-                if (say != null && say.trim().isNotEmpty) ...[
-                  const SizedBox(height: 10),
-                  Text(
-                    say,
-                    style: TextStyle(fontSize: 17, height: 1.5, color: t.ink),
-                  ),
-                ],
-              ],
-            ),
-          ),
-          if (table.isNotEmpty) ...[
-            const SizedBox(height: 16),
-            SoftCard(
-              shadow: false,
-              border: Border.all(color: t.line),
-              child: Column(
-                children: [
-                  // The right-hand cell is the one spoken, so lecture tables
-                  // put the Czech there: cue → Czech.
-                  for (final (from, to) in table)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              from,
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: t.ink,
-                              ),
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward, size: 16, color: t.faint),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            flex: 2,
-                            child: Text(
-                              to,
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w800,
-                                color: t.ink,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () => _say(to),
-                            tooltip: l10n.listen,
-                            icon: Icon(
-                              Icons.volume_up_outlined,
-                              size: 20,
-                              color: t.pri,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-          if (examples.isNotEmpty) ...[
-            const SizedBox(height: 18),
-            LessonKicker(l10n.lectureExamples),
-            const SizedBox(height: 8),
-            for (final example in examples)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: _PhraseRow(
-                  item: example,
-                  active: false,
-                  onTap: () => _say(example.playText),
-                ),
-              ),
-          ],
-          if (wrong.isNotEmpty && right.isNotEmpty) ...[
-            const SizedBox(height: 10),
-            LessonKicker(l10n.lectureCommonMistake),
-            const SizedBox(height: 8),
-            SoftCard(
-              shadow: false,
-              color: t.elev,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _MistakeLine(
-                    label: l10n.lectureWrongLabel,
-                    text: wrong,
-                    color: t.redInk,
-                    struck: true,
-                  ),
-                  const SizedBox(height: 6),
-                  _MistakeLine(
-                    label: l10n.lectureRightLabel,
-                    text: right,
-                    color: t.greenInk,
-                  ),
-                ],
-              ),
-            ),
-          ],
+          if (lead != null) ...[lead, const SizedBox(height: 16)],
+          LectureContent(exercise: widget.exercise),
           const SizedBox(height: 22),
-          KeyCta(
-            label: l10n.lectureContinue,
-            onPressed: () => widget.onAnswered(const ExerciseResult.skipped()),
-          ),
+          KeyCta(label: l10n.lectureContinue, onPressed: done),
         ],
       ),
     );
@@ -686,6 +565,422 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
 ///
 /// Used instead of full-width rows when the set is nothing but characters —
 /// forty-two rows of a single glyph each is a scroll with no shape to it.
+/// A lecture step's parts, parsed once: the explanation card, the table (its
+/// right-hand cell is spoken, so lecture tables put the Czech there), the
+/// examples and the common mistake. [LectureContent] lays them out on one
+/// page; [LectureSlides] one part per slide.
+class _LectureParts {
+  _LectureParts(this.exercise)
+    : heading = exercise.data['heading'] as String? ?? exercise.prompt,
+      say = (exercise.data['say'] as String?) ?? (exercise.data['body'] as String?),
+      step = (exercise.data['step'] as num?)?.toInt(),
+      steps = (exercise.data['steps'] as num?)?.toInt(),
+      table = [
+        for (final row in (exercise.data['table'] as List? ?? const []))
+          if (row is List && row.length >= 2) ('${row[0]}', '${row[1]}'),
+      ],
+      examples = [
+        for (final example in (exercise.data['examples'] as List? ?? const []))
+          if (example is Map)
+            _TeachingItem.fromJson(Map<String, dynamic>.from(example)),
+      ],
+      wrong = _mistake(exercise.data, 'wrong'),
+      right = _mistake(exercise.data, 'right');
+
+  final Exercise exercise;
+  final String heading;
+  final String? say;
+  final int? step;
+  final int? steps;
+  final List<(String, String)> table;
+  final List<_TeachingItem> examples;
+  final String wrong;
+  final String right;
+
+  static String _mistake(Map<String, dynamic> data, String key) {
+    final mistake = data['common_mistake'];
+    return mistake is Map ? '${mistake[key] ?? ''}'.trim() : '';
+  }
+
+  bool get hasMistake => wrong.isNotEmpty && right.isNotEmpty;
+
+  Widget hero(
+    BuildContext context, {
+    String? kicker,
+    bool showHeading = true,
+  }) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return TeachingHeroCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (showHeading) ...[
+            LessonKicker(
+              kicker ??
+                  (step != null && steps != null
+                      ? l10n.lectureKicker(step!, steps!)
+                      : l10n.teachingKicker),
+              color: t.pri,
+            ),
+            const SizedBox(height: 12),
+            DisplayText(heading, size: 26, weight: FontWeight.w800, height: 1.1),
+          ],
+          if (say != null && say!.trim().isNotEmpty) ...[
+            if (showHeading) const SizedBox(height: 10),
+            Text(
+              say!,
+              style: TextStyle(fontSize: 17, height: 1.5, color: t.ink),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget tableCard(
+    BuildContext context,
+    List<(String, String)> rows,
+    void Function(String) speak,
+  ) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return SoftCard(
+      shadow: false,
+      border: Border.all(color: t.line),
+      child: Column(
+        children: [
+          // The right-hand cell is the one spoken, so lecture tables put the
+          // Czech there: cue → Czech.
+          for (final (from, to) in rows)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      from,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: t.ink,
+                      ),
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward, size: 16, color: t.faint),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      to,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w800,
+                        color: t.ink,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () => speak(to),
+                    tooltip: l10n.listen,
+                    icon: Icon(Icons.volume_up_outlined, size: 20, color: t.pri),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> exampleRows(
+    BuildContext context,
+    List<_TeachingItem> items,
+    void Function(String) speak,
+  ) => [
+    LessonKicker(AppLocalizations.of(context).lectureExamples),
+    const SizedBox(height: 8),
+    for (final example in items)
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8),
+        child: _PhraseRow(
+          item: example,
+          active: false,
+          onTap: () => speak(example.playText),
+        ),
+      ),
+  ];
+
+  List<Widget> mistakeCard(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return [
+      LessonKicker(l10n.lectureCommonMistake),
+      const SizedBox(height: 8),
+      SoftCard(
+        shadow: false,
+        color: t.elev,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _MistakeLine(
+              label: l10n.lectureWrongLabel,
+              text: wrong,
+              color: t.redInk,
+              struck: true,
+            ),
+            const SizedBox(height: 6),
+            _MistakeLine(label: l10n.lectureRightLabel, text: right, color: t.greenInk),
+          ],
+        ),
+      ),
+    ];
+  }
+}
+
+Future<void> _speakCzech(WidgetRef ref, String text) async {
+  if (text.trim().isEmpty) return;
+  try {
+    await ref.read(czechTtsProvider).speak(text);
+  } catch (_) {
+    // Speech is best-effort — a missing voice must not break the card.
+  }
+}
+
+/// One lecture step on one page: explanation, table, examples and the common
+/// mistake. Units outside the unit-guide pilot show lectures this way.
+class LectureContent extends ConsumerWidget {
+  final Exercise exercise;
+
+  /// Replaces the "step 1 of 2" kicker, e.g. with the lesson it came from.
+  final String? kicker;
+
+  /// False where the card sits under its own heading already (a unit guide
+  /// tile): the kicker and heading would only repeat it.
+  final bool showHeading;
+
+  const LectureContent({
+    super.key,
+    required this.exercise,
+    this.kicker,
+    this.showHeading = true,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final parts = _LectureParts(exercise);
+    void speak(String text) => _speakCzech(ref, text);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        parts.hero(context, kicker: kicker, showHeading: showHeading),
+        if (parts.table.isNotEmpty) ...[
+          const SizedBox(height: 16),
+          parts.tableCard(context, parts.table, speak),
+        ],
+        if (parts.examples.isNotEmpty) ...[
+          const SizedBox(height: 18),
+          ...parts.exampleRows(context, parts.examples, speak),
+        ],
+        if (parts.hasMistake) ...[
+          const SizedBox(height: 10),
+          ...parts.mistakeCard(context),
+        ],
+      ],
+    );
+  }
+}
+
+/// One lecture step as slides, so nothing has to be scrolled: the
+/// explanation, then the table a few rows at a time, then the examples and
+/// the common mistake. A slide that still does not fit a small phone is scaled
+/// down, never scrolled. The last slide's button finishes ([onDone]).
+///
+/// Needs bounded height: the lesson gives it the exercise area, the unit guide
+/// and the Rule screen a whole screen.
+class LectureSlides extends ConsumerStatefulWidget {
+  final Exercise exercise;
+  final String? kicker;
+
+  /// Shown above the explanation on the first slide (the teacher's intro).
+  final Widget? lead;
+  final String doneLabel;
+  final VoidCallback onDone;
+
+  const LectureSlides({
+    super.key,
+    required this.exercise,
+    required this.doneLabel,
+    required this.onDone,
+    this.kicker,
+    this.lead,
+  });
+
+  /// Table rows per slide: five rows and the kicker fit the smallest phones
+  /// the app supports without scaling.
+  static const rowsPerSlide = 5;
+
+  @override
+  ConsumerState<LectureSlides> createState() => _LectureSlidesState();
+}
+
+class _LectureSlidesState extends ConsumerState<LectureSlides> {
+  final _controller = PageController();
+  int _index = 0;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  List<Widget> _slides(BuildContext context) {
+    final parts = _LectureParts(widget.exercise);
+    void speak(String text) => _speakCzech(ref, text);
+    final slides = <Widget>[
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (widget.lead != null) ...[widget.lead!, const SizedBox(height: 16)],
+          parts.hero(context, kicker: widget.kicker),
+        ],
+      ),
+    ];
+    for (var i = 0; i < parts.table.length; i += LectureSlides.rowsPerSlide) {
+      final end = (i + LectureSlides.rowsPerSlide).clamp(0, parts.table.length);
+      slides.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              parts.heading,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
+                color: context.tokens.ink,
+              ),
+            ),
+            const SizedBox(height: 12),
+            parts.tableCard(context, parts.table.sublist(i, end), speak),
+          ],
+        ),
+      );
+    }
+    // Examples and the mistake share a slide when they fit together.
+    final examples = parts.examples.take(3).toList();
+    if (examples.isNotEmpty || parts.hasMistake) {
+      slides.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (examples.isNotEmpty) ...parts.exampleRows(context, examples, speak),
+            if (parts.hasMistake) ...[
+              if (examples.isNotEmpty) const SizedBox(height: 10),
+              ...parts.mistakeCard(context),
+            ],
+          ],
+        ),
+      );
+    }
+    return slides;
+  }
+
+  void _go(int page) {
+    // Reduced motion: turn the page without the slide.
+    if (context.motionDisabled) {
+      _controller.jumpToPage(page);
+      return;
+    }
+    _controller.animateToPage(
+      page,
+      duration: AppMotion.content,
+      curve: AppMotion.enter,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final slides = _slides(context);
+    final last = _index >= slides.length - 1;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: PageView(
+            controller: _controller,
+            onPageChanged: (i) => setState(() => _index = i),
+            children: [
+              for (final slide in slides)
+                LayoutBuilder(
+                  builder:
+                      (context, box) => Align(
+                        alignment: Alignment.topCenter,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.topCenter,
+                          child: SizedBox(
+                            width: box.maxWidth,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                              child: slide,
+                            ),
+                          ),
+                        ),
+                      ),
+                ),
+            ],
+          ),
+        ),
+        if (slides.length > 1)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var i = 0; i < slides.length; i++)
+                  AnimatedContainer(
+                    duration: context.motionDuration(AppMotion.selection),
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    width: i == _index ? 18 : 7,
+                    height: 7,
+                    decoration: BoxDecoration(
+                      color: i == _index ? t.pri : t.line,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+          child: Row(
+            children: [
+              if (_index > 0) ...[
+                OutlinedButton(
+                  onPressed: () => _go(_index - 1),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(96, 52),
+                  ),
+                  child: Text(l10n.slideBack),
+                ),
+                const SizedBox(width: 10),
+              ],
+              Expanded(
+                child: KeyCta(
+                  label: last ? widget.doneLabel : l10n.slideNext,
+                  onPressed: last ? widget.onDone : () => _go(_index + 1),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _LetterGrid extends StatelessWidget {
   const _LetterGrid({
     required this.items,

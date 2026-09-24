@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:czechify/core/config/unit_guide_pilot.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Content rules for the v1.2 lessons (docs/CURRICULUM_V1_2_PLAN_2026-09-24.md
@@ -78,6 +79,18 @@ void main() {
         ids,
         [...ids]..sort(),
         reason: 'lesson ${lesson['id']}: exercise ids must ascend in file order',
+      );
+    }
+  });
+
+  test("a lesson's id encodes its unit", () {
+    // Lesson widgets read their unit from the id (unitOfLesson, in
+    // lib/core/config/unit_guide_pilot.dart) instead of a database lookup.
+    for (final lesson in lessons) {
+      expect(
+        unitOfLesson(lesson['id'] as int),
+        lesson['unit_id'],
+        reason: 'lesson ${lesson['id']}',
       );
     }
   });

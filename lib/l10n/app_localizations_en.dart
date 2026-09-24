@@ -3882,4 +3882,166 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notebookIntroBody =>
       'One paper page per unit. Lessons ask you to write the key points from memory, then check them against a model. Writing it yourself is what makes it stick.';
+
+  @override
+  String get unitGuideButton => 'Unit guide';
+
+  @override
+  String unitGuideTitle(int unit) {
+    return 'Unit $unit guide';
+  }
+
+  @override
+  String get unitGuideGoal => 'By the end of this unit';
+
+  @override
+  String get unitGuideGrammar => 'Grammar';
+
+  @override
+  String unitGuideLesson(String letter, String title) {
+    return 'Lesson $letter · $title';
+  }
+
+  @override
+  String get unitGuideNotReached => 'Not reached yet';
+
+  @override
+  String get unitGuidePhrases => 'Key phrases';
+
+  @override
+  String get unitGuideNotebook => 'Your notebook page';
+
+  @override
+  String get unitGuideNotebookHint =>
+      'What your paper page should look like by the end of the unit. Compare yours with it.';
+
+  @override
+  String get unitGuideChecklist => 'Before you move on, can you…';
+
+  @override
+  String get unitGuideSave => 'Save page as image';
+
+  @override
+  String get modelPageRule => 'The rule';
+
+  @override
+  String get modelPageOwnSentences => 'Your own sentences (examples)';
+
+  @override
+  String get lessonRuleButton => 'Rule';
+
+  @override
+  String get lessonRuleSheetTitle => 'What you\'ve learned so far';
+
+  @override
+  String lessonRuleLesson(String letter) {
+    return 'Lesson $letter';
+  }
+
+  @override
+  String get notebookSeeModelPage => 'See the whole model page';
+
+  @override
+  String get slideNext => 'Next';
+
+  @override
+  String get slideBack => 'Back';
+
+  @override
+  String get slideDone => 'Done';
+
+  @override
+  String get ruleBackToLesson => 'Back to the lesson';
+
+  @override
+  String unitGuideRulesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count rules',
+      one: '1 rule',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String unitGuidePhrasesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count phrases',
+      one: '1 phrase',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get unitGuideNotebookShort => 'Compare your paper page';
+
+  @override
+  String get lessonRulePick => 'Which rule do you want to see?';
+
+  @override
+  String lessonStartKicker(String letter, int unit) {
+    return 'Lesson $letter · Unit $unit';
+  }
+
+  @override
+  String lessonStartMinutes(int minutes) {
+    return 'About $minutes min';
+  }
+
+  @override
+  String lessonStartRules(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count rules',
+      one: '1 rule',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lessonStartNotebook(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count notebook steps',
+      one: '1 notebook step',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lessonStartQuestions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions',
+      one: '1 question',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lessonStartResume(int current, int total) {
+    return 'You\'ll carry on from question $current of $total.';
+  }
+
+  @override
+  String get lessonStartButton => 'Start';
+
+  @override
+  String get lessonTagWarmUp => 'Warm-up · no hearts';
+
+  @override
+  String get lessonTagCheck => 'Check · no hearts';
+
+  @override
+  String get lessonTagGuided => 'Guided · no hearts';
+
+  @override
+  String get lessonVoiceFallback =>
+      'Using your device\'s voice — the recorded Czech voice is unavailable right now.';
 }

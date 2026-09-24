@@ -6661,6 +6661,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'One paper page per unit. Lessons ask you to write the key points from memory, then check them against a model. Writing it yourself is what makes it stick.'**
   String get notebookIntroBody;
+
+  /// No description provided for @unitGuideButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit guide'**
+  String get unitGuideButton;
+
+  /// No description provided for @unitGuideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {unit} guide'**
+  String unitGuideTitle(int unit);
+
+  /// No description provided for @unitGuideGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'By the end of this unit'**
+  String get unitGuideGoal;
+
+  /// No description provided for @unitGuideGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get unitGuideGrammar;
+
+  /// No description provided for @unitGuideLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson {letter} · {title}'**
+  String unitGuideLesson(String letter, String title);
+
+  /// No description provided for @unitGuideNotReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reached yet'**
+  String get unitGuideNotReached;
+
+  /// No description provided for @unitGuidePhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Key phrases'**
+  String get unitGuidePhrases;
+
+  /// No description provided for @unitGuideNotebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notebook page'**
+  String get unitGuideNotebook;
+
+  /// No description provided for @unitGuideNotebookHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What your paper page should look like by the end of the unit. Compare yours with it.'**
+  String get unitGuideNotebookHint;
+
+  /// No description provided for @unitGuideChecklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you move on, can you…'**
+  String get unitGuideChecklist;
+
+  /// No description provided for @unitGuideSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save page as image'**
+  String get unitGuideSave;
+
+  /// No description provided for @modelPageRule.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule'**
+  String get modelPageRule;
+
+  /// No description provided for @modelPageOwnSentences.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own sentences (examples)'**
+  String get modelPageOwnSentences;
+
+  /// No description provided for @lessonRuleButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule'**
+  String get lessonRuleButton;
+
+  /// No description provided for @lessonRuleSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What you\'ve learned so far'**
+  String get lessonRuleSheetTitle;
+
+  /// No description provided for @lessonRuleLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson {letter}'**
+  String lessonRuleLesson(String letter);
+
+  /// No description provided for @notebookSeeModelPage.
+  ///
+  /// In en, this message translates to:
+  /// **'See the whole model page'**
+  String get notebookSeeModelPage;
+
+  /// No description provided for @slideNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get slideNext;
+
+  /// No description provided for @slideBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get slideBack;
+
+  /// No description provided for @slideDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get slideDone;
+
+  /// No description provided for @ruleBackToLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the lesson'**
+  String get ruleBackToLesson;
+
+  /// No description provided for @unitGuideRulesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 rule} other{{count} rules}}'**
+  String unitGuideRulesCount(int count);
+
+  /// No description provided for @unitGuidePhrasesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 phrase} other{{count} phrases}}'**
+  String unitGuidePhrasesCount(int count);
+
+  /// No description provided for @unitGuideNotebookShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare your paper page'**
+  String get unitGuideNotebookShort;
+
+  /// No description provided for @lessonRulePick.
+  ///
+  /// In en, this message translates to:
+  /// **'Which rule do you want to see?'**
+  String get lessonRulePick;
+
+  /// No description provided for @lessonStartKicker.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson {letter} · Unit {unit}'**
+  String lessonStartKicker(String letter, int unit);
+
+  /// No description provided for @lessonStartMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'About {minutes} min'**
+  String lessonStartMinutes(int minutes);
+
+  /// No description provided for @lessonStartRules.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 rule} other{{count} rules}}'**
+  String lessonStartRules(int count);
+
+  /// No description provided for @lessonStartNotebook.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 notebook step} other{{count} notebook steps}}'**
+  String lessonStartNotebook(int count);
+
+  /// No description provided for @lessonStartQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 question} other{{count} questions}}'**
+  String lessonStartQuestions(int count);
+
+  /// No description provided for @lessonStartResume.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll carry on from question {current} of {total}.'**
+  String lessonStartResume(int current, int total);
+
+  /// No description provided for @lessonStartButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get lessonStartButton;
+
+  /// No description provided for @lessonTagWarmUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm-up · no hearts'**
+  String get lessonTagWarmUp;
+
+  /// No description provided for @lessonTagCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check · no hearts'**
+  String get lessonTagCheck;
+
+  /// No description provided for @lessonTagGuided.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided · no hearts'**
+  String get lessonTagGuided;
+
+  /// No description provided for @lessonVoiceFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Using your device\'s voice — the recorded Czech voice is unavailable right now.'**
+  String get lessonVoiceFallback;
 }
 
 class _AppLocalizationsDelegate

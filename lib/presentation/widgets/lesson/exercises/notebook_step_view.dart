@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/config/unit_guide_pilot.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../data/services/notebook_store.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -128,6 +130,9 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final onPaper = ref.watch(settingsProvider).notesOnPaper;
+    // Only the unit's closing check links to the unit guide.
+    final unitId =
+        _kind == 'unit_check' ? unitOfLesson(widget.exercise.lessonId) : null;
     final setup = _kind == 'setup';
     final model = _model;
 
@@ -226,6 +231,21 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
               LessonKicker(l10n.notebookModelTitle),
               const SizedBox(height: 8),
               _ModelCard(rows: model),
+              if (unitGuideEnabled(unitId))
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed:
+                        () => context.push(
+                          '/unit-guide/$unitId?section=notebook',
+                        ),
+                    icon: const Icon(Icons.menu_book_rounded, size: 18),
+                    label: Text(l10n.notebookSeeModelPage),
+                    style: TextButton.styleFrom(
+                      minimumSize: const Size(0, 44),
+                    ),
+                  ),
+                ),
               const SizedBox(height: 22),
               KeyCta(
                 label: l10n.notebookAllCorrect,

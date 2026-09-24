@@ -11,6 +11,7 @@ import '../../../core/feedback/celebration.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/enums.dart';
+import '../../../domain/entities/exercise.dart';
 import '../../../domain/entities/flashcard.dart';
 import '../../../domain/engines/learning_loop_engine.dart';
 import '../../../domain/engines/lesson_rating.dart';
@@ -21,6 +22,7 @@ import '../../providers/course_admission_providers.dart';
 import '../../providers/monetization_providers.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/lesson_providers.dart';
+import '../../providers/tts_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/feedback_providers.dart';
 import '../../routes/lesson_navigation.dart';
@@ -28,6 +30,9 @@ import '../../widgets/celebration/burst_painter.dart';
 import '../../widgets/celebration/count_up_text.dart';
 import '../../widgets/celebration/stars_reveal.dart';
 import '../../widgets/lesson/exercise_widget.dart';
+import '../../widgets/lesson/exercises/teaching_view.dart';
+import '../grammar/unit_guide_screen.dart';
+import '../grammar/unit_notebook_screen.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
 import '../../widgets/common/gender_pill.dart';
 import '../../widgets/common/lesson_image.dart';
@@ -58,6 +63,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
   /// admission resolves only once access has loaded.
   LessonAdmission _denial = LessonAdmission.prerequisiteRequired;
   bool _allowExit = false;
+
+  /// Whether the learner has passed the lesson start screen (unit-guide
+  /// pilot). Stays true for a retry: the goal has been read once.
+  bool _started = false;
   bool _exitDialogOpen = false;
 
   /// The exercise whose illustration has already been warmed, so an unrelated
@@ -311,6 +320,162 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     LessonImage.precacheFor(context, session.exercises[next]);
   }
 
+  /// The unit-guide pilot's lesson frame: a start screen, then one thin bar
+  /// instead of today's header, banner and goal card. Not for the mock exam,
+  /// whose timer needs the full header.
+  bool _slimFrame(LessonSessionState session) =>
+      !session.isExamMode && unitGuideEnabled(session.lesson?.unitId);
+
+  /// One short line: what kind of task this is when a mistake costs nothing
+  /// (the label a learner needs to trust it), the streak, XP and the Rule
+  /// button. Teaching and notebook cards carry their own label, and a scored
+  /// question needs none — the hearts show what is at stake.
+  Widget _slimTaskRow(
+    BuildContext context,
+    LessonSessionState session,
+    List<(String, Exercise)> rulesSoFar,
+  ) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final exercise = session.currentExercise;
+    final label =
+        session.inMistakeReview
+            ? l10n.lessonMissedQuestions
+            : exercise == null || exercise.type == ExerciseType.teaching
+            ? null
+            : switch (exercise.mode) {
+              ExerciseMode.predict => l10n.lessonTagWarmUp,
+              ExerciseMode.check => l10n.lessonTagCheck,
+              ExerciseMode.guided => l10n.lessonTagGuided,
+              _ => null,
+            };
+    final streak = session.answerStreak >= 3;
+    if (label == null && !streak && session.totalXp <= 0 && rulesSoFar.isEmpty) {
+      return const SizedBox(height: 4);
+    }
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 2, 16, 0),
+      child: SizedBox(
+        height: 36,
+        child: Row(
+          children: [
+            if (label != null)
+              Flexible(
+                child: Text(
+                  label.toUpperCase(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.2,
+                    color: session.inMistakeReview ? t.amberInk : t.muted,
+                  ),
+                ),
+              ),
+            if (streak) ...[
+              const SizedBox(width: 9),
+              ComboChip(label: l10n.lessonInARow(session.answerStreak)),
+            ],
+            const Spacer(),
+            if (session.totalXp > 0) _XpCounter(totalXp: session.totalXp),
+            if (rulesSoFar.isNotEmpty) ...[
+              const SizedBox(width: 10),
+              _RuleButton(onTap: () => _showRules(context, rulesSoFar)),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// The lectures a learner can look back at from this point of the lesson:
+  /// every lecture of earlier lessons in the unit, then this lesson's up to
+  /// the current exercise. Each comes with its lesson letter. Empty outside
+  /// the unit-guide pilot, so other units keep today's header.
+  List<(String, Exercise)> _rulesSoFar(LessonSessionState session) {
+    final lesson = session.lesson;
+    if (lesson == null || session.isExamMode || !unitGuideEnabled(lesson.unitId)) {
+      return const [];
+    }
+    final unitLessons =
+        ref.watch(unitLessonsProvider(lesson.unitId)).asData?.value ?? const [];
+    final unitLectures =
+        ref.watch(unitLectureStepsProvider(lesson.unitId)).asData?.value ??
+        const [];
+    final orderOf = {for (final l in unitLessons) l.id: l.orderInUnit};
+    bool isLecture(Exercise e) =>
+        e.type == ExerciseType.teaching && e.data['style'] == 'lecture';
+    return [
+      for (final e in unitLectures)
+        if ((orderOf[e.lessonId] ?? 1 << 20) < lesson.orderInUnit)
+          (lessonLetter(orderOf[e.lessonId]!), e),
+      for (final e in session.exercises.take(session.currentIndex + 1))
+        if (isLecture(e)) (lessonLetter(lesson.orderInUnit), e),
+    ];
+  }
+
+  /// The rules taught so far, newest first, over the lesson: reading one
+  /// again costs nothing and the learner returns to the same exercise.
+  void _showRules(BuildContext context, List<(String, Exercise)> rules) {
+    final l10n = AppLocalizations.of(context);
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: context.tokens.bg,
+      builder:
+          (sheetContext) => DraggableScrollableSheet(
+            expand: false,
+            initialChildSize: .88,
+            minChildSize: .4,
+            maxChildSize: .95,
+            builder:
+                (_, controller) => ListView(
+                  controller: controller,
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        margin: const EdgeInsets.only(bottom: 14),
+                        decoration: BoxDecoration(
+                          color: sheetContext.tokens.line,
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: DisplayText(
+                            l10n.lessonRuleSheetTitle,
+                            size: 22,
+                            weight: FontWeight.w800,
+                          ),
+                        ),
+                        IconButton(
+                          tooltip: l10n.a11yClose,
+                          onPressed: () => Navigator.of(sheetContext).pop(),
+                          icon: const Icon(Icons.close_rounded),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    for (final (letter, lecture) in rules.reversed) ...[
+                      LectureContent(
+                        exercise: lecture,
+                        kicker: l10n.lessonRuleLesson(letter),
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+                  ],
+                ),
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen(lessonAccountTransitionProvider, (_, _) {
@@ -451,6 +616,17 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
       );
     }
 
+    // Unit-guide pilot: the lesson's title, goal and notices are shown once on
+    // a start screen, so every exercise screen can give its height to the
+    // exercise instead.
+    if (_slimFrame(session) && !_started) {
+      return _LessonStartScreen(
+        session: session,
+        onStart: () => setState(() => _started = true),
+        onExit: () => leaveLesson(context),
+      );
+    }
+
     // Teach phase — present the lesson's new words before testing them.
     if (session.isTeaching) {
       return _TeachPhaseScreen(
@@ -475,6 +651,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
 
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    final rulesSoFar = _rulesSoFar(session);
+    final slim = _slimFrame(session);
     return Scaffold(
       backgroundColor: t.bg,
       body: GestureDetector(
@@ -492,6 +670,12 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
         child: SafeArea(
           child: Column(
             children: [
+              if (slim)
+                _SlimLessonBar(
+                  session: session,
+                  onClose: () => _showExitConfirm(context),
+                )
+              else
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 8, 20, 10),
                 child: Column(
@@ -572,9 +756,12 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                   ],
                 ),
               ),
-              // Shown only while a substitute is in use — silent otherwise.
-              const DegradedModeBanner(),
-              if (session.resumed || session.saveFailed)
+              // Shown only while a substitute is in use — silent otherwise. The
+              // slim frame shows it as an icon in its bar instead.
+              if (!slim) const DegradedModeBanner(),
+              // "Resumed" is said on the start screen in the slim frame; a
+              // failed save is always worth a line.
+              if (session.saveFailed || (!slim && session.resumed))
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
                   child: Text(
@@ -590,13 +777,17 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                     ),
                   ),
                 ),
-              if (session.currentIndex == 0 &&
+              if (!slim &&
+                  session.currentIndex == 0 &&
                   (session.lesson?.canDo.trim().isNotEmpty ?? false))
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 2, 20, 12),
                   child: _LessonGoalCard(goal: session.lesson!.canDo.trim()),
                 ),
               // What kind of task this is, and the streak riding on it.
+              if (slim)
+                _slimTaskRow(context, session, rulesSoFar)
+              else
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -631,6 +822,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                     // award, then settles back into the quiet count.
                     if (session.totalXp > 0)
                       _XpCounter(totalXp: session.totalXp),
+                    // In this row rather than the header, where it squeezed
+                    // the lesson title into three lines.
+                    if (rulesSoFar.isNotEmpty) ...[
+                      const SizedBox(width: 10),
+                      _RuleButton(
+                        onTap: () => _showRules(context, rulesSoFar),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -2048,6 +2247,289 @@ class _ExamCompleteScreen extends ConsumerWidget {
                 label:
                     passed ? l10n.continueLabel : l10n.lessonBackToCurriculum,
                 onPressed: onExit,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// "Rule" in the lesson header: reopens the rules taught so far.
+class _RuleButton extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _RuleButton({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final label = AppLocalizations.of(context).lessonRuleButton;
+    return Semantics(
+      button: true,
+      label: label,
+      excludeSemantics: true,
+      child: Material(
+        color: t.priSoft,
+        borderRadius: BorderRadius.circular(999),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(999),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 7, 12, 7),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.menu_book_rounded, size: 16, color: t.pri),
+                const SizedBox(width: 5),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: t.pri,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The lesson frame in the unit-guide pilot: close, a thin progress line,
+/// the recorded-voice notice as an icon (tap to read it) and hearts — about
+/// 48 pt, where the full header took 150 and more.
+class _SlimLessonBar extends ConsumerWidget {
+  final LessonSessionState session;
+  final VoidCallback onClose;
+
+  const _SlimLessonBar({required this.session, required this.onClose});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final total = session.totalExercises;
+    final progress = total == 0 ? 0.0 : session.currentIndex / total;
+    final tts = ref.watch(czechTtsProvider);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(6, 2, 14, 2),
+      child: SizedBox(
+        height: 48,
+        child: Row(
+          children: [
+            IconButton(
+              tooltip: l10n.a11yClose,
+              onPressed: onClose,
+              icon: Icon(Icons.close_rounded, color: t.ink),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Semantics(
+                label: l10n.a11yLessonProgress(session.currentIndex + 1, total),
+                excludeSemantics: true,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: LinearProgressIndicator(
+                    value: progress.clamp(0.02, 1.0),
+                    minHeight: 8,
+                    color: t.pri,
+                    backgroundColor: t.line,
+                  ),
+                ),
+              ),
+            ),
+            ValueListenableBuilder<bool>(
+              valueListenable: tts.usingFallbackVoice,
+              builder:
+                  (context, fallback, _) =>
+                      fallback
+                          ? IconButton(
+                            tooltip: l10n.lessonVoiceFallback,
+                            onPressed:
+                                () => ScaffoldMessenger.maybeOf(
+                                  context,
+                                )?.showSnackBar(
+                                  SnackBar(
+                                    content: Text(l10n.lessonVoiceFallback),
+                                  ),
+                                ),
+                            icon: Icon(
+                              Icons.cloud_off_rounded,
+                              size: 20,
+                              color: t.amberInk,
+                            ),
+                          )
+                          : const SizedBox(width: 10),
+            ),
+            Semantics(
+              container: true,
+              label: l10n.a11yHearts(session.hearts),
+              excludeSemantics: true,
+              child: HeartsChip(hearts: session.hearts),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The lesson start screen (unit-guide pilot): what this lesson is, what the
+/// learner will be able to do, how long it takes and what is in it — shown
+/// once, so the exercise screens do not have to carry it. It says so here if
+/// the recorded voice is unavailable, and where a resumed lesson carries on.
+class _LessonStartScreen extends StatelessWidget {
+  final LessonSessionState session;
+  final VoidCallback onStart;
+  final VoidCallback onExit;
+
+  const _LessonStartScreen({
+    required this.session,
+    required this.onStart,
+    required this.onExit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final lesson = session.lesson!;
+    final exercises = session.exercises;
+    final rules =
+        exercises
+            .where(
+              (e) =>
+                  e.type == ExerciseType.teaching &&
+                  e.data['style'] == 'lecture',
+            )
+            .length;
+    final notebook = exercises.where((e) => e.isNotebookStep).length;
+    final questions =
+        exercises.where((e) => e.type != ExerciseType.teaching).length;
+    final goal = lesson.canDo.trim();
+
+    Widget fact(IconData icon, String text) => Container(
+      padding: const EdgeInsets.fromLTRB(10, 7, 12, 7),
+      decoration: BoxDecoration(
+        color: t.card,
+        border: Border.all(color: t.line),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 16, color: t.pri),
+          const SizedBox(width: 6),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: t.ink,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: t.bg,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(8, 4, 20, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  tooltip: l10n.a11yClose,
+                  onPressed: onExit,
+                  icon: Icon(Icons.close_rounded, color: t.ink),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      LessonKicker(
+                        l10n.lessonStartKicker(
+                          lessonLetter(lesson.orderInUnit),
+                          lesson.unitId,
+                        ),
+                        color: t.pri,
+                      ),
+                      const SizedBox(height: 8),
+                      DisplayText(
+                        lesson.title,
+                        size: 30,
+                        weight: FontWeight.w800,
+                        height: 1.1,
+                      ),
+                      if (goal.isNotEmpty) ...[
+                        const SizedBox(height: 18),
+                        _LessonGoalCard(goal: goal),
+                      ],
+                      const SizedBox(height: 16),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          fact(
+                            Icons.schedule_rounded,
+                            l10n.lessonStartMinutes(lesson.durationMinutes),
+                          ),
+                          if (rules > 0)
+                            fact(
+                              Icons.menu_book_rounded,
+                              l10n.lessonStartRules(rules),
+                            ),
+                          if (notebook > 0)
+                            fact(
+                              Icons.edit_note_rounded,
+                              l10n.lessonStartNotebook(notebook),
+                            ),
+                          if (questions > 0)
+                            fact(
+                              Icons.quiz_outlined,
+                              l10n.lessonStartQuestions(questions),
+                            ),
+                        ],
+                      ),
+                      if (session.resumed) ...[
+                        const SizedBox(height: 16),
+                        Text(
+                          l10n.lessonStartResume(
+                            session.currentIndex + 1,
+                            session.totalExercises,
+                          ),
+                          style: TextStyle(fontSize: 15, color: t.ink),
+                        ),
+                      ],
+                      const SizedBox(height: 16),
+                      // Shown only while a substitute voice is in use.
+                      const DegradedModeBanner(margin: EdgeInsets.zero),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 12),
+                child: KeyCta(
+                  label:
+                      session.resumed
+                          ? l10n.continueLabel
+                          : l10n.lessonStartButton,
+                  onPressed: onStart,
+                ),
               ),
             ],
           ),
