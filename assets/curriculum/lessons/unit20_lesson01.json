@@ -2,311 +2,301 @@
   "id": 2001,
   "unit_id": 20,
   "order_in_unit": 0,
-  "title": "Future Tense — Perfective & Imperfective",
-  "description": "Learn the two ways to express future in Czech: perfective verbs whose present form means future (napíšu = I will write, přečtu = I will read, udělám = I will do), and imperfective future with 'budu' + infinitive (budu psát = I will be writing, budu číst = I will be reading). Practice choosing the right aspect and recognizing common perfective/imperfective pairs.",
-  "duration_min": 15,
+  "title": "Plans for Tomorrow",
+  "description": "Hear someone make plans, then learn the words for tomorrow, next week and polite asking.",
+  "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "understand a simple plan and say when something will happen.",
+  "new_language": [
+    "zítra / pozítří",
+    "příští týden",
+    "Budu pracovat.",
+    "Zavolám ti.",
+    "Sejdeme se v šest?",
+    "Chtěl bych… / Chtěla bych…",
+    "Mohl bych…? / Mohla bych…?"
+  ],
+  "recycles": [
+    "v šest",
+    "v kavárně",
+    "o víkendu",
+    "Máte čas?"
+  ],
+  "exit_task": "suggest a time to meet.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 20000,
+      "id": 20100,
+      "lesson_id": 2001,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess what the speaker is talking about.",
+        "transcript_cz": "Zítra budu pracovat do čtyř. Potom zavolám Petrovi a sejdeme se v kavárně. Mohl bych přijít o půl hodiny později?",
+        "questions": [
+          {
+            "question_en": "What is the speaker talking about?",
+            "options": [
+              "Tomorrow's plans",
+              "Yesterday",
+              "Their job history"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where will they meet?",
+            "options": [
+              "In a café",
+              "At work",
+              "At the station"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "calls Petr; arrives later",
+      "xp_reward": 0
+    },
+    {
+      "id": 20101,
       "lesson_id": 2001,
       "type": "teaching",
-      "prompt": "Future & \"I would…\"",
+      "prompt": "Learn the language",
       "data": {
         "type": "teaching",
-        "heading": "Future & \"I would…\"",
-        "body": "Build the future two ways, and learn the polite little word behind \"I would like.\"",
-        "intro": "Now let's turn to tomorrow — and to wishes. You'll build the future two different ways and learn the polite little word that makes 'I would like' possible. Very Czech, very useful.",
         "style": "list",
-        "play_all_label": "Play all",
+        "heading": "Talking about plans",
+        "body": "Start with when, then what you will do. Chtěl bych and Mohl bych are the polite ways to ask for something; a woman says chtěla, mohla.",
         "items": [
           {
-            "cz": "budu pracovat",
-            "en": "I will work (budu + infinitive)"
+            "cz": "zítra / pozítří",
+            "en": "tomorrow / the day after tomorrow"
           },
           {
-            "cz": "budeš",
-            "en": "you will"
+            "cz": "příští týden",
+            "en": "next week"
           },
           {
-            "cz": "bude",
-            "en": "he / she will"
+            "cz": "Budu pracovat.",
+            "en": "I will be working."
           },
           {
-            "cz": "budeme",
-            "en": "we will"
+            "cz": "Zavolám ti.",
+            "en": "I will call you."
           },
           {
-            "cz": "napíšu",
-            "en": "I'll write (one finished action)"
+            "cz": "Sejdeme se v šest?",
+            "en": "Shall we meet at six?"
           },
           {
-            "cz": "udělám",
-            "en": "I'll do (one finished action)"
+            "cz": "Chtěl bych… / Chtěla bych…",
+            "en": "I would like…"
           },
           {
-            "cz": "Chtěl bych…",
-            "en": "I'd like…"
-          },
-          {
-            "cz": "Mohl bych…?",
+            "cz": "Mohl bych…? / Mohla bych…?",
             "en": "Could I…?"
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
-      "id": 20001,
+      "id": 20102,
       "lesson_id": 2001,
-      "type": "multiple_choice",
-      "prompt": "What does the perfective present form 'napíšu' mean?",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'napíšu'?",
-        "question_en": "What does 'napíšu' mean?",
-        "options": [
-          "I am writing (now)",
-          "I will write",
-          "I wrote",
-          "I was writing"
-        ],
-        "correct_index": 1,
-        "explanation": "Perfective verbs like 'napíšu' have NO present meaning — their present-tense form expresses future: 'napíšu' = I will write. This is the core rule of Czech future: perfective present = future action. Compare: 'píšu' (imperfective) = I am writing now, 'napíšu' (perfective) = I will write."
-      },
-      "answer_key": "I will write",
-      "grammar_rule_id": "GR-190",
-      "xp_reward": 10
-    },
-    {
-      "id": 20002,
-      "lesson_id": 2001,
-      "type": "multiple_choice",
-      "prompt": "Which of these expresses future tense using the imperfective (budu + infinitive) pattern?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která z těchto možností vyjadřuje budoucnost pomocí 'budu + infinitiv'?",
-        "question_en": "Which of these expresses future tense using the imperfective (budu + infinitive) pattern?",
-        "options": [
-          "napíšu dopis",
-          "přečtu knihu",
-          "budu psát dopis",
-          "udělám to"
-        ],
-        "correct_index": 2,
-        "explanation": "'Budu psát dopis' = I will be writing a letter (imperfective future). The others are perfective present forms expressing future: 'napíšu' = I will write, 'přečtu' = I will read, 'udělám' = I will do. Imperfective verbs CANNOT use present tense for future — they need 'budu/budeš/bude/budeme/budete/budou' + infinitive."
-      },
-      "answer_key": "budu psát dopis",
-      "grammar_rule_id": "GR-191",
-      "xp_reward": 10
-    },
-    {
-      "id": 20003,
-      "lesson_id": 2001,
-      "type": "fill_blank",
-      "prompt": "Complete with the perfective future (napíšu): 'Tomorrow I will write the letter.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Zítra ___ ten dopis. (napsat)",
-        "blank_count": 1,
-        "explanation": "'Napsat' (perfective) → 'napíšu' = I will write. The perfective present form is used for future. 'Zítra' (tomorrow) makes it clear this is future. The complete sentence: 'Zítra napíšu ten dopis.' = Tomorrow I will write the letter.",
-        "blank_answers": [
-          [
-            "napíšu"
-          ]
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 20 page",
+        "instruction": "Write “Unit 20 — Plány” at the top of a new page. Then, from memory, write the words for tomorrow, the day after tomorrow and next week, and one polite phrase.",
+        "items": [
+          {
+            "cz": "zítra / pozítří",
+            "en": "tomorrow / the day after tomorrow"
+          },
+          {
+            "cz": "příští týden",
+            "en": "next week"
+          },
+          {
+            "cz": "Budu pracovat.",
+            "en": "I will be working."
+          },
+          {
+            "cz": "Chtěl bych… / Chtěla bych…",
+            "en": "I would like…"
+          }
         ]
       },
-      "answer_key": "napíšu",
-      "grammar_rule_id": "GR-190",
-      "xp_reward": 15
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 20004,
+      "id": 20103,
       "lesson_id": 2001,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'I will do it tomorrow' using a perfective verb?",
+      "type": "matching",
+      "prompt": "Match the phrases",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řeknete 'I will do it tomorrow' pomocí dokonavého slovesa?",
-        "question_en": "How do you say 'I will do it tomorrow' using a perfective verb?",
-        "options": [
-          "Zítra to dělám.",
-          "Zítra to budu dělat.",
-          "Zítra to udělám.",
-          "Zítra to dělal jsem."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "pozítří",
+            "right": "the day after tomorrow"
+          },
+          {
+            "left": "příští týden",
+            "right": "next week"
+          },
+          {
+            "left": "Zavolám ti.",
+            "right": "I will call you."
+          },
+          {
+            "left": "Chtěla bych…",
+            "right": "I would like… (woman)"
+          }
         ],
-        "correct_index": 2,
-        "explanation": "'Udělat' (perfective) → 'udělám' = I will do. 'Zítra to udělám.' = I will do it tomorrow. 'Dělám' is present imperfective (I am doing now), 'budu dělat' is also future but imperfective (I will be doing), 'dělal jsem' is past (I did)."
+        "targets": "vocab"
       },
-      "answer_key": "Zítra to udělám.",
-      "grammar_rule_id": "GR-190",
+      "answer_key": "",
       "xp_reward": 10
     },
     {
-      "id": 20005,
-      "lesson_id": 2001,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I will read the book tomorrow.' (perfective — přečíst)",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I will read the book tomorrow.",
-        "accepted_answers": [
-          "Zítra přečtu tu knihu.",
-          "Zítra přečtu knihu.",
-          "Přečtu tu knihu zítra.",
-          "Přečtu knihu zítra."
-        ],
-        "grammar_note": "'Přečíst' (perfective) → 'přečtu' = I will read (to completion). The perfective aspect implies finishing the book. Compare with 'budu číst knihu' = I will be reading the book (imperfective, no completion implied). 'Zítra' = tomorrow."
-      },
-      "answer_key": "Zítra přečtu tu knihu.",
-      "grammar_rule_id": "GR-190",
-      "xp_reward": 10
-    },
-    {
-      "id": 20006,
-      "lesson_id": 2001,
-      "type": "fill_blank",
-      "prompt": "Complete with imperfective future (budu + infinitive): 'I will be speaking Czech.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Příští týden ___ česky. (mluvit — I will be speaking)",
-        "blank_count": 1,
-        "explanation": "'Mluvit' is imperfective, so it cannot use present for future. We use 'budu' + infinitive: 'budu mluvit' = I will be speaking / I will speak. Future of být: budu, budeš, bude, budeme, budete, budou. 'Příští týden' = next week.",
-        "blank_answers": [
-          [
-            "budu mluvit"
-          ]
-        ]
-      },
-      "answer_key": "budu mluvit",
-      "grammar_rule_id": "GR-191",
-      "xp_reward": 15
-    },
-    {
-      "id": 20007,
+      "id": 20104,
       "lesson_id": 2001,
       "type": "multiple_choice",
-      "prompt": "Which is the correct imperfective/perfective pair?",
+      "prompt": "Choose the answer",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Která dvojice je správná (nedokonavé/dokonavé)?",
-        "question_en": "Which is the correct imperfective/perfective pair?",
+        "question_cz": "Co znamená „příští týden“?",
+        "question_en": "What does “příští týden” mean?",
         "options": [
-          "psát / napsat",
-          "dělat / dělat",
-          "číst / číst",
-          "psát / psát"
+          "next week",
+          "last week",
+          "this week"
         ],
         "correct_index": 0,
-        "explanation": "'Psát' (imperfective — to be writing) pairs with 'napsat' (perfective — to write/finish writing). Common pairs: dělat/udělat (do), číst/přečíst (read), psát/napsat (write), jíst/sníst (eat), pít/vypít (drink), kupovat/koupit (buy). The prefix (na-, u-, pře-, s-, vy-) often makes a verb perfective."
+        "explanation": "příští = next; minulý = last.",
+        "targets": "vocab"
       },
-      "answer_key": "psát / napsat",
-      "grammar_rule_id": "GR-190",
+      "answer_key": "next week",
       "xp_reward": 10
     },
     {
-      "id": 20008,
+      "id": 20105,
       "lesson_id": 2001,
-      "type": "fill_blank",
-      "prompt": "Choose the right aspect: 'Every day I will be reading for an hour.' (ongoing habit → imperfective)",
+      "type": "dictation",
+      "prompt": "Listen and type",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Každý den ___ hodinu. (číst — I will be reading)",
-        "blank_count": 1,
-        "explanation": "Use imperfective future (budu číst) for ongoing/repeated actions. Use perfective (přečtu) for one-time, completed actions. 'Každý den' (every day) signals a habitual action → imperfective. 'Budu číst hodinu' = I will be reading for an hour / I will read for an hour (regularly).",
+        "type": "dictation",
+        "expected_text": "Zítra budu pracovat.",
+        "language": "cs-CZ",
+        "note": "budu + infinitive.",
+        "targets": "vocab"
+      },
+      "answer_key": "Zítra budu pracovat.",
+      "xp_reward": 10
+    },
+    {
+      "id": 20106,
+      "lesson_id": 2001,
+      "type": "word_order",
+      "prompt": "Build the sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "zavolám.",
+          "ti",
+          "Zítra"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "I will call you tomorrow.",
+        "explanation": "The time word first; ti comes second.",
+        "targets": "vocab"
+      },
+      "answer_key": "Zítra ti zavolám.",
+      "xp_reward": 10
+    },
+    {
+      "id": 20107,
+      "lesson_id": 2001,
+      "type": "dialogue",
+      "prompt": "Arrange the time",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Your friend suggests five. Ask politely whether you could come at six.",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Sejdeme se v pět?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Ano, v šest je také dobré."
+          }
+        ],
         "blank_answers": [
           [
-            "budu číst"
+            "Mohl bych přijít v šest?",
+            "Mohla bych přijít v šest?",
+            "Mohl bych přijít až v šest?",
+            "Mohla bych přijít až v šest?"
           ]
-        ]
+        ],
+        "targets": "vocab"
       },
-      "answer_key": "budu číst",
-      "grammar_rule_id": "GR-191",
+      "answer_key": "polite time change",
       "xp_reward": 15
     },
     {
-      "id": 20009,
+      "id": 20108,
       "lesson_id": 2001,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'In the evening I will watch TV.' (imperfective — ongoing activity)",
+      "type": "reading_comprehension",
+      "prompt": "Read the café plan",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "In the evening I will watch TV.",
-        "accepted_answers": [
-          "Večer budu sledovat televizi.",
-          "Večer se budu dívat na televizi.",
-          "Večer budu koukat na televizi."
+        "type": "reading_comprehension",
+        "prompt_en": "Find the plan and the polite change.",
+        "image": "assets/images/unit20/future_plans_v1.webp",
+        "image_label": "Friends arranging their next plan",
+        "text_cz": "Ahoj, v pátek budu mít volno. Půjdeme na kávu? Já přijdu v šest. Chtěla bych ale sedět venku, když bude hezky.",
+        "text_en": "Hi, on Friday I will be free. Shall we go for coffee? I will arrive at six. But I would like to sit outside if the weather is nice.",
+        "questions": [
+          {
+            "question_en": "When is the plan?",
+            "options": [
+              "Friday",
+              "Yesterday",
+              "Next month"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What would she like?",
+            "options": [
+              "To sit outside",
+              "To take a tram",
+              "To work"
+            ],
+            "correct_index": 0
+          }
         ],
-        "grammar_note": "'Sledovat televizi' or 'dívat se na televizi' — both are imperfective, describing an ongoing activity. Use 'budu' + infinitive. 'Večer' = in the evening. If it were a specific one-time show you'd finish, you might use a perfective like 'podívám se'."
+        "targets": "vocab"
       },
-      "answer_key": "Večer budu sledovat televizi.",
-      "grammar_rule_id": "GR-191",
-      "xp_reward": 10
-    },
-    {
-      "id": 20010,
-      "lesson_id": 2001,
-      "type": "multiple_choice",
-      "prompt": "What is the difference between 'Přečtu tu knihu' and 'Budu číst tu knihu'?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký je rozdíl mezi 'Přečtu tu knihu' a 'Budu číst tu knihu'?",
-        "question_en": "What is the difference between 'Přečtu tu knihu' and 'Budu číst tu knihu'?",
-        "options": [
-          "No difference",
-          "'Přečtu' = I will read it (and finish); 'Budu číst' = I will be reading (ongoing)",
-          "'Přečtu' = past; 'Budu číst' = future",
-          "'Přečtu' = I am reading; 'Budu číst' = I will read"
-        ],
-        "correct_index": 1,
-        "explanation": "'Přečtu' (perfective) = I will read it — implies finishing the book. 'Budu číst' (imperfective future) = I will be reading — describes the activity without specifying completion. This is the core aspect distinction in Czech future: perfective = completed action, imperfective = ongoing/process."
-      },
-      "answer_key": "'Přečtu' = I will read it (and finish); 'Budu číst' = I will be reading (ongoing)",
-      "grammar_rule_id": "GR-190",
-      "xp_reward": 10
-    },
-    {
-      "id": 20011,
-      "lesson_id": 2001,
-      "type": "fill_blank",
-      "prompt": "Complete with the perfective future: 'I will eat lunch at noon.' (obědvat → perfective: naobědvat se)",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "V poledne se ___. (naobědvat se)",
-        "blank_count": 1,
-        "explanation": "'Naobědvat se' (perfective) → 'naobědvám se' = I will have/eat lunch. For a specific, one-time meal: use perfective. For habitual eating: 'budu obědvat'. Compare: 'V poledne se naobědvám.' (I will eat lunch at noon — one time) vs 'Každý den budu obědvat ve dvanáct.' (Every day I will eat lunch at twelve — habitual).",
-        "blank_answers": [
-          [
-            "naobědvám"
-          ]
-        ]
-      },
-      "answer_key": "naobědvám",
-      "grammar_rule_id": "GR-190",
-      "xp_reward": 15
-    },
-    {
-      "id": 20012,
-      "lesson_id": 2001,
-      "type": "pronunciation",
-      "prompt": "Pronounce the sentence using both future forms.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Zítra napíšu dopis a pak budu číst knihu.",
-        "target_audio_hash": "placeholder_20012",
-        "focus_sounds": [
-          "napíšu",
-          "dopis",
-          "budu číst",
-          "knihu"
-        ],
-        "min_score": 0.6,
-        "translation_en": "Tomorrow I will write a letter and then I will read a book."
-      },
-      "answer_key": "Zítra napíšu dopis a pak budu číst knihu.",
-      "grammar_rule_id": "GR-190",
+      "answer_key": "Friday; sit outside",
       "xp_reward": 15
     }
   ]

@@ -368,7 +368,7 @@ void main() {
 
 /// Units still carrying out-of-scope content until they are rebuilt
 /// (docs/sources/SCOPE_REVIEW_2026-09-24.md). It exists to be emptied.
-const pendingScopeUnits = {20, 22, 27, 29, 31};
+const pendingScopeUnits = {22, 27, 29, 31};
 
 Map<String, dynamic> _json(String path) =>
     jsonDecode(File(path).readAsStringSync()) as Map<String, dynamic>;

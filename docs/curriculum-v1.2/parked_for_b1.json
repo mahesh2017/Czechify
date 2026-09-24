@@ -48,8 +48,347 @@
       "example_en": "The keys disappeared from my pocket.",
       "lesson_id": 1901,
       "parked_reason": "Not in the official A1/A2 word list; B1 narrative vocabulary."
+    },
+    {
+      "id": 1083,
+      "word_cz": "měl bych",
+      "word_en": "I should (masc)",
+      "ipa": "mɲɛl bɪx",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Měl bych jít domů.",
+      "example_en": "I should go home.",
+      "lesson_id": 2002,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1086,
+      "word_cz": "kdyby",
+      "word_en": "if (hypothetical)",
+      "ipa": "ˈɡdɪbɪ",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Kdybych měl čas...",
+      "example_en": "If I had time...",
+      "lesson_id": 2002,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1254,
+      "word_cz": "dodělat",
+      "word_en": "to finish doing (perf)",
+      "ipa": "ˈdoɟɛlat",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Dodělám projekt tento týden.",
+      "example_en": "I'll finish the project this week.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1262,
+      "word_cz": "získat",
+      "word_en": "to obtain / get (perf)",
+      "ipa": "ˈziːskat",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Získám nové zaměstnání.",
+      "example_en": "I'll get a new job.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1264,
+      "word_cz": "splnit",
+      "word_en": "to fulfill (perf)",
+      "ipa": "ˈsplɲɪt",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Splním svůj sen.",
+      "example_en": "I'll fulfill my dream.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1272,
+      "word_cz": "Kdybych měl",
+      "word_en": "If I had (masc)",
+      "ipa": "ˈɡdɪbɪx mɲɛl",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Kdybych měl čas, šel bych s tebou.",
+      "example_en": "If I had time, I would go with you.",
+      "lesson_id": 2002,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1273,
+      "word_cz": "Kdybych věděl",
+      "word_en": "If I knew (masc)",
+      "ipa": "ˈɡdɪbɪx ˈvjɛɟɛl",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Kdybych věděl, řekl bych ti.",
+      "example_en": "If I knew, I would tell you.",
+      "lesson_id": 2002,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1607,
+      "word_cz": "pravděpodobně",
+      "word_en": "probably / likely",
+      "ipa": "ˈpravdɛpravdɛpodobɲɛ",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Pravděpodobně zítra nebudu mít čas.",
+      "example_en": "I probably won't have time tomorrow.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1609,
+      "word_cz": "zřejmě",
+      "word_en": "evidently / clearly",
+      "ipa": "ˈzr̝ɛːjmɲɛ",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Zřejmě se mu to nelíbí.",
+      "example_en": "Evidently he doesn't like it.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1613,
+      "word_cz": "rozhodnutí",
+      "word_en": "decision",
+      "ipa": "ˈrozhodnuːtiː",
+      "gender": "neuter",
+      "unit_id": 20,
+      "example_cz": "Je to těžké rozhodnutí.",
+      "example_en": "It's a difficult decision.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1615,
+      "word_cz": "představa",
+      "word_en": "idea / imagination",
+      "ipa": "ˈpr̝ɛdstava",
+      "gender": "feminine",
+      "unit_id": 20,
+      "example_cz": "Mám dobrou představu o budoucnosti.",
+      "example_en": "I have a good idea about the future.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1616,
+      "word_cz": "záměr",
+      "word_en": "intention",
+      "ipa": "ˈnaːmɛr",
+      "gender": "masculine inanimate",
+      "unit_id": 20,
+      "example_cz": "Mám v úmyslu jet do Prahy.",
+      "example_en": "I intend to go to Prague.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1618,
+      "word_cz": "chystat se",
+      "word_en": "to prepare / get ready",
+      "ipa": "ˈxɪstat sɛ",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Chystám se na pohovor.",
+      "example_en": "I'm preparing for an interview.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1619,
+      "word_cz": "hodlat",
+      "word_en": "to intend",
+      "ipa": "ˈhodlaːt",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Hodlám studovat dál.",
+      "example_en": "I intend to study further.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1620,
+      "word_cz": "zítřek",
+      "word_en": "tomorrow",
+      "ipa": "ˈziːtr̝ɛk",
+      "gender": "masculine inanimate",
+      "unit_id": 20,
+      "example_cz": "Zítra je nový den.",
+      "example_en": "Tomorrow is a new day.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1622,
+      "word_cz": "předpokládat",
+      "word_en": "to assume / expect",
+      "ipa": "ˈpr̝ɛdpoklaːdat",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Předpokládám, že přijde.",
+      "example_en": "I assume he will come.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1624,
+      "word_cz": "obávat se",
+      "word_en": "to fear / worry about",
+      "ipa": "ˈobaːvat sɛ",
+      "gender": null,
+      "unit_id": 20,
+      "example_cz": "Obávám se, že to nepůjde.",
+      "example_en": "I fear it won't work.",
+      "lesson_id": 2001,
+      "parked_reason": "Beyond A2 or not in the official A1/A2 word list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
     }
   ],
-  "exercises": [],
-  "grammar_rules": []
+  "exercises": [
+    {
+      "id": 20016,
+      "lesson_id": 2002,
+      "type": "multiple_choice",
+      "prompt": "What does 'Kdybych měl čas, ...' mean?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Co znamená 'Kdybych měl čas, ...'?",
+        "question_en": "What does 'Kdybych měl čas, ...' mean?",
+        "options": [
+          "When I have time, ...",
+          "If I had time, ...",
+          "Because I have time, ...",
+          "I will have time, ..."
+        ],
+        "correct_index": 1,
+        "explanation": "'Kdybych' = if I... (hypothetical/unreal condition). 'Kdybych měl čas' = If I had time (but I don't). 'Kdyby' conjugates like the conditional: kdybych, kdybys, kdyby, kdybychom, kdybyste, kdyby. It introduces unreal/hypothetical if-clauses. Compare with 'když' = when/if (real condition)."
+      },
+      "answer_key": "If I had time, ...",
+      "grammar_rule_id": "GR-193",
+      "xp_reward": 10,
+      "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    },
+    {
+      "id": 20019,
+      "lesson_id": 2002,
+      "type": "multiple_choice",
+      "prompt": "What is the correct translation of 'Přál bych si ...'?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Co znamená 'Přál bych si ...'?",
+        "question_en": "What does 'Přál bych si ...' mean?",
+        "options": [
+          "I wish ... / I would wish ...",
+          "I asked for ...",
+          "I will wish ...",
+          "I am wishing ..."
+        ],
+        "correct_index": 0,
+        "explanation": "'Přál bych si' (masc) / 'Přála bych si' (fem) = I wish / I would wish. It's used to express desires and wishes: 'Přál bych si být bohatý.' = I wish I were rich. 'Přál bych si, abys přišel.' = I wish you would come. 'Přát si' = to wish (lit. 'to wish for oneself')."
+      },
+      "answer_key": "I wish ... / I would wish ...",
+      "grammar_rule_id": "GR-193",
+      "xp_reward": 10,
+      "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    },
+    {
+      "id": 20020,
+      "lesson_id": 2002,
+      "type": "fill_blank",
+      "prompt": "Complete: 'I should go home.' (mít — I should/I ought to)",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ bych jít domů. (mít — I should go home, male)",
+        "blank_count": 1,
+        "explanation": "'Měl bych jít domů.' = I should go home (masc). 'Měla bych jít domů.' (fem). 'Měl bych / měla bych' + infinitive = I should / I ought to. This is the standard way to express obligation or advice softly. Compare: 'Musím jít domů.' = I must go home (strong obligation).",
+        "blank_answers": [
+          [
+            "Měl"
+          ]
+        ]
+      },
+      "answer_key": "Měl",
+      "grammar_rule_id": "GR-192",
+      "xp_reward": 15,
+      "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    },
+    {
+      "id": 20021,
+      "lesson_id": 2002,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'If I had money, I would buy a car.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "If I had money, I would buy a car.",
+        "accepted_answers": [
+          "Kdybych měl peníze, koupil bych si auto.",
+          "Kdybych měla peníze, koupila bych si auto.",
+          "Kdybych měl peníze, koupil bych auto.",
+          "Kdybych měla peníze, koupila bych auto."
+        ],
+        "grammar_note": "'Kdybych měl/měla peníze' = if I had money (unreal — I don't have money). 'Koupil/koupila bych si auto' = I would buy a car. Both clauses use the conditional: 'kdybych' in the if-clause, 'bych' in the main clause. 'Peníze' = money (plural in Czech). 'Koupit si' = to buy for oneself."
+      },
+      "answer_key": "Kdybych měl peníze, koupil bych si auto.",
+      "grammar_rule_id": "GR-193",
+      "xp_reward": 15,
+      "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    },
+    {
+      "id": 20023,
+      "lesson_id": 2002,
+      "type": "fill_blank",
+      "prompt": "Complete: 'What would you (ty) do in my place?'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Co ___ dělal na mém místě? (ty — what would you do?)",
+        "blank_count": 1,
+        "explanation": "'Co bys dělal na mém místě?' (to a male) / 'Co bys dělala na mém místě?' (to a female) = What would you do in my place? 'Bys' is the conditional auxiliary for 'ty'. 'Na mém místě' = in my place (locative). This is a common hypothetical question pattern.",
+        "blank_answers": [
+          [
+            "bys"
+          ]
+        ]
+      },
+      "answer_key": "bys",
+      "grammar_rule_id": "GR-192",
+      "xp_reward": 15,
+      "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    }
+  ],
+  "grammar_rules": [
+    {
+      "id": "GR-193",
+      "rule_name": "Kdyby — conditional 'if'",
+      "pattern": "Kdybych, kdybys, kdyby, kdybychom, kdybyste, kdyby + -l participle. Word order: kdybych + past participle.",
+      "explanation": "Kdyby (if) + conditional forms: Kdybych věděl... (If I knew...), Kdybys chtěl... (If you wanted...), Kdyby přišel... (If he came...). The verb in the kdyby-clause is always in past tense: Kdybych měl čas (If I had time — literally 'if I had had time'). The main clause uses bych + past: šel bych (I would go). This is a complex but essential A2 structure for hypothetical situations. The word order: kdybych + past participle + rest of clause.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Kdybych měl čas, šel bych do kina.",
+          "en": "If I had time, I would go to the cinema."
+        },
+        {
+          "cz": "Kdybys chtěl, můžeme jít spolu.",
+          "en": "If you want, we can go together."
+        },
+        {
+          "cz": "Kdyby to věděla, řekla by ti to.",
+          "en": "If she knew it, she would tell you."
+        }
+      ],
+      "unit_id": 20,
+      "parked_reason": "kdyby and the full conditional are beyond A2 (reference description 2016; A2 syllabus: conditional passive only)."
+    }
+  ]
 }

@@ -2233,7 +2233,64 @@
           "en": "Next year we will travel around Europe."
         }
       ],
-      "unit_id": 20
+      "unit_id": 20,
+      "concept_keys": [
+        "future_tense"
+      ],
+      "lecture": [
+        {
+          "heading": "Ongoing plans: budu + verb",
+          "say": "For something that will go on for a while, use budu with the infinitive. jít and jet have their own forms: půjdu, pojedu.",
+          "table": [
+            [
+              "já",
+              "budu pracovat"
+            ],
+            [
+              "ty",
+              "budeš pracovat"
+            ],
+            [
+              "on / ona",
+              "bude pracovat"
+            ],
+            [
+              "my",
+              "budeme pracovat"
+            ],
+            [
+              "vy",
+              "budete pracovat"
+            ],
+            [
+              "oni",
+              "budou pracovat"
+            ],
+            [
+              "jít",
+              "půjdu"
+            ],
+            [
+              "jet",
+              "pojedu"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Zítra budu pracovat do čtyř.",
+              "en": "Tomorrow I will work until four."
+            },
+            {
+              "cz": "V sobotu pojedeme do Brna.",
+              "en": "On Saturday we will go to Brno."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Zítra budu jít do kina.",
+            "right": "Zítra půjdu do kina."
+          }
+        }
+      ]
     },
     {
       "id": "GR-191",
@@ -2255,51 +2312,179 @@
           "en": "We'll do it together."
         }
       ],
-      "unit_id": 20
+      "unit_id": 20,
+      "concept_keys": [
+        "future_tense",
+        "aspect_frequent_pairs"
+      ],
+      "lecture": [
+        {
+          "heading": "Finished actions: the present form means future",
+          "say": "For a single action you will complete, use the finished verb in its present form. It already means the future: napíšu = I will write.",
+          "table": [
+            [
+              "napsat",
+              "napíšu"
+            ],
+            [
+              "udělat",
+              "udělám"
+            ],
+            [
+              "zavolat",
+              "zavolám"
+            ],
+            [
+              "koupit",
+              "koupím"
+            ],
+            [
+              "přijít",
+              "přijdu"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Zítra ti zavolám.",
+              "en": "I will call you tomorrow."
+            },
+            {
+              "cz": "Napíšu to večer.",
+              "en": "I will write it this evening."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Zítra budu napsat dopis.",
+            "right": "Zítra napíšu dopis."
+          }
+        }
+      ]
     },
     {
       "id": "GR-192",
-      "rule_name": "Conditional — bych, bys, by",
-      "pattern": "Já bych, ty bys, on/ona/ono by, my bychom, vy byste, oni by. + past participle (-l/-la/-lo).",
-      "explanation": "Conditional = bych/bys/by + -l participle. Chtěl bych (I would like), Měl bys (you should), Mohli bychom (we could). The conditional expresses wishes, polite requests, hypothetical situations: Chtěl bych kávu (I'd like a coffee), Měl bys jít k doktorovi (You should go to the doctor), Kdybych měl čas, šel bych do kina (If I had time, I would go to the cinema). For past conditional: byl bych + -l participle: Byl bych přišel (I would have come).",
+      "rule_name": "Asking politely — chtěl bych, mohl bych",
+      "pattern": "chtěl/a bych (I would like), mohl/a bych (could I), Mohl/a byste…? (could you, formal). bych never comes first.",
+      "explanation": "At A2 the conditional is used in a few polite set phrases. chtěl bych / chtěla bych = I would like; mohl bych / mohla bych = could I; Chtěl/a bys…? = would you like (to a friend); Mohl/a byste…? = could you (formal). A woman uses the -la form. bych, bys and byste come second in the sentence, never first.",
       "case_affected": null,
       "examples": [
         {
-          "cz": "Chtěl bych kávu, prosím.",
-          "en": "I would like a coffee, please. (male)"
+          "cz": "Chtěla bych kávu, prosím.",
+          "en": "I would like a coffee, please. (woman)"
         },
         {
-          "cz": "Měl bys víc spát.",
-          "en": "You should sleep more."
+          "cz": "Mohl bych přijít později?",
+          "en": "Could I come later? (man)"
         },
         {
-          "cz": "Kdybych měl peníze, koupil bych si nové auto.",
-          "en": "If I had money, I would buy a new car."
+          "cz": "Mohl byste mi pomoct?",
+          "en": "Could you help me? (formal)"
         }
       ],
-      "unit_id": 20
+      "unit_id": 20,
+      "concept_keys": [
+        "conditional_chtel_mohl_polite"
+      ],
+      "lecture": [
+        {
+          "heading": "Asking politely: bych",
+          "say": "chtěl bych means I would like and mohl bych could I. A woman says chtěla, mohla. To ask someone politely: Mohl byste…?",
+          "table": [
+            [
+              "I would like…",
+              "chtěl bych / chtěla bych"
+            ],
+            [
+              "Could I…?",
+              "Mohl bych…? / Mohla bych…?"
+            ],
+            [
+              "Would you like…? (friend)",
+              "Chtěl bys…? / Chtěla bys…?"
+            ],
+            [
+              "Could you…? (formal)",
+              "Mohl byste…? / Mohla byste…?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Chtěla bych kávu, prosím.",
+              "en": "I would like a coffee, please."
+            },
+            {
+              "cz": "Mohl byste mi pomoct?",
+              "en": "Could you help me?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Bych chtěl kávu.",
+            "right": "Chtěl bych kávu."
+          }
+        }
+      ]
     },
     {
-      "id": "GR-193",
-      "rule_name": "Kdyby — conditional 'if'",
-      "pattern": "Kdybych, kdybys, kdyby, kdybychom, kdybyste, kdyby + -l participle. Word order: kdybych + past participle.",
-      "explanation": "Kdyby (if) + conditional forms: Kdybych věděl... (If I knew...), Kdybys chtěl... (If you wanted...), Kdyby přišel... (If he came...). The verb in the kdyby-clause is always in past tense: Kdybych měl čas (If I had time — literally 'if I had had time'). The main clause uses bych + past: šel bych (I would go). This is a complex but essential A2 structure for hypothetical situations. The word order: kdybych + past participle + rest of clause.",
-      "case_affected": null,
+      "id": "GR-194",
+      "rule_name": "Dates — prvního května",
+      "pattern": "Day as an ordinal in the genitive (prvního, druhého, pátého…) + month in the genitive (ledna, března, května, října, prosince…).",
+      "explanation": "To say on which date something happens, Czech uses the ordinal number and the month in the genitive: prvního května = on the first of May. Written: 1. 5. Asking: Kolikátého je dnes? (What is the date today?)",
+      "case_affected": "genitive",
       "examples": [
         {
-          "cz": "Kdybych měl čas, šel bych do kina.",
-          "en": "If I had time, I would go to the cinema."
+          "cz": "Přijdu pátého října.",
+          "en": "I will come on the fifth of October."
         },
         {
-          "cz": "Kdybys chtěl, můžeme jít spolu.",
-          "en": "If you want, we can go together."
-        },
-        {
-          "cz": "Kdyby to věděla, řekla by ti to.",
-          "en": "If she knew it, she would tell you."
+          "cz": "Narozeniny mám druhého března.",
+          "en": "My birthday is on the second of March."
         }
       ],
-      "unit_id": 20
+      "unit_id": 20,
+      "concept_keys": [
+        "ordinals_dates"
+      ],
+      "lecture": [
+        {
+          "heading": "Dates: prvního května",
+          "say": "For a date, say the ordinal number and the month, both in the genitive: prvního května is on the first of May.",
+          "table": [
+            [
+              "1. 5.",
+              "prvního května"
+            ],
+            [
+              "2. 3.",
+              "druhého března"
+            ],
+            [
+              "3. 9.",
+              "třetího září"
+            ],
+            [
+              "5. 10.",
+              "pátého října"
+            ],
+            [
+              "10. 12.",
+              "desátého prosince"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Přijdu pátého října.",
+              "en": "I will come on the fifth of October."
+            },
+            {
+              "cz": "Narozeniny mám druhého března.",
+              "en": "My birthday is on the second of March."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Přijdu pět října.",
+            "right": "Přijdu pátého října."
+          }
+        }
+      ]
     },
     {
       "id": "GR-200",

@@ -1891,9 +1891,9 @@
     },
     {
       "unit_id": 20,
-      "title": "Future Tense & Conditional",
+      "title": "Future, Dates & Asking Politely",
       "phase": "A2",
-      "description": "Perfective future, imperfective future, conditional (chtěl bych)",
+      "description": "Finished and ongoing future, půjdu/pojedu, dates, chtěl bych / mohl bych",
       "grammar_rules": [
         {
           "id": "GR-190",
@@ -1909,15 +1909,15 @@
         },
         {
           "id": "GR-192",
-          "name": "Conditional — bych, bys, by",
-          "pattern": "Já bych, ty bys, on/ona/ono by, my bychom, vy byste, oni by. + past participle (-l/-la/-lo).",
-          "example": "Chtěl bych kávu, prosím. — I would like a coffee, please. (male)"
+          "name": "Asking politely — chtěl bych, mohl bych",
+          "pattern": "chtěl/a bych (I would like), mohl/a bych (could I), Mohl/a byste…? (could you, formal). bych never comes first.",
+          "example": "Chtěla bych kávu, prosím. — I would like a coffee, please. (woman)"
         },
         {
-          "id": "GR-193",
-          "name": "Kdyby — conditional 'if'",
-          "pattern": "Kdybych, kdybys, kdyby, kdybychom, kdybyste, kdyby + -l participle. Word order: kdybych + past participle.",
-          "example": "Kdybych měl čas, šel bych do kina. — If I had time, I would go to the cinema."
+          "id": "GR-194",
+          "name": "Dates — prvního května",
+          "pattern": "Day as an ordinal in the genitive (prvního, druhého, pátého…) + month in the genitive (ledna, března, května, října, prosince…).",
+          "example": "Přijdu pátého října. — I will come on the fifth of October."
         }
       ],
       "core_vocabulary": [
@@ -1973,7 +1973,99 @@
         "Nedokonavé futurum pro dokončené akce",
         "Pozdní příchod bez omluvy"
       ],
-      "study_tip": "Procvičujte 'chtěl bych' v restauracích a obchodech. Je to vaše nejdůležitější zdvořilostní fráze."
+      "study_tip": "Procvičujte 'chtěl bych' v restauracích a obchodech. Je to vaše nejdůležitější zdvořilostní fráze.",
+      "notebook_page": {
+        "title_cz": "Plány",
+        "title_en": "Make plans and ask politely",
+        "can_do": {
+          "cz": "Domluvím se na plánu a zdvořile ho změním.",
+          "en": "I can agree a plan and change it politely."
+        },
+        "words": [
+          {
+            "cz": "zítra / pozítří",
+            "en": "tomorrow / the day after tomorrow"
+          },
+          {
+            "cz": "příští týden",
+            "en": "next week"
+          },
+          {
+            "cz": "Budu pracovat.",
+            "en": "I will be working."
+          },
+          {
+            "cz": "Zavolám ti.",
+            "en": "I will call you."
+          },
+          {
+            "cz": "Sejdeme se v šest?",
+            "en": "Shall we meet at six?"
+          },
+          {
+            "cz": "Chtěl bych… / Chtěla bych…",
+            "en": "I would like…"
+          },
+          {
+            "cz": "Mohl bych…? / Mohla bych…?",
+            "en": "Could I…?"
+          },
+          {
+            "cz": "Platí.",
+            "en": "It's a deal."
+          }
+        ],
+        "pattern": {
+          "name": "The future and polite asking",
+          "rule_plain": "One finished action: the present form of the finished verb (napíšu, zavolám). Something ongoing: budu + verb. Going: půjdu, pojedu. Asking politely: chtěl/a bych, mohl/a bych.",
+          "table": [
+            [
+              "napsat",
+              "napíšu"
+            ],
+            [
+              "zavolat",
+              "zavolám"
+            ],
+            [
+              "pracovat",
+              "budu pracovat"
+            ],
+            [
+              "jít / jet",
+              "půjdu / pojedu"
+            ],
+            [
+              "1. 5.",
+              "prvního května"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Zítra ti zavolám.",
+              "en": "I will call you tomorrow."
+            },
+            {
+              "cz": "Mohla bych přijít v sedm?",
+              "en": "Could I come at seven? (woman)"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Zítra budu jít do kina.",
+            "right": "Zítra půjdu do kina."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Příští týden budu pracovat doma.",
+            "en": "Next week I will work at home."
+          },
+          {
+            "cz": "Prvního května pojedu do Brna.",
+            "en": "On the first of May I will go to Brno."
+          }
+        ]
+      }
     },
     {
       "unit_id": 21,

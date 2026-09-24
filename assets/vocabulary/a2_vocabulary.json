@@ -877,7 +877,7 @@
     "unit_id": 20,
     "example_cz": "Snad to vyjde.",
     "example_en": "Hopefully it'll work out.",
-    "lesson_id": 2002
+    "lesson_id": 2003
   },
   {
     "id": 1082,
@@ -888,17 +888,6 @@
     "unit_id": 20,
     "example_cz": "Chtěl bych se zeptat.",
     "example_en": "I'd like to ask.",
-    "lesson_id": 2002
-  },
-  {
-    "id": 1083,
-    "word_cz": "měl bych",
-    "word_en": "I should (masc)",
-    "ipa": "mɲɛl bɪx",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Měl bych jít domů.",
-    "example_en": "I should go home.",
     "lesson_id": 2002
   },
   {
@@ -921,29 +910,18 @@
     "unit_id": 20,
     "example_cz": "Co si přeješ?",
     "example_en": "What do you wish?",
-    "lesson_id": 2002
-  },
-  {
-    "id": 1086,
-    "word_cz": "kdyby",
-    "word_en": "if (hypothetical)",
-    "ipa": "ˈɡdɪbɪ",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Kdybych měl čas...",
-    "example_en": "If I had time...",
-    "lesson_id": 2002
+    "lesson_id": 2004
   },
   {
     "id": 1087,
-    "word_cz": "radši",
+    "word_cz": "raději",
     "word_en": "rather / prefer",
     "ipa": "ˈrat͡ʃɪ",
     "gender": null,
     "unit_id": 20,
     "example_cz": "Radši bych zůstal doma.",
     "example_en": "I'd rather stay home.",
-    "lesson_id": 2002
+    "lesson_id": 2004
   },
   {
     "id": 1088,
@@ -954,7 +932,7 @@
     "unit_id": 20,
     "example_cz": "Doufám, že přijdeš.",
     "example_en": "I hope you'll come.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1089,
@@ -965,7 +943,7 @@
     "unit_id": 20,
     "example_cz": "Bojím se, že nepřijde.",
     "example_en": "I'm afraid he won't come.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1090,
@@ -2692,7 +2670,7 @@
     "unit_id": 20,
     "example_cz": "Příští týden budu pracovat.",
     "example_en": "Next week I'll be working.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1247,
@@ -2703,7 +2681,7 @@
     "unit_id": 20,
     "example_cz": "Příští měsíc jedeme na dovolenou.",
     "example_en": "Next month we're going on holiday.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1248,
@@ -2714,7 +2692,7 @@
     "unit_id": 20,
     "example_cz": "V budoucnosti budu mluvit česky.",
     "example_en": "In the future I'll speak Czech.",
-    "lesson_id": 2001
+    "lesson_id": 2004
   },
   {
     "id": 1249,
@@ -2725,7 +2703,7 @@
     "unit_id": 20,
     "example_cz": "Zítra budu dělat úkol.",
     "example_en": "Tomorrow I'll do my homework.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1250,
@@ -2736,7 +2714,7 @@
     "unit_id": 20,
     "example_cz": "Večer budu číst knihu.",
     "example_en": "In the evening I'll read a book.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1251,
@@ -2747,7 +2725,7 @@
     "unit_id": 20,
     "example_cz": "Budu psát dopis.",
     "example_en": "I'll write a letter.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1252,
@@ -2758,7 +2736,7 @@
     "unit_id": 20,
     "example_cz": "V létě budu cestovat po Evropě.",
     "example_en": "In the summer I'll travel around Europe.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1253,
@@ -2769,18 +2747,7 @@
     "unit_id": 20,
     "example_cz": "Napsat email zítra.",
     "example_en": "I'll write an email tomorrow.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1254,
-    "word_cz": "dodělat",
-    "word_en": "to finish doing (perf)",
-    "ipa": "ˈdoɟɛlat",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Dodělám projekt tento týden.",
-    "example_en": "I'll finish the project this week.",
-    "lesson_id": 2001
+    "lesson_id": 2002
   },
   {
     "id": 1255,
@@ -2791,7 +2758,7 @@
     "unit_id": 20,
     "example_cz": "Udělám to zítra.",
     "example_en": "I'll do it tomorrow.",
-    "lesson_id": 2001
+    "lesson_id": 2002
   },
   {
     "id": 1256,
@@ -2802,7 +2769,7 @@
     "unit_id": 20,
     "example_cz": "Zůstanu doma o víkendu.",
     "example_en": "I'll stay home this weekend.",
-    "lesson_id": 2001
+    "lesson_id": 2002
   },
   {
     "id": 1257,
@@ -2813,7 +2780,7 @@
     "unit_id": 20,
     "example_cz": "Vrátím se brzy.",
     "example_en": "I'll return soon.",
-    "lesson_id": 2001
+    "lesson_id": 2002
   },
   {
     "id": 1258,
@@ -2824,7 +2791,7 @@
     "unit_id": 20,
     "example_cz": "Budu se stěhovat do Prahy.",
     "example_en": "I'll move to Prague.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1259,
@@ -2835,7 +2802,7 @@
     "unit_id": 20,
     "example_cz": "Budu plánovat dovolenou.",
     "example_en": "I'll plan the holiday.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1260,
@@ -2846,7 +2813,7 @@
     "unit_id": 20,
     "example_cz": "Připravím večeři.",
     "example_en": "I'll prepare dinner.",
-    "lesson_id": 2001
+    "lesson_id": 2002
   },
   {
     "id": 1261,
@@ -2857,18 +2824,7 @@
     "unit_id": 20,
     "example_cz": "Změním svůj plán.",
     "example_en": "I'll change my plan.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1262,
-    "word_cz": "získat",
-    "word_en": "to obtain / get (perf)",
-    "ipa": "ˈziːskat",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Získám nové zaměstnání.",
-    "example_en": "I'll get a new job.",
-    "lesson_id": 2001
+    "lesson_id": 2002
   },
   {
     "id": 1263,
@@ -2879,18 +2835,7 @@
     "unit_id": 20,
     "example_cz": "Ztratím klíče, jestli nedám pozor.",
     "example_en": "I'll lose my keys if I don't pay attention.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1264,
-    "word_cz": "splnit",
-    "word_en": "to fulfill (perf)",
-    "ipa": "ˈsplɲɪt",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Splním svůj sen.",
-    "example_en": "I'll fulfill my dream.",
-    "lesson_id": 2001
+    "lesson_id": 2004
   },
   {
     "id": 1265,
@@ -2901,7 +2846,7 @@
     "unit_id": 20,
     "example_cz": "Budu začínat v osm hodin.",
     "example_en": "I'll start at eight o'clock.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1266,
@@ -2912,7 +2857,7 @@
     "unit_id": 20,
     "example_cz": "Bude končit v pět hodin.",
     "example_en": "He'll finish at five o'clock.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1267,
@@ -2923,7 +2868,7 @@
     "unit_id": 20,
     "example_cz": "Koupil bych to.",
     "example_en": "I would buy it.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1268,
@@ -2934,7 +2879,7 @@
     "unit_id": 20,
     "example_cz": "Co bys dělal?",
     "example_en": "What would you do?",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1269,
@@ -2945,7 +2890,7 @@
     "unit_id": 20,
     "example_cz": "On by přišel.",
     "example_en": "He would come.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1270,
@@ -2956,7 +2901,7 @@
     "unit_id": 20,
     "example_cz": "Šli bychom domů.",
     "example_en": "We would go home.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1271,
@@ -2967,29 +2912,7 @@
     "unit_id": 20,
     "example_cz": "Co byste si dali?",
     "example_en": "What would you like to have?",
-    "lesson_id": 2002
-  },
-  {
-    "id": 1272,
-    "word_cz": "Kdybych měl",
-    "word_en": "If I had (masc)",
-    "ipa": "ˈɡdɪbɪx mɲɛl",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Kdybych měl čas, šel bych s tebou.",
-    "example_en": "If I had time, I would go with you.",
-    "lesson_id": 2002
-  },
-  {
-    "id": 1273,
-    "word_cz": "Kdybych věděl",
-    "word_en": "If I knew (masc)",
-    "ipa": "ˈɡdɪbɪx ˈvjɛɟɛl",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Kdybych věděl, řekl bych ti.",
-    "example_en": "If I knew, I would tell you.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1274,
@@ -3000,7 +2923,7 @@
     "unit_id": 20,
     "example_cz": "V budoucnu chci bydlet v Praze.",
     "example_en": "In the future I want to live in Prague.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1275,
@@ -6619,7 +6542,7 @@
     "unit_id": 20,
     "example_cz": "Možná zítra pršelo bude.",
     "example_en": "Maybe it will rain tomorrow.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1606,
@@ -6630,18 +6553,7 @@
     "unit_id": 20,
     "example_cz": "Asi přijdu později.",
     "example_en": "I'll probably come later.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1607,
-    "word_cz": "pravděpodobně",
-    "word_en": "probably / likely",
-    "ipa": "ˈpravdɛpravdɛpodobɲɛ",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Pravděpodobně zítra nebudu mít čas.",
-    "example_en": "I probably won't have time tomorrow.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1608,
@@ -6652,18 +6564,7 @@
     "unit_id": 20,
     "example_cz": "Jistě přijdu na oslavu.",
     "example_en": "I'll certainly come to the celebration.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1609,
-    "word_cz": "zřejmě",
-    "word_en": "evidently / clearly",
-    "ipa": "ˈzr̝ɛːjmɲɛ",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Zřejmě se mu to nelíbí.",
-    "example_en": "Evidently he doesn't like it.",
-    "lesson_id": 2001
+    "lesson_id": 2004
   },
   {
     "id": 1610,
@@ -6674,7 +6575,7 @@
     "unit_id": 20,
     "example_cz": "Snad to bude dobré.",
     "example_en": "Hopefully it will be good.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1611,
@@ -6685,7 +6586,7 @@
     "unit_id": 20,
     "example_cz": "Doufám, že zítra bude hezky.",
     "example_en": "I hope tomorrow will be nice.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1612,
@@ -6699,17 +6600,6 @@
     "lesson_id": 2001
   },
   {
-    "id": 1613,
-    "word_cz": "rozhodnutí",
-    "word_en": "decision",
-    "ipa": "ˈrozhodnuːtiː",
-    "gender": "neuter",
-    "unit_id": 20,
-    "example_cz": "Je to těžké rozhodnutí.",
-    "example_en": "It's a difficult decision.",
-    "lesson_id": 2001
-  },
-  {
     "id": 1614,
     "word_cz": "cíl",
     "word_en": "goal / target",
@@ -6718,29 +6608,7 @@
     "unit_id": 20,
     "example_cz": "Můj cíl je naučit se česky.",
     "example_en": "My goal is to learn Czech.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1615,
-    "word_cz": "představa",
-    "word_en": "idea / imagination",
-    "ipa": "ˈpr̝ɛdstava",
-    "gender": "feminine",
-    "unit_id": 20,
-    "example_cz": "Mám dobrou představu o budoucnosti.",
-    "example_en": "I have a good idea about the future.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1616,
-    "word_cz": "náměr",
-    "word_en": "intention",
-    "ipa": "ˈnaːmɛr",
-    "gender": "masculine inanimate",
-    "unit_id": 20,
-    "example_cz": "Mám v úmyslu jet do Prahy.",
-    "example_en": "I intend to go to Prague.",
-    "lesson_id": 2001
+    "lesson_id": 2004
   },
   {
     "id": 1617,
@@ -6751,40 +6619,7 @@
     "unit_id": 20,
     "example_cz": "Nemám úmysl tam jet.",
     "example_en": "I don't intend to go there.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1618,
-    "word_cz": "chystat se",
-    "word_en": "to prepare / get ready",
-    "ipa": "ˈxɪstat sɛ",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Chystám se na pohovor.",
-    "example_en": "I'm preparing for an interview.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1619,
-    "word_cz": "hodlat",
-    "word_en": "to intend",
-    "ipa": "ˈhodlaːt",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Hodlám studovat dál.",
-    "example_en": "I intend to study further.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1620,
-    "word_cz": "zítřek",
-    "word_en": "tomorrow",
-    "ipa": "ˈziːtr̝ɛk",
-    "gender": "masculine inanimate",
-    "unit_id": 20,
-    "example_cz": "Zítra je nový den.",
-    "example_en": "Tomorrow is a new day.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1621,
@@ -6795,18 +6630,7 @@
     "unit_id": 20,
     "example_cz": "Přemýšlím o budoucnosti.",
     "example_en": "I'm thinking about the future.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1622,
-    "word_cz": "předpokládat",
-    "word_en": "to assume / expect",
-    "ipa": "ˈpr̝ɛdpoklaːdat",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Předpokládám, že přijde.",
-    "example_en": "I assume he will come.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1623,
@@ -6817,18 +6641,7 @@
     "unit_id": 20,
     "example_cz": "Čekám, že mi odpoví.",
     "example_en": "I expect him to answer me.",
-    "lesson_id": 2001
-  },
-  {
-    "id": 1624,
-    "word_cz": "obávat se",
-    "word_en": "to fear / worry about",
-    "ipa": "ˈobaːvat sɛ",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Obávám se, že to nepůjde.",
-    "example_en": "I fear it won't work.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1625,
