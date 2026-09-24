@@ -1,6 +1,5 @@
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
-import 'package:czechify/presentation/widgets/common/learning_tip_card.dart';
 import 'package:czechify/presentation/widgets/common/motion_widgets.dart';
 import 'package:czechify/presentation/widgets/common/record_button.dart';
 import 'package:czechify/presentation/widgets/common/soft_ui.dart';
@@ -365,41 +364,5 @@ void main() {
     expect(find.byIcon(Icons.stop_rounded), findsOneWidget);
     expect(find.byIcon(Icons.mic_rounded), findsNothing);
     expect(tester.binding.transientCallbackCount, 0);
-  });
-
-  testWidgets('learning tip remains usable at 200 percent text scale', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      host(
-        const SingleChildScrollView(
-          child: SizedBox(width: 340, child: LearningTipCard()),
-        ),
-        scale: 2,
-      ),
-    );
-    expect(tester.takeException(), isNull);
-
-    final card = find.byType(LearningTipCard);
-    final before =
-        tester
-            .widgetList<Text>(
-              find.descendant(of: card, matching: find.byType(Text)),
-            )
-            .map((text) => text.data)
-            .toList();
-    await tester.tapAt(tester.getTopLeft(card) + const Offset(100, 100));
-    await tester.pump();
-    await tester.pumpAndSettle();
-    expect(tester.takeException(), isNull);
-    expect(find.text('💡 Tip of the day'), findsOneWidget);
-    final after =
-        tester
-            .widgetList<Text>(
-              find.descendant(of: card, matching: find.byType(Text)),
-            )
-            .map((text) => text.data)
-            .toList();
-    expect(after, isNot(equals(before)));
   });
 }

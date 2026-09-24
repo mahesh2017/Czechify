@@ -3,7 +3,13 @@
 **Prepared:** 2026-09-24
 **Scope:** all 31 units (A1 Units 1–15, 28, 30; A2 Units 16–27, 29, 31)
 **Status:** Plan approved in principle. Phase 0 done on 2026-09-24 (outputs listed in
-§8, Phase 0); Phase 1 not started.
+§8, Phase 0). Phases 1, 2 and 4 are done on `curriculum/v1.2-plan`: the engine
+(modes, lecture and notebook steps, model pages) and all 31 units rebuilt, with the
+§7 scope changes, parked items in `docs/curriculum-v1.2/parked_for_b1.json`, and V10
+passing for both levels. Still open: Phase 3 (tester measurement), Phase 5 (teacher
+review, then 793 utterances of neural audio), deploying the content-release
+migration, and re-pinning the referral campaign manifest (see "Release blockers"
+below).
 **Builds on:** `V1_1_PEDAGOGICAL_UPGRADE_PLAN.md` (four-lesson unit: A Scene and
 meaning → B Pattern and sound → C Guided use → D Mission). This plan keeps that
 architecture and adds what v1.1 left implicit: an actual lecture, a guided-practice
@@ -551,6 +557,31 @@ model pages against the reference description, as `V1_1` already requires for
 content to count as field-validated. **This gates the production release.** Then
 generate neural audio for all new text (`tool/audio_coverage.py` lists what is
 missing) and upload it with Mahesh's go-ahead.
+
+### Release blockers (found during the rebuild, 24 Sep 2026)
+
+1. **Referral campaign manifest.** The unmerged referral work on this branch pins the
+   free units (U1, U2) at content revision 25: lesson-file hashes, all 92 exercise
+   IDs and the teaching IDs, in `docs/monetization/fixtures/campaign_manifest.v1.json`
+   and `supabase/migrations/20260923100000_referral_foundation.sql`
+   (`content_revision = 25`, `referralContentRevision = 25` in the client). v1.2
+   rebuilt both units, so `monetization_contract_test.dart` fails and a v1.2 client's
+   referral receipts would not match. The migration is not deployed (production's
+   last migration is 20260908), so it can be re-pinned to the final v1.2 revision
+   before either ships. Re-pin once content is final (after teacher review), since
+   every content change to U1/U2 changes the hashes again.
+2. **Content-release migration** `20261005100000_content_release_client_format.sql`
+   is not deployed; it needs approval.
+3. **Teacher review** of all lecture steps and model pages (Phase 5), then **audio**:
+   `tool/audio_coverage.py` lists 793 missing utterances (1,586 MP3s).
+4. `bundledContentRevision` is 26 and has not shipped in any build yet, so the first
+   tester build can carry it as is. After that, bump it with every content change
+   that goes to testers (`test/bundled_content_revision_test.dart` pins the digest).
+
+Not done from §7.1: the "~150 official A1 words as recognition vocabulary" item. The
+office, housing and health survival sets are in (U4 form, U14 reading, U24/U26
+vocabulary); the rest should be chosen with the teacher from
+`docs/sources/official_words_missing_from_app.csv`.
 
 ---
 
