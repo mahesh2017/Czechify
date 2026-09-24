@@ -359,25 +359,32 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
         height: 36,
         child: Row(
           children: [
-            if (label != null)
-              Flexible(
-                child: Text(
-                  label.toUpperCase(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.2,
-                    color: session.inMistakeReview ? t.amberInk : t.muted,
-                  ),
-                ),
+            // The label takes all the room the buttons leave; sharing it with
+            // a spacer cut "Check · no hearts" in half next to the Rule button.
+            Expanded(
+              child: Row(
+                children: [
+                  if (label != null)
+                    Flexible(
+                      child: Text(
+                        label.toUpperCase(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.2,
+                          color: session.inMistakeReview ? t.amberInk : t.muted,
+                        ),
+                      ),
+                    ),
+                  if (streak) ...[
+                    const SizedBox(width: 9),
+                    ComboChip(label: l10n.lessonInARow(session.answerStreak)),
+                  ],
+                ],
               ),
-            if (streak) ...[
-              const SizedBox(width: 9),
-              ComboChip(label: l10n.lessonInARow(session.answerStreak)),
-            ],
-            const Spacer(),
+            ),
             if (session.totalXp > 0) _XpCounter(totalXp: session.totalXp),
             if (rulesSoFar.isNotEmpty) ...[
               const SizedBox(width: 10),

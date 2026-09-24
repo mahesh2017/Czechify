@@ -6782,6 +6782,12 @@ abstract class AppLocalizations {
   /// **'Done'**
   String get slideDone;
 
+  /// No description provided for @slidePosition.
+  ///
+  /// In en, this message translates to:
+  /// **'Slide {index} of {count}'**
+  String slidePosition(int index, int count);
+
   /// No description provided for @ruleBackToLesson.
   ///
   /// In en, this message translates to:

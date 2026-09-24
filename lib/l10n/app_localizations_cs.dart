@@ -3968,6 +3968,11 @@ class AppLocalizationsCs extends AppLocalizations {
   String get slideDone => 'Hotovo';
 
   @override
+  String slidePosition(int index, int count) {
+    return 'Snímek $index z $count';
+  }
+
+  @override
   String get ruleBackToLesson => 'Zpět do lekce';
 
   @override

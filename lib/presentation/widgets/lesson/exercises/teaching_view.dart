@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/config/unit_guide_pilot.dart';
-import '../../../../core/theme/app_motion.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/enums.dart';
@@ -14,6 +13,7 @@ import '../../../providers/tts_providers.dart';
 import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
+import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
 import 'exercise_shared.dart';
 
@@ -793,12 +793,12 @@ class LectureContent extends ConsumerWidget {
 
 /// One lecture step as slides, so nothing has to be scrolled: the
 /// explanation, then the table a few rows at a time, then the examples and
-/// the common mistake. A slide that still does not fit a small phone is scaled
-/// down, never scrolled. The last slide's button finishes ([onDone]).
+/// the common mistake, on a [SlideDeck]. The last slide's button finishes
+/// ([onDone]).
 ///
 /// Needs bounded height: the lesson gives it the exercise area, the unit guide
 /// and the Rule screen a whole screen.
-class LectureSlides extends ConsumerStatefulWidget {
+class LectureSlides extends ConsumerWidget {
   final Exercise exercise;
   final String? kicker;
 
@@ -816,38 +816,24 @@ class LectureSlides extends ConsumerStatefulWidget {
     this.lead,
   });
 
-  /// Table rows per slide: five rows and the kicker fit the smallest phones
-  /// the app supports without scaling.
+  /// Table rows per slide: five rows and the heading fit a small phone, which
+  /// the no-scroll fit test checks.
   static const rowsPerSlide = 5;
 
-  @override
-  ConsumerState<LectureSlides> createState() => _LectureSlidesState();
-}
-
-class _LectureSlidesState extends ConsumerState<LectureSlides> {
-  final _controller = PageController();
-  int _index = 0;
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  List<Widget> _slides(BuildContext context) {
-    final parts = _LectureParts(widget.exercise);
+  List<Widget> _slides(BuildContext context, WidgetRef ref) {
+    final parts = _LectureParts(exercise);
     void speak(String text) => _speakCzech(ref, text);
     final slides = <Widget>[
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (widget.lead != null) ...[widget.lead!, const SizedBox(height: 16)],
-          parts.hero(context, kicker: widget.kicker),
+          if (lead != null) ...[lead!, const SizedBox(height: 16)],
+          parts.hero(context, kicker: kicker),
         ],
       ),
     ];
-    for (var i = 0; i < parts.table.length; i += LectureSlides.rowsPerSlide) {
-      final end = (i + LectureSlides.rowsPerSlide).clamp(0, parts.table.length);
+    for (var i = 0; i < parts.table.length; i += rowsPerSlide) {
+      final end = (i + rowsPerSlide).clamp(0, parts.table.length);
       slides.add(
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -885,100 +871,12 @@ class _LectureSlidesState extends ConsumerState<LectureSlides> {
     return slides;
   }
 
-  void _go(int page) {
-    // Reduced motion: turn the page without the slide.
-    if (context.motionDisabled) {
-      _controller.jumpToPage(page);
-      return;
-    }
-    _controller.animateToPage(
-      page,
-      duration: AppMotion.content,
-      curve: AppMotion.enter,
-    );
-  }
-
   @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    final l10n = AppLocalizations.of(context);
-    final slides = _slides(context);
-    final last = _index >= slides.length - 1;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: PageView(
-            controller: _controller,
-            onPageChanged: (i) => setState(() => _index = i),
-            children: [
-              for (final slide in slides)
-                LayoutBuilder(
-                  builder:
-                      (context, box) => Align(
-                        alignment: Alignment.topCenter,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.topCenter,
-                          child: SizedBox(
-                            width: box.maxWidth,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                              child: slide,
-                            ),
-                          ),
-                        ),
-                      ),
-                ),
-            ],
-          ),
-        ),
-        if (slides.length > 1)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (var i = 0; i < slides.length; i++)
-                  AnimatedContainer(
-                    duration: context.motionDuration(AppMotion.selection),
-                    margin: const EdgeInsets.symmetric(horizontal: 3),
-                    width: i == _index ? 18 : 7,
-                    height: 7,
-                    decoration: BoxDecoration(
-                      color: i == _index ? t.pri : t.line,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-          child: Row(
-            children: [
-              if (_index > 0) ...[
-                OutlinedButton(
-                  onPressed: () => _go(_index - 1),
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(96, 52),
-                  ),
-                  child: Text(l10n.slideBack),
-                ),
-                const SizedBox(width: 10),
-              ],
-              Expanded(
-                child: KeyCta(
-                  label: last ? widget.doneLabel : l10n.slideNext,
-                  onPressed: last ? widget.onDone : () => _go(_index + 1),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  Widget build(BuildContext context, WidgetRef ref) => SlideDeck(
+    slides: _slides(context, ref),
+    doneLabel: doneLabel,
+    onDone: onDone,
+  );
 }
 
 class _LetterGrid extends StatelessWidget {

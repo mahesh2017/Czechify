@@ -1228,6 +1228,7 @@
   "slideNext": "Dál",
   "slideBack": "Zpět",
   "slideDone": "Hotovo",
+  "slidePosition": "Snímek {index} z {count}",
   "ruleBackToLesson": "Zpět do lekce",
   "unitGuideRulesCount": "{count, plural, =1{1 pravidlo} few{{count} pravidla} other{{count} pravidel}}",
   "unitGuidePhrasesCount": "{count, plural, =1{1 fráze} few{{count} fráze} other{{count} frází}}",

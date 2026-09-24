@@ -3951,6 +3951,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slideDone => 'Done';
 
   @override
+  String slidePosition(int index, int count) {
+    return 'Slide $index of $count';
+  }
+
+  @override
   String get ruleBackToLesson => 'Back to the lesson';
 
   @override

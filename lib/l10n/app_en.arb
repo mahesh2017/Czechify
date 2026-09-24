@@ -1703,6 +1703,17 @@
   "slideNext": "Next",
   "slideBack": "Back",
   "slideDone": "Done",
+  "slidePosition": "Slide {index} of {count}",
+  "@slidePosition": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "ruleBackToLesson": "Back to the lesson",
   "unitGuideRulesCount": "{count, plural, =1{1 rule} other{{count} rules}}",
   "@unitGuideRulesCount": {
