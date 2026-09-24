@@ -2659,9 +2659,9 @@
     },
     {
       "unit_id": 27,
-      "title": "Verbs of Motion",
+      "title": "Getting Around",
       "phase": "A2",
-      "description": "jít/jet vs chodit/jezdit, prefixed motion verbs, aspect pairs",
+      "description": "jít × chodit, jet × jezdit, přijet/odjet, kam/odkud",
       "grammar_rules": [
         {
           "id": "GR-260",
@@ -2674,12 +2674,6 @@
           "name": "Prefixed motion verbs — přijít, odejít, dojít, vyjít, projít",
           "pattern": "prefix + jít/jet = directional specification of motion",
           "example": "Přišel domů v pět hodin. — He arrived home at five o'clock."
-        },
-        {
-          "id": "GR-262",
-          "name": "Aspect pairs — systematic prefix patterns",
-          "pattern": "Imperfective (process) ↔ Perfective (result) — paired by prefixes: u-, na-, s-/z-, vy-, do-, při-, od-",
-          "example": "dělat (impf) → udělat (pf) — to do — process → to do — completed"
         },
         {
           "id": "GR-263",
@@ -2741,7 +2735,99 @@
         "Záměna jednorázového a opakovaného pohybu",
         "'Jet' místo 'chodit' pro pěší chůzi"
       ],
-      "study_tip": "Procvičujte páry: jdu × chodím, jedu × jezdím. Ke každému přidejte typickou větu."
+      "study_tip": "Procvičujte páry: jdu × chodím, jedu × jezdím. Ke každému přidejte typickou větu.",
+      "notebook_page": {
+        "title_cz": "Cesta",
+        "title_en": "Navigate and describe a journey",
+        "can_do": {
+          "cz": "Popíšu cestu a vysvětlím, když se změní.",
+          "en": "I can describe a journey and explain a change."
+        },
+        "words": [
+          {
+            "cz": "Jdu pěšky.",
+            "en": "I am walking."
+          },
+          {
+            "cz": "Jedu tramvají.",
+            "en": "I am going by tram."
+          },
+          {
+            "cz": "Chodím do práce pěšky.",
+            "en": "I walk to work (usually)."
+          },
+          {
+            "cz": "Jezdím autobusem.",
+            "en": "I go by bus (usually)."
+          },
+          {
+            "cz": "Kde mám vystoupit?",
+            "en": "Where should I get off?"
+          },
+          {
+            "cz": "Musím přestoupit.",
+            "en": "I have to change."
+          },
+          {
+            "cz": "Vlak má zpoždění.",
+            "en": "The train is late."
+          },
+          {
+            "cz": "cestující, nástupiště",
+            "en": "passenger, platform"
+          }
+        ],
+        "pattern": {
+          "name": "Going somewhere",
+          "rule_plain": "Now: jdu (on foot), jedu (by vehicle). Usually: chodím, jezdím. při- = arrive, od- = leave. kam = where to, odkud = where from.",
+          "table": [
+            [
+              "on foot",
+              "jdu × chodím"
+            ],
+            [
+              "by vehicle",
+              "jedu × jezdím"
+            ],
+            [
+              "arrive",
+              "přijdu / přijedu"
+            ],
+            [
+              "leave",
+              "odejdu / odjedu"
+            ],
+            [
+              "where to / from",
+              "kam / odkud"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Každý den jezdím do práce tramvají.",
+              "en": "Every day I go to work by tram."
+            },
+            {
+              "cz": "Vlak přijede v šest.",
+              "en": "The train arrives at six."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Každý den jdu do práce autobusem.",
+            "right": "Každý den jezdím do práce autobusem."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Do práce jezdím metrem.",
+            "en": "I go to work by metro."
+          },
+          {
+            "cz": "V sobotu pojedu vlakem do Brna.",
+            "en": "On Saturday I will go to Brno by train."
+          }
+        ]
+      }
     },
     {
       "unit_id": 28,

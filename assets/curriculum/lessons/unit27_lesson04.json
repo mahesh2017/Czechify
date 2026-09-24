@@ -2,22 +2,35 @@
   "id": 2704,
   "unit_id": 27,
   "title": "Solve a Changed Journey",
-  "description": "Give a practical update about arrival, departure and a changed route.",
+  "description": "A train is late: change your route and tell someone when you will arrive.",
   "lesson_type": "mission",
   "order_in_unit": 3,
-  "duration_min": 12,
-  "is_review": true,
+  "duration_min": 13,
+  "can_do": "explain a changed journey and your arrival time.",
+  "new_language": [
+    "Přijedu asi v sedm.",
+    "Dojdu na zastávku.",
+    "proto"
+  ],
+  "recycles": [
+    "přijet, odjet",
+    "zpoždění",
+    "protože"
+  ],
+  "exit_task": "record a changed-journey update.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 27031,
+      "id": 27400,
       "lesson_id": 2704,
       "type": "teaching",
       "prompt": "Mission language",
       "data": {
         "type": "teaching",
         "style": "list",
-        "heading": "Arrive, leave, reach",
-        "body": "Use just three high-value directional chunks in a clear update.",
+        "heading": "Your mission",
+        "body": "Close your notebook. Your train is late: say what you will do instead and when you will arrive.",
         "items": [
           {
             "cz": "Vlak přijede v šest.",
@@ -37,7 +50,7 @@
       "xp_reward": 0
     },
     {
-      "id": 27032,
+      "id": 27401,
       "lesson_id": 2704,
       "type": "listening_comprehension",
       "prompt": "Listen to the journey change",
@@ -67,16 +80,37 @@
         ]
       },
       "answer_key": "bus; seven",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-261"
     },
     {
-      "id": 27033,
+      "id": 27402,
+      "lesson_id": 2704,
+      "type": "multiple_choice",
+      "prompt": "Choose the clearest update",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "Which message explains a changed journey clearly?",
+        "options": [
+          "Vlak.",
+          "Vlak přijede pozdě, proto jedu autobusem. Přijedu asi v sedm.",
+          "Jedu."
+        ],
+        "correct_index": 1,
+        "explanation": "A useful update gives the problem, the new route and the expected arrival."
+      },
+      "answer_key": "clear journey update",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-261"
+    },
+    {
+      "id": 27403,
       "lesson_id": 2704,
       "type": "dialogue",
       "prompt": "Give the new arrival time",
       "data": {
         "type": "dialogue",
-        "scenario": "A delayed meeting",
+        "scenario": "Your friend asks when you will arrive. Say about seven, because the train is late.",
         "lines": [
           {
             "speaker": "friend",
@@ -89,15 +123,33 @@
         ],
         "blank_answers": [
           [
-            "Přijedu asi v sedm, vlak má zpoždění."
+            "Přijedu asi v sedm, vlak má zpoždění.",
+            "Přijedu asi v sedm, protože vlak má zpoždění.",
+            "Vlak má zpoždění, přijedu asi v sedm.",
+            "Přijdu asi v sedm, vlak má zpoždění."
           ]
         ]
       },
       "answer_key": "arrival update",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-261"
     },
     {
-      "id": 27034,
+      "id": 27404,
+      "lesson_id": 2704,
+      "type": "pronunciation",
+      "prompt": "Practise the update",
+      "data": {
+        "type": "pronunciation",
+        "text_cz": "Vlak přijede pozdě, proto jedu autobusem.",
+        "target_text": "Vlak přijede pozdě, proto jedu autobusem.",
+        "targets": "vocab"
+      },
+      "answer_key": "journey update pronunciation",
+      "xp_reward": 10
+    },
+    {
+      "id": 27405,
       "lesson_id": 2704,
       "type": "writing_task",
       "prompt": "Complete the journey mission",
@@ -112,13 +164,14 @@
           "proto",
           "přijdu/přijedu"
         ],
-        "sample_answer": "Vlak přijede pozdě. Proto pojedu autobusem. Přijedu asi v sedm."
+        "sample_answer": "Vlak přijede pozdě. Proto pojedu autobusem. Přijedu asi v sedm.",
+        "targets": "vocab"
       },
       "answer_key": "journey mission",
       "xp_reward": 0
     },
     {
-      "id": 27035,
+      "id": 27406,
       "lesson_id": 2704,
       "type": "speaking_task",
       "prompt": "Complete the mission",
@@ -132,28 +185,44 @@
           "přijede/odjede",
           "proto",
           "přijdu/přijedu"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "journey mission",
       "xp_reward": 20
     },
     {
-      "id": 27038,
+      "id": 27407,
       "lesson_id": 2704,
-      "type": "multiple_choice",
-      "prompt": "Choose the clearest update",
-      "data": {"type": "multiple_choice", "question_en": "Which message explains a changed journey clearly?", "options": ["Vlak.", "Vlak přijede pozdě, proto jedu autobusem. Přijedu asi v sedm.", "Jedu."], "correct_index": 1, "explanation": "A useful update gives the problem, the new route and the expected arrival."},
-      "answer_key": "clear journey update",
-      "xp_reward": 10
-    },
-    {
-      "id": 27039,
-      "lesson_id": 2704,
-      "type": "pronunciation",
-      "prompt": "Practise the update",
-      "data": {"type": "pronunciation", "text_cz": "Vlak přijede pozdě, proto jedu autobusem.", "target_text": "Vlak přijede pozdě, proto jedu autobusem."},
-      "answer_key": "journey update pronunciation",
-      "xp_reward": 10
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 27 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, correct any mistakes, then tick your Check box.",
+        "items": [
+          {
+            "cz": "jdu × chodím, jedu × jezdím",
+            "en": "now × usually"
+          },
+          {
+            "cz": "přijet, odjet, přijít, odejít",
+            "en": "arrive, leave"
+          },
+          {
+            "cz": "kam, odkud, tam, sem",
+            "en": "where to, where from"
+          },
+          {
+            "cz": "nastoupit, vystoupit, přestoupit",
+            "en": "get on, get off, change"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
   ]
 }

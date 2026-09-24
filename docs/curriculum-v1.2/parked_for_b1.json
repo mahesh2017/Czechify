@@ -672,6 +672,186 @@
       "example_en": "I study so that I get a job.",
       "lesson_id": null,
       "parked_reason": "Duplicate of vocabulary 1108; its example used the abych form, beyond A2."
+    },
+    {
+      "id": 1485,
+      "word_cz": "lézt",
+      "word_en": "to crawl / climb",
+      "ipa": "lɛːst",
+      "gender": null,
+      "unit_id": 27,
+      "example_cz": "Dítě léze po podlaze.",
+      "example_en": "The baby is crawling on the floor.",
+      "lesson_id": 2701,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1486,
+      "word_cz": "skákat",
+      "word_en": "to jump",
+      "ipa": "ˈskaːkatsk",
+      "gender": null,
+      "unit_id": 27,
+      "example_cz": "Pes skáče přes plot.",
+      "example_en": "The dog is jumping over the fence.",
+      "lesson_id": 2701,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1517,
+      "word_cz": "předložka",
+      "word_en": "prefix / preposition",
+      "ipa": "ˈpr̝ɛdloʊʃka",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předložky jsou důležité v češtině.",
+      "example_en": "Prefixes are important in Czech.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1518,
+      "word_cz": "předpona u-",
+      "word_en": "prefix u-",
+      "ipa": "ˈpr̝ɛdpona uː",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předpona u- znamená dokončení.",
+      "example_en": "The prefix u- means completion.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1519,
+      "word_cz": "předpona na-",
+      "word_en": "prefix na-",
+      "ipa": "ˈpr̝ɛdpona na",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předpona na- tvoří dokonavá slovesa.",
+      "example_en": "The prefix na- forms perfective verbs.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1520,
+      "word_cz": "předpona s-",
+      "word_en": "prefix s-",
+      "ipa": "ˈpr̝ɛdpona s",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předpona s- znamená spojení.",
+      "example_en": "The prefix s- means connection.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1521,
+      "word_cz": "předpona z-",
+      "word_en": "prefix z-",
+      "ipa": "ˈpr̝ɛdpona z",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předpona z- mění význam slovesa.",
+      "example_en": "The prefix z- changes the verb's meaning.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1522,
+      "word_cz": "předpona vy-",
+      "word_en": "prefix vy-",
+      "ipa": "ˈpr̝ɛdpona ʋi",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předpona vy- znamená ven.",
+      "example_en": "The prefix vy- means out.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1523,
+      "word_cz": "předpona do-",
+      "word_en": "prefix do-",
+      "ipa": "ˈpr̝ɛdpona do",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předpona do- znamená dokončení cesty.",
+      "example_en": "The prefix do- means completing a journey.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1524,
+      "word_cz": "předpona při-",
+      "word_en": "prefix při-",
+      "ipa": "ˈpr̝ɛdpona pr̝i",
+      "gender": "feminine",
+      "unit_id": 27,
+      "example_cz": "Předpona při- znamená příchod.",
+      "example_en": "The prefix při- means arrival.",
+      "lesson_id": 2702,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1866,
+      "word_cz": "zajet",
+      "word_en": "to drive to, go (somewhere)",
+      "ipa": "zajɛt",
+      "gender": null,
+      "unit_id": 27,
+      "example_cz": "Zajeli jsme si do obchodu.",
+      "example_en": "We drove to the shop.",
+      "lesson_id": 2701,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1868,
+      "word_cz": "najet",
+      "word_en": "to drive onto, hit (collision)",
+      "ipa": "najɛt",
+      "gender": null,
+      "unit_id": 27,
+      "example_cz": "Najel jsem do křižovatky.",
+      "example_en": "I drove into the intersection.",
+      "lesson_id": 2701,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1873,
+      "word_cz": "zabloudit",
+      "word_en": "to get lost, wander",
+      "ipa": "zabloʊdɪt",
+      "gender": null,
+      "unit_id": 27,
+      "example_cz": "Zabloudili jsme v lese.",
+      "example_en": "We got lost in the forest.",
+      "lesson_id": 2701,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1877,
+      "word_cz": "rozjet se",
+      "word_en": "to set off, start moving",
+      "ipa": "rozjɛt sɛ",
+      "gender": null,
+      "unit_id": 27,
+      "example_cz": "Auto se rozjelo na zelenou.",
+      "example_en": "The car set off at the green light.",
+      "lesson_id": 2701,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1878,
+      "word_cz": "couvnout",
+      "word_en": "to back up, reverse",
+      "ipa": "tsou̯vnot",
+      "gender": null,
+      "unit_id": 27,
+      "example_cz": "Musím couvnout, abych vyjel.",
+      "example_en": "I need to back up to get out.",
+      "lesson_id": 2701,
+      "parked_reason": "Beyond the unit target or a grammar note stored as vocabulary (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
     }
   ],
   "exercises": [
@@ -1071,6 +1251,138 @@
       "grammar_rule_id": "GR-213",
       "xp_reward": 15,
       "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 27014,
+      "lesson_id": 2702,
+      "type": "multiple_choice",
+      "prompt": "Which is the perfective (completed) form of 'odcházet' (to be leaving, habitual)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Který tvar je dokonavý (výsledek) ke slovesu 'odcházet'?",
+        "question_en": "Which is the perfective (completed) form of 'odcházet' (to be leaving, habitual)?",
+        "options": [
+          "odcházet",
+          "odejít",
+          "chodit",
+          "přijít"
+        ],
+        "correct_index": 1,
+        "explanation": "'Odcházet' (imperfective — process of leaving, habitual) pairs with 'odejít' (perfective — completed act of leaving). Example imperfective: 'Každý den odcházím v šest.' = Every day I leave at six. Example perfective: 'Včera jsem odešel v šest.' = Yesterday I left at six (completed). The perfective focuses on the result; the imperfective on the process or habit."
+      },
+      "answer_key": "odejít",
+      "grammar_rule_id": "GR-262",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: systematic aspect derivation by prefixes (the standard limits perfective forms to frequent verbs; frequent pairs are taught in U19)."
+    },
+    {
+      "id": 27019,
+      "lesson_id": 2702,
+      "type": "matching",
+      "prompt": "Match each imperfective verb to its perfective partner (aspect pair).",
+      "data": {
+        "type": "matching",
+        "prompt_en": "Match each imperfective verb (process/habitual) to its perfective partner (completed result).",
+        "pairs": [
+          {
+            "left": "přicházet",
+            "right": "přijít"
+          },
+          {
+            "left": "odcházet",
+            "right": "odejít"
+          },
+          {
+            "left": "odjíždět",
+            "right": "odjet"
+          },
+          {
+            "left": "přijíždět",
+            "right": "přijet"
+          }
+        ],
+        "explanation": "Czech verbs come in aspect pairs: imperfective (process, habit, ongoing) + perfective (completed result). Motion verbs form pairs by changing the prefix/stem: 'přicházet' (to be arriving, impf.) → 'přijít' (to arrive, pf.); 'odcházet' (to be leaving on foot, impf.) → 'odejít' (to leave on foot, pf.); 'odjíždět' (to be departing by vehicle, impf.) → 'odjet' (to depart by vehicle, pf.); 'přijíždět' (to be arriving by vehicle, impf.) → 'přijet' (to arrive by vehicle, pf.)."
+      },
+      "answer_key": "přicházet→přijít, odcházet→odejít, odjíždět→odjet, přijíždět→přijet",
+      "grammar_rule_id": "GR-262",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: systematic aspect derivation by prefixes (the standard limits perfective forms to frequent verbs; frequent pairs are taught in U19)."
+    },
+    {
+      "id": 27021,
+      "lesson_id": 2702,
+      "type": "error_correction",
+      "prompt": "Find the mistake: wrong aspect (imperfective used where perfective is needed).",
+      "data": {
+        "type": "error_correction",
+        "prompt_en": "Find the mistake — the wrong verb aspect is used.",
+        "sentence_cz": "Včera jsem odcházel z práce v pět.",
+        "correct_sentence_cz": "Včera jsem odešel z práce v pět.",
+        "error_type": "aspect_error",
+        "explanation": "'Včera' (yesterday) describes a specific completed event in the past. For a single completed action, use the perfective 'odejít' → past 'odešel' (masc.). 'Odcházel' is from 'odcházet' (imperfective — habitual or ongoing process), which would suit 'Každý den jsem odcházel v pět' (every day I used to leave at five). Correct: 'Včera jsem odešel z práce v pět.' = Yesterday I left work at five (completed)."
+      },
+      "answer_key": "Včera jsem odešel z práce v pět.",
+      "grammar_rule_id": "GR-264",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: systematic aspect derivation by prefixes (the standard limits perfective forms to frequent verbs; frequent pairs are taught in U19)."
+    },
+    {
+      "id": 27022,
+      "lesson_id": 2702,
+      "type": "error_correction",
+      "prompt": "Find the mistake: wrong aspect (perfective used where imperfective is needed for a habit).",
+      "data": {
+        "type": "error_correction",
+        "prompt_en": "Find the mistake — the wrong verb aspect is used for a habitual action.",
+        "sentence_cz": "Každý den jsem odešel z domova v sedm.",
+        "correct_sentence_cz": "Každý den jsem odcházel z domova v sedm.",
+        "error_type": "aspect_error",
+        "explanation": "'Každý den' (every day) signals a habitual, repeated action in the past. For repeated/habitual actions, use the imperfective 'odcházet' → past 'odcházel' (masc.). 'Odešel' is from 'odejít' (perfective — single completed event), which would suit 'Včera jsem odešel v sedm' (yesterday I left at seven). Correct: 'Každý den jsem odcházel z domova v sedm.' = Every day I used to leave home at seven."
+      },
+      "answer_key": "Každý den jsem odcházel z domova v sedm.",
+      "grammar_rule_id": "GR-264",
+      "xp_reward": 10,
+      "parked_reason": "Beyond A2: systematic aspect derivation by prefixes (the standard limits perfective forms to frequent verbs; frequent pairs are taught in U19)."
+    },
+    {
+      "id": 27023,
+      "lesson_id": 2702,
+      "type": "dialogue",
+      "prompt": "Complete the navigation dialogue with the correct prefixed motion verb.",
+      "data": {
+        "type": "dialogue",
+        "prompt_en": "Complete the dialogue at a train station. Choose the correct form of 'přijet' (to arrive, by vehicle, perfective).",
+        "lines": [
+          {
+            "speaker": "Cestující",
+            "text_en": "When does the train to Brno arrive?",
+            "explanation": "Either 'přijede' (perfective future — will arrive) or 'přijíždí' (imperfective present — arrives habitually) is acceptable. 'Přijet' = to arrive by vehicle; 'přijíždět' = to be arriving by vehicle (imperfective). For a schedule, the imperfective 'přijíždí' is common (habitual per schedule); for a specific upcoming train, 'přijede' (perfective future) is used.",
+            "text": "Kdy ___ vlak do Brna?"
+          },
+          {
+            "speaker": "Pokladní",
+            "text_en": "The train to Brno arrives at 14:30 on platform 3.",
+            "explanation": "'Přijíždí' (imperfective) is natural for a scheduled, recurring arrival. 'Přijede' (perfective) works for a specific one-time arrival. Both are grammatically correct; 'přijíždí' is slightly more natural for schedules. 'Na nástupišti 3' = on platform 3.",
+            "text": "Vlak do Brna ___ v 14:30 na nástupišti 3."
+          }
+        ],
+        "explanation": "This dialogue practices prefixed motion verbs in a real navigation context. 'Při-' = arrival, combined with 'jet' (by vehicle). At a train station, you often hear both aspects: imperfective for regular schedules ('přijíždí v 14:30' = arrives at 14:30 per schedule) and perfective for a specific upcoming arrival ('přijede v 14:30' = will arrive at 14:30 today).",
+        "blank_answers": [
+          [
+            "přijede",
+            "přijíždí"
+          ],
+          [
+            "přijíždí",
+            "přijede"
+          ]
+        ],
+        "scenario": "A traveler asks when the train to Brno arrives. The clerk responds."
+      },
+      "answer_key": "Kdy přijíždí vlak do Brna? — Vlak do Brna přijíždí v 14:30 na nástupišti 3.",
+      "grammar_rule_id": "GR-264",
+      "xp_reward": 15,
+      "parked_reason": "Beyond A2: systematic aspect derivation by prefixes (the standard limits perfective forms to frequent verbs; frequent pairs are taught in U19)."
     }
   ],
   "grammar_rules": [
@@ -1119,6 +1431,60 @@
       ],
       "unit_id": 22,
       "parked_reason": "Beyond A2: the aby purpose-clause system, kdyby and written-register connectives (reference description 2016, ch. 7.3; docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": "GR-262",
+      "rule_name": "Aspect pairs — systematic prefix patterns",
+      "pattern": "Imperfective (process) ↔ Perfective (result) — paired by prefixes: u-, na-, s-/z-, vy-, do-, při-, od-",
+      "explanation": "Czech verbs come in aspect pairs: imperfective (ongoing/process) and perfective (completed/result). The perfective is usually formed by adding a prefix to the imperfective. Common prefix patterns: u- (dělat→udělat, vařit→uvařit), na- (psát→napsat, číst→přečíst — note 'na' for writing, 'pře' for reading), s-/z- (dělat→zdělat — rare; more commonly: tvořit→stvořit), vy- (myt→vymýt, brát→vzít), do- (dělat→dodělat, číst→dočíst), při- (nést→přinést), od- (nést→odnést). Not every prefix works with every verb — the pairs must be learned. The key semantic distinction: imperfective answers 'What were you doing?' (psal jsem = I was writing), perfective answers 'What did you do?' (napsal jsem = I wrote [and finished]).",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "dělat (impf) → udělat (pf)",
+          "en": "to do — process → to do — completed"
+        },
+        {
+          "cz": "psát (impf) → napsat (pf)",
+          "en": "to write — process → to write — completed"
+        },
+        {
+          "cz": "číst (impf) → přečíst (pf)",
+          "en": "to read — process → to read — completed"
+        },
+        {
+          "cz": "kupovat (impf) → koupit (pf)",
+          "en": "to buy — process → to buy — completed"
+        }
+      ],
+      "unit_id": 27,
+      "parked_reason": "Beyond A2: systematic aspect derivation by prefixes (the standard limits perfective forms to frequent verbs; frequent pairs are taught in U19)."
+    },
+    {
+      "id": "GR-264",
+      "rule_name": "Aspect in context — when to use imperfective vs perfective",
+      "pattern": "Imperfective for ongoing/repeated/habitual; perfective for single completed actions with results",
+      "explanation": "The choice between imperfective and perfective depends on what you want to communicate. USE IMPERFECTIVE when: describing a process (psal jsem celý večer = I was writing all evening), habitual actions (každý den čtu = I read every day), simultaneous actions (když jsem vařil, ona se dívala = while I was cooking, she was watching), asking 'what were you doing?'. USE PERFECTIVE when: describing a completed action with a result (napsal jsem e-mail = I wrote an email [it's done]), single events (včera jsem koupil auto = yesterday I bought a car), sequential actions (přišel, sedl si a začal číst = he came, sat down, and started reading), asking 'what did you do?'. At A2 level, learners need to RECOGNIZE the distinction — active production is B1.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Psal jsem dopis, když telefonovala.",
+          "en": "I was writing a letter when she called. (imperfective — process)"
+        },
+        {
+          "cz": "Napsal jsem dopis a odeslal ho.",
+          "en": "I wrote a letter and sent it. (perfective — completed)"
+        },
+        {
+          "cz": "Každý den vařím oběd.",
+          "en": "Every day I cook lunch. (imperfective — habitual)"
+        },
+        {
+          "cz": "Včera jsem uvařil svíčkovou.",
+          "en": "Yesterday I cooked svíčková. (perfective — single completed)"
+        }
+      ],
+      "unit_id": 27,
+      "parked_reason": "Beyond A2: systematic aspect derivation by prefixes (the standard limits perfective forms to frequent verbs; frequent pairs are taught in U19)."
     }
   ]
 }

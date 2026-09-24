@@ -2,71 +2,536 @@
   "id": 2702,
   "unit_id": 27,
   "order_in_unit": 1,
-  "title": "Prefixed Verbs & Aspect Pairs",
-  "description": "Learn how Czech prefixes transform motion verbs into specific directional meanings: přijít/přijet (to arrive), odejít/odjet (to leave), vyjít/vyjet (to go out), dojít/dojet (to reach/arrive at). Master aspect pairs — imperfective (process/habitual) vs perfective (completed result) — and learn to choose the right aspect in context with direction adverbs.",
+  "title": "Going: One Trip or a Habit",
+  "description": "Learn jít/chodit and jet/jezdit, arriving and leaving, and where to.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "describe one trip and a regular trip, and say when a train arrives.",
+  "new_language": [
+    "jdu × chodím, jedu × jezdím",
+    "přijít, přijet, odejít, odjet",
+    "kam, odkud, tam, sem"
+  ],
+  "recycles": [
+    "dnes",
+    "každý den",
+    "vlakem"
+  ],
+  "exit_task": "say how you travel today and how you usually travel.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 27013,
+      "id": 27200,
       "lesson_id": 2702,
-      "type": "multiple_choice",
-      "prompt": "What does the prefix 'při-' add to 'jít' (to go)?",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co přidává předpona 'při-' ke slovesu 'jít'?",
-        "question_en": "What does the prefix 'při-' add to 'jít' (to go)?",
-        "options": [
-          "leaving/departing from a place",
-          "arriving/coming to a place",
-          "going out/exiting",
-          "reaching a destination"
-        ],
-        "correct_index": 1,
-        "explanation": "'Při-' = arrival, coming toward the speaker or a reference point. 'Přijít' = to arrive (on foot), 'přijet' = to arrive (by vehicle). Example: 'Zítra přijedu do Prahy.' = Tomorrow I will arrive in Prague (by vehicle). The prefix 'při-' always signals movement toward. Contrast with 'od-' (leaving/away)."
-      },
-      "answer_key": "arriving/coming to a place",
-      "grammar_rule_id": "GR-261",
-      "xp_reward": 10
-    },
-    {
-      "id": 27014,
-      "lesson_id": 2702,
-      "type": "multiple_choice",
-      "prompt": "Which is the perfective (completed) form of 'odcházet' (to be leaving, habitual)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Který tvar je dokonavý (výsledek) ke slovesu 'odcházet'?",
-        "question_en": "Which is the perfective (completed) form of 'odcházet' (to be leaving, habitual)?",
-        "options": ["odcházet", "odejít", "chodit", "přijít"],
-        "correct_index": 1,
-        "explanation": "'Odcházet' (imperfective — process of leaving, habitual) pairs with 'odejít' (perfective — completed act of leaving). Example imperfective: 'Každý den odcházím v šest.' = Every day I leave at six. Example perfective: 'Včera jsem odešel v šest.' = Yesterday I left at six (completed). The perfective focuses on the result; the imperfective on the process or habit."
-      },
-      "answer_key": "odejít",
-      "grammar_rule_id": "GR-262",
-      "xp_reward": 10
-    },
-    {
-      "id": 27015,
-      "lesson_id": 2702,
-      "type": "fill_blank",
-      "prompt": "Fill in the perfective form: 'Yesterday I ___ to school.' (on foot, completed)",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Včera jsem ___ do školy.",
-        "blank_count": 1,
-        "explanation": "'Včera jsem šel do školy.' (masculine) / 'Včera jsem šla do školy.' (feminine) = Yesterday I went to school. 'Šel/šla' is the past tense of 'jít' — a perfective verb (one-time, completed). 'Včera' (yesterday) signals a completed past event, so we use the perfective 'jít' → past 'šel' (masc.) / 'šla' (fem.).",
-        "blank_answers": [
-          ["šel", "šla"]
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write how you walk and go by tram: today, and usually. Then check.",
+        "items": [
+          {
+            "cz": "Jdu pěšky.",
+            "en": "I am walking."
+          },
+          {
+            "cz": "Jedu tramvají.",
+            "en": "I am going by tram."
+          },
+          {
+            "cz": "Chodím do práce pěšky.",
+            "en": "I walk to work (usually)."
+          },
+          {
+            "cz": "Jezdím autobusem.",
+            "en": "I go by bus (usually)."
+          }
         ]
       },
-      "answer_key": "šel",
-      "grammar_rule_id": "GR-262",
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 27201,
+      "lesson_id": 2702,
+      "type": "teaching",
+      "prompt": "jdu or chodím, jedu or jezdím",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-260",
+        "rule_step": 1,
+        "heading": "jdu or chodím, jedu or jezdím",
+        "items": [
+          {
+            "cz": "Teď jdu na zastávku.",
+            "en": "I am walking to the stop now."
+          },
+          {
+            "cz": "Každý den jezdím do práce tramvají.",
+            "en": "Every day I go to work by tram."
+          }
+        ],
+        "say": "On foot: jít for one trip now, chodit for a habit. By vehicle: jet for one trip, jezdit for a habit.",
+        "table": [
+          [
+            "one trip, on foot",
+            "jdu, jdeš, jde"
+          ],
+          [
+            "habit, on foot",
+            "chodím, chodíš, chodí"
+          ],
+          [
+            "one trip, by vehicle",
+            "jedu, jedeš, jede"
+          ],
+          [
+            "habit, by vehicle",
+            "jezdím, jezdíš, jezdí"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Teď jdu na zastávku.",
+            "en": "I am walking to the stop now."
+          },
+          {
+            "cz": "Každý den jezdím do práce tramvají.",
+            "en": "Every day I go to work by tram."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Každý den jdu do práce autobusem.",
+          "right": "Každý den jezdím do práce autobusem."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 27202,
+      "lesson_id": 2702,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Každý den ___ do práce tramvají.",
+        "question_en": "Every day I go to work by tram.",
+        "options": [
+          "jezdím",
+          "jedu",
+          "chodím"
+        ],
+        "correct_index": 0,
+        "explanation": "Every day by vehicle: jezdím."
+      },
+      "answer_key": "jezdím",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-260"
+    },
+    {
+      "id": 27203,
+      "lesson_id": 2702,
+      "type": "teaching",
+      "prompt": "Arrive and leave: při- and od-",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-261",
+        "rule_step": 1,
+        "heading": "Arrive and leave: při- and od-",
+        "items": [
+          {
+            "cz": "Vlak přijede v šest.",
+            "en": "The train arrives at six."
+          },
+          {
+            "cz": "Odjedu zítra ráno.",
+            "en": "I will leave tomorrow morning."
+          }
+        ],
+        "say": "A prefix gives going a direction: při- is arriving, od- leaving, vy- going out, pro- going through. These are finished actions.",
+        "table": [
+          [
+            "arrive on foot",
+            "přijít — přijdu"
+          ],
+          [
+            "arrive by vehicle",
+            "přijet — přijedu"
+          ],
+          [
+            "leave on foot",
+            "odejít — odejdu"
+          ],
+          [
+            "leave by vehicle",
+            "odjet — odjedu"
+          ],
+          [
+            "go out",
+            "vyjít — vyjdu"
+          ],
+          [
+            "go through",
+            "projít — projdu"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Vlak přijede v šest.",
+            "en": "The train arrives at six."
+          },
+          {
+            "cz": "Odjedu zítra ráno.",
+            "en": "I will leave tomorrow morning."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Vlak přijde v šest.",
+          "right": "Vlak přijede v šest."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 27204,
+      "lesson_id": 2702,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Vlak ___ v šest.",
+        "question_en": "The train arrives at six.",
+        "options": [
+          "přijede",
+          "přijde",
+          "odjede"
+        ],
+        "correct_index": 0,
+        "explanation": "A train arrives by vehicle: přijede."
+      },
+      "answer_key": "přijede",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-261"
+    },
+    {
+      "id": 27205,
+      "lesson_id": 2702,
+      "type": "teaching",
+      "prompt": "Where to, where from",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-263",
+        "rule_step": 1,
+        "heading": "Where to, where from",
+        "items": [
+          {
+            "cz": "Kam jedeš o víkendu?",
+            "en": "Where are you going at the weekend?"
+          },
+          {
+            "cz": "Pojď sem!",
+            "en": "Come here!"
+          }
+        ],
+        "say": "kam asks where to and odkud where from. tam and sem say there and here with movement; ven, nahoru and dolů say out, up and down.",
+        "table": [
+          [
+            "where to?",
+            "Kam jdeš?"
+          ],
+          [
+            "where from?",
+            "Odkud jedeš?"
+          ],
+          [
+            "there / here",
+            "tam / sem"
+          ],
+          [
+            "out / in",
+            "ven / dovnitř"
+          ],
+          [
+            "up / down",
+            "nahoru / dolů"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Kam jedeš o víkendu?",
+            "en": "Where are you going at the weekend?"
+          },
+          {
+            "cz": "Pojď sem!",
+            "en": "Come here!"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Kde jdeš?",
+          "right": "Kam jdeš?"
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 27206,
+      "lesson_id": 2702,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "___ jdeš?",
+        "question_en": "Where are you going?",
+        "options": [
+          "Kam",
+          "Kde",
+          "Odkud"
+        ],
+        "correct_index": 0,
+        "explanation": "Where to = kam."
+      },
+      "answer_key": "Kam",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-263"
+    },
+    {
+      "id": 27207,
+      "lesson_id": 2702,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write jít × chodit and jet × jezdit in your own words. Then add přijít, přijet, odejít, odjet, and kam × odkud.",
+        "items": [
+          {
+            "cz": "jdu × chodím",
+            "en": "on foot: now × usually"
+          },
+          {
+            "cz": "jedu × jezdím",
+            "en": "by vehicle: now × usually"
+          },
+          {
+            "cz": "přijít / přijet, odejít / odjet",
+            "en": "arrive, leave"
+          },
+          {
+            "cz": "kam × odkud",
+            "en": "where to × where from"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 27208,
+      "lesson_id": 2702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Now, on foot: jít.",
+        "sentence": "Teď ___ na zastávku pěšky.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jdu"
+          ]
+        ],
+        "explanation": "Teď jdu na zastávku."
+      },
+      "answer_key": "jdu",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-260"
+    },
+    {
+      "id": 27209,
+      "lesson_id": 2702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "We, usually, by car: jezdit.",
+        "sentence": "O víkendu ___ na chatu autem.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jezdíme"
+          ]
+        ],
+        "explanation": "O víkendu jezdíme na chatu."
+      },
+      "answer_key": "jezdíme",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-260"
+    },
+    {
+      "id": 27210,
+      "lesson_id": 2702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "od- = leaving; by vehicle: jet.",
+        "sentence": "Zítra ráno ___. (leave, by vehicle)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "odjedu"
+          ]
+        ],
+        "explanation": "odjet → odjedu"
+      },
+      "answer_key": "odjedu",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-261"
+    },
+    {
+      "id": 27211,
+      "lesson_id": 2702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Where from = odkud.",
+        "sentence": "___ jsi? — Z Indie.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Odkud"
+          ]
+        ],
+        "explanation": "Odkud jsi?"
+      },
+      "answer_key": "Odkud",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-263"
+    },
+    {
+      "id": 27212,
+      "lesson_id": 2702,
+      "type": "pronunciation",
+      "prompt": "Pronounce this sentence using one-time and habitual motion verbs for contrast.",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Dnes jdu do školy pěšky, ale obvykle jezdím autobusem.",
+        "focus_sounds": [
+          "first_syllable_stress"
+        ],
+        "min_score": 0.6,
+        "translation_en": "Today I am going to school on foot, but usually I ride by bus."
+      },
+      "answer_key": "Dnes jdu do školy pěšky, ale obvykle jezdím autobusem.",
+      "grammar_rule_id": "GR-260",
       "xp_reward": 15
     },
     {
-      "id": 27016,
+      "id": 27213,
+      "lesson_id": 2702,
+      "type": "multiple_choice",
+      "prompt": "Complete: 'Zítra ___ do Prahy vlakem.' (Tomorrow I ___ to Prague by train.)",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Doplňte: 'Zítra ___ do Prahy vlakem.'",
+        "question_en": "Complete: 'Zítra ___ do Prahy vlakem.' (Tomorrow I ___ to Prague by train.)",
+        "options": [
+          "jdu",
+          "jezdit",
+          "jedou",
+          "jedu"
+        ],
+        "correct_index": 3,
+        "explanation": "'Zítra jedu do Prahy vlakem.' = Tomorrow I am going to Prague by train. 'Jedu' is the 1st person singular of 'jet' — a one-time trip by vehicle. 'Vlakem' (by train) confirms vehicle travel. We use 'jet' (one-time) not 'jezdit' (habitual) because tomorrow is a single specific trip."
+      },
+      "answer_key": "jedu",
+      "grammar_rule_id": "GR-260",
+      "xp_reward": 10
+    },
+    {
+      "id": 27214,
+      "lesson_id": 2702,
+      "type": "fill_blank",
+      "prompt": "Fill in the correct form of 'jít' or 'chodit': 'Every morning I ___ to school on foot.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Každé ráno ___ do školy pěšky.",
+        "blank_count": 1,
+        "explanation": "'Každé ráno chodím do školy pěšky.' = Every morning I go to school on foot. 'Každé ráno' (every morning) signals a habitual/repeated action, so we use 'chodit' → 'chodím' (1st person singular). 'Pěšky' (on foot) confirms walking. Use 'chodit' for regular, repeated trips on foot.",
+        "blank_answers": [
+          [
+            "chodím"
+          ]
+        ]
+      },
+      "answer_key": "chodím",
+      "grammar_rule_id": "GR-260",
+      "xp_reward": 15
+    },
+    {
+      "id": 27215,
+      "lesson_id": 2702,
+      "type": "fill_blank",
+      "prompt": "Fill in the correct form of 'jet' or 'jezdit': 'Right now we ___ to Brno by car.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Právě teď ___ do Brna autem.",
+        "blank_count": 1,
+        "explanation": "'Právě teď jedeme do Brna autem.' = Right now we are going to Brno by car. 'Právě teď' (right now) signals a one-time action, so we use 'jet' → 'jedeme' (1st person plural). 'Autem' (by car) confirms vehicle travel. Use 'jet' for a single, specific trip by vehicle happening now.",
+        "blank_answers": [
+          [
+            "jedeme"
+          ]
+        ]
+      },
+      "answer_key": "jedeme",
+      "grammar_rule_id": "GR-260",
+      "xp_reward": 15
+    },
+    {
+      "id": 27216,
+      "lesson_id": 2702,
+      "type": "error_correction",
+      "prompt": "Find the mistake: the wrong motion verb is used.",
+      "data": {
+        "type": "error_correction",
+        "prompt_en": "Find the mistake — the wrong motion verb is used (one-time vs habitual).",
+        "sentence_cz": "Každý den jdu do práce autobusem.",
+        "correct_sentence_cz": "Každý den jezdím do práce autobusem.",
+        "error_type": "motion_verb_error",
+        "explanation": "'Každý den' (every day) signals a habitual, repeated action. For repeated travel by vehicle, use 'jezdit' → 'jezdím' (1st person singular). 'Jdu' is from 'jít' (one-time, on foot) — wrong on both counts: it's not one-time, and 'autobusem' (by bus) is a vehicle. Correct: 'Každý den jezdím do práce autobusem.' = Every day I ride to work by bus."
+      },
+      "answer_key": "Každý den jezdím do práce autobusem.",
+      "grammar_rule_id": "GR-260",
+      "xp_reward": 10
+    },
+    {
+      "id": 27217,
       "lesson_id": 2702,
       "type": "fill_blank",
       "prompt": "Fill in the correct prefixed verb: 'The train ___ to the station at 5 PM.' (arrive, by vehicle, completed)",
@@ -76,7 +541,9 @@
         "blank_count": 1,
         "explanation": "'Vlak přijel na nádraží v 17 hodin.' = The train arrived at the station at 5 PM. 'Přijel' = arrived (by vehicle, perfective past, 3rd person singular). The prefix 'při-' = arrival, and 'jet' → past 'přijel' (train is a vehicle). The perfective is used because the arrival is a completed event.",
         "blank_answers": [
-          ["přijel"]
+          [
+            "přijel"
+          ]
         ]
       },
       "answer_key": "přijel",
@@ -84,7 +551,7 @@
       "xp_reward": 15
     },
     {
-      "id": 27017,
+      "id": 27218,
       "lesson_id": 2702,
       "type": "translation",
       "prompt": "Translate to Czech: 'He arrived home on foot at eight o'clock.'",
@@ -102,148 +569,6 @@
       "answer_key": "Přišel domů v osm hodin.",
       "grammar_rule_id": "GR-261",
       "xp_reward": 10
-    },
-    {
-      "id": 27018,
-      "lesson_id": 2702,
-      "type": "translation",
-      "prompt": "Translate to English: 'Odjíždíme zítra ráno.'",
-      "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Odjíždíme zítra ráno.",
-        "accepted_answers": [
-          "We are leaving tomorrow morning.",
-          "We depart tomorrow morning.",
-          "We're leaving tomorrow morning."
-        ],
-        "grammar_note": "'Odjíždíme' = we are leaving (imperfective present of 'odjíždět' — departing by vehicle, 1st person plural). The prefix 'od-' = leaving/departing, and 'jezdit' → 'odjíždět' (by vehicle, habitual/process). 'Zítra ráno' = tomorrow morning. The imperfective 'odjíždět' here describes a planned future departure as a process. The perfective equivalent 'odjedeme' would emphasize completion."
-      },
-      "answer_key": "We are leaving tomorrow morning.",
-      "grammar_rule_id": "GR-262",
-      "xp_reward": 10
-    },
-    {
-      "id": 27019,
-      "lesson_id": 2702,
-      "type": "matching",
-      "prompt": "Match each imperfective verb to its perfective partner (aspect pair).",
-      "data": {
-        "type": "matching",
-        "prompt_en": "Match each imperfective verb (process/habitual) to its perfective partner (completed result).",
-        "pairs": [
-          {"left": "přicházet", "right": "přijít"},
-          {"left": "odcházet", "right": "odejít"},
-          {"left": "odjíždět", "right": "odjet"},
-          {"left": "přijíždět", "right": "přijet"}
-        ],
-        "explanation": "Czech verbs come in aspect pairs: imperfective (process, habit, ongoing) + perfective (completed result). Motion verbs form pairs by changing the prefix/stem: 'přicházet' (to be arriving, impf.) → 'přijít' (to arrive, pf.); 'odcházet' (to be leaving on foot, impf.) → 'odejít' (to leave on foot, pf.); 'odjíždět' (to be departing by vehicle, impf.) → 'odjet' (to depart by vehicle, pf.); 'přijíždět' (to be arriving by vehicle, impf.) → 'přijet' (to arrive by vehicle, pf.)."
-      },
-      "answer_key": "přicházet→přijít, odcházet→odejít, odjíždět→odjet, přijíždět→přijet",
-      "grammar_rule_id": "GR-262",
-      "xp_reward": 10
-    },
-    {
-      "id": 27020,
-      "lesson_id": 2702,
-      "type": "matching",
-      "prompt": "Match each prefixed motion verb to its English meaning.",
-      "data": {
-        "type": "matching",
-        "prompt_en": "Match each prefixed Czech motion verb to its English meaning.",
-        "pairs": [
-          {"left": "přijít", "right": "to arrive (on foot)"},
-          {"left": "odjet", "right": "to leave/depart (by vehicle)"},
-          {"left": "vyjít", "right": "to go out (on foot)"},
-          {"left": "dojet", "right": "to reach/arrive (by vehicle)"}
-        ],
-        "explanation": "Prefixes give motion verbs precise directional meanings: 'při-' = arrival toward, 'od-' = departure away, 'vy-' = going out/exit, 'do-' = reaching a destination. Combined with 'jít' (on foot) or 'jet' (by vehicle): 'přijít' = arrive on foot, 'odjet' = depart by vehicle, 'vyjít' = go out on foot, 'dojet' = reach by vehicle. The prefix + base verb together encode both direction and mode of travel."
-      },
-      "answer_key": "přijít→to arrive (on foot), odjet→to leave/depart (by vehicle), vyjít→to go out (on foot), dojet→to reach/arrive (by vehicle)",
-      "grammar_rule_id": "GR-261",
-      "xp_reward": 10
-    },
-    {
-      "id": 27021,
-      "lesson_id": 2702,
-      "type": "error_correction",
-      "prompt": "Find the mistake: wrong aspect (imperfective used where perfective is needed).",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find the mistake — the wrong verb aspect is used.",
-        "sentence_cz": "Včera jsem odcházel z práce v pět.",
-        "correct_sentence_cz": "Včera jsem odešel z práce v pět.",
-        "error_type": "aspect_error",
-        "explanation": "'Včera' (yesterday) describes a specific completed event in the past. For a single completed action, use the perfective 'odejít' → past 'odešel' (masc.). 'Odcházel' is from 'odcházet' (imperfective — habitual or ongoing process), which would suit 'Každý den jsem odcházel v pět' (every day I used to leave at five). Correct: 'Včera jsem odešel z práce v pět.' = Yesterday I left work at five (completed)."
-      },
-      "answer_key": "Včera jsem odešel z práce v pět.",
-      "grammar_rule_id": "GR-264",
-      "xp_reward": 10
-    },
-    {
-      "id": 27022,
-      "lesson_id": 2702,
-      "type": "error_correction",
-      "prompt": "Find the mistake: wrong aspect (perfective used where imperfective is needed for a habit).",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find the mistake — the wrong verb aspect is used for a habitual action.",
-        "sentence_cz": "Každý den jsem odešel z domova v sedm.",
-        "correct_sentence_cz": "Každý den jsem odcházel z domova v sedm.",
-        "error_type": "aspect_error",
-        "explanation": "'Každý den' (every day) signals a habitual, repeated action in the past. For repeated/habitual actions, use the imperfective 'odcházet' → past 'odcházel' (masc.). 'Odešel' is from 'odejít' (perfective — single completed event), which would suit 'Včera jsem odešel v sedm' (yesterday I left at seven). Correct: 'Každý den jsem odcházel z domova v sedm.' = Every day I used to leave home at seven."
-      },
-      "answer_key": "Každý den jsem odcházel z domova v sedm.",
-      "grammar_rule_id": "GR-264",
-      "xp_reward": 10
-    },
-    {
-      "id": 27023,
-      "lesson_id": 2702,
-      "type": "dialogue",
-      "prompt": "Complete the navigation dialogue with the correct prefixed motion verb.",
-      "data": {
-        "type": "dialogue",
-        "prompt_en": "Complete the dialogue at a train station. Choose the correct form of 'přijet' (to arrive, by vehicle, perfective).",
-        "lines": [
-          {
-            "speaker": "Cestující",
-            "text_en": "When does the train to Brno arrive?",
-            "explanation": "Either 'přijede' (perfective future — will arrive) or 'přijíždí' (imperfective present — arrives habitually) is acceptable. 'Přijet' = to arrive by vehicle; 'přijíždět' = to be arriving by vehicle (imperfective). For a schedule, the imperfective 'přijíždí' is common (habitual per schedule); for a specific upcoming train, 'přijede' (perfective future) is used.",
-            "text": "Kdy ___ vlak do Brna?"
-          },
-          {
-            "speaker": "Pokladní",
-            "text_en": "The train to Brno arrives at 14:30 on platform 3.",
-            "explanation": "'Přijíždí' (imperfective) is natural for a scheduled, recurring arrival. 'Přijede' (perfective) works for a specific one-time arrival. Both are grammatically correct; 'přijíždí' is slightly more natural for schedules. 'Na nástupišti 3' = on platform 3.",
-            "text": "Vlak do Brna ___ v 14:30 na nástupišti 3."
-          }
-        ],
-        "explanation": "This dialogue practices prefixed motion verbs in a real navigation context. 'Při-' = arrival, combined with 'jet' (by vehicle). At a train station, you often hear both aspects: imperfective for regular schedules ('přijíždí v 14:30' = arrives at 14:30 per schedule) and perfective for a specific upcoming arrival ('přijede v 14:30' = will arrive at 14:30 today).",
-        "blank_answers": [
-          ["přijede", "přijíždí"],
-          ["přijíždí", "přijede"]
-        ],
-        "scenario": "A traveler asks when the train to Brno arrives. The clerk responds."
-      },
-      "answer_key": "Kdy přijíždí vlak do Brna? — Vlak do Brna přijíždí v 14:30 na nástupišti 3.",
-      "grammar_rule_id": "GR-264",
-      "xp_reward": 15
-    },
-    {
-      "id": 27024,
-      "lesson_id": 2702,
-      "type": "word_order",
-      "prompt": "Arrange the words to form: 'We arrived at the station on foot.'",
-      "data": {
-        "type": "word_order",
-        "words": ["přišli", "na", "My", "nádraží", "pěšky"],
-        "correct_order": [2, 0, 1, 3, 4],
-        "explanation": "'My přišli na nádraží pěšky.' = We arrived at the station on foot. 'Přišli' = we arrived (perfective past of 'přijít' — arrival on foot, 1st person plural, masculine/animate). 'Na nádraží' = at/to the station (accusative with 'na' for destination). 'Pěšky' = on foot. The prefix 'při-' signals arrival. Perfective is used because the arrival is completed."
-      },
-      "answer_key": "My přišli na nádraží pěšky.",
-      "grammar_rule_id": "GR-261",
-      "xp_reward": 15
     }
   ]
 }

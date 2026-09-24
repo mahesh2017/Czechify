@@ -3169,7 +3169,48 @@
           "en": "We go to the cottage on weekends. (habitual)"
         }
       ],
-      "unit_id": 27
+      "unit_id": 27,
+      "concept_keys": [
+        "motion_verbs_directional_prefixes"
+      ],
+      "lecture": [
+        {
+          "heading": "jdu or chodím, jedu or jezdím",
+          "say": "On foot: jít for one trip now, chodit for a habit. By vehicle: jet for one trip, jezdit for a habit.",
+          "table": [
+            [
+              "one trip, on foot",
+              "jdu, jdeš, jde"
+            ],
+            [
+              "habit, on foot",
+              "chodím, chodíš, chodí"
+            ],
+            [
+              "one trip, by vehicle",
+              "jedu, jedeš, jede"
+            ],
+            [
+              "habit, by vehicle",
+              "jezdím, jezdíš, jezdí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Teď jdu na zastávku.",
+              "en": "I am walking to the stop now."
+            },
+            {
+              "cz": "Každý den jezdím do práce tramvají.",
+              "en": "Every day I go to work by tram."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Každý den jdu do práce autobusem.",
+            "right": "Každý den jezdím do práce autobusem."
+          }
+        }
+      ]
     },
     {
       "id": "GR-261",
@@ -3195,33 +3236,56 @@
           "en": "He returned to work."
         }
       ],
-      "unit_id": 27
-    },
-    {
-      "id": "GR-262",
-      "rule_name": "Aspect pairs — systematic prefix patterns",
-      "pattern": "Imperfective (process) ↔ Perfective (result) — paired by prefixes: u-, na-, s-/z-, vy-, do-, při-, od-",
-      "explanation": "Czech verbs come in aspect pairs: imperfective (ongoing/process) and perfective (completed/result). The perfective is usually formed by adding a prefix to the imperfective. Common prefix patterns: u- (dělat→udělat, vařit→uvařit), na- (psát→napsat, číst→přečíst — note 'na' for writing, 'pře' for reading), s-/z- (dělat→zdělat — rare; more commonly: tvořit→stvořit), vy- (myt→vymýt, brát→vzít), do- (dělat→dodělat, číst→dočíst), při- (nést→přinést), od- (nést→odnést). Not every prefix works with every verb — the pairs must be learned. The key semantic distinction: imperfective answers 'What were you doing?' (psal jsem = I was writing), perfective answers 'What did you do?' (napsal jsem = I wrote [and finished]).",
-      "case_affected": null,
-      "examples": [
-        {
-          "cz": "dělat (impf) → udělat (pf)",
-          "en": "to do — process → to do — completed"
-        },
-        {
-          "cz": "psát (impf) → napsat (pf)",
-          "en": "to write — process → to write — completed"
-        },
-        {
-          "cz": "číst (impf) → přečíst (pf)",
-          "en": "to read — process → to read — completed"
-        },
-        {
-          "cz": "kupovat (impf) → koupit (pf)",
-          "en": "to buy — process → to buy — completed"
-        }
+      "unit_id": 27,
+      "concept_keys": [
+        "motion_verbs_directional_prefixes"
       ],
-      "unit_id": 27
+      "lecture": [
+        {
+          "heading": "Arrive and leave: při- and od-",
+          "say": "A prefix gives going a direction: při- is arriving, od- leaving, vy- going out, pro- going through. These are finished actions.",
+          "table": [
+            [
+              "arrive on foot",
+              "přijít — přijdu"
+            ],
+            [
+              "arrive by vehicle",
+              "přijet — přijedu"
+            ],
+            [
+              "leave on foot",
+              "odejít — odejdu"
+            ],
+            [
+              "leave by vehicle",
+              "odjet — odjedu"
+            ],
+            [
+              "go out",
+              "vyjít — vyjdu"
+            ],
+            [
+              "go through",
+              "projít — projdu"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Vlak přijede v šest.",
+              "en": "The train arrives at six."
+            },
+            {
+              "cz": "Odjedu zítra ráno.",
+              "en": "I will leave tomorrow morning."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Vlak přijde v šest.",
+            "right": "Vlak přijede v šest."
+          }
+        }
+      ]
     },
     {
       "id": "GR-263",
@@ -3247,33 +3311,52 @@
           "en": "I have to go outside."
         }
       ],
-      "unit_id": 27
-    },
-    {
-      "id": "GR-264",
-      "rule_name": "Aspect in context — when to use imperfective vs perfective",
-      "pattern": "Imperfective for ongoing/repeated/habitual; perfective for single completed actions with results",
-      "explanation": "The choice between imperfective and perfective depends on what you want to communicate. USE IMPERFECTIVE when: describing a process (psal jsem celý večer = I was writing all evening), habitual actions (každý den čtu = I read every day), simultaneous actions (když jsem vařil, ona se dívala = while I was cooking, she was watching), asking 'what were you doing?'. USE PERFECTIVE when: describing a completed action with a result (napsal jsem e-mail = I wrote an email [it's done]), single events (včera jsem koupil auto = yesterday I bought a car), sequential actions (přišel, sedl si a začal číst = he came, sat down, and started reading), asking 'what did you do?'. At A2 level, learners need to RECOGNIZE the distinction — active production is B1.",
-      "case_affected": null,
-      "examples": [
-        {
-          "cz": "Psal jsem dopis, když telefonovala.",
-          "en": "I was writing a letter when she called. (imperfective — process)"
-        },
-        {
-          "cz": "Napsal jsem dopis a odeslal ho.",
-          "en": "I wrote a letter and sent it. (perfective — completed)"
-        },
-        {
-          "cz": "Každý den vařím oběd.",
-          "en": "Every day I cook lunch. (imperfective — habitual)"
-        },
-        {
-          "cz": "Včera jsem uvařil svíčkovou.",
-          "en": "Yesterday I cooked svíčková. (perfective — single completed)"
-        }
+      "unit_id": 27,
+      "concept_keys": [
+        "motion_verbs_directional_prefixes"
       ],
-      "unit_id": 27
+      "lecture": [
+        {
+          "heading": "Where to, where from",
+          "say": "kam asks where to and odkud where from. tam and sem say there and here with movement; ven, nahoru and dolů say out, up and down.",
+          "table": [
+            [
+              "where to?",
+              "Kam jdeš?"
+            ],
+            [
+              "where from?",
+              "Odkud jedeš?"
+            ],
+            [
+              "there / here",
+              "tam / sem"
+            ],
+            [
+              "out / in",
+              "ven / dovnitř"
+            ],
+            [
+              "up / down",
+              "nahoru / dolů"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kam jedeš o víkendu?",
+              "en": "Where are you going at the weekend?"
+            },
+            {
+              "cz": "Pojď sem!",
+              "en": "Come here!"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Kde jdeš?",
+            "right": "Kam jdeš?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-290",

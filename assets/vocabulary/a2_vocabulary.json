@@ -5156,7 +5156,7 @@
     "unit_id": 27,
     "example_cz": "Běžím na autobus.",
     "example_en": "I am running for the bus.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1483,
@@ -5167,7 +5167,7 @@
     "unit_id": 27,
     "example_cz": "Letíme do Itálie.",
     "example_en": "We are flying to Italy.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1484,
@@ -5178,29 +5178,7 @@
     "unit_id": 27,
     "example_cz": "Děti plavou v bazénu.",
     "example_en": "The children are swimming in the pool.",
-    "lesson_id": 2701
-  },
-  {
-    "id": 1485,
-    "word_cz": "lézt",
-    "word_en": "to crawl / climb",
-    "ipa": "lɛːst",
-    "gender": null,
-    "unit_id": 27,
-    "example_cz": "Dítě léze po podlaze.",
-    "example_en": "The baby is crawling on the floor.",
-    "lesson_id": 2701
-  },
-  {
-    "id": 1486,
-    "word_cz": "skákat",
-    "word_en": "to jump",
-    "ipa": "ˈskaːkatsk",
-    "gender": null,
-    "unit_id": 27,
-    "example_cz": "Pes skáče přes plot.",
-    "example_en": "The dog is jumping over the fence.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1487,
@@ -5211,7 +5189,7 @@
     "unit_id": 27,
     "example_cz": "Přišel včas na schůzku.",
     "example_en": "He arrived on time for the meeting.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1488,
@@ -5222,7 +5200,7 @@
     "unit_id": 27,
     "example_cz": "Odešel z práce v pět hodin.",
     "example_en": "He left work at five o'clock.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1489,
@@ -5233,7 +5211,7 @@
     "unit_id": 27,
     "example_cz": "Vyšli jsme ven na vzduch.",
     "example_en": "We went outside for fresh air.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1490,
@@ -5244,7 +5222,7 @@
     "unit_id": 27,
     "example_cz": "Došli jsme k restauraci.",
     "example_en": "We reached the restaurant.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1491,
@@ -5255,7 +5233,7 @@
     "unit_id": 27,
     "example_cz": "Prošli jsme parkem.",
     "example_en": "We walked through the park.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1492,
@@ -5266,7 +5244,7 @@
     "unit_id": 27,
     "example_cz": "Vracím se domů z práce.",
     "example_en": "I am returning home from work.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1493,
@@ -5277,7 +5255,7 @@
     "unit_id": 27,
     "example_cz": "Vrátil se z dovolené včera.",
     "example_en": "He returned from vacation yesterday.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1494,
@@ -5299,7 +5277,7 @@
     "unit_id": 27,
     "example_cz": "Často létám na služební cesty.",
     "example_en": "I often fly on business trips.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1496,
@@ -5343,7 +5321,7 @@
     "unit_id": 27,
     "example_cz": "Pojďte tudy, prosím.",
     "example_en": "Please come this way.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1500,
@@ -5354,7 +5332,7 @@
     "unit_id": 27,
     "example_cz": "Jdu tam zítra.",
     "example_en": "I am going there tomorrow.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1501,
@@ -5365,7 +5343,7 @@
     "unit_id": 27,
     "example_cz": "Pojď sem na chvíli.",
     "example_en": "Come here for a moment.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1502,
@@ -5376,7 +5354,7 @@
     "unit_id": 27,
     "example_cz": "Jdi ven na vzduch.",
     "example_en": "Go outside for fresh air.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1503,
@@ -5387,7 +5365,7 @@
     "unit_id": 27,
     "example_cz": "Pojďte dovnitř, je zima.",
     "example_en": "Come inside, it is cold.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1504,
@@ -5398,7 +5376,7 @@
     "unit_id": 27,
     "example_cz": "Jděte nahoru po schodech.",
     "example_en": "Go upstairs.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1505,
@@ -5409,7 +5387,7 @@
     "unit_id": 27,
     "example_cz": "Sjeďte dolů po kopci.",
     "example_en": "Go down the hill.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1506,
@@ -5420,7 +5398,7 @@
     "unit_id": 27,
     "example_cz": "Udělal jsem úkol.",
     "example_en": "I did the homework.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1507,
@@ -5431,7 +5409,7 @@
     "unit_id": 27,
     "example_cz": "Napsal jsem e-mail kolegovi.",
     "example_en": "I wrote an email to a colleague.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1508,
@@ -5442,7 +5420,7 @@
     "unit_id": 27,
     "example_cz": "Přečetl jsem celou knihu.",
     "example_en": "I read the whole book.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1509,
@@ -5453,7 +5431,7 @@
     "unit_id": 27,
     "example_cz": "Uvařil jsem večeři.",
     "example_en": "I cooked dinner.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1510,
@@ -5464,7 +5442,7 @@
     "unit_id": 27,
     "example_cz": "Kupuju jídlo v supermarketu.",
     "example_en": "I am buying food at the supermarket.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1511,
@@ -5486,7 +5464,7 @@
     "unit_id": 27,
     "example_cz": "Odešel domů po práci.",
     "example_en": "He went home after work.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1513,
@@ -5497,7 +5475,7 @@
     "unit_id": 27,
     "example_cz": "Vrátil se do práce po obědě.",
     "example_en": "He returned to work after lunch.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1514,
@@ -5508,7 +5486,7 @@
     "unit_id": 27,
     "example_cz": "Vyšli jsme ven na kávu.",
     "example_en": "We went outside for coffee.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1515,
@@ -5519,7 +5497,7 @@
     "unit_id": 27,
     "example_cz": "Došli jsme do obchodu pro chléb.",
     "example_en": "We reached the shop for bread.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1516,
@@ -5530,95 +5508,7 @@
     "unit_id": 27,
     "example_cz": "Prošli jsme parkem domů.",
     "example_en": "We walked through the park home.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1517,
-    "word_cz": "předložka",
-    "word_en": "prefix / preposition",
-    "ipa": "ˈpr̝ɛdloʊʃka",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předložky jsou důležité v češtině.",
-    "example_en": "Prefixes are important in Czech.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1518,
-    "word_cz": "předpona u-",
-    "word_en": "prefix u-",
-    "ipa": "ˈpr̝ɛdpona uː",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předpona u- znamená dokončení.",
-    "example_en": "The prefix u- means completion.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1519,
-    "word_cz": "předpona na-",
-    "word_en": "prefix na-",
-    "ipa": "ˈpr̝ɛdpona na",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předpona na- tvoří dokonavá slovesa.",
-    "example_en": "The prefix na- forms perfective verbs.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1520,
-    "word_cz": "předpona s-",
-    "word_en": "prefix s-",
-    "ipa": "ˈpr̝ɛdpona s",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předpona s- znamená spojení.",
-    "example_en": "The prefix s- means connection.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1521,
-    "word_cz": "předpona z-",
-    "word_en": "prefix z-",
-    "ipa": "ˈpr̝ɛdpona z",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předpona z- mění význam slovesa.",
-    "example_en": "The prefix z- changes the verb's meaning.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1522,
-    "word_cz": "předpona vy-",
-    "word_en": "prefix vy-",
-    "ipa": "ˈpr̝ɛdpona ʋi",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předpona vy- znamená ven.",
-    "example_en": "The prefix vy- means out.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1523,
-    "word_cz": "předpona do-",
-    "word_en": "prefix do-",
-    "ipa": "ˈpr̝ɛdpona do",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předpona do- znamená dokončení cesty.",
-    "example_en": "The prefix do- means completing a journey.",
-    "lesson_id": 2702
-  },
-  {
-    "id": 1524,
-    "word_cz": "předpona při-",
-    "word_en": "prefix při-",
-    "ipa": "ˈpr̝ɛdpona pr̝i",
-    "gender": "feminine",
-    "unit_id": 27,
-    "example_cz": "Předpona při- znamená příchod.",
-    "example_en": "The prefix při- means arrival.",
-    "lesson_id": 2702
+    "lesson_id": null
   },
   {
     "id": 1525,
@@ -8852,7 +8742,7 @@
     "unit_id": 27,
     "example_cz": "Vlak přijel přesně včas.",
     "example_en": "The train arrived exactly on time.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1861,
@@ -8863,7 +8753,7 @@
     "unit_id": 27,
     "example_cz": "Autobus odjel před pěti minutami.",
     "example_en": "The bus left five minutes ago.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1862,
@@ -8874,7 +8764,7 @@
     "unit_id": 27,
     "example_cz": "Přejeďte přes most a odbočte doprava.",
     "example_en": "Cross the bridge and turn right.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1863,
@@ -8885,7 +8775,7 @@
     "unit_id": 27,
     "example_cz": "Objeli jsme dopravní zácpu.",
     "example_en": "We went around the traffic jam.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1864,
@@ -8896,7 +8786,7 @@
     "unit_id": 27,
     "example_cz": "Projeli jsme tunellem.",
     "example_en": "We went through the tunnel.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1865,
@@ -8907,18 +8797,7 @@
     "unit_id": 27,
     "example_cz": "Dojeli jsme do Prahy za dvě hodiny.",
     "example_en": "We reached Prague in two hours.",
-    "lesson_id": 2701
-  },
-  {
-    "id": 1866,
-    "word_cz": "zajet",
-    "word_en": "to drive to, go (somewhere)",
-    "ipa": "zajɛt",
-    "gender": null,
-    "unit_id": 27,
-    "example_cz": "Zajeli jsme si do obchodu.",
-    "example_en": "We drove to the shop.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1867,
@@ -8929,18 +8808,7 @@
     "unit_id": 27,
     "example_cz": "Vyjeďte z garáže pomalu.",
     "example_en": "Drive out of the garage slowly.",
-    "lesson_id": 2701
-  },
-  {
-    "id": 1868,
-    "word_cz": "najet",
-    "word_en": "to drive onto, hit (collision)",
-    "ipa": "najɛt",
-    "gender": null,
-    "unit_id": 27,
-    "example_cz": "Najel jsem do křižovatky.",
-    "example_en": "I drove into the intersection.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1869,
@@ -8984,18 +8852,7 @@
     "unit_id": 27,
     "example_cz": "Ztratili jsme se v centru.",
     "example_en": "We got lost in the city centre.",
-    "lesson_id": 2701
-  },
-  {
-    "id": 1873,
-    "word_cz": "zabloudit",
-    "word_en": "to get lost, wander",
-    "ipa": "zabloʊdɪt",
-    "gender": null,
-    "unit_id": 27,
-    "example_cz": "Zabloudili jsme v lese.",
-    "example_en": "We got lost in the forest.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1874,
@@ -9006,7 +8863,7 @@
     "unit_id": 27,
     "example_cz": "Odbočte vlevo u kostela.",
     "example_en": "Turn left at the church.",
-    "lesson_id": 2701
+    "lesson_id": 2703
   },
   {
     "id": 1875,
@@ -9028,29 +8885,7 @@
     "unit_id": 27,
     "example_cz": "Zastavili jsme u čerpací stanice.",
     "example_en": "We stopped at the petrol station.",
-    "lesson_id": 2701
-  },
-  {
-    "id": 1877,
-    "word_cz": "rozjet se",
-    "word_en": "to set off, start moving",
-    "ipa": "rozjɛt sɛ",
-    "gender": null,
-    "unit_id": 27,
-    "example_cz": "Auto se rozjelo na zelenou.",
-    "example_en": "The car set off at the green light.",
-    "lesson_id": 2701
-  },
-  {
-    "id": 1878,
-    "word_cz": "couvnout",
-    "word_en": "to back up, reverse",
-    "ipa": "tsou̯vnot",
-    "gender": null,
-    "unit_id": 27,
-    "example_cz": "Musím couvnout, abych vyjel.",
-    "example_en": "I need to back up to get out.",
-    "lesson_id": 2701
+    "lesson_id": 2703
   },
   {
     "id": 1879,
@@ -9061,7 +8896,7 @@
     "unit_id": 27,
     "example_cz": "Otočte se a jděte zpět.",
     "example_en": "Turn around and go back.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1880,
@@ -9072,7 +8907,7 @@
     "unit_id": 27,
     "example_cz": "Musíme se vrátit zpět.",
     "example_en": "We have to go back.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1881,
@@ -9083,7 +8918,7 @@
     "unit_id": 27,
     "example_cz": "Jděte dopředu dvacet metrů.",
     "example_en": "Go forward twenty metres.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1882,
@@ -9094,7 +8929,7 @@
     "unit_id": 27,
     "example_cz": "Cukněte dozadu, prosím.",
     "example_en": "Step back, please.",
-    "lesson_id": 2701
+    "lesson_id": 2704
   },
   {
     "id": 1883,
@@ -9105,7 +8940,7 @@
     "unit_id": 27,
     "example_cz": "Jděte nahoru po schodech.",
     "example_en": "Go up the stairs.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1884,
@@ -9116,7 +8951,7 @@
     "unit_id": 27,
     "example_cz": "Běžte dolů do přízemí.",
     "example_en": "Go down to the ground floor.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1885,
@@ -10437,5 +10272,27 @@
     "example_cz": "Musím si zapamatovat nová slovíčka.",
     "example_en": "I need to memorize new vocabulary.",
     "lesson_id": 3101
+  },
+  {
+    "id": 2005,
+    "word_cz": "cestující",
+    "word_en": "passenger",
+    "ipa": null,
+    "gender": "masculine animate",
+    "unit_id": 27,
+    "example_cz": "Vážení cestující, vlak přijede na nástupiště tři.",
+    "example_en": "Dear passengers, the train arrives at platform three.",
+    "lesson_id": null
+  },
+  {
+    "id": 2006,
+    "word_cz": "zpoždění",
+    "word_en": "delay",
+    "ipa": null,
+    "gender": "neuter",
+    "unit_id": 27,
+    "example_cz": "Vlak má zpoždění deset minut.",
+    "example_en": "The train is ten minutes late.",
+    "lesson_id": null
   }
 ]
