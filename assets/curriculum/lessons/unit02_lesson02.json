@@ -3,119 +3,540 @@
   "unit_id": 2,
   "order_in_unit": 1,
   "title": "Names: Ask and Answer",
-  "description": "Ask someone’s name, give your own, and respond naturally when you meet.",
-  "duration_min": 12,
+  "description": "Learn vy and ty, how to give your name and origin, and how to address people.",
+  "duration_min": 14,
   "lesson_type": "practice",
+  "can_do": "ask and give names and origin, and greet someone by name.",
+  "new_language": [
+    "Jak se máte? / Jak se máš?",
+    "Jmenuju se…, Jsem z…",
+    "pane Nováku, pane doktore, Evo"
+  ],
+  "recycles": [
+    "Dobrý den, Ahoj"
+  ],
+  "exit_task": "introduce yourself formally.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 2100,
+      "id": 2200,
       "lesson_id": 202,
       "type": "teaching",
-      "prompt": "Learn a short name exchange",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Ask, answer, connect",
-        "body": "The question changes with the relationship. Your answer can stay simple. Jmenuji se is slightly more formal; Jmenuju se is common in everyday speech.",
-        "play_all_label": "Hear the name exchange",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write two formal and two friendly phrases. Then check.",
         "items": [
           {
-            "cz": "Jak se jmenujete?",
-            "en": "What is your name? (formal)"
+            "cz": "Dobrý den.",
+            "en": "Hello. (formal)"
           },
           {
-            "cz": "Jak se jmenuješ?",
-            "en": "What is your name? (informal)"
+            "cz": "Ahoj.",
+            "en": "Hi. / Bye. (friends)"
+          },
+          {
+            "cz": "Jak se máte?",
+            "en": "How are you? (formal)"
           },
           {
             "cz": "Jmenuju se…",
-            "en": "My name is… (everyday)"
+            "en": "My name is…"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 2201,
+      "lesson_id": 202,
+      "type": "teaching",
+      "prompt": "Formal or friendly: vy or ty",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-010",
+        "rule_step": 1,
+        "heading": "Formal or friendly: vy or ty",
+        "items": [
+          {
+            "cz": "Dobrý den, jak se máte?",
+            "en": "Hello, how are you? (formal)"
           },
           {
-            "cz": "Jmenuji se…",
-            "en": "My name is… (more formal)"
+            "cz": "Ahoj, jak se máš?",
+            "en": "Hi, how are you? (friend)"
+          }
+        ],
+        "say": "Use Dobrý den and vy with strangers, older people and at work. Use Ahoj and ty with friends, family and children. When in doubt, choose vy.",
+        "table": [
+          [
+            "Hello",
+            "Dobrý den. / Ahoj."
+          ],
+          [
+            "How are you?",
+            "Jak se máte? / Jak se máš?"
+          ],
+          [
+            "And you?",
+            "A vy? / A ty?"
+          ],
+          [
+            "Goodbye",
+            "Na shledanou. / Ahoj."
+          ],
+          [
+            "Where are you from?",
+            "Odkud jste? / Odkud jsi?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dobrý den, jak se máte?",
+            "en": "Hello, how are you? (formal)"
+          },
+          {
+            "cz": "Ahoj, jak se máš?",
+            "en": "Hi, how are you? (friend)"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Ahoj, paní doktorko.",
+          "right": "Dobrý den, paní doktorko."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 2202,
+      "lesson_id": 202,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jste v bance. Co řeknete?",
+        "question_en": "You are at the bank. What do you say?",
+        "options": [
+          "Dobrý den.",
+          "Ahoj.",
+          "Čau."
+        ],
+        "correct_index": 0,
+        "explanation": "A stranger at work: formal Dobrý den."
+      },
+      "answer_key": "Dobrý den.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-010"
+    },
+    {
+      "id": 2203,
+      "lesson_id": 202,
+      "type": "teaching",
+      "prompt": "Your name and where you are from",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-011",
+        "rule_step": 1,
+        "heading": "Your name and where you are from",
+        "items": [
+          {
+            "cz": "Jmenuju se Daniel. Jsem z Indie.",
+            "en": "My name is Daniel. I am from India."
           },
           {
             "cz": "Těší mě.",
             "en": "Nice to meet you."
+          }
+        ],
+        "say": "Jmenuju se gives your name; Jmenuji se is more formal. Jsem z says where you are from, and the country changes its ending: Česko → z Česka. Learn your country as one chunk.",
+        "table": [
+          [
+            "Jak se jmenujete?",
+            "What is your name?"
+          ],
+          [
+            "Jmenuju se Anna.",
+            "My name is Anna."
+          ],
+          [
+            "Odkud jste?",
+            "Where are you from?"
+          ],
+          [
+            "Česko",
+            "z Česka"
+          ],
+          [
+            "Indie",
+            "z Indie"
+          ],
+          [
+            "Ukrajina",
+            "z Ukrajiny"
+          ],
+          [
+            "Německo",
+            "z Německa"
+          ],
+          [
+            "Těší mě. — Mě taky.",
+            "Nice to meet you. — Me too."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Jmenuju se Daniel. Jsem z Indie.",
+            "en": "My name is Daniel. I am from India."
           },
           {
-            "cz": "Mě taky.",
-            "en": "Nice to meet you too. (informal)"
+            "cz": "Těší mě.",
+            "en": "Nice to meet you."
           }
-        ]
+        ],
+        "common_mistake": {
+          "wrong": "Jsem z Česko.",
+          "right": "Jsem z Česka."
+        },
+        "step": 2,
+        "steps": 3
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
-      "id": 2101,
+      "id": 2204,
       "lesson_id": 202,
-      "type": "listening_comprehension",
-      "prompt": "Follow a formal name exchange",
+      "type": "multiple_choice",
+      "prompt": "Quick check",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen without reading first. What is the visitor’s name?",
-        "transcript_cz": "Dobrý den. Jak se jmenujete? Jmenuji se Daniel Kim. Těší mě. Mě také.",
-        "questions": [
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jsem z ___. (Česko)",
+        "question_en": "I am from Czechia.",
+        "options": [
+          "Česka",
+          "Česko",
+          "Česku"
+        ],
+        "correct_index": 0,
+        "explanation": "z + Česko → z Česka."
+      },
+      "answer_key": "Česka",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-011"
+    },
+    {
+      "id": 2205,
+      "lesson_id": 202,
+      "type": "teaching",
+      "prompt": "Speaking to someone: pane Nováku",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-013",
+        "rule_step": 1,
+        "heading": "Speaking to someone: pane Nováku",
+        "items": [
           {
-            "question_en": "What is the visitor’s name?",
-            "options": [
-              "Daniel Kim",
-              "David Novák",
-              "Amir Hassan"
-            ],
-            "correct_index": 0
+            "cz": "Dobrý den, pane doktore.",
+            "en": "Hello, doctor."
           },
           {
-            "question_en": "Is this formal or informal?",
-            "options": [
-              "Formal",
-              "Informal",
-              "A family exchange"
-            ],
-            "correct_index": 0
+            "cz": "Ahoj, Evo!",
+            "en": "Hi, Eva!"
+          }
+        ],
+        "say": "When you speak to someone, many names change: Petr → Petře, Eva → Evo, pan Novák → pane Nováku. paní and women’s surnames stay the same: paní Nováková.",
+        "table": [
+          [
+            "pan Novák",
+            "pane Nováku!"
+          ],
+          [
+            "pan doktor",
+            "pane doktore!"
+          ],
+          [
+            "paní Nováková",
+            "paní Nováková!"
+          ],
+          [
+            "Petr",
+            "Petře!"
+          ],
+          [
+            "Tomáš",
+            "Tomáši!"
+          ],
+          [
+            "Pavel",
+            "Pavle!"
+          ],
+          [
+            "Eva",
+            "Evo!"
+          ],
+          [
+            "Jana",
+            "Jano!"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dobrý den, pane doktore.",
+            "en": "Hello, doctor."
+          },
+          {
+            "cz": "Ahoj, Evo!",
+            "en": "Hi, Eva!"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Dobrý den, pan Novák.",
+          "right": "Dobrý den, pane Nováku."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 2206,
+      "lesson_id": 202,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Píšete panu Novákovi: „Dobrý den, ___,“",
+        "question_en": "You write to Mr Novák: “Dear Mr Novák,”",
+        "options": [
+          "pane Nováku",
+          "pan Novák",
+          "pane Novák"
+        ],
+        "correct_index": 0,
+        "explanation": "Speaking to him: pane Nováku."
+      },
+      "answer_key": "pane Nováku",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-013"
+    },
+    {
+      "id": 2207,
+      "lesson_id": 202,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write the formal and friendly form of three phrases, your name and origin, and how to greet three people by name.",
+        "items": [
+          {
+            "cz": "Jak se máte? / Jak se máš?",
+            "en": "formal / friendly"
+          },
+          {
+            "cz": "Jmenuju se… Jsem z…",
+            "en": "my name, where I am from"
+          },
+          {
+            "cz": "pane Nováku, paní Nováková, Evo",
+            "en": "speaking to someone"
           }
         ]
       },
-      "answer_key": "Daniel Kim; Formal",
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 2208,
+      "lesson_id": 202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Friendly: ty → máš.",
+        "sentence": "Ahoj, jak se ___? (ty)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "máš"
+          ]
+        ],
+        "explanation": "Jak se máš?"
+      },
+      "answer_key": "máš",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-010"
+    },
+    {
+      "id": 2209,
+      "lesson_id": 202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "My name is: Jmenuju se.",
+        "sentence": "___ se Anna.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Jmenuju",
+            "Jmenuji"
+          ]
+        ],
+        "explanation": "Jmenuju se Anna."
+      },
+      "answer_key": "Jmenuju",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-011"
+    },
+    {
+      "id": 2210,
+      "lesson_id": 202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Speaking to him: doktor → doktore.",
+        "sentence": "Dobrý den, pane ___! (doktor)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "doktore"
+          ]
+        ],
+        "explanation": "pane doktore"
+      },
+      "answer_key": "doktore",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-013"
+    },
+    {
+      "id": 2211,
+      "lesson_id": 202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Names in -a → -o.",
+        "sentence": "Ahoj, ___! (Eva)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Evo"
+          ]
+        ],
+        "explanation": "Evo"
+      },
+      "answer_key": "Evo",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-013"
+    },
+    {
+      "id": 2212,
+      "lesson_id": 202,
+      "type": "fill_blank",
+      "prompt": "Complete the formal greeting",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Dobrý den. Jak se ___?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "máte"
+          ]
+        ],
+        "explanation": "Máte is the formal vy form in this useful greeting chunk."
+      },
+      "answer_key": "máte",
+      "grammar_rule_id": "GR-010",
       "xp_reward": 10
     },
     {
-      "id": 2102,
+      "id": 2213,
       "lesson_id": 202,
-      "type": "listening_comprehension",
-      "prompt": "Follow a friendly name exchange",
+      "type": "fill_blank",
+      "prompt": "Complete the friendly greeting",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen. Who asks the question, and who answers?",
-        "transcript_cz": "Ahoj, já jsem Klára. Jak se jmenuješ? Jmenuju se Amir. Těší mě. Mě taky.",
-        "questions": [
+        "type": "fill_blank",
+        "sentence": "Ahoj. Jak se ___?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "máš"
+          ]
+        ],
+        "explanation": "Máš is the informal ty form used with friends."
+      },
+      "answer_key": "máš",
+      "grammar_rule_id": "GR-010",
+      "xp_reward": 10
+    },
+    {
+      "id": 2214,
+      "lesson_id": 202,
+      "type": "dialogue",
+      "prompt": "Choose the greeting that matches each relationship",
+      "data": {
+        "type": "dialogue",
+        "scenario": "First a hotel receptionist, then a Czech friend",
+        "lines": [
           {
-            "question_en": "Who asks for the other person’s name?",
-            "options": [
-              "Klára",
-              "Amir",
-              "Both together"
-            ],
-            "correct_index": 0
+            "speaker": "receptionist",
+            "text": "Dobrý den."
           },
           {
-            "question_en": "What is the answer?",
-            "options": [
-              "Jmenuju se Amir.",
-              "Jmenuju se Klára.",
-              "Dobrý den."
-            ],
-            "correct_index": 0
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Ahoj!"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
           }
-        ]
+        ],
+        "blank_answers": [
+          [
+            "Dobrý den.",
+            "Dobrý den"
+          ],
+          [
+            "Ahoj!",
+            "Ahoj.",
+            "Ahoj"
+          ]
+        ],
+        "explanation": "Mirror the formal Dobrý den with the receptionist and the informal Ahoj with your friend."
       },
-      "answer_key": "Klára; Jmenuju se Amir.",
-      "xp_reward": 10
+      "answer_key": "Dobrý den. | Ahoj!",
+      "grammar_rule_id": "GR-010",
+      "xp_reward": 15
     },
     {
-      "id": 2103,
+      "id": 2215,
       "lesson_id": 202,
       "type": "multiple_choice",
       "prompt": "You are checking in at a language school. Ask the administrator’s name politely.",
@@ -137,7 +558,7 @@
       "xp_reward": 10
     },
     {
-      "id": 2104,
+      "id": 2216,
       "lesson_id": 202,
       "type": "fill_blank",
       "prompt": "Complete the formal question",
@@ -157,7 +578,7 @@
       "xp_reward": 10
     },
     {
-      "id": 2105,
+      "id": 2217,
       "lesson_id": 202,
       "type": "fill_blank",
       "prompt": "Complete the friendly answer",
@@ -178,102 +599,7 @@
       "xp_reward": 10
     },
     {
-      "id": 2106,
-      "lesson_id": 202,
-      "type": "word_order",
-      "prompt": "Build a complete first meeting",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Jmenuju",
-          "se",
-          "Sofia.",
-          "Těší",
-          "mě."
-        ],
-        "correct_order": [
-          0,
-          1,
-          2,
-          3,
-          4
-        ],
-        "translation_en": "My name is Sofia. Nice to meet you.",
-        "explanation": "Keep se directly after Jmenuju in this beginner chunk."
-      },
-      "answer_key": "Jmenuju se Sofia. Těší mě.",
-      "grammar_rule_id": "GR-011",
-      "xp_reward": 10
-    },
-    {
-      "id": 2107,
-      "lesson_id": 202,
-      "type": "dictation",
-      "prompt": "Listen and type the informal question",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Jak se jmenuješ?",
-        "language": "cs-CZ",
-        "note": "The rising question melody helps signal that an answer is expected."
-      },
-      "answer_key": "Jak se jmenuješ?",
-      "xp_reward": 10
-    },
-    {
-      "id": 2108,
-      "lesson_id": 202,
-      "type": "pronunciation",
-      "prompt": "Ask a name with clear question intonation",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Jak se jmenujete?",
-        "focus_sounds": [
-          "question_intonation",
-          "j"
-        ],
-        "min_score": 0.55,
-        "translation_en": "What is your name? (formal)"
-      },
-      "answer_key": "Jak se jmenujete?",
-      "grammar_rule_id": "GR-011",
-      "xp_reward": 15
-    },
-    {
-      "id": 2109,
-      "lesson_id": 202,
-      "type": "reading_comprehension",
-      "prompt": "Read two name badges and conversations",
-      "data": {
-        "type": "reading_comprehension",
-        "prompt_en": "Match each person to the right conversation.",
-        "text_cz": "RECEPCE — Daniel Kim\nDobrý den. Jmenuji se Daniel Kim. Těší mě.\n\nKAVÁRNA — Amir Hassan\nAhoj. Jmenuju se Amir. Těší mě.",
-        "text_en": "RECEPTION — Daniel Kim\nHello. My name is Daniel Kim. Nice to meet you.\n\nCAFÉ — Amir Hassan\nHi. My name is Amir. Nice to meet you.",
-        "questions": [
-          {
-            "question_en": "Who uses the more formal self-introduction?",
-            "options": [
-              "Daniel",
-              "Amir",
-              "Neither"
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Who is at the café?",
-            "options": [
-              "Amir",
-              "Daniel",
-              "Both"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Daniel; Amir",
-      "xp_reward": 10
-    },
-    {
-      "id": 2110,
+      "id": 2218,
       "lesson_id": 202,
       "type": "dialogue",
       "prompt": "Complete a friendly introduction",
@@ -319,40 +645,6 @@
       "answer_key": "Jmenuju se Amir. | Mě taky.",
       "grammar_rule_id": "GR-011",
       "xp_reward": 15
-    },
-    {
-      "id": 2111,
-      "lesson_id": 202,
-      "type": "translation",
-      "prompt": "Say the useful chunk in Czech",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "My name is Lena. Nice to meet you.",
-        "accepted_answers": [
-          "Jmenuju se Lena. Těší mě.",
-          "Jmenuji se Lena. Těší mě."
-        ],
-        "grammar_note": "Both Jmenuju se and Jmenuji se are correct; the second sounds a little more formal."
-      },
-      "answer_key": "Jmenuju se Lena. Těší mě.",
-      "grammar_rule_id": "GR-011",
-      "xp_reward": 10
     }
-  ],
-  "can_do": "ask and answer names naturally.",
-  "new_language": [
-    "Jak se jmenujete?",
-    "Jak se jmenuješ?",
-    "Jmenuju se…",
-    "Jmenuji se…",
-    "Těší mě.",
-    "Mě taky."
-  ],
-  "recycles": [
-    "Czech sound clues",
-    "Prosím pomalu",
-    "Ještě jednou, prosím"
-  ],
-  "exit_task": "ask and answer names naturally."
+  ]
 }

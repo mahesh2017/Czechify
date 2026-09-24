@@ -30,7 +30,7 @@
     "unit_id": 2,
     "example_cz": "Děkuji za kávu.",
     "example_en": "Thank you for the coffee.",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
     "unit_id": 2,
     "example_cz": "Kávu, prosím.",
     "example_en": "A coffee, please.",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 5,
@@ -52,7 +52,7 @@
     "unit_id": 2,
     "example_cz": "Ano, jsem z Prahy.",
     "example_en": "Yes, I'm from Prague.",
-    "lesson_id": 201
+    "lesson_id": 202
   },
   {
     "id": 6,
@@ -63,7 +63,7 @@
     "unit_id": 2,
     "example_cz": "Ne, děkuji.",
     "example_en": "No, thank you.",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 7,
@@ -74,7 +74,7 @@
     "unit_id": 2,
     "example_cz": "Jmenuju se Adam.",
     "example_en": "My name is Adam.",
-    "lesson_id": 201
+    "lesson_id": 202
   },
   {
     "id": 8,
@@ -85,7 +85,7 @@
     "unit_id": 2,
     "example_cz": "Jsem student.",
     "example_en": "I am a student.",
-    "lesson_id": 201
+    "lesson_id": 202
   },
   {
     "id": 9,
@@ -96,7 +96,7 @@
     "unit_id": 2,
     "example_cz": "Těší mě, Jmenuju se Anna.",
     "example_en": "Nice to meet you, my name is Anna.",
-    "lesson_id": 201
+    "lesson_id": 202
   },
   {
     "id": 10,
@@ -173,7 +173,7 @@
     "unit_id": 2,
     "example_cz": "Promiňte, kde je nádraží?",
     "example_en": "Excuse me, where is the station?",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 17,
@@ -184,7 +184,7 @@
     "unit_id": 2,
     "example_cz": "Pan Novák je učitel.",
     "example_en": "Mr. Novák is a teacher.",
-    "lesson_id": 201
+    "lesson_id": 202
   },
   {
     "id": 18,
@@ -195,7 +195,7 @@
     "unit_id": 2,
     "example_cz": "Paní Nováková je lékařka.",
     "example_en": "Mrs. Nováková is a doctor.",
-    "lesson_id": 201
+    "lesson_id": 202
   },
   {
     "id": 19,
@@ -206,7 +206,7 @@
     "unit_id": 2,
     "example_cz": "Jsem z Prahy.",
     "example_en": "I'm from Prague.",
-    "lesson_id": 201
+    "lesson_id": 202
   },
   {
     "id": 20,
@@ -217,7 +217,7 @@
     "unit_id": 2,
     "example_cz": "Bydlím v Praze.",
     "example_en": "I live in Prague.",
-    "lesson_id": 201
+    "lesson_id": 204
   },
   {
     "id": 21,
@@ -952,7 +952,7 @@
     "ipa": "ˈano",
     "gender": null,
     "unit_id": 2,
-    "lesson_id": 201,
+    "lesson_id": null,
     "example_cz": "Ano, rozumím.",
     "example_en": "Yes, I understand."
   },
@@ -3957,7 +3957,7 @@
     "unit_id": 2,
     "example_cz": "Haló, kdo tam je?",
     "example_en": "Hello, who is there?",
-    "lesson_id": 201
+    "lesson_id": 204
   },
   {
     "id": 368,
@@ -3968,7 +3968,7 @@
     "unit_id": 2,
     "example_cz": "Tady je Anna, dobrý den.",
     "example_en": "This is Anna speaking, hello.",
-    "lesson_id": 201
+    "lesson_id": 204
   },
   {
     "id": 369,
@@ -3979,7 +3979,7 @@
     "unit_id": 2,
     "example_cz": "Tak zatím, uvidíme se zítra.",
     "example_en": "So long for now, see you tomorrow.",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 370,
@@ -3990,7 +3990,7 @@
     "unit_id": 2,
     "example_cz": "Uvidíme se v pondělí.",
     "example_en": "See you on Monday.",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 371,
@@ -4001,7 +4001,7 @@
     "unit_id": 2,
     "example_cz": "Mějte se hezky, na shledanou.",
     "example_en": "Take care, goodbye.",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 372,
@@ -4012,7 +4012,7 @@
     "unit_id": 2,
     "example_cz": "S dovolením, mohu projít?",
     "example_en": "Excuse me, may I pass?",
-    "lesson_id": 201
+    "lesson_id": 203
   },
   {
     "id": 373,
@@ -4871,5 +4871,16 @@
     "example_cz": "Kufr je těžký.",
     "example_en": "The suitcase is heavy.",
     "lesson_id": 1501
+  },
+  {
+    "id": 2026,
+    "word_cz": "pane doktore",
+    "word_en": "doctor (speaking to him)",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 2,
+    "example_cz": "Dobrý den, pane doktore.",
+    "example_en": "Hello, doctor.",
+    "lesson_id": 202
   }
 ]

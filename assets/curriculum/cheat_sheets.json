@@ -219,6 +219,12 @@
           "example": "Jmenuju se Adam. — My name is Adam."
         },
         {
+          "id": "GR-013",
+          "name": "Speaking to someone — pane Nováku, Evo (vocative)",
+          "pattern": "pan Novák → pane Nováku, pan doktor → pane doktore, Petr → Petře, Tomáš → Tomáši, Eva → Evo, Jana → Jano. paní and women’s surnames do not change: paní Nováková.",
+          "example": "Dobrý den, pane doktore. — Hello, doctor."
+        },
+        {
           "id": "GR-012",
           "name": "Politeness words",
           "pattern": "prosím (please/you're welcome), děkuji (thank you), promiňte (excuse me)",
@@ -278,7 +284,103 @@
         "Příliš brzké tykání",
         "Zapomenutí na podání ruky"
       ],
-      "study_tip": "Procvičujte formální a neformální pozdravy s různými lidmi. Všímejte si, kdo komu tyká/vyká."
+      "study_tip": "Procvičujte formální a neformální pozdravy s různými lidmi. Všímejte si, kdo komu tyká/vyká.",
+      "notebook_page": {
+        "title_cz": "Pozdravy",
+        "title_en": "Greetings, names, origin",
+        "can_do": {
+          "cz": "Pozdravím, představím se a řeknu, odkud jsem.",
+          "en": "I can greet people, introduce myself and say where I am from."
+        },
+        "words": [
+          {
+            "cz": "Dobrý den.",
+            "en": "Hello. (formal)"
+          },
+          {
+            "cz": "Ahoj.",
+            "en": "Hi. / Bye. (friends)"
+          },
+          {
+            "cz": "Jak se máte?",
+            "en": "How are you? (formal)"
+          },
+          {
+            "cz": "Jmenuju se…",
+            "en": "My name is…"
+          },
+          {
+            "cz": "Jsem z…",
+            "en": "I am from…"
+          },
+          {
+            "cz": "Těší mě.",
+            "en": "Nice to meet you."
+          },
+          {
+            "cz": "Dobrý den, pane Nováku.",
+            "en": "Hello, Mr Novák."
+          },
+          {
+            "cz": "Na shledanou.",
+            "en": "Goodbye."
+          }
+        ],
+        "pattern": {
+          "name": "Formal and friendly; speaking to someone",
+          "rule_plain": "vy + Dobrý den for strangers; ty + Ahoj for friends. Speaking to someone, names change: pane Nováku, Petře, Evo; paní Nováková stays.",
+          "table": [
+            [
+              "Dobrý den.",
+              "Ahoj."
+            ],
+            [
+              "Jak se máte?",
+              "Jak se máš?"
+            ],
+            [
+              "Odkud jste?",
+              "Odkud jsi?"
+            ],
+            [
+              "pan Novák",
+              "pane Nováku!"
+            ],
+            [
+              "Petr",
+              "Petře!"
+            ],
+            [
+              "Eva",
+              "Evo!"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dobrý den, pane doktore.",
+              "en": "Hello, doctor."
+            },
+            {
+              "cz": "Jmenuju se Anna. Jsem z Ukrajiny.",
+              "en": "My name is Anna. I am from Ukraine."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dobrý den, pan Novák.",
+            "right": "Dobrý den, pane Nováku."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Jmenuju se Mahesh.",
+            "en": "My name is Mahesh."
+          },
+          {
+            "cz": "Jsem z Indie.",
+            "en": "I am from India."
+          }
+        ]
+      }
     },
     {
       "unit_id": 3,

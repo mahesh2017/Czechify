@@ -403,7 +403,49 @@
           "en": "Bye, see you later! (informal)"
         }
       ],
-      "unit_id": 2
+      "unit_id": 2,
+      "lecture": [
+        {
+          "heading": "Formal or friendly: vy or ty",
+          "say": "Use Dobrý den and vy with strangers, older people and at work. Use Ahoj and ty with friends, family and children. When in doubt, choose vy.",
+          "table": [
+            [
+              "Hello",
+              "Dobrý den. / Ahoj."
+            ],
+            [
+              "How are you?",
+              "Jak se máte? / Jak se máš?"
+            ],
+            [
+              "And you?",
+              "A vy? / A ty?"
+            ],
+            [
+              "Goodbye",
+              "Na shledanou. / Ahoj."
+            ],
+            [
+              "Where are you from?",
+              "Odkud jste? / Odkud jsi?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dobrý den, jak se máte?",
+              "en": "Hello, how are you? (formal)"
+            },
+            {
+              "cz": "Ahoj, jak se máš?",
+              "en": "Hi, how are you? (friend)"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Ahoj, paní doktorko.",
+            "right": "Dobrý den, paní doktorko."
+          }
+        }
+      ]
     },
     {
       "id": "GR-011",
@@ -425,7 +467,61 @@
           "en": "Nice to meet you."
         }
       ],
-      "unit_id": 2
+      "unit_id": 2,
+      "lecture": [
+        {
+          "heading": "Your name and where you are from",
+          "say": "Jmenuju se gives your name; Jmenuji se is more formal. Jsem z says where you are from, and the country changes its ending: Česko → z Česka. Learn your country as one chunk.",
+          "table": [
+            [
+              "Jak se jmenujete?",
+              "What is your name?"
+            ],
+            [
+              "Jmenuju se Anna.",
+              "My name is Anna."
+            ],
+            [
+              "Odkud jste?",
+              "Where are you from?"
+            ],
+            [
+              "Česko",
+              "z Česka"
+            ],
+            [
+              "Indie",
+              "z Indie"
+            ],
+            [
+              "Ukrajina",
+              "z Ukrajiny"
+            ],
+            [
+              "Německo",
+              "z Německa"
+            ],
+            [
+              "Těší mě. — Mě taky.",
+              "Nice to meet you. — Me too."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jmenuju se Daniel. Jsem z Indie.",
+              "en": "My name is Daniel. I am from India."
+            },
+            {
+              "cz": "Těší mě.",
+              "en": "Nice to meet you."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jsem z Česko.",
+            "right": "Jsem z Česka."
+          }
+        }
+      ]
     },
     {
       "id": "GR-012",
@@ -451,7 +547,132 @@
           "en": "Excuse me, where is the station?"
         }
       ],
-      "unit_id": 2
+      "unit_id": 2,
+      "lecture": [
+        {
+          "heading": "Polite words: prosím, děkuji, promiňte",
+          "say": "prosím means please, and also here you are or pardon? děkuji or děkuju is thank you. promiňte is excuse me or sorry.",
+          "table": [
+            [
+              "please / here you are",
+              "prosím"
+            ],
+            [
+              "Pardon?",
+              "Prosím?"
+            ],
+            [
+              "thank you",
+              "děkuji / děkuju"
+            ],
+            [
+              "thanks (friend)",
+              "díky"
+            ],
+            [
+              "excuse me, sorry",
+              "promiňte"
+            ],
+            [
+              "Slowly, please.",
+              "Prosím pomalu."
+            ],
+            [
+              "Once more, please.",
+              "Ještě jednou, prosím."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kávu, prosím.",
+              "en": "A coffee, please."
+            },
+            {
+              "cz": "Promiňte, nerozumím.",
+              "en": "Sorry, I don't understand."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Prosím pomalý.",
+            "right": "Prosím pomalu."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-013",
+      "rule_name": "Speaking to someone — pane Nováku, Evo (vocative)",
+      "pattern": "pan Novák → pane Nováku, pan doktor → pane doktore, Petr → Petře, Tomáš → Tomáši, Eva → Evo, Jana → Jano. paní and women’s surnames do not change: paní Nováková.",
+      "explanation": "When you speak to someone directly, Czech uses a special form of the name (the vocative, the 5th case). Men’s names and titles change: -r → -ře (Petře), hard consonants → -e or -u (pane doktore, pane Nováku), soft ones → -i (Tomáši). Names in -a change to -o (Evo, Jano). paní and women’s surnames in -ová stay the same. Use it in greetings and e-mails: Dobrý den, pane Nováku.",
+      "case_affected": "vocative",
+      "examples": [
+        {
+          "cz": "Dobrý den, pane doktore.",
+          "en": "Hello, doctor."
+        },
+        {
+          "cz": "Ahoj, Evo!",
+          "en": "Hi, Eva!"
+        }
+      ],
+      "unit_id": 2,
+      "concept_keys": [
+        "noun_voc_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "Speaking to someone: pane Nováku",
+          "say": "When you speak to someone, many names change: Petr → Petře, Eva → Evo, pan Novák → pane Nováku. paní and women’s surnames stay the same: paní Nováková.",
+          "table": [
+            [
+              "pan Novák",
+              "pane Nováku!"
+            ],
+            [
+              "pan doktor",
+              "pane doktore!"
+            ],
+            [
+              "paní Nováková",
+              "paní Nováková!"
+            ],
+            [
+              "Petr",
+              "Petře!"
+            ],
+            [
+              "Tomáš",
+              "Tomáši!"
+            ],
+            [
+              "Pavel",
+              "Pavle!"
+            ],
+            [
+              "Eva",
+              "Evo!"
+            ],
+            [
+              "Jana",
+              "Jano!"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dobrý den, pane doktore.",
+              "en": "Hello, doctor."
+            },
+            {
+              "cz": "Ahoj, Evo!",
+              "en": "Hi, Eva!"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dobrý den, pan Novák.",
+            "right": "Dobrý den, pane Nováku."
+          }
+        }
+      ]
     },
     {
       "id": "GR-020",

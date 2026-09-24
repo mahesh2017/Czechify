@@ -3,61 +3,168 @@
   "unit_id": 2,
   "order_in_unit": 2,
   "title": "Where Are You From?",
-  "description": "Ask about origin, answer with a useful country chunk, and repair speech that is too fast.",
+  "description": "Polite words and origin chunks; repair speech that is too fast.",
   "duration_min": 12,
   "lesson_type": "practice",
+  "can_do": "say where you are from and use please, thank you and sorry.",
+  "new_language": [
+    "prosím, děkuji, promiňte",
+    "Prosím pomalu."
+  ],
+  "recycles": [
+    "Jsem z…",
+    "Jmenuju se…"
+  ],
+  "exit_task": "write a short introduction.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 2200,
+      "id": 2300,
       "lesson_id": 203,
       "type": "teaching",
-      "prompt": "Add origin to your introduction",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Ask where, answer with a chunk",
-        "body": "After z, country names often change form. At A1, learn the complete phrase you personally need instead of memorizing a case table. Keep formal and informal questions matched to the relationship.",
-        "play_all_label": "Hear the origin exchange",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “How are you?” formally and to a friend, and “Hello, Mr Novák”. Then check.",
         "items": [
           {
-            "cz": "Odkud jste?",
-            "en": "Where are you from? (formal)"
+            "cz": "Jak se máte? / Jak se máš?",
+            "en": "How are you?"
           },
           {
-            "cz": "Odkud jsi?",
-            "en": "Where are you from? (informal)"
+            "cz": "Dobrý den, pane Nováku.",
+            "en": "Hello, Mr Novák."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 2301,
+      "lesson_id": 203,
+      "type": "teaching",
+      "prompt": "Polite words: prosím, děkuji, promiňte",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-012",
+        "rule_step": 1,
+        "heading": "Polite words: prosím, děkuji, promiňte",
+        "items": [
+          {
+            "cz": "Kávu, prosím.",
+            "en": "A coffee, please."
+          },
+          {
+            "cz": "Promiňte, nerozumím.",
+            "en": "Sorry, I don't understand."
+          }
+        ],
+        "say": "prosím means please, and also here you are or pardon? děkuji or děkuju is thank you. promiňte is excuse me or sorry.",
+        "table": [
+          [
+            "please / here you are",
+            "prosím"
+          ],
+          [
+            "Pardon?",
+            "Prosím?"
+          ],
+          [
+            "thank you",
+            "děkuji / děkuju"
+          ],
+          [
+            "thanks (friend)",
+            "díky"
+          ],
+          [
+            "excuse me, sorry",
+            "promiňte"
+          ],
+          [
+            "Slowly, please.",
+            "Prosím pomalu."
+          ],
+          [
+            "Once more, please.",
+            "Ještě jednou, prosím."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Kávu, prosím.",
+            "en": "A coffee, please."
+          },
+          {
+            "cz": "Promiňte, nerozumím.",
+            "en": "Sorry, I don't understand."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Prosím pomalý.",
+          "right": "Prosím pomalu."
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 2302,
+      "lesson_id": 203,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Mluví moc rychle. Co řeknete?",
+        "question_en": "They speak too fast. What do you say?",
+        "options": [
+          "Prosím pomalu.",
+          "Na shledanou.",
+          "Dobrou noc."
+        ],
+        "correct_index": 0,
+        "explanation": "Prosím pomalu = slowly, please."
+      },
+      "answer_key": "Prosím pomalu.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-012"
+    },
+    {
+      "id": 2303,
+      "lesson_id": 203,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write how you introduce yourself: your name and where you are from.",
+        "items": [
+          {
+            "cz": "Jmenuju se Mahesh.",
+            "en": "My name is Mahesh."
           },
           {
             "cz": "Jsem z Indie.",
             "en": "I am from India."
-          },
-          {
-            "cz": "Jsem z Česka.",
-            "en": "I am from Czechia."
-          },
-          {
-            "cz": "Jsem z Ukrajiny.",
-            "en": "I am from Ukraine."
-          },
-          {
-            "cz": "Jsem z Německa.",
-            "en": "I am from Germany."
-          },
-          {
-            "cz": "Prosím pomalu.",
-            "en": "Slowly, please."
-          },
-          {
-            "cz": "Ještě jednou, prosím.",
-            "en": "Once more, please."
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
-      "id": 2201,
+      "id": 2304,
       "lesson_id": 203,
       "type": "listening_comprehension",
       "prompt": "Listen for a name and country",
@@ -87,10 +194,11 @@
         ]
       },
       "answer_key": "Olena; Ukraine",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-011"
     },
     {
-      "id": 2202,
+      "id": 2305,
       "lesson_id": 203,
       "type": "listening_comprehension",
       "prompt": "Use a repair phrase when the question is too fast",
@@ -120,31 +228,11 @@
         ]
       },
       "answer_key": "Slower speech; India",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-012"
     },
     {
-      "id": 2203,
-      "lesson_id": 203,
-      "type": "multiple_choice",
-      "prompt": "A new colleague asks 'Odkud jste?' What information do they want?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Odkud jste?",
-        "question_en": "What information is the speaker asking for?",
-        "options": [
-          "Your country or place of origin",
-          "Your name",
-          "How you feel",
-          "Your phone number"
-        ],
-        "correct_index": 0,
-        "explanation": "Odkud means 'from where'; jste marks the formal relationship."
-      },
-      "answer_key": "Your country or place of origin",
-      "xp_reward": 10
-    },
-    {
-      "id": 2204,
+      "id": 2306,
       "lesson_id": 203,
       "type": "fill_blank",
       "prompt": "Complete the formal origin question",
@@ -164,7 +252,7 @@
       "xp_reward": 10
     },
     {
-      "id": 2205,
+      "id": 2307,
       "lesson_id": 203,
       "type": "fill_blank",
       "prompt": "Complete the answer about India",
@@ -184,7 +272,7 @@
       "xp_reward": 10
     },
     {
-      "id": 2206,
+      "id": 2308,
       "lesson_id": 203,
       "type": "word_order",
       "prompt": "Build an informal question and answer",
@@ -212,74 +300,7 @@
       "xp_reward": 10
     },
     {
-      "id": 2207,
-      "lesson_id": 203,
-      "type": "dictation",
-      "prompt": "Listen and type the origin answer",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Jsem z Česka.",
-        "language": "cs-CZ",
-        "note": "Česko changes to Česka after z; learn the whole phrase for now."
-      },
-      "answer_key": "Jsem z Česka.",
-      "xp_reward": 10
-    },
-    {
-      "id": 2208,
-      "lesson_id": 203,
-      "type": "pronunciation",
-      "prompt": "Say a formal question and personal answer",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Odkud jste? Jsem z Indie.",
-        "focus_sounds": [
-          "question_intonation",
-          "jsem"
-        ],
-        "min_score": 0.55,
-        "translation_en": "Where are you from? I am from India."
-      },
-      "answer_key": "Odkud jste? Jsem z Indie.",
-      "grammar_rule_id": "GR-011",
-      "xp_reward": 15
-    },
-    {
-      "id": 2209,
-      "lesson_id": 203,
-      "type": "reading_comprehension",
-      "prompt": "Read three course-registration cards",
-      "data": {
-        "type": "reading_comprehension",
-        "prompt_en": "Find each learner’s name and country.",
-        "text_cz": "1 — Jmenuju se Mahesh. Jsem z Indie.\n2 — Jmenuju se Olena. Jsem z Ukrajiny.\n3 — Jmenuju se Lukas. Jsem z Německa.",
-        "text_en": "1 — My name is Mahesh. I am from India.\n2 — My name is Olena. I am from Ukraine.\n3 — My name is Lukas. I am from Germany.",
-        "questions": [
-          {
-            "question_en": "Who is from India?",
-            "options": [
-              "Mahesh",
-              "Olena",
-              "Lukas"
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Where is Lukas from?",
-            "options": [
-              "Germany",
-              "Ukraine",
-              "Czechia"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Mahesh; Germany",
-      "xp_reward": 10
-    },
-    {
-      "id": 2210,
+      "id": 2309,
       "lesson_id": 203,
       "type": "dialogue",
       "prompt": "Complete a formal introduction at reception",
@@ -323,7 +344,49 @@
       "xp_reward": 15
     },
     {
-      "id": 2211,
+      "id": 2310,
+      "lesson_id": 203,
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Potkáte pana Nováka. Co řeknete?",
+        "question_en": "You meet Mr Novák. What do you say?",
+        "options": [
+          "Dobrý den, pane Nováku.",
+          "Dobrý den, pan Novák.",
+          "Ahoj, pane Novák."
+        ],
+        "correct_index": 0,
+        "explanation": "Speaking to him: pane Nováku, and formal Dobrý den."
+      },
+      "answer_key": "Dobrý den, pane Nováku.",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-013"
+    },
+    {
+      "id": 2311,
+      "lesson_id": 203,
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Voláte kamarádce Janě. Co řeknete?",
+        "question_en": "You call your friend Jana. What do you say?",
+        "options": [
+          "Ahoj, Jano!",
+          "Ahoj, Jana!",
+          "Dobrý den, Jano!"
+        ],
+        "correct_index": 0,
+        "explanation": "A friend: Ahoj; Jana → Jano."
+      },
+      "answer_key": "Ahoj, Jano!",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-013"
+    },
+    {
+      "id": 2312,
       "lesson_id": 203,
       "type": "writing_task",
       "prompt": "Draft your own three-line introduction",
@@ -340,27 +403,11 @@
           "Jsem z…",
           "Těší mě."
         ],
-        "sample_answer": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě."
+        "sample_answer": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě.",
+        "targets": "vocab"
       },
       "answer_key": "Dobrý den. Jmenuji se Mahesh. Jsem z Indie. Těší mě.",
       "xp_reward": 0
     }
-  ],
-  "can_do": "ask and say where someone is from.",
-  "new_language": [
-    "Odkud jste?",
-    "Odkud jsi?",
-    "Jsem z Indie.",
-    "Jsem z Česka.",
-    "Jsem z Ukrajiny.",
-    "Jsem z Německa.",
-    "Prosím pomalu.",
-    "Ještě jednou, prosím."
-  ],
-  "recycles": [
-    "Czech sound clues",
-    "Prosím pomalu",
-    "Ještě jednou, prosím"
-  ],
-  "exit_task": "ask and say where someone is from."
+  ]
 }
