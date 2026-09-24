@@ -3,67 +3,36 @@
   "unit_id": 10,
   "order_in_unit": 0,
   "title": "See a Day in Six Steps",
-  "description": "Follow a simple routine from waking up to going to sleep.",
-  "can_do": "understand the main steps in a daily routine.",
-  "new_language": [
-    "Ráno vstávám.",
-    "Snídám v sedm.",
-    "Potom pracuju.",
-    "Večer spím."
-  ],
-  "recycles": [
-    "time and days",
-    "pracuju/studuju",
-    "doma",
-    "mám",
-    "potom"
-  ],
-  "exit_task": "understand the main steps in a daily routine.",
+  "description": "Hear someone’s day, then learn routine phrases from morning to night.",
   "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "describe the main steps of your day.",
+  "new_language": [
+    "Ráno vstávám v šest.",
+    "Snídám v sedm.",
+    "Potom pracuju.",
+    "Ráno se sprchuju.",
+    "Čistím si zuby.",
+    "Dělám si kávu.",
+    "Večer se dívám na film.",
+    "Jdu spát v deset."
+  ],
+  "recycles": [
+    "v sedm (U9)",
+    "pracuju (U5)"
+  ],
+  "exit_task": "say three steps of your day.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 10000,
-      "lesson_id": 1001,
-      "type": "teaching",
-      "prompt": "Learn the mission language",
-      "data": {
-        "type": "teaching",
-        "style": "list",
-        "heading": "See a Day in Six Steps",
-        "body": "Follow a simple routine from waking up to going to sleep.",
-        "play_all_label": "Hear the useful chunks",
-        "items": [
-          {
-            "cz": "Ráno vstávám.",
-            "en": "I get up in the morning."
-          },
-          {
-            "cz": "Snídám v sedm.",
-            "en": "I eat breakfast at seven."
-          },
-          {
-            "cz": "Potom pracuju.",
-            "en": "Then I work."
-          },
-          {
-            "cz": "Večer spím.",
-            "en": "I sleep at night."
-          }
-        ]
-      },
-      "answer_key": "",
-      "xp_reward": 0
-    },
-    {
-      "id": 10001,
+      "id": 10100,
       "lesson_id": 1001,
       "type": "listening_comprehension",
-      "prompt": "Listen for meaning and one detail",
+      "prompt": "Warm-up: listen and guess",
       "data": {
         "type": "listening_comprehension",
-        "prompt_en": "Listen first for the situation, then for the requested detail.",
+        "prompt_en": "You have not learned this yet. Listen and guess when the speaker gets up.",
         "transcript_cz": "Ráno vstávám v šest. Snídám v sedm, potom pracuju a večer jdu spát v deset.",
         "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
         "image_label": "A daily routine timeline with se and si in natural position",
@@ -86,13 +55,96 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "mode": "predict"
       },
       "answer_key": "At six",
-      "xp_reward": 15
+      "xp_reward": 0
     },
     {
-      "id": 10002,
+      "id": 10101,
+      "lesson_id": 1001,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "See a Day in Six Steps",
+        "body": "Follow a simple routine from waking up to going to sleep.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Ráno vstávám v šest.",
+            "en": "In the morning I get up at six."
+          },
+          {
+            "cz": "Snídám v sedm.",
+            "en": "I have breakfast at seven."
+          },
+          {
+            "cz": "Potom pracuju.",
+            "en": "Then I work."
+          },
+          {
+            "cz": "Ráno se sprchuju.",
+            "en": "In the morning I shower."
+          },
+          {
+            "cz": "Čistím si zuby.",
+            "en": "I brush my teeth."
+          },
+          {
+            "cz": "Dělám si kávu.",
+            "en": "I make myself a coffee."
+          },
+          {
+            "cz": "Večer se dívám na film.",
+            "en": "In the evening I watch a film."
+          },
+          {
+            "cz": "Jdu spát v deset.",
+            "en": "I go to bed at ten."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10102,
+      "lesson_id": 1001,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 10 page",
+        "instruction": "Write “Unit 10 — Můj den” at the top of a new page. Draw a line from morning to night and write four steps of your day on it.",
+        "items": [
+          {
+            "cz": "Ráno vstávám v šest.",
+            "en": "In the morning I get up at six."
+          },
+          {
+            "cz": "Snídám v sedm.",
+            "en": "I have breakfast at seven."
+          },
+          {
+            "cz": "Potom pracuju.",
+            "en": "Then I work."
+          },
+          {
+            "cz": "Ráno se sprchuju.",
+            "en": "In the morning I shower."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10103,
       "lesson_id": 1001,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -128,7 +180,7 @@
       "xp_reward": 15
     },
     {
-      "id": 10003,
+      "id": 10104,
       "lesson_id": 1001,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -158,70 +210,7 @@
       "xp_reward": 10
     },
     {
-      "id": 10004,
-      "lesson_id": 1001,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "Ráno vstávám.",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "Ráno vstávám.",
-      "xp_reward": 10
-    },
-    {
-      "id": 10005,
-      "lesson_id": 1001,
-      "type": "fill_blank",
-      "prompt": "Complete the useful chunk",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ vstávám.",
-        "blank_count": 1,
-        "blank_answers": [
-          [
-            "Ráno"
-          ]
-        ],
-        "explanation": "Retrieve the missing word from the complete chunk."
-      },
-      "answer_key": "Ráno",
-      "xp_reward": 10
-    },
-    {
-      "id": 10006,
-      "lesson_id": 1001,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "sedm.",
-          "v",
-          "Snídám"
-        ],
-        "correct_order": [
-          2,
-          1,
-          0
-        ],
-        "translation_en": "I eat breakfast at seven.",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "Snídám v sedm.",
-      "xp_reward": 10
-    },
-    {
-      "id": 10007,
+      "id": 10105,
       "lesson_id": 1001,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -235,7 +224,7 @@
       "xp_reward": 10
     },
     {
-      "id": 10008,
+      "id": 10106,
       "lesson_id": 1001,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
@@ -253,70 +242,7 @@
       "xp_reward": 15
     },
     {
-      "id": 10009,
-      "lesson_id": 1001,
-      "type": "dialogue",
-      "prompt": "Complete and hear the short exchange",
-      "data": {
-        "type": "dialogue",
-        "scenario": "See a Day in Six Steps",
-        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
-        "image_label": "A daily routine timeline with se and si in natural position",
-        "lines": [
-          {
-            "speaker": "partner",
-            "text": "V kolik vstáváš?"
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          },
-          {
-            "speaker": "partner",
-            "text": "Co děláš potom?"
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          }
-        ],
-        "blank_answers": [
-          [
-            "Ráno vstávám."
-          ],
-          [
-            "Snídám v sedm."
-          ]
-        ],
-        "explanation": "Use complete chunks that answer each partner cue."
-      },
-      "answer_key": "Ráno vstávám. | Snídám v sedm.",
-      "xp_reward": 15
-    },
-    {
-      "id": 10010,
-      "lesson_id": 1001,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write four routine steps using ráno, potom, and večer.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 4,
-        "max_words": 40,
-        "key_vocab": [
-          "Ráno vstávám.",
-          "Snídám v sedm.",
-          "Potom pracuju.",
-          "Večer spím."
-        ],
-        "sample_answer": "Ráno vstávám. Snídám v sedm. Potom pracuju. Večer spím."
-      },
-      "answer_key": "Ráno vstávám. Snídám v sedm. Potom pracuju. Večer spím.",
-      "xp_reward": 0
-    },
-    {
-      "id": 10011,
+      "id": 10107,
       "lesson_id": 1001,
       "type": "listening_comprehension",
       "prompt": "Listen in a new context",
@@ -337,6 +263,50 @@
         ]
       },
       "answer_key": "At eleven",
+      "xp_reward": 15
+    },
+    {
+      "id": 10108,
+      "lesson_id": 1001,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "See a Day in Six Steps",
+        "image": "assets/images/unit10/daily_routine_storyboard_v1.webp",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "V kolik vstáváš?"
+          },
+          {
+            "speaker": "you",
+            "text": "___ (I get up at six.)"
+          },
+          {
+            "speaker": "partner",
+            "text": "Co děláš potom?"
+          },
+          {
+            "speaker": "you",
+            "text": "___ (I have breakfast at seven.)"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Vstávám v šest.",
+            "V šest.",
+            "Ráno vstávám v šest."
+          ],
+          [
+            "Snídám v sedm.",
+            "Potom snídám v sedm."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Vstávám v šest.",
       "xp_reward": 15
     }
   ]

@@ -2776,7 +2776,52 @@
           "en": "I watch TV."
         }
       ],
-      "unit_id": 10
+      "unit_id": 10,
+      "concept_keys": [
+        "reflexive_verbs"
+      ],
+      "lecture": [
+        {
+          "heading": "se: I wash myself",
+          "say": "Some verbs need se: the action goes back to you. mýt se (wash), oblékat se (get dressed), dívat se (watch). se stays the same for every person.",
+          "table": [
+            [
+              "mýt se",
+              "myju se"
+            ],
+            [
+              "sprchovat se",
+              "sprchuju se"
+            ],
+            [
+              "oblékat se",
+              "oblékám se"
+            ],
+            [
+              "dívat se",
+              "dívám se na film"
+            ],
+            [
+              "učit se",
+              "učím se česky"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Ráno se sprchuju.",
+              "en": "In the morning I shower."
+            },
+            {
+              "cz": "Večer se dívám na film.",
+              "en": "In the evening I watch a film."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Ráno sprchuju.",
+            "right": "Ráno se sprchuju."
+          }
+        }
+      ]
     },
     {
       "id": "GR-091",
@@ -2798,7 +2843,52 @@
           "en": "What do you wish for your birthday?"
         }
       ],
-      "unit_id": 10
+      "unit_id": 10,
+      "concept_keys": [
+        "reflexive_verbs"
+      ],
+      "lecture": [
+        {
+          "heading": "si: for myself",
+          "say": "si means for yourself: Dělám si kávu (I make myself a coffee), Čistím si zuby (I brush my teeth). You already know Dám si… from ordering.",
+          "table": [
+            [
+              "dělat si",
+              "dělám si kávu"
+            ],
+            [
+              "čistit si",
+              "čistím si zuby"
+            ],
+            [
+              "dát si",
+              "dám si polévku"
+            ],
+            [
+              "číst si",
+              "čtu si knihu"
+            ],
+            [
+              "vařit si",
+              "vařím si oběd"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Čistím si zuby.",
+              "en": "I brush my teeth."
+            },
+            {
+              "cz": "Dělám si snídani.",
+              "en": "I make myself breakfast."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Čistím se zuby.",
+            "right": "Čistím si zuby."
+          }
+        }
+      ]
     },
     {
       "id": "GR-092",
@@ -2824,7 +2914,60 @@
           "en": "Why aren't you studying?"
         }
       ],
-      "unit_id": 10
+      "unit_id": 10,
+      "concept_keys": [
+        "reflexive_verbs"
+      ],
+      "lecture": [
+        {
+          "heading": "Where se and si go",
+          "say": "se and si come second in the sentence, after the first word or phrase: Ráno se sprchuju. Potom si dělám kávu. They never start a sentence.",
+          "table": [
+            [
+              "já",
+              "myju se"
+            ],
+            [
+              "ty",
+              "myješ se"
+            ],
+            [
+              "on, ona",
+              "myje se"
+            ],
+            [
+              "my",
+              "myjeme se"
+            ],
+            [
+              "vy",
+              "myjete se"
+            ],
+            [
+              "oni",
+              "myjou se"
+            ],
+            [
+              "second place",
+              "Ráno se myju."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Potom se oblékám.",
+              "en": "Then I get dressed."
+            },
+            {
+              "cz": "Eva se nejdřív obléká.",
+              "en": "Eva gets dressed first."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Se sprchuju ráno.",
+            "right": "Sprchuju se ráno. / Ráno se sprchuju."
+          }
+        }
+      ]
     },
     {
       "id": "GR-093",
@@ -2850,7 +2993,61 @@
           "en": "I never drink coffee in the evening."
         }
       ],
-      "unit_id": 10
+      "unit_id": 10,
+      "lecture": [
+        {
+          "heading": "When: ráno, potom, večer",
+          "say": "Parts of the day need no preposition: ráno, odpoledne, večer. Link steps with potom (then). A clock time takes v: v sedm.",
+          "table": [
+            [
+              "in the morning",
+              "ráno"
+            ],
+            [
+              "late morning",
+              "dopoledne"
+            ],
+            [
+              "in the afternoon",
+              "odpoledne"
+            ],
+            [
+              "in the evening",
+              "večer"
+            ],
+            [
+              "at night",
+              "v noci"
+            ],
+            [
+              "then",
+              "potom"
+            ],
+            [
+              "every day",
+              "každý den"
+            ],
+            [
+              "at seven",
+              "v sedm"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Ráno vstávám v šest.",
+              "en": "In the morning I get up at six."
+            },
+            {
+              "cz": "Potom pracuju.",
+              "en": "Then I work."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "V ráno vstávám.",
+            "right": "Ráno vstávám."
+          }
+        }
+      ]
     },
     {
       "id": "GR-100",

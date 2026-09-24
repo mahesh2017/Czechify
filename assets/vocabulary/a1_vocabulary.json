@@ -2571,7 +2571,7 @@
     "unit_id": 10,
     "example_cz": "Myju se každé ráno.",
     "example_en": "I wash myself every morning.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 242,
@@ -2582,7 +2582,7 @@
     "unit_id": 10,
     "example_cz": "Sprchuju se teplou vodou.",
     "example_en": "I shower with warm water.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 243,
@@ -2593,7 +2593,7 @@
     "unit_id": 10,
     "example_cz": "Oblékám se rychle.",
     "example_en": "I get dressed quickly.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 244,
@@ -2604,7 +2604,7 @@
     "unit_id": 10,
     "example_cz": "Co snídáš?",
     "example_en": "What do you have for breakfast?",
-    "lesson_id": 1002
+    "lesson_id": 1001
   },
   {
     "id": 245,
@@ -2615,7 +2615,7 @@
     "unit_id": 10,
     "example_cz": "Obědváme v jednu.",
     "example_en": "We have lunch at one.",
-    "lesson_id": 1002
+    "lesson_id": 1003
   },
   {
     "id": 246,
@@ -2626,7 +2626,7 @@
     "unit_id": 10,
     "example_cz": "Večeřím v šest hodin.",
     "example_en": "I have dinner at six.",
-    "lesson_id": 1002
+    "lesson_id": 1003
   },
   {
     "id": 247,
@@ -2637,7 +2637,7 @@
     "unit_id": 10,
     "example_cz": "Učím se česky každý den.",
     "example_en": "I study Czech every day.",
-    "lesson_id": 1001
+    "lesson_id": 1003
   },
   {
     "id": 248,
@@ -2648,7 +2648,7 @@
     "unit_id": 10,
     "example_cz": "Pracuju v kanceláři.",
     "example_en": "I work in an office.",
-    "lesson_id": 1002
+    "lesson_id": 1004
   },
   {
     "id": 249,
@@ -2659,7 +2659,7 @@
     "unit_id": 10,
     "example_cz": "V neděli odpočívám.",
     "example_en": "On Sunday I rest.",
-    "lesson_id": 1002
+    "lesson_id": 1003
   },
   {
     "id": 250,
@@ -2670,7 +2670,7 @@
     "unit_id": 10,
     "example_cz": "Dívám se na televizi.",
     "example_en": "I watch TV.",
-    "lesson_id": 1001
+    "lesson_id": 1003
   },
   {
     "id": 251,
@@ -2681,7 +2681,7 @@
     "unit_id": 10,
     "example_cz": "Chodím spát v deset.",
     "example_en": "I go to sleep at ten.",
-    "lesson_id": 1002
+    "lesson_id": 1001
   },
   {
     "id": 252,
@@ -2692,7 +2692,7 @@
     "unit_id": 10,
     "example_cz": "Ráno piju kávu.",
     "example_en": "In the morning I drink coffee.",
-    "lesson_id": 1002
+    "lesson_id": 1001
   },
   {
     "id": 253,
@@ -2703,7 +2703,7 @@
     "unit_id": 10,
     "example_cz": "Dopoledne mám schůzku.",
     "example_en": "I have a meeting in the late morning.",
-    "lesson_id": 1002
+    "lesson_id": 1001
   },
   {
     "id": 254,
@@ -2714,7 +2714,7 @@
     "unit_id": 10,
     "example_cz": "Odpoledne jdu na procházku.",
     "example_en": "In the afternoon I go for a walk.",
-    "lesson_id": 1002
+    "lesson_id": 1001
   },
   {
     "id": 255,
@@ -2725,7 +2725,7 @@
     "unit_id": 10,
     "example_cz": "Večer se dívám na film.",
     "example_en": "In the evening I watch a movie.",
-    "lesson_id": 1002
+    "lesson_id": 1001
   },
   {
     "id": 256,
@@ -2736,7 +2736,7 @@
     "unit_id": 10,
     "example_cz": "V noci spím.",
     "example_en": "At night I sleep.",
-    "lesson_id": 1002
+    "lesson_id": 1001
   },
   {
     "id": 257,
@@ -2747,7 +2747,7 @@
     "unit_id": 10,
     "example_cz": "K snídani mám chleba.",
     "example_en": "For breakfast I have bread.",
-    "lesson_id": 1002
+    "lesson_id": 1003
   },
   {
     "id": 258,
@@ -2758,7 +2758,7 @@
     "unit_id": 10,
     "example_cz": "Co je k obědu?",
     "example_en": "What's for lunch?",
-    "lesson_id": 1002
+    "lesson_id": 1003
   },
   {
     "id": 259,
@@ -2769,7 +2769,7 @@
     "unit_id": 10,
     "example_cz": "K večeři máme kuře.",
     "example_en": "For dinner we have chicken.",
-    "lesson_id": 1002
+    "lesson_id": 1003
   },
   {
     "id": 260,
@@ -4397,7 +4397,7 @@
     "unit_id": 10,
     "example_cz": "Umývám se ráno.",
     "example_en": "I wash myself in the morning.",
-    "lesson_id": 1001
+    "lesson_id": 1004
   },
   {
     "id": 411,
@@ -4408,7 +4408,7 @@
     "unit_id": 10,
     "example_cz": "Holí se každé ráno.",
     "example_en": "He shaves every morning.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 412,
@@ -4419,7 +4419,7 @@
     "unit_id": 10,
     "example_cz": "Češu se před zrcadlem.",
     "example_en": "I comb my hair in front of the mirror.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 413,
@@ -4430,7 +4430,7 @@
     "unit_id": 10,
     "example_cz": "Budík zvoní v šest hodin.",
     "example_en": "The alarm clock rings at six o'clock.",
-    "lesson_id": 1001
+    "lesson_id": 1004
   },
   {
     "id": 414,
@@ -4441,7 +4441,7 @@
     "unit_id": 10,
     "example_cz": "Mám nový zubní kartáček.",
     "example_en": "I have a new toothbrush.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 415,
@@ -4452,7 +4452,7 @@
     "unit_id": 10,
     "example_cz": "Ručník je suchý.",
     "example_en": "The towel is dry.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 416,
@@ -4463,7 +4463,7 @@
     "unit_id": 10,
     "example_cz": "Sprcha je ráno studená.",
     "example_en": "The shower is cold in the morning.",
-    "lesson_id": 1001
+    "lesson_id": 1002
   },
   {
     "id": 417,

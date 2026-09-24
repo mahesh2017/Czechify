@@ -1659,6 +1659,12 @@
       "description": "Reflexive se/si, morning/evening routines, time adverbs",
       "grammar_rules": [
         {
+          "id": "GR-093",
+          "name": "Time adverbs for daily routine",
+          "pattern": "ráno (morning), dopoledne (late morning), v poledne (at noon), odpoledne (afternoon), večer (evening), v noci (at night), každý den (every day), obvykle (usually), často (often), někdy (sometimes), nikdy (never)",
+          "example": "Ráno vstávám v šest hodin. — I get up at six in the morning."
+        },
+        {
           "id": "GR-090",
           "name": "Reflexive verbs — se (accusative reflexive)",
           "pattern": "mýt se (wash oneself), učit se (learn/study), dívat se (watch/look), smát se (laugh), bát se (be afraid)",
@@ -1675,12 +1681,6 @@
           "name": "Reflexive verb conjugation — present tense",
           "pattern": "já se myju, ty se myješ, on/ona/ono se myje, my se myjeme, vy se myjete, oni se myjou",
           "example": "Já se myju, ty se myješ, on se myje. — I wash, you wash, he washes."
-        },
-        {
-          "id": "GR-093",
-          "name": "Time adverbs for daily routine",
-          "pattern": "ráno (morning), dopoledne (late morning), v poledne (at noon), odpoledne (afternoon), večer (evening), v noci (at night)",
-          "example": "Ráno vstávám v šest hodin. — I get up at six in the morning."
         }
       ],
       "core_vocabulary": [
@@ -1736,7 +1736,103 @@
         "Použití 'se' na špatné pozici ve větě",
         "Záměna 'učit' a 'učit se'"
       ],
-      "study_tip": "Sepište si svůj denní režim v bodech: 'Vstávám, sprchuju se, snídám...' Používejte reflexivní slovesa."
+      "study_tip": "Sepište si svůj denní režim v bodech: 'Vstávám, sprchuju se, snídám...' Používejte reflexivní slovesa.",
+      "notebook_page": {
+        "title_cz": "Můj den",
+        "title_en": "My daily routine",
+        "can_do": {
+          "cz": "Popíšu svůj den od rána do večera.",
+          "en": "I can describe my day from morning to night."
+        },
+        "words": [
+          {
+            "cz": "Ráno vstávám v šest.",
+            "en": "In the morning I get up at six."
+          },
+          {
+            "cz": "Snídám v sedm.",
+            "en": "I have breakfast at seven."
+          },
+          {
+            "cz": "Potom pracuju.",
+            "en": "Then I work."
+          },
+          {
+            "cz": "Ráno se sprchuju.",
+            "en": "In the morning I shower."
+          },
+          {
+            "cz": "Čistím si zuby.",
+            "en": "I brush my teeth."
+          },
+          {
+            "cz": "Dělám si kávu.",
+            "en": "I make myself a coffee."
+          },
+          {
+            "cz": "Večer se dívám na film.",
+            "en": "In the evening I watch a film."
+          },
+          {
+            "cz": "Jdu spát v deset.",
+            "en": "I go to bed at ten."
+          }
+        ],
+        "pattern": {
+          "name": "Time words, se and si",
+          "rule_plain": "ráno, odpoledne, večer need no preposition; v + clock time. se = myself (sprchuju se); si = for myself (dělám si kávu). se/si come second.",
+          "table": [
+            [
+              "in the morning",
+              "ráno"
+            ],
+            [
+              "at seven",
+              "v sedm"
+            ],
+            [
+              "I shower",
+              "sprchuju se"
+            ],
+            [
+              "I get dressed",
+              "oblékám se"
+            ],
+            [
+              "I brush my teeth",
+              "čistím si zuby"
+            ],
+            [
+              "I make a coffee",
+              "dělám si kávu"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Ráno se sprchuju a potom si dělám kávu.",
+              "en": "In the morning I shower and then make a coffee."
+            },
+            {
+              "cz": "Večer se dívám na film.",
+              "en": "In the evening I watch a film."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Čistím se zuby.",
+            "right": "Čistím si zuby."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "V pracovní den vstávám v šest.",
+            "en": "On a workday I get up at six."
+          },
+          {
+            "cz": "O víkendu se dívám na filmy.",
+            "en": "At the weekend I watch films."
+          }
+        ]
+      }
     },
     {
       "unit_id": 11,

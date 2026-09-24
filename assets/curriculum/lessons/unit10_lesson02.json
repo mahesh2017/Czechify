@@ -3,53 +3,49 @@
   "unit_id": 10,
   "order_in_unit": 1,
   "title": "Put the Routine in Order",
-  "description": "Place se and si naturally while ordering morning activities.",
-  "can_do": "describe a short morning sequence with se and si.",
+  "description": "Learn ráno, potom, večer, and verbs with se and si.",
+  "duration_min": 14,
+  "lesson_type": "practice",
+  "can_do": "order your routine and use se and si.",
   "new_language": [
-    "Ráno se sprchuju.",
-    "Potom se oblékám.",
-    "Čistím si zuby.",
-    "Dělám si kávu."
+    "ráno, odpoledne, večer, potom",
+    "sprchuju se, oblékám se",
+    "čistím si zuby, dělám si kávu"
   ],
   "recycles": [
-    "time and days",
-    "pracuju/studuju",
-    "doma",
-    "mám",
-    "potom"
+    "Dám si… (U6)"
   ],
-  "exit_task": "describe a short morning sequence with se and si.",
-  "duration_min": 12,
-  "lesson_type": "practice",
+  "exit_task": "describe your morning in four steps.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 10100,
+      "id": 10200,
       "lesson_id": 1002,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Put the Routine in Order",
-        "body": "Place se and si naturally while ordering morning activities.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write your four steps. Then check.",
         "items": [
           {
+            "cz": "Ráno vstávám v šest.",
+            "en": "In the morning I get up at six."
+          },
+          {
+            "cz": "Snídám v sedm.",
+            "en": "I have breakfast at seven."
+          },
+          {
+            "cz": "Potom pracuju.",
+            "en": "Then I work."
+          },
+          {
             "cz": "Ráno se sprchuju.",
-            "en": "I shower in the morning."
-          },
-          {
-            "cz": "Potom se oblékám.",
-            "en": "Then I get dressed."
-          },
-          {
-            "cz": "Čistím si zuby.",
-            "en": "I brush my teeth."
-          },
-          {
-            "cz": "Dělám si kávu.",
-            "en": "I make myself coffee."
+            "en": "In the morning I shower."
           }
         ]
       },
@@ -57,7 +53,394 @@
       "xp_reward": 0
     },
     {
-      "id": 10101,
+      "id": 10201,
+      "lesson_id": 1002,
+      "type": "teaching",
+      "prompt": "When: ráno, potom, večer",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-093",
+        "rule_step": 1,
+        "heading": "When: ráno, potom, večer",
+        "items": [
+          {
+            "cz": "Ráno vstávám v šest.",
+            "en": "In the morning I get up at six."
+          },
+          {
+            "cz": "Potom pracuju.",
+            "en": "Then I work."
+          }
+        ],
+        "say": "Parts of the day need no preposition: ráno, odpoledne, večer. Link steps with potom (then). A clock time takes v: v sedm.",
+        "table": [
+          [
+            "in the morning",
+            "ráno"
+          ],
+          [
+            "late morning",
+            "dopoledne"
+          ],
+          [
+            "in the afternoon",
+            "odpoledne"
+          ],
+          [
+            "in the evening",
+            "večer"
+          ],
+          [
+            "at night",
+            "v noci"
+          ],
+          [
+            "then",
+            "potom"
+          ],
+          [
+            "every day",
+            "každý den"
+          ],
+          [
+            "at seven",
+            "v sedm"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Ráno vstávám v šest.",
+            "en": "In the morning I get up at six."
+          },
+          {
+            "cz": "Potom pracuju.",
+            "en": "Then I work."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "V ráno vstávám.",
+          "right": "Ráno vstávám."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10202,
+      "lesson_id": 1002,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "___ vstávám v šest. (in the morning)",
+        "question_en": "In the morning I get up at six.",
+        "options": [
+          "Ráno",
+          "V ráno",
+          "Na ráno"
+        ],
+        "correct_index": 0,
+        "explanation": "Parts of the day need no preposition: ráno."
+      },
+      "answer_key": "Ráno",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-093"
+    },
+    {
+      "id": 10203,
+      "lesson_id": 1002,
+      "type": "teaching",
+      "prompt": "se: I wash myself",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-090",
+        "rule_step": 1,
+        "heading": "se: I wash myself",
+        "items": [
+          {
+            "cz": "Ráno se sprchuju.",
+            "en": "In the morning I shower."
+          },
+          {
+            "cz": "Večer se dívám na film.",
+            "en": "In the evening I watch a film."
+          }
+        ],
+        "say": "Some verbs need se: the action goes back to you. mýt se (wash), oblékat se (get dressed), dívat se (watch). se stays the same for every person.",
+        "table": [
+          [
+            "mýt se",
+            "myju se"
+          ],
+          [
+            "sprchovat se",
+            "sprchuju se"
+          ],
+          [
+            "oblékat se",
+            "oblékám se"
+          ],
+          [
+            "dívat se",
+            "dívám se na film"
+          ],
+          [
+            "učit se",
+            "učím se česky"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Ráno se sprchuju.",
+            "en": "In the morning I shower."
+          },
+          {
+            "cz": "Večer se dívám na film.",
+            "en": "In the evening I watch a film."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Ráno sprchuju.",
+          "right": "Ráno se sprchuju."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10204,
+      "lesson_id": 1002,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Potom ___ oblékám.",
+        "question_en": "Then I get dressed.",
+        "options": [
+          "se",
+          "si",
+          "sebe"
+        ],
+        "correct_index": 0,
+        "explanation": "oblékat se: se."
+      },
+      "answer_key": "se",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-090"
+    },
+    {
+      "id": 10205,
+      "lesson_id": 1002,
+      "type": "teaching",
+      "prompt": "si: for myself",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-091",
+        "rule_step": 1,
+        "heading": "si: for myself",
+        "items": [
+          {
+            "cz": "Čistím si zuby.",
+            "en": "I brush my teeth."
+          },
+          {
+            "cz": "Dělám si snídani.",
+            "en": "I make myself breakfast."
+          }
+        ],
+        "say": "si means for yourself: Dělám si kávu (I make myself a coffee), Čistím si zuby (I brush my teeth). You already know Dám si… from ordering.",
+        "table": [
+          [
+            "dělat si",
+            "dělám si kávu"
+          ],
+          [
+            "čistit si",
+            "čistím si zuby"
+          ],
+          [
+            "dát si",
+            "dám si polévku"
+          ],
+          [
+            "číst si",
+            "čtu si knihu"
+          ],
+          [
+            "vařit si",
+            "vařím si oběd"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Čistím si zuby.",
+            "en": "I brush my teeth."
+          },
+          {
+            "cz": "Dělám si snídani.",
+            "en": "I make myself breakfast."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Čistím se zuby.",
+          "right": "Čistím si zuby."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10206,
+      "lesson_id": 1002,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Čistím ___ zuby.",
+        "question_en": "I brush my teeth.",
+        "options": [
+          "si",
+          "se",
+          "sebe"
+        ],
+        "correct_index": 0,
+        "explanation": "for yourself: si."
+      },
+      "answer_key": "si",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-091"
+    },
+    {
+      "id": 10207,
+      "lesson_id": 1002,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write the parts of the day, three verbs with se and three with si.",
+        "items": [
+          {
+            "cz": "ráno, dopoledne, odpoledne, večer, v noci",
+            "en": "parts of the day"
+          },
+          {
+            "cz": "myju se, sprchuju se, oblékám se",
+            "en": "se"
+          },
+          {
+            "cz": "čistím si zuby, dělám si kávu, dám si…",
+            "en": "si"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 10208,
+      "lesson_id": 1002,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "A clock time takes v.",
+        "sentence": "Snídám ___ sedm. (at)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "v"
+          ]
+        ],
+        "explanation": "v sedm"
+      },
+      "answer_key": "v",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-093"
+    },
+    {
+      "id": 10209,
+      "lesson_id": 1002,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "dívat se: se.",
+        "sentence": "Večer ___ dívám na film.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "se"
+          ]
+        ],
+        "explanation": "se"
+      },
+      "answer_key": "se",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-090"
+    },
+    {
+      "id": 10210,
+      "lesson_id": 1002,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "for myself: si.",
+        "sentence": "Dělám ___ kávu.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "si"
+          ]
+        ],
+        "explanation": "si"
+      },
+      "answer_key": "si",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-091"
+    },
+    {
+      "id": 10211,
+      "lesson_id": 1002,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "-ovat → -uju.",
+        "sentence": "Ráno se ___. (sprchovat se, já)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "sprchuju"
+          ]
+        ],
+        "explanation": "sprchuju"
+      },
+      "answer_key": "sprchuju",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-090"
+    },
+    {
+      "id": 10212,
       "lesson_id": 1002,
       "type": "listening_comprehension",
       "prompt": "Listen for meaning and one detail",
@@ -89,10 +472,11 @@
         ]
       },
       "answer_key": "Getting dressed",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-090"
     },
     {
-      "id": 10102,
+      "id": 10213,
       "lesson_id": 1002,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -125,10 +509,11 @@
         ]
       },
       "answer_key": "Brushing teeth",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-091"
     },
     {
-      "id": 10103,
+      "id": 10214,
       "lesson_id": 1002,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -152,34 +537,14 @@
             "right": "I make myself coffee."
           }
         ],
-        "explanation": "Keep each useful Czech chunk connected to its meaning."
+        "explanation": "Keep each useful Czech chunk connected to its meaning.",
+        "targets": "vocab"
       },
       "answer_key": "Ráno se sprchuju.–I shower in the morning.; Potom se oblékám.–Then I get dressed.; Čistím si zuby.–I brush my teeth.; Dělám si kávu.–I make myself coffee.",
       "xp_reward": 10
     },
     {
-      "id": 10104,
-      "lesson_id": 1002,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "Ráno se sprchuju.",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "Ráno se sprchuju.",
-      "xp_reward": 10
-    },
-    {
-      "id": 10105,
+      "id": 10215,
       "lesson_id": 1002,
       "type": "fill_blank",
       "prompt": "Complete the useful chunk",
@@ -195,47 +560,11 @@
         "explanation": "Retrieve the missing word from the complete chunk."
       },
       "answer_key": "se",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-090"
     },
     {
-      "id": 10106,
-      "lesson_id": 1002,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "oblékám.",
-          "se",
-          "Potom"
-        ],
-        "correct_order": [
-          2,
-          1,
-          0
-        ],
-        "translation_en": "Then I get dressed.",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "Potom se oblékám.",
-      "xp_reward": 10
-    },
-    {
-      "id": 10107,
-      "lesson_id": 1002,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Čistím si zuby.",
-        "language": "cs-CZ",
-        "note": "Listen for the full phrase before typing."
-      },
-      "answer_key": "Čistím si zuby.",
-      "xp_reward": 10
-    },
-    {
-      "id": 10108,
+      "id": 10216,
       "lesson_id": 1002,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
@@ -250,73 +579,11 @@
         "translation_en": "I make myself coffee."
       },
       "answer_key": "Dělám si kávu.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-091"
     },
     {
-      "id": 10109,
-      "lesson_id": 1002,
-      "type": "dialogue",
-      "prompt": "Complete and hear the short exchange",
-      "data": {
-        "type": "dialogue",
-        "scenario": "Put the Routine in Order",
-        "image": "assets/images/unit10/routine_sequence_v1.webp",
-        "image_label": "A daily routine timeline with se and si in natural position",
-        "lines": [
-          {
-            "speaker": "partner",
-            "text": "Co děláš ráno?"
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          },
-          {
-            "speaker": "partner",
-            "text": "A co děláš potom?"
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          }
-        ],
-        "blank_answers": [
-          [
-            "Ráno se sprchuju."
-          ],
-          [
-            "Potom se oblékám."
-          ]
-        ],
-        "explanation": "Use complete chunks that answer each partner cue."
-      },
-      "answer_key": "Ráno se sprchuju. | Potom se oblékám.",
-      "xp_reward": 15
-    },
-    {
-      "id": 10110,
-      "lesson_id": 1002,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write a four-step morning routine with two se or si expressions.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 4,
-        "max_words": 40,
-        "key_vocab": [
-          "Ráno se sprchuju.",
-          "Potom se oblékám.",
-          "Čistím si zuby.",
-          "Dělám si kávu."
-        ],
-        "sample_answer": "Ráno se sprchuju. Potom se oblékám. Čistím si zuby. Dělám si kávu."
-      },
-      "answer_key": "Ráno se sprchuju. Potom se oblékám. Čistím si zuby. Dělám si kávu.",
-      "xp_reward": 0
-    },
-    {
-      "id": 10111,
+      "id": 10217,
       "lesson_id": 1002,
       "type": "listening_comprehension",
       "prompt": "Listen in a new context",
@@ -337,7 +604,52 @@
         ]
       },
       "answer_key": "Tea",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-091"
+    },
+    {
+      "id": 10218,
+      "lesson_id": 1002,
+      "type": "dialogue",
+      "prompt": "Complete and hear the short exchange",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Put the Routine in Order",
+        "image": "assets/images/unit10/routine_sequence_v1.webp",
+        "image_label": "A daily routine timeline with se and si in natural position",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Co děláš ráno?"
+          },
+          {
+            "speaker": "you",
+            "text": "___ (In the morning I shower.)"
+          },
+          {
+            "speaker": "partner",
+            "text": "A co děláš potom?"
+          },
+          {
+            "speaker": "you",
+            "text": "___ (Then I get dressed.)"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Ráno se sprchuju.",
+            "Sprchuju se."
+          ],
+          [
+            "Potom se oblékám.",
+            "Oblékám se."
+          ]
+        ],
+        "explanation": "Use complete chunks that answer each partner cue."
+      },
+      "answer_key": "Ráno se sprchuju.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-090"
     }
   ]
 }
