@@ -68,32 +68,32 @@
         "say": "After d, t, n the letter ě softens them: děti sounds like “dyeti”. After b, p, v it adds a y-sound, and mě sounds like “mnye”: město.",
         "table": [
           [
-            "děti",
-            "“dyeti”"
+            "sounds like dyeti",
+            "děti"
           ],
           [
-            "tělo",
-            "“tyelo”"
+            "tyelo",
+            "tělo"
           ],
           [
-            "něco",
-            "“nyetso”"
+            "nyetso",
+            "něco"
           ],
           [
-            "oběd",
-            "“obyed”"
+            "obyed",
+            "oběd"
           ],
           [
-            "pět",
-            "“pyet”"
+            "pyet",
+            "pět"
           ],
           [
-            "svět",
-            "“svyet”"
+            "svyet",
+            "svět"
           ],
           [
-            "město",
-            "“mnyesto”"
+            "mnyesto",
+            "město"
           ]
         ],
         "examples": [
@@ -162,24 +162,24 @@
         "say": "ř is one sound: a rolled r and ž at the same time. Many learners need months to get it. Until then, say r and ž together; people will understand you.",
         "table": [
           [
-            "řeka",
-            "river"
+            "river",
+            "řeka"
           ],
           [
-            "tři",
-            "three"
+            "three",
+            "tři"
           ],
           [
-            "moře",
-            "sea"
+            "sea",
+            "moře"
           ],
           [
-            "Dvořák",
-            "a composer"
+            "a composer",
+            "Dvořák"
           ],
           [
-            "řídit",
-            "to drive"
+            "to drive",
+            "řídit"
           ]
         ],
         "examples": [

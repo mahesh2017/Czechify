@@ -77,28 +77,28 @@
         "say": "učit se + what you learn: Učím se češtinu, or Učím se česky. studovat na + the school: Studuju na univerzitě. An exam in a subject: zkouška z matematiky.",
         "table": [
           [
-            "Učím se češtinu.",
-            "I am learning Czech."
+            "I am learning Czech.",
+            "Učím se češtinu."
           ],
           [
-            "Studuju na univerzitě.",
-            "I study at university."
+            "I study at university.",
+            "Studuju na univerzitě."
           ],
           [
-            "Studuju medicínu.",
-            "I study medicine."
+            "I study medicine.",
+            "Studuju medicínu."
           ],
           [
-            "zkouška z češtiny",
-            "a Czech exam"
+            "a Czech exam",
+            "zkouška z češtiny"
           ],
           [
-            "Udělal/a jsem zkoušku.",
-            "I passed the exam."
+            "I passed the exam.",
+            "Udělal/a jsem zkoušku."
           ],
           [
-            "kurz češtiny",
-            "a Czech course"
+            "a Czech course",
+            "kurz češtiny"
           ]
         ],
         "examples": [

@@ -72,36 +72,32 @@
         "say": "For a yes/no question, keep the word order and raise your voice at the end: Jste student? Answer short: Ano, jsem. / Ne, nejsem. Other questions start with a question word.",
         "table": [
           [
-            "Jste student?",
+            "Are you a student?",
+            "Jste student?"
+          ],
+          [
+            "Yes, I am. / No, I’m not.",
             "Ano, jsem. / Ne, nejsem."
           ],
           [
-            "Máte telefon?",
+            "Do you have a phone?",
+            "Máte telefon?"
+          ],
+          [
+            "Yes, I do. / No, I don’t.",
             "Ano, mám. / Ne, nemám."
           ],
           [
-            "kdo?",
-            "who?"
+            "who? what?",
+            "kdo? co?"
           ],
           [
-            "co?",
-            "what?"
+            "where? where from?",
+            "kde? odkud?"
           ],
           [
-            "kde?",
-            "where?"
-          ],
-          [
-            "odkud?",
-            "where from?"
-          ],
-          [
-            "kdy?",
-            "when?"
-          ],
-          [
-            "proč?",
-            "why?"
+            "when? why?",
+            "kdy? proč?"
           ]
         ],
         "examples": [

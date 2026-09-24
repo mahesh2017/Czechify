@@ -202,12 +202,12 @@
             "ú, ů"
           ],
           [
-            "byt (flat)",
-            "být (to be)"
+            "flat / to be",
+            "byt / být"
           ],
           [
-            "pas (passport)",
-            "pás (belt)"
+            "passport / belt",
+            "pas / pás"
           ]
         ],
         "examples": [
@@ -276,36 +276,36 @@
         "say": "The small hook (háček) changes a sound: c is ts but č is ch as in chair; š is sh; ž is like s in measure. ch is one sound, as in Scottish loch.",
         "table": [
           [
-            "c",
-            "ts — cukr"
+            "ts, as in cats",
+            "c — cukr"
           ],
           [
-            "č",
-            "ch in chair — čaj"
+            "ch, as in chair",
+            "č — čaj"
           ],
           [
             "s",
             "s — sestra"
           ],
           [
-            "š",
-            "sh — škola"
+            "sh, as in ship",
+            "š — škola"
           ],
           [
             "z",
             "z — zima"
           ],
           [
-            "ž",
-            "s in measure — žena"
+            "s, as in measure",
+            "ž — žena"
           ],
           [
-            "ch",
-            "loch — chléb"
+            "as in Scottish loch",
+            "ch — chléb"
           ],
           [
-            "j",
-            "y in yes — jablko"
+            "y, as in yes",
+            "j — jablko"
           ]
         ],
         "examples": [

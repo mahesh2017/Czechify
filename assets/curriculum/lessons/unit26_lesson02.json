@@ -261,32 +261,32 @@
         "say": "You rent a flat: pronajmout si byt. A listing gives the rent, the costs and the deposit. Ask: Je byt zařízený? Jsou energie v ceně?",
         "table": [
           [
-            "Pronajmu byt 2+kk.",
-            "Flat to let: 2 rooms + kitchenette"
+            "Flat to let: 2 rooms + kitchenette",
+            "Pronajmu byt 2+kk."
           ],
           [
-            "nájem 16 000 Kč",
-            "rent CZK 16,000"
+            "rent CZK 16,000",
+            "nájem 16 000 Kč"
           ],
           [
-            "+ poplatky",
-            "+ service charges"
+            "+ service charges",
+            "+ poplatky"
           ],
           [
-            "kauce",
-            "deposit"
+            "deposit",
+            "kauce"
           ],
           [
-            "zařízený / nezařízený",
-            "furnished / unfurnished"
+            "furnished / unfurnished",
+            "zařízený / nezařízený"
           ],
           [
-            "volný od září",
-            "available from September"
+            "available from September",
+            "volný od září"
           ],
           [
-            "Jsou energie v ceně?",
-            "Are utilities included?"
+            "Are utilities included?",
+            "Jsou energie v ceně?"
           ]
         ],
         "examples": [

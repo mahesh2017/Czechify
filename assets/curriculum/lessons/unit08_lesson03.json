@@ -72,24 +72,24 @@
         "say": "The order is owner, quality, person: moje malá sestra, můj starý dědeček. Ask what someone is like with Jaký je? or Jaká je?",
         "table": [
           [
-            "moje malá sestra",
-            "my little sister"
+            "my little sister",
+            "moje malá sestra"
           ],
           [
-            "můj starý dědeček",
-            "my old grandfather"
+            "my old grandfather",
+            "můj starý dědeček"
           ],
           [
-            "naše nová učitelka",
-            "our new teacher"
+            "our new teacher",
+            "naše nová učitelka"
           ],
           [
-            "Jaký je Petr?",
-            "What is Petr like?"
+            "What is Petr like?",
+            "Jaký je Petr?"
           ],
           [
-            "Jaká je Eva?",
-            "What is Eva like?"
+            "What is Eva like?",
+            "Jaká je Eva?"
           ]
         ],
         "examples": [

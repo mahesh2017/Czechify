@@ -176,36 +176,36 @@
         "say": "Signs use short forms you only need to recognise: zavřeno, vyprodáno, zakázáno. Tady se nekouří says what nobody may do here.",
         "table": [
           [
-            "ZAVŘENO",
-            "closed"
+            "closed",
+            "ZAVŘENO"
           ],
           [
-            "OTEVŘENO",
-            "open"
+            "open",
+            "OTEVŘENO"
           ],
           [
-            "VYPRODÁNO",
-            "sold out"
+            "sold out",
+            "VYPRODÁNO"
           ],
           [
-            "OBSAZENO",
-            "taken, engaged"
+            "taken, engaged",
+            "OBSAZENO"
           ],
           [
-            "KOUŘENÍ ZAKÁZÁNO",
-            "no smoking"
+            "no smoking",
+            "KOUŘENÍ ZAKÁZÁNO"
           ],
           [
-            "VSTUP ZAKÁZÁN",
-            "no entry"
+            "no entry",
+            "VSTUP ZAKÁZÁN"
           ],
           [
-            "Tady se nekouří.",
-            "No smoking here."
+            "No smoking here.",
+            "Tady se nekouří."
           ],
           [
-            "Tady se platí kartou.",
-            "You pay by card here."
+            "You pay by card here.",
+            "Tady se platí kartou."
           ]
         ],
         "examples": [

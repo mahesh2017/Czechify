@@ -269,28 +269,28 @@
         "say": "Kde? asks where something is: Jsem ve škole. Kam? asks where you are going: Jdu do školy. Learn the pairs as phrases.",
         "table": [
           [
-            "Kam jdeš?",
-            "Where are you going?"
+            "Where are you going?",
+            "Kam jdeš?"
           ],
           [
-            "Jdu do školy.",
-            "I am going to school."
+            "I am going to school.",
+            "Jdu do školy."
           ],
           [
-            "Jsem ve škole.",
-            "I am at school."
+            "I am at school.",
+            "Jsem ve škole."
           ],
           [
-            "Jdu na poštu.",
-            "I am going to the post office."
+            "I am going to the post office.",
+            "Jdu na poštu."
           ],
           [
-            "Jsem na poště.",
-            "I am at the post office."
+            "I am at the post office.",
+            "Jsem na poště."
           ],
           [
-            "Jedu do centra.",
-            "I am going to the centre."
+            "I am going to the centre.",
+            "Jedu do centra."
           ]
         ],
         "examples": [

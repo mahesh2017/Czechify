@@ -115,28 +115,28 @@
         "say": "Some nouns are really adjectives: cestující, vrátný, dovolená. They keep adjective endings: Vážení cestující, na dovolené. Recognise them in announcements and offices.",
         "table": [
           [
-            "cestující",
-            "passenger(s)"
+            "passenger(s)",
+            "cestující"
           ],
           [
-            "vrátný / vrátná",
-            "porter, front desk"
+            "porter, front desk",
+            "vrátný / vrátná"
           ],
           [
-            "dovolená",
-            "holiday"
+            "holiday",
+            "dovolená"
           ],
           [
-            "nemocný",
-            "patient"
+            "patient",
+            "nemocný"
           ],
           [
-            "účetní",
-            "accountant"
+            "accountant",
+            "účetní"
           ],
           [
-            "známý / známá",
-            "acquaintance"
+            "acquaintance",
+            "známý / známá"
           ]
         ],
         "examples": [

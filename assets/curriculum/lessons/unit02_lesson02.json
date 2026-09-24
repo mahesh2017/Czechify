@@ -162,36 +162,36 @@
         "say": "Jmenuju se gives your name; Jmenuji se is more formal. Jsem z says where you are from, and the country changes its ending: Česko → z Česka. Learn your country as one chunk.",
         "table": [
           [
-            "Jak se jmenujete?",
-            "What is your name?"
+            "What is your name?",
+            "Jak se jmenujete?"
           ],
           [
-            "Jmenuju se Anna.",
-            "My name is Anna."
+            "My name is Anna.",
+            "Jmenuju se Anna."
           ],
           [
-            "Odkud jste?",
-            "Where are you from?"
+            "Where are you from?",
+            "Odkud jste?"
           ],
           [
-            "Česko",
-            "z Česka"
+            "z Česka",
+            "Česko"
           ],
           [
-            "Indie",
-            "z Indie"
+            "z Indie",
+            "Indie"
           ],
           [
-            "Ukrajina",
-            "z Ukrajiny"
+            "z Ukrajiny",
+            "Ukrajina"
           ],
           [
-            "Německo",
-            "z Německa"
+            "z Německa",
+            "Německo"
           ],
           [
-            "Těší mě. — Mě taky.",
-            "Nice to meet you. — Me too."
+            "Nice to meet you. — Me too.",
+            "Těší mě. — Mě taky."
           ]
         ],
         "examples": [

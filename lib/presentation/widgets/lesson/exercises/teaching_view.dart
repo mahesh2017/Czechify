@@ -366,6 +366,8 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
               border: Border.all(color: t.line),
               child: Column(
                 children: [
+                  // The right-hand cell is the one spoken, so lecture tables
+                  // put the Czech there: cue → Czech.
                   for (final (from, to) in table)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2),
@@ -374,7 +376,11 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                           Expanded(
                             child: Text(
                               from,
-                              style: TextStyle(fontSize: 17, color: t.muted),
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: t.ink,
+                              ),
                             ),
                           ),
                           Icon(Icons.arrow_forward, size: 16, color: t.faint),

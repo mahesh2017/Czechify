@@ -76,28 +76,28 @@
         "say": "Ask Kdo je to? about a person and Co je to? about a thing or an animal. Answer with To je… and the word.",
         "table": [
           [
-            "Kdo je to?",
-            "Who is it?"
+            "Who is it?",
+            "Kdo je to?"
           ],
           [
-            "To je Anna.",
-            "That is Anna."
+            "That is Anna.",
+            "To je Anna."
           ],
           [
-            "To je pan Novák.",
-            "That is Mr Novák."
+            "That is Mr Novák.",
+            "To je pan Novák."
           ],
           [
-            "Co je to?",
-            "What is it?"
+            "What is it?",
+            "Co je to?"
           ],
           [
-            "To je auto.",
-            "That is a car."
+            "That is a car.",
+            "To je auto."
           ],
           [
-            "To je pes.",
-            "That is a dog."
+            "That is a dog.",
+            "To je pes."
           ]
         ],
         "examples": [

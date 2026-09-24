@@ -77,36 +77,36 @@
         "say": "The doctor asks Co vás trápí? and Kde to bolí? Instructions use the imperative: Ukažte mi krk. If you do not understand, ask: Můžete to zopakovat?",
         "table": [
           [
-            "Co vás trápí?",
-            "What's the problem?"
+            "What's the problem?",
+            "Co vás trápí?"
           ],
           [
-            "Kde to bolí?",
-            "Where does it hurt?"
+            "Where does it hurt?",
+            "Kde to bolí?"
           ],
           [
-            "Ukažte mi krk.",
-            "Show me your throat."
+            "Show me your throat.",
+            "Ukažte mi krk."
           ],
           [
-            "Berte to třikrát denně.",
-            "Take it three times a day."
+            "Take it three times a day.",
+            "Berte to třikrát denně."
           ],
           [
-            "po jídle",
-            "after a meal"
+            "after a meal",
+            "po jídle"
           ],
           [
-            "Tady máte recept.",
-            "Here is your prescription."
+            "Here is your prescription.",
+            "Tady máte recept."
           ],
           [
-            "neschopenka",
-            "sick note"
+            "sick note",
+            "neschopenka"
           ],
           [
-            "pohotovost",
-            "emergency service"
+            "emergency service",
+            "pohotovost"
           ]
         ],
         "examples": [
