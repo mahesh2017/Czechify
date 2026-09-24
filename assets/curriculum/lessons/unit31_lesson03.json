@@ -3,13 +3,51 @@
   "unit_id": 31,
   "order_in_unit": 3,
   "title": "Workday Problem: Explain and Request",
-  "description": "Use past events, reasons, modals and polite requests in a workplace problem.",
-  "duration_min": 18,
+  "description": "Tell your manager what happened and ask for something politely.",
+  "duration_min": 13,
   "lesson_type": "practice",
-  "is_review": true,
+  "can_do": "explain a problem at work and make one polite request.",
+  "new_language": [
+    "pracovat z domova",
+    "Nemusíte…",
+    "onemocnět"
+  ],
+  "recycles": [
+    "Mohl/a bych…?",
+    "protože",
+    "past"
+  ],
+  "exit_task": "write a short message to your manager.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 31024,
+      "id": 31300,
+      "lesson_id": 3103,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write how you ask your manager politely (Unit 20) and say why you cannot come (Unit 22). Then check.",
+        "items": [
+          {
+            "cz": "Mohl/a bych pracovat z domova?",
+            "en": "Could I work from home?"
+          },
+          {
+            "cz": "Nemůžu přijít, protože jsem nemocný/nemocná.",
+            "en": "I can't come because I'm ill."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 31301,
       "lesson_id": 3103,
       "type": "teaching",
       "prompt": "Explain the problem, then ask",
@@ -31,13 +69,14 @@
             "cz": "Mohl/a bych pracovat z domova?",
             "en": "Could I work from home?"
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "work message chunks",
       "xp_reward": 0
     },
     {
-      "id": 31025,
+      "id": 31302,
       "lesson_id": 3103,
       "type": "reading_comprehension",
       "prompt": "Read the manager's message",
@@ -65,13 +104,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "before eight; no",
       "xp_reward": 15
     },
     {
-      "id": 31026,
+      "id": 31303,
       "lesson_id": 3103,
       "type": "listening_comprehension",
       "prompt": "Listen to the call",
@@ -100,19 +140,20 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "ill; work from home",
       "xp_reward": 15
     },
     {
-      "id": 31027,
+      "id": 31304,
       "lesson_id": 3103,
       "type": "dialogue",
       "prompt": "Reply politely",
       "data": {
         "type": "dialogue",
-        "scenario": "A manager replies",
+        "scenario": "Your manager says you can work from home today. Thank them.",
         "lines": [
           {
             "speaker": "manager",
@@ -125,16 +166,20 @@
         ],
         "blank_answers": [
           [
+            "Děkuji.",
+            "Děkuji vám.",
             "Děkuji, dokončím důležitý úkol.",
-            "Děkuji vám, pošlu hotový úkol odpoledne."
+            "Děkuji vám, pošlu hotový úkol odpoledne.",
+            "Moc děkuji."
           ]
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "polite reply",
       "xp_reward": 15
     },
     {
-      "id": 31028,
+      "id": 31305,
       "lesson_id": 3103,
       "type": "writing_task",
       "prompt": "Write a workday message",
@@ -149,13 +194,14 @@
           "reason",
           "polite request"
         ],
-        "sample_answer": "Dobrý den, včera jsem byl u lékaře a dnes jsem nemocný. Nemůžu přijít do práce. Mohl bych prosím pracovat z domova?"
+        "sample_answer": "Dobrý den, včera jsem byl u lékaře a dnes jsem nemocný. Nemůžu přijít do práce. Mohl bych prosím pracovat z domova?",
+        "targets": "vocab"
       },
       "answer_key": "workday message",
       "xp_reward": 20
     },
     {
-      "id": 31029,
+      "id": 31306,
       "lesson_id": 3103,
       "type": "speaking_task",
       "prompt": "Leave a workplace voice message",
@@ -169,13 +215,14 @@
           "včera",
           "protože",
           "mohl/a bych"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "workplace voice message",
       "xp_reward": 20
     },
     {
-      "id": 31030,
+      "id": 31307,
       "lesson_id": 3103,
       "type": "multiple_choice",
       "prompt": "Choose the correct meaning",
@@ -188,13 +235,14 @@
           "You want to go to the office"
         ],
         "correct_index": 0,
-        "explanation": "Nemusíte means there is no obligation; nesmíte would mean it is prohibited."
+        "explanation": "Nemusíte means there is no obligation; nesmíte would mean it is prohibited.",
+        "targets": "vocab"
       },
       "answer_key": "no obligation",
       "xp_reward": 10
     },
     {
-      "id": 31031,
+      "id": 31308,
       "lesson_id": 3103,
       "type": "word_order",
       "prompt": "Build the polite request",
@@ -219,7 +267,8 @@
         "explanation": "Mohl bych pracovat z domova, prosím? is a polite request."
       },
       "answer_key": "Mohl bych pracovat z domova, prosím?",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-192"
     }
   ]
 }

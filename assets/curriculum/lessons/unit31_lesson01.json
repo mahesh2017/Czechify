@@ -3,21 +3,63 @@
   "unit_id": 31,
   "order_in_unit": 1,
   "title": "A2 Review: Grammar Consolidation",
-  "description": "A2-level grammar consolidation review. Practice the case system (which case after which preposition), past/future/conditional forms, complex-sentence translations with protože, když, že, vocabulary matching (professions, health), common error correction (aspect choice, case after prepositions), a formal dialogue at an úřad, and clitic placement word order. Linked to grammar rule GR-291.",
-  "duration_min": 25,
+  "description": "Bring the A2 grammar together: cases, past and future, joining ideas.",
+  "duration_min": 15,
   "lesson_type": "review",
-  "is_review": true,
+  "can_do": "use the main A2 forms correctly in short sentences.",
+  "new_language": [
+    "review"
+  ],
+  "recycles": [
+    "cases",
+    "past",
+    "future",
+    "protože, když",
+    "který"
+  ],
+  "exit_task": "translate three everyday sentences.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 31000,
+      "id": 31100,
+      "lesson_id": 3101,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: from memory, write one sentence in the past, one in the future and one with protože. Then check.",
+        "items": [
+          {
+            "cz": "Včera jsem byl/a doma.",
+            "en": "Yesterday I was at home."
+          },
+          {
+            "cz": "Zítra půjdu do práce.",
+            "en": "Tomorrow I will go to work."
+          },
+          {
+            "cz": "Učím se česky, protože tady bydlím.",
+            "en": "I learn Czech because I live here."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 31101,
       "lesson_id": 3101,
       "type": "teaching",
       "prompt": "A2 in a Nutshell",
       "data": {
         "type": "teaching",
         "heading": "A2 in a Nutshell",
-        "body": "The whole case system and every tense together: the seven cases at a glance, plus past, future, and conditional. Tap the examples to hear them.",
-        "intro": "The finish line. Let's bring the whole case system and every tense together one last time — because once this clicks, you're ready for Czech out in the wild.",
+        "body": "The A2 grammar together: the cases, past and future, and polite bych. Tap the examples to hear them.",
+        "intro": "Let's bring the A2 grammar together one last time: the cases, past and future, and the polite phrases. Once this clicks, you're ready for everyday Czech.",
         "style": "list",
         "play_all_label": "Play all",
         "items": [
@@ -46,7 +88,7 @@
       "xp_reward": 0
     },
     {
-      "id": 31001,
+      "id": 31102,
       "lesson_id": 3101,
       "type": "multiple_choice",
       "prompt": "Which case follows the preposition 'do' (to/into)?",
@@ -65,10 +107,10 @@
       },
       "answer_key": "genitive",
       "xp_reward": 10,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-150"
     },
     {
-      "id": 31002,
+      "id": 31103,
       "lesson_id": 3101,
       "type": "multiple_choice",
       "prompt": "Which case follows the preposition 'na' when expressing location (on)?",
@@ -87,10 +129,10 @@
       },
       "answer_key": "locative",
       "xp_reward": 10,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-170"
     },
     {
-      "id": 31003,
+      "id": 31104,
       "lesson_id": 3101,
       "type": "multiple_choice",
       "prompt": "Which case follows the preposition 's' (with)?",
@@ -109,10 +151,10 @@
       },
       "answer_key": "instrumental",
       "xp_reward": 10,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-171"
     },
     {
-      "id": 31004,
+      "id": 31105,
       "lesson_id": 3101,
       "type": "fill_blank",
       "prompt": "Complete with the correct past tense form.",
@@ -129,51 +171,30 @@
       },
       "answer_key": "šel",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-181"
     },
     {
-      "id": 31005,
+      "id": 31106,
       "lesson_id": 3101,
       "type": "fill_blank",
       "prompt": "Complete with the correct future tense form.",
       "data": {
         "type": "fill_blank",
-        "sentence": "Zítra ___ do kina. (já — jít, future of 'jít')",
+        "sentence": "Zítra ___ do kina. (jít)",
         "blank_count": 1,
-        "explanation": "'Zítra půj do kina.' = Tomorrow I'll go to the cinema. The future of 'jít' (to go) is irregular: půj (I), půjdeš (you sg.), půjde (he/she/it), půjdeme (we), půjdete (you pl.), půjdou (they). Don't confuse with 'budu jít' which is also possible but less natural for 'jít' itself.",
+        "explanation": "jít has its own future: půjdu, půjdeš, půjde, půjdeme, půjdete, půjdou. Not budu jít.",
         "blank_answers": [
           [
-            "půj",
-            "půj já"
+            "půjdu"
           ]
         ]
       },
-      "answer_key": "půj",
+      "answer_key": "půjdu",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-190"
     },
     {
-      "id": 31006,
-      "lesson_id": 3101,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct conditional form.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Kdybych ___ čas, šel bych s tebou. (mít — to have, male speaker)",
-        "blank_count": 1,
-        "explanation": "'Kdybych měl čas, šel bych s tebou.' = If I had time, I would go with you (male speaker). After 'kdybych' (if I — conditional), we use the past participle 'měl' (masc. of 'mít'). The result clause uses 'šel bych' (past participle + conditional auxiliary 'bych'). Female speaker: 'měla' and 'šla bych'.",
-        "blank_answers": [
-          [
-            "měl"
-          ]
-        ]
-      },
-      "answer_key": "měl",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
-    },
-    {
-      "id": 31007,
+      "id": 31107,
       "lesson_id": 3101,
       "type": "translation",
       "prompt": "Translate to Czech using 'protože' (because).",
@@ -189,10 +210,10 @@
       },
       "answer_key": "Zůstal jsem doma, protože jsem byl unavený.",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-211"
     },
     {
-      "id": 31008,
+      "id": 31108,
       "lesson_id": 3101,
       "type": "translation",
       "prompt": "Translate to Czech using 'když' (when).",
@@ -208,10 +229,10 @@
       },
       "answer_key": "Když jsem přišel domů, zavolal jsem mamince.",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-211"
     },
     {
-      "id": 31009,
+      "id": 31109,
       "lesson_id": 3101,
       "type": "translation",
       "prompt": "Translate to Czech using 'že' (that).",
@@ -226,10 +247,10 @@
       },
       "answer_key": "Myslím, že tento film je velmi zajímavý.",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-210"
     },
     {
-      "id": 31010,
+      "id": 31110,
       "lesson_id": 3101,
       "type": "matching",
       "prompt": "Match the Czech profession words to their English meanings.",
@@ -258,14 +279,14 @@
             "right": "nurse"
           }
         ],
-        "explanation": "A2 profession vocabulary: lékař (doctor, masc. animate), učitel (teacher, masc. animate), inženýr (engineer, masc. animate), advokát (lawyer, masc. animate), zdravotní sestra (nurse, fem.)."
+        "explanation": "A2 profession vocabulary: lékař (doctor, masc. animate), učitel (teacher, masc. animate), inženýr (engineer, masc. animate), advokát (lawyer, masc. animate), zdravotní sestra (nurse, fem.).",
+        "targets": "vocab"
       },
       "answer_key": "lékař→doctor, učitel→teacher, inženýr→engineer, advokát→lawyer, zdravotní sestra→nurse",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "xp_reward": 15
     },
     {
-      "id": 31011,
+      "id": 31111,
       "lesson_id": 3101,
       "type": "matching",
       "prompt": "Match the Czech health words to their English meanings.",
@@ -294,31 +315,14 @@
             "right": "illness"
           }
         ],
-        "explanation": "A2 health vocabulary: teplota (fever/temperature, fem.), bolest (pain, fem.), recept (prescription, masc. inanimate), lék (medicine, masc. inanimate), nemoc (illness, fem.)."
+        "explanation": "A2 health vocabulary: teplota (fever/temperature, fem.), bolest (pain, fem.), recept (prescription, masc. inanimate), lék (medicine, masc. inanimate), nemoc (illness, fem.).",
+        "targets": "vocab"
       },
       "answer_key": "teplota→fever/temperature, bolest→pain, recept→prescription, lék→medicine, nemoc→illness",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "xp_reward": 15
     },
     {
-      "id": 31012,
-      "lesson_id": 3101,
-      "type": "error_correction",
-      "prompt": "Find and correct the verb aspect error.",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find and correct the verb aspect error.",
-        "sentence_cz": "Celý den jsem psal dopis, ale ještě jsem ho nedopsal.",
-        "correct_sentence_cz": "Celý den jsem psal dopis, ale ještě jsem ho nenapsal.",
-        "error_type": "aspect_choice",
-        "explanation": "The correct perfective form is 'nenapsal' (from 'napsat' — perfective to write). 'Nedopsal' is from 'dopsat' (to finish writing), which would mean 'I didn't finish writing it' — but the intended meaning here is 'I haven't written it yet' (haven't completed the act of writing). 'Napsat' is the standard perfective pair of 'psát' (imperfective to write). Actually both can work, but the more natural contrast with 'psal' (imperfective — was writing) is 'nenapsal' (perfective — haven't produced/completed it). 'Ještě jsem ho nenapsal' = I haven't written it yet."
-      },
-      "answer_key": "Celý den jsem psal dopis, ale ještě jsem ho nenapsal.",
-      "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
-    },
-    {
-      "id": 31013,
+      "id": 31112,
       "lesson_id": 3101,
       "type": "error_correction",
       "prompt": "Find and correct the case error after the preposition.",
@@ -332,10 +336,10 @@
       },
       "answer_key": "Jdu do školy.",
       "xp_reward": 15,
-      "grammar_rule_id": "GR-291"
+      "grammar_rule_id": "GR-150"
     },
     {
-      "id": 31014,
+      "id": 31113,
       "lesson_id": 3101,
       "type": "dialogue",
       "prompt": "Complete the dialogue at the government office. What does the citizen reply?",
@@ -383,50 +387,11 @@
             "Potřeboval bych vyřídit nový občanský průkaz.",
             "Dobrý den, potřeboval bych nový občanský průkaz."
           ]
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dobrý den, potřeboval bych vyřídit nový občanský průkaz.",
-      "xp_reward": 25,
-      "grammar_rule_id": "GR-291"
-    },
-    {
-      "id": 31015,
-      "lesson_id": 3101,
-      "type": "word_order",
-      "prompt": "Arrange the words to form a correct complex sentence.",
-      "data": {
-        "type": "word_order",
-        "correct_order": [
-          2,
-          1,
-          0,
-          3,
-          4,
-          8,
-          5,
-          9,
-          10,
-          6,
-          7
-        ],
-        "explanation": "'Včera jsem ho viděl, protože jsem byl v kavárně v parku.' = Yesterday I saw him because I was in the café in the park. The clitics 'jsem' and 'ho' occupy the second position of the main clause; the 'protože' clause starts its own clitic group.",
-        "words": [
-          "ho",
-          "jsem",
-          "Včera",
-          "viděl",
-          "protože",
-          "byl",
-          "v",
-          "parku.",
-          "jsem",
-          "v",
-          "kavárně"
-        ]
-      },
-      "answer_key": "Včera jsem ho viděl, protože jsem byl v kavárně v parku.",
-      "xp_reward": 20,
-      "grammar_rule_id": "GR-291"
+      "xp_reward": 25
     }
   ]
 }

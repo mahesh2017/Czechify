@@ -3,13 +3,25 @@
   "unit_id": 31,
   "order_in_unit": 4,
   "title": "A2 Personal Challenge",
-  "description": "A mixed-skill final challenge across familiar life domains.",
-  "duration_min": 22,
+  "description": "A four-skill challenge, then check your notebook against the A2 page.",
+  "duration_min": 13,
   "lesson_type": "mission",
-  "is_review": true,
+  "can_do": "compare options, give reasons and talk about recent and future plans.",
+  "new_language": [
+    "rychlejší, levnější"
+  ],
+  "recycles": [
+    "comparison",
+    "past",
+    "future",
+    "protože"
+  ],
+  "exit_task": "introduce yourself, describe a recent event and a plan.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 31032,
+      "id": 31400,
       "lesson_id": 3104,
       "type": "teaching",
       "prompt": "Your A2 challenge",
@@ -17,7 +29,7 @@
         "type": "teaching",
         "style": "list",
         "heading": "Use what you know",
-        "body": "This challenge combines reading, listening, writing and speaking. It records practice, not an official CEFR certificate.",
+        "body": "This challenge combines reading, listening, writing and speaking. Close your notebook.",
         "items": [
           {
             "cz": "Nejdřív si přečtu otázku.",
@@ -37,7 +49,7 @@
       "xp_reward": 0
     },
     {
-      "id": 31033,
+      "id": 31401,
       "lesson_id": 3104,
       "type": "reading_comprehension",
       "prompt": "Read the weekend choice",
@@ -67,13 +79,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "bus; train",
       "xp_reward": 15
     },
     {
-      "id": 31034,
+      "id": 31402,
       "lesson_id": 3104,
       "type": "listening_comprehension",
       "prompt": "Listen to the weekend change",
@@ -100,13 +113,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "rain; cycle",
       "xp_reward": 15
     },
     {
-      "id": 31035,
+      "id": 31403,
       "lesson_id": 3104,
       "type": "writing_task",
       "prompt": "Write the practical response",
@@ -121,13 +135,14 @@
           "two reasons",
           "time"
         ],
-        "sample_answer": "Pojedeme vlakem, protože je rychlejší a cesta trvá jen dvě hodiny. Je sice dražší, ale je pohodlnější. Sejdeme se v sobotu v osm na nádraží."
+        "sample_answer": "Pojedeme vlakem, protože je rychlejší a cesta trvá jen dvě hodiny. Je sice dražší, ale je pohodlnější. Sejdeme se v sobotu v osm na nádraží.",
+        "targets": "vocab"
       },
       "answer_key": "practical travel message",
       "xp_reward": 25
     },
     {
-      "id": 31036,
+      "id": 31404,
       "lesson_id": 3104,
       "type": "speaking_task",
       "prompt": "Record your A2 response",
@@ -143,19 +158,20 @@
           "jmenuji se",
           "včera/minulý",
           "budu/chci"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "personal A2 response",
       "xp_reward": 30
     },
     {
-      "id": 31037,
+      "id": 31405,
       "lesson_id": 3104,
       "type": "dialogue",
       "prompt": "Choose and explain",
       "data": {
         "type": "dialogue",
-        "scenario": "Choosing transport",
+        "scenario": "Say you would go by train because it is faster.",
         "lines": [
           {
             "speaker": "friend",
@@ -169,15 +185,18 @@
         "blank_answers": [
           [
             "Pojedeme vlakem, protože je rychlejší.",
-            "Myslím, že vlak je lepší, protože je rychlejší."
+            "Vlakem, protože je rychlejší.",
+            "Myslím, že vlak je lepší, protože je rychlejší.",
+            "Pojeďme vlakem, je rychlejší."
           ]
         ]
       },
       "answer_key": "choice with reason",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-200"
     },
     {
-      "id": 31038,
+      "id": 31406,
       "lesson_id": 3104,
       "type": "error_correction",
       "prompt": "Correct the comparison",
@@ -189,10 +208,11 @@
         "explanation": "Use the comparative rychlejší with než: faster than."
       },
       "answer_key": "Vlak je rychlejší než autobus.",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-200"
     },
     {
-      "id": 31039,
+      "id": 31407,
       "lesson_id": 3104,
       "type": "writing_task",
       "prompt": "Create your learner portfolio note",
@@ -202,10 +222,52 @@
         "prompt_en": "Write 2 sentences: which skill (reading, listening, writing, speaking) you most want to practise and how you will do it next week.",
         "min_words": 16,
         "max_words": 55,
-        "sample_answer": "Chci více trénovat poslech. Příští týden budu každý den poslouchat krátký český dialog."
+        "sample_answer": "Chci více trénovat poslech. Příští týden budu každý den poslouchat krátký český dialog.",
+        "targets": "vocab"
       },
       "answer_key": "portfolio reflection",
       "xp_reward": 15
+    },
+    {
+      "id": 31408,
+      "lesson_id": 3104,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Your A2 page",
+        "instruction": "Make an A2 page in your notebook: what A2 asks you to use. Compare it with the model, then tick what you feel sure about.",
+        "items": [
+          {
+            "cz": "všechny pády v jednotném čísle",
+            "en": "all seven cases in the singular"
+          },
+          {
+            "cz": "množné číslo: 1., 2. a 4. pád",
+            "en": "plural: nominative, genitive, accusative"
+          },
+          {
+            "cz": "byl jsem, šel jsem / budu, půjdu, napíšu",
+            "en": "past and future"
+          },
+          {
+            "cz": "chtěl/a bych, mohl/a bych",
+            "en": "asking politely"
+          },
+          {
+            "cz": "že, jestli, protože, když, až, který",
+            "en": "joining ideas"
+          },
+          {
+            "cz": "jdu × chodím, přijet, odjet",
+            "en": "going somewhere"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
   ]
 }

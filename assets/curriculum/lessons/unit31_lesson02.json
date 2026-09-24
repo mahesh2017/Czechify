@@ -3,13 +3,51 @@
   "unit_id": 31,
   "order_in_unit": 2,
   "title": "Moving Day: Make a Clear Plan",
-  "description": "Combine housing, quantities, location and polite help.",
-  "duration_min": 18,
+  "description": "Housing, quantities and polite requests in one real situation.",
+  "duration_min": 13,
   "lesson_type": "practice",
-  "is_review": true,
+  "can_do": "ask for help with a move and explain a changed plan.",
+  "new_language": [
+    "krabice",
+    "po schodech",
+    "výtah"
+  ],
+  "recycles": [
+    "Mohl/a bys…?",
+    "v ložnici",
+    "proto"
+  ],
+  "exit_task": "write a short plan for moving day.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 31016,
+      "id": 31200,
+      "lesson_id": 3102,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write where things are in a flat (Unit 26) and how you ask a friend for help. Then check.",
+        "items": [
+          {
+            "cz": "Stůl je v obýváku.",
+            "en": "The table is in the living room."
+          },
+          {
+            "cz": "Mohl/a bys mi pomoct?",
+            "en": "Could you help me?"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 31201,
       "lesson_id": 3102,
       "type": "teaching",
       "prompt": "Moving-day chunks",
@@ -31,13 +69,14 @@
             "cz": "Mohl/a byste mi prosím pomoct?",
             "en": "Could you help me, please?"
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "moving-day chunks",
       "xp_reward": 0
     },
     {
-      "id": 31017,
+      "id": 31202,
       "lesson_id": 3102,
       "type": "reading_comprehension",
       "prompt": "Read the moving message",
@@ -67,13 +106,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "two boxes; bedroom",
       "xp_reward": 15
     },
     {
-      "id": 31018,
+      "id": 31203,
       "lesson_id": 3102,
       "type": "listening_comprehension",
       "prompt": "Listen to the changed plan",
@@ -100,19 +140,20 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "lift; one hour earlier",
       "xp_reward": 15
     },
     {
-      "id": 31019,
+      "id": 31204,
       "lesson_id": 3102,
       "type": "dialogue",
       "prompt": "Ask for help",
       "data": {
         "type": "dialogue",
-        "scenario": "Moving day",
+        "scenario": "You ask a friend to help with a table. Answer as the friend: yes, of course.",
         "lines": [
           {
             "speaker": "you",
@@ -125,16 +166,21 @@
         ],
         "blank_answers": [
           [
+            "Ano, samozřejmě.",
             "Ano, samozřejmě. Kdy a kde?",
-            "Jasně, kdy mám přijít?"
+            "Jasně, kdy mám přijít?",
+            "Jasně.",
+            "Ano, rád.",
+            "Ano, ráda."
           ]
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "help response",
       "xp_reward": 15
     },
     {
-      "id": 31020,
+      "id": 31205,
       "lesson_id": 3102,
       "type": "writing_task",
       "prompt": "Write a moving request",
@@ -149,13 +195,14 @@
           "před",
           "protože"
         ],
-        "sample_answer": "Potřebuju pomoc se dvěma krabicemi. Sejdeme se před domem v deset. Výtah nefunguje, proto poneseme věci po schodech."
+        "sample_answer": "Potřebuju pomoc se dvěma krabicemi. Sejdeme se před domem v deset. Výtah nefunguje, proto poneseme věci po schodech.",
+        "targets": "vocab"
       },
       "answer_key": "moving request",
       "xp_reward": 20
     },
     {
-      "id": 31021,
+      "id": 31206,
       "lesson_id": 3102,
       "type": "speaking_task",
       "prompt": "Give the moving update",
@@ -169,13 +216,14 @@
           "mohl/a bys",
           "proto",
           "v bytě/před domem"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "moving update",
       "xp_reward": 20
     },
     {
-      "id": 31022,
+      "id": 31207,
       "lesson_id": 3102,
       "type": "matching",
       "prompt": "Match the moving language",
@@ -198,13 +246,14 @@
             "left": "pomoc se stolem",
             "right": "help with the table"
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "moving language",
       "xp_reward": 10
     },
     {
-      "id": 31023,
+      "id": 31208,
       "lesson_id": 3102,
       "type": "error_correction",
       "prompt": "Correct the location",
@@ -216,7 +265,8 @@
         "explanation": "After v for location, use the locative: v ložnici."
       },
       "answer_key": "Stůl je v ložnici.",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-170"
     }
   ]
 }

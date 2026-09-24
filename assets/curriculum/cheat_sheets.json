@@ -3165,7 +3165,91 @@
         "Sledování médií s anglickými titulky",
         "Učení jen z učebnic bez reálné komunikace"
       ],
-      "study_tip": "Sledujte Českou televizi, poslouchejte Český rozhlas, čtěte iDNES. Ponořte se do jazyka."
+      "study_tip": "Sledujte Českou televizi, poslouchejte Český rozhlas, čtěte iDNES. Ponořte se do jazyka.",
+      "notebook_page": {
+        "title_cz": "A2",
+        "title_en": "A2 real-life consolidation",
+        "can_do": {
+          "cz": "Poradím si v běžných situacích na úrovni A2.",
+          "en": "I can handle everyday situations at A2."
+        },
+        "words": [
+          {
+            "cz": "všechny pády v jednotném čísle",
+            "en": "all seven cases in the singular"
+          },
+          {
+            "cz": "množné číslo: 1., 2. a 4. pád",
+            "en": "plural: nominative, genitive, accusative"
+          },
+          {
+            "cz": "byl jsem, šel jsem / budu, půjdu, napíšu",
+            "en": "past and future"
+          },
+          {
+            "cz": "chtěl/a bych, mohl/a bych",
+            "en": "asking politely"
+          },
+          {
+            "cz": "že, jestli, protože, když, až, který",
+            "en": "joining ideas"
+          },
+          {
+            "cz": "jdu × chodím, přijet, odjet",
+            "en": "going somewhere"
+          }
+        ],
+        "pattern": {
+          "name": "A2 at a glance",
+          "rule_plain": "What the A2 standard asks you to use, not just recognise.",
+          "table": [
+            [
+              "all seven cases in the singular",
+              "všechny pády v jednotném čísle"
+            ],
+            [
+              "plural: nominative, genitive, accusative",
+              "množné číslo: 1., 2. a 4. pád"
+            ],
+            [
+              "past and future",
+              "byl jsem, šel jsem / budu, půjdu, napíšu"
+            ],
+            [
+              "asking politely",
+              "chtěl/a bych, mohl/a bych"
+            ],
+            [
+              "joining ideas",
+              "že, jestli, protože, když, až, který"
+            ],
+            [
+              "going somewhere",
+              "jdu × chodím, přijet, odjet"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Včera jsem byla u lékaře, protože mě bolela hlava.",
+              "en": "Yesterday I was at the doctor because I had a headache."
+            },
+            {
+              "cz": "Mohl bych příští týden pracovat z domova?",
+              "en": "Could I work from home next week?"
+            }
+          ]
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Bydlím v Česku dva roky.",
+            "en": "I have lived in Czechia for two years."
+          },
+          {
+            "cz": "Příští rok chci složit zkoušku A2.",
+            "en": "Next year I want to pass the A2 exam."
+          }
+        ]
+      }
     }
   ]
 }

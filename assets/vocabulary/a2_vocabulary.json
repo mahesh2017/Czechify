@@ -9204,7 +9204,7 @@
     "unit_id": 31,
     "example_cz": "Vzpomněl jsem si na jeho jméno.",
     "example_en": "I remembered his name.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1944,
@@ -9215,7 +9215,7 @@
     "unit_id": 31,
     "example_cz": "Učím se česky dva roky.",
     "example_en": "I've been learning Czech for two years.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1945,
@@ -9237,7 +9237,7 @@
     "unit_id": 31,
     "example_cz": "Znám toho člověka.",
     "example_en": "I know that person.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1947,
@@ -9259,7 +9259,7 @@
     "unit_id": 31,
     "example_cz": "Mluvíme česky doma.",
     "example_en": "We speak Czech at home.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1949,
@@ -9270,7 +9270,7 @@
     "unit_id": 31,
     "example_cz": "Co říkáš?",
     "example_en": "What are you saying?",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1950,
@@ -9281,7 +9281,7 @@
     "unit_id": 31,
     "example_cz": "Řekl mi, že přijde.",
     "example_en": "He told me he would come.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1951,
@@ -9292,7 +9292,7 @@
     "unit_id": 31,
     "example_cz": "Vidím tě dobře.",
     "example_en": "I can see you well.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1952,
@@ -9303,7 +9303,7 @@
     "unit_id": 31,
     "example_cz": "Podívej se na tohle!",
     "example_en": "Look at this!",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1953,
@@ -9314,7 +9314,7 @@
     "unit_id": 31,
     "example_cz": "Slyším něco venku.",
     "example_en": "I hear something outside.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1954,
@@ -9325,7 +9325,7 @@
     "unit_id": 31,
     "example_cz": "Poslouchám rádio každé ráno.",
     "example_en": "I listen to the radio every morning.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1955,
@@ -9336,7 +9336,7 @@
     "unit_id": 31,
     "example_cz": "Hledám klíče.",
     "example_en": "I'm looking for my keys.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1956,
@@ -9358,7 +9358,7 @@
     "unit_id": 31,
     "example_cz": "Co si myslíš o tom filmu?",
     "example_en": "What do you think about that film?",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1958,
@@ -9369,7 +9369,7 @@
     "unit_id": 31,
     "example_cz": "Přemýšlím o změně práce.",
     "example_en": "I'm thinking about changing jobs.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1959,
@@ -9380,7 +9380,7 @@
     "unit_id": 31,
     "example_cz": "Začali jsme v devět hodin.",
     "example_en": "We started at nine o'clock.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1960,
@@ -9391,7 +9391,7 @@
     "unit_id": 31,
     "example_cz": "Film začíná v osm.",
     "example_en": "The film starts at eight.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1961,
@@ -9402,7 +9402,7 @@
     "unit_id": 31,
     "example_cz": "Přijímačky skončily v poledne.",
     "example_en": "The entrance exams finished at noon.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1962,
@@ -9413,7 +9413,7 @@
     "unit_id": 31,
     "example_cz": "Přednáška končí za pět minut.",
     "example_en": "The lecture ends in five minutes.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1963,
@@ -9424,7 +9424,7 @@
     "unit_id": 31,
     "example_cz": "Otevřel jsem dveře.",
     "example_en": "I opened the door.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1964,
@@ -9435,7 +9435,7 @@
     "unit_id": 31,
     "example_cz": "Obchod otvírá v deset.",
     "example_en": "The shop opens at ten.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1965,
@@ -9446,7 +9446,7 @@
     "unit_id": 31,
     "example_cz": "Zavřete okno, prosím.",
     "example_en": "Close the window, please.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1966,
@@ -9457,7 +9457,7 @@
     "unit_id": 31,
     "example_cz": "Knihovna zavírá v šest.",
     "example_en": "The library closes at six.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1967,
@@ -9468,7 +9468,7 @@
     "unit_id": 31,
     "example_cz": "Koupil jsem si nové boty.",
     "example_en": "I bought new shoes.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1968,
@@ -9479,7 +9479,7 @@
     "unit_id": 31,
     "example_cz": "Kupujeme chléb každý den.",
     "example_en": "We buy bread every day.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1969,
@@ -9490,7 +9490,7 @@
     "unit_id": 31,
     "example_cz": "Prodal jsem staré auto.",
     "example_en": "I sold the old car.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1970,
@@ -9501,7 +9501,7 @@
     "unit_id": 31,
     "example_cz": "Prodávají zeleninu na trhu.",
     "example_en": "They sell vegetables at the market.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1971,
@@ -9512,7 +9512,7 @@
     "unit_id": 31,
     "example_cz": "Přijal jsem pozvánku.",
     "example_en": "I accepted the invitation.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1972,
@@ -9523,29 +9523,7 @@
     "unit_id": 31,
     "example_cz": "Přijímáme platby kartou.",
     "example_en": "We accept card payments.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1973,
-    "word_cz": "opustit",
-    "word_en": "to leave, abandon (once)",
-    "ipa": "opustɪt",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Opustil místnost potichu.",
-    "example_en": "He left the room quietly.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1974,
-    "word_cz": "opouštět",
-    "word_en": "to leave, abandon (ongoing)",
-    "ipa": "opouʃt͡ʃɛt",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Lidé opouštějí město kvůli válce.",
-    "example_en": "People are leaving the city because of the war.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1975,
@@ -9556,7 +9534,7 @@
     "unit_id": 31,
     "example_cz": "Vrátil se domů pozdě.",
     "example_en": "He returned home late.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1976,
@@ -9567,7 +9545,7 @@
     "unit_id": 31,
     "example_cz": "Vrací se domů každý večer.",
     "example_en": "He returns home every evening.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1977,
@@ -9578,7 +9556,7 @@
     "unit_id": 31,
     "example_cz": "Setkali jsme se na náměstí.",
     "example_en": "We met in the square.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1978,
@@ -9589,29 +9567,7 @@
     "unit_id": 31,
     "example_cz": "Setkáváme se každý týden.",
     "example_en": "We meet every week.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1979,
-    "word_cz": "rozhodnout",
-    "word_en": "to decide (once)",
-    "ipa": "rozhoʊdnout",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Rozhodli jsme se prodražit.",
-    "example_en": "We decided to travel.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1980,
-    "word_cz": "rozhodovat",
-    "word_en": "to decide (ongoing)",
-    "ipa": "rozhodovaʊt",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Teď se rozhoduje o budoucnosti firmy.",
-    "example_en": "The future of the company is being decided now.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1981,
@@ -9622,7 +9578,7 @@
     "unit_id": 31,
     "example_cz": "Zjistil jsem, že mám pravdu.",
     "example_en": "I found out that I was right.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1982,
@@ -9633,7 +9589,7 @@
     "unit_id": 31,
     "example_cz": "Zjišťujeme fakta o případu.",
     "example_en": "We are finding out facts about the case.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1983,
@@ -9644,18 +9600,7 @@
     "unit_id": 31,
     "example_cz": "Dokázal, že má pravdu.",
     "example_en": "He proved that he was right.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1984,
-    "word_cz": "dokazovat",
-    "word_en": "to prove (ongoing)",
-    "ipa": "dokazovaʊt",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Dokazuje se, že systém funguje.",
-    "example_en": "It's being proven that the system works.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1985,
@@ -9666,7 +9611,7 @@
     "unit_id": 31,
     "example_cz": "Vyhráli jsme zápas.",
     "example_en": "We won the match.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1986,
@@ -9677,7 +9622,7 @@
     "unit_id": 31,
     "example_cz": "Náš tým vyhrává většinu zápasů.",
     "example_en": "Our team wins most matches.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1987,
@@ -9688,7 +9633,7 @@
     "unit_id": 31,
     "example_cz": "Prohrál jsem sázku.",
     "example_en": "I lost the bet.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1988,
@@ -9699,51 +9644,7 @@
     "unit_id": 31,
     "example_cz": "Prohráváme celý zápas.",
     "example_en": "We are losing the whole match.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1989,
-    "word_cz": "splnit",
-    "word_en": "to fulfill, complete (once)",
-    "ipa": "splɲɪt",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Splnil jsem všechny podmínky.",
-    "example_en": "I fulfilled all the conditions.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1990,
-    "word_cz": "splňovat",
-    "word_en": "to fulfill, meet (ongoing)",
-    "ipa": "splɲovaʊt",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Závodník splňuje požadavky.",
-    "example_en": "The athlete meets the requirements.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1991,
-    "word_cz": "dosáhnout",
-    "word_en": "to achieve, reach (once)",
-    "ipa": "dosaːhnout",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Dosáhli jsme cíle.",
-    "example_en": "We achieved the goal.",
-    "lesson_id": 3101
-  },
-  {
-    "id": 1992,
-    "word_cz": "dosahovat",
-    "word_en": "to achieve, reach (ongoing)",
-    "ipa": "dosahovaʊt",
-    "gender": null,
-    "unit_id": 31,
-    "example_cz": "Firma dosahuje dobrých výsledků.",
-    "example_en": "The company is achieving good results.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1993,
@@ -9765,7 +9666,7 @@
     "unit_id": 31,
     "example_cz": "Chápu tvou situaci.",
     "example_en": "I understand your situation.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1995,
@@ -9787,7 +9688,7 @@
     "unit_id": 31,
     "example_cz": "Vysvětluje dětem, jak to funguje.",
     "example_en": "He explains to children how it works.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1997,
@@ -9798,7 +9699,7 @@
     "unit_id": 31,
     "example_cz": "Připravila jsem večeři.",
     "example_en": "I prepared dinner.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1998,
@@ -9809,7 +9710,7 @@
     "unit_id": 31,
     "example_cz": "Připravujeme se na zkoušku.",
     "example_en": "We are preparing for the exam.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1999,
@@ -9831,7 +9732,7 @@
     "unit_id": 31,
     "example_cz": "Dlouho jsem vybíral dárek.",
     "example_en": "I spent a long time choosing a gift.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 2004,
