@@ -1295,22 +1295,22 @@
       "description": "Family vocabulary, adjective-noun gender agreement, describing people",
       "grammar_rules": [
         {
-          "id": "GR-070",
-          "name": "Family vocabulary — core members",
-          "pattern": "rodina (family), matka/máma (mother), otec/táta (father), bratr (brother), sestra (sister)",
-          "example": "Mám velkou rodinu. — I have a big family."
-        },
-        {
           "id": "GR-071",
           "name": "Adjective-noun gender agreement",
           "pattern": "Adjectives must match noun gender: masc -ý, fem -á, neuter -é",
           "example": "velký pes — big dog"
         },
         {
-          "id": "GR-072",
-          "name": "Adjective endings — three genders",
-          "pattern": "Hard adjective endings: masc -ý, fem -á, neuter -é (in nominative singular)",
-          "example": "dobrý učitel — good teacher"
+          "id": "GR-051",
+          "name": "Accusative case — masculine animate",
+          "pattern": "Masculine people and animals add -a as the object (bratr → Mám bratra, pes → Mám psa), soft ones -e (muž → muže, učitel → učitele). Things do not change: Mám stůl.",
+          "example": "Mám jednoho bratra. — I have one brother."
+        },
+        {
+          "id": "GR-074",
+          "name": "Pronouns as objects — Znáš ho? Dej mi…",
+          "pattern": "Object: mě, tě, ho, ji, nás, vás, je (Znáš ho? Vidím ji.). To or for someone: mi, ti, mu, jí, nám, vám, jim (Dej mi to. Můžete mi pomoct?).",
+          "example": "Znáš ho? — Ano, znám ho. — Do you know him? — Yes, I know him."
         },
         {
           "id": "GR-073",
@@ -1372,7 +1372,103 @@
         "Použití křestních jmen se staršími lidmi",
         "Chybějící -ová u ženských příjmení"
       ],
-      "study_tip": "Popište svou rodinu na 5 vět. Použijte různé koncovky adjektiv: můj starý otec, moje milá matka..."
+      "study_tip": "Popište svou rodinu na 5 vět. Použijte různé koncovky adjektiv: můj starý otec, moje milá matka...",
+      "notebook_page": {
+        "title_cz": "Rodina",
+        "title_en": "Family and people",
+        "can_do": {
+          "cz": "Představím svou rodinu a popíšu, jací lidé jsou.",
+          "en": "I can introduce my family and say what people are like."
+        },
+        "words": [
+          {
+            "cz": "To je moje maminka.",
+            "en": "This is my mum."
+          },
+          {
+            "cz": "To je můj bratr.",
+            "en": "This is my brother."
+          },
+          {
+            "cz": "Mám jednoho bratra.",
+            "en": "I have one brother."
+          },
+          {
+            "cz": "Znáš ho?",
+            "en": "Do you know him?"
+          },
+          {
+            "cz": "Je milý. / Je milá.",
+            "en": "He / she is kind."
+          },
+          {
+            "cz": "Moje sestra se jmenuje Eva.",
+            "en": "My sister’s name is Eva."
+          },
+          {
+            "cz": "Má ráda hudbu.",
+            "en": "She likes music."
+          },
+          {
+            "cz": "Můžete mi pomoct?",
+            "en": "Can you help me?"
+          }
+        ],
+        "pattern": {
+          "name": "Adjectives, people as objects, pronouns",
+          "rule_plain": "-ý / -á / -é match the noun. Masculine people and animals as the object: + -a (bratra, psa). Object pronouns: mě, tě, ho, ji; to me: mi, ti, mu, jí.",
+          "table": [
+            [
+              "Petr je…",
+              "milý"
+            ],
+            [
+              "Anna je…",
+              "milá"
+            ],
+            [
+              "bratr",
+              "Mám bratra."
+            ],
+            [
+              "pes",
+              "Mám psa."
+            ],
+            [
+              "him / her",
+              "Znáš ho? Vidím ji."
+            ],
+            [
+              "to me",
+              "Můžete mi pomoct?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je moje malá sestra.",
+              "en": "That is my little sister."
+            },
+            {
+              "cz": "Mám jednoho bratra.",
+              "en": "I have one brother."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mám bratr.",
+            "right": "Mám bratra."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Moje sestra se jmenuje Eva.",
+            "en": "My sister’s name is Eva."
+          },
+          {
+            "cz": "Bydlí v Brně a je milá.",
+            "en": "She lives in Brno and is kind."
+          }
+        ]
+      }
     },
     {
       "unit_id": 9,

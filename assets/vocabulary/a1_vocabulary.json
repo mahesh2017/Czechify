@@ -602,7 +602,7 @@
     "unit_id": 8,
     "example_cz": "To je dobrý pes.",
     "example_en": "That is a good dog.",
-    "lesson_id": 801
+    "lesson_id": 804
   },
   {
     "id": 56,
@@ -613,7 +613,7 @@
     "unit_id": 8,
     "example_cz": "Praha je velké město.",
     "example_en": "Prague is a big city.",
-    "lesson_id": 801
+    "lesson_id": 802
   },
   {
     "id": 57,
@@ -624,7 +624,7 @@
     "unit_id": 8,
     "example_cz": "To je malý dům.",
     "example_en": "That is a small house.",
-    "lesson_id": 801
+    "lesson_id": 802
   },
   {
     "id": 58,
@@ -635,7 +635,7 @@
     "unit_id": 8,
     "example_cz": "To je hezká žena.",
     "example_en": "That is a pretty woman.",
-    "lesson_id": 801
+    "lesson_id": 804
   },
   {
     "id": 62,
@@ -1570,7 +1570,7 @@
     "unit_id": 8,
     "example_cz": "Vidím ženu.",
     "example_en": "I see a woman.",
-    "lesson_id": 802
+    "lesson_id": 804
   },
   {
     "id": 151,
@@ -1614,7 +1614,7 @@
     "unit_id": 8,
     "example_cz": "Vidím učitele.",
     "example_en": "I see a teacher.",
-    "lesson_id": 802
+    "lesson_id": 804
   },
   {
     "id": 155,
@@ -1625,7 +1625,7 @@
     "unit_id": 8,
     "example_cz": "Znám lékaře.",
     "example_en": "I know a doctor.",
-    "lesson_id": 802
+    "lesson_id": 804
   },
   {
     "id": 156,
@@ -1933,7 +1933,7 @@
     "unit_id": 8,
     "example_cz": "Mám velkou rodinu.",
     "example_en": "I have a big family.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 184,
@@ -1944,7 +1944,7 @@
     "unit_id": 8,
     "example_cz": "Moje matka je lékařka.",
     "example_en": "My mother is a doctor.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 185,
@@ -1966,7 +1966,7 @@
     "unit_id": 8,
     "example_cz": "Můj otec je učitel.",
     "example_en": "My father is a teacher.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 187,
@@ -1988,7 +1988,7 @@
     "unit_id": 8,
     "example_cz": "Můj bratr je student.",
     "example_en": "My brother is a student.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 189,
@@ -1999,7 +1999,7 @@
     "unit_id": 8,
     "example_cz": "Moje sestra je malá.",
     "example_en": "My sister is little.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 190,
@@ -2021,7 +2021,7 @@
     "unit_id": 8,
     "example_cz": "Mám dceru.",
     "example_en": "I have a daughter.",
-    "lesson_id": 801
+    "lesson_id": 803
   },
   {
     "id": 192,
@@ -2032,7 +2032,7 @@
     "unit_id": 8,
     "example_cz": "Moje babička je stará.",
     "example_en": "My grandmother is old.",
-    "lesson_id": 801
+    "lesson_id": 803
   },
   {
     "id": 193,
@@ -2043,7 +2043,7 @@
     "unit_id": 8,
     "example_cz": "Můj dědeček je dobrý.",
     "example_en": "My grandfather is good.",
-    "lesson_id": 801
+    "lesson_id": 803
   },
   {
     "id": 194,
@@ -2054,7 +2054,7 @@
     "unit_id": 8,
     "example_cz": "velký dům",
     "example_en": "big house",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 195,
@@ -2065,7 +2065,7 @@
     "unit_id": 8,
     "example_cz": "velká škola",
     "example_en": "big school",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 196,
@@ -2076,7 +2076,7 @@
     "unit_id": 8,
     "example_cz": "velké město",
     "example_en": "big city",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 197,
@@ -2087,7 +2087,7 @@
     "unit_id": 8,
     "example_cz": "malý pes",
     "example_en": "small dog",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 198,
@@ -2098,7 +2098,7 @@
     "unit_id": 8,
     "example_cz": "malá kniha",
     "example_en": "small book",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 199,
@@ -2109,7 +2109,7 @@
     "unit_id": 8,
     "example_cz": "malé auto",
     "example_en": "small car",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 200,
@@ -2120,7 +2120,7 @@
     "unit_id": 8,
     "example_cz": "hezký dům",
     "example_en": "nice house",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 201,
@@ -2131,7 +2131,7 @@
     "unit_id": 8,
     "example_cz": "hezká žena",
     "example_en": "pretty woman",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 202,
@@ -2142,7 +2142,7 @@
     "unit_id": 8,
     "example_cz": "hezké auto",
     "example_en": "nice car",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 203,
@@ -2153,7 +2153,7 @@
     "unit_id": 8,
     "example_cz": "nový dům",
     "example_en": "new house",
-    "lesson_id": 801
+    "lesson_id": 804
   },
   {
     "id": 204,
@@ -2164,7 +2164,7 @@
     "unit_id": 8,
     "example_cz": "nová kniha",
     "example_en": "new book",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 205,
@@ -2175,7 +2175,7 @@
     "unit_id": 8,
     "example_cz": "nové auto",
     "example_en": "new car",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 206,
@@ -2186,7 +2186,7 @@
     "unit_id": 8,
     "example_cz": "starý dům",
     "example_en": "old house",
-    "lesson_id": 801
+    "lesson_id": 802
   },
   {
     "id": 207,
@@ -2197,7 +2197,7 @@
     "unit_id": 8,
     "example_cz": "stará škola",
     "example_en": "old school",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 208,
@@ -2208,7 +2208,7 @@
     "unit_id": 8,
     "example_cz": "staré město",
     "example_en": "old city",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 209,
@@ -2219,7 +2219,7 @@
     "unit_id": 8,
     "example_cz": "dobrý učitel",
     "example_en": "good teacher",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 210,
@@ -2230,7 +2230,7 @@
     "unit_id": 8,
     "example_cz": "dobrá káva",
     "example_en": "good coffee",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 211,
@@ -2241,7 +2241,7 @@
     "unit_id": 8,
     "example_cz": "dobré pivo",
     "example_en": "good beer",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 212,
@@ -2252,7 +2252,7 @@
     "unit_id": 8,
     "example_cz": "Jaký je?",
     "example_en": "What is he like?",
-    "lesson_id": 801
+    "lesson_id": 804
   },
   {
     "id": 213,
@@ -2263,7 +2263,7 @@
     "unit_id": 8,
     "example_cz": "Jaká je?",
     "example_en": "What is she like?",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 214,
@@ -2274,7 +2274,7 @@
     "unit_id": 8,
     "example_cz": "Jaké je?",
     "example_en": "What is it like?",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 215,
@@ -4144,7 +4144,7 @@
     "unit_id": 8,
     "example_cz": "Vidím přítelkyni v parku.",
     "example_en": "I see my girlfriend in the park.",
-    "lesson_id": 802
+    "lesson_id": 804
   },
   {
     "id": 385,
@@ -4254,7 +4254,7 @@
     "unit_id": 8,
     "example_cz": "Moje teta bydlí v Brně.",
     "example_en": "My aunt lives in Brno.",
-    "lesson_id": 801
+    "lesson_id": 803
   },
   {
     "id": 395,
@@ -4265,7 +4265,7 @@
     "unit_id": 8,
     "example_cz": "Strýc pracuje v bance.",
     "example_en": "My uncle works in a bank.",
-    "lesson_id": 801
+    "lesson_id": 803
   },
   {
     "id": 396,
@@ -4276,7 +4276,7 @@
     "unit_id": 8,
     "example_cz": "Můj bratranec je student.",
     "example_en": "My cousin is a student.",
-    "lesson_id": 801
+    "lesson_id": 803
   },
   {
     "id": 397,
@@ -4287,7 +4287,7 @@
     "unit_id": 8,
     "example_cz": "Sestřenice bydlí v Praze.",
     "example_en": "My cousin lives in Prague.",
-    "lesson_id": 801
+    "lesson_id": 803
   },
   {
     "id": 398,
@@ -4298,7 +4298,7 @@
     "unit_id": 8,
     "example_cz": "Vnuk navštěvuje babičku.",
     "example_en": "The grandson visits his grandmother.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 399,
@@ -4309,7 +4309,7 @@
     "unit_id": 8,
     "example_cz": "Vnučka je ještě malá.",
     "example_en": "The granddaughter is still small.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 400,
@@ -4320,7 +4320,7 @@
     "unit_id": 8,
     "example_cz": "Moje prarodiče jsou staří.",
     "example_en": "My grandparents are old.",
-    "lesson_id": 801
+    "lesson_id": null
   },
   {
     "id": 401,
@@ -4331,7 +4331,7 @@
     "unit_id": 8,
     "example_cz": "Můj bratr je ještě mladý.",
     "example_en": "My brother is still young.",
-    "lesson_id": 801
+    "lesson_id": 802
   },
   {
     "id": 402,
@@ -4970,5 +4970,16 @@
     "example_cz": "Potřebuju tlumočníka.",
     "example_en": "I need an interpreter.",
     "lesson_id": 404
+  },
+  {
+    "id": 2035,
+    "word_cz": "sourozenec",
+    "word_en": "sibling",
+    "ipa": null,
+    "gender": "masculine animate",
+    "unit_id": 8,
+    "example_cz": "Máš sourozence?",
+    "example_en": "Do you have any brothers or sisters?",
+    "lesson_id": 803
   }
 ]

@@ -1646,36 +1646,6 @@
       ]
     },
     {
-      "id": "GR-051",
-      "rule_name": "Accusative case — masculine animate",
-      "pattern": "Masculine animate nouns change ending in accusative: pes → psa, muž → muže",
-      "explanation": "Masculine animate nouns (people, animals) change in accusative. Most add -a: pes → psa, student → studenta, učitel → učitele. Some change consonant + add -e: muž → muže, lékař → lékaře. The pattern is: if the noun refers to a living being (masculine), it changes in accusative. This is a key difference from inanimate masculine.",
-      "case_affected": "accusative",
-      "examples": [
-        {
-          "cz": "Vidím muže.",
-          "en": "I see a man.",
-          "note": "muž → muže"
-        },
-        {
-          "cz": "Mám psa.",
-          "en": "I have a dog.",
-          "note": "pes → psa"
-        },
-        {
-          "cz": "Znám studenta.",
-          "en": "I know a student.",
-          "note": "student → studenta"
-        },
-        {
-          "cz": "Vidím lékaře.",
-          "en": "I see a doctor.",
-          "note": "lékař → lékaře"
-        }
-      ],
-      "unit_id": 6
-    },
-    {
       "id": "GR-052",
       "rule_name": "Accusative case — masculine inanimate: no change",
       "pattern": "Masculine inanimate nouns stay the same in accusative: hrad → hrad, dům → dům",
@@ -2137,6 +2107,77 @@
       ]
     },
     {
+      "id": "GR-051",
+      "rule_name": "Accusative case — masculine animate",
+      "pattern": "Masculine people and animals add -a as the object (bratr → Mám bratra, pes → Mám psa), soft ones -e (muž → muže, učitel → učitele). Things do not change: Mám stůl.",
+      "explanation": "Masculine animate nouns (people, animals) change in accusative. Most add -a: pes → psa, student → studenta, učitel → učitele. Some change consonant + add -e: muž → muže, lékař → lékaře. The pattern is: if the noun refers to a living being (masculine), it changes in accusative. This is a key difference from inanimate masculine.",
+      "case_affected": "accusative",
+      "examples": [
+        {
+          "cz": "Mám jednoho bratra.",
+          "en": "I have one brother."
+        },
+        {
+          "cz": "Znáš Petra?",
+          "en": "Do you know Petr?"
+        }
+      ],
+      "unit_id": 8,
+      "concept_keys": [
+        "noun_acc_sg_all_genders"
+      ],
+      "lecture": [
+        {
+          "heading": "Mám bratra: people and animals change",
+          "say": "As the object, masculine people and animals add -a: bratr → bratra, pes → psa. Soft ones add -e: muž → muže. Things stay the same: Mám stůl.",
+          "table": [
+            [
+              "bratr",
+              "Mám bratra."
+            ],
+            [
+              "syn",
+              "Mám syna."
+            ],
+            [
+              "Petr",
+              "Znáš Petra?"
+            ],
+            [
+              "pes",
+              "Mám psa."
+            ],
+            [
+              "muž",
+              "Vidím muže."
+            ],
+            [
+              "učitel",
+              "Znám učitele."
+            ],
+            [
+              "stůl (a thing)",
+              "Mám stůl."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám jednoho bratra.",
+              "en": "I have one brother."
+            },
+            {
+              "cz": "Znáš Petra?",
+              "en": "Do you know Petr?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mám bratr.",
+            "right": "Mám bratra."
+          }
+        }
+      ]
+    },
+    {
       "id": "GR-070",
       "rule_name": "Family vocabulary — core members",
       "pattern": "rodina (family), matka/máma (mother), otec/táta (father), bratr (brother), sestra (sister)",
@@ -2190,7 +2231,52 @@
           "en": "new car, new school, new house"
         }
       ],
-      "unit_id": 8
+      "unit_id": 8,
+      "concept_keys": [
+        "adj_nom_voc_acc_sg_acc_pl"
+      ],
+      "lecture": [
+        {
+          "heading": "milý, milá, milé: adjectives match",
+          "say": "An adjective matches its noun: -ý with ten words, -á with ta words, -é with to words. Petr je milý, Anna je milá.",
+          "table": [
+            [
+              "ten bratr",
+              "mladý, milý, starý"
+            ],
+            [
+              "ta sestra",
+              "mladá, milá, stará"
+            ],
+            [
+              "to dítě",
+              "mladé, milé, malé"
+            ],
+            [
+              "Petr je…",
+              "milý"
+            ],
+            [
+              "Anna je…",
+              "milá"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Můj bratr je mladý.",
+              "en": "My brother is young."
+            },
+            {
+              "cz": "Moje babička je milá.",
+              "en": "My grandmother is kind."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Anna je milý.",
+            "right": "Anna je milá."
+          }
+        }
+      ]
     },
     {
       "id": "GR-072",
@@ -2249,7 +2335,120 @@
           "note": "jeho doesn't change"
         }
       ],
-      "unit_id": 8
+      "unit_id": 8,
+      "lecture": [
+        {
+          "heading": "My little sister: moje malá sestra",
+          "say": "The order is owner, quality, person: moje malá sestra, můj starý dědeček. Ask what someone is like with Jaký je? or Jaká je?",
+          "table": [
+            [
+              "moje malá sestra",
+              "my little sister"
+            ],
+            [
+              "můj starý dědeček",
+              "my old grandfather"
+            ],
+            [
+              "naše nová učitelka",
+              "our new teacher"
+            ],
+            [
+              "Jaký je Petr?",
+              "What is Petr like?"
+            ],
+            [
+              "Jaká je Eva?",
+              "What is Eva like?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je moje malá sestra.",
+              "en": "That is my little sister."
+            },
+            {
+              "cz": "Jaký je tvůj bratr? — Je milý.",
+              "en": "What is your brother like? — He is kind."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "sestra moje malá",
+            "right": "moje malá sestra"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-074",
+      "rule_name": "Pronouns as objects — Znáš ho? Dej mi…",
+      "pattern": "Object: mě, tě, ho, ji, nás, vás, je (Znáš ho? Vidím ji.). To or for someone: mi, ti, mu, jí, nám, vám, jim (Dej mi to. Můžete mi pomoct?).",
+      "explanation": "When he, she or I is the object, Czech uses short forms: Znáš ho? (Do you know him?), Vidím ji (I see her), Mám ho rád (I like him). For “to me, for me” use mi, ti, mu, jí: Dejte mi vodu, Můžete mi pomoct? These short words come second in the sentence.",
+      "case_affected": "accusative, dative",
+      "examples": [
+        {
+          "cz": "Znáš ho? — Ano, znám ho.",
+          "en": "Do you know him? — Yes, I know him."
+        },
+        {
+          "cz": "Můžete mi pomoct?",
+          "en": "Can you help me?"
+        }
+      ],
+      "unit_id": 8,
+      "concept_keys": [
+        "pron_personal_dat_acc"
+      ],
+      "lecture": [
+        {
+          "heading": "Him, her, me: ho, ji, mi",
+          "say": "As the object use mě, tě, ho, ji: Znáš ho? For “to me” or “for me” use mi, ti, mu, jí: Dej mi to. Můžete mi pomoct?",
+          "table": [
+            [
+              "me",
+              "mě · mi"
+            ],
+            [
+              "you",
+              "tě · ti"
+            ],
+            [
+              "him",
+              "ho · mu"
+            ],
+            [
+              "her",
+              "ji · jí"
+            ],
+            [
+              "us",
+              "nás · nám"
+            ],
+            [
+              "you (formal)",
+              "vás · vám"
+            ],
+            [
+              "them",
+              "je · jim"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Znáš ho? — Ano, znám ho.",
+              "en": "Do you know him? — Yes, I know him."
+            },
+            {
+              "cz": "Můžete mi pomoct?",
+              "en": "Can you help me?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Znáš on?",
+            "right": "Znáš ho?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-080",
