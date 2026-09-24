@@ -3770,7 +3770,7 @@
     "unit_id": 15,
     "example_cz": "Na jaře kvetou květiny.",
     "example_en": "In spring flowers bloom.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 351,
@@ -3781,7 +3781,7 @@
     "unit_id": 15,
     "example_cz": "V létě jezdím k moři.",
     "example_en": "In summer I go to the sea.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 352,
@@ -3792,7 +3792,7 @@
     "unit_id": 15,
     "example_cz": "Na podzim je hezky.",
     "example_en": "In autumn it's nice.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 353,
@@ -3803,7 +3803,7 @@
     "unit_id": 15,
     "example_cz": "Jedeme na dovolenou.",
     "example_en": "We're going on vacation.",
-    "lesson_id": 1502
+    "lesson_id": 1503
   },
   {
     "id": 354,
@@ -3814,7 +3814,7 @@
     "unit_id": 15,
     "example_cz": "Rád cestuju.",
     "example_en": "I like to travel.",
-    "lesson_id": 1502
+    "lesson_id": 1503
   },
   {
     "id": 355,
@@ -3825,7 +3825,7 @@
     "unit_id": 15,
     "example_cz": "Spíme v hotelu.",
     "example_en": "We sleep in a hotel.",
-    "lesson_id": 1502
+    "lesson_id": 1503
   },
   {
     "id": 356,
@@ -3836,18 +3836,18 @@
     "unit_id": 15,
     "example_cz": "Jedu na letiště.",
     "example_en": "I'm going to the airport.",
-    "lesson_id": 1502
+    "lesson_id": 1503
   },
   {
     "id": 357,
-    "word_cz": "listek",
+    "word_cz": "lístek",
     "word_en": "ticket",
     "ipa": "ˈliːstɛk",
     "gender": "masculine inanimate",
     "unit_id": 15,
     "example_cz": "Koupím lístek na vlak.",
     "example_en": "I'll buy a train ticket.",
-    "lesson_id": 1502
+    "lesson_id": 1503
   },
   {
     "id": 358,
@@ -3858,7 +3858,7 @@
     "unit_id": 15,
     "example_cz": "Byl jsem v Praze.",
     "example_en": "I was in Prague.",
-    "lesson_id": 1502
+    "lesson_id": 1504
   },
   {
     "id": 359,
@@ -3869,7 +3869,7 @@
     "unit_id": 15,
     "example_cz": "Byla jsem doma.",
     "example_en": "I was at home.",
-    "lesson_id": 1502
+    "lesson_id": 1504
   },
   {
     "id": 360,
@@ -3880,7 +3880,7 @@
     "unit_id": 15,
     "example_cz": "Příští týden.",
     "example_en": "Next week.",
-    "lesson_id": 1502
+    "lesson_id": 1504
   },
   {
     "id": 361,
@@ -3891,7 +3891,7 @@
     "unit_id": 15,
     "example_cz": "Minulý rok.",
     "example_en": "Last year.",
-    "lesson_id": 1502
+    "lesson_id": 1504
   },
   {
     "id": 362,
@@ -4793,7 +4793,7 @@
     "unit_id": 15,
     "example_cz": "Déšť padá celý den.",
     "example_en": "Rain falls all day.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 447,
@@ -4804,7 +4804,7 @@
     "unit_id": 15,
     "example_cz": "Sníh je bílý a studený.",
     "example_en": "Snow is white and cold.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 448,
@@ -4815,7 +4815,7 @@
     "unit_id": 15,
     "example_cz": "Mlha je ráno hustá.",
     "example_en": "The fog is thick in the morning.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 449,
@@ -4826,7 +4826,7 @@
     "unit_id": 15,
     "example_cz": "Dnes je oblačno.",
     "example_en": "Today it is cloudy.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 450,
@@ -4837,7 +4837,7 @@
     "unit_id": 15,
     "example_cz": "Bouřka je večer.",
     "example_en": "There is a thunderstorm in the evening.",
-    "lesson_id": 1501
+    "lesson_id": 1502
   },
   {
     "id": 451,
@@ -4848,7 +4848,7 @@
     "unit_id": 15,
     "example_cz": "Teplota je dvacet stupňů.",
     "example_en": "The temperature is twenty degrees.",
-    "lesson_id": 1501
+    "lesson_id": 1503
   },
   {
     "id": 452,
@@ -4859,7 +4859,7 @@
     "unit_id": 15,
     "example_cz": "Pas je v tašce.",
     "example_en": "The passport is in the bag.",
-    "lesson_id": 1501
+    "lesson_id": 1503
   },
   {
     "id": 453,
@@ -4870,7 +4870,7 @@
     "unit_id": 15,
     "example_cz": "Kufr je těžký.",
     "example_en": "The suitcase is heavy.",
-    "lesson_id": 1501
+    "lesson_id": 1503
   },
   {
     "id": 2026,

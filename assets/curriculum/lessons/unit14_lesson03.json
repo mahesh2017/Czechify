@@ -108,7 +108,7 @@
           "right": "Musím jít."
         },
         "step": 1,
-        "steps": 1
+        "steps": 2
       },
       "answer_key": "",
       "xp_reward": 0
@@ -139,6 +139,96 @@
       "id": 14303,
       "lesson_id": 1403,
       "type": "teaching",
+      "prompt": "Giving directions: Jděte rovně",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-135",
+        "rule_step": 1,
+        "heading": "Giving directions: Jděte rovně",
+        "items": [
+          {
+            "cz": "Jděte rovně a potom zahněte doleva.",
+            "en": "Go straight on and then turn left."
+          },
+          {
+            "cz": "Jeďte tramvají číslo devět.",
+            "en": "Take tram number nine."
+          }
+        ],
+        "say": "Directions to a stranger are instructions ending in -te. Learn them as phrases: Jděte rovně, zahněte doleva, jeďte tramvají.",
+        "table": [
+          [
+            "Go straight on.",
+            "Jděte rovně."
+          ],
+          [
+            "Turn left.",
+            "Zahněte doleva."
+          ],
+          [
+            "Turn right.",
+            "Zahněte doprava."
+          ],
+          [
+            "Take the tram.",
+            "Jeďte tramvají."
+          ],
+          [
+            "Change to the metro.",
+            "Přestupte na metro."
+          ],
+          [
+            "Excuse me, where is…?",
+            "Promiňte, kde je…?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Jděte rovně a potom zahněte doleva.",
+            "en": "Go straight on and then turn left."
+          },
+          {
+            "cz": "Jeďte tramvají číslo devět.",
+            "en": "Take tram number nine."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Jdete rovně! (as an instruction)",
+          "right": "Jděte rovně!"
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14304,
+      "lesson_id": 1403,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „Turn left“?",
+        "question_en": "How do you say “Turn left”?",
+        "options": [
+          "Zahněte doleva.",
+          "Zahnete doleva.",
+          "Doleva zahnout."
+        ],
+        "correct_index": 0,
+        "explanation": "An instruction to a stranger: zahněte."
+      },
+      "answer_key": "Zahněte doleva.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-135"
+    },
+    {
+      "id": 14305,
+      "lesson_id": 1403,
+      "type": "teaching",
       "prompt": "Notebook",
       "data": {
         "type": "teaching",
@@ -161,7 +251,7 @@
       "xp_reward": 0
     },
     {
-      "id": 14304,
+      "id": 14306,
       "lesson_id": 1403,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -195,7 +285,7 @@
       "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14305,
+      "id": 14307,
       "lesson_id": 1403,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -233,7 +323,7 @@
       "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14306,
+      "id": 14308,
       "lesson_id": 1403,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -264,7 +354,7 @@
       "xp_reward": 10
     },
     {
-      "id": 14307,
+      "id": 14309,
       "lesson_id": 1403,
       "type": "word_order",
       "prompt": "Build a natural short exchange",
@@ -290,7 +380,7 @@
       "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14308,
+      "id": 14310,
       "lesson_id": 1403,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -309,7 +399,7 @@
       "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14309,
+      "id": 14311,
       "lesson_id": 1403,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -351,7 +441,7 @@
       "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14310,
+      "id": 14312,
       "lesson_id": 1403,
       "type": "multiple_choice",
       "prompt": "Choose the answer",
@@ -372,7 +462,7 @@
       "grammar_rule_id": "GR-134"
     },
     {
-      "id": 14311,
+      "id": 14313,
       "lesson_id": 1403,
       "type": "fill_blank",
       "prompt": "Complete the sentence",
@@ -392,7 +482,7 @@
       "grammar_rule_id": "GR-134"
     },
     {
-      "id": 14312,
+      "id": 14314,
       "lesson_id": 1403,
       "type": "writing_task",
       "prompt": "Write a useful personal response",

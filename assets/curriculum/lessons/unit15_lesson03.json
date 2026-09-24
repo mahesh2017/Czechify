@@ -2,39 +2,42 @@
   "id": 1503,
   "unit_id": 15,
   "title": "Prepare a Small Trip",
-  "description": "Use weather and transport details to prepare a short trip.",
+  "description": "Preview the past and future with a few phrases; pack for a trip.",
   "lesson_type": "practice",
   "order_in_unit": 2,
   "duration_min": 12,
+  "can_do": "say where you were and what the weather will be.",
+  "new_language": [
+    "byl/a jsem, bylo hezky, pršelo",
+    "bude teplo, pojedu"
+  ],
+  "recycles": [
+    "vlakem (U14)",
+    "pas, kufr"
+  ],
+  "exit_task": "write what you pack and how you travel.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 15200,
+      "id": 15300,
       "lesson_id": 1503,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Prepare a Small Trip",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “It is snowing” and the four seasons with na or v. Then check.",
         "items": [
           {
-            "cz": "Jedeme na dovolenou.",
-            "en": "We are going on holiday."
+            "cz": "Sněží.",
+            "en": "It is snowing."
           },
           {
-            "cz": "Mám pas.",
-            "en": "I have a passport."
-          },
-          {
-            "cz": "Mám kufr.",
-            "en": "I have a suitcase."
-          },
-          {
-            "cz": "Jedeme vlakem.",
-            "en": "We are going by train."
+            "cz": "na jaře, v létě, na podzim, v zimě",
+            "en": "seasons"
           }
         ]
       },
@@ -42,7 +45,208 @@
       "xp_reward": 0
     },
     {
-      "id": 15201,
+      "id": 15301,
+      "lesson_id": 1503,
+      "type": "teaching",
+      "prompt": "Preview: I was — byl jsem",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-143",
+        "rule_step": 1,
+        "heading": "Preview: I was — byl jsem",
+        "items": [
+          {
+            "cz": "Včera jsem byl v Praze.",
+            "en": "Yesterday I was in Prague. (man)"
+          },
+          {
+            "cz": "Včera pršelo.",
+            "en": "Yesterday it rained."
+          }
+        ],
+        "say": "A preview of the past: learn a few phrases now; Unit 19 explains the system. A man says byl jsem, a woman byla jsem. The weather: bylo hezky, pršelo.",
+        "table": [
+          [
+            "I was (man)",
+            "byl jsem"
+          ],
+          [
+            "I was (woman)",
+            "byla jsem"
+          ],
+          [
+            "it was nice",
+            "bylo hezky"
+          ],
+          [
+            "it rained",
+            "pršelo"
+          ],
+          [
+            "yesterday",
+            "včera"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Včera jsem byl v Praze.",
+            "en": "Yesterday I was in Prague. (man)"
+          },
+          {
+            "cz": "Včera pršelo.",
+            "en": "Yesterday it rained."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Včera jsem být v Praze.",
+          "right": "Včera jsem byl v Praze."
+        },
+        "step": 1,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15302,
+      "lesson_id": 1503,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Včera jsem ___ doma. (woman)",
+        "question_en": "Yesterday I was at home.",
+        "options": [
+          "byla",
+          "byl",
+          "být"
+        ],
+        "correct_index": 0,
+        "explanation": "A woman: byla jsem."
+      },
+      "answer_key": "byla",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-143"
+    },
+    {
+      "id": 15303,
+      "lesson_id": 1503,
+      "type": "teaching",
+      "prompt": "Preview: it will be — bude",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-142",
+        "rule_step": 1,
+        "heading": "Preview: it will be — bude",
+        "items": [
+          {
+            "cz": "Zítra bude teplo.",
+            "en": "Tomorrow it will be warm."
+          },
+          {
+            "cz": "Zítra pojedu vlakem.",
+            "en": "Tomorrow I will go by train."
+          }
+        ],
+        "say": "A preview of the future: zítra bude teplo (it will be warm), budu doma (I will be at home), pojedu vlakem (I will go by train). Unit 20 explains more.",
+        "table": [
+          [
+            "I will be",
+            "budu"
+          ],
+          [
+            "it will be",
+            "bude"
+          ],
+          [
+            "it will be warm",
+            "bude teplo"
+          ],
+          [
+            "it will rain",
+            "bude pršet"
+          ],
+          [
+            "I will go (by vehicle)",
+            "pojedu"
+          ],
+          [
+            "tomorrow",
+            "zítra"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Zítra bude teplo.",
+            "en": "Tomorrow it will be warm."
+          },
+          {
+            "cz": "Zítra pojedu vlakem.",
+            "en": "Tomorrow I will go by train."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Zítra je teplo bude.",
+          "right": "Zítra bude teplo."
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15304,
+      "lesson_id": 1503,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Zítra ___ teplo.",
+        "question_en": "Tomorrow it will be warm.",
+        "options": [
+          "bude",
+          "je",
+          "byl"
+        ],
+        "correct_index": 0,
+        "explanation": "will be: bude."
+      },
+      "answer_key": "bude",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-142"
+    },
+    {
+      "id": 15305,
+      "lesson_id": 1503,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write where you were yesterday and what the weather will be tomorrow.",
+        "items": [
+          {
+            "cz": "Včera jsem byl/a doma.",
+            "en": "Yesterday I was at home."
+          },
+          {
+            "cz": "Zítra bude hezky.",
+            "en": "Tomorrow it will be nice."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15306,
       "lesson_id": 1503,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +276,11 @@
         ]
       },
       "answer_key": "Zítra jedeme vlakem na dovolenou. Mám pas a kufr.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-142"
     },
     {
-      "id": 15202,
+      "id": 15307,
       "lesson_id": 1503,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -106,13 +311,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Mám pas a kufr.",
       "xp_reward": 15
     },
     {
-      "id": 15203,
+      "id": 15308,
       "lesson_id": 1503,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +342,14 @@
             "right": "We are going by train."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Jedeme na dovolenou.–We are going on holiday.; Mám pas.–I have a passport.; Mám kufr.–I have a suitcase.; Jedeme vlakem.–We are going by train.",
       "xp_reward": 10
     },
     {
-      "id": 15204,
-      "lesson_id": 1503,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Mám pas a kufr.",
-          "Kolik to stojí?",
-          "Rád sportuju.",
-          "Jděte rovně."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Mám pas a kufr.",
-      "xp_reward": 10
-    },
-    {
-      "id": 15205,
+      "id": 15309,
       "lesson_id": 1503,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,10 +368,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "jedeme | kufr",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-142"
     },
     {
-      "id": 15206,
+      "id": 15310,
       "lesson_id": 1503,
       "type": "word_order",
       "prompt": "Build a natural short exchange",
@@ -204,27 +391,14 @@
           3
         ],
         "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
+        "explanation": "Keep the useful phrase together as a chunk.",
+        "targets": "vocab"
       },
       "answer_key": "Jedeme vlakem na dovolenou.",
       "xp_reward": 10
     },
     {
-      "id": 15207,
-      "lesson_id": 1503,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Zítra jedeme vlakem na dovolenou.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Zítra jedeme vlakem na dovolenou.",
-      "xp_reward": 10
-    },
-    {
-      "id": 15208,
+      "id": 15311,
       "lesson_id": 1503,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -239,10 +413,11 @@
         "translation_en": "Say the useful phrase clearly and naturally."
       },
       "answer_key": "Zítra jedeme vlakem na dovolenou.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-142"
     },
     {
-      "id": 15209,
+      "id": 15312,
       "lesson_id": 1503,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -256,7 +431,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (We are going on holiday.)"
           },
           {
             "speaker": "friend",
@@ -264,26 +439,51 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, I have a passport.)"
           }
         ],
         "blank_answers": [
           [
             "Jedeme na dovolenou.",
-            "Na dovolenou."
+            "Na dovolenou.",
+            "Jedu na dovolenou."
           ],
           [
             "Ano, mám pas.",
-            "Ano"
+            "Ano, mám."
           ]
         ],
-        "explanation": "Use short, complete answers that fit the situation."
+        "explanation": "Use short, complete answers that fit the situation.",
+        "targets": "vocab"
       },
-      "answer_key": "Jedeme na dovolenou. | Ano, mám pas.",
+      "answer_key": "Jedeme na dovolenou.",
       "xp_reward": 15
     },
     {
-      "id": 15210,
+      "id": 15313,
+      "lesson_id": 1503,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write two short weather sentences for today and tomorrow.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Dnes je teplo.",
+          "Prší.",
+          "Fouká vítr.",
+          "Svítí slunce."
+        ],
+        "sample_answer": "Dnes je teplo.",
+        "targets": "vocab"
+      },
+      "answer_key": "Dnes je teplo.",
+      "xp_reward": 0
+    },
+    {
+      "id": 15314,
       "lesson_id": 1503,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -299,57 +499,11 @@
           "Mám kufr.",
           "Jedeme vlakem."
         ],
-        "sample_answer": "Jedeme na dovolenou."
+        "sample_answer": "Jedeme na dovolenou.",
+        "targets": "vocab"
       },
       "answer_key": "Jedeme na dovolenou.",
       "xp_reward": 0
-    },
-    {
-      "id": 15211,
-      "lesson_id": 1503,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Zítra jedeme vlakem na dovolenou. Mám pas a kufr.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Zítra jedeme vlakem na dovolenou. Mám pas a kufr.",
-              "Kolik to stojí?",
-              "Rád sportuju."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Zítra jedeme vlakem na dovolenou. Mám pas a kufr.",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "prepare and describe a short trip.",
-  "new_language": [
-    "Jedeme na dovolenou.",
-    "Mám pas.",
-    "Mám kufr.",
-    "Jedeme vlakem."
-  ],
-  "recycles": [
-    "days and time",
-    "places",
-    "transport",
-    "present-tense activities"
-  ],
-  "exit_task": "prepare and describe a short trip."
+  ]
 }

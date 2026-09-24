@@ -2,53 +2,37 @@
   "id": 1501,
   "unit_id": 15,
   "title": "Describe Today's Weather",
-  "description": "Listen to a short forecast and describe today’s weather.",
-  "lesson_type": "practice",
+  "description": "Hear a short forecast, then learn weather and trip phrases.",
+  "lesson_type": "introduction",
   "order_in_unit": 0,
   "duration_min": 12,
+  "can_do": "say what the weather is like.",
+  "new_language": [
+    "Dnes prší.",
+    "Je teplo.",
+    "Fouká vítr.",
+    "V zimě sněží.",
+    "Jedeme na dovolenou.",
+    "Mám pas a kufr.",
+    "Včera jsem byl/a v Praze.",
+    "Zítra bude teplo."
+  ],
+  "recycles": [
+    "dnes, zítra (U9)",
+    "Je mi zima."
+  ],
+  "exit_task": "describe today’s weather.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 15000,
-      "lesson_id": 1501,
-      "type": "teaching",
-      "prompt": "Learn the mission language",
-      "data": {
-        "type": "teaching",
-        "style": "list",
-        "heading": "Describe Today's Weather",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
-        "items": [
-          {
-            "cz": "Dnes je teplo.",
-            "en": "Today it is warm."
-          },
-          {
-            "cz": "Prší.",
-            "en": "It is raining."
-          },
-          {
-            "cz": "Fouká vítr.",
-            "en": "The wind is blowing."
-          },
-          {
-            "cz": "Svítí slunce.",
-            "en": "The sun is shining."
-          }
-        ]
-      },
-      "answer_key": "",
-      "xp_reward": 0
-    },
-    {
-      "id": 15001,
+      "id": 15100,
       "lesson_id": 1501,
       "type": "listening_comprehension",
-      "prompt": "Listen for the useful chunks",
+      "prompt": "Warm-up: listen and guess",
       "data": {
         "type": "listening_comprehension",
-        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "prompt_en": "You have not learned this yet. Listen and guess what the weather is like today.",
         "transcript_cz": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
         "questions": [
           {
@@ -69,13 +53,96 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "mode": "predict"
       },
       "answer_key": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
-      "xp_reward": 15
+      "xp_reward": 0
     },
     {
-      "id": 15002,
+      "id": 15101,
+      "lesson_id": 1501,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Describe Today's Weather",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Dnes prší.",
+            "en": "Today it is raining."
+          },
+          {
+            "cz": "Je teplo.",
+            "en": "It is warm."
+          },
+          {
+            "cz": "Fouká vítr.",
+            "en": "It is windy."
+          },
+          {
+            "cz": "V zimě sněží.",
+            "en": "In winter it snows."
+          },
+          {
+            "cz": "Jedeme na dovolenou.",
+            "en": "We are going on holiday."
+          },
+          {
+            "cz": "Mám pas a kufr.",
+            "en": "I have a passport and a suitcase."
+          },
+          {
+            "cz": "Včera jsem byl/a v Praze.",
+            "en": "Yesterday I was in Prague."
+          },
+          {
+            "cz": "Zítra bude teplo.",
+            "en": "Tomorrow it will be warm."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15102,
+      "lesson_id": 1501,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 15 page",
+        "instruction": "Write “Unit 15 — Počasí” at the top of a new page. Draw today’s weather and write two sentences about it.",
+        "items": [
+          {
+            "cz": "Dnes prší.",
+            "en": "Today it is raining."
+          },
+          {
+            "cz": "Je teplo.",
+            "en": "It is warm."
+          },
+          {
+            "cz": "Fouká vítr.",
+            "en": "It is windy."
+          },
+          {
+            "cz": "V zimě sněží.",
+            "en": "In winter it snows."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15103,
       "lesson_id": 1501,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -112,7 +179,7 @@
       "xp_reward": 15
     },
     {
-      "id": 15003,
+      "id": 15104,
       "lesson_id": 1501,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -142,28 +209,7 @@
       "xp_reward": 10
     },
     {
-      "id": 15004,
-      "lesson_id": 1501,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Prší.",
-          "Jedu metrem.",
-          "Mám rád sýr.",
-          "Kolik stojí bunda?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Prší.",
-      "xp_reward": 10
-    },
-    {
-      "id": 15005,
+      "id": 15105,
       "lesson_id": 1501,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -185,28 +231,7 @@
       "xp_reward": 10
     },
     {
-      "id": 15006,
-      "lesson_id": 1501,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Dnes",
-          "prší."
-        ],
-        "correct_order": [
-          0,
-          1
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Dnes prší.",
-      "xp_reward": 10
-    },
-    {
-      "id": 15007,
+      "id": 15106,
       "lesson_id": 1501,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -220,7 +245,7 @@
       "xp_reward": 10
     },
     {
-      "id": 15008,
+      "id": 15107,
       "lesson_id": 1501,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -238,7 +263,7 @@
       "xp_reward": 15
     },
     {
-      "id": 15009,
+      "id": 15108,
       "lesson_id": 1501,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -277,75 +302,6 @@
       },
       "answer_key": "Dnes prší. | Zítra bude teplo.",
       "xp_reward": 15
-    },
-    {
-      "id": 15010,
-      "lesson_id": 1501,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write two short weather sentences for today and tomorrow.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Dnes je teplo.",
-          "Prší.",
-          "Fouká vítr.",
-          "Svítí slunce."
-        ],
-        "sample_answer": "Dnes je teplo."
-      },
-      "answer_key": "Dnes je teplo.",
-      "xp_reward": 0
-    },
-    {
-      "id": 15011,
-      "lesson_id": 1501,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
-              "Jedu metrem.",
-              "Mám rád sýr."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "understand and describe today’s weather.",
-  "new_language": [
-    "Dnes je teplo.",
-    "Prší.",
-    "Fouká vítr.",
-    "Svítí slunce."
-  ],
-  "recycles": [
-    "days and time",
-    "places",
-    "transport",
-    "present-tense activities"
-  ],
-  "exit_task": "understand and describe today’s weather."
+  ]
 }

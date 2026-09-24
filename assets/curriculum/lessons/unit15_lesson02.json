@@ -2,35 +2,45 @@
   "id": 1502,
   "unit_id": 15,
   "title": "Connect Seasons and Plans",
-  "description": "Connect seasons and weather conditions to everyday plans.",
+  "description": "Learn weather sentences and the four seasons.",
   "lesson_type": "practice",
   "order_in_unit": 1,
-  "duration_min": 12,
+  "duration_min": 14,
+  "can_do": "describe the weather and the seasons.",
+  "new_language": [
+    "Prší. Sněží. Je teplo.",
+    "na jaře, v létě, na podzim, v zimě"
+  ],
+  "recycles": [
+    "často, někdy (U13)"
+  ],
+  "exit_task": "say which season you like and why.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 15100,
+      "id": 15200,
       "lesson_id": 1502,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Connect Seasons and Plans",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write two weather sentences. Then check.",
         "items": [
           {
-            "cz": "Na jaře je hezky.",
-            "en": "Spring is nice."
+            "cz": "Dnes prší.",
+            "en": "Today it is raining."
           },
           {
-            "cz": "V létě je horko.",
-            "en": "In summer it is hot."
+            "cz": "Je teplo.",
+            "en": "It is warm."
           },
           {
-            "cz": "Na podzim prší.",
-            "en": "In autumn it rains."
+            "cz": "Fouká vítr.",
+            "en": "It is windy."
           },
           {
             "cz": "V zimě sněží.",
@@ -42,7 +52,300 @@
       "xp_reward": 0
     },
     {
-      "id": 15101,
+      "id": 15201,
+      "lesson_id": 1502,
+      "type": "teaching",
+      "prompt": "The weather: Prší. Je teplo.",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-140",
+        "rule_step": 1,
+        "heading": "The weather: Prší. Je teplo.",
+        "items": [
+          {
+            "cz": "Dnes prší a fouká vítr.",
+            "en": "Today it is raining and windy."
+          },
+          {
+            "cz": "Jaké je dnes počasí? — Je hezky.",
+            "en": "What is the weather like today? — It is nice."
+          }
+        ],
+        "say": "Weather sentences often have no subject: Prší (it is raining), Sněží. For temperature and how it feels, use Je…: Je teplo, je zima, je hezky.",
+        "table": [
+          [
+            "It is raining.",
+            "Prší."
+          ],
+          [
+            "It is snowing.",
+            "Sněží."
+          ],
+          [
+            "The sun is shining.",
+            "Svítí slunce."
+          ],
+          [
+            "It is windy.",
+            "Fouká vítr."
+          ],
+          [
+            "It is warm / hot.",
+            "Je teplo. / Je horko."
+          ],
+          [
+            "It is cold.",
+            "Je zima."
+          ],
+          [
+            "It is nice.",
+            "Je hezky."
+          ],
+          [
+            "What is the weather like?",
+            "Jaké je počasí?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dnes prší a fouká vítr.",
+            "en": "Today it is raining and windy."
+          },
+          {
+            "cz": "Jaké je dnes počasí? — Je hezky.",
+            "en": "What is the weather like today? — It is nice."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "To prší.",
+          "right": "Prší."
+        },
+        "step": 1,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15202,
+      "lesson_id": 1502,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „It is raining“?",
+        "question_en": "How do you say “It is raining”?",
+        "options": [
+          "Prší.",
+          "To prší.",
+          "Je prší."
+        ],
+        "correct_index": 0,
+        "explanation": "Weather verbs have no subject: Prší."
+      },
+      "answer_key": "Prší.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-140"
+    },
+    {
+      "id": 15203,
+      "lesson_id": 1502,
+      "type": "teaching",
+      "prompt": "Seasons: na jaře, v létě",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-141",
+        "rule_step": 1,
+        "heading": "Seasons: na jaře, v létě",
+        "items": [
+          {
+            "cz": "V létě je horko.",
+            "en": "In summer it is hot."
+          },
+          {
+            "cz": "V zimě sněží.",
+            "en": "In winter it snows."
+          }
+        ],
+        "say": "The seasons are jaro, léto, podzim, zima. To say in a season, learn the four phrases: na jaře, v létě, na podzim, v zimě.",
+        "table": [
+          [
+            "spring",
+            "jaro — na jaře"
+          ],
+          [
+            "summer",
+            "léto — v létě"
+          ],
+          [
+            "autumn",
+            "podzim — na podzim"
+          ],
+          [
+            "winter",
+            "zima — v zimě"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "V létě je horko.",
+            "en": "In summer it is hot."
+          },
+          {
+            "cz": "V zimě sněží.",
+            "en": "In winter it snows."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "v jaro",
+          "right": "na jaře"
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15204,
+      "lesson_id": 1502,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "___ je horko.",
+        "question_en": "In summer it is hot.",
+        "options": [
+          "V létě",
+          "Na létě",
+          "V léto"
+        ],
+        "correct_index": 0,
+        "explanation": "in summer: v létě."
+      },
+      "answer_key": "V létě",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-141"
+    },
+    {
+      "id": 15205,
+      "lesson_id": 1502,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write five weather sentences and the four seasons with na or v.",
+        "items": [
+          {
+            "cz": "Prší. Sněží. Svítí slunce. Je teplo. Je zima.",
+            "en": "weather"
+          },
+          {
+            "cz": "na jaře, v létě, na podzim, v zimě",
+            "en": "seasons"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 15206,
+      "lesson_id": 1502,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "wind blows: fouká.",
+        "sentence": "Dnes ___ vítr.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "fouká"
+          ]
+        ],
+        "explanation": "Fouká vítr."
+      },
+      "answer_key": "fouká",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-140"
+    },
+    {
+      "id": 15207,
+      "lesson_id": 1502,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "cold: je zima.",
+        "sentence": "Je ___. (cold)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "zima"
+          ]
+        ],
+        "explanation": "Je zima."
+      },
+      "answer_key": "zima",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-140"
+    },
+    {
+      "id": 15208,
+      "lesson_id": 1502,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "autumn: na podzim.",
+        "sentence": "Na ___ často prší. (podzim)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "podzim"
+          ]
+        ],
+        "explanation": "na podzim"
+      },
+      "answer_key": "podzim",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-141"
+    },
+    {
+      "id": 15209,
+      "lesson_id": 1502,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "in winter: v zimě.",
+        "sentence": "V ___ sněží. (zima)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "zimě"
+          ]
+        ],
+        "explanation": "v zimě"
+      },
+      "answer_key": "zimě",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-141"
+    },
+    {
+      "id": 15210,
       "lesson_id": 1502,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +375,11 @@
         ]
       },
       "answer_key": "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-141"
     },
     {
-      "id": 15102,
+      "id": 15211,
       "lesson_id": 1502,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +413,11 @@
         ]
       },
       "answer_key": "V zimě sněží.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-141"
     },
     {
-      "id": 15103,
+      "id": 15212,
       "lesson_id": 1502,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +441,14 @@
             "right": "In winter it snows."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Na jaře je hezky.–Spring is nice.; V létě je horko.–In summer it is hot.; Na podzim prší.–In autumn it rains.; V zimě sněží.–In winter it snows.",
       "xp_reward": 10
     },
     {
-      "id": 15104,
-      "lesson_id": 1502,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "V zimě sněží.",
-          "Dám si čaj.",
-          "Jdu do kina.",
-          "Je vedle banky."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "V zimě sněží.",
-      "xp_reward": 10
-    },
-    {
-      "id": 15105,
+      "id": 15213,
       "lesson_id": 1502,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,47 +467,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "horko | sněží",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-141"
     },
     {
-      "id": 15106,
-      "lesson_id": 1502,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "V",
-          "zimě",
-          "sněží."
-        ],
-        "correct_order": [
-          0,
-          1,
-          2
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "V zimě sněží.",
-      "xp_reward": 10
-    },
-    {
-      "id": 15107,
-      "lesson_id": 1502,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "V zimě sněží a v létě je horko.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "V zimě sněží a v létě je horko.",
-      "xp_reward": 10
-    },
-    {
-      "id": 15108,
+      "id": 15214,
       "lesson_id": 1502,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -237,10 +486,11 @@
         "translation_en": "Say the useful phrase clearly and naturally."
       },
       "answer_key": "V zimě sněží a v létě je horko.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-141"
     },
     {
-      "id": 15109,
+      "id": 15215,
       "lesson_id": 1502,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -278,46 +528,25 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "V zimě sněží. | V létě je horko.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-141"
     },
     {
-      "id": 15110,
-      "lesson_id": 1502,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write your favourite season and one weather reason.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Na jaře je hezky.",
-          "V létě je horko.",
-          "Na podzim prší.",
-          "V zimě sněží."
-        ],
-        "sample_answer": "Na jaře je hezky."
-      },
-      "answer_key": "Na jaře je hezky.",
-      "xp_reward": 0
-    },
-    {
-      "id": 15111,
+      "id": 15216,
       "lesson_id": 1502,
       "type": "listening_comprehension",
       "prompt": "Listen in a new voice",
       "data": {
         "type": "listening_comprehension",
         "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
+        "transcript_cz": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
         "questions": [
           {
             "question_en": "Which useful phrase do you hear?",
             "options": [
-              "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
-              "Dám si čaj.",
-              "Jdu do kina."
+              "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
+              "Jedu metrem.",
+              "Mám rád sýr."
             ],
             "correct_index": 0
           },
@@ -332,22 +561,9 @@
           }
         ]
       },
-      "answer_key": "V létě je horko. V zimě sněží. Na jaře často svítí slunce.",
-      "xp_reward": 15
+      "answer_key": "Dnes prší a fouká vítr. Zítra bude teplo a bude svítit slunce.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-140"
     }
-  ],
-  "can_do": "connect seasons and weather to simple plans.",
-  "new_language": [
-    "Na jaře je hezky.",
-    "V létě je horko.",
-    "Na podzim prší.",
-    "V zimě sněží."
-  ],
-  "recycles": [
-    "days and time",
-    "places",
-    "transport",
-    "present-tense activities"
-  ],
-  "exit_task": "connect seasons and weather to simple plans."
+  ]
 }

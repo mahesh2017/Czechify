@@ -1317,6 +1317,12 @@
           "name": "Word order: possessive + adjective + noun",
           "pattern": "Standard order: possessive adjective + descriptive adjective + noun",
           "example": "můj starý dům — my old house"
+        },
+        {
+          "id": "GR-075",
+          "name": "Joining sentences — a, ale, nebo",
+          "pattern": "a (and), ale (but), nebo (or). A comma goes before ale: Je milá, ale nemá čas. No comma before a or nebo.",
+          "example": "Bydlí v Brně a pracuje v hotelu. — She lives in Brno and works in a hotel."
         }
       ],
       "core_vocabulary": [
@@ -2409,6 +2415,12 @@
           "name": "Useful phrases with můžu, musím, chci",
           "pattern": "Můžete mi pomoct? Můžu platit kartou? Musím jít. Chci jet do centra. můžu / musím / chci + infinitive.",
           "example": "Promiňte, můžete mi pomoct? — Excuse me, can you help me?"
+        },
+        {
+          "id": "GR-135",
+          "name": "Directions — Jděte rovně, zahněte doleva",
+          "pattern": "Instructions to a stranger end in -te: Jděte rovně. Zahněte doleva / doprava. Jeďte tramvají. Learn them as phrases.",
+          "example": "Jděte rovně a potom zahněte doleva. — Go straight on and then turn left."
         }
       ],
       "core_vocabulary": [
@@ -2581,16 +2593,16 @@
           "example": "Na jaře kvetou květiny. — In spring, flowers bloom."
         },
         {
-          "id": "GR-142",
-          "name": "Future tense intro — budu + infinitive",
-          "pattern": "budu, budeš, bude, budeme, budete, budou + infinitive",
-          "example": "Zítra budu v práci. — Tomorrow I will be at work."
-        },
-        {
           "id": "GR-143",
-          "name": "Past tense intro — byl, měl, dělal",
+          "name": "Preview — the past: byl jsem, bylo hezky",
           "pattern": "Byl jsem, byl jsi, byl... Měl jsem... Dělal jsem... The -l participle + být auxiliary.",
           "example": "Byl jsem v Praze minulý týden. — I was in Prague last week. (male)"
+        },
+        {
+          "id": "GR-142",
+          "name": "Preview — the future: budu, bude, pojedu",
+          "pattern": "budu, budeš, bude, budeme, budete, budou + infinitive",
+          "example": "Zítra budu v práci. — Tomorrow I will be at work."
         }
       ],
       "core_vocabulary": [
@@ -2646,7 +2658,103 @@
         "Očekávání Santa Clause (v ČR Ježíšek)",
         "Podcenění zimního oblečení"
       ],
-      "study_tip": "Sledujte předpověď počasí na ČT24. Pište si každý den jednu větu o počasí."
+      "study_tip": "Sledujte předpověď počasí na ČT24. Pište si každý den jednu větu o počasí.",
+      "notebook_page": {
+        "title_cz": "Počasí",
+        "title_en": "Weather, seasons and a trip",
+        "can_do": {
+          "cz": "Řeknu, jaké je počasí, a krátce řeknu, kde jsem byl a co budu dělat.",
+          "en": "I can describe the weather and briefly say where I was and what I will do."
+        },
+        "words": [
+          {
+            "cz": "Dnes prší.",
+            "en": "Today it is raining."
+          },
+          {
+            "cz": "Je teplo.",
+            "en": "It is warm."
+          },
+          {
+            "cz": "Fouká vítr.",
+            "en": "It is windy."
+          },
+          {
+            "cz": "V zimě sněží.",
+            "en": "In winter it snows."
+          },
+          {
+            "cz": "Jedeme na dovolenou.",
+            "en": "We are going on holiday."
+          },
+          {
+            "cz": "Mám pas a kufr.",
+            "en": "I have a passport and a suitcase."
+          },
+          {
+            "cz": "Včera jsem byl/a v Praze.",
+            "en": "Yesterday I was in Prague."
+          },
+          {
+            "cz": "Zítra bude teplo.",
+            "en": "Tomorrow it will be warm."
+          }
+        ],
+        "pattern": {
+          "name": "Weather, seasons, preview",
+          "rule_plain": "Prší. Sněží. Je teplo. Seasons: na jaře, v létě, na podzim, v zimě. Preview: byl/a jsem, bylo hezky; bude teplo, pojedu.",
+          "table": [
+            [
+              "raining",
+              "Prší."
+            ],
+            [
+              "warm",
+              "Je teplo."
+            ],
+            [
+              "in summer",
+              "v létě"
+            ],
+            [
+              "in winter",
+              "v zimě"
+            ],
+            [
+              "I was",
+              "byl / byla jsem"
+            ],
+            [
+              "it will be",
+              "bude"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Včera pršelo, ale dnes je hezky.",
+              "en": "Yesterday it rained, but today it is nice."
+            },
+            {
+              "cz": "Zítra pojedu vlakem.",
+              "en": "Tomorrow I will go by train."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "v jaro",
+            "right": "na jaře"
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Včera jsem byl/a doma.",
+            "en": "Yesterday I was at home."
+          },
+          {
+            "cz": "Zítra bude hezky.",
+            "en": "Tomorrow it will be nice."
+          }
+        ]
+      }
     },
     {
       "unit_id": 16,

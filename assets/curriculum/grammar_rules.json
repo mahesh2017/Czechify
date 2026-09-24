@@ -2451,6 +2451,65 @@
       ]
     },
     {
+      "id": "GR-075",
+      "rule_name": "Joining sentences — a, ale, nebo",
+      "pattern": "a (and), ale (but), nebo (or). A comma goes before ale: Je milá, ale nemá čas. No comma before a or nebo.",
+      "explanation": "Join short sentences to tell a story: Bydlí v Brně a pracuje v hotelu. Use ale for a contrast, with a comma before it. nebo offers a choice: Kávu, nebo čaj?",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Bydlí v Brně a pracuje v hotelu.",
+          "en": "She lives in Brno and works in a hotel."
+        },
+        {
+          "cz": "Je milý, ale nemá čas.",
+          "en": "He is nice, but he has no time."
+        }
+      ],
+      "unit_id": 8,
+      "concept_keys": [
+        "conjunctions_basic"
+      ],
+      "lecture": [
+        {
+          "heading": "Joining sentences: a, ale, nebo",
+          "say": "a means and, ale means but, nebo means or. Put a comma before ale, not before a.",
+          "table": [
+            [
+              "and",
+              "Bydlí v Brně a pracuje v hotelu."
+            ],
+            [
+              "but",
+              "Je milý, ale nemá čas."
+            ],
+            [
+              "or",
+              "Kávu, nebo čaj?"
+            ],
+            [
+              "also",
+              "Taky má ráda hudbu."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Moje sestra je studentka a bydlí v Brně.",
+              "en": "My sister is a student and lives in Brno."
+            },
+            {
+              "cz": "Mám bratra, ale nemám sestru.",
+              "en": "I have a brother, but I don’t have a sister."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Je milý ale nemá čas.",
+            "right": "Je milý, ale nemá čas."
+          }
+        }
+      ]
+    },
+    {
       "id": "GR-080",
       "rule_name": "Cardinal numbers 0–20",
       "pattern": "jedna, dva, tři, čtyři, pět, šest, sedm, osm, devět, deset, jedenáct, dvanáct, třináct, čtrnáct, patnáct, šestnáct, sedmnáct, osmnáct, devatenáct, dvacet",
@@ -4209,6 +4268,73 @@
       ]
     },
     {
+      "id": "GR-135",
+      "rule_name": "Directions — Jděte rovně, zahněte doleva",
+      "pattern": "Instructions to a stranger end in -te: Jděte rovně. Zahněte doleva / doprava. Jeďte tramvají. Learn them as phrases.",
+      "explanation": "Directions are instructions (the imperative). At A1 learn the phrases you need to give and understand a route: Jděte rovně, Zahněte doleva, Jeďte tramvají, Přestupte na metro. Unit 23 shows how to build them.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Jděte rovně a potom zahněte doleva.",
+          "en": "Go straight on and then turn left."
+        },
+        {
+          "cz": "Jeďte tramvají číslo devět.",
+          "en": "Take tram number nine."
+        }
+      ],
+      "unit_id": 14,
+      "concept_keys": [
+        "imperative_chunks"
+      ],
+      "lecture": [
+        {
+          "heading": "Giving directions: Jděte rovně",
+          "say": "Directions to a stranger are instructions ending in -te. Learn them as phrases: Jděte rovně, zahněte doleva, jeďte tramvají.",
+          "table": [
+            [
+              "Go straight on.",
+              "Jděte rovně."
+            ],
+            [
+              "Turn left.",
+              "Zahněte doleva."
+            ],
+            [
+              "Turn right.",
+              "Zahněte doprava."
+            ],
+            [
+              "Take the tram.",
+              "Jeďte tramvají."
+            ],
+            [
+              "Change to the metro.",
+              "Přestupte na metro."
+            ],
+            [
+              "Excuse me, where is…?",
+              "Promiňte, kde je…?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jděte rovně a potom zahněte doleva.",
+              "en": "Go straight on and then turn left."
+            },
+            {
+              "cz": "Jeďte tramvají číslo devět.",
+              "en": "Take tram number nine."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jdete rovně! (as an instruction)",
+            "right": "Jděte rovně!"
+          }
+        }
+      ]
+    },
+    {
       "id": "GR-140",
       "rule_name": "Weather expressions — počasí",
       "pattern": "Je... (It is...). Prší. Sněží. Svítí slunce. Je zima/teplo/horko/chladno.",
@@ -4232,7 +4358,61 @@
           "en": "Tomorrow it will rain."
         }
       ],
-      "unit_id": 15
+      "unit_id": 15,
+      "lecture": [
+        {
+          "heading": "The weather: Prší. Je teplo.",
+          "say": "Weather sentences often have no subject: Prší (it is raining), Sněží. For temperature and how it feels, use Je…: Je teplo, je zima, je hezky.",
+          "table": [
+            [
+              "It is raining.",
+              "Prší."
+            ],
+            [
+              "It is snowing.",
+              "Sněží."
+            ],
+            [
+              "The sun is shining.",
+              "Svítí slunce."
+            ],
+            [
+              "It is windy.",
+              "Fouká vítr."
+            ],
+            [
+              "It is warm / hot.",
+              "Je teplo. / Je horko."
+            ],
+            [
+              "It is cold.",
+              "Je zima."
+            ],
+            [
+              "It is nice.",
+              "Je hezky."
+            ],
+            [
+              "What is the weather like?",
+              "Jaké je počasí?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dnes prší a fouká vítr.",
+              "en": "Today it is raining and windy."
+            },
+            {
+              "cz": "Jaké je dnes počasí? — Je hezky.",
+              "en": "What is the weather like today? — It is nice."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "To prší.",
+            "right": "Prší."
+          }
+        }
+      ]
     },
     {
       "id": "GR-141",
@@ -4258,11 +4438,49 @@
           "en": "In winter I ski in the mountains."
         }
       ],
-      "unit_id": 15
+      "unit_id": 15,
+      "lecture": [
+        {
+          "heading": "Seasons: na jaře, v létě",
+          "say": "The seasons are jaro, léto, podzim, zima. To say in a season, learn the four phrases: na jaře, v létě, na podzim, v zimě.",
+          "table": [
+            [
+              "spring",
+              "jaro — na jaře"
+            ],
+            [
+              "summer",
+              "léto — v létě"
+            ],
+            [
+              "autumn",
+              "podzim — na podzim"
+            ],
+            [
+              "winter",
+              "zima — v zimě"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "V létě je horko.",
+              "en": "In summer it is hot."
+            },
+            {
+              "cz": "V zimě sněží.",
+              "en": "In winter it snows."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "v jaro",
+            "right": "na jaře"
+          }
+        }
+      ]
     },
     {
       "id": "GR-142",
-      "rule_name": "Future tense intro — budu + infinitive",
+      "rule_name": "Preview — the future: budu, bude, pojedu",
       "pattern": "budu, budeš, bude, budeme, budete, budou + infinitive",
       "explanation": "Czech forms the future tense of imperfective verbs with 'být' (to be) in future + infinitive. This is the simplest way for A1 learners to express future: budu dělat (I will do), budeš číst (you will read), budeme cestovat (we will travel). Perfective verbs (not covered at A1) form future differently. The future of 'být' itself: budu, budeš, bude, budeme, budete, budou. Common futures for travel: 'Budu v Praze' (I will be in Prague), 'Pojedu do Brna' (I will go to Brno — 'jet' is perfective-like in future: pojedu, pojedeš...).",
       "case_affected": null,
@@ -4284,11 +4502,60 @@
           "en": "Next week I will go to Prague."
         }
       ],
-      "unit_id": 15
+      "unit_id": 15,
+      "concept_keys": [
+        "past_future_chunks_preview"
+      ],
+      "lecture": [
+        {
+          "heading": "Preview: it will be — bude",
+          "say": "A preview of the future: zítra bude teplo (it will be warm), budu doma (I will be at home), pojedu vlakem (I will go by train). Unit 20 explains more.",
+          "table": [
+            [
+              "I will be",
+              "budu"
+            ],
+            [
+              "it will be",
+              "bude"
+            ],
+            [
+              "it will be warm",
+              "bude teplo"
+            ],
+            [
+              "it will rain",
+              "bude pršet"
+            ],
+            [
+              "I will go (by vehicle)",
+              "pojedu"
+            ],
+            [
+              "tomorrow",
+              "zítra"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Zítra bude teplo.",
+              "en": "Tomorrow it will be warm."
+            },
+            {
+              "cz": "Zítra pojedu vlakem.",
+              "en": "Tomorrow I will go by train."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Zítra je teplo bude.",
+            "right": "Zítra bude teplo."
+          }
+        }
+      ]
     },
     {
       "id": "GR-143",
-      "rule_name": "Past tense intro — byl, měl, dělal",
+      "rule_name": "Preview — the past: byl jsem, bylo hezky",
       "pattern": "Byl jsem, byl jsi, byl... Měl jsem... Dělal jsem... The -l participle + být auxiliary.",
       "explanation": "Czech past tense uses the -l participle + auxiliary 'být' in present tense (jsem, jsi, jsme, jste) — except 3rd person which drops the auxiliary. Pattern: já jsem dělal/dělala (masc/fem), ty jsi dělal/dělala, on dělal (no auxiliary), ona dělala, ono dělalo, my jsme dělali/dělaly, vy jste dělali/dělaly, oni dělali, ony dělaly. For the verb 'být': byl jsem, byla jsem. Key travel past phrases: 'Byl jsem v Praze' (I was in Prague), 'Měl jsem se dobře' (I had a good time). This is just an introduction — full past tense mastery comes in A2.",
       "case_affected": null,
@@ -4310,7 +4577,52 @@
           "en": "What did you do on the weekend?"
         }
       ],
-      "unit_id": 15
+      "unit_id": 15,
+      "concept_keys": [
+        "past_future_chunks_preview"
+      ],
+      "lecture": [
+        {
+          "heading": "Preview: I was — byl jsem",
+          "say": "A preview of the past: learn a few phrases now; Unit 19 explains the system. A man says byl jsem, a woman byla jsem. The weather: bylo hezky, pršelo.",
+          "table": [
+            [
+              "I was (man)",
+              "byl jsem"
+            ],
+            [
+              "I was (woman)",
+              "byla jsem"
+            ],
+            [
+              "it was nice",
+              "bylo hezky"
+            ],
+            [
+              "it rained",
+              "pršelo"
+            ],
+            [
+              "yesterday",
+              "včera"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Včera jsem byl v Praze.",
+              "en": "Yesterday I was in Prague. (man)"
+            },
+            {
+              "cz": "Včera pršelo.",
+              "en": "Yesterday it rained."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Včera jsem být v Praze.",
+            "right": "Včera jsem byl v Praze."
+          }
+        }
+      ]
     },
     {
       "id": "GR-150",
