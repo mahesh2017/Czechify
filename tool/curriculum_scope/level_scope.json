@@ -2,7 +2,7 @@
   "version": 1,
   "prepared": "2026-09-24",
   "source": "NÚV 2016 reference description, chapter 7 (grammar) and appendix (word list); NPI 2021 A2 course syllabus. See docs/sources/official_sources.json.",
-  "used_by": "Phase 1 content-checker rules V6 (forbidden) and V10 (required) in docs/CURRICULUM_V1_2_PLAN_2026-09-24.md. V6 applies to main-path lessons only; lessons marked \"extension\": true are exempt. Patterns are case-insensitive and apply to lesson text and to vocabulary entries (word_cz, example_cz) of main-path units.",
+  "used_by": "Phase 1 content-checker rules V6 (forbidden) and V10 (required) in docs/CURRICULUM_V1_2_PLAN_2026-09-24.md. Out-of-scope content is parked for B1 (plan decision 5), so V6 applies to every lesson. Patterns are case-insensitive and apply to lesson text and to vocabulary entries (word_cz, example_cz).",
   "forbidden_on_main_path": {
     "A1_and_A2": [
       {
@@ -287,8 +287,9 @@
       },
       {
         "key": "ordinals_dates",
-        "status": "missing",
-        "plan": "U20; floors in U26 (§7.3)"
+        "status": "partial",
+        "plan": "U20; floors in U26 (§7.3)",
+        "gap": "Ordinal words (první … pátý) are A1 U9 vocabulary, but there is no rule, and dates such as prvního května never appear in lessons."
       },
       {
         "key": "comparison_regular",

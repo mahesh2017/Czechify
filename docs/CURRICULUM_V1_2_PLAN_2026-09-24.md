@@ -19,6 +19,23 @@ standard.
 3. Notes are **on paper by default**, with a **typed fallback** in the app (for no
    paper at hand, or for learners who cannot write by hand).
 
+**Further decisions (24 Sep 2026, later the same day):**
+
+4. **Everything is built on one branch** (`curriculum/v1.2-plan`). U6 and U19 are
+   finished first and go to testers early; the other units are built while they
+   test, and tester feedback adjusts the template rather than blocking the work.
+5. **Out-of-scope content is parked for a future B1 course**, not built into
+   optional lessons. It leaves the app and is kept in
+   `docs/curriculum-v1.2/parked_for_b1.json` (vocabulary entries, exercises and
+   rule cards, with their original IDs). Wherever this plan says "extension" or
+   *Towards B1*, read "parked for B1".
+6. **Teacher review gates the production release, not the merge.** Testers use the
+   new content in test builds; it reaches the Play Store and App Store only after a
+   qualified teacher signs off.
+7. **Neural audio is generated at the end**, once content is final. Until then new
+   text uses the phone's built-in Czech voice. Uploading the audio to production
+   storage needs Mahesh's go-ahead at that point.
+
 ---
 
 ## 1. Why this plan exists
@@ -45,7 +62,7 @@ gaps. A2 goes beyond the standard in some areas and lacks required material in o
 | A1 modal verbs | *moct/muset* 0 uses in A1 lessons | "Basic modal verbs" are assumed before the A2 course |
 | A1 personal pronouns, dative/accusative (*mě, mi, tě, ti, ho, mu, ji*…) | Only subject forms (U7) and the fixed *bolí mě* (U24) | Active at **A1**; all cases at A2 |
 | A2 nominative/accusative **plural** (nouns and adjectives) | No rule; only the genitive plural (U16) | Active A2 requirement (syllabus blocks 4 and 12) |
-| A2 ordinal numbers and dates (*prvního května*) | No rule; 0 uses in lessons | A2 (syllabus block 8) |
+| A2 ordinal numbers and dates (*prvního května*) | Ordinal words are U9 vocabulary, but no rule and no dates in any lesson | A2 (syllabus block 8) |
 | A2 imperative as grammar (*Počkej! Nečekej!*) | Chunks only (U14 directions), no rule | Positive and negative forms, A2 (syllabus block 9) |
 | A2 signs and reflexive passive (*zavřeno, vyprodáno, zavírá se v 21 h*) | Not in lessons | Recognition at A2 |
 | Everyday vocabulary | App ~1,450 words | Official list 3,164 entries (1,216 A1 and 1,383 A2 single words, plus phrases); the app covers at most 68% of official A1 and 38% of official A2 single words (stem match, upper bound) |
@@ -346,7 +363,7 @@ New checks. **E** = build error, **W** = warning.
 | V3 | **Taught before tested:** every scored item in lessons B–D carries a `grammar_rule_id` or `targets: "vocab"`; that rule has a lecture step earlier in the unit or in an earlier unit | E |
 | V4 | Every Czech word form in a scored answer key has appeared earlier in the course (teaching, vocabulary or example); unexplained forms are listed | W (becomes E after the rollout) |
 | V5 | Every lesson has exactly one notebook step of the kind its role requires (§3) and a resolvable `model_ref` | E |
-| V6 | **Scope guard:** on the main path, A1/A2 lessons may not contain the out-of-scope list (`kdyby*`, `abych/abys/abychom/abyste`, *tudíž, avšak, ovšem, jakmile, co se týče…*) unless the lesson is marked `extension: true` | E |
+| V6 | **Scope guard:** A1/A2 lessons and vocabulary may not contain the out-of-scope list in `tool/curriculum_scope/level_scope.json` (`kdyby*`, `abych/abys/abychom/abyste` outside the fixed phrase, *tudíž, avšak, ovšem, jakmile, co se týče…*, essay phrases) | E |
 | V7 | Time budget per lesson (§3.6), estimated per item type | W |
 | V8 | ≤ 8 new vocabulary cards per teach set | E |
 | V9 | `lecture` steps: 1 idea, `say` ≤ 40 words, table ≤ 8 rows, ≥ 2 examples with audio | E |
@@ -383,9 +400,8 @@ budík, mlha, doleva*): keep them. They serve the unit topics and are only a lev
 early. They are exempt from the scope guard (V6), which checks grammar and the
 out-of-scope word list, not every word's level.
 
-"Extension" means an optional **Towards B1** lesson after the unit's D lesson. It is
-not required for unit completion or progression, and it stays out of Daily Arrival.
-It is scored normally.
+"Extension" means **parked for a future B1 course** (decision 5): removed from the
+app and kept, with original IDs, in `docs/curriculum-v1.2/parked_for_b1.json`.
 
 ### 7.1 A1
 
@@ -502,7 +518,7 @@ These are grammar-heavy and representative. U1–U3 (sounds, greetings) are not.
 Both units get the full A–D rework: lectures, checks, guided items, notebook steps,
 model pages, trimmed scored items.
 
-### Phase 3 — Measure (2–3 weeks with testers)
+### Phase 3 — Measure (2–3 weeks with testers, in parallel with Phase 4)
 
 | Measure | Source | Success looks like |
 |---|---|---|
@@ -513,26 +529,28 @@ model pages, trimmed scored items.
 | Delayed transfer success | `delayed_transfer_assignments` | higher |
 | Interviews | 5–8 testers, including a learner who recently finished A1/A2 at Charles University | lectures clear, notebook used |
 
-If first-try accuracy doesn't improve, or lessons run long, fix the template before
-Phase 4.
+If first-try accuracy doesn't improve, or lessons run long, fix the template and
+apply the fix to the units already rebuilt (decision 4: testing runs in parallel).
 
 ### Phase 4 — Rollout
 
 1. **A1** Units 1–15, then 28 and 30.
 2. **A2** Units 16–27 (with the §7.2 scope changes), then 29 and 31.
 
-Each batch: author → validator clean → Czech-teacher review of lecture and
-model-page text → device run → content release.
+Each batch: author → validator clean → device run → test build. The Czech-teacher
+review happens before the production release (Phase 5, decision 6).
 
 **Rough authoring volume:** ~31 chunk lectures, ~70 pattern lecture steps with checks,
 ~100 guided items, 124 notebook steps, 31 model pages, plus the removals and
-extension lessons from §7.
+additions from §7.
 
 ### Phase 5 — Independent review
 
 A qualified teacher of Czech as a foreign language reviews all lecture steps and
 model pages against the reference description, as `V1_1` already requires for
-content to count as field-validated.
+content to count as field-validated. **This gates the production release.** Then
+generate neural audio for all new text (`tool/audio_coverage.py` lists what is
+missing) and upload it with Mahesh's go-ahead.
 
 ---
 
@@ -541,7 +559,8 @@ content to count as field-validated.
 **Per unit**
 
 - Validator V1–V10 clean (V4 and V7 errors from Phase 4 onward).
-- No main-path item outside the A1/A2 scope; extensions clearly optional.
+- No item outside the A1/A2 scope; everything removed is recorded in
+  `parked_for_b1.json`.
 - Lesson B lecture: 2–3 steps, each with a check, all forms taught before any scored use.
 - Every lesson has its notebook step; the model page exists and matches the lectures.
 - Lesson times within §3.6.
@@ -563,7 +582,7 @@ content to count as field-validated.
 | Older clients reject a whole content release (and stay on old content everywhere) | No new exercise types; new stages are `data` fields and teaching styles the current checker already accepts; min-app-version gate shipped first (Phase 1) |
 | Lessons get longer and completion drops | Time budget enforced (V7); scored items trimmed |
 | Learners tap past notebook steps | Recall prompts, not copy prompts; measure done vs deferred in the pilot |
-| Removing A2 content disappoints learners who want more | It moves to optional *Towards B1* lessons; nothing is deleted outright |
+| Removing A2 content disappoints learners who want more | It is parked with its IDs for a future B1 course; nothing is lost |
 | Lecture text quality | Short, checked format (V9) + teacher review before release |
 | Evidence inflated by supported items | Guided/check/notebook tagged separately in `learning_evidence_events` |
 
