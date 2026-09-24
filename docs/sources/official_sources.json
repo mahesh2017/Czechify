@@ -1,0 +1,43 @@
+{
+  "description": "Official documents behind the v1.2 curriculum scope work (docs/CURRICULUM_V1_2_PLAN_2026-09-24.md). The PDFs are not committed (about 30 MB); tool/official_lexicon.py fetch downloads them and checks these SHA-256 sums.",
+  "retrieved": "2026-09-24",
+  "sources": [
+    {
+      "key": "reference_description_2016",
+      "title": "Referenční popis češtiny pro účely zkoušky z českého jazyka pro trvalý pobyt v ČR – úrovně A1, A2 (NÚV, 2016), incl. Soupis lexikálních jednotek",
+      "role": "The standard: A1/A2 grammar scope (chapter 7) and the official word list (appendix).",
+      "url": "https://cestina-pro-cizince.cz/trvaly-pobyt/a1/wp-content/uploads/sites/2/2020/03/referencni_popis_08122016.pdf",
+      "sha256": "bae00d91e15f1bcc695b93719b05743bc8f1a585195f73ecdfddc71485453e5a",
+      "pages": 312,
+      "note": "Final December 2016 edition. A 294-page June 2015 draft circulates on inkluzivniskola.cz; do not use it (its word list differs)."
+    },
+    {
+      "key": "a2_course_syllabus_2021",
+      "title": "Sylabus přípravného kurzu ke zkoušce A2 z češtiny pro trvalý pobyt (NPI ČR, 2021)",
+      "role": "Official A2 grammar teaching order; the conditional is passive-only and optional.",
+      "url": "https://cestina-pro-cizince.cz/trvaly-pobyt/wp-content/uploads/2021/12/11_NPI_Sylabus_sazba_WEB_300dpi.pdf",
+      "sha256": "5ca69a7154057d06fe06d3e6353ba23c3b61f3cad73c9ed770b1820fb20919cd"
+    },
+    {
+      "key": "framework_curriculum_2021",
+      "title": "Rámcové kurikulum pro přípravu ke zkoušce z českého jazyka pro trvalý pobyt (NPI ČR, 2021)",
+      "role": "Course standards; cites the reference description as the content source.",
+      "url": "https://cestina-pro-cizince.cz/trvaly-pobyt/a1/wp-content/uploads/sites/2/2021/02/NPI_Ramcove_kurikulum_kestazeni.pdf",
+      "sha256": "501f9564a5744fc17f2ed2d2e047ef06574b0a1497eb061e56e228ce0c064d58"
+    },
+    {
+      "key": "candidate_handbook_2026",
+      "title": "Příručka pro uchazeče (NPI ČR, 2026) — new exam format from 11 April 2026",
+      "role": "Confirms the exam still tests A2 as defined by the reference description.",
+      "url": "https://cestina-pro-cizince.cz/trvaly-pobyt/wp-content/uploads/2026/03/Prirucka_pro_uchazece_2026.pdf",
+      "sha256": "11982573f784eebbfb10b80eda99f586f43b555169f72b99919d234a38b7acd6"
+    },
+    {
+      "key": "cce_a1_model_2026",
+      "title": "CCE–A1 modelová varianta 2026 (Univerzita Karlova)",
+      "role": "Charles University's A1 exam; shows what A1 is tested on today.",
+      "url": "https://arche.is.cuni.cz/images/zkousky/dokumenty/CCE-A1_MODELOV%C3%81_VARIANTA_2026.pdf",
+      "sha256": "b0f6ba5f7f94095d36564d5cc79483a6194ef85c05e9a1729a33ef52e22d31f0"
+    }
+  ]
+}
