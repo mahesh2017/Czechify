@@ -2,14 +2,25 @@
   "id": 1404,
   "unit_id": 14,
   "title": "Mission: Guide a Visitor",
-  "description": "Combine place, route, and transport language to guide a visitor.",
+  "description": "Guide a visitor with place, route and transport; know where to go when ill.",
   "lesson_type": "mission",
   "order_in_unit": 3,
   "duration_min": 12,
-  "is_review": true,
+  "can_do": "guide a visitor and find a pharmacy or emergency service.",
+  "new_language": [
+    "Jeďte tramvají.",
+    "pohotovost, zubař"
+  ],
+  "recycles": [
+    "Jděte rovně.",
+    "vedle, naproti"
+  ],
+  "exit_task": "record a route for a visitor.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 14300,
+      "id": 14400,
       "lesson_id": 1404,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -17,7 +28,7 @@
         "type": "teaching",
         "style": "list",
         "heading": "Mission: Guide a Visitor",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "body": "Close your notebook. A visitor asks you the way: give a route with transport. Then read where to go when you are ill.",
         "play_all_label": "Hear the useful chunks",
         "items": [
           {
@@ -42,7 +53,7 @@
       "xp_reward": 0
     },
     {
-      "id": 14301,
+      "id": 14401,
       "lesson_id": 1404,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +83,11 @@
         ]
       },
       "answer_key": "Jeďte tramvají k nádraží. Potom jděte rovně a zahněte doprava.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14302,
+      "id": 14402,
       "lesson_id": 1404,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -106,13 +118,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Jeďte tramvají.",
       "xp_reward": 15
     },
     {
-      "id": 14303,
+      "id": 14403,
       "lesson_id": 1404,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +149,14 @@
             "right": "Take the tram."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Jděte rovně.–Go straight.; Zahněte doprava.–Turn right.; Je to u nádraží.–It is by the station.; Jeďte tramvají.–Take the tram.",
       "xp_reward": 10
     },
     {
-      "id": 14304,
-      "lesson_id": 1404,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Jeďte tramvají.",
-          "Mám žízeň.",
-          "Rád plavu.",
-          "Je to drahé."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Jeďte tramvají.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14305,
+      "id": 14404,
       "lesson_id": 1404,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -179,70 +172,14 @@
             "rovně"
           ]
         ],
-        "explanation": "Use the chunk you have just heard and read."
+        "explanation": "Use the chunk you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "Jeďte | rovně",
       "xp_reward": 10
     },
     {
-      "id": 14306,
-      "lesson_id": 1404,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Jeďte",
-          "tramvají",
-          "k",
-          "nádraží."
-        ],
-        "correct_order": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Jeďte tramvají k nádraží.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14307,
-      "lesson_id": 1404,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Jeďte tramvají k nádraží.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Jeďte tramvají k nádraží.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14308,
-      "lesson_id": 1404,
-      "type": "pronunciation",
-      "prompt": "Rehearse a useful answer",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Jeďte tramvají k nádraží.",
-        "focus_sounds": [
-          "first_syllable_stress",
-          "long_vowel"
-        ],
-        "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
-      },
-      "answer_key": "Jeďte tramvají k nádraží.",
-      "xp_reward": 15
-    },
-    {
-      "id": 14309,
+      "id": 14405,
       "lesson_id": 1404,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -280,10 +217,69 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Jeďte tramvají. | Jděte rovně a zahněte doprava.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-132"
+    },
+    {
+      "id": 14406,
+      "lesson_id": 1404,
+      "type": "reading_comprehension",
+      "prompt": "Where do you go?",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Where do you go?",
+        "text_cz": "LÉKÁRNA — léky, recept\nZUBAŘ — bolí vás zub\nPOHOTOVOST — v noci a o víkendu\nNEMOCNICE — vážné problémy, sanitka 155",
+        "text_en": "PHARMACY — medicine, prescriptions\nDENTIST — your tooth hurts\nEMERGENCY SERVICE — at night and at weekends\nHOSPITAL — serious problems, ambulance 155",
+        "questions": [
+          {
+            "question_en": "Your tooth hurts. Where do you go?",
+            "options": [
+              "zubař",
+              "lékárna",
+              "pošta"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "It is Sunday night and you feel very ill. Where do you go?",
+            "options": [
+              "pohotovost",
+              "banka",
+              "zubař"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "zubař",
       "xp_reward": 15
     },
     {
-      "id": 14310,
+      "id": 14407,
+      "lesson_id": 1404,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a place question and a short location answer.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Kde je pošta?",
+          "Je vedle banky.",
+          "Je naproti parku.",
+          "Je blízko."
+        ],
+        "sample_answer": "Kde je pošta?",
+        "targets": "vocab"
+      },
+      "answer_key": "Kde je pošta?",
+      "xp_reward": 0
+    },
+    {
+      "id": 14408,
       "lesson_id": 1404,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -299,13 +295,14 @@
           "Je to u nádraží.",
           "Jeďte tramvají."
         ],
-        "sample_answer": "Jděte rovně."
+        "sample_answer": "Jděte rovně.",
+        "targets": "vocab"
       },
       "answer_key": "Jděte rovně.",
       "xp_reward": 0
     },
     {
-      "id": 14311,
+      "id": 14409,
       "lesson_id": 1404,
       "type": "speaking_task",
       "prompt": "Record the unit mission",
@@ -319,25 +316,44 @@
           "Jděte rovně.",
           "Zahněte doprava.",
           "Je to u nádraží."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Jděte rovně.; Zahněte doprava.; Je to u nádraží.",
       "xp_reward": 20
+    },
+    {
+      "id": 14410,
+      "lesson_id": 1404,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 14 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, then tick your Check box.",
+        "items": [
+          {
+            "cz": "Kde je…? vedle banky, naproti parku",
+            "en": "places"
+          },
+          {
+            "cz": "Jděte rovně. Zahněte doleva.",
+            "en": "directions"
+          },
+          {
+            "cz": "jdu pěšky, jedu tramvají",
+            "en": "transport"
+          },
+          {
+            "cz": "Můžete mi pomoct? Musím jít.",
+            "en": "modal phrases"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
-  ],
-  "can_do": "guide a visitor to a destination.",
-  "new_language": [
-    "Jděte rovně.",
-    "Zahněte doprava.",
-    "Je to u nádraží.",
-    "Jeďte tramvají."
-  ],
-  "recycles": [
-    "places",
-    "Kde…?",
-    "time",
-    "simple questions",
-    "transport words"
-  ],
-  "exit_task": "guide a visitor to a destination."
+  ]
 }

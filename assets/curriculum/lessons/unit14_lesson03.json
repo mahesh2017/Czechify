@@ -2,39 +2,47 @@
   "id": 1403,
   "unit_id": 14,
   "title": "Choose How to Travel",
-  "description": "Choose suitable transport and say how to reach a destination.",
+  "description": "Useful phrases with můžu, musím, chci; choose transport.",
   "lesson_type": "practice",
   "order_in_unit": 2,
   "duration_min": 12,
+  "can_do": "ask for help and say what you must or want to do.",
+  "new_language": [
+    "Můžete mi pomoct?",
+    "Musím jít.",
+    "Chci jet…"
+  ],
+  "recycles": [
+    "tramvají, metrem",
+    "do centra"
+  ],
+  "exit_task": "write how you travel to two places.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 14200,
+      "id": 14300,
       "lesson_id": 1403,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Choose How to Travel",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “next to the bank”, “I go by tram” and “Where are you going?”. Then check.",
         "items": [
           {
-            "cz": "Jdu pěšky.",
-            "en": "I go on foot."
+            "cz": "vedle banky",
+            "en": "next to the bank"
           },
           {
             "cz": "Jedu tramvají.",
             "en": "I go by tram."
           },
           {
-            "cz": "Jedeme metrem.",
-            "en": "We go by metro."
-          },
-          {
-            "cz": "Vlak jede do Prahy.",
-            "en": "The train goes to Prague."
+            "cz": "Kam jdeš?",
+            "en": "Where are you going?"
           }
         ]
       },
@@ -42,7 +50,118 @@
       "xp_reward": 0
     },
     {
-      "id": 14201,
+      "id": 14301,
+      "lesson_id": 1403,
+      "type": "teaching",
+      "prompt": "Can, must, want: můžu, musím, chci",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-134",
+        "rule_step": 1,
+        "heading": "Can, must, want: můžu, musím, chci",
+        "items": [
+          {
+            "cz": "Promiňte, můžete mi pomoct?",
+            "en": "Excuse me, can you help me?"
+          },
+          {
+            "cz": "Musím jet na nádraží.",
+            "en": "I have to go to the station."
+          }
+        ],
+        "say": "můžu (I can), musím (I must) and chci (I want) are followed by a verb in its dictionary form: Musím jít. Ask for help with Můžete mi pomoct?",
+        "table": [
+          [
+            "Can you help me?",
+            "Můžete mi pomoct?"
+          ],
+          [
+            "Can I pay by card?",
+            "Můžu platit kartou?"
+          ],
+          [
+            "I have to go.",
+            "Musím jít."
+          ],
+          [
+            "I have to change.",
+            "Musím přestoupit."
+          ],
+          [
+            "I want to go to the centre.",
+            "Chci jet do centra."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Promiňte, můžete mi pomoct?",
+            "en": "Excuse me, can you help me?"
+          },
+          {
+            "cz": "Musím jet na nádraží.",
+            "en": "I have to go to the station."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Musím jdu.",
+          "right": "Musím jít."
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14302,
+      "lesson_id": 1403,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Musím ___. (jít)",
+        "question_en": "I have to go.",
+        "options": [
+          "jít",
+          "jdu",
+          "jde"
+        ],
+        "correct_index": 0,
+        "explanation": "After musím: the dictionary form."
+      },
+      "answer_key": "jít",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-134"
+    },
+    {
+      "id": 14303,
+      "lesson_id": 1403,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write how you get to work or school, and one thing you must do today.",
+        "items": [
+          {
+            "cz": "Do práce jedu metrem.",
+            "en": "I go to work by metro."
+          },
+          {
+            "cz": "Dnes musím jít na poštu.",
+            "en": "Today I have to go to the post office."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14304,
       "lesson_id": 1403,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +191,11 @@
         ]
       },
       "answer_key": "Do centra jedu tramvají. Na nádraží jedu metrem.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14202,
+      "id": 14305,
       "lesson_id": 1403,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +229,11 @@
         ]
       },
       "answer_key": "Jedu tramvají.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14203,
+      "id": 14306,
       "lesson_id": 1403,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,56 +257,14 @@
             "right": "The train goes to Prague."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Jdu pěšky.–I go on foot.; Jedu tramvají.–I go by tram.; Jedeme metrem.–We go by metro.; Vlak jede do Prahy.–The train goes to Prague.",
       "xp_reward": 10
     },
     {
-      "id": 14204,
-      "lesson_id": 1403,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Jedu tramvají.",
-          "Dám si vodu.",
-          "Mám modrý svetr.",
-          "Prší doma."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Jedu tramvají.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14205,
-      "lesson_id": 1403,
-      "type": "fill_blank",
-      "prompt": "Complete the useful pattern",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Do centra ___ tramvají. Do parku ___ pěšky.",
-        "blank_count": 2,
-        "blank_answers": [
-          [
-            "jedu"
-          ],
-          [
-            "jdu"
-          ]
-        ],
-        "explanation": "Use the chunk you have just heard and read."
-      },
-      "answer_key": "jedu | jdu",
-      "xp_reward": 10
-    },
-    {
-      "id": 14206,
+      "id": 14307,
       "lesson_id": 1403,
       "type": "word_order",
       "prompt": "Build a natural short exchange",
@@ -207,24 +286,11 @@
         "explanation": "Keep the useful phrase together as a chunk."
       },
       "answer_key": "Jedu tramvají do centra.",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14207,
-      "lesson_id": 1403,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Do centra jedu tramvají.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Do centra jedu tramvají.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14208,
+      "id": 14308,
       "lesson_id": 1403,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -239,10 +305,11 @@
         "translation_en": "Say the useful phrase clearly and naturally."
       },
       "answer_key": "Do centra jedu tramvají.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14209,
+      "id": 14309,
       "lesson_id": 1403,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -280,10 +347,52 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Jedu tramvají. | Jdu pěšky.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-132"
     },
     {
-      "id": 14210,
+      "id": 14310,
+      "lesson_id": 1403,
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Nevíte, kde je nádraží. Co řeknete?",
+        "question_en": "You don’t know where the station is. What do you say?",
+        "options": [
+          "Promiňte, můžete mi pomoct?",
+          "Promiňte, musím mi pomoct?",
+          "Promiňte, chci pomoct?"
+        ],
+        "correct_index": 0,
+        "explanation": "Ask for help: Můžete mi pomoct?"
+      },
+      "answer_key": "Promiňte, můžete mi pomoct?",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-134"
+    },
+    {
+      "id": 14311,
+      "lesson_id": 1403,
+      "type": "fill_blank",
+      "prompt": "Complete the sentence",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Můžu platit ___? (by card)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "kartou"
+          ]
+        ],
+        "explanation": "Můžu + dictionary form: Můžu platit kartou?"
+      },
+      "answer_key": "kartou",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-134"
+    },
+    {
+      "id": 14312,
       "lesson_id": 1403,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -299,58 +408,11 @@
           "Jedeme metrem.",
           "Vlak jede do Prahy."
         ],
-        "sample_answer": "Jdu pěšky."
+        "sample_answer": "Jdu pěšky.",
+        "targets": "vocab"
       },
       "answer_key": "Jdu pěšky.",
       "xp_reward": 0
-    },
-    {
-      "id": 14211,
-      "lesson_id": 1403,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Do centra jedu tramvají. Na nádraží jedu metrem.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Do centra jedu tramvají. Na nádraží jedu metrem.",
-              "Dám si vodu.",
-              "Mám modrý svetr."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Do centra jedu tramvají. Na nádraží jedu metrem.",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "choose and describe simple transport.",
-  "new_language": [
-    "Jdu pěšky.",
-    "Jedu tramvají.",
-    "Jedeme metrem.",
-    "Vlak jede do Prahy."
-  ],
-  "recycles": [
-    "places",
-    "Kde…?",
-    "time",
-    "simple questions",
-    "transport words"
-  ],
-  "exit_task": "choose and describe simple transport."
+  ]
 }

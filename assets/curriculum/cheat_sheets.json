@@ -2393,22 +2393,22 @@
           "example": "Kde je nádraží? — Je tam, vlevo. — Where is the station? — It's there, on the left."
         },
         {
-          "id": "GR-131",
-          "name": "Kam? — motion with accusative vs location with locative",
-          "pattern": "Kam jdeš? (Where are you going?) vs Kde jsi? (Where are you?) — Jdu do školy vs Jsem ve škole.",
-          "example": "Jdu do školy. vs Jsem ve škole. — I'm going to school. vs I'm at school."
-        },
-        {
           "id": "GR-132",
           "name": "Transport and movement verbs — jít vs jet",
           "pattern": "jít (go on foot), jet (go by vehicle), chodit (walk regularly), jezdit (travel regularly)",
           "example": "Jdu pěšky do školy. — I walk to school."
         },
         {
-          "id": "GR-133",
-          "name": "Places in town vocabulary",
-          "pattern": "obchod (shop), restaurace, nádraží (station), nemocnice (hospital), škola, pošta (post office), banka, lékárna (pharmacy",
-          "example": "Kde je nejbližší lékárna? — Where is the nearest pharmacy?"
+          "id": "GR-131",
+          "name": "Kam? — motion with accusative vs location with locative",
+          "pattern": "Kam jdeš? (Where are you going?) vs Kde jsi? (Where are you?) — Jdu do školy vs Jsem ve škole.",
+          "example": "Jdu do školy. vs Jsem ve škole. — I'm going to school. vs I'm at school."
+        },
+        {
+          "id": "GR-134",
+          "name": "Useful phrases with můžu, musím, chci",
+          "pattern": "Můžete mi pomoct? Můžu platit kartou? Musím jít. Chci jet do centra. můžu / musím / chci + infinitive.",
+          "example": "Promiňte, můžete mi pomoct? — Excuse me, can you help me?"
         }
       ],
       "core_vocabulary": [
@@ -2464,7 +2464,103 @@
         "Použití 'jít' pro cestu vozidlem",
         "Zapomenutí označení jízdenky"
       ],
-      "study_tip": "Naučte se ptát na cestu a rozumět odpovědím. Používejte Mapy.cz pro české názvy ulic."
+      "study_tip": "Naučte se ptát na cestu a rozumět odpovědím. Používejte Mapy.cz pro české názvy ulic.",
+      "notebook_page": {
+        "title_cz": "Ve městě",
+        "title_en": "Places, directions, transport",
+        "can_do": {
+          "cz": "Zeptám se na cestu, vysvětlím ji a řeknu, čím jedu.",
+          "en": "I can ask and give directions and say how I travel."
+        },
+        "words": [
+          {
+            "cz": "Kde je pošta?",
+            "en": "Where is the post office?"
+          },
+          {
+            "cz": "Je vedle banky.",
+            "en": "It is next to the bank."
+          },
+          {
+            "cz": "Je to daleko?",
+            "en": "Is it far?"
+          },
+          {
+            "cz": "Jděte rovně.",
+            "en": "Go straight on."
+          },
+          {
+            "cz": "Zahněte doleva.",
+            "en": "Turn left."
+          },
+          {
+            "cz": "Jedu tramvají.",
+            "en": "I am going by tram."
+          },
+          {
+            "cz": "Můžete mi pomoct?",
+            "en": "Can you help me?"
+          },
+          {
+            "cz": "Musím jít.",
+            "en": "I have to go."
+          }
+        ],
+        "pattern": {
+          "name": "Where, where to, how",
+          "rule_plain": "Kde je…? vedle banky, naproti parku. Kam? do školy × Kde? ve škole. jdu pěšky × jedu tramvají. můžu / musím / chci + dictionary form.",
+          "table": [
+            [
+              "next to",
+              "vedle banky"
+            ],
+            [
+              "opposite",
+              "naproti parku"
+            ],
+            [
+              "where to",
+              "Jdu do školy."
+            ],
+            [
+              "where",
+              "Jsem ve škole."
+            ],
+            [
+              "by tram",
+              "jedu tramvají"
+            ],
+            [
+              "I must go",
+              "Musím jít."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jděte rovně a potom zahněte doleva.",
+              "en": "Go straight on and then turn left."
+            },
+            {
+              "cz": "Promiňte, můžete mi pomoct?",
+              "en": "Excuse me, can you help me?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jdu tramvají.",
+            "right": "Jedu tramvají."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Do práce jedu metrem.",
+            "en": "I go to work by metro."
+          },
+          {
+            "cz": "Dnes musím jít na poštu.",
+            "en": "Today I have to go to the post office."
+          }
+        ]
+      }
     },
     {
       "unit_id": 15,

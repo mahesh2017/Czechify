@@ -2,53 +2,37 @@
   "id": 1401,
   "unit_id": 14,
   "title": "Find a Place in Town",
-  "description": "Use a town scene to ask where a useful place is.",
-  "lesson_type": "practice",
+  "description": "Hear someone ask the way, then learn phrases for places and directions.",
+  "lesson_type": "introduction",
   "order_in_unit": 0,
   "duration_min": 12,
+  "can_do": "ask where a place is and understand a short answer.",
+  "new_language": [
+    "Kde je pošta?",
+    "Je vedle banky.",
+    "Je to daleko?",
+    "Jděte rovně.",
+    "Zahněte doleva.",
+    "Jedu tramvají.",
+    "Můžete mi pomoct?",
+    "Musím jít."
+  ],
+  "recycles": [
+    "Promiňte (U2)",
+    "tady, tam (U4)"
+  ],
+  "exit_task": "ask where two places are.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 14000,
-      "lesson_id": 1401,
-      "type": "teaching",
-      "prompt": "Learn the mission language",
-      "data": {
-        "type": "teaching",
-        "style": "list",
-        "heading": "Find a Place in Town",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
-        "items": [
-          {
-            "cz": "Kde je pošta?",
-            "en": "Where is the post office?"
-          },
-          {
-            "cz": "Je vedle banky.",
-            "en": "It is next to the bank."
-          },
-          {
-            "cz": "Je naproti parku.",
-            "en": "It is opposite the park."
-          },
-          {
-            "cz": "Je blízko.",
-            "en": "It is near."
-          }
-        ]
-      },
-      "answer_key": "",
-      "xp_reward": 0
-    },
-    {
-      "id": 14001,
+      "id": 14100,
       "lesson_id": 1401,
       "type": "listening_comprehension",
-      "prompt": "Listen for the useful chunks",
+      "prompt": "Warm-up: listen and guess",
       "data": {
         "type": "listening_comprehension",
-        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "prompt_en": "You have not learned this yet. Listen and guess where the pharmacy is.",
         "transcript_cz": "Kde je lékárna? Je vedle banky a blízko parku.",
         "questions": [
           {
@@ -69,13 +53,96 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "mode": "predict"
       },
       "answer_key": "Kde je lékárna? Je vedle banky a blízko parku.",
-      "xp_reward": 15
+      "xp_reward": 0
     },
     {
-      "id": 14002,
+      "id": 14101,
+      "lesson_id": 1401,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Find a Place in Town",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Kde je pošta?",
+            "en": "Where is the post office?"
+          },
+          {
+            "cz": "Je vedle banky.",
+            "en": "It is next to the bank."
+          },
+          {
+            "cz": "Je to daleko?",
+            "en": "Is it far?"
+          },
+          {
+            "cz": "Jděte rovně.",
+            "en": "Go straight on."
+          },
+          {
+            "cz": "Zahněte doleva.",
+            "en": "Turn left."
+          },
+          {
+            "cz": "Jedu tramvají.",
+            "en": "I am going by tram."
+          },
+          {
+            "cz": "Můžete mi pomoct?",
+            "en": "Can you help me?"
+          },
+          {
+            "cz": "Musím jít.",
+            "en": "I have to go."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14102,
+      "lesson_id": 1401,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 14 page",
+        "instruction": "Write “Unit 14 — Ve městě” at the top of a new page. Draw a tiny map of your street with three places and label them in Czech.",
+        "items": [
+          {
+            "cz": "Kde je pošta?",
+            "en": "Where is the post office?"
+          },
+          {
+            "cz": "Je vedle banky.",
+            "en": "It is next to the bank."
+          },
+          {
+            "cz": "Je to daleko?",
+            "en": "Is it far?"
+          },
+          {
+            "cz": "Jděte rovně.",
+            "en": "Go straight on."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14103,
       "lesson_id": 1401,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -112,7 +179,7 @@
       "xp_reward": 15
     },
     {
-      "id": 14003,
+      "id": 14104,
       "lesson_id": 1401,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -142,28 +209,7 @@
       "xp_reward": 10
     },
     {
-      "id": 14004,
-      "lesson_id": 1401,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Kde je pošta?",
-          "Co si dáte?",
-          "Mám rád sport.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Kde je pošta?",
-      "xp_reward": 10
-    },
-    {
-      "id": 14005,
+      "id": 14105,
       "lesson_id": 1401,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -185,30 +231,7 @@
       "xp_reward": 10
     },
     {
-      "id": 14006,
-      "lesson_id": 1401,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Kde",
-          "je",
-          "pošta?"
-        ],
-        "correct_order": [
-          0,
-          1,
-          2
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Kde je pošta?",
-      "xp_reward": 10
-    },
-    {
-      "id": 14007,
+      "id": 14106,
       "lesson_id": 1401,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -222,7 +245,7 @@
       "xp_reward": 10
     },
     {
-      "id": 14008,
+      "id": 14107,
       "lesson_id": 1401,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -240,7 +263,7 @@
       "xp_reward": 15
     },
     {
-      "id": 14009,
+      "id": 14108,
       "lesson_id": 1401,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -267,76 +290,6 @@
       },
       "answer_key": "Je vedle banky.",
       "xp_reward": 15
-    },
-    {
-      "id": 14010,
-      "lesson_id": 1401,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write a place question and a short location answer.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Kde je pošta?",
-          "Je vedle banky.",
-          "Je naproti parku.",
-          "Je blízko."
-        ],
-        "sample_answer": "Kde je pošta?"
-      },
-      "answer_key": "Kde je pošta?",
-      "xp_reward": 0
-    },
-    {
-      "id": 14011,
-      "lesson_id": 1401,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Kde je lékárna? Je vedle banky a blízko parku.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Kde je lékárna? Je vedle banky a blízko parku.",
-              "Co si dáte?",
-              "Mám rád sport."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Kde je lékárna? Je vedle banky a blízko parku.",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "ask where a familiar place is.",
-  "new_language": [
-    "Kde je pošta?",
-    "Je vedle banky.",
-    "Je naproti parku.",
-    "Je blízko."
-  ],
-  "recycles": [
-    "places",
-    "Kde…?",
-    "time",
-    "simple questions",
-    "transport words"
-  ],
-  "exit_task": "ask where a familiar place is."
+  ]
 }

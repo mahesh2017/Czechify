@@ -3916,7 +3916,60 @@
           "en": "Is it near or far?"
         }
       ],
-      "unit_id": 14
+      "unit_id": 14,
+      "concept_keys": [
+        "loc_gen_sg_after_place_prepositions"
+      ],
+      "lecture": [
+        {
+          "heading": "Where is it? Kde je…?",
+          "say": "Ask Kde je…? Answer with a place word: tady, tam, blízko, daleko. vedle (next to) and naproti (opposite) change the next word: vedle banky, naproti parku.",
+          "table": [
+            [
+              "Where is the post office?",
+              "Kde je pošta?"
+            ],
+            [
+              "here / there",
+              "tady / tam"
+            ],
+            [
+              "near / far",
+              "blízko / daleko"
+            ],
+            [
+              "next to the bank",
+              "vedle banky"
+            ],
+            [
+              "opposite the park",
+              "naproti parku"
+            ],
+            [
+              "in the centre",
+              "v centru"
+            ],
+            [
+              "at the station",
+              "na nádraží"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kde je lékárna? — Je vedle banky.",
+              "en": "Where is the pharmacy? — It is next to the bank."
+            },
+            {
+              "cz": "Pošta je naproti parku.",
+              "en": "The post office is opposite the park."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "vedle banka",
+            "right": "vedle banky"
+          }
+        }
+      ]
     },
     {
       "id": "GR-131",
@@ -3938,7 +3991,53 @@
           "en": "Where are you going? — I'm going to work."
         }
       ],
-      "unit_id": 14
+      "unit_id": 14,
+      "lecture": [
+        {
+          "heading": "Where to? Kam? — Where? Kde?",
+          "say": "Kde? asks where something is: Jsem ve škole. Kam? asks where you are going: Jdu do školy. Learn the pairs as phrases.",
+          "table": [
+            [
+              "Kam jdeš?",
+              "Where are you going?"
+            ],
+            [
+              "Jdu do školy.",
+              "I am going to school."
+            ],
+            [
+              "Jsem ve škole.",
+              "I am at school."
+            ],
+            [
+              "Jdu na poštu.",
+              "I am going to the post office."
+            ],
+            [
+              "Jsem na poště.",
+              "I am at the post office."
+            ],
+            [
+              "Jedu do centra.",
+              "I am going to the centre."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kam jdeš? — Do parku.",
+              "en": "Where are you going? — To the park."
+            },
+            {
+              "cz": "Kde jsi? — V parku.",
+              "en": "Where are you? — In the park."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Kde jdeš?",
+            "right": "Kam jdeš?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-132",
@@ -3964,7 +4063,61 @@
           "en": "How do I get to the Castle?"
         }
       ],
-      "unit_id": 14
+      "unit_id": 14,
+      "concept_keys": [
+        "instr_sg_as_means",
+        "irregular_core_verbs"
+      ],
+      "lecture": [
+        {
+          "heading": "On foot or by tram: jdu, jedu",
+          "say": "jít is going on foot: jdu pěšky. jet is going by vehicle: jedu tramvají, metrem, autobusem, vlakem.",
+          "table": [
+            [
+              "I go (on foot)",
+              "jdu, jdeš, jde"
+            ],
+            [
+              "I go (by vehicle)",
+              "jedu, jedeš, jede"
+            ],
+            [
+              "on foot",
+              "pěšky"
+            ],
+            [
+              "by tram",
+              "tramvají"
+            ],
+            [
+              "by metro",
+              "metrem"
+            ],
+            [
+              "by bus",
+              "autobusem"
+            ],
+            [
+              "by train",
+              "vlakem"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Do centra jedu tramvají.",
+              "en": "I go to the centre by tram."
+            },
+            {
+              "cz": "Do parku jdu pěšky.",
+              "en": "I walk to the park."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jdu tramvají.",
+            "right": "Jedu tramvají."
+          }
+        }
+      ]
     },
     {
       "id": "GR-133",
@@ -3991,6 +4144,69 @@
         }
       ],
       "unit_id": 14
+    },
+    {
+      "id": "GR-134",
+      "rule_name": "Useful phrases with můžu, musím, chci",
+      "pattern": "Můžete mi pomoct? Můžu platit kartou? Musím jít. Chci jet do centra. můžu / musím / chci + infinitive.",
+      "explanation": "Three small verbs do a lot at A1: můžu (I can), musím (I must) and chci (I want). The next verb stays in its dictionary form: Musím jít. Ask for help politely with Můžete mi pomoct? The full forms of these verbs come in Unit 23.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Promiňte, můžete mi pomoct?",
+          "en": "Excuse me, can you help me?"
+        },
+        {
+          "cz": "Musím jet na nádraží.",
+          "en": "I have to go to the station."
+        }
+      ],
+      "unit_id": 14,
+      "concept_keys": [
+        "modals_basic"
+      ],
+      "lecture": [
+        {
+          "heading": "Can, must, want: můžu, musím, chci",
+          "say": "můžu (I can), musím (I must) and chci (I want) are followed by a verb in its dictionary form: Musím jít. Ask for help with Můžete mi pomoct?",
+          "table": [
+            [
+              "Can you help me?",
+              "Můžete mi pomoct?"
+            ],
+            [
+              "Can I pay by card?",
+              "Můžu platit kartou?"
+            ],
+            [
+              "I have to go.",
+              "Musím jít."
+            ],
+            [
+              "I have to change.",
+              "Musím přestoupit."
+            ],
+            [
+              "I want to go to the centre.",
+              "Chci jet do centra."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Promiňte, můžete mi pomoct?",
+              "en": "Excuse me, can you help me?"
+            },
+            {
+              "cz": "Musím jet na nádraží.",
+              "en": "I have to go to the station."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Musím jdu.",
+            "right": "Musím jít."
+          }
+        }
+      ]
     },
     {
       "id": "GR-140",

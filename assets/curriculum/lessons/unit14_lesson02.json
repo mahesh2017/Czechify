@@ -2,39 +2,55 @@
   "id": 1402,
   "unit_id": 14,
   "title": "Understand a Simple Route",
-  "description": "Follow and reconstruct a short walking route with direction words.",
+  "description": "Learn Kde je…?, jít × jet, and Kam? × Kde?",
   "lesson_type": "practice",
   "order_in_unit": 1,
-  "duration_min": 12,
+  "duration_min": 14,
+  "can_do": "say where places are, how you travel and where you are going.",
+  "new_language": [
+    "vedle banky, naproti parku",
+    "jdu pěšky, jedu tramvají",
+    "Kam jdeš? — Do školy."
+  ],
+  "recycles": [
+    "v Praze (U2)",
+    "Jděte rovně."
+  ],
+  "exit_task": "give a two-step route.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 14100,
+      "id": 14200,
       "lesson_id": 1402,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Understand a Simple Route",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, label your map again and write two direction phrases. Then check.",
         "items": [
           {
-            "cz": "Jděte rovně.",
-            "en": "Go straight."
+            "cz": "Kde je pošta?",
+            "en": "Where is the post office?"
           },
           {
-            "cz": "Zahněte doleva.",
-            "en": "Turn left."
-          },
-          {
-            "cz": "Zahněte doprava.",
-            "en": "Turn right."
+            "cz": "Je vedle banky.",
+            "en": "It is next to the bank."
           },
           {
             "cz": "Je to daleko?",
             "en": "Is it far?"
+          },
+          {
+            "cz": "Jděte rovně.",
+            "en": "Go straight on."
+          },
+          {
+            "cz": "Zahněte doleva.",
+            "en": "Turn left."
           }
         ]
       },
@@ -42,7 +58,402 @@
       "xp_reward": 0
     },
     {
-      "id": 14101,
+      "id": 14201,
+      "lesson_id": 1402,
+      "type": "teaching",
+      "prompt": "Where is it? Kde je…?",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-130",
+        "rule_step": 1,
+        "heading": "Where is it? Kde je…?",
+        "items": [
+          {
+            "cz": "Kde je lékárna? — Je vedle banky.",
+            "en": "Where is the pharmacy? — It is next to the bank."
+          },
+          {
+            "cz": "Pošta je naproti parku.",
+            "en": "The post office is opposite the park."
+          }
+        ],
+        "say": "Ask Kde je…? Answer with a place word: tady, tam, blízko, daleko. vedle (next to) and naproti (opposite) change the next word: vedle banky, naproti parku.",
+        "table": [
+          [
+            "Where is the post office?",
+            "Kde je pošta?"
+          ],
+          [
+            "here / there",
+            "tady / tam"
+          ],
+          [
+            "near / far",
+            "blízko / daleko"
+          ],
+          [
+            "next to the bank",
+            "vedle banky"
+          ],
+          [
+            "opposite the park",
+            "naproti parku"
+          ],
+          [
+            "in the centre",
+            "v centru"
+          ],
+          [
+            "at the station",
+            "na nádraží"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Kde je lékárna? — Je vedle banky.",
+            "en": "Where is the pharmacy? — It is next to the bank."
+          },
+          {
+            "cz": "Pošta je naproti parku.",
+            "en": "The post office is opposite the park."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "vedle banka",
+          "right": "vedle banky"
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14202,
+      "lesson_id": 1402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Lékárna je vedle ___. (banka)",
+        "question_en": "The pharmacy is next to the bank.",
+        "options": [
+          "banky",
+          "banka",
+          "banku"
+        ],
+        "correct_index": 0,
+        "explanation": "vedle changes the next word: vedle banky."
+      },
+      "answer_key": "banky",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-130"
+    },
+    {
+      "id": 14203,
+      "lesson_id": 1402,
+      "type": "teaching",
+      "prompt": "On foot or by tram: jdu, jedu",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-132",
+        "rule_step": 1,
+        "heading": "On foot or by tram: jdu, jedu",
+        "items": [
+          {
+            "cz": "Do centra jedu tramvají.",
+            "en": "I go to the centre by tram."
+          },
+          {
+            "cz": "Do parku jdu pěšky.",
+            "en": "I walk to the park."
+          }
+        ],
+        "say": "jít is going on foot: jdu pěšky. jet is going by vehicle: jedu tramvají, metrem, autobusem, vlakem.",
+        "table": [
+          [
+            "I go (on foot)",
+            "jdu, jdeš, jde"
+          ],
+          [
+            "I go (by vehicle)",
+            "jedu, jedeš, jede"
+          ],
+          [
+            "on foot",
+            "pěšky"
+          ],
+          [
+            "by tram",
+            "tramvají"
+          ],
+          [
+            "by metro",
+            "metrem"
+          ],
+          [
+            "by bus",
+            "autobusem"
+          ],
+          [
+            "by train",
+            "vlakem"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Do centra jedu tramvají.",
+            "en": "I go to the centre by tram."
+          },
+          {
+            "cz": "Do parku jdu pěšky.",
+            "en": "I walk to the park."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Jdu tramvají.",
+          "right": "Jedu tramvají."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14204,
+      "lesson_id": 1402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Do centra ___ tramvají.",
+        "question_en": "I go to the centre by tram.",
+        "options": [
+          "jedu",
+          "jdu",
+          "jít"
+        ],
+        "correct_index": 0,
+        "explanation": "By vehicle: jedu."
+      },
+      "answer_key": "jedu",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-132"
+    },
+    {
+      "id": 14205,
+      "lesson_id": 1402,
+      "type": "teaching",
+      "prompt": "Where to? Kam? — Where? Kde?",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-131",
+        "rule_step": 1,
+        "heading": "Where to? Kam? — Where? Kde?",
+        "items": [
+          {
+            "cz": "Kam jdeš? — Do parku.",
+            "en": "Where are you going? — To the park."
+          },
+          {
+            "cz": "Kde jsi? — V parku.",
+            "en": "Where are you? — In the park."
+          }
+        ],
+        "say": "Kde? asks where something is: Jsem ve škole. Kam? asks where you are going: Jdu do školy. Learn the pairs as phrases.",
+        "table": [
+          [
+            "Kam jdeš?",
+            "Where are you going?"
+          ],
+          [
+            "Jdu do školy.",
+            "I am going to school."
+          ],
+          [
+            "Jsem ve škole.",
+            "I am at school."
+          ],
+          [
+            "Jdu na poštu.",
+            "I am going to the post office."
+          ],
+          [
+            "Jsem na poště.",
+            "I am at the post office."
+          ],
+          [
+            "Jedu do centra.",
+            "I am going to the centre."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Kam jdeš? — Do parku.",
+            "en": "Where are you going? — To the park."
+          },
+          {
+            "cz": "Kde jsi? — V parku.",
+            "en": "Where are you? — In the park."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Kde jdeš?",
+          "right": "Kam jdeš?"
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14206,
+      "lesson_id": 1402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "___ jdeš? — Do parku.",
+        "question_en": "Where are you going? — To the park.",
+        "options": [
+          "Kam",
+          "Kde",
+          "Kdy"
+        ],
+        "correct_index": 0,
+        "explanation": "Direction: kam."
+      },
+      "answer_key": "Kam",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-131"
+    },
+    {
+      "id": 14207,
+      "lesson_id": 1402,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write three places with vedle or naproti, how you travel with jdu/jedu, and a Kam? and a Kde? question with answers.",
+        "items": [
+          {
+            "cz": "vedle banky, naproti parku",
+            "en": "next to, opposite"
+          },
+          {
+            "cz": "jdu pěšky, jedu tramvají / metrem",
+            "en": "on foot, by vehicle"
+          },
+          {
+            "cz": "Kam jdeš? — Do školy. Kde jsi? — Ve škole.",
+            "en": "where to, where"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 14208,
+      "lesson_id": 1402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "naproti parku (a phrase).",
+        "sentence": "Pošta je naproti ___. (park)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "parku"
+          ]
+        ],
+        "explanation": "naproti parku"
+      },
+      "answer_key": "parku",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-130"
+    },
+    {
+      "id": 14209,
+      "lesson_id": 1402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "On foot: jdu.",
+        "sentence": "Do parku ___ pěšky.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jdu"
+          ]
+        ],
+        "explanation": "jdu pěšky"
+      },
+      "answer_key": "jdu",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-132"
+    },
+    {
+      "id": 14210,
+      "lesson_id": 1402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "By metro: metrem.",
+        "sentence": "Jedu ___. (metro)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "metrem"
+          ]
+        ],
+        "explanation": "metrem"
+      },
+      "answer_key": "metrem",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-132"
+    },
+    {
+      "id": 14211,
+      "lesson_id": 1402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Where (at): ve škole.",
+        "sentence": "Jsem ___ škole.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ve"
+          ]
+        ],
+        "explanation": "ve škole"
+      },
+      "answer_key": "ve",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-131"
+    },
+    {
+      "id": 14212,
       "lesson_id": 1402,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +483,11 @@
         ]
       },
       "answer_key": "Jděte rovně a potom zahněte doleva. Nádraží je tam.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-130"
     },
     {
-      "id": 14102,
+      "id": 14213,
       "lesson_id": 1402,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +521,11 @@
         ]
       },
       "answer_key": "Jděte rovně.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-130"
     },
     {
-      "id": 14103,
+      "id": 14214,
       "lesson_id": 1402,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +549,14 @@
             "right": "Is it far?"
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Jděte rovně.–Go straight.; Zahněte doleva.–Turn left.; Zahněte doprava.–Turn right.; Je to daleko?–Is it far?",
       "xp_reward": 10
     },
     {
-      "id": 14104,
-      "lesson_id": 1402,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Jděte rovně.",
-          "Platím kartou.",
-          "Rád čtu.",
-          "Je horko."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Jděte rovně.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14105,
+      "id": 14215,
       "lesson_id": 1402,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -179,48 +572,14 @@
             "doleva"
           ]
         ],
-        "explanation": "Use the chunk you have just heard and read."
+        "explanation": "Use the chunk you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "rovně | doleva",
       "xp_reward": 10
     },
     {
-      "id": 14106,
-      "lesson_id": 1402,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Zahněte",
-          "doleva."
-        ],
-        "correct_order": [
-          0,
-          1
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Zahněte doleva.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14107,
-      "lesson_id": 1402,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Jděte rovně a zahněte doleva.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Jděte rovně a zahněte doleva.",
-      "xp_reward": 10
-    },
-    {
-      "id": 14108,
+      "id": 14216,
       "lesson_id": 1402,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -232,13 +591,14 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Jděte rovně a zahněte doleva.",
       "xp_reward": 15
     },
     {
-      "id": 14109,
+      "id": 14217,
       "lesson_id": 1402,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -276,77 +636,31 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Ne, není daleko. | Jděte rovně.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-130"
     },
     {
-      "id": 14110,
+      "id": 14218,
       "lesson_id": 1402,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
       "data": {
-        "type": "writing_task",
-        "prompt_en": "Write two short directions from one place to another.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Jděte rovně.",
-          "Zahněte doleva.",
-          "Zahněte doprava.",
-          "Je to daleko?"
+        "type": "fill_blank",
+        "sentence": "Do centra ___ tramvají. Do parku ___ pěšky.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "jedu"
+          ],
+          [
+            "jdu"
+          ]
         ],
-        "sample_answer": "Jděte rovně."
+        "explanation": "Use the chunk you have just heard and read."
       },
-      "answer_key": "Jděte rovně.",
-      "xp_reward": 0
-    },
-    {
-      "id": 14111,
-      "lesson_id": 1402,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Jděte rovně a potom zahněte doleva. Nádraží je tam.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Jděte rovně a potom zahněte doleva. Nádraží je tam.",
-              "Platím kartou.",
-              "Rád čtu."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Jděte rovně a potom zahněte doleva. Nádraží je tam.",
-      "xp_reward": 15
+      "answer_key": "jedu | jdu",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-132"
     }
-  ],
-  "can_do": "understand and give a short route.",
-  "new_language": [
-    "Jděte rovně.",
-    "Zahněte doleva.",
-    "Zahněte doprava.",
-    "Je to daleko?"
-  ],
-  "recycles": [
-    "places",
-    "Kde…?",
-    "time",
-    "simple questions",
-    "transport words"
-  ],
-  "exit_task": "understand and give a short route."
+  ]
 }
