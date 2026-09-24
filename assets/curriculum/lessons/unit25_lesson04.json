@@ -1,1 +1,272 @@
-{"id":2504,"unit_id":25,"title":"Choose and Introduce Yourself","description":"Complete a short work-or-study introduction mission.","lesson_type":"mission","order_in_unit":3,"duration_min":12,"is_review":true,"exercises":[{"id":25033,"lesson_id":2504,"type":"teaching","prompt":"Mission language","data":{"type":"teaching","style":"list","heading":"A short, confident introduction","body":"Say who you are, what you do or study, and why you are interested.","items":[{"cz":"Pracuju jako…","en":"I work as…"},{"cz":"Studuju…","en":"I study…"},{"cz":"Mám zkušenost s…","en":"I have experience with…"},{"cz":"Mám zájem o…","en":"I am interested in…"}]},"answer_key":"introduction chunks","xp_reward":0},{"id":25034,"lesson_id":2504,"type":"listening_comprehension","prompt":"Listen to the short interview","data":{"type":"listening_comprehension","prompt_en":"What experience does the applicant have?","transcript_cz":"Jmenuju se Eva a pracuju jako prodavačka. Mám zkušenost se zákazníky a mám zájem o práci v kavárně.","questions":[{"question_en":"What is Eva's current job?","options":["Shop assistant","Teacher","Doctor"],"correct_index":0},{"question_en":"What new work interests her?","options":["Café work","Driving","A hospital"],"correct_index":0}]},"answer_key":"shop assistant; café","xp_reward":15},{"id":25035,"lesson_id":2504,"type":"reading_comprehension","prompt":"Read two candidate profiles","data":{"type":"reading_comprehension","prompt_en":"Choose the profile that fits the advertised café role.","image":"assets/images/unit25/work_study_v1.webp","image_label":"Preparing for work or study","text_cz":"Marek studuje IT a hledá práci večer. Klára pracovala dva roky v restauraci, ráda komunikuje a může pracovat ráno. Pro ranní práci v kavárně je Klára vhodnější.","text_en":"Marek studies IT and seeks work in the evening. Klára worked for two years in a restaurant, likes communicating and can work mornings. For morning work in a café, Klára is more suitable.","questions":[{"question_en":"Who fits the morning café role?","options":["Klára","Marek","Neither"],"correct_index":0},{"question_en":"What experience does Klára have?","options":["Restaurant work","IT study","Driving"],"correct_index":0}]},"answer_key":"Klára; restaurant","xp_reward":15},{"id":25036,"lesson_id":2504,"type":"matching","prompt":"Match profile details","data":{"type":"matching","pairs":[{"left":"pracuju jako","right":"I work as"},{"left":"studoval/a jsem","right":"I studied"},{"left":"mám zkušenost","right":"I have experience"},{"left":"mám zájem","right":"I am interested"}]},"answer_key":"profile chunks","xp_reward":10},{"id":25037,"lesson_id":2504,"type":"fill_blank","prompt":"State the interest","data":{"type":"fill_blank","sentence":"Mám ___ o práci v kavárně.","blank_count":1,"blank_answers":[["zájem"]]},"answer_key":"zájem","xp_reward":10},{"id":25038,"lesson_id":2504,"type":"dialogue","prompt":"Answer the interview question","data":{"type":"dialogue","scenario":"A short interview","lines":[{"speaker":"interviewer","text":"Proč chcete tuto práci?"},{"speaker":"you","text":"___"}],"blank_answers":[["Mám zkušenost se zákazníky a mám zájem o práci v kavárně."]]},"answer_key":"interview answer","xp_reward":15},{"id":25039,"lesson_id":2504,"type":"writing_task","prompt":"Complete the mission","data":{"type":"writing_task","prompt_en":"Write a 3-sentence introduction for a job or course: name, current work/study, and relevant interest or experience.","prompt_cz":"Napište krátké představení.","min_words":14,"max_words":55,"key_vocab":["jmenuju se","pracuju/studuju","mám zájem"],"sample_answer":"Jmenuju se Anna. Studuju češtinu a pracuju v obchodě. Mám zájem o kurz komunikace."},"answer_key":"work-study mission","xp_reward":0},{"id":25040,"lesson_id":2504,"type":"speaking_task","prompt":"Complete the mission","data":{"type":"speaking_task","prompt_en":"Record a 20–30 second work or study introduction.","prompt_cz":"Nahrajte krátké představení.","min_duration_seconds":20,"max_duration_seconds":35,"expected_phrases":["jmenuju se","pracuju/studuju","mám zájem"]},"answer_key":"work-study mission","xp_reward":20}]}
+{
+  "id": 2504,
+  "unit_id": 25,
+  "title": "Choose and Introduce Yourself",
+  "description": "Introduce yourself for a job or course: work, study and experience.",
+  "lesson_type": "mission",
+  "order_in_unit": 3,
+  "duration_min": 13,
+  "can_do": "introduce yourself at an interview or in a course.",
+  "new_language": [
+    "Mám zájem o…",
+    "Mám zkušenost s…"
+  ],
+  "recycles": [
+    "Pracuju jako…",
+    "Studuju…",
+    "protože"
+  ],
+  "exit_task": "record a short introduction for a job.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 25400,
+      "lesson_id": 2504,
+      "type": "teaching",
+      "prompt": "Mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Your mission",
+        "body": "Close your notebook. Introduce yourself for a job or a course: what you do, what you study, your experience and what interests you.",
+        "items": [
+          {
+            "cz": "Pracuju jako…",
+            "en": "I work as…"
+          },
+          {
+            "cz": "Studuju…",
+            "en": "I study…"
+          },
+          {
+            "cz": "Mám zkušenost s…",
+            "en": "I have experience with…"
+          },
+          {
+            "cz": "Mám zájem o…",
+            "en": "I am interested in…"
+          }
+        ]
+      },
+      "answer_key": "introduction chunks",
+      "xp_reward": 0
+    },
+    {
+      "id": 25401,
+      "lesson_id": 2504,
+      "type": "reading_comprehension",
+      "prompt": "Read two candidate profiles",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Choose the profile that fits the advertised café role.",
+        "image": "assets/images/unit25/work_study_v1.webp",
+        "image_label": "Preparing for work or study",
+        "text_cz": "Marek studuje IT a hledá práci večer. Klára pracovala dva roky v restauraci, ráda komunikuje a může pracovat ráno. Pro ranní práci v kavárně je Klára vhodnější.",
+        "text_en": "Marek studies IT and seeks work in the evening. Klára worked for two years in a restaurant, likes communicating and can work mornings. For morning work in a café, Klára is more suitable.",
+        "questions": [
+          {
+            "question_en": "Who fits the morning café role?",
+            "options": [
+              "Klára",
+              "Marek",
+              "Neither"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What experience does Klára have?",
+            "options": [
+              "Restaurant work",
+              "IT study",
+              "Driving"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Klára; restaurant",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-241"
+    },
+    {
+      "id": 25402,
+      "lesson_id": 2504,
+      "type": "reading_comprehension",
+      "prompt": "Read the short job advert",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Find the role, schedule and key requirement.",
+        "image": "assets/images/unit25/work_study_v1.webp",
+        "image_label": "Discussing a work and study plan",
+        "text_cz": "Malá kavárna hledá baristu nebo baristku. Práce je pět dní v týdnu, ráno nebo odpoledne. Potřebujeme člověka, který rád komunikuje se zákazníky. Zkušenost je výhodou, ale není nutná.",
+        "text_en": "A small café is looking for a barista. The work is five days a week, mornings or afternoons. We need someone who likes communicating with customers. Experience is an advantage but not necessary.",
+        "questions": [
+          {
+            "question_en": "What job is offered?",
+            "options": [
+              "Barista",
+              "Doctor",
+              "Driver"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Is experience required?",
+            "options": [
+              "No, it is an advantage",
+              "Yes, always",
+              "Only at night"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "barista; advantage",
+      "xp_reward": 15
+    },
+    {
+      "id": 25403,
+      "lesson_id": 2504,
+      "type": "fill_blank",
+      "prompt": "Complete the advert",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Kurz češtiny ___ v září.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "začíná"
+          ]
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "začíná",
+      "xp_reward": 10
+    },
+    {
+      "id": 25404,
+      "lesson_id": 2504,
+      "type": "fill_blank",
+      "prompt": "State the interest",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Mám ___ o práci v kavárně.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "zájem"
+          ]
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "zájem",
+      "xp_reward": 10
+    },
+    {
+      "id": 25405,
+      "lesson_id": 2504,
+      "type": "dialogue",
+      "prompt": "Answer the interview question",
+      "data": {
+        "type": "dialogue",
+        "scenario": "A short interview",
+        "lines": [
+          {
+            "speaker": "interviewer",
+            "text": "Proč chcete tuto práci?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Mám zkušenost se zákazníky a mám zájem o práci v kavárně."
+          ]
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "interview answer",
+      "xp_reward": 15
+    },
+    {
+      "id": 25406,
+      "lesson_id": 2504,
+      "type": "writing_task",
+      "prompt": "Complete the mission",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a 3-sentence introduction for a job or course: name, current work/study, and relevant interest or experience.",
+        "prompt_cz": "Napište krátké představení.",
+        "min_words": 14,
+        "max_words": 55,
+        "key_vocab": [
+          "jmenuju se",
+          "pracuju/studuju",
+          "mám zájem"
+        ],
+        "sample_answer": "Jmenuju se Anna. Studuju češtinu a pracuju v obchodě. Mám zájem o kurz komunikace.",
+        "targets": "vocab"
+      },
+      "answer_key": "work-study mission",
+      "xp_reward": 0
+    },
+    {
+      "id": 25407,
+      "lesson_id": 2504,
+      "type": "speaking_task",
+      "prompt": "Complete the mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second work or study introduction.",
+        "prompt_cz": "Nahrajte krátké představení.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "jmenuju se",
+          "pracuju/studuju",
+          "mám zájem"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "work-study mission",
+      "xp_reward": 20
+    },
+    {
+      "id": 25408,
+      "lesson_id": 2504,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 25 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, correct any mistakes, then tick your Check box.",
+        "items": [
+          {
+            "cz": "Pracuju jako… · Jsem učitelem.",
+            "en": "my job"
+          },
+          {
+            "cz": "studenti, kolegové, učitelé",
+            "en": "plural of people"
+          },
+          {
+            "cz": "Učím se češtinu. Studuju na…",
+            "en": "study"
+          },
+          {
+            "cz": "Mám zkušenost s… · Mám zájem o…",
+            "en": "interview"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    }
+  ]
+}

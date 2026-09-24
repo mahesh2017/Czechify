@@ -1,1 +1,384 @@
-{"id":2503,"unit_id":25,"title":"Read a Job or Course Advert","description":"Find the important details in a practical work or study advert.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[{"id":25025,"lesson_id":2503,"type":"teaching","prompt":"Read for the useful details","data":{"type":"teaching","style":"list","heading":"What to look for","body":"You do not need every word: find the role, place, time and requirement.","items":[{"cz":"Hledáme asistenta/asistentku.","en":"We are looking for an assistant."},{"cz":"Práce je od pondělí do pátku.","en":"The work is Monday to Friday."},{"cz":"Potřebujeme dobrou češtinu.","en":"We need good Czech."},{"cz":"Kurz začíná v září.","en":"The course starts in September."}]},"answer_key":"advert chunks","xp_reward":0},{"id":25026,"lesson_id":2503,"type":"listening_comprehension","prompt":"Listen to the course enquiry","data":{"type":"listening_comprehension","prompt_en":"When does the course begin and what does the caller ask?","transcript_cz":"Dobrý den, kurz češtiny začíná v září. Chtěla bych vědět, jestli je ještě volné místo.","questions":[{"question_en":"When does it start?","options":["In September","Tomorrow","In winter"],"correct_index":0},{"question_en":"What does the caller ask?","options":["If there is a place","For medicine","For directions"],"correct_index":0}]},"answer_key":"September; available place","xp_reward":15},{"id":25027,"lesson_id":2503,"type":"reading_comprehension","prompt":"Read the short job advert","data":{"type":"reading_comprehension","prompt_en":"Find the role, schedule and key requirement.","image":"assets/images/unit25/work_study_v1.webp","image_label":"Discussing a work and study plan","text_cz":"Malá kavárna hledá baristu nebo baristku. Práce je pět dní v týdnu, ráno nebo odpoledne. Potřebujeme člověka, který rád komunikuje se zákazníky. Zkušenost je výhodou, ale není nutná.","text_en":"A small café is looking for a barista. The work is five days a week, mornings or afternoons. We need someone who likes communicating with customers. Experience is an advantage but not necessary.","questions":[{"question_en":"What job is offered?","options":["Barista","Doctor","Driver"],"correct_index":0},{"question_en":"Is experience required?","options":["No, it is an advantage","Yes, always","Only at night"],"correct_index":0}]},"answer_key":"barista; advantage","xp_reward":15},{"id":25028,"lesson_id":2503,"type":"matching","prompt":"Match advert details","data":{"type":"matching","pairs":[{"left":"hledáme","right":"we are looking for"},{"left":"zkušenost","right":"experience"},{"left":"volné místo","right":"available place"},{"left":"odpoledne","right":"afternoon"}]},"answer_key":"advert vocabulary","xp_reward":10},{"id":25029,"lesson_id":2503,"type":"fill_blank","prompt":"Complete the advert","data":{"type":"fill_blank","sentence":"Kurz češtiny ___ v září.","blank_count":1,"blank_answers":[["začíná"]]},"answer_key":"začíná","xp_reward":10},{"id":25030,"lesson_id":2503,"type":"dialogue","prompt":"Ask about the advert","data":{"type":"dialogue","scenario":"Calling about a course","lines":[{"speaker":"you","text":"___"},{"speaker":"office","text":"Ano, ještě máme volné místo."}],"blank_answers":[["Je ještě volné místo v kurzu?","Chtěl/a bych se zeptat na kurz."]]},"answer_key":"course enquiry","xp_reward":15},{"id":25031,"lesson_id":2503,"type":"writing_task","prompt":"Write a short enquiry","data":{"type":"writing_task","prompt_en":"Write 2–3 sentences asking about a job or course: say what interests you and ask one practical question.","prompt_cz":"Napište krátký dotaz.","min_words":10,"max_words":45,"key_vocab":["mám zájem","volné místo","začíná"],"sample_answer":"Mám zájem o kurz češtiny. Je ještě volné místo? Kdy kurz začíná?"},"answer_key":"advert enquiry","xp_reward":0},{"id":25032,"lesson_id":2503,"type":"speaking_task","prompt":"Ask about the opportunity","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds asking about a job or course.","prompt_cz":"Nahrajte krátký dotaz.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["mám zájem","volné místo","kdy"]},"answer_key":"opportunity enquiry","xp_reward":20}]}
+{
+  "id": 2503,
+  "unit_id": 25,
+  "title": "Read a Job or Course Advert",
+  "description": "Study language: učit se, studovat na, zkouška z…, and a practical advert.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "can_do": "talk about what you study and find the key facts in an advert.",
+  "new_language": [
+    "učit se češtinu",
+    "studovat na univerzitě",
+    "zkouška z matematiky"
+  ],
+  "recycles": [
+    "na + locative (U18)",
+    "z + genitive (U16)"
+  ],
+  "exit_task": "ask about a job or course.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 25300,
+      "lesson_id": 2503,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “I work as a teacher”, “my colleagues” and “three students” in Czech. Then one line from Unit 24: I have a headache.",
+        "items": [
+          {
+            "cz": "Pracuju jako učitel/ka.",
+            "en": "I work as a teacher."
+          },
+          {
+            "cz": "moji kolegové",
+            "en": "my colleagues"
+          },
+          {
+            "cz": "tři studenti",
+            "en": "three students"
+          },
+          {
+            "cz": "Bolí mě hlava.",
+            "en": "I have a headache."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 25301,
+      "lesson_id": 2503,
+      "type": "teaching",
+      "prompt": "Study: učit se, studovat, zkouška",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-242",
+        "rule_step": 1,
+        "heading": "Study: učit se, studovat, zkouška",
+        "items": [
+          {
+            "cz": "Moje dcera studuje na gymnáziu.",
+            "en": "My daughter studies at a grammar school."
+          },
+          {
+            "cz": "Zítra mám zkoušku z matematiky.",
+            "en": "Tomorrow I have a maths exam."
+          }
+        ],
+        "say": "učit se + what you learn: Učím se češtinu, or Učím se česky. studovat na + the school: Studuju na univerzitě. An exam in a subject: zkouška z matematiky.",
+        "table": [
+          [
+            "Učím se češtinu.",
+            "I am learning Czech."
+          ],
+          [
+            "Studuju na univerzitě.",
+            "I study at university."
+          ],
+          [
+            "Studuju medicínu.",
+            "I study medicine."
+          ],
+          [
+            "zkouška z češtiny",
+            "a Czech exam"
+          ],
+          [
+            "Udělal/a jsem zkoušku.",
+            "I passed the exam."
+          ],
+          [
+            "kurz češtiny",
+            "a Czech course"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Moje dcera studuje na gymnáziu.",
+            "en": "My daughter studies at a grammar school."
+          },
+          {
+            "cz": "Zítra mám zkoušku z matematiky.",
+            "en": "Tomorrow I have a maths exam."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Studuju v univerzitě.",
+          "right": "Studuju na univerzitě."
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 25302,
+      "lesson_id": 2503,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Studuju ___ univerzitě.",
+        "question_en": "I study at university.",
+        "options": [
+          "na",
+          "v",
+          "do"
+        ],
+        "correct_index": 0,
+        "explanation": "studovat na + locative: na univerzitě."
+      },
+      "answer_key": "na",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-242"
+    },
+    {
+      "id": 25303,
+      "lesson_id": 2503,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write two true sentences: what you study or learn, and one exam or course.",
+        "items": [
+          {
+            "cz": "Učím se česky v kurzu.",
+            "en": "I am learning Czech in a course."
+          },
+          {
+            "cz": "V dubnu mám zkoušku z češtiny.",
+            "en": "In April I have a Czech exam."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 25304,
+      "lesson_id": 2503,
+      "type": "fill_blank",
+      "prompt": "Fill in the accusative form of 'čeština' (Czech language): 'Učím se ___.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Učím se ___. (čeština — accusative)",
+        "blank_count": 1,
+        "explanation": "'Učit se' takes the accusative case for the thing being learned: čeština → češtinu. 'Učím se češtinu.' = I am learning Czech. You can also say 'Učím se česky' (with the adverb 'česky' = in Czech).",
+        "blank_answers": [
+          [
+            "češtinu"
+          ]
+        ]
+      },
+      "answer_key": "češtinu",
+      "grammar_rule_id": "GR-242",
+      "xp_reward": 15
+    },
+    {
+      "id": 25305,
+      "lesson_id": 2503,
+      "type": "fill_blank",
+      "prompt": "Fill in the correct form of 'studovat' (to study) for 'ona': 'Ona ___ na gymnáziu.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Ona ___ na gymnáziu. (studovat — 3rd person singular)",
+        "blank_count": 1,
+        "explanation": "'Studovat' is a regular -ovat verb. 3rd person singular: studuje. 'Ona studuje na gymnáziu.' = She studies at the grammar school. 'Na' + locative: gymnázium → gymnáziu.",
+        "blank_answers": [
+          [
+            "studuje"
+          ]
+        ]
+      },
+      "answer_key": "studuje",
+      "grammar_rule_id": "GR-242",
+      "xp_reward": 15
+    },
+    {
+      "id": 25306,
+      "lesson_id": 2503,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'I am learning Czech.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "I am learning Czech.",
+        "accepted_answers": [
+          "Učím se češtinu.",
+          "Učím se česky.",
+          "Učím se český jazyk."
+        ],
+        "grammar_note": "'Učit se' + accusative: 'Učím se češtinu.' (čeština → češtinu). You can also use the adverb form: 'Učím se česky.' Both are common. 'Učím' = 1st person singular of 'učit se'."
+      },
+      "answer_key": "Učím se češtinu.",
+      "grammar_rule_id": "GR-242",
+      "xp_reward": 10
+    },
+    {
+      "id": 25307,
+      "lesson_id": 2503,
+      "type": "dialogue",
+      "prompt": "Complete the dialogue between two students talking about school.",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Ve škole — At school. Two students discuss their subjects and an upcoming exam.",
+        "lines": [
+          {
+            "speaker": "person_a",
+            "text": "Jaké předměty máš dnes?"
+          },
+          {
+            "speaker": "person_b",
+            "text": "___"
+          },
+          {
+            "speaker": "person_a",
+            "text": "Já mám historii a angličtinu. Máme zítra zkoušku?"
+          },
+          {
+            "speaker": "person_b",
+            "text": "Ano, máme zkoušku z matematiky. Musím se hodně učit."
+          }
+        ],
+        "explanation": "'Jaké předměty' = which subjects (předmět = subject). 'Mám matematiku a fyziku' = I have math and physics (accusative after 'mít'). 'Zkouška z matematiky' = exam in math (z + genitive). 'Musím se hodně učit' = I have to study a lot.",
+        "blank_answers": [
+          [
+            "Mám matematiku a fyziku.",
+            "Mám matematiku a fyziku. A ty?",
+            "Mám matematiku a fyziku. A co ty?"
+          ]
+        ]
+      },
+      "answer_key": "Mám matematiku a fyziku. A ty?",
+      "grammar_rule_id": "GR-242",
+      "xp_reward": 25
+    },
+    {
+      "id": 25308,
+      "lesson_id": 2503,
+      "type": "error_correction",
+      "prompt": "Find and correct the error in this sentence.",
+      "data": {
+        "type": "error_correction",
+        "sentence_with_error": "Studuju na škola.",
+        "hint": "Think about which case 'na' requires for locations.",
+        "accepted_answers": [
+          "Studuju na škole.",
+          "Studuji na škole."
+        ],
+        "explanation": "'Na' + locative case for institutions/locations: škola → škole. 'Studuju na škole.' = I study at school. The error was using the nominative 'škola' instead of the locative 'škole'. Similarly: 'na univerzitě', 'na gymnáziu'.",
+        "correct_sentence_cz": "Studuju na škole."
+      },
+      "answer_key": "Studuju na škole.",
+      "grammar_rule_id": "GR-242",
+      "xp_reward": 15
+    },
+    {
+      "id": 25309,
+      "lesson_id": 2503,
+      "type": "dictation",
+      "prompt": "Listen and write what you hear.",
+      "data": {
+        "type": "dictation",
+        "audio_hash": "placeholder_25023",
+        "expected_text": "Učím se česky na univerzitě. Máme zkoušku z matematiky.",
+        "language": "cs-CZ",
+        "note": "Listen for 'učím se' (I learn), 'na univerzitě' (at the university — na + locative), 'zkoušku z matematiky' (exam in math — z + genitive)."
+      },
+      "answer_key": "Učím se česky na univerzitě. Máme zkoušku z matematiky.",
+      "grammar_rule_id": "GR-242",
+      "xp_reward": 20
+    },
+    {
+      "id": 25310,
+      "lesson_id": 2503,
+      "type": "listening_comprehension",
+      "prompt": "Listen to the course enquiry",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "When does the course begin and what does the caller ask?",
+        "transcript_cz": "Dobrý den, kurz češtiny začíná v září. Chtěla bych vědět, jestli je ještě volné místo.",
+        "questions": [
+          {
+            "question_en": "When does it start?",
+            "options": [
+              "In September",
+              "Tomorrow",
+              "In winter"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does the caller ask?",
+            "options": [
+              "If there is a place",
+              "For medicine",
+              "For directions"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "September; available place",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-242"
+    },
+    {
+      "id": 25311,
+      "lesson_id": 2503,
+      "type": "writing_task",
+      "prompt": "Write a short enquiry",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 sentences asking about a job or course: say what interests you and ask one practical question.",
+        "prompt_cz": "Napište krátký dotaz.",
+        "min_words": 10,
+        "max_words": 45,
+        "key_vocab": [
+          "mám zájem",
+          "volné místo",
+          "začíná"
+        ],
+        "sample_answer": "Mám zájem o kurz češtiny. Je ještě volné místo? Kdy kurz začíná?",
+        "targets": "vocab"
+      },
+      "answer_key": "advert enquiry",
+      "xp_reward": 0
+    },
+    {
+      "id": 25312,
+      "lesson_id": 2503,
+      "type": "speaking_task",
+      "prompt": "Ask about the opportunity",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds asking about a job or course.",
+        "prompt_cz": "Nahrajte krátký dotaz.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "mám zájem",
+          "volné místo",
+          "kdy"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "opportunity enquiry",
+      "xp_reward": 20
+    }
+  ]
+}

@@ -3004,16 +3004,22 @@
       "description": "Professions, workplace, education, instrumental case for professions",
       "grammar_rules": [
         {
+          "id": "GR-241",
+          "name": "pracovat jako — describing one's job",
+          "pattern": "pracovat jako + nominative noun — Pracuji jako učitel. / Dělá co + accusative",
+          "example": "Pracuji jako programátor. — I work as a programmer."
+        },
+        {
           "id": "GR-240",
           "name": "Profession with být + instrumental",
           "pattern": "být (conjugated) + noun in instrumental case — jsem učitelem, je lékařem",
           "example": "Jsem učitelem. — I am a teacher."
         },
         {
-          "id": "GR-241",
-          "name": "pracovat jako — describing one's job",
-          "pattern": "pracovat jako + nominative noun — Pracuji jako učitel. / Dělá co + accusative",
-          "example": "Pracuji jako programátor. — I work as a programmer."
+          "id": "GR-243",
+          "name": "Plural of people — studenti, kolegové, učitelé",
+          "pattern": "Masculine people (and mixed groups): -i (studenti, lékaři, programátoři), -ové (kolegové, synové), -é (učitelé, obyvatelé). Object form: -y or -e (Znám studenty. Mám dobré učitele.).",
+          "example": "V kanceláři pracují tři programátoři. — Three programmers work in the office."
         },
         {
           "id": "GR-242",
@@ -3075,7 +3081,103 @@
         "Používání křestních jmen s kolegy",
         "Ignorování akademických titulů"
       ],
-      "study_tip": "Napište si český životopis. Hledejte pracovní inzeráty na jobs.cz a učte se slovíčka."
+      "study_tip": "Napište si český životopis. Hledejte pracovní inzeráty na jobs.cz a učte se slovíčka.",
+      "notebook_page": {
+        "title_cz": "Práce a studium",
+        "title_en": "Work and study",
+        "can_do": {
+          "cz": "Řeknu, co dělám, co studuju a s kým pracuju.",
+          "en": "I can say what I do, what I study and who I work with."
+        },
+        "words": [
+          {
+            "cz": "Pracuju jako učitel / učitelka.",
+            "en": "I work as a teacher."
+          },
+          {
+            "cz": "Jsem programátor.",
+            "en": "I am a programmer."
+          },
+          {
+            "cz": "Studuju na univerzitě.",
+            "en": "I study at university."
+          },
+          {
+            "cz": "Učím se česky.",
+            "en": "I am learning Czech."
+          },
+          {
+            "cz": "Mám zkoušku z češtiny.",
+            "en": "I have a Czech exam."
+          },
+          {
+            "cz": "Hledám práci.",
+            "en": "I am looking for work."
+          },
+          {
+            "cz": "Mám zkušenost s…",
+            "en": "I have experience with…"
+          },
+          {
+            "cz": "Moji kolegové jsou milí.",
+            "en": "My colleagues are nice."
+          }
+        ],
+        "pattern": {
+          "name": "Jobs and the plural of people",
+          "rule_plain": "Pracuju jako + job (no change). Jsem + job in the instrumental (-em, -ou). People in the plural: -i, -ové, -é; as the object -y, -e.",
+          "table": [
+            [
+              "Pracuju jako…",
+              "učitel / učitelka"
+            ],
+            [
+              "Jsem…",
+              "učitelem / učitelkou"
+            ],
+            [
+              "student",
+              "studenti"
+            ],
+            [
+              "kolega",
+              "kolegové"
+            ],
+            [
+              "učitel",
+              "učitelé"
+            ],
+            [
+              "object",
+              "studenty, kolegy, učitele"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "V kanceláři pracují tři programátoři.",
+              "en": "Three programmers work in the office."
+            },
+            {
+              "cz": "Studuju na univerzitě.",
+              "en": "I study at university."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Pracuju jako učitelem.",
+            "right": "Pracuju jako učitel."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Učím se česky v kurzu.",
+            "en": "I am learning Czech in a course."
+          },
+          {
+            "cz": "V dubnu mám zkoušku z češtiny.",
+            "en": "In April I have a Czech exam."
+          }
+        ]
+      }
     },
     {
       "unit_id": 26,

@@ -4196,7 +4196,52 @@
           "en": "We are students. (nominative — common in speech)"
         }
       ],
-      "unit_id": 25
+      "unit_id": 25,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "Jsem učitelem — the job with být",
+          "say": "With být you can give a job two ways: Jsem učitel or Jsem učitelem. The instrumental (-em, -ou) is a little more formal and very common in writing.",
+          "table": [
+            [
+              "učitel",
+              "Jsem učitelem."
+            ],
+            [
+              "učitelka",
+              "Jsem učitelkou."
+            ],
+            [
+              "lékař",
+              "Je lékařem."
+            ],
+            [
+              "prodavačka",
+              "Byla prodavačkou."
+            ],
+            [
+              "řidič",
+              "Chci být řidičem."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Můj bratr je inženýrem.",
+              "en": "My brother is an engineer."
+            },
+            {
+              "cz": "Chtěla bych být lékařkou.",
+              "en": "I would like to be a doctor."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jsem učitelkem.",
+            "right": "Jsem učitelkou."
+          }
+        }
+      ]
     },
     {
       "id": "GR-241",
@@ -4222,7 +4267,53 @@
           "en": "What do you do for a living?"
         }
       ],
-      "unit_id": 25
+      "unit_id": 25,
+      "lecture": [
+        {
+          "heading": "Pracuju jako… — my job",
+          "say": "The easiest way to give your job is Pracuju jako + the job, unchanged. Women use the female form: učitelka, prodavačka, lékařka.",
+          "table": [
+            [
+              "učitel",
+              "učitelka"
+            ],
+            [
+              "lékař",
+              "lékařka"
+            ],
+            [
+              "prodavač",
+              "prodavačka"
+            ],
+            [
+              "programátor",
+              "programátorka"
+            ],
+            [
+              "kuchař",
+              "kuchařka"
+            ],
+            [
+              "řidič",
+              "řidička"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Pracuju jako učitelka.",
+              "en": "I work as a teacher."
+            },
+            {
+              "cz": "Můj muž pracuje jako řidič.",
+              "en": "My husband works as a driver."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Pracuju jako učitelem.",
+            "right": "Pracuju jako učitel."
+          }
+        }
+      ]
     },
     {
       "id": "GR-242",
@@ -4248,7 +4339,128 @@
           "en": "The teacher teaches the students. (no 'se')"
         }
       ],
-      "unit_id": 25
+      "unit_id": 25,
+      "lecture": [
+        {
+          "heading": "Study: učit se, studovat, zkouška",
+          "say": "učit se + what you learn: Učím se češtinu, or Učím se česky. studovat na + the school: Studuju na univerzitě. An exam in a subject: zkouška z matematiky.",
+          "table": [
+            [
+              "Učím se češtinu.",
+              "I am learning Czech."
+            ],
+            [
+              "Studuju na univerzitě.",
+              "I study at university."
+            ],
+            [
+              "Studuju medicínu.",
+              "I study medicine."
+            ],
+            [
+              "zkouška z češtiny",
+              "a Czech exam"
+            ],
+            [
+              "Udělal/a jsem zkoušku.",
+              "I passed the exam."
+            ],
+            [
+              "kurz češtiny",
+              "a Czech course"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Moje dcera studuje na gymnáziu.",
+              "en": "My daughter studies at a grammar school."
+            },
+            {
+              "cz": "Zítra mám zkoušku z matematiky.",
+              "en": "Tomorrow I have a maths exam."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Studuju v univerzitě.",
+            "right": "Studuju na univerzitě."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-243",
+      "rule_name": "Plural of people — studenti, kolegové, učitelé",
+      "pattern": "Masculine people (and mixed groups): -i (studenti, lékaři, programátoři), -ové (kolegové, synové), -é (učitelé, obyvatelé). Object form: -y or -e (Znám studenty. Mám dobré učitele.).",
+      "explanation": "For groups of men, or of men and women together, the plural of people ends in -i, -ové or -é. Before -i some consonants soften: r → ř (programátoři), k → c (kluci), ch → š (Češi). As the object the ending is -y or -e: Znám ty studenty, Mám milé kolegy. After 2, 3, 4 use the nominative plural: tři programátoři.",
+      "case_affected": "nominative, accusative",
+      "examples": [
+        {
+          "cz": "V kanceláři pracují tři programátoři.",
+          "en": "Three programmers work in the office."
+        },
+        {
+          "cz": "Mám milé kolegy.",
+          "en": "I have nice colleagues."
+        }
+      ],
+      "unit_id": 25,
+      "concept_keys": [
+        "plural_nom_acc"
+      ],
+      "lecture": [
+        {
+          "heading": "More than one person: studenti, učitelé",
+          "say": "For men and mixed groups the plural ends in -i, -ové or -é: studenti, kolegové, učitelé. r becomes ř: programátoři. As the object: Znám studenty.",
+          "table": [
+            [
+              "student",
+              "studenti"
+            ],
+            [
+              "lékař",
+              "lékaři"
+            ],
+            [
+              "programátor",
+              "programátoři"
+            ],
+            [
+              "kolega",
+              "kolegové"
+            ],
+            [
+              "učitel",
+              "učitelé"
+            ],
+            [
+              "Čech",
+              "Češi"
+            ],
+            [
+              "object: student",
+              "Znám studenty."
+            ],
+            [
+              "object: kolega",
+              "Mám milé kolegy."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "V kanceláři pracují tři programátoři.",
+              "en": "Three programmers work in the office."
+            },
+            {
+              "cz": "Mám milé kolegy.",
+              "en": "I have nice colleagues."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Moji kolega jsou milí.",
+            "right": "Moji kolegové jsou milí."
+          }
+        }
+      ]
     },
     {
       "id": "GR-250",

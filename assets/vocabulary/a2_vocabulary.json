@@ -4067,7 +4067,7 @@
     "unit_id": 25,
     "example_cz": "Účetní připravuje daňové přiznání.",
     "example_en": "The accountant is preparing the tax return.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1399,
@@ -4078,7 +4078,7 @@
     "unit_id": 25,
     "example_cz": "Sekretář spravuje schůzky.",
     "example_en": "The secretary manages appointments.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1400,
@@ -4089,7 +4089,7 @@
     "unit_id": 25,
     "example_cz": "Pracuji v mezinárodní firmě.",
     "example_en": "I work in an international company.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1401,
@@ -4100,7 +4100,7 @@
     "unit_id": 25,
     "example_cz": "Naše kancelář je v centru města.",
     "example_en": "Our office is in the city center.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1402,
@@ -4111,7 +4111,7 @@
     "unit_id": 25,
     "example_cz": "Továrna vyrábí autodíly.",
     "example_en": "The factory produces car parts.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1403,
@@ -4122,7 +4122,7 @@
     "unit_id": 25,
     "example_cz": "Obchod je otevřený do devíti.",
     "example_en": "The shop is open until nine.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1404,
@@ -4133,7 +4133,7 @@
     "unit_id": 25,
     "example_cz": "Restaurace má dobrou kuchyni.",
     "example_en": "The restaurant has good cuisine.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1405,
@@ -4144,7 +4144,7 @@
     "unit_id": 25,
     "example_cz": "Pracuje v nové nemocnici.",
     "example_en": "She works in a new hospital.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1406,
@@ -4155,7 +4155,7 @@
     "unit_id": 25,
     "example_cz": "Naše škola má dobré učitele.",
     "example_en": "Our school has good teachers.",
-    "lesson_id": 2501
+    "lesson_id": 2503
   },
   {
     "id": 1407,
@@ -4166,7 +4166,7 @@
     "unit_id": 25,
     "example_cz": "Firma má sto zaměstnanců.",
     "example_en": "The company has a hundred employees.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1408,
@@ -4177,7 +4177,7 @@
     "unit_id": 25,
     "example_cz": "Můj zaměstnavatel je férový.",
     "example_en": "My employer is fair.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1409,
@@ -4188,7 +4188,7 @@
     "unit_id": 25,
     "example_cz": "Dostal jsem vyšší plat.",
     "example_en": "I got a higher salary.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1410,
@@ -4199,7 +4199,7 @@
     "unit_id": 25,
     "example_cz": "Minimální mzda stoupla.",
     "example_en": "The minimum wage has increased.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1411,
@@ -4210,7 +4210,7 @@
     "unit_id": 25,
     "example_cz": "Podepsal jsem pracovní smlouvu.",
     "example_en": "I signed a work contract.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1412,
@@ -4221,7 +4221,7 @@
     "unit_id": 25,
     "example_cz": "Mám plný úvazek.",
     "example_en": "I have a full-time job.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1413,
@@ -4232,7 +4232,7 @@
     "unit_id": 25,
     "example_cz": "Studuji na univerzitě v Praze.",
     "example_en": "I study at a university in Prague.",
-    "lesson_id": 2502
+    "lesson_id": 2503
   },
   {
     "id": 1414,
@@ -4243,7 +4243,7 @@
     "unit_id": 25,
     "example_cz": "Medická fakulta je prestižní.",
     "example_en": "The medical faculty is prestigious.",
-    "lesson_id": 2502
+    "lesson_id": 2503
   },
   {
     "id": 1415,
@@ -4254,7 +4254,7 @@
     "unit_id": 25,
     "example_cz": "Student píše zkoušku.",
     "example_en": "The student is writing an exam.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1416,
@@ -4265,7 +4265,7 @@
     "unit_id": 25,
     "example_cz": "Zkouška bude příští týden.",
     "example_en": "The exam will be next week.",
-    "lesson_id": 2502
+    "lesson_id": 2503
   },
   {
     "id": 1417,
@@ -4276,7 +4276,7 @@
     "unit_id": 25,
     "example_cz": "Matematika je můj oblíbený předmět.",
     "example_en": "Mathematics is my favorite subject.",
-    "lesson_id": 2502
+    "lesson_id": 2503
   },
   {
     "id": 1418,
@@ -4287,7 +4287,7 @@
     "unit_id": 25,
     "example_cz": "Učím se česky dva roky.",
     "example_en": "I have been learning Czech for two years.",
-    "lesson_id": 2502
+    "lesson_id": 2503
   },
   {
     "id": 1419,
@@ -4298,7 +4298,7 @@
     "unit_id": 25,
     "example_cz": "Studuje medicínu v Praze.",
     "example_en": "She studies medicine in Prague.",
-    "lesson_id": 2502
+    "lesson_id": 2503
   },
   {
     "id": 1420,
@@ -4309,29 +4309,7 @@
     "unit_id": 25,
     "example_cz": "Jsem ve druhém ročníku.",
     "example_en": "I am in the second year.",
-    "lesson_id": 2502
-  },
-  {
-    "id": 1421,
-    "word_cz": "bakalář",
-    "word_en": "bachelor (degree)",
-    "ipa": "ˈbakalaːr̝",
-    "gender": "masculine animate",
-    "unit_id": 25,
-    "example_cz": "Mám bakalářský titul.",
-    "example_en": "I have a bachelor's degree.",
-    "lesson_id": 2502
-  },
-  {
-    "id": 1422,
-    "word_cz": "magistr",
-    "word_en": "master (degree)",
-    "ipa": "ˈmaɡɪstr",
-    "gender": "masculine animate",
-    "unit_id": 25,
-    "example_cz": "Studuji magisterský program.",
-    "example_en": "I am studying a master's program.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1423,
@@ -4342,7 +4320,7 @@
     "unit_id": 25,
     "example_cz": "Píše doktorskou práci.",
     "example_en": "He is writing a doctoral thesis.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1424,
@@ -4353,7 +4331,7 @@
     "unit_id": 25,
     "example_cz": "Profesor přednáší filozofii.",
     "example_en": "The professor teaches philosophy.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1425,
@@ -4375,7 +4353,7 @@
     "unit_id": 25,
     "example_cz": "Vyřizuji papíry na úřadě.",
     "example_en": "I am handling paperwork at the office.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1427,
@@ -4386,7 +4364,7 @@
     "unit_id": 25,
     "example_cz": "Organizujeme konferenci.",
     "example_en": "We are organizing a conference.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1428,
@@ -4397,7 +4375,7 @@
     "unit_id": 25,
     "example_cz": "On řídí celý tým.",
     "example_en": "He manages the whole team.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1429,
@@ -4408,7 +4386,7 @@
     "unit_id": 25,
     "example_cz": "Plánujeme nový projekt.",
     "example_en": "We are planning a new project.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1430,
@@ -4419,7 +4397,7 @@
     "unit_id": 25,
     "example_cz": "Mám schůzku v deset hodin.",
     "example_en": "I have a meeting at ten o'clock.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1431,
@@ -4430,7 +4408,7 @@
     "unit_id": 25,
     "example_cz": "Porada trvala dvě hodiny.",
     "example_en": "The meeting lasted two hours.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1432,
@@ -4441,7 +4419,7 @@
     "unit_id": 25,
     "example_cz": "Hledám práci v IT sektoru.",
     "example_en": "I am looking for a job in the IT sector.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1433,
@@ -4452,7 +4430,7 @@
     "unit_id": 25,
     "example_cz": "Poslal jsem životopis firmě.",
     "example_en": "I sent my resume to the company.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1434,
@@ -4463,7 +4441,7 @@
     "unit_id": 25,
     "example_cz": "Úspěšně jsem udělal pohovor.",
     "example_en": "I successfully passed the interview.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1435,
@@ -4474,7 +4452,7 @@
     "unit_id": 25,
     "example_cz": "Firma mi nabídla místo manažera.",
     "example_en": "The company offered me a manager position.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1436,
@@ -4485,7 +4463,7 @@
     "unit_id": 25,
     "example_cz": "Dojíždím do Prahy za prací.",
     "example_en": "I commute to Prague for work.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1437,
@@ -4496,7 +4474,7 @@
     "unit_id": 25,
     "example_cz": "Našel jsem nové zaměstnání.",
     "example_en": "I found a new job.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1438,
@@ -4507,7 +4485,7 @@
     "unit_id": 25,
     "example_cz": "Buduje si úspěšnou kariéru.",
     "example_en": "She is building a successful career.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1439,
@@ -4518,7 +4496,7 @@
     "unit_id": 25,
     "example_cz": "Mám pět let zkušeností.",
     "example_en": "I have five years of experience.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1440,
@@ -7708,7 +7686,7 @@
     "unit_id": 25,
     "example_cz": "Dostal jsem vyšší plat.",
     "example_en": "I got a higher salary.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1811,
@@ -7719,7 +7697,7 @@
     "unit_id": 25,
     "example_cz": "Minimální mzda stoupla.",
     "example_en": "The minimum wage has increased.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1812,
@@ -7730,7 +7708,7 @@
     "unit_id": 25,
     "example_cz": "Podepsal jsem pracovní smlouvu.",
     "example_en": "I signed an employment contract.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1813,
@@ -7741,7 +7719,7 @@
     "unit_id": 25,
     "example_cz": "Mám plný úvazek.",
     "example_en": "I have a full-time commitment.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1814,
@@ -7752,7 +7730,7 @@
     "unit_id": 25,
     "example_cz": "V červenci jedu na dovolenou.",
     "example_en": "In July I'm going on vacation.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1815,
@@ -7763,18 +7741,7 @@
     "unit_id": 25,
     "example_cz": "Jsem na nemocenské.",
     "example_en": "I'm on sick leave.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1816,
-    "word_cz": "přezkoušení",
-    "word_en": "examination, review",
-    "ipa": "prɲɛzkouʃɛɲiː",
-    "gender": "neuter",
-    "unit_id": 25,
-    "example_cz": "Studenti se bojí přezkoušení.",
-    "example_en": "Students are afraid of the examination.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1817,
@@ -7785,18 +7752,7 @@
     "unit_id": 25,
     "example_cz": "Zítra mám ústní zkoušku.",
     "example_en": "Tomorrow I have an oral exam.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1818,
-    "word_cz": "semestr",
-    "word_en": "semester",
-    "ipa": "sɛmɛstr",
-    "gender": "masculine inanimate",
-    "unit_id": 25,
-    "example_cz": "Letní semestr začíná v únoru.",
-    "example_en": "The summer semester starts in February.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1819,
@@ -7807,7 +7763,7 @@
     "unit_id": 25,
     "example_cz": "Přednáška začíná v devět hodin.",
     "example_en": "The lecture starts at nine o'clock.",
-    "lesson_id": 2501
+    "lesson_id": 2503
   },
   {
     "id": 1820,
@@ -7818,18 +7774,7 @@
     "unit_id": 25,
     "example_cz": "Seminář vede profesor Novák.",
     "example_en": "The seminar is led by Professor Novák.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1821,
-    "word_cz": "kredit",
-    "word_en": "credit (academic)",
-    "ipa": "krɛdɪt",
-    "gender": "masculine inanimate",
-    "unit_id": 25,
-    "example_cz": "Potřebuji získat dostatek kreditů.",
-    "example_en": "I need to earn enough credits.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1822,
@@ -7840,40 +7785,7 @@
     "unit_id": 25,
     "example_cz": "Dostal jsem diplom na promoce.",
     "example_en": "I received my diploma at the graduation.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1823,
-    "word_cz": "titul",
-    "word_en": "degree, title",
-    "ipa": "tɪtul",
-    "gender": "masculine inanimate",
-    "unit_id": 25,
-    "example_cz": "Získal jsem akademický titul.",
-    "example_en": "I earned an academic degree.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1824,
-    "word_cz": "bakalář",
-    "word_en": "bachelor (degree)",
-    "ipa": "bakalaːr",
-    "gender": "masculine animate",
-    "unit_id": 25,
-    "example_cz": "Studuji jako bakalář.",
-    "example_en": "I'm studying for a bachelor's degree.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1825,
-    "word_cz": "magistr",
-    "word_en": "master (degree)",
-    "ipa": "magɪstr",
-    "gender": "masculine animate",
-    "unit_id": 25,
-    "example_cz": "Po bakaláři chci dělat magistra.",
-    "example_en": "After my bachelor's I want to do a master's.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1826,
@@ -7884,7 +7796,7 @@
     "unit_id": 25,
     "example_cz": "Můj kamarád je doktor fyziky.",
     "example_en": "My friend is a doctor of physics.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1827,
@@ -7895,29 +7807,7 @@
     "unit_id": 25,
     "example_cz": "Profesor přednáší matematiku.",
     "example_en": "The professor teaches mathematics.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1828,
-    "word_cz": "děkan",
-    "word_en": "dean",
-    "ipa": "dɲɛkan",
-    "gender": "masculine animate",
-    "unit_id": 25,
-    "example_cz": "Děkan fakulty podepsal dokument.",
-    "example_en": "The dean of the faculty signed the document.",
-    "lesson_id": 2501
-  },
-  {
-    "id": 1829,
-    "word_cz": "rektor",
-    "word_en": "rector (university head)",
-    "ipa": "rɛktor",
-    "gender": "masculine animate",
-    "unit_id": 25,
-    "example_cz": "Rektor univerzity slavnostně promluvil.",
-    "example_en": "The rector of the university gave a speech.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1830,
@@ -7928,7 +7818,7 @@
     "unit_id": 25,
     "example_cz": "Můj kolega mi pomohl s projektem.",
     "example_en": "My colleague helped me with the project.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1831,
@@ -7939,7 +7829,7 @@
     "unit_id": 25,
     "example_cz": "Můj nadřízený je velmi tolerantní.",
     "example_en": "My boss is very tolerant.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1832,
@@ -7950,7 +7840,7 @@
     "unit_id": 25,
     "example_cz": "Má pětatřicet podřízených.",
     "example_en": "He has thirty-five subordinates.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1833,
@@ -7961,7 +7851,7 @@
     "unit_id": 25,
     "example_cz": "Pracuji na marketingovém oddělení.",
     "example_en": "I work in the marketing department.",
-    "lesson_id": 2501
+    "lesson_id": null
   },
   {
     "id": 1834,
@@ -7972,7 +7862,7 @@
     "unit_id": 25,
     "example_cz": "Ředitel firmy podepsal smlouvu.",
     "example_en": "The director of the company signed the contract.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1835,
