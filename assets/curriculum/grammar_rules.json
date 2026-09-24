@@ -1738,7 +1738,52 @@
           "en": "I'm going to the shop."
         }
       ],
-      "unit_id": 16
+      "unit_id": 16,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "Masculine words: -u, -e or -a",
+          "say": "Masculine things usually take -u or -e: bez cukru, do obchodu. People take -a: od bratra, u kamaráda.",
+          "table": [
+            [
+              "cukr",
+              "bez cukru"
+            ],
+            [
+              "obchod",
+              "z obchodu"
+            ],
+            [
+              "čaj",
+              "bez čaje"
+            ],
+            [
+              "bratr",
+              "od bratra"
+            ],
+            [
+              "kamarád",
+              "u kamaráda"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kávu bez cukru, prosím.",
+              "en": "Coffee without sugar, please."
+            },
+            {
+              "cz": "Mám dárek od kamaráda.",
+              "en": "I have a present from a friend."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Kávu bez cukr.",
+            "right": "Kávu bez cukru."
+          }
+        }
+      ]
     },
     {
       "id": "GR-151",
@@ -1760,7 +1805,56 @@
           "en": "I'm returning from the cinema."
         }
       ],
-      "unit_id": 16
+      "unit_id": 16,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "z, do, bez, od, u: feminine and neuter",
+          "say": "After z, do, bez, od and u, and after amounts, the word changes. Feminine -a becomes -y; neuter -o becomes -a.",
+          "table": [
+            [
+              "voda",
+              "trochu vody"
+            ],
+            [
+              "káva",
+              "bez kávy"
+            ],
+            [
+              "práce",
+              "do práce"
+            ],
+            [
+              "Praha",
+              "z Prahy"
+            ],
+            [
+              "mléko",
+              "litr mléka"
+            ],
+            [
+              "Brno",
+              "z Brna"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jsem z Prahy.",
+              "en": "I am from Prague."
+            },
+            {
+              "cz": "Jdu do práce.",
+              "en": "I am going to work."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jdu do práci.",
+            "right": "Jdu do práce."
+          }
+        }
+      ]
     },
     {
       "id": "GR-152",
@@ -1782,29 +1876,138 @@
           "en": "Five students are in the classroom."
         }
       ],
-      "unit_id": 16
+      "unit_id": 16,
+      "concept_keys": [
+        "plural_gen"
+      ],
+      "lecture": [
+        {
+          "heading": "Five and more: pět rohlíků, kilo jablek",
+          "say": "After five and more, and after amounts like kilo, hodně or málo, use the genitive plural: pět rohlíků, kilo jablek.",
+          "table": [
+            [
+              "rohlík",
+              "pět rohlíků"
+            ],
+            [
+              "jablko",
+              "kilo jablek"
+            ],
+            [
+              "bota",
+              "pět párů bot"
+            ],
+            [
+              "koruna",
+              "sto korun"
+            ],
+            [
+              "člověk",
+              "hodně lidí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Prosím kilo jablek.",
+              "en": "A kilo of apples, please."
+            },
+            {
+              "cz": "Stojí to sto korun.",
+              "en": "It costs a hundred crowns."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "pět rohlíky",
+            "right": "pět rohlíků"
+          }
+        }
+      ]
     },
     {
       "id": "GR-153",
-      "rule_name": "Negation and genitive",
-      "pattern": "Accusative objects become genitive when negated: Mám čas → Nemám času. Vidím knihu → Nevidím knihy.",
-      "explanation": "In Czech, when a verb that normally takes an accusative object is negated, the object often shifts to the genitive case. This is especially common with 'mít' (to have): Mám peníze → Nemám peněz, Mám čas → Nemám času. With other verbs: Vidím problém → Nevidím problému. This genitive of negation is a distinctive feature of Czech and other Slavic languages. It's more common in formal/written Czech; in spoken Czech, accusative is often retained.",
+      "rule_name": "Negation — the object does not change",
+      "pattern": "Mám čas → Nemám čas. Vidím knihu → Nevidím knihu. Only the verb takes ne-.",
+      "explanation": "In modern Czech a negative verb keeps the same object form: Nemám čas (I have no time), Nevidím knihu (I cannot see the book). Older Czech used the genitive after a negative verb (nemám času); you may meet it in old texts and set phrases, but do not use it yourself.",
       "case_affected": "genitive",
       "examples": [
         {
-          "cz": "Nemám peněz.",
-          "en": "I don't have money."
+          "cz": "Nemám čas.",
+          "en": "I don't have time."
         },
         {
-          "cz": "Nerozumím otázky.",
-          "en": "I don't understand the question."
-        },
-        {
-          "cz": "Nevidím žádného problému.",
-          "en": "I don't see any problem."
+          "cz": "Doma nemáme jablka.",
+          "en": "We don't have any apples at home."
         }
       ],
       "unit_id": 16
+    },
+    {
+      "id": "GR-155",
+      "rule_name": "Plural — jablka, rohlíky, boty",
+      "pattern": "Feminine -a → -y (bota → boty), -e stays (ulice → ulice). Neuter -o → -a (jablko → jablka). Masculine things → -y or -e (rohlík → rohlíky, pokoj → pokoje). The object form is the same. Numbers: dva rohlíky, dvě boty, dvě jablka.",
+      "explanation": "The nominative and accusative plural are the same for things: Mám boty. Kupuju boty. After 2, 3 and 4 use the plural too: dva rohlíky (masculine), dvě boty, dvě jablka (feminine and neuter take dvě). Adjectives follow: nové boty, velká jablka. People (masculine animate) are different and come in Unit 25.",
+      "case_affected": "nominative, accusative",
+      "examples": [
+        {
+          "cz": "Kupuju dva rohlíky a tři jablka.",
+          "en": "I am buying two rolls and three apples."
+        },
+        {
+          "cz": "Mám nové boty.",
+          "en": "I have new shoes."
+        }
+      ],
+      "unit_id": 16,
+      "concept_keys": [
+        "plural_nom_acc",
+        "adj_all_sg_plus_nom_gen_acc_pl"
+      ],
+      "lecture": [
+        {
+          "heading": "More than one: jablka, rohlíky, boty",
+          "say": "In the plural, feminine -a becomes -y, neuter -o becomes -a, masculine things take -y or -e. After 2, 3, 4 use this plural.",
+          "table": [
+            [
+              "bota",
+              "dvě boty"
+            ],
+            [
+              "jablko",
+              "dvě jablka"
+            ],
+            [
+              "rohlík",
+              "dva rohlíky"
+            ],
+            [
+              "pokoj",
+              "dva pokoje"
+            ],
+            [
+              "ulice",
+              "dvě ulice"
+            ],
+            [
+              "nová bota",
+              "nové boty"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kupuju dva rohlíky a tři jablka.",
+              "en": "I am buying two rolls and three apples."
+            },
+            {
+              "cz": "Mám nové boty.",
+              "en": "I have new shoes."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dva rohlík, prosím.",
+            "right": "Dva rohlíky, prosím."
+          }
+        }
+      ]
     },
     {
       "id": "GR-160",

@@ -1380,9 +1380,9 @@
     },
     {
       "unit_id": 16,
-      "title": "Genitive Case",
+      "title": "Amounts, From & Plural",
       "phase": "A2",
-      "description": "Possession, quantities, prepositions (bez, do, od, z), negation",
+      "description": "Genitive after z/do/bez and amounts; plural; pět rohlíků",
       "grammar_rules": [
         {
           "id": "GR-150",
@@ -1397,6 +1397,12 @@
           "example": "Bydlím u sestry. — I live at my sister's."
         },
         {
+          "id": "GR-155",
+          "name": "Plural — jablka, rohlíky, boty",
+          "pattern": "Feminine -a → -y (bota → boty), -e stays (ulice → ulice). Neuter -o → -a (jablko → jablka). Masculine things → -y or -e (rohlík → rohlíky, pokoj → pokoje). The object form is the same. Numbers: dva rohlíky, dvě boty, dvě jablka.",
+          "example": "Kupuju dva rohlíky a tři jablka. — I am buying two rolls and three apples."
+        },
+        {
           "id": "GR-152",
           "name": "Genitive plural and quantities",
           "pattern": "With numbers 5+: pět mužů, šest žen, deset měst. Quantity words (hodně, málo, trochu) + genitive.",
@@ -1404,9 +1410,9 @@
         },
         {
           "id": "GR-153",
-          "name": "Negation and genitive",
-          "pattern": "Accusative objects become genitive when negated: Mám čas → Nemám času. Vidím knihu → Nevidím knihy.",
-          "example": "Nemám peněz. — I don't have money."
+          "name": "Negation — the object does not change",
+          "pattern": "Mám čas → Nemám čas. Vidím knihu → Nevidím knihu. Only the verb takes ne-.",
+          "example": "Nemám čas. — I don't have time."
         }
       ],
       "core_vocabulary": [
@@ -1462,7 +1468,99 @@
         "Záměna 'z' (místo) a 'od' (osoba)",
         "Zapomenutí genitivu po 'do'"
       ],
-      "study_tip": "Procvičujte genitiv s předložkami: do školy, z práce, bez cukru, od kamaráda."
+      "study_tip": "Procvičujte genitiv s předložkami: do školy, z práce, bez cukru, od kamaráda.",
+      "notebook_page": {
+        "title_cz": "Na trhu",
+        "title_en": "Shop, measure and say where from",
+        "can_do": {
+          "cz": "Koupím, co potřebuju, a řeknu, odkud jsem.",
+          "en": "I can buy what I need and say where I am from."
+        },
+        "words": [
+          {
+            "cz": "kilo jablek",
+            "en": "a kilo of apples"
+          },
+          {
+            "cz": "litr mléka",
+            "en": "a litre of milk"
+          },
+          {
+            "cz": "trochu cukru",
+            "en": "a little sugar"
+          },
+          {
+            "cz": "hodně práce",
+            "en": "a lot of work"
+          },
+          {
+            "cz": "Jsem z Prahy.",
+            "en": "I am from Prague."
+          },
+          {
+            "cz": "Jdu do práce.",
+            "en": "I am going to work."
+          },
+          {
+            "cz": "kávu bez cukru",
+            "en": "coffee without sugar"
+          },
+          {
+            "cz": "dárek od kamaráda",
+            "en": "a present from a friend"
+          }
+        ],
+        "pattern": {
+          "name": "After z, do, bez, amounts — and the plural",
+          "rule_plain": "After z, do, bez, od, u and amounts the word changes (genitive). Plural: -y, -a, -e; after 2–4 the plural, after 5+ the genitive plural.",
+          "table": [
+            [
+              "Praha",
+              "z Prahy"
+            ],
+            [
+              "mléko",
+              "litr mléka"
+            ],
+            [
+              "cukr",
+              "bez cukru"
+            ],
+            [
+              "rohlík",
+              "dva rohlíky / pět rohlíků"
+            ],
+            [
+              "jablko",
+              "dvě jablka / kilo jablek"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kávu bez cukru, prosím.",
+              "en": "Coffee without sugar, please."
+            },
+            {
+              "cz": "Prosím pět rohlíků.",
+              "en": "Five rolls, please."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Nemám času.",
+            "right": "Nemám čas."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Každý týden kupuju kilo jablek.",
+            "en": "Every week I buy a kilo of apples."
+          },
+          {
+            "cz": "Ráno si dám dva rohlíky.",
+            "en": "In the morning I have two rolls."
+          }
+        ]
+      }
     },
     {
       "unit_id": 17,
