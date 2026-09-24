@@ -991,7 +991,56 @@
           "en": "We are here."
         }
       ],
-      "unit_id": 4
+      "unit_id": 4,
+      "concept_keys": [
+        "irregular_core_verbs"
+      ],
+      "lecture": [
+        {
+          "heading": "být: jsem, jsi, je",
+          "say": "být means to be. Learn all six forms; you will use them every day. The person is often left out: Jsem student.",
+          "table": [
+            [
+              "já",
+              "jsem"
+            ],
+            [
+              "ty",
+              "jsi"
+            ],
+            [
+              "on, ona, ono",
+              "je"
+            ],
+            [
+              "my",
+              "jsme"
+            ],
+            [
+              "vy",
+              "jste"
+            ],
+            [
+              "oni",
+              "jsou"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jsem nová kolegyně.",
+              "en": "I am a new colleague."
+            },
+            {
+              "cz": "Jste z Prahy?",
+              "en": "Are you from Prague?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Já je student.",
+            "right": "Já jsem student."
+          }
+        }
+      ]
     },
     {
       "id": "GR-031",
@@ -1019,7 +1068,56 @@
           "note": "psy = accusative plural"
         }
       ],
-      "unit_id": 4
+      "unit_id": 4,
+      "concept_keys": [
+        "irregular_core_verbs"
+      ],
+      "lecture": [
+        {
+          "heading": "mít: mám, máš, má",
+          "say": "mít means to have. The forms all start with má-: mám, máš, má… Only oni is different: mají.",
+          "table": [
+            [
+              "já",
+              "mám"
+            ],
+            [
+              "ty",
+              "máš"
+            ],
+            [
+              "on, ona, ono",
+              "má"
+            ],
+            [
+              "my",
+              "máme"
+            ],
+            [
+              "vy",
+              "máte"
+            ],
+            [
+              "oni",
+              "mají"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám notebook.",
+              "en": "I have a laptop."
+            },
+            {
+              "cz": "Máte telefon?",
+              "en": "Do you have a phone?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Oni mámí auto.",
+            "right": "Oni mají auto."
+          }
+        }
+      ]
     },
     {
       "id": "GR-032",
@@ -1045,7 +1143,53 @@
           "en": "We don't have time."
         }
       ],
-      "unit_id": 4
+      "unit_id": 4,
+      "lecture": [
+        {
+          "heading": "Not: nejsem, nemám",
+          "say": "To say not, put ne- in front of the verb and write it as one word: nejsem, nemám. The one surprise: je becomes není.",
+          "table": [
+            [
+              "jsem",
+              "nejsem"
+            ],
+            [
+              "jsi",
+              "nejsi"
+            ],
+            [
+              "je",
+              "není"
+            ],
+            [
+              "mám",
+              "nemám"
+            ],
+            [
+              "máš",
+              "nemáš"
+            ],
+            [
+              "má",
+              "nemá"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Nejsem doma.",
+              "en": "I am not at home."
+            },
+            {
+              "cz": "Nemám klíč.",
+              "en": "I don't have a key."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "On neje doma.",
+            "right": "On není doma."
+          }
+        }
+      ]
     },
     {
       "id": "GR-033",
@@ -1072,7 +1216,61 @@
           "note": "lit. 'How many years do you have?'"
         }
       ],
-      "unit_id": 4
+      "unit_id": 4,
+      "lecture": [
+        {
+          "heading": "Asking: Jste student? Kde jste?",
+          "say": "For a yes/no question, keep the word order and raise your voice at the end: Jste student? Answer short: Ano, jsem. / Ne, nejsem. Other questions start with a question word.",
+          "table": [
+            [
+              "Jste student?",
+              "Ano, jsem. / Ne, nejsem."
+            ],
+            [
+              "Máte telefon?",
+              "Ano, mám. / Ne, nemám."
+            ],
+            [
+              "kdo?",
+              "who?"
+            ],
+            [
+              "co?",
+              "what?"
+            ],
+            [
+              "kde?",
+              "where?"
+            ],
+            [
+              "odkud?",
+              "where from?"
+            ],
+            [
+              "kdy?",
+              "when?"
+            ],
+            [
+              "proč?",
+              "why?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kde jste? — Jsem doma.",
+              "en": "Where are you? — I am at home."
+            },
+            {
+              "cz": "Máš auto? — Ne, nemám.",
+              "en": "Do you have a car? — No, I don’t."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Máte telefon? — Ano, jsem.",
+            "right": "Máte telefon? — Ano, mám."
+          }
+        }
+      ]
     },
     {
       "id": "GR-040",

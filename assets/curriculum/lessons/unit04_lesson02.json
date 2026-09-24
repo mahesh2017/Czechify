@@ -3,52 +3,49 @@
   "unit_id": 4,
   "order_in_unit": 1,
   "title": "Say It, Ask It, Negate It",
-  "description": "Turn useful být and mít statements into simple questions and negatives.",
-  "can_do": "ask and answer simple questions with být and mít.",
+  "description": "Learn all forms of být and mít, and how to say not.",
+  "duration_min": 14,
+  "lesson_type": "practice",
+  "can_do": "use být and mít for every person, and say not.",
   "new_language": [
-    "Jsi doma?",
-    "Nejsem doma.",
-    "Máš auto?",
-    "Nemám auto."
+    "jsem, jsi, je, jsme, jste, jsou",
+    "mám, máš, má, máme, máte, mají",
+    "nejsem, není, nemám"
   ],
   "recycles": [
-    "Dobrý den",
-    "Jmenuju se…",
-    "To je…",
-    "ten/ta/to"
+    "Jsem z…"
   ],
-  "exit_task": "ask and answer simple questions with být and mít.",
-  "duration_min": 12,
-  "lesson_type": "practice",
+  "exit_task": "say what you have and do not have.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 4100,
+      "id": 4200,
       "lesson_id": 402,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Say It, Ask It, Negate It",
-        "body": "Turn useful být and mít statements into simple questions and negatives.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write your four sentences again. Then check.",
         "items": [
           {
-            "cz": "Jsi doma?",
-            "en": "Are you at home?"
+            "cz": "Jsem student / studentka.",
+            "en": "I am a student."
           },
           {
-            "cz": "Nejsem doma.",
-            "en": "I am not at home."
+            "cz": "Jsem doma.",
+            "en": "I am at home."
           },
           {
-            "cz": "Máš auto?",
-            "en": "Do you have a car?"
+            "cz": "Mám telefon.",
+            "en": "I have a phone."
           },
           {
-            "cz": "Nemám auto.",
-            "en": "I do not have a car."
+            "cz": "Nemám klíč.",
+            "en": "I don't have a key."
           }
         ]
       },
@@ -56,7 +53,394 @@
       "xp_reward": 0
     },
     {
-      "id": 4101,
+      "id": 4201,
+      "lesson_id": 402,
+      "type": "teaching",
+      "prompt": "být: jsem, jsi, je",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-030",
+        "rule_step": 1,
+        "heading": "být: jsem, jsi, je",
+        "items": [
+          {
+            "cz": "Jsem nová kolegyně.",
+            "en": "I am a new colleague."
+          },
+          {
+            "cz": "Jste z Prahy?",
+            "en": "Are you from Prague?"
+          }
+        ],
+        "say": "být means to be. Learn all six forms; you will use them every day. The person is often left out: Jsem student.",
+        "table": [
+          [
+            "já",
+            "jsem"
+          ],
+          [
+            "ty",
+            "jsi"
+          ],
+          [
+            "on, ona, ono",
+            "je"
+          ],
+          [
+            "my",
+            "jsme"
+          ],
+          [
+            "vy",
+            "jste"
+          ],
+          [
+            "oni",
+            "jsou"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Jsem nová kolegyně.",
+            "en": "I am a new colleague."
+          },
+          {
+            "cz": "Jste z Prahy?",
+            "en": "Are you from Prague?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Já je student.",
+          "right": "Já jsem student."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 4202,
+      "lesson_id": 402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "My ___ doma.",
+        "question_en": "We are at home.",
+        "options": [
+          "jsme",
+          "jste",
+          "jsou"
+        ],
+        "correct_index": 0,
+        "explanation": "my → jsme."
+      },
+      "answer_key": "jsme",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-030"
+    },
+    {
+      "id": 4203,
+      "lesson_id": 402,
+      "type": "teaching",
+      "prompt": "mít: mám, máš, má",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-031",
+        "rule_step": 1,
+        "heading": "mít: mám, máš, má",
+        "items": [
+          {
+            "cz": "Mám notebook.",
+            "en": "I have a laptop."
+          },
+          {
+            "cz": "Máte telefon?",
+            "en": "Do you have a phone?"
+          }
+        ],
+        "say": "mít means to have. The forms all start with má-: mám, máš, má… Only oni is different: mají.",
+        "table": [
+          [
+            "já",
+            "mám"
+          ],
+          [
+            "ty",
+            "máš"
+          ],
+          [
+            "on, ona, ono",
+            "má"
+          ],
+          [
+            "my",
+            "máme"
+          ],
+          [
+            "vy",
+            "máte"
+          ],
+          [
+            "oni",
+            "mají"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mám notebook.",
+            "en": "I have a laptop."
+          },
+          {
+            "cz": "Máte telefon?",
+            "en": "Do you have a phone?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Oni mámí auto.",
+          "right": "Oni mají auto."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 4204,
+      "lesson_id": 402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Oni ___ auto.",
+        "question_en": "They have a car.",
+        "options": [
+          "mají",
+          "má",
+          "máme"
+        ],
+        "correct_index": 0,
+        "explanation": "oni → mají."
+      },
+      "answer_key": "mají",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-031"
+    },
+    {
+      "id": 4205,
+      "lesson_id": 402,
+      "type": "teaching",
+      "prompt": "Not: nejsem, nemám",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-032",
+        "rule_step": 1,
+        "heading": "Not: nejsem, nemám",
+        "items": [
+          {
+            "cz": "Nejsem doma.",
+            "en": "I am not at home."
+          },
+          {
+            "cz": "Nemám klíč.",
+            "en": "I don't have a key."
+          }
+        ],
+        "say": "To say not, put ne- in front of the verb and write it as one word: nejsem, nemám. The one surprise: je becomes není.",
+        "table": [
+          [
+            "jsem",
+            "nejsem"
+          ],
+          [
+            "jsi",
+            "nejsi"
+          ],
+          [
+            "je",
+            "není"
+          ],
+          [
+            "mám",
+            "nemám"
+          ],
+          [
+            "máš",
+            "nemáš"
+          ],
+          [
+            "má",
+            "nemá"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Nejsem doma.",
+            "en": "I am not at home."
+          },
+          {
+            "cz": "Nemám klíč.",
+            "en": "I don't have a key."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "On neje doma.",
+          "right": "On není doma."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 4206,
+      "lesson_id": 402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Petr ___ doma.",
+        "question_en": "Petr is not at home.",
+        "options": [
+          "není",
+          "neje",
+          "nejsem"
+        ],
+        "correct_index": 0,
+        "explanation": "je → není."
+      },
+      "answer_key": "není",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-032"
+    },
+    {
+      "id": 4207,
+      "lesson_id": 402,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write být and mít for all six persons, and the negative of jsem, je and mám.",
+        "items": [
+          {
+            "cz": "jsem, jsi, je, jsme, jste, jsou",
+            "en": "být"
+          },
+          {
+            "cz": "mám, máš, má, máme, máte, mají",
+            "en": "mít"
+          },
+          {
+            "cz": "nejsem, není, nemám",
+            "en": "not"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 4208,
+      "lesson_id": 402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "ty → jsi.",
+        "sentence": "Ty ___ student?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jsi"
+          ]
+        ],
+        "explanation": "Ty jsi student?"
+      },
+      "answer_key": "jsi",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-030"
+    },
+    {
+      "id": 4209,
+      "lesson_id": 402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "my → máme.",
+        "sentence": "My ___ nový byt.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "máme"
+          ]
+        ],
+        "explanation": "My máme nový byt."
+      },
+      "answer_key": "máme",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-031"
+    },
+    {
+      "id": 4210,
+      "lesson_id": 402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "je → není.",
+        "sentence": "Eva ___ učitelka. Je studentka.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "není"
+          ]
+        ],
+        "explanation": "Eva není učitelka."
+      },
+      "answer_key": "není",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-032"
+    },
+    {
+      "id": 4211,
+      "lesson_id": 402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "ne- + mám, one word.",
+        "sentence": "___ telefon. (I don’t have)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Nemám"
+          ]
+        ],
+        "explanation": "Nemám telefon."
+      },
+      "answer_key": "Nemám",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-032"
+    },
+    {
+      "id": 4212,
       "lesson_id": 402,
       "type": "listening_comprehension",
       "prompt": "Listen for meaning and one detail",
@@ -88,10 +472,11 @@
         ]
       },
       "answer_key": "At work",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-032"
     },
     {
-      "id": 4102,
+      "id": 4213,
       "lesson_id": 402,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -124,10 +509,11 @@
         ]
       },
       "answer_key": "A bicycle",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-032"
     },
     {
-      "id": 4103,
+      "id": 4214,
       "lesson_id": 402,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -154,31 +540,11 @@
         "explanation": "Keep each useful Czech chunk connected to its meaning."
       },
       "answer_key": "Jsi doma?–Are you at home?; Nejsem doma.–I am not at home.; Máš auto?–Do you have a car?; Nemám auto.–I do not have a car.",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-032"
     },
     {
-      "id": 4104,
-      "lesson_id": 402,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "Jsi doma?",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "Jsi doma?",
-      "xp_reward": 10
-    },
-    {
-      "id": 4105,
+      "id": 4215,
       "lesson_id": 402,
       "type": "fill_blank",
       "prompt": "Complete the useful chunk",
@@ -194,45 +560,11 @@
         "explanation": "Retrieve the missing word from the complete chunk."
       },
       "answer_key": "Jsi",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-030"
     },
     {
-      "id": 4106,
-      "lesson_id": 402,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "doma.",
-          "Nejsem"
-        ],
-        "correct_order": [
-          1,
-          0
-        ],
-        "translation_en": "I am not at home.",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "Nejsem doma.",
-      "xp_reward": 10
-    },
-    {
-      "id": 4107,
-      "lesson_id": 402,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Máš auto?",
-        "language": "cs-CZ",
-        "note": "Listen for the full phrase before typing."
-      },
-      "answer_key": "Máš auto?",
-      "xp_reward": 10
-    },
-    {
-      "id": 4108,
+      "id": 4216,
       "lesson_id": 402,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
@@ -247,10 +579,11 @@
         "translation_en": "I do not have a car."
       },
       "answer_key": "Nemám auto.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-032"
     },
     {
-      "id": 4109,
+      "id": 4217,
       "lesson_id": 402,
       "type": "dialogue",
       "prompt": "Complete and hear the short exchange",
@@ -288,53 +621,28 @@
         "explanation": "Use complete chunks that answer each partner cue."
       },
       "answer_key": "Jsi doma? | Nejsem doma.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-032"
     },
     {
-      "id": 4110,
+      "id": 4218,
       "lesson_id": 402,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
+      "type": "fill_blank",
+      "prompt": "Complete the sentence",
       "data": {
-        "type": "writing_task",
-        "prompt_en": "Write two questions and two truthful answers with jsi/jste and máš/máte.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 4,
-        "max_words": 40,
-        "key_vocab": [
-          "Jsi doma?",
-          "Nejsem doma.",
-          "Máš auto?",
-          "Nemám auto."
+        "type": "fill_blank",
+        "sentence": "Vy ___ čas? (mít)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "máte"
+          ]
         ],
-        "sample_answer": "Jsi doma? Nejsem doma. Máš auto? Nemám auto."
+        "explanation": "vy → máte."
       },
-      "answer_key": "Jsi doma? Nejsem doma. Máš auto? Nemám auto.",
-      "xp_reward": 0
-    },
-    {
-      "id": 4111,
-      "lesson_id": 402,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new context",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Transfer the lesson language to a new speaker and context.",
-        "transcript_cz": "Nejsem v kanceláři. Jsem doma a mám tady počítač.",
-        "questions": [
-          {
-            "question_en": "What is at home with the speaker?",
-            "options": [
-              "A computer",
-              "A bicycle",
-              "A key"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "A computer",
-      "xp_reward": 15
+      "answer_key": "máte",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-031"
     }
   ]
 }

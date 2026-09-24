@@ -643,7 +643,103 @@
         "Zapomenutí záporu u 3. os. (není, nejsou)",
         "Nadbytečné použití zájmen"
       ],
-      "study_tip": "Naučte se časování být a mít nazpaměť jako básničku. Jsou to nejpoužívanější slovesa."
+      "study_tip": "Naučte se časování být a mít nazpaměť jako básničku. Jsou to nejpoužívanější slovesa.",
+      "notebook_page": {
+        "title_cz": "Já",
+        "title_en": "Me: být and mít",
+        "can_do": {
+          "cz": "Řeknu, kdo jsem a co mám, a vyplním jednoduchý formulář.",
+          "en": "I can say who I am and what I have, and fill in a simple form."
+        },
+        "words": [
+          {
+            "cz": "Jsem student / studentka.",
+            "en": "I am a student."
+          },
+          {
+            "cz": "Jsem doma.",
+            "en": "I am at home."
+          },
+          {
+            "cz": "Mám telefon.",
+            "en": "I have a phone."
+          },
+          {
+            "cz": "Nemám klíč.",
+            "en": "I don't have a key."
+          },
+          {
+            "cz": "Jsi doma?",
+            "en": "Are you at home?"
+          },
+          {
+            "cz": "Máte auto?",
+            "en": "Do you have a car?"
+          },
+          {
+            "cz": "Ano, mám. / Ne, nemám.",
+            "en": "Yes, I do. / No, I don't."
+          },
+          {
+            "cz": "Kde jste?",
+            "en": "Where are you?"
+          }
+        ],
+        "pattern": {
+          "name": "být and mít",
+          "rule_plain": "Learn all six forms. ne- + verb says not (one word); je → není. A yes/no question keeps the order and rises at the end.",
+          "table": [
+            [
+              "já",
+              "jsem / mám"
+            ],
+            [
+              "ty",
+              "jsi / máš"
+            ],
+            [
+              "on, ona",
+              "je / má"
+            ],
+            [
+              "my",
+              "jsme / máme"
+            ],
+            [
+              "vy",
+              "jste / máte"
+            ],
+            [
+              "oni",
+              "jsou / mají"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Nejsem doma.",
+              "en": "I am not at home."
+            },
+            {
+              "cz": "Máte telefon? — Ano, mám.",
+              "en": "Do you have a phone? — Yes, I do."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "On neje doma.",
+            "right": "On není doma."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Odkud jste? — Jsem z Indie.",
+            "en": "Where are you from? — I am from India."
+          },
+          {
+            "cz": "Máte auto? — Ne, nemám.",
+            "en": "Do you have a car? — No, I don’t."
+          }
+        ]
+      }
     },
     {
       "unit_id": 5,

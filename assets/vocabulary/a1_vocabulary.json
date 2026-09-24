@@ -1031,7 +1031,7 @@
     "unit_id": 4,
     "example_cz": "Jsem student.",
     "example_en": "I am a student.",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 102,
@@ -1042,7 +1042,7 @@
     "unit_id": 4,
     "example_cz": "Mám kávu.",
     "example_en": "I have coffee.",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 103,
@@ -1064,7 +1064,7 @@
     "unit_id": 4,
     "example_cz": "Jsi student?",
     "example_en": "Are you a student?",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 105,
@@ -1075,7 +1075,7 @@
     "unit_id": 4,
     "example_cz": "On je učitel.",
     "example_en": "He is a teacher.",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 106,
@@ -1086,7 +1086,7 @@
     "unit_id": 4,
     "example_cz": "Jsme tady.",
     "example_en": "We are here.",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 107,
@@ -1097,7 +1097,7 @@
     "unit_id": 4,
     "example_cz": "Vy jste studenti.",
     "example_en": "You are students.",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 108,
@@ -1108,7 +1108,7 @@
     "unit_id": 4,
     "example_cz": "Oni jsou z Prahy.",
     "example_en": "They are from Prague.",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 109,
@@ -1130,7 +1130,7 @@
     "unit_id": 4,
     "example_cz": "Co máš?",
     "example_en": "What do you have?",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 111,
@@ -1141,7 +1141,7 @@
     "unit_id": 4,
     "example_cz": "Ona má kávu.",
     "example_en": "She has coffee.",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 112,
@@ -1152,7 +1152,7 @@
     "unit_id": 4,
     "example_cz": "Máme dům.",
     "example_en": "We have a house.",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 113,
@@ -1163,7 +1163,7 @@
     "unit_id": 4,
     "example_cz": "Mají dva psy.",
     "example_en": "They have two dogs.",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 114,
@@ -1196,7 +1196,7 @@
     "unit_id": 4,
     "example_cz": "Není tady.",
     "example_en": "He/she is not here.",
-    "lesson_id": 401
+    "lesson_id": 402
   },
   {
     "id": 117,
@@ -1207,7 +1207,7 @@
     "unit_id": 4,
     "example_cz": "Kde jsi?",
     "example_en": "Where are you?",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 118,
@@ -1218,7 +1218,7 @@
     "unit_id": 4,
     "example_cz": "Kdo je to?",
     "example_en": "Who is that?",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 119,
@@ -1229,7 +1229,7 @@
     "unit_id": 4,
     "example_cz": "Co máš?",
     "example_en": "What do you have?",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 120,
@@ -1262,7 +1262,7 @@
     "unit_id": 4,
     "example_cz": "Mám čas.",
     "example_en": "I have time.",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 123,
@@ -1273,7 +1273,7 @@
     "unit_id": 4,
     "example_cz": "Jsme tady.",
     "example_en": "We are here.",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 124,
@@ -1284,7 +1284,7 @@
     "unit_id": 4,
     "example_cz": "On je tam.",
     "example_en": "He is there.",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 125,
@@ -4034,7 +4034,7 @@
     "unit_id": 4,
     "example_cz": "Kdy přijdeš?",
     "example_en": "When will you arrive?",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 375,
@@ -4045,7 +4045,7 @@
     "unit_id": 4,
     "example_cz": "Jak se jmenuješ?",
     "example_en": "What is your name?",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 376,
@@ -4056,7 +4056,7 @@
     "unit_id": 4,
     "example_cz": "Proč se učíš česky?",
     "example_en": "Why are you learning Czech?",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 377,
@@ -4067,7 +4067,7 @@
     "unit_id": 4,
     "example_cz": "Odkud jsi?",
     "example_en": "Where are you from?",
-    "lesson_id": 401
+    "lesson_id": 403
   },
   {
     "id": 378,
@@ -4078,7 +4078,7 @@
     "unit_id": 4,
     "example_cz": "Jsem unavený po práci.",
     "example_en": "I am tired after work.",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 379,
@@ -4089,7 +4089,7 @@
     "unit_id": 4,
     "example_cz": "Jsem spokojený se životem.",
     "example_en": "I am satisfied with life.",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 380,
@@ -4100,7 +4100,7 @@
     "unit_id": 4,
     "example_cz": "Jsem hladový, co budeme jíst?",
     "example_en": "I am hungry, what will we eat?",
-    "lesson_id": 401
+    "lesson_id": null
   },
   {
     "id": 381,
@@ -4882,5 +4882,93 @@
     "example_cz": "Dobrý den, pane doktore.",
     "example_en": "Hello, doctor.",
     "lesson_id": 202
+  },
+  {
+    "id": 2027,
+    "word_cz": "jméno",
+    "word_en": "first name",
+    "ipa": null,
+    "gender": "neuter",
+    "unit_id": 4,
+    "example_cz": "Jaké je vaše jméno?",
+    "example_en": "What is your first name?",
+    "lesson_id": 404
+  },
+  {
+    "id": 2028,
+    "word_cz": "příjmení",
+    "word_en": "surname",
+    "ipa": null,
+    "gender": "neuter",
+    "unit_id": 4,
+    "example_cz": "Napište příjmení.",
+    "example_en": "Write your surname.",
+    "lesson_id": 404
+  },
+  {
+    "id": 2029,
+    "word_cz": "adresa",
+    "word_en": "address",
+    "ipa": null,
+    "gender": "feminine",
+    "unit_id": 4,
+    "example_cz": "Jaká je vaše adresa?",
+    "example_en": "What is your address?",
+    "lesson_id": 404
+  },
+  {
+    "id": 2030,
+    "word_cz": "datum narození",
+    "word_en": "date of birth",
+    "ipa": null,
+    "gender": "neuter",
+    "unit_id": 4,
+    "example_cz": "Datum narození: 3. 5. 1995",
+    "example_en": "Date of birth: 3 May 1995",
+    "lesson_id": 404
+  },
+  {
+    "id": 2031,
+    "word_cz": "podpis",
+    "word_en": "signature",
+    "ipa": null,
+    "gender": "masculine inanimate",
+    "unit_id": 4,
+    "example_cz": "Tady je místo na podpis.",
+    "example_en": "Here is the space for your signature.",
+    "lesson_id": 404
+  },
+  {
+    "id": 2032,
+    "word_cz": "úřad",
+    "word_en": "office, authority",
+    "ipa": null,
+    "gender": "masculine inanimate",
+    "unit_id": 4,
+    "example_cz": "Jdu na úřad.",
+    "example_en": "I am going to the office.",
+    "lesson_id": 404
+  },
+  {
+    "id": 2033,
+    "word_cz": "cizinec",
+    "word_en": "foreigner",
+    "ipa": null,
+    "gender": "masculine animate",
+    "unit_id": 4,
+    "example_cz": "Jsem cizinec.",
+    "example_en": "I am a foreigner.",
+    "lesson_id": 404
+  },
+  {
+    "id": 2034,
+    "word_cz": "tlumočník",
+    "word_en": "interpreter",
+    "ipa": null,
+    "gender": "masculine animate",
+    "unit_id": 4,
+    "example_cz": "Potřebuju tlumočníka.",
+    "example_en": "I need an interpreter.",
+    "lesson_id": 404
   }
 ]
