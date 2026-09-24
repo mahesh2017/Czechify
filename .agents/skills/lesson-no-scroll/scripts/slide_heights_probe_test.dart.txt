@@ -61,6 +61,11 @@ void main() {
         }
         // ignore: avoid_print
         print('» ${e.id} ${e.type.name}: not on slides, ${worst.round()} pt over');
+        final top = find.descendant(
+          of: find.byType(LessonExerciseViewport),
+          matching: find.byType(Column),
+        );
+        if (top.evaluate().isNotEmpty) _parts(tester, top.first, 1);
         continue;
       }
       final state = tester.state<SlideDeckState>(deck.first);
@@ -98,4 +103,24 @@ void main() {
       }
     }
   });
+}
+
+/// Prints the height of each child of [column], and one level further into
+/// any tall child that is itself laid out as a column, so a one-page layout
+/// shows where its height goes.
+void _parts(WidgetTester tester, Finder column, int depth) {
+  for (final child in tester.widget<Column>(column).children) {
+    final found = find.byWidget(child);
+    if (found.evaluate().isEmpty) continue;
+    final height = tester.getSize(found.first).height;
+    // ignore: avoid_print
+    print('»${'  ' * depth} ${child.runtimeType} ${height.round()}');
+    if (depth < 3 && height >= 120) {
+      final inner = find.descendant(of: found.first, matching: find.byType(Column));
+      if (inner.evaluate().isNotEmpty &&
+          tester.widget<Column>(inner.first).children.length > 1) {
+        _parts(tester, inner.first, depth + 1);
+      }
+    }
+  }
 }
