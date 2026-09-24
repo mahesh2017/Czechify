@@ -755,15 +755,15 @@
         },
         {
           "id": "GR-041",
-          "name": "Verb conjugation class 2: -ít/-et verbs",
-          "pattern": "Infinitive -ít → present: -ím, -íš, -í, -íme, -íte, -í",
+          "name": "Verbs with -ím: mluvím, bydlím, rozumím",
+          "pattern": "-it / -et / -ět → -ím, -íš, -í, -íme, -íte, -í (or -ějí): mluvit → mluvím, bydlet → bydlím, rozumět → rozumím.",
           "example": "Mluvím česky. — I speak Czech."
         },
         {
           "id": "GR-042",
-          "name": "Verb conjugation class 3: -et/-ět and irregular verbs",
-          "pattern": "-ět verbs: -ím, -íš, -í; irregular: číst → čtu, čteš, čte, čteme, čtete, čtou",
-          "example": "Rozumím česky. — I understand Czech."
+          "name": "Verbs in -ovat and irregular verbs: pracuju, čtu, píšu",
+          "pattern": "-ovat → -uju, -uješ, -uje, -ujeme, -ujete, -ujou: pracovat → pracuju, studovat → studuju. Irregular: číst → čtu, psát → píšu, pít → piju, jíst → jím.",
+          "example": "Pracuju v Praze. — I work in Prague."
         },
         {
           "id": "GR-043",
@@ -825,7 +825,103 @@
         "Použití infinitivu místo časovaného tvaru",
         "Špatný zápor (ne- na špatném místě)"
       ],
-      "study_tip": "Vytvořte si kartičky s konjugačními vzory (-ám, -ím, -u) a přiřazujte k nim nová slovesa."
+      "study_tip": "Vytvořte si kartičky s konjugačními vzory (-ám, -ím, -u) a přiřazujte k nim nová slovesa.",
+      "notebook_page": {
+        "title_cz": "Co dělám",
+        "title_en": "What I do",
+        "can_do": {
+          "cz": "Řeknu, kde bydlím a pracuju a jakými jazyky mluvím.",
+          "en": "I can say where I live and work and which languages I speak."
+        },
+        "words": [
+          {
+            "cz": "Pracuju v Praze.",
+            "en": "I work in Prague."
+          },
+          {
+            "cz": "Studuju češtinu.",
+            "en": "I study Czech."
+          },
+          {
+            "cz": "Bydlím v Brně.",
+            "en": "I live in Brno."
+          },
+          {
+            "cz": "Mluvím anglicky.",
+            "en": "I speak English."
+          },
+          {
+            "cz": "Co děláš?",
+            "en": "What do you do?"
+          },
+          {
+            "cz": "Kde bydlíte?",
+            "en": "Where do you live?"
+          },
+          {
+            "cz": "Rozumím trochu.",
+            "en": "I understand a little."
+          },
+          {
+            "cz": "Nemluvím dobře česky.",
+            "en": "I don't speak Czech well."
+          }
+        ],
+        "pattern": {
+          "name": "Three verb groups",
+          "rule_plain": "-at → -ám (dělám); -it/-et/-ět → -ím (mluvím); -ovat → -uju (pracuju). ne- + verb = not.",
+          "table": [
+            [
+              "já",
+              "dělám / mluvím / pracuju"
+            ],
+            [
+              "ty",
+              "děláš / mluvíš / pracuješ"
+            ],
+            [
+              "on, ona",
+              "dělá / mluví / pracuje"
+            ],
+            [
+              "my",
+              "děláme / mluvíme / pracujeme"
+            ],
+            [
+              "vy",
+              "děláte / mluvíte / pracujete"
+            ],
+            [
+              "oni",
+              "dělají / mluví / pracujou"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Bydlím v Brně.",
+              "en": "I live in Brno."
+            },
+            {
+              "cz": "Nemluvím dobře česky.",
+              "en": "I don't speak Czech well."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Ne mluvím česky.",
+            "right": "Nemluvím česky."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Mluvím anglicky a trochu česky.",
+            "en": "I speak English and a little Czech."
+          },
+          {
+            "cz": "Nepracuju v neděli.",
+            "en": "I don't work on Sunday."
+          }
+        ]
+      }
     },
     {
       "unit_id": 6,

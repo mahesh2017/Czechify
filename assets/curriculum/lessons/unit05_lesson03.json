@@ -3,52 +3,36 @@
   "unit_id": 5,
   "order_in_unit": 2,
   "title": "Match Voices to Profiles",
-  "description": "Listen for activity, place, and language details in several short profiles.",
-  "can_do": "identify a person from activity and language clues.",
+  "description": "Say what you do not do, and talk about languages.",
+  "duration_min": 12,
+  "lesson_type": "practice",
+  "can_do": "say what you do not do and how well you speak a language.",
   "new_language": [
-    "Čtu česky.",
-    "Rozumím trochu.",
-    "Nemluvím dobře česky.",
-    "Pracuju doma."
+    "nemluvím, nerozumím",
+    "česky, anglicky"
   ],
   "recycles": [
-    "Jmenuju se…",
-    "Jsem…",
-    "Jste…?",
-    "Ano/Ne"
+    "mluvím, rozumím"
   ],
-  "exit_task": "identify a person from activity and language clues.",
-  "duration_min": 12,
-  "lesson_type": "application",
+  "exit_task": "write a short profile with your languages.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 5200,
+      "id": 5300,
       "lesson_id": 503,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Match Voices to Profiles",
-        "body": "Listen for activity, place, and language details in several short profiles.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “I live”, “I work” and “I read” in Czech. Then check.",
         "items": [
           {
-            "cz": "Čtu česky.",
-            "en": "I read in Czech."
-          },
-          {
-            "cz": "Rozumím trochu.",
-            "en": "I understand a little."
-          },
-          {
-            "cz": "Nemluvím dobře česky.",
-            "en": "I do not speak Czech well."
-          },
-          {
-            "cz": "Pracuju doma.",
-            "en": "I work at home."
+            "cz": "bydlím, pracuju, čtu",
+            "en": "I live, I work, I read"
           }
         ]
       },
@@ -56,7 +40,126 @@
       "xp_reward": 0
     },
     {
-      "id": 5201,
+      "id": 5301,
+      "lesson_id": 503,
+      "type": "teaching",
+      "prompt": "Not: nemluvím, nerozumím",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-043",
+        "rule_step": 1,
+        "heading": "Not: nemluvím, nerozumím",
+        "items": [
+          {
+            "cz": "Nemluvím dobře česky.",
+            "en": "I don't speak Czech well."
+          },
+          {
+            "cz": "Rozumím trochu.",
+            "en": "I understand a little."
+          }
+        ],
+        "say": "Put ne- in front of any verb, as one word: nemluvím, nečtu, nerozumím. Languages after mluvit, rozumět and číst end in -y: česky, anglicky.",
+        "table": [
+          [
+            "mluvím",
+            "nemluvím"
+          ],
+          [
+            "rozumím",
+            "nerozumím"
+          ],
+          [
+            "čtu",
+            "nečtu"
+          ],
+          [
+            "pracuju",
+            "nepracuju"
+          ],
+          [
+            "Czech",
+            "česky"
+          ],
+          [
+            "English",
+            "anglicky"
+          ],
+          [
+            "German",
+            "německy"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Nemluvím dobře česky.",
+            "en": "I don't speak Czech well."
+          },
+          {
+            "cz": "Rozumím trochu.",
+            "en": "I understand a little."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Ne mluvím česky.",
+          "right": "Nemluvím česky."
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 5302,
+      "lesson_id": 503,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „I don’t understand“?",
+        "question_en": "How do you say “I don’t understand”?",
+        "options": [
+          "Nerozumím.",
+          "Ne rozumím.",
+          "Rozumím ne."
+        ],
+        "correct_index": 0,
+        "explanation": "ne- + verb, one word: nerozumím."
+      },
+      "answer_key": "Nerozumím.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-043"
+    },
+    {
+      "id": 5303,
+      "lesson_id": 503,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write which languages you speak, how well, and one thing you do not do.",
+        "items": [
+          {
+            "cz": "Mluvím anglicky a trochu česky.",
+            "en": "I speak English and a little Czech."
+          },
+          {
+            "cz": "Nepracuju v neděli.",
+            "en": "I don't work on Sunday."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 5304,
       "lesson_id": 503,
       "type": "listening_comprehension",
       "prompt": "Listen for meaning and one detail",
@@ -88,10 +191,11 @@
         ]
       },
       "answer_key": "A little",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-043"
     },
     {
-      "id": 5202,
+      "id": 5305,
       "lesson_id": 503,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -124,10 +228,11 @@
         ]
       },
       "answer_key": "Czech",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-041"
     },
     {
-      "id": 5203,
+      "id": 5306,
       "lesson_id": 503,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -151,34 +256,14 @@
             "right": "I work at home."
           }
         ],
-        "explanation": "Keep each useful Czech chunk connected to its meaning."
+        "explanation": "Keep each useful Czech chunk connected to its meaning.",
+        "targets": "vocab"
       },
       "answer_key": "Čtu česky.–I read in Czech.; Rozumím trochu.–I understand a little.; Nemluvím dobře česky.–I do not speak Czech well.; Pracuju doma.–I work at home.",
       "xp_reward": 10
     },
     {
-      "id": 5204,
-      "lesson_id": 503,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "Čtu česky.",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "Čtu česky.",
-      "xp_reward": 10
-    },
-    {
-      "id": 5205,
+      "id": 5307,
       "lesson_id": 503,
       "type": "fill_blank",
       "prompt": "Complete the useful chunk",
@@ -194,45 +279,11 @@
         "explanation": "Retrieve the missing word from the complete chunk."
       },
       "answer_key": "Čtu",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-042"
     },
     {
-      "id": 5206,
-      "lesson_id": 503,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "trochu.",
-          "Rozumím"
-        ],
-        "correct_order": [
-          1,
-          0
-        ],
-        "translation_en": "I understand a little.",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "Rozumím trochu.",
-      "xp_reward": 10
-    },
-    {
-      "id": 5207,
-      "lesson_id": 503,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Nemluvím dobře česky.",
-        "language": "cs-CZ",
-        "note": "Listen for the full phrase before typing."
-      },
-      "answer_key": "Nemluvím dobře česky.",
-      "xp_reward": 10
-    },
-    {
-      "id": 5208,
+      "id": 5308,
       "lesson_id": 503,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
@@ -247,10 +298,11 @@
         "translation_en": "I work at home."
       },
       "answer_key": "Pracuju doma.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-042"
     },
     {
-      "id": 5209,
+      "id": 5309,
       "lesson_id": 503,
       "type": "dialogue",
       "prompt": "Complete and hear the short exchange",
@@ -288,32 +340,11 @@
         "explanation": "Use complete chunks that answer each partner cue."
       },
       "answer_key": "Čtu česky. | Rozumím trochu.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-041"
     },
     {
-      "id": 5210,
-      "lesson_id": 503,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Create a short profile with one activity, one language, and an understanding level.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 4,
-        "max_words": 40,
-        "key_vocab": [
-          "Čtu česky.",
-          "Rozumím trochu.",
-          "Nemluvím dobře česky.",
-          "Pracuju doma."
-        ],
-        "sample_answer": "Čtu česky. Rozumím trochu. Nemluvím dobře česky. Pracuju doma."
-      },
-      "answer_key": "Čtu česky. Rozumím trochu. Nemluvím dobře česky. Pracuju doma.",
-      "xp_reward": 0
-    },
-    {
-      "id": 5211,
+      "id": 5310,
       "lesson_id": 503,
       "type": "listening_comprehension",
       "prompt": "Listen in a new context",
@@ -334,7 +365,56 @@
         ]
       },
       "answer_key": "Czech",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-041"
+    },
+    {
+      "id": 5311,
+      "lesson_id": 503,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new context",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Transfer the lesson language to a new speaker and context.",
+        "transcript_cz": "Eva pracuje v kavárně a bydlí v Olomouci.",
+        "questions": [
+          {
+            "question_en": "Where does Eva work?",
+            "options": [
+              "In a café",
+              "In a hotel",
+              "At home"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "In a café",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-042"
+    },
+    {
+      "id": 5312,
+      "lesson_id": 503,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Create a short profile with one activity, one language, and an understanding level.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 4,
+        "max_words": 40,
+        "key_vocab": [
+          "Čtu česky.",
+          "Rozumím trochu.",
+          "Nemluvím dobře česky.",
+          "Pracuju doma."
+        ],
+        "sample_answer": "Čtu česky. Rozumím trochu. Nemluvím dobře česky. Pracuju doma.",
+        "targets": "vocab"
+      },
+      "answer_key": "Čtu česky. Rozumím trochu. Nemluvím dobře česky. Pracuju doma.",
+      "xp_reward": 0
     }
   ]
 }

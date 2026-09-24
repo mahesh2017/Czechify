@@ -1296,12 +1296,61 @@
           "en": "I play tennis."
         }
       ],
-      "unit_id": 5
+      "unit_id": 5,
+      "concept_keys": [
+        "present_tense_all_types"
+      ],
+      "lecture": [
+        {
+          "heading": "Verbs with -ám: dělám",
+          "say": "Verbs ending in -at take -ám for I: dělat → dělám. Change the ending for each person; oni takes -ají.",
+          "table": [
+            [
+              "já",
+              "dělám"
+            ],
+            [
+              "ty",
+              "děláš"
+            ],
+            [
+              "on, ona",
+              "dělá"
+            ],
+            [
+              "my",
+              "děláme"
+            ],
+            [
+              "vy",
+              "děláte"
+            ],
+            [
+              "oni",
+              "dělají"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Co děláš? — Vařím.",
+              "en": "What are you doing? — I am cooking."
+            },
+            {
+              "cz": "Čekám na tramvaj.",
+              "en": "I am waiting for the tram."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Já dělat kávu.",
+            "right": "Já dělám kávu."
+          }
+        }
+      ]
     },
     {
       "id": "GR-041",
-      "rule_name": "Verb conjugation class 2: -ít/-et verbs",
-      "pattern": "Infinitive -ít → present: -ím, -íš, -í, -íme, -íte, -í",
+      "rule_name": "Verbs with -ím: mluvím, bydlím, rozumím",
+      "pattern": "-it / -et / -ět → -ím, -íš, -í, -íme, -íte, -í (or -ějí): mluvit → mluvím, bydlet → bydlím, rozumět → rozumím.",
       "explanation": "Verbs ending in -ít follow this pattern. Example: mluvit (to speak) → mluvím, mluvíš, mluví, mluvíme, mluvíte, mluví. All forms except 1st person singular end in -í. Common -ít verbs: prosit (to ask/request), bydlet (to live), učit (to teach), kuřit (to smoke). Note: bydlet conjugates as bydlím, bydlíš, bydlí (adds -l- in present stem).",
       "case_affected": null,
       "examples": [
@@ -1323,33 +1372,131 @@
           "en": "I teach Czech."
         }
       ],
-      "unit_id": 5
+      "unit_id": 5,
+      "concept_keys": [
+        "present_tense_all_types"
+      ],
+      "lecture": [
+        {
+          "heading": "Verbs with -ím: mluvím, bydlím",
+          "say": "Verbs ending in -it, -et or -ět take -ím for I: mluvit → mluvím, bydlet → bydlím, rozumět → rozumím. For on and oni it is -í.",
+          "table": [
+            [
+              "já",
+              "mluvím"
+            ],
+            [
+              "ty",
+              "mluvíš"
+            ],
+            [
+              "on, ona",
+              "mluví"
+            ],
+            [
+              "my",
+              "mluvíme"
+            ],
+            [
+              "vy",
+              "mluvíte"
+            ],
+            [
+              "oni",
+              "mluví"
+            ],
+            [
+              "bydlet",
+              "bydlím"
+            ],
+            [
+              "rozumět",
+              "rozumím"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Bydlím v Brně.",
+              "en": "I live in Brno."
+            },
+            {
+              "cz": "Mluvím anglicky.",
+              "en": "I speak English."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Já mluvám česky.",
+            "right": "Já mluvím česky."
+          }
+        }
+      ]
     },
     {
       "id": "GR-042",
-      "rule_name": "Verb conjugation class 3: -et/-ět and irregular verbs",
-      "pattern": "-ět verbs: -ím, -íš, -í; irregular: číst → čtu, čteš, čte, čteme, čtete, čtou",
+      "rule_name": "Verbs in -ovat and irregular verbs: pracuju, čtu, píšu",
+      "pattern": "-ovat → -uju, -uješ, -uje, -ujeme, -ujete, -ujou: pracovat → pracuju, studovat → studuju. Irregular: číst → čtu, psát → píšu, pít → piju, jíst → jím.",
       "explanation": "Verbs ending in -ět like rozumět (to understand) → rozumím, rozumíš, rozumí, rozumíme, rozumíte, rozumí. Some verbs are irregular in present tense: číst (to read) → čtu, čteš, čte, čteme, čtete, čtou. jíst (to eat) → jím, jíš, jí, jíme, jíte, jedí. These must be memorized individually.",
       "case_affected": null,
       "examples": [
         {
-          "cz": "Rozumím česky.",
-          "en": "I understand Czech."
+          "cz": "Pracuju v Praze.",
+          "en": "I work in Prague."
         },
         {
-          "cz": "Čtu knihu.",
-          "en": "I'm reading a book."
-        },
-        {
-          "cz": "Jím chleba.",
-          "en": "I'm eating bread."
-        },
-        {
-          "cz": "Nerozumím.",
-          "en": "I don't understand."
+          "cz": "Čtu česky.",
+          "en": "I read Czech."
         }
       ],
-      "unit_id": 5
+      "unit_id": 5,
+      "concept_keys": [
+        "present_tense_all_types"
+      ],
+      "lecture": [
+        {
+          "heading": "Verbs with -uju, and a few irregulars",
+          "say": "Verbs ending in -ovat take -uju: pracovat → pracuju, studovat → studuju. A few everyday verbs are irregular: čtu, píšu, piju, jím.",
+          "table": [
+            [
+              "pracovat",
+              "pracuju, pracuješ, pracuje"
+            ],
+            [
+              "studovat",
+              "studuju"
+            ],
+            [
+              "číst",
+              "čtu, čteš, čte"
+            ],
+            [
+              "psát",
+              "píšu"
+            ],
+            [
+              "pít",
+              "piju"
+            ],
+            [
+              "jíst",
+              "jím"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Pracuju v kanceláři.",
+              "en": "I work in an office."
+            },
+            {
+              "cz": "Čtu knihu.",
+              "en": "I am reading a book."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Já pracovám.",
+            "right": "Já pracuju."
+          }
+        }
+      ]
     },
     {
       "id": "GR-043",
@@ -1375,7 +1522,57 @@
           "en": "I don't understand."
         }
       ],
-      "unit_id": 5
+      "unit_id": 5,
+      "lecture": [
+        {
+          "heading": "Not: nemluvím, nerozumím",
+          "say": "Put ne- in front of any verb, as one word: nemluvím, nečtu, nerozumím. Languages after mluvit, rozumět and číst end in -y: česky, anglicky.",
+          "table": [
+            [
+              "mluvím",
+              "nemluvím"
+            ],
+            [
+              "rozumím",
+              "nerozumím"
+            ],
+            [
+              "čtu",
+              "nečtu"
+            ],
+            [
+              "pracuju",
+              "nepracuju"
+            ],
+            [
+              "Czech",
+              "česky"
+            ],
+            [
+              "English",
+              "anglicky"
+            ],
+            [
+              "German",
+              "německy"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Nemluvím dobře česky.",
+              "en": "I don't speak Czech well."
+            },
+            {
+              "cz": "Rozumím trochu.",
+              "en": "I understand a little."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Ne mluvím česky.",
+            "right": "Nemluvím česky."
+          }
+        }
+      ]
     },
     {
       "id": "GR-050",

@@ -437,7 +437,7 @@
     "unit_id": 5,
     "example_cz": "Prosím o kávu.",
     "example_en": "I request a coffee.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 41,
@@ -1295,7 +1295,7 @@
     "unit_id": 5,
     "example_cz": "Co děláš?",
     "example_en": "What are you doing?",
-    "lesson_id": 501
+    "lesson_id": null
   },
   {
     "id": 126,
@@ -1306,7 +1306,7 @@
     "unit_id": 5,
     "example_cz": "Mluvím česky.",
     "example_en": "I speak Czech.",
-    "lesson_id": 501
+    "lesson_id": null
   },
   {
     "id": 127,
@@ -1328,7 +1328,7 @@
     "unit_id": 5,
     "example_cz": "Čtu knihu.",
     "example_en": "I'm reading a book.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 129,
@@ -1339,7 +1339,7 @@
     "unit_id": 5,
     "example_cz": "Znám Prahu.",
     "example_en": "I know Prague.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 130,
@@ -1350,7 +1350,7 @@
     "unit_id": 5,
     "example_cz": "Čekám na autobus.",
     "example_en": "I'm waiting for a bus.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 131,
@@ -1361,7 +1361,7 @@
     "unit_id": 5,
     "example_cz": "Píšu dopis.",
     "example_en": "I'm writing a letter.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 132,
@@ -1372,7 +1372,7 @@
     "unit_id": 5,
     "example_cz": "Hraju tenis.",
     "example_en": "I play tennis.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 133,
@@ -1394,7 +1394,7 @@
     "unit_id": 5,
     "example_cz": "Prosím o kávu.",
     "example_en": "I'd like a coffee.",
-    "lesson_id": 501
+    "lesson_id": null
   },
   {
     "id": 135,
@@ -1405,7 +1405,7 @@
     "unit_id": 5,
     "example_cz": "Učím češtinu.",
     "example_en": "I teach Czech.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 136,
@@ -1416,7 +1416,7 @@
     "unit_id": 5,
     "example_cz": "Učím se česky.",
     "example_en": "I'm learning Czech.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 137,
@@ -1438,7 +1438,7 @@
     "unit_id": 5,
     "example_cz": "Vidím tebe.",
     "example_en": "I see you.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 139,
@@ -1449,7 +1449,7 @@
     "unit_id": 5,
     "example_cz": "Jím chleba.",
     "example_en": "I'm eating bread.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 140,
@@ -1460,7 +1460,7 @@
     "unit_id": 5,
     "example_cz": "Piju kávu.",
     "example_en": "I drink coffee.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 141,
@@ -1493,7 +1493,7 @@
     "unit_id": 5,
     "example_cz": "Nedělám nic.",
     "example_en": "I'm not doing anything.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 144,
@@ -1504,7 +1504,7 @@
     "unit_id": 5,
     "example_cz": "Mluvím dobře.",
     "example_en": "I speak well.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 145,
@@ -1515,7 +1515,7 @@
     "unit_id": 5,
     "example_cz": "Mluvím špatně.",
     "example_en": "I speak poorly.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 146,
@@ -4122,7 +4122,7 @@
     "unit_id": 5,
     "example_cz": "Ráda vařím večeři.",
     "example_en": "I like to cook dinner.",
-    "lesson_id": 501
+    "lesson_id": 502
   },
   {
     "id": 383,
@@ -4133,7 +4133,7 @@
     "unit_id": 5,
     "example_cz": "Prodávají ovoce na trhu.",
     "example_en": "They sell fruit at the market.",
-    "lesson_id": 501
+    "lesson_id": 503
   },
   {
     "id": 384,

@@ -3,27 +3,24 @@
   "unit_id": 5,
   "order_in_unit": 3,
   "title": "Mission: What Do You Do?",
-  "description": "Combine activity questions and personal answers in one natural exchange.",
-  "can_do": "hold a short conversation about everyday activities.",
-  "new_language": [
-    "Pracuju…",
-    "Bydlím…",
-    "Mluvím…",
-    "Rozumím…"
-  ],
-  "recycles": [
-    "Jmenuju se…",
-    "Jsem…",
-    "Jste…?",
-    "Ano/Ne"
-  ],
-  "exit_task": "hold a short conversation about everyday activities.",
+  "description": "Answer everyday questions about yourself in one exchange.",
   "duration_min": 12,
   "lesson_type": "mission",
-  "is_review": true,
+  "can_do": "answer what you do, where you live and which languages you speak.",
+  "new_language": [
+    "Pracuju v kanceláři."
+  ],
+  "recycles": [
+    "Co děláte?",
+    "Kde bydlíte?",
+    "Mluvím…"
+  ],
+  "exit_task": "record four answers about yourself.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 5300,
+      "id": 5400,
       "lesson_id": 504,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -31,24 +28,24 @@
         "type": "teaching",
         "style": "list",
         "heading": "Mission: What Do You Do?",
-        "body": "Combine activity questions and personal answers in one natural exchange.",
+        "body": "Close your notebook. Answer what you do, where you live, which languages you speak and what you understand.",
         "play_all_label": "Hear the useful chunks",
         "items": [
           {
-            "cz": "Pracuju…",
-            "en": "I work…"
+            "cz": "Pracuju v kanceláři.",
+            "en": "I work in an office."
           },
           {
-            "cz": "Bydlím…",
-            "en": "I live…"
+            "cz": "Bydlím v Praze.",
+            "en": "I live in Prague."
           },
           {
-            "cz": "Mluvím…",
-            "en": "I speak…"
+            "cz": "Mluvím anglicky.",
+            "en": "I speak English."
           },
           {
-            "cz": "Rozumím…",
-            "en": "I understand…"
+            "cz": "Rozumím trochu česky.",
+            "en": "I understand a little Czech."
           }
         ]
       },
@@ -56,7 +53,7 @@
       "xp_reward": 0
     },
     {
-      "id": 5301,
+      "id": 5401,
       "lesson_id": 504,
       "type": "listening_comprehension",
       "prompt": "Listen for meaning and one detail",
@@ -85,13 +82,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "A little Czech",
       "xp_reward": 15
     },
     {
-      "id": 5302,
+      "id": 5402,
       "lesson_id": 504,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -121,13 +119,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Teacher",
       "xp_reward": 15
     },
     {
-      "id": 5303,
+      "id": 5403,
       "lesson_id": 504,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -135,161 +134,92 @@
         "type": "matching",
         "pairs": [
           {
-            "left": "Pracuju…",
-            "right": "I work…"
+            "left": "Pracuju v kanceláři.",
+            "right": "I work in an office."
           },
           {
-            "left": "Bydlím…",
-            "right": "I live…"
+            "left": "Bydlím v Praze.",
+            "right": "I live in Prague."
           },
           {
-            "left": "Mluvím…",
-            "right": "I speak…"
+            "left": "Mluvím anglicky.",
+            "right": "I speak English."
           },
           {
-            "left": "Rozumím…",
-            "right": "I understand…"
+            "left": "Rozumím trochu.",
+            "right": "I understand a little."
           }
         ],
-        "explanation": "Keep each useful Czech chunk connected to its meaning."
+        "explanation": "Keep each useful Czech chunk connected to its meaning.",
+        "targets": "vocab"
       },
       "answer_key": "Pracuju…–I work…; Bydlím…–I live…; Mluvím…–I speak…; Rozumím…–I understand…",
       "xp_reward": 10
     },
     {
-      "id": 5304,
-      "lesson_id": 504,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "Pracuju…",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "Pracuju…",
-      "xp_reward": 10
-    },
-    {
-      "id": 5305,
-      "lesson_id": 504,
-      "type": "fill_blank",
-      "prompt": "Complete the useful chunk",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___",
-        "blank_count": 1,
-        "blank_answers": [
-          [
-            "Pracuju…"
-          ]
-        ],
-        "explanation": "Retrieve the missing word from the complete chunk."
-      },
-      "answer_key": "Pracuju…",
-      "xp_reward": 10
-    },
-    {
-      "id": 5306,
-      "lesson_id": 504,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Bydlím…"
-        ],
-        "correct_order": [
-          0
-        ],
-        "translation_en": "I live…",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "Bydlím…",
-      "xp_reward": 10
-    },
-    {
-      "id": 5307,
-      "lesson_id": 504,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Mluvím…",
-        "language": "cs-CZ",
-        "note": "Listen for the full phrase before typing."
-      },
-      "answer_key": "Mluvím…",
-      "xp_reward": 10
-    },
-    {
-      "id": 5308,
-      "lesson_id": 504,
-      "type": "pronunciation",
-      "prompt": "Rehearse a useful phrase",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Rozumím…",
-        "focus_sounds": [
-          "first_syllable_stress",
-          "vowel_length"
-        ],
-        "min_score": 0.5,
-        "translation_en": "I understand…"
-      },
-      "answer_key": "Rozumím…",
-      "xp_reward": 15
-    },
-    {
-      "id": 5309,
+      "id": 5404,
       "lesson_id": 504,
       "type": "dialogue",
-      "prompt": "Complete and hear the short exchange",
+      "prompt": "Complete the conversation",
       "data": {
         "type": "dialogue",
-        "scenario": "Mission: What Do You Do?",
-        "image": "assets/images/unit05/activity_questions_v1.webp",
-        "image_label": "Everyday activity profiles and matching questions",
+        "scenario": "At a party, someone asks about you.",
         "lines": [
           {
-            "speaker": "partner",
+            "speaker": "guest",
             "text": "Co děláte?"
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I work in an office.)"
           },
           {
-            "speaker": "partner",
-            "text": "Jakými jazyky mluvíte?"
+            "speaker": "guest",
+            "text": "A kde bydlíte?"
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I live in Prague.)"
           }
         ],
         "blank_answers": [
           [
-            "Pracuju…"
+            "Pracuju v kanceláři.",
+            "Pracuji v kanceláři."
           ],
           [
-            "Bydlím…"
+            "Bydlím v Praze."
           ]
         ],
-        "explanation": "Use complete chunks that answer each partner cue."
+        "explanation": "pracovat → pracuju; bydlet → bydlím."
       },
-      "answer_key": "Pracuju… | Bydlím…",
-      "xp_reward": 15
+      "answer_key": "Pracuju v kanceláři.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-042"
     },
     {
-      "id": 5310,
+      "id": 5405,
+      "lesson_id": 504,
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jak řeknete „I don’t speak Czech well“?",
+        "question_en": "How do you say “I don’t speak Czech well”?",
+        "options": [
+          "Nemluvím dobře česky.",
+          "Mluvím ne dobře česky.",
+          "Nemluvím dobrý česky."
+        ],
+        "correct_index": 0,
+        "explanation": "ne- + mluvím; dobře (well) describes how you speak."
+      },
+      "answer_key": "Nemluvím dobře česky.",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-043"
+    },
+    {
+      "id": 5406,
       "lesson_id": 504,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -305,13 +235,14 @@
           "Mluvím…",
           "Rozumím…"
         ],
-        "sample_answer": "Pracuju… Bydlím… Mluvím… Rozumím…"
+        "sample_answer": "Pracuju… Bydlím… Mluvím… Rozumím…",
+        "targets": "vocab"
       },
       "answer_key": "Pracuju… Bydlím… Mluvím… Rozumím…",
       "xp_reward": 0
     },
     {
-      "id": 5311,
+      "id": 5407,
       "lesson_id": 504,
       "type": "speaking_task",
       "prompt": "Record the unit mission",
@@ -328,10 +259,44 @@
           "Bydlím…",
           "Mluvím…",
           "Rozumím…"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Pracuju… Bydlím… Mluvím… Rozumím…",
       "xp_reward": 20
+    },
+    {
+      "id": 5408,
+      "lesson_id": 504,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 5 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, then tick your Check box.",
+        "items": [
+          {
+            "cz": "dělám, mluvím, pracuju",
+            "en": "three verb groups"
+          },
+          {
+            "cz": "čtu, píšu, piju, jím",
+            "en": "irregular"
+          },
+          {
+            "cz": "nemluvím, nerozumím",
+            "en": "not"
+          },
+          {
+            "cz": "česky, anglicky",
+            "en": "languages"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
   ]
 }
