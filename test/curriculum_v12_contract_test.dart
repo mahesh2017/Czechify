@@ -82,6 +82,62 @@ void main() {
     }
   });
 
+  test('every unit is on the v1.2 format', () {
+    // All 31 units were rebuilt on curriculum/v1.2-plan. Once that holds, a
+    // lesson in the old shape can only be a regression: the V-rules above
+    // skip it silently, so this is the one test that would notice.
+    expect(
+      [for (final lesson in lessons) if (!rebuilt(lesson)) lesson['id']],
+      isEmpty,
+    );
+    expect(rebuiltUnits, hasLength(units.length));
+  });
+
+  // The next three carry over the durable checks of the v1.1 per-unit tests
+  // (unit1_…, units04_10_…, units11_15_…, units28_30_…), which pinned the old
+  // twelve-item layout and were retired with it.
+  test('every mission ends in production: a speaking or writing task', () {
+    for (final unitId in units.keys) {
+      final mission = lessonsOf(unitId).last;
+      expect(
+        exercisesOf(mission).map((e) => e['type']),
+        anyOf(contains('speaking_task'), contains('writing_task')),
+        reason: 'unit $unitId mission ${mission['id']}',
+      );
+    }
+  });
+
+  test('every image a lesson shows exists', () {
+    for (final lesson in lessons) {
+      for (final exercise in exercisesOf(lesson)) {
+        final image = dataOf(exercise)['image'] as String?;
+        if (image == null) continue;
+        expect(File(image).existsSync(), isTrue, reason: '${exercise['id']}: $image');
+      }
+    }
+  });
+
+  test('scored items are mostly production, not recognition', () {
+    // Recognition = choosing an option or translating into English. The
+    // highest unit is U24 (health words checked by MC) at 29%.
+    for (final unitId in units.keys) {
+      final scored = [
+        for (final lesson in lessonsOf(unitId))
+          ...exercisesOf(lesson).where(isScored),
+      ];
+      final recognition = scored.where(
+        (e) =>
+            e['type'] == 'multiple_choice' ||
+            (e['type'] == 'translation' && dataOf(e)['direction'] == 'cz_to_en'),
+      );
+      expect(
+        recognition.length / scored.length,
+        lessThanOrEqualTo(0.30),
+        reason: 'unit $unitId',
+      );
+    }
+  });
+
   test('V1 a rebuilt unit is rebuilt whole', () {
     for (final unitId in rebuiltUnits) {
       final all = lessonsOf(unitId);
