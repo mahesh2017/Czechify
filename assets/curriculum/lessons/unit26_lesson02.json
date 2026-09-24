@@ -2,235 +2,597 @@
   "id": 2602,
   "unit_id": 26,
   "order_in_unit": 1,
-  "title": "Renting & Household",
-  "description": "Learn vocabulary and grammar for renting an apartment and household management. Practice 's' + instrumental (with), 'do' + genitive (to/into), and common renting expressions like 'nájemné', 'kauce', and 'smlouva'.",
+  "title": "Where Things Are and Renting",
+  "description": "Learn where things are in a flat, which floor, and the words of a rental listing.",
   "duration_min": 15,
-  "lesson_type": "introduction",
+  "lesson_type": "practice",
+  "can_do": "say where things are, which floor you live on, and ask about a rental.",
+  "new_language": [
+    "v kuchyni, na balkoně, u okna",
+    "v přízemí, ve třetím patře",
+    "nájem, kauce, zařízený"
+  ],
+  "recycles": [
+    "Chtěl/a bych…",
+    "kolik stojí"
+  ],
+  "exit_task": "ask two questions about a flat to rent.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 26013,
+      "id": 26200,
       "lesson_id": 2602,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue between a tenant and a landlord about renting an apartment.",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "dialogue",
-        "scenario": "Pronajímatel a nájemník — A landlord and prospective tenant discuss an apartment for rent.",
-        "lines": [
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write four rooms and two questions for a landlord. Then check.",
+        "items": [
           {
-            "speaker": "person_a",
-            "text": "Dobrý den, mám zájem o ten byt. Kolik stojí nájemné?"
+            "cz": "kuchyně, ložnice, koupelna, obývák",
+            "en": "kitchen, bedroom, bathroom, living room"
           },
           {
-            "speaker": "person_b",
-            "text": "___"
+            "cz": "Je byt ještě volný?",
+            "en": "Is the flat still available?"
           },
           {
-            "speaker": "person_a",
-            "text": "Je byt s nábytkem nebo bez nábytku?"
+            "cz": "Je byt zařízený?",
+            "en": "Is the flat furnished?"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 26201,
+      "lesson_id": 2602,
+      "type": "teaching",
+      "prompt": "Where in the flat: v kuchyni, u okna",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-251",
+        "rule_step": 1,
+        "heading": "Where in the flat: v kuchyni, u okna",
+        "items": [
+          {
+            "cz": "Pračka je v koupelně.",
+            "en": "The washing machine is in the bathroom."
           },
           {
-            "speaker": "person_b",
-            "text": "Byt je s nábytkem. Musíte podepsat nájemní smlouvu."
+            "cz": "Stůl je u okna.",
+            "en": "The table is by the window."
           }
         ],
-        "explanation": "'Nájemné' = rent (payment). 'Kauce' = deposit. 'Za měsíc' = per month. 'S nábytkem' = furnished (s + instrumental). 'Bez nábytku' = unfurnished (bez + genitive). 'Nájemní smlouva' = rental contract. 'Mám zájem o' = I'm interested in (o + accusative).",
-        "blank_answers": [
-          ["Nájemné je patnáct tisíc korun za měsíc. Kauce je dvě měsíční nájemné.", "Nájemné je patnáct tisíc korun za měsíc.", "Kauce je dvě měsíční nájemné."]
+        "say": "In a room use v + locative: v kuchyni, v ložnici. On a balcony or in a corridor use na. Next to something use u or vedle + genitive: u okna, vedle postele.",
+        "table": [
+          [
+            "kuchyně",
+            "v kuchyni"
+          ],
+          [
+            "ložnice",
+            "v ložnici"
+          ],
+          [
+            "koupelna",
+            "v koupelně"
+          ],
+          [
+            "obývák",
+            "v obýváku"
+          ],
+          [
+            "balkon",
+            "na balkoně"
+          ],
+          [
+            "chodba",
+            "na chodbě"
+          ],
+          [
+            "okno",
+            "u okna"
+          ],
+          [
+            "postel",
+            "vedle postele"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Pračka je v koupelně.",
+            "en": "The washing machine is in the bathroom."
+          },
+          {
+            "cz": "Stůl je u okna.",
+            "en": "The table is by the window."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Stůl je v kuchyně.",
+          "right": "Stůl je v kuchyni."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 26202,
+      "lesson_id": 2602,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Pračka je v ___. (koupelna)",
+        "question_en": "The washing machine is in the bathroom.",
+        "options": [
+          "koupelně",
+          "koupelna",
+          "koupelnu"
+        ],
+        "correct_index": 0,
+        "explanation": "v + locative: koupelna → v koupelně."
+      },
+      "answer_key": "koupelně",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-251"
+    },
+    {
+      "id": 26203,
+      "lesson_id": 2602,
+      "type": "teaching",
+      "prompt": "Which floor: ve třetím patře",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-253",
+        "rule_step": 1,
+        "heading": "Which floor: ve třetím patře",
+        "items": [
+          {
+            "cz": "Bydlím ve třetím patře.",
+            "en": "I live on the third floor."
+          },
+          {
+            "cz": "Recepce je v přízemí.",
+            "en": "Reception is on the ground floor."
+          }
+        ],
+        "say": "Czech counts floors from přízemí, the ground floor; první patro is one floor up. Say where with v + locative: v prvním patře, ve druhém patře.",
+        "table": [
+          [
+            "ground floor",
+            "v přízemí"
+          ],
+          [
+            "1st floor",
+            "v prvním patře"
+          ],
+          [
+            "2nd floor",
+            "ve druhém patře"
+          ],
+          [
+            "3rd floor",
+            "ve třetím patře"
+          ],
+          [
+            "4th floor",
+            "ve čtvrtém patře"
+          ],
+          [
+            "5th floor",
+            "v pátém patře"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Bydlím ve třetím patře.",
+            "en": "I live on the third floor."
+          },
+          {
+            "cz": "Recepce je v přízemí.",
+            "en": "Reception is on the ground floor."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Bydlím v tři patro.",
+          "right": "Bydlím ve třetím patře."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 26204,
+      "lesson_id": 2602,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Bydlím ve ___ patře. (3.)",
+        "question_en": "I live on the third floor.",
+        "options": [
+          "třetím",
+          "třetí",
+          "tři"
+        ],
+        "correct_index": 0,
+        "explanation": "v + locative of the ordinal: ve třetím patře."
+      },
+      "answer_key": "třetím",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-253"
+    },
+    {
+      "id": 26205,
+      "lesson_id": 2602,
+      "type": "teaching",
+      "prompt": "Renting a flat",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-252",
+        "rule_step": 1,
+        "heading": "Renting a flat",
+        "items": [
+          {
+            "cz": "Chtěl/a bych si pronajmout byt.",
+            "en": "I would like to rent a flat."
+          },
+          {
+            "cz": "Je byt ještě volný?",
+            "en": "Is the flat still available?"
+          }
+        ],
+        "say": "You rent a flat: pronajmout si byt. A listing gives the rent, the costs and the deposit. Ask: Je byt zařízený? Jsou energie v ceně?",
+        "table": [
+          [
+            "Pronajmu byt 2+kk.",
+            "Flat to let: 2 rooms + kitchenette"
+          ],
+          [
+            "nájem 16 000 Kč",
+            "rent CZK 16,000"
+          ],
+          [
+            "+ poplatky",
+            "+ service charges"
+          ],
+          [
+            "kauce",
+            "deposit"
+          ],
+          [
+            "zařízený / nezařízený",
+            "furnished / unfurnished"
+          ],
+          [
+            "volný od září",
+            "available from September"
+          ],
+          [
+            "Jsou energie v ceně?",
+            "Are utilities included?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Chtěl/a bych si pronajmout byt.",
+            "en": "I would like to rent a flat."
+          },
+          {
+            "cz": "Je byt ještě volný?",
+            "en": "Is the flat still available?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Byt je s nábytek.",
+          "right": "Byt je s nábytkem. / Byt je zařízený."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 26206,
+      "lesson_id": 2602,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Co znamená „zařízený byt“?",
+        "question_en": "What does “zařízený byt” mean?",
+        "options": [
+          "a furnished flat",
+          "an empty flat",
+          "a new flat"
+        ],
+        "correct_index": 0,
+        "explanation": "zařízený = furnished (s nábytkem)."
+      },
+      "answer_key": "a furnished flat",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-252"
+    },
+    {
+      "id": 26207,
+      "lesson_id": 2602,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write where three things are in your flat, which floor you live on, and the five words of a rental listing.",
+        "items": [
+          {
+            "cz": "Pračka je v koupelně. Stůl je u okna.",
+            "en": "where things are"
+          },
+          {
+            "cz": "Bydlím ve třetím patře.",
+            "en": "which floor"
+          },
+          {
+            "cz": "nájem, poplatky, kauce, zařízený, volný od…",
+            "en": "a rental listing"
+          }
         ]
       },
-      "answer_key": "Nájemné je patnáct tisíc korun za měsíc. Kauce je dvě měsíční nájemné.",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 25
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 26014,
-      "lesson_id": 2602,
-      "type": "multiple_choice",
-      "prompt": "What does 'nájemné' mean in Czech?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'nájemné'?",
-        "question_en": "What does 'nájemné' mean?",
-        "options": ["deposit", "rent (payment)", "contract", "tenant"],
-        "correct_index": 1,
-        "explanation": "'Nájemné' = rent (the monthly payment). Related terms: 'kauce' = deposit, 'nájemní smlouva' = rental contract, 'nájemník' = tenant, 'pronajímatel' = landlord. 'Nájem' = the lease/rental itself."
-      },
-      "answer_key": "rent (payment)",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 10
-    },
-    {
-      "id": 26015,
-      "lesson_id": 2602,
-      "type": "multiple_choice",
-      "prompt": "Complete the sentence: 'Musím ___ nájemní smlouvu.' (I have to sign the rental contract.)",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Doplňte: 'Musím ___ nájemní smlouvu.'",
-        "question_en": "Complete: 'I have to ___ the rental contract.'",
-        "options": ["podepsat", "platit", "stěhovat", "bydlet"],
-        "correct_index": 0,
-        "explanation": "'Podepsat' = to sign. 'Musím podepsat nájemní smlouvu.' = I have to sign the rental contract. 'Smlouva' → accusative 'smlouvu' after 'podepsat'. 'Musím' = I must/have to (1st person singular of 'muset')."
-      },
-      "answer_key": "podepsat",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 10
-    },
-    {
-      "id": 26016,
+      "id": 26208,
       "lesson_id": 2602,
       "type": "fill_blank",
-      "prompt": "Fill in the correct preposition: 'Byt je ___ nábytkem.' (The apartment is furnished.)",
+      "prompt": "Guided practice",
       "data": {
         "type": "fill_blank",
-        "sentence": "Byt je ___ nábytkem. (with furniture)",
+        "mode": "guided",
+        "hint": "u + genitive: okno → okna.",
+        "sentence": "Stůl je u ___. (okno)",
         "blank_count": 1,
-        "explanation": "'S' + instrumental = with. 'Byt je s nábytkem.' = The apartment is furnished (literally 'with furniture'). 'Nábytek' → instrumental 'nábytkem'. The opposite is 'bez nábytku' = unfurnished (bez + genitive).",
         "blank_answers": [
-          ["s"]
+          [
+            "okna"
+          ]
+        ],
+        "explanation": "u okna"
+      },
+      "answer_key": "okna",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-251"
+    },
+    {
+      "id": 26209,
+      "lesson_id": 2602,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "na + locative: -ě.",
+        "sentence": "Kolo je na ___. (balkon)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "balkoně"
+          ]
+        ],
+        "explanation": "na balkoně"
+      },
+      "answer_key": "balkoně",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-251"
+    },
+    {
+      "id": 26210,
+      "lesson_id": 2602,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "v + locative of první.",
+        "sentence": "Bydlíme v ___ patře. (1.)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "prvním"
+          ]
+        ],
+        "explanation": "v prvním patře"
+      },
+      "answer_key": "prvním",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-253"
+    },
+    {
+      "id": 26211,
+      "lesson_id": 2602,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "rent for yourself: pronajmout si.",
+        "sentence": "Chtěla bych si ___ byt. (rent)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "pronajmout"
+          ]
+        ],
+        "explanation": "Chtěla bych si pronajmout byt."
+      },
+      "answer_key": "pronajmout",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-252"
+    },
+    {
+      "id": 26212,
+      "lesson_id": 2602,
+      "type": "multiple_choice",
+      "prompt": "Complete the sentence with the locative form: 'Vaříme v ___ (kuchyně).'",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Doplňte lokál: 'Vaříme v ___ (kuchyně).'",
+        "question_en": "Complete with the locative form: 'We cook in the kitchen.'",
+        "options": [
+          "kuchyně",
+          "kuchyni",
+          "kuchyň",
+          "kuchyní"
+        ],
+        "correct_index": 1,
+        "explanation": "'V' + locative: kuchyně → kuchyni. 'Vaříme v kuchyni.' = We cook in the kitchen. Feminine nouns ending in -ě form the locative by changing -ě to -i: kuchyně → kuchyni, ložnice → ložnici."
+      },
+      "answer_key": "kuchyni",
+      "grammar_rule_id": "GR-251",
+      "xp_reward": 10
+    },
+    {
+      "id": 26213,
+      "lesson_id": 2602,
+      "type": "fill_blank",
+      "prompt": "Fill in the correct preposition and locative form: 'Spí ___ (v + ložnice).'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Spí ___ . (v + ložnice — locative)",
+        "blank_count": 1,
+        "explanation": "'V' + locative: ložnice → ložnici. 'Spí v ložnici.' = She/he sleeps in the bedroom. Feminine nouns in -ce or -ně change to -ci or -ni in the locative: ložnice → ložnici, koupelna → koupelně.",
+        "blank_answers": [
+          [
+            "v ložnici"
+          ]
         ]
       },
-      "answer_key": "s",
+      "answer_key": "v ložnici",
       "grammar_rule_id": "GR-251",
       "xp_reward": 15
     },
     {
-      "id": 26017,
+      "id": 26214,
       "lesson_id": 2602,
       "type": "fill_blank",
-      "prompt": "Fill in the correct preposition: 'Stěhuji se ___ nového bytu.' (I am moving to a new apartment.)",
+      "prompt": "Fill in the correct locative form: 'Bydlíme v ___ (byt).'",
       "data": {
         "type": "fill_blank",
-        "sentence": "Stěhuji se ___ nového bytu. (to a new apartment)",
+        "sentence": "Bydlíme v ___ . (byt — locative)",
         "blank_count": 1,
-        "explanation": "'Do' + genitive = to/into (direction). 'Stěhuji se do nového bytu.' = I am moving to a new apartment. 'Nový byt' → genitive 'nového bytu'. 'Stěhovat se' = to move (reflexive). Note: 'se' is required — 'stěhuji se' not just 'stěhuji'.",
+        "explanation": "'V' + locative: byt → bytě. 'Bydlíme v bytě.' = We live in an apartment. Masculine inanimate nouns ending in a consonant add -ě in the locative: byt → bytě, dům → domě.",
         "blank_answers": [
-          ["do"]
+          [
+            "bytě"
+          ]
         ]
       },
-      "answer_key": "do",
-      "grammar_rule_id": "GR-252",
+      "answer_key": "bytě",
+      "grammar_rule_id": "GR-251",
       "xp_reward": 15
     },
     {
-      "id": 26018,
+      "id": 26215,
       "lesson_id": 2602,
       "type": "translation",
-      "prompt": "Translate to Czech: 'The rent is fifteen thousand crowns per month.'",
+      "prompt": "Translate to Czech: 'I live in a big house.'",
       "data": {
         "type": "translation",
         "direction": "en_to_cz",
-        "source": "The rent is fifteen thousand crowns per month.",
-        "accepted_answers": ["Nájemné je patnáct tisíc korun za měsíc.", "Nájemné je patnáct tisíc korun měsíčně.", "Měsíční nájemné je patnáct tisíc korun."],
-        "grammar_note": "'Nájemné' = rent. 'Patnáct tisíc korun' = fifteen thousand crowns. 'Za měsíc' = per month (literally 'for a month'). You can also say 'měsíčně' (monthly). Czech numbers: patnáct = 15, tisíc = thousand, korun = crowns (genitive plural)."
-      },
-      "answer_key": "Nájemné je patnáct tisíc korun za měsíc.",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 10
-    },
-    {
-      "id": 26019,
-      "lesson_id": 2602,
-      "type": "translation",
-      "prompt": "Translate to English: 'Musím podepsat nájemní smlouvu a zaplatit kauci.'",
-      "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Musím podepsat nájemní smlouvu a zaplatit kauci.",
-        "accepted_answers": ["I have to sign the rental contract and pay the deposit.", "I must sign the lease and pay the deposit.", "I need to sign the rental agreement and pay the deposit."],
-        "grammar_note": "'Musím' = I must/have to. 'Podepsat' = to sign. 'Nájemní smlouva' → accusative 'nájemní smlouvu' = rental contract/lease. 'Zaplatit' = to pay. 'Kauce' → accusative 'kauci' = deposit."
-      },
-      "answer_key": "I have to sign the rental contract and pay the deposit.",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 10
-    },
-    {
-      "id": 26020,
-      "lesson_id": 2602,
-      "type": "matching",
-      "prompt": "Match each Czech renting term with its English translation.",
-      "data": {
-        "type": "matching",
-        "instructions_cz": "Spojte české termíny pro pronájem s anglickým překladem.",
-        "instructions_en": "Match each Czech renting term with its English translation.",
-        "pairs": [
-          {"cz": "nájemník", "en": "tenant"},
-          {"cz": "pronajímatel", "en": "landlord"},
-          {"cz": "kauce", "en": "deposit"},
-          {"cz": "smlouva", "en": "contract"}
+        "source": "I live in a big house.",
+        "accepted_answers": [
+          "Bydlím ve velkém domě.",
+          "Bydlím ve velkém domě"
         ],
-        "accepted_answers": ["nájemník-tenant|pronajímatel-landlord|kauce-deposit|smlouva-contract"],
-        "explanation": "Key renting vocabulary. Others: 'nájemné' (rent payment), 'nájem' (the lease), 'stěhovat se' (to move), 's nábytkem' (furnished), 'bez nábytku' (unfurnished), 'klíč' (key)."
+        "grammar_note": "'V' becomes 've' before words starting with 'v' for euphony: 've velkém domě' (not 'v velkém'). 'Dům' → locative 'domě'. 'Velký' → locative neuter/masc. 'velkém'. 'Bydlím' = 1st person singular of 'bydlet'."
       },
-      "answer_key": "nájemník-tenant|pronajímatel-landlord|kauce-deposit|smlouva-contract",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 15
+      "answer_key": "Bydlím ve velkém domě.",
+      "grammar_rule_id": "GR-251",
+      "xp_reward": 10
     },
     {
-      "id": 26021,
+      "id": 26216,
       "lesson_id": 2602,
       "type": "error_correction",
       "prompt": "Find and correct the error in this sentence.",
       "data": {
         "type": "error_correction",
-        "sentence_with_error": "Byt je s nábytek.",
-        "hint": "Think about which case 's' (with) requires.",
-        "accepted_answers": ["Byt je s nábytkem.", "Byt je s nábytkem."],
-        "explanation": "'S' (with) + instrumental case: nábytek → nábytkem. 'Byt je s nábytkem.' = The apartment is furnished. The error was using the accusative/nominative 'nábytek' instead of the instrumental 'nábytkem'. Masculine inanimate nouns add -em in the instrumental: nábytek → nábytkem.",
-        "correct_sentence_cz": "Byt je s nábytkem."
+        "sentence_with_error": "Bydlím v byt.",
+        "hint": "Think about which case 'v' requires for locations.",
+        "accepted_answers": [
+          "Bydlím v bytě.",
+          "Bydlím v bytě."
+        ],
+        "explanation": "'V' + locative: byt → bytě. 'Bydlím v bytě.' = I live in an apartment. The error was using the nominative 'byt' instead of the locative 'bytě'. The locative of masculine inanimate nouns ending in a consonant adds -ě: byt → bytě, dům → domě.",
+        "correct_sentence_cz": "Bydlím v bytě."
       },
-      "answer_key": "Byt je s nábytkem.",
+      "answer_key": "Bydlím v bytě.",
       "grammar_rule_id": "GR-251",
       "xp_reward": 15
     },
     {
-      "id": 26022,
+      "id": 26217,
       "lesson_id": 2602,
       "type": "pronunciation",
-      "prompt": "Pronounce the following sentence about renting an apartment.",
+      "prompt": "Pronounce the following sentence about your home.",
       "data": {
         "type": "pronunciation",
-        "target_text": "Stěhuji se do nového bytu v Praze. Nájemné je patnáct tisíc korun za měsíc.",
-        "target_audio_hash": "placeholder_26022",
-        "focus_sounds": ["Stěhuji", "nového", "bytu", "Praze", "patnáct", "tisíc", "měsíc", "ě", "ů"],
+        "target_text": "Bydlím ve velkém bytě v Praze. Máme tři pokoje a kuchyni.",
+        "target_audio_hash": "placeholder_26011",
+        "focus_sounds": [
+          "Bydlím",
+          "velkém",
+          "bytě",
+          "Praze",
+          "kuchyni",
+          "ě"
+        ],
         "min_score": 0.6,
-        "translation_en": "I am moving to a new apartment in Prague. The rent is fifteen thousand crowns per month."
+        "translation_en": "I live in a big apartment in Prague. We have three rooms and a kitchen."
       },
-      "answer_key": "Stěhuji se do nového bytu v Praze. Nájemné je patnáct tisíc korun za měsíc.",
-      "grammar_rule_id": "GR-252",
+      "answer_key": "Bydlím ve velkém bytě v Praze. Máme tři pokoje a kuchyni.",
+      "grammar_rule_id": "GR-251",
       "xp_reward": 15
     },
     {
-      "id": 26023,
+      "id": 26218,
       "lesson_id": 2602,
-      "type": "word_order",
-      "prompt": "Arrange the words to form: 'I have to sign the rental contract.'",
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
       "data": {
-        "type": "word_order",
-        "correct_order": [1, 3, 2, 0],
-        "explanation": "'Musím podepsat nájemní smlouvu.' = I have to sign the rental contract. Word order: modal verb (musím) + infinitive (podepsat) + adjective (nájemní) + noun accusative (smlouvu). 'Smlouva' → accusative 'smlouvu' as the object of 'podepsat'.",
-        "words": ["smlouvu", "Musím", "nájemní", "podepsat"]
+        "type": "multiple_choice",
+        "question_cz": "Recepce je v přízemí. Kde je?",
+        "question_en": "Reception is “v přízemí”. Where is it?",
+        "options": [
+          "on the ground floor",
+          "on the first floor",
+          "in the basement"
+        ],
+        "correct_index": 0,
+        "explanation": "přízemí = ground floor."
       },
-      "answer_key": "Musím podepsat nájemní smlouvu.",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 15
-    },
-    {
-      "id": 26024,
-      "lesson_id": 2602,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear.",
-      "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_26024",
-        "expected_text": "Byt je s nábytkem. Musím zaplatit kauci a podepsat smlouvu.",
-        "language": "cs-CZ",
-        "note": "Listen for renting vocabulary: 's nábytkem' (furnished — s + instrumental), 'kauce → kauci' (deposit — accusative), 'smlouva → smlouvu' (contract — accusative). Note the case changes between nominative and accusative forms."
-      },
-      "answer_key": "Byt je s nábytkem. Musím zaplatit kauci a podepsat smlouvu.",
-      "grammar_rule_id": "GR-252",
-      "xp_reward": 20
+      "answer_key": "on the ground floor",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-253"
     }
   ]
 }

@@ -3186,22 +3186,34 @@
       "description": "Housing vocabulary, rooms, furniture, renting, locative + prepositions",
       "grammar_rules": [
         {
-          "id": "GR-250",
-          "name": "Housing vocabulary — rooms and furniture genders",
-          "pattern": "Room names by gender: byt (masc inan), kuchyně (fem), ložnice (fem), koupelna (fem); furniture: stůl (masc inan), židle ",
-          "example": "Mám nový byt. — I have a new apartment. (byt = masc inanimate)"
-        },
-        {
           "id": "GR-251",
           "name": "Prepositions of location in housing",
           "pattern": "v/ve (in) + locative, na (on) + locative, u (by/at) + genitive — location in rooms",
           "example": "Kniha je na stole. — The book is on the table."
         },
         {
+          "id": "GR-253",
+          "name": "Floors — v přízemí, ve třetím patře",
+          "pattern": "Na kterém patře? v přízemí, v prvním, ve druhém, ve třetím, ve čtvrtém, v pátém patře.",
+          "example": "Bydlím ve třetím patře. — I live on the third floor."
+        },
+        {
           "id": "GR-252",
-          "name": "Renting and buying — pronajmout si, koupit si",
-          "pattern": "pronajmout si (rent for oneself) + accusative, koupit si (buy for oneself) + accusative — reflexive possessive svůj for ",
-          "example": "Pronajmul jsem si byt v Praze. — I rented an apartment in Prague."
+          "name": "Renting a flat — pronajmout si, nájem, zařízený",
+          "pattern": "pronajmout si byt (rent for yourself). A listing: nájem + poplatky, kauce, zařízený / nezařízený, volný od… Ask: Je byt ještě volný? Jsou energie v ceně?",
+          "example": "Chtěl/a bych si pronajmout byt. — I would like to rent a flat."
+        },
+        {
+          "id": "GR-254",
+          "name": "Reporting a problem — nefunguje, teče, je rozbitý",
+          "pattern": "X nefunguje. Teče voda. / Neteče teplá voda. X je rozbitý / rozbitá / rozbité. Můžete to opravit?",
+          "example": "V koupelně teče voda. — Water is leaking in the bathroom."
+        },
+        {
+          "id": "GR-250",
+          "name": "Housing vocabulary — rooms and furniture genders",
+          "pattern": "Room names by gender: byt (masc inan), kuchyně (fem), ložnice (fem), koupelna (fem); furniture: stůl (masc inan), židle (fem), postel (fem), skříň (fem)",
+          "example": "Mám nový byt. — I have a new apartment. (byt = masc inanimate)"
         }
       ],
       "core_vocabulary": [
@@ -3257,7 +3269,103 @@
         "Předpoklad, že poplatky jsou v nájmu",
         "Posuzování paneláků podle vzhledu"
       ],
-      "study_tip": "Prohlížejte si inzeráty bytů na sreality.cz. Učte se slovní zásobu: nájem, kauce, zařízený."
+      "study_tip": "Prohlížejte si inzeráty bytů na sreality.cz. Učte se slovní zásobu: nájem, kauce, zařízený.",
+      "notebook_page": {
+        "title_cz": "Bydlení",
+        "title_en": "Housing: rooms, floors, renting, problems",
+        "can_do": {
+          "cz": "Popíšu svůj byt, zeptám se na pronájem a nahlásím problém.",
+          "en": "I can describe my flat, ask about a rental and report a problem."
+        },
+        "words": [
+          {
+            "cz": "Bydlím v bytě.",
+            "en": "I live in a flat."
+          },
+          {
+            "cz": "v kuchyni, v ložnici",
+            "en": "in the kitchen, in the bedroom"
+          },
+          {
+            "cz": "ve třetím patře",
+            "en": "on the third floor"
+          },
+          {
+            "cz": "Je byt ještě volný?",
+            "en": "Is the flat still available?"
+          },
+          {
+            "cz": "Je byt zařízený?",
+            "en": "Is the flat furnished?"
+          },
+          {
+            "cz": "Jsou energie v ceně?",
+            "en": "Are utilities included?"
+          },
+          {
+            "cz": "Nefunguje topení.",
+            "en": "The heating doesn't work."
+          },
+          {
+            "cz": "Můžete to opravit?",
+            "en": "Can you repair it?"
+          }
+        ],
+        "pattern": {
+          "name": "Where, which floor, what is wrong",
+          "rule_plain": "v/na + locative for rooms; u/vedle + genitive for next to; v + ordinal for floors; nefunguje, teče, je rozbitý/á/é for problems.",
+          "table": [
+            [
+              "kuchyně",
+              "v kuchyni"
+            ],
+            [
+              "balkon",
+              "na balkoně"
+            ],
+            [
+              "okno",
+              "u okna"
+            ],
+            [
+              "3rd floor",
+              "ve třetím patře"
+            ],
+            [
+              "heating",
+              "Nefunguje topení."
+            ],
+            [
+              "window",
+              "Okno je rozbité."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Bydlím ve třetím patře.",
+              "en": "I live on the third floor."
+            },
+            {
+              "cz": "V koupelně teče voda.",
+              "en": "Water is leaking in the bathroom."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Stůl je v kuchyně.",
+            "right": "Stůl je v kuchyni."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "V kuchyni nefunguje sporák.",
+            "en": "The cooker in the kitchen doesn't work."
+          },
+          {
+            "cz": "Můžete to prosím opravit tento týden?",
+            "en": "Can you please repair it this week?"
+          }
+        ]
+      }
     },
     {
       "unit_id": 27,

@@ -2076,6 +2076,18 @@
       "example_en": "The rector of the university gave a speech.",
       "lesson_id": 2501,
       "parked_reason": "University administration, B1 (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1470,
+      "word_cz": "hypotéka",
+      "word_en": "mortgage",
+      "ipa": "ˈɪpoteːka",
+      "gender": "feminine",
+      "unit_id": 26,
+      "example_cz": "Vzali si hypotéku na dům.",
+      "example_en": "They took out a mortgage for the house.",
+      "lesson_id": 2602,
+      "parked_reason": "Buying, not renting (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
     }
   ],
   "exercises": [

@@ -4512,33 +4512,267 @@
           "en": "The lamp is next to the bed."
         }
       ],
-      "unit_id": 26
+      "unit_id": 26,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "Where in the flat: v kuchyni, u okna",
+          "say": "In a room use v + locative: v kuchyni, v ložnici. On a balcony or in a corridor use na. Next to something use u or vedle + genitive: u okna, vedle postele.",
+          "table": [
+            [
+              "kuchyně",
+              "v kuchyni"
+            ],
+            [
+              "ložnice",
+              "v ložnici"
+            ],
+            [
+              "koupelna",
+              "v koupelně"
+            ],
+            [
+              "obývák",
+              "v obýváku"
+            ],
+            [
+              "balkon",
+              "na balkoně"
+            ],
+            [
+              "chodba",
+              "na chodbě"
+            ],
+            [
+              "okno",
+              "u okna"
+            ],
+            [
+              "postel",
+              "vedle postele"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Pračka je v koupelně.",
+              "en": "The washing machine is in the bathroom."
+            },
+            {
+              "cz": "Stůl je u okna.",
+              "en": "The table is by the window."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Stůl je v kuchyně.",
+            "right": "Stůl je v kuchyni."
+          }
+        }
+      ]
     },
     {
       "id": "GR-252",
-      "rule_name": "Renting and buying — pronajmout si, koupit si",
-      "pattern": "pronajmout si (rent for oneself) + accusative, koupit si (buy for oneself) + accusative — reflexive possessive svůj for one's own",
-      "explanation": "When talking about renting or buying property, use the reflexive particle 'si' to indicate it's for yourself: pronajmout si byt (rent an apartment for oneself), koupit si dům (buy a house for oneself). The noun takes the accusative case. Related vocabulary: nájem (rent, the cost), nájemník (tenant), majitel (owner), pronajmout (to rent out), splácet hypotéku (pay off a mortgage). Common phrases: Hledám byt k pronájmu (I'm looking for an apartment to rent), Kolik stojí nájem? (How much is the rent?), Byt má dvě místnosti (The apartment has two rooms).",
+      "rule_name": "Renting a flat — pronajmout si, nájem, zařízený",
+      "pattern": "pronajmout si byt (rent for yourself). A listing: nájem + poplatky, kauce, zařízený / nezařízený, volný od… Ask: Je byt ještě volný? Jsou energie v ceně?",
+      "explanation": "You rent a flat for yourself: pronajmout si byt. The owner lets it: Pronajmu byt. A listing gives the rent (nájem), the service charges (poplatky) and utilities (energie), and the deposit (kauce). Zařízený means furnished, nezařízený unfurnished; s nábytkem (with furniture) means the same as zařízený.",
       "case_affected": "accusative",
       "examples": [
         {
-          "cz": "Pronajmul jsem si byt v Praze.",
-          "en": "I rented an apartment in Prague."
+          "cz": "Chtěl/a bych si pronajmout byt.",
+          "en": "I would like to rent a flat."
         },
         {
-          "cz": "Chci si koupit dům.",
-          "en": "I want to buy a house."
-        },
-        {
-          "cz": "Kolik stojí nájem?",
-          "en": "How much is the rent?"
-        },
-        {
-          "cz": "Hledám byt k pronájmu.",
-          "en": "I'm looking for an apartment to rent."
+          "cz": "Jsou energie v ceně?",
+          "en": "Are utilities included in the price?"
         }
       ],
-      "unit_id": 26
+      "unit_id": 26,
+      "lecture": [
+        {
+          "heading": "Renting a flat",
+          "say": "You rent a flat: pronajmout si byt. A listing gives the rent, the costs and the deposit. Ask: Je byt zařízený? Jsou energie v ceně?",
+          "table": [
+            [
+              "Pronajmu byt 2+kk.",
+              "Flat to let: 2 rooms + kitchenette"
+            ],
+            [
+              "nájem 16 000 Kč",
+              "rent CZK 16,000"
+            ],
+            [
+              "+ poplatky",
+              "+ service charges"
+            ],
+            [
+              "kauce",
+              "deposit"
+            ],
+            [
+              "zařízený / nezařízený",
+              "furnished / unfurnished"
+            ],
+            [
+              "volný od září",
+              "available from September"
+            ],
+            [
+              "Jsou energie v ceně?",
+              "Are utilities included?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Chtěl/a bych si pronajmout byt.",
+              "en": "I would like to rent a flat."
+            },
+            {
+              "cz": "Je byt ještě volný?",
+              "en": "Is the flat still available?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Byt je s nábytek.",
+            "right": "Byt je s nábytkem. / Byt je zařízený."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-253",
+      "rule_name": "Floors — v přízemí, ve třetím patře",
+      "pattern": "Na kterém patře? v přízemí, v prvním, ve druhém, ve třetím, ve čtvrtém, v pátém patře.",
+      "explanation": "Czech counts floors like British English: přízemí is the ground floor and první patro is one floor up. Say where with v + the ordinal and patro in the locative: v prvním patře, ve druhém patře. patro and poschodí mean the same.",
+      "case_affected": "locative",
+      "examples": [
+        {
+          "cz": "Bydlím ve třetím patře.",
+          "en": "I live on the third floor."
+        },
+        {
+          "cz": "Recepce je v přízemí.",
+          "en": "Reception is on the ground floor."
+        }
+      ],
+      "unit_id": 26,
+      "concept_keys": [
+        "ordinals_dates"
+      ],
+      "lecture": [
+        {
+          "heading": "Which floor: ve třetím patře",
+          "say": "Czech counts floors from přízemí, the ground floor; první patro is one floor up. Say where with v + locative: v prvním patře, ve druhém patře.",
+          "table": [
+            [
+              "ground floor",
+              "v přízemí"
+            ],
+            [
+              "1st floor",
+              "v prvním patře"
+            ],
+            [
+              "2nd floor",
+              "ve druhém patře"
+            ],
+            [
+              "3rd floor",
+              "ve třetím patře"
+            ],
+            [
+              "4th floor",
+              "ve čtvrtém patře"
+            ],
+            [
+              "5th floor",
+              "v pátém patře"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Bydlím ve třetím patře.",
+              "en": "I live on the third floor."
+            },
+            {
+              "cz": "Recepce je v přízemí.",
+              "en": "Reception is on the ground floor."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Bydlím v tři patro.",
+            "right": "Bydlím ve třetím patře."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-254",
+      "rule_name": "Reporting a problem — nefunguje, teče, je rozbitý",
+      "pattern": "X nefunguje. Teče voda. / Neteče teplá voda. X je rozbitý / rozbitá / rozbité. Můžete to opravit?",
+      "explanation": "To report a problem, name the thing and say what is wrong: Nefunguje topení. Pračka nefunguje. Teče voda means water is leaking; neteče teplá voda means there is no hot water. rozbitý agrees with the thing: zámek je rozbitý, pračka je rozbitá, okno je rozbité. Then ask: Můžete to opravit? Kdy můžete přijít?",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "V koupelně teče voda.",
+          "en": "Water is leaking in the bathroom."
+        },
+        {
+          "cz": "Okno je rozbité. Můžete to opravit?",
+          "en": "The window is broken. Can you repair it?"
+        }
+      ],
+      "unit_id": 26,
+      "lecture": [
+        {
+          "heading": "Something is wrong: nefunguje",
+          "say": "Name the thing and say what is wrong: Nefunguje topení. Teče voda. Okno je rozbité. Then ask: Můžete to opravit?",
+          "table": [
+            [
+              "The heating doesn't work.",
+              "Nefunguje topení."
+            ],
+            [
+              "The washing machine doesn't work.",
+              "Pračka nefunguje."
+            ],
+            [
+              "Water is leaking.",
+              "Teče voda."
+            ],
+            [
+              "There is no hot water.",
+              "Neteče teplá voda."
+            ],
+            [
+              "The lock is broken.",
+              "Zámek je rozbitý."
+            ],
+            [
+              "The window is broken.",
+              "Okno je rozbité."
+            ],
+            [
+              "Can you repair it?",
+              "Můžete to opravit?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "V koupelně teče voda.",
+              "en": "Water is leaking in the bathroom."
+            },
+            {
+              "cz": "Kdy můžete přijít?",
+              "en": "When can you come?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Okno je rozbitý.",
+            "right": "Okno je rozbité."
+          }
+        }
+      ]
     },
     {
       "id": "GR-260",

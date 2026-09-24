@@ -4529,7 +4529,7 @@
     "unit_id": 26,
     "example_cz": "Máme chatu u jezera.",
     "example_en": "We have a cottage by the lake.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1443,
@@ -4540,7 +4540,7 @@
     "unit_id": 26,
     "example_cz": "Garsonka je malá, ale útulná.",
     "example_en": "The studio is small but cozy.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1444,
@@ -4551,7 +4551,7 @@
     "unit_id": 26,
     "example_cz": "Studio má jednu místnost.",
     "example_en": "The studio has one room.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1445,
@@ -4606,7 +4606,7 @@
     "unit_id": 26,
     "example_cz": "Dětský pokoj je veselý.",
     "example_en": "The children's room is cheerful.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1450,
@@ -4617,7 +4617,7 @@
     "unit_id": 26,
     "example_cz": "Pracovna je tichá místnost.",
     "example_en": "The study is a quiet room.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1451,
@@ -4639,7 +4639,7 @@
     "unit_id": 26,
     "example_cz": "Stůl je z masivního dřeva.",
     "example_en": "The table is made of solid wood.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1453,
@@ -4650,7 +4650,7 @@
     "unit_id": 26,
     "example_cz": "Koupil jsem novou židli.",
     "example_en": "I bought a new chair.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1454,
@@ -4661,7 +4661,7 @@
     "unit_id": 26,
     "example_cz": "Postel je pohodlná a široká.",
     "example_en": "The bed is comfortable and wide.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1455,
@@ -4672,7 +4672,7 @@
     "unit_id": 26,
     "example_cz": "Na pohovce spí kočka.",
     "example_en": "The cat sleeps on the sofa.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1456,
@@ -4683,7 +4683,7 @@
     "unit_id": 26,
     "example_cz": "Skříň je plná oblečení.",
     "example_en": "The wardrobe is full of clothes.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1457,
@@ -4694,7 +4694,7 @@
     "unit_id": 26,
     "example_cz": "Na polici jsou knihy.",
     "example_en": "There are books on the shelf.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1458,
@@ -4705,7 +4705,7 @@
     "unit_id": 26,
     "example_cz": "Regál je u zdi.",
     "example_en": "The bookshelf is against the wall.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1459,
@@ -4716,18 +4716,18 @@
     "unit_id": 26,
     "example_cz": "Komoda je v ložnici.",
     "example_en": "The chest of drawers is in the bedroom.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1460,
-    "word_cz": "lednice",
+    "word_cz": "lednička",
     "word_en": "refrigerator / fridge",
     "ipa": "ˈlɛdɲɪtsɛ",
     "gender": "feminine",
     "unit_id": 26,
     "example_cz": "Lednice je plná jídla.",
     "example_en": "The fridge is full of food.",
-    "lesson_id": 2602
+    "lesson_id": 2604
   },
   {
     "id": 1461,
@@ -4738,7 +4738,7 @@
     "unit_id": 26,
     "example_cz": "Sporák je plynový.",
     "example_en": "The stove is gas-powered.",
-    "lesson_id": 2602
+    "lesson_id": 2604
   },
   {
     "id": 1462,
@@ -4749,7 +4749,7 @@
     "unit_id": 26,
     "example_cz": "Pračka se porouchala.",
     "example_en": "The washing machine broke down.",
-    "lesson_id": 2602
+    "lesson_id": 2604
   },
   {
     "id": 1463,
@@ -4760,7 +4760,7 @@
     "unit_id": 26,
     "example_cz": "Televize visí na stěně.",
     "example_en": "The TV hangs on the wall.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1464,
@@ -4771,7 +4771,7 @@
     "unit_id": 26,
     "example_cz": "Ohřál jsem jídlo v mikrovlnce.",
     "example_en": "I heated food in the microwave.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1465,
@@ -4782,7 +4782,7 @@
     "unit_id": 26,
     "example_cz": "Nájem je patnáct tisíc korun.",
     "example_en": "The rent is fifteen thousand crowns.",
-    "lesson_id": 2602
+    "lesson_id": 2603
   },
   {
     "id": 1466,
@@ -4793,7 +4793,7 @@
     "unit_id": 26,
     "example_cz": "Pronajali jsme si byt.",
     "example_en": "We rented an apartment.",
-    "lesson_id": 2602
+    "lesson_id": 2603
   },
   {
     "id": 1467,
@@ -4804,7 +4804,7 @@
     "unit_id": 26,
     "example_cz": "Chceme koupit vlastní dům.",
     "example_en": "We want to buy our own house.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1468,
@@ -4815,7 +4815,7 @@
     "unit_id": 26,
     "example_cz": "Nájemník platí nájem každý měsíc.",
     "example_en": "The tenant pays rent every month.",
-    "lesson_id": 2602
+    "lesson_id": 2603
   },
   {
     "id": 1469,
@@ -4826,18 +4826,7 @@
     "unit_id": 26,
     "example_cz": "Majitel bytu bydlí v Praze.",
     "example_en": "The apartment owner lives in Prague.",
-    "lesson_id": 2602
-  },
-  {
-    "id": 1470,
-    "word_cz": "hypotéka",
-    "word_en": "mortgage",
-    "ipa": "ˈɪpoteːka",
-    "gender": "feminine",
-    "unit_id": 26,
-    "example_cz": "Vzali si hypotéku na dům.",
-    "example_en": "They took out a mortgage for the house.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1471,
@@ -4848,7 +4837,7 @@
     "unit_id": 26,
     "example_cz": "Platíme elektřinu každý měsíc.",
     "example_en": "We pay for electricity every month.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1472,
@@ -4859,7 +4848,7 @@
     "unit_id": 26,
     "example_cz": "Voda je studená.",
     "example_en": "The water is cold.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1473,
@@ -4870,7 +4859,7 @@
     "unit_id": 26,
     "example_cz": "Plyn je dražší než dřív.",
     "example_en": "Gas is more expensive than before.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1474,
@@ -4881,7 +4870,7 @@
     "unit_id": 26,
     "example_cz": "Topení v bytě funguje dobře.",
     "example_en": "The heating in the apartment works well.",
-    "lesson_id": 2602
+    "lesson_id": 2604
   },
   {
     "id": 1475,
@@ -4892,7 +4881,7 @@
     "unit_id": 26,
     "example_cz": "Internet je rychlý a spolehlivý.",
     "example_en": "The internet is fast and reliable.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1476,
@@ -4903,7 +4892,7 @@
     "unit_id": 26,
     "example_cz": "Naše ulice je klidná.",
     "example_en": "Our street is quiet.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1477,
@@ -4914,7 +4903,7 @@
     "unit_id": 26,
     "example_cz": "Jaké je číslo vašeho domu?",
     "example_en": "What is your house number?",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1478,
@@ -4925,7 +4914,7 @@
     "unit_id": 26,
     "example_cz": "Naše město je staré a krásné.",
     "example_en": "Our city is old and beautiful.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1479,
@@ -7873,7 +7862,7 @@
     "unit_id": 26,
     "example_cz": "Koupili jsme nový nábytek.",
     "example_en": "We bought new furniture.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1836,
@@ -7884,7 +7873,7 @@
     "unit_id": 26,
     "example_cz": "Postel je vedle okna.",
     "example_en": "The bed is next to the window.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1837,
@@ -7895,7 +7884,7 @@
     "unit_id": 26,
     "example_cz": "Otevřela skříň a vyndala kabát.",
     "example_en": "She opened the wardrobe and took out a coat.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1838,
@@ -7906,7 +7895,7 @@
     "unit_id": 26,
     "example_cz": "Knihy leží na stole.",
     "example_en": "The books are on the table.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1839,
@@ -7917,7 +7906,7 @@
     "unit_id": 26,
     "example_cz": "Posaďte se na židli.",
     "example_en": "Sit on the chair.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1840,
@@ -7928,7 +7917,7 @@
     "unit_id": 26,
     "example_cz": "Na pohovce spí kočka.",
     "example_en": "The cat is sleeping on the sofa.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1841,
@@ -7939,7 +7928,7 @@
     "unit_id": 26,
     "example_cz": "Dědeček sedí v křesle.",
     "example_en": "Grandfather is sitting in the armchair.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1842,
@@ -7950,7 +7939,7 @@
     "unit_id": 26,
     "example_cz": "Knihy jsou v regálu.",
     "example_en": "The books are on the shelf.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1843,
@@ -7961,7 +7950,7 @@
     "unit_id": 26,
     "example_cz": "V komodě mám prádlo.",
     "example_en": "I keep laundry in the dresser.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1844,
@@ -7972,7 +7961,7 @@
     "unit_id": 26,
     "example_cz": "Dívám se do zrcadla.",
     "example_en": "I'm looking in the mirror.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1845,
@@ -7983,7 +7972,7 @@
     "unit_id": 26,
     "example_cz": "Lampa stojí na stole.",
     "example_en": "The lamp is on the table.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1846,
@@ -7994,7 +7983,7 @@
     "unit_id": 26,
     "example_cz": "Na podlaze leží koberec.",
     "example_en": "A carpet lies on the floor.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1847,
@@ -8005,7 +7994,7 @@
     "unit_id": 26,
     "example_cz": "Závěsy jsou nové a bílé.",
     "example_en": "The curtains are new and white.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1848,
@@ -8016,7 +8005,7 @@
     "unit_id": 26,
     "example_cz": "Byt je v nájmu.",
     "example_en": "The flat is rented.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1849,
@@ -8027,7 +8016,7 @@
     "unit_id": 26,
     "example_cz": "Nájemce platí nájem každý měsíc.",
     "example_en": "The tenant pays rent every month.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1850,
@@ -8038,7 +8027,7 @@
     "unit_id": 26,
     "example_cz": "Pronajímám byt v centru.",
     "example_en": "I rent out a flat in the centre.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1851,
@@ -8049,7 +8038,7 @@
     "unit_id": 26,
     "example_cz": "Musím zaplatit kauci dvacet tisíc.",
     "example_en": "I have to pay a deposit of twenty thousand.",
-    "lesson_id": 2601
+    "lesson_id": 2603
   },
   {
     "id": 1852,
@@ -8060,7 +8049,7 @@
     "unit_id": 26,
     "example_cz": "Měsíční nájem je patnáct tisíc korun.",
     "example_en": "The monthly rent is fifteen thousand crowns.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1853,
@@ -8071,7 +8060,7 @@
     "unit_id": 26,
     "example_cz": "Poplatky za odpad se platí kvartálně.",
     "example_en": "Waste fees are paid quarterly.",
-    "lesson_id": 2601
+    "lesson_id": 2603
   },
   {
     "id": 1854,
@@ -8082,7 +8071,7 @@
     "unit_id": 26,
     "example_cz": "Energie je v domě zahrnuta v nájmu.",
     "example_en": "Energy is included in the rent.",
-    "lesson_id": 2601
+    "lesson_id": 2603
   },
   {
     "id": 1855,
@@ -8093,7 +8082,7 @@
     "unit_id": 26,
     "example_cz": "Voda je v České republice levná.",
     "example_en": "Water is cheap in the Czech Republic.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1856,
@@ -8104,7 +8093,7 @@
     "unit_id": 26,
     "example_cz": "Elektrika je dražší než plyn.",
     "example_en": "Electricity is more expensive than gas.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1857,
@@ -8115,7 +8104,7 @@
     "unit_id": 26,
     "example_cz": "Plyn používáme na vaření.",
     "example_en": "We use gas for cooking.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1858,
@@ -8126,7 +8115,7 @@
     "unit_id": 26,
     "example_cz": "Vytápění funguje od října do dubna.",
     "example_en": "Heating runs from October to April.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1859,
@@ -8137,7 +8126,7 @@
     "unit_id": 26,
     "example_cz": "Internet je v domě zdarma.",
     "example_en": "Internet is free in the building.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1860,
@@ -9271,5 +9260,115 @@
     "example_cz": "Lékař mi dal neschopenku.",
     "example_en": "The doctor gave me a sick note.",
     "lesson_id": 2403
+  },
+  {
+    "id": 2016,
+    "word_cz": "balkon",
+    "word_en": "balcony",
+    "ipa": null,
+    "gender": "masculine inanimate",
+    "unit_id": 26,
+    "example_cz": "Kolo je na balkoně.",
+    "example_en": "The bike is on the balcony.",
+    "lesson_id": 2601
+  },
+  {
+    "id": 2017,
+    "word_cz": "přízemí",
+    "word_en": "ground floor",
+    "ipa": null,
+    "gender": "neuter",
+    "unit_id": 26,
+    "example_cz": "Recepce je v přízemí.",
+    "example_en": "Reception is on the ground floor.",
+    "lesson_id": 2602
+  },
+  {
+    "id": 2018,
+    "word_cz": "výtah",
+    "word_en": "lift, elevator",
+    "ipa": null,
+    "gender": "masculine inanimate",
+    "unit_id": 26,
+    "example_cz": "Je v domě výtah?",
+    "example_en": "Is there a lift in the building?",
+    "lesson_id": 2602
+  },
+  {
+    "id": 2019,
+    "word_cz": "klíč",
+    "word_en": "key",
+    "ipa": null,
+    "gender": "masculine inanimate",
+    "unit_id": 26,
+    "example_cz": "Kde jsou klíče od bytu?",
+    "example_en": "Where are the keys to the flat?",
+    "lesson_id": 2602
+  },
+  {
+    "id": 2020,
+    "word_cz": "zařízený",
+    "word_en": "furnished",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": "Byt je zařízený.",
+    "example_en": "The flat is furnished.",
+    "lesson_id": 2603
+  },
+  {
+    "id": 2021,
+    "word_cz": "nezařízený",
+    "word_en": "unfurnished",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": "Hledám nezařízený byt.",
+    "example_en": "I am looking for an unfurnished flat.",
+    "lesson_id": 2603
+  },
+  {
+    "id": 2022,
+    "word_cz": "fungovat",
+    "word_en": "to work, to function",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": "Nefunguje topení.",
+    "example_en": "The heating doesn't work.",
+    "lesson_id": 2604
+  },
+  {
+    "id": 2023,
+    "word_cz": "rozbitý",
+    "word_en": "broken",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": "Okno je rozbité.",
+    "example_en": "The window is broken.",
+    "lesson_id": 2604
+  },
+  {
+    "id": 2024,
+    "word_cz": "téct",
+    "word_en": "to flow, to leak",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": "V koupelně teče voda.",
+    "example_en": "Water is leaking in the bathroom.",
+    "lesson_id": 2604
+  },
+  {
+    "id": 2025,
+    "word_cz": "opravit",
+    "word_en": "to repair",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": "Můžete to opravit?",
+    "example_en": "Can you repair it?",
+    "lesson_id": 2604
   }
 ]
