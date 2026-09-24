@@ -2,39 +2,51 @@
   "id": 1102,
   "unit_id": 11,
   "title": "Say What You Eat and Drink",
-  "description": "Use familiar food and drink phrases to describe simple preferences.",
+  "description": "Learn jím and piju, food as the object, and ordering and paying.",
   "lesson_type": "practice",
   "order_in_unit": 1,
-  "duration_min": 12,
+  "duration_min": 14,
+  "can_do": "say what you eat and drink, order and pay.",
+  "new_language": [
+    "jím, jíš, jí…; piju, piješ…",
+    "polévku, vodu, rybu",
+    "Účet, prosím. Zaplatím kartou."
+  ],
+  "recycles": [
+    "-a → -u (U6)",
+    "nejím, nepiju"
+  ],
+  "exit_task": "say what you eat and do not eat.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 11100,
+      "id": 11200,
       "lesson_id": 1102,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Say What You Eat and Drink",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write your foods and two ordering phrases. Then check.",
         "items": [
+          {
+            "cz": "Mám hlad.",
+            "en": "I am hungry."
+          },
+          {
+            "cz": "Mám žízeň.",
+            "en": "I am thirsty."
+          },
+          {
+            "cz": "Dám si polévku.",
+            "en": "I'll have soup."
+          },
           {
             "cz": "Jím rybu.",
             "en": "I eat fish."
-          },
-          {
-            "cz": "Piju čaj.",
-            "en": "I drink tea."
-          },
-          {
-            "cz": "Nejím maso.",
-            "en": "I do not eat meat."
-          },
-          {
-            "cz": "Mám rád sýr.",
-            "en": "I like cheese."
           }
         ]
       },
@@ -42,7 +54,402 @@
       "xp_reward": 0
     },
     {
-      "id": 11101,
+      "id": 11201,
+      "lesson_id": 1102,
+      "type": "teaching",
+      "prompt": "Eat and drink: jím, piju",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-100",
+        "rule_step": 1,
+        "heading": "Eat and drink: jím, piju",
+        "items": [
+          {
+            "cz": "Co jíš? — Jím rybu.",
+            "en": "What are you eating? — I am eating fish."
+          },
+          {
+            "cz": "Nepiju kávu, piju čaj.",
+            "en": "I don't drink coffee, I drink tea."
+          }
+        ],
+        "say": "jíst and pít are irregular but very common. Learn jím and piju first, then the other persons.",
+        "table": [
+          [
+            "já",
+            "jím · piju"
+          ],
+          [
+            "ty",
+            "jíš · piješ"
+          ],
+          [
+            "on, ona",
+            "jí · pije"
+          ],
+          [
+            "my",
+            "jíme · pijeme"
+          ],
+          [
+            "vy",
+            "jíte · pijete"
+          ],
+          [
+            "oni",
+            "jedí · pijou"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Co jíš? — Jím rybu.",
+            "en": "What are you eating? — I am eating fish."
+          },
+          {
+            "cz": "Nepiju kávu, piju čaj.",
+            "en": "I don't drink coffee, I drink tea."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Já jíst rybu.",
+          "right": "Já jím rybu."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 11202,
+      "lesson_id": 1102,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Co ___? (pít, ty)",
+        "question_en": "What do you drink?",
+        "options": [
+          "piješ",
+          "piju",
+          "pije"
+        ],
+        "correct_index": 0,
+        "explanation": "ty → piješ."
+      },
+      "answer_key": "piješ",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-100"
+    },
+    {
+      "id": 11203,
+      "lesson_id": 1102,
+      "type": "teaching",
+      "prompt": "Food as the object: polévku, vodu",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-101",
+        "rule_step": 1,
+        "heading": "Food as the object: polévku, vodu",
+        "items": [
+          {
+            "cz": "Dám si polévku a vodu.",
+            "en": "I'll have soup and water."
+          },
+          {
+            "cz": "Jím chleba se sýrem.",
+            "en": "I eat bread with cheese."
+          }
+        ],
+        "say": "What you eat or order is the object. -a words change to -u: polévka → polévku. chleba, sýr, maso and pivo stay the same, as in Unit 6.",
+        "table": [
+          [
+            "polévka",
+            "Dám si polévku."
+          ],
+          [
+            "voda",
+            "Piju vodu."
+          ],
+          [
+            "ryba",
+            "Jím rybu."
+          ],
+          [
+            "káva",
+            "Dám si kávu."
+          ],
+          [
+            "chleba",
+            "Jím chleba."
+          ],
+          [
+            "sýr",
+            "Mám rád sýr."
+          ],
+          [
+            "maso",
+            "Nejím maso."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dám si polévku a vodu.",
+            "en": "I'll have soup and water."
+          },
+          {
+            "cz": "Jím chleba se sýrem.",
+            "en": "I eat bread with cheese."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Dám si polévka.",
+          "right": "Dám si polévku."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 11204,
+      "lesson_id": 1102,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Dám si ___. (polévka)",
+        "question_en": "I'll have soup.",
+        "options": [
+          "polévku",
+          "polévka",
+          "polévky"
+        ],
+        "correct_index": 0,
+        "explanation": "-a → -u: polévku."
+      },
+      "answer_key": "polévku",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-101"
+    },
+    {
+      "id": 11205,
+      "lesson_id": 1102,
+      "type": "teaching",
+      "prompt": "Ordering and paying",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-102",
+        "rule_step": 1,
+        "heading": "Ordering and paying",
+        "items": [
+          {
+            "cz": "Dám si kuře s rýží.",
+            "en": "I'll have chicken with rice."
+          },
+          {
+            "cz": "Účet, prosím. Zaplatím kartou.",
+            "en": "The bill, please. I will pay by card."
+          }
+        ],
+        "say": "Order with Dám si… or Chtěl/a bych…. Ask for the bill with Účet, prosím, and say how you pay: Zaplatím kartou.",
+        "table": [
+          [
+            "I’ll have…",
+            "Dám si…"
+          ],
+          [
+            "I would like…",
+            "Chtěl bych… / Chtěla bych…"
+          ],
+          [
+            "Do you have…?",
+            "Máte…?"
+          ],
+          [
+            "Anything else?",
+            "Ještě něco?"
+          ],
+          [
+            "The bill, please.",
+            "Účet, prosím."
+          ],
+          [
+            "by card",
+            "kartou"
+          ],
+          [
+            "in cash",
+            "hotově"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dám si kuře s rýží.",
+            "en": "I'll have chicken with rice."
+          },
+          {
+            "cz": "Účet, prosím. Zaplatím kartou.",
+            "en": "The bill, please. I will pay by card."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Chci účet!",
+          "right": "Účet, prosím."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 11206,
+      "lesson_id": 1102,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Chcete zaplatit. Co řeknete?",
+        "question_en": "You want to pay. What do you say?",
+        "options": [
+          "Účet, prosím.",
+          "Dám si účet.",
+          "Máte účet?"
+        ],
+        "correct_index": 0,
+        "explanation": "Účet, prosím."
+      },
+      "answer_key": "Účet, prosím.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-102"
+    },
+    {
+      "id": 11207,
+      "lesson_id": 1102,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write jíst and pít for já, ty and on, three foods as objects, and your ordering and paying phrases.",
+        "items": [
+          {
+            "cz": "jím, jíš, jí · piju, piješ, pije",
+            "en": "eat · drink"
+          },
+          {
+            "cz": "polévku, vodu, rybu · chleba, sýr",
+            "en": "food as the object"
+          },
+          {
+            "cz": "Dám si… Účet, prosím. Zaplatím kartou.",
+            "en": "order and pay"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 11208,
+      "lesson_id": 1102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "já → jím.",
+        "sentence": "Já ___ rybu. (jíst)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jím"
+          ]
+        ],
+        "explanation": "jím"
+      },
+      "answer_key": "jím",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-100"
+    },
+    {
+      "id": 11209,
+      "lesson_id": 1102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "-a → -u.",
+        "sentence": "Piju ___. (voda)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "vodu"
+          ]
+        ],
+        "explanation": "vodu"
+      },
+      "answer_key": "vodu",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-101"
+    },
+    {
+      "id": 11210,
+      "lesson_id": 1102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "já → piju.",
+        "sentence": "Nepiju kávu, ___ čaj. (pít, já)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "piju"
+          ]
+        ],
+        "explanation": "piju"
+      },
+      "answer_key": "piju",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-100"
+    },
+    {
+      "id": 11211,
+      "lesson_id": 1102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "by card: kartou.",
+        "sentence": "Zaplatím ___. (by card)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "kartou"
+          ]
+        ],
+        "explanation": "kartou"
+      },
+      "answer_key": "kartou",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-102"
+    },
+    {
+      "id": 11212,
       "lesson_id": 1102,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +479,11 @@
         ]
       },
       "answer_key": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-100"
     },
     {
-      "id": 11102,
+      "id": 11213,
       "lesson_id": 1102,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +517,11 @@
         ]
       },
       "answer_key": "Piju čaj.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-100"
     },
     {
-      "id": 11103,
+      "id": 11214,
       "lesson_id": 1102,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +545,14 @@
             "right": "I like cheese."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Jím rybu.–I eat fish.; Piju čaj.–I drink tea.; Nejím maso.–I do not eat meat.; Mám rád sýr.–I like cheese.",
       "xp_reward": 10
     },
     {
-      "id": 11104,
-      "lesson_id": 1102,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Piju čaj.",
-          "Jsem na nádraží.",
-          "Mám nové boty.",
-          "Dnes prší."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Piju čaj.",
-      "xp_reward": 10
-    },
-    {
-      "id": 11105,
+      "id": 11215,
       "lesson_id": 1102,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,10 +571,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "jím | nepiju",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-100"
     },
     {
-      "id": 11106,
+      "id": 11216,
       "lesson_id": 1102,
       "type": "word_order",
       "prompt": "Build a natural short exchange",
@@ -207,24 +597,11 @@
         "explanation": "Keep the useful phrase together as a chunk."
       },
       "answer_key": "Co piješ? Piju čaj.",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-100"
     },
     {
-      "id": 11107,
-      "lesson_id": 1102,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Jím rybu a piju čaj.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Jím rybu a piju čaj.",
-      "xp_reward": 10
-    },
-    {
-      "id": 11108,
+      "id": 11217,
       "lesson_id": 1102,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -239,10 +616,11 @@
         "translation_en": "Say the useful phrase clearly and naturally."
       },
       "answer_key": "Jím rybu a piju čaj.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-100"
     },
     {
-      "id": 11109,
+      "id": 11218,
       "lesson_id": 1102,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -280,76 +658,8 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Ne, nejím maso. | Piju čaj.",
-      "xp_reward": 15
-    },
-    {
-      "id": 11110,
-      "lesson_id": 1102,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write two sentences about food or drink you like or do not eat.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Jím rybu.",
-          "Piju čaj.",
-          "Nejím maso.",
-          "Mám rád sýr."
-        ],
-        "sample_answer": "Jím rybu."
-      },
-      "answer_key": "Jím rybu.",
-      "xp_reward": 0
-    },
-    {
-      "id": 11111,
-      "lesson_id": 1102,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Co jíš? Jím rybu. Co piješ? Piju čaj.",
-              "Jsem na nádraží.",
-              "Mám nové boty."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-100"
     }
-  ],
-  "can_do": "say what I eat, drink, like, or avoid.",
-  "new_language": [
-    "Jím rybu.",
-    "Piju čaj.",
-    "Nejím maso.",
-    "Mám rád sýr."
-  ],
-  "recycles": [
-    "food and drink",
-    "Dám si…",
-    "Máte…?",
-    "numbers and prices"
-  ],
-  "exit_task": "say what I eat, drink, like, or avoid."
+  ]
 }

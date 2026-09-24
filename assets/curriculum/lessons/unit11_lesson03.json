@@ -2,39 +2,45 @@
   "id": 1103,
   "unit_id": 11,
   "title": "Ask, Pay, and Say Thank You",
-  "description": "Complete the final steps of a restaurant visit: bill, payment, and thanks.",
+  "description": "Useful amounts as phrases; the bill and payment.",
   "lesson_type": "practice",
   "order_in_unit": 2,
   "duration_min": 12,
+  "can_do": "ask for amounts and finish a restaurant visit.",
+  "new_language": [
+    "trochu, kilo, láhev, kousek"
+  ],
+  "recycles": [
+    "Účet, prosím.",
+    "kartou"
+  ],
+  "exit_task": "write a polite question and a payment sentence.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 11200,
+      "id": 11300,
       "lesson_id": 1103,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Ask, Pay, and Say Thank You",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “I eat”, “I drink”, “I’ll have soup” and “The bill, please”. Then check.",
         "items": [
           {
-            "cz": "Máte polévku?",
-            "en": "Do you have soup?"
+            "cz": "jím, piju",
+            "en": "I eat, I drink"
+          },
+          {
+            "cz": "Dám si polévku.",
+            "en": "I'll have soup."
           },
           {
             "cz": "Účet, prosím.",
             "en": "The bill, please."
-          },
-          {
-            "cz": "Zaplatím kartou.",
-            "en": "I will pay by card."
-          },
-          {
-            "cz": "Děkuji.",
-            "en": "Thank you."
           }
         ]
       },
@@ -42,7 +48,118 @@
       "xp_reward": 0
     },
     {
-      "id": 11201,
+      "id": 11301,
+      "lesson_id": 1103,
+      "type": "teaching",
+      "prompt": "Useful amounts as phrases",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-103",
+        "rule_step": 1,
+        "heading": "Useful amounts as phrases",
+        "items": [
+          {
+            "cz": "Dám si trochu polévky.",
+            "en": "I'll have a little soup."
+          },
+          {
+            "cz": "Kilo brambor, prosím.",
+            "en": "A kilo of potatoes, please."
+          }
+        ],
+        "say": "After an amount the next word changes. At A1, learn these few phrases whole; Unit 16 explains why.",
+        "table": [
+          [
+            "a little milk",
+            "trochu mléka"
+          ],
+          [
+            "a kilo of potatoes",
+            "kilo brambor"
+          ],
+          [
+            "a bottle of water",
+            "láhev vody"
+          ],
+          [
+            "a piece of bread",
+            "kousek chleba"
+          ],
+          [
+            "a glass of wine",
+            "sklenice vína"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dám si trochu polévky.",
+            "en": "I'll have a little soup."
+          },
+          {
+            "cz": "Kilo brambor, prosím.",
+            "en": "A kilo of potatoes, please."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "láhev voda",
+          "right": "láhev vody"
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 11302,
+      "lesson_id": 1103,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „a bottle of water“?",
+        "question_en": "How do you say “a bottle of water”?",
+        "options": [
+          "láhev vody",
+          "láhev voda",
+          "láhev vodu"
+        ],
+        "correct_index": 0,
+        "explanation": "A phrase to learn whole: láhev vody."
+      },
+      "answer_key": "láhev vody",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-103"
+    },
+    {
+      "id": 11303,
+      "lesson_id": 1103,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write what you usually eat for lunch and what you drink.",
+        "items": [
+          {
+            "cz": "K obědu jím polévku a chleba.",
+            "en": "For lunch I eat soup and bread."
+          },
+          {
+            "cz": "Piju vodu, nepiju pivo.",
+            "en": "I drink water, I don't drink beer."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 11304,
       "lesson_id": 1103,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +189,11 @@
         ]
       },
       "answer_key": "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11202,
+      "id": 11305,
       "lesson_id": 1103,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +227,11 @@
         ]
       },
       "answer_key": "Účet, prosím.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11203,
+      "id": 11306,
       "lesson_id": 1103,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +255,14 @@
             "right": "Thank you."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Máte polévku?–Do you have soup?; Účet, prosím.–The bill, please.; Zaplatím kartou.–I will pay by card.; Děkuji.–Thank you.",
       "xp_reward": 10
     },
     {
-      "id": 11204,
-      "lesson_id": 1103,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Účet, prosím.",
-          "Kde je park?",
-          "Rád plavu.",
-          "Je mi zima."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Účet, prosím.",
-      "xp_reward": 10
-    },
-    {
-      "id": 11205,
+      "id": 11307,
       "lesson_id": 1103,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,10 +281,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "máme | kartou",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11206,
+      "id": 11308,
       "lesson_id": 1103,
       "type": "word_order",
       "prompt": "Build a natural short exchange",
@@ -203,24 +303,11 @@
         "explanation": "Keep the useful phrase together as a chunk."
       },
       "answer_key": "Účet, prosím.",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11207,
-      "lesson_id": 1103,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Účet, prosím. Zaplatím kartou.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Účet, prosím. Zaplatím kartou.",
-      "xp_reward": 10
-    },
-    {
-      "id": 11208,
+      "id": 11309,
       "lesson_id": 1103,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -235,10 +322,11 @@
         "translation_en": "Say the useful phrase clearly and naturally."
       },
       "answer_key": "Účet, prosím. Zaplatím kartou.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11209,
+      "id": 11310,
       "lesson_id": 1103,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -272,10 +360,45 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Účet, prosím.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11210,
+      "id": 11311,
+      "lesson_id": 1103,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+              "Jsem na nádraží.",
+              "Mám nové boty."
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Co jíš? Jím rybu. Co piješ? Piju čaj.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-100"
+    },
+    {
+      "id": 11312,
       "lesson_id": 1103,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -291,57 +414,11 @@
           "Zaplatím kartou.",
           "Děkuji."
         ],
-        "sample_answer": "Máte polévku?"
+        "sample_answer": "Máte polévku?",
+        "targets": "vocab"
       },
       "answer_key": "Máte polévku?",
       "xp_reward": 0
-    },
-    {
-      "id": 11211,
-      "lesson_id": 1103,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
-              "Kde je park?",
-              "Rád plavu."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Máte dnes polévku? Ano. Účet, prosím. Zaplatím kartou.",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "ask for the bill and say how I will pay.",
-  "new_language": [
-    "Máte polévku?",
-    "Účet, prosím.",
-    "Zaplatím kartou.",
-    "Děkuji."
-  ],
-  "recycles": [
-    "food and drink",
-    "Dám si…",
-    "Máte…?",
-    "numbers and prices"
-  ],
-  "exit_task": "ask for the bill and say how I will pay."
+  ]
 }

@@ -646,7 +646,7 @@
     "unit_id": 11,
     "example_cz": "Dám si kávu, prosím.",
     "example_en": "I'll have a coffee, please.",
-    "lesson_id": 1102
+    "lesson_id": 1101
   },
   {
     "id": 63,
@@ -657,7 +657,7 @@
     "unit_id": 11,
     "example_cz": "Zaplatím, prosím.",
     "example_en": "I'll pay, please.",
-    "lesson_id": 1102
+    "lesson_id": 1103
   },
   {
     "id": 64,
@@ -2780,7 +2780,7 @@
     "unit_id": 11,
     "example_cz": "Kupuju chleba.",
     "example_en": "I'm buying bread.",
-    "lesson_id": 1101
+    "lesson_id": null
   },
   {
     "id": 261,
@@ -2791,7 +2791,7 @@
     "unit_id": 11,
     "example_cz": "Chleba s máslem.",
     "example_en": "Bread with butter.",
-    "lesson_id": 1101
+    "lesson_id": 1103
   },
   {
     "id": 262,
@@ -2802,7 +2802,7 @@
     "unit_id": 11,
     "example_cz": "Mám rád sýr.",
     "example_en": "I like cheese.",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 263,
@@ -2813,7 +2813,7 @@
     "unit_id": 11,
     "example_cz": "Dvě vejce, prosím.",
     "example_en": "Two eggs, please.",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 264,
@@ -2824,7 +2824,7 @@
     "unit_id": 11,
     "example_cz": "Nejím maso.",
     "example_en": "I don't eat meat.",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 265,
@@ -2835,7 +2835,7 @@
     "unit_id": 11,
     "example_cz": "Kuře s rýží.",
     "example_en": "Chicken with rice.",
-    "lesson_id": 1101
+    "lesson_id": 1104
   },
   {
     "id": 266,
@@ -2846,7 +2846,7 @@
     "unit_id": 11,
     "example_cz": "Dám si rybu.",
     "example_en": "I'll have fish.",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 267,
@@ -2868,7 +2868,7 @@
     "unit_id": 11,
     "example_cz": "Mám rád zeleninu.",
     "example_en": "I like vegetables.",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 269,
@@ -2879,7 +2879,7 @@
     "unit_id": 11,
     "example_cz": "Jím hodně ovoce.",
     "example_en": "I eat a lot of fruit.",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 270,
@@ -2901,7 +2901,7 @@
     "unit_id": 11,
     "example_cz": "Jedno pivo, prosím.",
     "example_en": "One beer, please.",
-    "lesson_id": 1101
+    "lesson_id": 1103
   },
   {
     "id": 272,
@@ -2912,7 +2912,7 @@
     "unit_id": 11,
     "example_cz": "Bílé nebo červené víno?",
     "example_en": "White or red wine?",
-    "lesson_id": 1101
+    "lesson_id": 1103
   },
   {
     "id": 273,
@@ -2945,7 +2945,7 @@
     "unit_id": 11,
     "example_cz": "Co jíš?",
     "example_en": "What are you eating?",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 276,
@@ -2956,7 +2956,7 @@
     "unit_id": 11,
     "example_cz": "Co piješ?",
     "example_en": "What do you drink?",
-    "lesson_id": 1101
+    "lesson_id": 1102
   },
   {
     "id": 277,
@@ -2989,7 +2989,7 @@
     "unit_id": 11,
     "example_cz": "Jdeme do restaurace.",
     "example_en": "We're going to a restaurant.",
-    "lesson_id": 1102
+    "lesson_id": 1101
   },
   {
     "id": 280,
@@ -3000,7 +3000,7 @@
     "unit_id": 11,
     "example_cz": "Můžu vidět jídelní lístek?",
     "example_en": "Can I see the menu?",
-    "lesson_id": 1102
+    "lesson_id": 1103
   },
   {
     "id": 281,
@@ -3011,7 +3011,7 @@
     "unit_id": 11,
     "example_cz": "Účet, prosím.",
     "example_en": "The bill, please.",
-    "lesson_id": 1102
+    "lesson_id": 1103
   },
   {
     "id": 282,
@@ -4474,7 +4474,7 @@
     "unit_id": 11,
     "example_cz": "Knedlík je tradiční jídlo.",
     "example_en": "Dumpling is a traditional dish.",
-    "lesson_id": 1101
+    "lesson_id": 1104
   },
   {
     "id": 418,
@@ -4485,7 +4485,7 @@
     "unit_id": 11,
     "example_cz": "Brambory jsou v hrnci.",
     "example_en": "The potatoes are in the pot.",
-    "lesson_id": 1101
+    "lesson_id": 1103
   },
   {
     "id": 419,
@@ -4496,7 +4496,7 @@
     "unit_id": 11,
     "example_cz": "Rýže je s masem.",
     "example_en": "Rice is with meat.",
-    "lesson_id": 1101
+    "lesson_id": 1104
   },
   {
     "id": 420,
@@ -4507,7 +4507,7 @@
     "unit_id": 11,
     "example_cz": "Džus je pomerančový.",
     "example_en": "The juice is orange.",
-    "lesson_id": 1101
+    "lesson_id": 1103
   },
   {
     "id": 421,

@@ -2,14 +2,25 @@
   "id": 1104,
   "unit_id": 11,
   "title": "Mission: Order a Simple Meal",
-  "description": "Bring menu reading, ordering, listening, and speaking into one restaurant mission.",
+  "description": "Greet, order food and drink, and ask for the bill.",
   "lesson_type": "mission",
   "order_in_unit": 3,
   "duration_min": 12,
-  "is_review": true,
+  "can_do": "order a simple meal from start to finish.",
+  "new_language": [
+    "kuře s rýží"
+  ],
+  "recycles": [
+    "Dám si…",
+    "Účet, prosím.",
+    "Zaplatím kartou."
+  ],
+  "exit_task": "record a restaurant order.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 11300,
+      "id": 11400,
       "lesson_id": 1104,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -17,7 +28,7 @@
         "type": "teaching",
         "style": "list",
         "heading": "Mission: Order a Simple Meal",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "body": "Close your notebook. Greet the waiter, order food and a drink, and ask for the bill.",
         "play_all_label": "Hear the useful chunks",
         "items": [
           {
@@ -42,7 +53,7 @@
       "xp_reward": 0
     },
     {
-      "id": 11301,
+      "id": 11401,
       "lesson_id": 1104,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +83,11 @@
         ]
       },
       "answer_key": "Dobrý den. Dám si kuře s rýží a vodu, prosím. Účet, prosím.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11302,
+      "id": 11402,
       "lesson_id": 1104,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -106,13 +118,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dám si kuře s rýží.",
       "xp_reward": 15
     },
     {
-      "id": 11303,
+      "id": 11403,
       "lesson_id": 1104,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +149,14 @@
             "right": "The bill, please."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Dobrý den.–Hello.; Dám si kuře s rýží.–I will have chicken with rice.; Vodu, prosím.–Water, please.; Účet, prosím.–The bill, please.",
       "xp_reward": 10
     },
     {
-      "id": 11304,
-      "lesson_id": 1104,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Dám si kuře s rýží.",
-          "Jedu tramvají.",
-          "Mám rád koncert.",
-          "Kolik je hodin?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Dám si kuře s rýží.",
-      "xp_reward": 10
-    },
-    {
-      "id": 11305,
+      "id": 11404,
       "lesson_id": 1104,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,69 +175,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "s | vodu",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11306,
-      "lesson_id": 1104,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Dám",
-          "si",
-          "kuře",
-          "s",
-          "rýží."
-        ],
-        "correct_order": [
-          0,
-          1,
-          2,
-          3,
-          4
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Dám si kuře s rýží.",
-      "xp_reward": 10
-    },
-    {
-      "id": 11307,
-      "lesson_id": 1104,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Dám si kuře s rýží a vodu, prosím.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Dám si kuře s rýží a vodu, prosím.",
-      "xp_reward": 10
-    },
-    {
-      "id": 11308,
-      "lesson_id": 1104,
-      "type": "pronunciation",
-      "prompt": "Rehearse a useful answer",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Dám si kuře s rýží a vodu, prosím.",
-        "focus_sounds": [
-          "first_syllable_stress",
-          "long_vowel"
-        ],
-        "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
-      },
-      "answer_key": "Dám si kuře s rýží a vodu, prosím.",
-      "xp_reward": 15
-    },
-    {
-      "id": 11309,
+      "id": 11405,
       "lesson_id": 1104,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -282,10 +217,34 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Dám si kuře s rýží, prosím. | Vodu, prosím.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-102"
     },
     {
-      "id": 11310,
+      "id": 11406,
+      "lesson_id": 1104,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a two-item order for yourself.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "Mám hlad.",
+          "Mám žízeň.",
+          "Dám si polévku.",
+          "Dám si vodu."
+        ],
+        "sample_answer": "Mám hlad.",
+        "targets": "vocab"
+      },
+      "answer_key": "Mám hlad.",
+      "xp_reward": 0
+    },
+    {
+      "id": 11407,
       "lesson_id": 1104,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -301,13 +260,14 @@
           "Vodu, prosím.",
           "Účet, prosím."
         ],
-        "sample_answer": "Dobrý den."
+        "sample_answer": "Dobrý den.",
+        "targets": "vocab"
       },
       "answer_key": "Dobrý den.",
       "xp_reward": 0
     },
     {
-      "id": 11311,
+      "id": 11408,
       "lesson_id": 1104,
       "type": "speaking_task",
       "prompt": "Record the unit mission",
@@ -321,24 +281,44 @@
           "Dobrý den.",
           "Dám si kuře s rýží.",
           "Vodu, prosím."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dobrý den.; Dám si kuře s rýží.; Vodu, prosím.",
       "xp_reward": 20
+    },
+    {
+      "id": 11409,
+      "lesson_id": 1104,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 11 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, then tick your Check box.",
+        "items": [
+          {
+            "cz": "jím, piju",
+            "en": "eat, drink"
+          },
+          {
+            "cz": "Dám si polévku.",
+            "en": "food as the object"
+          },
+          {
+            "cz": "Účet, prosím. Zaplatím kartou.",
+            "en": "the bill"
+          },
+          {
+            "cz": "trochu mléka, láhev vody",
+            "en": "amounts"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
-  ],
-  "can_do": "complete a polite restaurant order from greeting to payment.",
-  "new_language": [
-    "Dobrý den.",
-    "Dám si kuře s rýží.",
-    "Vodu, prosím.",
-    "Účet, prosím."
-  ],
-  "recycles": [
-    "food and drink",
-    "Dám si…",
-    "Máte…?",
-    "numbers and prices"
-  ],
-  "exit_task": "complete a polite restaurant order from greeting to payment."
+  ]
 }

@@ -3073,12 +3073,61 @@
           "en": "I'm hungry! Will you have something?"
         }
       ],
-      "unit_id": 11
+      "unit_id": 11,
+      "concept_keys": [
+        "irregular_core_verbs"
+      ],
+      "lecture": [
+        {
+          "heading": "Eat and drink: jím, piju",
+          "say": "jíst and pít are irregular but very common. Learn jím and piju first, then the other persons.",
+          "table": [
+            [
+              "já",
+              "jím · piju"
+            ],
+            [
+              "ty",
+              "jíš · piješ"
+            ],
+            [
+              "on, ona",
+              "jí · pije"
+            ],
+            [
+              "my",
+              "jíme · pijeme"
+            ],
+            [
+              "vy",
+              "jíte · pijete"
+            ],
+            [
+              "oni",
+              "jedí · pijou"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Co jíš? — Jím rybu.",
+              "en": "What are you eating? — I am eating fish."
+            },
+            {
+              "cz": "Nepiju kávu, piju čaj.",
+              "en": "I don't drink coffee, I drink tea."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Já jíst rybu.",
+            "right": "Já jím rybu."
+          }
+        }
+      ]
     },
     {
       "id": "GR-101",
       "rule_name": "Food vocabulary — gender and accusative",
-      "pattern": "chléb (masc inan, acc=chleba), polévka (fem, acc=polévku), máslo (neut, acc=máslo), vejce (neut, acc=vejce), sýr (masc inan, acc=sýr)",
+      "pattern": "What you order is the object: -a words change to -u (polévka → polévku, voda → vodu); chleba, sýr, maso, pivo stay the same.",
       "explanation": "Czech food nouns follow gender rules for accusative. Feminine nouns change -a→-u: polévka→polévku, zmrzlina→zmrzlinu, šunka→šunku. Masculine inanimate: usually no change in accusative: sýr→sýr, chléb→chleba (irregular). Neuter: no change: pivo→pivo, mléko→mléko, máslo→máslo. When ordering: 'Dám si...' + accusative: 'Dám si polévku a pivo.' Also note: koláč, guláš, knedlík, svíčková are very common Czech dishes to know.",
       "case_affected": "accusative",
       "examples": [
@@ -3095,7 +3144,60 @@
           "en": "For breakfast I have bread with butter."
         }
       ],
-      "unit_id": 11
+      "unit_id": 11,
+      "concept_keys": [
+        "noun_acc_sg_all_genders"
+      ],
+      "lecture": [
+        {
+          "heading": "Food as the object: polévku, vodu",
+          "say": "What you eat or order is the object. -a words change to -u: polévka → polévku. chleba, sýr, maso and pivo stay the same, as in Unit 6.",
+          "table": [
+            [
+              "polévka",
+              "Dám si polévku."
+            ],
+            [
+              "voda",
+              "Piju vodu."
+            ],
+            [
+              "ryba",
+              "Jím rybu."
+            ],
+            [
+              "káva",
+              "Dám si kávu."
+            ],
+            [
+              "chleba",
+              "Jím chleba."
+            ],
+            [
+              "sýr",
+              "Mám rád sýr."
+            ],
+            [
+              "maso",
+              "Nejím maso."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dám si polévku a vodu.",
+              "en": "I'll have soup and water."
+            },
+            {
+              "cz": "Jím chleba se sýrem.",
+              "en": "I eat bread with cheese."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dám si polévka.",
+            "right": "Dám si polévku."
+          }
+        }
+      ]
     },
     {
       "id": "GR-102",
@@ -3121,13 +3223,63 @@
           "en": "Anything else? — No, thank you, that's all."
         }
       ],
-      "unit_id": 11
+      "unit_id": 11,
+      "lecture": [
+        {
+          "heading": "Ordering and paying",
+          "say": "Order with Dám si… or Chtěl/a bych…. Ask for the bill with Účet, prosím, and say how you pay: Zaplatím kartou.",
+          "table": [
+            [
+              "I’ll have…",
+              "Dám si…"
+            ],
+            [
+              "I would like…",
+              "Chtěl bych… / Chtěla bych…"
+            ],
+            [
+              "Do you have…?",
+              "Máte…?"
+            ],
+            [
+              "Anything else?",
+              "Ještě něco?"
+            ],
+            [
+              "The bill, please.",
+              "Účet, prosím."
+            ],
+            [
+              "by card",
+              "kartou"
+            ],
+            [
+              "in cash",
+              "hotově"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dám si kuře s rýží.",
+              "en": "I'll have chicken with rice."
+            },
+            {
+              "cz": "Účet, prosím. Zaplatím kartou.",
+              "en": "The bill, please. I will pay by card."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Chci účet!",
+            "right": "Účet, prosím."
+          }
+        }
+      ]
     },
     {
       "id": "GR-103",
-      "rule_name": "Quantities and partitive genitive with food",
-      "pattern": "trochu (a little), hodně (a lot), kilo (kilogram), litr (liter), kousek (piece)",
-      "explanation": "When expressing quantity with food, use the genitive case after quantity words. 'Trochu' + genitive = a little of something: 'trochu mléka' (a little milk), 'trochu soli' (a little salt). 'Hodně' + genitive = a lot: 'hodně práce' (a lot of work), 'hodně jídla' (a lot of food). Measurement units: 'kilo brambor' (a kilo of potatoes), 'litr vína' (a liter of wine). This is an A1 introduction — genitive is covered in full later.",
+      "rule_name": "Useful amounts — trochu mléka, kilo brambor (phrases)",
+      "pattern": "Learn these as phrases: trochu mléka, kilo brambor, láhev vody, kousek chleba, sklenice vína. The grammar behind them comes in Unit 16.",
+      "explanation": "After an amount the next word changes its ending. At A1 you do not need to build these forms: learn the handful of phrases you use when shopping and ordering. Unit 16 explains the pattern.",
       "case_affected": "genitive",
       "examples": [
         {
@@ -3135,15 +3287,53 @@
           "en": "I'll have a little soup."
         },
         {
-          "cz": "Kupte kilo jablek.",
-          "en": "Buy a kilo of apples."
-        },
-        {
-          "cz": "Máte hodně práce?",
-          "en": "Do you have a lot of work?"
+          "cz": "Kilo brambor, prosím.",
+          "en": "A kilo of potatoes, please."
         }
       ],
-      "unit_id": 11
+      "unit_id": 11,
+      "lecture": [
+        {
+          "heading": "Useful amounts as phrases",
+          "say": "After an amount the next word changes. At A1, learn these few phrases whole; Unit 16 explains why.",
+          "table": [
+            [
+              "a little milk",
+              "trochu mléka"
+            ],
+            [
+              "a kilo of potatoes",
+              "kilo brambor"
+            ],
+            [
+              "a bottle of water",
+              "láhev vody"
+            ],
+            [
+              "a piece of bread",
+              "kousek chleba"
+            ],
+            [
+              "a glass of wine",
+              "sklenice vína"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dám si trochu polévky.",
+              "en": "I'll have a little soup."
+            },
+            {
+              "cz": "Kilo brambor, prosím.",
+              "en": "A kilo of potatoes, please."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "láhev voda",
+            "right": "láhev vody"
+          }
+        }
+      ]
     },
     {
       "id": "GR-110",

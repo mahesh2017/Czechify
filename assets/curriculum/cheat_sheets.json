@@ -1849,19 +1849,19 @@
         {
           "id": "GR-101",
           "name": "Food vocabulary — gender and accusative",
-          "pattern": "chléb (masc inan, acc=chleba), polévka (fem, acc=polévku), máslo (neut, acc=máslo), vejce (neut, acc=vejce), sýr (masc i",
+          "pattern": "What you order is the object: -a words change to -u (polévka → polévku, voda → vodu); chleba, sýr, maso, pivo stay the same.",
           "example": "Dám si guláš a pivo. — I'll have goulash and a beer."
         },
         {
           "id": "GR-102",
           "name": "Ordering at a restaurant",
-          "pattern": "Dám si... (I'll have...). Chtěl bych... (I would like...). Ještě něco? (Anything else?). Platit! (The bill!). Účet, pros",
+          "pattern": "Dám si... (I'll have...). Chtěl bych... (I would like...). Ještě něco? (Anything else?). Platit! (The bill!). Účet, prosím.",
           "example": "Dám si smažený sýr a hranolky. — I'll have fried cheese and fries."
         },
         {
           "id": "GR-103",
-          "name": "Quantities and partitive genitive with food",
-          "pattern": "trochu (a little), hodně (a lot), kilo (kilogram), litr (liter), kousek (piece)",
+          "name": "Useful amounts — trochu mléka, kilo brambor (phrases)",
+          "pattern": "Learn these as phrases: trochu mléka, kilo brambor, láhev vody, kousek chleba, sklenice vína. The grammar behind them comes in Unit 16.",
           "example": "Dám si trochu polévky. — I'll have a little soup."
         }
       ],
@@ -1918,7 +1918,103 @@
         "Čekání na usazení v restauraci",
         "Příliš vysoké spropitné (procentuální)"
       ],
-      "study_tip": "Jděte do české restaurace a objednejte si česky. Začněte 'Dám si...' a 'Začínáme polévkou?'"
+      "study_tip": "Jděte do české restaurace a objednejte si česky. Začněte 'Dám si...' a 'Začínáme polévkou?'",
+      "notebook_page": {
+        "title_cz": "Jídlo",
+        "title_en": "Food and restaurant",
+        "can_do": {
+          "cz": "Objednám si jídlo a pití a zaplatím.",
+          "en": "I can order food and drink and pay."
+        },
+        "words": [
+          {
+            "cz": "Mám hlad.",
+            "en": "I am hungry."
+          },
+          {
+            "cz": "Mám žízeň.",
+            "en": "I am thirsty."
+          },
+          {
+            "cz": "Dám si polévku.",
+            "en": "I'll have soup."
+          },
+          {
+            "cz": "Jím rybu.",
+            "en": "I eat fish."
+          },
+          {
+            "cz": "Nejím maso.",
+            "en": "I don't eat meat."
+          },
+          {
+            "cz": "Piju čaj.",
+            "en": "I drink tea."
+          },
+          {
+            "cz": "Účet, prosím.",
+            "en": "The bill, please."
+          },
+          {
+            "cz": "Zaplatím kartou.",
+            "en": "I will pay by card."
+          }
+        ],
+        "pattern": {
+          "name": "Eat, drink, order",
+          "rule_plain": "jím / piju. What you order is the object: -a → -u (polévku). Amounts are phrases: trochu mléka, láhev vody.",
+          "table": [
+            [
+              "I eat",
+              "jím"
+            ],
+            [
+              "I drink",
+              "piju"
+            ],
+            [
+              "soup",
+              "Dám si polévku."
+            ],
+            [
+              "bread",
+              "Jím chleba."
+            ],
+            [
+              "the bill",
+              "Účet, prosím."
+            ],
+            [
+              "a bottle of water",
+              "láhev vody"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dám si kuře s rýží a vodu.",
+              "en": "I'll have chicken with rice and water."
+            },
+            {
+              "cz": "Zaplatím kartou.",
+              "en": "I will pay by card."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dám si polévka.",
+            "right": "Dám si polévku."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "K obědu jím polévku a chleba.",
+            "en": "For lunch I eat soup and bread."
+          },
+          {
+            "cz": "Piju vodu, nepiju pivo.",
+            "en": "I drink water, I don't drink beer."
+          }
+        ]
+      }
     },
     {
       "unit_id": 12,
