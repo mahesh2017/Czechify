@@ -7,10 +7,62 @@
 other unit still uses the old one-page layouts.
 
 This is what we learned while building Unit 2. Read it before switching another
-unit on or starting the next step. The numbers come from the no-scroll fit test
+unit on or starting the next step, and start with §0: assess first, plan, then
+build. The numbers come from the no-scroll fit test
 and from running the app in the iOS simulator.
 
 ---
+
+## 0. Assess the unit first, plan, and only then build
+
+This is the most important lesson of the pilot, and it came from Mahesh: *"How
+about investigating first where we have scrolling parts and how can we deal
+them better … Better plans always save lots of time and effort."*
+
+On Unit 2 the order was: measure everything, sort what we found, plan, agree
+the plan, build. The plan that came out of it has held through steps 1 and 2
+without rework. Where the assessment was skipped, it cost time:
+
+- **The audit changed the plan.** Measuring all 1,548 exercises showed three
+  distinct problems: several things on one screen, a brief plus doing it, and
+  near-fits. Each needs a different fix. Starting with slides for everything
+  would have been wrong for two of the three.
+- **The dry run in §6 found four new failure types in minutes.** Discovering
+  them unit by unit while building would have meant reworking each unit.
+- **Acting before assessing had to be undone.** I hid the dialogue speaker
+  buttons as an "answer leak" without checking how the exercises were meant to
+  work, then had to revert it (§8). One look at the content first would have
+  shown they are listen-then-reproduce.
+- **The chrome problem was only visible from the whole lesson.** Mahesh's
+  screenshot showed 300 pt of header before any content. No per-exercise fix
+  would have found that.
+
+**For every unit (and every new step), before changing anything:**
+
+1. **Measure it as it is and as it would be.** Run the fit test with the unit
+   temporarily switched on and write down, for each exercise, whether it still
+   scrolls and by how much. Don't commit the switch (§10, "Assess").
+2. **Find the cause of each overflow.** Turn each overflowing slide and list
+   the heights of its parts (§11). "Scrolls by 60 pt" is not a cause; "a
+   140 pt image plus a 96 pt prompt on the first listening slide" is.
+3. **Sort by cause, not by exercise.** Most overflows share one of a handful of
+   causes (§6). One fix per cause beats one fix per exercise.
+4. **Read the content, not just the layout.** Look for:
+   - hard-coded names in expected answers;
+   - audio that gives away the answer;
+   - texts much longer than the rest;
+   - anything the teacher review should see.
+
+   Decide nothing about teaching yourself (§8).
+5. **Look at the old layout on the phone once** before changing it, so the
+   before and after can be compared.
+6. **Write the plan and agree it with Mahesh:**
+   - what changes, per cause;
+   - what it costs;
+   - which decisions are his (teaching, content, anything the learner sees
+     differently).
+
+   Build only after that.
 
 ## 1. The rule and the decisions behind it
 
@@ -260,23 +312,46 @@ the feedback sheet, with the keyboard for typed answers.
 
 ## 10. Checklist for switching on another unit
 
-1. **Add the unit** to `unitGuidePilotUnits`.
-2. **Run the fit test with re-pinning.** In the budget diff:
-   - only that unit's ids should change;
-   - every step-2 kind should leave the list.
+### Assess (no changes committed)
+1. **Dry run:**
+   - add the unit to `unitGuidePilotUnits` locally;
+   - run `UPDATE_NO_SCROLL_BUDGET=1 flutter test test/no_scroll_fit_test.dart`;
+   - copy `test/fixtures/no_scroll_budget.json` to the scratchpad;
+   - restore both files with `git checkout`.
 
-   Look up any that remain in §6.
-3. **Fix what §6 predicts for that unit** (image listening, long readings, long
-   dialogues, tall tables) before calling it done.
-4. **Run the unit's lessons on the simulator:**
+   Compare the copy with the committed list: which of the unit's exercises
+   would still scroll, by kind and by how much.
+2. **Diagnose each exercise that still scrolls** with the slide-by-slide height
+   print (§11). Match it to the known causes in §6, or record a new one.
+3. **Review the content** for §9-type problems and for teaching choices built
+   into the exercises (§8).
+4. **Walk one lesson of the unit on the simulator** in its current layout.
+
+### Plan
+5. **Write down:**
+   - the causes found and the fix for each;
+   - anything new to build;
+   - the content questions;
+   - the decisions that are Mahesh's.
+
+   Share the plan and wait for agreement.
+
+### Build
+6. **Add the unit** to `unitGuidePilotUnits`, and make the planned fixes.
+7. **Re-pin the fit test.** In the budget diff:
+   - only that unit's ids should change;
+   - every exercise of the kinds already converted should leave the list;
+   - anything left should be on the plan.
+
+### Verify
+8. **Run the unit's lessons on the simulator:**
    - one rule, one word list, one listening, one reading and one dialogue;
    - each through to the feedback sheet;
    - dialogues with the keyboard;
    - check that "play all" follows along.
-5. **Check the content** for the §9 problems: hard-coded names, and answers the
-   audio gives away when the exercise isn't meant to be listen-then-reproduce.
-6. **Run the full test suite, then commit.** The only known failure is the
+9. **Run the full test suite, then commit.** The only known failure is the
    referral campaign manifest test, which is pending its re-pin.
+10. **Add what was learned to this document.**
 
 ## 11. Working notes
 
