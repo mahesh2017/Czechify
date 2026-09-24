@@ -2,14 +2,54 @@
   "id": 2801,
   "unit_id": 28,
   "title": "Read a Simple Form",
-  "description": "Practise reading and completing a simple everyday form. Independent course practice, not official examination material.",
+  "description": "Read and complete a simple everyday form. Course practice, not an official exam.",
   "lesson_type": "practice",
   "order_in_unit": 0,
   "duration_min": 12,
+  "can_do": "read a simple form and give your details.",
+  "new_language": [
+    "vyplnit, formulář",
+    "napište, doplňte"
+  ],
+  "recycles": [
+    "jméno, příjmení, adresa (U4)",
+    "Bydlím v… (U5)"
+  ],
+  "exit_task": "fill in a mini form.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 28100,
+      "lesson_id": 2801,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write your name, address and phone number in Czech, as on a form (Unit 4). Then check.",
+        "items": [
+          {
+            "cz": "Jméno: … Příjmení: …",
+            "en": "first name, surname"
+          },
+          {
+            "cz": "Adresa: …",
+            "en": "address"
+          },
+          {
+            "cz": "Telefon: sedm set sedmdesát sedm…",
+            "en": "phone number"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 28101,
       "type": "teaching",
       "prompt": "Learn the useful chunks",
       "data": {
@@ -42,7 +82,7 @@
       "lesson_id": 2801
     },
     {
-      "id": 28101,
+      "id": 28102,
       "type": "listening_comprehension",
       "prompt": "Listen for the important detail",
       "data": {
@@ -69,14 +109,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Bydlím v Praze.",
       "xp_reward": 15,
       "lesson_id": 2801
     },
     {
-      "id": 28102,
+      "id": 28103,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
       "data": {
@@ -106,14 +147,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Bydlím v Praze.",
       "xp_reward": 15,
       "lesson_id": 2801
     },
     {
-      "id": 28103,
+      "id": 28104,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
       "data": {
@@ -136,30 +178,10 @@
             "right": "The telephone number is 777 123 456."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Jmenuji se Anna Nováková.–My name is Anna Nováková.; Bydlím v Praze.–I live in Prague.; Narodila jsem se v Polsku.–I was born in Poland.; Telefonní číslo je 777 123 456.–The telephone number is 777 123 456.",
-      "xp_reward": 10,
-      "lesson_id": 2801
-    },
-    {
-      "id": 28104,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Bydlím v Praze.",
-          "Dám si kávu.",
-          "Jděte rovně.",
-          "Sejdeme se v pátek."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Bydlím v Praze.",
       "xp_reward": 10,
       "lesson_id": 2801
     },
@@ -176,7 +198,8 @@
             "Bydlím"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "Bydlím",
       "xp_reward": 10,
@@ -199,7 +222,8 @@
           2
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Bydlím v Praze.",
       "xp_reward": 10,
@@ -213,7 +237,8 @@
         "type": "dictation",
         "expected_text": "Jmenuji se Anna Nováková. Bydlím v Praze.",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Jmenuji se Anna Nováková. Bydlím v Praze.",
       "xp_reward": 10,
@@ -231,7 +256,8 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Jmenuji se Anna Nováková. Bydlím v Praze.",
       "xp_reward": 15,
@@ -272,7 +298,8 @@
             "V Praze."
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Jmenuji se Anna Nováková. | Bydlím v Praze.",
       "xp_reward": 15,
@@ -294,7 +321,8 @@
           "Narodila jsem se v Polsku.",
           "Telefonní číslo je 777 123 456."
         ],
-        "sample_answer": "Bydlím v Praze."
+        "sample_answer": "Bydlím v Praze.",
+        "targets": "vocab"
       },
       "answer_key": "Bydlím v Praze.",
       "xp_reward": 0,
@@ -314,26 +342,12 @@
           "Jmenuji se Anna Nováková.",
           "Bydlím v Praze.",
           "Narodila jsem se v Polsku."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Jmenuji se Anna Nováková.; Bydlím v Praze.; Narodila jsem se v Polsku.",
       "xp_reward": 20,
       "lesson_id": 2801
     }
-  ],
-  "can_do": "read and complete a simple everyday form.",
-  "new_language": [
-    "Jmenuji se Anna Nováková.",
-    "Bydlím v Praze.",
-    "Narodila jsem se v Polsku.",
-    "Telefonní číslo je 777 123 456."
-  ],
-  "recycles": [
-    "personal details",
-    "time and numbers",
-    "travel",
-    "messages",
-    "descriptions"
-  ],
-  "exit_task": "read and complete a simple everyday form."
+  ]
 }

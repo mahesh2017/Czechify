@@ -2,14 +2,49 @@
   "id": 3003,
   "unit_id": 30,
   "title": "Find Your Way",
-  "description": "Retrieve place, direction, and transport language in a new route situation.",
+  "description": "Retrieve place, direction and transport language on a new route.",
   "lesson_type": "practice",
   "order_in_unit": 2,
   "duration_min": 12,
+  "can_do": "ask the way and follow directions.",
+  "new_language": [
+    "Je to blízko."
+  ],
+  "recycles": [
+    "Kde je…? (U14)",
+    "Jděte rovně. (U14)"
+  ],
+  "exit_task": "give a two-step direction.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 30300,
+      "lesson_id": 3003,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write “Where is the stop?”, “Go straight on” and “Turn left” (Unit 14). Then check.",
+        "items": [
+          {
+            "cz": "Kde je zastávka?",
+            "en": "Where is the stop?"
+          },
+          {
+            "cz": "Jděte rovně. Zahněte doleva.",
+            "en": "Go straight on. Turn left."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 30301,
       "type": "teaching",
       "prompt": "Learn the useful chunks",
       "data": {
@@ -42,7 +77,7 @@
       "lesson_id": 3003
     },
     {
-      "id": 30301,
+      "id": 30302,
       "type": "listening_comprehension",
       "prompt": "Listen for the important detail",
       "data": {
@@ -69,14 +104,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka?",
       "xp_reward": 15,
       "lesson_id": 3003
     },
     {
-      "id": 30302,
+      "id": 30303,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
       "data": {
@@ -106,14 +142,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka?",
       "xp_reward": 15,
       "lesson_id": 3003
     },
     {
-      "id": 30303,
+      "id": 30304,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
       "data": {
@@ -136,30 +173,10 @@
             "right": "It is close."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka?–Where is the stop?; Jděte rovně.–Go straight ahead.; Potom doleva.–Then left.; Je to blízko.–It is close.",
-      "xp_reward": 10,
-      "lesson_id": 3003
-    },
-    {
-      "id": 30304,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Kde je zastávka?",
-          "Hledám modrý svetr.",
-          "Dnes nepřijdu.",
-          "Dám si koláč."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Kde je zastávka?",
       "xp_reward": 10,
       "lesson_id": 3003
     },
@@ -176,7 +193,8 @@
             "doleva"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "doleva",
       "xp_reward": 10,
@@ -199,7 +217,8 @@
           2
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka?",
       "xp_reward": 10,
@@ -213,7 +232,8 @@
         "type": "dictation",
         "expected_text": "Kde je zastávka? Jděte rovně a potom doleva.",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka? Jděte rovně a potom doleva.",
       "xp_reward": 10,
@@ -231,7 +251,8 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka? Jděte rovně a potom doleva.",
       "xp_reward": 15,
@@ -272,7 +293,8 @@
             "Děkuji moc."
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka? | Děkuji.",
       "xp_reward": 15,
@@ -294,7 +316,8 @@
           "Potom doleva.",
           "Je to blízko."
         ],
-        "sample_answer": "Kde je zastávka?"
+        "sample_answer": "Kde je zastávka?",
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka?",
       "xp_reward": 0,
@@ -314,26 +337,12 @@
           "Kde je zastávka?",
           "Jděte rovně.",
           "Potom doleva."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Kde je zastávka?; Jděte rovně.; Potom doleva.",
       "xp_reward": 20,
       "lesson_id": 3003
     }
-  ],
-  "can_do": "reuse A1 Czech to ask for and give directions.",
-  "new_language": [
-    "Kde je zastávka?",
-    "Jděte rovně.",
-    "Potom doleva.",
-    "Je to blízko."
-  ],
-  "recycles": [
-    "food",
-    "shopping",
-    "directions",
-    "transport",
-    "meeting plans"
-  ],
-  "exit_task": "reuse A1 Czech to ask for and give directions."
+  ]
 }

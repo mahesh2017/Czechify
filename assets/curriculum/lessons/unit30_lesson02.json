@@ -2,14 +2,49 @@
   "id": 3002,
   "unit_id": 30,
   "title": "Choose and Buy",
-  "description": "Retrieve colour, size, price, and decision language in a new shopping situation.",
+  "description": "Retrieve colour, size, price and decision language in a new shop.",
   "lesson_type": "practice",
   "order_in_unit": 1,
   "duration_min": 12,
+  "can_do": "choose, ask for a size and buy.",
+  "new_language": [
+    "Vezmu si ho."
+  ],
+  "recycles": [
+    "modrý svetr (U12)",
+    "větší (U12)"
+  ],
+  "exit_task": "ask for an item and a size.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 30200,
+      "lesson_id": 3002,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write “I want a blue shirt” and “Do you have a bigger size?” (Unit 12). Then check.",
+        "items": [
+          {
+            "cz": "Chci modrou košili.",
+            "en": "I want a blue shirt."
+          },
+          {
+            "cz": "Máte větší velikost?",
+            "en": "Do you have a bigger size?"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 30201,
       "type": "teaching",
       "prompt": "Learn the useful chunks",
       "data": {
@@ -42,7 +77,7 @@
       "lesson_id": 3002
     },
     {
-      "id": 30201,
+      "id": 30202,
       "type": "listening_comprehension",
       "prompt": "Listen for the important detail",
       "data": {
@@ -69,14 +104,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Hledám modrý svetr.",
       "xp_reward": 15,
       "lesson_id": 3002
     },
     {
-      "id": 30202,
+      "id": 30203,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
       "data": {
@@ -106,14 +142,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Hledám modrý svetr.",
       "xp_reward": 15,
       "lesson_id": 3002
     },
     {
-      "id": 30203,
+      "id": 30204,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
       "data": {
@@ -136,30 +173,10 @@
             "right": "I will take it."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Hledám modrý svetr.–I am looking for a blue sweater.; Máte větší velikost?–Do you have a larger size?; Kolik stojí?–How much does it cost?; Vezmu si ho.–I will take it.",
-      "xp_reward": 10,
-      "lesson_id": 3002
-    },
-    {
-      "id": 30204,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Hledám modrý svetr.",
-          "Dám si kávu.",
-          "Sejdeme se v pátek.",
-          "Vlak odjíždí v devět hodin."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Hledám modrý svetr.",
       "xp_reward": 10,
       "lesson_id": 3002
     },
@@ -176,7 +193,8 @@
             "svetr"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "svetr",
       "xp_reward": 10,
@@ -199,7 +217,8 @@
           2
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Hledám modrý svetr.",
       "xp_reward": 10,
@@ -213,7 +232,8 @@
         "type": "dictation",
         "expected_text": "Hledám modrý svetr. Máte větší velikost?",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Hledám modrý svetr. Máte větší velikost?",
       "xp_reward": 10,
@@ -231,7 +251,8 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Hledám modrý svetr. Máte větší velikost?",
       "xp_reward": 15,
@@ -239,6 +260,50 @@
     },
     {
       "id": 30209,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write two Czech sentences: say what clothing item and colour you want, then ask for a size.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 36,
+        "key_vocab": [
+          "Hledám modrý svetr.",
+          "Máte větší velikost?",
+          "Kolik stojí?",
+          "Vezmu si ho."
+        ],
+        "sample_answer": "Hledám modrý svetr.",
+        "targets": "vocab"
+      },
+      "answer_key": "Hledám modrý svetr.",
+      "xp_reward": 0,
+      "lesson_id": 3002
+    },
+    {
+      "id": 30210,
+      "type": "speaking_task",
+      "prompt": "Record the unit mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second shopping exchange: ask for an item, ask a size or price, and say whether you will take it.",
+        "prompt_cz": "Dokončete krátkou misi česky.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Hledám modrý svetr.",
+          "Máte větší velikost?",
+          "Kolik stojí?"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "Hledám modrý svetr.; Máte větší velikost?; Kolik stojí?",
+      "xp_reward": 20,
+      "lesson_id": 3002
+    },
+    {
+      "id": 30211,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
       "data": {
@@ -268,72 +333,17 @@
             "Modrý svetr."
           ],
           [
-            "Větší velikost, prosím.",
+            "M, prosím.",
+            "Velikost M, prosím.",
             "Máte větší velikost?"
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
-      },
-      "answer_key": "Hledám modrý svetr. | Větší velikost, prosím.",
-      "xp_reward": 15,
-      "lesson_id": 3002
-    },
-    {
-      "id": 30210,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write two Czech sentences: say what clothing item and colour you want, then ask for a size.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 36,
-        "key_vocab": [
-          "Hledám modrý svetr.",
-          "Máte větší velikost?",
-          "Kolik stojí?",
-          "Vezmu si ho."
-        ],
-        "sample_answer": "Hledám modrý svetr."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Hledám modrý svetr.",
-      "xp_reward": 0,
-      "lesson_id": 3002
-    },
-    {
-      "id": 30211,
-      "type": "speaking_task",
-      "prompt": "Record the unit mission",
-      "data": {
-        "type": "speaking_task",
-        "prompt_en": "Record a 20–30 second shopping exchange: ask for an item, ask a size or price, and say whether you will take it.",
-        "prompt_cz": "Dokončete krátkou misi česky.",
-        "min_duration_seconds": 20,
-        "max_duration_seconds": 35,
-        "expected_phrases": [
-          "Hledám modrý svetr.",
-          "Máte větší velikost?",
-          "Kolik stojí?"
-        ]
-      },
-      "answer_key": "Hledám modrý svetr.; Máte větší velikost?; Kolik stojí?",
-      "xp_reward": 20,
+      "xp_reward": 15,
       "lesson_id": 3002
     }
-  ],
-  "can_do": "reuse A1 Czech while choosing and buying something.",
-  "new_language": [
-    "Hledám modrý svetr.",
-    "Máte větší velikost?",
-    "Kolik stojí?",
-    "Vezmu si ho."
-  ],
-  "recycles": [
-    "food",
-    "shopping",
-    "directions",
-    "transport",
-    "meeting plans"
-  ],
-  "exit_task": "reuse A1 Czech while choosing and buying something."
+  ]
 }

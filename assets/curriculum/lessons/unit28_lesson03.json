@@ -2,14 +2,50 @@
   "id": 2803,
   "unit_id": 28,
   "title": "Write a Short Message",
-  "description": "Practise writing a short functional message with a greeting, reason, and closing.",
+  "description": "Write a message with a greeting, a reason and a closing.",
   "lesson_type": "production",
   "order_in_unit": 2,
   "duration_min": 12,
+  "can_do": "write a short message to a friend.",
+  "new_language": [
+    "Dnes nepřijdu.",
+    "Uvidíme se zítra."
+  ],
+  "recycles": [
+    "Ahoj (U2)",
+    "Jsem nemocný/á."
+  ],
+  "exit_task": "write a three-sentence message.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 28300,
+      "lesson_id": 2803,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write a friendly greeting and closing (Unit 2) and one sentence with protože or ale (Unit 8). Then check.",
+        "items": [
+          {
+            "cz": "Ahoj Petro, … Ahoj!",
+            "en": "greeting and closing"
+          },
+          {
+            "cz": "Nepřijdu, protože jsem nemocný/á.",
+            "en": "a reason"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 28301,
       "type": "teaching",
       "prompt": "Learn the useful chunks",
       "data": {
@@ -42,7 +78,7 @@
       "lesson_id": 2803
     },
     {
-      "id": 28301,
+      "id": 28302,
       "type": "listening_comprehension",
       "prompt": "Listen for the important detail",
       "data": {
@@ -69,14 +105,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Petro, dnes nepřijdu.",
       "xp_reward": 15,
       "lesson_id": 2803
     },
     {
-      "id": 28302,
+      "id": 28303,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
       "data": {
@@ -106,14 +143,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Petro, dnes nepřijdu.",
       "xp_reward": 15,
       "lesson_id": 2803
     },
     {
-      "id": 28303,
+      "id": 28304,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
       "data": {
@@ -136,30 +174,10 @@
             "right": "We will see each other tomorrow."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Petro, dnes nepřijdu.–Hi Petra, I am not coming today.; Jsem nemocný.–I am ill.; Promiň, prosím.–Sorry, please.; Uvidíme se zítra.–We will see each other tomorrow.",
-      "xp_reward": 10,
-      "lesson_id": 2803
-    },
-    {
-      "id": 28304,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Ahoj Petro, dnes nepřijdu.",
-          "Vlak odjíždí v devět hodin.",
-          "Jděte rovně.",
-          "Dám si polévku."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Ahoj Petro, dnes nepřijdu.",
       "xp_reward": 10,
       "lesson_id": 2803
     },
@@ -176,7 +194,8 @@
             "nepřijdu"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "nepřijdu",
       "xp_reward": 10,
@@ -197,7 +216,8 @@
           1
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Dnes nepřijdu.",
       "xp_reward": 10,
@@ -211,7 +231,8 @@
         "type": "dictation",
         "expected_text": "Ahoj Petro, dnes nepřijdu. Jsem nemocný.",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Petro, dnes nepřijdu. Jsem nemocný.",
       "xp_reward": 10,
@@ -229,7 +250,8 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Petro, dnes nepřijdu. Jsem nemocný.",
       "xp_reward": 15,
@@ -270,7 +292,8 @@
             "Protože jsem nemocný."
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Dnes nepřijdu. | Jsem nemocný.",
       "xp_reward": 15,
@@ -292,7 +315,8 @@
           "Promiň, prosím.",
           "Uvidíme se zítra."
         ],
-        "sample_answer": "Ahoj Petro, dnes nepřijdu."
+        "sample_answer": "Ahoj Petro, dnes nepřijdu.",
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Petro, dnes nepřijdu.",
       "xp_reward": 0,
@@ -312,26 +336,12 @@
           "Ahoj Petro, dnes nepřijdu.",
           "Jsem nemocný.",
           "Promiň, prosím."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Petro, dnes nepřijdu.; Jsem nemocný.; Promiň, prosím.",
       "xp_reward": 20,
       "lesson_id": 2803
     }
-  ],
-  "can_do": "write a clear short practical message.",
-  "new_language": [
-    "Ahoj Petro, dnes nepřijdu.",
-    "Jsem nemocný.",
-    "Promiň, prosím.",
-    "Uvidíme se zítra."
-  ],
-  "recycles": [
-    "personal details",
-    "time and numbers",
-    "travel",
-    "messages",
-    "descriptions"
-  ],
-  "exit_task": "write a clear short practical message."
+  ]
 }

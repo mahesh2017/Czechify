@@ -6476,7 +6476,7 @@
     "unit_id": 28,
     "example_cz": "Vyberte správnou odpověď.",
     "example_en": "Choose the correct answer.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1690,
@@ -6498,7 +6498,7 @@
     "unit_id": 28,
     "example_cz": "Přečtěte text a odpovězte.",
     "example_en": "Read the text and answer.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1692,
@@ -6509,7 +6509,7 @@
     "unit_id": 28,
     "example_cz": "Poslouchejte nahrávku.",
     "example_en": "Listen to the recording.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1693,
@@ -6531,7 +6531,7 @@
     "unit_id": 28,
     "example_cz": "Řekněte něco o sobě.",
     "example_en": "Say something about yourself.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1695,
@@ -6542,7 +6542,7 @@
     "unit_id": 28,
     "example_cz": "Spojte otázky s odpověďmi.",
     "example_en": "Match questions with answers.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1696,
@@ -6553,7 +6553,7 @@
     "unit_id": 28,
     "example_cz": "Označte správnou možnost.",
     "example_en": "Mark the correct option.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1697,
@@ -6564,7 +6564,7 @@
     "unit_id": 28,
     "example_cz": "Správná odpověď je číslo 3.",
     "example_en": "The correct answer is number 3.",
-    "lesson_id": 2801
+    "lesson_id": null
   },
   {
     "id": 1698,
@@ -6575,7 +6575,7 @@
     "unit_id": 28,
     "example_cz": "Jsou čtyři možnosti, vyberte jednu.",
     "example_en": "There are four options, choose one.",
-    "lesson_id": 2801
+    "lesson_id": null
   },
   {
     "id": 1699,
@@ -6586,7 +6586,7 @@
     "unit_id": 28,
     "example_cz": "Přečtěte text pozorně.",
     "example_en": "Read the text carefully.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1700,
@@ -6597,7 +6597,7 @@
     "unit_id": 28,
     "example_cz": "Máte tři úkoly.",
     "example_en": "You have three tasks.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1701,
@@ -6608,7 +6608,7 @@
     "unit_id": 28,
     "example_cz": "První část je poslech.",
     "example_en": "The first part is listening.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1702,
@@ -6619,7 +6619,7 @@
     "unit_id": 28,
     "example_cz": "Dostal jsem 80 bodů ze 100.",
     "example_en": "I got 80 points out of 100.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1703,
@@ -6630,7 +6630,7 @@
     "unit_id": 28,
     "example_cz": "Hodnocení zkoušky je velmi přísné.",
     "example_en": "The exam grading is very strict.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1704,
@@ -6641,7 +6641,7 @@
     "unit_id": 28,
     "example_cz": "Zítra mám zkoušku z češtiny.",
     "example_en": "Tomorrow I have a Czech exam.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1705,
@@ -6652,18 +6652,7 @@
     "unit_id": 28,
     "example_cz": "Test má 20 otázek.",
     "example_en": "The test has 20 questions.",
-    "lesson_id": 2801
-  },
-  {
-    "id": 1706,
-    "word_cz": "přijímací zkouška",
-    "word_en": "entrance exam",
-    "ipa": "ˈpr̝ijɪmat͡sɪː ˈskouʃka",
-    "gender": "feminine",
-    "unit_id": 28,
-    "example_cz": "Složil jsem přijímací zkoušku.",
-    "example_en": "I passed the entrance exam.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1707,
@@ -6674,18 +6663,7 @@
     "unit_id": 28,
     "example_cz": "Musím složit zkoušku A2.",
     "example_en": "I must pass the A2 exam.",
-    "lesson_id": 2801
-  },
-  {
-    "id": 1708,
-    "word_cz": "propadnout",
-    "word_en": "to fail (exam)",
-    "ipa": "ˈpropatnout",
-    "gender": null,
-    "unit_id": 28,
-    "example_cz": "Nechci propadnout u zkoušky.",
-    "example_en": "I don't want to fail the exam.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1709,
@@ -6696,7 +6674,7 @@
     "unit_id": 28,
     "example_cz": "Byl jsem úspěšný u zkoušky.",
     "example_en": "I was successful in the exam.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1710,
@@ -6707,29 +6685,7 @@
     "unit_id": 28,
     "example_cz": "Byl neúspěšný u zkoušky.",
     "example_en": "He was unsuccessful in the exam.",
-    "lesson_id": 2801
-  },
-  {
-    "id": 1711,
-    "word_cz": "požadavek",
-    "word_en": "requirement",
-    "ipa": "ˈpoʒadavɛk",
-    "gender": "masculine inanimate",
-    "unit_id": 28,
-    "example_cz": "Požadavek na A2 je těžký.",
-    "example_en": "The A2 requirement is hard.",
-    "lesson_id": 2801
-  },
-  {
-    "id": 1712,
-    "word_cz": "splnit",
-    "word_en": "to fulfill / meet",
-    "ipa": "ˈsplɲɪt",
-    "gender": null,
-    "unit_id": 28,
-    "example_cz": "Musím splnit všechny požadavky.",
-    "example_en": "I must meet all requirements.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1713,
@@ -6740,7 +6696,7 @@
     "unit_id": 28,
     "example_cz": "Poslouchejte nahrávku dvakrát.",
     "example_en": "Listen to the recording twice.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1714,
@@ -6773,7 +6729,7 @@
     "unit_id": 28,
     "example_cz": "Poslech byl nejtěžší část.",
     "example_en": "Listening was the hardest part.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1717,
@@ -6784,7 +6740,7 @@
     "unit_id": 28,
     "example_cz": "Čtení mi dělá potíže.",
     "example_en": "Reading gives me trouble.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1718,
@@ -6795,7 +6751,7 @@
     "unit_id": 28,
     "example_cz": "Psaní je moje silná stránka.",
     "example_en": "Writing is my strength.",
-    "lesson_id": 2801
+    "lesson_id": 2803
   },
   {
     "id": 1719,
@@ -6806,7 +6762,7 @@
     "unit_id": 28,
     "example_cz": "Mluvení je pro mě těžké.",
     "example_en": "Speaking is hard for me.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1720,
@@ -6817,7 +6773,7 @@
     "unit_id": 28,
     "example_cz": "Musím se učit více slovní zásoby.",
     "example_en": "I must learn more vocabulary.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1721,
@@ -6828,7 +6784,7 @@
     "unit_id": 28,
     "example_cz": "Gramatika je nejtěžší část češtiny.",
     "example_en": "Grammar is the hardest part of Czech.",
-    "lesson_id": 2801
+    "lesson_id": 2804
   },
   {
     "id": 1722,
@@ -6839,7 +6795,7 @@
     "unit_id": 28,
     "example_cz": "Potřebuji vysvětlení tohoto pravidla.",
     "example_en": "I need an explanation of this rule.",
-    "lesson_id": 2801
+    "lesson_id": null
   },
   {
     "id": 1723,
@@ -6850,7 +6806,7 @@
     "unit_id": 28,
     "example_cz": "Dejte mi příklad.",
     "example_en": "Give me an example.",
-    "lesson_id": 2801
+    "lesson_id": 2802
   },
   {
     "id": 1724,
@@ -6861,7 +6817,7 @@
     "unit_id": 28,
     "example_cz": "Máme tři cvičení na doma.",
     "example_en": "We have three exercises for homework.",
-    "lesson_id": 2801
+    "lesson_id": null
   },
   {
     "id": 1725,
@@ -6919,50 +6875,6 @@
     "lesson_id": 3001
   },
   {
-    "id": 1730,
-    "word_cz": "vlastně",
-    "word_en": "actually / in fact",
-    "ipa": "ˈvlastɲɛ",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Vlastně to není špatný nápad.",
-    "example_en": "Actually it's not a bad idea.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1731,
-    "word_cz": "prostě",
-    "word_en": "simply / just",
-    "ipa": "ˈprostɛ",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Prostě to udělej.",
-    "example_en": "Just do it.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1732,
-    "word_cz": "totiž",
-    "word_en": "you see / namely",
-    "ipa": "ˈtotiːz",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Nemůžu přijít, totiž mám práci.",
-    "example_en": "I can't come, you see I have work.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1733,
-    "word_cz": "přece",
-    "word_en": "after all / come on",
-    "ipa": "ˈpr̝ɛtsɛ",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Přece to víš!",
-    "example_en": "Come on, you know that!",
-    "lesson_id": 3001
-  },
-  {
     "id": 1734,
     "word_cz": "už",
     "word_en": "already / anymore",
@@ -6971,7 +6883,7 @@
     "unit_id": 30,
     "example_cz": "Už jsem to udělal.",
     "example_en": "I already did it.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1735,
@@ -7004,7 +6916,7 @@
     "unit_id": 30,
     "example_cz": "Vrať se zpět!",
     "example_en": "Come back!",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1738,
@@ -7015,7 +6927,7 @@
     "unit_id": 30,
     "example_cz": "Jdi pryč!",
     "example_en": "Go away!",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1739,
@@ -7026,7 +6938,7 @@
     "unit_id": 30,
     "example_cz": "Jdu domů.",
     "example_en": "I'm going home.",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1740,
@@ -7037,7 +6949,7 @@
     "unit_id": 30,
     "example_cz": "Jděte ven!",
     "example_en": "Go outside!",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1741,
@@ -7048,7 +6960,7 @@
     "unit_id": 30,
     "example_cz": "Pojď dovnitř.",
     "example_en": "Come inside.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1742,
@@ -7059,7 +6971,7 @@
     "unit_id": 30,
     "example_cz": "Pojď nahoru.",
     "example_en": "Come upstairs.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1743,
@@ -7070,7 +6982,7 @@
     "unit_id": 30,
     "example_cz": "Pojď dolů.",
     "example_en": "Come down.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1744,
@@ -7081,7 +6993,7 @@
     "unit_id": 30,
     "example_cz": "Je to blízko odtud.",
     "example_en": "It's near from here.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1745,
@@ -7092,7 +7004,7 @@
     "unit_id": 30,
     "example_cz": "Je to daleko.",
     "example_en": "It's far.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1746,
@@ -7103,7 +7015,7 @@
     "unit_id": 30,
     "example_cz": "Tady je hezky.",
     "example_en": "It's nice here.",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1747,
@@ -7114,7 +7026,7 @@
     "unit_id": 30,
     "example_cz": "Tam je obchod.",
     "example_en": "There is the shop.",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1748,
@@ -7125,7 +7037,7 @@
     "unit_id": 30,
     "example_cz": "Někde to ztratil.",
     "example_en": "He lost it somewhere.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1749,
@@ -7136,7 +7048,7 @@
     "unit_id": 30,
     "example_cz": "Nikde to nemůžu najít.",
     "example_en": "I can't find it anywhere.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1750,
@@ -7147,7 +7059,7 @@
     "unit_id": 30,
     "example_cz": "Všude jsou lidé.",
     "example_en": "There are people everywhere.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1751,
@@ -7158,7 +7070,7 @@
     "unit_id": 30,
     "example_cz": "Musím jít jinam.",
     "example_en": "I must go elsewhere.",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1752,
@@ -7169,29 +7081,7 @@
     "unit_id": 30,
     "example_cz": "Pojď sem.",
     "example_en": "Come here.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1753,
-    "word_cz": "tamtam",
-    "word_en": "there (direction)",
-    "ipa": "ˈtamtam",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Jdi tam.",
-    "example_en": "Go there.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1754,
-    "word_cz": "vně",
-    "word_en": "outside (location)",
-    "ipa": "vnɛ",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Je vně hezky.",
-    "example_en": "It's nice outside.",
-    "lesson_id": 3001
+    "lesson_id": 3002
   },
   {
     "id": 1755,
@@ -7202,7 +7092,7 @@
     "unit_id": 30,
     "example_cz": "Je uvnitř teplo.",
     "example_en": "It's warm inside.",
-    "lesson_id": 3001
+    "lesson_id": 3004
   },
   {
     "id": 1756,
@@ -7213,7 +7103,7 @@
     "unit_id": 30,
     "example_cz": "Nahoře spí děti.",
     "example_en": "Upstairs the children sleep.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1757,
@@ -7224,7 +7114,7 @@
     "unit_id": 30,
     "example_cz": "Dole je kuchyně.",
     "example_en": "Downstairs is the kitchen.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1758,
@@ -7235,7 +7125,7 @@
     "unit_id": 30,
     "example_cz": "Vedle školy je park.",
     "example_en": "Next to the school is a park.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1759,
@@ -7246,7 +7136,7 @@
     "unit_id": 30,
     "example_cz": "Naproti banky je pošta.",
     "example_en": "Opposite the bank is a post office.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1760,
@@ -7257,29 +7147,7 @@
     "unit_id": 30,
     "example_cz": "Šel kolem mě.",
     "example_en": "He walked past me.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1761,
-    "word_cz": "skrz",
-    "word_en": "through",
-    "ipa": "skrz",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Šel skrz park.",
-    "example_en": "He walked through the park.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1762,
-    "word_cz": "podél",
-    "word_en": "along",
-    "ipa": "ˈpodɛːl",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Šli podél řeky.",
-    "example_en": "They walked along the river.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1763,
@@ -7290,18 +7158,7 @@
     "unit_id": 30,
     "example_cz": "Uprostřed náměstí je socha.",
     "example_en": "In the middle of the square is a statue.",
-    "lesson_id": 3001
-  },
-  {
-    "id": 1764,
-    "word_cz": "zhruba",
-    "word_en": "approximately / roughly",
-    "ipa": "ˈzɦruba",
-    "gender": null,
-    "unit_id": 30,
-    "example_cz": "Zhruba dvacet lidí přišlo.",
-    "example_en": "Approximately twenty people came.",
-    "lesson_id": 3001
+    "lesson_id": 3003
   },
   {
     "id": 1765,

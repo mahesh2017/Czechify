@@ -2,14 +2,50 @@
   "id": 2802,
   "unit_id": 28,
   "title": "Hear Essential Details",
-  "description": "Practise listening for time, platform, destination, and other essential details. No external result is predicted.",
+  "description": "Listen for time, platform, destination and price.",
   "lesson_type": "listening",
   "order_in_unit": 1,
   "duration_min": 12,
+  "can_do": "catch the key numbers in a short announcement.",
+  "new_language": [
+    "odjíždí",
+    "nástupiště"
+  ],
+  "recycles": [
+    "numbers and time (U9)",
+    "vlakem (U14)"
+  ],
+  "exit_task": "note a destination and a time.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 28200,
+      "lesson_id": 2802,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write the time 9:00 and 17:30 in words, and three numbers over 100 (Unit 9). Then check.",
+        "items": [
+          {
+            "cz": "devět hodin, sedmnáct třicet",
+            "en": "9:00, 17:30"
+          },
+          {
+            "cz": "sto, dvě stě, tři sta",
+            "en": "100, 200, 300"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 28201,
       "type": "teaching",
       "prompt": "Learn the useful chunks",
       "data": {
@@ -42,7 +78,7 @@
       "lesson_id": 2802
     },
     {
-      "id": 28201,
+      "id": 28202,
       "type": "listening_comprehension",
       "prompt": "Listen for the important detail",
       "data": {
@@ -69,14 +105,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.",
       "xp_reward": 15,
       "lesson_id": 2802
     },
     {
-      "id": 28202,
+      "id": 28203,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
       "data": {
@@ -106,14 +143,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.",
       "xp_reward": 15,
       "lesson_id": 2802
     },
     {
-      "id": 28203,
+      "id": 28204,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
       "data": {
@@ -136,30 +174,10 @@
             "right": "Thank you for the information."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.–The train to Brno leaves at nine o'clock.; Nástupiště je číslo tři.–The platform is number three.; Jízdenka stojí sto korun.–The ticket costs one hundred crowns.; Děkuji za informaci.–Thank you for the information.",
-      "xp_reward": 10,
-      "lesson_id": 2802
-    },
-    {
-      "id": 28204,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Vlak do Brna odjíždí v devět hodin.",
-          "Bydlím v Praze.",
-          "Dám si čaj.",
-          "Mám modrý svetr."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Vlak do Brna odjíždí v devět hodin.",
       "xp_reward": 10,
       "lesson_id": 2802
     },
@@ -176,7 +194,8 @@
             "odjíždí"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "odjíždí",
       "xp_reward": 10,
@@ -207,7 +226,8 @@
           6
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.",
       "xp_reward": 10,
@@ -221,7 +241,8 @@
         "type": "dictation",
         "expected_text": "Vlak do Brna odjíždí v devět hodin.",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.",
       "xp_reward": 10,
@@ -239,7 +260,8 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.",
       "xp_reward": 15,
@@ -280,7 +302,8 @@
             "Vlak odjíždí v devět hodin."
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Do Brna. | V devět hodin.",
       "xp_reward": 15,
@@ -302,7 +325,8 @@
           "Jízdenka stojí sto korun.",
           "Děkuji za informaci."
         ],
-        "sample_answer": "Vlak do Brna odjíždí v devět hodin."
+        "sample_answer": "Vlak do Brna odjíždí v devět hodin.",
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.",
       "xp_reward": 0,
@@ -322,26 +346,12 @@
           "Vlak do Brna odjíždí v devět hodin.",
           "Nástupiště je číslo tři.",
           "Jízdenka stojí sto korun."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Vlak do Brna odjíždí v devět hodin.; Nástupiště je číslo tři.; Jízdenka stojí sto korun.",
       "xp_reward": 20,
       "lesson_id": 2802
     }
-  ],
-  "can_do": "listen for essential travel details.",
-  "new_language": [
-    "Vlak do Brna odjíždí v devět hodin.",
-    "Nástupiště je číslo tři.",
-    "Jízdenka stojí sto korun.",
-    "Děkuji za informaci."
-  ],
-  "recycles": [
-    "personal details",
-    "time and numbers",
-    "travel",
-    "messages",
-    "descriptions"
-  ],
-  "exit_task": "listen for essential travel details."
+  ]
 }

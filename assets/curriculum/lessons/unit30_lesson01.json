@@ -2,14 +2,49 @@
   "id": 3001,
   "unit_id": 30,
   "title": "Use Czech at the Café",
-  "description": "Retrieve food, drink, price, and politeness language in a new café situation.",
+  "description": "Retrieve food, drink, price and politeness language in a new café.",
   "lesson_type": "practice",
   "order_in_unit": 0,
   "duration_min": 12,
+  "can_do": "order at a café and ask the price.",
+  "new_language": [
+    "A ještě koláč."
+  ],
+  "recycles": [
+    "Dám si… (U11)",
+    "Kolik to stojí? (U12)"
+  ],
+  "exit_task": "order two things and ask the price.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 30100,
+      "lesson_id": 3001,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write how you order a coffee and ask for the bill (Unit 11). Then check.",
+        "items": [
+          {
+            "cz": "Dám si kávu, prosím.",
+            "en": "I'll have a coffee, please."
+          },
+          {
+            "cz": "Účet, prosím.",
+            "en": "The bill, please."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 30101,
       "type": "teaching",
       "prompt": "Learn the useful chunks",
       "data": {
@@ -42,7 +77,7 @@
       "lesson_id": 3001
     },
     {
-      "id": 30101,
+      "id": 30102,
       "type": "listening_comprehension",
       "prompt": "Listen for the important detail",
       "data": {
@@ -69,14 +104,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím.",
       "xp_reward": 15,
       "lesson_id": 3001
     },
     {
-      "id": 30102,
+      "id": 30103,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
       "data": {
@@ -106,14 +142,15 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím.",
       "xp_reward": 15,
       "lesson_id": 3001
     },
     {
-      "id": 30103,
+      "id": 30104,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
       "data": {
@@ -136,30 +173,10 @@
             "right": "Thank you, goodbye."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím.–I will have a coffee, please.; A ještě koláč.–And a cake too.; Kolik to stojí?–How much does it cost?; Děkuji, na shledanou.–Thank you, goodbye.",
-      "xp_reward": 10,
-      "lesson_id": 3001
-    },
-    {
-      "id": 30104,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Dám si kávu, prosím.",
-          "Bydlím v Praze.",
-          "Jděte rovně.",
-          "Dnes nepřijdu."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Dám si kávu, prosím.",
       "xp_reward": 10,
       "lesson_id": 3001
     },
@@ -176,7 +193,8 @@
             "prosím"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "prosím",
       "xp_reward": 10,
@@ -201,7 +219,8 @@
           3
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím.",
       "xp_reward": 10,
@@ -215,7 +234,8 @@
         "type": "dictation",
         "expected_text": "Dám si kávu, prosím. A ještě koláč.",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím. A ještě koláč.",
       "xp_reward": 10,
@@ -233,7 +253,8 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím. A ještě koláč.",
       "xp_reward": 15,
@@ -274,7 +295,8 @@
             "Ještě koláč."
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím. | A ještě koláč.",
       "xp_reward": 15,
@@ -296,7 +318,8 @@
           "Kolik to stojí?",
           "Děkuji, na shledanou."
         ],
-        "sample_answer": "Dám si kávu, prosím."
+        "sample_answer": "Dám si kávu, prosím.",
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím.",
       "xp_reward": 0,
@@ -316,26 +339,12 @@
           "Dám si kávu, prosím.",
           "A ještě koláč.",
           "Kolik to stojí?"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dám si kávu, prosím.; A ještě koláč.; Kolik to stojí?",
       "xp_reward": 20,
       "lesson_id": 3001
     }
-  ],
-  "can_do": "reuse A1 Czech in a café situation.",
-  "new_language": [
-    "Dám si kávu, prosím.",
-    "A ještě koláč.",
-    "Kolik to stojí?",
-    "Děkuji, na shledanou."
-  ],
-  "recycles": [
-    "food",
-    "shopping",
-    "directions",
-    "transport",
-    "meeting plans"
-  ],
-  "exit_task": "reuse A1 Czech in a café situation."
+  ]
 }

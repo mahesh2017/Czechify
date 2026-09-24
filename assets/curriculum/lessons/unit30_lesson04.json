@@ -2,11 +2,21 @@
   "id": 3004,
   "unit_id": 30,
   "title": "Final A1 Survival Mission",
-  "description": "Bring the A1 course together in one personal meeting and travel mission.",
+  "description": "Make a meeting plan, then check your notebook against the A1 page.",
   "lesson_type": "mission",
   "order_in_unit": 3,
   "duration_min": 12,
-  "is_review": true,
+  "can_do": "plan a meeting: day, time, place and transport.",
+  "new_language": [
+    "Těším se na tebe."
+  ],
+  "recycles": [
+    "v pátek v šest (U9)",
+    "tramvají (U14)"
+  ],
+  "exit_task": "record a meeting plan.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 30400,
@@ -69,7 +79,8 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest.",
       "xp_reward": 15,
@@ -106,7 +117,8 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest.",
       "xp_reward": 15,
@@ -136,7 +148,8 @@
             "right": "I am looking forward to seeing you."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest.–We will meet on Friday at six.; Můžeme jít do kavárny.–We can go to a café.; Já přijdu tramvají.–I will come by tram.; Těším se na tebe.–I am looking forward to seeing you.",
       "xp_reward": 10,
@@ -144,27 +157,6 @@
     },
     {
       "id": 30404,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Sejdeme se v pátek v šest.",
-          "Jmenuji se Anna.",
-          "Hledám modrý svetr.",
-          "Jděte rovně."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Sejdeme se v pátek v šest.",
-      "xp_reward": 10,
-      "lesson_id": 3004
-    },
-    {
-      "id": 30405,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
       "data": {
@@ -176,14 +168,15 @@
             "šest"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "šest",
       "xp_reward": 10,
       "lesson_id": 3004
     },
     {
-      "id": 30406,
+      "id": 30405,
       "type": "word_order",
       "prompt": "Build a natural Czech sentence",
       "data": {
@@ -205,28 +198,30 @@
           5
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest.",
       "xp_reward": 10,
       "lesson_id": 3004
     },
     {
-      "id": 30407,
+      "id": 30406,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
       "data": {
         "type": "dictation",
         "expected_text": "Sejdeme se v pátek v šest. Můžeme jít do kavárny.",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest. Můžeme jít do kavárny.",
       "xp_reward": 10,
       "lesson_id": 3004
     },
     {
-      "id": 30408,
+      "id": 30407,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
       "data": {
@@ -237,14 +232,15 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest. Můžeme jít do kavárny.",
       "xp_reward": 15,
       "lesson_id": 3004
     },
     {
-      "id": 30409,
+      "id": 30408,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
       "data": {
@@ -278,14 +274,15 @@
             "Do kavárny."
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest. | Můžeme jít do kavárny.",
       "xp_reward": 15,
       "lesson_id": 3004
     },
     {
-      "id": 30410,
+      "id": 30409,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
       "data": {
@@ -300,14 +297,15 @@
           "Já přijdu tramvají.",
           "Těším se na tebe."
         ],
-        "sample_answer": "Sejdeme se v pátek v šest."
+        "sample_answer": "Sejdeme se v pátek v šest.",
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest.",
       "xp_reward": 0,
       "lesson_id": 3004
     },
     {
-      "id": 30411,
+      "id": 30410,
       "type": "speaking_task",
       "prompt": "Record the unit mission",
       "data": {
@@ -320,26 +318,53 @@
           "Sejdeme se v pátek v šest.",
           "Můžeme jít do kavárny.",
           "Já přijdu tramvají."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Sejdeme se v pátek v šest.; Můžeme jít do kavárny.; Já přijdu tramvají.",
       "xp_reward": 20,
       "lesson_id": 3004
+    },
+    {
+      "id": 30411,
+      "lesson_id": 3004,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Your A1 page",
+        "instruction": "Make an A1 page in your notebook: what A1 asks you to use. Compare it with the model, then tick what you feel sure about.",
+        "items": [
+          {
+            "cz": "Dobrý den × Ahoj; pane Nováku",
+            "en": "formal and friendly; speaking to someone"
+          },
+          {
+            "cz": "jsem, mám; dělám, mluvím, pracuju",
+            "en": "present tense"
+          },
+          {
+            "cz": "ten, ta, to; milý, milá, milé",
+            "en": "genders and adjectives"
+          },
+          {
+            "cz": "Dám si kávu. Mám bratra.",
+            "en": "the object (accusative)"
+          },
+          {
+            "cz": "Znáš ho? Můžete mi pomoct?",
+            "en": "pronouns"
+          },
+          {
+            "cz": "v Praze, do centra, tramvají",
+            "en": "place and transport phrases"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
-  ],
-  "can_do": "combine A1 language in a final real-life mission.",
-  "new_language": [
-    "Sejdeme se v pátek v šest.",
-    "Můžeme jít do kavárny.",
-    "Já přijdu tramvají.",
-    "Těším se na tebe."
-  ],
-  "recycles": [
-    "food",
-    "shopping",
-    "directions",
-    "transport",
-    "meeting plans"
-  ],
-  "exit_task": "combine A1 language in a final real-life mission."
+  ]
 }

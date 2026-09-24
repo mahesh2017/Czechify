@@ -5078,7 +5078,79 @@
         "Nepřipravení vlastního představení",
         "Zanedbání psaní (formuláře, vzkazy)"
       ],
-      "study_tip": "Střídejte čtení, poslech, psaní a mluvení. Trénujte krátké praktické vzkazy a odpovědi."
+      "study_tip": "Střídejte čtení, poslech, psaní a mluvení. Trénujte krátké praktické vzkazy a odpovědi.",
+      "notebook_page": {
+        "title_cz": "A1 — dovednosti",
+        "title_en": "A1 skills practice",
+        "can_do": {
+          "cz": "Zvládnu jednoduché úkoly ve čtení, poslechu, psaní a mluvení.",
+          "en": "I can handle simple reading, listening, writing and speaking tasks."
+        },
+        "words": [
+          {
+            "cz": "Vyplním jednoduchý formulář.",
+            "en": "I can fill in a simple form."
+          },
+          {
+            "cz": "Zachytím čas, nástupiště a cenu.",
+            "en": "I can catch a time, a platform and a price."
+          },
+          {
+            "cz": "Napíšu krátkou zprávu: pozdrav, důvod, rozloučení.",
+            "en": "I can write a short message: greeting, reason, closing."
+          },
+          {
+            "cz": "Popíšu obrázek ve třech větách.",
+            "en": "I can describe a picture in three sentences."
+          }
+        ],
+        "pattern": {
+          "name": "Task words",
+          "rule_plain": "Instructions use the vy imperative: přečtěte, napište, vyberte.",
+          "table": [
+            [
+              "read",
+              "přečtěte"
+            ],
+            [
+              "write",
+              "napište"
+            ],
+            [
+              "choose",
+              "vyberte"
+            ],
+            [
+              "mark",
+              "označte"
+            ],
+            [
+              "match",
+              "spojte"
+            ],
+            [
+              "fill in",
+              "doplňte"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Přečtěte text a vyberte správnou odpověď.",
+              "en": "Read the text and choose the right answer."
+            },
+            {
+              "cz": "Napište krátkou zprávu.",
+              "en": "Write a short message."
+            }
+          ]
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Ahoj Petro, dnes nepřijdu. Jsem nemocná. Uvidíme se zítra.",
+            "en": "Hi Petra, I won't come today. I'm ill. See you tomorrow."
+          }
+        ]
+      }
     },
     {
       "unit_id": 29,
@@ -5287,7 +5359,87 @@
         "Zanedbání poslechu a mluvení",
         "Spěch na A2 před zvládnutím A1"
       ],
-      "study_tip": "Udělejte si test: dokážete vyčasovat 10 náhodných sloves? Dokážete vyjmenovat akuzativní koncovky?"
+      "study_tip": "Udělejte si test: dokážete vyčasovat 10 náhodných sloves? Dokážete vyjmenovat akuzativní koncovky?",
+      "notebook_page": {
+        "title_cz": "A1",
+        "title_en": "A1 review",
+        "can_do": {
+          "cz": "Poradím si v kavárně, v obchodě a na ulici.",
+          "en": "I can manage in a café, a shop and on the street."
+        },
+        "words": [
+          {
+            "cz": "Dobrý den × Ahoj; pane Nováku",
+            "en": "formal and friendly; speaking to someone"
+          },
+          {
+            "cz": "jsem, mám; dělám, mluvím, pracuju",
+            "en": "present tense"
+          },
+          {
+            "cz": "ten, ta, to; milý, milá, milé",
+            "en": "genders and adjectives"
+          },
+          {
+            "cz": "Dám si kávu. Mám bratra.",
+            "en": "the object (accusative)"
+          },
+          {
+            "cz": "Znáš ho? Můžete mi pomoct?",
+            "en": "pronouns"
+          },
+          {
+            "cz": "v Praze, do centra, tramvají",
+            "en": "place and transport phrases"
+          }
+        ],
+        "pattern": {
+          "name": "A1 at a glance",
+          "rule_plain": "What the A1 standard asks you to use.",
+          "table": [
+            [
+              "formal and friendly; speaking to someone",
+              "Dobrý den × Ahoj; pane Nováku"
+            ],
+            [
+              "present tense",
+              "jsem, mám; dělám, mluvím, pracuju"
+            ],
+            [
+              "genders and adjectives",
+              "ten, ta, to; milý, milá, milé"
+            ],
+            [
+              "the object (accusative)",
+              "Dám si kávu. Mám bratra."
+            ],
+            [
+              "pronouns",
+              "Znáš ho? Můžete mi pomoct?"
+            ],
+            [
+              "place and transport phrases",
+              "v Praze, do centra, tramvají"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Sejdeme se v pátek v šest v kavárně.",
+              "en": "Let's meet on Friday at six in the café."
+            },
+            {
+              "cz": "Promiňte, můžete mi pomoct?",
+              "en": "Excuse me, can you help me?"
+            }
+          ]
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Jmenuju se Anna, jsem z Polska a bydlím v Praze.",
+            "en": "My name is Anna, I am from Poland and I live in Prague."
+          }
+        ]
+      }
     },
     {
       "unit_id": 31,

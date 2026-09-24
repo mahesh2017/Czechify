@@ -2,11 +2,22 @@
   "id": 2804,
   "unit_id": 28,
   "title": "Speak with Confidence",
-  "description": "Complete independent four-skills A1 practice with no official-exam affiliation or result claim.",
+  "description": "Describe a picture and a plan, then check your A1 skills page.",
   "lesson_type": "mission",
   "order_in_unit": 3,
   "duration_min": 12,
-  "is_review": true,
+  "can_do": "describe a picture and say one plan.",
+  "new_language": [
+    "Na obrázku je…",
+    "Vidím…"
+  ],
+  "recycles": [
+    "To je… (U3)",
+    "Zítra pojedu… (U15)"
+  ],
+  "exit_task": "record a picture description.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
       "id": 28400,
@@ -69,7 +80,8 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha.",
       "xp_reward": 15,
@@ -106,7 +118,8 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha.",
       "xp_reward": 15,
@@ -136,7 +149,8 @@
             "right": "Tomorrow I will go by train."
           }
         ],
-        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life."
+        "explanation": "Keep each complete Czech chunk together so it is easy to retrieve in real life.",
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha.–In the picture is Prague.; Vidím řeku a most.–I can see a river and a bridge.; Jsem v Praze rád.–I like being in Prague.; Zítra pojedu vlakem.–Tomorrow I will go by train.",
       "xp_reward": 10,
@@ -144,27 +158,6 @@
     },
     {
       "id": 28404,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that fits",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Na obrázku je Praha.",
-          "Jmenuji se Anna Nováková.",
-          "Dnes nepřijdu.",
-          "Jízdenka stojí sto korun."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the chunk that communicates the important information in this scene."
-      },
-      "answer_key": "Na obrázku je Praha.",
-      "xp_reward": 10,
-      "lesson_id": 2804
-    },
-    {
-      "id": 28405,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
       "data": {
@@ -176,14 +169,15 @@
             "je"
           ]
         ],
-        "explanation": "Use the same short pattern you have just heard and read."
+        "explanation": "Use the same short pattern you have just heard and read.",
+        "targets": "vocab"
       },
       "answer_key": "je",
       "xp_reward": 10,
       "lesson_id": 2804
     },
     {
-      "id": 28406,
+      "id": 28405,
       "type": "word_order",
       "prompt": "Build a natural Czech sentence",
       "data": {
@@ -201,28 +195,30 @@
           3
         ],
         "translation_en": "Build the useful Czech sentence.",
-        "explanation": "Read the complete chunk aloud after you build it."
+        "explanation": "Read the complete chunk aloud after you build it.",
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha.",
       "xp_reward": 10,
       "lesson_id": 2804
     },
     {
-      "id": 28407,
+      "id": 28406,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
       "data": {
         "type": "dictation",
         "expected_text": "Na obrázku je Praha. Vidím řeku a most.",
         "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
+        "note": "Listen for the complete phrase before typing.",
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha. Vidím řeku a most.",
       "xp_reward": 10,
       "lesson_id": 2804
     },
     {
-      "id": 28408,
+      "id": 28407,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
       "data": {
@@ -233,14 +229,15 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha. Vidím řeku a most.",
       "xp_reward": 15,
       "lesson_id": 2804
     },
     {
-      "id": 28409,
+      "id": 28408,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
       "data": {
@@ -274,14 +271,15 @@
             "Řeku a most."
           ]
         ],
-        "explanation": "Use a short, complete answer that moves the interaction forward."
+        "explanation": "Use a short, complete answer that moves the interaction forward.",
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha. | Vidím řeku a most.",
       "xp_reward": 15,
       "lesson_id": 2804
     },
     {
-      "id": 28410,
+      "id": 28409,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
       "data": {
@@ -296,14 +294,15 @@
           "Jsem v Praze rád.",
           "Zítra pojedu vlakem."
         ],
-        "sample_answer": "Na obrázku je Praha."
+        "sample_answer": "Na obrázku je Praha.",
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha.",
       "xp_reward": 0,
       "lesson_id": 2804
     },
     {
-      "id": 28411,
+      "id": 28410,
       "type": "speaking_task",
       "prompt": "Record the unit mission",
       "data": {
@@ -316,26 +315,45 @@
           "Na obrázku je Praha.",
           "Vidím řeku a most.",
           "Jsem v Praze rád."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Na obrázku je Praha.; Vidím řeku a most.; Jsem v Praze rád.",
       "xp_reward": 20,
       "lesson_id": 2804
+    },
+    {
+      "id": 28411,
+      "lesson_id": 2804,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Your A1 skills page",
+        "instruction": "Make an A1 skills page in your notebook: the four skills and one thing you can do in each. Compare it with the model, then tick what you feel sure about.",
+        "items": [
+          {
+            "cz": "Vyplním jednoduchý formulář.",
+            "en": "I can fill in a simple form."
+          },
+          {
+            "cz": "Zachytím čas, nástupiště a cenu.",
+            "en": "I can catch a time, a platform and a price."
+          },
+          {
+            "cz": "Napíšu krátkou zprávu: pozdrav, důvod, rozloučení.",
+            "en": "I can write a short message: greeting, reason, closing."
+          },
+          {
+            "cz": "Popíšu obrázek ve třech větách.",
+            "en": "I can describe a picture in three sentences."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
-  ],
-  "can_do": "combine A1 reading, listening, writing, and speaking skills.",
-  "new_language": [
-    "Na obrázku je Praha.",
-    "Vidím řeku a most.",
-    "Jsem v Praze rád.",
-    "Zítra pojedu vlakem."
-  ],
-  "recycles": [
-    "personal details",
-    "time and numbers",
-    "travel",
-    "messages",
-    "descriptions"
-  ],
-  "exit_task": "combine A1 reading, listening, writing, and speaking skills."
+  ]
 }
