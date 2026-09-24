@@ -2652,16 +2652,22 @@
           "example": "Můžu přijít zítra. — I can come tomorrow."
         },
         {
-          "id": "GR-222",
-          "name": "smět — be allowed to (permission)",
-          "pattern": "smět + infinitive — expresses permission or prohibition",
-          "example": "Smím vstoupit? — May I come in?"
+          "id": "GR-224",
+          "name": "Expressing obligation, permission, and prohibition",
+          "pattern": "muset (obligation), moct (ability/permission), smět (formal permission), nesmět (prohibition)",
+          "example": "Musíte mít průkaz. — You must have an ID. (obligation)"
         },
         {
-          "id": "GR-223",
-          "name": "Modal verb + infinitive construction",
-          "pattern": "Conjugated modal + infinitive of main verb — modal is conjugated, main verb stays in infinitive",
-          "example": "Musím pracovat. — I must work."
+          "id": "GR-225",
+          "name": "Imperative — Počkejte! Nekuřte!",
+          "pattern": "ty form, and -te for vy: počkej/počkejte, mluv/mluvte, piš/pište, pojď/pojďte, jdi/jděte. Negative with ne-: nekuř/nekuřte, neboj se/nebojte se.",
+          "example": "Pojďte dál, prosím. — Come in, please."
+        },
+        {
+          "id": "GR-226",
+          "name": "Signs and notices — Zavřeno, Tady se nekouří",
+          "pattern": "Recognise: zavřeno, otevřeno, vyprodáno, obsazeno, zakázáno; Kouření zakázáno, Vstup zakázán; Tady se nekouří, Tady se platí kartou.",
+          "example": "V pondělí je zavřeno. — It is closed on Monday."
         }
       ],
       "core_vocabulary": [
@@ -2717,7 +2723,103 @@
         "'Moct' místo 'smět' pro povolení",
         "Ignorování zákazových značek"
       ],
-      "study_tip": "Všímejte si nápisů 'zákaz', 'povoleno', 'nutno'. Foťte si je a překládejte."
+      "study_tip": "Všímejte si nápisů 'zákaz', 'povoleno', 'nutno'. Foťte si je a překládejte.",
+      "notebook_page": {
+        "title_cz": "Pravidla",
+        "title_en": "Rules, instructions and signs",
+        "can_do": {
+          "cz": "Rozumím pravidlům a nápisům a zeptám se, jestli něco smím.",
+          "en": "I understand rules and signs and can ask if I may do something."
+        },
+        "words": [
+          {
+            "cz": "Musíte mít jízdenku.",
+            "en": "You must have a ticket."
+          },
+          {
+            "cz": "Můžete tady čekat.",
+            "en": "You can wait here."
+          },
+          {
+            "cz": "Nesmíte kouřit.",
+            "en": "You must not smoke."
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "You don't have to hurry."
+          },
+          {
+            "cz": "Můžu se zeptat?",
+            "en": "Can I ask something?"
+          },
+          {
+            "cz": "Počkejte, prosím.",
+            "en": "Wait, please."
+          },
+          {
+            "cz": "Pojďte dál.",
+            "en": "Come in."
+          },
+          {
+            "cz": "ZAVŘENO",
+            "en": "closed (sign)"
+          }
+        ],
+        "pattern": {
+          "name": "Modals, imperative, signs",
+          "rule_plain": "muset / moct / smět + infinitive. nesmíte = forbidden, nemusíte = not necessary. Instructions: ty form, + -te for vy.",
+          "table": [
+            [
+              "must",
+              "musím, musíte"
+            ],
+            [
+              "can",
+              "můžu, můžete"
+            ],
+            [
+              "must not",
+              "nesmíte"
+            ],
+            [
+              "don't have to",
+              "nemusíte"
+            ],
+            [
+              "wait!",
+              "počkej / počkejte"
+            ],
+            [
+              "don't smoke!",
+              "nekuř / nekuřte"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Tady nesmíte parkovat.",
+              "en": "You must not park here."
+            },
+            {
+              "cz": "Počkejte chvíli, prosím.",
+              "en": "Wait a moment, please."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Tady nemusíte kouřit. (for a ban)",
+            "right": "Tady nesmíte kouřit."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Zazvoňte, prosím.",
+            "en": "Please ring the bell."
+          },
+          {
+            "cz": "Tady se nekouří.",
+            "en": "No smoking here."
+          }
+        ]
+      }
     },
     {
       "unit_id": 24,

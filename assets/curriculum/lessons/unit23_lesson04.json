@@ -1,1 +1,319 @@
-{"id":2304,"unit_id":23,"title":"Ask, Explain and Follow Rules","description":"Complete a practical permission-and-rules mission.","lesson_type":"mission","order_in_unit":3,"duration_min":12,"is_review":true,"exercises":[{"id":23033,"lesson_id":2304,"type":"teaching","prompt":"Mission language","data":{"type":"teaching","style":"list","heading":"Ask, then act","body":"Ask permission politely and make the rule clear.","items":[{"cz":"Můžu tady…?","en":"May I… here?"},{"cz":"Musíte nejdřív…","en":"You must first…"},{"cz":"Tady se nesmí…","en":"Here one must not…"}]},"answer_key":"mission chunks","xp_reward":0},{"id":23034,"lesson_id":2304,"type":"listening_comprehension","prompt":"Listen to the station announcement","data":{"type":"listening_comprehension","prompt_en":"What must passengers do?","transcript_cz":"Cestující musí mít platnou jízdenku. Ve vlaku se nesmí kouřit. Můžete si koupit pití ve voze číslo tři.","questions":[{"question_en":"What must passengers have?","options":["A valid ticket","A car","A key"],"correct_index":0},{"question_en":"Where can they buy a drink?","options":["Car three","The platform","The office"],"correct_index":0}]},"answer_key":"ticket; car three","xp_reward":15},{"id":23035,"lesson_id":2304,"type":"reading_comprehension","prompt":"Read the visitor rules","data":{"type":"reading_comprehension","prompt_en":"Decide what you can and cannot do.","image":"assets/images/unit23/everyday_choices_v1.webp","image_label":"Clarifying everyday rules","text_cz":"Návštěvy mohou přijít od dvou do šesti. Musí zazvonit u vchodu. Nesmí nechat kolo v chodbě. Jestli potřebují pomoc, mohou zavolat správci.","text_en":"Visitors may come from two to six. They must ring at the entrance. They must not leave a bicycle in the corridor. If they need help, they can call the building manager.","questions":[{"question_en":"What must a visitor do?","options":["Ring at the entrance","Leave a bicycle","Arrive at midnight"],"correct_index":0},{"question_en":"Who can they call for help?","options":["The building manager","A doctor","A driver"],"correct_index":0}]},"answer_key":"ring; manager","xp_reward":15},{"id":23036,"lesson_id":2304,"type":"matching","prompt":"Match rule and place","data":{"type":"matching","pairs":[{"left":"platná jízdenka","right":"vlak"},{"left":"zvonit u vchodu","right":"budova"},{"left":"nekouřit","right":"veřejné místo"},{"left":"zavolat správci","right":"pomoc v domě"}]},"answer_key":"rules and places","xp_reward":10},{"id":23037,"lesson_id":2304,"type":"fill_blank","prompt":"Make the permission question","data":{"type":"fill_blank","sentence":"___ si tady sednout?","blank_count":1,"blank_answers":[["Můžu"]]},"answer_key":"Můžu","xp_reward":10},{"id":23038,"lesson_id":2304,"type":"dialogue","prompt":"Give a clear answer","data":{"type":"dialogue","scenario":"At a public office","lines":[{"speaker":"visitor","text":"Můžu tady fotografovat?"},{"speaker":"you","text":"___"}],"blank_answers":[["Ne, tady se nesmí fotografovat."]]},"answer_key":"Ne, tady se nesmí fotografovat.","xp_reward":15},{"id":23039,"lesson_id":2304,"type":"writing_task","prompt":"Complete the rules mission","data":{"type":"writing_task","prompt_en":"Write three short instructions for visitors: one must, one may, one must not.","prompt_cz":"Napište tři pravidla pro návštěvu.","min_words":12,"max_words":50,"key_vocab":["musíte","můžete","nesmíte"],"sample_answer":"Musíte zazvonit. Můžete čekat v hale. Nesmíte kouřit."},"answer_key":"rules mission","xp_reward":0},{"id":23040,"lesson_id":2304,"type":"speaking_task","prompt":"Complete the mission","data":{"type":"speaking_task","prompt_en":"Record a 20–30 second explanation of rules and one permission question.","prompt_cz":"Nahrajte pravidla a otázku.","min_duration_seconds":20,"max_duration_seconds":35,"expected_phrases":["musíte","můžete","nesmíte"]},"answer_key":"rules mission","xp_reward":20}]}
+{
+  "id": 2304,
+  "unit_id": 23,
+  "title": "Ask, Explain and Follow Rules",
+  "description": "Explain the rules of a place to a visitor and ask permission.",
+  "lesson_type": "mission",
+  "order_in_unit": 3,
+  "duration_min": 13,
+  "can_do": "explain rules to a visitor and give directions.",
+  "new_language": [
+    "Jděte rovně.",
+    "Musíte nejdřív…"
+  ],
+  "recycles": [
+    "musíte, můžete, nesmíte",
+    "Počkejte"
+  ],
+  "exit_task": "record the rules of a place you know.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 23400,
+      "lesson_id": 2304,
+      "type": "teaching",
+      "prompt": "Mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Your mission",
+        "body": "Close your notebook. A visitor comes to your building. Explain what they must, may and must not do, and show them the way.",
+        "items": [
+          {
+            "cz": "Musíte nejdřív…",
+            "en": "First you must…"
+          },
+          {
+            "cz": "Můžete tady…",
+            "en": "You can… here"
+          },
+          {
+            "cz": "Tady se nesmí…",
+            "en": "You must not… here"
+          },
+          {
+            "cz": "Jděte rovně a pak doleva.",
+            "en": "Go straight on and then left."
+          }
+        ]
+      },
+      "answer_key": "mission chunks",
+      "xp_reward": 0
+    },
+    {
+      "id": 23401,
+      "lesson_id": 2304,
+      "type": "reading_comprehension",
+      "prompt": "Read the visitor rules",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Decide what you can and cannot do.",
+        "image": "assets/images/unit23/everyday_choices_v1.webp",
+        "image_label": "Clarifying everyday rules",
+        "text_cz": "Návštěvy mohou přijít od dvou do šesti. Musí zazvonit u vchodu. Nesmí nechat kolo v chodbě. Jestli potřebují pomoc, mohou zavolat správci.",
+        "text_en": "Visitors may come from two to six. They must ring at the entrance. They must not leave a bicycle in the corridor. If they need help, they can call the building manager.",
+        "questions": [
+          {
+            "question_en": "What must a visitor do?",
+            "options": [
+              "Ring at the entrance",
+              "Leave a bicycle",
+              "Arrive at midnight"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who can they call for help?",
+            "options": [
+              "The building manager",
+              "A doctor",
+              "A driver"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "ring; manager",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-224"
+    },
+    {
+      "id": 23402,
+      "lesson_id": 2304,
+      "type": "dialogue",
+      "prompt": "Complete the dialogue at a restaurant.",
+      "data": {
+        "type": "dialogue",
+        "lines": [
+          {
+            "speaker": "customer",
+            "text_en": "Hello, may we sit on the terrace?",
+            "text": "Dobrý den, ___ si sednout na terase?"
+          },
+          {
+            "speaker": "waiter",
+            "text_en": "Yes, of course. You can choose a table.",
+            "text": "Ano, samozřejmě. Můžete si vybrat stůl."
+          },
+          {
+            "speaker": "customer",
+            "text_en": "Thank you. And may we smoke on the terrace?",
+            "text": "Děkujeme. A ___ kouřit na terase?"
+          },
+          {
+            "speaker": "waiter",
+            "text_en": "Unfortunately, you must not smoke here.",
+            "text": "Bohužel, tady kouřit nesmíte."
+          }
+        ],
+        "explanation": "In this dialogue, 'můžeme/smíme' ask for permission. The waiter uses 'nesmíte' to express a prohibition — smoking is not allowed. Note the formal 'vy' form (můžete, nesmíte) used in service interactions.",
+        "blank_answers": [
+          [
+            "můžeme",
+            "smíme"
+          ],
+          [
+            "můžeme",
+            "smíme"
+          ]
+        ],
+        "scenario": "A customer asks the waiter if they can sit outside."
+      },
+      "answer_key": "můžeme/smíme, mohou/smí, nesmíte",
+      "grammar_rule_id": "GR-224",
+      "xp_reward": 10
+    },
+    {
+      "id": 23403,
+      "lesson_id": 2304,
+      "type": "fill_blank",
+      "prompt": "Fill in the correct modal to ask for permission: 'May I sit here?'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "____ si sednout tady?",
+        "blank_count": 1,
+        "explanation": "'Smím si sednout tady?' = May I sit here? 'Smět' is used to ask for permission. 'Můžu/Mohu' (can) is also acceptable in informal contexts, but 'smět' is more precise for permission.",
+        "blank_answers": [
+          [
+            "Smím",
+            "Můžu",
+            "Mohu"
+          ]
+        ]
+      },
+      "answer_key": "Smím",
+      "grammar_rule_id": "GR-224",
+      "xp_reward": 10
+    },
+    {
+      "id": 23404,
+      "lesson_id": 2304,
+      "type": "fill_blank",
+      "prompt": "Fill in the correct negative modal: 'Children must not run in the corridor.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Děti ____ běhat v chodbě.",
+        "blank_count": 1,
+        "explanation": "'Děti nesmějí běhat v chodbě.' = Children must not run in the corridor. 'Nesmějí' = they must not (3rd person plural of 'nesmět'). This is a prohibition — 'nesmět' is used, not 'nemuset'.",
+        "blank_answers": [
+          [
+            "nesmějí"
+          ]
+        ]
+      },
+      "answer_key": "nesmějí",
+      "grammar_rule_id": "GR-224",
+      "xp_reward": 10
+    },
+    {
+      "id": 23405,
+      "lesson_id": 2304,
+      "type": "matching",
+      "prompt": "Match each Czech sentence to its English meaning.",
+      "data": {
+        "type": "matching",
+        "prompt_en": "Match each Czech modal sentence to its English meaning.",
+        "pairs": [
+          {
+            "left": "Musím jít.",
+            "right": "I must go."
+          },
+          {
+            "left": "Můžu jít.",
+            "right": "I can go."
+          },
+          {
+            "left": "Smím jít.",
+            "right": "I may go."
+          },
+          {
+            "left": "Nemusím jít.",
+            "right": "I don't have to go."
+          }
+        ],
+        "explanation": "Each modal has a distinct meaning: 'muset' = obligation, 'moct' = ability/possibility, 'smět' = permission, 'nemuset' = no obligation. 'Nemusím' is NOT the same as 'nesmím' (I must not)."
+      },
+      "answer_key": "Musím jít→I must go., Můžu jít→I can go., Smím jít→I may go., Nemusím jít→I don't have to go.",
+      "grammar_rule_id": "GR-224",
+      "xp_reward": 10
+    },
+    {
+      "id": 23406,
+      "lesson_id": 2304,
+      "type": "dialogue",
+      "prompt": "Complete the conversation",
+      "data": {
+        "type": "dialogue",
+        "scenario": "A visitor asks you the way to the lift.",
+        "lines": [
+          {
+            "speaker": "visitor",
+            "text": "Promiňte, kde je výtah?"
+          },
+          {
+            "speaker": "you",
+            "text": "___ (Go straight on and then left.)"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Jděte rovně a pak doleva.",
+            "Jděte rovně a potom doleva.",
+            "Jděte rovně a pak vlevo."
+          ]
+        ],
+        "explanation": "To a stranger use the vy form: jděte."
+      },
+      "answer_key": "Jděte rovně a pak doleva.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-225"
+    },
+    {
+      "id": 23407,
+      "lesson_id": 2304,
+      "type": "writing_task",
+      "prompt": "Complete the rules mission",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write three short instructions for visitors: one must, one may, one must not.",
+        "prompt_cz": "Napište tři pravidla pro návštěvu.",
+        "min_words": 12,
+        "max_words": 50,
+        "key_vocab": [
+          "musíte",
+          "můžete",
+          "nesmíte"
+        ],
+        "sample_answer": "Musíte zazvonit. Můžete čekat v hale. Nesmíte kouřit.",
+        "targets": "vocab"
+      },
+      "answer_key": "rules mission",
+      "xp_reward": 0
+    },
+    {
+      "id": 23408,
+      "lesson_id": 2304,
+      "type": "speaking_task",
+      "prompt": "Complete the mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second explanation of rules and one permission question.",
+        "prompt_cz": "Nahrajte pravidla a otázku.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "musíte",
+          "můžete",
+          "nesmíte"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "rules mission",
+      "xp_reward": 20
+    },
+    {
+      "id": 23409,
+      "lesson_id": 2304,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 23 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, correct any mistakes, then tick your Check box.",
+        "items": [
+          {
+            "cz": "musím, můžu, smím",
+            "en": "must, can, may"
+          },
+          {
+            "cz": "nesmíte × nemusíte",
+            "en": "must not × don't have to"
+          },
+          {
+            "cz": "Počkejte! Nekuřte!",
+            "en": "instructions"
+          },
+          {
+            "cz": "zavřeno, vyprodáno, Tady se nekouří.",
+            "en": "signs"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    }
+  ]
+}

@@ -3088,7 +3088,7 @@
     "unit_id": 23,
     "example_cz": "Musím domů.",
     "example_en": "I have to go home.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1305,
@@ -3099,7 +3099,7 @@
     "unit_id": 23,
     "example_cz": "Můžeš mi říct cestu?",
     "example_en": "Can you tell me the way?",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1306,
@@ -3110,7 +3110,7 @@
     "unit_id": 23,
     "example_cz": "On smí vstoupit.",
     "example_en": "He may enter.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1307,
@@ -3121,7 +3121,7 @@
     "unit_id": 23,
     "example_cz": "Chceme jet na výlet.",
     "example_en": "We want to go on a trip.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1308,
@@ -3132,7 +3132,7 @@
     "unit_id": 23,
     "example_cz": "Musíte přijít včas.",
     "example_en": "You must arrive on time.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1309,
@@ -3143,7 +3143,7 @@
     "unit_id": 23,
     "example_cz": "Mohou přijít později.",
     "example_en": "They can come later.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1310,
@@ -3176,7 +3176,7 @@
     "unit_id": 23,
     "example_cz": "Je dovoleno parkovat tady?",
     "example_en": "Is it allowed to park here?",
-    "lesson_id": 2301
+    "lesson_id": 2304
   },
   {
     "id": 1313,
@@ -3187,7 +3187,7 @@
     "unit_id": 23,
     "example_cz": "Je zakázáno kouřit.",
     "example_en": "It is forbidden to smoke.",
-    "lesson_id": 2301
+    "lesson_id": 2304
   },
   {
     "id": 1314,
@@ -3198,18 +3198,7 @@
     "unit_id": 23,
     "example_cz": "Je nutné mít pas.",
     "example_en": "It is necessary to have a passport.",
-    "lesson_id": 2302
-  },
-  {
-    "id": 1315,
-    "word_cz": "Je povinné",
-    "word_en": "it is mandatory",
-    "ipa": "jɛ ˈpovinniː",
-    "gender": null,
-    "unit_id": 23,
-    "example_cz": "Je povinné nosit přilbu.",
-    "example_en": "It is mandatory to wear a helmet.",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1316,
@@ -3220,7 +3209,7 @@
     "unit_id": 23,
     "example_cz": "Potřebuji vaši pomoc.",
     "example_en": "I need your help.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1317,
@@ -3231,7 +3220,7 @@
     "unit_id": 23,
     "example_cz": "Nesmíš tam chodit.",
     "example_en": "You must not go there.",
-    "lesson_id": 2302
+    "lesson_id": 2301
   },
   {
     "id": 1318,
@@ -3253,7 +3242,7 @@
     "unit_id": 23,
     "example_cz": "Zákaz vjezdu platí zde.",
     "example_en": "No entry applies here.",
-    "lesson_id": 2302
+    "lesson_id": 2303
   },
   {
     "id": 1320,
@@ -3267,17 +3256,6 @@
     "lesson_id": 2302
   },
   {
-    "id": 1321,
-    "word_cz": "povinnost",
-    "word_en": "obligation / duty",
-    "ipa": "ˈpovinnost",
-    "gender": "feminine",
-    "unit_id": 23,
-    "example_cz": "Mám povinnost platit daně.",
-    "example_en": "I have an obligation to pay taxes.",
-    "lesson_id": 2302
-  },
-  {
     "id": 1322,
     "word_cz": "možnost",
     "word_en": "possibility",
@@ -3286,7 +3264,7 @@
     "unit_id": 23,
     "example_cz": "Máme možnost volby.",
     "example_en": "We have a choice.",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1323,
@@ -3297,7 +3275,7 @@
     "unit_id": 23,
     "example_cz": "Musím jít na schůzku.",
     "example_en": "I must go to a meeting.",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1324,
@@ -3308,7 +3286,7 @@
     "unit_id": 23,
     "example_cz": "Můžu přijít zítra?",
     "example_en": "Can I come tomorrow?",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1325,
@@ -3319,7 +3297,7 @@
     "unit_id": 23,
     "example_cz": "Smím vstoupit do místnosti?",
     "example_en": "May I enter the room?",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1326,
@@ -3330,7 +3308,7 @@
     "unit_id": 23,
     "example_cz": "Chci se učit nové věci.",
     "example_en": "I want to learn new things.",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1327,
@@ -3352,7 +3330,7 @@
     "unit_id": 23,
     "example_cz": "Vstup je zakázán.",
     "example_en": "Entry is prohibited.",
-    "lesson_id": 2302
+    "lesson_id": 2303
   },
   {
     "id": 1329,
@@ -3363,17 +3341,6 @@
     "unit_id": 23,
     "example_cz": "Je to nutný krok.",
     "example_en": "It is a necessary step.",
-    "lesson_id": 2302
-  },
-  {
-    "id": 1330,
-    "word_cz": "povinný",
-    "word_en": "mandatory / obligatory",
-    "ipa": "ˈpovinniː",
-    "gender": "masculine inanimate",
-    "unit_id": 23,
-    "example_cz": "Povinný předmět je matematika.",
-    "example_en": "Mathematics is a mandatory subject.",
     "lesson_id": 2302
   },
   {
@@ -3396,7 +3363,7 @@
     "unit_id": 23,
     "example_cz": "Smíš si sednout.",
     "example_en": "You may sit down.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1333,
@@ -3407,7 +3374,7 @@
     "unit_id": 23,
     "example_cz": "Chceš s námi jít?",
     "example_en": "Do you want to go with us?",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1334,
@@ -3418,7 +3385,7 @@
     "unit_id": 23,
     "example_cz": "Musíme si pospíšit.",
     "example_en": "We must hurry.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1335,
@@ -3429,7 +3396,7 @@
     "unit_id": 23,
     "example_cz": "Ona může řídit auto.",
     "example_en": "She can drive a car.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1336,
@@ -3440,18 +3407,7 @@
     "unit_id": 23,
     "example_cz": "Děti chtějí hrát venku.",
     "example_en": "The children want to play outside.",
-    "lesson_id": 2302
-  },
-  {
-    "id": 1337,
-    "word_cz": "zakazovat",
-    "word_en": "to forbid / prohibit",
-    "ipa": "ˈzakazovatsk",
-    "gender": null,
-    "unit_id": 23,
-    "example_cz": "Škola zakazuje kouření.",
-    "example_en": "The school prohibits smoking.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1338,
@@ -3473,7 +3429,7 @@
     "unit_id": 23,
     "example_cz": "Potřebuji nové boty.",
     "example_en": "I need new shoes.",
-    "lesson_id": 2302
+    "lesson_id": 2301
   },
   {
     "id": 1340,
@@ -7411,7 +7367,7 @@
     "unit_id": 23,
     "example_cz": "Potřebuji povolení k pobytu.",
     "example_en": "I need permission to stay.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1767,
@@ -7422,7 +7378,7 @@
     "unit_id": 23,
     "example_cz": "Zde platí zákaz kouření.",
     "example_en": "A smoking ban applies here.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1768,
@@ -7433,7 +7389,7 @@
     "unit_id": 23,
     "example_cz": "Musíme dodržovat pravidla.",
     "example_en": "We must follow the rules.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1769,
@@ -7444,7 +7400,7 @@
     "unit_id": 23,
     "example_cz": "Tady je dovoleno fotografovat.",
     "example_en": "Photography is allowed here.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1770,
@@ -7455,7 +7411,7 @@
     "unit_id": 23,
     "example_cz": "Vstup do parku je zakázán.",
     "example_en": "Entry to the park is forbidden.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1771,
@@ -7466,7 +7422,7 @@
     "unit_id": 23,
     "example_cz": "Musím jít do práce.",
     "example_en": "I have to go to work.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1772,
@@ -7477,7 +7433,7 @@
     "unit_id": 23,
     "example_cz": "Můžu ti pomoci.",
     "example_en": "I can help you.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1773,
@@ -7488,29 +7444,7 @@
     "unit_id": 23,
     "example_cz": "Smím se zeptat?",
     "example_en": "May I ask?",
-    "lesson_id": 2301
-  },
-  {
-    "id": 1774,
-    "word_cz": "mít právo",
-    "word_en": "to have the right",
-    "ipa": "miːt praːvo",
-    "gender": "neuter",
-    "unit_id": 23,
-    "example_cz": "Každý má právo na vzdělání.",
-    "example_en": "Everyone has the right to education.",
-    "lesson_id": 2301
-  },
-  {
-    "id": 1775,
-    "word_cz": "být povinen",
-    "word_en": "to be obliged, required",
-    "ipa": "biːt povɪnɛn",
-    "gender": null,
-    "unit_id": 23,
-    "example_cz": "Jste povinen nosit přilbu.",
-    "example_en": "You are obliged to wear a helmet.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1776,
@@ -7521,7 +7455,7 @@
     "unit_id": 23,
     "example_cz": "Nesmí se tu parkovat.",
     "example_en": "You must not park here.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1777,
@@ -7532,7 +7466,7 @@
     "unit_id": 23,
     "example_cz": "Je nutné mít platný pas.",
     "example_en": "It is necessary to have a valid passport.",
-    "lesson_id": 2301
+    "lesson_id": 2302
   },
   {
     "id": 1778,
@@ -7543,7 +7477,7 @@
     "unit_id": 23,
     "example_cz": "Je možné rezervovat stůl online.",
     "example_en": "It is possible to reserve a table online.",
-    "lesson_id": 2301
+    "lesson_id": 2302
   },
   {
     "id": 1779,
@@ -7554,18 +7488,7 @@
     "unit_id": 23,
     "example_cz": "Je zakázáno vstupovat s domácími zvířaty.",
     "example_en": "It is forbidden to enter with pets.",
-    "lesson_id": 2301
-  },
-  {
-    "id": 1780,
-    "word_cz": "dovolit si",
-    "word_en": "to afford, allow oneself",
-    "ipa": "dovolɪt sɪ",
-    "gender": null,
-    "unit_id": 23,
-    "example_cz": "Nemůžu si dovolit nové auto.",
-    "example_en": "I can't afford a new car.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1781,
@@ -7576,40 +7499,7 @@
     "unit_id": 23,
     "example_cz": "Na dveřích je zákaz vstupu.",
     "example_en": "There's a no-entry sign on the door.",
-    "lesson_id": 2301
-  },
-  {
-    "id": 1782,
-    "word_cz": "vyžadovat",
-    "word_en": "to require, demand",
-    "ipa": "vɪʒadovaʊt",
-    "gender": null,
-    "unit_id": 23,
-    "example_cz": "Tato práce vyžaduje trpělivost.",
-    "example_en": "This work requires patience.",
-    "lesson_id": 2301
-  },
-  {
-    "id": 1783,
-    "word_cz": "povolit",
-    "word_en": "to allow, permit",
-    "ipa": "povolɪt",
-    "gender": null,
-    "unit_id": 23,
-    "example_cz": "Lékař mi povolil sportovat.",
-    "example_en": "The doctor allowed me to exercise.",
-    "lesson_id": 2301
-  },
-  {
-    "id": 1784,
-    "word_cz": "zakázat",
-    "word_en": "to forbid, prohibit",
-    "ipa": "zakaːzat",
-    "gender": null,
-    "unit_id": 23,
-    "example_cz": "Učitel zakázal používat telefony.",
-    "example_en": "The teacher forbade using phones.",
-    "lesson_id": 2301
+    "lesson_id": 2303
   },
   {
     "id": 1785,
@@ -9469,5 +9359,60 @@
     "example_cz": "Vlak má zpoždění deset minut.",
     "example_en": "The train is ten minutes late.",
     "lesson_id": null
+  },
+  {
+    "id": 2007,
+    "word_cz": "zavřeno",
+    "word_en": "closed (sign)",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": "V pondělí je zavřeno.",
+    "example_en": "It is closed on Monday.",
+    "lesson_id": 2303
+  },
+  {
+    "id": 2008,
+    "word_cz": "otevřeno",
+    "word_en": "open (sign)",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": "Otevřeno od devíti do šesti.",
+    "example_en": "Open from nine to six.",
+    "lesson_id": 2303
+  },
+  {
+    "id": 2009,
+    "word_cz": "vyprodáno",
+    "word_en": "sold out",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": "Koncert je vyprodaný. Vyprodáno!",
+    "example_en": "The concert is sold out. Sold out!",
+    "lesson_id": 2303
+  },
+  {
+    "id": 2010,
+    "word_cz": "obsazeno",
+    "word_en": "taken, engaged",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": "Promiňte, je tady obsazeno?",
+    "example_en": "Excuse me, is this seat taken?",
+    "lesson_id": 2303
+  },
+  {
+    "id": 2011,
+    "word_cz": "pozor",
+    "word_en": "attention, careful",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": "Pozor, schod!",
+    "example_en": "Mind the step!",
+    "lesson_id": 2303
   }
 ]

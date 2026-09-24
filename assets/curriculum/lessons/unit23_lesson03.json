@@ -1,1 +1,499 @@
-{"id":2303,"unit_id":23,"title":"Understand Everyday Rules","description":"Read and hear common rules, obligations and permissions.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[{"id":23025,"lesson_id":2303,"type":"teaching","prompt":"Read the rule as a whole","data":{"type":"teaching","style":"list","heading":"Must, may, must not","body":"These three chunks change the meaning of a rule completely.","items":[{"cz":"Musíte mít jízdenku.","en":"You must have a ticket."},{"cz":"Můžete tady čekat.","en":"You may wait here."},{"cz":"Nesmíte kouřit.","en":"You must not smoke."},{"cz":"Nemusíte spěchat.","en":"You do not have to hurry."}]},"answer_key":"modal chunks","xp_reward":0},{"id":23026,"lesson_id":2303,"type":"listening_comprehension","prompt":"Listen to the office rule","data":{"type":"listening_comprehension","prompt_en":"What must visitors do?","transcript_cz":"Dobrý den. Musíte se zapsat na recepci. Můžete čekat tady, ale nesmíte používat výtah bez karty.","questions":[{"question_en":"What must visitors do?","options":["Register at reception","Use the lift","Go home"],"correct_index":0},{"question_en":"What is prohibited?","options":["Using the lift without a card","Waiting","Speaking"],"correct_index":0}]},"answer_key":"register; no lift","xp_reward":15},{"id":23027,"lesson_id":2303,"type":"reading_comprehension","prompt":"Read the building instructions","data":{"type":"reading_comprehension","prompt_en":"Find what is required, allowed and forbidden.","image":"assets/images/unit23/everyday_choices_v1.webp","image_label":"Asking about everyday rules","text_cz":"V budově musíte mít návštěvnickou kartu. Můžete si dát kávu v kuchyni. Nesmíte parkovat před vchodem. Nemusíte přijít brzy, ale schůzka začíná v devět.","text_en":"In the building you must have a visitor card. You may have coffee in the kitchen. You must not park in front of the entrance. You do not have to arrive early, but the meeting starts at nine.","questions":[{"question_en":"Where may visitors have coffee?","options":["In the kitchen","At the entrance","In the lift"],"correct_index":0},{"question_en":"What is not allowed?","options":["Parking at the entrance","Having a card","Coming at nine"],"correct_index":0}]},"answer_key":"kitchen; parking","xp_reward":15},{"id":23028,"lesson_id":2303,"type":"matching","prompt":"Match each modal meaning","data":{"type":"matching","pairs":[{"left":"musíte","right":"you must"},{"left":"můžete","right":"you may/can"},{"left":"nesmíte","right":"you must not"},{"left":"nemusíte","right":"you do not have to"}]},"answer_key":"modal meanings","xp_reward":10},{"id":23029,"lesson_id":2303,"type":"fill_blank","prompt":"Choose the prohibition","data":{"type":"fill_blank","sentence":"Tady ___ kouřit.","blank_count":1,"blank_answers":[["nesmíte"]]},"answer_key":"nesmíte","xp_reward":10},{"id":23030,"lesson_id":2303,"type":"dialogue","prompt":"Ask for permission","data":{"type":"dialogue","scenario":"At reception","lines":[{"speaker":"you","text":"___ tady čekat?"},{"speaker":"receptionist","text":"Ano, můžete."}],"blank_answers":[["Můžu","Mohu"]]},"answer_key":"Můžu","xp_reward":15},{"id":23031,"lesson_id":2303,"type":"writing_task","prompt":"Write two clear rules","data":{"type":"writing_task","prompt_en":"Write one required action and one prohibited action for a place you know.","prompt_cz":"Napište dvě krátká pravidla.","min_words":8,"max_words":35,"key_vocab":["musíte","nesmíte","můžete"],"sample_answer":"V práci musíte mít kartu. Nesmíte kouřit."},"answer_key":"two rules","xp_reward":0},{"id":23032,"lesson_id":2303,"type":"speaking_task","prompt":"Explain a rule aloud","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds explaining one rule and asking one permission question.","prompt_cz":"Nahrajte krátké vysvětlení pravidel.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["musíte","nesmíte","můžu"]},"answer_key":"rules spoken","xp_reward":20}]}
+{
+  "id": 2303,
+  "unit_id": 23,
+  "title": "Instructions and Signs",
+  "description": "Give simple instructions (Počkejte! Nekuřte!) and read everyday signs.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "can_do": "give a short instruction and understand common signs.",
+  "new_language": [
+    "Počkejte! Pojďte dál!",
+    "Nekuřte! Nebojte se!",
+    "zavřeno, vyprodáno, obsazeno",
+    "Tady se nekouří."
+  ],
+  "recycles": [
+    "nesmíte",
+    "prosím"
+  ],
+  "exit_task": "write a notice with one rule and one instruction.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 23300,
+      "lesson_id": 2303,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “You must not smoke”, “You don’t have to hurry” and “Can I wait here?” in Czech. Then one line from Unit 18: with me.",
+        "items": [
+          {
+            "cz": "Nesmíte kouřit.",
+            "en": "You must not smoke."
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "You don't have to hurry."
+          },
+          {
+            "cz": "Můžu tady čekat?",
+            "en": "Can I wait here?"
+          },
+          {
+            "cz": "se mnou",
+            "en": "with me"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23301,
+      "lesson_id": 2303,
+      "type": "teaching",
+      "prompt": "Telling people what to do",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-225",
+        "rule_step": 1,
+        "heading": "Telling people what to do",
+        "items": [
+          {
+            "cz": "Pojďte dál, prosím.",
+            "en": "Come in, please."
+          },
+          {
+            "cz": "Nebojte se, to je v pořádku.",
+            "en": "Don't worry, it's fine."
+          }
+        ],
+        "say": "Learn the ty form and add -te for vy: počkej → počkejte, mluv → mluvte. Put ne- in front to say don’t: nekuřte, nebojte se.",
+        "table": [
+          [
+            "počkat",
+            "počkej · počkejte"
+          ],
+          [
+            "mluvit",
+            "mluv · mluvte"
+          ],
+          [
+            "psát",
+            "piš · pište"
+          ],
+          [
+            "come",
+            "pojď · pojďte"
+          ],
+          [
+            "go",
+            "jdi · jděte"
+          ],
+          [
+            "dát si",
+            "dej si · dejte si"
+          ],
+          [
+            "kouřit",
+            "nekuř · nekuřte"
+          ],
+          [
+            "bát se",
+            "neboj se · nebojte se"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Pojďte dál, prosím.",
+            "en": "Come in, please."
+          },
+          {
+            "cz": "Nebojte se, to je v pořádku.",
+            "en": "Don't worry, it's fine."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Mluvíte pomalu, prosím.",
+          "right": "Mluvte pomalu, prosím."
+        },
+        "step": 1,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23302,
+      "lesson_id": 2303,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Číšník hostům: „___ si, prosím.“ (sednout si)",
+        "question_en": "The waiter to the guests: “Sit down, please.”",
+        "options": [
+          "Sedněte",
+          "Sednout",
+          "Sedíte"
+        ],
+        "correct_index": 0,
+        "explanation": "An instruction to vy: sedněte si."
+      },
+      "answer_key": "Sedněte",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-225"
+    },
+    {
+      "id": 23303,
+      "lesson_id": 2303,
+      "type": "teaching",
+      "prompt": "Reading signs",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-226",
+        "rule_step": 1,
+        "heading": "Reading signs",
+        "items": [
+          {
+            "cz": "V pondělí je zavřeno.",
+            "en": "It is closed on Monday."
+          },
+          {
+            "cz": "Ve vlaku se nesmí kouřit.",
+            "en": "Smoking is not allowed on the train."
+          }
+        ],
+        "say": "Signs use short forms you only need to recognise: zavřeno, vyprodáno, zakázáno. Tady se nekouří says what nobody may do here.",
+        "table": [
+          [
+            "ZAVŘENO",
+            "closed"
+          ],
+          [
+            "OTEVŘENO",
+            "open"
+          ],
+          [
+            "VYPRODÁNO",
+            "sold out"
+          ],
+          [
+            "OBSAZENO",
+            "taken, engaged"
+          ],
+          [
+            "KOUŘENÍ ZAKÁZÁNO",
+            "no smoking"
+          ],
+          [
+            "VSTUP ZAKÁZÁN",
+            "no entry"
+          ],
+          [
+            "Tady se nekouří.",
+            "No smoking here."
+          ],
+          [
+            "Tady se platí kartou.",
+            "You pay by card here."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "V pondělí je zavřeno.",
+            "en": "It is closed on Monday."
+          },
+          {
+            "cz": "Ve vlaku se nesmí kouřit.",
+            "en": "Smoking is not allowed on the train."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Tady nekouří.",
+          "right": "Tady se nekouří."
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23304,
+      "lesson_id": 2303,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Na pokladně kina je: VYPRODÁNO. Co to znamená?",
+        "question_en": "The cinema box office says VYPRODÁNO. What does it mean?",
+        "options": [
+          "Sold out",
+          "Closed",
+          "No entry"
+        ],
+        "correct_index": 0,
+        "explanation": "vyprodáno = sold out."
+      },
+      "answer_key": "Sold out",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-226"
+    },
+    {
+      "id": 23305,
+      "lesson_id": 2303,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write a short notice for your door or office: one instruction and one rule.",
+        "items": [
+          {
+            "cz": "Zazvoňte, prosím.",
+            "en": "Please ring the bell."
+          },
+          {
+            "cz": "Tady se nekouří.",
+            "en": "No smoking here."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23306,
+      "lesson_id": 2303,
+      "type": "fill_blank",
+      "prompt": "Complete the sentence",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ chvíli, prosím. (počkat, vy)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Počkejte",
+            "počkejte"
+          ]
+        ],
+        "explanation": "vy: počkej + -te → Počkejte."
+      },
+      "answer_key": "Počkejte",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-225"
+    },
+    {
+      "id": 23307,
+      "lesson_id": 2303,
+      "type": "fill_blank",
+      "prompt": "Complete the sentence",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ pomalu, prosím. (mluvit, vy)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Mluvte",
+            "mluvte"
+          ]
+        ],
+        "explanation": "vy: mluv + -te → Mluvte."
+      },
+      "answer_key": "Mluvte",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-225"
+    },
+    {
+      "id": 23308,
+      "lesson_id": 2303,
+      "type": "fill_blank",
+      "prompt": "Complete the sentence",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Prosím, ___ tady. (nekouřit, vy)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "nekuřte"
+          ]
+        ],
+        "explanation": "A negative instruction: ne- + kuř + -te."
+      },
+      "answer_key": "nekuřte",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-225"
+    },
+    {
+      "id": 23309,
+      "lesson_id": 2303,
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Kamarád má strach ze zkoušky. Co mu řeknete?",
+        "question_en": "Your friend is nervous about an exam. What do you say?",
+        "options": [
+          "Neboj se!",
+          "Nebojte se!",
+          "Nebát se!"
+        ],
+        "correct_index": 0,
+        "explanation": "To a friend use the ty form: Neboj se! Nebojte se is for vy."
+      },
+      "answer_key": "Neboj se!",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-225"
+    },
+    {
+      "id": 23310,
+      "lesson_id": 2303,
+      "type": "matching",
+      "prompt": "Match the sign to its meaning",
+      "data": {
+        "type": "matching",
+        "prompt_en": "Match each sign to what it means.",
+        "pairs": [
+          {
+            "left": "ZAVŘENO",
+            "right": "closed"
+          },
+          {
+            "left": "VYPRODÁNO",
+            "right": "sold out"
+          },
+          {
+            "left": "OBSAZENO",
+            "right": "taken, engaged"
+          },
+          {
+            "left": "KOUŘENÍ ZAKÁZÁNO",
+            "right": "no smoking"
+          }
+        ],
+        "explanation": "Signs use short forms: zavřeno, vyprodáno, obsazeno, zakázáno."
+      },
+      "answer_key": "signs",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-226"
+    },
+    {
+      "id": 23311,
+      "lesson_id": 2303,
+      "type": "listening_comprehension",
+      "prompt": "Listen to the station announcement",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "What must passengers do?",
+        "transcript_cz": "Cestující musí mít platnou jízdenku. Ve vlaku se nesmí kouřit. Můžete si koupit pití ve voze číslo tři.",
+        "questions": [
+          {
+            "question_en": "What must passengers have?",
+            "options": [
+              "A valid ticket",
+              "A car",
+              "A key"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Where can they buy a drink?",
+            "options": [
+              "Car three",
+              "The platform",
+              "The office"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "ticket; car three",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-226"
+    },
+    {
+      "id": 23312,
+      "lesson_id": 2303,
+      "type": "dialogue",
+      "prompt": "Give a clear answer",
+      "data": {
+        "type": "dialogue",
+        "scenario": "At a public office",
+        "lines": [
+          {
+            "speaker": "visitor",
+            "text": "Můžu tady fotografovat?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Ne, tady se nesmí fotografovat."
+          ]
+        ]
+      },
+      "answer_key": "Ne, tady se nesmí fotografovat.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-226"
+    },
+    {
+      "id": 23313,
+      "lesson_id": 2303,
+      "type": "writing_task",
+      "prompt": "Write two clear rules",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write one required action and one prohibited action for a place you know.",
+        "prompt_cz": "Napište dvě krátká pravidla.",
+        "min_words": 8,
+        "max_words": 35,
+        "key_vocab": [
+          "musíte",
+          "nesmíte",
+          "můžete"
+        ],
+        "sample_answer": "V práci musíte mít kartu. Nesmíte kouřit.",
+        "targets": "vocab"
+      },
+      "answer_key": "two rules",
+      "xp_reward": 0
+    },
+    {
+      "id": 23314,
+      "lesson_id": 2303,
+      "type": "speaking_task",
+      "prompt": "Explain a rule aloud",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds explaining one rule and asking one permission question.",
+        "prompt_cz": "Nahrajte krátké vysvětlení pravidel.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "musíte",
+          "nesmíte",
+          "můžu"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "rules spoken",
+      "xp_reward": 20
+    }
+  ]
+}

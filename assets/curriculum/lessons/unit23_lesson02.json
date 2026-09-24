@@ -2,156 +2,567 @@
   "id": 2302,
   "unit_id": 23,
   "order_in_unit": 1,
-  "title": "Permission & Obligation in Context",
-  "description": "Practice using Czech modal verbs in real-life situations — asking for permission, expressing obligation, refusing, and distinguishing between 'must not' and 'don't have to'.",
+  "title": "Must, Can, Must Not",
+  "description": "Learn muset and moct, and the difference between nesmíte and nemusíte.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "say what you must, can, must not and do not have to do.",
+  "new_language": [
+    "musím, musíš, musí…",
+    "můžu, můžeš, může…",
+    "nesmíte × nemusíte",
+    "Smím…?"
+  ],
+  "recycles": [
+    "infinitives",
+    "Můžete mi pomoct?"
+  ],
+  "exit_task": "explain two rules at your workplace or school.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 23013,
+      "id": 23200,
+      "lesson_id": 2302,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write the four rules: must, may, must not, do not have to. Then check.",
+        "items": [
+          {
+            "cz": "Musíte mít jízdenku.",
+            "en": "You must have a ticket."
+          },
+          {
+            "cz": "Můžete tady čekat.",
+            "en": "You can wait here."
+          },
+          {
+            "cz": "Nesmíte kouřit.",
+            "en": "You must not smoke."
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "You don't have to hurry."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23201,
+      "lesson_id": 2302,
+      "type": "teaching",
+      "prompt": "I have to: musím",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-220",
+        "rule_step": 1,
+        "heading": "I have to: musím",
+        "items": [
+          {
+            "cz": "Zítra musím pracovat.",
+            "en": "I have to work tomorrow."
+          },
+          {
+            "cz": "Musíte mít jízdenku.",
+            "en": "You must have a ticket."
+          }
+        ],
+        "say": "muset means must or have to. Change muset for the person; the next verb stays in the infinitive: Musím pracovat.",
+        "table": [
+          [
+            "já",
+            "musím"
+          ],
+          [
+            "ty",
+            "musíš"
+          ],
+          [
+            "on, ona",
+            "musí"
+          ],
+          [
+            "my",
+            "musíme"
+          ],
+          [
+            "vy",
+            "musíte"
+          ],
+          [
+            "oni",
+            "musí"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Zítra musím pracovat.",
+            "en": "I have to work tomorrow."
+          },
+          {
+            "cz": "Musíte mít jízdenku.",
+            "en": "You must have a ticket."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Ty musí jít domů.",
+          "right": "Ty musíš jít domů."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23202,
       "lesson_id": 2302,
       "type": "multiple_choice",
-      "prompt": "Which modal verb do you use to say 'I must' (internal or external obligation)?",
+      "prompt": "Quick check",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Které modální sloveso znamená 'muset' (povinnost)?",
-        "question_en": "Which modal verb expresses obligation ('must')?",
-        "options": ["moct", "muset", "smět", "chtít"],
+        "mode": "check",
+        "question_cz": "Zítra ___ pracovat. (já)",
+        "question_en": "I have to work tomorrow.",
+        "options": [
+          "musím",
+          "musí",
+          "musíš"
+        ],
+        "correct_index": 0,
+        "explanation": "já → musím."
+      },
+      "answer_key": "musím",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-220"
+    },
+    {
+      "id": 23203,
+      "lesson_id": 2302,
+      "type": "teaching",
+      "prompt": "I can: můžu",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-221",
+        "rule_step": 1,
+        "heading": "I can: můžu",
+        "items": [
+          {
+            "cz": "Můžu tady čekat?",
+            "en": "Can I wait here?"
+          },
+          {
+            "cz": "Můžete mi pomoct?",
+            "en": "Can you help me?"
+          }
+        ],
+        "say": "moct means can: you are able to, or it is possible. můžu and mohu mean the same; mohu is more formal. Ask politely with Můžete…?",
+        "table": [
+          [
+            "já",
+            "můžu / mohu"
+          ],
+          [
+            "ty",
+            "můžeš"
+          ],
+          [
+            "on, ona",
+            "může"
+          ],
+          [
+            "my",
+            "můžeme"
+          ],
+          [
+            "vy",
+            "můžete"
+          ],
+          [
+            "oni",
+            "můžou / mohou"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Můžu tady čekat?",
+            "en": "Can I wait here?"
+          },
+          {
+            "cz": "Můžete mi pomoct?",
+            "en": "Can you help me?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Můžu pomoct vám?",
+          "right": "Můžu vám pomoct?"
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23204,
+      "lesson_id": 2302,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "___ mi pomoct? (vy)",
+        "question_en": "Can you help me?",
+        "options": [
+          "Můžete",
+          "Můžeš",
+          "Může"
+        ],
+        "correct_index": 0,
+        "explanation": "vy → můžete."
+      },
+      "answer_key": "Můžete",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-221"
+    },
+    {
+      "id": 23205,
+      "lesson_id": 2302,
+      "type": "teaching",
+      "prompt": "Must not or do not have to?",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-224",
+        "rule_step": 1,
+        "heading": "Must not or do not have to?",
+        "items": [
+          {
+            "cz": "Tady nesmíte parkovat.",
+            "en": "You must not park here."
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "You don't have to hurry."
+          }
+        ],
+        "say": "nesmíte means you must not: it is forbidden. nemusíte means you do not have to: it is your choice. smět means may: Smím se zeptat?",
+        "table": [
+          [
+            "you must",
+            "musíte"
+          ],
+          [
+            "you may",
+            "můžete / smíte"
+          ],
+          [
+            "you must not",
+            "nesmíte"
+          ],
+          [
+            "you don't have to",
+            "nemusíte"
+          ],
+          [
+            "May I…?",
+            "Smím…? / Můžu…?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Tady nesmíte parkovat.",
+            "en": "You must not park here."
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "You don't have to hurry."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Tady nemusíte kouřit. (for a ban)",
+          "right": "Tady nesmíte kouřit."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23206,
+      "lesson_id": 2302,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Parkování je zakázané: Tady ___ parkovat.",
+        "question_en": "Parking is forbidden: you must not park here.",
+        "options": [
+          "nesmíte",
+          "nemusíte",
+          "nemůžete"
+        ],
+        "correct_index": 0,
+        "explanation": "A ban is nesmíte. nemusíte means you do not have to."
+      },
+      "answer_key": "nesmíte",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-224"
+    },
+    {
+      "id": 23207,
+      "lesson_id": 2302,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write musím and můžu for every person, then the difference between nesmíte and nemusíte with an example each.",
+        "items": [
+          {
+            "cz": "musím, musíš, musí, musíme, musíte, musí",
+            "en": "must, have to"
+          },
+          {
+            "cz": "můžu, můžeš, může, můžeme, můžete, můžou",
+            "en": "can"
+          },
+          {
+            "cz": "Tady nesmíte kouřit.",
+            "en": "must not: forbidden"
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "don't have to: your choice"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 23208,
+      "lesson_id": 2302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "ty → musíš.",
+        "sentence": "Ty ___ jít domů. (muset)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "musíš"
+          ]
+        ],
+        "explanation": "Ty musíš jít domů."
+      },
+      "answer_key": "musíš",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-220"
+    },
+    {
+      "id": 23209,
+      "lesson_id": 2302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "oni → můžou (or mohou).",
+        "sentence": "Oni ___ přijít zítra. (moct)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "můžou",
+            "mohou"
+          ]
+        ],
+        "explanation": "Oni můžou přijít zítra."
+      },
+      "answer_key": "můžou",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-221"
+    },
+    {
+      "id": 23210,
+      "lesson_id": 2302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "No obligation: nemuset.",
+        "sentence": "Zítra je sobota, ___ vstávat brzy. (ty — no need)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "nemusíš"
+          ]
+        ],
+        "explanation": "nemusíš = you don’t have to"
+      },
+      "answer_key": "nemusíš",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-224"
+    },
+    {
+      "id": 23211,
+      "lesson_id": 2302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "A ban: nesmět.",
+        "sentence": "Děti tady ___ běhat. (forbidden)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "nesmí",
+            "nesmějí"
+          ]
+        ],
+        "explanation": "Děti tady nesmí běhat."
+      },
+      "answer_key": "nesmí",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-224"
+    },
+    {
+      "id": 23212,
+      "lesson_id": 2302,
+      "type": "multiple_choice",
+      "prompt": "What is the 'já' (1st person singular) form of 'muset' (must)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaká je forma 'já' pro sloveso 'muset'?",
+        "question_en": "What is the 'já' (1st person singular) form of 'muset' (must)?",
+        "options": [
+          "musím",
+          "museš",
+          "musí",
+          "musíme"
+        ],
+        "correct_index": 0,
+        "explanation": "'Muset' is an -et class verb. The 1st person singular is 'musím'. Conjugation: musím, musíš, musí, musíme, musíte, musí."
+      },
+      "answer_key": "musím",
+      "grammar_rule_id": "GR-220",
+      "xp_reward": 10
+    },
+    {
+      "id": 23213,
+      "lesson_id": 2302,
+      "type": "multiple_choice",
+      "prompt": "What is the 'ty' (2nd person singular) form of 'moct' (can)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaká je forma 'ty' pro sloveso 'moct'?",
+        "question_en": "What is the 'ty' (2nd person singular) form of 'moct' (can)?",
+        "options": [
+          "mohu",
+          "můžeš",
+          "může",
+          "můžeme"
+        ],
         "correct_index": 1,
-        "explanation": "'Muset' = must — expresses obligation or necessity. 'Musím jít' = I must go. 'Moct' = can (ability), 'smět' = may (permission), 'chtít' = to want."
+        "explanation": "'Moct' is irregular. The 2nd person singular is 'můžeš'. Full conjugation: mohu/můžu, můžeš, může, můžeme, můžete, mohou/můžou."
       },
-      "answer_key": "muset",
-      "grammar_rule_id": "GR-223",
+      "answer_key": "můžeš",
+      "grammar_rule_id": "GR-221",
       "xp_reward": 10
     },
     {
-      "id": 23014,
-      "lesson_id": 2302,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'You must not smoke here' in Czech?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řekneme 'Tady nesmíš kouřit'?",
-        "question_en": "How do you say 'You must not smoke here' in Czech?",
-        "options": ["Tady nemusíš kouřit.", "Tady nemůžeš kouřit.", "Tady nesmíš kouřit.", "Tady nechceš kouřit."],
-        "correct_index": 2,
-        "explanation": "'Nesmíš' = you must not (prohibition). 'Nemusíš' = you don't have to (no obligation). 'Nemůžeš' = you cannot (lack of ability). 'Tady nesmíš kouřit.' = You must not smoke here. The distinction between 'nesmět' (prohibited) and 'nemuset' (not required) is crucial."
-      },
-      "answer_key": "Tady nesmíš kouřit.",
-      "grammar_rule_id": "GR-224",
-      "xp_reward": 10
-    },
-    {
-      "id": 23015,
+      "id": 23214,
       "lesson_id": 2302,
       "type": "fill_blank",
-      "prompt": "Fill in the correct modal to ask for permission: 'May I sit here?'",
+      "prompt": "Fill in the correct form of 'muset' for 'my' (we).",
       "data": {
         "type": "fill_blank",
-        "sentence": "____ si sednout tady?",
+        "sentence": "My ____ jít do školy.",
         "blank_count": 1,
-        "explanation": "'Smím si sednout tady?' = May I sit here? 'Smět' is used to ask for permission. 'Můžu/Mohu' (can) is also acceptable in informal contexts, but 'smět' is more precise for permission.",
+        "explanation": "'My musíme jít do školy.' = We must go to school. The 1st person plural of 'muset' is 'musíme'. The modal verb is followed by the infinitive 'jít'.",
         "blank_answers": [
-          ["Smím", "Můžu", "Mohu"]
+          [
+            "musíme"
+          ]
         ]
       },
-      "answer_key": "Smím",
-      "grammar_rule_id": "GR-224",
+      "answer_key": "musíme",
+      "grammar_rule_id": "GR-220",
       "xp_reward": 10
     },
     {
-      "id": 23016,
-      "lesson_id": 2302,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct negative modal: 'Children must not run in the corridor.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Děti ____ běhat v chodbě.",
-        "blank_count": 1,
-        "explanation": "'Děti nesmějí běhat v chodbě.' = Children must not run in the corridor. 'Nesmějí' = they must not (3rd person plural of 'nesmět'). This is a prohibition — 'nesmět' is used, not 'nemuset'.",
-        "blank_answers": [
-          ["nesmějí"]
-        ]
-      },
-      "answer_key": "nesmějí",
-      "grammar_rule_id": "GR-224",
-      "xp_reward": 10
-    },
-    {
-      "id": 23017,
+      "id": 23215,
       "lesson_id": 2302,
       "type": "translation",
-      "prompt": "Translate to Czech: 'You don't have to come if you're tired.'",
+      "prompt": "Translate to Czech: 'I must work tomorrow.'",
       "data": {
         "type": "translation",
         "direction": "en_to_cz",
-        "source": "You don't have to come if you're tired.",
-        "accepted_answers": ["Nemusíš přijít, pokud jsi unavený.", "Nemusíš přijít, jestli jsi unavený.", "Nemusíš chodit, když jsi unavený."],
-        "grammar_note": "'Nemusíš' = you don't have to (no obligation, but allowed). This is different from 'nesmíš' (you must not). 'Přijít' = to come. The distinction between 'nemuset' and 'nesmět' is one of the trickiest points for learners."
+        "source": "I must work tomorrow.",
+        "accepted_answers": [
+          "Musím zítra pracovat.",
+          "Zítra musím pracovat.",
+          "Musím pracovat zítra."
+        ],
+        "grammar_note": "'Musím' = I must (1st person singular of 'muset'). The infinitive 'pracovat' follows the modal. Word order is flexible: 'Musím zítra pracovat' or 'Zítra musím pracovat' are both correct."
       },
-      "answer_key": "Nemusíš přijít, pokud jsi unavený.",
+      "answer_key": "Musím zítra pracovat.",
+      "grammar_rule_id": "GR-220",
+      "xp_reward": 10
+    },
+    {
+      "id": 23216,
+      "lesson_id": 2302,
+      "type": "error_correction",
+      "prompt": "Find the mistake in this sentence.",
+      "data": {
+        "type": "error_correction",
+        "prompt_en": "Find the mistake in this sentence using modal verbs.",
+        "sentence_cz": "Ty musí jít domů.",
+        "correct_sentence_cz": "Ty musíš jít domů.",
+        "error_type": "modal_conjugation",
+        "explanation": "The 2nd person singular of 'muset' is 'musíš', not 'musí'. 'Musí' is the 3rd person singular (on/ona musí) and 3rd person plural (oni musí). 'Ty musíš jít domů.' = You must go home."
+      },
+      "answer_key": "Ty musíš jít domů.",
+      "grammar_rule_id": "GR-220",
+      "xp_reward": 10
+    },
+    {
+      "id": 23217,
+      "lesson_id": 2302,
+      "type": "error_correction",
+      "prompt": "Find the mistake in this sentence.",
+      "data": {
+        "type": "error_correction",
+        "prompt_en": "Find the mistake — wrong modal verb used.",
+        "sentence_cz": "Nesmíš jít, pokud nechceš.",
+        "correct_sentence_cz": "Nemusíš jít, pokud nechceš.",
+        "error_type": "modal_confusion",
+        "explanation": "'Nesmíš' means 'you must not' (prohibition), while 'nemusíš' means 'you don't have to' (no obligation). The correct sentence is 'Nemusíš jít, pokud nechceš.' = You don't have to go if you don't want to. This is a common confusion between 'muset' and 'smět'."
+      },
+      "answer_key": "Nemusíš jít, pokud nechceš.",
       "grammar_rule_id": "GR-224",
       "xp_reward": 10
     },
     {
-      "id": 23018,
-      "lesson_id": 2302,
-      "type": "translation",
-      "prompt": "Translate to English: 'Můžete mi pomoci?'",
-      "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Můžete mi pomoci?",
-        "accepted_answers": ["Can you help me?", "Could you help me?", "Are you able to help me?"],
-        "grammar_note": "'Můžete' = you can (2nd person plural/formal of 'moct'). 'Pomoci' = to help (infinitive). This is a polite request using the formal 'vy' form."
-      },
-      "answer_key": "Can you help me?",
-      "grammar_rule_id": "GR-223",
-      "xp_reward": 10
-    },
-    {
-      "id": 23019,
-      "lesson_id": 2302,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue at a restaurant.",
-      "data": {
-        "type": "dialogue",
-        "lines": [
-          {
-            "speaker": "customer",
-            "text_en": "Hello, may we sit on the terrace?",
-            "text": "Dobrý den, ___ si sednout na terase?"
-          },
-          {
-            "speaker": "waiter",
-            "text_en": "Yes, of course. You can choose a table.",
-            "text": "Ano, samozřejmě. Můžete si vybrat stůl."
-          },
-          {
-            "speaker": "customer",
-            "text_en": "Thank you. And may we smoke on the terrace?",
-            "text": "Děkujeme. A ___ kouřit na terase?"
-          },
-          {
-            "speaker": "waiter",
-            "text_en": "Unfortunately, you must not smoke here.",
-            "text": "Bohužel, tady kouřit nesmíte."
-          }
-        ],
-        "explanation": "In this dialogue, 'můžeme/smíme' ask for permission. The waiter uses 'nesmíte' to express a prohibition — smoking is not allowed. Note the formal 'vy' form (můžete, nesmíte) used in service interactions.",
-        "blank_answers": [
-          ["můžeme", "smíme"],
-          ["můžeme", "smíme"]
-        ],
-        "scenario": "A customer asks the waiter if they can sit outside."
-      },
-      "answer_key": "můžeme/smíme, mohou/smí, nesmíte",
-      "grammar_rule_id": "GR-224",
-      "xp_reward": 10
-    },
-    {
-      "id": 23020,
+      "id": 23218,
       "lesson_id": 2302,
       "type": "error_correction",
       "prompt": "Find the mistake in this prohibition sentence.",
@@ -164,80 +575,6 @@
         "explanation": "'Nemusíte' means 'you don't have to' (no obligation), which implies parking is optional. 'Nesmíte' means 'you must not' (prohibition). The correct sentence 'Tady nesmíte parkovat.' = You must not park here. This is a prohibition sign, so 'nesmět' is required."
       },
       "answer_key": "Tady nesmíte parkovat.",
-      "grammar_rule_id": "GR-224",
-      "xp_reward": 10
-    },
-    {
-      "id": 23021,
-      "lesson_id": 2302,
-      "type": "error_correction",
-      "prompt": "Find the mistake in this permission sentence.",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find the mistake — wrong modal verb form.",
-        "sentence_cz": "My můžeme jít do kina?",
-        "correct_sentence_cz": "My můžeme jít do kina.",
-        "error_type": "none",
-        "explanation": "This sentence is actually correct! 'My můžeme jít do kina.' = We can go to the cinema. 'Můžeme' is the correct 1st person plural of 'moct'. The question mark was the only issue — as a statement, it should end with a period."
-      },
-      "answer_key": "My můžeme jít do kina.",
-      "grammar_rule_id": "GR-221",
-      "xp_reward": 10
-    },
-    {
-      "id": 23022,
-      "lesson_id": 2302,
-      "type": "matching",
-      "prompt": "Match each Czech sentence to its English meaning.",
-      "data": {
-        "type": "matching",
-        "prompt_en": "Match each Czech modal sentence to its English meaning.",
-        "pairs": [
-          {"left": "Musím jít.", "right": "I must go."},
-          {"left": "Můžu jít.", "right": "I can go."},
-          {"left": "Smím jít.", "right": "I may go."},
-          {"left": "Nemusím jít.", "right": "I don't have to go."}
-        ],
-        "explanation": "Each modal has a distinct meaning: 'muset' = obligation, 'moct' = ability/possibility, 'smět' = permission, 'nemuset' = no obligation. 'Nemusím' is NOT the same as 'nesmím' (I must not)."
-      },
-      "answer_key": "Musím jít→I must go., Můžu jít→I can go., Smím jít→I may go., Nemusím jít→I don't have to go.",
-      "grammar_rule_id": "GR-224",
-      "xp_reward": 10
-    },
-    {
-      "id": 23023,
-      "lesson_id": 2302,
-      "type": "matching",
-      "prompt": "Match each negative modal to its meaning.",
-      "data": {
-        "type": "matching",
-        "prompt_en": "Match each Czech negative modal to its English meaning.",
-        "pairs": [
-          {"left": "nesmět", "right": "must not (prohibited)"},
-          {"left": "nemuset", "right": "don't have to (not required)"},
-          {"left": "nemoct", "right": "cannot (not able)"},
-          {"left": "nechtít", "right": "don't want to"}
-        ],
-        "explanation": "The three negative modals have distinct meanings: 'nesmět' = prohibition, 'nemuset' = no obligation, 'nemoct' = inability. Confusing 'nesmět' and 'nemuset' is the most common error for learners."
-      },
-      "answer_key": "nesmět→must not, nemuset→don't have to, nemoct→cannot, nechtít→don't want to",
-      "grammar_rule_id": "GR-224",
-      "xp_reward": 10
-    },
-    {
-      "id": 23024,
-      "lesson_id": 2302,
-      "type": "pronunciation",
-      "prompt": "Pronounce this sentence asking for permission politely.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Smím se zeptat?",
-        "target_audio_hash": "placeholder_23024",
-        "focus_sounds": ["smím", "zeptat", "ě"],
-        "min_score": 0.6,
-        "translation_en": "May I ask?"
-      },
-      "answer_key": "Smím se zeptat?",
       "grammar_rule_id": "GR-224",
       "xp_reward": 10
     }

@@ -2,238 +2,264 @@
   "id": 2301,
   "unit_id": 23,
   "order_in_unit": 0,
-  "title": "Modal Verbs — muset, moct, smět",
-  "description": "Learn to conjugate the three Czech modal verbs — muset (must), moct (can/be able to), and smět (may/be allowed to) — and use them with infinitives in present-tense sentences.",
-  "duration_min": 15,
+  "title": "Everyday Rules",
+  "description": "Hear the rules at a reception, then learn phrases for must, may and must not.",
+  "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "understand simple rules and ask if you may do something.",
+  "new_language": [
+    "Musíte mít jízdenku.",
+    "Můžete tady čekat.",
+    "Nesmíte kouřit.",
+    "Nemusíte spěchat.",
+    "Můžu se zeptat?",
+    "Počkejte, prosím.",
+    "Pojďte dál.",
+    "ZAVŘENO"
+  ],
+  "recycles": [
+    "chtít",
+    "jízdenka",
+    "Můžu…?"
+  ],
+  "exit_task": "ask if you can wait somewhere.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 23000,
+      "id": 23100,
       "lesson_id": 2301,
-      "type": "teaching",
-      "prompt": "Modal Verbs",
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
       "data": {
-        "type": "teaching",
-        "heading": "Modal Verbs",
-        "body": "Must, can, may, want — snap them in front of any action and your sentences level up.",
-        "intro": "Must, can, may, want — four verbs that instantly make you sound more grown-up in Czech. Snap them in front of any action and watch your sentences level up.",
-        "style": "list",
-        "play_all_label": "Play all",
-        "items": [
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess what visitors must do.",
+        "transcript_cz": "Dobrý den. Musíte se zapsat na recepci. Můžete čekat tady, ale nesmíte používat výtah bez karty.",
+        "questions": [
           {
-            "cz": "muset",
-            "en": "must / to have to"
+            "question_en": "What must visitors do?",
+            "options": [
+              "Register at reception",
+              "Use the lift",
+              "Go home"
+            ],
+            "correct_index": 0
           },
           {
-            "cz": "Musím jít.",
-            "en": "I have to go."
-          },
-          {
-            "cz": "moct",
-            "en": "can / to be able"
-          },
-          {
-            "cz": "můžu",
-            "en": "I can"
-          },
-          {
-            "cz": "smět",
-            "en": "to be allowed"
-          },
-          {
-            "cz": "smím",
-            "en": "I may"
-          },
-          {
-            "cz": "chtít",
-            "en": "to want"
-          },
-          {
-            "cz": "chci",
-            "en": "I want"
-          },
-          {
-            "cz": "Můžu vám pomoct?",
-            "en": "Can I help you?"
+            "question_en": "What is prohibited?",
+            "options": [
+              "Using the lift without a card",
+              "Waiting",
+              "Speaking"
+            ],
+            "correct_index": 0
           }
-        ]
+        ],
+        "mode": "predict"
       },
+      "answer_key": "register; no lift",
       "xp_reward": 0
     },
     {
-      "id": 23001,
+      "id": 23101,
       "lesson_id": 2301,
-      "type": "multiple_choice",
-      "prompt": "What is the 'já' (1st person singular) form of 'muset' (must)?",
+      "type": "teaching",
+      "prompt": "Read the rule as a whole",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaká je forma 'já' pro sloveso 'muset'?",
-        "question_en": "What is the 'já' (1st person singular) form of 'muset' (must)?",
-        "options": [
-          "musím",
-          "museš",
-          "musí",
-          "musíme"
-        ],
-        "correct_index": 0,
-        "explanation": "'Muset' is an -et class verb. The 1st person singular is 'musím'. Conjugation: musím, musíš, musí, musíme, musíte, musí."
-      },
-      "answer_key": "musím",
-      "grammar_rule_id": "GR-220",
-      "xp_reward": 10
-    },
-    {
-      "id": 23002,
-      "lesson_id": 2301,
-      "type": "multiple_choice",
-      "prompt": "What is the 'ty' (2nd person singular) form of 'moct' (can)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaká je forma 'ty' pro sloveso 'moct'?",
-        "question_en": "What is the 'ty' (2nd person singular) form of 'moct' (can)?",
-        "options": [
-          "mohu",
-          "můžeš",
-          "může",
-          "můžeme"
-        ],
-        "correct_index": 1,
-        "explanation": "'Moct' is irregular. The 2nd person singular is 'můžeš'. Full conjugation: mohu/můžu, můžeš, může, můžeme, můžete, mohou/můžou."
-      },
-      "answer_key": "můžeš",
-      "grammar_rule_id": "GR-221",
-      "xp_reward": 10
-    },
-    {
-      "id": 23003,
-      "lesson_id": 2301,
-      "type": "multiple_choice",
-      "prompt": "What is the 'oni' (3rd person plural) form of 'smět' (may/be allowed)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaká je forma 'oni' pro sloveso 'smět'?",
-        "question_en": "What is the 'oni' (3rd person plural) form of 'smět' (may/be allowed)?",
-        "options": [
-          "smí",
-          "smíme",
-          "smějí",
-          "smíte"
-        ],
-        "correct_index": 2,
-        "explanation": "'Smět' is an -et class verb. The 3rd person plural is 'smějí'. Conjugation: smím, smíš, smí, smíme, smíte, smějí."
-      },
-      "answer_key": "smějí",
-      "grammar_rule_id": "GR-222",
-      "xp_reward": 10
-    },
-    {
-      "id": 23004,
-      "lesson_id": 2301,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct form of 'muset' for 'my' (we).",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "My ____ jít do školy.",
-        "blank_count": 1,
-        "explanation": "'My musíme jít do školy.' = We must go to school. The 1st person plural of 'muset' is 'musíme'. The modal verb is followed by the infinitive 'jít'.",
-        "blank_answers": [
-          [
-            "musíme"
-          ]
+        "type": "teaching",
+        "style": "list",
+        "heading": "Must, may, must not",
+        "body": "Rules use a few small verbs: musíte, můžete, nesmíte, nemusíte. Instructions and signs are short: Počkejte! ZAVŘENO. Learn these as whole phrases first; Lessons B and C explain them.",
+        "items": [
+          {
+            "cz": "Musíte mít jízdenku.",
+            "en": "You must have a ticket."
+          },
+          {
+            "cz": "Můžete tady čekat.",
+            "en": "You can wait here."
+          },
+          {
+            "cz": "Nesmíte kouřit.",
+            "en": "You must not smoke."
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "You don't have to hurry."
+          },
+          {
+            "cz": "Můžu se zeptat?",
+            "en": "Can I ask something?"
+          },
+          {
+            "cz": "Počkejte, prosím.",
+            "en": "Wait, please."
+          },
+          {
+            "cz": "Pojďte dál.",
+            "en": "Come in."
+          },
+          {
+            "cz": "ZAVŘENO",
+            "en": "closed (sign)"
+          }
         ]
       },
-      "answer_key": "musíme",
-      "grammar_rule_id": "GR-220",
-      "xp_reward": 10
+      "answer_key": "modal chunks",
+      "xp_reward": 0
     },
     {
-      "id": 23005,
+      "id": 23102,
       "lesson_id": 2301,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct form of 'moct' for 'on' (he).",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "fill_blank",
-        "sentence": "On ____ mluvit česky.",
-        "blank_count": 1,
-        "explanation": "'On může mluvit česky.' = He can speak Czech. The 3rd person singular of 'moct' is 'může'. Modal verbs take the infinitive 'mluvit' after them.",
-        "blank_answers": [
-          [
-            "může"
-          ]
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 23 page",
+        "instruction": "Write “Unit 23 — Pravidla” at the top of a new page. Then, from memory, write four rules: one must, one may, one must not and one do not have to.",
+        "items": [
+          {
+            "cz": "Musíte mít jízdenku.",
+            "en": "You must have a ticket."
+          },
+          {
+            "cz": "Můžete tady čekat.",
+            "en": "You can wait here."
+          },
+          {
+            "cz": "Nesmíte kouřit.",
+            "en": "You must not smoke."
+          },
+          {
+            "cz": "Nemusíte spěchat.",
+            "en": "You don't have to hurry."
+          }
         ]
       },
-      "answer_key": "může",
-      "grammar_rule_id": "GR-221",
-      "xp_reward": 10
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 23006,
+      "id": 23103,
       "lesson_id": 2301,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I must work tomorrow.'",
+      "type": "matching",
+      "prompt": "Match each modal meaning",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I must work tomorrow.",
-        "accepted_answers": [
-          "Musím zítra pracovat.",
-          "Zítra musím pracovat.",
-          "Musím pracovat zítra."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "musíte",
+            "right": "you must"
+          },
+          {
+            "left": "můžete",
+            "right": "you may/can"
+          },
+          {
+            "left": "nesmíte",
+            "right": "you must not"
+          },
+          {
+            "left": "nemusíte",
+            "right": "you do not have to"
+          }
         ],
-        "grammar_note": "'Musím' = I must (1st person singular of 'muset'). The infinitive 'pracovat' follows the modal. Word order is flexible: 'Musím zítra pracovat' or 'Zítra musím pracovat' are both correct."
+        "targets": "vocab"
       },
-      "answer_key": "Musím zítra pracovat.",
-      "grammar_rule_id": "GR-223",
+      "answer_key": "modal meanings",
       "xp_reward": 10
     },
     {
-      "id": 23007,
+      "id": 23104,
       "lesson_id": 2301,
-      "type": "translation",
-      "prompt": "Translate to English: 'Ona smí jít ven.'",
+      "type": "reading_comprehension",
+      "prompt": "Read the building instructions",
       "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Ona smí jít ven.",
-        "accepted_answers": [
-          "She may go out.",
-          "She is allowed to go out.",
-          "She can go out."
+        "type": "reading_comprehension",
+        "prompt_en": "Find what is required, allowed and forbidden.",
+        "image": "assets/images/unit23/everyday_choices_v1.webp",
+        "image_label": "Asking about everyday rules",
+        "text_cz": "V budově musíte mít návštěvnickou kartu. Můžete si dát kávu v kuchyni. Nesmíte parkovat před vchodem. Nemusíte přijít brzy, ale schůzka začíná v devět.",
+        "text_en": "In the building you must have a visitor card. You may have coffee in the kitchen. You must not park in front of the entrance. You do not have to arrive early, but the meeting starts at nine.",
+        "questions": [
+          {
+            "question_en": "Where may visitors have coffee?",
+            "options": [
+              "In the kitchen",
+              "At the entrance",
+              "In the lift"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What is not allowed?",
+            "options": [
+              "Parking at the entrance",
+              "Having a card",
+              "Coming at nine"
+            ],
+            "correct_index": 0
+          }
         ],
-        "grammar_note": "'Smí' = may/is allowed to (3rd person singular of 'smět'). 'Jít ven' = to go out. 'Smět' specifically means permission, not ability."
+        "targets": "vocab"
       },
-      "answer_key": "She may go out.",
-      "grammar_rule_id": "GR-222",
-      "xp_reward": 10
+      "answer_key": "kitchen; parking",
+      "xp_reward": 15
     },
     {
-      "id": 23008,
+      "id": 23105,
       "lesson_id": 2301,
-      "type": "word_order",
-      "prompt": "Arrange the words to form: 'You can help us.'",
+      "type": "dialogue",
+      "prompt": "Ask for permission",
       "data": {
-        "type": "word_order",
-        "words": [
-          "nám",
-          "můžeš",
-          "Ty",
-          "pomoci"
+        "type": "dialogue",
+        "scenario": "At reception",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "___ tady čekat?"
+          },
+          {
+            "speaker": "receptionist",
+            "text": "Ano, můžete."
+          }
         ],
-        "correct_order": [
-          2,
-          1,
-          0,
-          3
+        "blank_answers": [
+          [
+            "Můžu",
+            "Mohu"
+          ]
         ],
-        "explanation": "'Ty můžeš nám pomoci.' = You can help us. 'Můžeš' = you can (2nd person singular of 'moct'). 'Pomoci' = to help (infinitive). The modal verb 'můžeš' is followed by the infinitive 'pomoci'."
+        "targets": "vocab"
       },
-      "answer_key": "Ty můžeš nám pomoci.",
-      "grammar_rule_id": "GR-223",
+      "answer_key": "Můžu",
+      "xp_reward": 15
+    },
+    {
+      "id": 23106,
+      "lesson_id": 2301,
+      "type": "pronunciation",
+      "prompt": "Pronounce this sentence asking for permission politely.",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Smím se zeptat?",
+        "target_audio_hash": "placeholder_23024",
+        "focus_sounds": [
+          "smím",
+          "zeptat",
+          "ě"
+        ],
+        "min_score": 0.6,
+        "translation_en": "May I ask?",
+        "targets": "vocab"
+      },
+      "answer_key": "Smím se zeptat?",
       "xp_reward": 10
     },
     {
-      "id": 23009,
+      "id": 23107,
       "lesson_id": 2301,
       "type": "matching",
       "prompt": "Match each modal verb to its English meaning.",
@@ -254,76 +280,29 @@
             "right": "may"
           }
         ],
-        "explanation": "'Muset' = must (obligation), 'moct' = can (ability/possibility), 'smět' = may (permission). These are the three Czech modal verbs, each with a distinct meaning."
+        "explanation": "'Muset' = must (obligation), 'moct' = can (ability/possibility), 'smět' = may (permission). These are the three Czech modal verbs, each with a distinct meaning.",
+        "targets": "vocab"
       },
       "answer_key": "muset→must, moct→can, smět→may",
-      "grammar_rule_id": "GR-220",
       "xp_reward": 10
     },
     {
-      "id": 23010,
+      "id": 23108,
       "lesson_id": 2301,
-      "type": "matching",
-      "prompt": "Match each conjugated form to the correct pronoun.",
+      "type": "fill_blank",
+      "prompt": "Choose the prohibition",
       "data": {
-        "type": "matching",
-        "prompt_en": "Match each conjugated form of 'moct' to the correct pronoun.",
-        "pairs": [
-          {
-            "left": "mohu",
-            "right": "já"
-          },
-          {
-            "left": "můžeš",
-            "right": "ty"
-          },
-          {
-            "left": "může",
-            "right": "on/ona"
-          },
-          {
-            "left": "můžeme",
-            "right": "my"
-          }
+        "type": "fill_blank",
+        "sentence": "Tady ___ kouřit.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "nesmíte"
+          ]
         ],
-        "explanation": "'Moct' conjugation: já mohu/můžu, ty můžeš, on/ona může, my můžeme, vy můžete, oni mohou/můžou. Note the stem change from 'moh-' to 'můž-' in most forms."
+        "targets": "vocab"
       },
-      "answer_key": "mohu→já, můžeš→ty, může→on/ona, můžeme→my",
-      "grammar_rule_id": "GR-221",
-      "xp_reward": 10
-    },
-    {
-      "id": 23011,
-      "lesson_id": 2301,
-      "type": "error_correction",
-      "prompt": "Find the mistake in this sentence.",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find the mistake in this sentence using modal verbs.",
-        "sentence_cz": "Ty musí jít domů.",
-        "correct_sentence_cz": "Ty musíš jít domů.",
-        "error_type": "modal_conjugation",
-        "explanation": "The 2nd person singular of 'muset' is 'musíš', not 'musí'. 'Musí' is the 3rd person singular (on/ona musí) and 3rd person plural (oni musí). 'Ty musíš jít domů.' = You must go home."
-      },
-      "answer_key": "Ty musíš jít domů.",
-      "grammar_rule_id": "GR-220",
-      "xp_reward": 10
-    },
-    {
-      "id": 23012,
-      "lesson_id": 2301,
-      "type": "error_correction",
-      "prompt": "Find the mistake in this sentence.",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find the mistake — wrong modal verb used.",
-        "sentence_cz": "Nesmíš jít, pokud nechceš.",
-        "correct_sentence_cz": "Nemusíš jít, pokud nechceš.",
-        "error_type": "modal_confusion",
-        "explanation": "'Nesmíš' means 'you must not' (prohibition), while 'nemusíš' means 'you don't have to' (no obligation). The correct sentence is 'Nemusíš jít, pokud nechceš.' = You don't have to go if you don't want to. This is a common confusion between 'muset' and 'smět'."
-      },
-      "answer_key": "Nemusíš jít, pokud nechceš.",
-      "grammar_rule_id": "GR-222",
+      "answer_key": "nesmíte",
       "xp_reward": 10
     }
   ]

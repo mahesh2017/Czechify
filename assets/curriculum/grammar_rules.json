@@ -3539,7 +3539,56 @@
           "en": "We have to buy tickets."
         }
       ],
-      "unit_id": 23
+      "unit_id": 23,
+      "concept_keys": [
+        "modals_full"
+      ],
+      "lecture": [
+        {
+          "heading": "I have to: musím",
+          "say": "muset means must or have to. Change muset for the person; the next verb stays in the infinitive: Musím pracovat.",
+          "table": [
+            [
+              "já",
+              "musím"
+            ],
+            [
+              "ty",
+              "musíš"
+            ],
+            [
+              "on, ona",
+              "musí"
+            ],
+            [
+              "my",
+              "musíme"
+            ],
+            [
+              "vy",
+              "musíte"
+            ],
+            [
+              "oni",
+              "musí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Zítra musím pracovat.",
+              "en": "I have to work tomorrow."
+            },
+            {
+              "cz": "Musíte mít jízdenku.",
+              "en": "You must have a ticket."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Ty musí jít domů.",
+            "right": "Ty musíš jít domů."
+          }
+        }
+      ]
     },
     {
       "id": "GR-221",
@@ -3565,7 +3614,56 @@
           "en": "They can speak Czech."
         }
       ],
-      "unit_id": 23
+      "unit_id": 23,
+      "concept_keys": [
+        "modals_full"
+      ],
+      "lecture": [
+        {
+          "heading": "I can: můžu",
+          "say": "moct means can: you are able to, or it is possible. můžu and mohu mean the same; mohu is more formal. Ask politely with Můžete…?",
+          "table": [
+            [
+              "já",
+              "můžu / mohu"
+            ],
+            [
+              "ty",
+              "můžeš"
+            ],
+            [
+              "on, ona",
+              "může"
+            ],
+            [
+              "my",
+              "můžeme"
+            ],
+            [
+              "vy",
+              "můžete"
+            ],
+            [
+              "oni",
+              "můžou / mohou"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Můžu tady čekat?",
+              "en": "Can I wait here?"
+            },
+            {
+              "cz": "Můžete mi pomoct?",
+              "en": "Can you help me?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Můžu pomoct vám?",
+            "right": "Můžu vám pomoct?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-222",
@@ -3643,7 +3741,202 @@
           "en": "Smoking is forbidden."
         }
       ],
-      "unit_id": 23
+      "unit_id": 23,
+      "concept_keys": [
+        "modals_full"
+      ],
+      "lecture": [
+        {
+          "heading": "Must not or do not have to?",
+          "say": "nesmíte means you must not: it is forbidden. nemusíte means you do not have to: it is your choice. smět means may: Smím se zeptat?",
+          "table": [
+            [
+              "you must",
+              "musíte"
+            ],
+            [
+              "you may",
+              "můžete / smíte"
+            ],
+            [
+              "you must not",
+              "nesmíte"
+            ],
+            [
+              "you don't have to",
+              "nemusíte"
+            ],
+            [
+              "May I…?",
+              "Smím…? / Můžu…?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Tady nesmíte parkovat.",
+              "en": "You must not park here."
+            },
+            {
+              "cz": "Nemusíte spěchat.",
+              "en": "You don't have to hurry."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Tady nemusíte kouřit. (for a ban)",
+            "right": "Tady nesmíte kouřit."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-225",
+      "rule_name": "Imperative — Počkejte! Nekuřte!",
+      "pattern": "ty form, and -te for vy: počkej/počkejte, mluv/mluvte, piš/pište, pojď/pojďte, jdi/jděte. Negative with ne-: nekuř/nekuřte, neboj se/nebojte se.",
+      "explanation": "Use the imperative for instructions, invitations and warnings. Learn the ty form of a verb and add -te for vy (one person formally, or a group): počkej → počkejte. A negative instruction puts ne- in front and usually uses the imperfective verb: nekuřte, nespěchej. Add prosím to be polite: Počkejte chvíli, prosím.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Pojďte dál, prosím.",
+          "en": "Come in, please."
+        },
+        {
+          "cz": "Nebojte se, to je v pořádku.",
+          "en": "Don't worry, it's fine."
+        }
+      ],
+      "unit_id": 23,
+      "concept_keys": [
+        "imperative_pos_neg"
+      ],
+      "lecture": [
+        {
+          "heading": "Telling people what to do",
+          "say": "Learn the ty form and add -te for vy: počkej → počkejte, mluv → mluvte. Put ne- in front to say don’t: nekuřte, nebojte se.",
+          "table": [
+            [
+              "počkat",
+              "počkej · počkejte"
+            ],
+            [
+              "mluvit",
+              "mluv · mluvte"
+            ],
+            [
+              "psát",
+              "piš · pište"
+            ],
+            [
+              "come",
+              "pojď · pojďte"
+            ],
+            [
+              "go",
+              "jdi · jděte"
+            ],
+            [
+              "dát si",
+              "dej si · dejte si"
+            ],
+            [
+              "kouřit",
+              "nekuř · nekuřte"
+            ],
+            [
+              "bát se",
+              "neboj se · nebojte se"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Pojďte dál, prosím.",
+              "en": "Come in, please."
+            },
+            {
+              "cz": "Nebojte se, to je v pořádku.",
+              "en": "Don't worry, it's fine."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mluvíte pomalu, prosím.",
+            "right": "Mluvte pomalu, prosím."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-226",
+      "rule_name": "Signs and notices — Zavřeno, Tady se nekouří",
+      "pattern": "Recognise: zavřeno, otevřeno, vyprodáno, obsazeno, zakázáno; Kouření zakázáno, Vstup zakázán; Tady se nekouří, Tady se platí kartou.",
+      "explanation": "Signs and announcements use short forms. At A2 you need to understand them, not build them: zavřeno (closed), vyprodáno (sold out), obsazeno (taken, engaged), zakázáno (forbidden). se + verb describes what people generally do or may not do: Tady se nekouří (No smoking here), Ve vlaku se nesmí kouřit.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "V pondělí je zavřeno.",
+          "en": "It is closed on Monday."
+        },
+        {
+          "cz": "Tady se nekouří.",
+          "en": "No smoking here."
+        }
+      ],
+      "unit_id": 23,
+      "concept_keys": [
+        "passive_signs_recognition"
+      ],
+      "lecture": [
+        {
+          "heading": "Reading signs",
+          "say": "Signs use short forms you only need to recognise: zavřeno, vyprodáno, zakázáno. Tady se nekouří says what nobody may do here.",
+          "table": [
+            [
+              "ZAVŘENO",
+              "closed"
+            ],
+            [
+              "OTEVŘENO",
+              "open"
+            ],
+            [
+              "VYPRODÁNO",
+              "sold out"
+            ],
+            [
+              "OBSAZENO",
+              "taken, engaged"
+            ],
+            [
+              "KOUŘENÍ ZAKÁZÁNO",
+              "no smoking"
+            ],
+            [
+              "VSTUP ZAKÁZÁN",
+              "no entry"
+            ],
+            [
+              "Tady se nekouří.",
+              "No smoking here."
+            ],
+            [
+              "Tady se platí kartou.",
+              "You pay by card here."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "V pondělí je zavřeno.",
+              "en": "It is closed on Monday."
+            },
+            {
+              "cz": "Ve vlaku se nesmí kouřit.",
+              "en": "Smoking is not allowed on the train."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Tady nekouří.",
+            "right": "Tady se nekouří."
+          }
+        }
+      ]
     },
     {
       "id": "GR-230",
