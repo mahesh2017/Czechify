@@ -3,21 +3,153 @@
   "unit_id": 29,
   "order_in_unit": 2,
   "title": "A2 Skills Practice: Write and Speak",
-  "description": "Independent functional writing and speaking practice for everyday Czech. It is not official examination material or a score.",
-  "duration_min": 35,
+  "description": "Write an e-mail of at least 35 words, and speak about yourself and everyday situations.",
+  "duration_min": 15,
   "lesson_type": "practice",
-  "is_review": true,
+  "can_do": "write a short e-mail with three points and speak about a past event.",
+  "new_language": [
+    "Milý Petře, / Milá Jano,",
+    "Vážený pane Nováku, / Vážená paní Nováková,",
+    "Děkuju za e-mail.",
+    "Zvu tě na oslavu.",
+    "Omlouvám se, ale nemůžu přijít, protože…",
+    "Mám dotaz: …",
+    "S pozdravem / Ahoj"
+  ],
+  "recycles": [
+    "Zvu tě…",
+    "protože",
+    "past tense",
+    "Mohl/a bych…?"
+  ],
+  "exit_task": "write an invitation e-mail of at least 35 words.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 29016,
+      "id": 29200,
+      "lesson_id": 2902,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write how you ask politely (Unit 20) and one sentence with protože. Then check.",
+        "items": [
+          {
+            "cz": "Chtěl/a bych… / Mohl/a bych…?",
+            "en": "I would like… / Could I…?"
+          },
+          {
+            "cz": "Nemůžu přijít, protože pracuju.",
+            "en": "I can't come because I'm working."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 29201,
+      "lesson_id": 2902,
+      "type": "teaching",
+      "prompt": "Learn the language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "E-mail language",
+        "body": "The exam e-mail is short: a greeting, the three points the task asks for, and a closing. It must have at least 35 words.",
+        "items": [
+          {
+            "cz": "Milý Petře, / Milá Jano,",
+            "en": "Dear Petr, / Dear Jana, (friend)"
+          },
+          {
+            "cz": "Vážený pane Nováku, / Vážená paní Nováková,",
+            "en": "Dear Mr / Mrs Novák, (formal)"
+          },
+          {
+            "cz": "Děkuju za e-mail.",
+            "en": "Thanks for your e-mail."
+          },
+          {
+            "cz": "Zvu tě na oslavu.",
+            "en": "I am inviting you to a party."
+          },
+          {
+            "cz": "Omlouvám se, ale nemůžu přijít, protože…",
+            "en": "I'm sorry, but I can't come because…"
+          },
+          {
+            "cz": "Mám dotaz: …",
+            "en": "I have a question: …"
+          },
+          {
+            "cz": "S pozdravem / Ahoj",
+            "en": "Kind regards / Bye (friend)"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 29202,
+      "lesson_id": 2902,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Your e-mail template",
+        "instruction": "In your notebook, write an e-mail template: a friendly and a formal greeting, three lines for the points, and two closings.",
+        "items": [
+          {
+            "cz": "Milý Petře, / Milá Jano,",
+            "en": "Dear Petr, / Dear Jana, (friend)"
+          },
+          {
+            "cz": "Vážený pane Nováku, / Vážená paní Nováková,",
+            "en": "Dear Mr / Mrs Novák, (formal)"
+          },
+          {
+            "cz": "Děkuju za e-mail.",
+            "en": "Thanks for your e-mail."
+          },
+          {
+            "cz": "Zvu tě na oslavu.",
+            "en": "I am inviting you to a party."
+          },
+          {
+            "cz": "Omlouvám se, ale nemůžu přijít, protože…",
+            "en": "I'm sorry, but I can't come because…"
+          },
+          {
+            "cz": "Mám dotaz: …",
+            "en": "I have a question: …"
+          },
+          {
+            "cz": "S pozdravem / Ahoj",
+            "en": "Kind regards / Bye (friend)"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 29203,
       "lesson_id": 2902,
       "type": "writing_task",
       "prompt": "Write an informal email inviting a friend to a birthday party.",
       "data": {
         "type": "writing_task",
         "prompt_cz": "Napište neformální e-mail kamarádovi/kamarádce a pozvěte ho/ji na oslavu narozenin. Uveďte datum, čas, místo a co si má přinést. Použijte minulý čas alespoň jednou (např. o minulé oslavě).",
-        "prompt_en": "Write an informal email inviting a friend to your birthday party. Include date, time, place, and what to bring. Use the past tense at least once (e.g., about last year's party).",
-        "min_words": 50,
+        "prompt_en": "Write an informal email inviting a friend to your birthday party. Include date, time, place, and what to bring. Use the past tense at least once (e.g., about last year's party). Write at least 35 words, as in the exam.",
+        "min_words": 35,
         "max_words": 120,
         "required_elements": [
           "greeting",
@@ -29,13 +161,40 @@
           "closing"
         ],
         "sample_answer_cz": "Ahoj Tomáši!\nZvu tě na oslavu mých narozenin! Bude to v pátek 20. června od 18:00 u mě doma. Bydlíš daleko, ale loňské oslavě ses účastnil a bylo to super. Tentokrát bude grilování, takže si můžeš přinést své oblíbené pití. Ozvi se mi, jestli přijdeš!\nTěším se na tebe,\nEva",
-        "evaluation_criteria": "Must include greeting, invitation with occasion, date+time, location, what to bring, at least one past tense usage (e.g., 'loňské oslavě ses účastnil' — you attended last year's party), and a closing. Use informal address ('ty' forms). Sentences should be A2 level — combine clauses with protože, ale, takže."
+        "evaluation_criteria": "Must include greeting, invitation with occasion, date+time, location, what to bring, at least one past tense usage (e.g., 'loňské oslavě ses účastnil' — you attended last year's party), and a closing. Use informal address ('ty' forms). Sentences should be A2 level — combine clauses with protože, ale, takže.",
+        "targets": "vocab"
       },
       "answer_key": "Ahoj Tomáši! Zvu tě na oslavu mých narozenin!...",
       "xp_reward": 25
     },
     {
-      "id": 29017,
+      "id": 29204,
+      "lesson_id": 2902,
+      "type": "writing_task",
+      "prompt": "Write a formal excuse for missing work.",
+      "data": {
+        "type": "writing_task",
+        "prompt_cz": "Napište formální omluvu z práce. Omluvte se, že nemůžete přijít do práce dne [datum], uveďte důvod (např. nemoc, rodinný důvod) a řekněte, kdy se vrátíte. Použijte formální styl.",
+        "prompt_en": "Write a formal excuse for missing work. Apologize that you cannot come to work on [date], state the reason (e.g., illness, family reason), and say when you'll return. Use formal style. Write at least 35 words, as in the exam.",
+        "min_words": 35,
+        "max_words": 120,
+        "required_elements": [
+          "formal_greeting",
+          "absence_date",
+          "reason",
+          "expected_return",
+          "apology",
+          "formal_closing"
+        ],
+        "sample_answer_cz": "Vážený pane Nováku,\nomlouvám se, ale bohužel nemohu přijít do práce ve čtvrtek 15. května, protože jsem onemocněl a mám vysokou teplotu. Byl jsem u lékaře, který mi doporučil tři dny klidu. Vrátím se do práce v pondělí 19. května. Své úkoly jsem předal kolegovi Karlu Dvořákovi. Děkuji za pochopení.\nS pozdravem,\nJan Svoboda",
+        "evaluation_criteria": "Must use formal address (Vážený pane/paní + last name vocative). Include absence date, reason (nemoc/rodinný důvod), expected return date, apology, and formal closing (S pozdravem). Use formal register — no informal expressions. A2 formal writing style.",
+        "targets": "vocab"
+      },
+      "answer_key": "Vážený pane Nováku, omlouvám se...",
+      "xp_reward": 25
+    },
+    {
+      "id": 29205,
       "lesson_id": 2902,
       "type": "writing_task",
       "prompt": "Write a diary entry about your past weekend using the past tense.",
@@ -54,38 +213,14 @@
           "past_tense_verbs"
         ],
         "sample_answer_cz": "Milý deníčku,\nO víkendu jsem měl hezké dny. V sobotu jsem vstal brzy a šel jsem běhat do parku. Po obědě jsem se sešel s kamarády a šli jsme do kina na nový film. Film se mi líbil, byl velmi zábavný. V neděli jsem navštívil babičku. Vařili jsme spolu oběd a povídali jsme si o rodině. Odpoledne jsem četl knihu a odpočíval. Byl to klidný víkend a cítil jsem se dobře.",
-        "evaluation_criteria": "Must use past tense throughout (byl, šel, dělal, viděl, líbil se, četl, cítil). Mention both Saturday and Sunday activities, who you were with, and your feelings. A2 level: use subordinate clauses with protože, když, takže, a (and)."
+        "evaluation_criteria": "Must use past tense throughout (byl, šel, dělal, viděl, líbil se, četl, cítil). Mention both Saturday and Sunday activities, who you were with, and your feelings. A2 level: use subordinate clauses with protože, když, takže, a (and).",
+        "targets": "vocab"
       },
       "answer_key": "Milý deníčku, O víkendu jsem měl hezké dny...",
       "xp_reward": 25
     },
     {
-      "id": 29018,
-      "lesson_id": 2902,
-      "type": "writing_task",
-      "prompt": "Write a formal excuse for missing work.",
-      "data": {
-        "type": "writing_task",
-        "prompt_cz": "Napište formální omluvu z práce. Omluvte se, že nemůžete přijít do práce dne [datum], uveďte důvod (např. nemoc, rodinný důvod) a řekněte, kdy se vrátíte. Použijte formální styl.",
-        "prompt_en": "Write a formal excuse for missing work. Apologize that you cannot come to work on [date], state the reason (e.g., illness, family reason), and say when you'll return. Use formal style.",
-        "min_words": 50,
-        "max_words": 120,
-        "required_elements": [
-          "formal_greeting",
-          "absence_date",
-          "reason",
-          "expected_return",
-          "apology",
-          "formal_closing"
-        ],
-        "sample_answer_cz": "Vážený pane Nováku,\nomlouvám se, ale bohužel nemohu přijít do práce ve čtvrtek 15. května, protože jsem onemocněl a mám vysokou teplotu. Byl jsem u lékaře, který mi doporučil tři dny klidu. Vrátím se do práce v pondělí 19. května. Své úkoly jsem předal kolegovi Karlu Dvořákovi. Děkuji za pochopení.\nS pozdravem,\nJan Svoboda",
-        "evaluation_criteria": "Must use formal address (Vážený pane/paní + last name vocative). Include absence date, reason (nemoc/rodinný důvod), expected return date, apology, and formal closing (S pozdravem). Use formal register — no informal expressions. A2 formal writing style."
-      },
-      "answer_key": "Vážený pane Nováku, omlouvám se...",
-      "xp_reward": 25
-    },
-    {
-      "id": 29019,
+      "id": 29206,
       "lesson_id": 2902,
       "type": "speaking_task",
       "prompt": "Give a 1-minute monologue about your last vacation using the past tense.",
@@ -125,13 +260,14 @@
           "What did you like/dislike?"
         ],
         "min_duration_seconds": 60,
-        "evaluation_criteria": "Should speak for at least 60 seconds using past tense forms (byl/byla, šel/šla, viděl/viděla, líbilo se). Cover at least 4 of the 5 guiding questions. Use A2 vocabulary for travel, weather, activities. Connect ideas with protože, ale, takže, a. Maintain consistent past tense."
+        "evaluation_criteria": "Should speak for at least 60 seconds using past tense forms (byl/byla, šel/šla, viděl/viděla, líbilo se). Cover at least 4 of the 5 guiding questions. Use A2 vocabulary for travel, weather, activities. Connect ideas with protože, ale, takže, a. Maintain consistent past tense.",
+        "targets": "vocab"
       },
       "answer_key": "Full 1-minute spoken monologue about a vacation.",
       "xp_reward": 30
     },
     {
-      "id": 29020,
+      "id": 29207,
       "lesson_id": 2902,
       "type": "speaking_task",
       "prompt": "Role-play a formal situation at a government office arranging documents.",
@@ -166,13 +302,14 @@
           "It'll be ready in two weeks, does that work for you?"
         ],
         "min_duration_seconds": 90,
-        "evaluation_criteria": "Must use formal address throughout (Dobrý den, chtěl/a bych, prosím, děkuji vám). Explain the document needed (občanský průkaz, pas, rodný list). Answer questions with complete sentences. Use formal register — 'vy' forms. A2-level formal communication at an úřad."
+        "evaluation_criteria": "Must use formal address throughout (Dobrý den, chtěl/a bych, prosím, děkuji vám). Explain the document needed (občanský průkaz, pas, rodný list). Answer questions with complete sentences. Use formal register — 'vy' forms. A2-level formal communication at an úřad.",
+        "targets": "vocab"
       },
       "answer_key": "Full spoken role-play at a government office.",
       "xp_reward": 30
     },
     {
-      "id": 29021,
+      "id": 29208,
       "lesson_id": 2902,
       "type": "speaking_task",
       "prompt": "Picture-based discussion: compare two apartments.",
@@ -208,13 +345,14 @@
           "Which would you choose and why?"
         ],
         "min_duration_seconds": 60,
-        "evaluation_criteria": "Should use comparative forms (větší, menší, dražší, levnější, lepší) and superlatives. Compare at least 3 features (size, location, price). Express preference with 'Vybral/a bych si...' + reason. Use A2 vocabulary for housing, adjectives, comparisons. Speak for at least 60 seconds."
+        "evaluation_criteria": "Should use comparative forms (větší, menší, dražší, levnější, lepší) and superlatives. Compare at least 3 features (size, location, price). Express preference with 'Vybral/a bych si...' + reason. Use A2 vocabulary for housing, adjectives, comparisons. Speak for at least 60 seconds.",
+        "targets": "vocab"
       },
       "answer_key": "Full spoken comparison of two apartments.",
       "xp_reward": 30
     },
     {
-      "id": 29022,
+      "id": 29209,
       "lesson_id": 2902,
       "type": "error_correction",
       "prompt": "Find and correct the case agreement error.",
@@ -227,26 +365,11 @@
         "explanation": "The preposition 's' (with) requires the instrumental case. 'Kamarád' (masculine animate) in instrumental singular is 'kamarádem'. 'Mluvil jsem s kamarádem o filmu.' = I spoke with a friend about the film. 'o filmu' is correct (locative after 'o')."
       },
       "answer_key": "Mluvil jsem s kamarádem o filmu.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-171"
     },
     {
-      "id": 29023,
-      "lesson_id": 2902,
-      "type": "error_correction",
-      "prompt": "Find and correct the verb aspect error.",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find and correct the verb aspect error in this sentence.",
-        "sentence_cz": "Včera jsem dlouho četl knihu, ale ještě jsem ji nedočítal.",
-        "correct_sentence_cz": "Včera jsem dlouho četl knihu, ale ještě jsem ji nedočetl.",
-        "error_type": "aspect_choice",
-        "explanation": "The correct perfective form is 'nedočetl' (not 'nedočítal'). 'Dočíst' (perfective) = to finish reading. 'Dočítat' (imperfective) = to be in the process of finishing reading. In the negative with 'ještě ne...' (not yet), we want the perfective to express that the action has not been completed: 'ještě jsem ji nedočetl' = I haven't finished it yet."
-      },
-      "answer_key": "Včera jsem dlouho četl knihu, ale ještě jsem ji nedočetl.",
-      "xp_reward": 15
-    },
-    {
-      "id": 29024,
+      "id": 29210,
       "lesson_id": 2902,
       "type": "translation",
       "prompt": "Translate from English to Czech.",
@@ -261,10 +384,11 @@
         "grammar_note": "'Včera jsem nešel do práce, protože jsem byl nemocný, takže jsem zůstal doma a odpočíval.' (male speaker) = Yesterday I didn't go to work because I was sick, so I stayed home and rested. Note three subordinate clauses connected by protože (because) and takže (so). All verbs in past tense: nešel, byl, zůstal, odpočíval. Female speaker would use šla, byla, zůstala, odpočívala."
       },
       "answer_key": "Včera jsem nešel do práce, protože jsem byl nemocný, takže jsem zůstal doma a odpočíval.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-211"
     },
     {
-      "id": 29025,
+      "id": 29211,
       "lesson_id": 2902,
       "type": "translation",
       "prompt": "Translate from Czech to English.",
@@ -279,7 +403,8 @@
         "grammar_note": "'Když jsem přišel domů, viděl jsem, že na stole je dopis od maminky.' = When I came home, I saw that there was a letter from mom on the table. Complex sentence with 'když' (when — factual past) + main clause + 'že' (that — subordinate). Past tense 'přišel' and 'viděl' (masc.). Present 'je' in the že-clause (the letter IS on the table). 'od maminky' = from mom (genitive after 'od')."
       },
       "answer_key": "When I came home, I saw that there was a letter from mom on the table.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-211"
     }
   ]
 }

@@ -3,27 +3,66 @@
   "unit_id": 29,
   "order_in_unit": 1,
   "title": "A2 Skills Practice: Read and Listen",
-  "description": "Independent A2 reading and listening practice for everyday Czech. It is not official examination material, an examination result, or a pass prediction.",
-  "duration_min": 40,
+  "description": "Everyday A2 reading and listening: e-mails, notices, announcements and conversations.",
+  "duration_min": 15,
   "lesson_type": "practice",
-  "is_review": true,
+  "can_do": "understand the main points of everyday notices and conversations.",
+  "new_language": [
+    "oznámení",
+    "Vážení cestující…",
+    "z důvodu oprav"
+  ],
+  "recycles": [
+    "past tense",
+    "dates",
+    "protože, když",
+    "jít × jezdit"
+  ],
+  "exit_task": "answer questions on five texts and five recordings.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 29000,
+      "id": 29100,
+      "lesson_id": 2901,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Across units",
+        "instruction": "Before you start: write three time words for the past (Unit 19) and three words that join ideas (Unit 22). Then check.",
+        "items": [
+          {
+            "cz": "včera, minulý týden, loni",
+            "en": "time words for the past"
+          },
+          {
+            "cz": "protože, že, když",
+            "en": "because, that, when"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 29101,
       "lesson_id": 2901,
       "type": "teaching",
       "prompt": "Practice format and strategy",
       "data": {
         "type": "teaching",
         "heading": "Practice format and strategy",
-        "body": "This unit builds practical A2 reading, listening, writing and speaking skills. It is independent learning material, not official examination material; it does not provide an examination result or predict one. First read or listen for the situation; then look for the exact detail.",
+        "body": "Everyday A2 reading and listening. Read the question first, then look or listen for names, times and places. This is practice, not an official exam.",
         "intro": "Use this as calm, practical skills practice. Work accurately and focus on clear, useful Czech.",
         "style": "list"
       },
       "xp_reward": 0
     },
     {
-      "id": 29001,
+      "id": 29102,
       "lesson_id": 2901,
       "type": "reading_comprehension",
       "prompt": "Read the informal email about the weekend.",
@@ -66,13 +105,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Byl na koncertě; Protože pršelo; Pohodovou",
       "xp_reward": 20
     },
     {
-      "id": 29002,
+      "id": 29103,
       "lesson_id": 2901,
       "type": "reading_comprehension",
       "prompt": "Read the job listing and answer.",
@@ -104,13 +144,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Angličtinu a češtinu; Do 30. listopadu",
       "xp_reward": 20
     },
     {
-      "id": 29003,
+      "id": 29104,
       "lesson_id": 2901,
       "type": "reading_comprehension",
       "prompt": "Read the public notice about parking.",
@@ -142,13 +183,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Kvůli rekonstrukci povrchu; Obyvatelé s trvalým bydlištěm",
       "xp_reward": 20
     },
     {
-      "id": 29004,
+      "id": 29105,
       "lesson_id": 2901,
       "type": "reading_comprehension",
       "prompt": "Read the short news article about weather.",
@@ -191,13 +233,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Až 32 °C; Před rizikem požárů v lesích; Mezi 11:00 a 15:00",
       "xp_reward": 20
     },
     {
-      "id": 29005,
+      "id": 29106,
       "lesson_id": 2901,
       "type": "reading_comprehension",
       "prompt": "Read the diary entry.",
@@ -240,13 +283,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Na pohovor do firmy; Trochu nervózní; Šel běhat do parku",
       "xp_reward": 20
     },
     {
-      "id": 29006,
+      "id": 29107,
       "lesson_id": 2901,
       "type": "listening_comprehension",
       "prompt": "Listen to the doctor conversation about symptoms.",
@@ -290,13 +334,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Týden; 37,8; 7 dní",
       "xp_reward": 20
     },
     {
-      "id": 29007,
+      "id": 29108,
       "lesson_id": 2901,
       "type": "listening_comprehension",
       "prompt": "Listen to the phone call arranging a meeting.",
@@ -329,13 +374,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Ve středu; V kavárně na náměstí",
       "xp_reward": 20
     },
     {
-      "id": 29008,
+      "id": 29109,
       "lesson_id": 2901,
       "type": "listening_comprehension",
       "prompt": "Listen to the apartment viewing conversation.",
@@ -379,13 +425,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dvě; 18 000 Kč; Od 1. dubna",
       "xp_reward": 20
     },
     {
-      "id": 29009,
+      "id": 29110,
       "lesson_id": 2901,
       "type": "listening_comprehension",
       "prompt": "Listen to the conversation about work schedule.",
@@ -418,13 +465,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Kvůli technické přestávce; Do 12",
       "xp_reward": 20
     },
     {
-      "id": 29010,
+      "id": 29111,
       "lesson_id": 2901,
       "type": "listening_comprehension",
       "prompt": "Listen to the public transport announcement.",
@@ -468,35 +516,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Číslo 9; Dva měsíce; Každých 10 minut",
       "xp_reward": 20
     },
     {
-      "id": 29011,
-      "lesson_id": 2901,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct preposition + case form.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správnou předložku a pád.",
-        "question_en": "Choose the correct form: 'Jdu ___ školu.' (to school — accusative)",
-        "options": [
-          "do",
-          "na",
-          "v",
-          "k"
-        ],
-        "correct_index": 1,
-        "explanation": "With the accusative for destination, 'na' is used for school: 'Jdu na školu.' = I'm going to school. 'Do' is used with genitive for institutions: 'do školy' is also possible, but 'na školu' is more common for the building/activity. Here we want accusative after 'na' (direction)."
-      },
-      "answer_key": "na",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-130"
-    },
-    {
-      "id": 29012,
+      "id": 29112,
       "lesson_id": 2901,
       "type": "multiple_choice",
       "prompt": "Choose the correct past tense form.",
@@ -515,54 +542,10 @@
       },
       "answer_key": "šel",
       "xp_reward": 10,
-      "grammar_rule_id": "GR-140"
+      "grammar_rule_id": "GR-181"
     },
     {
-      "id": 29013,
-      "lesson_id": 2901,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct verb aspect (imperfective vs perfective).",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správný vid slovesa (dokonavý/nedokonavý).",
-        "question_en": "Choose the correct aspect: 'Když ___ domů, zavolal jsem ti.' (přijít — to arrive)",
-        "options": [
-          "přicházel jsem",
-          "přišel jsem",
-          "chodil jsem",
-          "jsem přišel"
-        ],
-        "correct_index": 1,
-        "explanation": "The correct form is 'přišel jsem': 'Když jsem přišel domů, zavolal jsem ti.' After 'když' (when — factual), we use the past tense. 'Přišel' (perfective past participle) indicates a single completed event. 'Přicházel' (imperfective) would imply a repeated or ongoing action, not suitable here. Word order: 'jsem přišel' or 'přišel jsem' are both correct."
-      },
-      "answer_key": "přišel",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-141"
-    },
-    {
-      "id": 29014,
-      "lesson_id": 2901,
-      "type": "multiple_choice",
-      "prompt": "Choose the correct conditional form.",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Vyberte správnou formu podmiňovacího způsobu.",
-        "question_en": "Choose the correct conditional form: 'Kdybych ___ čas, šel bych s tebou.' (mít — to have, male speaker)",
-        "options": [
-          "měl",
-          "mít",
-          "má",
-          "měl bych"
-        ],
-        "correct_index": 0,
-        "explanation": "The correct form is 'měl': 'Kdybych měl čas, šel bych s tebou.' = If I had time, I would go with you. After 'kdybych' (if I — conditional), we use the past participle 'měl' (masc.) of 'mít'. The result clause uses 'šel bych' (past participle + conditional auxiliary bych)."
-      },
-      "answer_key": "měl",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-213"
-    },
-    {
-      "id": 29015,
+      "id": 29113,
       "lesson_id": 2901,
       "type": "multiple_choice",
       "prompt": "Choose the correct case after the preposition.",
@@ -581,7 +564,7 @@
       },
       "answer_key": "kamarádem",
       "xp_reward": 10,
-      "grammar_rule_id": "GR-170"
+      "grammar_rule_id": "GR-171"
     }
   ]
 }

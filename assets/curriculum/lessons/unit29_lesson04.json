@@ -3,13 +3,25 @@
   "unit_id": 29,
   "order_in_unit": 4,
   "title": "A2 Practice Mission",
-  "description": "A short independent four-skill practice sequence. It is not official examination material, a result, or a prediction.",
-  "duration_min": 22,
+  "description": "A short four-skill sequence, then a checklist of what the A2 exam asks for.",
+  "duration_min": 13,
   "lesson_type": "mission",
-  "is_review": true,
+  "can_do": "handle a changed appointment in reading, listening, writing and speaking.",
+  "new_language": [
+    "termín",
+    "Vyhovuje mi…"
+  ],
+  "recycles": [
+    "Mohl/a bych změnit…?",
+    "protože",
+    "dates and times"
+  ],
+  "exit_task": "write and speak about a changed appointment.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 29034,
+      "id": 29400,
       "lesson_id": 2904,
       "type": "teaching",
       "prompt": "Mission: solve an everyday situation",
@@ -37,7 +49,7 @@
       "xp_reward": 0
     },
     {
-      "id": 29035,
+      "id": 29401,
       "lesson_id": 2904,
       "type": "reading_comprehension",
       "prompt": "Read the appointment message",
@@ -65,13 +77,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "cancelled; call by Friday",
       "xp_reward": 15
     },
     {
-      "id": 29036,
+      "id": 29402,
       "lesson_id": 2904,
       "type": "listening_comprehension",
       "prompt": "Listen to the office reply",
@@ -89,21 +102,22 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Monday 2:30; Wednesday 9",
       "xp_reward": 15
     },
     {
-      "id": 29037,
+      "id": 29403,
       "lesson_id": 2904,
       "type": "writing_task",
       "prompt": "Write the functional reply",
       "data": {
         "type": "writing_task",
         "prompt_cz": "Napište krátký formální e-mail. Vyberte jeden termín, potvrďte své jméno a poděkujte.",
-        "prompt_en": "Write a short formal email. Choose one time, confirm your name and say thank you.",
-        "min_words": 22,
+        "prompt_en": "Write a short formal email. Choose one time, confirm your name and say thank you. Write at least 35 words.",
+        "min_words": 35,
         "max_words": 65,
         "required_elements": [
           "greeting",
@@ -111,13 +125,14 @@
           "name",
           "thanks"
         ],
-        "sample_answer": "Dobrý den, vyhovuje mi pondělí v půl třetí. Jmenuji se Ana Horáková. Děkuji za nový termín. S pozdravem Ana Horáková."
+        "sample_answer": "Dobrý den, vyhovuje mi pondělí v půl třetí. Jmenuji se Ana Horáková. Děkuji za nový termín. S pozdravem Ana Horáková.",
+        "targets": "vocab"
       },
       "answer_key": "formal appointment email",
       "xp_reward": 25
     },
     {
-      "id": 29038,
+      "id": 29404,
       "lesson_id": 2904,
       "type": "speaking_task",
       "prompt": "Tell the short story",
@@ -133,19 +148,20 @@
           "protože",
           "potom",
           "nakonec"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "short connected story",
       "xp_reward": 25
     },
     {
-      "id": 29039,
+      "id": 29405,
       "lesson_id": 2904,
       "type": "dialogue",
       "prompt": "Complete the formal call",
       "data": {
         "type": "dialogue",
-        "scenario": "Changing an appointment",
+        "scenario": "Ask the office politely whether you could change your appointment.",
         "lines": [
           {
             "speaker": "office",
@@ -162,16 +178,19 @@
         ],
         "blank_answers": [
           [
-            "Dobrý den, chtěl/a bych změnit svůj termín.",
-            "Dobrý den, mohl/a bych změnit svůj termín?"
+            "Dobrý den, chtěl bych změnit svůj termín.",
+            "Dobrý den, chtěla bych změnit svůj termín.",
+            "Dobrý den, mohl bych změnit svůj termín?",
+            "Dobrý den, mohla bych změnit svůj termín?"
           ]
         ]
       },
-      "answer_key": "formal call opening",
-      "xp_reward": 15
+      "answer_key": "Dobrý den, chtěl bych změnit svůj termín.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-192"
     },
     {
-      "id": 29040,
+      "id": 29406,
       "lesson_id": 2904,
       "type": "multiple_choice",
       "prompt": "Choose the complete response",
@@ -184,13 +203,14 @@
           "V pondělí."
         ],
         "correct_index": 1,
-        "explanation": "A functional response covers every requested point."
+        "explanation": "A functional response covers every requested point.",
+        "targets": "vocab"
       },
       "answer_key": "complete response",
       "xp_reward": 10
     },
     {
-      "id": 29041,
+      "id": 29407,
       "lesson_id": 2904,
       "type": "writing_task",
       "prompt": "Self-check your mission",
@@ -200,10 +220,48 @@
         "prompt_en": "Write one sentence: what did you do well in this mission and what do you want to improve next time?",
         "min_words": 8,
         "max_words": 35,
-        "sample_answer": "Dobře jsem napsala formální pozdrav, ale příště chci mluvit pomaleji."
+        "sample_answer": "Dobře jsem napsala formální pozdrav, ale příště chci mluvit pomaleji.",
+        "targets": "vocab"
       },
       "answer_key": "reflection",
       "xp_reward": 10
+    },
+    {
+      "id": 29408,
+      "lesson_id": 2904,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Your exam page",
+        "instruction": "Make an exam page in your notebook: the four parts and what each asks for. Compare it with the model, then tick the parts you feel ready for.",
+        "items": [
+          {
+            "cz": "Čtení: 40 minut, 5 úloh",
+            "en": "Reading: 40 minutes, 5 tasks"
+          },
+          {
+            "cz": "Psaní: formulář + e-mail (nejméně 35 slov)",
+            "en": "Writing: a form + an e-mail (at least 35 words)"
+          },
+          {
+            "cz": "Poslech: asi 40 minut, 5 úloh",
+            "en": "Listening: about 40 minutes, 5 tasks"
+          },
+          {
+            "cz": "Mluvení: 4 úlohy, asi 15 minut",
+            "en": "Speaking: 4 tasks, about 15 minutes"
+          },
+          {
+            "cz": "Úspěch: 60 % v každé části",
+            "en": "Pass: 60% in each part"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
   ]
 }

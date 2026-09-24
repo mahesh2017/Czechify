@@ -8954,17 +8954,6 @@
     "lesson_id": null
   },
   {
-    "id": 1885,
-    "word_cz": "formální dopis",
-    "word_en": "formal letter",
-    "ipa": "formalniː dopɪs",
-    "gender": "masculine inanimate",
-    "unit_id": 29,
-    "example_cz": "Musím napsat formální dopis řediteli.",
-    "example_en": "I have to write a formal letter to the director.",
-    "lesson_id": 2901
-  },
-  {
     "id": 1886,
     "word_cz": "žádost",
     "word_en": "application, request",
@@ -8984,7 +8973,7 @@
     "unit_id": 29,
     "example_cz": "Napsal jsem stížnost na službu.",
     "example_en": "I wrote a complaint about the service.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1888,
@@ -9020,17 +9009,6 @@
     "lesson_id": 2901
   },
   {
-    "id": 1891,
-    "word_cz": "vyjádření",
-    "word_en": "statement, expression",
-    "ipa": "vɪjaːdr̝ɛɲiː",
-    "gender": "neuter",
-    "unit_id": 29,
-    "example_cz": "Vážím si vašeho vyjádření.",
-    "example_en": "I appreciate your statement.",
-    "lesson_id": 2901
-  },
-  {
     "id": 1892,
     "word_cz": "souhlas",
     "word_en": "agreement, consent",
@@ -9050,18 +9028,7 @@
     "unit_id": 29,
     "example_cz": "Vyjádřil jsem nesouhlas.",
     "example_en": "I expressed my disagreement.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1894,
-    "word_cz": "navrhovat",
-    "word_en": "to propose, suggest",
-    "ipa": "navrhoʊvaʊt",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Chci navrhovat nové řešení.",
-    "example_en": "I want to propose a new solution.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1895,
@@ -9072,7 +9039,7 @@
     "unit_id": 29,
     "example_cz": "Doporučuji vám tuto knihu.",
     "example_en": "I recommend this book to you.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1896,
@@ -9083,7 +9050,7 @@
     "unit_id": 29,
     "example_cz": "Žádám o informace o kurzu.",
     "example_en": "I am requesting information about the course.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1897,
@@ -9094,7 +9061,7 @@
     "unit_id": 29,
     "example_cz": "Informujeme vás o změně programu.",
     "example_en": "We are informing you about a program change.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1898,
@@ -9105,7 +9072,7 @@
     "unit_id": 29,
     "example_cz": "Oznamujeme vám termín zkoušky.",
     "example_en": "We are announcing the exam date.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1899,
@@ -9138,7 +9105,7 @@
     "unit_id": 29,
     "example_cz": "Blahopřji vám k narozeninám!",
     "example_en": "I wish you a happy birthday!",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1902,
@@ -9152,347 +9119,6 @@
     "lesson_id": 2901
   },
   {
-    "id": 1903,
-    "word_cz": "v současné době",
-    "word_en": "at present, currently",
-    "ipa": "v sou̯t͡ʃasnɛː dobɲɛ",
-    "gender": "feminine",
-    "unit_id": 29,
-    "example_cz": "V současné době pracujeme na projektu.",
-    "example_en": "At present we are working on a project.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1904,
-    "word_cz": "v nedávné době",
-    "word_en": "recently",
-    "ipa": "v nɛdaːvnɛː dobɲɛ",
-    "gender": "feminine",
-    "unit_id": 29,
-    "example_cz": "V nedávné době se přestěhovali.",
-    "example_en": "They moved recently.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1905,
-    "word_cz": "pokud jde o",
-    "word_en": "as regards, concerning",
-    "ipa": "pokʊd jɪdɛ o",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Pokud jde o platbu, ještě nezaplatil.",
-    "example_en": "As regards the payment, he hasn't paid yet.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1906,
-    "word_cz": "co se týče",
-    "word_en": "as regards, concerning",
-    "ipa": "tso sɛ tiːt͡ʃɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Co se týče času, není problém.",
-    "example_en": "As regards time, there is no problem.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1907,
-    "word_cz": "na jedné straně",
-    "word_en": "on one hand",
-    "ipa": "na jɛdnɛː stranɲɛ",
-    "gender": "feminine",
-    "unit_id": 29,
-    "example_cz": "Na jedné straně je to výhoda.",
-    "example_en": "On one hand it's an advantage.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1908,
-    "word_cz": "na druhé straně",
-    "word_en": "on the other hand",
-    "ipa": "na druɦɛː stranɲɛ",
-    "gender": "feminine",
-    "unit_id": 29,
-    "example_cz": "Na druhé straně to má i nevýhody.",
-    "example_en": "On the other hand it also has disadvantages.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1909,
-    "word_cz": "z toho důvodu",
-    "word_en": "for that reason",
-    "ipa": "z toɦo duːvodu",
-    "gender": "masculine inanimate",
-    "unit_id": 29,
-    "example_cz": "Z toho důvodu nemohl přijít.",
-    "example_en": "For that reason he couldn't come.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1910,
-    "word_cz": "z tohoto hlediska",
-    "word_en": "from this point of view",
-    "ipa": "z toɦoto hlɛdɪska",
-    "gender": "neuter",
-    "unit_id": 29,
-    "example_cz": "Z tohoto hlediska je to dobré.",
-    "example_en": "From this point of view it's good.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1911,
-    "word_cz": "je nutno podotknout",
-    "word_en": "it should be noted",
-    "ipa": "jɛ nutno podotknout",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Je nutno podotknout, že podmínky se změnily.",
-    "example_en": "It should be noted that the conditions have changed.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1912,
-    "word_cz": "je třeba zdůraznit",
-    "word_en": "it should be emphasized",
-    "ipa": "jɛ tr̝ɛba zduːrasɲɪt",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Je třeba zdůraznit důležitost termínu.",
-    "example_en": "It should be emphasized that the deadline is important.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1913,
-    "word_cz": "vzhledem k tomu",
-    "word_en": "given that, in view of",
-    "ipa": "vzhlɛdɛm k tomu",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Vzhledem k tomu, že prší, zůstaneme doma.",
-    "example_en": "Given that it's raining, we'll stay home.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1914,
-    "word_cz": "s ohledem na",
-    "word_en": "with regard to, considering",
-    "ipa": "s ohlɛdɛm na",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "S ohledem na situaci to uděláme jinak.",
-    "example_en": "With regard to the situation we'll do it differently.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1915,
-    "word_cz": "navzdory tomu",
-    "word_en": "despite that, nevertheless",
-    "ipa": "navzdorɪ tomu",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Navzdory tomu šel ven.",
-    "example_en": "Despite that he went out.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1916,
-    "word_cz": "kromě toho",
-    "word_en": "besides, in addition",
-    "ipa": "kromɲɛ toɦo",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Kromě toho mám ještě jiný úkol.",
-    "example_en": "Besides, I have another task.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1917,
-    "word_cz": "kromě již zmíněného",
-    "word_en": "besides the already mentioned",
-    "ipa": "kromɲɛ jiː zmiːɲɛɲiːɦo",
-    "gender": "neuter",
-    "unit_id": 29,
-    "example_cz": "Kromě již zmíněného chci dodat jednu věc.",
-    "example_en": "Besides what was already mentioned, I want to add one thing.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1918,
-    "word_cz": "v neposlední řadě",
-    "word_en": "last but not least",
-    "ipa": "v nɛposlɛdniː r̝aːdɲɛ",
-    "gender": "feminine",
-    "unit_id": 29,
-    "example_cz": "V neposlední řadě děkuji rodině.",
-    "example_en": "Last but not least I thank my family.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1919,
-    "word_cz": "na závěr",
-    "word_en": "in conclusion, finally",
-    "ipa": "na zaviːr",
-    "gender": "masculine inanimate",
-    "unit_id": 29,
-    "example_cz": "Na závěr bych chtěl říci jedno slovo.",
-    "example_en": "In conclusion I'd like to say one word.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1920,
-    "word_cz": "naopak",
-    "word_en": "on the contrary",
-    "ipa": "naopak",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Naopak, mám toho dost.",
-    "example_en": "On the contrary, I have enough.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1921,
-    "word_cz": "zatímco",
-    "word_en": "while, whereas",
-    "ipa": "zatiːmtso",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Zatímco on pracuje, ona se učí.",
-    "example_en": "While he works, she studies.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1922,
-    "word_cz": "přesto",
-    "word_en": "nevertheless, still",
-    "ipa": "pr̝ɛsto",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Pršelo, přesto jsme šli ven.",
-    "example_en": "It was raining, nevertheless we went out.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1923,
-    "word_cz": "nicméně",
-    "word_en": "however, nevertheless",
-    "ipa": "nɪt͡smɲɛɲɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Nicméně se musíme rozhodnout.",
-    "example_en": "However, we must decide.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1924,
-    "word_cz": "avšak",
-    "word_en": "however, but",
-    "ipa": "avʃak",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Chtěl jsem přijít, avšak nemohl jsem.",
-    "example_en": "I wanted to come, however I couldn't.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1925,
-    "word_cz": "ovšem",
-    "word_en": "of course, however",
-    "ipa": "ovʃɛm",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Ovšem, to je pravda.",
-    "example_en": "Of course, that's true.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1926,
-    "word_cz": "totež",
-    "word_en": "the same, likewise",
-    "ipa": "totɛʃ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Platí totež jako včera.",
-    "example_en": "The same applies as yesterday.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1927,
-    "word_cz": "stejně tak",
-    "word_en": "just as, similarly",
-    "ipa": "stɛjnɲɛ tak",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Stejně tak jako ty, já si to myslím.",
-    "example_en": "Just like you, I think so too.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1928,
-    "word_cz": "podobně",
-    "word_en": "similarly",
-    "ipa": "podobɲɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Podobně to vidím i já.",
-    "example_en": "I see it similarly.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1929,
-    "word_cz": "na rozdíl od",
-    "word_en": "in contrast to, unlike",
-    "ipa": "na rozdiːl od",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Na rozdíl od tebe já mám rád zimu.",
-    "example_en": "Unlike you I like winter.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1930,
-    "word_cz": "v porovnání s",
-    "word_en": "in comparison with",
-    "ipa": "v porovnaːɲiː s",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "V porovnání s loňskem je o něco tepleji.",
-    "example_en": "In comparison with last year it's a bit warmer.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1931,
-    "word_cz": "dále",
-    "word_en": "furthermore, next",
-    "ipa": "daːlɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Dále bych rád podotkl důležitost spolupráce.",
-    "example_en": "Furthermore I'd like to note the importance of cooperation.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1932,
-    "word_cz": "poté",
-    "word_en": "afterwards, then",
-    "ipa": "potɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Poté jsme šli do kina.",
-    "example_en": "Afterwards we went to the cinema.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1933,
-    "word_cz": "následně",
-    "word_en": "subsequently",
-    "ipa": "naːslɛdɲɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Následně se přesunuli do jiné místnosti.",
-    "example_en": "Subsequently they moved to another room.",
-    "lesson_id": 2901
-  },
-  {
     "id": 1934,
     "word_cz": "nejprve",
     "word_en": "first, first of all",
@@ -9501,7 +9127,7 @@
     "unit_id": 29,
     "example_cz": "Nejprve musíme vyřešit problém.",
     "example_en": "First we must solve the problem.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1935,
@@ -9512,7 +9138,7 @@
     "unit_id": 29,
     "example_cz": "Především je důležitá bezpečnost.",
     "example_en": "Above all, safety is important.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1936,
@@ -9523,7 +9149,7 @@
     "unit_id": 29,
     "example_cz": "Hlavně musíme být opatrní.",
     "example_en": "Mainly we must be careful.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1937,
@@ -9534,29 +9160,7 @@
     "unit_id": 29,
     "example_cz": "Zvláště v létě je horko nesnesitelné.",
     "example_en": "Especially in summer the heat is unbearable.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1938,
-    "word_cz": "speciálně",
-    "word_en": "specifically, specially",
-    "ipa": "spɛtsɪaːlɲɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Speciálně pro vás jsme to připravili.",
-    "example_en": "We prepared it specially for you.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 1939,
-    "word_cz": "předně",
-    "word_en": "firstly, first of all",
-    "ipa": "pr̝ɛdɲɛ",
-    "gender": null,
-    "unit_id": 29,
-    "example_cz": "Předně bych chtěl poděkovat.",
-    "example_en": "Firstly I'd like to thank you.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1940,
@@ -9567,7 +9171,7 @@
     "unit_id": 29,
     "example_cz": "Naposed jsme se setkali včera.",
     "example_en": "We met for the last time yesterday.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1941,
@@ -9578,7 +9182,7 @@
     "unit_id": 29,
     "example_cz": "Konečně jsme to dokázali.",
     "example_en": "Finally we made it.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1942,
@@ -10228,39 +9832,6 @@
     "example_cz": "Dlouho jsem vybíral dárek.",
     "example_en": "I spent a long time choosing a gift.",
     "lesson_id": 3101
-  },
-  {
-    "id": 2001,
-    "word_cz": "v první řadě",
-    "word_en": "in the first place, firstly",
-    "ipa": "f pr̃vniː r̝aːdɲɛ",
-    "gender": "feminine",
-    "unit_id": 29,
-    "example_cz": "V první řadě bych chtěl poděkovat.",
-    "example_en": "In the first place I'd like to thank you.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 2002,
-    "word_cz": "jak již bylo řečeno",
-    "word_en": "as already mentioned",
-    "ipa": "jak jiːʒ bɪlo r̝ɛt͡ʃɛno",
-    "gender": "neuter",
-    "unit_id": 29,
-    "example_cz": "Jak již bylo řečeno, termín se blíží.",
-    "example_en": "As already mentioned, the deadline is approaching.",
-    "lesson_id": 2901
-  },
-  {
-    "id": 2003,
-    "word_cz": "ve zkratce",
-    "word_en": "in short, briefly",
-    "ipa": "vɛ zkratsɛ",
-    "gender": "feminine",
-    "unit_id": 29,
-    "example_cz": "Ve zkratce: musíme se rozhodnout.",
-    "example_en": "In short: we must decide.",
-    "lesson_id": 2901
   },
   {
     "id": 2004,

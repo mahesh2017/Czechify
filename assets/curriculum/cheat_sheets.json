@@ -2949,7 +2949,87 @@
         "Nedostatečné procvičování psaní",
         "Příliš krátké odpovědi v mluvené části"
       ],
-      "study_tip": "Pište formální emaily: žádosti, omluvy, stížnosti. Nechte je zkontrolovat učitelem."
+      "study_tip": "Pište formální emaily: žádosti, omluvy, stížnosti. Nechte je zkontrolovat učitelem.",
+      "notebook_page": {
+        "title_cz": "Zkouška A2",
+        "title_en": "A2 skills practice",
+        "can_do": {
+          "cz": "Napíšu krátký e-mail a rozumím běžným oznámením.",
+          "en": "I can write a short e-mail and understand everyday notices."
+        },
+        "words": [
+          {
+            "cz": "Milý Petře, / Milá Jano,",
+            "en": "Dear Petr, / Dear Jana, (friend)"
+          },
+          {
+            "cz": "Vážený pane Nováku, / Vážená paní Nováková,",
+            "en": "Dear Mr / Mrs Novák, (formal)"
+          },
+          {
+            "cz": "Děkuju za e-mail.",
+            "en": "Thanks for your e-mail."
+          },
+          {
+            "cz": "Zvu tě na oslavu.",
+            "en": "I am inviting you to a party."
+          },
+          {
+            "cz": "Omlouvám se, ale nemůžu přijít, protože…",
+            "en": "I'm sorry, but I can't come because…"
+          },
+          {
+            "cz": "Mám dotaz: …",
+            "en": "I have a question: …"
+          },
+          {
+            "cz": "S pozdravem / Ahoj",
+            "en": "Kind regards / Bye (friend)"
+          }
+        ],
+        "pattern": {
+          "name": "The exam, part by part",
+          "rule_plain": "Each part is marked separately; you need 60% in each.",
+          "table": [
+            [
+              "Reading",
+              "40 minut, 5 úloh"
+            ],
+            [
+              "Writing",
+              "formulář + e-mail (nejméně 35 slov)"
+            ],
+            [
+              "Listening",
+              "asi 40 minut, 5 úloh"
+            ],
+            [
+              "Speaking",
+              "4 úlohy, asi 15 minut"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Milá Jano, zvu tě na oslavu narozenin…",
+              "en": "Dear Jana, I am inviting you to my birthday party…"
+            },
+            {
+              "cz": "Vážená paní Nováková, omlouvám se, ale…",
+              "en": "Dear Mrs Nováková, I'm sorry, but…"
+            }
+          ]
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Děkuju za e-mail. V sobotu přijdu.",
+            "en": "Thanks for your e-mail. I will come on Saturday."
+          },
+          {
+            "cz": "Omlouvám se, ale nemůžu přijít, protože pracuju.",
+            "en": "I'm sorry, but I can't come because I'm working."
+          }
+        ]
+      }
     },
     {
       "unit_id": 30,

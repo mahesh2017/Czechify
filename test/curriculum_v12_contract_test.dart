@@ -231,6 +231,29 @@ void main() {
     }
   });
 
+  test('V5 skills and review units recall first and end on a checklist', () {
+    // Units 28–31 teach nothing new (plan §3.5): each lesson but the mission
+    // opens with a recall across earlier units, and the mission closes with
+    // the page the learner checks their notebook against.
+    for (final unitId in rebuiltUnits.where((id) => !standard(id))) {
+      final all = lessonsOf(unitId);
+      for (final lesson in all.take(all.length - 1)) {
+        final first = exercisesOf(lesson).first;
+        expect(
+          isNotebook(first) && dataOf(first)['kind'] == 'recall',
+          isTrue,
+          reason: 'lesson ${lesson['id']} does not open with a recall',
+        );
+      }
+      final last = exercisesOf(all.last).last;
+      expect(
+        isNotebook(last) && dataOf(last)['kind'] == 'unit_check',
+        isTrue,
+        reason: 'unit $unitId does not end with its checklist page',
+      );
+    }
+  });
+
   test('V6 nothing outside the A1/A2 scope', () {
     final forbidden =
         (scope['forbidden_on_main_path']['A1_and_A2'] as List)
@@ -368,7 +391,7 @@ void main() {
 
 /// Units still carrying out-of-scope content until they are rebuilt
 /// (docs/sources/SCOPE_REVIEW_2026-09-24.md). It exists to be emptied.
-const pendingScopeUnits = {29, 31};
+const pendingScopeUnits = {31};
 
 Map<String, dynamic> _json(String path) =>
     jsonDecode(File(path).readAsStringSync()) as Map<String, dynamic>;
