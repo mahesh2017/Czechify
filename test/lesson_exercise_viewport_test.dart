@@ -43,7 +43,7 @@ void main() {
               .where((exercise) => boundedTypes.contains(exercise.type))
               .toList();
 
-      expect(exercises, hasLength(457));
+      expect(exercises, hasLength(453));
 
       for (final exercise in exercises) {
         await tester.pumpWidget(
@@ -84,7 +84,7 @@ void main() {
 
       final exercises = loadShippedExercises();
 
-      expect(exercises, hasLength(1458));
+      expect(exercises, hasLength(1467));
 
       for (final exercise in exercises) {
         await tester.pumpWidget(

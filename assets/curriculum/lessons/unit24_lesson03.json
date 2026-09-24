@@ -1,1 +1,423 @@
-{"id":2403,"unit_id":24,"title":"Talk to a Doctor Clearly","description":"Understand and use simple symptom and appointment language.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[{"id":24025,"lesson_id":2403,"type":"teaching","prompt":"Use clear symptom chunks","data":{"type":"teaching","style":"list","heading":"Say what, since when, and ask again","body":"Keep your description simple. A doctor decides what it means.","items":[{"cz":"Bolí mě hlava.","en":"My head hurts."},{"cz":"Je mi špatně od včerejška.","en":"I have felt unwell since yesterday."},{"cz":"Mám teplotu dva dny.","en":"I have had a temperature for two days."},{"cz":"Můžete to prosím zopakovat?","en":"Could you repeat that, please?"}]},"answer_key":"health chunks","xp_reward":0},{"id":24026,"lesson_id":2403,"type":"listening_comprehension","prompt":"Listen to the appointment call","data":{"type":"listening_comprehension","prompt_en":"What symptom and duration does the caller give?","transcript_cz":"Dobrý den, bolí mě v krku a mám teplotu od včerejška. Můžu se objednat k lékaři?","questions":[{"question_en":"What hurts?","options":["The throat","The leg","The eye"],"correct_index":0},{"question_en":"Since when?","options":["Since yesterday","For a month","Since morning only"],"correct_index":0}]},"answer_key":"throat; yesterday","xp_reward":15},{"id":24027,"lesson_id":2403,"type":"reading_comprehension","prompt":"Read the clinic message","data":{"type":"reading_comprehension","prompt_en":"Find the appointment time and what to bring.","image":"assets/images/unit24/doctor_visit_v1.webp","image_label":"A calm routine doctor conversation","text_cz":"Dobrý den, objednání je možné zítra v deset. Přineste si kartu pojištěnce a seznam léků, které užíváte. Když se váš stav zhorší, zavolejte nám.","text_en":"Hello, an appointment is available tomorrow at ten. Bring your insurance card and a list of medicines you take. If your condition gets worse, call us.","questions":[{"question_en":"When is the appointment?","options":["Tomorrow at ten","Today at six","Monday morning"],"correct_index":0},{"question_en":"What should the patient bring?","options":["Insurance card","A ticket","A suitcase"],"correct_index":0}]},"answer_key":"tomorrow ten; insurance card","xp_reward":15},{"id":24028,"lesson_id":2403,"type":"matching","prompt":"Match the health information","data":{"type":"matching","pairs":[{"left":"bolí mě hlava","right":"headache"},{"left":"od včerejška","right":"since yesterday"},{"left":"mám teplotu","right":"I have a temperature"},{"left":"zopakovat","right":"repeat"}]},"answer_key":"health chunks","xp_reward":10},{"id":24029,"lesson_id":2403,"type":"fill_blank","prompt":"State the duration","data":{"type":"fill_blank","sentence":"Je mi špatně ___ včerejška.","blank_count":1,"blank_answers":[["od"]]},"answer_key":"od","xp_reward":10},{"id":24030,"lesson_id":2403,"type":"dialogue","prompt":"Ask for an appointment","data":{"type":"dialogue","scenario":"Calling the clinic","lines":[{"speaker":"you","text":"___"},{"speaker":"receptionist","text":"Ano, kdy můžete přijít?"}],"blank_answers":[["Můžu se objednat k lékaři?","Chtěl/a bych se objednat k lékaři."]]},"answer_key":"appointment request","xp_reward":15},{"id":24031,"lesson_id":2403,"type":"writing_task","prompt":"Write a clinic message","data":{"type":"writing_task","prompt_en":"Write 2–3 sentences: symptom, duration, and request for an appointment.","prompt_cz":"Napište krátkou zprávu do ordinace.","min_words":10,"max_words":45,"key_vocab":["bolí mě","od včerejška","objednat"],"sample_answer":"Bolí mě v krku od včerejška. Můžu se objednat k lékaři?"},"answer_key":"clinic message","xp_reward":0},{"id":24032,"lesson_id":2403,"type":"speaking_task","prompt":"Make the appointment call","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds: symptom, duration, and a polite appointment request.","prompt_cz":"Nahrajte krátký telefonát.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["bolí mě","od","objednat"]},"answer_key":"appointment call","xp_reward":20}]}
+{
+  "id": 2403,
+  "unit_id": 24,
+  "title": "Talk to a Doctor Clearly",
+  "description": "Understand the doctor’s questions and instructions, and book an appointment.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "can_do": "answer a doctor’s questions and book an appointment.",
+  "new_language": [
+    "Co vás trápí?",
+    "Ukažte mi…",
+    "zubař, pohotovost, prohlídka, neschopenka"
+  ],
+  "recycles": [
+    "imperative (U23)",
+    "chtěl/a bych"
+  ],
+  "exit_task": "write a message asking for an appointment.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 24300,
+      "lesson_id": 2403,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “My back hurts”, “I don’t feel well” and “since yesterday” in Czech. Then one line from Unit 23: You must not smoke.",
+        "items": [
+          {
+            "cz": "Bolí mě záda.",
+            "en": "My back hurts."
+          },
+          {
+            "cz": "Necítím se dobře.",
+            "en": "I don't feel well."
+          },
+          {
+            "cz": "od včerejška",
+            "en": "since yesterday"
+          },
+          {
+            "cz": "Nesmíte kouřit.",
+            "en": "You must not smoke."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24301,
+      "lesson_id": 2403,
+      "type": "teaching",
+      "prompt": "At the doctor and the pharmacy",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-232",
+        "rule_step": 1,
+        "heading": "At the doctor and the pharmacy",
+        "items": [
+          {
+            "cz": "Chtěl/a bych se objednat k lékaři.",
+            "en": "I would like to make a doctor’s appointment."
+          },
+          {
+            "cz": "Potřebuju neschopenku.",
+            "en": "I need a sick note."
+          }
+        ],
+        "say": "The doctor asks Co vás trápí? and Kde to bolí? Instructions use the imperative: Ukažte mi krk. If you do not understand, ask: Můžete to zopakovat?",
+        "table": [
+          [
+            "Co vás trápí?",
+            "What's the problem?"
+          ],
+          [
+            "Kde to bolí?",
+            "Where does it hurt?"
+          ],
+          [
+            "Ukažte mi krk.",
+            "Show me your throat."
+          ],
+          [
+            "Berte to třikrát denně.",
+            "Take it three times a day."
+          ],
+          [
+            "po jídle",
+            "after a meal"
+          ],
+          [
+            "Tady máte recept.",
+            "Here is your prescription."
+          ],
+          [
+            "neschopenka",
+            "sick note"
+          ],
+          [
+            "pohotovost",
+            "emergency service"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Chtěl/a bych se objednat k lékaři.",
+            "en": "I would like to make a doctor’s appointment."
+          },
+          {
+            "cz": "Potřebuju neschopenku.",
+            "en": "I need a sick note."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Ukážete mi krk.",
+          "right": "Ukažte mi krk."
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24302,
+      "lesson_id": 2403,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Lékař se ptá: „Kde to bolí?“ Co chce vědět?",
+        "question_en": "The doctor asks “Kde to bolí?” What does he want to know?",
+        "options": [
+          "Where it hurts",
+          "What hurts",
+          "When it started"
+        ],
+        "correct_index": 0,
+        "explanation": "Kde = where."
+      },
+      "answer_key": "Where it hurts",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-232"
+    },
+    {
+      "id": 24303,
+      "lesson_id": 2403,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write what you would say at the doctor: one symptom with since when, and one request.",
+        "items": [
+          {
+            "cz": "Od pondělí mě bolí v krku.",
+            "en": "I have had a sore throat since Monday."
+          },
+          {
+            "cz": "Potřebuju neschopenku, prosím.",
+            "en": "I need a sick note, please."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24304,
+      "lesson_id": 2403,
+      "type": "dialogue",
+      "prompt": "Complete the dialogue at the doctor's office.",
+      "data": {
+        "type": "dialogue",
+        "lines": [
+          {
+            "speaker": "doctor",
+            "text_en": "Hello. What's the problem?",
+            "text": "Dobrý den. Co vás ___?"
+          },
+          {
+            "speaker": "patient",
+            "text_en": "My throat hurts and I have a fever.",
+            "text": "Bolí mě v krku a mám horečku."
+          },
+          {
+            "speaker": "doctor",
+            "text_en": "How long have you been ill?",
+            "text": "Jak dlouho už jste ___?"
+          },
+          {
+            "speaker": "patient",
+            "text_en": "For three days already.",
+            "text": "Už tři dny."
+          }
+        ],
+        "explanation": "Co vás trápí? / Co vás bolí? (vás, not vám). Jak dlouho už jste nemocný/nemocná?",
+        "blank_answers": [
+          [
+            "trápí",
+            "bolí"
+          ],
+          [
+            "nemocný",
+            "nemocná"
+          ]
+        ],
+        "scenario": "A patient describes their symptoms to the doctor."
+      },
+      "answer_key": "trápí, nemocný",
+      "grammar_rule_id": "GR-232",
+      "xp_reward": 10
+    },
+    {
+      "id": 24305,
+      "lesson_id": 2403,
+      "type": "multiple_choice",
+      "prompt": "What does the doctor ask: 'Kde to bolí?'",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Co znamená 'Kde to bolí?'",
+        "question_en": "What does the doctor's question 'Kde to bolí?' mean?",
+        "options": [
+          "What hurts?",
+          "Where does it hurt?",
+          "Why does it hurt?",
+          "When did it start?"
+        ],
+        "correct_index": 1,
+        "explanation": "'Kde to bolí?' = Where does it hurt? 'Kde' = where, 'to' = it, 'bolí' = hurts. This is one of the most common questions a doctor asks during an examination."
+      },
+      "answer_key": "Where does it hurt?",
+      "grammar_rule_id": "GR-232",
+      "xp_reward": 10
+    },
+    {
+      "id": 24306,
+      "lesson_id": 2403,
+      "type": "multiple_choice",
+      "prompt": "How do you say 'I need to see a doctor' in Czech?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jak řekneme 'I need to see a doctor'?",
+        "question_en": "How do you say 'I need to see a doctor' in Czech?",
+        "options": [
+          "Musím vidět lékaře.",
+          "Potřebuji jít k lékaři.",
+          "Chci lékaře.",
+          "Můžu k lékaři."
+        ],
+        "correct_index": 1,
+        "explanation": "'Potřebuji jít k lékaři.' = I need to go to the doctor. 'K lékaři' = to the doctor (dative case). 'Musím vidět lékaře' is less natural in Czech. The phrase 'jít k lékaři' (to go to the doctor) is the idiomatic way to express seeing a doctor."
+      },
+      "answer_key": "Potřebuji jít k lékaři.",
+      "grammar_rule_id": "GR-232",
+      "xp_reward": 10
+    },
+    {
+      "id": 24307,
+      "lesson_id": 2403,
+      "type": "fill_blank",
+      "prompt": "Fill in the correct word: 'Take this medicine.' — 'Vezměte si tento ____.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Vezměte si tento ____.",
+        "blank_count": 1,
+        "explanation": "'Vezměte si tento lék.' = Take this medicine. 'Lék' = medicine/drug (masculine). 'Vezměte si' = take (imperative, formal/plural). The doctor uses the formal imperative form.",
+        "blank_answers": [
+          [
+            "lék",
+            "medikament"
+          ]
+        ]
+      },
+      "answer_key": "lék",
+      "grammar_rule_id": "GR-232",
+      "xp_reward": 10
+    },
+    {
+      "id": 24308,
+      "lesson_id": 2403,
+      "type": "translation",
+      "prompt": "Translate to English: 'Musíte pít hodně vody a odpočívat.'",
+      "data": {
+        "type": "translation",
+        "direction": "cz_to_en",
+        "source": "Musíte pít hodně vody a odpočívat.",
+        "accepted_answers": [
+          "You must drink a lot of water and rest.",
+          "You have to drink plenty of water and rest.",
+          "You must drink lots of water and rest."
+        ],
+        "grammar_note": "'Musíte' = you must (formal/plural). 'Pít' = to drink (infinitive). 'Hodně vody' = a lot of water. 'Odpočívat' = to rest (infinitive). This is a typical doctor's instruction using a modal verb with two infinitives."
+      },
+      "answer_key": "You must drink a lot of water and rest.",
+      "grammar_rule_id": "GR-232",
+      "xp_reward": 10
+    },
+    {
+      "id": 24309,
+      "lesson_id": 2403,
+      "type": "matching",
+      "prompt": "Match each doctor's question to its English meaning.",
+      "data": {
+        "type": "matching",
+        "prompt_en": "Match each Czech doctor's question to its English meaning.",
+        "pairs": [
+          {
+            "left": "Co vás bolí?",
+            "right": "What hurts?"
+          },
+          {
+            "left": "Kde to bolí?",
+            "right": "Where does it hurt?"
+          },
+          {
+            "left": "Jak dlouho?",
+            "right": "How long?"
+          },
+          {
+            "left": "Máte horečku?",
+            "right": "Do you have a fever?"
+          }
+        ],
+        "explanation": "Doctor’s questions: Co vás bolí? (what hurts), Kde to bolí? (where), Jak dlouho? (how long), Máte horečku? (fever). Doctors use the formal vy form: vás, máte."
+      },
+      "answer_key": "Co vás bolí?→What hurts?, Kde to bolí?→Where does it hurt?, Jak dlouho?→How long?, Máte horečku?→Do you have a fever?",
+      "grammar_rule_id": "GR-232",
+      "xp_reward": 10
+    },
+    {
+      "id": 24310,
+      "lesson_id": 2403,
+      "type": "reading_comprehension",
+      "prompt": "Read the clinic message",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Find the appointment time and what to bring.",
+        "image": "assets/images/unit24/doctor_visit_v1.webp",
+        "image_label": "A calm routine doctor conversation",
+        "text_cz": "Dobrý den, objednání je možné zítra v deset. Přineste si kartu pojištěnce a seznam léků, které užíváte. Když se váš stav zhorší, zavolejte nám.",
+        "text_en": "Hello, an appointment is available tomorrow at ten. Bring your insurance card and a list of medicines you take. If your condition gets worse, call us.",
+        "questions": [
+          {
+            "question_en": "When is the appointment?",
+            "options": [
+              "Tomorrow at ten",
+              "Today at six",
+              "Monday morning"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What should the patient bring?",
+            "options": [
+              "Insurance card",
+              "A ticket",
+              "A suitcase"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "tomorrow ten; insurance card",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-232"
+    },
+    {
+      "id": 24311,
+      "lesson_id": 2403,
+      "type": "writing_task",
+      "prompt": "Write a clinic message",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 sentences: symptom, duration, and request for an appointment.",
+        "prompt_cz": "Napište krátkou zprávu do ordinace.",
+        "min_words": 10,
+        "max_words": 45,
+        "key_vocab": [
+          "bolí mě",
+          "od včerejška",
+          "objednat"
+        ],
+        "sample_answer": "Bolí mě v krku od včerejška. Můžu se objednat k lékaři?",
+        "targets": "vocab"
+      },
+      "answer_key": "clinic message",
+      "xp_reward": 0
+    },
+    {
+      "id": 24312,
+      "lesson_id": 2403,
+      "type": "speaking_task",
+      "prompt": "Make the appointment call",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds: symptom, duration, and a polite appointment request.",
+        "prompt_cz": "Nahrajte krátký telefonát.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "bolí mě",
+          "od",
+          "objednat"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "appointment call",
+      "xp_reward": 20
+    }
+  ]
+}

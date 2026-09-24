@@ -2,156 +2,409 @@
   "id": 2402,
   "unit_id": 24,
   "order_in_unit": 1,
-  "title": "At the Doctor — Conversations",
-  "description": "Practice Czech conversations for doctor visits — describing symptoms, understanding a doctor's questions, and following medical instructions using body parts and health vocabulary.",
+  "title": "What Hurts and Since When",
+  "description": "Learn bolí mě, bolí ho, and how to say how you feel and for how long.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "describe a symptom and how long you have had it.",
+  "new_language": [
+    "bolí mě, tě, ho, ji",
+    "Necítím se dobře.",
+    "od včerejška, už tři dny"
+  ],
+  "recycles": [
+    "Je mi špatně.",
+    "mě, tě (A1)"
+  ],
+  "exit_task": "tell a colleague why you are going home.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 24013,
+      "id": 24200,
       "lesson_id": 2402,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue at the doctor's office.",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "dialogue",
-        "lines": [
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write six body parts and three symptom phrases. Then check.",
+        "items": [
           {
-            "speaker": "doctor",
-            "text_en": "Hello. What's bothering you?",
-            "text": "Dobrý den. Co vám ___?"
+            "cz": "hlava, ruka, noha, oko, ucho, záda",
+            "en": "head, arm, leg, eye, ear, back"
           },
           {
-            "speaker": "patient",
-            "text_en": "My throat hurts and I have a fever.",
-            "text": "Bolí mě krk a mám horečku."
+            "cz": "Bolí mě hlava.",
+            "en": "I have a headache."
           },
           {
-            "speaker": "doctor",
-            "text_en": "How long have you been sick?",
-            "text": "Jak dlouho už jste ___?"
+            "cz": "Bolí mě v krku.",
+            "en": "I have a sore throat."
           },
           {
-            "speaker": "patient",
-            "text_en": "For three days already.",
-            "text": "Už tři dny."
+            "cz": "Mám teplotu.",
+            "en": "I have a temperature."
           }
-        ],
-        "explanation": "In this dialogue, the doctor asks 'Co vám bolí?' (What hurts you?) or 'Co vám je?' (What's wrong with you?). 'Horečka' = fever. 'Jak dlouho' = how long. Note the formal 'vy' form used between doctor and patient.",
-        "blank_answers": [
-          ["bolí", "je"],
-          ["nemocný", "nemocná"]
-        ],
-        "scenario": "A patient describes their symptoms to the doctor."
-      },
-      "answer_key": "bolí, nemocný",
-      "grammar_rule_id": "GR-232",
-      "xp_reward": 10
-    },
-    {
-      "id": 24014,
-      "lesson_id": 2402,
-      "type": "multiple_choice",
-      "prompt": "What does the doctor ask: 'Kde to bolí?'",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'Kde to bolí?'",
-        "question_en": "What does the doctor's question 'Kde to bolí?' mean?",
-        "options": ["What hurts?", "Where does it hurt?", "Why does it hurt?", "When did it start?"],
-        "correct_index": 1,
-        "explanation": "'Kde to bolí?' = Where does it hurt? 'Kde' = where, 'to' = it, 'bolí' = hurts. This is one of the most common questions a doctor asks during an examination."
-      },
-      "answer_key": "Where does it hurt?",
-      "grammar_rule_id": "GR-232",
-      "xp_reward": 10
-    },
-    {
-      "id": 24015,
-      "lesson_id": 2402,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'I need to see a doctor' in Czech?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řekneme 'I need to see a doctor'?",
-        "question_en": "How do you say 'I need to see a doctor' in Czech?",
-        "options": ["Musím vidět lékaře.", "Potřebuji jít k lékaři.", "Chci lékaře.", "Můžu k lékaři."],
-        "correct_index": 1,
-        "explanation": "'Potřebuji jít k lékaři.' = I need to go to the doctor. 'K lékaři' = to the doctor (dative case). 'Musím vidět lékaře' is less natural in Czech. The phrase 'jít k lékaři' (to go to the doctor) is the idiomatic way to express seeing a doctor."
-      },
-      "answer_key": "Potřebuji jít k lékaři.",
-      "grammar_rule_id": "GR-232",
-      "xp_reward": 10
-    },
-    {
-      "id": 24016,
-      "lesson_id": 2402,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct body part: 'I have a headache.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Mám bolest ____.",
-        "blank_count": 1,
-        "explanation": "'Mám bolest hlavy.' = I have a headache. 'Bolest' = pain, 'hlavy' = of the head (genitive case). The structure 'mám bolest + [genitive]' is an alternative to 'bolí mě hlava'. Both are common.",
-        "blank_answers": [
-          ["hlavy", "hlava"]
         ]
       },
-      "answer_key": "hlavy",
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24201,
+      "lesson_id": 2402,
+      "type": "teaching",
+      "prompt": "It hurts: Bolí mě hlava",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-230",
+        "rule_step": 1,
+        "heading": "It hurts: Bolí mě hlava",
+        "items": [
+          {
+            "cz": "Bolí mě břicho.",
+            "en": "My stomach hurts."
+          },
+          {
+            "cz": "Co vás bolí?",
+            "en": "What hurts? (doctor)"
+          }
+        ],
+        "say": "Czech says “the head hurts me”: Bolí mě hlava. The body part is the subject; the person is mě, tě, ho or ji. Záda is plural, but it is still bolí.",
+        "table": [
+          [
+            "My head hurts.",
+            "Bolí mě hlava."
+          ],
+          [
+            "My back hurts.",
+            "Bolí mě záda."
+          ],
+          [
+            "I have a sore throat.",
+            "Bolí mě v krku."
+          ],
+          [
+            "Does your ear hurt?",
+            "Bolí tě ucho?"
+          ],
+          [
+            "His leg hurts.",
+            "Bolí ho noha."
+          ],
+          [
+            "Her tooth hurts.",
+            "Bolí ji zub."
+          ],
+          [
+            "Where does it hurt?",
+            "Kde vás to bolí?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Bolí mě břicho.",
+            "en": "My stomach hurts."
+          },
+          {
+            "cz": "Co vás bolí?",
+            "en": "What hurts? (doctor)"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Bolí mi hlava.",
+          "right": "Bolí mě hlava."
+        },
+        "step": 1,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24202,
+      "lesson_id": 2402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „My head hurts“?",
+        "question_en": "How do you say “My head hurts”?",
+        "options": [
+          "Bolí mě hlava.",
+          "Bolí mi hlava.",
+          "Mám bolí hlavu."
+        ],
+        "correct_index": 0,
+        "explanation": "bolet + the person as mě (accusative): Bolí mě hlava."
+      },
+      "answer_key": "Bolí mě hlava.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-230"
+    },
+    {
+      "id": 24203,
+      "lesson_id": 2402,
+      "type": "teaching",
+      "prompt": "How you feel and since when",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-231",
+        "rule_step": 1,
+        "heading": "How you feel and since when",
+        "items": [
+          {
+            "cz": "Mám horečku od včerejška.",
+            "en": "I have had a fever since yesterday."
+          },
+          {
+            "cz": "Už tři dny mám kašel.",
+            "en": "I have had a cough for three days."
+          }
+        ],
+        "say": "Say how you feel with Je mi špatně or Necítím se dobře. Add since when: od včerejška, od pondělí, už tři dny.",
+        "table": [
+          [
+            "I feel sick.",
+            "Je mi špatně."
+          ],
+          [
+            "I don't feel well.",
+            "Necítím se dobře."
+          ],
+          [
+            "I am ill.",
+            "Jsem nemocný / nemocná."
+          ],
+          [
+            "I have a temperature.",
+            "Mám teplotu / horečku."
+          ],
+          [
+            "I have a cough.",
+            "Mám kašel."
+          ],
+          [
+            "I have a runny nose.",
+            "Mám rýmu."
+          ],
+          [
+            "since yesterday",
+            "od včerejška"
+          ],
+          [
+            "for three days",
+            "už tři dny"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mám horečku od včerejška.",
+            "en": "I have had a fever since yesterday."
+          },
+          {
+            "cz": "Už tři dny mám kašel.",
+            "en": "I have had a cough for three days."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Jsem špatně.",
+          "right": "Je mi špatně."
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24204,
+      "lesson_id": 2402,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Mám teplotu ___ včerejška.",
+        "question_en": "I have had a temperature since yesterday.",
+        "options": [
+          "od",
+          "do",
+          "z"
+        ],
+        "correct_index": 0,
+        "explanation": "Since = od: od včerejška, od pondělí."
+      },
+      "answer_key": "od",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-231"
+    },
+    {
+      "id": 24205,
+      "lesson_id": 2402,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write bolí with mě, tě, ho and ji, two ways to say you feel ill, and two ways to say since when.",
+        "items": [
+          {
+            "cz": "Bolí mě / tě / ho / ji hlava.",
+            "en": "my / your / his / her head hurts"
+          },
+          {
+            "cz": "Je mi špatně. · Necítím se dobře.",
+            "en": "I feel sick · I don't feel well"
+          },
+          {
+            "cz": "od včerejška · už tři dny",
+            "en": "since yesterday · for three days"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24206,
+      "lesson_id": 2402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "ty → tě after bolí.",
+        "sentence": "Bolí ___ zub? (ty)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "tě"
+          ]
+        ],
+        "explanation": "Bolí tě zub?"
+      },
+      "answer_key": "tě",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-230"
+    },
+    {
+      "id": 24207,
+      "lesson_id": 2402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "on → ho after bolí.",
+        "sentence": "Bolí ___ noha. (on)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ho"
+          ]
+        ],
+        "explanation": "Bolí ho noha."
+      },
+      "answer_key": "ho",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-230"
+    },
+    {
+      "id": 24208,
+      "lesson_id": 2402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Feelings: Je mi…",
+        "sentence": "___ mi špatně.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Je",
+            "je"
+          ]
+        ],
+        "explanation": "Je mi špatně."
+      },
+      "answer_key": "Je",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-231"
+    },
+    {
+      "id": 24209,
+      "lesson_id": 2402,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "After tři: dny.",
+        "sentence": "Mám kašel už tři ___.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "dny"
+          ]
+        ],
+        "explanation": "už tři dny"
+      },
+      "answer_key": "dny",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-231"
+    },
+    {
+      "id": 24210,
+      "lesson_id": 2402,
+      "type": "fill_blank",
+      "prompt": "Fill in the body part: 'My head hurts.'",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Bolí mě ____.",
+        "blank_count": 1,
+        "explanation": "'Bolí mě hlava.' = My head hurts. 'Hlava' = head. The structure 'bolí mě + [body part in nominative]' is the standard way to express pain in Czech.",
+        "blank_answers": [
+          [
+            "hlava"
+          ]
+        ]
+      },
+      "answer_key": "hlava",
       "grammar_rule_id": "GR-230",
       "xp_reward": 10
     },
     {
-      "id": 24017,
-      "lesson_id": 2402,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct word: 'Take this medicine.' — 'Vezměte si tento ____.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Vezměte si tento ____.",
-        "blank_count": 1,
-        "explanation": "'Vezměte si tento lék.' = Take this medicine. 'Lék' = medicine/drug (masculine). 'Vezměte si' = take (imperative, formal/plural). The doctor uses the formal imperative form.",
-        "blank_answers": [
-          ["lék", "medikament"]
-        ]
-      },
-      "answer_key": "lék",
-      "grammar_rule_id": "GR-232",
-      "xp_reward": 10
-    },
-    {
-      "id": 24018,
+      "id": 24211,
       "lesson_id": 2402,
       "type": "translation",
-      "prompt": "Translate to Czech: 'I have a sore throat.'",
+      "prompt": "Translate to Czech: 'My throat hurts.'",
       "data": {
         "type": "translation",
         "direction": "en_to_cz",
-        "source": "I have a sore throat.",
-        "accepted_answers": ["Bolí mě krk.", "Mám bolest v krku.", "Mám zánět krku."],
-        "grammar_note": "'Bolí mě krk.' = My throat hurts (most common). 'Mám bolest v krku' = I have pain in my throat. 'Mám zánět krku' = I have an inflammation of the throat. The simplest and most natural way is 'Bolí mě krk.'"
+        "source": "My throat hurts.",
+        "accepted_answers": [
+          "Bolí mě krk.",
+          "Krk mě bolí.",
+          "Bolí mě v krku."
+        ],
+        "grammar_note": "'Bolí mě krk.' = My throat hurts. 'Krk' = neck/throat. The impersonal verb 'bolí' (hurts) + 'mě' (me) + body part. Alternatively: 'Bolí mě v krku' (It hurts in my throat) using the locative case."
       },
       "answer_key": "Bolí mě krk.",
       "grammar_rule_id": "GR-230",
       "xp_reward": 10
     },
     {
-      "id": 24019,
-      "lesson_id": 2402,
-      "type": "translation",
-      "prompt": "Translate to English: 'Musíte pít hodně vody a odpočívat.'",
-      "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Musíte pít hodně vody a odpočívat.",
-        "accepted_answers": ["You must drink a lot of water and rest.", "You have to drink plenty of water and rest.", "You must drink lots of water and rest."],
-        "grammar_note": "'Musíte' = you must (formal/plural). 'Pít' = to drink (infinitive). 'Hodně vody' = a lot of water. 'Odpočívat' = to rest (infinitive). This is a typical doctor's instruction using a modal verb with two infinitives."
-      },
-      "answer_key": "You must drink a lot of water and rest.",
-      "grammar_rule_id": "GR-232",
-      "xp_reward": 10
-    },
-    {
-      "id": 24020,
+      "id": 24212,
       "lesson_id": 2402,
       "type": "pronunciation",
       "prompt": "Pronounce this sentence you might say at the doctor.",
@@ -159,81 +412,100 @@
         "type": "pronunciation",
         "target_text": "Už tři dny mě bolí krk.",
         "target_audio_hash": "placeholder_24020",
-        "focus_sounds": ["už", "tři", "dny", "bolí", "krk"],
+        "focus_sounds": [
+          "už",
+          "tři",
+          "dny",
+          "bolí",
+          "krk"
+        ],
         "min_score": 0.6,
         "translation_en": "My throat has been hurting for three days."
       },
       "answer_key": "Už tři dny mě bolí krk.",
-      "grammar_rule_id": "GR-232",
-      "xp_reward": 10
-    },
-    {
-      "id": 24021,
-      "lesson_id": 2402,
-      "type": "matching",
-      "prompt": "Match each doctor's question to its English meaning.",
-      "data": {
-        "type": "matching",
-        "prompt_en": "Match each Czech doctor's question to its English meaning.",
-        "pairs": [
-          {"left": "Co vám bolí?", "right": "What hurts you?"},
-          {"left": "Kde to bolí?", "right": "Where does it hurt?"},
-          {"left": "Jak dlouho?", "right": "How long?"},
-          {"left": "Máte horečku?", "right": "Do you have a fever?"}
-        ],
-        "explanation": "Common doctor's questions: 'Co vám bolí?' asks what hurts, 'Kde to bolí?' asks for the location, 'Jak dlouho?' asks about duration, 'Máte horečku?' asks about fever. The formal 'vy' form ('vám', 'Máte') is always used with patients."
-      },
-      "answer_key": "Co vám bolí?→What hurts you?, Kde to bolí?→Where does it hurt?, Jak dlouho?→How long?, Máte horečku?→Do you have a fever?",
-      "grammar_rule_id": "GR-232",
-      "xp_reward": 10
-    },
-    {
-      "id": 24022,
-      "lesson_id": 2402,
-      "type": "error_correction",
-      "prompt": "Find the mistake in this sentence.",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find the mistake in this doctor-visit sentence.",
-        "sentence_cz": "Mám bolest hlava.",
-        "correct_sentence_cz": "Mám bolest hlavy.",
-        "error_type": "case_error",
-        "explanation": "'Bolest' requires the genitive case. 'Hlava' (nominative) must become 'hlavy' (genitive). 'Mám bolest hlavy.' = I have a headache. The genitive case is used because 'bolest' governs it — 'pain of what?' = 'pain of the head' = 'bolest hlavy'."
-      },
-      "answer_key": "Mám bolest hlavy.",
       "grammar_rule_id": "GR-230",
       "xp_reward": 10
     },
     {
-      "id": 24023,
+      "id": 24213,
       "lesson_id": 2402,
-      "type": "word_order",
-      "prompt": "Arrange the words to form: 'I have a stomachache.'",
+      "type": "fill_blank",
+      "prompt": "Fill in the correct word: 'I am sick.' — 'Jsem ____.'",
       "data": {
-        "type": "word_order",
-        "words": ["Mám", "bolest", "břicho", "žaludku"],
-        "correct_order": [0, 1, 3],
-        "explanation": "'Mám bolest žaludku.' = I have a stomachache. 'Bolest' = pain (accusative), 'žaludku' = stomach (genitive). 'Břicho' is a distractor here — the formal expression uses 'bolest žaludku'. Alternatively, 'Bolí mě břicho' is the colloquial version."
+        "type": "fill_blank",
+        "sentence": "Jsem ____.",
+        "blank_count": 1,
+        "explanation": "'Jsem nemocný.' = I am sick (masculine). 'Jsem nemocná.' = I am sick (feminine). The adjective 'nemocný/nemocná' agrees with the speaker's gender. 'Nemoc' is the noun (illness), 'nemocný' is the adjective (sick/ill).",
+        "blank_answers": [
+          [
+            "nemocný",
+            "nemocná"
+          ]
+        ]
       },
-      "answer_key": "Mám bolest žaludku.",
+      "answer_key": "nemocný",
       "grammar_rule_id": "GR-231",
       "xp_reward": 10
     },
     {
-      "id": 24024,
+      "id": 24214,
       "lesson_id": 2402,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear.",
+      "type": "translation",
+      "prompt": "Translate to English: 'Mám kašel.'",
       "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_24024",
-        "expected_text": "Musíte si vzít lék třikrát denně.",
-        "language": "cs-CZ",
-        "note": "'Musíte si vzít lék třikrát denně.' = You must take the medicine three times a day. 'Třikrát denně' = three times daily. This is a common doctor's instruction."
+        "type": "translation",
+        "direction": "cz_to_en",
+        "source": "Mám kašel.",
+        "accepted_answers": [
+          "I have a cough.",
+          "I have cough.",
+          "I've got a cough."
+        ],
+        "grammar_note": "'Mám kašel' = I have a cough. 'Kašel' = cough (masculine noun). The verb 'mít' (to have) + noun is used to describe symptoms, similar to English."
       },
-      "answer_key": "Musíte si vzít lék třikrát denně.",
-      "grammar_rule_id": "GR-232",
+      "answer_key": "I have a cough.",
+      "grammar_rule_id": "GR-231",
       "xp_reward": 10
+    },
+    {
+      "id": 24215,
+      "lesson_id": 2402,
+      "type": "fill_blank",
+      "prompt": "State the duration",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Je mi špatně ___ včerejška.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "od"
+          ]
+        ]
+      },
+      "answer_key": "od",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-231"
+    },
+    {
+      "id": 24216,
+      "lesson_id": 2402,
+      "type": "multiple_choice",
+      "prompt": "Choose the answer",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Kolega: „Proč jdeš domů?“ Co odpovíte?",
+        "question_en": "A colleague asks why you are going home. What do you answer?",
+        "options": [
+          "Necítím se dobře, mám horečku.",
+          "Necítím dobře, mám horečka.",
+          "Jsem špatně, mám horečku."
+        ],
+        "correct_index": 0,
+        "explanation": "Necítím se dobře (with se), and mám + accusative: horečku."
+      },
+      "answer_key": "Necítím se dobře, mám horečku.",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-231"
     }
   ]
 }

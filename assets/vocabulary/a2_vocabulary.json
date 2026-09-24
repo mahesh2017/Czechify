@@ -3495,7 +3495,7 @@
     "unit_id": 24,
     "example_cz": "Otevřete ústa, prosím.",
     "example_en": "Open your mouth, please.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1346,
@@ -3506,7 +3506,7 @@
     "unit_id": 24,
     "example_cz": "Mám ucpaný nos.",
     "example_en": "I have a stuffy nose.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1347,
@@ -3550,7 +3550,7 @@
     "unit_id": 24,
     "example_cz": "Srdce bije pravidelně.",
     "example_en": "The heart beats regularly.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1351,
@@ -3561,7 +3561,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě krk při polykání.",
     "example_en": "My throat hurts when swallowing.",
-    "lesson_id": 2401
+    "lesson_id": 2403
   },
   {
     "id": 1352,
@@ -3572,7 +3572,7 @@
     "unit_id": 24,
     "example_cz": "Zlomil jsem si prst.",
     "example_en": "I broke my finger.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1353,
@@ -3583,7 +3583,7 @@
     "unit_id": 24,
     "example_cz": "Zranil jsem si palec.",
     "example_en": "I injured my thumb.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1354,
@@ -3594,7 +3594,7 @@
     "unit_id": 24,
     "example_cz": "Jdu k lékaři.",
     "example_en": "I am going to the doctor.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1355,
@@ -3605,7 +3605,7 @@
     "unit_id": 24,
     "example_cz": "Mám těžkou nemoc.",
     "example_en": "I have a serious illness.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1356,
@@ -3616,7 +3616,7 @@
     "unit_id": 24,
     "example_cz": "Beru léky na tlak.",
     "example_en": "I take medicine for blood pressure.",
-    "lesson_id": 2401
+    "lesson_id": 2404
   },
   {
     "id": 1357,
@@ -3627,7 +3627,7 @@
     "unit_id": 24,
     "example_cz": "Je v nemocnici.",
     "example_en": "He is in the hospital.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1358,
@@ -3638,7 +3638,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě hlava.",
     "example_en": "My head hurts.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1359,
@@ -3649,7 +3649,7 @@
     "unit_id": 24,
     "example_cz": "Mám vysokou teplotu.",
     "example_en": "I have a high temperature.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1360,
@@ -3660,7 +3660,7 @@
     "unit_id": 24,
     "example_cz": "Mám nachlazení.",
     "example_en": "I have a cold.",
-    "lesson_id": 2401
+    "lesson_id": 2403
   },
   {
     "id": 1361,
@@ -3671,7 +3671,7 @@
     "unit_id": 24,
     "example_cz": "Mám suchý kašel.",
     "example_en": "I have a dry cough.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1362,
@@ -3682,7 +3682,7 @@
     "unit_id": 24,
     "example_cz": "Mám rýmu a kašel.",
     "example_en": "I have a runny nose and a cough.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1363,
@@ -3693,7 +3693,7 @@
     "unit_id": 24,
     "example_cz": "Mám horečku.",
     "example_en": "I have a fever.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1364,
@@ -3704,7 +3704,7 @@
     "unit_id": 24,
     "example_cz": "Mám bakteriální infekci.",
     "example_en": "I have a bacterial infection.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1365,
@@ -3715,7 +3715,7 @@
     "unit_id": 24,
     "example_cz": "Potřebuji recept na léky.",
     "example_en": "I need a prescription for medicine.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1366,
@@ -3726,7 +3726,7 @@
     "unit_id": 24,
     "example_cz": "Lékař mi předepsal antibiotika.",
     "example_en": "The doctor prescribed me antibiotics.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1367,
@@ -3737,7 +3737,7 @@
     "unit_id": 24,
     "example_cz": "Vyšetření bylo důkladné.",
     "example_en": "The examination was thorough.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1368,
@@ -3748,7 +3748,7 @@
     "unit_id": 24,
     "example_cz": "Dostal jsem injekci do paže.",
     "example_en": "I got an injection in the arm.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1369,
@@ -3759,7 +3759,7 @@
     "unit_id": 24,
     "example_cz": "Mám obvaz na ruce.",
     "example_en": "I have a bandage on my hand.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1370,
@@ -3770,7 +3770,7 @@
     "unit_id": 24,
     "example_cz": "Vezměte si jednu tabletu.",
     "example_en": "Take one tablet.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1371,
@@ -3781,7 +3781,7 @@
     "unit_id": 24,
     "example_cz": "Dítěti dal sirup na kašel.",
     "example_en": "He gave the child cough syrup.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1372,
@@ -3792,7 +3792,7 @@
     "unit_id": 24,
     "example_cz": "Cítím se dobře.",
     "example_en": "I feel well.",
-    "lesson_id": 2402
+    "lesson_id": 2403
   },
   {
     "id": 1373,
@@ -3803,7 +3803,7 @@
     "unit_id": 24,
     "example_cz": "Dítě začalo zvracet.",
     "example_en": "The child started to vomit.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1374,
@@ -3814,7 +3814,7 @@
     "unit_id": 24,
     "example_cz": "On silně kašle.",
     "example_en": "He is coughing heavily.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1375,
@@ -3825,7 +3825,7 @@
     "unit_id": 24,
     "example_cz": "Kýchám celé ráno.",
     "example_en": "I have been sneezing all morning.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1376,
@@ -3836,7 +3836,7 @@
     "unit_id": 24,
     "example_cz": "Jdu k lékaři kvůli bolesti.",
     "example_en": "I am going to the doctor because of pain.",
-    "lesson_id": 2402
+    "lesson_id": 2403
   },
   {
     "id": 1377,
@@ -3858,7 +3858,7 @@
     "unit_id": 24,
     "example_cz": "Mám teplotu od včerejška.",
     "example_en": "I have had a fever since yesterday.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1379,
@@ -3869,7 +3869,7 @@
     "unit_id": 24,
     "example_cz": "Potřebuji recept na antibiotika.",
     "example_en": "I need a prescription for antibiotics.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1380,
@@ -3880,7 +3880,7 @@
     "unit_id": 24,
     "example_cz": "Lékárna je otevřená do osmi.",
     "example_en": "The pharmacy is open until eight.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1381,
@@ -3891,7 +3891,7 @@
     "unit_id": 24,
     "example_cz": "Koupil jsem kapky do očí.",
     "example_en": "I bought eye drops.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1382,
@@ -3902,18 +3902,7 @@
     "unit_id": 24,
     "example_cz": "Vitamíny jsou důležité pro zdraví.",
     "example_en": "Vitamins are important for health.",
-    "lesson_id": 2402
-  },
-  {
-    "id": 1383,
-    "word_cz": "záchytka",
-    "word_en": "emergency station / detox",
-    "ipa": "zaːxiːtka",
-    "gender": "feminine",
-    "unit_id": 24,
-    "example_cz": "Odvezli ho na záchytku.",
-    "example_en": "They took him to the emergency station.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1384,
@@ -3924,7 +3913,7 @@
     "unit_id": 24,
     "example_cz": "Zavolali jsme sanitu.",
     "example_en": "We called an ambulance.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1385,
@@ -3935,7 +3924,7 @@
     "unit_id": 24,
     "example_cz": "Musíme zavolat lékaře.",
     "example_en": "We must call a doctor.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1386,
@@ -3968,7 +3957,7 @@
     "unit_id": 24,
     "example_cz": "Měl těžké zranění nohy.",
     "example_en": "He had a severe leg injury.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1389,
@@ -3979,7 +3968,7 @@
     "unit_id": 24,
     "example_cz": "Mám alergii na pyl.",
     "example_en": "I have a pollen allergy.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1390,
@@ -7510,7 +7499,7 @@
     "unit_id": 24,
     "example_cz": "Mám vysokou teplotu.",
     "example_en": "I have a high temperature.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1786,
@@ -7521,7 +7510,7 @@
     "unit_id": 24,
     "example_cz": "Horečka mi nesla dolů.",
     "example_en": "The fever was bringing me down.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1787,
@@ -7532,7 +7521,7 @@
     "unit_id": 24,
     "example_cz": "Mám suchý kašel.",
     "example_en": "I have a dry cough.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1788,
@@ -7543,7 +7532,7 @@
     "unit_id": 24,
     "example_cz": "Mám rýmu a bolí mě hrdlo.",
     "example_en": "I have a runny nose and a sore throat.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1789,
@@ -7554,7 +7543,7 @@
     "unit_id": 24,
     "example_cz": "Cítím bolest v hrudníku.",
     "example_en": "I feel pain in my chest.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1790,
@@ -7565,7 +7554,7 @@
     "unit_id": 24,
     "example_cz": "Mám zánět průdušek.",
     "example_en": "I have bronchial inflammation.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1791,
@@ -7576,7 +7565,7 @@
     "unit_id": 24,
     "example_cz": "Mám alergii na pyl.",
     "example_en": "I have an allergy to pollen.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1792,
@@ -7587,7 +7576,7 @@
     "unit_id": 24,
     "example_cz": "Lékař mi vydal předpis na léky.",
     "example_en": "The doctor gave me a prescription for medicine.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1793,
@@ -7598,7 +7587,7 @@
     "unit_id": 24,
     "example_cz": "Potřebuji recept na antibiotika.",
     "example_en": "I need a prescription for antibiotics.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1794,
@@ -7609,7 +7598,7 @@
     "unit_id": 24,
     "example_cz": "Vezměte si jednu tabletu po jídle.",
     "example_en": "Take one tablet after a meal.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1795,
@@ -7620,7 +7609,7 @@
     "unit_id": 24,
     "example_cz": "Dítěti dávejte sirup proti kašli.",
     "example_en": "Give the child cough syrup.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1796,
@@ -7631,7 +7620,7 @@
     "unit_id": 24,
     "example_cz": "Dostal jsem injekci do paže.",
     "example_en": "I got an injection in the arm.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1797,
@@ -7642,18 +7631,7 @@
     "unit_id": 24,
     "example_cz": "Sestra mi vyměnila obvaz.",
     "example_en": "The nurse changed my bandage.",
-    "lesson_id": 2401
-  },
-  {
-    "id": 1798,
-    "word_cz": "sterilní",
-    "word_en": "sterile",
-    "ipa": "stɛrɪlniː",
-    "gender": null,
-    "unit_id": 24,
-    "example_cz": "Použijte sterilní rukavice.",
-    "example_en": "Use sterile gloves.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1799,
@@ -7664,29 +7642,7 @@
     "unit_id": 24,
     "example_cz": "Mám bakteriální infekci.",
     "example_en": "I have a bacterial infection.",
-    "lesson_id": 2401
-  },
-  {
-    "id": 1800,
-    "word_cz": "virus",
-    "word_en": "virus",
-    "ipa": "vɪrus",
-    "gender": "masculine inanimate",
-    "unit_id": 24,
-    "example_cz": "Chřipka je způsobena virem.",
-    "example_en": "Flu is caused by a virus.",
-    "lesson_id": 2401
-  },
-  {
-    "id": 1801,
-    "word_cz": "bakterie",
-    "word_en": "bacterium, bacteria",
-    "ipa": "baktɛrɪɛ",
-    "gender": "feminine",
-    "unit_id": 24,
-    "example_cz": "Bakterie se rychle množí.",
-    "example_en": "Bacteria multiply quickly.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1802,
@@ -7697,18 +7653,7 @@
     "unit_id": 24,
     "example_cz": "Mám vysoký krevní tlak.",
     "example_en": "I have high blood pressure.",
-    "lesson_id": 2401
-  },
-  {
-    "id": 1803,
-    "word_cz": "pulz",
-    "word_en": "pulse",
-    "ipa": "puls",
-    "gender": "masculine inanimate",
-    "unit_id": 24,
-    "example_cz": "Sestra mi měřila pulz.",
-    "example_en": "The nurse took my pulse.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1804,
@@ -7719,7 +7664,7 @@
     "unit_id": 24,
     "example_cz": "Dítě dostalo očkování proti spalničkám.",
     "example_en": "The child got a measles vaccination.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1805,
@@ -7730,18 +7675,7 @@
     "unit_id": 24,
     "example_cz": "Jsem objednaný na kardiologické ambulanci.",
     "example_en": "I have an appointment at the cardiology clinic.",
-    "lesson_id": 2401
-  },
-  {
-    "id": 1806,
-    "word_cz": "operační sál",
-    "word_en": "operating room",
-    "ipa": "opɛraʊtsnɪi saːl",
-    "gender": "masculine inanimate",
-    "unit_id": 24,
-    "example_cz": "Pacienta zavezli na operační sál.",
-    "example_en": "The patient was taken to the operating room.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1807,
@@ -7752,7 +7686,7 @@
     "unit_id": 24,
     "example_cz": "Lékař mě poslal na rentgen hrudníku.",
     "example_en": "The doctor sent me for a chest X-ray.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1808,
@@ -7763,18 +7697,7 @@
     "unit_id": 24,
     "example_cz": "Musím udělat krevní test.",
     "example_en": "I need to have a blood test.",
-    "lesson_id": 2401
-  },
-  {
-    "id": 1809,
-    "word_cz": "moč",
-    "word_en": "urine",
-    "ipa": "mot͡ʃ",
-    "gender": "feminine",
-    "unit_id": 24,
-    "example_cz": "Odběr moči se provádí ráno.",
-    "example_en": "A urine sample is taken in the morning.",
-    "lesson_id": 2401
+    "lesson_id": null
   },
   {
     "id": 1810,
@@ -9414,5 +9337,49 @@
     "example_cz": "Pozor, schod!",
     "example_en": "Mind the step!",
     "lesson_id": 2303
+  },
+  {
+    "id": 2012,
+    "word_cz": "zubař",
+    "word_en": "dentist",
+    "ipa": null,
+    "gender": "masculine animate",
+    "unit_id": 24,
+    "example_cz": "Bolí mě zub, musím k zubaři.",
+    "example_en": "My tooth hurts, I have to go to the dentist.",
+    "lesson_id": 2403
+  },
+  {
+    "id": 2013,
+    "word_cz": "pohotovost",
+    "word_en": "emergency service (clinic)",
+    "ipa": null,
+    "gender": "feminine",
+    "unit_id": 24,
+    "example_cz": "V noci jděte na pohotovost.",
+    "example_en": "At night, go to the emergency service.",
+    "lesson_id": 2403
+  },
+  {
+    "id": 2014,
+    "word_cz": "prohlídka",
+    "word_en": "check-up, examination",
+    "ipa": null,
+    "gender": "feminine",
+    "unit_id": 24,
+    "example_cz": "Zítra mám preventivní prohlídku.",
+    "example_en": "Tomorrow I have a check-up.",
+    "lesson_id": 2403
+  },
+  {
+    "id": 2015,
+    "word_cz": "neschopenka",
+    "word_en": "sick note (for work)",
+    "ipa": null,
+    "gender": "feminine",
+    "unit_id": 24,
+    "example_cz": "Lékař mi dal neschopenku.",
+    "example_en": "The doctor gave me a sick note.",
+    "lesson_id": 2403
   }
 ]

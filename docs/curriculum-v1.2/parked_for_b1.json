@@ -1872,6 +1872,90 @@
       "example_en": "The teacher forbade using phones.",
       "lesson_id": 2301,
       "parked_reason": "Formal or legal register, B1; the A2 target is recognising zakázáno on signs (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1383,
+      "word_cz": "záchytka",
+      "word_en": "emergency station / detox",
+      "ipa": "zaːxiːtka",
+      "gender": "feminine",
+      "unit_id": 24,
+      "example_cz": "Odvezli ho na záchytku.",
+      "example_en": "They took him to the emergency station.",
+      "lesson_id": 2402,
+      "parked_reason": "Technical medical vocabulary, or slang (záchytka); replaced by the official A1 words pohotovost, zubař, prohlídka, neschopenka (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1798,
+      "word_cz": "sterilní",
+      "word_en": "sterile",
+      "ipa": "stɛrɪlniː",
+      "gender": null,
+      "unit_id": 24,
+      "example_cz": "Použijte sterilní rukavice.",
+      "example_en": "Use sterile gloves.",
+      "lesson_id": 2401,
+      "parked_reason": "Technical medical vocabulary, or slang (záchytka); replaced by the official A1 words pohotovost, zubař, prohlídka, neschopenka (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1800,
+      "word_cz": "virus",
+      "word_en": "virus",
+      "ipa": "vɪrus",
+      "gender": "masculine inanimate",
+      "unit_id": 24,
+      "example_cz": "Chřipka je způsobena virem.",
+      "example_en": "Flu is caused by a virus.",
+      "lesson_id": 2401,
+      "parked_reason": "Technical medical vocabulary, or slang (záchytka); replaced by the official A1 words pohotovost, zubař, prohlídka, neschopenka (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1801,
+      "word_cz": "bakterie",
+      "word_en": "bacterium, bacteria",
+      "ipa": "baktɛrɪɛ",
+      "gender": "feminine",
+      "unit_id": 24,
+      "example_cz": "Bakterie se rychle množí.",
+      "example_en": "Bacteria multiply quickly.",
+      "lesson_id": 2401,
+      "parked_reason": "Technical medical vocabulary, or slang (záchytka); replaced by the official A1 words pohotovost, zubař, prohlídka, neschopenka (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1803,
+      "word_cz": "pulz",
+      "word_en": "pulse",
+      "ipa": "puls",
+      "gender": "masculine inanimate",
+      "unit_id": 24,
+      "example_cz": "Sestra mi měřila pulz.",
+      "example_en": "The nurse took my pulse.",
+      "lesson_id": 2401,
+      "parked_reason": "Technical medical vocabulary, or slang (záchytka); replaced by the official A1 words pohotovost, zubař, prohlídka, neschopenka (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1806,
+      "word_cz": "operační sál",
+      "word_en": "operating room",
+      "ipa": "opɛraʊtsnɪi saːl",
+      "gender": "masculine inanimate",
+      "unit_id": 24,
+      "example_cz": "Pacienta zavezli na operační sál.",
+      "example_en": "The patient was taken to the operating room.",
+      "lesson_id": 2401,
+      "parked_reason": "Technical medical vocabulary, or slang (záchytka); replaced by the official A1 words pohotovost, zubař, prohlídka, neschopenka (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1809,
+      "word_cz": "moč",
+      "word_en": "urine",
+      "ipa": "mot͡ʃ",
+      "gender": "feminine",
+      "unit_id": 24,
+      "example_cz": "Odběr moči se provádí ráno.",
+      "example_en": "A urine sample is taken in the morning.",
+      "lesson_id": 2401,
+      "parked_reason": "Technical medical vocabulary, or slang (záchytka); replaced by the official A1 words pohotovost, zubař, prohlídka, neschopenka (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
     }
   ],
   "exercises": [

@@ -2842,8 +2842,8 @@
         {
           "id": "GR-232",
           "name": "At the doctor — questions and medical phrases",
-          "pattern": "Common doctor-patient exchanges: Co vás trápí? / Boli mě... / Ukážete jazyk? / Vypijte tohle.",
-          "example": "Co vás trápí? — What's bothering you?"
+          "pattern": "Co vás trápí? Kde to bolí? Ukažte mi… Berte to třikrát denně, po jídle. Můžete to zopakovat?",
+          "example": "Chtěl/a bych se objednat k lékaři. — I would like to make a doctor’s appointment."
         }
       ],
       "core_vocabulary": [
@@ -2899,7 +2899,103 @@
         "Očekávání lékaře bez objednání",
         "Předpoklad, že všichni lékaři mluví anglicky"
       ],
-      "study_tip": "Naučte se části těla a fráze pro návštěvu lékaře. Nacvičte si scénku 'U doktora'."
+      "study_tip": "Naučte se části těla a fráze pro návštěvu lékaře. Nacvičte si scénku 'U doktora'.",
+      "notebook_page": {
+        "title_cz": "U lékaře",
+        "title_en": "Health: body, symptoms, doctor, pharmacy",
+        "can_do": {
+          "cz": "Řeknu lékaři, co mě bolí a od kdy, a rozumím pokynům.",
+          "en": "I can tell a doctor what hurts and since when, and understand instructions."
+        },
+        "words": [
+          {
+            "cz": "Bolí mě hlava.",
+            "en": "I have a headache."
+          },
+          {
+            "cz": "Bolí mě v krku.",
+            "en": "I have a sore throat."
+          },
+          {
+            "cz": "Mám teplotu.",
+            "en": "I have a temperature."
+          },
+          {
+            "cz": "Je mi špatně.",
+            "en": "I feel sick."
+          },
+          {
+            "cz": "od včerejška",
+            "en": "since yesterday"
+          },
+          {
+            "cz": "Chtěl/a bych se objednat.",
+            "en": "I would like an appointment."
+          },
+          {
+            "cz": "Potřebuju neschopenku.",
+            "en": "I need a sick note."
+          },
+          {
+            "cz": "Můžete to zopakovat?",
+            "en": "Can you repeat that?"
+          }
+        ],
+        "pattern": {
+          "name": "Bolí mě… and since when",
+          "rule_plain": "Bolí + mě/tě/ho/ji + body part. Feelings: Je mi špatně. Since: od včerejška; for: už tři dny.",
+          "table": [
+            [
+              "my head hurts",
+              "Bolí mě hlava."
+            ],
+            [
+              "his leg hurts",
+              "Bolí ho noha."
+            ],
+            [
+              "I feel sick",
+              "Je mi špatně."
+            ],
+            [
+              "since yesterday",
+              "od včerejška"
+            ],
+            [
+              "Show me…",
+              "Ukažte mi…"
+            ],
+            [
+              "sick note",
+              "neschopenka"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Od pondělí mě bolí v krku.",
+              "en": "I have had a sore throat since Monday."
+            },
+            {
+              "cz": "Můžete to zopakovat?",
+              "en": "Can you repeat that?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Bolí mi hlava.",
+            "right": "Bolí mě hlava."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Od pondělí mě bolí v krku.",
+            "en": "I have had a sore throat since Monday."
+          },
+          {
+            "cz": "Potřebuju neschopenku, prosím.",
+            "en": "I need a sick note, please."
+          }
+        ]
+      }
     },
     {
       "unit_id": 25,

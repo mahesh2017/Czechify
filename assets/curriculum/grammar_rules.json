@@ -3962,7 +3962,60 @@
           "en": "His back hurts."
         }
       ],
-      "unit_id": 24
+      "unit_id": 24,
+      "concept_keys": [
+        "pron_personal_all_cases"
+      ],
+      "lecture": [
+        {
+          "heading": "It hurts: Bolí mě hlava",
+          "say": "Czech says “the head hurts me”: Bolí mě hlava. The body part is the subject; the person is mě, tě, ho or ji. Záda is plural, but it is still bolí.",
+          "table": [
+            [
+              "My head hurts.",
+              "Bolí mě hlava."
+            ],
+            [
+              "My back hurts.",
+              "Bolí mě záda."
+            ],
+            [
+              "I have a sore throat.",
+              "Bolí mě v krku."
+            ],
+            [
+              "Does your ear hurt?",
+              "Bolí tě ucho?"
+            ],
+            [
+              "His leg hurts.",
+              "Bolí ho noha."
+            ],
+            [
+              "Her tooth hurts.",
+              "Bolí ji zub."
+            ],
+            [
+              "Where does it hurt?",
+              "Kde vás to bolí?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Bolí mě břicho.",
+              "en": "My stomach hurts."
+            },
+            {
+              "cz": "Co vás bolí?",
+              "en": "What hurts? (doctor)"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Bolí mi hlava.",
+            "right": "Bolí mě hlava."
+          }
+        }
+      ]
     },
     {
       "id": "GR-231",
@@ -3988,33 +4041,136 @@
           "en": "I have a fever."
         }
       ],
-      "unit_id": 24
+      "unit_id": 24,
+      "lecture": [
+        {
+          "heading": "How you feel and since when",
+          "say": "Say how you feel with Je mi špatně or Necítím se dobře. Add since when: od včerejška, od pondělí, už tři dny.",
+          "table": [
+            [
+              "I feel sick.",
+              "Je mi špatně."
+            ],
+            [
+              "I don't feel well.",
+              "Necítím se dobře."
+            ],
+            [
+              "I am ill.",
+              "Jsem nemocný / nemocná."
+            ],
+            [
+              "I have a temperature.",
+              "Mám teplotu / horečku."
+            ],
+            [
+              "I have a cough.",
+              "Mám kašel."
+            ],
+            [
+              "I have a runny nose.",
+              "Mám rýmu."
+            ],
+            [
+              "since yesterday",
+              "od včerejška"
+            ],
+            [
+              "for three days",
+              "už tři dny"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám horečku od včerejška.",
+              "en": "I have had a fever since yesterday."
+            },
+            {
+              "cz": "Už tři dny mám kašel.",
+              "en": "I have had a cough for three days."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jsem špatně.",
+            "right": "Je mi špatně."
+          }
+        }
+      ]
     },
     {
       "id": "GR-232",
       "rule_name": "At the doctor — questions and medical phrases",
-      "pattern": "Common doctor-patient exchanges: Co vás trápí? / Boli mě... / Ukážete jazyk? / Vypijte tohle.",
-      "explanation": "When visiting a Czech doctor, these phrases are essential. Doctor asks: Co vás trápí? (What's bothering you?), Na co si stěžujete? (What are you complaining about?), Ukážete jazyk? (Show your tongue?), Otevřete ústa (Open your mouth). Patient says: Jdu k lékaři (I'm going to the doctor), Boli mě hlava/krk/břicho (My head/throat/stomach hurts), Mám teplotu (I have a fever), Mám kašel (I have a cough), Mám rýmu (I have a runny nose), Potřebuji recept (I need a prescription), Kde je lékárna? (Where is the pharmacy?). Doctor may say: Vypijte tohle (Drink this), Užívejte tyto tablety (Take these tablets), Přijďte za týden (Come back in a week).",
+      "pattern": "Co vás trápí? Kde to bolí? Ukažte mi… Berte to třikrát denně, po jídle. Můžete to zopakovat?",
+      "explanation": "At the doctor you will hear questions (Co vás trápí? Kde to bolí? Jak dlouho?) and instructions in the imperative (Ukažte mi krk. Berte to třikrát denně.). Answer with the symptom and since when. If you do not understand, ask: Můžete to zopakovat? Useful words: pohotovost (emergency), zubař (dentist), prohlídka (check-up), neschopenka (sick note).",
       "case_affected": null,
       "examples": [
         {
-          "cz": "Co vás trápí?",
-          "en": "What's bothering you?"
+          "cz": "Chtěl/a bych se objednat k lékaři.",
+          "en": "I would like to make a doctor’s appointment."
         },
         {
-          "cz": "Bolí mě krk a mám teplotu.",
-          "en": "My throat hurts and I have a fever."
-        },
-        {
-          "cz": "Potřebuji recept na léky.",
-          "en": "I need a prescription for medicine."
-        },
-        {
-          "cz": "Užívejte tyto tablety třikrát denně.",
-          "en": "Take these tablets three times a day."
+          "cz": "Berte to třikrát denně po jídle.",
+          "en": "Take it three times a day after meals."
         }
       ],
-      "unit_id": 24
+      "unit_id": 24,
+      "concept_keys": [
+        "imperative_pos_neg"
+      ],
+      "lecture": [
+        {
+          "heading": "At the doctor and the pharmacy",
+          "say": "The doctor asks Co vás trápí? and Kde to bolí? Instructions use the imperative: Ukažte mi krk. If you do not understand, ask: Můžete to zopakovat?",
+          "table": [
+            [
+              "Co vás trápí?",
+              "What's the problem?"
+            ],
+            [
+              "Kde to bolí?",
+              "Where does it hurt?"
+            ],
+            [
+              "Ukažte mi krk.",
+              "Show me your throat."
+            ],
+            [
+              "Berte to třikrát denně.",
+              "Take it three times a day."
+            ],
+            [
+              "po jídle",
+              "after a meal"
+            ],
+            [
+              "Tady máte recept.",
+              "Here is your prescription."
+            ],
+            [
+              "neschopenka",
+              "sick note"
+            ],
+            [
+              "pohotovost",
+              "emergency service"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Chtěl/a bych se objednat k lékaři.",
+              "en": "I would like to make a doctor’s appointment."
+            },
+            {
+              "cz": "Potřebuju neschopenku.",
+              "en": "I need a sick note."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Ukážete mi krk.",
+            "right": "Ukažte mi krk."
+          }
+        }
+      ]
     },
     {
       "id": "GR-240",

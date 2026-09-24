@@ -2,83 +2,148 @@
   "id": 2401,
   "unit_id": 24,
   "order_in_unit": 0,
-  "title": "Body Parts & Health Vocabulary",
-  "description": "Learn essential Czech vocabulary for body parts and common health terms — from hlava (head) to noha (leg) — and describe basic physical conditions and ailments.",
-  "duration_min": 15,
+  "title": "Body and Health",
+  "description": "Hear a patient call the clinic, then learn body parts and symptom phrases.",
+  "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "name body parts and say what hurts.",
+  "new_language": [
+    "Bolí mě hlava.",
+    "Bolí mě v krku.",
+    "Mám teplotu.",
+    "Je mi špatně.",
+    "od včerejška",
+    "Chtěl/a bych se objednat.",
+    "Potřebuju neschopenku.",
+    "Můžete to zopakovat?"
+  ],
+  "recycles": [
+    "Je mi zima (U17)",
+    "Můžu…?",
+    "lékař, lékárna"
+  ],
+  "exit_task": "say what hurts and since when.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 24000,
+      "id": 24100,
+      "lesson_id": 2401,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess what is wrong with the caller.",
+        "transcript_cz": "Dobrý den, bolí mě v krku a mám teplotu od včerejška. Můžu se objednat k lékaři?",
+        "questions": [
+          {
+            "question_en": "What hurts?",
+            "options": [
+              "The throat",
+              "The leg",
+              "The eye"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Since when?",
+            "options": [
+              "Since yesterday",
+              "For a month",
+              "Since morning only"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "throat; yesterday",
+      "xp_reward": 0
+    },
+    {
+      "id": 24101,
       "lesson_id": 2401,
       "type": "teaching",
       "prompt": "Body & Health",
       "data": {
         "type": "teaching",
-        "heading": "Body & Health",
-        "body": "The parts of the body and the phrase \"Bolí mě…\" — so a doctor's visit stops being scary.",
+        "heading": "Body and health",
+        "body": "Czech says “the head hurts me”: Bolí mě hlava. Learn the symptom phrases whole first; Lesson B explains them.",
         "intro": "Sooner or later, everyone needs to say what hurts. Learn the parts of the body and the phrase 'Bolí mě…', and a Czech doctor's visit stops being scary.",
         "style": "list",
         "play_all_label": "Play all",
         "items": [
           {
-            "cz": "hlava",
-            "en": "head"
-          },
-          {
-            "cz": "ruka",
-            "en": "hand / arm"
-          },
-          {
-            "cz": "noha",
-            "en": "leg / foot"
-          },
-          {
-            "cz": "oko",
-            "en": "eye"
-          },
-          {
-            "cz": "ucho",
-            "en": "ear"
-          },
-          {
-            "cz": "břicho",
-            "en": "belly"
-          },
-          {
-            "cz": "záda",
-            "en": "back"
-          },
-          {
-            "cz": "zub",
-            "en": "tooth"
-          },
-          {
             "cz": "Bolí mě hlava.",
-            "en": "My head hurts."
+            "en": "I have a headache."
           },
           {
-            "cz": "Jsem nemocný.",
-            "en": "I'm sick. (male)"
+            "cz": "Bolí mě v krku.",
+            "en": "I have a sore throat."
           },
           {
-            "cz": "lékař",
-            "en": "doctor"
+            "cz": "Mám teplotu.",
+            "en": "I have a temperature."
           },
           {
-            "cz": "lékárna",
-            "en": "pharmacy"
+            "cz": "Je mi špatně.",
+            "en": "I feel sick."
           },
           {
-            "cz": "lék",
-            "en": "medicine"
+            "cz": "od včerejška",
+            "en": "since yesterday"
+          },
+          {
+            "cz": "Chtěl/a bych se objednat.",
+            "en": "I would like an appointment."
+          },
+          {
+            "cz": "Potřebuju neschopenku.",
+            "en": "I need a sick note."
+          },
+          {
+            "cz": "Můžete to zopakovat?",
+            "en": "Can you repeat that?"
           }
         ]
       },
       "xp_reward": 0
     },
     {
-      "id": 24001,
+      "id": 24102,
+      "lesson_id": 2401,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 24 page",
+        "instruction": "Write “Unit 24 — U lékaře” at the top of a new page. Draw a quick stick figure and label six body parts. Then write three symptom phrases.",
+        "items": [
+          {
+            "cz": "hlava, ruka, noha, oko, ucho, záda",
+            "en": "head, arm, leg, eye, ear, back"
+          },
+          {
+            "cz": "Bolí mě hlava.",
+            "en": "I have a headache."
+          },
+          {
+            "cz": "Bolí mě v krku.",
+            "en": "I have a sore throat."
+          },
+          {
+            "cz": "Mám teplotu.",
+            "en": "I have a temperature."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 24103,
       "lesson_id": 2401,
       "type": "matching",
       "prompt": "Match each body part to its English translation.",
@@ -103,68 +168,14 @@
             "right": "eye"
           }
         ],
-        "explanation": "Basic body parts: 'hlava' = head, 'ruka' = hand or arm (Czech uses one word for both), 'noha' = leg or foot (also one word), 'oko' = eye. Note that Czech 'ruka' and 'noha' cover what English splits into two words each."
+        "explanation": "Basic body parts: 'hlava' = head, 'ruka' = hand or arm (Czech uses one word for both), 'noha' = leg or foot (also one word), 'oko' = eye. Note that Czech 'ruka' and 'noha' cover what English splits into two words each.",
+        "targets": "vocab"
       },
       "answer_key": "hlava→head, ruka→hand/arm, noha→leg/foot, oko→eye",
-      "grammar_rule_id": "GR-230",
       "xp_reward": 10
     },
     {
-      "id": 24002,
-      "lesson_id": 2401,
-      "type": "matching",
-      "prompt": "Match each health-related term to its meaning.",
-      "data": {
-        "type": "matching",
-        "prompt_en": "Match each Czech health term to its English meaning.",
-        "pairs": [
-          {
-            "left": "bolí",
-            "right": "hurts/aches"
-          },
-          {
-            "left": "nemoc",
-            "right": "illness/disease"
-          },
-          {
-            "left": "lékař",
-            "right": "doctor"
-          },
-          {
-            "left": "lék",
-            "right": "medicine"
-          }
-        ],
-        "explanation": "Health vocabulary: 'bolí' = hurts (3rd person singular of 'bolet'), 'nemoc' = illness, 'lékař' = doctor (masculine), 'lek' = medicine/drug. 'Bolí mě hlava' = My head hurts."
-      },
-      "answer_key": "bolí→hurts, nemoc→illness, lékař→doctor, lék→medicine",
-      "grammar_rule_id": "GR-231",
-      "xp_reward": 10
-    },
-    {
-      "id": 24003,
-      "lesson_id": 2401,
-      "type": "multiple_choice",
-      "prompt": "What does 'Bolí mě břicho' mean?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená 'Bolí mě břicho'?",
-        "question_en": "What does 'Bolí mě břicho' mean?",
-        "options": [
-          "My head hurts",
-          "My stomach hurts",
-          "My back hurts",
-          "My throat hurts"
-        ],
-        "correct_index": 1,
-        "explanation": "'Bolí mě břicho' = My stomach hurts. 'Břicho' = stomach/belly. The structure is 'bolí mě + body part' — the verb 'bolet' (to hurt) is impersonal, always 3rd person singular."
-      },
-      "answer_key": "My stomach hurts",
-      "grammar_rule_id": "GR-231",
-      "xp_reward": 10
-    },
-    {
-      "id": 24004,
+      "id": 24104,
       "lesson_id": 2401,
       "type": "multiple_choice",
       "prompt": "Which word means 'tooth' in Czech?",
@@ -179,95 +190,66 @@
           "krk"
         ],
         "correct_index": 0,
-        "explanation": "'Zub' = tooth. Other body parts: 'nos' = nose, 'ucho' = ear, 'krk' = neck/throat. A dentist is 'zubní lékař' (tooth doctor)."
+        "explanation": "'Zub' = tooth. Other body parts: 'nos' = nose, 'ucho' = ear, 'krk' = neck/throat. A dentist is 'zubní lékař' (tooth doctor).",
+        "targets": "vocab"
       },
       "answer_key": "zub",
-      "grammar_rule_id": "GR-230",
       "xp_reward": 10
     },
     {
-      "id": 24005,
+      "id": 24105,
       "lesson_id": 2401,
-      "type": "fill_blank",
-      "prompt": "Fill in the body part: 'My head hurts.'",
+      "type": "multiple_choice",
+      "prompt": "What does 'Bolí mě břicho' mean?",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Bolí mě ____.",
-        "blank_count": 1,
-        "explanation": "'Bolí mě hlava.' = My head hurts. 'Hlava' = head. The structure 'bolí mě + [body part in nominative]' is the standard way to express pain in Czech.",
-        "blank_answers": [
-          [
-            "hlava"
-          ]
-        ]
-      },
-      "answer_key": "hlava",
-      "grammar_rule_id": "GR-231",
-      "xp_reward": 10
-    },
-    {
-      "id": 24006,
-      "lesson_id": 2401,
-      "type": "fill_blank",
-      "prompt": "Fill in the correct word: 'I am sick.' — 'Jsem ____.'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Jsem ____.",
-        "blank_count": 1,
-        "explanation": "'Jsem nemocný.' = I am sick (masculine). 'Jsem nemocná.' = I am sick (feminine). The adjective 'nemocný/nemocná' agrees with the speaker's gender. 'Nemoc' is the noun (illness), 'nemocný' is the adjective (sick/ill).",
-        "blank_answers": [
-          [
-            "nemocný",
-            "nemocná"
-          ]
-        ]
-      },
-      "answer_key": "nemocný",
-      "grammar_rule_id": "GR-231",
-      "xp_reward": 10
-    },
-    {
-      "id": 24007,
-      "lesson_id": 2401,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'My throat hurts.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "My throat hurts.",
-        "accepted_answers": [
-          "Bolí mě krk.",
-          "Krk mě bolí.",
-          "Bolí mě v krku."
+        "type": "multiple_choice",
+        "question_cz": "Co znamená 'Bolí mě břicho'?",
+        "question_en": "What does 'Bolí mě břicho' mean?",
+        "options": [
+          "My head hurts",
+          "My stomach hurts",
+          "My back hurts",
+          "My throat hurts"
         ],
-        "grammar_note": "'Bolí mě krk.' = My throat hurts. 'Krk' = neck/throat. The impersonal verb 'bolí' (hurts) + 'mě' (me) + body part. Alternatively: 'Bolí mě v krku' (It hurts in my throat) using the locative case."
+        "correct_index": 1,
+        "explanation": "'Bolí mě břicho' = My stomach hurts. 'Břicho' = stomach/belly. The structure is 'bolí mě + body part' — the verb 'bolet' (to hurt) is impersonal, always 3rd person singular.",
+        "targets": "vocab"
       },
-      "answer_key": "Bolí mě krk.",
-      "grammar_rule_id": "GR-231",
+      "answer_key": "My stomach hurts",
       "xp_reward": 10
     },
     {
-      "id": 24008,
+      "id": 24106,
       "lesson_id": 2401,
-      "type": "translation",
-      "prompt": "Translate to English: 'Mám kašel.'",
+      "type": "matching",
+      "prompt": "Match the health information",
       "data": {
-        "type": "translation",
-        "direction": "cz_to_en",
-        "source": "Mám kašel.",
-        "accepted_answers": [
-          "I have a cough.",
-          "I have cough.",
-          "I've got a cough."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "bolí mě hlava",
+            "right": "headache"
+          },
+          {
+            "left": "od včerejška",
+            "right": "since yesterday"
+          },
+          {
+            "left": "mám teplotu",
+            "right": "I have a temperature"
+          },
+          {
+            "left": "zopakovat",
+            "right": "repeat"
+          }
         ],
-        "grammar_note": "'Mám kašel' = I have a cough. 'Kašel' = cough (masculine noun). The verb 'mít' (to have) + noun is used to describe symptoms, similar to English."
+        "targets": "vocab"
       },
-      "answer_key": "I have a cough.",
-      "grammar_rule_id": "GR-231",
+      "answer_key": "health chunks",
       "xp_reward": 10
     },
     {
-      "id": 24009,
+      "id": 24107,
       "lesson_id": 2401,
       "type": "dictation",
       "prompt": "Listen and write what you hear.",
@@ -276,72 +258,40 @@
         "audio_hash": "placeholder_24009",
         "expected_text": "Bolí mě záda.",
         "language": "cs-CZ",
-        "note": "'Záda' = back (plural noun in Czech, always plural). 'Bolí mě záda' = My back hurts."
+        "note": "'Záda' = back (plural noun in Czech, always plural). 'Bolí mě záda' = My back hurts.",
+        "targets": "vocab"
       },
       "answer_key": "Bolí mě záda.",
-      "grammar_rule_id": "GR-230",
       "xp_reward": 10
     },
     {
-      "id": 24010,
+      "id": 24108,
       "lesson_id": 2401,
-      "type": "pronunciation",
-      "prompt": "Pronounce the following Czech sentence.",
+      "type": "dialogue",
+      "prompt": "Ask for an appointment",
       "data": {
-        "type": "pronunciation",
-        "target_text": "Bolí mě hlava a krk.",
-        "target_audio_hash": "placeholder_24010",
-        "focus_sounds": [
-          "bolí",
-          "hlava",
-          "krk",
-          "á"
+        "type": "dialogue",
+        "scenario": "Calling the clinic",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "receptionist",
+            "text": "Ano, kdy můžete přijít?"
+          }
         ],
-        "min_score": 0.6,
-        "translation_en": "My head and throat hurt."
-      },
-      "answer_key": "Bolí mě hlava a krk.",
-      "grammar_rule_id": "GR-231",
-      "xp_reward": 10
-    },
-    {
-      "id": 24011,
-      "lesson_id": 2401,
-      "type": "word_order",
-      "prompt": "Arrange the words to form: 'I have a fever.'",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "horečku",
-          "Mám",
-          "teplotu"
+        "blank_answers": [
+          [
+            "Můžu se objednat k lékaři?",
+            "Chtěl/a bych se objednat k lékaři."
+          ]
         ],
-        "correct_order": [
-          1,
-          0
-        ],
-        "explanation": "'Mám horečku.' = I have a fever. The correct sentence uses 'Mám' (I have) + 'horečku' (fever - accusative). 'Teplotu' (temperature) is a distractor — the more specific word for fever is 'horečka'. Alternative: 'Mám teplotu' (I have a temperature) is also valid."
+        "targets": "vocab"
       },
-      "answer_key": "Mám horečku.",
-      "grammar_rule_id": "GR-231",
-      "xp_reward": 10
-    },
-    {
-      "id": 24012,
-      "lesson_id": 2401,
-      "type": "error_correction",
-      "prompt": "Find the mistake in this sentence.",
-      "data": {
-        "type": "error_correction",
-        "prompt_en": "Find the mistake in this health-related sentence.",
-        "sentence_cz": "Bolí mě zuby.",
-        "correct_sentence_cz": "Bolí mě zub.",
-        "error_type": "number_agreement",
-        "explanation": "Both forms can be correct depending on context. 'Bolí mě zub' = My (one) tooth hurts. 'Bolí mě zuby' = My teeth hurt (plural). If only one tooth hurts, use singular 'zub'. The verb 'bolí' stays the same for both singular and plural subjects since it's impersonal."
-      },
-      "answer_key": "Bolí mě zub.",
-      "grammar_rule_id": "GR-231",
-      "xp_reward": 10
+      "answer_key": "appointment request",
+      "xp_reward": 15
     }
   ]
 }
