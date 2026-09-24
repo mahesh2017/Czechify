@@ -1,0 +1,101 @@
+// Copied into test/ by slide_heights.sh for one run, then deleted.
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/presentation/widgets/common/slide_deck.dart';
+import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'support/localized_app.dart';
+import 'support/shipped_exercises.dart';
+
+void main() {
+  setUpAll(() async {
+    for (final font in {
+      'Bricolage Grotesque': 'BricolageGrotesque',
+      'Schibsted Grotesk': 'SchibstedGrotesk',
+    }.entries) {
+      await (FontLoader(font.key)
+        ..addFont(rootBundle.load('assets/fonts/${font.value}.ttf'))).load();
+    }
+  });
+
+  testWidgets('slide heights', (tester) async {
+    tester.view.physicalSize = const Size(375, 557);
+    tester.view.devicePixelRatio = 1;
+    final ids =
+        const String.fromEnvironment('IDS').split(',').map(int.parse).toSet();
+    for (final e in loadShippedExercises().where((e) => ids.contains(e.id))) {
+      await tester.pumpWidget(
+        ProviderScope(
+          child: MaterialApp(
+            theme: lightTheme(),
+            localizationsDelegates: testLocalizationsDelegates,
+            supportedLocales: testSupportedLocales,
+            builder:
+                (context, child) => MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(disableAnimations: true),
+                  child: child!,
+                ),
+            home: Scaffold(
+              body: LessonExerciseViewport(exercise: e, onAnswered: (_) {}),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      final deck = find.byType(SlideDeck);
+      if (deck.evaluate().isEmpty) {
+        var worst = 0.0;
+        for (final s in tester.stateList<ScrollableState>(
+          find.byType(Scrollable),
+        )) {
+          if (s.position.axis == Axis.vertical &&
+              s.position.hasContentDimensions &&
+              s.position.maxScrollExtent > worst) {
+            worst = s.position.maxScrollExtent;
+          }
+        }
+        // ignore: avoid_print
+        print('» ${e.id} ${e.type.name}: not on slides, ${worst.round()} pt over');
+        continue;
+      }
+      final state = tester.state<SlideDeckState>(deck.first);
+      for (var page = 0; page < state.length; page++) {
+        state.goTo(page);
+        await tester.pump();
+        final slide = find
+            .descendant(
+              of: find.byType(PageView),
+              matching: find.byType(SingleChildScrollView),
+            )
+            .first;
+        final scroll = tester.state<ScrollableState>(
+          find.descendant(of: slide, matching: find.byType(Scrollable)).first,
+        );
+        final over = scroll.position.maxScrollExtent;
+        if (over < 1) continue;
+        final column = tester.widget<Column>(
+          find.descendant(of: slide, matching: find.byType(Column)).first,
+        );
+        // ignore: avoid_print
+        print(
+          '» ${e.id} ${e.type.name} slide ${page + 1}/${state.length}: '
+          '${over.round()} pt over (room ${scroll.position.viewportDimension.round()} '
+          'incl. padding)',
+        );
+        for (final child in column.children) {
+          final found = find.byWidget(child);
+          if (found.evaluate().isEmpty) continue;
+          // ignore: avoid_print
+          print(
+            '»   ${child.runtimeType} ${tester.getSize(found.first).height.round()}',
+          );
+        }
+      }
+    }
+  });
+}

@@ -313,16 +313,16 @@ the feedback sheet, with the keyboard for typed answers.
 ## 10. Checklist for switching on another unit
 
 ### Assess (no changes committed)
-1. **Dry run:**
-   - add the unit to `unitGuidePilotUnits` locally;
-   - run `UPDATE_NO_SCROLL_BUDGET=1 flutter test test/no_scroll_fit_test.dart`;
-   - copy `test/fixtures/no_scroll_budget.json` to the scratchpad;
-   - restore both files with `git checkout`.
+The `lesson-no-scroll` skill (`.agents/skills/lesson-no-scroll/`) loads these
+steps automatically, and its two scripts do the measuring.
 
-   Compare the copy with the committed list: which of the unit's exercises
-   would still scroll, by kind and by how much.
-2. **Diagnose each exercise that still scrolls** with the slide-by-slide height
-   print (§11). Match it to the known causes in §6, or record a new one.
+1. **Trial run:** `.agents/skills/lesson-no-scroll/scripts/dry_run.sh <unit…>`.
+   It switches the units on to slides temporarily, measures, and restores the
+   files. It prints which of the unit's exercises would still scroll, by kind
+   and by how much, and warns if anything outside those units changed.
+2. **Diagnose each exercise that still scrolls:**
+   `.agents/skills/lesson-no-scroll/scripts/slide_heights.sh <id,id,…>`. It
+   prints each overflowing slide and the height of each of its parts. Match it to the known causes in §6, or record a new one.
 3. **Review the content** for §9-type problems and for teaching choices built
    into the exercises (§8).
 4. **Walk one lesson of the unit on the simulator** in its current layout.
@@ -364,6 +364,6 @@ the feedback sheet, with the keyboard for typed answers.
   "Menuhin se mahe…". Test with short words.
 - **Temporary folders differ:** `$TMPDIR` inside the sandbox is not the same
   folder as outside it. Keep scratch files in the session scratchpad.
-- **To see which part of a slide overflows,** write a throwaway widget test
-  that turns each slide and prints the heights of the slide's children. This
-  was used for §5 and §6; it isn't kept in the repo.
+- **To see which part of a slide overflows,** run the skill's
+  `slide_heights.sh`, which was used for §5 and §6. It copies a probe test into
+  `test/`, runs it, and deletes it again.
