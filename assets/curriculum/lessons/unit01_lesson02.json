@@ -3,65 +3,250 @@
   "unit_id": 1,
   "order_in_unit": 2,
   "title": "Czech Spelling Clues",
-  "description": "Use Czech spelling to predict common sounds, including č, š, ž, ch, j, ě and ř, without demanding perfect pronunciation.",
+  "description": "Learn ě and ř, and use spelling to predict sounds.",
   "duration_min": 12,
   "lesson_type": "practice",
+  "can_do": "read ě and ř and predict how a new word sounds.",
+  "new_language": [
+    "dě, tě, ně, mě",
+    "ř"
+  ],
+  "recycles": [
+    "háček",
+    "long vowels"
+  ],
+  "exit_task": "spell your name the Czech way.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 1101,
+      "id": 1300,
       "lesson_id": 102,
       "type": "teaching",
-      "prompt": "Build a practical Czech sound map",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Read the clues, then trust your ears",
-        "body": "Czech spelling is more regular than English, but real speech still includes changes such as voicing and sound linking. These high-value clues will help you read beginner words; listen to each full word rather than forcing an English sound onto one letter.",
-        "play_all_label": "Hear the sound map",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write the words for coffee, tea and school with their marks. Then write the long vowels.",
         "items": [
           {
-            "cz": "čaj",
-            "en": "č ≈ ch in church"
+            "cz": "káva, čaj, škola",
+            "en": "coffee, tea, school"
           },
           {
-            "cz": "škola",
-            "en": "š ≈ sh in ship"
-          },
-          {
-            "cz": "žena",
-            "en": "ž ≈ s in measure"
-          },
-          {
-            "cz": "cukr",
-            "en": "c ≈ ts in cats"
-          },
-          {
-            "cz": "chléb",
-            "en": "ch is one throaty Czech sound"
-          },
-          {
-            "cz": "jablko",
-            "en": "j ≈ y in yes"
-          },
-          {
-            "cz": "děti",
-            "en": "dě has a softened d"
-          },
-          {
-            "cz": "město",
-            "en": "mě is commonly pronounced mně"
-          },
-          {
-            "cz": "řeka",
-            "en": "ř is a special Czech sound; approximation is fine for now"
+            "cz": "á, é, í, ó, ú, ů",
+            "en": "long vowels"
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
-      "id": 1102,
+      "id": 1301,
+      "lesson_id": 102,
+      "type": "teaching",
+      "prompt": "ě softens the sound before it",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-002",
+        "rule_step": 1,
+        "heading": "ě softens the sound before it",
+        "items": [
+          {
+            "cz": "Mám dvě děti.",
+            "en": "I have two children."
+          },
+          {
+            "cz": "Praha je velké město.",
+            "en": "Prague is a big city."
+          }
+        ],
+        "say": "After d, t, n the letter ě softens them: děti sounds like “dyeti”. After b, p, v it adds a y-sound, and mě sounds like “mnye”: město.",
+        "table": [
+          [
+            "děti",
+            "“dyeti”"
+          ],
+          [
+            "tělo",
+            "“tyelo”"
+          ],
+          [
+            "něco",
+            "“nyetso”"
+          ],
+          [
+            "oběd",
+            "“obyed”"
+          ],
+          [
+            "pět",
+            "“pyet”"
+          ],
+          [
+            "svět",
+            "“svyet”"
+          ],
+          [
+            "město",
+            "“mnyesto”"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mám dvě děti.",
+            "en": "I have two children."
+          },
+          {
+            "cz": "Praha je velké město.",
+            "en": "Prague is a big city."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "děti read as “deti”",
+          "right": "děti sounds like “dyeti”"
+        },
+        "step": 1,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 1302,
+      "lesson_id": 102,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak zní dě ve slově děti?",
+        "question_en": "How does dě sound in děti?",
+        "options": [
+          "dye (a soft d)",
+          "de (a hard d)",
+          "te"
+        ],
+        "correct_index": 0,
+        "explanation": "ě softens d: děti sounds like “dyeti”."
+      },
+      "answer_key": "dye (a soft d)",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-002"
+    },
+    {
+      "id": 1303,
+      "lesson_id": 102,
+      "type": "teaching",
+      "prompt": "ř — the Czech sound",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-001",
+        "rule_step": 1,
+        "heading": "ř — the Czech sound",
+        "items": [
+          {
+            "cz": "Mám tři děti.",
+            "en": "I have three children."
+          },
+          {
+            "cz": "Řeka je tady.",
+            "en": "The river is here."
+          }
+        ],
+        "say": "ř is one sound: a rolled r and ž at the same time. Many learners need months to get it. Until then, say r and ž together; people will understand you.",
+        "table": [
+          [
+            "řeka",
+            "river"
+          ],
+          [
+            "tři",
+            "three"
+          ],
+          [
+            "moře",
+            "sea"
+          ],
+          [
+            "Dvořák",
+            "a composer"
+          ],
+          [
+            "řídit",
+            "to drive"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mám tři děti.",
+            "en": "I have three children."
+          },
+          {
+            "cz": "Řeka je tady.",
+            "en": "The river is here."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "řeka read as “reka”",
+          "right": "řeka: r and ž together"
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 1304,
+      "lesson_id": 102,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Které slovo znamená „river“?",
+        "question_en": "Which word means “river”?",
+        "options": [
+          "řeka",
+          "reka",
+          "žeka"
+        ],
+        "correct_index": 0,
+        "explanation": "řeka is spelled with ř."
+      },
+      "answer_key": "řeka",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-001"
+    },
+    {
+      "id": 1305,
+      "lesson_id": 102,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My words",
+        "instruction": "In the My sentences box, write your first name and three Czech words you like. Mark the first beat and circle any long vowel, háček or ě.",
+        "items": [
+          {
+            "cz": "KÁ-va, MĚS-to, ŘE-ka",
+            "en": "coffee, city, river"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 1306,
       "lesson_id": 102,
       "type": "listening_comprehension",
       "prompt": "Distinguish three háček sounds",
@@ -82,10 +267,11 @@
         ]
       },
       "answer_key": "tea — school — woman",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
     },
     {
-      "id": 1103,
+      "id": 1307,
       "lesson_id": 102,
       "type": "matching",
       "prompt": "Match each spelling clue to an approximate English cue",
@@ -115,30 +301,11 @@
         ]
       },
       "answer_key": "c=ts, č=ch, š=sh, ž=measure sound, j=y",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
     },
     {
-      "id": 1104,
-      "lesson_id": 102,
-      "type": "multiple_choice",
-      "prompt": "Recognize Czech ch",
-      "data": {
-        "type": "multiple_choice",
-        "question_en": "How should you treat ch in the familiar word chléb?",
-        "options": [
-          "As one Czech sound",
-          "As separate c and h sounds",
-          "As English ch in chair",
-          "As a silent spelling"
-        ],
-        "correct_index": 0,
-        "explanation": "Czech ch functions as a single sound (and traditionally as one alphabet letter). It is similar to the sound in Scottish loch."
-      },
-      "answer_key": "As one Czech sound",
-      "xp_reward": 10
-    },
-    {
-      "id": 1105,
+      "id": 1308,
       "lesson_id": 102,
       "type": "multiple_choice",
       "prompt": "Recognize Czech j",
@@ -155,10 +322,11 @@
         "explanation": "Czech j is close to English y in yes."
       },
       "answer_key": "y in yes",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
     },
     {
-      "id": 1106,
+      "id": 1309,
       "lesson_id": 102,
       "type": "multiple_choice",
       "prompt": "Use ě as a spelling clue",
@@ -179,7 +347,7 @@
       "grammar_rule_id": "GR-002"
     },
     {
-      "id": 1107,
+      "id": 1310,
       "lesson_id": 102,
       "type": "fill_blank",
       "prompt": "Complete the familiar word for city",
@@ -199,21 +367,7 @@
       "grammar_rule_id": "GR-002"
     },
     {
-      "id": 1108,
-      "lesson_id": 102,
-      "type": "dictation",
-      "prompt": "Listen and type the word",
-      "data": {
-        "type": "dictation",
-        "expected_text": "chléb",
-        "language": "cs-CZ",
-        "note": "Keep ch together and include the long é."
-      },
-      "answer_key": "chléb",
-      "xp_reward": 10
-    },
-    {
-      "id": 1109,
+      "id": 1311,
       "lesson_id": 102,
       "type": "pronunciation",
       "prompt": "Copy the complete mě- sound",
@@ -228,10 +382,11 @@
         "note": "Listen and imitate the whole first syllable rather than pronouncing m + e separately."
       },
       "answer_key": "město",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-002"
     },
     {
-      "id": 1110,
+      "id": 1312,
       "lesson_id": 102,
       "type": "pronunciation",
       "prompt": "Try ř without chasing perfection",
@@ -250,7 +405,52 @@
       "grammar_rule_id": "GR-001"
     },
     {
-      "id": 1111,
+      "id": 1313,
+      "lesson_id": 102,
+      "type": "dictation",
+      "prompt": "Listen and type the word",
+      "data": {
+        "type": "dictation",
+        "expected_text": "chléb",
+        "language": "cs-CZ",
+        "note": "Keep ch together and include the long é.",
+        "targets": "vocab"
+      },
+      "answer_key": "chléb",
+      "xp_reward": 10
+    },
+    {
+      "id": 1314,
+      "lesson_id": 102,
+      "type": "matching",
+      "prompt": "Match each spelling to its meaning",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "byt",
+            "right": "flat / apartment"
+          },
+          {
+            "left": "být",
+            "right": "to be"
+          },
+          {
+            "left": "pas",
+            "right": "passport"
+          },
+          {
+            "left": "pás",
+            "right": "belt"
+          }
+        ]
+      },
+      "answer_key": "byt=flat, být=to be, pas=passport, pás=belt",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 1315,
       "lesson_id": 102,
       "type": "teaching",
       "prompt": "Keep the complete alphabet as a reference",
@@ -475,69 +675,5 @@
       },
       "xp_reward": 0
     }
-  ],
-  "can_do": "use Czech spelling clues to predict familiar sounds.",
-  "new_language": [
-    "čaj",
-    "škola",
-    "žena",
-    "cukr",
-    "chléb",
-    "jablko",
-    "děti",
-    "město",
-    "řeka",
-    "a",
-    "dlouhé á",
-    "bé",
-    "cé",
-    "čé",
-    "dé",
-    "ďé",
-    "e",
-    "dlouhé é",
-    "ije",
-    "ef",
-    "gé",
-    "há",
-    "chá",
-    "měkké i",
-    "dlouhé í",
-    "jé",
-    "ká",
-    "el",
-    "em",
-    "en",
-    "eň",
-    "o",
-    "dlouhé ó",
-    "pé",
-    "kvé",
-    "er",
-    "eř",
-    "es",
-    "eš",
-    "té",
-    "ťé",
-    "u",
-    "ú s čárkou",
-    "ů s kroužkem",
-    "vé",
-    "dvojité vé",
-    "iks",
-    "tvrdé y",
-    "dlouhé tvrdé ý",
-    "zet",
-    "žet"
-  ],
-  "recycles": [
-    "káva",
-    "čaj",
-    "chléb",
-    "jablko",
-    "děti",
-    "first-syllable rhythm",
-    "long vowels"
-  ],
-  "exit_task": "use Czech spelling clues to predict familiar sounds."
+  ]
 }

@@ -734,7 +734,7 @@
     "unit_id": 1,
     "example_cz": "Vltava je řeka.",
     "example_en": "The Vltava is a river.",
-    "lesson_id": 101
+    "lesson_id": 102
   },
   {
     "id": 72,
@@ -745,7 +745,7 @@
     "unit_id": 1,
     "example_cz": "Antonín Dvořák je hudebník.",
     "example_en": "Antonín Dvořák is a musician.",
-    "lesson_id": 101
+    "lesson_id": 102
   },
   {
     "id": 73,
@@ -767,7 +767,7 @@
     "unit_id": 1,
     "example_cz": "Řeka teče přes město.",
     "example_en": "The river flows through the city.",
-    "lesson_id": 101
+    "lesson_id": 102
   },
   {
     "id": 75,
@@ -800,39 +800,6 @@
     "unit_id": 1,
     "example_cz": "Jdu do školy.",
     "example_en": "I'm going to school.",
-    "lesson_id": 101
-  },
-  {
-    "id": 78,
-    "word_cz": "uložit",
-    "word_en": "to save / to store",
-    "ipa": "ˈuloʒɪt",
-    "gender": null,
-    "unit_id": 1,
-    "example_cz": "Uložím soubor.",
-    "example_en": "I'll save the file.",
-    "lesson_id": 101
-  },
-  {
-    "id": 79,
-    "word_cz": "úložiště",
-    "word_en": "storage",
-    "ipa": "ˈuːloʒɪʃcɛ",
-    "gender": "neuter",
-    "unit_id": 1,
-    "example_cz": "Kapacita úložiště je malá.",
-    "example_en": "Storage capacity is small.",
-    "lesson_id": 101
-  },
-  {
-    "id": 80,
-    "word_cz": "uložené",
-    "word_en": "saved / stored",
-    "ipa": "ˈuloʒɛnɛː",
-    "gender": null,
-    "unit_id": 1,
-    "example_cz": "Soubor je uložený.",
-    "example_en": "The file is saved.",
     "lesson_id": 101
   },
   {
@@ -3935,7 +3902,7 @@
     "unit_id": 1,
     "example_cz": "Č jako čaj.",
     "example_en": "Č as in tea.",
-    "lesson_id": 101
+    "lesson_id": null
   },
   {
     "id": 363,
@@ -3946,7 +3913,7 @@
     "unit_id": 1,
     "example_cz": "Š jako škola.",
     "example_en": "Š as in school.",
-    "lesson_id": 101
+    "lesson_id": null
   },
   {
     "id": 364,
@@ -3957,7 +3924,7 @@
     "unit_id": 1,
     "example_cz": "Ž jako žirafa.",
     "example_en": "Ž as in giraffe.",
-    "lesson_id": 101
+    "lesson_id": null
   },
   {
     "id": 365,
@@ -3968,7 +3935,7 @@
     "unit_id": 1,
     "example_cz": "Ř jako řeka.",
     "example_en": "Ř as in river.",
-    "lesson_id": 101
+    "lesson_id": null
   },
   {
     "id": 366,
@@ -3979,7 +3946,7 @@
     "unit_id": 1,
     "example_cz": "Ť jako tři.",
     "example_en": "Ť as in three.",
-    "lesson_id": 101
+    "lesson_id": null
   },
   {
     "id": 367,

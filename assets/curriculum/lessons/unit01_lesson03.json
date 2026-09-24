@@ -3,13 +3,27 @@
   "unit_id": 1,
   "order_in_unit": 3,
   "title": "Mission: Keep the Conversation Going",
-  "description": "Use Czech repair phrases to ask for repetition, slower speech, meaning, or spelling, then complete a short listening and speaking mission.",
-  "duration_min": 13,
-  "lesson_type": "practice",
-  "is_review": true,
+  "description": "Use repair phrases when Czech is too fast.",
+  "duration_min": 12,
+  "lesson_type": "mission",
+  "can_do": "ask someone to repeat, slow down, spell or explain.",
+  "new_language": [
+    "Nerozumím.",
+    "Ještě jednou, prosím.",
+    "Prosím pomalu.",
+    "Jak se to píše?",
+    "Co to znamená?"
+  ],
+  "recycles": [
+    "Děkuju.",
+    "Dobrý den."
+  ],
+  "exit_task": "use one repair phrase in a short exchange.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 1121,
+      "id": 1400,
       "lesson_id": 103,
       "type": "teaching",
       "prompt": "Learn the phrases that keep you communicating",
@@ -49,7 +63,7 @@
       "xp_reward": 0
     },
     {
-      "id": 1122,
+      "id": 1401,
       "lesson_id": 103,
       "type": "listening_comprehension",
       "prompt": "Understand the purpose before every word",
@@ -76,13 +90,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "A repetition; káva",
       "xp_reward": 15
     },
     {
-      "id": 1123,
+      "id": 1402,
       "lesson_id": 103,
       "type": "listening_comprehension",
       "prompt": "Choose the right repair strategy",
@@ -100,13 +115,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "The spelling",
       "xp_reward": 10
     },
     {
-      "id": 1124,
+      "id": 1403,
       "lesson_id": 103,
       "type": "matching",
       "prompt": "Match each need to the Czech phrase",
@@ -133,13 +149,14 @@
             "left": "Co to znamená?",
             "right": "What does that mean?"
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "repair phrase meanings",
       "xp_reward": 10
     },
     {
-      "id": 1125,
+      "id": 1404,
       "lesson_id": 103,
       "type": "reading_comprehension",
       "prompt": "Read a pocket repair card",
@@ -167,13 +184,14 @@
             ],
             "correct_index": 1
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Jak se to píše?; Nerozumím.",
       "xp_reward": 10
     },
     {
-      "id": 1126,
+      "id": 1405,
       "lesson_id": 103,
       "type": "word_order",
       "prompt": "Build the phrase for asking someone to repeat",
@@ -190,13 +208,14 @@
           2
         ],
         "translation_en": "Once more, please.",
-        "explanation": "Keep this polite phrase together as one chunk."
+        "explanation": "Keep this polite phrase together as one chunk.",
+        "targets": "vocab"
       },
       "answer_key": "Ještě jednou, prosím.",
       "xp_reward": 10
     },
     {
-      "id": 1127,
+      "id": 1406,
       "lesson_id": 103,
       "type": "dictation",
       "prompt": "Listen and type the repair phrase",
@@ -204,45 +223,14 @@
         "type": "dictation",
         "expected_text": "Nerozumím.",
         "language": "cs-CZ",
-        "note": "The long í is written with an acute mark."
+        "note": "The long í is written with an acute mark.",
+        "targets": "vocab"
       },
       "answer_key": "Nerozumím.",
       "xp_reward": 10
     },
     {
-      "id": 1128,
-      "lesson_id": 103,
-      "type": "dictation",
-      "prompt": "Listen and type the repair question",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Jak se to píše?",
-        "language": "cs-CZ",
-        "note": "Remember the long í and š."
-      },
-      "answer_key": "Jak se to píše?",
-      "xp_reward": 10
-    },
-    {
-      "id": 1129,
-      "lesson_id": 103,
-      "type": "pronunciation",
-      "prompt": "Ask someone to slow down",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Prosím pomalu.",
-        "focus_sounds": [
-          "í"
-        ],
-        "min_score": 0.5,
-        "translation_en": "Slowly, please.",
-        "note": "Aim for a calm, polite request."
-      },
-      "answer_key": "Prosím pomalu.",
-      "xp_reward": 15
-    },
-    {
-      "id": 1130,
+      "id": 1407,
       "lesson_id": 103,
       "type": "pronunciation",
       "prompt": "Ask someone to repeat",
@@ -255,13 +243,14 @@
         ],
         "min_score": 0.5,
         "translation_en": "Once more, please.",
-        "note": "Say it as one useful phrase, not three isolated words."
+        "note": "Say it as one useful phrase, not three isolated words.",
+        "targets": "vocab"
       },
       "answer_key": "Ještě jednou, prosím.",
       "xp_reward": 15
     },
     {
-      "id": 1131,
+      "id": 1408,
       "lesson_id": 103,
       "type": "listening_comprehension",
       "prompt": "Complete the Unit 1 listening mission",
@@ -288,13 +277,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Asks for slower speech; čaj",
       "xp_reward": 20
     },
     {
-      "id": 1132,
+      "id": 1409,
       "lesson_id": 103,
       "type": "speaking_task",
       "prompt": "Complete the Unit 1 speaking mission",
@@ -308,13 +298,14 @@
           "Ještě jednou, prosím.",
           "Prosím pomalu.",
           "Jak se to píše?"
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Nerozumím.; Ještě jednou, prosím.; Prosím pomalu.; Jak se to píše?",
       "xp_reward": 20
     },
     {
-      "id": 1133,
+      "id": 1410,
       "lesson_id": 103,
       "type": "writing_task",
       "prompt": "Create your personal repair card",
@@ -330,26 +321,44 @@
           "Prosím pomalu.",
           "Jak se to píše?"
         ],
-        "sample_answer": "Prosím pomalu.\nMahesh"
+        "sample_answer": "Prosím pomalu.\nMahesh",
+        "targets": "vocab"
       },
       "answer_key": "Prosím pomalu. Mahesh",
       "xp_reward": 0
+    },
+    {
+      "id": 1411,
+      "lesson_id": 103,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 1 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, then tick your Check box.",
+        "items": [
+          {
+            "cz": "KÁ-va, JAB-lko",
+            "en": "the beat is first"
+          },
+          {
+            "cz": "byt × být",
+            "en": "long vowels"
+          },
+          {
+            "cz": "č, š, ž, ě, ř",
+            "en": "special letters"
+          },
+          {
+            "cz": "Ještě jednou, prosím.",
+            "en": "repair phrases"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
-  ],
-  "can_do": "ask for repetition, slower speech, meaning, or spelling.",
-  "new_language": [
-    "Nerozumím.",
-    "Ještě jednou, prosím.",
-    "Prosím pomalu.",
-    "Jak se to píše?",
-    "Co to znamená?",
-    "Děkuju."
-  ],
-  "recycles": [
-    "useful Unit 1 words",
-    "first-syllable rhythm",
-    "long vowels",
-    "Czech spelling clues"
-  ],
-  "exit_task": "ask for repetition, slower speech, meaning, or spelling."
+  ]
 }

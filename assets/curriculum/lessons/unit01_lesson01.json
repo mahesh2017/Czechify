@@ -3,57 +3,472 @@
   "unit_id": 1,
   "order_in_unit": 1,
   "title": "The First Beat and Long Vowels",
-  "description": "Hear the usual first beat in Czech words and distinguish short vowels from long vowels that can change meaning.",
-  "duration_min": 11,
-  "lesson_type": "introduction",
+  "description": "Learn where the beat goes, long vowels, and the háček.",
+  "duration_min": 14,
+  "lesson_type": "practice",
+  "can_do": "put the beat on the first syllable, hold long vowels and read č, š, ž.",
+  "new_language": [
+    "first-syllable beat",
+    "á, é, í, ó, ú, ů",
+    "č, š, ž, ch, j"
+  ],
+  "recycles": [
+    "káva, čaj, chléb"
+  ],
+  "exit_task": "read five new words aloud correctly.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 1001,
+      "id": 1200,
       "lesson_id": 101,
       "type": "teaching",
-      "prompt": "Hear rhythm and vowel length",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Start with the first beat; keep long vowels long",
-        "body": "In an ordinary Czech word, the main beat is normally at the beginning: KÁ-va, JA-blko. The marks á, é, í, ó, ú, ů and ý show vowel length, not stress. A one-syllable preposition often carries the beat of the phrase, as in DO školy; for now, copy the complete phrase you hear.",
-        "play_all_label": "Hear the rhythm",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write the eight words. Then check.",
         "items": [
           {
             "cz": "káva",
-            "en": "KÁ-va — first beat, long á"
+            "en": "coffee"
+          },
+          {
+            "cz": "čaj",
+            "en": "tea"
+          },
+          {
+            "cz": "dům",
+            "en": "house"
+          },
+          {
+            "cz": "pes",
+            "en": "dog"
+          },
+          {
+            "cz": "chléb",
+            "en": "bread"
           },
           {
             "cz": "jablko",
-            "en": "JA-blko — first beat"
+            "en": "apple"
           },
           {
-            "cz": "do školy",
-            "en": "DO školy — phrase beat on the preposition"
+            "cz": "kolo",
+            "en": "bicycle"
           },
           {
-            "cz": "byt",
-            "en": "flat — short vowel"
-          },
-          {
-            "cz": "být",
-            "en": "to be — long vowel"
-          },
-          {
-            "cz": "pas",
-            "en": "passport — short vowel"
-          },
-          {
-            "cz": "pás",
-            "en": "belt — long vowel"
+            "cz": "děti",
+            "en": "children"
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
-      "id": 1002,
+      "id": 1201,
+      "lesson_id": 101,
+      "type": "teaching",
+      "prompt": "The beat is on the first syllable",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-000",
+        "rule_step": 1,
+        "heading": "The beat is on the first syllable",
+        "items": [
+          {
+            "cz": "Dobrý den.",
+            "en": "Hello."
+          },
+          {
+            "cz": "Děkuju.",
+            "en": "Thank you."
+          }
+        ],
+        "say": "Czech words carry the beat on the first syllable: KÁ-va, JAB-lko, PRA-ha. Short words like do join the next word: do ŠKO-ly.",
+        "table": [
+          [
+            "káva",
+            "KÁ-va"
+          ],
+          [
+            "jablko",
+            "JAB-lko"
+          ],
+          [
+            "Praha",
+            "PRA-ha"
+          ],
+          [
+            "restaurace",
+            "RES-tau-ra-ce"
+          ],
+          [
+            "do školy",
+            "do ŠKO-ly"
+          ],
+          [
+            "dobrý den",
+            "DOB-rý DEN"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dobrý den.",
+            "en": "Hello."
+          },
+          {
+            "cz": "Děkuju.",
+            "en": "Thank you."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "res-tau-RA-ce",
+          "right": "RES-tau-ra-ce"
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 1202,
+      "lesson_id": 101,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Kde je přízvuk ve slově „restaurace“?",
+        "question_en": "Where is the beat in “restaurace”?",
+        "options": [
+          "RES-tau-ra-ce",
+          "res-TAU-ra-ce",
+          "res-tau-RA-ce"
+        ],
+        "correct_index": 0,
+        "explanation": "The beat is on the first syllable."
+      },
+      "answer_key": "RES-tau-ra-ce",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-000"
+    },
+    {
+      "id": 1203,
+      "lesson_id": 101,
+      "type": "teaching",
+      "prompt": "Long vowels: á, é, í, ó, ú, ů",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-003",
+        "rule_step": 1,
+        "heading": "Long vowels: á, é, í, ó, ú, ů",
+        "items": [
+          {
+            "cz": "Mám nový byt.",
+            "en": "I have a new flat."
+          },
+          {
+            "cz": "Chci být doma.",
+            "en": "I want to be at home."
+          }
+        ],
+        "say": "The mark over a vowel (čárka) or the ring in ů makes it long. Hold it about twice as long. Length can change the meaning: byt is a flat, být is to be.",
+        "table": [
+          [
+            "a",
+            "á"
+          ],
+          [
+            "e",
+            "é"
+          ],
+          [
+            "i / y",
+            "í / ý"
+          ],
+          [
+            "o",
+            "ó"
+          ],
+          [
+            "u",
+            "ú, ů"
+          ],
+          [
+            "byt (flat)",
+            "být (to be)"
+          ],
+          [
+            "pas (passport)",
+            "pás (belt)"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mám nový byt.",
+            "en": "I have a new flat."
+          },
+          {
+            "cz": "Chci být doma.",
+            "en": "I want to be at home."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "káva said with a short a",
+          "right": "káva: hold the á"
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 1204,
+      "lesson_id": 101,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Které slovo znamená „to be“?",
+        "question_en": "Which word means “to be”?",
+        "options": [
+          "být",
+          "byt",
+          "bit"
+        ],
+        "correct_index": 0,
+        "explanation": "být has a long ý; byt (short) is a flat."
+      },
+      "answer_key": "být",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 1205,
+      "lesson_id": 101,
+      "type": "teaching",
+      "prompt": "The háček: č, š, ž",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-004",
+        "rule_step": 1,
+        "heading": "The háček: č, š, ž",
+        "items": [
+          {
+            "cz": "Čaj, prosím.",
+            "en": "Tea, please."
+          },
+          {
+            "cz": "Škola je tady.",
+            "en": "The school is here."
+          }
+        ],
+        "say": "The small hook (háček) changes a sound: c is ts but č is ch as in chair; š is sh; ž is like s in measure. ch is one sound, as in Scottish loch.",
+        "table": [
+          [
+            "c",
+            "ts — cukr"
+          ],
+          [
+            "č",
+            "ch in chair — čaj"
+          ],
+          [
+            "s",
+            "s — sestra"
+          ],
+          [
+            "š",
+            "sh — škola"
+          ],
+          [
+            "z",
+            "z — zima"
+          ],
+          [
+            "ž",
+            "s in measure — žena"
+          ],
+          [
+            "ch",
+            "loch — chléb"
+          ],
+          [
+            "j",
+            "y in yes — jablko"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Čaj, prosím.",
+            "en": "Tea, please."
+          },
+          {
+            "cz": "Škola je tady.",
+            "en": "The school is here."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "čaj read as “kai”",
+          "right": "čaj sounds like “chai”"
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 1206,
+      "lesson_id": 101,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak zní č ve slově čaj?",
+        "question_en": "How does č sound in čaj?",
+        "options": [
+          "like ch in chair",
+          "like k in cat",
+          "like ts in cats"
+        ],
+        "correct_index": 0,
+        "explanation": "č is ch as in chair."
+      },
+      "answer_key": "like ch in chair",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 1207,
+      "lesson_id": 101,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write three words and underline the first syllable, circle the long vowels, and write c/č, s/š, z/ž with an example each.",
+        "items": [
+          {
+            "cz": "KÁ-va, JAB-lko, PRA-ha",
+            "en": "beat on the first syllable"
+          },
+          {
+            "cz": "á, é, í, ó, ú, ů",
+            "en": "long vowels"
+          },
+          {
+            "cz": "cukr / čaj, sestra / škola, zima / žena",
+            "en": "with and without háček"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 1208,
+      "lesson_id": 101,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "to be has a long vowel.",
+        "sentence": "b_t (to be)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ý"
+          ]
+        ],
+        "explanation": "být"
+      },
+      "answer_key": "ý",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 1209,
+      "lesson_id": 101,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Hold the first vowel: long á.",
+        "sentence": "k_va (coffee)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "á"
+          ]
+        ],
+        "explanation": "káva"
+      },
+      "answer_key": "á",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-003"
+    },
+    {
+      "id": 1210,
+      "lesson_id": 101,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "ch as in chair.",
+        "sentence": "_aj (tea)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "č"
+          ]
+        ],
+        "explanation": "čaj"
+      },
+      "answer_key": "č",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 1211,
+      "lesson_id": 101,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "sh as in ship.",
+        "sentence": "_kola (school)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "š"
+          ]
+        ],
+        "explanation": "škola"
+      },
+      "answer_key": "š",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-004"
+    },
+    {
+      "id": 1212,
       "lesson_id": 101,
       "type": "listening_comprehension",
       "prompt": "Hear short and long vowels",
@@ -78,7 +493,7 @@
       "grammar_rule_id": "GR-003"
     },
     {
-      "id": 1003,
+      "id": 1213,
       "lesson_id": 101,
       "type": "listening_comprehension",
       "prompt": "Check a second short-long pair",
@@ -103,28 +518,7 @@
       "grammar_rule_id": "GR-003"
     },
     {
-      "id": 1004,
-      "lesson_id": 101,
-      "type": "multiple_choice",
-      "prompt": "Use the safe beginner rhythm rule",
-      "data": {
-        "type": "multiple_choice",
-        "question_en": "What is the best beginner rule for Czech word stress?",
-        "options": [
-          "Start the beat near the beginning and copy short phrases as a whole",
-          "Stress every written long vowel",
-          "Always stress the last syllable",
-          "Czech words have no stress"
-        ],
-        "correct_index": 0,
-        "explanation": "Czech lexical stress is normally initial. Common one-syllable prepositions can carry the stress of the following word, so listening to the whole phrase is safer than an absolute 'no exceptions' rule."
-      },
-      "answer_key": "Start the beat near the beginning and copy short phrases as a whole",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-000"
-    },
-    {
-      "id": 1005,
+      "id": 1214,
       "lesson_id": 101,
       "type": "multiple_choice",
       "prompt": "Separate stress from vowel length",
@@ -145,64 +539,28 @@
       "grammar_rule_id": "GR-003"
     },
     {
-      "id": 1006,
+      "id": 1215,
       "lesson_id": 101,
-      "type": "matching",
-      "prompt": "Match each spelling to its meaning",
+      "type": "multiple_choice",
+      "prompt": "Use the safe beginner rhythm rule",
       "data": {
-        "type": "matching",
-        "pairs": [
-          {
-            "left": "byt",
-            "right": "flat / apartment"
-          },
-          {
-            "left": "být",
-            "right": "to be"
-          },
-          {
-            "left": "pas",
-            "right": "passport"
-          },
-          {
-            "left": "pás",
-            "right": "belt"
-          }
-        ]
+        "type": "multiple_choice",
+        "question_en": "What is the best beginner rule for Czech word stress?",
+        "options": [
+          "Start the beat near the beginning and copy short phrases as a whole",
+          "Stress every written long vowel",
+          "Always stress the last syllable",
+          "Czech words have no stress"
+        ],
+        "correct_index": 0,
+        "explanation": "Czech lexical stress is normally initial. Common one-syllable prepositions can carry the stress of the following word, so listening to the whole phrase is safer than an absolute 'no exceptions' rule."
       },
-      "answer_key": "byt=flat, být=to be, pas=passport, pás=belt",
-      "xp_reward": 10
+      "answer_key": "Start the beat near the beginning and copy short phrases as a whole",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-000"
     },
     {
-      "id": 1007,
-      "lesson_id": 101,
-      "type": "dictation",
-      "prompt": "Listen and type the long-vowel word",
-      "data": {
-        "type": "dictation",
-        "expected_text": "být",
-        "language": "cs-CZ",
-        "note": "The long ý distinguishes být (to be) from byt (flat)."
-      },
-      "answer_key": "být",
-      "xp_reward": 10
-    },
-    {
-      "id": 1008,
-      "lesson_id": 101,
-      "type": "dictation",
-      "prompt": "Listen and type the long-vowel word",
-      "data": {
-        "type": "dictation",
-        "expected_text": "pás",
-        "language": "cs-CZ",
-        "note": "The long á distinguishes pás (belt) from pas (passport)."
-      },
-      "answer_key": "pás",
-      "xp_reward": 10
-    },
-    {
-      "id": 1009,
+      "id": 1216,
       "lesson_id": 101,
       "type": "pronunciation",
       "prompt": "Copy the word rhythm",
@@ -217,10 +575,11 @@
         "note": "Begin the beat on the first syllable: JA-blko."
       },
       "answer_key": "jablko",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-000"
     },
     {
-      "id": 1010,
+      "id": 1217,
       "lesson_id": 101,
       "type": "pronunciation",
       "prompt": "Copy the complete phrase rhythm",
@@ -236,24 +595,29 @@
         "note": "Treat this as one useful chunk. You will use it in the Unit 1 mission."
       },
       "answer_key": "Prosím pomalu.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-000"
+    },
+    {
+      "id": 1218,
+      "lesson_id": 101,
+      "type": "multiple_choice",
+      "prompt": "Recognize Czech ch",
+      "data": {
+        "type": "multiple_choice",
+        "question_en": "How should you treat ch in the familiar word chléb?",
+        "options": [
+          "As one Czech sound",
+          "As separate c and h sounds",
+          "As English ch in chair",
+          "As a silent spelling"
+        ],
+        "correct_index": 0,
+        "explanation": "Czech ch functions as a single sound (and traditionally as one alphabet letter). It is similar to the sound in Scottish loch."
+      },
+      "answer_key": "As one Czech sound",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-004"
     }
-  ],
-  "can_do": "hear first-syllable stress and meaningful vowel length.",
-  "new_language": [
-    "káva",
-    "jablko",
-    "do školy",
-    "byt",
-    "být",
-    "pas",
-    "pás"
-  ],
-  "recycles": [
-    "káva",
-    "jablko",
-    "dům",
-    "picture-to-sound recall"
-  ],
-  "exit_task": "hear first-syllable stress and meaningful vowel length."
+  ]
 }

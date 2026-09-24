@@ -2088,6 +2088,42 @@
       "example_en": "They took out a mortgage for the house.",
       "lesson_id": 2602,
       "parked_reason": "Buying, not renting (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 78,
+      "word_cz": "uložit",
+      "word_en": "to save / to store",
+      "ipa": "ˈuloʒɪt",
+      "gender": null,
+      "unit_id": 1,
+      "example_cz": "Uložím soubor.",
+      "example_en": "I'll save the file.",
+      "lesson_id": 101,
+      "parked_reason": "Unusual example words for a sound-and-spelling unit (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 79,
+      "word_cz": "úložiště",
+      "word_en": "storage",
+      "ipa": "ˈuːloʒɪʃcɛ",
+      "gender": "neuter",
+      "unit_id": 1,
+      "example_cz": "Kapacita úložiště je malá.",
+      "example_en": "Storage capacity is small.",
+      "lesson_id": 101,
+      "parked_reason": "Unusual example words for a sound-and-spelling unit (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 80,
+      "word_cz": "uložené",
+      "word_en": "saved / stored",
+      "ipa": "ˈuloʒɛnɛː",
+      "gender": null,
+      "unit_id": 1,
+      "example_cz": "Soubor je uložený.",
+      "example_en": "The file is saved.",
+      "lesson_id": 101,
+      "parked_reason": "Unusual example words for a sound-and-spelling unit (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
     }
   ],
   "exercises": [

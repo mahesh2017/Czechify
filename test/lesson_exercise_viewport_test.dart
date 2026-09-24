@@ -84,7 +84,7 @@ void main() {
 
       final exercises = loadShippedExercises();
 
-      expect(exercises, hasLength(1496));
+      expect(exercises, hasLength(1508));
 
       for (final exercise in exercises) {
         await tester.pumpWidget(

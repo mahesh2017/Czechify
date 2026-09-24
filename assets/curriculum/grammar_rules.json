@@ -23,7 +23,53 @@
           "note": "Stress on DĚ"
         }
       ],
-      "unit_id": 1
+      "unit_id": 1,
+      "lecture": [
+        {
+          "heading": "The beat is on the first syllable",
+          "say": "Czech words carry the beat on the first syllable: KÁ-va, JAB-lko, PRA-ha. Short words like do join the next word: do ŠKO-ly.",
+          "table": [
+            [
+              "káva",
+              "KÁ-va"
+            ],
+            [
+              "jablko",
+              "JAB-lko"
+            ],
+            [
+              "Praha",
+              "PRA-ha"
+            ],
+            [
+              "restaurace",
+              "RES-tau-ra-ce"
+            ],
+            [
+              "do školy",
+              "do ŠKO-ly"
+            ],
+            [
+              "dobrý den",
+              "DOB-rý DEN"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dobrý den.",
+              "en": "Hello."
+            },
+            {
+              "cz": "Děkuju.",
+              "en": "Thank you."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "res-tau-RA-ce",
+            "right": "RES-tau-ra-ce"
+          }
+        }
+      ]
     },
     {
       "id": "GR-001",
@@ -49,7 +95,49 @@
           "en": "row / line"
         }
       ],
-      "unit_id": 1
+      "unit_id": 1,
+      "lecture": [
+        {
+          "heading": "ř — the Czech sound",
+          "say": "ř is one sound: a rolled r and ž at the same time. Many learners need months to get it. Until then, say r and ž together; people will understand you.",
+          "table": [
+            [
+              "řeka",
+              "river"
+            ],
+            [
+              "tři",
+              "three"
+            ],
+            [
+              "moře",
+              "sea"
+            ],
+            [
+              "Dvořák",
+              "a composer"
+            ],
+            [
+              "řídit",
+              "to drive"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám tři děti.",
+              "en": "I have three children."
+            },
+            {
+              "cz": "Řeka je tady.",
+              "en": "The river is here."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "řeka read as “reka”",
+            "right": "řeka: r and ž together"
+          }
+        }
+      ]
     },
     {
       "id": "GR-002",
@@ -79,7 +167,57 @@
           "note": "bě → bje"
         }
       ],
-      "unit_id": 1
+      "unit_id": 1,
+      "lecture": [
+        {
+          "heading": "ě softens the sound before it",
+          "say": "After d, t, n the letter ě softens them: děti sounds like “dyeti”. After b, p, v it adds a y-sound, and mě sounds like “mnye”: město.",
+          "table": [
+            [
+              "děti",
+              "“dyeti”"
+            ],
+            [
+              "tělo",
+              "“tyelo”"
+            ],
+            [
+              "něco",
+              "“nyetso”"
+            ],
+            [
+              "oběd",
+              "“obyed”"
+            ],
+            [
+              "pět",
+              "“pyet”"
+            ],
+            [
+              "svět",
+              "“svyet”"
+            ],
+            [
+              "město",
+              "“mnyesto”"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám dvě děti.",
+              "en": "I have two children."
+            },
+            {
+              "cz": "Praha je velké město.",
+              "en": "Prague is a big city."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "děti read as “deti”",
+            "right": "děti sounds like “dyeti”"
+          }
+        }
+      ]
     },
     {
       "id": "GR-003",
@@ -109,7 +247,57 @@
           "note": "Compare: dům vs dom"
         }
       ],
-      "unit_id": 1
+      "unit_id": 1,
+      "lecture": [
+        {
+          "heading": "Long vowels: á, é, í, ó, ú, ů",
+          "say": "The mark over a vowel (čárka) or the ring in ů makes it long. Hold it about twice as long. Length can change the meaning: byt is a flat, být is to be.",
+          "table": [
+            [
+              "a",
+              "á"
+            ],
+            [
+              "e",
+              "é"
+            ],
+            [
+              "i / y",
+              "í / ý"
+            ],
+            [
+              "o",
+              "ó"
+            ],
+            [
+              "u",
+              "ú, ů"
+            ],
+            [
+              "byt (flat)",
+              "být (to be)"
+            ],
+            [
+              "pas (passport)",
+              "pás (belt)"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám nový byt.",
+              "en": "I have a new flat."
+            },
+            {
+              "cz": "Chci být doma.",
+              "en": "I want to be at home."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "káva said with a short a",
+            "right": "káva: hold the á"
+          }
+        }
+      ]
     },
     {
       "id": "GR-004",
@@ -135,7 +323,61 @@
           "en": "nasal"
         }
       ],
-      "unit_id": 1
+      "unit_id": 1,
+      "lecture": [
+        {
+          "heading": "The háček: č, š, ž",
+          "say": "The small hook (háček) changes a sound: c is ts but č is ch as in chair; š is sh; ž is like s in measure. ch is one sound, as in Scottish loch.",
+          "table": [
+            [
+              "c",
+              "ts — cukr"
+            ],
+            [
+              "č",
+              "ch in chair — čaj"
+            ],
+            [
+              "s",
+              "s — sestra"
+            ],
+            [
+              "š",
+              "sh — škola"
+            ],
+            [
+              "z",
+              "z — zima"
+            ],
+            [
+              "ž",
+              "s in measure — žena"
+            ],
+            [
+              "ch",
+              "loch — chléb"
+            ],
+            [
+              "j",
+              "y in yes — jablko"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Čaj, prosím.",
+              "en": "Tea, please."
+            },
+            {
+              "cz": "Škola je tady.",
+              "en": "The school is here."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "čaj read as “kai”",
+            "right": "čaj sounds like “chai”"
+          }
+        }
+      ]
     },
     {
       "id": "GR-010",

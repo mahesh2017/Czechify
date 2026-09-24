@@ -3,13 +3,54 @@
   "unit_id": 1,
   "order_in_unit": 0,
   "title": "Hear Czech in Useful Words",
-  "description": "Connect eight useful Czech words to pictures, notice their written clues, and begin reproducing what you hear.",
+  "description": "Hear eight useful words, match them to pictures and start saying them.",
   "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "recognise and say eight everyday Czech words.",
+  "new_language": [
+    "káva",
+    "čaj",
+    "dům",
+    "pes",
+    "chléb",
+    "jablko",
+    "kolo",
+    "děti"
+  ],
+  "recycles": [
+    "words you may already know: káva, čaj"
+  ],
+  "exit_task": "say three of the words aloud.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 898,
+      "id": 1100,
+      "lesson_id": 100,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned these words yet. Listen and guess what they are.",
+        "transcript_cz": "Káva. Čaj. Dům. Pes.",
+        "questions": [
+          {
+            "question_en": "What was the order?",
+            "options": [
+              "coffee — tea — house — dog",
+              "tea — coffee — dog — house",
+              "house — dog — coffee — tea"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "coffee — tea — house — dog",
+      "xp_reward": 0
+    },
+    {
+      "id": 1101,
       "lesson_id": 100,
       "type": "teaching",
       "prompt": "Meet eight useful Czech words through pictures",
@@ -96,79 +137,56 @@
       "xp_reward": 0
     },
     {
-      "id": 899,
+      "id": 1102,
       "lesson_id": 100,
       "type": "teaching",
-      "prompt": "Notice the sound clues in the words",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Czech spelling gives you useful clues",
-        "body": "Do not memorize the alphabet yet. Listen for a long vowel in káva and dům, and notice that č, ch, j, and dě do not sound like their usual English spellings.",
-        "play_all_label": "Hear the eight words",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Czech notebook",
+        "instruction": "Take a notebook you will keep for Czech. Write “Unit 1 — Zvuky” at the top of the first page. Then write the eight words and draw a tiny picture next to each.",
         "items": [
           {
             "cz": "káva",
-            "en": "long á"
+            "en": "coffee"
           },
           {
             "cz": "čaj",
-            "en": "č sounds like ch in church"
+            "en": "tea"
           },
           {
             "cz": "dům",
-            "en": "ů is a long u sound"
+            "en": "house"
           },
           {
             "cz": "pes",
-            "en": "short, clear vowels"
+            "en": "dog"
           },
           {
             "cz": "chléb",
-            "en": "ch is one Czech sound"
+            "en": "bread"
           },
           {
             "cz": "jablko",
-            "en": "j sounds like English y"
+            "en": "apple"
           },
           {
             "cz": "kolo",
-            "en": "the first beat starts at ko-"
+            "en": "bicycle"
           },
           {
             "cz": "děti",
-            "en": "dě begins with a softened d"
+            "en": "children"
           }
         ]
       },
+      "answer_key": "",
       "xp_reward": 0
     },
     {
-      "id": 900,
-      "lesson_id": 100,
-      "type": "listening_comprehension",
-      "prompt": "Listen for familiar words before reading",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen to the four words. Which sequence did you hear?",
-        "transcript_cz": "Káva. Čaj. Dům. Pes.",
-        "questions": [
-          {
-            "question_en": "What was the order?",
-            "options": [
-              "coffee — tea — house — dog",
-              "tea — coffee — dog — house",
-              "house — dog — coffee — tea"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "coffee — tea — house — dog",
-      "xp_reward": 10
-    },
-    {
-      "id": 901,
+      "id": 1103,
       "lesson_id": 100,
       "type": "matching",
       "prompt": "Match each Czech word to its meaning",
@@ -199,13 +217,14 @@
             "left": "jablko",
             "right": "apple"
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "káva=coffee, čaj=tea, dům=house, pes=dog, chléb=bread, jablko=apple",
       "xp_reward": 10
     },
     {
-      "id": 902,
+      "id": 1104,
       "lesson_id": 100,
       "type": "multiple_choice",
       "prompt": "Read a new Czech spelling clue",
@@ -219,34 +238,14 @@
           "kolo"
         ],
         "correct_index": 0,
-        "explanation": "The Czech letter č is close to English 'ch' in church. Čas means time."
+        "explanation": "The Czech letter č is close to English 'ch' in church. Čas means time.",
+        "targets": "vocab"
       },
       "answer_key": "čas",
       "xp_reward": 10
     },
     {
-      "id": 903,
-      "lesson_id": 100,
-      "type": "multiple_choice",
-      "prompt": "Find the long vowel mark",
-      "data": {
-        "type": "multiple_choice",
-        "question_en": "Which familiar word contains a marked long vowel?",
-        "options": [
-          "pes",
-          "kolo",
-          "káva",
-          "jablko"
-        ],
-        "correct_index": 2,
-        "explanation": "The acute mark in á tells you to hold the vowel longer. It does not mark word stress."
-      },
-      "answer_key": "káva",
-      "xp_reward": 10,
-      "grammar_rule_id": "GR-003"
-    },
-    {
-      "id": 904,
+      "id": 1105,
       "lesson_id": 100,
       "type": "dictation",
       "prompt": "Listen and type the familiar word",
@@ -254,13 +253,14 @@
         "type": "dictation",
         "expected_text": "káva",
         "language": "cs-CZ",
-        "note": "Keep the long-vowel mark: káva."
+        "note": "Keep the long-vowel mark: káva.",
+        "targets": "vocab"
       },
       "answer_key": "káva",
       "xp_reward": 10
     },
     {
-      "id": 905,
+      "id": 1106,
       "lesson_id": 100,
       "type": "dictation",
       "prompt": "Listen and type the familiar word",
@@ -268,13 +268,14 @@
         "type": "dictation",
         "expected_text": "děti",
         "language": "cs-CZ",
-        "note": "The word begins dě-."
+        "note": "The word begins dě-.",
+        "targets": "vocab"
       },
       "answer_key": "děti",
       "xp_reward": 10
     },
     {
-      "id": 906,
+      "id": 1107,
       "lesson_id": 100,
       "type": "pronunciation",
       "prompt": "Listen, then say the word",
@@ -286,13 +287,14 @@
         ],
         "min_score": 0.5,
         "translation_en": "coffee",
-        "note": "Begin the beat on ká- and keep á long."
+        "note": "Begin the beat on ká- and keep á long.",
+        "targets": "vocab"
       },
       "answer_key": "káva",
       "xp_reward": 15
     },
     {
-      "id": 907,
+      "id": 1108,
       "lesson_id": 100,
       "type": "pronunciation",
       "prompt": "Listen, then say the word",
@@ -304,26 +306,11 @@
         ],
         "min_score": 0.5,
         "translation_en": "children",
-        "note": "Listen to the whole dě- sound; an English-style hard d is not the target."
+        "note": "Listen to the whole dě- sound; an English-style hard d is not the target.",
+        "targets": "vocab"
       },
       "answer_key": "děti",
       "xp_reward": 15
     }
-  ],
-  "can_do": "connect useful Czech words to their sounds and pictures.",
-  "new_language": [
-    "káva",
-    "čaj",
-    "dům",
-    "pes",
-    "chléb",
-    "jablko",
-    "kolo",
-    "děti"
-  ],
-  "recycles": [
-    "onboarding greetings",
-    "recognising Czech as the target language"
-  ],
-  "exit_task": "connect useful Czech words to their sounds and pictures."
+  ]
 }

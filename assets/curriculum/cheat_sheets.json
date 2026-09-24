@@ -86,7 +86,119 @@
         "Záměna č, š, ž za ch, sh, zh",
         "Nesprávný přízvuk (ne na první slabice)"
       ],
-      "study_tip": "Čtěte nahlas každý den 5 minut. Nahrávejte se a porovnávejte s rodilým mluvčím."
+      "study_tip": "Čtěte nahlas každý den 5 minut. Nahrávejte se a porovnávejte s rodilým mluvčím.",
+      "notebook_page": {
+        "title_cz": "Zvuky",
+        "title_en": "Sounds and spelling",
+        "can_do": {
+          "cz": "Přečtu česká slova a řeknu, když nerozumím.",
+          "en": "I can read Czech words aloud and say when I do not understand."
+        },
+        "words": [
+          {
+            "cz": "káva",
+            "en": "coffee"
+          },
+          {
+            "cz": "čaj",
+            "en": "tea"
+          },
+          {
+            "cz": "dům",
+            "en": "house"
+          },
+          {
+            "cz": "pes",
+            "en": "dog"
+          },
+          {
+            "cz": "chléb",
+            "en": "bread"
+          },
+          {
+            "cz": "jablko",
+            "en": "apple"
+          },
+          {
+            "cz": "kolo",
+            "en": "bicycle"
+          },
+          {
+            "cz": "děti",
+            "en": "children"
+          },
+          {
+            "cz": "Nerozumím.",
+            "en": "I don't understand."
+          },
+          {
+            "cz": "Ještě jednou, prosím.",
+            "en": "Once more, please."
+          },
+          {
+            "cz": "Prosím pomalu.",
+            "en": "Slowly, please."
+          },
+          {
+            "cz": "Jak se to píše?",
+            "en": "How is it spelled?"
+          },
+          {
+            "cz": "Co to znamená?",
+            "en": "What does it mean?"
+          }
+        ],
+        "pattern": {
+          "name": "How Czech sounds",
+          "rule_plain": "The beat is on the first syllable. A mark makes a vowel long. The háček changes c, s, z, r. ě softens the consonant before it.",
+          "table": [
+            [
+              "beat",
+              "KÁ-va"
+            ],
+            [
+              "long",
+              "á, é, í, ó, ú, ů"
+            ],
+            [
+              "háček",
+              "č, š, ž, ř"
+            ],
+            [
+              "ě",
+              "děti, město"
+            ],
+            [
+              "ch",
+              "chléb"
+            ],
+            [
+              "j",
+              "jablko"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dobrý den.",
+              "en": "Hello."
+            },
+            {
+              "cz": "Ještě jednou, prosím.",
+              "en": "Once more, please."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "res-tau-RA-ce",
+            "right": "RES-tau-ra-ce"
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "KÁ-va, MĚS-to, ŘE-ka",
+            "en": "coffee, city, river"
+          }
+        ]
+      }
     },
     {
       "unit_id": 2,
