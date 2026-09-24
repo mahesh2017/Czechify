@@ -197,13 +197,26 @@ class _LectureSummary extends StatelessWidget {
           ),
           if (say.isNotEmpty) ...[
             const SizedBox(height: 4),
-            Text(say, style: TextStyle(fontSize: 15, height: 1.4, color: t.ink)),
+            Text(
+              say,
+              style: TextStyle(
+                fontSize: 16,
+                height: 1.4,
+                fontWeight: FontWeight.w500,
+                color: t.ink,
+              ),
+            ),
           ],
           for (final row in (data['table'] as List? ?? const []))
             if (row is List && row.length >= 2)
               Text(
                 '${row[0]}  →  ${row[1]}',
-                style: TextStyle(fontSize: 15, height: 1.5, color: t.muted),
+                style: TextStyle(
+                  fontSize: 16,
+                  height: 1.5,
+                  fontWeight: FontWeight.w600,
+                  color: t.ink,
+                ),
               ),
         ],
       ),
@@ -260,16 +273,38 @@ class ModelNotebookPage extends StatelessWidget {
         ],
       ),
     );
+    // Body text is ink at medium weight: the page is read at arm's length and
+    // compared against handwriting, so thin grey text is too faint.
     Widget line(String text, {bool strong = false, Color? color}) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 1.5),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 15,
-          height: 1.35,
-          fontWeight: strong ? FontWeight.w700 : FontWeight.w400,
+          fontSize: 16,
+          height: 1.4,
+          fontWeight: strong ? FontWeight.w700 : FontWeight.w500,
           color: color ?? t.ink,
         ),
+      ),
+    );
+    // Czech and English both in full ink; the Czech is heavier so it leads.
+    Widget pairLine(String cz, String en) => Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: cz,
+              style: TextStyle(fontWeight: FontWeight.w600, color: t.ink),
+            ),
+            if (en.isNotEmpty)
+              TextSpan(
+                text: ' — $en',
+                style: TextStyle(fontWeight: FontWeight.w400, color: t.ink),
+              ),
+          ],
+        ),
+        style: const TextStyle(fontSize: 16, height: 1.4),
       ),
     );
 
@@ -293,15 +328,21 @@ class ModelNotebookPage extends StatelessWidget {
             ),
           ),
           if (page['title_en'] != null)
-            Text('${page['title_en']}', style: TextStyle(color: t.muted)),
+            Text(
+              '${page['title_en']}',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: t.ink,
+              ),
+            ),
           if (canDo is Map) ...[
             const SizedBox(height: 8),
             line('${l10n.modelPageCanDo}: ${canDo['cz'] ?? ''}', strong: true),
-            if (canDo['en'] != null) line('${canDo['en']}', color: t.muted),
+            if (canDo['en'] != null) line('${canDo['en']}'),
           ],
           box(l10n.modelPageWords, [
-            for (final row in _rows(page['words']))
-              line(row.en.isEmpty ? row.cz : '${row.cz} — ${row.en}'),
+            for (final row in _rows(page['words'])) pairLine(row.cz, row.en),
           ]),
           box(l10n.modelPagePattern, [
             if (pattern['rule_plain'] != null) line('${pattern['rule_plain']}'),
@@ -316,26 +357,28 @@ class ModelNotebookPage extends StatelessWidget {
               for (final (a, b) in _pairs(aspect['pairs']))
                 line('$a / $b', strong: true),
               for (final row in _rows(aspect['examples']))
-                line('${row.cz} — ${row.en}', color: t.muted),
+                pairLine(row.cz, row.en),
             ],
             for (final row in _rows(pattern['examples']))
-              line('${row.cz} — ${row.en}', color: t.muted),
+              pairLine(row.cz, row.en),
             for (final mistake in mistakes) ...[
               line(
                 '${l10n.lectureWrongLabel}: ${mistake['wrong']}',
+                strong: true,
                 color: t.redInk,
               ),
               line(
                 '${l10n.lectureRightLabel}: ${mistake['right']}',
+                strong: true,
                 color: t.greenInk,
               ),
             ],
             if (pattern['preview'] != null)
-              line('${pattern['preview']}', color: t.muted),
+              line('${pattern['preview']}'),
           ]),
           box(l10n.modelPageMySentences, [
             for (final row in _rows(page['my_sentences_models']))
-              line('${row.cz} — ${row.en}', color: t.muted),
+              pairLine(row.cz, row.en),
           ]),
           box(l10n.modelPageCheck, const []),
         ],
