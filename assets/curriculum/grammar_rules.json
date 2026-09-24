@@ -3632,7 +3632,53 @@
           "en": "Do you like sports? (to a female)"
         }
       ],
-      "unit_id": 13
+      "unit_id": 13,
+      "lecture": [
+        {
+          "heading": "I like it: Mám rád hudbu",
+          "say": "Mám rád + a thing says what you like. A woman says Mám ráda. The thing is the object, so -a words change to -u: hudba → Mám rád hudbu.",
+          "table": [
+            [
+              "a man",
+              "Mám rád hudbu."
+            ],
+            [
+              "a woman",
+              "Mám ráda hudbu."
+            ],
+            [
+              "not",
+              "Nemám rád fotbal."
+            ],
+            [
+              "Do you like…? (friend)",
+              "Máš rád / ráda…?"
+            ],
+            [
+              "film",
+              "Mám rád filmy."
+            ],
+            [
+              "kniha",
+              "Mám ráda knihy."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám ráda hudbu a čtení.",
+              "en": "I like music and reading."
+            },
+            {
+              "cz": "Máš rád sport?",
+              "en": "Do you like sport?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mám rád hudba.",
+            "right": "Mám rád hudbu."
+          }
+        }
+      ]
     },
     {
       "id": "GR-121",
@@ -3658,7 +3704,49 @@
           "en": "I don't like cleaning."
         }
       ],
-      "unit_id": 13
+      "unit_id": 13,
+      "lecture": [
+        {
+          "heading": "I like doing it: Rád čtu",
+          "say": "To like doing something, put rád (or ráda) before the verb: Rád čtu. Rád sportuju. Ráda vařím.",
+          "table": [
+            [
+              "I like reading.",
+              "Rád čtu. / Ráda čtu."
+            ],
+            [
+              "I like cooking.",
+              "Rád vařím."
+            ],
+            [
+              "I like dancing.",
+              "Ráda tancuju."
+            ],
+            [
+              "I don’t like running.",
+              "Nerad běhám."
+            ],
+            [
+              "What do you like doing?",
+              "Co děláš rád?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Ve volném čase rád čtu.",
+              "en": "In my free time I like reading."
+            },
+            {
+              "cz": "Ráda plavu.",
+              "en": "I like swimming. (woman)"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mám rád číst.",
+            "right": "Rád čtu."
+          }
+        }
+      ]
     },
     {
       "id": "GR-122",
@@ -3684,7 +3772,57 @@
           "en": "Do you like riding a bike?"
         }
       ],
-      "unit_id": 13
+      "unit_id": 13,
+      "lecture": [
+        {
+          "heading": "Hobbies: hrát, jezdit na kole",
+          "say": "Some hobbies need a little word: hrát fotbal (a game), but hrát na kytaru (an instrument); jezdit na kole (ride a bike). Others are one verb: plavu, běhám, tancuju.",
+          "table": [
+            [
+              "play football",
+              "hrát fotbal"
+            ],
+            [
+              "play the guitar",
+              "hrát na kytaru"
+            ],
+            [
+              "ride a bike",
+              "jezdit na kole"
+            ],
+            [
+              "swim",
+              "plavat — plavu"
+            ],
+            [
+              "run",
+              "běhat — běhám"
+            ],
+            [
+              "dance",
+              "tancovat — tancuju"
+            ],
+            [
+              "sing",
+              "zpívat — zpívám"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "O víkendu jezdím na kole.",
+              "en": "At the weekend I ride my bike."
+            },
+            {
+              "cz": "Hraju na kytaru.",
+              "en": "I play the guitar."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Hraju kytaru.",
+            "right": "Hraju na kytaru."
+          }
+        }
+      ]
     },
     {
       "id": "GR-123",
@@ -3710,7 +3848,49 @@
           "en": "How often do you do sports?"
         }
       ],
-      "unit_id": 13
+      "unit_id": 13,
+      "lecture": [
+        {
+          "heading": "How often: vždycky, často, někdy, nikdy",
+          "say": "Frequency words usually go before the verb: Často chodím do kina. nikdy needs ne- on the verb too: Nikdy nepiju pivo.",
+          "table": [
+            [
+              "always",
+              "vždycky"
+            ],
+            [
+              "often",
+              "často"
+            ],
+            [
+              "sometimes",
+              "někdy"
+            ],
+            [
+              "never",
+              "nikdy + ne-"
+            ],
+            [
+              "every day",
+              "každý den"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Často chodím do kina.",
+              "en": "I often go to the cinema."
+            },
+            {
+              "cz": "Nikdy nepiju pivo.",
+              "en": "I never drink beer."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Nikdy piju pivo.",
+            "right": "Nikdy nepiju pivo."
+          }
+        }
+      ]
     },
     {
       "id": "GR-130",

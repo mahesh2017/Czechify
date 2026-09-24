@@ -2219,7 +2219,7 @@
         {
           "id": "GR-122",
           "name": "Hobbies & free time vocabulary",
-          "pattern": "číst (read), sportovat (do sports), plavat (swim), běhat (run), vařit (cook), cestovat (travel), hrát na... (play instru",
+          "pattern": "číst (read), sportovat (do sports), plavat (swim), běhat (run), vařit (cook), cestovat (travel), hrát na... (play instrument), dívat se na... (watch)",
           "example": "Ve volném čase rád čtu. — In my free time I like to read."
         },
         {
@@ -2282,7 +2282,103 @@
         "Špatný rod u 'rád/ráda'",
         "Přílišné nadšení v hodnocení (Češi jsou rezervovaní)"
       ],
-      "study_tip": "Sepište seznam svých koníčků s frází 'Rád/Ráda...' a sdílejte ho s českým kamarádem."
+      "study_tip": "Sepište seznam svých koníčků s frází 'Rád/Ráda...' a sdílejte ho s českým kamarádem.",
+      "notebook_page": {
+        "title_cz": "Volný čas",
+        "title_en": "Free time and likes",
+        "can_do": {
+          "cz": "Řeknu, co mám rád a co dělám ve volném čase.",
+          "en": "I can say what I like and what I do in my free time."
+        },
+        "words": [
+          {
+            "cz": "Mám rád hudbu. / Mám ráda hudbu.",
+            "en": "I like music."
+          },
+          {
+            "cz": "Rád čtu.",
+            "en": "I like reading."
+          },
+          {
+            "cz": "Ve volném čase…",
+            "en": "In my free time…"
+          },
+          {
+            "cz": "Jezdím na kole.",
+            "en": "I ride a bike."
+          },
+          {
+            "cz": "Často chodím do kina.",
+            "en": "I often go to the cinema."
+          },
+          {
+            "cz": "Někdy tancuju.",
+            "en": "I sometimes dance."
+          },
+          {
+            "cz": "Půjdeme do kina?",
+            "en": "Shall we go to the cinema?"
+          },
+          {
+            "cz": "V sobotu mám čas.",
+            "en": "I have time on Saturday."
+          }
+        ],
+        "pattern": {
+          "name": "Likes and how often",
+          "rule_plain": "Mám rád/ráda + thing (object). rád/ráda + verb. nikdy needs ne- on the verb.",
+          "table": [
+            [
+              "I like music.",
+              "Mám rád/ráda hudbu."
+            ],
+            [
+              "I like reading.",
+              "Rád/Ráda čtu."
+            ],
+            [
+              "guitar",
+              "hrát na kytaru"
+            ],
+            [
+              "bike",
+              "jezdit na kole"
+            ],
+            [
+              "often",
+              "často"
+            ],
+            [
+              "never",
+              "nikdy ne-"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Ve volném čase rád čtu.",
+              "en": "In my free time I like reading."
+            },
+            {
+              "cz": "Nikdy nepiju pivo.",
+              "en": "I never drink beer."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mám rád číst.",
+            "right": "Rád čtu."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Často chodím do parku.",
+            "en": "I often go to the park."
+          },
+          {
+            "cz": "Nikdy nekouřím.",
+            "en": "I never smoke."
+          }
+        ]
+      }
     },
     {
       "unit_id": 14,

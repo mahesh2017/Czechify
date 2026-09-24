@@ -3264,7 +3264,7 @@
     "unit_id": 13,
     "example_cz": "Co děláš ve volném čase?",
     "example_en": "What do you do in your free time?",
-    "lesson_id": 1302
+    "lesson_id": 1301
   },
   {
     "id": 305,
@@ -3275,7 +3275,7 @@
     "unit_id": 13,
     "example_cz": "Můj koníček je sport.",
     "example_en": "My hobby is sports.",
-    "lesson_id": 1302
+    "lesson_id": 1301
   },
   {
     "id": 306,
@@ -3286,7 +3286,7 @@
     "unit_id": 13,
     "example_cz": "Čtu knížku.",
     "example_en": "I'm reading a book.",
-    "lesson_id": 1302
+    "lesson_id": null
   },
   {
     "id": 307,
@@ -3356,13 +3356,13 @@
   },
   {
     "id": 313,
-    "word_cz": "tančit",
+    "word_cz": "tancovat",
     "word_en": "to dance",
     "ipa": "ˈtant͡ʃɪt",
     "gender": null,
     "unit_id": 13,
-    "example_cz": "Tančíš rád?",
-    "example_en": "Do you like to dance?",
+    "example_cz": "Ráda tancuju.",
+    "example_en": "I like dancing.",
     "lesson_id": 1302
   },
   {
@@ -3374,7 +3374,7 @@
     "unit_id": 13,
     "example_cz": "Dobrý film!",
     "example_en": "Good movie!",
-    "lesson_id": 1302
+    "lesson_id": 1301
   },
   {
     "id": 315,
@@ -3385,7 +3385,7 @@
     "unit_id": 13,
     "example_cz": "Jdeme do kina.",
     "example_en": "We're going to the cinema.",
-    "lesson_id": 1302
+    "lesson_id": 1301
   },
   {
     "id": 316,
@@ -3396,7 +3396,7 @@
     "unit_id": 13,
     "example_cz": "Poslouchám hudbu.",
     "example_en": "I listen to music.",
-    "lesson_id": 1302
+    "lesson_id": 1301
   },
   {
     "id": 317,
@@ -3407,7 +3407,7 @@
     "unit_id": 13,
     "example_cz": "Čtu zajímavou knížku.",
     "example_en": "I'm reading an interesting book.",
-    "lesson_id": 1302
+    "lesson_id": null
   },
   {
     "id": 318,
@@ -3418,7 +3418,7 @@
     "unit_id": 13,
     "example_cz": "Vždycky piju kávu ráno.",
     "example_en": "I always drink coffee in the morning.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 319,
@@ -3429,7 +3429,7 @@
     "unit_id": 13,
     "example_cz": "Často chodím do parku.",
     "example_en": "I often go to the park.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 320,
@@ -3440,7 +3440,7 @@
     "unit_id": 13,
     "example_cz": "Někdy vařím večeři.",
     "example_en": "I sometimes cook dinner.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 321,
@@ -3451,7 +3451,7 @@
     "unit_id": 13,
     "example_cz": "Nikdy nepiju pivo.",
     "example_en": "I never drink beer.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 322,
@@ -4628,7 +4628,7 @@
     "unit_id": 13,
     "example_cz": "Sport je zdravý.",
     "example_en": "Sport is healthy.",
-    "lesson_id": 1301
+    "lesson_id": 1302
   },
   {
     "id": 432,
@@ -4650,7 +4650,7 @@
     "unit_id": 13,
     "example_cz": "Zahradničení je relax.",
     "example_en": "Gardening is relaxing.",
-    "lesson_id": 1301
+    "lesson_id": null
   },
   {
     "id": 434,
@@ -4661,7 +4661,7 @@
     "unit_id": 13,
     "example_cz": "Vaření mě baví.",
     "example_en": "Cooking is fun for me.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 435,
@@ -4672,7 +4672,7 @@
     "unit_id": 13,
     "example_cz": "Cestování je moje vášeň.",
     "example_en": "Traveling is my passion.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 436,
@@ -4683,7 +4683,7 @@
     "unit_id": 13,
     "example_cz": "Divadlo je v centru.",
     "example_en": "The theater is in the center.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 437,
@@ -4694,7 +4694,7 @@
     "unit_id": 13,
     "example_cz": "Koncert začíná v sedm.",
     "example_en": "The concert starts at seven.",
-    "lesson_id": 1301
+    "lesson_id": 1303
   },
   {
     "id": 438,

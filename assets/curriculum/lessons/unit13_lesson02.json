@@ -2,39 +2,50 @@
   "id": 1302,
   "unit_id": 13,
   "title": "Talk About Activities",
-  "description": "Ask and answer about sports, music, reading, and other interests.",
+  "description": "Learn Mám rád…, Rád čtu, and hobby verbs.",
   "lesson_type": "practice",
   "order_in_unit": 1,
-  "duration_min": 12,
+  "duration_min": 14,
+  "can_do": "say what you like, what you like doing, and your hobbies.",
+  "new_language": [
+    "Mám rád / ráda + thing",
+    "rád + verb",
+    "hrát na, jezdit na kole"
+  ],
+  "recycles": [
+    "-a → -u"
+  ],
+  "exit_task": "describe your free time.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 13100,
+      "id": 13200,
       "lesson_id": 1302,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Talk About Activities",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write what you like and like doing. Then check.",
         "items": [
+          {
+            "cz": "Mám rád hudbu. / Mám ráda hudbu.",
+            "en": "I like music."
+          },
+          {
+            "cz": "Rád čtu.",
+            "en": "I like reading."
+          },
+          {
+            "cz": "Ve volném čase…",
+            "en": "In my free time…"
+          },
           {
             "cz": "Jezdím na kole.",
             "en": "I ride a bike."
-          },
-          {
-            "cz": "Plavu v bazénu.",
-            "en": "I swim in a pool."
-          },
-          {
-            "cz": "Běhám v parku.",
-            "en": "I run in a park."
-          },
-          {
-            "cz": "Sportuju každý den.",
-            "en": "I do sport every day."
           }
         ]
       },
@@ -42,7 +53,418 @@
       "xp_reward": 0
     },
     {
-      "id": 13101,
+      "id": 13201,
+      "lesson_id": 1302,
+      "type": "teaching",
+      "prompt": "I like it: Mám rád hudbu",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-120",
+        "rule_step": 1,
+        "heading": "I like it: Mám rád hudbu",
+        "items": [
+          {
+            "cz": "Mám ráda hudbu a čtení.",
+            "en": "I like music and reading."
+          },
+          {
+            "cz": "Máš rád sport?",
+            "en": "Do you like sport?"
+          }
+        ],
+        "say": "Mám rád + a thing says what you like. A woman says Mám ráda. The thing is the object, so -a words change to -u: hudba → Mám rád hudbu.",
+        "table": [
+          [
+            "a man",
+            "Mám rád hudbu."
+          ],
+          [
+            "a woman",
+            "Mám ráda hudbu."
+          ],
+          [
+            "not",
+            "Nemám rád fotbal."
+          ],
+          [
+            "Do you like…? (friend)",
+            "Máš rád / ráda…?"
+          ],
+          [
+            "film",
+            "Mám rád filmy."
+          ],
+          [
+            "kniha",
+            "Mám ráda knihy."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mám ráda hudbu a čtení.",
+            "en": "I like music and reading."
+          },
+          {
+            "cz": "Máš rád sport?",
+            "en": "Do you like sport?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Mám rád hudba.",
+          "right": "Mám rád hudbu."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13202,
+      "lesson_id": 1302,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Mám rád ___. (hudba)",
+        "question_en": "I like music.",
+        "options": [
+          "hudbu",
+          "hudba",
+          "hudby"
+        ],
+        "correct_index": 0,
+        "explanation": "The thing is the object: hudbu."
+      },
+      "answer_key": "hudbu",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-120"
+    },
+    {
+      "id": 13203,
+      "lesson_id": 1302,
+      "type": "teaching",
+      "prompt": "I like doing it: Rád čtu",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-121",
+        "rule_step": 1,
+        "heading": "I like doing it: Rád čtu",
+        "items": [
+          {
+            "cz": "Ve volném čase rád čtu.",
+            "en": "In my free time I like reading."
+          },
+          {
+            "cz": "Ráda plavu.",
+            "en": "I like swimming. (woman)"
+          }
+        ],
+        "say": "To like doing something, put rád (or ráda) before the verb: Rád čtu. Rád sportuju. Ráda vařím.",
+        "table": [
+          [
+            "I like reading.",
+            "Rád čtu. / Ráda čtu."
+          ],
+          [
+            "I like cooking.",
+            "Rád vařím."
+          ],
+          [
+            "I like dancing.",
+            "Ráda tancuju."
+          ],
+          [
+            "I don’t like running.",
+            "Nerad běhám."
+          ],
+          [
+            "What do you like doing?",
+            "Co děláš rád?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Ve volném čase rád čtu.",
+            "en": "In my free time I like reading."
+          },
+          {
+            "cz": "Ráda plavu.",
+            "en": "I like swimming. (woman)"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Mám rád číst.",
+          "right": "Rád čtu."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13204,
+      "lesson_id": 1302,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „I like cooking“ (woman)?",
+        "question_en": "How does a woman say “I like cooking”?",
+        "options": [
+          "Ráda vařím.",
+          "Mám ráda vařit.",
+          "Rád vařím."
+        ],
+        "correct_index": 0,
+        "explanation": "ráda + verb."
+      },
+      "answer_key": "Ráda vařím.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-121"
+    },
+    {
+      "id": 13205,
+      "lesson_id": 1302,
+      "type": "teaching",
+      "prompt": "Hobbies: hrát, jezdit na kole",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-122",
+        "rule_step": 1,
+        "heading": "Hobbies: hrát, jezdit na kole",
+        "items": [
+          {
+            "cz": "O víkendu jezdím na kole.",
+            "en": "At the weekend I ride my bike."
+          },
+          {
+            "cz": "Hraju na kytaru.",
+            "en": "I play the guitar."
+          }
+        ],
+        "say": "Some hobbies need a little word: hrát fotbal (a game), but hrát na kytaru (an instrument); jezdit na kole (ride a bike). Others are one verb: plavu, běhám, tancuju.",
+        "table": [
+          [
+            "play football",
+            "hrát fotbal"
+          ],
+          [
+            "play the guitar",
+            "hrát na kytaru"
+          ],
+          [
+            "ride a bike",
+            "jezdit na kole"
+          ],
+          [
+            "swim",
+            "plavat — plavu"
+          ],
+          [
+            "run",
+            "běhat — běhám"
+          ],
+          [
+            "dance",
+            "tancovat — tancuju"
+          ],
+          [
+            "sing",
+            "zpívat — zpívám"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "O víkendu jezdím na kole.",
+            "en": "At the weekend I ride my bike."
+          },
+          {
+            "cz": "Hraju na kytaru.",
+            "en": "I play the guitar."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Hraju kytaru.",
+          "right": "Hraju na kytaru."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13206,
+      "lesson_id": 1302,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Hraju ___ kytaru.",
+        "question_en": "I play the guitar.",
+        "options": [
+          "na",
+          "v",
+          "—"
+        ],
+        "correct_index": 0,
+        "explanation": "An instrument: hrát na."
+      },
+      "answer_key": "na",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-122"
+    },
+    {
+      "id": 13207,
+      "lesson_id": 1302,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write Mám rád/ráda with two things, rád/ráda with two verbs, and two hobbies with hrát or jezdit.",
+        "items": [
+          {
+            "cz": "Mám rád hudbu. Mám ráda filmy.",
+            "en": "I like + thing"
+          },
+          {
+            "cz": "Rád čtu. Ráda vařím.",
+            "en": "I like doing"
+          },
+          {
+            "cz": "hrát na kytaru, jezdit na kole",
+            "en": "hobbies"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13208,
+      "lesson_id": 1302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "A woman: ráda.",
+        "sentence": "Eva má ___ hudbu.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ráda"
+          ]
+        ],
+        "explanation": "Eva má ráda hudbu."
+      },
+      "answer_key": "ráda",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-120"
+    },
+    {
+      "id": 13209,
+      "lesson_id": 1302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "rád + verb.",
+        "sentence": "Petr ___ plave. (likes)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "rád"
+          ]
+        ],
+        "explanation": "Petr rád plave."
+      },
+      "answer_key": "rád",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-121"
+    },
+    {
+      "id": 13210,
+      "lesson_id": 1302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "ride a bike: jezdit na kole.",
+        "sentence": "O víkendu jezdím ___ kole.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "na"
+          ]
+        ],
+        "explanation": "na kole"
+      },
+      "answer_key": "na",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-122"
+    },
+    {
+      "id": 13211,
+      "lesson_id": 1302,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "-ovat → -uju.",
+        "sentence": "Ráda ___. (tancovat, já)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "tancuju",
+            "tancuji"
+          ]
+        ],
+        "explanation": "tancuju"
+      },
+      "answer_key": "tancuju",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-122"
+    },
+    {
+      "id": 13212,
+      "lesson_id": 1302,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Ve volném čase rád ___. Mám rád ___.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "čtu"
+          ],
+          [
+            "hudbu"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "čtu | hudbu",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-121"
+    },
+    {
+      "id": 13213,
       "lesson_id": 1302,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +494,11 @@
         ]
       },
       "answer_key": "O víkendu jezdím na kole a běhám v parku.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-122"
     },
     {
-      "id": 13102,
+      "id": 13214,
       "lesson_id": 1302,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +532,11 @@
         ]
       },
       "answer_key": "Jezdím na kole.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-122"
     },
     {
-      "id": 13103,
+      "id": 13215,
       "lesson_id": 1302,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +560,14 @@
             "right": "I do sport every day."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Jezdím na kole.–I ride a bike.; Plavu v bazénu.–I swim in a pool.; Běhám v parku.–I run in a park.; Sportuju každý den.–I do sport every day.",
       "xp_reward": 10
     },
     {
-      "id": 13104,
-      "lesson_id": 1302,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Jezdím na kole.",
-          "Zaplatím kartou.",
-          "Je to malé.",
-          "Bude zima."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Jezdím na kole.",
-      "xp_reward": 10
-    },
-    {
-      "id": 13105,
+      "id": 13216,
       "lesson_id": 1302,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,47 +586,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "jezdím | běhám",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-122"
     },
     {
-      "id": 13106,
-      "lesson_id": 1302,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Jezdím",
-          "na",
-          "kole."
-        ],
-        "correct_order": [
-          0,
-          1,
-          2
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Jezdím na kole.",
-      "xp_reward": 10
-    },
-    {
-      "id": 13107,
-      "lesson_id": 1302,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "O víkendu jezdím na kole.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "O víkendu jezdím na kole.",
-      "xp_reward": 10
-    },
-    {
-      "id": 13108,
+      "id": 13217,
       "lesson_id": 1302,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -237,10 +605,11 @@
         "translation_en": "Say the useful phrase clearly and naturally."
       },
       "answer_key": "O víkendu jezdím na kole.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-122"
     },
     {
-      "id": 13109,
+      "id": 13218,
       "lesson_id": 1302,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -278,76 +647,8 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Ano, sportuju. | Jezdím na kole.",
-      "xp_reward": 15
-    },
-    {
-      "id": 13110,
-      "lesson_id": 1302,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write two activities you do or want to try.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Jezdím na kole.",
-          "Plavu v bazénu.",
-          "Běhám v parku.",
-          "Sportuju každý den."
-        ],
-        "sample_answer": "Jezdím na kole."
-      },
-      "answer_key": "Jezdím na kole.",
-      "xp_reward": 0
-    },
-    {
-      "id": 13111,
-      "lesson_id": 1302,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "O víkendu jezdím na kole a běhám v parku.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "O víkendu jezdím na kole a běhám v parku.",
-              "Zaplatím kartou.",
-              "Je to malé."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "O víkendu jezdím na kole a běhám v parku.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-122"
     }
-  ],
-  "can_do": "ask and answer what someone does in free time.",
-  "new_language": [
-    "Jezdím na kole.",
-    "Plavu v bazénu.",
-    "Běhám v parku.",
-    "Sportuju každý den."
-  ],
-  "recycles": [
-    "present-tense activities",
-    "time and days",
-    "Ano/Ne",
-    "simple plans"
-  ],
-  "exit_task": "ask and answer what someone does in free time."
+  ]
 }

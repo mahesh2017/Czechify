@@ -2,53 +2,37 @@
   "id": 1301,
   "unit_id": 13,
   "title": "Say What You Like",
-  "description": "Express simple likes and dislikes through familiar free-time activities.",
-  "lesson_type": "practice",
+  "description": "Hear someone talk about free time, then learn to say what you like.",
+  "lesson_type": "introduction",
   "order_in_unit": 0,
   "duration_min": 12,
+  "can_do": "say what you like and like doing.",
+  "new_language": [
+    "Mám rád hudbu. / Mám ráda hudbu.",
+    "Rád čtu.",
+    "Ve volném čase…",
+    "Jezdím na kole.",
+    "Často chodím do kina.",
+    "Někdy tancuju.",
+    "Půjdeme do kina?",
+    "V sobotu mám čas."
+  ],
+  "recycles": [
+    "čtu, vařím (U5)",
+    "v sobotu (U9)"
+  ],
+  "exit_task": "say two things you like doing.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 13000,
-      "lesson_id": 1301,
-      "type": "teaching",
-      "prompt": "Learn the mission language",
-      "data": {
-        "type": "teaching",
-        "style": "list",
-        "heading": "Say What You Like",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
-        "items": [
-          {
-            "cz": "Mám rád čtení.",
-            "en": "I like reading."
-          },
-          {
-            "cz": "Rád čtu.",
-            "en": "I like to read."
-          },
-          {
-            "cz": "Mám rád hudbu.",
-            "en": "I like music."
-          },
-          {
-            "cz": "Ve volném čase odpočívám.",
-            "en": "I rest in my free time."
-          }
-        ]
-      },
-      "answer_key": "",
-      "xp_reward": 0
-    },
-    {
-      "id": 13001,
+      "id": 13100,
       "lesson_id": 1301,
       "type": "listening_comprehension",
-      "prompt": "Listen for the useful chunks",
+      "prompt": "Warm-up: listen and guess",
       "data": {
         "type": "listening_comprehension",
-        "prompt_en": "Listen once for meaning, then again for the key detail.",
+        "prompt_en": "You have not learned this yet. Listen and guess what the speaker likes.",
         "transcript_cz": "Mám rád čtení. Ve volném čase rád čtu.",
         "questions": [
           {
@@ -69,13 +53,96 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "mode": "predict"
       },
       "answer_key": "Mám rád čtení. Ve volném čase rád čtu.",
-      "xp_reward": 15
+      "xp_reward": 0
     },
     {
-      "id": 13002,
+      "id": 13101,
+      "lesson_id": 1301,
+      "type": "teaching",
+      "prompt": "Learn the mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Say What You Like",
+        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "play_all_label": "Hear the useful chunks",
+        "items": [
+          {
+            "cz": "Mám rád hudbu. / Mám ráda hudbu.",
+            "en": "I like music."
+          },
+          {
+            "cz": "Rád čtu.",
+            "en": "I like reading."
+          },
+          {
+            "cz": "Ve volném čase…",
+            "en": "In my free time…"
+          },
+          {
+            "cz": "Jezdím na kole.",
+            "en": "I ride a bike."
+          },
+          {
+            "cz": "Často chodím do kina.",
+            "en": "I often go to the cinema."
+          },
+          {
+            "cz": "Někdy tancuju.",
+            "en": "I sometimes dance."
+          },
+          {
+            "cz": "Půjdeme do kina?",
+            "en": "Shall we go to the cinema?"
+          },
+          {
+            "cz": "V sobotu mám čas.",
+            "en": "I have time on Saturday."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13102,
+      "lesson_id": 1301,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 13 page",
+        "instruction": "Write “Unit 13 — Volný čas” at the top of a new page. Write three things you like and two things you like doing.",
+        "items": [
+          {
+            "cz": "Mám rád hudbu. / Mám ráda hudbu.",
+            "en": "I like music."
+          },
+          {
+            "cz": "Rád čtu.",
+            "en": "I like reading."
+          },
+          {
+            "cz": "Ve volném čase…",
+            "en": "In my free time…"
+          },
+          {
+            "cz": "Jezdím na kole.",
+            "en": "I ride a bike."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 13103,
       "lesson_id": 1301,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -112,7 +179,7 @@
       "xp_reward": 15
     },
     {
-      "id": 13003,
+      "id": 13104,
       "lesson_id": 1301,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -142,50 +209,7 @@
       "xp_reward": 10
     },
     {
-      "id": 13004,
-      "lesson_id": 1301,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Mám rád čtení.",
-          "Mám hlad.",
-          "Je tam pošta.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Mám rád čtení.",
-      "xp_reward": 10
-    },
-    {
-      "id": 13005,
-      "lesson_id": 1301,
-      "type": "fill_blank",
-      "prompt": "Complete the useful pattern",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Ve volném čase rád ___. Mám rád ___.",
-        "blank_count": 2,
-        "blank_answers": [
-          [
-            "čtu"
-          ],
-          [
-            "hudbu"
-          ]
-        ],
-        "explanation": "Use the chunk you have just heard and read."
-      },
-      "answer_key": "čtu | hudbu",
-      "xp_reward": 10
-    },
-    {
-      "id": 13006,
+      "id": 13105,
       "lesson_id": 1301,
       "type": "word_order",
       "prompt": "Build a natural short exchange",
@@ -208,7 +232,7 @@
       "xp_reward": 10
     },
     {
-      "id": 13007,
+      "id": 13106,
       "lesson_id": 1301,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -222,7 +246,7 @@
       "xp_reward": 10
     },
     {
-      "id": 13008,
+      "id": 13107,
       "lesson_id": 1301,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -240,7 +264,7 @@
       "xp_reward": 15
     },
     {
-      "id": 13009,
+      "id": 13108,
       "lesson_id": 1301,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -279,75 +303,6 @@
       },
       "answer_key": "Rád čtu. | Ano, rád.",
       "xp_reward": 15
-    },
-    {
-      "id": 13010,
-      "lesson_id": 1301,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write two things you like doing in your free time.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Mám rád čtení.",
-          "Rád čtu.",
-          "Mám rád hudbu.",
-          "Ve volném čase odpočívám."
-        ],
-        "sample_answer": "Mám rád čtení."
-      },
-      "answer_key": "Mám rád čtení.",
-      "xp_reward": 0
-    },
-    {
-      "id": 13011,
-      "lesson_id": 1301,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Mám rád čtení. Ve volném čase rád čtu.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Mám rád čtení. Ve volném čase rád čtu.",
-              "Mám hlad.",
-              "Je tam pošta."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Mám rád čtení. Ve volném čase rád čtu.",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "say which activities I like.",
-  "new_language": [
-    "Mám rád čtení.",
-    "Rád čtu.",
-    "Mám rád hudbu.",
-    "Ve volném čase odpočívám."
-  ],
-  "recycles": [
-    "present-tense activities",
-    "time and days",
-    "Ano/Ne",
-    "simple plans"
-  ],
-  "exit_task": "say which activities I like."
+  ]
 }
