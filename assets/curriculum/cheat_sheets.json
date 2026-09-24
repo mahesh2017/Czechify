@@ -2378,7 +2378,7 @@
         {
           "id": "GR-200",
           "name": "Comparative adjectives — regular formation",
-          "pattern": "-ější/-ejší (mladý→mladší, starý→starší, chytrý→chytřejší), -ší (čistý→čistší, bohatý→bohatší), or -í (tichý→tišší).",
+          "pattern": "-ější (nový → novější, levný → levnější, krásný → krásnější) or -ší (mladý → mladší, starý → starší, drahý → dražší). Compare with než: Praha je větší než Brno.",
           "example": "Praha je větší než Brno. — Prague is bigger than Brno."
         },
         {
@@ -2453,7 +2453,103 @@
         "Přílišné používání superlativů",
         "Chápání 'není špatné' jako kritiky"
       ],
-      "study_tip": "Porovnávejte věci kolem sebe: 'Můj pokoj je menší než tvůj.' 'Tato káva je lepší.'"
+      "study_tip": "Porovnávejte věci kolem sebe: 'Můj pokoj je menší než tvůj.' 'Tato káva je lepší.'",
+      "notebook_page": {
+        "title_cz": "Srovnání",
+        "title_en": "Comparing",
+        "can_do": {
+          "cz": "Porovnám dvě věci a vyberu, co je pro mě nejlepší.",
+          "en": "I can compare two things and choose what is best for me."
+        },
+        "words": [
+          {
+            "cz": "Tramvaj je rychlejší než autobus.",
+            "en": "The tram is faster than the bus."
+          },
+          {
+            "cz": "Praha je větší než Brno.",
+            "en": "Prague is bigger than Brno."
+          },
+          {
+            "cz": "Tenhle byt je levnější.",
+            "en": "This flat is cheaper."
+          },
+          {
+            "cz": "To je lepší.",
+            "en": "That is better."
+          },
+          {
+            "cz": "To je nejlepší kavárna.",
+            "en": "That is the best café."
+          },
+          {
+            "cz": "Mluvíš česky lépe než já.",
+            "en": "You speak Czech better than me."
+          },
+          {
+            "cz": "Je to dražší, ale hezčí.",
+            "en": "It's more expensive, but nicer."
+          },
+          {
+            "cz": "Vyberu si ten levnější.",
+            "en": "I'll choose the cheaper one."
+          }
+        ],
+        "pattern": {
+          "name": "Comparative and superlative",
+          "rule_plain": "Adjective + -ější or -ší, then než. Irregular: lepší, horší, větší, menší. The most: nej- + comparative. How someone does it: rychleji, lépe.",
+          "table": [
+            [
+              "levný",
+              "levnější / nejlevnější"
+            ],
+            [
+              "starý",
+              "starší / nejstarší"
+            ],
+            [
+              "dobrý",
+              "lepší / nejlepší"
+            ],
+            [
+              "velký",
+              "větší / největší"
+            ],
+            [
+              "rychle",
+              "rychleji"
+            ],
+            [
+              "dobře",
+              "lépe"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Tramvaj je rychlejší než autobus.",
+              "en": "The tram is faster than the bus."
+            },
+            {
+              "cz": "Mluvíš česky lépe než já.",
+              "en": "You speak Czech better than me."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Petr vaří lepší než Jana.",
+            "right": "Petr vaří lépe než Jana."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Brno je menší než Praha, ale je klidnější.",
+            "en": "Brno is smaller than Prague, but calmer."
+          },
+          {
+            "cz": "Mluvím česky lépe než loni.",
+            "en": "I speak Czech better than last year."
+          }
+        ]
+      }
     },
     {
       "unit_id": 22,
@@ -3390,6 +3486,12 @@
           "name": "Direction adverbs — kam, odkud, tudy, tam, sem, ven",
           "pattern": "kam (where to), odkud (where from), tudy (this way), tam (there), sem (here/to here), ven (outside/out)",
           "example": "Kam jdeš? — Jdu do školy. — Where are you going? — I'm going to school."
+        },
+        {
+          "id": "GR-265",
+          "name": "Nouns that look like adjectives — cestující, vrátný",
+          "pattern": "Some nouns are adjectives used as nouns and keep adjective endings: cestující (passenger), vrátný / vrátná (porter), dovolená (holiday), nemocný (patient), účetní (accountant), známý (acquaintance).",
+          "example": "Vážení cestující, vlak má zpoždění. — Dear passengers, the train is delayed."
         }
       ],
       "core_vocabulary": [

@@ -2,30 +2,587 @@
   "id": 2102,
   "unit_id": 21,
   "order_in_unit": 1,
-  "title": "Superlative & Adverbs",
-  "description": "Master Czech superlatives (nej-) formed from comparatives, learn comparative adverbs (rychle → rychleji, dobře → lépe), use comparisons with different grammatical cases, and practice comparing people and things in real-world contexts.",
+  "title": "Bigger, Better, the Best",
+  "description": "Learn -ější and -ší, the irregular lepší, horší, větší, and nej- for the best.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "compare things and say which is the best.",
+  "new_language": [
+    "levnější, starší + než",
+    "lepší, horší, větší, menší",
+    "nejlepší, největší"
+  ],
+  "recycles": [
+    "adjective endings",
+    "ten, ta, to"
+  ],
+  "exit_task": "say which is the best shop in your area.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 21013,
+      "id": 21200,
+      "lesson_id": 2102,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write four comparison phrases. Then check.",
+        "items": [
+          {
+            "cz": "Tramvaj je rychlejší než autobus.",
+            "en": "The tram is faster than the bus."
+          },
+          {
+            "cz": "Praha je větší než Brno.",
+            "en": "Prague is bigger than Brno."
+          },
+          {
+            "cz": "Tenhle byt je levnější.",
+            "en": "This flat is cheaper."
+          },
+          {
+            "cz": "To je lepší.",
+            "en": "That is better."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21201,
+      "lesson_id": 2102,
+      "type": "teaching",
+      "prompt": "Cheaper, older: -ější, -ší + než",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-200",
+        "rule_step": 1,
+        "heading": "Cheaper, older: -ější, -ší + než",
+        "items": [
+          {
+            "cz": "Tramvaj je rychlejší než autobus.",
+            "en": "The tram is faster than the bus."
+          },
+          {
+            "cz": "Můj bratr je mladší než já.",
+            "en": "My brother is younger than me."
+          }
+        ],
+        "say": "Most adjectives add -ější: levný → levnější. Some short ones add -ší: starý → starší. Compare two things with než (than).",
+        "table": [
+          [
+            "levný",
+            "levnější"
+          ],
+          [
+            "nový",
+            "novější"
+          ],
+          [
+            "zajímavý",
+            "zajímavější"
+          ],
+          [
+            "rychlý",
+            "rychlejší"
+          ],
+          [
+            "starý",
+            "starší"
+          ],
+          [
+            "mladý",
+            "mladší"
+          ],
+          [
+            "drahý",
+            "dražší"
+          ],
+          [
+            "hezký",
+            "hezčí"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Tramvaj je rychlejší než autobus.",
+            "en": "The tram is faster than the bus."
+          },
+          {
+            "cz": "Můj bratr je mladší než já.",
+            "en": "My brother is younger than me."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Tramvaj je rychlejší jak autobus.",
+          "right": "Tramvaj je rychlejší než autobus."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21202,
       "lesson_id": 2102,
       "type": "multiple_choice",
-      "prompt": "What is the superlative form of 'nový' (new)?",
+      "prompt": "Quick check",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Jaký je třetí stupeň (superlativ) slova 'nový'?",
-        "question_en": "What is the superlative form of 'nový' (new)?",
-        "options": ["novýší", "novější", "nejnovější", "nejnovýší"],
-        "correct_index": 2,
-        "explanation": "Superlatives are formed by adding 'nej-' to the comparative: nový → novější (comparative) → nejnovější (superlative = newest). This pattern works for ALL adjectives: form the comparative first, then add nej-."
+        "mode": "check",
+        "question_cz": "Tramvaj je ___ než autobus. (rychlý)",
+        "question_en": "The tram is faster than the bus.",
+        "options": [
+          "rychlejší",
+          "rychlý",
+          "rychleji"
+        ],
+        "correct_index": 0,
+        "explanation": "rychlý → rychlejší; than = než."
       },
-      "answer_key": "nejnovější",
+      "answer_key": "rychlejší",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-200"
+    },
+    {
+      "id": 21203,
+      "lesson_id": 2102,
+      "type": "teaching",
+      "prompt": "Better, bigger: lepší, větší",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-201",
+        "rule_step": 1,
+        "heading": "Better, bigger: lepší, větší",
+        "items": [
+          {
+            "cz": "Praha je větší než Brno.",
+            "en": "Prague is bigger than Brno."
+          },
+          {
+            "cz": "Dnes je počasí horší než včera.",
+            "en": "The weather is worse today than yesterday."
+          }
+        ],
+        "say": "A few very common adjectives change completely: dobrý → lepší, špatný → horší, velký → větší, malý → menší. Learn them as pairs.",
+        "table": [
+          [
+            "dobrý",
+            "lepší"
+          ],
+          [
+            "špatný",
+            "horší"
+          ],
+          [
+            "velký",
+            "větší"
+          ],
+          [
+            "malý",
+            "menší"
+          ],
+          [
+            "dlouhý",
+            "delší"
+          ],
+          [
+            "vysoký",
+            "vyšší"
+          ],
+          [
+            "těžký",
+            "těžší"
+          ],
+          [
+            "lehký",
+            "lehčí"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Praha je větší než Brno.",
+            "en": "Prague is bigger than Brno."
+          },
+          {
+            "cz": "Dnes je počasí horší než včera.",
+            "en": "The weather is worse today than yesterday."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Káva je dobřejší než čaj.",
+          "right": "Káva je lepší než čaj."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21204,
+      "lesson_id": 2102,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Dnes je počasí ___ než včera. (špatný)",
+        "question_en": "The weather is worse today than yesterday.",
+        "options": [
+          "horší",
+          "špatnější",
+          "hůř"
+        ],
+        "correct_index": 0,
+        "explanation": "špatný → horší (irregular)."
+      },
+      "answer_key": "horší",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-201"
+    },
+    {
+      "id": 21205,
+      "lesson_id": 2102,
+      "type": "teaching",
+      "prompt": "The best: nej-",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-202",
+        "rule_step": 1,
+        "heading": "The best: nej-",
+        "items": [
+          {
+            "cz": "To je nejlepší restaurace ve městě.",
+            "en": "That is the best restaurant in town."
+          },
+          {
+            "cz": "Vlak je nejrychlejší.",
+            "en": "The train is the fastest."
+          }
+        ],
+        "say": "For “the most” or “the best”, put nej- in front of the comparative: lepší → nejlepší, levnější → nejlevnější.",
+        "table": [
+          [
+            "lepší",
+            "nejlepší"
+          ],
+          [
+            "horší",
+            "nejhorší"
+          ],
+          [
+            "větší",
+            "největší"
+          ],
+          [
+            "levnější",
+            "nejlevnější"
+          ],
+          [
+            "dražší",
+            "nejdražší"
+          ],
+          [
+            "rychlejší",
+            "nejrychlejší"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "To je nejlepší restaurace ve městě.",
+            "en": "That is the best restaurant in town."
+          },
+          {
+            "cz": "Vlak je nejrychlejší.",
+            "en": "The train is the fastest."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "To je nejdobrší restaurace.",
+          "right": "To je nejlepší restaurace."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21206,
+      "lesson_id": 2102,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "To je ___ restaurace ve městě. (dobrý)",
+        "question_en": "That is the best restaurant in town.",
+        "options": [
+          "nejlepší",
+          "nejdobřejší",
+          "lepší"
+        ],
+        "correct_index": 0,
+        "explanation": "nej- + lepší → nejlepší."
+      },
+      "answer_key": "nejlepší",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-202"
+    },
+    {
+      "id": 21207,
+      "lesson_id": 2102,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write two regular comparatives, the four irregular ones and two superlatives, each with its base word.",
+        "items": [
+          {
+            "cz": "levný → levnější, starý → starší",
+            "en": "regular"
+          },
+          {
+            "cz": "dobrý → lepší, špatný → horší, velký → větší, malý → menší",
+            "en": "irregular"
+          },
+          {
+            "cz": "nejlepší, nejlevnější",
+            "en": "the best, the cheapest"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21208,
+      "lesson_id": 2102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "levný + -ější.",
+        "sentence": "Tenhle byt je ___ než ten druhý. (levný)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "levnější"
+          ]
+        ],
+        "explanation": "levnější"
+      },
+      "answer_key": "levnější",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-200"
+    },
+    {
+      "id": 21209,
+      "lesson_id": 2102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "vysoký → vyšší (irregular).",
+        "sentence": "Můj bratr je ___ než já. (vysoký)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "vyšší"
+          ]
+        ],
+        "explanation": "vyšší"
+      },
+      "answer_key": "vyšší",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-201"
+    },
+    {
+      "id": 21210,
+      "lesson_id": 2102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "nej- + rychlejší.",
+        "sentence": "Letadlo je ___. (rychlý — the fastest)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "nejrychlejší"
+          ]
+        ],
+        "explanation": "nejrychlejší"
+      },
+      "answer_key": "nejrychlejší",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-202"
+    },
+    {
+      "id": 21211,
+      "lesson_id": 2102,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "dlouhý → delší.",
+        "sentence": "Tahle cesta je ___. (dlouhý — longer)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "delší"
+          ]
+        ],
+        "explanation": "delší"
+      },
+      "answer_key": "delší",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-201"
+    },
+    {
+      "id": 21212,
+      "lesson_id": 2102,
+      "type": "multiple_choice",
+      "prompt": "What is the comparative form of 'nový' (new)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je druhý stupeň (komparativ) slova 'nový'?",
+        "question_en": "What is the comparative form of 'nový' (new)?",
+        "options": [
+          "novýší",
+          "novější",
+          "novší",
+          "novýejší"
+        ],
+        "correct_index": 1,
+        "explanation": "Adjecitives ending in -ý form the comparative with -ější (or -ší/‑í for common short adjectives). 'nový' → 'novější' (newer). The suffix -ější is the most common comparative ending."
+      },
+      "answer_key": "novější",
       "grammar_rule_id": "GR-200",
       "xp_reward": 10
     },
     {
-      "id": 21014,
+      "id": 21213,
+      "lesson_id": 2102,
+      "type": "fill_blank",
+      "prompt": "Form the comparative of 'teplý' (warm): ___",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Dnes je ___ než včera. (teplý — today is warmer than yesterday)",
+        "blank_count": 1,
+        "explanation": "'teplý' → 'teplejší' (warmer). Most -ý adjectives form the comparative by replacing -ý with -ější: teplý → teplejší, chladný → chladnější, zajímavý → zajímavější.",
+        "blank_answers": [
+          [
+            "teplejší"
+          ]
+        ]
+      },
+      "answer_key": "teplejší",
+      "grammar_rule_id": "GR-200",
+      "xp_reward": 15
+    },
+    {
+      "id": 21214,
+      "lesson_id": 2102,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'She is younger than her brother.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "She is younger than her brother.",
+        "accepted_answers": [
+          "Ona je mladší než její bratr.",
+          "Je mladší než její bratr.",
+          "Ona je mladší než bratr.",
+          "Je mladší než bratr."
+        ],
+        "grammar_note": "'mladý' → 'mladší' (younger) — regular -ší comparative. 'Její bratr' = her brother. The compared item after 'než' takes nominative case (it's the subject of an implied clause)."
+      },
+      "answer_key": "Ona je mladší než její bratr.",
+      "grammar_rule_id": "GR-200",
+      "xp_reward": 10
+    },
+    {
+      "id": 21215,
+      "lesson_id": 2102,
+      "type": "multiple_choice",
+      "prompt": "What is the comparative of 'dobrý' (good)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je komparativ slova 'dobrý'?",
+        "question_en": "What is the comparative of 'dobrý' (good)?",
+        "options": [
+          "dobřejší",
+          "dobrýší",
+          "lepší",
+          "dobřejí"
+        ],
+        "correct_index": 2,
+        "explanation": "'dobrý' is one of four key irregular comparatives. It becomes 'lepší' (better) — a completely different stem. The four irregulars are: dobrý → lepší, špatný → horší, velký → větší, malý → menší."
+      },
+      "answer_key": "lepší",
+      "grammar_rule_id": "GR-201",
+      "xp_reward": 10
+    },
+    {
+      "id": 21216,
+      "lesson_id": 2102,
+      "type": "fill_blank",
+      "prompt": "Form the comparative of 'velký' (big): Prague is bigger than Brno.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Praha je ___ než Brno. (velký)",
+        "blank_count": 1,
+        "explanation": "'velký' → 'větší' (bigger). This is an irregular comparative — note the stem change from 'velk-' to 'vět-'. 'Praha je větší než Brno.' = Prague is bigger than Brno.",
+        "blank_answers": [
+          [
+            "větší"
+          ]
+        ]
+      },
+      "answer_key": "větší",
+      "grammar_rule_id": "GR-201",
+      "xp_reward": 15
+    },
+    {
+      "id": 21217,
+      "lesson_id": 2102,
+      "type": "fill_blank",
+      "prompt": "Form the comparative of 'malý' (small): My apartment is smaller.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Můj byt je ___ než tvůj. (malý — smaller than yours)",
+        "blank_count": 1,
+        "explanation": "'malý' → 'menší' (smaller). Another irregular comparative with a stem change. The four irregulars form the core of everyday comparisons: lepší, horší, větší, menší.",
+        "blank_answers": [
+          [
+            "menší"
+          ]
+        ]
+      },
+      "answer_key": "menší",
+      "grammar_rule_id": "GR-201",
+      "xp_reward": 15
+    },
+    {
+      "id": 21218,
       "lesson_id": 2102,
       "type": "fill_blank",
       "prompt": "Form the superlative of 'starý' (old): She is the oldest.",
@@ -35,215 +592,14 @@
         "blank_count": 1,
         "explanation": "'starý' → 'starší' (comparative) → 'nejstarší' (superlative = oldest). The pattern is always: add nej- to the comparative form. 'ze všech' = of all (genitive plural).",
         "blank_answers": [
-          ["nejstarší"]
+          [
+            "nejstarší"
+          ]
         ]
       },
       "answer_key": "nejstarší",
-      "grammar_rule_id": "GR-200",
-      "xp_reward": 15
-    },
-    {
-      "id": 21015,
-      "lesson_id": 2102,
-      "type": "multiple_choice",
-      "prompt": "Which sentence correctly uses an irregular superlative?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta správně používá nepravidelný superlativ?",
-        "question_en": "Which sentence correctly uses an irregular superlative?",
-        "options": [
-          "To je nejdobřejší restaurace.",
-          "To je nejlepší restaurace.",
-          "To je nejlepšíší restaurace.",
-          "To je nejvíce dobrá restaurace."
-        ],
-        "correct_index": 1,
-        "explanation": "Irregular comparatives keep their irregular stem in the superlative: dobrý → lepší → nejlepší. The other irregulars: špatný → horší → nejhorší, velký → větší → největší, malý → menší → nejmenší. Never use 'nejdobřejší' — it doesn't exist."
-      },
-      "answer_key": "To je nejlepší restaurace.",
-      "grammar_rule_id": "GR-201",
-      "xp_reward": 10
-    },
-    {
-      "id": 21016,
-      "lesson_id": 2102,
-      "type": "multiple_choice",
-      "prompt": "What is the comparative adverb form of 'rychle' (quickly)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký je komparativ příslovce 'rychle'?",
-        "question_en": "What is the comparative adverb form of 'rychle' (quickly)?",
-        "options": ["rychlejší", "rychlej", "rychleji", "rychlejš"],
-        "correct_index": 2,
-        "explanation": "Adverbs form the comparative with -eji/-ěji: rychle → rychleji (more quickly/faster). Other examples: pomalu → pomaleji (more slowly), často → častěji (more often), hezky → hezčeji (more nicely). Note: adjectival comparatives end in -ší/-ější; adverbial comparatives end in -eji/-ěji."
-      },
-      "answer_key": "rychleji",
-      "grammar_rule_id": "GR-203",
-      "xp_reward": 10
-    },
-    {
-      "id": 21017,
-      "lesson_id": 2102,
-      "type": "fill_blank",
-      "prompt": "Form the comparative adverb of 'dobře' (well): She speaks better.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Ona mluví česky ___ než já. (dobře — better than me)",
-        "blank_count": 1,
-        "explanation": "'dobře' → 'lépe' or 'líp' (better — adverb). Both are correct: 'lépe' is more formal/written, 'líp' is colloquial/spoken. The adjective form is 'lepší' (better — adjective). Don't confuse: 'lepší auto' (better car — adjective) vs 'řídí lépe' (drives better — adverb).",
-        "blank_answers": [
-          ["lépe", "líp"]
-        ]
-      },
-      "answer_key": "lépe",
-      "grammar_rule_id": "GR-203",
-      "xp_reward": 15
-    },
-    {
-      "id": 21018,
-      "lesson_id": 2102,
-      "type": "multiple_choice",
-      "prompt": "Which sentence correctly compares how two people do something?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta správně srovnává, jak něco dělají?",
-        "question_en": "Which sentence correctly compares how two people do something?",
-        "options": [
-          "Petr vaří lepší než Jana.",
-          "Petr vaří lépe než Jana.",
-          "Petr vaří lepší než Janu.",
-          "Petr vaří dobřejší než Jana."
-        ],
-        "correct_index": 1,
-        "explanation": "To compare HOW someone does something (verb comparison), use the adverbial comparative: 'vaří lépe' (cooks better — adverb). Using 'lepší' (adjective) would describe the food itself, not the cooking action. 'Petr vaří lépe než Jana.' = Petr cooks better than Jana."
-      },
-      "answer_key": "Petr vaří lépe než Jana.",
-      "grammar_rule_id": "GR-203",
-      "xp_reward": 10
-    },
-    {
-      "id": 21019,
-      "lesson_id": 2102,
-      "type": "fill_blank",
-      "prompt": "Complete the comparison: I have a better car than you. (Use accusative.)",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Mám ___ auto než ty.",
-        "blank_count": 1,
-        "explanation": "Here 'lepší' is an adjective describing 'auto' (car) — both are in accusative case because 'mám' (I have) takes accusative. The comparative adjective 'lepší' stays the same in nominative and accusative masculine/neuter. 'Mám lepší auto než ty.' = I have a better car than you.",
-        "blank_answers": [
-          ["lepší"]
-        ]
-      },
-      "answer_key": "lepší",
       "grammar_rule_id": "GR-202",
       "xp_reward": 15
-    },
-    {
-      "id": 21020,
-      "lesson_id": 2102,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'Prague is the most beautiful city in the Czech Republic.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Prague is the most beautiful city in the Czech Republic.",
-        "accepted_answers": ["Praha je nejkrásnější město v České republice.", "Praha je nejkrásnější město v ČR.", "Praha je nejkrásnější město v Česku."],
-        "grammar_note": "'krásný' → 'krásnější' (comparative) → 'nejkrásnější' (superlative = most beautiful). 'Nej-' is always the same prefix regardless of adjective length. 'v České republice' = in the Czech Republic (locative case after 'v')."
-      },
-      "answer_key": "Praha je nejkrásnější město v České republice.",
-      "grammar_rule_id": "GR-200",
-      "xp_reward": 10
-    },
-    {
-      "id": 21021,
-      "lesson_id": 2102,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'She runs faster than me, but I swim better.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "She runs faster than me, but I swim better.",
-        "accepted_answers": ["Ona běhá rychleji než já, ale já plavu lépe.", "Běhá rychleji než já, ale plavu lépe.", "Ona běhá rychleji než já, ale plavu líp."],
-        "grammar_note": "Two adverb comparisons: 'rychleji' (faster — comparative adverb from 'rychle') and 'lépe/líp' (better — comparative adverb from 'dobře'). Both compare how the action is done. 'než já' = than me (nominative 'já' after 'než')."
-      },
-      "answer_key": "Ona běhá rychleji než já, ale já plavu lépe.",
-      "grammar_rule_id": "GR-203",
-      "xp_reward": 10
-    },
-    {
-      "id": 21022,
-      "lesson_id": 2102,
-      "type": "multiple_choice",
-      "prompt": "Which sentence uses BOTH comparative and superlative correctly?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta správně používá komparativ i superlativ?",
-        "question_en": "Which sentence uses BOTH comparative and superlative correctly?",
-        "options": [
-          "Auto je dražší než kolo, ale letadlo je nejdražší.",
-          "Auto je drahoší než kolo, ale letadlo je nejdrahoší.",
-          "Auto je dražší než kolo, ale letadlo je dražejší.",
-          "Auto je dražší kolo, ale letadlo je nejdražší."
-        ],
-        "correct_index": 0,
-        "explanation": "'drahý' → 'dražší' (comparative = more expensive) → 'nejdražší' (superlative = most expensive). Note the h→ž sound change before -ší. 'Auto je dražší než kolo, ale letadlo je nejdražší.' = A car is more expensive than a bike, but a plane is the most expensive."
-      },
-      "answer_key": "Auto je dražší než kolo, ale letadlo je nejdražší.",
-      "grammar_rule_id": "GR-200",
-      "xp_reward": 10
-    },
-    {
-      "id": 21023,
-      "lesson_id": 2102,
-      "type": "pronunciation",
-      "prompt": "Pronounce the sentence using superlative and comparative.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "To je nejlepší restaurace ve městě, ale není nejdražší.",
-        "target_audio_hash": "placeholder_21023",
-        "focus_sounds": ["nejlepší", "nejdražší", "ve městě"],
-        "min_score": 0.6,
-        "translation_en": "This is the best restaurant in the city, but it's not the most expensive."
-      },
-      "answer_key": "To je nejlepší restaurace ve městě, ale není nejdražší.",
-      "grammar_rule_id": "GR-200",
-      "xp_reward": 15
-    },
-    {
-      "id": 21024,
-      "lesson_id": 2102,
-      "type": "dialogue",
-      "prompt": "Complete the comparison dialogue. What does person B answer?",
-      "data": {
-        "type": "dialogue",
-        "scenario": "V obchodě — In a shop",
-        "lines": [
-          {
-            "speaker": "person_a",
-            "text": "Který telefon je lepší? Ten modrý nebo ten černý?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "___"
-          },
-          {
-            "speaker": "person_a",
-            "text": "A který je nejprodávanější?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "Ten modrý. Je nejlevnější a má nejlepší recenze."
-          }
-        ],
-        "explanation": "'lepší' = better (comparative), 'dražší' = more expensive, 'levnější' = cheaper, 'nejprodávanější' = best-selling (superlative), 'nejlevnější' = cheapest, 'nejlepší' = best. The dialogue uses multiple comparative and superlative forms naturally in a shopping context.",
-        "blank_answers": [
-          ["Ten černý je lepší, ale je dražší. Ten modrý je levnější a taky dobrý.", "Černý je lepší, ale dražší.", "Ten černý je lepší."]
-        ]
-      },
-      "answer_key": "Ten černý je lepší, ale je dražší. Ten modrý je levnější a taky dobrý.",
-      "grammar_rule_id": "GR-202",
-      "xp_reward": 25
     }
   ]
 }

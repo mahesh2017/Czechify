@@ -95,6 +95,96 @@
       "id": 27302,
       "lesson_id": 2703,
       "type": "teaching",
+      "prompt": "Nouns that look like adjectives",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-265",
+        "rule_step": 1,
+        "heading": "Nouns that look like adjectives",
+        "items": [
+          {
+            "cz": "Vážení cestující, vlak má zpoždění.",
+            "en": "Dear passengers, the train is delayed."
+          },
+          {
+            "cz": "Zeptejte se vrátného.",
+            "en": "Ask the porter."
+          }
+        ],
+        "say": "Some nouns are really adjectives: cestující, vrátný, dovolená. They keep adjective endings: Vážení cestující, na dovolené. Recognise them in announcements and offices.",
+        "table": [
+          [
+            "cestující",
+            "passenger(s)"
+          ],
+          [
+            "vrátný / vrátná",
+            "porter, front desk"
+          ],
+          [
+            "dovolená",
+            "holiday"
+          ],
+          [
+            "nemocný",
+            "patient"
+          ],
+          [
+            "účetní",
+            "accountant"
+          ],
+          [
+            "známý / známá",
+            "acquaintance"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Vážení cestující, vlak má zpoždění.",
+            "en": "Dear passengers, the train is delayed."
+          },
+          {
+            "cz": "Zeptejte se vrátného.",
+            "en": "Ask the porter."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Byl jsem na dovolená.",
+          "right": "Byl jsem na dovolené."
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 27303,
+      "lesson_id": 2703,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Na nádraží slyšíte: „Vážení cestující…“ Kdo jsou cestující?",
+        "question_en": "At the station you hear “Vážení cestující…”. Who are cestující?",
+        "options": [
+          "passengers",
+          "drivers",
+          "shop assistants"
+        ],
+        "correct_index": 0,
+        "explanation": "cestující = passengers (an adjective used as a noun)."
+      },
+      "answer_key": "passengers",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-265"
+    },
+    {
+      "id": 27304,
+      "lesson_id": 2703,
+      "type": "teaching",
       "prompt": "Notebook",
       "data": {
         "type": "teaching",
@@ -117,7 +207,7 @@
       "xp_reward": 0
     },
     {
-      "id": 27303,
+      "id": 27305,
       "lesson_id": 2703,
       "type": "listening_comprehension",
       "prompt": "A station announcement",
@@ -151,7 +241,7 @@
       "grammar_rule_id": "GR-261"
     },
     {
-      "id": 27304,
+      "id": 27306,
       "lesson_id": 2703,
       "type": "fill_blank",
       "prompt": "Choose the routine verb",
@@ -171,7 +261,7 @@
       "grammar_rule_id": "GR-260"
     },
     {
-      "id": 27305,
+      "id": 27307,
       "lesson_id": 2703,
       "type": "word_order",
       "prompt": "Arrange the words to form: 'We arrived at the station on foot.'",
@@ -198,7 +288,7 @@
       "xp_reward": 15
     },
     {
-      "id": 27306,
+      "id": 27308,
       "lesson_id": 2703,
       "type": "matching",
       "prompt": "Match each prefixed motion verb to its English meaning.",
@@ -230,7 +320,7 @@
       "xp_reward": 10
     },
     {
-      "id": 27307,
+      "id": 27309,
       "lesson_id": 2703,
       "type": "translation",
       "prompt": "Translate to English: 'Odjíždíme zítra ráno.'",
@@ -250,7 +340,7 @@
       "xp_reward": 10
     },
     {
-      "id": 27308,
+      "id": 27310,
       "lesson_id": 2703,
       "type": "translation",
       "prompt": "Translate to Czech: 'I am going to the cinema now.' (on foot, one-time)",
@@ -270,7 +360,7 @@
       "xp_reward": 10
     },
     {
-      "id": 27309,
+      "id": 27311,
       "lesson_id": 2703,
       "type": "writing_task",
       "prompt": "Write a commute comparison",
@@ -292,7 +382,7 @@
       "xp_reward": 0
     },
     {
-      "id": 27310,
+      "id": 27312,
       "lesson_id": 2703,
       "type": "speaking_task",
       "prompt": "Describe your route",

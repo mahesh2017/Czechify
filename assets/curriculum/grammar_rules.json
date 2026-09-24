@@ -3223,7 +3223,7 @@
     {
       "id": "GR-200",
       "rule_name": "Comparative adjectives — regular formation",
-      "pattern": "-ější/-ejší (mladý→mladší, starý→starší, chytrý→chytřejší), -ší (čistý→čistší, bohatý→bohatší), or -í (tichý→tišší).",
+      "pattern": "-ější (nový → novější, levný → levnější, krásný → krásnější) or -ší (mladý → mladší, starý → starší, drahý → dražší). Compare with než: Praha je větší než Brno.",
       "explanation": "Regular comparatives add -(ěj)ší to the adjective stem. Mladý (young) → mladší (younger). Starý (old) → starší (older). Krásný (beautiful) → krásnější. The stem often changes: drahý → dražší (expensive→more expensive), tichý → tišší (quiet→quieter). Use 'než' (than) for comparisons: Praha je větší než Brno (Prague is bigger than Brno). The comparative adjective declines like a soft adjective (mladší muž, mladšího muže, mladší žena...).",
       "case_affected": null,
       "examples": [
@@ -3240,7 +3240,64 @@
           "en": "This restaurant is more expensive."
         }
       ],
-      "unit_id": 21
+      "unit_id": 21,
+      "concept_keys": [
+        "comparison_regular"
+      ],
+      "lecture": [
+        {
+          "heading": "Cheaper, older: -ější, -ší + než",
+          "say": "Most adjectives add -ější: levný → levnější. Some short ones add -ší: starý → starší. Compare two things with než (than).",
+          "table": [
+            [
+              "levný",
+              "levnější"
+            ],
+            [
+              "nový",
+              "novější"
+            ],
+            [
+              "zajímavý",
+              "zajímavější"
+            ],
+            [
+              "rychlý",
+              "rychlejší"
+            ],
+            [
+              "starý",
+              "starší"
+            ],
+            [
+              "mladý",
+              "mladší"
+            ],
+            [
+              "drahý",
+              "dražší"
+            ],
+            [
+              "hezký",
+              "hezčí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Tramvaj je rychlejší než autobus.",
+              "en": "The tram is faster than the bus."
+            },
+            {
+              "cz": "Můj bratr je mladší než já.",
+              "en": "My brother is younger than me."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Tramvaj je rychlejší jak autobus.",
+            "right": "Tramvaj je rychlejší než autobus."
+          }
+        }
+      ]
     },
     {
       "id": "GR-201",
@@ -3262,7 +3319,64 @@
           "en": "I feel worse today than yesterday."
         }
       ],
-      "unit_id": 21
+      "unit_id": 21,
+      "concept_keys": [
+        "comparison_regular"
+      ],
+      "lecture": [
+        {
+          "heading": "Better, bigger: lepší, větší",
+          "say": "A few very common adjectives change completely: dobrý → lepší, špatný → horší, velký → větší, malý → menší. Learn them as pairs.",
+          "table": [
+            [
+              "dobrý",
+              "lepší"
+            ],
+            [
+              "špatný",
+              "horší"
+            ],
+            [
+              "velký",
+              "větší"
+            ],
+            [
+              "malý",
+              "menší"
+            ],
+            [
+              "dlouhý",
+              "delší"
+            ],
+            [
+              "vysoký",
+              "vyšší"
+            ],
+            [
+              "těžký",
+              "těžší"
+            ],
+            [
+              "lehký",
+              "lehčí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Praha je větší než Brno.",
+              "en": "Prague is bigger than Brno."
+            },
+            {
+              "cz": "Dnes je počasí horší než včera.",
+              "en": "The weather is worse today than yesterday."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Káva je dobřejší než čaj.",
+            "right": "Káva je lepší než čaj."
+          }
+        }
+      ]
     },
     {
       "id": "GR-202",
@@ -3284,7 +3398,56 @@
           "en": "This is the most expensive car I've ever seen."
         }
       ],
-      "unit_id": 21
+      "unit_id": 21,
+      "concept_keys": [
+        "comparison_regular"
+      ],
+      "lecture": [
+        {
+          "heading": "The best: nej-",
+          "say": "For “the most” or “the best”, put nej- in front of the comparative: lepší → nejlepší, levnější → nejlevnější.",
+          "table": [
+            [
+              "lepší",
+              "nejlepší"
+            ],
+            [
+              "horší",
+              "nejhorší"
+            ],
+            [
+              "větší",
+              "největší"
+            ],
+            [
+              "levnější",
+              "nejlevnější"
+            ],
+            [
+              "dražší",
+              "nejdražší"
+            ],
+            [
+              "rychlejší",
+              "nejrychlejší"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je nejlepší restaurace ve městě.",
+              "en": "That is the best restaurant in town."
+            },
+            {
+              "cz": "Vlak je nejrychlejší.",
+              "en": "The train is the fastest."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "To je nejdobrší restaurace.",
+            "right": "To je nejlepší restaurace."
+          }
+        }
+      ]
     },
     {
       "id": "GR-203",
@@ -3306,7 +3469,60 @@
           "en": "I go to the cinema more often than before."
         }
       ],
-      "unit_id": 21
+      "unit_id": 21,
+      "concept_keys": [
+        "comparison_regular"
+      ],
+      "lecture": [
+        {
+          "heading": "Faster, better at doing: rychleji, lépe",
+          "say": "To compare how someone does something, use the adverb: rychle → rychleji, dobře → lépe (líp). lepší describes a thing; lépe describes an action.",
+          "table": [
+            [
+              "rychle",
+              "rychleji"
+            ],
+            [
+              "pomalu",
+              "pomaleji"
+            ],
+            [
+              "často",
+              "častěji"
+            ],
+            [
+              "dobře",
+              "lépe / líp"
+            ],
+            [
+              "špatně",
+              "hůř"
+            ],
+            [
+              "hodně",
+              "víc"
+            ],
+            [
+              "málo",
+              "míň"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mluvíš česky lépe než já.",
+              "en": "You speak Czech better than me."
+            },
+            {
+              "cz": "Chodím do kina častěji než dřív.",
+              "en": "I go to the cinema more often than before."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Petr vaří lepší než Jana.",
+            "right": "Petr vaří lépe než Jana."
+          }
+        }
+      ]
     },
     {
       "id": "GR-210",
@@ -4983,6 +5199,73 @@
           "common_mistake": {
             "wrong": "Kde jdeš?",
             "right": "Kam jdeš?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-265",
+      "rule_name": "Nouns that look like adjectives — cestující, vrátný",
+      "pattern": "Some nouns are adjectives used as nouns and keep adjective endings: cestující (passenger), vrátný / vrátná (porter), dovolená (holiday), nemocný (patient), účetní (accountant), známý (acquaintance).",
+      "explanation": "These words decline like adjectives, not like nouns: Vážení cestující (announcements), Zeptejte se vrátného, Byl jsem na dovolené. At A2 recognise them in announcements, signs and offices; use the common ones (dovolená, známý) in set phrases.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Vážení cestující, vlak má zpoždění.",
+          "en": "Dear passengers, the train is delayed."
+        },
+        {
+          "cz": "Zeptejte se vrátného.",
+          "en": "Ask the porter."
+        }
+      ],
+      "unit_id": 27,
+      "concept_keys": [
+        "adjectival_nouns_recognition"
+      ],
+      "lecture": [
+        {
+          "heading": "Nouns that look like adjectives",
+          "say": "Some nouns are really adjectives: cestující, vrátný, dovolená. They keep adjective endings: Vážení cestující, na dovolené. Recognise them in announcements and offices.",
+          "table": [
+            [
+              "cestující",
+              "passenger(s)"
+            ],
+            [
+              "vrátný / vrátná",
+              "porter, front desk"
+            ],
+            [
+              "dovolená",
+              "holiday"
+            ],
+            [
+              "nemocný",
+              "patient"
+            ],
+            [
+              "účetní",
+              "accountant"
+            ],
+            [
+              "známý / známá",
+              "acquaintance"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Vážení cestující, vlak má zpoždění.",
+              "en": "Dear passengers, the train is delayed."
+            },
+            {
+              "cz": "Zeptejte se vrátného.",
+              "en": "Ask the porter."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Byl jsem na dovolená.",
+            "right": "Byl jsem na dovolené."
           }
         }
       ]

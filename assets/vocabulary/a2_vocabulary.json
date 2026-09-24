@@ -899,7 +899,7 @@
     "unit_id": 21,
     "example_cz": "Tohle je lepší.",
     "example_en": "This is better.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1092,
@@ -910,7 +910,7 @@
     "unit_id": 21,
     "example_cz": "Dnes je to horší.",
     "example_en": "Today it's worse.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1093,
@@ -921,7 +921,7 @@
     "unit_id": 21,
     "example_cz": "Můj byt je větší.",
     "example_en": "My apartment is bigger.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1094,
@@ -932,7 +932,7 @@
     "unit_id": 21,
     "example_cz": "To město je menší.",
     "example_en": "That city is smaller.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1095,
@@ -943,7 +943,7 @@
     "unit_id": 21,
     "example_cz": "To je nejlepší!",
     "example_en": "That's the best!",
-    "lesson_id": 2102
+    "lesson_id": 2103
   },
   {
     "id": 1096,
@@ -954,7 +954,7 @@
     "unit_id": 21,
     "example_cz": "Nejhorší den mého života.",
     "example_en": "The worst day of my life.",
-    "lesson_id": 2102
+    "lesson_id": 2103
   },
   {
     "id": 1097,
@@ -965,7 +965,7 @@
     "unit_id": 21,
     "example_cz": "Jsme stejně staří.",
     "example_en": "We're the same age.",
-    "lesson_id": 2101
+    "lesson_id": 2104
   },
   {
     "id": 1098,
@@ -976,7 +976,7 @@
     "unit_id": 21,
     "example_cz": "To je jiný problém.",
     "example_en": "That's a different problem.",
-    "lesson_id": 2101
+    "lesson_id": 2104
   },
   {
     "id": 1099,
@@ -987,7 +987,7 @@
     "unit_id": 21,
     "example_cz": "Je v tom velký rozdíl.",
     "example_en": "There's a big difference.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1100,
@@ -998,7 +998,7 @@
     "unit_id": 21,
     "example_cz": "Nedá se to srovnat.",
     "example_en": "It can't be compared.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1101,
@@ -1009,7 +1009,7 @@
     "unit_id": 21,
     "example_cz": "Mluvíš moc rychle.",
     "example_en": "You speak too fast.",
-    "lesson_id": 2102
+    "lesson_id": null
   },
   {
     "id": 1102,
@@ -1020,7 +1020,7 @@
     "unit_id": 21,
     "example_cz": "Mluv pomalu, prosím.",
     "example_en": "Speak slowly, please.",
-    "lesson_id": 2102
+    "lesson_id": null
   },
   {
     "id": 1103,
@@ -1031,7 +1031,7 @@
     "unit_id": 21,
     "example_cz": "Mluví stejně dobře.",
     "example_en": "They speak equally well.",
-    "lesson_id": 2102
+    "lesson_id": null
   },
   {
     "id": 1104,
@@ -1042,7 +1042,7 @@
     "unit_id": 21,
     "example_cz": "Alespoň se snaž.",
     "example_en": "At least try.",
-    "lesson_id": 2102
+    "lesson_id": null
   },
   {
     "id": 1105,
@@ -2824,7 +2824,7 @@
     "unit_id": 21,
     "example_cz": "Tato cesta je delší.",
     "example_en": "This route is longer.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1281,
@@ -2846,7 +2846,7 @@
     "unit_id": 21,
     "example_cz": "To je největší město v zemi.",
     "example_en": "That's the biggest city in the country.",
-    "lesson_id": 2102
+    "lesson_id": 2103
   },
   {
     "id": 1283,
@@ -2857,7 +2857,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejkrásnější den mého života.",
     "example_en": "It's the most beautiful day of my life.",
-    "lesson_id": 2102
+    "lesson_id": null
   },
   {
     "id": 1284,
@@ -2868,7 +2868,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejdražší restaurace v Praze.",
     "example_en": "It's the most expensive restaurant in Prague.",
-    "lesson_id": 2102
+    "lesson_id": 2103
   },
   {
     "id": 1285,
@@ -2879,7 +2879,7 @@
     "unit_id": 21,
     "example_cz": "Dnes se cítím lépe.",
     "example_en": "Today I feel better.",
-    "lesson_id": 2102
+    "lesson_id": 2104
   },
   {
     "id": 1286,
@@ -2890,7 +2890,7 @@
     "unit_id": 21,
     "example_cz": "On mluví rychleji než já.",
     "example_en": "He speaks faster than me.",
-    "lesson_id": 2102
+    "lesson_id": 2104
   },
   {
     "id": 1287,
@@ -2901,7 +2901,7 @@
     "unit_id": 21,
     "example_cz": "Chodím sem častěji.",
     "example_en": "I come here more often.",
-    "lesson_id": 2102
+    "lesson_id": 2104
   },
   {
     "id": 1288,
@@ -2912,7 +2912,7 @@
     "unit_id": 21,
     "example_cz": "Mám méně času než minulý týden.",
     "example_en": "I have less time than last week.",
-    "lesson_id": 2102
+    "lesson_id": 2104
   },
   {
     "id": 1289,
@@ -2923,7 +2923,7 @@
     "unit_id": 21,
     "example_cz": "Ten strom je vyšší než dům.",
     "example_en": "That tree is taller than the house.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1290,
@@ -2934,7 +2934,7 @@
     "unit_id": 21,
     "example_cz": "Cena je nižší než minulý rok.",
     "example_en": "The price is lower than last year.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1291,
@@ -2945,7 +2945,7 @@
     "unit_id": 21,
     "example_cz": "Tato ulice je širší.",
     "example_en": "This street is wider.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1292,
@@ -2956,7 +2956,7 @@
     "unit_id": 21,
     "example_cz": "To je hlubší problém.",
     "example_en": "That's a deeper problem.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1293,
@@ -2967,7 +2967,7 @@
     "unit_id": 21,
     "example_cz": "Dnes je silnější vítr.",
     "example_en": "Today the wind is stronger.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1294,
@@ -2978,7 +2978,7 @@
     "unit_id": 21,
     "example_cz": "Tento úkol je těžší.",
     "example_en": "This task is harder.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1295,
@@ -2989,7 +2989,7 @@
     "unit_id": 21,
     "example_cz": "Je to snadnější než myslíš.",
     "example_en": "It's easier than you think.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1296,
@@ -3011,7 +3011,7 @@
     "unit_id": 21,
     "example_cz": "Rodina je důležitější než peníze.",
     "example_en": "Family is more important than money.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1298,
@@ -3022,7 +3022,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejrychlejší vlak v zemi.",
     "example_en": "It's the fastest train in the country.",
-    "lesson_id": 2102
+    "lesson_id": 2103
   },
   {
     "id": 1299,
@@ -3033,7 +3033,7 @@
     "unit_id": 21,
     "example_cz": "To je nejméně důležité.",
     "example_en": "That's the least important.",
-    "lesson_id": 2102
+    "lesson_id": null
   },
   {
     "id": 1300,
@@ -6102,7 +6102,7 @@
     "unit_id": 21,
     "example_cz": "Praha je mnohem větší než Brno.",
     "example_en": "Prague is much bigger than Brno.",
-    "lesson_id": 2101
+    "lesson_id": 2104
   },
   {
     "id": 1626,
@@ -6113,7 +6113,7 @@
     "unit_id": 21,
     "example_cz": "Je trochu dražší.",
     "example_en": "It's slightly more expensive.",
-    "lesson_id": 2101
+    "lesson_id": 2104
   },
   {
     "id": 1627,
@@ -6124,7 +6124,7 @@
     "unit_id": 21,
     "example_cz": "Je o něco lepší.",
     "example_en": "It's somewhat better.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1628,
@@ -6135,7 +6135,7 @@
     "unit_id": 21,
     "example_cz": "Je daleko dražší.",
     "example_en": "It's much more expensive.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1629,
@@ -6146,7 +6146,7 @@
     "unit_id": 21,
     "example_cz": "Máme stejný zájem.",
     "example_en": "We have the same interest.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1630,
@@ -6157,7 +6157,7 @@
     "unit_id": 21,
     "example_cz": "Brno je podobné Praze.",
     "example_en": "Brno is similar to Prague.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1631,
@@ -6168,7 +6168,7 @@
     "unit_id": 21,
     "example_cz": "Je velký rozdíl mezi Prahou a Brnem.",
     "example_en": "There's a big difference between Prague and Brno.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1632,
@@ -6179,7 +6179,7 @@
     "unit_id": 21,
     "example_cz": "Jsou to odlišné přístupy.",
     "example_en": "They are different approaches.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1633,
@@ -6190,7 +6190,7 @@
     "unit_id": 21,
     "example_cz": "To je nejlepší restaurace v Praze.",
     "example_en": "That's the best restaurant in Prague.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1634,
@@ -6201,7 +6201,7 @@
     "unit_id": 21,
     "example_cz": "To byla nejhorší zkušenost.",
     "example_en": "That was the worst experience.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1635,
@@ -6212,7 +6212,7 @@
     "unit_id": 21,
     "example_cz": "Praha je největší město.",
     "example_en": "Prague is the biggest city.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1636,
@@ -6223,7 +6223,7 @@
     "unit_id": 21,
     "example_cz": "To je nejmenší problém.",
     "example_en": "That's the smallest problem.",
-    "lesson_id": 2101
+    "lesson_id": 2103
   },
   {
     "id": 1637,
@@ -6234,7 +6234,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejdražší hotel v Praze.",
     "example_en": "It's the most expensive hotel in Prague.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1638,
@@ -6245,7 +6245,7 @@
     "unit_id": 21,
     "example_cz": "Kaufland je nejlevnější supermarket.",
     "example_en": "Kaufland is the cheapest supermarket.",
-    "lesson_id": 2101
+    "lesson_id": 2103
   },
   {
     "id": 1639,
@@ -6256,7 +6256,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejhezčí část Prahy.",
     "example_en": "It's the prettiest part of Prague.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1640,
@@ -6267,7 +6267,7 @@
     "unit_id": 21,
     "example_cz": "Metro je nejrychlejší doprava.",
     "example_en": "Metro is the fastest transport.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1641,
@@ -6278,7 +6278,7 @@
     "unit_id": 21,
     "example_cz": "Je to moje nejoblíbenější jídlo.",
     "example_en": "It's my favorite food.",
-    "lesson_id": 2101
+    "lesson_id": 2103
   },
   {
     "id": 1642,
@@ -6289,7 +6289,7 @@
     "unit_id": 21,
     "example_cz": "To je nejzajímavější kniha.",
     "example_en": "That's the most interesting book.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1643,
@@ -6300,7 +6300,7 @@
     "unit_id": 21,
     "example_cz": "Čeština je nejsložitější jazyk.",
     "example_en": "Czech is the most complicated language.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1644,
@@ -6311,7 +6311,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejmodernější budova v Praze.",
     "example_en": "It's the most modern building in Prague.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1645,

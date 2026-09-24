@@ -1,10 +1,384 @@
-{"id":2103,"unit_id":21,"title":"Compare Two Good Options","description":"Read and discuss simple comparisons when choosing a home or way to travel.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[
-{"id":21025,"lesson_id":2103,"type":"teaching","prompt":"Compare with a reason","data":{"type":"teaching","style":"list","heading":"Useful comparison chunks","body":"Use a comparative plus než, then add one simple reason.","items":[{"cz":"Tento byt je větší než ten druhý.","en":"This flat is bigger than the other one."},{"cz":"Tramvaj je rychlejší než autobus.","en":"The tram is faster than the bus."},{"cz":"Tohle je lepší pro mě.","en":"This is better for me."}]},"answer_key":"comparison chunks","xp_reward":0},
-{"id":21026,"lesson_id":2103,"type":"listening_comprehension","prompt":"Listen to the apartment choice","data":{"type":"listening_comprehension","prompt_en":"Which flat does the speaker prefer and why?","transcript_cz":"První byt je menší, ale je levnější. Druhý byt je větší a světlejší. Pro mě je druhý byt lepší.","questions":[{"question_en":"Which flat is cheaper?","options":["The first flat","The second flat","Both"],"correct_index":0},{"question_en":"Which does the speaker choose?","options":["The second flat","The first flat","Neither"],"correct_index":0}]},"answer_key":"first; second","xp_reward":15},
-{"id":21027,"lesson_id":2103,"type":"reading_comprehension","prompt":"Read the two options","data":{"type":"reading_comprehension","prompt_en":"Compare size, light and transport.","image":"assets/images/unit21/compare_choose_v1.webp","image_label":"Comparing homes and travel options","text_cz":"Byt A je menší než byt B, ale je blíž centru. Byt B je větší a má lepší světlo. Tramvaj je pomalejší než kolo, ale když prší, je pohodlnější.","text_en":"Flat A is smaller than flat B but closer to the centre. Flat B is larger and has better light. The tram is slower than a bicycle, but when it rains it is more comfortable.","questions":[{"question_en":"Which flat is closer to the centre?","options":["Flat A","Flat B","Neither"],"correct_index":0},{"question_en":"What is more comfortable in rain?","options":["The tram","The bicycle","Walking"],"correct_index":0}]},"answer_key":"Flat A; tram","xp_reward":15},
-{"id":21028,"lesson_id":2103,"type":"matching","prompt":"Match the comparison words","data":{"type":"matching","pairs":[{"left":"větší","right":"bigger"},{"left":"menší","right":"smaller"},{"left":"lepší","right":"better"},{"left":"rychlejší","right":"faster"}]},"answer_key":"comparisons","xp_reward":10},
-{"id":21029,"lesson_id":2103,"type":"fill_blank","prompt":"Make the comparison","data":{"type":"fill_blank","sentence":"Kolo je rychlejší ___ tramvaj.","blank_count":1,"blank_answers":[["než"]]},"answer_key":"než","xp_reward":10},
-{"id":21030,"lesson_id":2103,"type":"dialogue","prompt":"Choose an apartment","data":{"type":"dialogue","scenario":"Viewing two flats","lines":[{"speaker":"friend","text":"Který byt je lepší?"},{"speaker":"you","text":"___"}],"blank_answers":[["Druhý byt je větší a světlejší.","První byt je levnější."]]},"answer_key":"comparison choice","xp_reward":15},
-{"id":21031,"lesson_id":2103,"type":"writing_task","prompt":"Compare two options","data":{"type":"writing_task","prompt_en":"Write 2–3 sentences comparing two flats, cafés or travel options.","prompt_cz":"Porovnejte dvě možnosti.","min_words":10,"max_words":45,"key_vocab":["větší/menší","lepší","než"],"sample_answer":"Tento byt je větší než druhý. Je také světlejší. Pro mě je lepší."},"answer_key":"comparison text","xp_reward":0},
-{"id":21032,"lesson_id":2103,"type":"speaking_task","prompt":"Explain your choice","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds comparing two options and choose one.","prompt_cz":"Nahrajte srovnání a volbu.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["než","lepší","protože"]},"answer_key":"comparison choice","xp_reward":20}
-]}
+{
+  "id": 2103,
+  "unit_id": 21,
+  "title": "Compare Two Good Options",
+  "description": "Compare how people do things: rychleji, lépe, častěji.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "can_do": "compare how people do things and choose between options.",
+  "new_language": [
+    "rychleji, lépe, častěji",
+    "lepší × lépe"
+  ],
+  "recycles": [
+    "než",
+    "protože"
+  ],
+  "exit_task": "write a comparison of two flats or trips.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 21300,
+      "lesson_id": 2103,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “cheaper”, “better” and “the best” in Czech. Then one line from Unit 26: on the third floor.",
+        "items": [
+          {
+            "cz": "levnější",
+            "en": "cheaper"
+          },
+          {
+            "cz": "lepší",
+            "en": "better"
+          },
+          {
+            "cz": "nejlepší",
+            "en": "the best"
+          },
+          {
+            "cz": "ve třetím patře",
+            "en": "on the third floor"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21301,
+      "lesson_id": 2103,
+      "type": "teaching",
+      "prompt": "Faster, better at doing: rychleji, lépe",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-203",
+        "rule_step": 1,
+        "heading": "Faster, better at doing: rychleji, lépe",
+        "items": [
+          {
+            "cz": "Mluvíš česky lépe než já.",
+            "en": "You speak Czech better than me."
+          },
+          {
+            "cz": "Chodím do kina častěji než dřív.",
+            "en": "I go to the cinema more often than before."
+          }
+        ],
+        "say": "To compare how someone does something, use the adverb: rychle → rychleji, dobře → lépe (líp). lepší describes a thing; lépe describes an action.",
+        "table": [
+          [
+            "rychle",
+            "rychleji"
+          ],
+          [
+            "pomalu",
+            "pomaleji"
+          ],
+          [
+            "často",
+            "častěji"
+          ],
+          [
+            "dobře",
+            "lépe / líp"
+          ],
+          [
+            "špatně",
+            "hůř"
+          ],
+          [
+            "hodně",
+            "víc"
+          ],
+          [
+            "málo",
+            "míň"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mluvíš česky lépe než já.",
+            "en": "You speak Czech better than me."
+          },
+          {
+            "cz": "Chodím do kina častěji než dřív.",
+            "en": "I go to the cinema more often than before."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Petr vaří lepší než Jana.",
+          "right": "Petr vaří lépe než Jana."
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21302,
+      "lesson_id": 2103,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Petr vaří ___ než Jana. (dobře)",
+        "question_en": "Petr cooks better than Jana.",
+        "options": [
+          "lépe",
+          "lepší",
+          "dobřeji"
+        ],
+        "correct_index": 0,
+        "explanation": "An action takes the adverb: dobře → lépe."
+      },
+      "answer_key": "lépe",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-203"
+    },
+    {
+      "id": 21303,
+      "lesson_id": 2103,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write two true comparisons: two places you know, and how you do something now compared with before.",
+        "items": [
+          {
+            "cz": "Brno je menší než Praha, ale je klidnější.",
+            "en": "Brno is smaller than Prague, but calmer."
+          },
+          {
+            "cz": "Mluvím česky lépe než loni.",
+            "en": "I speak Czech better than last year."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 21304,
+      "lesson_id": 2103,
+      "type": "multiple_choice",
+      "prompt": "What is the comparative adverb form of 'rychle' (quickly)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je komparativ příslovce 'rychle'?",
+        "question_en": "What is the comparative adverb form of 'rychle' (quickly)?",
+        "options": [
+          "rychlejší",
+          "rychlej",
+          "rychleji",
+          "rychlejš"
+        ],
+        "correct_index": 2,
+        "explanation": "Adverbs form the comparative with -eji/-ěji: rychle → rychleji (more quickly/faster). Other examples: pomalu → pomaleji (more slowly), často → častěji (more often), hezky → hezčeji (more nicely). Note: adjectival comparatives end in -ší/-ější; adverbial comparatives end in -eji/-ěji."
+      },
+      "answer_key": "rychleji",
+      "grammar_rule_id": "GR-203",
+      "xp_reward": 10
+    },
+    {
+      "id": 21305,
+      "lesson_id": 2103,
+      "type": "fill_blank",
+      "prompt": "Form the comparative adverb of 'dobře' (well): She speaks better.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Ona mluví česky ___ než já. (dobře — better than me)",
+        "blank_count": 1,
+        "explanation": "'dobře' → 'lépe' or 'líp' (better — adverb). Both are correct: 'lépe' is more formal/written, 'líp' is colloquial/spoken. The adjective form is 'lepší' (better — adjective). Don't confuse: 'lepší auto' (better car — adjective) vs 'řídí lépe' (drives better — adverb).",
+        "blank_answers": [
+          [
+            "lépe",
+            "líp"
+          ]
+        ]
+      },
+      "answer_key": "lépe",
+      "grammar_rule_id": "GR-203",
+      "xp_reward": 15
+    },
+    {
+      "id": 21306,
+      "lesson_id": 2103,
+      "type": "multiple_choice",
+      "prompt": "Which sentence correctly compares how two people do something?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta správně srovnává, jak něco dělají?",
+        "question_en": "Which sentence correctly compares how two people do something?",
+        "options": [
+          "Petr vaří lepší než Jana.",
+          "Petr vaří lépe než Jana.",
+          "Petr vaří lepší než Janu.",
+          "Petr vaří dobřejší než Jana."
+        ],
+        "correct_index": 1,
+        "explanation": "To compare HOW someone does something (verb comparison), use the adverbial comparative: 'vaří lépe' (cooks better — adverb). Using 'lepší' (adjective) would describe the food itself, not the cooking action. 'Petr vaří lépe než Jana.' = Petr cooks better than Jana."
+      },
+      "answer_key": "Petr vaří lépe než Jana.",
+      "grammar_rule_id": "GR-203",
+      "xp_reward": 10
+    },
+    {
+      "id": 21307,
+      "lesson_id": 2103,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'She runs faster than me, but I swim better.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "She runs faster than me, but I swim better.",
+        "accepted_answers": [
+          "Ona běhá rychleji než já, ale já plavu lépe.",
+          "Běhá rychleji než já, ale plavu lépe.",
+          "Ona běhá rychleji než já, ale plavu líp."
+        ],
+        "grammar_note": "Two adverb comparisons: 'rychleji' (faster — comparative adverb from 'rychle') and 'lépe/líp' (better — comparative adverb from 'dobře'). Both compare how the action is done. 'než já' = than me (nominative 'já' after 'než')."
+      },
+      "answer_key": "Ona běhá rychleji než já, ale já plavu lépe.",
+      "grammar_rule_id": "GR-203",
+      "xp_reward": 10
+    },
+    {
+      "id": 21308,
+      "lesson_id": 2103,
+      "type": "fill_blank",
+      "prompt": "Complete the comparison: I have a better car than you. (Use accusative.)",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Mám ___ auto než ty.",
+        "blank_count": 1,
+        "explanation": "Here 'lepší' is an adjective describing 'auto' (car) — both are in accusative case because 'mám' (I have) takes accusative. The comparative adjective 'lepší' stays the same in nominative and accusative masculine/neuter. 'Mám lepší auto než ty.' = I have a better car than you.",
+        "blank_answers": [
+          [
+            "lepší"
+          ]
+        ]
+      },
+      "answer_key": "lepší",
+      "grammar_rule_id": "GR-201",
+      "xp_reward": 15
+    },
+    {
+      "id": 21309,
+      "lesson_id": 2103,
+      "type": "multiple_choice",
+      "prompt": "Which sentence uses BOTH comparative and superlative correctly?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Která věta správně používá komparativ i superlativ?",
+        "question_en": "Which sentence uses BOTH comparative and superlative correctly?",
+        "options": [
+          "Auto je dražší než kolo, ale letadlo je nejdražší.",
+          "Auto je drahoší než kolo, ale letadlo je nejdrahoší.",
+          "Auto je dražší než kolo, ale letadlo je dražejší.",
+          "Auto je dražší kolo, ale letadlo je nejdražší."
+        ],
+        "correct_index": 0,
+        "explanation": "'drahý' → 'dražší' (comparative = more expensive) → 'nejdražší' (superlative = most expensive). Note the h→ž sound change before -ší. 'Auto je dražší než kolo, ale letadlo je nejdražší.' = A car is more expensive than a bike, but a plane is the most expensive."
+      },
+      "answer_key": "Auto je dražší než kolo, ale letadlo je nejdražší.",
+      "grammar_rule_id": "GR-202",
+      "xp_reward": 10
+    },
+    {
+      "id": 21310,
+      "lesson_id": 2103,
+      "type": "dialogue",
+      "prompt": "Complete the comparison dialogue. What does person B answer?",
+      "data": {
+        "type": "dialogue",
+        "scenario": "V obchodě — In a shop",
+        "lines": [
+          {
+            "speaker": "person_a",
+            "text": "Který telefon je lepší? Ten modrý nebo ten černý?"
+          },
+          {
+            "speaker": "person_b",
+            "text": "___"
+          },
+          {
+            "speaker": "person_a",
+            "text": "A který je nejlevnější?"
+          },
+          {
+            "speaker": "person_b",
+            "text": "Ten modrý. Je nejlevnější a má dobré recenze."
+          }
+        ],
+        "explanation": "'lepší' = better (comparative), 'dražší' = more expensive, 'levnější' = cheaper, 'nejprodávanější' = best-selling (superlative), 'nejlevnější' = cheapest, 'nejlepší' = best. The dialogue uses multiple comparative and superlative forms naturally in a shopping context.",
+        "blank_answers": [
+          [
+            "Ten černý je lepší, ale je dražší. Ten modrý je levnější a taky dobrý.",
+            "Černý je lepší, ale dražší.",
+            "Ten černý je lepší."
+          ]
+        ]
+      },
+      "answer_key": "Ten černý je lepší, ale je dražší. Ten modrý je levnější a taky dobrý.",
+      "grammar_rule_id": "GR-201",
+      "xp_reward": 25
+    },
+    {
+      "id": 21311,
+      "lesson_id": 2103,
+      "type": "writing_task",
+      "prompt": "Compare two options",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 sentences comparing two flats, cafés or travel options.",
+        "prompt_cz": "Porovnejte dvě možnosti.",
+        "min_words": 10,
+        "max_words": 45,
+        "key_vocab": [
+          "větší/menší",
+          "lepší",
+          "než"
+        ],
+        "sample_answer": "Tento byt je větší než druhý. Je také světlejší. Pro mě je lepší.",
+        "targets": "vocab"
+      },
+      "answer_key": "comparison text",
+      "xp_reward": 0
+    },
+    {
+      "id": 21312,
+      "lesson_id": 2103,
+      "type": "speaking_task",
+      "prompt": "Explain your choice",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds comparing two options and choose one.",
+        "prompt_cz": "Nahrajte srovnání a volbu.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "než",
+          "lepší",
+          "protože"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "comparison choice",
+      "xp_reward": 20
+    }
+  ]
+}
