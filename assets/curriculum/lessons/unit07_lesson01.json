@@ -3,27 +3,66 @@
   "unit_id": 7,
   "order_in_unit": 0,
   "title": "At Lost Property",
-  "description": "Recognise common belongings and ask whether an item belongs to someone.",
-  "can_do": "ask whether a common item is mine or yours.",
+  "description": "Hear a lost-property exchange, then learn to say what is yours.",
+  "duration_min": 12,
+  "lesson_type": "introduction",
+  "can_do": "say whether something is yours.",
   "new_language": [
     "To je můj telefon.",
     "To je moje taška.",
     "Je to váš klíč?",
-    "Ano, je můj."
+    "Ano, je můj.",
+    "Čí je to?",
+    "To je jeho kolo.",
+    "Ne, není moje.",
+    "Tady máte."
   ],
   "recycles": [
-    "To je…",
-    "ten/ta/to",
-    "Mám/Nemám",
-    "Ano/Ne"
+    "To je… (U3)",
+    "ten, ta, to"
   ],
-  "exit_task": "ask whether a common item is mine or yours.",
-  "duration_min": 12,
-  "lesson_type": "introduction",
+  "exit_task": "label three of your belongings.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 7000,
+      "id": 7100,
+      "lesson_id": 701,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess which things belong to the speaker.",
+        "transcript_cz": "Dobrý den. Je to váš klíč? Ano, je můj. A ta taška? Ta není moje.",
+        "image": "assets/images/unit07/lost_property_v1.webp",
+        "image_label": "Ownership words matched to common belongings",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "At Lost Property",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which item belongs to the speaker?",
+            "options": [
+              "The key",
+              "The bag",
+              "The phone"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "The key",
+      "xp_reward": 0
+    },
+    {
+      "id": 7101,
       "lesson_id": 701,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -49,6 +88,22 @@
           {
             "cz": "Ano, je můj.",
             "en": "Yes, it is mine."
+          },
+          {
+            "cz": "Čí je to?",
+            "en": "Whose is it?"
+          },
+          {
+            "cz": "To je jeho kolo.",
+            "en": "That is his bike."
+          },
+          {
+            "cz": "Ne, není moje.",
+            "en": "No, it isn't mine."
+          },
+          {
+            "cz": "Tady máte.",
+            "en": "Here you are."
           }
         ]
       },
@@ -56,42 +111,40 @@
       "xp_reward": 0
     },
     {
-      "id": 7001,
+      "id": 7102,
       "lesson_id": 701,
-      "type": "listening_comprehension",
-      "prompt": "Listen for meaning and one detail",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen first for the situation, then for the requested detail.",
-        "transcript_cz": "Dobrý den. Je to váš klíč? Ano, je můj. A ta taška? Ta není moje.",
-        "image": "assets/images/unit07/lost_property_v1.webp",
-        "image_label": "Ownership words matched to common belongings",
-        "questions": [
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 7 page",
+        "instruction": "Write “Unit 7 — Čí je to?” at the top of a new page. Label three things you own with To je můj… or To je moje….",
+        "items": [
           {
-            "question_en": "Which lesson situation does this recording belong to?",
-            "options": [
-              "At Lost Property",
-              "Asking for directions",
-              "Talking about the weather"
-            ],
-            "correct_index": 0
+            "cz": "To je můj telefon.",
+            "en": "That is my phone."
           },
           {
-            "question_en": "Which item belongs to the speaker?",
-            "options": [
-              "The key",
-              "The bag",
-              "The phone"
-            ],
-            "correct_index": 0
+            "cz": "To je moje taška.",
+            "en": "That is my bag."
+          },
+          {
+            "cz": "Je to váš klíč?",
+            "en": "Is it your key?"
+          },
+          {
+            "cz": "Ano, je můj.",
+            "en": "Yes, it is mine."
           }
         ]
       },
-      "answer_key": "The key",
-      "xp_reward": 15
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 7002,
+      "id": 7103,
       "lesson_id": 701,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -127,7 +180,7 @@
       "xp_reward": 15
     },
     {
-      "id": 7003,
+      "id": 7104,
       "lesson_id": 701,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -157,28 +210,7 @@
       "xp_reward": 10
     },
     {
-      "id": 7004,
-      "lesson_id": 701,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "To je můj telefon.",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "To je můj telefon.",
-      "xp_reward": 10
-    },
-    {
-      "id": 7005,
+      "id": 7105,
       "lesson_id": 701,
       "type": "fill_blank",
       "prompt": "Complete the useful chunk",
@@ -197,32 +229,7 @@
       "xp_reward": 10
     },
     {
-      "id": 7006,
-      "lesson_id": 701,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "taška.",
-          "moje",
-          "je",
-          "To"
-        ],
-        "correct_order": [
-          3,
-          2,
-          1,
-          0
-        ],
-        "translation_en": "That is my bag.",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "To je moje taška.",
-      "xp_reward": 10
-    },
-    {
-      "id": 7007,
+      "id": 7106,
       "lesson_id": 701,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -236,7 +243,7 @@
       "xp_reward": 10
     },
     {
-      "id": 7008,
+      "id": 7107,
       "lesson_id": 701,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
@@ -254,7 +261,7 @@
       "xp_reward": 15
     },
     {
-      "id": 7009,
+      "id": 7108,
       "lesson_id": 701,
       "type": "dialogue",
       "prompt": "Complete and hear the short exchange",
@@ -270,7 +277,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, it is mine.)"
           },
           {
             "speaker": "partner",
@@ -278,66 +285,26 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, it is mine.)"
           }
         ],
         "blank_answers": [
           [
+            "Ano, je můj.",
+            "Ano, to je můj telefon.",
+            "Ano, je to můj telefon.",
             "To je můj telefon."
           ],
           [
+            "Ano, je moje.",
+            "Ano, to je moje taška.",
+            "Ano, je to moje taška.",
             "To je moje taška."
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "To je můj telefon. | To je moje taška.",
-      "xp_reward": 15
-    },
-    {
-      "id": 7010,
-      "lesson_id": 701,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write labels for three belongings using můj or moje.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 4,
-        "max_words": 40,
-        "key_vocab": [
-          "To je můj telefon.",
-          "To je moje taška.",
-          "Je to váš klíč?",
-          "Ano, je můj."
-        ],
-        "sample_answer": "To je můj telefon. To je moje taška. Je to váš klíč? Ano, je můj."
-      },
-      "answer_key": "To je můj telefon. To je moje taška. Je to váš klíč? Ano, je můj.",
-      "xp_reward": 0
-    },
-    {
-      "id": 7011,
-      "lesson_id": 701,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new context",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Transfer the lesson language to a new speaker and context.",
-        "transcript_cz": "Tahle kniha je moje, ale ten telefon není můj.",
-        "questions": [
-          {
-            "question_en": "Which item belongs to the speaker?",
-            "options": [
-              "The book",
-              "The phone",
-              "Both items"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "The book",
+      "answer_key": "Ano, je můj.",
       "xp_reward": 15
     }
   ]

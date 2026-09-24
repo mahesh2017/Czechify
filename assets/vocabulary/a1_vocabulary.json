@@ -448,7 +448,7 @@
     "unit_id": 7,
     "example_cz": "Já jsem Adam.",
     "example_en": "I am Adam.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 42,
@@ -459,7 +459,7 @@
     "unit_id": 7,
     "example_cz": "Ty jsi student.",
     "example_en": "You are a student.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 43,
@@ -470,7 +470,7 @@
     "unit_id": 7,
     "example_cz": "On je učitel.",
     "example_en": "He is a teacher.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 44,
@@ -481,7 +481,7 @@
     "unit_id": 7,
     "example_cz": "Ona je studentka.",
     "example_en": "She is a student.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 45,
@@ -492,7 +492,7 @@
     "unit_id": 7,
     "example_cz": "My jsme z Prahy.",
     "example_en": "We are from Prague.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 46,
@@ -503,7 +503,7 @@
     "unit_id": 7,
     "example_cz": "Vy jste učitelé.",
     "example_en": "You are teachers.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 47,
@@ -514,7 +514,7 @@
     "unit_id": 7,
     "example_cz": "Oni jsou studenti.",
     "example_en": "They are students.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 48,
@@ -677,7 +677,7 @@
     "ipa": "ˈnula",
     "gender": "feminine",
     "unit_id": 7,
-    "lesson_id": 701,
+    "lesson_id": 704,
     "example_cz": "Mám nula korun.",
     "example_en": "I have zero crowns."
   },
@@ -688,7 +688,7 @@
     "ipa": "ˈjɛdɛn",
     "gender": null,
     "unit_id": 7,
-    "lesson_id": 701,
+    "lesson_id": 703,
     "example_cz": "Mám jeden bratr.",
     "example_en": "I have one brother."
   },
@@ -699,7 +699,7 @@
     "ipa": "dva",
     "gender": null,
     "unit_id": 7,
-    "lesson_id": 701,
+    "lesson_id": 704,
     "example_cz": "Mám dvě sestry.",
     "example_en": "I have two sisters."
   },
@@ -710,7 +710,7 @@
     "ipa": "tʃi",
     "gender": null,
     "unit_id": 7,
-    "lesson_id": 701,
+    "lesson_id": 704,
     "example_cz": "Mám tři přátele.",
     "example_en": "I have three friends."
   },
@@ -721,7 +721,7 @@
     "ipa": "ˈtʃtɪr̝i",
     "gender": null,
     "unit_id": 7,
-    "lesson_id": 701,
+    "lesson_id": 704,
     "example_cz": "Mám čtyři knihy.",
     "example_en": "I have four books."
   },
@@ -1691,7 +1691,7 @@
     "unit_id": 7,
     "example_cz": "Já jsem Adam.",
     "example_en": "I am Adam.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 162,
@@ -1702,7 +1702,7 @@
     "unit_id": 7,
     "example_cz": "Ty jsi student.",
     "example_en": "You are a student.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 163,
@@ -1713,7 +1713,7 @@
     "unit_id": 7,
     "example_cz": "On je učitel.",
     "example_en": "He is a teacher.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 164,
@@ -1724,7 +1724,7 @@
     "unit_id": 7,
     "example_cz": "Ona je studentka.",
     "example_en": "She is a student.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 165,
@@ -1735,7 +1735,7 @@
     "unit_id": 7,
     "example_cz": "My jsme z Prahy.",
     "example_en": "We are from Prague.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 166,
@@ -1746,7 +1746,7 @@
     "unit_id": 7,
     "example_cz": "Vy jste učitelé.",
     "example_en": "You are teachers.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 167,
@@ -1757,7 +1757,7 @@
     "unit_id": 7,
     "example_cz": "Oni jsou studenti.",
     "example_en": "They are students.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 168,
@@ -1768,7 +1768,7 @@
     "unit_id": 7,
     "example_cz": "To je můj pes.",
     "example_en": "That is my dog.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 169,
@@ -1790,7 +1790,7 @@
     "unit_id": 7,
     "example_cz": "To je tvůj dům.",
     "example_en": "That is your house.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 171,
@@ -1812,7 +1812,7 @@
     "unit_id": 7,
     "example_cz": "To je jeho auto.",
     "example_en": "That is his car.",
-    "lesson_id": 701
+    "lesson_id": 702
   },
   {
     "id": 173,
@@ -1823,7 +1823,7 @@
     "unit_id": 7,
     "example_cz": "To je její kniha.",
     "example_en": "That is her book.",
-    "lesson_id": 701
+    "lesson_id": 703
   },
   {
     "id": 174,
@@ -1834,7 +1834,7 @@
     "unit_id": 7,
     "example_cz": "To je náš dům.",
     "example_en": "That is our house.",
-    "lesson_id": 701
+    "lesson_id": 703
   },
   {
     "id": 175,
@@ -1845,7 +1845,7 @@
     "unit_id": 7,
     "example_cz": "To je naše škola.",
     "example_en": "That is our school.",
-    "lesson_id": 701
+    "lesson_id": 703
   },
   {
     "id": 176,
@@ -1878,7 +1878,7 @@
     "unit_id": 7,
     "example_cz": "To je jejich auto.",
     "example_en": "That is their car.",
-    "lesson_id": 701
+    "lesson_id": 703
   },
   {
     "id": 179,
@@ -1889,7 +1889,7 @@
     "unit_id": 7,
     "example_cz": "Mám jeden pes.",
     "example_en": "I have one dog.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 180,
@@ -1900,7 +1900,7 @@
     "unit_id": 7,
     "example_cz": "Mám dva psy.",
     "example_en": "I have two dogs.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 181,
@@ -1911,7 +1911,7 @@
     "unit_id": 7,
     "example_cz": "Mám tři knihy.",
     "example_en": "I have three books.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 182,
@@ -1922,7 +1922,7 @@
     "unit_id": 7,
     "example_cz": "Mám čtyři dny.",
     "example_en": "I have four days.",
-    "lesson_id": 701
+    "lesson_id": null
   },
   {
     "id": 183,
@@ -4199,7 +4199,7 @@
     "unit_id": 7,
     "example_cz": "Mám svůj pokoj.",
     "example_en": "I have my own room.",
-    "lesson_id": 701
+    "lesson_id": 703
   },
   {
     "id": 390,
@@ -4210,7 +4210,7 @@
     "unit_id": 7,
     "example_cz": "Tenhle muž je můj učitel.",
     "example_en": "This man is my teacher.",
-    "lesson_id": 701
+    "lesson_id": 703
   },
   {
     "id": 391,
@@ -4221,7 +4221,7 @@
     "unit_id": 7,
     "example_cz": "Tahle žena je lékařka.",
     "example_en": "This woman is a doctor.",
-    "lesson_id": 701
+    "lesson_id": 703
   },
   {
     "id": 392,

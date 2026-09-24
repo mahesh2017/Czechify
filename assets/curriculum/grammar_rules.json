@@ -1842,7 +1842,56 @@
           "en": "We are from Prague."
         }
       ],
-      "unit_id": 7
+      "unit_id": 7,
+      "concept_keys": [
+        "pron_personal_nom"
+      ],
+      "lecture": [
+        {
+          "heading": "I, you, he: já, ty, on",
+          "say": "The verb ending already shows the person, so já, ty, on are usually left out: Jsem doma. Use them for contrast: Já jsem doma, ty ne.",
+          "table": [
+            [
+              "I",
+              "já"
+            ],
+            [
+              "you (friend)",
+              "ty"
+            ],
+            [
+              "he / she / it",
+              "on / ona / ono"
+            ],
+            [
+              "we",
+              "my"
+            ],
+            [
+              "you (formal, all of you)",
+              "vy"
+            ],
+            [
+              "they",
+              "oni"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jsem doma.",
+              "en": "I am at home."
+            },
+            {
+              "cz": "Já jsem doma, ale on je v práci.",
+              "en": "I am at home, but he is at work."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Já jsem Anna, já jsem z Prahy, já mám…",
+            "right": "Jsem Anna, jsem z Prahy, mám…"
+          }
+        }
+      ]
     },
     {
       "id": "GR-061",
@@ -1872,7 +1921,64 @@
           "note": "naše = fem"
         }
       ],
-      "unit_id": 7
+      "unit_id": 7,
+      "concept_keys": [
+        "pron_possessive_incl_svuj"
+      ],
+      "lecture": [
+        {
+          "heading": "My, your, his: můj, tvůj, jeho",
+          "say": "Possessives show the owner: můj (my), tvůj (your), jeho (his), její (her), náš (our), váš (your, formal), jejich (their). Ask whose? with čí.",
+          "table": [
+            [
+              "my",
+              "můj telefon"
+            ],
+            [
+              "your (friend)",
+              "tvůj batoh"
+            ],
+            [
+              "his",
+              "jeho kolo"
+            ],
+            [
+              "her",
+              "její telefon"
+            ],
+            [
+              "our",
+              "náš byt"
+            ],
+            [
+              "your (formal)",
+              "váš klíč"
+            ],
+            [
+              "their",
+              "jejich auto"
+            ],
+            [
+              "whose?",
+              "Čí je to?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je jeho kolo.",
+              "en": "That is his bike."
+            },
+            {
+              "cz": "Je to váš klíč?",
+              "en": "Is it your key?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "To je mě telefon.",
+            "right": "To je můj telefon."
+          }
+        }
+      ]
     },
     {
       "id": "GR-062",
@@ -1898,7 +2004,53 @@
           "en": "his father, her mother, their car"
         }
       ],
-      "unit_id": 7
+      "unit_id": 7,
+      "lecture": [
+        {
+          "heading": "můj or moje?",
+          "say": "můj, tvůj, náš, váš go with ten words; moje, tvoje, naše, vaše go with ta and to words. jeho, její and jejich never change.",
+          "table": [
+            [
+              "ten telefon",
+              "můj telefon"
+            ],
+            [
+              "ta taška",
+              "moje taška"
+            ],
+            [
+              "to kolo",
+              "moje kolo"
+            ],
+            [
+              "ten klíč",
+              "váš klíč"
+            ],
+            [
+              "ta kniha",
+              "vaše kniha"
+            ],
+            [
+              "any",
+              "jeho, její, jejich"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je moje taška.",
+              "en": "That is my bag."
+            },
+            {
+              "cz": "Tady je vaše taška.",
+              "en": "Here is your bag."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "To je můj taška.",
+            "right": "To je moje taška."
+          }
+        }
+      ]
     },
     {
       "id": "GR-063",
@@ -1924,6 +2076,65 @@
         }
       ],
       "unit_id": 7
+    },
+    {
+      "id": "GR-064",
+      "rule_name": "svůj — one’s own",
+      "pattern": "svůj / svoje = one’s own, when the owner is the subject: Mám svůj klíč. Petr hledá svůj telefon (his own); Petr hledá jeho telefon (another man’s).",
+      "explanation": "svůj points back to the subject of the sentence. It matters most with he, she and they: Petr hledá svůj telefon means his own phone, while jeho telefon would be someone else’s. With I and you, můj and tvůj are also heard in speech, but svůj is always right.",
+      "case_affected": null,
+      "examples": [
+        {
+          "cz": "Petr hledá svůj telefon.",
+          "en": "Petr is looking for his (own) phone."
+        },
+        {
+          "cz": "Máte svůj pas?",
+          "en": "Do you have your passport?"
+        }
+      ],
+      "unit_id": 7,
+      "concept_keys": [
+        "pron_possessive_incl_svuj"
+      ],
+      "lecture": [
+        {
+          "heading": "svůj — one’s own",
+          "say": "svůj means one’s own. It matters most with he and she: Petr hledá svůj telefon is his own phone; jeho telefon would be another man’s.",
+          "table": [
+            [
+              "I have my own key.",
+              "Mám svůj klíč."
+            ],
+            [
+              "Petr is looking for his (own) phone.",
+              "Petr hledá svůj telefon."
+            ],
+            [
+              "Petr is looking for his (Tom’s) phone.",
+              "Petr hledá jeho telefon."
+            ],
+            [
+              "Eva has her own bike.",
+              "Eva má svoje kolo."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Máte svůj pas?",
+              "en": "Do you have your passport?"
+            },
+            {
+              "cz": "Každý má svůj klíč.",
+              "en": "Everyone has their own key."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Petr hledá jeho telefon. (his own)",
+            "right": "Petr hledá svůj telefon."
+          }
+        }
+      ]
     },
     {
       "id": "GR-070",

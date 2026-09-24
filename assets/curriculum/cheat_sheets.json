@@ -1127,10 +1127,10 @@
           "example": "můj bratr, moje sestra, moje auto — my brother, my sister, my car"
         },
         {
-          "id": "GR-063",
-          "name": "Pronoun dropping — subject pronouns are optional",
-          "pattern": "Czech is a pro-drop language — verb endings indicate person, so pronouns are optional",
-          "example": "Jsem z Prahy. — I'm from Prague."
+          "id": "GR-064",
+          "name": "svůj — one’s own",
+          "pattern": "svůj / svoje = one’s own, when the owner is the subject: Mám svůj klíč. Petr hledá svůj telefon (his own); Petr hledá jeho telefon (another man’s).",
+          "example": "Petr hledá svůj telefon. — Petr is looking for his (own) phone."
         }
       ],
       "core_vocabulary": [
@@ -1186,7 +1186,107 @@
         "Časté používání zájmen (já, ty)",
         "Záměna 'váš' a 'tvůj'"
       ],
-      "study_tip": "Používejte svůj/můj/tvůj v krátkých větách o sobě a svém okolí. Všímejte si shody s rodem."
+      "study_tip": "Používejte svůj/můj/tvůj v krátkých větách o sobě a svém okolí. Všímejte si shody s rodem.",
+      "notebook_page": {
+        "title_cz": "Čí je to?",
+        "title_en": "Whose is it?",
+        "can_do": {
+          "cz": "Řeknu, čí něco je, a vrátím věc majiteli.",
+          "en": "I can say whose something is and return it."
+        },
+        "words": [
+          {
+            "cz": "To je můj telefon.",
+            "en": "That is my phone."
+          },
+          {
+            "cz": "To je moje taška.",
+            "en": "That is my bag."
+          },
+          {
+            "cz": "Je to váš klíč?",
+            "en": "Is it your key?"
+          },
+          {
+            "cz": "Ano, je můj.",
+            "en": "Yes, it is mine."
+          },
+          {
+            "cz": "Čí je to?",
+            "en": "Whose is it?"
+          },
+          {
+            "cz": "To je jeho kolo.",
+            "en": "That is his bike."
+          },
+          {
+            "cz": "Ne, není moje.",
+            "en": "No, it isn't mine."
+          },
+          {
+            "cz": "Tady máte.",
+            "en": "Here you are."
+          }
+        ],
+        "pattern": {
+          "name": "Possessives",
+          "rule_plain": "můj/tvůj/náš/váš + ten words; moje/tvoje/naše/vaše + ta and to words. jeho, její, jejich never change. svůj = one’s own.",
+          "table": [
+            [
+              "my",
+              "můj / moje"
+            ],
+            [
+              "your",
+              "tvůj / tvoje"
+            ],
+            [
+              "his, her",
+              "jeho, její"
+            ],
+            [
+              "our",
+              "náš / naše"
+            ],
+            [
+              "your (formal)",
+              "váš / vaše"
+            ],
+            [
+              "their",
+              "jejich"
+            ],
+            [
+              "own",
+              "svůj / svoje"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je moje taška.",
+              "en": "That is my bag."
+            },
+            {
+              "cz": "Petr hledá svůj telefon.",
+              "en": "Petr is looking for his own phone."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "To je můj taška.",
+            "right": "To je moje taška."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Moje kolo je modré.",
+            "en": "My bike is blue."
+          },
+          {
+            "cz": "Sestra má svoje auto.",
+            "en": "My sister has her own car."
+          }
+        ]
+      }
     },
     {
       "unit_id": 8,
