@@ -103,7 +103,8 @@ class _QuestionStepsState extends State<QuestionSteps> {
                   ? _selected.every((s) => s != null)
                   : _selected[slide - 1] != null),
       doneLabel: AppLocalizations.of(context).exerciseCheckAnswers,
-      onDone: _submitted ? null : _submit,
+      onDone: _submit,
+      finished: _submitted,
     );
   }
 

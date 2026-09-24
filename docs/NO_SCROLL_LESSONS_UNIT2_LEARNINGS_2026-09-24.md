@@ -3,7 +3,7 @@
 **Date:** 24 September 2026 · **Branch:** `curriculum/v1.2-plan` · **Commits:**
 `3ba71abb` (step 0), `63ae05ef` (step 1), `bfc15b76` (step 2)
 
-**Status:** Unit 2 is converted for steps 0–2. Steps 3–5 are still to do. Every
+**Status:** Unit 2 is converted for steps 0–3. Steps 4–5 are still to do. Every
 other unit still uses the old one-page layouts.
 
 This is what we learned while building Unit 2. Read it before switching another
@@ -228,10 +228,76 @@ per slide).
 - **Five rows is not always one screen:** see §6. The chunk size should be based
   on height, not a row count.
 
+### Writing (step 3)
+- **Slide 1, "Your task":** the instruction as reading text (see "Long
+  instructions" below), the Czech instruction, "Write at least N words" and the
+  word-help button.
+- **Slide 2, "Write":** a `FillSlide`. The page takes whatever height is left
+  and opens with the keyboard up.
+  - The word count sits in the page's corner, so it costs the page no line.
+  - While typing, the short Czech instruction above the page steps aside.
+  - The deck's own button is "Review draft", then "Submit revision".
+- **Reviewing puts the keyboard away,** so the note on what to check has room.
+- **No feedback inside the page after sending.** The lesson's feedback sheet
+  already shows the word count and the reference answer; showing them in the
+  exercise as well made the screen grow.
+- With the keyboard up on a small phone the page shows about four lines, and
+  longer text scrolls inside the page, as any text field does.
+
+### Speaking (step 3)
+- **Slide 1, "Your task":** the instruction, the Czech instruction and the
+  picture, if any (160 pt).
+- **Slide 2, "Speak":** the short Czech instruction, the phrases as chips
+  rather than one per line (eight phrases took 290 pt as a list and about a
+  third of that as chips), the microphone, and "Can't speak right now? Skip".
+- **Recording finishes the step,** so the slide has Back and no button of its
+  own (`onDone: null`). What was heard and the feedback take the microphone's
+  place instead of adding below it.
+- **The skip** counts as skipped: no heart lost, the phrases shown to practise.
+  It is in the one-page layout of other units too, because a learner without a
+  microphone was stuck there as well. That makes those screens about 48 pt
+  taller until their units are switched on (54 speaking entries in the budget).
+- **Once handed in, the microphone goes.** A second recording could not count
+  and only confused.
+
+### Pronunciation (step 3)
+- **Slide 1, "Hear it":** the title as reading text, the sentence card and the
+  focus sounds, with play and speed on one row (a round play button beside the
+  speed control, `AudioPairButtons(compact: true)`), which saves about 60 pt.
+- **Slide 2, "Say it":** the sentence at 24 pt with a speaker beside it, then
+  the microphone and "Can't record right now? Skip".
+- **After an attempt the result replaces the microphone,** and the deck's Back
+  goes (`finished` while a result is showing): the result's own Try again and
+  Continue are the actions, and after a miss on Unit 2's longest sentence the
+  Back button's row was the 27 pt that did not fit.
+- **Focus sounds are named in words:** "Stress on the first syllable", "Long
+  vowels", "Vowel length". They had been showing as their data keys
+  (`first_syllable_stress`) on 66 exercises across the course.
+
+### Long instructions (steps 3 onwards)
+`QuestionPrompt(instruction: true)` sets a brief longer than 60 characters as
+17 pt reading text instead of the 27 pt heading. A three-sentence brief took
+160–290 pt as a heading. Short questions keep the heading. It is used only by
+the slide layouts, so units not yet switched on are unchanged.
+
+### The keyboard
+- **Inside a `Scaffold` body the keyboard is invisible to `MediaQuery`:** the
+  scaffold shrinks the body to make room, then removes the keyboard from the
+  body's `MediaQuery`, so `viewInsets` there is always zero. Code that asked
+  "is the keyboard up?" that way silently never saw it. Use
+  `KeyboardUpBuilder` (in `slide_deck.dart`), which reads the window.
+- **A deck driven by Return** (`returnKeyAdvances: true`, the dialogues) hides
+  its dots and buttons while the keyboard is up; that is the room a reply needs
+  on a small phone. Return itself moves on.
+- **The fit test measures every slide with a text field again with a 260 pt
+  keyboard** (an iPhone SE's with its suggestion bar). Results are listed in
+  the budget as `<id>+keyboard`, and an overflow inside a `FillSlide` counts.
+
 ## 6. What happens when every unit is switched on
 
-Measured on 24 Sep by temporarily listing all 31 units in the pilot. Nothing
-was committed.
+Measured by temporarily listing all 31 units in the pilot
+(`scripts/dry_run.sh 1 2 … 31`); nothing was committed. First on 24 Sep after
+step 2, again on 25 Sep after step 3.
 
 | Exercise kind | In the course | Scroll today | Scroll with slides everywhere |
 |---|---|---|---|
@@ -240,15 +306,18 @@ was committed.
 | Dialogue | 103 | 98 | **7** |
 | Rule (lecture) | 110 | 106 | **3** |
 | Word list | 71 | 70 | **1** |
-| Writing | 79 | 79 | 79 (step 3) |
-| Pronunciation | 68 | 68 | 68 (step 3) |
-| Speaking | 55 | 46 | 46 (step 3) |
+| Writing | 79 | 79 | **0** |
+| Pronunciation | 68 | 68 | **0** |
+| Speaking | 55 | 46 | **2** |
 | Everything else | 826 | 19 | 19 (step 4) |
-| **Total** | **1,548** | **715** | **277** |
+| **Total** | **1,548** | **715** | **86** |
 
-The step-2 recipes carry over well. **438 of the 503 scrolling steps of those
-five kinds would fit.** The 65 left over fail in four known ways, each needing
-a fix *before* those units are switched on:
+With the keyboard up, **38 dialogues** would not fit their reply slide (19 by
+more than 10 pt, up to 707 pt). Everything else that takes typing fits.
+
+The recipes carry over well: **438 of the 503 scrolling steps of the step-2
+kinds would fit, and 191 of the 193 of the step-3 kinds.** What is left fails
+in five known ways, each needing a fix *before* those units are switched on:
 
 1. **Listening with an image** (34, overflowing by 60–92 pt). The first slide
    holds a 96–128 pt prompt, the 140 pt image, the 130 pt listen panel, the gist
@@ -269,6 +338,13 @@ a fix *before* those units are switched on:
 4. **Tall table rows** (3 rules, 24–48 pt over: 7301, 24301, 26301). Five rows
    of long text are taller than a slide. Chunk tables by measured height (pack
    rows individually inside one table card) instead of by five rows.
+5. **Dialogue replies with the keyboard up** (38; for example 3310, 12218,
+   31113). Several lines, or several gaps, on one reply slide leave the focused
+   field under the keyboard. Likely fixes: one gap per slide, and only the line
+   just before it when the keyboard is up.
+
+Two speaking tasks (29206, 29207, 25 and 46 pt over) are also left; not
+diagnosed yet.
 
 ## 7. Found only by running the app
 
@@ -282,6 +358,12 @@ In each case the unit tests were green:
   (see §4).
 - **Tables that read out English** (found earlier on the simulator): a rule
   table speaks its right-hand cell, so Czech goes on the right.
+- **The microphone left on screen after a skip** (speaking and pronunciation,
+  step 3). Tapping it again could only confuse; it now goes.
+- **The keyboard check that never fired** (step 3): the writing slide asked
+  `MediaQuery` whether the keyboard was up, and inside a `Scaffold` body the
+  answer is always no (see "The keyboard" in §5). The fit test's keyboard pass
+  only caught it after it was taught to read the window.
 
 Run each converted type on the simulator at least once per unit, through to
 the feedback sheet, with the keyboard for typed answers.
@@ -309,6 +391,18 @@ the feedback sheet, with the keyboard for typed answers.
   Next button for a few seconds.
 - **Two screens still scroll and still use the old tall header:** the new-words
   list before a lesson (the teach phase), and the Rule sheet. Both are step 5.
+- **2101 (Unit 2's picture cards) has no pictures and no example sentences.**
+  The word cards say "Look at the picture" over an empty placeholder, and every
+  "Now hear it in a useful sentence" card is blank. The `image_cards` style needs
+  an image and a sentence per item; the v1.2 rebuild gave it neither. The two
+  other `image_cards` steps (1101, 3101) have both.
+- **2107's focus sounds include "ř"**, which "Dobrý den. Na shledanou." does
+  not contain.
+- **A speaking task passes on any one expected phrase:** saying "Ahoj" passes
+  the 20–30 second Unit 2 mission (2408). The "Try to say" list also shows
+  alternatives (Jmenuju se / Jmenuji se) as separate phrases to say.
+- **Model answers disagree on the learner's name:** writing uses "Mahesh",
+  pronunciation "Alex".
 
 ## 10. Checklist for switching on another unit
 

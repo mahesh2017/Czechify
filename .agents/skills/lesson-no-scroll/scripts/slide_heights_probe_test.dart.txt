@@ -72,12 +72,18 @@ void main() {
       for (var page = 0; page < state.length; page++) {
         state.goTo(page);
         await tester.pump();
-        final slide = find
-            .descendant(
-              of: find.byType(PageView),
-              matching: find.byType(SingleChildScrollView),
-            )
-            .first;
+        final scrolling = find.descendant(
+          of: find.byType(PageView),
+          matching: find.byType(SingleChildScrollView),
+        );
+        if (scrolling.evaluate().isEmpty) {
+          // A FillSlide is given the page's height; if its content does not
+          // fit, that is a layout error the test reports, not a scroll.
+          // ignore: avoid_print
+          print('» ${e.id} ${e.type.name} slide ${page + 1}/${state.length}: fills the page');
+          continue;
+        }
+        final slide = scrolling.first;
         final scroll = tester.state<ScrollableState>(
           find.descendant(of: slide, matching: find.byType(Scrollable)).first,
         );

@@ -3957,6 +3957,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readingShowCzech => 'Back to Czech';
 
   @override
+  String get speakingCantSpeakSkip => 'Can\'t speak right now? Skip';
+
+  @override
+  String get speakingSkippedNote =>
+      'Skipped — say these phrases aloud when you can.';
+
+  @override
+  String get pronFocusFirstSyllable => 'Stress on the first syllable';
+
+  @override
+  String get pronFocusLongVowel => 'Long vowels';
+
+  @override
+  String get pronFocusVowelLength => 'Vowel length';
+
+  @override
+  String writingWordsSoFar(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count words',
+      one: '1 word',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String slidePosition(int index, int count) {
     return 'Slide $index of $count';
   }

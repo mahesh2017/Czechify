@@ -3974,6 +3974,34 @@ class AppLocalizationsCs extends AppLocalizations {
   String get readingShowCzech => 'Zpět k češtině';
 
   @override
+  String get speakingCantSpeakSkip => 'Teď nemůžete mluvit? Přeskočit';
+
+  @override
+  String get speakingSkippedNote =>
+      'Přeskočeno — řekněte si tyto fráze nahlas, až to půjde.';
+
+  @override
+  String get pronFocusFirstSyllable => 'Přízvuk na první slabice';
+
+  @override
+  String get pronFocusLongVowel => 'Dlouhé samohlásky';
+
+  @override
+  String get pronFocusVowelLength => 'Délka samohlásek';
+
+  @override
+  String writingWordsSoFar(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count slov',
+      few: '$count slova',
+      one: '1 slovo',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String slidePosition(int index, int count) {
     return 'Snímek $index z $count';
   }

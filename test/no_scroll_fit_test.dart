@@ -22,6 +22,12 @@ import 'support/shipped_exercises.dart';
 /// measured. An exercise "scrolls" when any vertical scrollable in it has
 /// somewhere to go.
 ///
+/// A slide with a text field is measured again with the keyboard up (an
+/// iPhone SE's, with its suggestion bar: 260 pt), because that is when a
+/// learner is actually using it; those results are listed as `<id>+keyboard`.
+/// A slide that fills the page instead of scrolling (`FillSlide`) counts the
+/// pixels its content overflows by.
+///
 /// Most exercises still scroll today, so the ones that do are listed in
 /// [_budgetPath] with how far. The list may only shrink:
 ///  - an exercise that is not listed and scrolls fails the test;
@@ -66,10 +72,15 @@ void main() {
     final exercises = loadShippedExercises();
     final measured = <String, int>{};
     var slidesTurned = 0;
+    var keyboardSlides = 0;
     for (final exercise in exercises) {
-      final (overflow, turned) = await _measure(tester, exercise);
+      final (overflow, turned, typing) = await _measure(tester, exercise);
       slidesTurned += turned;
       if (overflow > fits) measured['${exercise.id}'] = overflow.ceil();
+      if (typing != null) {
+        keyboardSlides++;
+        if (typing > fits) measured['${exercise.id}$_keyboard'] = typing.ceil();
+      }
     }
     await tester.pumpWidget(const SizedBox());
 
@@ -80,12 +91,21 @@ void main() {
       greaterThan(0),
       reason: 'no slide deck was turned past its first slide',
     );
+    // Likewise for the keyboard: a check that never raised it passes all.
+    expect(
+      keyboardSlides,
+      greaterThan(0),
+      reason: 'no slide with a text field was measured with the keyboard up',
+    );
 
     final file = File(_budgetPath);
     if (Platform.environment['UPDATE_NO_SCROLL_BUDGET'] == '1') {
       final sorted = Map.fromEntries(
         measured.entries.toList()
-          ..sort((a, b) => int.parse(a.key).compareTo(int.parse(b.key))),
+          ..sort((a, b) {
+            final byId = _idOf(a.key).compareTo(_idOf(b.key));
+            return byId != 0 ? byId : a.key.compareTo(b.key);
+          }),
       );
       file.writeAsStringSync(
         '${const JsonEncoder.withIndent('  ').convert({
@@ -100,11 +120,11 @@ void main() {
       (jsonDecode(file.readAsStringSync()) as Map)['scrolls'] as Map,
     );
     final byId = {for (final e in exercises) '${e.id}': e};
-    String describe(String id) {
-      final e = byId[id];
-      if (e == null) return '$id (no longer shipped)';
+    String describe(String key) {
+      final e = byId['${_idOf(key)}'];
+      if (e == null) return '$key (no longer shipped)';
       final style = e.data['style'] ?? e.data['kind'] ?? e.mode.name;
-      return '$id (lesson ${e.lessonId}, ${e.type.name}/$style)';
+      return '$key (lesson ${e.lessonId}, ${e.type.name}/$style)';
     }
 
     final added = [
@@ -144,10 +164,20 @@ void main() {
 }
 
 const _budgetPath = 'test/fixtures/no_scroll_budget.json';
+const _keyboard = '+keyboard';
 
-/// How far the exercise scrolls at its worst, over every slide it has, and
-/// how many slides past the first it turned to.
-Future<(double, int)> _measure(WidgetTester tester, Exercise exercise) async {
+/// iPhone SE keyboard with its suggestion bar, in points.
+const _keyboardHeight = 260.0;
+
+int _idOf(String key) => int.parse(key.split('+').first);
+
+/// How far the exercise scrolls at its worst, over every slide it has; how
+/// many slides past the first it turned to; and, if a slide takes typing, how
+/// far the worst of those goes with the keyboard up.
+Future<(double, int, double?)> _measure(
+  WidgetTester tester,
+  Exercise exercise,
+) async {
   await tester.pumpWidget(
     ProviderScope(
       child: MaterialApp(
@@ -175,18 +205,47 @@ Future<(double, int)> _measure(WidgetTester tester, Exercise exercise) async {
   await tester.pump();
   var worst = _verticalOverflow(tester);
   var turned = 0;
+  double? typing;
   final deck = find.byType(SlideDeck);
   if (deck.evaluate().isNotEmpty) {
     final state = tester.state<SlideDeckState>(deck.first);
-    for (var page = 1; page < state.length; page++) {
-      state.goTo(page);
-      await tester.pump();
-      if (state.index != page) break;
-      turned++;
-      worst = math.max(worst, _verticalOverflow(tester));
+    for (var page = 0; page < state.length; page++) {
+      if (page > 0) {
+        state.goTo(page);
+        await tester.pump();
+        if (state.index != page) break;
+        turned++;
+        worst = math.max(worst, _verticalOverflow(tester));
+      }
+      if (find.byType(EditableText).evaluate().isEmpty) continue;
+      final withKeyboard = await _withKeyboard(tester);
+      typing = math.max(typing ?? 0, withKeyboard);
     }
   }
-  return (worst, turned);
+  return (worst, turned, typing);
+}
+
+/// The current slide's overflow with the keyboard up: what a scrollable would
+/// have to scroll, or what a slide that fills the page overflows by.
+Future<double> _withKeyboard(WidgetTester tester) async {
+  final overflows = <double>[];
+  final previous = FlutterError.onError;
+  FlutterError.onError = (details) {
+    final match = RegExp(
+      r'overflowed by ([0-9.]+) pixels',
+    ).firstMatch(details.exceptionAsString());
+    if (match == null) return previous?.call(details);
+    overflows.add(double.parse(match.group(1)!));
+  };
+  try {
+    tester.view.viewInsets = const FakeViewPadding(bottom: _keyboardHeight);
+    await tester.pump();
+    return [_verticalOverflow(tester), ...overflows].reduce(math.max);
+  } finally {
+    tester.view.resetViewInsets();
+    await tester.pump();
+    FlutterError.onError = previous;
+  }
 }
 
 double _verticalOverflow(WidgetTester tester) {

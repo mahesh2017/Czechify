@@ -1705,6 +1705,19 @@
   "slideDone": "Done",
   "readingShowEnglish": "Show in English",
   "readingShowCzech": "Back to Czech",
+  "speakingCantSpeakSkip": "Can't speak right now? Skip",
+  "speakingSkippedNote": "Skipped — say these phrases aloud when you can.",
+  "pronFocusFirstSyllable": "Stress on the first syllable",
+  "pronFocusLongVowel": "Long vowels",
+  "pronFocusVowelLength": "Vowel length",
+  "writingWordsSoFar": "{count, plural, =1{1 word} other{{count} words}}",
+  "@writingWordsSoFar": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "slidePosition": "Slide {index} of {count}",
   "@slidePosition": {
     "placeholders": {

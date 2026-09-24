@@ -229,10 +229,11 @@ void main() {
   ) async {
     await pumpDeck(
       tester,
-      const SlideDeck(
-        slides: [Text('One'), Text('Two')],
+      SlideDeck(
+        slides: const [Text('One'), Text('Two')],
         doneLabel: 'Check',
-        onDone: null,
+        onDone: () {},
+        finished: true,
       ),
     );
     expect(find.byKey(SlideDeck.nextKey), findsNothing);
@@ -284,5 +285,33 @@ void main() {
     await tester.pump();
     expect(find.text('Block 1'), findsOneWidget);
     expect(find.text('Block 2'), findsOneWidget);
+  });
+
+  testWidgets('a deck its text fields drive with Return gives the keyboard '
+      'the buttons\' room; an ordinary deck keeps them', (tester) async {
+    for (final returnKey in [true, false]) {
+      await pumpDeck(
+        tester,
+        SlideDeck(
+          key: ValueKey(returnKey),
+          slides: const [Text('One'), Text('Two')],
+          doneLabel: 'Check',
+          onDone: () {},
+          returnKeyAdvances: returnKey,
+        ),
+      );
+      expect(find.byKey(SlideDeck.nextKey), findsOneWidget);
+
+      tester.view.viewInsets = const FakeViewPadding(bottom: 260);
+      await tester.pump();
+      expect(
+        find.byKey(SlideDeck.nextKey),
+        returnKey ? findsNothing : findsOneWidget,
+      );
+
+      tester.view.resetViewInsets();
+      await tester.pump();
+      expect(find.byKey(SlideDeck.nextKey), findsOneWidget);
+    }
   });
 }

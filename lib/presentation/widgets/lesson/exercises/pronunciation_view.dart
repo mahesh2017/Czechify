@@ -12,7 +12,9 @@ import '../../common/cloud_speech_consent.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import '../../common/record_button.dart';
+import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
+import '../slides_pilot.dart';
 import 'exercise_shared.dart';
 
 /// Pronunciation exercise view: record and get feedback.
@@ -119,7 +121,118 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
     }
   }
 
+  /// The answer has gone to the lesson.
+  bool _submitted = false;
+
+  void _skip() {
+    if (_submitted) return;
+    setState(() => _submitted = true);
+    widget.onAnswered(
+      ExerciseResult.skipped(
+        explanation: AppLocalizations.of(context).pronSkippedNote,
+        correctAnswer: widget.exercise.data['target_text'] as String?,
+      ),
+    );
+  }
+
+  /// A focus sound in words. The content names three of them by key
+  /// (`first_syllable_stress`, `long_vowel`, `vowel_length`), and those keys
+  /// were shown as they are; anything else is a letter or word, shown as
+  /// written.
+  static String _focusLabel(String sound, AppLocalizations l10n) =>
+      switch (sound) {
+        'first_syllable_stress' => l10n.pronFocusFirstSyllable,
+        'long_vowel' => l10n.pronFocusLongVowel,
+        'vowel_length' => l10n.pronFocusVowelLength,
+        _ => sound,
+      };
+
+  /// Pilot: hear it (the sentence, its meaning, the sounds to listen for, the
+  /// model), then say it (the sentence again, the model once more, the
+  /// microphone). The attempt's own buttons finish the step, so the last
+  /// slide has Back and no button of its own.
+  Widget _slides(
+    BuildContext context, {
+    required String targetText,
+    required Widget hero,
+    required Widget say,
+    required Widget? skip,
+    required bool showingResult,
+  }) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return SlideDeck(
+      slides: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Framing, not the task: the sentence below is the task.
+            Text(
+              widget.exercise.prompt,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                height: 1.4,
+                color: t.ink,
+              ),
+            ),
+            const SizedBox(height: 14),
+            hero,
+          ],
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // The model is one tap away beside the sentence, not on a row of
+            // its own: after a miss the result needs that room.
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    targetText,
+                    style: TextStyle(
+                      fontFamily: AppFonts.display,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w800,
+                      height: 1.2,
+                      color: t.ink,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                IconButton(
+                  tooltip: l10n.audioPlayAgain,
+                  onPressed: () {
+                    final tts = ref.read(czechTtsProvider);
+                    if (_offerSlowModel) {
+                      tts.speakSlow(targetText);
+                    } else {
+                      tts.speak(targetText);
+                    }
+                  },
+                  icon: Icon(Icons.volume_up_rounded, color: t.pri, size: 26),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            // Nothing left to record into once the step is handed in.
+            if (!_submitted || showingResult) say,
+            if (skip != null) skip,
+          ],
+        ),
+      ],
+      doneLabel: '',
+      onDone: null,
+      // A result carries its own Try again and Continue; the deck's Back
+      // would only take the room a long sentence and its score need.
+      // Swiping back still works, and Back returns with the next attempt.
+      finished: _submitted || showingResult,
+    );
+  }
+
   void _submitResult() {
+    if (_submitted) return;
+    setState(() => _submitted = true);
     final data = widget.exercise.data;
     final minScore =
         (data['min_score'] as num?)?.toDouble() ?? _kDefaultMinScore;
@@ -187,206 +300,195 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
     final showResult =
         hasRecorded && score != null && !isRecording && !isProcessing;
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+    // What to say, on the hero surface — it is the whole exercise.
+    final hero = TeachingHeroCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QuestionPrompt(question: widget.exercise.prompt),
-          const SizedBox(height: 18),
-
-          // What to say, on the hero surface — it is the whole exercise.
-          TeachingHeroCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+          Text(
+            targetText,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: AppFonts.display,
+              fontSize: 32,
+              fontWeight: FontWeight.w800,
+              height: 1.15,
+              color: t.ink,
+            ),
+          ),
+          if (translation != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              translation,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15, height: 1.4, color: t.muted),
+            ),
+          ],
+          if (focusSounds.isNotEmpty) ...[
+            const SizedBox(height: 14),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 6,
+              runSpacing: 6,
               children: [
-                Text(
-                  targetText,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: AppFonts.display,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w800,
-                    height: 1.15,
-                    color: t.ink,
+                for (final sound in focusSounds)
+                  PillChip(
+                    label: _focusLabel(sound as String, l10n),
+                    bg: t.card,
+                    fg: t.priInk,
                   ),
-                ),
-                if (translation != null) ...[
-                  const SizedBox(height: 8),
-                  Text(
-                    translation,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15, height: 1.4, color: t.muted),
-                  ),
-                ],
-                if (focusSounds.isNotEmpty) ...[
-                  const SizedBox(height: 14),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 6,
-                    runSpacing: 6,
-                    children: [
-                      for (final sound in focusSounds)
-                        PillChip(
-                          label: sound as String,
-                          bg: t.card,
-                          fg: t.priInk,
-                        ),
-                    ],
-                  ),
-                ],
-                const SizedBox(height: 16),
-                AudioPairButtons(
-                  onPlay: () {
-                    final tts = ref.read(czechTtsProvider);
-                    // After a second miss the model plays slowly by default.
-                    // Someone who cannot hear the difference is unlikely to go
-                    // looking for a speed control mid-struggle, and this is
-                    // exactly when a slower model is worth copying.
-                    if (_offerSlowModel) {
-                      tts.speakSlow(targetText);
-                    } else {
-                      tts.speak(targetText);
-                    }
-                  },
-                ),
               ],
             ),
+          ],
+          const SizedBox(height: 16),
+          AudioPairButtons(
+            compact: showsAsSlides(widget.exercise),
+            onPlay: () {
+              final tts = ref.read(czechTtsProvider);
+              // After a second miss the model plays slowly by default.
+              // Someone who cannot hear the difference is unlikely to go
+              // looking for a speed control mid-struggle, and this is
+              // exactly when a slower model is worth copying.
+              if (_offerSlowModel) {
+                tts.speakSlow(targetText);
+              } else {
+                tts.speak(targetText);
+              }
+            },
           ),
-          const SizedBox(height: 22),
+        ],
+      ),
+    );
 
-          // Recording and its result occupy the same space rather than
-          // stacking. Appending the score pushed the Continue button below the
-          // fold, so finishing an attempt meant scrolling to do anything with
-          // it — and the thing you most want to see after a poor score, the
-          // word itself, was the thing scrolled away.
-          MotionEntrance(
-            key: ValueKey(
-              showResult
-                  ? 'pronunciation-result'
-                  : isProcessing
-                  ? 'pronunciation-processing'
-                  : 'pronunciation-recording',
-            ),
-            duration: AppMotion.content,
-            child:
-                showResult
-                    ? _ResultBlock(
-                      score: score!,
-                      passed: passed,
-                      feedback: feedback,
-                      failedAttempts: _failedAttempts,
-                      onRetry: _toggleRecording,
-                      onContinue: _submitResult,
-                      onMoveOn: _submitResult,
+    // Recording and its result occupy the same space rather than
+    // stacking. Appending the score pushed the Continue button below the
+    // fold, so finishing an attempt meant scrolling to do anything with
+    // it — and the thing you most want to see after a poor score, the
+    // word itself, was the thing scrolled away.
+    final say = MotionEntrance(
+      key: ValueKey(
+        showResult
+            ? 'pronunciation-result'
+            : isProcessing
+            ? 'pronunciation-processing'
+            : 'pronunciation-recording',
+      ),
+      duration: AppMotion.content,
+      child:
+          showResult
+              ? _ResultBlock(
+                score: score!,
+                passed: passed,
+                feedback: feedback,
+                failedAttempts: _failedAttempts,
+                onRetry: _toggleRecording,
+                onContinue: _submitResult,
+                onMoveOn: _submitResult,
+              )
+              : Column(
+                children: [
+                  if (isProcessing)
+                    SizedBox(
+                      width: 76,
+                      height: 76,
+                      child: Padding(
+                        padding: const EdgeInsets.all(18),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                          valueColor: AlwaysStoppedAnimation(t.pri),
+                        ),
+                      ),
                     )
-                    : Column(
-                      children: [
-                        if (isProcessing)
-                          SizedBox(
-                            width: 76,
-                            height: 76,
-                            child: Padding(
-                              padding: const EdgeInsets.all(18),
-                              child: CircularProgressIndicator(
-                                strokeWidth: 3,
-                                valueColor: AlwaysStoppedAnimation(t.pri),
-                              ),
-                            ),
-                          )
-                        else
-                          RecordButton(
-                            isRecording: isRecording,
-                            onPressed: _toggleRecording,
-                          ),
-                        const SizedBox(height: 8),
-                        Text(
-                          isRecording
-                              ? l10n.pronListeningTapToStop
-                              : isProcessing
-                              ? l10n.pronAnalysing
-                              : l10n.pronTapToRecord,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: isRecording ? t.redInk : t.muted,
-                          ),
-                        ),
-                        // A recording that could not be checked says so. Without this
-                        // the exercise showed nothing at all on failure — the spinner
-                        // simply stopped — and the learner had no way to tell a
-                        // service outage from having said the phrase wrong.
-                        MotionDisclosure(
-                          visible: attemptFailed,
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 10),
-                              Text(
-                                pronState.error ?? '',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  height: 1.35,
-                                  color: t.redInk,
-                                ),
-                              ),
-                              // When there is a switch that fixes it, offer the switch.
-                              // Telling a learner mid-exercise to go and add a language
-                              // pack in their phone's system settings is a dead end: they
-                              // came here to practise, not to administer their device.
-                              if (pronState.errorCloudSpeechWouldFix) ...[
-                                const SizedBox(height: 12),
-                                FilledButton.icon(
-                                  onPressed: () async {
-                                    final granted =
-                                        await requestCloudSpeechConsent(
-                                          context,
-                                          ref,
-                                        );
-                                    if (granted && mounted) {
-                                      await _toggleRecording();
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.cloud_outlined,
-                                    size: 18,
-                                  ),
-                                  label: const Text(
-                                    'Check it in the cloud instead',
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Sends this recording for transcription. You can turn '
-                                  'it off again in Settings.',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    height: 1.35,
-                                    color: t.muted,
-                                  ),
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
-                      ],
+                  else
+                    RecordButton(
+                      isRecording: isRecording,
+                      onPressed: _toggleRecording,
                     ),
-          ),
-
-          // Escape hatch: pronunciation should never hard-block progress.
-          // Below the actions now — it used to sit between the microphone and
-          // the score, so the order read skip-then-result.
-          if (!isProcessing && !showResult)
-            TextButton(
-              onPressed:
-                  () => widget.onAnswered(
-                    ExerciseResult.skipped(
-                      explanation: l10n.pronSkippedNote,
-                      correctAnswer: targetText,
+                  const SizedBox(height: 8),
+                  Text(
+                    isRecording
+                        ? l10n.pronListeningTapToStop
+                        : isProcessing
+                        ? l10n.pronAnalysing
+                        : l10n.pronTapToRecord,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: isRecording ? t.redInk : t.muted,
                     ),
                   ),
+                  // A recording that could not be checked says so. Without this
+                  // the exercise showed nothing at all on failure — the spinner
+                  // simply stopped — and the learner had no way to tell a
+                  // service outage from having said the phrase wrong.
+                  MotionDisclosure(
+                    visible: attemptFailed,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        Text(
+                          pronState.error ?? '',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 13,
+                            height: 1.35,
+                            color: t.redInk,
+                          ),
+                        ),
+                        // When there is a switch that fixes it, offer the switch.
+                        // Telling a learner mid-exercise to go and add a language
+                        // pack in their phone's system settings is a dead end: they
+                        // came here to practise, not to administer their device.
+                        if (pronState.errorCloudSpeechWouldFix) ...[
+                          const SizedBox(height: 12),
+                          FilledButton.icon(
+                            onPressed: () async {
+                              final granted =
+                                  await requestCloudSpeechConsent(
+                                    context,
+                                    ref,
+                                  );
+                              if (granted && mounted) {
+                                await _toggleRecording();
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.cloud_outlined,
+                              size: 18,
+                            ),
+                            label: const Text(
+                              'Check it in the cloud instead',
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Sends this recording for transcription. You can turn '
+                            'it off again in Settings.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              height: 1.35,
+                              color: t.muted,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+    );
+
+    // Escape hatch: pronunciation should never hard-block progress.
+    // Below the actions now — it used to sit between the microphone and
+    // the score, so the order read skip-then-result.
+
+    final skip =
+        isProcessing || showResult || _submitted
+            ? null
+            : TextButton(
+              onPressed: _skip,
               style: TextButton.styleFrom(
                 foregroundColor: t.muted,
                 minimumSize: const Size(0, 44),
@@ -396,7 +498,30 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
                     ? l10n.pronMicNotWorkingSkip
                     : l10n.pronCantRecordSkip,
               ),
-            ),
+            );
+
+    if (showsAsSlides(widget.exercise)) {
+      return _slides(
+        context,
+        targetText: targetText,
+        hero: hero,
+        say: say,
+        skip: skip,
+        showingResult: showResult,
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          QuestionPrompt(question: widget.exercise.prompt),
+          const SizedBox(height: 18),
+          hero,
+          const SizedBox(height: 22),
+          say,
+          if (skip != null) skip,
         ],
       ),
     );

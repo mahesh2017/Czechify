@@ -5,7 +5,8 @@ import '../../../domain/entities/exercise.dart';
 /// Whether a lesson shows [exercise] as slides (a [SlideDeck]) instead of one
 /// scrolling page: in the unit-guide pilot, for the kinds of step that have
 /// several parts — a rule, a word list, a passage or recording with its
-/// questions, a dialogue.
+/// questions, a dialogue — or a task brief before doing it (writing,
+/// speaking, pronunciation).
 ///
 /// One place for the decision, because the exercise view and the lesson
 /// viewport both act on it: a deck needs bounded height, and a view laid out
@@ -15,7 +16,10 @@ bool showsAsSlides(Exercise exercise) {
   return switch (exercise.type) {
     ExerciseType.listeningComprehension ||
     ExerciseType.readingComprehension ||
-    ExerciseType.dialogue => true,
+    ExerciseType.dialogue ||
+    ExerciseType.writingTask ||
+    ExerciseType.speakingTask ||
+    ExerciseType.pronunciation => true,
     ExerciseType.teaching => const {
       'lecture',
       'list',

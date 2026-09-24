@@ -1,6 +1,7 @@
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/domain/entities/exercise_outcome.dart';
 import 'package:czechify/domain/entities/lesson.dart';
 import 'package:czechify/presentation/providers/course_admission_providers.dart';
 import 'package:czechify/presentation/providers/curriculum_providers.dart';
@@ -26,7 +27,11 @@ void main() {
     title: 'Names: Ask and Answer',
     description: '',
   );
-  Future<void> pump(WidgetTester tester, {int at = 0}) async {
+  Future<void> pump(
+    WidgetTester tester, {
+    int at = 0,
+    bool skippedFeedback = false,
+  }) async {
     SharedPreferences.setMockInitialValues({});
     tester.view.physicalSize = const Size(375, 667);
     tester.view.devicePixelRatio = 1;
@@ -35,7 +40,9 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          lessonSessionProvider.overrideWith(() => _Session(at)),
+          lessonSessionProvider.overrideWith(
+            () => _Session(at, skippedFeedback: skippedFeedback),
+          ),
           lessonAdmissionProvider(
             202,
           ).overrideWith((_) async => LessonAdmission.allowed),
@@ -92,11 +99,24 @@ void main() {
     );
     expect(find.text('Rule'), findsOneWidget);
   });
+
+  testWidgets('a skipped step shows its answer as a reference to practise '
+      'from, not as the correct answer it missed', (tester) async {
+    await pump(tester, at: 1, skippedFeedback: true);
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('REFERENCE ANSWER'), findsOneWidget);
+    expect(find.text('CORRECT'), findsNothing);
+  });
 }
 
 class _Session extends LessonSessionNotifier {
-  _Session(this.at);
+  _Session(this.at, {this.skippedFeedback = false});
   final int at;
+
+  /// Show the feedback sheet for a skipped answer, as after "Skip".
+  final bool skippedFeedback;
 
   @override
   LessonSessionState build() => LessonSessionState(
@@ -138,6 +158,9 @@ class _Session extends LessonSessionNotifier {
     ],
     currentIndex: at,
     resumed: at > 0,
+    showFeedback: skippedFeedback,
+    lastOutcome: skippedFeedback ? ExerciseOutcome.skipped : null,
+    lastCorrectAnswer: skippedFeedback ? 'pane Nováku' : null,
   );
 
   @override

@@ -369,7 +369,11 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
           });
         },
         doneLabel: AppLocalizations.of(context).check,
-        onDone: answered ? null : _checkAnswer,
+        onDone: _checkAnswer,
+        finished: answered,
+        // Return moves to the next reply or checks, so the keyboard can take
+        // the buttons' room.
+        returnKeyAdvances: true,
       );
     }
 

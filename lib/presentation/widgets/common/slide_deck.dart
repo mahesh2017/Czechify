@@ -29,6 +29,8 @@ class SlideDeck extends StatefulWidget {
     required List<Widget> this.slides,
     required this.doneLabel,
     required this.onDone,
+    this.finished = false,
+    this.returnKeyAdvances = false,
     this.canAdvance,
     this.padding = const EdgeInsets.fromLTRB(20, 8, 20, 8),
     this.onSlideChanged,
@@ -46,6 +48,8 @@ class SlideDeck extends StatefulWidget {
     required SlideBlockBuilder this.blockBuilder,
     required this.doneLabel,
     required this.onDone,
+    this.finished = false,
+    this.returnKeyAdvances = false,
     this.gap = 12,
     this.canAdvance,
     this.padding = const EdgeInsets.fromLTRB(20, 8, 20, 8),
@@ -63,10 +67,19 @@ class SlideDeck extends StatefulWidget {
   /// The last slide's button, which leaves the deck.
   final String doneLabel;
 
-  /// Null once the deck has done its job — a question answered, say: the
+  /// Null when the last slide finishes the step itself — a record button,
+  /// say — and needs only Back.
+  final VoidCallback? onDone;
+
+  /// True once the deck has done its job — a question answered, say: the
   /// buttons go, so the lesson's own Continue is the one way on, and the
   /// slides can still be swiped to look back over.
-  final VoidCallback? onDone;
+  final bool finished;
+
+  /// The slides' text fields move on (or finish) with Return, so while the
+  /// keyboard is up the dots and buttons give their room to the slide. On a
+  /// small phone a dialogue reply needs it: the keyboard leaves about 200 pt.
+  final bool returnKeyAdvances;
 
   /// Whether the learner may go on from slide `index` — false disables Next
   /// (or the last slide's button) until a question there is answered.
@@ -257,19 +270,41 @@ class SlideDeckState extends State<SlideDeck> {
       },
       children: [
         for (final slide in slides)
-          SingleChildScrollView(padding: widget.padding, child: slide),
+          slide is FillSlide
+              ? Padding(padding: widget.padding, child: slide.child)
+              : SingleChildScrollView(padding: widget.padding, child: slide),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final t = context.tokens;
-    final l10n = AppLocalizations.of(context);
     final count = length;
     final last = _index >= count - 1;
     final canGo = widget.canAdvance?.call(_index) ?? true;
     final textScaler = MediaQuery.textScalerOf(context);
+    return KeyboardUpBuilder(
+      builder: (context, keyboardUp) => _layout(
+        context,
+        keyboardHidesButtons: widget.returnKeyAdvances && keyboardUp,
+        count: count,
+        last: last,
+        canGo: canGo,
+        textScaler: textScaler,
+      ),
+    );
+  }
+
+  Widget _layout(
+    BuildContext context, {
+    required bool keyboardHidesButtons,
+    required int count,
+    required bool last,
+    required bool canGo,
+    required TextScaler textScaler,
+  }) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -295,6 +330,7 @@ class SlideDeckState extends State<SlideDeck> {
                   )
                   : _pages(context),
         ),
+        if (!keyboardHidesButtons)
         SizedBox(
           height: SlideDeck._dotsHeight,
           child:
@@ -326,7 +362,7 @@ class SlideDeckState extends State<SlideDeck> {
                   )
                   : null,
         ),
-        if (widget.onDone != null)
+        if (!widget.finished && !keyboardHidesButtons)
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
           child: Row(
@@ -351,7 +387,9 @@ class SlideDeckState extends State<SlideDeck> {
                             onPressed:
                                 canGo ? () => goTo(_index + 1) : null,
                           )
-                          : count == 0
+                          : count == 0 || widget.onDone == null
+                          // Same height as a button, so the slide above
+                          // keeps its size.
                           ? const SizedBox(height: 52)
                           : KeyCta(
                             key: SlideDeck.doneKey,
@@ -365,4 +403,58 @@ class SlideDeckState extends State<SlideDeck> {
       ],
     );
   }
+}
+
+/// A slide that is given the page's exact height instead of scrolling, for a
+/// screen with one part that should take whatever room is left — the page a
+/// learner writes on, which shrinks when the keyboard comes up. Its content
+/// has to lay out in that height (an `Expanded` for the part that gives way);
+/// if it cannot, that is an overflow the fit test reports.
+class FillSlide extends StatelessWidget {
+  const FillSlide({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => child;
+}
+
+/// Builds with whether the on-screen keyboard is up, and again when that
+/// changes.
+///
+/// Inside a `Scaffold` body the keyboard cannot be read from `MediaQuery`: the
+/// scaffold shrinks the body to make room and then removes the keyboard from
+/// the body's `MediaQuery`, so `viewInsets` there is always zero. This reads
+/// the window instead.
+class KeyboardUpBuilder extends StatefulWidget {
+  const KeyboardUpBuilder({super.key, required this.builder});
+
+  final Widget Function(BuildContext context, bool keyboardUp) builder;
+
+  @override
+  State<KeyboardUpBuilder> createState() => _KeyboardUpBuilderState();
+}
+
+class _KeyboardUpBuilderState extends State<KeyboardUpBuilder>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      widget.builder(context, View.of(context).viewInsets.bottom > 0);
 }

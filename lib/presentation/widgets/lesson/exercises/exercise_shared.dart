@@ -209,32 +209,54 @@ class CzechCharBar extends StatelessWidget {
 /// Left-aligned rather than centred — a centred sentence that wraps to three
 /// lines is harder to re-read, and every exercise type shares this shape.
 class QuestionPrompt extends StatelessWidget {
-  const QuestionPrompt({super.key, required this.question, this.czech});
+  const QuestionPrompt({
+    super.key,
+    required this.question,
+    this.czech,
+    this.instruction = false,
+  });
 
   final String question;
 
   /// The Czech under test, if the question is about a specific string.
   final String? czech;
 
+  /// The text is a task brief rather than a question. A long one is set as
+  /// reading text: in the display face a three-sentence brief took 160-290 pt
+  /// of a small phone before the task began.
+  final bool instruction;
+
+  /// Briefs longer than this read as a paragraph, not a heading.
+  static const longInstruction = 60;
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
+    final reading = instruction && question.length > longInstruction;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           question,
-          style: TextStyle(
-            fontFamily: AppFonts.display,
-            fontSize: 27,
-            fontWeight: FontWeight.w700,
-            height: 1.2,
-            letterSpacing: -0.6,
-            color: t.ink,
-          ),
+          style:
+              reading
+                  ? TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                    height: 1.45,
+                    color: t.ink,
+                  )
+                  : TextStyle(
+                    fontFamily: AppFonts.display,
+                    fontSize: 27,
+                    fontWeight: FontWeight.w700,
+                    height: 1.2,
+                    letterSpacing: -0.6,
+                    color: t.ink,
+                  ),
         ),
         if (czech != null && czech!.trim().isNotEmpty) ...[
-          const SizedBox(height: 12),
+          SizedBox(height: reading ? 8 : 12),
           Row(
             children: [
               Expanded(
@@ -242,7 +264,7 @@ class QuestionPrompt extends StatelessWidget {
                   czech!,
                   style: TextStyle(
                     fontFamily: AppFonts.display,
-                    fontSize: 21,
+                    fontSize: reading ? 18 : 21,
                     fontWeight: FontWeight.w800,
                     height: 1.25,
                     color: t.pri,

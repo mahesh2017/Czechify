@@ -6794,6 +6794,42 @@ abstract class AppLocalizations {
   /// **'Back to Czech'**
   String get readingShowCzech;
 
+  /// No description provided for @speakingCantSpeakSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t speak right now? Skip'**
+  String get speakingCantSpeakSkip;
+
+  /// No description provided for @speakingSkippedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped — say these phrases aloud when you can.'**
+  String get speakingSkippedNote;
+
+  /// No description provided for @pronFocusFirstSyllable.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress on the first syllable'**
+  String get pronFocusFirstSyllable;
+
+  /// No description provided for @pronFocusLongVowel.
+  ///
+  /// In en, this message translates to:
+  /// **'Long vowels'**
+  String get pronFocusLongVowel;
+
+  /// No description provided for @pronFocusVowelLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Vowel length'**
+  String get pronFocusVowelLength;
+
+  /// No description provided for @writingWordsSoFar.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 word} other{{count} words}}'**
+  String writingWordsSoFar(int count);
+
   /// No description provided for @slidePosition.
   ///
   /// In en, this message translates to:

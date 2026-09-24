@@ -67,8 +67,17 @@ print('\nStill scrolling with slides (id, lesson, kind, pt over):')
 for i in mine:
     if i in after:
         print(f'  {i:>6}  {ex[i]["lesson_id"]}  {kind(ex[i]):30} {after[i]}')
-others = [i for i in set(before) ^ set(after) if ex.get(i, {}).get('lesson_id', 0) // 100 not in units]
+# Slides with a text field are also measured with the keyboard up.
+typing = [i for i in mine if f'{i}+keyboard' in after]
+if typing:
+    print('\nOverflowing with the keyboard up (id, lesson, kind, pt over):')
+    for i in typing:
+        print(f'  {i:>6}  {ex[i]["lesson_id"]}  {kind(ex[i]):30} {after[i + "+keyboard"]}')
+def unit_of(key):
+    return ex.get(key.split('+')[0], {}).get('lesson_id', 0) // 100
+others = [k for k in set(before) ^ set(after) if unit_of(k) not in units]
 if others:
-    print(f'\nChanged OUTSIDE these units (look at why): {sorted(others, key=int)[:20]}')
+    others.sort(key=lambda k: (int(k.split('+')[0]), k))
+    print(f'\nChanged OUTSIDE these units (look at why): {others[:20]}')
 PY
 echo "\nNext: scripts/slide_heights.sh <ids> to see which part of each slide overflows."

@@ -480,7 +480,12 @@ class AudioPairButtons extends StatelessWidget {
     required this.onPlay,
     this.playLabel,
     this.playing = false,
+    this.compact = false,
   });
+
+  /// One row instead of two: a round play button beside the speed control,
+  /// for a slide that has no room for both at full width.
+  final bool compact;
 
   final VoidCallback? onPlay;
 
@@ -495,6 +500,28 @@ class AudioPairButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = _l10n(context);
+    if (compact) {
+      final label =
+          playing
+              ? (l10n?.audioStop ?? 'Stop')
+              : (playLabel ?? l10n?.audioHearIt ?? 'Hear it');
+      return Row(
+        children: [
+          IconButton.filled(
+            onPressed: onPlay,
+            tooltip: label,
+            icon: Icon(playing ? Icons.stop : Icons.play_arrow, size: 24),
+            style: IconButton.styleFrom(
+              backgroundColor: t.priFill,
+              foregroundColor: t.onFill,
+              fixedSize: const Size(48, 48),
+            ),
+          ),
+          const SizedBox(width: 10),
+          const Expanded(child: TtsSpeedSelector()),
+        ],
+      );
+    }
     // IntrinsicHeight + stretch, because the play label comes from lesson
     // content and can be a whole phrase ("Hear the alphabet (letter names)").
     // With fixed heights the wrapped button grew and the two no longer lined
@@ -1048,6 +1075,7 @@ class FeedbackSheet extends StatelessWidget {
     this.tone = FeedbackTone.correct,
     this.body,
     this.correctAnswer,
+    this.answerLabel,
     this.tutorInitial,
     this.onPlay,
     this.extra,
@@ -1062,6 +1090,10 @@ class FeedbackSheet extends StatelessWidget {
   final FeedbackTone tone;
   final String? body;
   final String? correctAnswer;
+
+  /// What [correctAnswer] is called. "Correct" by default; a skipped step
+  /// shows a model to practise from, which is not a verdict on anything.
+  final String? answerLabel;
   final String? tutorInitial;
   final VoidCallback? onPlay;
 
@@ -1204,7 +1236,9 @@ class FeedbackSheet extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      LessonKicker(l10n?.answerCorrectLabel ?? 'Correct'),
+                      LessonKicker(
+                        answerLabel ?? l10n?.answerCorrectLabel ?? 'Correct',
+                      ),
                       const SizedBox(width: 11),
                       Expanded(
                         child: Text(

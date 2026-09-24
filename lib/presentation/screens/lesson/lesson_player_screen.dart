@@ -958,6 +958,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
         // Only worth stating when they did not produce it themselves.
         correctAnswer:
             session.lastWasCorrect ? null : session.lastCorrectAnswer,
+        // A skipped step (a recording skipped, a writing task handed in)
+        // shows a model to practise from, not a right answer it missed.
+        answerLabel:
+            session.lastWasSkipped ? l10n.writingReferenceAnswer : null,
         busy: session.isCompleting,
         continueLabel:
             session.isCompleting
