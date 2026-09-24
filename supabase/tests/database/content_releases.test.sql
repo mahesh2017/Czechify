@@ -5,7 +5,7 @@ begin;
 drop extension if exists pgtap cascade;
 create extension pgtap with schema public;
 set local search_path = public;
-select public.plan(10);
+select public.plan(14);
 
 select public.has_table(
   'public',
@@ -96,7 +96,44 @@ select public.throws_ok(
   'release item must reference an exact existing pack version'
 );
 
+-- min_client_format (20261005100000): a release old apps cannot read must
+-- be 'gated', which they never query.
+select public.throws_ok(
+  $$insert into public.content_releases (
+      release_id, version, status, content_checksum, pack_refs,
+      min_client_format, published_at
+    ) values (
+      'too-new-for-old-apps', 2, 'published', repeat('c', 64), '[]'::jsonb,
+      2, now()
+    )$$,
+  '23514',
+  null,
+  'a release old apps cannot read cannot be published to them'
+);
+select public.lives_ok(
+  $$insert into public.content_releases (
+      release_id, version, status, content_checksum, pack_refs,
+      min_client_format, published_at
+    ) values (
+      'gated-release', 3, 'gated', repeat('d', 64), '[]'::jsonb, 2, now()
+    )$$,
+  'a release for newer apps can be gated'
+);
+select public.is(
+  (select min_client_format from public.content_releases
+   where release_id = 'test-release'),
+  1,
+  'existing releases stay readable by every app'
+);
+
 set local role anon;
+
+select public.is(
+  (select count(*)::integer from public.content_releases
+   where release_id in ('test-release', 'gated-release')),
+  2,
+  'anonymous clients can read published and gated releases'
+);
 
 select public.is(
   (select count(*)::integer from public.content_release_items),

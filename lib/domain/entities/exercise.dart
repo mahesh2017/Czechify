@@ -22,6 +22,15 @@ class Exercise {
     this.xpReward = 10,
   });
 
+  /// Whether this item is scored, a warm-up guess, a lecture check or guided
+  /// practice. See [ExerciseMode].
+  ExerciseMode get mode => ExerciseMode.fromData(data['mode']);
+
+  /// A notebook step: a teaching card asking the learner to write in their
+  /// paper notebook. Never graded, like every teaching card.
+  bool get isNotebookStep =>
+      type == ExerciseType.teaching && data['style'] == 'notebook';
+
   factory Exercise.fromJson(Map<String, dynamic> json) {
     return Exercise(
       id: json['id'] as int,

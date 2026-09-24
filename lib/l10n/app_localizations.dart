@@ -6427,6 +6427,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Czechify Core is free until {date}, from a friend\'s invitation. Subscribe before then to keep it.'**
   String subscriptionsTrialActive(String date);
+
+  /// No description provided for @lessonKickerPredict.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm-up · have a guess'**
+  String get lessonKickerPredict;
+
+  /// No description provided for @lessonKickerCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick check · no hearts'**
+  String get lessonKickerCheck;
+
+  /// No description provided for @lessonKickerGuided.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided practice · no hearts'**
+  String get lessonKickerGuided;
+
+  /// No description provided for @guidedHintTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint'**
+  String get guidedHintTitle;
+
+  /// No description provided for @feedbackPredictTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Here\'s how it works'**
+  String get feedbackPredictTitle;
+
+  /// No description provided for @lectureKicker.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn · step {current} of {total}'**
+  String lectureKicker(int current, int total);
+
+  /// No description provided for @lectureExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get lectureExamples;
+
+  /// No description provided for @lectureCommonMistake.
+  ///
+  /// In en, this message translates to:
+  /// **'Common mistake'**
+  String get lectureCommonMistake;
+
+  /// No description provided for @lectureWrongLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Not'**
+  String get lectureWrongLabel;
+
+  /// No description provided for @lectureRightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'But'**
+  String get lectureRightLabel;
+
+  /// No description provided for @lectureContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it — check me'**
+  String get lectureContinue;
+
+  /// No description provided for @notebookKicker.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notebook'**
+  String get notebookKicker;
+
+  /// No description provided for @notebookPaperInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Write it on paper, from memory. Then check.'**
+  String get notebookPaperInstruction;
+
+  /// No description provided for @notebookTypedInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Type it from memory, then check.'**
+  String get notebookTypedInstruction;
+
+  /// No description provided for @notebookTypedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your notes'**
+  String get notebookTypedLabel;
+
+  /// No description provided for @notebookShowModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Check against the model'**
+  String get notebookShowModel;
+
+  /// No description provided for @notebookModelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Model'**
+  String get notebookModelTitle;
+
+  /// No description provided for @notebookAllCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'All correct'**
+  String get notebookAllCorrect;
+
+  /// No description provided for @notebookCorrected.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected my notes'**
+  String get notebookCorrected;
+
+  /// No description provided for @notebookNoPen.
+  ///
+  /// In en, this message translates to:
+  /// **'No pen right now'**
+  String get notebookNoPen;
+
+  /// No description provided for @notebookDeferred.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your notebook to-do in the Daily copybook.'**
+  String get notebookDeferred;
+
+  /// No description provided for @settingsNotesOnPaper.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes on paper'**
+  String get settingsNotesOnPaper;
+
+  /// No description provided for @settingsNotesOnPaperBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Write key points from memory on paper. Off = type them in the app'**
+  String get settingsNotesOnPaperBody;
+
+  /// No description provided for @copybookTodoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notebook to-do'**
+  String get copybookTodoTitle;
+
+  /// No description provided for @copybookTodoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps you left for later with \"No pen right now\". Write each one, then mark it done.'**
+  String get copybookTodoBody;
+
+  /// No description provided for @copybookTodoDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as written'**
+  String get copybookTodoDone;
+
+  /// No description provided for @curriculumLectureNotebook.
+  ///
+  /// In en, this message translates to:
+  /// **'Lecture & notebook'**
+  String get curriculumLectureNotebook;
+
+  /// No description provided for @unitNotebookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {unit}: lecture & notebook'**
+  String unitNotebookTitle(int unit);
+
+  /// No description provided for @unitNotebookModelPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Model notebook page'**
+  String get unitNotebookModelPage;
+
+  /// No description provided for @unitNotebookShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Save or share the page'**
+  String get unitNotebookShare;
+
+  /// No description provided for @unitNotebookLectures.
+  ///
+  /// In en, this message translates to:
+  /// **'Lecture'**
+  String get unitNotebookLectures;
+
+  /// No description provided for @unitNotebookEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'This unit\'s notebook page isn\'t ready yet.'**
+  String get unitNotebookEmpty;
+
+  /// No description provided for @modelPageCanDo.
+  ///
+  /// In en, this message translates to:
+  /// **'I can'**
+  String get modelPageCanDo;
+
+  /// No description provided for @modelPageWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Words & chunks'**
+  String get modelPageWords;
+
+  /// No description provided for @modelPagePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern'**
+  String get modelPagePattern;
+
+  /// No description provided for @modelPageMySentences.
+  ///
+  /// In en, this message translates to:
+  /// **'My sentences'**
+  String get modelPageMySentences;
+
+  /// No description provided for @modelPageCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check ✓'**
+  String get modelPageCheck;
 }
 
 class _AppLocalizationsDelegate

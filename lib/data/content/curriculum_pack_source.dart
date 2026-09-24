@@ -16,6 +16,15 @@ import 'curriculum_contract_validator.dart';
 /// release. The client compares the manifest version to its local state to
 /// determine whether a content update is available.
 class ContentRelease {
+  /// The content format this app reads.
+  ///
+  /// 2 added exercise modes, lecture and notebook cards (plan v1.2). Raise it
+  /// when the app learns to read something older apps cannot, and publish
+  /// content that needs it with `status = 'gated'` and a matching
+  /// `min_client_format` — never as 'published', which every older app
+  /// installs (enforced in 20261005100000_content_release_client_format.sql).
+  static const clientFormat = 2;
+
   final String releaseId;
   final int version;
   final String contentChecksum;
@@ -186,7 +195,8 @@ class CurriculumPackSource {
     final releaseRows = await client
         .from('content_releases')
         .select()
-        .eq('status', 'published')
+        .inFilter('status', const ['published', 'gated'])
+        .lte('min_client_format', ContentRelease.clientFormat)
         .order('published_at', ascending: false)
         .limit(1)
         .timeout(const Duration(seconds: 10));

@@ -35,6 +35,38 @@ enum ExerciseType {
   teaching,
 }
 
+/// How an answered exercise counts toward the lesson.
+///
+/// Content sets it in the exercise's `data.mode`. Keeping it inside `data`
+/// rather than adding a column means an app that predates it still loads the
+/// lesson, and simply treats every item as [scored] — which is exactly how it
+/// behaved before.
+enum ExerciseMode {
+  /// The normal case: a miss costs a heart, climbs the feedback ladder and is
+  /// re-asked in the mistake pass.
+  scored,
+
+  /// A guess before anything is taught. Nothing rides on it.
+  predict,
+
+  /// One question straight after a lecture step, to see whether it landed.
+  check,
+
+  /// Practice with the hint on screen from the start.
+  guided;
+
+  /// Reads `data.mode`. Anything missing or unrecognised is [scored], so a
+  /// typo in content can never quietly switch hearts off for a question.
+  static ExerciseMode fromData(Object? value) => switch (value) {
+    'predict' => predict,
+    'check' => check,
+    'guided' => guided,
+    _ => scored,
+  };
+
+  bool get isScored => this == scored;
+}
+
 /// Lesson types.
 enum LessonType {
   introduction,

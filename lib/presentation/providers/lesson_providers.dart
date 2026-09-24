@@ -425,6 +425,25 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     final isSkipped = outcome == ExerciseOutcome.skipped;
     final presentationId = _presentationId ??= _uuid.v4();
 
+    // Warm-up guesses, lecture checks and guided practice are part of the
+    // teaching, not the test (plan v1.2, decision 1): they cost no heart, are
+    // not re-asked, and leave no evidence behind. Evidence matters most: the
+    // router reads any supported or failed answer as a reason to send the
+    // learner back, so a lesson with a guided stage would be flagged for
+    // revisiting forever.
+    final mode = exercise.mode;
+    if (!mode.isScored) {
+      _answerUnscored(
+        mode: mode,
+        outcome: outcome,
+        explanation: explanation,
+        correctAnswer: correctAnswer,
+        xpEarned: xpEarned,
+      );
+      await _saveCheckpoint();
+      return;
+    }
+
     var newHearts = state.hearts;
     final heartsEnabled = ref.read(settingsProvider).heartsEnabled;
     if (isIncorrect &&
@@ -553,6 +572,35 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       exercises: exercises,
     );
     await _saveCheckpoint();
+  }
+
+  /// Shows the result of an unscored item.
+  ///
+  /// The explanation and the answer come at once: the feedback ladder exists
+  /// to make a scored miss worth another attempt, and here there is nothing
+  /// to earn back. The answer streak is left alone, so a wrong guess before
+  /// anything was taught cannot break a run. Only guided practice earns XP.
+  void _answerUnscored({
+    required ExerciseMode mode,
+    required ExerciseOutcome outcome,
+    required String? explanation,
+    required String? correctAnswer,
+    required int xpEarned,
+  }) {
+    final earned =
+        mode == ExerciseMode.guided && outcome == ExerciseOutcome.correct
+            ? xpEarned
+            : 0;
+    state = state.copyWith(
+      totalXp: state.totalXp + earned,
+      lastExplanation: explanation,
+      lastCorrectAnswer: correctAnswer,
+      lastGrammarRuleId: state.currentExercise?.grammarRuleId,
+      lastOutcome: outcome,
+      // No feedback step: every move to a new item clears it, and without one
+      // there is no "Try again" — the answer is already on screen.
+      showFeedback: true,
+    );
   }
 
   /// Saves the lesson's position now, including typing not yet saved.

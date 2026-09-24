@@ -3772,4 +3772,124 @@ class AppLocalizationsCs extends AppLocalizations {
   String subscriptionsTrialActive(String date) {
     return 'Czechify Core máte zdarma do $date díky pozvánce od přátel. Předplaťte si ho do té doby, abyste o něj nepřišli.';
   }
+
+  @override
+  String get lessonKickerPredict => 'Rozcvička · zkuste odhadnout';
+
+  @override
+  String get lessonKickerCheck => 'Rychlá kontrola · bez srdíček';
+
+  @override
+  String get lessonKickerGuided => 'Procvičování s nápovědou · bez srdíček';
+
+  @override
+  String get guidedHintTitle => 'Nápověda';
+
+  @override
+  String get feedbackPredictTitle => 'Takhle to funguje';
+
+  @override
+  String lectureKicker(int current, int total) {
+    return 'Výklad · krok $current z $total';
+  }
+
+  @override
+  String get lectureExamples => 'Příklady';
+
+  @override
+  String get lectureCommonMistake => 'Častá chyba';
+
+  @override
+  String get lectureWrongLabel => 'Ne';
+
+  @override
+  String get lectureRightLabel => 'Ale';
+
+  @override
+  String get lectureContinue => 'Rozumím — vyzkoušejte mě';
+
+  @override
+  String get notebookKicker => 'Váš sešit';
+
+  @override
+  String get notebookPaperInstruction =>
+      'Napište to do sešitu zpaměti. Pak si to zkontrolujte.';
+
+  @override
+  String get notebookTypedInstruction =>
+      'Napište to sem zpaměti a pak si to zkontrolujte.';
+
+  @override
+  String get notebookTypedLabel => 'Vaše poznámky';
+
+  @override
+  String get notebookShowModel => 'Porovnat se vzorem';
+
+  @override
+  String get notebookModelTitle => 'Vzor';
+
+  @override
+  String get notebookAllCorrect => 'Všechno správně';
+
+  @override
+  String get notebookCorrected => 'Poznámky opraveny';
+
+  @override
+  String get notebookNoPen => 'Teď nemám čím psát';
+
+  @override
+  String get notebookDeferred => 'Přidáno do úkolů pro sešit v Denní písance.';
+
+  @override
+  String get settingsNotesOnPaper => 'Poznámky do sešitu';
+
+  @override
+  String get settingsNotesOnPaperBody =>
+      'Hlavní body píšete zpaměti do sešitu. Vypnuto = píšete v aplikaci';
+
+  @override
+  String get copybookTodoTitle => 'Doplnit do sešitu';
+
+  @override
+  String get copybookTodoBody =>
+      'Kroky, které jste odložili tlačítkem „Teď nemám čím psát“. Každý zapište a označte jako hotový.';
+
+  @override
+  String get copybookTodoDone => 'Označit jako zapsané';
+
+  @override
+  String get curriculumLectureNotebook => 'Výklad a sešit';
+
+  @override
+  String unitNotebookTitle(int unit) {
+    return 'Jednotka $unit: výklad a sešit';
+  }
+
+  @override
+  String get unitNotebookModelPage => 'Vzorová stránka sešitu';
+
+  @override
+  String get unitNotebookShare => 'Uložit nebo sdílet stránku';
+
+  @override
+  String get unitNotebookLectures => 'Výklad';
+
+  @override
+  String get unitNotebookEmpty =>
+      'Stránka sešitu pro tuto jednotku ještě není hotová.';
+
+  @override
+  String get modelPageCanDo => 'Umím';
+
+  @override
+  String get modelPageWords => 'Slova a fráze';
+
+  @override
+  String get modelPagePattern => 'Vzorec';
+
+  @override
+  String get modelPageMySentences => 'Moje věty';
+
+  @override
+  String get modelPageCheck => 'Kontrola ✓';
 }

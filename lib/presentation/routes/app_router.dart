@@ -15,6 +15,7 @@ import '../screens/stats/stats_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../screens/settings/account_screen.dart';
 import '../screens/grammar/grammar_reference_screen.dart';
+import '../screens/grammar/unit_notebook_screen.dart';
 import '../screens/grammar/quick_reference_screen.dart';
 import '../screens/onboarding/offline_setup_screen.dart';
 import '../screens/settings/about_screen.dart';
@@ -241,6 +242,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             (context, state) => PlacementScreen(
               returnToOnboarding:
                   state.uri.queryParameters['return'] == 'onboarding',
+            ),
+      ),
+      GoRoute(
+        path: '/unit-notebook/:unitId',
+        builder:
+            (context, state) => UnitNotebookScreen(
+              unitId: int.tryParse(state.pathParameters['unitId'] ?? '') ?? 0,
             ),
       ),
       GoRoute(

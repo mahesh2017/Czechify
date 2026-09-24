@@ -603,14 +603,22 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                   children: [
                     Flexible(
                       child: LessonKicker(
-                        session.currentExercise?.type == ExerciseType.teaching
+                        session.currentExercise?.isNotebookStep == true
+                            ? l10n.notebookKicker
+                            : session.currentExercise?.type ==
+                                ExerciseType.teaching
                             ? l10n.lessonIntroduction
                             : session.inMistakeReview
                             ? l10n.lessonMissedQuestions
-                            : l10n.lessonQuestionOf(
-                              session.currentIndex + 1,
-                              session.totalExercises,
-                            ),
+                            : switch (session.currentExercise?.mode) {
+                              ExerciseMode.predict => l10n.lessonKickerPredict,
+                              ExerciseMode.check => l10n.lessonKickerCheck,
+                              ExerciseMode.guided => l10n.lessonKickerGuided,
+                              _ => l10n.lessonQuestionOf(
+                                session.currentIndex + 1,
+                                session.totalExercises,
+                              ),
+                            },
                         color: session.inMistakeReview ? t.amberInk : t.faint,
                       ),
                     ),
@@ -626,6 +634,17 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                   ],
                 ),
               ),
+
+              // Guided practice shows its hint before the learner answers:
+              // that is what makes it guided rather than a test.
+              if (exercise.mode == ExerciseMode.guided &&
+                  (exercise.data['hint'] as String? ?? '').trim().isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                  child: _GuidedHint(
+                    text: (exercise.data['hint'] as String).trim(),
+                  ),
+                ),
 
               // The exercise stays visible while the feedback banner is shown,
               // so the learner can study their answer at their own pace —
@@ -693,8 +712,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     final t = context.tokens;
     // Skipped is its own voice: the learner asked to see the answer rather
     // than getting it wrong, so it is neither green nor coral.
+    // A warm-up guess comes before any teaching, so a wrong one is not a
+    // mistake: it gets the same neutral voice, and says what the answer shows.
+    final predict = session.currentExercise?.mode == ExerciseMode.predict;
     final tone =
-        session.lastWasSkipped
+        session.lastWasSkipped || (predict && !session.lastWasCorrect)
             ? FeedbackTone.neutral
             : session.lastWasCorrect
             ? FeedbackTone.correct
@@ -704,6 +726,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     final title = switch (tone) {
       FeedbackTone.correct => l10n.feedbackCorrect,
       FeedbackTone.incorrect => l10n.feedbackNotQuite,
+      FeedbackTone.neutral when predict => l10n.feedbackPredictTitle,
       FeedbackTone.neutral => l10n.feedbackAnswerShown,
     };
 
@@ -872,6 +895,53 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) leaveLesson(context);
     });
+  }
+}
+
+/// The hint for a guided-practice item, on screen before the learner answers.
+class _GuidedHint extends StatelessWidget {
+  final String text;
+
+  const _GuidedHint({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return Semantics(
+      container: true,
+      label: '${l10n.guidedHintTitle}: $text',
+      excludeSemantics: true,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.fromLTRB(14, 11, 14, 12),
+        decoration: BoxDecoration(
+          color: t.amberSoft,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.lightbulb_outline, size: 19, color: t.amberInk),
+            const SizedBox(width: 9),
+            Expanded(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '${l10n.guidedHintTitle}: ',
+                      style: const TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                    TextSpan(text: text),
+                  ],
+                ),
+                style: TextStyle(fontSize: 15, height: 1.4, color: t.amberInk),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

@@ -3755,4 +3755,124 @@ class AppLocalizationsEn extends AppLocalizations {
   String subscriptionsTrialActive(String date) {
     return 'Czechify Core is free until $date, from a friend\'s invitation. Subscribe before then to keep it.';
   }
+
+  @override
+  String get lessonKickerPredict => 'Warm-up · have a guess';
+
+  @override
+  String get lessonKickerCheck => 'Quick check · no hearts';
+
+  @override
+  String get lessonKickerGuided => 'Guided practice · no hearts';
+
+  @override
+  String get guidedHintTitle => 'Hint';
+
+  @override
+  String get feedbackPredictTitle => 'Here\'s how it works';
+
+  @override
+  String lectureKicker(int current, int total) {
+    return 'Learn · step $current of $total';
+  }
+
+  @override
+  String get lectureExamples => 'Examples';
+
+  @override
+  String get lectureCommonMistake => 'Common mistake';
+
+  @override
+  String get lectureWrongLabel => 'Not';
+
+  @override
+  String get lectureRightLabel => 'But';
+
+  @override
+  String get lectureContinue => 'Got it — check me';
+
+  @override
+  String get notebookKicker => 'Your notebook';
+
+  @override
+  String get notebookPaperInstruction =>
+      'Write it on paper, from memory. Then check.';
+
+  @override
+  String get notebookTypedInstruction => 'Type it from memory, then check.';
+
+  @override
+  String get notebookTypedLabel => 'Your notes';
+
+  @override
+  String get notebookShowModel => 'Check against the model';
+
+  @override
+  String get notebookModelTitle => 'Model';
+
+  @override
+  String get notebookAllCorrect => 'All correct';
+
+  @override
+  String get notebookCorrected => 'Corrected my notes';
+
+  @override
+  String get notebookNoPen => 'No pen right now';
+
+  @override
+  String get notebookDeferred =>
+      'Added to your notebook to-do in the Daily copybook.';
+
+  @override
+  String get settingsNotesOnPaper => 'Notes on paper';
+
+  @override
+  String get settingsNotesOnPaperBody =>
+      'Write key points from memory on paper. Off = type them in the app';
+
+  @override
+  String get copybookTodoTitle => 'Notebook to-do';
+
+  @override
+  String get copybookTodoBody =>
+      'Steps you left for later with \"No pen right now\". Write each one, then mark it done.';
+
+  @override
+  String get copybookTodoDone => 'Mark as written';
+
+  @override
+  String get curriculumLectureNotebook => 'Lecture & notebook';
+
+  @override
+  String unitNotebookTitle(int unit) {
+    return 'Unit $unit: lecture & notebook';
+  }
+
+  @override
+  String get unitNotebookModelPage => 'Model notebook page';
+
+  @override
+  String get unitNotebookShare => 'Save or share the page';
+
+  @override
+  String get unitNotebookLectures => 'Lecture';
+
+  @override
+  String get unitNotebookEmpty =>
+      'This unit\'s notebook page isn\'t ready yet.';
+
+  @override
+  String get modelPageCanDo => 'I can';
+
+  @override
+  String get modelPageWords => 'Words & chunks';
+
+  @override
+  String get modelPagePattern => 'Pattern';
+
+  @override
+  String get modelPageMySentences => 'My sentences';
+
+  @override
+  String get modelPageCheck => 'Check ✓';
 }

@@ -470,6 +470,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 _Divider(),
+                _Row(
+                  icon: Icons.edit_note_outlined,
+                  tint: t.violetSoft,
+                  fg: t.violet,
+                  title: l10n.settingsNotesOnPaper,
+                  subtitle: l10n.settingsNotesOnPaperBody,
+                  trailing: Switch(
+                    value: settings.notesOnPaper,
+                    onChanged:
+                        (v) => ref
+                            .read(settingsProvider.notifier)
+                            .setNotesOnPaper(v),
+                  ),
+                ),
+                _Divider(),
                 // Separate from the Czech audio below on purpose: someone who
                 // wants a quiet app still needs to hear the language.
                 _Row(

@@ -1302,6 +1302,19 @@ class _UnitCard extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: OutlinedButton.icon(
+                    onPressed: () => context.push('/unit-notebook/${unit.id}'),
+                    icon: const Icon(Icons.edit_note, size: 16),
+                    label: Text(
+                      AppLocalizations.of(context).curriculumLectureNotebook,
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 40),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: OutlinedButton.icon(
                     onPressed: () => context.push('/grammar?unit=${unit.id}'),
                     icon: const Icon(Icons.menu_book, size: 16),
                     label: Text(

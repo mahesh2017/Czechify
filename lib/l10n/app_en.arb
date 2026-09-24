@@ -1602,5 +1602,59 @@
         "type": "String"
       }
     }
-  }
+  },
+  "lessonKickerPredict": "Warm-up · have a guess",
+  "lessonKickerCheck": "Quick check · no hearts",
+  "lessonKickerGuided": "Guided practice · no hearts",
+  "guidedHintTitle": "Hint",
+  "feedbackPredictTitle": "Here's how it works",
+  "lectureKicker": "Learn · step {current} of {total}",
+  "@lectureKicker": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "lectureExamples": "Examples",
+  "lectureCommonMistake": "Common mistake",
+  "lectureWrongLabel": "Not",
+  "lectureRightLabel": "But",
+  "lectureContinue": "Got it — check me",
+  "notebookKicker": "Your notebook",
+  "notebookPaperInstruction": "Write it on paper, from memory. Then check.",
+  "notebookTypedInstruction": "Type it from memory, then check.",
+  "notebookTypedLabel": "Your notes",
+  "notebookShowModel": "Check against the model",
+  "notebookModelTitle": "Model",
+  "notebookAllCorrect": "All correct",
+  "notebookCorrected": "Corrected my notes",
+  "notebookNoPen": "No pen right now",
+  "notebookDeferred": "Added to your notebook to-do in the Daily copybook.",
+  "settingsNotesOnPaper": "Notes on paper",
+  "settingsNotesOnPaperBody": "Write key points from memory on paper. Off = type them in the app",
+  "copybookTodoTitle": "Notebook to-do",
+  "copybookTodoBody": "Steps you left for later with \"No pen right now\". Write each one, then mark it done.",
+  "copybookTodoDone": "Mark as written",
+  "curriculumLectureNotebook": "Lecture & notebook",
+  "unitNotebookTitle": "Unit {unit}: lecture & notebook",
+  "@unitNotebookTitle": {
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "unitNotebookModelPage": "Model notebook page",
+  "unitNotebookShare": "Save or share the page",
+  "unitNotebookLectures": "Lecture",
+  "unitNotebookEmpty": "This unit's notebook page isn't ready yet.",
+  "modelPageCanDo": "I can",
+  "modelPageWords": "Words & chunks",
+  "modelPagePattern": "Pattern",
+  "modelPageMySentences": "My sentences",
+  "modelPageCheck": "Check ✓"
 }

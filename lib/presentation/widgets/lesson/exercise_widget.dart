@@ -16,6 +16,7 @@ import 'exercises/reading_comprehension_view.dart';
 import 'exercises/listening_comprehension_view.dart';
 import 'exercises/writing_task_view.dart';
 import 'exercises/speaking_task_view.dart';
+import 'exercises/notebook_step_view.dart';
 import 'exercises/teaching_view.dart';
 
 // Re-export shared helpers and types so existing imports of this file
@@ -118,6 +119,10 @@ class ExerciseWidget extends StatelessWidget {
         onAnswered: onAnswered,
       ),
       ExerciseType.speakingTask => SpeakingTaskView(
+        exercise: exercise,
+        onAnswered: onAnswered,
+      ),
+      ExerciseType.teaching when exercise.isNotebookStep => NotebookStepView(
         exercise: exercise,
         onAnswered: onAnswered,
       ),

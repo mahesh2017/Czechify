@@ -6,6 +6,7 @@ import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../providers/copybook_providers.dart';
+import '../../providers/notebook_providers.dart';
 import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../widgets/common/wash_background.dart';
@@ -73,6 +74,7 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
               l10n.copybookBody,
               style: TextStyle(fontSize: 16, height: 1.45, color: t.muted),
             ),
+            const _NotebookTodoSection(),
             const SizedBox(height: 18),
             ClipRRect(
               borderRadius: BorderRadius.circular(24),
@@ -196,6 +198,101 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Notebook steps the learner put off in a lesson with "No pen right now".
+///
+/// Shown first because it is unfinished work from a lesson, where the daily
+/// words below are optional practice. Hidden entirely when empty.
+class _NotebookTodoSection extends ConsumerWidget {
+  const _NotebookTodoSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final todos = ref.watch(notebookTodoProvider).asData?.value ?? const [];
+    if (todos.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(top: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            l10n.copybookTodoTitle,
+            style: TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.w800,
+              color: t.ink,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.copybookTodoBody,
+            style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
+          ),
+          const SizedBox(height: 10),
+          for (final todo in todos)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: SoftCard(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            todo.heading,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: t.ink,
+                            ),
+                          ),
+                          if (todo.instruction.isNotEmpty) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              todo.instruction,
+                              style: TextStyle(fontSize: 15, color: t.ink),
+                            ),
+                          ],
+                          if (todo.model.isNotEmpty) ...[
+                            const SizedBox(height: 8),
+                            for (final row in todo.model)
+                              Text(
+                                row.en.isEmpty
+                                    ? row.cz
+                                    : '${row.cz} — ${row.en}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  height: 1.4,
+                                  color: t.muted,
+                                ),
+                              ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: l10n.copybookTodoDone,
+                      icon: Icon(Icons.check_circle_outline, color: t.greenInk),
+                      onPressed: () async {
+                        await ref
+                            .read(notebookStoreProvider)
+                            .markWritten(todo.exerciseId);
+                        ref.invalidate(notebookTodoProvider);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

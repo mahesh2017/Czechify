@@ -136,6 +136,12 @@ class AppSettings {
   /// are where learning happens, so this makes hearts opt-in pressure.
   final bool heartsEnabled;
 
+  /// Where lesson notebook steps ask the learner to write: on paper (the
+  /// default, and the point of the step) or, when switched off, in a text box
+  /// in the app — for a learner with no paper to hand, or who cannot write by
+  /// hand.
+  final bool notesOnPaper;
+
   /// The learner's first name, collected during onboarding. Used to
   /// personalize greetings and AI tutor interactions. Empty string when
   /// the user hasn't provided it yet.
@@ -190,6 +196,7 @@ class AppSettings {
     this.ttsVoiceGender = TtsVoiceGender.female,
     this.startingLevel = CEFRLevel.preA1,
     this.heartsEnabled = true,
+    this.notesOnPaper = true,
     this.learnerName = '',
     this.soundEffectsEnabled = true,
     this.hapticsEnabled = true,
@@ -209,6 +216,7 @@ class AppSettings {
     TtsVoiceGender? ttsVoiceGender,
     CEFRLevel? startingLevel,
     bool? heartsEnabled,
+    bool? notesOnPaper,
     String? learnerName,
     bool? soundEffectsEnabled,
     bool? hapticsEnabled,
@@ -228,6 +236,7 @@ class AppSettings {
       ttsVoiceGender: ttsVoiceGender ?? this.ttsVoiceGender,
       startingLevel: startingLevel ?? this.startingLevel,
       heartsEnabled: heartsEnabled ?? this.heartsEnabled,
+      notesOnPaper: notesOnPaper ?? this.notesOnPaper,
       learnerName: learnerName ?? this.learnerName,
       soundEffectsEnabled: soundEffectsEnabled ?? this.soundEffectsEnabled,
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
@@ -254,6 +263,7 @@ class SettingsNotifier extends Notifier<AppSettings> {
   static const _kOnboardingDone = 'settings_onboarding_done';
   static const _kStartingLevel = 'settings_starting_level';
   static const _kHeartsEnabled = 'settings_hearts_enabled';
+  static const _kNotesOnPaper = 'settings_notes_on_paper';
   static const _kLearnerName = 'settings_learner_name';
   static const _kSoundEffects = 'settings_sound_effects_enabled';
   static const _kHaptics = 'settings_haptics_enabled';
@@ -338,6 +348,7 @@ class SettingsNotifier extends Notifier<AppSettings> {
       startingLevel:
           CEFRLevel.values[levelIdx.clamp(0, CEFRLevel.values.length - 1)],
       heartsEnabled: prefs.getBool(_kHeartsEnabled) ?? true,
+      notesOnPaper: prefs.getBool(_kNotesOnPaper) ?? true,
       learnerName: prefs.getString(_kLearnerName) ?? '',
       soundEffectsEnabled: prefs.getBool(_kSoundEffects) ?? true,
       hapticsEnabled: prefs.getBool(_kHaptics) ?? true,
@@ -410,6 +421,13 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(heartsEnabled: enabled);
     final prefs = await _prefs();
     await prefs.setBool(_kHeartsEnabled, enabled);
+  }
+
+  /// Notebook steps on paper (true) or typed in the app (false).
+  Future<void> setNotesOnPaper(bool onPaper) async {
+    state = state.copyWith(notesOnPaper: onPaper);
+    final prefs = await _prefs();
+    await prefs.setBool(_kNotesOnPaper, onPaper);
   }
 
   /// Set the theme mode.

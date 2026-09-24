@@ -183,6 +183,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     final body = data['body'] as String?;
     final intro = (data['intro'] as String?)?.trim();
     final items = _items;
+    if (data['style'] == 'lecture') return _buildLecture(context);
     final style = _styleFor(items);
     if (style == 'image_cards' && items.isNotEmpty) {
       return _buildImageTeachingSequence(context, items);
@@ -280,6 +281,174 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
           KeyCta(
             label: l10n.lessonGotItStartPractising,
             // A teaching card is never graded — advance straight to practice.
+            onPressed: () => widget.onAnswered(const ExerciseResult.skipped()),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// One lecture step (plan v1.2, §3.2): what it means, a small table of the
+  /// forms in scope, examples to hear and the mistake learners make most.
+  /// A check question follows it in the lesson, so it ends on "check me"
+  /// rather than "start practising".
+  ///
+  /// The step's text is generated from the grammar rule's `lecture` entry
+  /// (`tool/sync_lecture_cards.py`), so the lesson and the Grammar reference
+  /// never teach two versions of it. The card also carries plain `items`, which
+  /// is what an app that predates this layout shows instead.
+  Widget _buildLecture(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final data = widget.exercise.data;
+    final heading = data['heading'] as String? ?? widget.exercise.prompt;
+    final say = (data['say'] as String?) ?? (data['body'] as String?);
+    final intro = (data['intro'] as String?)?.trim();
+    final step = (data['step'] as num?)?.toInt();
+    final steps = (data['steps'] as num?)?.toInt();
+    final table = [
+      for (final row in (data['table'] as List? ?? const []))
+        if (row is List && row.length >= 2) ('${row[0]}', '${row[1]}'),
+    ];
+    final examples = [
+      for (final example in (data['examples'] as List? ?? const []))
+        if (example is Map)
+          _TeachingItem.fromJson(Map<String, dynamic>.from(example)),
+    ];
+    final mistake = data['common_mistake'];
+    final wrong = mistake is Map ? '${mistake['wrong'] ?? ''}'.trim() : '';
+    final right = mistake is Map ? '${mistake['right'] ?? ''}'.trim() : '';
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (intro != null && intro.isNotEmpty) ...[
+            _IntroBlock(
+              text: intro,
+              english: _english,
+              onToggle: () => _toggleIntro(intro),
+            ),
+            const SizedBox(height: 16),
+          ],
+          TeachingHeroCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LessonKicker(
+                  step != null && steps != null
+                      ? l10n.lectureKicker(step, steps)
+                      : l10n.teachingKicker,
+                  color: t.pri,
+                ),
+                const SizedBox(height: 12),
+                DisplayText(
+                  heading,
+                  size: 26,
+                  weight: FontWeight.w800,
+                  height: 1.1,
+                ),
+                if (say != null && say.trim().isNotEmpty) ...[
+                  const SizedBox(height: 10),
+                  Text(
+                    say,
+                    style: TextStyle(fontSize: 17, height: 1.5, color: t.ink),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          if (table.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            SoftCard(
+              shadow: false,
+              border: Border.all(color: t.line),
+              child: Column(
+                children: [
+                  for (final (from, to) in table)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              from,
+                              style: TextStyle(fontSize: 17, color: t.muted),
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward, size: 16, color: t.faint),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              to,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w800,
+                                color: t.ink,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () => _say(to),
+                            tooltip: l10n.listen,
+                            icon: Icon(
+                              Icons.volume_up_outlined,
+                              size: 20,
+                              color: t.pri,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+          if (examples.isNotEmpty) ...[
+            const SizedBox(height: 18),
+            LessonKicker(l10n.lectureExamples),
+            const SizedBox(height: 8),
+            for (final example in examples)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: _PhraseRow(
+                  item: example,
+                  active: false,
+                  onTap: () => _say(example.playText),
+                ),
+              ),
+          ],
+          if (wrong.isNotEmpty && right.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            LessonKicker(l10n.lectureCommonMistake),
+            const SizedBox(height: 8),
+            SoftCard(
+              shadow: false,
+              color: t.elev,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _MistakeLine(
+                    label: l10n.lectureWrongLabel,
+                    text: wrong,
+                    color: t.redInk,
+                    struck: true,
+                  ),
+                  const SizedBox(height: 6),
+                  _MistakeLine(
+                    label: l10n.lectureRightLabel,
+                    text: right,
+                    color: t.greenInk,
+                  ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: 22),
+          KeyCta(
+            label: l10n.lectureContinue,
             onPressed: () => widget.onAnswered(const ExerciseResult.skipped()),
           ),
         ],
@@ -785,6 +954,49 @@ class _TeacherCharacterState extends State<_TeacherCharacter>
 
 /// One phrase/grammar row: a Czech form + its English meaning, tap anywhere to
 /// hear the Czech. Used by the grammar-table and vocabulary teaching cards.
+/// "Not: Dám si káva." / "But: Dám si kávu." — the wrong form is struck
+/// through so a glance can't mistake it for the one to learn.
+class _MistakeLine extends StatelessWidget {
+  final String label;
+  final String text;
+  final Color color;
+  final bool struck;
+
+  const _MistakeLine({
+    required this.label,
+    required this.text,
+    required this.color,
+    this.struck = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(
+            text: '$label: ',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
+          ),
+          TextSpan(
+            text: text,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: color,
+              decoration: struck ? TextDecoration.lineThrough : null,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _PhraseRow extends StatelessWidget {
   final _TeachingItem item;
   final bool active;
