@@ -2384,13 +2384,66 @@
           "en": "We're talking about the weather."
         }
       ],
-      "unit_id": 18
+      "unit_id": 18,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "Where: v Praze, na poště",
+          "say": "After v (in) and na (on, at) for a place, the word changes: -a becomes -e, masculine words take -u or -ě, and words in -e take -i.",
+          "table": [
+            [
+              "Praha",
+              "v Praze"
+            ],
+            [
+              "škola",
+              "ve škole"
+            ],
+            [
+              "pošta",
+              "na poště"
+            ],
+            [
+              "restaurace",
+              "v restauraci"
+            ],
+            [
+              "hotel",
+              "v hotelu"
+            ],
+            [
+              "hrad",
+              "na hradě"
+            ],
+            [
+              "náměstí",
+              "na náměstí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Bydlím v Praze.",
+              "en": "I live in Prague."
+            },
+            {
+              "cz": "Pracuju na poště.",
+              "en": "I work at the post office."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Bydlím v Praha.",
+            "right": "Bydlím v Praze."
+          }
+        }
+      ]
     },
     {
       "id": "GR-171",
       "rule_name": "Instrumental case — means and accompaniment",
-      "pattern": "s kým/čím? (with whom/what?). Means: autem, vlakem, metrem. Professions: pracovat jako... (+ nom or instr). Time: na jaře → na jaře, ale v zimě → zimou.",
-      "explanation": "Instrumental expresses the means or instrument: jedu autem (I go by car), píšu perem (I write with a pen). Accompaniment: s + instrumental: Jdu s kamarádem (I go with a friend). Masculine ending: -em (bratr→bratrem, stroj→strojem). Feminine: -ou (žena→ženou, ulice→ulicí). Neuter: -em (město→městem, moře→mořem). The instrumental is also used with být for temporary states: Byl jsem učitelem (I was a teacher). With zájem o: Mám zájem o studium.",
+      "pattern": "s + instrumental (with): s kamarádem, s kamarádkou. Travel: autem, vlakem, tramvají. Masculine and neuter -em, feminine -ou, words in -e or a soft consonant -í.",
+      "explanation": "The instrumental answers s kým? s čím? (with whom? with what?) and how you travel: Jdu s kamarádem. Jedu autem. Masculine and neuter nouns add -em (bratr → bratrem, auto → autem), feminine -a becomes -ou (kamarádka → kamarádkou), and words like tramvaj or kolegyně take -í (tramvají, kolegyní). For a job, say Pracuju jako učitel; Jsem učitelem is also correct and comes back in Unit 25.",
       "case_affected": "instrumental",
       "examples": [
         {
@@ -2406,7 +2459,60 @@
           "en": "I work as a teacher."
         }
       ],
-      "unit_id": 18
+      "unit_id": 18,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "With whom, by what: s kamarádem, autem",
+          "say": "After s (with), and for how you travel, use the instrumental. Masculine and neuter take -em, feminine -a becomes -ou, and soft words take -í.",
+          "table": [
+            [
+              "kamarád",
+              "s kamarádem"
+            ],
+            [
+              "bratr",
+              "s bratrem"
+            ],
+            [
+              "kamarádka",
+              "s kamarádkou"
+            ],
+            [
+              "máma",
+              "s mámou"
+            ],
+            [
+              "auto",
+              "autem"
+            ],
+            [
+              "vlak",
+              "vlakem"
+            ],
+            [
+              "tramvaj",
+              "tramvají"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jedu do práce autem.",
+              "en": "I go to work by car."
+            },
+            {
+              "cz": "Jdu s kamarádkou do kina.",
+              "en": "I am going to the cinema with a friend."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jdu s kamarád.",
+            "right": "Jdu s kamarádem."
+          }
+        }
+      ]
     },
     {
       "id": "GR-172",
@@ -2428,29 +2534,187 @@
           "en": "I read a book about the history of Prague."
         }
       ],
-      "unit_id": 18
+      "unit_id": 18,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "About: o práci, o Praze",
+          "say": "o (about) takes the same forms as v and na: mluvit o práci, kniha o Praze. Ask O čem? (about what) or O kom? (about whom).",
+          "table": [
+            [
+              "práce",
+              "o práci"
+            ],
+            [
+              "dovolená",
+              "o dovolené"
+            ],
+            [
+              "Praha",
+              "o Praze"
+            ],
+            [
+              "film",
+              "o filmu"
+            ],
+            [
+              "výlet",
+              "o výletu"
+            ],
+            [
+              "počasí",
+              "o počasí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mluvíme o počasí.",
+              "en": "We are talking about the weather."
+            },
+            {
+              "cz": "O čem je ta kniha?",
+              "en": "What is that book about?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mluvíme o práce.",
+            "right": "Mluvíme o práci."
+          }
+        }
+      ]
     },
     {
       "id": "GR-173",
-      "rule_name": "Instrumental plural and time expressions",
-      "pattern": "Plural instrumental: -y/-i/-ami (muži, ženami, městy). Time: na jaře, v létě, na podzim, v zimě (loc). But: před rokem (instr).",
-      "explanation": "Instrumental plural: masculine -y/-i (muži, studenty, hrady, stroji), feminine -ami (ženami, školami, ulicemi), neuter -y/-i (městy, auty, moři). This is particularly important for accompaniment: Jdu s přáteli do kina (I go with friends to the cinema). Time expressions: před + instrumental = ago (před rokem = a year ago, před týdnem = a week ago). Mezi + instrumental = between (mezi domy = between houses). Nad + instrumental = above, Pod + instrumental = under.",
+      "rule_name": "Time ago — před rokem",
+      "pattern": "před + instrumental = ago: před rokem, před týdnem, před měsícem, před hodinou, před chvílí.",
+      "explanation": "To say how long ago something happened, use před with the instrumental and the past tense: Před rokem jsem byl v Praze. You will also hear plural forms after s, such as s rodiči and s kamarády; recognise them as set phrases. Building the instrumental plural is beyond A2.",
       "case_affected": "instrumental",
       "examples": [
-        {
-          "cz": "Bydlím s rodiči.",
-          "en": "I live with my parents."
-        },
         {
           "cz": "Před rokem jsem byl v Praze.",
           "en": "A year ago I was in Prague."
         },
         {
-          "cz": "Sedím mezi dvěma kamarádkami.",
-          "en": "I'm sitting between two friends."
+          "cz": "Bydlím s rodiči.",
+          "en": "I live with my parents. (set phrase)"
         }
       ],
-      "unit_id": 18
+      "unit_id": 18,
+      "lecture": [
+        {
+          "heading": "How long ago: před rokem",
+          "say": "To say how long ago, use před with the instrumental: před rokem, před týdnem, před hodinou. Use it with the past tense.",
+          "table": [
+            [
+              "rok",
+              "před rokem"
+            ],
+            [
+              "týden",
+              "před týdnem"
+            ],
+            [
+              "měsíc",
+              "před měsícem"
+            ],
+            [
+              "hodina",
+              "před hodinou"
+            ],
+            [
+              "chvíle",
+              "před chvílí"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Před rokem jsem byl v Praze.",
+              "en": "A year ago I was in Prague."
+            },
+            {
+              "cz": "Přišla před hodinou.",
+              "en": "She came an hour ago."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Před rok jsem byl v Praze.",
+            "right": "Před rokem jsem byl v Praze."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-174",
+      "rule_name": "Pronouns after o and s — o něm, se mnou",
+      "pattern": "After o (locative): o mně, o tobě, o něm, o ní, o nás, o vás, o nich. After s (instrumental): se mnou, s tebou, s ním, s ní, s námi, s vámi, s nimi.",
+      "explanation": "After a preposition, on, ona and oni start with n-: o něm, s ní, s nimi. Before mnou, s becomes se: se mnou. These forms are frequent in invitations and plans: Půjdeš se mnou? Mluvili jsme o tobě.",
+      "case_affected": "locative, instrumental",
+      "examples": [
+        {
+          "cz": "Půjdeš se mnou do kina?",
+          "en": "Will you come to the cinema with me?"
+        },
+        {
+          "cz": "Mluvíme o něm.",
+          "en": "We are talking about him."
+        }
+      ],
+      "unit_id": 18,
+      "concept_keys": [
+        "pron_personal_all_cases"
+      ],
+      "lecture": [
+        {
+          "heading": "With me, about him: se mnou, o něm",
+          "say": "After o use o mně, o tobě, o něm, o ní. After s use se mnou, s tebou, s ním, s ní. On, ona and oni start with n- after a preposition.",
+          "table": [
+            [
+              "já",
+              "o mně · se mnou"
+            ],
+            [
+              "ty",
+              "o tobě · s tebou"
+            ],
+            [
+              "on",
+              "o něm · s ním"
+            ],
+            [
+              "ona",
+              "o ní · s ní"
+            ],
+            [
+              "my",
+              "o nás · s námi"
+            ],
+            [
+              "vy",
+              "o vás · s vámi"
+            ],
+            [
+              "oni",
+              "o nich · s nimi"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Půjdeš se mnou do kina?",
+              "en": "Will you come to the cinema with me?"
+            },
+            {
+              "cz": "Mluvíme o něm.",
+              "en": "We are talking about him."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Půjdeš s mnou?",
+            "right": "Půjdeš se mnou?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-180",

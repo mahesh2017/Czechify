@@ -2,31 +2,538 @@
   "id": 1802,
   "unit_id": 18,
   "order_in_unit": 1,
-  "title": "Instrumental — Means & Accompaniment",
-  "description": "Master the instrumental case (7th case): s kým/čím? for accompaniment, instrumental endings across genders, transport expressions (autem, vlakem, pěšky), professions with pracovat jako, and instrumental time expressions.",
+  "title": "Why v Praze, s kamarádem?",
+  "description": "Learn the forms after v/na and s, and the pronouns se mnou, s ním.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "say where something is, who you go with and how.",
+  "new_language": [
+    "v Praze, na poště",
+    "s kamarádem, s kamarádkou, autem",
+    "se mnou, s tebou, s ním, s ní"
+  ],
+  "recycles": [
+    "v, na (A1)",
+    "jet tramvají"
+  ],
+  "exit_task": "invite a friend to come with you.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 18013,
+      "id": 18200,
       "lesson_id": 1802,
-      "type": "multiple_choice",
-      "prompt": "What does 's kým?' mean?",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "s kým?",
-        "question_en": "What does 's kým?' mean?",
-        "options": ["with whom?", "about what?", "where?", "how?"],
-        "correct_index": 0,
-        "explanation": "'s kým?' = with whom? It's the instrumental case question for people. 's čím?' = with what? (for things). Both use 's' (or 'se') + instrumental case."
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write a place, a person you go with, a way to travel and a topic. Then check.",
+        "items": [
+          {
+            "cz": "v Praze",
+            "en": "in Prague"
+          },
+          {
+            "cz": "na náměstí",
+            "en": "at the square"
+          },
+          {
+            "cz": "o filmu",
+            "en": "about a film"
+          },
+          {
+            "cz": "s kamarádem",
+            "en": "with a friend"
+          },
+          {
+            "cz": "tramvají",
+            "en": "by tram"
+          }
+        ]
       },
-      "answer_key": "with whom?",
-      "grammar_rule_id": "GR-171",
-      "xp_reward": 10
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 18014,
+      "id": 18201,
+      "lesson_id": 1802,
+      "type": "teaching",
+      "prompt": "Where: v Praze, na poště",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-170",
+        "rule_step": 1,
+        "heading": "Where: v Praze, na poště",
+        "items": [
+          {
+            "cz": "Bydlím v Praze.",
+            "en": "I live in Prague."
+          },
+          {
+            "cz": "Pracuju na poště.",
+            "en": "I work at the post office."
+          }
+        ],
+        "say": "After v (in) and na (on, at) for a place, the word changes: -a becomes -e, masculine words take -u or -ě, and words in -e take -i.",
+        "table": [
+          [
+            "Praha",
+            "v Praze"
+          ],
+          [
+            "škola",
+            "ve škole"
+          ],
+          [
+            "pošta",
+            "na poště"
+          ],
+          [
+            "restaurace",
+            "v restauraci"
+          ],
+          [
+            "hotel",
+            "v hotelu"
+          ],
+          [
+            "hrad",
+            "na hradě"
+          ],
+          [
+            "náměstí",
+            "na náměstí"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Bydlím v Praze.",
+            "en": "I live in Prague."
+          },
+          {
+            "cz": "Pracuju na poště.",
+            "en": "I work at the post office."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Bydlím v Praha.",
+          "right": "Bydlím v Praze."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18202,
+      "lesson_id": 1802,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Bydlím v ___. (Praha)",
+        "question_en": "I live in Prague.",
+        "options": [
+          "Praze",
+          "Praha",
+          "Prahu"
+        ],
+        "correct_index": 0,
+        "explanation": "v + a place: Praha → v Praze."
+      },
+      "answer_key": "Praze",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-170"
+    },
+    {
+      "id": 18203,
+      "lesson_id": 1802,
+      "type": "teaching",
+      "prompt": "With whom, by what: s kamarádem, autem",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-171",
+        "rule_step": 1,
+        "heading": "With whom, by what: s kamarádem, autem",
+        "items": [
+          {
+            "cz": "Jedu do práce autem.",
+            "en": "I go to work by car."
+          },
+          {
+            "cz": "Jdu s kamarádkou do kina.",
+            "en": "I am going to the cinema with a friend."
+          }
+        ],
+        "say": "After s (with), and for how you travel, use the instrumental. Masculine and neuter take -em, feminine -a becomes -ou, and soft words take -í.",
+        "table": [
+          [
+            "kamarád",
+            "s kamarádem"
+          ],
+          [
+            "bratr",
+            "s bratrem"
+          ],
+          [
+            "kamarádka",
+            "s kamarádkou"
+          ],
+          [
+            "máma",
+            "s mámou"
+          ],
+          [
+            "auto",
+            "autem"
+          ],
+          [
+            "vlak",
+            "vlakem"
+          ],
+          [
+            "tramvaj",
+            "tramvají"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Jedu do práce autem.",
+            "en": "I go to work by car."
+          },
+          {
+            "cz": "Jdu s kamarádkou do kina.",
+            "en": "I am going to the cinema with a friend."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Jdu s kamarád.",
+          "right": "Jdu s kamarádem."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18204,
+      "lesson_id": 1802,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jdu do kina s ___. (kamarád)",
+        "question_en": "I am going to the cinema with a friend.",
+        "options": [
+          "kamarádem",
+          "kamarád",
+          "kamarádovi"
+        ],
+        "correct_index": 0,
+        "explanation": "s + instrumental: kamarád → s kamarádem."
+      },
+      "answer_key": "kamarádem",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-171"
+    },
+    {
+      "id": 18205,
+      "lesson_id": 1802,
+      "type": "teaching",
+      "prompt": "With me, about him: se mnou, o něm",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-174",
+        "rule_step": 1,
+        "heading": "With me, about him: se mnou, o něm",
+        "items": [
+          {
+            "cz": "Půjdeš se mnou do kina?",
+            "en": "Will you come to the cinema with me?"
+          },
+          {
+            "cz": "Mluvíme o něm.",
+            "en": "We are talking about him."
+          }
+        ],
+        "say": "After o use o mně, o tobě, o něm, o ní. After s use se mnou, s tebou, s ním, s ní. On, ona and oni start with n- after a preposition.",
+        "table": [
+          [
+            "já",
+            "o mně · se mnou"
+          ],
+          [
+            "ty",
+            "o tobě · s tebou"
+          ],
+          [
+            "on",
+            "o něm · s ním"
+          ],
+          [
+            "ona",
+            "o ní · s ní"
+          ],
+          [
+            "my",
+            "o nás · s námi"
+          ],
+          [
+            "vy",
+            "o vás · s vámi"
+          ],
+          [
+            "oni",
+            "o nich · s nimi"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Půjdeš se mnou do kina?",
+            "en": "Will you come to the cinema with me?"
+          },
+          {
+            "cz": "Mluvíme o něm.",
+            "en": "We are talking about him."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Půjdeš s mnou?",
+          "right": "Půjdeš se mnou?"
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18206,
+      "lesson_id": 1802,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Půjdeš ___ do kina? (já)",
+        "question_en": "Will you come to the cinema with me?",
+        "options": [
+          "se mnou",
+          "s mě",
+          "s já"
+        ],
+        "correct_index": 0,
+        "explanation": "s + já → se mnou."
+      },
+      "answer_key": "se mnou",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-174"
+    },
+    {
+      "id": 18207,
+      "lesson_id": 1802,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write three places with v or na, three people or vehicles with s or on their own, and the pronouns se mnou, s tebou, s ním, s ní.",
+        "items": [
+          {
+            "cz": "v Praze, ve škole, na poště",
+            "en": "where (locative)"
+          },
+          {
+            "cz": "s kamarádem, s kamarádkou, autem",
+            "en": "with whom, how (instrumental)"
+          },
+          {
+            "cz": "se mnou, s tebou, s ním, s ní",
+            "en": "with me, you, him, her"
+          },
+          {
+            "cz": "o mně, o něm, o ní",
+            "en": "about me, him, her"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18208,
+      "lesson_id": 1802,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "-ta becomes -tě after na.",
+        "sentence": "Pracuju na ___. (pošta)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "poště"
+          ]
+        ],
+        "explanation": "na poště"
+      },
+      "answer_key": "poště",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-170"
+    },
+    {
+      "id": 18209,
+      "lesson_id": 1802,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "tramvaj is a soft feminine word: -í.",
+        "sentence": "Jedu do centra ___. (tramvaj)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "tramvají"
+          ]
+        ],
+        "explanation": "tramvají"
+      },
+      "answer_key": "tramvají",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-171"
+    },
+    {
+      "id": 18210,
+      "lesson_id": 1802,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "After s, ona becomes ní.",
+        "sentence": "Mluvím s ___ každý den. (ona)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ní"
+          ]
+        ],
+        "explanation": "s ní"
+      },
+      "answer_key": "ní",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-174"
+    },
+    {
+      "id": 18211,
+      "lesson_id": 1802,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "my → s námi.",
+        "sentence": "Půjdeš s ___ na výlet? (my)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "námi"
+          ]
+        ],
+        "explanation": "s námi"
+      },
+      "answer_key": "námi",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-174"
+    },
+    {
+      "id": 18212,
+      "lesson_id": 1802,
+      "type": "fill_blank",
+      "prompt": "Complete with the correct preposition: v or na.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Bydlím ___ Praze a pracuji ___ univerzitě.",
+        "blank_count": 2,
+        "explanation": "'v Praze' = in Prague (cities use 'v' + locative). 'na univerzitě' = at the university ('univerzita' uses 'na' + locative, like many institutions).",
+        "blank_answers": [
+          [
+            "v"
+          ],
+          [
+            "na"
+          ]
+        ]
+      },
+      "answer_key": "v, na",
+      "grammar_rule_id": "GR-170",
+      "xp_reward": 15
+    },
+    {
+      "id": 18213,
+      "lesson_id": 1802,
+      "type": "fill_blank",
+      "prompt": "Complete the locative form of these masculine nouns.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "v ___ (hotel) → v hotelu. na ___ (hrad) → na hradě.",
+        "blank_count": 2,
+        "explanation": "Masculine inanimate locative endings: most end in -u (v hotelu, v obchodě) or -e/-ě (na hradě). The -u ending is common for hard-stem masculine nouns. Some soft-stem nouns take -i.",
+        "blank_answers": [
+          [
+            "hotelu"
+          ],
+          [
+            "hradě"
+          ]
+        ]
+      },
+      "answer_key": "hotelu, hradě",
+      "grammar_rule_id": "GR-170",
+      "xp_reward": 15
+    },
+    {
+      "id": 18214,
+      "lesson_id": 1802,
+      "type": "fill_blank",
+      "prompt": "Complete the locative form of these feminine nouns.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "v ___ (škola) → ve škole. na ___ (ulice) → na ulici. o ___ (práce) → o práci.",
+        "blank_count": 3,
+        "explanation": "Feminine locative endings: -a stems → -e (škola → ve škole), -e stems → -i (ulice → na ulici). The 've' form is used before certain consonant clusters for easier pronunciation.",
+        "blank_answers": [
+          [
+            "škole"
+          ],
+          [
+            "ulici"
+          ],
+          [
+            "práci"
+          ]
+        ]
+      },
+      "answer_key": "škole, ulici, práci",
+      "grammar_rule_id": "GR-170",
+      "xp_reward": 15
+    },
+    {
+      "id": 18215,
       "lesson_id": 1802,
       "type": "multiple_choice",
       "prompt": "Which is the correct instrumental form of 'auto' (car)?",
@@ -34,7 +541,12 @@
         "type": "multiple_choice",
         "question_cz": "Instrumentál slova 'auto'",
         "question_en": "Instrumental of 'auto'",
-        "options": ["autem", "auta", "autu", "auto"],
+        "options": [
+          "autem",
+          "auta",
+          "autu",
+          "auto"
+        ],
         "correct_index": 0,
         "explanation": "'Autem' = by car (instrumental of 'auto'). Neuter nouns ending in -o take -em in instrumental: auto → autem, město → městem. This is how you express means of transport in Czech."
       },
@@ -43,65 +555,7 @@
       "xp_reward": 10
     },
     {
-      "id": 18015,
-      "lesson_id": 1802,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct means of transport in instrumental.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Jedu do práce ___ (autem). Bratr jezdí ___ (vlakem). Sestra chodí ___ (pěšky).",
-        "blank_count": 3,
-        "explanation": "'Autem' = by car, 'vlakem' = by train (both instrumental). 'Pěšky' = on foot (adverb, not instrumental — an exception!). Transport expressions use instrumental for vehicles: letadlem (by plane), metrem (by metro), autobusem (by bus).",
-        "blank_answers": [
-          ["autem"],
-          ["vlakem"],
-          ["pěšky"]
-        ]
-      },
-      "answer_key": "autem, vlakem, pěšky",
-      "grammar_rule_id": "GR-171",
-      "xp_reward": 15
-    },
-    {
-      "id": 18016,
-      "lesson_id": 1802,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I go to work by car.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I go to work by car.",
-        "accepted_answers": ["Jedu do práce autem.", "Jezdím do práce autem.", "Jedu do práce autem"],
-        "grammar_note": "'Jedu' = I go (by vehicle). 'do práce' = to work. 'autem' = by car (instrumental of 'auto'). The verb 'jet' (to go by vehicle) pairs with instrumental means of transport."
-      },
-      "answer_key": "Jedu do práce autem.",
-      "grammar_rule_id": "GR-171",
-      "xp_reward": 10
-    },
-    {
-      "id": 18017,
-      "lesson_id": 1802,
-      "type": "multiple_choice",
-      "prompt": "Which phrase means 'I work as a teacher' in Czech?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řeknete 'I work as a teacher'?",
-        "question_en": "How do you say 'I work as a teacher'?",
-        "options": [
-          "Pracuju jako učitel.",
-          "Pracuju učitelem.",
-          "Pracuju s učitelem.",
-          "Pracuju o učiteli."
-        ],
-        "correct_index": 0,
-        "explanation": "'Pracuju jako učitel.' = I work as a teacher. 'Jako' + nominative (not instrumental!) is used for professions with 'pracovat'. The instrumental alone can also express this in more formal Czech: 'Pracuju učitelem.' Both are correct."
-      },
-      "answer_key": "Pracuju jako učitel.",
-      "grammar_rule_id": "GR-171",
-      "xp_reward": 10
-    },
-    {
-      "id": 18018,
+      "id": 18216,
       "lesson_id": 1802,
       "type": "fill_blank",
       "prompt": "Complete with the instrumental form of these masculine nouns.",
@@ -111,9 +565,15 @@
         "blank_count": 3,
         "explanation": "Masculine instrumental ending: -em. 'Kamarád → kamarádem', 'bratr → bratrem' (note the fleeting -e-), 'učitel → učitelem'. Soft-stem masculine nouns take -em as well: 'muž → mužem', 'stroj → strojem'.",
         "blank_answers": [
-          ["kamarádem"],
-          ["bratrem"],
-          ["učitelem"]
+          [
+            "kamarádem"
+          ],
+          [
+            "bratrem"
+          ],
+          [
+            "učitelem"
+          ]
         ]
       },
       "answer_key": "kamarádem, bratrem, učitelem",
@@ -121,7 +581,7 @@
       "xp_reward": 15
     },
     {
-      "id": 18019,
+      "id": 18217,
       "lesson_id": 1802,
       "type": "fill_blank",
       "prompt": "Complete with the instrumental form of these feminine nouns.",
@@ -131,9 +591,15 @@
         "blank_count": 3,
         "explanation": "Feminine instrumental ending: -ou. 'Kamarádka → kamarádkou', 'učitelka → učitelkou', 'máma → mámou'. Soft-stem feminine nouns take -í: 'ulice → ulicí'. This is one of the most distinctive Czech case endings.",
         "blank_answers": [
-          ["kamarádkou"],
-          ["učitelkou"],
-          ["mámou"]
+          [
+            "kamarádkou"
+          ],
+          [
+            "učitelkou"
+          ],
+          [
+            "mámou"
+          ]
         ]
       },
       "answer_key": "kamarádkou, učitelkou, mámou",
@@ -141,88 +607,25 @@
       "xp_reward": 15
     },
     {
-      "id": 18020,
-      "lesson_id": 1802,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I'm going to the cinema with a friend (female).'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I'm going to the cinema with a friend (female).",
-        "accepted_answers": ["Jdu s kamarádkou do kina.", "Jdu do kina s kamarádkou.", "Jdu s kamarádkou do kina"],
-        "grammar_note": "'Jdu' = I go (on foot). 's kamarádkou' = with a friend (female) — instrumental of 'kamarádka'. 'do kina' = to the cinema. 'S' + instrumental is the standard accompaniment pattern."
-      },
-      "answer_key": "Jdu s kamarádkou do kina.",
-      "grammar_rule_id": "GR-171",
-      "xp_reward": 15
-    },
-    {
-      "id": 18021,
+      "id": 18218,
       "lesson_id": 1802,
       "type": "multiple_choice",
-      "prompt": "How do you say 'a year ago' in Czech?",
+      "prompt": "Choose the answer",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Jak řeknete 'a year ago' česky?",
-        "question_en": "How do you say 'a year ago' in Czech?",
-        "options": ["před rokem", "v roce", "za rok", "o rok"],
+        "question_cz": "Která věta je správně?",
+        "question_en": "Which sentence is correct?",
+        "options": [
+          "Půjdeš se mnou do kina?",
+          "Půjdeš s já do kina?",
+          "Půjdeš s mě do kina?"
+        ],
         "correct_index": 0,
-        "explanation": "'Před rokem' = a year ago. 'Před' + instrumental expresses 'ago' or 'before' in time expressions: před týdnem (a week ago), před měsícem (a month ago), před hodinou (an hour ago)."
+        "explanation": "After s: já → se mnou."
       },
-      "answer_key": "před rokem",
-      "grammar_rule_id": "GR-173",
-      "xp_reward": 10
-    },
-    {
-      "id": 18022,
-      "lesson_id": 1802,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct instrumental time expression.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Před ___ (rok) jsem byl v Praze. Před ___ (týden) jsem mluvil s Janou. Před ___ (měsíc) jsem začal novou práci.",
-        "blank_count": 3,
-        "explanation": "'Před' + instrumental for time expressions: 'před rokem' (a year ago), 'před týdnem' (a week ago), 'před měsícem' (a month ago). All use the instrumental ending -em for masculine nouns.",
-        "blank_answers": [
-          ["rokem"],
-          ["týdnem"],
-          ["měsícem"]
-        ]
-      },
-      "answer_key": "rokem, týdnem, měsícem",
-      "grammar_rule_id": "GR-173",
-      "xp_reward": 15
-    },
-    {
-      "id": 18023,
-      "lesson_id": 1802,
-      "type": "word_order",
-      "prompt": "Arrange the words to form: 'I go to work by car.'",
-      "data": {
-        "type": "word_order",
-        "words": ["Jedu", "do", "práce", "autem"],
-        "correct_order": [0, 1, 2, 3],
-        "explanation": "'Jedu do práce autem.' = I go to work by car. Word order: verb (jedu) + destination (do práce) + means (autem). 'Autem' is instrumental of 'auto'."
-      },
-      "answer_key": "Jedu do práce autem.",
-      "grammar_rule_id": "GR-171",
-      "xp_reward": 15
-    },
-    {
-      "id": 18024,
-      "lesson_id": 1802,
-      "type": "dictation",
-      "prompt": "Listen and write what you hear (instrumental accompaniment).",
-      "data": {
-        "type": "dictation",
-        "audio_hash": "placeholder_18024",
-        "expected_text": "Jdu s kamarádem do kina.",
-        "language": "cs-CZ",
-        "note": "'Jdu s kamarádem do kina.' = I'm going to the cinema with a friend (male). 's kamarádem' = with a friend (instrumental of 'kamarád'). 'do kina' = to the cinema."
-      },
-      "answer_key": "Jdu s kamarádem do kina.",
-      "grammar_rule_id": "GR-171",
-      "xp_reward": 20
+      "answer_key": "Půjdeš se mnou do kina?",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-174"
     }
   ]
 }

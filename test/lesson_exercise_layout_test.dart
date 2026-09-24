@@ -45,7 +45,7 @@ void main() {
           loadShippedExercises()
               .where((e) => LessonExerciseViewport.usesBoundedHeight(e.type))
               .toList();
-      expect(exercises, hasLength(461));
+      expect(exercises, hasLength(460));
 
       final overflowing = <ExerciseType>{};
       final examples = <String>[];

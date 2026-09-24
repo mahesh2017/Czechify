@@ -393,18 +393,7 @@
     "unit_id": 18,
     "example_cz": "Mluvíme o počasí.",
     "example_en": "We're talking about the weather.",
-    "lesson_id": 1801
-  },
-  {
-    "id": 1041,
-    "word_cz": "přemýšlet",
-    "word_en": "to think about",
-    "ipa": "ˈpr̝̊ɛmiːʃlɛt",
-    "gender": null,
-    "unit_id": 18,
-    "example_cz": "Přemýšlím o práci.",
-    "example_en": "I'm thinking about work.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1042,
@@ -415,7 +404,7 @@
     "unit_id": 18,
     "example_cz": "Bydlím v Brně.",
     "example_en": "I live in Brno.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1043,
@@ -426,7 +415,7 @@
     "unit_id": 18,
     "example_cz": "Sedím na židli.",
     "example_en": "I'm sitting on a chair.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1044,
@@ -437,7 +426,7 @@
     "unit_id": 18,
     "example_cz": "Kniha leží na stole.",
     "example_en": "The book lies on the table.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1045,
@@ -470,7 +459,7 @@
     "unit_id": 18,
     "example_cz": "Píšu perem.",
     "example_en": "I write with a pen.",
-    "lesson_id": 1802
+    "lesson_id": 1803
   },
   {
     "id": 1048,
@@ -481,7 +470,7 @@
     "unit_id": 18,
     "example_cz": "Platím kartou.",
     "example_en": "I pay by card.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1049,
@@ -514,7 +503,7 @@
     "unit_id": 18,
     "example_cz": "Před domem.",
     "example_en": "In front of the house.",
-    "lesson_id": 1802
+    "lesson_id": 1804
   },
   {
     "id": 1052,
@@ -525,7 +514,7 @@
     "unit_id": 18,
     "example_cz": "Za rohem.",
     "example_en": "Around the corner.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1053,
@@ -536,7 +525,7 @@
     "unit_id": 18,
     "example_cz": "Mezi domy.",
     "example_en": "Between the houses.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1054,
@@ -547,7 +536,7 @@
     "unit_id": 18,
     "example_cz": "Nad stolem.",
     "example_en": "Above the table.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1055,
@@ -558,7 +547,7 @@
     "unit_id": 18,
     "example_cz": "Pod stolem.",
     "example_en": "Under the table.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1056,
@@ -569,7 +558,7 @@
     "unit_id": 18,
     "example_cz": "Krájím nožem.",
     "example_en": "I cut with a knife.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1057,
@@ -580,7 +569,7 @@
     "unit_id": 18,
     "example_cz": "Jím lžící.",
     "example_en": "I eat with a spoon.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1058,
@@ -1790,7 +1779,7 @@
     "unit_id": 18,
     "example_cz": "Píšu perem, ne tužkou.",
     "example_en": "I write with a pen, not a pencil.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1181,
@@ -1801,7 +1790,7 @@
     "unit_id": 18,
     "example_cz": "Jím vidličkou.",
     "example_en": "I eat with a fork.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1182,
@@ -1812,7 +1801,7 @@
     "unit_id": 18,
     "example_cz": "Pracuju počítačem.",
     "example_en": "I work with a computer.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1183,
@@ -1823,7 +1812,7 @@
     "unit_id": 18,
     "example_cz": "Volám telefonem.",
     "example_en": "I call by phone.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1184,
@@ -1845,7 +1834,7 @@
     "unit_id": 18,
     "example_cz": "Jdu s přítelkyní do kina.",
     "example_en": "I'm going with my girlfriend to the cinema.",
-    "lesson_id": 1802
+    "lesson_id": 1804
   },
   {
     "id": 1186,
@@ -1889,7 +1878,7 @@
     "unit_id": 18,
     "example_cz": "Bydlím v Praze.",
     "example_en": "I live in Prague.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1190,
@@ -1900,7 +1889,7 @@
     "unit_id": 18,
     "example_cz": "O prázdninách jedeme k moři.",
     "example_en": "During the holidays we're going to the sea.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1191,
@@ -1911,7 +1900,7 @@
     "unit_id": 18,
     "example_cz": "Matka je v kuchyni.",
     "example_en": "Mother is in the kitchen.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1192,
@@ -1922,7 +1911,7 @@
     "unit_id": 18,
     "example_cz": "V ložnici je nová postel.",
     "example_en": "In the bedroom there's a new bed.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1193,
@@ -1933,7 +1922,7 @@
     "unit_id": 18,
     "example_cz": "Televize je v obýváku.",
     "example_en": "The TV is in the living room.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1194,
@@ -1944,7 +1933,7 @@
     "unit_id": 18,
     "example_cz": "V koupelně je vana.",
     "example_en": "In the bathroom there's a bathtub.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1195,
@@ -1955,7 +1944,7 @@
     "unit_id": 18,
     "example_cz": "V parku jsou stromy.",
     "example_en": "In the park there are trees.",
-    "lesson_id": 1801
+    "lesson_id": 1804
   },
   {
     "id": 1196,
@@ -1966,7 +1955,7 @@
     "unit_id": 18,
     "example_cz": "V lese je tma.",
     "example_en": "In the forest it's dark.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1197,
@@ -1977,7 +1966,7 @@
     "unit_id": 18,
     "example_cz": "Na horách je sníh.",
     "example_en": "In the mountains there's snow.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1198,
@@ -1988,7 +1977,7 @@
     "unit_id": 18,
     "example_cz": "U moře je krásně.",
     "example_en": "By the sea it's beautiful.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1199,
@@ -2043,7 +2032,7 @@
     "unit_id": 18,
     "example_cz": "V kostele je ticho.",
     "example_en": "In the church there's silence.",
-    "lesson_id": 1801
+    "lesson_id": 1804
   },
   {
     "id": 1204,
@@ -2054,7 +2043,7 @@
     "unit_id": 18,
     "example_cz": "Na mostě je vítr.",
     "example_en": "On the bridge there's wind.",
-    "lesson_id": 1801
+    "lesson_id": 1804
   },
   {
     "id": 1205,
@@ -2076,7 +2065,7 @@
     "unit_id": 18,
     "example_cz": "Na nástupišti je plno lidí.",
     "example_en": "On the platform there are many people.",
-    "lesson_id": 1801
+    "lesson_id": 1804
   },
   {
     "id": 1207,
@@ -2087,7 +2076,7 @@
     "unit_id": 18,
     "example_cz": "Mluvíme o počasí.",
     "example_en": "We're talking about the weather.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1208,
@@ -2098,7 +2087,7 @@
     "unit_id": 18,
     "example_cz": "Jsem učitelem na základní škole.",
     "example_en": "I am a teacher at a primary school.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1209,
@@ -2109,7 +2098,7 @@
     "unit_id": 18,
     "example_cz": "Můj otec je lékařem.",
     "example_en": "My father is a doctor.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1210,
@@ -5728,7 +5717,7 @@
     "unit_id": 18,
     "example_cz": "Přede školou čekají studenti.",
     "example_en": "Students wait in front of the school.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1566,
@@ -5739,7 +5728,7 @@
     "unit_id": 18,
     "example_cz": "Mezi Prahou a Brnem je dálnice.",
     "example_en": "Between Prague and Brno is a highway.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1567,
@@ -5750,7 +5739,7 @@
     "unit_id": 18,
     "example_cz": "Nad stolem visí lampa.",
     "example_en": "Above the table hangs a lamp.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1568,
@@ -5761,7 +5750,7 @@
     "unit_id": 18,
     "example_cz": "Pod stolem spí kočka.",
     "example_en": "Under the table sleeps a cat.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1569,
@@ -5772,7 +5761,7 @@
     "unit_id": 18,
     "example_cz": "Při práci poslouchám hudbu.",
     "example_en": "During work I listen to music.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1570,
@@ -5783,18 +5772,7 @@
     "unit_id": 18,
     "example_cz": "Kolem školy projelo auto.",
     "example_en": "A car drove past the school.",
-    "lesson_id": 1801
-  },
-  {
-    "id": 1571,
-    "word_cz": "ohledně",
-    "word_en": "regarding / concerning",
-    "ipa": "ˈohlɛdɲɛ",
-    "gender": null,
-    "unit_id": 18,
-    "example_cz": "Ohledně vaší přihlášky Vám píšeme.",
-    "example_en": "Regarding your application, we write to you.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1572,
@@ -5805,7 +5783,7 @@
     "unit_id": 18,
     "example_cz": "Kvůli dešti jsme nešli ven.",
     "example_en": "Because of rain we didn't go out.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1573,
@@ -5816,18 +5794,7 @@
     "unit_id": 18,
     "example_cz": "Díky kamarádovi jsem našel práci.",
     "example_en": "Thanks to a friend I found a job.",
-    "lesson_id": 1801
-  },
-  {
-    "id": 1574,
-    "word_cz": "prostředí",
-    "word_en": "environment",
-    "ipa": "ˈprostr̝ɛɟiː",
-    "gender": "neuter",
-    "unit_id": 18,
-    "example_cz": "Pracuji v mezinárodním prostředí.",
-    "example_en": "I work in an international environment.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1575,
@@ -5838,7 +5805,7 @@
     "unit_id": 18,
     "example_cz": "Okolí Prahy je krásné.",
     "example_en": "The surroundings of Prague are beautiful.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1576,
@@ -5849,7 +5816,7 @@
     "unit_id": 18,
     "example_cz": "V přírodě se cítím dobře.",
     "example_en": "I feel good in nature.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1577,
@@ -5860,7 +5827,7 @@
     "unit_id": 18,
     "example_cz": "Krajina v jižních Čechách je plochá.",
     "example_en": "The landscape in South Bohemia is flat.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1578,
@@ -5871,7 +5838,7 @@
     "unit_id": 18,
     "example_cz": "Tato oblast je známá vínem.",
     "example_en": "This region is known for wine.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1579,
@@ -5882,18 +5849,7 @@
     "unit_id": 18,
     "example_cz": "Můj soused je velmi milý.",
     "example_en": "My neighbor is very nice.",
-    "lesson_id": 1801
-  },
-  {
-    "id": 1580,
-    "word_cz": "sousedství",
-    "word_en": "neighborhood",
-    "ipa": "ˈsouzɛdstviː",
-    "gender": "neuter",
-    "unit_id": 18,
-    "example_cz": "V našem sousedství je park.",
-    "example_en": "In our neighborhood is a park.",
-    "lesson_id": 1801
+    "lesson_id": 1804
   },
   {
     "id": 1581,
@@ -5904,29 +5860,7 @@
     "unit_id": 18,
     "example_cz": "Moje babička bydlí ve vesnici.",
     "example_en": "My grandmother lives in a village.",
-    "lesson_id": 1801
-  },
-  {
-    "id": 1582,
-    "word_cz": "městečko",
-    "word_en": "small town",
-    "ipa": "ˈmɲɛstɛt͡ʃko",
-    "gender": "neuter",
-    "unit_id": 18,
-    "example_cz": "Tábor je hezké městečko.",
-    "example_en": "Tábor is a nice small town.",
-    "lesson_id": 1801
-  },
-  {
-    "id": 1583,
-    "word_cz": "předměstí",
-    "word_en": "suburb",
-    "ipa": "ˈpr̝ɛdmnestiː",
-    "gender": "neuter",
-    "unit_id": 18,
-    "example_cz": "Bydlím na předměstí Prahy.",
-    "example_en": "I live in a suburb of Prague.",
-    "lesson_id": 1801
+    "lesson_id": 1804
   },
   {
     "id": 1584,

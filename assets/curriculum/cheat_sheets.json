@@ -1765,8 +1765,14 @@
         {
           "id": "GR-171",
           "name": "Instrumental case — means and accompaniment",
-          "pattern": "s kým/čím? (with whom/what?). Means: autem, vlakem, metrem. Professions: pracovat jako... (+ nom or instr). Time: na jař",
+          "pattern": "s + instrumental (with): s kamarádem, s kamarádkou. Travel: autem, vlakem, tramvají. Masculine and neuter -em, feminine -ou, words in -e or a soft consonant -í.",
           "example": "Jedu do práce autem. — I go to work by car."
+        },
+        {
+          "id": "GR-174",
+          "name": "Pronouns after o and s — o něm, se mnou",
+          "pattern": "After o (locative): o mně, o tobě, o něm, o ní, o nás, o vás, o nich. After s (instrumental): se mnou, s tebou, s ním, s ní, s námi, s vámi, s nimi.",
+          "example": "Půjdeš se mnou do kina? — Will you come to the cinema with me?"
         },
         {
           "id": "GR-172",
@@ -1776,9 +1782,9 @@
         },
         {
           "id": "GR-173",
-          "name": "Instrumental plural and time expressions",
-          "pattern": "Plural instrumental: -y/-i/-ami (muži, ženami, městy). Time: na jaře, v létě, na podzim, v zimě (loc). But: před rokem (",
-          "example": "Bydlím s rodiči. — I live with my parents."
+          "name": "Time ago — před rokem",
+          "pattern": "před + instrumental = ago: před rokem, před týdnem, před měsícem, před hodinou, před chvílí.",
+          "example": "Před rokem jsem byl v Praze. — A year ago I was in Prague."
         }
       ],
       "core_vocabulary": [
@@ -1834,7 +1840,103 @@
         "Akuzativ po 'v' pro lokaci",
         "Zapomenutí instrumentálu po 's'"
       ],
-      "study_tip": "Rozlišujte 'v' + lokál (kde?) a 'do' + genitiv (kam?). Kreslete si obrázky s popisky."
+      "study_tip": "Rozlišujte 'v' + lokál (kde?) a 'do' + genitiv (kam?). Kreslete si obrázky s popisky.",
+      "notebook_page": {
+        "title_cz": "Kde, s kým, čím?",
+        "title_en": "Where, with whom, how",
+        "can_do": {
+          "cz": "Domluvím si schůzku: kde, s kým a čím pojedu.",
+          "en": "I can arrange a meeting: where, with whom and how I will travel."
+        },
+        "words": [
+          {
+            "cz": "v Praze",
+            "en": "in Prague"
+          },
+          {
+            "cz": "na náměstí",
+            "en": "at the square"
+          },
+          {
+            "cz": "o filmu",
+            "en": "about a film"
+          },
+          {
+            "cz": "s kamarádem",
+            "en": "with a friend"
+          },
+          {
+            "cz": "tramvají",
+            "en": "by tram"
+          },
+          {
+            "cz": "Půjdeš se mnou?",
+            "en": "Will you come with me?"
+          },
+          {
+            "cz": "před rokem",
+            "en": "a year ago"
+          },
+          {
+            "cz": "Pracuju jako učitel.",
+            "en": "I work as a teacher."
+          }
+        ],
+        "pattern": {
+          "name": "Locative and instrumental",
+          "rule_plain": "v, na, o + locative (v Praze, o práci); s + instrumental and travel (s kamarádem, autem); pronouns o něm, se mnou.",
+          "table": [
+            [
+              "Praha",
+              "v Praze / o Praze"
+            ],
+            [
+              "práce",
+              "v práci / o práci"
+            ],
+            [
+              "kamarád",
+              "s kamarádem"
+            ],
+            [
+              "kamarádka",
+              "s kamarádkou"
+            ],
+            [
+              "já",
+              "o mně / se mnou"
+            ],
+            [
+              "on",
+              "o něm / s ním"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Jdu s kamarádkou do kina.",
+              "en": "I am going to the cinema with a friend."
+            },
+            {
+              "cz": "Půjdeš se mnou?",
+              "en": "Will you come with me?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jdu s kamarád.",
+            "right": "Jdu s kamarádem."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Před rokem jsem byl/a v Brně.",
+            "en": "A year ago I was in Brno."
+          },
+          {
+            "cz": "Rád/a chodím do kina s kamarádkou.",
+            "en": "I like going to the cinema with a friend."
+          }
+        ]
+      }
     },
     {
       "unit_id": 19,

@@ -2,140 +2,283 @@
   "id": 1801,
   "unit_id": 18,
   "order_in_unit": 0,
-  "title": "Locative — Talking About Places & Topics",
-  "description": "Master the locative case (6th case): v/na + locative for places, o + locative for topics, locative endings across genders, and key verbs like mluvit o and přemýšlet o.",
-  "duration_min": 15,
+  "title": "Where, With Whom, How",
+  "description": "Hear a meeting plan, then learn phrases for place, company and transport.",
+  "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "say where you are, who you are with and how you travel.",
+  "new_language": [
+    "v Praze",
+    "na náměstí",
+    "o filmu",
+    "s kamarádem",
+    "tramvají",
+    "Půjdeš se mnou?",
+    "před rokem",
+    "Pracuju jako učitel."
+  ],
+  "recycles": [
+    "jít, jet",
+    "zastávka",
+    "kavárna"
+  ],
+  "exit_task": "say where you meet and how you get there.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 18000,
+      "id": 18100,
+      "lesson_id": 1801,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess where they meet and how the speaker travels.",
+        "transcript_cz": "Sejdeme se na zastávce Národní třída. Pojedu tam tramvají a přijdu s Petrou.",
+        "questions": [
+          {
+            "question_en": "Where is the meeting?",
+            "options": [
+              "At Národní třída stop",
+              "At home",
+              "At the airport"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "How will the speaker travel?",
+            "options": [
+              "By tram",
+              "By car",
+              "On foot"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "stop; tram",
+      "xp_reward": 0
+    },
+    {
+      "id": 18101,
       "lesson_id": 1801,
       "type": "teaching",
       "prompt": "Locative (where) & Instrumental (with)",
       "data": {
         "type": "teaching",
-        "heading": "Locative (where) & Instrumental (with)",
-        "body": "Two cases to complete the set: one pins down where you are, the other tells us with what — or whom.",
+        "heading": "Where, with whom, how",
+        "body": "After v, na and o, and after s, words change their endings: v Praze, s kamarádem. Learn these as whole phrases first; Lesson B explains why.",
         "intro": "Two cases left to complete the set. One pins down exactly where you are; the other tells us with what — or with whom — you're doing it. Finish these and the puzzle is solved.",
         "style": "list",
         "play_all_label": "Play all",
         "items": [
           {
             "cz": "v Praze",
-            "en": "in Prague (locative — after v)"
+            "en": "in Prague"
           },
           {
             "cz": "na náměstí",
-            "en": "at the square (locative — after na)"
+            "en": "at the square"
           },
           {
             "cz": "o filmu",
-            "en": "about a film (locative — after o)"
+            "en": "about a film"
           },
           {
             "cz": "s kamarádem",
-            "en": "with a friend (instrumental)"
+            "en": "with a friend"
           },
           {
-            "cz": "autobusem",
-            "en": "by bus (instrumental — means)"
+            "cz": "tramvají",
+            "en": "by tram"
           },
           {
-            "cz": "pracuju jako učitel",
-            "en": "I work as a teacher (instrumental)"
+            "cz": "Půjdeš se mnou?",
+            "en": "Will you come with me?"
+          },
+          {
+            "cz": "před rokem",
+            "en": "a year ago"
+          },
+          {
+            "cz": "Pracuju jako učitel.",
+            "en": "I work as a teacher."
           }
         ]
       },
       "xp_reward": 0
     },
     {
-      "id": 18001,
+      "id": 18102,
       "lesson_id": 1801,
-      "type": "multiple_choice",
-      "prompt": "What does the preposition 'v' + locative mean?",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "v + lokál",
-        "question_en": "What does 'v' + locative mean?",
-        "options": [
-          "in",
-          "on/at",
-          "with",
-          "about"
-        ],
-        "correct_index": 0,
-        "explanation": "'v' (or 've' before certain consonants) + locative = 'in'. Example: v pokoji (in the room), v Praze (in Prague). 'na' + locative = 'on/at'."
-      },
-      "answer_key": "in",
-      "grammar_rule_id": "GR-170",
-      "xp_reward": 10
-    },
-    {
-      "id": 18002,
-      "lesson_id": 1801,
-      "type": "multiple_choice",
-      "prompt": "Which preposition means 'about' and takes the locative case?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která předložka znamená 'about' a pojí se s lokálem?",
-        "question_en": "Which preposition means 'about' and takes the locative?",
-        "options": [
-          "v",
-          "na",
-          "o",
-          "s"
-        ],
-        "correct_index": 2,
-        "explanation": "'o' + locative = 'about'. Used with verbs like mluvit o (talk about), přemýšlet o (think about), číst o (read about). Also in titles: kniha o Praze (a book about Prague)."
-      },
-      "answer_key": "o",
-      "grammar_rule_id": "GR-172",
-      "xp_reward": 10
-    },
-    {
-      "id": 18003,
-      "lesson_id": 1801,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct preposition: v or na.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Bydlím ___ Praze a pracuji ___ univerzitě.",
-        "blank_count": 2,
-        "explanation": "'v Praze' = in Prague (cities use 'v' + locative). 'na univerzitě' = at the university ('univerzita' uses 'na' + locative, like many institutions).",
-        "blank_answers": [
-          [
-            "v"
-          ],
-          [
-            "na"
-          ]
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 18 page",
+        "instruction": "Write “Unit 18 — Kde, s kým, čím?” at the top of a new page. Then, from memory, write four phrases: a place, a person you go with, a way to travel and a topic.",
+        "items": [
+          {
+            "cz": "v Praze",
+            "en": "in Prague"
+          },
+          {
+            "cz": "na náměstí",
+            "en": "at the square"
+          },
+          {
+            "cz": "o filmu",
+            "en": "about a film"
+          },
+          {
+            "cz": "s kamarádem",
+            "en": "with a friend"
+          },
+          {
+            "cz": "tramvají",
+            "en": "by tram"
+          }
         ]
       },
-      "answer_key": "v, na",
-      "grammar_rule_id": "GR-170",
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18103,
+      "lesson_id": 1801,
+      "type": "matching",
+      "prompt": "Match the travel chunks",
+      "data": {
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "na zastávce",
+            "right": "at the stop"
+          },
+          {
+            "left": "s Petrou",
+            "right": "with Petra"
+          },
+          {
+            "left": "tramvají",
+            "right": "by tram"
+          },
+          {
+            "left": "o Praze",
+            "right": "about Prague"
+          }
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "travel chunks",
+      "xp_reward": 10
+    },
+    {
+      "id": 18104,
+      "lesson_id": 1801,
+      "type": "dialogue",
+      "prompt": "Set the meeting point",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Texting a friend",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Kde se sejdeme?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "Jak přijedeš?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Na zastávce."
+          ],
+          [
+            "Pojedu tramvají."
+          ]
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "Na zastávce. | Pojedu tramvají.",
       "xp_reward": 15
     },
     {
-      "id": 18004,
+      "id": 18105,
       "lesson_id": 1801,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I live in Prague.'",
+      "type": "reading_comprehension",
+      "prompt": "Read the tram update",
       "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I live in Prague.",
-        "accepted_answers": [
-          "Bydlím v Praze.",
-          "Bydlím v Praze"
+        "type": "reading_comprehension",
+        "prompt_en": "Find the place, companion and transport.",
+        "image": "assets/images/unit18/tram_meeting_v1.webp",
+        "image_label": "Friends meeting beside a Prague tram",
+        "text_cz": "Ahoj, jsem už na zastávce. O Praze si můžeme povídat v kavárně. Přijedu tramvají s kolegyní a potom půjdeme pěšky.",
+        "text_en": "Hi, I am already at the stop. We can talk about Prague in a café. I will arrive by tram with a colleague and then we will walk.",
+        "questions": [
+          {
+            "question_en": "Who comes with the speaker?",
+            "options": [
+              "A colleague",
+              "A sister",
+              "Nobody"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What happens after the tram?",
+            "options": [
+              "They walk",
+              "They fly",
+              "They drive"
+            ],
+            "correct_index": 0
+          }
         ],
-        "grammar_note": "'Bydlím' = I live. 'v Praze' = in Prague — Praha → Praze (locative). Feminine nouns ending in -a change to -e in locative: Praha → Praze."
+        "targets": "vocab"
       },
-      "answer_key": "Bydlím v Praze.",
-      "grammar_rule_id": "GR-170",
-      "xp_reward": 10
+      "answer_key": "colleague; walk",
+      "xp_reward": 15
     },
     {
-      "id": 18005,
+      "id": 18106,
+      "lesson_id": 1801,
+      "type": "word_order",
+      "prompt": "Arrange the words to form: 'I go to work by car.'",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "Jedu",
+          "do",
+          "práce",
+          "autem"
+        ],
+        "correct_order": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "explanation": "'Jedu do práce autem.' = I go to work by car. Word order: verb (jedu) + destination (do práce) + means (autem). 'Autem' is instrumental of 'auto'.",
+        "targets": "vocab"
+      },
+      "answer_key": "Jedu do práce autem.",
+      "xp_reward": 15
+    },
+    {
+      "id": 18107,
       "lesson_id": 1801,
       "type": "multiple_choice",
       "prompt": "What does 'O čem mluvíš?' mean?",
@@ -150,187 +293,33 @@
           "Why are you talking?"
         ],
         "correct_index": 0,
-        "explanation": "'O čem mluvíš?' = What are you talking about? 'O čem' = about what (locative of 'co'). 'Mluvíš' = you talk/speak (2nd person singular). Question pattern: O kom? (about whom?) / O čem? (about what?)"
+        "explanation": "'O čem mluvíš?' = What are you talking about? 'O čem' = about what (locative of 'co'). 'Mluvíš' = you talk/speak (2nd person singular). Question pattern: O kom? (about whom?) / O čem? (about what?)",
+        "targets": "vocab"
       },
       "answer_key": "What are you talking about?",
-      "grammar_rule_id": "GR-172",
       "xp_reward": 10
     },
     {
-      "id": 18006,
-      "lesson_id": 1801,
-      "type": "fill_blank",
-      "prompt": "Complete the locative form of these masculine nouns.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "v ___ (hotel) → v hotelu. na ___ (hrad) → na hradě.",
-        "blank_count": 2,
-        "explanation": "Masculine inanimate locative endings: most end in -u (v hotelu, v obchodě) or -e/-ě (na hradě). The -u ending is common for hard-stem masculine nouns. Some soft-stem nouns take -i.",
-        "blank_answers": [
-          [
-            "hotelu"
-          ],
-          [
-            "hradě"
-          ]
-        ]
-      },
-      "answer_key": "hotelu, hradě",
-      "grammar_rule_id": "GR-170",
-      "xp_reward": 15
-    },
-    {
-      "id": 18007,
-      "lesson_id": 1801,
-      "type": "fill_blank",
-      "prompt": "Complete the locative form of these feminine nouns.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "v ___ (škola) → ve škole. na ___ (ulice) → na ulici. o ___ (práce) → o práci.",
-        "blank_count": 3,
-        "explanation": "Feminine locative endings: -a stems → -e (škola → ve škole), -e stems → -i (ulice → na ulici). The 've' form is used before certain consonant clusters for easier pronunciation.",
-        "blank_answers": [
-          [
-            "škole"
-          ],
-          [
-            "ulici"
-          ],
-          [
-            "práci"
-          ]
-        ]
-      },
-      "answer_key": "škole, ulici, práci",
-      "grammar_rule_id": "GR-170",
-      "xp_reward": 15
-    },
-    {
-      "id": 18008,
-      "lesson_id": 1801,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'We are talking about the weather.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "We are talking about the weather.",
-        "accepted_answers": [
-          "Mluvíme o počasí.",
-          "Mluvíme o počasí"
-        ],
-        "grammar_note": "'Mluvíme' = we talk/speak. 'o počasí' = about the weather. 'Počasí' is neuter — locative stays the same as nominative (-í ending). Pattern: mluvit o + locative."
-      },
-      "answer_key": "Mluvíme o počasí.",
-      "grammar_rule_id": "GR-172",
-      "xp_reward": 10
-    },
-    {
-      "id": 18009,
+      "id": 18108,
       "lesson_id": 1801,
       "type": "multiple_choice",
-      "prompt": "Which is the correct locative form of 'restaurace' (restaurant)?",
+      "prompt": "What does 's kým?' mean?",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Lokál slova 'restaurace'",
-        "question_en": "Locative of 'restaurace'",
+        "question_cz": "s kým?",
+        "question_en": "What does 's kým?' mean?",
         "options": [
-          "v restauraci",
-          "v restaurace",
-          "v restauraci",
-          "na restaurace"
+          "with whom?",
+          "about what?",
+          "where?",
+          "how?"
         ],
         "correct_index": 0,
-        "explanation": "'V restauraci' = in the restaurant. Feminine nouns ending in -e like 'restaurace' take -i in the locative: restaurace → restauraci. The preposition is 'v' for enclosed spaces."
+        "explanation": "'s kým?' = with whom? It's the instrumental case question for people. 's čím?' = with what? (for things). Both use 's' (or 'se') + instrumental case.",
+        "targets": "vocab"
       },
-      "answer_key": "v restauraci",
-      "grammar_rule_id": "GR-170",
+      "answer_key": "with whom?",
       "xp_reward": 10
-    },
-    {
-      "id": 18010,
-      "lesson_id": 1801,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct form of přemýšlet o + locative.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Přemýšlím o ___ (dovolená). Přemýšlíš o ___ (budoucnost)?",
-        "blank_count": 2,
-        "explanation": "'Přemýšlet o' = to think about, always followed by locative. 'Dovolená' → 'o dovolené' (fem -á → -é). 'Budoucnost' → 'o budoucnosti' (fem -ost → -osti). Key verb for abstract topics.",
-        "blank_answers": [
-          [
-            "dovolené"
-          ],
-          [
-            "budoucnosti"
-          ]
-        ]
-      },
-      "answer_key": "dovolené, budoucnosti",
-      "grammar_rule_id": "GR-172",
-      "xp_reward": 15
-    },
-    {
-      "id": 18011,
-      "lesson_id": 1801,
-      "type": "dialogue",
-      "prompt": "Complete the dialogue about topics of conversation.",
-      "data": {
-        "type": "dialogue",
-        "scenario": "V kavárně — At a café",
-        "lines": [
-          {
-            "speaker": "person_a",
-            "text": "O čem mluvíte s kamarádem?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "___ (We're talking about work and vacation.)"
-          },
-          {
-            "speaker": "person_a",
-            "text": "A o čem přemýšlíš?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "___ (I'm thinking about the future.)"
-          }
-        ],
-        "explanation": "'O čem mluvíte?' = What are you talking about? Answer: 'Mluvíme o práci a o dovolené.' = We're talking about work and vacation. 'O čem přemýšlíš?' = What are you thinking about? 'Přemýšlím o budoucnosti.' = I'm thinking about the future. Both verbs take o + locative.",
-        "blank_answers": [
-          [
-            "Mluvíme o práci a o dovolené",
-            "Mluvíme o práci a dovolené"
-          ],
-          [
-            "Přemýšlím o budoucnosti"
-          ]
-        ]
-      },
-      "answer_key": "Mluvíme o práci a o dovolené|Přemýšlím o budoucnosti",
-      "grammar_rule_id": "GR-172",
-      "xp_reward": 25
-    },
-    {
-      "id": 18012,
-      "lesson_id": 1801,
-      "type": "pronunciation",
-      "prompt": "Pronounce the sentence about conversation topics.",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Mluvíme o dovolené a přemýšlíme o létě.",
-        "target_audio_hash": "placeholder_18012",
-        "focus_sounds": [
-          "mlu",
-          "do",
-          "lé",
-          "pře"
-        ],
-        "min_score": 0.6,
-        "translation_en": "We're talking about vacation and thinking about summer."
-      },
-      "answer_key": "Mluvíme o dovolené a přemýšlíme o létě.",
-      "grammar_rule_id": "GR-172",
-      "xp_reward": 15
     }
   ]
 }

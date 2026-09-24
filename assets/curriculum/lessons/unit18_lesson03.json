@@ -1,10 +1,475 @@
-{"id":1803,"unit_id":18,"title":"Arrange a Tram Meeting","description":"Use place, accompaniment and transport chunks in a real Prague meeting plan.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[
-{"id":18025,"lesson_id":1803,"type":"teaching","prompt":"Learn meeting chunks","data":{"type":"teaching","style":"list","heading":"Where, with whom, how","body":"Keep each preposition with its useful form.","items":[{"cz":"Jsem na zastávce.","en":"I am at the stop."},{"cz":"Pojedu tramvají.","en":"I will go by tram."},{"cz":"Jdu s kamarádem.","en":"I am going with a friend."}]},"answer_key":"meeting chunks","xp_reward":0},
-{"id":18026,"lesson_id":1803,"type":"listening_comprehension","prompt":"Listen to the meeting plan","data":{"type":"listening_comprehension","prompt_en":"Where will they meet and how will one person travel?","transcript_cz":"Sejdeme se na zastávce Národní třída. Pojedu tam tramvají a přijdu s Petrou.","questions":[{"question_en":"Where is the meeting?","options":["At Národní třída stop","At home","At the airport"],"correct_index":0},{"question_en":"How will the speaker travel?","options":["By tram","By car","On foot"],"correct_index":0}]},"answer_key":"stop; tram","xp_reward":15},
-{"id":18027,"lesson_id":1803,"type":"reading_comprehension","prompt":"Read the tram update","data":{"type":"reading_comprehension","prompt_en":"Find the place, companion and transport.","image":"assets/images/unit18/tram_meeting_v1.webp","image_label":"Friends meeting beside a Prague tram","text_cz":"Ahoj, jsem už na zastávce. O Praze si můžeme povídat v kavárně. Přijedu tramvají s kolegyní a potom půjdeme pěšky.","text_en":"Hi, I am already at the stop. We can talk about Prague in a café. I will arrive by tram with a colleague and then we will walk.","questions":[{"question_en":"Who comes with the speaker?","options":["A colleague","A sister","Nobody"],"correct_index":0},{"question_en":"What happens after the tram?","options":["They walk","They fly","They drive"],"correct_index":0}]},"answer_key":"colleague; walk","xp_reward":15},
-{"id":18028,"lesson_id":1803,"type":"matching","prompt":"Match the travel chunks","data":{"type":"matching","pairs":[{"left":"na zastávce","right":"at the stop"},{"left":"s Petrou","right":"with Petra"},{"left":"tramvají","right":"by tram"},{"left":"o Praze","right":"about Prague"}]},"answer_key":"travel chunks","xp_reward":10},
-{"id":18029,"lesson_id":1803,"type":"fill_blank","prompt":"Complete the plan","data":{"type":"fill_blank","sentence":"Přijdu ___ kamarádkou a pojedu ___.","blank_count":2,"blank_answers":[["s"],["tramvají"]]},"answer_key":"s | tramvají","xp_reward":10},
-{"id":18030,"lesson_id":1803,"type":"dialogue","prompt":"Set the meeting point","data":{"type":"dialogue","scenario":"Texting a friend","lines":[{"speaker":"friend","text":"Kde se sejdeme?"},{"speaker":"you","text":"___"},{"speaker":"friend","text":"Jak přijedeš?"},{"speaker":"you","text":"___"}],"blank_answers":[["Na zastávce."],["Pojedu tramvají."]]},"answer_key":"Na zastávce. | Pojedu tramvají.","xp_reward":15},
-{"id":18031,"lesson_id":1803,"type":"writing_task","prompt":"Write a meeting update","data":{"type":"writing_task","prompt_en":"Write 2–3 sentences: meeting place, transport and companion.","prompt_cz":"Napište plán setkání.","min_words":10,"max_words":42,"key_vocab":["na…","s…","tramvají/pěšky"],"sample_answer":"Sejdeme se na zastávce. Přijedu tramvají s Petrou."},"answer_key":"meeting update","xp_reward":0},
-{"id":18032,"lesson_id":1803,"type":"speaking_task","prompt":"Leave directions by voice","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds explaining where and how you will meet.","prompt_cz":"Nahrajte krátký plán setkání.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["na","s","tramvají"]},"answer_key":"meeting plan","xp_reward":20}
-]}
+{
+  "id": 1803,
+  "unit_id": 18,
+  "title": "Arrange a Tram Meeting",
+  "description": "Talk about topics with o, and say how long ago: před rokem.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "can_do": "say what you talk about and when something happened.",
+  "new_language": [
+    "mluvit o…",
+    "O čem je…?",
+    "před rokem, před týdnem",
+    "o něm, o ní"
+  ],
+  "recycles": [
+    "na zastávce",
+    "tramvají",
+    "s kamarádkou"
+  ],
+  "exit_task": "write a meeting plan with place, transport and topic.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 18300,
+      "lesson_id": 1803,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “in Prague”, “with a friend” and “with me” in Czech. Then one line from Unit 17: I like Prague.",
+        "items": [
+          {
+            "cz": "v Praze",
+            "en": "in Prague"
+          },
+          {
+            "cz": "s kamarádem / s kamarádkou",
+            "en": "with a friend"
+          },
+          {
+            "cz": "se mnou",
+            "en": "with me"
+          },
+          {
+            "cz": "Líbí se mi Praha.",
+            "en": "I like Prague."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18301,
+      "lesson_id": 1803,
+      "type": "teaching",
+      "prompt": "About: o práci, o Praze",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-172",
+        "rule_step": 1,
+        "heading": "About: o práci, o Praze",
+        "items": [
+          {
+            "cz": "Mluvíme o počasí.",
+            "en": "We are talking about the weather."
+          },
+          {
+            "cz": "O čem je ta kniha?",
+            "en": "What is that book about?"
+          }
+        ],
+        "say": "o (about) takes the same forms as v and na: mluvit o práci, kniha o Praze. Ask O čem? (about what) or O kom? (about whom).",
+        "table": [
+          [
+            "práce",
+            "o práci"
+          ],
+          [
+            "dovolená",
+            "o dovolené"
+          ],
+          [
+            "Praha",
+            "o Praze"
+          ],
+          [
+            "film",
+            "o filmu"
+          ],
+          [
+            "výlet",
+            "o výletu"
+          ],
+          [
+            "počasí",
+            "o počasí"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mluvíme o počasí.",
+            "en": "We are talking about the weather."
+          },
+          {
+            "cz": "O čem je ta kniha?",
+            "en": "What is that book about?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Mluvíme o práce.",
+          "right": "Mluvíme o práci."
+        },
+        "step": 1,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18302,
+      "lesson_id": 1803,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Mluvíme o ___. (práce)",
+        "question_en": "We are talking about work.",
+        "options": [
+          "práci",
+          "práce",
+          "prácí"
+        ],
+        "correct_index": 0,
+        "explanation": "o + locative: práce → o práci."
+      },
+      "answer_key": "práci",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-172"
+    },
+    {
+      "id": 18303,
+      "lesson_id": 1803,
+      "type": "teaching",
+      "prompt": "How long ago: před rokem",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-173",
+        "rule_step": 1,
+        "heading": "How long ago: před rokem",
+        "items": [
+          {
+            "cz": "Před rokem jsem byl v Praze.",
+            "en": "A year ago I was in Prague."
+          },
+          {
+            "cz": "Přišla před hodinou.",
+            "en": "She came an hour ago."
+          }
+        ],
+        "say": "To say how long ago, use před with the instrumental: před rokem, před týdnem, před hodinou. Use it with the past tense.",
+        "table": [
+          [
+            "rok",
+            "před rokem"
+          ],
+          [
+            "týden",
+            "před týdnem"
+          ],
+          [
+            "měsíc",
+            "před měsícem"
+          ],
+          [
+            "hodina",
+            "před hodinou"
+          ],
+          [
+            "chvíle",
+            "před chvílí"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Před rokem jsem byl v Praze.",
+            "en": "A year ago I was in Prague."
+          },
+          {
+            "cz": "Přišla před hodinou.",
+            "en": "She came an hour ago."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Před rok jsem byl v Praze.",
+          "right": "Před rokem jsem byl v Praze."
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18304,
+      "lesson_id": 1803,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Byl jsem v Brně před ___. (týden)",
+        "question_en": "I was in Brno a week ago.",
+        "options": [
+          "týdnem",
+          "týden",
+          "týdne"
+        ],
+        "correct_index": 0,
+        "explanation": "před + instrumental: týden → před týdnem."
+      },
+      "answer_key": "týdnem",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-173"
+    },
+    {
+      "id": 18305,
+      "lesson_id": 1803,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write two true sentences: where you were some time ago, and who you like to go out with.",
+        "items": [
+          {
+            "cz": "Před rokem jsem byl/a v Brně.",
+            "en": "A year ago I was in Brno."
+          },
+          {
+            "cz": "Rád/a chodím do kina s kamarádkou.",
+            "en": "I like going to the cinema with a friend."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 18306,
+      "lesson_id": 1803,
+      "type": "fill_blank",
+      "prompt": "Complete with o + locative.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Mluvíme o ___. (dovolená) Čtu knihu o ___. (Praha)",
+        "blank_count": 2,
+        "explanation": "o + locative: dovolená → o dovolené (it declines like an adjective), Praha → o Praze.",
+        "blank_answers": [
+          [
+            "dovolené"
+          ],
+          [
+            "Praze"
+          ]
+        ]
+      },
+      "answer_key": "dovolené, Praze",
+      "grammar_rule_id": "GR-172",
+      "xp_reward": 15
+    },
+    {
+      "id": 18307,
+      "lesson_id": 1803,
+      "type": "dialogue",
+      "prompt": "Complete the dialogue about topics of conversation.",
+      "data": {
+        "type": "dialogue",
+        "scenario": "V kavárně — At a café",
+        "lines": [
+          {
+            "speaker": "person_a",
+            "text": "O čem mluvíte s kamarádem?"
+          },
+          {
+            "speaker": "person_b",
+            "text": "___ (We're talking about work and the holiday.)"
+          },
+          {
+            "speaker": "person_a",
+            "text": "A o čem je ten film?"
+          },
+          {
+            "speaker": "person_b",
+            "text": "___ (It's about Prague.)"
+          }
+        ],
+        "explanation": "O čem? asks about a topic. o + locative: o práci, o dovolené, o Praze.",
+        "blank_answers": [
+          [
+            "Mluvíme o práci a o dovolené.",
+            "Mluvíme o práci a dovolené."
+          ],
+          [
+            "Je o Praze.",
+            "O Praze."
+          ]
+        ]
+      },
+      "answer_key": "Mluvíme o práci a o dovolené.|Je o Praze.",
+      "grammar_rule_id": "GR-172",
+      "xp_reward": 25
+    },
+    {
+      "id": 18308,
+      "lesson_id": 1803,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'We are talking about the weather.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "We are talking about the weather.",
+        "accepted_answers": [
+          "Mluvíme o počasí.",
+          "Mluvíme o počasí"
+        ],
+        "grammar_note": "'Mluvíme' = we talk/speak. 'o počasí' = about the weather. 'Počasí' is neuter — locative stays the same as nominative (-í ending). Pattern: mluvit o + locative."
+      },
+      "answer_key": "Mluvíme o počasí.",
+      "grammar_rule_id": "GR-172",
+      "xp_reward": 10
+    },
+    {
+      "id": 18309,
+      "lesson_id": 1803,
+      "type": "pronunciation",
+      "prompt": "Pronounce the sentence about conversation topics.",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Mluvíme o dovolené a o létě.",
+        "target_audio_hash": "placeholder_18012",
+        "focus_sounds": [
+          "mlu",
+          "do",
+          "lé"
+        ],
+        "min_score": 0.6,
+        "translation_en": "We are talking about the holiday and about summer."
+      },
+      "answer_key": "Mluvíme o dovolené a o létě.",
+      "grammar_rule_id": "GR-172",
+      "xp_reward": 15
+    },
+    {
+      "id": 18310,
+      "lesson_id": 1803,
+      "type": "multiple_choice",
+      "prompt": "How do you say 'a year ago' in Czech?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jak řeknete 'a year ago' česky?",
+        "question_en": "How do you say 'a year ago' in Czech?",
+        "options": [
+          "před rokem",
+          "v roce",
+          "za rok",
+          "o rok"
+        ],
+        "correct_index": 0,
+        "explanation": "'Před rokem' = a year ago. 'Před' + instrumental expresses 'ago' or 'before' in time expressions: před týdnem (a week ago), před měsícem (a month ago), před hodinou (an hour ago)."
+      },
+      "answer_key": "před rokem",
+      "grammar_rule_id": "GR-173",
+      "xp_reward": 10
+    },
+    {
+      "id": 18311,
+      "lesson_id": 1803,
+      "type": "fill_blank",
+      "prompt": "Complete with the correct instrumental time expression.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Před ___ (rok) jsem byl v Praze. Před ___ (týden) jsem mluvil s Janou. Před ___ (měsíc) jsem začal novou práci.",
+        "blank_count": 3,
+        "explanation": "'Před' + instrumental for time expressions: 'před rokem' (a year ago), 'před týdnem' (a week ago), 'před měsícem' (a month ago). All use the instrumental ending -em for masculine nouns.",
+        "blank_answers": [
+          [
+            "rokem"
+          ],
+          [
+            "týdnem"
+          ],
+          [
+            "měsícem"
+          ]
+        ]
+      },
+      "answer_key": "rokem, týdnem, měsícem",
+      "grammar_rule_id": "GR-173",
+      "xp_reward": 15
+    },
+    {
+      "id": 18312,
+      "lesson_id": 1803,
+      "type": "fill_blank",
+      "prompt": "Choose the natural form",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Budeme mluvit ___ výletu v kavárně.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "o"
+          ]
+        ]
+      },
+      "answer_key": "o",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-172"
+    },
+    {
+      "id": 18313,
+      "lesson_id": 1803,
+      "type": "writing_task",
+      "prompt": "Write a meeting update",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 sentences: meeting place, transport and companion.",
+        "prompt_cz": "Napište plán setkání.",
+        "min_words": 10,
+        "max_words": 42,
+        "key_vocab": [
+          "na…",
+          "s…",
+          "tramvají/pěšky"
+        ],
+        "sample_answer": "Sejdeme se na zastávce. Přijedu tramvají s Petrou.",
+        "targets": "vocab"
+      },
+      "answer_key": "meeting update",
+      "xp_reward": 0
+    },
+    {
+      "id": 18314,
+      "lesson_id": 1803,
+      "type": "speaking_task",
+      "prompt": "Leave directions by voice",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds explaining where and how you will meet.",
+        "prompt_cz": "Nahrajte krátký plán setkání.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "na",
+          "s",
+          "tramvají"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "meeting plan",
+      "xp_reward": 20
+    }
+  ]
+}

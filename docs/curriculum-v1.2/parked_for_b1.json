@@ -1680,6 +1680,78 @@
       "example_en": "I serve customers in a shop.",
       "lesson_id": 1701,
       "parked_reason": "Abstract or emotional verb, B1; not in the official A1/A2 list (docs/sources/SCOPE_REVIEW_2026-09-24.md)."
+    },
+    {
+      "id": 1041,
+      "word_cz": "přemýšlet",
+      "word_en": "to think about",
+      "ipa": "ˈpr̝̊ɛmiːʃlɛt",
+      "gender": null,
+      "unit_id": 18,
+      "example_cz": "Přemýšlím o práci.",
+      "example_en": "I'm thinking about work.",
+      "lesson_id": 1801,
+      "parked_reason": "Not needed for the unit target, or an official form comes first (myslet for přemýšlet); docs/sources/SCOPE_REVIEW_2026-09-24.md."
+    },
+    {
+      "id": 1571,
+      "word_cz": "ohledně",
+      "word_en": "regarding / concerning",
+      "ipa": "ˈohlɛdɲɛ",
+      "gender": null,
+      "unit_id": 18,
+      "example_cz": "Ohledně vaší přihlášky Vám píšeme.",
+      "example_en": "Regarding your application, we write to you.",
+      "lesson_id": 1801,
+      "parked_reason": "Not needed for the unit target, or an official form comes first (myslet for přemýšlet); docs/sources/SCOPE_REVIEW_2026-09-24.md."
+    },
+    {
+      "id": 1574,
+      "word_cz": "prostředí",
+      "word_en": "environment",
+      "ipa": "ˈprostr̝ɛɟiː",
+      "gender": "neuter",
+      "unit_id": 18,
+      "example_cz": "Pracuji v mezinárodním prostředí.",
+      "example_en": "I work in an international environment.",
+      "lesson_id": 1801,
+      "parked_reason": "Not needed for the unit target, or an official form comes first (myslet for přemýšlet); docs/sources/SCOPE_REVIEW_2026-09-24.md."
+    },
+    {
+      "id": 1580,
+      "word_cz": "sousedství",
+      "word_en": "neighborhood",
+      "ipa": "ˈsouzɛdstviː",
+      "gender": "neuter",
+      "unit_id": 18,
+      "example_cz": "V našem sousedství je park.",
+      "example_en": "In our neighborhood is a park.",
+      "lesson_id": 1801,
+      "parked_reason": "Not needed for the unit target, or an official form comes first (myslet for přemýšlet); docs/sources/SCOPE_REVIEW_2026-09-24.md."
+    },
+    {
+      "id": 1582,
+      "word_cz": "městečko",
+      "word_en": "small town",
+      "ipa": "ˈmɲɛstɛt͡ʃko",
+      "gender": "neuter",
+      "unit_id": 18,
+      "example_cz": "Tábor je hezké městečko.",
+      "example_en": "Tábor is a nice small town.",
+      "lesson_id": 1801,
+      "parked_reason": "Not needed for the unit target, or an official form comes first (myslet for přemýšlet); docs/sources/SCOPE_REVIEW_2026-09-24.md."
+    },
+    {
+      "id": 1583,
+      "word_cz": "předměstí",
+      "word_en": "suburb",
+      "ipa": "ˈpr̝ɛdmnestiː",
+      "gender": "neuter",
+      "unit_id": 18,
+      "example_cz": "Bydlím na předměstí Prahy.",
+      "example_en": "I live in a suburb of Prague.",
+      "lesson_id": 1801,
+      "parked_reason": "Not needed for the unit target, or an official form comes first (myslet for přemýšlet); docs/sources/SCOPE_REVIEW_2026-09-24.md."
     }
   ],
   "exercises": [
