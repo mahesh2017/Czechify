@@ -3,13 +3,64 @@
   "unit_id": 3,
   "order_in_unit": 0,
   "title": "Who or What?",
-  "description": "Ask Kdo je to? for people and Co je to? for things, then answer with To je…",
+  "description": "Hear people and things named, then learn Kdo je to? and Co je to?",
   "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "ask who or what something is and answer with To je…",
+  "new_language": [
+    "Kdo je to?",
+    "Co je to?",
+    "To je Anna.",
+    "To je pes.",
+    "ten stůl",
+    "ta kniha",
+    "to okno",
+    "Eva je učitelka."
+  ],
+  "recycles": [
+    "Jmenuju se… (U2)",
+    "pan, paní"
+  ],
+  "exit_task": "name three things around you.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 3000,
+      "id": 3100,
+      "lesson_id": 301,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess who the speaker is showing.",
+        "transcript_cz": "Kdo je to? To je Anna. A kdo je to? To je Daniel.",
+        "questions": [
+          {
+            "question_en": "Which question do you hear?",
+            "options": [
+              "Kdo je to?",
+              "Co je to?",
+              "Jak se máte?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who is named first?",
+            "options": [
+              "Anna",
+              "Daniel",
+              "Sofia"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "Kdo je to?; Anna",
+      "xp_reward": 0
+    },
+    {
+      "id": 3101,
       "lesson_id": 301,
       "type": "teaching",
       "prompt": "Meet six people and things",
@@ -72,79 +123,62 @@
             "image_label": "A car",
             "sentence": "To je auto.",
             "sentence_en": "That is a car."
+          },
+          {
+            "cz": "Kdo je to?",
+            "en": "Who is it?"
+          },
+          {
+            "cz": "Co je to?",
+            "en": "What is it?"
+          },
+          {
+            "cz": "To je Anna.",
+            "en": "That is Anna."
+          },
+          {
+            "cz": "To je pes.",
+            "en": "That is a dog."
           }
         ]
       },
       "xp_reward": 0
     },
     {
-      "id": 3001,
+      "id": 3102,
       "lesson_id": 301,
-      "type": "listening_comprehension",
-      "prompt": "Listen for two people",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen. Which question asks about a person?",
-        "transcript_cz": "Kdo je to? To je Anna. A kdo je to? To je Daniel.",
-        "questions": [
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 3 page",
+        "instruction": "Write “Unit 3 — Kdo? Co?” at the top of a new page. Write the two questions, then three answers with To je….",
+        "items": [
           {
-            "question_en": "Which question do you hear?",
-            "options": [
-              "Kdo je to?",
-              "Co je to?",
-              "Jak se máte?"
-            ],
-            "correct_index": 0
+            "cz": "Kdo je to?",
+            "en": "Who is it?"
           },
           {
-            "question_en": "Who is named first?",
-            "options": [
-              "Anna",
-              "Daniel",
-              "Sofia"
-            ],
-            "correct_index": 0
+            "cz": "Co je to?",
+            "en": "What is it?"
+          },
+          {
+            "cz": "To je Anna.",
+            "en": "That is Anna."
+          },
+          {
+            "cz": "To je pes.",
+            "en": "That is a dog."
           }
         ]
       },
-      "answer_key": "Kdo je to?; Anna",
-      "xp_reward": 10
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 3002,
-      "lesson_id": 301,
-      "type": "listening_comprehension",
-      "prompt": "Listen for two things",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen. Which two things are identified?",
-        "transcript_cz": "Co je to? To je auto. A co je to? To je dům.",
-        "questions": [
-          {
-            "question_en": "What is identified first?",
-            "options": [
-              "A car",
-              "A house",
-              "A dog"
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Which question do you hear?",
-            "options": [
-              "Co je to?",
-              "Kdo je to?",
-              "Odkud jste?"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "A car; Co je to?",
-      "xp_reward": 10
-    },
-    {
-      "id": 3003,
+      "id": 3103,
       "lesson_id": 301,
       "type": "matching",
       "prompt": "Sort people from things",
@@ -182,7 +216,7 @@
       "xp_reward": 10
     },
     {
-      "id": 3004,
+      "id": 3104,
       "lesson_id": 301,
       "type": "multiple_choice",
       "prompt": "You point to a person in a photo. What do you ask?",
@@ -203,47 +237,7 @@
       "xp_reward": 10
     },
     {
-      "id": 3005,
-      "lesson_id": 301,
-      "type": "fill_blank",
-      "prompt": "Ask about the woman",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ je to? To je žena.",
-        "blank_count": 1,
-        "blank_answers": [
-          [
-            "Kdo",
-            "kdo"
-          ]
-        ],
-        "explanation": "Žena is a person, so ask Kdo je to?"
-      },
-      "answer_key": "Kdo",
-      "xp_reward": 10
-    },
-    {
-      "id": 3006,
-      "lesson_id": 301,
-      "type": "fill_blank",
-      "prompt": "Ask about the car",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ je to? To je auto.",
-        "blank_count": 1,
-        "blank_answers": [
-          [
-            "Co",
-            "co"
-          ]
-        ],
-        "explanation": "Auto is a thing, so ask Co je to?"
-      },
-      "answer_key": "Co",
-      "xp_reward": 10
-    },
-    {
-      "id": 3007,
+      "id": 3105,
       "lesson_id": 301,
       "type": "word_order",
       "prompt": "Build a who question and answer",
@@ -272,7 +266,7 @@
       "xp_reward": 10
     },
     {
-      "id": 3008,
+      "id": 3106,
       "lesson_id": 301,
       "type": "dictation",
       "prompt": "Listen and type the question about a thing",
@@ -286,7 +280,7 @@
       "xp_reward": 10
     },
     {
-      "id": 3009,
+      "id": 3107,
       "lesson_id": 301,
       "type": "pronunciation",
       "prompt": "Ask and identify a person",
@@ -304,7 +298,7 @@
       "xp_reward": 15
     },
     {
-      "id": 3010,
+      "id": 3108,
       "lesson_id": 301,
       "type": "reading_comprehension",
       "prompt": "Read a tiny photo exchange",
@@ -336,63 +330,6 @@
       },
       "answer_key": "A; A car",
       "xp_reward": 15
-    },
-    {
-      "id": 3011,
-      "lesson_id": 301,
-      "type": "dialogue",
-      "prompt": "Ask one who question and one what question",
-      "data": {
-        "type": "dialogue",
-        "scenario": "Looking at photos and objects with a classmate",
-        "lines": [
-          {
-            "speaker": "classmate",
-            "text": "To je Petra."
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          },
-          {
-            "speaker": "classmate",
-            "text": "To je auto."
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          }
-        ],
-        "blank_answers": [
-          [
-            "Kdo je to?",
-            "Kdo je to"
-          ],
-          [
-            "Co je to?",
-            "Co je to"
-          ]
-        ],
-        "explanation": "Ask kdo for Petra and co for the car."
-      },
-      "answer_key": "Kdo je to? | Co je to?",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "ask who a person is or what a thing is.",
-  "new_language": [
-    "muž",
-    "žena",
-    "dítě",
-    "pes",
-    "dům",
-    "auto"
-  ],
-  "recycles": [
-    "greetings",
-    "names",
-    "To je…",
-    "Czech sound clues"
-  ],
-  "exit_task": "ask who a person is or what a thing is."
+  ]
 }

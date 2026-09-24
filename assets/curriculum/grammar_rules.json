@@ -702,7 +702,44 @@
           "gender": "neuter (-o ending)"
         }
       ],
-      "unit_id": 3
+      "unit_id": 3,
+      "concept_keys": [
+        "noun_nom_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "ten, ta, to: three genders",
+          "say": "Every noun is masculine, feminine or neuter. Learn it with ten, ta or to. Endings help: most -a words are ta, most -o and -í words are to, most words ending in a consonant are ten.",
+          "table": [
+            [
+              "ten",
+              "muž, pes, dům, stůl"
+            ],
+            [
+              "ta",
+              "žena, káva, kniha, židle"
+            ],
+            [
+              "to",
+              "dítě, auto, okno, město"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je ta kniha.",
+              "en": "That is the book."
+            },
+            {
+              "cz": "To je ten stůl.",
+              "en": "That is the table."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "ten kniha",
+            "right": "ta kniha"
+          }
+        }
+      ]
     },
     {
       "id": "GR-021",
@@ -732,7 +769,37 @@
           "note": "Accusative: stůl (unchanged)"
         }
       ],
-      "unit_id": 3
+      "unit_id": 3,
+      "lecture": [
+        {
+          "heading": "People and animals: living masculines",
+          "say": "Masculine nouns come in two kinds: living (people and animals: muž, pes) and not living (things: stůl, dům). They look the same now; the difference shows later, in Mám bratra.",
+          "table": [
+            [
+              "living",
+              "muž, student, pes, bratr"
+            ],
+            [
+              "not living",
+              "stůl, dům, hrad, telefon"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "To je ten pes.",
+              "en": "That is the dog."
+            },
+            {
+              "cz": "To je ten stůl.",
+              "en": "That is the table."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Mám bratr. (Unit 8)",
+            "right": "Mám bratra."
+          }
+        }
+      ]
     },
     {
       "id": "GR-022",
@@ -783,7 +850,56 @@
           "en": "Those are students."
         }
       ],
-      "unit_id": 3
+      "unit_id": 3,
+      "concept_keys": [
+        "pron_demonstrative_interrogative"
+      ],
+      "lecture": [
+        {
+          "heading": "Who is it? What is it?",
+          "say": "Ask Kdo je to? about a person and Co je to? about a thing or an animal. Answer with To je… and the word.",
+          "table": [
+            [
+              "Kdo je to?",
+              "Who is it?"
+            ],
+            [
+              "To je Anna.",
+              "That is Anna."
+            ],
+            [
+              "To je pan Novák.",
+              "That is Mr Novák."
+            ],
+            [
+              "Co je to?",
+              "What is it?"
+            ],
+            [
+              "To je auto.",
+              "That is a car."
+            ],
+            [
+              "To je pes.",
+              "That is a dog."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kdo je to? — To je Daniel.",
+              "en": "Who is it? — That is Daniel."
+            },
+            {
+              "cz": "Co je to? — To je dům.",
+              "en": "What is it? — That is a house."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Kdo je to? (pointing at a car)",
+            "right": "Co je to?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-024",
@@ -805,7 +921,49 @@
           "en": "He is a doctor. She is a doctor."
         }
       ],
-      "unit_id": 3
+      "unit_id": 3,
+      "lecture": [
+        {
+          "heading": "Men and women: učitel, učitelka",
+          "say": "Many jobs and roles have a female form with -ka: učitel → učitelka, student → studentka. Use it for women.",
+          "table": [
+            [
+              "učitel",
+              "učitelka"
+            ],
+            [
+              "student",
+              "studentka"
+            ],
+            [
+              "lékař",
+              "lékařka"
+            ],
+            [
+              "prodavač",
+              "prodavačka"
+            ],
+            [
+              "Čech",
+              "Češka"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Eva je učitelka.",
+              "en": "Eva is a teacher."
+            },
+            {
+              "cz": "Daniel je student.",
+              "en": "Daniel is a student."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Eva je učitel.",
+            "right": "Eva je učitelka."
+          }
+        }
+      ]
     },
     {
       "id": "GR-030",

@@ -389,28 +389,28 @@
       "description": "Masculine animate/inanimate, feminine, neuter. To je... pattern",
       "grammar_rules": [
         {
+          "id": "GR-023",
+          "name": "To je... (This is...) identification pattern",
+          "pattern": "To je + noun — for identifying and introducing things",
+          "example": "To je kniha. — That is a book."
+        },
+        {
           "id": "GR-020",
           "name": "Three noun genders",
           "pattern": "Masculine (animate + inanimate), Feminine, Neuter — identified by ending",
           "example": "hrad — castle"
         },
         {
+          "id": "GR-024",
+          "name": "Profession nouns — gendered pairs",
+          "pattern": "Many professions have male and female forms: -tel → -telka, -ř → -řka",
+          "example": "On je učitel. Ona je učitelka. — He is a teacher. She is a teacher."
+        },
+        {
           "id": "GR-021",
           "name": "Masculine animate vs inanimate",
           "pattern": "Masculine is split: animate (people, animals) vs inanimate (objects, concepts)",
           "example": "muž (animate) — man"
-        },
-        {
-          "id": "GR-022",
-          "name": "Nominative case — subject of sentence",
-          "pattern": "Nominative is the dictionary form, used for the subject of sentences",
-          "example": "Žena pije kávu. — The woman drinks coffee."
-        },
-        {
-          "id": "GR-023",
-          "name": "To je... (This is...) identification pattern",
-          "pattern": "To je + noun — for identifying and introducing things",
-          "example": "To je kniha. — That is a book."
         }
       ],
       "core_vocabulary": [
@@ -465,7 +465,99 @@
         "Zapomenutí na životnost u maskulin",
         "Hádání rodu podle významu"
       ],
-      "study_tip": "Ke každému novému slovu si rovnou zapište rod. Vytvořte si barevný systém: modrá = masc, červená = fem, zelená = neut."
+      "study_tip": "Ke každému novému slovu si rovnou zapište rod. Vytvořte si barevný systém: modrá = masc, červená = fem, zelená = neut.",
+      "notebook_page": {
+        "title_cz": "Kdo? Co?",
+        "title_en": "Who or what? ten, ta, to",
+        "can_do": {
+          "cz": "Zeptám se, kdo nebo co to je, a odpovím.",
+          "en": "I can ask who or what something is and answer."
+        },
+        "words": [
+          {
+            "cz": "Kdo je to?",
+            "en": "Who is it?"
+          },
+          {
+            "cz": "Co je to?",
+            "en": "What is it?"
+          },
+          {
+            "cz": "To je Anna.",
+            "en": "That is Anna."
+          },
+          {
+            "cz": "To je pes.",
+            "en": "That is a dog."
+          },
+          {
+            "cz": "ten stůl",
+            "en": "the table"
+          },
+          {
+            "cz": "ta kniha",
+            "en": "the book"
+          },
+          {
+            "cz": "to okno",
+            "en": "the window"
+          },
+          {
+            "cz": "Eva je učitelka.",
+            "en": "Eva is a teacher."
+          }
+        ],
+        "pattern": {
+          "name": "Three genders",
+          "rule_plain": "ten (masculine), ta (feminine), to (neuter). Most -a words are ta, most -o/-í words are to, most consonant endings are ten.",
+          "table": [
+            [
+              "ten",
+              "muž, pes, dům, stůl"
+            ],
+            [
+              "ta",
+              "žena, káva, kniha, židle"
+            ],
+            [
+              "to",
+              "dítě, auto, okno, město"
+            ],
+            [
+              "učitel",
+              "učitelka"
+            ],
+            [
+              "student",
+              "studentka"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kdo je to? — To je Anna.",
+              "en": "Who is it? — That is Anna."
+            },
+            {
+              "cz": "Co je to? — To je ta kniha.",
+              "en": "What is it? — That is the book."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "ten kniha",
+            "right": "ta kniha"
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "To je můj stůl.",
+            "en": "That is my table."
+          },
+          {
+            "cz": "To je Eva. Je učitelka.",
+            "en": "That is Eva. She is a teacher."
+          }
+        ]
+      }
     },
     {
       "unit_id": 4,

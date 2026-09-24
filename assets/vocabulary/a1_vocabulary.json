@@ -250,7 +250,7 @@
     "unit_id": 3,
     "example_cz": "Pražský hrad je velký.",
     "example_en": "Prague Castle is big.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 24,
@@ -261,7 +261,7 @@
     "unit_id": 3,
     "example_cz": "Praha je velké město.",
     "example_en": "Prague is a big city.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 25,
@@ -272,7 +272,7 @@
     "unit_id": 3,
     "example_cz": "To je kniha.",
     "example_en": "That is a book.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 26,
@@ -283,7 +283,7 @@
     "unit_id": 3,
     "example_cz": "Piju kávu.",
     "example_en": "I'm drinking coffee.",
-    "lesson_id": 301
+    "lesson_id": 304
   },
   {
     "id": 27,
@@ -316,7 +316,7 @@
     "unit_id": 3,
     "example_cz": "To je dům.",
     "example_en": "That is a house.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 30,
@@ -327,7 +327,7 @@
     "unit_id": 3,
     "example_cz": "Jdu do školy.",
     "example_en": "I'm going to school.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 31,
@@ -338,7 +338,7 @@
     "unit_id": 3,
     "example_cz": "Piju vodu.",
     "example_en": "I'm drinking water.",
-    "lesson_id": 301
+    "lesson_id": null
   },
   {
     "id": 32,
@@ -349,7 +349,7 @@
     "unit_id": 3,
     "example_cz": "To je chleba.",
     "example_en": "That is bread.",
-    "lesson_id": 301
+    "lesson_id": null
   },
   {
     "id": 33,
@@ -360,7 +360,7 @@
     "unit_id": 3,
     "example_cz": "Piju pivo.",
     "example_en": "I'm drinking beer.",
-    "lesson_id": 301
+    "lesson_id": null
   },
   {
     "id": 34,
@@ -371,7 +371,7 @@
     "unit_id": 3,
     "example_cz": "To je okno.",
     "example_en": "That is a window.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 35,
@@ -382,7 +382,7 @@
     "unit_id": 3,
     "example_cz": "To je stůl.",
     "example_en": "That is a table.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 36,
@@ -844,7 +844,7 @@
     "unit_id": 3,
     "example_cz": "On je student.",
     "example_en": "He is a student.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 85,
@@ -855,7 +855,7 @@
     "unit_id": 3,
     "example_cz": "Ona je studentka.",
     "example_en": "She is a student.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 86,
@@ -866,7 +866,7 @@
     "unit_id": 3,
     "example_cz": "Pan Novák je učitel.",
     "example_en": "Mr. Novák is a teacher.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 87,
@@ -877,7 +877,7 @@
     "unit_id": 3,
     "example_cz": "Paní Nováková je učitelka.",
     "example_en": "Mrs. Nováková is a teacher.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 88,
@@ -888,7 +888,7 @@
     "unit_id": 3,
     "example_cz": "Můj otec je lékař.",
     "example_en": "My father is a doctor.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 89,
@@ -899,7 +899,7 @@
     "unit_id": 3,
     "example_cz": "Moje matka je lékařka.",
     "example_en": "My mother is a doctor.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 90,
@@ -910,7 +910,7 @@
     "unit_id": 3,
     "example_cz": "To je nová kniha.",
     "example_en": "That is a new book.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 91,
@@ -921,7 +921,7 @@
     "unit_id": 3,
     "example_cz": "To je starý dům.",
     "example_en": "That is an old house.",
-    "lesson_id": 301
+    "lesson_id": 303
   },
   {
     "id": 92,
@@ -932,7 +932,7 @@
     "unit_id": 3,
     "example_cz": "Tady je kniha.",
     "example_en": "Here is a book.",
-    "lesson_id": 301
+    "lesson_id": 304
   },
   {
     "id": 93,
@@ -943,7 +943,7 @@
     "unit_id": 3,
     "example_cz": "Tam je auto.",
     "example_en": "There is a car.",
-    "lesson_id": 301
+    "lesson_id": 304
   },
   {
     "id": 94,
@@ -963,7 +963,7 @@
     "ipa": "ˈnɛbo",
     "gender": null,
     "unit_id": 3,
-    "lesson_id": 301,
+    "lesson_id": 304,
     "example_cz": "Nebo, jestli chceš.",
     "example_en": "Or, if you want."
   },
@@ -976,7 +976,7 @@
     "unit_id": 3,
     "example_cz": "Kniha a sešit.",
     "example_en": "A book and a notebook.",
-    "lesson_id": 301
+    "lesson_id": 304
   },
   {
     "id": 97,
@@ -987,7 +987,7 @@
     "unit_id": 3,
     "example_cz": "Je to dům, ale je malý.",
     "example_en": "It's a house, but it's small.",
-    "lesson_id": 301
+    "lesson_id": 304
   },
   {
     "id": 98,
@@ -998,7 +998,7 @@
     "unit_id": 3,
     "example_cz": "Jsem v Praze.",
     "example_en": "I'm in Prague.",
-    "lesson_id": 301
+    "lesson_id": 304
   },
   {
     "id": 99,
@@ -1020,7 +1020,7 @@
     "unit_id": 3,
     "example_cz": "Bydlím v Praze.",
     "example_en": "I live in Prague.",
-    "lesson_id": 301
+    "lesson_id": 304
   },
   {
     "id": 101,
@@ -4023,7 +4023,7 @@
     "unit_id": 3,
     "example_cz": "Židle je v pokoji.",
     "example_en": "The chair is in the room.",
-    "lesson_id": 301
+    "lesson_id": 302
   },
   {
     "id": 374,
