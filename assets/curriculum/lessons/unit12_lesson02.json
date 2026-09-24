@@ -2,39 +2,51 @@
   "id": 1202,
   "unit_id": 12,
   "title": "Ask About Price and Size",
-  "description": "Listen and ask for the price and size of a specific item.",
+  "description": "Learn prices with koruna, and colours and clothes as objects.",
   "lesson_type": "practice",
   "order_in_unit": 1,
-  "duration_min": 12,
+  "duration_min": 14,
+  "can_do": "ask the price and say which item and colour you want.",
+  "new_language": [
+    "koruna, koruny, korun",
+    "modrou košili, nové boty",
+    "červený / červená / červené"
+  ],
+  "recycles": [
+    "-a → -u (U6)",
+    "sto, pět set (U9)"
+  ],
+  "exit_task": "ask the price of two things.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 12100,
+      "id": 12200,
       "lesson_id": 1202,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Ask About Price and Size",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write what you are wearing and two shop phrases. Then check.",
         "items": [
           {
+            "cz": "Chci modrý svetr.",
+            "en": "I want a blue sweater."
+          },
+          {
+            "cz": "Hledám nové boty.",
+            "en": "I am looking for new shoes."
+          },
+          {
             "cz": "Kolik to stojí?",
-            "en": "How much does it cost?"
+            "en": "How much is it?"
           },
           {
             "cz": "Stojí to pět set korun.",
-            "en": "It costs five hundred crowns."
-          },
-          {
-            "cz": "Jakou velikost?",
-            "en": "What size?"
-          },
-          {
-            "cz": "Velikost M, prosím.",
-            "en": "Size M, please."
+            "en": "It costs 500 crowns."
           }
         ]
       },
@@ -42,7 +54,409 @@
       "xp_reward": 0
     },
     {
-      "id": 12101,
+      "id": 12201,
+      "lesson_id": 1202,
+      "type": "teaching",
+      "prompt": "Prices: koruna, koruny, korun",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-110",
+        "rule_step": 1,
+        "heading": "Prices: koruna, koruny, korun",
+        "items": [
+          {
+            "cz": "Kolik stojí ten svetr? — Pět set korun.",
+            "en": "How much is that sweater? — Five hundred crowns."
+          },
+          {
+            "cz": "To je moc drahé.",
+            "en": "That is too expensive."
+          }
+        ],
+        "say": "Ask Kolik to stojí? The answer is Stojí to… and the word koruna changes with the number: jedna koruna, dvě koruny, pět korun.",
+        "table": [
+          [
+            "1",
+            "jedna koruna"
+          ],
+          [
+            "2–4",
+            "dvě, tři, čtyři koruny"
+          ],
+          [
+            "5 and more",
+            "pět, sto korun"
+          ],
+          [
+            "How much is it?",
+            "Kolik to stojí?"
+          ],
+          [
+            "It costs…",
+            "Stojí to pět set korun."
+          ],
+          [
+            "Kč",
+            "korun (written)"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Kolik stojí ten svetr? — Pět set korun.",
+            "en": "How much is that sweater? — Five hundred crowns."
+          },
+          {
+            "cz": "To je moc drahé.",
+            "en": "That is too expensive."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Stojí to pět koruny.",
+          "right": "Stojí to pět korun."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 12202,
+      "lesson_id": 1202,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Stojí to pět ___.",
+        "question_en": "It costs five crowns.",
+        "options": [
+          "korun",
+          "koruny",
+          "koruna"
+        ],
+        "correct_index": 0,
+        "explanation": "5 and more: korun."
+      },
+      "answer_key": "korun",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-110"
+    },
+    {
+      "id": 12203,
+      "lesson_id": 1202,
+      "type": "teaching",
+      "prompt": "I want a blue shirt: modrou košili",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-111",
+        "rule_step": 1,
+        "heading": "I want a blue shirt: modrou košili",
+        "items": [
+          {
+            "cz": "Chci koupit modrou košili.",
+            "en": "I want to buy a blue shirt."
+          },
+          {
+            "cz": "Hledám nové boty.",
+            "en": "I am looking for new shoes."
+          }
+        ],
+        "say": "What you want or buy is the object. Feminine words and their adjectives change: modrá košile → modrou košili. Masculine things and plurals stay: modrý svetr, černé kalhoty.",
+        "table": [
+          [
+            "modrý svetr",
+            "Chci modrý svetr."
+          ],
+          [
+            "modrá košile",
+            "Chci modrou košili."
+          ],
+          [
+            "nová bunda",
+            "Kupuju novou bundu."
+          ],
+          [
+            "černé tričko",
+            "Chci černé tričko."
+          ],
+          [
+            "černé kalhoty",
+            "Hledám černé kalhoty."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Chci koupit modrou košili.",
+            "en": "I want to buy a blue shirt."
+          },
+          {
+            "cz": "Hledám nové boty.",
+            "en": "I am looking for new shoes."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Chci modrá košile.",
+          "right": "Chci modrou košili."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 12204,
+      "lesson_id": 1202,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Chci ___ košili. (modrá)",
+        "question_en": "I want a blue shirt.",
+        "options": [
+          "modrou",
+          "modrá",
+          "modrý"
+        ],
+        "correct_index": 0,
+        "explanation": "košile is the object and feminine: modrou."
+      },
+      "answer_key": "modrou",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-111"
+    },
+    {
+      "id": 12205,
+      "lesson_id": 1202,
+      "type": "teaching",
+      "prompt": "Colours match: červený, červená, červené",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-112",
+        "rule_step": 1,
+        "heading": "Colours match: červený, červená, červené",
+        "items": [
+          {
+            "cz": "Mám modrý svetr a černé kalhoty.",
+            "en": "I have a blue sweater and black trousers."
+          },
+          {
+            "cz": "Jakou barvu chcete? — Červenou.",
+            "en": "What colour do you want? — Red."
+          }
+        ],
+        "say": "Colours are adjectives, so they match the noun: červený svetr, červená bunda, červené tričko. Plural things like kalhoty and boty take -é.",
+        "table": [
+          [
+            "ten svetr",
+            "modrý, červený, černý"
+          ],
+          [
+            "ta bunda",
+            "modrá, červená, černá"
+          ],
+          [
+            "to tričko",
+            "modré, červené, černé"
+          ],
+          [
+            "ty kalhoty / boty",
+            "modré, červené, černé"
+          ],
+          [
+            "What colour?",
+            "Jakou barvu?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Mám modrý svetr a černé kalhoty.",
+            "en": "I have a blue sweater and black trousers."
+          },
+          {
+            "cz": "Jakou barvu chcete? — Červenou.",
+            "en": "What colour do you want? — Red."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "černý kalhoty",
+          "right": "černé kalhoty"
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 12206,
+      "lesson_id": 1202,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Mám ___ kalhoty. (černý)",
+        "question_en": "I have black trousers.",
+        "options": [
+          "černé",
+          "černý",
+          "černá"
+        ],
+        "correct_index": 0,
+        "explanation": "kalhoty is plural: černé."
+      },
+      "answer_key": "černé",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-112"
+    },
+    {
+      "id": 12207,
+      "lesson_id": 1202,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write koruna with 1, 3 and 5, one colour in all its forms, and two things you want with Chci….",
+        "items": [
+          {
+            "cz": "jedna koruna, tři koruny, pět korun",
+            "en": "prices"
+          },
+          {
+            "cz": "červený, červená, červené",
+            "en": "colours match"
+          },
+          {
+            "cz": "Chci modrý svetr. Chci modrou košili.",
+            "en": "what you want"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 12208,
+      "lesson_id": 1202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "2–4: koruny.",
+        "sentence": "Stojí to tři ___.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "koruny"
+          ]
+        ],
+        "explanation": "tři koruny"
+      },
+      "answer_key": "koruny",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-110"
+    },
+    {
+      "id": 12209,
+      "lesson_id": 1202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "feminine object: -ou.",
+        "sentence": "Kupuju ___ bundu. (nová)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "novou"
+          ]
+        ],
+        "explanation": "novou bundu"
+      },
+      "answer_key": "novou",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-111"
+    },
+    {
+      "id": 12210,
+      "lesson_id": 1202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "to tričko → -é.",
+        "sentence": "To je ___ tričko. (zelený)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "zelené"
+          ]
+        ],
+        "explanation": "zelené tričko"
+      },
+      "answer_key": "zelené",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-112"
+    },
+    {
+      "id": 12211,
+      "lesson_id": 1202,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Masculine things do not change.",
+        "sentence": "Hledám ___ svetr. (modrý)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "modrý"
+          ]
+        ],
+        "explanation": "modrý svetr"
+      },
+      "answer_key": "modrý",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-111"
+    },
+    {
+      "id": 12212,
+      "lesson_id": 1202,
+      "type": "fill_blank",
+      "prompt": "Complete the useful pattern",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Chci ___ svetr a ___ boty.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "modrý"
+          ],
+          [
+            "nové"
+          ]
+        ],
+        "explanation": "Use the chunk you have just heard and read."
+      },
+      "answer_key": "modrý | nové",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-111"
+    },
+    {
+      "id": 12213,
       "lesson_id": 1202,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +486,11 @@
         ]
       },
       "answer_key": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-110"
     },
     {
-      "id": 12102,
+      "id": 12214,
       "lesson_id": 1202,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +524,11 @@
         ]
       },
       "answer_key": "Kolik to stojí?",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-110"
     },
     {
-      "id": 12103,
+      "id": 12215,
       "lesson_id": 1202,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -139,31 +555,11 @@
         "explanation": "Keep the complete Czech chunk together."
       },
       "answer_key": "Kolik to stojí?–How much does it cost?; Stojí to pět set korun.–It costs five hundred crowns.; Jakou velikost?–What size?; Velikost M, prosím.–Size M, please.",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-110"
     },
     {
-      "id": 12104,
-      "lesson_id": 1202,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Kolik to stojí?",
-          "Kde je lékárna?",
-          "Co piješ?",
-          "Bude pršet?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Kolik to stojí?",
-      "xp_reward": 10
-    },
-    {
-      "id": 12105,
+      "id": 12216,
       "lesson_id": 1202,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,47 +578,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "stojí | Stojí",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-110"
     },
     {
-      "id": 12106,
-      "lesson_id": 1202,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Kolik",
-          "to",
-          "stojí?"
-        ],
-        "correct_order": [
-          0,
-          1,
-          2
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Kolik to stojí?",
-      "xp_reward": 10
-    },
-    {
-      "id": 12107,
-      "lesson_id": 1202,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Kolik to stojí? Stojí pět set korun.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Kolik to stojí? Stojí pět set korun.",
-      "xp_reward": 10
-    },
-    {
-      "id": 12108,
+      "id": 12217,
       "lesson_id": 1202,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -237,10 +597,11 @@
         "translation_en": "Say the useful phrase clearly and naturally."
       },
       "answer_key": "Kolik to stojí? Stojí pět set korun.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-110"
     },
     {
-      "id": 12109,
+      "id": 12218,
       "lesson_id": 1202,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -267,83 +628,15 @@
         ],
         "blank_answers": [
           [
-            "Jakou máte velikost?",
-            "Jakou velikost?"
+            "Jaké máte velikosti?",
+            "Jaké velikosti máte?"
           ]
         ],
         "explanation": "Use short, complete answers that fit the situation."
       },
-      "answer_key": "Jakou máte velikost?",
-      "xp_reward": 15
-    },
-    {
-      "id": 12110,
-      "lesson_id": 1202,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write one price question and the size you need.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 5,
-        "max_words": 32,
-        "key_vocab": [
-          "Kolik to stojí?",
-          "Stojí to pět set korun.",
-          "Jakou velikost?",
-          "Velikost M, prosím."
-        ],
-        "sample_answer": "Kolik to stojí?"
-      },
-      "answer_key": "Kolik to stojí?",
-      "xp_reward": 0
-    },
-    {
-      "id": 12111,
-      "lesson_id": 1202,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
-              "Kde je lékárna?",
-              "Co piješ?"
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
-      "xp_reward": 15
+      "answer_key": "Jaké máte velikosti?",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-110"
     }
-  ],
-  "can_do": "ask about price and size.",
-  "new_language": [
-    "Kolik to stojí?",
-    "Stojí to pět set korun.",
-    "Jakou velikost?",
-    "Velikost M, prosím."
-  ],
-  "recycles": [
-    "colours",
-    "numbers and prices",
-    "chci/kupuju",
-    "polite questions"
-  ],
-  "exit_task": "ask about price and size."
+  ]
 }

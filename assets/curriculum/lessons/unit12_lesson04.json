@@ -2,14 +2,25 @@
   "id": 1204,
   "unit_id": 12,
   "title": "Mission: Buy One Thing",
-  "description": "Bring colour, size, price, and payment into one shopping mission.",
+  "description": "Choose an item, colour and size, ask the price and pay.",
   "lesson_type": "mission",
   "order_in_unit": 3,
   "duration_min": 12,
-  "is_review": true,
+  "can_do": "buy one item of clothing from start to finish.",
+  "new_language": [
+    "Beru to."
+  ],
+  "recycles": [
+    "Kolik to stojí?",
+    "modrou košili",
+    "Platím kartou."
+  ],
+  "exit_task": "record a clothes-shop exchange.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 12300,
+      "id": 12400,
       "lesson_id": 1204,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -17,7 +28,7 @@
         "type": "teaching",
         "style": "list",
         "heading": "Mission: Buy One Thing",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
+        "body": "Close your notebook. Choose one item, its colour and size, ask the price and pay.",
         "play_all_label": "Hear the useful chunks",
         "items": [
           {
@@ -42,7 +53,7 @@
       "xp_reward": 0
     },
     {
-      "id": 12301,
+      "id": 12401,
       "lesson_id": 1204,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +83,11 @@
         ]
       },
       "answer_key": "Chci koupit modrou košili. Kolik stojí? Je levná. Platím kartou.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-111"
     },
     {
-      "id": 12302,
+      "id": 12402,
       "lesson_id": 1204,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -106,13 +118,14 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Chci koupit košili.",
       "xp_reward": 15
     },
     {
-      "id": 12303,
+      "id": 12403,
       "lesson_id": 1204,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +149,14 @@
             "right": "Thank you, goodbye."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Chci koupit košili.–I want to buy a shirt.; Je levná.–It is cheap.; Platím kartou.–I pay by card.; Děkuji, na shledanou.–Thank you, goodbye.",
       "xp_reward": 10
     },
     {
-      "id": 12304,
-      "lesson_id": 1204,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Chci koupit košili.",
-          "Rád čtu.",
-          "Prší.",
-          "Jsem v restauraci."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Chci koupit košili.",
-      "xp_reward": 10
-    },
-    {
-      "id": 12305,
+      "id": 12404,
       "lesson_id": 1204,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,63 +175,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "modrou | kartou",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-111"
     },
     {
-      "id": 12306,
-      "lesson_id": 1204,
-      "type": "word_order",
-      "prompt": "Build a natural short exchange",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Platím",
-          "kartou."
-        ],
-        "correct_order": [
-          0,
-          1
-        ],
-        "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
-      },
-      "answer_key": "Platím kartou.",
-      "xp_reward": 10
-    },
-    {
-      "id": 12307,
-      "lesson_id": 1204,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Chci koupit modrou košili. Platím kartou.",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Chci koupit modrou košili. Platím kartou.",
-      "xp_reward": 10
-    },
-    {
-      "id": 12308,
-      "lesson_id": 1204,
-      "type": "pronunciation",
-      "prompt": "Rehearse a useful answer",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Chci koupit modrou košili. Platím kartou.",
-        "focus_sounds": [
-          "first_syllable_stress",
-          "long_vowel"
-        ],
-        "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
-      },
-      "answer_key": "Chci koupit modrou košili. Platím kartou.",
-      "xp_reward": 15
-    },
-    {
-      "id": 12309,
+      "id": 12405,
       "lesson_id": 1204,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -276,10 +217,34 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Chci koupit košili. | Platím kartou.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-111"
     },
     {
-      "id": 12310,
+      "id": 12406,
+      "lesson_id": 1204,
+      "type": "writing_task",
+      "prompt": "Write a useful personal response",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write what clothes and colours you want.",
+        "prompt_cz": "Napište krátkou odpověď česky.",
+        "min_words": 5,
+        "max_words": 32,
+        "key_vocab": [
+          "červená košile",
+          "modrý svetr",
+          "černé kalhoty",
+          "nové boty"
+        ],
+        "sample_answer": "červená košile",
+        "targets": "vocab"
+      },
+      "answer_key": "červená košile",
+      "xp_reward": 0
+    },
+    {
+      "id": 12407,
       "lesson_id": 1204,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -295,13 +260,14 @@
           "Platím kartou.",
           "Děkuji, na shledanou."
         ],
-        "sample_answer": "Chci koupit košili."
+        "sample_answer": "Chci koupit košili.",
+        "targets": "vocab"
       },
       "answer_key": "Chci koupit košili.",
       "xp_reward": 0
     },
     {
-      "id": 12311,
+      "id": 12408,
       "lesson_id": 1204,
       "type": "speaking_task",
       "prompt": "Record the unit mission",
@@ -315,24 +281,44 @@
           "Chci koupit košili.",
           "Je levná.",
           "Platím kartou."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Chci koupit košili.; Je levná.; Platím kartou.",
       "xp_reward": 20
+    },
+    {
+      "id": 12409,
+      "lesson_id": 1204,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 12 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, then tick your Check box.",
+        "items": [
+          {
+            "cz": "koruna, koruny, korun",
+            "en": "prices"
+          },
+          {
+            "cz": "červený / červená / červené",
+            "en": "colours"
+          },
+          {
+            "cz": "Chci modrou košili.",
+            "en": "what you want"
+          },
+          {
+            "cz": "větší, menší, levnější",
+            "en": "comparing"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
-  ],
-  "can_do": "complete a short clothes-shop purchase.",
-  "new_language": [
-    "Chci koupit košili.",
-    "Je levná.",
-    "Platím kartou.",
-    "Děkuji, na shledanou."
-  ],
-  "recycles": [
-    "colours",
-    "numbers and prices",
-    "chci/kupuju",
-    "polite questions"
-  ],
-  "exit_task": "complete a short clothes-shop purchase."
+  ]
 }

@@ -3022,7 +3022,7 @@
     "unit_id": 12,
     "example_cz": "Stojí to padesát korun.",
     "example_en": "It costs fifty crowns.",
-    "lesson_id": 1201
+    "lesson_id": 1203
   },
   {
     "id": 283,
@@ -3033,7 +3033,7 @@
     "unit_id": 12,
     "example_cz": "Kolik to stojí?",
     "example_en": "How much does it cost?",
-    "lesson_id": 1201
+    "lesson_id": 1203
   },
   {
     "id": 284,
@@ -3044,7 +3044,7 @@
     "unit_id": 12,
     "example_cz": "To je moc drahé.",
     "example_en": "That's too expensive.",
-    "lesson_id": 1201
+    "lesson_id": 1203
   },
   {
     "id": 285,
@@ -3055,7 +3055,7 @@
     "unit_id": 12,
     "example_cz": "To je docela levné.",
     "example_en": "That's quite cheap.",
-    "lesson_id": 1201
+    "lesson_id": 1203
   },
   {
     "id": 286,
@@ -3066,7 +3066,7 @@
     "unit_id": 12,
     "example_cz": "Kupuju nové boty.",
     "example_en": "I'm buying new shoes.",
-    "lesson_id": 1202
+    "lesson_id": 1204
   },
   {
     "id": 287,
@@ -3077,7 +3077,7 @@
     "unit_id": 12,
     "example_cz": "Chci koupit dárek.",
     "example_en": "I want to buy a gift.",
-    "lesson_id": 1202
+    "lesson_id": 1204
   },
   {
     "id": 288,
@@ -3088,7 +3088,7 @@
     "unit_id": 12,
     "example_cz": "Mám modrý svetr.",
     "example_en": "I have a blue sweater.",
-    "lesson_id": 1202
+    "lesson_id": 1201
   },
   {
     "id": 289,
@@ -3099,7 +3099,7 @@
     "unit_id": 12,
     "example_cz": "Bílá košile.",
     "example_en": "A white shirt.",
-    "lesson_id": 1202
+    "lesson_id": 1201
   },
   {
     "id": 290,
@@ -3220,7 +3220,7 @@
     "unit_id": 12,
     "example_cz": "Jakou máte velikost?",
     "example_en": "What size do you have?",
-    "lesson_id": 1202
+    "lesson_id": 1203
   },
   {
     "id": 301,
@@ -3231,7 +3231,7 @@
     "unit_id": 12,
     "example_cz": "Můžu si to vyzkoušet?",
     "example_en": "Can I try it on?",
-    "lesson_id": 1202
+    "lesson_id": 1203
   },
   {
     "id": 302,
@@ -4518,7 +4518,7 @@
     "unit_id": 12,
     "example_cz": "Kabát je teplý.",
     "example_en": "The coat is warm.",
-    "lesson_id": 1201
+    "lesson_id": 1202
   },
   {
     "id": 422,
@@ -4529,7 +4529,7 @@
     "unit_id": 12,
     "example_cz": "Tričko je modré.",
     "example_en": "The t-shirt is blue.",
-    "lesson_id": 1201
+    "lesson_id": 1202
   },
   {
     "id": 423,
@@ -4540,7 +4540,7 @@
     "unit_id": 12,
     "example_cz": "Sukně je dlouhá.",
     "example_en": "The skirt is long.",
-    "lesson_id": 1201
+    "lesson_id": 1202
   },
   {
     "id": 424,
@@ -4551,7 +4551,7 @@
     "unit_id": 12,
     "example_cz": "Ponožky jsou v šatníku.",
     "example_en": "The socks are in the wardrobe.",
-    "lesson_id": 1201
+    "lesson_id": 1202
   },
   {
     "id": 425,
@@ -4562,7 +4562,7 @@
     "unit_id": 12,
     "example_cz": "Obchod je otevřený.",
     "example_en": "The shop is open.",
-    "lesson_id": 1201
+    "lesson_id": 1204
   },
   {
     "id": 426,
@@ -4573,7 +4573,7 @@
     "unit_id": 12,
     "example_cz": "Supermarket je blízko.",
     "example_en": "The supermarket is nearby.",
-    "lesson_id": 1201
+    "lesson_id": 1204
   },
   {
     "id": 427,
@@ -4584,7 +4584,7 @@
     "unit_id": 12,
     "example_cz": "Trh je na náměstí.",
     "example_en": "The market is on the square.",
-    "lesson_id": 1201
+    "lesson_id": 1204
   },
   {
     "id": 428,
@@ -4595,7 +4595,7 @@
     "unit_id": 12,
     "example_cz": "Platím v hotovosti.",
     "example_en": "I pay in cash.",
-    "lesson_id": 1201
+    "lesson_id": 1204
   },
   {
     "id": 429,
@@ -4606,7 +4606,7 @@
     "unit_id": 12,
     "example_cz": "Nemám hotovost u sebe.",
     "example_en": "I don't have cash with me.",
-    "lesson_id": 1201
+    "lesson_id": 1203
   },
   {
     "id": 430,
@@ -4617,7 +4617,7 @@
     "unit_id": 12,
     "example_cz": "Platím kartou.",
     "example_en": "I pay by card.",
-    "lesson_id": 1201
+    "lesson_id": 1203
   },
   {
     "id": 431,

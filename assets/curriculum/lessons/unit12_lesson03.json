@@ -2,39 +2,41 @@
   "id": 1203,
   "unit_id": 12,
   "title": "Try It On and Decide",
-  "description": "Use fitting-room language to try, compare, accept, or reject an item.",
+  "description": "Compare sizes and prices: větší, menší, levnější.",
   "lesson_type": "practice",
   "order_in_unit": 2,
   "duration_min": 12,
+  "can_do": "try something on and ask for another size.",
+  "new_language": [
+    "větší, menší, levnější, dražší"
+  ],
+  "recycles": [
+    "Můžu…?",
+    "velikost"
+  ],
+  "exit_task": "write what size fits you.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 12200,
+      "id": 12300,
       "lesson_id": 1203,
       "type": "teaching",
-      "prompt": "Learn the mission language",
+      "prompt": "Notebook",
       "data": {
         "type": "teaching",
-        "style": "list",
-        "heading": "Try It On and Decide",
-        "body": "Start with the scene and useful chunks. Listen before looking for a rule.",
-        "play_all_label": "Hear the useful chunks",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “five hundred crowns” and “I want a blue shirt”. Then check.",
         "items": [
           {
-            "cz": "Můžu si to vyzkoušet?",
-            "en": "May I try it on?"
+            "cz": "pět set korun",
+            "en": "five hundred crowns"
           },
           {
-            "cz": "Je to malé.",
-            "en": "It is small."
-          },
-          {
-            "cz": "Je to velké.",
-            "en": "It is big."
-          },
-          {
-            "cz": "Chci jinou velikost.",
-            "en": "I want another size."
+            "cz": "Chci modrou košili.",
+            "en": "I want a blue shirt."
           }
         ]
       },
@@ -42,7 +44,118 @@
       "xp_reward": 0
     },
     {
-      "id": 12201,
+      "id": 12301,
+      "lesson_id": 1203,
+      "type": "teaching",
+      "prompt": "Bigger, cheaper: větší, levnější",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-113",
+        "rule_step": 1,
+        "heading": "Bigger, cheaper: větší, levnější",
+        "items": [
+          {
+            "cz": "Máte větší velikost?",
+            "en": "Do you have a bigger size?"
+          },
+          {
+            "cz": "Tento svetr je levnější.",
+            "en": "This sweater is cheaper."
+          }
+        ],
+        "say": "To ask for a different size or price, compare: větší (bigger), menší (smaller), levnější (cheaper), dražší (more expensive), lepší (better).",
+        "table": [
+          [
+            "velký",
+            "větší"
+          ],
+          [
+            "malý",
+            "menší"
+          ],
+          [
+            "levný",
+            "levnější"
+          ],
+          [
+            "drahý",
+            "dražší"
+          ],
+          [
+            "dobrý",
+            "lepší"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Máte větší velikost?",
+            "en": "Do you have a bigger size?"
+          },
+          {
+            "cz": "Tento svetr je levnější.",
+            "en": "This sweater is cheaper."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Máte víc velkou velikost?",
+          "right": "Máte větší velikost?"
+        },
+        "step": 1,
+        "steps": 1
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 12302,
+      "lesson_id": 1203,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Bunda je malá. Co řeknete?",
+        "question_en": "The jacket is small. What do you say?",
+        "options": [
+          "Máte větší velikost?",
+          "Máte menší velikost?",
+          "Máte dražší velikost?"
+        ],
+        "correct_index": 0,
+        "explanation": "Too small → větší (bigger)."
+      },
+      "answer_key": "Máte větší velikost?",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-113"
+    },
+    {
+      "id": 12303,
+      "lesson_id": 1203,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write what you need to buy and what colour and size you want.",
+        "items": [
+          {
+            "cz": "Potřebuju nové boty.",
+            "en": "I need new shoes."
+          },
+          {
+            "cz": "Chci černou bundu, velikost M.",
+            "en": "I want a black jacket, size M."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 12304,
       "lesson_id": 1203,
       "type": "listening_comprehension",
       "prompt": "Listen for the useful chunks",
@@ -72,10 +185,11 @@
         ]
       },
       "answer_key": "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-113"
     },
     {
-      "id": 12202,
+      "id": 12305,
       "lesson_id": 1203,
       "type": "reading_comprehension",
       "prompt": "Look at the scene and read for the important details",
@@ -109,10 +223,11 @@
         ]
       },
       "answer_key": "Můžu si to vyzkoušet?",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-113"
     },
     {
-      "id": 12203,
+      "id": 12306,
       "lesson_id": 1203,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -136,34 +251,14 @@
             "right": "I want another size."
           }
         ],
-        "explanation": "Keep the complete Czech chunk together."
+        "explanation": "Keep the complete Czech chunk together.",
+        "targets": "vocab"
       },
       "answer_key": "Můžu si to vyzkoušet?–May I try it on?; Je to malé.–It is small.; Je to velké.–It is big.; Chci jinou velikost.–I want another size.",
       "xp_reward": 10
     },
     {
-      "id": 12204,
-      "lesson_id": 1203,
-      "type": "multiple_choice",
-      "prompt": "Choose the useful phrase for the scene",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta patří do této situace?",
-        "question_en": "Which phrase fits this situation?",
-        "options": [
-          "Můžu si to vyzkoušet?",
-          "Účet, prosím.",
-          "Jdu pěšky.",
-          "Mám žízeň."
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs the unit mission."
-      },
-      "answer_key": "Můžu si to vyzkoušet?",
-      "xp_reward": 10
-    },
-    {
-      "id": 12205,
+      "id": 12307,
       "lesson_id": 1203,
       "type": "fill_blank",
       "prompt": "Complete the useful pattern",
@@ -182,10 +277,11 @@
         "explanation": "Use the chunk you have just heard and read."
       },
       "answer_key": "malá | velikost",
-      "xp_reward": 10
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-112"
     },
     {
-      "id": 12206,
+      "id": 12308,
       "lesson_id": 1203,
       "type": "word_order",
       "prompt": "Build a natural short exchange",
@@ -204,27 +300,14 @@
           3
         ],
         "translation_en": "Build the useful Czech exchange.",
-        "explanation": "Keep the useful phrase together as a chunk."
+        "explanation": "Keep the useful phrase together as a chunk.",
+        "targets": "vocab"
       },
       "answer_key": "Můžu si to vyzkoušet?",
       "xp_reward": 10
     },
     {
-      "id": 12207,
-      "lesson_id": 1203,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Můžu si to vyzkoušet?",
-        "language": "cs-CZ",
-        "note": "Listen for the complete phrase before typing."
-      },
-      "answer_key": "Můžu si to vyzkoušet?",
-      "xp_reward": 10
-    },
-    {
-      "id": 12208,
+      "id": 12309,
       "lesson_id": 1203,
       "type": "pronunciation",
       "prompt": "Rehearse a useful answer",
@@ -236,13 +319,14 @@
           "long_vowel"
         ],
         "min_score": 0.5,
-        "translation_en": "Say the useful phrase clearly and naturally."
+        "translation_en": "Say the useful phrase clearly and naturally.",
+        "targets": "vocab"
       },
       "answer_key": "Můžu si to vyzkoušet?",
       "xp_reward": 15
     },
     {
-      "id": 12209,
+      "id": 12310,
       "lesson_id": 1203,
       "type": "dialogue",
       "prompt": "Complete the short exchange",
@@ -272,10 +356,45 @@
         "explanation": "Use short, complete answers that fit the situation."
       },
       "answer_key": "Je to malé.",
-      "xp_reward": 15
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-112"
     },
     {
-      "id": 12210,
+      "id": 12311,
+      "lesson_id": 1203,
+      "type": "listening_comprehension",
+      "prompt": "Listen in a new voice",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen again in a new context. Focus on one key detail.",
+        "transcript_cz": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+        "questions": [
+          {
+            "question_en": "Which useful phrase do you hear?",
+            "options": [
+              "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+              "Kde je lékárna?",
+              "Co piješ?"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Does the audio fit this everyday situation?",
+            "options": [
+              "Yes",
+              "No",
+              "It is impossible to tell"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Kolik stojí ten svetr? Stojí pět set korun. Jakou velikost? M, prosím.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-110"
+    },
+    {
+      "id": 12312,
       "lesson_id": 1203,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -291,57 +410,11 @@
           "Je to velké.",
           "Chci jinou velikost."
         ],
-        "sample_answer": "Můžu si to vyzkoušet?"
+        "sample_answer": "Můžu si to vyzkoušet?",
+        "targets": "vocab"
       },
       "answer_key": "Můžu si to vyzkoušet?",
       "xp_reward": 0
-    },
-    {
-      "id": 12211,
-      "lesson_id": 1203,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new voice",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen again in a new context. Focus on one key detail.",
-        "transcript_cz": "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
-        "questions": [
-          {
-            "question_en": "Which useful phrase do you hear?",
-            "options": [
-              "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
-              "Účet, prosím.",
-              "Jdu pěšky."
-            ],
-            "correct_index": 0
-          },
-          {
-            "question_en": "Does the audio fit this everyday situation?",
-            "options": [
-              "Yes",
-              "No",
-              "It is impossible to tell"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "Můžu si tu bundu vyzkoušet? Ano. Je malá. Chci větší velikost.",
-      "xp_reward": 15
     }
-  ],
-  "can_do": "try something on and decide whether to take it.",
-  "new_language": [
-    "Můžu si to vyzkoušet?",
-    "Je to malé.",
-    "Je to velké.",
-    "Chci jinou velikost."
-  ],
-  "recycles": [
-    "colours",
-    "numbers and prices",
-    "chci/kupuju",
-    "polite questions"
-  ],
-  "exit_task": "try something on and decide whether to take it."
+  ]
 }

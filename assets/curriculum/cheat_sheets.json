@@ -2037,7 +2037,7 @@
         {
           "id": "GR-112",
           "name": "Clothes vocabulary and colors",
-          "pattern": "svetr (sweater), kalhoty (pants), košile (shirt), bunda (jacket), boty (shoes), šaty (dress). Colors: červený, modrý, ze",
+          "pattern": "svetr (sweater), kalhoty (pants), košile (shirt), bunda (jacket), boty (shoes), šaty (dress). Colors: červený, modrý, zelený, žlutý, černý, bílý.",
           "example": "Mám modrý svetr a černé kalhoty. — I have a blue sweater and black pants."
         },
         {
@@ -2100,7 +2100,103 @@
         "Vrácení zboží bez účtenky",
         "Předpoklad 24/7 otevírací doby"
       ],
-      "study_tip": "Prohlížejte si české e-shopy (Alza, Mall) a čtěte popisky produktů česky. Naučte se velikosti."
+      "study_tip": "Prohlížejte si české e-shopy (Alza, Mall) a čtěte popisky produktů česky. Naučte se velikosti.",
+      "notebook_page": {
+        "title_cz": "Oblečení",
+        "title_en": "Clothes, colours, prices",
+        "can_do": {
+          "cz": "Koupím si oblečení: barvu, velikost a cenu.",
+          "en": "I can buy clothes: colour, size and price."
+        },
+        "words": [
+          {
+            "cz": "Chci modrý svetr.",
+            "en": "I want a blue sweater."
+          },
+          {
+            "cz": "Hledám nové boty.",
+            "en": "I am looking for new shoes."
+          },
+          {
+            "cz": "Kolik to stojí?",
+            "en": "How much is it?"
+          },
+          {
+            "cz": "Stojí to pět set korun.",
+            "en": "It costs 500 crowns."
+          },
+          {
+            "cz": "Jakou velikost?",
+            "en": "What size?"
+          },
+          {
+            "cz": "Můžu si to vyzkoušet?",
+            "en": "Can I try it on?"
+          },
+          {
+            "cz": "Máte větší velikost?",
+            "en": "Do you have a bigger size?"
+          },
+          {
+            "cz": "Platím kartou.",
+            "en": "I pay by card."
+          }
+        ],
+        "pattern": {
+          "name": "Prices, colours, objects",
+          "rule_plain": "jedna koruna, dvě koruny, pět korun. Colours match the noun. As the object, feminine words change: modrou košili.",
+          "table": [
+            [
+              "1 / 3 / 5",
+              "koruna / koruny / korun"
+            ],
+            [
+              "ten svetr",
+              "modrý"
+            ],
+            [
+              "ta bunda",
+              "modrá"
+            ],
+            [
+              "to tričko",
+              "modré"
+            ],
+            [
+              "I want",
+              "Chci modrou košili."
+            ],
+            [
+              "bigger",
+              "větší"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kolik stojí ta bunda? — Tisíc korun.",
+              "en": "How much is that jacket? — A thousand crowns."
+            },
+            {
+              "cz": "Máte větší velikost?",
+              "en": "Do you have a bigger size?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Chci modrá košile.",
+            "right": "Chci modrou košili."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Potřebuju nové boty.",
+            "en": "I need new shoes."
+          },
+          {
+            "cz": "Chci černou bundu, velikost M.",
+            "en": "I want a black jacket, size M."
+          }
+        ]
+      }
     },
     {
       "unit_id": 13,

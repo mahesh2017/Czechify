@@ -3355,7 +3355,56 @@
           "en": "Do you have something cheaper?"
         }
       ],
-      "unit_id": 12
+      "unit_id": 12,
+      "concept_keys": [
+        "numbers_time_prices"
+      ],
+      "lecture": [
+        {
+          "heading": "Prices: koruna, koruny, korun",
+          "say": "Ask Kolik to stojí? The answer is Stojí to… and the word koruna changes with the number: jedna koruna, dvě koruny, pět korun.",
+          "table": [
+            [
+              "1",
+              "jedna koruna"
+            ],
+            [
+              "2–4",
+              "dvě, tři, čtyři koruny"
+            ],
+            [
+              "5 and more",
+              "pět, sto korun"
+            ],
+            [
+              "How much is it?",
+              "Kolik to stojí?"
+            ],
+            [
+              "It costs…",
+              "Stojí to pět set korun."
+            ],
+            [
+              "Kč",
+              "korun (written)"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kolik stojí ten svetr? — Pět set korun.",
+              "en": "How much is that sweater? — Five hundred crowns."
+            },
+            {
+              "cz": "To je moc drahé.",
+              "en": "That is too expensive."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Stojí to pět koruny.",
+            "right": "Stojí to pět korun."
+          }
+        }
+      ]
     },
     {
       "id": "GR-111",
@@ -3381,7 +3430,52 @@
           "en": "I'll take it. How much does it cost?"
         }
       ],
-      "unit_id": 12
+      "unit_id": 12,
+      "concept_keys": [
+        "adj_nom_voc_acc_sg_acc_pl"
+      ],
+      "lecture": [
+        {
+          "heading": "I want a blue shirt: modrou košili",
+          "say": "What you want or buy is the object. Feminine words and their adjectives change: modrá košile → modrou košili. Masculine things and plurals stay: modrý svetr, černé kalhoty.",
+          "table": [
+            [
+              "modrý svetr",
+              "Chci modrý svetr."
+            ],
+            [
+              "modrá košile",
+              "Chci modrou košili."
+            ],
+            [
+              "nová bunda",
+              "Kupuju novou bundu."
+            ],
+            [
+              "černé tričko",
+              "Chci černé tričko."
+            ],
+            [
+              "černé kalhoty",
+              "Hledám černé kalhoty."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Chci koupit modrou košili.",
+              "en": "I want to buy a blue shirt."
+            },
+            {
+              "cz": "Hledám nové boty.",
+              "en": "I am looking for new shoes."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Chci modrá košile.",
+            "right": "Chci modrou košili."
+          }
+        }
+      ]
     },
     {
       "id": "GR-112",
@@ -3403,7 +3497,49 @@
           "en": "Those shoes are too small."
         }
       ],
-      "unit_id": 12
+      "unit_id": 12,
+      "lecture": [
+        {
+          "heading": "Colours match: červený, červená, červené",
+          "say": "Colours are adjectives, so they match the noun: červený svetr, červená bunda, červené tričko. Plural things like kalhoty and boty take -é.",
+          "table": [
+            [
+              "ten svetr",
+              "modrý, červený, černý"
+            ],
+            [
+              "ta bunda",
+              "modrá, červená, černá"
+            ],
+            [
+              "to tričko",
+              "modré, červené, černé"
+            ],
+            [
+              "ty kalhoty / boty",
+              "modré, červené, černé"
+            ],
+            [
+              "What colour?",
+              "Jakou barvu?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Mám modrý svetr a černé kalhoty.",
+              "en": "I have a blue sweater and black trousers."
+            },
+            {
+              "cz": "Jakou barvu chcete? — Červenou.",
+              "en": "What colour do you want? — Red."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "černý kalhoty",
+            "right": "černé kalhoty"
+          }
+        }
+      ]
     },
     {
       "id": "GR-113",
@@ -3425,7 +3561,52 @@
           "en": "That's the most expensive restaurant in town."
         }
       ],
-      "unit_id": 12
+      "unit_id": 12,
+      "concept_keys": [
+        "comparatives_irregular"
+      ],
+      "lecture": [
+        {
+          "heading": "Bigger, cheaper: větší, levnější",
+          "say": "To ask for a different size or price, compare: větší (bigger), menší (smaller), levnější (cheaper), dražší (more expensive), lepší (better).",
+          "table": [
+            [
+              "velký",
+              "větší"
+            ],
+            [
+              "malý",
+              "menší"
+            ],
+            [
+              "levný",
+              "levnější"
+            ],
+            [
+              "drahý",
+              "dražší"
+            ],
+            [
+              "dobrý",
+              "lepší"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Máte větší velikost?",
+              "en": "Do you have a bigger size?"
+            },
+            {
+              "cz": "Tento svetr je levnější.",
+              "en": "This sweater is cheaper."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Máte víc velkou velikost?",
+            "right": "Máte větší velikost?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-120",
