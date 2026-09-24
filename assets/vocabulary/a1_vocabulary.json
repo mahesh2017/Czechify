@@ -668,7 +668,7 @@
     "unit_id": 9,
     "example_cz": "Kolik to stojí?",
     "example_en": "How much does it cost?",
-    "lesson_id": 901
+    "lesson_id": 902
   },
   {
     "id": 66,
@@ -2373,7 +2373,7 @@
     "unit_id": 9,
     "example_cz": "Sto korun, prosím.",
     "example_en": "One hundred crowns, please.",
-    "lesson_id": 901
+    "lesson_id": 902
   },
   {
     "id": 224,
@@ -2406,7 +2406,7 @@
     "unit_id": 9,
     "example_cz": "Dobrý den!",
     "example_en": "Hello!",
-    "lesson_id": 902
+    "lesson_id": 904
   },
   {
     "id": 227,
@@ -2417,7 +2417,7 @@
     "unit_id": 9,
     "example_cz": "Uvidíme se za týden.",
     "example_en": "See you in a week.",
-    "lesson_id": 902
+    "lesson_id": 904
   },
   {
     "id": 228,
@@ -2428,7 +2428,7 @@
     "unit_id": 9,
     "example_cz": "Příští měsíc jedu do Prahy.",
     "example_en": "Next month I'm going to Prague.",
-    "lesson_id": 902
+    "lesson_id": 904
   },
   {
     "id": 229,
@@ -2439,7 +2439,7 @@
     "unit_id": 9,
     "example_cz": "Šťastný nový rok!",
     "example_en": "Happy New Year!",
-    "lesson_id": 902
+    "lesson_id": 904
   },
   {
     "id": 230,
@@ -2450,7 +2450,7 @@
     "unit_id": 9,
     "example_cz": "V pondělí mám školu.",
     "example_en": "On Monday I have school.",
-    "lesson_id": 902
+    "lesson_id": 903
   },
   {
     "id": 231,
@@ -2461,7 +2461,7 @@
     "unit_id": 9,
     "example_cz": "V úterý pracuju.",
     "example_en": "On Tuesday I work.",
-    "lesson_id": 902
+    "lesson_id": 903
   },
   {
     "id": 232,
@@ -2472,7 +2472,7 @@
     "unit_id": 9,
     "example_cz": "Ve středu mám volno.",
     "example_en": "On Wednesday I have free time.",
-    "lesson_id": 902
+    "lesson_id": 903
   },
   {
     "id": 233,
@@ -2483,7 +2483,7 @@
     "unit_id": 9,
     "example_cz": "Ve čtvrtek jdu do kina.",
     "example_en": "On Thursday I go to the cinema.",
-    "lesson_id": 902
+    "lesson_id": 903
   },
   {
     "id": 234,
@@ -2494,7 +2494,7 @@
     "unit_id": 9,
     "example_cz": "V pátek jdu na pivo.",
     "example_en": "On Friday I go for a beer.",
-    "lesson_id": 902
+    "lesson_id": 903
   },
   {
     "id": 235,
@@ -2505,7 +2505,7 @@
     "unit_id": 9,
     "example_cz": "V sobotu spím dlouho.",
     "example_en": "On Saturday I sleep late.",
-    "lesson_id": 902
+    "lesson_id": 903
   },
   {
     "id": 236,
@@ -2516,7 +2516,7 @@
     "unit_id": 9,
     "example_cz": "V neděli odpočívám.",
     "example_en": "On Sunday I rest.",
-    "lesson_id": 902
+    "lesson_id": 903
   },
   {
     "id": 237,
@@ -2527,7 +2527,7 @@
     "unit_id": 9,
     "example_cz": "Dnes je hezky.",
     "example_en": "Today it's nice.",
-    "lesson_id": 902
+    "lesson_id": 904
   },
   {
     "id": 238,
@@ -2538,7 +2538,7 @@
     "unit_id": 9,
     "example_cz": "Zítra mám zkoušku.",
     "example_en": "Tomorrow I have an exam.",
-    "lesson_id": 902
+    "lesson_id": 904
   },
   {
     "id": 239,
@@ -2549,7 +2549,7 @@
     "unit_id": 9,
     "example_cz": "Včera jsem byl doma.",
     "example_en": "Yesterday I was at home.",
-    "lesson_id": 902
+    "lesson_id": 904
   },
   {
     "id": 240,
@@ -4342,7 +4342,7 @@
     "unit_id": 9,
     "example_cz": "To je moje první lekce.",
     "example_en": "This is my first lesson.",
-    "lesson_id": 901
+    "lesson_id": 902
   },
   {
     "id": 403,
@@ -4353,7 +4353,7 @@
     "unit_id": 9,
     "example_cz": "Druhý den byl hezký.",
     "example_en": "The second day was nice.",
-    "lesson_id": 901
+    "lesson_id": 902
   },
   {
     "id": 404,
@@ -4364,7 +4364,7 @@
     "unit_id": 9,
     "example_cz": "Třetí lekce je těžká.",
     "example_en": "The third lesson is difficult.",
-    "lesson_id": 901
+    "lesson_id": 902
   },
   {
     "id": 405,
@@ -4375,7 +4375,7 @@
     "unit_id": 9,
     "example_cz": "Čtvrtý student přišel pozdě.",
     "example_en": "The fourth student arrived late.",
-    "lesson_id": 901
+    "lesson_id": 902
   },
   {
     "id": 406,
@@ -4386,7 +4386,7 @@
     "unit_id": 9,
     "example_cz": "Pátý den v týdnu je pátek.",
     "example_en": "The fifth day of the week is Friday.",
-    "lesson_id": 901
+    "lesson_id": 903
   },
   {
     "id": 410,

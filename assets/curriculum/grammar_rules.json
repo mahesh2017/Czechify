@@ -2475,7 +2475,52 @@
           "note": "dva for masculine"
         }
       ],
-      "unit_id": 9
+      "unit_id": 9,
+      "concept_keys": [
+        "numbers_time_prices"
+      ],
+      "lecture": [
+        {
+          "heading": "Numbers 0–20",
+          "say": "Learn 0–10 first. 11–19 add -náct: jedenáct, dvanáct, třináct. For counting and phone numbers, one is jedna.",
+          "table": [
+            [
+              "0–4",
+              "nula, jedna, dva, tři, čtyři"
+            ],
+            [
+              "5–10",
+              "pět, šest, sedm, osm, devět, deset"
+            ],
+            [
+              "11–14",
+              "jedenáct, dvanáct, třináct, čtrnáct"
+            ],
+            [
+              "15–17",
+              "patnáct, šestnáct, sedmnáct"
+            ],
+            [
+              "18–20",
+              "osmnáct, devatenáct, dvacet"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Pokoj číslo dvanáct.",
+              "en": "Room number twelve."
+            },
+            {
+              "cz": "Je mi dvacet.",
+              "en": "I am twenty."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "dvěnáct",
+            "right": "dvanáct"
+          }
+        }
+      ]
     },
     {
       "id": "GR-081",
@@ -2497,7 +2542,64 @@
           "en": "How much does it cost? 100 crowns."
         }
       ],
-      "unit_id": 9
+      "unit_id": 9,
+      "concept_keys": [
+        "numbers_time_prices"
+      ],
+      "lecture": [
+        {
+          "heading": "Tens and hundreds: phone numbers",
+          "say": "Tens: dvacet, třicet, čtyřicet, padesát. Hundreds: sto, dvě stě, tři sta, pět set. Czech phone numbers are read in three groups: 702 430 815.",
+          "table": [
+            [
+              "20, 30, 40",
+              "dvacet, třicet, čtyřicet"
+            ],
+            [
+              "50, 60, 70",
+              "padesát, šedesát, sedmdesát"
+            ],
+            [
+              "80, 90",
+              "osmdesát, devadesát"
+            ],
+            [
+              "21",
+              "dvacet jedna"
+            ],
+            [
+              "100, 200",
+              "sto, dvě stě"
+            ],
+            [
+              "300, 400",
+              "tři sta, čtyři sta"
+            ],
+            [
+              "500–900",
+              "pět set … devět set"
+            ],
+            [
+              "702",
+              "sedm set dva"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Moje číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
+              "en": "My number is 702 430 815."
+            },
+            {
+              "cz": "Stojí to sto korun.",
+              "en": "It costs a hundred crowns."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "dva sta",
+            "right": "dvě stě"
+          }
+        }
+      ]
     },
     {
       "id": "GR-082",
@@ -2524,7 +2626,56 @@
           "en": "The meeting is at five o'clock."
         }
       ],
-      "unit_id": 9
+      "unit_id": 9,
+      "concept_keys": [
+        "numbers_time_prices"
+      ],
+      "lecture": [
+        {
+          "heading": "What time is it? Kolik je hodin?",
+          "say": "Je jedna hodina; for 2–4, jsou dvě hodiny; from 5, je pět hodin. To say at what time, use v: v pět, v šest třicet.",
+          "table": [
+            [
+              "1:00",
+              "Je jedna hodina."
+            ],
+            [
+              "2:00",
+              "Jsou dvě hodiny."
+            ],
+            [
+              "5:00",
+              "Je pět hodin."
+            ],
+            [
+              "at 5",
+              "v pět (hodin)"
+            ],
+            [
+              "at 17:30",
+              "v sedmnáct třicet"
+            ],
+            [
+              "What time?",
+              "V kolik?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Kolik je hodin? — Je deset hodin.",
+              "en": "What time is it? — It is ten o’clock."
+            },
+            {
+              "cz": "Sejdeme se v pět.",
+              "en": "Let’s meet at five."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Je dvě hodiny.",
+            "right": "Jsou dvě hodiny."
+          }
+        }
+      ]
     },
     {
       "id": "GR-083",
@@ -2546,7 +2697,64 @@
           "en": "I was born on April 5th."
         }
       ],
-      "unit_id": 9
+      "unit_id": 9,
+      "concept_keys": [
+        "numbers_time_prices"
+      ],
+      "lecture": [
+        {
+          "heading": "Days: v pondělí, ve středu",
+          "say": "Say on a day with v: v pondělí, v úterý, v pátek. Before st- and čt- it is ve: ve středu, ve čtvrtek. dnes, zítra and včera need nothing.",
+          "table": [
+            [
+              "Monday",
+              "v pondělí"
+            ],
+            [
+              "Tuesday",
+              "v úterý"
+            ],
+            [
+              "Wednesday",
+              "ve středu"
+            ],
+            [
+              "Thursday",
+              "ve čtvrtek"
+            ],
+            [
+              "Friday",
+              "v pátek"
+            ],
+            [
+              "Saturday",
+              "v sobotu"
+            ],
+            [
+              "Sunday",
+              "v neděli"
+            ],
+            [
+              "today / tomorrow",
+              "dnes / zítra"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Můžeme v úterý?",
+              "en": "Can we (meet) on Tuesday?"
+            },
+            {
+              "cz": "Ve středu nemůžu.",
+              "en": "I can’t on Wednesday."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "v středa",
+            "right": "ve středu"
+          }
+        }
+      ]
     },
     {
       "id": "GR-090",

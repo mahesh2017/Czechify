@@ -3,27 +3,65 @@
   "unit_id": 9,
   "order_in_unit": 0,
   "title": "Hear the Important Numbers",
-  "description": "Recognise grouped phone numbers and distinguish similar number details.",
-  "can_do": "understand and say a simple telephone number.",
-  "new_language": [
-    "nula, jedna, dva, tři",
-    "deset, jedenáct, dvanáct",
-    "dvacet, třicet, čtyřicet",
-    "Moje číslo je…"
-  ],
-  "recycles": [
-    "Mám…",
-    "Kde…?",
-    "dnes/zítra",
-    "Ano, dobře"
-  ],
-  "exit_task": "understand and say a simple telephone number.",
+  "description": "Hear a phone number, then learn numbers and meeting phrases.",
   "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "understand and give a phone number.",
+  "new_language": [
+    "Moje číslo je…",
+    "Můžete to zopakovat?",
+    "Kolik je hodin?",
+    "Je deset hodin.",
+    "V kolik se sejdeme?",
+    "V pět.",
+    "Můžeme v úterý?",
+    "Dobře, platí."
+  ],
+  "recycles": [
+    "Můžete to zopakovat? (U1)"
+  ],
+  "exit_task": "say your phone number in three groups.",
   "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 9000,
+      "id": 9100,
+      "lesson_id": 901,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned the numbers yet. Listen and guess the first group of the phone number.",
+        "transcript_cz": "Moje telefonní číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
+        "image": "assets/images/unit09/making_a_plan_v1.webp",
+        "image_label": "Phone numbers, clock time, and a simple meeting plan",
+        "questions": [
+          {
+            "question_en": "Which lesson situation does this recording belong to?",
+            "options": [
+              "Hear the Important Numbers",
+              "Asking for directions",
+              "Talking about the weather"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Which is the final number group?",
+            "options": [
+              "815",
+              "850",
+              "518"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "815",
+      "xp_reward": 0
+    },
+    {
+      "id": 9101,
       "lesson_id": 901,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -49,6 +87,34 @@
           {
             "cz": "Moje číslo je…",
             "en": "My number is…"
+          },
+          {
+            "cz": "Můžete to zopakovat?",
+            "en": "Can you repeat that?"
+          },
+          {
+            "cz": "Kolik je hodin?",
+            "en": "What time is it?"
+          },
+          {
+            "cz": "Je deset hodin.",
+            "en": "It is ten o’clock."
+          },
+          {
+            "cz": "V kolik se sejdeme?",
+            "en": "What time shall we meet?"
+          },
+          {
+            "cz": "V pět.",
+            "en": "At five."
+          },
+          {
+            "cz": "Můžeme v úterý?",
+            "en": "Can we (meet) on Tuesday?"
+          },
+          {
+            "cz": "Dobře, platí.",
+            "en": "Good, agreed."
           }
         ]
       },
@@ -56,42 +122,36 @@
       "xp_reward": 0
     },
     {
-      "id": 9001,
+      "id": 9102,
       "lesson_id": 901,
-      "type": "listening_comprehension",
-      "prompt": "Listen for meaning and one detail",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen first for the situation, then for the requested detail.",
-        "transcript_cz": "Moje telefonní číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
-        "image": "assets/images/unit09/making_a_plan_v1.webp",
-        "image_label": "Phone numbers, clock time, and a simple meeting plan",
-        "questions": [
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 9 page",
+        "instruction": "Write “Unit 9 — Čísla a čas” at the top of a new page. Write 0 to 10 in words, then two meeting phrases.",
+        "items": [
           {
-            "question_en": "Which lesson situation does this recording belong to?",
-            "options": [
-              "Hear the Important Numbers",
-              "Asking for directions",
-              "Talking about the weather"
-            ],
-            "correct_index": 0
+            "cz": "nula, jedna, dva, tři, čtyři, pět, šest, sedm, osm, devět, deset",
+            "en": "0–10"
           },
           {
-            "question_en": "Which is the final number group?",
-            "options": [
-              "815",
-              "850",
-              "518"
-            ],
-            "correct_index": 0
+            "cz": "V kolik se sejdeme?",
+            "en": "What time shall we meet?"
+          },
+          {
+            "cz": "V pět.",
+            "en": "At five."
           }
         ]
       },
-      "answer_key": "815",
-      "xp_reward": 15
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 9002,
+      "id": 9103,
       "lesson_id": 901,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -127,7 +187,7 @@
       "xp_reward": 15
     },
     {
-      "id": 9003,
+      "id": 9104,
       "lesson_id": 901,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -157,28 +217,7 @@
       "xp_reward": 10
     },
     {
-      "id": 9004,
-      "lesson_id": 901,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "nula, jedna, dva, tři",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "nula, jedna, dva, tři",
-      "xp_reward": 10
-    },
-    {
-      "id": 9005,
+      "id": 9105,
       "lesson_id": 901,
       "type": "fill_blank",
       "prompt": "Complete the useful chunk",
@@ -197,30 +236,7 @@
       "xp_reward": 10
     },
     {
-      "id": 9006,
-      "lesson_id": 901,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "dvanáct",
-          "jedenáct,",
-          "deset,"
-        ],
-        "correct_order": [
-          2,
-          1,
-          0
-        ],
-        "translation_en": "ten, eleven, twelve",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "deset, jedenáct, dvanáct",
-      "xp_reward": 10
-    },
-    {
-      "id": 9007,
+      "id": 9106,
       "lesson_id": 901,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -234,25 +250,25 @@
       "xp_reward": 10
     },
     {
-      "id": 9008,
+      "id": 9107,
       "lesson_id": 901,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
       "data": {
         "type": "pronunciation",
-        "target_text": "Moje číslo je…",
+        "target_text": "Moje číslo je sedm set dva.",
         "focus_sounds": [
           "first_syllable_stress",
           "vowel_length"
         ],
         "min_score": 0.5,
-        "translation_en": "My number is…"
+        "translation_en": "My number is seven hundred and two…"
       },
-      "answer_key": "Moje číslo je…",
+      "answer_key": "Moje číslo je sedm set dva.",
       "xp_reward": 15
     },
     {
-      "id": 9009,
+      "id": 9108,
       "lesson_id": 901,
       "type": "dialogue",
       "prompt": "Complete and hear the short exchange",
@@ -268,7 +284,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (My number is 702 430 815.)"
           },
           {
             "speaker": "partner",
@@ -276,66 +292,26 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes: 702 430 815.)"
           }
         ],
         "blank_answers": [
           [
-            "nula, jedna, dva, tři"
+            "Moje číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
+            "Moje číslo je 702 430 815.",
+            "702 430 815.",
+            "Sedm set dva, čtyři sta třicet, osm set patnáct."
           ],
           [
-            "deset, jedenáct, dvanáct"
+            "Ano: sedm set dva, čtyři sta třicet, osm set patnáct.",
+            "Ano, 702 430 815.",
+            "702 430 815.",
+            "Sedm set dva, čtyři sta třicet, osm set patnáct."
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "nula, jedna, dva, tři | deset, jedenáct, dvanáct",
-      "xp_reward": 15
-    },
-    {
-      "id": 9010,
-      "lesson_id": 901,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write your phone number in three spoken groups and add one repetition request.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 4,
-        "max_words": 40,
-        "key_vocab": [
-          "nula, jedna, dva, tři",
-          "deset, jedenáct, dvanáct",
-          "dvacet, třicet, čtyřicet",
-          "Moje číslo je…"
-        ],
-        "sample_answer": "nula, jedna, dva, tři deset, jedenáct, dvanáct dvacet, třicet, čtyřicet Moje číslo je…"
-      },
-      "answer_key": "nula, jedna, dva, tři deset, jedenáct, dvanáct dvacet, třicet, čtyřicet Moje číslo je…",
-      "xp_reward": 0
-    },
-    {
-      "id": 9011,
-      "lesson_id": 901,
-      "type": "listening_comprehension",
-      "prompt": "Listen in a new context",
-      "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Transfer the lesson language to a new speaker and context.",
-        "transcript_cz": "Prosím číslo šest set osm, dvě stě čtyřicet, devět set jedenáct.",
-        "questions": [
-          {
-            "question_en": "What is the middle group?",
-            "options": [
-              "240",
-              "608",
-              "911"
-            ],
-            "correct_index": 0
-          }
-        ]
-      },
-      "answer_key": "240",
+      "answer_key": "Moje číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
       "xp_reward": 15
     }
   ]

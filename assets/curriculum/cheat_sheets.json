@@ -1479,13 +1479,13 @@
         {
           "id": "GR-080",
           "name": "Cardinal numbers 0–20",
-          "pattern": "jedna, dva, tři, čtyři, pět, šest, sedm, osm, devět, deset, jedenáct, dvanáct, třináct, čtrnáct, patnáct, šestnáct, sedm",
+          "pattern": "jedna, dva, tři, čtyři, pět, šest, sedm, osm, devět, deset, jedenáct, dvanáct, třináct, čtrnáct, patnáct, šestnáct, sedmnáct, osmnáct, devatenáct, dvacet",
           "example": "jeden, dva, tři — one, two, three"
         },
         {
           "id": "GR-081",
           "name": "Numbers 21–100 and counting objects",
-          "pattern": "dvacet jedna (21), třicet (30), čtyřicet (40), padesát (50), šedesát (60), sedmdesát (70), osmdesát (80), devadesát (90)",
+          "pattern": "dvacet jedna (21), třicet (30), čtyřicet (40), padesát (50), šedesát (60), sedmdesát (70), osmdesát (80), devadesát (90), sto (100)",
           "example": "dvacet jedna korun — 21 crowns"
         },
         {
@@ -1554,7 +1554,103 @@
         "Psaní měsíců/dnů s velkým písmenem",
         "Špatný formát data (měsíc před dnem)"
       ],
-      "study_tip": "Nastavte si hodinky na 24hodinový formát. Čtěte český kalendář se jmeninami."
+      "study_tip": "Nastavte si hodinky na 24hodinový formát. Čtěte český kalendář se jmeninami.",
+      "notebook_page": {
+        "title_cz": "Čísla a čas",
+        "title_en": "Numbers, time and days",
+        "can_do": {
+          "cz": "Řeknu telefonní číslo a domluvím si den a čas.",
+          "en": "I can give a phone number and agree on a day and time."
+        },
+        "words": [
+          {
+            "cz": "Moje číslo je…",
+            "en": "My number is…"
+          },
+          {
+            "cz": "Můžete to zopakovat?",
+            "en": "Can you repeat that?"
+          },
+          {
+            "cz": "Kolik je hodin?",
+            "en": "What time is it?"
+          },
+          {
+            "cz": "Je deset hodin.",
+            "en": "It is ten o’clock."
+          },
+          {
+            "cz": "V kolik se sejdeme?",
+            "en": "What time shall we meet?"
+          },
+          {
+            "cz": "V pět.",
+            "en": "At five."
+          },
+          {
+            "cz": "Můžeme v úterý?",
+            "en": "Can we (meet) on Tuesday?"
+          },
+          {
+            "cz": "Dobře, platí.",
+            "en": "Good, agreed."
+          }
+        ],
+        "pattern": {
+          "name": "Numbers, time, days",
+          "rule_plain": "11–19: -náct. Hundreds: sto, dvě stě, tři sta, pět set. Time: je 1, jsou 2–4, je 5+. On a day: v pondělí, ve středu.",
+          "table": [
+            [
+              "12",
+              "dvanáct"
+            ],
+            [
+              "40",
+              "čtyřicet"
+            ],
+            [
+              "300",
+              "tři sta"
+            ],
+            [
+              "2:00",
+              "Jsou dvě hodiny."
+            ],
+            [
+              "at 5",
+              "v pět"
+            ],
+            [
+              "on Wednesday",
+              "ve středu"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Moje číslo je sedm set dva, čtyři sta třicet, osm set patnáct.",
+              "en": "My number is 702 430 815."
+            },
+            {
+              "cz": "Můžeme v úterý v šest?",
+              "en": "Can we meet on Tuesday at six?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Je dvě hodiny.",
+            "right": "Jsou dvě hodiny."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "V pondělí mám češtinu v šest.",
+            "en": "On Monday I have Czech at six."
+          },
+          {
+            "cz": "Ve středu pracuju do pěti.",
+            "en": "On Wednesday I work until five."
+          }
+        ]
+      }
     },
     {
       "unit_id": 10,
