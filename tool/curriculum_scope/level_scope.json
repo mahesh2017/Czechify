@@ -1,0 +1,325 @@
+{
+  "version": 1,
+  "prepared": "2026-09-24",
+  "source": "NÚV 2016 reference description, chapter 7 (grammar) and appendix (word list); NPI 2021 A2 course syllabus. See docs/sources/official_sources.json.",
+  "used_by": "Phase 1 content-checker rules V6 (forbidden) and V10 (required) in docs/CURRICULUM_V1_2_PLAN_2026-09-24.md. V6 applies to main-path lessons only; lessons marked \"extension\": true are exempt. Patterns are case-insensitive and apply to lesson text and to vocabulary entries (word_cz, example_cz) of main-path units.",
+  "forbidden_on_main_path": {
+    "A1_and_A2": [
+      {
+        "key": "kdyby",
+        "pattern": "(?i)\\bkdyby(ch|s|chom|ste)?\\b",
+        "why": "Not in the reference description at A1 or A2."
+      },
+      {
+        "key": "aby_conjugated",
+        "pattern": "(?i)\\baby(ch|s|chom|ste)\\b",
+        "allow": [
+          "dovolte, abych vám představil",
+          "dovolte, abych vám představila"
+        ],
+        "why": "A2 lists 'aby' as a word and one fixed phrase; the conjugated purpose-clause system is not in scope."
+      },
+      {
+        "key": "written_register_connectives",
+        "pattern": "(?i)\\b(tudíž|avšak|ovšem|jakmile|co se týče|na jedné straně|z toho důvodu|v porovnání s|stejně tak|navzdory tomu|z tohoto hlediska)\\b",
+        "why": "Written or formal register (B1+). The A2 exam writing is a form and a 35-word e-mail."
+      },
+      {
+        "key": "essay_phrases",
+        "pattern": "(?i)(je nutno podotknout|je třeba zdůraznit|jak již bylo řečeno|kromě již zmíněného|ve zkratce|v první řadě)",
+        "why": "Essay phrases (B2). Currently taught in U29 A2 Skills Practice."
+      },
+      {
+        "key": "prefix_as_vocabulary",
+        "pattern": "^předpona ",
+        "field": "vocabulary.word_cz",
+        "why": "Grammar notes stored as vocabulary items (U27). Teach in the lecture instead."
+      }
+    ],
+    "A1_only": [
+      {
+        "key": "plural_oblique_cases",
+        "note": "Dative, locative and instrumental plural are out of scope at A1 and A2. Not regex-detectable reliably: checked through grammar_rule_id (GR-173 must be extension or reference-only)."
+      }
+    ]
+  },
+  "required": {
+    "A1": [
+      {
+        "key": "noun_nom_sg",
+        "status": "covered",
+        "rules": [
+          "GR-020",
+          "GR-022"
+        ]
+      },
+      {
+        "key": "noun_acc_sg_all_genders",
+        "status": "partial",
+        "rules": [
+          "GR-050",
+          "GR-051",
+          "GR-052",
+          "GR-053"
+        ],
+        "gap": "Masculine animate (psa, bratra) has a rule but no lesson practice; U6 lessons cover -a → -u only."
+      },
+      {
+        "key": "noun_voc_sg",
+        "status": "missing",
+        "plan": "U2 (§7.1)"
+      },
+      {
+        "key": "loc_gen_sg_after_place_prepositions",
+        "status": "covered",
+        "rules": [
+          "GR-130",
+          "GR-131"
+        ]
+      },
+      {
+        "key": "instr_sg_as_means",
+        "status": "covered",
+        "rules": [
+          "GR-132"
+        ],
+        "evidence": "tramvají, autobusem in U14–U15"
+      },
+      {
+        "key": "adj_nom_voc_acc_sg_acc_pl",
+        "status": "covered",
+        "rules": [
+          "GR-071",
+          "GR-072"
+        ]
+      },
+      {
+        "key": "comparatives_irregular",
+        "status": "covered",
+        "rules": [
+          "GR-113"
+        ]
+      },
+      {
+        "key": "pron_personal_nom",
+        "status": "covered",
+        "rules": [
+          "GR-060"
+        ]
+      },
+      {
+        "key": "pron_personal_dat_acc",
+        "status": "missing",
+        "plan": "U6, U8 (§7.1)",
+        "gap": "Only 'bolí mě' (A2 U24) and reflexive se/si."
+      },
+      {
+        "key": "pron_possessive_incl_svuj",
+        "status": "partial",
+        "rules": [
+          "GR-061",
+          "GR-062"
+        ],
+        "gap": "svůj not taught (already flagged in CONTENT_SPECIFICATION.md)."
+      },
+      {
+        "key": "pron_demonstrative_interrogative",
+        "status": "covered",
+        "rules": [
+          "GR-023"
+        ]
+      },
+      {
+        "key": "present_tense_all_types",
+        "status": "covered",
+        "rules": [
+          "GR-040",
+          "GR-041",
+          "GR-042"
+        ]
+      },
+      {
+        "key": "irregular_core_verbs",
+        "status": "covered",
+        "rules": [
+          "GR-030",
+          "GR-031",
+          "GR-100",
+          "GR-132"
+        ]
+      },
+      {
+        "key": "modals_basic",
+        "status": "missing_in_lessons",
+        "plan": "U6, U14 (§7.1)",
+        "gap": "moct/muset appear 0 times in A1 lessons; taught at A2 U23."
+      },
+      {
+        "key": "reflexive_verbs",
+        "status": "covered",
+        "rules": [
+          "GR-090",
+          "GR-091",
+          "GR-092"
+        ]
+      },
+      {
+        "key": "imperative_chunks",
+        "status": "covered",
+        "evidence": "~77 imperatives in U14 directions"
+      },
+      {
+        "key": "numbers_time_prices",
+        "status": "covered",
+        "rules": [
+          "GR-080",
+          "GR-081",
+          "GR-082",
+          "GR-110"
+        ]
+      },
+      {
+        "key": "past_future_chunks_preview",
+        "status": "covered",
+        "rules": [
+          "GR-142",
+          "GR-143"
+        ]
+      },
+      {
+        "key": "conjunctions_basic",
+        "status": "covered",
+        "evidence": "a, ale, nebo, protože"
+      }
+    ],
+    "A2": [
+      {
+        "key": "all_cases_sg",
+        "status": "covered",
+        "rules": [
+          "GR-150",
+          "GR-151",
+          "GR-160",
+          "GR-170",
+          "GR-171",
+          "GR-172"
+        ]
+      },
+      {
+        "key": "plural_nom_acc",
+        "status": "missing",
+        "plan": "U16 before genitive plural; animate masculines U25 (§7.3)"
+      },
+      {
+        "key": "plural_gen",
+        "status": "covered",
+        "rules": [
+          "GR-152"
+        ]
+      },
+      {
+        "key": "adj_all_sg_plus_nom_gen_acc_pl",
+        "status": "partial",
+        "gap": "No explicit adjective plural step; add with plural_nom_acc."
+      },
+      {
+        "key": "pron_personal_all_cases",
+        "status": "missing",
+        "plan": "U17, U18 (§7.3)"
+      },
+      {
+        "key": "past_tense",
+        "status": "covered",
+        "rules": [
+          "GR-180",
+          "GR-181",
+          "GR-183"
+        ]
+      },
+      {
+        "key": "future_tense",
+        "status": "covered",
+        "rules": [
+          "GR-190",
+          "GR-191"
+        ]
+      },
+      {
+        "key": "aspect_frequent_pairs",
+        "status": "over_scope",
+        "rules": [
+          "GR-182",
+          "GR-262",
+          "GR-264"
+        ],
+        "plan": "Replace systematic prefix rules with ~15 frequent pairs (§7.2)"
+      },
+      {
+        "key": "motion_verbs_directional_prefixes",
+        "status": "covered",
+        "rules": [
+          "GR-260",
+          "GR-261"
+        ]
+      },
+      {
+        "key": "imperative_pos_neg",
+        "status": "missing",
+        "plan": "U23 (§7.3)"
+      },
+      {
+        "key": "conditional_chtel_mohl_polite",
+        "status": "over_scope",
+        "rules": [
+          "GR-192"
+        ],
+        "plan": "Limit active use to chtěl/a, mohl/a, rád/a bych and Nemohl/a byste…? (§7.2)"
+      },
+      {
+        "key": "modals_full",
+        "status": "covered",
+        "rules": [
+          "GR-220",
+          "GR-221",
+          "GR-222",
+          "GR-223"
+        ]
+      },
+      {
+        "key": "ordinals_dates",
+        "status": "missing",
+        "plan": "U20; floors in U26 (§7.3)"
+      },
+      {
+        "key": "comparison_regular",
+        "status": "covered",
+        "rules": [
+          "GR-200",
+          "GR-201",
+          "GR-202",
+          "GR-203"
+        ]
+      },
+      {
+        "key": "clauses_ze_jestli_ktery_kdyz_az_proto",
+        "status": "partial",
+        "rules": [
+          "GR-210",
+          "GR-211",
+          "GR-213"
+        ],
+        "gap": "Relative 'který' and 'jestli/až' used in lessons but without their own lecture step."
+      },
+      {
+        "key": "passive_signs_recognition",
+        "status": "missing",
+        "plan": "U23 reading items (§7.3)"
+      },
+      {
+        "key": "adjectival_nouns_recognition",
+        "status": "missing",
+        "plan": "U27 (§7.3): vrátný, cestující"
+      }
+    ]
+  }
+}

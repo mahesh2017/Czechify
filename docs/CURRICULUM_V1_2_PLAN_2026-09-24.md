@@ -2,7 +2,8 @@
 
 **Prepared:** 2026-09-24
 **Scope:** all 31 units (A1 Units 1–15, 28, 30; A2 Units 16–27, 29, 31)
-**Status:** Plan approved in principle. Nothing implemented yet.
+**Status:** Plan approved in principle. Phase 0 done on 2026-09-24 (outputs listed in
+§8, Phase 0); Phase 1 not started.
 **Builds on:** `V1_1_PEDAGOGICAL_UPGRADE_PLAN.md` (four-lesson unit: A Scene and
 meaning → B Pattern and sound → C Guided use → D Mission). This plan keeps that
 architecture and adds what v1.1 left implicit: an actual lecture, a guided-practice
@@ -39,7 +40,7 @@ gaps. A2 goes beyond the standard in some areas and lacks required material in o
 | A2 U22 `aby` | ~50 uses, full `abych/abys/abychom` drill | Listed as an A2 word plus one fixed phrase (*dovolte, abych vám představil/a*); no purpose-clause system |
 | A2 U27 aspect | Systematic prefix rules, "předpona u-" etc. as vocabulary | Perfective forms "only for frequent verbs". Directional prefixes on **motion** verbs are in scope |
 | A2 U18 instrumental plural | Rule card, 2 exercises | Plural at A2 = nominative, accusative, genitive only |
-| A2 vocabulary | ~18% of words absent from the entire official document, clustered in U22 connectives, U24 medical, U25 university, U17 emotions, U27 grammar terms | — |
+| A2 vocabulary | 12% (121 of 1,005 entries) absent from the entire official document, clustered in U22 connectives, U24 medical, U25 university, U17 emotions, U27 grammar terms and U29 essay phrases | — |
 | A1 vocative | 1 use in the whole A1 course, no rule | Active A1 requirement (*pane doktore* is an A1 phrase); vocative sg. also in the A2 minimum |
 | A1 modal verbs | *moct/muset* 0 uses in A1 lessons | "Basic modal verbs" are assumed before the A2 course |
 | A1 personal pronouns, dative/accusative (*mě, mi, tě, ti, ho, mu, ji*…) | Only subject forms (U7) and the fixed *bolí mě* (U24) | Active at **A1**; all cases at A2 |
@@ -47,7 +48,9 @@ gaps. A2 goes beyond the standard in some areas and lacks required material in o
 | A2 ordinal numbers and dates (*prvního května*) | No rule; 0 uses in lessons | A2 (syllabus block 8) |
 | A2 imperative as grammar (*Počkej! Nečekej!*) | Chunks only (U14 directions), no rule | Positive and negative forms, A2 (syllabus block 9) |
 | A2 signs and reflexive passive (*zavřeno, vyprodáno, zavírá se v 21 h*) | Not in lessons | Recognition at A2 |
-| Everyday vocabulary | App ~1,450 words | Official list ~3,080 entries; the app covers at most ~67% of official A1 and ~36% of official A2 single words (stem match, upper bound) |
+| Everyday vocabulary | App ~1,450 words | Official list 3,164 entries (1,216 A1 and 1,383 A2 single words, plus phrases); the app covers at most 68% of official A1 and 38% of official A2 single words (stem match, upper bound) |
+| A1 topics | No A1 unit for health, housing, offices or emergencies | The official **A1** list has practical words for all 14 topics (*pohotovost, zubař, neschopenka, poschodí, cizinec*); the app teaches many of them at no level |
+| A2 U29 skills practice | Teaches essay phrases (*je nutno podotknout, jak již bylo řečeno*) | The April 2026 A2 writing test is a form and a ≥ 35-word e-mail |
 
 ### 1.2 Lessons test before they teach, and nothing asks for notes
 
@@ -375,7 +378,7 @@ learner produces it. "Passive" means understanding it is enough.
 | Clauses | *a, ale, nebo, protože* | + *že, jestli, kdo/co/kde…, který, když, až, proto, dokonce*; *aby* only as a word and in *dovolte, abych…* |
 | Not at A1/A2 | — | *kdyby*; purpose-clause system (*abych/abys…*); dative/locative/instrumental plural; systematic aspect derivation; written-register connectives (*tudíž, avšak, ovšem, jakmile*…) |
 
-**A1 words the official list puts at A2** (~7% of app A1 vocabulary, e.g. *koníček,
+**A1 words the official list puts at A2** (19 entries, ~4% of app A1 vocabulary, e.g. *koníček,
 budík, mlha, doleva*): keep them. They serve the unit topics and are only a level
 early. They are exempt from the scope guard (V6), which checks grammar and the
 out-of-scope word list, not every word's level.
@@ -393,7 +396,10 @@ It is scored normally.
 | U6, U14 | Add modal chunks: *Můžete mi pomoct? Můžu platit kartou? Musím jít.* |
 | U11 | Partitive genitive becomes chunks only (*kilo brambor, trochu mléka*); no transformation drills; rule card reworded as "useful phrases" |
 | U15 | Past and future labelled **Preview**; scored items only on taught chunks (the official A1 list includes *narodil jsem se, co jste říkal?*) |
-| All A1 | Add ~150 high-value official A1 words the app lacks (e.g. *propiska, poschodí, zpáteční, drobné, sourozenec*) as **recognition** vocabulary in reading and listening items, so v1.1's 10–14 active items per unit stay unchanged |
+| U8 | Practise the masculine animate accusative (*Mám bratra. Znáš Petra?*). It has a rule (GR-051) but no A1 lesson uses it |
+| U10, U11, U13 | Teach the official form first: *mýt se*, *chleba*, *tancovat*, *kniha* (current forms stay as variants) |
+| U2/U4, U9/U14 | **Survival sets** as recognition vocabulary for the A1 topics the app lacks: offices (*úřad, cizinec, tlumočník, formulář*), housing (*byt, poschodí, nájem*), health and emergencies (*pohotovost, zubař, lékárna, prohlídka*) |
+| All A1 | Add ~150 high-value official A1 words the app lacks (e.g. *propiska, poschodí, zpáteční, drobné, sourozenec*) as **recognition** vocabulary in reading and listening items, so v1.1's 10–14 active items per unit stay unchanged. Candidates by topic: `docs/sources/official_words_missing_from_app.csv` |
 
 ### 7.2 A2
 
@@ -406,7 +412,13 @@ It is scored normally.
 | U24 | Technical medical words (*bakterie, sterilní, operační sál, krevní test, pulz*…) move to extension. Verify each against the official list in Phase 0 |
 | U25 | University terms (*děkan, rektor, kredit, semestr, přezkoušení*) move to extension |
 | U27 | Keep prefixed **motion** verbs (*od-, při-, v-, vy-, s-, pro-, pře-, ob-*). Replace systematic aspect-pair prefix rules with ~15 frequent pairs. Delete the "předpona X-" vocabulary items |
+| U24, U26 | Replace the extension words with the missing official words for the same topic: *pohotovost, zubař, neschopenka, prohlídka, chřipka, kašel, horečka, prášek, tableta*; *poschodí, zařízený, nezařízený, náklady, rozbitý, téct, fungovat* |
+| U29 | Remove the essay phrases and formal-letter vocabulary; teach e-mail language for the real task (*omluva, pozvánka, žádost, Milý/Milá…, Mám dotaz…*) |
 | All A2 | Add high-value official A2 words as recognition vocabulary, as in A1 |
+
+The per-word decisions for every flagged entry (extension, recognition, remove,
+official form first) are in `docs/sources/SCOPE_REVIEW_2026-09-24.md`. Three spelling
+errors found on the way (*Libí se mi*, *pronajimat*, *uložiště*) can be fixed now.
 
 ### 7.3 Required A2 content the app lacks (added, not moved)
 
@@ -429,12 +441,18 @@ A2 ends up shorter and closer to the standard, not longer.
 
 ### 7.4 Tooling for scope work
 
-- A small script under `tool/` extracts the official word list from the NÚV PDF into
-  `docs/sources/official_lexicon_a1_a2.csv`, and writes
-  `docs/sources/app_vs_official_<date>.csv` (per unit: out-of-scope words, missing
-  official words). The analysis from 24 Sep was done this way but not saved.
-- The official PDFs (reference description 2016, syllabus 2021, candidate handbook
-  2026) are stored in `docs/sources/` with their URLs.
+- `tool/official_lexicon.py` (`fetch`, `extract`, `compare`) downloads the official
+  PDFs, checks their SHA-256, extracts the word list into
+  `docs/sources/official_lexicon_a1_a2.csv`, and compares it with the app:
+  `app_vocabulary_vs_official.csv`, `official_words_missing_from_app.csv` and
+  `app_vs_official_summary.md`. Re-run `compare` after every vocabulary change.
+- The PDFs themselves are **not committed** (about 30 MB, 14 MB for the handbook
+  alone). `docs/sources/official_sources.json` records each URL and checksum, so the
+  exact files can be fetched and verified.
+- **Use the official December 2016 edition** (312 pages). A June 2015 draft
+  (294 pages) circulates on another site; its word list differs.
+- `tool/curriculum_scope/level_scope.json` holds the §7.0 table as concept keys:
+  forbidden patterns for V6 and required items (with current coverage) for V10.
 
 ---
 
@@ -442,12 +460,15 @@ A2 ends up shorter and closer to the standard, not longer.
 
 ### Phase 0 — Scope and tooling (content only, no app release)
 
-1. Save the sources and the word-list script (§7.4).
-2. Produce the per-unit scope lists and verify every "move to extension" word against
-   the official list.
-3. Turn the §7.0 table into concept keys for V6 (forbidden) and V10 (required), and
-   confirm the §7.3 placements unit by unit.
-4. Write `notebook_page` for U6 and U19 (the pilot units).
+1. ✅ Save the sources and the word-list script (§7.4).
+2. ✅ Produce the per-unit scope lists and verify every "move to extension" word
+   against the official list → `docs/sources/SCOPE_REVIEW_2026-09-24.md`.
+3. ✅ Turn the §7.0 table into concept keys for V6 (forbidden) and V10 (required) →
+   `tool/curriculum_scope/level_scope.json`; §7.3 placements confirmed (review §7).
+4. ✅ Draft `notebook_page` for U6 and U19 →
+   `docs/curriculum-v1.2/pilot_notebook_pages.json` (the U6 draft also replaces a
+   cheat sheet that no longer matches the U6 lessons).
+5. ⏳ Teacher review of the Phase 0 decisions and the two model pages.
 
 ### Phase 1 — Engine (one app release, no visible content change)
 

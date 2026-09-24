@@ -1,0 +1,129 @@
+{
+  "status": "DRAFT 2026-09-24 — Phase 0 of docs/CURRICULUM_V1_2_PLAN_2026-09-24.md. Needs review by a qualified teacher of Czech as a foreign language before it ships. Moves into assets/curriculum/cheat_sheets.json (as each unit's notebook_page) in Phase 2.",
+  "layout": "One paper page per unit, boxes in this order: header (unit, can_do), words, pattern, my_sentences, check. Czech first, English after.",
+  "units": [
+    {
+      "unit_id": 6,
+      "level": "A1",
+      "replaces_cheat_sheet_note": "The current U6 cheat sheet teaches 'Vidím ženu. Mám psa.' and lists psa/muže/studenta; the v1.1 lessons teach café orders. This page follows the lessons.",
+      "notebook_page": {
+        "title_cz": "Co si dáte?",
+        "title_en": "Get what you need",
+        "can_do": {
+          "cz": "Objednám si jídlo a pití zdvořile.",
+          "en": "I can order food and a drink politely."
+        },
+        "words": [
+          {"cz": "Dám si kávu.", "en": "I'll have a coffee."},
+          {"cz": "Dám si čaj.", "en": "I'll have a tea."},
+          {"cz": "Vodu, prosím.", "en": "Water, please."},
+          {"cz": "Máte polévku?", "en": "Do you have soup?"},
+          {"cz": "Ano, máme. / Bohužel nemáme.", "en": "Yes, we do. / Sorry, we don't."},
+          {"cz": "Tak si dám čaj.", "en": "Then I'll have tea."},
+          {"cz": "Dejte mi vodu, prosím.", "en": "Give me water, please.", "new_in_v1_2": "A1 dative pronoun mi (plan §7.1)"},
+          {"cz": "Můžu platit kartou?", "en": "Can I pay by card?", "new_in_v1_2": "A1 modal moct (plan §7.1)"},
+          {"cz": "Ještě jednou, prosím.", "en": "Once more, please."}
+        ],
+        "pattern": {
+          "name": "What you order: the object form (accusative)",
+          "rule_plain": "The thing you order or want is the object. Feminine words ending in -a change -a to -u. Words like čaj, pivo and chleba stay the same.",
+          "table": [
+            ["káva", "Dám si kávu."],
+            ["voda", "Dám si vodu."],
+            ["polévka", "Dám si polévku."],
+            ["čaj", "Dám si čaj."],
+            ["pivo", "Dám si pivo."],
+            ["chleba", "Dám si chleba."]
+          ],
+          "examples": [
+            {"cz": "Dám si kávu a vodu.", "en": "I'll have a coffee and water."},
+            {"cz": "Chci polévku.", "en": "I want soup."},
+            {"cz": "Máte pivo?", "en": "Do you have beer?"}
+          ],
+          "common_mistake": {"wrong": "Dám si káva.", "right": "Dám si kávu."},
+          "preview": "People and animals change too: Mám bratra. Mám psa. (Unit 8)"
+        },
+        "my_sentences_models": [
+          {"cz": "Ráno piju kávu.", "en": "In the morning I drink coffee."},
+          {"cz": "Dám si polévku a chleba, prosím.", "en": "I'll have soup and bread, please."}
+        ],
+        "notebook_steps": {
+          "A_capture": "Start your Unit 6 page. From memory, write the four café phrases you just heard. Then check.",
+          "B_recall": "Without looking, write two ways to order something. Then check.",
+          "B_capture": "In the Pattern box, write the rule in your own words. Then fill in: káva → ?, voda → ?, čaj → ?",
+          "C_recall": "Cover your page. Write the object forms of káva, voda and polévka. Then one line from Unit 5: what do you do? (Pracuju… / Studuju…)",
+          "C_my_sentences": "Write two true sentences about what you eat or drink.",
+          "D_unit_check": "Compare your page with the model page. Add anything missing, correct any mistakes, then tick your Check box."
+        }
+      }
+    },
+    {
+      "unit_id": 19,
+      "level": "A2",
+      "replaces_cheat_sheet_note": "Keeps the current U19 topic. Aspect is limited to five frequent pairs, as the reference description requires (perfective forms only for frequent verbs).",
+      "notebook_page": {
+        "title_cz": "Co jste dělali?",
+        "title_en": "Tell what happened",
+        "can_do": {
+          "cz": "Řeknu, co jsem dělal/a o víkendu.",
+          "en": "I can say what I did at the weekend."
+        },
+        "words": [
+          {"cz": "včera", "en": "yesterday"},
+          {"cz": "předevčírem", "en": "the day before yesterday"},
+          {"cz": "minulý týden", "en": "last week"},
+          {"cz": "loni", "en": "last year"},
+          {"cz": "o víkendu", "en": "at the weekend"},
+          {"cz": "nejdřív… potom…", "en": "first… then…"},
+          {"cz": "Bylo to skvělé.", "en": "It was great."}
+        ],
+        "pattern": {
+          "name": "The past tense",
+          "rule_plain": "Past = the -l form (+ -a for a woman, + -i for a group) plus jsem, jsi, jsme or jste. For he, she and they there is no jsem. Jsem never comes first in the sentence.",
+          "table": [
+            ["já", "dělal jsem / dělala jsem"],
+            ["ty", "dělal jsi / dělala jsi"],
+            ["on / ona", "dělal / dělala"],
+            ["my", "dělali jsme"],
+            ["vy", "dělali jste"],
+            ["oni", "dělali"]
+          ],
+          "irregular": [
+            ["být", "byl"], ["mít", "měl"], ["jít", "šel, šla"], ["jet", "jel"],
+            ["jíst", "jedl"], ["číst", "četl"], ["chtít", "chtěl"]
+          ],
+          "aspect_pairs": {
+            "rule_plain": "Two verbs for one action: the first is the process, the second is the finished result.",
+            "pairs": [
+              ["dělat", "udělat"], ["psát", "napsat"], ["číst", "přečíst"],
+              ["vařit", "uvařit"], ["kupovat", "koupit"]
+            ],
+            "examples": [
+              {"cz": "Vařil jsem večeři hodinu.", "en": "I was cooking dinner for an hour.", "note": "process"},
+              {"cz": "Uvařil jsem večeři a šel jsem ven.", "en": "I cooked dinner and went out.", "note": "finished"}
+            ]
+          },
+          "examples": [
+            {"cz": "Včera jsem byla doma.", "en": "Yesterday I (f.) was at home."},
+            {"cz": "Petr šel do kina.", "en": "Petr went to the cinema."},
+            {"cz": "O víkendu jsme četli.", "en": "At the weekend we read."}
+          ],
+          "common_mistake": {"wrong": "Jsem byl včera doma.", "right": "Včera jsem byl doma. / Byl jsem včera doma."},
+          "second_mistake": {"wrong": "(a woman) Byl jsem doma.", "right": "Byla jsem doma."}
+        },
+        "my_sentences_models": [
+          {"cz": "V sobotu jsem byla na výletě.", "en": "On Saturday I (f.) was on a trip."},
+          {"cz": "Včera jsem uvařil večeři a potom jsem četl.", "en": "Yesterday I (m.) cooked dinner and then I read."}
+        ],
+        "notebook_steps": {
+          "A_capture": "Start your Unit 19 page. From memory, write five time words for the past. Then check.",
+          "B_recall": "Without looking, write three time words from Lesson A. Then check.",
+          "B_capture": "In the Pattern box, write the rule in your own words and the table for dělat. Then add být, jít and jet.",
+          "C_recall": "Cover your page. Write 'I was' and 'we went' in Czech (both genders for 'I'). Then one line from Unit 18: where do you live? (Bydlím v…)",
+          "C_my_sentences": "Write two true sentences about last weekend: one with a process verb, one with a finished one.",
+          "D_unit_check": "Compare your page with the model page. Add anything missing, correct any mistakes, then tick your Check box."
+        }
+      }
+    }
+  ]
+}
