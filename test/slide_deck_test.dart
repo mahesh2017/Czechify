@@ -141,4 +141,148 @@ void main() {
     expect(find.text('Two'), findsOneWidget);
     expect(find.text('One'), findsNothing);
   });
+
+  Future<void> pumpDeck(WidgetTester tester, Widget deck) async {
+    tester.view.physicalSize = const Size(375, 557);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: lightTheme(),
+        localizationsDelegates: testLocalizationsDelegates,
+        supportedLocales: testSupportedLocales,
+        builder:
+            (context, child) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(disableAnimations: true),
+              child: child!,
+            ),
+        home: Scaffold(body: deck),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+  }
+
+  testWidgets('a packed deck puts as many blocks on a slide as fit, and says '
+      'which ones follow another', (tester) async {
+    final deck = GlobalKey<SlideDeckState>();
+    await pumpDeck(
+      tester,
+      SlideDeck.packed(
+        key: deck,
+        blockCount: 5,
+        // Two 200-high blocks fit the small phone's slide; three do not.
+        blockBuilder:
+            (context, i, leads) => SizedBox(
+              height: 200,
+              child: Text('Block $i ${leads ? 'leads' : 'follows'}'),
+            ),
+        doneLabel: 'Continue',
+        onDone: () {},
+      ),
+    );
+
+    expect(deck.currentState!.length, 3);
+    expect(find.text('Block 0 leads'), findsOneWidget);
+    expect(find.text('Block 1 follows'), findsOneWidget);
+    expect(find.text('Block 2 leads'), findsNothing);
+
+    deck.currentState!.showBlock(4);
+    await tester.pump();
+    expect(find.text('Block 4 leads'), findsOneWidget);
+    expect(find.text('Continue'), findsOneWidget);
+  });
+
+  testWidgets('Next waits until the slide allows it', (tester) async {
+    var answered = false;
+    late StateSetter update;
+    await pumpDeck(
+      tester,
+      StatefulBuilder(
+        builder: (context, setState) {
+          update = setState;
+          return SlideDeck(
+            slides: const [Text('Question'), Text('Last')],
+            canAdvance: (i) => i != 0 || answered,
+            doneLabel: 'Check',
+            onDone: () {},
+          );
+        },
+      ),
+    );
+
+    await tester.tap(find.byKey(SlideDeck.nextKey));
+    await tester.pump();
+    expect(find.text('Question'), findsOneWidget);
+
+    update(() => answered = true);
+    await tester.pump();
+    await tester.tap(find.byKey(SlideDeck.nextKey));
+    await tester.pump();
+    expect(find.text('Last'), findsOneWidget);
+    expect(find.byKey(SlideDeck.doneKey), findsOneWidget);
+  });
+
+  testWidgets('a finished deck has no buttons; its slides still swipe', (
+    tester,
+  ) async {
+    await pumpDeck(
+      tester,
+      const SlideDeck(
+        slides: [Text('One'), Text('Two')],
+        doneLabel: 'Check',
+        onDone: null,
+      ),
+    );
+    expect(find.byKey(SlideDeck.nextKey), findsNothing);
+    expect(find.byKey(SlideDeck.backKey), findsNothing);
+    await tester.fling(find.text('One'), const Offset(-300, 0), 1000);
+    await tester.pumpAndSettle();
+    expect(find.text('Two'), findsOneWidget);
+  });
+
+  testWidgets('a packed deck spreads blocks evenly over the fewest slides, '
+      'rather than leaving one alone on the last', (tester) async {
+    final deck = GlobalKey<SlideDeckState>();
+    await pumpDeck(
+      tester,
+      SlideDeck.packed(
+        key: deck,
+        blockCount: 5,
+        // Four fit a slide, so five need two: three and two, not four and one.
+        blockBuilder:
+            (context, i, _) => SizedBox(height: 100, child: Text('Block $i')),
+        doneLabel: 'Continue',
+        onDone: () {},
+      ),
+    );
+
+    expect(deck.currentState!.length, 2);
+    expect(find.text('Block 2'), findsOneWidget);
+    expect(find.text('Block 3'), findsNothing);
+  });
+
+  testWidgets('a block taller than a slide gets one to itself and the rest '
+      'still fit', (tester) async {
+    final deck = GlobalKey<SlideDeckState>();
+    await pumpDeck(
+      tester,
+      SlideDeck.packed(
+        key: deck,
+        blockCount: 3,
+        blockBuilder:
+            (context, i, _) =>
+                SizedBox(height: i == 0 ? 900 : 200, child: Text('Block $i')),
+        doneLabel: 'Continue',
+        onDone: () {},
+      ),
+    );
+
+    expect(deck.currentState!.length, 2);
+    deck.currentState!.goTo(1);
+    await tester.pump();
+    expect(find.text('Block 1'), findsOneWidget);
+    expect(find.text('Block 2'), findsOneWidget);
+  });
 }

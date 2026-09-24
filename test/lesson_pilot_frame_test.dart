@@ -69,7 +69,9 @@ void main() {
     expect(find.text('Call a man pane.'), findsOneWidget);
     expect(find.text('Names: Ask and Answer'), findsNothing);
     expect(find.text('INTRODUCTION'), findsNothing);
-    expect(find.text('Next'), findsOneWidget);
+    // One short rule packs onto one slide, which ends the step.
+    expect(find.text('Next'), findsNothing);
+    expect(find.text('Got it — check me'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 

@@ -1228,6 +1228,8 @@
   "slideNext": "Dál",
   "slideBack": "Zpět",
   "slideDone": "Hotovo",
+  "readingShowEnglish": "Ukázat anglicky",
+  "readingShowCzech": "Zpět k češtině",
   "slidePosition": "Snímek {index} z {count}",
   "ruleBackToLesson": "Zpět do lekce",
   "unitGuideRulesCount": "{count, plural, =1{1 pravidlo} few{{count} pravidla} other{{count} pravidel}}",

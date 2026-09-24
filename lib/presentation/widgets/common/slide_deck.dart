@@ -5,6 +5,12 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import 'lesson_ui.dart';
 
+/// Builds block [index] of a packed deck. [leadsSlide] is false when the block
+/// shares a slide with the one before it, so it can drop a heading that block
+/// already shows.
+typedef SlideBlockBuilder =
+    Widget Function(BuildContext context, int index, bool leadsSlide);
+
 /// Learning content on a phone never asks the learner to scroll: what does
 /// not fit one screen is split into slides, turned with Back/Next or a swipe.
 ///
@@ -17,20 +23,54 @@ import 'lesson_ui.dart';
 /// default text size, it scrolls: someone reading at 200% text needs the words
 /// at the size they chose more than they need the rule.
 class SlideDeck extends StatefulWidget {
+  /// Slides decided by the caller: one question per slide, say.
   const SlideDeck({
     super.key,
-    required this.slides,
+    required List<Widget> this.slides,
     required this.doneLabel,
     required this.onDone,
+    this.canAdvance,
     this.padding = const EdgeInsets.fromLTRB(20, 8, 20, 8),
     this.onSlideChanged,
-  });
+  }) : blockCount = 0,
+       blockBuilder = null,
+       gap = 0;
 
-  final List<Widget> slides;
+  /// Blocks laid on as few slides as they fit, in order: each block is
+  /// measured at the phone's width and text size, and a slide takes blocks
+  /// until the next would not fit. A block taller than a slide gets one to
+  /// itself.
+  const SlideDeck.packed({
+    super.key,
+    required this.blockCount,
+    required SlideBlockBuilder this.blockBuilder,
+    required this.doneLabel,
+    required this.onDone,
+    this.gap = 12,
+    this.canAdvance,
+    this.padding = const EdgeInsets.fromLTRB(20, 8, 20, 8),
+    this.onSlideChanged,
+  }) : slides = null;
+
+  final List<Widget>? slides;
+
+  final int blockCount;
+  final SlideBlockBuilder? blockBuilder;
+
+  /// Between blocks that share a slide.
+  final double gap;
 
   /// The last slide's button, which leaves the deck.
   final String doneLabel;
-  final VoidCallback onDone;
+
+  /// Null once the deck has done its job — a question answered, say: the
+  /// buttons go, so the lesson's own Continue is the one way on, and the
+  /// slides can still be swiped to look back over.
+  final VoidCallback? onDone;
+
+  /// Whether the learner may go on from slide `index` — false disables Next
+  /// (or the last slide's button) until a question there is answered.
+  final bool Function(int index)? canAdvance;
 
   /// Around each slide's content.
   final EdgeInsets padding;
@@ -38,6 +78,11 @@ class SlideDeck extends StatefulWidget {
 
   static const nextKey = ValueKey('slide-deck-next');
   static const backKey = ValueKey('slide-deck-back');
+  static const doneKey = ValueKey('slide-deck-done');
+
+  /// Height of the dots row, kept even when there are no dots so a slide's
+  /// height does not depend on how many slides there are.
+  static const _dotsHeight = 17.0;
 
   @override
   State<SlideDeck> createState() => SlideDeckState();
@@ -47,8 +92,20 @@ class SlideDeckState extends State<SlideDeck> {
   final _controller = PageController();
   int _index = 0;
 
+  bool get _packed => widget.slides == null;
+
+  /// Packed mode: which blocks each slide shows, once measured.
+  List<List<int>>? _groups;
+
+  /// What [_groups] was measured for; a different width, height or text size
+  /// packs again.
+  Object? _packedFor;
+  Object? _measuring;
+  List<GlobalKey> _keys = const [];
+
   int get index => _index;
-  int get length => widget.slides.length;
+  int get length =>
+      _packed ? (_groups?.length ?? 0) : widget.slides!.length;
 
   @override
   void dispose() {
@@ -59,6 +116,7 @@ class SlideDeckState extends State<SlideDeck> {
   /// Turns to [page]; without the slide when the platform asks for less
   /// motion.
   void goTo(int page) {
+    if (!_controller.hasClients) return;
     if (context.motionDisabled) {
       _controller.jumpToPage(page);
       return;
@@ -70,75 +128,238 @@ class SlideDeckState extends State<SlideDeck> {
     );
   }
 
+  /// Turns to the slide showing block [block] (packed decks).
+  void showBlock(int block) {
+    final page = _slideOf(block);
+    if (page != null && page != _index) goTo(page);
+  }
+
+  int? _slideOf(int block) {
+    final groups = _groups;
+    if (groups == null) return null;
+    for (var i = 0; i < groups.length; i++) {
+      if (groups[i].contains(block)) return i;
+    }
+    return null;
+  }
+
+  void _measure(Object key, double height) {
+    if (!mounted || _measuring != key) return;
+    final heights = [
+      for (final k in _keys) k.currentContext?.size?.height ?? 0.0,
+    ];
+    final room = height - widget.padding.vertical;
+    List<List<int>> fill(double capacity) {
+      final groups = <List<int>>[];
+      var current = <int>[];
+      var used = 0.0;
+      for (var i = 0; i < heights.length; i++) {
+        final need =
+            current.isEmpty ? heights[i] : used + widget.gap + heights[i];
+        if (current.isNotEmpty && need > capacity) {
+          groups.add(current);
+          current = [i];
+          used = heights[i];
+        } else {
+          current.add(i);
+          used = need;
+        }
+      }
+      if (current.isNotEmpty) groups.add(current);
+      return groups;
+    }
+
+    // As few slides as fit, then as even as those slides allow: filling
+    // each to the brim can leave one line alone on the last.
+    // A block taller than a slide already has one to itself; balancing
+    // around it would let the others run past the bottom.
+    final fewest = fill(room).length;
+    var low = heights.fold(0.0, (a, b) => a > b ? a : b);
+    var high = room;
+    for (var i = 0; i < 24 && low <= room && high - low > 1; i++) {
+      final mid = (low + high) / 2;
+      if (fill(mid).length <= fewest) {
+        high = mid;
+      } else {
+        low = mid;
+      }
+    }
+    final groups = fill(high);
+
+    // Stay with what the learner was reading when the deck packs again.
+    final firstShown = _groups?[_index].first ?? 0;
+    setState(() {
+      _groups = groups;
+      _packedFor = key;
+      _measuring = null;
+      _keys = const [];
+    });
+    final page = _slideOf(firstShown) ?? 0;
+    if (page != _index) {
+      _index = page;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (_controller.hasClients) _controller.jumpToPage(page);
+      });
+    }
+  }
+
+  Widget _measurer(BoxConstraints box, Object key) {
+    if (_measuring != key) {
+      _measuring = key;
+      _keys = List.generate(widget.blockCount, (_) => GlobalKey());
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _measure(key, box.maxHeight),
+      );
+    }
+    final width = box.maxWidth - widget.padding.horizontal;
+    return Offstage(
+      child: OverflowBox(
+        alignment: Alignment.topCenter,
+        minWidth: width,
+        maxWidth: width,
+        minHeight: 0,
+        maxHeight: double.infinity,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (var i = 0; i < widget.blockCount; i++)
+              KeyedSubtree(
+                key: _keys[i],
+                child: widget.blockBuilder!(context, i, true),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _packedSlide(BuildContext context, List<int> blocks) => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      for (final (n, block) in blocks.indexed) ...[
+        if (n > 0) SizedBox(height: widget.gap),
+        widget.blockBuilder!(context, block, n == 0),
+      ],
+    ],
+  );
+
+  Widget _pages(BuildContext context) {
+    final slides =
+        _packed
+            ? [for (final g in _groups!) _packedSlide(context, g)]
+            : widget.slides!;
+    return PageView(
+      controller: _controller,
+      onPageChanged: (i) {
+        setState(() => _index = i);
+        widget.onSlideChanged?.call(i);
+      },
+      children: [
+        for (final slide in slides)
+          SingleChildScrollView(padding: widget.padding, child: slide),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
-    final count = widget.slides.length;
+    final count = length;
     final last = _index >= count - 1;
+    final canGo = widget.canAdvance?.call(_index) ?? true;
+    final textScaler = MediaQuery.textScalerOf(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
-          child: PageView(
-            controller: _controller,
-            onPageChanged: (i) {
-              setState(() => _index = i);
-              widget.onSlideChanged?.call(i);
-            },
-            children: [
-              for (final slide in widget.slides)
-                SingleChildScrollView(padding: widget.padding, child: slide),
-            ],
-          ),
+          child:
+              _packed
+                  ? LayoutBuilder(
+                    builder: (context, box) {
+                      final key = (
+                        box.maxWidth,
+                        box.maxHeight,
+                        textScaler,
+                        widget.blockCount,
+                      );
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          if (_groups != null) _pages(context),
+                          if (_packedFor != key) _measurer(box, key),
+                        ],
+                      );
+                    },
+                  )
+                  : _pages(context),
         ),
-        if (count > 1)
-          Semantics(
-            label: l10n.slidePosition(_index + 1, count),
-            excludeSemantics: true,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (var i = 0; i < count; i++)
-                    AnimatedContainer(
-                      duration: context.motionDuration(AppMotion.selection),
-                      margin: const EdgeInsets.symmetric(horizontal: 3),
-                      width: i == _index ? 18 : 7,
-                      height: 7,
-                      decoration: BoxDecoration(
-                        color: i == _index ? t.pri : t.line,
-                        borderRadius: BorderRadius.circular(4),
+        SizedBox(
+          height: SlideDeck._dotsHeight,
+          child:
+              count > 1
+                  ? Semantics(
+                    label: l10n.slidePosition(_index + 1, count),
+                    excludeSemantics: true,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          for (var i = 0; i < count; i++)
+                            AnimatedContainer(
+                              duration: context.motionDuration(
+                                AppMotion.selection,
+                              ),
+                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                              width: i == _index ? 18 : 7,
+                              height: 7,
+                              decoration: BoxDecoration(
+                                color: i == _index ? t.pri : t.line,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                ],
-              ),
-            ),
-          ),
+                  )
+                  : null,
+        ),
+        if (widget.onDone != null)
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
           child: Row(
-            children: [
-              if (_index > 0) ...[
-                OutlinedButton(
-                  key: SlideDeck.backKey,
-                  onPressed: () => goTo(_index - 1),
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(96, 52),
+              children: [
+                if (_index > 0) ...[
+                  OutlinedButton(
+                    key: SlideDeck.backKey,
+                    onPressed: () => goTo(_index - 1),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(96, 52),
+                    ),
+                    child: Text(l10n.slideBack),
                   ),
-                  child: Text(l10n.slideBack),
+                  const SizedBox(width: 10),
+                ],
+                Expanded(
+                  child:
+                      !last
+                          ? KeyCta(
+                            key: SlideDeck.nextKey,
+                            label: l10n.slideNext,
+                            onPressed:
+                                canGo ? () => goTo(_index + 1) : null,
+                          )
+                          : count == 0
+                          ? const SizedBox(height: 52)
+                          : KeyCta(
+                            key: SlideDeck.doneKey,
+                            label: widget.doneLabel,
+                            onPressed: canGo ? widget.onDone : null,
+                          ),
                 ),
-                const SizedBox(width: 10),
               ],
-              Expanded(
-                child: KeyCta(
-                  key: last ? null : SlideDeck.nextKey,
-                  label: last ? widget.doneLabel : l10n.slideNext,
-                  onPressed: last ? widget.onDone : () => goTo(_index + 1),
-                ),
-              ),
-            ],
           ),
         ),
       ],

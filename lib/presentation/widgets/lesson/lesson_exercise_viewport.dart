@@ -13,7 +13,7 @@ import '../../../domain/entities/exercise_outcome.dart';
 import '../../providers/feedback_providers.dart';
 import '../celebration/burst_painter.dart';
 import 'exercise_widget.dart';
-import 'exercises/teaching_view.dart';
+import 'slides_pilot.dart';
 
 /// Composes an exercise inside the lesson player's available viewport, and
 /// reacts when it is answered.
@@ -204,7 +204,7 @@ class _LessonExerciseViewportState extends ConsumerState<LessonExerciseViewport>
 
     final composed =
         LessonExerciseViewport.usesBoundedHeight(widget.exercise.type) ||
-                usesLectureSlides(widget.exercise)
+                showsAsSlides(widget.exercise)
             ? SizedBox.expand(child: exerciseWidget)
             : SingleChildScrollView(child: exerciseWidget);
 

@@ -1703,6 +1703,8 @@
   "slideNext": "Next",
   "slideBack": "Back",
   "slideDone": "Done",
+  "readingShowEnglish": "Show in English",
+  "readingShowCzech": "Back to Czech",
   "slidePosition": "Slide {index} of {count}",
   "@slidePosition": {
     "placeholders": {

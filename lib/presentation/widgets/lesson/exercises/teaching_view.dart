@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/config/unit_guide_pilot.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../domain/entities/enums.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../providers/tts_providers.dart';
@@ -15,6 +13,7 @@ import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
+import '../slides_pilot.dart';
 import 'exercise_shared.dart';
 
 /// A non-graded teaching card: presents a concept (an optional spoken intro,
@@ -33,13 +32,6 @@ import 'exercise_shared.dart';
 /// above it and narrates the intro in English (swappable for a recorded voice
 /// later). The character loops an idle animation and switches to a talking one
 /// while the narration plays.
-/// Whether a lesson shows this lecture step as slides: in the unit-guide
-/// pilot, so the learner never has to scroll through a rule.
-bool usesLectureSlides(Exercise exercise) =>
-    exercise.type == ExerciseType.teaching &&
-    exercise.data['style'] == 'lecture' &&
-    unitGuideEnabled(unitOfLesson(exercise.lessonId));
-
 class TeachingView extends ConsumerStatefulWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
@@ -60,6 +52,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   bool _playingAll = false;
   int _imageTeachingPage = 0;
   bool _translationRevealed = false;
+
+  /// The word list as slides (pilot), and the block its first line is.
+  final _deck = GlobalKey<SlideDeckState>();
+  int _firstRowBlock = 0;
 
   /// Captured in initState so it can be stopped safely from dispose().
   EnglishTts? _english;
@@ -152,6 +148,8 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     for (var i = 0; i < items.length; i++) {
       if (!_playingAll || !mounted) break;
       setState(() => _playingIndex = i);
+      // On slides, turn to the line being played.
+      _deck.currentState?.showBlock(_firstRowBlock + i);
       await _say(alphabet ? items[i].nameSay : items[i].playText);
       // TTS returns before playback finishes; a fixed pace gives a clear gap
       // between items.
@@ -202,6 +200,15 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     final playAllLabel =
         data['play_all_label'] as String? ?? l10n.teachingPlayWholeSet;
     final grid = style == 'alphabet' && _isBareSymbolSet(items);
+    if (showsAsSlides(widget.exercise) && style == 'list') {
+      return _buildListSlides(
+        context,
+        heading: heading,
+        body: body,
+        intro: intro,
+        playAllLabel: playAllLabel,
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
@@ -298,6 +305,79 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     );
   }
 
+  /// A word list on slides: the teacher's intro, the card with "play all",
+  /// then the lines, as many to a slide as fit.
+  Widget _buildListSlides(
+    BuildContext context, {
+    required String heading,
+    required String? body,
+    required String? intro,
+    required String playAllLabel,
+  }) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final items = _items;
+    final hasIntro = intro != null && intro.isNotEmpty;
+    _firstRowBlock = (hasIntro ? 1 : 0) + 1;
+    final blocks = <Widget Function()>[
+      if (hasIntro)
+        () => _IntroBlock(
+          text: intro,
+          english: _english,
+          onToggle: () => _toggleIntro(intro),
+        ),
+      () => TeachingHeroCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            LessonKicker(l10n.teachingKicker, color: t.pri),
+            const SizedBox(height: 12),
+            DisplayText(heading, size: 26, weight: FontWeight.w800, height: 1.1),
+            if (body != null && body.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                body,
+                style: TextStyle(fontSize: 15, color: t.muted, height: 1.5),
+              ),
+            ],
+            if (items.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              AudioPairButtons(
+                playing: _playingAll,
+                playLabel: playAllLabel,
+                onPlay: () => _playAll(items),
+              ),
+            ],
+          ],
+        ),
+      ),
+      for (var i = 0; i < items.length; i++)
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (i == 0) ...[
+              LessonKicker(l10n.teachingTapLineToHear),
+              const SizedBox(height: 10),
+            ],
+            _PhraseRow(
+              item: items[i],
+              active: _playingIndex == i,
+              onTap: () => _say(items[i].playText),
+            ),
+          ],
+        ),
+    ];
+    return SlideDeck.packed(
+      key: _deck,
+      blockCount: blocks.length,
+      blockBuilder: (context, index, _) => blocks[index](),
+      gap: 10,
+      doneLabel: l10n.lessonGotItStartPractising,
+      // A teaching card is never graded — advance straight to practice.
+      onDone: () => widget.onAnswered(const ExerciseResult.skipped()),
+    );
+  }
+
   /// One lecture step (plan v1.2, §3.2): what it means, a small table of the
   /// forms in scope, examples to hear and the mistake learners make most.
   /// A check question follows it in the lesson, so it ends on "check me"
@@ -319,7 +399,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             )
             : null;
     void done() => widget.onAnswered(const ExerciseResult.skipped());
-    if (usesLectureSlides(widget.exercise)) {
+    if (showsAsSlides(widget.exercise)) {
       return LectureSlides(
         exercise: widget.exercise,
         lead: lead,
@@ -792,9 +872,9 @@ class LectureContent extends ConsumerWidget {
 }
 
 /// One lecture step as slides, so nothing has to be scrolled: the
-/// explanation, then the table a few rows at a time, then the examples and
-/// the common mistake, on a [SlideDeck]. The last slide's button finishes
-/// ([onDone]).
+/// explanation, the table a few rows at a time, the examples and the common
+/// mistake, packed onto as few slides as fit ([SlideDeck.packed]). The last
+/// slide's button finishes ([onDone]).
 ///
 /// Needs bounded height: the lesson gives it the exercise area, the unit guide
 /// and the Rule screen a whole screen.
@@ -816,67 +896,70 @@ class LectureSlides extends ConsumerWidget {
     this.lead,
   });
 
-  /// Table rows per slide: five rows and the heading fit a small phone, which
-  /// the no-scroll fit test checks.
+  /// Table rows per block: a table longer than this continues on the next
+  /// slide under its heading again, rather than one card running off screen.
   static const rowsPerSlide = 5;
 
-  List<Widget> _slides(BuildContext context, WidgetRef ref) {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final parts = _LectureParts(exercise);
     void speak(String text) => _speakCzech(ref, text);
-    final slides = <Widget>[
-      Column(
+    final examples = parts.examples.take(3).toList();
+    final chunks = [
+      for (var i = 0; i < parts.table.length; i += rowsPerSlide)
+        parts.table.sublist(
+          i,
+          (i + rowsPerSlide).clamp(0, parts.table.length),
+        ),
+    ];
+    // In order: the explanation, the table a few rows at a time, the
+    // examples, the common mistake. The deck puts together whatever fits.
+    final blocks = <Widget Function(bool leadsSlide)>[
+      (_) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (lead != null) ...[lead!, const SizedBox(height: 16)],
           parts.hero(context, kicker: kicker),
         ],
       ),
-    ];
-    for (var i = 0; i < parts.table.length; i += rowsPerSlide) {
-      final end = (i + rowsPerSlide).clamp(0, parts.table.length);
-      slides.add(
-        Column(
+      for (final chunk in chunks)
+        (leadsSlide) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              parts.heading,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w800,
-                color: context.tokens.ink,
+            // Under the explanation the heading is already on screen.
+            if (leadsSlide) ...[
+              Text(
+                parts.heading,
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w800,
+                  color: context.tokens.ink,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            parts.tableCard(context, parts.table.sublist(i, end), speak),
-          ],
-        ),
-      );
-    }
-    // Examples and the mistake share a slide when they fit together.
-    final examples = parts.examples.take(3).toList();
-    if (examples.isNotEmpty || parts.hasMistake) {
-      slides.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (examples.isNotEmpty) ...parts.exampleRows(context, examples, speak),
-            if (parts.hasMistake) ...[
-              if (examples.isNotEmpty) const SizedBox(height: 10),
-              ...parts.mistakeCard(context),
+              const SizedBox(height: 12),
             ],
+            parts.tableCard(context, chunk, speak),
           ],
         ),
-      );
-    }
-    return slides;
+      if (examples.isNotEmpty)
+        (_) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: parts.exampleRows(context, examples, speak),
+        ),
+      if (parts.hasMistake)
+        (_) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: parts.mistakeCard(context),
+        ),
+    ];
+    return SlideDeck.packed(
+      blockCount: blocks.length,
+      blockBuilder: (context, index, leadsSlide) => blocks[index](leadsSlide),
+      gap: 16,
+      doneLabel: doneLabel,
+      onDone: onDone,
+    );
   }
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) => SlideDeck(
-    slides: _slides(context, ref),
-    doneLabel: doneLabel,
-    onDone: onDone,
-  );
 }
 
 class _LetterGrid extends StatelessWidget {

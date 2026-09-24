@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
+import '../../../../domain/entities/learning_evidence.dart';
 import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../slides_pilot.dart';
 import 'exercise_shared.dart';
+import 'question_steps.dart';
 
 /// Reading comprehension exercise — read a Czech passage, then answer
 /// multiple-choice questions about it.
@@ -27,6 +30,11 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
   final List<int?> _selectedAnswers = [];
   late List<Map<String, dynamic>> _presentedQuestions;
   bool answered = false;
+
+  /// Slides (pilot): the passage card shows the English instead of the Czech,
+  /// and whether it ever has — reading with the translation is support.
+  bool _english = false;
+  bool _usedTranslation = false;
 
   @override
   void initState() {
@@ -110,6 +118,17 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
     final promptEn = data['prompt_en'] as String?;
     final image = (data['image'] as String?)?.trim();
     final imageLabel = (data['image_label'] as String?)?.trim();
+
+    if (showsAsSlides(widget.exercise) && _questions.isNotEmpty) {
+      return _slides(
+        context,
+        prompt: promptEn ?? widget.exercise.prompt,
+        textCz: textCz,
+        textEn: textEn,
+        image: image,
+        imageLabel: imageLabel,
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
@@ -229,6 +248,109 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
             ),
         ],
       ),
+    );
+  }
+
+  /// The pilot's slides: the passage with its translation, then each
+  /// question under the Czech text again.
+  Widget _slides(
+    BuildContext context, {
+    required String prompt,
+    required String textCz,
+    required String? textEn,
+    required String? image,
+    required String? imageLabel,
+  }) {
+    final t = context.tokens;
+    return QuestionSteps(
+      exerciseId: widget.exercise.id,
+      questions:
+          (widget.exercise.data['questions'] as List<dynamic>)
+              .cast<Map<String, dynamic>>(),
+      intro: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          QuestionPrompt(question: prompt),
+          const SizedBox(height: 16),
+          if (image != null && image.isNotEmpty) ...[
+            LessonImage(
+              asset: image,
+              height: 140,
+              semanticLabel:
+                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
+            ),
+            const SizedBox(height: 14),
+          ],
+          _slidePassage(context, textCz, textEn),
+        ],
+      ),
+      reminder: Container(
+        padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+        decoration: BoxDecoration(
+          color: t.elev,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Text(
+          textCz,
+          style: TextStyle(fontSize: 14, height: 1.4, color: t.ink),
+        ),
+      ),
+      onComplete:
+          (isCorrect, explanation, correctAnswer) => widget.onAnswered(
+            ExerciseResult(
+              isCorrect: isCorrect,
+              explanation: explanation,
+              correctAnswer: correctAnswer,
+              supports: {if (_usedTranslation) SupportKind.translation},
+            ),
+          ),
+    );
+  }
+
+  /// The passage in one language at a time, so it fits one slide: Czech, and
+  /// the English on request in its place.
+  Widget _slidePassage(BuildContext context, String textCz, String? textEn) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final hasEnglish = textEn != null && textEn.isNotEmpty;
+    final english = _english && hasEnglish;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: t.card,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: t.line),
+            boxShadow: t.shadow,
+          ),
+          child: Text(
+            english ? textEn : textCz,
+            style:
+                english
+                    ? TextStyle(fontSize: 15, height: 1.55, color: t.muted)
+                    : TextStyle(fontSize: 17, height: 1.6, color: t.ink),
+          ),
+        ),
+        if (hasEnglish) ...[
+          const SizedBox(height: 10),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: OutlinedButton.icon(
+              onPressed:
+                  () => setState(() {
+                    _english = !_english;
+                    if (_english) _usedTranslation = true;
+                  }),
+              icon: const Icon(Icons.translate, size: 18),
+              label: Text(
+                english ? l10n.readingShowCzech : l10n.readingShowEnglish,
+              ),
+            ),
+          ),
+        ],
+      ],
     );
   }
 

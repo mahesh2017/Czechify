@@ -6782,6 +6782,18 @@ abstract class AppLocalizations {
   /// **'Done'**
   String get slideDone;
 
+  /// No description provided for @readingShowEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in English'**
+  String get readingShowEnglish;
+
+  /// No description provided for @readingShowCzech.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Czech'**
+  String get readingShowCzech;
+
   /// No description provided for @slidePosition.
   ///
   /// In en, this message translates to:

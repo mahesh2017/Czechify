@@ -10,7 +10,9 @@ import '../../../providers/tts_providers.dart';
 import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
+import '../slides_pilot.dart';
 import 'exercise_shared.dart';
+import 'question_steps.dart';
 
 /// Listening comprehension exercise — listen to a Czech dialogue/recording,
 /// then answer multiple-choice questions.
@@ -172,6 +174,40 @@ class _ListeningComprehensionViewState
       ],
     );
 
+    Set<SupportKind> supports() => {
+      if (_replayedAfterHearing) SupportKind.replay,
+      if (_transcriptRevealed) SupportKind.transcript,
+    };
+    final questions =
+        (data['questions'] as List<dynamic>? ?? const [])
+            .cast<Map<String, dynamic>>();
+    if (showsAsSlides(widget.exercise) && questions.isNotEmpty) {
+      return QuestionSteps(
+        exerciseId: widget.exercise.id,
+        questions: questions,
+        intro: header,
+        reminder: _ListenAgain(
+          onPlay: () {
+            setState(() => _playCount++);
+            ref.read(czechTtsProvider).speak(transcriptCz);
+          },
+          onSlow: () {
+            setState(() => _playCount++);
+            ref.read(czechTtsProvider).speakSlow(transcriptCz);
+          },
+        ),
+        onComplete:
+            (isCorrect, explanation, correctAnswer) => widget.onAnswered(
+              ExerciseResult(
+                isCorrect: isCorrect,
+                explanation: explanation,
+                correctAnswer: correctAnswer,
+                supports: supports(),
+              ),
+            ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
       child: Column(
@@ -190,10 +226,7 @@ class _ListeningComprehensionViewState
                     isCorrect: isCorrect,
                     explanation: explanation,
                     correctAnswer: correctAnswer,
-                    supports: {
-                      if (_replayedAfterHearing) SupportKind.replay,
-                      if (_transcriptRevealed) SupportKind.transcript,
-                    },
+                    supports: supports(),
                   ),
                 );
               },
@@ -463,6 +496,52 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
             ),
         ],
       ),
+    );
+  }
+}
+
+/// Above each question slide: the recording again, at speed or slower, as one
+/// compact row rather than the big panel of the first slide.
+class _ListenAgain extends StatelessWidget {
+  const _ListenAgain({required this.onPlay, required this.onSlow});
+
+  final VoidCallback onPlay;
+  final VoidCallback onSlow;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    );
+    return Row(
+      children: [
+        Expanded(
+          child: FilledButton.icon(
+            onPressed: onPlay,
+            icon: const Icon(Icons.play_arrow, size: 20),
+            label: Text(l10n.audioPlayAgain),
+            style: FilledButton.styleFrom(
+              backgroundColor: t.violetSoft,
+              foregroundColor: t.violetInk,
+              minimumSize: const Size(0, 48),
+              shape: shape,
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        TextButton.icon(
+          onPressed: onSlow,
+          icon: const Icon(Icons.schedule, size: 16),
+          label: Text(l10n.audioSlower),
+          style: TextButton.styleFrom(
+            foregroundColor: t.muted,
+            minimumSize: const Size(0, 48),
+            shape: shape,
+          ),
+        ),
+      ],
     );
   }
 }
