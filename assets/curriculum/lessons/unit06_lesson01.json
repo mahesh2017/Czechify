@@ -27,7 +27,7 @@
   "format": 2,
   "exercises": [
     {
-      "id": 6001,
+      "id": 6400,
       "lesson_id": 601,
       "type": "listening_comprehension",
       "prompt": "Warm-up: listen and guess",
@@ -63,7 +63,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6000,
+      "id": 6401,
       "lesson_id": 601,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -104,7 +104,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6013,
+      "id": 6402,
       "lesson_id": 601,
       "type": "teaching",
       "prompt": "Notebook",
@@ -137,7 +137,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6003,
+      "id": 6403,
       "lesson_id": 601,
       "type": "matching",
       "prompt": "Match the Czech chunks to their meanings",
@@ -176,7 +176,7 @@
       "xp_reward": 10
     },
     {
-      "id": 6005,
+      "id": 6404,
       "lesson_id": 601,
       "type": "fill_blank",
       "prompt": "Complete the useful chunk",
@@ -196,7 +196,7 @@
       "xp_reward": 10
     },
     {
-      "id": 6006,
+      "id": 6405,
       "lesson_id": 601,
       "type": "word_order",
       "prompt": "Build a natural Czech sentence",
@@ -220,7 +220,7 @@
       "xp_reward": 10
     },
     {
-      "id": 6007,
+      "id": 6406,
       "lesson_id": 601,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -235,7 +235,7 @@
       "xp_reward": 10
     },
     {
-      "id": 6009,
+      "id": 6407,
       "lesson_id": 601,
       "type": "dialogue",
       "prompt": "Order at the counter",
@@ -278,7 +278,7 @@
       "xp_reward": 15
     },
     {
-      "id": 6002,
+      "id": 6408,
       "lesson_id": 601,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -315,7 +315,7 @@
       "xp_reward": 15
     },
     {
-      "id": 6011,
+      "id": 6409,
       "lesson_id": 601,
       "type": "listening_comprehension",
       "prompt": "Listen in a new context",

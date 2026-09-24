@@ -19,6 +19,30 @@ final dueTransferProvider = FutureProvider<List<db.DelayedTransferAssignment>>(
       ref.read(databaseProvider).progressDao.getDueTransfers(DateTime.now()),
 );
 
+
+/// The question a delayed transfer asks: another scored question from the
+/// same lesson, of the same type as the one missed when there is one.
+///
+/// Taking simply the lesson's first other exercise meant a teaching card —
+/// the opening item of most lessons — was set as the "question", and from
+/// v1.2 on it could be a notebook step or a warm-up guess. None of those can
+/// show whether the learner now knows the answer.
+Exercise? transferVariant(List<Exercise> exercises, int sourceExerciseId) {
+  final scored = [
+    for (final item in exercises)
+      if (item.id != sourceExerciseId &&
+          item.type != ExerciseType.teaching &&
+          item.mode.isScored)
+        item,
+  ];
+  if (scored.isEmpty) return null;
+  final source = exercises.where((item) => item.id == sourceExerciseId);
+  final sameType = scored.where(
+    (item) => source.isNotEmpty && item.type == source.first.type,
+  );
+  return sameType.isNotEmpty ? sameType.first : scored.first;
+}
+
 class DelayedTransferScreen extends ConsumerStatefulWidget {
   final String assignmentId;
 
@@ -58,17 +82,14 @@ class _DelayedTransferScreenState extends ConsumerState<DelayedTransferScreen> {
       final exercises = await ref
           .read(curriculumRepositoryProvider)
           .getExercises(assignment.lessonId);
-      final variants =
-          exercises
-              .where((item) => item.id != assignment.sourceExerciseId)
-              .toList();
-      if (variants.isEmpty) {
+      final variant = transferVariant(exercises, assignment.sourceExerciseId);
+      if (variant == null) {
         throw StateError('No independent transfer variant is available.');
       }
       if (!mounted) return;
       setState(() {
         _assignment = assignment;
-        _exercise = variants.first;
+        _exercise = variant;
         _startedAt = DateTime.now();
         _loading = false;
       });

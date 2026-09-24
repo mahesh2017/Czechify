@@ -24,7 +24,7 @@
   "format": 2,
   "exercises": [
     {
-      "id": 19033,
+      "id": 19170,
       "lesson_id": 1904,
       "type": "teaching",
       "prompt": "Mission language",
@@ -52,7 +52,7 @@
       "xp_reward": 0
     },
     {
-      "id": 19034,
+      "id": 19171,
       "lesson_id": 1904,
       "type": "listening_comprehension",
       "prompt": "Listen for the order",
@@ -86,7 +86,7 @@
       "grammar_rule_id": "GR-180"
     },
     {
-      "id": 19035,
+      "id": 19172,
       "lesson_id": 1904,
       "type": "reading_comprehension",
       "prompt": "Read a friend’s recap",
@@ -123,7 +123,7 @@
       "grammar_rule_id": "GR-182"
     },
     {
-      "id": 19037,
+      "id": 19173,
       "lesson_id": 1904,
       "type": "fill_blank",
       "prompt": "Finish the recap",
@@ -145,7 +145,7 @@
       "grammar_rule_id": "GR-181"
     },
     {
-      "id": 19038,
+      "id": 19174,
       "lesson_id": 1904,
       "type": "dialogue",
       "prompt": "Give a quick recap",
@@ -176,7 +176,7 @@
       "grammar_rule_id": "GR-180"
     },
     {
-      "id": 19039,
+      "id": 19175,
       "lesson_id": 1904,
       "type": "writing_task",
       "prompt": "Complete the recap mission",
@@ -198,7 +198,7 @@
       "xp_reward": 0
     },
     {
-      "id": 19040,
+      "id": 19176,
       "lesson_id": 1904,
       "type": "speaking_task",
       "prompt": "Complete the mission",
@@ -219,7 +219,7 @@
       "xp_reward": 20
     },
     {
-      "id": 19045,
+      "id": 19177,
       "lesson_id": 1904,
       "type": "teaching",
       "prompt": "Notebook",

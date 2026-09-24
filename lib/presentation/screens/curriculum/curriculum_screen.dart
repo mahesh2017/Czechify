@@ -858,6 +858,24 @@ class _PathUnit extends ConsumerWidget {
                 ],
               ),
             ),
+          // The map is the default view, so the unit's lecture and model
+          // notebook page have to be reachable from here, not only the list.
+          if (isUnlocked && lessons.isNotEmpty)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: () => context.push('/unit-notebook/${unit.id}'),
+                icon: Icon(Icons.edit_note, size: 18, color: palette.ink),
+                label: Text(
+                  l10n.curriculumLectureNotebook,
+                  style: TextStyle(
+                    color: palette.ink,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                style: TextButton.styleFrom(minimumSize: const Size(0, 44)),
+              ),
+            ),
         ],
       ),
     );

@@ -24,7 +24,7 @@
   "format": 2,
   "exercises": [
     {
-      "id": 6212,
+      "id": 6450,
       "lesson_id": 603,
       "type": "teaching",
       "prompt": "Notebook",
@@ -49,7 +49,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6200,
+      "id": 6451,
       "lesson_id": 603,
       "type": "teaching",
       "prompt": "Learn the mission language",
@@ -82,7 +82,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6213,
+      "id": 6452,
       "lesson_id": 603,
       "type": "teaching",
       "prompt": "Notebook",
@@ -107,7 +107,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6201,
+      "id": 6453,
       "lesson_id": 603,
       "type": "listening_comprehension",
       "prompt": "Listen for meaning and one detail",
@@ -143,7 +143,7 @@
       "xp_reward": 15
     },
     {
-      "id": 6202,
+      "id": 6454,
       "lesson_id": 603,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -180,7 +180,7 @@
       "xp_reward": 15
     },
     {
-      "id": 6205,
+      "id": 6455,
       "lesson_id": 603,
       "type": "fill_blank",
       "prompt": "Complete the answer",
@@ -200,7 +200,7 @@
       "xp_reward": 10
     },
     {
-      "id": 6206,
+      "id": 6456,
       "lesson_id": 603,
       "type": "word_order",
       "prompt": "Build a natural Czech sentence",
@@ -222,7 +222,7 @@
       "xp_reward": 10
     },
     {
-      "id": 6207,
+      "id": 6457,
       "lesson_id": 603,
       "type": "dictation",
       "prompt": "Listen and type the key sentence",
@@ -237,7 +237,7 @@
       "xp_reward": 10
     },
     {
-      "id": 6208,
+      "id": 6458,
       "lesson_id": 603,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
@@ -256,7 +256,7 @@
       "xp_reward": 15
     },
     {
-      "id": 6209,
+      "id": 6459,
       "lesson_id": 603,
       "type": "dialogue",
       "prompt": "They have no coffee",
@@ -302,7 +302,7 @@
       "xp_reward": 15
     },
     {
-      "id": 6210,
+      "id": 6460,
       "lesson_id": 603,
       "type": "writing_task",
       "prompt": "Write a useful personal response",
@@ -325,7 +325,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6211,
+      "id": 6461,
       "lesson_id": 603,
       "type": "listening_comprehension",
       "prompt": "Listen in a new context",

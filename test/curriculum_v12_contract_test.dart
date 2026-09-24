@@ -68,6 +68,20 @@ void main() {
   // review units with their own shape (plan §3.5).
   bool standard(int unitId) => unitId <= 27;
 
+  test('a lesson plays in the order it is written', () {
+    // The app orders a lesson's exercises by id (curriculum_dao.dart), so an
+    // id out of sequence silently moves that item. Twelve A2 lessons played
+    // their introduction card last this way, after every question.
+    for (final lesson in lessons) {
+      final ids = [for (final e in exercisesOf(lesson)) e['id'] as int];
+      expect(
+        ids,
+        [...ids]..sort(),
+        reason: 'lesson ${lesson['id']}: exercise ids must ascend in file order',
+      );
+    }
+  });
+
   test('V1 a rebuilt unit is rebuilt whole', () {
     for (final unitId in rebuiltUnits) {
       final all = lessonsOf(unitId);

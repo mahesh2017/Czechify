@@ -23,7 +23,7 @@
   "format": 2,
   "exercises": [
     {
-      "id": 6112,
+      "id": 6420,
       "lesson_id": 602,
       "type": "teaching",
       "prompt": "Notebook",
@@ -52,7 +52,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6113,
+      "id": 6421,
       "lesson_id": 602,
       "type": "teaching",
       "prompt": "Feminine words: -a becomes -u",
@@ -112,7 +112,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6114,
+      "id": 6422,
       "lesson_id": 602,
       "type": "multiple_choice",
       "prompt": "Quick check",
@@ -134,7 +134,7 @@
       "grammar_rule_id": "GR-050"
     },
     {
-      "id": 6115,
+      "id": 6423,
       "lesson_id": 602,
       "type": "teaching",
       "prompt": "Masculine things stay the same",
@@ -194,7 +194,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6116,
+      "id": 6424,
       "lesson_id": 602,
       "type": "multiple_choice",
       "prompt": "Quick check",
@@ -216,7 +216,7 @@
       "grammar_rule_id": "GR-052"
     },
     {
-      "id": 6117,
+      "id": 6425,
       "lesson_id": 602,
       "type": "teaching",
       "prompt": "Neuter words stay the same too",
@@ -276,7 +276,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6118,
+      "id": 6426,
       "lesson_id": 602,
       "type": "multiple_choice",
       "prompt": "Quick check",
@@ -298,7 +298,7 @@
       "grammar_rule_id": "GR-053"
     },
     {
-      "id": 6119,
+      "id": 6427,
       "lesson_id": 602,
       "type": "teaching",
       "prompt": "Notebook",
@@ -331,7 +331,7 @@
       "xp_reward": 0
     },
     {
-      "id": 6120,
+      "id": 6428,
       "lesson_id": 602,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -353,7 +353,7 @@
       "grammar_rule_id": "GR-050"
     },
     {
-      "id": 6121,
+      "id": 6429,
       "lesson_id": 602,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -375,7 +375,7 @@
       "grammar_rule_id": "GR-050"
     },
     {
-      "id": 6122,
+      "id": 6430,
       "lesson_id": 602,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -397,7 +397,7 @@
       "grammar_rule_id": "GR-052"
     },
     {
-      "id": 6123,
+      "id": 6431,
       "lesson_id": 602,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -422,7 +422,7 @@
       "grammar_rule_id": "GR-053"
     },
     {
-      "id": 6108,
+      "id": 6432,
       "lesson_id": 602,
       "type": "pronunciation",
       "prompt": "Rehearse a useful phrase",
@@ -441,7 +441,7 @@
       "grammar_rule_id": "GR-050"
     },
     {
-      "id": 6101,
+      "id": 6433,
       "lesson_id": 602,
       "type": "listening_comprehension",
       "prompt": "Listen for meaning and one detail",
@@ -477,7 +477,7 @@
       "grammar_rule_id": "GR-050"
     },
     {
-      "id": 6102,
+      "id": 6434,
       "lesson_id": 602,
       "type": "reading_comprehension",
       "prompt": "Read for a useful detail",
@@ -514,7 +514,7 @@
       "grammar_rule_id": "GR-053"
     },
     {
-      "id": 6107,
+      "id": 6435,
       "lesson_id": 602,
       "type": "dictation",
       "prompt": "Listen and type",
@@ -529,7 +529,7 @@
       "grammar_rule_id": "GR-052"
     },
     {
-      "id": 6109,
+      "id": 6436,
       "lesson_id": 602,
       "type": "dialogue",
       "prompt": "Order two things",
@@ -575,7 +575,7 @@
       "grammar_rule_id": "GR-050"
     },
     {
-      "id": 6111,
+      "id": 6437,
       "lesson_id": 602,
       "type": "listening_comprehension",
       "prompt": "Listen in a new context",

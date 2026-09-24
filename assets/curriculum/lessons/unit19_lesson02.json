@@ -23,7 +23,7 @@
   "format": 2,
   "exercises": [
     {
-      "id": 19047,
+      "id": 19120,
       "lesson_id": 1902,
       "type": "teaching",
       "prompt": "Notebook",
@@ -52,7 +52,7 @@
       "xp_reward": 0
     },
     {
-      "id": 19060,
+      "id": 19121,
       "lesson_id": 1902,
       "type": "teaching",
       "prompt": "The past: -l plus jsem",
@@ -128,7 +128,7 @@
       "xp_reward": 0
     },
     {
-      "id": 19061,
+      "id": 19122,
       "lesson_id": 1902,
       "type": "multiple_choice",
       "prompt": "Quick check",
@@ -150,7 +150,7 @@
       "grammar_rule_id": "GR-180"
     },
     {
-      "id": 19062,
+      "id": 19123,
       "lesson_id": 1902,
       "type": "teaching",
       "prompt": "Going: šel on foot, jel by vehicle",
@@ -210,7 +210,7 @@
       "xp_reward": 0
     },
     {
-      "id": 19063,
+      "id": 19124,
       "lesson_id": 1902,
       "type": "multiple_choice",
       "prompt": "Quick check",
@@ -232,7 +232,7 @@
       "grammar_rule_id": "GR-181"
     },
     {
-      "id": 19064,
+      "id": 19125,
       "lesson_id": 1902,
       "type": "teaching",
       "prompt": "Two verbs for one action",
@@ -296,7 +296,7 @@
       "xp_reward": 0
     },
     {
-      "id": 19065,
+      "id": 19126,
       "lesson_id": 1902,
       "type": "multiple_choice",
       "prompt": "Quick check",
@@ -317,7 +317,7 @@
       "grammar_rule_id": "GR-182"
     },
     {
-      "id": 19048,
+      "id": 19127,
       "lesson_id": 1902,
       "type": "teaching",
       "prompt": "Notebook",
@@ -346,7 +346,7 @@
       "xp_reward": 0
     },
     {
-      "id": 19050,
+      "id": 19128,
       "lesson_id": 1902,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -368,7 +368,7 @@
       "grammar_rule_id": "GR-180"
     },
     {
-      "id": 19051,
+      "id": 19129,
       "lesson_id": 1902,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -390,7 +390,7 @@
       "grammar_rule_id": "GR-181"
     },
     {
-      "id": 19052,
+      "id": 19130,
       "lesson_id": 1902,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -412,7 +412,7 @@
       "grammar_rule_id": "GR-180"
     },
     {
-      "id": 19053,
+      "id": 19131,
       "lesson_id": 1902,
       "type": "fill_blank",
       "prompt": "Guided practice",
@@ -434,7 +434,7 @@
       "grammar_rule_id": "GR-182"
     },
     {
-      "id": 19054,
+      "id": 19132,
       "lesson_id": 1902,
       "type": "pronunciation",
       "prompt": "Say it",
@@ -452,7 +452,7 @@
       "grammar_rule_id": "GR-180"
     },
     {
-      "id": 19001,
+      "id": 19133,
       "lesson_id": 1902,
       "type": "multiple_choice",
       "prompt": "What is the correct past tense form for 'já' (I, masculine) with the verb 'dělat'?",
@@ -474,7 +474,7 @@
       "xp_reward": 10
     },
     {
-      "id": 19007,
+      "id": 19134,
       "lesson_id": 1902,
       "type": "multiple_choice",
       "prompt": "What is the correct past form of 'jít' for 'ona' (she)?",
@@ -496,7 +496,7 @@
       "xp_reward": 10
     },
     {
-      "id": 19008,
+      "id": 19135,
       "lesson_id": 1902,
       "type": "fill_blank",
       "prompt": "Complete with the past form of 'jít': 'They (mixed group) went home.'",
@@ -516,7 +516,7 @@
       "xp_reward": 15
     },
     {
-      "id": 19015,
+      "id": 19136,
       "lesson_id": 1902,
       "type": "multiple_choice",
       "prompt": "Which sentence uses the perfective verb correctly?",
@@ -538,7 +538,7 @@
       "xp_reward": 10
     },
     {
-      "id": 19006,
+      "id": 19137,
       "lesson_id": 1902,
       "type": "translation",
       "prompt": "Translate to Czech: 'I (female speaker) went to the store.'",
