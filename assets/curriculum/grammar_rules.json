@@ -2029,7 +2029,60 @@
           "en": "I'm writing an email to the teacher."
         }
       ],
-      "unit_id": 17
+      "unit_id": 17,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "Who receives it: -ovi, -e, -u",
+          "say": "The person who receives something is in the dative. Men take -ovi, women take -e or -i, neuter words take -u or -i. The thing you give stays in the accusative.",
+          "table": [
+            [
+              "bratr",
+              "bratrovi"
+            ],
+            [
+              "Petr",
+              "Petrovi"
+            ],
+            [
+              "sestra",
+              "sestře"
+            ],
+            [
+              "maminka",
+              "mamince"
+            ],
+            [
+              "babička",
+              "babičce"
+            ],
+            [
+              "kolegyně",
+              "kolegyni"
+            ],
+            [
+              "dítě",
+              "dítěti"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dávám bratrovi knihu.",
+              "en": "I am giving my brother a book."
+            },
+            {
+              "cz": "Posílám babičce dopis.",
+              "en": "I am sending my grandmother a letter."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dávám bratr knihu.",
+            "right": "Dávám bratrovi knihu."
+          }
+        }
+      ]
     },
     {
       "id": "GR-161",
@@ -2051,7 +2104,56 @@
           "en": "I don't believe him."
         }
       ],
-      "unit_id": 17
+      "unit_id": 17,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "Verbs that take the dative",
+          "say": "Some verbs always put the person in the dative: pomáhat, rozumět, telefonovat, věřit, děkovat, radit. Learn each verb with a person.",
+          "table": [
+            [
+              "pomáhat",
+              "pomáhat mamince"
+            ],
+            [
+              "rozumět",
+              "rozumět učiteli"
+            ],
+            [
+              "telefonovat",
+              "telefonovat Petrovi"
+            ],
+            [
+              "věřit",
+              "věřit kamarádovi"
+            ],
+            [
+              "děkovat",
+              "děkovat vám"
+            ],
+            [
+              "radit",
+              "radit sestře"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Pomáhám mamince.",
+              "en": "I help my mum."
+            },
+            {
+              "cz": "Nerozumím profesorovi.",
+              "en": "I don't understand the professor."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Pomáhám maminku.",
+            "right": "Pomáhám mamince."
+          }
+        }
+      ]
     },
     {
       "id": "GR-162",
@@ -2073,7 +2175,52 @@
           "en": "He doesn't like that shirt."
         }
       ],
-      "unit_id": 17
+      "unit_id": 17,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "I like it: líbí se mi, chutná mi",
+          "say": "The thing you like is the subject. The person who likes it is in the dative. Líbí se is for things you see or experience; chutná is for food and drink.",
+          "table": [
+            [
+              "I like Prague.",
+              "Líbí se mi Praha."
+            ],
+            [
+              "Do you like the book?",
+              "Líbí se ti ta kniha?"
+            ],
+            [
+              "He likes films.",
+              "Líbí se mu filmy."
+            ],
+            [
+              "She likes the soup.",
+              "Chutná jí polévka."
+            ],
+            [
+              "We like the coffee.",
+              "Chutná nám káva."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Líbí se mi Praha.",
+              "en": "I like Prague."
+            },
+            {
+              "cz": "Chutná ti polévka?",
+              "en": "Do you like the soup?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Líbím Prahu.",
+            "right": "Líbí se mi Praha."
+          }
+        }
+      ]
     },
     {
       "id": "GR-163",
@@ -2095,7 +2242,127 @@
           "en": "How are you? — I feel good."
         }
       ],
-      "unit_id": 17
+      "unit_id": 17,
+      "concept_keys": [
+        "all_cases_sg"
+      ],
+      "lecture": [
+        {
+          "heading": "How you feel: Je mi zima",
+          "say": "For how you feel, Czech says “it is … to me”: Je mi zima, je mi špatně. Age works the same way: Je mi dvacet let.",
+          "table": [
+            [
+              "I am cold.",
+              "Je mi zima."
+            ],
+            [
+              "I am warm.",
+              "Je mi teplo."
+            ],
+            [
+              "I feel sick.",
+              "Je mi špatně."
+            ],
+            [
+              "I'm sorry.",
+              "Je mi líto."
+            ],
+            [
+              "He is twenty.",
+              "Je mu dvacet let."
+            ],
+            [
+              "Are you OK?",
+              "Je ti dobře?"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Je mi zima.",
+              "en": "I am cold."
+            },
+            {
+              "cz": "Kolik je ti let?",
+              "en": "How old are you?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jsem zima.",
+            "right": "Je mi zima."
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR-164",
+      "rule_name": "Pronouns in the dative — mi, ti, mu, jí",
+      "pattern": "já → mi/mně, ty → ti/tobě, on/ono → mu/jemu, ona → jí, my → nám, vy → vám, oni → jim. After k: ke mně, k tobě, k němu, k ní, k nám, k vám, k nim.",
+      "explanation": "The short forms mi, ti, mu are the everyday ones and come second in the sentence: Pomůžeš mi? Dám mu knihu. The long forms mně, tobě, jemu are for stress (Mně se to líbí, tobě ne) and after a preposition. After a preposition, on/ona/oni start with n-: k němu, k ní, k nim.",
+      "case_affected": "dative",
+      "examples": [
+        {
+          "cz": "Pomůžeš mi?",
+          "en": "Will you help me?"
+        },
+        {
+          "cz": "Zítra jdu k ní.",
+          "en": "Tomorrow I am going to her place."
+        }
+      ],
+      "unit_id": 17,
+      "concept_keys": [
+        "pron_personal_all_cases"
+      ],
+      "lecture": [
+        {
+          "heading": "To me, to him: mi, mu, jí",
+          "say": "Use the short forms mi, ti, mu second in the sentence. Use mně, tobě, jemu for stress and after k. After k, on and ona start with n-: k němu, k ní.",
+          "table": [
+            [
+              "já",
+              "mi · ke mně"
+            ],
+            [
+              "ty",
+              "ti · k tobě"
+            ],
+            [
+              "on",
+              "mu · k němu"
+            ],
+            [
+              "ona",
+              "jí · k ní"
+            ],
+            [
+              "my",
+              "nám · k nám"
+            ],
+            [
+              "vy",
+              "vám · k vám"
+            ],
+            [
+              "oni",
+              "jim · k nim"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Pomůžeš mi?",
+              "en": "Will you help me?"
+            },
+            {
+              "cz": "Zítra jdu k ní.",
+              "en": "Tomorrow I am going to her place."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Pomůžeš mě?",
+            "right": "Pomůžeš mi?"
+          }
+        }
+      ]
     },
     {
       "id": "GR-170",

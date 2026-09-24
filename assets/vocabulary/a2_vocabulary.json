@@ -272,7 +272,7 @@
     "unit_id": 17,
     "example_cz": "Líbí se mi Praha.",
     "example_en": "I like Prague.",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1027,
@@ -283,7 +283,7 @@
     "unit_id": 17,
     "example_cz": "Chutná mi pivo.",
     "example_en": "I like the taste of beer.",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1028,
@@ -316,7 +316,7 @@
     "unit_id": 17,
     "example_cz": "Dávám to kamarádovi.",
     "example_en": "I give it to my friend.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1031,
@@ -338,7 +338,7 @@
     "unit_id": 17,
     "example_cz": "Jdu k doktorovi.",
     "example_en": "I'm going to the doctor.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1033,
@@ -349,7 +349,7 @@
     "unit_id": 17,
     "example_cz": "Posílám to řediteli.",
     "example_en": "I'm sending it to the director.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1034,
@@ -360,29 +360,7 @@
     "unit_id": 17,
     "example_cz": "Pomáhám studentce.",
     "example_en": "I'm helping the student.",
-    "lesson_id": 1702
-  },
-  {
-    "id": 1035,
-    "word_cz": "smát se",
-    "word_en": "to laugh",
-    "ipa": "smaːt sɛ",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Směju se mu.",
-    "example_en": "I laugh at him.",
-    "lesson_id": 1702
-  },
-  {
-    "id": 1036,
-    "word_cz": "divit se",
-    "word_en": "to be surprised",
-    "ipa": "ˈɟɪvɪt sɛ",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Divím se tomu.",
-    "example_en": "I'm surprised by that.",
-    "lesson_id": 1702
+    "lesson_id": null
   },
   {
     "id": 1037,
@@ -393,18 +371,7 @@
     "unit_id": 17,
     "example_cz": "To se mi hodí.",
     "example_en": "That suits me.",
-    "lesson_id": 1702
-  },
-  {
-    "id": 1038,
-    "word_cz": "zdát se",
-    "word_en": "to seem/dream",
-    "ipa": "zdaːt sɛ",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Zdá se mi to divné.",
-    "example_en": "It seems strange to me.",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1039,
@@ -415,7 +382,7 @@
     "unit_id": 17,
     "example_cz": "Ta kniha patří mně.",
     "example_en": "That book belongs to me.",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1040,
@@ -1548,7 +1515,7 @@
     "unit_id": 17,
     "example_cz": "Musím k lékaři.",
     "example_en": "I must go to the doctor.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1152,
@@ -1570,7 +1537,7 @@
     "unit_id": 17,
     "example_cz": "Pomáhám dceři s úkolem.",
     "example_en": "I'm helping my daughter with homework.",
-    "lesson_id": 1701
+    "lesson_id": 1704
   },
   {
     "id": 1154,
@@ -1581,7 +1548,7 @@
     "unit_id": 17,
     "example_cz": "Manželovi je třicet let.",
     "example_en": "My husband is thirty years old.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1155,
@@ -1603,7 +1570,7 @@
     "unit_id": 17,
     "example_cz": "Strýci je padesát let.",
     "example_en": "My uncle is fifty years old.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1157,
@@ -1614,7 +1581,7 @@
     "unit_id": 17,
     "example_cz": "Tetě posílám pohlednici.",
     "example_en": "I'm sending my aunt a postcard.",
-    "lesson_id": 1701
+    "lesson_id": 1704
   },
   {
     "id": 1158,
@@ -1625,7 +1592,7 @@
     "unit_id": 17,
     "example_cz": "Rodičům děkuji za všechno.",
     "example_en": "I thank my parents for everything.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1159,
@@ -1636,7 +1603,7 @@
     "unit_id": 17,
     "example_cz": "Dítěti je zima.",
     "example_en": "The child is cold.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1160,
@@ -1647,7 +1614,7 @@
     "unit_id": 17,
     "example_cz": "Kolegovi gratuluji k narozeninám.",
     "example_en": "I congratulate my colleague on his birthday.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1161,
@@ -1658,7 +1625,7 @@
     "unit_id": 17,
     "example_cz": "Klientovi nabízíme slevu.",
     "example_en": "We offer the client a discount.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1162,
@@ -1680,7 +1647,7 @@
     "unit_id": 17,
     "example_cz": "Řekni mi pravdu.",
     "example_en": "Tell me the truth.",
-    "lesson_id": 1702
+    "lesson_id": null
   },
   {
     "id": 1164,
@@ -1691,7 +1658,7 @@
     "unit_id": 17,
     "example_cz": "Gratuluji ti k promoční!",
     "example_en": "I congratulate you on your graduation!",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1165,
@@ -1702,7 +1669,7 @@
     "unit_id": 17,
     "example_cz": "Posílám babičce dopis.",
     "example_en": "I'm sending grandmother a letter.",
-    "lesson_id": 1702
+    "lesson_id": 1701
   },
   {
     "id": 1166,
@@ -1713,51 +1680,7 @@
     "unit_id": 17,
     "example_cz": "Ukazuji studentům obrázek.",
     "example_en": "I'm showing the students a picture.",
-    "lesson_id": 1702
-  },
-  {
-    "id": 1167,
-    "word_cz": "slibovat",
-    "word_en": "to promise (+dat)",
-    "ipa": "ˈslɪbovat",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Slibuji dítěti zmrzlinu.",
-    "example_en": "I promise the child ice cream.",
-    "lesson_id": 1702
-  },
-  {
-    "id": 1168,
-    "word_cz": "naslouchat",
-    "word_en": "to listen to (+dat)",
-    "ipa": "ˈnaslou̯xat",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Naslouchám kamarádovi.",
-    "example_en": "I listen to my friend.",
-    "lesson_id": 1702
-  },
-  {
-    "id": 1169,
-    "word_cz": "sloužit",
-    "word_en": "to serve (+dat)",
-    "ipa": "ˈslou̯ʒiːt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Kelner slouží hostům.",
-    "example_en": "The waiter serves the guests.",
-    "lesson_id": 1702
-  },
-  {
-    "id": 1170,
-    "word_cz": "škodit",
-    "word_en": "to harm (+dat)",
-    "ipa": "ˈʃkoɟɪt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Kouření škodí zdraví.",
-    "example_en": "Smoking harms your health.",
-    "lesson_id": 1702
+    "lesson_id": 1701
   },
   {
     "id": 1171,
@@ -1768,7 +1691,7 @@
     "unit_id": 17,
     "example_cz": "Jdu k lékaři.",
     "example_en": "I'm going to the doctor.",
-    "lesson_id": 1701
+    "lesson_id": 1702
   },
   {
     "id": 1172,
@@ -1779,7 +1702,7 @@
     "unit_id": 17,
     "example_cz": "Sedím ke stěně.",
     "example_en": "I'm sitting towards the wall.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1173,
@@ -1790,7 +1713,7 @@
     "unit_id": 17,
     "example_cz": "Jsem proti tomu návrhu.",
     "example_en": "I'm against that proposal.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1174,
@@ -1801,7 +1724,7 @@
     "unit_id": 17,
     "example_cz": "Díky tobě jsem to dokázal.",
     "example_en": "Thanks to you I managed it.",
-    "lesson_id": 1701
+    "lesson_id": 1704
   },
   {
     "id": 1175,
@@ -1812,7 +1735,7 @@
     "unit_id": 17,
     "example_cz": "Je mi zima, zavři okno.",
     "example_en": "I'm cold, close the window.",
-    "lesson_id": 1702
+    "lesson_id": 1704
   },
   {
     "id": 1176,
@@ -1823,7 +1746,7 @@
     "unit_id": 17,
     "example_cz": "Je mi líto, ale nemohu.",
     "example_en": "I'm sorry, but I can't.",
-    "lesson_id": 1702
+    "lesson_id": 1704
   },
   {
     "id": 1177,
@@ -1834,7 +1757,7 @@
     "unit_id": 17,
     "example_cz": "Je mi teplo, otevři okno.",
     "example_en": "I'm warm, open the window.",
-    "lesson_id": 1702
+    "lesson_id": 1704
   },
   {
     "id": 1178,
@@ -1845,7 +1768,7 @@
     "unit_id": 17,
     "example_cz": "Je mi špatně, potřebuji lékaře.",
     "example_en": "I feel sick, I need a doctor.",
-    "lesson_id": 1702
+    "lesson_id": 1704
   },
   {
     "id": 1179,
@@ -1856,7 +1779,7 @@
     "unit_id": 17,
     "example_cz": "Líbí se mi ten film.",
     "example_en": "I like that film.",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1180,
@@ -5673,7 +5596,7 @@
     "unit_id": 17,
     "example_cz": "Pomáhám kamarádovi s úkolem.",
     "example_en": "I help my friend with homework.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1546,
@@ -5684,7 +5607,7 @@
     "unit_id": 17,
     "example_cz": "Lékař mi radil víc sportovat.",
     "example_en": "The doctor advised me to exercise more.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1547,
@@ -5695,7 +5618,7 @@
     "unit_id": 17,
     "example_cz": "Student odpovídá učiteli na otázku.",
     "example_en": "The student answers the teacher's question.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1548,
@@ -5706,7 +5629,7 @@
     "unit_id": 17,
     "example_cz": "Věřím ti, jsi můj kamarád.",
     "example_en": "I believe you, you are my friend.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1549,
@@ -5717,7 +5640,7 @@
     "unit_id": 17,
     "example_cz": "Děkuji ti za pomoc.",
     "example_en": "I thank you for your help.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1550,
@@ -5728,7 +5651,7 @@
     "unit_id": 17,
     "example_cz": "Pět korun mi nestačí.",
     "example_en": "Five crowns isn't enough for me.",
-    "lesson_id": 1701
+    "lesson_id": 1703
   },
   {
     "id": 1551,
@@ -5739,7 +5662,7 @@
     "unit_id": 17,
     "example_cz": "Polévka mi chutná.",
     "example_en": "The soup tastes good to me.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1552,
@@ -5750,7 +5673,7 @@
     "unit_id": 17,
     "example_cz": "Líbí se mi ten film.",
     "example_en": "I like that film.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1553,
@@ -5761,51 +5684,7 @@
     "unit_id": 17,
     "example_cz": "Tato kniha patří mně.",
     "example_en": "This book belongs to me.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1554,
-    "word_cz": "svěřit se",
-    "word_en": "to confide in",
-    "ipa": "ˈsvɛːr̝ɪt sɛ",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Svěřil jsem se kamarádovi.",
-    "example_en": "I confided in my friend.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1555,
-    "word_cz": "ublížit",
-    "word_en": "to hurt (someone)",
-    "ipa": "ˈublɪʒiːt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Nechci ti ublížit.",
-    "example_en": "I don't want to hurt you.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1556,
-    "word_cz": "odpustit",
-    "word_en": "to forgive",
-    "ipa": "ˈodpustɪt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Odpustil jsem mu.",
-    "example_en": "I forgave him.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1557,
-    "word_cz": "závidět",
-    "word_en": "to envy",
-    "ipa": "ˈzaːvɪɟɛt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Závidím mu jeho práci.",
-    "example_en": "I envy him his job.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1558,
@@ -5816,7 +5695,7 @@
     "unit_id": 17,
     "example_cz": "Přeji ti všechno nejlepší.",
     "example_en": "I wish you all the best.",
-    "lesson_id": 1701
+    "lesson_id": 1703
   },
   {
     "id": 1559,
@@ -5827,51 +5706,7 @@
     "unit_id": 17,
     "example_cz": "Beru kamarádovi knihu.",
     "example_en": "I'm taking the book from my friend.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1560,
-    "word_cz": "bránit",
-    "word_en": "to defend / forbid",
-    "ipa": "ˈbraːɲɪt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Otec mi brání chodit ven.",
-    "example_en": "My father forbids me from going out.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1561,
-    "word_cz": "naslouchat",
-    "word_en": "to listen to",
-    "ipa": "ˈnaslouxat",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Naslouchám učiteli pozorně.",
-    "example_en": "I listen to the teacher attentively.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1562,
-    "word_cz": "porušit",
-    "word_en": "to violate / break",
-    "ipa": "ˈporuʃɪt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Porušil jsem pravidlo.",
-    "example_en": "I broke a rule.",
-    "lesson_id": 1701
-  },
-  {
-    "id": 1563,
-    "word_cz": "sloužit",
-    "word_en": "to serve",
-    "ipa": "ˈslouʒɪt",
-    "gender": null,
-    "unit_id": 17,
-    "example_cz": "Sloužím zákazníkům v obchodě.",
-    "example_en": "I serve customers in a shop.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1564,
@@ -5882,7 +5717,7 @@
     "unit_id": 17,
     "example_cz": "Poradím ti, co dělat.",
     "example_en": "I'll advise you what to do.",
-    "lesson_id": 1701
+    "lesson_id": 1704
   },
   {
     "id": 1565,

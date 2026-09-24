@@ -1,10 +1,299 @@
-{"id":1704,"unit_id":17,"title":"A Birthday Gift Mission","description":"Use dative forms naturally in a short real-world gift plan.","lesson_type":"mission","order_in_unit":3,"duration_min":12,"is_review":true,"exercises":[
-{"id":17033,"lesson_id":1704,"type":"teaching","prompt":"Mission language","data":{"type":"teaching","style":"list","heading":"Keep it simple","body":"Say who gets something, what they like, then ask for help.","items":[{"cz":"Dám mu/jí…","en":"I will give him/her…"},{"cz":"Co se mu/jí líbí?","en":"What does he/she like?"},{"cz":"Pomůžeš mi vybrat?","en":"Will you help me choose?"}]},"answer_key":"mission chunks","xp_reward":0},
-{"id":17034,"lesson_id":1704,"type":"listening_comprehension","prompt":"Listen for the final choice","data":{"type":"listening_comprehension","prompt_en":"What does Petr choose for his sister?","transcript_cz":"Moje sestra má ráda hudbu. Dám jí dvě vstupenky na koncert. Kamarád mi pomáhá vybrat.","questions":[{"question_en":"What is the gift?","options":["Concert tickets","A book","A bicycle"],"correct_index":0},{"question_en":"Who helps?","options":["A friend","His sister","A teacher"],"correct_index":0}]},"answer_key":"Concert tickets; a friend","xp_reward":15},
-{"id":17035,"lesson_id":1704,"type":"reading_comprehension","prompt":"Read two gift options","data":{"type":"reading_comprehension","prompt_en":"Choose the option that fits the recipient.","image":"assets/images/unit17/gift_bookshop_v1.webp","image_label":"Choosing a thoughtful gift","text_cz":"Klára má ráda čtení, ale nemá ráda velké večírky. Pro Kláru koupím knihu. Adamovi se líbí sport, proto mu dám vstupenku na zápas.","text_en":"Klára likes reading but does not like big parties. I will buy Klára a book. Adam likes sport, so I will give him a ticket to a match.","questions":[{"question_en":"What fits Klára?","options":["A book","A match ticket","A big party"],"correct_index":0},{"question_en":"What fits Adam?","options":["A match ticket","A novel","A coffee"],"correct_index":0}]},"answer_key":"book; match ticket","xp_reward":15},
-{"id":17036,"lesson_id":1704,"type":"matching","prompt":"Match person and suitable gift","data":{"type":"matching","pairs":[{"left":"Kláře","right":"knihu"},{"left":"Adamovi","right":"vstupenku"},{"left":"mně","right":"pomoc"},{"left":"kamarádovi","right":"telefon"}]},"answer_key":"recipient and gift","xp_reward":10},
-{"id":17037,"lesson_id":1704,"type":"fill_blank","prompt":"Make the request polite","data":{"type":"fill_blank","sentence":"___ mi vybrat dárek pro sestru?","blank_count":1,"blank_answers":[["Pomůžeš"]]},"answer_key":"Pomůžeš","xp_reward":10},
-{"id":17038,"lesson_id":1704,"type":"dialogue","prompt":"Complete the gift decision","data":{"type":"dialogue","scenario":"Making the final choice","lines":[{"speaker":"friend","text":"Co dáš Janě?"},{"speaker":"you","text":"___"},{"speaker":"friend","text":"To se jí bude líbit."}],"blank_answers":[["Dám jí českou knihu."]]},"answer_key":"Dám jí českou knihu.","xp_reward":15},
-{"id":17039,"lesson_id":1704,"type":"writing_task","prompt":"Plan a birthday gift","data":{"type":"writing_task","prompt_en":"Write a 3-sentence plan: recipient, gift, and one preference/reason.","prompt_cz":"Napište plán dárku.","min_words":12,"max_words":50,"key_vocab":["Dám jí/mu","líbí se","protože"],"sample_answer":"Dám sestře knihu. Líbí se jí české příběhy. Je to dobrý dárek."},"answer_key":"gift plan","xp_reward":0},
-{"id":17040,"lesson_id":1704,"type":"speaking_task","prompt":"Complete the mission","data":{"type":"speaking_task","prompt_en":"Record a 20–30 second gift plan and ask one person for advice.","prompt_cz":"Nahrajte plán dárku a otázku.","min_duration_seconds":20,"max_duration_seconds":35,"expected_phrases":["Dám jí/mu","líbí se","Pomůžeš mi"]},"answer_key":"gift mission","xp_reward":20}
-]}
+{
+  "id": 1704,
+  "unit_id": 17,
+  "title": "A Birthday Gift Mission",
+  "description": "Plan a gift: who gets what, what they like, and ask for help.",
+  "lesson_type": "mission",
+  "order_in_unit": 3,
+  "duration_min": 13,
+  "can_do": "plan a gift and ask a friend for advice.",
+  "new_language": [
+    "Co mu dáš?",
+    "Poradíš mi?"
+  ],
+  "recycles": [
+    "Dám mu/jí…",
+    "Líbí se mu…",
+    "Pomůžeš mi?"
+  ],
+  "exit_task": "record a gift plan and ask for advice.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 17400,
+      "lesson_id": 1704,
+      "type": "teaching",
+      "prompt": "Mission language",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Your mission",
+        "body": "Close your notebook. Plan a gift: who it is for, what you give them, what they like, and ask a friend for advice.",
+        "items": [
+          {
+            "cz": "Dám mu/jí…",
+            "en": "I will give him/her…"
+          },
+          {
+            "cz": "Co se mu/jí líbí?",
+            "en": "What does he/she like?"
+          },
+          {
+            "cz": "Pomůžeš mi vybrat?",
+            "en": "Will you help me choose?"
+          }
+        ]
+      },
+      "answer_key": "mission chunks",
+      "xp_reward": 0
+    },
+    {
+      "id": 17401,
+      "lesson_id": 1704,
+      "type": "reading_comprehension",
+      "prompt": "Read two gift options",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Choose the option that fits the recipient.",
+        "image": "assets/images/unit17/gift_bookshop_v1.webp",
+        "image_label": "Choosing a thoughtful gift",
+        "text_cz": "Klára má ráda čtení, ale nemá ráda velké večírky. Pro Kláru koupím knihu. Adamovi se líbí sport, proto mu dám vstupenku na zápas.",
+        "text_en": "Klára likes reading but does not like big parties. I will buy Klára a book. Adam likes sport, so I will give him a ticket to a match.",
+        "questions": [
+          {
+            "question_en": "What fits Klára?",
+            "options": [
+              "A book",
+              "A match ticket",
+              "A big party"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What fits Adam?",
+            "options": [
+              "A match ticket",
+              "A novel",
+              "A coffee"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "book; match ticket",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-160"
+    },
+    {
+      "id": 17402,
+      "lesson_id": 1704,
+      "type": "fill_blank",
+      "prompt": "Complete with the dative of 'dítě': I give candy to the child.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Dávám ___ bonbón. (dítě — to the child)",
+        "blank_count": 1,
+        "explanation": "'Dítě' is an irregular neuter noun. Its dative form is 'dítěti' (not 'dítu'). Many irregular nouns have special dative forms: člověk → člověku, přítel → příteli.",
+        "blank_answers": [
+          [
+            "dítěti"
+          ]
+        ]
+      },
+      "answer_key": "dítěti",
+      "grammar_rule_id": "GR-160",
+      "xp_reward": 15
+    },
+    {
+      "id": 17403,
+      "lesson_id": 1704,
+      "type": "multiple_choice",
+      "prompt": "What is the correct dative form of 'učitel' (teacher, masc.)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je správný tvar slova 'učitel' v dativu?",
+        "question_en": "What is the correct dative form of 'učitel' (teacher)?",
+        "options": [
+          "učiteli",
+          "učitele",
+          "učitelem",
+          "učitelů"
+        ],
+        "correct_index": 0,
+        "explanation": "Soft masculine nouns take -i in the dative: učitel → učiteli (učitelovi is also heard)."
+      },
+      "answer_key": "učiteli",
+      "grammar_rule_id": "GR-160",
+      "xp_reward": 10
+    },
+    {
+      "id": 17404,
+      "lesson_id": 1704,
+      "type": "multiple_choice",
+      "prompt": "Which verb meaning 'to help' requires dative?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Které sloveso vyžaduje dativ pro toho, komu se pomáhá?",
+        "question_en": "Which verb requires dative for the person being helped?",
+        "options": [
+          "dělat",
+          "pomáhat",
+          "hledat",
+          "milovat"
+        ],
+        "correct_index": 1,
+        "explanation": "'Pomáhat' (to help) requires dative: Pomáhám bratrovi. = I help my brother. The person receiving help is in dative case."
+      },
+      "answer_key": "pomáhat",
+      "grammar_rule_id": "GR-161",
+      "xp_reward": 10
+    },
+    {
+      "id": 17405,
+      "lesson_id": 1704,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'I don't understand the professor.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "I don't understand the professor.",
+        "accepted_answers": [
+          "Nerozumím profesorovi.",
+          "Nerozumím panu profesorovi."
+        ],
+        "grammar_note": "'Rozumět' (to understand) takes dative for what you understand: rozumím profesorovi. Negation: nerozumím. Unlike English where 'understand' takes a direct object, Czech uses dative."
+      },
+      "answer_key": "Nerozumím profesorovi.",
+      "grammar_rule_id": "GR-161",
+      "xp_reward": 10
+    },
+    {
+      "id": 17406,
+      "lesson_id": 1704,
+      "type": "fill_blank",
+      "prompt": "Make the request polite",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ mi vybrat dárek pro sestru?",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "Pomůžeš"
+          ]
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "Pomůžeš",
+      "xp_reward": 10
+    },
+    {
+      "id": 17407,
+      "lesson_id": 1704,
+      "type": "dialogue",
+      "prompt": "Complete the gift decision",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Making the final choice",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Co dáš Janě?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "To se jí bude líbit."
+          }
+        ],
+        "blank_answers": [
+          [
+            "Dám jí českou knihu."
+          ]
+        ]
+      },
+      "answer_key": "Dám jí českou knihu.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-164"
+    },
+    {
+      "id": 17408,
+      "lesson_id": 1704,
+      "type": "writing_task",
+      "prompt": "Plan a birthday gift",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write a 3-sentence plan: recipient, gift, and one preference/reason.",
+        "prompt_cz": "Napište plán dárku.",
+        "min_words": 12,
+        "max_words": 50,
+        "key_vocab": [
+          "Dám jí/mu",
+          "líbí se",
+          "protože"
+        ],
+        "sample_answer": "Dám sestře knihu. Líbí se jí české příběhy. Je to dobrý dárek.",
+        "targets": "vocab"
+      },
+      "answer_key": "gift plan",
+      "xp_reward": 0
+    },
+    {
+      "id": 17409,
+      "lesson_id": 1704,
+      "type": "speaking_task",
+      "prompt": "Complete the mission",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record a 20–30 second gift plan and ask one person for advice.",
+        "prompt_cz": "Nahrajte plán dárku a otázku.",
+        "min_duration_seconds": 20,
+        "max_duration_seconds": 35,
+        "expected_phrases": [
+          "Dám jí/mu",
+          "líbí se",
+          "Pomůžeš mi"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "gift mission",
+      "xp_reward": 20
+    },
+    {
+      "id": 17410,
+      "lesson_id": 1704,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 17 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, correct any mistakes, then tick your Check box.",
+        "items": [
+          {
+            "cz": "Dávám bratrovi knihu.",
+            "en": "the person who receives: dative"
+          },
+          {
+            "cz": "mi, ti, mu, jí · k němu, k ní",
+            "en": "pronouns"
+          },
+          {
+            "cz": "pomáhat, rozumět, telefonovat + dative",
+            "en": "verbs"
+          },
+          {
+            "cz": "Líbí se mi… · Je mi zima.",
+            "en": "liking and feeling"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    }
+  ]
+}

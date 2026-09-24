@@ -1575,6 +1575,12 @@
           "example": "Dávám dárek mamince. — I give a gift to mom."
         },
         {
+          "id": "GR-164",
+          "name": "Pronouns in the dative — mi, ti, mu, jí",
+          "pattern": "já → mi/mně, ty → ti/tobě, on/ono → mu/jemu, ona → jí, my → nám, vy → vám, oni → jim. After k: ke mně, k tobě, k němu, k ní, k nám, k vám, k nim.",
+          "example": "Pomůžeš mi? — Will you help me?"
+        },
+        {
           "id": "GR-161",
           "name": "Verbs requiring dative",
           "pattern": "Pomáhat + dat, rozumět + dat, telefonovat + dat, věřit + dat, radit + dat.",
@@ -1583,7 +1589,7 @@
         {
           "id": "GR-162",
           "name": "Líbit se and chutnat — liking in dative",
-          "pattern": "Líbí se mi... (I like...), Chutná mi... (I like the taste of...). The liked thing is the subject (nominative), the perso",
+          "pattern": "Líbí se mi... (I like...), Chutná mi... (I like the taste of...). The liked thing is the subject (nominative), the person is dative.",
           "example": "Líbí se ti Praha? — Do you like Prague?"
         },
         {
@@ -1646,7 +1652,103 @@
         "Sudý počet květin jako dárek",
         "Odmítnutí jídla na návštěvě"
       ],
-      "study_tip": "Seznamte se s dativními slovesy: pomáhat, rozumět, volat, radit. Každé použijte ve větě."
+      "study_tip": "Seznamte se s dativními slovesy: pomáhat, rozumět, volat, radit. Každé použijte ve větě.",
+      "notebook_page": {
+        "title_cz": "Komu?",
+        "title_en": "Giving, helping and liking",
+        "can_do": {
+          "cz": "Řeknu, komu něco dám, komu pomáhám a co se mi líbí.",
+          "en": "I can say who I give things to, who I help and what I like."
+        },
+        "words": [
+          {
+            "cz": "Dám kamarádce knihu.",
+            "en": "I will give my friend a book."
+          },
+          {
+            "cz": "Telefonuju Petrovi.",
+            "en": "I am calling Petr."
+          },
+          {
+            "cz": "Pomáhám mamince.",
+            "en": "I help my mum."
+          },
+          {
+            "cz": "Pomůžeš mi?",
+            "en": "Will you help me?"
+          },
+          {
+            "cz": "Líbí se mi Praha.",
+            "en": "I like Prague."
+          },
+          {
+            "cz": "Chutná mi káva.",
+            "en": "I like the coffee."
+          },
+          {
+            "cz": "Je mi zima.",
+            "en": "I am cold."
+          },
+          {
+            "cz": "Děkuju ti.",
+            "en": "Thank you. (to a friend)"
+          }
+        ],
+        "pattern": {
+          "name": "The dative: to whom?",
+          "rule_plain": "The person who receives, is helped or likes something is in the dative: -ovi, -e/-i, -u; mi, ti, mu, jí, nám, vám, jim.",
+          "table": [
+            [
+              "bratr",
+              "bratrovi"
+            ],
+            [
+              "sestra",
+              "sestře"
+            ],
+            [
+              "dítě",
+              "dítěti"
+            ],
+            [
+              "já",
+              "mi / ke mně"
+            ],
+            [
+              "on",
+              "mu / k němu"
+            ],
+            [
+              "ona",
+              "jí / k ní"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dávám bratrovi knihu.",
+              "en": "I am giving my brother a book."
+            },
+            {
+              "cz": "Líbí se mi Praha.",
+              "en": "I like Prague."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jsem zima.",
+            "right": "Je mi zima."
+          }
+        },
+        "my_sentences_models": [
+          {
+            "cz": "Líbí se mi staré Brno.",
+            "en": "I like old Brno."
+          },
+          {
+            "cz": "Mamince chutná česká káva.",
+            "en": "My mum likes Czech coffee."
+          }
+        ]
+      }
     },
     {
       "unit_id": 18,

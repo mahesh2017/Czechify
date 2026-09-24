@@ -2,30 +2,520 @@
   "id": 1702,
   "unit_id": 17,
   "order_in_unit": 1,
-  "title": "Dative — Verbs & Expressions",
-  "description": "Practice dative-only verbs (pomáhat, rozumět, telefonovat, věřit) and dative expressions (líbit se, chutnat, je mi zima/teplo/dobře/špatně). Learn how these verbs and expressions require the person to be in dative case.",
+  "title": "To Whom? bratrovi, mamince, mu",
+  "description": "Learn the dative endings, the pronouns mi, mu, jí and the verbs that need them.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "give, send and help using the right form for the person.",
+  "new_language": [
+    "bratrovi, sestře, dítěti",
+    "mi, ti, mu, jí, nám, vám, jim",
+    "k němu, k ní, ke mně",
+    "pomáhat, rozumět, telefonovat, věřit"
+  ],
+  "recycles": [
+    "dát, poslat, koupit",
+    "Pomůžeš mi?"
+  ],
+  "exit_task": "say who you help and who you call.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 17013,
+      "id": 17200,
+      "lesson_id": 1702,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write four phrases about giving, helping or liking. Then check.",
+        "items": [
+          {
+            "cz": "Dám kamarádce knihu.",
+            "en": "I will give my friend a book."
+          },
+          {
+            "cz": "Telefonuju Petrovi.",
+            "en": "I am calling Petr."
+          },
+          {
+            "cz": "Pomáhám mamince.",
+            "en": "I help my mum."
+          },
+          {
+            "cz": "Pomůžeš mi?",
+            "en": "Will you help me?"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17201,
+      "lesson_id": 1702,
+      "type": "teaching",
+      "prompt": "Who receives it: -ovi, -e, -u",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-160",
+        "rule_step": 1,
+        "heading": "Who receives it: -ovi, -e, -u",
+        "items": [
+          {
+            "cz": "Dávám bratrovi knihu.",
+            "en": "I am giving my brother a book."
+          },
+          {
+            "cz": "Posílám babičce dopis.",
+            "en": "I am sending my grandmother a letter."
+          }
+        ],
+        "say": "The person who receives something is in the dative. Men take -ovi, women take -e or -i, neuter words take -u or -i. The thing you give stays in the accusative.",
+        "table": [
+          [
+            "bratr",
+            "bratrovi"
+          ],
+          [
+            "Petr",
+            "Petrovi"
+          ],
+          [
+            "sestra",
+            "sestře"
+          ],
+          [
+            "maminka",
+            "mamince"
+          ],
+          [
+            "babička",
+            "babičce"
+          ],
+          [
+            "kolegyně",
+            "kolegyni"
+          ],
+          [
+            "dítě",
+            "dítěti"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Dávám bratrovi knihu.",
+            "en": "I am giving my brother a book."
+          },
+          {
+            "cz": "Posílám babičce dopis.",
+            "en": "I am sending my grandmother a letter."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Dávám bratr knihu.",
+          "right": "Dávám bratrovi knihu."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17202,
       "lesson_id": 1702,
       "type": "multiple_choice",
-      "prompt": "Which verb meaning 'to help' requires dative?",
+      "prompt": "Quick check",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Které sloveso vyžaduje dativ pro toho, komu se pomáhá?",
-        "question_en": "Which verb requires dative for the person being helped?",
-        "options": ["dělat", "pomáhat", "hledat", "milovat"],
-        "correct_index": 1,
-        "explanation": "'Pomáhat' (to help) requires dative: Pomáhám bratrovi. = I help my brother. The person receiving help is in dative case."
+        "mode": "check",
+        "question_cz": "Dávám dárek ___. (bratr)",
+        "question_en": "I am giving my brother a present.",
+        "options": [
+          "bratrovi",
+          "bratra",
+          "bratr"
+        ],
+        "correct_index": 0,
+        "explanation": "The person who receives is in the dative: bratr → bratrovi."
       },
-      "answer_key": "pomáhat",
-      "grammar_rule_id": "GR-161",
+      "answer_key": "bratrovi",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-160"
+    },
+    {
+      "id": 17203,
+      "lesson_id": 1702,
+      "type": "teaching",
+      "prompt": "To me, to him: mi, mu, jí",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-164",
+        "rule_step": 1,
+        "heading": "To me, to him: mi, mu, jí",
+        "items": [
+          {
+            "cz": "Pomůžeš mi?",
+            "en": "Will you help me?"
+          },
+          {
+            "cz": "Zítra jdu k ní.",
+            "en": "Tomorrow I am going to her place."
+          }
+        ],
+        "say": "Use the short forms mi, ti, mu second in the sentence. Use mně, tobě, jemu for stress and after k. After k, on and ona start with n-: k němu, k ní.",
+        "table": [
+          [
+            "já",
+            "mi · ke mně"
+          ],
+          [
+            "ty",
+            "ti · k tobě"
+          ],
+          [
+            "on",
+            "mu · k němu"
+          ],
+          [
+            "ona",
+            "jí · k ní"
+          ],
+          [
+            "my",
+            "nám · k nám"
+          ],
+          [
+            "vy",
+            "vám · k vám"
+          ],
+          [
+            "oni",
+            "jim · k nim"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Pomůžeš mi?",
+            "en": "Will you help me?"
+          },
+          {
+            "cz": "Zítra jdu k ní.",
+            "en": "Tomorrow I am going to her place."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Pomůžeš mě?",
+          "right": "Pomůžeš mi?"
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17204,
+      "lesson_id": 1702,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Pomůžeš ___? (já)",
+        "question_en": "Will you help me?",
+        "options": [
+          "mi",
+          "mě",
+          "já"
+        ],
+        "correct_index": 0,
+        "explanation": "pomoct takes the dative: mi. mě is the accusative (Vidíš mě?)."
+      },
+      "answer_key": "mi",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-164"
+    },
+    {
+      "id": 17205,
+      "lesson_id": 1702,
+      "type": "teaching",
+      "prompt": "Verbs that take the dative",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-161",
+        "rule_step": 1,
+        "heading": "Verbs that take the dative",
+        "items": [
+          {
+            "cz": "Pomáhám mamince.",
+            "en": "I help my mum."
+          },
+          {
+            "cz": "Nerozumím profesorovi.",
+            "en": "I don't understand the professor."
+          }
+        ],
+        "say": "Some verbs always put the person in the dative: pomáhat, rozumět, telefonovat, věřit, děkovat, radit. Learn each verb with a person.",
+        "table": [
+          [
+            "pomáhat",
+            "pomáhat mamince"
+          ],
+          [
+            "rozumět",
+            "rozumět učiteli"
+          ],
+          [
+            "telefonovat",
+            "telefonovat Petrovi"
+          ],
+          [
+            "věřit",
+            "věřit kamarádovi"
+          ],
+          [
+            "děkovat",
+            "děkovat vám"
+          ],
+          [
+            "radit",
+            "radit sestře"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Pomáhám mamince.",
+            "en": "I help my mum."
+          },
+          {
+            "cz": "Nerozumím profesorovi.",
+            "en": "I don't understand the professor."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Pomáhám maminku.",
+          "right": "Pomáhám mamince."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17206,
+      "lesson_id": 1702,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Telefonuju ___. (Petr)",
+        "question_en": "I am calling Petr.",
+        "options": [
+          "Petrovi",
+          "Petra",
+          "Petr"
+        ],
+        "correct_index": 0,
+        "explanation": "telefonovat takes the dative: Petrovi."
+      },
+      "answer_key": "Petrovi",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-161"
+    },
+    {
+      "id": 17207,
+      "lesson_id": 1702,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write the dative of bratr, sestra and dítě, the short pronouns mi, ti, mu, jí, and three verbs that take the dative.",
+        "items": [
+          {
+            "cz": "bratrovi, sestře, dítěti",
+            "en": "to a brother, a sister, a child"
+          },
+          {
+            "cz": "mi, ti, mu, jí, nám, vám, jim",
+            "en": "to me, you, him, her, us, you, them"
+          },
+          {
+            "cz": "k němu, k ní, ke mně",
+            "en": "to him, to her, to me (after k)"
+          },
+          {
+            "cz": "pomáhat, rozumět, telefonovat",
+            "en": "help, understand, call + dative"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17208,
+      "lesson_id": 1702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "Feminine -a → -e; k changes to c.",
+        "sentence": "Posílám dopis ___. (babička)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "babičce"
+          ]
+        ],
+        "explanation": "babička → babičce"
+      },
+      "answer_key": "babičce",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-160"
+    },
+    {
+      "id": 17209,
+      "lesson_id": 1702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "ona → jí in the dative.",
+        "sentence": "Dám ___ knihu. (ona)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jí"
+          ]
+        ],
+        "explanation": "Dám jí knihu."
+      },
+      "answer_key": "jí",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-164"
+    },
+    {
+      "id": 17210,
+      "lesson_id": 1702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "After k, on becomes němu.",
+        "sentence": "Zítra jdu k ___. (on)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "němu"
+          ]
+        ],
+        "explanation": "k němu"
+      },
+      "answer_key": "němu",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-164"
+    },
+    {
+      "id": 17211,
+      "lesson_id": 1702,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "děkovat takes the dative; ty → ti.",
+        "sentence": "Děkuju ___. (ty)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "ti"
+          ]
+        ],
+        "explanation": "Děkuju ti."
+      },
+      "answer_key": "ti",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-161"
+    },
+    {
+      "id": 17212,
+      "lesson_id": 1702,
+      "type": "multiple_choice",
+      "prompt": "What is the correct dative form of 'bratr' (brother)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je správný tvar slova 'bratr' v dativu?",
+        "question_en": "What is the correct dative form of 'bratr' (brother)?",
+        "options": [
+          "bratru",
+          "bratrovi",
+          "bratra",
+          "bratrem"
+        ],
+        "correct_index": 1,
+        "explanation": "Animate masculine nouns take -ovi in dative: bratr → bratrovi. Some common exceptions use -u (muž → muži, člověk → člověku). Inanimate masculines take -u: hrad → hradu."
+      },
+      "answer_key": "bratrovi",
+      "grammar_rule_id": "GR-160",
       "xp_reward": 10
     },
     {
-      "id": 17014,
+      "id": 17213,
+      "lesson_id": 1702,
+      "type": "fill_blank",
+      "prompt": "Complete with the correct dative form: (to) Pavel",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Dávám dárek ___ . (Pavel)",
+        "blank_count": 1,
+        "explanation": "Animate masculine names take -ovi in dative: Pavel → Pavlovi. Likewise: Petr → Petrovi, Tomáš → Tomášovi. 'Dávat' = to give, requires dative for the recipient.",
+        "blank_answers": [
+          [
+            "Pavlovi"
+          ]
+        ]
+      },
+      "answer_key": "Pavlovi",
+      "grammar_rule_id": "GR-160",
+      "xp_reward": 15
+    },
+    {
+      "id": 17214,
+      "lesson_id": 1702,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'I am sending a letter to my grandmother.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "I am sending a letter to my grandmother.",
+        "accepted_answers": [
+          "Posílám dopis babičce.",
+          "Posílám babičce dopis."
+        ],
+        "grammar_note": "'Posílat' (to send) follows the same pattern as dávat: dative for recipient (babičce), accusative for the thing sent (dopis). 'Babička' → dative 'babičce'."
+      },
+      "answer_key": "Posílám dopis babičce.",
+      "grammar_rule_id": "GR-160",
+      "xp_reward": 10
+    },
+    {
+      "id": 17215,
       "lesson_id": 1702,
       "type": "fill_blank",
       "prompt": "Complete with the correct dative: I help my mother.",
@@ -35,7 +525,9 @@
         "blank_count": 1,
         "explanation": "'Maminka' → dative 'mamince'. 'Pomáhat' always takes dative for the person being helped. Note the k→c consonant change: maminka → mamince.",
         "blank_answers": [
-          ["mamince"]
+          [
+            "mamince"
+          ]
         ]
       },
       "answer_key": "mamince",
@@ -43,23 +535,7 @@
       "xp_reward": 15
     },
     {
-      "id": 17015,
-      "lesson_id": 1702,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I don't understand the professor.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I don't understand the professor.",
-        "accepted_answers": ["Nerozumím profesorovi.", "Nerozumím panu profesorovi."],
-        "grammar_note": "'Rozumět' (to understand) takes dative for what you understand: rozumím profesorovi. Negation: nerozumím. Unlike English where 'understand' takes a direct object, Czech uses dative."
-      },
-      "answer_key": "Nerozumím profesorovi.",
-      "grammar_rule_id": "GR-161",
-      "xp_reward": 10
-    },
-    {
-      "id": 17016,
+      "id": 17216,
       "lesson_id": 1702,
       "type": "multiple_choice",
       "prompt": "Which dative form is correct in this sentence?",
@@ -81,7 +557,7 @@
       "xp_reward": 10
     },
     {
-      "id": 17017,
+      "id": 17217,
       "lesson_id": 1702,
       "type": "translation",
       "prompt": "Translate to Czech: 'Do you believe him?'",
@@ -89,137 +565,35 @@
         "type": "translation",
         "direction": "en_to_cz",
         "source": "Do you believe him?",
-        "accepted_answers": ["Věříš mu?", "Věříte mu?"],
+        "accepted_answers": [
+          "Věříš mu?",
+          "Věříte mu?"
+        ],
         "grammar_note": "'Věřit' (to believe) takes dative: věřit + dative. 'mu' is the dative short form of 'on' (he). Věříš = you believe (informal). Věříte = you believe (formal/plural)."
       },
       "answer_key": "Věříš mu?",
-      "grammar_rule_id": "GR-161",
+      "grammar_rule_id": "GR-164",
       "xp_reward": 10
     },
     {
-      "id": 17018,
+      "id": 17218,
       "lesson_id": 1702,
       "type": "fill_blank",
       "prompt": "Complete with the correct pronoun: They don't believe her.",
       "data": {
         "type": "fill_blank",
-        "sentence": "Nevěří ___ . (jí — to her)",
+        "sentence": "Nevěří ___. (ona)",
         "blank_count": 1,
         "explanation": "'Jí' is the dative form of 'ona' (she). Věřit + dative: věřím ti (I believe you), věřím mu (I believe him), věřím jí (I believe her). The short form 'jí' stays 'jí' in dative.",
         "blank_answers": [
-          ["jí"]
+          [
+            "jí"
+          ]
         ]
       },
       "answer_key": "jí",
-      "grammar_rule_id": "GR-161",
+      "grammar_rule_id": "GR-164",
       "xp_reward": 15
-    },
-    {
-      "id": 17019,
-      "lesson_id": 1702,
-      "type": "multiple_choice",
-      "prompt": "How do you say 'I like Prague' using 'líbit se'?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řeknete 'I like Prague'?",
-        "question_en": "How do you say 'I like Prague'?",
-        "options": [
-          "Líbí se mi Praha.",
-          "Líbím Prahu.",
-          "Líbí Praha mně.",
-          "Líbí se mně Praha."
-        ],
-        "correct_index": 0,
-        "explanation": "'Líbit se' (to like) uses dative for the person who likes: 'Líbí se mi Praha.' = literally 'Prague pleases me'. 'Mi' is the dative short form. The liked thing is the subject (Praha)."
-      },
-      "answer_key": "Líbí se mi Praha.",
-      "grammar_rule_id": "GR-162",
-      "xp_reward": 10
-    },
-    {
-      "id": 17020,
-      "lesson_id": 1702,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'Do you like this book?'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "Do you like this book?",
-        "accepted_answers": ["Líbí se ti tahle kniha?", "Líbí se ti tato kniha?", "Líbí se vám tahle kniha?", "Líbí se vám tato kniha?"],
-        "grammar_note": "'Líbit se' + dative: 'líbí se ti' (you like, informal), 'líbí se vám' (you like, formal/plural). The book is the grammatical subject, so 'kniha' is nominative."
-      },
-      "answer_key": "Líbí se ti tahle kniha?",
-      "grammar_rule_id": "GR-162",
-      "xp_reward": 10
-    },
-    {
-      "id": 17021,
-      "lesson_id": 1702,
-      "type": "fill_blank",
-      "prompt": "Complete: The soup tastes good (to me).",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Polévka ___ chutná. (mi — to me)",
-        "blank_count": 1,
-        "explanation": "'Chutnat' (to taste) works like 'líbit se': dative for who experiences the taste + nominative for the thing. 'Polévka mi chutná.' = The soup tastes good to me / I like the soup.",
-        "blank_answers": [
-          ["mi"]
-        ]
-      },
-      "answer_key": "mi",
-      "grammar_rule_id": "GR-162",
-      "xp_reward": 15
-    },
-    {
-      "id": 17022,
-      "lesson_id": 1702,
-      "type": "multiple_choice",
-      "prompt": "Which is the correct way to say 'I am cold' in Czech?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jak řeknete česky 'I am cold'?",
-        "question_en": "How do you say 'I am cold' in Czech?",
-        "options": ["Jsem zima.", "Mám zimu.", "Je mi zima.", "Cítím zimu."],
-        "correct_index": 2,
-        "explanation": "'Je mi zima.' = I am cold (literally 'it is cold to me'). Czech uses dative for sensations: je mi zima (I'm cold), je mi teplo (I'm warm), je mi dobře (I feel good), je mi špatně (I feel sick)."
-      },
-      "answer_key": "Je mi zima.",
-      "grammar_rule_id": "GR-163",
-      "xp_reward": 10
-    },
-    {
-      "id": 17023,
-      "lesson_id": 1702,
-      "type": "fill_blank",
-      "prompt": "Complete: He feels sick. → Je ___ špatně.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Je ___ špatně. (mu — to him)",
-        "blank_count": 1,
-        "explanation": "'Je mu špatně.' = He feels sick / nauseous. The dative pronoun carries the person: je mi (I), je ti (you), je mu (he), je jí (she), je nám (we), je vám (you pl.), je jim (they).",
-        "blank_answers": [
-          ["mu"]
-        ]
-      },
-      "answer_key": "mu",
-      "grammar_rule_id": "GR-163",
-      "xp_reward": 15
-    },
-    {
-      "id": 17024,
-      "lesson_id": 1702,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I feel good here.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I feel good here.",
-        "accepted_answers": ["Je mi tady dobře.", "Tady je mi dobře.", "Je mi tu dobře.", "Tu je mi dobře."],
-        "grammar_note": "'Je mi dobře.' = I feel good (dative construction). 'Tady/tu' = here. Sensations in Czech use dative + je: je mi zima/teplo/dobře/špatně/divně/příjemně."
-      },
-      "answer_key": "Je mi tady dobře.",
-      "grammar_rule_id": "GR-163",
-      "xp_reward": 10
     }
   ]
 }

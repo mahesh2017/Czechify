@@ -1,10 +1,459 @@
-{"id":1703,"unit_id":17,"title":"Choose a Thoughtful Gift","description":"Read, hear and send a short message about a birthday gift using useful dative chunks.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[
-{"id":17025,"lesson_id":1703,"type":"teaching","prompt":"Use whole helpful chunks","data":{"type":"teaching","style":"list","heading":"Who receives it?","body":"Use dative for the person who receives help, a call or a gift. Learn these as useful chunks.","items":[{"cz":"Dám dárek kamarádce.","en":"I will give a gift to a friend."},{"cz":"Telefonuju Petrovi.","en":"I am calling Petr."},{"cz":"Líbí se mi ta kniha.","en":"I like that book."}]},"answer_key":"chunks","xp_reward":0},
-{"id":17026,"lesson_id":1703,"type":"listening_comprehension","prompt":"Listen to the gift plan","data":{"type":"listening_comprehension","prompt_en":"Who is the gift for and what does she like?","transcript_cz":"Zítra má Jana narozeniny. Dám kamarádce knihu, protože se jí líbí české příběhy.","questions":[{"question_en":"Who receives the gift?","options":["Jana, a friend","Petr, a colleague","The speaker"],"correct_index":0},{"question_en":"What does Jana like?","options":["Czech stories","Coffee","Trams"],"correct_index":0}]},"answer_key":"Jana; Czech stories","xp_reward":15},
-{"id":17027,"lesson_id":1703,"type":"reading_comprehension","prompt":"Read the bookshop message","data":{"type":"reading_comprehension","prompt_en":"Read for the recipient, preference and plan.","image":"assets/images/unit17/gift_bookshop_v1.webp","image_label":"Friends choosing a book gift","text_cz":"Ahoj, kupuju dárek pro Janu. Dám jí českou knihu. Jana ráda čte a tahle kniha se jí moc líbí. Můžeš mi ještě poradit?","text_en":"Hi, I am buying a gift for Jana. I will give her a Czech book. Jana likes reading and she really likes this book. Can you advise me too?","questions":[{"question_en":"What will the speaker give Jana?","options":["A Czech book","A tram ticket","A coffee"],"correct_index":0},{"question_en":"Why this gift?","options":["Jana likes reading","Jana is cold","Jana travels tomorrow"],"correct_index":0}]},"answer_key":"A Czech book; Jana likes reading","xp_reward":15},
-{"id":17028,"lesson_id":1703,"type":"matching","prompt":"Match the useful dative chunks","data":{"type":"matching","pairs":[{"left":"dám jí knihu","right":"I will give her a book"},{"left":"telefonuju Petrovi","right":"I call Petr"},{"left":"líbí se mi","right":"I like it"},{"left":"pomůžeš mi?","right":"will you help me?"}]},"answer_key":"dative chunks","xp_reward":10},
-{"id":17029,"lesson_id":1703,"type":"fill_blank","prompt":"Complete the gift message","data":{"type":"fill_blank","sentence":"Dám Janě knihu, protože se ___ líbí.","blank_count":1,"blank_answers":[["jí"]],"explanation":"Jí refers to Jana: the person who likes the book."},"answer_key":"jí","xp_reward":10},
-{"id":17030,"lesson_id":1703,"type":"dialogue","prompt":"Ask for gift advice","data":{"type":"dialogue","scenario":"At the bookshop","lines":[{"speaker":"you","text":"Hledám dárek pro Janu."},{"speaker":"clerk","text":"Co se jí líbí?"},{"speaker":"you","text":"___"}],"blank_answers":[["Líbí se jí české knihy.","Ona má ráda české knihy."]]},"answer_key":"Líbí se jí české knihy.","xp_reward":15},
-{"id":17031,"lesson_id":1703,"type":"writing_task","prompt":"Write a gift message","data":{"type":"writing_task","prompt_en":"Write 2–3 sentences: name a person, say what you will give them, and say what they like.","prompt_cz":"Napište krátkou zprávu o dárku.","min_words":10,"max_words":42,"key_vocab":["Dám…","se jí/mu líbí","pomůžeš mi?"],"sample_answer":"Dám kamarádce knihu. Líbí se jí české příběhy. Můžeš mi poradit?"},"answer_key":"gift message","xp_reward":0},
-{"id":17032,"lesson_id":1703,"type":"speaking_task","prompt":"Recommend the gift","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds: say who the gift is for, what you choose and why.","prompt_cz":"Nahrajte krátké doporučení dárku.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["Dám","líbí se","protože"]},"answer_key":"gift recommendation","xp_reward":20}
-]}
+{
+  "id": 1703,
+  "unit_id": 17,
+  "title": "Choose a Thoughtful Gift",
+  "description": "Liking and feeling in the dative: líbí se mi, chutná mi, je mi zima.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "can_do": "say what someone likes and how you feel.",
+  "new_language": [
+    "Líbí se jí…",
+    "Chutná mu…",
+    "Je mi zima / teplo / špatně",
+    "Je mi líto."
+  ],
+  "recycles": [
+    "Dám jí…",
+    "protože"
+  ],
+  "exit_task": "write a message about a gift and why the person will like it.",
+  "is_review": false,
+  "format": 2,
+  "exercises": [
+    {
+      "id": 17300,
+      "lesson_id": 1703,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “to my brother”, “Will you help me?” and “I am calling Petr” in Czech. Then one line from Unit 16: a kilo of apples.",
+        "items": [
+          {
+            "cz": "bratrovi",
+            "en": "to my brother"
+          },
+          {
+            "cz": "Pomůžeš mi?",
+            "en": "Will you help me?"
+          },
+          {
+            "cz": "Telefonuju Petrovi.",
+            "en": "I am calling Petr."
+          },
+          {
+            "cz": "kilo jablek",
+            "en": "a kilo of apples"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17301,
+      "lesson_id": 1703,
+      "type": "teaching",
+      "prompt": "I like it: líbí se mi, chutná mi",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-162",
+        "rule_step": 1,
+        "heading": "I like it: líbí se mi, chutná mi",
+        "items": [
+          {
+            "cz": "Líbí se mi Praha.",
+            "en": "I like Prague."
+          },
+          {
+            "cz": "Chutná ti polévka?",
+            "en": "Do you like the soup?"
+          }
+        ],
+        "say": "The thing you like is the subject. The person who likes it is in the dative. Líbí se is for things you see or experience; chutná is for food and drink.",
+        "table": [
+          [
+            "I like Prague.",
+            "Líbí se mi Praha."
+          ],
+          [
+            "Do you like the book?",
+            "Líbí se ti ta kniha?"
+          ],
+          [
+            "He likes films.",
+            "Líbí se mu filmy."
+          ],
+          [
+            "She likes the soup.",
+            "Chutná jí polévka."
+          ],
+          [
+            "We like the coffee.",
+            "Chutná nám káva."
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Líbí se mi Praha.",
+            "en": "I like Prague."
+          },
+          {
+            "cz": "Chutná ti polévka?",
+            "en": "Do you like the soup?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Líbím Prahu.",
+          "right": "Líbí se mi Praha."
+        },
+        "step": 1,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17302,
+      "lesson_id": 1703,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „I like the book“?",
+        "question_en": "How do you say “I like the book”?",
+        "options": [
+          "Líbí se mi ta kniha.",
+          "Líbím tu knihu.",
+          "Líbí mi se ta kniha."
+        ],
+        "correct_index": 0,
+        "explanation": "The book is the subject; the person is dative (mi); se and mi come second."
+      },
+      "answer_key": "Líbí se mi ta kniha.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-162"
+    },
+    {
+      "id": 17303,
+      "lesson_id": 1703,
+      "type": "teaching",
+      "prompt": "How you feel: Je mi zima",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-163",
+        "rule_step": 1,
+        "heading": "How you feel: Je mi zima",
+        "items": [
+          {
+            "cz": "Je mi zima.",
+            "en": "I am cold."
+          },
+          {
+            "cz": "Kolik je ti let?",
+            "en": "How old are you?"
+          }
+        ],
+        "say": "For how you feel, Czech says “it is … to me”: Je mi zima, je mi špatně. Age works the same way: Je mi dvacet let.",
+        "table": [
+          [
+            "I am cold.",
+            "Je mi zima."
+          ],
+          [
+            "I am warm.",
+            "Je mi teplo."
+          ],
+          [
+            "I feel sick.",
+            "Je mi špatně."
+          ],
+          [
+            "I'm sorry.",
+            "Je mi líto."
+          ],
+          [
+            "He is twenty.",
+            "Je mu dvacet let."
+          ],
+          [
+            "Are you OK?",
+            "Je ti dobře?"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Je mi zima.",
+            "en": "I am cold."
+          },
+          {
+            "cz": "Kolik je ti let?",
+            "en": "How old are you?"
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Jsem zima.",
+          "right": "Je mi zima."
+        },
+        "step": 2,
+        "steps": 2
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17304,
+      "lesson_id": 1703,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Jak řeknete „I feel sick“?",
+        "question_en": "How do you say “I feel sick”?",
+        "options": [
+          "Je mi špatně.",
+          "Jsem špatně.",
+          "Mám špatně."
+        ],
+        "correct_index": 0,
+        "explanation": "Feelings: je + dative: Je mi špatně."
+      },
+      "answer_key": "Je mi špatně.",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-163"
+    },
+    {
+      "id": 17305,
+      "lesson_id": 1703,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write two true sentences: what you like, and what someone in your family likes.",
+        "items": [
+          {
+            "cz": "Líbí se mi staré Brno.",
+            "en": "I like old Brno."
+          },
+          {
+            "cz": "Mamince chutná česká káva.",
+            "en": "My mum likes Czech coffee."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 17306,
+      "lesson_id": 1703,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'Do you like this book?'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "Do you like this book?",
+        "accepted_answers": [
+          "Líbí se ti tahle kniha?",
+          "Líbí se ti tato kniha?",
+          "Líbí se vám tahle kniha?",
+          "Líbí se vám tato kniha?"
+        ],
+        "grammar_note": "'Líbit se' + dative: 'líbí se ti' (you like, informal), 'líbí se vám' (you like, formal/plural). The book is the grammatical subject, so 'kniha' is nominative."
+      },
+      "answer_key": "Líbí se ti tahle kniha?",
+      "grammar_rule_id": "GR-162",
+      "xp_reward": 10
+    },
+    {
+      "id": 17307,
+      "lesson_id": 1703,
+      "type": "fill_blank",
+      "prompt": "Complete: The soup tastes good (to me).",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Polévka ___ chutná. (já)",
+        "blank_count": 1,
+        "explanation": "'Chutnat' (to taste) works like 'líbit se': dative for who experiences the taste + nominative for the thing. 'Polévka mi chutná.' = The soup tastes good to me / I like the soup.",
+        "blank_answers": [
+          [
+            "mi"
+          ]
+        ]
+      },
+      "answer_key": "mi",
+      "grammar_rule_id": "GR-162",
+      "xp_reward": 15
+    },
+    {
+      "id": 17308,
+      "lesson_id": 1703,
+      "type": "fill_blank",
+      "prompt": "Complete the gift message",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Dám Janě knihu, protože se ___ líbí.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "jí"
+          ]
+        ],
+        "explanation": "Jí refers to Jana: the person who likes the book."
+      },
+      "answer_key": "jí",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-162"
+    },
+    {
+      "id": 17309,
+      "lesson_id": 1703,
+      "type": "listening_comprehension",
+      "prompt": "Listen to the gift plan",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Who is the gift for and what does she like?",
+        "transcript_cz": "Zítra má Jana narozeniny. Dám kamarádce knihu, protože se jí líbí české příběhy.",
+        "questions": [
+          {
+            "question_en": "Who receives the gift?",
+            "options": [
+              "Jana, a friend",
+              "Petr, a colleague",
+              "The speaker"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does Jana like?",
+            "options": [
+              "Czech stories",
+              "Coffee",
+              "Trams"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Jana; Czech stories",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-162"
+    },
+    {
+      "id": 17310,
+      "lesson_id": 1703,
+      "type": "fill_blank",
+      "prompt": "Complete: He feels sick. → Je ___ špatně.",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Je ___ špatně. (on)",
+        "blank_count": 1,
+        "explanation": "'Je mu špatně.' = He feels sick / nauseous. The dative pronoun carries the person: je mi (I), je ti (you), je mu (he), je jí (she), je nám (we), je vám (you pl.), je jim (they).",
+        "blank_answers": [
+          [
+            "mu"
+          ]
+        ]
+      },
+      "answer_key": "mu",
+      "grammar_rule_id": "GR-163",
+      "xp_reward": 15
+    },
+    {
+      "id": 17311,
+      "lesson_id": 1703,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'I feel good here.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "I feel good here.",
+        "accepted_answers": [
+          "Je mi tady dobře.",
+          "Tady je mi dobře.",
+          "Je mi tu dobře.",
+          "Tu je mi dobře."
+        ],
+        "grammar_note": "'Je mi dobře.' = I feel good (dative construction). 'Tady/tu' = here. Sensations in Czech use dative + je: je mi zima/teplo/dobře/špatně/divně/příjemně."
+      },
+      "answer_key": "Je mi tady dobře.",
+      "grammar_rule_id": "GR-163",
+      "xp_reward": 10
+    },
+    {
+      "id": 17312,
+      "lesson_id": 1703,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'I give a book to my sister.'",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "I give a book to my sister.",
+        "accepted_answers": [
+          "Dávám knihu sestře.",
+          "Dávám sestře knihu.",
+          "Dávám knížku sestře.",
+          "Dávám sestře knížku."
+        ],
+        "grammar_note": "'Dávat' (to give) takes two objects: dative for the recipient (sestře — to my sister) and accusative for the thing given (knihu — a book). 'Sestra' → dative 'sestře'."
+      },
+      "answer_key": "Dávám knihu sestře.",
+      "grammar_rule_id": "GR-160",
+      "xp_reward": 10
+    },
+    {
+      "id": 17313,
+      "lesson_id": 1703,
+      "type": "writing_task",
+      "prompt": "Write a gift message",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 sentences: name a person, say what you will give them, and say what they like.",
+        "prompt_cz": "Napište krátkou zprávu o dárku.",
+        "min_words": 10,
+        "max_words": 42,
+        "key_vocab": [
+          "Dám…",
+          "se jí/mu líbí",
+          "pomůžeš mi?"
+        ],
+        "sample_answer": "Dám kamarádce knihu. Líbí se jí české příběhy. Můžeš mi poradit?",
+        "targets": "vocab"
+      },
+      "answer_key": "gift message",
+      "xp_reward": 0
+    },
+    {
+      "id": 17314,
+      "lesson_id": 1703,
+      "type": "speaking_task",
+      "prompt": "Recommend the gift",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds: say who the gift is for, what you choose and why.",
+        "prompt_cz": "Nahrajte krátké doporučení dárku.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "Dám",
+          "líbí se",
+          "protože"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "gift recommendation",
+      "xp_reward": 20
+    }
+  ]
+}

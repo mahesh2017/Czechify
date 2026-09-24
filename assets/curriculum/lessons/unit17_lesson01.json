@@ -2,283 +2,226 @@
   "id": 1701,
   "unit_id": 17,
   "order_in_unit": 0,
-  "title": "Dative — Giving & Indirect Objects",
-  "description": "Learn the dative case endings for masculine (-ovi/-u), feminine (-e/-i), and neuter (-u/-i) nouns. Practice using dative with verbs of giving (dávat), buying (kupovat), and sending (posílat), where the recipient gets dative and the thing given gets accusative.",
-  "duration_min": 15,
+  "title": "Who Gets It? Gifts and Help",
+  "description": "Hear a gift plan, then learn phrases for giving, helping and liking.",
+  "duration_min": 12,
   "lesson_type": "introduction",
+  "can_do": "say who you give something to and what you like.",
+  "new_language": [
+    "Dám kamarádce knihu.",
+    "Telefonuju Petrovi.",
+    "Pomáhám mamince.",
+    "Pomůžeš mi?",
+    "Líbí se mi Praha.",
+    "Chutná mi káva.",
+    "Je mi zima.",
+    "Děkuju ti."
+  ],
+  "recycles": [
+    "dárek",
+    "narozeniny",
+    "mít rád"
+  ],
+  "exit_task": "say what you will give a friend and why.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 17000,
+      "id": 17100,
+      "lesson_id": 1701,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess what the gift is.",
+        "transcript_cz": "Moje sestra má ráda hudbu. Dám jí dvě vstupenky na koncert. Kamarád mi pomáhá vybrat.",
+        "questions": [
+          {
+            "question_en": "What is the gift?",
+            "options": [
+              "Concert tickets",
+              "A book",
+              "A bicycle"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who helps?",
+            "options": [
+              "A friend",
+              "His sister",
+              "A teacher"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "Concert tickets; a friend",
+      "xp_reward": 0
+    },
+    {
+      "id": 17101,
       "lesson_id": 1701,
       "type": "teaching",
       "prompt": "The \"to / for\" Case (Dative)",
       "data": {
         "type": "teaching",
-        "heading": "The \"to / for\" Case (Dative)",
-        "body": "Who gets the book, the call, the helping hand? It even powers the Czech way of saying you like something.",
+        "heading": "Giving, helping, liking",
+        "body": "The person who gets something, or who likes something, takes a special ending: kamarádce, Petrovi, mi. Learn these as whole phrases first; Lesson B explains why.",
         "intro": "Who gets the book, the phone call, the helping hand? That's the dative — the 'to and for' case. It even powers the Czech way of saying you like something.",
         "style": "list",
         "play_all_label": "Play all",
         "items": [
           {
-            "cz": "Dávám kamarádovi knihu.",
-            "en": "I give my friend a book."
+            "cz": "Dám kamarádce knihu.",
+            "en": "I will give my friend a book."
           },
           {
-            "cz": "pomáhat",
-            "en": "to help"
+            "cz": "Telefonuju Petrovi.",
+            "en": "I am calling Petr."
           },
           {
-            "cz": "rozumět",
-            "en": "to understand"
+            "cz": "Pomáhám mamince.",
+            "en": "I help my mum."
           },
           {
-            "cz": "telefonovat",
-            "en": "to call"
+            "cz": "Pomůžeš mi?",
+            "en": "Will you help me?"
           },
           {
-            "cz": "líbí se mi",
-            "en": "I like it"
+            "cz": "Líbí se mi Praha.",
+            "en": "I like Prague."
           },
           {
-            "cz": "chutná mi",
-            "en": "it tastes good to me"
+            "cz": "Chutná mi káva.",
+            "en": "I like the coffee."
+          },
+          {
+            "cz": "Je mi zima.",
+            "en": "I am cold."
+          },
+          {
+            "cz": "Děkuju ti.",
+            "en": "Thank you. (to a friend)"
           }
         ]
       },
       "xp_reward": 0
     },
     {
-      "id": 17001,
+      "id": 17102,
       "lesson_id": 1701,
-      "type": "multiple_choice",
-      "prompt": "What is the correct dative form of 'bratr' (brother)?",
+      "type": "teaching",
+      "prompt": "Notebook",
       "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký je správný tvar slova 'bratr' v dativu?",
-        "question_en": "What is the correct dative form of 'bratr' (brother)?",
-        "options": [
-          "bratru",
-          "bratrovi",
-          "bratra",
-          "bratrem"
-        ],
-        "correct_index": 1,
-        "explanation": "Animate masculine nouns take -ovi in dative: bratr → bratrovi. Some common exceptions use -u (muž → muži, člověk → člověku). Inanimate masculines take -u: hrad → hradu."
-      },
-      "answer_key": "bratrovi",
-      "grammar_rule_id": "GR-160",
-      "xp_reward": 10
-    },
-    {
-      "id": 17002,
-      "lesson_id": 1701,
-      "type": "multiple_choice",
-      "prompt": "What is the correct dative form of 'žena' (woman)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký je správný tvar slova 'žena' v dativu?",
-        "question_en": "What is the correct dative form of 'žena' (woman)?",
-        "options": [
-          "ženy",
-          "ženě",
-          "ženu",
-          "ženou"
-        ],
-        "correct_index": 1,
-        "explanation": "Feminine nouns ending in -a take -e (ě) in dative: žena → ženě. Other feminines ending in a consonant or -e/-ě take -i: kost → kosti, růže → růži."
-      },
-      "answer_key": "ženě",
-      "grammar_rule_id": "GR-160",
-      "xp_reward": 10
-    },
-    {
-      "id": 17003,
-      "lesson_id": 1701,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct dative form: 'město' → ___",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Jedeme k ___ . (město — to the city)",
-        "blank_count": 1,
-        "explanation": "Neuter nouns take -u in dative: město → městu. Nouns ending in -e/-ě or -í take -i: moře → moři, náměstí → náměstí.",
-        "blank_answers": [
-          [
-            "městu"
-          ]
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 17 page",
+        "instruction": "Write “Unit 17 — Komu?” at the top of a new page. Then, from memory, write four phrases about giving, helping or liking and what they mean.",
+        "items": [
+          {
+            "cz": "Dám kamarádce knihu.",
+            "en": "I will give my friend a book."
+          },
+          {
+            "cz": "Telefonuju Petrovi.",
+            "en": "I am calling Petr."
+          },
+          {
+            "cz": "Pomáhám mamince.",
+            "en": "I help my mum."
+          },
+          {
+            "cz": "Pomůžeš mi?",
+            "en": "Will you help me?"
+          },
+          {
+            "cz": "Líbí se mi Praha.",
+            "en": "I like Prague."
+          }
         ]
       },
-      "answer_key": "městu",
-      "grammar_rule_id": "GR-160",
-      "xp_reward": 15
+      "answer_key": "",
+      "xp_reward": 0
     },
     {
-      "id": 17004,
+      "id": 17103,
       "lesson_id": 1701,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct dative form: (to) Pavel",
+      "type": "matching",
+      "prompt": "Match the useful dative chunks",
       "data": {
-        "type": "fill_blank",
-        "sentence": "Dávám dárek ___ . (Pavel)",
-        "blank_count": 1,
-        "explanation": "Animate masculine names take -ovi in dative: Pavel → Pavlovi. Likewise: Petr → Petrovi, Tomáš → Tomášovi. 'Dávat' = to give, requires dative for the recipient.",
-        "blank_answers": [
-          [
-            "Pavlovi"
-          ]
-        ]
-      },
-      "answer_key": "Pavlovi",
-      "grammar_rule_id": "GR-160",
-      "xp_reward": 15
-    },
-    {
-      "id": 17005,
-      "lesson_id": 1701,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I give a book to my sister.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I give a book to my sister.",
-        "accepted_answers": [
-          "Dávám knihu sestře.",
-          "Dávám sestře knihu.",
-          "Dávám knížku sestře.",
-          "Dávám sestře knížku."
+        "type": "matching",
+        "pairs": [
+          {
+            "left": "dám jí knihu",
+            "right": "I will give her a book"
+          },
+          {
+            "left": "telefonuju Petrovi",
+            "right": "I call Petr"
+          },
+          {
+            "left": "líbí se mi",
+            "right": "I like it"
+          },
+          {
+            "left": "pomůžeš mi?",
+            "right": "will you help me?"
+          }
         ],
-        "grammar_note": "'Dávat' (to give) takes two objects: dative for the recipient (sestře — to my sister) and accusative for the thing given (knihu — a book). 'Sestra' → dative 'sestře'."
+        "targets": "vocab"
       },
-      "answer_key": "Dávám knihu sestře.",
-      "grammar_rule_id": "GR-161",
+      "answer_key": "dative chunks",
       "xp_reward": 10
     },
     {
-      "id": 17006,
+      "id": 17104,
       "lesson_id": 1701,
       "type": "multiple_choice",
-      "prompt": "Which sentence is grammatically correct?",
+      "prompt": "How do you say 'I like Prague' using 'líbit se'?",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Která věta je gramaticky správná?",
-        "question_en": "Which sentence is grammatically correct?",
+        "question_cz": "Jak řeknete 'I like Prague'?",
+        "question_en": "How do you say 'I like Prague'?",
         "options": [
-          "Kupuju bratr knihu.",
-          "Kupuju bratrovi knihu.",
-          "Kupuju bratra knihu.",
-          "Kupuju bratrem knihu."
+          "Líbí se mi Praha.",
+          "Líbím Prahu.",
+          "Líbí Praha mně.",
+          "Líbí se mně Praha."
         ],
-        "correct_index": 1,
-        "explanation": "'Kupovat' (to buy for someone) requires dative for the recipient: bratrovi. 'Kupuju bratrovi knihu.' = I'm buying a book for my brother. The accusative 'knihu' is the thing bought."
+        "correct_index": 0,
+        "explanation": "'Líbit se' (to like) uses dative for the person who likes: 'Líbí se mi Praha.' = literally 'Prague pleases me'. 'Mi' is the dative short form. The liked thing is the subject (Praha).",
+        "targets": "vocab"
       },
-      "answer_key": "Kupuju bratrovi knihu.",
-      "grammar_rule_id": "GR-162",
+      "answer_key": "Líbí se mi Praha.",
       "xp_reward": 10
     },
     {
-      "id": 17007,
-      "lesson_id": 1701,
-      "type": "fill_blank",
-      "prompt": "Complete with the correct dative form of 'maminka': I buy flowers for mom.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Kupuju ___ květiny. (maminka)",
-        "blank_count": 1,
-        "explanation": "'Maminka' → dative 'mamince'. Feminine nouns in -ka change k → c before -e (the ě softens): maminka → mamince. 'Kupuju mamince květiny.' = I'm buying flowers for mom.",
-        "blank_answers": [
-          [
-            "mamince"
-          ]
-        ]
-      },
-      "answer_key": "mamince",
-      "grammar_rule_id": "GR-162",
-      "xp_reward": 15
-    },
-    {
-      "id": 17008,
-      "lesson_id": 1701,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'She buys a gift for her friend (fem.).'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "She buys a gift for her friend (female).",
-        "accepted_answers": [
-          "Kupuje dárek kamarádce.",
-          "Ona kupuje dárek kamarádce.",
-          "Kupuje kamarádce dárek.",
-          "Ona kupuje kamarádce dárek."
-        ],
-        "grammar_note": "'Kamarádka' → dative 'kamarádce'. The k → c change before the e ending. 'Kupovat' + dative (recipient) + accusative (thing bought). 'Dárek' = gift (accusative)."
-      },
-      "answer_key": "Kupuje dárek kamarádce.",
-      "grammar_rule_id": "GR-162",
-      "xp_reward": 10
-    },
-    {
-      "id": 17009,
+      "id": 17105,
       "lesson_id": 1701,
       "type": "multiple_choice",
-      "prompt": "What is the correct dative form of 'učitel' (teacher, masc.)?",
+      "prompt": "Which is the correct way to say 'I am cold' in Czech?",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Jaký je správný tvar slova 'učitel' v dativu?",
-        "question_en": "What is the correct dative form of 'učitel' (teacher)?",
+        "question_cz": "Jak řeknete česky 'I am cold'?",
+        "question_en": "How do you say 'I am cold' in Czech?",
         "options": [
-          "učitele",
-          "učiteli",
-          "učiteli/učitelovi",
-          "učitelem"
+          "Jsem zima.",
+          "Mám zimu.",
+          "Je mi zima.",
+          "Cítím zimu."
         ],
         "correct_index": 2,
-        "explanation": "Masculine animate nouns take -ovi or -i in dative: učitel → učiteli / učitelovi. Both are correct. The -ovi form is more common in speech, -i in writing."
+        "explanation": "'Je mi zima.' = I am cold (literally 'it is cold to me'). Czech uses dative for sensations: je mi zima (I'm cold), je mi teplo (I'm warm), je mi dobře (I feel good), je mi špatně (I feel sick).",
+        "targets": "vocab"
       },
-      "answer_key": "učiteli/učitelovi",
-      "grammar_rule_id": "GR-160",
+      "answer_key": "Je mi zima.",
       "xp_reward": 10
     },
     {
-      "id": 17010,
-      "lesson_id": 1701,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'I am sending a letter to my grandmother.'",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "I am sending a letter to my grandmother.",
-        "accepted_answers": [
-          "Posílám dopis babičce.",
-          "Posílám babičce dopis."
-        ],
-        "grammar_note": "'Posílat' (to send) follows the same pattern as dávat: dative for recipient (babičce), accusative for the thing sent (dopis). 'Babička' → dative 'babičce'."
-      },
-      "answer_key": "Posílám dopis babičce.",
-      "grammar_rule_id": "GR-163",
-      "xp_reward": 10
-    },
-    {
-      "id": 17011,
-      "lesson_id": 1701,
-      "type": "fill_blank",
-      "prompt": "Complete with the dative of 'dítě': I give candy to the child.",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Dávám ___ bonbón. (dítě — to the child)",
-        "blank_count": 1,
-        "explanation": "'Dítě' is an irregular neuter noun. Its dative form is 'dítěti' (not 'dítu'). Many irregular nouns have special dative forms: člověk → člověku, přítel → příteli.",
-        "blank_answers": [
-          [
-            "dítěti"
-          ]
-        ]
-      },
-      "answer_key": "dítěti",
-      "grammar_rule_id": "GR-160",
-      "xp_reward": 15
-    },
-    {
-      "id": 17012,
+      "id": 17106,
       "lesson_id": 1701,
       "type": "pronunciation",
       "prompt": "Pronounce the dative sentence.",
@@ -292,10 +235,80 @@
           "narozeninám"
         ],
         "min_score": 0.6,
-        "translation_en": "I'm giving my brother a book for his birthday."
+        "translation_en": "I'm giving my brother a book for his birthday.",
+        "targets": "vocab"
       },
       "answer_key": "Dávám bratrovi knihu k narozeninám.",
-      "grammar_rule_id": "GR-161",
+      "xp_reward": 15
+    },
+    {
+      "id": 17107,
+      "lesson_id": 1701,
+      "type": "reading_comprehension",
+      "prompt": "Read the bookshop message",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Read for the recipient, preference and plan.",
+        "image": "assets/images/unit17/gift_bookshop_v1.webp",
+        "image_label": "Friends choosing a book gift",
+        "text_cz": "Ahoj, kupuju dárek pro Janu. Dám jí českou knihu. Jana ráda čte a tahle kniha se jí moc líbí. Můžeš mi ještě poradit?",
+        "text_en": "Hi, I am buying a gift for Jana. I will give her a Czech book. Jana likes reading and she really likes this book. Can you advise me too?",
+        "questions": [
+          {
+            "question_en": "What will the speaker give Jana?",
+            "options": [
+              "A Czech book",
+              "A tram ticket",
+              "A coffee"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Why this gift?",
+            "options": [
+              "Jana likes reading",
+              "Jana is cold",
+              "Jana travels tomorrow"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "A Czech book; Jana likes reading",
+      "xp_reward": 15
+    },
+    {
+      "id": 17108,
+      "lesson_id": 1701,
+      "type": "dialogue",
+      "prompt": "Ask for gift advice",
+      "data": {
+        "type": "dialogue",
+        "scenario": "At the bookshop",
+        "lines": [
+          {
+            "speaker": "you",
+            "text": "Hledám dárek pro Janu."
+          },
+          {
+            "speaker": "clerk",
+            "text": "Co se jí líbí?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Líbí se jí české knihy.",
+            "Ona má ráda české knihy."
+          ]
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "Líbí se jí české knihy.",
       "xp_reward": 15
     }
   ]
