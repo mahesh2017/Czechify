@@ -1559,7 +1559,7 @@
     "unit_id": 6,
     "example_cz": "Vidím muže.",
     "example_en": "I see a man.",
-    "lesson_id": 601
+    "lesson_id": 602
   },
   {
     "id": 147,
@@ -1581,7 +1581,7 @@
     "unit_id": 6,
     "example_cz": "Čtu knihu.",
     "example_en": "I'm reading a book.",
-    "lesson_id": 601
+    "lesson_id": 602
   },
   {
     "id": 149,
@@ -1600,10 +1600,10 @@
     "word_en": "woman (accusative)",
     "ipa": "ˈʒɛnu",
     "gender": null,
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Vidím ženu.",
     "example_en": "I see a woman.",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 151,
@@ -1611,10 +1611,10 @@
     "word_en": "dog (accusative)",
     "ipa": "psa",
     "gender": null,
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Mám psa.",
     "example_en": "I have a dog.",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 152,
@@ -1622,10 +1622,10 @@
     "word_en": "man (accusative)",
     "ipa": "muʒɛ",
     "gender": null,
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Vidím muže.",
     "example_en": "I see a man.",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 153,
@@ -1633,10 +1633,10 @@
     "word_en": "student (accusative)",
     "ipa": "ˈstudɛnta",
     "gender": null,
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Znám studenta.",
     "example_en": "I know a student.",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 154,
@@ -1644,10 +1644,10 @@
     "word_en": "teacher (accusative)",
     "ipa": "ˈuːtʃɪtɛlɛ",
     "gender": null,
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Vidím učitele.",
     "example_en": "I see a teacher.",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 155,
@@ -1655,10 +1655,10 @@
     "word_en": "doctor (accusative)",
     "ipa": "ˈlɛːkařɛ",
     "gender": null,
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Znám lékaře.",
     "example_en": "I know a doctor.",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 156,
@@ -1669,7 +1669,7 @@
     "unit_id": 6,
     "example_cz": "Vidím školu.",
     "example_en": "I see a school.",
-    "lesson_id": 601
+    "lesson_id": 602
   },
   {
     "id": 157,
@@ -1691,7 +1691,7 @@
     "unit_id": 6,
     "example_cz": "Píšu dopis.",
     "example_en": "I'm writing a letter.",
-    "lesson_id": 601
+    "lesson_id": 602
   },
   {
     "id": 159,
@@ -1702,7 +1702,7 @@
     "unit_id": 6,
     "example_cz": "Čekám na autobus.",
     "example_en": "I'm waiting for a bus.",
-    "lesson_id": 601
+    "lesson_id": 602
   },
   {
     "id": 160,
@@ -1710,10 +1710,10 @@
     "word_en": "whom (accusative)",
     "ipa": "ˈkoho",
     "gender": null,
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Koho vidíš?",
     "example_en": "Who do you see?",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 161,
@@ -4174,10 +4174,10 @@
     "word_en": "girlfriend (accusative)",
     "ipa": "ˈpriːtɛlɡɲi",
     "gender": "feminine",
-    "unit_id": 6,
+    "unit_id": 8,
     "example_cz": "Vidím přítelkyni v parku.",
     "example_en": "I see my girlfriend in the park.",
-    "lesson_id": 601
+    "lesson_id": 802
   },
   {
     "id": 385,

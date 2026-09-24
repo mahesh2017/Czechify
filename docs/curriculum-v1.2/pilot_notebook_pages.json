@@ -1,5 +1,5 @@
 {
-  "status": "DRAFT 2026-09-24 — Phase 0 of docs/CURRICULUM_V1_2_PLAN_2026-09-24.md. Needs review by a qualified teacher of Czech as a foreign language before it ships. Moves into assets/curriculum/cheat_sheets.json (as each unit's notebook_page) in Phase 2.",
+  "status": "Moved into assets/curriculum/cheat_sheets.json as each unit's notebook_page (Phase 2, 2026-09-24). This file keeps the per-lesson notebook step texts; the lesson files are the source of truth. Teacher review still required before the production release.",
   "layout": "One paper page per unit, boxes in this order: header (unit, can_do), words, pattern, my_sentences, check. Czech first, English after.",
   "units": [
     {
@@ -14,38 +14,103 @@
           "en": "I can order food and a drink politely."
         },
         "words": [
-          {"cz": "Dám si kávu.", "en": "I'll have a coffee."},
-          {"cz": "Dám si čaj.", "en": "I'll have a tea."},
-          {"cz": "Vodu, prosím.", "en": "Water, please."},
-          {"cz": "Máte polévku?", "en": "Do you have soup?"},
-          {"cz": "Ano, máme. / Bohužel nemáme.", "en": "Yes, we do. / Sorry, we don't."},
-          {"cz": "Tak si dám čaj.", "en": "Then I'll have tea."},
-          {"cz": "Dejte mi vodu, prosím.", "en": "Give me water, please.", "new_in_v1_2": "A1 dative pronoun mi (plan §7.1)"},
-          {"cz": "Můžu platit kartou?", "en": "Can I pay by card?", "new_in_v1_2": "A1 modal moct (plan §7.1)"},
-          {"cz": "Ještě jednou, prosím.", "en": "Once more, please."}
+          {
+            "cz": "Dám si kávu.",
+            "en": "I'll have a coffee."
+          },
+          {
+            "cz": "Dám si čaj.",
+            "en": "I'll have a tea."
+          },
+          {
+            "cz": "Vodu, prosím.",
+            "en": "Water, please."
+          },
+          {
+            "cz": "Máte polévku?",
+            "en": "Do you have soup?"
+          },
+          {
+            "cz": "Ano, máme. / Bohužel nemáme.",
+            "en": "Yes, we do. / Sorry, we don't."
+          },
+          {
+            "cz": "Tak si dám čaj.",
+            "en": "Then I'll have tea."
+          },
+          {
+            "cz": "Dejte mi vodu, prosím.",
+            "en": "Give me water, please.",
+            "new_in_v1_2": "A1 dative pronoun mi (plan §7.1)"
+          },
+          {
+            "cz": "Můžu platit kartou?",
+            "en": "Can I pay by card?",
+            "new_in_v1_2": "A1 modal moct (plan §7.1)"
+          },
+          {
+            "cz": "Ještě jednou, prosím.",
+            "en": "Once more, please."
+          }
         ],
         "pattern": {
           "name": "What you order: the object form (accusative)",
           "rule_plain": "The thing you order or want is the object. Feminine words ending in -a change -a to -u. Words like čaj, pivo and chleba stay the same.",
           "table": [
-            ["káva", "Dám si kávu."],
-            ["voda", "Dám si vodu."],
-            ["polévka", "Dám si polévku."],
-            ["čaj", "Dám si čaj."],
-            ["pivo", "Dám si pivo."],
-            ["chleba", "Dám si chleba."]
+            [
+              "káva",
+              "Dám si kávu."
+            ],
+            [
+              "voda",
+              "Dám si vodu."
+            ],
+            [
+              "polévka",
+              "Dám si polévku."
+            ],
+            [
+              "čaj",
+              "Dám si čaj."
+            ],
+            [
+              "pivo",
+              "Dám si pivo."
+            ],
+            [
+              "chleba",
+              "Dám si chleba."
+            ]
           ],
           "examples": [
-            {"cz": "Dám si kávu a vodu.", "en": "I'll have a coffee and water."},
-            {"cz": "Chci polévku.", "en": "I want soup."},
-            {"cz": "Máte pivo?", "en": "Do you have beer?"}
+            {
+              "cz": "Dám si kávu a vodu.",
+              "en": "I'll have a coffee and water."
+            },
+            {
+              "cz": "Chci polévku.",
+              "en": "I want soup."
+            },
+            {
+              "cz": "Máte pivo?",
+              "en": "Do you have beer?"
+            }
           ],
-          "common_mistake": {"wrong": "Dám si káva.", "right": "Dám si kávu."},
+          "common_mistake": {
+            "wrong": "Dám si káva.",
+            "right": "Dám si kávu."
+          },
           "preview": "People and animals change too: Mám bratra. Mám psa. (Unit 8)"
         },
         "my_sentences_models": [
-          {"cz": "Ráno piju kávu.", "en": "In the morning I drink coffee."},
-          {"cz": "Dám si polévku a chleba, prosím.", "en": "I'll have soup and bread, please."}
+          {
+            "cz": "Ráno piju kávu.",
+            "en": "In the morning I drink coffee."
+          },
+          {
+            "cz": "Dám si polévku a chleba, prosím.",
+            "en": "I'll have soup and bread, please."
+          }
         ],
         "notebook_steps": {
           "A_capture": "Start your Unit 6 page. From memory, write the four café phrases you just heard. Then check.",
@@ -69,51 +134,163 @@
           "en": "I can say what I did at the weekend."
         },
         "words": [
-          {"cz": "včera", "en": "yesterday"},
-          {"cz": "předevčírem", "en": "the day before yesterday"},
-          {"cz": "minulý týden", "en": "last week"},
-          {"cz": "loni", "en": "last year"},
-          {"cz": "o víkendu", "en": "at the weekend"},
-          {"cz": "nejdřív… potom…", "en": "first… then…"},
-          {"cz": "Bylo to skvělé.", "en": "It was great."}
+          {
+            "cz": "včera",
+            "en": "yesterday"
+          },
+          {
+            "cz": "předevčírem",
+            "en": "the day before yesterday"
+          },
+          {
+            "cz": "minulý týden",
+            "en": "last week"
+          },
+          {
+            "cz": "loni",
+            "en": "last year"
+          },
+          {
+            "cz": "o víkendu",
+            "en": "at the weekend"
+          },
+          {
+            "cz": "nejdřív… potom…",
+            "en": "first… then…"
+          },
+          {
+            "cz": "Bylo to skvělé.",
+            "en": "It was great."
+          }
         ],
         "pattern": {
           "name": "The past tense",
           "rule_plain": "Past = the -l form (+ -a for a woman, + -i for a group) plus jsem, jsi, jsme or jste. For he, she and they there is no jsem. Jsem never comes first in the sentence.",
           "table": [
-            ["já", "dělal jsem / dělala jsem"],
-            ["ty", "dělal jsi / dělala jsi"],
-            ["on / ona", "dělal / dělala"],
-            ["my", "dělali jsme"],
-            ["vy", "dělali jste"],
-            ["oni", "dělali"]
+            [
+              "já",
+              "dělal jsem / dělala jsem"
+            ],
+            [
+              "ty",
+              "dělal jsi / dělala jsi"
+            ],
+            [
+              "on / ona",
+              "dělal / dělala"
+            ],
+            [
+              "my",
+              "dělali jsme"
+            ],
+            [
+              "vy",
+              "dělali jste"
+            ],
+            [
+              "oni",
+              "dělali"
+            ]
           ],
           "irregular": [
-            ["být", "byl"], ["mít", "měl"], ["jít", "šel, šla"], ["jet", "jel"],
-            ["jíst", "jedl"], ["číst", "četl"], ["chtít", "chtěl"]
+            [
+              "být",
+              "byl"
+            ],
+            [
+              "mít",
+              "měl"
+            ],
+            [
+              "jít",
+              "šel, šla"
+            ],
+            [
+              "jet",
+              "jel"
+            ],
+            [
+              "jíst",
+              "jedl"
+            ],
+            [
+              "číst",
+              "četl"
+            ],
+            [
+              "chtít",
+              "chtěl"
+            ]
           ],
           "aspect_pairs": {
             "rule_plain": "Two verbs for one action: the first is the process, the second is the finished result.",
             "pairs": [
-              ["dělat", "udělat"], ["psát", "napsat"], ["číst", "přečíst"],
-              ["vařit", "uvařit"], ["kupovat", "koupit"]
+              [
+                "dělat",
+                "udělat"
+              ],
+              [
+                "psát",
+                "napsat"
+              ],
+              [
+                "číst",
+                "přečíst"
+              ],
+              [
+                "vařit",
+                "uvařit"
+              ],
+              [
+                "kupovat",
+                "koupit"
+              ]
             ],
             "examples": [
-              {"cz": "Vařil jsem večeři hodinu.", "en": "I was cooking dinner for an hour.", "note": "process"},
-              {"cz": "Uvařil jsem večeři a šel jsem ven.", "en": "I cooked dinner and went out.", "note": "finished"}
+              {
+                "cz": "Vařil jsem večeři hodinu.",
+                "en": "I was cooking dinner for an hour.",
+                "note": "process"
+              },
+              {
+                "cz": "Uvařil jsem večeři a šel jsem ven.",
+                "en": "I cooked dinner and went out.",
+                "note": "finished"
+              }
             ]
           },
           "examples": [
-            {"cz": "Včera jsem byla doma.", "en": "Yesterday I (f.) was at home."},
-            {"cz": "Petr šel do kina.", "en": "Petr went to the cinema."},
-            {"cz": "O víkendu jsme četli.", "en": "At the weekend we read."}
+            {
+              "cz": "Včera jsem byla doma.",
+              "en": "Yesterday I (f.) was at home."
+            },
+            {
+              "cz": "Petr šel do kina.",
+              "en": "Petr went to the cinema."
+            },
+            {
+              "cz": "O víkendu jsme četli.",
+              "en": "At the weekend we read."
+            }
           ],
-          "common_mistake": {"wrong": "Jsem byl včera doma.", "right": "Včera jsem byl doma. / Byl jsem včera doma."},
-          "second_mistake": {"wrong": "(a woman) Byl jsem doma.", "right": "Byla jsem doma."}
+          "common_mistake": {
+            "wrong": "Jsem byl včera doma.",
+            "right": "Včera jsem byl doma. / Byl jsem včera doma."
+          },
+          "second_mistake": {
+            "wrong": "(a woman) Byl jsem doma.",
+            "right": "Byla jsem doma."
+          }
         },
         "my_sentences_models": [
-          {"cz": "V sobotu jsem byla na výletě.", "en": "On Saturday I (f.) was on a trip."},
-          {"cz": "Včera jsem uvařil večeři a potom jsem četl.", "en": "Yesterday I (m.) cooked dinner and then I read."}
+          {
+            "cz": "V sobotu jsem byla na výletě.",
+            "en": "On Saturday I (f.) was on a trip."
+          },
+          {
+            "cz": "Včera jsem uvařil večeři a potom jsem četl.",
+            "en": "Yesterday I (m.) cooked dinner and then I read."
+          }
         ],
         "notebook_steps": {
           "A_capture": "Start your Unit 19 page. From memory, write five time words for the past. Then check.",

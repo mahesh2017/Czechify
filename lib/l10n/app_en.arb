@@ -1656,5 +1656,7 @@
   "modelPageWords": "Words & chunks",
   "modelPagePattern": "Pattern",
   "modelPageMySentences": "My sentences",
-  "modelPageCheck": "Check ✓"
+  "modelPageCheck": "Check ✓",
+  "notebookIntroTitle": "Keep a Czech notebook",
+  "notebookIntroBody": "One paper page per unit. Lessons ask you to write the key points from memory, then check them against a model. Writing it yourself is what makes it stick."
 }

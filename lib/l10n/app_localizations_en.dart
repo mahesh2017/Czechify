@@ -3875,4 +3875,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get modelPageCheck => 'Check ✓';
+
+  @override
+  String get notebookIntroTitle => 'Keep a Czech notebook';
+
+  @override
+  String get notebookIntroBody =>
+      'One paper page per unit. Lessons ask you to write the key points from memory, then check them against a model. Writing it yourself is what makes it stick.';
 }

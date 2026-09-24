@@ -3892,4 +3892,11 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get modelPageCheck => 'Kontrola ✓';
+
+  @override
+  String get notebookIntroTitle => 'Veďte si sešit na češtinu';
+
+  @override
+  String get notebookIntroBody =>
+      'Na každou jednotku jedna stránka. Lekce vás požádají, abyste hlavní body napsali zpaměti a pak je porovnali se vzorem. Právě to, že je píšete sami, vám pomůže si je zapamatovat.';
 }

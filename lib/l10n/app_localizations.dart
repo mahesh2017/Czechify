@@ -6649,6 +6649,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check ✓'**
   String get modelPageCheck;
+
+  /// No description provided for @notebookIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep a Czech notebook'**
+  String get notebookIntroTitle;
+
+  /// No description provided for @notebookIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One paper page per unit. Lessons ask you to write the key points from memory, then check them against a model. Writing it yourself is what makes it stick.'**
+  String get notebookIntroBody;
 }
 
 class _AppLocalizationsDelegate

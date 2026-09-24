@@ -2,44 +2,517 @@
   "id": 1902,
   "unit_id": 19,
   "order_in_unit": 1,
-  "title": "Perfective Aspect Intro",
-  "description": "Discover the difference between imperfective and perfective verb pairs (psát/napsat, číst/přečíst, dělat/udělat, kupovat/koupit). Learn how perfective verbs express completed actions in the past and how their present-tense forms actually express future meaning (napíšu = I will write). Practice using both aspects correctly.",
+  "title": "How the Past Tense Works",
+  "description": "Learn to form the past, when to use šel or jel, and the five verb pairs for finished actions.",
   "duration_min": 15,
   "lesson_type": "practice",
+  "can_do": "form the past tense of common verbs, including šel and jel.",
+  "new_language": [
+    "dělal jsem / dělala jsem",
+    "šel, šla / jel, jela",
+    "vařil × uvařil"
+  ],
+  "recycles": [
+    "včera",
+    "o víkendu",
+    "doma",
+    "do kina"
+  ],
+  "exit_task": "say two things you did yesterday.",
+  "is_review": false,
+  "format": 2,
   "exercises": [
     {
-      "id": 19013,
+      "id": 19047,
+      "lesson_id": 1902,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "What did you write?",
+        "instruction": "Without looking at your page, write three time words from Lesson A. Then check.",
+        "items": [
+          {
+            "cz": "včera",
+            "en": "yesterday"
+          },
+          {
+            "cz": "předevčírem",
+            "en": "the day before yesterday"
+          },
+          {
+            "cz": "minulý týden",
+            "en": "last week"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 19060,
+      "lesson_id": 1902,
+      "type": "teaching",
+      "prompt": "The past: -l plus jsem",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-180",
+        "rule_step": 1,
+        "heading": "The past: -l plus jsem",
+        "items": [
+          {
+            "cz": "Včera jsem byla doma.",
+            "en": "Yesterday I (f.) was at home."
+          },
+          {
+            "cz": "Petr pracoval v sobotu.",
+            "en": "Petr worked on Saturday."
+          }
+        ],
+        "say": "Take the verb, drop -t and add -l: dělat → dělal. Add jsem, jsi, jsme or jste. For he, she and they, add nothing.",
+        "table": [
+          [
+            "já",
+            "dělal jsem / dělala jsem"
+          ],
+          [
+            "ty",
+            "dělal jsi / dělala jsi"
+          ],
+          [
+            "on / ona",
+            "dělal / dělala"
+          ],
+          [
+            "my",
+            "dělali jsme"
+          ],
+          [
+            "vy",
+            "dělali jste"
+          ],
+          [
+            "oni",
+            "dělali"
+          ],
+          [
+            "být",
+            "byl, byla, byli"
+          ],
+          [
+            "mít",
+            "měl, měla, měli"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Včera jsem byla doma.",
+            "en": "Yesterday I (f.) was at home."
+          },
+          {
+            "cz": "Petr pracoval v sobotu.",
+            "en": "Petr worked on Saturday."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Jsem byl včera doma.",
+          "right": "Včera jsem byl doma."
+        },
+        "step": 1,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 19061,
       "lesson_id": 1902,
       "type": "multiple_choice",
-      "prompt": "Which verb is the perfective pair of 'psát' (to write)?",
+      "prompt": "Quick check",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Které sloveso je dokonavý (perfektivní) protějšek slovesa 'psát'?",
-        "question_en": "Which verb is the perfective pair of 'psát' (to write)?",
-        "options": ["napsat", "popsat", "přepsat", "zapsat"],
+        "mode": "check",
+        "question_cz": "Včera jsem ___ doma. (pracovat — a woman speaking)",
+        "question_en": "Yesterday I (f.) worked at home.",
+        "options": [
+          "pracovala",
+          "pracoval",
+          "pracovali"
+        ],
         "correct_index": 0,
-        "explanation": "'Napsat' is the basic perfective pair of 'psát'. The prefix 'na-' makes it perfective: psát (was writing) → napsat (wrote/has written). Other prefixed forms add meaning: popsat = to describe, přepsat = to rewrite, zapsat = to note down."
+        "explanation": "A woman speaking: -la, and jsem because it is “I”."
       },
-      "answer_key": "napsat",
-      "grammar_rule_id": "GR-182",
+      "answer_key": "pracovala",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-180"
+    },
+    {
+      "id": 19062,
+      "lesson_id": 1902,
+      "type": "teaching",
+      "prompt": "Going: šel on foot, jel by vehicle",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-181",
+        "rule_step": 1,
+        "heading": "Going: šel on foot, jel by vehicle",
+        "items": [
+          {
+            "cz": "Šla jsem do kina.",
+            "en": "I (f.) went to the cinema."
+          },
+          {
+            "cz": "Jeli jsme vlakem do Brna.",
+            "en": "We went to Brno by train."
+          }
+        ],
+        "say": "jít means going on foot and jet going by bus, car or train. Both are irregular in the past.",
+        "table": [
+          [
+            "jít (on foot)",
+            "šel, šla, šli"
+          ],
+          [
+            "jet (by vehicle)",
+            "jel, jela, jeli"
+          ],
+          [
+            "přijít (arrive)",
+            "přišel, přišla, přišli"
+          ],
+          [
+            "odjet (leave)",
+            "odjel, odjela, odjeli"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Šla jsem do kina.",
+            "en": "I (f.) went to the cinema."
+          },
+          {
+            "cz": "Jeli jsme vlakem do Brna.",
+            "en": "We went to Brno by train."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Jel jsem do práce pěšky.",
+          "right": "Šel jsem do práce pěšky."
+        },
+        "step": 2,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 19063,
+      "lesson_id": 1902,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Petr ___ do kina pěšky.",
+        "question_en": "Petr walked to the cinema.",
+        "options": [
+          "šel",
+          "jel",
+          "šla"
+        ],
+        "correct_index": 0,
+        "explanation": "On foot is jít → šel; Petr is a man."
+      },
+      "answer_key": "šel",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-181"
+    },
+    {
+      "id": 19064,
+      "lesson_id": 1902,
+      "type": "teaching",
+      "prompt": "Two verbs for one action",
+      "data": {
+        "type": "teaching",
+        "style": "lecture",
+        "grammar_rule_id": "GR-182",
+        "rule_step": 1,
+        "heading": "Two verbs for one action",
+        "items": [
+          {
+            "cz": "Vařil jsem večeři hodinu.",
+            "en": "I was cooking dinner for an hour."
+          },
+          {
+            "cz": "Uvařil jsem večeři a šel jsem ven.",
+            "en": "I cooked dinner and went out."
+          }
+        ],
+        "say": "Many verbs come in pairs. Use the first for the process or a habit; use the second when the action was finished.",
+        "table": [
+          [
+            "dělat",
+            "udělat"
+          ],
+          [
+            "psát",
+            "napsat"
+          ],
+          [
+            "číst",
+            "přečíst"
+          ],
+          [
+            "vařit",
+            "uvařit"
+          ],
+          [
+            "kupovat",
+            "koupit"
+          ]
+        ],
+        "examples": [
+          {
+            "cz": "Vařil jsem večeři hodinu.",
+            "en": "I was cooking dinner for an hour."
+          },
+          {
+            "cz": "Uvařil jsem večeři a šel jsem ven.",
+            "en": "I cooked dinner and went out."
+          }
+        ],
+        "common_mistake": {
+          "wrong": "Každý den jsem napsal e-mail.",
+          "right": "Každý den jsem psal e-mail."
+        },
+        "step": 3,
+        "steps": 3
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 19065,
+      "lesson_id": 1902,
+      "type": "multiple_choice",
+      "prompt": "Quick check",
+      "data": {
+        "type": "multiple_choice",
+        "mode": "check",
+        "question_cz": "Celou hodinu jsem ___ večeři.",
+        "question_en": "I was cooking dinner for a whole hour.",
+        "options": [
+          "vařil",
+          "uvařil"
+        ],
+        "correct_index": 0,
+        "explanation": "For a whole hour describes the process: vařil."
+      },
+      "answer_key": "vařil",
+      "xp_reward": 0,
+      "grammar_rule_id": "GR-182"
+    },
+    {
+      "id": 19048,
+      "lesson_id": 1902,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "The Pattern box",
+        "instruction": "In the Pattern box, write the rule in your own words and the table for dělat. Then add být, jít and jet.",
+        "items": [
+          {
+            "cz": "dělal jsem / dělala jsem",
+            "en": "I did"
+          },
+          {
+            "cz": "dělali jsme",
+            "en": "we did"
+          },
+          {
+            "cz": "byl, šel, jel",
+            "en": "was, went (on foot), went (by vehicle)"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 19050,
+      "lesson_id": 1902,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "A man speaking: byl + jsem.",
+        "sentence": "Včera jsem ___ doma. (být — a man speaking)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "byl"
+          ]
+        ],
+        "explanation": "být → byl"
+      },
+      "answer_key": "byl",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-180"
+    },
+    {
+      "id": 19051,
+      "lesson_id": 1902,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "jít is irregular: šel, šla, šli.",
+        "sentence": "Ona ___ do práce. (jít)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "šla"
+          ]
+        ],
+        "explanation": "She went: šla."
+      },
+      "answer_key": "šla",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-181"
+    },
+    {
+      "id": 19052,
+      "lesson_id": 1902,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "We: -li + jsme.",
+        "sentence": "My jsme ___ film. (vidět)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "viděli"
+          ]
+        ],
+        "explanation": "vidět → viděli jsme"
+      },
+      "answer_key": "viděli",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-180"
+    },
+    {
+      "id": 19053,
+      "lesson_id": 1902,
+      "type": "fill_blank",
+      "prompt": "Guided practice",
+      "data": {
+        "type": "fill_blank",
+        "mode": "guided",
+        "hint": "A woman speaking; the letter was finished.",
+        "sentence": "Nejdřív jsem ___ dopis a potom jsem šla domů. (napsat)",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "napsala"
+          ]
+        ],
+        "explanation": "napsat → napsala"
+      },
+      "answer_key": "napsala",
+      "xp_reward": 5,
+      "grammar_rule_id": "GR-182"
+    },
+    {
+      "id": 19054,
+      "lesson_id": 1902,
+      "type": "pronunciation",
+      "prompt": "Say it",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Včera jsem byla doma.",
+        "focus_sounds": [
+          "first_syllable_stress"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Yesterday I (f.) was at home."
+      },
+      "answer_key": "Včera jsem byla doma.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-180"
+    },
+    {
+      "id": 19001,
+      "lesson_id": 1902,
+      "type": "multiple_choice",
+      "prompt": "What is the correct past tense form for 'já' (I, masculine) with the verb 'dělat'?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je správný tvar minulého času pro 'já' (mužský rod) se slovesem 'dělat'?",
+        "question_en": "What is the correct past tense form for 'I' (masculine) with the verb 'dělat'?",
+        "options": [
+          "dělal",
+          "dělala",
+          "dělalo",
+          "dělali"
+        ],
+        "correct_index": 0,
+        "explanation": "Masculine singular (já/on) → -l ending: dělal jsem = I did/made. The past tense is formed with the -l participle + auxiliary 'být' (jsem, jsi, jsme, jste). 'Dělala' is feminine, 'dělalo' is neuter, 'dělali' is masculine animate plural."
+      },
+      "answer_key": "dělal",
+      "grammar_rule_id": "GR-180",
       "xp_reward": 10
     },
     {
-      "id": 19014,
+      "id": 19007,
+      "lesson_id": 1902,
+      "type": "multiple_choice",
+      "prompt": "What is the correct past form of 'jít' for 'ona' (she)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Jaký je správný tvar minulého času slovesa 'jít' pro 'ona'?",
+        "question_en": "What is the correct past form of 'jít' for 'she'?",
+        "options": [
+          "šel",
+          "šla",
+          "šlo",
+          "šly"
+        ],
+        "correct_index": 1,
+        "explanation": "'Jít' (to go) is an irregular motion verb: šel (masc.), šla (fem.), šlo (neut.), šli (masc. animate pl.), šly (fem. pl. & masc. inanimate pl.), šla (neuter pl.). 'Ona šla.' = She went."
+      },
+      "answer_key": "šla",
+      "grammar_rule_id": "GR-181",
+      "xp_reward": 10
+    },
+    {
+      "id": 19008,
       "lesson_id": 1902,
       "type": "fill_blank",
-      "prompt": "Complete with the perfective verb: 'I read the whole book.' (přečíst)",
+      "prompt": "Complete with the past form of 'jít': 'They (mixed group) went home.'",
       "data": {
         "type": "fill_blank",
-        "sentence": "___ jsem celou knihu. (přečíst — I read the whole book, completed action)",
+        "sentence": "Oni ___ domů. (jít — They went home.)",
         "blank_count": 1,
-        "explanation": "'Přečetl jsem' = I read (and finished). 'Přečíst' is the perfective pair of 'číst'. Perfective expresses a completed action: 'přečetl jsem celou knihu' = I read the whole book (finished it). Imperfective 'četl jsem knihu' = I was reading a book (no completion).",
+        "explanation": "Masculine animate plural → šli. 'Oni šli domů.' = They went home. The irregular motion verb pattern: šel, šla, šlo, šli, šly, šla. Other similar verbs: jet → jel/jela/jelo/jeli/jely/jela (to go by vehicle).",
         "blank_answers": [
-          ["Přečetl"]
+          [
+            "šli"
+          ]
         ]
       },
-      "answer_key": "Přečetl",
-      "grammar_rule_id": "GR-182",
+      "answer_key": "šli",
+      "grammar_rule_id": "GR-181",
       "xp_reward": 15
     },
     {
@@ -65,180 +538,24 @@
       "xp_reward": 10
     },
     {
-      "id": 19016,
-      "lesson_id": 1902,
-      "type": "multiple_choice",
-      "prompt": "What does the perfective present-tense form 'napíšu' mean?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Co znamená dokonavý tvar 'napíšu'?",
-        "question_en": "What does the perfective form 'napíšu' mean?",
-        "options": ["I will write", "I am writing", "I write (regularly)", "I would write"],
-        "correct_index": 0,
-        "explanation": "'Napíšu' = I will write. This is a KEY rule: perfective verbs CANNOT express present tense! Their present-tense forms automatically express FUTURE meaning. So 'napíšu' (looks like present) = I'll write (future). 'Píšu' (imperfective) = I am writing (present)."
-      },
-      "answer_key": "I will write",
-      "grammar_rule_id": "GR-183",
-      "xp_reward": 10
-    },
-    {
-      "id": 19017,
-      "lesson_id": 1902,
-      "type": "fill_blank",
-      "prompt": "Complete with the perfective future form: 'I'll read it tomorrow.' (přečíst)",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Zítra to ___ . (přečíst — I'll read it, complete action)",
-        "blank_count": 1,
-        "explanation": "'Přečtu' is the perfective present form of 'přečíst' and it expresses future: 'Zítra to přečtu.' = I'll read it tomorrow (and finish it). Pattern: perfective present = future. Compare: 'čtu' (imperfective present) = I am reading, 'přečtu' (perfective present) = I will read.",
-        "blank_answers": [
-          ["přečtu"]
-        ]
-      },
-      "answer_key": "přečtu",
-      "grammar_rule_id": "GR-183",
-      "xp_reward": 15
-    },
-    {
-      "id": 19018,
-      "lesson_id": 1902,
-      "type": "multiple_choice",
-      "prompt": "What is the perfective pair of 'dělat' (to do/make)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Jaký je dokonavý protějšek slovesa 'dělat'?",
-        "question_en": "What is the perfective pair of 'dělat'?",
-        "options": ["udělat", "dodělat", "předělat", "nadělat"],
-        "correct_index": 0,
-        "explanation": "'Udělat' is the basic perfective pair of 'dělat'. The prefix 'u-' is one of the most common perfectivizers: dělat (was doing) → udělat (did/has done). 'Dodělat' = to finish making, 'předělat' = to redo, 'nadělat' = to make a lot of."
-      },
-      "answer_key": "udělat",
-      "grammar_rule_id": "GR-182",
-      "xp_reward": 10
-    },
-    {
-      "id": 19019,
+      "id": 19006,
       "lesson_id": 1902,
       "type": "translation",
-      "prompt": "Translate to Czech: 'I (male) will do it today.' (Udělat — completed action in future)",
+      "prompt": "Translate to Czech: 'I (female speaker) went to the store.'",
       "data": {
         "type": "translation",
         "direction": "en_to_cz",
-        "source": "I will do it today. (male speaker, completed action)",
-        "accepted_answers": ["Udělám to dnes.", "Dnes to udělám.", "Já to udělám dnes."],
-        "grammar_note": "'Udělám' is the perfective present form of 'udělat'. Since perfective verbs cannot express present, this form means 'I will do (and finish)'. 'Dělám to dnes' (imperfective) = I'm doing it today (may not finish)."
-      },
-      "answer_key": "Udělám to dnes.",
-      "grammar_rule_id": "GR-183",
-      "xp_reward": 10
-    },
-    {
-      "id": 19020,
-      "lesson_id": 1902,
-      "type": "multiple_choice",
-      "prompt": "Which verb pair shows the imperfective → perfective relationship for 'buy'?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která dvojice ukazuje vztah nedokonavé → dokonavé pro 'buy'?",
-        "question_en": "Which pair shows imperfective → perfective for 'buy'?",
-        "options": ["kupovat / koupit", "koupit / kupovat", "kupovat / nakupovat", "koupit / nakoupit"],
-        "correct_index": 0,
-        "explanation": "'Kupovat' (imperfective) → 'koupit' (perfective). Unlike most pairs that use a prefix, this pair uses a completely different verb stem (suppletion). 'Kupuju' = I'm buying (present), 'Koupím' = I'll buy (future, because perfective present = future)."
-      },
-      "answer_key": "kupovat / koupit",
-      "grammar_rule_id": "GR-182",
-      "xp_reward": 10
-    },
-    {
-      "id": 19021,
-      "lesson_id": 1902,
-      "type": "fill_blank",
-      "prompt": "Choose the correct aspect: 'I was buying bread when... (ongoing action)'",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ jsem chleba, když jsem potkal kamaráda. (kupovat/koupit — I was buying bread when I met a friend)",
-        "blank_count": 1,
-        "explanation": "Use imperfective 'kupoval' here because it describes an ongoing background action. The perfective 'koupil' would mean the buying was completed before meeting the friend. Typical pattern: imperfective (ongoing) + když + perfective (interruption).",
-        "blank_answers": [
-          ["Kupoval"]
-        ]
-      },
-      "answer_key": "Kupoval",
-      "grammar_rule_id": "GR-182",
-      "xp_reward": 15
-    },
-    {
-      "id": 19022,
-      "lesson_id": 1902,
-      "type": "translation",
-      "prompt": "Translate to Czech: 'She wrote the letter and sent it.' (both completed actions)",
-      "data": {
-        "type": "translation",
-        "direction": "en_to_cz",
-        "source": "She wrote the letter and sent it.",
-        "accepted_answers": ["Napsala dopis a poslala ho.", "Ona napsala dopis a poslala ho."],
-        "grammar_note": "Both actions are completed → both use perfective past: 'napsala' (napsat) and 'poslala' (poslat, perfective of posílat). Sequence of completed actions = perfective chain. 'Napsala dopis a poslala ho.' — each verb signals a finished step."
-      },
-      "answer_key": "Napsala dopis a poslala ho.",
-      "grammar_rule_id": "GR-182",
-      "xp_reward": 10
-    },
-    {
-      "id": 19023,
-      "lesson_id": 1902,
-      "type": "multiple_choice",
-      "prompt": "Which sentence means 'I will buy it tomorrow' (completed purchase)?",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta znamená 'I will buy it tomorrow' (dokončený nákup)?",
-        "question_en": "Which sentence means 'I will buy it tomorrow' (completed purchase)?",
-        "options": [
-          "Koupím to zítra.",
-          "Kupuju to zítra.",
-          "Kupoval jsem to zítra.",
-          "Budu kupovat to zítra."
+        "source": "I went to the store. (female speaker)",
+        "accepted_answers": [
+          "Šla jsem do obchodu.",
+          "Šla jsem do krámu.",
+          "Já jsem šla do obchodu."
         ],
-        "correct_index": 0,
-        "explanation": "'Koupím to zítra.' = I'll buy it tomorrow. 'Koupím' is the perfective present of 'koupit' → it expresses future. 'Kupuju' (imperfective present) cannot mean future. 'Budu kupovat' = I will be buying (imperfective future, ongoing process). Perfective is the natural choice for a one-time completed purchase."
+        "grammar_note": "Motion verb 'jít' (to go) → past tense 'šel/šla/šlo'. Feminine speaker → 'šla jsem'. The auxiliary 'jsem' is used for 1st person singular. 'Do obchodu' = to the store (genitive after 'do')."
       },
-      "answer_key": "Koupím to zítra.",
-      "grammar_rule_id": "GR-183",
+      "answer_key": "Šla jsem do obchodu.",
+      "grammar_rule_id": "GR-181",
       "xp_reward": 10
-    },
-    {
-      "id": 19024,
-      "lesson_id": 1902,
-      "type": "dialogue",
-      "prompt": "Complete the conversation using both aspects correctly.",
-      "data": {
-        "type": "dialogue",
-        "scenario": "Doma — At home",
-        "lines": [
-          {
-            "speaker": "person_a",
-            "text": "Co jsi dělal včera večer?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "___"
-          },
-          {
-            "speaker": "person_a",
-            "text": "A přečetl jsi tu knihu?"
-          },
-          {
-            "speaker": "person_b",
-            "text": "Ještě ne. Přečtu ji zítra."
-          }
-        ],
-        "explanation": "Person B uses both aspects: 'Psal jsem úkol' (imperfective — was writing, process) then 'už jsem ho napsal' (perfective — finished it). Then 'Přečtu ji zítra' (perfective present = future: I'll read it). Key pattern: process (impf.) → completion (pf.); future intention (pf. present).",
-        "blank_answers": [
-          ["Psal jsem úkol. Ale už jsem ho napsal.", "Psal jsem úkol, ale už jsem ho napsal.", "Psal jsem úkol. Už jsem ho napsal."]
-        ]
-      },
-      "answer_key": "Psal jsem úkol. Ale už jsem ho napsal.",
-      "grammar_rule_id": "GR-183",
-      "xp_reward": 20
     }
   ]
 }

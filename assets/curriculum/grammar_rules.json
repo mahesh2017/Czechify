@@ -586,7 +586,48 @@
           "note": "kniha → knihu"
         }
       ],
-      "unit_id": 6
+      "unit_id": 6,
+      "concept_keys": [
+        "noun_acc_sg_all_genders"
+      ],
+      "lecture": [
+        {
+          "heading": "Feminine words: -a becomes -u",
+          "say": "What you order or want is the object of the sentence. Feminine words ending in -a change that -a to -u.",
+          "table": [
+            [
+              "káva",
+              "Dám si kávu."
+            ],
+            [
+              "voda",
+              "Dám si vodu."
+            ],
+            [
+              "polévka",
+              "Dám si polévku."
+            ],
+            [
+              "limonáda",
+              "Dám si limonádu."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dám si kávu a vodu.",
+              "en": "I'll have a coffee and water."
+            },
+            {
+              "cz": "Máte polévku?",
+              "en": "Do you have soup?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dám si káva.",
+            "right": "Dám si kávu."
+          }
+        }
+      ]
     },
     {
       "id": "GR-051",
@@ -646,7 +687,48 @@
           "note": "no object needed"
         }
       ],
-      "unit_id": 6
+      "unit_id": 6,
+      "concept_keys": [
+        "noun_acc_sg_all_genders"
+      ],
+      "lecture": [
+        {
+          "heading": "Masculine things stay the same",
+          "say": "Masculine words for things, like čaj or chleba, do not change when you order them.",
+          "table": [
+            [
+              "čaj",
+              "Dám si čaj."
+            ],
+            [
+              "chleba",
+              "Dám si chleba."
+            ],
+            [
+              "rohlík",
+              "Dám si rohlík."
+            ],
+            [
+              "sýr",
+              "Dám si sýr."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dám si čaj a rohlík.",
+              "en": "I'll have a tea and a roll."
+            },
+            {
+              "cz": "Máte chleba?",
+              "en": "Do you have bread?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dám si čaju.",
+            "right": "Dám si čaj."
+          }
+        }
+      ]
     },
     {
       "id": "GR-053",
@@ -676,7 +758,48 @@
           "note": "okno = same"
         }
       ],
-      "unit_id": 6
+      "unit_id": 6,
+      "concept_keys": [
+        "noun_acc_sg_all_genders"
+      ],
+      "lecture": [
+        {
+          "heading": "Neuter words stay the same too",
+          "say": "Neuter words, which usually end in -o or -e, do not change either: pivo, víno, mléko.",
+          "table": [
+            [
+              "pivo",
+              "Dám si pivo."
+            ],
+            [
+              "víno",
+              "Dám si víno."
+            ],
+            [
+              "mléko",
+              "Chci mléko."
+            ],
+            [
+              "jablko",
+              "Chci jablko."
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Dám si pivo, prosím.",
+              "en": "I'll have a beer, please."
+            },
+            {
+              "cz": "Máte víno?",
+              "en": "Do you have wine?"
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Dám si pivu.",
+            "right": "Dám si pivo."
+          }
+        }
+      ]
     },
     {
       "id": "GR-060",
@@ -1879,7 +2002,64 @@
           "en": "We had a good time."
         }
       ],
-      "unit_id": 19
+      "unit_id": 19,
+      "concept_keys": [
+        "past_tense"
+      ],
+      "lecture": [
+        {
+          "heading": "The past: -l plus jsem",
+          "say": "Take the verb, drop -t and add -l: dělat → dělal. Add jsem, jsi, jsme or jste. For he, she and they, add nothing.",
+          "table": [
+            [
+              "já",
+              "dělal jsem / dělala jsem"
+            ],
+            [
+              "ty",
+              "dělal jsi / dělala jsi"
+            ],
+            [
+              "on / ona",
+              "dělal / dělala"
+            ],
+            [
+              "my",
+              "dělali jsme"
+            ],
+            [
+              "vy",
+              "dělali jste"
+            ],
+            [
+              "oni",
+              "dělali"
+            ],
+            [
+              "být",
+              "byl, byla, byli"
+            ],
+            [
+              "mít",
+              "měl, měla, měli"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Včera jsem byla doma.",
+              "en": "Yesterday I (f.) was at home."
+            },
+            {
+              "cz": "Petr pracoval v sobotu.",
+              "en": "Petr worked on Saturday."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jsem byl včera doma.",
+            "right": "Včera jsem byl doma."
+          }
+        }
+      ]
     },
     {
       "id": "GR-181",
@@ -1901,7 +2081,48 @@
           "en": "I didn't eat meat."
         }
       ],
-      "unit_id": 19
+      "unit_id": 19,
+      "concept_keys": [
+        "past_tense"
+      ],
+      "lecture": [
+        {
+          "heading": "Going: šel on foot, jel by vehicle",
+          "say": "jít means going on foot and jet going by bus, car or train. Both are irregular in the past.",
+          "table": [
+            [
+              "jít (on foot)",
+              "šel, šla, šli"
+            ],
+            [
+              "jet (by vehicle)",
+              "jel, jela, jeli"
+            ],
+            [
+              "přijít (arrive)",
+              "přišel, přišla, přišli"
+            ],
+            [
+              "odjet (leave)",
+              "odjel, odjela, odjeli"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Šla jsem do kina.",
+              "en": "I (f.) went to the cinema."
+            },
+            {
+              "cz": "Jeli jsme vlakem do Brna.",
+              "en": "We went to Brno by train."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Jel jsem do práce pěšky.",
+            "right": "Šel jsem do práce pěšky."
+          }
+        }
+      ]
     },
     {
       "id": "GR-182",
@@ -1923,7 +2144,52 @@
           "en": "Have you read that book yet? (perfective, result)"
         }
       ],
-      "unit_id": 19
+      "unit_id": 19,
+      "concept_keys": [
+        "aspect_frequent_pairs"
+      ],
+      "lecture": [
+        {
+          "heading": "Two verbs for one action",
+          "say": "Many verbs come in pairs. Use the first for the process or a habit; use the second when the action was finished.",
+          "table": [
+            [
+              "dělat",
+              "udělat"
+            ],
+            [
+              "psát",
+              "napsat"
+            ],
+            [
+              "číst",
+              "přečíst"
+            ],
+            [
+              "vařit",
+              "uvařit"
+            ],
+            [
+              "kupovat",
+              "koupit"
+            ]
+          ],
+          "examples": [
+            {
+              "cz": "Vařil jsem večeři hodinu.",
+              "en": "I was cooking dinner for an hour."
+            },
+            {
+              "cz": "Uvařil jsem večeři a šel jsem ven.",
+              "en": "I cooked dinner and went out."
+            }
+          ],
+          "common_mistake": {
+            "wrong": "Každý den jsem napsal e-mail.",
+            "right": "Každý den jsem psal e-mail."
+          }
+        }
+      ]
     },
     {
       "id": "GR-183",

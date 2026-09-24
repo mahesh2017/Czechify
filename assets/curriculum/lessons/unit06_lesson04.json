@@ -3,7 +3,7 @@
   "unit_id": 6,
   "order_in_unit": 3,
   "title": "Mission: Order Two Items",
-  "description": "Combine greeting, availability, ordering, repair, and thanks in one café mission.",
+  "description": "Put it together: greet, check what they have, order food and a drink, and thank them.",
   "can_do": "complete a short café order even when one item changes.",
   "new_language": [
     "Dobrý den.",
@@ -12,16 +12,15 @@
     "Děkuju. Na shledanou."
   ],
   "recycles": [
-    "Dobrý den",
-    "Máte…?",
-    "Ano/Ne",
-    "Prosím",
-    "Nerozumím"
+    "kávu, vodu, polévku",
+    "Bohužel nemáme",
+    "Tak si dám…"
   ],
-  "exit_task": "complete a short café order even when one item changes.",
-  "duration_min": 12,
+  "exit_task": "record a polite two-item café order.",
+  "duration_min": 13,
   "lesson_type": "mission",
   "is_review": true,
+  "format": 2,
   "exercises": [
     {
       "id": 6300,
@@ -31,8 +30,8 @@
       "data": {
         "type": "teaching",
         "style": "list",
-        "heading": "Mission: Order Two Items",
-        "body": "Combine greeting, availability, ordering, repair, and thanks in one café mission.",
+        "heading": "Your mission",
+        "body": "Close your notebook. Greet, ask what they have, order one food and one drink, and close politely. If something is missing, choose something else.",
         "play_all_label": "Hear the useful chunks",
         "items": [
           {
@@ -69,15 +68,6 @@
         "image_label": "Polite request pattern and common object-form changes",
         "questions": [
           {
-            "question_en": "Which lesson situation does this recording belong to?",
-            "options": [
-              "Mission: Order Two Items",
-              "Asking for directions",
-              "Talking about the weather"
-            ],
-            "correct_index": 0
-          },
-          {
             "question_en": "Which two items are ordered?",
             "options": [
               "Soup and tea",
@@ -85,8 +75,18 @@
               "Water and bread"
             ],
             "correct_index": 0
+          },
+          {
+            "question_en": "How does the customer end?",
+            "options": [
+              "Děkuju.",
+              "Na zdraví.",
+              "Promiňte."
+            ],
+            "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Soup and tea",
       "xp_reward": 15
@@ -114,148 +114,28 @@
             "correct_index": 0
           },
           {
-            "question_en": "Which text best summarizes the situation?",
+            "question_en": "What is on the order?",
             "options": [
-              "Order: one soup, one tea. Price: 145 CZK.",
-              "The people are asking for directions.",
-              "The speaker is describing the weather."
+              "One soup and one tea",
+              "Two soups",
+              "One tea only"
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "145 CZK",
-      "xp_reward": 15
-    },
-    {
-      "id": 6303,
-      "lesson_id": 604,
-      "type": "matching",
-      "prompt": "Match the Czech chunks to their meanings",
-      "data": {
-        "type": "matching",
-        "pairs": [
-          {
-            "left": "Dobrý den.",
-            "right": "Hello."
-          },
-          {
-            "left": "Máte…?",
-            "right": "Do you have…?"
-          },
-          {
-            "left": "Dám si…, prosím.",
-            "right": "I will have…, please."
-          },
-          {
-            "left": "Děkuju. Na shledanou.",
-            "right": "Thank you. Goodbye."
-          }
-        ],
-        "explanation": "Keep each useful Czech chunk connected to its meaning."
-      },
-      "answer_key": "Dobrý den.–Hello.; Máte…?–Do you have…?; Dám si…, prosím.–I will have…, please.; Děkuju. Na shledanou.–Thank you. Goodbye.",
-      "xp_reward": 10
-    },
-    {
-      "id": 6304,
-      "lesson_id": 604,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "Dobrý den.",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "Dobrý den.",
-      "xp_reward": 10
-    },
-    {
-      "id": 6305,
-      "lesson_id": 604,
-      "type": "fill_blank",
-      "prompt": "Complete the useful chunk",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "___ den.",
-        "blank_count": 1,
-        "blank_answers": [
-          [
-            "Dobrý"
-          ]
-        ],
-        "explanation": "Retrieve the missing word from the complete chunk."
-      },
-      "answer_key": "Dobrý",
-      "xp_reward": 10
-    },
-    {
-      "id": 6306,
-      "lesson_id": 604,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "Máte…?"
-        ],
-        "correct_order": [
-          0
-        ],
-        "translation_en": "Do you have…?",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "Máte…?",
-      "xp_reward": 10
-    },
-    {
-      "id": 6307,
-      "lesson_id": 604,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Dám si…, prosím.",
-        "language": "cs-CZ",
-        "note": "Listen for the full phrase before typing."
-      },
-      "answer_key": "Dám si…, prosím.",
-      "xp_reward": 10
-    },
-    {
-      "id": 6308,
-      "lesson_id": 604,
-      "type": "pronunciation",
-      "prompt": "Rehearse a useful phrase",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Děkuju. Na shledanou.",
-        "focus_sounds": [
-          "first_syllable_stress",
-          "vowel_length"
-        ],
-        "min_score": 0.5,
-        "translation_en": "Thank you. Goodbye."
-      },
-      "answer_key": "Děkuju. Na shledanou.",
       "xp_reward": 15
     },
     {
       "id": 6309,
       "lesson_id": 604,
       "type": "dialogue",
-      "prompt": "Complete and hear the short exchange",
+      "prompt": "The whole order",
       "data": {
         "type": "dialogue",
-        "scenario": "Mission: Order Two Items",
+        "scenario": "Order soup and tea, then confirm that is everything.",
         "image": "assets/images/unit06/request_pattern_v1.webp",
         "image_label": "Polite request pattern and common object-form changes",
         "lines": [
@@ -278,15 +158,40 @@
         ],
         "blank_answers": [
           [
-            "Dobrý den."
+            "Dám si polévku a čaj.",
+            "Dám si polévku a čaj, prosím.",
+            "Polévku a čaj, prosím."
           ],
           [
-            "Máte…?"
+            "Ano, děkuju.",
+            "Ano, to je všechno.",
+            "Ano, to je všechno, děkuju."
           ]
         ],
-        "explanation": "Use complete chunks that answer each partner cue."
+        "explanation": "polévka → polévku; čaj does not change.",
+        "targets": "vocab"
       },
-      "answer_key": "Dobrý den. | Máte…?",
+      "answer_key": "Dám si polévku a čaj.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-050"
+    },
+    {
+      "id": 6308,
+      "lesson_id": 604,
+      "type": "pronunciation",
+      "prompt": "Rehearse a useful phrase",
+      "data": {
+        "type": "pronunciation",
+        "target_text": "Děkuju. Na shledanou.",
+        "focus_sounds": [
+          "first_syllable_stress",
+          "vowel_length"
+        ],
+        "min_score": 0.5,
+        "translation_en": "Thank you. Goodbye.",
+        "targets": "vocab"
+      },
+      "answer_key": "Děkuju. Na shledanou.",
       "xp_reward": 15
     },
     {
@@ -306,7 +211,8 @@
           "Dám si…, prosím.",
           "Děkuju. Na shledanou."
         ],
-        "sample_answer": "Dobrý den. Máte…? Dám si…, prosím. Děkuju. Na shledanou."
+        "sample_answer": "Dobrý den. Máte…? Dám si…, prosím. Děkuju. Na shledanou.",
+        "targets": "vocab"
       },
       "answer_key": "Dobrý den. Máte…? Dám si…, prosím. Děkuju. Na shledanou.",
       "xp_reward": 0
@@ -329,10 +235,44 @@
           "Máte…?",
           "Dám si…, prosím.",
           "Děkuju. Na shledanou."
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Dobrý den. Máte…? Dám si…, prosím. Děkuju. Na shledanou.",
       "xp_reward": 20
+    },
+    {
+      "id": 6312,
+      "lesson_id": 604,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "unit_check",
+        "heading": "Check your Unit 6 page",
+        "instruction": "Open your notebook and compare your page with the model. Add anything missing, correct any mistakes, then tick your Check box.",
+        "items": [
+          {
+            "cz": "Dám si kávu. / Máte polévku?",
+            "en": "I'll have a coffee. / Do you have soup?"
+          },
+          {
+            "cz": "káva → kávu, voda → vodu",
+            "en": "feminine -a → -u"
+          },
+          {
+            "cz": "čaj, chleba, pivo",
+            "en": "masculine and neuter: no change"
+          },
+          {
+            "cz": "Bohužel nemáme. → Tak si dám čaj.",
+            "en": "Sorry, we have none. → Then I will have tea."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
     }
   ]
 }

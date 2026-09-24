@@ -11,6 +11,10 @@ void main() {
         final lessons = <Map<String, dynamic>>[
           for (var lesson = 1; lesson <= 4; lesson++) _readLesson(unit, lesson),
         ];
+        // Units rebuilt for v1.2 (format 2) follow a different lesson shape —
+        // lectures, checks, guided practice and notebook steps, with fewer
+        // scored items — and are held to test/curriculum_v12_contract_test.dart.
+        if (lessons.every((lesson) => lesson['format'] == 2)) continue;
 
         expect(lessons.map((lesson) => lesson['order_in_unit']), [0, 1, 2, 3]);
         expect(lessons.every((lesson) => lesson['duration_min'] == 12), isTrue);

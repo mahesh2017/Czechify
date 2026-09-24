@@ -3,13 +3,15 @@
   "unit_id": 6,
   "order_in_unit": 0,
   "title": "At the Café Counter",
-  "description": "Understand a simple café exchange and request food and drink politely.",
+  "description": "Hear a café order, then learn the phrases that get you food and a drink.",
   "can_do": "order one food and one drink politely.",
   "new_language": [
     "Dám si kávu.",
     "Dám si čaj.",
     "Vodu, prosím.",
-    "Máte polévku?"
+    "Máte polévku?",
+    "Dejte mi vodu, prosím.",
+    "Můžu platit kartou?"
   ],
   "recycles": [
     "Dobrý den",
@@ -22,7 +24,44 @@
   "duration_min": 12,
   "lesson_type": "introduction",
   "is_review": false,
+  "format": 2,
   "exercises": [
+    {
+      "id": 6001,
+      "lesson_id": 601,
+      "type": "listening_comprehension",
+      "prompt": "Warm-up: listen and guess",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "You have not learned this yet. Listen and guess what is happening.",
+        "transcript_cz": "Dobrý den. Máte polévku? Ano. Dám si polévku a vodu, prosím.",
+        "image": "assets/images/unit06/cafe_counter_v1.webp",
+        "image_label": "Polite request pattern and common object-form changes",
+        "questions": [
+          {
+            "question_en": "Where are the speakers?",
+            "options": [
+              "At a café counter",
+              "At a train station",
+              "At the doctor's"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What does the customer order to drink?",
+            "options": [
+              "Water",
+              "Coffee",
+              "Tea"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "mode": "predict"
+      },
+      "answer_key": "Water",
+      "xp_reward": 0
+    },
     {
       "id": 6000,
       "lesson_id": 601,
@@ -31,17 +70,58 @@
       "data": {
         "type": "teaching",
         "style": "list",
-        "heading": "At the Café Counter",
-        "body": "Understand a simple café exchange and request food and drink politely.",
+        "heading": "Phrases for the counter",
+        "body": "Dám si… means “I'll have…”, the polite way to order. Máte…? asks whether they have something. The last two help with water and paying.",
         "play_all_label": "Hear the useful chunks",
         "items": [
           {
             "cz": "Dám si kávu.",
-            "en": "I will have coffee."
+            "en": "I'll have a coffee."
           },
           {
             "cz": "Dám si čaj.",
-            "en": "I will have tea."
+            "en": "I'll have a tea."
+          },
+          {
+            "cz": "Vodu, prosím.",
+            "en": "Water, please."
+          },
+          {
+            "cz": "Máte polévku?",
+            "en": "Do you have soup?"
+          },
+          {
+            "cz": "Dejte mi vodu, prosím.",
+            "en": "Give me water, please."
+          },
+          {
+            "cz": "Můžu platit kartou?",
+            "en": "Can I pay by card?"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 6013,
+      "lesson_id": 601,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "capture",
+        "heading": "Start your Unit 6 page",
+        "instruction": "Write “Unit 6 — Co si dáte?” at the top of a new page. Then, from memory, write four café phrases and what they mean.",
+        "items": [
+          {
+            "cz": "Dám si kávu.",
+            "en": "I'll have a coffee."
+          },
+          {
+            "cz": "Dám si čaj.",
+            "en": "I'll have a tea."
           },
           {
             "cz": "Vodu, prosím.",
@@ -57,38 +137,144 @@
       "xp_reward": 0
     },
     {
-      "id": 6001,
+      "id": 6003,
       "lesson_id": 601,
-      "type": "listening_comprehension",
-      "prompt": "Listen for meaning and one detail",
+      "type": "matching",
+      "prompt": "Match the Czech chunks to their meanings",
       "data": {
-        "type": "listening_comprehension",
-        "prompt_en": "Listen first for the situation, then for the requested detail.",
-        "transcript_cz": "Dobrý den. Máte polévku? Ano. Dám si polévku a vodu, prosím.",
-        "image": "assets/images/unit06/cafe_counter_v1.webp",
-        "image_label": "Polite request pattern and common object-form changes",
-        "questions": [
+        "type": "matching",
+        "pairs": [
           {
-            "question_en": "Which lesson situation does this recording belong to?",
-            "options": [
-              "At the Café Counter",
-              "Asking for directions",
-              "Talking about the weather"
-            ],
-            "correct_index": 0
+            "left": "Dám si kávu.",
+            "right": "I'll have a coffee."
           },
           {
-            "question_en": "What does the customer order to drink?",
-            "options": [
-              "Water",
-              "Coffee",
-              "Tea"
-            ],
-            "correct_index": 0
+            "left": "Dám si čaj.",
+            "right": "I'll have a tea."
+          },
+          {
+            "left": "Vodu, prosím.",
+            "right": "Water, please."
+          },
+          {
+            "left": "Máte polévku?",
+            "right": "Do you have soup?"
+          },
+          {
+            "left": "Dejte mi vodu, prosím.",
+            "right": "Give me water, please."
+          },
+          {
+            "left": "Můžu platit kartou?",
+            "right": "Can I pay by card?"
           }
-        ]
+        ],
+        "explanation": "Keep each useful Czech chunk connected to its meaning.",
+        "targets": "vocab"
       },
-      "answer_key": "Water",
+      "answer_key": "Dám si kávu.–I will have coffee.; Dám si čaj.–I will have tea.; Vodu, prosím.–Water, please.; Máte polévku?–Do you have soup?",
+      "xp_reward": 10
+    },
+    {
+      "id": 6005,
+      "lesson_id": 601,
+      "type": "fill_blank",
+      "prompt": "Complete the useful chunk",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Dám ___ kávu.",
+        "blank_count": 1,
+        "blank_answers": [
+          [
+            "si"
+          ]
+        ],
+        "explanation": "Retrieve the missing word from the complete chunk.",
+        "targets": "vocab"
+      },
+      "answer_key": "si",
+      "xp_reward": 10
+    },
+    {
+      "id": 6006,
+      "lesson_id": 601,
+      "type": "word_order",
+      "prompt": "Build a natural Czech sentence",
+      "data": {
+        "type": "word_order",
+        "words": [
+          "čaj.",
+          "si",
+          "Dám"
+        ],
+        "correct_order": [
+          2,
+          1,
+          0
+        ],
+        "translation_en": "I will have tea.",
+        "explanation": "Rebuild the complete phrase in natural Czech order.",
+        "targets": "vocab"
+      },
+      "answer_key": "Dám si čaj.",
+      "xp_reward": 10
+    },
+    {
+      "id": 6007,
+      "lesson_id": 601,
+      "type": "dictation",
+      "prompt": "Listen and type the key sentence",
+      "data": {
+        "type": "dictation",
+        "expected_text": "Vodu, prosím.",
+        "language": "cs-CZ",
+        "note": "Listen for the full phrase before typing.",
+        "targets": "vocab"
+      },
+      "answer_key": "Vodu, prosím.",
+      "xp_reward": 10
+    },
+    {
+      "id": 6009,
+      "lesson_id": 601,
+      "type": "dialogue",
+      "prompt": "Order at the counter",
+      "data": {
+        "type": "dialogue",
+        "scenario": "At a café: order a coffee, then ask whether they have soup.",
+        "image": "assets/images/unit06/cafe_counter_v1.webp",
+        "image_label": "Polite request pattern and common object-form changes",
+        "lines": [
+          {
+            "speaker": "partner",
+            "text": "Dobrý den. Co si dáte?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "partner",
+            "text": "A něco k jídlu?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Dám si kávu.",
+            "Dám si kávu, prosím.",
+            "Kávu, prosím."
+          ],
+          [
+            "Máte polévku?"
+          ]
+        ],
+        "explanation": "Dám si kávu orders the coffee; Máte polévku? asks whether they have soup."
+      },
+      "answer_key": "Dám si kávu.",
       "xp_reward": 15
     },
     {
@@ -114,206 +300,19 @@
             "correct_index": 0
           },
           {
-            "question_en": "Which text best summarizes the situation?",
+            "question_en": "Which drinks are on offer?",
             "options": [
-              "Today we have tomato soup, chicken with rice, coffee, tea, and water.",
-              "The people are asking for directions.",
-              "The speaker is describing the weather."
+              "Coffee, tea and water",
+              "Beer and wine",
+              "Only water"
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Chicken with rice",
       "xp_reward": 15
-    },
-    {
-      "id": 6003,
-      "lesson_id": 601,
-      "type": "matching",
-      "prompt": "Match the Czech chunks to their meanings",
-      "data": {
-        "type": "matching",
-        "pairs": [
-          {
-            "left": "Dám si kávu.",
-            "right": "I will have coffee."
-          },
-          {
-            "left": "Dám si čaj.",
-            "right": "I will have tea."
-          },
-          {
-            "left": "Vodu, prosím.",
-            "right": "Water, please."
-          },
-          {
-            "left": "Máte polévku?",
-            "right": "Do you have soup?"
-          }
-        ],
-        "explanation": "Keep each useful Czech chunk connected to its meaning."
-      },
-      "answer_key": "Dám si kávu.–I will have coffee.; Dám si čaj.–I will have tea.; Vodu, prosím.–Water, please.; Máte polévku?–Do you have soup?",
-      "xp_reward": 10
-    },
-    {
-      "id": 6004,
-      "lesson_id": 601,
-      "type": "multiple_choice",
-      "prompt": "Choose the phrase that completes the lesson goal",
-      "data": {
-        "type": "multiple_choice",
-        "question_cz": "Která věta se hodí do této situace?",
-        "question_en": "Which phrase belongs in this lesson situation?",
-        "options": [
-          "Dám si kávu.",
-          "Je tam nádraží.",
-          "Dnes prší.",
-          "Kolik to stojí?"
-        ],
-        "correct_index": 0,
-        "explanation": "Choose the phrase that performs this lesson’s communicative goal."
-      },
-      "answer_key": "Dám si kávu.",
-      "xp_reward": 10
-    },
-    {
-      "id": 6005,
-      "lesson_id": 601,
-      "type": "fill_blank",
-      "prompt": "Complete the useful chunk",
-      "data": {
-        "type": "fill_blank",
-        "sentence": "Dám ___ kávu.",
-        "blank_count": 1,
-        "blank_answers": [
-          [
-            "si"
-          ]
-        ],
-        "explanation": "Retrieve the missing word from the complete chunk."
-      },
-      "answer_key": "si",
-      "xp_reward": 10
-    },
-    {
-      "id": 6006,
-      "lesson_id": 601,
-      "type": "word_order",
-      "prompt": "Build a natural Czech sentence",
-      "data": {
-        "type": "word_order",
-        "words": [
-          "čaj.",
-          "si",
-          "Dám"
-        ],
-        "correct_order": [
-          2,
-          1,
-          0
-        ],
-        "translation_en": "I will have tea.",
-        "explanation": "Rebuild the complete phrase in natural Czech order."
-      },
-      "answer_key": "Dám si čaj.",
-      "xp_reward": 10
-    },
-    {
-      "id": 6007,
-      "lesson_id": 601,
-      "type": "dictation",
-      "prompt": "Listen and type the key sentence",
-      "data": {
-        "type": "dictation",
-        "expected_text": "Vodu, prosím.",
-        "language": "cs-CZ",
-        "note": "Listen for the full phrase before typing."
-      },
-      "answer_key": "Vodu, prosím.",
-      "xp_reward": 10
-    },
-    {
-      "id": 6008,
-      "lesson_id": 601,
-      "type": "pronunciation",
-      "prompt": "Rehearse a useful phrase",
-      "data": {
-        "type": "pronunciation",
-        "target_text": "Máte polévku?",
-        "focus_sounds": [
-          "first_syllable_stress",
-          "vowel_length"
-        ],
-        "min_score": 0.5,
-        "translation_en": "Do you have soup?"
-      },
-      "answer_key": "Máte polévku?",
-      "xp_reward": 15
-    },
-    {
-      "id": 6009,
-      "lesson_id": 601,
-      "type": "dialogue",
-      "prompt": "Complete and hear the short exchange",
-      "data": {
-        "type": "dialogue",
-        "scenario": "At the Café Counter",
-        "image": "assets/images/unit06/cafe_counter_v1.webp",
-        "image_label": "Polite request pattern and common object-form changes",
-        "lines": [
-          {
-            "speaker": "partner",
-            "text": "Dobrý den. Co si dáte?"
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          },
-          {
-            "speaker": "partner",
-            "text": "A co k pití?"
-          },
-          {
-            "speaker": "you",
-            "text": "___"
-          }
-        ],
-        "blank_answers": [
-          [
-            "Dám si kávu."
-          ],
-          [
-            "Dám si čaj."
-          ]
-        ],
-        "explanation": "Use complete chunks that answer each partner cue."
-      },
-      "answer_key": "Dám si kávu. | Dám si čaj.",
-      "xp_reward": 15
-    },
-    {
-      "id": 6010,
-      "lesson_id": 601,
-      "type": "writing_task",
-      "prompt": "Write a useful personal response",
-      "data": {
-        "type": "writing_task",
-        "prompt_en": "Write a polite café order with one food and one drink.",
-        "prompt_cz": "Napište krátkou odpověď česky.",
-        "min_words": 4,
-        "max_words": 40,
-        "key_vocab": [
-          "Dám si kávu.",
-          "Dám si čaj.",
-          "Vodu, prosím.",
-          "Máte polévku?"
-        ],
-        "sample_answer": "Dám si kávu. Dám si čaj. Vodu, prosím. Máte polévku?"
-      },
-      "answer_key": "Dám si kávu. Dám si čaj. Vodu, prosím. Máte polévku?",
-      "xp_reward": 0
     },
     {
       "id": 6011,
@@ -334,7 +333,8 @@
             ],
             "correct_index": 0
           }
-        ]
+        ],
+        "targets": "vocab"
       },
       "answer_key": "Two",
       "xp_reward": 15

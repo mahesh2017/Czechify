@@ -712,7 +712,7 @@
     "unit_id": 19,
     "example_cz": "Kdysi jsem tu bydlel.",
     "example_en": "I once lived here.",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1065,
@@ -723,7 +723,7 @@
     "unit_id": 19,
     "example_cz": "Už jsem to udělal.",
     "example_en": "I already did it.",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1066,
@@ -734,7 +734,7 @@
     "unit_id": 19,
     "example_cz": "Ještě jsem nesnídal.",
     "example_en": "I haven't had breakfast yet.",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1067,
@@ -745,18 +745,7 @@
     "unit_id": 19,
     "example_cz": "Nikdy jsem tam nebyl.",
     "example_en": "I've never been there.",
-    "lesson_id": 1901
-  },
-  {
-    "id": 1068,
-    "word_cz": "zažít",
-    "word_en": "to experience",
-    "ipa": "ˈzaʒiːt",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Zažil jsem to.",
-    "example_en": "I experienced it.",
-    "lesson_id": 1902
+    "lesson_id": 1904
   },
   {
     "id": 1069,
@@ -778,7 +767,7 @@
     "unit_id": 19,
     "example_cz": "Setkal jsem se s ním.",
     "example_en": "I met with him.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1071,
@@ -789,7 +778,7 @@
     "unit_id": 19,
     "example_cz": "Narodil jsem se v Praze.",
     "example_en": "I was born in Prague.",
-    "lesson_id": 1901
+    "lesson_id": 1902
   },
   {
     "id": 1072,
@@ -800,18 +789,7 @@
     "unit_id": 19,
     "example_cz": "Zemřel v roce 2000.",
     "example_en": "He died in 2000.",
-    "lesson_id": 1902
-  },
-  {
-    "id": 1073,
-    "word_cz": "vyrůst",
-    "word_en": "to grow up",
-    "ipa": "ˈvɪruːst",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Vyrostl jsem na venkově.",
-    "example_en": "I grew up in the countryside.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1074,
@@ -822,7 +800,7 @@
     "unit_id": 19,
     "example_cz": "Odjel do Brna.",
     "example_en": "He left for Brno.",
-    "lesson_id": 1902
+    "lesson_id": 1903
   },
   {
     "id": 1075,
@@ -2318,7 +2296,7 @@
     "unit_id": 19,
     "example_cz": "O víkendu jsem byl doma.",
     "example_en": "Over the weekend I was at home.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1211,
@@ -2329,7 +2307,7 @@
     "unit_id": 19,
     "example_cz": "V létě jsme byli u moře.",
     "example_en": "In the summer we were at the sea.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1212,
@@ -2340,7 +2318,7 @@
     "unit_id": 19,
     "example_cz": "V zimě bylo moc sněhu.",
     "example_en": "In the winter there was a lot of snow.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1213,
@@ -2351,7 +2329,7 @@
     "unit_id": 19,
     "example_cz": "Na podzim jsme sbírali houby.",
     "example_en": "In the autumn we picked mushrooms.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1214,
@@ -2362,7 +2340,7 @@
     "unit_id": 19,
     "example_cz": "Na jaře kvetly stromy.",
     "example_en": "In the spring the trees bloomed.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1215,
@@ -2373,7 +2351,7 @@
     "unit_id": 19,
     "example_cz": "Včera jsem dělal úkol.",
     "example_en": "Yesterday I did my homework.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1216,
@@ -2384,7 +2362,7 @@
     "unit_id": 19,
     "example_cz": "Četl jsem zajímavou knihu.",
     "example_en": "I read an interesting book.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1217,
@@ -2395,7 +2373,7 @@
     "unit_id": 19,
     "example_cz": "Vařil jsem oběd.",
     "example_en": "I cooked lunch.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1218,
@@ -2406,7 +2384,7 @@
     "unit_id": 19,
     "example_cz": "Viděl jsem ho včera.",
     "example_en": "I saw him yesterday.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1219,
@@ -2417,7 +2395,7 @@
     "unit_id": 19,
     "example_cz": "Slyšel jsem zprávy.",
     "example_en": "I heard the news.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1220,
@@ -2428,7 +2406,7 @@
     "unit_id": 19,
     "example_cz": "Šel jsem domů.",
     "example_en": "I went home.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1221,
@@ -2439,7 +2417,7 @@
     "unit_id": 19,
     "example_cz": "Jel jsem do Prahy.",
     "example_en": "I went to Prague.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1222,
@@ -2450,7 +2428,7 @@
     "unit_id": 19,
     "example_cz": "Byl jsem v kině.",
     "example_en": "I was at the cinema.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1223,
@@ -2461,7 +2439,7 @@
     "unit_id": 19,
     "example_cz": "Měl jsem hodně práce.",
     "example_en": "I had a lot of work.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1224,
@@ -2472,7 +2450,7 @@
     "unit_id": 19,
     "example_cz": "Chtěl jsem koupit auto.",
     "example_en": "I wanted to buy a car.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1225,
@@ -2483,7 +2461,7 @@
     "unit_id": 19,
     "example_cz": "Musel jsem odejít.",
     "example_en": "I had to leave.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1226,
@@ -2494,7 +2472,7 @@
     "unit_id": 19,
     "example_cz": "Mohl jsem ti pomoct.",
     "example_en": "I could help you.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1227,
@@ -2505,7 +2483,7 @@
     "unit_id": 19,
     "example_cz": "Věděl jsem odpověď.",
     "example_en": "I knew the answer.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1228,
@@ -2538,7 +2516,7 @@
     "unit_id": 19,
     "example_cz": "Prodal jsem staré auto.",
     "example_en": "I sold the old car.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1231,
@@ -2549,7 +2527,7 @@
     "unit_id": 19,
     "example_cz": "Hrál jsem fotbal.",
     "example_en": "I played football.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1232,
@@ -2560,7 +2538,7 @@
     "unit_id": 19,
     "example_cz": "Zpívali jsme píseň.",
     "example_en": "We sang a song.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1233,
@@ -2571,7 +2549,7 @@
     "unit_id": 19,
     "example_cz": "Tančil jsem s ní.",
     "example_en": "I danced with her.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1234,
@@ -2582,7 +2560,7 @@
     "unit_id": 19,
     "example_cz": "Stalo se to minulý týden.",
     "example_en": "It happened last week.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1235,
@@ -2593,7 +2571,7 @@
     "unit_id": 19,
     "example_cz": "Nejdřív jsme šli do obchodu.",
     "example_en": "First we went to the shop.",
-    "lesson_id": 1902
+    "lesson_id": 1901
   },
   {
     "id": 1236,
@@ -2604,7 +2582,7 @@
     "unit_id": 19,
     "example_cz": "Pak jsme šli domů.",
     "example_en": "Then we went home.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1237,
@@ -2615,7 +2593,7 @@
     "unit_id": 19,
     "example_cz": "Potom jsme si odpočali.",
     "example_en": "Afterwards we rested.",
-    "lesson_id": 1902
+    "lesson_id": 1901
   },
   {
     "id": 1238,
@@ -2626,7 +2604,7 @@
     "unit_id": 19,
     "example_cz": "Nakonec jsme to dokázali.",
     "example_en": "In the end we managed it.",
-    "lesson_id": 1902
+    "lesson_id": 1901
   },
   {
     "id": 1239,
@@ -2681,7 +2659,7 @@
     "unit_id": 19,
     "example_cz": "Pomohl mi s úkolem.",
     "example_en": "He helped me with the homework.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1244,
@@ -2692,7 +2670,7 @@
     "unit_id": 19,
     "example_cz": "Dal mi peníze.",
     "example_en": "He gave me money.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1245,
@@ -6443,7 +6421,7 @@
     "unit_id": 19,
     "example_cz": "Včera jsem byl v kině.",
     "example_en": "Yesterday I was at the cinema.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1586,
@@ -6454,7 +6432,7 @@
     "unit_id": 19,
     "example_cz": "Minulý týden jsem pracoval doma.",
     "example_en": "Last week I worked from home.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1587,
@@ -6465,7 +6443,7 @@
     "unit_id": 19,
     "example_cz": "Před týdnem jsem byl v Praze.",
     "example_en": "A week ago I was in Prague.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1588,
@@ -6487,7 +6465,7 @@
     "unit_id": 19,
     "example_cz": "Dříve jsem bydlel v Brně.",
     "example_en": "Earlier I lived in Brno.",
-    "lesson_id": 1901
+    "lesson_id": 1904
   },
   {
     "id": 1590,
@@ -6498,7 +6476,7 @@
     "unit_id": 19,
     "example_cz": "Tehdy jsem byl student.",
     "example_en": "At that time I was a student.",
-    "lesson_id": 1901
+    "lesson_id": 1904
   },
   {
     "id": 1591,
@@ -6509,7 +6487,7 @@
     "unit_id": 19,
     "example_cz": "Předevčírem pršelo.",
     "example_en": "It rained the day before yesterday.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1592,
@@ -6520,18 +6498,7 @@
     "unit_id": 19,
     "example_cz": "Vždycky jsem chtěl jet do Prahy.",
     "example_en": "I always wanted to go to Prague.",
-    "lesson_id": 1901
-  },
-  {
-    "id": 1593,
-    "word_cz": "dávno",
-    "word_en": "long ago",
-    "ipa": "ˈdaːvno",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Dávno jsem tam nebyl.",
-    "example_en": "I haven't been there for a long time.",
-    "lesson_id": 1901
+    "lesson_id": 1904
   },
   {
     "id": 1594,
@@ -6542,7 +6509,7 @@
     "unit_id": 19,
     "example_cz": "Kdysi tu byl hrad.",
     "example_en": "Once there was a castle here.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1595,
@@ -6553,7 +6520,7 @@
     "unit_id": 19,
     "example_cz": "Na začátku roku jsem měl nový plán.",
     "example_en": "At the beginning of the year I had a new plan.",
-    "lesson_id": 1901
+    "lesson_id": 1904
   },
   {
     "id": 1596,
@@ -6564,7 +6531,7 @@
     "unit_id": 19,
     "example_cz": "Na konci filmu jsem brečel.",
     "example_en": "At the end of the film I cried.",
-    "lesson_id": 1901
+    "lesson_id": 1904
   },
   {
     "id": 1597,
@@ -6575,7 +6542,7 @@
     "unit_id": 19,
     "example_cz": "Co se stalo včera?",
     "example_en": "What happened yesterday?",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1598,
@@ -6586,7 +6553,7 @@
     "unit_id": 19,
     "example_cz": "Mám špatnou paměť na jména.",
     "example_en": "I have a bad memory for names.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1599,
@@ -6597,7 +6564,7 @@
     "unit_id": 19,
     "example_cz": "Mám hezké vzpomínky na dětství.",
     "example_en": "I have nice memories of childhood.",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1600,
@@ -6608,7 +6575,7 @@
     "unit_id": 19,
     "example_cz": "Vyprávěl jsem mu příběh.",
     "example_en": "I told him a story.",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1601,
@@ -6619,7 +6586,7 @@
     "unit_id": 19,
     "example_cz": "Byla to důležitá událost.",
     "example_en": "It was an important event.",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1602,
@@ -6630,18 +6597,7 @@
     "unit_id": 19,
     "example_cz": "Vrátil jsem se zpět do Prahy.",
     "example_en": "I returned back to Prague.",
-    "lesson_id": 1901
-  },
-  {
-    "id": 1603,
-    "word_cz": "zmizet",
-    "word_en": "to disappear",
-    "ipa": "ˈzmɪsɛt",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Klíče zmizely z mé kapsy.",
-    "example_en": "The keys disappeared from my pocket.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1604,
@@ -6652,7 +6608,7 @@
     "unit_id": 19,
     "example_cz": "Objevil jsem novou kavárnu v centru.",
     "example_en": "I discovered a new cafe in the center.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1605,

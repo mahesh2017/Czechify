@@ -1,0 +1,55 @@
+{
+  "description": "Content taken out of the A1/A2 course because it is beyond the official scope (docs/sources/SCOPE_REVIEW_2026-09-24.md). Kept with original IDs, unit and lesson for a future B1 course. Not loaded by the app.",
+  "vocabulary": [
+    {
+      "id": 1068,
+      "word_cz": "zažít",
+      "word_en": "to experience",
+      "ipa": "ˈzaʒiːt",
+      "gender": null,
+      "unit_id": 19,
+      "example_cz": "Zažil jsem to.",
+      "example_en": "I experienced it.",
+      "lesson_id": 1902,
+      "parked_reason": "Not in the official A1/A2 word list; B1 narrative vocabulary."
+    },
+    {
+      "id": 1073,
+      "word_cz": "vyrůst",
+      "word_en": "to grow up",
+      "ipa": "ˈvɪruːst",
+      "gender": null,
+      "unit_id": 19,
+      "example_cz": "Vyrostl jsem na venkově.",
+      "example_en": "I grew up in the countryside.",
+      "lesson_id": 1902,
+      "parked_reason": "Not in the official A1/A2 word list; B1 narrative vocabulary."
+    },
+    {
+      "id": 1593,
+      "word_cz": "dávno",
+      "word_en": "long ago",
+      "ipa": "ˈdaːvno",
+      "gender": null,
+      "unit_id": 19,
+      "example_cz": "Dávno jsem tam nebyl.",
+      "example_en": "I haven't been there for a long time.",
+      "lesson_id": 1901,
+      "parked_reason": "Not in the official A1/A2 word list; B1 narrative vocabulary."
+    },
+    {
+      "id": 1603,
+      "word_cz": "zmizet",
+      "word_en": "to disappear",
+      "ipa": "ˈzmɪsɛt",
+      "gender": null,
+      "unit_id": 19,
+      "example_cz": "Klíče zmizely z mé kapsy.",
+      "example_en": "The keys disappeared from my pocket.",
+      "lesson_id": 1901,
+      "parked_reason": "Not in the official A1/A2 word list; B1 narrative vocabulary."
+    }
+  ],
+  "exercises": [],
+  "grammar_rules": []
+}

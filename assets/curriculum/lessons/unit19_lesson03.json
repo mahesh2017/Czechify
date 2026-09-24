@@ -1,10 +1,357 @@
-{"id":1903,"unit_id":19,"title":"Tell a Weekend Story","description":"Understand and tell a short past-tense story with clear time markers.","lesson_type":"practice","order_in_unit":2,"duration_min":12,"is_review":false,"exercises":[
-{"id":19025,"lesson_id":1903,"type":"teaching","prompt":"Build a simple past story","data":{"type":"teaching","style":"list","heading":"Time + person + action","body":"Start with a time word, then use the past form that matches the person.","items":[{"cz":"Včera jsem byla doma.","en":"Yesterday I was at home."},{"cz":"Petr šel do kina.","en":"Petr went to the cinema."},{"cz":"O víkendu jsme četli.","en":"At the weekend we read."}]},"answer_key":"past chunks","xp_reward":0},
-{"id":19026,"lesson_id":1903,"type":"listening_comprehension","prompt":"Listen to the weekend story","data":{"type":"listening_comprehension","prompt_en":"What did the speaker do on Saturday?","transcript_cz":"V sobotu jsem byla s kamarády v Praze. Šli jsme do kina a potom jsme jedli v malé restauraci.","questions":[{"question_en":"Where were they?","options":["In Prague","At work","At school"],"correct_index":0},{"question_en":"What did they do after the cinema?","options":["They ate in a restaurant","They travelled home","They studied"],"correct_index":0}]},"answer_key":"Prague; ate","xp_reward":15},
-{"id":19027,"lesson_id":1903,"type":"reading_comprehension","prompt":"Read the photo story","data":{"type":"reading_comprehension","prompt_en":"Follow the events in order.","image":"assets/images/unit19/weekend_story_v1.webp","image_label":"Friends looking back at a weekend","text_cz":"Minulý víkend jsme měli volno. V pátek jsme byli v divadle, v sobotu jsme navštívili Karlův most a v neděli jsem zůstala doma a četla knihu.","text_en":"Last weekend we had free time. On Friday we were at the theatre, on Saturday we visited Charles Bridge, and on Sunday I stayed home and read a book.","questions":[{"question_en":"What happened on Saturday?","options":["They visited Charles Bridge","They read at home","They went to work"],"correct_index":0},{"question_en":"Who stayed home on Sunday?","options":["The speaker","Everyone","Nobody"],"correct_index":0}]},"answer_key":"Charles Bridge; speaker","xp_reward":15},
-{"id":19028,"lesson_id":1903,"type":"matching","prompt":"Match past-time phrases","data":{"type":"matching","pairs":[{"left":"včera","right":"yesterday"},{"left":"minulý víkend","right":"last weekend"},{"left":"šla","right":"she went"},{"left":"četli jsme","right":"we read"}]},"answer_key":"past phrases","xp_reward":10},
-{"id":19029,"lesson_id":1903,"type":"fill_blank","prompt":"Complete the story","data":{"type":"fill_blank","sentence":"Včera jsem ___ do kina a potom jsem ___ večeři.","blank_count":2,"blank_answers":[["šla"],["jedla"]]},"answer_key":"šla | jedla","xp_reward":10},
-{"id":19030,"lesson_id":1903,"type":"dialogue","prompt":"Ask about yesterday","data":{"type":"dialogue","scenario":"Two friends catch up","lines":[{"speaker":"friend","text":"Co jsi dělala včera?"},{"speaker":"you","text":"___"}],"blank_answers":[["Byla jsem v kině.","Šla jsem do kina."]]},"answer_key":"Byla jsem v kině.","xp_reward":15},
-{"id":19031,"lesson_id":1903,"type":"writing_task","prompt":"Write a mini weekend story","data":{"type":"writing_task","prompt_en":"Write 2–3 past-tense sentences about yesterday or last weekend.","prompt_cz":"Napište krátký příběh v minulém čase.","min_words":10,"max_words":45,"key_vocab":["včera","byl/a jsem","šel/šla jsem"],"sample_answer":"Včera jsem byla v Praze. Šla jsem do kina a potom jsem jedla večeři."},"answer_key":"weekend story","xp_reward":0},
-{"id":19032,"lesson_id":1903,"type":"speaking_task","prompt":"Tell the story aloud","data":{"type":"speaking_task","prompt_en":"Record 15–25 seconds about one completed day.","prompt_cz":"Nahrajte krátký příběh v minulém čase.","min_duration_seconds":15,"max_duration_seconds":30,"expected_phrases":["včera/minulý","byl/a","pak/potom"]},"answer_key":"past story","xp_reward":20}
-]}
+{
+  "id": 1903,
+  "unit_id": 19,
+  "title": "Tell a Weekend Story",
+  "description": "Put events in order with first, then and in the evening, and tell your own weekend.",
+  "lesson_type": "practice",
+  "order_in_unit": 2,
+  "duration_min": 13,
+  "is_review": false,
+  "can_do": "tell a short story in the past with first, then and in the evening.",
+  "new_language": [
+    "nejdřív",
+    "potom",
+    "večer",
+    "přečetl jsem",
+    "napsala jsem"
+  ],
+  "recycles": [
+    "včera",
+    "byl/a jsem",
+    "šel/šla jsem",
+    "v kině",
+    "v Praze"
+  ],
+  "exit_task": "write three sentences about last weekend.",
+  "format": 2,
+  "exercises": [
+    {
+      "id": 19055,
+      "lesson_id": 1903,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "recall",
+        "heading": "Cover your page",
+        "instruction": "Cover your notebook. Write “I was” and “we went” in Czech, both forms for “I”. Then one line from Unit 18: where do you live? (Bydlím v…)",
+        "items": [
+          {
+            "cz": "byl jsem / byla jsem",
+            "en": "I was"
+          },
+          {
+            "cz": "šli jsme",
+            "en": "we went (on foot)"
+          },
+          {
+            "cz": "Bydlím v…",
+            "en": "I live in…"
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 19025,
+      "lesson_id": 1903,
+      "type": "teaching",
+      "prompt": "Build a simple past story",
+      "data": {
+        "type": "teaching",
+        "style": "list",
+        "heading": "Time + person + action",
+        "body": "Start with when, then who did what: Včera jsem… Potom jsme… Večer… The time word comes first and jsem stays second.",
+        "items": [
+          {
+            "cz": "Včera jsem byla doma.",
+            "en": "Yesterday I was at home."
+          },
+          {
+            "cz": "Petr šel do kina.",
+            "en": "Petr went to the cinema."
+          },
+          {
+            "cz": "O víkendu jsme četli.",
+            "en": "At the weekend we read."
+          }
+        ]
+      },
+      "answer_key": "past chunks",
+      "xp_reward": 0
+    },
+    {
+      "id": 19056,
+      "lesson_id": 1903,
+      "type": "teaching",
+      "prompt": "Notebook",
+      "data": {
+        "type": "teaching",
+        "style": "notebook",
+        "kind": "my_sentences",
+        "heading": "My sentences",
+        "instruction": "In the My sentences box, write two true sentences about last weekend: one with a process verb, one with a finished one.",
+        "items": [
+          {
+            "cz": "V sobotu jsem byla na výletě.",
+            "en": "On Saturday I (f.) was on a trip."
+          },
+          {
+            "cz": "Včera jsem uvařil večeři a potom jsem četl.",
+            "en": "Yesterday I (m.) cooked dinner and then I read."
+          }
+        ]
+      },
+      "answer_key": "",
+      "xp_reward": 0
+    },
+    {
+      "id": 19029,
+      "lesson_id": 1903,
+      "type": "fill_blank",
+      "prompt": "Complete the story",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "Včera jsem ___ do kina a potom jsem ___ večeři.",
+        "blank_count": 2,
+        "blank_answers": [
+          [
+            "šla",
+            "šel"
+          ],
+          [
+            "jedla",
+            "jedl"
+          ]
+        ]
+      },
+      "answer_key": "šla | jedla",
+      "xp_reward": 10,
+      "grammar_rule_id": "GR-181"
+    },
+    {
+      "id": 19013,
+      "lesson_id": 1903,
+      "type": "multiple_choice",
+      "prompt": "Which verb is the perfective pair of 'psát' (to write)?",
+      "data": {
+        "type": "multiple_choice",
+        "question_cz": "Které sloveso je dokonavý (perfektivní) protějšek slovesa 'psát'?",
+        "question_en": "Which verb is the perfective pair of 'psát' (to write)?",
+        "options": [
+          "napsat",
+          "popsat",
+          "přepsat",
+          "zapsat"
+        ],
+        "correct_index": 0,
+        "explanation": "'Napsat' is the basic perfective pair of 'psát'. The prefix 'na-' makes it perfective: psát (was writing) → napsat (wrote/has written). Other prefixed forms add meaning: popsat = to describe, přepsat = to rewrite, zapsat = to note down."
+      },
+      "answer_key": "napsat",
+      "grammar_rule_id": "GR-182",
+      "xp_reward": 10
+    },
+    {
+      "id": 19014,
+      "lesson_id": 1903,
+      "type": "fill_blank",
+      "prompt": "Complete with the perfective verb: 'I read the whole book.' (přečíst)",
+      "data": {
+        "type": "fill_blank",
+        "sentence": "___ jsem celou knihu. (přečíst — I read the whole book, completed action)",
+        "blank_count": 1,
+        "explanation": "'Přečetl jsem' = I read (and finished). 'Přečíst' is the perfective pair of 'číst'. Perfective expresses a completed action: 'přečetl jsem celou knihu' = I read the whole book (finished it). Imperfective 'četl jsem knihu' = I was reading a book (no completion).",
+        "blank_answers": [
+          [
+            "Přečetl",
+            "Přečetla"
+          ]
+        ]
+      },
+      "answer_key": "Přečetl",
+      "grammar_rule_id": "GR-182",
+      "xp_reward": 15
+    },
+    {
+      "id": 19022,
+      "lesson_id": 1903,
+      "type": "translation",
+      "prompt": "Translate to Czech: 'She wrote the letter and sent it.' (both completed actions)",
+      "data": {
+        "type": "translation",
+        "direction": "en_to_cz",
+        "source": "She wrote the letter and sent it.",
+        "accepted_answers": [
+          "Napsala dopis a poslala ho.",
+          "Ona napsala dopis a poslala ho."
+        ],
+        "grammar_note": "Both actions are completed → both use perfective past: 'napsala' (napsat) and 'poslala' (poslat, perfective of posílat). Sequence of completed actions = perfective chain. 'Napsala dopis a poslala ho.' — each verb signals a finished step."
+      },
+      "answer_key": "Napsala dopis a poslala ho.",
+      "grammar_rule_id": "GR-182",
+      "xp_reward": 10
+    },
+    {
+      "id": 19027,
+      "lesson_id": 1903,
+      "type": "reading_comprehension",
+      "prompt": "Read the photo story",
+      "data": {
+        "type": "reading_comprehension",
+        "prompt_en": "Follow the events in order.",
+        "image": "assets/images/unit19/weekend_story_v1.webp",
+        "image_label": "Friends looking back at a weekend",
+        "text_cz": "Minulý víkend jsme měli volno. V pátek jsme byli v divadle, v sobotu jsme navštívili Karlův most a v neděli jsem zůstala doma a četla knihu.",
+        "text_en": "Last weekend we had free time. On Friday we were at the theatre, on Saturday we visited Charles Bridge, and on Sunday I stayed home and read a book.",
+        "questions": [
+          {
+            "question_en": "What happened on Saturday?",
+            "options": [
+              "They visited Charles Bridge",
+              "They read at home",
+              "They went to work"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "Who stayed home on Sunday?",
+            "options": [
+              "The speaker",
+              "Everyone",
+              "Nobody"
+            ],
+            "correct_index": 0
+          }
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "Charles Bridge; speaker",
+      "xp_reward": 15
+    },
+    {
+      "id": 19044,
+      "lesson_id": 1903,
+      "type": "listening_comprehension",
+      "prompt": "Listen to her day",
+      "data": {
+        "type": "listening_comprehension",
+        "prompt_en": "Listen for the order of events.",
+        "transcript_cz": "Včera jsem nejdřív uvařila oběd. Potom jsme s Petrem šli na procházku a večer jsme četli.",
+        "questions": [
+          {
+            "question_en": "What did she do first?",
+            "options": [
+              "Cooked lunch",
+              "Went for a walk",
+              "Read"
+            ],
+            "correct_index": 0
+          },
+          {
+            "question_en": "What did they do in the evening?",
+            "options": [
+              "They read",
+              "They cooked",
+              "They went to the cinema"
+            ],
+            "correct_index": 0
+          }
+        ]
+      },
+      "answer_key": "Cooked lunch",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-182"
+    },
+    {
+      "id": 19057,
+      "lesson_id": 1903,
+      "type": "dialogue",
+      "prompt": "What did you do?",
+      "data": {
+        "type": "dialogue",
+        "scenario": "Say you went to the cinema, then that it was great.",
+        "image": "assets/images/unit19/weekend_story_v1.webp",
+        "image_label": "Friends looking back at a weekend",
+        "lines": [
+          {
+            "speaker": "friend",
+            "text": "Co jsi dělal o víkendu?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          },
+          {
+            "speaker": "friend",
+            "text": "A jaké to bylo?"
+          },
+          {
+            "speaker": "you",
+            "text": "___"
+          }
+        ],
+        "blank_answers": [
+          [
+            "Šel jsem do kina.",
+            "Šla jsem do kina.",
+            "Byl jsem v kině.",
+            "Byla jsem v kině."
+          ],
+          [
+            "Bylo to skvělé.",
+            "Skvělé."
+          ]
+        ],
+        "explanation": "šel/šla jsem = I went; Bylo to skvělé = It was great."
+      },
+      "answer_key": "Šel jsem do kina.",
+      "xp_reward": 15,
+      "grammar_rule_id": "GR-181"
+    },
+    {
+      "id": 19031,
+      "lesson_id": 1903,
+      "type": "writing_task",
+      "prompt": "Write a mini weekend story",
+      "data": {
+        "type": "writing_task",
+        "prompt_en": "Write 2–3 past-tense sentences about yesterday or last weekend.",
+        "prompt_cz": "Napište krátký příběh v minulém čase.",
+        "min_words": 10,
+        "max_words": 45,
+        "key_vocab": [
+          "včera",
+          "byl/a jsem",
+          "šel/šla jsem"
+        ],
+        "sample_answer": "Včera jsem byla v Praze. Šla jsem do kina a potom jsem jedla večeři.",
+        "targets": "vocab"
+      },
+      "answer_key": "weekend story",
+      "xp_reward": 0
+    },
+    {
+      "id": 19032,
+      "lesson_id": 1903,
+      "type": "speaking_task",
+      "prompt": "Tell the story aloud",
+      "data": {
+        "type": "speaking_task",
+        "prompt_en": "Record 15–25 seconds about one completed day.",
+        "prompt_cz": "Nahrajte krátký příběh v minulém čase.",
+        "min_duration_seconds": 15,
+        "max_duration_seconds": 30,
+        "expected_phrases": [
+          "včera/minulý",
+          "byl/a",
+          "pak/potom"
+        ],
+        "targets": "vocab"
+      },
+      "answer_key": "past story",
+      "xp_reward": 20
+    }
+  ]
+}

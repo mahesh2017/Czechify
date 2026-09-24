@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../data/services/notebook_store.dart';
@@ -42,9 +43,32 @@ class NotebookStepView extends ConsumerStatefulWidget {
 }
 
 class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
+  /// Set once the learner has seen what the notebook is for. A learner who
+  /// starts partway through the course meets it on whichever notebook step
+  /// comes first, not only in Unit 1.
+  static const introSeenKey = 'notebook_intro_seen';
+
   final _notes = TextEditingController();
   bool _revealed = false;
   bool _closing = false;
+  bool _showIntro = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIntro();
+  }
+
+  Future<void> _checkIntro() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (prefs.getBool(introSeenKey) ?? false) return;
+      if (mounted) setState(() => _showIntro = true);
+      await prefs.setBool(introSeenKey, true);
+    } catch (_) {
+      // Only an introduction; the step works without it.
+    }
+  }
 
   Map<String, dynamic> get _data => widget.exercise.data;
   String get _kind => _data['kind'] as String? ?? 'capture';
@@ -112,6 +136,31 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (_showIntro) ...[
+            SoftCard(
+              shadow: false,
+              color: t.violetSoft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.notebookIntroTitle,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: t.ink,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    l10n.notebookIntroBody,
+                    style: TextStyle(fontSize: 15, height: 1.4, color: t.ink),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 14),
+          ],
           TeachingHeroCard(
             accent: t.violet,
             child: Column(
