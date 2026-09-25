@@ -26,6 +26,7 @@ while (( $# )); do
   esac
 done
 (( ${#units} )) || { echo "usage: assess_unit.sh UNIT… [--out DIR]" >&2; exit 2; }
+mkdir -p $out
 
 echo "== 1. Dry run =="
 $here/dry_run.sh ${units[@]} --out $out

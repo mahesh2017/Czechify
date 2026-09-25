@@ -31,11 +31,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/lesson_session_harness.dart';
 import 'support/localized_app.dart';
+import 'support/pilot_units.dart';
 import 'support/shipped_exercises.dart';
 
-const _lesson = Lesson(
+// Touch targets of the one-page layouts; a unit still on them.
+final _lesson = Lesson(
   id: 1,
-  unitId: 1,
+  unitId: outsidePilotUnit,
   orderInUnit: 1,
   title: 'Greetings',
   description: 'Meet someone',
@@ -85,7 +87,7 @@ void main() {
           czechTtsAvailableProvider.overrideWith((_) async => true),
           czechTtsProvider.overrideWithValue(_SilentTts()),
           continueLessonProvider.overrideWith(
-            (_) async => const NextLessonInfo(
+            (_) async => NextLessonInfo(
               lesson: _lesson,
               unitTitle: 'First conversations',
             ),

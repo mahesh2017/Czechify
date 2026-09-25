@@ -83,7 +83,13 @@ void main() {
     expect(showsAsSlides(of(204, ExerciseType.dialogue)), isTrue);
     expect(showsAsSlides(of(204, ExerciseType.teaching, 'list')), isTrue);
     expect(showsAsSlides(of(202, ExerciseType.teaching, 'lecture')), isTrue);
-    expect(showsAsSlides(of(204, ExerciseType.teaching, 'notebook')), isFalse);
+    expect(showsAsSlides(of(204, ExerciseType.teaching, 'alphabet')), isTrue);
+    // Bounded for its comparison deck; its other screens scroll themselves.
+    expect(showsAsSlides(of(204, ExerciseType.teaching, 'notebook')), isTrue);
+    expect(
+      showsAsSlides(of(204, ExerciseType.teaching, 'image_cards')),
+      isFalse,
+    );
     expect(showsAsSlides(of(203, ExerciseType.multipleChoice)), isFalse);
     expect(
       showsAsSlides(

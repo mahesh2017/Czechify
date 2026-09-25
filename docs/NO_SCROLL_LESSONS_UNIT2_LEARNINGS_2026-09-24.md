@@ -414,7 +414,9 @@ more causes that the exercise measurements cannot see:
 6. **The matching counter under the folded feedback bar** (3103, 3215): "0/6
    matched" sits at the bottom of the exercise.
 7. **A notebook model of five or more rows with typed notes** (3207): the
-   comparison screen runs over once the learner's notes are shown. The 13 near-fits outside Unit 2 (step 4's assessment):
+   comparison screen runs over once the learner's notes are shown.
+
+The 13 near-fits outside Unit 2 (step 4's assessment):
 - matching spacing (1103, 3215, 6403; 6–36 pt);
 - long multiple-choice questions in the display face (19133, 21309);
 - the fill-in-the-blank letter bar with its label (18216, 18217, 18311, 22218);
@@ -422,6 +424,50 @@ more causes that the exercise measurements cannot see:
 - the Unit 1 alphabet grid (1315, 744 pt), which needs packed slides like
   the word lists;
 - the two picture-card steps (1101, 3101, 5 pt).
+
+### Units 1 and 3 switched on (26 Sep)
+
+Both units went on together; every one of their 50 budget entries left the
+list. How each cause was fixed:
+- **Matching counter** (causes 6; 1103, 1307, 1314, 1403, 3103, 3215): the
+  count moved onto the instruction's line. The bottom row went altogether:
+  matching checks itself on the last pair, so its Check button never showed,
+  and the answer sheet already says how it went. That also fixed the 6 pt
+  matching near-fits.
+- **Dialogue replies under the keyboard** (cause 5; 3310, 87 pt): while the
+  keyboard is up a reply slide shows only the gap's line and the one before
+  it. Lines are keyed so the focused field survives lines coming and going.
+- **Notebook comparison** (cause 7; 1102 and 1200 with 8 rows even on paper,
+  3207 typed): `SlideDeck.packed` with `chromeOnlyWhenSeveral`: one plain page
+  when it fits; otherwise the notes, the model a row at a time, and the two
+  answers last. Notebook steps are now in `showsAsSlides` so the lesson gives
+  them a bounded height; their other screens scroll themselves.
+- **Alphabet grid** (1315, 744 pt): packed slides, a row of four letters per
+  block, like the word lists.
+- **Picture cards mixed with phrases** (3101: six pictures, four phrases with
+  neither picture nor sentence; the only such step in the course): the
+  phrases close the step on one word-list page. Spacing 18/20 → 14/16 fixed
+  the 5 pt near-fits (1101, 3101).
+- **Reading reminder** (1404, 20 pt): the repeated passage above a question
+  drops its blank lines and 2 pt of padding.
+- **A long explanation on a right answer** (1215, sheet 275 pt against 240):
+  the content was shortened (199 → 128 characters) and flagged for the
+  teacher.
+
+On the simulator (iPhone 17 Pro; the iPhone SE was not granted): the start
+screen, listening and reading slides, picture cards, the 8-word comparison
+over two slides, matching with the sheet over it, and 3310 typed with the
+keyboard up (only "A co je to?" and the gap; the field kept the keyboard) all
+worked through to the answer sheet. One card per model row wasted room at
+first; the rows are slim cards now. The alphabet was checked by tests only.
+
+Two things the dry run could not see:
+- **The lesson start screen overflowed at 200% text.** Unit 1 is the smoke
+  tests' unit, so switching it on was the first time they saw the start
+  screen. Its fact chips now wrap and the page scrolls at large text.
+- **Eight tests assumed Unit 1 was outside the pilot**, or hosted a step in
+  their own scroll view instead of `LessonExerciseViewport`. They now use
+  `outsidePilotUnit` and the real viewport.
 
 ## 7. Found only by running the app
 
@@ -484,6 +530,15 @@ the feedback sheet, with the keyboard for typed answers.
   alternatives (Jmenuju se / Jmenuji se) as separate phrases to say.
 - **Model answers disagree on the learner's name:** writing uses "Mahesh",
   pronunciation "Alex".
+
+- **1410 (Unit 1 repair card) has the sample answer "Prosím pomalu. Mahesh"**
+  for a task that asks for the learner's own name.
+- **3408 (Unit 3 speaking) says "Use the scene" but has no picture**, and it
+  passes on any one of its nine phrases ("pes" alone) although it asks for
+  three question-and-answer pairs.
+- **3310 has the learner type the classmate's answers**, not their own lines.
+- **1215's explanation was shortened** for the feedback sheet; the teacher
+  should check the new wording.
 
 ## 10. Checklist for switching on another unit
 

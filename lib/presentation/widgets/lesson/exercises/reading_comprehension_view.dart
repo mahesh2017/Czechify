@@ -285,13 +285,15 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
         ],
       ),
       reminder: Container(
-        padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+        padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
         decoration: BoxDecoration(
           color: t.elev,
           borderRadius: BorderRadius.circular(16),
         ),
+        // Blank lines are the passage's layout; the reminder above a question
+        // needs its words, not its spacing.
         child: Text(
-          textCz,
+          textCz.replaceAll(RegExp(r'\n\s*\n'), '\n'),
           style: TextStyle(fontSize: 14, height: 1.4, color: t.ink),
         ),
       ),

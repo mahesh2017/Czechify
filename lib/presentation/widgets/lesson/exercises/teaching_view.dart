@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/config/unit_guide_pilot.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -56,6 +58,9 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   /// The word list as slides (pilot), and the block its first line is.
   final _deck = GlobalKey<SlideDeckState>();
   int _firstRowBlock = 0;
+
+  /// Items on one slide block: a row of four in the letter grid, else one.
+  int _itemsPerBlock = 1;
 
   /// Captured in initState so it can be stopped safely from dispose().
   EnglishTts? _english;
@@ -149,7 +154,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
       if (!_playingAll || !mounted) break;
       setState(() => _playingIndex = i);
       // On slides, turn to the line being played.
-      _deck.currentState?.showBlock(_firstRowBlock + i);
+      _deck.currentState?.showBlock(_firstRowBlock + i ~/ _itemsPerBlock);
       await _say(alphabet ? items[i].nameSay : items[i].playText);
       // TTS returns before playback finishes; a fixed pace gives a clear gap
       // between items.
@@ -200,13 +205,16 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     final playAllLabel =
         data['play_all_label'] as String? ?? l10n.teachingPlayWholeSet;
     final grid = style == 'alphabet' && _isBareSymbolSet(items);
-    if (showsAsSlides(widget.exercise) && style == 'list') {
+    if (showsAsSlides(widget.exercise) &&
+        (style == 'list' || style == 'alphabet')) {
       return _buildListSlides(
         context,
         heading: heading,
         body: body,
         intro: intro,
         playAllLabel: playAllLabel,
+        style: style,
+        grid: grid,
       );
     }
 
@@ -313,12 +321,17 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     required String? body,
     required String? intro,
     required String playAllLabel,
+    String style = 'list',
+    bool grid = false,
   }) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final items = _items;
     final hasIntro = intro != null && intro.isNotEmpty;
     _firstRowBlock = (hasIntro ? 1 : 0) + 1;
+    // The letter grid goes on slides a row of four at a time.
+    _itemsPerBlock = grid ? 4 : 1;
+    final rows = (items.length / _itemsPerBlock).ceil();
     final blocks = <Widget Function()>[
       if (hasIntro)
         () => _IntroBlock(
@@ -351,19 +364,39 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
           ],
         ),
       ),
-      for (var i = 0; i < items.length; i++)
+      for (var i = 0; i < rows; i++)
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (i == 0) ...[
-              LessonKicker(l10n.teachingTapLineToHear),
+              LessonKicker(
+                grid
+                    ? l10n.teachingTapAnyLetter
+                    : style == 'alphabet'
+                    ? l10n.teachingLetterByLetter
+                    : l10n.teachingTapLineToHear,
+              ),
               const SizedBox(height: 10),
             ],
-            _PhraseRow(
-              item: items[i],
-              active: _playingIndex == i,
-              onTap: () => _say(items[i].playText),
-            ),
+            if (grid)
+              _LetterGrid(
+                items: items.sublist(i * 4, math.min(items.length, i * 4 + 4)),
+                playingIndex: _playingIndex - i * 4,
+                onTap: (k) => _say(items[i * 4 + k].nameSay),
+              )
+            else if (style == 'alphabet')
+              _LetterRow(
+                item: items[i],
+                active: _playingIndex == i,
+                onTapName: () => _say(items[i].nameSay),
+                onTapWord: () => _say(items[i].say),
+              )
+            else
+              _PhraseRow(
+                item: items[i],
+                active: _playingIndex == i,
+                onTap: () => _say(items[i].playText),
+              ),
           ],
         ),
     ];
@@ -421,16 +454,63 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
     );
   }
 
+  /// The last page of a picture-card step in the pilot: its phrases without
+  /// a picture, as a word list.
+  Widget _buildPhrasePage(BuildContext context, List<_TeachingItem> phrases) {
+    final l10n = AppLocalizations.of(context);
+    return MotionEntrance(
+      key: ValueKey('teaching-page-$_imageTeachingPage'),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            LessonKicker(l10n.teachingTapLineToHear),
+            const SizedBox(height: 10),
+            for (final phrase in phrases) ...[
+              _PhraseRow(
+                item: phrase,
+                active: false,
+                onTap: () => _say(phrase.playText),
+              ),
+              const SizedBox(height: 10),
+            ],
+            const SizedBox(height: 6),
+            KeyCta(
+              label: l10n.teachingStartExercises,
+              onPressed:
+                  () => widget.onAnswered(const ExerciseResult.skipped()),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildImageTeachingSequence(
     BuildContext context,
     List<_TeachingItem> items,
   ) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    // Pilot: phrases without a picture are not given an empty picture box
+    // twice each; they close the step together on one word-list page.
+    final pilot = unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
+    final phrases =
+        pilot && items.any((i) => i.image.isNotEmpty)
+            ? items.where((i) => i.image.isEmpty).toList()
+            : const <_TeachingItem>[];
+    if (phrases.isNotEmpty) {
+      items = items.where((i) => i.image.isNotEmpty).toList();
+    }
+    if (_imageTeachingPage == items.length * 2) {
+      return _buildPhrasePage(context, phrases);
+    }
     final wordIndex = _imageTeachingPage ~/ 2;
     final sentencePage = _imageTeachingPage.isOdd;
     final item = items[wordIndex];
-    final lastPage = _imageTeachingPage == items.length * 2 - 1;
+    final lastPage =
+        phrases.isEmpty && _imageTeachingPage == items.length * 2 - 1;
 
     void advance() {
       if (lastPage) {
@@ -481,7 +561,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
               aspectRatio: 1.25,
               semanticLabel: item.imageLabel,
             ),
-            const SizedBox(height: 18),
+            SizedBox(height: pilot ? 14 : 18),
             if (!sentencePage) ...[
               Semantics(
                 button: true,
@@ -624,7 +704,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                 ),
               ),
             ],
-            const SizedBox(height: 20),
+            SizedBox(height: pilot ? 16 : 20),
             KeyCta(
               label:
                   lastPage

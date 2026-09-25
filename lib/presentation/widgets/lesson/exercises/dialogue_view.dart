@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -343,12 +345,30 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
             ],
           ),
           for (final turn in turns)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (final line in turn)
-                  _buildLine(context, line, slides: true),
-              ],
+            // While typing, only the line the learner answers and the one
+            // before it: with the keyboard up, the earlier lines pushed the
+            // gap out of view. Keys keep the field, and its focus, in place
+            // as lines come and go.
+            KeyboardUpBuilder(
+              builder: (context, keyboardUp) {
+                final gap = turn.indexWhere(
+                  (line) => (_lines[line]['text'] as String).contains('___'),
+                );
+                final shown =
+                    keyboardUp
+                        ? turn.sublist(math.max(0, gap - 1), gap + 1)
+                        : turn;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (final line in shown)
+                      KeyedSubtree(
+                        key: ValueKey('dialogue-line-$line'),
+                        child: _buildLine(context, line, slides: true),
+                      ),
+                  ],
+                );
+              },
             ),
         ],
         canAdvance:

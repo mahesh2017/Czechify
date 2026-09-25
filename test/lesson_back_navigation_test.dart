@@ -13,18 +13,20 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/localized_app.dart';
+import 'support/pilot_units.dart';
 
 class _Session extends LessonSessionNotifier {
   @override
-  LessonSessionState build() => const LessonSessionState(
+  LessonSessionState build() => LessonSessionState(
+    // General player behaviour, so a unit still on the one-page layouts.
     lesson: Lesson(
       id: 1,
-      unitId: 1,
+      unitId: outsidePilotUnit,
       orderInUnit: 1,
       title: 'Practice',
       description: '',
     ),
-    exercises: [
+    exercises: const [
       Exercise(
         id: 1,
         lessonId: 1,

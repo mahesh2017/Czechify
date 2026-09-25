@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../../../core/config/unit_guide_pilot.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
@@ -161,6 +162,23 @@ class _MatchingViewState extends State<MatchingView> {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final promptEn = widget.exercise.data['prompt_en'] as String?;
+    final pilot = unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
+    final instruction = Text(
+      l10n.exerciseTapCzechThenEnglish,
+      style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
+    );
+    final counter = MotionSwap(
+      offset: const Offset(0, 0.12),
+      child: Text(
+        l10n.exerciseMatchedOfTotal(_matchedCount, _leftItems.length),
+        key: ValueKey(_matchedCount),
+        style: TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: t.muted,
+        ),
+      ),
+    );
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
@@ -182,10 +200,18 @@ class _MatchingViewState extends State<MatchingView> {
                 children: [
                   QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
                   const SizedBox(height: 8),
-                  Text(
-                    l10n.exerciseTapCzechThenEnglish,
-                    style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
-                  ),
+                  // Pilot: the count beside the instruction. In the bottom
+                  // row it lay under the folded answer sheet.
+                  if (pilot)
+                    Row(
+                      children: [
+                        Expanded(child: instruction),
+                        const SizedBox(width: 10),
+                        counter,
+                      ],
+                    )
+                  else
+                    instruction,
                   const SizedBox(height: 18),
 
                   // Two-column matching area
@@ -216,27 +242,17 @@ class _MatchingViewState extends State<MatchingView> {
             ),
           ),
 
+          // Pilot: no bottom row. Matching checks itself on the last pair
+          // and the answer sheet says how it went; this row's count and
+          // result lay under the folded sheet.
+          if (!pilot)
           // Progress + submit
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                MotionSwap(
-                  offset: const Offset(0, 0.12),
-                  child: Text(
-                    l10n.exerciseMatchedOfTotal(
-                      _matchedCount,
-                      _leftItems.length,
-                    ),
-                    key: ValueKey(_matchedCount),
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: t.muted,
-                    ),
-                  ),
-                ),
+                counter,
                 if (_allMatched && !answered)
                   FilledButton(
                     onPressed: _submit,

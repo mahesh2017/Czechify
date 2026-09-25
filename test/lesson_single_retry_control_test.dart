@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/lesson_session_harness.dart';
 import 'support/localized_app.dart';
+import 'support/pilot_units.dart';
 
 /// Seen on Android on 14 Sep 2026: after a missed listening question the
 /// exercise's own "0/1 correct · Retry" sat directly above the lesson's
@@ -68,16 +69,18 @@ void main() {
             ),
             curriculumRepositoryProvider.overrideWithValue(
               FakeCurriculumRepository(
-                unit: const Unit(
-                  id: 1,
+                // General player behaviour, so a unit still on the
+                // one-page layouts.
+                unit: Unit(
+                  id: outsidePilotUnit,
                   title: 'Hear, Read & Repair Czech',
                   description: '',
                   phase: Phase.a1,
                   orderIndex: 1,
                 ),
-                lesson: const Lesson(
+                lesson: Lesson(
                   id: 1,
-                  unitId: 1,
+                  unitId: outsidePilotUnit,
                   orderInUnit: 1,
                   title: 'Hear Czech in Useful Words',
                   description: '',

@@ -36,7 +36,8 @@ class SlideDeck extends StatefulWidget {
     this.onSlideChanged,
   }) : blockCount = 0,
        blockBuilder = null,
-       gap = 0;
+       gap = 0,
+       chromeOnlyWhenSeveral = false;
 
   /// Blocks laid on as few slides as they fit, in order: each block is
   /// measured at the phone's width and text size, and a slide takes blocks
@@ -54,6 +55,7 @@ class SlideDeck extends StatefulWidget {
     this.canAdvance,
     this.padding = const EdgeInsets.fromLTRB(20, 8, 20, 8),
     this.onSlideChanged,
+    this.chromeOnlyWhenSeveral = false,
   }) : slides = null;
 
   final List<Widget>? slides;
@@ -87,6 +89,11 @@ class SlideDeck extends StatefulWidget {
 
   /// Around each slide's content.
   final EdgeInsets padding;
+
+  /// No dots or buttons while the blocks fit on one slide: for a screen
+  /// whose last block carries its own buttons, and which should look like a
+  /// plain page whenever it fits. With `onDone: null`.
+  final bool chromeOnlyWhenSeveral;
   final ValueChanged<int>? onSlideChanged;
 
   static const nextKey = ValueKey('slide-deck-next');
@@ -305,6 +312,7 @@ class SlideDeckState extends State<SlideDeck> {
   }) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
+    final chrome = !(widget.chromeOnlyWhenSeveral && count <= 1);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -330,7 +338,7 @@ class SlideDeckState extends State<SlideDeck> {
                   )
                   : _pages(context),
         ),
-        if (!keyboardHidesButtons)
+        if (chrome && !keyboardHidesButtons)
         SizedBox(
           height: SlideDeck._dotsHeight,
           child:
@@ -362,7 +370,7 @@ class SlideDeckState extends State<SlideDeck> {
                   )
                   : null,
         ),
-        if (!widget.finished && !keyboardHidesButtons)
+        if (chrome && !widget.finished && !keyboardHidesButtons)
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
           child: Row(

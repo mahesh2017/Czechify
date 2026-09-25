@@ -11,7 +11,9 @@ import '../../../../l10n/app_localizations.dart';
 import '../../../providers/notebook_providers.dart';
 import '../../../providers/settings_providers.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
+import '../slides_pilot.dart';
 import 'exercise_shared.dart';
 
 /// A notebook step: the learner writes part of their unit page from memory,
@@ -181,9 +183,10 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
     final unitId =
         _kind == 'unit_check' ? unitOfLesson(widget.exercise.lessonId) : null;
     final typed = _notes.text.trim();
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
-      child: Column(
+    // As blocks on as few slides as fit: one page while it fits; the notes
+    // and a long model on slides of their own when they do not.
+    final blocks = <Widget Function()>[
+      () => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
@@ -217,9 +220,10 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
                 ),
             ],
           ),
-          if (!onPaper && typed.isNotEmpty) ...[
-            const SizedBox(height: 8),
-            Container(
+        ],
+      ),
+      if (!onPaper && typed.isNotEmpty)
+        () => Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
                 color: t.elev,
@@ -236,16 +240,23 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
                   ),
                 ],
               ),
-            ),
+        ),
+      // The model a row at a time, each a slim card, so a long model runs
+      // onto the next slide by measured height.
+      for (var i = 0; i < _model.length; i++)
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (i == 0) ...[
+              LessonKicker(l10n.notebookModelTitle),
+              const SizedBox(height: 8),
+            ],
+            _ModelCard(rows: [_model[i]], compact: true),
           ],
-          const SizedBox(height: 10),
-          LessonKicker(l10n.notebookModelTitle),
-          const SizedBox(height: 8),
-          _ModelCard(rows: _model),
-          const SizedBox(height: 12),
-          // Side by side: stacked, the two answers took the room the
-          // learner's own notes need beside the model.
-          Row(
+        ),
+      // Side by side: stacked, the two answers took the room the learner's
+      // own notes need beside the model.
+      () => Row(
             children: [
               Expanded(
                 child: OutlinedButton(
@@ -279,13 +290,31 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
               ),
             ],
           ),
-        ],
-      ),
+    ];
+    return SlideDeck.packed(
+      blockCount: blocks.length,
+      blockBuilder: (context, index, _) => blocks[index](),
+      gap: 10,
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+      chromeOnlyWhenSeveral: true,
+      doneLabel: l10n.notebookAllCorrect,
+      // The last block carries the two answers.
+      onDone: null,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final page = _page(context);
+    // On slides the lesson gives this step a bounded height, for the
+    // comparison's deck; the other screens scroll as they did in the lesson.
+    if (showsAsSlides(widget.exercise) && !_revealed) {
+      return SingleChildScrollView(child: page);
+    }
+    return page;
+  }
+
+  Widget _page(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final onPaper = ref.watch(settingsProvider).notesOnPaper;
@@ -459,7 +488,11 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
 class _ModelCard extends StatelessWidget {
   final List<({String cz, String en})> rows;
 
-  const _ModelCard({required this.rows});
+  /// One row of a model laid out a row at a time: a slim card, like a line
+  /// of a word list.
+  final bool compact;
+
+  const _ModelCard({required this.rows, this.compact = false});
 
   @override
   Widget build(BuildContext context) {
@@ -467,6 +500,11 @@ class _ModelCard extends StatelessWidget {
     return SoftCard(
       shadow: false,
       border: Border.all(color: t.line),
+      padding:
+          compact
+              ? const EdgeInsets.fromLTRB(16, 6, 8, 6)
+              : const EdgeInsets.all(18),
+      radius: compact ? 16 : 24,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

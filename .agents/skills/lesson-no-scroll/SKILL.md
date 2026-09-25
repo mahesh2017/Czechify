@@ -8,7 +8,8 @@ description: "Use for any work on Czechify's no-scroll lessons, above all rollin
 The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
-**Where it stands (25 Sep 2026):** all six steps are built and on in Unit 2.
+**Where it stands (26 Sep 2026):** all six steps are built and on in Units
+1, 2 and 3.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
 record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`: measurements,
@@ -86,12 +87,15 @@ Write down, and show Mahesh before building:
 | Listening first slide with an image (prompt + 140 pt image + listen panel + gist note + transcript) | Units 4, 7, 9 | smaller image (~100 pt) or pack the first slide |
 | Long reading text repeated above a 4-option question | Unit 29 | question first with "Show the text", or a text slide between questions |
 | Many dialogue lines before one gap | e.g. 31113 | last 2–3 lines on the reply slide, earlier ones on their own slide |
-| Dialogue reply slide under the keyboard (several lines or gaps) | 38 dialogues, e.g. 3310 | one gap per slide; only the preceding line while typing |
+| Dialogue reply slide under the keyboard (several lines) | 38 dialogues | **built:** while typing, only the gap's line and the one before |
+| Dialogue with several gaps on one reply slide | check each unit | one gap per slide |
 | Five long table rows taller than a slide | 7301, 24301, 26301 | chunk tables by measured height, not five rows |
-| Matching counter ("0/6 matched") under the folded feedback bar | matching, e.g. 3103 | move the counter up, or lift the folded bar's limit for matching |
-| Notebook model of 5+ rows with typed notes | e.g. 3207 | pack notes and model (`SlideDeck.packed`) or show notes on their own slide |
-| Picture cards without pictures (empty 268 pt box) | check each unit | switch to the word-list style |
-| Near-fits: matching spacing, long multiple-choice questions in the display face, fill-in letter bar, alphabet grid | outside Unit 2 | tighten spacing; `instruction:` reading text; alphabet grid as packed slides |
+| Matching counter ("0/6 matched") under the folded feedback bar | all matching | **built:** counter on the instruction's line, no bottom row |
+| Notebook comparison too tall (long model or typed notes) | all notebook steps | **built:** packed blocks, one page when it fits |
+| Picture cards without pictures (empty 268 pt box) | check each unit | whole step: word-list style; some items: **built**, they close the step as a word list |
+| Alphabet grid | all alphabet steps | **built:** packed slides, a row of four per block |
+| Long explanation on a right answer (sheet over 240 pt) | e.g. 1215 | shorten the content, flag for the teacher |
+| Near-fits: long multiple-choice questions in the display face, fill-in letter bar | outside Units 1–3 | tighten spacing; `instruction:` reading text |
 
 ## 3. Build
 Reuse these parts:
@@ -106,6 +110,8 @@ Reuse these parts:
 - `returnKeyAdvances` lets the keyboard take the buttons' room.
 - `FillSlide` gives a page the remaining height.
 - `KeyboardUpBuilder` tells whether the keyboard is up.
+- `chromeOnlyWhenSeveral` (packed): no dots or buttons while it fits one
+  slide, for a screen whose last block carries its own buttons.
 
 **Exercises:**
 - `QuestionSteps` (`exercises/question_steps.dart`): a passage or recording,
@@ -185,6 +191,13 @@ purpose (listen-then-reproduce). Ask.
 - **Never edit files containing non-ASCII text with `sed -i`:** it corrupted a
   test file. Use Python.
 - **The fit test's budget keys** can be `<id>+keyboard`.
+- **Switching a unit on can surface screens the dry run never measures:**
+  Unit 1 is the smoke tests' unit, and it showed the start screen breaking at
+  200% text. Run the full suite before calling a unit done.
+- **A test that hosts a step in its own `SingleChildScrollView`** breaks when
+  the step becomes a deck. Host it in `LessonExerciseViewport`.
+- **Changing what the model shows while typing:** key the rows
+  (`KeyedSubtree`), or the focused field is rebuilt and the keyboard drops.
 
 ## Practicalities
 - **Flutter** must run outside the sandbox. Never `dart format` the repo.

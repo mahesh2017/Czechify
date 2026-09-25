@@ -553,7 +553,7 @@
           "Czech words have no stress"
         ],
         "correct_index": 0,
-        "explanation": "Czech lexical stress is normally initial. Common one-syllable prepositions can carry the stress of the following word, so listening to the whole phrase is safer than an absolute 'no exceptions' rule."
+        "explanation": "Czech stress is normally on the first syllable. A short preposition can take the stress of the next word, so copy whole phrases."
       },
       "answer_key": "Start the beat near the beginning and copy short phrases as a whole",
       "xp_reward": 10,

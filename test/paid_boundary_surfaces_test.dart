@@ -164,6 +164,9 @@ void main() {
       await pump(tester, const CurriculumScreen());
       expect(find.text('Part of the full course'), findsOneWidget);
       expect(find.textContaining('invite friends to unlock'), findsOneWidget);
+      // A unit with the unit guide has a taller card; the map scrolls.
+      await tester.drag(find.byType(Scrollable).last, const Offset(0, -400));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('See your options'));
       await tester.pumpAndSettle();
       expect(find.text('Upgrade for 4'), findsOneWidget);

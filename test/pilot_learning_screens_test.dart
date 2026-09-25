@@ -180,15 +180,34 @@ void main() {
         final check = find.text('Check against the model');
         if (check.evaluate().isEmpty) continue;
         if (!paper) {
-          await tester.enterText(find.byType(TextField), 'Dobrý den. Ahoj.');
+          // Notes as long as a learner writes them, not one phrase.
+          await tester.enterText(
+            find.byType(TextField),
+            'Dobrý den. Ahoj.\nten muž, ten pes, ten dům\n'
+            'ta žena, ta káva, ta kniha\nto dítě, to auto, to okno',
+          );
         }
         await tester.tap(check);
         await tester.pumpAndSettle();
         if (scrolls(tester) > 1) problems.add('$label: the comparison scrolls');
-        expect(find.text('All correct'), findsOneWidget, reason: label);
+        // A long model or long notes put the comparison on slides; what the
+        // learner typed comes first, the answers last.
         if (!paper) {
-          expect(find.text('Dobrý den. Ahoj.'), findsOneWidget, reason: label);
+          expect(
+            find.textContaining('Dobrý den. Ahoj.'),
+            findsOneWidget,
+            reason: label,
+          );
         }
+        while (find.text('All correct').evaluate().isEmpty &&
+            find.byKey(SlideDeck.nextKey).evaluate().isNotEmpty) {
+          await tester.tap(find.byKey(SlideDeck.nextKey));
+          await tester.pumpAndSettle();
+          if (scrolls(tester) > 1) {
+            problems.add('$label: a comparison slide scrolls');
+          }
+        }
+        expect(find.text('All correct'), findsOneWidget, reason: label);
         expect(tester.takeException(), isNull, reason: label);
       }
     }

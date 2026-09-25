@@ -2453,12 +2453,15 @@ class _LessonStartScreen extends StatelessWidget {
         children: [
           Icon(icon, size: 16, color: t.pri),
           const SizedBox(width: 6),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: t.ink,
+          // Wraps at large text rather than running off the screen.
+          Flexible(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: t.ink,
+              ),
             ),
           ),
         ],
@@ -2481,8 +2484,14 @@ class _LessonStartScreen extends StatelessWidget {
                   icon: Icon(Icons.close_rounded, color: t.ink),
                 ),
               ),
+              // Centred while it fits; at large text sizes it scrolls
+              // rather than shrinking the words.
               Expanded(
-                child: Padding(
+                child: LayoutBuilder(
+                  builder: (context, box) => SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(minHeight: box.maxHeight),
+                      child: Padding(
                   padding: const EdgeInsets.only(left: 12),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -2546,6 +2555,9 @@ class _LessonStartScreen extends StatelessWidget {
                       // Shown only while a substitute voice is in use.
                       const DegradedModeBanner(margin: EdgeInsets.zero),
                     ],
+                  ),
+                      ),
+                    ),
                   ),
                 ),
               ),

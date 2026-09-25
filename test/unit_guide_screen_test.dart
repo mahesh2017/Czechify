@@ -6,7 +6,7 @@ import 'package:czechify/presentation/providers/curriculum_providers.dart';
 import 'package:czechify/presentation/providers/settings_providers.dart';
 import 'package:czechify/presentation/screens/grammar/unit_guide_screen.dart';
 import 'package:czechify/presentation/screens/grammar/unit_notebook_screen.dart';
-import 'package:czechify/presentation/widgets/lesson/exercise_widget.dart';
+import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -188,10 +188,10 @@ void main() {
           theme: lightTheme(),
           localizationsDelegates: testLocalizationsDelegates,
           supportedLocales: testSupportedLocales,
+          // Hosted as a lesson hosts it: on slides the step gets a bounded
+          // height, elsewhere a scroll view.
           home: Scaffold(
-            body: SingleChildScrollView(
-              child: ExerciseWidget(exercise: check, onAnswered: (_) {}),
-            ),
+            body: LessonExerciseViewport(exercise: check, onAnswered: (_) {}),
           ),
         ),
       ),
