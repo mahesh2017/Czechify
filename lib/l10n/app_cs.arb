@@ -1238,6 +1238,8 @@
   "writingWordsSoFar": "{count, plural, =1{1 slovo} few{{count} slova} other{{count} slov}}",
   "feedbackFold": "Skrýt hodnocení",
   "feedbackUnfold": "Zobrazit hodnocení",
+  "notebookCompareTitle": "Porovnejte se vzorem",
+  "notebookYouWrote": "Napsali jste",
   "slidePosition": "Snímek {index} z {count}",
   "ruleBackToLesson": "Zpět do lekce",
   "unitGuideRulesCount": "{count, plural, =1{1 pravidlo} few{{count} pravidla} other{{count} pravidel}}",

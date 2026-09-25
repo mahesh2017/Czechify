@@ -1720,6 +1720,8 @@
   },
   "feedbackFold": "Hide feedback",
   "feedbackUnfold": "Show feedback",
+  "notebookCompareTitle": "Compare with the model",
+  "notebookYouWrote": "You wrote",
   "slidePosition": "Slide {index} of {count}",
   "@slidePosition": {
     "placeholders": {

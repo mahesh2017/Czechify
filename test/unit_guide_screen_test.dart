@@ -107,14 +107,19 @@ void main() {
     expect(find.text('Save page as image'), findsNothing);
   });
 
-  testWidgets('after Lesson B its rules are open; the lesson in progress is '
-      'reached but closed', (tester) async {
+  testWidgets('the guide opens with every section closed, as one screen of '
+      'headings, however far the learner is', (tester) async {
     await pump(tester, completed: {201, 202});
 
     expect(find.text('Not reached yet'), findsNothing);
-    expect(find.text('Explanation of Formal or friendly.'), findsOneWidget);
-    expect(find.text('Explanation of Speaking to someone.'), findsOneWidget);
-    expect(find.text('Explanation of Polite words.'), findsNothing);
+    expect(find.text('Formal or friendly'), findsOneWidget);
+    expect(find.text('Explanation of Formal or friendly.'), findsNothing);
+    expect(find.text('Explanation of Speaking to someone.'), findsNothing);
+    // Key phrases are a closed section too, opened on tap.
+    expect(find.text('Dobrý den.'), findsNothing);
+    await tester.tap(find.text('Key phrases'));
+    await tester.pumpAndSettle();
+    expect(find.text('Dobrý den.'), findsOneWidget);
   });
 
   testWidgets('a rule not reached yet still opens on tap', (tester) async {
@@ -146,6 +151,8 @@ void main() {
   });
 
   Future<void> pumpUnitCheck(WidgetTester tester, int unitId) async {
+    // Past the one-time notebook intro, as by the end of a unit.
+    SharedPreferences.setMockInitialValues({'notebook_intro_seen': true});
     final lessonId = unitId * 100 + 4;
     final check = Exercise(
       id: unitId * 1000 + 409,
@@ -197,7 +204,8 @@ void main() {
     tester,
   ) async {
     await pumpUnitCheck(tester, 2);
-    expect(find.text('See the whole model page'), findsOneWidget);
+    // An icon beside the comparison's title.
+    expect(find.byTooltip('See the whole model page'), findsOneWidget);
   });
 
   testWidgets('outside the pilot the closing check has no link', (
@@ -205,6 +213,7 @@ void main() {
   ) async {
     await pumpUnitCheck(tester, 6);
     expect(find.text('See the whole model page'), findsNothing);
+    expect(find.byTooltip('See the whole model page'), findsNothing);
   });
 
   test('the pilot covers Unit 2 only', () {

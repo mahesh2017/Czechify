@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
+import '../../core/config/unit_guide_pilot.dart';
 import '../../core/feedback/celebration.dart';
 import '../../data/services/lesson_checkpoint_store.dart';
 import '../../domain/entities/exercise.dart';
@@ -383,7 +384,14 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       isGameOver: !isExamMode && heartsEnabled && hearts <= 0,
       originalCount: exercises.length,
       teachCards: teachCards,
-      isTeaching: !isReview && teachCards.isNotEmpty,
+      // The unit-guide pilot skips the pre-lesson word list: its words come
+      // from the vocabulary file, which does not yet match the v1.2 lessons,
+      // and each lesson teaches its own words in its word-list step. The
+      // cards still go to review.
+      isTeaching:
+          !isReview &&
+          teachCards.isNotEmpty &&
+          !unitGuideEnabled(lesson.unitId),
       isExamMode: isExamMode,
       remainingSeconds: isExamMode ? lesson.durationMinutes * 60 : 0,
     );
@@ -986,7 +994,9 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
         totalXp: saved['xp'] as int,
         answerStreak: saved['streak'] as int,
         bestAnswerStreak: saved['bestStreak'] as int,
-        isTeaching: saved['teaching'] as bool,
+        isTeaching:
+            (saved['teaching'] as bool) &&
+            !unitGuideEnabled(state.lesson?.unitId),
         showFeedback: showFeedback,
         lastOutcome: switch (saved['outcome']) {
           final String name => ExerciseOutcome.values.byName(name),

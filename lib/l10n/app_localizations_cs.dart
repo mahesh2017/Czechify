@@ -4008,6 +4008,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get feedbackUnfold => 'Zobrazit hodnocení';
 
   @override
+  String get notebookCompareTitle => 'Porovnejte se vzorem';
+
+  @override
+  String get notebookYouWrote => 'Napsali jste';
+
+  @override
   String slidePosition(int index, int count) {
     return 'Snímek $index z $count';
   }

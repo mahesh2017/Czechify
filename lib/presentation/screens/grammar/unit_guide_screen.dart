@@ -66,6 +66,11 @@ class _UnitGuideScreenState extends ConsumerState<UnitGuideScreen> {
   final _pageKey = GlobalKey();
   final _notebookKey = GlobalKey();
   late bool _notebookOpen = widget.openNotebook;
+
+  /// Every section starts closed, so the guide opens as one screen of
+  /// headings (Mahesh, 25 Sep 2026); the closing check's link still opens the
+  /// notebook page.
+  bool _phrasesOpen = false;
   bool _scrolledToNotebook = false;
   bool _sharing = false;
   Set<int> _checked = {};
@@ -169,16 +174,6 @@ class _UnitGuideScreenState extends ConsumerState<UnitGuideScreen> {
         final lesson = byLesson[lecture.lessonId];
         if (lesson != null) (taughtIn[lesson] ??= []).add(lecture);
       }
-      // Open the rules of the latest lesson the learner finished: what they
-      // most likely came back for. The lesson they are on has not taught its
-      // rules yet, so it starts closed like the rest.
-      final latestDone = [
-        for (final l in taughtIn.keys)
-          if (completed.contains(l.id)) l,
-      ].fold<Lesson?>(
-        null,
-        (a, l) => a == null || l.orderInUnit > a.orderInUnit ? l : a,
-      );
       final canDo = page?['can_do'];
       final goal =
           canDo is Map && canDo['en'] is String ? canDo['en'] as String : null;
@@ -245,33 +240,38 @@ class _UnitGuideScreenState extends ConsumerState<UnitGuideScreen> {
                 ),
               ),
               for (final lecture in entry.value)
-                _LectureTile(
-                  lecture: lecture,
-                  initiallyOpen: entry.key == latestDone,
-                ),
+                _LectureTile(lecture: lecture, initiallyOpen: false),
             ],
             const SizedBox(height: 18),
           ],
           if (phrases.isNotEmpty) ...[
-            LessonKicker(l10n.unitGuidePhrases),
-            const SizedBox(height: 8),
-            SoftCard(
-              shadow: false,
-              border: Border.all(color: t.line),
-              child: Column(
-                children: [
-                  for (final p in phrases)
-                    _PhraseLine(cz: p.cz, en: p.en),
-                ],
+            _GuideSection(
+              open: _phrasesOpen,
+              onToggle: () => setState(() => _phrasesOpen = !_phrasesOpen),
+              icon: Icons.record_voice_over_outlined,
+              title: l10n.unitGuidePhrases,
+              hint: l10n.unitGuidePhrasesCount(phrases.length),
+              child: SoftCard(
+                shadow: false,
+                border: Border.all(color: t.line),
+                child: Column(
+                  children: [
+                    for (final p in phrases)
+                      _PhraseLine(cz: p.cz, en: p.en),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 22),
+            const SizedBox(height: 12),
           ],
           if (page != null)
-            _NotebookSection(
+            _GuideSection(
               key: _notebookKey,
               open: _notebookOpen,
               onToggle: () => setState(() => _notebookOpen = !_notebookOpen),
+              icon: Icons.edit_note,
+              title: l10n.unitGuideNotebook,
+              hint: l10n.unitGuideNotebookHint,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -455,22 +455,29 @@ class _PhraseLine extends ConsumerWidget {
 
 /// The notebook page, collapsed by default: what it is for in one line, then
 /// the model page, the checklist and "save as image" once opened.
-class _NotebookSection extends StatelessWidget {
+/// A section of the guide that opens on tap: the notebook page and the key
+/// phrases. Closed, the guide is one screen of headings to choose from.
+class _GuideSection extends StatelessWidget {
   final bool open;
   final VoidCallback onToggle;
+  final IconData icon;
+  final String title;
+  final String hint;
   final Widget child;
 
-  const _NotebookSection({
+  const _GuideSection({
     super.key,
     required this.open,
     required this.onToggle,
+    required this.icon,
+    required this.title,
+    required this.hint,
     required this.child,
   });
 
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
-    final l10n = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -485,14 +492,14 @@ class _NotebookSection extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
               child: Row(
                 children: [
-                  Icon(Icons.edit_note, color: t.pri),
+                  Icon(icon, color: t.pri),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.unitGuideNotebook,
+                          title,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -501,7 +508,7 @@ class _NotebookSection extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          l10n.unitGuideNotebookHint,
+                          hint,
                           style: TextStyle(fontSize: 14, color: t.ink),
                         ),
                       ],

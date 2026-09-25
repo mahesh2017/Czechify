@@ -3990,6 +3990,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedbackUnfold => 'Show feedback';
 
   @override
+  String get notebookCompareTitle => 'Compare with the model';
+
+  @override
+  String get notebookYouWrote => 'You wrote';
+
+  @override
   String slidePosition(int index, int count) {
     return 'Slide $index of $count';
   }

@@ -6842,6 +6842,18 @@ abstract class AppLocalizations {
   /// **'Show feedback'**
   String get feedbackUnfold;
 
+  /// No description provided for @notebookCompareTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare with the model'**
+  String get notebookCompareTitle;
+
+  /// No description provided for @notebookYouWrote.
+  ///
+  /// In en, this message translates to:
+  /// **'You wrote'**
+  String get notebookYouWrote;
+
   /// No description provided for @slidePosition.
   ///
   /// In en, this message translates to:

@@ -3,9 +3,9 @@
 **Date:** 24 September 2026 · **Branch:** `curriculum/v1.2-plan` · **Commits:**
 `3ba71abb` (step 0), `63ae05ef` (step 1), `bfc15b76` (step 2)
 
-**Status:** Unit 2 is converted for steps 0–4: no Unit 2 exercise scrolls on a
-small phone, with or without the keyboard or answer feedback. Step 5 (the
-other learning screens) is still to do. Every
+**Status:** Unit 2 is converted for all six steps (0–5): no Unit 2 exercise or
+lesson screen scrolls on a small phone, with or without the keyboard or answer
+feedback. The unit guide is a reference page and may scroll (agreed). Every
 other unit still uses the old one-page layouts.
 
 This is what we learned while building Unit 2. Read it before switching another
@@ -329,6 +329,33 @@ the slide layouts, so units not yet switched on are unchanged.
   keeps each chip the size of its word; the bank is now 104 pt. This affected
   all 37 word-order exercises, not only the six that overflowed.
 
+### The screens around the exercises (step 5)
+- **Measure the whole lesson, not only exercises.** Start screen, lesson
+  complete and out-of-hearts already fitted. What did not: the pre-lesson word
+  list (724–730 pt), the notebook step after "Check against the model"
+  (46–344 pt), the Rule sheet (2,661 pt) and the unit guide (1,003 pt).
+- **The pre-lesson word list is skipped in the pilot** (`isTeaching` in the
+  lesson session). Its words come from `assets/vocabulary/`, which was not
+  rebuilt for v1.2: Lesson A listed "dobré ráno" and "dobrou noc", which the
+  lesson never teaches. Each v1.2 lesson teaches its words in its own word-list
+  step. The cards still go to review. The vocabulary file needs bringing into
+  line with v1.2 before any unit shows the list again (teacher review).
+- **Notebook steps become screens:** the one-time notebook intro on its own
+  screen, then the task, then "Compare with the model" in the task's place
+  with what the learner typed (if typed), the model, and the two outcomes
+  side by side. The "whole model page" link is a book icon by the title.
+  Measure typed mode with text typed: an empty note hid a 75 pt overflow.
+- **The Rule sheet is a list of rule titles**, newest first, each opening as
+  the lesson's slides with a back arrow; with one rule it opens straight away.
+  The sheet must keep its own bottom safe area: without it the slides' Next
+  sat on the home indicator (seen only on the device).
+- **The unit guide opens with every section closed** (rules, key phrases,
+  notebook page); the closing check's link still opens the notebook page. It
+  fits one screen on a standard phone and scrolls about 190 pt on an SE, which
+  is accepted for a reference page.
+- **Left for later** (outside the lesson, agreed): flashcard review (38–75 pt),
+  the daily screen (18–53 pt) and onboarding (136–696 pt).
+
 ## 6. What happens when every unit is switched on
 
 Measured by temporarily listing all 31 units in the pilot
@@ -434,6 +461,8 @@ the feedback sheet, with the keyboard for typed answers.
   Next button for a few seconds.
 - **Two screens still scroll and still use the old tall header:** the new-words
   list before a lesson (the teach phase), and the Rule sheet. Both are step 5.
+- **The vocabulary file does not match the v1.2 lessons** (see step 5): the
+  pre-lesson word list is hidden in the pilot until it does.
 - **2101 (Unit 2's picture cards) had no pictures and no example sentences**
   (fixed 25 Sep: switched to the word-list style, with Mahesh's agreement;
   pictures can come later).

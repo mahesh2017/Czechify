@@ -125,11 +125,174 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
     widget.onAnswered(const ExerciseResult.skipped());
   }
 
+  /// Pilot: whether this step runs as screens — the one-time intro on its
+  /// own, then the task, then the comparison in the task's place — so the
+  /// model and its buttons never land under the task on a small phone.
+  bool get _screens => unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
+
+  /// Pilot: the learner has read the one-time intro screen.
+  bool _introDone = false;
+
+  Widget _introScreen(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TeachingHeroCard(
+            accent: t.violet,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.edit_note_rounded, size: 28, color: t.violet),
+                const SizedBox(height: 10),
+                DisplayText(
+                  l10n.notebookIntroTitle,
+                  size: 24,
+                  weight: FontWeight.w800,
+                  height: 1.15,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  l10n.notebookIntroBody,
+                  style: TextStyle(fontSize: 17, height: 1.45, color: t.ink),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 22),
+          KeyCta(
+            label: l10n.continueLabel,
+            onPressed: () => setState(() => _introDone = true),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Pilot: after "Check against the model", the comparison replaces the task:
+  /// what the task was (one line), what the learner typed if they typed it,
+  /// the model, and how it went.
+  Widget _compareScreen(BuildContext context, {required bool onPaper}) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final unitId =
+        _kind == 'unit_check' ? unitOfLesson(widget.exercise.lessonId) : null;
+    final typed = _notes.text.trim();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.edit_note_rounded, size: 20, color: t.violet),
+              const SizedBox(width: 6),
+              Flexible(child: LessonKicker(_heading, color: t.violet)),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: DisplayText(
+                  l10n.notebookCompareTitle,
+                  size: 24,
+                  weight: FontWeight.w800,
+                  height: 1.15,
+                ),
+              ),
+              // The whole model page, from the unit's closing check: an icon
+              // beside the title rather than a line of its own.
+              if (unitGuideEnabled(unitId))
+                IconButton(
+                  key: const ValueKey('notebook-model-page'),
+                  tooltip: l10n.notebookSeeModelPage,
+                  onPressed:
+                      () =>
+                          context.push('/unit-guide/$unitId?section=notebook'),
+                  icon: Icon(Icons.menu_book_rounded, color: t.pri),
+                ),
+            ],
+          ),
+          if (!onPaper && typed.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: t.elev,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  LessonKicker(l10n.notebookYouWrote),
+                  const SizedBox(height: 4),
+                  Text(
+                    typed,
+                    style: TextStyle(fontSize: 16, height: 1.4, color: t.ink),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: 10),
+          LessonKicker(l10n.notebookModelTitle),
+          const SizedBox(height: 8),
+          _ModelCard(rows: _model),
+          const SizedBox(height: 12),
+          // Side by side: stacked, the two answers took the room the
+          // learner's own notes need beside the model.
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed:
+                      _closing
+                          ? null
+                          : () => _close(NotebookOutcome.corrected),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(0, 56),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  child: Text(
+                    l10n.notebookCorrected,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: KeyCta(
+                  label: l10n.notebookAllCorrect,
+                  onPressed:
+                      _closing
+                          ? null
+                          : () => _close(NotebookOutcome.allCorrect),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final onPaper = ref.watch(settingsProvider).notesOnPaper;
+    if (_screens) {
+      if (_showIntro && !_introDone) return _introScreen(context);
+      if (_revealed) return _compareScreen(context, onPaper: onPaper);
+    }
     // Only the unit's closing check links to the unit guide.
     final unitId =
         _kind == 'unit_check' ? unitOfLesson(widget.exercise.lessonId) : null;
@@ -141,7 +304,7 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_showIntro) ...[
+          if (_showIntro && !_screens) ...[
             SoftCard(
               shadow: false,
               color: t.violetSoft,

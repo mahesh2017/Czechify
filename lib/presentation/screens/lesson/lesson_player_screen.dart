@@ -429,63 +429,15 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
   /// The rules taught so far, newest first, over the lesson: reading one
   /// again costs nothing and the learner returns to the same exercise.
   void _showRules(BuildContext context, List<(String, Exercise)> rules) {
-    final l10n = AppLocalizations.of(context);
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
       backgroundColor: context.tokens.bg,
-      builder:
-          (sheetContext) => DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: .88,
-            minChildSize: .4,
-            maxChildSize: .95,
-            builder:
-                (_, controller) => ListView(
-                  controller: controller,
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
-                  children: [
-                    Center(
-                      child: Container(
-                        width: 40,
-                        height: 4,
-                        margin: const EdgeInsets.only(bottom: 14),
-                        decoration: BoxDecoration(
-                          color: sheetContext.tokens.line,
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DisplayText(
-                            l10n.lessonRuleSheetTitle,
-                            size: 22,
-                            weight: FontWeight.w800,
-                          ),
-                        ),
-                        IconButton(
-                          tooltip: l10n.a11yClose,
-                          onPressed: () => Navigator.of(sheetContext).pop(),
-                          icon: const Icon(Icons.close_rounded),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    for (final (letter, lecture) in rules.reversed) ...[
-                      LectureContent(
-                        exercise: lecture,
-                        kicker: l10n.lessonRuleLesson(letter),
-                      ),
-                      const SizedBox(height: 24),
-                    ],
-                  ],
-                ),
-          ),
+      builder: (sheetContext) => _RuleSheet(rules: rules.reversed.toList()),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -2614,3 +2566,143 @@ class _LessonStartScreen extends StatelessWidget {
     );
   }
 }
+
+/// The rules taught so far, newest first: a short list of their titles, and
+/// a rule opened as the same slides the lesson showed, so nothing in the
+/// sheet scrolls. With one rule there is no list; it opens straight away.
+class _RuleSheet extends StatefulWidget {
+  const _RuleSheet({required this.rules});
+
+  /// (lesson letter, lecture step), newest first.
+  final List<(String, Exercise)> rules;
+
+  @override
+  State<_RuleSheet> createState() => _RuleSheetState();
+}
+
+class _RuleSheetState extends State<_RuleSheet> {
+  late int? _open = widget.rules.length == 1 ? 0 : null;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
+    final open = _open;
+    void close() => Navigator.of(context).pop();
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height * .9,
+      // Clear of the home indicator: the slides' Next sits at the bottom.
+      child: SafeArea(
+        top: false,
+        child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+            child: Row(
+              children: [
+                if (open != null && widget.rules.length > 1)
+                  IconButton(
+                    tooltip: l10n.slideBack,
+                    onPressed: () => setState(() => _open = null),
+                    icon: const Icon(Icons.arrow_back_rounded),
+                  )
+                else
+                  const SizedBox(width: 12),
+                Expanded(
+                  child: DisplayText(
+                    l10n.lessonRuleSheetTitle,
+                    size: 20,
+                    weight: FontWeight.w800,
+                  ),
+                ),
+                IconButton(
+                  tooltip: l10n.a11yClose,
+                  onPressed: close,
+                  icon: const Icon(Icons.close_rounded),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child:
+                open == null
+                    ? ListView(
+                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+                      children: [
+                        Text(
+                          l10n.lessonRulePick,
+                          style: TextStyle(fontSize: 15, color: t.muted),
+                        ),
+                        const SizedBox(height: 12),
+                        for (final (i, (letter, rule)) in widget.rules.indexed)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Material(
+                              color: t.card,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                side: BorderSide(color: t.line),
+                              ),
+                              child: InkWell(
+                                key: ValueKey('rule-${rule.id}'),
+                                borderRadius: BorderRadius.circular(16),
+                                onTap: () => setState(() => _open = i),
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                    16,
+                                    12,
+                                    12,
+                                    12,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            LessonKicker(
+                                              l10n.lessonRuleLesson(letter),
+                                              color: t.pri,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              rule.data['heading'] as String? ??
+                                                  rule.prompt,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w700,
+                                                color: t.ink,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.chevron_right_rounded,
+                                        color: t.muted,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    )
+                    : LectureSlides(
+                      key: ValueKey(widget.rules[open].$2.id),
+                      exercise: widget.rules[open].$2,
+                      kicker: l10n.lessonRuleLesson(widget.rules[open].$1),
+                      doneLabel: l10n.ruleBackToLesson,
+                      onDone: close,
+                    ),
+          ),
+        ],
+        ),
+      ),
+    );
+  }
+}
+
