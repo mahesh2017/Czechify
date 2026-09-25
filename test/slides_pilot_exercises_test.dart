@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/pilot_units.dart';
 import 'support/localized_app.dart';
 
 /// Unit 2 pilot: a passage or recording with questions, and a dialogue, are
@@ -84,7 +85,12 @@ void main() {
     expect(showsAsSlides(of(202, ExerciseType.teaching, 'lecture')), isTrue);
     expect(showsAsSlides(of(204, ExerciseType.teaching, 'notebook')), isFalse);
     expect(showsAsSlides(of(203, ExerciseType.multipleChoice)), isFalse);
-    expect(showsAsSlides(of(603, ExerciseType.listeningComprehension)), isFalse);
+    expect(
+      showsAsSlides(
+        of(outsidePilotLesson(3), ExerciseType.listeningComprehension),
+      ),
+      isFalse,
+    );
   });
 
   testWidgets('reading: the passage in Czech first, English on request, then '

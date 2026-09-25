@@ -22,16 +22,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/pilot_units.dart';
 import 'support/lesson_session_harness.dart';
 import 'support/localized_app.dart';
 import 'support/shipped_exercises.dart';
 
-/// Unit 2 pilot, step 5: the learning screens around the exercises fit a
-/// small phone too — the notebook step's comparison and the Rule sheet — and
-/// the pre-lesson word list, whose words do not yet match the v1.2 lessons,
-/// is skipped.
+/// Pilot, step 5: the learning screens around the exercises fit a small phone
+/// too — the notebook step's comparison and the Rule sheet — and the
+/// pre-lesson word list, whose words do not yet match the v1.2 lessons, is
+/// skipped. Covers every unit switched on ([pilotUnits]).
 void main() {
-  final unit2 = loadShippedExercises().where((e) => e.lessonId ~/ 100 == 2);
+  final shipped = loadShippedExercises();
+  final pilot =
+      shipped.where((e) => pilotUnits.contains(e.lessonId ~/ 100)).toList();
 
   setUpAll(() async {
     for (final font in {
@@ -118,22 +121,22 @@ void main() {
       return container.read(lessonSessionProvider);
     }
 
-    test('is skipped in Unit 2, whose lessons teach their own words', () async {
-      final state = await load(2);
+    test('is skipped in the pilot, whose lessons teach their own words', () async {
+      final state = await load(pilotUnits.first);
       expect(state.isTeaching, isFalse);
       // The cards are still there for review.
       expect(state.teachCards, isNotEmpty);
     });
 
     test('is still shown outside the pilot', () async {
-      expect((await load(6)).isTeaching, isTrue);
+      expect((await load(outsidePilotUnit)).isTeaching, isTrue);
     });
   });
 
-  testWidgets('each Unit 2 notebook step fits before and after "Check '
+  testWidgets('each pilot notebook step fits before and after "Check '
       'against the model", on paper and typed', (tester) async {
     smallPhone(tester);
-    final steps = unit2.where((e) => e.data['style'] == 'notebook').toList();
+    final steps = pilot.where((e) => e.data['style'] == 'notebook').toList();
     expect(steps, isNotEmpty);
     final problems = <String>[];
     for (final step in steps) {
@@ -195,7 +198,7 @@ void main() {
   testWidgets('the first notebook step shows the intro on a screen of its '
       'own', (tester) async {
     smallPhone(tester);
-    final step = unit2.firstWhere((e) => e.data['style'] == 'notebook');
+    final step = pilot.firstWhere((e) => e.data['style'] == 'notebook');
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -221,84 +224,106 @@ void main() {
     expect(find.text('Check against the model'), findsOneWidget);
   });
 
-  testWidgets('the Rule sheet lists the rules so far and opens each as '
-      'slides that fit', (tester) async {
+  testWidgets('in the last lesson of each pilot unit, the Rule sheet lists '
+      'the rules so far and opens each as slides that fit', (tester) async {
     smallPhone(tester);
-    final lessonD =
-        unit2.where((e) => e.lessonId == 204).toList();
-    final lectures =
-        unit2
-            .where(
-              (e) =>
-                  e.type == ExerciseType.teaching &&
-                  e.data['style'] == 'lecture',
-            )
-            .toList();
-    final lessons = [
-      for (var i = 0; i < 4; i++)
-        Lesson(
-          id: 201 + i,
-          unitId: 2,
-          orderInUnit: i,
-          title: 'Lesson',
-          description: '',
-        ),
-    ];
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          lessonSessionProvider.overrideWith(
-            () => _Session(
-              LessonSessionState(lesson: lessons[3], exercises: lessonD),
-            ),
+    bool isLecture(Exercise e) =>
+        e.type == ExerciseType.teaching && e.data['style'] == 'lecture';
+    var sheetsOpened = 0;
+    for (final unit in pilotUnits) {
+      final exercises = pilot.where((e) => e.lessonId ~/ 100 == unit).toList();
+      final lessonIds = {for (final e in exercises) e.lessonId}.toList()..sort();
+      final lessons = [
+        for (final (i, id) in lessonIds.indexed)
+          Lesson(
+            id: id,
+            unitId: unit,
+            orderInUnit: i,
+            title: 'Lesson',
+            description: '',
           ),
-          lessonAdmissionProvider(
-            204,
-          ).overrideWith((_) async => LessonAdmission.allowed),
-          czechTtsProvider.overrideWithValue(_Tts()),
-          unitLessonsProvider(2).overrideWith((_) async => lessons),
-          unitLectureStepsProvider(2).overrideWith((_) async => lectures),
-        ],
-        child: MaterialApp(
-          theme: lightTheme(),
-          localizationsDelegates: testLocalizationsDelegates,
-          supportedLocales: testSupportedLocales,
-          builder:
-              (context, child) => MediaQuery(
-                data: MediaQuery.of(context).copyWith(disableAnimations: true),
-                child: child!,
-              ),
-          home: const LessonPlayerScreen(lessonId: 204),
-        ),
-      ),
-    );
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Start'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Rule'));
-    await tester.pumpAndSettle();
+      ];
+      final last = lessons.last;
+      final current = exercises.where((e) => e.lessonId == last.id).toList();
+      final lectures = exercises.where(isLecture).toList();
+      // What the sheet lists at the last lesson's first step: every earlier
+      // lesson's rules, and that step if it is one.
+      final listed = [
+        for (final l in lectures)
+          if (l.lessonId != last.id || l.id == current.first.id) l,
+      ];
+      if (listed.isEmpty) continue;
 
-    final sheet = find.byType(BottomSheet);
-    expect(scrolls(tester, sheet), lessThan(1), reason: 'the list scrolls');
-    for (final lecture in lectures) {
-      await tester.tap(find.byKey(ValueKey('rule-${lecture.id}')));
-      await tester.pumpAndSettle();
-      final deck = tester.state<SlideDeckState>(
-        find.descendant(of: sheet, matching: find.byType(SlideDeck)),
+      await tester.pumpWidget(
+        ProviderScope(
+          key: UniqueKey(),
+          overrides: [
+            lessonSessionProvider.overrideWith(
+              () => _Session(LessonSessionState(lesson: last, exercises: current)),
+            ),
+            lessonAdmissionProvider(
+              last.id,
+            ).overrideWith((_) async => LessonAdmission.allowed),
+            czechTtsProvider.overrideWithValue(_Tts()),
+            unitLessonsProvider(unit).overrideWith((_) async => lessons),
+            unitLectureStepsProvider(unit).overrideWith((_) async => lectures),
+          ],
+          child: MaterialApp(
+            theme: lightTheme(),
+            localizationsDelegates: testLocalizationsDelegates,
+            supportedLocales: testSupportedLocales,
+            builder:
+                (context, child) => MediaQuery(
+                  data: MediaQuery.of(context).copyWith(disableAnimations: true),
+                  child: child!,
+                ),
+            home: LessonPlayerScreen(lessonId: last.id),
+          ),
+        ),
       );
-      for (var page = 0; page < deck.length; page++) {
-        deck.goTo(page);
-        await tester.pump();
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Start'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Rule'));
+      await tester.pumpAndSettle();
+      sheetsOpened++;
+
+      final sheet = find.byType(BottomSheet);
+      Future<void> checkSlides(Exercise lecture) async {
+        final deck = tester.state<SlideDeckState>(
+          find.descendant(of: sheet, matching: find.byType(SlideDeck)),
+        );
+        for (var page = 0; page < deck.length; page++) {
+          deck.goTo(page);
+          await tester.pump();
+          expect(
+            scrolls(tester, sheet),
+            lessThan(1),
+            reason: 'Unit $unit: ${lecture.id} slide ${page + 1} scrolls',
+          );
+        }
+      }
+
+      if (listed.length == 1) {
+        // One rule opens straight away.
+        await checkSlides(listed.single);
+      } else {
         expect(
           scrolls(tester, sheet),
           lessThan(1),
-          reason: '${lecture.id} slide ${page + 1} scrolls',
+          reason: 'Unit $unit: the list scrolls',
         );
+        for (final lecture in listed) {
+          await tester.tap(find.byKey(ValueKey('rule-${lecture.id}')));
+          await tester.pumpAndSettle();
+          await checkSlides(lecture);
+          await tester.tap(find.byTooltip('Back'));
+          await tester.pumpAndSettle();
+        }
       }
-      await tester.tap(find.byTooltip('Back'));
-      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull, reason: 'Unit $unit');
     }
-    expect(tester.takeException(), isNull);
+    expect(sheetsOpened, greaterThan(0), reason: 'no Rule sheet was checked');
   });
 }
 

@@ -17,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'support/pilot_units.dart';
 import 'support/localized_app.dart';
 import 'support/shipped_exercises.dart';
 
@@ -78,7 +79,11 @@ void main() {
       ExerciseType.pronunciation,
     ]) {
       expect(showsAsSlides(of(204, type)), isTrue, reason: '$type in Unit 2');
-      expect(showsAsSlides(of(604, type)), isFalse, reason: '$type in Unit 6');
+      expect(
+        showsAsSlides(of(outsidePilotLesson(4), type)),
+        isFalse,
+        reason: '$type outside the pilot',
+      );
     }
   });
 
@@ -210,9 +215,9 @@ void main() {
     ) async {
       final results = await pump(
         tester,
-        const Exercise(
+        Exercise(
           id: 6361,
-          lessonId: 604,
+          lessonId: outsidePilotLesson(4),
           type: ExerciseType.speakingTask,
           prompt: 'Speak',
           data: {
@@ -326,9 +331,9 @@ void main() {
     ) async {
       await pump(
         tester,
-        const Exercise(
+        Exercise(
           id: 6362,
-          lessonId: 604,
+          lessonId: outsidePilotLesson(4),
           type: ExerciseType.pronunciation,
           prompt: 'Say it',
           data: {
@@ -342,7 +347,7 @@ void main() {
     });
   });
 
-  testWidgets('at 200% text every step-3 slide in Unit 2 lays out, with the '
+  testWidgets('at 200% text every step-3 slide in the pilot lays out, with the '
       'keyboard up too; a slide may scroll then, but nothing overflows', (
     tester,
   ) async {
@@ -352,14 +357,14 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     final tasks = loadShippedExercises().where(
       (e) =>
-          e.lessonId ~/ 100 == 2 &&
+          pilotUnits.contains(e.lessonId ~/ 100) &&
           const {
             ExerciseType.writingTask,
             ExerciseType.speakingTask,
             ExerciseType.pronunciation,
           }.contains(e.type),
     );
-    expect(tasks, hasLength(5));
+    expect(tasks, isNotEmpty);
     for (final exercise in tasks) {
       await tester.pumpWidget(
         ProviderScope(

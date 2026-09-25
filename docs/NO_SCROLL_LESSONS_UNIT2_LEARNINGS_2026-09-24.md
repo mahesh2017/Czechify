@@ -407,7 +407,14 @@ in five known ways, each needing a fix *before* those units are switched on:
    just before it when the keyboard is up.
 
 Two speaking tasks (29206, 29207, 25 and 46 pt over) are also left; not
-diagnosed yet. The 13 near-fits outside Unit 2 (step 4's assessment):
+diagnosed yet.
+
+A trial with Unit 3 switched on (25 Sep, `scripts/assess_unit.sh 3`) found two
+more causes that the exercise measurements cannot see:
+6. **The matching counter under the folded feedback bar** (3103, 3215): "0/6
+   matched" sits at the bottom of the exercise.
+7. **A notebook model of five or more rows with typed notes** (3207): the
+   comparison screen runs over once the learner's notes are shown. The 13 near-fits outside Unit 2 (step 4's assessment):
 - matching spacing (1103, 3215, 6403; 6–36 pt);
 - long multiple-choice questions in the display face (19133, 21309);
 - the fill-in-the-blank letter bar with its label (18216, 18217, 18311, 22218);
@@ -482,12 +489,13 @@ the feedback sheet, with the keyboard for typed answers.
 
 ### Assess (no changes committed)
 The `lesson-no-scroll` skill (`.agents/skills/lesson-no-scroll/`) loads these
-steps automatically, and its two scripts do the measuring.
+steps automatically, and its scripts do the measuring.
 
-1. **Trial run:** `.agents/skills/lesson-no-scroll/scripts/dry_run.sh <unit…>`.
-   It switches the units on to slides temporarily, measures, and restores the
-   files. It prints which of the unit's exercises would still scroll, by kind
-   and by how much, and warns if anything outside those units changed.
+1. **Trial run:** `.agents/skills/lesson-no-scroll/scripts/assess_unit.sh <unit…>`.
+   It switches the units on temporarily, runs the dry run (what would still
+   scroll, keyboard up too) and the pilot's screen tests (feedback over the
+   exercise, notebook comparison, Rule sheet, 200% text), prints every
+   finding, and restores the files.
 2. **Diagnose each exercise that still scrolls:**
    `.agents/skills/lesson-no-scroll/scripts/slide_heights.sh <id,id,…>`. It
    prints each overflowing slide and the height of each of its parts. Match it to the known causes in §6, or record a new one.
@@ -505,7 +513,9 @@ steps automatically, and its two scripts do the measuring.
    Share the plan and wait for agreement.
 
 ### Build
-6. **Add the unit** to `unitGuidePilotUnits`, and make the planned fixes.
+6. **Add the unit** to `unitGuidePilotUnits`, and make the planned fixes. The
+   pilot tests cover it by themselves (`test/support/pilot_units.dart`); no
+   test needs a unit number changed.
 7. **Re-pin the fit test.** In the budget diff:
    - only that unit's ids should change;
    - every exercise of the kinds already converted should leave the list;

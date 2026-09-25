@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/pilot_units.dart';
 import 'support/localized_app.dart';
 
 /// The two new teaching surfaces of plan v1.2: the notebook step (write from
@@ -17,12 +18,12 @@ import 'support/localized_app.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  const notebook = Exercise(
+  final notebook = Exercise(
     id: 6003,
-    lessonId: 601,
+    lessonId: outsidePilotLesson(1),
     type: ExerciseType.teaching,
     prompt: 'Notebook',
-    data: {
+    data: const {
       'type': 'teaching',
       'style': 'notebook',
       'kind': 'capture',
@@ -34,12 +35,12 @@ void main() {
     },
   );
 
-  const lecture = Exercise(
+  final lecture = Exercise(
     id: 6101,
-    lessonId: 602,
+    lessonId: outsidePilotLesson(2),
     type: ExerciseType.teaching,
     prompt: 'Lecture',
-    data: {
+    data: const {
       'type': 'teaching',
       'style': 'lecture',
       'grammar_rule_id': 'GR-050',

@@ -1,6 +1,6 @@
 ---
 name: lesson-no-scroll
-description: "Use for any work on Czechify's no-scroll lessons: converting a unit's lessons to slides or adding a unit to unitGuidePilotUnits; starting the next no-scroll step (writing/speaking/pronunciation split into brief then doing, tightening near-fits, answer feedback as an overlay, the new-words list, notebook step, unit guide or Rule sheet as slides); or changing a lesson exercise's layout, SlideDeck, QuestionSteps, showsAsSlides, test/no_scroll_fit_test.dart or test/fixtures/no_scroll_budget.json. Load it before measuring, planning or writing code for any of these."
+description: "Use for any work on Czechify's no-scroll lessons, above all rolling them out: switching another unit on (adding it to unitGuidePilotUnits), assessing a unit for it, or fixing what a unit needs to fit a small phone. Also for changing a lesson exercise's layout, the lesson frame, answer feedback sheet, notebook step, Rule sheet or unit guide, SlideDeck, QuestionSteps, showsAsSlides, test/no_scroll_fit_test.dart or test/fixtures/no_scroll_budget.json. Load it before measuring, planning or writing code for any of these."
 ---
 
 # No-scroll lessons
@@ -8,104 +8,200 @@ description: "Use for any work on Czechify's no-scroll lessons: converting a uni
 The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
-The full record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`. It
-holds the measurements, the recipe for each exercise type, the known failure
-causes (§6), and the bugs that only showed on a phone. Read the sections this
-task touches before planning.
+**Where it stands (25 Sep 2026):** all six steps are built and on in Unit 2.
+Rolling out means adding units to `unitGuidePilotUnits`
+(`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
+record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`: measurements,
+recipes per exercise type, causes (§6), device-only bugs (§7).
 
-## Work in this order: assess, plan, build, verify
+## What switching a unit on changes
 
-Never start with code. Mahesh asked for this explicitly, and on Unit 2 skipping
-it cost a revert.
+One setting turns on all of this for the unit's lessons:
+- the start screen and the slim lesson bar (step 0);
+- slides for rules, word lists, listening, reading and dialogues (step 2);
+- task-then-do slides for writing, speaking and pronunciation (step 3);
+- answer feedback over the exercise, compact and foldable (step 4);
+- notebook intro/compare screens, the Rule sheet list, the collapsed unit
+  guide, and no pre-lesson word list (step 5).
 
-### 1. Assess (commit nothing)
-- **Trial run:** run `scripts/dry_run.sh <unit…>` from the repo root. It
-  switches the units on temporarily, measures every exercise on the iPhone SE
-  area, prints what would still scroll, and restores the files.
-- **Measure the answer feedback too:** `scripts/feedback_heights.sh <id,id,…>`
-  shows the feedback sheet over each exercise (first miss, fourth miss, right)
-  and how far the exercise then scrolls.
-- **Find the cause of each overflow:** run `scripts/slide_heights.sh <id,id,…>`.
-  It prints each overflowing slide and the heights of its parts. Write each
-  cause down as parts, not a number. Good: "96 pt prompt + 140 pt image + 130 pt
-  listen panel on slide 1". Not a cause: "60 pt over".
-- **Group by cause and match each cause to the doc's §6.** If a cause isn't
-  there, it's new; describe it.
-- **Read the content itself.** Look for:
-  - hard-coded names in expected answers;
-  - audio that plays the answer;
-  - unusually long texts;
-  - anything the teacher should review.
-- **Look at the current layout on the simulator once.**
+Unit-independent fixes are already live everywhere: word chips, speaking skip,
+focus sounds in words, "Reference answer" for skipped answers.
 
-### 2. Plan
-Write down:
-- each cause and its fix, and what's new to build;
-- the content questions;
-- **the decisions that are Mahesh's:** anything that changes what the learner
-  sees, gets as help, or is graded on.
+## Decisions already made (don't ask again)
 
-Show him the plan and wait for agreement before building.
+Mahesh agreed these on 24–25 Sep 2026; apply them to every unit.
+- Browsing screens scroll: home, course map, settings, stats, chat, legal,
+  and the unit guide (it opens with every section closed).
+- At large system text a slide may scroll; text is never shrunk.
+- The start screen shows on every start and resume.
+- Reading shows one language at a time; "Show in English" counts as support.
+- Speaking has "Can't speak right now? Skip" (skipped, no heart lost).
+- Writing feedback appears once, in the feedback sheet.
+- Task briefs over 60 characters are reading text, not a heading.
+- Feedback lies over the exercise, folds down, Try again beside Continue, the
+  grammar rule as a book icon.
+- A picture-card step without pictures becomes the word-list style.
+- The pre-lesson word list stays hidden until `assets/vocabulary/` matches
+  v1.2.
+- Flashcard review, the daily screen and onboarding are left for later.
 
-### 3. Build
-Use the existing parts; don't make new ones:
-- **`SlideDeck`** (`lib/presentation/widgets/common/slide_deck.dart`).
-  Explicit `slides:` when each slide asks one thing; `SlideDeck.packed` for
-  content to fit onto as few slides as possible. `canAdvance` keeps Next greyed
-  out until the slide is answered; `onDone: null` once the deck is finished.
-- **`QuestionSteps`** (`exercises/question_steps.dart`): a passage or recording
-  followed by one question per slide.
-- **`showsAsSlides()`** (`lib/presentation/widgets/lesson/slides_pilot.dart`)
-  is the one on/off setting. The exercise view and `LessonExerciseViewport`
-  must both use it.
+Anything else that changes what a learner sees, gets as help, or is graded on
+is Mahesh's call.
 
-The measure to design against:
+## 1. Assess (commit nothing)
+
+1. **One command:** `.agents/skills/lesson-no-scroll/scripts/assess_unit.sh <unit…> --out <scratchpad>`
+   from the repo root, outside the sandbox. It switches the units on
+   temporarily, then:
+   - runs the dry run (what would still scroll, by kind, keyboard up too);
+   - runs the pilot screen tests with the units on (feedback over the
+     exercise, notebook comparison, Rule sheet, 200% text);
+   - restores the files.
+
+   Every line it prints is a finding. If the budget file has uncommitted
+   changes it refuses; stash them first.
+2. **Find each cause as parts, not a number:**
+   - `scripts/slide_heights.sh <id,…>` gives each overflowing slide's parts,
+     or a one-page layout's.
+   - `scripts/feedback_heights.sh <id,…>` gives the feedback sheet over an
+     exercise.
+
+   "96 pt prompt + 140 pt image + 130 pt listen panel" is a cause; "60 pt
+   over" is not.
+3. **Match causes to the table below.** A known cause has its fix; only new
+   causes need designing.
+4. **Read the unit's content** against the content checks below.
+5. **Look at one lesson on the simulator** before changing it.
+
+## 2. Plan
+Write down, and show Mahesh before building:
+- each finding, its cause and the fix (from the table where known);
+- the content questions, for the teacher review;
+- only the decisions that are genuinely new.
+
+## Known causes and their fixes
+
+| Cause | Where it shows | Fix |
+|---|---|---|
+| Listening first slide with an image (prompt + 140 pt image + listen panel + gist note + transcript) | Units 4, 7, 9 | smaller image (~100 pt) or pack the first slide |
+| Long reading text repeated above a 4-option question | Unit 29 | question first with "Show the text", or a text slide between questions |
+| Many dialogue lines before one gap | e.g. 31113 | last 2–3 lines on the reply slide, earlier ones on their own slide |
+| Dialogue reply slide under the keyboard (several lines or gaps) | 38 dialogues, e.g. 3310 | one gap per slide; only the preceding line while typing |
+| Five long table rows taller than a slide | 7301, 24301, 26301 | chunk tables by measured height, not five rows |
+| Matching counter ("0/6 matched") under the folded feedback bar | matching, e.g. 3103 | move the counter up, or lift the folded bar's limit for matching |
+| Notebook model of 5+ rows with typed notes | e.g. 3207 | pack notes and model (`SlideDeck.packed`) or show notes on their own slide |
+| Picture cards without pictures (empty 268 pt box) | check each unit | switch to the word-list style |
+| Near-fits: matching spacing, long multiple-choice questions in the display face, fill-in letter bar, alphabet grid | outside Unit 2 | tighten spacing; `instruction:` reading text; alphabet grid as packed slides |
+
+## 3. Build
+Reuse these parts:
+
+**Decks and slides** (`lib/presentation/widgets/common/slide_deck.dart`):
+- `SlideDeck` with explicit `slides:` puts one thing on each slide.
+- `SlideDeck.packed` fits blocks onto the fewest slides, spread evenly.
+- `canAdvance` greys out Next until the slide is answered.
+- `onDone: null` means the last slide has no button (a recording finishes the
+  step).
+- `finished: true` hides the deck's buttons once answered.
+- `returnKeyAdvances` lets the keyboard take the buttons' room.
+- `FillSlide` gives a page the remaining height.
+- `KeyboardUpBuilder` tells whether the keyboard is up.
+
+**Exercises:**
+- `QuestionSteps` (`exercises/question_steps.dart`): a passage or recording,
+  then one question per slide.
+- `QuestionPrompt(instruction: true)` sets long briefs as reading text.
+- `AudioPairButtons(compact: true)`: play and speed on one row.
+
+**Feedback sheet** (`FeedbackSheet` in `lesson_ui.dart`): `folded` /
+`onToggleFolded`, `secondaryLabel` / `onSecondary`, `onTitleAction`.
+
+**The on/off switch:** `showsAsSlides()` (`lib/presentation/widgets/lesson/slides_pilot.dart`)
+is the one switch for exercise views. The view and `LessonExerciseViewport`
+must both use it.
+
+**Design against:**
 
 | Measure | Size |
 |---|---|
-| Lesson exercise area | 375 × 557 pt |
+| Lesson exercise area (iPhone SE) | 375 × 557 pt |
 | Room for one slide's content | about 454 pt |
+| Keyboard with suggestion bar | 260 pt |
 
-### 4. Verify
+## 4. Verify
+- **Switch the unit on** in `unitGuidePilotUnits`. The pilot tests pick it up
+  by themselves (`test/support/pilot_units.dart`); tests of the old one-page
+  layouts use `outsidePilotUnit`, so no test edits are needed. If a test
+  breaks for any reason other than a real finding, fix the test to use
+  `pilotUnits` / `outsidePilotUnit`, not a unit number.
 - **Re-pin the budget:** `UPDATE_NO_SCROLL_BUDGET=1 flutter test test/no_scroll_fit_test.dart`,
   then read `git diff test/fixtures/no_scroll_budget.json`:
-  - only the intended ids change;
-  - every exercise of an already converted kind leaves the list;
+  - only the unit's ids change;
+  - every converted kind leaves the list;
   - whatever stays is on the plan.
-
-  Changes in other units mean the change reached further than intended.
+- **Content changed?** Re-pin the content digest in
+  `test/bundled_content_revision_test.dart`; revision 26 has not shipped, so
+  the number stays.
 - **Break each new test on purpose once** and see it fail.
-- **Run it on the iOS simulator:**
-  - each converted type once, through to the feedback sheet;
-  - typed answers with the keyboard up.
-
-  Several bugs in this work were only visible there.
-- **Run the full suite** (the referral manifest test is a known failure), then
+- **On the simulator** (bugs in §7 of the doc were only visible there):
+  - one of each converted type, through to the feedback sheet;
+  - typed answers with the keyboard up;
+  - the Rule sheet and a notebook comparison.
+- **Run the full suite:** only the referral manifest test may fail. Then
   commit.
-- **Add what you learned to the doc.**
+- **Add what you learned to the doc and to the table above.**
+
+## Content checks for every unit
+- Expected answers that hard-code a name ("Jmenuji se Mahesh.").
+- Pronunciation focus sounds that are not in the sentence (2107 lists "ř").
+- `image_cards` steps without `image` or `sentence` per item.
+- Speaking tasks that pass on any one expected phrase.
+- Alternatives shown as separate phrases to say ("Jmenuju se / Jmenuji se").
+- The unit's words in `assets/vocabulary/` against the lesson word lists.
+- Anything else for the teacher review.
+
+Don't treat a teaching choice as a bug: dialogue audio plays the replies on
+purpose (listen-then-reproduce). Ask.
 
 ## Never
-- **Shrink text to fit** (`FittedBox`, a smaller font to squeeze content in).
-  Split it instead. Only at large system text sizes may a slide scroll.
-- **Change grading, hearts, XP, or the help a learner gets** as a side effect
-  of a layout change.
-- **Assume something is a bug in the teaching design.** Dialogue audio plays the
-  replies on purpose: the exercises are listen-then-reproduce. Ask Mahesh.
-- **Make browsing screens into slides.** Home, the course map, settings, stats,
-  chat and legal text keep scrolling.
-- **Decide slides in one place only.** A deck inside the lesson's scroll view
+- **Shrink text to fit** (`FittedBox`, a smaller font). Split it instead.
+- **Change grading, hearts, XP or the help a learner gets** as a side effect of
+  a layout change.
+- **Make browsing screens into slides.**
+- **Decide slides in one place only:** a deck inside the lesson's scroll view
   can't lay out.
 
+## Traps we hit
+- **Inside a `Scaffold` body, `MediaQuery.viewInsets` is always zero.** Use
+  `KeyboardUpBuilder`.
+- **The theme's buttons have an infinite minimum width.** In a `Row` they need
+  `minimumSize: Size(0, h)`.
+- **A `Container` with `alignment` fills its space.** Use
+  `Align(widthFactor: 1)` to centre without stretching.
+- **Measure the states the learner really sees:**
+  - a first miss shows only the prompt;
+  - the explanation comes after the third miss, the answer after the fourth;
+  - typed notes must actually be typed.
+- **Never edit files containing non-ASCII text with `sed -i`:** it corrupted a
+  test file. Use Python.
+- **The fit test's budget keys** can be `<id>+keyboard`.
+
 ## Practicalities
-- Flutter must run outside the sandbox, and never `dart format` the repo. See
-  the flutter-toolchain-quirks memory.
-- **The simulator:**
-  1. Build: `flutter build ios --simulator --debug --config-only --dart-define=UNLOCK_ALL=true`,
-     then the simulator tool's build of `ios/Runner.xcworkspace`, scheme
-     `Runner`.
-  2. After launch, wait for the app to settle before tapping, and tap once per
-     screenshot. Early taps land on Home.
-  3. Screenshots are about 2.29 px per point.
-  4. Test typing with short words: the simulator autocorrects.
-- **Keep scratch files in the session scratchpad.** `$TMPDIR` is a different
-  folder inside and outside the sandbox.
+- **Flutter** must run outside the sandbox. Never `dart format` the repo.
+- **Simulator build:**
+  1. `flutter build ios --simulator --debug --config-only --dart-define=UNLOCK_ALL=true`
+  2. The simulator tool's build of `ios/Runner.xcworkspace`, scheme `Runner`.
+- **Content changes** need `xcrun simctl uninstall <device> com.eminentsite.czechify`
+  before installing, to reseed. That starts at onboarding: skip it.
+- **Taps:** wait for the app to settle; tap once per screenshot. Screenshots
+  are about 2.29 px per point.
+- **Screens in the way:**
+  - on a new day the daily review screen comes first ("Go to Home");
+  - the one-time notebook intro shifts the first notebook step.
+- **A black screen after launch** is the simulator, not the app: relaunch with
+  `xcrun simctl terminate`, then `xcrun simctl launch`.
+- **Typing** is autocorrected by the simulator; use short words.
+- **The iPhone SE simulator** exists (`iPhone SE (3rd generation)`), but Mahesh
+  must grant access in the simulator panel.
+- **Scratch files** go in the session scratchpad; `$TMPDIR` differs inside and
+  outside the sandbox.

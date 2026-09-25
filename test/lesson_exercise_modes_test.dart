@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/pilot_units.dart';
 import 'support/lesson_session_harness.dart';
 
 /// Warm-up guesses, lecture checks and guided practice are teaching, not
@@ -128,16 +129,16 @@ class _Session extends LessonSessionNotifier {
     final exercises = [
       Exercise(
         id: 1,
-        lessonId: 601,
+        lessonId: outsidePilotLesson(1),
         type: ExerciseType.fillBlank,
         prompt: 'Dám si ___.',
         data: {'type': 'fill_blank', if (mode != null) 'mode': mode},
       ),
     ];
     return LessonSessionState(
-      lesson: const Lesson(
-        id: 601,
-        unitId: 6,
+      lesson: Lesson(
+        id: outsidePilotLesson(1),
+        unitId: outsidePilotUnit,
         orderInUnit: 1,
         title: 'Choose the useful object form',
         description: '',
