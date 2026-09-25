@@ -6830,6 +6830,18 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 word} other{{count} words}}'**
   String writingWordsSoFar(int count);
 
+  /// No description provided for @feedbackFold.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide feedback'**
+  String get feedbackFold;
+
+  /// No description provided for @feedbackUnfold.
+  ///
+  /// In en, this message translates to:
+  /// **'Show feedback'**
+  String get feedbackUnfold;
+
   /// No description provided for @slidePosition.
   ///
   /// In en, this message translates to:

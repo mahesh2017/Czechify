@@ -1718,6 +1718,8 @@
       }
     }
   },
+  "feedbackFold": "Hide feedback",
+  "feedbackUnfold": "Show feedback",
   "slidePosition": "Slide {index} of {count}",
   "@slidePosition": {
     "placeholders": {

@@ -65,7 +65,7 @@
       "prompt": "See the relationship before choosing the words",
       "data": {
         "type": "teaching",
-        "style": "image_cards",
+        "style": "list",
         "heading": "Formal or friendly?",
         "body": "Czech has a formal hello (Dobrý den) and a friendly one (Ahoj). Learn these phrases whole first; Lesson B explains when to use which.",
         "items": [

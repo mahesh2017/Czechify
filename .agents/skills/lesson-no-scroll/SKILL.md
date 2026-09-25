@@ -22,6 +22,9 @@ it cost a revert.
 - **Trial run:** run `scripts/dry_run.sh <unit…>` from the repo root. It
   switches the units on temporarily, measures every exercise on the iPhone SE
   area, prints what would still scroll, and restores the files.
+- **Measure the answer feedback too:** `scripts/feedback_heights.sh <id,id,…>`
+  shows the feedback sheet over each exercise (first miss, fourth miss, right)
+  and how far the exercise then scrolls.
 - **Find the cause of each overflow:** run `scripts/slide_heights.sh <id,id,…>`.
   It prints each overflowing slide and the heights of its parts. Write each
   cause down as parts, not a number. Good: "96 pt prompt + 140 pt image + 130 pt

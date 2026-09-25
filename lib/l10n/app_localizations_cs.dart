@@ -4002,6 +4002,12 @@ class AppLocalizationsCs extends AppLocalizations {
   }
 
   @override
+  String get feedbackFold => 'Skrýt hodnocení';
+
+  @override
+  String get feedbackUnfold => 'Zobrazit hodnocení';
+
+  @override
   String slidePosition(int index, int count) {
     return 'Snímek $index z $count';
   }

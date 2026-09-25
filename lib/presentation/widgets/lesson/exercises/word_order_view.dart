@@ -270,7 +270,6 @@ class WordChip extends StatelessWidget {
             child: Container(
               constraints: const BoxConstraints(minHeight: 44),
               padding: const EdgeInsets.symmetric(horizontal: 14),
-              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: bg,
                 borderRadius: BorderRadius.circular(12),
@@ -286,12 +285,18 @@ class WordChip extends StatelessWidget {
                           ),
                         ],
               ),
-              child: Text(
-                word,
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  color: fg,
+              // Centred without stretching: a Container's own `alignment`
+              // makes it take the whole row, which stacked every word of the
+              // bank as a full-width button, one per line.
+              child: Align(
+                widthFactor: 1,
+                child: Text(
+                  word,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                    color: fg,
+                  ),
                 ),
               ),
             ),

@@ -3,7 +3,9 @@
 **Date:** 24 September 2026 · **Branch:** `curriculum/v1.2-plan` · **Commits:**
 `3ba71abb` (step 0), `63ae05ef` (step 1), `bfc15b76` (step 2)
 
-**Status:** Unit 2 is converted for steps 0–3. Steps 4–5 are still to do. Every
+**Status:** Unit 2 is converted for steps 0–4: no Unit 2 exercise scrolls on a
+small phone, with or without the keyboard or answer feedback. Step 5 (the
+other learning screens) is still to do. Every
 other unit still uses the old one-page layouts.
 
 This is what we learned while building Unit 2. Read it before switching another
@@ -293,6 +295,40 @@ the slide layouts, so units not yet switched on are unchanged.
   keyboard** (an iPhone SE's with its suggestion bar). Results are listed in
   the budget as `<id>+keyboard`, and an overflow inside a `FillSlide` counts.
 
+### Answer feedback (step 4)
+- **Measure it in the real lesson screen, not the exercise alone.** The
+  exercise fit test never saw the feedback sheet. In the lesson it took
+  235–373 pt of a small phone, and after a miss 37 of Unit 2's 38 scored
+  exercises had to scroll to show the marked answer (`scripts/feedback_heights.sh`).
+- **Measure the states the lesson really shows.** On a first miss the sheet has
+  only the step's prompt; the explanation comes after the third miss and the
+  answer after the fourth. My first probe filled in both and overstated it.
+- **The sheet lies over the exercise** in the pilot (`_withFeedbackOver` in the
+  lesson screen): the exercise keeps its full height, so nothing moves when the
+  answer is checked. The answered exercise has lost its Check or Next by then,
+  so the sheet mostly covers empty space.
+- **It folds down** to one row — verdict, Continue, the unfold arrow — from an
+  arrow in its title row, so every part of the answered exercise can be seen
+  without scrolling. Folding is remembered for that question only.
+- **It is compact:** Try again beside Continue and the grammar rule as a book
+  icon in the title row, instead of a line each. A first miss with the rule
+  link went from about 287 pt to 183 pt. What the sheet says, and when, is
+  unchanged.
+- **The theme's buttons have an infinite minimum width** (they are full-width
+  by default). A button placed in a `Row` must set `minimumSize: Size(0, h)`,
+  or layout fails.
+- `test/feedback_overlay_test.dart` checks every scored exercise of the pilot
+  units: the exercise does not move, a first-miss sheet is at most 200 pt (a
+  right answer's 240 pt, since it grows with its explanation), the folded bar
+  at most 100 pt, and no text of the exercise is left under the folded bar.
+
+### Word order (step 4)
+- **A `Container` with an `alignment` expands to fill its space.** The word
+  chip had one, so inside the `Wrap` every word was a full-width button, one
+  per line (272–384 pt for the bank). Centring with `Align(widthFactor: 1)`
+  keeps each chip the size of its word; the bank is now 104 pt. This affected
+  all 37 word-order exercises, not only the six that overflowed.
+
 ## 6. What happens when every unit is switched on
 
 Measured by temporarily listing all 31 units in the pilot
@@ -309,8 +345,8 @@ step 2, again on 25 Sep after step 3.
 | Writing | 79 | 79 | **0** |
 | Pronunciation | 68 | 68 | **0** |
 | Speaking | 55 | 46 | **2** |
-| Everything else | 826 | 19 | 19 (step 4) |
-| **Total** | **1,548** | **715** | **86** |
+| Everything else | 826 | 19 | 13 (after step 4) |
+| **Total** | **1,548** | **715** | **80** |
 
 With the keyboard up, **38 dialogues** would not fit their reply slide (19 by
 more than 10 pt, up to 707 pt). Everything else that takes typing fits.
@@ -344,7 +380,14 @@ in five known ways, each needing a fix *before* those units are switched on:
    just before it when the keyboard is up.
 
 Two speaking tasks (29206, 29207, 25 and 46 pt over) are also left; not
-diagnosed yet.
+diagnosed yet. The 13 near-fits outside Unit 2 (step 4's assessment):
+- matching spacing (1103, 3215, 6403; 6–36 pt);
+- long multiple-choice questions in the display face (19133, 21309);
+- the fill-in-the-blank letter bar with its label (18216, 18217, 18311, 22218);
+- one error correction (27216, 11 pt);
+- the Unit 1 alphabet grid (1315, 744 pt), which needs packed slides like
+  the word lists;
+- the two picture-card steps (1101, 3101, 5 pt).
 
 ## 7. Found only by running the app
 
@@ -391,7 +434,9 @@ the feedback sheet, with the keyboard for typed answers.
   Next button for a few seconds.
 - **Two screens still scroll and still use the old tall header:** the new-words
   list before a lesson (the teach phase), and the Rule sheet. Both are step 5.
-- **2101 (Unit 2's picture cards) has no pictures and no example sentences.**
+- **2101 (Unit 2's picture cards) had no pictures and no example sentences**
+  (fixed 25 Sep: switched to the word-list style, with Mahesh's agreement;
+  pictures can come later).
   The word cards say "Look at the picture" over an empty placeholder, and every
   "Now hear it in a useful sentence" card is blank. The `image_cards` style needs
   an image and a sentence per item; the v1.2 rebuild gave it neither. The two

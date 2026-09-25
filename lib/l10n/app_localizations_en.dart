@@ -3984,6 +3984,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get feedbackFold => 'Hide feedback';
+
+  @override
+  String get feedbackUnfold => 'Show feedback';
+
+  @override
   String slidePosition(int index, int count) {
     return 'Slide $index of $count';
   }

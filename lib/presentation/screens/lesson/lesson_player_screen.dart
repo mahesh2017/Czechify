@@ -67,6 +67,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
   /// Whether the learner has passed the lesson start screen (unit-guide
   /// pilot). Stays true for a retry: the goal has been read once.
   bool _started = false;
+
+  /// Pilot: the question whose feedback sheet the learner folded down, by
+  /// position and retry. Any other question's sheet opens unfolded.
+  (int, int)? _feedbackFoldedFor;
   bool _exitDialogOpen = false;
 
   /// The exercise whose illustration has already been warmed, so an unrelated
@@ -856,7 +860,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
               // so the learner can study their answer at their own pace —
               // no timed auto-advance.
               Expanded(
-                child: MotionEntrance(
+                child: _withFeedbackOver(
+                  slim: slim,
+                  session: session,
+                  exercise: MotionEntrance(
                   // Replacing this key disposes the outgoing exercise in the
                   // same frame. Only the incoming exercise is animated, so a
                   // microphone or TTS owner can never survive behind an exit.
@@ -896,18 +903,49 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                     },
                   ),
                 ),
+                ),
               ),
 
-              // Feedback banner — appears under the answered exercise.
-              MotionDisclosure(
-                visible: session.showFeedback,
-                alignment: Alignment.bottomCenter,
-                child: _buildFeedbackBanner(context, session),
-              ),
+              // Feedback banner — appears under the answered exercise. In the
+              // pilot it is laid over the exercise instead (see
+              // [_withFeedbackOver]).
+              if (!slim)
+                MotionDisclosure(
+                  visible: session.showFeedback,
+                  alignment: Alignment.bottomCenter,
+                  child: _buildFeedbackBanner(context, session),
+                ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// Pilot: the feedback sheet is laid over the bottom of the exercise
+  /// rather than pushing it up. On a small phone the sheet took 235-373 pt,
+  /// so pushing left too little room and nearly every answered exercise had
+  /// to scroll to show the answer. Laid over it, nothing moves when the
+  /// answer is checked, and folding the sheet down shows the whole exercise.
+  Widget _withFeedbackOver({
+    required bool slim,
+    required LessonSessionState session,
+    required Widget exercise,
+  }) {
+    if (!slim) return exercise;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        exercise,
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: MotionDisclosure(
+            visible: session.showFeedback,
+            alignment: Alignment.bottomCenter,
+            child: _buildFeedbackBanner(context, session),
+          ),
+        ),
+      ],
     );
   }
 
@@ -943,6 +981,9 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
             ? null
             : _feedbackPrompt(l10n, session.feedbackStep!);
     final explanation = session.lastExplanation?.trim();
+    final slim = _slimFrame(session);
+    final question = (session.currentIndex, session.retrySeq);
+    final ruleId = session.lastGrammarRuleId;
     final body = [
       if (prompt != null) prompt,
       if (explanation != null && explanation.isNotEmpty) explanation,
@@ -986,7 +1027,28 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
         ),
         onContinue:
             () async => ref.read(lessonSessionProvider.notifier).nextExercise(),
-        extra: _feedbackExtra(context, session, t),
+        extra: _feedbackExtra(context, session, t, compact: slim),
+        // Pilot: Try again beside Continue and the rule as an icon, rather
+        // than a line each; and a handle to fold the sheet out of the way.
+        secondaryLabel: slim && session.canRetry ? l10n.tryAgain : null,
+        onSecondary:
+            slim && session.canRetry
+                ? ref.read(lessonSessionProvider.notifier).retryCurrentExercise
+                : null,
+        titleActionTooltip: l10n.feedbackViewGrammarRule,
+        onTitleAction:
+            slim && ruleId != null
+                ? () => context.push('/grammar?rule=$ruleId')
+                : null,
+        folded: slim && _feedbackFoldedFor == question,
+        onToggleFolded:
+            slim
+                ? () => setState(
+                  () =>
+                      _feedbackFoldedFor =
+                          _feedbackFoldedFor == question ? null : question,
+                )
+                : null,
       ),
     );
   }
@@ -996,11 +1058,14 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
   Widget? _feedbackExtra(
     BuildContext context,
     LessonSessionState session,
-    AppTokens t,
-  ) {
-    final ruleId = session.lastGrammarRuleId;
+    AppTokens t, {
+    bool compact = false,
+  }) {
+    // Compact (pilot): Try again and the rule are on the sheet's own rows;
+    // only a save error is left to show here.
+    final ruleId = compact ? null : session.lastGrammarRuleId;
     final error = session.completionError;
-    final canRetry = session.canRetry;
+    final canRetry = !compact && session.canRetry;
     if (ruleId == null && error == null && !canRetry) return null;
 
     return Column(

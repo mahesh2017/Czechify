@@ -1236,6 +1236,8 @@
   "pronFocusLongVowel": "Dlouhé samohlásky",
   "pronFocusVowelLength": "Délka samohlásek",
   "writingWordsSoFar": "{count, plural, =1{1 slovo} few{{count} slova} other{{count} slov}}",
+  "feedbackFold": "Skrýt hodnocení",
+  "feedbackUnfold": "Zobrazit hodnocení",
   "slidePosition": "Snímek {index} z {count}",
   "ruleBackToLesson": "Zpět do lekce",
   "unitGuideRulesCount": "{count, plural, =1{1 pravidlo} few{{count} pravidla} other{{count} pravidel}}",

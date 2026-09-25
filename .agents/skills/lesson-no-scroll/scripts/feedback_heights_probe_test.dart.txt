@@ -1,0 +1,107 @@
+// Copied into test/ by feedback_heights.sh for one run, then deleted.
+// How tall the feedback sheet is over each given exercise on an iPhone SE, and
+// how far the exercise then scrolls: after a first miss (prompt only), a fourth
+// miss (explanation and answer) and a right answer.
+import 'dart:math' as math;
+
+import 'package:czechify/core/theme/app_theme.dart';
+import 'package:czechify/domain/engines/learning_loop_engine.dart';
+import 'package:czechify/domain/entities/enums.dart';
+import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/domain/entities/exercise_outcome.dart';
+import 'package:czechify/domain/entities/lesson.dart';
+import 'package:czechify/presentation/providers/course_admission_providers.dart';
+import 'package:czechify/presentation/providers/curriculum_providers.dart';
+import 'package:czechify/presentation/providers/lesson_providers.dart';
+import 'package:czechify/presentation/providers/tts_providers.dart';
+import 'package:czechify/presentation/screens/grammar/unit_notebook_screen.dart';
+import 'package:czechify/presentation/screens/lesson/lesson_player_screen.dart';
+import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
+import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'support/localized_app.dart';
+import 'support/shipped_exercises.dart';
+
+void main() {
+  setUpAll(() async {
+    for (final f in {'Bricolage Grotesque': 'BricolageGrotesque', 'Schibsted Grotesk': 'SchibstedGrotesk'}.entries) {
+      await (FontLoader(f.key)..addFont(rootBundle.load('assets/fonts/${f.value}.ttf'))).load();
+    }
+  });
+  testWidgets('feedback probe', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    tester.view.physicalSize = const Size(375, 667);
+    tester.view.devicePixelRatio = 1;
+    tester.view.padding = const FakeViewPadding(top: 20);
+    final all = loadShippedExercises();
+    final ids = const String.fromEnvironment('IDS').split(',').map(int.parse).toSet();
+    final scored = all.where((e) => ids.contains(e.id));
+    for (final e in scored) {
+      for (final state in ['miss1', 'miss4', 'correct']) {
+      final outcome = state == 'correct' ? ExerciseOutcome.correct : ExerciseOutcome.incorrect;
+        final lesson = Lesson(id: e.lessonId, unitId: e.lessonId ~/ 100, orderInUnit: e.lessonId % 100 - 1, title: 'L', description: '');
+        await tester.pumpWidget(ProviderScope(
+          key: UniqueKey(),
+          overrides: [
+            lessonSessionProvider.overrideWith(() => _S(lesson, e, outcome, state)),
+            lessonAdmissionProvider(e.lessonId).overrideWith((_) async => LessonAdmission.allowed),
+            czechTtsProvider.overrideWithValue(_Tts()),
+            unitLessonsProvider(e.lessonId ~/ 100).overrideWith((_) async => [lesson]),
+            unitLectureStepsProvider(e.lessonId ~/ 100).overrideWith((_) async => const []),
+          ],
+          child: MaterialApp(theme: lightTheme(), localizationsDelegates: testLocalizationsDelegates, supportedLocales: testSupportedLocales,
+            builder: (c, child) => MediaQuery(data: MediaQuery.of(c).copyWith(disableAnimations: true), child: child!),
+            home: LessonPlayerScreen(lessonId: e.lessonId)),
+        ));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Start'));
+        await tester.pumpAndSettle();
+        tester.takeException();
+        final sheet = find.byType(FeedbackSheet);
+        final sheetH = sheet.evaluate().isEmpty ? 0.0 : tester.getSize(sheet).height;
+        final vp = find.byType(LessonExerciseViewport);
+        final vpH = vp.evaluate().isEmpty ? 0.0 : tester.getSize(vp).height;
+        var over = 0.0;
+        for (final s in tester.stateList<ScrollableState>(find.descendant(of: vp, matching: find.byType(Scrollable)))) {
+          if (s.position.axis == Axis.vertical && s.position.hasContentDimensions) over = math.max(over, s.position.maxScrollExtent);
+        }
+        // ignore: avoid_print
+        print('» ${e.id} ${e.type.name.padRight(22)} ${state.padRight(8)} sheet ${sheetH.round()}  exercise area ${vpH.round()}  scrolls ${over.round()}');
+      }
+    }
+  }, timeout: const Timeout(Duration(minutes: 5)));
+}
+
+class _S extends LessonSessionNotifier {
+  _S(this.lesson, this.e, this.outcome, this.stage);
+  final Lesson lesson; final Exercise e; final ExerciseOutcome outcome; final String stage;
+  @override
+  LessonSessionState build() => LessonSessionState(
+    lesson: lesson, exercises: [e, e], currentIndex: 0,
+    showFeedback: true, lastOutcome: outcome,
+    lastGrammarRuleId: e.grammarRuleId,
+    lastExplanation: stage == 'miss1' ? null : e.data['explanation'] as String?,
+    lastCorrectAnswer: stage == 'miss4' ? e.answerKey : null,
+    feedbackStep: switch (stage) { 'miss1' => FeedbackStep.signal, 'miss4' => FeedbackStep.explanation, _ => null },
+  );
+  @override
+  Future<void> loadLesson(int lessonId) async {}
+}
+
+class _Tts implements CzechTts {
+  @override
+  final usingFallbackVoice = ValueNotifier(false);
+  @override
+  Future<void> speak(String text, {double? rate}) async {}
+  @override
+  Future<void> speakSlow(String text) async {}
+  @override
+  Future<void> stop() async {}
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}

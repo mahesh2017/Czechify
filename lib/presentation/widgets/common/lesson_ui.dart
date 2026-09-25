@@ -1081,6 +1081,12 @@ class FeedbackSheet extends StatelessWidget {
     this.extra,
     this.busy = false,
     this.continueSemanticsLabel,
+    this.secondaryLabel,
+    this.onSecondary,
+    this.titleActionTooltip,
+    this.onTitleAction,
+    this.folded = false,
+    this.onToggleFolded,
   });
 
   final String title;
@@ -1102,6 +1108,22 @@ class FeedbackSheet extends StatelessWidget {
 
   /// Disables Continue and shows a spinner while the result is being saved.
   final bool busy;
+
+  /// A second action beside Continue ("Try again"), instead of on a line of
+  /// its own above it.
+  final String? secondaryLabel;
+  final VoidCallback? onSecondary;
+
+  /// An icon action in the title row (the grammar rule), instead of a line of
+  /// its own.
+  final String? titleActionTooltip;
+  final VoidCallback? onTitleAction;
+
+  /// With [onToggleFolded], the sheet has a handle that folds it down to one
+  /// row — the verdict and Continue — so the learner can see the whole
+  /// answered exercise it is laid over.
+  final bool folded;
+  final VoidCallback? onToggleFolded;
 
   @override
   Widget build(BuildContext context) {
@@ -1131,7 +1153,12 @@ class FeedbackSheet extends StatelessWidget {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          padding: EdgeInsets.fromLTRB(
+            20,
+            onToggleFolded == null ? 20 : 14,
+            20,
+            folded ? 14 : 18,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1152,6 +1179,10 @@ class FeedbackSheet extends StatelessWidget {
                   Expanded(
                     child: Text(
                       title,
+                      // Folded, the bar stays one line; the full verdict is
+                      // one tap away.
+                      maxLines: folded ? 1 : null,
+                      overflow: folded ? TextOverflow.ellipsis : null,
                       style: TextStyle(
                         fontFamily: AppFonts.display,
                         fontSize: 21,
@@ -1160,7 +1191,42 @@ class FeedbackSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (onPlay != null)
+                  if (onTitleAction != null && !folded)
+                    IconButton(
+                      key: FeedbackSheet.titleActionKey,
+                      tooltip: titleActionTooltip,
+                      onPressed: onTitleAction,
+                      icon: Icon(Icons.menu_book_outlined, color: ink),
+                    ),
+                  if (folded) ...[
+                    const SizedBox(width: 8),
+                    _continueButton(context, ink, height: 48),
+                  ],
+                  // The fold sits at the end of the verdict's row rather
+                  // than on a handle row of its own.
+                  if (onToggleFolded != null)
+                    IconButton(
+                      key: FeedbackSheet.foldKey,
+                      // Flush with the sheet's edge, like the content below.
+                      visualDensity: VisualDensity.compact,
+                      padding: EdgeInsets.zero,
+                      style: IconButton.styleFrom(
+                        minimumSize: const Size(44, 44),
+                        alignment: Alignment.centerRight,
+                      ),
+                      tooltip:
+                          folded
+                              ? (l10n?.feedbackUnfold ?? 'Show feedback')
+                              : (l10n?.feedbackFold ?? 'Hide feedback'),
+                      onPressed: onToggleFolded,
+                      icon: Icon(
+                        folded
+                            ? Icons.keyboard_arrow_up_rounded
+                            : Icons.keyboard_arrow_down_rounded,
+                        color: ink,
+                      ),
+                    ),
+                  if (onPlay != null && !folded)
                     TextButton.icon(
                       onPressed: onPlay,
                       icon: const Icon(Icons.play_arrow, size: 18),
@@ -1179,7 +1245,7 @@ class FeedbackSheet extends StatelessWidget {
                     ),
                 ],
               ),
-              if (body != null && body!.trim().isNotEmpty) ...[
+              if (!folded && body != null && body!.trim().isNotEmpty) ...[
                 const SizedBox(height: 12),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1221,7 +1287,8 @@ class FeedbackSheet extends StatelessWidget {
                   ],
                 ),
               ],
-              if (correctAnswer != null &&
+              if (!folded &&
+                  correctAnswer != null &&
                   correctAnswer!.trim().isNotEmpty) ...[
                 const SizedBox(height: 12),
                 Container(
@@ -1255,38 +1322,88 @@ class FeedbackSheet extends StatelessWidget {
                   ),
                 ),
               ],
-              if (extra != null) ...[const SizedBox(height: 12), extra!],
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 54,
-                child: Semantics(
-                  label: continueSemanticsLabel ?? continueLabel,
-                  button: true,
-                  excludeSemantics: true,
-                  child: FilledButton(
-                    onPressed: busy ? null : onContinue,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: ink,
-                      foregroundColor: t.card,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+              if (!folded && extra != null) ...[
+                const SizedBox(height: 12),
+                extra!,
+              ],
+              if (!folded) ...[
+                SizedBox(height: onToggleFolded == null ? 16 : 14),
+                Row(
+                  children: [
+                    if (onSecondary != null && secondaryLabel != null) ...[
+                      SizedBox(
+                        height: 54,
+                        child: OutlinedButton.icon(
+                          key: FeedbackSheet.secondaryKey,
+                          onPressed: busy ? null : onSecondary,
+                          icon: const Icon(Icons.refresh_rounded, size: 18),
+                          label: Text(secondaryLabel!),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: ink,
+                            // The theme's minimum width is infinite (a
+                            // full-width button); beside Continue it sizes to
+                            // its label.
+                            minimumSize: const Size(0, 54),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            side: BorderSide(color: ink.withValues(alpha: 0.35)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    child:
-                        busy
-                            ? SizedBox.square(
-                              dimension: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(t.card),
-                              ),
-                            )
-                            : Text(continueLabel),
-                  ),
+                      const SizedBox(width: 10),
+                    ],
+                    Expanded(child: _continueButton(context, ink, height: 54)),
+                  ],
                 ),
-              ),
+              ],
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  static const foldKey = ValueKey('feedback-fold');
+  static const secondaryKey = ValueKey('feedback-secondary');
+  static const titleActionKey = ValueKey('feedback-title-action');
+
+  Widget _continueButton(
+    BuildContext context,
+    Color ink, {
+    required double height,
+  }) {
+    final t = context.tokens;
+    return SizedBox(
+      height: height,
+      child: Semantics(
+        label: continueSemanticsLabel ?? continueLabel,
+        button: true,
+        excludeSemantics: true,
+        child: FilledButton(
+          onPressed: busy ? null : onContinue,
+          style: FilledButton.styleFrom(
+            backgroundColor: ink,
+            foregroundColor: t.card,
+            // Not the theme's infinite minimum width: folded, the button
+            // sits in a row beside the verdict.
+            minimumSize: Size(0, height),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          child:
+              busy
+                  ? SizedBox.square(
+                    dimension: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation(t.card),
+                    ),
+                  )
+                  : Text(continueLabel),
         ),
       ),
     );
