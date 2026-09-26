@@ -114,7 +114,7 @@
           {
             "question_en": "Which text best summarizes the situation?",
             "options": [
-              "Plan: Saturday 10:00, Café Luna, telephone 603 218 440.",
+              "A plan: day, time, place, phone",
               "The people are asking for directions.",
               "The speaker is describing the weather."
             ],

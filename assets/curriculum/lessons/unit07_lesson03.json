@@ -210,7 +210,7 @@
           {
             "question_en": "Which text best summarizes the situation?",
             "options": [
-              "Room 12: Mr Novák’s phone. Room 14: Ms Malá’s bag.",
+              "Which item belongs in which room",
               "The people are asking for directions.",
               "The speaker is describing the weather."
             ],

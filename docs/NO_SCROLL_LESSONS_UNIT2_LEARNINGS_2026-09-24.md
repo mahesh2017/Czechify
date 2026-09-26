@@ -536,6 +536,18 @@ Units 1–7 covered everything.
 No fixes needed, like Unit 8: all 50 exercises fit, all 28 budget entries
 left the list, and its four dialogues were right.
 
+### Unit 10 switched on (26 Sep)
+
+All 28 of its budget entries left the list; its four dialogues were right.
+- **A template summary question** ("Which text best summarizes the
+  situation?") ends 24 reading steps in Units 4–10. Its right option was the
+  whole passage in English (up to five lines), which made 10103 and 10305
+  18 and 60 pt too tall, gave the translation away past "Show in English",
+  and tested nothing: the wrong options are always "The people are asking for
+  directions." and "The speaker is describing the weather.", and the right one
+  is always first. With Mahesh's agreement the right option is now a short
+  gist ("Anna's workday and her Saturday"); grading is unchanged.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -610,6 +622,14 @@ the feedback sheet, with the keyboard for typed answers.
 - **Check that each dialogue's expected answers reply to the line before
   the gap** (Unit 4 had all three wrong; the dry run cannot see it).
 - **4407 (Unit 4 speaking) passes on any one of its four phrases.**
+- **Listening has a matching template:** "Which lesson situation does this
+  recording belong to?" with the lesson's own title as the answer and
+  "Asking for directions" / "Talking about the weather" as the wrong ones.
+- **The 24 template summary questions (Units 4–10) need real wrong
+  options, and the right one shuffled** (it is always first). The new short
+  gists should be checked too.
+- **10405 (Unit 10 writing) model ends "Večer spím."; 10407 (speaking)
+  scores against fragments ("Ráno…") and passes on any one.**
 - **9405 (Unit 9 writing) has a jumbled model answer** (a list of numbers,
   not a phone number in three groups plus a repetition request); **9312's
   model includes the reply** ("Ano, v šest."); **9407 (speaking) passes on

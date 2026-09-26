@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–9. From Unit 8 on, a unit may need no fixes at all: then switch it on and
+1–10. From Unit 8 on, a unit may need no fixes at all: then switch it on and
 verify.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
@@ -99,6 +99,7 @@ Write down, and show Mahesh before building:
 | Alphabet grid | all alphabet steps | **built:** packed slides, a row of four per block |
 | Long explanation on a right answer (sheet over 240 pt) | e.g. 1215 | shorten the content, flag for the teacher |
 | Matching with six wrapping pairs (over the slide, or under the folded bar) | e.g. 6403 | **built:** tighter matching spacing in slide units |
+| Template summary question whose right option is the whole passage in English | 24 reading steps, Units 4–10 | **done:** right option rewritten as a short gist; check later units for the template |
 | Long listening brief (three heading lines) on the first slide | 59 listening steps, e.g. 7100 | **built:** reading text over 60 characters |
 | Near-fits: long multiple-choice questions in the display face, fill-in letter bar | outside Units 1–7 | tighten spacing; `instruction:` reading text |
 
@@ -176,6 +177,9 @@ must both use it.
 - Speaking tasks that pass on any one expected phrase.
 - Alternatives shown as separate phrases to say ("Jmenuju se / Jmenuji se").
 - The unit's words in `assets/vocabulary/` against the lesson word lists.
+- Template questions: "Which text best summarizes the situation?" with the
+  passage's translation as the answer, and "directions" / "weather" as the
+  wrong ones.
 - Anything else for the teacher review.
 
 Don't treat a teaching choice as a bug: dialogue audio plays the replies on
@@ -200,6 +204,8 @@ purpose (listen-then-reproduce). Ask.
   - a first miss shows only the prompt;
   - the explanation comes after the third miss, the answer after the fourth;
   - typed notes must actually be typed.
+- **Content files aren't all formatted alike:** Units 1–10 round-trip with
+  `json.dumps(indent=2)`, Unit 17 doesn't. Check before rewriting a file.
 - **Never edit files containing non-ASCII text with `sed -i`:** it corrupted a
   test file. Use Python.
 - **The fit test's budget keys** can be `<id>+keyboard`.
