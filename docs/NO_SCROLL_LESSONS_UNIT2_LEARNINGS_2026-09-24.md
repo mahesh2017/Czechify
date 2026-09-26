@@ -525,6 +525,12 @@ All 27 of its budget entries left the list; its four dialogues were right.
   the rule writing and speaking already followed (Mahesh, 26 Sep). This
   touches 59 listening steps course-wide, including Units 1–6.
 
+### Unit 8 switched on (26 Sep)
+
+The first unit that needed no fixes: all 52 exercises fit, all 28 budget
+entries left the list, and its four dialogues were right. The fixes built for
+Units 1–7 covered everything.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -599,6 +605,9 @@ the feedback sheet, with the keyboard for typed answers.
 - **Check that each dialogue's expected answers reply to the line before
   the gap** (Unit 4 had all three wrong; the dry run cannot see it).
 - **4407 (Unit 4 speaking) passes on any one of its four phrases.**
+- **8407 (Unit 8 speaking) passes on any one of four phrases, one of which
+  is "Je milý/milá."** (alternatives as one phrase to say; also in the 8406
+  writing model).
 - **7312 (Unit 7 writing) model rejects *taška* with "Ne, není můj."**
   (feminine: "není moje").
 - **7407 (Unit 7 speaking) passes on any one of its four phrases.**
