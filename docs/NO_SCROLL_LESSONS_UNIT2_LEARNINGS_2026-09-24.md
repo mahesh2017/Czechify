@@ -531,6 +531,11 @@ The first unit that needed no fixes: all 52 exercises fit, all 28 budget
 entries left the list, and its four dialogues were right. The fixes built for
 Units 1–7 covered everything.
 
+### Unit 9 switched on (26 Sep)
+
+No fixes needed, like Unit 8: all 50 exercises fit, all 28 budget entries
+left the list, and its four dialogues were right.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -605,6 +610,10 @@ the feedback sheet, with the keyboard for typed answers.
 - **Check that each dialogue's expected answers reply to the line before
   the gap** (Unit 4 had all three wrong; the dry run cannot see it).
 - **4407 (Unit 4 speaking) passes on any one of its four phrases.**
+- **9405 (Unit 9 writing) has a jumbled model answer** (a list of numbers,
+  not a phone number in three groups plus a repetition request); **9312's
+  model includes the reply** ("Ano, v šest."); **9407 (speaking) passes on
+  any one phrase** and none of them contains the contact detail it asks for.
 - **8407 (Unit 8 speaking) passes on any one of four phrases, one of which
   is "Je milý/milá."** (alternatives as one phrase to say; also in the 8406
   writing model).

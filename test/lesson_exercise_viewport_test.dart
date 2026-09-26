@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/pilot_units.dart';
 import 'support/shipped_exercises.dart';
 
 void main() {
@@ -119,9 +120,10 @@ void main() {
     tester,
   ) async {
     ExerciseResult? result;
-    const exercise = Exercise(
+    // The one-page layouts, so a unit still off the no-scroll slides.
+    final exercise = Exercise(
       id: 999001,
-      lessonId: 999,
+      lessonId: outsidePilotLesson(1),
       type: ExerciseType.dialogue,
       prompt: 'Complete the dialogue',
       data: {
@@ -172,9 +174,10 @@ void main() {
     tester,
   ) async {
     ExerciseResult? result;
-    const exercise = Exercise(
+    // The one-page layouts, so a unit still off the no-scroll slides.
+    final exercise = Exercise(
       id: 999002,
-      lessonId: 999,
+      lessonId: outsidePilotLesson(1),
       type: ExerciseType.fillBlank,
       prompt: 'Complete',
       data: {
@@ -217,9 +220,10 @@ void main() {
     tester,
   ) async {
     ExerciseResult? result;
-    const exercise = Exercise(
+    // The one-page layouts, so a unit still off the no-scroll slides.
+    final exercise = Exercise(
       id: 999003,
-      lessonId: 999,
+      lessonId: outsidePilotLesson(1),
       type: ExerciseType.fillBlank,
       prompt: 'Complete',
       data: {

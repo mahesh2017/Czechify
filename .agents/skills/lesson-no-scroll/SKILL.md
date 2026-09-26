@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–8. From Unit 8 on, a unit may need no fixes at all: then switch it on and
+1–9. From Unit 8 on, a unit may need no fixes at all: then switch it on and
 verify.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
@@ -206,6 +206,9 @@ purpose (listen-then-reproduce). Ask.
 - **Switching a unit on can surface screens the dry run never measures:**
   Unit 1 is the smoke tests' unit, and it showed the start screen breaking at
   200% text. Run the full suite before calling a unit done.
+- **Made-up lesson ids in tests belong to a unit too:** `unitOfLesson` is
+  `id ~/ 100`, so lesson 999 is Unit 9 and flipped to slides when Unit 9 went
+  on. Use `outsidePilotLesson(n)` for one-page tests.
 - **A test that hosts a step in its own `SingleChildScrollView`** breaks when
   the step becomes a deck. Host it in `LessonExerciseViewport`.
 - **Fitting the screen isn't enough:** a step must also clear the folded
