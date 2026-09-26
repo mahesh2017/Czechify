@@ -504,6 +504,18 @@ All 27 of its budget entries left the list.
   several activities); teacher to confirm, and to decide whether "Ano." alone
   should pass for "Pracuješ doma?".
 
+### Unit 6 switched on (26 Sep)
+
+All 28 of its budget entries left the list; its four dialogues were right.
+- **Matching near-fit** (6403: 64 pt prompt, 40 pt instruction and counter,
+  six pairs of which several wrap, 406 pt): 13 pt over, and once it fitted,
+  the last pair's text was still 5 pt under the folded answer bar (76 pt).
+  In slide units matching now has 10 pt above the prompt (from 18), 6 under
+  it (8), 12 above the pairs (18) and 6 between them (8).
+- **Fitting the screen is not enough for steps answered on the screen:**
+  matching and anything the learner looks back at must also clear the
+  folded bar. `feedback_overlay_test` checks it; the dry run does not.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -578,6 +590,9 @@ the feedback sheet, with the keyboard for typed answers.
 - **Check that each dialogue's expected answers reply to the line before
   the gap** (Unit 4 had all three wrong; the dry run cannot see it).
 - **4407 (Unit 4 speaking) passes on any one of its four phrases.**
+- **6460 (Unit 6 writing) has a jumbled sample answer** ("Ano, máme.
+  Bohužel nemáme. Tak si dám čaj. Ještě jednou, prosím.").
+- **6476 (Unit 6 speaking) passes on any one of four template phrases.**
 - **5407 (Unit 5 speaking) scores against template fragments** ("Pracuju…",
   "Bydlím…") and passes on any one of them.
 

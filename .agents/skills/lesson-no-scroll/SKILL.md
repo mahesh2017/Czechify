@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–5.
+1–6.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
 record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`: measurements,
@@ -96,7 +96,8 @@ Write down, and show Mahesh before building:
 | Picture cards without pictures (empty 268 pt box) | check each unit | whole step: word-list style; some items: **built**, they close the step as a word list |
 | Alphabet grid | all alphabet steps | **built:** packed slides, a row of four per block |
 | Long explanation on a right answer (sheet over 240 pt) | e.g. 1215 | shorten the content, flag for the teacher |
-| Near-fits: long multiple-choice questions in the display face, fill-in letter bar | outside Units 1–3 | tighten spacing; `instruction:` reading text |
+| Matching with six wrapping pairs (over the slide, or under the folded bar) | e.g. 6403 | **built:** tighter matching spacing in slide units |
+| Near-fits: long multiple-choice questions in the display face, fill-in letter bar | outside Units 1–6 | tighten spacing; `instruction:` reading text |
 
 ## 3. Build
 Reuse these parts:
@@ -204,6 +205,8 @@ purpose (listen-then-reproduce). Ask.
   200% text. Run the full suite before calling a unit done.
 - **A test that hosts a step in its own `SingleChildScrollView`** breaks when
   the step becomes a deck. Host it in `LessonExerciseViewport`.
+- **Fitting the screen isn't enough:** a step must also clear the folded
+  answer bar (76 pt). The dry run can't see that; `feedback_overlay_test` can.
 - **Don't estimate text heights with `TextPainter` to split content:** it got
   the wrapping wrong. Make each piece a block and let the deck measure.
 - **Changing what the model shows while typing:** key the rows

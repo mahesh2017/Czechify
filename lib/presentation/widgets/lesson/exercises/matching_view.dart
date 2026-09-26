@@ -79,6 +79,8 @@ class _MatchingViewState extends State<MatchingView> {
   bool get _isCorrect =>
       _leftItems.every((i) => i.pairIdx == _rightItems[i.matchedTo].pairIdx);
 
+  bool get _pilot => unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
+
   int get _matchedCount => _leftItems.where((i) => i.matched).length;
 
   void _onLeftTap(int idx) {
@@ -162,7 +164,7 @@ class _MatchingViewState extends State<MatchingView> {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final promptEn = widget.exercise.data['prompt_en'] as String?;
-    final pilot = unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
+    final pilot = _pilot;
     final instruction = Text(
       l10n.exerciseTapCzechThenEnglish,
       style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
@@ -181,7 +183,9 @@ class _MatchingViewState extends State<MatchingView> {
     );
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+      // Slide units: less above the prompt, so a folded answer sheet
+      // leaves six wrapping pairs in view (6403).
+      padding: EdgeInsets.fromLTRB(20, pilot ? 10 : 18, 20, 16),
       // Prompt, instruction and both columns share one scrollable; only the
       // action below is pinned. The prompt and instruction used to sit above
       // an Expanded, and at 200% text they took the whole box — all 84 shipped
@@ -199,7 +203,7 @@ class _MatchingViewState extends State<MatchingView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
-                  const SizedBox(height: 8),
+                  SizedBox(height: pilot ? 6 : 8),
                   // Pilot: the count beside the instruction. In the bottom
                   // row it lay under the folded answer sheet.
                   if (pilot)
@@ -212,7 +216,10 @@ class _MatchingViewState extends State<MatchingView> {
                     )
                   else
                     instruction,
-                  const SizedBox(height: 18),
+                  // Slide units: a little tighter, so six pairs that wrap
+                  // still fit a small phone (6403 was 13 pt over), and
+                  // still show above a folded answer sheet.
+                  SizedBox(height: _pilot ? 12 : 18),
 
                   // Two-column matching area
                   Row(
@@ -305,7 +312,7 @@ class _MatchingViewState extends State<MatchingView> {
       // The outer scrollable owns scrolling now; these only lay out.
       physics: const NeverScrollableScrollPhysics(),
       itemCount: items.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 8),
+      separatorBuilder: (_, __) => SizedBox(height: _pilot ? 6 : 8),
       itemBuilder: (context, i) {
         final t = context.tokens;
         final item = items[i];

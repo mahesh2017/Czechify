@@ -1,7 +1,7 @@
 /// The unit-guide pilot: which units get the guide, rule slides and the
 /// in-lesson Rule button instead of "Lecture & notebook". Unit 2 first, to
 /// see how it works before the rest of the course follows.
-const unitGuidePilotUnits = {1, 2, 3, 4, 5};
+const unitGuidePilotUnits = {1, 2, 3, 4, 5, 6};
 
 bool unitGuideEnabled(int? unitId) =>
     unitId != null && unitGuidePilotUnits.contains(unitId);
