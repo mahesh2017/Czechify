@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1, 2 and 3.
+1–4.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
 record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`: measurements,
@@ -84,12 +84,12 @@ Write down, and show Mahesh before building:
 
 | Cause | Where it shows | Fix |
 |---|---|---|
-| Listening first slide with an image (prompt + 140 pt image + listen panel + gist note + transcript) | Units 4, 7, 9 | smaller image (~100 pt) or pack the first slide |
+| Listening first slide with an image (prompt + 140 pt image + listen panel + gist note + transcript) | all listening with a picture | **built:** the compact play row on that slide |
 | Long reading text repeated above a 4-option question | Unit 29 | question first with "Show the text", or a text slide between questions |
 | Many dialogue lines before one gap | e.g. 31113 | last 2–3 lines on the reply slide, earlier ones on their own slide |
 | Dialogue reply slide under the keyboard (several lines) | 38 dialogues | **built:** while typing, only the gap's line and the one before |
 | Dialogue with several gaps on one reply slide | check each unit | one gap per slide |
-| Five long table rows taller than a slide | 7301, 24301, 26301 | chunk tables by measured height, not five rows |
+| Table taller than a slide (long rows, or the Rule sheet's smaller room) | all lectures | **built:** a row per block, measured by the deck |
 | Matching counter ("0/6 matched") under the folded feedback bar | all matching | **built:** counter on the instruction's line, no bottom row |
 | Notebook comparison too tall (long model or typed notes) | all notebook steps | **built:** packed blocks, one page when it fits |
 | Picture cards without pictures (empty 268 pt box) | check each unit | whole step: word-list style; some items: **built**, they close the step as a word list |
@@ -112,6 +112,8 @@ Reuse these parts:
 - `KeyboardUpBuilder` tells whether the keyboard is up.
 - `chromeOnlyWhenSeveral` (packed): no dots or buttons while it fits one
   slide, for a screen whose last block carries its own buttons.
+- `gapBefore` (packed): a smaller gap between blocks that belong together,
+  such as a table's rows.
 
 **Exercises:**
 - `QuestionSteps` (`exercises/question_steps.dart`): a passage or recording,
@@ -159,6 +161,10 @@ must both use it.
 
 ## Content checks for every unit
 - Expected answers that hard-code a name ("Jmenuji se Mahesh.").
+- Dialogue answers that don't reply to the line before the gap (Unit 4 had
+  all three wrong).
+- The Rule sheet: the assessment's pilot screen tests check its slides,
+  which have less room than the lesson.
 - Pronunciation focus sounds that are not in the sentence (2107 lists "ř").
 - `image_cards` steps without `image` or `sentence` per item.
 - Speaking tasks that pass on any one expected phrase.
@@ -196,6 +202,8 @@ purpose (listen-then-reproduce). Ask.
   200% text. Run the full suite before calling a unit done.
 - **A test that hosts a step in its own `SingleChildScrollView`** breaks when
   the step becomes a deck. Host it in `LessonExerciseViewport`.
+- **Don't estimate text heights with `TextPainter` to split content:** it got
+  the wrapping wrong. Make each piece a block and let the deck measure.
 - **Changing what the model shows while typing:** key the rows
   (`KeyedSubtree`), or the focused field is rebuilt and the keyboard drops.
 

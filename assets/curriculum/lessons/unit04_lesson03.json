@@ -253,15 +253,37 @@
         ],
         "blank_answers": [
           [
-            "Jste student?"
+            "Ano, jsem.",
+            "Ano, jsem",
+            "Ne, nejsem.",
+            "Ne, nejsem",
+            "Jsem student.",
+            "Jsem student",
+            "Nejsem student.",
+            "Nejsem student",
+            "Ano, jsem student.",
+            "Ano, jsem student",
+            "Ne, nejsem student.",
+            "Ne, nejsem student"
           ],
           [
-            "Ano, jsem."
+            "Ano, mám.",
+            "Ano, mám",
+            "Ne, nemám.",
+            "Ne, nemám",
+            "Mám telefon.",
+            "Mám telefon",
+            "Nemám telefon.",
+            "Nemám telefon",
+            "Ano, mám telefon.",
+            "Ano, mám telefon",
+            "Ne, nemám telefon.",
+            "Ne, nemám telefon"
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Jste student? | Ano, jsem.",
+      "answer_key": "Ano, jsem. | Ano, mám.",
       "xp_reward": 15,
       "grammar_rule_id": "GR-033"
     },

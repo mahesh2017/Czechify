@@ -115,7 +115,28 @@ class _ListeningComprehensionViewState
         ],
 
         // Listen first: the audio is the exercise, so it gets the hero.
-        if (transcriptCz.isNotEmpty)
+        // On slides with a picture, the compact row the question slides use:
+        // picture, panel, note and transcript were 60 pt taller than a small
+        // phone's slide.
+        if (transcriptCz.isNotEmpty &&
+            showsAsSlides(widget.exercise) &&
+            image != null &&
+            image.isNotEmpty)
+          _ListenAgain(
+            label:
+                _playCount == 0 && !_autoPlayed
+                    ? l10n.listen
+                    : l10n.audioPlayAgain,
+            onPlay: () {
+              setState(() => _playCount++);
+              ref.read(czechTtsProvider).speak(transcriptCz);
+            },
+            onSlow: () {
+              setState(() => _playCount++);
+              ref.read(czechTtsProvider).speakSlow(transcriptCz);
+            },
+          )
+        else if (transcriptCz.isNotEmpty)
           ListenPanel(
             label:
                 _playCount == 0 && !_autoPlayed
@@ -503,8 +524,10 @@ class _ListeningQuestionsState extends State<_ListeningQuestions> {
 /// Above each question slide: the recording again, at speed or slower, as one
 /// compact row rather than the big panel of the first slide.
 class _ListenAgain extends StatelessWidget {
-  const _ListenAgain({required this.onPlay, required this.onSlow});
+  const _ListenAgain({this.label, required this.onPlay, required this.onSlow});
 
+  /// "Play it again" unless given.
+  final String? label;
   final VoidCallback onPlay;
   final VoidCallback onSlow;
 
@@ -521,7 +544,7 @@ class _ListenAgain extends StatelessWidget {
           child: FilledButton.icon(
             onPressed: onPlay,
             icon: const Icon(Icons.play_arrow, size: 20),
-            label: Text(l10n.audioPlayAgain),
+            label: Text(label ?? l10n.audioPlayAgain),
             style: FilledButton.styleFrom(
               backgroundColor: t.violetSoft,
               foregroundColor: t.violetInk,

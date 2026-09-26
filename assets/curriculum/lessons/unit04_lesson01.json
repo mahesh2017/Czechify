@@ -290,15 +290,35 @@
         ],
         "blank_answers": [
           [
-            "Jsem nová kolegyně."
+            "Jsem nová kolegyně.",
+            "Jsem nová kolegyně",
+            "Jsem nový kolega.",
+            "Jsem nový kolega",
+            "Ano, jsem.",
+            "Ano, jsem",
+            "Ano, jsem nová.",
+            "Ano, jsem nová",
+            "Ano, jsem nový.",
+            "Ano, jsem nový"
           ],
           [
-            "Jsem student."
+            "Ano, mám.",
+            "Ano, mám",
+            "Ne, nemám.",
+            "Ne, nemám",
+            "Mám klíč.",
+            "Mám klíč",
+            "Nemám klíč.",
+            "Nemám klíč",
+            "Ano, mám klíč.",
+            "Ano, mám klíč",
+            "Ne, nemám klíč.",
+            "Ne, nemám klíč"
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Jsem nová kolegyně. | Jsem student.",
+      "answer_key": "Jsem nová kolegyně. | Ano, mám.",
       "xp_reward": 15
     }
   ]

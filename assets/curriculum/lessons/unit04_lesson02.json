@@ -612,15 +612,37 @@
         ],
         "blank_answers": [
           [
-            "Jsi doma?"
+            "Ne, nejsem.",
+            "Ne, nejsem",
+            "Ano, jsem.",
+            "Ano, jsem",
+            "Nejsem student.",
+            "Nejsem student",
+            "Jsem student.",
+            "Jsem student",
+            "Ne, nejsem student.",
+            "Ne, nejsem student",
+            "Ano, jsem student.",
+            "Ano, jsem student"
           ],
           [
-            "Nejsem doma."
+            "Ne, nemám.",
+            "Ne, nemám",
+            "Ano, mám.",
+            "Ano, mám",
+            "Nemám auto.",
+            "Nemám auto",
+            "Mám auto.",
+            "Mám auto",
+            "Ne, nemám auto.",
+            "Ne, nemám auto",
+            "Ano, mám auto.",
+            "Ano, mám auto"
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Jsi doma? | Nejsem doma.",
+      "answer_key": "Ne, nejsem. | Ne, nemám.",
       "xp_reward": 15,
       "grammar_rule_id": "GR-032"
     },

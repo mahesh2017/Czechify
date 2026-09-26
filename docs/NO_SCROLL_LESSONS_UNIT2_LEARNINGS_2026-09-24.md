@@ -469,6 +469,27 @@ Two things the dry run could not see:
   their own scroll view instead of `LessonExerciseViewport`. They now use
   `outsidePilotUnit` and the real viewport.
 
+### Unit 4 switched on (26 Sep)
+
+All 27 of its budget entries left the list.
+- **Listening with a picture** (cause 1; 4100, 4212, 4304, 4401, each 60 pt
+  over with a 96 pt prompt, 140 pt picture, 130 pt listen panel, gist note
+  and transcript button): on slides, a first slide with a picture uses the
+  compact play row of the question slides ("Listen · Slower", 48 pt). The
+  picture keeps its size. Mahesh chose this over a smaller picture (only
+  40 pt back) or a slide of its own.
+- **Tall tables** (cause 4): 4301's seven two-part rows fit the lesson but
+  not the Rule sheet, which has less room. Estimating row heights with
+  `TextPainter` got the wrapping wrong (52 pt a row against 76 real), so the
+  table is now a row per block, each a slim card, and the deck measures and
+  turns the page where the rows really run out (`SlideDeck.packed`'s
+  `gapBefore` keeps a table's rows 6 pt apart). This covers 7301, 24301 and
+  26301 too.
+- **The three dialogues graded answers that did not reply to the partner**
+  (4108, 4217, 4306; 4306 expected "Ano, jsem." to "Máte telefon?", the very
+  mistake 4301 teaches against). Mahesh had them fixed: yes/no answers with
+  full and short forms, with and without the full stop; teacher to confirm.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -539,6 +560,10 @@ the feedback sheet, with the keyboard for typed answers.
 - **3310 has the learner type the classmate's answers**, not their own lines.
 - **1215's explanation was shortened** for the feedback sheet; the teacher
   should check the new wording.
+
+- **Check that each dialogue's expected answers reply to the line before
+  the gap** (Unit 4 had all three wrong; the dry run cannot see it).
+- **4407 (Unit 4 speaking) passes on any one of its four phrases.**
 
 ## 10. Checklist for switching on another unit
 

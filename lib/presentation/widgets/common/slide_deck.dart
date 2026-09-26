@@ -37,6 +37,7 @@ class SlideDeck extends StatefulWidget {
   }) : blockCount = 0,
        blockBuilder = null,
        gap = 0,
+       gapBefore = null,
        chromeOnlyWhenSeveral = false;
 
   /// Blocks laid on as few slides as they fit, in order: each block is
@@ -56,6 +57,7 @@ class SlideDeck extends StatefulWidget {
     this.padding = const EdgeInsets.fromLTRB(20, 8, 20, 8),
     this.onSlideChanged,
     this.chromeOnlyWhenSeveral = false,
+    this.gapBefore,
   }) : slides = null;
 
   final List<Widget>? slides;
@@ -65,6 +67,11 @@ class SlideDeck extends StatefulWidget {
 
   /// Between blocks that share a slide.
   final double gap;
+
+  /// The gap above block `index` when it shares a slide with the one before,
+  /// where blocks differ: rows of one table sit closer than the parts around
+  /// them. [gap] when null.
+  final double Function(int index)? gapBefore;
 
   /// The last slide's button, which leaves the deck.
   final String doneLabel;
@@ -163,6 +170,8 @@ class SlideDeckState extends State<SlideDeck> {
     return null;
   }
 
+  double _gapBefore(int block) => widget.gapBefore?.call(block) ?? widget.gap;
+
   void _measure(Object key, double height) {
     if (!mounted || _measuring != key) return;
     final heights = [
@@ -175,7 +184,7 @@ class SlideDeckState extends State<SlideDeck> {
       var used = 0.0;
       for (var i = 0; i < heights.length; i++) {
         final need =
-            current.isEmpty ? heights[i] : used + widget.gap + heights[i];
+            current.isEmpty ? heights[i] : used + _gapBefore(i) + heights[i];
         if (current.isNotEmpty && need > capacity) {
           groups.add(current);
           current = [i];
@@ -258,7 +267,7 @@ class SlideDeckState extends State<SlideDeck> {
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       for (final (n, block) in blocks.indexed) ...[
-        if (n > 0) SizedBox(height: widget.gap),
+        if (n > 0) SizedBox(height: _gapBefore(block)),
         widget.blockBuilder!(context, block, n == 0),
       ],
     ],

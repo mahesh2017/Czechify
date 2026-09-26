@@ -801,13 +801,19 @@ class _LectureParts {
   Widget tableCard(
     BuildContext context,
     List<(String, String)> rows,
-    void Function(String) speak,
-  ) {
+    void Function(String) speak, {
+    bool slim = false,
+  }) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     return SoftCard(
       shadow: false,
       border: Border.all(color: t.line),
+      padding:
+          slim
+              ? const EdgeInsets.fromLTRB(16, 2, 4, 2)
+              : const EdgeInsets.all(18),
+      radius: slim ? 16 : 24,
       child: Column(
         children: [
           // The right-hand cell is the one spoken, so lecture tables put the
@@ -952,7 +958,7 @@ class LectureContent extends ConsumerWidget {
 }
 
 /// One lecture step as slides, so nothing has to be scrolled: the
-/// explanation, the table a few rows at a time, the examples and the common
+/// explanation, the table a row at a time, the examples and the common
 /// mistake, packed onto as few slides as fit ([SlideDeck.packed]). The last
 /// slide's button finishes ([onDone]).
 ///
@@ -976,24 +982,13 @@ class LectureSlides extends ConsumerWidget {
     this.lead,
   });
 
-  /// Table rows per block: a table longer than this continues on the next
-  /// slide under its heading again, rather than one card running off screen.
-  static const rowsPerSlide = 5;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final parts = _LectureParts(exercise);
     void speak(String text) => _speakCzech(ref, text);
     final examples = parts.examples.take(3).toList();
-    final chunks = [
-      for (var i = 0; i < parts.table.length; i += rowsPerSlide)
-        parts.table.sublist(
-          i,
-          (i + rowsPerSlide).clamp(0, parts.table.length),
-        ),
-    ];
-    // In order: the explanation, the table a few rows at a time, the
-    // examples, the common mistake. The deck puts together whatever fits.
+    // In order: the explanation, the table a row at a time, the examples,
+    // the common mistake. The deck puts together whatever fits.
     final blocks = <Widget Function(bool leadsSlide)>[
       (_) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1002,7 +997,11 @@ class LectureSlides extends ConsumerWidget {
           parts.hero(context, kicker: kicker),
         ],
       ),
-      for (final chunk in chunks)
+      // The table a row at a time, each a slim card, so the deck turns the
+      // page where the rows really run out of room: five long rows were
+      // taller than a slide (7301, 24301, 26301), and in the Rule sheet,
+      // which has less room than the lesson, seven short ones were (4301).
+      for (final row in parts.table)
         (leadsSlide) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -1018,7 +1017,7 @@ class LectureSlides extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
             ],
-            parts.tableCard(context, chunk, speak),
+            parts.tableCard(context, [row], speak, slim: true),
           ],
         ),
       if (examples.isNotEmpty)
@@ -1032,10 +1031,13 @@ class LectureSlides extends ConsumerWidget {
           children: parts.mistakeCard(context),
         ),
     ];
+    const firstRow = 1;
+    final lastRow = parts.table.length;
     return SlideDeck.packed(
       blockCount: blocks.length,
       blockBuilder: (context, index, leadsSlide) => blocks[index](leadsSlide),
       gap: 16,
+      gapBefore: (i) => i > firstRow && i <= lastRow ? 6 : 16,
       doneLabel: doneLabel,
       onDone: onDone,
     );
