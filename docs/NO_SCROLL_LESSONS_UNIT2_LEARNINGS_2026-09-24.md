@@ -516,6 +516,15 @@ All 28 of its budget entries left the list; its four dialogues were right.
   matching and anything the learner looks back at must also clear the
   folded bar. `feedback_overlay_test` checks it; the dry run does not.
 
+### Unit 7 switched on (26 Sep)
+
+All 27 of its budget entries left the list; its four dialogues were right.
+- **A long listening brief** (7100: 84 characters, three lines, 128 pt in the
+  heading face) ran the first slide 10 pt over even with the compact play
+  row. On slides, listening briefs over 60 characters are now reading text,
+  the rule writing and speaking already followed (Mahesh, 26 Sep). This
+  touches 59 listening steps course-wide, including Units 1–6.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -590,6 +599,9 @@ the feedback sheet, with the keyboard for typed answers.
 - **Check that each dialogue's expected answers reply to the line before
   the gap** (Unit 4 had all three wrong; the dry run cannot see it).
 - **4407 (Unit 4 speaking) passes on any one of its four phrases.**
+- **7312 (Unit 7 writing) model rejects *taška* with "Ne, není můj."**
+  (feminine: "není moje").
+- **7407 (Unit 7 speaking) passes on any one of its four phrases.**
 - **6460 (Unit 6 writing) has a jumbled sample answer** ("Ano, máme.
   Bohužel nemáme. Tak si dám čaj. Ještě jednou, prosím.").
 - **6476 (Unit 6 speaking) passes on any one of four template phrases.**

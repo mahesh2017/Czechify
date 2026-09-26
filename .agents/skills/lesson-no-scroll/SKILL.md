@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–6.
+1–7.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
 record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`: measurements,
@@ -38,7 +38,8 @@ Mahesh agreed these on 24–25 Sep 2026; apply them to every unit.
 - Reading shows one language at a time; "Show in English" counts as support.
 - Speaking has "Can't speak right now? Skip" (skipped, no heart lost).
 - Writing feedback appears once, in the feedback sheet.
-- Task briefs over 60 characters are reading text, not a heading.
+- Task briefs over 60 characters are reading text, not a heading (writing,
+  speaking, and listening on slides since 26 Sep).
 - Feedback lies over the exercise, folds down, Try again beside Continue, the
   grammar rule as a book icon.
 - A picture-card step without pictures becomes the word-list style.
@@ -97,7 +98,8 @@ Write down, and show Mahesh before building:
 | Alphabet grid | all alphabet steps | **built:** packed slides, a row of four per block |
 | Long explanation on a right answer (sheet over 240 pt) | e.g. 1215 | shorten the content, flag for the teacher |
 | Matching with six wrapping pairs (over the slide, or under the folded bar) | e.g. 6403 | **built:** tighter matching spacing in slide units |
-| Near-fits: long multiple-choice questions in the display face, fill-in letter bar | outside Units 1–6 | tighten spacing; `instruction:` reading text |
+| Long listening brief (three heading lines) on the first slide | 59 listening steps, e.g. 7100 | **built:** reading text over 60 characters |
+| Near-fits: long multiple-choice questions in the display face, fill-in letter bar | outside Units 1–7 | tighten spacing; `instruction:` reading text |
 
 ## 3. Build
 Reuse these parts:

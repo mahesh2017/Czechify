@@ -101,7 +101,13 @@ class _ListeningComprehensionViewState
     final header = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        QuestionPrompt(question: promptEn),
+        // On slides a long brief is reading text, as for writing and
+        // speaking: in the heading face 7100's three lines ran the first
+        // slide 10 pt over.
+        QuestionPrompt(
+          question: promptEn,
+          instruction: showsAsSlides(widget.exercise),
+        ),
         const SizedBox(height: 16),
 
         if (image != null && image.isNotEmpty) ...[
