@@ -624,15 +624,33 @@
         ],
         "blank_answers": [
           [
-            "Co děláš?"
+            "Pracuju.",
+            "Pracuju",
+            "Pracuji.",
+            "Pracuji",
+            "Studuju.",
+            "Studuju",
+            "Studuji.",
+            "Studuji",
+            "Pracuju doma.",
+            "Pracuju doma",
+            "Studuju češtinu.",
+            "Studuju češtinu",
+            "Pracuju v Praze.",
+            "Pracuju v Praze"
           ],
           [
-            "Kde bydlíš?"
+            "Bydlím v Praze.",
+            "Bydlím v Praze",
+            "Bydlím v Brně.",
+            "Bydlím v Brně",
+            "Bydlím tady.",
+            "Bydlím tady"
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Co děláš? | Kde bydlíš?",
+      "answer_key": "Pracuju. | Bydlím v Praze.",
       "xp_reward": 15,
       "grammar_rule_id": "GR-040"
     },

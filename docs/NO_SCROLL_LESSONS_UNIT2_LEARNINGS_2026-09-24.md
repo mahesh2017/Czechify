@@ -490,6 +490,20 @@ All 27 of its budget entries left the list.
   mistake 4301 teaches against). Mahesh had them fixed: yes/no answers with
   full and short forms, with and without the full stop; teacher to confirm.
 
+### Unit 5 switched on (26 Sep)
+
+All 27 of its budget entries left the list.
+- **Dialogue reply with an English cue under the keyboard** (5404, 3 pt):
+  gap lines like "___ (I work in an office.)" make the reply card taller.
+  While the keyboard is up the reply slide's lines sit closer (6 pt apart,
+  12 pt padding, from 10 and 14). 20 later dialogues use such cues (Units
+  7–10, 15, 18, 23).
+- **Three of four dialogues graded wrong answers again** (5108, 5217,
+  5309): shifted by a line, or the question copied as its own answer. Fixed
+  with small sets of model answers (open questions like "Co děláte?" accept
+  several activities); teacher to confirm, and to decide whether "Ano." alone
+  should pass for "Pracuješ doma?".
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -564,6 +578,8 @@ the feedback sheet, with the keyboard for typed answers.
 - **Check that each dialogue's expected answers reply to the line before
   the gap** (Unit 4 had all three wrong; the dry run cannot see it).
 - **4407 (Unit 4 speaking) passes on any one of its four phrases.**
+- **5407 (Unit 5 speaking) scores against template fragments** ("Pracuju…",
+  "Bydlím…") and passes on any one of them.
 
 ## 10. Checklist for switching on another unit
 

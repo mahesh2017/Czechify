@@ -108,7 +108,12 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
 
   /// One line as a speech bubble, with a field for each of its blanks. On a
   /// slide, Return moves on to the next reply, or checks after the last.
-  Widget _buildLine(BuildContext context, int lineIndex, {bool slides = false}) {
+  Widget _buildLine(
+    BuildContext context,
+    int lineIndex, {
+    bool slides = false,
+    bool tight = false,
+  }) {
     final line = _lines[lineIndex];
     var blankCounter = _firstBlankOfLine[lineIndex];
     final spokenLines = _spokenLines;
@@ -163,14 +168,16 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
 
     final t = context.tokens;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      // While typing, the reply slide has about 200 pt: its two lines sit
+      // closer (5404's gaps carry an English cue and were 3 pt over).
+      padding: EdgeInsets.only(bottom: tight ? 6 : 10),
       child: Align(
         alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
         child: Container(
           constraints: BoxConstraints(
             maxWidth: MediaQuery.sizeOf(context).width * 0.82,
           ),
-          padding: const EdgeInsets.all(14),
+          padding: EdgeInsets.all(tight ? 12 : 14),
           decoration: BoxDecoration(
             color: isUser ? t.priSoft : t.card,
             border: Border.all(color: isUser ? Colors.transparent : t.line),
@@ -364,7 +371,12 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
                     for (final line in shown)
                       KeyedSubtree(
                         key: ValueKey('dialogue-line-$line'),
-                        child: _buildLine(context, line, slides: true),
+                        child: _buildLine(
+                          context,
+                          line,
+                          slides: true,
+                          tight: keyboardUp,
+                        ),
                       ),
                   ],
                 );

@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–4.
+1–5.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
 record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`: measurements,
@@ -88,6 +88,7 @@ Write down, and show Mahesh before building:
 | Long reading text repeated above a 4-option question | Unit 29 | question first with "Show the text", or a text slide between questions |
 | Many dialogue lines before one gap | e.g. 31113 | last 2–3 lines on the reply slide, earlier ones on their own slide |
 | Dialogue reply slide under the keyboard (several lines) | 38 dialogues | **built:** while typing, only the gap's line and the one before |
+| Dialogue gap with an English cue ("___ (I live in Prague.)") under the keyboard | 21 dialogues, e.g. 5404 | **built:** lines sit closer while typing |
 | Dialogue with several gaps on one reply slide | check each unit | one gap per slide |
 | Table taller than a slide (long rows, or the Rule sheet's smaller room) | all lectures | **built:** a row per block, measured by the deck |
 | Matching counter ("0/6 matched") under the folded feedback bar | all matching | **built:** counter on the instruction's line, no bottom row |
@@ -162,7 +163,8 @@ must both use it.
 ## Content checks for every unit
 - Expected answers that hard-code a name ("Jmenuji se Mahesh.").
 - Dialogue answers that don't reply to the line before the gap (Unit 4 had
-  all three wrong).
+  all three wrong, Unit 5 three of four): print every dialogue's lines with
+  its answers and read them.
 - The Rule sheet: the assessment's pilot screen tests check its slides,
   which have less room than the lesson.
 - Pronunciation focus sounds that are not in the sentence (2107 lists "ř").
@@ -224,5 +226,7 @@ purpose (listen-then-reproduce). Ask.
 - **Typing** is autocorrected by the simulator; use short words.
 - **The iPhone SE simulator** exists (`iPhone SE (3rd generation)`), but Mahesh
   must grant access in the simulator panel.
+- **`slide_heights.sh` doesn't measure the keyboard state;** for a
+  `+keyboard` finding, read the reply slide's lines from the content.
 - **Scratch files** go in the session scratchpad; `$TMPDIR` differs inside and
   outside the sandbox.

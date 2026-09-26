@@ -331,15 +331,41 @@
         ],
         "blank_answers": [
           [
-            "Čtu česky."
+            "Rozumím trochu.",
+            "Rozumím trochu",
+            "Ano, rozumím.",
+            "Ano, rozumím",
+            "Ne, nerozumím.",
+            "Ne, nerozumím",
+            "Trochu.",
+            "Trochu",
+            "Rozumím.",
+            "Rozumím",
+            "Nerozumím.",
+            "Nerozumím"
           ],
           [
-            "Rozumím trochu."
+            "Ano, pracuju doma.",
+            "Ano, pracuju doma",
+            "Ne, nepracuju doma.",
+            "Ne, nepracuju doma",
+            "Pracuju doma.",
+            "Pracuju doma",
+            "Nepracuju doma.",
+            "Nepracuju doma",
+            "Ano, pracuji doma.",
+            "Ano, pracuji doma",
+            "Ne, nepracuji doma.",
+            "Ne, nepracuji doma",
+            "Ano.",
+            "Ano",
+            "Ne.",
+            "Ne"
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Čtu česky. | Rozumím trochu.",
+      "answer_key": "Rozumím trochu. | Ano, pracuju doma.",
       "xp_reward": 15,
       "grammar_rule_id": "GR-041"
     },

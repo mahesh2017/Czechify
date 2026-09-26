@@ -290,15 +290,35 @@
         ],
         "blank_answers": [
           [
-            "Pracuju v Praze."
+            "Pracuju v Praze.",
+            "Pracuju v Praze",
+            "Pracuji v Praze.",
+            "Pracuji v Praze",
+            "Pracuju.",
+            "Pracuju",
+            "Studuju.",
+            "Studuju",
+            "Studuju češtinu.",
+            "Studuju češtinu",
+            "Pracuju doma.",
+            "Pracuju doma",
+            "Pracuju v kanceláři.",
+            "Pracuju v kanceláři"
           ],
           [
-            "Studuju češtinu."
+            "Bydlím v Praze.",
+            "Bydlím v Praze",
+            "Bydlím v Brně.",
+            "Bydlím v Brně",
+            "Bydlím tady.",
+            "Bydlím tady",
+            "Bydlím doma.",
+            "Bydlím doma"
           ]
         ],
         "explanation": "Use complete chunks that answer each partner cue."
       },
-      "answer_key": "Pracuju v Praze. | Studuju češtinu.",
+      "answer_key": "Pracuju v Praze. | Bydlím v Praze.",
       "xp_reward": 15
     }
   ]
