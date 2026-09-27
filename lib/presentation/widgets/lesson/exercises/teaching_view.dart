@@ -38,10 +38,16 @@ class TeachingView extends ConsumerStatefulWidget {
   final Exercise exercise;
   final OnExerciseAnswered onAnswered;
 
+  /// The last button's label, when the step is shown outside the lesson's
+  /// flow (the lesson's Recap sheet): "Back to the lesson" rather than
+  /// "Start practising".
+  final String? doneLabel;
+
   const TeachingView({
     super.key,
     required this.exercise,
     required this.onAnswered,
+    this.doneLabel,
   });
 
   @override
@@ -304,7 +310,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
           ],
           const SizedBox(height: 22),
           KeyCta(
-            label: l10n.lessonGotItStartPractising,
+            label: widget.doneLabel ?? l10n.lessonGotItStartPractising,
             // A teaching card is never graded — advance straight to practice.
             onPressed: () => widget.onAnswered(const ExerciseResult.skipped()),
           ),
@@ -405,7 +411,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
       blockCount: blocks.length,
       blockBuilder: (context, index, _) => blocks[index](),
       gap: 10,
-      doneLabel: l10n.lessonGotItStartPractising,
+      doneLabel: widget.doneLabel ?? l10n.lessonGotItStartPractising,
       // A teaching card is never graded — advance straight to practice.
       onDone: () => widget.onAnswered(const ExerciseResult.skipped()),
     );
@@ -477,7 +483,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             ],
             const SizedBox(height: 6),
             KeyCta(
-              label: l10n.teachingStartExercises,
+              label: widget.doneLabel ?? l10n.teachingStartExercises,
               onPressed:
                   () => widget.onAnswered(const ExerciseResult.skipped()),
             ),
@@ -708,7 +714,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
             KeyCta(
               label:
                   lastPage
-                      ? l10n.teachingStartExercises
+                      ? widget.doneLabel ?? l10n.teachingStartExercises
                       : sentencePage
                       ? l10n.teachingNextWord
                       : l10n.teachingSeeExample,

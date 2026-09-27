@@ -3945,7 +3945,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get modelPageOwnSentences => 'Vaše vlastní věty (příklady)';
 
   @override
-  String get lessonRuleButton => 'Pravidlo';
+  String get lessonRuleButton => 'Opakovat';
 
   @override
   String get lessonRuleSheetTitle => 'Co jste se zatím naučili';
@@ -4019,6 +4019,15 @@ class AppLocalizationsCs extends AppLocalizations {
   }
 
   @override
+  String get lessonLookBackWords => 'Slova a fráze';
+
+  @override
+  String get lessonLookBackRule => 'Pravidlo';
+
+  @override
+  String get lessonStartOver => 'Začít od začátku';
+
+  @override
   String get ruleBackToLesson => 'Zpět do lekce';
 
   @override
@@ -4049,7 +4058,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get unitGuideNotebookShort => 'Porovnejte svou stránku';
 
   @override
-  String get lessonRulePick => 'Které pravidlo chcete vidět?';
+  String get lessonRulePick => 'Vyberte, co chcete znovu vidět nebo slyšet.';
 
   @override
   String lessonStartKicker(String letter, int unit) {

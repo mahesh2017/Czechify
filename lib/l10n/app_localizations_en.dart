@@ -3928,7 +3928,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get modelPageOwnSentences => 'Your own sentences (examples)';
 
   @override
-  String get lessonRuleButton => 'Rule';
+  String get lessonRuleButton => 'Recap';
 
   @override
   String get lessonRuleSheetTitle => 'What you\'ve learned so far';
@@ -4001,6 +4001,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get lessonLookBackWords => 'Words and phrases';
+
+  @override
+  String get lessonLookBackRule => 'Rule';
+
+  @override
+  String get lessonStartOver => 'Start from the beginning';
+
+  @override
   String get ruleBackToLesson => 'Back to the lesson';
 
   @override
@@ -4029,7 +4038,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unitGuideNotebookShort => 'Compare your paper page';
 
   @override
-  String get lessonRulePick => 'Which rule do you want to see?';
+  String get lessonRulePick => 'Choose what to see or hear again.';
 
   @override
   String lessonStartKicker(String letter, int unit) {

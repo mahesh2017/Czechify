@@ -303,7 +303,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Start'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Rule'));
+      await tester.tap(find.text('Recap'));
       await tester.pumpAndSettle();
       sheetsOpened++;
 
@@ -343,6 +343,87 @@ void main() {
       expect(tester.takeException(), isNull, reason: 'Unit $unit');
     }
     expect(sheetsOpened, greaterThan(0), reason: 'no Rule sheet was checked');
+  });
+
+  testWidgets('Recap reopens a word list this lesson already taught, '
+      'and "Back to the lesson" returns to the same step', (tester) async {
+    smallPhone(tester);
+    // Past the one-time notebook intro, so the step is the task itself.
+    SharedPreferences.setMockInitialValues({'notebook_intro_seen': true});
+    final lesson = pilot.where((e) => e.lessonId == 201).toList();
+    final wordList = lesson.firstWhere((e) => e.id == 2101);
+    final notebook = lesson.indexWhere((e) => e.id == 2102);
+    const unit = Lesson(
+      id: 201,
+      unitId: 2,
+      orderInUnit: 0,
+      title: 'Lesson',
+      description: '',
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          lessonSessionProvider.overrideWith(
+            () => _Session(
+              LessonSessionState(
+                lesson: unit,
+                exercises: lesson,
+                currentIndex: notebook,
+                resumed: true,
+              ),
+            ),
+          ),
+          lessonAdmissionProvider(
+            201,
+          ).overrideWith((_) async => LessonAdmission.allowed),
+          czechTtsProvider.overrideWithValue(_Tts()),
+          unitLessonsProvider(2).overrideWith((_) async => [unit]),
+          unitLectureStepsProvider(2).overrideWith((_) async => []),
+        ],
+        child: MaterialApp(
+          theme: lightTheme(),
+          localizationsDelegates: testLocalizationsDelegates,
+          supportedLocales: testSupportedLocales,
+          builder:
+              (context, child) => MediaQuery(
+                data: MediaQuery.of(context).copyWith(disableAnimations: true),
+                child: child!,
+              ),
+          home: const LessonPlayerScreen(lessonId: 201),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    // Resuming offers a fresh start as well as carrying on.
+    expect(find.text('Start from the beginning'), findsOneWidget);
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Recap'));
+    await tester.pumpAndSettle();
+    final sheet = find.byType(BottomSheet);
+    // The only thing taught before the notebook step is the word list, so it
+    // opens straight away, as the lesson showed it.
+    expect(
+      find.descendant(
+        of: sheet,
+        matching: find.text(wordList.data['heading'] as String),
+      ),
+      findsWidgets,
+    );
+    final deck = tester.state<SlideDeckState>(
+      find.descendant(of: sheet, matching: find.byType(SlideDeck)),
+    );
+    deck.goTo(deck.length - 1);
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.descendant(of: sheet, matching: find.text('Back to the lesson')),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(BottomSheet), findsNothing);
+    // Nothing was answered: the learner is on the notebook step still.
+    expect(find.text('Check against the model'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }
 

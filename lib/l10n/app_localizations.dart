@@ -6743,7 +6743,7 @@ abstract class AppLocalizations {
   /// No description provided for @lessonRuleButton.
   ///
   /// In en, this message translates to:
-  /// **'Rule'**
+  /// **'Recap'**
   String get lessonRuleButton;
 
   /// No description provided for @lessonRuleSheetTitle.
@@ -6860,6 +6860,24 @@ abstract class AppLocalizations {
   /// **'Slide {index} of {count}'**
   String slidePosition(int index, int count);
 
+  /// No description provided for @lessonLookBackWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Words and phrases'**
+  String get lessonLookBackWords;
+
+  /// No description provided for @lessonLookBackRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule'**
+  String get lessonLookBackRule;
+
+  /// No description provided for @lessonStartOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from the beginning'**
+  String get lessonStartOver;
+
   /// No description provided for @ruleBackToLesson.
   ///
   /// In en, this message translates to:
@@ -6887,7 +6905,7 @@ abstract class AppLocalizations {
   /// No description provided for @lessonRulePick.
   ///
   /// In en, this message translates to:
-  /// **'Which rule do you want to see?'**
+  /// **'Choose what to see or hear again.'**
   String get lessonRulePick;
 
   /// No description provided for @lessonStartKicker.

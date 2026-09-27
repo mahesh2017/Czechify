@@ -95,9 +95,9 @@ void main() {
     expect(
       tester.renderObject<RenderParagraph>(label).didExceedMaxLines,
       isFalse,
-      reason: 'the label is cut short next to the Rule button',
+      reason: 'the label is cut short next to the Recap button',
     );
-    expect(find.text('Rule'), findsOneWidget);
+    expect(find.text('Recap'), findsOneWidget);
   });
 
   testWidgets('a skipped step shows its answer as a reference to practise '

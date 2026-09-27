@@ -31,6 +31,7 @@ import '../../widgets/celebration/count_up_text.dart';
 import '../../widgets/celebration/stars_reveal.dart';
 import '../../widgets/lesson/exercise_widget.dart';
 import '../../widgets/lesson/exercises/teaching_view.dart';
+import '../../widgets/lesson/slides_pilot.dart';
 import '../grammar/unit_guide_screen.dart';
 import '../grammar/unit_notebook_screen.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
@@ -417,17 +418,26 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     final orderOf = {for (final l in unitLessons) l.id: l.orderInUnit};
     bool isLecture(Exercise e) =>
         e.type == ExerciseType.teaching && e.data['style'] == 'lecture';
+    // What this lesson has taught before the current step, to see and hear
+    // again: a learner who resumed at a notebook step could not get back to
+    // the greetings it asks them to write (Mahesh, 27 Sep).
+    bool isWords(Exercise e) =>
+        e.type == ExerciseType.teaching &&
+        const {'list', 'image_cards', 'alphabet'}.contains(e.data['style']);
     return [
       for (final e in unitLectures)
         if ((orderOf[e.lessonId] ?? 1 << 20) < lesson.orderInUnit)
           (lessonLetter(orderOf[e.lessonId]!), e),
-      for (final e in session.exercises.take(session.currentIndex + 1))
-        if (isLecture(e)) (lessonLetter(lesson.orderInUnit), e),
+      for (final (i, e) in session.exercises.indexed)
+        if ((isLecture(e) && i <= session.currentIndex) ||
+            (isWords(e) && i < session.currentIndex))
+          (lessonLetter(lesson.orderInUnit), e),
     ];
   }
 
-  /// The rules taught so far, newest first, over the lesson: reading one
-  /// again costs nothing and the learner returns to the same exercise.
+  /// What was taught so far, newest first, over the lesson: rules, and this
+  /// lesson's word lists and picture cards. Seeing one again costs nothing
+  /// and the learner returns to the same exercise.
   void _showRules(BuildContext context, List<(String, Exercise)> rules) {
     showModalBottomSheet<void>(
       context: context,
@@ -586,6 +596,13 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
       return _LessonStartScreen(
         session: session,
         onStart: () => setState(() => _started = true),
+        onStartOver: () async {
+          // The same fresh attempt as a retry, through the same admission
+          // check: step 1, this lesson's answers so far discarded, hearts
+          // kept.
+          await _retryLesson();
+          if (mounted) setState(() => _started = true);
+        },
         onExit: () => leaveLesson(context),
       );
     }
@@ -788,7 +805,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                     // In this row rather than the header, where it squeezed
                     // the lesson title into three lines.
                     if (rulesSoFar.isNotEmpty) ...[
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 6),
                       _RuleButton(
                         onTap: () => _showRules(context, rulesSoFar),
                       ),
@@ -2305,12 +2322,14 @@ class _RuleButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(999),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 7, 12, 7),
+            // Tight: it shares a row with the step's label ("CHECK · NO
+            // HEARTS"), which must not be cut on a small phone.
+            padding: const EdgeInsets.fromLTRB(8, 7, 10, 7),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.menu_book_rounded, size: 16, color: t.pri),
-                const SizedBox(width: 5),
+                const SizedBox(width: 4),
                 Text(
                   label,
                   style: TextStyle(
@@ -2414,11 +2433,15 @@ class _SlimLessonBar extends ConsumerWidget {
 class _LessonStartScreen extends StatelessWidget {
   final LessonSessionState session;
   final VoidCallback onStart;
+
+  /// On a resumed lesson: go back to step 1 instead of carrying on.
+  final VoidCallback onStartOver;
   final VoidCallback onExit;
 
   const _LessonStartScreen({
     required this.session,
     required this.onStart,
+    required this.onStartOver,
     required this.onExit,
   });
 
@@ -2571,6 +2594,15 @@ class _LessonStartScreen extends StatelessWidget {
                   onPressed: onStart,
                 ),
               ),
+              if (session.resumed)
+                Padding(
+                  padding: const EdgeInsets.only(left: 12, top: 4),
+                  child: TextButton(
+                    key: const ValueKey('lesson-start-over'),
+                    onPressed: onStartOver,
+                    child: Text(l10n.lessonStartOver),
+                  ),
+                ),
             ],
           ),
         ),
@@ -2579,9 +2611,32 @@ class _LessonStartScreen extends StatelessWidget {
   }
 }
 
-/// The rules taught so far, newest first: a short list of their titles, and
-/// a rule opened as the same slides the lesson showed, so nothing in the
-/// sheet scrolls. With one rule there is no list; it opens straight away.
+bool _isRule(Exercise e) => e.data['style'] == 'lecture';
+
+/// "Lesson B · Rule" or "Lesson B · Words and phrases".
+String _lookBackKicker(AppLocalizations l10n, String letter, Exercise step) =>
+    '${l10n.lessonRuleLesson(letter)} · '
+    '${_isRule(step) ? l10n.lessonLookBackRule : l10n.lessonLookBackWords}';
+
+/// A teaching step shown again from the Recap sheet: laid out as the
+/// lesson lays it out (a deck needs bounded height), its last button leads
+/// back to the lesson and nothing is recorded.
+Widget _lookBackStep(Exercise step, String doneLabel, VoidCallback close) {
+  final view = TeachingView(
+    key: ValueKey('look-back-${step.id}'),
+    exercise: step,
+    doneLabel: doneLabel,
+    onAnswered: (_) => close(),
+  );
+  return showsAsSlides(step)
+      ? SizedBox.expand(child: view)
+      : SingleChildScrollView(child: view);
+}
+
+/// The Recap sheet: what was taught so far, newest first — rules, and
+/// this lesson's word lists and picture cards — as a short list of titles.
+/// One opens as the same slides the lesson showed, so nothing in the sheet
+/// scrolls. With one item there is no list; it opens straight away.
 class _RuleSheet extends StatefulWidget {
   const _RuleSheet({required this.rules});
 
@@ -2675,7 +2730,7 @@ class _RuleSheetState extends State<_RuleSheet> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             LessonKicker(
-                                              l10n.lessonRuleLesson(letter),
+                                              _lookBackKicker(l10n, letter, rule),
                                               color: t.pri,
                                             ),
                                             const SizedBox(height: 4),
@@ -2703,12 +2758,20 @@ class _RuleSheetState extends State<_RuleSheet> {
                           ),
                       ],
                     )
-                    : LectureSlides(
+                    : _isRule(widget.rules[open].$2)
+                    ? LectureSlides(
                       key: ValueKey(widget.rules[open].$2.id),
                       exercise: widget.rules[open].$2,
                       kicker: l10n.lessonRuleLesson(widget.rules[open].$1),
                       doneLabel: l10n.ruleBackToLesson,
                       onDone: close,
+                    )
+                    // A word list or picture cards, as the lesson showed
+                    // them; finishing returns to the lesson unanswered.
+                    : _lookBackStep(
+                      widget.rules[open].$2,
+                      l10n.ruleBackToLesson,
+                      close,
                     ),
           ),
         ],

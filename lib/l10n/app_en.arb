@@ -1689,7 +1689,7 @@
   "unitGuideSave": "Save page as image",
   "modelPageRule": "The rule",
   "modelPageOwnSentences": "Your own sentences (examples)",
-  "lessonRuleButton": "Rule",
+  "lessonRuleButton": "Recap",
   "lessonRuleSheetTitle": "What you've learned so far",
   "lessonRuleLesson": "Lesson {letter}",
   "@lessonRuleLesson": {
@@ -1733,6 +1733,9 @@
       }
     }
   },
+  "lessonLookBackWords": "Words and phrases",
+  "lessonLookBackRule": "Rule",
+  "lessonStartOver": "Start from the beginning",
   "ruleBackToLesson": "Back to the lesson",
   "unitGuideRulesCount": "{count, plural, =1{1 rule} other{{count} rules}}",
   "@unitGuideRulesCount": {
@@ -1751,7 +1754,7 @@
     }
   },
   "unitGuideNotebookShort": "Compare your paper page",
-  "lessonRulePick": "Which rule do you want to see?",
+  "lessonRulePick": "Choose what to see or hear again.",
   "lessonStartKicker": "Lesson {letter} · Unit {unit}",
   "@lessonStartKicker": {
     "placeholders": {
