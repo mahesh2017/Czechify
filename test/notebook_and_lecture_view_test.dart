@@ -97,14 +97,14 @@ void main() {
 
     expect(find.text('Start your Unit 6 page'), findsOneWidget);
     expect(find.text('Dám si kávu.'), findsNothing);
-    expect(find.text('No pen right now'), findsOneWidget);
+    expect(find.text("I don't have a pen right now"), findsOneWidget);
     expect(find.byType(TextField), findsNothing, reason: 'paper by default');
 
     await tester.tap(find.text('Check against the model'));
     await tester.pumpAndSettle();
 
     expect(find.text('Dám si kávu.'), findsOneWidget);
-    expect(find.text('No pen right now'), findsNothing);
+    expect(find.text("I don't have a pen right now"), findsNothing);
     expect(results, isEmpty, reason: 'revealing does not end the step');
 
     await tester.tap(find.text('Corrected my notes'));
@@ -115,12 +115,13 @@ void main() {
     expect(counts[NotebookOutcome.corrected], 1);
   });
 
-  testWidgets('"No pen right now" moves on and keeps the step for later', (
+  testWidgets('"I don\'t have a pen right now" moves on and keeps the step '
+      'for later', (
     tester,
   ) async {
     final results = await pump(tester, notebook);
 
-    await tester.tap(find.text('No pen right now'));
+    await tester.tap(find.text("I don't have a pen right now"));
     await tester.pumpAndSettle();
 
     expect(results, hasLength(1), reason: 'never blocks the lesson');
@@ -135,7 +136,7 @@ void main() {
     await pump(tester, notebook, onPaper: false);
 
     expect(find.byType(TextField), findsOneWidget);
-    expect(find.text('No pen right now'), findsNothing);
+    expect(find.text("I don't have a pen right now"), findsNothing);
   });
 
   testWidgets('a lecture step shows its explanation, table and the mistake '

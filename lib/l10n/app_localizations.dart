@@ -6545,7 +6545,7 @@ abstract class AppLocalizations {
   /// No description provided for @notebookNoPen.
   ///
   /// In en, this message translates to:
-  /// **'No pen right now'**
+  /// **'I don\'t have a pen right now'**
   String get notebookNoPen;
 
   /// No description provided for @notebookDeferred.
@@ -6575,7 +6575,7 @@ abstract class AppLocalizations {
   /// No description provided for @copybookTodoBody.
   ///
   /// In en, this message translates to:
-  /// **'Steps you left for later with \"No pen right now\". Write each one, then mark it done.'**
+  /// **'Steps you left for later with \"I don\'t have a pen right now\". Write each one, then mark it done.'**
   String get copybookTodoBody;
 
   /// No description provided for @copybookTodoDone.

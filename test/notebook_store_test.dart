@@ -2,7 +2,7 @@ import 'package:czechify/data/services/notebook_store.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// "No pen right now" must never lose the step: it waits on the notebook
+/// "I don't have a pen right now" must never lose the step: it waits on the notebook
 /// to-do, with its own copy of the task, until the learner writes it — here
 /// or by completing the same step in a later lesson.
 void main() {

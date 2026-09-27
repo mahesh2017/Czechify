@@ -203,7 +203,7 @@ class _CopybookScreenState extends ConsumerState<CopybookScreen> {
   }
 }
 
-/// Notebook steps the learner put off in a lesson with "No pen right now".
+/// Notebook steps the learner put off in a lesson with "I don't have a pen right now".
 ///
 /// Shown first because it is unfinished work from a lesson, where the daily
 /// words below are optional practice. Hidden entirely when empty.

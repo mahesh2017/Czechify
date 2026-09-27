@@ -9,11 +9,11 @@ enum NotebookOutcome {
   /// Wrote it, compared it with the model and fixed what was wrong.
   corrected,
 
-  /// "No pen right now": put on the notebook to-do instead.
+  /// "I don't have a pen right now": put on the notebook to-do instead.
   deferred,
 }
 
-/// A notebook step put off with "No pen right now".
+/// A notebook step put off with "I don't have a pen right now".
 ///
 /// Carries its own copy of the task and the model, so the to-do list still
 /// shows exactly what to write even if a later content release rewords the

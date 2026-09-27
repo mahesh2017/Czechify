@@ -5,7 +5,7 @@ import '../../data/services/notebook_store.dart';
 /// Where notebook steps are recorded on this device.
 final notebookStoreProvider = Provider<NotebookStore>((ref) => NotebookStore());
 
-/// Notebook steps put off with "No pen right now", oldest first.
+/// Notebook steps put off with "I don't have a pen right now", oldest first.
 ///
 /// Invalidate after [NotebookStore.defer], [NotebookStore.markWritten] or
 /// [NotebookStore.record] so the copybook shows the current list.

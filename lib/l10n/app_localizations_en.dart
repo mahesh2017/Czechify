@@ -3817,7 +3817,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notebookCorrected => 'Corrected my notes';
 
   @override
-  String get notebookNoPen => 'No pen right now';
+  String get notebookNoPen => 'I don\'t have a pen right now';
 
   @override
   String get notebookDeferred =>
@@ -3835,7 +3835,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get copybookTodoBody =>
-      'Steps you left for later with \"No pen right now\". Write each one, then mark it done.';
+      'Steps you left for later with \"I don\'t have a pen right now\". Write each one, then mark it done.';
 
   @override
   String get copybookTodoDone => 'Mark as written';
