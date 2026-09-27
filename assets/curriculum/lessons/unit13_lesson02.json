@@ -623,7 +623,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, I do sport.)"
           },
           {
             "speaker": "friend",
@@ -631,7 +631,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I ride a bike.)"
           }
         ],
         "blank_answers": [

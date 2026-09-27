@@ -278,7 +278,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I like reading.)"
           },
           {
             "speaker": "friend",
@@ -286,17 +286,20 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, I do.)"
           }
         ],
         "blank_answers": [
           [
             "Rád čtu.",
-            "Rád čtu"
+            "Rád čtu",
+            "Ráda čtu.",
+            "Ráda čtu"
           ],
           [
             "Ano, rád.",
-            "Ano"
+            "Ano",
+            "Ano, ráda."
           ]
         ],
         "explanation": "Use short, complete answers that fit the situation."

@@ -571,6 +571,16 @@ gaps had no cue and one accepted answer each, like Unit 11, and now carry
 cues in the same style ("___ (What sizes do you have?)"); accepted answers
 unchanged.
 
+### Unit 13 switched on (27 Sep)
+
+No layout fixes: all 51 exercises fit, all 26 budget entries left the list.
+- **Cues** on all eight dialogue gaps (the standing fix).
+- **Women's answers were marked wrong:** the unit teaches *rád* and the
+  dialogues accepted only "Rád čtu." / "Ano, rád.". With Mahesh's agreement
+  the feminine forms ("Ráda čtu.", "Ano, ráda.") are accepted too. The
+  pronunciation sentence (13107), writing model (13406) and speaking phrase
+  (13408, "Rád bych šel") are still masculine only: for the teacher.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -652,6 +662,9 @@ the feedback sheet, with the keyboard for typed answers.
   tasks** (12312 "Můžu si to vyzkoušet?" for a size that fits, 12406
   "červená košile", 12407 item only); **12408 (speaking) never expects the
   price or size question it asks for.**
+- **Unit 13: *rád/ráda* throughout** (see above); the eight new cues;
+  writing models cut short (13312, 13407); 13405 expects "Ano, to se mi
+  líbí." to "Půjdeme do kina?".
 - **Listening has a matching template:** "Which lesson situation does this
   recording belong to?" with the lesson's own title as the answer and
   "Asking for directions" / "Talking about the weather" as the wrong ones.

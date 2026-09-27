@@ -194,7 +194,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, I have time.)"
           },
           {
             "speaker": "friend",
@@ -202,7 +202,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, I'd like that.)"
           }
         ],
         "blank_answers": [
