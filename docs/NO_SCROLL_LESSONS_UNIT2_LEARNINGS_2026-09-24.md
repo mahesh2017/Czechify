@@ -625,6 +625,27 @@ a switched-on unit on each face; all 521 fit after:
   first" (the button says it) and the helper line under the field (the "I
   don't remember" button says it).
 
+### The A1 vocabulary rebuilt (27 Sep)
+
+The review cards in `assets/vocabulary/` predated the v1.2 lessons. Matched
+by word stem, 244 A1 entries were right, 93 pointed at the wrong lesson or
+none, and 184 were not used by their unit's lessons; 160 word-list items the
+lessons teach had no card. Now:
+- 160 cards added from the lessons' word lists (ids from 3001; no
+  pronunciation yet);
+- entries point to the first lesson of their unit that uses them; the rest
+  are released with their unit (Mahesh: keep them as extra vocabulary);
+- five entries moved to the word list that teaches them first (*káva*, *pes*,
+  *dům*, *chléb*, *čaj* to Unit 1);
+- 20 exact duplicates within a unit removed;
+- at most 8 new cards per lesson (the v1.2 contract test V8); the rest
+  spill to the unit's next lesson.
+Matching by stem is loose: moving a word to wherever it first appears would
+have sent *den* from Unit 9 to Unit 1 ("dobrý den"), so nothing moves unit
+except by a word list. The teacher's list is
+`docs/VOCABULARY_A1_REBUILD_2026-09-27.md`. The pre-lesson word list stays
+hidden: the lessons teach their own words on slides.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:

@@ -44,8 +44,9 @@ Mahesh agreed these on 24–25 Sep 2026; apply them to every unit.
 - Feedback lies over the exercise, folds down, Try again beside Continue, the
   grammar rule as a book icon.
 - A picture-card step without pictures becomes the word-list style.
-- The pre-lesson word list stays hidden until `assets/vocabulary/` matches
-  v1.2.
+- The pre-lesson word list stays hidden (Mahesh, 27 Sep): lessons teach
+  their own words on slides. The A1 vocabulary was rebuilt on 27 Sep; rebuild
+  each A2 unit's vocabulary the same way when switching it on (see the doc).
 - The daily screen and onboarding are left for later. Flashcard review was
   made to fit on 27 Sep; `test/review_card_fit_test.dart` checks every card
   of a switched-on unit on each face.
@@ -183,7 +184,12 @@ must both use it.
 - `image_cards` steps without `image` or `sentence` per item.
 - Speaking tasks that pass on any one expected phrase.
 - Alternatives shown as separate phrases to say ("Jmenuju se / Jmenuji se").
-- The unit's words in `assets/vocabulary/` against the lesson word lists.
+- The unit's words in `assets/vocabulary/` against the lesson word lists:
+  match by stem, point entries at the first lesson using them, add missing
+  word-list items (ids from the file's top), release the rest with the unit,
+  keep at most 8 cards per lesson (contract test V8), never move a word to
+  another unit except by a word list, and keep the file's format (indent 2,
+  no escaping, no trailing newline).
 - Template questions: "Which text best summarizes the situation?" with the
   passage's translation as the answer, and "directions" / "weather" as the
   wrong ones.
