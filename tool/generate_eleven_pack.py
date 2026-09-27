@@ -191,6 +191,11 @@ def main() -> int:
     )
     parser.add_argument("--rate", type=float, default=60.0,
                         help="max requests per minute")
+    parser.add_argument(
+        "--only-missing", action="store_true",
+        help="skip every clip that already exists on disk, whichever voice "
+             "made it. Without this a female run re-records the Azure "
+             "(Vlasta) clips, which are not in Hanka's ledger")
     args = parser.parse_args()
 
     global GENDER
@@ -227,6 +232,9 @@ def main() -> int:
                or not (AUDIO / f"{GENDER}_{k}.mp3").exists()}
     if args.force:
         pending = dict(items)
+    if args.only_missing:
+        pending = {k: t for k, t in pending.items()
+                   if not (AUDIO / f"{GENDER}_{k}.mp3").exists()}
 
     scope_label = (
         f"units {sorted(set(args.units))}" if args.units else f"scope {args.scope}"
