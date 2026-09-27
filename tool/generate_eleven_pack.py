@@ -192,6 +192,11 @@ def main() -> int:
     parser.add_argument("--rate", type=float, default=60.0,
                         help="max requests per minute")
     parser.add_argument(
+        "--min-words", type=int, default=0,
+        help="skip utterances with fewer words. Short utterances are recorded "
+             "in batches by tool/regenerate_short_male_clips.py instead: alone, "
+             "v3 rushes or clips them")
+    parser.add_argument(
         "--only-missing", action="store_true",
         help="skip every clip that already exists on disk, whichever voice "
              "made it. Without this a female run re-records the Azure "
@@ -214,6 +219,9 @@ def main() -> int:
             )
             print(f"Requested text not in {scope_label}: {sorted(missing)}",
                   file=sys.stderr)
+    if args.min_words:
+        items = {k: t for k, t in items.items()
+                 if len(t.split()) >= args.min_words}
     if args.min_chars:
         held = {k: t for k, t in items.items() if len(t.strip()) < args.min_chars}
         items = {k: t for k, t in items.items() if len(t.strip()) >= args.min_chars}

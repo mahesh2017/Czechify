@@ -107,6 +107,20 @@ def main() -> int:
     args = parser.parse_args()
 
     by_unit = {str(uid): keys_for_unit(uid) for uid in unit_ids()}
+    # Only clips the audio manifest has: a key with no clip cannot be
+    # pre-downloaded, and listing it fails offline_manifest_test. Re-run
+    # after generating a level's audio and its keys are filled in.
+    manifest = json.loads((AUDIO / "manifest.json").read_text(encoding="utf-8"))
+    recorded = set(manifest["voices"]["female"]["entries"])
+    unrecorded: dict[str, int] = {}
+    for uid, keys in by_unit.items():
+        kept = [k for k in keys if k in recorded]
+        if len(kept) != len(keys):
+            unrecorded[uid] = len(keys) - len(kept)
+        by_unit[uid] = kept
+    if unrecorded:
+        print(f"Left out {sum(unrecorded.values())} keys with no audio yet, "
+              f"in units {', '.join(sorted(unrecorded, key=int))}")
     intros = {
         str(uid): keys
         for uid in unit_ids()

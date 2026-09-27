@@ -83,7 +83,7 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from audio_utterances import extract_utterances  # noqa: E402
+from audio_utterances import extract_utterances, scoped_utterances  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 AUDIO = ROOT / "assets" / "audio"
@@ -154,6 +154,7 @@ def selection(
     max_words: int,
     only: list[str] | None = None,
     missing_only: bool = False,
+    scope: str = "all",
 ) -> dict[str, str]:
     """The utterances to re-record, narrowest filter last.
 
@@ -165,7 +166,7 @@ def selection(
     is both a waste of the character quota and a way to regress clips that are
     currently fine.
     """
-    items = extract_utterances()
+    items = extract_utterances() if scope == "all" else scoped_utterances(scope)
     picked = {
         k: t for k, t in sorted(items.items(), key=lambda kv: kv[1])
         if min_words <= len(t.split()) <= max_words
@@ -226,7 +227,7 @@ def fetch(args) -> int:
         return 2
     CACHE.mkdir(exist_ok=True)
     picked = selection(args.min_words, args.max_words,
-                       args.only, args.missing_only)
+                       args.only, args.missing_only, args.scope)
     groups = batches(picked, args.batch_size)
     pending = [g for g in groups if not (CACHE / f"{batch_id(g)}.json").exists()]
     print(f"{len(picked)} utterances in {len(groups)} batches; "
@@ -590,7 +591,7 @@ def verify(args) -> int:
 
 def dry_run(args) -> int:
     picked = selection(args.min_words, args.max_words,
-                       args.only, args.missing_only)
+                       args.only, args.missing_only, args.scope)
     groups = batches(picked, args.batch_size)
     chars = sum(len(spoken(t)) for t in picked.values())
     carrier = len(groups) * (len(LEAD_IN) + len(TAIL) + 2)
@@ -624,6 +625,9 @@ def main() -> int:
              "credit ran out. Sets the output prefix and the voice whose "
              "pace the result is matched to")
     parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument(
+        "--scope", choices=("a1", "a2", "all"), default="all",
+        help="restrict to one course level's utterances")
     parser.add_argument(
         "--only", action="append", metavar="TEXT",
         help="restrict to these exact utterances (repeatable). Use this when "
