@@ -504,7 +504,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (It snows in winter.)"
           },
           {
             "speaker": "friend",
@@ -512,7 +512,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (It's hot in summer.)"
           }
         ],
         "blank_answers": [

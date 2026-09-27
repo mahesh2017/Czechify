@@ -277,7 +277,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (It's raining today.)"
           },
           {
             "speaker": "friend",
@@ -285,7 +285,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (It will be warm tomorrow.)"
           }
         ],
         "blank_answers": [

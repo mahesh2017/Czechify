@@ -587,6 +587,12 @@ No layout fixes: all 54 exercises fit, all 27 budget entries left the list.
 Cues on all seven dialogue gaps (the standing fix). *Rád* appears only in
 wrong options, so no gender fix was needed.
 
+### Unit 15 switched on (27 Sep)
+
+No layout fixes: all 51 exercises fit, all 26 budget entries left the list.
+Cues on the four uncued gaps (15108, 15215) and *byla* accepted beside
+*byl* in 15404 (the standing fixes).
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -674,6 +680,9 @@ the feedback sheet, with the keyboard for typed answers.
 - **Unit 14: the seven new cues; writing models cut short** (14314 one
   place of two, 14407 question without answer, 14408 one step of three);
   **14409 (speaking) never expects the transport choice it asks for.**
+- **Unit 15: the four new cues; writing models cut short** (15313,
+  15314, 15407); **15408 (speaking) lists "Byl jsem…" and "Byla jsem…" as
+  separate phrases and passes on any one.**
 - **Listening has a matching template:** "Which lesson situation does this
   recording belong to?" with the lesson's own title as the answer and
   "Asking for directions" / "Talking about the weather" as the wrong ones.
