@@ -4,7 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.core.view.WindowCompat
+import androidx.activity.enableEdgeToEdge
 import com.google.android.play.agesignals.AgeSignalsAccessRequest
 import com.google.android.play.agesignals.AgeSignalsManager
 import com.google.android.play.agesignals.AgeSignalsManagerFactory
@@ -18,12 +18,12 @@ import com.google.android.play.core.integrity.StandardIntegrityManager.PrepareIn
 import com.google.android.play.core.integrity.StandardIntegrityManager.StandardIntegrityTokenProvider
 import com.google.android.play.core.integrity.StandardIntegrityManager.StandardIntegrityTokenRequest
 import com.google.android.play.core.integrity.model.StandardIntegrityErrorCode
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
-class MainActivity : FlutterActivity() {
+class MainActivity : FlutterFragmentActivity() {
     private lateinit var ageSignalsManager: AgeSignalsManager
     private lateinit var integrityManager: StandardIntegrityManager
     private var integrityProvider: StandardIntegrityTokenProvider? = null
@@ -32,8 +32,10 @@ class MainActivity : FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Apply before Flutter creates its content view. Android 15+ enforces
         // edge-to-edge for our target SDK; this call gives older supported
-        // Android versions the same layout and lets Play verify the opt-in.
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        // Android versions the same layout. Play's pre-launch check looks for
+        // enableEdgeToEdge() specifically, which needs a ComponentActivity:
+        // hence FlutterFragmentActivity rather than FlutterActivity.
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
     }
 

@@ -49,13 +49,15 @@ void main() {
         File(
           'android/app/src/main/kotlin/com/eminentsite/czechify/MainActivity.kt',
         ).readAsStringSync();
-    expect(activity, contains('import androidx.core.view.WindowCompat'));
+    // Play's edge-to-edge check recognises enableEdgeToEdge() only, and that
+    // call needs a ComponentActivity.
+    expect(activity, contains('import androidx.activity.enableEdgeToEdge'));
+    expect(activity, contains('MainActivity : FlutterFragmentActivity()'));
+    // The call's own line, not the comment that names it.
+    const call = '\n        enableEdgeToEdge()\n';
+    expect(activity, contains(call));
     expect(
-      activity,
-      contains('WindowCompat.setDecorFitsSystemWindows(window, false)'),
-    );
-    expect(
-      activity.indexOf('WindowCompat.setDecorFitsSystemWindows(window, false)'),
+      activity.indexOf(call),
       lessThan(activity.indexOf('super.onCreate(savedInstanceState)')),
     );
   });

@@ -80,6 +80,8 @@ kotlin {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    // enableEdgeToEdge() in MainActivity; Play checks for this call.
+    implementation("androidx.activity:activity-ktx:1.10.1")
     // Google Play's privacy-preserving age-range signal for regulated regions
     // such as Brazil. Keep this pinned while the API is in beta so a release
     // cannot silently pick up a response-contract change.
