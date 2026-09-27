@@ -193,7 +193,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Take the tram.)"
           },
           {
             "speaker": "visitor",
@@ -201,7 +201,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Go straight on and turn right.)"
           }
         ],
         "blank_answers": [

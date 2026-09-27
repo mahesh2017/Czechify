@@ -581,6 +581,12 @@ No layout fixes: all 51 exercises fit, all 26 budget entries left the list.
   pronunciation sentence (13107), writing model (13406) and speaking phrase
   (13408, "Rád bych šel") are still masculine only: for the teacher.
 
+### Unit 14 switched on (27 Sep)
+
+No layout fixes: all 54 exercises fit, all 27 budget entries left the list.
+Cues on all seven dialogue gaps (the standing fix). *Rád* appears only in
+wrong options, so no gender fix was needed.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -665,6 +671,9 @@ the feedback sheet, with the keyboard for typed answers.
 - **Unit 13: *rád/ráda* throughout** (see above); the eight new cues;
   writing models cut short (13312, 13407); 13405 expects "Ano, to se mi
   líbí." to "Půjdeme do kina?".
+- **Unit 14: the seven new cues; writing models cut short** (14314 one
+  place of two, 14407 question without answer, 14408 one step of three);
+  **14409 (speaking) never expects the transport choice it asks for.**
 - **Listening has a matching template:** "Which lesson situation does this
   recording belong to?" with the lesson's own title as the answer and
   "Asking for directions" / "Talking about the weather" as the wrong ones.

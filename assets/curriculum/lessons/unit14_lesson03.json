@@ -413,7 +413,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I go by tram.)"
           },
           {
             "speaker": "friend",
@@ -421,7 +421,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I walk.)"
           }
         ],
         "blank_answers": [

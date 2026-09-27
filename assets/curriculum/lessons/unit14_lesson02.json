@@ -612,7 +612,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (No, it isn't far.)"
           },
           {
             "speaker": "traveler",
@@ -620,7 +620,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Go straight on.)"
           }
         ],
         "blank_answers": [
