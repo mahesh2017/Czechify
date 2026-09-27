@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–11. From Unit 8 on, a unit may need no fixes at all: then switch it on and
+1–12. From Unit 8 on, a unit may need no fixes at all: then switch it on and
 verify.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
@@ -170,8 +170,9 @@ must both use it.
 - Dialogue answers that don't reply to the line before the gap (Unit 4 had
   all three wrong, Unit 5 three of four): print every dialogue's lines with
   its answers and read them.
-- Dialogue gaps with no English cue but one accepted answer (all of Unit
-  11): add a cue in the "___ (I drink tea.)" style.
+- Dialogue gaps with no English cue but one accepted answer (all of Units
+  11 and 12): add a cue in the "___ (I drink tea.)" style. Mahesh approved
+  this for Units 11 and 12; it's the standing fix.
 - The Rule sheet: the assessment's pilot screen tests check its slides,
   which have less room than the lesson.
 - Pronunciation focus sounds that are not in the sentence (2107 lists "ř").

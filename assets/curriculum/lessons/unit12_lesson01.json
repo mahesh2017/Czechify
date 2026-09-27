@@ -278,7 +278,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'm looking for a sweater.)"
           },
           {
             "speaker": "clerk",
@@ -286,7 +286,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Blue, please.)"
           }
         ],
         "blank_answers": [

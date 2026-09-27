@@ -563,6 +563,14 @@ All 26 of its budget entries left the list.
   carries a cue in the Unit 4–10 style ("___ (No, I don't eat meat.)");
   the accepted answers are unchanged.
 
+### Unit 12 switched on (27 Sep)
+
+No layout fixes: all 51 exercises fit, all 26 budget entries left the list;
+the reply-slide split from Unit 11 covered 12218 and 12310. Its six dialogue
+gaps had no cue and one accepted answer each, like Unit 11, and now carry
+cues in the same style ("___ (What sizes do you have?)"); accepted answers
+unchanged.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -640,6 +648,10 @@ the feedback sheet, with the keyboard for typed answers.
 - **Unit 11: the new dialogue cues need checking; writing models are cut
   short** (11312 "Máte polévku?", 11406 "Mám hlad.", 11407 "Dobrý den.");
   **11408 (speaking) never expects the bill request it asks for.**
+- **Unit 12: the six new cues need checking; writing models miss their
+  tasks** (12312 "Můžu si to vyzkoušet?" for a size that fits, 12406
+  "červená košile", 12407 item only); **12408 (speaking) never expects the
+  price or size question it asks for.**
 - **Listening has a matching template:** "Which lesson situation does this
   recording belong to?" with the lesson's own title as the answer and
   "Asking for directions" / "Talking about the weather" as the wrong ones.

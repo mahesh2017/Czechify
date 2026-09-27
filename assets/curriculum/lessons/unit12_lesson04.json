@@ -193,7 +193,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I want to buy a shirt.)"
           },
           {
             "speaker": "clerk",
@@ -201,7 +201,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (By card.)"
           }
         ],
         "blank_answers": [
