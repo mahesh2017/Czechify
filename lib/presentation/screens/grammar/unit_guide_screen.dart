@@ -357,52 +357,61 @@ class _LectureTileState extends State<_LectureTile> {
     final t = context.tokens;
     final heading =
         widget.lecture.data['heading'] as String? ?? widget.lecture.prompt;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: SoftCard(
-        shadow: false,
-        border: Border.all(color: _open ? t.pri.withValues(alpha: .4) : t.line),
-        padding: EdgeInsets.zero,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    final header = InkWell(
+      borderRadius: BorderRadius.circular(18),
+      onTap: () => setState(() => _open = !_open),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
+        child: Row(
           children: [
-            InkWell(
-              borderRadius: BorderRadius.circular(18),
-              onTap: () => setState(() => _open = !_open),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        heading,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: t.ink,
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      _open ? Icons.expand_less : Icons.expand_more,
-                      color: t.pri,
-                    ),
-                  ],
+            Expanded(
+              child: Text(
+                heading,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: _open ? t.priInk : t.ink,
                 ),
               ),
             ),
-            if (_open)
-              Padding(
-                // Tight: the lecture card brings its own padding, and its
-                // table needs the width.
-                padding: const EdgeInsets.fromLTRB(2, 0, 2, 10),
-                child: LectureContent(
-                  exercise: widget.lecture,
-                  showHeading: false,
-                ),
-              ),
+            Icon(
+              _open ? Icons.expand_less : Icons.expand_more,
+              color: t.pri,
+            ),
           ],
         ),
+      ),
+    );
+    // Closed, the rule is a card to tap. Open, it is not a card around the
+    // lecture's own cards — explanation, table, examples — which sat 2 pt
+    // inside its outline as boxes in a box. The heading becomes a plain
+    // header and the lecture's cards sit on the page at full width.
+    if (!_open) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: SoftCard(
+          shadow: false,
+          border: Border.all(color: t.line),
+          padding: EdgeInsets.zero,
+          child: header,
+        ),
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SoftCard(
+            shadow: false,
+            color: t.priSoft,
+            border: Border.all(color: t.pri.withValues(alpha: .4)),
+            padding: EdgeInsets.zero,
+            child: header,
+          ),
+          const SizedBox(height: 12),
+          LectureContent(exercise: widget.lecture, showHeading: false),
+        ],
       ),
     );
   }
