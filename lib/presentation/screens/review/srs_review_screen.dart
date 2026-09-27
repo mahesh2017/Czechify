@@ -140,109 +140,47 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Header: what this screen is, how far in, and the way out.
+                // Header: one row, how far in and the way out. The title,
+                // a pip row and a row of New/Learning/Due chips took 128 pt
+                // of a small phone before the card began; every card of an
+                // A1 unit then scrolled on an iPhone SE.
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              l10n.reviewSpacedRepetition,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: t.faint,
-                              ),
-                            ),
-                            const SizedBox(height: 3),
-                            DisplayText(
-                              l10n.navReview,
-                              size: 27,
-                              weight: FontWeight.w800,
-                              height: 1.1,
-                            ),
-                          ],
-                        ),
-                      ),
-                      PillChip(
-                        label: l10n.reviewCardsLeft(session.remainingCards),
-                        bg: t.chipBg,
-                        fg: t.muted,
-                      ),
-                      const SizedBox(width: 9),
                       RoundIconButton(
                         icon: Icons.close,
                         tooltip: AppLocalizations.of(context).a11yClose,
                         onTap: () => _showExitConfirm(context),
                       ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-                  child: Semantics(
-                    label: AppLocalizations.of(context).reviewCardOf(
-                      session.currentIndex + 1,
-                      session.totalCards,
-                    ),
-                    excludeSemantics: true,
-                    child: SegmentPips(
-                      // Again can grow the queue. Restart width animations when
-                      // the segment count changes to avoid overlapping widths.
-                      key: ValueKey(session.totalCards),
-                      count: session.totalCards,
-                      currentIndex: session.currentIndex,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-                  child: Wrap(
-                    spacing: 7,
-                    runSpacing: 7,
-                    children: [
-                      _DeckCountChip(
-                        label: AppLocalizations.of(context).reviewNew,
-                        count:
-                            session.dueCards
-                                .where((c) => c.srs.state == CardState.newCard)
-                                .length,
-                        color: t.violet,
-                        bg: t.violetSoft,
-                        ink: t.violetInk,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Semantics(
+                          label: AppLocalizations.of(context).reviewCardOf(
+                            session.currentIndex + 1,
+                            session.totalCards,
+                          ),
+                          excludeSemantics: true,
+                          child: SegmentPips(
+                            // Again can grow the queue. Restart width
+                            // animations when the segment count changes to
+                            // avoid overlapping widths.
+                            key: ValueKey(session.totalCards),
+                            count: session.totalCards,
+                            currentIndex: session.currentIndex,
+                          ),
+                        ),
                       ),
-                      _DeckCountChip(
-                        label: AppLocalizations.of(context).reviewLearning,
-                        count:
-                            session.dueCards
-                                .where(
-                                  (c) =>
-                                      c.srs.state == CardState.learning ||
-                                      c.srs.state == CardState.relearning,
-                                )
-                                .length,
-                        color: t.amber,
-                        bg: t.amberSoft,
-                        ink: t.amberInk,
-                      ),
-                      _DeckCountChip(
-                        label: AppLocalizations.of(context).reviewDue,
-                        count:
-                            session.dueCards
-                                .where((c) => c.srs.state == CardState.review)
-                                .length,
-                        color: t.pri,
-                        bg: t.priSoft,
-                        ink: t.priInk,
+                      const SizedBox(width: 12),
+                      PillChip(
+                        label: l10n.reviewCardsLeft(session.remainingCards),
+                        bg: t.chipBg,
+                        fg: t.muted,
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
 
                 // The card grows with its content; the page handles scrolling.
                 MotionEntrance(
@@ -294,12 +232,6 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
                             fillColor: t.card,
                             hintText: l10n.reviewSayItThenTypeIt,
                             hintStyle: TextStyle(fontSize: 16, color: t.faint),
-                            helperText: l10n.reviewOvertAttemptNote,
-                            helperMaxLines: 3,
-                            helperStyle: TextStyle(
-                              fontSize: 12,
-                              color: t.faint,
-                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                               borderSide: BorderSide(color: t.line),
@@ -353,7 +285,7 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
                                     20,
                                     14,
                                     20,
-                                    112,
+                                    _tabBarClearance,
                                   ),
                                   child: KeyCta(
                                     label: l10n.reviewPractiseAgain,
@@ -372,7 +304,12 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
                             ],
                           )
                           : Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
+                            padding: const EdgeInsets.fromLTRB(
+                              20,
+                              14,
+                              20,
+                              _tabBarClearance,
+                            ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -486,50 +423,6 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
       if (mounted) this.context.go('/');
     });
   }
-}
-
-class _DeckCountChip extends StatelessWidget {
-  const _DeckCountChip({
-    required this.label,
-    required this.count,
-    required this.color,
-    required this.bg,
-    required this.ink,
-  });
-
-  final String label;
-  final int count;
-  final Color color;
-  final Color bg;
-  final Color ink;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.fromLTRB(9, 6, 11, 6),
-    decoration: BoxDecoration(
-      color: bg,
-      borderRadius: BorderRadius.circular(999),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 7,
-          height: 7,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        const SizedBox(width: 6),
-        Text(
-          '$label  $count',
-          style: TextStyle(
-            color: ink,
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ],
-    ),
-  );
 }
 
 /// The flashcard view. The front depends on the card's direction —
@@ -697,15 +590,16 @@ class _FlashcardView extends ConsumerWidget {
             _AudioPill(text: card.wordCz),
           ],
         ),
-        const SizedBox(height: 28),
+        const SizedBox(height: 20),
 
         // The word, as large as the card allows — this is the whole question.
+        // A phrase is set smaller so it fits a small phone.
         Text(
           card.wordCz,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: AppFonts.display,
-            fontSize: 44,
+            fontSize: card.wordCz.length > _longCzechFront ? 30 : 44,
             fontWeight: FontWeight.w800,
             height: 1.05,
             letterSpacing: -1,
@@ -740,7 +634,7 @@ class _FlashcardView extends ConsumerWidget {
         // also a better prompt: it gives the grammar a context to sit in
         // without giving the meaning away.
         if (cloze != null) ...[
-          const SizedBox(height: 22),
+          const SizedBox(height: 14),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
@@ -767,9 +661,9 @@ class _FlashcardView extends ConsumerWidget {
           ),
         ],
 
-        const SizedBox(height: 22),
+        const SizedBox(height: 14),
         _HintRow(card: card),
-        const SizedBox(height: 16),
+        const SizedBox(height: 10),
         _tapToReveal(context),
       ],
     );
@@ -787,13 +681,16 @@ class _FlashcardView extends ConsumerWidget {
           fg: context.tokens.violetInk,
           bg: context.tokens.violetSoft,
         ),
-        const SizedBox(height: 26),
+        const SizedBox(height: 16),
         Text(
           contextualPrompt ?? card.wordEn,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: AppFonts.display,
-            fontSize: 34,
+            fontSize:
+                (contextualPrompt ?? card.wordEn).length > _longCardText
+                    ? 26
+                    : 34,
             fontWeight: FontWeight.w800,
             height: 1.1,
             letterSpacing: -0.7,
@@ -813,8 +710,12 @@ class _FlashcardView extends ConsumerWidget {
             height: 1.45,
           ),
         ),
-        const SizedBox(height: 32),
-        _tapToReveal(context, enabled: canReveal),
+        // Before an attempt the button below says "Type your answer
+        // first"; the card no longer repeats it.
+        if (canReveal) ...[
+          const SizedBox(height: 16),
+          _tapToReveal(context),
+        ],
       ],
     );
   }
@@ -862,7 +763,7 @@ class _FlashcardView extends ConsumerWidget {
           card.wordEn,
           style: TextStyle(
             fontFamily: AppFonts.display,
-            fontSize: 30,
+            fontSize: card.wordEn.length > _longMeaning ? 24 : 30,
             fontWeight: FontWeight.w800,
             height: 1.08,
             letterSpacing: -0.6,
@@ -1134,6 +1035,24 @@ class _AudioPill extends ConsumerWidget {
   }
 }
 
+/// Room below the controls for the app's floating tab bar, inside the
+/// page's SafeArea: the bar's 60 pt plus its 32 pt bottom band, and a small
+/// gap. It was 112, 20 pt more than an iPhone SE needs.
+const double _tabBarClearance = 104;
+
+/// English on the production front longer than this is set smaller, as a
+/// phrase rather than a single word.
+const int _longCardText = 20;
+
+/// The answer's 30 pt meaning holds about 18 characters a line on a small
+/// phone ("how are you (formal)" wrapped); longer meanings are set at 24 pt.
+const int _longMeaning = 17;
+
+/// The Czech front's 44 pt type holds about 13 characters a line on a small
+/// phone; longer text ("Mějte se hezky") is set at 30 pt so it does not
+/// wrap the page past the screen.
+const int _longCzechFront = 12;
+
 String? _contextualCloze(Flashcard card) {
   final example = card.exampleCz;
   if (example == null || example.trim().isEmpty) return null;
@@ -1159,7 +1078,7 @@ class _RatingButtons extends StatelessWidget {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 14, 20, 112),
+      padding: const EdgeInsets.fromLTRB(20, 14, 20, _tabBarClearance),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1463,7 +1382,12 @@ class _NoDueCardsScreen extends StatelessWidget {
               Expanded(
                 child: Center(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(28, 20, 28, 112),
+                    padding: const EdgeInsets.fromLTRB(
+                      28,
+                      20,
+                      28,
+                      _tabBarClearance,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -1685,7 +1609,12 @@ class _ReviewCompleteScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 8, 20, 112),
+                padding: const EdgeInsets.fromLTRB(
+                  20,
+                  8,
+                  20,
+                  _tabBarClearance,
+                ),
                 child: Row(
                   children: [
                     Expanded(

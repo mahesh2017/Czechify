@@ -46,7 +46,9 @@ Mahesh agreed these on 24–25 Sep 2026; apply them to every unit.
 - A picture-card step without pictures becomes the word-list style.
 - The pre-lesson word list stays hidden until `assets/vocabulary/` matches
   v1.2.
-- Flashcard review, the daily screen and onboarding are left for later.
+- The daily screen and onboarding are left for later. Flashcard review was
+  made to fit on 27 Sep; `test/review_card_fit_test.dart` checks every card
+  of a switched-on unit on each face.
 
 Anything else that changes what a learner sees, gets as help, or is graded on
 is Mahesh's call.

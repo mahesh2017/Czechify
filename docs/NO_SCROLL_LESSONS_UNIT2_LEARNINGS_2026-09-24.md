@@ -606,6 +606,25 @@ The A1 review units. All 56 budget entries left the list.
   ("___ (My name is Anna Nováková.)"); **"Jsem nemocná."** accepted beside
   "Jsem nemocný." in 28309 (the standing fixes).
 
+### The review screen (27 Sep)
+
+Flashcard review was left out of the no-scroll work. Checked before the
+vocabulary rebuild (which adds phrase cards), every one of the 521 A1 cards
+scrolled on an iPhone SE on the English front and the answer side, and 405
+on the Czech front (median 52–75 pt): a 128 pt header (title, pips, a row of
+New/Learning/Due chips), the word at 44 pt, and 112 pt kept for the tab bar
+where 92 is enough. `test/review_card_fit_test.dart` now renders every card of
+a switched-on unit on each face; all 521 fit after:
+- a one-row header (close, pips, "N left"); the New/Learning/Due chips went;
+- the tab-bar allowance 104 pt;
+- long text set smaller: the Czech front over 12 characters at 30 pt (44 pt
+  holds about 13 a line), the answer's meaning over 17 at 24 pt, the English
+  front over 20 at 26 pt;
+- tighter spacing on the fronts;
+- no repeated hints on the English front: the in-card "Type your answer
+  first" (the button says it) and the helper line under the field (the "I
+  don't remember" button says it).
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
