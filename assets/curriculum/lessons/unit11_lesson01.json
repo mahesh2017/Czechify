@@ -277,7 +277,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'll have the soup, please.)"
           },
           {
             "speaker": "waiter",
@@ -285,7 +285,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Water, please.)"
           }
         ],
         "blank_answers": [

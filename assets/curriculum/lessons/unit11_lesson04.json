@@ -193,7 +193,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'll have chicken with rice, please.)"
           },
           {
             "speaker": "waiter",
@@ -201,7 +201,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Water, please.)"
           }
         ],
         "blank_answers": [

@@ -9,7 +9,7 @@ The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
 **Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–10. From Unit 8 on, a unit may need no fixes at all: then switch it on and
+1–11. From Unit 8 on, a unit may need no fixes at all: then switch it on and
 verify.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
@@ -88,7 +88,7 @@ Write down, and show Mahesh before building:
 |---|---|---|
 | Listening first slide with an image (prompt + 140 pt image + listen panel + gist note + transcript) | all listening with a picture | **built:** the compact play row on that slide |
 | Long reading text repeated above a 4-option question | Unit 29 | question first with "Show the text", or a text slide between questions |
-| Many dialogue lines before one gap | e.g. 31113 | last 2–3 lines on the reply slide, earlier ones on their own slide |
+| Many dialogue lines before one gap | 5 reply slides, e.g. 11310 | **built:** the reply slide keeps the line before the gap; earlier lines get their own slide |
 | Dialogue reply slide under the keyboard (several lines) | 38 dialogues | **built:** while typing, only the gap's line and the one before |
 | Dialogue gap with an English cue ("___ (I live in Prague.)") under the keyboard | 21 dialogues, e.g. 5404 | **built:** lines sit closer while typing |
 | Dialogue with several gaps on one reply slide | check each unit | one gap per slide |
@@ -170,6 +170,8 @@ must both use it.
 - Dialogue answers that don't reply to the line before the gap (Unit 4 had
   all three wrong, Unit 5 three of four): print every dialogue's lines with
   its answers and read them.
+- Dialogue gaps with no English cue but one accepted answer (all of Unit
+  11): add a cue in the "___ (I drink tea.)" style.
 - The Rule sheet: the assessment's pilot screen tests check its slides,
   which have less room than the lesson.
 - Pronunciation focus sounds that are not in the sentence (2107 lists "ř").

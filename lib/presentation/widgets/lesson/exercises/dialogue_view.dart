@@ -226,12 +226,20 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
   /// The reply slides: each ends on a line with a blank and starts after the
   /// previous one, so the learner sees what they are answering. Lines after
   /// the last blank close the last slide.
+  ///
+  /// A reply slide keeps only the line just before its blank; earlier lines
+  /// get a slide of their own (no blank, so Next is always open). Four lines
+  /// on one slide ran 11310 26 pt over.
   List<List<int>> get _turns {
     final turns = <List<int>>[];
     var current = <int>[];
     for (var i = 0; i < _lines.length; i++) {
       current.add(i);
       if ((_lines[i]['text'] as String).contains('___')) {
+        if (current.length > 2) {
+          turns.add(current.sublist(0, current.length - 2));
+          current = current.sublist(current.length - 2);
+        }
         turns.add(current);
         current = [];
       }
@@ -361,8 +369,9 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
                 final gap = turn.indexWhere(
                   (line) => (_lines[line]['text'] as String).contains('___'),
                 );
+                // A slide of earlier lines has no gap: it shows them all.
                 final shown =
-                    keyboardUp
+                    keyboardUp && gap >= 0
                         ? turn.sublist(math.max(0, gap - 1), gap + 1)
                         : turn;
                 return Column(

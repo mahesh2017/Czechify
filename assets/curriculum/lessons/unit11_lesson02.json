@@ -634,7 +634,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (No, I don't eat meat.)"
           },
           {
             "speaker": "friend",
@@ -642,7 +642,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I drink tea.)"
           }
         ],
         "blank_answers": [

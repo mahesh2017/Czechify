@@ -548,6 +548,21 @@ All 28 of its budget entries left the list; its four dialogues were right.
   is always first. With Mahesh's agreement the right option is now a short
   gist ("Anna's workday and her Saturday"); grading is unchanged.
 
+### Unit 11 switched on (27 Sep)
+
+All 26 of its budget entries left the list.
+- **Four lines on one reply slide** (11310: two lines before the gap, the gap,
+  a closing line; 26 pt over): a reply slide now keeps only the line just
+  before its gap; earlier lines get a slide of their own. Only five reply
+  slides in the course have two or more lines before a gap (3310, 11310,
+  two in Unit 12, one in Unit 17).
+- **Dialogue gaps without an English cue** (all seven in 11108, 11218,
+  11310, 11405), each accepting one specific answer: "Jíš maso?" accepted
+  only "Ne, nejím maso.", and 11310's "Účet, prosím." followed "Ano, máme."
+  with nothing to hint at the bill. With Mahesh's agreement each gap now
+  carries a cue in the Unit 4–10 style ("___ (No, I don't eat meat.)");
+  the accepted answers are unchanged.
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -622,6 +637,9 @@ the feedback sheet, with the keyboard for typed answers.
 - **Check that each dialogue's expected answers reply to the line before
   the gap** (Unit 4 had all three wrong; the dry run cannot see it).
 - **4407 (Unit 4 speaking) passes on any one of its four phrases.**
+- **Unit 11: the new dialogue cues need checking; writing models are cut
+  short** (11312 "Máte polévku?", 11406 "Mám hlad.", 11407 "Dobrý den.");
+  **11408 (speaking) never expects the bill request it asks for.**
 - **Listening has a matching template:** "Which lesson situation does this
   recording belong to?" with the lesson's own title as the answer and
   "Asking for directions" / "Talking about the weather" as the wrong ones.
