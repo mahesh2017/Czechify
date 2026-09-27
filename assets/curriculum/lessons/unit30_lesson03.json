@@ -268,7 +268,7 @@
         "lines": [
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Where is the stop?)"
           },
           {
             "speaker": "passer-by",
@@ -276,7 +276,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Thank you.)"
           },
           {
             "speaker": "passer-by",

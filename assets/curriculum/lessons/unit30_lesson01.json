@@ -274,7 +274,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'll have a coffee, please.)"
           },
           {
             "speaker": "waiter",
@@ -282,7 +282,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (And a cake.)"
           }
         ],
         "blank_answers": [

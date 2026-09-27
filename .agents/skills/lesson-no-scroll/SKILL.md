@@ -8,8 +8,8 @@ description: "Use for any work on Czechify's no-scroll lessons, above all rollin
 The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
-**Where it stands (26 Sep 2026):** all six steps are built and on in Units
-1–15. From Unit 8 on, a unit may need no fixes at all: then switch it on and
+**Where it stands (26 Sep 2026):** all six steps are built and on in all of A1
+(Units 1–15, 28, 30). A2 is Units 16–27, 29, 31. From Unit 8 on, a unit may need no fixes at all: then switch it on and
 verify.
 Rolling out means adding units to `unitGuidePilotUnits`
 (`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
@@ -246,6 +246,9 @@ purpose (listen-then-reproduce). Ask.
 - **Typing** is autocorrected by the simulator; use short words.
 - **The iPhone SE simulator** exists (`iPhone SE (3rd generation)`), but Mahesh
   must grant access in the simulator panel.
+- **`slide_heights.sh` settles before measuring; the fit test measures the
+  first frame.** A finding only the fit test shows is a first-frame layout
+  (28201: the deck's placeholder button was shorter than the real one).
 - **`slide_heights.sh` doesn't measure the keyboard state;** for a
   `+keyboard` finding, read the reply slide's lines from the content.
 - **Scratch files** go in the session scratchpad; `$TMPDIR` differs inside and

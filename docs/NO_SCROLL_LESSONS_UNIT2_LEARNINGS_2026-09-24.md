@@ -593,6 +593,19 @@ No layout fixes: all 51 exercises fit, all 26 budget entries left the list.
 Cues on the four uncued gaps (15108, 15215) and *byla* accepted beside
 *byl* in 15404 (the standing fixes).
 
+### Units 28 and 30 switched on — A1 complete (27 Sep)
+
+The A1 review units. All 56 budget entries left the list.
+- **A packed deck measured its first pass 6 pt too tall** (28201, a word
+  list, 4 pt over): before the deck knows its slide count the button row
+  holds a placeholder, and it was 52 pt where the real button (KeyCta) is
+  58. The first pass packed the intro card and a phrase together, and the
+  deck packed again a frame later. The fit test caught the first frame;
+  `slide_heights.sh`, which settles, saw nothing. The placeholder is 58 now.
+- **Cues** on all sixteen dialogue gaps, including 28109's form role-play
+  ("___ (My name is Anna Nováková.)"); **"Jsem nemocná."** accepted beside
+  "Jsem nemocný." in 28309 (the standing fixes).
+
 ## 7. Found only by running the app
 
 In each case the unit tests were green:
@@ -683,6 +696,10 @@ the feedback sheet, with the keyboard for typed answers.
 - **Unit 15: the four new cues; writing models cut short** (15313,
   15314, 15407); **15408 (speaking) lists "Byl jsem…" and "Byla jsem…" as
   separate phrases and passes on any one.**
+- **Units 28 and 30: the sixteen new cues; "Jmenuji se Anna…" in 28105,
+  28110, 28111; 28111 "Narodila jsem se" (woman only) and 28410 "Jsem v Praze
+  rád." (man only); 30211 accepts "Máte větší velikost?" for "Jakou
+  velikost?"; one-sentence writing models in all eight writing tasks.**
 - **Listening has a matching template:** "Which lesson situation does this
   recording belong to?" with the lesson's own title as the answer and
   "Asking for directions" / "Talking about the weather" as the wrong ones.

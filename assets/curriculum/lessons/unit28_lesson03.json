@@ -271,7 +271,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'm not coming today.)"
           },
           {
             "speaker": "friend",
@@ -279,7 +279,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'm ill.)"
           }
         ],
         "blank_answers": [
@@ -289,7 +289,9 @@
           ],
           [
             "Jsem nemocný.",
-            "Protože jsem nemocný."
+            "Protože jsem nemocný.",
+            "Jsem nemocná.",
+            "Protože jsem nemocná."
           ]
         ],
         "explanation": "Use a short, complete answer that moves the interaction forward.",

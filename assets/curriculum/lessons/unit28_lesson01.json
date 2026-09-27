@@ -277,7 +277,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (My name is Anna Nováková.)"
           },
           {
             "speaker": "receptionist",
@@ -285,7 +285,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I live in Prague.)"
           }
         ],
         "blank_answers": [

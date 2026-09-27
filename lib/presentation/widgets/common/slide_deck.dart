@@ -405,9 +405,12 @@ class SlideDeckState extends State<SlideDeck> {
                                 canGo ? () => goTo(_index + 1) : null,
                           )
                           : count == 0 || widget.onDone == null
-                          // Same height as a button, so the slide above
-                          // keeps its size.
-                          ? const SizedBox(height: 52)
+                          // Same height as a button (KeyCta is 58), so the
+                          // slide above keeps its size. At 52 a packed deck
+                          // measured its first pass with 6 pt that are not
+                          // there, and showed a slide 4 pt too tall (28201)
+                          // for a frame before packing again.
+                          ? const SizedBox(height: 58)
                           : KeyCta(
                             key: SlideDeck.doneKey,
                             label: widget.doneLabel,
