@@ -157,8 +157,11 @@ must both use it.
   - every converted kind leaves the list;
   - whatever stays is on the plan.
 - **Content changed?** Re-pin the content digest in
-  `test/bundled_content_revision_test.dart`; revision 26 has not shipped, so
-  the number stays.
+  `test/bundled_content_revision_test.dart`. Raise
+  `ReleaseConfig.bundledContentRevision` once per release that changes
+  content: 26 shipped in 1.1.5 (Play, 28 Sep 2026), so A2's changes are 27.
+  Check with `git show <last release commit>:lib/core/config/release_config.dart`;
+  an unraised revision never reaches learners who upgrade.
 - **Break each new test on purpose once** and see it fail.
 - **On the simulator** (bugs in §7 of the doc were only visible there):
   - one of each converted type, through to the feedback sheet;
@@ -169,6 +172,15 @@ must both use it.
 - **Add what you learned to the doc and to the table above.**
 
 ## Content checks for every unit
+`python3 scripts/content_scan.py <unit…>` runs the mechanical ones over many
+units at once and prints every dialogue to read. Its hits are candidates:
+read each. For many units, `scripts/feedback_heights.sh` takes every exercise
+id at once; right-answer explanations over about 120 characters (A1's
+longest is 128) overflow the 240 pt sheet.
+
+- Uncued whole-line dialogue gaps whose answer carries facts the learner
+  can't know ("Mám matematiku a fyziku.", "patnáct tisíc"): the standing
+  English-cue fix. Counting accepted answers misses these.
 - Expected answers that hard-code a name ("Jmenuji se Mahesh.").
 - Dialogue answers that don't reply to the line before the gap (Unit 4 had
   all three wrong, Unit 5 three of four): print every dialogue's lines with
