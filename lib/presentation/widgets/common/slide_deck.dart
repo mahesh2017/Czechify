@@ -38,6 +38,7 @@ class SlideDeck extends StatefulWidget {
        blockBuilder = null,
        gap = 0,
        gapBefore = null,
+       breakBefore = null,
        chromeOnlyWhenSeveral = false;
 
   /// Blocks laid on as few slides as they fit, in order: each block is
@@ -58,6 +59,7 @@ class SlideDeck extends StatefulWidget {
     this.onSlideChanged,
     this.chromeOnlyWhenSeveral = false,
     this.gapBefore,
+    this.breakBefore,
   }) : slides = null;
 
   final List<Widget>? slides;
@@ -72,6 +74,10 @@ class SlideDeck extends StatefulWidget {
   /// where blocks differ: rows of one table sit closer than the parts around
   /// them. [gap] when null.
   final double Function(int index)? gapBefore;
+
+  /// Whether block `index` starts a new slide even when it would fit on the
+  /// one before: each question of a reading on its own slide, say.
+  final bool Function(int index)? breakBefore;
 
   /// The last slide's button, which leaves the deck.
   final String doneLabel;
@@ -161,6 +167,13 @@ class SlideDeckState extends State<SlideDeck> {
     if (page != null && page != _index) goTo(page);
   }
 
+  /// The blocks slide [slide] shows (packed decks), once measured.
+  List<int> blocksOn(int slide) {
+    final groups = _groups;
+    if (groups == null || slide < 0 || slide >= groups.length) return const [];
+    return groups[slide];
+  }
+
   int? _slideOf(int block) {
     final groups = _groups;
     if (groups == null) return null;
@@ -185,7 +198,8 @@ class SlideDeckState extends State<SlideDeck> {
       for (var i = 0; i < heights.length; i++) {
         final need =
             current.isEmpty ? heights[i] : used + _gapBefore(i) + heights[i];
-        if (current.isNotEmpty && need > capacity) {
+        final breaks = widget.breakBefore?.call(i) ?? false;
+        if (current.isNotEmpty && (breaks || need > capacity)) {
           groups.add(current);
           current = [i];
           used = heights[i];

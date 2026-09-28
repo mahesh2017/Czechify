@@ -230,6 +230,10 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
   /// A reply slide keeps only the line just before its blank; earlier lines
   /// get a slide of their own (no blank, so Next is always open). Four lines
   /// on one slide ran 11310 26 pt over.
+  ///
+  /// One line after the last blank closes the last reply slide; more get
+  /// slides of their own, three lines at most, before Check. 31113's six
+  /// closing lines ran its reply slide 534 pt over.
   List<List<int>> get _turns {
     final turns = <List<int>>[];
     var current = <int>[];
@@ -244,7 +248,15 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
         current = [];
       }
     }
-    if (current.isNotEmpty && turns.isNotEmpty) turns.last.addAll(current);
+    if (current.isNotEmpty && turns.isNotEmpty) {
+      if (current.length == 1) {
+        turns.last.addAll(current);
+      } else {
+        for (var i = 0; i < current.length; i += 3) {
+          turns.add(current.sublist(i, math.min(i + 3, current.length)));
+        }
+      }
+    }
     return turns;
   }
 

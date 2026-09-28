@@ -212,7 +212,7 @@ class _ListeningComprehensionViewState
       return QuestionSteps(
         exerciseId: widget.exercise.id,
         questions: questions,
-        intro: header,
+        intro: [header],
         reminder: _ListenAgain(
           onPlay: () {
             setState(() => _playCount++);

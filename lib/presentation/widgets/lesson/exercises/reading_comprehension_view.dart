@@ -252,7 +252,7 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
   }
 
   /// The pilot's slides: the passage with its translation, then each
-  /// question under the Czech text again.
+  /// question under the Czech text again, or after it when both do not fit.
   Widget _slides(
     BuildContext context, {
     required String prompt,
@@ -267,23 +267,20 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
       questions:
           (widget.exercise.data['questions'] as List<dynamic>)
               .cast<Map<String, dynamic>>(),
-      intro: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          QuestionPrompt(question: prompt),
-          const SizedBox(height: 16),
-          if (image != null && image.isNotEmpty) ...[
-            LessonImage(
-              asset: image,
-              height: 140,
-              semanticLabel:
-                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
-            ),
-            const SizedBox(height: 14),
-          ],
-          _slidePassage(context, textCz, textEn),
-        ],
-      ),
+      // Separate blocks: a passage that does not fit under the picture
+      // (A2's longer texts, 17-49 pt over) gets the next slide.
+      intro: [
+        QuestionPrompt(question: prompt),
+        if (image != null && image.isNotEmpty)
+          LessonImage(
+            asset: image,
+            height: 140,
+            semanticLabel:
+                imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
+          ),
+        _slidePassage(context, textCz, textEn),
+      ],
+      reminderMaySplit: true,
       reminder: Container(
         padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
         decoration: BoxDecoration(

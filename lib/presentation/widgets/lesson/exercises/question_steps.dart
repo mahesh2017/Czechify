@@ -11,6 +11,12 @@ import 'exercise_shared.dart';
 /// above it — the text again, or the buttons to hear it again — so nothing
 /// has to be held in memory across screens and nothing has to be scrolled.
 ///
+/// The slides are packed: [intro]'s blocks share a slide while they fit (a
+/// passage too long to sit under its picture gets the next one), and each
+/// question starts a slide. With [reminderMaySplit], a reminder that does
+/// not fit above its question gets a slide of its own just before it: A2's
+/// review readings repeated 200 pt of text above four long options.
+///
 /// Next waits for an answer; the last slide checks them all together, which
 /// is still one answer to the lesson. Once checked, the slides stay so the
 /// learner can go back over what was right.
@@ -22,6 +28,7 @@ class QuestionSteps extends StatefulWidget {
     required this.intro,
     required this.reminder,
     required this.onComplete,
+    this.reminderMaySplit = false,
   });
 
   final int exerciseId;
@@ -29,8 +36,13 @@ class QuestionSteps extends StatefulWidget {
   /// As stored: `question_en`, optional `question_cz`, `options`,
   /// `correct_index`.
   final List<Map<String, dynamic>> questions;
-  final Widget intro;
+  /// Blocks, in order, before the first question.
+  final List<Widget> intro;
   final Widget reminder;
+
+  /// Whether [reminder] may take a slide of its own when it does not fit
+  /// above a question. Not for a reminder that is only a button.
+  final bool reminderMaySplit;
   final void Function(
     bool isCorrect,
     String explanation,
@@ -46,6 +58,7 @@ class _QuestionStepsState extends State<QuestionSteps> {
   late List<Map<String, dynamic>> _questions;
   late List<int?> _selected;
   bool _submitted = false;
+  final _deck = GlobalKey<SlideDeckState>();
 
   @override
   void initState() {
@@ -82,26 +95,50 @@ class _QuestionStepsState extends State<QuestionSteps> {
 
   @override
   Widget build(BuildContext context) {
-    return SlideDeck(
-      slides: [
-        widget.intro,
-        for (var q = 0; q < _questions.length; q++)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              widget.reminder,
-              const SizedBox(height: 10),
-              _question(context, q),
-            ],
-          ),
-      ],
-      // Slide 0 is the passage; slide q + 1 asks question q.
-      canAdvance:
-          (slide) =>
-              slide == 0 ||
-              (slide == _questions.length
-                  ? _selected.every((s) => s != null)
-                  : _selected[slide - 1] != null),
+    final intro = widget.intro.length;
+    final split = widget.reminderMaySplit;
+    // Blocks per question: the reminder and the question, or both in one.
+    final per = split ? 2 : 1;
+    int? questionOf(int block) {
+      if (block < intro) return null;
+      final offset = block - intro;
+      return offset % per == per - 1 ? offset ~/ per : null;
+    }
+
+    return SlideDeck.packed(
+      key: _deck,
+      blockCount: intro + _questions.length * per,
+      blockBuilder: (context, block, _) {
+        if (block < intro) return widget.intro[block];
+        final offset = block - intro;
+        final q = offset ~/ per;
+        if (split) {
+          return offset % 2 == 0 ? widget.reminder : _question(context, q);
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            widget.reminder,
+            const SizedBox(height: 6),
+            _question(context, q),
+          ],
+        );
+      },
+      gap: 14,
+      // A reminder sits close to the question it belongs to.
+      gapBefore: (block) => questionOf(block) != null && split ? 6 : 14,
+      // Each question starts a slide, with its reminder.
+      breakBefore: (block) => block >= intro && (block - intro) % per == 0,
+      // Next waits for the answers on the slide; the last checks them all.
+      canAdvance: (slide) {
+        final deck = _deck.currentState;
+        if (deck == null) return false;
+        if (slide == deck.length - 1) return _selected.every((s) => s != null);
+        return deck.blocksOn(slide).every((block) {
+          final q = questionOf(block);
+          return q == null || _selected[q] != null;
+        });
+      },
       doneLabel: AppLocalizations.of(context).exerciseCheckAnswers,
       onDone: _submit,
       finished: _submitted,
@@ -115,7 +152,9 @@ class _QuestionStepsState extends State<QuestionSteps> {
     final questionCz = question['question_cz'] as String? ?? '';
     final options = (question['options'] as List<dynamic>).cast<String>();
     return Container(
-      padding: const EdgeInsets.all(16),
+      // 14 above and below: Unit 29's listening questions, four long options
+      // under Listen again, were 4 pt over at 16.
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
       decoration: BoxDecoration(
         color: t.card,
         borderRadius: BorderRadius.circular(24),

@@ -255,7 +255,9 @@ class _FillBlankViewState extends State<FillBlankView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           QuestionPrompt(question: widget.exercise.prompt),
-          const SizedBox(height: 20),
+          // 14, 10 and 14 below: A2's three-sentence gaps (18216) were 25 pt
+          // over at 20, 14 and 18.
+          const SizedBox(height: 14),
 
           // The sentence, with one inline input per blank.
           Container(
@@ -273,14 +275,14 @@ class _FillBlankViewState extends State<FillBlankView> {
               children: children,
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 10),
           if (!answered) ...[
             // Types into whichever blank was last focused.
             CzechCharBar(
               controller: _controllerFor(_activeBlank),
               enabled: !answered,
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 14),
             KeyCta(
               label: AppLocalizations.of(context).check,
               onPressed: _checkAnswer,
