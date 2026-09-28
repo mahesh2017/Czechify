@@ -57,6 +57,9 @@ class _DictionaryEntryScreenState extends ConsumerState<DictionaryEntryScreen> {
             if (entry == null) {
               return Center(child: Text(l10n.dictionaryLoadFailed));
             }
+            // A word of an earlier level has no unit of this learner's to
+            // point to: the app keeps a learner on one level at a time.
+            final earlier = dictionary.isEarlier(entry);
             final locked =
                 entry.unit != null && !unlocked.contains(entry.unit);
             return ListView(
@@ -120,7 +123,7 @@ class _DictionaryEntryScreenState extends ConsumerState<DictionaryEntryScreen> {
                     color: t.ink,
                   ),
                 ),
-                if (entry.unit != null) ...[
+                if (!earlier && entry.unitNo != null) ...[
                   const SizedBox(height: 12),
                   Row(
                     children: [
@@ -135,8 +138,8 @@ class _DictionaryEntryScreenState extends ConsumerState<DictionaryEntryScreen> {
                       Expanded(
                         child: Text(
                           locked
-                              ? l10n.dictionaryTaughtInLocked(entry.unit!)
-                              : l10n.dictionaryTaughtIn(entry.unit!),
+                              ? l10n.dictionaryTaughtInLocked(entry.unitNo!)
+                              : l10n.dictionaryTaughtIn(entry.unitNo!),
                           style: TextStyle(
                             fontSize: 13,
                             color: locked ? t.muted : t.priInk,

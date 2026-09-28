@@ -1,3 +1,5 @@
+import 'dictionary_search.dart' show foldCzech;
+
 /// One word of the in-app dictionary, as built by
 /// `tool/dictionary/build_dictionary.py` into `assets/dictionary/`.
 ///
@@ -24,6 +26,8 @@ class DictionaryEntry {
     this.examples = const [],
     this.see = const [],
     this.unit,
+    this.unitNo,
+    this.level = 'A1',
   });
 
   final String id;
@@ -58,12 +62,23 @@ class DictionaryEntry {
   /// Other dictionary words worth a look, by their [cz].
   final List<String> see;
 
-  /// The unit where a learner first meets the word, if the course uses it.
+  /// The unit where a learner first meets the word, if the course uses it:
+  /// the course's unit id, which unlocking uses.
   final int? unit;
+
+  /// That unit as the learner sees it numbered, within its level (A2's
+  /// Unit 1 is course unit 16).
+  final int? unitNo;
+
+  /// The level the word belongs to: "A1", "A2".
+  final String level;
 
   bool get hasTables => tables.isNotEmpty;
 
-  factory DictionaryEntry.fromJson(Map<String, dynamic> json) {
+  factory DictionaryEntry.fromJson(
+    Map<String, dynamic> json, {
+    String level = 'A1',
+  }) {
     List<String> strings(String key) =>
         (json[key] as List<dynamic>? ?? const []).cast<String>();
     return DictionaryEntry(
@@ -100,6 +115,8 @@ class DictionaryEntry {
       ],
       see: strings('see'),
       unit: json['unit'] as int?,
+      unitNo: json['unit_no'] as int? ?? json['unit'] as int?,
+      level: level,
     );
   }
 }
@@ -158,11 +175,44 @@ class DictionaryRow {
   final List<String> cells;
 }
 
-/// One level's dictionary, as loaded from its asset.
+/// A learner's dictionary: one level's words, as loaded from its asset, or
+/// an A2 learner's A1 and A2 words together ([DictionaryData.merged]).
 class DictionaryData {
-  const DictionaryData({required this.level, required this.entries});
+  const DictionaryData({
+    required this.level,
+    required this.entries,
+    this.levels = const [],
+  });
 
+  /// The learner's level: "A1", "A2".
   final String level;
+
+  /// Every level whose words are here, in course order: ["A1", "A2"] for an
+  /// A2 learner. Empty means just [level].
+  final List<String> levels;
+
+  /// "A1", or "A1 + A2".
+  String get label => (levels.isEmpty ? [level] : levels).join(' + ');
+
+  /// A word of an earlier level than the learner's: the app keeps a learner
+  /// on one level, so it cannot send them to that word's unit.
+  bool isEarlier(DictionaryEntry entry) => entry.level != level;
+
+  /// [lower]'s words and [upper]'s in one A–Z list, as [upper]'s learner
+  /// sees them.
+  factory DictionaryData.merged(DictionaryData lower, DictionaryData upper) {
+    final entries = [...lower.entries, ...upper.entries]..sort(
+      (a, b) {
+        final byFolded = foldCzech(a.cz).compareTo(foldCzech(b.cz));
+        return byFolded != 0 ? byFolded : a.cz.compareTo(b.cz);
+      },
+    );
+    return DictionaryData(
+      level: upper.level,
+      entries: entries,
+      levels: [lower.label, upper.level],
+    );
+  }
 
   /// Sorted as a dictionary is: by the word without accents, then with.
   final List<DictionaryEntry> entries;
@@ -182,11 +232,12 @@ class DictionaryData {
   }
 
   factory DictionaryData.fromJson(Map<String, dynamic> json) {
+    final level = json['level'] as String;
     return DictionaryData(
-      level: json['level'] as String,
+      level: level,
       entries: [
         for (final e in json['entries'] as List<dynamic>)
-          DictionaryEntry.fromJson(e as Map<String, dynamic>),
+          DictionaryEntry.fromJson(e as Map<String, dynamic>, level: level),
       ],
     );
   }

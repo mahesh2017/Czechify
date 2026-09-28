@@ -1,0 +1,609 @@
+# A2 dictionary — Unit 25 (work and study: jobs, school, applying).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+@ aha
+pos: interj
+en: I see; oh
+ex: Aha, už rozumím. = I see, now I understand.
+rel: understand; really
+
+@ angličtina
+pos: noun f
+en: English (language)
+ex: Učím se angličtinu. = I am learning English.
+rel: language; speak
+sg: angličtina, angličtiny, angličtině, angličtinu, angličtino, angličtině, angličtinou
+note: Mluvím anglicky = I speak English.
+
+@ autodíly
+pos: noun m-inan pl
+en: car parts
+rel: car; shop
+pl: autodíly, autodílů, autodílům, autodíly, autodíly, autodílech, autodíly
+
+@ barista
+pos: noun m-anim
+en: barista
+ex: Pracuju jako barista. = I work as a barista.
+rel: coffee; café
+sg: barista, baristy, baristovi, baristu, baristo, baristovi, baristou
+pl: baristé, baristů, baristům, baristy, baristé, baristech, baristy
+see: baristka
+
+@ baristka
+pos: noun f
+en: barista (woman)
+ex: Hledáme baristku. = We are looking for a barista.
+rel: coffee; café
+sg: baristka, baristky, baristce, baristku, baristko, baristce, baristkou
+pl: baristky, baristek, baristkám, baristky, baristky, baristkách, baristkami
+see: barista
+
+@ budovat
+pos: verb impf
+en: to build (up)
+rel: career; create
+pres: buduju/buduji, buduješ, buduje, budujeme, budujete, budujou/budují
+past: budoval
+
+@ daňový
+pos: adj
+en: tax (adjective)
+rel: money; office
+note: Daňové přiznání = tax return.
+
+@ diplom
+pos: noun m-inan
+en: diploma; degree
+rel: university; graduate
+sg: diplom, diplomu, diplomu, diplom, diplome, diplomu, diplomem
+pl: diplomy, diplomů, diplomům, diplomy, diplomy, diplomech, diplomy
+
+@ dojíždět
+pos: verb impf
+en: to commute
+rel: travel; work
+pres: dojíždím, dojíždíš, dojíždí, dojíždíme, dojíždíte, dojíždějí
+past: dojížděl
+note: Dojíždím do práce vlakem = I commute to work by train.
+
+@ doktorský
+pos: adj
+en: doctoral
+rel: university; PhD
+
+@ dotaz
+pos: noun m-inan
+en: question; enquiry
+ex: Mám jeden dotaz. = I have one question.
+rel: ask; information
+sg: dotaz, dotazu, dotazu, dotaz, dotaze, dotazu, dotazem
+pl: dotazy, dotazů, dotazům, dotazy, dotazy, dotazech, dotazy
+
+@ fakulta
+pos: noun f
+en: faculty (of a university)
+rel: university; study
+sg: fakulta, fakulty, fakultě, fakultu, fakulto, fakultě, fakultou
+pl: fakulty, fakult, fakultám, fakulty, fakulty, fakultách, fakultami
+
+@ filozofie
+pos: noun f
+en: philosophy
+rel: study; faculty
+sg: filozofie, filozofie, filozofii, filozofii, filozofie, filozofii, filozofií
+
+@ firma
+pos: noun f
+en: company; firm
+rel: business; work
+sg: firma, firmy, firmě, firmu, firmo, firmě, firmou
+pl: firmy, firem, firmám, firmy, firmy, firmách, firmami
+
+@ fyzika
+pos: noun f
+en: physics
+rel: school; subject
+sg: fyzika, fyziky, fyzice, fyziku, fyziko, fyzice, fyzikou
+
+@ férový
+pos: adj
+en: fair
+rel: honest; just
+
+@ gymnázium
+pos: noun n
+en: grammar school; secondary school
+rel: school; student
+sg: gymnázium, gymnázia, gymnáziu, gymnázium, gymnázium, gymnáziu, gymnáziem
+pl: gymnázia, gymnázií, gymnáziím, gymnázia, gymnázia, gymnáziích, gymnázii
+
+@ historie
+pos: noun f
+en: history
+ex: Studuju historii. = I study history.
+rel: past; subject
+sg: historie, historie, historii, historii, historie, historii, historií
+
+@ inženýr
+pos: noun m-anim
+en: engineer
+rel: job; technology
+sg: inženýr, inženýra, inženýrovi, inženýra, inženýre, inženýrovi, inženýrem
+pl: inženýři, inženýrů, inženýrům, inženýry, inženýři, inženýrech, inženýry
+
+@ jazyk
+pos: noun m-inan
+en: language; tongue
+rel: speak; word
+sg: jazyk, jazyka, jazyku, jazyk, jazyku, jazyku, jazykem
+pl: jazyky, jazyků, jazykům, jazyky, jazyky, jazycích, jazyky
+
+@ kariéra
+pos: noun f
+en: career
+rel: job; work
+sg: kariéra, kariéry, kariéře, kariéru, kariéro, kariéře, kariérou
+
+@ komunikace
+pos: noun f
+en: communication
+ex: Komunikace je důležitá. = Communication is important.
+rel: talk; skills
+sg: komunikace, komunikace, komunikaci, komunikaci, komunikace, komunikaci, komunikací
+forms: komunikační
+note: Komunikační dovednosti = communication skills.
+
+@ komunikovat
+pos: verb impf
+en: to communicate
+ex: Dobře komunikuju s lidmi. = I communicate well with people.
+rel: talk; speak
+pres: komunikuju/komunikuji, komunikuješ, komunikuje, komunikujeme, komunikujete, komunikujou/komunikují
+past: komunikoval
+
+@ konference
+pos: noun f
+en: conference
+rel: meeting; work
+sg: konference, konference, konferenci, konferenci, konference, konferenci, konferencí
+pl: konference, konferencí, konferencím, konference, konference, konferencích, konferencemi
+
+@ kuchař
+pos: noun m-anim
+en: cook; chef
+rel: kitchen; restaurant
+sg: kuchař, kuchaře, kuchaři/kuchařovi, kuchaře, kuchaři, kuchaři/kuchařovi, kuchařem
+pl: kuchaři, kuchařů, kuchařům, kuchaře, kuchaři, kuchařích, kuchaři
+
+@ kód
+pos: noun m-inan
+en: code
+rel: programming; number
+sg: kód, kódu, kódu, kód, kóde, kódu, kódem
+pl: kódy, kódů, kódům, kódy, kódy, kódech, kódy
+
+@ látka
+pos: noun f
+en: material; fabric; subject matter
+rel: cloth; study
+sg: látka, látky, látce, látku, látko, látce, látkou
+pl: látky, látek, látkám, látky, látky, látkách, látkami
+
+@ manažer
+pos: noun m-anim
+en: manager
+rel: boss; office
+sg: manažer, manažera, manažerovi, manažera, manažere, manažerovi, manažerem
+pl: manažeři, manažerů, manažerům, manažery, manažeři, manažerech, manažery
+
+@ marketingový
+pos: adj
+en: marketing (adjective)
+rel: business; advertising
+
+@ matematika
+pos: noun f
+en: mathematics; maths
+rel: school; subject
+sg: matematika, matematiky, matematice, matematiku, matematiko, matematice, matematikou
+
+@ medický
+pos: adj
+en: medical
+rel: doctor; health
+
+@ mezinárodní
+pos: adj
+en: international
+rel: world; foreign
+
+@ minimální
+pos: adj
+en: minimum; minimal
+rel: lowest; least
+
+@ mzda
+pos: noun f
+en: wage; salary
+rel: pay; money
+sg: mzda, mzdy, mzdě, mzdu, mzdo, mzdě, mzdou
+pl: mzdy, mezd, mzdám, mzdy, mzdy, mzdách, mzdami
+
+@ nabídnout
+pos: verb pf
+en: to offer
+rel: give; job
+pres: nabídnu, nabídneš, nabídne, nabídneme, nabídnete, nabídnou
+past: nabídl
+imp: nabídni, nabídněte
+
+@ nadřízený
+pos: noun m-anim
+decl: adj
+en: boss; superior
+rel: manager; work
+see: podřízený
+
+@ podřízený
+pos: noun m-anim
+decl: adj
+en: subordinate; member of staff
+rel: team; employee
+see: nadřízený
+
+@ nemocenská
+pos: noun f
+forms: nemocenské, nemocenskou
+en: sick pay; sick leave
+ex: Jsem na nemocenské. = I am on sick leave.
+rel: ill; work
+note: Být na nemocenské = to be on sick leave.
+
+@ oddělení
+pos: noun n
+en: department
+rel: office; hospital
+sg: oddělení, oddělení, oddělení, oddělení, oddělení, oddělení, oddělením
+pl: oddělení, oddělení, oddělením, oddělení, oddělení, odděleních, odděleními
+
+@ opatrný
+pos: adj
+en: careful
+rel: cautious; attention
+cmp: opatrnější
+
+@ organizovat
+pos: verb impf
+en: to organise
+rel: plan; event
+pres: organizuju/organizuji, organizuješ, organizuje, organizujeme, organizujete, organizujou/organizují
+past: organizoval
+
+@ papír
+pos: noun m-inan
+en: paper
+rel: document; write
+sg: papír, papíru, papíru, papír, papíre, papíru, papírem
+pl: papíry, papírů, papírům, papíry, papíry, papírech, papíry
+note: Papíry = documents, paperwork.
+
+@ podepsat
+pos: verb pf
+en: to sign
+rel: signature; contract
+pres: podepíšu/podepíši, podepíšeš, podepíše, podepíšeme, podepíšete, podepíšou/podepíší
+past: podepsal
+imp: podepiš, podepište
+
+@ porada
+pos: noun f
+en: meeting (at work)
+rel: team; office
+sg: porada, porady, poradě, poradu, porado, poradě, poradou
+pl: porady, porad, poradám, porady, porady, poradách, poradami
+
+@ prestižní
+pos: adj
+en: prestigious
+rel: famous; good
+
+@ prodavač
+pos: noun m-anim
+en: shop assistant; salesman
+rel: shop; sell
+sg: prodavač, prodavače, prodavači/prodavačovi, prodavače, prodavači, prodavači/prodavačovi, prodavačem
+pl: prodavači, prodavačů, prodavačům, prodavače, prodavači, prodavačích, prodavači
+see: prodavačka
+
+@ prodavačka
+pos: noun f
+en: shop assistant (woman)
+ex: Moje sestra je prodavačka. = My sister is a shop assistant.
+rel: shop; sell
+sg: prodavačka, prodavačky, prodavačce, prodavačku, prodavačko, prodavačce, prodavačkou
+pl: prodavačky, prodavaček, prodavačkám, prodavačky, prodavačky, prodavačkách, prodavačkami
+see: prodavač
+
+@ profese
+pos: noun f
+en: profession
+ex: Jakou máte profesi? = What is your profession?
+rel: job; work
+sg: profese, profese, profesi, profesi, profese, profesi, profesí
+pl: profese, profesí, profesím, profese, profese, profesích, profesemi
+
+@ programátor
+pos: noun m-anim
+en: programmer
+rel: computer; code
+sg: programátor, programátora, programátorovi, programátora, programátore, programátorovi, programátorem
+pl: programátoři, programátorů, programátorům, programátory, programátoři, programátorech, programátory
+
+@ projekt
+pos: noun m-inan
+en: project
+rel: work; plan
+sg: projekt, projektu, projektu, projekt, projekte, projektu, projektem
+pl: projekty, projektů, projektům, projekty, projekty, projektech, projekty
+
+@ promoce
+pos: noun f
+en: graduation ceremony
+rel: university; diploma
+sg: promoce, promoce, promoci, promoci, promoce, promoci, promocí
+
+@ právník
+pos: noun m-anim
+en: lawyer
+rel: law; court
+sg: právník, právníka, právníkovi, právníka, právníku, právníkovi, právníkem
+pl: právníci, právníků, právníkům, právníky, právníci, právnících, právníky
+see: právnička
+
+@ právnička
+pos: noun f
+en: lawyer (woman)
+ex: Je právnička. = She is a lawyer.
+rel: law; court
+sg: právnička, právničky, právničce, právničku, právničko, právničce, právničkou
+pl: právničky, právniček, právničkám, právničky, právničky, právničkách, právničkami
+see: právník
+
+@ pětatřicet
+pos: num
+en: thirty-five
+rel: number; 35
+forms: pětatřiceti
+
+@ předmět
+pos: noun m-inan
+en: subject (at school); object
+rel: school; lesson
+sg: předmět, předmětu, předmětu, předmět, předměte, předmětu, předmětem
+pl: předměty, předmětů, předmětům, předměty, předměty, předmětech, předměty
+
+@ přednáška
+pos: noun f
+en: lecture
+rel: university; talk
+sg: přednáška, přednášky, přednášce, přednášku, přednáško, přednášce, přednáškou
+pl: přednášky, přednášek, přednáškám, přednášky, přednášky, přednáškách, přednáškami
+
+@ přednášet
+pos: verb impf
+en: to lecture; to teach (at university)
+rel: professor; university
+pres: přednáším, přednášíš, přednáší, přednášíme, přednášíte, přednášejí
+past: přednášel
+
+@ připravovat
+pos: verb impf
+en: to prepare
+rel: get ready; plan
+pres: připravuju/připravuji, připravuješ, připravuje, připravujeme, připravujete, připravujou/připravují
+past: připravoval
+pair: připravit
+
+@ přiznání
+pos: noun n
+en: confession; (tax) return
+rel: admit; tax
+sg: přiznání, přiznání, přiznání, přiznání, přiznání, přiznání, přiznáním
+note: Daňové přiznání = tax return.
+
+@ ranní
+pos: adj
+en: morning (adjective)
+ex: Mám ranní směnu. = I have the morning shift.
+rel: early; shift
+note: Ranní směna = morning shift.
+
+@ ročník
+pos: noun m-inan
+en: year (of study)
+rel: class; university
+sg: ročník, ročníku, ročníku, ročník, ročníku, ročníku, ročníkem
+pl: ročníky, ročníků, ročníkům, ročníky, ročníky, ročnících, ročníky
+note: Jsem ve druhém ročníku = I'm in my second year.
+
+@ sekretář
+pos: noun m-anim
+en: secretary
+rel: office; assistant
+sg: sekretář, sekretáře, sekretáři/sekretářovi, sekretáře, sekretáři, sekretáři/sekretářovi, sekretářem
+pl: sekretáři, sekretářů, sekretářům, sekretáře, sekretáři, sekretářích, sekretáři
+
+@ sektor
+pos: noun m-inan
+en: sector
+rel: business; area
+sg: sektor, sektoru, sektoru, sektor, sektore, sektoru, sektorem
+pl: sektory, sektorů, sektorům, sektory, sektory, sektorech, sektory
+
+@ seminář
+pos: noun m-inan
+en: seminar
+rel: university; class
+sg: seminář, semináře, semináři, seminář, semináři, semináři, seminářem
+pl: semináře, seminářů, seminářům, semináře, semináře, seminářích, semináři
+
+@ smlouva
+pos: noun f
+en: contract; agreement
+rel: sign; job; flat
+sg: smlouva, smlouvy, smlouvě, smlouvu, smlouvo, smlouvě, smlouvou
+pl: smlouvy, smluv, smlouvám, smlouvy, smlouvy, smlouvách, smlouvami
+
+@ spravovat
+pos: verb impf
+en: to manage; to run
+rel: administer; look after
+pres: spravuju/spravuji, spravuješ, spravuje, spravujeme, spravujete, spravujou/spravují
+past: spravoval
+
+@ stoupnout
+pos: verb pf
+en: to rise; to go up
+rel: price; increase
+pres: stoupnu, stoupneš, stoupne, stoupneme, stoupnete, stoupnou
+past: stoupl
+
+@ tolerantní
+pos: adj
+en: tolerant
+rel: open; patient
+
+@ továrna
+pos: noun f
+en: factory
+rel: work; production
+sg: továrna, továrny, továrně, továrnu, továrno, továrně, továrnou
+pl: továrny, továren, továrnám, továrny, továrny, továrnách, továrnami
+
+@ trvat
+pos: verb impf
+en: to last; to take (time)
+rel: long; time
+pres: trvám, trváš, trvá, trváme, trváte, trvají
+past: trval
+note: Jak dlouho to trvá? = How long does it take?
+
+@ tým
+pos: noun m-inan
+en: team
+rel: colleagues; group
+sg: tým, týmu, týmu, tým, týme, týmu, týmem
+pl: týmy, týmů, týmům, týmy, týmy, týmech, týmy
+
+@ vést
+pos: verb impf
+en: to lead; to run (a team, a firm)
+rel: manage; guide
+pres: vedu, vedeš, vede, vedeme, vedete, vedou
+past: vedl, vedla, vedlo, vedli, vedly
+imp: veď, veďte
+
+@ vhodný
+pos: adj
+en: suitable
+ex: To je vhodný dárek. = That is a suitable present.
+rel: right; appropriate
+cmp: vhodnější
+
+@ vyrábět
+pos: verb impf
+en: to produce; to make
+rel: factory; product
+pres: vyrábím, vyrábíš, vyrábí, vyrábíme, vyrábíte, vyrábějí
+past: vyráběl
+
+@ vysvětlovat
+pos: verb impf
+en: to explain
+rel: teach; clear
+pres: vysvětluju/vysvětluji, vysvětluješ, vysvětluje, vysvětlujeme, vysvětlujete, vysvětlujou/vysvětlují
+past: vysvětloval
+pair: vysvětlit
+
+@ vyřizovat
+pos: verb impf
+en: to deal with; to arrange (paperwork)
+rel: office; documents
+pres: vyřizuju/vyřizuji, vyřizuješ, vyřizuje, vyřizujeme, vyřizujete, vyřizujou/vyřizují
+past: vyřizoval
+pair: vyřídit
+
+@ výhoda
+pos: noun f
+en: advantage
+ex: Angličtina je výhodou. = English is an advantage.
+rel: benefit; plus
+sg: výhoda, výhody, výhodě, výhodu, výhodo, výhodě, výhodou
+pl: výhody, výhod, výhodám, výhody, výhody, výhodách, výhodami
+note: Praxe výhodou = experience an advantage (in job ads).
+
+@ zaměstnanec
+pos: noun m-anim
+en: employee
+rel: work; staff
+sg: zaměstnanec, zaměstnance, zaměstnanci/zaměstnancovi, zaměstnance, zaměstnanče, zaměstnanci/zaměstnancovi, zaměstnancem
+pl: zaměstnanci, zaměstnanců, zaměstnancům, zaměstnance, zaměstnanci, zaměstnancích, zaměstnanci
+
+@ zaměstnavatel
+pos: noun m-anim
+en: employer
+rel: company; boss
+sg: zaměstnavatel, zaměstnavatele, zaměstnavateli, zaměstnavatele, zaměstnavateli, zaměstnavateli, zaměstnavatelem
+pl: zaměstnavatelé, zaměstnavatelů, zaměstnavatelům, zaměstnavatele, zaměstnavatelé, zaměstnavatelích, zaměstnavateli
+
+@ zaměstnání
+pos: noun n
+en: job; employment
+rel: work; profession
+sg: zaměstnání, zaměstnání, zaměstnání, zaměstnání, zaměstnání, zaměstnání, zaměstnáním
+pl: zaměstnání, zaměstnání, zaměstnáním, zaměstnání, zaměstnání, zaměstnáních, zaměstnáními
+
+@ zkušenost
+pos: noun f
+en: experience
+rel: practice; skill
+sg: zkušenost, zkušenosti, zkušenosti, zkušenost, zkušenosti, zkušenosti, zkušeností
+pl: zkušenosti, zkušeností, zkušenostem, zkušenosti, zkušenosti, zkušenostech, zkušenostmi
+
+@ zájem
+pos: noun m-inan
+en: interest
+ex: Mám zájem o tu práci. = I am interested in the job.
+rel: hobby; want
+sg: zájem, zájmu, zájmu, zájem, zájme, zájmu, zájmem
+pl: zájmy, zájmů, zájmům, zájmy, zájmy, zájmech, zájmy
+note: Mám zájem o tu práci = I'm interested in the job (o + 4).
+
+@ zákazník
+pos: noun m-anim
+en: customer
+ex: Zákazník má vždy pravdu. = The customer is always right.
+rel: shop; client
+sg: zákazník, zákazníka, zákazníkovi, zákazníka, zákazníku, zákazníkovi, zákazníkem
+pl: zákazníci, zákazníků, zákazníkům, zákazníky, zákazníci, zákaznících, zákazníky
+
+@ ústní
+pos: adj
+en: oral; spoken
+rel: exam; mouth
+note: Ústní zkouška = oral exam.
+
+@ účetní
+pos: noun m-anim
+decl: adj
+en: accountant
+rel: money; office
+
+@ řidič
+pos: noun m-anim
+en: driver
+rel: car; bus
+sg: řidič, řidiče, řidiči/řidičovi, řidiče, řidiči, řidiči/řidičovi, řidičem
+pl: řidiči, řidičů, řidičům, řidiče, řidiči, řidičích, řidiči

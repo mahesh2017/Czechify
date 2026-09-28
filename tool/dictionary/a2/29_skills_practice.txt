@@ -1,0 +1,1169 @@
+# A2 dictionary — Unit 29 (A2 skills practice: notices, ads, e-mails,
+# forecasts, the doctor, the office — the exam-style readings).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+@ alespoň
+pos: part
+en: at least
+rel: minimum
+
+@ antibiotika
+pos: noun n pl
+en: antibiotics
+rel: medicine; infection
+pl: antibiotika, antibiotik, antibiotikům, antibiotika, antibiotika, antibiotikách, antibiotiky
+
+@ bezpečnost
+pos: noun f
+en: safety; security
+rel: safe; danger
+sg: bezpečnost, bezpečnosti, bezpečnosti, bezpečnost, bezpečnosti, bezpečnosti, bezpečností
+
+@ blahopřát
+pos: verb impf
+en: to congratulate
+rel: birthday; wishes
+pres: blahopřeju/blahopřeji, blahopřeješ, blahopřeje, blahopřejeme, blahopřejete, blahopřejou/blahopřejí
+past: blahopřál
+note: + 3: Blahopřeji vám k narozeninám!
+
+@ bydliště
+pos: noun n
+en: address; place of residence
+ex: Napište své trvalé bydliště. = Write your permanent address.
+rel: home; live
+sg: bydliště, bydliště, bydlišti, bydliště, bydliště, bydlišti, bydlištěm
+note: Trvalé bydliště = permanent address.
+
+@ což
+pos: pron
+en: which (referring to a whole idea)
+ex: Je 32 stupňů, což je rekord. = It is 32 degrees, which is a record.
+rel: that; what
+note: Je 32 °C, což je rekord = it's 32 °C, which is a record.
+
+@ darovat
+pos: verb impf
+en: to give (as a present); to donate
+ex: Daruju mu knihu. = I will give him a book.
+rel: gift; present
+pres: daruju/daruji, daruješ, daruje, darujeme, darujete, darujou/darují
+past: daroval
+
+@ deník
+pos: noun m-inan
+en: diary; daily newspaper
+ex: Milý deníčku, dnes jsem byl v Praze. = Dear diary, today I was in Prague.
+rel: write; day
+sg: deník, deníku, deníku, deník, deníku, deníku, deníkem
+pl: deníky, deníků, deníkům, deníky, deníky, denících, deníky
+forms: deníček, deníčku, deníčkem
+note: Milý deníčku = dear diary.
+
+@ doba
+pos: noun f
+en: time; period
+ex: Jaká je otevírací doba? = What are the opening hours?
+rel: hours; age
+sg: doba, doby, době, dobu, dobo, době, dobou
+pl: doby, dob, dobám, doby, doby, dobách, dobami
+note: Otevírací doba = opening hours.
+
+@ doklad
+pos: noun m-inan
+en: document; receipt
+ex: Máte u sebe doklady? = Do you have your documents with you?
+rel: ID; papers
+sg: doklad, dokladu, dokladu, doklad, doklade, dokladu, dokladem
+pl: doklady, dokladů, dokladům, doklady, doklady, dokladech, doklady
+note: Doklady = identity papers.
+
+@ dopadnout
+pos: verb pf
+en: to turn out; to fall
+ex: Jak to dopadlo? = How did it turn out?
+rel: result; end
+pres: dopadnu, dopadneš, dopadne, dopadneme, dopadnete, dopadnou
+past: dopadl
+note: Jak to dopadlo? = How did it turn out?
+
+@ doporučovat
+pos: verb impf
+en: to recommend
+rel: advice; suggest
+pres: doporučuju/doporučuji, doporučuješ, doporučuje, doporučujeme, doporučujete, doporučujou/doporučují
+past: doporučoval
+
+@ dost
+pos: adv
+en: enough; quite
+rel: plenty; rather
+note: + 2: dost času = enough time. Dost dobrý = quite good.
+
+@ dovednost
+pos: noun f
+en: skill
+ex: Mám dobré komunikační dovednosti. = I have good communication skills.
+rel: ability; talent
+sg: dovednost, dovednosti, dovednosti, dovednost, dovednosti, dovednosti, dovedností
+pl: dovednosti, dovedností, dovednostem, dovednosti, dovednosti, dovednostech, dovednostmi
+
+@ držet
+pos: verb impf
+en: to hold; to keep
+ex: Držte se vpravo. = Keep to the right.
+rel: hand; grip
+pres: držím, držíš, drží, držíme, držíte, drží
+past: držel
+imp: drž, držte
+note: Držte se vpravo = keep to the right.
+
+@ formální
+pos: adj
+en: formal
+ex: Napište formální e-mail. = Write a formal e-mail.
+rel: polite; official
+see: neformální
+
+@ neformální
+pos: adj
+en: informal
+ex: Kamarádovi píšu neformální e-mail. = I write an informal e-mail to a friend.
+rel: casual; friendly
+see: formální
+
+@ hotový
+pos: adj
+en: ready; finished
+ex: Oběd je hotový. = Lunch is ready.
+rel: done; complete
+note: Oběd je hotový = lunch is ready.
+
+@ hradby
+pos: noun f pl
+en: city walls; ramparts
+ex: Procházeli jsme se po hradbách. = We walked along the city walls.
+rel: castle; old town
+pl: hradby, hradeb, hradbám, hradby, hradby, hradbách, hradbami
+
+@ informační
+pos: adj
+en: information (adjective)
+ex: Kde je informační kancelář? = Where is the information office?
+rel: office; desk
+note: Informační kancelář = information office.
+
+@ informovat
+pos: verb impf
+en: to inform
+rel: tell; announce
+pres: informuju/informuji, informuješ, informuje, informujeme, informujete, informujou/informují
+past: informoval
+
+@ jen
+pos: part
+en: only; just
+ex: Mám jen deset korun. = I only have ten crowns.
+rel: merely
+
+@ kapela
+pos: noun f
+en: band (music)
+ex: Hrála tam česká kapela. = A Czech band played there.
+rel: music; concert
+sg: kapela, kapely, kapele, kapelu, kapelo, kapele, kapelou
+pl: kapely, kapel, kapelám, kapely, kapely, kapelách, kapelami
+
+@ kolej
+pos: noun f
+en: track; (student) hall of residence
+ex: Bydlím na koleji. = I live in a student hall.
+rel: train; dormitory
+sg: kolej, koleje, koleji, kolej, koleji, koleji, kolejí
+pl: koleje, kolejí, kolejím, koleje, koleje, kolejích, kolejemi
+
+@ kontrola
+pos: noun f
+en: check; inspection
+ex: Kontrola jízdenek! = Ticket inspection!
+rel: control; ticket
+sg: kontrola, kontroly, kontrole, kontrolu, kontrolo, kontrole, kontrolou
+pl: kontroly, kontrol, kontrolám, kontroly, kontroly, kontrolách, kontrolami
+
+@ list
+pos: noun m-inan
+en: leaf; sheet
+ex: Potřebuju rodný list. = I need my birth certificate.
+rel: paper; tree
+sg: list, listu, listu, list, liste, listu, listem
+pl: listy, listů, listům, listy, listy, listech, listy
+note: Rodný list = birth certificate.
+
+@ majitel
+pos: noun m-anim
+en: owner
+rel: landlord; own
+sg: majitel, majitele, majiteli, majitele, majiteli, majiteli, majitelem
+pl: majitelé, majitelů, majitelům, majitele, majitelé, majitelích, majiteli
+
+@ meteorolog
+pos: noun m-anim
+en: meteorologist; weather forecaster
+ex: Meteorologové varují před deštěm. = Forecasters warn of rain.
+rel: weather; forecast
+sg: meteorolog, meteorologa, meteorologovi, meteorologa, meteorologu, meteorologovi, meteorologem
+pl: meteorologové, meteorologů, meteorologům, meteorology, meteorologové, meteorolozích, meteorology
+
+@ metr
+pos: noun m-inan
+en: metre
+rel: distance; size
+sg: metr, metru, metru, metr, metre, metru, metrem
+pl: metry, metrů, metrům, metry, metry, metrech, metry
+note: Metr čtvereční = square metre.
+
+@ Morava
+pos: noun f
+en: Moravia
+ex: O víkendu jedeme na Moravu. = At the weekend we are going to Moravia.
+rel: region; Czech lands
+sg: Morava, Moravy, Moravě, Moravu, Moravo, Moravě, Moravou
+
+@ měřit
+pos: verb impf
+en: to measure
+ex: Měřila jsem si teplotu. = I took my temperature.
+rel: temperature; size
+pres: měřím, měříš, měří, měříme, měříte, měří
+past: měřil
+note: Měřila jsem si teplotu = I took my temperature.
+
+@ mezi
+pos: prep
+en: between; among
+rel: middle
+case: + 7 (mezi stolem a oknem); + 4 for movement
+
+@ nabízet
+pos: verb impf
+en: to offer
+rel: give; job
+pres: nabízím, nabízíš, nabízí, nabízíme, nabízíte, nabízejí
+past: nabízel
+pair: nabídnout
+
+@ naposled
+pos: adv
+en: last (time); for the last time
+rel: final; recently
+forms: naposledy
+
+@ nastěhovat se
+pos: verb pf
+en: to move in
+ex: Nastěhovali jsme se v květnu. = We moved in in May.
+rel: flat; new home
+pres: nastěhuju/nastěhuji, nastěhuješ, nastěhuje, nastěhujeme, nastěhujete, nastěhujou/nastěhují
+past: nastěhoval
+
+@ nejprve
+pos: adv
+en: first; first of all
+rel: before; start
+
+@ neobvyklý
+pos: adj
+en: unusual
+ex: To je neobvyklé počasí. = That is unusual weather.
+rel: strange; rare
+
+@ nepříjemnost
+pos: noun f
+en: inconvenience; trouble
+ex: Omlouváme se za nepříjemnosti. = We apologise for the inconvenience.
+rel: problem; sorry
+sg: nepříjemnost, nepříjemnosti, nepříjemnosti, nepříjemnost, nepříjemnosti, nepříjemnosti, nepříjemností
+pl: nepříjemnosti, nepříjemností, nepříjemnostem, nepříjemnosti, nepříjemnosti, nepříjemnostech, nepříjemnostmi
+note: Omlouváme se za nepříjemnosti = we apologise for the inconvenience.
+
+@ nervózní
+pos: adj
+en: nervous
+ex: Před zkouškou jsem nervózní. = I am nervous before the exam.
+rel: stress; worried
+
+@ nesnesitelný
+pos: adj
+en: unbearable
+rel: terrible; heat
+
+@ souhlas
+pos: noun m-inan
+en: agreement; consent
+rel: yes; agree
+sg: souhlas, souhlasu, souhlasu, souhlas, souhlase, souhlasu, souhlasem
+see: nesouhlas
+
+@ nesouhlas
+pos: noun m-inan
+en: disagreement
+rel: no; disagree
+sg: nesouhlas, nesouhlasu, nesouhlasu, nesouhlas, nesouhlase, nesouhlasu, nesouhlasem
+see: souhlas
+
+@ vystavovat
+pos: verb impf
+en: to expose; to exhibit; to issue
+ex: Nevystavujte se přímému slunci. = Stay out of direct sunlight.
+rel: show; sun
+pres: vystavuju/vystavuji, vystavuješ, vystavuje, vystavujeme, vystavujete, vystavujou/vystavují
+past: vystavoval
+note: Nevystavujte se slunci = stay out of the sun.
+
+@ nevýhoda
+pos: noun f
+en: disadvantage
+ex: Jaké jsou výhody a nevýhody? = What are the advantages and disadvantages?
+rel: minus; problem
+sg: nevýhoda, nevýhody, nevýhodě, nevýhodu, nevýhodo, nevýhodě, nevýhodou
+pl: nevýhody, nevýhod, nevýhodám, nevýhody, nevýhody, nevýhodách, nevýhodami
+
+@ normálně
+pos: adv
+en: normally; as usual
+ex: Zítra normálně pracuju. = Tomorrow I am working as usual.
+rel: usually; ordinary
+
+@ náhradní
+pos: adj
+en: spare; replacement
+ex: Máte náhradní klíč? = Do you have a spare key?
+rel: extra; substitute
+
+@ nájemce
+pos: noun m-anim
+en: tenant
+rel: rent; flat
+sg: nájemce, nájemce, nájemci, nájemce, nájemce, nájemci, nájemcem
+pl: nájemci, nájemců, nájemcům, nájemce, nájemci, nájemcích, nájemci
+
+@ nálada
+pos: noun f
+en: mood; atmosphere
+ex: Mám dobrou náladu. = I am in a good mood.
+rel: feeling; happy
+sg: nálada, nálady, náladě, náladu, nálado, náladě, náladou
+note: Mít dobrou náladu = to be in a good mood.
+
+@ náplň
+pos: noun f
+en: content; filling
+ex: Jaká je náplň práce? = What does the job involve?
+rel: job; description
+sg: náplň, náplně, náplni, náplň, náplni, náplni, náplní
+note: Náplň práce = job description.
+
+@ obor
+pos: noun m-inan
+en: field; subject area
+ex: V jakém oboru pracujete? = What field do you work in?
+rel: study; profession
+sg: obor, oboru, oboru, obor, obore, oboru, oborem
+pl: obory, oborů, oborům, obory, obory, oborech, obory
+
+@ obyvatel
+pos: noun m-anim
+en: inhabitant; resident
+ex: Prosíme obyvatele o pochopení. = We ask residents for their understanding.
+rel: people; town
+sg: obyvatel, obyvatele, obyvateli, obyvatele, obyvateli, obyvateli, obyvatelem
+pl: obyvatelé, obyvatel, obyvatelům, obyvatele, obyvatelé, obyvatelích, obyvateli
+
+@ občanský
+pos: adj
+en: civil; citizen's
+ex: Ztratil jsem občanský průkaz. = I lost my identity card.
+rel: citizen; ID
+note: Občanský průkaz = identity card.
+
+@ ochladit se
+pos: verb pf
+en: to get cooler
+ex: Zítra se ochladí. = It will get cooler tomorrow.
+rel: weather; cold
+pres: ochladím, ochladíš, ochladí, ochladíme, ochladíte, ochladí
+past: ochladil
+note: Zítra se ochladí = it will get cooler tomorrow.
+
+@ oficiální
+pos: adj
+en: official
+rel: formal; office
+
+@ omluva
+pos: noun f
+en: apology; excuse
+ex: Přijměte naši omluvu. = Please accept our apology.
+rel: sorry
+sg: omluva, omluvy, omluvě, omluvu, omluvo, omluvě, omluvou
+pl: omluvy, omluv, omluvám, omluvy, omluvy, omluvách, omluvami
+
+@ ostatní
+pos: adj
+en: other; the rest
+ex: Ostatní řidiči musí zaplatit. = The other drivers must pay.
+rel: others; remaining
+note: Ostatní řidiči = the other drivers.
+
+@ otevírací
+pos: adj
+en: opening
+ex: Otevírací doba je od devíti. = Opening hours are from nine.
+rel: hours; time
+note: Otevírací doba = opening hours.
+
+@ oznamovat
+pos: verb impf
+en: to announce; to notify
+rel: tell; notice
+pres: oznamuju/oznamuji, oznamuješ, oznamuje, oznamujeme, oznamujete, oznamujou/oznamují
+past: oznamoval
+
+@ oznámení
+pos: noun n
+en: notice; announcement
+rel: sign; information
+sg: oznámení, oznámení, oznámení, oznámení, oznámení, oznámení, oznámením
+pl: oznámení, oznámení, oznámením, oznámení, oznámení, oznámeních, oznámeními
+
+@ OÚ
+pos: phrase
+en: local authority (obecní úřad)
+ex: Oznámení vydal OÚ. = The notice was issued by the local authority.
+rel: office; town hall
+forms: oú
+note: OÚ = obecní úřad, the municipal office.
+
+@ pacient
+pos: noun m-anim
+en: patient
+ex: Pacient čeká v čekárně. = The patient is waiting in the waiting room.
+rel: doctor; hospital
+sg: pacient, pacienta, pacientovi, pacienta, paciente, pacientovi, pacientem
+pl: pacienti, pacientů, pacientům, pacienty, pacienti, pacientech, pacienty
+see: pacientka
+
+@ pacientka
+pos: noun f
+en: patient (woman)
+ex: Pacientka má horečku. = The patient has a fever.
+rel: doctor; hospital
+sg: pacientka, pacientky, pacientce, pacientku, pacientko, pacientce, pacientkou
+pl: pacientky, pacientek, pacientkám, pacientky, pacientky, pacientkách, pacientkami
+see: pacient
+
+@ parkoviště
+pos: noun n
+en: car park
+ex: Parkoviště je za domem. = The car park is behind the building.
+rel: parking; car
+sg: parkoviště, parkoviště, parkovišti, parkoviště, parkoviště, parkovišti, parkovištěm
+pl: parkoviště, parkovišť, parkovištím, parkoviště, parkoviště, parkovištích, parkovišti
+
+@ plat
+pos: noun m-inan
+en: salary; pay
+rel: money; job
+sg: plat, platu, platu, plat, plate, platu, platem
+pl: platy, platů, platům, platy, platy, platech, platy
+
+@ plus
+pos: conj
+en: plus; and also
+ex: Nájem je deset tisíc plus energie. = The rent is ten thousand plus utilities.
+rel: add; more
+
+@ pochopení
+pos: noun n
+en: understanding
+ex: Děkujeme za pochopení. = Thank you for your understanding.
+rel: understand; patience
+sg: pochopení, pochopení, pochopení, pochopení, pochopení, pochopení, pochopením
+note: Děkujeme za pochopení = thank you for your understanding.
+
+@ podat
+pos: verb pf
+en: to hand; to submit
+rel: give; application
+pres: podám, podáš, podá, podáme, podáte, podají
+past: podal
+imp: podej, podejte
+note: Podat žádost = to submit an application.
+
+@ poděkovat
+pos: verb pf
+en: to thank
+ex: Chci vám poděkovat. = I want to thank you.
+rel: thanks
+pres: poděkuju/poděkuji, poděkuješ, poděkuje, poděkujeme, poděkujete, poděkujou/poděkují
+past: poděkoval
+imp: poděkuj, poděkujte
+pair: děkovat
+
+@ pohodový
+pos: adj
+en: relaxed; easy-going
+ex: Byl to pohodový den. = It was a relaxed day.
+rel: calm; nice
+
+@ pohovor
+pos: noun m-inan
+en: (job) interview
+rel: job; questions
+sg: pohovor, pohovoru, pohovoru, pohovor, pohovore, pohovoru, pohovorem
+pl: pohovory, pohovorů, pohovorům, pohovory, pohovory, pohovorech, pohovory
+
+@ polykání
+pos: noun n
+en: swallowing
+rel: throat; pain
+sg: polykání, polykání, polykání, polykání, polykání, polykání, polykáním
+
+@ poslední
+pos: adj
+en: last; latest
+ex: To je poslední vlak. = That is the last train.
+rel: final; end
+
+@ potvrzení
+pos: noun n
+en: confirmation; certificate
+rel: document; receipt
+sg: potvrzení, potvrzení, potvrzení, potvrzení, potvrzení, potvrzení, potvrzením
+pl: potvrzení, potvrzení, potvrzením, potvrzení, potvrzení, potvrzeních, potvrzeními
+
+@ potvrdit
+pos: verb pf
+en: to confirm
+ex: Potvrďte prosím termín. = Please confirm the date.
+rel: yes; agree
+pres: potvrdím, potvrdíš, potvrdí, potvrdíme, potvrdíte, potvrdí
+past: potvrdil
+imp: potvrď, potvrďte
+
+@ potřeba
+pos: noun f
+en: need
+ex: Je potřeba přinést doklady. = It is necessary to bring documents.
+rel: necessary; want
+sg: potřeba, potřeby, potřebě, potřebu, potřebo, potřebě, potřebou
+pl: potřeby, potřeb, potřebám, potřeby, potřeby, potřebách, potřebami
+note: Je potřeba = it is necessary.
+
+@ použít
+pos: verb pf
+en: to use
+ex: Použijte předložku. = Use a preposition.
+rel: apply
+pres: použiju/použiji, použiješ, použije, použijeme, použijete, použijou/použijí
+past: použil
+imp: použij, použijte
+pair: používat
+
+@ povrch
+pos: noun m-inan
+en: surface
+ex: Silnice má nový povrch. = The road has a new surface.
+rel: top; ground
+sg: povrch, povrchu, povrchu, povrch, povrchu, povrchu, povrchem
+
+@ pozor
+pos: interj
+en: attention; careful
+rel: watch out; danger
+note: Pozor! = watch out! Dávat pozor = to pay attention.
+
+@ pozvánka
+pos: noun f
+en: invitation (card)
+rel: party; invite
+sg: pozvánka, pozvánky, pozvánce, pozvánku, pozvánko, pozvánce, pozvánkou
+pl: pozvánky, pozvánek, pozvánkám, pozvánky, pozvánky, pozvánkách, pozvánkami
+
+@ pozvat
+pos: verb pf
+en: to invite
+ex: Pozvu tě na kávu. = I will invite you for a coffee.
+rel: party; guest
+pres: pozvu, pozveš, pozve, pozveme, pozvete, pozvou
+past: pozval
+imp: pozvi, pozvěte
+pair: zvát
+
+@ zvát
+pos: verb impf
+en: to invite
+rel: party; guest
+pres: zvu, zveš, zve, zveme, zvete, zvou
+past: zval
+pair: pozvat
+
+@ požadavek
+pos: noun m-inan
+en: requirement; request
+ex: Jaké jsou požadavky? = What are the requirements?
+rel: need; job
+sg: požadavek, požadavku, požadavku, požadavek, požadavku, požadavku, požadavkem
+pl: požadavky, požadavků, požadavkům, požadavky, požadavky, požadavcích, požadavky
+
+@ požár
+pos: noun m-inan
+en: fire (a blaze)
+ex: Hrozí riziko požárů. = There is a risk of fires.
+rel: firefighters; danger
+sg: požár, požáru, požáru, požár, požáre, požáru, požárem
+pl: požáry, požárů, požárům, požáry, požáry, požárech, požáry
+
+@ praxe
+pos: noun f
+en: practice; work experience
+ex: Praxe v oboru výhodou. = Experience in the field an advantage.
+rel: experience; job
+sg: praxe, praxe, praxi, praxi, praxe, praxi, praxí
+
+@ program
+pos: noun m-inan
+en: programme; program
+rel: plan; TV; software
+sg: program, programu, programu, program, programe, programu, programem
+pl: programy, programů, programům, programy, programy, programech, programy
+
+@ průkaz
+pos: noun m-inan
+en: card; pass; licence
+ex: Ukažte mi průkaz, prosím. = Show me your card, please.
+rel: ID; document
+sg: průkaz, průkazu, průkazu, průkaz, průkaze, průkazu, průkazem
+pl: průkazy, průkazů, průkazům, průkazy, průkazy, průkazech, průkazy
+note: Občanský průkaz = identity card; řidičský průkaz = driving licence.
+
+@ předem
+pos: adv
+en: in advance; beforehand
+ex: Zavolejte předem. = Call in advance.
+rel: early; before
+
+@ především
+pos: adv
+en: above all; mainly
+rel: especially
+
+@ předložka
+pos: noun f
+en: preposition
+ex: Do je předložka. = Do is a preposition.
+rel: grammar; word
+sg: předložka, předložky, předložce, předložku, předložko, předložce, předložkou
+pl: předložky, předložek, předložkám, předložky, předložky, předložkách, předložkami
+
+@ předpověď
+pos: noun f
+en: forecast
+ex: Jaká je předpověď počasí? = What is the weather forecast?
+rel: weather; prediction
+sg: předpověď, předpovědi, předpovědi, předpověď, předpovědi, předpovědi, předpovědí
+note: Předpověď počasí = weather forecast.
+
+@ přestávka
+pos: noun f
+en: break; pause
+ex: Máme deset minut přestávku. = We have a ten-minute break.
+rel: rest; lunch
+sg: přestávka, přestávky, přestávce, přestávku, přestávko, přestávce, přestávkou
+pl: přestávky, přestávek, přestávkám, přestávky, přestávky, přestávkách, přestávkami
+
+@ přesčas
+pos: noun m-inan
+en: overtime
+ex: Tento týden pracuju přesčas. = This week I am working overtime.
+rel: work; hours
+sg: přesčas, přesčasu, přesčasu, přesčas, přesčase, přesčasu, přesčasem
+pl: přesčasy, přesčasů, přesčasům, přesčasy, přesčasy, přesčasech, přesčasy
+
+@ při
+pos: prep
+en: during; at; by
+rel: while
+case: + 6 (při práci = at work, while working)
+
+@ přivítání
+pos: noun n
+en: welcome; greeting
+ex: Náplň práce: přivítání hostů. = Duties: welcoming guests.
+rel: guest; hello
+sg: přivítání, přivítání, přivítání, přivítání, přivítání, přivítání, přivítáním
+
+@ přímý
+pos: adj
+en: direct; straight
+ex: Nevystavujte se přímému slunci. = Stay out of direct sunlight.
+rel: straight
+note: Přímé slunce = direct sunlight.
+
+@ případ
+pos: noun m-inan
+en: case; instance
+rel: situation; event
+sg: případ, případu, případu, případ, případe, případě, případem
+pl: případy, případů, případům, případy, případy, případech, případy
+note: V případě problémů = in case of problems.
+
+@ přívalový
+pos: adj
+en: torrential
+ex: Hrozí přívalové deště. = Torrential rain is expected.
+rel: rain; storm
+note: Přívalové deště = torrential rain.
+
+@ příště
+pos: adv
+en: next time
+ex: Příště půjdu s tebou. = Next time I will go with you.
+rel: future; again
+
+@ půlden
+pos: noun m-inan
+en: half a day
+ex: V pátek pracuju jen půlden. = On Friday I only work half a day.
+rel: morning; afternoon
+sg: půlden, půldne, půldni, půlden, půldni, půldni, půldnem
+
+@ recepcionista
+pos: noun m-anim
+en: receptionist
+ex: Zeptejte se recepcionisty. = Ask the receptionist.
+rel: hotel; reception
+sg: recepcionista, recepcionisty, recepcionistovi, recepcionistu, recepcionisto, recepcionistovi, recepcionistou
+pl: recepcionisté, recepcionistů, recepcionistům, recepcionisty, recepcionisté, recepcionistech, recepcionisty
+see: recepcionistka
+
+@ recepcionistka
+pos: noun f
+en: receptionist (woman)
+ex: Hledáme recepcionistku. = We are looking for a receptionist.
+rel: hotel; reception
+sg: recepcionistka, recepcionistky, recepcionistce, recepcionistku, recepcionistko, recepcionistce, recepcionistkou
+pl: recepcionistky, recepcionistek, recepcionistkám, recepcionistky, recepcionistky, recepcionistkách, recepcionistkami
+see: recepcionista
+
+@ rekonstrukce
+pos: noun f
+en: renovation; reconstruction
+ex: Dům je v rekonstrukci. = The house is being renovated.
+rel: repair; building
+sg: rekonstrukce, rekonstrukce, rekonstrukci, rekonstrukci, rekonstrukce, rekonstrukci, rekonstrukcí
+
+@ rekord
+pos: noun m-inan
+en: record
+ex: Padl teplotní rekord. = A temperature record was broken.
+rel: best; highest
+sg: rekord, rekordu, rekordu, rekord, rekorde, rekordu, rekordem
+pl: rekordy, rekordů, rekordům, rekordy, rekordy, rekordech, rekordy
+
+@ rezervace
+pos: noun f
+en: reservation; booking
+rel: table; hotel
+sg: rezervace, rezervace, rezervaci, rezervaci, rezervace, rezervaci, rezervací
+pl: rezervace, rezervací, rezervacím, rezervace, rezervace, rezervacích, rezervacemi
+
+@ riziko
+pos: noun n
+en: risk
+ex: Je tam riziko požáru. = There is a risk of fire.
+rel: danger
+sg: riziko, rizika, riziku, riziko, riziko, riziku, rizikem
+pl: rizika, rizik, rizikům, rizika, rizika, rizicích, riziky
+
+@ rodný
+pos: adj
+en: native; birth (adjective)
+ex: Přineste rodný list. = Bring your birth certificate.
+rel: home; born
+note: Rodný list = birth certificate.
+
+@ rušit
+pos: verb impf
+en: to disturb; to cancel
+ex: Promiňte, že ruším. = Sorry to disturb you.
+rel: noise; bother
+pres: ruším, rušíš, ruší, rušíme, rušíte, ruší
+past: rušil
+note: Neruším? = Am I disturbing you?
+
+@ sekunda
+pos: noun f
+en: second (of time)
+ex: Počkejte pár sekund. = Wait a few seconds.
+rel: time; minute
+sg: sekunda, sekundy, sekundě, sekundu, sekundo, sekundě, sekundou
+pl: sekundy, sekund, sekundám, sekundy, sekundy, sekundách, sekundami
+
+@ služba
+pos: noun f
+en: service
+rel: help; office
+sg: služba, služby, službě, službu, službo, službě, službou
+pl: služby, služeb, službám, služby, služby, službách, službami
+
+@ smlouvat
+pos: verb impf
+en: to bargain; to haggle
+ex: Na trhu můžete smlouvat. = You can haggle at the market.
+rel: price; market
+pres: smlouvám, smlouváš, smlouvá, smlouváme, smlouváte, smlouvají
+past: smlouval
+
+@ snížit
+pos: verb pf
+en: to lower; to reduce
+ex: Můžete snížit cenu? = Can you lower the price?
+rel: price; less
+pres: snížím, snížíš, sníží, snížíme, snížíte, sníží
+past: snížil
+
+@ správa
+pos: noun f
+en: management; administration
+ex: Máte na starosti správu rezervací. = You are in charge of managing bookings.
+rel: office; run
+sg: správa, správy, správě, správu, správo, správě, správou
+
+@ stipendium
+pos: noun n
+en: scholarship; grant
+rel: study; money
+sg: stipendium, stipendia, stipendiu, stipendium, stipendium, stipendiu, stipendiem
+pl: stipendia, stipendií, stipendiím, stipendia, stipendia, stipendiích, stipendii
+
+@ styl
+pos: noun m-inan
+en: style
+ex: Líbí se mi tvůj styl. = I like your style.
+rel: way; fashion
+sg: styl, stylu, stylu, styl, style, stylu, stylem
+pl: styly, stylů, stylům, styly, styly, stylech, styly
+
+@ stížnost
+pos: noun f
+en: complaint
+rel: problem; shop
+sg: stížnost, stížnosti, stížnosti, stížnost, stížnosti, stížnosti, stížností
+pl: stížnosti, stížností, stížnostem, stížnosti, stížnosti, stížnostech, stížnostmi
+
+@ střídavě
+pos: adv
+en: alternately; in turns
+ex: Pracujeme střídavě ráno a odpoledne. = We work alternately mornings and afternoons.
+rel: shift; change
+
+@ super
+pos: adv
+en: great; super
+rel: excellent; cool
+
+@ svatba
+pos: noun f
+en: wedding
+rel: marry; celebration
+sg: svatba, svatby, svatbě, svatbu, svatbo, svatbě, svatbou
+pl: svatby, svateb, svatbám, svatby, svatby, svatbách, svatbami
+
+@ technický
+pos: adj
+en: technical
+ex: Máme technický problém. = We have a technical problem.
+rel: machine; problem
+
+@ teplotní
+pos: adj
+en: temperature (adjective)
+ex: O víkendu čeká Moravu teplotní rekord. = A temperature record awaits Moravia at the weekend.
+rel: weather; record
+
+@ termín
+pos: noun m-inan
+en: appointment; date; deadline
+rel: time; day
+sg: termín, termínu, termínu, termín, termíne, termínu, termínem
+pl: termíny, termínů, termínům, termíny, termíny, termínech, termíny
+
+@ trvalý
+pos: adj
+en: permanent
+ex: Mám trvalý pobyt. = I have permanent residence.
+rel: lasting; residence
+note: Trvalé bydliště = permanent address; trvalý pobyt = permanent residence.
+
+@ třeba
+pos: part
+en: maybe; for example; necessary
+ex: Je třeba se objednat. = It is necessary to book an appointment.
+rel: perhaps; need
+note: Je třeba = it is necessary. Třeba zítra = maybe tomorrow.
+
+@ uchazeč
+pos: noun m-anim
+en: applicant; candidate
+ex: Uchazeč musí znát angličtinu. = The applicant must know English.
+rel: job; interview
+sg: uchazeč, uchazeče, uchazeči, uchazeče, uchazeči, uchazeči, uchazečem
+pl: uchazeči, uchazečů, uchazečům, uchazeče, uchazeči, uchazečích, uchazeči
+
+@ umístění
+pos: noun n
+en: location; placement
+ex: Umístění bytu je skvělé. = The flat's location is great.
+rel: place; where
+sg: umístění, umístění, umístění, umístění, umístění, umístění, umístěním
+
+@ umět
+pos: verb impf
+en: to know how; can (a skill)
+ex: Umím trochu česky. = I can speak a little Czech.
+rel: able; skill
+pres: umím, umíš, umí, umíme, umíte, umějí/umí
+past: uměl
+note: Umím plavat = I can swim.
+
+@ uvést
+pos: verb pf
+en: to state; to give (information)
+ex: Uveďte své jméno a adresu. = State your name and address.
+rel: write; mention
+pres: uvedu, uvedeš, uvede, uvedeme, uvedete, uvedou
+past: uvedl, uvedla, uvedlo, uvedli, uvedly
+imp: uveď, uveďte
+note: Uveďte své jméno = state your name.
+
+@ uzavřený
+pos: adj
+en: closed
+ex: Silnice je uzavřena. = The road is closed.
+rel: shut; road
+forms: uzavřena, uzavřen, uzavřeno
+
+@ varovat
+pos: verb impf
+en: to warn
+ex: Meteorologové varují před bouřkami. = Forecasters warn of storms.
+rel: danger; careful
+pres: varuju/varuji, varuješ, varuje, varujeme, varujete, varujou/varují
+past: varoval
+
+@ vyhovovat
+pos: verb impf
+en: to suit; to be convenient
+ex: Vyhovuje vám pondělí? = Does Monday suit you?
+rel: fit; OK
+pres: vyhovuju/vyhovuji, vyhovuješ, vyhovuje, vyhovujeme, vyhovujete, vyhovujou/vyhovují
+past: vyhovoval
+note: Vyhovuje vám pondělí? = Does Monday suit you?
+
+@ vyjádřit
+pos: verb pf
+en: to express
+rel: say; opinion
+pres: vyjádřím, vyjádříš, vyjádří, vyjádříme, vyjádříte, vyjádří
+past: vyjádřil
+
+@ vystoupat
+pos: verb pf
+en: to climb; to rise
+ex: Teploty vystoupají až na 32 °C. = Temperatures will climb to 32 °C.
+rel: up; temperature
+pres: vystoupám, vystoupáš, vystoupá, vystoupáme, vystoupáte, vystoupají
+past: vystoupal
+
+@ vyřešit
+pos: verb pf
+en: to solve
+rel: problem; answer
+pres: vyřeším, vyřešíš, vyřeší, vyřešíme, vyřešíte, vyřeší
+past: vyřešil
+
+@ vyřídit
+pos: verb pf
+en: to deal with; to arrange; to pass on (a message)
+ex: Musím vyřídit nový pas. = I have to get a new passport sorted.
+rel: office; papers
+pres: vyřídím, vyřídíš, vyřídí, vyřídíme, vyřídíte, vyřídí
+past: vyřídil
+imp: vyřiď, vyřiďte
+pair: vyřizovat
+
+@ vzduch
+pos: noun m-inan
+en: air
+rel: fresh; breathe
+sg: vzduch, vzduchu, vzduchu, vzduch, vzduchu, vzduchu, vzduchem
+
+@ vzkaz
+pos: noun m-inan
+en: message
+ex: Můžu nechat vzkaz? = Can I leave a message?
+rel: note; leave
+sg: vzkaz, vzkazu, vzkazu, vzkaz, vzkaze, vzkazu, vzkazem
+pl: vzkazy, vzkazů, vzkazům, vzkazy, vzkazy, vzkazech, vzkazy
+
+@ zajímat
+pos: verb impf
+en: to interest
+ex: Zajímá mě historie. = I am interested in history.
+rel: interesting; curious
+pres: zajímám, zajímáš, zajímá, zajímáme, zajímáte, zajímají
+past: zajímal
+note: Zajímá mě historie = I'm interested in history.
+
+@ zanícený
+pos: adj
+en: inflamed
+ex: Krk je zanícený. = The throat is inflamed.
+rel: throat; infection
+
+@ zdarma
+pos: adv
+en: free (of charge)
+ex: Vstup je zdarma. = Admission is free.
+rel: no cost; gratis
+
+@ zjistit
+pos: verb pf
+en: to find out
+rel: learn; check
+pres: zjistím, zjistíš, zjistí, zjistíme, zjistíte, zjistí
+past: zjistil
+imp: zjisti, zjistěte
+
+@ zlepšit
+pos: verb pf
+en: to improve
+ex: Chci si zlepšit češtinu. = I want to improve my Czech.
+rel: better
+pres: zlepším, zlepšíš, zlepší, zlepšíme, zlepšíte, zlepší
+past: zlepšil
+
+@ znalost
+pos: noun f
+en: knowledge
+ex: Znalost angličtiny je nutná. = Knowledge of English is necessary.
+rel: know; skill
+sg: znalost, znalosti, znalosti, znalost, znalosti, znalosti, znalostí
+pl: znalosti, znalostí, znalostem, znalosti, znalosti, znalostech, znalostmi
+
+@ zvládnout
+pos: verb pf
+en: to manage; to cope with
+ex: Zvládl jsem zkoušku. = I managed the exam.
+rel: succeed; handle
+pres: zvládnu, zvládneš, zvládne, zvládneme, zvládnete, zvládnou
+past: zvládl
+
+@ zvláště
+pos: adv
+en: especially; particularly
+rel: mainly
+
+@ zápis
+pos: noun m-inan
+en: enrolment; record; minutes
+ex: Zápis do kurzu je online. = Enrolment in the course is online.
+rel: register; write
+sg: zápis, zápisu, zápisu, zápis, zápise, zápisu, zápisem
+pl: zápisy, zápisů, zápisům, zápisy, zápisy, zápisech, zápisy
+
+@ zřídit
+pos: verb pf
+en: to set up; to establish
+ex: Parkoviště bylo zřízeno loni. = The car park was set up last year.
+rel: create; open
+pres: zřídím, zřídíš, zřídí, zřídíme, zřídíte, zřídí
+past: zřídil
+forms: zřízena, zřízen, zřízeno
+
+@ úloha
+pos: noun f
+en: task; exercise; role
+ex: Máme tři úlohy. = We have three tasks.
+rel: homework; job
+sg: úloha, úlohy, úloze, úlohu, úloho, úloze, úlohou
+pl: úlohy, úloh, úlohám, úlohy, úlohy, úlohách, úlohami
+
+@ úsek
+pos: noun m-inan
+en: section; stretch
+ex: Úsek silnice je uzavřen. = A section of the road is closed.
+rel: part; road
+sg: úsek, úseku, úseku, úsek, úseku, úseku, úsekem
+pl: úseky, úseků, úsekům, úseky, úseky, úsecích, úseky
+
+@ úspěch
+pos: noun m-inan
+en: success
+ex: Přeju ti hodně úspěchů! = I wish you lots of success!
+rel: win; achievement
+sg: úspěch, úspěchu, úspěchu, úspěch, úspěchu, úspěchu, úspěchem
+pl: úspěchy, úspěchů, úspěchům, úspěchy, úspěchy, úspěších, úspěchy
+
+@ úvazek
+pos: noun m-inan
+en: workload (hours)
+rel: job; full-time
+sg: úvazek, úvazku, úvazku, úvazek, úvazku, úvazku, úvazkem
+pl: úvazky, úvazků, úvazkům, úvazky, úvazky, úvazcích, úvazky
+note: Plný úvazek = full-time; poloviční úvazek = part-time.
+
+@ čau
+pos: interj
+en: hi; bye (informal)
+ex: Čau, jak se máš? = Hi, how are you?
+rel: ahoj; hello
+
+@ čtvereční
+pos: adj
+en: square (measure)
+ex: Byt má 60 metrů čtverečních. = The flat is 60 square metres.
+rel: metre; size
+note: Metr čtvereční = square metre.
+
+@ šéf
+pos: noun m-anim
+en: boss
+ex: Můj šéf je milý. = My boss is nice.
+rel: manager; work
+sg: šéf, šéfa, šéfovi, šéfa, šéfe, šéfovi, šéfem
+pl: šéfové, šéfů, šéfům, šéfy, šéfové, šéfech, šéfy
+
+@ životopis
+pos: noun m-inan
+en: CV; résumé
+rel: job; application
+sg: životopis, životopisu, životopisu, životopis, životopise, životopisu, životopisem
+pl: životopisy, životopisů, životopisům, životopisy, životopisy, životopisech, životopisy
+
+@ žádat
+pos: verb impf
+en: to ask for; to apply for
+rel: request; application
+pres: žádám, žádáš, žádá, žádáme, žádáte, žádají
+past: žádal
+note: Žádám o víza = I'm applying for a visa.
+
+@ žádost
+pos: noun f
+en: application; request
+rel: form; office
+sg: žádost, žádosti, žádosti, žádost, žádosti, žádosti, žádostí
+pl: žádosti, žádostí, žádostem, žádosti, žádosti, žádostech, žádostmi

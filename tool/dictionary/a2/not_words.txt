@@ -1,0 +1,23 @@
+# Forms the A2 lessons contain that are not Czech words of the level (A1's
+# list applies too). The build fails on any other lesson form no dictionary
+# word produces.
+
+# names of people and places
+adamovi janu kláru pavlovi petrovi
+
+# English left in Czech fields (quoted in questions, teaching notes)
+amounts dative feel sick
+evou janou petrou petrem tomášem
+ago year yesterday
+could polite politely completely than
+kaufland
+# suffixes quoted in a teaching note (-ší, -ější)
+ší ější
+because
+doctor head hurts tooth
+pythonu python
+announcements down movement offices really recognise there
+# names; the parts of an e-mail address (recepcie@uslunce.cz)
+ana horáková pavle
+recepcie uslunce cz
+x

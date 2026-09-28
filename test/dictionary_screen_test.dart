@@ -18,10 +18,15 @@ import 'package:go_router/go_router.dart';
 
 import 'support/localized_app.dart';
 
-final _a1 = DictionaryData.fromJson(
-  jsonDecode(File('assets/dictionary/a1_dictionary.json').readAsStringSync())
+DictionaryData _load(String level) => DictionaryData.fromJson(
+  jsonDecode(File('assets/dictionary/${level}_dictionary.json').readAsStringSync())
       as Map<String, dynamic>,
 );
+
+final _a1 = _load('a1');
+
+/// What an A2 learner's dictionary holds: A1's words and A2's.
+final _a1a2 = DictionaryData.merged(_a1, _load('a2'));
 
 class _Tts implements CzechTts {
   final spoken = <String>[];
@@ -51,6 +56,7 @@ void main() {
     Size size = const Size(375, 667),
     double textScale = 1,
     Widget home = const DictionaryButton(),
+    String learner = 'a1',
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -92,6 +98,8 @@ void main() {
       ProviderScope(
         overrides: [
           dictionaryProvider('a1').overrideWith((ref) async => _a1),
+          dictionaryProvider('a2').overrideWith((ref) async => _a1a2),
+          learnerDictionaryLevelProvider.overrideWithValue(learner),
           unlockedUnitIdsProvider.overrideWith((ref) async => unlocked),
           czechTtsProvider.overrideWithValue(tts),
         ],
@@ -286,4 +294,44 @@ void main() {
       expect(tables, greaterThan(0));
     });
   }
+
+  group('A2 learner', () {
+    testWidgets('sees A1 words too, tagged A1 and without a unit', (
+      tester,
+    ) async {
+      await pump(tester, learner: 'a2', unlocked: const {16, 17, 18});
+      await tester.tap(find.byKey(const ValueKey('open-dictionary')));
+      await tester.pumpAndSettle();
+      expect(find.text('${_a1a2.entries.length} words · A1 + A2'), findsOneWidget);
+
+      await tester.enterText(find.byKey(const ValueKey('dictionary-search')), 'kava');
+      await tester.pumpAndSettle();
+      final row = find.ancestor(of: find.text('káva'), matching: find.byType(InkWell)).first;
+      expect(find.descendant(of: row, matching: find.text('A1')), findsOneWidget);
+      expect(find.descendant(of: row, matching: find.textContaining('Unit')), findsNothing);
+
+      await tester.tap(find.text('káva'));
+      await tester.pumpAndSettle();
+      expect(find.byType(DictionaryEntryScreen), findsOneWidget);
+      // The app keeps a learner on one level: no A1 unit to send them to.
+      expect(find.textContaining('You meet it'), findsNothing);
+      expect(find.byIcon(Icons.lock_outline_rounded), findsNothing);
+    });
+
+    testWidgets('an A2 word shows its unit as the learner numbers it', (
+      tester,
+    ) async {
+      await pump(tester, learner: 'a2', unlocked: const {16, 17, 18});
+      await tester.tap(find.byKey(const ValueKey('open-dictionary')));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const ValueKey('dictionary-search')), 'dalnice');
+      await tester.pumpAndSettle();
+      // Course unit 18 is the learner's A2 Unit 3.
+      expect(find.text('Unit 3'), findsOneWidget);
+      expect(find.text('Unit 18'), findsNothing);
+      await tester.tap(find.text('dálnice'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Unit 3'), findsOneWidget);
+    });
+  });
 }

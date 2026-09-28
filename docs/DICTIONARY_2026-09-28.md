@@ -106,3 +106,54 @@ Decisions (Mahesh, 28 Sep 2026):
 - **A2.** Build A2's dictionary unit by unit with the A2 rollout (its
   vocabulary is being rebuilt anyway): add `'a2'` to `kDictionaryLevels` and
   `LEVEL_UNITS`, write `tool/dictionary/a2/`.
+
+## A2 (28 Sep 2026)
+
+Mahesh's decision: a learner on A2 sees A1 and A2 words in one list; an A1
+word shown to an A2 learner has no unit and no lock, because the app keeps a
+learner on one level and cannot send them to an A1 lesson. A1 learners see
+A1 words only.
+
+**Numbers.** A2: 805 words (719 with forms, 981 examples), sources in
+`tool/dictionary/a2/` by unit. A1 grew to 746 (from 679): the review units
+28 and 30 keep their cards in `a2_vocabulary.json`, which the A1 build did
+not read, so 73 of their word forms had no dictionary word.
+
+**What a learner sees.**
+- One dictionary, chosen by the course level in Settings
+  (`learnerDictionaryLevelProvider`): Home, Learn, Review and the dictionary
+  screen all open it. The level switch on the dictionary screen is gone.
+- On A2, "1551 words · A1 + A2". A1 words carry an "A1" tag instead of a
+  unit; their page has no "You meet it in Unit …" line.
+- Units are numbered as Learn numbers them (`unit_no`): A2's Unit 1 is course
+  unit 16, and A1's review units 28 and 30 are its Units 16 and 17. Before,
+  the dictionary showed the course's ids ("Unit 28").
+- The word of the day comes from the learner's own level.
+
+**Builder changes** (`build_dictionary.py`).
+- An A2 build counts A1's words as covered; an A2 word may not repeat an A1
+  headword or id.
+- Lesson text is read as the learner sees it: bracketed cues and hints left
+  out, English narration skipped, `answer_key` only where it is the Czech the
+  learner types, a translation's Czech side by its direction. A1's
+  `not_words.txt` English list is now partly redundant.
+- Review cards count by unit from both card files.
+- Comparatives and superlatives (nej- + comparative) are generated and
+  declined from each adjective's `cmp:`; key forms show "most …".
+- A1 entries gained a few forms A2 uses: *přede*, *otevřeno*, *kolika*,
+  *poteče*, *pojeďme*, *nejvíc*, and comparatives *častěji*, *rychleji*,
+  *pomaleji*, *později*.
+
+**Content errors the coverage check found (fixed).**
+- Lesson 2901, the doctor dialogue: "Napišu vám recept" → *Napíšu*.
+- Review cards: "Projeli jsme tunellem" → *tunelem*; "Cukněte dozadu" (not a
+  word) → "Ustupte dozadu, prosím"; "Blahopřji" → *Blahopřeji*; "Naposed" →
+  *Naposled*; "Gratuluji ti k promoční/promo!" and "na promoce" → *k
+  promoci*, *na promoci*.
+
+**For the teacher.** All A2 sources are generated and wait for review, like
+A1's. Worth a first look: the months (added in full, only four are used), the
+participle forms on signs (*zakázáno*, *vyprodáno*, *zřízena*), the dual
+plurals (*oči*, *uši*, *ruce*, *rukama*), *odpočinout si* with both
+*odpočinul* and *odpočal*, and the 135 examples written for words the
+readings use only in long passages.

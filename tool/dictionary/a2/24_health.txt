@@ -1,0 +1,620 @@
+# A2 dictionary — Unit 24 (health: the body, the doctor, the pharmacy).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+@ alergie
+pos: noun f
+en: allergy
+rel: pollen; reaction
+sg: alergie, alergie, alergii, alergii, alergie, alergii, alergií
+pl: alergie, alergií, alergiím, alergie, alergie, alergiích, alergiemi
+note: Mám alergii na pyl = I'm allergic to pollen.
+
+@ ambulance
+pos: noun f
+en: outpatient clinic; surgery
+rel: doctor; hospital
+sg: ambulance, ambulance, ambulanci, ambulanci, ambulance, ambulanci, ambulancí
+pl: ambulance, ambulancí, ambulancím, ambulance, ambulance, ambulancích, ambulancemi
+note: Not the vehicle: that is sanitka.
+
+@ bakteriální
+pos: adj
+en: bacterial
+rel: infection; illness
+
+@ brát
+pos: verb impf
+en: to take
+rel: medicine; get
+pres: beru, bereš, bere, bereme, berete, berou
+past: bral
+imp: ber, berte
+note: Beru léky = I'm taking medicine.
+
+@ bít
+pos: verb impf
+en: to beat; to hit
+rel: heart; strike
+pres: biju/biji, biješ, bije, bijeme, bijete, bijou/bijí
+past: bil
+note: Srdce bije rychle = the heart is beating fast.
+
+@ bolest
+pos: noun f
+en: pain; ache
+rel: hurt; sore
+sg: bolest, bolesti, bolesti, bolest, bolesti, bolesti, bolestí
+pl: bolesti, bolestí, bolestem, bolesti, bolesti, bolestech, bolestmi
+
+@ břicho
+pos: noun n
+en: stomach; belly
+rel: body; pain
+sg: břicho, břicha, břichu, břicho, břicho, břiše, břichem
+pl: břicha, břich, břichům, břicha, břicha, břiších, břichy
+
+@ chlapec
+pos: noun m-anim
+en: boy
+rel: child; son
+sg: chlapec, chlapce, chlapci/chlapcovi, chlapce, chlapče, chlapci/chlapcovi, chlapcem
+pl: chlapci, chlapců, chlapcům, chlapce, chlapci, chlapcích, chlapci
+
+@ chůze
+pos: noun f
+en: walking
+rel: walk; step
+sg: chůze, chůze, chůzi, chůzi, chůze, chůzi, chůzí
+
+@ cítit
+pos: verb impf
+en: to feel; to smell
+rel: sense; well
+pres: cítím, cítíš, cítí, cítíme, cítíte, cítí
+past: cítil
+note: Cítím se dobře = I feel well.
+
+@ denně
+pos: adv
+en: daily; every day
+ex: Užívejte to třikrát denně. = Take it three times a day.
+rel: day; regularly
+
+@ důkladný
+pos: adj
+en: thorough
+rel: careful; detailed
+
+@ hlava
+pos: noun f
+en: head
+rel: body; headache
+sg: hlava, hlavy, hlavě, hlavu, hlavo, hlavě, hlavou
+pl: hlavy, hlav, hlavám, hlavy, hlavy, hlavách, hlavami
+note: Bolí mě hlava = I have a headache.
+
+@ horečka
+pos: noun f
+en: fever; temperature
+rel: ill; hot
+sg: horečka, horečky, horečce, horečku, horečko, horečce, horečkou
+pl: horečky, horeček, horečkám, horečky, horečky, horečkách, horečkami
+
+@ hrdlo
+pos: noun n
+en: throat
+rel: neck; sore
+sg: hrdlo, hrdla, hrdlu, hrdlo, hrdlo, hrdle, hrdlem
+
+@ hrudník
+pos: noun m-inan
+en: chest
+rel: body; breath
+sg: hrudník, hrudníku, hrudníku, hrudník, hrudníku, hrudníku, hrudníkem
+
+@ infekce
+pos: noun f
+en: infection
+rel: ill; virus
+sg: infekce, infekce, infekci, infekci, infekce, infekci, infekcí
+pl: infekce, infekcí, infekcím, infekce, infekce, infekcích, infekcemi
+
+@ injekce
+pos: noun f
+en: injection
+rel: doctor; needle
+sg: injekce, injekce, injekci, injekci, injekce, injekci, injekcí
+pl: injekce, injekcí, injekcím, injekce, injekce, injekcích, injekcemi
+
+@ kapka
+pos: noun f
+en: drop
+rel: medicine; eye drops
+sg: kapka, kapky, kapce, kapku, kapko, kapce, kapkou
+pl: kapky, kapek, kapkám, kapky, kapky, kapkách, kapkami
+note: Kapky do nosu = nose drops.
+
+@ kardiologický
+pos: adj
+en: cardiology; cardiac
+rel: heart; hospital
+
+@ kašel
+pos: noun m-inan
+en: cough
+rel: cold; throat
+sg: kašel, kašle, kašli, kašel, kašli, kašli, kašlem
+
+@ kašlat
+pos: verb impf
+en: to cough
+rel: cold; throat
+pres: kašlu, kašleš, kašle, kašleme, kašlete, kašlou
+past: kašlal
+
+@ krevní
+pos: adj
+en: blood (adjective)
+rel: blood pressure
+note: Krevní tlak = blood pressure.
+
+@ krk
+pos: noun m-inan
+en: neck; throat
+rel: body; sore
+sg: krk, krku, krku, krk, krku, krku, krkem
+pl: krky, krků, krkům, krky, krky, krcích, krky
+note: Bolí mě v krku = I have a sore throat.
+
+@ kýchat
+pos: verb impf
+en: to sneeze
+rel: cold; allergy
+pres: kýchám, kýcháš, kýchá, kýcháme, kýcháte, kýchají
+past: kýchal
+
+@ lékárník
+pos: noun m-anim
+en: pharmacist
+ex: Zeptejte se lékárníka. = Ask the pharmacist.
+rel: pharmacy; medicine
+sg: lékárník, lékárníka, lékárníkovi, lékárníka, lékárníku, lékárníkovi, lékárníkem
+pl: lékárníci, lékárníků, lékárníkům, lékárníky, lékárníci, lékárnících, lékárníky
+
+@ medikament
+pos: noun m-inan
+en: medication; medicine
+ex: Berete nějaké medikamenty? = Are you taking any medication?
+rel: pill; drug
+sg: medikament, medikamentu, medikamentu, medikament, medikamente, medikamentu, medikamentem
+pl: medikamenty, medikamentů, medikamentům, medikamenty, medikamenty, medikamentech, medikamenty
+
+@ nachlazení
+pos: noun n
+en: cold (illness)
+rel: cough; flu
+sg: nachlazení, nachlazení, nachlazení, nachlazení, nachlazení, nachlazení, nachlazením
+
+@ neschopenka
+pos: noun f
+en: sick note
+rel: work; doctor
+sg: neschopenka, neschopenky, neschopence, neschopenku, neschopenko, neschopence, neschopenkou
+pl: neschopenky, neschopenek, neschopenkám, neschopenky, neschopenky, neschopenkách, neschopenkami
+
+@ nos
+pos: noun m-inan
+en: nose
+rel: face; cold
+sg: nos, nosu, nosu, nos, nose, nose, nosem
+pl: nosy, nosů, nosům, nosy, nosy, nosech, nosy
+
+@ nějaký
+pos: pron
+decl: adj
+en: some; any
+ex: Máte nějaké otázky? = Do you have any questions?
+rel: something; somebody
+note: Máte nějaké otázky? = Do you have any questions?
+
+@ objednat se
+pos: verb pf
+en: to make an appointment; to book
+ex: Chtěl bych se objednat k lékaři. = I would like to book a doctor's appointment.
+rel: doctor; appointment
+pres: objednám, objednáš, objedná, objednáme, objednáte, objednají
+past: objednal
+imp: objednej, objednejte
+note: Objednat se k lékaři = to book a doctor's appointment.
+
+@ objednaný
+pos: adj
+en: booked; with an appointment
+rel: appointment
+note: Jsem objednaný na deset = I have an appointment at ten.
+
+@ objednání
+pos: noun n
+en: booking; appointment
+ex: Objednání je online. = Booking is online.
+rel: order; reservation
+sg: objednání, objednání, objednání, objednání, objednání, objednání, objednáním
+
+@ obvaz
+pos: noun m-inan
+en: bandage
+rel: wound; injury
+sg: obvaz, obvazu, obvazu, obvaz, obvaze, obvazu, obvazem
+pl: obvazy, obvazů, obvazům, obvazy, obvazy, obvazech, obvazy
+
+@ oko
+pos: noun n
+en: eye
+rel: see; face
+sg: oko, oka, oku, oko, oko, oku, okem
+pl: oči, očí, očím, oči, oči, očích, očima
+note: The plural is irregular: oči, očima.
+
+@ ordinace
+pos: noun f
+en: doctor's surgery; consulting room
+ex: Ordinace je ve druhém patře. = The surgery is on the second floor.
+rel: clinic; doctor
+sg: ordinace, ordinace, ordinaci, ordinaci, ordinace, ordinaci, ordinací
+pl: ordinace, ordinací, ordinacím, ordinace, ordinace, ordinacích, ordinacemi
+
+@ očkování
+pos: noun n
+en: vaccination
+rel: injection; doctor
+sg: očkování, očkování, očkování, očkování, očkování, očkování, očkováním
+
+@ palec
+pos: noun m-inan
+en: thumb; big toe
+rel: finger; hand
+sg: palec, palce, palci, palec, palci, palci, palcem
+pl: palce, palců, palcům, palce, palce, palcích, palci
+
+@ paže
+pos: noun f
+en: arm
+rel: body; hand
+sg: paže, paže, paži, paži, paže, paži, paží
+pl: paže, paží, pažím, paže, paže, pažích, pažemi
+
+@ podle
+pos: prep
+en: according to; by
+ex: Podle lékaře musím odpočívat. = According to the doctor, I must rest.
+rel: along
+case: + 2 (podle lékaře)
+
+@ pojištěnec
+pos: noun m-anim
+en: insured person
+ex: Máte průkaz pojištěnce? = Do you have your insurance card?
+rel: insurance; card
+sg: pojištěnec, pojištěnce, pojištěnci, pojištěnce, pojištěnče, pojištěnci, pojištěncem
+pl: pojištěnci, pojištěnců, pojištěncům, pojištěnce, pojištěnci, pojištěncích, pojištěnci
+note: Průkaz pojištěnce = health insurance card.
+
+@ pokyn
+pos: noun m-inan
+en: instruction
+ex: Dodržujte pokyny lékaře. = Follow the doctor's instructions.
+rel: direction; advice
+sg: pokyn, pokynu, pokynu, pokyn, pokyne, pokynu, pokynem
+pl: pokyny, pokynů, pokynům, pokyny, pokyny, pokynech, pokyny
+
+@ praktický
+pos: adj
+en: practical
+ex: Jdu k praktické lékařce. = I am going to my GP.
+rel: useful
+cmp: praktičtější
+note: Praktický lékař = GP, family doctor.
+
+@ pravidelně
+pos: adv
+en: regularly
+rel: often; every day
+
+@ preventivní
+pos: adj
+en: preventive
+rel: check-up
+
+@ prohlídka
+pos: noun f
+en: check-up; examination; tour
+rel: doctor; visit
+sg: prohlídka, prohlídky, prohlídce, prohlídku, prohlídko, prohlídce, prohlídkou
+pl: prohlídky, prohlídek, prohlídkám, prohlídky, prohlídky, prohlídkách, prohlídkami
+
+@ prst
+pos: noun m-inan
+en: finger; toe
+rel: hand
+sg: prst, prstu, prstu, prst, prste, prstu, prstem
+pl: prsty, prstů, prstům, prsty, prsty, prstech, prsty
+
+@ průdušky
+pos: noun f pl
+en: bronchi; airways
+rel: lungs; cough
+pl: průdušky, průdušek, průduškám, průdušky, průdušky, průduškách, průduškami
+note: Zánět průdušek = bronchitis.
+
+@ pyl
+pos: noun m-inan
+en: pollen
+rel: allergy; spring
+sg: pyl, pylu, pylu, pyl, pyle, pylu, pylem
+
+@ předepsat
+pos: verb pf
+en: to prescribe
+rel: doctor; medicine
+pres: předepíšu/předepíši, předepíšeš, předepíše, předepíšeme, předepíšete, předepíšou/předepíší
+past: předepsal
+
+@ předpis
+pos: noun m-inan
+en: prescription; regulation
+rel: doctor; rule
+sg: předpis, předpisu, předpisu, předpis, předpise, předpisu, předpisem
+pl: předpisy, předpisů, předpisům, předpisy, předpisy, předpisech, předpisy
+note: Na předpis = on prescription.
+
+@ přinést
+pos: verb pf
+en: to bring
+ex: Přineste si průkaz pojištěnce. = Bring your insurance card.
+rel: carry; take
+pres: přinesu, přineseš, přinese, přineseme, přinesete, přinesou
+past: přinesl, přinesla, přineslo, přinesli, přinesly
+imp: přines, přineste
+
+@ rentgen
+pos: noun m-inan
+en: X-ray
+rel: hospital; bone
+sg: rentgen, rentgenu, rentgenu, rentgen, rentgene, rentgenu, rentgenem
+
+@ ruka
+pos: noun f
+en: hand; arm
+rel: body; finger
+sg: ruka, ruky, ruce, ruku, ruko, ruce, rukou
+pl: ruce, rukou, rukám, ruce, ruce, rukou/rukách, rukama
+note: One word for both hand and arm.
+
+@ rýma
+pos: noun f
+en: runny nose; head cold
+rel: cold; nose
+sg: rýma, rýmy, rýmě, rýmu, rýmo, rýmě, rýmou
+
+@ sanita
+pos: noun f
+en: ambulance (vehicle)
+rel: emergency; hospital
+sg: sanita, sanity, sanitě, sanitu, sanito, sanitě, sanitou
+forms: sanitka, sanitku, sanitky
+note: Zavolejte sanitu! = Call an ambulance!
+
+@ seznam
+pos: noun m-inan
+en: list
+ex: Napište si seznam. = Write yourself a list.
+rel: names; items
+sg: seznam, seznamu, seznamu, seznam, seznamu, seznamu, seznamem
+pl: seznamy, seznamů, seznamům, seznamy, seznamy, seznamech, seznamy
+
+@ silně
+pos: adv
+en: strongly; heavily; badly
+rel: hard; a lot
+cmp: silněji
+
+@ sirup
+pos: noun m-inan
+en: syrup
+rel: cough; medicine
+sg: sirup, sirupu, sirupu, sirup, sirupe, sirupu, sirupem
+
+@ situace
+pos: noun f
+en: situation
+rel: case; problem
+sg: situace, situace, situaci, situaci, situace, situaci, situací
+pl: situace, situací, situacím, situace, situace, situacích, situacemi
+
+@ spalničky
+pos: noun f pl
+en: measles
+rel: illness; vaccination
+pl: spalničky, spalniček, spalničkám, spalničky, spalničky, spalničkách, spalničkami
+
+@ srdce
+pos: noun n
+en: heart
+rel: love; body
+sg: srdce, srdce, srdci, srdce, srdce, srdci, srdcem
+pl: srdce, srdcí, srdcím, srdce, srdce, srdcích, srdci
+
+@ stav
+pos: noun m-inan
+en: state; condition
+ex: Jaký je váš stav? = How is your condition?
+rel: health; situation
+sg: stav, stavu, stavu, stav, stave, stavu, stavem
+pl: stavy, stavů, stavům, stavy, stavy, stavech, stavy
+
+@ tableta
+pos: noun f
+en: tablet; pill
+rel: medicine
+sg: tableta, tablety, tabletě, tabletu, tableto, tabletě, tabletou
+pl: tablety, tablet, tabletám, tablety, tablety, tabletách, tabletami
+
+@ telefonát
+pos: noun m-inan
+en: phone call
+ex: Mám důležitý telefonát. = I have an important phone call.
+rel: call; telephone
+sg: telefonát, telefonátu, telefonátu, telefonát, telefonáte, telefonátu, telefonátem
+pl: telefonáty, telefonátů, telefonátům, telefonáty, telefonáty, telefonátech, telefonáty
+
+@ tlak
+pos: noun m-inan
+en: pressure
+rel: blood pressure; stress
+sg: tlak, tlaku, tlaku, tlak, tlaku, tlaku, tlakem
+
+@ trápit
+pos: verb impf
+en: to trouble; to bother
+ex: Co vás trápí? = What's troubling you?
+rel: worry; pain
+pres: trápím, trápíš, trápí, trápíme, trápíte, trápí
+past: trápil
+note: Co vás trápí? = What's the problem? (a doctor's question)
+
+@ třikrát
+pos: adv
+en: three times
+rel: times; often
+
+@ ucho
+pos: noun n
+en: ear
+rel: hear; head
+sg: ucho, ucha, uchu, ucho, ucho, uchu, uchem
+pl: uši, uší, uším, uši, uši, uších, ušima
+note: The plural is irregular: uši, ušima.
+
+@ ucpaný
+pos: adj
+en: blocked
+rel: nose; stuffed
+
+@ ukázat
+pos: verb pf
+en: to show
+ex: Ukažte mi, kde to bolí. = Show me where it hurts.
+rel: point; see
+pres: ukážu, ukážeš, ukáže, ukážeme, ukážete, ukážou
+past: ukázal
+imp: ukaž, ukažte
+
+@ užívat
+pos: verb impf
+en: to take (medicine); to use
+rel: medicine; tablet
+pres: užívám, užíváš, užívá, užíváme, užíváte, užívají
+past: užíval
+imp: užívej, užívejte
+note: Užívejte třikrát denně = take three times a day.
+
+@ vitamín
+pos: noun m-inan
+en: vitamin
+rel: health; fruit
+sg: vitamín, vitamínu, vitamínu, vitamín, vitamíne, vitamínu, vitamínem
+pl: vitamíny, vitamínů, vitamínům, vitamíny, vitamíny, vitamínech, vitamíny
+
+@ vydat
+pos: verb pf
+en: to issue; to publish
+rel: give; document
+pres: vydám, vydáš, vydá, vydáme, vydáte, vydají
+past: vydal
+
+@ vyměnit
+pos: verb pf
+en: to change; to exchange; to replace
+rel: swap; new
+pres: vyměním, vyměníš, vymění, vyměníme, vyměníte, vymění
+past: vyměnil
+imp: vyměň, vyměňte
+
+@ vyšetření
+pos: noun n
+en: examination; test (medical)
+rel: doctor; check-up
+sg: vyšetření, vyšetření, vyšetření, vyšetření, vyšetření, vyšetření, vyšetřením
+pl: vyšetření, vyšetření, vyšetřením, vyšetření, vyšetření, vyšetřeních, vyšetřeními
+
+@ včerejšek
+pos: noun m-inan
+en: yesterday (as a noun)
+rel: past; day
+sg: včerejšek, včerejška, včerejšku, včerejšek, včerejšku, včerejšku, včerejškem
+note: Od včerejška = since yesterday.
+
+@ zhoršit se
+pos: verb pf
+en: to get worse
+ex: Když se to zhorší, přijďte. = If it gets worse, come in.
+rel: worse; ill
+pres: zhorším, zhoršíš, zhorší, zhoršíme, zhoršíte, zhorší
+past: zhoršil
+
+@ zlomit
+pos: verb pf
+en: to break
+rel: bone; broken
+pres: zlomím, zlomíš, zlomí, zlomíme, zlomíte, zlomí
+past: zlomil
+note: Zlomil jsem si ruku = I broke my arm.
+
+@ zranit
+pos: verb pf
+en: to injure; to hurt
+rel: injury; wound
+pres: zraním, zraníš, zraní, zraníme, zraníte, zraní
+past: zranil
+
+@ zraněný
+pos: adj
+en: injured
+rel: hurt; wound
+see: zranit
+
+@ zranění
+pos: noun n
+en: injury
+rel: wound; hurt
+sg: zranění, zranění, zranění, zranění, zranění, zranění, zraněním
+pl: zranění, zranění, zraněním, zranění, zranění, zraněních, zraněními
+
+@ zvracet
+pos: verb impf
+en: to vomit; to be sick
+rel: ill; stomach
+pres: zvracím, zvracíš, zvrací, zvracíme, zvracíte, zvracejí
+past: zvracel
+
+@ záda
+pos: noun n pl
+en: back (of the body)
+rel: body; pain
+pl: záda, zad, zádům, záda, záda, zádech, zády
+note: Always plural: Bolí mě záda.
+
+@ zánět
+pos: noun m-inan
+en: inflammation
+rel: infection
+sg: zánět, zánětu, zánětu, zánět, záněte, zánětu, zánětem
+pl: záněty, zánětů, zánětům, záněty, záněty, zánětech, záněty
+
+@ ústa
+pos: noun n pl
+en: mouth
+rel: face; teeth
+pl: ústa, úst, ústům, ústa, ústa, ústech, ústy
+note: Always plural: Otevřete ústa.

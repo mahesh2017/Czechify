@@ -392,6 +392,7 @@ row: 7 | vším
 @ kolik
 pos: pron
 en: how much; how many
+forms: kolika
 rel: price; number; count
 note: Kolik to stojí? = How much is it? After kolik the thing is in case 2: Kolik je hodin?
 

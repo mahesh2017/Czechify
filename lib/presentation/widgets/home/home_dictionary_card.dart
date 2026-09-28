@@ -77,7 +77,7 @@ class HomeDictionaryCard extends ConsumerWidget {
             Text(
               l10n.homeDictionaryCount(
                 dictionary.entries.length,
-                dictionary.level,
+                dictionary.label,
               ),
               style: TextStyle(fontSize: 12, color: t.faint),
             ),

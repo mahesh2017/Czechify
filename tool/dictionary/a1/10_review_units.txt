@@ -1,0 +1,477 @@
+# A1 dictionary — words of the review units 28 and 30 (their review cards
+# live in a2_vocabulary.json, which the build read only from 28 Sep 2026).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+# ------------------------------------------------ Unit 28: tests and practice
+
+@ bod
+pos: noun m-inan
+en: point; score
+rel: mark; result; test
+sg: bod, bodu, bodu, bod, bode, bodu, bodem
+pl: body, bodů, bodům, body, body, bodech, body
+
+@ chybět
+pos: verb impf
+en: to be missing; to be absent
+rel: lack; miss; gap
+pres: chybím, chybíš, chybí, chybíme, chybíte, chybějí/chybí
+past: chyběl
+forms: chybějící
+note: Chybějící slovo = the missing word.
+
+@ cvičení
+pos: noun n
+en: exercise
+rel: practice; task; training
+sg: cvičení, cvičení, cvičení, cvičení, cvičení, cvičení, cvičením
+pl: cvičení, cvičení, cvičením, cvičení, cvičení, cvičeních, cvičeními
+
+@ doplnit
+pos: verb pf
+en: to fill in; to complete
+rel: add; gap; blank
+pres: doplním, doplníš, doplní, doplníme, doplníte, doplní
+past: doplnil
+imp: doplň, doplňte
+note: Doplňte = fill in (in instructions).
+
+@ dostat
+pos: verb pf
+en: to get; to receive
+rel: obtain; gift
+pres: dostanu, dostaneš, dostane, dostaneme, dostanete, dostanou
+past: dostal
+imp: dostaň, dostaňte
+
+@ dvakrát
+pos: adv
+en: twice
+rel: two times; again
+
+@ email
+pos: noun m-inan
+en: e-mail
+rel: email; message; mail
+sg: email, emailu, emailu, email, emaile, emailu, emailem
+pl: emaily, emailů, emailům, emaily, emaily, emailech, emaily
+forms: mail, mailu, mailem, maily
+note: Also written e-mail.
+
+@ gramatika
+pos: noun f
+en: grammar
+rel: rule; language
+sg: gramatika, gramatiky, gramatice, gramatiku, gramatiko, gramatice, gramatikou
+
+@ hodnocení
+pos: noun n
+en: evaluation; grading
+rel: marks; score; assessment
+sg: hodnocení, hodnocení, hodnocení, hodnocení, hodnocení, hodnocení, hodnocením
+pl: hodnocení, hodnocení, hodnocením, hodnocení, hodnocení, hodnoceních, hodnoceními
+
+@ mluvení
+pos: noun n
+en: speaking
+rel: talking; speech; skill
+sg: mluvení, mluvení, mluvení, mluvení, mluvení, mluvení, mluvením
+
+@ možnost
+pos: noun f
+en: option; possibility
+rel: choice; chance
+sg: možnost, možnosti, možnosti, možnost, možnosti, možnosti, možností
+pl: možnosti, možností, možnostem, možnosti, možnosti, možnostech, možnostmi
+
+@ nahrávka
+pos: noun f
+en: recording
+rel: audio; listen; sound
+sg: nahrávka, nahrávky, nahrávce, nahrávku, nahrávko, nahrávce, nahrávkou
+pl: nahrávky, nahrávek, nahrávkám, nahrávky, nahrávky, nahrávkách, nahrávkami
+
+@ úspěšný
+pos: adj
+en: successful
+rel: success; pass
+cmp: úspěšnější
+forms: úspěšně
+
+@ neúspěšný
+pos: adj
+en: unsuccessful
+rel: fail; failure
+see: úspěšný
+
+@ označit
+pos: verb pf
+en: to mark; to indicate
+rel: tick; choose; highlight
+pres: označím, označíš, označí, označíme, označíte, označí
+past: označil
+imp: označ, označte
+note: Označte = mark (in instructions).
+
+@ poslech
+pos: noun m-inan
+en: listening
+rel: audio; hear; skill
+sg: poslech, poslechu, poslechu, poslech, poslechu, poslechu, poslechem
+
+@ potíže
+pos: noun f pl
+en: trouble; difficulties
+rel: problem; difficulty
+pl: potíže, potíží, potížím, potíže, potíže, potížích, potížemi
+
+@ pozorně
+pos: adv
+en: carefully; attentively
+rel: attention; closely
+cmp: pozorněji
+
+@ pravidlo
+pos: noun n
+en: rule
+rel: grammar; law
+sg: pravidlo, pravidla, pravidlu, pravidlo, pravidlo, pravidle/pravidlu, pravidlem
+pl: pravidla, pravidel, pravidlům, pravidla, pravidla, pravidlech, pravidly
+
+@ psaní
+pos: noun n
+en: writing
+rel: write; skill
+sg: psaní, psaní, psaní, psaní, psaní, psaní, psaním
+
+@ přečíst
+pos: verb pf
+en: to read (through)
+rel: finish reading
+pres: přečtu, přečteš, přečte, přečteme, přečtete, přečtou
+past: přečetl
+imp: přečti, přečtěte
+pair: číst
+note: Přečtěte = read (in instructions).
+
+@ příklad
+pos: noun m-inan
+en: example
+rel: instance; sample
+sg: příklad, příkladu, příkladu, příklad, příklade, příkladu/příkladě, příkladem
+pl: příklady, příkladů, příkladům, příklady, příklady, příkladech, příklady
+note: Například = for example.
+
+@ přísný
+pos: adj
+en: strict
+rel: severe; rules
+cmp: přísnější
+
+@ silný
+pos: adj
+en: strong
+rel: power; powerful
+cmp: silnější
+
+@ slovní
+pos: adj
+en: word (adjective); verbal
+rel: words
+note: Slovní zásoba = vocabulary.
+
+@ zásoba
+pos: noun f
+en: supply; stock
+rel: store; reserve
+sg: zásoba, zásoby, zásobě, zásobu, zásobo, zásobě, zásobou
+pl: zásoby, zásob, zásobám, zásoby, zásoby, zásobách, zásobami
+note: Slovní zásoba = vocabulary.
+
+@ slovní zásoba
+pos: phrase
+en: vocabulary
+ex: Opakuju slovní zásobu. = I am revising vocabulary.
+rel: words
+see: slovní, zásoba
+
+@ složit
+pos: verb pf
+en: to put together; to pass (an exam)
+rel: exam; fold
+pres: složím, složíš, složí, složíme, složíte, složí
+past: složil
+imp: slož, složte
+note: Složit zkoušku = to pass an exam.
+
+@ spojit
+pos: verb pf
+en: to connect; to join; to match
+rel: link; combine
+pres: spojím, spojíš, spojí, spojíme, spojíte, spojí
+past: spojil
+imp: spoj, spojte
+note: Spojte = match (in instructions).
+
+@ správný
+pos: adj
+en: right; correct
+rel: true; proper
+note: Správná odpověď = the correct answer.
+
+@ stránka
+pos: noun f
+en: page
+rel: website; book
+sg: stránka, stránky, stránce, stránku, stránko, stránce, stránkou
+pl: stránky, stránek, stránkám, stránky, stránky, stránkách, stránkami
+
+@ test
+pos: noun m-inan
+en: test
+rel: exam; quiz
+sg: test, testu, testu, test, teste, testu, testem
+pl: testy, testů, testům, testy, testy, testech, testy
+
+@ text
+pos: noun m-inan
+en: text
+rel: reading; passage
+sg: text, textu, textu, text, texte, textu, textem
+pl: texty, textů, textům, texty, texty, textech, texty
+
+@ vysvětlení
+pos: noun n
+en: explanation
+rel: explain; reason
+sg: vysvětlení, vysvětlení, vysvětlení, vysvětlení, vysvětlení, vysvětlení, vysvětlením
+pl: vysvětlení, vysvětlení, vysvětlením, vysvětlení, vysvětlení, vysvětleních, vysvětleními
+
+@ více
+pos: adv
+en: more
+rel: plus; extra
+forms: víc, nejvíc, nejvíce
+note: Víc is the everyday form.
+
+@ úkol
+pos: noun m-inan
+en: task; homework
+rel: assignment; exercise
+sg: úkol, úkolu, úkolu, úkol, úkole, úkolu, úkolem
+pl: úkoly, úkolů, úkolům, úkoly, úkoly, úkolech, úkoly
+
+@ část
+pos: noun f
+en: part; section
+rel: piece; portion
+sg: část, části, části, část, části, části, částí
+pl: části, částí, částem, části, části, částech, částmi
+
+# ------------------------------------------------ Unit 30: places and moving
+
+@ asi
+pos: adv
+en: probably; about
+rel: maybe; approximately; perhaps
+note: Asi v sedm = at about seven.
+
+@ dole
+pos: adv
+en: below; downstairs
+rel: down; bottom
+note: Dole = where (it is); dolů = where to (movement).
+see: dolů
+
+@ dolů
+pos: adv
+en: down; downstairs (movement)
+rel: downward
+see: dole
+
+@ dovnitř
+pos: adv
+en: inside; in (movement)
+rel: into; enter
+see: uvnitř
+
+@ jinam
+pos: adv
+en: somewhere else; elsewhere (movement)
+rel: other place
+
+@ kuchyně
+pos: noun f
+en: kitchen; cuisine
+rel: cooking; food; room
+sg: kuchyně, kuchyně, kuchyni, kuchyni, kuchyně, kuchyni, kuchyní
+pl: kuchyně, kuchyní, kuchyním, kuchyně, kuchyně, kuchyních, kuchyněmi
+forms: kuchyň
+note: Kuchyň is the everyday form.
+
+@ nahoru
+pos: adv
+en: up; upstairs (movement)
+rel: upward
+see: nahoře
+
+@ nahoře
+pos: adv
+en: above; upstairs
+rel: up; top
+see: nahoru
+
+@ skončit
+pos: verb pf
+en: to end; to finish
+rel: stop; over
+pres: skončím, skončíš, skončí, skončíme, skončíte, skončí
+past: skončil
+imp: skonči, skončete
+
+@ zlobit se
+pos: verb impf
+en: to be angry
+rel: cross; upset; annoyed
+pres: zlobím, zlobíš, zlobí, zlobíme, zlobíte, zlobí
+past: zlobil
+imp: zlob, zlobte
+note: Nezlobte se = don't be angry (a polite "sorry").
+
+@ nikde
+pos: adv
+en: nowhere
+rel: no place
+see: někde
+
+@ někde
+pos: adv
+en: somewhere
+rel: some place
+see: nikde
+
+@ odtud
+pos: adv
+en: from here
+rel: away; distance
+
+@ omlouvat se
+pos: verb impf
+en: to apologise
+rel: sorry; excuse
+pres: omlouvám, omlouváš, omlouvá, omlouváme, omlouváte, omlouvají
+past: omlouval
+imp: omlouvej, omlouvejte
+pair: omluvit se
+note: Omlouvám se = I'm sorry.
+
+@ omluvit se
+pos: verb pf
+en: to apologise; to excuse
+ex: Omluvte mě, prosím. = Excuse me, please.
+rel: sorry; excuse me
+pres: omluvím, omluvíš, omluví, omluvíme, omluvíte, omluví
+past: omluvil
+imp: omluv, omluvte
+pair: omlouvat se
+note: Omluvte mě = excuse me.
+
+@ pravda
+pos: noun f
+en: truth
+rel: true; right
+sg: pravda, pravdy, pravdě, pravdu, pravdo, pravdě, pravdou
+note: Mít pravdu = to be right.
+
+@ pryč
+pos: adv
+en: away; gone
+rel: leave; off
+
+@ sem
+pos: adv
+en: here (movement)
+rel: to here; come
+note: Tady = where (it is); sem = where to.
+
+@ socha
+pos: noun f
+en: statue
+rel: sculpture; monument
+sg: socha, sochy, soše, sochu, socho, soše, sochou
+pl: sochy, soch, sochám, sochy, sochy, sochách, sochami
+
+@ udělat
+pos: verb pf
+en: to do; to make (and finish)
+rel: make; finish
+pres: udělám, uděláš, udělá, uděláme, uděláte, udělají
+past: udělal
+imp: udělej, udělejte
+pair: dělat
+
+@ uprostřed
+pos: prep
+en: in the middle (of)
+rel: centre; middle
+case: + 2 (uprostřed náměstí)
+
+@ uvnitř
+pos: adv
+en: inside
+rel: indoors; within
+see: dovnitř
+
+@ už
+pos: part
+en: already; (with ne-) any more
+rel: yet; now
+note: Už nebydlím tady = I don't live here any more.
+
+@ ven
+pos: adv
+en: out; outside (movement)
+rel: go out
+note: Venku = where (outside); ven = where to.
+
+@ vrátit
+pos: verb pf
+en: to give back; to return
+rel: back; bring back
+pres: vrátím, vrátíš, vrátí, vrátíme, vrátíte, vrátí
+past: vrátil
+imp: vrať, vraťte
+note: Vrátit se = to come back.
+
+@ všude
+pos: adv
+en: everywhere
+rel: all places
+
+@ zkusit
+pos: verb pf
+en: to try
+rel: attempt; test
+pres: zkusím, zkusíš, zkusí, zkusíme, zkusíte, zkusí
+past: zkusil
+imp: zkus, zkuste
+
+@ znovu
+pos: adv
+en: again
+rel: once more; repeat
+
+@ zpět
+pos: adv
+en: back
+rel: return; zpátky
+forms: zpátky
+
+@ ztratit
+pos: verb pf
+en: to lose
+rel: lost; missing
+pres: ztratím, ztratíš, ztratí, ztratíme, ztratíte, ztratí
+past: ztratil
+imp: ztrať, ztraťte

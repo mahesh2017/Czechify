@@ -1,0 +1,591 @@
+# A2 dictionary — Units 18 (where, with whom, by what: locative and
+# instrumental) and 19 (the past; aspect).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+# ------------------------------------------------ Unit 18
+
+@ dálnice
+pos: noun f
+en: motorway; highway
+rel: road; car; drive
+sg: dálnice, dálnice, dálnici, dálnici, dálnice, dálnici, dálnicí
+pl: dálnice, dálnic, dálnicím, dálnice, dálnice, dálnicích, dálnicemi
+
+@ hora
+pos: noun f
+en: mountain
+rel: hill; hiking
+sg: hora, hory, hoře, horu, horo, hoře, horou
+pl: hory, hor, horám, hory, hory, horách, horami
+note: Na horách = in the mountains.
+
+@ instrumentál
+pos: noun m-inan
+en: instrumental (case 7)
+ex: S + instrumentál: s kamarádem. = S takes the instrumental: s kamarádem.
+rel: grammar; s kým; s čím
+sg: instrumentál, instrumentálu, instrumentálu, instrumentál, instrumentále, instrumentálu, instrumentálem
+
+@ lokál
+pos: noun m-inan
+en: locative (case 6)
+ex: V + lokál: v Praze. = V takes the locative: v Praze.
+rel: grammar; o kom; o čem
+sg: lokál, lokálu, lokálu, lokál, lokále, lokálu, lokálem
+
+@ jasný
+pos: adj
+en: clear; bright
+rel: obvious; sure
+cmp: jasnější
+note: Jasně! = sure, of course.
+forms: jasně
+
+@ jižní
+pos: adj
+en: southern; south
+rel: south; direction
+
+@ konečný
+pos: adj
+en: final
+rel: last; end
+forms: konečně
+note: Konečně = finally, at last.
+
+@ kostel
+pos: noun m-inan
+en: church
+rel: tower; building
+sg: kostel, kostela, kostelu, kostel, kostele, kostele, kostelem
+pl: kostely, kostelů, kostelům, kostely, kostely, kostelích, kostely
+
+@ krajina
+pos: noun f
+en: landscape; countryside
+rel: nature; view
+sg: krajina, krajiny, krajině, krajinu, krajino, krajině, krajinou
+pl: krajiny, krajin, krajinám, krajiny, krajiny, krajinách, krajinami
+
+@ krájet
+pos: verb impf
+en: to cut; to slice
+rel: knife; bread
+pres: krájím, krájíš, krájí, krájíme, krájíte, krájejí/krájí
+past: krájel
+imp: krájej, krájejte
+
+@ krásně
+pos: adv
+en: beautifully; nicely
+rel: lovely; well
+cmp: krásněji
+note: Je krásně = the weather is lovely.
+
+@ les
+pos: noun m-inan
+en: forest; wood
+rel: trees; nature
+sg: les, lesa, lesu, les, lese, lese, lesem
+pl: lesy, lesů, lesům, lesy, lesy, lesích, lesy
+
+@ letadlo
+pos: noun n
+en: plane; aeroplane
+rel: fly; airport
+sg: letadlo, letadla, letadlu, letadlo, letadlo, letadle, letadlem
+pl: letadla, letadel, letadlům, letadla, letadla, letadlech, letadly
+note: Letadlem = by plane.
+
+@ letět
+pos: verb impf
+en: to fly (once, now)
+rel: plane; travel
+pres: letím, letíš, letí, letíme, letíte, letí
+past: letěl
+imp: leť, leťte
+see: létat
+
+@ ležet
+pos: verb impf
+en: to lie; to be (situated)
+rel: bed; place
+pres: ležím, ležíš, leží, ležíme, ležíte, leží
+past: ležel
+imp: lež, ležte
+note: Praha leží na Vltavě = Prague lies on the Vltava.
+
+@ lžíce
+pos: noun f
+en: spoon
+rel: soup; eat
+sg: lžíce, lžíce, lžíci, lžíci, lžíce, lžíci, lžící
+pl: lžíce, lžic, lžícím, lžíce, lžíce, lžících, lžícemi
+
+@ muzeum
+pos: noun n
+en: museum
+rel: exhibition; art
+sg: muzeum, muzea, muzeu, muzeum, muzeum, muzeu, muzeem
+pl: muzea, muzeí, muzeím, muzea, muzea, muzeích, muzei
+
+@ nad
+pos: prep
+en: above; over
+rel: up
+case: + 7 (nad stolem)
+see: pod
+
+@ pod
+pos: prep
+en: under; below
+rel: down
+case: + 7 (pod stolem); + 4 for movement (pod stůl)
+see: nad
+
+@ národní
+pos: adj
+en: national
+ex: Jdu do Národního muzea. = I am going to the National Museum.
+rel: country
+note: Národní třída = a Prague street and metro stop.
+
+@ nůž
+pos: noun m-inan
+en: knife
+rel: cut; fork
+sg: nůž, nože, noži, nůž, noži, noži, nožem
+pl: nože, nožů, nožům, nože, nože, nožích, noži
+
+@ oblast
+pos: noun f
+en: area; region
+rel: district; part
+sg: oblast, oblasti, oblasti, oblast, oblasti, oblasti, oblastí
+pl: oblasti, oblastí, oblastem, oblasti, oblasti, oblastech, oblastmi
+
+@ pero
+pos: noun n
+en: pen
+rel: write; pencil
+sg: pero, pera, peru, pero, pero, peru, perem
+pl: pera, per, perům, pera, pera, perech, pery
+
+@ plno
+pos: adv
+en: full; lots
+rel: crowded; many
+note: Je tu plno lidí = it's full of people here.
+
+@ plochý
+pos: adj
+en: flat
+rel: level; even
+
+@ povídat si
+pos: verb impf
+en: to chat; to talk
+ex: Rádi si povídáme u kávy. = We like chatting over coffee.
+rel: conversation; tell
+pres: povídám, povídáš, povídá, povídáme, povídáte, povídají
+past: povídal
+imp: povídej, povídejte
+
+@ projet
+pos: verb pf
+en: to drive through; to pass (by vehicle)
+rel: through; travel
+pres: projedu, projedeš, projede, projedeme, projedete, projedou
+past: projel
+
+@ prázdniny
+pos: noun f pl
+en: holidays (school); vacation
+rel: summer; free time
+pl: prázdniny, prázdnin, prázdninám, prázdniny, prázdniny, prázdninách, prázdninami
+
+@ přijet
+pos: verb pf
+en: to arrive; to come (by vehicle)
+rel: arrival; come
+pres: přijedu, přijedeš, přijede, přijedeme, přijedete, přijedou
+past: přijel
+imp: přijeď, přijeďte
+note: Přijít = to come on foot.
+
+@ příroda
+pos: noun f
+en: nature
+rel: countryside; forest
+sg: příroda, přírody, přírodě, přírodu, přírodo, přírodě, přírodou
+note: V přírodě = out in nature.
+
+@ strom
+pos: noun m-inan
+en: tree
+rel: forest; garden
+sg: strom, stromu, stromu, strom, strome, stromě, stromem
+pl: stromy, stromů, stromům, stromy, stromy, stromech, stromy
+
+@ temno
+pos: adv
+en: dark; gloomy
+rel: darkness; night
+see: tma
+
+@ ticho
+pos: noun n
+en: silence; quiet
+rel: calm; noise
+sg: ticho, ticha, tichu, ticho, ticho, tichu, tichem
+note: Je ticho = it is quiet.
+
+@ tužka
+pos: noun f
+en: pencil
+rel: pen; write
+sg: tužka, tužky, tužce, tužku, tužko, tužce, tužkou
+pl: tužky, tužek, tužkám, tužky, tužky, tužkách, tužkami
+
+@ vana
+pos: noun f
+en: bath; bathtub
+rel: bathroom; wash
+sg: vana, vany, vaně, vanu, vano, vaně, vanou
+pl: vany, van, vanám, vany, vany, vanách, vanami
+
+@ vesnice
+pos: noun f
+en: village
+rel: countryside; town
+sg: vesnice, vesnice, vesnici, vesnici, vesnice, vesnici, vesnicí
+pl: vesnice, vesnic, vesnicím, vesnice, vesnice, vesnicích, vesnicemi
+
+@ vidlička
+pos: noun f
+en: fork
+rel: knife; eat
+sg: vidlička, vidličky, vidličce, vidličku, vidličko, vidličce, vidličkou
+pl: vidličky, vidliček, vidličkám, vidličky, vidličky, vidličkách, vidličkami
+
+@ výlet
+pos: noun m-inan
+en: trip; outing
+rel: excursion; travel
+sg: výlet, výletu, výletu, výlet, výlete, výletě, výletem
+pl: výlety, výletů, výletům, výlety, výlety, výletech, výlety
+note: Jet na výlet = to go on a trip.
+
+@ výstava
+pos: noun f
+en: exhibition
+rel: museum; art; gallery
+sg: výstava, výstavy, výstavě, výstavu, výstavo, výstavě, výstavou
+pl: výstavy, výstav, výstavám, výstavy, výstavy, výstavách, výstavami
+
+@ začít
+pos: verb pf
+en: to begin; to start
+rel: start; beginning
+pres: začnu, začneš, začne, začneme, začnete, začnou
+past: začal
+imp: začni, začněte
+pair: začínat
+
+@ známý
+pos: adj
+en: well-known; familiar
+rel: famous; acquaintance
+cmp: známější
+note: Můj známý = an acquaintance of mine.
+
+@ základní
+pos: adj
+en: basic; primary
+rel: elementary; school
+note: Základní škola = primary school.
+
+@ Čechy
+pos: noun f pl
+en: Bohemia
+rel: Czech lands; region
+pl: Čechy, Čech, Čechám, Čechy, Čechy, Čechách, Čechami
+note: V Čechách = in Bohemia (also used for "in the Czech Republic").
+
+# ------------------------------------------------ Unit 19
+
+@ brečet
+pos: verb impf
+en: to cry
+rel: tears; sad
+pres: brečím, brečíš, brečí, brečíme, brečíte, brečí
+past: brečel
+
+@ dokonavý
+pos: adj
+en: perfective
+ex: Napsat je dokonavé sloveso. = Napsat is a perfective verb.
+rel: aspect; grammar; finished
+note: Dokonavé sloveso = a perfective verb (one finished action).
+
+@ dětství
+pos: noun n
+en: childhood
+rel: child; past
+sg: dětství, dětství, dětství, dětství, dětství, dětství, dětstvím
+
+@ dříve
+pos: adv
+en: earlier; before; in the past
+rel: former; previously
+forms: dřív
+
+@ důležitý
+pos: adj
+en: important
+rel: key; main
+cmp: důležitější
+
+@ houba
+pos: noun f
+en: mushroom; sponge
+rel: forest; picking
+sg: houba, houby, houbě, houbu, houbo, houbě, houbou
+pl: houby, hub, houbám, houby, houby, houbách, houbami
+note: Jít na houby = to go mushroom picking.
+
+@ kdysi
+pos: adv
+en: once; at one time
+rel: past; long ago
+
+@ krám
+pos: noun m-inan
+en: shop (everyday word)
+ex: Šla jsem do krámu. = I went to the shop.
+rel: store; buy
+sg: krám, krámu, krámu, krám, kráme, krámu, krámem
+pl: krámy, krámů, krámům, krámy, krámy, krámech, krámy
+
+@ loni
+pos: adv
+en: last year
+rel: past; year
+
+@ navštívit
+pos: verb pf
+en: to visit
+ex: V sobotu jsme navštívili babičku. = On Saturday we visited grandma.
+rel: see; go to
+pres: navštívím, navštívíš, navštíví, navštívíme, navštívíte, navštíví
+past: navštívil
+imp: navštiv, navštivte
+pair: navštěvovat
+
+@ nedávno
+pos: adv
+en: recently
+rel: lately; not long ago
+
+@ objevit
+pos: verb pf
+en: to discover; to find
+rel: find; new
+pres: objevím, objevíš, objeví, objevíme, objevíte, objeví
+past: objevil
+
+@ odejít
+pos: verb pf
+en: to leave; to go away (on foot)
+rel: depart; exit
+pres: odejdu, odejdeš, odejde, odejdeme, odejdete, odejdou
+past: odešel, odešla, odešlo, odešli, odešly
+imp: odejdi, odejděte
+
+@ odjet
+pos: verb pf
+en: to leave; to depart (by vehicle)
+rel: departure; go away
+pres: odjedu, odjedeš, odjede, odjedeme, odjedete, odjedou
+past: odjel
+imp: odjeď, odjeďte
+
+@ odpočinout si
+pos: verb pf
+en: to have a rest
+rel: rest; relax; tired
+pres: odpočinu, odpočineš, odpočine, odpočineme, odpočinete, odpočinou
+past: odpočinul/odpočal, odpočinula/odpočala, odpočinulo/odpočalo, odpočinuli/odpočali, odpočinuly/odpočaly
+imp: odpočiň, odpočiňte
+
+@ paměť
+pos: noun f
+en: memory
+rel: remember; mind
+sg: paměť, paměti, paměti, paměť, paměti, paměti, pamětí
+
+@ používat
+pos: verb impf
+en: to use
+ex: Používám telefon každý den. = I use my phone every day.
+rel: apply
+pres: používám, používáš, používá, používáme, používáte, používají
+past: používal
+
+@ prodat
+pos: verb pf
+en: to sell
+rel: shop; buy
+pres: prodám, prodáš, prodá, prodáme, prodáte, prodají
+past: prodal
+imp: prodej, prodejte
+pair: prodávat
+
+@ protějšek
+pos: noun m-inan
+en: counterpart; pair
+ex: Napsat je protějšek slovesa psát. = Napsat is the pair of psát.
+rel: opposite; partner
+sg: protějšek, protějšku, protějšku, protějšek, protějšku, protějšku, protějškem
+
+@ píseň
+pos: noun f
+en: song
+rel: music; sing
+sg: píseň, písně, písni, píseň, písni, písni, písní
+pl: písně, písní, písním, písně, písně, písních, písněmi
+
+@ předevčírem
+pos: adv
+en: the day before yesterday
+rel: past; days
+
+@ přestěhovat se
+pos: verb pf
+en: to move (house)
+rel: flat; new home
+pres: přestěhuju/přestěhuji, přestěhuješ, přestěhuje, přestěhujeme, přestěhujete, přestěhujou/přestěhují
+past: přestěhoval
+
+@ sbírat
+pos: verb impf
+en: to collect; to pick
+rel: gather; mushrooms
+pres: sbírám, sbíráš, sbírá, sbíráme, sbíráte, sbírají
+past: sbíral
+
+@ setkat se
+pos: verb pf
+en: to meet
+rel: meeting; see
+pres: setkám, setkáš, setká, setkáme, setkáte, setkají
+past: setkal
+note: Setkat se s kamarádem = to meet a friend.
+
+@ shrnutí
+pos: noun n
+en: summary
+ex: Napište krátké shrnutí. = Write a short summary.
+rel: short; review
+sg: shrnutí, shrnutí, shrnutí, shrnutí, shrnutí, shrnutí, shrnutím
+
+@ skvělý
+pos: adj
+en: great; excellent
+rel: wonderful; super
+forms: skvěle
+note: Skvělé! = great!
+
+@ slyšet
+pos: verb impf
+en: to hear
+rel: listen; sound
+pres: slyším, slyšíš, slyší, slyšíme, slyšíte, slyší
+past: slyšel
+
+@ tančit
+pos: verb impf
+en: to dance
+rel: music; party
+pres: tančím, tančíš, tančí, tančíme, tančíte, tančí
+past: tančil
+imp: tanči, tančete
+
+@ tehdy
+pos: adv
+en: then; at that time
+rel: past; once
+
+@ uvařit
+pos: verb pf
+en: to cook (and finish)
+rel: cook; meal
+pres: uvařím, uvaříš, uvaří, uvaříme, uvaříte, uvaří
+past: uvařil
+imp: uvař, uvařte
+pair: vařit
+
+@ vyprávět
+pos: verb impf
+en: to tell (a story)
+rel: story; narrate
+pres: vyprávím, vyprávíš, vypráví, vyprávíme, vyprávíte, vyprávějí
+past: vyprávěl
+imp: vyprávěj, vyprávějte
+
+@ vzpomínka
+pos: noun f
+en: memory; recollection
+rel: remember; past
+sg: vzpomínka, vzpomínky, vzpomínce, vzpomínku, vzpomínko, vzpomínce, vzpomínkou
+pl: vzpomínky, vzpomínek, vzpomínkám, vzpomínky, vzpomínky, vzpomínkách, vzpomínkami
+
+@ výraz
+pos: noun m-inan
+en: expression; phrase
+ex: Znáte ten výraz? = Do you know that expression?
+rel: word; term
+sg: výraz, výrazu, výrazu, výraz, výraze, výrazu, výrazem
+pl: výrazy, výrazů, výrazům, výrazy, výrazy, výrazech, výrazy
+
+@ zapomenout
+pos: verb pf
+en: to forget
+rel: memory; remember
+pres: zapomenu, zapomeneš, zapomene, zapomeneme, zapomenete, zapomenou
+past: zapomněl
+imp: zapomeň, zapomeňte
+
+@ začátek
+pos: noun m-inan
+en: beginning; start
+rel: first; begin
+sg: začátek, začátku, začátku, začátek, začátku, začátku, začátkem
+pl: začátky, začátků, začátkům, začátky, začátky, začátcích, začátky
+note: Na začátku = at the beginning.
+
+@ zemřít
+pos: verb pf
+en: to die
+rel: death; dead
+pres: zemřu, zemřeš, zemře, zemřeme, zemřete, zemřou
+past: zemřel
+
+@ zůstat
+pos: verb pf
+en: to stay; to remain
+rel: stay at home; wait
+pres: zůstanu, zůstaneš, zůstane, zůstaneme, zůstanete, zůstanou
+past: zůstal
+imp: zůstaň, zůstaňte
+
+@ poslat
+pos: verb pf
+en: to send
+rel: post; message; letter
+ex: Napsala dopis a poslala ho. = She wrote a letter and sent it.
+pres: pošlu, pošleš, pošle, pošleme, pošlete, pošlou
+past: poslal
+imp: pošli, pošlete
+pair: posílat

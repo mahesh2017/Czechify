@@ -327,11 +327,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 12),
                   HomeDictionaryCard(
-                    level:
-                        settings.startingLevel == CEFRLevel.a2 &&
-                                kDictionaryLevels.contains('a2')
-                            ? 'a2'
-                            : kDictionaryLevels.first,
+                    level: ref.watch(learnerDictionaryLevelProvider),
                   ),
                   const SizedBox(height: 12),
                   _DailyGoalHero(

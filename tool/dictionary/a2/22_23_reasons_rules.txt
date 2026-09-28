@@ -1,0 +1,556 @@
+# A2 dictionary — Units 22 (reasons and linking: že, protože, když, jestli)
+# and 23 (may, must, can: rules and signs).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+# ------------------------------------------------ Unit 22
+
+@ chytrý
+pos: adj
+en: clever; smart
+rel: intelligent; bright
+cmp: chytřejší
+
+@ dokonce
+pos: part
+en: even
+rel: also; besides
+note: Dokonce i v neděli = even on Sunday.
+
+@ dovolit
+pos: verb pf
+en: to allow; to permit
+rel: let; permission
+pres: dovolím, dovolíš, dovolí, dovolíme, dovolíte, dovolí
+past: dovolil
+imp: dovol, dovolte
+forms: dovoleno
+note: Dovolte = allow me / excuse me. Je dovoleno = it is allowed.
+
+@ hlavně
+pos: adv
+en: mainly; above all
+rel: mostly; especially
+
+@ lehký
+pos: adj
+en: light; easy
+ex: Ten kufr je lehký. = The suitcase is light.
+rel: simple; weight
+cmp: lehčí
+
+@ navíc
+pos: adv
+en: moreover; extra; in addition
+rel: also; besides
+
+@ fungovat
+pos: verb impf
+en: to work; to function
+rel: broken; running
+pres: funguju/funguji, funguješ, funguje, fungujeme, fungujete, fungujou/fungují
+past: fungoval
+note: Nefunguje to = it doesn't work.
+
+@ nápad
+pos: noun m-inan
+en: idea
+ex: To je dobrý nápad! = That's a good idea!
+rel: plan; suggestion
+sg: nápad, nápadu, nápadu, nápad, nápade, nápadu, nápadem
+pl: nápady, nápadů, nápadům, nápady, nápady, nápadech, nápady
+
+@ oprava
+pos: noun f
+en: repair; correction
+ex: Oprava auta trvá týden. = The car repair takes a week.
+rel: fix; mend
+sg: oprava, opravy, opravě, opravu, opravo, opravě, opravou
+pl: opravy, oprav, opravám, opravy, opravy, opravách, opravami
+
+@ přestat
+pos: verb pf
+en: to stop
+rel: end; quit
+pres: přestanu, přestaneš, přestane, přestaneme, přestanete, přestanou
+past: přestal
+imp: přestaň, přestaňte
+note: Přestane pršet = it will stop raining.
+
+@ spojka
+pos: noun f
+en: conjunction; link
+ex: Protože je spojka. = Protože is a conjunction.
+rel: grammar; connect
+sg: spojka, spojky, spojce, spojku, spojko, spojce, spojkou
+pl: spojky, spojek, spojkám, spojky, spojky, spojkách, spojkami
+
+@ takže
+pos: conj
+en: so; therefore
+ex: Prší, takže zůstanu doma. = It is raining, so I will stay at home.
+rel: result; that's why
+
+@ tedy
+pos: part
+en: so; then; that is
+rel: therefore
+
+@ vysvětlit
+pos: verb pf
+en: to explain
+rel: explanation; clear
+pres: vysvětlím, vysvětlíš, vysvětlí, vysvětlíme, vysvětlíte, vysvětlí
+past: vysvětlil
+imp: vysvětli, vysvětlete
+
+@ změněný
+pos: adj
+en: changed
+ex: Máme změněný plán. = We have a changed plan.
+rel: different; new
+see: změnit
+
+@ zpoždění
+pos: noun n
+en: delay
+rel: late; train
+sg: zpoždění, zpoždění, zpoždění, zpoždění, zpoždění, zpoždění, zpožděním
+note: Vlak má zpoždění = the train is late.
+
+@ zůstávat
+pos: verb impf
+en: to stay; to remain (often)
+rel: stay at home
+pres: zůstávám, zůstáváš, zůstává, zůstáváme, zůstáváte, zůstávají
+past: zůstával
+pair: zůstat
+
+@ řešení
+pos: noun n
+en: solution
+rel: answer; problem
+sg: řešení, řešení, řešení, řešení, řešení, řešení, řešením
+pl: řešení, řešení, řešením, řešení, řešení, řešeních, řešeními
+
+@ že
+pos: conj
+en: that
+rel: say; think; know
+note: Myslím, že… = I think that… Always a comma before že.
+
+# ------------------------------------------------ Unit 23
+
+@ cestující
+pos: noun m-anim
+decl: adj
+en: passenger; traveller
+rel: train; bus; travel
+note: Declined like an adjective (cestujícího, cestujícím).
+
+@ chodba
+pos: noun f
+en: corridor; hallway
+ex: Děti nesmějí běhat v chodbě. = Children must not run in the corridor.
+rel: hall; building
+sg: chodba, chodby, chodbě, chodbu, chodbo, chodbě, chodbou
+pl: chodby, chodeb, chodbám, chodby, chodby, chodbách, chodbami
+
+@ chvíle
+pos: noun f
+en: moment; while
+rel: minute; time
+sg: chvíle, chvíle, chvíli, chvíli, chvíle, chvíli, chvílí
+pl: chvíle, chvil, chvílím, chvíle, chvíle, chvílích, chvílemi
+note: Za chvíli = in a moment.
+
+@ dodržovat
+pos: verb impf
+en: to keep; to follow (rules)
+rel: obey; rule
+pres: dodržuju/dodržuji, dodržuješ, dodržuje, dodržujeme, dodržujete, dodržujou/dodržují
+past: dodržoval
+
+@ domácí
+pos: adj
+en: home; domestic; homemade
+rel: house; pet
+note: Domácí zvíře = a pet.
+
+@ forma
+pos: noun f
+en: form
+ex: Jaká je správná forma? = What is the correct form?
+rel: shape; grammar
+sg: forma, formy, formě, formu, formo, formě, formou
+pl: formy, forem, formám, formy, formy, formách, formami
+
+@ fotografovat
+pos: verb impf
+en: to take photos
+rel: photo; camera
+pres: fotografuju/fotografuji, fotografuješ, fotografuje, fotografujeme, fotografujete, fotografujou/fotografují
+past: fotografoval
+
+@ fotografování
+pos: noun n
+en: photography; taking photos
+rel: photo; camera
+sg: fotografování, fotografování, fotografování, fotografování, fotografování, fotografování, fotografováním
+
+@ hala
+pos: noun f
+en: hall
+ex: Čekám v hale. = I am waiting in the hall.
+rel: lobby; station
+sg: hala, haly, hale, halu, halo, hale, halou
+pl: haly, hal, halám, haly, haly, halách, halami
+
+@ host
+pos: noun m-anim
+en: guest
+ex: Máme dnes hosty. = We have guests today.
+rel: visitor; hotel
+sg: host, hosta, hostovi, hosta, hoste, hostovi, hostem
+pl: hosté, hostů, hostům, hosty, hosté, hostech, hosty
+
+@ kouření
+pos: noun n
+en: smoking
+rel: cigarette
+sg: kouření, kouření, kouření, kouření, kouření, kouření, kouřením
+note: Kouření zakázáno = no smoking.
+
+@ krok
+pos: noun m-inan
+en: step
+rel: walk; stage
+sg: krok, kroku, kroku, krok, kroku, kroku, krokem
+pl: kroky, kroků, krokům, kroky, kroky, krocích, kroky
+
+@ možný
+pos: adj
+en: possible
+rel: maybe; can
+forms: možno
+
+@ nechat
+pos: verb pf
+en: to leave; to let
+ex: Nech to tady. = Leave it here.
+rel: keep; allow
+pres: nechám, necháš, nechá, necháme, necháte, nechají
+past: nechal
+imp: nech, nechte
+
+@ smět
+pos: verb impf
+en: may; to be allowed to
+rel: permission; can
+pres: smím, smíš, smí, smíme, smíte, smějí/smí
+past: směl
+note: Nesmíte = you must not. (Nemusíte = you don't have to.)
+
+@ nutný
+pos: adj
+en: necessary
+rel: must; need
+forms: nutno
+
+@ návštěvnický
+pos: adj
+en: visitor's; visiting
+ex: Máme návštěvnickou kartu. = We have a visitor's card.
+rel: guest
+
+@ návštěva
+pos: noun f
+en: visit; visitor
+ex: Máme návštěvu. = We have a visitor.
+rel: guest; see
+sg: návštěva, návštěvy, návštěvě, návštěvu, návštěvo, návštěvě, návštěvou
+pl: návštěvy, návštěv, návštěvám, návštěvy, návštěvy, návštěvách, návštěvami
+
+@ obsazený
+pos: adj
+en: occupied; taken; busy
+rel: full; reserved
+forms: obsazeno
+note: Obsazeno = engaged / taken (on a sign).
+
+@ online
+pos: adv
+en: online
+rel: internet; web
+
+@ zavřený
+pos: adj
+en: closed; shut
+rel: shop; door
+forms: zavřeno
+note: Zavřeno = closed (on a sign).
+see: zavřít
+
+@ vyprodaný
+pos: adj
+en: sold out
+rel: ticket; full
+forms: vyprodáno
+
+@ zakázaný
+pos: adj
+en: forbidden; prohibited
+rel: ban; not allowed
+forms: zakázáno, zakázán, zakázána
+note: Je zakázáno = it is forbidden.
+
+@ parkovat
+pos: verb impf
+en: to park
+rel: car; parking
+pres: parkuju/parkuji, parkuješ, parkuje, parkujeme, parkujete, parkujou/parkují
+past: parkoval
+
+@ parkování
+pos: noun n
+en: parking
+ex: Parkování je tady zakázáno. = Parking is forbidden here.
+rel: car; park
+sg: parkování, parkování, parkování, parkování, parkování, parkování, parkováním
+
+@ platný
+pos: adj
+en: valid
+ex: Máte platnou jízdenku? = Do you have a valid ticket?
+rel: ticket; document
+
+@ pobyt
+pos: noun m-inan
+en: stay; residence
+rel: visa; permit
+sg: pobyt, pobytu, pobytu, pobyt, pobyte, pobytu, pobytem
+pl: pobyty, pobytů, pobytům, pobyty, pobyty, pobytech, pobyty
+note: Povolení k pobytu = residence permit.
+
+@ pokladna
+pos: noun f
+en: cash desk; ticket office
+ex: Zaplaťte u pokladny. = Pay at the cash desk.
+rel: pay; till
+sg: pokladna, pokladny, pokladně, pokladnu, pokladno, pokladně, pokladnou
+pl: pokladny, pokladen, pokladnám, pokladny, pokladny, pokladnách, pokladnami
+
+@ pokud
+pos: conj
+en: if; as long as
+ex: Pokud máš čas, přijď. = If you have time, come.
+rel: when; condition
+
+@ pospíšit si
+pos: verb pf
+en: to hurry up
+rel: quick; late
+pres: pospíším, pospíšíš, pospíší, pospíšíme, pospíšíte, pospíší
+past: pospíšil
+imp: pospěš, pospěšte
+
+@ povolení
+pos: noun n
+en: permit; permission
+rel: allow; visa
+sg: povolení, povolení, povolení, povolení, povolení, povolení, povolením
+pl: povolení, povolení, povolením, povolení, povolení, povoleních, povoleními
+
+@ pořádek
+pos: noun m-inan
+en: order; tidiness
+rel: OK; tidy
+sg: pořádek, pořádku, pořádku, pořádek, pořádku, pořádku, pořádkem
+note: V pořádku = all right, OK.
+
+@ rezervovat
+pos: verb impf
+en: to book; to reserve
+rel: reservation; table
+pres: rezervuju/rezervuji, rezervuješ, rezervuje, rezervujeme, rezervujete, rezervujou/rezervují
+past: rezervoval
+
+@ schod
+pos: noun m-inan
+en: step; stair
+rel: stairs; upstairs
+sg: schod, schodu, schodu, schod, schode, schodu, schodem
+pl: schody, schodů, schodům, schody, schody, schodech, schody
+note: Schody = stairs.
+
+@ sednout si
+pos: verb pf
+en: to sit down
+rel: chair; seat
+pres: sednu, sedneš, sedne, sedneme, sednete, sednou
+past: sedl
+imp: sedni, sedněte
+see: sedět
+
+@ usednout
+pos: verb pf
+en: to sit down; to take a seat
+rel: chair; seat
+pres: usednu, usedneš, usedne, usedneme, usednete, usednou
+past: usedl
+
+@ správce
+pos: noun m-anim
+en: manager; administrator; caretaker
+ex: Zavolejte správci domu. = Call the building manager.
+rel: building; office
+sg: správce, správce, správci, správce, správce, správci, správcem
+pl: správci, správců, správcům, správce, správci, správcích, správci
+
+@ spěchat
+pos: verb impf
+en: to hurry; to be in a hurry
+rel: quick; late
+pres: spěchám, spěcháš, spěchá, spěcháme, spěcháte, spěchají
+past: spěchal
+
+@ strach
+pos: noun m-inan
+en: fear
+ex: Mám strach ze psa. = I am afraid of the dog.
+rel: afraid; scared
+sg: strach, strachu, strachu, strach, strachu, strachu, strachem
+note: Mít strach = to be afraid.
+
+@ terasa
+pos: noun f
+en: terrace
+ex: Sedíme na terase. = We are sitting on the terrace.
+rel: café; outside
+sg: terasa, terasy, terase, terasu, teraso, terase, terasou
+pl: terasy, teras, terasám, terasy, terasy, terasách, terasami
+
+@ vchod
+pos: noun m-inan
+en: entrance
+ex: Sejdeme se u vchodu. = Let's meet at the entrance.
+rel: door; enter
+sg: vchod, vchodu, vchodu, vchod, vchode, vchodu, vchodem
+pl: vchody, vchodů, vchodům, vchody, vchody, vchodech, vchody
+
+@ vjezd
+pos: noun m-inan
+en: entrance (for vehicles); driveway
+rel: car; gate
+sg: vjezd, vjezdu, vjezdu, vjezd, vjezde, vjezdu, vjezdem
+pl: vjezdy, vjezdů, vjezdům, vjezdy, vjezdy, vjezdech, vjezdy
+
+@ vlevo
+pos: adv
+en: on the left; to the left
+rel: left; direction
+see: vpravo
+
+@ vpravo
+pos: adv
+en: on the right; to the right
+ex: Výtah je vpravo. = The lift is on the right.
+rel: right; direction
+see: vlevo
+
+@ vůz
+pos: noun m-inan
+en: car; carriage; coach (of a train)
+ex: Jsme ve třetím voze. = We are in the third carriage.
+rel: train; vehicle
+sg: vůz, vozu, vozu, vůz, voze, voze, vozem
+pl: vozy, vozů, vozům, vozy, vozy, vozech, vozy
+
+@ vstoupit
+pos: verb pf
+en: to enter; to step in
+rel: go in; entrance
+pres: vstoupím, vstoupíš, vstoupí, vstoupíme, vstoupíte, vstoupí
+past: vstoupil
+imp: vstup, vstupte
+pair: vstupovat
+
+@ vstupovat
+pos: verb impf
+en: to enter; to go in
+rel: entrance
+pres: vstupuju/vstupuji, vstupuješ, vstupuje, vstupujeme, vstupujete, vstupujou/vstupují
+past: vstupoval
+pair: vstoupit
+
+@ vstup
+pos: noun m-inan
+en: entrance; entry; admission
+rel: ticket; door
+sg: vstup, vstupu, vstupu, vstup, vstupe, vstupu, vstupem
+pl: vstupy, vstupů, vstupům, vstupy, vstupy, vstupech, vstupy
+note: Vstup zakázán = no entry.
+
+@ výtah
+pos: noun m-inan
+en: lift; elevator
+rel: floor; building
+sg: výtah, výtahu, výtahu, výtah, výtahu, výtahu, výtahem
+pl: výtahy, výtahů, výtahům, výtahy, výtahy, výtazích, výtahy
+
+@ včas
+pos: adv
+en: on time; in time
+rel: punctual
+
+@ zapsat
+pos: verb pf
+en: to write down; to register
+ex: Zapište si to číslo. = Write down that number.
+rel: note; enrol
+pres: zapíšu/zapíši, zapíšeš, zapíše, zapíšeme, zapíšete, zapíšou/zapíší
+past: zapsal
+imp: zapiš, zapište
+
+@ zazvonit
+pos: verb pf
+en: to ring (the bell)
+rel: door; phone
+pres: zazvoním, zazvoníš, zazvoní, zazvoníme, zazvoníte, zazvoní
+past: zazvonil
+imp: zazvoň, zazvoňte
+
+@ zde
+pos: adv
+en: here (formal)
+rel: tady
+
+@ zvíře
+pos: noun n
+en: animal
+rel: pet; dog; cat
+sg: zvíře, zvířete, zvířeti, zvíře, zvíře, zvířeti, zvířetem
+pl: zvířata, zvířat, zvířatům, zvířata, zvířata, zvířatech, zvířaty
+
+@ zákaz
+pos: noun m-inan
+en: ban; prohibition
+rel: forbidden; sign
+sg: zákaz, zákazu, zákazu, zákaz, zákaze, zákazu, zákazem
+pl: zákazy, zákazů, zákazům, zákazy, zákazy, zákazech, zákazy
+
+@ číšník
+pos: noun m-anim
+en: waiter
+ex: Číšník nese kávu. = The waiter is bringing the coffee.
+rel: restaurant; service
+sg: číšník, číšníka, číšníkovi, číšníka, číšníku, číšníkovi, číšníkem
+pl: číšníci, číšníků, číšníkům, číšníky, číšníci, číšnících, číšníky
+
+@ řídit
+pos: verb impf
+en: to drive; to manage
+rel: car; lead
+pres: řídím, řídíš, řídí, řídíme, řídíte, řídí
+past: řídil
+imp: řiď, řiďte

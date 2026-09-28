@@ -1,0 +1,379 @@
+# A2 dictionary — Unit 31 (A2 real-life consolidation) and a word from
+# Unit 29.
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+@ kvůli
+pos: prep
+en: because of; due to
+rel: reason; cause
+case: + 3 (kvůli dešti)
+
+@ advokát
+pos: noun m-anim
+en: lawyer; attorney
+ex: Potřebuju dobrého advokáta. = I need a good lawyer.
+rel: law; court
+sg: advokát, advokáta, advokátovi, advokáta, advokáte, advokátovi, advokátem
+pl: advokáti, advokátů, advokátům, advokáty, advokáti, advokátech, advokáty
+
+@ chápat
+pos: verb impf
+en: to understand; to grasp
+rel: understand; get it
+pres: chápu, chápeš, chápe, chápeme, chápete, chápou
+past: chápal
+pair: pochopit
+
+@ pochopit
+pos: verb pf
+en: to understand; to grasp
+rel: understand; get it
+pres: pochopím, pochopíš, pochopí, pochopíme, pochopíte, pochopí
+past: pochopil
+imp: pochop, pochopte
+pair: chápat
+
+@ dialog
+pos: noun m-inan
+en: dialogue
+ex: Poslechněte si dialog. = Listen to the dialogue.
+rel: conversation; talk
+sg: dialog, dialogu, dialogu, dialog, dialogu, dialogu, dialogem
+pl: dialogy, dialogů, dialogům, dialogy, dialogy, dialozích, dialogy
+
+@ domov
+pos: noun m-inan
+en: home
+ex: Dnes pracuju z domova. = Today I am working from home.
+rel: house; family
+sg: domov, domova, domovu, domov, domove, domově, domovem
+note: Pracovat z domova = to work from home.
+
+@ fakt
+pos: noun m-inan
+en: fact
+rel: true; really
+sg: fakt, faktu, faktu, fakt, fakte, faktu, faktem
+pl: fakta/fakty, faktů, faktům, fakta/fakty, fakta/fakty, faktech, fakty
+note: Fakt? = really? (spoken).
+
+@ jednotný
+pos: adj
+en: single; unified
+ex: Pes je jednotné číslo. = Pes is singular.
+rel: one; grammar
+note: Jednotné číslo = singular.
+
+@ množný
+pos: adj
+en: plural (grammar)
+ex: Psi je množné číslo. = Psi is plural.
+rel: many; grammar
+note: Množné číslo = plural.
+
+@ krabice
+pos: noun f
+en: box
+rel: moving; package
+sg: krabice, krabice, krabici, krabici, krabice, krabici, krabicí
+pl: krabice, krabic, krabicím, krabice, krabice, krabicích, krabicemi
+
+@ lipový
+pos: adj
+en: linden; lime-tree (adjective)
+ex: Bydlím v Lipové ulici. = I live in Linden Street.
+rel: tree; tea
+note: Lipová ulice = Linden Street.
+
+@ mnohokrát
+pos: adv
+en: many times
+ex: Děkuji mnohokrát! = Thank you very much!
+rel: often; a lot
+note: Děkuji mnohokrát = thank you very much.
+
+@ nedávný
+pos: adj
+en: recent
+ex: Mluvili jsme o nedávné cestě. = We talked about the recent trip.
+rel: new; lately
+
+@ nemoc
+pos: noun f
+en: illness; disease
+rel: ill; sick
+sg: nemoc, nemoci, nemoci, nemoc, nemoci, nemoci, nemocí
+pl: nemoci, nemocí, nemocem, nemoci, nemoci, nemocech, nemocemi
+
+@ následovat
+pos: verb impf
+en: to follow
+ex: Následujte mě, prosím. = Follow me, please.
+rel: next; after
+pres: následuju/následuji, následuješ, následuje, následujeme, následujete, následujou/následují
+past: následoval
+
+@ nést
+pos: verb impf
+en: to carry (now)
+ex: Nesu těžkou tašku. = I am carrying a heavy bag.
+rel: bring; bag
+pres: nesu, neseš, nese, neseme, nesete, nesou
+past: nesl, nesla, neslo, nesli, nesly
+imp: nes, neste
+fut: ponesu, poneseš, ponese, poneseme, ponesete, ponesou
+
+@ oba
+pos: num
+en: both
+ex: Oba spoje jedou ráno. = Both connections leave in the morning.
+rel: two; pair
+forms: obě, obou, oběma
+note: Oba spoje = both connections; obě ženy = both women.
+
+@ onemocnět
+pos: verb pf
+en: to fall ill
+ex: Včera jsem onemocněl. = I fell ill yesterday.
+rel: sick; illness
+pres: onemocním, onemocníš, onemocní, onemocníme, onemocníte, onemocní
+past: onemocněl
+
+@ otevírat
+pos: verb impf
+en: to open (regularly)
+rel: shop; door
+pres: otevírám, otevíráš, otevírá, otevíráme, otevíráte, otevírají
+past: otevíral
+forms: otvírám, otvíráš, otvírá, otvíráme, otvíráte, otvírají, otvíral
+pair: otevřít
+note: Otvírat is the everyday form.
+
+@ zavírat
+pos: verb impf
+en: to close (regularly)
+rel: shop; door
+pres: zavírám, zavíráš, zavírá, zavíráme, zavíráte, zavírají
+past: zavíral
+pair: zavřít
+
+@ pizza
+pos: noun f
+en: pizza
+ex: Dáme si pizzu? = Shall we have a pizza?
+rel: food; restaurant
+sg: pizza, pizzy, pizze, pizzu, pizzo, pizze, pizzou
+pl: pizzy, pizz, pizzám, pizzy, pizzy, pizzách, pizzami
+
+@ platba
+pos: noun f
+en: payment
+rel: pay; card
+sg: platba, platby, platbě, platbu, platbo, platbě, platbou
+pl: platby, plateb, platbám, platby, platby, platbách, platbami
+
+@ poledne
+pos: noun n
+en: noon; midday
+rel: lunch; twelve
+sg: poledne, poledne, poledni, poledne, poledne, poledni, polednem
+note: V poledne = at noon; odpoledne = afternoon.
+
+@ prohrát
+pos: verb pf
+en: to lose (a game, a bet)
+rel: match; bet
+pres: prohraju/prohraji, prohraješ, prohraje, prohrajeme, prohrajete, prohrajou/prohrají
+past: prohrál
+pair: prohrávat
+see: vyhrát
+
+@ prohrávat
+pos: verb impf
+en: to be losing; to lose (often)
+rel: match; game
+pres: prohrávám, prohráváš, prohrává, prohráváme, prohráváte, prohrávají
+past: prohrával
+pair: prohrát
+
+@ vyhrát
+pos: verb pf
+en: to win
+rel: match; prize
+pres: vyhraju/vyhraji, vyhraješ, vyhraje, vyhrajeme, vyhrajete, vyhrajou/vyhrají
+past: vyhrál
+pair: vyhrávat
+see: prohrát
+
+@ vyhrávat
+pos: verb impf
+en: to be winning; to win (often)
+rel: match; game
+pres: vyhrávám, vyhráváš, vyhrává, vyhráváme, vyhráváte, vyhrávají
+past: vyhrával
+pair: vyhrát
+
+@ pád
+pos: noun m-inan
+en: case (grammar); fall
+ex: Čeština má sedm pádů. = Czech has seven cases.
+rel: grammar; ending
+sg: pád, pádu, pádu, pád, páde, pádu, pádem
+pl: pády, pádů, pádům, pády, pády, pádech, pády
+note: Czech has seven cases (pádů).
+
+@ přemýšlet
+pos: verb impf
+en: to think (about); to consider
+rel: think; decide
+pres: přemýšlím, přemýšlíš, přemýšlí, přemýšlíme, přemýšlíte, přemýšlejí
+past: přemýšlel
+note: Přemýšlím o tom = I'm thinking about it.
+
+@ přijmout
+pos: verb pf
+en: to accept; to take on (a person)
+rel: yes; job
+pres: přijmu, přijmeš, přijme, přijmeme, přijmete, přijmou
+past: přijal
+imp: přijmi, přijměte
+pair: přijímat
+
+@ přijímat
+pos: verb impf
+en: to accept; to admit
+rel: yes; school
+pres: přijímám, přijímáš, přijímá, přijímáme, přijímáte, přijímají
+past: přijímal
+pair: přijmout
+
+@ přijímačky
+pos: noun f pl
+en: entrance exams (everyday word)
+rel: school; exam
+pl: přijímačky, přijímaček, přijímačkám, přijímačky, přijímačky, přijímačkách, přijímačkami
+
+@ rádio
+pos: noun n
+en: radio
+rel: music; news
+sg: rádio, rádia, rádiu, rádio, rádio, rádiu, rádiem
+pl: rádia, rádií, rádiím, rádia, rádia, rádiích, rádii
+
+@ setkávat se
+pos: verb impf
+en: to meet (regularly)
+rel: see; friends
+pres: setkávám, setkáváš, setkává, setkáváme, setkáváte, setkávají
+past: setkával
+pair: setkat se
+
+@ sice
+pos: conj
+en: admittedly; although (sice…, ale…)
+ex: Je to sice drahé, ale dobré. = It is expensive, but good.
+rel: but; true
+note: Je to sice drahé, ale dobré = it's expensive, but good.
+
+@ slovíčko
+pos: noun n
+en: word (vocabulary item)
+rel: vocabulary; learn
+sg: slovíčko, slovíčka, slovíčku, slovíčko, slovíčko, slovíčku, slovíčkem
+pl: slovíčka, slovíček, slovíčkům, slovíčka, slovíčka, slovíčkách, slovíčky
+note: Učit se slovíčka = to learn vocabulary.
+
+@ snad
+pos: part
+en: hopefully; perhaps
+rel: maybe; hope
+
+@ spoj
+pos: noun m-inan
+en: connection (bus, train)
+ex: Jaký spoj jede do Brna? = Which connection goes to Brno?
+rel: transport; timetable
+sg: spoj, spoje, spoji, spoj, spoji, spoji, spojem
+pl: spoje, spojů, spojům, spoje, spoje, spojích, spoji
+
+@ sázka
+pos: noun f
+en: bet
+rel: win; lose
+sg: sázka, sázky, sázce, sázku, sázko, sázce, sázkou
+pl: sázky, sázek, sázkám, sázky, sázky, sázkách, sázkami
+
+@ trénovat
+pos: verb impf
+en: to train; to practise
+ex: Trénuju každý den. = I train every day.
+rel: sport; practice
+pres: trénuju/trénuji, trénuješ, trénuje, trénujeme, trénujete, trénujou/trénují
+past: trénoval
+
+@ událost
+pos: noun f
+en: event
+rel: happening; news
+sg: událost, události, události, událost, události, události, událostí
+pl: události, událostí, událostem, události, události, událostech, událostmi
+
+@ vedoucí
+pos: noun m-anim
+decl: adj
+en: manager; head
+ex: Musím se zeptat vedoucího. = I must ask the manager.
+rel: boss; team
+
+@ vybírat
+pos: verb impf
+en: to choose; to pick
+rel: select; decide
+pres: vybírám, vybíráš, vybírá, vybíráme, vybíráte, vybírají
+past: vybíral
+pair: vybrat
+
+@ vyjádření
+pos: noun n
+en: statement; expression
+ex: Čekáme na vyjádření úřadu. = We are waiting for the office's statement.
+rel: opinion; say
+sg: vyjádření, vyjádření, vyjádření, vyjádření, vyjádření, vyjádření, vyjádřením
+
+@ vzpomenout si
+pos: verb pf
+en: to remember; to recall
+rel: memory; forget
+pres: vzpomenu, vzpomeneš, vzpomene, vzpomeneme, vzpomenete, vzpomenou
+past: vzpomněl
+note: Nemůžu si vzpomenout = I can't remember.
+
+@ většina
+pos: noun f
+en: majority; most
+rel: most; many
+sg: většina, většiny, většině, většinu, většino, většině, většinou
+note: Většinou = mostly.
+
+@ zapamatovat si
+pos: verb pf
+en: to memorise; to remember
+rel: memory; learn
+pres: zapamatuju/zapamatuji, zapamatuješ, zapamatuje, zapamatujeme, zapamatujete, zapamatujou/zapamatují
+past: zapamatoval
+
+@ zdravotní
+pos: adj
+en: health (adjective); medical
+ex: Máte zdravotní pojištění? = Do you have health insurance?
+rel: insurance; doctor
+note: Zdravotní pojištění = health insurance.
+
+@ zjišťovat
+pos: verb impf
+en: to find out; to check
+rel: learn; ask
+pres: zjišťuju/zjišťuji, zjišťuješ, zjišťuje, zjišťujeme, zjišťujete, zjišťujou/zjišťují
+past: zjišťoval
+pair: zjistit

@@ -186,6 +186,7 @@ cmp: zdravější
 @ otevřený
 pos: adj
 en: open
+forms: otevřeno
 rel: shop; opening hours
 note: Lékárna je otevřená. = The pharmacy is open.
 

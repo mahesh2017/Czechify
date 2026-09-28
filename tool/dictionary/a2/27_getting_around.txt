@@ -1,0 +1,304 @@
+# A2 dictionary — Unit 27 (getting around: motion verbs, directions,
+# transport, announcements).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+@ autobusový
+pos: adj
+en: bus (adjective)
+ex: Sejdeme se na autobusovém nádraží. = Let's meet at the bus station.
+rel: bus; station
+note: Autobusové nádraží = bus station.
+
+@ blok
+pos: noun m-inan
+en: block
+rel: street; building
+sg: blok, bloku, bloku, blok, bloku, bloku, blokem
+pl: bloky, bloků, blokům, bloky, bloky, blocích, bloky
+
+@ běžet
+pos: verb impf
+en: to run (once, now)
+rel: fast; hurry
+pres: běžím, běžíš, běží, běžíme, běžíte, běží
+past: běžel
+imp: běž, běžte
+
+@ běžný
+pos: adj
+en: common; usual; ordinary
+ex: To je běžná věc. = That is a common thing.
+rel: normal; everyday
+
+@ další
+pos: adj
+en: next; another; further
+rel: other; following
+note: Další zastávka = the next stop.
+
+@ dnešní
+pos: adj
+en: today's
+ex: Četl jsi dnešní noviny? = Did you read today's newspaper?
+rel: today; now
+
+@ dojít
+pos: verb pf
+en: to get to; to reach (on foot); to run out
+rel: arrive; walk
+pres: dojdu, dojdeš, dojde, dojdeme, dojdete, dojdou
+past: došel, došla, došlo, došli, došly
+imp: dojdi, dojděte
+note: Došlo mi mléko = I've run out of milk.
+
+@ dojet
+pos: verb pf
+en: to get to; to reach (by vehicle)
+rel: arrive; drive
+pres: dojedu, dojedeš, dojede, dojedeme, dojedete, dojedou
+past: dojel
+imp: dojeď, dojeďte
+
+@ dopravní
+pos: adj
+en: transport; traffic (adjective)
+rel: bus; road
+note: Dopravní zácpa = traffic jam.
+
+@ dopředu
+pos: adv
+en: forward; ahead
+rel: front; straight
+see: dozadu
+
+@ dozadu
+pos: adv
+en: back; backwards
+rel: behind
+see: dopředu
+
+@ garáž
+pos: noun f
+en: garage
+rel: car; house
+sg: garáž, garáže, garáži, garáž, garáži, garáži, garáží
+pl: garáže, garáží, garážím, garáže, garáže, garážích, garážemi
+
+@ Itálie
+pos: noun f
+en: Italy
+rel: country; Italian
+sg: Itálie, Itálie, Itálii, Itálii, Itálie, Itálii, Itálií
+
+@ kopec
+pos: noun m-inan
+en: hill
+rel: mountain; up
+sg: kopec, kopce, kopci, kopec, kopci, kopci, kopcem
+pl: kopce, kopců, kopcům, kopce, kopce, kopcích, kopci
+
+@ linka
+pos: noun f
+en: line (bus, tram, metro)
+rel: route; number
+sg: linka, linky, lince, linku, linko, lince, linkou
+pl: linky, linek, linkám, linky, linky, linkách, linkami
+
+@ létat
+pos: verb impf
+en: to fly (often, regularly)
+rel: plane; travel
+pres: létám, létáš, létá, létáme, létáte, létají
+past: létal
+see: letět
+
+@ nastoupit
+pos: verb pf
+en: to get on (a bus, train); to start (a job)
+rel: board; tram
+pres: nastoupím, nastoupíš, nastoupí, nastoupíme, nastoupíte, nastoupí
+past: nastoupil
+imp: nastup, nastupte
+see: vystoupit
+
+@ objet
+pos: verb pf
+en: to drive around; to go round
+rel: detour; avoid
+pres: objedu, objedeš, objede, objedeme, objedete, objedou
+past: objel
+
+@ obvykle
+pos: adv
+en: usually
+ex: Obvykle jezdím tramvají. = I usually go by tram.
+rel: normally; often
+
+@ odbočit
+pos: verb pf
+en: to turn (off)
+rel: left; right
+pres: odbočím, odbočíš, odbočí, odbočíme, odbočíte, odbočí
+past: odbočil
+imp: odboč, odbočte
+note: Odbočte doleva = turn left.
+
+@ otočit se
+pos: verb pf
+en: to turn round
+rel: back; direction
+pres: otočím, otočíš, otočí, otočíme, otočíte, otočí
+past: otočil
+imp: otoč, otočte
+
+@ pokračovat
+pos: verb impf
+en: to continue; to carry on
+rel: go on; straight
+pres: pokračuju/pokračuji, pokračuješ, pokračuje, pokračujeme, pokračujete, pokračujou/pokračují
+past: pokračoval
+imp: pokračuj, pokračujte
+
+@ popis
+pos: noun m-inan
+en: description
+ex: Nahrajte popis cesty. = Record a description of the route.
+rel: describe; explain
+sg: popis, popisu, popisu, popis, popise, popisu, popisem
+pl: popisy, popisů, popisům, popisy, popisy, popisech, popisy
+
+@ právě
+pos: adv
+en: just; right now; exactly
+ex: Právě teď jedu domů. = I am going home right now.
+rel: now; at the moment
+note: Právě teď = right now.
+
+@ přejet
+pos: verb pf
+en: to cross; to drive over; to run over
+rel: bridge; road
+pres: přejedu, přejedeš, přejede, přejedeme, přejedete, přejedou
+past: přejel
+imp: přejeď, přejeďte
+
+@ přesně
+pos: adv
+en: exactly; precisely
+rel: sharp; right
+
+@ přestoupit
+pos: verb pf
+en: to change (trains, buses)
+rel: transfer; metro
+pres: přestoupím, přestoupíš, přestoupí, přestoupíme, přestoupíte, přestoupí
+past: přestoupil
+imp: přestup, přestupte
+
+@ přicházet
+pos: verb impf
+en: to come; to arrive (on foot, often)
+rel: arrive; come
+pres: přicházím, přicházíš, přichází, přicházíme, přicházíte, přicházejí
+past: přicházel
+pair: přijít
+
+@ sjet
+pos: verb pf
+en: to go down; to exit (a road)
+rel: motorway; down
+pres: sjedu, sjedeš, sjede, sjedeme, sjedete, sjedou
+past: sjel
+imp: sjeď, sjeďte
+
+@ služební
+pos: adj
+en: business; work (adjective)
+rel: trip; company
+note: Služební cesta = business trip.
+
+@ stanice
+pos: noun f
+en: station; stop
+rel: metro; train
+sg: stanice, stanice, stanici, stanici, stanice, stanici, stanicí
+pl: stanice, stanic, stanicím, stanice, stanice, stanicích, stanicemi
+
+@ tudy
+pos: adv
+en: this way
+rel: through here; direction
+
+@ tunel
+pos: noun m-inan
+en: tunnel
+rel: road; train
+sg: tunel, tunelu, tunelu, tunel, tuneli, tunelu, tunelem
+pl: tunely, tunelů, tunelům, tunely, tunely, tunelech, tunely
+
+@ ustoupit
+pos: verb pf
+en: to step back; to make way
+rel: back; move
+pres: ustoupím, ustoupíš, ustoupí, ustoupíme, ustoupíte, ustoupí
+past: ustoupil
+imp: ustup, ustupte
+
+@ vracet se
+pos: verb impf
+en: to come back; to return (often)
+rel: back; home
+pres: vracím, vracíš, vrací, vracíme, vracíte, vracejí
+past: vracel
+pair: vrátit
+
+@ vrátný
+pos: noun m-anim
+decl: adj
+en: porter; doorman
+rel: building; reception
+
+@ vyjet
+pos: verb pf
+en: to set off; to drive out; to go up
+rel: leave; start
+pres: vyjedu, vyjedeš, vyjede, vyjedeme, vyjedete, vyjedou
+past: vyjel
+imp: vyjeď, vyjeďte
+
+@ vystoupit
+pos: verb pf
+en: to get off (a bus, train)
+rel: stop; station
+pres: vystoupím, vystoupíš, vystoupí, vystoupíme, vystoupíte, vystoupí
+past: vystoupil
+imp: vystup, vystupte
+see: nastoupit
+
+@ vážený
+pos: adj
+en: dear; respected (formal)
+rel: letter; announcement
+note: Vážení cestující = dear passengers.
+
+@ zastavit
+pos: verb pf
+en: to stop
+rel: halt; car
+pres: zastavím, zastavíš, zastaví, zastavíme, zastavíte, zastaví
+past: zastavil
+imp: zastav, zastavte
+
+@ zácpa
+pos: noun f
+en: traffic jam
+rel: car; road; late
+sg: zácpa, zácpy, zácpě, zácpu, zácpo, zácpě, zácpou
+pl: zácpy, zácp, zácpám, zácpy, zácpy, zácpách, zácpami
+
+@ čerpací
+pos: adj
+en: pumping
+rel: petrol; car
+note: Čerpací stanice = petrol station.

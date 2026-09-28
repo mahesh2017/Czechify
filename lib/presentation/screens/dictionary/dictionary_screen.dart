@@ -11,15 +11,18 @@ import '../../providers/dictionary_providers.dart';
 import '../../widgets/common/lesson_ui.dart';
 import '../../widgets/common/soft_ui.dart';
 
-/// The level's dictionary: every word, A–Z, searchable in Czech (any form,
-/// with or without accents) and in English.
+/// The learner's dictionary: every word of their level (and, on A2, of A1
+/// too), A–Z, searchable in Czech (any form, with or without accents) and in
+/// English.
 ///
 /// A browsing screen, so it scrolls. Words from units the learner has not
-/// reached are listed and open like the rest, marked with the unit.
+/// reached are listed and open like the rest, marked with the unit. Words of
+/// an earlier level are marked with that level, not a unit: the learner is
+/// not on that level, so there is no unit of theirs to point to.
 class DictionaryScreen extends ConsumerStatefulWidget {
   const DictionaryScreen({super.key, this.level});
 
-  /// Which level's dictionary; defaults to the first one there is.
+  /// Which level's dictionary; defaults to the learner's.
   final String? level;
 
   @override
@@ -28,7 +31,6 @@ class DictionaryScreen extends ConsumerStatefulWidget {
 
 class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
   final _query = TextEditingController();
-  late String _level = widget.level ?? kDictionaryLevels.first;
 
   @override
   void initState() {
@@ -42,6 +44,9 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
     super.dispose();
   }
 
+  String get _level =>
+      widget.level ?? ref.read(learnerDictionaryLevelProvider);
+
   void _open(DictionaryEntry entry) {
     FocusScope.of(context).unfocus();
     context.push('/dictionary/$_level/${entry.id}');
@@ -51,8 +56,10 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
-    final data = ref.watch(dictionaryProvider(_level));
-    final search = ref.watch(dictionarySearchProvider(_level)).value;
+    final String learner = ref.watch(learnerDictionaryLevelProvider);
+    final level = widget.level ?? learner;
+    final data = ref.watch(dictionaryProvider(level));
+    final search = ref.watch(dictionarySearchProvider(level)).value;
     final unlocked = ref.watch(unlockedUnitIdsProvider).value ?? const {};
     final query = _query.text.trim();
 
@@ -84,16 +91,6 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
                       ),
                     ),
                   ),
-                  if (kDictionaryLevels.length > 1)
-                    for (final level in kDictionaryLevels)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 6),
-                        child: ChoiceChip(
-                          label: Text(level.toUpperCase()),
-                          selected: level == _level,
-                          onSelected: (_) => setState(() => _level = level),
-                        ),
-                      ),
                 ],
               ),
             ),
@@ -176,7 +173,8 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
                         (context, i) => _WordRow(
                           entry: hits[i].entry,
                           matchedForm: hits[i].matchedForm,
-                          locked: _isLocked(hits[i].entry, unlocked),
+                          earlier: dictionary.isEarlier(hits[i].entry),
+                          locked: _isLocked(dictionary, hits[i].entry, unlocked),
                           onTap: () => _open(hits[i].entry),
                         ),
                   );
@@ -190,8 +188,14 @@ class _DictionaryScreenState extends ConsumerState<DictionaryScreen> {
   }
 }
 
-bool _isLocked(DictionaryEntry entry, Set<int> unlocked) =>
-    entry.unit != null && !unlocked.contains(entry.unit);
+bool _isLocked(
+  DictionaryData dictionary,
+  DictionaryEntry entry,
+  Set<int> unlocked,
+) =>
+    !dictionary.isEarlier(entry) &&
+    entry.unit != null &&
+    !unlocked.contains(entry.unit);
 
 /// Every word A–Z, under letter headings.
 class _Browse extends StatelessWidget {
@@ -237,7 +241,7 @@ class _Browse extends StatelessWidget {
             child: Text(
               l10n.dictionaryWordCount(
                 dictionary.entries.length,
-                dictionary.level,
+                dictionary.label,
               ),
               style: TextStyle(fontSize: 13, color: t.muted),
             ),
@@ -261,7 +265,8 @@ class _Browse extends StatelessWidget {
         final entry = item as DictionaryEntry;
         return _WordRow(
           entry: entry,
-          locked: _isLocked(entry, unlocked),
+          earlier: dictionary.isEarlier(entry),
+          locked: _isLocked(dictionary, entry, unlocked),
           onTap: () => onOpen(entry),
         );
       },
@@ -274,11 +279,15 @@ class _WordRow extends StatelessWidget {
     required this.entry,
     required this.locked,
     required this.onTap,
+    this.earlier = false,
     this.matchedForm,
   });
 
   final DictionaryEntry entry;
   final bool locked;
+
+  /// A word of an earlier level: tagged with the level, not a unit.
+  final bool earlier;
   final VoidCallback onTap;
   final String? matchedForm;
 
@@ -327,10 +336,19 @@ class _WordRow extends StatelessWidget {
                 ],
               ),
             ),
-            if (entry.unit != null) ...[
+            if (earlier) ...[
               const SizedBox(width: 10),
               PillChip(
-                label: l10n.dictionaryUnit(entry.unit!),
+                label: entry.level,
+                bg: t.elev,
+                fg: t.muted,
+                bold: false,
+                fontSize: 11,
+              ),
+            ] else if (entry.unitNo != null) ...[
+              const SizedBox(width: 10),
+              PillChip(
+                label: l10n.dictionaryUnit(entry.unitNo!),
                 icon: locked ? Icons.lock_outline_rounded : null,
                 bg: locked ? t.elev : t.priSoft,
                 fg: locked ? t.muted : t.priInk,

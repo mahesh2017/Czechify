@@ -380,6 +380,7 @@ see: jet, chodit
 @ jet
 pos: verb impf
 en: to go (by vehicle); to ride; to drive
+forms: pojeď, pojeďme, pojeďte
 rel: travel; bus; train; drive
 pres: jedu, jedeš, jede, jedeme, jedete, jedou
 past: jel

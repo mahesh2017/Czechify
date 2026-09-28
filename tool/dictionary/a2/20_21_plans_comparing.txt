@@ -1,0 +1,532 @@
+# A2 dictionary — Units 20 (plans, the future, polite requests) and 21
+# (comparing). Comparatives and superlatives are built from each adjective's
+# cmp: line (nej- + comparative), so they have no entries of their own.
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+# ------------------------------------------------ Unit 20
+
+@ alternativa
+pos: noun f
+en: alternative
+ex: Máš nějakou alternativu? = Do you have an alternative?
+rel: option; choice
+sg: alternativa, alternativy, alternativě, alternativu, alternativo, alternativě, alternativou
+pl: alternativy, alternativ, alternativám, alternativy, alternativy, alternativách, alternativami
+
+@ až
+pos: conj
+en: when (in the future); until; only then
+rel: as soon as; not until
+note: Až přijdu, zavolám = when I come, I'll call. Až v sedm = not until seven.
+
+@ budoucnost
+pos: noun f
+en: future
+rel: later; tomorrow
+sg: budoucnost, budoucnosti, budoucnosti, budoucnost, budoucnosti, budoucnosti, budoucností
+forms: budoucnu
+note: V budoucnu = in the future.
+
+@ cíl
+pos: noun m-inan
+en: goal; aim; destination
+rel: target; plan
+sg: cíl, cíle, cíli, cíl, cíli, cíli, cílem
+pl: cíle, cílů, cílům, cíle, cíle, cílech, cíli
+
+@ desátý
+pos: adj
+en: tenth
+ex: Sejdeme se desátého prosince. = Let's meet on the tenth of December.
+rel: ten; date
+note: Desátého prosince = on the tenth of December.
+
+@ doufat
+pos: verb impf
+en: to hope
+rel: wish; expect
+pres: doufám, doufáš, doufá, doufáme, doufáte, doufají
+past: doufal
+note: Doufám, že přijdeš = I hope you'll come.
+
+@ Evropa
+pos: noun f
+en: Europe
+rel: continent; EU
+sg: Evropa, Evropy, Evropě, Evropu, Evropo, Evropě, Evropou
+
+@ jistě
+pos: adv
+en: certainly; surely
+rel: sure; of course
+
+@ kafe
+pos: noun n
+en: coffee (everyday word)
+ex: Dáme si kafe? = Shall we have a coffee?
+rel: káva; café
+sg: kafe, kafe, kafi, kafe, kafe, kafi, kafem
+note: Kafe is spoken Czech for káva.
+
+@ koukat
+pos: verb impf
+en: to look; to watch (everyday word)
+ex: Večer budu koukat na film. = In the evening I will watch a film.
+rel: see; television
+pres: koukám, koukáš, kouká, koukáme, koukáte, koukají
+past: koukal
+note: Koukat na televizi = to watch TV.
+
+@ leden
+pos: noun m-inan
+en: January
+ex: V lednu je zima. = It is cold in January.
+rel: month; winter
+sg: leden, ledna, lednu, leden, ledne, lednu, lednem
+
+@ únor
+pos: noun m-inan
+en: February
+ex: V únoru jedeme na hory. = In February we go to the mountains.
+rel: month; winter
+sg: únor, února, únoru, únor, únore, únoru, únorem
+
+@ březen
+pos: noun m-inan
+en: March
+rel: month; spring
+sg: březen, března, březnu, březen, březne, březnu, březnem
+
+@ duben
+pos: noun m-inan
+en: April
+rel: month; spring
+sg: duben, dubna, dubnu, duben, dubne, dubnu, dubnem
+
+@ květen
+pos: noun m-inan
+en: May
+rel: month; spring
+sg: květen, května, květnu, květen, květne, květnu, květnem
+
+@ červen
+pos: noun m-inan
+en: June
+ex: V červnu končí škola. = School ends in June.
+rel: month; summer
+sg: červen, června, červnu, červen, červne, červnu, červnem
+
+@ červenec
+pos: noun m-inan
+en: July
+rel: month; summer
+sg: červenec, července, červenci, červenec, červenci, červenci, červencem
+
+@ srpen
+pos: noun m-inan
+en: August
+ex: V srpnu mám dovolenou. = I have my holiday in August.
+rel: month; summer
+sg: srpen, srpna, srpnu, srpen, srpne, srpnu, srpnem
+
+@ září
+pos: noun n
+en: September
+ex: V září začíná škola. = School starts in September.
+rel: month; autumn
+sg: září, září, září, září, září, září, zářím
+
+@ říjen
+pos: noun m-inan
+en: October
+rel: month; autumn
+sg: říjen, října, říjnu, říjen, říjne, říjnu, říjnem
+
+@ listopad
+pos: noun m-inan
+en: November
+ex: Narozeniny mám v listopadu. = My birthday is in November.
+rel: month; autumn
+sg: listopad, listopadu, listopadu, listopad, listopade, listopadu, listopadem
+
+@ prosinec
+pos: noun m-inan
+en: December
+ex: Sejdeme se desátého prosince. = Let's meet on the tenth of December.
+rel: month; winter; Christmas
+sg: prosinec, prosince, prosinci, prosinec, prosinci, prosinci, prosincem
+
+@ možná
+pos: part
+en: maybe; perhaps
+rel: possibly
+
+@ naučit se
+pos: verb pf
+en: to learn (fully)
+rel: study; master
+pres: naučím, naučíš, naučí, naučíme, naučíte, naučí
+past: naučil
+imp: nauč, naučte
+pair: učit se
+
+@ pozvání
+pos: noun n
+en: invitation
+ex: Děkuju za pozvání. = Thank you for the invitation.
+rel: invite; party
+sg: pozvání, pozvání, pozvání, pozvání, pozvání, pozvání, pozváním
+pl: pozvání, pozvání, pozváním, pozvání, pozvání, pozváních, pozváními
+
+@ pozítří
+pos: adv
+en: the day after tomorrow
+rel: future; days
+
+@ připravit
+pos: verb pf
+en: to prepare; to get ready
+rel: ready; plan
+pres: připravím, připravíš, připraví, připravíme, připravíte, připraví
+past: připravil
+imp: připrav, připravte
+pair: připravovat
+
+@ raději
+pos: adv
+en: rather; preferably
+rel: prefer; better
+forms: radši
+note: Radši is the everyday form: Dám si radši čaj.
+
+@ sedět
+pos: verb impf
+en: to sit; to be sitting
+rel: chair; seat
+pres: sedím, sedíš, sedí, sedíme, sedíte, sedí
+past: seděl
+imp: seď, seďte
+
+@ sledovat
+pos: verb impf
+en: to watch; to follow
+ex: Večer budu sledovat televizi. = In the evening I will watch TV.
+rel: television; news
+pres: sleduju/sleduji, sleduješ, sleduje, sledujeme, sledujete, sledujou/sledují
+past: sledoval
+
+@ spolu
+pos: adv
+en: together
+ex: Uvaříme spolu večeři. = We will cook dinner together.
+rel: with; both
+
+@ stěhovat se
+pos: verb impf
+en: to move (house)
+rel: flat; new home
+pres: stěhuju/stěhuji, stěhuješ, stěhuje, stěhujeme, stěhujete, stěhujou/stěhují
+past: stěhoval
+pair: přestěhovat se
+
+@ určitě
+pos: adv
+en: definitely; certainly
+rel: sure; of course
+
+@ venku
+pos: adv
+en: outside; outdoors
+rel: out; open air
+see: ven
+
+@ vyjít
+pos: verb pf
+en: to go out; to work out
+rel: leave; succeed
+pres: vyjdu, vyjdeš, vyjde, vyjdeme, vyjdete, vyjdou
+past: vyšel, vyšla, vyšlo, vyšli, vyšly
+imp: vyjdi, vyjděte
+note: To vyjde = it will work out.
+
+@ zavolat
+pos: verb pf
+en: to call; to phone
+rel: ring; telephone
+pres: zavolám, zavoláš, zavolá, zavoláme, zavoláte, zavolají
+past: zavolal
+imp: zavolej, zavolejte
+pair: volat
+
+@ změnit
+pos: verb pf
+en: to change
+rel: different; alter
+pres: změním, změníš, změní, změníme, změníte, změní
+past: změnil
+imp: změň, změňte
+
+@ změna
+pos: noun f
+en: change
+rel: different; new
+sg: změna, změny, změně, změnu, změno, změně, změnou
+pl: změny, změn, změnám, změny, změny, změnách, změnami
+
+@ úmysl
+pos: noun m-inan
+en: intention
+rel: plan; purpose
+sg: úmysl, úmyslu, úmyslu, úmysl, úmysle, úmyslu, úmyslem
+pl: úmysly, úmyslů, úmyslům, úmysly, úmysly, úmyslech, úmysly
+
+# ------------------------------------------------ Unit 21
+
+@ budova
+pos: noun f
+en: building
+rel: house; office
+sg: budova, budovy, budově, budovu, budovo, budově, budovou
+pl: budovy, budov, budovám, budovy, budovy, budovách, budovami
+
+@ cesta
+pos: noun f
+en: way; road; journey
+rel: trip; path; travel
+sg: cesta, cesty, cestě, cestu, cesto, cestě, cestou
+pl: cesty, cest, cestám, cesty, cesty, cestách, cestami
+
+@ hluboký
+pos: adj
+en: deep
+rel: depth
+cmp: hlubší
+
+@ komparativ
+pos: noun m-inan
+en: comparative
+ex: Komparativ slova dobrý je lepší. = The comparative of dobrý is lepší.
+rel: grammar; more
+sg: komparativ, komparativu, komparativu, komparativ, komparative, komparativu, komparativem
+
+@ superlativ
+pos: noun m-inan
+en: superlative
+ex: Superlativ slova dobrý je nejlepší. = The superlative of dobrý is nejlepší.
+rel: grammar; most
+sg: superlativ, superlativu, superlativu, superlativ, superlative, superlativu, superlativem
+
+@ mnohem
+pos: adv
+en: much (with a comparative)
+rel: far; a lot
+note: Mnohem větší = much bigger.
+
+@ moderní
+pos: adj
+en: modern
+rel: new; contemporary
+cmp: modernější
+
+@ oblíbený
+pos: adj
+en: favourite; popular
+rel: like; best
+cmp: oblíbenější
+
+@ složitý
+pos: adj
+en: complicated
+rel: difficult; complex
+cmp: složitější
+
+@ myslet
+pos: verb impf
+en: to think
+rel: believe; opinion
+pres: myslím, myslíš, myslí, myslíme, myslíte, myslí
+past: myslel
+note: Myslím, že… = I think that…; myslet na = to think about.
+
+@ než
+pos: conj
+en: than; before
+rel: comparison
+note: Praha je větší než Brno. Než odejdeš, zavolej.
+
+@ nízký
+pos: adj
+en: low
+rel: short; small
+cmp: nižší
+
+@ vysoký
+pos: adj
+en: high; tall
+rel: big; height
+cmp: vyšší
+
+@ široký
+pos: adj
+en: wide; broad
+rel: big
+cmp: širší
+
+@ pohodlný
+pos: adj
+en: comfortable
+rel: cosy; easy
+cmp: pohodlnější
+
+@ snadný
+pos: adj
+en: easy
+rel: simple
+cmp: snadnější
+
+@ světlý
+pos: adj
+en: bright; light
+ex: Ten byt je velký a světlý. = The flat is big and bright.
+rel: sunny
+cmp: světlejší
+
+@ odlišný
+pos: adj
+en: different
+rel: other; unlike
+see: podobný
+
+@ podobný
+pos: adj
+en: similar
+rel: like; same
+cmp: podobnější
+see: odlišný
+
+@ stejný
+pos: adj
+en: same
+rel: equal; identical
+forms: stejně
+note: Stejně = equally; anyway.
+
+@ patro
+pos: noun n
+en: floor; storey
+rel: building; upstairs
+sg: patro, patra, patru, patro, patro, patře, patrem
+pl: patra, pater, patrům, patra, patra, patrech, patry
+note: Ve třetím patře = on the third floor.
+
+@ porovnat
+pos: verb pf
+en: to compare
+ex: Porovnejte dvě možnosti. = Compare two options.
+rel: difference; same
+pres: porovnám, porovnáš, porovná, porovnáme, porovnáte, porovnají
+past: porovnal
+imp: porovnej, porovnejte
+
+@ srovnat
+pos: verb pf
+en: to compare
+rel: difference; same
+pres: srovnám, srovnáš, srovná, srovnáme, srovnáte, srovnají
+past: srovnal
+imp: srovnej, srovnejte
+pair: srovnávat
+
+@ srovnávat
+pos: verb impf
+en: to compare
+ex: Rád srovnávám ceny. = I like comparing prices.
+rel: difference; same
+pres: srovnávám, srovnáváš, srovnává, srovnáváme, srovnáváte, srovnávají
+past: srovnával
+pair: srovnat
+
+@ srovnání
+pos: noun n
+en: comparison
+ex: Nahrajte krátké srovnání. = Record a short comparison.
+rel: compare; difference
+sg: srovnání, srovnání, srovnání, srovnání, srovnání, srovnání, srovnáním
+pl: srovnání, srovnání, srovnáním, srovnání, srovnání, srovnáních, srovnáními
+
+@ příslovce
+pos: noun n
+en: adverb
+ex: Rychle je příslovce. = Rychle is an adverb.
+rel: grammar; word
+sg: příslovce, příslovce, příslovci, příslovce, příslovce, příslovci, příslovcem
+pl: příslovce, příslovcí, příslovcím, příslovce, příslovce, příslovcích, příslovci
+
+@ přístup
+pos: noun m-inan
+en: approach; access
+rel: way; entry
+sg: přístup, přístupu, přístupu, přístup, přístupe, přístupu, přístupem
+pl: přístupy, přístupů, přístupům, přístupy, přístupy, přístupech, přístupy
+
+@ recenze
+pos: noun f
+en: review (of a product, film)
+ex: Ten telefon má dobré recenze. = That phone has good reviews.
+rel: rating; opinion
+sg: recenze, recenze, recenzi, recenzi, recenze, recenzi, recenzí
+pl: recenze, recenzí, recenzím, recenze, recenze, recenzích, recenzemi
+
+@ republika
+pos: noun f
+en: republic
+ex: Praha je hlavní město republiky. = Prague is the capital of the republic.
+rel: country; state
+sg: republika, republiky, republice, republiku, republiko, republice, republikou
+pl: republiky, republik, republikám, republiky, republiky, republikách, republikami
+
+@ Česká republika
+pos: phrase
+en: the Czech Republic
+ex: Bydlím v České republice. = I live in the Czech Republic.
+rel: Czechia; country
+forms: ČR, České republiky, České republice, Českou republiku, Českou republikou
+note: Short form: ČR.
+
+@ rozdíl
+pos: noun m-inan
+en: difference
+rel: compare; different
+sg: rozdíl, rozdílu, rozdílu, rozdíl, rozdíle, rozdílu, rozdílem
+pl: rozdíly, rozdílů, rozdílům, rozdíly, rozdíly, rozdílech, rozdíly
+
+@ snažit se
+pos: verb impf
+en: to try; to make an effort
+rel: attempt; effort
+pres: snažím, snažíš, snaží, snažíme, snažíte, snaží
+past: snažil
+imp: snaž, snažte
+
+@ světlo
+pos: noun n
+en: light
+ex: Byt má hodně světla. = The flat has a lot of light.
+rel: sun; lamp
+sg: světlo, světla, světlu, světlo, světlo, světle, světlem
+pl: světla, světel, světlům, světla, světla, světlech, světly
+
+@ volba
+pos: noun f
+en: choice; election
+rel: option; decide
+sg: volba, volby, volbě, volbu, volbo, volbě, volbou
+pl: volby, voleb, volbám, volby, volby, volbách, volbami
+
+@ země
+pos: noun f
+en: country; land; earth
+rel: state; ground
+sg: země, země, zemi, zemi, země, zemi, zemí
+pl: země, zemí, zemím, země, země, zemích, zeměmi

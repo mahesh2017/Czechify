@@ -14,6 +14,7 @@ DictionaryData _load(String level) => DictionaryData.fromJson(
 /// Units of each level, as tool/dictionary/build_dictionary.py counts them.
 const _levelUnits = {
   'a1': {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 28, 30},
+  'a2': {16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 31},
 };
 
 /// Lesson fields that hold Czech a learner reads or hears. Kept in step with
@@ -25,7 +26,30 @@ const _czechFields = {
   'name_say',
 };
 
+/// Where answer_key is the Czech a learner types. Kept in step with
+/// TYPED_ANSWER_TYPES in tool/dictionary/build_dictionary.py.
+const _typedAnswerTypes = {
+  'fill_blank', 'dictation', 'word_order', 'error_correction',
+};
+
+/// Kept in step with ENGLISH_MARKERS in tool/dictionary/build_dictionary.py.
+const _englishMarkers = {
+  'the', 'you', 'is', 'are', 'of', 'this', 'that', 'we', 'for', 'with',
+  'your', 'it', 'can', 'what', 'when', 'how', 'will', 'use', 'means',
+};
+
 final _word = RegExp(r'[A-Za-zÁČĎÉĚÍŇÓŘŠŤÚŮÝŽáčďéěíňóřšťúůýž]+');
+
+/// The Czech of a lesson string, as the build reads it: bracketed hints and
+/// cues left out, nothing when it reads as English.
+String _learnerCzech(String text) {
+  final bare = text.replaceAll(RegExp(r'\([^)]*\)'), ' ');
+  final markers = _word
+      .allMatches(bare)
+      .where((m) => _englishMarkers.contains(m[0]!.toLowerCase()))
+      .length;
+  return markers >= 2 ? '' : bare;
+}
 
 Iterable<String> _czechStrings(Object? node, [String? key]) sync* {
   if (node is Map) {
@@ -40,6 +64,55 @@ Iterable<String> _czechStrings(Object? node, [String? key]) sync* {
     yield node;
   }
 }
+
+/// Every Czech string a learner of [level] meets: the lessons' and the
+/// review cards' (by unit, from both card files).
+List<String> _levelTexts(String level) {
+  final texts = <String>[];
+  for (final file in Directory('assets/curriculum/lessons').listSync()) {
+    if (!file.path.endsWith('.json')) continue;
+    final lesson =
+        jsonDecode(File(file.path).readAsStringSync()) as Map<String, dynamic>;
+    if (!_levelUnits[level]!.contains(lesson['unit_id'])) continue;
+    for (final exercise
+        in (lesson['exercises'] as List).cast<Map<String, dynamic>>()) {
+      final data = exercise['data'] as Map<String, dynamic>;
+      texts.addAll(_czechStrings(data));
+      if (_typedAnswerTypes.contains(exercise['type'])) {
+        texts.add(exercise['answer_key'] as String? ?? '');
+      }
+      if (exercise['type'] == 'translation') {
+        if (data['direction'] == 'en_to_cz') {
+          texts.addAll((data['accepted_answers'] as List? ?? []).cast<String>());
+        } else {
+          texts.add(data['source'] as String? ?? '');
+        }
+      }
+    }
+  }
+  for (final file in ['a1', 'a2']) {
+    final cards =
+        jsonDecode(
+              File('assets/vocabulary/${file}_vocabulary.json').readAsStringSync(),
+            )
+            as List<dynamic>;
+    for (final v in cards.cast<Map<String, dynamic>>()) {
+      if (!_levelUnits[level]!.contains(v['unit_id'])) continue;
+      texts.add(v['word_cz'] as String? ?? '');
+      texts.add(v['example_cz'] as String? ?? '');
+    }
+  }
+  return [for (final t in texts) _learnerCzech(t)];
+}
+
+Set<String> _notWords(String level) => {
+  for (final lower in ['a1', 'a2'].take(['a1', 'a2'].indexOf(level) + 1))
+    for (final line
+        in File('tool/dictionary/$lower/not_words.txt').readAsLinesSync())
+      ...line.split('#').first.split(RegExp(r'\s+')).where((w) => w.isNotEmpty),
+};
+
+final a1Units = _levelUnits['a1']!;
 
 void main() {
   final a1 = _load('a1');
@@ -125,87 +198,120 @@ void main() {
     });
   });
 
-  group('A1 dictionary', () {
-    test('every word has an id of its own, meanings, forms and an example', () {
-      final ids = <String>{};
-      for (final e in a1.entries) {
-        expect(ids.add(e.id), isTrue, reason: 'duplicate id ${e.id}');
-        expect(e.meanings, isNotEmpty, reason: e.cz);
-        expect(e.forms, isNotEmpty, reason: e.cz);
-        expect(e.examples, isNotEmpty, reason: e.cz);
-      }
-    });
-
-    test('nouns and verbs show their key forms, with full tables behind', () {
-      for (final e in a1.entries.where((e) => e.pos == 'noun' || e.pos == 'verb')) {
-        expect(e.keyForms, isNotEmpty, reason: e.cz);
-        expect(e.tables, isNotEmpty, reason: e.cz);
-      }
-    });
-
-    test('a word marked plural-only has no singular column', () {
-      for (final e in a1.entries.where((e) => e.pluralOnly)) {
-        expect(e.tables.single.columns, ['plural'], reason: e.cz);
-      }
-    });
-
-    test('"see also" only points at words the dictionary has', () {
-      for (final e in a1.entries) {
-        for (final cz in e.see) {
-          expect(a1.byCzech(cz), isNotNull, reason: '${e.cz} → $cz');
+  final a2 = _load('a2');
+  final files = {'a1': a1, 'a2': a2};
+  for (final level in ['a1', 'a2']) {
+    final dictionary = files[level]!;
+    group('${level.toUpperCase()} dictionary', () {
+      test('every word has an id of its own, meanings, forms and an example', () {
+        final ids = <String>{};
+        for (final e in dictionary.entries) {
+          expect(ids.add(e.id), isTrue, reason: 'duplicate id ${e.id}');
+          expect(e.meanings, isNotEmpty, reason: e.cz);
+          expect(e.forms, isNotEmpty, reason: e.cz);
+          expect(e.examples, isNotEmpty, reason: e.cz);
         }
-      }
-    });
+      });
 
-    test('every word is placed in a unit of the level, or in none', () {
-      for (final e in a1.entries.where((e) => e.unit != null)) {
-        expect(_levelUnits['a1'], contains(e.unit), reason: e.cz);
-      }
-    });
-
-    // The guard the digest test is for content: a lesson or review card that
-    // starts using a new word must bring it into the dictionary too, or list
-    // it as not a word (a name, a letter, English) in not_words.txt.
-    test('covers every Czech word the A1 lessons and review cards use', () {
-      final forms = {for (final e in a1.entries) ...e.forms};
-      final notWords = {
-        for (final line
-            in File('tool/dictionary/a1/not_words.txt').readAsLinesSync())
-          ...line.split('#').first.split(RegExp(r'\s+')).where((w) => w.isNotEmpty),
-      };
-      final texts = <String>[];
-      for (final file in Directory('assets/curriculum/lessons').listSync()) {
-        if (!file.path.endsWith('.json')) continue;
-        final lesson =
-            jsonDecode(File(file.path).readAsStringSync())
-                as Map<String, dynamic>;
-        if (_levelUnits['a1']!.contains(lesson['unit_id'])) {
-          texts.addAll(_czechStrings(lesson['exercises']));
+      test('nouns and verbs show their key forms, with full tables behind', () {
+        for (final e in dictionary.entries.where(
+          (e) => (e.pos == 'noun' || e.pos == 'verb') && e.tables.isNotEmpty,
+        )) {
+          expect(e.keyForms, isNotEmpty, reason: e.cz);
         }
+        final verbs = dictionary.entries.where((e) => e.pos == 'verb');
+        expect(verbs.where((e) => e.tables.isEmpty), isEmpty);
+      });
+
+      test('a word marked plural-only has no singular column', () {
+        for (final e in dictionary.entries.where((e) => e.pluralOnly)) {
+          expect(e.tables.single.columns, ['plural'], reason: e.cz);
+        }
+      });
+
+      test('"see also" only points at words the learner can open', () {
+        final merged = level == 'a1' ? a1 : DictionaryData.merged(a1, a2);
+        for (final e in dictionary.entries) {
+          for (final cz in e.see) {
+            expect(merged.byCzech(cz), isNotNull, reason: '${e.cz} → $cz');
+          }
+        }
+      });
+
+      test('every word is placed in a unit of the level, or in none', () {
+        for (final e in dictionary.entries.where((e) => e.unit != null)) {
+          expect(_levelUnits[level], contains(e.unit), reason: e.cz);
+          expect(e.unitNo, inInclusiveRange(1, _levelUnits[level]!.length));
+        }
+      });
+
+      // The guard the digest test is for content: a lesson or review card
+      // that starts using a new word must bring it into the dictionary too,
+      // or list it as not a word (a name, a letter, English) in
+      // not_words.txt. A2 learners have A1's words too, so A2 may use them.
+      test('covers every Czech word the ${level.toUpperCase()} lessons and '
+          'review cards use', () {
+        final forms = {
+          for (final e in a1.entries) ...e.forms,
+          if (level == 'a2')
+            for (final e in a2.entries) ...e.forms,
+        };
+        final notWords = _notWords(level);
+        final missing = <String>{
+          for (final text in _levelTexts(level))
+            for (final m in _word.allMatches(text))
+              if (!forms.contains(m[0]!.toLowerCase()) &&
+                  !notWords.contains(m[0]!.toLowerCase()))
+                m[0]!.toLowerCase(),
+        };
+        expect(
+          missing,
+          isEmpty,
+          reason:
+              'Add these to tool/dictionary/$level/ (or to not_words.txt) and '
+              'run python3 tool/dictionary/build_dictionary.py $level',
+        );
+      });
+    });
+  }
+
+  group('A2 learner', () {
+    final merged = DictionaryData.merged(a1, a2);
+
+    test('sees A1 and A2 words in one A to Z list', () {
+      expect(merged.entries.length, a1.entries.length + a2.entries.length);
+      expect(merged.label, 'A1 + A2');
+      final folded = [for (final e in merged.entries) foldCzech(e.cz)];
+      expect(folded, orderedEquals([...folded]..sort()));
+      expect(merged.byId(a1.entries.first.id), isNotNull);
+      expect(merged.byId(a2.entries.first.id), isNotNull);
+    });
+
+    test('A1 words are marked as an earlier level, A2 words are not', () {
+      expect(merged.isEarlier(merged.byCzech('káva')!), isTrue);
+      expect(merged.isEarlier(merged.byCzech('dálnice')!), isFalse);
+    });
+
+    test('finds A1 and A2 words alike', () {
+      final search = DictionarySearch(merged);
+      expect(search.search('kava').first.entry.cz, 'káva');
+      expect(search.search('highway').first.entry.cz, 'dálnice');
+      expect(search.search('nejlepší').first.entry.cz, 'dobrý');
+    });
+
+    test('A2 units are numbered as the learner sees them', () {
+      expect(merged.byCzech('dálnice')!.unit, 18);
+      expect(merged.byCzech('dálnice')!.unitNo, 3);
+    });
+
+    test('the word of the day is an A2 word from a reached A2 unit', () {
+      for (var d = 0; d < 30; d++) {
+        final day = DateTime(2026, 10, 1).add(Duration(days: d));
+        final word = wordOfTheDay(merged, {...a1Units, 16, 17}, day)!;
+        expect(word.level, 'A2', reason: word.cz);
+        expect({16, 17}, contains(word.unit), reason: word.cz);
       }
-      final vocabulary =
-          jsonDecode(
-                File('assets/vocabulary/a1_vocabulary.json').readAsStringSync(),
-              )
-              as List<dynamic>;
-      for (final v in vocabulary.cast<Map<String, dynamic>>()) {
-        texts.add(v['word_cz'] as String? ?? '');
-        texts.add(v['example_cz'] as String? ?? '');
-      }
-      final missing = <String>{
-        for (final text in texts)
-          for (final m in _word.allMatches(text))
-            if (!forms.contains(m[0]!.toLowerCase()) &&
-                !notWords.contains(m[0]!.toLowerCase()))
-              m[0]!.toLowerCase(),
-      };
-      expect(
-        missing,
-        isEmpty,
-        reason:
-            'Add these to tool/dictionary/a1/ (or to not_words.txt) and run '
-            'python3 tool/dictionary/build_dictionary.py a1',
-      );
+      expect(wordOfTheDay(merged, const {}, DateTime(2026, 10, 1))!.unit, 16);
     });
   });
 }

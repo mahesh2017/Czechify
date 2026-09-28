@@ -155,6 +155,7 @@ rel: morning; quickly
 @ pozdě
 pos: adv
 en: late
+cmp: později
 rel: delay; evening
 
 @ dlouho
@@ -185,6 +186,7 @@ forms: vždy
 pos: adv
 en: often
 rel: frequently; many times
+cmp: častěji
 
 @ někdy
 pos: adv
@@ -222,11 +224,13 @@ note: Je hezky. = The weather is nice.
 pos: adv
 en: quickly; fast
 rel: fast; speed
+cmp: rychleji
 
 @ pomalu
 pos: adv
 en: slowly
 rel: slow; speed
+cmp: pomaleji
 note: Prosím pomalu. = Slowly, please.
 
 @ trochu
@@ -423,6 +427,7 @@ case: + 4 (pro tebe)
 @ před
 pos: prep
 en: in front of; before
+forms: přede
 rel: earlier; ago
 case: + 7 (před školou)
 

@@ -1,0 +1,498 @@
+# A2 dictionary — Unit 26 (housing: the flat, furniture, renting, repairs).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+@ balkon
+pos: noun m-inan
+en: balcony
+rel: flat; outside
+sg: balkon, balkonu, balkonu, balkon, balkone, balkoně, balkonem
+pl: balkony, balkonů, balkonům, balkony, balkony, balkonech, balkony
+forms: balkón
+
+@ bydlení
+pos: noun n
+en: housing; accommodation
+ex: Hledám bydlení v Praze. = I am looking for accommodation in Prague.
+rel: flat; live
+sg: bydlení, bydlení, bydlení, bydlení, bydlení, bydlení, bydlením
+
+@ chata
+pos: noun f
+en: cottage; weekend house
+rel: countryside; holiday
+sg: chata, chaty, chatě, chatu, chato, chatě, chatou
+pl: chaty, chat, chatám, chaty, chaty, chatách, chatami
+
+@ dětský
+pos: adj
+en: children's; child's
+rel: child; room
+note: Dětský pokoj = children's room.
+
+@ elektrika
+pos: noun f
+en: electricity (everyday word)
+rel: power; light
+sg: elektrika, elektriky, elektrice, elektriku, elektriko, elektrice, elektrikou
+see: elektřina
+
+@ elektřina
+pos: noun f
+en: electricity
+rel: power; energy
+sg: elektřina, elektřiny, elektřině, elektřinu, elektřino, elektřině, elektřinou
+
+@ energie
+pos: noun f
+en: energy; utilities
+rel: electricity; gas
+sg: energie, energie, energii, energii, energie, energii, energií
+pl: energie, energií, energiím, energie, energie, energiích, energiemi
+note: Energie jsou v ceně = utilities are included.
+
+@ garsonka
+pos: noun f
+en: studio flat; bedsit
+rel: flat; small
+sg: garsonka, garsonky, garsonce, garsonku, garsonko, garsonce, garsonkou
+pl: garsonky, garsonek, garsonkám, garsonky, garsonky, garsonkách, garsonkami
+
+@ internet
+pos: noun m-inan
+en: internet
+rel: online; web
+sg: internet, internetu, internetu, internet, internete, internetu, internetem
+
+@ jezero
+pos: noun n
+en: lake
+rel: water; swim
+sg: jezero, jezera, jezeru, jezero, jezero, jezeře, jezerem
+pl: jezera, jezer, jezerům, jezera, jezera, jezerech, jezery
+
+@ kauce
+pos: noun f
+en: deposit
+rel: rent; money
+sg: kauce, kauce, kauci, kauci, kauce, kauci, kaucí
+pl: kauce, kaucí, kaucím, kauce, kauce, kaucích, kaucemi
+
+@ kk
+pos: phrase
+en: kitchenette (in flat ads)
+ex: Pronajmu byt 2+kk. = I will rent out a two-room flat with a kitchenette.
+rel: flat; kitchen; room
+note: 2+kk = two rooms and a kitchenette; 2+1 = two rooms and a separate kitchen.
+
+@ komoda
+pos: noun f
+en: chest of drawers
+rel: furniture; bedroom
+sg: komoda, komody, komodě, komodu, komodo, komodě, komodou
+pl: komody, komod, komodám, komody, komody, komodách, komodami
+
+@ koupelna
+pos: noun f
+en: bathroom
+rel: shower; bath
+sg: koupelna, koupelny, koupelně, koupelnu, koupelno, koupelně, koupelnou
+pl: koupelny, koupelen, koupelnám, koupelny, koupelny, koupelnách, koupelnami
+
+@ kvartálně
+pos: adv
+en: quarterly
+rel: every three months
+
+@ křeslo
+pos: noun n
+en: armchair
+rel: furniture; sit
+sg: křeslo, křesla, křeslu, křeslo, křeslo, křesle, křeslem
+pl: křesla, křesel, křeslům, křesla, křesla, křeslech, křesly
+
+@ lampa
+pos: noun f
+en: lamp
+rel: light; room
+sg: lampa, lampy, lampě, lampu, lampo, lampě, lampou
+pl: lampy, lamp, lampám, lampy, lampy, lampách, lampami
+
+@ lednice
+pos: noun f
+en: fridge
+rel: kitchen; cold
+sg: lednice, lednice, lednici, lednici, lednice, lednici, lednicí
+pl: lednice, lednic, lednicím, lednice, lednice, lednicích, lednicemi
+forms: lednička, ledničky, ledničce, ledničku, ledničkou
+note: Lednička is the everyday word.
+
+@ ložnice
+pos: noun f
+en: bedroom
+rel: bed; sleep
+sg: ložnice, ložnice, ložnici, ložnici, ložnice, ložnici, ložnicí
+pl: ložnice, ložnic, ložnicím, ložnice, ložnice, ložnicích, ložnicemi
+
+@ masivní
+pos: adj
+en: solid; massive
+rel: wood; furniture
+note: Masivní dřevo = solid wood.
+
+@ mikrovlnka
+pos: noun f
+en: microwave
+rel: kitchen; heat
+sg: mikrovlnka, mikrovlnky, mikrovlnce, mikrovlnku, mikrovlnko, mikrovlnce, mikrovlnkou
+pl: mikrovlnky, mikrovlnek, mikrovlnkám, mikrovlnky, mikrovlnky, mikrovlnkách, mikrovlnkami
+
+@ místnost
+pos: noun f
+en: room
+rel: space; flat
+sg: místnost, místnosti, místnosti, místnost, místnosti, místnosti, místností
+pl: místnosti, místností, místnostem, místnosti, místnosti, místnostech, místnostmi
+
+@ měsíční
+pos: adj
+en: monthly
+rel: month; rent
+forms: měsíčně
+note: Měsíčně = per month.
+
+@ zařízený
+pos: adj
+en: furnished; equipped
+rel: furniture; flat
+see: nezařízený
+
+@ nezařízený
+pos: adj
+en: unfurnished
+rel: empty; flat
+see: zařízený
+
+@ nábytek
+pos: noun m-inan
+en: furniture
+rel: table; chair
+sg: nábytek, nábytku, nábytku, nábytek, nábytku, nábytku, nábytkem
+note: S nábytkem = furnished.
+
+@ nájem
+pos: noun m-inan
+en: rent; lease
+rel: flat; tenant
+sg: nájem, nájmu, nájmu, nájem, nájme, nájmu, nájmem
+
+@ nájemné
+pos: noun n
+en: rent (the money)
+ex: Kolik je nájemné? = How much is the rent?
+rel: pay; month
+forms: nájemného, nájemnému, nájemném, nájemným
+note: Declined like an adjective.
+
+@ nájemní
+pos: adj
+en: rental; rent (adjective)
+ex: Musíte podepsat nájemní smlouvu. = You must sign the tenancy agreement.
+rel: contract; flat
+note: Nájemní smlouva = tenancy agreement.
+
+@ nájemník
+pos: noun m-anim
+en: tenant
+rel: flat; landlord
+sg: nájemník, nájemníka, nájemníkovi, nájemníka, nájemníku, nájemníkovi, nájemníkem
+pl: nájemníci, nájemníků, nájemníkům, nájemníky, nájemníci, nájemnících, nájemníky
+
+@ oblečení
+pos: noun n
+en: clothes; clothing
+rel: wear; wardrobe
+sg: oblečení, oblečení, oblečení, oblečení, oblečení, oblečení, oblečením
+
+@ obývací
+pos: adj
+en: living (room)
+rel: room; sofa
+note: Obývací pokoj = living room.
+
+@ obývák
+pos: noun m-inan
+en: living room (everyday word)
+rel: room; sofa
+sg: obývák, obýváku, obýváku, obývák, obýváku, obýváku, obývákem
+pl: obýváky, obýváků, obývákům, obýváky, obýváky, obývácích, obýváky
+
+@ odpad
+pos: noun m-inan
+en: waste; drain
+rel: rubbish; bin
+sg: odpad, odpadu, odpadu, odpad, odpade, odpadu, odpadem
+pl: odpady, odpadů, odpadům, odpady, odpady, odpadech, odpady
+
+@ ohřát
+pos: verb pf
+en: to heat up; to warm up
+rel: microwave; food
+pres: ohřeju/ohřeji, ohřeješ, ohřeje, ohřejeme, ohřejete, ohřejou/ohřejí
+past: ohřál
+imp: ohřej, ohřejte
+
+@ opravit
+pos: verb pf
+en: to repair; to fix; to correct
+rel: mend; broken
+pres: opravím, opravíš, opraví, opravíme, opravíte, opraví
+past: opravil
+imp: oprav, opravte
+
+@ plný
+pos: adj
+en: full
+rel: complete; crowded
+cmp: plnější
+
+@ plyn
+pos: noun m-inan
+en: gas
+rel: heating; cooker
+sg: plyn, plynu, plynu, plyn, plyne, plynu, plynem
+
+@ plynový
+pos: adj
+en: gas (adjective)
+rel: cooker; heating
+
+@ podlaha
+pos: noun f
+en: floor
+rel: room; carpet
+sg: podlaha, podlahy, podlaze, podlahu, podlaho, podlaze, podlahou
+pl: podlahy, podlah, podlahám, podlahy, podlahy, podlahách, podlahami
+
+@ podívat se
+pos: verb pf
+en: to have a look
+rel: see; look
+pres: podívám, podíváš, podívá, podíváme, podíváte, podívají
+past: podíval
+imp: podívej, podívejte
+
+@ pohovka
+pos: noun f
+en: sofa; couch
+rel: living room; sit
+sg: pohovka, pohovky, pohovce, pohovku, pohovko, pohovce, pohovkou
+pl: pohovky, pohovek, pohovkám, pohovky, pohovky, pohovkách, pohovkami
+
+@ police
+pos: noun f
+en: shelf
+rel: book; wall
+sg: police, police, polici, polici, police, polici, policí
+pl: police, polic, policím, police, police, policích, policemi
+note: Not "police" (that is policie).
+
+@ poplatek
+pos: noun m-inan
+en: fee; charge
+rel: pay; bill
+sg: poplatek, poplatku, poplatku, poplatek, poplatku, poplatku, poplatkem
+pl: poplatky, poplatků, poplatkům, poplatky, poplatky, poplatcích, poplatky
+
+@ porouchat se
+pos: verb pf
+en: to break down
+rel: broken; repair
+pres: porouchám, poroucháš, porouchá, poroucháme, poroucháte, porouchají
+past: porouchal
+
+@ postavit
+pos: verb pf
+en: to build; to put (upright)
+rel: house; place
+pres: postavím, postavíš, postaví, postavíme, postavíte, postaví
+past: postavil
+imp: postav, postavte
+
+@ pracovna
+pos: noun f
+en: study; office (room)
+rel: work; desk
+sg: pracovna, pracovny, pracovně, pracovnu, pracovno, pracovně, pracovnou
+pl: pracovny, pracoven, pracovnám, pracovny, pracovny, pracovnách, pracovnami
+
+@ pračka
+pos: noun f
+en: washing machine
+rel: clothes; laundry
+sg: pračka, pračky, pračce, pračku, pračko, pračce, pračkou
+pl: pračky, praček, pračkám, pračky, pračky, pračkách, pračkami
+
+@ pronajmout
+pos: verb pf
+en: to rent (out); to let
+rel: flat; landlord
+pres: pronajmu, pronajmeš, pronajme, pronajmeme, pronajmete, pronajmou
+past: pronajal
+pair: pronajímat
+
+@ pronajímat
+pos: verb impf
+en: to rent (out); to let
+rel: flat; landlord
+pres: pronajímám, pronajímáš, pronajímá, pronajímáme, pronajímáte, pronajímají
+past: pronajímal
+pair: pronajmout
+
+@ pronajímatel
+pos: noun m-anim
+en: landlord
+ex: Zavolám pronajímateli. = I will call the landlord.
+rel: flat; tenant
+sg: pronajímatel, pronajímatele, pronajímateli, pronajímatele, pronajímateli, pronajímateli, pronajímatelem
+pl: pronajímatelé, pronajímatelů, pronajímatelům, pronajímatele, pronajímatelé, pronajímatelích, pronajímateli
+
+@ prostorný
+pos: adj
+en: spacious
+rel: big; room
+cmp: prostornější
+
+@ prádlo
+pos: noun n
+en: laundry; underwear
+rel: washing; clothes
+sg: prádlo, prádla, prádlu, prádlo, prádlo, prádle, prádlem
+
+@ předsíň
+pos: noun f
+en: hall; entrance hall
+rel: door; flat
+sg: předsíň, předsíně, předsíni, předsíň, předsíni, předsíni, předsíní
+pl: předsíně, předsíní, předsíním, předsíně, předsíně, předsíních, předsíněmi
+
+@ přízemí
+pos: noun n
+en: ground floor
+rel: floor; building
+sg: přízemí, přízemí, přízemí, přízemí, přízemí, přízemí, přízemím
+
+@ regál
+pos: noun m-inan
+en: shelving; rack
+rel: shelf; shop
+sg: regál, regálu, regálu, regál, regále, regálu, regálem
+pl: regály, regálů, regálům, regály, regály, regálech, regály
+
+@ rozbitý
+pos: adj
+en: broken
+rel: repair; damaged
+
+@ skříň
+pos: noun f
+en: wardrobe; cupboard
+rel: clothes; furniture
+sg: skříň, skříně, skříni, skříň, skříni, skříni, skříní
+pl: skříně, skříní, skříním, skříně, skříně, skříních, skříněmi
+
+@ spolehlivý
+pos: adj
+en: reliable
+rel: trust; good
+cmp: spolehlivější
+
+@ sporák
+pos: noun m-inan
+en: cooker; stove
+rel: kitchen; cook
+sg: sporák, sporáku, sporáku, sporák, sporáku, sporáku, sporákem
+pl: sporáky, sporáků, sporákům, sporáky, sporáky, sporácích, sporáky
+
+@ stát se
+pos: verb pf
+en: to happen; to become
+rel: occur
+pres: stanu, staneš, stane, staneme, stanete, stanou
+past: stal
+note: Co se stalo? = What happened?
+
+@ studio
+pos: noun n
+en: studio; studio flat
+rel: flat; room
+sg: studio, studia, studiu, studio, studio, studiu, studiem
+pl: studia, studií, studiím, studia, studia, studiích, studii
+
+@ topení
+pos: noun n
+en: heating
+rel: warm; radiator
+sg: topení, topení, topení, topení, topení, topení, topením
+
+@ vytápění
+pos: noun n
+en: heating (system)
+rel: warm; gas
+sg: vytápění, vytápění, vytápění, vytápění, vytápění, vytápění, vytápěním
+
+@ viset
+pos: verb impf
+en: to hang
+rel: wall; picture
+pres: visím, visíš, visí, visíme, visíte, visí
+past: visel
+
+@ vyndat
+pos: verb pf
+en: to take out
+rel: remove; out
+pres: vyndám, vyndáš, vyndá, vyndáme, vyndáte, vyndají
+past: vyndal
+imp: vyndej, vyndejte
+
+@ zahrada
+pos: noun f
+en: garden
+ex: Dům má velkou zahradu. = The house has a big garden.
+rel: house; flowers
+sg: zahrada, zahrady, zahradě, zahradu, zahrado, zahradě, zahradou
+pl: zahrady, zahrad, zahradám, zahrady, zahrady, zahradách, zahradami
+
+@ zahrnutý
+pos: adj
+en: included
+rel: price; rent
+forms: zahrnuta, zahrnuto, zahrnut
+note: Energie jsou zahrnuty v ceně = utilities are included.
+
+@ zeď
+pos: noun f
+en: wall
+rel: room; picture
+sg: zeď, zdi, zdi, zeď, zdi, zdi, zdí
+pl: zdi, zdí, zdem, zdi, zdi, zdech, zdmi
+
+@ zvlášť
+pos: adv
+en: separately; especially
+ex: Energie se platí zvlášť. = Utilities are paid separately.
+rel: extra; apart
+
+@ závěs
+pos: noun m-inan
+en: curtain
+rel: window; room
+sg: závěs, závěsu, závěsu, závěs, závěse, závěsu, závěsem
+pl: závěsy, závěsů, závěsům, závěsy, závěsy, závěsech, závěsy
+
+@ útulný
+pos: adj
+en: cosy
+rel: comfortable; warm
+cmp: útulnější

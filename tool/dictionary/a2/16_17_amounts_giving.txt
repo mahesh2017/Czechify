@@ -1,0 +1,617 @@
+# A2 dictionary — Units 16 (amounts, from, without) and 17 (giving, helping:
+# the dative). A2 words only: A1's are inherited (build_dictionary.py).
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+# ------------------------------------------------ Unit 16
+
+@ balík
+pos: noun m-inan
+en: parcel; package
+rel: post; delivery
+sg: balík, balíku, balíku, balík, balíku, balíku, balíkem
+pl: balíky, balíků, balíkům, balíky, balíky, balících, balíky
+
+@ blízkost
+pos: noun f
+en: nearness; proximity
+rel: close; near
+sg: blízkost, blízkosti, blízkosti, blízkost, blízkosti, blízkosti, blízkostí
+note: V blízkosti = near, close to.
+
+@ bát se
+pos: verb impf
+en: to be afraid
+rel: fear; scared
+pres: bojím, bojíš, bojí, bojíme, bojíte, bojí
+past: bál
+imp: boj, bojte
+note: + 2: Bojím se psa = I'm afraid of the dog.
+
+@ citron
+pos: noun m-inan
+en: lemon
+ex: Dám si čaj s citronem. = I will have tea with lemon.
+rel: fruit; tea
+sg: citron, citronu, citronu, citron, citrone, citronu, citronem
+pl: citrony, citronů, citronům, citrony, citrony, citronech, citrony
+
+@ dort
+pos: noun m-inan
+en: cake
+rel: birthday; dessert
+sg: dort, dortu, dortu, dort, dorte, dortu, dortem
+pl: dorty, dortů, dortům, dorty, dorty, dortech, dorty
+
+@ druh
+pos: noun m-inan
+en: kind; type; sort
+rel: variety
+sg: druh, druhu, druhu, druh, druhu, druhu, druhem
+pl: druhy, druhů, druhům, druhy, druhy, druzích, druhy
+
+@ dveře
+pos: noun f pl
+en: door
+rel: entrance; open
+pl: dveře, dveří, dveřím, dveře, dveře, dveřích, dveřmi
+note: Always plural, even for one door.
+
+@ dřevo
+pos: noun n
+en: wood
+rel: timber; tree
+sg: dřevo, dřeva, dřevu, dřevo, dřevo, dřevě, dřevem
+
+@ fotka
+pos: noun f
+en: photo
+rel: picture; photograph
+sg: fotka, fotky, fotce, fotku, fotko, fotce, fotkou
+pl: fotky, fotek, fotkám, fotky, fotky, fotkách, fotkami
+
+@ kilometr
+pos: noun m-inan
+en: kilometre
+rel: km; distance
+sg: kilometr, kilometru, kilometru, kilometr, kilometre, kilometru, kilometrem
+pl: kilometry, kilometrů, kilometrům, kilometry, kilometry, kilometrech, kilometry
+forms: km
+
+@ koberec
+pos: noun m-inan
+en: carpet; rug
+rel: floor
+sg: koberec, koberce, koberci, koberec, koberci, koberci, kobercem
+pl: koberce, koberců, kobercům, koberce, koberce, kobercích, koberci
+
+@ kousek
+pos: noun m-inan
+en: piece; bit
+rel: little; slice
+sg: kousek, kousku, kousku, kousek, kousku, kousku, kouskem
+pl: kousky, kousků, kouskům, kousky, kousky, kouscích, kousky
+note: Kousek od nádraží = a short way from the station.
+
+@ kromě
+pos: prep
+en: except; apart from
+rel: besides; but
+case: + 2 (kromě pondělí)
+
+@ litr
+pos: noun m-inan
+en: litre
+rel: milk; water; amount
+sg: litr, litru, litru, litr, litre, litru, litrem
+pl: litry, litrů, litrům, litry, litry, litrech, litry
+note: Litr mléka = a litre of milk (+ 2).
+
+@ mapa
+pos: noun f
+en: map
+rel: plan; way
+sg: mapa, mapy, mapě, mapu, mapo, mapě, mapou
+pl: mapy, map, mapám, mapy, mapy, mapách, mapami
+
+@ mnoho
+pos: adv
+en: many; much; a lot
+rel: plenty
+cmp: více
+note: + 2: mnoho lidí = many people.
+
+@ málo
+pos: adv
+en: little; few; not enough
+rel: bit
+cmp: méně
+note: + 2: málo mléka = not much milk.
+
+@ nahrát
+pos: verb pf
+en: to record
+ex: Nahrajte krátkou zprávu. = Record a short message.
+rel: recording; audio
+pres: nahraju/nahraji, nahraješ, nahraje, nahrajeme, nahrajete, nahrajou/nahrají
+past: nahrál
+imp: nahraj, nahrajte
+note: Nahrajte = record (in instructions).
+
+@ noha
+pos: noun f
+en: leg; foot
+rel: body; walk
+sg: noha, nohy, noze, nohu, noho, noze, nohou
+pl: nohy, nohou, nohám, nohy, nohy, nohou/nohách, nohama
+note: One word for both leg and foot.
+
+@ nudný
+pos: adj
+en: boring
+rel: dull
+cmp: nudnější
+
+@ několik
+pos: num
+en: several; a few
+rel: some
+forms: několika
+note: + 2: několik dní = several days.
+
+@ okolí
+pos: noun n
+en: surroundings; area around
+rel: neighbourhood; nearby
+sg: okolí, okolí, okolí, okolí, okolí, okolí, okolím
+
+@ oslava
+pos: noun f
+en: celebration; party
+rel: birthday; celebrate
+sg: oslava, oslavy, oslavě, oslavu, oslavo, oslavě, oslavou
+pl: oslavy, oslav, oslavám, oslavy, oslavy, oslavách, oslavami
+
+@ peníze
+pos: noun m-inan pl
+en: money
+rel: cash; pay
+pl: peníze, peněz, penězům, peníze, peníze, penězích, penězi
+note: Always plural: Nemám peníze. Kolik peněz?
+
+@ polovina
+pos: noun f
+en: half
+rel: part; middle
+sg: polovina, poloviny, polovině, polovinu, polovino, polovině, polovinou
+pl: poloviny, polovin, polovinám, poloviny, poloviny, polovinách, polovinami
+
+@ postel
+pos: noun f
+en: bed
+rel: sleep; bedroom
+sg: postel, postele, posteli, postel, posteli, posteli, postelí
+pl: postele, postelí, postelím, postele, postele, postelích, postelemi
+
+@ sklenice
+pos: noun f
+en: glass (for drinking); jar
+rel: cup; drink
+sg: sklenice, sklenice, sklenici, sklenici, sklenice, sklenici, sklenicí
+pl: sklenice, sklenic, sklenicím, sklenice, sklenice, sklenicích, sklenicemi
+
+@ soused
+pos: noun m-anim
+en: neighbour
+rel: next door; flat
+sg: soused, souseda, sousedovi, souseda, sousede, sousedovi, sousedem
+pl: sousedé, sousedů, sousedům, sousedy, sousedé, sousedech, sousedy
+
+@ spousta
+pos: noun f
+en: lots; plenty
+rel: many; a lot
+sg: spousta, spousty, spoustě, spoustu, spousto, spoustě, spoustou
+note: + 2: spousta práce = lots of work.
+
+@ svátek
+pos: noun m-inan
+en: holiday; name day
+rel: celebrate; festival
+sg: svátek, svátku, svátku, svátek, svátku, svátku, svátkem
+pl: svátky, svátků, svátkům, svátky, svátky, svátcích, svátky
+
+@ tma
+pos: noun f
+en: darkness; dark
+rel: night; light
+sg: tma, tmy, tmě, tmu, tmo, tmě, tmou
+note: Je tma = it is dark.
+
+@ třída
+pos: noun f
+en: class; classroom; avenue
+rel: school; pupils
+sg: třída, třídy, třídě, třídu, třído, třídě, třídou
+pl: třídy, tříd, třídám, třídy, třídy, třídách, třídami
+
+@ vlastní
+pos: adj
+en: own
+rel: mine; personal
+
+@ vzdálenost
+pos: noun f
+en: distance
+rel: far; kilometre
+sg: vzdálenost, vzdálenosti, vzdálenosti, vzdálenost, vzdálenosti, vzdálenosti, vzdáleností
+pl: vzdálenosti, vzdáleností, vzdálenostem, vzdálenosti, vzdálenosti, vzdálenostech, vzdálenostmi
+
+@ vážit
+pos: verb impf
+en: to weigh
+rel: weight; kilo
+pres: vážím, vážíš, váží, vážíme, vážíte, váží
+past: vážil
+
+@ všechen
+pos: pron
+en: all; every
+rel: everybody; everything; whole
+forms: všechna, všechno, vše, všichni, všechny, všech, všem, všemi
+note: Všichni = everybody; všechno = everything.
+
+@ vůbec
+pos: part
+en: at all
+ex: Vůbec nemáme mléko. = We have no milk at all.
+rel: ever; completely
+note: Vůbec nemáme jablka = we have no apples at all.
+
+@ Španělsko
+pos: noun n
+en: Spain
+rel: country; Spanish
+sg: Španělsko, Španělska, Španělsku, Španělsko, Španělsko, Španělsku, Španělskem
+
+@ šálek
+pos: noun m-inan
+en: cup
+rel: coffee; tea
+sg: šálek, šálku, šálku, šálek, šálku, šálku, šálkem
+pl: šálky, šálků, šálkům, šálky, šálky, šálcích, šálky
+
+@ žák
+pos: noun m-anim
+en: pupil
+rel: school; student
+sg: žák, žáka, žákovi, žáka, žáku, žákovi, žákem
+pl: žáci, žáků, žákům, žáky, žáci, žácích, žáky
+
+# ------------------------------------------------ Unit 17
+
+@ bonbón
+pos: noun m-inan
+en: sweet; candy
+ex: Dítě chce bonbón. = The child wants a sweet.
+rel: chocolate; sugar
+sg: bonbón, bonbónu, bonbónu, bonbón, bonbóne, bonbónu, bonbónem
+pl: bonbóny, bonbónů, bonbónům, bonbóny, bonbóny, bonbónech, bonbóny
+forms: bonbon
+
+@ chutnat
+pos: verb impf
+en: to taste (good)
+rel: like; food; delicious
+pres: chutnám, chutnáš, chutná, chutnáme, chutnáte, chutnají
+past: chutnal
+note: + 3 for the person: Chutná mi káva = I like the coffee.
+
+@ dativ
+pos: noun m-inan
+en: dative (case 3)
+ex: Pomáhat má dativ. = Pomáhat takes the dative.
+rel: grammar; komu
+sg: dativ, dativu, dativu, dativ, dative, dativu, dativem
+
+@ dokázat
+pos: verb pf
+en: to manage; to be able to
+rel: succeed; prove
+pres: dokážu, dokážeš, dokáže, dokážeme, dokážete, dokážou
+past: dokázal
+
+@ doporučení
+pos: noun n
+en: recommendation
+ex: Děkuji za doporučení. = Thank you for the recommendation.
+rel: advice; suggest
+sg: doporučení, doporučení, doporučení, doporučení, doporučení, doporučení, doporučením
+pl: doporučení, doporučení, doporučením, doporučení, doporučení, doporučeních, doporučeními
+
+@ děkovat
+pos: verb impf
+en: to thank
+rel: thanks; grateful
+pres: děkuju/děkuji, děkuješ, děkuje, děkujeme, děkujete, děkujou/děkují
+past: děkoval
+note: + 3: Děkuju ti = thank you.
+
+@ gratulovat
+pos: verb impf
+en: to congratulate
+rel: birthday; wishes
+pres: gratuluju/gratuluji, gratuluješ, gratuluje, gratulujeme, gratulujete, gratulujou/gratulují
+past: gratuloval
+note: + 3: Gratuluji ti k narozeninám!
+
+@ hodit se
+pos: verb impf
+en: to suit; to be handy
+rel: fit; suitable
+pres: hodím, hodíš, hodí, hodíme, hodíte, hodí
+past: hodil
+note: To se mi hodí = that suits me. (Hodit alone = to throw.)
+
+@ hračka
+pos: noun f
+en: toy
+rel: child; play
+sg: hračka, hračky, hračce, hračku, hračko, hračce, hračkou
+pl: hračky, hraček, hračkám, hračky, hračky, hračkách, hračkami
+
+@ líto
+pos: adv
+en: sorry (je mi líto)
+rel: regret; apologise
+note: Je mi líto = I'm sorry.
+
+@ klient
+pos: noun m-anim
+en: client; customer
+rel: service; office
+sg: klient, klienta, klientovi, klienta, kliente, klientovi, klientem
+pl: klienti, klientů, klientům, klienty, klienti, klientech, klienty
+
+@ manžel
+pos: noun m-anim
+en: husband
+rel: married; spouse
+sg: manžel, manžela, manželovi, manžela, manželi, manželovi, manželem
+pl: manželé, manželů, manželům, manžele, manželé, manželích, manželi
+note: Manželé = husband and wife.
+
+@ manželka
+pos: noun f
+en: wife
+rel: married; spouse
+sg: manželka, manželky, manželce, manželku, manželko, manželce, manželkou
+pl: manželky, manželek, manželkám, manželky, manželky, manželkách, manželkami
+
+@ narozeniny
+pos: noun f pl
+en: birthday
+rel: party; cake; celebrate
+pl: narozeniny, narozenin, narozeninám, narozeniny, narozeniny, narozeninách, narozeninami
+note: K narozeninám = for someone's birthday.
+
+@ stačit
+pos: verb impf
+en: to be enough
+rel: sufficient
+pres: stačím, stačíš, stačí, stačíme, stačíte, stačí
+past: stačil
+note: To stačí = that's enough.
+
+@ věřit
+pos: verb impf
+en: to believe; to trust
+rel: faith; true
+pres: věřím, věříš, věří, věříme, věříte, věří
+past: věřil
+imp: věř, věřte
+note: + 3: Věřím ti = I believe you.
+
+@ návrh
+pos: noun m-inan
+en: suggestion; proposal
+rel: idea; plan
+sg: návrh, návrhu, návrhu, návrh, návrhu, návrhu, návrhem
+pl: návrhy, návrhů, návrhům, návrhy, návrhy, návrzích, návrhy
+
+@ odpovídat
+pos: verb impf
+en: to answer; to reply
+rel: response; reply
+pres: odpovídám, odpovídáš, odpovídá, odpovídáme, odpovídáte, odpovídají
+past: odpovídal
+imp: odpovídej, odpovídejte
+pair: odpovědět
+note: + 3 for the person: Odpovídám mamince.
+
+@ otevřít
+pos: verb pf
+en: to open
+rel: door; window
+pres: otevřu, otevřeš, otevře, otevřeme, otevřete, otevřou
+past: otevřel
+imp: otevři, otevřete
+see: zavřít
+
+@ zavřít
+pos: verb pf
+en: to close; to shut
+rel: door; window
+pres: zavřu, zavřeš, zavře, zavřeme, zavřete, zavřou
+past: zavřel
+imp: zavři, zavřete
+see: otevřít
+
+@ patřit
+pos: verb impf
+en: to belong
+rel: own; whose
+pres: patřím, patříš, patří, patříme, patříte, patří
+past: patřil
+note: + 3: To patří mně = that belongs to me.
+
+@ pohlednice
+pos: noun f
+en: postcard
+rel: post; holiday
+sg: pohlednice, pohlednice, pohlednici, pohlednici, pohlednice, pohlednici, pohlednicí
+pl: pohlednice, pohlednic, pohlednicím, pohlednice, pohlednice, pohlednicích, pohlednicemi
+
+@ pomáhat
+pos: verb impf
+en: to help
+rel: aid; support
+pres: pomáhám, pomáháš, pomáhá, pomáháme, pomáháte, pomáhají
+past: pomáhal
+imp: pomáhej, pomáhejte
+note: + 3: Pomáhám mamince = I help my mum.
+
+@ poradit
+pos: verb pf
+en: to advise; to give advice
+rel: help; suggest
+pres: poradím, poradíš, poradí, poradíme, poradíte, poradí
+past: poradil
+imp: poraď, poraďte
+pair: radit
+
+@ radit
+pos: verb impf
+en: to advise
+rel: advice; suggest
+pres: radím, radíš, radí, radíme, radíte, radí
+past: radil
+imp: raď, raďte
+pair: poradit
+note: + 3: Radím ti = I advise you.
+
+@ posílat
+pos: verb impf
+en: to send
+rel: post; message
+pres: posílám, posíláš, posílá, posíláme, posíláte, posílají
+past: posílal
+imp: posílej, posílejte
+pair: poslat
+
+@ profesor
+pos: noun m-anim
+en: professor; teacher
+rel: university; school
+sg: profesor, profesora, profesorovi, profesora, profesore, profesorovi, profesorem
+pl: profesoři, profesorů, profesorům, profesory, profesoři, profesorech, profesory
+
+@ promoční
+pos: adj
+en: graduation (adjective)
+ex: Jdeme na promoční ceremoniál. = We are going to the graduation ceremony.
+rel: university; ceremony
+
+@ proti
+pos: prep
+en: against; opposite
+rel: versus
+case: + 3 (proti škole)
+
+@ přát
+pos: verb impf
+en: to wish
+rel: wishes; birthday
+pres: přeju/přeji, přeješ, přeje, přejeme, přejete, přejou/přejí
+past: přál
+note: Přeji ti hodně štěstí = I wish you good luck.
+
+@ příběh
+pos: noun m-inan
+en: story
+rel: tale; book
+sg: příběh, příběhu, příběhu, příběh, příběhu, příběhu, příběhem
+pl: příběhy, příběhů, příběhům, příběhy, příběhy, příbězích, příběhy
+
+@ rodič
+pos: noun m-anim
+en: parent
+rel: family; mother; father
+sg: rodič, rodiče, rodiči, rodiče, rodiči, rodiči, rodičem
+pl: rodiče, rodičů, rodičům, rodiče, rodiče, rodičích, rodiči
+
+@ sleva
+pos: noun f
+en: discount; sale
+rel: price; cheaper
+sg: sleva, slevy, slevě, slevu, slevo, slevě, slevou
+pl: slevy, slev, slevám, slevy, slevy, slevách, slevami
+
+@ sloveso
+pos: noun n
+en: verb
+ex: Pomáhat je sloveso. = Pomáhat is a verb.
+rel: grammar; word
+sg: sloveso, slovesa, slovesu, sloveso, sloveso, slovesu, slovesem
+pl: slovesa, sloves, slovesům, slovesa, slovesa, slovesech, slovesy
+
+@ stěna
+pos: noun f
+en: wall
+rel: room; house
+sg: stěna, stěny, stěně, stěnu, stěno, stěně, stěnou
+pl: stěny, stěn, stěnám, stěny, stěny, stěnách, stěnami
+
+@ telefonovat
+pos: verb impf
+en: to phone; to call
+rel: telephone; ring
+pres: telefonuju/telefonuji, telefonuješ, telefonuje, telefonujeme, telefonujete, telefonujou/telefonují
+past: telefonoval
+note: + 3: Telefonuju Petrovi = I'm calling Petr.
+
+@ tvar
+pos: noun m-inan
+en: form; shape
+ex: Který tvar je správný? = Which form is correct?
+rel: grammar; ending
+sg: tvar, tvaru, tvaru, tvar, tvare, tvaru, tvarem
+pl: tvary, tvarů, tvarům, tvary, tvary, tvarech, tvary
+
+@ večírek
+pos: noun m-inan
+en: party
+ex: V sobotu máme večírek. = We are having a party on Saturday.
+rel: evening; celebration
+sg: večírek, večírku, večírku, večírek, večírku, večírku, večírkem
+pl: večírky, večírků, večírkům, večírky, večírky, večírcích, večírky
+
+@ vstupenka
+pos: noun f
+en: ticket (for an event)
+ex: Mám dvě vstupenky na koncert. = I have two tickets for the concert.
+rel: concert; theatre; entry
+sg: vstupenka, vstupenky, vstupence, vstupenku, vstupenko, vstupence, vstupenkou
+pl: vstupenky, vstupenek, vstupenkám, vstupenky, vstupenky, vstupenkách, vstupenkami
+
+@ vyžadovat
+pos: verb impf
+en: to require
+ex: Ta práce vyžaduje češtinu. = The job requires Czech.
+rel: need; demand
+pres: vyžaduju/vyžaduji, vyžaduješ, vyžaduje, vyžadujeme, vyžadujete, vyžadujou/vyžadují
+past: vyžadoval
+
+@ zápas
+pos: noun m-inan
+en: match; game
+rel: football; sport
+sg: zápas, zápasu, zápasu, zápas, zápase, zápase, zápasem
+pl: zápasy, zápasů, zápasům, zápasy, zápasy, zápasech, zápasy
+
+@ ředitel
+pos: noun m-anim
+en: director; head (of school, company)
+rel: boss; manager
+sg: ředitel, ředitele, řediteli/ředitelovi, ředitele, řediteli, řediteli/ředitelovi, ředitelem
+pl: ředitelé, ředitelů, ředitelům, ředitele, ředitelé, ředitelích, řediteli

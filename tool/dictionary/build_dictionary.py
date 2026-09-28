@@ -84,6 +84,30 @@ CZECH_FIELDS = {
     'name_say',
 }
 
+# answer_key is Czech only where it is the Czech the learner types; elsewhere
+# it is an English summary ("plan invitation", "journey update") or pairs
+# ("byt-apartment"), and dialogues and pronunciation carry their Czech in
+# their gaps and target text anyway. A translation's Czech side is read
+# below, by direction.
+TYPED_ANSWER_TYPES = {'fill_blank', 'dictation', 'word_order', 'error_correction'}
+
+# A2's teaching steps narrate in English in fields that hold Czech in A1.
+ENGLISH_MARKERS = {
+    'the', 'you', 'is', 'are', 'of', 'this', 'that', 'we', 'for', 'with',
+    'your', 'it', 'can', 'what', 'when', 'how', 'will', 'use', 'means',
+}
+
+
+def learner_czech(text: str) -> str:
+    """The Czech of a lesson string: bracketed hints and English cues
+    ("___ (At the stop.)", "(jít — to go)") left out, and nothing at all when
+    the string reads as English."""
+    text = re.sub(r'\([^)]*\)', ' ', text)
+    words = [w.lower() for w in WORD.findall(text)]
+    if sum(w in ENGLISH_MARKERS for w in words) >= 2:
+        return ''
+    return text
+
 
 def fold(text: str) -> str:
     """Lowercase without diacritics: what a learner types without a Czech
@@ -398,9 +422,25 @@ def key_forms(e: Entry, tables: list[dict]) -> list[dict]:
         keys.append({'label': 'm / f / n', 'cz': f'{row[1]} · {row[2]} · {row[3]}'})
         if e.cmp:
             keys.append({'label': 'more …', 'cz': e.cmp})
+            keys.append({'label': 'most …', 'cz': most(e.cmp)})
     elif e.pos == 'adv' and e.cmp:
         keys.append({'label': 'more …', 'cz': e.cmp})
+        keys.append({'label': 'most …', 'cz': most(e.cmp)})
     return keys
+
+
+def superlatives(e: Entry) -> list[str]:
+    """Comparatives and their superlatives (nej- + comparative)."""
+    if not e.cmp:
+        return []
+    out = []
+    for c in split_alternatives(e.cmp):
+        out += [c.lower(), 'nej' + c.lower()]
+    return out
+
+
+def most(cmp: str) -> str:
+    return ' / '.join('nej' + c for c in split_alternatives(cmp))
 
 
 def all_forms(e: Entry, tables: list[dict]) -> set[str]:
@@ -444,11 +484,17 @@ def all_forms(e: Entry, tables: list[dict]) -> set[str]:
                 forms.add('ne' + f.lower())
         forms.add('ne' + bare.lower())
     if e.pos in ('adj', 'adv'):
-        # Negative adjectives (nový → nenový) are rare at A1; comparatives are
-        # indexed so "větší" finds "velký".
-        if e.cmp:
-            for c in split_alternatives(e.cmp):
-                forms.add(c.lower())
+        # Negative adjectives (nový → nenový) are rare at A1; comparatives and
+        # superlatives are indexed so "větší" and "největší" find "velký".
+        # An adjective's comparative declines like any -í adjective (lepšího,
+        # nejlepší); an adverb's does not (rychleji, nejrychleji).
+        for c in superlatives(e):
+            forms.add(c)
+            if e.pos == 'adj' and c.endswith('í'):
+                for t in adjective_tables(Entry(cz=c, source=e.source, pos='adj')):
+                    for row in t['rows']:
+                        for cell in row['cells']:
+                            forms.add(cell.lower())
     for c in e.extra_forms:
         add(c)
     return forms
@@ -497,15 +543,34 @@ def course_data(level: str):
     pairs: list[tuple[str, str, int]] = []
     for lesson in lesson_files(level):
         unit = lesson['unit_id']
-        for key, text in walk(lesson['exercises']):
-            if key in CZECH_FIELDS:
-                for w in WORD.findall(text):
-                    w = w.lower()
-                    if w not in first_seen or unit < first_seen[w]:
-                        first_seen[w] = unit
+
+        def note(text: str) -> None:
+            for w in WORD.findall(learner_czech(text)):
+                w = w.lower()
+                if w not in first_seen or unit < first_seen[w]:
+                    first_seen[w] = unit
+
+        for exercise in lesson['exercises']:
+            for key, text in walk(exercise):
+                if key not in CZECH_FIELDS:
+                    continue
+                if key == 'answer_key' and exercise['type'] not in TYPED_ANSWER_TYPES:
+                    continue
+                note(text)
+            if exercise['type'] == 'translation':
+                data = exercise['data']
+                if data.get('direction') == 'en_to_cz':
+                    for answer in data.get('accepted_answers') or []:
+                        note(answer)
+                else:
+                    note(data.get('source') or '')
         for cz, en in pairs_in(lesson['exercises']):
             pairs.append((cz, en, unit))
-    vocab = json.loads((ROOT / f'assets/vocabulary/{level}_vocabulary.json').read_text(encoding='utf-8'))
+    # A level's review cards by unit, not by file: the a2 file also holds
+    # A1's review units 28 and 30.
+    vocab = [v for f in ('a1', 'a2')
+             for v in json.loads((ROOT / f'assets/vocabulary/{f}_vocabulary.json').read_text(encoding='utf-8'))
+             if v['unit_id'] in LEVEL_UNITS[level]]
     for v in vocab:
         if v.get('example_cz') and v.get('example_en'):
             pairs.append((v['example_cz'].strip(), v['example_en'].strip(), v['unit_id']))
@@ -538,18 +603,48 @@ def slug(text: str) -> str:
     return s or 'x'
 
 
+def unit_numbers(level: str) -> dict[int, int]:
+    """Course unit id → the number a learner sees: its place in the level,
+    as the Learn tab counts (A1's review units 28 and 30 are its Units 16
+    and 17; A2 starts again at Unit 1)."""
+    units = json.loads((ROOT / f'assets/curriculum/{level}_units.json').read_text(encoding='utf-8'))
+    if isinstance(units, dict):
+        units = units.get('units', [])
+    ordered = sorted(units, key=lambda u: u.get('order_index', u['id']))
+    return {u['id']: n for n, u in enumerate(ordered, 1)}
+
+
+def earlier_levels(level: str) -> list[str]:
+    order = list(LEVEL_UNITS)
+    return order[: order.index(level)]
+
+
 def build(level: str, check_only: bool) -> int:
     entries = parse_sources(level)
+    # Words of earlier levels: an A2 learner has them too (the app shows A1
+    # and A2 together), so A2 lessons may use them and A2 must not repeat them.
+    inherited: dict[str, set[str]] = {}
+    for lower in earlier_levels(level):
+        for e in parse_sources(lower):
+            # By headword and part of speech: hezký and hezky share a slug.
+            inherited[(e.cz, e.pos)] = all_forms(e, tables_for(e))
     first_seen, pairs, vocab = course_data(level)
     not_words = set()
-    nw = ROOT / 'tool' / 'dictionary' / level / 'not_words.txt'
-    if nw.exists():
-        for line in nw.read_text(encoding='utf-8').splitlines():
-            line = line.split('#', 1)[0].strip()
-            not_words.update(w.lower() for w in line.split())
+    for lvl in earlier_levels(level) + [level]:
+        nw = ROOT / 'tool' / 'dictionary' / lvl / 'not_words.txt'
+        if nw.exists():
+            for line in nw.read_text(encoding='utf-8').splitlines():
+                line = line.split('#', 1)[0].strip()
+                not_words.update(w.lower() for w in line.split())
 
     problems: list[str] = []
+    numbers = unit_numbers(level)
+    # An A2 learner's dictionary holds A1's words too, found by id.
     ids: dict[str, str] = {}
+    for lower in earlier_levels(level):
+        doc = json.loads((ROOT / f'assets/dictionary/{lower}_dictionary.json').read_text(encoding='utf-8'))
+        for x in doc['entries']:
+            ids[x['id']] = f'{lower} dictionary'
     out = []
     forms_by_entry = []
     for e in entries:
@@ -557,6 +652,9 @@ def build(level: str, check_only: bool) -> int:
             problems.append(f'{e.source}: {e.cz!r} needs pos and en')
             continue
         e.id = slug(e.cz)
+        if (e.cz, e.pos) in inherited:
+            problems.append(f'{e.source}: {e.cz!r} is already a word of an earlier level')
+            continue
         if e.id in ids:
             # Same spelling, different word (e.g. "stát" to cost / to stand).
             e.id = f'{e.id}-{e.pos}'
@@ -576,6 +674,9 @@ def build(level: str, check_only: bool) -> int:
         vocab_units[k] = min(vocab_units.get(k, 99), v['unit_id'])
 
     covered: dict[str, list[str]] = {}
+    for (word, _), forms in inherited.items():
+        for f in forms:
+            covered.setdefault(f, []).append(word)
     for e, tables, forms in forms_by_entry:
         for f in forms:
             covered.setdefault(f, []).append(e.id)
@@ -647,6 +748,7 @@ def build(level: str, check_only: bool) -> int:
             item['see'] = e.see
         if unit is not None:
             item['unit'] = unit
+            item['unit_no'] = numbers[unit]
         item['forms'] = sorted(forms)
         out.append(item)
 

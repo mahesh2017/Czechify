@@ -12,19 +12,28 @@ DictionaryEntry? wordOfTheDay(
   DateTime now,
 ) {
   const kinds = {'noun', 'verb', 'adj', 'adv'};
-  List<DictionaryEntry> from(Set<int> units) => [
+  // The learner's own level: an A2 learner's dictionary holds A1's words
+  // too, and the card is about what they are learning now.
+  final own = [
     for (final e in dictionary.entries)
-      if (e.unit != null &&
-          units.contains(e.unit) &&
+      if (!dictionary.isEarlier(e) &&
+          e.unit != null &&
           kinds.contains(e.pos) &&
           e.examples.isNotEmpty)
         e,
   ];
+  List<DictionaryEntry> from(Set<int> units) => [
+    for (final e in own)
+      if (units.contains(e.unit)) e,
+  ];
 
   var words = from(unlockedUnits);
   // Nothing reached yet (a first launch before the course has loaded):
-  // the first unit's words are the ones the learner is about to meet.
-  if (words.isEmpty) words = from(const {1});
+  // the level's first unit's words are the ones the learner is about to meet.
+  if (words.isEmpty && own.isNotEmpty) {
+    final first = own.map((e) => e.unit!).reduce((a, b) => a < b ? a : b);
+    words = from({first});
+  }
   if (words.isEmpty) return null;
 
   final day = DateTime.utc(now.year, now.month, now.day);

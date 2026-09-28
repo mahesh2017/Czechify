@@ -262,6 +262,7 @@ en: to flow; to run (water); to leak
 rel: river; water
 pres: teču, tečeš, teče, tečeme, tečete, tečou
 past: tekl
+fut: poteču, potečeš, poteče, potečeme, potečete, potečou
 note: Řeka teče přes město. = The river flows through the town.
 
 @ padat
