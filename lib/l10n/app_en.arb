@@ -95,7 +95,7 @@
   "settingsSpeechRate": "Speech rate",
   "settingsSpeechRateBody": "1x is the pace the lessons were recorded at",
   "settingsTestVoiceBody": "Play a sample Czech phrase",
-  "settingsCloudPronunciation": "Optional cloud pronunciation",
+  "settingsCloudPronunciation": "Cloud pronunciation",
   "settingsCloudPronunciationBody": "Off = your phone checks it. On = clearer scoring, recording sent for transcription",
   "settingsRetrySync": "Retry failed sync",
   "settingsRetryingItems": "Retrying {count} item(s)",

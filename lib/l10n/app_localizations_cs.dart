@@ -250,8 +250,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get settingsTestVoiceBody => 'Přehrát ukázkovou českou frázi';
 
   @override
-  String get settingsCloudPronunciation =>
-      'Volitelné cloudové vyhodnocení výslovnosti';
+  String get settingsCloudPronunciation => 'Výslovnost v cloudu';
 
   @override
   String get settingsCloudPronunciationBody =>

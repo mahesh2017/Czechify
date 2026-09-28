@@ -551,7 +551,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsCloudPronunciation.
   ///
   /// In en, this message translates to:
-  /// **'Optional cloud pronunciation'**
+  /// **'Cloud pronunciation'**
   String get settingsCloudPronunciation;
 
   /// No description provided for @settingsCloudPronunciationBody.

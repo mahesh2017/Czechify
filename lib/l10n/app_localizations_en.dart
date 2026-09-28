@@ -251,7 +251,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTestVoiceBody => 'Play a sample Czech phrase';
 
   @override
-  String get settingsCloudPronunciation => 'Optional cloud pronunciation';
+  String get settingsCloudPronunciation => 'Cloud pronunciation';
 
   @override
   String get settingsCloudPronunciationBody =>

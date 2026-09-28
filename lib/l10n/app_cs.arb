@@ -86,7 +86,7 @@
   "settingsSpeechRate": "Rychlost řeči",
   "settingsSpeechRateBody": "1× odpovídá tempu původních nahrávek",
   "settingsTestVoiceBody": "Přehrát ukázkovou českou frázi",
-  "settingsCloudPronunciation": "Volitelné cloudové vyhodnocení výslovnosti",
+  "settingsCloudPronunciation": "Výslovnost v cloudu",
   "settingsCloudPronunciationBody": "Vypnuto = kontrola v telefonu. Zapnuto = přesnější hodnocení, nahrávka se odešle k přepisu",
   "settingsRetrySync": "Opakovat neúspěšnou synchronizaci",
   "settingsRetryingItems": "Opakuji synchronizaci {count} položek",
