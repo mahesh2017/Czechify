@@ -298,7 +298,7 @@
         "type": "listening_comprehension",
         "prompt_en": "Listen to the conversation at the doctor's and answer.",
         "audio_hash": "list_29_06",
-        "transcript_cz": "Lékař: Tak co vás trápí dneska?\nPacientka: Už týden mě bolí hlava a cítím se unavená. Také mě bolí krk při polykání.\nLékař: Máte teplotu?\nPacientka: Ano, měřila jsem si ráno, měla jsem 37,8.\nLékař: Podívám se do krku. Je to zanícené. Napišu vám recept na antibiotika. Užívejte je 7 dní, dvakrát denně. A přijďte za týden na kontrolu.\nPacientka: Děkuji, pane doktore.",
+        "transcript_cz": "Lékař: Tak co vás trápí dneska?\nPacientka: Už týden mě bolí hlava a cítím se unavená. Také mě bolí krk při polykání.\nLékař: Máte teplotu?\nPacientka: Ano, měřila jsem si ráno, měla jsem 37,8.\nLékař: Podívám se do krku. Je to zanícené. Napíšu vám recept na antibiotika. Užívejte je 7 dní, dvakrát denně. A přijďte za týden na kontrolu.\nPacientka: Děkuji, pane doktore.",
         "transcript_en": "Doctor: So what's bothering you today?\nPatient: For a week now I've had a headache and feel tired. My throat also hurts when swallowing.\nDoctor: Do you have a temperature?\nPatient: Yes, I measured this morning, I had 37.8.\nDoctor: Let me look at your throat. It's inflamed. I'll write you a prescription for antibiotics. Take them for 7 days, twice a day. And come back in a week for a check-up.\nPatient: Thank you, doctor.",
         "questions": [
           {

@@ -1645,7 +1645,7 @@
     "ipa": "ˈɡratulovat",
     "gender": null,
     "unit_id": 17,
-    "example_cz": "Gratuluji ti k promoční!",
+    "example_cz": "Gratuluji ti k promoci!",
     "example_en": "I congratulate you on your graduation!",
     "lesson_id": null
   },
@@ -7266,7 +7266,7 @@
     "ipa": "dɪplom",
     "gender": "masculine inanimate",
     "unit_id": 25,
-    "example_cz": "Dostal jsem diplom na promoce.",
+    "example_cz": "Dostal jsem diplom na promoci.",
     "example_en": "I received my diploma at the graduation.",
     "lesson_id": null
   },
@@ -7607,7 +7607,7 @@
     "ipa": "projɛt",
     "gender": null,
     "unit_id": 27,
-    "example_cz": "Projeli jsme tunellem.",
+    "example_cz": "Projeli jsme tunelem.",
     "example_en": "We went through the tunnel.",
     "lesson_id": null
   },
@@ -7750,7 +7750,7 @@
     "ipa": "dozadu",
     "gender": null,
     "unit_id": 27,
-    "example_cz": "Cukněte dozadu, prosím.",
+    "example_cz": "Ustupte dozadu, prosím.",
     "example_en": "Step back, please.",
     "lesson_id": null
   },
@@ -7926,7 +7926,7 @@
     "ipa": "blahopr̝aːt",
     "gender": null,
     "unit_id": 29,
-    "example_cz": "Blahopřji vám k narozeninám!",
+    "example_cz": "Blahopřeji vám k narozeninám!",
     "example_en": "I wish you a happy birthday!",
     "lesson_id": null
   },
@@ -7937,7 +7937,7 @@
     "ipa": "gratulovaʊt",
     "gender": null,
     "unit_id": 29,
-    "example_cz": "Gratuluji ti k promo!",
+    "example_cz": "Gratuluji ti k promoci!",
     "example_en": "I congratulate you on your graduation!",
     "lesson_id": null
   },
@@ -7992,7 +7992,7 @@
     "ipa": "naposlɛt",
     "gender": null,
     "unit_id": 29,
-    "example_cz": "Naposed jsme se setkali včera.",
+    "example_cz": "Naposled jsme se setkali včera.",
     "example_en": "We met for the last time yesterday.",
     "lesson_id": null
   },
