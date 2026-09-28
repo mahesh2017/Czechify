@@ -5,7 +5,6 @@ import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/backend_config.dart';
-import '../../../core/legal/legal_content.dart';
 import '../../../core/notifications/notification_service.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -25,6 +24,7 @@ import '../../providers/consent_providers.dart';
 import '../../providers/sync_health_providers.dart';
 import '../../providers/sync_providers.dart';
 import '../../providers/app_update_providers.dart';
+import '../../widgets/common/minimum_tap_area.dart';
 import '../../widgets/common/app_update_coordinator.dart';
 import '../../widgets/common/cloud_speech_consent.dart';
 import '../../widgets/common/app_dialog.dart';
@@ -324,7 +324,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     tint: t.priSoft,
                     fg: t.pri,
                     title: l10n.settingsAccountDataTitle,
-                    subtitle: l10n.settingsAccountDataBody,
+                    subtitle: l10n.settingsAccountDataShort,
                     onTap: () => context.push('/account'),
                   ),
                   if (ref.watch(subscriptionsEntryVisibleProvider))
@@ -353,17 +353,46 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             _GroupLabel(l10n.settingsAppearanceGroup),
             _Group(
               children: [
-                _Row(
-                  icon: Icons.dark_mode_outlined,
-                  tint: t.violetSoft,
-                  fg: t.violet,
-                  title: l10n.settingsTheme,
-                  subtitle: _themeLabel(l10n, settings.themeMode),
-                  trailing: _ThemeToggle(
-                    mode: settings.themeMode,
-                    onChanged:
-                        (m) =>
-                            ref.read(settingsProvider.notifier).setThemeMode(m),
+                // The toggle on its own line, like the teacher's voice: beside
+                // the title it overflowed a 360pt phone, and the choice it
+                // shows made a "System" subtitle redundant.
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          IconTile(
+                            icon: Icons.dark_mode_outlined,
+                            tint: t.elev,
+                            fg: t.muted,
+                            size: 36,
+                            radius: 12,
+                            iconSize: 15,
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Text(
+                              l10n.settingsTheme,
+                              style: TextStyle(
+                                fontSize: 14.5,
+                                fontWeight: FontWeight.w600,
+                                color: t.ink,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      _ThemeToggle(
+                        mode: settings.themeMode,
+                        onChanged:
+                            (m) => ref
+                                .read(settingsProvider.notifier)
+                                .setThemeMode(m),
+                      ),
+                    ],
                   ),
                 ),
                 // No interface-language row: the course teaches Czech to
@@ -387,7 +416,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   subtitle:
                       learnerProfile?.primaryGoal == null
                           ? l10n.settingsLearningPlanMissing
-                          : l10n.settingsLearningPlanBody,
+                          : l10n.settingsLearningPlanShort,
                   onTap: () => context.push('/learning-plan'),
                   trailing: Icon(Icons.chevron_right, color: t.faint),
                 ),
@@ -460,7 +489,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.redSoft,
                   fg: t.red,
                   title: l10n.settingsHearts,
-                  subtitle: l10n.settingsHeartsBody,
+                  info: l10n.settingsHeartsInfo,
                   trailing: Switch(
                     value: settings.heartsEnabled,
                     onChanged:
@@ -475,7 +504,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.violetSoft,
                   fg: t.violet,
                   title: l10n.settingsNotesOnPaper,
-                  subtitle: l10n.settingsNotesOnPaperBody,
+                  subtitle:
+                      settings.notesOnPaper
+                          ? l10n.settingsNotesOnPaperOn
+                          : l10n.settingsNotesOnPaperOff,
+                  info: l10n.settingsNotesOnPaperInfo,
                   trailing: Switch(
                     value: settings.notesOnPaper,
                     onChanged:
@@ -492,7 +525,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.amberSoft,
                   fg: t.amber,
                   title: l10n.settingsSoundEffects,
-                  subtitle: l10n.settingsSoundBody,
                   trailing: Switch(
                     value: settings.soundEffectsEnabled,
                     onChanged:
@@ -510,7 +542,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.greenSoft,
                   fg: t.green,
                   title: l10n.settingsWelcomeSound,
-                  subtitle: l10n.settingsWelcomeSoundBody,
                   trailing: Switch(
                     value: settings.welcomeSoundEnabled,
                     onChanged:
@@ -525,7 +556,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.violetSoft,
                   fg: t.violet,
                   title: l10n.settingsVibration,
-                  subtitle: l10n.settingsHapticsBody,
                   trailing: Switch(
                     value: settings.hapticsEnabled,
                     onChanged:
@@ -547,7 +577,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     tint: t.amberSoft,
                     fg: t.amber,
                     title: l10n.reminderSettingsTitle,
-                    subtitle: l10n.reminderSettingsBody,
+                    // The time is the row below, once reminders are on.
+                    info: l10n.reminderSettingsBody,
                     trailing: Switch(
                       value: settings.remindersEnabled,
                       onChanged: (v) async {
@@ -592,7 +623,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                         tint: t.violetSoft,
                                         fg: t.violet,
                                         title: l10n.reminderCatchUpLabel,
-                                        subtitle: l10n.reminderStepCatchUp,
+                                        subtitle: l10n.reminderCatchUpShort,
                                         trailing: Switch(
                                           value: settings.catchUpEnabled,
                                           onChanged:
@@ -749,16 +780,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                     color: t.ink,
                                   ),
                                 ),
-                                Text(
-                                  l10n.settingsSpeechRateBody,
-                                  style: TextStyle(
-                                    fontSize: 13.5,
-                                    color: t.muted,
-                                    height: 1.35,
-                                  ),
-                                ),
                               ],
                             ),
+                          ),
+                          _InfoButton(
+                            title: l10n.settingsSpeechRate,
+                            info: l10n.settingsSpeechRateBody,
                           ),
                         ],
                       ),
@@ -779,7 +806,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.greenSoft,
                   fg: t.green,
                   title: l10n.settingsTestVoice,
-                  subtitle: l10n.settingsTestVoiceBody,
                   onTap: () => ref.read(czechTtsProvider).previewVoice(),
                 ),
                 _Divider(),
@@ -792,7 +818,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   // question "optional instead of what?" — and the answer is
                   // not "no pronunciation checking", it is your phone's own
                   // recogniser, which is what runs by default.
-                  subtitle: l10n.settingsCloudPronunciationBody,
+                  // What switching it on does stays in view (it sends a
+                  // recording off the phone); the rest is behind the ⓘ.
+                  subtitle: l10n.settingsCloudPronunciationShort,
+                  info: l10n.settingsCloudPronunciationBody,
                   trailing: Switch(
                     value: cloudSpeech.value ?? false,
                     onChanged:
@@ -846,7 +875,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.chipBg,
                   fg: t.muted,
                   title: l10n.settingsClearAudioCache,
-                  subtitle: l10n.settingsClearAudioBody,
                   onTap: () async {
                     await ref.read(czechTtsProvider).clearCache();
                     if (context.mounted) {
@@ -871,7 +899,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     tint: t.priSoft,
                     fg: t.pri,
                     title: l10n.settingsExportDelete,
-                    subtitle: l10n.settingsExportDeleteBody,
                     onTap: () => context.push('/account'),
                   ),
                 ],
@@ -887,7 +914,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: l10n.settingsAbout,
-                  subtitle: l10n.settingsAboutBody(kDeveloperName),
                   onTap: () => context.push('/about'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
@@ -908,7 +934,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: l10n.updateCheckTitle,
-                  subtitle: l10n.updateCheckBody,
                   onTap: _checkingForUpdate ? null : _checkForUpdate,
                   trailing:
                       _checkingForUpdate
@@ -928,7 +953,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   tint: t.priSoft,
                   fg: t.pri,
                   title: l10n.settingsPrivacyPolicy,
-                  subtitle: l10n.settingsPrivacyBody,
                   onTap: () => context.push('/privacy'),
                   trailing: Icon(Icons.chevron_right, size: 15, color: t.faint),
                 ),
@@ -938,14 +962,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
       ),
     );
-  }
-
-  String _themeLabel(AppLocalizations l10n, AppThemeMode mode) {
-    return switch (mode) {
-      AppThemeMode.system => l10n.settingsThemeSystem,
-      AppThemeMode.light => l10n.settingsThemeLight,
-      AppThemeMode.dark => l10n.settingsThemeDark,
-    };
   }
 
   /// Whether the preferred reminder time is far enough from 21:30 (≥ 2h)
@@ -1241,12 +1257,18 @@ class _Divider extends StatelessWidget {
 
 /// A settings row. Chrome stays neutral; colour is reserved for state and
 /// meaning rather than making the settings list a rainbow.
+///
+/// Short on purpose (Mahesh, 28 Sep 2026: "short and concise text first").
+/// The second line is only for something the title does not already say,
+/// usually the current value; a longer explanation goes in [info], behind an
+/// ⓘ beside the title, for whoever wants it.
 class _Row extends StatelessWidget {
   final IconData icon;
   final Color tint;
   final Color fg;
   final String title;
-  final String subtitle;
+  final String? subtitle;
+  final String? info;
   final Widget? trailing;
   final VoidCallback? onTap;
 
@@ -1255,7 +1277,8 @@ class _Row extends StatelessWidget {
     required this.tint,
     required this.fg,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
+    this.info,
     this.trailing,
     this.onTap,
   });
@@ -1290,17 +1313,19 @@ class _Row extends StatelessWidget {
                       color: t.ink,
                     ),
                   ),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: t.muted,
-                      fontWeight: FontWeight.normal,
+                  if (subtitle != null)
+                    Text(
+                      subtitle!,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: t.muted,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
+            if (info != null) _InfoButton(title: title, info: info!),
             trailing ??
                 (onTap != null
                     ? Icon(Icons.chevron_right, size: 15, color: t.faint)
@@ -1310,6 +1335,69 @@ class _Row extends StatelessWidget {
       ),
     );
   }
+}
+
+/// The ⓘ on a row with more to say. Beside the switch rather than the title:
+/// its 48pt target would otherwise push the row's second line down.
+class _InfoButton extends StatelessWidget {
+  const _InfoButton({required this.title, required this.info});
+
+  final String title;
+  final String info;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    return Semantics(
+      button: true,
+      label: '${AppLocalizations.of(context).settingsMoreInfo}: $title',
+      excludeSemantics: true,
+      child: InkResponse(
+        key: ValueKey('settings-info-$title'),
+        radius: 22,
+        onTap: () => _showInfo(context, title, info),
+        child: MinimumTapArea(
+          child: Icon(Icons.info_outline_rounded, size: 18, color: t.faint),
+        ),
+      ),
+    );
+  }
+}
+
+/// The longer explanation behind a row's ⓘ.
+Future<void> _showInfo(BuildContext context, String title, String info) {
+  return showModalBottomSheet<void>(
+    context: context,
+    showDragHandle: true,
+    builder: (context) {
+      final t = context.tokens;
+      return SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontFamily: AppFonts.display,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: t.ink,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                info,
+                style: TextStyle(fontSize: 15, height: 1.5, color: t.ink),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
 
 /// Light / Auto / Dark segmented control.
@@ -1324,21 +1412,24 @@ class _ThemeToggle extends StatelessWidget {
     final t = context.tokens;
     Widget seg(String label, AppThemeMode m) {
       final selected = mode == m;
-      return GestureDetector(
-        onTap: () => onChanged(m),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-          decoration: BoxDecoration(
-            color: selected ? t.card : Colors.transparent,
-            borderRadius: BorderRadius.circular(999),
-            boxShadow: selected ? t.shadow : null,
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
-              color: selected ? t.ink : t.muted,
+      return Expanded(
+        child: GestureDetector(
+          onTap: () => onChanged(m),
+          child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+            decoration: BoxDecoration(
+              color: selected ? t.card : Colors.transparent,
+              borderRadius: BorderRadius.circular(999),
+              boxShadow: selected ? t.shadow : null,
+            ),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
+                color: selected ? t.ink : t.muted,
+              ),
             ),
           ),
         ),
@@ -1351,8 +1442,9 @@ class _ThemeToggle extends StatelessWidget {
         color: t.chipBg,
         borderRadius: BorderRadius.circular(999),
       ),
+      // Full width on its own line, the three shares equal, so it fits at
+      // any text size.
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
           seg('Light', AppThemeMode.light),
           seg('Auto', AppThemeMode.system),

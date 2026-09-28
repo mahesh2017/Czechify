@@ -1281,5 +1281,14 @@
   "dictionaryClearSearch": "Smazat hledání",
   "homeDictionarySearch": "Hledat ve slovníku",
   "homeDictionaryCount": "{count} slov {level} · česky nebo anglicky",
-  "homeWordOfTheDay": "SLOVO DNE"
+  "homeWordOfTheDay": "SLOVO DNE",
+  "settingsMoreInfo": "Více informací",
+  "settingsAccountDataShort": "Přihlášení, záloha, export",
+  "settingsLearningPlanShort": "Cíl, rytmus, připomínky",
+  "settingsHeartsInfo": "Když jsou srdíčka zapnutá, chybná odpověď v lekci stojí jedno srdíčko. Vypněte je a procvičujte volně: chyby nic nestojí.",
+  "settingsNotesOnPaperOn": "Na papír",
+  "settingsNotesOnPaperOff": "V aplikaci",
+  "settingsNotesOnPaperInfo": "Kroky se zápisníkem vás žádají, abyste zpaměti napsali to hlavní. Zapnuto: píšete na papír, což pomáhá zapamatovat si. Vypnuto: píšete v aplikaci.",
+  "reminderCatchUpShort": "Ve 21:30, pokud jste se ještě neučili",
+  "settingsCloudPronunciationShort": "Zapnuto: nahrávka se odešle k přepisu"
 }

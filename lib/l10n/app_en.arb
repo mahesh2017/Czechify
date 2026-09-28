@@ -1890,5 +1890,14 @@
       }
     }
   },
-  "homeWordOfTheDay": "WORD OF THE DAY"
+  "homeWordOfTheDay": "WORD OF THE DAY",
+  "settingsMoreInfo": "More about this",
+  "settingsAccountDataShort": "Sign-in, backup, export",
+  "settingsLearningPlanShort": "Goal, rhythm, reminders",
+  "settingsHeartsInfo": "When hearts are on, a wrong answer in a lesson costs a heart. Turn them off to practise freely: mistakes cost nothing.",
+  "settingsNotesOnPaperOn": "On paper",
+  "settingsNotesOnPaperOff": "In the app",
+  "settingsNotesOnPaperInfo": "Notebook steps ask you to write the key points from memory. On: you write them on paper, which helps you remember. Off: you type them in the app instead.",
+  "reminderCatchUpShort": "21:30, if you haven't studied",
+  "settingsCloudPronunciationShort": "On: your recording is sent to be transcribed"
 }

@@ -4208,4 +4208,34 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get homeWordOfTheDay => 'SLOVO DNE';
+
+  @override
+  String get settingsMoreInfo => 'Více informací';
+
+  @override
+  String get settingsAccountDataShort => 'Přihlášení, záloha, export';
+
+  @override
+  String get settingsLearningPlanShort => 'Cíl, rytmus, připomínky';
+
+  @override
+  String get settingsHeartsInfo =>
+      'Když jsou srdíčka zapnutá, chybná odpověď v lekci stojí jedno srdíčko. Vypněte je a procvičujte volně: chyby nic nestojí.';
+
+  @override
+  String get settingsNotesOnPaperOn => 'Na papír';
+
+  @override
+  String get settingsNotesOnPaperOff => 'V aplikaci';
+
+  @override
+  String get settingsNotesOnPaperInfo =>
+      'Kroky se zápisníkem vás žádají, abyste zpaměti napsali to hlavní. Zapnuto: píšete na papír, což pomáhá zapamatovat si. Vypnuto: píšete v aplikaci.';
+
+  @override
+  String get reminderCatchUpShort => 'Ve 21:30, pokud jste se ještě neučili';
+
+  @override
+  String get settingsCloudPronunciationShort =>
+      'Zapnuto: nahrávka se odešle k přepisu';
 }

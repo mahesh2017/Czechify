@@ -4185,4 +4185,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeWordOfTheDay => 'WORD OF THE DAY';
+
+  @override
+  String get settingsMoreInfo => 'More about this';
+
+  @override
+  String get settingsAccountDataShort => 'Sign-in, backup, export';
+
+  @override
+  String get settingsLearningPlanShort => 'Goal, rhythm, reminders';
+
+  @override
+  String get settingsHeartsInfo =>
+      'When hearts are on, a wrong answer in a lesson costs a heart. Turn them off to practise freely: mistakes cost nothing.';
+
+  @override
+  String get settingsNotesOnPaperOn => 'On paper';
+
+  @override
+  String get settingsNotesOnPaperOff => 'In the app';
+
+  @override
+  String get settingsNotesOnPaperInfo =>
+      'Notebook steps ask you to write the key points from memory. On: you write them on paper, which helps you remember. Off: you type them in the app instead.';
+
+  @override
+  String get reminderCatchUpShort => '21:30, if you haven\'t studied';
+
+  @override
+  String get settingsCloudPronunciationShort =>
+      'On: your recording is sent to be transcribed';
 }

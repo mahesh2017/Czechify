@@ -7105,6 +7105,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WORD OF THE DAY'**
   String get homeWordOfTheDay;
+
+  /// No description provided for @settingsMoreInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'More about this'**
+  String get settingsMoreInfo;
+
+  /// No description provided for @settingsAccountDataShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in, backup, export'**
+  String get settingsAccountDataShort;
+
+  /// No description provided for @settingsLearningPlanShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal, rhythm, reminders'**
+  String get settingsLearningPlanShort;
+
+  /// No description provided for @settingsHeartsInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'When hearts are on, a wrong answer in a lesson costs a heart. Turn them off to practise freely: mistakes cost nothing.'**
+  String get settingsHeartsInfo;
+
+  /// No description provided for @settingsNotesOnPaperOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On paper'**
+  String get settingsNotesOnPaperOn;
+
+  /// No description provided for @settingsNotesOnPaperOff.
+  ///
+  /// In en, this message translates to:
+  /// **'In the app'**
+  String get settingsNotesOnPaperOff;
+
+  /// No description provided for @settingsNotesOnPaperInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Notebook steps ask you to write the key points from memory. On: you write them on paper, which helps you remember. Off: you type them in the app instead.'**
+  String get settingsNotesOnPaperInfo;
+
+  /// No description provided for @reminderCatchUpShort.
+  ///
+  /// In en, this message translates to:
+  /// **'21:30, if you haven\'t studied'**
+  String get reminderCatchUpShort;
+
+  /// No description provided for @settingsCloudPronunciationShort.
+  ///
+  /// In en, this message translates to:
+  /// **'On: your recording is sent to be transcribed'**
+  String get settingsCloudPronunciationShort;
 }
 
 class _AppLocalizationsDelegate
