@@ -37,6 +37,7 @@ void main() {
     bool disableAnimations = false,
     _TestChatNotifier? chat,
     double bottomViewPadding = 0,
+    double bottomPadding = 0,
     double bottomViewInset = 0,
   }) => ProviderScope(
     overrides: [if (chat != null) chatProvider.overrideWith(() => chat)],
@@ -56,6 +57,7 @@ void main() {
             data: MediaQuery.of(context).copyWith(
               disableAnimations: disableAnimations,
               viewPadding: EdgeInsets.only(bottom: bottomViewPadding),
+              padding: EdgeInsets.only(bottom: bottomPadding),
               viewInsets: EdgeInsets.only(bottom: bottomViewInset),
             ),
             child: child!,
@@ -175,6 +177,26 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  // Found on a Pixel emulator with three-button navigation: the chat composer
+  // sat under the system buttons, because the hidden bar still made the
+  // Scaffold strip the bottom safe area from the chat screen.
+  testWidgets('an open chat keeps the system bottom safe area', (tester) async {
+    tester.view.physicalSize = const Size(393, 852);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      host(chat: _TestChatNotifier(), bottomViewPadding: 48, bottomPadding: 48),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Chat'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Home'), findsNothing);
+    expect(find.text('chat safe bottom 48'), findsOneWidget);
+  });
+
   testWidgets('keyboard does not inflate the system-navigation reservation', (
     tester,
   ) async {
@@ -227,6 +249,10 @@ class _ProbeScreenState extends State<_ProbeScreen> {
     return Column(
       children: [
         Text('${widget.name} count $count'),
+        Text(
+          '${widget.name} safe bottom '
+          '${MediaQuery.paddingOf(context).bottom.round()}',
+        ),
         FilledButton(
           key: ValueKey('${widget.name}-increment'),
           onPressed: () => setState(() => count++),

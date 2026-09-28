@@ -85,9 +85,35 @@ class AdaptiveScaffold extends ConsumerWidget {
       );
     }
 
+    // The system's own bottom safe area, before this Scaffold takes it away.
+    final system = MediaQuery.of(context);
     return Scaffold(
       extendBody: true,
-      body: _BranchEntrance(index: selectedIndex, child: navigationShell),
+      // A Scaffold with a bottom bar removes the bottom safe area from its
+      // body, even while the bar is hidden (collapsed to zero height), so a
+      // screen's own SafeArea then sees nothing: the chat composer sat under
+      // Android's three-button navigation. Give it back while the bar is
+      // hidden. The wrapper is always present so the branches keep their
+      // state when the bar comes and goes.
+      body: Builder(
+        builder: (context) {
+          final inner = MediaQuery.of(context);
+          return MediaQuery(
+            data:
+                hideBottomNavigation
+                    ? inner.copyWith(
+                      padding: inner.padding.copyWith(
+                        bottom: system.padding.bottom,
+                      ),
+                      viewPadding: inner.viewPadding.copyWith(
+                        bottom: system.viewPadding.bottom,
+                      ),
+                    )
+                    : inner,
+            child: _BranchEntrance(index: selectedIndex, child: navigationShell),
+          );
+        },
+      ),
       bottomNavigationBar: MotionDisclosure(
         visible: !hideBottomNavigation,
         duration: AppMotion.content,
