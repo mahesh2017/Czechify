@@ -90,7 +90,8 @@ Write down, and show Mahesh before building:
 | Cause | Where it shows | Fix |
 |---|---|---|
 | Listening first slide with an image (prompt + 140 pt image + listen panel + gist note + transcript) | all listening with a picture | **built:** the compact play row on that slide |
-| Long reading text repeated above a 4-option question | Unit 29 | question first with "Show the text", or a text slide between questions |
+| Long reading text repeated above a 4-option question | Unit 29 | **built:** `reminderMaySplit` — the text gets its own slide before the question |
+| Reading passage longer than the room under its heading and picture | A2 (Units 16–31) | **built:** `ScrollingPassage` — the text box scrolls, never the screen, with a visible scrollbar, fade and label (Mahesh, 28 Sep); min 140 pt, checked by the fit test |
 | Many dialogue lines before one gap | 5 reply slides, e.g. 11310 | **built:** the reply slide keeps the line before the gap; earlier lines get their own slide |
 | Dialogue reply slide under the keyboard (several lines) | 38 dialogues | **built:** while typing, only the gap's line and the one before |
 | Dialogue gap with an English cue ("___ (I live in Prague.)") under the keyboard | 21 dialogues, e.g. 5404 | **built:** lines sit closer while typing |
