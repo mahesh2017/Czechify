@@ -52,7 +52,7 @@
     "unit_id": 16,
     "example_cz": "Byl jsem u doktora.",
     "example_en": "I was at the doctor's.",
-    "lesson_id": 1602
+    "lesson_id": 1603
   },
   {
     "id": 1005,
@@ -63,7 +63,7 @@
     "unit_id": 16,
     "example_cz": "Mám hodně práce.",
     "example_en": "I have a lot of work.",
-    "lesson_id": 1601
+    "lesson_id": 1602
   },
   {
     "id": 1006,
@@ -74,7 +74,7 @@
     "unit_id": 16,
     "example_cz": "Mám málo času.",
     "example_en": "I have little time.",
-    "lesson_id": 1601
+    "lesson_id": 1604
   },
   {
     "id": 1007,
@@ -85,7 +85,7 @@
     "unit_id": 16,
     "example_cz": "Dám si trochu vody.",
     "example_en": "I'll have a little water.",
-    "lesson_id": 1601
+    "lesson_id": 1602
   },
   {
     "id": 1008,
@@ -96,7 +96,7 @@
     "unit_id": 16,
     "example_cz": "Kilo jablek, prosím.",
     "example_en": "A kilo of apples, please.",
-    "lesson_id": 1601
+    "lesson_id": 1602
   },
   {
     "id": 1009,
@@ -107,7 +107,7 @@
     "unit_id": 16,
     "example_cz": "Litr mléka.",
     "example_en": "A liter of milk.",
-    "lesson_id": 1601
+    "lesson_id": 1602
   },
   {
     "id": 1010,
@@ -129,7 +129,7 @@
     "unit_id": 16,
     "example_cz": "Auto mého bratra.",
     "example_en": "My brother's car.",
-    "lesson_id": null
+    "lesson_id": 1603
   },
   {
     "id": 1012,
@@ -151,7 +151,7 @@
     "unit_id": 16,
     "example_cz": "Do středu města.",
     "example_en": "To the city center.",
-    "lesson_id": 1604
+    "lesson_id": null
   },
   {
     "id": 1014,
@@ -162,7 +162,7 @@
     "unit_id": 16,
     "example_cz": "Na konci ulice.",
     "example_en": "At the end of the street.",
-    "lesson_id": 1602
+    "lesson_id": null
   },
   {
     "id": 1015,
@@ -195,7 +195,7 @@
     "unit_id": 16,
     "example_cz": "Nemám peněz.",
     "example_en": "I don't have money.",
-    "lesson_id": 1602
+    "lesson_id": null
   },
   {
     "id": 1020,
@@ -206,7 +206,7 @@
     "unit_id": 17,
     "example_cz": "Dávám dárek mamince.",
     "example_en": "I give a gift to mom.",
-    "lesson_id": 1701
+    "lesson_id": 1702
   },
   {
     "id": 1021,
@@ -217,7 +217,7 @@
     "unit_id": 17,
     "example_cz": "Kupuju bratrovi knihu.",
     "example_en": "I'm buying my brother a book.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1022,
@@ -239,7 +239,7 @@
     "unit_id": 17,
     "example_cz": "Rozumíš češtině?",
     "example_en": "Do you understand Czech?",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1024,
@@ -250,7 +250,7 @@
     "unit_id": 17,
     "example_cz": "Telefonuju matce.",
     "example_en": "I'm calling my mother.",
-    "lesson_id": 1702
+    "lesson_id": 1703
   },
   {
     "id": 1025,
@@ -261,7 +261,7 @@
     "unit_id": 17,
     "example_cz": "Věřím ti.",
     "example_en": "I believe you.",
-    "lesson_id": 1702
+    "lesson_id": 1704
   },
   {
     "id": 1026,
@@ -272,7 +272,7 @@
     "unit_id": 17,
     "example_cz": "Líbí se mi Praha.",
     "example_en": "I like Prague.",
-    "lesson_id": 1703
+    "lesson_id": 1702
   },
   {
     "id": 1027,
@@ -283,7 +283,7 @@
     "unit_id": 17,
     "example_cz": "Chutná mi pivo.",
     "example_en": "I like the taste of beer.",
-    "lesson_id": 1703
+    "lesson_id": 1702
   },
   {
     "id": 1028,
@@ -294,7 +294,7 @@
     "unit_id": 17,
     "example_cz": "Radím studentovi.",
     "example_en": "I advise the student.",
-    "lesson_id": 1702
+    "lesson_id": 1704
   },
   {
     "id": 1029,
@@ -305,7 +305,7 @@
     "unit_id": 17,
     "example_cz": "Odpovídám učiteli.",
     "example_en": "I answer the teacher.",
-    "lesson_id": 1702
+    "lesson_id": null
   },
   {
     "id": 1030,
@@ -316,7 +316,7 @@
     "unit_id": 17,
     "example_cz": "Dávám to kamarádovi.",
     "example_en": "I give it to my friend.",
-    "lesson_id": null
+    "lesson_id": 1702
   },
   {
     "id": 1031,
@@ -327,7 +327,7 @@
     "unit_id": 17,
     "example_cz": "Píšu kamarádce.",
     "example_en": "I'm writing to my friend.",
-    "lesson_id": 1701
+    "lesson_id": 1702
   },
   {
     "id": 1032,
@@ -371,7 +371,7 @@
     "unit_id": 17,
     "example_cz": "To se mi hodí.",
     "example_en": "That suits me.",
-    "lesson_id": 1703
+    "lesson_id": null
   },
   {
     "id": 1039,
@@ -382,7 +382,7 @@
     "unit_id": 17,
     "example_cz": "Ta kniha patří mně.",
     "example_en": "That book belongs to me.",
-    "lesson_id": 1703
+    "lesson_id": null
   },
   {
     "id": 1040,
@@ -393,7 +393,7 @@
     "unit_id": 18,
     "example_cz": "Mluvíme o počasí.",
     "example_en": "We're talking about the weather.",
-    "lesson_id": 1803
+    "lesson_id": 1802
   },
   {
     "id": 1042,
@@ -404,7 +404,7 @@
     "unit_id": 18,
     "example_cz": "Bydlím v Brně.",
     "example_en": "I live in Brno.",
-    "lesson_id": null
+    "lesson_id": 1803
   },
   {
     "id": 1043,
@@ -437,7 +437,7 @@
     "unit_id": 18,
     "example_cz": "Jezdím autobusem.",
     "example_en": "I go by bus.",
-    "lesson_id": 1802
+    "lesson_id": 1804
   },
   {
     "id": 1046,
@@ -448,7 +448,7 @@
     "unit_id": 18,
     "example_cz": "Cestuju vlakem.",
     "example_en": "I travel by train.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1047,
@@ -459,7 +459,7 @@
     "unit_id": 18,
     "example_cz": "Píšu perem.",
     "example_en": "I write with a pen.",
-    "lesson_id": 1803
+    "lesson_id": null
   },
   {
     "id": 1048,
@@ -503,7 +503,7 @@
     "unit_id": 18,
     "example_cz": "Před domem.",
     "example_en": "In front of the house.",
-    "lesson_id": 1804
+    "lesson_id": 1802
   },
   {
     "id": 1052,
@@ -514,7 +514,7 @@
     "unit_id": 18,
     "example_cz": "Za rohem.",
     "example_en": "Around the corner.",
-    "lesson_id": null
+    "lesson_id": 1804
   },
   {
     "id": 1053,
@@ -580,7 +580,7 @@
     "unit_id": 18,
     "example_cz": "Jedu vlakem.",
     "example_en": "I go by train.",
-    "lesson_id": 1802
+    "lesson_id": 1803
   },
   {
     "id": 1059,
@@ -591,7 +591,7 @@
     "unit_id": 18,
     "example_cz": "Letím letadlem.",
     "example_en": "I fly by plane.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1060,
@@ -646,7 +646,7 @@
     "unit_id": 19,
     "example_cz": "Kdysi jsem tu bydlel.",
     "example_en": "I once lived here.",
-    "lesson_id": 1903
+    "lesson_id": null
   },
   {
     "id": 1065,
@@ -657,7 +657,7 @@
     "unit_id": 19,
     "example_cz": "Už jsem to udělal.",
     "example_en": "I already did it.",
-    "lesson_id": 1903
+    "lesson_id": null
   },
   {
     "id": 1066,
@@ -668,7 +668,7 @@
     "unit_id": 19,
     "example_cz": "Ještě jsem nesnídal.",
     "example_en": "I haven't had breakfast yet.",
-    "lesson_id": 1903
+    "lesson_id": null
   },
   {
     "id": 1067,
@@ -679,7 +679,7 @@
     "unit_id": 19,
     "example_cz": "Nikdy jsem tam nebyl.",
     "example_en": "I've never been there.",
-    "lesson_id": 1904
+    "lesson_id": null
   },
   {
     "id": 1069,
@@ -690,7 +690,7 @@
     "unit_id": 19,
     "example_cz": "Zapomněl jsem klíče.",
     "example_en": "I forgot the keys.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1070,
@@ -712,7 +712,7 @@
     "unit_id": 19,
     "example_cz": "Narodil jsem se v Praze.",
     "example_en": "I was born in Prague.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1072,
@@ -734,7 +734,7 @@
     "unit_id": 19,
     "example_cz": "Odjel do Brna.",
     "example_en": "He left for Brno.",
-    "lesson_id": 1903
+    "lesson_id": 1902
   },
   {
     "id": 1075,
@@ -767,7 +767,7 @@
     "unit_id": 20,
     "example_cz": "Brzy se uvidíme.",
     "example_en": "We'll see each other soon.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1078,
@@ -789,7 +789,7 @@
     "unit_id": 20,
     "example_cz": "Možná přijdu.",
     "example_en": "Maybe I'll come.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1080,
@@ -800,7 +800,7 @@
     "unit_id": 20,
     "example_cz": "Určitě tam budu.",
     "example_en": "I'll definitely be there.",
-    "lesson_id": 2001
+    "lesson_id": null
   },
   {
     "id": 1081,
@@ -811,7 +811,7 @@
     "unit_id": 20,
     "example_cz": "Snad to vyjde.",
     "example_en": "Hopefully it'll work out.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1082,
@@ -822,7 +822,7 @@
     "unit_id": 20,
     "example_cz": "Chtěl bych se zeptat.",
     "example_en": "I'd like to ask.",
-    "lesson_id": 2002
+    "lesson_id": 2001
   },
   {
     "id": 1084,
@@ -844,7 +844,7 @@
     "unit_id": 20,
     "example_cz": "Co si přeješ?",
     "example_en": "What do you wish?",
-    "lesson_id": 2004
+    "lesson_id": null
   },
   {
     "id": 1087,
@@ -855,7 +855,7 @@
     "unit_id": 20,
     "example_cz": "Radši bych zůstal doma.",
     "example_en": "I'd rather stay home.",
-    "lesson_id": 2004
+    "lesson_id": null
   },
   {
     "id": 1088,
@@ -866,7 +866,7 @@
     "unit_id": 20,
     "example_cz": "Doufám, že přijdeš.",
     "example_en": "I hope you'll come.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1089,
@@ -888,7 +888,7 @@
     "unit_id": 21,
     "example_cz": "Je vyšší než já.",
     "example_en": "He's taller than me.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1091,
@@ -910,7 +910,7 @@
     "unit_id": 21,
     "example_cz": "Dnes je to horší.",
     "example_en": "Today it's worse.",
-    "lesson_id": 2102
+    "lesson_id": 2103
   },
   {
     "id": 1093,
@@ -943,7 +943,7 @@
     "unit_id": 21,
     "example_cz": "To je nejlepší!",
     "example_en": "That's the best!",
-    "lesson_id": 2103
+    "lesson_id": 2102
   },
   {
     "id": 1096,
@@ -965,7 +965,7 @@
     "unit_id": 21,
     "example_cz": "Jsme stejně staří.",
     "example_en": "We're the same age.",
-    "lesson_id": 2104
+    "lesson_id": null
   },
   {
     "id": 1098,
@@ -976,7 +976,7 @@
     "unit_id": 21,
     "example_cz": "To je jiný problém.",
     "example_en": "That's a different problem.",
-    "lesson_id": 2104
+    "lesson_id": null
   },
   {
     "id": 1099,
@@ -1009,7 +1009,7 @@
     "unit_id": 21,
     "example_cz": "Mluvíš moc rychle.",
     "example_en": "You speak too fast.",
-    "lesson_id": null
+    "lesson_id": 2103
   },
   {
     "id": 1102,
@@ -1108,7 +1108,7 @@
     "unit_id": 22,
     "example_cz": "Dokonce i on to ví.",
     "example_en": "Even he knows it.",
-    "lesson_id": 2201
+    "lesson_id": null
   },
   {
     "id": 1113,
@@ -1119,7 +1119,7 @@
     "unit_id": 22,
     "example_cz": "Hlavně nezapomeň.",
     "example_en": "Above all, don't forget.",
-    "lesson_id": 2202
+    "lesson_id": null
   },
   {
     "id": 1114,
@@ -1130,7 +1130,7 @@
     "unit_id": 22,
     "example_cz": "Tak tedy pojďme.",
     "example_en": "Well then, let's go.",
-    "lesson_id": 2202
+    "lesson_id": null
   },
   {
     "id": 1116,
@@ -1141,7 +1141,7 @@
     "unit_id": 22,
     "example_cz": "Můžeš to vysvětlit?",
     "example_en": "Can you explain it?",
-    "lesson_id": 2201
+    "lesson_id": null
   },
   {
     "id": 1118,
@@ -1152,7 +1152,7 @@
     "unit_id": 22,
     "example_cz": "Požádal mě o pomoc.",
     "example_en": "He asked me for help.",
-    "lesson_id": 2202
+    "lesson_id": null
   },
   {
     "id": 1120,
@@ -1207,7 +1207,7 @@
     "unit_id": 16,
     "example_cz": "Mám několik přátel.",
     "example_en": "I have several friends.",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1125,
@@ -1218,7 +1218,7 @@
     "unit_id": 16,
     "example_cz": "Mám dost peněz.",
     "example_en": "I have enough money.",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1126,
@@ -1229,7 +1229,7 @@
     "unit_id": 16,
     "example_cz": "Spousta lidí tam byla.",
     "example_en": "A lot of people were there.",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1127,
@@ -1251,7 +1251,7 @@
     "unit_id": 16,
     "example_cz": "Všichni přišli kromě Petra.",
     "example_en": "Everyone came except Petr.",
-    "lesson_id": 1602
+    "lesson_id": null
   },
   {
     "id": 1129,
@@ -1262,7 +1262,7 @@
     "unit_id": 16,
     "example_cz": "Chci kousek chleba.",
     "example_en": "I want a piece of bread.",
-    "lesson_id": 1601
+    "lesson_id": null
   },
   {
     "id": 1130,
@@ -1273,7 +1273,7 @@
     "unit_id": 16,
     "example_cz": "Sklenice vína, prosím.",
     "example_en": "A glass of wine, please.",
-    "lesson_id": 1601
+    "lesson_id": null
   },
   {
     "id": 1131,
@@ -1284,7 +1284,7 @@
     "unit_id": 16,
     "example_cz": "Šálek kávy, prosím.",
     "example_en": "A cup of coffee, please.",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1132,
@@ -1295,7 +1295,7 @@
     "unit_id": 16,
     "example_cz": "Balík knih přišel včera.",
     "example_en": "A package of books arrived yesterday.",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1133,
@@ -1306,7 +1306,7 @@
     "unit_id": 16,
     "example_cz": "Láhev vody stojí dvacet korun.",
     "example_en": "A bottle of water costs twenty crowns.",
-    "lesson_id": 1601
+    "lesson_id": null
   },
   {
     "id": 1134,
@@ -1328,7 +1328,7 @@
     "unit_id": 16,
     "example_cz": "Jdu do školy.",
     "example_en": "I'm going to school.",
-    "lesson_id": null
+    "lesson_id": 1603
   },
   {
     "id": 1136,
@@ -1339,7 +1339,7 @@
     "unit_id": 16,
     "example_cz": "Nemám čas kvůli práci.",
     "example_en": "I don't have time because of work.",
-    "lesson_id": null
+    "lesson_id": 1603
   },
   {
     "id": 1137,
@@ -1372,7 +1372,7 @@
     "unit_id": 16,
     "example_cz": "Jdeme na konec ulice.",
     "example_en": "We're going to the end of the street.",
-    "lesson_id": null
+    "lesson_id": 1604
   },
   {
     "id": 1140,
@@ -1383,7 +1383,7 @@
     "unit_id": 16,
     "example_cz": "Cena jízdenky je padesát korun.",
     "example_en": "The price of a ticket is fifty crowns.",
-    "lesson_id": 1604
+    "lesson_id": null
   },
   {
     "id": 1141,
@@ -1394,7 +1394,7 @@
     "unit_id": 16,
     "example_cz": "Potřebuji mapu města.",
     "example_en": "I need a map of the city.",
-    "lesson_id": 1604
+    "lesson_id": null
   },
   {
     "id": 1142,
@@ -1449,7 +1449,7 @@
     "unit_id": 16,
     "example_cz": "Dostal jsem dárek od kamaráda.",
     "example_en": "I got a gift from my friend.",
-    "lesson_id": 1604
+    "lesson_id": 1603
   },
   {
     "id": 1147,
@@ -1460,7 +1460,7 @@
     "unit_id": 16,
     "example_cz": "Na svátek maminky koupíme květiny.",
     "example_en": "For Mother's Day we'll buy flowers.",
-    "lesson_id": 1604
+    "lesson_id": null
   },
   {
     "id": 1148,
@@ -1471,7 +1471,7 @@
     "unit_id": 16,
     "example_cz": "Oslava narozenin byla super.",
     "example_en": "The birthday celebration was great.",
-    "lesson_id": 1604
+    "lesson_id": null
   },
   {
     "id": 1149,
@@ -1482,7 +1482,7 @@
     "unit_id": 16,
     "example_cz": "Sešit studenta je na stole.",
     "example_en": "The student's notebook is on the table.",
-    "lesson_id": 1604
+    "lesson_id": null
   },
   {
     "id": 1150,
@@ -1493,7 +1493,7 @@
     "unit_id": 17,
     "example_cz": "Dělám babičce čaj.",
     "example_en": "I'm making grandmother tea.",
-    "lesson_id": 1701
+    "lesson_id": 1704
   },
   {
     "id": 1151,
@@ -1515,7 +1515,7 @@
     "unit_id": 17,
     "example_cz": "Kupuju synovi hračku.",
     "example_en": "I'm buying my son a toy.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1153,
@@ -1526,7 +1526,7 @@
     "unit_id": 17,
     "example_cz": "Pomáhám dceři s úkolem.",
     "example_en": "I'm helping my daughter with homework.",
-    "lesson_id": 1704
+    "lesson_id": null
   },
   {
     "id": 1154,
@@ -1548,7 +1548,7 @@
     "unit_id": 17,
     "example_cz": "Manželce se líbí květiny.",
     "example_en": "My wife likes flowers.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1156,
@@ -1559,7 +1559,7 @@
     "unit_id": 17,
     "example_cz": "Strýci je padesát let.",
     "example_en": "My uncle is fifty years old.",
-    "lesson_id": null
+    "lesson_id": 1704
   },
   {
     "id": 1157,
@@ -1570,7 +1570,7 @@
     "unit_id": 17,
     "example_cz": "Tetě posílám pohlednici.",
     "example_en": "I'm sending my aunt a postcard.",
-    "lesson_id": 1704
+    "lesson_id": null
   },
   {
     "id": 1158,
@@ -1592,7 +1592,7 @@
     "unit_id": 17,
     "example_cz": "Dítěti je zima.",
     "example_en": "The child is cold.",
-    "lesson_id": null
+    "lesson_id": 1704
   },
   {
     "id": 1160,
@@ -1603,7 +1603,7 @@
     "unit_id": 17,
     "example_cz": "Kolegovi gratuluji k narozeninám.",
     "example_en": "I congratulate my colleague on his birthday.",
-    "lesson_id": null
+    "lesson_id": 1704
   },
   {
     "id": 1161,
@@ -1625,7 +1625,7 @@
     "unit_id": 17,
     "example_cz": "Děkuji vám za pomoc.",
     "example_en": "I thank you for your help.",
-    "lesson_id": 1702
+    "lesson_id": 1704
   },
   {
     "id": 1163,
@@ -1647,7 +1647,7 @@
     "unit_id": 17,
     "example_cz": "Gratuluji ti k promoční!",
     "example_en": "I congratulate you on your graduation!",
-    "lesson_id": 1703
+    "lesson_id": null
   },
   {
     "id": 1165,
@@ -1658,7 +1658,7 @@
     "unit_id": 17,
     "example_cz": "Posílám babičce dopis.",
     "example_en": "I'm sending grandmother a letter.",
-    "lesson_id": 1701
+    "lesson_id": 1704
   },
   {
     "id": 1166,
@@ -1669,7 +1669,7 @@
     "unit_id": 17,
     "example_cz": "Ukazuji studentům obrázek.",
     "example_en": "I'm showing the students a picture.",
-    "lesson_id": 1701
+    "lesson_id": null
   },
   {
     "id": 1171,
@@ -1702,7 +1702,7 @@
     "unit_id": 17,
     "example_cz": "Jsem proti tomu návrhu.",
     "example_en": "I'm against that proposal.",
-    "lesson_id": null
+    "lesson_id": 1702
   },
   {
     "id": 1174,
@@ -1713,7 +1713,7 @@
     "unit_id": 17,
     "example_cz": "Díky tobě jsem to dokázal.",
     "example_en": "Thanks to you I managed it.",
-    "lesson_id": 1704
+    "lesson_id": null
   },
   {
     "id": 1175,
@@ -1724,7 +1724,7 @@
     "unit_id": 17,
     "example_cz": "Je mi zima, zavři okno.",
     "example_en": "I'm cold, close the window.",
-    "lesson_id": 1704
+    "lesson_id": 1701
   },
   {
     "id": 1176,
@@ -1735,7 +1735,7 @@
     "unit_id": 17,
     "example_cz": "Je mi líto, ale nemohu.",
     "example_en": "I'm sorry, but I can't.",
-    "lesson_id": 1704
+    "lesson_id": null
   },
   {
     "id": 1177,
@@ -1746,7 +1746,7 @@
     "unit_id": 17,
     "example_cz": "Je mi teplo, otevři okno.",
     "example_en": "I'm warm, open the window.",
-    "lesson_id": 1704
+    "lesson_id": null
   },
   {
     "id": 1178,
@@ -1757,7 +1757,7 @@
     "unit_id": 17,
     "example_cz": "Je mi špatně, potřebuji lékaře.",
     "example_en": "I feel sick, I need a doctor.",
-    "lesson_id": 1704
+    "lesson_id": null
   },
   {
     "id": 1179,
@@ -1834,7 +1834,7 @@
     "unit_id": 18,
     "example_cz": "Jdu s přítelkyní do kina.",
     "example_en": "I'm going with my girlfriend to the cinema.",
-    "lesson_id": 1804
+    "lesson_id": null
   },
   {
     "id": 1186,
@@ -1845,7 +1845,7 @@
     "unit_id": 18,
     "example_cz": "Bydlím s rodinou.",
     "example_en": "I live with my family.",
-    "lesson_id": 1802
+    "lesson_id": null
   },
   {
     "id": 1187,
@@ -1856,7 +1856,7 @@
     "unit_id": 18,
     "example_cz": "Potřebuji jít do obchodu.",
     "example_en": "I need to go to the shop.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1188,
@@ -1867,7 +1867,7 @@
     "unit_id": 18,
     "example_cz": "Bydlím blízko pošty.",
     "example_en": "I live near the post office.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1189,
@@ -1878,7 +1878,7 @@
     "unit_id": 18,
     "example_cz": "Bydlím v Praze.",
     "example_en": "I live in Prague.",
-    "lesson_id": null
+    "lesson_id": 1802
   },
   {
     "id": 1190,
@@ -1889,7 +1889,7 @@
     "unit_id": 18,
     "example_cz": "O prázdninách jedeme k moři.",
     "example_en": "During the holidays we're going to the sea.",
-    "lesson_id": 1803
+    "lesson_id": null
   },
   {
     "id": 1191,
@@ -1944,7 +1944,7 @@
     "unit_id": 18,
     "example_cz": "V parku jsou stromy.",
     "example_en": "In the park there are trees.",
-    "lesson_id": 1804
+    "lesson_id": null
   },
   {
     "id": 1196,
@@ -1955,7 +1955,7 @@
     "unit_id": 18,
     "example_cz": "V lese je tma.",
     "example_en": "In the forest it's dark.",
-    "lesson_id": 1803
+    "lesson_id": null
   },
   {
     "id": 1197,
@@ -1966,7 +1966,7 @@
     "unit_id": 18,
     "example_cz": "Na horách je sníh.",
     "example_en": "In the mountains there's snow.",
-    "lesson_id": 1803
+    "lesson_id": null
   },
   {
     "id": 1198,
@@ -1977,7 +1977,7 @@
     "unit_id": 18,
     "example_cz": "U moře je krásně.",
     "example_en": "By the sea it's beautiful.",
-    "lesson_id": 1803
+    "lesson_id": null
   },
   {
     "id": 1199,
@@ -1988,7 +1988,7 @@
     "unit_id": 18,
     "example_cz": "V restauraci je plno.",
     "example_en": "In the restaurant it's full.",
-    "lesson_id": 1801
+    "lesson_id": 1803
   },
   {
     "id": 1200,
@@ -1999,7 +1999,7 @@
     "unit_id": 18,
     "example_cz": "V kavárně pijeme kávu.",
     "example_en": "In the cafe we drink coffee.",
-    "lesson_id": 1801
+    "lesson_id": 1802
   },
   {
     "id": 1201,
@@ -2010,7 +2010,7 @@
     "unit_id": 18,
     "example_cz": "V muzeu je nová výstava.",
     "example_en": "In the museum there's a new exhibition.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1202,
@@ -2021,7 +2021,7 @@
     "unit_id": 18,
     "example_cz": "V divadle je temno.",
     "example_en": "In the theatre it's dark.",
-    "lesson_id": 1801
+    "lesson_id": null
   },
   {
     "id": 1203,
@@ -2032,7 +2032,7 @@
     "unit_id": 18,
     "example_cz": "V kostele je ticho.",
     "example_en": "In the church there's silence.",
-    "lesson_id": 1804
+    "lesson_id": null
   },
   {
     "id": 1204,
@@ -2043,7 +2043,7 @@
     "unit_id": 18,
     "example_cz": "Na mostě je vítr.",
     "example_en": "On the bridge there's wind.",
-    "lesson_id": 1804
+    "lesson_id": null
   },
   {
     "id": 1205,
@@ -2054,7 +2054,7 @@
     "unit_id": 18,
     "example_cz": "Na náměstí je trh.",
     "example_en": "In the square there's a market.",
-    "lesson_id": 1801
+    "lesson_id": 1802
   },
   {
     "id": 1206,
@@ -2065,7 +2065,7 @@
     "unit_id": 18,
     "example_cz": "Na nástupišti je plno lidí.",
     "example_en": "On the platform there are many people.",
-    "lesson_id": 1804
+    "lesson_id": null
   },
   {
     "id": 1207,
@@ -2087,7 +2087,7 @@
     "unit_id": 18,
     "example_cz": "Jsem učitelem na základní škole.",
     "example_en": "I am a teacher at a primary school.",
-    "lesson_id": null
+    "lesson_id": 1803
   },
   {
     "id": 1209,
@@ -2109,7 +2109,7 @@
     "unit_id": 19,
     "example_cz": "O víkendu jsem byl doma.",
     "example_en": "Over the weekend I was at home.",
-    "lesson_id": null
+    "lesson_id": 1901
   },
   {
     "id": 1211,
@@ -2164,7 +2164,7 @@
     "unit_id": 19,
     "example_cz": "Včera jsem dělal úkol.",
     "example_en": "Yesterday I did my homework.",
-    "lesson_id": null
+    "lesson_id": 1902
   },
   {
     "id": 1216,
@@ -2175,7 +2175,7 @@
     "unit_id": 19,
     "example_cz": "Četl jsem zajímavou knihu.",
     "example_en": "I read an interesting book.",
-    "lesson_id": null
+    "lesson_id": 1902
   },
   {
     "id": 1217,
@@ -2186,7 +2186,7 @@
     "unit_id": 19,
     "example_cz": "Vařil jsem oběd.",
     "example_en": "I cooked lunch.",
-    "lesson_id": null
+    "lesson_id": 1902
   },
   {
     "id": 1218,
@@ -2197,7 +2197,7 @@
     "unit_id": 19,
     "example_cz": "Viděl jsem ho včera.",
     "example_en": "I saw him yesterday.",
-    "lesson_id": null
+    "lesson_id": 1902
   },
   {
     "id": 1219,
@@ -2219,7 +2219,7 @@
     "unit_id": 19,
     "example_cz": "Šel jsem domů.",
     "example_en": "I went home.",
-    "lesson_id": null
+    "lesson_id": 1902
   },
   {
     "id": 1221,
@@ -2230,7 +2230,7 @@
     "unit_id": 19,
     "example_cz": "Jel jsem do Prahy.",
     "example_en": "I went to Prague.",
-    "lesson_id": null
+    "lesson_id": 1903
   },
   {
     "id": 1222,
@@ -2241,7 +2241,7 @@
     "unit_id": 19,
     "example_cz": "Byl jsem v kině.",
     "example_en": "I was at the cinema.",
-    "lesson_id": null
+    "lesson_id": 1903
   },
   {
     "id": 1223,
@@ -2252,7 +2252,7 @@
     "unit_id": 19,
     "example_cz": "Měl jsem hodně práce.",
     "example_en": "I had a lot of work.",
-    "lesson_id": null
+    "lesson_id": 1903
   },
   {
     "id": 1224,
@@ -2307,7 +2307,7 @@
     "unit_id": 19,
     "example_cz": "Našel jsem klíče.",
     "example_en": "I found the keys.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1229,
@@ -2318,7 +2318,7 @@
     "unit_id": 19,
     "example_cz": "Koupil jsem nové boty.",
     "example_en": "I bought new shoes.",
-    "lesson_id": 1902
+    "lesson_id": 1903
   },
   {
     "id": 1230,
@@ -2384,7 +2384,7 @@
     "unit_id": 19,
     "example_cz": "Nejdřív jsme šli do obchodu.",
     "example_en": "First we went to the shop.",
-    "lesson_id": 1901
+    "lesson_id": 1903
   },
   {
     "id": 1236,
@@ -2395,7 +2395,7 @@
     "unit_id": 19,
     "example_cz": "Pak jsme šli domů.",
     "example_en": "Then we went home.",
-    "lesson_id": null
+    "lesson_id": 1904
   },
   {
     "id": 1237,
@@ -2406,7 +2406,7 @@
     "unit_id": 19,
     "example_cz": "Potom jsme si odpočali.",
     "example_en": "Afterwards we rested.",
-    "lesson_id": 1901
+    "lesson_id": 1902
   },
   {
     "id": 1238,
@@ -2417,7 +2417,7 @@
     "unit_id": 19,
     "example_cz": "Nakonec jsme to dokázali.",
     "example_en": "In the end we managed it.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1239,
@@ -2428,7 +2428,7 @@
     "unit_id": 19,
     "example_cz": "Začal jsem učit česky.",
     "example_en": "I started learning Czech.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1240,
@@ -2439,7 +2439,7 @@
     "unit_id": 19,
     "example_cz": "Film skončil v deset.",
     "example_en": "The film ended at ten.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1241,
@@ -2450,7 +2450,7 @@
     "unit_id": 19,
     "example_cz": "Přišel domů pozdě.",
     "example_en": "He came home late.",
-    "lesson_id": 1902
+    "lesson_id": 1903
   },
   {
     "id": 1242,
@@ -2461,7 +2461,7 @@
     "unit_id": 19,
     "example_cz": "Odešel z práce v pět.",
     "example_en": "He left work at five.",
-    "lesson_id": 1902
+    "lesson_id": null
   },
   {
     "id": 1243,
@@ -2494,7 +2494,7 @@
     "unit_id": 20,
     "example_cz": "Pozítří pojedeme na výlet.",
     "example_en": "The day after tomorrow we'll go on a trip.",
-    "lesson_id": 2001
+    "lesson_id": 2002
   },
   {
     "id": 1246,
@@ -2505,7 +2505,7 @@
     "unit_id": 20,
     "example_cz": "Příští týden budu pracovat.",
     "example_en": "Next week I'll be working.",
-    "lesson_id": null
+    "lesson_id": 2002
   },
   {
     "id": 1247,
@@ -2527,7 +2527,7 @@
     "unit_id": 20,
     "example_cz": "V budoucnosti budu mluvit česky.",
     "example_en": "In the future I'll speak Czech.",
-    "lesson_id": 2004
+    "lesson_id": null
   },
   {
     "id": 1249,
@@ -2549,7 +2549,7 @@
     "unit_id": 20,
     "example_cz": "Večer budu číst knihu.",
     "example_en": "In the evening I'll read a book.",
-    "lesson_id": null
+    "lesson_id": 2002
   },
   {
     "id": 1251,
@@ -2560,7 +2560,7 @@
     "unit_id": 20,
     "example_cz": "Budu psát dopis.",
     "example_en": "I'll write a letter.",
-    "lesson_id": null
+    "lesson_id": 2004
   },
   {
     "id": 1252,
@@ -2593,7 +2593,7 @@
     "unit_id": 20,
     "example_cz": "Udělám to zítra.",
     "example_en": "I'll do it tomorrow.",
-    "lesson_id": 2002
+    "lesson_id": 2003
   },
   {
     "id": 1256,
@@ -2604,7 +2604,7 @@
     "unit_id": 20,
     "example_cz": "Zůstanu doma o víkendu.",
     "example_en": "I'll stay home this weekend.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1257,
@@ -2615,7 +2615,7 @@
     "unit_id": 20,
     "example_cz": "Vrátím se brzy.",
     "example_en": "I'll return soon.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1258,
@@ -2637,7 +2637,7 @@
     "unit_id": 20,
     "example_cz": "Budu plánovat dovolenou.",
     "example_en": "I'll plan the holiday.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1260,
@@ -2648,7 +2648,7 @@
     "unit_id": 20,
     "example_cz": "Připravím večeři.",
     "example_en": "I'll prepare dinner.",
-    "lesson_id": 2002
+    "lesson_id": null
   },
   {
     "id": 1261,
@@ -2659,7 +2659,7 @@
     "unit_id": 20,
     "example_cz": "Změním svůj plán.",
     "example_en": "I'll change my plan.",
-    "lesson_id": 2002
+    "lesson_id": 2004
   },
   {
     "id": 1263,
@@ -2670,7 +2670,7 @@
     "unit_id": 20,
     "example_cz": "Ztratím klíče, jestli nedám pozor.",
     "example_en": "I'll lose my keys if I don't pay attention.",
-    "lesson_id": 2004
+    "lesson_id": null
   },
   {
     "id": 1265,
@@ -2681,7 +2681,7 @@
     "unit_id": 20,
     "example_cz": "Budu začínat v osm hodin.",
     "example_en": "I'll start at eight o'clock.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1266,
@@ -2692,7 +2692,7 @@
     "unit_id": 20,
     "example_cz": "Bude končit v pět hodin.",
     "example_en": "He'll finish at five o'clock.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1267,
@@ -2703,7 +2703,7 @@
     "unit_id": 20,
     "example_cz": "Koupil bych to.",
     "example_en": "I would buy it.",
-    "lesson_id": null
+    "lesson_id": 2002
   },
   {
     "id": 1268,
@@ -2714,7 +2714,7 @@
     "unit_id": 20,
     "example_cz": "Co bys dělal?",
     "example_en": "What would you do?",
-    "lesson_id": null
+    "lesson_id": 2003
   },
   {
     "id": 1269,
@@ -2736,7 +2736,7 @@
     "unit_id": 20,
     "example_cz": "Šli bychom domů.",
     "example_en": "We would go home.",
-    "lesson_id": null
+    "lesson_id": 2002
   },
   {
     "id": 1271,
@@ -2747,7 +2747,7 @@
     "unit_id": 20,
     "example_cz": "Co byste si dali?",
     "example_en": "What would you like to have?",
-    "lesson_id": null
+    "lesson_id": 2003
   },
   {
     "id": 1274,
@@ -2758,7 +2758,7 @@
     "unit_id": 20,
     "example_cz": "V budoucnu chci bydlet v Praze.",
     "example_en": "In the future I want to live in Prague.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1275,
@@ -2769,7 +2769,7 @@
     "unit_id": 21,
     "example_cz": "Toto auto je levnější než tohle.",
     "example_en": "This car is cheaper than that one.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1276,
@@ -2780,7 +2780,7 @@
     "unit_id": 21,
     "example_cz": "V Praze je dražší než v Brně.",
     "example_en": "In Prague it's more expensive than in Brno.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1277,
@@ -2791,7 +2791,7 @@
     "unit_id": 21,
     "example_cz": "Je hezčí než její sestra.",
     "example_en": "She is prettier than her sister.",
-    "lesson_id": 2101
+    "lesson_id": 2102
   },
   {
     "id": 1278,
@@ -2802,7 +2802,7 @@
     "unit_id": 21,
     "example_cz": "Můj bratr je starší než já.",
     "example_en": "My brother is older than me.",
-    "lesson_id": 2101
+    "lesson_id": 2103
   },
   {
     "id": 1279,
@@ -2813,7 +2813,7 @@
     "unit_id": 21,
     "example_cz": "Moje sestra je mladší.",
     "example_en": "My sister is younger.",
-    "lesson_id": 2101
+    "lesson_id": 2103
   },
   {
     "id": 1280,
@@ -2824,7 +2824,7 @@
     "unit_id": 21,
     "example_cz": "Tato cesta je delší.",
     "example_en": "This route is longer.",
-    "lesson_id": 2102
+    "lesson_id": 2104
   },
   {
     "id": 1281,
@@ -2835,7 +2835,7 @@
     "unit_id": 21,
     "example_cz": "Praha je krásnější v noci.",
     "example_en": "Prague is more beautiful at night.",
-    "lesson_id": 2101
+    "lesson_id": null
   },
   {
     "id": 1282,
@@ -2846,7 +2846,7 @@
     "unit_id": 21,
     "example_cz": "To je největší město v zemi.",
     "example_en": "That's the biggest city in the country.",
-    "lesson_id": 2103
+    "lesson_id": 2104
   },
   {
     "id": 1283,
@@ -2868,7 +2868,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejdražší restaurace v Praze.",
     "example_en": "It's the most expensive restaurant in Prague.",
-    "lesson_id": 2103
+    "lesson_id": 2104
   },
   {
     "id": 1285,
@@ -2879,7 +2879,7 @@
     "unit_id": 21,
     "example_cz": "Dnes se cítím lépe.",
     "example_en": "Today I feel better.",
-    "lesson_id": 2104
+    "lesson_id": 2103
   },
   {
     "id": 1286,
@@ -2890,7 +2890,7 @@
     "unit_id": 21,
     "example_cz": "On mluví rychleji než já.",
     "example_en": "He speaks faster than me.",
-    "lesson_id": 2104
+    "lesson_id": 2103
   },
   {
     "id": 1287,
@@ -2901,7 +2901,7 @@
     "unit_id": 21,
     "example_cz": "Chodím sem častěji.",
     "example_en": "I come here more often.",
-    "lesson_id": 2104
+    "lesson_id": null
   },
   {
     "id": 1288,
@@ -2912,7 +2912,7 @@
     "unit_id": 21,
     "example_cz": "Mám méně času než minulý týden.",
     "example_en": "I have less time than last week.",
-    "lesson_id": 2104
+    "lesson_id": null
   },
   {
     "id": 1289,
@@ -2923,7 +2923,7 @@
     "unit_id": 21,
     "example_cz": "Ten strom je vyšší než dům.",
     "example_en": "That tree is taller than the house.",
-    "lesson_id": 2102
+    "lesson_id": 2104
   },
   {
     "id": 1290,
@@ -2934,7 +2934,7 @@
     "unit_id": 21,
     "example_cz": "Cena je nižší než minulý rok.",
     "example_en": "The price is lower than last year.",
-    "lesson_id": 2102
+    "lesson_id": null
   },
   {
     "id": 1291,
@@ -2978,7 +2978,7 @@
     "unit_id": 21,
     "example_cz": "Tento úkol je těžší.",
     "example_en": "This task is harder.",
-    "lesson_id": 2102
+    "lesson_id": 2104
   },
   {
     "id": 1295,
@@ -3000,7 +3000,7 @@
     "unit_id": 21,
     "example_cz": "Tato kniha je zajímavější.",
     "example_en": "This book is more interesting.",
-    "lesson_id": 2101
+    "lesson_id": 2104
   },
   {
     "id": 1297,
@@ -3022,7 +3022,7 @@
     "unit_id": 21,
     "example_cz": "Je to nejrychlejší vlak v zemi.",
     "example_en": "It's the fastest train in the country.",
-    "lesson_id": 2103
+    "lesson_id": 2104
   },
   {
     "id": 1299,
@@ -3044,7 +3044,7 @@
     "unit_id": 23,
     "example_cz": "Musím jít do práce.",
     "example_en": "I must go to work.",
-    "lesson_id": 2301
+    "lesson_id": 2302
   },
   {
     "id": 1301,
@@ -3055,7 +3055,7 @@
     "unit_id": 23,
     "example_cz": "Můžu ti pomoci.",
     "example_en": "I can help you.",
-    "lesson_id": 2301
+    "lesson_id": 2302
   },
   {
     "id": 1302,
@@ -3066,7 +3066,7 @@
     "unit_id": 23,
     "example_cz": "Smím se zeptat?",
     "example_en": "May I ask?",
-    "lesson_id": 2301
+    "lesson_id": 2302
   },
   {
     "id": 1303,
@@ -3077,7 +3077,7 @@
     "unit_id": 23,
     "example_cz": "Chci se učit česky.",
     "example_en": "I want to learn Czech.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1304,
@@ -3088,7 +3088,7 @@
     "unit_id": 23,
     "example_cz": "Musím domů.",
     "example_en": "I have to go home.",
-    "lesson_id": null
+    "lesson_id": 2302
   },
   {
     "id": 1305,
@@ -3099,7 +3099,7 @@
     "unit_id": 23,
     "example_cz": "Můžeš mi říct cestu?",
     "example_en": "Can you tell me the way?",
-    "lesson_id": null
+    "lesson_id": 2302
   },
   {
     "id": 1306,
@@ -3132,7 +3132,7 @@
     "unit_id": 23,
     "example_cz": "Musíte přijít včas.",
     "example_en": "You must arrive on time.",
-    "lesson_id": null
+    "lesson_id": 2302
   },
   {
     "id": 1309,
@@ -3143,7 +3143,7 @@
     "unit_id": 23,
     "example_cz": "Mohou přijít později.",
     "example_en": "They can come later.",
-    "lesson_id": null
+    "lesson_id": 2302
   },
   {
     "id": 1310,
@@ -3154,7 +3154,7 @@
     "unit_id": 23,
     "example_cz": "Můžu usednout?",
     "example_en": "May I sit down?",
-    "lesson_id": 2301
+    "lesson_id": 2302
   },
   {
     "id": 1311,
@@ -3165,7 +3165,7 @@
     "unit_id": 23,
     "example_cz": "Smím otevřít okno?",
     "example_en": "May I open the window?",
-    "lesson_id": 2301
+    "lesson_id": 2303
   },
   {
     "id": 1312,
@@ -3176,7 +3176,7 @@
     "unit_id": 23,
     "example_cz": "Je dovoleno parkovat tady?",
     "example_en": "Is it allowed to park here?",
-    "lesson_id": 2304
+    "lesson_id": null
   },
   {
     "id": 1313,
@@ -3198,7 +3198,7 @@
     "unit_id": 23,
     "example_cz": "Je nutné mít pas.",
     "example_en": "It is necessary to have a passport.",
-    "lesson_id": 2304
+    "lesson_id": null
   },
   {
     "id": 1316,
@@ -3220,7 +3220,7 @@
     "unit_id": 23,
     "example_cz": "Nesmíš tam chodit.",
     "example_en": "You must not go there.",
-    "lesson_id": 2301
+    "lesson_id": 2303
   },
   {
     "id": 1318,
@@ -3231,7 +3231,7 @@
     "unit_id": 23,
     "example_cz": "Mám povolení k pobytu.",
     "example_en": "I have a residence permit.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1319,
@@ -3242,7 +3242,7 @@
     "unit_id": 23,
     "example_cz": "Zákaz vjezdu platí zde.",
     "example_en": "No entry applies here.",
-    "lesson_id": 2303
+    "lesson_id": null
   },
   {
     "id": 1320,
@@ -3253,7 +3253,7 @@
     "unit_id": 23,
     "example_cz": "Musíme dodržovat pravidla.",
     "example_en": "We must follow the rules.",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1322,
@@ -3264,7 +3264,7 @@
     "unit_id": 23,
     "example_cz": "Máme možnost volby.",
     "example_en": "We have a choice.",
-    "lesson_id": 2304
+    "lesson_id": null
   },
   {
     "id": 1323,
@@ -3286,7 +3286,7 @@
     "unit_id": 23,
     "example_cz": "Můžu přijít zítra?",
     "example_en": "Can I come tomorrow?",
-    "lesson_id": 2304
+    "lesson_id": 2303
   },
   {
     "id": 1325,
@@ -3297,7 +3297,7 @@
     "unit_id": 23,
     "example_cz": "Smím vstoupit do místnosti?",
     "example_en": "May I enter the room?",
-    "lesson_id": 2304
+    "lesson_id": null
   },
   {
     "id": 1326,
@@ -3308,7 +3308,7 @@
     "unit_id": 23,
     "example_cz": "Chci se učit nové věci.",
     "example_en": "I want to learn new things.",
-    "lesson_id": 2304
+    "lesson_id": null
   },
   {
     "id": 1327,
@@ -3319,7 +3319,7 @@
     "unit_id": 23,
     "example_cz": "Fotografování je dovoleno.",
     "example_en": "Photography is allowed.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1328,
@@ -3330,7 +3330,7 @@
     "unit_id": 23,
     "example_cz": "Vstup je zakázán.",
     "example_en": "Entry is prohibited.",
-    "lesson_id": 2303
+    "lesson_id": 2304
   },
   {
     "id": 1329,
@@ -3341,7 +3341,7 @@
     "unit_id": 23,
     "example_cz": "Je to nutný krok.",
     "example_en": "It is a necessary step.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1331,
@@ -3352,7 +3352,7 @@
     "unit_id": 23,
     "example_cz": "Je to možné řešení.",
     "example_en": "It is a possible solution.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1332,
@@ -3363,7 +3363,7 @@
     "unit_id": 23,
     "example_cz": "Smíš si sednout.",
     "example_en": "You may sit down.",
-    "lesson_id": null
+    "lesson_id": 2303
   },
   {
     "id": 1333,
@@ -3385,7 +3385,7 @@
     "unit_id": 23,
     "example_cz": "Musíme si pospíšit.",
     "example_en": "We must hurry.",
-    "lesson_id": null
+    "lesson_id": 2303
   },
   {
     "id": 1335,
@@ -3396,7 +3396,7 @@
     "unit_id": 23,
     "example_cz": "Ona může řídit auto.",
     "example_en": "She can drive a car.",
-    "lesson_id": null
+    "lesson_id": 2303
   },
   {
     "id": 1336,
@@ -3418,7 +3418,7 @@
     "unit_id": 23,
     "example_cz": "Rodiče mi dovolili jet.",
     "example_en": "My parents allowed me to go.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1339,
@@ -3429,7 +3429,7 @@
     "unit_id": 23,
     "example_cz": "Potřebuji nové boty.",
     "example_en": "I need new shoes.",
-    "lesson_id": 2301
+    "lesson_id": null
   },
   {
     "id": 1340,
@@ -3473,7 +3473,7 @@
     "unit_id": 24,
     "example_cz": "Mám zánět oka.",
     "example_en": "I have an eye inflammation.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1344,
@@ -3484,7 +3484,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě ucho.",
     "example_en": "My ear hurts.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1345,
@@ -3506,7 +3506,7 @@
     "unit_id": 24,
     "example_cz": "Mám ucpaný nos.",
     "example_en": "I have a stuffy nose.",
-    "lesson_id": null
+    "lesson_id": 2402
   },
   {
     "id": 1347,
@@ -3517,7 +3517,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě zub.",
     "example_en": "My tooth hurts.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1348,
@@ -3528,7 +3528,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě záda po práci.",
     "example_en": "My back hurts after work.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1349,
@@ -3539,7 +3539,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě břicho.",
     "example_en": "My stomach hurts.",
-    "lesson_id": 2401
+    "lesson_id": 2402
   },
   {
     "id": 1350,
@@ -3561,7 +3561,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě krk při polykání.",
     "example_en": "My throat hurts when swallowing.",
-    "lesson_id": 2403
+    "lesson_id": 2402
   },
   {
     "id": 1352,
@@ -3594,7 +3594,7 @@
     "unit_id": 24,
     "example_cz": "Jdu k lékaři.",
     "example_en": "I am going to the doctor.",
-    "lesson_id": null
+    "lesson_id": 2402
   },
   {
     "id": 1355,
@@ -3605,7 +3605,7 @@
     "unit_id": 24,
     "example_cz": "Mám těžkou nemoc.",
     "example_en": "I have a serious illness.",
-    "lesson_id": null
+    "lesson_id": 2403
   },
   {
     "id": 1356,
@@ -3638,7 +3638,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě hlava.",
     "example_en": "My head hurts.",
-    "lesson_id": 2402
+    "lesson_id": 2403
   },
   {
     "id": 1359,
@@ -3649,7 +3649,7 @@
     "unit_id": 24,
     "example_cz": "Mám vysokou teplotu.",
     "example_en": "I have a high temperature.",
-    "lesson_id": 2402
+    "lesson_id": 2403
   },
   {
     "id": 1360,
@@ -3660,7 +3660,7 @@
     "unit_id": 24,
     "example_cz": "Mám nachlazení.",
     "example_en": "I have a cold.",
-    "lesson_id": 2403
+    "lesson_id": null
   },
   {
     "id": 1361,
@@ -3671,7 +3671,7 @@
     "unit_id": 24,
     "example_cz": "Mám suchý kašel.",
     "example_en": "I have a dry cough.",
-    "lesson_id": 2402
+    "lesson_id": 2403
   },
   {
     "id": 1362,
@@ -3682,7 +3682,7 @@
     "unit_id": 24,
     "example_cz": "Mám rýmu a kašel.",
     "example_en": "I have a runny nose and a cough.",
-    "lesson_id": 2402
+    "lesson_id": 2403
   },
   {
     "id": 1363,
@@ -3693,7 +3693,7 @@
     "unit_id": 24,
     "example_cz": "Mám horečku.",
     "example_en": "I have a fever.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1364,
@@ -3770,7 +3770,7 @@
     "unit_id": 24,
     "example_cz": "Vezměte si jednu tabletu.",
     "example_en": "Take one tablet.",
-    "lesson_id": 2404
+    "lesson_id": null
   },
   {
     "id": 1371,
@@ -3781,7 +3781,7 @@
     "unit_id": 24,
     "example_cz": "Dítěti dal sirup na kašel.",
     "example_en": "He gave the child cough syrup.",
-    "lesson_id": 2404
+    "lesson_id": null
   },
   {
     "id": 1372,
@@ -3792,7 +3792,7 @@
     "unit_id": 24,
     "example_cz": "Cítím se dobře.",
     "example_en": "I feel well.",
-    "lesson_id": 2403
+    "lesson_id": null
   },
   {
     "id": 1373,
@@ -3836,7 +3836,7 @@
     "unit_id": 24,
     "example_cz": "Jdu k lékaři kvůli bolesti.",
     "example_en": "I am going to the doctor because of pain.",
-    "lesson_id": 2403
+    "lesson_id": null
   },
   {
     "id": 1377,
@@ -3847,7 +3847,7 @@
     "unit_id": 24,
     "example_cz": "Bolí mě hlava a krk.",
     "example_en": "My head and throat hurt.",
-    "lesson_id": 2402
+    "lesson_id": 2401
   },
   {
     "id": 1378,
@@ -3858,7 +3858,7 @@
     "unit_id": 24,
     "example_cz": "Mám teplotu od včerejška.",
     "example_en": "I have had a fever since yesterday.",
-    "lesson_id": null
+    "lesson_id": 2401
   },
   {
     "id": 1379,
@@ -3891,7 +3891,7 @@
     "unit_id": 24,
     "example_cz": "Koupil jsem kapky do očí.",
     "example_en": "I bought eye drops.",
-    "lesson_id": 2404
+    "lesson_id": null
   },
   {
     "id": 1382,
@@ -3935,7 +3935,7 @@
     "unit_id": 24,
     "example_cz": "Jsem zdravý a silný.",
     "example_en": "I am healthy and strong.",
-    "lesson_id": 2402
+    "lesson_id": null
   },
   {
     "id": 1387,
@@ -3946,7 +3946,7 @@
     "unit_id": 24,
     "example_cz": "Nemocný chlapec leží v posteli.",
     "example_en": "The sick boy is lying in bed.",
-    "lesson_id": 2402
+    "lesson_id": 2404
   },
   {
     "id": 1388,
@@ -3968,7 +3968,7 @@
     "unit_id": 24,
     "example_cz": "Mám alergii na pyl.",
     "example_en": "I have a pollen allergy.",
-    "lesson_id": 2404
+    "lesson_id": null
   },
   {
     "id": 1390,
@@ -4001,7 +4001,7 @@
     "unit_id": 25,
     "example_cz": "Lékař pracuje v nemocnici.",
     "example_en": "The doctor works in a hospital.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1393,
@@ -4012,7 +4012,7 @@
     "unit_id": 25,
     "example_cz": "Právník mi poradil s smlouvou.",
     "example_en": "The lawyer advised me on the contract.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1394,
@@ -4023,7 +4023,7 @@
     "unit_id": 25,
     "example_cz": "Programátor píše kód v Pythonu.",
     "example_en": "The programmer writes code in Python.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1395,
@@ -4034,7 +4034,7 @@
     "unit_id": 25,
     "example_cz": "Kuchař připravuje večeři.",
     "example_en": "The chef is preparing dinner.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1396,
@@ -4045,7 +4045,7 @@
     "unit_id": 25,
     "example_cz": "Řidič autobusu je opatrný.",
     "example_en": "The bus driver is careful.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1397,
@@ -4056,7 +4056,7 @@
     "unit_id": 25,
     "example_cz": "Prodavač mi pomohl vybrat dárek.",
     "example_en": "The shop assistant helped me choose a gift.",
-    "lesson_id": 2501
+    "lesson_id": 2502
   },
   {
     "id": 1398,
@@ -4089,7 +4089,7 @@
     "unit_id": 25,
     "example_cz": "Pracuji v mezinárodní firmě.",
     "example_en": "I work in an international company.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1401,
@@ -4100,7 +4100,7 @@
     "unit_id": 25,
     "example_cz": "Naše kancelář je v centru města.",
     "example_en": "Our office is in the city center.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1402,
@@ -4122,7 +4122,7 @@
     "unit_id": 25,
     "example_cz": "Obchod je otevřený do devíti.",
     "example_en": "The shop is open until nine.",
-    "lesson_id": null
+    "lesson_id": 2504
   },
   {
     "id": 1404,
@@ -4133,7 +4133,7 @@
     "unit_id": 25,
     "example_cz": "Restaurace má dobrou kuchyni.",
     "example_en": "The restaurant has good cuisine.",
-    "lesson_id": null
+    "lesson_id": 2504
   },
   {
     "id": 1405,
@@ -4144,7 +4144,7 @@
     "unit_id": 25,
     "example_cz": "Pracuje v nové nemocnici.",
     "example_en": "She works in a new hospital.",
-    "lesson_id": null
+    "lesson_id": 2504
   },
   {
     "id": 1406,
@@ -4155,7 +4155,7 @@
     "unit_id": 25,
     "example_cz": "Naše škola má dobré učitele.",
     "example_en": "Our school has good teachers.",
-    "lesson_id": 2503
+    "lesson_id": 2504
   },
   {
     "id": 1407,
@@ -4166,7 +4166,7 @@
     "unit_id": 25,
     "example_cz": "Firma má sto zaměstnanců.",
     "example_en": "The company has a hundred employees.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1408,
@@ -4177,7 +4177,7 @@
     "unit_id": 25,
     "example_cz": "Můj zaměstnavatel je férový.",
     "example_en": "My employer is fair.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1409,
@@ -4210,7 +4210,7 @@
     "unit_id": 25,
     "example_cz": "Podepsal jsem pracovní smlouvu.",
     "example_en": "I signed a work contract.",
-    "lesson_id": 2504
+    "lesson_id": null
   },
   {
     "id": 1412,
@@ -4221,7 +4221,7 @@
     "unit_id": 25,
     "example_cz": "Mám plný úvazek.",
     "example_en": "I have a full-time job.",
-    "lesson_id": 2504
+    "lesson_id": null
   },
   {
     "id": 1413,
@@ -4232,7 +4232,7 @@
     "unit_id": 25,
     "example_cz": "Studuji na univerzitě v Praze.",
     "example_en": "I study at a university in Prague.",
-    "lesson_id": 2503
+    "lesson_id": 2502
   },
   {
     "id": 1414,
@@ -4243,7 +4243,7 @@
     "unit_id": 25,
     "example_cz": "Medická fakulta je prestižní.",
     "example_en": "The medical faculty is prestigious.",
-    "lesson_id": 2503
+    "lesson_id": null
   },
   {
     "id": 1415,
@@ -4254,7 +4254,7 @@
     "unit_id": 25,
     "example_cz": "Student píše zkoušku.",
     "example_en": "The student is writing an exam.",
-    "lesson_id": null
+    "lesson_id": 2504
   },
   {
     "id": 1416,
@@ -4276,7 +4276,7 @@
     "unit_id": 25,
     "example_cz": "Matematika je můj oblíbený předmět.",
     "example_en": "Mathematics is my favorite subject.",
-    "lesson_id": 2503
+    "lesson_id": 2504
   },
   {
     "id": 1418,
@@ -4331,7 +4331,7 @@
     "unit_id": 25,
     "example_cz": "Profesor přednáší filozofii.",
     "example_en": "The professor teaches philosophy.",
-    "lesson_id": null
+    "lesson_id": 2503
   },
   {
     "id": 1425,
@@ -4342,7 +4342,7 @@
     "unit_id": 25,
     "example_cz": "Pracuji od osmi do čtyř.",
     "example_en": "I work from eight to four.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1426,
@@ -4397,7 +4397,7 @@
     "unit_id": 25,
     "example_cz": "Mám schůzku v deset hodin.",
     "example_en": "I have a meeting at ten o'clock.",
-    "lesson_id": 2504
+    "lesson_id": null
   },
   {
     "id": 1431,
@@ -4419,7 +4419,7 @@
     "unit_id": 25,
     "example_cz": "Hledám práci v IT sektoru.",
     "example_en": "I am looking for a job in the IT sector.",
-    "lesson_id": 2504
+    "lesson_id": 2503
   },
   {
     "id": 1433,
@@ -4430,7 +4430,7 @@
     "unit_id": 25,
     "example_cz": "Poslal jsem životopis firmě.",
     "example_en": "I sent my resume to the company.",
-    "lesson_id": 2504
+    "lesson_id": null
   },
   {
     "id": 1434,
@@ -4441,7 +4441,7 @@
     "unit_id": 25,
     "example_cz": "Úspěšně jsem udělal pohovor.",
     "example_en": "I successfully passed the interview.",
-    "lesson_id": 2504
+    "lesson_id": null
   },
   {
     "id": 1435,
@@ -4474,7 +4474,7 @@
     "unit_id": 25,
     "example_cz": "Našel jsem nové zaměstnání.",
     "example_en": "I found a new job.",
-    "lesson_id": 2504
+    "lesson_id": null
   },
   {
     "id": 1438,
@@ -4496,7 +4496,7 @@
     "unit_id": 25,
     "example_cz": "Mám pět let zkušeností.",
     "example_en": "I have five years of experience.",
-    "lesson_id": 2504
+    "lesson_id": 2503
   },
   {
     "id": 1440,
@@ -4507,7 +4507,7 @@
     "unit_id": 26,
     "example_cz": "Bydlím v malém bytě.",
     "example_en": "I live in a small apartment.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1441,
@@ -4518,7 +4518,7 @@
     "unit_id": 26,
     "example_cz": "Postavili si nový dům.",
     "example_en": "They built a new house.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1442,
@@ -4529,7 +4529,7 @@
     "unit_id": 26,
     "example_cz": "Máme chatu u jezera.",
     "example_en": "We have a cottage by the lake.",
-    "lesson_id": null
+    "lesson_id": 2604
   },
   {
     "id": 1443,
@@ -4562,7 +4562,7 @@
     "unit_id": 26,
     "example_cz": "V obývacím pokoji je pohovka.",
     "example_en": "There is a sofa in the living room.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1446,
@@ -4573,7 +4573,7 @@
     "unit_id": 26,
     "example_cz": "Kuchyně je moderní a prostorná.",
     "example_en": "The kitchen is modern and spacious.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1447,
@@ -4584,7 +4584,7 @@
     "unit_id": 26,
     "example_cz": "Ložnice je v patře.",
     "example_en": "The bedroom is upstairs.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1448,
@@ -4595,7 +4595,7 @@
     "unit_id": 26,
     "example_cz": "Koupelna má vanu a sprchu.",
     "example_en": "The bathroom has a tub and a shower.",
-    "lesson_id": 2601
+    "lesson_id": 2602
   },
   {
     "id": 1449,
@@ -4628,7 +4628,7 @@
     "unit_id": 26,
     "example_cz": "V předsíni jsou boty.",
     "example_en": "There are shoes in the hallway.",
-    "lesson_id": 2601
+    "lesson_id": null
   },
   {
     "id": 1452,
@@ -4639,7 +4639,7 @@
     "unit_id": 26,
     "example_cz": "Stůl je z masivního dřeva.",
     "example_en": "The table is made of solid wood.",
-    "lesson_id": 2602
+    "lesson_id": 2604
   },
   {
     "id": 1453,
@@ -4650,7 +4650,7 @@
     "unit_id": 26,
     "example_cz": "Koupil jsem novou židli.",
     "example_en": "I bought a new chair.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1454,
@@ -4661,7 +4661,7 @@
     "unit_id": 26,
     "example_cz": "Postel je pohodlná a široká.",
     "example_en": "The bed is comfortable and wide.",
-    "lesson_id": 2602
+    "lesson_id": 2604
   },
   {
     "id": 1455,
@@ -4683,7 +4683,7 @@
     "unit_id": 26,
     "example_cz": "Skříň je plná oblečení.",
     "example_en": "The wardrobe is full of clothes.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 1457,
@@ -4727,7 +4727,7 @@
     "unit_id": 26,
     "example_cz": "Lednice je plná jídla.",
     "example_en": "The fridge is full of food.",
-    "lesson_id": 2604
+    "lesson_id": null
   },
   {
     "id": 1461,
@@ -4738,7 +4738,7 @@
     "unit_id": 26,
     "example_cz": "Sporák je plynový.",
     "example_en": "The stove is gas-powered.",
-    "lesson_id": 2604
+    "lesson_id": null
   },
   {
     "id": 1462,
@@ -4782,7 +4782,7 @@
     "unit_id": 26,
     "example_cz": "Nájem je patnáct tisíc korun.",
     "example_en": "The rent is fifteen thousand crowns.",
-    "lesson_id": 2603
+    "lesson_id": 2602
   },
   {
     "id": 1466,
@@ -4793,7 +4793,7 @@
     "unit_id": 26,
     "example_cz": "Pronajali jsme si byt.",
     "example_en": "We rented an apartment.",
-    "lesson_id": 2603
+    "lesson_id": 2604
   },
   {
     "id": 1467,
@@ -4804,7 +4804,7 @@
     "unit_id": 26,
     "example_cz": "Chceme koupit vlastní dům.",
     "example_en": "We want to buy our own house.",
-    "lesson_id": null
+    "lesson_id": 2602
   },
   {
     "id": 1468,
@@ -4815,7 +4815,7 @@
     "unit_id": 26,
     "example_cz": "Nájemník platí nájem každý měsíc.",
     "example_en": "The tenant pays rent every month.",
-    "lesson_id": 2603
+    "lesson_id": null
   },
   {
     "id": 1469,
@@ -4870,7 +4870,7 @@
     "unit_id": 26,
     "example_cz": "Topení v bytě funguje dobře.",
     "example_en": "The heating in the apartment works well.",
-    "lesson_id": 2604
+    "lesson_id": 2603
   },
   {
     "id": 1475,
@@ -4925,7 +4925,7 @@
     "unit_id": 26,
     "example_cz": "Bydlíme ve třetím patře.",
     "example_en": "We live on the third floor.",
-    "lesson_id": 2602
+    "lesson_id": 2603
   },
   {
     "id": 1480,
@@ -4936,7 +4936,7 @@
     "unit_id": 27,
     "example_cz": "Jdu do školy.",
     "example_en": "I am going to school.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1481,
@@ -4947,7 +4947,7 @@
     "unit_id": 27,
     "example_cz": "Jedeme vlakem do Brna.",
     "example_en": "We are going by train to Brno.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1482,
@@ -4991,7 +4991,7 @@
     "unit_id": 27,
     "example_cz": "Přišel včas na schůzku.",
     "example_en": "He arrived on time for the meeting.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1488,
@@ -5002,7 +5002,7 @@
     "unit_id": 27,
     "example_cz": "Odešel z práce v pět hodin.",
     "example_en": "He left work at five o'clock.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1489,
@@ -5013,7 +5013,7 @@
     "unit_id": 27,
     "example_cz": "Vyšli jsme ven na vzduch.",
     "example_en": "We went outside for fresh air.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1490,
@@ -5024,7 +5024,7 @@
     "unit_id": 27,
     "example_cz": "Došli jsme k restauraci.",
     "example_en": "We reached the restaurant.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1491,
@@ -5035,7 +5035,7 @@
     "unit_id": 27,
     "example_cz": "Prošli jsme parkem.",
     "example_en": "We walked through the park.",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1492,
@@ -5057,7 +5057,7 @@
     "unit_id": 27,
     "example_cz": "Vrátil se z dovolené včera.",
     "example_en": "He returned from vacation yesterday.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1494,
@@ -5101,7 +5101,7 @@
     "unit_id": 27,
     "example_cz": "Kam jdeš?",
     "example_en": "Where are you going?",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1498,
@@ -5112,7 +5112,7 @@
     "unit_id": 27,
     "example_cz": "Odkud přicházíš?",
     "example_en": "Where are you coming from?",
-    "lesson_id": 2702
+    "lesson_id": 2703
   },
   {
     "id": 1499,
@@ -5134,7 +5134,7 @@
     "unit_id": 27,
     "example_cz": "Jdu tam zítra.",
     "example_en": "I am going there tomorrow.",
-    "lesson_id": 2703
+    "lesson_id": 2702
   },
   {
     "id": 1501,
@@ -5167,7 +5167,7 @@
     "unit_id": 27,
     "example_cz": "Pojďte dovnitř, je zima.",
     "example_en": "Come inside, it is cold.",
-    "lesson_id": 2703
+    "lesson_id": 2704
   },
   {
     "id": 1504,
@@ -5178,7 +5178,7 @@
     "unit_id": 27,
     "example_cz": "Jděte nahoru po schodech.",
     "example_en": "Go upstairs.",
-    "lesson_id": 2703
+    "lesson_id": 2704
   },
   {
     "id": 1505,
@@ -5189,7 +5189,7 @@
     "unit_id": 27,
     "example_cz": "Sjeďte dolů po kopci.",
     "example_en": "Go down the hill.",
-    "lesson_id": 2703
+    "lesson_id": 2704
   },
   {
     "id": 1506,
@@ -5255,7 +5255,7 @@
     "unit_id": 27,
     "example_cz": "Přijeli jsme vlakem.",
     "example_en": "We arrived by train.",
-    "lesson_id": 2702
+    "lesson_id": 2704
   },
   {
     "id": 1512,
@@ -5266,7 +5266,7 @@
     "unit_id": 27,
     "example_cz": "Odešel domů po práci.",
     "example_en": "He went home after work.",
-    "lesson_id": null
+    "lesson_id": 2704
   },
   {
     "id": 1513,
@@ -5288,7 +5288,7 @@
     "unit_id": 27,
     "example_cz": "Vyšli jsme ven na kávu.",
     "example_en": "We went outside for coffee.",
-    "lesson_id": null
+    "lesson_id": 2704
   },
   {
     "id": 1515,
@@ -5310,28 +5310,6 @@
     "unit_id": 27,
     "example_cz": "Prošli jsme parkem domů.",
     "example_en": "We walked through the park home.",
-    "lesson_id": null
-  },
-  {
-    "id": 1525,
-    "word_cz": "hodně",
-    "word_en": "a lot / many",
-    "ipa": "ɦodɲɛ",
-    "gender": null,
-    "unit_id": 16,
-    "example_cz": "Hodně vody, prosím.",
-    "example_en": "A lot of water, please.",
-    "lesson_id": null
-  },
-  {
-    "id": 1526,
-    "word_cz": "málo",
-    "word_en": "little / few",
-    "ipa": "maːlo",
-    "gender": null,
-    "unit_id": 16,
-    "example_cz": "Mám málo času.",
-    "example_en": "I have little time.",
     "lesson_id": null
   },
   {
@@ -5357,17 +5335,6 @@
     "lesson_id": null
   },
   {
-    "id": 1529,
-    "word_cz": "spousta",
-    "word_en": "a lot / plenty",
-    "ipa": "ˈspoutsɑ",
-    "gender": "feminine",
-    "unit_id": 16,
-    "example_cz": "Spousta lidí přišla na koncert.",
-    "example_en": "A lot of people came to the concert.",
-    "lesson_id": null
-  },
-  {
     "id": 1530,
     "word_cz": "mnoho",
     "word_en": "many / much",
@@ -5376,7 +5343,7 @@
     "unit_id": 16,
     "example_cz": "Mnoho studentů nestudovalo.",
     "example_en": "Many students didn't study.",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1531,
@@ -5387,7 +5354,7 @@
     "unit_id": 16,
     "example_cz": "Polovina třídy je nemocná.",
     "example_en": "Half the class is sick.",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1533,
@@ -5398,7 +5365,7 @@
     "unit_id": 16,
     "example_cz": "Jaký druh kávy chcete?",
     "example_en": "What kind of coffee do you want?",
-    "lesson_id": 1603
+    "lesson_id": null
   },
   {
     "id": 1534,
@@ -5409,7 +5376,7 @@
     "unit_id": 16,
     "example_cz": "Část knihy byla nudná.",
     "example_en": "Part of the book was boring.",
-    "lesson_id": 1604
+    "lesson_id": null
   },
   {
     "id": 1535,
@@ -5420,39 +5387,6 @@
     "unit_id": 16,
     "example_cz": "Dám si kousek dortu.",
     "example_en": "I'll have a piece of cake.",
-    "lesson_id": null
-  },
-  {
-    "id": 1536,
-    "word_cz": "sklenice",
-    "word_en": "glass",
-    "ipa": "ˈsklɛɲɪtsɛ",
-    "gender": "feminine",
-    "unit_id": 16,
-    "example_cz": "Sklenice vína, prosím.",
-    "example_en": "A glass of wine, please.",
-    "lesson_id": null
-  },
-  {
-    "id": 1537,
-    "word_cz": "láhev",
-    "word_en": "bottle",
-    "ipa": "ˈlaːɦɛf",
-    "gender": "feminine",
-    "unit_id": 16,
-    "example_cz": "Láhev vody stojí 30 korun.",
-    "example_en": "A bottle of water costs 30 crowns.",
-    "lesson_id": null
-  },
-  {
-    "id": 1540,
-    "word_cz": "střed",
-    "word_en": "center / middle",
-    "ipa": "str̝ɛd",
-    "gender": "masculine inanimate",
-    "unit_id": 16,
-    "example_cz": "V centru města je náměstí.",
-    "example_en": "In the center of the city is a square.",
     "lesson_id": null
   },
   {
@@ -5497,7 +5431,7 @@
     "unit_id": 17,
     "example_cz": "Pomáhám kamarádovi s úkolem.",
     "example_en": "I help my friend with homework.",
-    "lesson_id": null
+    "lesson_id": 1703
   },
   {
     "id": 1546,
@@ -5552,7 +5486,7 @@
     "unit_id": 17,
     "example_cz": "Pět korun mi nestačí.",
     "example_en": "Five crowns isn't enough for me.",
-    "lesson_id": 1703
+    "lesson_id": null
   },
   {
     "id": 1551,
@@ -5563,7 +5497,7 @@
     "unit_id": 17,
     "example_cz": "Polévka mi chutná.",
     "example_en": "The soup tastes good to me.",
-    "lesson_id": null
+    "lesson_id": 1703
   },
   {
     "id": 1552,
@@ -5574,7 +5508,7 @@
     "unit_id": 17,
     "example_cz": "Líbí se mi ten film.",
     "example_en": "I like that film.",
-    "lesson_id": null
+    "lesson_id": 1703
   },
   {
     "id": 1553,
@@ -5596,7 +5530,7 @@
     "unit_id": 17,
     "example_cz": "Přeji ti všechno nejlepší.",
     "example_en": "I wish you all the best.",
-    "lesson_id": 1703
+    "lesson_id": null
   },
   {
     "id": 1559,
@@ -5618,7 +5552,7 @@
     "unit_id": 17,
     "example_cz": "Poradím ti, co dělat.",
     "example_en": "I'll advise you what to do.",
-    "lesson_id": 1704
+    "lesson_id": 1703
   },
   {
     "id": 1565,
@@ -5629,7 +5563,7 @@
     "unit_id": 18,
     "example_cz": "Přede školou čekají studenti.",
     "example_en": "Students wait in front of the school.",
-    "lesson_id": null
+    "lesson_id": 1803
   },
   {
     "id": 1566,
@@ -5640,28 +5574,6 @@
     "unit_id": 18,
     "example_cz": "Mezi Prahou a Brnem je dálnice.",
     "example_en": "Between Prague and Brno is a highway.",
-    "lesson_id": null
-  },
-  {
-    "id": 1567,
-    "word_cz": "nad",
-    "word_en": "above",
-    "ipa": "nat",
-    "gender": null,
-    "unit_id": 18,
-    "example_cz": "Nad stolem visí lampa.",
-    "example_en": "Above the table hangs a lamp.",
-    "lesson_id": null
-  },
-  {
-    "id": 1568,
-    "word_cz": "pod",
-    "word_en": "under",
-    "ipa": "pot",
-    "gender": null,
-    "unit_id": 18,
-    "example_cz": "Pod stolem spí kočka.",
-    "example_en": "Under the table sleeps a cat.",
     "lesson_id": null
   },
   {
@@ -5728,7 +5640,7 @@
     "unit_id": 18,
     "example_cz": "V přírodě se cítím dobře.",
     "example_en": "I feel good in nature.",
-    "lesson_id": 1803
+    "lesson_id": null
   },
   {
     "id": 1577,
@@ -5761,7 +5673,7 @@
     "unit_id": 18,
     "example_cz": "Můj soused je velmi milý.",
     "example_en": "My neighbor is very nice.",
-    "lesson_id": 1804
+    "lesson_id": null
   },
   {
     "id": 1581,
@@ -5772,7 +5684,7 @@
     "unit_id": 18,
     "example_cz": "Moje babička bydlí ve vesnici.",
     "example_en": "My grandmother lives in a village.",
-    "lesson_id": 1804
+    "lesson_id": null
   },
   {
     "id": 1584,
@@ -5783,29 +5695,7 @@
     "unit_id": 18,
     "example_cz": "Studuji na univerzitě v Praze.",
     "example_en": "I study at a university in Prague.",
-    "lesson_id": 1801
-  },
-  {
-    "id": 1585,
-    "word_cz": "včera",
-    "word_en": "yesterday",
-    "ipa": "ˈft͡ʃɛra",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Včera jsem byl v kině.",
-    "example_en": "Yesterday I was at the cinema.",
-    "lesson_id": null
-  },
-  {
-    "id": 1586,
-    "word_cz": "minulý",
-    "word_en": "last / past",
-    "ipa": "ˈmɪnuliː",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Minulý týden jsem pracoval doma.",
-    "example_en": "Last week I worked from home.",
-    "lesson_id": null
+    "lesson_id": 1804
   },
   {
     "id": 1587,
@@ -5816,7 +5706,7 @@
     "unit_id": 19,
     "example_cz": "Před týdnem jsem byl v Praze.",
     "example_en": "A week ago I was in Prague.",
-    "lesson_id": null
+    "lesson_id": 1903
   },
   {
     "id": 1588,
@@ -5827,7 +5717,7 @@
     "unit_id": 19,
     "example_cz": "Nedávno jsem se přestěhoval.",
     "example_en": "Recently I moved.",
-    "lesson_id": 1901
+    "lesson_id": null
   },
   {
     "id": 1589,
@@ -5838,7 +5728,7 @@
     "unit_id": 19,
     "example_cz": "Dříve jsem bydlel v Brně.",
     "example_en": "Earlier I lived in Brno.",
-    "lesson_id": 1904
+    "lesson_id": null
   },
   {
     "id": 1590,
@@ -5849,17 +5739,6 @@
     "unit_id": 19,
     "example_cz": "Tehdy jsem byl student.",
     "example_en": "At that time I was a student.",
-    "lesson_id": 1904
-  },
-  {
-    "id": 1591,
-    "word_cz": "předevčírem",
-    "word_en": "the day before yesterday",
-    "ipa": "ˈpr̝ɛdɛft͡ʃɪrɛm",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Předevčírem pršelo.",
-    "example_en": "It rained the day before yesterday.",
     "lesson_id": null
   },
   {
@@ -5871,17 +5750,6 @@
     "unit_id": 19,
     "example_cz": "Vždycky jsem chtěl jet do Prahy.",
     "example_en": "I always wanted to go to Prague.",
-    "lesson_id": 1904
-  },
-  {
-    "id": 1594,
-    "word_cz": "kdysi",
-    "word_en": "once / formerly",
-    "ipa": "ˈkdɪsɪ",
-    "gender": null,
-    "unit_id": 19,
-    "example_cz": "Kdysi tu byl hrad.",
-    "example_en": "Once there was a castle here.",
     "lesson_id": null
   },
   {
@@ -5893,7 +5761,7 @@
     "unit_id": 19,
     "example_cz": "Na začátku roku jsem měl nový plán.",
     "example_en": "At the beginning of the year I had a new plan.",
-    "lesson_id": 1904
+    "lesson_id": null
   },
   {
     "id": 1596,
@@ -5904,7 +5772,7 @@
     "unit_id": 19,
     "example_cz": "Na konci filmu jsem brečel.",
     "example_en": "At the end of the film I cried.",
-    "lesson_id": 1904
+    "lesson_id": null
   },
   {
     "id": 1597,
@@ -5915,7 +5783,7 @@
     "unit_id": 19,
     "example_cz": "Co se stalo včera?",
     "example_en": "What happened yesterday?",
-    "lesson_id": 1903
+    "lesson_id": null
   },
   {
     "id": 1598,
@@ -5937,7 +5805,7 @@
     "unit_id": 19,
     "example_cz": "Mám hezké vzpomínky na dětství.",
     "example_en": "I have nice memories of childhood.",
-    "lesson_id": 1903
+    "lesson_id": null
   },
   {
     "id": 1600,
@@ -5948,7 +5816,7 @@
     "unit_id": 19,
     "example_cz": "Vyprávěl jsem mu příběh.",
     "example_en": "I told him a story.",
-    "lesson_id": 1903
+    "lesson_id": 1904
   },
   {
     "id": 1601,
@@ -5959,7 +5827,7 @@
     "unit_id": 19,
     "example_cz": "Byla to důležitá událost.",
     "example_en": "It was an important event.",
-    "lesson_id": 1903
+    "lesson_id": null
   },
   {
     "id": 1602,
@@ -6003,7 +5871,7 @@
     "unit_id": 20,
     "example_cz": "Asi přijdu později.",
     "example_en": "I'll probably come later.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1608,
@@ -6014,7 +5882,7 @@
     "unit_id": 20,
     "example_cz": "Jistě přijdu na oslavu.",
     "example_en": "I'll certainly come to the celebration.",
-    "lesson_id": 2004
+    "lesson_id": null
   },
   {
     "id": 1610,
@@ -6028,17 +5896,6 @@
     "lesson_id": null
   },
   {
-    "id": 1611,
-    "word_cz": "doufat",
-    "word_en": "to hope",
-    "ipa": "ˈdoufaːt",
-    "gender": null,
-    "unit_id": 20,
-    "example_cz": "Doufám, že zítra bude hezky.",
-    "example_en": "I hope tomorrow will be nice.",
-    "lesson_id": null
-  },
-  {
     "id": 1612,
     "word_cz": "plán",
     "word_en": "plan",
@@ -6047,7 +5904,7 @@
     "unit_id": 20,
     "example_cz": "Mám plán na víkend.",
     "example_en": "I have a plan for the weekend.",
-    "lesson_id": 2001
+    "lesson_id": 2003
   },
   {
     "id": 1614,
@@ -6058,7 +5915,7 @@
     "unit_id": 20,
     "example_cz": "Můj cíl je naučit se česky.",
     "example_en": "My goal is to learn Czech.",
-    "lesson_id": 2004
+    "lesson_id": null
   },
   {
     "id": 1617,
@@ -6072,17 +5929,6 @@
     "lesson_id": null
   },
   {
-    "id": 1621,
-    "word_cz": "budoucnost",
-    "word_en": "future",
-    "ipa": "ˈbudout͡snost",
-    "gender": "feminine",
-    "unit_id": 20,
-    "example_cz": "Přemýšlím o budoucnosti.",
-    "example_en": "I'm thinking about the future.",
-    "lesson_id": null
-  },
-  {
     "id": 1623,
     "word_cz": "čekat",
     "word_en": "to wait / expect",
@@ -6091,7 +5937,7 @@
     "unit_id": 20,
     "example_cz": "Čekám, že mi odpoví.",
     "example_en": "I expect him to answer me.",
-    "lesson_id": 2003
+    "lesson_id": null
   },
   {
     "id": 1625,
@@ -6102,7 +5948,7 @@
     "unit_id": 21,
     "example_cz": "Praha je mnohem větší než Brno.",
     "example_en": "Prague is much bigger than Brno.",
-    "lesson_id": 2104
+    "lesson_id": null
   },
   {
     "id": 1626,
@@ -6113,7 +5959,7 @@
     "unit_id": 21,
     "example_cz": "Je trochu dražší.",
     "example_en": "It's slightly more expensive.",
-    "lesson_id": 2104
+    "lesson_id": null
   },
   {
     "id": 1627,
@@ -6138,17 +5984,6 @@
     "lesson_id": null
   },
   {
-    "id": 1629,
-    "word_cz": "stejný",
-    "word_en": "same",
-    "ipa": "ˈstɛjniː",
-    "gender": null,
-    "unit_id": 21,
-    "example_cz": "Máme stejný zájem.",
-    "example_en": "We have the same interest.",
-    "lesson_id": null
-  },
-  {
     "id": 1630,
     "word_cz": "podobný",
     "word_en": "similar",
@@ -6157,17 +5992,6 @@
     "unit_id": 21,
     "example_cz": "Brno je podobné Praze.",
     "example_en": "Brno is similar to Prague.",
-    "lesson_id": null
-  },
-  {
-    "id": 1631,
-    "word_cz": "rozdíl",
-    "word_en": "difference",
-    "ipa": "ˈrozɟiːl",
-    "gender": "masculine inanimate",
-    "unit_id": 21,
-    "example_cz": "Je velký rozdíl mezi Prahou a Brnem.",
-    "example_en": "There's a big difference between Prague and Brno.",
     "lesson_id": null
   },
   {
@@ -6182,39 +6006,6 @@
     "lesson_id": null
   },
   {
-    "id": 1633,
-    "word_cz": "nejlepší",
-    "word_en": "best",
-    "ipa": "ˈnɛjlɛpʃiː",
-    "gender": null,
-    "unit_id": 21,
-    "example_cz": "To je nejlepší restaurace v Praze.",
-    "example_en": "That's the best restaurant in Prague.",
-    "lesson_id": null
-  },
-  {
-    "id": 1634,
-    "word_cz": "nejhorší",
-    "word_en": "worst",
-    "ipa": "ˈnɛjxorʃiː",
-    "gender": null,
-    "unit_id": 21,
-    "example_cz": "To byla nejhorší zkušenost.",
-    "example_en": "That was the worst experience.",
-    "lesson_id": null
-  },
-  {
-    "id": 1635,
-    "word_cz": "největší",
-    "word_en": "biggest",
-    "ipa": "ˈnɛjvɛt͡ʃiː",
-    "gender": null,
-    "unit_id": 21,
-    "example_cz": "Praha je největší město.",
-    "example_en": "Prague is the biggest city.",
-    "lesson_id": null
-  },
-  {
     "id": 1636,
     "word_cz": "nejmenší",
     "word_en": "smallest",
@@ -6223,17 +6014,6 @@
     "unit_id": 21,
     "example_cz": "To je nejmenší problém.",
     "example_en": "That's the smallest problem.",
-    "lesson_id": 2103
-  },
-  {
-    "id": 1637,
-    "word_cz": "nejdražší",
-    "word_en": "most expensive",
-    "ipa": "ˈnɛjdraʃʃiː",
-    "gender": null,
-    "unit_id": 21,
-    "example_cz": "Je to nejdražší hotel v Praze.",
-    "example_en": "It's the most expensive hotel in Prague.",
     "lesson_id": null
   },
   {
@@ -6245,7 +6025,7 @@
     "unit_id": 21,
     "example_cz": "Kaufland je nejlevnější supermarket.",
     "example_en": "Kaufland is the cheapest supermarket.",
-    "lesson_id": 2103
+    "lesson_id": 2104
   },
   {
     "id": 1639,
@@ -6259,17 +6039,6 @@
     "lesson_id": null
   },
   {
-    "id": 1640,
-    "word_cz": "nejrychlejší",
-    "word_en": "fastest",
-    "ipa": "ˈnɛjrɪxlɛjʃiː",
-    "gender": null,
-    "unit_id": 21,
-    "example_cz": "Metro je nejrychlejší doprava.",
-    "example_en": "Metro is the fastest transport.",
-    "lesson_id": null
-  },
-  {
     "id": 1641,
     "word_cz": "nejoblíbenější",
     "word_en": "favorite / most popular",
@@ -6278,7 +6047,7 @@
     "unit_id": 21,
     "example_cz": "Je to moje nejoblíbenější jídlo.",
     "example_en": "It's my favorite food.",
-    "lesson_id": 2103
+    "lesson_id": null
   },
   {
     "id": 1642,
@@ -6325,17 +6094,6 @@
     "lesson_id": 2201
   },
   {
-    "id": 1646,
-    "word_cz": "protože",
-    "word_en": "because",
-    "ipa": "ˈprotoʒɛ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Nepřišel, protože byl nemocný.",
-    "example_en": "He didn't come because he was sick.",
-    "lesson_id": null
-  },
-  {
     "id": 1647,
     "word_cz": "když",
     "word_en": "when / if",
@@ -6344,7 +6102,7 @@
     "unit_id": 22,
     "example_cz": "Když prší, zůstávám doma.",
     "example_en": "When it rains, I stay home.",
-    "lesson_id": null
+    "lesson_id": 2201
   },
   {
     "id": 1648,
@@ -6356,17 +6114,6 @@
     "example_cz": "Přijdu, až skončíš.",
     "example_en": "I'll come when you finish.",
     "lesson_id": 2201
-  },
-  {
-    "id": 1649,
-    "word_cz": "jestli",
-    "word_en": "if / whether",
-    "ipa": "ˈjɛstlɪ",
-    "gender": null,
-    "unit_id": 22,
-    "example_cz": "Nevím, jestli přijde.",
-    "example_en": "I don't know if he'll come.",
-    "lesson_id": null
   },
   {
     "id": 1659,
@@ -6388,7 +6135,7 @@
     "unit_id": 22,
     "example_cz": "Kromě mě tam byl i Pavel.",
     "example_en": "Besides me, Pavel was there too.",
-    "lesson_id": 2202
+    "lesson_id": null
   },
   {
     "id": 1661,
@@ -6399,7 +6146,7 @@
     "unit_id": 22,
     "example_cz": "Místo kávy piju čaj.",
     "example_en": "Instead of coffee I drink tea.",
-    "lesson_id": 2202
+    "lesson_id": null
   },
   {
     "id": 1662,
@@ -6410,7 +6157,7 @@
     "unit_id": 22,
     "example_cz": "Díky němu jsem našel práci.",
     "example_en": "Thanks to him I found a job.",
-    "lesson_id": 2202
+    "lesson_id": null
   },
   {
     "id": 1663,
@@ -6421,7 +6168,7 @@
     "unit_id": 22,
     "example_cz": "Kvůli dešti jsme nešli ven.",
     "example_en": "Because of rain we didn't go out.",
-    "lesson_id": 2202
+    "lesson_id": null
   },
   {
     "id": 1685,
@@ -7172,17 +6919,6 @@
     "lesson_id": null
   },
   {
-    "id": 1766,
-    "word_cz": "povolení",
-    "word_en": "permission",
-    "ipa": "povolɛɲɪi",
-    "gender": "neuter",
-    "unit_id": 23,
-    "example_cz": "Potřebuji povolení k pobytu.",
-    "example_en": "I need permission to stay.",
-    "lesson_id": null
-  },
-  {
     "id": 1767,
     "word_cz": "zákaz",
     "word_en": "prohibition, ban",
@@ -7191,17 +6927,6 @@
     "unit_id": 23,
     "example_cz": "Zde platí zákaz kouření.",
     "example_en": "A smoking ban applies here.",
-    "lesson_id": null
-  },
-  {
-    "id": 1768,
-    "word_cz": "pravidlo",
-    "word_en": "rule",
-    "ipa": "pravɪdlo",
-    "gender": "neuter",
-    "unit_id": 23,
-    "example_cz": "Musíme dodržovat pravidla.",
-    "example_en": "We must follow the rules.",
     "lesson_id": null
   },
   {
@@ -7224,7 +6949,7 @@
     "unit_id": 23,
     "example_cz": "Vstup do parku je zakázán.",
     "example_en": "Entry to the park is forbidden.",
-    "lesson_id": null
+    "lesson_id": 2304
   },
   {
     "id": 1771,
@@ -7235,7 +6960,7 @@
     "unit_id": 23,
     "example_cz": "Musím jít do práce.",
     "example_en": "I have to go to work.",
-    "lesson_id": null
+    "lesson_id": 2303
   },
   {
     "id": 1772,
@@ -7246,7 +6971,7 @@
     "unit_id": 23,
     "example_cz": "Můžu ti pomoci.",
     "example_en": "I can help you.",
-    "lesson_id": null
+    "lesson_id": 2303
   },
   {
     "id": 1773,
@@ -7257,7 +6982,7 @@
     "unit_id": 23,
     "example_cz": "Smím se zeptat?",
     "example_en": "May I ask?",
-    "lesson_id": null
+    "lesson_id": 2304
   },
   {
     "id": 1776,
@@ -7268,18 +6993,7 @@
     "unit_id": 23,
     "example_cz": "Nesmí se tu parkovat.",
     "example_en": "You must not park here.",
-    "lesson_id": null
-  },
-  {
-    "id": 1777,
-    "word_cz": "je nutné",
-    "word_en": "it is necessary",
-    "ipa": "jɛ nutnɛː",
-    "gender": "neuter",
-    "unit_id": 23,
-    "example_cz": "Je nutné mít platný pas.",
-    "example_en": "It is necessary to have a valid passport.",
-    "lesson_id": 2302
+    "lesson_id": 2304
   },
   {
     "id": 1778,
@@ -7290,7 +7004,7 @@
     "unit_id": 23,
     "example_cz": "Je možné rezervovat stůl online.",
     "example_en": "It is possible to reserve a table online.",
-    "lesson_id": 2302
+    "lesson_id": null
   },
   {
     "id": 1779,
@@ -7301,7 +7015,7 @@
     "unit_id": 23,
     "example_cz": "Je zakázáno vstupovat s domácími zvířaty.",
     "example_en": "It is forbidden to enter with pets.",
-    "lesson_id": null
+    "lesson_id": 2304
   },
   {
     "id": 1781,
@@ -7312,7 +7026,7 @@
     "unit_id": 23,
     "example_cz": "Na dveřích je zákaz vstupu.",
     "example_en": "There's a no-entry sign on the door.",
-    "lesson_id": 2303
+    "lesson_id": null
   },
   {
     "id": 1785,
@@ -7323,29 +7037,7 @@
     "unit_id": 24,
     "example_cz": "Mám vysokou teplotu.",
     "example_en": "I have a high temperature.",
-    "lesson_id": null
-  },
-  {
-    "id": 1786,
-    "word_cz": "horečka",
-    "word_en": "fever",
-    "ipa": "horɛt͡ʃka",
-    "gender": "feminine",
-    "unit_id": 24,
-    "example_cz": "Horečka mi nesla dolů.",
-    "example_en": "The fever was bringing me down.",
-    "lesson_id": null
-  },
-  {
-    "id": 1787,
-    "word_cz": "kašel",
-    "word_en": "cough",
-    "ipa": "kaʃɛl",
-    "gender": "masculine inanimate",
-    "unit_id": 24,
-    "example_cz": "Mám suchý kašel.",
-    "example_en": "I have a dry cough.",
-    "lesson_id": null
+    "lesson_id": 2403
   },
   {
     "id": 1788,
@@ -7356,7 +7048,7 @@
     "unit_id": 24,
     "example_cz": "Mám rýmu a bolí mě hrdlo.",
     "example_en": "I have a runny nose and a sore throat.",
-    "lesson_id": null
+    "lesson_id": 2404
   },
   {
     "id": 1789,
@@ -7381,17 +7073,6 @@
     "lesson_id": null
   },
   {
-    "id": 1791,
-    "word_cz": "alergie",
-    "word_en": "allergy",
-    "ipa": "alɛrgɪɛ",
-    "gender": "feminine",
-    "unit_id": 24,
-    "example_cz": "Mám alergii na pyl.",
-    "example_en": "I have an allergy to pollen.",
-    "lesson_id": null
-  },
-  {
     "id": 1792,
     "word_cz": "předpis",
     "word_en": "prescription",
@@ -7411,7 +7092,7 @@
     "unit_id": 24,
     "example_cz": "Potřebuji recept na antibiotika.",
     "example_en": "I need a prescription for antibiotics.",
-    "lesson_id": null
+    "lesson_id": 2404
   },
   {
     "id": 1794,
@@ -7422,17 +7103,6 @@
     "unit_id": 24,
     "example_cz": "Vezměte si jednu tabletu po jídle.",
     "example_en": "Take one tablet after a meal.",
-    "lesson_id": null
-  },
-  {
-    "id": 1795,
-    "word_cz": "sirup",
-    "word_en": "syrup",
-    "ipa": "sɪrup",
-    "gender": "masculine inanimate",
-    "unit_id": 24,
-    "example_cz": "Dítěti dávejte sirup proti kašli.",
-    "example_en": "Give the child cough syrup.",
     "lesson_id": null
   },
   {
@@ -7455,17 +7125,6 @@
     "unit_id": 24,
     "example_cz": "Sestra mi vyměnila obvaz.",
     "example_en": "The nurse changed my bandage.",
-    "lesson_id": null
-  },
-  {
-    "id": 1799,
-    "word_cz": "infekce",
-    "word_en": "infection",
-    "ipa": "ɪnfɛktsɪɛ",
-    "gender": "feminine",
-    "unit_id": 24,
-    "example_cz": "Mám bakteriální infekci.",
-    "example_en": "I have a bacterial infection.",
     "lesson_id": null
   },
   {
@@ -7532,29 +7191,7 @@
     "unit_id": 25,
     "example_cz": "Dostal jsem vyšší plat.",
     "example_en": "I got a higher salary.",
-    "lesson_id": null
-  },
-  {
-    "id": 1811,
-    "word_cz": "mzda",
-    "word_en": "wage",
-    "ipa": "mzda",
-    "gender": "feminine",
-    "unit_id": 25,
-    "example_cz": "Minimální mzda stoupla.",
-    "example_en": "The minimum wage has increased.",
-    "lesson_id": null
-  },
-  {
-    "id": 1812,
-    "word_cz": "smlouva",
-    "word_en": "contract",
-    "ipa": "smloʊva",
-    "gender": "feminine",
-    "unit_id": 25,
-    "example_cz": "Podepsal jsem pracovní smlouvu.",
-    "example_en": "I signed an employment contract.",
-    "lesson_id": null
+    "lesson_id": 2503
   },
   {
     "id": 1813,
@@ -7598,7 +7235,7 @@
     "unit_id": 25,
     "example_cz": "Zítra mám ústní zkoušku.",
     "example_en": "Tomorrow I have an oral exam.",
-    "lesson_id": null
+    "lesson_id": 2503
   },
   {
     "id": 1819,
@@ -7609,7 +7246,7 @@
     "unit_id": 25,
     "example_cz": "Přednáška začíná v devět hodin.",
     "example_en": "The lecture starts at nine o'clock.",
-    "lesson_id": 2503
+    "lesson_id": null
   },
   {
     "id": 1820,
@@ -7645,17 +7282,6 @@
     "lesson_id": null
   },
   {
-    "id": 1827,
-    "word_cz": "profesor",
-    "word_en": "professor",
-    "ipa": "profɛsor",
-    "gender": "masculine animate",
-    "unit_id": 25,
-    "example_cz": "Profesor přednáší matematiku.",
-    "example_en": "The professor teaches mathematics.",
-    "lesson_id": null
-  },
-  {
     "id": 1830,
     "word_cz": "kolega",
     "word_en": "colleague",
@@ -7664,7 +7290,7 @@
     "unit_id": 25,
     "example_cz": "Můj kolega mi pomohl s projektem.",
     "example_en": "My colleague helped me with the project.",
-    "lesson_id": 2502
+    "lesson_id": 2504
   },
   {
     "id": 1831,
@@ -7708,7 +7334,7 @@
     "unit_id": 25,
     "example_cz": "Ředitel firmy podepsal smlouvu.",
     "example_en": "The director of the company signed the contract.",
-    "lesson_id": 2502
+    "lesson_id": null
   },
   {
     "id": 1835,
@@ -7719,18 +7345,7 @@
     "unit_id": 26,
     "example_cz": "Koupili jsme nový nábytek.",
     "example_en": "We bought new furniture.",
-    "lesson_id": null
-  },
-  {
-    "id": 1836,
-    "word_cz": "postel",
-    "word_en": "bed",
-    "ipa": "posʊtɛl",
-    "gender": "feminine",
-    "unit_id": 26,
-    "example_cz": "Postel je vedle okna.",
-    "example_en": "The bed is next to the window.",
-    "lesson_id": null
+    "lesson_id": 2604
   },
   {
     "id": 1837,
@@ -7752,18 +7367,7 @@
     "unit_id": 26,
     "example_cz": "Knihy leží na stole.",
     "example_en": "The books are on the table.",
-    "lesson_id": null
-  },
-  {
-    "id": 1839,
-    "word_cz": "židle",
-    "word_en": "chair",
-    "ipa": "ʒɪdlɛ",
-    "gender": "feminine",
-    "unit_id": 26,
-    "example_cz": "Posaďte se na židli.",
-    "example_en": "Sit on the chair.",
-    "lesson_id": null
+    "lesson_id": 2604
   },
   {
     "id": 1840,
@@ -7862,7 +7466,7 @@
     "unit_id": 26,
     "example_cz": "Byt je v nájmu.",
     "example_en": "The flat is rented.",
-    "lesson_id": null
+    "lesson_id": 2603
   },
   {
     "id": 1849,
@@ -7873,7 +7477,7 @@
     "unit_id": 26,
     "example_cz": "Nájemce platí nájem každý měsíc.",
     "example_en": "The tenant pays rent every month.",
-    "lesson_id": null
+    "lesson_id": 2603
   },
   {
     "id": 1850,
@@ -7895,7 +7499,7 @@
     "unit_id": 26,
     "example_cz": "Musím zaplatit kauci dvacet tisíc.",
     "example_en": "I have to pay a deposit of twenty thousand.",
-    "lesson_id": 2603
+    "lesson_id": 2604
   },
   {
     "id": 1852,
@@ -7917,7 +7521,7 @@
     "unit_id": 26,
     "example_cz": "Poplatky za odpad se platí kvartálně.",
     "example_en": "Waste fees are paid quarterly.",
-    "lesson_id": 2603
+    "lesson_id": null
   },
   {
     "id": 1854,
@@ -7931,17 +7535,6 @@
     "lesson_id": 2603
   },
   {
-    "id": 1855,
-    "word_cz": "voda",
-    "word_en": "water",
-    "ipa": "voda",
-    "gender": "feminine",
-    "unit_id": 26,
-    "example_cz": "Voda je v České republice levná.",
-    "example_en": "Water is cheap in the Czech Republic.",
-    "lesson_id": null
-  },
-  {
     "id": 1856,
     "word_cz": "elektrika",
     "word_en": "electricity",
@@ -7950,17 +7543,6 @@
     "unit_id": 26,
     "example_cz": "Elektrika je dražší než plyn.",
     "example_en": "Electricity is more expensive than gas.",
-    "lesson_id": null
-  },
-  {
-    "id": 1857,
-    "word_cz": "plyn",
-    "word_en": "gas",
-    "ipa": "plɪn",
-    "gender": "masculine inanimate",
-    "unit_id": 26,
-    "example_cz": "Plyn používáme na vaření.",
-    "example_en": "We use gas for cooking.",
     "lesson_id": null
   },
   {
@@ -7975,17 +7557,6 @@
     "lesson_id": null
   },
   {
-    "id": 1859,
-    "word_cz": "internet",
-    "word_en": "internet",
-    "ipa": "ɪntɛrnɛt",
-    "gender": "masculine inanimate",
-    "unit_id": 26,
-    "example_cz": "Internet je v domě zdarma.",
-    "example_en": "Internet is free in the building.",
-    "lesson_id": null
-  },
-  {
     "id": 1860,
     "word_cz": "přijet",
     "word_en": "to arrive (by vehicle)",
@@ -7994,7 +7565,7 @@
     "unit_id": 27,
     "example_cz": "Vlak přijel přesně včas.",
     "example_en": "The train arrived exactly on time.",
-    "lesson_id": null
+    "lesson_id": 2704
   },
   {
     "id": 1861,
@@ -8005,7 +7576,7 @@
     "unit_id": 27,
     "example_cz": "Autobus odjel před pěti minutami.",
     "example_en": "The bus left five minutes ago.",
-    "lesson_id": 2702
+    "lesson_id": 2704
   },
   {
     "id": 1862,
@@ -8016,7 +7587,7 @@
     "unit_id": 27,
     "example_cz": "Přejeďte přes most a odbočte doprava.",
     "example_en": "Cross the bridge and turn right.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1863,
@@ -8049,7 +7620,7 @@
     "unit_id": 27,
     "example_cz": "Dojeli jsme do Prahy za dvě hodiny.",
     "example_en": "We reached Prague in two hours.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1867,
@@ -8071,7 +7642,7 @@
     "unit_id": 27,
     "example_cz": "Vystoupil jsem na další zastávce.",
     "example_en": "I got off at the next stop.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1870,
@@ -8082,7 +7653,7 @@
     "unit_id": 27,
     "example_cz": "Nastoupil jsem do tramvaje.",
     "example_en": "I got on the tram.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1871,
@@ -8093,7 +7664,7 @@
     "unit_id": 27,
     "example_cz": "Musíme přestoupit na další linku.",
     "example_en": "We have to change to another line.",
-    "lesson_id": 2701
+    "lesson_id": 2702
   },
   {
     "id": 1872,
@@ -8115,7 +7686,7 @@
     "unit_id": 27,
     "example_cz": "Odbočte vlevo u kostela.",
     "example_en": "Turn left at the church.",
-    "lesson_id": 2703
+    "lesson_id": null
   },
   {
     "id": 1875,
@@ -8126,7 +7697,7 @@
     "unit_id": 27,
     "example_cz": "Pokračujte rovně třikrát bloků.",
     "example_en": "Continue straight for three blocks.",
-    "lesson_id": 2701
+    "lesson_id": null
   },
   {
     "id": 1876,
@@ -8137,7 +7708,7 @@
     "unit_id": 27,
     "example_cz": "Zastavili jsme u čerpací stanice.",
     "example_en": "We stopped at the petrol station.",
-    "lesson_id": 2703
+    "lesson_id": null
   },
   {
     "id": 1879,
@@ -8148,7 +7719,7 @@
     "unit_id": 27,
     "example_cz": "Otočte se a jděte zpět.",
     "example_en": "Turn around and go back.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1880,
@@ -8159,7 +7730,7 @@
     "unit_id": 27,
     "example_cz": "Musíme se vrátit zpět.",
     "example_en": "We have to go back.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1881,
@@ -8170,7 +7741,7 @@
     "unit_id": 27,
     "example_cz": "Jděte dopředu dvacet metrů.",
     "example_en": "Go forward twenty metres.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1882,
@@ -8181,7 +7752,7 @@
     "unit_id": 27,
     "example_cz": "Cukněte dozadu, prosím.",
     "example_en": "Step back, please.",
-    "lesson_id": 2704
+    "lesson_id": null
   },
   {
     "id": 1883,
@@ -8214,7 +7785,7 @@
     "unit_id": 29,
     "example_cz": "Podal jsem žádost o stipendium.",
     "example_en": "I submitted an application for a scholarship.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1887,
@@ -8247,7 +7818,7 @@
     "unit_id": 29,
     "example_cz": "Dostal jsem pozvánku na svatbu.",
     "example_en": "I received a wedding invitation.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1890,
@@ -8258,7 +7829,7 @@
     "unit_id": 29,
     "example_cz": "Čekám na potvrzení rezervace.",
     "example_en": "I'm waiting for confirmation of the reservation.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1892,
@@ -8269,7 +7840,7 @@
     "unit_id": 29,
     "example_cz": "Dávám svůj souhlas s návrhem.",
     "example_en": "I give my consent to the proposal.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1893,
@@ -8346,7 +7917,7 @@
     "unit_id": 29,
     "example_cz": "Děkuji vám za pomoc.",
     "example_en": "I thank you for your help.",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1901,
@@ -8368,7 +7939,7 @@
     "unit_id": 29,
     "example_cz": "Gratuluji ti k promo!",
     "example_en": "I congratulate you on your graduation!",
-    "lesson_id": 2901
+    "lesson_id": null
   },
   {
     "id": 1934,
@@ -8401,7 +7972,7 @@
     "unit_id": 29,
     "example_cz": "Hlavně musíme být opatrní.",
     "example_en": "Mainly we must be careful.",
-    "lesson_id": null
+    "lesson_id": 2901
   },
   {
     "id": 1937,
@@ -8445,7 +8016,7 @@
     "unit_id": 31,
     "example_cz": "Zapomněl jsem klíče doma.",
     "example_en": "I forgot my keys at home.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1943,
@@ -8467,7 +8038,7 @@
     "unit_id": 31,
     "example_cz": "Učím se česky dva roky.",
     "example_en": "I've been learning Czech for two years.",
-    "lesson_id": null
+    "lesson_id": 3101
   },
   {
     "id": 1945,
@@ -8478,7 +8049,7 @@
     "unit_id": 31,
     "example_cz": "Naučil se česky za rok.",
     "example_en": "He learned Czech in a year.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1946,
@@ -8500,7 +8071,7 @@
     "unit_id": 31,
     "example_cz": "Nevím, kde je.",
     "example_en": "I don't know where he is.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1948,
@@ -8511,7 +8082,7 @@
     "unit_id": 31,
     "example_cz": "Mluvíme česky doma.",
     "example_en": "We speak Czech at home.",
-    "lesson_id": null
+    "lesson_id": 3104
   },
   {
     "id": 1949,
@@ -8577,7 +8148,7 @@
     "unit_id": 31,
     "example_cz": "Poslouchám rádio každé ráno.",
     "example_en": "I listen to the radio every morning.",
-    "lesson_id": null
+    "lesson_id": 3104
   },
   {
     "id": 1955,
@@ -8599,7 +8170,7 @@
     "unit_id": 31,
     "example_cz": "Našel jsem klíče pod stolem.",
     "example_en": "I found the keys under the table.",
-    "lesson_id": 3101
+    "lesson_id": 3104
   },
   {
     "id": 1957,
@@ -8610,7 +8181,7 @@
     "unit_id": 31,
     "example_cz": "Co si myslíš o tom filmu?",
     "example_en": "What do you think about that film?",
-    "lesson_id": null
+    "lesson_id": 3101
   },
   {
     "id": 1958,
@@ -8808,7 +8379,7 @@
     "unit_id": 31,
     "example_cz": "Setkali jsme se na náměstí.",
     "example_en": "We met in the square.",
-    "lesson_id": null
+    "lesson_id": 3102
   },
   {
     "id": 1978,
@@ -8907,7 +8478,7 @@
     "unit_id": 31,
     "example_cz": "Pochopil jsem, co chce.",
     "example_en": "I understood what he wants.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 1994,
@@ -8929,7 +8500,7 @@
     "unit_id": 31,
     "example_cz": "Učitel nám vysvětlil gramatiku.",
     "example_en": "The teacher explained the grammar to us.",
-    "lesson_id": 3101
+    "lesson_id": 3102
   },
   {
     "id": 1996,
@@ -8973,7 +8544,7 @@
     "unit_id": 31,
     "example_cz": "Vybral si červené tričko.",
     "example_en": "He chose a red t-shirt.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 2000,
@@ -8995,7 +8566,7 @@
     "unit_id": 31,
     "example_cz": "Musím si zapamatovat nová slovíčka.",
     "example_en": "I need to memorize new vocabulary.",
-    "lesson_id": 3101
+    "lesson_id": null
   },
   {
     "id": 2005,
@@ -9017,7 +8588,7 @@
     "unit_id": 27,
     "example_cz": "Vlak má zpoždění deset minut.",
     "example_en": "The train is ten minutes late.",
-    "lesson_id": null
+    "lesson_id": 2702
   },
   {
     "id": 2007,
@@ -9028,7 +8599,7 @@
     "unit_id": 23,
     "example_cz": "V pondělí je zavřeno.",
     "example_en": "It is closed on Monday.",
-    "lesson_id": 2303
+    "lesson_id": 2301
   },
   {
     "id": 2008,
@@ -9039,7 +8610,7 @@
     "unit_id": 23,
     "example_cz": "Otevřeno od devíti do šesti.",
     "example_en": "Open from nine to six.",
-    "lesson_id": 2303
+    "lesson_id": null
   },
   {
     "id": 2009,
@@ -9050,7 +8621,7 @@
     "unit_id": 23,
     "example_cz": "Koncert je vyprodaný. Vyprodáno!",
     "example_en": "The concert is sold out. Sold out!",
-    "lesson_id": 2303
+    "lesson_id": null
   },
   {
     "id": 2010,
@@ -9061,7 +8632,7 @@
     "unit_id": 23,
     "example_cz": "Promiňte, je tady obsazeno?",
     "example_en": "Excuse me, is this seat taken?",
-    "lesson_id": 2303
+    "lesson_id": null
   },
   {
     "id": 2011,
@@ -9072,7 +8643,7 @@
     "unit_id": 23,
     "example_cz": "Pozor, schod!",
     "example_en": "Mind the step!",
-    "lesson_id": 2303
+    "lesson_id": null
   },
   {
     "id": 2012,
@@ -9094,7 +8665,7 @@
     "unit_id": 24,
     "example_cz": "V noci jděte na pohotovost.",
     "example_en": "At night, go to the emergency service.",
-    "lesson_id": 2403
+    "lesson_id": null
   },
   {
     "id": 2014,
@@ -9105,7 +8676,7 @@
     "unit_id": 24,
     "example_cz": "Zítra mám preventivní prohlídku.",
     "example_en": "Tomorrow I have a check-up.",
-    "lesson_id": 2403
+    "lesson_id": null
   },
   {
     "id": 2015,
@@ -9127,7 +8698,7 @@
     "unit_id": 26,
     "example_cz": "Kolo je na balkoně.",
     "example_en": "The bike is on the balcony.",
-    "lesson_id": 2601
+    "lesson_id": 2603
   },
   {
     "id": 2017,
@@ -9138,7 +8709,7 @@
     "unit_id": 26,
     "example_cz": "Recepce je v přízemí.",
     "example_en": "Reception is on the ground floor.",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 2018,
@@ -9149,7 +8720,7 @@
     "unit_id": 26,
     "example_cz": "Je v domě výtah?",
     "example_en": "Is there a lift in the building?",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 2019,
@@ -9160,7 +8731,7 @@
     "unit_id": 26,
     "example_cz": "Kde jsou klíče od bytu?",
     "example_en": "Where are the keys to the flat?",
-    "lesson_id": 2602
+    "lesson_id": null
   },
   {
     "id": 2020,
@@ -9182,7 +8753,7 @@
     "unit_id": 26,
     "example_cz": "Hledám nezařízený byt.",
     "example_en": "I am looking for an unfurnished flat.",
-    "lesson_id": 2603
+    "lesson_id": null
   },
   {
     "id": 2022,
@@ -9193,7 +8764,7 @@
     "unit_id": 26,
     "example_cz": "Nefunguje topení.",
     "example_en": "The heating doesn't work.",
-    "lesson_id": 2604
+    "lesson_id": null
   },
   {
     "id": 2023,
@@ -9204,7 +8775,7 @@
     "unit_id": 26,
     "example_cz": "Okno je rozbité.",
     "example_en": "The window is broken.",
-    "lesson_id": 2604
+    "lesson_id": null
   },
   {
     "id": 2024,
@@ -9215,7 +8786,7 @@
     "unit_id": 26,
     "example_cz": "V koupelně teče voda.",
     "example_en": "Water is leaking in the bathroom.",
-    "lesson_id": 2604
+    "lesson_id": null
   },
   {
     "id": 2025,
@@ -9226,6 +8797,1260 @@
     "unit_id": 26,
     "example_cz": "Můžete to opravit?",
     "example_en": "Can you repair it?",
-    "lesson_id": 2604
+    "lesson_id": 2603
+  },
+  {
+    "id": 4001,
+    "word_cz": "kilo jablek",
+    "word_en": "a kilo of apples",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4002,
+    "word_cz": "litr mléka",
+    "word_en": "a litre of milk",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4003,
+    "word_cz": "trochu cukru",
+    "word_en": "a little sugar",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4004,
+    "word_cz": "hodně práce",
+    "word_en": "a lot of work",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4005,
+    "word_cz": "Jsem z Prahy.",
+    "word_en": "I am from Prague.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4006,
+    "word_cz": "Jdu do práce.",
+    "word_en": "I am going to work.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4007,
+    "word_cz": "kávu bez cukru",
+    "word_en": "coffee without sugar",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4008,
+    "word_cz": "dárek od kamaráda",
+    "word_en": "a present from a friend",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1601
+  },
+  {
+    "id": 4009,
+    "word_cz": "Jsem z Brna.",
+    "word_en": "I am from Brno.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1604
+  },
+  {
+    "id": 4010,
+    "word_cz": "Prosím kilo jablek.",
+    "word_en": "A kilo of apples, please.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1603
+  },
+  {
+    "id": 4011,
+    "word_cz": "Ještě litr mléka.",
+    "word_en": "And a litre of milk.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1603
+  },
+  {
+    "id": 4012,
+    "word_cz": "Kávu bez cukru, prosím.",
+    "word_en": "Coffee without sugar, please.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 16,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1603
+  },
+  {
+    "id": 4013,
+    "word_cz": "Dám kamarádce knihu.",
+    "word_en": "I will give my friend a book.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1701
+  },
+  {
+    "id": 4014,
+    "word_cz": "Telefonuju Petrovi.",
+    "word_en": "I am calling Petr.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1701
+  },
+  {
+    "id": 4015,
+    "word_cz": "Pomáhám mamince.",
+    "word_en": "I help my mum.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1701
+  },
+  {
+    "id": 4016,
+    "word_cz": "Pomůžeš mi?",
+    "word_en": "Will you help me?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1701
+  },
+  {
+    "id": 4017,
+    "word_cz": "Líbí se mi Praha.",
+    "word_en": "I like Prague.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1701
+  },
+  {
+    "id": 4018,
+    "word_cz": "Chutná mi káva.",
+    "word_en": "I like the coffee.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1701
+  },
+  {
+    "id": 4019,
+    "word_cz": "Děkuju ti.",
+    "word_en": "Thank you. (to a friend)",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1701
+  },
+  {
+    "id": 4020,
+    "word_cz": "Pomůžeš mi vybrat?",
+    "word_en": "Will you help me choose?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 17,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1703
+  },
+  {
+    "id": 4021,
+    "word_cz": "v Praze",
+    "word_en": "in Prague",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4022,
+    "word_cz": "na náměstí",
+    "word_en": "at the square",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4023,
+    "word_cz": "o filmu",
+    "word_en": "about a film",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4024,
+    "word_cz": "s kamarádem",
+    "word_en": "with a friend",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4025,
+    "word_cz": "tramvají",
+    "word_en": "by tram",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4026,
+    "word_cz": "Půjdeš se mnou?",
+    "word_en": "Will you come with me?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4027,
+    "word_cz": "před rokem",
+    "word_en": "a year ago",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4028,
+    "word_cz": "Pracuju jako učitel.",
+    "word_en": "I work as a teacher.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1801
+  },
+  {
+    "id": 4029,
+    "word_cz": "Jsem v kavárně.",
+    "word_en": "I am in the café.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1803
+  },
+  {
+    "id": 4030,
+    "word_cz": "Jedeme metrem.",
+    "word_en": "We go by metro.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1804
+  },
+  {
+    "id": 4031,
+    "word_cz": "Jsem s Tomášem.",
+    "word_en": "I am with Tomáš.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 18,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1804
+  },
+  {
+    "id": 4032,
+    "word_cz": "minulý týden",
+    "word_en": "last week",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 19,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1901
+  },
+  {
+    "id": 4033,
+    "word_cz": "o víkendu",
+    "word_en": "at the weekend",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 19,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1901
+  },
+  {
+    "id": 4034,
+    "word_cz": "Bylo to skvělé.",
+    "word_en": "It was great.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 19,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1901
+  },
+  {
+    "id": 4035,
+    "word_cz": "Včera jsem byla doma.",
+    "word_en": "Yesterday I was at home.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 19,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1902
+  },
+  {
+    "id": 4036,
+    "word_cz": "Petr šel do kina.",
+    "word_en": "Petr went to the cinema.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 19,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1903
+  },
+  {
+    "id": 4037,
+    "word_cz": "O víkendu jsme četli.",
+    "word_en": "At the weekend we read.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 19,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 1904
+  },
+  {
+    "id": 4038,
+    "word_cz": "příští týden",
+    "word_en": "next week",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 20,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2001
+  },
+  {
+    "id": 4039,
+    "word_cz": "Budu pracovat.",
+    "word_en": "I will be working.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 20,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2001
+  },
+  {
+    "id": 4040,
+    "word_cz": "Zavolám ti.",
+    "word_en": "I will call you.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 20,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2001
+  },
+  {
+    "id": 4041,
+    "word_cz": "Sejdeme se v šest?",
+    "word_en": "Shall we meet at six?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 20,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2001
+  },
+  {
+    "id": 4042,
+    "word_cz": "Zítra se sejdeme.",
+    "word_en": "We will meet tomorrow.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 20,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2002
+  },
+  {
+    "id": 4043,
+    "word_cz": "Budu tam v šest.",
+    "word_en": "I will be there at six.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 20,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2004
+  },
+  {
+    "id": 4044,
+    "word_cz": "Tramvaj je rychlejší než autobus.",
+    "word_en": "The tram is faster than the bus.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4045,
+    "word_cz": "Praha je větší než Brno.",
+    "word_en": "Prague is bigger than Brno.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4046,
+    "word_cz": "Tenhle byt je levnější.",
+    "word_en": "This flat is cheaper.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4047,
+    "word_cz": "To je lepší.",
+    "word_en": "That is better.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4048,
+    "word_cz": "To je nejlepší kavárna.",
+    "word_en": "That is the best café.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4049,
+    "word_cz": "Mluvíš česky lépe než já.",
+    "word_en": "You speak Czech better than me.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4050,
+    "word_cz": "Je to dražší, ale hezčí.",
+    "word_en": "It's more expensive, but nicer.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4051,
+    "word_cz": "Vyberu si ten levnější.",
+    "word_en": "I'll choose the cheaper one.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2101
+  },
+  {
+    "id": 4052,
+    "word_cz": "To je pro mě nejlepší.",
+    "word_en": "That is best for me.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 21,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2103
+  },
+  {
+    "id": 4053,
+    "word_cz": "Nejdu ven, protože prší.",
+    "word_en": "I'm not going out because it's raining.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 22,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2201
+  },
+  {
+    "id": 4054,
+    "word_cz": "Když přestane pršet, půjdeme ven.",
+    "word_en": "When it stops raining, we will go out.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 22,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2203
+  },
+  {
+    "id": 4055,
+    "word_cz": "Myslím, že přijdu později.",
+    "word_en": "I think I will come later.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 22,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2202
+  },
+  {
+    "id": 4056,
+    "word_cz": "Dovolte, abych vám představil pana Nováka.",
+    "word_en": "Allow me to introduce Mr Novák.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 22,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2203
+  },
+  {
+    "id": 4057,
+    "word_cz": "Až skončím, zavolám.",
+    "word_en": "When I finish, I will call.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 22,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2203
+  },
+  {
+    "id": 4058,
+    "word_cz": "Musíte mít jízdenku.",
+    "word_en": "You must have a ticket.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2301
+  },
+  {
+    "id": 4059,
+    "word_cz": "Můžete tady čekat.",
+    "word_en": "You can wait here.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2301
+  },
+  {
+    "id": 4060,
+    "word_cz": "Nesmíte kouřit.",
+    "word_en": "You must not smoke.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2301
+  },
+  {
+    "id": 4061,
+    "word_cz": "Nemusíte spěchat.",
+    "word_en": "You don't have to hurry.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2301
+  },
+  {
+    "id": 4062,
+    "word_cz": "Můžu se zeptat?",
+    "word_en": "Can I ask something?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2301
+  },
+  {
+    "id": 4063,
+    "word_cz": "Počkejte, prosím.",
+    "word_en": "Wait, please.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2301
+  },
+  {
+    "id": 4064,
+    "word_cz": "Pojďte dál.",
+    "word_en": "Come in.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2301
+  },
+  {
+    "id": 4065,
+    "word_cz": "Jděte rovně a pak doleva.",
+    "word_en": "Go straight on and then left.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 23,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4066,
+    "word_cz": "Bolí mě v krku.",
+    "word_en": "I have a sore throat.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 24,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2401
+  },
+  {
+    "id": 4067,
+    "word_cz": "od včerejška",
+    "word_en": "since yesterday",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 24,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2401
+  },
+  {
+    "id": 4068,
+    "word_cz": "Potřebuju neschopenku.",
+    "word_en": "I need a sick note.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 24,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2401
+  },
+  {
+    "id": 4069,
+    "word_cz": "Jak často to mám užívat?",
+    "word_en": "How often should I take it?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 24,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4070,
+    "word_cz": "Před nebo po jídle?",
+    "word_en": "Before or after food?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 24,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4071,
+    "word_cz": "Jsem programátor.",
+    "word_en": "I am a programmer.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 25,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2501
+  },
+  {
+    "id": 4072,
+    "word_cz": "Studuju na univerzitě.",
+    "word_en": "I study at university.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 25,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2501
+  },
+  {
+    "id": 4073,
+    "word_cz": "Učím se česky.",
+    "word_en": "I am learning Czech.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 25,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2501
+  },
+  {
+    "id": 4074,
+    "word_cz": "Mám zkoušku z češtiny.",
+    "word_en": "I have a Czech exam.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 25,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2501
+  },
+  {
+    "id": 4075,
+    "word_cz": "Hledám práci.",
+    "word_en": "I am looking for work.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 25,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2501
+  },
+  {
+    "id": 4076,
+    "word_cz": "Moji kolegové jsou milí.",
+    "word_en": "My colleagues are nice.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 25,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2501
+  },
+  {
+    "id": 4077,
+    "word_cz": "Bydlím v bytě.",
+    "word_en": "I live in a flat.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4078,
+    "word_cz": "v kuchyni, v ložnici",
+    "word_en": "in the kitchen, in the bedroom",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4079,
+    "word_cz": "ve třetím patře",
+    "word_en": "on the third floor",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4080,
+    "word_cz": "Je byt ještě volný?",
+    "word_en": "Is the flat still available?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4081,
+    "word_cz": "Je byt zařízený?",
+    "word_en": "Is the flat furnished?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4082,
+    "word_cz": "Jsou energie v ceně?",
+    "word_en": "Are utilities included?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4083,
+    "word_cz": "Nefunguje topení.",
+    "word_en": "The heating doesn't work.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4084,
+    "word_cz": "Můžete to opravit?",
+    "word_en": "Can you repair it?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2601
+  },
+  {
+    "id": 4085,
+    "word_cz": "Který byt je lepší?",
+    "word_en": "Which flat is better?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4086,
+    "word_cz": "Je v bytě pračka?",
+    "word_en": "Is there a washing machine in the flat?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4087,
+    "word_cz": "Můžete mi prosím pomoct?",
+    "word_en": "Could you help me, please?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 26,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4088,
+    "word_cz": "Jdu pěšky.",
+    "word_en": "I am walking.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2701
+  },
+  {
+    "id": 4089,
+    "word_cz": "Chodím do práce pěšky.",
+    "word_en": "I walk to work (usually).",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2701
+  },
+  {
+    "id": 4090,
+    "word_cz": "Jezdím autobusem.",
+    "word_en": "I go by bus (usually).",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2701
+  },
+  {
+    "id": 4091,
+    "word_cz": "Kde mám vystoupit?",
+    "word_en": "Where should I get off?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2701
+  },
+  {
+    "id": 4092,
+    "word_cz": "Musím přestoupit.",
+    "word_en": "I have to change.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2701
+  },
+  {
+    "id": 4093,
+    "word_cz": "Vlak má zpoždění.",
+    "word_en": "The train is late.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2701
+  },
+  {
+    "id": 4094,
+    "word_cz": "Dnes jedu do Brna vlakem.",
+    "word_en": "Today I am going to Brno by train.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4095,
+    "word_cz": "Každý den jezdím do práce tramvají.",
+    "word_en": "Every day I go to work by tram.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2702
+  },
+  {
+    "id": 4096,
+    "word_cz": "Teď jdu na zastávku.",
+    "word_en": "I am walking to the stop now.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2702
+  },
+  {
+    "id": 4097,
+    "word_cz": "V neděli chodím do parku.",
+    "word_en": "On Sundays I go to the park.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4098,
+    "word_cz": "Vlak přijede na nástupiště 3.",
+    "word_en": "The train arrives at platform 3.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4099,
+    "word_cz": "Vlak přijede v šest.",
+    "word_en": "The train arrives at six.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4100,
+    "word_cz": "Autobus odjede za deset minut.",
+    "word_en": "The bus leaves in ten minutes.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4101,
+    "word_cz": "Dojdu na zastávku pěšky.",
+    "word_en": "I will reach the stop on foot.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 27,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": null
+  },
+  {
+    "id": 4102,
+    "word_cz": "Děkuju za e-mail.",
+    "word_en": "Thanks for your e-mail.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 29,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2901
+  },
+  {
+    "id": 4103,
+    "word_cz": "Zvu tě na oslavu.",
+    "word_en": "I am inviting you to a party.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 29,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2902
+  },
+  {
+    "id": 4104,
+    "word_cz": "Kdy? Kde? Pro koho?",
+    "word_en": "When? Where? For whom?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 29,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2903
+  },
+  {
+    "id": 4105,
+    "word_cz": "Prosím, můžete to zopakovat?",
+    "word_en": "Could you repeat that, please?",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 29,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 2903
+  },
+  {
+    "id": 4106,
+    "word_cz": "kniha bratra",
+    "word_en": "the brother's book (genitive)",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3101
+  },
+  {
+    "id": 4107,
+    "word_cz": "Dávám kamarádovi dárek.",
+    "word_en": "I give my friend a gift. (dative)",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3101
+  },
+  {
+    "id": 4108,
+    "word_cz": "Chtěl bych kávu.",
+    "word_en": "I'd like a coffee. (conditional)",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3101
+  },
+  {
+    "id": 4109,
+    "word_cz": "Potřebuju dvě krabice a litr vody.",
+    "word_en": "I need two boxes and a litre of water.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3102
+  },
+  {
+    "id": 4110,
+    "word_cz": "Stůl stojí v kuchyni.",
+    "word_en": "The table is in the kitchen.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3102
+  },
+  {
+    "id": 4111,
+    "word_cz": "Nemůžu dnes přijít do práce.",
+    "word_en": "I cannot come to work today.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3103
+  },
+  {
+    "id": 4112,
+    "word_cz": "Nejdřív si přečtu otázku.",
+    "word_en": "First I read the question.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3104
+  },
+  {
+    "id": 4113,
+    "word_cz": "Potom najdu důležitou informaci.",
+    "word_en": "Then I find the important information.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3104
+  },
+  {
+    "id": 4114,
+    "word_cz": "Nakonec odpovím jasně.",
+    "word_en": "Finally I answer clearly.",
+    "ipa": null,
+    "gender": null,
+    "unit_id": 31,
+    "example_cz": null,
+    "example_en": null,
+    "lesson_id": 3104
   }
 ]
