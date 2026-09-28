@@ -3,13 +3,13 @@ import 'package:czechify/data/services/notebook_store.dart';
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/exercise.dart';
 import 'package:czechify/presentation/providers/settings_providers.dart';
+import 'package:czechify/presentation/widgets/common/slide_deck.dart';
 import 'package:czechify/presentation/widgets/lesson/exercise_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'support/pilot_units.dart';
 import 'support/localized_app.dart';
 
 /// The two new teaching surfaces of plan v1.2: the notebook step (write from
@@ -18,12 +18,12 @@ import 'support/localized_app.dart';
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
-  final notebook = Exercise(
+  const notebook = Exercise(
     id: 6003,
-    lessonId: outsidePilotLesson(1),
+    lessonId: 101,
     type: ExerciseType.teaching,
     prompt: 'Notebook',
-    data: const {
+    data: {
       'type': 'teaching',
       'style': 'notebook',
       'kind': 'capture',
@@ -35,12 +35,12 @@ void main() {
     },
   );
 
-  final lecture = Exercise(
+  const lecture = Exercise(
     id: 6101,
-    lessonId: outsidePilotLesson(2),
+    lessonId: 102,
     type: ExerciseType.teaching,
     prompt: 'Lecture',
-    data: const {
+    data: {
       'type': 'teaching',
       'style': 'lecture',
       'grammar_rule_id': 'GR-050',
@@ -78,8 +78,11 @@ void main() {
           theme: lightTheme(),
           localizationsDelegates: testLocalizationsDelegates,
           supportedLocales: testSupportedLocales,
+          // A phone's exercise area: both steps are decks and need a
+          // bounded height, as the lesson gives them.
           home: Scaffold(
-            body: SingleChildScrollView(
+            body: SizedBox(
+              height: 700,
               child: ExerciseWidget(exercise: exercise, onAnswered: results.add),
             ),
           ),
@@ -87,6 +90,11 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    // A learner's first notebook step opens on the one-time intro.
+    if (exercise.data['style'] == 'notebook') {
+      await tester.tap(find.text('Continue'));
+      await tester.pumpAndSettle();
+    }
     return results;
   }
 
@@ -143,16 +151,20 @@ void main() {
       'to avoid, then hands over to the check', (tester) async {
     final results = await pump(tester, lecture);
 
-    expect(find.text('LEARN · STEP 1 OF 2'), findsOneWidget);
-    expect(
-      find.text('Feminine words ending in -a change -a to -u.'),
-      findsOneWidget,
-    );
-    expect(find.text('kávu'), findsOneWidget);
-    expect(find.text('vodu'), findsOneWidget);
-    expect(find.textContaining('Dám si káva.', findRichText: true), findsOneWidget);
+    // Slide by slide, as the learner turns them.
+    bool seen(Finder finder) => finder.evaluate().isNotEmpty;
+    var kicker = false, say = false, table = false, mistake = false;
+    while (true) {
+      kicker |= seen(find.text('LEARN · STEP 1 OF 2'));
+      say |= seen(find.text('Feminine words ending in -a change -a to -u.'));
+      table |= seen(find.text('kávu')) && seen(find.text('vodu'));
+      mistake |= seen(find.textContaining('Dám si káva.', findRichText: true));
+      if (!seen(find.byKey(SlideDeck.nextKey))) break;
+      await tester.tap(find.byKey(SlideDeck.nextKey));
+      await tester.pumpAndSettle();
+    }
+    expect([kicker, say, table, mistake], [true, true, true, true]);
 
-    await tester.ensureVisible(find.text('Got it — check me'));
     await tester.tap(find.text('Got it — check me'));
     await tester.pumpAndSettle();
 

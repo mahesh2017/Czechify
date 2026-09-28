@@ -14,7 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
-import 'support/pilot_units.dart';
+import 'support/course_units.dart';
 
 /// Every review card of a unit on the no-scroll lessons fits a small phone
 /// without scrolling, on each face a learner sees: the Czech front, the
@@ -46,7 +46,7 @@ void main() {
           File('assets/vocabulary/${level}_vocabulary.json').readAsStringSync(),
         ) as List<dynamic>)
           Flashcard.fromJson(w as Map<String, dynamic>),
-    ].where((c) => pilotUnits.contains(c.unitId)).toList();
+    ].where((c) => courseUnits.contains(c.unitId)).toList();
     expect(cards, isNotEmpty);
 
     final problems = <String>[];

@@ -11,6 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:logging/logging.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 /// The score used to be appended below the microphone, which pushed Continue
 /// off the bottom: finishing an attempt meant scrolling to do anything with
@@ -38,7 +39,8 @@ void main() {
           localizationsDelegates: testLocalizationsDelegates,
           supportedLocales: testSupportedLocales,
           home: Scaffold(
-            body: SingleChildScrollView(
+            body: SizedBox(
+              height: 700,
               child: PronunciationView(
                 exercise: const Exercise(
                   id: 1,
@@ -55,6 +57,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await toLastSlide(tester);
 
     // The first attempt starts from the microphone; later ones from the
     // button the result offers, which records straight away rather than

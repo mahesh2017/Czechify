@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:czechify/core/config/unit_guide_pilot.dart';
+import 'package:czechify/core/config/lesson_ids.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Content rules for the v1.2 lessons (docs/CURRICULUM_V1_2_PLAN_2026-09-24.md
@@ -85,7 +85,7 @@ void main() {
 
   test("a lesson's id encodes its unit", () {
     // Lesson widgets read their unit from the id (unitOfLesson, in
-    // lib/core/config/unit_guide_pilot.dart) instead of a database lookup.
+    // lib/core/config/lesson_ids.dart) instead of a database lookup.
     for (final lesson in lessons) {
       expect(
         unitOfLesson(lesson['id'] as int),

@@ -10,6 +10,8 @@ import 'package:czechify/presentation/providers/gamification_providers.dart';
 import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/screens/lesson/lesson_player_screen.dart';
 import 'package:drift/native.dart';
+import 'package:czechify/presentation/widgets/common/slide_deck.dart';
+import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,7 +19,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/lesson_session_harness.dart';
 import 'support/localized_app.dart';
-import 'support/pilot_units.dart';
 
 /// Seen on Android on 14 Sep 2026: after a missed listening question the
 /// exercise's own "0/1 correct · Retry" sat directly above the lesson's
@@ -36,6 +37,12 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 200));
     }
+  }
+
+  /// From the recording's slide to the question's.
+  Future<void> toTheQuestion(WidgetTester tester) async {
+    await tester.tap(find.byKey(SlideDeck.nextKey));
+    await settle(tester);
   }
 
   Future<void> missTheQuestion(WidgetTester tester) async {
@@ -69,18 +76,16 @@ void main() {
             ),
             curriculumRepositoryProvider.overrideWithValue(
               FakeCurriculumRepository(
-                // General player behaviour, so a unit still on the
-                // one-page layouts.
-                unit: Unit(
-                  id: outsidePilotUnit,
+                unit: const Unit(
+                  id: 1,
                   title: 'Hear, Read & Repair Czech',
                   description: '',
                   phase: Phase.a1,
                   orderIndex: 1,
                 ),
-                lesson: Lesson(
+                lesson: const Lesson(
                   id: 1,
-                  unitId: outsidePilotUnit,
+                  unitId: 1,
                   orderInUnit: 1,
                   title: 'Hear Czech in Useful Words',
                   description: '',
@@ -125,6 +130,9 @@ void main() {
         ),
       );
       await settle(tester);
+      await tester.tap(find.text('Start'));
+      await settle(tester);
+      await toTheQuestion(tester);
       expect(find.text('What was the order?'), findsOneWidget);
 
       await missTheQuestion(tester);
@@ -137,10 +145,11 @@ void main() {
       await settle(tester);
 
       expect(find.text('Not quite'), findsNothing);
+      await toTheQuestion(tester);
       expect(find.text('What was the order?'), findsOneWidget);
       expect(
-        find.text('Check answers'),
-        findsNothing,
+        tester.widget<KeyCta>(find.byKey(SlideDeck.doneKey)).onPressed,
+        isNull,
         reason: 'the same question, with the missed selection cleared',
       );
 

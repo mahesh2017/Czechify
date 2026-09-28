@@ -4,10 +4,12 @@ import 'package:czechify/domain/entities/exercise_outcome.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/writing_task_view.dart';
 import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
+import 'package:czechify/presentation/widgets/common/slide_deck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 void main() {
   testWidgets('open writing requires draft and revision and stays unscored', (
@@ -36,13 +38,16 @@ void main() {
       ),
     );
 
-    expect(find.text('0 words'), findsOneWidget);
-    expect(tester.widget<KeyCta>(find.byType(KeyCta)).onPressed, isNull);
+    await toLastSlide(tester);
+    KeyCta done() => tester.widget<KeyCta>(find.byKey(SlideDeck.doneKey));
+
+    expect(find.textContaining('0 words'), findsOneWidget);
+    expect(done().onPressed, isNull);
 
     await tester.enterText(find.byType(TextField).first, 'Dobrý den');
     await tester.pump();
-    expect(find.text('2 words'), findsOneWidget);
-    expect(tester.widget<KeyCta>(find.byType(KeyCta)).onPressed, isNotNull);
+    expect(find.textContaining('2 words'), findsOneWidget);
+    expect(done().onPressed, isNotNull);
     await tester.tap(find.text('Review draft'));
     await tester.pump();
     expect(find.textContaining('Revise:'), findsOneWidget);
@@ -57,7 +62,7 @@ void main() {
     expect(result?.outcome, ExerciseOutcome.skipped);
     expect(result?.isCorrect, isFalse);
     expect(result?.explanation, contains('You wrote 4 words.'));
-    expect(find.text('Writing cycle complete'), findsOneWidget);
+    expect(find.byKey(SlideDeck.doneKey), findsNothing);
   });
 
   /// Writing is never scored, so the "correct" branch of the old feedback
@@ -69,6 +74,7 @@ void main() {
     tester,
   ) async {
     const answerKey = 'Dobrý den, potřebuji pomoc.';
+    ExerciseResult? result;
 
     await tester.pumpWidget(
       MaterialApp(
@@ -84,11 +90,12 @@ void main() {
               answerKey: answerKey,
               data: {'min_words': 2},
             ),
-            onAnswered: (_) {},
+            onAnswered: (value) => result = value,
           ),
         ),
       ),
     );
+    await toLastSlide(tester);
 
     // The answer key itself — the strongest possible submission.
     await tester.enterText(find.byType(TextField).first, answerKey);
@@ -99,7 +106,8 @@ void main() {
     await tester.tap(find.text('Submit revision'));
     await tester.pump();
 
-    expect(find.text('Writing cycle complete'), findsOneWidget);
+    expect(result?.outcome, ExerciseOutcome.skipped);
+    expect(result?.explanation, isNot(contains('not found')));
     expect(find.text('Key phrases not found'), findsNothing);
     expect(find.byIcon(Icons.cancel), findsNothing);
     expect(

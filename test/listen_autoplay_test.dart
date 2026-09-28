@@ -51,6 +51,8 @@ void main() {
       ),
     );
 
+    await tester.pump();
+
     // Before the audio has played, the button is an invitation.
     expect(find.text('Listen'), findsOneWidget);
 

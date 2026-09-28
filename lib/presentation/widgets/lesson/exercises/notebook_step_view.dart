@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/config/unit_guide_pilot.dart';
+import '../../../../core/config/lesson_ids.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../data/services/notebook_store.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -13,7 +13,7 @@ import '../../../providers/settings_providers.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
-import '../slides_pilot.dart';
+import '../exercise_slides.dart';
 import 'exercise_shared.dart';
 
 /// A notebook step: the learner writes part of their unit page from memory,
@@ -127,12 +127,10 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
     widget.onAnswered(const ExerciseResult.skipped());
   }
 
-  /// Pilot: whether this step runs as screens — the one-time intro on its
-  /// own, then the task, then the comparison in the task's place — so the
-  /// model and its buttons never land under the task on a small phone.
-  bool get _screens => unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
-
-  /// Pilot: the learner has read the one-time intro screen.
+  /// The step runs as screens — the one-time intro on its own, then the
+  /// task, then the comparison in the task's place — so the model and its
+  /// buttons never land under the task on a small phone. This is whether
+  /// the learner has read the intro screen.
   bool _introDone = false;
 
   Widget _introScreen(BuildContext context) {
@@ -174,7 +172,7 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
     );
   }
 
-  /// Pilot: after "Check against the model", the comparison replaces the task:
+  /// After "Check against the model", the comparison replaces the task:
   /// what the task was (one line), what the learner typed if they typed it,
   /// the model, and how it went.
   Widget _compareScreen(BuildContext context, {required bool onPaper}) {
@@ -209,7 +207,7 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
               ),
               // The whole model page, from the unit's closing check: an icon
               // beside the title rather than a line of its own.
-              if (unitGuideEnabled(unitId))
+              if (unitId != null)
                 IconButton(
                   key: const ValueKey('notebook-model-page'),
                   tooltip: l10n.notebookSeeModelPage,
@@ -318,13 +316,8 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final onPaper = ref.watch(settingsProvider).notesOnPaper;
-    if (_screens) {
-      if (_showIntro && !_introDone) return _introScreen(context);
-      if (_revealed) return _compareScreen(context, onPaper: onPaper);
-    }
-    // Only the unit's closing check links to the unit guide.
-    final unitId =
-        _kind == 'unit_check' ? unitOfLesson(widget.exercise.lessonId) : null;
+    if (_showIntro && !_introDone) return _introScreen(context);
+    if (_revealed) return _compareScreen(context, onPaper: onPaper);
     final setup = _kind == 'setup';
     final model = _model;
 
@@ -333,31 +326,6 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_showIntro && !_screens) ...[
-            SoftCard(
-              shadow: false,
-              color: t.violetSoft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.notebookIntroTitle,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                      color: t.ink,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    l10n.notebookIntroBody,
-                    style: TextStyle(fontSize: 15, height: 1.4, color: t.ink),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 14),
-          ],
           TeachingHeroCard(
             accent: t.violet,
             child: Column(
@@ -418,64 +386,25 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
                 semanticLabel: l10n.notebookTypedLabel,
               ),
             ],
-            if (_revealed) ...[
-              const SizedBox(height: 16),
-              LessonKicker(l10n.notebookModelTitle),
-              const SizedBox(height: 8),
-              _ModelCard(rows: model),
-              if (unitGuideEnabled(unitId))
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton.icon(
-                    onPressed:
-                        () => context.push(
-                          '/unit-guide/$unitId?section=notebook',
-                        ),
-                    icon: const Icon(Icons.menu_book_rounded, size: 18),
-                    label: Text(l10n.notebookSeeModelPage),
-                    style: TextButton.styleFrom(
-                      minimumSize: const Size(0, 44),
-                    ),
-                  ),
-                ),
-              const SizedBox(height: 22),
-              KeyCta(
-                label: l10n.notebookAllCorrect,
+            const SizedBox(height: 22),
+            KeyCta(
+              label: l10n.notebookShowModel,
+              onPressed:
+                  model.isEmpty
+                      // Nothing to compare with: treat as written.
+                      ? () => _close(NotebookOutcome.allCorrect)
+                      : () => setState(() => _revealed = true),
+            ),
+            if (onPaper) ...[
+              const SizedBox(height: 6),
+              TextButton(
                 onPressed:
-                    _closing
-                        ? null
-                        : () => _close(NotebookOutcome.allCorrect),
-              ),
-              const SizedBox(height: 10),
-              OutlinedButton(
-                onPressed:
-                    _closing ? null : () => _close(NotebookOutcome.corrected),
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(52),
+                    _closing ? null : () => _close(NotebookOutcome.deferred),
+                style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(48),
                 ),
-                child: Text(l10n.notebookCorrected),
+                child: Text(l10n.notebookNoPen),
               ),
-            ] else ...[
-              const SizedBox(height: 22),
-              KeyCta(
-                label: l10n.notebookShowModel,
-                onPressed:
-                    model.isEmpty
-                        // Nothing to compare with: treat as written.
-                        ? () => _close(NotebookOutcome.allCorrect)
-                        : () => setState(() => _revealed = true),
-              ),
-              if (onPaper) ...[
-                const SizedBox(height: 6),
-                TextButton(
-                  onPressed:
-                      _closing ? null : () => _close(NotebookOutcome.deferred),
-                  style: TextButton.styleFrom(
-                    minimumSize: const Size.fromHeight(48),
-                  ),
-                  child: Text(l10n.notebookNoPen),
-                ),
-              ],
             ],
           ],
         ],

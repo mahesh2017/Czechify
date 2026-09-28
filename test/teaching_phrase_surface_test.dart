@@ -20,7 +20,9 @@ void main() {
           localizationsDelegates: testLocalizationsDelegates,
           supportedLocales: testSupportedLocales,
           home: Scaffold(
-            body: SingleChildScrollView(
+            body: SizedBox(
+              // A lesson's bounded exercise area: this step is a deck.
+              height: 700,
               child: TeachingView(
                 exercise: const Exercise(
                   id: 1,
@@ -42,6 +44,8 @@ void main() {
         ),
       ),
     );
+    // The deck lays out once it has measured its blocks.
+    await tester.pumpAndSettle();
 
     final ancestors = tester.widgetList<Container>(
       find.ancestor(of: find.text('káva'), matching: find.byType(Container)),
@@ -66,6 +70,7 @@ void main() {
           home: MediaQuery(
             data: const MediaQueryData(disableAnimations: true),
             child: Scaffold(
+              // No style: the one-page teaching card, which scrolls.
               body: SingleChildScrollView(
                 child: TeachingView(
                   exercise: const Exercise(

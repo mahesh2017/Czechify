@@ -4,7 +4,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/config/unit_guide_pilot.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -15,7 +14,7 @@ import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
-import '../slides_pilot.dart';
+import '../exercise_slides.dart';
 import 'exercise_shared.dart';
 
 /// A non-graded teaching card: presents a concept (an optional spoken intro,
@@ -61,7 +60,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   int _imageTeachingPage = 0;
   bool _translationRevealed = false;
 
-  /// The word list as slides (pilot), and the block its first line is.
+  /// The word list as slides, and the block its first line is.
   final _deck = GlobalKey<SlideDeckState>();
   int _firstRowBlock = 0;
 
@@ -437,31 +436,16 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
               onToggle: () => _toggleIntro(intro),
             )
             : null;
-    void done() => widget.onAnswered(const ExerciseResult.skipped());
-    if (showsAsSlides(widget.exercise)) {
-      return LectureSlides(
-        exercise: widget.exercise,
-        lead: lead,
-        doneLabel: l10n.lectureContinue,
-        onDone: done,
-      );
-    }
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (lead != null) ...[lead, const SizedBox(height: 16)],
-          LectureContent(exercise: widget.exercise),
-          const SizedBox(height: 22),
-          KeyCta(label: l10n.lectureContinue, onPressed: done),
-        ],
-      ),
+    return LectureSlides(
+      exercise: widget.exercise,
+      lead: lead,
+      doneLabel: l10n.lectureContinue,
+      onDone: () => widget.onAnswered(const ExerciseResult.skipped()),
     );
   }
 
-  /// The last page of a picture-card step in the pilot: its phrases without
-  /// a picture, as a word list.
+  /// The last page of a picture-card step: its phrases without a picture, as
+  /// a word list.
   Widget _buildPhrasePage(BuildContext context, List<_TeachingItem> phrases) {
     final l10n = AppLocalizations.of(context);
     return MotionEntrance(
@@ -499,11 +483,10 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
   ) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
-    // Pilot: phrases without a picture are not given an empty picture box
-    // twice each; they close the step together on one word-list page.
-    final pilot = unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
+    // Phrases without a picture are not given an empty picture box twice
+    // each; they close the step together on one word-list page.
     final phrases =
-        pilot && items.any((i) => i.image.isNotEmpty)
+        items.any((i) => i.image.isNotEmpty)
             ? items.where((i) => i.image.isEmpty).toList()
             : const <_TeachingItem>[];
     if (phrases.isNotEmpty) {
@@ -567,7 +550,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
               aspectRatio: 1.25,
               semanticLabel: item.imageLabel,
             ),
-            SizedBox(height: pilot ? 14 : 18),
+            const SizedBox(height: 14),
             if (!sentencePage) ...[
               Semantics(
                 button: true,
@@ -710,7 +693,7 @@ class _TeachingViewState extends ConsumerState<TeachingView> {
                 ),
               ),
             ],
-            SizedBox(height: pilot ? 16 : 20),
+            const SizedBox(height: 16),
             KeyCta(
               label:
                   lastPage
@@ -920,7 +903,7 @@ Future<void> _speakCzech(WidgetRef ref, String text) async {
 }
 
 /// One lecture step on one page: explanation, table, examples and the common
-/// mistake. Units outside the unit-guide pilot show lectures this way.
+/// mistake.
 class LectureContent extends ConsumerWidget {
   final Exercise exercise;
 

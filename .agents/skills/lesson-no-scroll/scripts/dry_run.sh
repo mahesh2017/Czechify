@@ -1,14 +1,12 @@
 #!/bin/zsh
-# Assess units before converting them: measure what would still scroll on a
-# small phone if they were switched on to slides. Nothing is committed; the
-# pilot setting and the budget file are restored on exit.
+# Measure what still scrolls in the given units on a small phone, by kind,
+# keyboard up too. Nothing is committed; the budget file is restored on exit.
 #
 #   .agents/skills/lesson-no-scroll/scripts/dry_run.sh 5 6 [--out DIR]
 #
 # Run from the repo root, outside the sandbox (flutter needs it).
 set -euo pipefail
 
-pilot=lib/core/config/unit_guide_pilot.dart
 budget=test/fixtures/no_scroll_budget.json
 out=${TMPDIR:-/tmp}
 units=()
@@ -20,22 +18,13 @@ while (( $# )); do
 done
 (( ${#units} )) || { echo "usage: dry_run.sh UNIT… [--out DIR]" >&2; exit 2; }
 
-if ! git diff --quiet -- $pilot $budget; then
-  echo "$pilot or $budget has uncommitted changes; commit or stash them first." >&2
+if ! git diff --quiet -- $budget; then
+  echo "$budget has uncommitted changes; commit or stash them first." >&2
   exit 1
 fi
-trap 'git checkout -q -- $pilot $budget' EXIT
+trap 'git checkout -q -- $budget' EXIT
 
 cp $budget $out/no_scroll_budget.before.json
-python3 - $pilot ${units[@]} <<'PY'
-import re, sys
-path, units = sys.argv[1], {int(u) for u in sys.argv[2:]}
-src = open(path).read()
-m = re.search(r'const unitGuidePilotUnits = \{([^}]*)\};', src)
-current = {int(x) for x in m.group(1).split(',') if x.strip()}
-new = ', '.join(str(u) for u in sorted(current | units))
-open(path, 'w').write(src[:m.start()] + f'const unitGuidePilotUnits = {{{new}}};' + src[m.end():])
-PY
 
 UPDATE_NO_SCROLL_BUDGET=1 flutter test test/no_scroll_fit_test.dart > $out/dry_run.log 2>&1 \
   || { tail -30 $out/dry_run.log; exit 1; }

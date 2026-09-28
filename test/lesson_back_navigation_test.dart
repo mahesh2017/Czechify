@@ -13,20 +13,18 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/localized_app.dart';
-import 'support/pilot_units.dart';
 
 class _Session extends LessonSessionNotifier {
   @override
-  LessonSessionState build() => LessonSessionState(
-    // General player behaviour, so a unit still on the one-page layouts.
+  LessonSessionState build() => const LessonSessionState(
     lesson: Lesson(
       id: 1,
-      unitId: outsidePilotUnit,
+      unitId: 1,
       orderInUnit: 1,
       title: 'Practice',
       description: '',
     ),
-    exercises: const [
+    exercises: [
       Exercise(
         id: 1,
         lessonId: 1,
@@ -89,6 +87,8 @@ void main() {
         ),
       );
       if (pushed) router.push('/lesson');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Start'));
       await tester.pumpAndSettle();
       expect(find.text('Choose a greeting'), findsOneWidget);
       await tester.binding.handlePopRoute();

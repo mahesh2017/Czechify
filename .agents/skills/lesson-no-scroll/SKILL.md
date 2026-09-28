@@ -1,6 +1,6 @@
 ---
 name: lesson-no-scroll
-description: "Use for any work on Czechify's no-scroll lessons, above all rolling them out: switching another unit on (adding it to unitGuidePilotUnits), assessing a unit for it, or fixing what a unit needs to fit a small phone. Also for changing a lesson exercise's layout, the lesson frame, answer feedback sheet, notebook step, Rule sheet or unit guide, SlideDeck, QuestionSteps, showsAsSlides, test/no_scroll_fit_test.dart or test/fixtures/no_scroll_budget.json. Load it before measuring, planning or writing code for any of these."
+description: "Use for any work on Czechify's no-scroll lessons, above all assessing a unit (after a content edit or for a new level) and fixing what it needs to fit a small phone. Also for changing a lesson exercise's layout, the lesson frame, answer feedback sheet, notebook step, Rule sheet or unit guide, SlideDeck, QuestionSteps, showsAsSlides, test/no_scroll_fit_test.dart or test/fixtures/no_scroll_budget.json. Load it before measuring, planning or writing code for any of these."
 ---
 
 # No-scroll lessons
@@ -8,17 +8,17 @@ description: "Use for any work on Czechify's no-scroll lessons, above all rollin
 The rule (Mahesh, 24 Sep 2026): **a learner never scrolls to read or answer a
 lesson step.** What doesn't fit a small phone is split into slides.
 
-**Where it stands (26 Sep 2026):** all six steps are built and on in all of A1
-(Units 1–15, 28, 30). A2 is Units 16–27, 29, 31. From Unit 8 on, a unit may need no fixes at all: then switch it on and
-verify.
-Rolling out means adding units to `unitGuidePilotUnits`
-(`lib/core/config/unit_guide_pilot.dart`), after assessing each one. The full
+**Where it stands (28 Sep 2026):** all six steps are built and every unit
+(1–31) is on slides. The per-unit switch (`unitGuidePilotUnits`) and the old
+one-page layouts were removed on 28 Sep: a lesson exercise is on slides by its
+type alone. New or edited content is assessed and fixed; there is nothing to
+switch on. Exam lessons keep the full lesson frame. The full
 record is `docs/NO_SCROLL_LESSONS_UNIT2_LEARNINGS_2026-09-24.md`: measurements,
 recipes per exercise type, causes (§6), device-only bugs (§7).
 
-## What switching a unit on changes
+## What the slides layout covers
 
-One setting turns on all of this for the unit's lessons:
+Every lesson (outside exams) gets:
 - the start screen and the slim lesson bar (step 0);
 - slides for rules, word lists, listening, reading and dialogues (step 2);
 - task-then-do slides for writing, speaking and pronunciation (step 3);
@@ -45,11 +45,11 @@ Mahesh agreed these on 24–25 Sep 2026; apply them to every unit.
   grammar rule as a book icon.
 - A picture-card step without pictures becomes the word-list style.
 - The pre-lesson word list stays hidden (Mahesh, 27 Sep): lessons teach
-  their own words on slides. The A1 vocabulary was rebuilt on 27 Sep; rebuild
-  each A2 unit's vocabulary the same way when switching it on (see the doc).
+  their own words on slides. The A1 vocabulary was rebuilt on 27 Sep; A2's was
+  rebuilt on 28 Sep (`tool/vocabulary/rebuild_vocabulary.py a2`).
 - The daily screen and onboarding are left for later. Flashcard review was
   made to fit on 27 Sep; `test/review_card_fit_test.dart` checks every card
-  of a switched-on unit on each face.
+  on each face.
 
 Anything else that changes what a learner sees, gets as help, or is graded on
 is Mahesh's call.
@@ -57,12 +57,11 @@ is Mahesh's call.
 ## 1. Assess (commit nothing)
 
 1. **One command:** `.agents/skills/lesson-no-scroll/scripts/assess_unit.sh <unit…> --out <scratchpad>`
-   from the repo root, outside the sandbox. It switches the units on
-   temporarily, then:
+   from the repo root, outside the sandbox. It:
    - runs the dry run (what would still scroll, by kind, keyboard up too);
-   - runs the pilot screen tests with the units on (feedback over the
-     exercise, notebook comparison, Rule sheet, 200% text);
-   - restores the files.
+   - runs the lesson screen tests (feedback over the exercise, notebook
+     comparison, Rule sheet, 200% text);
+   - restores the budget file.
 
    Every line it prints is a finding. If the budget file has uncommitted
    changes it refuses; stash them first.
@@ -134,9 +133,10 @@ Reuse these parts:
 **Feedback sheet** (`FeedbackSheet` in `lesson_ui.dart`): `folded` /
 `onToggleFolded`, `secondaryLabel` / `onSecondary`, `onTitleAction`.
 
-**The on/off switch:** `showsAsSlides()` (`lib/presentation/widgets/lesson/slides_pilot.dart`)
-is the one switch for exercise views. The view and `LessonExerciseViewport`
-must both use it.
+**Which steps are decks:** `showsAsSlides()` (`lib/presentation/widgets/lesson/exercise_slides.dart`)
+decides by type (and a teaching step's style). `LessonExerciseViewport` uses
+it to give a deck a bounded box instead of a scroll view; a new deck type
+must be added there.
 
 **Design against:**
 
@@ -147,11 +147,10 @@ must both use it.
 | Keyboard with suggestion bar | 260 pt |
 
 ## 4. Verify
-- **Switch the unit on** in `unitGuidePilotUnits`. The pilot tests pick it up
-  by themselves (`test/support/pilot_units.dart`); tests of the old one-page
-  layouts use `outsidePilotUnit`, so no test edits are needed. If a test
-  breaks for any reason other than a real finding, fix the test to use
-  `pilotUnits` / `outsidePilotUnit`, not a unit number.
+- **Tests that loop over units** use `courseUnits` (`test/support/course_units.dart`).
+  A widget test of a deck hosts it in a bounded box (`SizedBox(height: 700)`
+  or `LessonExerciseViewport`) and turns slides with `toLastSlide(tester)`
+  (`test/support/slides.dart`), which pumps fixed frames rather than settling.
 - **Re-pin the budget:** `UPDATE_NO_SCROLL_BUDGET=1 flutter test test/no_scroll_fit_test.dart`,
   then read `git diff test/fixtures/no_scroll_budget.json`:
   - only the unit's ids change;
@@ -191,7 +190,7 @@ longest is 128) overflow the 240 pt sheet.
   this for Units 11 and 12; it's the standing fix.
 - Answers accepted in one gender only (*rád* but not *ráda*, *šel* but
   not *šla*): add the other form as an accepted answer (Mahesh, Unit 13).
-- The Rule sheet: the assessment's pilot screen tests check its slides,
+- The Rule sheet: the assessment's lesson screen tests check its slides,
   which have less room than the lesson.
 - Pronunciation focus sounds that are not in the sentence (2107 lists "ř").
 - `image_cards` steps without `image` or `sentence` per item.
@@ -235,14 +234,14 @@ purpose (listen-then-reproduce). Ask.
 - **Never edit files containing non-ASCII text with `sed -i`:** it corrupted a
   test file. Use Python.
 - **The fit test's budget keys** can be `<id>+keyboard`.
-- **Switching a unit on can surface screens the dry run never measures:**
+- **A content change can surface screens the dry run never measures:**
   Unit 1 is the smoke tests' unit, and it showed the start screen breaking at
   200% text. Run the full suite before calling a unit done.
-- **Made-up lesson ids in tests belong to a unit too:** `unitOfLesson` is
-  `id ~/ 100`, so lesson 999 is Unit 9 and flipped to slides when Unit 9 went
-  on. Use `outsidePilotLesson(n)` for one-page tests.
-- **A test that hosts a step in its own `SingleChildScrollView`** breaks when
-  the step becomes a deck. Host it in `LessonExerciseViewport`.
+- **A test that hosts a deck in its own `SingleChildScrollView`** can't lay
+  it out. Host it in a bounded box (see Verify).
+- **Tests of the old one-page layouts hid real bugs** (found 28 Sep when they
+  moved to the decks: a 40 pt fold button, a restored writing draft reported
+  as an edit, autoplay after a manual play). Test the layout learners see.
 - **Fitting the screen isn't enough:** a step must also clear the folded
   answer bar (76 pt). The dry run can't see that; `feedback_overlay_test` can.
 - **Don't estimate text heights with `TextPainter` to split content:** it got

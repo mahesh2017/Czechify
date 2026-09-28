@@ -1,6 +1,7 @@
 import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/exercise.dart';
 import 'package:czechify/domain/entities/exercise_outcome.dart';
+import 'package:czechify/presentation/widgets/common/slide_deck.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/listening_comprehension_view.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/matching_view.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 /// Once an exercise has handed its answer to the lesson, a second attempt is
 /// the lesson's to offer: its Try again costs a heart and follows the feedback
@@ -54,37 +56,16 @@ void main() {
       ),
     );
 
+    await toLastSlide(tester);
     await tester.tap(find.text('tea — coffee'));
     await tester.pump();
     await tester.tap(find.text('Check answers'));
     await tester.pump();
 
     expect(result?.isCorrect, isFalse, reason: 'the miss reached the lesson');
-    expect(find.text('0/1 correct'), findsOneWidget);
+    expect(result?.explanation, contains('0/1'));
     expect(find.text('Retry'), findsNothing);
     expect(find.text('Try again'), findsNothing);
-  });
-
-  testWidgets('a listening task with no questions offers no retry either', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      host(
-        ListeningComprehensionView(
-          exercise: const Exercise(
-            id: 2,
-            lessonId: 1,
-            type: ExerciseType.listeningComprehension,
-            prompt: 'Listen',
-            data: {'transcript_cz': 'Dobrý den.', 'questions': []},
-          ),
-          onAnswered: (_) {},
-        ),
-      ),
-    );
-    await tester.pump();
-
-    expect(find.text('Retry'), findsNothing);
   });
 
   testWidgets('wrongly submitted pairs offer no retry of their own', (
@@ -143,6 +124,7 @@ void main() {
         ),
       ),
     );
+    await toLastSlide(tester);
 
     await tester.enterText(find.byType(TextField).first, 'Dobrý den');
     await tester.pump();
@@ -156,7 +138,7 @@ void main() {
     await tester.pump();
 
     expect(result?.outcome, ExerciseOutcome.skipped);
-    expect(find.text('Writing cycle complete'), findsOneWidget);
+    expect(find.byKey(SlideDeck.doneKey), findsNothing);
     expect(find.text('Try again'), findsNothing);
   });
 }

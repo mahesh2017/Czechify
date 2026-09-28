@@ -31,7 +31,7 @@ import '../../widgets/celebration/count_up_text.dart';
 import '../../widgets/celebration/stars_reveal.dart';
 import '../../widgets/lesson/exercise_widget.dart';
 import '../../widgets/lesson/exercises/teaching_view.dart';
-import '../../widgets/lesson/slides_pilot.dart';
+import '../../widgets/lesson/exercise_slides.dart';
 import '../grammar/unit_guide_screen.dart';
 import '../grammar/unit_notebook_screen.dart';
 import '../../widgets/lesson/lesson_exercise_viewport.dart';
@@ -65,11 +65,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
   LessonAdmission _denial = LessonAdmission.prerequisiteRequired;
   bool _allowExit = false;
 
-  /// Whether the learner has passed the lesson start screen (unit-guide
-  /// pilot). Stays true for a retry: the goal has been read once.
+  /// Whether the learner has passed the lesson start screen. Stays true for
+  /// a retry: the goal has been read once.
   bool _started = false;
 
-  /// Pilot: the question whose feedback sheet the learner folded down, by
+  /// The question whose feedback sheet the learner folded down, by
   /// position and retry. Any other question's sheet opens unfolded.
   (int, int)? _feedbackFoldedFor;
   bool _exitDialogOpen = false;
@@ -325,11 +325,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     LessonImage.precacheFor(context, session.exercises[next]);
   }
 
-  /// The unit-guide pilot's lesson frame: a start screen, then one thin bar
-  /// instead of today's header, banner and goal card. Not for the mock exam,
-  /// whose timer needs the full header.
+  /// The lesson frame: a start screen, then one thin bar instead of a
+  /// header, banner and goal card. Not for the mock exam, whose timer needs
+  /// the full header.
   bool _slimFrame(LessonSessionState session) =>
-      !session.isExamMode && unitGuideEnabled(session.lesson?.unitId);
+      !session.isExamMode && session.lesson != null;
 
   /// One short line: what kind of task this is when a mistake costs nothing
   /// (the label a learner needs to trust it), the streak, XP and the Rule
@@ -403,11 +403,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
 
   /// The lectures a learner can look back at from this point of the lesson:
   /// every lecture of earlier lessons in the unit, then this lesson's up to
-  /// the current exercise. Each comes with its lesson letter. Empty outside
-  /// the unit-guide pilot, so other units keep today's header.
+  /// the current exercise. Each comes with its lesson letter. Empty in the
+  /// mock exam, which keeps its full header.
   List<(String, Exercise)> _rulesSoFar(LessonSessionState session) {
     final lesson = session.lesson;
-    if (lesson == null || session.isExamMode || !unitGuideEnabled(lesson.unitId)) {
+    if (lesson == null || session.isExamMode) {
       return const [];
     }
     final unitLessons =
@@ -589,9 +589,9 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
       );
     }
 
-    // Unit-guide pilot: the lesson's title, goal and notices are shown once on
-    // a start screen, so every exercise screen can give its height to the
-    // exercise instead.
+    // The lesson's title, goal and notices are shown once on a start screen,
+    // so every exercise screen can give its height to the exercise instead.
+    // Not in the exam, which keeps its full header and timer.
     if (_slimFrame(session) && !_started) {
       return _LessonStartScreen(
         session: session,
@@ -875,8 +875,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
                 ),
               ),
 
-              // Feedback banner — appears under the answered exercise. In the
-              // pilot it is laid over the exercise instead (see
+              // Feedback banner under the answered exercise: the exam's. In
+              // lessons it is laid over the exercise (see
               // [_withFeedbackOver]).
               if (!slim)
                 MotionDisclosure(
@@ -891,7 +891,8 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     );
   }
 
-  /// Pilot: the feedback sheet is laid over the bottom of the exercise
+  /// In lessons (not the exam) the feedback sheet is laid over the bottom
+  /// of the exercise
   /// rather than pushing it up. On a small phone the sheet took 235-373 pt,
   /// so pushing left too little room and nearly every answered exercise had
   /// to scroll to show the answer. Laid over it, nothing moves when the
@@ -997,7 +998,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
         onContinue:
             () async => ref.read(lessonSessionProvider.notifier).nextExercise(),
         extra: _feedbackExtra(context, session, t, compact: slim),
-        // Pilot: Try again beside Continue and the rule as an icon, rather
+        // Lessons: Try again beside Continue and the rule as an icon, rather
         // than a line each; and a handle to fold the sheet out of the way.
         secondaryLabel: slim && session.canRetry ? l10n.tryAgain : null,
         onSecondary:
@@ -1030,7 +1031,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
     AppTokens t, {
     bool compact = false,
   }) {
-    // Compact (pilot): Try again and the rule are on the sheet's own rows;
+    // Compact (lessons): Try again and the rule are on the sheet's own rows;
     // only a save error is left to show here.
     final ruleId = compact ? null : session.lastGrammarRuleId;
     final error = session.completionError;
@@ -2347,7 +2348,7 @@ class _RuleButton extends StatelessWidget {
   }
 }
 
-/// The lesson frame in the unit-guide pilot: close, a thin progress line,
+/// The lesson frame (every lesson but the exam): close, a thin progress line,
 /// the recorded-voice notice as an icon (tap to read it) and hearts — about
 /// 48 pt, where the full header took 150 and more.
 class _SlimLessonBar extends ConsumerWidget {
@@ -2426,7 +2427,7 @@ class _SlimLessonBar extends ConsumerWidget {
   }
 }
 
-/// The lesson start screen (unit-guide pilot): what this lesson is, what the
+/// The lesson start screen: what this lesson is, what the
 /// learner will be able to do, how long it takes and what is in it — shown
 /// once, so the exercise screens do not have to carry it. It says so here if
 /// the recorded voice is unavailable, and where a resumed lesson carries on.

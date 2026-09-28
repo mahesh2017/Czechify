@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 Widget _app(Widget child) => MaterialApp(
   localizationsDelegates: testLocalizationsDelegates,
@@ -36,6 +37,8 @@ void main() {
       ),
     );
 
+    // The brief, then the slide with the microphone.
+    await toLastSlide(tester);
     await tester.tap(find.byType(RecordButton));
     await tester.pump();
     expect(mic.listening, isTrue);
@@ -74,6 +77,7 @@ void main() {
       ),
     );
 
+    await toLastSlide(tester);
     expect(find.bySemanticsLabel('Start recording'), findsOneWidget);
     handle.dispose();
   });

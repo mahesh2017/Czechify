@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 /// The draft plumbing runs player → viewport → exercise widget → writing
 /// task. It was first written with the provider end in place and nothing
@@ -43,6 +44,8 @@ void main() {
       ),
     );
     await tester.pump();
+    // The brief, then the page to write on.
+    await toLastSlide(tester);
   }
 
   testWidgets('a writing task opens with its saved draft', (tester) async {

@@ -14,7 +14,6 @@ import '../../common/motion_widgets.dart';
 import '../../common/record_button.dart';
 import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
-import '../slides_pilot.dart';
 import 'exercise_shared.dart';
 
 /// Pronunciation exercise view: record and get feedback.
@@ -147,7 +146,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
         _ => sound,
       };
 
-  /// Pilot: hear it (the sentence, its meaning, the sounds to listen for, the
+  /// Hear it (the sentence, its meaning, the sounds to listen for, the
   /// model), then say it (the sentence again, the model once more, the
   /// microphone). The attempt's own buttons finish the step, so the last
   /// slide has Back and no button of its own.
@@ -342,7 +341,7 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
           ],
           const SizedBox(height: 16),
           AudioPairButtons(
-            compact: showsAsSlides(widget.exercise),
+            compact: true,
             onPlay: () {
               final tts = ref.read(czechTtsProvider);
               // After a second miss the model plays slowly by default.
@@ -500,30 +499,13 @@ class _PronunciationViewState extends ConsumerState<PronunciationView> {
               ),
             );
 
-    if (showsAsSlides(widget.exercise)) {
-      return _slides(
-        context,
-        targetText: targetText,
-        hero: hero,
-        say: say,
-        skip: skip,
-        showingResult: showResult,
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          QuestionPrompt(question: widget.exercise.prompt),
-          const SizedBox(height: 18),
-          hero,
-          const SizedBox(height: 22),
-          say,
-          if (skip != null) skip,
-        ],
-      ),
+    return _slides(
+      context,
+      targetText: targetText,
+      hero: hero,
+      say: say,
+      skip: skip,
+      showingResult: showResult,
     );
   }
 }

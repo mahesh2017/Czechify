@@ -11,13 +11,13 @@ import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/widgets/common/slide_deck.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
-import 'package:czechify/presentation/widgets/lesson/slides_pilot.dart';
+import 'package:czechify/presentation/widgets/lesson/exercise_slides.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'support/pilot_units.dart';
+import 'support/course_units.dart';
 import 'support/localized_app.dart';
 import 'support/shipped_exercises.dart';
 
@@ -70,7 +70,7 @@ void main() {
     await tester.pump();
   }
 
-  test('writing, speaking and pronunciation are slides in Unit 2 only', () {
+  test('writing, speaking and pronunciation are slides', () {
     Exercise of(int lessonId, ExerciseType type) =>
         Exercise(id: 1, lessonId: lessonId, type: type, prompt: '', data: const {});
     for (final type in [
@@ -78,12 +78,7 @@ void main() {
       ExerciseType.speakingTask,
       ExerciseType.pronunciation,
     ]) {
-      expect(showsAsSlides(of(204, type)), isTrue, reason: '$type in Unit 2');
-      expect(
-        showsAsSlides(of(outsidePilotLesson(4), type)),
-        isFalse,
-        reason: '$type outside the pilot',
-      );
+      expect(showsAsSlides(of(204, type)), isTrue, reason: '$type');
     }
   });
 
@@ -210,28 +205,6 @@ void main() {
       expect(find.byIcon(Icons.mic_rounded), findsNothing);
     });
 
-    testWidgets('outside the pilot the one-page task has the skip too', (
-      tester,
-    ) async {
-      final results = await pump(
-        tester,
-        Exercise(
-          id: 6361,
-          lessonId: outsidePilotLesson(4),
-          type: ExerciseType.speakingTask,
-          prompt: 'Speak',
-          data: {
-            'prompt_en': 'Say hello.',
-            'expected_phrases': ['Dobrý den.'],
-          },
-        ),
-      );
-      expect(find.byType(SlideDeck), findsNothing);
-      await tester.tap(find.text("Can't speak right now? Skip"));
-      await tester.pump();
-      expect(results.single.outcome, ExerciseOutcome.skipped);
-    });
-
     testWidgets('a good recording shows in the microphone\'s place and is '
         'green in Czech too', (tester) async {
       final results = await pump(
@@ -325,26 +298,6 @@ void main() {
         expect(find.byKey(SlideDeck.backKey), findsNothing);
       });
     }
-
-    testWidgets('outside the pilot the sounds are named in words too', (
-      tester,
-    ) async {
-      await pump(
-        tester,
-        Exercise(
-          id: 6362,
-          lessonId: outsidePilotLesson(4),
-          type: ExerciseType.pronunciation,
-          prompt: 'Say it',
-          data: {
-            'target_text': 'Máma',
-            'focus_sounds': ['vowel_length'],
-          },
-        ),
-      );
-      expect(find.byType(SlideDeck), findsNothing);
-      expect(find.text('Vowel length'), findsOneWidget);
-    });
   });
 
   testWidgets('at 200% text every step-3 slide in the pilot lays out, with the '
@@ -357,7 +310,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     final tasks = loadShippedExercises().where(
       (e) =>
-          pilotUnits.contains(e.lessonId ~/ 100) &&
+          courseUnits.contains(e.lessonId ~/ 100) &&
           const {
             ExerciseType.writingTask,
             ExerciseType.speakingTask,

@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 void main() {
   testWidgets('listening starts gist-first and records transcript support', (
@@ -46,12 +47,14 @@ void main() {
         ),
       ),
     );
+    await tester.pump();
 
     expect(find.text('Prosím jedno kafe.'), findsNothing);
     await tester.tap(find.text('Reveal transcript'));
     await tester.pump();
     expect(find.text('Prosím jedno kafe.'), findsOneWidget);
 
+    await toLastSlide(tester);
     await tester.tap(find.text('Coffee'));
     await tester.pump();
     await tester.tap(find.text('Check answers'));
@@ -64,6 +67,8 @@ void main() {
   testWidgets('replaying the audio is recorded as support', (tester) async {
     ExerciseResult? result;
     await tester.pumpWidget(_listening(onAnswered: (value) => result = value));
+    // The deck lays out after measuring, a frame later.
+    await tester.pump();
 
     // The first play is the learner's own; the second is the one that means
     // they needed to hear it again.
@@ -72,6 +77,7 @@ void main() {
     await tester.tap(find.text('Play it again'));
     await tester.pump();
 
+    await toLastSlide(tester);
     await tester.tap(find.text('Coffee'));
     await tester.pump();
     await tester.tap(find.text('Check answers'));
@@ -83,12 +89,15 @@ void main() {
   testWidgets('the slower control also counts as a play', (tester) async {
     ExerciseResult? result;
     await tester.pumpWidget(_listening(onAnswered: (value) => result = value));
+    // The deck lays out after measuring, a frame later.
+    await tester.pump();
 
     await tester.tap(find.text('Listen'));
     await tester.pump();
     await tester.tap(find.text('Slower'));
     await tester.pump();
 
+    await toLastSlide(tester);
     await tester.tap(find.text('Coffee'));
     await tester.pump();
     await tester.tap(find.text('Check answers'));
@@ -102,6 +111,8 @@ void main() {
   ) async {
     ExerciseResult? result;
     await tester.pumpWidget(_listening(onAnswered: (value) => result = value));
+    // The deck lays out after measuring, a frame later.
+    await tester.pump();
 
     // Let the automatic play happen — the learner has now heard it once,
     // without having chosen to.
@@ -114,6 +125,7 @@ void main() {
     await tester.tap(find.text('Play it again'));
     await tester.pump();
 
+    await toLastSlide(tester);
     await tester.tap(find.text('Coffee'));
     await tester.pump();
     await tester.tap(find.text('Check answers'));
@@ -125,31 +137,20 @@ void main() {
   testWidgets('one play with no autoplay is not a replay', (tester) async {
     ExerciseResult? result;
     await tester.pumpWidget(_listening(onAnswered: (value) => result = value));
+    // The deck lays out after measuring, a frame later.
+    await tester.pump();
 
     // No autoplay has run, so this is the learner's first hearing.
     await tester.tap(find.text('Listen'));
     await tester.pump();
 
+    await toLastSlide(tester);
     await tester.tap(find.text('Coffee'));
     await tester.pump();
     await tester.tap(find.text('Check answers'));
     await tester.pump();
 
     expect(result?.supports, isNot(contains(SupportKind.replay)));
-  });
-
-  testWidgets('an exercise with no questions still shows its audio', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      _listening(questions: const [], onAnswered: (_) {}),
-    );
-
-    // The header travels with the questions now, so the empty state has to
-    // carry it too — otherwise the learner loses the prompt and the audio.
-    expect(find.text('What is the speaker asking for?'), findsOneWidget);
-    expect(find.text('Listen'), findsOneWidget);
-    expect(find.textContaining('no questions'), findsOneWidget);
   });
 }
 

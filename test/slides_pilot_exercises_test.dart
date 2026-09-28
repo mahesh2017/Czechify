@@ -6,12 +6,11 @@ import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/widgets/common/slide_deck.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
-import 'package:czechify/presentation/widgets/lesson/slides_pilot.dart';
+import 'package:czechify/presentation/widgets/lesson/exercise_slides.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'support/pilot_units.dart';
 import 'support/localized_app.dart';
 
 /// Unit 2 pilot: a passage or recording with questions, and a dialogue, are
@@ -69,8 +68,7 @@ void main() {
     },
   ];
 
-  test('Unit 2 shows several-part steps as slides; single questions and '
-      'other units stay as they are', () {
+  test('several-part steps are slides; single questions stay one page', () {
     Exercise of(int lessonId, ExerciseType type, [String? style]) => Exercise(
       id: 1,
       lessonId: lessonId,
@@ -91,12 +89,6 @@ void main() {
       isFalse,
     );
     expect(showsAsSlides(of(203, ExerciseType.multipleChoice)), isFalse);
-    expect(
-      showsAsSlides(
-        of(outsidePilotLesson(3), ExerciseType.listeningComprehension),
-      ),
-      isFalse,
-    );
   });
 
   testWidgets('reading: the passage in Czech first, English on request, then '

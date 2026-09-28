@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:czechify/core/config/unit_guide_pilot.dart';
+import 'package:czechify/core/config/lesson_ids.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/domain/engines/learning_loop_engine.dart';
 import 'package:czechify/domain/entities/enums.dart';
@@ -59,7 +59,6 @@ void main() {
       loadShippedExercises()
           .where(
             (e) =>
-                unitGuideEnabled(unitOfLesson(e.lessonId)) &&
                 e.type != ExerciseType.teaching &&
                 // Always handed in unscored, so never a miss.
                 e.type != ExerciseType.writingTask,

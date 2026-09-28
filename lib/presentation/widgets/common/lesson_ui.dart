@@ -1207,11 +1207,11 @@ class FeedbackSheet extends StatelessWidget {
                   if (onToggleFolded != null)
                     IconButton(
                       key: FeedbackSheet.foldKey,
-                      // Flush with the sheet's edge, like the content below.
-                      visualDensity: VisualDensity.compact,
+                      // Flush with the sheet's edge, like the content below;
+                      // a full 48 pt target (compact density made it 40).
                       padding: EdgeInsets.zero,
                       style: IconButton.styleFrom(
-                        minimumSize: const Size(44, 44),
+                        minimumSize: const Size(48, 48),
                         alignment: Alignment.centerRight,
                       ),
                       tooltip:

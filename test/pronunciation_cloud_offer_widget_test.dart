@@ -16,6 +16,7 @@ import 'package:czechify/presentation/widgets/common/record_button.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/pronunciation_view.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 /// A phone without a Czech language pack cannot check pronunciation on device.
 /// Saying so is honest but useless on its own: the learner is mid-exercise and
@@ -57,7 +58,9 @@ void main() {
           localizationsDelegates: testLocalizationsDelegates,
           supportedLocales: testSupportedLocales,
           home: Scaffold(
-            body: SingleChildScrollView(
+            body: SizedBox(
+              // A lesson's bounded exercise area: this step is a deck.
+              height: 700,
               child: PronunciationView(
                 exercise: const Exercise(
                   id: 1,
@@ -75,6 +78,8 @@ void main() {
     );
     await tester.pumpAndSettle();
 
+    // Hear it first; the microphone is on the next slide.
+    await toLastSlide(tester);
     await tester.tap(find.byType(RecordButton));
     await tester.pumpAndSettle();
   }

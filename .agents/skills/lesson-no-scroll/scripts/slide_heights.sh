@@ -11,25 +11,10 @@ set -euo pipefail
 
 ids=${1:?usage: slide_heights.sh ID[,ID…]}
 here=${0:A:h}
-pilot=lib/core/config/unit_guide_pilot.dart
 probe=test/zz_slide_heights_probe_test.dart
 
-if ! git diff --quiet -- $pilot; then
-  echo "$pilot has uncommitted changes; commit or stash them first." >&2
-  exit 1
-fi
-trap 'git checkout -q -- $pilot; rm -f $probe' EXIT
+trap 'rm -f $probe' EXIT
 
-python3 - $pilot $ids <<'PY'
-import re, sys
-path, ids = sys.argv[1], sys.argv[2]
-units = {int(i) // 1000 for i in ids.split(',')}
-src = open(path).read()
-m = re.search(r'const unitGuidePilotUnits = \{([^}]*)\};', src)
-current = {int(x) for x in m.group(1).split(',') if x.strip()}
-new = ', '.join(str(u) for u in sorted(current | units))
-open(path, 'w').write(src[:m.start()] + f'const unitGuidePilotUnits = {{{new}}};' + src[m.end():])
-PY
 
 cp $here/slide_heights_probe_test.dart.txt $probe
 # The probe tags its own lines with », so flutter's chatter is left out.

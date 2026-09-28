@@ -4,12 +4,12 @@ import 'package:czechify/domain/entities/exercise.dart';
 import 'package:czechify/presentation/widgets/lesson/exercises/exercise_shared.dart';
 import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
 import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
+import 'package:czechify/presentation/widgets/common/slide_deck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
-import 'support/pilot_units.dart';
 import 'support/shipped_exercises.dart';
 
 void main() {
@@ -120,10 +120,9 @@ void main() {
     tester,
   ) async {
     ExerciseResult? result;
-    // The one-page layouts, so a unit still off the no-scroll slides.
-    final exercise = Exercise(
+    const exercise = Exercise(
       id: 999001,
-      lessonId: outsidePilotLesson(1),
+      lessonId: 101,
       type: ExerciseType.dialogue,
       prompt: 'Complete the dialogue',
       data: {
@@ -156,9 +155,15 @@ void main() {
       ),
     );
 
+    // The situation first; both blanks are on the one reply slide.
+    await tester.tap(find.byKey(SlideDeck.nextKey));
+    await tester.pumpAndSettle();
     expect(find.byType(TextField), findsNWidgets(2));
     // Check stays disabled until every blank has something in it.
-    expect(tester.widget<KeyCta>(find.byType(KeyCta)).onPressed, isNull);
+    expect(
+      tester.widget<KeyCta>(find.byKey(SlideDeck.doneKey)).onPressed,
+      isNull,
+    );
 
     await tester.enterText(find.byType(TextField).at(0), 'Dobré ráno');
     await tester.enterText(find.byType(TextField).at(1), 'jednu kávu');
@@ -175,9 +180,9 @@ void main() {
   ) async {
     ExerciseResult? result;
     // The one-page layouts, so a unit still off the no-scroll slides.
-    final exercise = Exercise(
+    const exercise = Exercise(
       id: 999002,
-      lessonId: outsidePilotLesson(1),
+      lessonId: 101,
       type: ExerciseType.fillBlank,
       prompt: 'Complete',
       data: {
@@ -221,9 +226,9 @@ void main() {
   ) async {
     ExerciseResult? result;
     // The one-page layouts, so a unit still off the no-scroll slides.
-    final exercise = Exercise(
+    const exercise = Exercise(
       id: 999003,
-      lessonId: outsidePilotLesson(1),
+      lessonId: 101,
       type: ExerciseType.fillBlank,
       prompt: 'Complete',
       data: {

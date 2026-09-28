@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/config/unit_guide_pilot.dart';
+import '../../../core/config/lesson_ids.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../domain/entities/enums.dart';
 import '../../../domain/entities/exercise.dart';
@@ -16,7 +16,7 @@ import '../../widgets/common/soft_ui.dart';
 import '../../widgets/lesson/exercises/teaching_view.dart';
 import 'unit_notebook_screen.dart';
 
-export '../../../core/config/unit_guide_pilot.dart';
+export '../../../core/config/lesson_ids.dart';
 
 /// The unit's own checklist: the items of its closing "Check your page" step.
 final unitCheckItemsProvider =

@@ -13,7 +13,7 @@ import '../../../domain/entities/exercise_outcome.dart';
 import '../../providers/feedback_providers.dart';
 import '../celebration/burst_painter.dart';
 import 'exercise_widget.dart';
-import 'slides_pilot.dart';
+import 'exercise_slides.dart';
 
 /// Composes an exercise inside the lesson player's available viewport, and
 /// reacts when it is answered.

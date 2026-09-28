@@ -7,7 +7,6 @@ import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../providers/course_admission_providers.dart';
 import '../../providers/curriculum_providers.dart';
-import '../grammar/unit_guide_screen.dart';
 import '../../providers/referral_providers.dart';
 import '../../widgets/common/soft_ui.dart';
 import '../../../domain/entities/enums.dart';
@@ -839,7 +838,7 @@ class _PathUnit extends ConsumerWidget {
                           ],
                         ),
                       ],
-                      if (isUnlocked && unitGuideEnabled(unit.id)) ...[
+                      if (isUnlocked) ...[
                         const SizedBox(height: 12),
                         _UnitGuideButton(unitId: unit.id, color: palette.ink),
                       ],
@@ -874,24 +873,6 @@ class _PathUnit extends ConsumerWidget {
                     ],
                   ),
                 ],
-              ),
-            ),
-          // The map is the default view, so the unit's lecture and model
-          // notebook page have to be reachable from here, not only the list.
-          if (isUnlocked && lessons.isNotEmpty && !unitGuideEnabled(unit.id))
-            Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton.icon(
-                onPressed: () => context.push('/unit-notebook/${unit.id}'),
-                icon: Icon(Icons.edit_note, size: 18, color: palette.ink),
-                label: Text(
-                  l10n.curriculumLectureNotebook,
-                  style: TextStyle(
-                    color: palette.ink,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                style: TextButton.styleFrom(minimumSize: const Size(0, 44)),
               ),
             ),
         ],
@@ -1326,55 +1307,17 @@ class _UnitCard extends ConsumerWidget {
                   ),
                 ];
               }
-              if (unitGuideEnabled(unit.id)) {
-                return <Widget>[
-                  _PaidUnitNotice(unit: unit),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: _UnitGuideButton(unitId: unit.id, color: t.pri),
-                  ),
-                  ...ls.map(
-                    (lesson) => _LessonTile(
-                      lesson: lesson,
-                      isUnlocked: unlockedLessonIds.contains(lesson.id),
-                      isCompleted: completedIds.contains(lesson.id),
-                    ),
-                  ),
-                ];
-              }
               return <Widget>[
                 _PaidUnitNotice(unit: unit),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: _UnitGuideButton(unitId: unit.id, color: t.pri),
+                ),
                 ...ls.map(
                   (lesson) => _LessonTile(
                     lesson: lesson,
                     isUnlocked: unlockedLessonIds.contains(lesson.id),
                     isCompleted: completedIds.contains(lesson.id),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: OutlinedButton.icon(
-                    onPressed: () => context.push('/unit-notebook/${unit.id}'),
-                    icon: const Icon(Icons.edit_note, size: 16),
-                    label: Text(
-                      AppLocalizations.of(context).curriculumLectureNotebook,
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 40),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: OutlinedButton.icon(
-                    onPressed: () => context.push('/grammar?unit=${unit.id}'),
-                    icon: const Icon(Icons.menu_book, size: 16),
-                    label: Text(
-                      AppLocalizations.of(context).curriculumGrammarRules,
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 40),
-                    ),
                   ),
                 ),
               ];

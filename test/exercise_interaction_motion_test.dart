@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 /// The exercise views gained motion for the states a learner actually drives:
 /// a pair snapping together, an order being checked. Rendering them is not
@@ -164,14 +165,16 @@ void main() {
       },
     );
 
+    // The recording's slide, then the question's.
+    await toLastSlide(tester);
     await tester.tap(find.text('Bad'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Check answers'));
     await tester.pumpAndSettle();
 
     // Getting it wrong has to say how many were right, not just that the set
-    // was not perfect.
-    expect(find.textContaining('0/1'), findsWidgets);
+    // was not perfect: the lesson's feedback sheet shows this explanation.
+    expect(answers.single.explanation, contains('0/1'));
     expect(answers.single.isCorrect, isFalse);
   });
 

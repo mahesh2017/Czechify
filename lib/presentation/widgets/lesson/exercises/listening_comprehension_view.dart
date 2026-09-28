@@ -10,7 +10,6 @@ import '../../../providers/tts_providers.dart';
 import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
-import '../slides_pilot.dart';
 import 'exercise_shared.dart';
 import 'question_steps.dart';
 
@@ -80,6 +79,14 @@ class _ListeningComprehensionViewState
     super.dispose();
   }
 
+  /// The learner played the recording. A play of their own replaces the
+  /// automatic one still to come: pressing Listen at once used to be
+  /// followed by the autoplay too, twice in a row, and counted as a replay.
+  void _played() {
+    _autoPlay?.cancel();
+    setState(() => _playCount++);
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = widget.exercise.data;
@@ -90,24 +97,14 @@ class _ListeningComprehensionViewState
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
 
-    // The header scrolls with the questions rather than sitting above them.
-    //
-    // It used to be a fixed block above an [Expanded] question list. On a
-    // 320x568 screen the prompt, image, listen panel, gist note and transcript
-    // button already came to more than the exercise box, so the list was left
-    // with nothing and the column overflowed — 109 of the 151 shipped
-    // listening exercises. At 200% text every one of them did. Anything that
-    // grows with the text scale has to be inside the scrollable.
+    // The first slide: the task, the picture, the recording and its
+    // transcript. The questions follow, one to a slide.
     final header = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // On slides a long brief is reading text, as for writing and
-        // speaking: in the heading face 7100's three lines ran the first
-        // slide 10 pt over.
-        QuestionPrompt(
-          question: promptEn,
-          instruction: showsAsSlides(widget.exercise),
-        ),
+        // A long brief is reading text, as for writing and speaking: in the
+        // heading face 7100's three lines ran the first slide 10 pt over.
+        QuestionPrompt(question: promptEn, instruction: true),
         const SizedBox(height: 16),
 
         if (image != null && image.isNotEmpty) ...[
@@ -120,25 +117,22 @@ class _ListeningComprehensionViewState
           const SizedBox(height: 14),
         ],
 
-        // Listen first: the audio is the exercise, so it gets the hero.
-        // On slides with a picture, the compact row the question slides use:
-        // picture, panel, note and transcript were 60 pt taller than a small
-        // phone's slide.
-        if (transcriptCz.isNotEmpty &&
-            showsAsSlides(widget.exercise) &&
-            image != null &&
-            image.isNotEmpty)
+        // Listen first: the audio is the exercise, so it gets the hero. With
+        // a picture, the compact row the question slides use: picture,
+        // panel, note and transcript were 60 pt taller than a small phone's
+        // slide.
+        if (transcriptCz.isNotEmpty && image != null && image.isNotEmpty)
           _ListenAgain(
             label:
                 _playCount == 0 && !_autoPlayed
                     ? l10n.listen
                     : l10n.audioPlayAgain,
             onPlay: () {
-              setState(() => _playCount++);
+              _played();
               ref.read(czechTtsProvider).speak(transcriptCz);
             },
             onSlow: () {
-              setState(() => _playCount++);
+              _played();
               ref.read(czechTtsProvider).speakSlow(transcriptCz);
             },
           )
@@ -149,11 +143,11 @@ class _ListeningComprehensionViewState
                     ? l10n.listen
                     : l10n.audioPlayAgain,
             onPlay: () {
-              setState(() => _playCount++);
+              _played();
               ref.read(czechTtsProvider).speak(transcriptCz);
             },
             onSlow: () {
-              setState(() => _playCount++);
+              _played();
               ref.read(czechTtsProvider).speakSlow(transcriptCz);
             },
           ),
@@ -196,8 +190,6 @@ class _ListeningComprehensionViewState
                     ),
                   ),
         ),
-        // No trailing spacer: the list's separator already sits between the
-        // header and the first question.
       ],
     );
 
@@ -208,321 +200,29 @@ class _ListeningComprehensionViewState
     final questions =
         (data['questions'] as List<dynamic>? ?? const [])
             .cast<Map<String, dynamic>>();
-    if (showsAsSlides(widget.exercise) && questions.isNotEmpty) {
-      return QuestionSteps(
-        exerciseId: widget.exercise.id,
-        questions: questions,
-        intro: [header],
-        reminder: _ListenAgain(
-          onPlay: () {
-            setState(() => _playCount++);
-            ref.read(czechTtsProvider).speak(transcriptCz);
-          },
-          onSlow: () {
-            setState(() => _playCount++);
-            ref.read(czechTtsProvider).speakSlow(transcriptCz);
-          },
-        ),
-        onComplete:
-            (isCorrect, explanation, correctAnswer) => widget.onAnswered(
-              ExerciseResult(
-                isCorrect: isCorrect,
-                explanation: explanation,
-                correctAnswer: correctAnswer,
-                supports: supports(),
-              ),
-            ),
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // The Check action stays pinned at the bottom; the header and the
-          // questions share one scrollable above it.
-          Expanded(
-            child: _ListeningQuestions(
-              header: header,
-              exerciseId: widget.exercise.id,
-              data: data,
-              onComplete: (isCorrect, explanation, correctAnswer) {
-                widget.onAnswered(
-                  ExerciseResult(
-                    isCorrect: isCorrect,
-                    explanation: explanation,
-                    correctAnswer: correctAnswer,
-                    supports: supports(),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+    return QuestionSteps(
+      exerciseId: widget.exercise.id,
+      questions: questions,
+      intro: [header],
+      reminder: _ListenAgain(
+        onPlay: () {
+          _played();
+          ref.read(czechTtsProvider).speak(transcriptCz);
+        },
+        onSlow: () {
+          _played();
+          ref.read(czechTtsProvider).speakSlow(transcriptCz);
+        },
       ),
-    );
-  }
-}
-
-/// Questions section extracted from reading comprehension logic.
-class _ListeningQuestions extends StatefulWidget {
-  /// Prompt, artwork, audio controls and transcript — scrolled as the first
-  /// item of the question list so it can never squeeze the questions out.
-  final Widget header;
-
-  final int exerciseId;
-  final Map<String, dynamic> data;
-  final void Function(
-    bool isCorrect,
-    String? explanation,
-    String? correctAnswer,
-  )
-  onComplete;
-
-  const _ListeningQuestions({
-    required this.header,
-    required this.exerciseId,
-    required this.data,
-    required this.onComplete,
-  });
-
-  @override
-  State<_ListeningQuestions> createState() => _ListeningQuestionsState();
-}
-
-class _ListeningQuestionsState extends State<_ListeningQuestions> {
-  final List<int?> _selectedAnswers = [];
-  late List<Map<String, dynamic>> _presentedQuestions;
-  bool submitted = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _prepareQuestions();
-  }
-
-  void _prepareQuestions() {
-    final raw = widget.data['questions'] as List<dynamic>? ?? [];
-    _presentedQuestions = [
-      for (final (index, question) in raw.cast<Map<String, dynamic>>().indexed)
-        shuffledQuestion(question, seed: widget.exerciseId * 31 + index),
-    ];
-    _selectedAnswers
-      ..clear()
-      ..addAll(List.filled(_presentedQuestions.length, null));
-  }
-
-  List<Map<String, dynamic>> get _questions => _presentedQuestions;
-
-  @override
-  void didUpdateWidget(covariant _ListeningQuestions oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.exerciseId != widget.exerciseId) {
-      submitted = false;
-      _prepareQuestions();
-    }
-  }
-
-  bool get _allAnswered =>
-      _questions.isNotEmpty && _selectedAnswers.every((a) => a != null);
-
-  int get _correctCount {
-    int c = 0;
-    for (int i = 0; i < _questions.length; i++) {
-      final correctIdx = (_questions[i]['correct_index'] as num).toInt();
-      if (_selectedAnswers[i] == correctIdx) c++;
-    }
-    return c;
-  }
-
-  bool get _allCorrect =>
-      _questions.isNotEmpty && _correctCount == _questions.length;
-
-  void _submit() {
-    if (_questions.isEmpty) {
-      setState(() => submitted = true);
-      widget.onComplete(
-        false,
-        AppLocalizations.of(context).exerciseNoQuestionsAvailable,
-        null,
-      );
-      return;
-    }
-    setState(() => submitted = true);
-    widget.onComplete(
-      _allCorrect,
-      _allCorrect
-          ? AppLocalizations.of(context).exerciseAllAnsweredCorrectly
-          : AppLocalizations.of(
-            context,
-          ).exerciseYouGotCorrect(_correctCount, _questions.length),
-      _questions
-          .map(
-            (q) =>
-                (q['options'] as List<dynamic>)[(q['correct_index'] as num)
-                        .toInt()]
-                    as String,
-          )
-          .join(', '),
-    );
-  }
-
-  // No retry lives here. Once the answers are checked the result belongs to
-  // the lesson: its Try again re-asks the question, costs a heart and moves
-  // along the feedback ladder. A local retry only cleared the selections, and
-  // the lesson ignores a second answer while its feedback is showing, so that
-  // re-answer was never recorded.
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final t = context.tokens;
-
-    // Empty-questions error state
-    if (_questions.isEmpty) {
-      return ListView(
-        children: [
-          widget.header,
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: t.redSoft,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.error_outline, color: t.redInk, size: 22),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context).exerciseNoQuestions,
-                    style: TextStyle(
-                      fontSize: 15,
-                      height: 1.45,
-                      color: t.redInk,
-                    ),
-                  ),
-                ),
-              ],
+      onComplete:
+          (isCorrect, explanation, correctAnswer) => widget.onAnswered(
+            ExerciseResult(
+              isCorrect: isCorrect,
+              explanation: explanation,
+              correctAnswer: correctAnswer,
+              supports: supports(),
             ),
           ),
-        ],
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: ListView.separated(
-            padding: EdgeInsets.zero,
-            // One extra leading item: the header.
-            itemCount: _questions.length + 1,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
-            itemBuilder:
-                (context, index) =>
-                    index == 0
-                        ? widget.header
-                        : _buildQuestion(context, index - 1, theme),
-          ),
-        ),
-        if (_allAnswered && !submitted)
-          Padding(
-            padding: const EdgeInsets.only(top: 12),
-            child: KeyCta(
-              label: AppLocalizations.of(context).exerciseCheckAnswers,
-              onPressed: _submit,
-            ),
-          ),
-        if (submitted) ...[
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Row(
-              children: [
-                Icon(
-                  _allCorrect ? Icons.check_circle : Icons.error_outline,
-                  color: _allCorrect ? t.greenInk : t.redInk,
-                  size: 20,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    _allCorrect
-                        ? AppLocalizations.of(context).exerciseAllCorrect
-                        : AppLocalizations.of(context).exerciseCorrectOfTotal(
-                          _correctCount,
-                          _questions.length,
-                        ),
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: _allCorrect ? t.greenInk : t.redInk,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ],
-    );
-  }
-
-  Widget _buildQuestion(BuildContext context, int qIdx, ThemeData theme) {
-    final t = context.tokens;
-    final q = _questions[qIdx];
-    final questionEn = q['question_en'] as String? ?? '';
-    final options = (q['options'] as List<dynamic>).cast<String>();
-    final correctIdx = (q['correct_index'] as num).toInt();
-    final selected = _selectedAnswers[qIdx];
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: t.card,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: t.line),
-        boxShadow: t.shadow,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          LessonKicker(
-            AppLocalizations.of(context).exerciseQuestionNumber(qIdx + 1),
-            color: t.pri,
-          ),
-          const SizedBox(height: 6),
-          Text(
-            questionEn,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              height: 1.35,
-              color: t.ink,
-            ),
-          ),
-          const SizedBox(height: 12),
-          for (int i = 0; i < options.length; i++)
-            Padding(
-              padding: EdgeInsets.only(bottom: i == options.length - 1 ? 0 : 8),
-              child: QuizOptionTile(
-                keyLabel: String.fromCharCode(65 + i),
-                text: options[i],
-                state: optionState(
-                  index: i,
-                  correctIndex: correctIdx,
-                  selectedIndex: selected,
-                  answered: submitted,
-                ),
-                onTap:
-                    submitted
-                        ? null
-                        : () => setState(() => _selectedAnswers[qIdx] = i),
-              ),
-            ),
-        ],
-      ),
     );
   }
 }

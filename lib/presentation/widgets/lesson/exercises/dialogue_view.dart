@@ -9,7 +9,6 @@ import '../../../providers/tts_providers.dart';
 import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/slide_deck.dart';
-import '../slides_pilot.dart';
 import 'exercise_shared.dart';
 
 /// Dialogue completion exercise view.
@@ -98,22 +97,9 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
     ];
   }
 
-  /// Build dialogue lines with an inline field for every `___` marker.
-  List<Widget> _buildDialogueLines(
-    List<Map<String, dynamic>> lines,
-    BuildContext context,
-  ) => [
-    for (var i = 0; i < lines.length; i++) _buildLine(context, i),
-  ];
-
-  /// One line as a speech bubble, with a field for each of its blanks. On a
-  /// slide, Return moves on to the next reply, or checks after the last.
-  Widget _buildLine(
-    BuildContext context,
-    int lineIndex, {
-    bool slides = false,
-    bool tight = false,
-  }) {
+  /// One line as a speech bubble, with a field for each of its blanks.
+  /// Return moves on to the next reply, or checks after the last.
+  Widget _buildLine(BuildContext context, int lineIndex, {bool tight = false}) {
     final line = _lines[lineIndex];
     var blankCounter = _firstBlankOfLine[lineIndex];
     final spokenLines = _spokenLines;
@@ -142,19 +128,17 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
                 hintText: AppLocalizations.of(context).exerciseYourAnswer,
               ),
               textInputAction:
-                  slides && lastBlank
-                      ? TextInputAction.done
-                      : TextInputAction.next,
+                  lastBlank ? TextInputAction.done : TextInputAction.next,
               onChanged: (_) => setState(() {}),
-              // On slides the reply decides where focus goes next; the
-              // field's own "next" would move it too, and on a phone the two
-              // turned the deck twice or put the keyboard away.
-              onEditingComplete: slides ? () {} : null,
+              // The reply decides where focus goes next; the field's own
+              // "next" would move it too, and on a phone the two turned the
+              // deck twice or put the keyboard away.
+              onEditingComplete: () {},
               onSubmitted:
                   answered
                       ? null
                       : (_) {
-                        if (slides && !lastBlank) {
+                        if (!lastBlank) {
                           _nextBlank(blank);
                         } else if (_allFilled) {
                           _checkAnswer();
@@ -342,130 +326,85 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
       onSlow: () => ref.read(czechTtsProvider).speakSlow(_fullDialogueText),
     );
 
-    // Pilot: the situation and the recording first, then one reply a slide.
+    // The situation and the recording first, then one reply a slide.
     final turns = _turns;
-    if (showsAsSlides(widget.exercise) && turns.isNotEmpty) {
-      return SlideDeck(
-        key: _deck,
-        slides: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              QuestionPrompt(question: widget.exercise.prompt),
-              if (scenarioBox != null) ...[
-                const SizedBox(height: 12),
-                scenarioBox,
-              ],
-              const SizedBox(height: 18),
-              if (image != null && image.isNotEmpty) ...[
-                LessonImage(
-                  asset: image,
-                  height: 140,
-                  semanticLabel:
-                      imageLabel == null || imageLabel.isEmpty
-                          ? null
-                          : imageLabel,
-                ),
-                const SizedBox(height: 14),
-              ],
-              listen,
+    return SlideDeck(
+      key: _deck,
+      slides: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            QuestionPrompt(question: widget.exercise.prompt),
+            if (scenarioBox != null) ...[
+              const SizedBox(height: 12),
+              scenarioBox,
             ],
+            const SizedBox(height: 18),
+            if (image != null && image.isNotEmpty) ...[
+              LessonImage(
+                asset: image,
+                height: 140,
+                semanticLabel:
+                    imageLabel == null || imageLabel.isEmpty
+                        ? null
+                        : imageLabel,
+              ),
+              const SizedBox(height: 14),
+            ],
+            listen,
+          ],
+        ),
+        for (final turn in turns)
+          // While typing, only the line the learner answers and the one
+          // before it: with the keyboard up, the earlier lines pushed the
+          // gap out of view. Keys keep the field, and its focus, in place
+          // as lines come and go.
+          KeyboardUpBuilder(
+            builder: (context, keyboardUp) {
+              final gap = turn.indexWhere(
+                (line) => (_lines[line]['text'] as String).contains('___'),
+              );
+              // A slide of earlier lines has no gap: it shows them all.
+              final shown =
+                  keyboardUp && gap >= 0
+                      ? turn.sublist(math.max(0, gap - 1), gap + 1)
+                      : turn;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (final line in shown)
+                    KeyedSubtree(
+                      key: ValueKey('dialogue-line-$line'),
+                      child: _buildLine(context, line, tight: keyboardUp),
+                    ),
+                ],
+              );
+            },
           ),
-          for (final turn in turns)
-            // While typing, only the line the learner answers and the one
-            // before it: with the keyboard up, the earlier lines pushed the
-            // gap out of view. Keys keep the field, and its focus, in place
-            // as lines come and go.
-            KeyboardUpBuilder(
-              builder: (context, keyboardUp) {
-                final gap = turn.indexWhere(
-                  (line) => (_lines[line]['text'] as String).contains('___'),
-                );
-                // A slide of earlier lines has no gap: it shows them all.
-                final shown =
-                    keyboardUp && gap >= 0
-                        ? turn.sublist(math.max(0, gap - 1), gap + 1)
-                        : turn;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    for (final line in shown)
-                      KeyedSubtree(
-                        key: ValueKey('dialogue-line-$line'),
-                        child: _buildLine(
-                          context,
-                          line,
-                          slides: true,
-                          tight: keyboardUp,
-                        ),
-                      ),
-                  ],
-                );
-              },
-            ),
-        ],
-        canAdvance:
-            (slide) =>
-                slide == 0 ||
-                (slide == turns.length
-                    ? _allFilled
-                    : _blanksOf(turns[slide - 1]).every(
-                      (b) => _controllers[b].text.trim().isNotEmpty,
-                    )),
-        onSlideChanged: (slide) {
-          if (slide == 0 || answered) return;
-          final first = _blanksOf(turns[slide - 1]).firstOrNull;
-          if (first == null) return;
-          // The slide's field is built by the time the frame is done.
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted) _focus[first].requestFocus();
-          });
-        },
-        doneLabel: AppLocalizations.of(context).check,
-        onDone: _checkAnswer,
-        finished: answered,
-        // Return moves to the next reply or checks, so the keyboard can take
-        // the buttons' room.
-        returnKeyAdvances: true,
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          QuestionPrompt(question: widget.exercise.prompt),
-          if (scenarioBox != null) ...[
-            const SizedBox(height: 12),
-            scenarioBox,
-          ],
-          const SizedBox(height: 18),
-
-          if (image != null && image.isNotEmpty) ...[
-            LessonImage(
-              asset: image,
-              aspectRatio: 5 / 4,
-              semanticLabel:
-                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
-            ),
-            const SizedBox(height: 14),
-          ],
-
-          listen,
-          const SizedBox(height: 18),
-
-          // Dialogue lines
-          ..._buildDialogueLines(_lines, context),
-
-          const SizedBox(height: 18),
-          if (!answered)
-            KeyCta(
-              label: AppLocalizations.of(context).check,
-              onPressed: _allFilled ? _checkAnswer : null,
-            ),
-        ],
-      ),
+      ],
+      canAdvance:
+          (slide) =>
+              slide == 0 ||
+              (slide == turns.length
+                  ? _allFilled
+                  : _blanksOf(turns[slide - 1]).every(
+                    (b) => _controllers[b].text.trim().isNotEmpty,
+                  )),
+      onSlideChanged: (slide) {
+        if (slide == 0 || answered) return;
+        final first = _blanksOf(turns[slide - 1]).firstOrNull;
+        if (first == null) return;
+        // The slide's field is built by the time the frame is done.
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _focus[first].requestFocus();
+        });
+      },
+      doneLabel: AppLocalizations.of(context).check,
+      onDone: _checkAnswer,
+      finished: answered,
+      // Return moves to the next reply or checks, so the keyboard can take
+      // the buttons' room.
+      returnKeyAdvances: true,
     );
   }
 }

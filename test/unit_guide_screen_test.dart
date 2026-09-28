@@ -12,7 +12,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'support/pilot_units.dart';
 import 'support/localized_app.dart';
 
 /// The Unit 2 pilot of the unit guide: grammar first (by lesson, the last
@@ -209,18 +208,7 @@ void main() {
     expect(find.byTooltip('See the whole model page'), findsOneWidget);
   });
 
-  testWidgets('outside the pilot the closing check has no link', (
-    tester,
-  ) async {
-    await pumpUnitCheck(tester, outsidePilotUnit);
-    expect(find.text('See the whole model page'), findsNothing);
-    expect(find.byTooltip('See the whole model page'), findsNothing);
-  });
-
-  test('Unit 2 is in the pilot; units outside it are not', () {
-    expect(unitGuideEnabled(2), isTrue);
-    expect(unitGuideEnabled(outsidePilotUnit), isFalse);
-    expect(unitGuideEnabled(null), isFalse);
+  test('a lesson is lettered A, B, C, D within its unit', () {
     expect(lessonLetter(0), 'A');
     expect(lessonLetter(3), 'D');
   });

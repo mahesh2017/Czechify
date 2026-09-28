@@ -22,7 +22,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'support/pilot_units.dart';
+import 'support/course_units.dart';
 import 'support/lesson_session_harness.dart';
 import 'support/localized_app.dart';
 import 'support/shipped_exercises.dart';
@@ -30,11 +30,11 @@ import 'support/shipped_exercises.dart';
 /// Pilot, step 5: the learning screens around the exercises fit a small phone
 /// too — the notebook step's comparison and the Rule sheet — and the
 /// pre-lesson word list, whose words do not yet match the v1.2 lessons, is
-/// skipped. Covers every unit switched on ([pilotUnits]).
+/// skipped. Covers every unit switched on ([courseUnits]).
 void main() {
   final shipped = loadShippedExercises();
   final pilot =
-      shipped.where((e) => pilotUnits.contains(e.lessonId ~/ 100)).toList();
+      shipped.where((e) => courseUnits.contains(e.lessonId ~/ 100)).toList();
 
   setUpAll(() async {
     for (final font in {
@@ -121,15 +121,11 @@ void main() {
       return container.read(lessonSessionProvider);
     }
 
-    test('is skipped in the pilot, whose lessons teach their own words', () async {
-      final state = await load(pilotUnits.first);
+    test('is skipped: each lesson teaches its own words', () async {
+      final state = await load(courseUnits.first);
       expect(state.isTeaching, isFalse);
       // The cards are still there for review.
       expect(state.teachCards, isNotEmpty);
-    });
-
-    test('is still shown outside the pilot', () async {
-      expect((await load(outsidePilotUnit)).isTeaching, isTrue);
     });
   });
 
@@ -249,7 +245,7 @@ void main() {
     bool isLecture(Exercise e) =>
         e.type == ExerciseType.teaching && e.data['style'] == 'lecture';
     var sheetsOpened = 0;
-    for (final unit in pilotUnits) {
+    for (final unit in courseUnits) {
       final exercises = pilot.where((e) => e.lessonId ~/ 100 == unit).toList();
       final lessonIds = {for (final e in exercises) e.lessonId}.toList()..sort();
       final lessons = [

@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../../../../core/config/unit_guide_pilot.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../core/theme/app_motion.dart';
 import '../../../../domain/entities/exercise.dart';
@@ -75,11 +73,6 @@ class _MatchingViewState extends State<MatchingView> {
 
   bool get _allMatched =>
       _leftItems.every((i) => i.matched) && _rightItems.every((i) => i.matched);
-
-  bool get _isCorrect =>
-      _leftItems.every((i) => i.pairIdx == _rightItems[i.matchedTo].pairIdx);
-
-  bool get _pilot => unitGuideEnabled(unitOfLesson(widget.exercise.lessonId));
 
   int get _matchedCount => _leftItems.where((i) => i.matched).length;
 
@@ -164,7 +157,6 @@ class _MatchingViewState extends State<MatchingView> {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final promptEn = widget.exercise.data['prompt_en'] as String?;
-    final pilot = _pilot;
     final instruction = Text(
       l10n.exerciseTapCzechThenEnglish,
       style: TextStyle(fontSize: 14, height: 1.4, color: t.muted),
@@ -183,9 +175,9 @@ class _MatchingViewState extends State<MatchingView> {
     );
 
     return Padding(
-      // Slide units: less above the prompt, so a folded answer sheet
-      // leaves six wrapping pairs in view (6403).
-      padding: EdgeInsets.fromLTRB(20, pilot ? 10 : 18, 20, 16),
+      // Little above the prompt, so a folded answer sheet leaves six
+      // wrapping pairs in view (6403).
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 16),
       // Prompt, instruction and both columns share one scrollable; only the
       // action below is pinned. The prompt and instruction used to sit above
       // an Expanded, and at 200% text they took the whole box — all 84 shipped
@@ -203,23 +195,20 @@ class _MatchingViewState extends State<MatchingView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   QuestionPrompt(question: promptEn ?? widget.exercise.prompt),
-                  SizedBox(height: pilot ? 6 : 8),
-                  // Pilot: the count beside the instruction. In the bottom
-                  // row it lay under the folded answer sheet.
-                  if (pilot)
-                    Row(
-                      children: [
-                        Expanded(child: instruction),
-                        const SizedBox(width: 10),
-                        counter,
-                      ],
-                    )
-                  else
-                    instruction,
-                  // Slide units: a little tighter, so six pairs that wrap
-                  // still fit a small phone (6403 was 13 pt over), and
-                  // still show above a folded answer sheet.
-                  SizedBox(height: _pilot ? 12 : 18),
+                  const SizedBox(height: 6),
+                  // The count beside the instruction: in a bottom row it
+                  // lay under the folded answer sheet.
+                  Row(
+                    children: [
+                      Expanded(child: instruction),
+                      const SizedBox(width: 10),
+                      counter,
+                    ],
+                  ),
+                  // A little tight, so six pairs that wrap still fit a small
+                  // phone (6403 was 13 pt over), and still show above a
+                  // folded answer sheet.
+                  const SizedBox(height: 12),
 
                   // Two-column matching area
                   Row(
@@ -248,55 +237,6 @@ class _MatchingViewState extends State<MatchingView> {
               ),
             ),
           ),
-
-          // Pilot: no bottom row. Matching checks itself on the last pair
-          // and the answer sheet says how it went; this row's count and
-          // result lay under the folded sheet.
-          if (!pilot)
-          // Progress + submit
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                counter,
-                if (_allMatched && !answered)
-                  FilledButton(
-                    onPressed: _submit,
-                    style: FilledButton.styleFrom(
-                      minimumSize: kRowButtonMinSize,
-                    ),
-                    child: Text(AppLocalizations.of(context).check),
-                  ),
-                if (answered)
-                  Flexible(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          _isCorrect ? Icons.check_circle : Icons.cancel,
-                          size: 18,
-                          color: _isCorrect ? t.greenInk : t.redInk,
-                        ),
-                        const SizedBox(width: 6),
-                        Flexible(
-                          child: Text(
-                            _isCorrect
-                                ? l10n.exerciseAllCorrect
-                                : l10n.exerciseSomePairsWrong,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: _isCorrect ? t.greenInk : t.redInk,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -312,7 +252,7 @@ class _MatchingViewState extends State<MatchingView> {
       // The outer scrollable owns scrolling now; these only lay out.
       physics: const NeverScrollableScrollPhysics(),
       itemCount: items.length,
-      separatorBuilder: (_, __) => SizedBox(height: _pilot ? 6 : 8),
+      separatorBuilder: (_, __) => const SizedBox(height: 6),
       itemBuilder: (context, i) {
         final t = context.tokens;
         final item = items[i];

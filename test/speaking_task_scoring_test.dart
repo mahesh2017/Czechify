@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/localized_app.dart';
+import 'support/slides.dart';
 
 /// Partial credit used to count every spoken token that appeared anywhere in
 /// the expected vocabulary and divide by the number of distinct expected
@@ -52,6 +53,7 @@ void main() {
       ),
     );
 
+    await toLastSlide(tester);
     await tester.tap(find.byType(RecordButton));
     await tester.pump();
     mic.complete(transcript);
@@ -141,6 +143,7 @@ void main() {
       ),
     );
 
+    await toLastSlide(tester);
     await tester.tap(find.byType(RecordButton));
     await tester.pump();
     await tester.pump(const Duration(seconds: 3));
@@ -203,6 +206,7 @@ void main() {
       ),
     );
 
+    await toLastSlide(tester);
     await tester.tap(find.byType(RecordButton));
     await tester.pump();
     await tester.pump(const Duration(seconds: 3));

@@ -4,11 +4,9 @@ import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 import '../../../../domain/engines/writing_word_gate.dart';
-import '../../common/lesson_ui.dart';
 import '../../common/motion_widgets.dart';
 import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
-import '../slides_pilot.dart';
 import 'exercise_shared.dart';
 
 /// Writing task exercise — write a short text in Czech based on a prompt.
@@ -36,8 +34,6 @@ class _WritingTaskViewState extends State<WritingTaskView> {
   final _controller = TextEditingController();
   final _pageFocus = FocusNode();
   bool answered = false;
-  int _wordCount = 0;
-  bool _meetsMinWords = false;
   String _feedbackText = '';
   String _firstDraft = '';
   bool _revisionStage = false;
@@ -52,8 +48,16 @@ class _WritingTaskViewState extends State<WritingTaskView> {
     _controller.addListener(_draftChanged);
   }
 
+  /// The text last reported as the draft.
+  late String _reported = widget.initialDraft;
+
   void _draftChanged() {
-    widget.onDraftChanged?.call(_controller.text);
+    // The controller also notifies when only the cursor moves — the page
+    // focuses the field as it opens — and a restored draft is not an edit.
+    if (_controller.text != _reported) {
+      _reported = _controller.text;
+      widget.onDraftChanged?.call(_controller.text);
+    }
     if (mounted) setState(() {});
   }
 
@@ -80,7 +84,6 @@ class _WritingTaskViewState extends State<WritingTaskView> {
 
   int? get _minWords => widget.exercise.data['min_words'] as int?;
 
-  String? get _answerKey => widget.exercise.answerKey;
 
   String? get _sampleAnswer =>
       widget.exercise.data['sample_answer'] as String? ??
@@ -109,8 +112,6 @@ class _WritingTaskViewState extends State<WritingTaskView> {
 
     setState(() {
       answered = true;
-      _wordCount = wordCount;
-      _meetsMinWords = meetsMinWords;
       _feedbackText = parts.join(' ');
     });
 
@@ -204,7 +205,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
     );
   }
 
-  /// Pilot: the brief on one slide, the page on the next. The page takes the
+  /// The brief on one slide, the page on the next. The page takes the
   /// room that is left, which on a small phone with the keyboard up is about
   /// three lines — enough for a few sentences, and the brief is one swipe
   /// back. What the learner wrote is judged in the lesson's feedback sheet,
@@ -349,320 +350,5 @@ class _WritingTaskViewState extends State<WritingTaskView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    final l10n = AppLocalizations.of(context);
-    if (showsAsSlides(widget.exercise)) return _slides(context);
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // The brief, the page and any feedback scroll together; only the
-          // letter bar and the action stay pinned. Writing tasks are the one
-          // exercise whose content can outgrow the viewport on its own.
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  QuestionPrompt(question: _prompt, czech: _promptCz),
-                  if (_minWords != null) ...[
-                    const SizedBox(height: 10),
-                    Text(
-                      l10n.writingWriteAtLeast(_minWords!),
-                      style: TextStyle(fontSize: 14, color: t.muted),
-                    ),
-                  ],
-                  const SizedBox(height: 18),
-
-                  // Optional vocabulary support is hidden until requested so its use
-                  // remains observable rather than silently inflating performance.
-                  if (_keyVocab != null &&
-                      _keyVocab!.isNotEmpty &&
-                      !_showKeyVocab &&
-                      !answered) ...[
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton.icon(
-                        onPressed: () => setState(() => _showKeyVocab = true),
-                        icon: const Icon(Icons.lightbulb_outline, size: 18),
-                        label: Text(l10n.writingShowVocabSupport),
-                        style: TextButton.styleFrom(
-                          foregroundColor: t.amberInk,
-                          minimumSize: const Size(0, 44),
-                        ),
-                      ),
-                    ),
-                  ],
-                  MotionDisclosure(
-                    visible:
-                        _keyVocab != null &&
-                        _keyVocab!.isNotEmpty &&
-                        _showKeyVocab,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                            color: t.amberSoft,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                l10n.writingTryUsing,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  color: t.amberInk,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Wrap(
-                                spacing: 6,
-                                runSpacing: 6,
-                                children: [
-                                  for (final v in _keyVocab ?? const <String>[])
-                                    PillChip(label: v, bg: t.card, fg: t.ink),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 14),
-                      ],
-                    ),
-                  ),
-
-                  MotionDisclosure(
-                    visible: _revisionStage && !answered,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                            color: t.violetSoft,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Text(
-                            l10n.writingReviseNote,
-                            style: TextStyle(
-                              fontSize: 14.5,
-                              height: 1.5,
-                              color: t.ink,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 14),
-                      ],
-                    ),
-                  ),
-
-                  // The page to write on: paper-like, and the tallest thing here.
-                  // It grows with the answer rather than filling the viewport, so a
-                  // long draft and its feedback can both be read.
-                  Container(
-                    decoration: BoxDecoration(
-                      color: t.card,
-                      border: Border.all(color: t.line),
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: t.shadow,
-                    ),
-                    child: TextField(
-                      controller: _controller,
-                      enabled: !answered,
-                      cursorColor: t.pri,
-                      decoration: InputDecoration(
-                        hintText: l10n.writingHint,
-                        hintStyle: TextStyle(fontSize: 16, color: t.faint),
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        contentPadding: const EdgeInsets.all(18),
-                      ),
-                      style: TextStyle(
-                        fontSize: 16,
-                        height: 1.55,
-                        color: t.ink,
-                      ),
-                      maxLines: null,
-                      minLines: 6,
-                      textAlignVertical: TextAlignVertical.top,
-                      textInputAction: TextInputAction.newline,
-                    ),
-                  ),
-                  // Word count sits with the page it counts, not below the button.
-                  if (!answered)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          '${WritingWordGate.countWords(_controller.text)} words',
-                          style: TextStyle(fontSize: 13, color: t.faint),
-                        ),
-                      ),
-                    ),
-                  // Feedback after submission
-                  if (answered)
-                    MotionEntrance(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const SizedBox(height: 12),
-                          // Neutral, because nothing here graded the writing.
-                          //
-                          // This panel used to be a verdict: green/check when
-                          // correct, red/cancel otherwise. Writing is
-                          // deliberately formative and never scored, so the
-                          // correct branch was unreachable and every learner
-                          // finished every task on a red failure card. With an
-                          // answer key present — as all 97 shipped writing
-                          // tasks have — it also read "Key phrases not found",
-                          // which no code had checked; submitting the answer
-                          // key verbatim produced it.
-                          //
-                          // Violet for an unscored outcome follows the exam
-                          // result screen; amber stays reserved for streak
-                          // and XP.
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: t.violetSoft,
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.check_circle_outline,
-                                      color: t.violetInk,
-                                      size: 22,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      child: Text(
-                                        l10n.writingCycleComplete,
-                                        style: TextStyle(
-                                          fontFamily: AppFonts.display,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w800,
-                                          color: t.violetInk,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  _feedbackText,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    height: 1.5,
-                                    color: t.ink,
-                                  ),
-                                ),
-                                // No keyword-check note here either. It told
-                                // the learner their words had been compared
-                                // against the expected phrases; nothing ever
-                                // ran that comparison. What is actually true —
-                                // that this is unscored practice — is already
-                                // in [_feedbackText] above.
-                                if (_minWords != null) ...[
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        _meetsMinWords
-                                            ? Icons.check
-                                            : Icons.close,
-                                        size: 15,
-                                        color:
-                                            _meetsMinWords
-                                                ? t.greenInk
-                                                : t.redInk,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        l10n.writingWordCountMin(
-                                          _wordCount,
-                                          _minWords!,
-                                        ),
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: t.muted,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ],
-                            ),
-                          ),
-
-                          // Show sample/reference answer if available
-                          if (_sampleAnswer != null || _answerKey != null) ...[
-                            const SizedBox(height: 12),
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: t.card,
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(color: t.line),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  LessonKicker(
-                                    l10n.writingReferenceAnswer,
-                                    color: t.pri,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    _sampleAnswer ?? _answerKey!,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      height: 1.55,
-                                      color: t.ink,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          if (!answered) ...[
-            // Unlabelled here: the brief above already says to write in Czech,
-            // and the pinned footer has no room to spare.
-            CzechCharBar(controller: _controller, showLabel: false),
-            const SizedBox(height: 12),
-            KeyCta(
-              label:
-                  _revisionStage
-                      ? l10n.writingSubmitRevision
-                      : l10n.writingReviewDraft,
-              onPressed:
-                  !_hasDraft ? null : (_revisionStage ? _submit : _reviewDraft),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => _slides(context);
 }

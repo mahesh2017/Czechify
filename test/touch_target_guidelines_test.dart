@@ -36,7 +36,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/lesson_session_harness.dart';
 import 'support/localized_app.dart';
-import 'support/pilot_units.dart';
 import 'support/shipped_exercises.dart';
 
 final _dictionary = DictionaryData.fromJson(
@@ -44,10 +43,10 @@ final _dictionary = DictionaryData.fromJson(
       as Map<String, dynamic>,
 );
 
-// Touch targets of the one-page layouts; a unit still on them.
-final _lesson = Lesson(
+// A Unit 1 lesson.
+const _lesson = Lesson(
   id: 1,
-  unitId: outsidePilotUnit,
+  unitId: 1,
   orderInUnit: 1,
   title: 'Greetings',
   description: 'Meet someone',
@@ -98,7 +97,7 @@ void main() {
           czechTtsAvailableProvider.overrideWith((_) async => true),
           czechTtsProvider.overrideWithValue(_SilentTts()),
           continueLessonProvider.overrideWith(
-            (_) async => NextLessonInfo(
+            (_) async => const NextLessonInfo(
               lesson: _lesson,
               unitTitle: 'First conversations',
             ),
@@ -200,6 +199,9 @@ void main() {
     });
     testWidgets('lesson player targets at ${scale}x', (tester) async {
       await mount(tester, const LessonPlayerScreen(lessonId: 1), scale);
+      await check(tester);
+      await tester.tap(find.text('Start'));
+      await tester.pumpAndSettle();
       await check(tester);
       await tester.ensureVisible(find.text('Goodbye'));
       await tester.tap(find.text('Goodbye'));

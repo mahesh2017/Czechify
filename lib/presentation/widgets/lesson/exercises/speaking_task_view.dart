@@ -10,10 +10,8 @@ import '../../../providers/stt_providers.dart';
 import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
 import '../../common/record_button.dart';
-import '../../common/motion_widgets.dart';
 import '../../common/slide_deck.dart';
 import '../../common/soft_ui.dart';
-import '../slides_pilot.dart';
 import '../../../../l10n/app_localizations.dart';
 import 'exercise_shared.dart';
 
@@ -288,7 +286,7 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
     );
   }
 
-  /// Pilot: the brief on one slide; on the next, the phrases to use and the
+  /// The brief on one slide; on the next, the phrases to use and the
   /// microphone. Recording finishes the step, so the last slide has Back and
   /// no button of its own.
   Widget _slides(BuildContext context) {
@@ -397,154 +395,5 @@ class _SpeakingTaskViewState extends ConsumerState<SpeakingTaskView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final t = context.tokens;
-    final l10n = AppLocalizations.of(context);
-    final image = (widget.exercise.data['image'] as String?)?.trim();
-    final imageLabel = (widget.exercise.data['image_label'] as String?)?.trim();
-    if (showsAsSlides(widget.exercise)) return _slides(context);
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          QuestionPrompt(question: _prompt, czech: _promptCz),
-          const SizedBox(height: 16),
-
-          if (image != null && image.isNotEmpty) ...[
-            LessonImage(
-              asset: image,
-              aspectRatio: 5 / 4,
-              semanticLabel:
-                  imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
-            ),
-            const SizedBox(height: 16),
-          ],
-
-          // What to aim for, stated before they speak.
-          if (_expectedPhrases.isNotEmpty) ...[
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: t.card,
-                border: Border.all(color: t.line),
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: t.shadow,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LessonKicker(l10n.speakingTryToSay),
-                  const SizedBox(height: 10),
-                  for (final (i, p) in _expectedPhrases.indexed) ...[
-                    if (i > 0) const SizedBox(height: 8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 3),
-                          child: Icon(
-                            Icons.record_voice_over_outlined,
-                            size: 16,
-                            color: t.pri,
-                          ),
-                        ),
-                        const SizedBox(width: 9),
-                        Expanded(
-                          child: Text(
-                            p,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              height: 1.4,
-                              color: t.ink,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-          ],
-
-          Center(
-            child: Column(
-              children: [
-                RecordButton(
-                  isRecording: isRecording,
-                  onPressed: _toggleRecording,
-                ),
-                Text(
-                  isRecording
-                      ? l10n.speakingRecordingTapToStop
-                      : hasRecorded
-                      ? l10n.speakingTapToRerecord
-                      : l10n.speakingTapToSpeak,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: isRecording ? t.redInk : t.muted,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // What was heard, then what to make of it.
-          MotionDisclosure(
-            visible: transcription != null && transcription!.isNotEmpty,
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: t.elev,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      LessonKicker(l10n.speakingYouSaid),
-                      const SizedBox(height: 6),
-                      Text(
-                        transcription ?? '',
-                        style: TextStyle(
-                          fontSize: 16,
-                          height: 1.45,
-                          color: t.ink,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-              ],
-            ),
-          ),
-
-          MotionDisclosure(
-            visible: feedback != null,
-            child: Text(
-              feedback ?? '',
-              style: TextStyle(
-                fontSize: 15,
-                height: 1.5,
-                fontWeight: FontWeight.w600,
-                // Amber means streak and XP, never a verdict — a speaking
-                // result that is not clearly good is neutral, not a warning.
-                color: _passed == true ? t.greenInk : t.ink,
-              ),
-            ),
-          ),
-          if (!_submitted && !isRecording) Center(child: _skipButton(context)),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => _slides(context);
 }
