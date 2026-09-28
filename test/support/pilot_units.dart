@@ -8,11 +8,13 @@ List<int> get pilotUnits =>
 
 /// A unit still on the one-page layouts, for tests of those layouts.
 ///
-/// Throws once every unit is switched on: by then the one-page layouts, and
-/// the tests that use this, should be removed.
+/// Every course unit is switched on since A2 (28 Sep 2026), so this is unit
+/// 0, which no shipped lesson belongs to: the one-page layouts are kept, and
+/// tested on made-up lessons, until they are removed.
 int get outsidePilotUnit => [
   for (var unit = 1; unit <= 31; unit++)
     if (!unitGuideEnabled(unit)) unit,
+  0,
 ].first;
 
 /// Lesson [n] (1-based) of [outsidePilotUnit], as a lesson id.
