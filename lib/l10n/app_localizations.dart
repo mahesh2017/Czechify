@@ -6794,6 +6794,12 @@ abstract class AppLocalizations {
   /// **'Back to Czech'**
   String get readingShowCzech;
 
+  /// No description provided for @readingScrollForMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Scroll the text for more'**
+  String get readingScrollForMore;
+
   /// No description provided for @speakingCantSpeakSkip.
   ///
   /// In en, this message translates to:

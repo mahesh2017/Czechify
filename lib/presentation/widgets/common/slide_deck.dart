@@ -44,7 +44,8 @@ class SlideDeck extends StatefulWidget {
   /// Blocks laid on as few slides as they fit, in order: each block is
   /// measured at the phone's width and text size, and a slide takes blocks
   /// until the next would not fit. A block taller than a slide gets one to
-  /// itself.
+  /// itself. A block that is a [FillSlide] always has a slide to itself, at
+  /// the slide's exact height.
   const SlideDeck.packed({
     super.key,
     required this.blockCount,
@@ -136,6 +137,9 @@ class SlideDeckState extends State<SlideDeck> {
   Object? _measuring;
   List<GlobalKey> _keys = const [];
 
+  /// Packed mode: blocks that are a [FillSlide], found while measuring.
+  Set<int> _fillBlocks = const {};
+
   int get index => _index;
   int get length =>
       _packed ? (_groups?.length ?? 0) : widget.slides!.length;
@@ -191,6 +195,10 @@ class SlideDeckState extends State<SlideDeck> {
       for (final k in _keys) k.currentContext?.size?.height ?? 0.0,
     ];
     final room = height - widget.padding.vertical;
+    // A slide's full height: nothing else fits beside it.
+    for (final block in _fillBlocks) {
+      heights[block] = room;
+    }
     List<List<int>> fill(double capacity) {
       final groups = <List<int>>[];
       var current = <int>[];
@@ -250,6 +258,7 @@ class SlideDeckState extends State<SlideDeck> {
     if (_measuring != key) {
       _measuring = key;
       _keys = List.generate(widget.blockCount, (_) => GlobalKey());
+      _fillBlocks = {};
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => _measure(key, box.maxHeight),
       );
@@ -267,17 +276,31 @@ class SlideDeckState extends State<SlideDeck> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             for (var i = 0; i < widget.blockCount; i++)
-              KeyedSubtree(
-                key: _keys[i],
-                child: widget.blockBuilder!(context, i, true),
-              ),
+              KeyedSubtree(key: _keys[i], child: _measured(context, i)),
           ],
         ),
       ),
     );
   }
 
-  Widget _packedSlide(BuildContext context, List<int> blocks) => Column(
+  /// Block [index] as the measurer lays it out: a [FillSlide] takes its
+  /// height from the slide, so it is noted instead of laid out.
+  Widget _measured(BuildContext context, int index) {
+    final block = widget.blockBuilder!(context, index, true);
+    if (block is! FillSlide) return block;
+    _fillBlocks = {..._fillBlocks, index};
+    return const SizedBox.shrink();
+  }
+
+  Widget _packedSlide(BuildContext context, List<int> blocks) {
+    if (blocks.length == 1) {
+      final block = widget.blockBuilder!(context, blocks.single, true);
+      if (block is FillSlide) return block;
+    }
+    return _packedColumn(context, blocks);
+  }
+
+  Widget _packedColumn(BuildContext context, List<int> blocks) => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       for (final (n, block) in blocks.indexed) ...[

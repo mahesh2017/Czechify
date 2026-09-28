@@ -26,9 +26,9 @@ sheets (its list is truncated). Measure every id with
 | Cause | Items | Fix |
 |---|---|---|
 | Right-answer explanation long (A2 up to 398 chars; A1's longest 128) | 107 | Shortened to A1 length (≤ ~115 chars), same rule and example |
-| Reading's first slide: prompt + 140 pt picture + passage | 11, 17–49 pt | `QuestionSteps` is a packed deck: the passage takes the next slide when it does not fit under the picture |
+| Reading's first slide: prompt + 140 pt picture + passage | 11, 17–49 pt | The passage card takes the room left on the slide and scrolls inside (`ScrollingPassage`, below) |
 | Review readings (Unit 29): passage repeated above four long options | 5, 130–212 pt | `reminderMaySplit`: the passage gets its own slide before the question when both do not fit |
-| A passage alone taller than a slide (29103, a job ad) | 1 | Working-hours sentence cut (no question asks about it) |
+| A passage alone taller than a slide (29103, a job ad) | 1 | Scrolls inside its card (a first cut of one sentence was reverted) |
 | Dialogue lines after the last gap all on the reply slide | 5; 31113 by 534 pt | One closing line stays; more get slides of ≤ 3 lines before Check |
 | Unit 29 listening: Listen again + four long options | 6, 4 pt | Question card 14 pt above and below (was 16); reminder gap 6 |
 | Fill-ins with three gaps (one-page) | 4, 25–62 pt | Fill-in spacing 14/10/14 (was 20/14/18); prompts shortened to one or two lines |
@@ -36,8 +36,23 @@ sheets (its list is truncated). Measure every id with
 | Speaking briefs with 11–14 phrase chips (29206, 29207) | 2 | Czech brief shortened |
 | New English cues under the keyboard | 3, 7 pt | Cues shortened to one line |
 
-New `SlideDeck.packed` options: `breakBefore` (a block starts a slide) and
-`SlideDeckState.blocksOn(slide)`.
+New `SlideDeck.packed` options: `breakBefore` (a block starts a slide),
+`SlideDeckState.blocksOn(slide)`, and a `FillSlide` block, which gets a slide
+of its own at the slide's exact height.
+
+### Long passages scroll inside their box (Mahesh, 28 Sep)
+
+A first build moved a passage that did not fit under its heading to the next
+slide, which left Unit 29's headings alone on a slide (seen on the emulator).
+Mahesh: "make that text box where text is scrollable so that entire screen
+shouldn't scrolled … there should be clear indication that text box is
+scrollable". `ScrollingPassage` does that: the heading, picture and passage
+share the first slide; a longer text scrolls inside its card with a scrollbar
+that stays visible, a fade over the last lines and a "Scroll the text for
+more" label, all gone at the end. "Show in English" sits at the top of the
+card. The fit test lets the box scroll but fails it below 140 pt (about five
+lines); 25401 and 31202 needed a two-line heading for that. At very large text
+sizes the slide itself scrolls instead.
 
 ## Content checks
 
@@ -83,7 +98,7 @@ prints every dialogue to read. Calibration learned here:
    nothing a learner needs lost? The full rule is one tap away (book icon).
 2. The fixes above, especially 27307 (word order now includes *jsme*) and
    26107 (the landlord's reply).
-3. 29103: the working-hours sentence was cut from the job ad.
+3. 25401, 31202: headings shortened to two lines.
 4. 29206, 29207: the Czech speaking briefs were shortened.
 5. 23105 is in the unit on *smět* but accepts only *Můžu/Mohu*: add *Smím*?
 6. 27106 teaches "Teď jdu tam pěšky"; "Teď tam jdu pěšky" is more natural.
@@ -96,16 +111,6 @@ prints every dialogue to read. Calibration learned here:
 9. 29102 (seen on the emulator): "Hrála **se** tam česká kapela" should be
    "Hrála tam česká kapela"; "zůstal doma protože" needs a comma before
    *protože*.
-
-## Open design question (Mahesh)
-
-Readings 29102–29106 have long passages and no picture. On an iPhone SE
-the heading ("Read the email about the weekend and answer the questions.")
-cannot share a slide with the passage, so it stands alone on the first
-slide, then the passage, then the questions. Nothing scrolls, but the first
-slide is sparse. Alternatives: the heading in small type above the passage
-(these five then scroll a little on the smallest phones), or the passage
-split over two cards.
 
 ## Left for later
 

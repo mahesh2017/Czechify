@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/domain/entities/exercise.dart';
+import 'package:czechify/presentation/widgets/common/scrolling_passage.dart';
 import 'package:czechify/presentation/widgets/common/slide_deck.dart';
 import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
 import 'package:flutter/material.dart';
@@ -250,14 +251,38 @@ Future<double> _withKeyboard(WidgetTester tester) async {
 
 double _verticalOverflow(WidgetTester tester) {
   var worst = 0.0;
-  for (final state in tester.stateList<ScrollableState>(
-    find.byType(Scrollable),
-  )) {
-    final position = state.position;
-    if (position.axis != Axis.vertical || !position.hasContentDimensions) {
+  // A long passage scrolls inside its own box (ScrollingPassage), by design;
+  // what may not happen is the box being squeezed to a sliver, so a box
+  // shorter than its minimum counts by how much.
+  final inPassage = find
+      .descendant(
+        of: find.byType(ScrollingPassage),
+        matching: find.byType(Scrollable),
+      )
+      .evaluate()
+      .toSet();
+  for (final passage in find.byType(ScrollingPassage).evaluate()) {
+    final height = (passage.renderObject! as RenderBox).size.height;
+    final scrolls = tester
+        .stateList<ScrollableState>(
+          find.descendant(
+            of: find.byElementPredicate((e) => identical(e, passage)),
+            matching: find.byType(Scrollable),
+          ),
+        )
+        .any((s) => s.position.maxScrollExtent > 0);
+    if (scrolls && height < ScrollingPassage.minHeight) {
+      worst = math.max(worst, ScrollingPassage.minHeight - height);
+    }
+  }
+  for (final element in find.byType(Scrollable).evaluate()) {
+    if (inPassage.contains(element)) continue;
+    final metrics =
+        ((element as StatefulElement).state as ScrollableState).position;
+    if (metrics.axis != Axis.vertical || !metrics.hasContentDimensions) {
       continue;
     }
-    worst = math.max(worst, position.maxScrollExtent);
+    worst = math.max(worst, metrics.maxScrollExtent);
   }
   return worst;
 }

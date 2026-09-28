@@ -1,9 +1,13 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../domain/entities/exercise.dart';
 import '../../../../domain/entities/learning_evidence.dart';
 import '../../common/lesson_image.dart';
 import '../../common/lesson_ui.dart';
+import '../../common/scrolling_passage.dart';
+import '../../common/slide_deck.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../slides_pilot.dart';
 import 'exercise_shared.dart';
@@ -267,18 +271,51 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
       questions:
           (widget.exercise.data['questions'] as List<dynamic>)
               .cast<Map<String, dynamic>>(),
-      // Separate blocks: a passage that does not fit under the picture
-      // (A2's longer texts, 17-49 pt over) gets the next slide.
+      // One slide: the task, the picture and the passage, whose card takes
+      // the room left and scrolls inside when the text is longer. The slide
+      // itself scrolls only when not even a few lines of text would fit (at
+      // large text sizes).
       intro: [
-        QuestionPrompt(question: prompt),
-        if (image != null && image.isNotEmpty)
-          LessonImage(
-            asset: image,
-            height: 140,
-            semanticLabel:
-                imageLabel == null || imageLabel.isEmpty ? null : imageLabel,
+        FillSlide(
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    QuestionPrompt(question: prompt),
+                    const SizedBox(height: 16),
+                    if (image != null && image.isNotEmpty) ...[
+                      LessonImage(
+                        asset: image,
+                        height: 140,
+                        semanticLabel:
+                            imageLabel == null || imageLabel.isEmpty
+                                ? null
+                                : imageLabel,
+                      ),
+                      const SizedBox(height: 14),
+                    ],
+                  ],
+                ),
+              ),
+              SliverLayoutBuilder(
+                builder:
+                    (context, constraints) => SliverToBoxAdapter(
+                      child: _slidePassage(
+                        context,
+                        textCz,
+                        textEn,
+                        maxHeight: math.max(
+                          constraints.remainingPaintExtent,
+                          ScrollingPassage.minHeight + 64,
+                        ),
+                      ),
+                    ),
+              ),
+            ],
           ),
-        _slidePassage(context, textCz, textEn),
+        ),
       ],
       reminderMaySplit: true,
       reminder: Container(
@@ -306,50 +343,65 @@ class _ReadingComprehensionViewState extends State<ReadingComprehensionView> {
     );
   }
 
-  /// The passage in one language at a time, so it fits one slide: Czech, and
-  /// the English on request in its place.
-  Widget _slidePassage(BuildContext context, String textCz, String? textEn) {
+  /// The passage in one language at a time: Czech, and the English on request
+  /// in its place. At most [maxHeight] tall; a longer text scrolls inside.
+  Widget _slidePassage(
+    BuildContext context,
+    String textCz,
+    String? textEn, {
+    required double maxHeight,
+  }) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final hasEnglish = textEn != null && textEn.isNotEmpty;
     final english = _english && hasEnglish;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: t.card,
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: t.line),
-            boxShadow: t.shadow,
-          ),
-          child: Text(
-            english ? textEn : textCz,
-            style:
-                english
-                    ? TextStyle(fontSize: 15, height: 1.55, color: t.muted)
-                    : TextStyle(fontSize: 17, height: 1.6, color: t.ink),
-          ),
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: maxHeight),
+      child: Container(
+        padding: EdgeInsets.fromLTRB(18, hasEnglish ? 6 : 18, 8, 16),
+        decoration: BoxDecoration(
+          color: t.card,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: t.line),
+          boxShadow: t.shadow,
         ),
-        if (hasEnglish) ...[
-          const SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: OutlinedButton.icon(
-              onPressed:
-                  () => setState(() {
-                    _english = !_english;
-                    if (_english) _usedTranslation = true;
-                  }),
-              icon: const Icon(Icons.translate, size: 18),
-              label: Text(
-                english ? l10n.readingShowCzech : l10n.readingShowEnglish,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // On top, so it stays in view however far the text scrolls.
+            if (hasEnglish)
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton.icon(
+                  onPressed:
+                      () => setState(() {
+                        _english = !_english;
+                        if (_english) _usedTranslation = true;
+                      }),
+                  style: TextButton.styleFrom(minimumSize: const Size(0, 48)),
+                  icon: const Icon(Icons.translate, size: 18),
+                  label: Text(
+                    english ? l10n.readingShowCzech : l10n.readingShowEnglish,
+                  ),
+                ),
+              ),
+            Flexible(
+              child: ScrollingPassage(
+                // A new text starts at the top.
+                key: ValueKey(english),
+                child: Text(
+                  english ? textEn : textCz,
+                  style:
+                      english
+                          ? TextStyle(fontSize: 15, height: 1.55, color: t.muted)
+                          : TextStyle(fontSize: 17, height: 1.6, color: t.ink),
+                ),
               ),
             ),
-          ),
-        ],
-      ],
+          ],
+        ),
+      ),
     );
   }
 

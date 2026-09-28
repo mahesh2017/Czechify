@@ -59,7 +59,7 @@
       "prompt": "Read two candidate profiles",
       "data": {
         "type": "reading_comprehension",
-        "prompt_en": "Choose the profile that fits the advertised café role.",
+        "prompt_en": "Which profile fits the café job?",
         "image": "assets/images/unit25/work_study_v1.webp",
         "image_label": "Preparing for work or study",
         "text_cz": "Marek studuje IT a hledá práci večer. Klára pracovala dva roky v restauraci, ráda komunikuje a může pracovat ráno. Pro ranní práci v kavárně je Klára vhodnější.",

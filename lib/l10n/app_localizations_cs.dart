@@ -3973,6 +3973,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get readingShowCzech => 'Zpět k češtině';
 
   @override
+  String get readingScrollForMore => 'Text pokračuje, posuňte ho';
+
+  @override
   String get speakingCantSpeakSkip => 'Teď nemůžete mluvit? Přeskočit';
 
   @override

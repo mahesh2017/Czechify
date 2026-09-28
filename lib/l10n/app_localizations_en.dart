@@ -3957,6 +3957,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readingShowCzech => 'Back to Czech';
 
   @override
+  String get readingScrollForMore => 'Scroll the text for more';
+
+  @override
   String get speakingCantSpeakSkip => 'Can\'t speak right now? Skip';
 
   @override

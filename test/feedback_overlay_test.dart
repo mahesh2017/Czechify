@@ -14,6 +14,7 @@ import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/screens/grammar/unit_notebook_screen.dart';
 import 'package:czechify/presentation/screens/lesson/lesson_player_screen.dart';
 import 'package:czechify/presentation/widgets/common/lesson_ui.dart';
+import 'package:czechify/presentation/widgets/common/scrolling_passage.dart';
 import 'package:czechify/presentation/widgets/lesson/lesson_exercise_viewport.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -169,10 +170,28 @@ void main() {
             .descendant(of: buttons, matching: find.byType(Text))
             .evaluate()
             .toSet();
+        // A long passage scrolls inside its box: its text runs on below the
+        // box by design, so the box, not the text, must clear the sheet.
+        final inPassage = find
+            .descendant(
+              of: find.byType(ScrollingPassage),
+              matching: find.byType(Text),
+            )
+            .evaluate()
+            .toSet();
+        for (final passage in find
+            .descendant(of: viewport, matching: find.byType(ScrollingPassage))
+            .evaluate()) {
+          final box = passage.renderObject! as RenderBox;
+          final bottom = box.localToGlobal(Offset(0, box.size.height)).dy;
+          if (bottom > folded.top + 0.5) {
+            problems.add('$label: a passage box is under the folded sheet');
+          }
+        }
         for (final text in find
             .descendant(of: viewport, matching: find.byType(Text))
             .evaluate()
-            .where((e) => !inButtons.contains(e))) {
+            .where((e) => !inButtons.contains(e) && !inPassage.contains(e))) {
           final box = text.renderObject! as RenderBox;
           if (!box.attached || !box.hasSize || box.size.isEmpty) continue;
           final bottom = box.localToGlobal(Offset(0, box.size.height)).dy;
