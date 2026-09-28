@@ -147,7 +147,7 @@
           "zapsat"
         ],
         "correct_index": 0,
-        "explanation": "'Napsat' is the basic perfective pair of 'psát'. The prefix 'na-' makes it perfective: psát (was writing) → napsat (wrote/has written). Other prefixed forms add meaning: popsat = to describe, přepsat = to rewrite, zapsat = to note down."
+        "explanation": "Na- makes psát perfective: napsat (write and finish). Other prefixes change the meaning: popsat = describe."
       },
       "answer_key": "napsat",
       "grammar_rule_id": "GR-182",
@@ -162,7 +162,7 @@
         "type": "fill_blank",
         "sentence": "___ jsem celou knihu. (přečíst — I read the whole book, completed action)",
         "blank_count": 1,
-        "explanation": "'Přečetl jsem' = I read (and finished). 'Přečíst' is the perfective pair of 'číst'. Perfective expresses a completed action: 'přečetl jsem celou knihu' = I read the whole book (finished it). Imperfective 'četl jsem knihu' = I was reading a book (no completion).",
+        "explanation": "Přečíst is perfective (finished): přečetl jsem celou knihu. Četl jsem knihu = I was reading a book.",
         "blank_answers": [
           [
             "Přečetl",

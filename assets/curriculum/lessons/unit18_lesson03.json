@@ -294,7 +294,7 @@
           },
           {
             "speaker": "person_b",
-            "text": "___ (We're talking about work and the holiday.)"
+            "text": "___ (About work and the holiday.)"
           },
           {
             "speaker": "person_a",
@@ -377,7 +377,7 @@
           "o rok"
         ],
         "correct_index": 0,
-        "explanation": "'Před rokem' = a year ago. 'Před' + instrumental expresses 'ago' or 'before' in time expressions: před týdnem (a week ago), před měsícem (a month ago), před hodinou (an hour ago)."
+        "explanation": "Před + instrumental = ago: před rokem (a year ago), před týdnem, před hodinou."
       },
       "answer_key": "před rokem",
       "grammar_rule_id": "GR-173",
@@ -387,12 +387,12 @@
       "id": 18311,
       "lesson_id": 1803,
       "type": "fill_blank",
-      "prompt": "Complete with the correct instrumental time expression.",
+      "prompt": "Před + instrumental.",
       "data": {
         "type": "fill_blank",
         "sentence": "Před ___ (rok) jsem byl v Praze. Před ___ (týden) jsem mluvil s Janou. Před ___ (měsíc) jsem začal novou práci.",
         "blank_count": 3,
-        "explanation": "'Před' + instrumental for time expressions: 'před rokem' (a year ago), 'před týdnem' (a week ago), 'před měsícem' (a month ago). All use the instrumental ending -em for masculine nouns.",
+        "explanation": "Před + instrumental = ago: před rokem, před týdnem, před měsícem (all -em).",
         "blank_answers": [
           [
             "rokem"

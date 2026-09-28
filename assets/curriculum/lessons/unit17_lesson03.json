@@ -285,7 +285,7 @@
         "type": "fill_blank",
         "sentence": "Polévka ___ chutná. (já)",
         "blank_count": 1,
-        "explanation": "'Chutnat' (to taste) works like 'líbit se': dative for who experiences the taste + nominative for the thing. 'Polévka mi chutná.' = The soup tastes good to me / I like the soup.",
+        "explanation": "Chutnat works like líbit se: the dative is the person (mi). Polévka mi chutná. = I like the soup.",
         "blank_answers": [
           [
             "mi"
@@ -359,7 +359,7 @@
         "type": "fill_blank",
         "sentence": "Je ___ špatně. (on)",
         "blank_count": 1,
-        "explanation": "'Je mu špatně.' = He feels sick / nauseous. The dative pronoun carries the person: je mi (I), je ti (you), je mu (he), je jí (she), je nám (we), je vám (you pl.), je jim (they).",
+        "explanation": "Je mu špatně. = He feels sick. The dative shows who: je mi, je ti, je mu, je jí, je nám, je vám, je jim.",
         "blank_answers": [
           [
             "mu"

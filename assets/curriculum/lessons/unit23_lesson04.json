@@ -117,7 +117,7 @@
             "text": "Bohužel, tady kouřit nesmíte."
           }
         ],
-        "explanation": "In this dialogue, 'můžeme/smíme' ask for permission. The waiter uses 'nesmíte' to express a prohibition — smoking is not allowed. Note the formal 'vy' form (můžete, nesmíte) used in service interactions.",
+        "explanation": "Můžeme/smíme ask for permission; nesmíte says it is not allowed. Staff use the formal vy.",
         "blank_answers": [
           [
             "můžeme",
@@ -143,7 +143,7 @@
         "type": "fill_blank",
         "sentence": "____ si sednout tady?",
         "blank_count": 1,
-        "explanation": "'Smím si sednout tady?' = May I sit here? 'Smět' is used to ask for permission. 'Můžu/Mohu' (can) is also acceptable in informal contexts, but 'smět' is more precise for permission.",
+        "explanation": "Smím…? asks for permission: Smím si sednout tady? Můžu…? is also common.",
         "blank_answers": [
           [
             "Smím",
@@ -165,7 +165,7 @@
         "type": "fill_blank",
         "sentence": "Děti ____ běhat v chodbě.",
         "blank_count": 1,
-        "explanation": "'Děti nesmějí běhat v chodbě.' = Children must not run in the corridor. 'Nesmějí' = they must not (3rd person plural of 'nesmět'). This is a prohibition — 'nesmět' is used, not 'nemuset'.",
+        "explanation": "Nesmějí = they must not (a ban): Děti nesmějí běhat v chodbě.",
         "blank_answers": [
           [
             "nesmějí"
@@ -202,7 +202,7 @@
             "right": "I don't have to go."
           }
         ],
-        "explanation": "Each modal has a distinct meaning: 'muset' = obligation, 'moct' = ability/possibility, 'smět' = permission, 'nemuset' = no obligation. 'Nemusím' is NOT the same as 'nesmím' (I must not)."
+        "explanation": "Musím = I must, můžu = I can, smím = I may. Nemusím (I don't have to) ≠ nesmím (I must not)."
       },
       "answer_key": "Musím jít→I must go., Můžu jít→I can go., Smím jít→I may go., Nemusím jít→I don't have to go.",
       "grammar_rule_id": "GR-224",

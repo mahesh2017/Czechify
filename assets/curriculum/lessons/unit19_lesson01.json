@@ -193,7 +193,7 @@
           "předevčírem"
         ],
         "correct_index": 0,
-        "explanation": "'Včera' = yesterday. 'Zítra' = tomorrow, 'dnes' = today, 'předevčírem' = the day before yesterday. Past time markers like 'včera' signal the use of past tense in Czech.",
+        "explanation": "Včera = yesterday, dnes = today, zítra = tomorrow. Včera usually means the past tense.",
         "targets": "vocab"
       },
       "answer_key": "včera",

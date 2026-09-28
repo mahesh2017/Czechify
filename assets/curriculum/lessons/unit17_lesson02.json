@@ -469,7 +469,7 @@
           "bratrem"
         ],
         "correct_index": 1,
-        "explanation": "Animate masculine nouns take -ovi in dative: bratr → bratrovi. Some common exceptions use -u (muž → muži, člověk → člověku). Inanimate masculines take -u: hrad → hradu."
+        "explanation": "Animate masculine nouns take -ovi in the dative: bratr → bratrovi. Inanimate ones take -u: hrad → hradu."
       },
       "answer_key": "bratrovi",
       "grammar_rule_id": "GR-160",
@@ -484,7 +484,7 @@
         "type": "fill_blank",
         "sentence": "Dávám dárek ___ . (Pavel)",
         "blank_count": 1,
-        "explanation": "Animate masculine names take -ovi in dative: Pavel → Pavlovi. Likewise: Petr → Petrovi, Tomáš → Tomášovi. 'Dávat' = to give, requires dative for the recipient.",
+        "explanation": "Dávat + dative for the person: Pavel → Pavlovi, Petr → Petrovi. Animate masculines take -ovi.",
         "blank_answers": [
           [
             "Pavlovi"
@@ -523,7 +523,7 @@
         "type": "fill_blank",
         "sentence": "Pomáhám ___ . (maminka)",
         "blank_count": 1,
-        "explanation": "'Maminka' → dative 'mamince'. 'Pomáhat' always takes dative for the person being helped. Note the k→c consonant change: maminka → mamince.",
+        "explanation": "Pomáhat takes the dative: maminka → mamince. Note k → c before -e.",
         "blank_answers": [
           [
             "mamince"
@@ -550,7 +550,7 @@
           "Telefonuju kamarádkou."
         ],
         "correct_index": 1,
-        "explanation": "'Telefonovat' (to call/phone) takes dative for the person called: telefonuju kamarádce. 'Kamarádka' → dative 'kamarádce' with the k→c change."
+        "explanation": "Telefonovat takes the dative: kamarádka → kamarádce (k → c)."
       },
       "answer_key": "Telefonuju kamarádce.",
       "grammar_rule_id": "GR-161",
@@ -584,7 +584,7 @@
         "type": "fill_blank",
         "sentence": "Nevěří ___. (ona)",
         "blank_count": 1,
-        "explanation": "'Jí' is the dative form of 'ona' (she). Věřit + dative: věřím ti (I believe you), věřím mu (I believe him), věřím jí (I believe her). The short form 'jí' stays 'jí' in dative.",
+        "explanation": "Věřit takes the dative. Dative of ona is jí: věřím jí (I believe her), věřím mu (him).",
         "blank_answers": [
           [
             "jí"

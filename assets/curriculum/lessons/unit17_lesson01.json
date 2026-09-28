@@ -192,7 +192,7 @@
           "Líbí se mně Praha."
         ],
         "correct_index": 0,
-        "explanation": "'Líbit se' (to like) uses dative for the person who likes: 'Líbí se mi Praha.' = literally 'Prague pleases me'. 'Mi' is the dative short form. The liked thing is the subject (Praha).",
+        "explanation": "Líbit se: the person who likes is in the dative (mi), the thing liked is the subject: Líbí se mi Praha.",
         "targets": "vocab"
       },
       "answer_key": "Líbí se mi Praha.",
@@ -214,7 +214,7 @@
           "Cítím zimu."
         ],
         "correct_index": 2,
-        "explanation": "'Je mi zima.' = I am cold (literally 'it is cold to me'). Czech uses dative for sensations: je mi zima (I'm cold), je mi teplo (I'm warm), je mi dobře (I feel good), je mi špatně (I feel sick).",
+        "explanation": "Sensations take the dative: je mi zima (I'm cold), je mi teplo (I'm warm), je mi špatně (I feel sick).",
         "targets": "vocab"
       },
       "answer_key": "Je mi zima.",

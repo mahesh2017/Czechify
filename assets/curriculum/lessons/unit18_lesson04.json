@@ -135,7 +135,7 @@
           "v restauracu"
         ],
         "correct_index": 0,
-        "explanation": "'V restauraci' = in the restaurant. Feminine nouns ending in -e like 'restaurace' take -i in the locative: restaurace → restauraci. The preposition is 'v' for enclosed spaces."
+        "explanation": "Feminine nouns in -e take -i in the locative: restaurace → v restauraci."
       },
       "answer_key": "v restauraci",
       "grammar_rule_id": "GR-170",
@@ -201,7 +201,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Yes, I'll come by metro.)"
           },
           {
             "speaker": "friend",

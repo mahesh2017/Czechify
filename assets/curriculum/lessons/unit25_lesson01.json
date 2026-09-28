@@ -208,7 +208,7 @@
         "accepted_answers": [
           "programátor-programmer|kuchař-cook|řidič-driver|prodavač-salesman"
         ],
-        "explanation": "More common professions. Feminine forms: programátorka, kuchařka, řidička, prodavačka. Note that 'řidič' can mean any driver (taxi, bus, truck).",
+        "explanation": "Feminine forms add -ka: programátorka, kuchařka, řidička, prodavačka.",
         "targets": "vocab"
       },
       "answer_key": "programátor-programmer|kuchař-cook|řidič-driver|prodavač-salesman",
@@ -255,7 +255,7 @@
         "lines": [
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Ask if there's a free place on the course.)"
           },
           {
             "speaker": "office",
@@ -265,7 +265,8 @@
         "blank_answers": [
           [
             "Je ještě volné místo v kurzu?",
-            "Chtěl/a bych se zeptat na kurz."
+            "Chtěl bych se zeptat na kurz.",
+            "Chtěla bych se zeptat na kurz."
           ]
         ],
         "targets": "vocab"

@@ -191,7 +191,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (At the stop.)"
           },
           {
             "speaker": "friend",
@@ -199,7 +199,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'll come by tram.)"
           }
         ],
         "blank_answers": [
@@ -271,7 +271,7 @@
           2,
           3
         ],
-        "explanation": "'Jedu do práce autem.' = I go to work by car. Word order: verb (jedu) + destination (do práce) + means (autem). 'Autem' is instrumental of 'auto'.",
+        "explanation": "Jedu do práce autem. Verb, then where (do práce), then how (autem, instrumental of auto).",
         "targets": "vocab"
       },
       "answer_key": "Jedu do práce autem.",
@@ -293,7 +293,7 @@
           "Why are you talking?"
         ],
         "correct_index": 0,
-        "explanation": "'O čem mluvíš?' = What are you talking about? 'O čem' = about what (locative of 'co'). 'Mluvíš' = you talk/speak (2nd person singular). Question pattern: O kom? (about whom?) / O čem? (about what?)",
+        "explanation": "O čem mluvíš? = What are you talking about? O čem = about what; o kom = about whom.",
         "targets": "vocab"
       },
       "answer_key": "What are you talking about?",
@@ -315,7 +315,7 @@
           "how?"
         ],
         "correct_index": 0,
-        "explanation": "'s kým?' = with whom? It's the instrumental case question for people. 's čím?' = with what? (for things). Both use 's' (or 'se') + instrumental case.",
+        "explanation": "S kým? = with whom? S čím? = with what? S (se) takes the instrumental.",
         "targets": "vocab"
       },
       "answer_key": "with whom?",

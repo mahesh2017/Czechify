@@ -455,11 +455,11 @@
       "id": 19133,
       "lesson_id": 1902,
       "type": "multiple_choice",
-      "prompt": "What is the correct past tense form for 'já' (I, masculine) with the verb 'dělat'?",
+      "prompt": "Past tense of dělat for 'já' (a man)?",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Jaký je správný tvar minulého času pro 'já' (mužský rod) se slovesem 'dělat'?",
-        "question_en": "What is the correct past tense form for 'I' (masculine) with the verb 'dělat'?",
+        "question_cz": "Minulý čas slovesa dělat pro 'já' (muž)?",
+        "question_en": "Past tense of dělat for 'já' (a man)?",
         "options": [
           "dělal",
           "dělala",
@@ -467,7 +467,7 @@
           "dělali"
         ],
         "correct_index": 0,
-        "explanation": "Masculine singular (já/on) → -l ending: dělal jsem = I did/made. The past tense is formed with the -l participle + auxiliary 'být' (jsem, jsi, jsme, jste). 'Dělala' is feminine, 'dělalo' is neuter, 'dělali' is masculine animate plural."
+        "explanation": "Past tense = -l form + jsem/jsi/jsme/jste. Masculine: dělal jsem; feminine: dělala jsem."
       },
       "answer_key": "dělal",
       "grammar_rule_id": "GR-180",
@@ -489,7 +489,7 @@
           "šly"
         ],
         "correct_index": 1,
-        "explanation": "'Jít' (to go) is an irregular motion verb: šel (masc.), šla (fem.), šlo (neut.), šli (masc. animate pl.), šly (fem. pl. & masc. inanimate pl.), šla (neuter pl.). 'Ona šla.' = She went."
+        "explanation": "Jít is irregular in the past: šel (he), šla (she), šli (they). Ona šla. = She went."
       },
       "answer_key": "šla",
       "grammar_rule_id": "GR-181",
@@ -504,7 +504,7 @@
         "type": "fill_blank",
         "sentence": "Oni ___ domů. (jít — They went home.)",
         "blank_count": 1,
-        "explanation": "Masculine animate plural → šli. 'Oni šli domů.' = They went home. The irregular motion verb pattern: šel, šla, šlo, šli, šly, šla. Other similar verbs: jet → jel/jela/jelo/jeli/jely/jela (to go by vehicle).",
+        "explanation": "Oni šli domů. = They went home. Jít: šel, šla, šlo, šli, šly. Jet: jel, jela, jeli.",
         "blank_answers": [
           [
             "šli"
@@ -531,7 +531,7 @@
           "Rád jsem napsal dopisy."
         ],
         "correct_index": 0,
-        "explanation": "'Napsal jsem dopis.' = I wrote a letter (completed action, result achieved). Perfective 'napsat' focuses on the result. 'Psal jsem' would mean 'I was writing' (process, no completion info). Perfective is incompatible with 'každý den' (repeated) and 'rád' (liked to) — those need imperfective."
+        "explanation": "Napsal jsem dopis = I wrote (and finished) a letter. Každý den or rád need the imperfective psal."
       },
       "answer_key": "Včera jsem napsal dopis.",
       "grammar_rule_id": "GR-182",

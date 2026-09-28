@@ -249,7 +249,7 @@
         "focus_sounds": [
           "smím",
           "zeptat",
-          "ě"
+          "í"
         ],
         "min_score": 0.6,
         "translation_en": "May I ask?",
@@ -280,7 +280,7 @@
             "right": "may"
           }
         ],
-        "explanation": "'Muset' = must (obligation), 'moct' = can (ability/possibility), 'smět' = may (permission). These are the three Czech modal verbs, each with a distinct meaning.",
+        "explanation": "Muset = must (obligation), moct = can (ability), smět = may (permission).",
         "targets": "vocab"
       },
       "answer_key": "muset→must, moct→can, smět→may",

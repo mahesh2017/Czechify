@@ -472,7 +472,7 @@
           "novýejší"
         ],
         "correct_index": 1,
-        "explanation": "Adjecitives ending in -ý form the comparative with -ější (or -ší/‑í for common short adjectives). 'nový' → 'novější' (newer). The suffix -ější is the most common comparative ending."
+        "explanation": "Most -ý adjectives take -ější in the comparative: nový → novější (newer)."
       },
       "answer_key": "novější",
       "grammar_rule_id": "GR-200",
@@ -487,7 +487,7 @@
         "type": "fill_blank",
         "sentence": "Dnes je ___ než včera. (teplý — today is warmer than yesterday)",
         "blank_count": 1,
-        "explanation": "'teplý' → 'teplejší' (warmer). Most -ý adjectives form the comparative by replacing -ý with -ější: teplý → teplejší, chladný → chladnější, zajímavý → zajímavější.",
+        "explanation": "Most -ý adjectives take -ější: teplý → teplejší, zajímavý → zajímavější.",
         "blank_answers": [
           [
             "teplejší"
@@ -535,7 +535,7 @@
           "dobřejí"
         ],
         "correct_index": 2,
-        "explanation": "'dobrý' is one of four key irregular comparatives. It becomes 'lepší' (better) — a completely different stem. The four irregulars are: dobrý → lepší, špatný → horší, velký → větší, malý → menší."
+        "explanation": "Four key irregular comparatives: dobrý → lepší, špatný → horší, velký → větší, malý → menší."
       },
       "answer_key": "lepší",
       "grammar_rule_id": "GR-201",
@@ -550,7 +550,7 @@
         "type": "fill_blank",
         "sentence": "Praha je ___ než Brno. (velký)",
         "blank_count": 1,
-        "explanation": "'velký' → 'větší' (bigger). This is an irregular comparative — note the stem change from 'velk-' to 'vět-'. 'Praha je větší než Brno.' = Prague is bigger than Brno.",
+        "explanation": "Velký → větší (bigger), an irregular comparative. Praha je větší než Brno.",
         "blank_answers": [
           [
             "větší"
@@ -570,7 +570,7 @@
         "type": "fill_blank",
         "sentence": "Můj byt je ___ než tvůj. (malý — smaller than yours)",
         "blank_count": 1,
-        "explanation": "'malý' → 'menší' (smaller). Another irregular comparative with a stem change. The four irregulars form the core of everyday comparisons: lepší, horší, větší, menší.",
+        "explanation": "Malý → menší (smaller), an irregular comparative, like lepší, horší, větší.",
         "blank_answers": [
           [
             "menší"
@@ -590,7 +590,7 @@
         "type": "fill_blank",
         "sentence": "Ona je ___ ze všech. (starý — the oldest of all)",
         "blank_count": 1,
-        "explanation": "'starý' → 'starší' (comparative) → 'nejstarší' (superlative = oldest). The pattern is always: add nej- to the comparative form. 'ze všech' = of all (genitive plural).",
+        "explanation": "Superlative = nej- + comparative: starý → starší → nejstarší. Ze všech = of all.",
         "blank_answers": [
           [
             "nejstarší"

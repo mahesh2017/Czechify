@@ -119,8 +119,8 @@
       "data": {
         "type": "reading_comprehension",
         "prompt_en": "Read the job listing and answer the questions.",
-        "text_cz": "HLEDÁME RECEPCIONISTKU / RECEPCIONISTU\nHotel U Slunce, Brno\nNabízíme: plný úvazek, plat 28 000 Kč měsíčně, 4 týdny dovolené. Požadavky: znalost angličtiny a češtiny, komunikační dovednosti, praxe v oboru výhodou. Pracovní doba: 6:00–14:00 / 14:00–22:00, střídavě. Náplň práce: přivítání hostů, správa rezervací, odpověď na telefonáty. Životopis posílejte na: recepcie@uslunce.cz do 30. listopadu.",
-        "text_en": "WE ARE LOOKING FOR A RECEPTIONIST\nHotel U Slunce, Brno\nWe offer: full-time, salary 28,000 CZK/month, 4 weeks of vacation. Requirements: knowledge of English and Czech, communication skills, experience in the field is an advantage. Working hours: 6 AM–2 PM / 2 PM–10 PM, alternating. Job description: welcoming guests, managing reservations, answering phone calls. Send your CV to: recepcie@uslunce.cz by November 30.",
+        "text_cz": "HLEDÁME RECEPCIONISTKU / RECEPCIONISTU\nHotel U Slunce, Brno\nNabízíme: plný úvazek, plat 28 000 Kč měsíčně, 4 týdny dovolené. Požadavky: znalost angličtiny a češtiny, komunikační dovednosti, praxe v oboru výhodou. Náplň práce: přivítání hostů, správa rezervací, odpověď na telefonáty. Životopis posílejte na: recepcie@uslunce.cz do 30. listopadu.",
+        "text_en": "WE ARE LOOKING FOR A RECEPTIONIST\nHotel U Slunce, Brno\nWe offer: full-time, salary 28,000 CZK/month, 4 weeks of vacation. Requirements: knowledge of English and Czech, communication skills, experience in the field is an advantage. Job description: welcoming guests, managing reservations, answering phone calls. Send your CV to: recepcie@uslunce.cz by November 30.",
         "questions": [
           {
             "question_cz": "Jaké jazyky musí uchazeč umět?",
@@ -538,7 +538,7 @@
           "šly"
         ],
         "correct_index": 0,
-        "explanation": "'Včera jsem šel do kina.' = Yesterday I went to the cinema (male speaker). 'Šel' is the masculine singular past participle of 'jít'. Feminine: 'šla', masculine plural: 'šli', feminine/non-masculine plural: 'šly'."
+        "explanation": "Jít in the past: šel (man), šla (woman), šli (they). Včera jsem šel do kina."
       },
       "answer_key": "šel",
       "xp_reward": 10,
@@ -560,7 +560,7 @@
           "kamarádovi"
         ],
         "correct_index": 2,
-        "explanation": "The correct form is 'kamarádem' (instrumental): 'Mluvil jsem s kamarádem.' = I spoke with a friend. The preposition 's' (with) requires the instrumental case. Masculine animate instrumental singular: kamarád → kamarádem."
+        "explanation": "S (with) takes the instrumental: kamarád → kamarádem. Mluvil jsem s kamarádem."
       },
       "answer_key": "kamarádem",
       "xp_reward": 10,

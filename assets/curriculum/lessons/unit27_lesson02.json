@@ -467,7 +467,7 @@
           "jedu"
         ],
         "correct_index": 3,
-        "explanation": "'Zítra jedu do Prahy vlakem.' = Tomorrow I am going to Prague by train. 'Jedu' is the 1st person singular of 'jet' — a one-time trip by vehicle. 'Vlakem' (by train) confirms vehicle travel. We use 'jet' (one-time) not 'jezdit' (habitual) because tomorrow is a single specific trip."
+        "explanation": "One trip by vehicle: jet → jedu. Zítra jedu do Prahy vlakem. Jezdit is for regular trips."
       },
       "answer_key": "jedu",
       "grammar_rule_id": "GR-260",
@@ -482,7 +482,7 @@
         "type": "fill_blank",
         "sentence": "Každé ráno ___ do školy pěšky.",
         "blank_count": 1,
-        "explanation": "'Každé ráno chodím do školy pěšky.' = Every morning I go to school on foot. 'Každé ráno' (every morning) signals a habitual/repeated action, so we use 'chodit' → 'chodím' (1st person singular). 'Pěšky' (on foot) confirms walking. Use 'chodit' for regular, repeated trips on foot.",
+        "explanation": "Každé ráno = a habit, on foot: chodit → chodím. Každé ráno chodím do školy pěšky.",
         "blank_answers": [
           [
             "chodím"
@@ -502,7 +502,7 @@
         "type": "fill_blank",
         "sentence": "Právě teď ___ do Brna autem.",
         "blank_count": 1,
-        "explanation": "'Právě teď jedeme do Brna autem.' = Right now we are going to Brno by car. 'Právě teď' (right now) signals a one-time action, so we use 'jet' → 'jedeme' (1st person plural). 'Autem' (by car) confirms vehicle travel. Use 'jet' for a single, specific trip by vehicle happening now.",
+        "explanation": "Right now, by car: jet → jedeme. Právě teď jedeme do Brna autem.",
         "blank_answers": [
           [
             "jedeme"
@@ -517,14 +517,14 @@
       "id": 27216,
       "lesson_id": 2702,
       "type": "error_correction",
-      "prompt": "Find the mistake: the wrong motion verb is used.",
+      "prompt": "Find the wrong motion verb.",
       "data": {
         "type": "error_correction",
-        "prompt_en": "Find the mistake — the wrong motion verb is used (one-time vs habitual).",
+        "prompt_en": "Find the wrong motion verb.",
         "sentence_cz": "Každý den jdu do práce autobusem.",
         "correct_sentence_cz": "Každý den jezdím do práce autobusem.",
         "error_type": "motion_verb_error",
-        "explanation": "'Každý den' (every day) signals a habitual, repeated action. For repeated travel by vehicle, use 'jezdit' → 'jezdím' (1st person singular). 'Jdu' is from 'jít' (one-time, on foot) — wrong on both counts: it's not one-time, and 'autobusem' (by bus) is a vehicle. Correct: 'Každý den jezdím do práce autobusem.' = Every day I ride to work by bus."
+        "explanation": "Every day by bus: jezdit → jezdím. Jdu is one trip on foot. Každý den jezdím do práce autobusem."
       },
       "answer_key": "Každý den jezdím do práce autobusem.",
       "grammar_rule_id": "GR-260",
@@ -539,7 +539,7 @@
         "type": "fill_blank",
         "sentence": "Vlak ___ na nádraží v 17 hodin.",
         "blank_count": 1,
-        "explanation": "'Vlak přijel na nádraží v 17 hodin.' = The train arrived at the station at 5 PM. 'Přijel' = arrived (by vehicle, perfective past, 3rd person singular). The prefix 'při-' = arrival, and 'jet' → past 'přijel' (train is a vehicle). The perfective is used because the arrival is a completed event.",
+        "explanation": "Při- = arriving; jet → přijet for vehicles. Vlak přijel na nádraží v 17 hodin.",
         "blank_answers": [
           [
             "přijel"

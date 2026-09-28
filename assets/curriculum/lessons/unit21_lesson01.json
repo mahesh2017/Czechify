@@ -276,7 +276,7 @@
           "také"
         ],
         "correct_index": 2,
-        "explanation": "'než' = than. Used after a comparative: 'X je [comparative] než Y.' (X is [comparative] than Y.) Example: 'Petr je vyšší než Jan.' = Petr is taller than Jan. Not to be confused with 'než' as a temporal conjunction (before/until) — context determines the meaning.",
+        "explanation": "Než = than: X je větší než Y. Petr je vyšší než Jan. = Petr is taller than Jan.",
         "targets": "vocab"
       },
       "answer_key": "než",

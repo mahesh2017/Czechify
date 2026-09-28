@@ -138,7 +138,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (The heating is broken. Can you help?)"
           }
         ],
         "blank_answers": [
@@ -164,7 +164,7 @@
           "Byt je s nábytkem.",
           "Byt je s nábytkem."
         ],
-        "explanation": "'S' (with) + instrumental case: nábytek → nábytkem. 'Byt je s nábytkem.' = The apartment is furnished. The error was using the accusative/nominative 'nábytek' instead of the instrumental 'nábytkem'. Masculine inanimate nouns add -em in the instrumental: nábytek → nábytkem.",
+        "explanation": "S + instrumental: nábytek → nábytkem. Byt je s nábytkem. = The flat is furnished.",
         "correct_sentence_cz": "Byt je s nábytkem."
       },
       "answer_key": "Byt je s nábytkem.",

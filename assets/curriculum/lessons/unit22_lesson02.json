@@ -450,7 +450,7 @@
         "type": "fill_blank",
         "sentence": "Vím, ___ máš pravdu.",
         "blank_count": 1,
-        "explanation": "'Vím, že máš pravdu.' = I know that you are right. The conjunction 'že' introduces the subordinate clause. Note the comma before 'že' — Czech always uses a comma before že, protože, když, jestli, and other subordinating conjunctions.",
+        "explanation": "Vím, že máš pravdu. = I know (that) you are right. A comma always comes before že.",
         "blank_answers": [
           [
             "že"
@@ -470,7 +470,7 @@
         "type": "fill_blank",
         "sentence": "Zůstal doma, ___ byl nemocný.",
         "blank_count": 1,
-        "explanation": "'Zůstal doma, protože byl nemocný.' = He stayed home because he was sick. 'Protože' always introduces the reason. Word order: main clause + comma + protože + subordinate clause. The subordinate clause keeps normal subject-verb order.",
+        "explanation": "Protože gives the reason: Zůstal doma, protože byl nemocný.",
         "blank_answers": [
           [
             "protože"
@@ -490,7 +490,7 @@
         "type": "fill_blank",
         "sentence": "___ svítí slunce, chodíme ven.",
         "blank_count": 1,
-        "explanation": "'Když svítí slunce, chodíme ven.' = When the sun shines, we go outside (a recurring/general situation). 'Když' is used for factual 'when' — things that happen regularly or are generally true. The když-clause can start the sentence (with comma) or follow the main clause.",
+        "explanation": "Když = when, for things that happen regularly: Když svítí slunce, chodíme ven.",
         "blank_answers": [
           [
             "Když",
@@ -511,7 +511,7 @@
         "type": "fill_blank",
         "sentence": "Zeptám se, ___ má čas.",
         "blank_count": 1,
-        "explanation": "'Zeptám se, jestli má čas.' = I will ask if/whether he has time. 'Jestli' introduces indirect yes/no questions. The clause after 'jestli' uses normal indicative word order, not question word order. This is different from direct questions.",
+        "explanation": "Jestli = if/whether in reported questions: Zeptám se, jestli má čas.",
         "blank_answers": [
           [
             "jestli"
@@ -546,12 +546,12 @@
       "id": 22218,
       "lesson_id": 2202,
       "type": "fill_blank",
-      "prompt": "Choose the correct conjunction: že, protože, když, or jestli?",
+      "prompt": "Že, protože, když or jestli?",
       "data": {
         "type": "fill_blank",
         "sentence": "Nepřišel do práce, ___ byl nemocný. Vím, ___ to není pravda. Nevím, ___ zítra přijde.",
         "blank_count": 3,
-        "explanation": "The three sentences use three different conjunctions: 1) 'protože' (because — giving a reason), 2) 'že' (that — reporting what you know), 3) 'jestli' (if/whether — expressing uncertainty). 'Nepřišel do práce, protože byl nemocný. Vím, že to není pravda. Nevím, jestli zítra přijde.'",
+        "explanation": "Protože = because (a reason), že = that (what you know), jestli = if/whether (not sure).",
         "blank_answers": [
           [
             "protože"

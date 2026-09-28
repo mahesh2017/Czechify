@@ -479,7 +479,7 @@
         "type": "fill_blank",
         "sentence": "Ona je ___. (učitelka — instrumental)",
         "blank_count": 1,
-        "explanation": "Feminine nouns ending in -ka form the instrumental by changing -ka to -kou: učitelka → učitelkou. 'Ona je učitelkou.' = She is a teacher.",
+        "explanation": "-ka nouns take -kou in the instrumental: učitelka → učitelkou. Ona je učitelkou.",
         "blank_answers": [
           [
             "učitelkou"
@@ -524,7 +524,7 @@
           "On pracuje jako lékař.",
           "Pracuje jako lékař."
         ],
-        "explanation": "'Pracovat jako' takes the nominative case, not the instrumental. 'Lékařem' is instrumental — correct after 'být' (je lékařem) but wrong after 'jako'. The correct sentence is 'On pracuje jako lékař.' Compare: 'On je lékařem.' (být + instrumental) vs. 'On pracuje jako lékař.' (jako + nominative).",
+        "explanation": "Pracovat jako + nominative: pracuje jako lékař. Být can take the instrumental: je lékařem.",
         "correct_sentence_cz": "On pracuje jako lékař."
       },
       "answer_key": "On pracuje jako lékař.",
@@ -545,7 +545,7 @@
           3,
           0
         ],
-        "explanation": "'Moje sestra pracuje jako učitelka.' = My sister works as a teacher. 'Pracovat jako' + nominative (učitelka, not učitelkou). Word order: subject + verb + jako + profession.",
+        "explanation": "Pracovat jako + nominative: Moje sestra pracuje jako učitelka (not učitelkou).",
         "words": [
           "učitelka",
           "pracuje",
@@ -584,7 +584,7 @@
             "text": "Ano, už deset let. A co vy? Co děláte?"
           }
         ],
-        "explanation": "'Jsem lékařem' uses the instrumental case after 'být' (GR-240). 'Pracuji v nemocnici' = I work in a hospital (v + locative). 'Jakou máte profesi?' = What is your profession? Note the formal address ('děláte', 'máte', 'pracujete').",
+        "explanation": "Jsem lékařem: být + instrumental (jsem lékař is fine too). Pracuji v nemocnici: v + locative.",
         "blank_answers": [
           [
             "Jsem lékařem. Pracuji v nemocnici.",

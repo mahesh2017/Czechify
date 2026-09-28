@@ -174,7 +174,7 @@
           "and"
         ],
         "correct_index": 1,
-        "explanation": "'Že' = that. It introduces a subordinate clause reporting what someone thinks, says, knows, etc. Example: 'Myslím, že je to pravda.' = I think that it is true. 'Že' is one of the most common Czech conjunctions.",
+        "explanation": "Že = that, after think, say, know: Myslím, že je to pravda. Always a comma before že.",
         "targets": "vocab"
       },
       "answer_key": "that",
@@ -197,7 +197,7 @@
           "jestli"
         ],
         "correct_index": 2,
-        "explanation": "'Protože' = because. It gives a reason or cause. Example: 'Nešel jsem ven, protože pršelo.' = I didn't go out because it was raining. The subordinate clause with 'protože' can come after or before the main clause.",
+        "explanation": "Protože = because: Nešel jsem ven, protože pršelo.",
         "targets": "vocab"
       },
       "answer_key": "protože",
@@ -253,7 +253,7 @@
           3,
           0
         ],
-        "explanation": "'Myslím, že ten film je dobrý.' = I think that this film is good. After 'že', the subordinate clause keeps normal word order (subject–verb–complement). Czech always uses a comma before 'že'. The main clause 'Myslím' comes first.",
+        "explanation": "Myslím, že ten film je dobrý. After že the order is normal: subject, verb, the rest.",
         "words": [
           "dobrý",
           "že",

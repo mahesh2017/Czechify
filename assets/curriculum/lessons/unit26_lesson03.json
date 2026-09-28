@@ -229,7 +229,7 @@
           "bydlet"
         ],
         "correct_index": 0,
-        "explanation": "'Podepsat' = to sign. 'Musím podepsat nájemní smlouvu.' = I have to sign the rental contract. 'Smlouva' → accusative 'smlouvu' after 'podepsat'. 'Musím' = I must/have to (1st person singular of 'muset')."
+        "explanation": "Podepsat = to sign: Musím podepsat nájemní smlouvu (smlouva → smlouvu, accusative)."
       },
       "answer_key": "podepsat",
       "grammar_rule_id": "GR-252",
@@ -285,7 +285,7 @@
         "accepted_answers": [
           "nájemník-tenant|pronajímatel-landlord|kauce-deposit|smlouva-contract"
         ],
-        "explanation": "Key renting vocabulary. Others: 'nájemné' (rent payment), 'nájem' (the lease), 'stěhovat se' (to move), 's nábytkem' (furnished), 'bez nábytku' (unfurnished), 'klíč' (key)."
+        "explanation": "More: nájemné (rent), s nábytkem (furnished), bez nábytku (unfurnished), stěhovat se (to move)."
       },
       "answer_key": "nájemník-tenant|pronajímatel-landlord|kauce-deposit|smlouva-contract",
       "grammar_rule_id": "GR-252",

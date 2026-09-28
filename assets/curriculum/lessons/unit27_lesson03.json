@@ -268,9 +268,9 @@
       "data": {
         "type": "word_order",
         "words": [
-          "přišli",
+          "jsme",
           "na",
-          "My",
+          "Přišli",
           "nádraží",
           "pěšky"
         ],
@@ -281,9 +281,9 @@
           3,
           4
         ],
-        "explanation": "'My přišli na nádraží pěšky.' = We arrived at the station on foot. 'Přišli' = we arrived (perfective past of 'přijít' — arrival on foot, 1st person plural, masculine/animate). 'Na nádraží' = at/to the station (accusative with 'na' for destination). 'Pěšky' = on foot. The prefix 'při-' signals arrival. Perfective is used because the arrival is completed."
+        "explanation": "Přijít = arrive on foot: přišli jsme (we arrived). Na nádraží = to the station."
       },
-      "answer_key": "My přišli na nádraží pěšky.",
+      "answer_key": "Přišli jsme na nádraží pěšky.",
       "grammar_rule_id": "GR-261",
       "xp_reward": 15
     },
@@ -313,7 +313,7 @@
             "right": "to reach/arrive (by vehicle)"
           }
         ],
-        "explanation": "Prefixes give motion verbs precise directional meanings: 'při-' = arrival toward, 'od-' = departure away, 'vy-' = going out/exit, 'do-' = reaching a destination. Combined with 'jít' (on foot) or 'jet' (by vehicle): 'přijít' = arrive on foot, 'odjet' = depart by vehicle, 'vyjít' = go out on foot, 'dojet' = reach by vehicle. The prefix + base verb together encode both direction and mode of travel."
+        "explanation": "Při- = arrive, od- = leave, vy- = go out, do- = reach. Jít = on foot, jet = by vehicle."
       },
       "answer_key": "přijít→to arrive (on foot), odjet→to leave/depart (by vehicle), vyjít→to go out (on foot), dojet→to reach/arrive (by vehicle)",
       "grammar_rule_id": "GR-261",

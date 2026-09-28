@@ -168,7 +168,7 @@
             "right": "eye"
           }
         ],
-        "explanation": "Basic body parts: 'hlava' = head, 'ruka' = hand or arm (Czech uses one word for both), 'noha' = leg or foot (also one word), 'oko' = eye. Note that Czech 'ruka' and 'noha' cover what English splits into two words each.",
+        "explanation": "Ruka is both hand and arm; noha is both leg and foot. Hlava = head, oko = eye.",
         "targets": "vocab"
       },
       "answer_key": "hlava→head, ruka→hand/arm, noha→leg/foot, oko→eye",
@@ -212,7 +212,7 @@
           "My throat hurts"
         ],
         "correct_index": 1,
-        "explanation": "'Bolí mě břicho' = My stomach hurts. 'Břicho' = stomach/belly. The structure is 'bolí mě + body part' — the verb 'bolet' (to hurt) is impersonal, always 3rd person singular.",
+        "explanation": "Bolí mě + body part: Bolí mě břicho. = My stomach hurts.",
         "targets": "vocab"
       },
       "answer_key": "My stomach hurts",
@@ -275,7 +275,7 @@
         "lines": [
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Ask to book a doctor's appointment.)"
           },
           {
             "speaker": "receptionist",
@@ -285,7 +285,8 @@
         "blank_answers": [
           [
             "Můžu se objednat k lékaři?",
-            "Chtěl/a bych se objednat k lékaři."
+            "Chtěl bych se objednat k lékaři.",
+            "Chtěla bych se objednat k lékaři."
           ]
         ],
         "targets": "vocab"

@@ -472,7 +472,7 @@
           "I was writing"
         ],
         "correct_index": 1,
-        "explanation": "Perfective verbs like 'napíšu' have NO present meaning — their present-tense form expresses future: 'napíšu' = I will write. This is the core rule of Czech future: perfective present = future action. Compare: 'píšu' (imperfective) = I am writing now, 'napíšu' (perfective) = I will write."
+        "explanation": "A perfective verb's present form means the future: napíšu = I will write. Píšu = I am writing."
       },
       "answer_key": "I will write",
       "grammar_rule_id": "GR-191",
@@ -487,7 +487,7 @@
         "type": "fill_blank",
         "sentence": "Zítra ___ ten dopis. (napsat)",
         "blank_count": 1,
-        "explanation": "'Napsat' (perfective) → 'napíšu' = I will write. The perfective present form is used for future. 'Zítra' (tomorrow) makes it clear this is future. The complete sentence: 'Zítra napíšu ten dopis.' = Tomorrow I will write the letter.",
+        "explanation": "Napsat is perfective, so its present form is the future: Zítra napíšu ten dopis.",
         "blank_answers": [
           [
             "napíšu"
@@ -507,7 +507,7 @@
         "type": "fill_blank",
         "sentence": "Příští týden ___ česky. (mluvit — I will be speaking)",
         "blank_count": 1,
-        "explanation": "'Mluvit' is imperfective, so it cannot use present for future. We use 'budu' + infinitive: 'budu mluvit' = I will be speaking / I will speak. Future of být: budu, budeš, bude, budeme, budete, budou. 'Příští týden' = next week.",
+        "explanation": "Mluvit is imperfective: its future is budu + infinitive. Příští týden budu mluvit česky.",
         "blank_answers": [
           [
             "budu mluvit"

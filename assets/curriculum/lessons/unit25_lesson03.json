@@ -177,7 +177,7 @@
         "type": "fill_blank",
         "sentence": "Učím se ___. (čeština — accusative)",
         "blank_count": 1,
-        "explanation": "'Učit se' takes the accusative case for the thing being learned: čeština → češtinu. 'Učím se češtinu.' = I am learning Czech. You can also say 'Učím se česky' (with the adverb 'česky' = in Czech).",
+        "explanation": "Učit se + accusative: Učím se češtinu. You can also say Učím se česky.",
         "blank_answers": [
           [
             "češtinu"
@@ -197,7 +197,7 @@
         "type": "fill_blank",
         "sentence": "Ona ___ na gymnáziu. (studovat — 3rd person singular)",
         "blank_count": 1,
-        "explanation": "'Studovat' is a regular -ovat verb. 3rd person singular: studuje. 'Ona studuje na gymnáziu.' = She studies at the grammar school. 'Na' + locative: gymnázium → gymnáziu.",
+        "explanation": "Studovat → studuje (on/ona). Ona studuje na gymnáziu (na + locative).",
         "blank_answers": [
           [
             "studuje"
@@ -254,7 +254,7 @@
             "text": "Ano, máme zkoušku z matematiky. Musím se hodně učit."
           }
         ],
-        "explanation": "'Jaké předměty' = which subjects (předmět = subject). 'Mám matematiku a fyziku' = I have math and physics (accusative after 'mít'). 'Zkouška z matematiky' = exam in math (z + genitive). 'Musím se hodně učit' = I have to study a lot.",
+        "explanation": "Mít + accusative: Mám matematiku a fyziku. Zkouška z matematiky: z + genitive.",
         "blank_answers": [
           [
             "Mám matematiku a fyziku.",
@@ -280,7 +280,7 @@
           "Studuju na škole.",
           "Studuji na škole."
         ],
-        "explanation": "'Na' + locative case for institutions/locations: škola → škole. 'Studuju na škole.' = I study at school. The error was using the nominative 'škola' instead of the locative 'škole'. Similarly: 'na univerzitě', 'na gymnáziu'.",
+        "explanation": "Na + locative: škola → na škole. Also na univerzitě, na gymnáziu.",
         "correct_sentence_cz": "Studuju na škole."
       },
       "answer_key": "Studuju na škole.",

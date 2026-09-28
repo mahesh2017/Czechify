@@ -238,7 +238,7 @@
           "When did it start?"
         ],
         "correct_index": 1,
-        "explanation": "'Kde to bolí?' = Where does it hurt? 'Kde' = where, 'to' = it, 'bolí' = hurts. This is one of the most common questions a doctor asks during an examination."
+        "explanation": "Kde to bolí? = Where does it hurt? A doctor's most common question."
       },
       "answer_key": "Where does it hurt?",
       "grammar_rule_id": "GR-232",
@@ -260,7 +260,7 @@
           "Můžu k lékaři."
         ],
         "correct_index": 1,
-        "explanation": "'Potřebuji jít k lékaři.' = I need to go to the doctor. 'K lékaři' = to the doctor (dative case). 'Musím vidět lékaře' is less natural in Czech. The phrase 'jít k lékaři' (to go to the doctor) is the idiomatic way to express seeing a doctor."
+        "explanation": "Jít k lékaři = to go to the doctor (k + dative). Potřebuji jít k lékaři."
       },
       "answer_key": "Potřebuji jít k lékaři.",
       "grammar_rule_id": "GR-232",
@@ -275,7 +275,7 @@
         "type": "fill_blank",
         "sentence": "Vezměte si tento ____.",
         "blank_count": 1,
-        "explanation": "'Vezměte si tento lék.' = Take this medicine. 'Lék' = medicine/drug (masculine). 'Vezměte si' = take (imperative, formal/plural). The doctor uses the formal imperative form.",
+        "explanation": "Vezměte si tento lék. = Take this medicine. Vezměte si is the formal imperative.",
         "blank_answers": [
           [
             "lék",
@@ -333,7 +333,7 @@
             "right": "Do you have a fever?"
           }
         ],
-        "explanation": "Doctor’s questions: Co vás bolí? (what hurts), Kde to bolí? (where), Jak dlouho? (how long), Máte horečku? (fever). Doctors use the formal vy form: vás, máte."
+        "explanation": "Doctors use the formal vy: Co vás bolí? Kde to bolí? Jak dlouho? Máte horečku?"
       },
       "answer_key": "Co vás bolí?→What hurts?, Kde to bolí?→Where does it hurt?, Jak dlouho?→How long?, Máte horečku?→Do you have a fever?",
       "grammar_rule_id": "GR-232",

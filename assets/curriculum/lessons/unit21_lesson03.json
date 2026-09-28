@@ -187,7 +187,7 @@
           "rychlejš"
         ],
         "correct_index": 2,
-        "explanation": "Adverbs form the comparative with -eji/-ěji: rychle → rychleji (more quickly/faster). Other examples: pomalu → pomaleji (more slowly), často → častěji (more often), hezky → hezčeji (more nicely). Note: adjectival comparatives end in -ší/-ější; adverbial comparatives end in -eji/-ěji."
+        "explanation": "Adverbs compare with -eji/-ěji: rychle → rychleji, pomalu → pomaleji, často → častěji."
       },
       "answer_key": "rychleji",
       "grammar_rule_id": "GR-203",
@@ -202,7 +202,7 @@
         "type": "fill_blank",
         "sentence": "Ona mluví česky ___ než já. (dobře — better than me)",
         "blank_count": 1,
-        "explanation": "'dobře' → 'lépe' or 'líp' (better — adverb). Both are correct: 'lépe' is more formal/written, 'líp' is colloquial/spoken. The adjective form is 'lepší' (better — adjective). Don't confuse: 'lepší auto' (better car — adjective) vs 'řídí lépe' (drives better — adverb).",
+        "explanation": "Dobře → lépe (or spoken líp) = better, for how something is done. Lepší describes a noun.",
         "blank_answers": [
           [
             "lépe",
@@ -230,7 +230,7 @@
           "Petr vaří dobřejší než Jana."
         ],
         "correct_index": 1,
-        "explanation": "To compare HOW someone does something (verb comparison), use the adverbial comparative: 'vaří lépe' (cooks better — adverb). Using 'lepší' (adjective) would describe the food itself, not the cooking action. 'Petr vaří lépe než Jana.' = Petr cooks better than Jana."
+        "explanation": "How someone does something takes the adverb: Petr vaří lépe než Jana. Lepší describes a thing."
       },
       "answer_key": "Petr vaří lépe než Jana.",
       "grammar_rule_id": "GR-203",
@@ -265,7 +265,7 @@
         "type": "fill_blank",
         "sentence": "Mám ___ auto než ty.",
         "blank_count": 1,
-        "explanation": "Here 'lepší' is an adjective describing 'auto' (car) — both are in accusative case because 'mám' (I have) takes accusative. The comparative adjective 'lepší' stays the same in nominative and accusative masculine/neuter. 'Mám lepší auto než ty.' = I have a better car than you.",
+        "explanation": "Lepší describes the noun auto: Mám lepší auto než ty. = I have a better car than you.",
         "blank_answers": [
           [
             "lepší"
@@ -280,11 +280,11 @@
       "id": 21309,
       "lesson_id": 2103,
       "type": "multiple_choice",
-      "prompt": "Which sentence uses BOTH comparative and superlative correctly?",
+      "prompt": "Comparative and superlative: which is right?",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Která věta správně používá komparativ i superlativ?",
-        "question_en": "Which sentence uses BOTH comparative and superlative correctly?",
+        "question_cz": "Komparativ a superlativ: která věta je správně?",
+        "question_en": "Comparative and superlative: which is right?",
         "options": [
           "Auto je dražší než kolo, ale letadlo je nejdražší.",
           "Auto je drahoší než kolo, ale letadlo je nejdrahoší.",
@@ -292,7 +292,7 @@
           "Auto je dražší kolo, ale letadlo je nejdražší."
         ],
         "correct_index": 0,
-        "explanation": "'drahý' → 'dražší' (comparative = more expensive) → 'nejdražší' (superlative = most expensive). Note the h→ž sound change before -ší. 'Auto je dražší než kolo, ale letadlo je nejdražší.' = A car is more expensive than a bike, but a plane is the most expensive."
+        "explanation": "Drahý → dražší → nejdražší (h → ž). Auto je dražší než kolo, ale letadlo je nejdražší."
       },
       "answer_key": "Auto je dražší než kolo, ale letadlo je nejdražší.",
       "grammar_rule_id": "GR-202",
@@ -324,7 +324,7 @@
             "text": "Ten modrý. Je nejlevnější a má dobré recenze."
           }
         ],
-        "explanation": "'lepší' = better (comparative), 'dražší' = more expensive, 'levnější' = cheaper, 'nejprodávanější' = best-selling (superlative), 'nejlevnější' = cheapest, 'nejlepší' = best. The dialogue uses multiple comparative and superlative forms naturally in a shopping context.",
+        "explanation": "Lepší = better, dražší = more expensive, levnější = cheaper; nej- makes the superlative: nejlevnější.",
         "blank_answers": [
           [
             "Ten černý je lepší, ale je dražší. Ten modrý je levnější a taky dobrý.",

@@ -372,7 +372,7 @@
         "type": "fill_blank",
         "sentence": "Bolí mě ____.",
         "blank_count": 1,
-        "explanation": "'Bolí mě hlava.' = My head hurts. 'Hlava' = head. The structure 'bolí mě + [body part in nominative]' is the standard way to express pain in Czech.",
+        "explanation": "Bolí mě + body part: Bolí mě hlava. = My head hurts.",
         "blank_answers": [
           [
             "hlava"
@@ -435,7 +435,7 @@
         "type": "fill_blank",
         "sentence": "Jsem ____.",
         "blank_count": 1,
-        "explanation": "'Jsem nemocný.' = I am sick (masculine). 'Jsem nemocná.' = I am sick (feminine). The adjective 'nemocný/nemocná' agrees with the speaker's gender. 'Nemoc' is the noun (illness), 'nemocný' is the adjective (sick/ill).",
+        "explanation": "Nemocný agrees with the speaker: jsem nemocný (man), jsem nemocná (woman).",
         "blank_answers": [
           [
             "nemocný",

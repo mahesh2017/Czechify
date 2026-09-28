@@ -94,7 +94,7 @@
         "type": "fill_blank",
         "sentence": "Dávám ___ bonbón. (dítě — to the child)",
         "blank_count": 1,
-        "explanation": "'Dítě' is an irregular neuter noun. Its dative form is 'dítěti' (not 'dítu'). Many irregular nouns have special dative forms: člověk → člověku, přítel → příteli.",
+        "explanation": "Dítě is irregular: its dative is dítěti. Dávám dítěti bonbón. = I give the child a sweet.",
         "blank_answers": [
           [
             "dítěti"
@@ -202,7 +202,7 @@
           },
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (I'll give her a Czech book.)"
           },
           {
             "speaker": "friend",

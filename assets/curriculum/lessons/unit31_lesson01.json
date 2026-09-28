@@ -103,7 +103,7 @@
           "accusative"
         ],
         "correct_index": 1,
-        "explanation": "The preposition 'do' (to/into) requires the genitive case. Example: 'Jdu do školy.' = I'm going to school. 'Škola' → genitive 'školy'. 'Do' expresses movement into a place."
+        "explanation": "Do (to, into) takes the genitive: škola → do školy. Jdu do školy."
       },
       "answer_key": "genitive",
       "xp_reward": 10,
@@ -125,7 +125,7 @@
           "instrumental"
         ],
         "correct_index": 1,
-        "explanation": "When 'na' expresses location (where something is), it takes the locative case. Example: 'Kniha je na stole.' = The book is on the table. 'Stůl' → locative 'stole'. When 'na' expresses direction (to where), it takes the accusative: 'Polož to na stůl.' = Put it on the table."
+        "explanation": "Na for where something is takes the locative (na stole); for where to, the accusative (na stůl)."
       },
       "answer_key": "locative",
       "xp_reward": 10,
@@ -147,7 +147,7 @@
           "locative"
         ],
         "correct_index": 2,
-        "explanation": "The preposition 's' (with) requires the instrumental case. Example: 'Mluvím s kamarádem.' = I'm speaking with a friend. 'Kamarád' → instrumental 'kamarádem'. This is for accompaniment (with someone/something)."
+        "explanation": "S (with) takes the instrumental: Mluvím s kamarádem."
       },
       "answer_key": "instrumental",
       "xp_reward": 10,
@@ -162,7 +162,7 @@
         "type": "fill_blank",
         "sentence": "Včera jsem ___ do obchodu. (jít — to go, male speaker)",
         "blank_count": 1,
-        "explanation": "'Včera jsem šel do obchodu.' = Yesterday I went to the shop (male speaker). 'Šel' is the masculine singular past participle of 'jít'. Female speaker would use 'šla'. The auxiliary 'jsem' is the 1st person singular.",
+        "explanation": "Jít in the past: šel (man), šla (woman). Včera jsem šel do obchodu.",
         "blank_answers": [
           [
             "šel"
@@ -279,7 +279,7 @@
             "right": "nurse"
           }
         ],
-        "explanation": "A2 profession vocabulary: lékař (doctor, masc. animate), učitel (teacher, masc. animate), inženýr (engineer, masc. animate), advokát (lawyer, masc. animate), zdravotní sestra (nurse, fem.).",
+        "explanation": "Feminine forms: lékařka, učitelka, inženýrka, advokátka. Zdravotní sestra = nurse.",
         "targets": "vocab"
       },
       "answer_key": "lékař→doctor, učitel→teacher, inženýr→engineer, advokát→lawyer, zdravotní sestra→nurse",
@@ -315,7 +315,7 @@
             "right": "illness"
           }
         ],
-        "explanation": "A2 health vocabulary: teplota (fever/temperature, fem.), bolest (pain, fem.), recept (prescription, masc. inanimate), lék (medicine, masc. inanimate), nemoc (illness, fem.).",
+        "explanation": "Teplota = temperature or fever, bolest = pain, recept = prescription, lék = medicine.",
         "targets": "vocab"
       },
       "answer_key": "teplota→fever/temperature, bolest→pain, recept→prescription, lék→medicine, nemoc→illness",
@@ -332,7 +332,7 @@
         "sentence_cz": "Jdu do škola.",
         "correct_sentence_cz": "Jdu do školy.",
         "error_type": "case_after_preposition",
-        "explanation": "The preposition 'do' (to/into) requires the genitive case. 'Škola' (feminine) → genitive 'školy'. 'Jdu do školy.' = I'm going to school. Feminine nouns ending in -a change to -y in the genitive singular: škola → školy."
+        "explanation": "Do takes the genitive: škola → do školy. -a nouns take -y."
       },
       "answer_key": "Jdu do školy.",
       "xp_reward": 15,
@@ -380,12 +380,15 @@
             "text": "Děkuji mnohokrát. Na shledanou!"
           }
         ],
-        "explanation": "Formal dialogue at an úřad (government office) at A2 level. Key formal phrases: 'Dobrý den, co byste potřebovali?' (Hello, what do you need?), 'Potřeboval bych...' (I would need... — formal conditional, male speaker), 'Máte u sebe...?' (Do you have with you...?), 'bude hotový za...' (will be ready in...), 'Děkuji vám' (thank you — formal), 'Na shledanou!' (goodbye — formal).",
+        "explanation": "Formal requests: Potřeboval/a bych… = I would need… Máte u sebe…? = Do you have with you…?",
         "blank_answers": [
           [
             "Dobrý den, potřeboval bych vyřídit nový občanský průkaz.",
             "Potřeboval bych vyřídit nový občanský průkaz.",
-            "Dobrý den, potřeboval bych nový občanský průkaz."
+            "Dobrý den, potřeboval bych nový občanský průkaz.",
+            "Dobrý den, potřebovala bych vyřídit nový občanský průkaz.",
+            "Potřebovala bych vyřídit nový občanský průkaz.",
+            "Dobrý den, potřebovala bych nový občanský průkaz."
           ]
         ],
         "targets": "vocab"

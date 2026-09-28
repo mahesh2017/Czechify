@@ -226,7 +226,7 @@
       "prompt": "Give a 1-minute monologue about your last vacation using the past tense.",
       "data": {
         "type": "speaking_task",
-        "prompt_cz": "Povězte něco o své poslední dovolené (1 minuta). Kde jste byl/a, s kým, co jste dělal/a, jaké bylo počasí, co se vám líbilo/nelíbilo. Použijte minulý čas.",
+        "prompt_cz": "Mluvte minutu o poslední dovolené: kde, s kým, co jste dělali, jaké bylo počasí.",
         "prompt_en": "Give a 1-minute monologue about your last vacation. Where you went, who with, what you did, what the weather was like, what you liked/disliked. Use the past tense.",
         "task_type": "monologue",
         "expected_phrases": [
@@ -273,7 +273,7 @@
       "prompt": "Role-play a formal situation at a government office arranging documents.",
       "data": {
         "type": "speaking_task",
-        "prompt_cz": "Představte si, že jste na úřadě. Potřebujete vyřídit doklady (např. občanský průkaz, pas). Hrajte roli občana. Pozdravte, vysvětlete, co potřebujete, odpovězte na otázky úředníka a poděkujte.",
+        "prompt_cz": "Na úřadě: pozdravte, řekněte, jaký doklad potřebujete, a poděkujte.",
         "prompt_en": "Role-play a formal situation at a government office. You need to arrange documents (e.g., ID card, passport). You play the citizen. Greet, explain what you need, answer the official's questions, and thank them.",
         "task_type": "role_play",
         "expected_phrases": [
@@ -362,7 +362,7 @@
         "sentence_cz": "Mluvil jsem s kamarád o filmu.",
         "correct_sentence_cz": "Mluvil jsem s kamarádem o filmu.",
         "error_type": "case_agreement",
-        "explanation": "The preposition 's' (with) requires the instrumental case. 'Kamarád' (masculine animate) in instrumental singular is 'kamarádem'. 'Mluvil jsem s kamarádem o filmu.' = I spoke with a friend about the film. 'o filmu' is correct (locative after 'o')."
+        "explanation": "S takes the instrumental: s kamarádem. O filmu is right (o + locative)."
       },
       "answer_key": "Mluvil jsem s kamarádem o filmu.",
       "xp_reward": 15,

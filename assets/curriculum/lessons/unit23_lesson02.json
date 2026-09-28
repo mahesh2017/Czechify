@@ -496,7 +496,7 @@
         "type": "fill_blank",
         "sentence": "My ____ jít do školy.",
         "blank_count": 1,
-        "explanation": "'My musíme jít do školy.' = We must go to school. The 1st person plural of 'muset' is 'musíme'. The modal verb is followed by the infinitive 'jít'.",
+        "explanation": "Muset: musím, musíš, musí, musíme, musíte, musí. My musíme jít do školy.",
         "blank_answers": [
           [
             "musíme"
@@ -538,7 +538,7 @@
         "sentence_cz": "Ty musí jít domů.",
         "correct_sentence_cz": "Ty musíš jít domů.",
         "error_type": "modal_conjugation",
-        "explanation": "The 2nd person singular of 'muset' is 'musíš', not 'musí'. 'Musí' is the 3rd person singular (on/ona musí) and 3rd person plural (oni musí). 'Ty musíš jít domů.' = You must go home."
+        "explanation": "Ty musíš. Musí is for on/ona and oni. Ty musíš jít domů. = You must go home."
       },
       "answer_key": "Ty musíš jít domů.",
       "grammar_rule_id": "GR-220",
@@ -555,7 +555,7 @@
         "sentence_cz": "Nesmíš jít, pokud nechceš.",
         "correct_sentence_cz": "Nemusíš jít, pokud nechceš.",
         "error_type": "modal_confusion",
-        "explanation": "'Nesmíš' means 'you must not' (prohibition), while 'nemusíš' means 'you don't have to' (no obligation). The correct sentence is 'Nemusíš jít, pokud nechceš.' = You don't have to go if you don't want to. This is a common confusion between 'muset' and 'smět'."
+        "explanation": "Nemusíš = you don't have to; nesmíš = you must not. Nemusíš jít, pokud nechceš."
       },
       "answer_key": "Nemusíš jít, pokud nechceš.",
       "grammar_rule_id": "GR-224",
@@ -572,7 +572,7 @@
         "sentence_cz": "Tady nemusíte parkovat.",
         "correct_sentence_cz": "Tady nesmíte parkovat.",
         "error_type": "modal_confusion",
-        "explanation": "'Nemusíte' means 'you don't have to' (no obligation), which implies parking is optional. 'Nesmíte' means 'you must not' (prohibition). The correct sentence 'Tady nesmíte parkovat.' = You must not park here. This is a prohibition sign, so 'nesmět' is required."
+        "explanation": "Nesmíte = you must not (a ban); nemusíte = you don't have to. Tady nesmíte parkovat."
       },
       "answer_key": "Tady nesmíte parkovat.",
       "grammar_rule_id": "GR-224",

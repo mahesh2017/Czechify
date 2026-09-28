@@ -492,7 +492,7 @@
         "type": "fill_blank",
         "sentence": "v ___ (hotel) → v hotelu. na ___ (hrad) → na hradě.",
         "blank_count": 2,
-        "explanation": "Masculine inanimate locative endings: most end in -u (v hotelu, v obchodě) or -e/-ě (na hradě). The -u ending is common for hard-stem masculine nouns. Some soft-stem nouns take -i.",
+        "explanation": "Masculine inanimate locative: -u (v hotelu) or -ě (na hradě, v obchodě).",
         "blank_answers": [
           [
             "hotelu"
@@ -515,7 +515,7 @@
         "type": "fill_blank",
         "sentence": "v ___ (škola) → ve škole. na ___ (ulice) → na ulici. o ___ (práce) → o práci.",
         "blank_count": 3,
-        "explanation": "Feminine locative endings: -a stems → -e (škola → ve škole), -e stems → -i (ulice → na ulici). The 've' form is used before certain consonant clusters for easier pronunciation.",
+        "explanation": "Feminine locative: -a → -e (ve škole), -e → -i (na ulici, o práci). Ve before hard clusters.",
         "blank_answers": [
           [
             "škole"
@@ -548,7 +548,7 @@
           "auto"
         ],
         "correct_index": 0,
-        "explanation": "'Autem' = by car (instrumental of 'auto'). Neuter nouns ending in -o take -em in instrumental: auto → autem, město → městem. This is how you express means of transport in Czech."
+        "explanation": "Neuter nouns in -o take -em in the instrumental: auto → autem (by car), město → městem."
       },
       "answer_key": "autem",
       "grammar_rule_id": "GR-171",
@@ -558,12 +558,12 @@
       "id": 18216,
       "lesson_id": 1802,
       "type": "fill_blank",
-      "prompt": "Complete with the instrumental form of these masculine nouns.",
+      "prompt": "Masculine nouns: instrumental.",
       "data": {
         "type": "fill_blank",
         "sentence": "Jdu s ___ (kamarád). Mluvím s ___ (bratr). Jedu s ___ (učitel).",
         "blank_count": 3,
-        "explanation": "Masculine instrumental ending: -em. 'Kamarád → kamarádem', 'bratr → bratrem' (note the fleeting -e-), 'učitel → učitelem'. Soft-stem masculine nouns take -em as well: 'muž → mužem', 'stroj → strojem'.",
+        "explanation": "Masculine instrumental ends in -em: kamarád → kamarádem, bratr → bratrem, učitel → učitelem.",
         "blank_answers": [
           [
             "kamarádem"
@@ -584,12 +584,12 @@
       "id": 18217,
       "lesson_id": 1802,
       "type": "fill_blank",
-      "prompt": "Complete with the instrumental form of these feminine nouns.",
+      "prompt": "Feminine nouns: instrumental.",
       "data": {
         "type": "fill_blank",
         "sentence": "Jdu s ___ (kamarádka). Mluvím s ___ (učitelka). Cestuju s ___ (máma).",
         "blank_count": 3,
-        "explanation": "Feminine instrumental ending: -ou. 'Kamarádka → kamarádkou', 'učitelka → učitelkou', 'máma → mámou'. Soft-stem feminine nouns take -í: 'ulice → ulicí'. This is one of the most distinctive Czech case endings.",
+        "explanation": "Feminine instrumental ends in -ou: kamarádka → kamarádkou, máma → mámou. Soft -e nouns: ulice → ulicí.",
         "blank_answers": [
           [
             "kamarádkou"

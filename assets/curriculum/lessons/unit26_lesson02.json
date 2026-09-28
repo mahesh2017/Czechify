@@ -464,7 +464,7 @@
           "kuchyní"
         ],
         "correct_index": 1,
-        "explanation": "'V' + locative: kuchyně → kuchyni. 'Vaříme v kuchyni.' = We cook in the kitchen. Feminine nouns ending in -ě form the locative by changing -ě to -i: kuchyně → kuchyni, ložnice → ložnici."
+        "explanation": "V + locative: kuchyně → v kuchyni, ložnice → v ložnici. Vaříme v kuchyni."
       },
       "answer_key": "kuchyni",
       "grammar_rule_id": "GR-251",
@@ -479,7 +479,7 @@
         "type": "fill_blank",
         "sentence": "Spí ___ . (v + ložnice — locative)",
         "blank_count": 1,
-        "explanation": "'V' + locative: ložnice → ložnici. 'Spí v ložnici.' = She/he sleeps in the bedroom. Feminine nouns in -ce or -ně change to -ci or -ni in the locative: ložnice → ložnici, koupelna → koupelně.",
+        "explanation": "V + locative: ložnice → v ložnici. Spí v ložnici. = He/She sleeps in the bedroom.",
         "blank_answers": [
           [
             "v ložnici"
@@ -499,7 +499,7 @@
         "type": "fill_blank",
         "sentence": "Bydlíme v ___ . (byt — locative)",
         "blank_count": 1,
-        "explanation": "'V' + locative: byt → bytě. 'Bydlíme v bytě.' = We live in an apartment. Masculine inanimate nouns ending in a consonant add -ě in the locative: byt → bytě, dům → domě.",
+        "explanation": "V + locative: byt → v bytě, dům → v domě. Bydlíme v bytě.",
         "blank_answers": [
           [
             "bytě"
@@ -542,7 +542,7 @@
           "Bydlím v bytě.",
           "Bydlím v bytě."
         ],
-        "explanation": "'V' + locative: byt → bytě. 'Bydlím v bytě.' = I live in an apartment. The error was using the nominative 'byt' instead of the locative 'bytě'. The locative of masculine inanimate nouns ending in a consonant adds -ě: byt → bytě, dům → domě.",
+        "explanation": "V + locative: byt → bytě. Bydlím v bytě. = I live in a flat.",
         "correct_sentence_cz": "Bydlím v bytě."
       },
       "answer_key": "Bydlím v bytě.",

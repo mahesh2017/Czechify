@@ -172,7 +172,7 @@
         "accepted_answers": [
           "ložnice-bedroom|kuchyně-kitchen|koupelna-bathroom|obývací pokoj-living room"
         ],
-        "explanation": "Common rooms in a Czech home. Others: 'jídelna' (dining room), 'pracovna' (study/office), 'dětský pokoj' (children's room), 'chodba' (hallway).",
+        "explanation": "More rooms: jídelna (dining room), pracovna (study), chodba (hallway).",
         "targets": "vocab"
       },
       "answer_key": "ložnice-bedroom|kuchyně-kitchen|koupelna-bathroom|obývací pokoj-living room",
@@ -208,7 +208,7 @@
         "accepted_answers": [
           "dům-house|byt-apartment|okno-window|zahrada-garden"
         ],
-        "explanation": "Essential housing vocabulary. Others: 'střecha' (roof), 'dveře' (door), 'garáž' (garage), 'schodiště' (stairs), 'balkon' (balcony), 'podlaha' (floor).",
+        "explanation": "More: střecha (roof), dveře (door), balkon (balcony), podlaha (floor).",
         "targets": "vocab"
       },
       "answer_key": "dům-house|byt-apartment|okno-window|zahrada-garden",
@@ -230,7 +230,7 @@
           "office"
         ],
         "correct_index": 1,
-        "explanation": "'Obývací pokoj' = living room. 'Obývat' = to live in/inhabit, 'pokoj' = room. Literally 'the room one lives in'. This is the main social room in a Czech home, often where the TV and sofa are.",
+        "explanation": "Obývací pokoj = living room, literally the room you live in (obývat = to live in).",
         "targets": "vocab"
       },
       "answer_key": "living room",
@@ -277,17 +277,18 @@
         "lines": [
           {
             "speaker": "you",
-            "text": "___"
+            "text": "___ (Ask if utilities are included in the rent.)"
           },
           {
             "speaker": "landlord",
-            "text": "Ano, energie nejsou v ceně."
+            "text": "Ne, energie nejsou v ceně."
           }
         ],
         "blank_answers": [
           [
             "Jsou energie v ceně?",
-            "Chtěl/a bych se zeptat na energie."
+            "Chtěl bych se zeptat na energie.",
+            "Chtěla bych se zeptat na energie."
           ]
         ],
         "targets": "vocab"
