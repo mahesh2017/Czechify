@@ -78,6 +78,12 @@ void main() {
     unitTitle: 'Unit 1 · First conversations',
   );
 
+  // Read once: the asset is several hundred kilobytes.
+  final dictionary = DictionaryData.fromJson(
+    jsonDecode(File('assets/dictionary/a1_dictionary.json').readAsStringSync())
+        as Map<String, dynamic>,
+  );
+
   // Anything that would otherwise reach the database, the network or a
   // platform channel. A closure rather than a declared function so the list's
   // element type is inferred: `Override` is not exported by flutter_riverpod,
@@ -93,6 +99,8 @@ void main() {
         dueCardCountProvider.overrideWith((ref) async => 8),
         // Reaches a platform channel for the installed voices.
         czechTtsAvailableProvider.overrideWith((ref) async => true),
+        // Home's dictionary card; decoding the real asset needs an isolate.
+        dictionaryProvider('a1').overrideWith((ref) async => dictionary),
       ];
 
   Future<void> render(
@@ -234,15 +242,9 @@ void main() {
         ),
   );
 
-  // Read once: the asset is several hundred kilobytes.
-  final dictionary = DictionaryData.fromJson(
-    jsonDecode(File('assets/dictionary/a1_dictionary.json').readAsStringSync())
-        as Map<String, dynamic>,
-  );
   ProviderScope dictionaryScope(Widget app) => ProviderScope(
     overrides: [
       ...commonOverrides(),
-      dictionaryProvider('a1').overrideWith((ref) async => dictionary),
       unlockedUnitIdsProvider.overrideWith((ref) async => <int>{1}),
     ],
     child: app,

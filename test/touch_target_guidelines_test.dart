@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:czechify/data/dictionary/dictionary_entry.dart';
 import 'package:czechify/presentation/providers/course_admission_providers.dart';
+import 'package:czechify/presentation/providers/dictionary_providers.dart';
 import 'package:czechify/core/theme/app_theme.dart';
 import 'package:czechify/data/database/database.dart' show AppDatabase;
 import 'package:czechify/domain/engines/daily_arrival_engine.dart';
@@ -33,6 +38,11 @@ import 'support/lesson_session_harness.dart';
 import 'support/localized_app.dart';
 import 'support/pilot_units.dart';
 import 'support/shipped_exercises.dart';
+
+final _dictionary = DictionaryData.fromJson(
+  jsonDecode(File('assets/dictionary/a1_dictionary.json').readAsStringSync())
+      as Map<String, dynamic>,
+);
 
 // Touch targets of the one-page layouts; a unit still on them.
 final _lesson = Lesson(
@@ -69,6 +79,7 @@ void main() {
     ReviewSessionState? review,
     DailyArrivalKind? arrival,
     Exercise? lessonExercise,
+    bool home = false,
   }) async {
     // Tap-target size depends on width and text scale, not on height. A short
     // view only adds scrolling, and androidTapTargetGuideline measures a
@@ -95,6 +106,11 @@ void main() {
           revisitLessonProvider.overrideWith((_) async => null),
           dueCardCountProvider.overrideWith((_) async => 8),
           dueTransferProvider.overrideWith((_) async => []),
+          // Home's dictionary card, with its word of the day showing.
+          dictionaryProvider('a1').overrideWith((_) async => _dictionary),
+          // Home's dictionary card reads the reached units, which otherwise
+          // opens a database stream that is still closing when the test ends.
+          if (home) unlockedUnitIdsProvider.overrideWith((_) async => {1}),
           if (review != null)
             reviewSessionProvider.overrideWith(() => _Review(review)),
           if (arrival != null)
@@ -179,7 +195,7 @@ void main() {
   final shipped = loadShippedExercises();
   for (final scale in [1.0, 2.0]) {
     testWidgets('Home targets at ${scale}x', (tester) async {
-      await mount(tester, const HomeScreen(), scale);
+      await mount(tester, const HomeScreen(), scale, home: true);
       await check(tester);
     });
     testWidgets('lesson player targets at ${scale}x', (tester) async {

@@ -12,9 +12,17 @@ Decisions (Mahesh, 28 Sep 2026):
   before production.
 - A word page shows the key forms; "Show all forms" opens the full tables.
 - Entry points: a search button on Learn (beside Map/List) and on Review (the
-  active review and the "nothing due" screen). No new tab.
+  active review and the "nothing due" screen), and a card on Home. No new tab.
 
 ## What a learner sees
+
+- **Home** (added the same day; Mahesh: "show it on Home in an appropriate
+  way"): a Dictionary card right after Mock exam — a search bar that opens the
+  dictionary, the word count, and a **word of the day**: a noun, verb,
+  adjective or adverb from a unit the learner has already reached (never a
+  locked one), with its meaning, first example and a listen button; tapping it
+  opens the word's page. Same word all day, a new one each day
+  (`lib/data/dictionary/word_of_the_day.dart`).
 
 - **Learn / Review → search button → Dictionary**: A–Z list with letter
   headings, word count, and a unit tag per word (a lock on units not reached).

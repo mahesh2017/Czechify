@@ -4197,4 +4197,15 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get dictionaryClearSearch => 'Smazat hledání';
+
+  @override
+  String get homeDictionarySearch => 'Hledat ve slovníku';
+
+  @override
+  String homeDictionaryCount(int count, String level) {
+    return '$count slov $level · česky nebo anglicky';
+  }
+
+  @override
+  String get homeWordOfTheDay => 'SLOVO DNE';
 }

@@ -7,6 +7,8 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../domain/engines/learning_router.dart';
 import '../../../domain/entities/enums.dart';
 import '../../providers/course_admission_providers.dart';
+import '../../providers/dictionary_providers.dart';
+import '../../widgets/home/home_dictionary_card.dart';
 import '../../providers/curriculum_providers.dart';
 import '../../providers/gamification_providers.dart';
 import '../../providers/app_update_providers.dart';
@@ -322,6 +324,14 @@ class HomeScreen extends ConsumerWidget {
                         () => context.push(
                           '/exam/${settings.startingLevel == CEFRLevel.a2 ? 'a2' : 'a1'}',
                         ),
+                  ),
+                  const SizedBox(height: 12),
+                  HomeDictionaryCard(
+                    level:
+                        settings.startingLevel == CEFRLevel.a2 &&
+                                kDictionaryLevels.contains('a2')
+                            ? 'a2'
+                            : kDictionaryLevels.first,
                   ),
                   const SizedBox(height: 12),
                   _DailyGoalHero(

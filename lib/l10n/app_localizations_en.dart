@@ -4174,4 +4174,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dictionaryClearSearch => 'Clear search';
+
+  @override
+  String get homeDictionarySearch => 'Search the dictionary';
+
+  @override
+  String homeDictionaryCount(int count, String level) {
+    return '$count $level words · Czech or English';
+  }
+
+  @override
+  String get homeWordOfTheDay => 'WORD OF THE DAY';
 }

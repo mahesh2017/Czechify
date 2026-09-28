@@ -1877,5 +1877,18 @@
   "dictionarySeeAlso": "See also",
   "dictionaryUsedWith": "Used with",
   "dictionaryLoadFailed": "The dictionary could not be opened. Please try again.",
-  "dictionaryClearSearch": "Clear search"
+  "dictionaryClearSearch": "Clear search",
+  "homeDictionarySearch": "Search the dictionary",
+  "homeDictionaryCount": "{count} {level} words · Czech or English",
+  "@homeDictionaryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "homeWordOfTheDay": "WORD OF THE DAY"
 }

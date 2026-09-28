@@ -8,7 +8,9 @@ import 'package:czechify/presentation/providers/dictionary_providers.dart';
 import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/screens/dictionary/dictionary_entry_screen.dart';
 import 'package:czechify/presentation/screens/dictionary/dictionary_screen.dart';
+import 'package:czechify/data/dictionary/word_of_the_day.dart';
 import 'package:czechify/presentation/widgets/common/dictionary_button.dart';
+import 'package:czechify/presentation/widgets/home/home_dictionary_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -48,6 +50,7 @@ void main() {
     Set<int> unlocked = const {1, 2, 3},
     Size size = const Size(375, 667),
     double textScale = 1,
+    Widget home = const DictionaryButton(),
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -59,8 +62,13 @@ void main() {
         GoRoute(
           path: '/',
           builder:
-              (context, state) => const Scaffold(
-                body: SafeArea(child: Center(child: DictionaryButton())),
+              (context, state) => Scaffold(
+                body: SafeArea(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20),
+                    child: home,
+                  ),
+                ),
               ),
         ),
         GoRoute(
@@ -115,6 +123,50 @@ void main() {
     expect(find.byType(DictionaryScreen), findsOneWidget);
     expect(find.text('${_a1.entries.length} words · A1'), findsOneWidget);
     expect(find.text(_a1.entries.first.cz), findsOneWidget);
+  });
+
+  group('Home card', () {
+    const card = HomeDictionaryCard(level: 'a1');
+
+    testWidgets('its search bar opens the dictionary', (tester) async {
+      await pump(tester, home: card);
+      expect(
+        find.text('${_a1.entries.length} A1 words · Czech or English'),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.byKey(const ValueKey('home-dictionary-search')));
+      await tester.pumpAndSettle();
+      expect(find.byType(DictionaryScreen), findsOneWidget);
+    });
+
+    testWidgets('its word of the day is one already met, and opens', (
+      tester,
+    ) async {
+      final word = wordOfTheDay(_a1, {1, 2, 3}, DateTime.now())!;
+      await pump(tester, home: card);
+
+      expect(find.text('WORD OF THE DAY'), findsOneWidget);
+      expect(find.text(word.cz), findsOneWidget);
+      await tester.tap(find.byTooltip('Listen'));
+      await tester.pump();
+      expect(tts.spoken, [word.cz]);
+
+      await tester.tap(find.byKey(const ValueKey('home-word-of-the-day')));
+      await tester.pumpAndSettle();
+      expect(find.byType(DictionaryEntryScreen), findsOneWidget);
+      expect(find.text(word.meanings.join('; ')), findsOneWidget);
+    });
+
+    testWidgets('fits a small phone at 200% text', (tester) async {
+      await pump(
+        tester,
+        home: card,
+        size: const Size(360, 640),
+        textScale: 2,
+      );
+      expect(tester.takeException(), isNull);
+    });
   });
 
   testWidgets('searching by a form finds the word and opens its page', (

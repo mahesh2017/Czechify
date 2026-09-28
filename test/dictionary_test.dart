@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:czechify/data/dictionary/dictionary_entry.dart';
 import 'package:czechify/data/dictionary/dictionary_search.dart';
+import 'package:czechify/data/dictionary/word_of_the_day.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 DictionaryData _load(String level) => DictionaryData.fromJson(
@@ -92,6 +93,35 @@ void main() {
 
     test('folds Czech accents the way a plain keyboard types them', () {
       expect(foldCzech('Příliš žluťoučký kůň'), 'prilis zlutoucky kun');
+    });
+  });
+
+  group('word of the day', () {
+    final days = [
+      for (var d = 0; d < 60; d++) DateTime(2026, 10, 1).add(Duration(days: d)),
+    ];
+
+    test('only comes from units the learner has reached', () {
+      for (final day in days) {
+        final word = wordOfTheDay(a1, {1, 2}, day)!;
+        expect({1, 2}, contains(word.unit), reason: '${word.cz} on $day');
+        expect(word.examples, isNotEmpty);
+      }
+    });
+
+    test('stays the same all day and changes from day to day', () {
+      final morning = DateTime(2026, 10, 5, 7);
+      final evening = DateTime(2026, 10, 5, 22);
+      expect(
+        wordOfTheDay(a1, {1, 2, 3}, morning)!.id,
+        wordOfTheDay(a1, {1, 2, 3}, evening)!.id,
+      );
+      final words = {for (final day in days) wordOfTheDay(a1, {1, 2, 3}, day)!.id};
+      expect(words.length, greaterThan(20), reason: 'two months of words');
+    });
+
+    test('before any unit is reached, it is a word from Unit 1', () {
+      expect(wordOfTheDay(a1, const {}, days.first)!.unit, 1);
     });
   });
 

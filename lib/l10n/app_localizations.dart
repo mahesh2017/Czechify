@@ -7087,6 +7087,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear search'**
   String get dictionaryClearSearch;
+
+  /// No description provided for @homeDictionarySearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search the dictionary'**
+  String get homeDictionarySearch;
+
+  /// No description provided for @homeDictionaryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} {level} words · Czech or English'**
+  String homeDictionaryCount(int count, String level);
+
+  /// No description provided for @homeWordOfTheDay.
+  ///
+  /// In en, this message translates to:
+  /// **'WORD OF THE DAY'**
+  String get homeWordOfTheDay;
 }
 
 class _AppLocalizationsDelegate

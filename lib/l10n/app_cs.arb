@@ -1278,5 +1278,8 @@
   "dictionarySeeAlso": "Viz také",
   "dictionaryUsedWith": "Pojí se s",
   "dictionaryLoadFailed": "Slovník se nepodařilo otevřít. Zkuste to prosím znovu.",
-  "dictionaryClearSearch": "Smazat hledání"
+  "dictionaryClearSearch": "Smazat hledání",
+  "homeDictionarySearch": "Hledat ve slovníku",
+  "homeDictionaryCount": "{count} slov {level} · česky nebo anglicky",
+  "homeWordOfTheDay": "SLOVO DNE"
 }
