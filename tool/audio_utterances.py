@@ -112,6 +112,19 @@ def _collect_audio_text(node, bucket: set[str]) -> None:
             _collect_audio_text(value, bucket)
 
 
+def _lesson_field(data: dict, field: str):
+    """A lesson field's spoken text, or None when the app never speaks it.
+
+    A question with a gap has no speaker (QuestionPrompt.hasGap in the app):
+    with the gap dropped, "Bydlím v ___." reads as "Bydlím v.", a wrong whole
+    sentence, so nothing is recorded for it.
+    """
+    value = data.get(field)
+    if field == "question_cz" and isinstance(value, str) and "_" in value:
+        return None
+    return value
+
+
 def _dialogue_lines(data: dict) -> list[str]:
     """Return complete model lines, replacing every learner blank."""
     answers = data.get("blank_answers") or []
@@ -146,7 +159,7 @@ def raw_utterances() -> set[str]:
         for exercise in lesson.get("exercises", []):
             data = exercise.get("data", {}) or {}
             for field in LESSON_DATA_FIELDS:
-                _add(found, data.get(field))
+                _add(found, _lesson_field(data, field))
             for item in data.get("items") or []:
                 if isinstance(item, dict):
                     for field in TEACHING_ITEM_FIELDS:
@@ -207,7 +220,7 @@ def scoped_utterances(
         for exercise in lesson.get("exercises", []):
             data = exercise.get("data", {}) or {}
             for field in LESSON_DATA_FIELDS:
-                _add(found, data.get(field))
+                _add(found, _lesson_field(data, field))
             for item in data.get("items") or []:
                 if isinstance(item, dict):
                     for field in TEACHING_ITEM_FIELDS:

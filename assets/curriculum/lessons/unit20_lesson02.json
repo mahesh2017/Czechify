@@ -11,7 +11,7 @@
     "napíšu, zavolám (finished)",
     "budu pracovat (ongoing)",
     "půjdu, pojedu",
-    "chtěl/a bych, mohl/a bych"
+    "chtěl bych, chtěla bych, mohl bych, mohla bych"
   ],
   "recycles": [
     "zítra",
@@ -342,7 +342,7 @@
             "en": "I will go (on foot / by vehicle)"
           },
           {
-            "cz": "chtěl/a bych, mohl/a bych",
+            "cz": "chtěl bych, chtěla bych, mohl bych, mohla bych",
             "en": "I would like, could I"
           }
         ]

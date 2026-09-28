@@ -244,11 +244,11 @@
         "instruction": "In the My sentences box, write two true sentences: where you were some time ago, and who you like to go out with.",
         "items": [
           {
-            "cz": "Před rokem jsem byl/a v Brně.",
+            "cz": "Před rokem jsem byl v Brně. / Před rokem jsem byla v Brně.",
             "en": "A year ago I was in Brno."
           },
           {
-            "cz": "Rád/a chodím do kina s kamarádkou.",
+            "cz": "Rád chodím do kina s kamarádkou. / Ráda chodím do kina s kamarádkou.",
             "en": "I like going to the cinema with a friend."
           }
         ]

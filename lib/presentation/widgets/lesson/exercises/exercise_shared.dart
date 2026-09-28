@@ -229,6 +229,10 @@ class QuestionPrompt extends StatelessWidget {
   /// Briefs longer than this read as a paragraph, not a heading.
   static const longInstruction = 60;
 
+  /// Whether [czech] has a fill-in gap ("___"). `tool/audio_utterances.py`
+  /// skips the same strings, so no clip is recorded for them.
+  static bool hasGap(String czech) => czech.contains('_');
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
@@ -271,8 +275,13 @@ class QuestionPrompt extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 4),
-              TtsButton(text: czech!, size: 22),
+              // A sentence with a gap has nothing correct to play: without
+              // the gap "Bydlím v ___." is read as "Bydlím v.", which sounds
+              // like a whole sentence and is wrong Czech (Mahesh, 29 Sep 2026).
+              if (!hasGap(czech!)) ...[
+                const SizedBox(width: 4),
+                TtsButton(text: czech!, size: 22),
+              ],
             ],
           ),
         ],

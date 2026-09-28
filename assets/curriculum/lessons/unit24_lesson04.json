@@ -76,7 +76,7 @@
       "prompt": "Choose the answer",
       "data": {
         "type": "multiple_choice",
-        "question_cz": "Jste nemocný/á a nemůžete jít do práce. Co potřebujete od lékaře?",
+        "question_cz": "Jste nemocný (nemocná) a nemůžete jít do práce. Co potřebujete od lékaře?",
         "question_en": "You are ill and cannot go to work. What do you need from the doctor?",
         "options": [
           "neschopenku",

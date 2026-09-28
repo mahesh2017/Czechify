@@ -32,7 +32,7 @@
         "body": "For each task, give the requested information. Clear short Czech is better than difficult Czech with missing details.",
         "items": [
           {
-            "cz": "Dobrý den, potřeboval/a bych informaci.",
+            "cz": "Dobrý den, potřeboval bych informaci. / Dobrý den, potřebovala bych informaci.",
             "en": "Hello, I would need some information."
           },
           {

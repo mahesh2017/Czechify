@@ -66,7 +66,7 @@
         "heading": "At the doctor and the pharmacy",
         "items": [
           {
-            "cz": "Chtěl/a bych se objednat k lékaři.",
+            "cz": "Chtěl bych se objednat k lékaři. / Chtěla bych se objednat k lékaři.",
             "en": "I would like to make a doctor’s appointment."
           },
           {
@@ -111,7 +111,7 @@
         ],
         "examples": [
           {
-            "cz": "Chtěl/a bych se objednat k lékaři.",
+            "cz": "Chtěl bych se objednat k lékaři. / Chtěla bych se objednat k lékaři.",
             "en": "I would like to make a doctor’s appointment."
           },
           {

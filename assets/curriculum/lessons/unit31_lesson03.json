@@ -34,11 +34,11 @@
         "instruction": "Before you start: write how you ask your manager politely (Unit 20) and say why you cannot come (Unit 22). Then check.",
         "items": [
           {
-            "cz": "Mohl/a bych pracovat z domova?",
+            "cz": "Mohl bych pracovat z domova? / Mohla bych pracovat z domova?",
             "en": "Could I work from home?"
           },
           {
-            "cz": "Nemůžu přijít, protože jsem nemocný/nemocná.",
+            "cz": "Nemůžu přijít, protože jsem nemocný. / Nemůžu přijít, protože jsem nemocná.",
             "en": "I can't come because I'm ill."
           }
         ]
@@ -58,7 +58,7 @@
         "body": "Say what happened, give the reason, then make one polite request.",
         "items": [
           {
-            "cz": "Včera jsem onemocněl/a.",
+            "cz": "Včera jsem onemocněl. / Včera jsem onemocněla.",
             "en": "Yesterday I became ill."
           },
           {
@@ -66,7 +66,7 @@
             "en": "I cannot come to work today."
           },
           {
-            "cz": "Mohl/a bych pracovat z domova?",
+            "cz": "Mohl bych pracovat z domova? / Mohla bych pracovat z domova?",
             "en": "Could I work from home?"
           }
         ],

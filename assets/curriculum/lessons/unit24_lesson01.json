@@ -13,7 +13,7 @@
     "Mám teplotu.",
     "Je mi špatně.",
     "od včerejška",
-    "Chtěl/a bych se objednat.",
+    "Chtěl bych se objednat. / Chtěla bych se objednat.",
     "Potřebuju neschopenku.",
     "Můžete to zopakovat?"
   ],
@@ -94,7 +94,7 @@
             "en": "since yesterday"
           },
           {
-            "cz": "Chtěl/a bych se objednat.",
+            "cz": "Chtěl bych se objednat. / Chtěla bych se objednat.",
             "en": "I would like an appointment."
           },
           {

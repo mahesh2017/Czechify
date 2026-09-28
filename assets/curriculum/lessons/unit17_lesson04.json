@@ -12,7 +12,7 @@
     "Poradíš mi?"
   ],
   "recycles": [
-    "Dám mu/jí…",
+    "Dám mu… / Dám jí…",
     "Líbí se mu…",
     "Pomůžeš mi?"
   ],
@@ -32,11 +32,11 @@
         "body": "Close your notebook. Plan a gift: who it is for, what you give them, what they like, and ask a friend for advice.",
         "items": [
           {
-            "cz": "Dám mu/jí…",
+            "cz": "Dám mu… / Dám jí…",
             "en": "I will give him/her…"
           },
           {
-            "cz": "Co se mu/jí líbí?",
+            "cz": "Co se mu líbí? / Co se jí líbí?",
             "en": "What does he/she like?"
           },
           {
