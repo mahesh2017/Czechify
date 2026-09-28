@@ -395,7 +395,8 @@
         "expected_phrases": [
           "obvykle",
           "dnes",
-          "jdu/jedu"
+          "jdu",
+          "jedu"
         ],
         "targets": "vocab"
       },

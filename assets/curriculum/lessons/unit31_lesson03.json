@@ -214,7 +214,8 @@
         "expected_phrases": [
           "včera",
           "protože",
-          "mohl/a bych"
+          "mohl bych",
+          "mohla bych"
         ],
         "targets": "vocab"
       },

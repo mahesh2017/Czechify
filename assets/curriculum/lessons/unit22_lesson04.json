@@ -205,7 +205,8 @@
         "max_duration_seconds": 35,
         "expected_phrases": [
           "protože",
-          "když/jestli",
+          "když",
+          "jestli",
           "můžeme"
         ],
         "targets": "vocab"

@@ -156,8 +156,10 @@
         "max_duration_seconds": 60,
         "expected_phrases": [
           "jmenuji se",
-          "včera/minulý",
-          "budu/chci"
+          "včera",
+          "minulý",
+          "budu",
+          "chci"
         ],
         "targets": "vocab"
       },

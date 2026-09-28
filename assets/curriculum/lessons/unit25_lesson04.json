@@ -227,7 +227,8 @@
         "max_duration_seconds": 35,
         "expected_phrases": [
           "jmenuju se",
-          "pracuju/studuju",
+          "pracuju",
+          "studuju",
           "mám zájem"
         ],
         "targets": "vocab"

@@ -253,7 +253,8 @@
         "min_duration_seconds": 20,
         "max_duration_seconds": 35,
         "expected_phrases": [
-          "Dám jí/mu",
+          "Dám jí",
+          "Dám mu",
           "líbí se",
           "Pomůžeš mi"
         ],

@@ -213,9 +213,11 @@
         "min_duration_seconds": 20,
         "max_duration_seconds": 40,
         "expected_phrases": [
-          "mohl/a bys",
+          "mohl bys",
+          "mohla bys",
           "proto",
-          "v bytě/před domem"
+          "v bytě",
+          "před domem"
         ],
         "targets": "vocab"
       },

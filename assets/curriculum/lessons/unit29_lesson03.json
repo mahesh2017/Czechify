@@ -184,7 +184,8 @@
         "max_duration_seconds": 45,
         "expected_phrases": [
           "Dobrý den",
-          "Chtěl/a bych se zeptat",
+          "Chtěl bych se zeptat",
+          "Chtěla bych se zeptat",
           "Děkuji"
         ],
         "targets": "vocab"

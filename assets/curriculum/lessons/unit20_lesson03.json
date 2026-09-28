@@ -316,7 +316,8 @@
         "expected_phrases": [
           "budu",
           "sejdeme se",
-          "chtěl/a bych"
+          "chtěl bych",
+          "chtěla bych"
         ],
         "targets": "vocab"
       },

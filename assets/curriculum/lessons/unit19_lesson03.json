@@ -344,9 +344,12 @@
         "min_duration_seconds": 15,
         "max_duration_seconds": 30,
         "expected_phrases": [
-          "včera/minulý",
-          "byl/a",
-          "pak/potom"
+          "včera",
+          "minulý",
+          "byl",
+          "byla",
+          "pak",
+          "potom"
         ],
         "targets": "vocab"
       },

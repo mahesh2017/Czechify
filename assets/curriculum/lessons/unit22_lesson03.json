@@ -298,7 +298,8 @@
         "max_duration_seconds": 30,
         "expected_phrases": [
           "protože",
-          "když/až",
+          "když",
+          "až",
           "přijdu"
         ],
         "targets": "vocab"

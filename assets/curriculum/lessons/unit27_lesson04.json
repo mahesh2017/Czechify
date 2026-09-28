@@ -182,9 +182,11 @@
         "min_duration_seconds": 20,
         "max_duration_seconds": 35,
         "expected_phrases": [
-          "přijede/odjede",
+          "přijede",
+          "odjede",
           "proto",
-          "přijdu/přijedu"
+          "přijdu",
+          "přijedu"
         ],
         "targets": "vocab"
       },

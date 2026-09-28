@@ -209,9 +209,11 @@
         "min_duration_seconds": 20,
         "max_duration_seconds": 35,
         "expected_phrases": [
-          "včera/v sobotu",
+          "včera",
+          "v sobotu",
           "potom",
-          "byl/a jsem"
+          "byl jsem",
+          "byla jsem"
         ],
         "targets": "vocab"
       },

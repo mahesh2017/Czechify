@@ -102,11 +102,11 @@ prints every dialogue to read. Calibration learned here:
 4. 29206, 29207: the Czech speaking briefs were shortened.
 5. 23105 is in the unit on *smět* but accepts only *Můžu/Mohu*: add *Smím*?
 6. 27106 teaches "Teď jdu tam pěšky"; "Teď tam jdu pěšky" is more natural.
-7. 15 speaking tasks list "chtěl/a bych"-style phrases (17409, 19161,
-   19176, 20310, 20406, 21407, 22309, 22406, 25407, 27312, 27406, 29305,
-   31206, 31306, 31404) and 14 writing tasks list such key words. A phrase
-   with "/" can never match speech, so the task passes on the others. Split
-   into both forms? (Changes grading — Mahesh's call.)
+7. Speaking phrases with "/" ("chtěl/a bych", "včera/minulý") could never
+   match speech, so those tasks graded on fewer phrases than they listed.
+   Mahesh approved splitting them into full forms (16 tasks, incl. A1's
+   8407): check the expansions in the change list. Writing key words keep
+   "/": they are a hint, never graded.
 8. 24213 "Jsem ____." gives no hint that the answer is *nemocný/nemocná*.
 9. 29102 (seen on the emulator): "Hrála **se** tam česká kapela" should be
    "Hrála tam česká kapela"; "zůstal doma protože" needs a comma before
