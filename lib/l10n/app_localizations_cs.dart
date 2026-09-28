@@ -4126,4 +4126,75 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get lessonVoiceFallback =>
       'Používá se hlas vašeho zařízení — nahraný český hlas teď není k dispozici.';
+
+  @override
+  String get dictionaryTitle => 'Slovník';
+
+  @override
+  String get dictionaryOpen => 'Otevřít slovník';
+
+  @override
+  String get dictionarySearchHint => 'Hledejte česky nebo anglicky';
+
+  @override
+  String dictionaryWordCount(int count, String level) {
+    return '$count slov · $level';
+  }
+
+  @override
+  String dictionaryNoResults(String query) {
+    return 'Pro „$query“ nic nenalezeno.';
+  }
+
+  @override
+  String get dictionaryNoResultsHint =>
+      'Zkuste jiný tvar slova, slovo bez diakritiky nebo jeho anglický význam.';
+
+  @override
+  String dictionaryFormOf(String form) {
+    return 'tvar: $form';
+  }
+
+  @override
+  String dictionaryUnit(int unit) {
+    return 'Jednotka $unit';
+  }
+
+  @override
+  String dictionaryTaughtIn(int unit) {
+    return 'Poprvé v jednotce $unit.';
+  }
+
+  @override
+  String dictionaryTaughtInLocked(int unit) {
+    return 'Poprvé v jednotce $unit, ke které jste se ještě nedostali.';
+  }
+
+  @override
+  String get dictionaryListen => 'Poslechnout';
+
+  @override
+  String get dictionaryKeyForms => 'Tvary';
+
+  @override
+  String get dictionaryShowAllForms => 'Zobrazit všechny tvary';
+
+  @override
+  String get dictionaryHideAllForms => 'Skrýt tvary';
+
+  @override
+  String get dictionaryExamples => 'Příklady';
+
+  @override
+  String get dictionarySeeAlso => 'Viz také';
+
+  @override
+  String get dictionaryUsedWith => 'Pojí se s';
+
+  @override
+  String get dictionaryLoadFailed =>
+      'Slovník se nepodařilo otevřít. Zkuste to prosím znovu.';
+
+  @override
+  String get dictionaryClearSearch => 'Smazat hledání';
 }

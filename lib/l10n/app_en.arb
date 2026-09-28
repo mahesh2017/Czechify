@@ -1813,5 +1813,69 @@
   "lessonTagWarmUp": "Warm-up · no hearts",
   "lessonTagCheck": "Check · no hearts",
   "lessonTagGuided": "Guided · no hearts",
-  "lessonVoiceFallback": "Using your device's voice — the recorded Czech voice is unavailable right now."
+  "lessonVoiceFallback": "Using your device's voice — the recorded Czech voice is unavailable right now.",
+  "dictionaryTitle": "Dictionary",
+  "dictionaryOpen": "Open the dictionary",
+  "dictionarySearchHint": "Search in Czech or English",
+  "dictionaryWordCount": "{count} words · {level}",
+  "@dictionaryWordCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "dictionaryNoResults": "Nothing found for “{query}”.",
+  "@dictionaryNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "dictionaryNoResultsHint": "Try another form of the word, the word without accents, or its English meaning.",
+  "dictionaryFormOf": "form: {form}",
+  "@dictionaryFormOf": {
+    "placeholders": {
+      "form": {
+        "type": "String"
+      }
+    }
+  },
+  "dictionaryUnit": "Unit {unit}",
+  "@dictionaryUnit": {
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "dictionaryTaughtIn": "You meet it in Unit {unit}.",
+  "@dictionaryTaughtIn": {
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "dictionaryTaughtInLocked": "You meet it in Unit {unit}, which you haven't reached yet.",
+  "@dictionaryTaughtInLocked": {
+    "placeholders": {
+      "unit": {
+        "type": "int"
+      }
+    }
+  },
+  "dictionaryListen": "Listen",
+  "dictionaryKeyForms": "Forms",
+  "dictionaryShowAllForms": "Show all forms",
+  "dictionaryHideAllForms": "Hide all forms",
+  "dictionaryExamples": "Examples",
+  "dictionarySeeAlso": "See also",
+  "dictionaryUsedWith": "Used with",
+  "dictionaryLoadFailed": "The dictionary could not be opened. Please try again.",
+  "dictionaryClearSearch": "Clear search"
 }

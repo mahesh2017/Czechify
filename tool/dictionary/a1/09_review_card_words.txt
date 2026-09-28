@@ -1,0 +1,307 @@
+# A1 dictionary — words the A1 review cards use in their examples that the
+# lessons do not teach on their own.
+
+@ přítel
+pos: noun m-anim
+en: friend; boyfriend
+rel: mate; partner; buddy
+sg: přítel, přítele, příteli, přítele, příteli, příteli, přítelem
+pl: přátelé, přátel, přátelům, přátele, přátelé, přátelích, přáteli
+note: The plural is přátelé (friends).
+see: kamarád, přítelkyně
+
+@ hudebník
+pos: noun m-anim
+en: musician
+rel: music; band; composer
+sg: hudebník, hudebníka, hudebníkovi/hudebníku, hudebníka, hudebníku, hudebníkovi/hudebníku, hudebníkem
+pl: hudebníci, hudebníků, hudebníkům, hudebníky, hudebníci, hudebnících, hudebníky
+
+@ kočka
+pos: noun f
+en: cat
+rel: pet; animal; kitten
+sg: kočka, kočky, kočce, kočku, kočko, kočce, kočkou
+pl: kočky, koček, kočkám, kočky, kočky, kočkách, kočkami
+
+@ žirafa
+pos: noun f
+en: giraffe
+rel: animal; zoo
+sg: žirafa, žirafy, žirafě, žirafu, žirafo, žirafě, žirafou
+pl: žirafy, žiraf, žirafám, žirafy, žirafy, žirafách, žirafami
+
+@ Vltava
+pos: noun f
+en: the Vltava (river)
+rel: river; Prague
+sg: Vltava, Vltavy, Vltavě, Vltavu, Vltavo, Vltavě, Vltavou
+
+@ lekce
+pos: noun f
+en: lesson
+rel: class; course; study
+sg: lekce, lekce, lekci, lekci, lekce, lekci, lekcí
+pl: lekce, lekcí, lekcím, lekce, lekce, lekcích, lekcemi
+
+@ zkouška
+pos: noun f
+en: exam; test
+rel: examination; school; try
+sg: zkouška, zkoušky, zkoušce, zkoušku, zkouško, zkoušce, zkouškou
+pl: zkoušky, zkoušek, zkouškám, zkoušky, zkoušky, zkouškách, zkouškami
+
+@ sešit
+pos: noun m-inan
+en: exercise book; notebook
+rel: school; write; paper
+sg: sešit, sešitu, sešitu, sešit, sešite, sešitě/sešitu, sešitem
+pl: sešity, sešitů, sešitům, sešity, sešity, sešitech, sešity
+note: A paper notebook. (A notebook in Czech is a laptop.)
+
+@ univerzita
+pos: noun f
+en: university
+rel: study; student; college
+sg: univerzita, univerzity, univerzitě, univerzitu, univerzito, univerzitě, univerzitou
+pl: univerzity, univerzit, univerzitám, univerzity, univerzity, univerzitách, univerzitami
+
+@ dárek
+pos: noun m-inan
+en: present; gift
+rel: birthday; Christmas; buy
+sg: dárek, dárku, dárku, dárek, dárku, dárku, dárkem
+pl: dárky, dárků, dárkům, dárky, dárky, dárcích, dárky
+
+@ čokoláda
+pos: noun f
+en: chocolate
+rel: sweet; dessert; cocoa
+sg: čokoláda, čokolády, čokoládě, čokoládu, čokoládo, čokoládě, čokoládou
+pl: čokolády, čokolád, čokoládám, čokolády, čokolády, čokoládách, čokoládami
+
+@ hrnec
+pos: noun m-inan
+en: pot; saucepan
+rel: kitchen; cooking
+sg: hrnec, hrnce, hrnci, hrnec, hrnci, hrnci, hrncem
+pl: hrnce, hrnců, hrncům, hrnce, hrnce, hrncích, hrnci
+
+@ sklenička
+pos: noun f
+en: (small) glass; jar
+rel: drink; glass of wine
+sg: sklenička, skleničky, skleničce, skleničku, skleničko, skleničce, skleničkou
+pl: skleničky, skleniček, skleničkám, skleničky, skleničky, skleničkách, skleničkami
+
+@ šatník
+pos: noun m-inan
+en: wardrobe
+rel: clothes; furniture; closet
+sg: šatník, šatníku, šatníku, šatník, šatníku, šatníku, šatníkem
+pl: šatníky, šatníků, šatníkům, šatníky, šatníky, šatnících, šatníky
+
+@ zrcadlo
+pos: noun n
+en: mirror
+rel: bathroom; look
+sg: zrcadlo, zrcadla, zrcadlu, zrcadlo, zrcadlo, zrcadle, zrcadlem
+pl: zrcadla, zrcadel, zrcadlům, zrcadla, zrcadla, zrcadlech, zrcadly
+
+@ televize
+pos: noun f
+en: television; TV
+rel: watch; film; news
+sg: televize, televize, televizi, televizi, televize, televizi, televizí
+pl: televize, televizí, televizím, televize, televize, televizích, televizemi
+note: Dívám se na televizi. = I watch TV.
+
+@ tenis
+pos: noun m-inan
+en: tennis
+rel: sport; play; ball
+sg: tenis, tenisu, tenisu, tenis, tenise, tenise/tenisu, tenisem
+
+@ procházka
+pos: noun f
+en: walk; stroll
+rel: walk; park; go out
+sg: procházka, procházky, procházce, procházku, procházko, procházce, procházkou
+pl: procházky, procházek, procházkám, procházky, procházky, procházkách, procházkami
+note: Jdu na procházku. = I'm going for a walk.
+
+@ relax
+pos: noun m-inan
+en: relaxation; rest
+rel: relax; free time; calm
+sg: relax, relaxu, relaxu, relax, relaxi, relaxu, relaxem
+
+@ vášeň
+pos: noun f
+en: passion
+rel: love; hobby
+sg: vášeň, vášně, vášni, vášeň, vášni, vášni, vášní
+pl: vášně, vášní, vášním, vášně, vášně, vášních, vášněmi
+
+@ život
+pos: noun m-inan
+en: life
+rel: live; living
+sg: život, života, životu, život, živote, životě, životem
+pl: životy, životů, životům, životy, životy, životech, životy
+
+@ volno
+pos: noun n
+en: time off; day off; free time
+rel: holiday; free; rest
+sg: volno, volna, volnu, volno, volno, volnu, volnem
+note: Ve středu mám volno. = I'm off on Wednesday.
+
+@ místo
+pos: noun n
+en: place; space; seat
+rel: location; room; spot
+sg: místo, místa, místu, místo, místo, místě, místem
+pl: místa, míst, místům, místa, místa, místech, místy
+
+@ roh
+pos: noun m-inan
+en: corner; horn
+rel: street corner; directions
+sg: roh, rohu, rohu, roh, rohu, rohu, rohem
+pl: rohy, rohů, rohům, rohy, rohy, rozích, rohy
+note: na rohu = on the corner.
+
+@ moře
+pos: noun n
+en: sea
+rel: beach; holiday; water
+sg: moře, moře, moři, moře, moře, moři, mořem
+pl: moře, moří, mořím, moře, moře, mořích, moři
+note: Jedu k moři. = I'm going to the seaside.
+
+@ obloha
+pos: noun f
+en: sky
+rel: blue; clouds; weather
+sg: obloha, oblohy, obloze, oblohu, obloho, obloze, oblohou
+
+@ tráva
+pos: noun f
+en: grass
+rel: green; park; garden
+sg: tráva, trávy, trávě, trávu, trávo, trávě, trávou
+
+@ květina
+pos: noun f
+en: flower
+rel: garden; spring; plant
+sg: květina, květiny, květině, květinu, květino, květině, květinou
+pl: květiny, květin, květinám, květiny, květiny, květinách, květinami
+
+@ stupeň
+pos: noun m-inan
+en: degree (temperature); level
+rel: temperature; weather; °C
+sg: stupeň, stupně, stupni, stupeň, stupni, stupni, stupněm
+pl: stupně, stupňů, stupňům, stupně, stupně, stupních, stupni
+note: dvacet stupňů = twenty degrees.
+
+@ celý
+pos: adj
+en: whole; all; entire
+rel: all day; complete
+
+@ šťastný
+pos: adj
+en: happy; lucky
+rel: glad; joy
+cmp: šťastnější
+note: Šťastný nový rok! = Happy New Year!
+
+@ hodně
+pos: adv
+en: a lot; much; many
+rel: many; much; lots
+
+@ docela
+pos: adv
+en: quite; fairly
+rel: rather; pretty
+
+@ zatím
+pos: adv
+en: so far; for now; meanwhile
+rel: yet; still; until then
+note: Tak zatím! = Bye for now!
+
+@ přes
+pos: prep
+en: across; through; over
+rel: through; via
+case: + 4 (přes most, přes město)
+
+@ bavit
+pos: verb impf
+en: to entertain; to amuse
+rel: fun; enjoy; like
+pres: bavím, bavíš, baví, bavíme, bavíte, baví
+past: bavil
+note: Vaření mě baví. = I enjoy cooking. (literally: cooking entertains me)
+
+@ kvést
+pos: verb impf
+en: to bloom; to flower
+rel: flowers; spring
+pres: kvetu, kveteš, kvete, kveteme, kvetete, kvetou
+past: kvetl
+
+@ téct
+pos: verb impf
+en: to flow; to run (water); to leak
+rel: river; water
+pres: teču, tečeš, teče, tečeme, tečete, tečou
+past: tekl
+note: Řeka teče přes město. = The river flows through the town.
+
+@ padat
+pos: verb impf
+en: to fall
+rel: rain; snow; drop
+pres: padám, padáš, padá, padáme, padáte, padají
+past: padal
+imp: padej, padejte
+note: Padá sníh. = Snow is falling.
+
+@ zvonit
+pos: verb impf
+en: to ring
+rel: phone; alarm; bell
+pres: zvoním, zvoníš, zvoní, zvoníme, zvoníte, zvoní
+past: zvonil
+imp: zvoň, zvoňte
+
+@ navštěvovat
+pos: verb impf
+en: to visit
+rel: visit; see; go to
+pres: navštěvuju/navštěvuji, navštěvuješ, navštěvuje, navštěvujeme, navštěvujete, navštěvujou/navštěvují
+past: navštěvoval
+imp: navštěvuj, navštěvujte
+
+@ projít
+pos: verb pf
+en: to go through; to pass
+rel: pass; walk through
+pres: projdu, projdeš, projde, projdeme, projdete, projdou
+past: prošel, prošla, prošlo, prošli, prošly
+imp: projdi, projděte
+
+@ vítat
+pos: verb impf
+en: to welcome
+rel: welcome; greet
+pres: vítám, vítáš, vítá, vítáme, vítáte, vítají
+past: vítal
+imp: vítej, vítejte
+note: Vítejte! = Welcome!

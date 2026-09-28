@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../widgets/common/dictionary_button.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -266,6 +267,18 @@ class _CurriculumScreenState extends ConsumerState<CurriculumScreen> {
                                   mapView: mapView,
                                   onChanged: _changeMapView,
                                 ),
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            // Laid out at the toggle's height: the 44pt hit
+                            // region overhangs it rather than making the
+                            // pinned header, and so the viewport, shorter.
+                            const SizedBox(
+                              width: 44,
+                              height: 36,
+                              child: OverflowBox(
+                                maxHeight: 44,
+                                child: DictionaryButton(compact: true),
                               ),
                             ),
                           ],

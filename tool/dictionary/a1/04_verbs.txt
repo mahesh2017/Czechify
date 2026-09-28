@@ -1,0 +1,970 @@
+# A1 dictionary — verbs.
+# pres: já, ty, on/ona/ono, my, vy, oni. Where two forms are both used,
+# the everyday one comes first (piju/piji). For a perfective verb (pf) the
+# present-tense forms mean the future: zaplatím = I will pay.
+
+@ být
+pos: verb impf
+en: to be
+rel: am; is; are; exist
+pres: jsem, jsi, je, jsme, jste, jsou
+past: byl
+imp: buď, buďte
+fut: budu, budeš, bude, budeme, budete, budou
+neg: nejsem, nejsi, není, nejsme, nejste, nejsou, nebyl, nebyla, nebylo, nebyli, nebyly, nebuď, nebuďte, nebudu, nebudeš, nebude, nebudeme, nebudete, nebudou
+note: Irregular. Není = is not.
+
+@ mít
+pos: verb impf
+en: to have
+rel: own; got; possess
+pres: mám, máš, má, máme, máte, mají
+past: měl
+imp: měj, mějte
+note: Mít rád = to like: Mám rád kávu.
+
+@ dělat
+pos: verb impf
+en: to do; to make
+rel: work; activity; make
+pres: dělám, děláš, dělá, děláme, děláte, dělají
+past: dělal
+imp: dělej, dělejte
+pair: udělat
+
+@ mluvit
+pos: verb impf
+en: to speak; to talk
+rel: say; language; conversation
+pres: mluvím, mluvíš, mluví, mluvíme, mluvíte, mluví
+past: mluvil
+imp: mluv, mluvte
+
+@ prosit
+pos: verb impf
+en: to ask for; to beg
+rel: please; request
+pres: prosím, prosíš, prosí, prosíme, prosíte, prosí
+past: prosil
+imp: pros, proste
+see: prosím
+
+@ rozumět
+pos: verb impf
+en: to understand
+rel: know; comprehend
+pres: rozumím, rozumíš, rozumí, rozumíme, rozumíte, rozumějí/rozumí
+past: rozuměl
+imp: rozuměj, rozumějte
+
+@ znát
+pos: verb impf
+en: to know (a person or place)
+rel: be familiar with; meet
+pres: znám, znáš, zná, známe, znáte, znají
+past: znal
+imp: znej, znejte
+see: vědět
+
+@ vědět
+pos: verb impf
+en: to know (a fact)
+ex: Víte, kde je pošta? = Do you know where the post office is?
+rel: know; information
+pres: vím, víš, ví, víme, víte, vědí
+past: věděl
+imp: věz, vězte
+note: Nevím. = I don't know.
+see: znát
+
+@ čekat
+pos: verb impf
+en: to wait
+rel: wait for; expect
+pres: čekám, čekáš, čeká, čekáme, čekáte, čekají
+past: čekal
+imp: čekej, čekejte
+pair: počkat
+note: čekat na + 4: Čekám na autobus.
+
+@ počkat
+pos: verb pf
+en: to wait (a moment)
+rel: wait; hold on
+pres: počkám, počkáš, počká, počkáme, počkáte, počkají
+past: počkal
+imp: počkej, počkejte
+pair: čekat
+
+@ číst
+pos: verb impf
+en: to read
+rel: book; reading; newspaper
+pres: čtu, čteš, čte, čteme, čtete, čtou
+past: četl
+imp: čti, čtěte
+pair: přečíst
+
+@ psát
+pos: verb impf
+en: to write
+rel: letter; message; pen
+pres: píšu/píši, píšeš, píše, píšeme, píšete, píšou/píší
+past: psal
+imp: piš, pište
+pair: napsat
+
+@ napsat
+pos: verb pf
+en: to write (down); to finish writing
+rel: write; message
+pres: napíšu/napíši, napíšeš, napíše, napíšeme, napíšete, napíšou/napíší
+past: napsal
+imp: napiš, napište
+pair: psát
+
+@ popsat
+pos: verb pf
+en: to describe
+rel: tell; picture
+pres: popíšu/popíši, popíšeš, popíše, popíšeme, popíšete, popíšou/popíší
+past: popsal
+imp: popiš, popište
+pair: popisovat
+
+@ popisovat
+pos: verb impf
+en: to describe
+ex: Popisuje obrázek. = He is describing a picture.
+rel: tell; picture
+pres: popisuju/popisuji, popisuješ, popisuje, popisujeme, popisujete, popisujou/popisují
+past: popisoval
+imp: popisuj, popisujte
+pair: popsat
+
+@ hrát
+pos: verb impf
+en: to play
+rel: game; sport; music; instrument
+pres: hraju/hraji, hraješ, hraje, hrajeme, hrajete, hrajou/hrají
+past: hrál
+imp: hraj, hrajte
+note: hrát na + 4 for music: Hraju na kytaru. hrát + 4 for games: Hraju tenis.
+
+@ bydlet
+pos: verb impf
+en: to live (somewhere)
+rel: stay; home; address
+pres: bydlím, bydlíš, bydlí, bydlíme, bydlíte, bydlí
+past: bydlel
+imp: bydli, bydlete
+note: Bydlím v Praze. = I live in Prague.
+
+@ učit
+pos: verb impf
+en: to teach
+rel: teacher; lesson; school
+pres: učím, učíš, učí, učíme, učíte, učí
+past: učil
+imp: uč, učte
+see: učit se
+
+@ učit se
+pos: verb impf
+en: to learn; to study
+rel: study; lesson; practise
+pres: učím, učíš, učí, učíme, učíte, učí
+past: učil
+imp: uč, učte
+see: učit
+
+@ studovat
+pos: verb impf
+en: to study (at school or university)
+rel: learn; university; student
+pres: studuju/studuji, studuješ, studuje, studujeme, studujete, studujou/studují
+past: studoval
+imp: studuj, studujte
+
+@ pracovat
+pos: verb impf
+en: to work
+rel: job; office; employed
+pres: pracuju/pracuji, pracuješ, pracuje, pracujeme, pracujete, pracujou/pracují
+past: pracoval
+imp: pracuj, pracujte
+note: Pracuju jako učitel. = I work as a teacher.
+
+@ vidět
+pos: verb impf
+en: to see
+rel: look; watch; notice
+pres: vidím, vidíš, vidí, vidíme, vidíte, vidí
+past: viděl
+pair: uvidět
+
+@ uvidět
+pos: verb pf
+en: to see (and catch sight of)
+rel: see; meet
+pres: uvidím, uvidíš, uvidí, uvidíme, uvidíte, uvidí
+past: uviděl
+pair: vidět
+note: Uvidíme se! = See you!
+
+@ jíst
+pos: verb impf
+en: to eat
+rel: food; meal; lunch
+pres: jím, jíš, jí, jíme, jíte, jedí
+past: jedl
+imp: jez, jezte
+pair: sníst
+
+@ pít
+pos: verb impf
+en: to drink
+rel: drink; coffee; water; beverage
+pres: piju/piji, piješ, pije, pijeme, pijete, pijou/pijí
+past: pil
+imp: pij, pijte
+pair: vypít
+
+@ vařit
+pos: verb impf
+en: to cook; to boil
+rel: cooking; kitchen; food
+pres: vařím, vaříš, vaří, vaříme, vaříte, vaří
+past: vařil
+imp: vař, vařte
+pair: uvařit
+
+@ snídat
+pos: verb impf
+en: to have breakfast
+rel: breakfast; morning
+pres: snídám, snídáš, snídá, snídáme, snídáte, snídají
+past: snídal
+imp: snídej, snídejte
+
+@ obědvat
+pos: verb impf
+en: to have lunch
+rel: lunch; midday
+pres: obědvám, obědváš, obědvá, obědváme, obědváte, obědvají
+past: obědval
+imp: obědvej, obědvejte
+
+@ večeřet
+pos: verb impf
+en: to have dinner
+rel: dinner; evening
+pres: večeřím, večeříš, večeří, večeříme, večeříte, večeří
+past: večeřel
+imp: večeř, večeřte
+
+@ vstávat
+pos: verb impf
+en: to get up
+rel: wake up; morning; alarm
+pres: vstávám, vstáváš, vstává, vstáváme, vstáváte, vstávají
+past: vstával
+imp: vstávej, vstávejte
+pair: vstát
+
+@ mýt se
+pos: verb impf
+en: to wash (yourself)
+rel: wash; bathroom; clean
+pres: myju/myji, myješ, myje, myjeme, myjete, myjou/myjí
+past: myl
+imp: myj, myjte
+pair: umýt se
+
+@ umývat se
+pos: verb impf
+en: to wash (yourself)
+rel: wash; bathroom; clean
+pres: umývám, umýváš, umývá, umýváme, umýváte, umývají
+past: umýval
+imp: umývej, umývejte
+
+@ sprchovat se
+pos: verb impf
+en: to shower; to have a shower
+rel: shower; bathroom; wash
+pres: sprchuju/sprchuji, sprchuješ, sprchuje, sprchujeme, sprchujete, sprchujou/sprchují
+past: sprchoval
+imp: sprchuj, sprchujte
+
+@ oblékat se
+pos: verb impf
+en: to get dressed
+rel: clothes; dress; morning
+pres: oblékám, oblékáš, obléká, oblékáme, oblékáte, oblékají
+past: oblékal
+imp: oblékej, oblékejte
+pair: obléct se
+
+@ holit se
+pos: verb impf
+en: to shave
+rel: beard; bathroom; morning
+pres: holím, holíš, holí, holíme, holíte, holí
+past: holil
+imp: hol, holte
+
+@ česat se
+pos: verb impf
+en: to comb your hair
+rel: hair; comb; mirror
+pres: češu/češi, češeš, češe, češeme, češete, češou/češí
+past: česal
+imp: češ, češte
+
+@ čistit
+pos: verb impf
+en: to clean; to brush
+rel: clean; teeth; wash
+pres: čistím, čistíš, čistí, čistíme, čistíte, čistí
+past: čistil
+imp: čisti, čistěte
+note: Čistím si zuby. = I brush my teeth.
+
+@ odpočívat
+pos: verb impf
+en: to rest; to relax
+rel: relax; free time; sleep
+pres: odpočívám, odpočíváš, odpočívá, odpočíváme, odpočíváte, odpočívají
+past: odpočíval
+imp: odpočívej, odpočívejte
+
+@ dívat se
+pos: verb impf
+en: to watch; to look
+rel: see; TV; film
+pres: dívám, díváš, dívá, díváme, díváte, dívají
+past: díval
+imp: dívej, dívejte
+pair: podívat se
+note: dívat se na + 4: Dívám se na film.
+
+@ poslouchat
+pos: verb impf
+en: to listen (to)
+rel: hear; music; radio
+pres: poslouchám, posloucháš, poslouchá, posloucháme, posloucháte, poslouchají
+past: poslouchal
+imp: poslouchej, poslouchejte
+
+@ spát
+pos: verb impf
+en: to sleep
+rel: bed; night; tired
+pres: spím, spíš, spí, spíme, spíte, spí
+past: spal
+imp: spi, spěte
+
+@ jít
+pos: verb impf
+en: to go (on foot); to walk
+rel: walk; go; leave
+pres: jdu, jdeš, jde, jdeme, jdete, jdou
+past: šel, šla, šlo, šli, šly
+imp: jdi, pojďme, jděte
+fut: půjdu, půjdeš, půjde, půjdeme, půjdete, půjdou
+forms: pojď, pojďte
+note: Going somewhere by vehicle is jet.
+see: jet, chodit
+
+@ jet
+pos: verb impf
+en: to go (by vehicle); to ride; to drive
+rel: travel; bus; train; drive
+pres: jedu, jedeš, jede, jedeme, jedete, jedou
+past: jel
+imp: jeď, jeďte
+fut: pojedu, pojedeš, pojede, pojedeme, pojedete, pojedou
+see: jít, jezdit
+
+@ chodit
+pos: verb impf
+en: to go (regularly, on foot); to walk
+rel: go; walk; often
+pres: chodím, chodíš, chodí, chodíme, chodíte, chodí
+past: chodil
+imp: choď, choďte
+note: For something you do often: Chodím do parku.
+see: jít
+
+@ jezdit
+pos: verb impf
+en: to go (regularly, by vehicle); to ride
+rel: travel; drive; bike
+pres: jezdím, jezdíš, jezdí, jezdíme, jezdíte, jezdí
+past: jezdil
+imp: jezdi, jezděte
+note: Jezdím na kole. = I ride a bike.
+see: jet
+
+@ přijít
+pos: verb pf
+en: to come; to arrive (on foot)
+rel: come; arrive; visit
+pres: přijdu, přijdeš, přijde, přijdeme, přijdete, přijdou
+past: přišel, přišla, přišlo, přišli, přišly
+imp: přijď, přijďte
+note: Nepřijdu. = I won't come.
+
+@ sejít se
+pos: verb pf
+en: to meet (up)
+rel: meet; appointment; get together
+pres: sejdu, sejdeš, sejde, sejdeme, sejdete, sejdou
+past: sešel, sešla, sešlo, sešli, sešly
+imp: sejdi, sejděte
+note: Sejdeme se v pět. = Let's meet at five.
+
+@ potkat
+pos: verb pf
+en: to meet (someone, by chance)
+ex: Potkám tě v parku. = I will meet you in the park.
+rel: meet; see; bump into
+pres: potkám, potkáš, potká, potkáme, potkáte, potkají
+past: potkal
+imp: potkej, potkejte
+
+@ zahnout
+pos: verb pf
+en: to turn
+rel: left; right; corner; directions
+pres: zahnu, zahneš, zahne, zahneme, zahnete, zahnou
+past: zahnul
+imp: zahni, zahněte
+note: Zahněte doleva. = Turn left.
+
+@ stát
+pos: verb impf
+en: to cost; to stand
+rel: price; how much; stand
+pres: stojím, stojíš, stojí, stojíme, stojíte, stojí
+past: stál
+imp: stůj, stůjte
+note: Kolik to stojí? = How much is it?
+
+@ kupovat
+pos: verb impf
+en: to buy (regularly)
+rel: shop; shopping; pay
+pres: kupuju/kupuji, kupuješ, kupuje, kupujeme, kupujete, kupujou/kupují
+past: kupoval
+imp: kupuj, kupujte
+pair: koupit
+
+@ koupit
+pos: verb pf
+en: to buy
+rel: shop; shopping; pay
+pres: koupím, koupíš, koupí, koupíme, koupíte, koupí
+past: koupil
+imp: kup, kupte
+pair: kupovat
+
+@ platit
+pos: verb impf
+en: to pay; to be valid
+rel: money; card; cash; agreed
+pres: platím, platíš, platí, platíme, platíte, platí
+past: platil
+imp: plať, plaťte
+pair: zaplatit
+note: Platí! = Agreed! / Deal!
+
+@ zaplatit
+pos: verb pf
+en: to pay
+rel: money; bill; card
+pres: zaplatím, zaplatíš, zaplatí, zaplatíme, zaplatíte, zaplatí
+past: zaplatil
+imp: zaplať, zaplaťte
+pair: platit
+
+@ prodávat
+pos: verb impf
+en: to sell
+rel: shop; market; seller
+pres: prodávám, prodáváš, prodává, prodáváme, prodáváte, prodávají
+past: prodával
+imp: prodávej, prodávejte
+pair: prodat
+
+@ chtít
+pos: verb impf
+en: to want
+rel: wish; would like; need
+pres: chci, chceš, chce, chceme, chcete, chtějí
+past: chtěl
+imp: chtěj, chtějte
+
+@ potřebovat
+pos: verb impf
+en: to need
+rel: want; must; require
+pres: potřebuju/potřebuji, potřebuješ, potřebuje, potřebujeme, potřebujete, potřebujou/potřebují
+past: potřeboval
+
+@ moct
+pos: verb impf
+en: can; to be able to
+rel: may; possible; ability
+pres: můžu/mohu, můžeš, může, můžeme, můžete, můžou/mohou
+past: mohl
+note: Můžete mi pomoct? = Can you help me?
+
+@ muset
+pos: verb impf
+en: must; to have to
+rel: need; should; obligation
+pres: musím, musíš, musí, musíme, musíte, musí/musejí
+past: musel
+
+@ pomoct
+pos: verb pf
+en: to help
+rel: help; assist; support
+pres: pomůžu/pomohu, pomůžeš, pomůže, pomůžeme, pomůžete, pomůžou/pomohou
+past: pomohl
+imp: pomoz, pomozte
+forms: pomoci
+note: Also written pomoci.
+
+@ hledat
+pos: verb impf
+en: to look for; to search
+rel: find; search; seek
+pres: hledám, hledáš, hledá, hledáme, hledáte, hledají
+past: hledal
+imp: hledej, hledejte
+pair: najít
+
+@ najít
+pos: verb pf
+en: to find
+ex: Nemůžu najít klíč. = I can't find the key.
+rel: search; look for; discover
+pres: najdu, najdeš, najde, najdeme, najdete, najdou
+past: našel, našla, našlo, našli, našly
+imp: najdi, najděte
+pair: hledat
+
+@ zkoušet
+pos: verb impf
+en: to try; to test
+ex: Zkouším novou bundu. = I am trying on a new jacket.
+rel: try on; exam; attempt
+pres: zkouším, zkoušíš, zkouší, zkoušíme, zkoušíte, zkoušejí/zkouší
+past: zkoušel
+imp: zkoušej, zkoušejte
+pair: vyzkoušet
+
+@ vyzkoušet
+pos: verb pf
+en: to try (out); to try on
+rel: test; clothes; attempt
+pres: vyzkouším, vyzkoušíš, vyzkouší, vyzkoušíme, vyzkoušíte, vyzkoušejí/vyzkouší
+past: vyzkoušel
+imp: vyzkoušej, vyzkoušejte
+pair: zkoušet
+note: Můžu si to vyzkoušet? = Can I try it on?
+
+@ dát
+pos: verb pf
+en: to give; to put
+rel: give; hand; put
+pres: dám, dáš, dá, dáme, dáte, dají
+past: dal
+imp: dej, dejte
+pair: dávat
+note: dát si = to have (food or drink): Dám si kávu. = I'll have a coffee.
+
+@ dávat
+pos: verb impf
+en: to give; to put
+ex: Dáváš si cukr do kávy? = Do you take sugar in your coffee?
+rel: give; hand
+pres: dávám, dáváš, dává, dáváme, dáváte, dávají
+past: dával
+imp: dávej, dávejte
+pair: dát
+
+@ vzít
+pos: verb pf
+en: to take
+rel: take; pick; buy
+pres: vezmu, vezmeš, vezme, vezmeme, vezmete, vezmou
+past: vzal
+imp: vezmi, vezměte
+note: Vezmu si ho. = I'll take it.
+
+@ objednat
+pos: verb pf
+en: to order
+ex: Chci si objednat polévku. = I want to order soup.
+rel: restaurant; shop; book
+pres: objednám, objednáš, objedná, objednáme, objednáte, objednají
+past: objednal
+imp: objednej, objednejte
+
+@ sportovat
+pos: verb impf
+en: to do sport
+rel: exercise; gym; train
+pres: sportuju/sportuji, sportuješ, sportuje, sportujeme, sportujete, sportujou/sportují
+past: sportoval
+imp: sportuj, sportujte
+
+@ plavat
+pos: verb impf
+en: to swim
+rel: pool; water; sport
+pres: plavu, plaveš, plave, plaveme, plavete, plavou
+past: plaval
+imp: plav, plavte
+
+@ běhat
+pos: verb impf
+en: to run; to jog
+rel: running; sport; park
+pres: běhám, běháš, běhá, běháme, běháte, běhají
+past: běhal
+imp: běhej, běhejte
+
+@ zpívat
+pos: verb impf
+en: to sing
+rel: song; music; voice
+pres: zpívám, zpíváš, zpívá, zpíváme, zpíváte, zpívají
+past: zpíval
+imp: zpívej, zpívejte
+
+@ tancovat
+pos: verb impf
+en: to dance
+rel: dancing; music; party
+pres: tancuju/tancuji, tancuješ, tancuje, tancujeme, tancujete, tancujou/tancují
+past: tancoval
+imp: tancuj, tancujte
+
+@ cestovat
+pos: verb impf
+en: to travel
+rel: trip; journey; holiday
+pres: cestuju/cestuji, cestuješ, cestuje, cestujeme, cestujete, cestujou/cestují
+past: cestoval
+imp: cestuj, cestujte
+
+@ kouřit
+pos: verb impf
+en: to smoke
+rel: cigarette; smoking
+pres: kouřím, kouříš, kouří, kouříme, kouříte, kouří
+past: kouřil
+imp: kuř, kuřte
+
+@ líbit se
+pos: verb impf
+en: to be liked; to please
+rel: like; enjoy; nice
+pres: líbím, líbíš, líbí, líbíme, líbíte, líbí
+past: líbil
+note: To se mi líbí. = I like that. (literally: that pleases me)
+
+@ těšit se
+pos: verb impf
+en: to look forward (to)
+rel: excited; can't wait
+pres: těším, těšíš, těší, těšíme, těšíte, těší
+past: těšil
+note: Těším se na tebe. = I'm looking forward to seeing you. Těší mě. = Nice to meet you.
+
+@ jmenovat se
+pos: verb impf
+en: to be called; to be named
+rel: name; my name is
+pres: jmenuju/jmenuji, jmenuješ, jmenuje, jmenujeme, jmenujete, jmenujou/jmenují
+past: jmenoval
+note: Jmenuju se Anna. = My name is Anna.
+
+@ znamenat
+pos: verb impf
+en: to mean
+rel: meaning; translate
+pres: znamenám, znamenáš, znamená, znamenáme, znamenáte, znamenají
+past: znamenal
+note: Co to znamená? = What does it mean?
+
+@ znít
+pos: verb impf
+en: to sound
+ex: To zní dobře. = That sounds good.
+rel: sound; hear; voice
+pres: zním, zníš, zní, zníme, zníte, zní
+past: zněl
+
+@ pršet
+pos: verb impf
+en: to rain
+rel: rain; weather; umbrella
+table: Forms |
+row: now (it is raining) | prší
+row: yesterday (it rained) | pršelo
+row: tomorrow (it will rain) | bude pršet
+key: now = prší
+key: yesterday = pršelo
+forms: neprší, nepršelo
+
+@ sněžit
+pos: verb impf
+en: to snow
+rel: snow; winter; weather
+table: Forms |
+row: now (it is snowing) | sněží
+row: yesterday (it snowed) | sněžilo
+row: tomorrow (it will snow) | bude sněžit
+key: now = sněží
+key: yesterday = sněžilo
+forms: nesněží, nesněžilo
+
+@ foukat
+pos: verb impf
+en: to blow
+rel: wind; windy; weather
+pres: foukám, foukáš, fouká, foukáme, foukáte, foukají
+past: foukal
+imp: foukej, foukejte
+note: Fouká vítr. = It is windy.
+
+@ svítit
+pos: verb impf
+en: to shine
+rel: sun; light; lamp
+pres: svítím, svítíš, svítí, svítíme, svítíte, svítí
+past: svítil
+imp: sviť, sviťte
+note: Svítí slunce. = The sun is shining.
+
+@ bolet
+pos: verb impf
+en: to hurt; to ache
+ex: Bolí mě zub. = My tooth hurts.
+rel: pain; ill; doctor
+pres: bolím, bolíš, bolí, bolíme, bolíte, bolí
+past: bolel
+note: Bolí mě hlava. = I have a headache.
+
+@ začínat
+pos: verb impf
+en: to begin; to start
+rel: start; beginning; open
+pres: začínám, začínáš, začíná, začínáme, začínáte, začínají
+past: začínal
+
+@ končit
+pos: verb impf
+en: to end; to finish
+ex: Práce končí v pět. = Work ends at five.
+rel: finish; close; stop
+pres: končím, končíš, končí, končíme, končíte, končí
+past: končil
+imp: konči, končete
+
+@ dokončit
+pos: verb pf
+en: to finish; to complete
+ex: Dokončete větu. = Finish the sentence.
+rel: finish; end; complete
+pres: dokončím, dokončíš, dokončí, dokončíme, dokončíte, dokončí
+past: dokončil
+imp: dokonči, dokončete
+
+@ odjíždět
+pos: verb impf
+en: to leave; to depart (by vehicle)
+rel: train; departure; go
+pres: odjíždím, odjíždíš, odjíždí, odjíždíme, odjíždíte, odjíždějí/odjíždí
+past: odjížděl
+note: Vlak odjíždí v devět. = The train leaves at nine.
+
+@ říct
+pos: verb pf
+en: to say; to tell
+ex: Můžete to říct pomalu? = Can you say it slowly?
+rel: speak; tell; say
+pres: řeknu, řekneš, řekne, řekneme, řeknete, řeknou
+past: řekl
+imp: řekni, řekněte
+pair: říkat
+
+@ říkat
+pos: verb impf
+en: to say; to tell
+ex: Co říkáš? = What are you saying?
+rel: speak; tell; call
+pres: říkám, říkáš, říká, říkáme, říkáte, říkají
+past: říkal
+imp: říkej, říkejte
+pair: říct
+
+@ ptát se
+pos: verb impf
+en: to ask (a question)
+ex: Ptám se učitele. = I am asking the teacher.
+rel: question; ask
+pres: ptám, ptáš, ptá, ptáme, ptáte, ptají
+past: ptal
+imp: ptej, ptejte
+pair: zeptat se
+
+@ zeptat se
+pos: verb pf
+en: to ask (a question)
+ex: Zeptám se na cenu. = I will ask about the price.
+rel: question; ask
+pres: zeptám, zeptáš, zeptá, zeptáme, zeptáte, zeptají
+past: zeptal
+imp: zeptej, zeptejte
+pair: ptát se
+
+@ odpovědět
+pos: verb pf
+en: to answer; to reply
+ex: Odpovězte na otázku. = Answer the question.
+rel: answer; reply; respond
+pres: odpovím, odpovíš, odpoví, odpovíme, odpovíte, odpovědí
+past: odpověděl
+imp: odpověz, odpovězte
+
+@ zopakovat
+pos: verb pf
+en: to repeat
+rel: again; say again
+pres: zopakuju/zopakuji, zopakuješ, zopakuje, zopakujeme, zopakujete, zopakujou/zopakují
+past: zopakoval
+imp: zopakuj, zopakujte
+note: Můžete to zopakovat? = Can you repeat that?
+
+@ volat
+pos: verb impf
+en: to call; to phone
+ex: Volám mámě. = I am calling my mum.
+rel: phone; call; ring
+pres: volám, voláš, volá, voláme, voláte, volají
+past: volal
+imp: volej, volejte
+
+@ vybrat
+pos: verb pf
+en: to choose; to pick
+ex: Vyberte jednu odpověď. = Choose one answer.
+rel: select; choose; decide
+pres: vyberu, vybereš, vybere, vybereme, vyberete, vyberou
+past: vybral
+imp: vyber, vyberte
+
+@ ukazovat
+pos: verb impf
+en: to show; to point
+ex: Ukazuje obrázek. = She is showing a picture.
+rel: show; point
+pres: ukazuju/ukazuji, ukazuješ, ukazuje, ukazujeme, ukazujete, ukazujou/ukazují
+past: ukazoval
+imp: ukazuj, ukazujte
+
+@ plánovat
+pos: verb impf
+en: to plan
+ex: Plánujeme dovolenou. = We are planning a holiday.
+rel: plan; organise
+pres: plánuju/plánuji, plánuješ, plánuje, plánujeme, plánujete, plánujou/plánují
+past: plánoval
+imp: plánuj, plánujte
+
+@ vyplnit
+pos: verb pf
+en: to fill in (a form)
+rel: form; write
+pres: vyplním, vyplníš, vyplní, vyplníme, vyplníte, vyplní
+past: vyplnil
+imp: vyplň, vyplňte
+pair: vyplňovat
+
+@ vyplňovat
+pos: verb impf
+en: to fill in (a form)
+ex: Vyplňuju formulář. = I am filling in a form.
+rel: form; write
+pres: vyplňuju/vyplňuji, vyplňuješ, vyplňuje, vyplňujeme, vyplňujete, vyplňujou/vyplňují
+past: vyplňoval
+imp: vyplňuj, vyplňujte
+pair: vyplnit
+
+@ zachytit
+pos: verb pf
+en: to catch; to note down
+rel: catch; understand; note
+pres: zachytím, zachytíš, zachytí, zachytíme, zachytíte, zachytí
+past: zachytil
+imp: zachyť, zachyťte
+
+@ narodit se
+pos: verb pf
+en: to be born
+rel: birth; born; birthday
+pres: narodím, narodíš, narodí, narodíme, narodíte, narodí
+past: narodil
+note: Narodila jsem se v Polsku. = I was born in Poland.
+
+@ pozdravit
+pos: verb pf
+en: to greet; to say hello
+rel: greeting; hello
+pres: pozdravím, pozdravíš, pozdraví, pozdravíme, pozdravíte, pozdraví
+past: pozdravil
+imp: pozdrav, pozdravte
+
+@ představit se
+pos: verb pf
+en: to introduce yourself
+ex: Představte se, prosím. = Introduce yourself, please.
+rel: introduce; name; meet
+pres: představím, představíš, představí, představíme, představíte, představí
+past: představil
+imp: představ, představte
+
+@ domluvit se
+pos: verb pf
+en: to agree; to arrange; to make yourself understood
+ex: Domluvím se česky. = I can make myself understood in Czech.
+rel: arrange; agree; communicate
+pres: domluvím, domluvíš, domluví, domluvíme, domluvíte, domluví
+past: domluvil
+imp: domluv, domluvte
+
+@ položit
+pos: verb pf
+en: to put (down); to lay
+ex: Položte otázku. = Ask a question.
+rel: put; place; ask a question
+pres: položím, položíš, položí, položíme, položíte, položí
+past: položil
+imp: polož, položte
+note: položit otázku = to ask a question.
+
+@ požádat
+pos: verb pf
+en: to ask (for); to request
+ex: Požádám o účet. = I will ask for the bill.
+rel: ask; request; please
+pres: požádám, požádáš, požádá, požádáme, požádáte, požádají
+past: požádal
+imp: požádej, požádejte

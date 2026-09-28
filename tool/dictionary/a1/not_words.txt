@@ -1,0 +1,63 @@
+# Forms the A1 lessons contain that are not Czech words of the level.
+# The build fails on any other lesson form no dictionary word produces, so a
+# word added to a lesson must be added to the dictionary or listed here.
+
+# names of people and places used as adjectives (Karlův most)
+antonín dvořák karlův václavské
+adam alex amir anna daniel david eva evo evu hana jana jano janě klára
+kowalski lee lena lenka leo lucie luna mahesh marek mark marta martin matěj
+mila nina novák nováka novákovi nováková nováku olena omar pavel petr petra
+petro petrův petře sara sofia tomáš
+
+# letter names, sounds and syllables from the pronunciation lessons
+w ť
+aj ají b bé c ce ch chá cé d dyeti dé dě e ef el em en er es et eň eř eš gé ha
+há ije iks j jab jé kvé ká l lko ll ly m mnye měs n náct ovat p pra pé r ra
+res st t tau te ts uju va vé y zet á ám é í ím ó ú ý č čt čé ďé ě ět ř ře š
+ško ťé ů ž žet
+
+# English (from fields that mix both languages)
+about action add adds adjective adjectives after afternoon agreed ahead all
+already also always am amount an and animal animals another answer any apple
+are as ask asks at autumn back backpack bag be beat becomes beer before
+beginning being belt better bicycle big bigger bike bill black blowing blue
+book born bottle bread breakfast bridge brother brush brushing but buy café
+cake can car card carry chair change changes cheap cheaper cheese chicken
+child children choose chunk cinema clock close coffee cold colleague colours
+come coming comma common compare computer concert concerts consonant contrast
+cooking copy cost costs counting country crowns czech czk dad dance day
+dictionary difference different directions does dog doing don doubt dressed
+drink dye each early eat either eleven end ending endings english evening
+every everyday excuse exercise expensive explains family far father feels
+female feminine few first fish five flat followed foot for form formal forms
+forty forward four free frequency friday friend friends from front future game
+get getting gives go goes going good goodbye group groups has have he hello
+help her here hers hi him his hobbies hold holiday home hook hot house how
+hundred hundreds hungry ill in india information instructions instrument
+irregular is isn it its jobs join ka keep key kind kinds know languages laptop
+larger late later learn learners leaves left lemonade length letter like likes
+link listen little live lives living loch long longer look looking make makes
+man many masculine match matches matters may me meaning meanings means measure
+meat medicine meet mine months more morning mother mr much mum music must
+myself name names near need needs neuter never new next nice night nine no not
+nothing noun nouns now number numbers object of office often older one ones
+only opposite or order ordering other others our out over own owner pairs
+partner parts passport past pay people person persons phone phrase phrases
+picture place platform please plural plurals poland pool possessives post
+prague preceding preposition preview price pronounced put quality question
+questions raining rains raise read reading receptionist red repair repetition
+rest rice ride right ring river roles rolled run same saturday say says school
+scottish season seasons second see seeing sentence sentences seven sh shall
+she shining shirt shoes short show shower shows sister six size sizes sleep
+slower small smaller snows so soft softens some someone something sometimes
+son sorry sound sounds soup speak speech spelling spring start station stay
+stays steps stop straight stranger strangers studies study subject suitcase
+summer sun surnames surprise sweater swim syllable system take takes tea
+teacher teeth telephone temperature tens thank that the their them then these
+they thing things thirsty thirty this three thursday ticket time today
+together tomorrow too train tram trousers try tuesday turn twelve twenty twice
+two ukraine unavailable understand unit until up use usually vehicle verb
+verbs very visitor voice vowel walk want warm was wash watch water we weather
+weekend well what when where which whole whose why will wind winter with woman
+women word words work workday would write yes you young your yours yourself
+zero

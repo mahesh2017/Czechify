@@ -4103,4 +4103,75 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get lessonVoiceFallback =>
       'Using your device\'s voice — the recorded Czech voice is unavailable right now.';
+
+  @override
+  String get dictionaryTitle => 'Dictionary';
+
+  @override
+  String get dictionaryOpen => 'Open the dictionary';
+
+  @override
+  String get dictionarySearchHint => 'Search in Czech or English';
+
+  @override
+  String dictionaryWordCount(int count, String level) {
+    return '$count words · $level';
+  }
+
+  @override
+  String dictionaryNoResults(String query) {
+    return 'Nothing found for “$query”.';
+  }
+
+  @override
+  String get dictionaryNoResultsHint =>
+      'Try another form of the word, the word without accents, or its English meaning.';
+
+  @override
+  String dictionaryFormOf(String form) {
+    return 'form: $form';
+  }
+
+  @override
+  String dictionaryUnit(int unit) {
+    return 'Unit $unit';
+  }
+
+  @override
+  String dictionaryTaughtIn(int unit) {
+    return 'You meet it in Unit $unit.';
+  }
+
+  @override
+  String dictionaryTaughtInLocked(int unit) {
+    return 'You meet it in Unit $unit, which you haven\'t reached yet.';
+  }
+
+  @override
+  String get dictionaryListen => 'Listen';
+
+  @override
+  String get dictionaryKeyForms => 'Forms';
+
+  @override
+  String get dictionaryShowAllForms => 'Show all forms';
+
+  @override
+  String get dictionaryHideAllForms => 'Hide all forms';
+
+  @override
+  String get dictionaryExamples => 'Examples';
+
+  @override
+  String get dictionarySeeAlso => 'See also';
+
+  @override
+  String get dictionaryUsedWith => 'Used with';
+
+  @override
+  String get dictionaryLoadFailed =>
+      'The dictionary could not be opened. Please try again.';
+
+  @override
+  String get dictionaryClearSearch => 'Clear search';
 }

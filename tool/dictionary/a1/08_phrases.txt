@@ -1,0 +1,211 @@
+# A1 dictionary — set phrases a learner uses as a whole.
+
+@ dobrý den
+pos: phrase
+en: hello; good day
+rel: greeting; hi; good afternoon; good morning
+note: The polite greeting for any time of day.
+
+@ dobré ráno
+pos: phrase
+en: good morning
+rel: greeting; morning
+
+@ dobrý večer
+pos: phrase
+en: good evening
+rel: greeting; evening
+
+@ dobrou noc
+pos: phrase
+en: good night
+rel: sleep; night; bye
+
+@ na shledanou
+pos: phrase
+en: goodbye
+rel: bye; see you; farewell
+forms: shledanou
+note: The polite goodbye. To friends: ahoj.
+
+@ těší mě
+pos: phrase
+en: nice to meet you
+rel: pleased to meet you; introduction
+see: těšit se
+
+@ jak se máš
+pos: phrase
+en: how are you? (to a friend)
+rel: how are you doing; greeting
+note: The polite form is Jak se máte?
+
+@ jak se máte
+pos: phrase
+en: how are you? (polite)
+rel: how are you doing; greeting
+note: To a friend: Jak se máš?
+
+@ mám se dobře
+pos: phrase
+en: I'm fine; I'm doing well
+ex: Díky, mám se dobře. = Thanks, I am fine.
+rel: fine; good; answer
+
+@ jmenuju se
+pos: phrase
+en: my name is
+rel: I am called; introduction; name
+forms: jmenuji se
+see: jmenovat se
+
+@ jak se jmenuješ
+pos: phrase
+en: what's your name? (to a friend)
+ex: Ahoj, jak se jmenuješ? = Hi, what is your name?
+rel: name; question; introduction
+note: The polite form is Jak se jmenujete?
+
+@ nerozumím
+pos: phrase
+en: I don't understand
+rel: understand; repeat; confused
+see: rozumět
+
+@ ještě jednou, prosím
+pos: phrase
+en: once more, please
+ex: Promiňte, ještě jednou, prosím. = Sorry, once more, please.
+rel: repeat; again; please
+
+@ jak se to píše
+pos: phrase
+en: how do you spell it?; how is it written?
+ex: Promiňte, jak se to píše? = Sorry, how do you spell it?
+rel: spelling; write
+
+@ co to znamená
+pos: phrase
+en: what does it mean?
+ex: Promiňte, co to znamená? = Excuse me, what does it mean?
+rel: meaning; translate; word
+
+@ můžete mi pomoct
+pos: phrase
+en: can you help me?
+rel: help; please; excuse me
+
+@ dám si
+pos: phrase
+en: I'll have (ordering food or drink)
+rel: order; restaurant; café; I would like
+note: Dám si kávu, prosím. = I'll have a coffee, please.
+see: dát
+
+@ účet, prosím
+pos: phrase
+en: the bill, please
+rel: pay; check; restaurant
+
+@ kolik to stojí
+pos: phrase
+en: how much is it?; how much does it cost?
+ex: Promiňte, kolik to stojí? = Excuse me, how much is it?
+rel: price; cost; shop
+
+@ kolik je hodin
+pos: phrase
+en: what time is it?
+ex: Promiňte, kolik je hodin? = Excuse me, what time is it?
+rel: time; clock; hour
+
+@ mít rád
+pos: phrase
+en: to like
+ex: Mám rád hudbu. = I like music.
+rel: love; enjoy; fond of
+note: Mám rád hudbu (a man). Mám ráda hudbu (a woman).
+see: rád
+
+@ mám hlad
+pos: phrase
+en: I'm hungry
+ex: Mám hlad, dám si polévku. = I am hungry, I will have soup.
+rel: hungry; eat; food
+
+@ mám žízeň
+pos: phrase
+en: I'm thirsty
+ex: Mám žízeň, dám si vodu. = I am thirsty, I will have water.
+rel: thirsty; drink
+
+@ je mi zima
+pos: phrase
+en: I'm cold
+ex: Je mi zima, dám si čaj. = I am cold, I will have tea.
+rel: cold; feel cold
+note: Je mi teplo. = I'm warm.
+
+@ to se mi líbí
+pos: phrase
+en: I like that
+ex: Ta bunda? To se mi líbí. = That jacket? I like it.
+rel: like; nice; enjoy
+see: líbit se
+
+@ jít spát
+pos: phrase
+en: to go to bed
+ex: Jdu spát v deset. = I go to bed at ten.
+rel: sleep; night; bed
+
+@ jezdit na kole
+pos: phrase
+en: to ride a bike; to cycle
+ex: Rád jezdím na kole. = I like riding a bike.
+rel: bicycle; cycling; sport
+
+@ v noci
+pos: phrase
+en: at night
+rel: night; late
+
+@ tak zatím
+pos: phrase
+en: bye for now; see you
+rel: goodbye; later
+
+@ uvidíme se
+pos: phrase
+en: see you
+rel: goodbye; later; meet
+see: uvidět
+
+@ mějte se hezky
+pos: phrase
+en: take care; have a nice day
+rel: goodbye; wish
+
+@ s dovolením
+pos: phrase
+en: excuse me (may I?)
+forms: dovolením
+rel: permission; polite; pass
+
+@ tady je
+pos: phrase
+en: here is; (on the phone) this is
+rel: phone; introduce; here
+
+@ na zdraví
+pos: phrase
+en: cheers!; bless you!
+ex: Tak na zdraví! = Cheers, then!
+rel: toast; drink; sneeze
+
+@ ztráty a nálezy
+pos: phrase
+en: lost and found; lost property
+ex: Kde jsou ztráty a nálezy? = Where is the lost property office?
+rel: lost; found; office
+forms: ztráty, nálezy, nalezené

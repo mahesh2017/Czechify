@@ -1,0 +1,590 @@
+# A1 dictionary — adverbs, prepositions, conjunctions and small words.
+
+# questions
+
+@ kde
+pos: adv
+en: where
+rel: place; location; question
+see: kam, odkud
+
+@ kam
+pos: adv
+en: where (to)
+rel: direction; go; question
+note: Kam jdeš? = Where are you going?
+see: kde
+
+@ odkud
+pos: adv
+en: where from
+rel: origin; from; question
+note: Odkud jsi? = Where are you from?
+see: kde
+
+@ kdy
+pos: adv
+en: when
+rel: time; question
+note: V kolik? = At what time?
+
+@ jak
+pos: adv
+en: how
+rel: way; question
+note: Jak se máš? = How are you?
+
+@ proč
+pos: adv
+en: why
+rel: reason; question; because
+
+# place and direction
+
+@ tady
+pos: adv
+en: here
+rel: this place; here it is
+forms: tu
+note: Tady je… = Here is…
+
+@ tam
+pos: adv
+en: there
+rel: that place; over there
+
+@ doma
+pos: adv
+en: at home
+rel: home; house
+note: Jsem doma. = I am at home.
+see: domů, dům
+
+@ domů
+pos: adv
+en: home (going home)
+ex: Jdu domů. = I am going home.
+rel: home; go home
+note: Jdu domů. = I am going home.
+see: doma, dům
+
+@ rovně
+pos: adv
+en: straight on; straight ahead
+rel: directions; forward
+note: Jděte rovně. = Go straight on.
+
+@ doleva
+pos: adv
+en: (to the) left
+rel: directions; turn left
+see: doprava
+
+@ doprava
+pos: adv
+en: (to the) right
+rel: directions; turn right
+see: doleva
+
+@ blízko
+pos: adv
+en: near; close (by)
+rel: nearby; not far
+cmp: blíž
+see: daleko
+
+@ daleko
+pos: adv
+en: far (away)
+rel: distance; not near
+cmp: dál
+see: blízko
+
+@ pěšky
+pos: adv
+en: on foot
+rel: walk; walking
+note: Jdu pěšky. = I walk.
+
+# time
+
+@ dnes
+pos: adv
+en: today
+rel: now; this day
+forms: dneska
+
+@ zítra
+pos: adv
+en: tomorrow
+rel: next day; future
+
+@ včera
+pos: adv
+en: yesterday
+rel: past; day before
+
+@ teď
+pos: adv
+en: now
+ex: Teď nemám čas. = I don't have time now.
+rel: at the moment; currently
+
+@ potom
+pos: adv
+en: then; afterwards; later
+rel: after; next
+forms: pak
+
+@ nejdřív
+pos: adv
+en: first; first of all
+rel: before; beginning
+
+@ nakonec
+pos: adv
+en: in the end; finally
+ex: Nakonec si dám čaj. = In the end I will have tea.
+rel: last; finish
+
+@ brzy
+pos: adv
+en: early; soon
+rel: morning; quickly
+
+@ pozdě
+pos: adv
+en: late
+rel: delay; evening
+
+@ dlouho
+pos: adv
+en: (for) a long time
+rel: long; time
+
+@ ještě
+pos: adv
+en: still; yet; more; another
+rel: again; also
+note: Ještě jednou, prosím. = Once more, please.
+
+@ jednou
+pos: adv
+en: once
+rel: one time; someday
+
+# how often
+
+@ vždycky
+pos: adv
+en: always
+rel: every time; often
+forms: vždy
+
+@ často
+pos: adv
+en: often
+rel: frequently; many times
+
+@ někdy
+pos: adv
+en: sometimes
+rel: occasionally; now and then
+
+@ nikdy
+pos: adv
+en: never
+rel: not ever
+note: Czech says ne- with the verb too: Nikdy nepiju pivo.
+
+# how, how much
+
+@ dobře
+pos: adv
+en: well; fine; OK
+rel: good; okay; right
+cmp: lépe/líp
+see: dobrý
+
+@ špatně
+pos: adv
+en: badly; wrong
+rel: bad; poorly
+cmp: hůř/hůře
+
+@ hezky
+pos: adv
+en: nicely; (weather) nice
+rel: nice; pleasant
+note: Je hezky. = The weather is nice.
+
+@ rychle
+pos: adv
+en: quickly; fast
+rel: fast; speed
+
+@ pomalu
+pos: adv
+en: slowly
+rel: slow; speed
+note: Prosím pomalu. = Slowly, please.
+
+@ trochu
+pos: adv
+en: a little; a bit
+rel: some; slightly
+
+@ moc
+pos: adv
+en: very; very much; too (much)
+rel: a lot; much
+note: To je moc drahé. = That is too expensive.
+
+@ velmi
+pos: adv
+en: very
+ex: Je to velmi drahé. = It is very expensive.
+rel: really; much
+
+@ příliš
+pos: adv
+en: too (much)
+ex: Je to příliš daleko. = It is too far.
+rel: very; over
+
+@ taky
+pos: adv
+en: also; too
+rel: as well
+forms: také
+
+@ samozřejmě
+pos: adv
+en: of course
+ex: Samozřejmě, rád pomůžu. = Of course, I am happy to help.
+rel: certainly; sure
+
+@ správně
+pos: adv
+en: correctly; right
+ex: To je správně. = That is right.
+rel: correct; true
+
+@ přirozeně
+pos: adv
+en: naturally
+ex: Mluví přirozeně. = He speaks naturally.
+rel: natural; normally
+cmp: přirozeněji
+forms: nejpřirozeněji
+
+@ formálně
+pos: adv
+en: formally
+ex: S učitelem mluvím formálně. = I speak to the teacher formally.
+rel: polite; formal
+
+# languages
+
+@ česky
+pos: adv
+en: (in) Czech
+rel: language; speak Czech
+note: Mluvím česky. = I speak Czech.
+see: čeština
+
+@ anglicky
+pos: adv
+en: (in) English
+rel: language; speak English
+
+@ německy
+pos: adv
+en: (in) German
+ex: Mluvíte německy? = Do you speak German?
+rel: language
+
+@ polsky
+pos: adv
+en: (in) Polish
+ex: Moje babička mluví polsky. = My grandmother speaks Polish.
+rel: language
+
+@ ukrajinsky
+pos: adv
+en: (in) Ukrainian
+ex: Mluvím ukrajinsky a trochu česky. = I speak Ukrainian and a little Czech.
+rel: language
+
+# weather (Je …)
+
+@ teplo
+pos: adv
+en: warm (weather)
+rel: warm; weather
+note: Je teplo. = It is warm.
+
+@ horko
+pos: adv
+en: hot (weather)
+rel: heat; summer
+note: Je horko. = It is hot.
+
+@ chladno
+pos: adv
+en: cool; chilly (weather)
+ex: Ráno je chladno. = It is chilly in the morning.
+rel: cold; weather
+
+@ oblačno
+pos: adv
+en: cloudy
+rel: clouds; weather
+
+@ slunečno
+pos: adv
+en: sunny
+ex: Dnes je slunečno. = It is sunny today.
+rel: sun; weather
+
+# prepositions
+
+@ v
+pos: prep
+en: in; at; on (days)
+rel: inside; within
+case: + 6 for a place (v Praze); + 4 for days (v pondělí)
+forms: ve
+
+@ na
+pos: prep
+en: on; at; to; for
+rel: onto; at
+case: + 6 for where (na poště); + 4 for where to (na poštu)
+
+@ do
+pos: prep
+en: to; into; until
+rel: into; till
+case: + 2 (do školy, do pěti)
+
+@ z
+pos: prep
+en: from; out of
+rel: origin; out
+case: + 2 (z Prahy)
+forms: ze
+
+@ s
+pos: prep
+en: with
+rel: together; and
+case: + 7 (s mlékem)
+forms: se
+
+@ u
+pos: prep
+en: at; by; near; at someone's
+rel: next to; near
+case: + 2 (u nádraží)
+
+@ od
+pos: prep
+en: from; since
+rel: away from
+case: + 2 (od pěti)
+
+@ k
+pos: prep
+en: to; towards
+rel: toward
+case: + 3 (k obědu)
+forms: ke
+
+@ o
+pos: prep
+en: about; at (the weekend)
+rel: about; concerning
+case: + 6 (o víkendu)
+
+@ po
+pos: prep
+en: after
+rel: later; past
+case: + 6 (po práci)
+
+@ pro
+pos: prep
+en: for
+ex: To je pro tebe. = That is for you.
+rel: for; on behalf of
+case: + 4 (pro tebe)
+
+@ před
+pos: prep
+en: in front of; before
+rel: earlier; ago
+case: + 7 (před školou)
+
+@ za
+pos: prep
+en: for; in (time from now); behind
+rel: after; behind
+case: + 4 (za týden = in a week); + 7 (za domem = behind the house)
+
+@ vedle
+pos: prep
+en: next to; beside
+rel: near; by
+case: + 2 (vedle banky)
+
+@ naproti
+pos: prep
+en: opposite; across from
+rel: facing; across
+case: + 3 (naproti parku)
+
+@ bez
+pos: prep
+en: without
+ex: Kávu bez cukru, prosím. = Coffee without sugar, please.
+rel: none
+case: + 2 (bez cukru)
+
+# conjunctions
+
+@ a
+pos: conj
+en: and
+rel: plus; also
+
+@ ale
+pos: conj
+en: but
+rel: however
+
+@ nebo
+pos: conj
+en: or
+rel: either
+
+@ protože
+pos: conj
+en: because
+ex: Nepřijdu, protože jsem nemocný. = I am not coming because I am ill.
+rel: reason; why
+
+@ proto
+pos: conj
+en: so; that's why
+ex: Mám hlad, proto jdu na oběd. = I am hungry, so I am going to lunch.
+rel: therefore
+
+@ tak
+pos: conj
+en: so; then
+rel: therefore; in that case
+
+@ i
+pos: conj
+en: and; also; even
+ex: Mluvím česky i anglicky. = I speak both Czech and English.
+rel: too; both
+
+@ jako
+pos: conj
+en: as; like
+rel: similar
+
+@ aby
+pos: conj
+en: so that; in order to
+forms: abych, abys, abychom, abyste
+ex: Učím se česky, abych rozuměl lidem. = I learn Czech so that I understand people.
+rel: purpose
+
+@ jestli
+pos: conj
+en: if; whether
+rel: question
+
+@ když
+pos: conj
+en: when; if
+ex: Když prší, jsem doma. = When it rains, I am at home.
+rel: time; condition
+
+@ by
+pos: part
+en: would
+rel: conditional; polite
+table: Forms |
+row: já | bych
+row: ty | bys
+row: on / ona | by
+row: my | bychom
+row: vy | byste
+row: oni | by
+note: Rád bych… = I would like…
+
+# yes, no, please, thanks
+
+@ ano
+pos: part
+en: yes
+rel: sure; OK
+forms: jo
+
+@ ne
+pos: part
+en: no; not
+rel: nope
+
+@ ahoj
+pos: interj
+en: hi; bye (informal)
+rel: hello; hey; goodbye
+note: For friends and family. With others say Dobrý den / Na shledanou.
+
+@ prosím
+pos: interj
+en: please; you're welcome; here you are; pardon?
+rel: please; welcome
+note: Kávu, prosím. = A coffee, please. Prosím? = Sorry? (I didn't hear)
+see: prosit
+
+@ děkuji
+pos: interj
+en: thank you
+rel: thanks
+forms: děkuju
+note: Děkuju is the everyday form.
+
+@ díky
+pos: interj
+en: thanks
+ex: Díky, to je moc hezké. = Thanks, that is very nice.
+rel: thank you; cheers
+
+@ promiňte
+pos: interj
+en: excuse me; sorry (polite)
+rel: sorry; pardon; apologise
+forms: promiň
+note: To a friend: promiň.
+
+@ pardon
+pos: interj
+en: sorry; pardon
+ex: Pardon, nerozumím. = Sorry, I don't understand.
+rel: excuse me
+
+@ bohužel
+pos: interj
+en: unfortunately
+rel: sadly; sorry
+
+@ haló
+pos: interj
+en: hello (on the phone)
+rel: phone; call

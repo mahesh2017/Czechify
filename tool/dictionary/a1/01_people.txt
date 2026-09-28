@@ -1,0 +1,364 @@
+# A1 dictionary — people and family.
+# Format: see the end of tool/dictionary/build_dictionary.py.
+# Every form here is waiting for the teacher review before production.
+
+@ člověk
+pos: noun m-anim
+en: person; human being
+ex: To je dobrý člověk. = That is a good person.
+rel: people; man; somebody; human
+sg: člověk, člověka, člověku/člověkovi, člověka, člověče, člověku/člověkovi, člověkem
+pl: lidé, lidí, lidem, lidi, lidé, lidech, lidmi
+note: The plural is a different word: lidé (people).
+
+@ muž
+pos: noun m-anim
+en: man; husband
+rel: male; gentleman; person
+sg: muž, muže, muži/mužovi, muže, muži, muži/mužovi, mužem
+pl: muži/mužové, mužů, mužům, muže, muži/mužové, mužích, muži
+
+@ žena
+pos: noun f
+en: woman; wife
+rel: female; lady; person
+sg: žena, ženy, ženě, ženu, ženo, ženě, ženou
+pl: ženy, žen, ženám, ženy, ženy, ženách, ženami
+
+@ dítě
+pos: noun n
+en: child
+rel: kid; baby; son; daughter; children
+sg: dítě, dítěte, dítěti, dítě, dítě, dítěti, dítětem
+pl: děti, dětí, dětem, děti, děti, dětech, dětmi
+note: The plural děti (children) behaves like a feminine word.
+
+@ pan
+pos: noun m-anim
+en: Mr; gentleman
+rel: sir; man; title
+sg: pan, pana, panu/panovi, pana, pane, panu/panovi, panem
+pl: páni, pánů, pánům, pány, páni, pánech, pány
+note: Before a surname: pan Novák. When speaking to him: pane Nováku.
+
+@ paní
+pos: noun f
+en: Mrs; Ms; lady
+rel: madam; woman; title
+sg: paní, paní, paní, paní, paní, paní, paní
+pl: paní, paní, paním, paní, paní, paních, paními
+note: Before a surname: paní Nováková. The form never changes in the singular.
+
+@ doktor
+pos: noun m-anim
+en: doctor
+rel: physician; medic; GP; Dr
+sg: doktor, doktora, doktorovi/doktoru, doktora, doktore, doktorovi/doktoru, doktorem
+pl: doktoři, doktorů, doktorům, doktory, doktoři, doktorech, doktory
+note: Speaking to a doctor: pane doktore, paní doktorko.
+
+@ lékař
+pos: noun m-anim
+en: doctor (man)
+rel: physician; medic; GP
+sg: lékař, lékaře, lékaři/lékařovi, lékaře, lékaři, lékaři/lékařovi, lékařem
+pl: lékaři, lékařů, lékařům, lékaře, lékaři, lékařích, lékaři
+see: lékařka
+
+@ lékařka
+pos: noun f
+en: doctor (woman)
+rel: physician; medic; GP
+sg: lékařka, lékařky, lékařce, lékařku, lékařko, lékařce, lékařkou
+pl: lékařky, lékařek, lékařkám, lékařky, lékařky, lékařkách, lékařkami
+see: lékař
+
+@ zubař
+pos: noun m-anim
+en: dentist
+ex: Zítra jdu k zubaři. = Tomorrow I am going to the dentist.
+rel: teeth; doctor
+sg: zubař, zubaře, zubaři/zubařovi, zubaře, zubaři, zubaři/zubařovi, zubařem
+pl: zubaři, zubařů, zubařům, zubaře, zubaři, zubařích, zubaři
+
+@ student
+pos: noun m-anim
+en: student (man)
+rel: pupil; learner; university; school
+sg: student, studenta, studentovi/studentu, studenta, studente, studentovi/studentu, studentem
+pl: studenti, studentů, studentům, studenty, studenti, studentech, studenty
+see: studentka
+
+@ studentka
+pos: noun f
+en: student (woman)
+rel: pupil; learner; university; school
+sg: studentka, studentky, studentce, studentku, studentko, studentce, studentkou
+pl: studentky, studentek, studentkám, studentky, studentky, studentkách, studentkami
+see: student
+
+@ učitel
+pos: noun m-anim
+en: teacher (man)
+rel: tutor; school; lesson
+sg: učitel, učitele, učiteli/učitelovi, učitele, učiteli, učiteli/učitelovi, učitelem
+pl: učitelé, učitelů, učitelům, učitele, učitelé, učitelích, učiteli
+see: učitelka
+
+@ učitelka
+pos: noun f
+en: teacher (woman)
+rel: tutor; school; lesson
+sg: učitelka, učitelky, učitelce, učitelku, učitelko, učitelce, učitelkou
+pl: učitelky, učitelek, učitelkám, učitelky, učitelky, učitelkách, učitelkami
+see: učitel
+
+@ kamarád
+pos: noun m-anim
+en: friend (man)
+rel: mate; buddy; pal
+sg: kamarád, kamaráda, kamarádovi/kamarádu, kamaráda, kamaráde, kamarádovi/kamarádu, kamarádem
+pl: kamarádi, kamarádů, kamarádům, kamarády, kamarádi, kamarádech, kamarády
+see: kamarádka
+
+@ kamarádka
+pos: noun f
+en: friend (woman)
+ex: Moje kamarádka bydlí v Brně. = My friend lives in Brno.
+rel: mate; buddy; pal
+sg: kamarádka, kamarádky, kamarádce, kamarádku, kamarádko, kamarádce, kamarádkou
+pl: kamarádky, kamarádek, kamarádkám, kamarádky, kamarádky, kamarádkách, kamarádkami
+see: kamarád
+
+@ přítelkyně
+pos: noun f
+en: girlfriend; friend (woman)
+rel: partner; friend
+sg: přítelkyně, přítelkyně, přítelkyni, přítelkyni, přítelkyně, přítelkyni, přítelkyní
+pl: přítelkyně, přítelkyň, přítelkyním, přítelkyně, přítelkyně, přítelkyních, přítelkyněmi
+
+@ kolega
+pos: noun m-anim
+en: colleague (man)
+ex: Můj kolega je z Polska. = My colleague is from Poland.
+rel: co-worker; work; office
+sg: kolega, kolegy, kolegovi, kolegu, kolego, kolegovi, kolegou
+pl: kolegové, kolegů, kolegům, kolegy, kolegové, kolezích, kolegy
+see: kolegyně
+
+@ kolegyně
+pos: noun f
+en: colleague (woman)
+rel: co-worker; work; office
+sg: kolegyně, kolegyně, kolegyni, kolegyni, kolegyně, kolegyni, kolegyní
+pl: kolegyně, kolegyň, kolegyním, kolegyně, kolegyně, kolegyních, kolegyněmi
+see: kolega
+
+@ spolužák
+pos: noun m-anim
+en: classmate
+ex: Můj spolužák je z Ukrajiny. = My classmate is from Ukraine.
+rel: school; student; friend
+sg: spolužák, spolužáka, spolužákovi/spolužáku, spolužáka, spolužáku, spolužákovi/spolužáku, spolužákem
+pl: spolužáci, spolužáků, spolužákům, spolužáky, spolužáci, spolužácích, spolužáky
+
+@ cizinec
+pos: noun m-anim
+en: foreigner (man)
+rel: stranger; immigrant; abroad
+sg: cizinec, cizince, cizinci/cizincovi, cizince, cizinče, cizinci/cizincovi, cizincem
+pl: cizinci, cizinců, cizincům, cizince, cizinci, cizincích, cizinci
+
+@ tlumočník
+pos: noun m-anim
+en: interpreter
+rel: translator; language
+sg: tlumočník, tlumočníka, tlumočníkovi/tlumočníku, tlumočníka, tlumočníku, tlumočníkovi/tlumočníku, tlumočníkem
+pl: tlumočníci, tlumočníků, tlumočníkům, tlumočníky, tlumočníci, tlumočnících, tlumočníky
+
+@ návštěvník
+pos: noun m-anim
+en: visitor
+ex: Návštěvník čeká na recepci. = The visitor is waiting at reception.
+rel: guest; tourist
+sg: návštěvník, návštěvníka, návštěvníkovi/návštěvníku, návštěvníka, návštěvníku, návštěvníkovi/návštěvníku, návštěvníkem
+pl: návštěvníci, návštěvníků, návštěvníkům, návštěvníky, návštěvníci, návštěvnících, návštěvníky
+
+@ zkoušející
+pos: noun m-anim
+en: examiner
+ex: Zkoušející se ptá na adresu. = The examiner asks about the address.
+rel: exam; test; teacher
+sg: zkoušející, zkoušejícího, zkoušejícímu, zkoušejícího, zkoušející, zkoušejícím, zkoušejícím
+pl: zkoušející, zkoušejících, zkoušejícím, zkoušející, zkoušející, zkoušejících, zkoušejícími
+note: Declines like an adjective. A woman examiner: zkoušející (ta zkoušející).
+
+# family
+
+@ rodina
+pos: noun f
+en: family
+rel: parents; relatives; home
+sg: rodina, rodiny, rodině, rodinu, rodino, rodině, rodinou
+pl: rodiny, rodin, rodinám, rodiny, rodiny, rodinách, rodinami
+
+@ matka
+pos: noun f
+en: mother
+rel: mom; mum; parent
+sg: matka, matky, matce, matku, matko, matce, matkou
+pl: matky, matek, matkám, matky, matky, matkách, matkami
+see: máma, maminka
+
+@ máma
+pos: noun f
+en: mum; mom
+rel: mother; parent
+sg: máma, mámy, mámě, mámu, mámo, mámě, mámou
+pl: mámy, mám, mámám, mámy, mámy, mámách, mámami
+note: Everyday word. Matka is more formal; maminka is warm.
+see: matka, maminka
+
+@ maminka
+pos: noun f
+en: mum; mummy
+rel: mother; mom; parent
+sg: maminka, maminky, mamince, maminku, maminko, mamince, maminkou
+pl: maminky, maminek, maminkám, maminky, maminky, maminkách, maminkami
+see: matka, máma
+
+@ otec
+pos: noun m-anim
+en: father
+rel: dad; parent
+sg: otec, otce, otci/otcovi, otce, otče, otci/otcovi, otcem
+pl: otcové, otců, otcům, otce, otcové, otcích, otci
+see: táta, tatínek
+
+@ táta
+pos: noun m-anim
+en: dad
+rel: father; parent
+sg: táta, táty, tátovi, tátu, táto, tátovi, tátou
+pl: tátové, tátů, tátům, táty, tátové, tátech, táty
+note: Ends in -a but is a man's word: můj táta.
+see: otec, tatínek
+
+@ tatínek
+pos: noun m-anim
+en: daddy; dad
+rel: father; parent
+sg: tatínek, tatínka, tatínkovi/tatínku, tatínka, tatínku, tatínkovi/tatínku, tatínkem
+pl: tatínkové, tatínků, tatínkům, tatínky, tatínkové, tatíncích, tatínky
+see: otec, táta
+
+@ rodiče
+pos: noun m-anim pl
+en: parents
+ex: Moji rodiče bydlí v Olomouci. = My parents live in Olomouc.
+rel: mother; father; family
+pl: rodiče, rodičů, rodičům, rodiče, rodiče, rodičích, rodiči
+
+@ prarodiče
+pos: noun m-anim pl
+en: grandparents
+rel: grandmother; grandfather; family
+pl: prarodiče, prarodičů, prarodičům, prarodiče, prarodiče, prarodičích, prarodiči
+
+@ bratr
+pos: noun m-anim
+en: brother
+rel: sibling; family
+sg: bratr, bratra, bratrovi/bratru, bratra, bratře, bratrovi/bratru, bratrem
+pl: bratři, bratrů, bratrům, bratry, bratři, bratrech, bratry
+
+@ sestra
+pos: noun f
+en: sister; nurse
+rel: sibling; family
+sg: sestra, sestry, sestře, sestru, sestro, sestře, sestrou
+pl: sestry, sester, sestrám, sestry, sestry, sestrách, sestrami
+
+@ sourozenec
+pos: noun m-anim
+en: sibling (brother or sister)
+rel: brother; sister; family
+sg: sourozenec, sourozence, sourozenci/sourozencovi, sourozence, sourozenče, sourozenci/sourozencovi, sourozencem
+pl: sourozenci, sourozenců, sourozencům, sourozence, sourozenci, sourozencích, sourozenci
+
+@ syn
+pos: noun m-anim
+en: son
+rel: child; boy; family
+sg: syn, syna, synovi/synu, syna, synu, synovi/synu, synem
+pl: synové, synů, synům, syny, synové, synech, syny
+
+@ dcera
+pos: noun f
+en: daughter
+rel: child; girl; family
+sg: dcera, dcery, dceři, dceru, dcero, dceři, dcerou
+pl: dcery, dcer, dcerám, dcery, dcery, dcerách, dcerami
+
+@ babička
+pos: noun f
+en: grandmother; grandma
+rel: granny; grandparents; family
+sg: babička, babičky, babičce, babičku, babičko, babičce, babičkou
+pl: babičky, babiček, babičkám, babičky, babičky, babičkách, babičkami
+
+@ dědeček
+pos: noun m-anim
+en: grandfather; grandpa
+rel: granddad; grandparents; family
+sg: dědeček, dědečka, dědečkovi/dědečku, dědečka, dědečku, dědečkovi/dědečku, dědečkem
+pl: dědečkové, dědečků, dědečkům, dědečky, dědečkové, dědečcích, dědečky
+
+@ teta
+pos: noun f
+en: aunt
+rel: family; relative
+sg: teta, tety, tetě, tetu, teto, tetě, tetou
+pl: tety, tet, tetám, tety, tety, tetách, tetami
+
+@ strýc
+pos: noun m-anim
+en: uncle
+rel: family; relative
+sg: strýc, strýce, strýci/strýcovi, strýce, strýči, strýci/strýcovi, strýcem
+pl: strýcové, strýců, strýcům, strýce, strýcové, strýcích, strýci
+
+@ bratranec
+pos: noun m-anim
+en: cousin (man)
+rel: family; relative
+sg: bratranec, bratrance, bratranci/bratrancovi, bratrance, bratranče, bratranci/bratrancovi, bratrancem
+pl: bratranci, bratranců, bratrancům, bratrance, bratranci, bratrancích, bratranci
+
+@ sestřenice
+pos: noun f
+en: cousin (woman)
+rel: family; relative
+sg: sestřenice, sestřenice, sestřenici, sestřenici, sestřenice, sestřenici, sestřenicí
+pl: sestřenice, sestřenic, sestřenicím, sestřenice, sestřenice, sestřenicích, sestřenicemi
+
+@ vnuk
+pos: noun m-anim
+en: grandson
+rel: grandchild; family
+sg: vnuk, vnuka, vnukovi/vnuku, vnuka, vnuku, vnukovi/vnuku, vnukem
+pl: vnuci, vnuků, vnukům, vnuky, vnuci, vnucích, vnuky
+
+@ vnučka
+pos: noun f
+en: granddaughter
+rel: grandchild; family
+sg: vnučka, vnučky, vnučce, vnučku, vnučko, vnučce, vnučkou
+pl: vnučky, vnuček, vnučkám, vnučky, vnučky, vnučkách, vnučkami
+
+@ pes
+pos: noun m-anim
+en: dog
+rel: pet; animal; puppy
+sg: pes, psa, psovi/psu, psa, pse, psovi/psu, psem
+pl: psi, psů, psům, psy, psi, psech, psy

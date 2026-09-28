@@ -1,0 +1,411 @@
+# A1 dictionary — adjectives. Their case tables are generated from the
+# ending (-ý hard, -í soft); only comparatives and notes are written here.
+
+@ dobrý
+pos: adj
+en: good
+rel: nice; fine; great; kind
+cmp: lepší
+see: dobře
+
+@ špatný
+pos: adj
+en: bad; wrong
+ex: To je špatný film. = That is a bad film.
+rel: poor; terrible
+cmp: horší
+see: špatně
+
+@ velký
+pos: adj
+en: big; large; tall
+rel: huge; great; large
+cmp: větší
+
+@ malý
+pos: adj
+en: small; little
+rel: tiny; short; young
+cmp: menší
+
+@ hezký
+pos: adj
+en: pretty; nice; beautiful
+rel: lovely; good-looking; attractive
+cmp: hezčí
+see: hezky
+
+@ krásný
+pos: adj
+en: beautiful; lovely
+rel: pretty; wonderful
+cmp: krásnější
+
+@ nový
+pos: adj
+en: new
+rel: modern; fresh; recent
+cmp: novější
+
+@ starý
+pos: adj
+en: old
+rel: aged; ancient; elderly
+cmp: starší
+
+@ mladý
+pos: adj
+en: young
+rel: youth; little; junior
+cmp: mladší
+
+@ drahý
+pos: adj
+en: expensive; dear
+rel: costly; price
+cmp: dražší
+
+@ levný
+pos: adj
+en: cheap
+rel: inexpensive; low price; sale
+cmp: levnější
+
+@ dlouhý
+pos: adj
+en: long
+rel: tall; length
+cmp: delší
+
+@ krátký
+pos: adj
+en: short
+rel: brief; small
+cmp: kratší
+
+@ rychlý
+pos: adj
+en: fast; quick
+rel: speed; quickly
+cmp: rychlejší
+see: rychle
+
+@ pomalý
+pos: adj
+en: slow
+ex: Ten vlak je pomalý. = That train is slow.
+rel: slowly; speed
+cmp: pomalejší
+see: pomalu
+
+@ teplý
+pos: adj
+en: warm
+rel: hot; weather; clothes
+cmp: teplejší
+see: teplo
+
+@ studený
+pos: adj
+en: cold
+rel: cool; chilly; winter
+cmp: studenější
+
+@ těžký
+pos: adj
+en: heavy; difficult
+rel: hard; weight
+cmp: těžší
+
+@ jednoduchý
+pos: adj
+en: simple; easy
+rel: basic; plain
+cmp: jednodušší
+
+@ zajímavý
+pos: adj
+en: interesting
+rel: exciting; curious
+cmp: zajímavější
+
+@ milý
+pos: adj
+en: kind; nice; dear
+rel: friendly; sweet; lovely
+cmp: milejší
+
+@ veselý
+pos: adj
+en: cheerful; happy; merry
+ex: Můj bratr je veselý. = My brother is cheerful.
+rel: fun; smiling
+cmp: veselejší
+
+@ klidný
+pos: adj
+en: calm; quiet
+ex: Ten park je klidný. = That park is quiet.
+rel: peaceful; relaxed
+cmp: klidnější
+
+@ tichý
+pos: adj
+en: quiet; silent
+rel: calm; peaceful
+cmp: tišší
+
+@ unavený
+pos: adj
+en: tired
+rel: sleepy; exhausted
+see: spát
+
+@ spokojený
+pos: adj
+en: satisfied; content; happy
+rel: pleased; happy
+
+@ hladový
+pos: adj
+en: hungry
+rel: hunger; eat
+see: hlad
+
+@ nemocný
+pos: adj
+en: ill; sick
+rel: doctor; unwell; hospital
+
+@ zdravý
+pos: adj
+en: healthy
+rel: fit; well; health
+cmp: zdravější
+
+@ otevřený
+pos: adj
+en: open
+rel: shop; opening hours
+note: Lékárna je otevřená. = The pharmacy is open.
+
+@ volný
+pos: adj
+en: free (not busy); vacant
+rel: free time; available; empty
+
+@ živý
+pos: adj
+en: alive; lively; live
+ex: Je to živá hudba. = It is live music.
+rel: living; life
+
+@ slavný
+pos: adj
+en: famous
+rel: well-known; star
+cmp: slavnější
+
+@ suchý
+pos: adj
+en: dry
+rel: towel; weather
+cmp: sušší
+
+@ hustý
+pos: adj
+en: thick; dense
+rel: fog; heavy
+cmp: hustší
+
+@ vážný
+pos: adj
+en: serious
+ex: Je to vážný problém? = Is it a serious problem?
+rel: important; grave
+
+@ tvrdý
+pos: adj
+en: hard (not soft)
+ex: Ten chleba je tvrdý. = That bread is hard.
+rel: solid; firm
+cmp: tvrdší
+note: In spelling, tvrdé souhlásky = hard consonants.
+
+@ měkký
+pos: adj
+en: soft
+ex: Rohlík je měkký. = The roll is soft.
+rel: gentle; tender
+cmp: měkčí
+note: In spelling, měkké souhlásky = soft consonants (č, š, ž, ř…).
+
+@ dvojitý
+pos: adj
+en: double
+ex: W je dvojité v. = W is a double v.
+rel: twice; pair
+
+# colours
+
+@ červený
+pos: adj
+en: red
+rel: colour; wine
+see: barva
+
+@ modrý
+pos: adj
+en: blue
+rel: colour; sky
+see: barva
+
+@ zelený
+pos: adj
+en: green
+rel: colour; grass; vegetables
+see: barva
+
+@ černý
+pos: adj
+en: black
+rel: colour; dark
+see: barva
+
+@ bílý
+pos: adj
+en: white
+rel: colour; snow; milk
+see: barva
+
+@ pomerančový
+pos: adj
+en: orange (made of oranges)
+rel: juice; fruit; flavour
+
+@ rajčatový
+pos: adj
+en: tomato (made of tomatoes)
+rel: soup; vegetables
+
+# where and what kind
+
+@ jaký
+pos: adj
+en: what; what kind of; what … like
+rel: which; question
+note: Jaký je tvůj bratr? = What is your brother like?
+
+@ který
+pos: adj
+en: which; that; who (in a sentence)
+ex: Který svetr chcete? = Which sweater do you want?
+rel: question; which one
+
+@ jiný
+pos: adj
+en: other; different; another
+rel: else; different one
+
+@ přirozený
+pos: adj
+en: natural
+ex: To je přirozená odpověď. = That is a natural answer.
+rel: normal; real
+see: přirozeně
+
+@ každý
+pos: adj
+en: every; each; everyone
+rel: all; everybody
+
+@ příští
+pos: adj
+en: next (in time)
+rel: following; future; week
+note: příští týden = next week.
+
+@ minulý
+pos: adj
+en: last (in time); past
+rel: previous; ago
+note: minulý rok = last year.
+
+@ místní
+pos: adj
+en: local
+ex: Jím v místní restauraci. = I eat in a local restaurant.
+rel: nearby; town; region
+
+@ hlavní
+pos: adj
+en: main
+rel: central; chief; station
+note: hlavní nádraží = main station.
+
+@ pracovní
+pos: adj
+en: work (related to work); working
+rel: job; office; weekday
+note: pracovní den = working day.
+
+@ telefonní
+pos: adj
+en: telephone; phone
+rel: number; call
+note: telefonní číslo = phone number.
+
+@ jídelní
+pos: adj
+en: dining; food
+rel: menu; restaurant
+note: jídelní lístek = menu.
+
+@ zubní
+pos: adj
+en: dental; tooth
+rel: toothbrush; dentist
+
+@ tradiční
+pos: adj
+en: traditional
+rel: typical; classic; Czech food
+
+@ český
+pos: adj
+en: Czech
+ex: Mám rád českou hudbu. = I like Czech music.
+rel: Czechia; nationality; language
+see: česky, čeština
+
+@ pražský
+pos: adj
+en: Prague (from or of Prague)
+rel: Prague; city
+note: Pražský hrad = Prague Castle.
+
+@ cizinecký
+pos: adj
+en: foreigners' (for foreigners)
+ex: Jdu na cizineckou policii. = I am going to the foreign police.
+rel: foreigner; police; office
+note: cizinecká policie = foreign police (visa office).
+
+@ tramvajový
+pos: adj
+en: tram
+ex: Kde je tramvajová zastávka? = Where is the tram stop?
+rel: stop; line; ticket
+
+@ rád
+pos: adj
+en: glad; happy to; (with mít) to like
+rel: like; enjoy; love; glad
+table: Forms |
+row: man | rád
+row: woman | ráda
+row: thing (neuter) | rádo
+row: men or mixed group | rádi
+row: women | rády
+key: man / woman = rád / ráda
+note: Mám rád kávu. = I like coffee (said by a man); a woman says Mám ráda kávu. Rád čtu. = I like reading.

@@ -1,0 +1,712 @@
+# A1 dictionary — pronouns and numbers.
+# "decl: adj" builds the table like an adjective (její, čí, první, druhý).
+
+@ já
+pos: pron
+en: I; me
+rel: myself; me
+table: Cases |
+row: 1 | já
+row: 2 | mě/mne
+row: 3 | mně/mi
+row: 4 | mě/mne
+row: 6 | mně
+row: 7 | mnou
+key: me (object) = mě
+key: to me = mi / mně
+
+@ ty
+pos: pron
+en: you (one person you know well)
+rel: you; yourself; informal
+table: Cases |
+row: 1 | ty
+row: 2 | tebe/tě
+row: 3 | tobě/ti
+row: 4 | tebe/tě
+row: 5 | ty
+row: 6 | tobě
+row: 7 | tebou
+key: you (object) = tě / tebe
+key: to you = ti / tobě
+note: Use ty with friends, family and children; vy with others.
+
+@ on
+pos: pron
+en: he; him; it (for a masculine thing)
+rel: him; he
+table: Cases |
+row: 1 | on
+row: 2 | jeho/ho/něho/něj
+row: 3 | jemu/mu/němu
+row: 4 | jeho/ho/něho/něj
+row: 6 | něm
+row: 7 | jím/ním
+key: him (object) = ho
+key: to him = mu
+note: After a preposition the forms start with n: pro něj, s ním.
+
+@ ona
+pos: pron
+en: she; her; it (for a feminine thing)
+rel: her; she
+table: Cases |
+row: 1 | ona
+row: 2 | jí/ní
+row: 3 | jí/ní
+row: 4 | ji/ni
+row: 6 | ní
+row: 7 | jí/ní
+key: her (object) = ji
+key: to her = jí
+
+@ ono
+pos: pron
+en: it (for a neuter thing)
+rel: it
+table: Cases |
+row: 1 | ono
+row: 2 | jeho/ho/něho
+row: 3 | jemu/mu/němu
+row: 4 | je/ho/ně
+row: 6 | něm
+row: 7 | jím/ním
+
+@ my
+pos: pron
+en: we; us
+rel: us; ourselves
+table: Cases |
+row: 1 | my
+row: 2 | nás
+row: 3 | nám
+row: 4 | nás
+row: 6 | nás
+row: 7 | námi
+key: us (object) = nás
+key: to us = nám
+
+@ vy
+pos: pron
+en: you (several people, or one person politely)
+rel: you; formal; plural
+table: Cases |
+row: 1 | vy
+row: 2 | vás
+row: 3 | vám
+row: 4 | vás
+row: 5 | vy
+row: 6 | vás
+row: 7 | vámi
+key: you (object) = vás
+key: to you = vám
+note: Also the polite you for one person: Jak se máte?
+
+@ oni
+pos: pron
+en: they; them
+rel: them; people
+table: Cases |
+row: 1 | oni/ony/ona
+row: 2 | jich/nich
+row: 3 | jim/nim
+row: 4 | je/ně
+row: 6 | nich
+row: 7 | jimi/nimi
+key: them (object) = je
+key: to them = jim
+note: oni for men or mixed groups, ony for women or things, ona for neuter things.
+
+@ se
+pos: pron
+en: oneself (myself, yourself, himself…)
+rel: self; reflexive
+table: Cases |
+row: 2 | sebe
+row: 3 | sobě/si
+row: 4 | sebe/se
+row: 6 | sobě
+row: 7 | sebou
+note: Short forms se and si go with many verbs: učím se, dám si.
+
+@ můj
+pos: pron
+en: my; mine
+rel: my; mine; own
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | můj | můj | moje/má | moje/mé
+row: 2 | mého | mého | mé | mého
+row: 3 | mému | mému | mé | mému
+row: 4 | mého | můj | moji/mou | moje/mé
+row: 6 | mém | mém | mé | mém
+row: 7 | mým | mým | mou | mým
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | moji/mí | moje/mé | moje/mé | moje/má
+row: 2 | mých | mých | mých | mých
+row: 3 | mým | mým | mým | mým
+row: 4 | moje/mé | moje/mé | moje/mé | moje/má
+row: 6 | mých | mých | mých | mých
+row: 7 | mými | mými | mými | mými
+key: m / f / n = můj · moje · moje
+
+@ tvůj
+pos: pron
+en: your; yours (one person you know well)
+rel: your; yours
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | tvůj | tvůj | tvoje/tvá | tvoje/tvé
+row: 2 | tvého | tvého | tvé | tvého
+row: 3 | tvému | tvému | tvé | tvému
+row: 4 | tvého | tvůj | tvoji/tvou | tvoje/tvé
+row: 6 | tvém | tvém | tvé | tvém
+row: 7 | tvým | tvým | tvou | tvým
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | tvoji/tví | tvoje/tvé | tvoje/tvé | tvoje/tvá
+row: 2 | tvých | tvých | tvých | tvých
+row: 3 | tvým | tvým | tvým | tvým
+row: 4 | tvoje/tvé | tvoje/tvé | tvoje/tvé | tvoje/tvá
+row: 6 | tvých | tvých | tvých | tvých
+row: 7 | tvými | tvými | tvými | tvými
+key: m / f / n = tvůj · tvoje · tvoje
+
+@ svůj
+pos: pron
+en: one's own (my own, your own, his own…)
+rel: own; my own; their own
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | svůj | svůj | svoje/svá | svoje/své
+row: 2 | svého | svého | své | svého
+row: 3 | svému | svému | své | svému
+row: 4 | svého | svůj | svoji/svou | svoje/své
+row: 6 | svém | svém | své | svém
+row: 7 | svým | svým | svou | svým
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | svoji/sví | svoje/své | svoje/své | svoje/svá
+row: 2 | svých | svých | svých | svých
+row: 3 | svým | svým | svým | svým
+row: 4 | svoje/své | svoje/své | svoje/své | svoje/svá
+row: 6 | svých | svých | svých | svých
+row: 7 | svými | svými | svými | svými
+key: m / f / n = svůj · svoje · svoje
+note: Refers back to the subject: Každý má svůj klíč. = Everyone has their own key.
+
+@ náš
+pos: pron
+en: our; ours
+rel: our; ours
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | náš | náš | naše | naše
+row: 2 | našeho | našeho | naší | našeho
+row: 3 | našemu | našemu | naší | našemu
+row: 4 | našeho | náš | naši | naše
+row: 6 | našem | našem | naší | našem
+row: 7 | naším | naším | naší | naším
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | naši | naše | naše | naše
+row: 2 | našich | našich | našich | našich
+row: 3 | našim | našim | našim | našim
+row: 4 | naše | naše | naše | naše
+row: 6 | našich | našich | našich | našich
+row: 7 | našimi | našimi | našimi | našimi
+key: m / f / n = náš · naše · naše
+
+@ váš
+pos: pron
+en: your; yours (several people, or polite)
+rel: your; yours; formal
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | váš | váš | vaše | vaše
+row: 2 | vašeho | vašeho | vaší | vašeho
+row: 3 | vašemu | vašemu | vaší | vašemu
+row: 4 | vašeho | váš | vaši | vaše
+row: 6 | vašem | vašem | vaší | vašem
+row: 7 | vaším | vaším | vaší | vaším
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | vaši | vaše | vaše | vaše
+row: 2 | vašich | vašich | vašich | vašich
+row: 3 | vašim | vašim | vašim | vašim
+row: 4 | vaše | vaše | vaše | vaše
+row: 6 | vašich | vašich | vašich | vašich
+row: 7 | vašimi | vašimi | vašimi | vašimi
+key: m / f / n = váš · vaše · vaše
+
+@ jeho
+pos: pron
+en: his; its
+rel: his; its
+note: Never changes: jeho dům, jeho kniha, jeho auto.
+
+@ její
+pos: pron
+en: her; hers
+rel: her; hers
+decl: adj
+key: m / f / n = její · její · její
+note: Changes like an adjective ending in -í: její kniha, s její sestrou.
+
+@ jejich
+pos: pron
+en: their; theirs
+rel: their; theirs
+note: Never changes: jejich dům, jejich děti.
+
+@ ten
+pos: pron
+en: the; that; this
+rel: that one; this one
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | ten | ten | ta | to
+row: 2 | toho | toho | té | toho
+row: 3 | tomu | tomu | té | tomu
+row: 4 | toho | ten | tu | to
+row: 6 | tom | tom | té | tom
+row: 7 | tím | tím | tou | tím
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | ti | ty | ty | ta
+row: 2 | těch | těch | těch | těch
+row: 3 | těm | těm | těm | těm
+row: 4 | ty | ty | ty | ta
+row: 6 | těch | těch | těch | těch
+row: 7 | těmi | těmi | těmi | těmi
+key: m / f / n = ten · ta · to
+note: Czech has no word for "a" or "the"; ten, ta, to point at something: ten stůl, ta kniha, to okno.
+
+@ to
+pos: pron
+en: it; that; this
+rel: it; that
+note: To je… = That is… / It is… Co je to? = What is it?
+see: ten
+
+@ tenhle
+pos: pron
+en: this (one)
+rel: this; this one; here
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | tenhle | tenhle | tahle | tohle
+row: 2 | tohohle | tohohle | téhle | tohohle
+row: 3 | tomuhle | tomuhle | téhle | tomuhle
+row: 4 | tohohle | tenhle | tuhle | tohle
+row: 6 | tomhle | tomhle | téhle | tomhle
+row: 7 | tímhle | tímhle | touhle | tímhle
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | tihle | tyhle | tyhle | tahle
+row: 2 | těchhle | těchhle | těchhle | těchhle
+row: 3 | těmhle | těmhle | těmhle | těmhle
+row: 4 | tyhle | tyhle | tyhle | tahle
+row: 6 | těchhle | těchhle | těchhle | těchhle
+row: 7 | těmihle | těmihle | těmihle | těmihle
+key: m / f / n = tenhle · tahle · tohle
+
+@ tento
+pos: pron
+en: this (a little more formal)
+rel: this; this one
+table: Singular | m. person | m. thing | f. | n.
+row: 1 | tento | tento | tato | toto
+row: 2 | tohoto | tohoto | této | tohoto
+row: 3 | tomuto | tomuto | této | tomuto
+row: 4 | tohoto | tento | tuto | toto
+row: 6 | tomto | tomto | této | tomto
+row: 7 | tímto | tímto | touto | tímto
+table: Plural | m. person | m. thing | f. | n.
+row: 1 | tito | tyto | tyto | tato
+row: 2 | těchto | těchto | těchto | těchto
+row: 3 | těmto | těmto | těmto | těmto
+row: 4 | tyto | tyto | tyto | tato
+row: 6 | těchto | těchto | těchto | těchto
+row: 7 | těmito | těmito | těmito | těmito
+key: m / f / n = tento · tato · toto
+
+@ kdo
+pos: pron
+en: who
+rel: question; person
+table: Cases |
+row: 1 | kdo
+row: 2 | koho
+row: 3 | komu
+row: 4 | koho
+row: 6 | kom
+row: 7 | kým
+key: whom = koho
+
+@ co
+pos: pron
+en: what
+rel: question; thing
+table: Cases |
+row: 1 | co
+row: 2 | čeho
+row: 3 | čemu
+row: 4 | co
+row: 6 | čem
+row: 7 | čím
+
+@ čí
+pos: pron
+en: whose
+rel: question; owner
+decl: adj
+note: Čí je to? = Whose is it?
+
+@ nic
+pos: pron
+en: nothing; anything (in a "not" sentence)
+rel: none; nothing
+table: Cases |
+row: 1 | nic
+row: 2 | ničeho
+row: 3 | ničemu
+row: 4 | nic
+row: 6 | ničem
+row: 7 | ničím
+note: Czech uses ne- with the verb too: Nedělám nic. = I'm not doing anything.
+
+@ něco
+pos: pron
+en: something
+ex: Chceš něco k pití? = Do you want something to drink?
+rel: anything; thing
+table: Cases |
+row: 1 | něco
+row: 2 | něčeho
+row: 3 | něčemu
+row: 4 | něco
+row: 6 | něčem
+row: 7 | něčím
+
+@ všechno
+pos: pron
+en: everything; all
+ex: To je všechno. = That is all.
+rel: all; whole
+table: Cases |
+row: 1 | všechno/vše
+row: 2 | všeho
+row: 3 | všemu
+row: 4 | všechno/vše
+row: 6 | všem
+row: 7 | vším
+
+@ kolik
+pos: pron
+en: how much; how many
+rel: price; number; count
+note: Kolik to stojí? = How much is it? After kolik the thing is in case 2: Kolik je hodin?
+
+# numbers
+
+@ jeden
+pos: num
+en: one
+rel: 1; single
+table: Cases | m. person | m. thing | f. | n.
+row: 1 | jeden | jeden | jedna | jedno
+row: 2 | jednoho | jednoho | jedné | jednoho
+row: 3 | jednomu | jednomu | jedné | jednomu
+row: 4 | jednoho | jeden | jednu | jedno
+row: 6 | jednom | jednom | jedné | jednom
+row: 7 | jedním | jedním | jednou | jedním
+key: m / f / n = jeden · jedna · jedno
+note: When counting you say jedna: jedna, dva, tři…
+
+@ dva
+pos: num
+en: two
+rel: 2; pair; both
+table: Cases | m. | f. / n.
+row: 1 | dva | dvě
+row: 2 | dvou | dvou
+row: 3 | dvěma | dvěma
+row: 4 | dva | dvě
+row: 6 | dvou | dvou
+row: 7 | dvěma | dvěma
+key: m / f and n = dva / dvě
+note: dva bratři, dvě sestry, dvě auta.
+
+@ tři
+pos: num
+en: three
+rel: 3
+table: Cases |
+row: 1 | tři
+row: 2 | tří/třech
+row: 3 | třem
+row: 4 | tři
+row: 6 | třech
+row: 7 | třemi
+
+@ čtyři
+pos: num
+en: four
+rel: 4
+table: Cases |
+row: 1 | čtyři
+row: 2 | čtyř/čtyřech
+row: 3 | čtyřem
+row: 4 | čtyři
+row: 6 | čtyřech
+row: 7 | čtyřmi
+note: After 2, 3 and 4 the noun is plural: tři knihy, čtyři hodiny.
+
+@ pět
+pos: num
+en: five
+rel: 5
+key: other cases = pěti
+forms: pěti
+note: From five on, the thing counted is in case 2 plural: pět korun, pět hodin.
+
+@ šest
+pos: num
+en: six
+rel: 6
+key: other cases = šesti
+forms: šesti
+
+@ sedm
+pos: num
+en: seven
+rel: 7
+key: other cases = sedmi
+forms: sedmi
+
+@ osm
+pos: num
+en: eight
+ex: Vstávám v osm. = I get up at eight.
+rel: 8
+key: other cases = osmi
+forms: osmi
+
+@ devět
+pos: num
+en: nine
+rel: 9
+key: other cases = devíti
+forms: devíti
+
+@ deset
+pos: num
+en: ten
+rel: 10
+key: other cases = deseti
+forms: deseti
+
+@ jedenáct
+pos: num
+en: eleven
+ex: Je jedenáct hodin. = It is eleven o'clock.
+rel: 11
+key: other cases = jedenácti
+forms: jedenácti
+
+@ dvanáct
+pos: num
+en: twelve
+rel: 12; dozen
+key: other cases = dvanácti
+forms: dvanácti
+
+@ třináct
+pos: num
+en: thirteen
+ex: Mám pokoj číslo třináct. = I have room number thirteen.
+rel: 13
+key: other cases = třinácti
+forms: třinácti
+
+@ čtrnáct
+pos: num
+en: fourteen
+ex: Je mi čtrnáct let. = I am fourteen.
+rel: 14
+key: other cases = čtrnácti
+forms: čtrnácti
+
+@ patnáct
+pos: num
+en: fifteen
+ex: Autobus jede za patnáct minut. = The bus leaves in fifteen minutes.
+rel: 15
+key: other cases = patnácti
+forms: patnácti
+
+@ šestnáct
+pos: num
+en: sixteen
+ex: Mám šestnáct korun. = I have sixteen crowns.
+rel: 16
+key: other cases = šestnácti
+forms: šestnácti
+
+@ sedmnáct
+pos: num
+en: seventeen
+ex: Je sedmnáct třicet. = It is 17:30.
+rel: 17
+key: other cases = sedmnácti
+forms: sedmnácti
+
+@ osmnáct
+pos: num
+en: eighteen
+ex: Je mi osmnáct let. = I am eighteen.
+rel: 18
+key: other cases = osmnácti
+forms: osmnácti
+
+@ devatenáct
+pos: num
+en: nineteen
+ex: Jedu tramvají číslo devatenáct. = I take tram number nineteen.
+rel: 19
+key: other cases = devatenácti
+forms: devatenácti
+
+@ dvacet
+pos: num
+en: twenty
+rel: 20
+key: other cases = dvaceti
+forms: dvaceti
+note: 21 = dvacet jedna, 25 = dvacet pět.
+
+@ třicet
+pos: num
+en: thirty
+rel: 30
+key: other cases = třiceti
+forms: třiceti
+
+@ čtyřicet
+pos: num
+en: forty
+ex: Stojí to čtyřicet korun. = It costs forty crowns.
+rel: 40
+key: other cases = čtyřiceti
+forms: čtyřiceti
+
+@ padesát
+pos: num
+en: fifty
+rel: 50
+key: other cases = padesáti
+forms: padesáti
+
+@ šedesát
+pos: num
+en: sixty
+ex: Hodina má šedesát minut. = An hour has sixty minutes.
+rel: 60
+key: other cases = šedesáti
+forms: šedesáti
+
+@ sedmdesát
+pos: num
+en: seventy
+ex: Babičce je sedmdesát let. = Grandma is seventy.
+rel: 70
+key: other cases = sedmdesáti
+forms: sedmdesáti
+
+@ osmdesát
+pos: num
+en: eighty
+ex: Stojí to osmdesát korun. = It costs eighty crowns.
+rel: 80
+key: other cases = osmdesáti
+forms: osmdesáti
+
+@ devadesát
+pos: num
+en: ninety
+ex: Dědečkovi je devadesát let. = Grandpa is ninety.
+rel: 90
+key: other cases = devadesáti
+forms: devadesáti
+
+@ sto
+pos: num
+en: a hundred; one hundred
+rel: 100; hundreds
+table: Hundreds |
+row: 100 | sto
+row: 200 | dvě stě
+row: 300 | tři sta
+row: 400 | čtyři sta
+row: 500 | pět set
+row: 600 – 900 | šest set, sedm set, osm set, devět set
+key: 200 = dvě stě
+key: 300 = tři sta
+key: 500 = pět set
+forms: sta, stě, set, stu
+
+@ tisíc
+pos: num
+en: a thousand
+rel: 1000; thousands
+table: Thousands |
+row: 1000 | tisíc
+row: 2000 | dva tisíce
+row: 5000 | pět tisíc
+forms: tisíce
+
+@ půl
+pos: num
+en: half
+ex: Je půl šesté. = It is half past five.
+rel: half past; 0.5
+note: půl šesté = half past five (literally half of the sixth hour).
+
+@ první
+pos: num
+en: first
+rel: 1st; one
+decl: adj
+
+@ druhý
+pos: num
+en: second; other
+rel: 2nd; another
+decl: adj
+
+@ třetí
+pos: num
+en: third
+rel: 3rd
+decl: adj
+
+@ čtvrtý
+pos: num
+en: fourth
+rel: 4th
+decl: adj
+
+@ pátý
+pos: num
+en: fifth
+rel: 5th
+decl: adj
+
+@ šestý
+pos: num
+en: sixth
+ex: Je to můj šestý den v Praze. = It is my sixth day in Prague.
+rel: 6th
+decl: adj
+
+@ sedmý
+pos: num
+en: seventh
+ex: Neděle je sedmý den v týdnu. = Sunday is the seventh day of the week.
+rel: 7th
+decl: adj
+
+@ osmý
+pos: num
+en: eighth
+ex: Je to můj osmý týden v Česku. = It is my eighth week in Czechia.
+rel: 8th
+decl: adj

@@ -1,0 +1,608 @@
+# A1 dictionary — food and drink, clothes, everyday things.
+
+# food and drink
+
+@ jídlo
+pos: noun n
+en: food; meal; dish
+rel: eat; lunch; dinner; cooking
+sg: jídlo, jídla, jídlu, jídlo, jídlo, jídle, jídlem
+pl: jídla, jídel, jídlům, jídla, jídla, jídlech, jídly
+
+@ pití
+pos: noun n
+en: drink; something to drink
+ex: Chceš něco k pití? = Do you want something to drink?
+rel: beverage; drinking
+sg: pití, pití, pití, pití, pití, pití, pitím
+pl: pití, pití, pitím, pití, pití, pitích, pitími
+
+@ káva
+pos: noun f
+en: coffee
+rel: drink; café; espresso; cup
+sg: káva, kávy, kávě, kávu, kávo, kávě, kávou
+pl: kávy, káv, kávám, kávy, kávy, kávách, kávami
+
+@ čaj
+pos: noun m-inan
+en: tea
+rel: drink; cup; herbal tea
+sg: čaj, čaje, čaji, čaj, čaji, čaji, čajem
+pl: čaje, čajů, čajům, čaje, čaje, čajích, čaji
+
+@ voda
+pos: noun f
+en: water
+rel: drink; mineral water; bottle
+sg: voda, vody, vodě, vodu, vodo, vodě, vodou
+pl: vody, vod, vodám, vody, vody, vodách, vodami
+
+@ mléko
+pos: noun n
+en: milk
+rel: drink; dairy; coffee
+sg: mléko, mléka, mléku, mléko, mléko, mléce/mléku, mlékem
+
+@ pivo
+pos: noun n
+en: beer
+rel: drink; pub; alcohol
+sg: pivo, piva, pivu, pivo, pivo, pivu, pivem
+pl: piva, piv, pivům, piva, piva, pivech, pivy
+
+@ víno
+pos: noun n
+en: wine
+rel: drink; alcohol; red wine; white wine
+sg: víno, vína, vínu, víno, víno, víně/vínu, vínem
+pl: vína, vín, vínům, vína, vína, vínech, víny
+
+@ džus
+pos: noun m-inan
+en: juice
+rel: drink; orange juice; fruit
+sg: džus, džusu, džusu, džus, džuse, džusu, džusem
+pl: džusy, džusů, džusům, džusy, džusy, džusech, džusy
+
+@ limonáda
+pos: noun f
+en: lemonade; soft drink
+ex: Dám si limonádu. = I will have a lemonade.
+rel: drink; soda; fizzy
+sg: limonáda, limonády, limonádě, limonádu, limonádo, limonádě, limonádou
+pl: limonády, limonád, limonádám, limonády, limonády, limonádách, limonádami
+
+@ chléb
+pos: noun m-inan
+en: bread
+rel: food; bakery; loaf; toast
+sg: chléb/chleba, chleba, chlebu, chléb/chleba, chlebe, chlebu, chlebem
+pl: chleby, chlebů, chlebům, chleby, chleby, chlebech, chleby
+note: In everyday speech people say chleba: Jím chleba.
+
+@ rohlík
+pos: noun m-inan
+en: bread roll
+rel: bread; bakery; breakfast
+sg: rohlík, rohlíku, rohlíku, rohlík, rohlíku, rohlíku, rohlíkem
+pl: rohlíky, rohlíků, rohlíkům, rohlíky, rohlíky, rohlících, rohlíky
+
+@ máslo
+pos: noun n
+en: butter
+rel: food; bread; breakfast
+sg: máslo, másla, máslu, máslo, máslo, másle, máslem
+pl: másla, másel, máslům, másla, másla, máslech, másly
+
+@ sýr
+pos: noun m-inan
+en: cheese
+rel: food; dairy; sandwich
+sg: sýr, sýra, sýru, sýr, sýre, sýru, sýrem
+pl: sýry, sýrů, sýrům, sýry, sýry, sýrech, sýry
+
+@ vejce
+pos: noun n
+en: egg
+rel: food; breakfast; eggs
+sg: vejce, vejce, vejci, vejce, vejce, vejci, vejcem
+pl: vejce, vajec, vejcím, vejce, vejce, vejcích, vejci
+
+@ maso
+pos: noun n
+en: meat
+rel: food; beef; pork; butcher
+sg: maso, masa, masu, maso, maso, mase/masu, masem
+pl: masa, mas, masům, masa, masa, masech, masy
+
+@ kuře
+pos: noun n
+en: chicken
+rel: food; meat; poultry
+sg: kuře, kuřete, kuřeti, kuře, kuře, kuřeti, kuřetem
+pl: kuřata, kuřat, kuřatům, kuřata, kuřata, kuřatech, kuřaty
+
+@ ryba
+pos: noun f
+en: fish
+rel: food; seafood; animal
+sg: ryba, ryby, rybě, rybu, rybo, rybě, rybou
+pl: ryby, ryb, rybám, ryby, ryby, rybách, rybami
+
+@ polévka
+pos: noun f
+en: soup
+rel: food; lunch; starter
+sg: polévka, polévky, polévce, polévku, polévko, polévce, polévkou
+pl: polévky, polévek, polévkám, polévky, polévky, polévkách, polévkami
+
+@ zelenina
+pos: noun f
+en: vegetables
+rel: food; salad; healthy
+sg: zelenina, zeleniny, zelenině, zeleninu, zelenino, zelenině, zeleninou
+note: One word for all vegetables together, used in the singular.
+
+@ ovoce
+pos: noun n
+en: fruit
+rel: food; apple; healthy
+sg: ovoce, ovoce, ovoci, ovoce, ovoce, ovoci, ovocem
+note: One word for all fruit together, used in the singular.
+
+@ jablko
+pos: noun n
+en: apple
+rel: fruit; food
+sg: jablko, jablka, jablku, jablko, jablko, jablku, jablkem
+pl: jablka, jablek, jablkům, jablka, jablka, jablkách/jablcích, jablky
+
+@ brambora
+pos: noun f
+en: potato
+rel: food; vegetable; potatoes
+sg: brambora, brambory, bramboře, bramboru, bramboro, bramboře, bramborou
+pl: brambory, brambor, bramborám, brambory, brambory, bramborách, bramborami
+note: Usually plural: brambory (potatoes), kilo brambor.
+
+@ rýže
+pos: noun f
+en: rice
+rel: food; side dish
+sg: rýže, rýže, rýži, rýži, rýže, rýži, rýží
+
+@ knedlík
+pos: noun m-inan
+en: dumpling
+rel: food; Czech food; side dish
+sg: knedlík, knedlíku, knedlíku, knedlík, knedlíku, knedlíku, knedlíkem
+pl: knedlíky, knedlíků, knedlíkům, knedlíky, knedlíky, knedlících, knedlíky
+
+@ koláč
+pos: noun m-inan
+en: cake; pastry
+rel: dessert; sweet; bakery
+sg: koláč, koláče, koláči, koláč, koláči, koláči, koláčem
+pl: koláče, koláčů, koláčům, koláče, koláče, koláčích, koláči
+
+@ zmrzlina
+pos: noun f
+en: ice cream
+rel: dessert; sweet; summer
+sg: zmrzlina, zmrzliny, zmrzlině, zmrzlinu, zmrzlino, zmrzlině, zmrzlinou
+pl: zmrzliny, zmrzlin, zmrzlinám, zmrzliny, zmrzliny, zmrzlinách, zmrzlinami
+
+@ cukr
+pos: noun m-inan
+en: sugar
+rel: sweet; coffee; tea
+sg: cukr, cukru, cukru, cukr, cukře, cukru, cukrem
+pl: cukry, cukrů, cukrům, cukry, cukry, cukrech, cukry
+
+@ sůl
+pos: noun f
+en: salt
+rel: food; cooking
+sg: sůl, soli, soli, sůl, soli, soli, solí
+pl: soli, solí, solím, soli, soli, solích, solemi
+
+@ snídaně
+pos: noun f
+en: breakfast
+rel: morning; meal; food
+sg: snídaně, snídaně, snídani, snídani, snídaně, snídani, snídaní
+pl: snídaně, snídaní, snídaním, snídaně, snídaně, snídaních, snídaněmi
+
+@ oběd
+pos: noun m-inan
+en: lunch
+rel: midday; meal; food
+sg: oběd, obědu, obědu, oběd, oběde, obědě, obědem
+pl: obědy, obědů, obědům, obědy, obědy, obědech, obědy
+
+@ večeře
+pos: noun f
+en: dinner; supper
+rel: evening; meal; food
+sg: večeře, večeře, večeři, večeři, večeře, večeři, večeří
+pl: večeře, večeří, večeřím, večeře, večeře, večeřích, večeřemi
+
+@ hlad
+pos: noun m-inan
+en: hunger
+rel: hungry; eat; food
+sg: hlad, hladu, hladu, hlad, hlade, hladu, hladem
+note: Mám hlad. = I am hungry.
+
+@ žízeň
+pos: noun f
+en: thirst
+rel: thirsty; drink; water
+sg: žízeň, žízně, žízni, žízeň, žízni, žízni, žízní
+note: Mám žízeň. = I am thirsty.
+
+@ restaurace
+pos: noun f
+en: restaurant
+rel: eat out; food; waiter; menu
+sg: restaurace, restaurace, restauraci, restauraci, restaurace, restauraci, restaurací
+pl: restaurace, restaurací, restauracím, restaurace, restaurace, restauracích, restauracemi
+
+@ kavárna
+pos: noun f
+en: café; coffee shop
+rel: coffee; cafe; cake
+sg: kavárna, kavárny, kavárně, kavárnu, kavárno, kavárně, kavárnou
+pl: kavárny, kaváren, kavárnám, kavárny, kavárny, kavárnách, kavárnami
+
+@ jídelní lístek
+pos: noun m-inan
+en: menu
+rel: restaurant; food; order
+sg: jídelní lístek, jídelního lístku, jídelnímu lístku, jídelní lístek, jídelní lístku, jídelním lístku, jídelním lístkem
+pl: jídelní lístky, jídelních lístků, jídelním lístkům, jídelní lístky, jídelní lístky, jídelních lístcích, jídelními lístky
+
+@ účet
+pos: noun m-inan
+en: bill; account
+rel: pay; restaurant; check; bank
+sg: účet, účtu, účtu, účet, účte, účtu, účtem
+pl: účty, účtů, účtům, účty, účty, účtech, účty
+note: Účet, prosím. = The bill, please.
+
+@ láhev
+pos: noun f
+en: bottle
+ex: Dám si láhev vody. = I will have a bottle of water.
+rel: drink; water; wine
+sg: láhev, láhve, láhvi, láhev, láhvi, láhvi, láhví
+pl: láhve, láhví, láhvím, láhve, láhve, láhvích, láhvemi
+
+@ kilo
+pos: noun n
+en: kilo; kilogram
+rel: weight; shop; market
+sg: kilo, kila, kilu, kilo, kilo, kilu, kilem
+pl: kila, kil, kilům, kila, kila, kilech, kily
+note: After kilo the thing is in case 2: kilo brambor.
+
+# clothes and shopping
+
+@ svetr
+pos: noun m-inan
+en: sweater; jumper
+rel: clothes; wool; warm
+sg: svetr, svetru, svetru, svetr, svetře, svetru, svetrem
+pl: svetry, svetrů, svetrům, svetry, svetry, svetrech, svetry
+
+@ košile
+pos: noun f
+en: shirt
+rel: clothes; blouse
+sg: košile, košile, košili, košili, košile, košili, košilí
+pl: košile, košil, košilím, košile, košile, košilích, košilemi
+
+@ tričko
+pos: noun n
+en: T-shirt
+rel: clothes; top; shirt
+sg: tričko, trička, tričku, tričko, tričko, tričku, tričkem
+pl: trička, triček, tričkům, trička, trička, tričkách, tričky
+
+@ kalhoty
+pos: noun f pl
+en: trousers; pants
+rel: clothes; jeans
+pl: kalhoty, kalhot, kalhotám, kalhoty, kalhoty, kalhotách, kalhotami
+note: Always plural, even for one pair.
+
+@ bunda
+pos: noun f
+en: jacket
+rel: clothes; coat; warm
+sg: bunda, bundy, bundě, bundu, bundo, bundě, bundou
+pl: bundy, bund, bundám, bundy, bundy, bundách, bundami
+
+@ kabát
+pos: noun m-inan
+en: coat
+rel: clothes; jacket; winter
+sg: kabát, kabátu, kabátu, kabát, kabáte, kabátě/kabátu, kabátem
+pl: kabáty, kabátů, kabátům, kabáty, kabáty, kabátech, kabáty
+
+@ bota
+pos: noun f
+en: shoe
+rel: clothes; shoes; boots
+sg: bota, boty, botě, botu, boto, botě, botou
+pl: boty, bot, botám, boty, boty, botách, botami
+note: Usually plural: boty (shoes).
+
+@ šaty
+pos: noun m-inan pl
+en: dress; clothes
+rel: clothing; outfit
+pl: šaty, šatů, šatům, šaty, šaty, šatech, šaty
+note: Always plural, even for one dress.
+
+@ sukně
+pos: noun f
+en: skirt
+rel: clothes; dress
+sg: sukně, sukně, sukni, sukni, sukně, sukni, sukní
+pl: sukně, sukní, sukním, sukně, sukně, sukních, sukněmi
+
+@ ponožka
+pos: noun f
+en: sock
+rel: clothes; socks; shoes
+sg: ponožka, ponožky, ponožce, ponožku, ponožko, ponožce, ponožkou
+pl: ponožky, ponožek, ponožkám, ponožky, ponožky, ponožkách, ponožkami
+note: Usually plural: ponožky (socks).
+
+@ pás
+pos: noun m-inan
+en: belt; waist
+ex: Mám nový pás. = I have a new belt.
+rel: clothes; trousers
+sg: pás, pásu, pásu, pás, páse, pásu, pásem
+pl: pásy, pásů, pásům, pásy, pásy, pásech, pásy
+note: Not to be confused with pas (passport): the long á changes the word.
+
+@ barva
+pos: noun f
+en: colour; color; paint
+rel: red; blue; colour
+sg: barva, barvy, barvě, barvu, barvo, barvě, barvou
+pl: barvy, barev, barvám, barvy, barvy, barvách, barvami
+
+@ velikost
+pos: noun f
+en: size
+rel: clothes; small; large; fit
+sg: velikost, velikosti, velikosti, velikost, velikosti, velikosti, velikostí
+pl: velikosti, velikostí, velikostem, velikosti, velikosti, velikostech, velikostmi
+
+@ cena
+pos: noun f
+en: price; prize
+rel: cost; money; how much
+sg: cena, ceny, ceně, cenu, ceno, ceně, cenou
+pl: ceny, cen, cenám, ceny, ceny, cenách, cenami
+
+@ koruna
+pos: noun f
+en: crown (Czech money)
+rel: money; price; CZK; currency
+sg: koruna, koruny, koruně, korunu, koruno, koruně, korunou
+pl: koruny, korun, korunám, koruny, koruny, korunách, korunami
+forms: kč
+note: Written Kč. One koruna, two koruny, five korun.
+
+@ hotovost
+pos: noun f
+en: cash
+rel: money; pay; coins; notes
+sg: hotovost, hotovosti, hotovosti, hotovost, hotovosti, hotovosti, hotovostí
+note: Platím v hotovosti. = I pay in cash.
+
+@ karta
+pos: noun f
+en: card; bank card
+rel: pay; credit card; money
+sg: karta, karty, kartě, kartu, karto, kartě, kartou
+pl: karty, karet, kartám, karty, karty, kartách, kartami
+note: Platím kartou. = I pay by card.
+
+@ taška
+pos: noun f
+en: bag
+rel: shopping bag; handbag
+sg: taška, tašky, tašce, tašku, taško, tašce, taškou
+pl: tašky, tašek, taškám, tašky, tašky, taškách, taškami
+
+@ batoh
+pos: noun m-inan
+en: backpack; rucksack
+rel: bag; school
+sg: batoh, batohu, batohu, batoh, batohu, batohu, batohem
+pl: batohy, batohů, batohům, batohy, batohy, batozích, batohy
+
+@ kufr
+pos: noun m-inan
+en: suitcase
+rel: luggage; travel; bag
+sg: kufr, kufru, kufru, kufr, kufře, kufru, kufrem
+pl: kufry, kufrů, kufrům, kufry, kufry, kufrech, kufry
+
+# things at home and with you
+
+@ stůl
+pos: noun m-inan
+en: table; desk
+rel: furniture; kitchen
+sg: stůl, stolu, stolu, stůl, stole, stole, stolem
+pl: stoly, stolů, stolům, stoly, stoly, stolech, stoly
+
+@ židle
+pos: noun f
+en: chair
+rel: furniture; sit; seat
+sg: židle, židle, židli, židli, židle, židli, židlí
+pl: židle, židlí, židlím, židle, židle, židlích, židlemi
+
+@ okno
+pos: noun n
+en: window
+rel: house; room; glass
+sg: okno, okna, oknu, okno, okno, okně, oknem
+pl: okna, oken, oknům, okna, okna, oknech, okny
+
+@ pokoj
+pos: noun m-inan
+en: room
+rel: bedroom; hotel room; flat
+sg: pokoj, pokoje, pokoji, pokoj, pokoji, pokoji, pokojem
+pl: pokoje, pokojů, pokojům, pokoje, pokoje, pokojích, pokoji
+
+@ kniha
+pos: noun f
+en: book
+rel: read; library; novel
+sg: kniha, knihy, knize, knihu, kniho, knize, knihou
+pl: knihy, knih, knihám, knihy, knihy, knihách, knihami
+see: knížka
+
+@ knížka
+pos: noun f
+en: book (small or friendly)
+rel: read; library; booklet
+sg: knížka, knížky, knížce, knížku, knížko, knížce, knížkou
+pl: knížky, knížek, knížkám, knížky, knížky, knížkách, knížkami
+see: kniha
+
+@ dopis
+pos: noun m-inan
+en: letter (mail)
+rel: post; write; mail
+sg: dopis, dopisu, dopisu, dopis, dopise, dopise/dopisu, dopisem
+pl: dopisy, dopisů, dopisům, dopisy, dopisy, dopisech, dopisy
+
+@ telefon
+pos: noun m-inan
+en: phone; telephone
+rel: mobile; call; number
+sg: telefon, telefonu, telefonu, telefon, telefone, telefonu, telefonem
+pl: telefony, telefonů, telefonům, telefony, telefony, telefonech, telefony
+
+@ klíč
+pos: noun m-inan
+en: key
+rel: door; lock; house
+sg: klíč, klíče, klíči, klíč, klíči, klíči, klíčem
+pl: klíče, klíčů, klíčům, klíče, klíče, klíčích, klíči
+
+@ notebook
+pos: noun m-inan
+en: laptop
+rel: computer; work
+sg: notebook, notebooku, notebooku, notebook, notebooku, notebooku, notebookem
+pl: notebooky, notebooků, notebookům, notebooky, notebooky, noteboocích, notebooky
+note: In Czech notebook means a laptop, not a paper notebook.
+
+@ počítač
+pos: noun m-inan
+en: computer
+ex: Pracuju na počítači. = I work on a computer.
+rel: laptop; PC; work
+sg: počítač, počítače, počítači, počítač, počítači, počítači, počítačem
+pl: počítače, počítačů, počítačům, počítače, počítače, počítačích, počítači
+
+@ auto
+pos: noun n
+en: car
+rel: drive; vehicle; road
+sg: auto, auta, autu, auto, auto, autě, autem
+pl: auta, aut, autům, auta, auta, autech, auty
+
+@ kolo
+pos: noun n
+en: bicycle; bike; wheel
+rel: cycling; ride
+sg: kolo, kola, kolu, kolo, kolo, kole, kolem
+pl: kola, kol, kolům, kola, kola, kolech, koly
+note: Jezdím na kole. = I ride a bike.
+
+@ budík
+pos: noun m-inan
+en: alarm clock
+rel: morning; wake up; clock
+sg: budík, budíku, budíku, budík, budíku, budíku, budíkem
+pl: budíky, budíků, budíkům, budíky, budíky, budících, budíky
+
+@ ručník
+pos: noun m-inan
+en: towel
+rel: bathroom; shower
+sg: ručník, ručníku, ručníku, ručník, ručníku, ručníku, ručníkem
+pl: ručníky, ručníků, ručníkům, ručníky, ručníky, ručnících, ručníky
+
+@ zubní kartáček
+pos: noun m-inan
+en: toothbrush
+rel: teeth; bathroom; brush
+sg: zubní kartáček, zubního kartáčku, zubnímu kartáčku, zubní kartáček, zubní kartáčku, zubním kartáčku, zubním kartáčkem
+pl: zubní kartáčky, zubních kartáčků, zubním kartáčkům, zubní kartáčky, zubní kartáčky, zubních kartáčcích, zubními kartáčky
+
+@ zub
+pos: noun m-inan
+en: tooth
+rel: teeth; dentist; brush
+sg: zub, zubu, zubu, zub, zube, zubu, zubem
+pl: zuby, zubů, zubům, zuby, zuby, zubech, zuby
+note: Čistím si zuby. = I brush my teeth.
+
+@ sprcha
+pos: noun f
+en: shower
+rel: bathroom; wash
+sg: sprcha, sprchy, sprše, sprchu, sprcho, sprše, sprchou
+pl: sprchy, sprch, sprchám, sprchy, sprchy, sprchách, sprchami
+
+@ věc
+pos: noun f
+en: thing
+ex: Kde jsou moje věci? = Where are my things?
+rel: stuff; object; item
+sg: věc, věci, věci, věc, věci, věci, věcí
+pl: věci, věcí, věcem, věci, věci, věcech, věcmi
+
+@ obrázek
+pos: noun m-inan
+en: picture
+rel: photo; image; drawing
+sg: obrázek, obrázku, obrázku, obrázek, obrázku, obrázku, obrázkem
+pl: obrázky, obrázků, obrázkům, obrázky, obrázky, obrázcích, obrázky
+
+@ fotografie
+pos: noun f
+en: photograph; photo
+rel: picture; camera; image
+sg: fotografie, fotografie, fotografii, fotografii, fotografie, fotografii, fotografií
+pl: fotografie, fotografií, fotografiím, fotografie, fotografie, fotografiích, fotografiemi
+
+@ vizitka
+pos: noun f
+en: business card
+rel: card; contact; name
+sg: vizitka, vizitky, vizitce, vizitku, vizitko, vizitce, vizitkou
+pl: vizitky, vizitek, vizitkám, vizitky, vizitky, vizitkách, vizitkami
+
+@ kytara
+pos: noun f
+en: guitar
+rel: music; instrument; play
+sg: kytara, kytary, kytaře, kytaru, kytaro, kytaře, kytarou
+pl: kytary, kytar, kytarám, kytary, kytary, kytarách, kytarami
+note: Hraju na kytaru. = I play the guitar.

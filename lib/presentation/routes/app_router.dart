@@ -28,6 +28,8 @@ import '../screens/arrival/daily_arrival_screen.dart';
 import '../screens/placement/placement_screen.dart';
 import '../screens/lesson/delayed_transfer_screen.dart';
 import '../screens/grammar/unit_guide_screen.dart';
+import '../screens/dictionary/dictionary_screen.dart';
+import '../screens/dictionary/dictionary_entry_screen.dart';
 import '../screens/practice/copybook_screen.dart';
 import '../providers/settings_providers.dart';
 import '../providers/daily_arrival_providers.dart';
@@ -215,6 +217,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                       ? ExamLevel.a2
                       : ExamLevel.a1,
             ),
+      ),
+      GoRoute(
+        path: '/dictionary',
+        builder:
+            (context, state) =>
+                DictionaryScreen(level: state.uri.queryParameters['level']),
+        routes: [
+          GoRoute(
+            path: ':level/:id',
+            builder:
+                (context, state) => DictionaryEntryScreen(
+                  level: state.pathParameters['level']!,
+                  entryId: state.pathParameters['id']!,
+                ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/grammar',

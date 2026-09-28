@@ -1,0 +1,1021 @@
+# A1 dictionary — places, travel, time, weather, forms and school.
+
+# places
+
+@ dům
+pos: noun m-inan
+en: house; home; building
+rel: flat; home; building
+sg: dům, domu, domu, dům, dome, domě, domem
+pl: domy, domů, domům, domy, domy, domech, domy
+see: doma, domů
+
+@ byt
+pos: noun m-inan
+en: flat; apartment
+rel: home; house; rent; room
+sg: byt, bytu, bytu, byt, byte, bytě, bytem
+pl: byty, bytů, bytům, byty, byty, bytech, byty
+note: Not to be confused with být (to be): the long ý changes the word.
+
+@ město
+pos: noun n
+en: town; city
+rel: centre; Prague; place
+sg: město, města, městu, město, město, městě, městem
+pl: města, měst, městům, města, města, městech, městy
+
+@ centrum
+pos: noun n
+en: centre; center; city centre
+rel: town; downtown; middle
+sg: centrum, centra, centru, centrum, centrum, centru, centrem
+pl: centra, center, centrům, centra, centra, centrech, centry
+
+@ ulice
+pos: noun f
+en: street
+rel: road; address; town
+sg: ulice, ulice, ulici, ulici, ulice, ulici, ulicí
+pl: ulice, ulic, ulicím, ulice, ulice, ulicích, ulicemi
+
+@ náměstí
+pos: noun n
+en: square (in a town)
+rel: centre; town; market
+sg: náměstí, náměstí, náměstí, náměstí, náměstí, náměstí, náměstím
+pl: náměstí, náměstí, náměstím, náměstí, náměstí, náměstích, náměstími
+
+@ hrad
+pos: noun m-inan
+en: castle
+rel: palace; history; Prague Castle
+sg: hrad, hradu, hradu, hrad, hrade, hradě/hradu, hradem
+pl: hrady, hradů, hradům, hrady, hrady, hradech, hrady
+
+@ most
+pos: noun m-inan
+en: bridge
+rel: river; Charles Bridge; cross
+sg: most, mostu, mostu, most, moste, mostě, mostem
+pl: mosty, mostů, mostům, mosty, mosty, mostech, mosty
+
+@ řeka
+pos: noun f
+en: river
+rel: water; bridge; Vltava
+sg: řeka, řeky, řece, řeku, řeko, řece, řekou
+pl: řeky, řek, řekám, řeky, řeky, řekách, řekami
+
+@ park
+pos: noun m-inan
+en: park
+rel: garden; trees; walk
+sg: park, parku, parku, park, parku, parku, parkem
+pl: parky, parků, parkům, parky, parky, parcích, parky
+
+@ škola
+pos: noun f
+en: school
+rel: class; teacher; lesson; study
+sg: škola, školy, škole, školu, školo, škole, školou
+pl: školy, škol, školám, školy, školy, školách, školami
+
+@ knihovna
+pos: noun f
+en: library; bookcase
+ex: Knihovna je naproti parku. = The library is opposite the park.
+rel: books; read; study
+sg: knihovna, knihovny, knihovně, knihovnu, knihovno, knihovně, knihovnou
+pl: knihovny, knihoven, knihovnám, knihovny, knihovny, knihovnách, knihovnami
+
+@ práce
+pos: noun f
+en: work; job
+rel: office; employment; career
+sg: práce, práce, práci, práci, práce, práci, prací
+pl: práce, prací, pracím, práce, práce, pracích, pracemi
+note: Jdu do práce. = I am going to work. Jsem v práci. = I am at work.
+
+@ kancelář
+pos: noun f
+en: office
+rel: work; job; desk
+sg: kancelář, kanceláře, kanceláři, kancelář, kanceláři, kanceláři, kanceláří
+pl: kanceláře, kanceláří, kancelářím, kanceláře, kanceláře, kancelářích, kancelářemi
+
+@ úřad
+pos: noun m-inan
+en: office; authority (government)
+rel: official; documents; town hall
+sg: úřad, úřadu, úřadu, úřad, úřade, úřadě/úřadu, úřadem
+pl: úřady, úřadů, úřadům, úřady, úřady, úřadech, úřady
+
+@ obchod
+pos: noun m-inan
+en: shop; store
+rel: buy; shopping; supermarket
+sg: obchod, obchodu, obchodu, obchod, obchode, obchodě, obchodem
+pl: obchody, obchodů, obchodům, obchody, obchody, obchodech, obchody
+
+@ supermarket
+pos: noun m-inan
+en: supermarket
+rel: shop; shopping; food
+sg: supermarket, supermarketu, supermarketu, supermarket, supermarkete, supermarketu, supermarketem
+pl: supermarkety, supermarketů, supermarketům, supermarkety, supermarkety, supermarketech, supermarkety
+
+@ trh
+pos: noun m-inan
+en: market
+rel: shop; vegetables; square
+sg: trh, trhu, trhu, trh, trhu, trhu, trhem
+pl: trhy, trhů, trhům, trhy, trhy, trzích, trhy
+
+@ banka
+pos: noun f
+en: bank
+rel: money; account; card
+sg: banka, banky, bance, banku, banko, bance, bankou
+pl: banky, bank, bankám, banky, banky, bankách, bankami
+
+@ pošta
+pos: noun f
+en: post office; post; mail
+rel: letter; parcel; stamp
+sg: pošta, pošty, poště, poštu, pošto, poště, poštou
+pl: pošty, pošt, poštám, pošty, pošty, poštách, poštami
+
+@ nemocnice
+pos: noun f
+en: hospital
+rel: doctor; ill; emergency
+sg: nemocnice, nemocnice, nemocnici, nemocnici, nemocnice, nemocnici, nemocnicí
+pl: nemocnice, nemocnic, nemocnicím, nemocnice, nemocnice, nemocnicích, nemocnicemi
+
+@ lékárna
+pos: noun f
+en: pharmacy; chemist's
+rel: medicine; drugstore; doctor
+sg: lékárna, lékárny, lékárně, lékárnu, lékárno, lékárně, lékárnou
+pl: lékárny, lékáren, lékárnám, lékárny, lékárny, lékárnách, lékárnami
+
+@ pohotovost
+pos: noun f
+en: emergency (service); A&E
+ex: Musím jet na pohotovost. = I have to go to A&E.
+rel: hospital; ambulance; urgent
+sg: pohotovost, pohotovosti, pohotovosti, pohotovost, pohotovosti, pohotovosti, pohotovostí
+pl: pohotovosti, pohotovostí, pohotovostem, pohotovosti, pohotovosti, pohotovostech, pohotovostmi
+
+@ policie
+pos: noun f
+en: police
+ex: Volejte policii! = Call the police!
+rel: police officer; emergency; help
+sg: policie, policie, policii, policii, policie, policii, policií
+
+@ sanitka
+pos: noun f
+en: ambulance
+ex: Sanitka jede do nemocnice. = The ambulance is going to the hospital.
+rel: emergency; hospital
+sg: sanitka, sanitky, sanitce, sanitku, sanitko, sanitce, sanitkou
+pl: sanitky, sanitek, sanitkám, sanitky, sanitky, sanitkách, sanitkami
+
+@ bazén
+pos: noun m-inan
+en: swimming pool; pool
+rel: swim; water; sport
+sg: bazén, bazénu, bazénu, bazén, bazéne, bazénu, bazénem
+pl: bazény, bazénů, bazénům, bazény, bazény, bazénech, bazény
+
+@ kino
+pos: noun n
+en: cinema; movie theater
+rel: film; movie
+sg: kino, kina, kinu, kino, kino, kině, kinem
+pl: kina, kin, kinům, kina, kina, kinech, kiny
+
+@ divadlo
+pos: noun n
+en: theatre; theater
+rel: play; stage; culture
+sg: divadlo, divadla, divadlu, divadlo, divadlo, divadle, divadlem
+pl: divadla, divadel, divadlům, divadla, divadla, divadlech, divadly
+
+@ koncert
+pos: noun m-inan
+en: concert
+rel: music; band; ticket
+sg: koncert, koncertu, koncertu, koncert, koncerte, koncertě/koncertu, koncertem
+pl: koncerty, koncertů, koncertům, koncerty, koncerty, koncertech, koncerty
+
+@ hotel
+pos: noun m-inan
+en: hotel
+rel: room; stay; reception
+sg: hotel, hotelu, hotelu, hotel, hoteli, hotelu, hotelem
+pl: hotely, hotelů, hotelům, hotely, hotely, hotelech, hotely
+
+@ recepce
+pos: noun f
+en: reception (desk)
+ex: Klíč je na recepci. = The key is at reception.
+rel: hotel; front desk; receptionist
+sg: recepce, recepce, recepci, recepci, recepce, recepci, recepcí
+pl: recepce, recepcí, recepcím, recepce, recepce, recepcích, recepcemi
+
+# getting around
+
+@ autobus
+pos: noun m-inan
+en: bus
+rel: transport; stop; travel
+sg: autobus, autobusu, autobusu, autobus, autobuse, autobuse/autobusu, autobusem
+pl: autobusy, autobusů, autobusům, autobusy, autobusy, autobusech, autobusy
+
+@ tramvaj
+pos: noun f
+en: tram
+rel: transport; stop; streetcar
+sg: tramvaj, tramvaje, tramvaji, tramvaj, tramvaji, tramvaji, tramvají
+pl: tramvaje, tramvají, tramvajím, tramvaje, tramvaje, tramvajích, tramvajemi
+note: Jedu tramvají. = I go by tram.
+
+@ metro
+pos: noun n
+en: metro; underground; subway
+rel: transport; station
+sg: metro, metra, metru, metro, metro, metru, metrem
+
+@ vlak
+pos: noun m-inan
+en: train
+rel: railway; station; travel
+sg: vlak, vlaku, vlaku, vlak, vlaku, vlaku, vlakem
+pl: vlaky, vlaků, vlakům, vlaky, vlaky, vlacích, vlaky
+
+@ nádraží
+pos: noun n
+en: (railway) station
+rel: train; platform; bus station
+sg: nádraží, nádraží, nádraží, nádraží, nádraží, nádraží, nádražím
+pl: nádraží, nádraží, nádražím, nádraží, nádraží, nádražích, nádražími
+
+@ nástupiště
+pos: noun n
+en: platform
+rel: train; station
+sg: nástupiště, nástupiště, nástupišti, nástupiště, nástupiště, nástupišti, nástupištěm
+pl: nástupiště, nástupišť, nástupištím, nástupiště, nástupiště, nástupištích, nástupišti
+
+@ zastávka
+pos: noun f
+en: stop (bus or tram)
+rel: bus stop; tram stop; station
+sg: zastávka, zastávky, zastávce, zastávku, zastávko, zastávce, zastávkou
+pl: zastávky, zastávek, zastávkám, zastávky, zastávky, zastávkách, zastávkami
+
+@ letiště
+pos: noun n
+en: airport
+rel: plane; flight; travel
+sg: letiště, letiště, letišti, letiště, letiště, letišti, letištěm
+pl: letiště, letišť, letištím, letiště, letiště, letištích, letišti
+
+@ jízdenka
+pos: noun f
+en: ticket (for transport)
+rel: travel; bus; tram; train
+sg: jízdenka, jízdenky, jízdence, jízdenku, jízdenko, jízdence, jízdenkou
+pl: jízdenky, jízdenek, jízdenkám, jízdenky, jízdenky, jízdenkách, jízdenkami
+
+@ lístek
+pos: noun m-inan
+en: ticket; slip of paper
+rel: travel; cinema; concert
+sg: lístek, lístku, lístku, lístek, lístku, lístku, lístkem
+pl: lístky, lístků, lístkům, lístky, lístky, lístcích, lístky
+
+@ pas
+pos: noun m-inan
+en: passport
+rel: ID; travel; documents
+sg: pas, pasu, pasu, pas, pase, pasu, pasem
+pl: pasy, pasů, pasům, pasy, pasy, pasech, pasy
+
+@ dovolená
+pos: noun f
+en: holiday; vacation; leave
+rel: travel; trip; summer
+sg: dovolená, dovolené, dovolené, dovolenou, dovolená, dovolené, dovolenou
+pl: dovolené, dovolených, dovoleným, dovolené, dovolené, dovolených, dovolenými
+note: Declines like an adjective. Jedeme na dovolenou. = We are going on holiday.
+
+# places on the map
+
+@ Praha
+pos: noun f
+en: Prague
+rel: capital; city; Czech Republic
+sg: Praha, Prahy, Praze, Prahu, Praho, Praze, Prahou
+note: Jsem z Prahy. Bydlím v Praze.
+
+@ Brno
+pos: noun n
+en: Brno
+rel: city; Moravia
+sg: Brno, Brna, Brnu, Brno, Brno, Brně, Brnem
+note: Jedu do Brna. Bydlím v Brně.
+
+@ Plzeň
+pos: noun f
+en: Pilsen (Plzeň)
+ex: Jedu vlakem do Plzně. = I am going to Pilsen by train.
+rel: city; beer
+sg: Plzeň, Plzně, Plzni, Plzeň, Plzni, Plzni, Plzní
+
+@ Olomouc
+pos: noun f
+en: Olomouc
+ex: Bydlím v Olomouci. = I live in Olomouc.
+rel: city; Moravia
+sg: Olomouc, Olomouce, Olomouci, Olomouc, Olomouci, Olomouci, Olomoucí
+
+@ Liberec
+pos: noun m-inan
+en: Liberec
+ex: Jsem z Liberce. = I am from Liberec.
+rel: city
+sg: Liberec, Liberce, Liberci, Liberec, Liberci, Liberci, Libercem
+
+@ Česko
+pos: noun n
+en: Czechia; the Czech Republic
+ex: Bydlím v Česku. = I live in Czechia.
+rel: country; Czech
+sg: Česko, Česka, Česku, Česko, Česko, Česku, Českem
+
+@ Polsko
+pos: noun n
+en: Poland
+rel: country; Polish
+sg: Polsko, Polska, Polsku, Polsko, Polsko, Polsku, Polskem
+
+@ Německo
+pos: noun n
+en: Germany
+ex: Můj kolega je z Německa. = My colleague is from Germany.
+rel: country; German
+sg: Německo, Německa, Německu, Německo, Německo, Německu, Německem
+
+@ Ukrajina
+pos: noun f
+en: Ukraine
+ex: Jsem z Ukrajiny. = I am from Ukraine.
+rel: country; Ukrainian
+sg: Ukrajina, Ukrajiny, Ukrajině, Ukrajinu, Ukrajino, Ukrajině, Ukrajinou
+
+@ Indie
+pos: noun f
+en: India
+rel: country; Indian
+sg: Indie, Indie, Indii, Indii, Indie, Indii, Indií
+
+@ Korea
+pos: noun f
+en: Korea
+ex: Lee je z Koreje. = Lee is from Korea.
+rel: country; Korean
+sg: Korea, Koreje, Koreji, Koreu, Koreo, Koreji, Koreou
+
+# time
+
+@ čas
+pos: noun m-inan
+en: time
+rel: free time; hour; clock
+sg: čas, času, času, čas, čase, čase, časem
+pl: časy, časů, časům, časy, časy, časech, časy
+note: Mám čas. = I have time.
+
+@ volný čas
+pos: noun m-inan
+en: free time; spare time
+rel: hobby; weekend; relax
+sg: volný čas, volného času, volnému času, volný čas, volný čase, volném čase, volným časem
+note: Ve volném čase čtu. = In my free time I read.
+
+@ hodina
+pos: noun f
+en: hour; o'clock; lesson
+rel: time; clock; class
+sg: hodina, hodiny, hodině, hodinu, hodino, hodině, hodinou
+pl: hodiny, hodin, hodinám, hodiny, hodiny, hodinách, hodinami
+note: Je jedna hodina. Jsou dvě hodiny. Je pět hodin.
+
+@ minuta
+pos: noun f
+en: minute
+rel: time; hour; second
+sg: minuta, minuty, minutě, minutu, minuto, minutě, minutou
+pl: minuty, minut, minutám, minuty, minuty, minutách, minutami
+
+@ den
+pos: noun m-inan
+en: day
+rel: today; week; daytime
+sg: den, dne, dni/dnu, den, dni, dni/dnu, dnem
+pl: dny/dni, dnů/dní, dnům, dny/dni, dny/dni, dnech, dny
+
+@ týden
+pos: noun m-inan
+en: week
+rel: days; weekend; next week
+sg: týden, týdne, týdnu, týden, týdne, týdnu, týdnem
+pl: týdny, týdnů, týdnům, týdny, týdny, týdnech, týdny
+
+@ víkend
+pos: noun m-inan
+en: weekend
+rel: Saturday; Sunday; free time
+sg: víkend, víkendu, víkendu, víkend, víkende, víkendu, víkendem
+pl: víkendy, víkendů, víkendům, víkendy, víkendy, víkendech, víkendy
+note: O víkendu = at the weekend.
+
+@ měsíc
+pos: noun m-inan
+en: month; moon
+rel: calendar; year; time
+sg: měsíc, měsíce, měsíci, měsíc, měsíci, měsíci, měsícem
+pl: měsíce, měsíců, měsícům, měsíce, měsíce, měsících, měsíci
+
+@ rok
+pos: noun m-inan
+en: year
+rel: age; birthday; calendar
+sg: rok, roku, roku, rok, roku, roce/roku, rokem
+pl: roky, let/roků, rokům/letům, roky, roky, letech/rocích, roky/lety
+note: After numbers from five on: pět let (five years). Je mi dvacet let. = I am twenty.
+
+@ ráno
+pos: noun n
+en: morning
+rel: early; breakfast; wake up
+sg: ráno, rána, ránu, ráno, ráno, ránu, ránem
+pl: rána, rán, ránům, rána, rána, ránech, rány
+note: Also means "in the morning": Ráno piju kávu.
+
+@ dopoledne
+pos: noun n
+en: late morning; before noon
+rel: morning; time of day
+sg: dopoledne, dopoledne, dopoledni, dopoledne, dopoledne, dopoledni, dopolednem
+pl: dopoledne, dopolední, dopoledním, dopoledne, dopoledne, dopoledních, dopoledni
+note: Also means "in the late morning".
+
+@ odpoledne
+pos: noun n
+en: afternoon
+rel: time of day; after lunch
+sg: odpoledne, odpoledne, odpoledni, odpoledne, odpoledne, odpoledni, odpolednem
+pl: odpoledne, odpolední, odpoledním, odpoledne, odpoledne, odpoledních, odpoledni
+note: Also means "in the afternoon".
+
+@ večer
+pos: noun m-inan
+en: evening
+rel: night; dinner; time of day
+sg: večer, večera, večeru, večer, večere, večeru/večeři, večerem
+pl: večery, večerů, večerům, večery, večery, večerech, večery
+note: Also means "in the evening": Večer čtu.
+
+@ noc
+pos: noun f
+en: night
+rel: sleep; dark; evening
+sg: noc, noci, noci, noc, noci, noci, nocí
+pl: noci, nocí, nocím, noci, noci, nocích, nocemi
+note: v noci = at night. Dobrou noc! = Good night!
+
+@ zítřek
+pos: noun m-inan
+en: tomorrow (the day)
+ex: Na zítřek mám plán. = I have a plan for tomorrow.
+rel: future; next day
+sg: zítřek, zítřka, zítřku, zítřek, zítřku, zítřku, zítřkem
+
+@ pondělí
+pos: noun n
+en: Monday
+rel: week; day; weekday
+sg: pondělí, pondělí, pondělí, pondělí, pondělí, pondělí, pondělím
+pl: pondělí, pondělí, pondělím, pondělí, pondělí, pondělích, pondělími
+note: v pondělí = on Monday.
+
+@ úterý
+pos: noun n
+en: Tuesday
+rel: week; day; weekday
+sg: úterý, úterý, úterý, úterý, úterý, úterý, úterým
+pl: úterý, úterý, úterým, úterý, úterý, úterých, úterými
+note: v úterý = on Tuesday.
+
+@ středa
+pos: noun f
+en: Wednesday
+rel: week; day; weekday
+sg: středa, středy, středě, středu, středo, středě, středou
+pl: středy, střed, středám, středy, středy, středách, středami
+note: ve středu = on Wednesday.
+
+@ čtvrtek
+pos: noun m-inan
+en: Thursday
+rel: week; day; weekday
+sg: čtvrtek, čtvrtka, čtvrtku, čtvrtek, čtvrtku, čtvrtku, čtvrtkem
+pl: čtvrtky, čtvrtků, čtvrtkům, čtvrtky, čtvrtky, čtvrtcích, čtvrtky
+note: ve čtvrtek = on Thursday.
+
+@ pátek
+pos: noun m-inan
+en: Friday
+rel: week; day; weekend
+sg: pátek, pátku, pátku, pátek, pátku, pátku, pátkem
+pl: pátky, pátků, pátkům, pátky, pátky, pátcích, pátky
+note: v pátek = on Friday.
+
+@ sobota
+pos: noun f
+en: Saturday
+rel: weekend; day
+sg: sobota, soboty, sobotě, sobotu, soboto, sobotě, sobotou
+pl: soboty, sobot, sobotám, soboty, soboty, sobotách, sobotami
+note: v sobotu = on Saturday.
+
+@ neděle
+pos: noun f
+en: Sunday
+rel: weekend; day
+sg: neděle, neděle, neděli, neděli, neděle, neděli, nedělí
+pl: neděle, nedělí, nedělím, neděle, neděle, nedělích, nedělemi
+note: v neděli = on Sunday.
+
+@ jaro
+pos: noun n
+en: spring
+rel: season; March; flowers
+sg: jaro, jara, jaru, jaro, jaro, jaře, jarem
+pl: jara, jar, jarům, jara, jara, jarech, jary
+note: na jaře = in spring.
+
+@ léto
+pos: noun n
+en: summer
+rel: season; hot; holiday
+sg: léto, léta, létu, léto, léto, létě, létem
+pl: léta, let, létům, léta, léta, létech, léty
+note: v létě = in summer.
+
+@ podzim
+pos: noun m-inan
+en: autumn; fall
+rel: season; leaves; September
+sg: podzim, podzimu, podzimu, podzim, podzime, podzimu, podzimem
+note: na podzim = in autumn.
+
+@ zima
+pos: noun f
+en: winter; cold
+rel: season; snow; cold weather
+sg: zima, zimy, zimě, zimu, zimo, zimě, zimou
+pl: zimy, zim, zimám, zimy, zimy, zimách, zimami
+note: v zimě = in winter. Je mi zima. = I am cold.
+
+# weather
+
+@ počasí
+pos: noun n
+en: weather
+rel: rain; sun; forecast; temperature
+sg: počasí, počasí, počasí, počasí, počasí, počasí, počasím
+
+@ slunce
+pos: noun n
+en: sun
+rel: sunny; sunshine; warm
+sg: slunce, slunce, slunci, slunce, slunce, slunci, sluncem
+
+@ vítr
+pos: noun m-inan
+en: wind
+rel: windy; weather; blow
+sg: vítr, větru, větru, vítr, větře, větru, větrem
+pl: větry, větrů, větrům, větry, větry, větrech, větry
+
+@ déšť
+pos: noun m-inan
+en: rain
+rel: raining; umbrella; weather
+sg: déšť, deště, dešti, déšť, dešti, dešti, deštěm
+pl: deště, dešťů, deštům, deště, deště, deštích, dešti
+
+@ sníh
+pos: noun m-inan
+en: snow
+rel: winter; snowing; cold
+sg: sníh, sněhu, sněhu, sníh, sněhu, sněhu, sněhem
+
+@ mlha
+pos: noun f
+en: fog; mist
+rel: weather; foggy
+sg: mlha, mlhy, mlze, mlhu, mlho, mlze, mlhou
+pl: mlhy, mlh, mlhám, mlhy, mlhy, mlhách, mlhami
+
+@ bouřka
+pos: noun f
+en: thunderstorm; storm
+rel: weather; thunder; lightning
+sg: bouřka, bouřky, bouřce, bouřku, bouřko, bouřce, bouřkou
+pl: bouřky, bouřek, bouřkám, bouřky, bouřky, bouřkách, bouřkami
+
+@ teplota
+pos: noun f
+en: temperature; fever
+rel: weather; degrees; warm
+sg: teplota, teploty, teplotě, teplotu, teploto, teplotě, teplotou
+pl: teploty, teplot, teplotám, teploty, teploty, teplotách, teplotami
+
+# forms, school and language
+
+@ jméno
+pos: noun n
+en: name; first name
+rel: surname; form; call
+sg: jméno, jména, jménu, jméno, jméno, jménu, jménem
+pl: jména, jmen, jménům, jména, jména, jménech, jmény
+
+@ příjmení
+pos: noun n
+en: surname; last name
+rel: name; family name; form
+sg: příjmení, příjmení, příjmení, příjmení, příjmení, příjmení, příjmením
+pl: příjmení, příjmení, příjmením, příjmení, příjmení, příjmeních, příjmeními
+
+@ adresa
+pos: noun f
+en: address
+rel: street; home; form
+sg: adresa, adresy, adrese, adresu, adreso, adrese, adresou
+pl: adresy, adres, adresám, adresy, adresy, adresách, adresami
+
+@ číslo
+pos: noun n
+en: number
+rel: phone number; count; room number
+sg: číslo, čísla, číslu, číslo, číslo, čísle, číslem
+pl: čísla, čísel, číslům, čísla, čísla, číslech, čísly
+
+@ datum
+pos: noun n
+en: date (on a calendar)
+ex: Jaké je dnes datum? = What is the date today?
+rel: day; birthday; form
+sg: datum, data, datu, datum, datum, datu, datem
+pl: data, dat, datům, data, data, datech, daty
+
+@ narození
+pos: noun n
+en: birth
+ex: Napište datum narození. = Write your date of birth.
+rel: born; birthday; date of birth
+sg: narození, narození, narození, narození, narození, narození, narozením
+note: datum narození = date of birth.
+
+@ podpis
+pos: noun m-inan
+en: signature
+rel: sign; form; name
+sg: podpis, podpisu, podpisu, podpis, podpise, podpisu, podpisem
+pl: podpisy, podpisů, podpisům, podpisy, podpisy, podpisech, podpisy
+
+@ formulář
+pos: noun m-inan
+en: form (to fill in)
+rel: document; office; fill in
+sg: formulář, formuláře, formuláři, formulář, formuláři, formuláři, formulářem
+pl: formuláře, formulářů, formulářům, formuláře, formuláře, formulářích, formuláři
+
+@ profil
+pos: noun m-inan
+en: profile
+rel: account; page; information
+sg: profil, profilu, profilu, profil, profile, profilu, profilem
+pl: profily, profilů, profilům, profily, profily, profilech, profily
+
+@ kontakt
+pos: noun m-inan
+en: contact
+rel: phone; email; address
+sg: kontakt, kontaktu, kontaktu, kontakt, kontakte, kontaktu, kontaktem
+pl: kontakty, kontaktů, kontaktům, kontakty, kontakty, kontaktech, kontakty
+
+@ informace
+pos: noun f
+en: information
+rel: info; details; help desk
+sg: informace, informace, informaci, informaci, informace, informaci, informací
+pl: informace, informací, informacím, informace, informace, informacích, informacemi
+
+@ zpráva
+pos: noun f
+en: message; news; report
+rel: text message; email; note
+sg: zpráva, zprávy, zprávě, zprávu, zprávo, zprávě, zprávou
+pl: zprávy, zpráv, zprávám, zprávy, zprávy, zprávách, zprávami
+
+@ pozdrav
+pos: noun m-inan
+en: greeting
+rel: hello; hi; letter
+sg: pozdrav, pozdravu, pozdravu, pozdrav, pozdrave, pozdravu, pozdravem
+pl: pozdravy, pozdravů, pozdravům, pozdravy, pozdravy, pozdravech, pozdravy
+
+@ rozloučení
+pos: noun n
+en: goodbye; farewell
+rel: bye; ending; letter
+sg: rozloučení, rozloučení, rozloučení, rozloučení, rozloučení, rozloučení, rozloučením
+
+@ důvod
+pos: noun m-inan
+en: reason
+rel: why; because; cause
+sg: důvod, důvodu, důvodu, důvod, důvode, důvodu, důvodem
+pl: důvody, důvodů, důvodům, důvody, důvody, důvodech, důvody
+
+@ schůzka
+pos: noun f
+en: meeting; appointment; date
+rel: meet; time; calendar
+sg: schůzka, schůzky, schůzce, schůzku, schůzko, schůzce, schůzkou
+pl: schůzky, schůzek, schůzkám, schůzky, schůzky, schůzkách, schůzkami
+
+@ setkání
+pos: noun n
+en: meeting; get-together
+ex: Setkání je v pátek v pět. = The meeting is on Friday at five.
+rel: meet; appointment
+sg: setkání, setkání, setkání, setkání, setkání, setkání, setkáním
+pl: setkání, setkání, setkáním, setkání, setkání, setkáních, setkáními
+
+@ představení
+pos: noun n
+en: introduction; performance; show
+ex: Představení začíná v sedm. = The show starts at seven.
+rel: introduce; theatre; play
+sg: představení, představení, představení, představení, představení, představení, představením
+pl: představení, představení, představením, představení, představení, představeních, představeními
+
+@ spojení
+pos: noun n
+en: connection
+ex: Máte spojení do Brna? = Do you have a connection to Brno?
+rel: transport; phone; link
+sg: spojení, spojení, spojení, spojení, spojení, spojení, spojením
+pl: spojení, spojení, spojením, spojení, spojení, spojeních, spojeními
+
+@ objednávka
+pos: noun f
+en: order (of goods or food)
+rel: order; shop; restaurant
+sg: objednávka, objednávky, objednávce, objednávku, objednávko, objednávce, objednávkou
+pl: objednávky, objednávek, objednávkám, objednávky, objednávky, objednávkách, objednávkami
+
+@ kurz
+pos: noun m-inan
+en: course (of lessons); exchange rate
+ex: V pondělí mám kurz češtiny. = On Monday I have a Czech course.
+rel: class; lesson; study
+sg: kurz, kurzu, kurzu, kurz, kurze, kurzu, kurzem
+pl: kurzy, kurzů, kurzům, kurzy, kurzy, kurzech, kurzy
+
+@ konec
+pos: noun m-inan
+en: end
+ex: Na konci ulice je park. = At the end of the street there is a park.
+rel: finish; last; ending
+sg: konec, konce, konci, konec, konče, konci, koncem
+pl: konce, konců, koncům, konce, konce, koncích, konci
+note: na konci = at the end.
+
+@ mise
+pos: noun f
+en: mission; task
+ex: Dokončete krátkou misi. = Complete a short mission.
+rel: task; goal; job
+sg: mise, mise, misi, misi, mise, misi, misí
+pl: mise, misí, misím, mise, mise, misích, misemi
+
+@ plán
+pos: noun m-inan
+en: plan
+rel: idea; schedule; map
+sg: plán, plánu, plánu, plán, pláne, plánu, plánem
+pl: plány, plánů, plánům, plány, plány, plánech, plány
+
+@ problém
+pos: noun m-inan
+en: problem
+ex: To není problém. = That is no problem.
+rel: trouble; difficulty; issue
+sg: problém, problému, problému, problém, probléme, problému, problémem
+pl: problémy, problémů, problémům, problémy, problémy, problémech, problémy
+
+@ pomoc
+pos: noun f
+en: help
+ex: Potřebuju pomoc. = I need help.
+rel: assistance; emergency; support
+sg: pomoc, pomoci, pomoci, pomoc, pomoci, pomoci, pomocí
+note: Pomoc! = Help!
+
+@ zdraví
+pos: noun n
+en: health
+ex: Na zdraví! = Cheers!
+rel: healthy; doctor; well-being
+sg: zdraví, zdraví, zdraví, zdraví, zdraví, zdraví, zdravím
+note: Na zdraví! = Cheers! (and Bless you!)
+
+@ recept
+pos: noun m-inan
+en: prescription; recipe
+ex: Mám recept od lékaře. = I have a prescription from the doctor.
+rel: doctor; pharmacy; cooking
+sg: recept, receptu, receptu, recept, recepte, receptu, receptem
+pl: recepty, receptů, receptům, recepty, recepty, receptech, recepty
+
+@ lék
+pos: noun m-inan
+en: medicine; drug
+ex: Potřebuju lék. = I need medicine.
+rel: pharmacy; ill; doctor
+sg: lék, léku, léku, lék, léku, léku, lékem
+pl: léky, léků, lékům, léky, léky, lécích, léky
+
+@ medicína
+pos: noun f
+en: medicine (the subject)
+ex: Studuju medicínu. = I study medicine.
+rel: study; doctor; university
+sg: medicína, medicíny, medicíně, medicínu, medicíno, medicíně, medicínou
+
+@ čeština
+pos: noun f
+en: Czech (the language)
+rel: language; lesson; study
+sg: čeština, češtiny, češtině, češtinu, češtino, češtině, češtinou
+see: česky
+
+@ slovo
+pos: noun n
+en: word
+rel: vocabulary; language; dictionary
+sg: slovo, slova, slovu, slovo, slovo, slově/slovu, slovem
+pl: slova, slov, slovům, slova, slova, slovech, slovy
+
+@ fráze
+pos: noun f
+en: phrase
+ex: Řekněte jednu frázi. = Say one phrase.
+rel: expression; words; sentence
+sg: fráze, fráze, frázi, frázi, fráze, frázi, frází
+pl: fráze, frází, frázím, fráze, fráze, frázích, frázemi
+
+@ věta
+pos: noun f
+en: sentence
+rel: words; grammar; phrase
+sg: věta, věty, větě, větu, věto, větě, větou
+pl: věty, vět, větám, věty, věty, větách, větami
+
+@ otázka
+pos: noun f
+en: question
+ex: Mám otázku. = I have a question.
+rel: ask; answer; quiz
+sg: otázka, otázky, otázce, otázku, otázko, otázce, otázkou
+pl: otázky, otázek, otázkám, otázky, otázky, otázkách, otázkami
+
+@ odpověď
+pos: noun f
+en: answer; reply
+ex: Děkuju za odpověď. = Thank you for the answer.
+rel: question; respond
+sg: odpověď, odpovědi, odpovědi, odpověď, odpovědi, odpovědi, odpovědí
+pl: odpovědi, odpovědí, odpovědím, odpovědi, odpovědi, odpovědích, odpověďmi
+
+@ přízvuk
+pos: noun m-inan
+en: stress (in a word); accent
+ex: Přízvuk je na první slabice. = The stress is on the first syllable.
+rel: pronunciation; syllable
+sg: přízvuk, přízvuku, přízvuku, přízvuk, přízvuku, přízvuku, přízvukem
+pl: přízvuky, přízvuků, přízvukům, přízvuky, přízvuky, přízvucích, přízvuky
+note: In Czech the stress is always on the first syllable: KÁ-va.
+
+@ čárka
+pos: noun f
+en: acute accent (the mark on á, é, í…); comma
+ex: Á má čárku. = Á has an accent mark.
+rel: long vowel; spelling; mark
+sg: čárka, čárky, čárce, čárku, čárko, čárce, čárkou
+pl: čárky, čárek, čárkám, čárky, čárky, čárkách, čárkami
+
+@ háček
+pos: noun m-inan
+en: háček (the mark on č, š, ž, ř, ě…)
+ex: Č má háček. = Č has a háček.
+rel: spelling; accent; mark
+sg: háček, háčku, háčku, háček, háčku, háčku, háčkem
+pl: háčky, háčků, háčkům, háčky, háčky, háčcích, háčky
+
+@ kroužek
+pos: noun m-inan
+en: ring (the mark on ů); small circle; club
+ex: Ů je u s kroužkem. = Ů is u with a ring.
+rel: spelling; mark; long u
+sg: kroužek, kroužku, kroužku, kroužek, kroužku, kroužku, kroužkem
+pl: kroužky, kroužků, kroužkům, kroužky, kroužky, kroužcích, kroužky
+note: ů = u s kroužkem.
+
+@ nula
+pos: noun f
+en: zero; nought
+rel: number; nothing; 0
+sg: nula, nuly, nule, nulu, nulo, nule, nulou
+pl: nuly, nul, nulám, nuly, nuly, nulách, nulami
+
+# hobbies
+
+@ koníček
+pos: noun m-inan
+en: hobby
+rel: free time; interest; pastime
+sg: koníček, koníčku, koníčku, koníček, koníčku, koníčku, koníčkem
+pl: koníčky, koníčků, koníčkům, koníčky, koníčky, koníčcích, koníčky
+
+@ sport
+pos: noun m-inan
+en: sport
+rel: exercise; football; gym
+sg: sport, sportu, sportu, sport, sporte, sportu, sportem
+pl: sporty, sportů, sportům, sporty, sporty, sportech, sporty
+
+@ fotbal
+pos: noun m-inan
+en: football; soccer
+ex: Hraju fotbal. = I play football.
+rel: sport; play; match
+sg: fotbal, fotbalu, fotbalu, fotbal, fotbale, fotbale/fotbalu, fotbalem
+
+@ hudba
+pos: noun f
+en: music
+rel: song; listen; concert
+sg: hudba, hudby, hudbě, hudbu, hudbo, hudbě, hudbou
+pl: hudby, hudeb, hudbám, hudby, hudby, hudbách, hudbami
+
+@ film
+pos: noun m-inan
+en: film; movie
+rel: cinema; watch; TV
+sg: film, filmu, filmu, film, filme, filmu, filmem
+pl: filmy, filmů, filmům, filmy, filmy, filmech, filmy
+
+@ čtení
+pos: noun n
+en: reading
+rel: books; read; hobby
+sg: čtení, čtení, čtení, čtení, čtení, čtení, čtením
+
+@ vaření
+pos: noun n
+en: cooking
+rel: cook; food; kitchen
+sg: vaření, vaření, vaření, vaření, vaření, vaření, vařením
+
+@ cestování
+pos: noun n
+en: travelling; travel
+rel: trip; holiday; journey
+sg: cestování, cestování, cestování, cestování, cestování, cestování, cestováním
+
+@ zahradničení
+pos: noun n
+en: gardening
+rel: garden; plants; hobby
+sg: zahradničení, zahradničení, zahradničení, zahradničení, zahradničení, zahradničení, zahradničením

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../widgets/common/dictionary_button.dart';
 import '../../../l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -177,6 +178,8 @@ class _SrsReviewScreenState extends ConsumerState<SrsReviewScreen> {
                         bg: t.chipBg,
                         fg: t.muted,
                       ),
+                      const SizedBox(width: 4),
+                      const DictionaryButton(),
                     ],
                   ),
                 ),
@@ -1371,6 +1374,8 @@ class _NoDueCardsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    const DictionaryButton(),
+                    const SizedBox(width: 4),
                     RoundIconButton(
                       icon: Icons.close,
                       tooltip: AppLocalizations.of(context).a11yClose,

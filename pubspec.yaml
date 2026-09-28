@@ -145,6 +145,9 @@ flutter:
     - assets/curriculum/
     - assets/curriculum/lessons/
     - assets/vocabulary/
+    # Built by tool/dictionary/build_dictionary.py from the sources in
+    # tool/dictionary/<level>/ — edit those, then rebuild.
+    - assets/dictionary/
     # Which audio clips belong to which unit. Bundled, not downloaded: the app
     # needs it to know what to pre-fetch, which has to work before it has any
     # network. The clips themselves stay remote.

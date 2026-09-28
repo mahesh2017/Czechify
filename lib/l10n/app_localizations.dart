@@ -6973,6 +6973,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Using your device\'s voice — the recorded Czech voice is unavailable right now.'**
   String get lessonVoiceFallback;
+
+  /// No description provided for @dictionaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dictionary'**
+  String get dictionaryTitle;
+
+  /// No description provided for @dictionaryOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the dictionary'**
+  String get dictionaryOpen;
+
+  /// No description provided for @dictionarySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in Czech or English'**
+  String get dictionarySearchHint;
+
+  /// No description provided for @dictionaryWordCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} words · {level}'**
+  String dictionaryWordCount(int count, String level);
+
+  /// No description provided for @dictionaryNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing found for “{query}”.'**
+  String dictionaryNoResults(String query);
+
+  /// No description provided for @dictionaryNoResultsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Try another form of the word, the word without accents, or its English meaning.'**
+  String get dictionaryNoResultsHint;
+
+  /// No description provided for @dictionaryFormOf.
+  ///
+  /// In en, this message translates to:
+  /// **'form: {form}'**
+  String dictionaryFormOf(String form);
+
+  /// No description provided for @dictionaryUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit {unit}'**
+  String dictionaryUnit(int unit);
+
+  /// No description provided for @dictionaryTaughtIn.
+  ///
+  /// In en, this message translates to:
+  /// **'You meet it in Unit {unit}.'**
+  String dictionaryTaughtIn(int unit);
+
+  /// No description provided for @dictionaryTaughtInLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'You meet it in Unit {unit}, which you haven\'t reached yet.'**
+  String dictionaryTaughtInLocked(int unit);
+
+  /// No description provided for @dictionaryListen.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen'**
+  String get dictionaryListen;
+
+  /// No description provided for @dictionaryKeyForms.
+  ///
+  /// In en, this message translates to:
+  /// **'Forms'**
+  String get dictionaryKeyForms;
+
+  /// No description provided for @dictionaryShowAllForms.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all forms'**
+  String get dictionaryShowAllForms;
+
+  /// No description provided for @dictionaryHideAllForms.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide all forms'**
+  String get dictionaryHideAllForms;
+
+  /// No description provided for @dictionaryExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get dictionaryExamples;
+
+  /// No description provided for @dictionarySeeAlso.
+  ///
+  /// In en, this message translates to:
+  /// **'See also'**
+  String get dictionarySeeAlso;
+
+  /// No description provided for @dictionaryUsedWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Used with'**
+  String get dictionaryUsedWith;
+
+  /// No description provided for @dictionaryLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The dictionary could not be opened. Please try again.'**
+  String get dictionaryLoadFailed;
+
+  /// No description provided for @dictionaryClearSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get dictionaryClearSearch;
 }
 
 class _AppLocalizationsDelegate

@@ -22,6 +22,12 @@ import 'package:czechify/presentation/providers/tts_providers.dart';
 import 'package:czechify/presentation/providers/review_providers.dart';
 import 'package:czechify/presentation/screens/curriculum/curriculum_screen.dart';
 import 'package:czechify/presentation/screens/grammar/grammar_reference_screen.dart';
+import 'package:czechify/presentation/screens/dictionary/dictionary_entry_screen.dart';
+import 'package:czechify/presentation/screens/dictionary/dictionary_screen.dart';
+import 'package:czechify/presentation/providers/dictionary_providers.dart';
+import 'package:czechify/data/dictionary/dictionary_entry.dart';
+import 'dart:convert';
+import 'dart:io';
 import 'package:czechify/presentation/screens/home/home_screen.dart';
 import 'package:czechify/presentation/screens/lesson/delayed_transfer_screen.dart';
 import 'package:czechify/presentation/screens/lesson/lesson_player_screen.dart';
@@ -226,6 +232,28 @@ void main() {
           ],
           child: app,
         ),
+  );
+
+  // Read once: the asset is several hundred kilobytes.
+  final dictionary = DictionaryData.fromJson(
+    jsonDecode(File('assets/dictionary/a1_dictionary.json').readAsStringSync())
+        as Map<String, dynamic>,
+  );
+  ProviderScope dictionaryScope(Widget app) => ProviderScope(
+    overrides: [
+      ...commonOverrides(),
+      dictionaryProvider('a1').overrideWith((ref) async => dictionary),
+      unlockedUnitIdsProvider.overrideWith((ref) async => <int>{1}),
+    ],
+    child: app,
+  );
+
+  smoke('dictionary', () => const DictionaryScreen(), scope: dictionaryScope);
+
+  smoke(
+    'dictionary word',
+    () => const DictionaryEntryScreen(level: 'a1', entryId: 'muj'),
+    scope: dictionaryScope,
   );
 
   smoke(
