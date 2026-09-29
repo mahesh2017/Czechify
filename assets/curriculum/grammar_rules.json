@@ -3333,8 +3333,8 @@
     {
       "id": "GR-103",
       "rule_name": "Useful amounts — trochu mléka, kilo brambor (phrases)",
-      "pattern": "Learn these as phrases: trochu mléka, kilo brambor, láhev vody, kousek chleba, sklenice vína. The grammar behind them comes in Unit 16.",
-      "explanation": "After an amount the next word changes its ending. At A1 you do not need to build these forms: learn the handful of phrases you use when shopping and ordering. Unit 16 explains the pattern.",
+      "pattern": "Learn these as phrases: trochu mléka, kilo brambor, láhev vody, kousek chleba, sklenice vína. The grammar behind them comes in A2 Unit 1.",
+      "explanation": "After an amount the next word changes its ending. At A1 you do not need to build these forms: learn the handful of phrases you use when shopping and ordering. A2 Unit 1 explains the pattern.",
       "case_affected": "genitive",
       "examples": [
         {
@@ -3350,7 +3350,7 @@
       "lecture": [
         {
           "heading": "Useful amounts as phrases",
-          "say": "After an amount the next word changes. At A1, learn these few phrases whole; Unit 16 explains why.",
+          "say": "After an amount the next word changes. At A1, learn these few phrases whole; A2 Unit 1 explains why.",
           "table": [
             [
               "a little milk",
@@ -4204,7 +4204,7 @@
       "id": "GR-134",
       "rule_name": "Useful phrases with můžu, musím, chci",
       "pattern": "Můžete mi pomoct? Můžu platit kartou? Musím jít. Chci jet do centra. můžu / musím / chci + infinitive.",
-      "explanation": "Three small verbs do a lot at A1: můžu (I can), musím (I must) and chci (I want). The next verb stays in its dictionary form: Musím jít. Ask for help politely with Můžete mi pomoct? The full forms of these verbs come in Unit 23.",
+      "explanation": "Three small verbs do a lot at A1: můžu (I can), musím (I must) and chci (I want). The next verb stays in its dictionary form: Musím jít. Ask for help politely with Můžete mi pomoct? The full forms of these verbs come in A2 Unit 8.",
       "case_affected": null,
       "examples": [
         {
@@ -4267,7 +4267,7 @@
       "id": "GR-135",
       "rule_name": "Directions — Jděte rovně, zahněte doleva",
       "pattern": "Instructions to a stranger end in -te: Jděte rovně. Zahněte doleva / doprava. Jeďte tramvají. Learn them as phrases.",
-      "explanation": "Directions are instructions (the imperative). At A1 learn the phrases you need to give and understand a route: Jděte rovně, Zahněte doleva, Jeďte tramvají, Přestupte na metro. Unit 23 shows how to build them.",
+      "explanation": "Directions are instructions (the imperative). At A1 learn the phrases you need to give and understand a route: Jděte rovně, Zahněte doleva, Jeďte tramvají, Přestupte na metro. A2 Unit 8 shows how to build them.",
       "case_affected": null,
       "examples": [
         {
@@ -4505,7 +4505,7 @@
       "lecture": [
         {
           "heading": "Preview: it will be — bude",
-          "say": "A preview of the future: zítra bude teplo (it will be warm), budu doma (I will be at home), pojedu vlakem (I will go by train). Unit 20 explains more.",
+          "say": "A preview of the future: zítra bude teplo (it will be warm), budu doma (I will be at home), pojedu vlakem (I will go by train). A2 Unit 5 explains more.",
           "table": [
             [
               "I will be",
@@ -4580,7 +4580,7 @@
       "lecture": [
         {
           "heading": "Preview: I was — byl jsem",
-          "say": "A preview of the past: learn a few phrases now; Unit 19 explains the system. A man says byl jsem, a woman byla jsem. The weather: bylo hezky, pršelo.",
+          "say": "A preview of the past: learn a few phrases now; A2 Unit 4 explains the system. A man says byl jsem, a woman byla jsem. The weather: bylo hezky, pršelo.",
           "table": [
             [
               "I was (man)",
@@ -4851,7 +4851,7 @@
       "id": "GR-155",
       "rule_name": "Plural — jablka, rohlíky, boty",
       "pattern": "Feminine -a → -y (bota → boty), -e stays (ulice → ulice). Neuter -o → -a (jablko → jablka). Masculine things → -y or -e (rohlík → rohlíky, pokoj → pokoje). The object form is the same. Numbers: dva rohlíky, dvě boty, dvě jablka.",
-      "explanation": "The nominative and accusative plural are the same for things: Mám boty. Kupuju boty. After 2, 3 and 4 use the plural too: dva rohlíky (masculine), dvě boty, dvě jablka (feminine and neuter take dvě). Adjectives follow: nové boty, velká jablka. People (masculine animate) are different and come in Unit 25.",
+      "explanation": "The nominative and accusative plural are the same for things: Mám boty. Kupuju boty. After 2, 3 and 4 use the plural too: dva rohlíky (masculine), dvě boty, dvě jablka (feminine and neuter take dvě). Adjectives follow: nové boty, velká jablka. People (masculine animate) are different and come in Unit 10.",
       "case_affected": "nominative, accusative",
       "examples": [
         {
@@ -5349,7 +5349,7 @@
       "id": "GR-171",
       "rule_name": "Instrumental case — means and accompaniment",
       "pattern": "s + instrumental (with): s kamarádem, s kamarádkou. Travel: autem, vlakem, tramvají. Masculine and neuter -em, feminine -ou, words in -e or a soft consonant -í.",
-      "explanation": "The instrumental answers s kým? s čím? (with whom? with what?) and how you travel: Jdu s kamarádem. Jedu autem. Masculine and neuter nouns add -em (bratr → bratrem, auto → autem), feminine -a becomes -ou (kamarádka → kamarádkou), and words like tramvaj or kolegyně take -í (tramvají, kolegyní). For a job, say Pracuju jako učitel; Jsem učitelem is also correct and comes back in Unit 25.",
+      "explanation": "The instrumental answers s kým? s čím? (with whom? with what?) and how you travel: Jdu s kamarádem. Jedu autem. Masculine and neuter nouns add -em (bratr → bratrem, auto → autem), feminine -a becomes -ou (kamarádka → kamarádkou), and words like tramvaj or kolegyně take -í (tramvají, kolegyní). For a job, say Pracuju jako učitel; Jsem učitelem is also correct and comes back in Unit 10.",
       "case_affected": "instrumental",
       "examples": [
         {

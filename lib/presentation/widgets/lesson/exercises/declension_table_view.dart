@@ -194,6 +194,7 @@ class _CaseField extends StatelessWidget {
     };
 
     return TextField(
+      autocorrect: false,
       controller: controller,
       enabled: enabled,
       cursorColor: t.pri,

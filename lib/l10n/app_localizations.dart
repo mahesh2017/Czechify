@@ -1634,6 +1634,18 @@ abstract class AppLocalizations {
   /// **'Answer shown'**
   String get feedbackAnswerShown;
 
+  /// No description provided for @feedbackWritingDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing done'**
+  String get feedbackWritingDone;
+
+  /// No description provided for @feedbackSkippedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get feedbackSkippedTitle;
+
   /// No description provided for @feedbackSkipped.
   ///
   /// In en, this message translates to:

@@ -344,6 +344,8 @@
   "feedbackCorrect": "Správně!",
   "feedbackNotQuite": "Ještě ne",
   "feedbackAnswerShown": "Zobrazená odpověď",
+  "feedbackWritingDone": "Psaní hotovo",
+  "feedbackSkippedTitle": "Přeskočeno",
   "feedbackSkipped": "Přeskočeno — bez bodů a bez ztráty srdíčka",
   "feedbackViewGrammarRule": "Zobrazit gramatické pravidlo",
   "answerCorrectLabel": "Správná odpověď",

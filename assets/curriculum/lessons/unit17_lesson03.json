@@ -31,7 +31,7 @@
         "style": "notebook",
         "kind": "recall",
         "heading": "Cover your page",
-        "instruction": "Cover your notebook. Write “to my brother”, “Will you help me?” and “I am calling Petr” in Czech. Then one line from Unit 16: a kilo of apples.",
+        "instruction": "Cover your notebook. Write “to my brother”, “Will you help me?” and “I am calling Petr” in Czech. Then one line from Unit 1: a kilo of apples.",
         "items": [
           {
             "cz": "bratrovi",

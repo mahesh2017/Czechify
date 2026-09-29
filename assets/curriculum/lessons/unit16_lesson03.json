@@ -32,7 +32,7 @@
         "style": "notebook",
         "kind": "recall",
         "heading": "Cover your page",
-        "instruction": "Cover your notebook. Write “from Prague”, “without sugar” and “two rolls” in Czech. Then one line from Unit 12: how much does it cost? (Kolik to stojí?)",
+        "instruction": "Cover your notebook. Write “from Prague”, “without sugar” and “two rolls” in Czech. Then one line from A1 Unit 12: how much does it cost? (Kolik to stojí?)",
         "items": [
           {
             "cz": "z Prahy",

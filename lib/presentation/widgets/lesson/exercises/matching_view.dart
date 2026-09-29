@@ -138,18 +138,22 @@ class _MatchingViewState extends State<MatchingView> {
   // lesson ignores a second answer while its feedback is showing, so that
   // re-answer was never recorded.
 
-  /// Which pair number a matched item belongs to, in the order the learner
-  /// made the matches.
+  /// The number of the pair a matched item is in: the pairs the learner made,
+  /// counted down the left column.
   ///
   /// Pair identity used to be carried by eight arbitrary hues, which says
   /// nothing in this palette and fails for anyone who cannot separate them.
-  /// A number is legible, countable and colour-independent.
-  int _pairBadge(_MatchItem item, List<_MatchItem> left) {
-    final order = <int>[];
-    for (final l in left) {
-      if (l.matched && !order.contains(l.pairIdx)) order.add(l.pairIdx);
+  /// A number is legible, countable and colour-independent. It follows the
+  /// learner's match, not the right one: counted from each item's correct
+  /// partner, a wrong pair showed two different numbers ("3" and "0") and a
+  /// badge could point at the right answer.
+  int _pairBadge(_MatchItem item, _Side side) {
+    final leftIdx = side == _Side.left ? _leftItems.indexOf(item) : item.matchedTo;
+    var number = 0;
+    for (var i = 0; i <= leftIdx && i < _leftItems.length; i++) {
+      if (_leftItems[i].matched) number++;
     }
-    return order.indexOf(item.pairIdx) + 1;
+    return number;
   }
 
   @override
@@ -309,7 +313,7 @@ class _MatchingViewState extends State<MatchingView> {
                               borderRadius: BorderRadius.circular(999),
                             ),
                             child: Text(
-                              '${_pairBadge(item, _leftItems)}',
+                              '${_pairBadge(item, side)}',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w800,

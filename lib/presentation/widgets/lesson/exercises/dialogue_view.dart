@@ -120,6 +120,7 @@ class _DialogueViewState extends ConsumerState<DialogueView> {
           SizedBox(
             width: 180,
             child: TextField(
+              autocorrect: false,
               controller: controller,
               focusNode: _focus[blank],
               enabled: !answered,

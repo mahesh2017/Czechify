@@ -182,6 +182,7 @@ class _FillBlankViewState extends State<FillBlankView> {
                 (focus) => SizedBox(
                   width: _blankWidth(data, i),
                   child: TextField(
+                    autocorrect: false,
                     controller: _controllerFor(i),
                     focusNode: focus,
                     enabled: !answered,

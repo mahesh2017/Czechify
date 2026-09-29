@@ -897,6 +897,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedbackAnswerShown => 'Answer shown';
 
   @override
+  String get feedbackWritingDone => 'Writing done';
+
+  @override
+  String get feedbackSkippedTitle => 'Skipped';
+
+  @override
   String get feedbackSkipped => 'Skipped — no score or heart change';
 
   @override

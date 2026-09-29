@@ -281,6 +281,7 @@ class _WritingTaskViewState extends State<WritingTaskView> {
                   child: Stack(
                     children: [
                       TextField(
+                        autocorrect: false,
                         controller: _controller,
                         focusNode: _pageFocus,
                         enabled: !answered,

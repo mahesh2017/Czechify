@@ -937,11 +937,24 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
             : FeedbackTone.incorrect;
 
     final l10n = AppLocalizations.of(context);
+    // Writing is never scored and a spoken task can be skipped: neither
+    // showed the learner an answer they had asked for.
+    final type = session.currentExercise?.type;
+    final wrote = type == ExerciseType.writingTask;
+    final skippedSpeaking =
+        type == ExerciseType.speakingTask || type == ExerciseType.pronunciation;
     final title = switch (tone) {
       FeedbackTone.correct => l10n.feedbackCorrect,
       FeedbackTone.incorrect => l10n.feedbackNotQuite,
       FeedbackTone.neutral when predict => l10n.feedbackPredictTitle,
+      FeedbackTone.neutral when wrote => l10n.feedbackWritingDone,
+      FeedbackTone.neutral when skippedSpeaking => l10n.feedbackSkippedTitle,
       FeedbackTone.neutral => l10n.feedbackAnswerShown,
+    };
+    final IconData? mark = switch (tone) {
+      FeedbackTone.neutral when wrote => Icons.edit_note_rounded,
+      FeedbackTone.neutral when skippedSpeaking => Icons.skip_next_rounded,
+      _ => null,
     };
 
     // The prompt for the current feedback step leads, then the explanation —
@@ -965,6 +978,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen>
       child: FeedbackSheet(
         tone: tone,
         title: title,
+        icon: mark,
         body: body.isEmpty ? null : body,
         // Only worth stating when they did not produce it themselves.
         correctAnswer:
@@ -2431,7 +2445,7 @@ class _SlimLessonBar extends ConsumerWidget {
 /// learner will be able to do, how long it takes and what is in it — shown
 /// once, so the exercise screens do not have to carry it. It says so here if
 /// the recorded voice is unavailable, and where a resumed lesson carries on.
-class _LessonStartScreen extends StatelessWidget {
+class _LessonStartScreen extends ConsumerWidget {
   final LessonSessionState session;
   final VoidCallback onStart;
 
@@ -2447,7 +2461,7 @@ class _LessonStartScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
     final l10n = AppLocalizations.of(context);
     final lesson = session.lesson!;
@@ -2524,7 +2538,7 @@ class _LessonStartScreen extends StatelessWidget {
                       LessonKicker(
                         l10n.lessonStartKicker(
                           lessonLetter(lesson.orderInUnit),
-                          lesson.unitId,
+                          ref.watch(unitNumberInLevelProvider(lesson.unitId)),
                         ),
                         color: t.pri,
                       ),

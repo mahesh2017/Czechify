@@ -353,6 +353,8 @@
   "feedbackCorrect": "Správně!",
   "feedbackNotQuite": "Not quite",
   "feedbackAnswerShown": "Answer shown",
+  "feedbackWritingDone": "Writing done",
+  "feedbackSkippedTitle": "Skipped",
   "feedbackSkipped": "Skipped — no score or heart change",
   "feedbackViewGrammarRule": "View grammar rule",
   "answerCorrectLabel": "Correct",

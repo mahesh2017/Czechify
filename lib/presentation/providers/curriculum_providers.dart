@@ -80,6 +80,15 @@ final allUnitsProvider = FutureProvider<List<Unit>>((ref) async {
   return [...a1, ...a2];
 });
 
+/// A unit's number as the course map shows it: its place in its level, so
+/// Unit 20 is "Unit 5" of A2. Falls back to the id until the units load.
+final unitNumberInLevelProvider = Provider.family<int, int>((ref, unitId) {
+  final units = ref.watch(allUnitsProvider).value;
+  final unit = units?.where((u) => u.id == unitId).firstOrNull;
+  if (unit == null) return unitId;
+  return units!.where((u) => u.phase == unit.phase).toList().indexOf(unit) + 1;
+});
+
 /// Provider for lessons in a specific unit.
 final unitLessonsProvider = FutureProvider.family<List<Lesson>, int>((
   ref,

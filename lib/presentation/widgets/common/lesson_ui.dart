@@ -977,6 +977,8 @@ class AnswerField extends StatelessWidget {
                       : null,
               builder:
                   (focus) => TextField(
+                    // Answers are Czech: a phone's autocorrect turned "půjdu" into "hey".
+                    autocorrect: false,
                     focusNode: focus,
                     controller: controller,
                     enabled: enabled,
@@ -1087,6 +1089,7 @@ class FeedbackSheet extends StatelessWidget {
     this.onTitleAction,
     this.folded = false,
     this.onToggleFolded,
+    this.icon,
   });
 
   final String title;
@@ -1125,6 +1128,13 @@ class FeedbackSheet extends StatelessWidget {
   final bool folded;
   final VoidCallback? onToggleFolded;
 
+  /// Answers up to this long share a row with their label.
+  static const _inlineAnswerLength = 20;
+
+  /// The title's mark, when the tone's own would say the wrong thing: a
+  /// finished writing task is neutral, but no answer was "shown".
+  final IconData? icon;
+
   @override
   Widget build(BuildContext context) {
     final t = context.tokens;
@@ -1134,7 +1144,7 @@ class FeedbackSheet extends StatelessWidget {
       FeedbackTone.incorrect => (t.redSoft, t.red, t.redInk),
       FeedbackTone.neutral => (t.elev, t.muted, t.ink),
     };
-    final mark = switch (tone) {
+    final mark = icon ?? switch (tone) {
       FeedbackTone.correct => Icons.check,
       FeedbackTone.incorrect => Icons.close,
       FeedbackTone.neutral => Icons.visibility_outlined,
@@ -1300,26 +1310,48 @@ class FeedbackSheet extends StatelessWidget {
                     color: t.card,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      LessonKicker(
-                        answerLabel ?? l10n?.answerCorrectLabel ?? 'Correct',
-                      ),
-                      const SizedBox(width: 11),
-                      Expanded(
-                        child: Text(
-                          correctAnswer!,
-                          style: TextStyle(
-                            fontFamily: AppFonts.display,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                            color: ink,
+                  // A word sits beside its label. A sentence or a list of
+                  // phrases goes under it: beside a "Reference answer" label
+                  // it had half the width and broke mid-phrase.
+                  child: correctAnswer!.trim().length <= _inlineAnswerLength
+                      ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          LessonKicker(
+                            answerLabel ?? l10n?.answerCorrectLabel ?? 'Correct',
                           ),
-                        ),
+                          const SizedBox(width: 11),
+                          Expanded(
+                            child: Text(
+                              correctAnswer!,
+                              style: TextStyle(
+                                fontFamily: AppFonts.display,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w800,
+                                color: ink,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                      : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          LessonKicker(
+                            answerLabel ?? l10n?.answerCorrectLabel ?? 'Correct',
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            correctAnswer!,
+                            style: TextStyle(
+                              fontSize: 18,
+                              height: 1.35,
+                              fontWeight: FontWeight.w700,
+                              color: ink,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
                 ),
               ],
               if (!folded && extra != null) ...[
@@ -1507,10 +1539,16 @@ class _KeyCtaState extends State<KeyCta> {
                     ]
                     : null,
           ),
+          // Beside a Back button a long label ("Got it — start practising")
+          // ran to the key's edges; it wraps to a second line instead.
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             widget.label,
+            textAlign: TextAlign.center,
+            maxLines: 2,
             style: TextStyle(
               fontSize: 18,
+              height: 1.15,
               fontWeight: FontWeight.w700,
               color: enabled ? fg : t.faint,
             ),

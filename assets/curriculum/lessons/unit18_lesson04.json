@@ -180,7 +180,7 @@
           "Pracuju na učitel."
         ],
         "correct_index": 0,
-        "explanation": "pracovat jako + nominative: Pracuju jako učitel. (Jsem učitelem is also correct; see Unit 25.)"
+        "explanation": "pracovat jako + nominative: Pracuju jako učitel. (Jsem učitelem is also correct; see Unit 10.)"
       },
       "answer_key": "Pracuju jako učitel.",
       "grammar_rule_id": "GR-171",
@@ -271,7 +271,7 @@
         "type": "teaching",
         "style": "notebook",
         "kind": "unit_check",
-        "heading": "Check your Unit 18 page",
+        "heading": "Check your Unit 3 page",
         "instruction": "Open your notebook and compare your page with the model. Add anything missing, correct any mistakes, then tick your Check box.",
         "items": [
           {

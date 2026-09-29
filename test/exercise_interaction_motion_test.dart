@@ -89,6 +89,30 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('a wrong pair carries one number on both halves', (
+    tester,
+  ) async {
+    await pump(tester, ExerciseType.matching, matchingData);
+
+    await tester.tap(find.text('ahoj'));
+    await tester.pump();
+    await tester.tap(find.text('hi'));
+    await tester.pumpAndSettle();
+
+    // Numbered from each item's correct partner, "hi" showed 0 here, and a
+    // badge could point at the right answer.
+    String badge(String key) => tester
+        .widget<Text>(
+          find.descendant(
+            of: find.byKey(ValueKey(key)),
+            matching: find.byType(Text),
+          ),
+        )
+        .data!;
+    expect(badge('match-badge-left-0'), '1');
+    expect(badge('match-badge-right-1'), '1');
+  });
+
   testWidgets('a pair badge appears immediately with reduced motion', (
     tester,
   ) async {

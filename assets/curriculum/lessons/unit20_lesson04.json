@@ -205,7 +205,7 @@
       "data": {
         "type": "speaking_task",
         "prompt_en": "Record a 20–30 second future plan and politely change one detail.",
-        "prompt_cz": "Nahrajte plán s polite změnou.",
+        "prompt_cz": "Nahrajte plán a potom jednu věc změňte.",
         "min_duration_seconds": 20,
         "max_duration_seconds": 35,
         "expected_phrases": [
@@ -229,7 +229,7 @@
         "type": "teaching",
         "style": "notebook",
         "kind": "unit_check",
-        "heading": "Check your Unit 20 page",
+        "heading": "Check your Unit 5 page",
         "instruction": "Open your notebook and compare your page with the model. Add anything missing, correct any mistakes, then tick your Check box.",
         "items": [
           {

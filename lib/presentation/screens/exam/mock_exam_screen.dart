@@ -1097,6 +1097,7 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
         const SizedBox(height: 16),
         Expanded(
           child: TextField(
+            autocorrect: false,
             controller: controller,
             maxLines: null,
             expands: true,

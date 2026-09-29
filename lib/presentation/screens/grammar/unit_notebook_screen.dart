@@ -120,7 +120,7 @@ class _UnitNotebookScreenState extends ConsumerState<UnitNotebookScreen> {
       backgroundColor: t.bg,
       appBar: AppBar(
         backgroundColor: t.bg,
-        title: Text(l10n.unitNotebookTitle(widget.unitId)),
+        title: Text(l10n.unitNotebookTitle(ref.watch(unitNumberInLevelProvider(widget.unitId)))),
       ),
       body:
           locked

@@ -330,7 +330,7 @@ class _UnitGuideScreenState extends ConsumerState<UnitGuideScreen> {
       backgroundColor: t.bg,
       appBar: AppBar(
         backgroundColor: t.bg,
-        title: Text(l10n.unitGuideTitle(widget.unitId)),
+        title: Text(l10n.unitGuideTitle(ref.watch(unitNumberInLevelProvider(widget.unitId)))),
       ),
       body: body,
     );

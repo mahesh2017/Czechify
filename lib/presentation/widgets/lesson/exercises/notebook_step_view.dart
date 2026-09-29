@@ -113,6 +113,10 @@ class _NotebookStepViewState extends ConsumerState<NotebookStepView> {
           ScaffoldMessenger.maybeOf(context)?.showSnackBar(
             SnackBar(
               content: Text(AppLocalizations.of(context).notebookDeferred),
+              // Above the next step's buttons: at the bottom it covered Next
+              // for the four seconds it shows.
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 100),
             ),
           );
         }

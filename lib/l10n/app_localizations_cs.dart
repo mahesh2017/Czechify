@@ -900,6 +900,12 @@ class AppLocalizationsCs extends AppLocalizations {
   String get feedbackAnswerShown => 'Zobrazená odpověď';
 
   @override
+  String get feedbackWritingDone => 'Psaní hotovo';
+
+  @override
+  String get feedbackSkippedTitle => 'Přeskočeno';
+
+  @override
   String get feedbackSkipped => 'Přeskočeno — bez bodů a bez ztráty srdíčka';
 
   @override
