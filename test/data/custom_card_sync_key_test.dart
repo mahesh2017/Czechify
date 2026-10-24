@@ -148,6 +148,24 @@ void main() {
     },
   );
 
+  test(
+    'an SRS row for a seeded word this build no longer has is ignored',
+    () async {
+      // Numeric key = seeded flashcard id; no flashcard 78 exists locally.
+      await db.vocabularyDao.mergeSrsCard(
+        cardType: 'vocabulary',
+        contentKey: '78',
+        stability: 1,
+        difficulty: 2,
+        due: DateTime.utc(2026, 7, 24),
+        reps: 3,
+        state: 'review',
+        lastReviewed: DateTime.utc(2026, 7, 23),
+      );
+      expect(await db.select(db.srsCards).get(), isEmpty);
+    },
+  );
+
   test('managed (seeded) card still syncs by its deterministic id', () async {
     await db
         .into(db.flashcards)

@@ -324,6 +324,15 @@ class VocabularyDao extends DatabaseAccessor<AppDatabase>
             )..where((f) => f.contentUid.equals(contentKey))).getSingleOrNull();
         if (card == null) return;
         flashcardId = card.id;
+      } else {
+        // A curriculum update can retire a seeded word (A1 #78 left in v1.2).
+        // A cloud review for it has nothing to attach to here; inserting it
+        // anyway breaks the foreign key and fails the whole pull or restore.
+        final card =
+            await (select(
+              flashcards,
+            )..where((f) => f.id.equals(flashcardId!))).getSingleOrNull();
+        if (card == null) return;
       }
     }
 

@@ -80,11 +80,13 @@ class NativeGoogleAuthService implements GoogleAuthService {
     if (webClientId.isEmpty) {
       throw AuthException(_localizations().googleAuthNotConfigured);
     }
-    if (Platform.isIOS && iosClientId.isEmpty) {
+    // macOS uses the same Apple SDK as iOS and the same iOS-type OAuth client.
+    final isApple = Platform.isIOS || Platform.isMacOS;
+    if (isApple && iosClientId.isEmpty) {
       throw AuthException(_localizations().googleAuthNotConfiguredIos);
     }
     await _signIn.initialize(
-      clientId: Platform.isIOS ? iosClientId : null,
+      clientId: isApple ? iosClientId : null,
       serverClientId: webClientId,
     );
   }

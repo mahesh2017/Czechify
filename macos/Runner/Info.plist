@@ -24,6 +24,9 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>czechify</string>
+				<!-- Reversed iOS OAuth client ID, same as iOS: Google Sign-In
+				     returns to the app through this scheme. -->
+				<string>com.googleusercontent.apps.397715936907-22dfarft831mp3se4rr3pkggjgtsphto</string>
 			</array>
 		</dict>
 	</array>

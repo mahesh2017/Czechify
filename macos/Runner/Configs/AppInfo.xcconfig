@@ -12,3 +12,9 @@ PRODUCT_BUNDLE_IDENTIFIER = com.eminentsite.czechify
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 Eminent Site. All rights reserved.
+
+// Signed with the same Apple team as iOS. Google Sign-In stores its session
+// in the keychain, and the keychain-access-groups entitlement it needs only
+// works on a team-signed build, not an ad-hoc "Sign to Run Locally" one.
+DEVELOPMENT_TEAM = ADDCP2ZU7F
+CODE_SIGN_IDENTITY = Apple Development
