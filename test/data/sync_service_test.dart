@@ -7,11 +7,13 @@ import 'package:czechify/data/sync/sync_service.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' show PostgrestException;
 
 class FakeSyncBackend implements SyncBackend {
   final rows = <String, List<Map<String, dynamic>>>{};
   final sentKeys = <String>[];
   final failingKeys = <String>{};
+  final failingErrors = <String, Object>{};
   final failingPullEntities = <String>{};
   final sentMutationDeviceIds = <String>[];
   final serverRecords = <String, Map<String, dynamic>>{};
@@ -43,6 +45,7 @@ class FakeSyncBackend implements SyncBackend {
       if (failingKeys.contains(row.entityKey)) {
         throw StateError('rejected ${row.entityKey}');
       }
+      if (failingErrors[row.entityKey] case final error?) throw error;
       final serverKey = '${row.entity}\u0000${row.entityKey}';
       if (row.op == 'delete') {
         serverRecords.remove(serverKey);
@@ -226,6 +229,102 @@ void main() {
     final row = await database.select(database.syncQueue).getSingle();
     expect(row.attempts, 1);
     expect(row.deadLetteredAt, isNull);
+  });
+
+  test('offline failures back off but never dead-letter', () async {
+    // Five resumes without signal used to strand the row until the learner
+    // found the manual retry in Settings.
+    await enqueue('offline');
+    backend.failingErrors['offline'] = const SocketExceptionLike();
+    for (final seconds in [0, 2, 4, 8, 16, 32, 64, 64]) {
+      now = now.add(Duration(seconds: seconds));
+      await service.push();
+    }
+    final row = await database.select(database.syncQueue).getSingle();
+    expect(row.attempts, 8);
+    expect(row.deadLetteredAt, isNull);
+    expect(await database.syncDao.deadLetterCount(), 0);
+
+    backend.failingErrors.clear();
+    now = now.add(const Duration(minutes: 5));
+    await service.push();
+    expect(await database.syncDao.pendingCount(), 0);
+  });
+
+  test('a database rejection still dead-letters', () async {
+    await enqueue('bad');
+    backend.failingErrors['bad'] = const PostgrestException(
+      message: 'violates check constraint',
+      code: '23514',
+    );
+    for (final seconds in [0, 2, 4, 8, 16]) {
+      now = now.add(Duration(seconds: seconds));
+      await service.push();
+    }
+    expect(await database.syncDao.deadLetterCount(), 1);
+  });
+
+  test('failure classification', () {
+    expect(SyncService.isTransientFailure(const SocketExceptionLike()), true);
+    expect(SyncService.isTransientFailure(TimeoutException('x')), true);
+    expect(
+      SyncService.isTransientFailure(const SyncAccountUnavailable()),
+      true,
+    );
+    expect(
+      SyncService.isTransientFailure(
+        const PostgrestException(message: 'JWT expired', code: 'PGRST301'),
+      ),
+      true,
+    );
+    expect(
+      SyncService.isTransientFailure(
+        const PostgrestException(message: 'gateway', code: null),
+      ),
+      true,
+    );
+    expect(
+      SyncService.isTransientFailure(
+        const PostgrestException(message: 'dup', code: '23505'),
+      ),
+      false,
+    );
+    expect(
+      SyncService.isTransientFailure(
+        const PostgrestException(message: 'denied', code: '42501'),
+      ),
+      false,
+    );
+    expect(SyncService.isTransientFailure(StateError('unknown entity')), false);
+    expect(SyncService.isTransientFailure(const FormatException('x')), false);
+  });
+
+  test('a first pull restores rows this device authored', () async {
+    // iOS keeps the Keychain (session and device id) across an uninstall but
+    // not the database, so a reinstall pulled with the old device id and
+    // skipped everything it had written.
+    Map<String, dynamic> progress(int revision, int lessonId) => {
+      'revision': revision,
+      'device_id': 'local-device:00000000000000000007',
+      'lesson_id': lessonId,
+      'unit_id': 1,
+      'is_completed': true,
+      'best_score': 0.9,
+      'attempts': 1,
+      'last_attempted': DateTime.utc(2026, 7, 19).toIso8601String(),
+    };
+    backend.rows['lesson_progress'] = [progress(1, 1)];
+
+    await service.pull();
+    var rows = await database.select(database.lessonProgress).get();
+    expect(rows.map((r) => r.lessonId), [1]);
+
+    // With a cursor in place, this device's own later rows are skipped as
+    // before: local state already has them.
+    backend.rows['lesson_progress']!.add(progress(2, 2));
+    await service.pull();
+    rows = await database.select(database.lessonProgress).get();
+    expect(rows.map((r) => r.lessonId), [1]);
   });
 
   test('revision cursor paginates every row across pages', () async {
@@ -523,4 +622,9 @@ void main() {
       }
     },
   );
+}
+
+/// Stands in for a socket error without dart:io in the test.
+class SocketExceptionLike implements Exception {
+  const SocketExceptionLike();
 }

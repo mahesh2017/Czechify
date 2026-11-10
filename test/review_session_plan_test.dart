@@ -35,6 +35,35 @@ void main() {
   );
 
   group('planReviewSession', () {
+    test('a lapsed card is a review, not a new card', () {
+      // "Again" resets reps to zero. The planner read that as new, so a
+      // forgotten word waited behind the daily new-card budget and the
+      // lesson gates — and could vanish from the session meant to rescue it.
+      final lapsed = ReviewCard(
+        flashcard: const Flashcard(
+          id: 1,
+          wordCz: 'pes',
+          wordEn: 'dog',
+          lessonId: 77,
+        ),
+        srs: SrsCard(
+          id: '1',
+          cardType: CardType.vocabulary,
+          due: now,
+          reps: 0,
+          state: CardState.relearning,
+          lastReview: now,
+        ),
+      );
+      final plan = planReviewSession(
+        allDue: [lapsed],
+        unlockedUnits: const {},
+        introducedToday: kDailyNewCardLimit,
+      );
+      expect(plan.cards, hasLength(1));
+      expect(plan.newCount, 0);
+    });
+
     test('new cards for locked units are excluded', () {
       final plan = planReviewSession(
         allDue: [newCard(1, unitId: 1), newCard(2, unitId: 99)],

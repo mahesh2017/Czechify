@@ -350,6 +350,9 @@ class ReminderCoordinator extends Notifier<void> {
   Future<void> _replenish() async {
     await ref.read(settingsProvider.notifier).ready;
     await ref.read(gamificationProvider.notifier).ready;
+    // A process left alive across midnight still holds yesterday's daily XP,
+    // which would cancel today's evening reminder below.
+    await ref.read(gamificationProvider.notifier).refreshForNewDay();
 
     var settings = ref.read(settingsProvider);
     if (!settings.remindersEnabled || settings.preferredTime == null) return;

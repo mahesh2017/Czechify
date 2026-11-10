@@ -183,8 +183,13 @@ class GamificationNotifier extends Notifier<GamificationState> {
 
     // Gap > 1 day — streak broken
     if (state.streakFreezeAvailable && diffDays == 2) {
+      // The freeze covers the missed day, so the record now says the learner
+      // was last active yesterday. Spending the freeze without moving the
+      // date left the same two-day gap in place: the next launch, with the
+      // freeze already gone, found it again and reset the streak to zero.
+      final yesterday = DateTime(today.year, today.month, today.day - 1);
       state = state.copyWith(streakFreezeAvailable: false);
-      await _persist();
+      await _persist(openDate: yesterday.toIso8601String());
       return;
     }
 
@@ -274,9 +279,7 @@ class GamificationNotifier extends Notifier<GamificationState> {
   /// database and never mentioned, so a learner earning "Week Warrior" found
   /// out only if they happened to open the Stats screen.
   Future<List<Celebration>> refreshAfterCommittedLesson() async {
-    await _ensureReady();
-    await _loadState();
-    final streakAdvanced = await _maybeIncrementStreak();
+    final streakAdvanced = await recordStudyDay();
     final badges = await checkProgressBadges();
 
     final rewards = <Celebration>[
@@ -300,6 +303,42 @@ class GamificationNotifier extends Notifier<GamificationState> {
       rewards.add(StreakExtended(days: state.currentStreak));
     }
     return rewards;
+  }
+
+  /// Counts today as a study day once progress has been committed — a lesson
+  /// or a review. Returns whether the streak advanced.
+  ///
+  /// Reloads first, since the commit wrote XP straight to the database, and
+  /// applies the calendar checks first, since the process may have been alive
+  /// since an earlier day: without them a streak dead for days was extended
+  /// instead of restarted. Reviews used to fill the daily goal without ever
+  /// counting toward the streak, so a review-only day broke it.
+  Future<bool> recordStudyDay() async {
+    await _ensureReady();
+    await _loadState();
+    await _applyCalendarChecks();
+    return _maybeIncrementStreak();
+  }
+
+  /// Re-applies the day-boundary checks that otherwise run only at launch:
+  /// streak expiry, the daily-XP reset and heart regeneration.
+  ///
+  /// The app can stay in memory across midnight, or for days. Before this ran
+  /// on resume, a learner reopening it the next morning saw yesterday's XP as
+  /// today's, and the evening reminder was cancelled because of it.
+  /// Overlapping calls share one pass.
+  Future<void> refreshForNewDay() =>
+      _dayRefresh ??= () async {
+        await _ensureReady();
+        await _applyCalendarChecks();
+      }().whenComplete(() => _dayRefresh = null);
+
+  Future<void>? _dayRefresh;
+
+  Future<void> _applyCalendarChecks() async {
+    await _checkStreakOnOpen();
+    await _rolloverDailyXpIfNeeded();
+    await _checkHeartRegen();
   }
 
   /// Called when the user gets a wrong answer in a lesson.

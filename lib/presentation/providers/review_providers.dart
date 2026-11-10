@@ -138,7 +138,13 @@ SessionPlan planReviewSession({
   final newCards = <ReviewCard>[];
   final reviewCards = <ReviewCard>[];
   for (final c in allDue) {
-    final isNew = c.srs.state == CardState.newCard || c.srs.reps == 0;
+    // A card is new only if it has never been reviewed. `reps == 0` alone is
+    // not that: "Again" resets reps to zero, so a lapsed card used to be
+    // planned as new — held back by the daily new-card budget and the lesson
+    // and access gates, and missing from the very session meant to rescue it.
+    final isNew =
+        c.srs.state == CardState.newCard ||
+        (c.srs.reps == 0 && c.srs.lastReview == null);
     if (isNew) {
       if (_introducible(c, completedLessons, unlockedUnits)) newCards.add(c);
     } else {
@@ -393,10 +399,19 @@ class ReviewSessionNotifier extends Notifier<ReviewSessionState> {
     _reviewId = _uuid.v4();
 
     // XP was committed atomically with the immutable review attempt. Reload
-    // an already-visible projection so every surface reflects the durable
-    // ledger. If it is not mounted yet, its first read will load the database.
-    if (ref.exists(gamificationProvider)) {
-      await ref.read(gamificationProvider.notifier).reload();
+    // the projection so every surface reflects the durable ledger, and count
+    // today as a study day: a day of reviews alone used to fill the daily
+    // goal and still break the streak.
+    try {
+      await ref.read(gamificationProvider.notifier).recordStudyDay();
+    } catch (error, stackTrace) {
+      // The review itself is already committed; a missed streak update must
+      // not turn it into an error.
+      _log.warning(
+        'Could not update the streak after a review',
+        error,
+        stackTrace,
+      );
     }
 
     // Reviewing is the productive way back from an empty hearts pool:

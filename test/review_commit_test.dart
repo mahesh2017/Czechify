@@ -1,19 +1,34 @@
 import 'dart:async';
 
+import 'package:czechify/data/database/database.dart' show AppDatabase;
 import 'package:czechify/domain/entities/flashcard.dart';
 import 'package:czechify/domain/entities/srs_card.dart';
 import 'package:czechify/domain/repositories/vocabulary_repository.dart';
 import 'package:czechify/presentation/providers/database_providers.dart';
 import 'package:czechify/presentation/providers/review_providers.dart';
+import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  // A committed review now records the study day, which reads gamification
+  // state from the database.
+  late AppDatabase database;
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    database = AppDatabase.forTesting(NativeDatabase.memory());
+  });
+  tearDown(() => database.close());
+
   test('rating waits for commit and repeated taps are ignored', () async {
     final repository = _ControlledVocabularyRepository();
     final container = ProviderContainer(
       overrides: [
         vocabularyRepositoryProvider.overrideWithValue(repository),
+        databaseProvider.overrideWithValue(database),
         reviewSessionProvider.overrideWith(_TestReviewNotifier.new),
       ],
     );
@@ -47,6 +62,7 @@ void main() {
     final container = ProviderContainer(
       overrides: [
         vocabularyRepositoryProvider.overrideWithValue(repository),
+        databaseProvider.overrideWithValue(database),
         reviewSessionProvider.overrideWith(_TestReviewNotifier.new),
       ],
     );

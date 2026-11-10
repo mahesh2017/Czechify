@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:logging/logging.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -85,7 +86,7 @@ class SupabaseSyncBackend implements SyncBackend, BatchSyncBackend {
     required String mutationDeviceId,
   }) async {
     final owner = userId;
-    if (owner == null) throw StateError('Sync account is unavailable.');
+    if (owner == null) throw const SyncAccountUnavailable();
     final client = _backend.client!;
     if (row.op == 'delete') {
       final payload = jsonDecode(row.payload) as Map<String, dynamic>;
@@ -112,7 +113,7 @@ class SupabaseSyncBackend implements SyncBackend, BatchSyncBackend {
     required String ownerId,
   }) async {
     if (!isReady || userId != ownerId) {
-      throw StateError('Sync account changed.');
+      throw const SyncAccountUnavailable();
     }
     final records = [
       for (final mutation in mutations)
@@ -128,6 +129,16 @@ class SupabaseSyncBackend implements SyncBackend, BatchSyncBackend {
         .from(mutations.first.row.entity)
         .upsert(records, onConflict: onConflict);
   }
+}
+
+/// The signed-in account went away or changed under a push. Says nothing
+/// about the rows, so they are retried rather than counted toward
+/// dead-lettering.
+class SyncAccountUnavailable implements Exception {
+  const SyncAccountUnavailable();
+
+  @override
+  String toString() => 'Sync account is unavailable or changed.';
 }
 
 class AccountSyncSnapshot {
@@ -318,10 +329,41 @@ class SyncService {
   }
 
   Future<void> _failRows(List<SyncQueueData> rows, Object error) async {
+    final transient = isTransientFailure(error);
     for (final row in rows) {
-      await _db.syncDao.markFailed(row.id, error: error, now: _clock());
+      await _db.syncDao.markFailed(
+        row.id,
+        error: error,
+        now: _clock(),
+        transient: transient,
+      );
       _log.warning('Push failed for ${row.entity}/${row.entityKey}', error);
     }
+  }
+
+  /// Whether a push failure says nothing about the row itself, so retrying
+  /// unchanged can succeed once conditions change.
+  ///
+  /// Definitive answers are a database rejection with an SQLSTATE (bad data,
+  /// a constraint, a missing column or grant) and the client's own errors
+  /// about a malformed or unknown row. Everything else — sockets, timeouts,
+  /// HTTP failures with no SQLSTATE, PostgREST's JWT errors (PGRST3xx) and
+  /// Postgres's connection, resource and shutdown classes — is the
+  /// environment, and is retried without ever dead-lettering.
+  @visibleForTesting
+  static bool isTransientFailure(Object error) {
+    if (error is PostgrestException) {
+      final code = error.code ?? '';
+      return code.isEmpty ||
+          code.startsWith('PGRST3') ||
+          code.startsWith('08') ||
+          code.startsWith('53') ||
+          code.startsWith('57');
+    }
+    return error is! StateError &&
+        error is! FormatException &&
+        error is! TypeError &&
+        error is! ArgumentError;
   }
 
   /// Full sync cycle: push local changes, then pull remote ones.
@@ -412,6 +454,18 @@ class SyncService {
     for (final entity in _pullEntities) {
       try {
         var cursor = await _db.syncDao.pullCursor(entity);
+        // No cursor means this database has never pulled this entity, so it
+        // cannot already hold this device's rows. On iOS and macOS the
+        // Keychain — session and device id — survives an uninstall while the
+        // database does not: a reinstall restored the session, then skipped
+        // every row it had authored, and the learner's own progress never
+        // came back. Push runs before pull, so this device's newest rows are
+        // normally already on the server; most merges are monotonic or
+        // last-write-wins on `updated_at`. `gamification_state` overwrites,
+        // as it does for every other device's row, so a first pull after a
+        // failed push can replace an unpushed local change with this device's
+        // previous one — the same exposure any remote row already has.
+        final applyOwnRows = cursor == null;
         while (true) {
           final rows = await _backend.pullPage(
             entity,
@@ -422,7 +476,8 @@ class SyncService {
             // Skipping our own rows is only correct here, where local state is
             // already current. See [installAccountSnapshot] for why an install
             // must apply them.
-            if (!_isMutationFromDevice(row['device_id'], deviceId)) {
+            if (applyOwnRows ||
+                !_isMutationFromDevice(row['device_id'], deviceId)) {
               await _applyRemote(entity, row);
               if (entity == 'learner_profiles' ||
                   entity == 'reminder_preferences') {

@@ -94,18 +94,25 @@ class SyncDao extends DatabaseAccessor<AppDatabase> with _$SyncDaoMixin {
 
   /// Record a failure and either schedule exponential backoff or dead-letter
   /// the row once [maxAttempts] is reached.
+  ///
+  /// A [transient] failure — no network, a timeout, an expired session, a
+  /// server outage — backs off but never dead-letters. It says nothing about
+  /// the row, and counting it did: five app resumes without signal were
+  /// enough to strand a learner's progress until they found the manual retry
+  /// in Settings.
   Future<void> markFailed(
     int id, {
     required Object error,
     required DateTime now,
     int maxAttempts = 5,
+    bool transient = false,
   }) async {
     final row =
         await (select(syncQueue)
           ..where((t) => t.id.equals(id))).getSingleOrNull();
     if (row == null) return;
     final attempts = row.attempts + 1;
-    final dead = attempts >= maxAttempts;
+    final dead = !transient && attempts >= maxAttempts;
     final exponent = attempts > 6 ? 6 : attempts;
     final delay = Duration(seconds: 1 << exponent);
     final message = error.toString();
