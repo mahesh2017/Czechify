@@ -55,7 +55,12 @@ class GamificationNotifier extends Notifier<GamificationState> {
   /// after startup can't persist default state over the stored values.
   ///
   /// We use a sentinel Future that completes when _initAsync finishes.
-  late final Future<void> _readyFuture;
+  ///
+  /// Not `final`: Riverpod runs [build] again on the same instance when the
+  /// provider is invalidated — as it is after an account switch or deletion —
+  /// and a second assignment to a `late final` threw, leaving Home on an
+  /// error screen.
+  late Future<void> _readyFuture;
 
   /// Completes after persisted values and calendar rollovers are applied.
   Future<void> get ready => _readyFuture;

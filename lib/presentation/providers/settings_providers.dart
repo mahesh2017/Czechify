@@ -282,7 +282,9 @@ class SettingsNotifier extends Notifier<AppSettings> {
     return const AppSettings();
   }
 
-  late final Future<void> _readyFuture;
+  /// Reassigned on every [build]: an invalidated provider rebuilds this same
+  /// instance, so a `late final` here threw on the second assignment.
+  late Future<void> _readyFuture;
 
   /// Completes after the persisted learner profile and preferences are loaded.
   Future<void> get ready => _readyFuture;

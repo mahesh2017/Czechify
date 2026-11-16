@@ -1,6 +1,7 @@
 import 'package:czechify/data/database/database.dart' show AppDatabase;
 import 'package:czechify/presentation/providers/database_providers.dart';
 import 'package:czechify/presentation/providers/gamification_providers.dart';
+import 'package:czechify/presentation/providers/settings_providers.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -149,5 +150,22 @@ void main() {
     expect(await notifier.onWrongAnswer(), 3);
     await notifier.refreshHearts();
     expect(container.read(gamificationProvider).hearts, 3);
+  });
+
+  test('the providers survive being invalidated', () async {
+    // Account deletion and switching invalidate both. Riverpod rebuilds the
+    // same notifier instance, and a `late final` assigned in build() threw
+    // on the second assignment: Home showed an error screen after deletion.
+    await seed(streak: 2, lastOpen: daysAgo(0));
+    final container = open();
+    await container.read(gamificationProvider.notifier).ready;
+    await container.read(settingsProvider.notifier).ready;
+
+    container.invalidate(gamificationProvider);
+    container.invalidate(settingsProvider);
+
+    await container.read(gamificationProvider.notifier).ready;
+    await container.read(settingsProvider.notifier).ready;
+    expect(container.read(gamificationProvider).currentStreak, 2);
   });
 }

@@ -57,8 +57,10 @@ class ReminderCoordinator extends Notifier<void> {
   static final _log = Logger('ReminderCoordinator');
   static const defaultReminderTime = TimeOfDay(hour: 19, minute: 0);
 
-  late final NotificationService _service;
-  late final ReminderScheduler _scheduler;
+  // Assigned in [build], which runs again on the same instance if the
+  // provider is ever invalidated.
+  late NotificationService _service;
+  late ReminderScheduler _scheduler;
   AppLifecycleListener? _lifecycleListener;
   Future<void>? _replenishInFlight;
   bool _explicitSettingsMutation = false;
