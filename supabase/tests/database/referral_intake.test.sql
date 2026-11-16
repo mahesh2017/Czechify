@@ -15,7 +15,7 @@ begin
 end $$;
 create function pg_temp.uid(p_label text) returns uuid language sql as $$ select id from actors where label=p_label $$;
 create function pg_temp.receipt(p_claim uuid,p_lesson integer,p_attempt uuid default gen_random_uuid()) returns jsonb language sql as $$
-  select jsonb_build_object('schema_version',1,'claim_id',p_claim,'campaign_id','a1-referral-v1','content_revision',25,
+  select jsonb_build_object('schema_version',1,'claim_id',p_claim,'campaign_id','a1-referral-v1','content_revision',27,
     'lesson_id',p_lesson,'attempt_id',p_attempt,'started_at_client',now(),'completed_at_client',now(),
     'initial_coverage',(select jsonb_agg(jsonb_build_object('exercise_id',e,'interaction',
       case when e=any(m.teaching_ids) then 'teaching_acknowledged' else 'answered_correctly' end) order by e)

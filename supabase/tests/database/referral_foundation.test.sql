@@ -19,7 +19,7 @@ create function pg_temp.code(p_label text) returns text language sql as $$
 create function pg_temp.claim(p_friend text,p_owner text default 'owner') returns uuid language sql as $$
   select (claim_referral(pg_temp.uid(p_friend),'a1-referral-v1',pg_temp.code(p_owner))->>'claim_id')::uuid $$;
 create function pg_temp.receipt(p_claim uuid,p_lesson integer,p_attempt uuid default gen_random_uuid()) returns jsonb language sql as $$
-  select jsonb_build_object('schema_version',1,'claim_id',p_claim,'campaign_id','a1-referral-v1','content_revision',25,
+  select jsonb_build_object('schema_version',1,'claim_id',p_claim,'campaign_id','a1-referral-v1','content_revision',27,
     'lesson_id',p_lesson,'attempt_id',p_attempt,'started_at_client',now(),'completed_at_client',now(),
     'initial_coverage',(select jsonb_agg(jsonb_build_object('exercise_id',e,'interaction',
       case when e=any(m.teaching_ids) then 'teaching_acknowledged' else 'answered_incorrectly' end) order by e)
@@ -46,7 +46,7 @@ select is(get_or_create_referral_code(pg_temp.uid('owner'),'a1-referral-v1')->>'
 select is(get_or_create_referral_code(pg_temp.uid('anon'),'a1-referral-v1')->>'code','linked_account_required','anonymous learners cannot publish codes');
 select ok((select processing_paused from monetization_private.referral_campaigns),'processing ships paused');
 select is((select count(*)::integer from monetization_private.referral_manifest_lessons),8,'eight pinned lessons');
-select is((select sum(cardinality(exercise_ids))::integer from monetization_private.referral_manifest_lessons),92,'92 authored exercises');
+select is((select sum(cardinality(exercise_ids))::integer from monetization_private.referral_manifest_lessons),89,'89 scored exercises');
 select ok(not has_schema_privilege('authenticated','monetization_private','USAGE'),'no client access to private referral data');
 select ok(not has_table_privilege('service_role','monetization_private.referral_reward_events','INSERT'),'service cannot bypass allocation with direct writes');
 select ok(not has_function_privilege('authenticated','public.accept_verified_referral_receipt(uuid,uuid,jsonb,text,text)','EXECUTE'),'client cannot assert verified Integrity');

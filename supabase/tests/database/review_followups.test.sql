@@ -21,7 +21,7 @@ create function pg_temp.code(p_label text) returns text language sql as $$
 create function pg_temp.claim(p_friend text,p_owner text) returns uuid language sql as $$
   select (claim_referral(pg_temp.uid(p_friend),'a1-referral-v1',pg_temp.code(p_owner))->>'claim_id')::uuid $$;
 create function pg_temp.receipt(p_claim uuid,p_lesson integer,p_attempt uuid default gen_random_uuid()) returns jsonb language sql as $$
-  select jsonb_build_object('schema_version',1,'claim_id',p_claim,'campaign_id','a1-referral-v1','content_revision',25,
+  select jsonb_build_object('schema_version',1,'claim_id',p_claim,'campaign_id','a1-referral-v1','content_revision',27,
     'lesson_id',p_lesson,'attempt_id',p_attempt,'started_at_client',now(),'completed_at_client',now(),
     'initial_coverage',(select jsonb_agg(jsonb_build_object('exercise_id',e,'interaction',
       case when e=any(m.teaching_ids) then 'teaching_acknowledged' else 'answered_incorrectly' end) order by e)

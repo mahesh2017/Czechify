@@ -120,7 +120,7 @@ Deno.test({
           schema_version: 1,
           claim_id: claimId,
           campaign_id: "a1-referral-v1",
-          content_revision: 25,
+          content_revision: 27,
           lesson_id: lesson.lesson_id,
           attempt_id: crypto.randomUUID(),
           started_at_client: now,

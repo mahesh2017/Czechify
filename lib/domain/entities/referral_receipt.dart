@@ -11,8 +11,10 @@ import 'exercise_outcome.dart';
 const referralCampaignId = 'a1-referral-v1';
 
 /// Content revision the campaign's pinned manifest was reviewed for. A new
-/// content revision needs a new reviewed manifest on the server first.
-const referralContentRevision = 25;
+/// content revision needs a new reviewed manifest on the server first: see
+/// `supabase/migrations/20261116100000_referral_manifest_v1_2.sql` and
+/// `docs/monetization/fixtures/campaign_manifest.v1.json`.
+const referralContentRevision = 27;
 
 /// How the learner first met one exercise in an attempt. Teaching cards are
 /// acknowledged, never answered; the lesson player reports their Continue as
@@ -48,8 +50,13 @@ class ReferralReceipt {
   });
 
   /// Builds coverage from the player's evidence: the first `initial` record
-  /// per exercise. Returns null unless every exercise of the lesson has one,
-  /// so a partial attempt never becomes a receipt.
+  /// per scored exercise. Returns null unless every scored exercise of the
+  /// lesson has one, so a partial attempt never becomes a receipt.
+  ///
+  /// Unscored items — warm-up guesses, lecture checks, guided practice — are
+  /// teaching and deliberately leave no evidence. Requiring them meant six of
+  /// the eight free lessons could never produce a receipt, so no referral
+  /// could ever qualify. The server manifest lists scored exercises only.
   static ReferralReceipt? fromAttempt({
     required String claimId,
     required int lessonId,
@@ -59,7 +66,10 @@ class ReferralReceipt {
     required List<Exercise> exercises,
     required List<ExerciseAttemptEvidence> evidence,
   }) {
-    final types = {for (final e in exercises) e.id: e.type};
+    final types = {
+      for (final e in exercises)
+        if (e.mode.isScored) e.id: e.type,
+    };
     if (types.isEmpty) return null;
     final coverage = <int, ReferralInteraction>{};
     for (final record in evidence) {

@@ -186,4 +186,47 @@ void main() {
       expect(receipt.coverage.keys, [1, 2, 3]);
     });
   });
+
+  test('unscored items are not part of a receipt', () {
+    // Warm-up, check and guided items leave no evidence. Requiring them meant
+    // six of the eight free lessons could never produce a receipt.
+    Exercise item(int id, ExerciseType type, [String? mode]) => Exercise(
+      id: id,
+      lessonId: 100,
+      type: type,
+      prompt: '',
+      data: {if (mode != null) 'mode': mode},
+    );
+    ExerciseAttemptEvidence seen(int id, ExerciseOutcome outcome) =>
+        ExerciseAttemptEvidence(
+          presentationId: 'p$id',
+          exerciseId: id,
+          phase: ExerciseEvidencePhase.initial,
+          outcome: outcome,
+          answeredAt: DateTime.utc(2026, 11, 16),
+        );
+    final receipt = ReferralReceipt.fromAttempt(
+      claimId: 'claim',
+      lessonId: 100,
+      attemptId: 'attempt',
+      startedAt: DateTime.utc(2026, 11, 16),
+      completedAt: DateTime.utc(2026, 11, 16),
+      exercises: [
+        item(1, ExerciseType.listeningComprehension, 'predict'),
+        item(2, ExerciseType.teaching),
+        item(3, ExerciseType.multipleChoice, 'check'),
+        item(4, ExerciseType.fillBlank, 'guided'),
+        item(5, ExerciseType.multipleChoice),
+      ],
+      evidence: [
+        seen(2, ExerciseOutcome.skipped),
+        seen(5, ExerciseOutcome.correct),
+      ],
+    );
+    expect(receipt, isNotNull);
+    expect(receipt!.coverage, {
+      2: ReferralInteraction.teachingAcknowledged,
+      5: ReferralInteraction.answeredCorrectly,
+    });
+  });
 }

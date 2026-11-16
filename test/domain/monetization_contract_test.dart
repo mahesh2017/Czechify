@@ -8,8 +8,10 @@ import 'package:czechify/domain/engines/lesson_admission_policy.dart';
 import 'package:czechify/domain/engines/referral_reward_policy.dart';
 import 'package:czechify/domain/entities/course_catalog.dart';
 import 'package:czechify/domain/entities/curriculum_entitlement.dart';
+import 'package:czechify/domain/entities/enums.dart';
 import 'package:czechify/domain/entities/lesson.dart';
 import 'package:czechify/domain/entities/monetization_snapshot.dart';
+import 'package:czechify/domain/entities/referral_receipt.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Map<String, dynamic> _fixture(String name) =>
@@ -208,8 +210,16 @@ void main() {
           expect(sha256.convert(bytes).toString(), lesson['sha256']);
           final content =
               jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>;
-          final exercises =
-              (content['exercises'] as List).cast<Map<String, dynamic>>();
+          // Receipts cover scored exercises only; unscored items leave no
+          // evidence (see ReferralReceipt.fromAttempt).
+          final exercises = (content['exercises'] as List)
+              .cast<Map<String, dynamic>>()
+              .where(
+                (e) => ExerciseMode.fromData(
+                  (e['data'] as Map<String, dynamic>?)?['mode'],
+                ).isScored,
+              )
+              .toList();
           expect(content['unit_id'], unit['unit_id']);
           expect(content['id'], lesson['lesson_id']);
           expect(lessonIds.add(content['id'] as int), isTrue);
@@ -229,7 +239,8 @@ void main() {
         }
       }
       expect(lessonIds.length, 8);
-      expect(exerciseCount, 92);
+      expect(exerciseCount, 89);
+      expect(manifest['content_revision'], referralContentRevision);
     },
   );
 }

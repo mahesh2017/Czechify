@@ -59,8 +59,11 @@ def manifest_check():
             raw = (ROOT / lesson["source"]).read_bytes()
             assert hashlib.sha256(raw).hexdigest() == lesson["sha256"], "Bundled lesson changed"
             content = json.loads(raw)
-            assert [e["id"] for e in content["exercises"]] == lesson["exercise_ids"]
-            assert [e["id"] for e in content["exercises"] if e["type"] == "teaching"] == lesson["teaching_exercise_ids"]
+            # Receipts cover scored exercises only (data.mode unset or "scored").
+            scored = [e for e in content["exercises"]
+                      if (e.get("data") or {}).get("mode") not in ("predict", "check", "guided")]
+            assert [e["id"] for e in scored] == lesson["exercise_ids"]
+            assert [e["id"] for e in scored if e["type"] == "teaching"] == lesson["teaching_exercise_ids"]
             expected.append({
                 "unit_id": unit["unit_id"], "lesson_id": lesson["lesson_id"],
                 "lesson_hash": lesson["sha256"], "exercise_ids": lesson["exercise_ids"],
@@ -70,7 +73,7 @@ def manifest_check():
     actual = query("""select jsonb_agg(to_jsonb(m)-'campaign_id' order by lesson_id)
         from monetization_private.referral_manifest_lessons m;""")
     assert actual == expected, "SQL manifest differs from the actual eight bundled lessons"
-    payload = "25|" + "|".join(
+    payload = "27|" + "|".join(
         f"{row['unit_id']}:{row['lesson_id']}:{row['lesson_hash']}:"
         + ",".join(map(str, row["exercise_ids"])) + ":" + ",".join(map(str, row["teaching_ids"]))
         for row in expected
@@ -108,7 +111,7 @@ def run_case(case):
                 now = sql("select now();")
                 receipt = {
                     "schema_version": 1, "claim_id": claims[name], "campaign_id": "a1-referral-v1",
-                    "content_revision": 25, "lesson_id": lesson["lesson_id"], "attempt_id": str(uuid.uuid4()),
+                    "content_revision": 27, "lesson_id": lesson["lesson_id"], "attempt_id": str(uuid.uuid4()),
                     "started_at_client": now, "completed_at_client": now,
                     "initial_coverage": [{"exercise_id": exercise, "interaction":
                         "teaching_acknowledged" if exercise in lesson["teaching_ids"] else "answered_incorrectly"}
@@ -183,7 +186,7 @@ def receipt_sql(friend, claim, lesson):
     now = sql("select now();")
     receipt = {
         "schema_version": 1, "claim_id": claim, "campaign_id": "a1-referral-v1",
-        "content_revision": 25, "lesson_id": lesson["lesson_id"], "attempt_id": str(uuid.uuid4()),
+        "content_revision": 27, "lesson_id": lesson["lesson_id"], "attempt_id": str(uuid.uuid4()),
         "started_at_client": now, "completed_at_client": now,
         "initial_coverage": [{"exercise_id": exercise, "interaction":
             "teaching_acknowledged" if exercise in lesson["teaching_ids"] else "answered_incorrectly"}
