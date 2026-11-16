@@ -9,12 +9,15 @@ import 'package:czechify/presentation/providers/review_providers.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Loading a review session has three outcomes the screen has to tell apart:
 /// cards to review, nothing due, and a load that failed. It used to report the
 /// second as "session complete" and the third as an eternal spinner.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  // A failed load's message is localized, which reads Settings.
+  setUp(() => SharedPreferences.setMockInitialValues({}));
 
   ProviderContainer containerWith(VocabularyRepository repo) {
     // An in-memory database so the curriculum gates the loader consults do not

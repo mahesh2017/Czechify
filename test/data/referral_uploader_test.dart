@@ -8,6 +8,7 @@ import 'package:czechify/data/referrals/referral_store.dart';
 import 'package:czechify/data/referrals/referral_uploader.dart';
 import 'package:czechify/domain/entities/pending_referral_receipt.dart';
 import 'package:czechify/domain/entities/referral_receipt.dart';
+import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -36,8 +37,10 @@ void main() {
   late bool? consent;
   late ReferralUploader uploader;
 
-  Future<void> queue(String attemptId, {String accountId = 'account-a'}) =>
-      db.progressDao.recordLessonCompletion(
+  Future<void> enqueueCompletion(
+    String attemptId, {
+    required String accountId,
+  }) => db.progressDao.recordLessonCompletion(
         attemptId: attemptId,
         lessonId: 100,
         unitId: 1,
@@ -60,6 +63,25 @@ void main() {
           ),
         ),
       );
+
+  // The lesson commit stamps its outbox row with the real clock, while the
+  // uploader here runs on [_now]. Without moving the row onto the test clock,
+  // every receipt became due only once the real date passed 1 Oct 2026, and
+  // then never again.
+  Future<void> queue(
+    String attemptId, {
+    String accountId = 'account-a',
+  }) async {
+    await enqueueCompletion(attemptId, accountId: accountId);
+    await (db.update(db.referralReceiptOutbox)
+          ..where((r) => r.attemptId.equals(attemptId)))
+        .write(
+          ReferralReceiptOutboxCompanion(
+            nextAttemptAt: Value(_now),
+            createdAt: Value(_now),
+          ),
+        );
+  }
 
   setUp(() async {
     db = AppDatabase.forTesting(NativeDatabase.memory());

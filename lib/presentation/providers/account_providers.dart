@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'notebook_providers.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../data/account/google_auth_service.dart';
@@ -62,6 +63,7 @@ final accountServiceProvider = Provider<AccountService>((ref) {
       ref.invalidate(pronunciationProvider);
       ref.invalidate(writingEvalProvider);
       ref.invalidate(settingsProvider);
+      ref.invalidate(notebookTodoProvider);
     },
   );
 });

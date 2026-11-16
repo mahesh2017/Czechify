@@ -348,9 +348,16 @@ class GamificationNotifier extends Notifier<GamificationState> {
     await _checkHeartRegen();
 
     final result = _engine.processWrongAnswer(state);
+    // Losing a heart from a full pool starts the regen clock now. Keeping the
+    // timestamp of the last refill — often days old — meant the next regen
+    // check counted all that time and handed the heart straight back.
+    final wasFull = state.hearts >= state.maxHearts;
     state = state.copyWith(
       hearts: result.hearts,
-      lastHeartRefill: state.lastHeartRefill ?? DateTime.now(),
+      lastHeartRefill:
+          wasFull || state.lastHeartRefill == null
+              ? DateTime.now()
+              : state.lastHeartRefill,
     );
     await _persist();
     return result.hearts;

@@ -102,20 +102,26 @@ void main() {
         expect(unlocked.any((b) => b.id == 'case_nominative'), isFalse);
       });
 
-      test('custom key badge does NOT auto-unlock without custom value', () {
-        const snapshot = ProgressSnapshot(
-          customValues: {}, // no custom values
+      test('být badge needs Unit 4 at 90%', () {
+        expect(
+          engine
+              .checkBadges(const ProgressSnapshot(unitScores: {4: 0.85}))
+              .any((b) => b.id == 'verb_byt'),
+          isFalse,
         );
-        final unlocked = engine.checkBadges(snapshot);
-        expect(unlocked.any((b) => b.id == 'verb_byt'), isFalse);
+        expect(
+          engine
+              .checkBadges(const ProgressSnapshot(unitScores: {4: 0.9}))
+              .any((b) => b.id == 'verb_byt'),
+          isTrue,
+        );
       });
 
-      test('custom key badge unlocks when custom value meets threshold', () {
-        const snapshot = ProgressSnapshot(
-          customValues: {'byt_conjugation': 1.0},
-        );
-        final unlocked = engine.checkBadges(snapshot);
-        expect(unlocked.any((b) => b.id == 'verb_byt'), isTrue);
+      test('every badge can be earned from data the app records', () {
+        // A custom key needs something in the app to write it; none does.
+        for (final badge in Badge.all) {
+          expect(badge.criteria.customKey, isNull, reason: badge.id);
+        }
       });
 
       test('exam badge unlocks when exam passed', () {

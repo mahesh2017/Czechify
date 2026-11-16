@@ -19,6 +19,7 @@ import '../../../data/services/exam_session_store.dart';
 import '../../../domain/repositories/exam_repository.dart';
 import '../../providers/course_admission_providers.dart';
 import '../../providers/database_providers.dart';
+import '../../providers/gamification_providers.dart';
 import '../../../domain/repositories/speech_ports.dart';
 import '../../providers/stt_providers.dart';
 import '../../widgets/common/record_button.dart';
@@ -466,6 +467,21 @@ class _MockExamScreenState extends ConsumerState<MockExamScreen> {
     // losing their answers.
     if (savedSuccessfully) {
       unawaited(_sessionStore.clear(widget.level.name));
+    }
+
+    // The practice milestone badges ("meet the target in a practice set")
+    // read the practice target, which nothing recorded: the result is stored
+    // as formative, so they could never be earned. Only a fully scored attempt
+    // that meets the grader's threshold counts.
+    if (savedSuccessfully && scores.fullyScored && scores.passed) {
+      try {
+        await ref
+            .read(progressRepositoryProvider)
+            .recordExamPassed(widget.level.name);
+        await ref.read(gamificationProvider.notifier).checkProgressBadges();
+      } catch (_) {
+        // The attempt is saved; a missed milestone is evaluated next time.
+      }
     }
 
     if (!mounted) return;

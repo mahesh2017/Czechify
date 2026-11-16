@@ -4224,4 +4224,35 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsCloudPronunciationShort =>
       'On: your recording is sent to be transcribed';
+
+  @override
+  String get lessonCompletionSaveFailed =>
+      'Couldn’t save this attempt. Please try again.';
+
+  @override
+  String get reviewLoadFailed =>
+      'Couldn’t load your review session. Please try again.';
+
+  @override
+  String get reviewSaveFailed => 'Couldn’t save this review. Please try again.';
+
+  @override
+  String get chatMessageSaveFailed =>
+      'Couldn’t save your message. Please try again.';
+
+  @override
+  String get chatReplyFailed =>
+      'Something went wrong getting the tutor’s reply.';
+
+  @override
+  String get chatReplyUnreadable =>
+      'The tutor’s reply couldn’t be read. Please try again.';
+
+  @override
+  String get writingEvaluationUnreadable =>
+      'The AI returned an unreadable evaluation. Try again.';
+
+  @override
+  String get writingEvaluationFailed =>
+      'Could not evaluate your writing. Check your connection and try again.';
 }

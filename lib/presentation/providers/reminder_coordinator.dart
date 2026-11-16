@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +9,7 @@ import '../../core/notifications/notification_service.dart';
 import '../../core/notifications/reminder_scheduler.dart';
 import '../../l10n/app_localizations.dart';
 import 'gamification_providers.dart';
+import 'provider_l10n.dart';
 import 'settings_providers.dart';
 
 /// Derived provider exposing the learner's current daily XP as an int.
@@ -169,19 +169,8 @@ class ReminderCoordinator extends Notifier<void> {
   /// `lookupAppLocalizations` rather than `AppLocalizations.of(context)`:
   /// scheduling happens in a provider, which has no BuildContext. Null follows
   /// the device, which is what `MaterialApp` does with the same setting.
-  AppLocalizations _l10n(AppSettings settings) => lookupAppLocalizations(
-    settings.locale ?? _deviceLocale(),
-  );
-
-  /// The device locale, narrowed to something the app has strings for.
-  Locale _deviceLocale() {
-    final device = PlatformDispatcher.instance.locale;
-    return AppLocalizations.supportedLocales.any(
-          (l) => l.languageCode == device.languageCode,
-        )
-        ? Locale(device.languageCode)
-        : const Locale('en');
-  }
+  AppLocalizations _l10n(AppSettings settings) =>
+      lookupAppLocalizations(settings.locale ?? deviceLocale());
 
   /// Schedule the daily repeating reminder plus the 30-day evening horizon.
   Future<void> _scheduleAll(AppSettings settings) async {

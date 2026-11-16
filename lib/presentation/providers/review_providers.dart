@@ -9,6 +9,7 @@ import '../../domain/repositories/vocabulary_repository.dart';
 import 'curriculum_providers.dart';
 import 'database_providers.dart';
 import 'gamification_providers.dart';
+import 'provider_l10n.dart';
 
 /// Max brand-new cards introduced per calendar day. Prevents the whole
 /// deck (200+ words) from becoming "due" at once on first launch.
@@ -312,9 +313,9 @@ class ReviewSessionNotifier extends Notifier<ReviewSessionState> {
       // Several queries are awaited above. Without this the first failure
       // left isLoading true for the rest of the app's life.
       _log.warning('Could not load the review session', error, stackTrace);
-      state = const ReviewSessionState(
+      state = ReviewSessionState(
         isLoading: false,
-        loadError: 'Couldn’t load your review session. Please try again.',
+        loadError: providerL10n(ref).reviewLoadFailed,
       );
     }
   }
@@ -351,7 +352,7 @@ class ReviewSessionNotifier extends Notifier<ReviewSessionState> {
     } catch (_) {
       state = state.copyWith(
         isCommitting: false,
-        commitError: 'Couldn’t save this review. Please try again.',
+        commitError: providerL10n(ref).reviewSaveFailed,
       );
       return;
     }

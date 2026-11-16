@@ -121,4 +121,33 @@ void main() {
     expect(await notifier.recordStudyDay(), isFalse);
     expect(container.read(gamificationProvider).currentStreak, 4);
   });
+
+  test('losing a heart from a full pool starts the regen clock', () async {
+    // The clock kept the last refill's time, often days old, so the next
+    // regen check handed the lost heart straight back.
+    await db.gamificationDao.mergeRemote(
+      hearts: 5,
+      maxHearts: 5,
+      currentStreak: 1,
+      longestStreak: 1,
+      totalXp: 0,
+      dailyXp: 0,
+      dailyGoalXp: 50,
+      gems: 0,
+      earnedBadgesJson: '[]',
+      lastHeartRefill: now.subtract(const Duration(days: 3)),
+      streakFreezeAvailable: true,
+      lastOpenDate: daysAgo(0),
+      dailyXpResetDate: daysAgo(0),
+      updatedAt: now,
+    );
+    final container = open();
+    final notifier = container.read(gamificationProvider.notifier);
+    await notifier.ready;
+
+    expect(await notifier.onWrongAnswer(), 4);
+    expect(await notifier.onWrongAnswer(), 3);
+    await notifier.refreshHearts();
+    expect(container.read(gamificationProvider).hearts, 3);
+  });
 }

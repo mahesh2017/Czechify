@@ -4246,4 +4246,36 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get settingsCloudPronunciationShort =>
       'Zapnuto: nahrávka se odešle k přepisu';
+
+  @override
+  String get lessonCompletionSaveFailed =>
+      'Tento pokus se nepodařilo uložit. Zkuste to prosím znovu.';
+
+  @override
+  String get reviewLoadFailed =>
+      'Opakování se nepodařilo načíst. Zkuste to prosím znovu.';
+
+  @override
+  String get reviewSaveFailed =>
+      'Toto opakování se nepodařilo uložit. Zkuste to prosím znovu.';
+
+  @override
+  String get chatMessageSaveFailed =>
+      'Vaši zprávu se nepodařilo uložit. Zkuste to prosím znovu.';
+
+  @override
+  String get chatReplyFailed =>
+      'Při získávání odpovědi lektora se něco pokazilo.';
+
+  @override
+  String get chatReplyUnreadable =>
+      'Odpověď lektora se nepodařilo přečíst. Zkuste to prosím znovu.';
+
+  @override
+  String get writingEvaluationUnreadable =>
+      'AI vrátila hodnocení, které nelze přečíst. Zkuste to znovu.';
+
+  @override
+  String get writingEvaluationFailed =>
+      'Text se nepodařilo vyhodnotit. Zkontrolujte připojení a zkuste to znovu.';
 }

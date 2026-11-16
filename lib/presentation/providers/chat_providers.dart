@@ -11,6 +11,7 @@ import '../../domain/repositories/llm_service.dart';
 import 'database_providers.dart';
 import 'llm_providers.dart';
 import 'settings_providers.dart';
+import 'provider_l10n.dart';
 
 final _log = Logger('Chat');
 
@@ -271,7 +272,7 @@ class ChatNotifier extends Notifier<ChatState> {
       if (_isStale(generation)) return false;
       state = state.copyWith(
         isLoading: false,
-        error: 'Couldn’t save your message. Please try again.',
+        error: providerL10n(ref).chatMessageSaveFailed,
       );
       return false;
     }
@@ -406,7 +407,13 @@ class ChatNotifier extends Notifier<ChatState> {
 
       final parsed = orchestrator.parseTutorResponseSafe(response);
       if (parsed case TutorParseError(:final reason)) {
-        state = state.copyWith(isLoading: false, error: reason);
+        // The reason is for the log; the learner gets one message in their
+        // own language.
+        _log.warning('Unusable tutor reply: $reason');
+        state = state.copyWith(
+          isLoading: false,
+          error: providerL10n(ref).chatReplyUnreadable,
+        );
         return;
       }
       final tutorResponse = (parsed as TutorParseOk).response;
@@ -444,7 +451,7 @@ class ChatNotifier extends Notifier<ChatState> {
       if (_isStale(generation)) return;
       state = state.copyWith(
         isLoading: false,
-        error: 'Something went wrong getting the tutor\'s reply.',
+        error: providerL10n(ref).chatReplyFailed,
       );
     }
   }

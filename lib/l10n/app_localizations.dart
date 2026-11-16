@@ -7177,6 +7177,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'On: your recording is sent to be transcribed'**
   String get settingsCloudPronunciationShort;
+
+  /// No description provided for @lessonCompletionSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save this attempt. Please try again.'**
+  String get lessonCompletionSaveFailed;
+
+  /// No description provided for @reviewLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load your review session. Please try again.'**
+  String get reviewLoadFailed;
+
+  /// No description provided for @reviewSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save this review. Please try again.'**
+  String get reviewSaveFailed;
+
+  /// No description provided for @chatMessageSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t save your message. Please try again.'**
+  String get chatMessageSaveFailed;
+
+  /// No description provided for @chatReplyFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong getting the tutor’s reply.'**
+  String get chatReplyFailed;
+
+  /// No description provided for @chatReplyUnreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'The tutor’s reply couldn’t be read. Please try again.'**
+  String get chatReplyUnreadable;
+
+  /// No description provided for @writingEvaluationUnreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'The AI returned an unreadable evaluation. Try again.'**
+  String get writingEvaluationUnreadable;
+
+  /// No description provided for @writingEvaluationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not evaluate your writing. Check your connection and try again.'**
+  String get writingEvaluationFailed;
 }
 
 class _AppLocalizationsDelegate

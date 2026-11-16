@@ -210,8 +210,17 @@ class AccountService {
       await _db.clearLearnerData();
       await _clearAccountScopedArtifacts();
       await _resetDeviceReminders();
-      await _backend.ensureAnonymousSession();
+      // Local data is gone by now, so the screens must reload whatever
+      // happens next. A fresh anonymous session is best effort: offline, or
+      // with the backend disabled, it used to throw here, reporting a
+      // completed deletion as a failure and leaving every screen showing the
+      // deleted learner. Backend init creates the session on a later launch.
       onLocalDataChanged?.call();
+      try {
+        await _backend.ensureAnonymousSession();
+      } catch (_) {
+        // Retried by the next backend init.
+      }
     } finally {
       onAccountTransitionEnded?.call();
     }
@@ -244,10 +253,9 @@ class AccountService {
   };
 
   Future<void> _clearAccountScopedArtifacts() async {
-    final preferences = await SharedPreferences.getInstance();
-    for (final key in AccountRestoreMaterializer.accountScopedPreferenceKeys) {
-      await preferences.remove(key);
-    }
+    await AccountRestoreMaterializer.clearAccountScopedPreferences(
+      await SharedPreferences.getInstance(),
+    );
 
     await _clearTemporaryArtifacts();
   }

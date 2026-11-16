@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/repositories/llm_service_exception.dart';
 import '../../domain/entities/enums.dart';
 import 'llm_providers.dart';
+import 'provider_l10n.dart';
 
 /// Result of an AI writing evaluation.
 class WritingEvaluation {
@@ -141,15 +142,13 @@ class WritingEvalNotifier extends Notifier<WritingEvalState> {
       state = WritingEvalState(error: e.message);
       return null;
     } on FormatException {
-      state = const WritingEvalState(
-        error: 'The AI returned an unreadable evaluation. Try again.',
+      state = WritingEvalState(
+        error: providerL10n(ref).writingEvaluationUnreadable,
       );
       return null;
     } catch (_) {
-      state = const WritingEvalState(
-        error:
-            'Could not evaluate your writing. '
-            'Check your connection and try again.',
+      state = WritingEvalState(
+        error: providerL10n(ref).writingEvaluationFailed,
       );
       return null;
     }

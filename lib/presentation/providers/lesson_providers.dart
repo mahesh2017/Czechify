@@ -26,6 +26,7 @@ import 'referral_providers.dart';
 import 'review_providers.dart';
 import 'settings_providers.dart';
 import 'sync_providers.dart';
+import 'provider_l10n.dart';
 
 final _log = Logger('LessonSession');
 
@@ -423,6 +424,13 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
     // A question already answered in this attempt — through "Try again" or in
     // the mistake pass — is repair, not a first retrieval.
     final repeated = _exerciseEvidence.any((e) => e.exerciseId == exercise.id);
+    // A question pays its XP once per attempt. A miss answered right on "Try
+    // again" was credited there and then again in the mistake pass, so a
+    // missed question paid double what a first-time right answer did.
+    final alreadyCredited = _exerciseEvidence.any(
+      (e) =>
+          e.exerciseId == exercise.id && e.outcome == ExerciseOutcome.correct,
+    );
     final isCorrect = outcome == ExerciseOutcome.correct;
     final isIncorrect = outcome == ExerciseOutcome.incorrect;
     final isSkipped = outcome == ExerciseOutcome.skipped;
@@ -556,7 +564,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       wrongCount: state.wrongCount + (isIncorrect ? 1 : 0),
       skippedCount: state.skippedCount + (isSkipped ? 1 : 0),
       hearts: newHearts,
-      totalXp: state.totalXp + (isCorrect ? xpEarned : 0),
+      totalXp: state.totalXp + (isCorrect && !alreadyCredited ? xpEarned : 0),
       // The feedback ladder: a miss is signalled first, the explanation
       // arrives on the third, and the answer itself only on the fourth.
       lastExplanation:
@@ -792,7 +800,7 @@ class LessonSessionNotifier extends Notifier<LessonSessionState> {
       _log.warning('Failed to commit lesson completion', error, stackTrace);
       state = state.copyWith(
         isCompleting: false,
-        completionError: 'Couldn’t save this attempt. Please try again.',
+        completionError: providerL10n(ref).lessonCompletionSaveFailed,
       );
     }
   }

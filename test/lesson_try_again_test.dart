@@ -59,6 +59,29 @@ void main() {
     correctAnswer: 'Dobrý den',
   );
 
+  test('a question pays its XP once, however it was got right', () async {
+    // Right on "Try again" paid, and the mistake pass paid it again: a missed
+    // question earned twice what a first-time right answer did.
+    final t = start();
+    Future<void> hit() =>
+        t.session.onExerciseAnswered(outcome: ExerciseOutcome.correct);
+
+    await miss(t.session);
+    await t.session.retryCurrentExercise();
+    await hit();
+    expect(t.container.read(lessonSessionProvider).totalXp, 10);
+
+    await t.session.nextExercise();
+    await hit();
+    expect(t.container.read(lessonSessionProvider).totalXp, 20);
+
+    await t.session.nextExercise();
+    final state = t.container.read(lessonSessionProvider);
+    expect(state.inMistakeReview, isTrue);
+    await hit();
+    expect(t.container.read(lessonSessionProvider).totalXp, 20);
+  });
+
   test('a miss offers Try again without giving the answer away', () async {
     final t = start();
 

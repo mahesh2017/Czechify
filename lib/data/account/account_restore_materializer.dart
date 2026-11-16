@@ -53,9 +53,7 @@ class AccountRestoreMaterializer {
 
   Future<AccountRestoreSummary> materialize() async {
     final preferences = await SharedPreferences.getInstance();
-    for (final key in accountScopedPreferenceKeys) {
-      await preferences.remove(key);
-    }
+    await clearAccountScopedPreferences(preferences);
 
     final profile = await _db.profileDao.learnerProfile();
     final reminder = await _db.profileDao.reminderPreference();
@@ -140,7 +138,29 @@ class AccountRestoreMaterializer {
     'lesson_checkpoints',
     'exam_checkpoint_a1',
     'exam_checkpoint_a2',
+    // The notebook's to-do list and outcome log are what this learner wrote
+    // or put off. They outlived both an account switch and an account
+    // deletion, so the next learner on the device inherited them.
+    'notebook_todo_v1',
+    'notebook_outcomes_v1',
   };
+
+  /// Account-scoped keys written per day, such as `copybook_done_<date>`.
+  static const accountScopedPreferencePrefixes = <String>{'copybook_done_'};
+
+  /// Removes every account-scoped preference, fixed keys and per-day ones.
+  static Future<void> clearAccountScopedPreferences(
+    SharedPreferences preferences,
+  ) async {
+    for (final key in accountScopedPreferenceKeys) {
+      await preferences.remove(key);
+    }
+    for (final key in preferences.getKeys().toList()) {
+      if (accountScopedPreferencePrefixes.any(key.startsWith)) {
+        await preferences.remove(key);
+      }
+    }
+  }
 
   static CEFRLevel _curriculumLevel(String selfAssessment) =>
       switch (selfAssessment) {

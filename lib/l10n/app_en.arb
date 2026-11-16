@@ -1902,5 +1902,13 @@
   "settingsNotesOnPaperOff": "In the app",
   "settingsNotesOnPaperInfo": "Notebook steps ask you to write the key points from memory. On: you write them on paper, which helps you remember. Off: you type them in the app instead.",
   "reminderCatchUpShort": "21:30, if you haven't studied",
-  "settingsCloudPronunciationShort": "On: your recording is sent to be transcribed"
+  "settingsCloudPronunciationShort": "On: your recording is sent to be transcribed",
+  "lessonCompletionSaveFailed": "Couldn’t save this attempt. Please try again.",
+  "reviewLoadFailed": "Couldn’t load your review session. Please try again.",
+  "reviewSaveFailed": "Couldn’t save this review. Please try again.",
+  "chatMessageSaveFailed": "Couldn’t save your message. Please try again.",
+  "chatReplyFailed": "Something went wrong getting the tutor’s reply.",
+  "chatReplyUnreadable": "The tutor’s reply couldn’t be read. Please try again.",
+  "writingEvaluationUnreadable": "The AI returned an unreadable evaluation. Try again.",
+  "writingEvaluationFailed": "Could not evaluate your writing. Check your connection and try again."
 }

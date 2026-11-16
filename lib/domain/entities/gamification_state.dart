@@ -100,10 +100,12 @@ class Badge {
     Badge(
       id: 'verb_byt',
       name: 'To Be Master',
-      description: 'Perfect conjugation of být',
+      description: 'Complete Unit 4 (být and mít) with 90%+',
       icon: '⭐',
       xpReward: 10,
-      criteria: BadgeCriteria(customKey: 'byt_conjugation', minValue: 1.0),
+      // Was a custom progress key that nothing in the app ever wrote, so the
+      // badge could not be earned. Unit 4 is where být is taught and drilled.
+      criteria: BadgeCriteria(unitId: 4, minAccuracy: 0.9),
     ),
     // Units 7 to 28 awarded nothing at all — the longest stretch of the
     // course, and the one where people give up. These sit roughly every

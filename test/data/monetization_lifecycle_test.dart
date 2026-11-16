@@ -287,21 +287,24 @@ void main() {
       await accountService().deleteAccountAndLocalData();
       expect(events, [
         'transition started',
-        'anonymous session',
         'local data changed',
+        'anonymous session',
         'transition ended',
       ]);
     });
 
-    test('a failed deletion still ends the transition', () async {
+    test('no fresh session after deletion is not a failed deletion', () async {
+      // Local data is already gone at that point. Throwing reported a
+      // completed deletion as a failure and left screens on the old learner.
       backend
         ..userId = null
         ..failAnonymousSession = true;
-      await expectLater(
-        accountService().deleteAccountAndLocalData(),
-        throwsStateError,
-      );
-      expect(events, ['transition started', 'transition ended']);
+      await accountService().deleteAccountAndLocalData();
+      expect(events, [
+        'transition started',
+        'local data changed',
+        'transition ended',
+      ]);
     });
 
     test('a failed account switch still ends the transition', () async {

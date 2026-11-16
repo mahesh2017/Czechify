@@ -1293,5 +1293,13 @@
   "settingsNotesOnPaperOff": "V aplikaci",
   "settingsNotesOnPaperInfo": "Kroky se zápisníkem vás žádají, abyste zpaměti napsali to hlavní. Zapnuto: píšete na papír, což pomáhá zapamatovat si. Vypnuto: píšete v aplikaci.",
   "reminderCatchUpShort": "Ve 21:30, pokud jste se ještě neučili",
-  "settingsCloudPronunciationShort": "Zapnuto: nahrávka se odešle k přepisu"
+  "settingsCloudPronunciationShort": "Zapnuto: nahrávka se odešle k přepisu",
+  "lessonCompletionSaveFailed": "Tento pokus se nepodařilo uložit. Zkuste to prosím znovu.",
+  "reviewLoadFailed": "Opakování se nepodařilo načíst. Zkuste to prosím znovu.",
+  "reviewSaveFailed": "Toto opakování se nepodařilo uložit. Zkuste to prosím znovu.",
+  "chatMessageSaveFailed": "Vaši zprávu se nepodařilo uložit. Zkuste to prosím znovu.",
+  "chatReplyFailed": "Při získávání odpovědi lektora se něco pokazilo.",
+  "chatReplyUnreadable": "Odpověď lektora se nepodařilo přečíst. Zkuste to prosím znovu.",
+  "writingEvaluationUnreadable": "AI vrátila hodnocení, které nelze přečíst. Zkuste to znovu.",
+  "writingEvaluationFailed": "Text se nepodařilo vyhodnotit. Zkontrolujte připojení a zkuste to znovu."
 }

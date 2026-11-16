@@ -21,7 +21,10 @@ class LessonCheckpointStore {
         throw StateError('Could not revoke lesson permits');
       }
     });
-    _pending = operation;
+    // The chain must survive a failure, as [write] does: storing the failed
+    // future made every later load and write rethrow until restart, so one
+    // failed revocation stopped every lesson saving its place.
+    _pending = operation.catchError((Object _) {});
     return operation;
   }
 
