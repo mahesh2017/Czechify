@@ -238,8 +238,6 @@
   "homeSpeak": "Mluvit",
   "homeStartFirstLesson": "Začněte první lekci",
   "homeAllCaughtUp": "Vše hotovo!",
-  "homeRetryLessonA11y": "Lekce {lesson} · zkuste ji znovu",
-  "@homeRetryLessonA11y": {"placeholders": {"lesson": {"type": "int"}}},
   "homeDayStreak": "{count,plural,one{{count} den v řadě}few{{count} dny v řadě}other{{count} dní v řadě}}",
   "@homeDayStreak": {
     "placeholders": {
@@ -1302,5 +1300,9 @@
   "chatReplyFailed": "Při získávání odpovědi lektora se něco pokazilo.",
   "chatReplyUnreadable": "Odpověď lektora se nepodařilo přečíst. Zkuste to prosím znovu.",
   "writingEvaluationUnreadable": "AI vrátila hodnocení, které nelze přečíst. Zkuste to znovu.",
-  "writingEvaluationFailed": "Text se nepodařilo vyhodnotit. Zkontrolujte připojení a zkuste to znovu."
+  "writingEvaluationFailed": "Text se nepodařilo vyhodnotit. Zkontrolujte připojení a zkuste to znovu.",
+  "homeRecallTitle": "Procvičení s odstupem",
+  "homeRecallBody": "Tyto jevy potřebují nový pokus, a to jiným způsobem. Pokrok se měří samostatně — ne podle toho, jestli si ještě pamatujete nápovědu.",
+  "homeRecallQuestions": "{count, plural, =1{1 otázka k zopakování} few{{count} otázky k zopakování} other{{count} otázek k zopakování}}",
+  "homeRecallLessonFallback": "Lekce k zopakování"
 }

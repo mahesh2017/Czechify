@@ -18,7 +18,7 @@ import '../../providers/learner_profile_providers.dart';
 import '../../providers/referral_providers.dart';
 import '../../providers/tts_providers.dart';
 import '../../screens/lesson/delayed_transfer_screen.dart'
-    show dueTransferProvider;
+    show dueRecallGroupsProvider;
 import '../../widgets/common/motion_widgets.dart';
 import '../../widgets/common/minimum_tap_area.dart';
 import '../../widgets/common/soft_ui.dart';
@@ -1150,12 +1150,17 @@ class _CzechVoiceHint extends StatelessWidget {
 class _DueTransfers extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final transfers = ref.watch(dueTransferProvider);
+    final transfers = ref.watch(dueRecallGroupsProvider);
     final t = context.tokens;
+    final l10n = AppLocalizations.of(context);
 
     return transfers.when(
-      data: (items) {
-        if (items.isEmpty) return const SizedBox.shrink();
+      data: (groups) {
+        if (groups.isEmpty) return const SizedBox.shrink();
+        final questions = groups.fold<int>(
+          0,
+          (sum, group) => sum + group.questionCount,
+        );
         return Container(
           decoration: BoxDecoration(
             color: t.violetSoft,
@@ -1172,7 +1177,7 @@ class _DueTransfers extends ConsumerWidget {
                     Icon(Icons.psychology, size: 20, color: t.violet),
                     const SizedBox(width: 10),
                     Text(
-                      'Recall practice',
+                      l10n.homeRecallTitle,
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
@@ -1190,7 +1195,7 @@ class _DueTransfers extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(999),
                       ),
                       child: Text(
-                        '${items.length}',
+                        '$questions',
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
@@ -1204,27 +1209,27 @@ class _DueTransfers extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: Text(
-                  'These concepts need a fresh attempt in a new way. '
-                  'Your progress is measured independently — not by whether '
-                  'you still remember the hint.',
+                  l10n.homeRecallBody,
                   style: TextStyle(fontSize: 13, color: t.muted, height: 1.35),
                 ),
               ),
-              for (final item in items.take(3))
+              for (final group in groups.take(3))
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: Material(
                     color: Colors.transparent,
                     child: Semantics(
                       button: true,
-                      label: AppLocalizations.of(
-                        context,
-                      ).homeRetryLessonA11y(item.lessonId),
+                      label:
+                          '${group.title ?? l10n.homeRecallLessonFallback}, '
+                          '${l10n.homeRecallQuestions(group.questionCount)}',
+                      excludeSemantics: true,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
                         onTap:
-                            () =>
-                                context.push('/transfer/${item.assignmentId}'),
+                            () => context.push(
+                              '/transfer/${group.next.assignmentId}',
+                            ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 12,
@@ -1239,14 +1244,29 @@ class _DueTransfers extends ConsumerWidget {
                               ),
                               const SizedBox(width: 10),
                               Expanded(
-                                child: Text(
-                                  'Lesson ${item.lessonId} · '
-                                  'try it again',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: t.ink,
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      group.title ??
+                                          l10n.homeRecallLessonFallback,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: t.ink,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      l10n.homeRecallQuestions(
+                                        group.questionCount,
+                                      ),
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: t.muted,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Icon(

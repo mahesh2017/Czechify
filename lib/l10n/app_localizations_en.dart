@@ -733,11 +733,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeAllCaughtUp => 'All caught up!';
 
   @override
-  String homeRetryLessonA11y(int lesson) {
-    return 'Lesson $lesson · try it again';
-  }
-
-  @override
   String homeDayStreak(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -4258,4 +4253,25 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get writingEvaluationFailed =>
       'Could not evaluate your writing. Check your connection and try again.';
+
+  @override
+  String get homeRecallTitle => 'Recall practice';
+
+  @override
+  String get homeRecallBody =>
+      'These concepts need a fresh attempt in a new way. Your progress is measured independently — not by whether you still remember the hint.';
+
+  @override
+  String homeRecallQuestions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions to try again',
+      one: '1 question to try again',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeRecallLessonFallback => 'A lesson to revisit';
 }

@@ -1394,12 +1394,6 @@ abstract class AppLocalizations {
   /// **'All caught up!'**
   String get homeAllCaughtUp;
 
-  /// No description provided for @homeRetryLessonA11y.
-  ///
-  /// In en, this message translates to:
-  /// **'Lesson {lesson} · try it again'**
-  String homeRetryLessonA11y(int lesson);
-
   /// No description provided for @homeDayStreak.
   ///
   /// In en, this message translates to:
@@ -7231,6 +7225,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not evaluate your writing. Check your connection and try again.'**
   String get writingEvaluationFailed;
+
+  /// No description provided for @homeRecallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall practice'**
+  String get homeRecallTitle;
+
+  /// No description provided for @homeRecallBody.
+  ///
+  /// In en, this message translates to:
+  /// **'These concepts need a fresh attempt in a new way. Your progress is measured independently — not by whether you still remember the hint.'**
+  String get homeRecallBody;
+
+  /// No description provided for @homeRecallQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 question to try again} other{{count} questions to try again}}'**
+  String homeRecallQuestions(int count);
+
+  /// No description provided for @homeRecallLessonFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'A lesson to revisit'**
+  String get homeRecallLessonFallback;
 }
 
 class _AppLocalizationsDelegate

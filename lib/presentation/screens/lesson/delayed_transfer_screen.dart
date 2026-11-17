@@ -19,6 +19,70 @@ final dueTransferProvider = FutureProvider<List<db.DelayedTransferAssignment>>(
       ref.read(databaseProvider).progressDao.getDueTransfers(DateTime.now()),
 );
 
+/// Due recall items for one lesson, shown as a single row on Home.
+class RecallLessonGroup {
+  const RecallLessonGroup({
+    required this.lessonId,
+    required this.title,
+    required this.questionCount,
+    required this.next,
+  });
+
+  final int lessonId;
+
+  /// The lesson's title, or null when it could not be loaded.
+  final String? title;
+
+  /// Distinct questions waiting in this lesson.
+  final int questionCount;
+
+  /// The assignment a tap opens: the one due first.
+  final db.DelayedTransferAssignment next;
+}
+
+/// Groups due assignments by lesson, counting each missed question once.
+///
+/// Home listed one row per assignment, each reading "Lesson 100 · try it
+/// again" — a learner who missed two questions in one lesson saw the same row
+/// twice, labelled with an internal id. Lessons keep the order of their
+/// earliest due item.
+List<RecallLessonGroup> groupDueTransfers(
+  List<db.DelayedTransferAssignment> due, {
+  Map<int, String> titles = const {},
+}) {
+  final byLesson = <int, List<db.DelayedTransferAssignment>>{};
+  for (final item in [...due]..sort((a, b) => a.dueAt.compareTo(b.dueAt))) {
+    byLesson.putIfAbsent(item.lessonId, () => []).add(item);
+  }
+  return [
+    for (final entry in byLesson.entries)
+      RecallLessonGroup(
+        lessonId: entry.key,
+        title: titles[entry.key],
+        questionCount:
+            entry.value.map((item) => item.sourceExerciseId).toSet().length,
+        next: entry.value.first,
+      ),
+  ];
+}
+
+/// Due recall practice for Home, one entry per lesson with its title.
+final dueRecallGroupsProvider = FutureProvider<List<RecallLessonGroup>>((
+  ref,
+) async {
+  final due = await ref.watch(dueTransferProvider.future);
+  final repository = ref.read(curriculumRepositoryProvider);
+  final titles = <int, String>{};
+  for (final lessonId in due.map((item) => item.lessonId).toSet()) {
+    try {
+      titles[lessonId] = (await repository.getLesson(lessonId)).title;
+    } catch (_) {
+      // A lesson that no longer loads keeps the generic label.
+    }
+  }
+  return groupDueTransfers(due, titles: titles);
+});
+
 
 /// The question a delayed transfer asks: another scored question from the
 /// same lesson, of the same type as the one missed when there is one.

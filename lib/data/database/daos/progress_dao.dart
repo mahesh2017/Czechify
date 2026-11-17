@@ -427,6 +427,28 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
     // Completion is the half that matters most across devices: without it a
     // restored learner is asked to redo practice they have already done.
     await _enqueueTransferAssignment(assignmentId);
+    // Duplicates made before creation was de-duplicated, or synced in from
+    // another device, ask the same question; answering it closes them all.
+    final siblings = await (select(delayedTransferAssignments)
+          ..where(
+            (row) =>
+                row.lessonId.equals(assignment.lessonId) &
+                row.sourceExerciseId.equals(assignment.sourceExerciseId) &
+                row.status.equals('pending'),
+          ))
+        .get();
+    for (final sibling in siblings) {
+      await (update(delayedTransferAssignments)
+            ..where((row) => row.assignmentId.equals(sibling.assignmentId)))
+          .write(
+            DelayedTransferAssignmentsCompanion(
+              status: const Value('completed'),
+              completedEvidenceId: Value(evidence.evidenceId),
+              completedAt: Value(evidence.observedAt),
+            ),
+          );
+      await _enqueueTransferAssignment(sibling.assignmentId);
+    }
     return true;
   });
 
@@ -569,6 +591,19 @@ class ProgressDao extends DatabaseAccessor<AppDatabase>
             evidence.outcome == ExerciseOutcome.incorrect,
       );
       for (final evidence in transferSources) {
+        // One open recall item per question. Missing the same question in a
+        // second attempt used to add another identical item, and the learner
+        // was asked the same thing twice.
+        final alreadyOpen = await (select(delayedTransferAssignments)
+              ..where(
+                (row) =>
+                    row.lessonId.equals(lessonId) &
+                    row.sourceExerciseId.equals(evidence.exerciseId) &
+                    row.status.equals('pending'),
+              )
+              ..limit(1))
+            .getSingleOrNull();
+        if (alreadyOpen != null) continue;
         await into(delayedTransferAssignments).insert(
           DelayedTransferAssignmentsCompanion.insert(
             assignmentId: 'transfer:$attemptId:${evidence.exerciseId}',

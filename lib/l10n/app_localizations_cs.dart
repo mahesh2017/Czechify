@@ -731,11 +731,6 @@ class AppLocalizationsCs extends AppLocalizations {
   String get homeAllCaughtUp => 'Vše hotovo!';
 
   @override
-  String homeRetryLessonA11y(int lesson) {
-    return 'Lekce $lesson · zkuste ji znovu';
-  }
-
-  @override
   String homeDayStreak(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -4281,4 +4276,26 @@ class AppLocalizationsCs extends AppLocalizations {
   @override
   String get writingEvaluationFailed =>
       'Text se nepodařilo vyhodnotit. Zkontrolujte připojení a zkuste to znovu.';
+
+  @override
+  String get homeRecallTitle => 'Procvičení s odstupem';
+
+  @override
+  String get homeRecallBody =>
+      'Tyto jevy potřebují nový pokus, a to jiným způsobem. Pokrok se měří samostatně — ne podle toho, jestli si ještě pamatujete nápovědu.';
+
+  @override
+  String homeRecallQuestions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count otázek k zopakování',
+      few: '$count otázky k zopakování',
+      one: '1 otázka k zopakování',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeRecallLessonFallback => 'Lekce k zopakování';
 }

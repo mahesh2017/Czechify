@@ -247,8 +247,6 @@
   "homeSpeak": "Speak",
   "homeStartFirstLesson": "Start your first lesson",
   "homeAllCaughtUp": "All caught up!",
-  "homeRetryLessonA11y": "Lesson {lesson} · try it again",
-  "@homeRetryLessonA11y": {"placeholders": {"lesson": {"type": "int"}}},
   "homeDayStreak": "{count,plural,=1{{count} day streak}other{{count} day streak}}",
   "@homeDayStreak": {
     "placeholders": {
@@ -1911,5 +1909,10 @@
   "chatReplyFailed": "Something went wrong getting the tutor’s reply.",
   "chatReplyUnreadable": "The tutor’s reply couldn’t be read. Please try again.",
   "writingEvaluationUnreadable": "The AI returned an unreadable evaluation. Try again.",
-  "writingEvaluationFailed": "Could not evaluate your writing. Check your connection and try again."
+  "writingEvaluationFailed": "Could not evaluate your writing. Check your connection and try again.",
+  "homeRecallTitle": "Recall practice",
+  "homeRecallBody": "These concepts need a fresh attempt in a new way. Your progress is measured independently — not by whether you still remember the hint.",
+  "homeRecallQuestions": "{count, plural, =1{1 question to try again} other{{count} questions to try again}}",
+  "@homeRecallQuestions": {"placeholders": {"count": {"type": "int"}}},
+  "homeRecallLessonFallback": "A lesson to revisit"
 }
