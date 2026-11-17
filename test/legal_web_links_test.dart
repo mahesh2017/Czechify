@@ -47,6 +47,25 @@ void main() {
     expect(launchedUrl, kWebsiteUrl);
   });
 
+  testWidgets('About names Sabiko Apps and links the terms', (tester) async {
+    // Build 31 shipped with "Mahesh Pathak" here after the Play account had
+    // become Sabiko Global's.
+    await tester.pumpWidget(ProviderScope(child: app(const AboutScreen())));
+    await tester.scrollUntilVisible(find.text('Sabiko Apps'), 600);
+    expect(find.text('Sabiko Apps'), findsOneWidget);
+    expect(
+      find.text('Designed, built and maintained by Sabiko Apps.'),
+      findsOneWidget,
+    );
+    expect(find.textContaining('Mahesh Pathak'), findsNothing);
+
+    final terms = find.text('Terms of Service');
+    await tester.scrollUntilVisible(terms, 600);
+    await tester.tap(terms);
+    await tester.pumpAndSettle();
+    expect(launchedUrl, kTermsOfServiceUrl);
+  });
+
   testWidgets('Privacy keeps full in-app text and links the public policy', (
     tester,
   ) async {

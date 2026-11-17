@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart' show IconData;
 
 /// Bump whenever the privacy policy text changes in a way that affects what a
 /// learner is agreeing to. Consent records store this value.
-const String kPrivacyPolicyVersion = '2026-09-23.2';
+const String kPrivacyPolicyVersion = '2026-11-16.1';
 
 /// Bump when the cloud-speech consent wording changes.
 const String kVoiceCloudConsentVersion = 'voice-cloud-v3';
@@ -20,7 +20,13 @@ const String kVoiceCloudConsentVersion = 'voice-cloud-v3';
 /// Bump when the "Check this phone with Google Play" wording changes.
 const String kReferralIntegrityConsentVersion = 'referral-integrity-v2';
 
-const String kDeveloperName = 'Mahesh Pathak';
+/// The name the app is published under on Google Play.
+const String kDeveloperName = 'Sabiko Apps';
+
+/// The company that provides Czechify and controls its data. Must match the
+/// Play Console organisation details and the pages under `docs/site/`.
+const String kOperatorName = 'Sabiko Global s.r.o.';
+const String kOperatorAddress = 'Příčná 1892/4, Nové Město, 110 00 Praha, Czechia';
 
 /// Where a learner reaches a human: data requests, and reports of AI output.
 ///
@@ -37,6 +43,7 @@ const String kSupportEmail = 'email.czechify@gmail.com';
 /// policies.
 const String kWebsiteUrl = 'https://eminentsite.cz/czechify/';
 const String kPrivacyPolicyUrl = 'https://eminentsite.cz/czechify/privacy.html';
+const String kTermsOfServiceUrl = 'https://eminentsite.cz/czechify/terms.html';
 const String kAccountDeletionUrl =
     'https://eminentsite.cz/czechify/delete-account.html';
 const String kGooglePlayStoreUrl =
@@ -54,8 +61,9 @@ class LegalSection {
 const List<LegalSection> kPrivacyPolicy = [
   LegalSection(
     'Who is responsible',
-    'Czechify is operated by $kDeveloperName, Příčná 1892/4, Nové Město, '
-        '110 00 Praha, Czechia. He is the data controller. Privacy questions '
+    'Czechify is operated by $kOperatorName, $kOperatorAddress, which '
+        'publishes its apps as $kDeveloperName. It is the data controller. '
+        'Privacy questions '
         'and rights requests can be sent to $kSupportEmail. No data protection '
         'officer has been appointed because Czechify\'s current processing '
         'does not require one.',
@@ -266,7 +274,10 @@ const List<LegalSection> kPrivacyPolicy = [
     'Changes',
     'This policy is version $kPrivacyPolicyVersion. If it changes in a way '
         'that affects what you have agreed to, you will be asked again rather '
-        'than opted in silently.',
+        'than opted in silently.\n\n'
+        'Since 16 November 2026, Czechify is operated by $kOperatorName. It '
+        'was previously operated by Mahesh Pathak. The data processed, its '
+        'purposes, the service providers and your rights are unchanged.',
   ),
 ];
 

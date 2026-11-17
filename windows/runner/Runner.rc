@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.eminentsite" "\0"
+            VALUE "CompanyName", "Sabiko Global s.r.o." "\0"
             VALUE "FileDescription", "Czechify" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "czechify" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.eminentsite. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 Sabiko Global s.r.o. All rights reserved." "\0"
             VALUE "OriginalFilename", "czechify.exe" "\0"
             VALUE "ProductName", "Czechify" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

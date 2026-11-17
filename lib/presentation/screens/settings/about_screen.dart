@@ -235,6 +235,13 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                     subtitle: kPrivacyPolicyUrl,
                     onTap: () => openExternalPage(context, kPrivacyPolicyUrl),
                   ),
+                  Divider(height: 1, color: t.line),
+                  _WebLink(
+                    icon: Icons.gavel_outlined,
+                    title: l10n.aboutTermsOfService,
+                    subtitle: kTermsOfServiceUrl,
+                    onTap: () => openExternalPage(context, kTermsOfServiceUrl),
+                  ),
                 ],
               ),
             ),

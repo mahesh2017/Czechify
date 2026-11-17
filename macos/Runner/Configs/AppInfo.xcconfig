@@ -11,7 +11,7 @@ PRODUCT_NAME = Czechify
 PRODUCT_BUNDLE_IDENTIFIER = com.eminentsite.czechify
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 Eminent Site. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 Sabiko Global s.r.o. All rights reserved.
 
 // Signed with the same Apple team as iOS. Google Sign-In stores its session
 // in the keychain, and the keychain-access-groups entitlement it needs only

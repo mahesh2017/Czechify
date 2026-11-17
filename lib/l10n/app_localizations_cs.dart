@@ -628,6 +628,9 @@ class AppLocalizationsCs extends AppLocalizations {
   String get aboutOnlinePrivacy => 'Online zásady ochrany osobních údajů';
 
   @override
+  String get aboutTermsOfService => 'Podmínky používání';
+
+  @override
   String get aboutUpdates => 'Aktualizace';
 
   @override

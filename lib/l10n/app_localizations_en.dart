@@ -630,6 +630,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutOnlinePrivacy => 'Online privacy policy';
 
   @override
+  String get aboutTermsOfService => 'Terms of Service';
+
+  @override
   String get aboutUpdates => 'Updates';
 
   @override

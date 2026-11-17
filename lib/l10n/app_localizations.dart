@@ -1208,6 +1208,12 @@ abstract class AppLocalizations {
   /// **'Online privacy policy'**
   String get aboutOnlinePrivacy;
 
+  /// No description provided for @aboutTermsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get aboutTermsOfService;
+
   /// No description provided for @aboutUpdates.
   ///
   /// In en, this message translates to:
