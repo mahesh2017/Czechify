@@ -81,17 +81,34 @@ needs_refresh() {  # $1 = days left
   [ "$FORCE" = 1 ] || [ "$1" -lt "$MIN_DAYS" ]
 }
 
+# Xcode keeps reusing a cached team profile until it has actually expired,
+# so a rebuild a day before expiry would ship the same deadline again. When
+# the deadline is close, the cached profile is removed first and Xcode issues
+# a new 7-day one. $1 = "Mac" or "iOS"; $2 = days left.
+drop_cached_profile() {
+  local dir="$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles" f name
+  [ "$2" -lt "$MIN_DAYS" ] || return 0
+  for f in "$dir"/*.mobileprovision "$dir"/*.provisionprofile; do
+    [ -f "$f" ] || continue
+    name="$(security cms -D -i "$f" 2>/dev/null | plutil -extract Name raw -o - - 2>/dev/null)"
+    if [ "$name" = "$1 Team Provisioning Profile: $BUNDLE_ID" ]; then
+      log "Removing cached $1 profile so Xcode issues a fresh one"
+      rm -f "$f"
+    fi
+  done
+}
+
 prepare_worktree() {
   [ -n "${PREPARED:-}" ] && return 0
   log "Preparing build worktree at $WORK ($REF)"
   if [ ! -d "$WORK/.git" ] && [ ! -f "$WORK/.git" ]; then
-    git -C "$REPO" worktree add --detach "$WORK" "$REF" || return 1
+    git -C "$REPO" worktree add -q --detach "$WORK" "$REF" || return 1
   else
-    git -C "$WORK" checkout --detach --force "$REF" || return 1
+    git -C "$WORK" checkout -q --detach --force "$REF" || return 1
     git -C "$WORK" clean -fdq -e build -e .dart_tool -e Pods || true
   fi
   # Untracked config the build needs: the production backend's public keys.
-  cp "$REPO/env/prod.json" "$WORK/env/prod.json" || return 1
+  mkdir -p "$WORK/env" && cp "$REPO/env/prod.json" "$WORK/env/prod.json" || return 1
   (cd "$WORK" && flutter pub get >/dev/null) || return 1
   log "Building $(git -C "$WORK" log --oneline -1)"
   PREPARED=1
@@ -105,6 +122,7 @@ refresh_mac() {
   needs_refresh "$left" || return 0
 
   prepare_worktree || { notify "Mac refresh failed" "Could not prepare the source. See $LOG_DIR."; return 1; }
+  drop_cached_profile Mac "$left"
   (
     cd "$WORK" || exit 1
     # arm64 only: Xcode 27's lipo rejects Flutter's two-architecture check,
@@ -148,6 +166,7 @@ refresh_iphone() {
     return 1
   fi
   prepare_worktree || { notify "iPhone refresh failed" "Could not prepare the source. See $LOG_DIR."; return 1; }
+  drop_cached_profile iOS "$left"
   (
     cd "$WORK" || exit 1
     flutter build ios --config-only --release --dart-define-from-file=env/prod.json &&
